@@ -141,7 +141,10 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef int     bool_t;         /* declaration for bool type */
 
-/* note: the last parameter is for output */
+/*
+ * Type definition of unary function and binary function.
+ * Note: The last parameter is for output
+ */
 typedef void (*unary_function_t)(const void*, void*);
 typedef void (*binary_function_t)(const void*, const void*, void*);
 
@@ -149,68 +152,23 @@ typedef void (*binary_function_t)(const void*, const void*, void*);
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _unify_types
- *        Parameters: in) t_typesize: size_t
- *                          the element type size.
- *                    in) sz_typename: char*
- *                          the element type name.
- *           Returns: void
- *       Description: unify the types.
- *
- * ----------------------------------------------------------------------------
+ * Unify the C built-in types.
  */
 extern void _unify_types(size_t t_typesize, char* sz_typename);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _get_varg_value
- *        Parameters: out) pv_output: void*
- *                          the output value.
- *                    in) val_elemlist: va_list
- *                          value list.
- *                    in) t_typesize: size_t
- *                          the element type size.
- *                    in) sz_typename: char*
- *                          the element type name.
- *           Returns: void
- *       Description: get the val_elemlist value.
- *
- * ----------------------------------------------------------------------------
+ * Get value form variable parameter.
  */
 extern void _get_varg_value(
-    void* pv_output,
-    va_list val_elemlist,
-    size_t t_typesize,
-    const char* s_typename);
+    void* pv_output, va_list val_elemlist, size_t t_typesize, const char* s_typename);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _get_builtin_type
- *        Parameters: in) s_typename: const char*
- *                          type name
- *                    out) s_builtin: char*
- *                          build in type.
- *           Returns: void
- *       Description: drop the set mulitset e.g. identify.
- *
- * ----------------------------------------------------------------------------
+ * Get C built-in type.
  */
 extern void _get_builtin_type(const char* s_typename, char* s_builtin);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _get_cmp_function
- *        Parameters: in) s_typename: const char*
- *                          type name
- *           Returns: int (*)(const void*, const void*);
- *       Description: get default compare function.
- *
- * ----------------------------------------------------------------------------
+ * Get default compare function.
  */
 extern int (*_get_cmp_function(const char* s_typename))(const void*, const void*);
 

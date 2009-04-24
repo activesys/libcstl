@@ -41,51 +41,14 @@
 /** local function prototype section **/
 #ifndef NDEBUG
 /*
- *  Functionname: _iterator_belong_to_vector
- *    Parameters: in) cpt_vector: const vector_t*
- *                    vector pointer.
- *                in) cpt_iterator: const vector_iterator_t*
- *                    vector iterator pointer.
- *       Returns: bool_t
- *   Description: test the iterator is valid one belong to the vector.
+ * Private function for assert.
  */
 static bool_t _iterator_belong_to_vector(
     const vector_t* cpt_vector, const vector_iterator_t* cpt_iterator);
-
-/*
- *  Functionname: _same_vector_iterator_type
- *    Parameters: in) cpt_vector: const vector_t*
- *                    the vector pointer
- *                in) cpt_iterator: const vector_iterator_t*
- *                    the vector iterator pointer
- *       Returns: bool_t
- *   Description: test the vector and iterator have the same type.
- */
 static bool_t _same_vector_iterator_type(
     const vector_t* cpt_vector, const vector_iterator_t* cpt_iterator);
-
-/*
- *  Functionname: _iterator_for_one_and_the_same_vector
- *    Parameters: in) cpt_iteratorfirst: const vector_iterator_t*
- *                    first vector iterator pointer.
- *                in) cpt_iteratorsecond: const vector_iterator_t*
- *                    second vector iterator pointer.
- *       Returns: bool_t
- *   Description: test the two vector iterator is one and the same of vector.
- */
 static bool_t _iterator_for_one_and_the_same_vector(
-    const vector_iterator_t* cpt_iteratorfirst, 
-    const vector_iterator_t* cpt_iteratorsecond);
-
-/*
- *  Functionname: _same_vector_type
- *    Parameters: in) cpt_vectorfirst: const vector_t*
- *                    first vector pointer.
- *                in) cpt_vectorsecond: const vector_t*
- *                    second vector pointer.
- *       Returns: bool_t
- *   Description: test the two vector is have the same type.
- */
+    const vector_iterator_t* cpt_iteratorfirst, const vector_iterator_t* cpt_iteratorsecond);
 static bool_t _same_vector_type(
     const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
 #endif /* NDEBUG */
@@ -109,8 +72,7 @@ vector_iterator_t create_vector_iterator(void)
 }
 
 bool_t _vector_iterator_equal(
-    const struct _tagvector* cpt_vector,
-    const vector_iterator_t* cpt_iterator,
+    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator,
     vector_iterator_t t_iterator)
 {
 #ifdef NDEBUG
@@ -133,8 +95,7 @@ bool_t _vector_iterator_equal(
 }
 
 void _vector_iterator_get_value(
-    const vector_t* cpt_vector,
-    const vector_iterator_t* cpt_iterator,
+    const vector_t* cpt_vector, const vector_iterator_t* cpt_iterator,
     void* pv_value)
 {
     assert(_iterator_belong_to_vector(cpt_vector, cpt_iterator));
@@ -142,13 +103,11 @@ void _vector_iterator_get_value(
     assert(vector_size(cpt_vector) > 0);
     assert(!iterator_equal(cpt_iterator, vector_end(cpt_vector)));
 
-    memcpy(
-        pv_value, _GET_VECTOR_COREPOS(cpt_iterator), cpt_vector->_t_typesize);
+    memcpy(pv_value, _GET_VECTOR_COREPOS(cpt_iterator), cpt_vector->_t_typesize);
 }
 
 void _vector_iterator_set_value(
-    const struct _tagvector* cpt_vector,
-    const vector_iterator_t* cpt_iterator, 
+    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator, 
     const void* cpv_value)
 {
     assert(_iterator_belong_to_vector(cpt_vector, cpt_iterator));
@@ -161,8 +120,7 @@ void _vector_iterator_set_value(
 }
 
 const void* _vector_iterator_get_pointer(
-    const struct _tagvector* cpt_vector,
-    const vector_iterator_t* cpt_iterator)
+    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator)
 {
 #ifdef NDEBUG
     vector_t* pt_avoidwarning = NULL;
@@ -196,16 +154,14 @@ void _vector_iterator_prev(
 }
 
 void* _vector_iterator_at(
-    const struct _tagvector* cpt_vector, 
-    const vector_iterator_t* cpt_iterator,
+    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator,
     unsigned int un_index)
 {
     char* pc_indexpos = NULL;
 
     assert(_iterator_belong_to_vector(cpt_vector, cpt_iterator));
 
-    pc_indexpos = 
-        _GET_VECTOR_COREPOS(cpt_iterator) + cpt_vector->_t_typesize * un_index;
+    pc_indexpos = _GET_VECTOR_COREPOS(cpt_iterator) + cpt_vector->_t_typesize * un_index;
     assert(
         pc_indexpos >= cpt_vector->_pc_start &&
         pc_indexpos < cpt_vector->_pc_finish);
@@ -214,9 +170,7 @@ void* _vector_iterator_at(
 }
 
 void _vector_iterator_next_n(
-    const struct _tagvector* cpt_vector, 
-    vector_iterator_t* pt_iterator, 
-    int n_step)
+    const struct _tagvector* cpt_vector, vector_iterator_t* pt_iterator, int n_step)
 {
     assert(_iterator_belong_to_vector(cpt_vector, pt_iterator));
 
@@ -226,9 +180,7 @@ void _vector_iterator_next_n(
 }
 
 void _vector_iterator_prev_n(
-    const struct _tagvector* cpt_vector,
-    vector_iterator_t* pt_iterator,
-    int n_step)
+    const struct _tagvector* cpt_vector, vector_iterator_t* pt_iterator, int n_step)
 {
     assert(_iterator_belong_to_vector(cpt_vector, pt_iterator));
 
@@ -238,22 +190,19 @@ void _vector_iterator_prev_n(
 }
 
 int _vector_iterator_minus(
-    const struct _tagvector* cpt_vector,
-    const vector_iterator_t* cpt_iterator,
+    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator,
     vector_iterator_t t_iterator)
 {
     assert(
         _iterator_belong_to_vector(cpt_vector, cpt_iterator) &&
         _iterator_belong_to_vector(cpt_vector, &t_iterator));
 
-    return (_GET_VECTOR_COREPOS(cpt_iterator) - 
-            _GET_VECTOR_COREPOS(&t_iterator)) / 
+    return (_GET_VECTOR_COREPOS(cpt_iterator) - _GET_VECTOR_COREPOS(&t_iterator)) / 
            (int)cpt_vector->_t_typesize;
 }
 
 bool_t _vector_iterator_less(
-    const struct _tagvector* cpt_vector,
-    const vector_iterator_t* cpt_iterator,
+    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator,
     vector_iterator_t t_iterator)
 {
 #ifdef NDEBUG
@@ -276,19 +225,14 @@ bool_t _vector_iterator_less(
 }
 
 bool_t _vector_iterator_before(
-    const vector_iterator_t* cpt_iteratorfirst, 
-    const vector_iterator_t* cpt_iteratorsecond)
+    const vector_iterator_t* cpt_iteratorfirst, const vector_iterator_t* cpt_iteratorsecond)
 {
-    assert(
-        _iterator_for_one_and_the_same_vector(
-            cpt_iteratorfirst, cpt_iteratorsecond));
+    assert(_iterator_for_one_and_the_same_vector(cpt_iteratorfirst, cpt_iteratorsecond));
     assert(
         _iterator_belong_to_vector(
-            _GET_VECTOR_CONTAINER(cpt_iteratorfirst),
-            cpt_iteratorfirst) &&
+            _GET_VECTOR_CONTAINER(cpt_iteratorfirst), cpt_iteratorfirst) &&
         _iterator_belong_to_vector(
-            _GET_VECTOR_CONTAINER(cpt_iteratorsecond),
-            cpt_iteratorsecond));
+            _GET_VECTOR_CONTAINER(cpt_iteratorsecond), cpt_iteratorsecond));
     assert(
         _GET_VECTOR_COREPOS(cpt_iteratorfirst) != NULL &&
         _GET_VECTOR_COREPOS(cpt_iteratorsecond) != NULL &&
@@ -341,10 +285,8 @@ void _vector_push_back_varg(vector_t* pt_vector, va_list val_elemlist)
 
     /* append the element to the end of vector */
     _get_varg_value(
-        pt_vector->_pc_finish,
-        val_elemlist,
-        pt_vector->_t_typesize,
-        pt_vector->_sz_typename);
+        pt_vector->_pc_finish, val_elemlist,
+        pt_vector->_t_typesize, pt_vector->_sz_typename);
     pt_vector->_pc_finish += pt_vector->_t_typesize;
 }
 
@@ -368,7 +310,7 @@ void _vector_init_elem_varg(
         pt_vector->_pc_start = allocate(
             &pt_vector->_t_allocater, pt_vector->_t_typesize, (2 * t_count));
         assert(pt_vector->_pc_start != NULL);
-        pt_vector->_pc_finish = 
+        pt_vector->_pc_finish =
             pt_vector->_pc_start + pt_vector->_t_typesize * t_count;
         pt_vector->_pc_endofstorage = 
             pt_vector->_pc_start + pt_vector->_t_typesize * (2 * t_count);
@@ -376,10 +318,8 @@ void _vector_init_elem_varg(
         for(t_index = 0; t_index < t_count; ++ t_index)
         {
             _get_varg_value(
-                pt_vector->_pc_start + t_index * pt_vector->_t_typesize,
-                val_elemlist,
-                pt_vector->_t_typesize,
-                pt_vector->_sz_typename);
+                pt_vector->_pc_start + t_index * pt_vector->_t_typesize, val_elemlist,
+                pt_vector->_t_typesize, pt_vector->_sz_typename);
         }
     }
 
@@ -414,11 +354,8 @@ void vector_destroy(vector_t* pt_vector)
     if(pt_vector->_pc_start != NULL)
     {
         deallocate(
-            &pt_vector->_t_allocater, 
-            pt_vector->_pc_start, 
-            pt_vector->_t_typesize, 
-            (pt_vector->_pc_endofstorage - pt_vector->_pc_start) / 
-                pt_vector->_t_typesize);
+            &pt_vector->_t_allocater, pt_vector->_pc_start, pt_vector->_t_typesize, 
+            (pt_vector->_pc_endofstorage - pt_vector->_pc_start) / pt_vector->_t_typesize);
     }
     allocate_destroy(&pt_vector->_t_allocater);
 
@@ -435,9 +372,7 @@ void vector_init_copy(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
 }
 
 void vector_init_copy_range(
-    vector_t* pt_vector, 
-    vector_iterator_t t_begin,
-    vector_iterator_t t_end)
+    vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end)
 {
     vector_iterator_t t_dest;
     vector_iterator_t t_src;
@@ -446,7 +381,7 @@ void vector_init_copy_range(
     assert(
         pt_vector->_t_typesize == _GET_VECTOR_CONTAINER(&t_begin)->_t_typesize &&
         strncmp(
-            pt_vector->_sz_typename,
+            pt_vector->_sz_typename, 
             _GET_VECTOR_CONTAINER(&t_begin)->_sz_typename,
             _ELEM_TYPE_NAME_SIZE) == 0);
     assert(
@@ -458,16 +393,12 @@ void vector_init_copy_range(
 
     vector_init_n(pt_vector, iterator_distance(t_begin, t_end));
 
-    for(t_dest = vector_begin(pt_vector),
-            t_src = t_begin;
-        !iterator_equal(&t_dest, vector_end(pt_vector)) &&
-            !iterator_equal(&t_src, t_end);
-        iterator_next(&t_dest),
-            iterator_next(&t_src))
+    for(t_dest = vector_begin(pt_vector), t_src = t_begin;
+        !iterator_equal(&t_dest, vector_end(pt_vector)) && !iterator_equal(&t_src, t_end);
+        iterator_next(&t_dest), iterator_next(&t_src))
     {
         memcpy(
-            _GET_VECTOR_COREPOS(&t_dest),
-            _GET_VECTOR_COREPOS(&t_src),
+            _GET_VECTOR_COREPOS(&t_dest), _GET_VECTOR_COREPOS(&t_src),
             pt_vector->_t_typesize);
     }
     assert(
@@ -533,9 +464,7 @@ void vector_reserve(vector_t* pt_vector, size_t t_reservesize)
         if(pt_vector->_pc_start != NULL)
         {
             deallocate(
-                &pt_vector->_t_allocater, 
-                pt_vector->_pc_start,
-                pt_vector->_t_typesize, 
+                &pt_vector->_t_allocater, pt_vector->_pc_start, pt_vector->_t_typesize, 
                 t_oldcapacitysize / pt_vector->_t_typesize);
         }
         pt_vector->_pc_start = pc_reservemem;
@@ -564,8 +493,7 @@ bool_t vector_equal(
         return false;
     }
     /* the function pointer is equal */
-    if(cpt_vectorfirst->_pfun_cmp != 
-           cpt_vectorsecond->_pfun_cmp)
+    if(cpt_vectorfirst->_pfun_cmp != cpt_vectorsecond->_pfun_cmp)
     {
         return false;
     }
@@ -581,10 +509,8 @@ bool_t vector_equal(
         /* each element is equal */
         for(i = 0; i < (int)vector_size(cpt_vectorfirst); ++i)
         {
-            pc_first = 
-                cpt_vectorfirst->_pc_start + cpt_vectorfirst->_t_typesize * i;
-            pc_second = 
-                cpt_vectorsecond->_pc_start + cpt_vectorsecond->_t_typesize * i;
+            pc_first = cpt_vectorfirst->_pc_start + cpt_vectorfirst->_t_typesize * i;
+            pc_second = cpt_vectorsecond->_pc_start + cpt_vectorsecond->_t_typesize * i;
 
             if((*cpt_vectorfirst->_pfun_cmp)(pc_first, pc_second) != 0)
             {
@@ -596,8 +522,7 @@ bool_t vector_equal(
     {
         /* compare the memory for test */
         if(memcmp(
-                cpt_vectorfirst->_pc_start, 
-                cpt_vectorsecond->_pc_start,
+                cpt_vectorfirst->_pc_start, cpt_vectorsecond->_pc_start,
                 cpt_vectorfirst->_pc_finish - cpt_vectorfirst->_pc_start) != 0)
         {
             return false;
@@ -634,10 +559,8 @@ bool_t vector_less(
     /* compare each element with short length of vector */
     for(i = 0; i < (int)t_shortsize; ++i)
     {
-        pc_second = 
-            cpt_vectorsecond->_pc_start + i * cpt_vectorsecond->_t_typesize;
-        pc_first = 
-            cpt_vectorfirst->_pc_start + i * cpt_vectorfirst->_t_typesize;
+        pc_second = cpt_vectorsecond->_pc_start + i * cpt_vectorsecond->_t_typesize;
+        pc_first = cpt_vectorfirst->_pc_start + i * cpt_vectorfirst->_t_typesize;
         /* if vector has the user defined compare function */
         if(cpt_vectorfirst->_pfun_cmp != NULL)
         {
@@ -661,8 +584,7 @@ bool_t vector_less(
         }
         else /* use memory compare */
         {
-            n_cmpresult = 
-                memcmp(pc_first, pc_second, cpt_vectorfirst->_t_typesize);
+            n_cmpresult = memcmp(pc_first, pc_second, cpt_vectorfirst->_t_typesize);
             if(n_cmpresult < 0)
             {
                 return true;
@@ -843,8 +765,7 @@ vector_reverse_iterator_t vector_rbegin(const vector_t* cpt_vector)
 
     t_newiterator = create_vector_iterator();
     _GET_CONTAINER(&t_newiterator) = (vector_t*)cpt_vector;
-    _GET_VECTOR_COREPOS(&t_newiterator) = 
-        cpt_vector->_pc_finish - cpt_vector->_t_typesize;
+    _GET_VECTOR_COREPOS(&t_newiterator) = cpt_vector->_pc_finish - cpt_vector->_t_typesize;
 
     return t_newiterator;
 }
@@ -857,8 +778,7 @@ vector_reverse_iterator_t vector_rend(const vector_t* cpt_vector)
 
     t_newiterator = create_vector_iterator();
     _GET_CONTAINER(&t_newiterator) = (vector_t*)cpt_vector;
-    _GET_VECTOR_COREPOS(&t_newiterator) = 
-        cpt_vector->_pc_start - cpt_vector->_t_typesize;
+    _GET_VECTOR_COREPOS(&t_newiterator) = cpt_vector->_pc_start - cpt_vector->_t_typesize;
 
     return t_newiterator;
 }
@@ -887,8 +807,7 @@ vector_iterator_t _vector_insert_n_varg(
             size_t t_insertpos = iterator_distance(vector_begin(pt_vector), t_pos);
             /* reserve the new size */
             /* new size = old size + 2 * element count */
-            vector_reserve(
-                pt_vector, vector_size(pt_vector) + 2 * t_count);
+            vector_reserve(pt_vector, vector_size(pt_vector) + 2 * t_count);
             t_pos = vector_begin(pt_vector);
             iterator_next_n(&t_pos, t_insertpos);
         }
@@ -906,9 +825,7 @@ vector_iterator_t _vector_insert_n_varg(
         {
             _get_varg_value(
                 _GET_VECTOR_COREPOS(&t_pos) + t_index * pt_vector->_t_typesize,
-                val_elemlist,
-                pt_vector->_t_typesize,
-                pt_vector->_sz_typename);
+                val_elemlist, pt_vector->_t_typesize, pt_vector->_sz_typename);
         }
 
         iterator_next_n(&t_pos, t_count);
@@ -918,10 +835,8 @@ vector_iterator_t _vector_insert_n_varg(
 }
 
 void vector_insert_range(
-    vector_t* pt_vector, 
-    vector_iterator_t t_pos,
-    vector_iterator_t t_begin, 
-    vector_iterator_t t_end)
+    vector_t* pt_vector, vector_iterator_t t_pos,
+    vector_iterator_t t_begin, vector_iterator_t t_end)
 {
     size_t t_count = 0; /* the element count */
 
@@ -934,12 +849,10 @@ void vector_insert_range(
     /* if the remain capacity is less then the element count */
     if(vector_size(pt_vector) + t_count > vector_capacity(pt_vector))
     {
-        size_t t_iteratordistance = 
-            _GET_VECTOR_COREPOS(&t_pos) - pt_vector->_pc_start;
+        size_t t_iteratordistance = _GET_VECTOR_COREPOS(&t_pos) - pt_vector->_pc_start;
         /* reserve the new size */
         /* new size = old size + 2 * element count */
-        vector_reserve(
-            pt_vector, vector_size(pt_vector) + 2 * t_count);
+        vector_reserve(pt_vector, vector_size(pt_vector) + 2 * t_count);
         _GET_VECTOR_COREPOS(&t_pos) = pt_vector->_pc_start + t_iteratordistance;
     }
 
@@ -953,8 +866,7 @@ void vector_insert_range(
     pt_vector->_pc_finish += t_count * pt_vector->_t_typesize;
     /* insert element counts copys to the pos */
     memcpy(
-        _GET_VECTOR_COREPOS(&t_pos),
-        _GET_VECTOR_COREPOS(&t_begin),
+        _GET_VECTOR_COREPOS(&t_pos), _GET_VECTOR_COREPOS(&t_begin),
         t_count * pt_vector->_t_typesize);
 }
 
@@ -981,9 +893,7 @@ vector_iterator_t vector_erase(vector_t* pt_vector, vector_iterator_t t_pos)
     memmove(
         _GET_VECTOR_COREPOS(&t_pos),
         _GET_VECTOR_COREPOS(&t_pos) + pt_vector->_t_typesize,
-        pt_vector->_pc_finish - 
-            _GET_VECTOR_COREPOS(&t_pos) - 
-            pt_vector->_t_typesize);
+        pt_vector->_pc_finish - _GET_VECTOR_COREPOS(&t_pos) - pt_vector->_t_typesize);
     pt_vector->_pc_finish -= pt_vector->_t_typesize;
 
     return t_pos;
@@ -1040,9 +950,7 @@ void _vector_resize_elem_varg(
         {
             _get_varg_value(
                 pt_vector->_pc_finish + t_index * pt_vector->_t_typesize,
-                val_elemlist,
-                pt_vector->_t_typesize,
-                pt_vector->_sz_typename);
+                val_elemlist, pt_vector->_t_typesize, pt_vector->_sz_typename);
         }
         pt_vector->_pc_finish += t_expsize * pt_vector->_t_typesize;
     }
@@ -1057,8 +965,7 @@ void _vector_resize_elem(vector_t* pt_vector, size_t t_resize, ...)
 
 void vector_clear(vector_t* pt_vector)
 {
-    vector_erase_range(
-        pt_vector, vector_begin(pt_vector), vector_end(pt_vector));
+    vector_erase_range(pt_vector, vector_begin(pt_vector), vector_end(pt_vector));
 }
 
 /** local function implementation section **/
@@ -1092,15 +999,13 @@ static bool_t _same_vector_iterator_type(
         _GET_VECTOR_CONTAINER_TYPE(cpt_iterator) == _VECTOR_CONTAINER &&
         _GET_VECTOR_ITERATOR_TYPE(cpt_iterator) == _RANDOM_ACCESS_ITERATOR);
     assert(
-        cpt_vector->_t_typesize == 
-            _GET_VECTOR_CONTAINER(cpt_iterator)->_t_typesize &&
+        cpt_vector->_t_typesize == _GET_VECTOR_CONTAINER(cpt_iterator)->_t_typesize &&
         strncmp(
             cpt_vector->_sz_typename, 
             _GET_VECTOR_CONTAINER(cpt_iterator)->_sz_typename, 
             _ELEM_TYPE_NAME_SIZE) == 0);
     assert(
-        cpt_vector->_pfun_cmp ==
-            _GET_VECTOR_CONTAINER(cpt_iterator)->_pfun_cmp);
+        cpt_vector->_pfun_cmp == _GET_VECTOR_CONTAINER(cpt_iterator)->_pfun_cmp);
 
     return true;
 }
@@ -1117,10 +1022,8 @@ static bool_t _iterator_for_one_and_the_same_vector(
         _GET_VECTOR_CONTAINER_TYPE(cpt_iteratorfirst) == _VECTOR_CONTAINER &&
         _GET_VECTOR_CONTAINER_TYPE(cpt_iteratorsecond) == _VECTOR_CONTAINER);
     assert(
-        _GET_VECTOR_ITERATOR_TYPE(cpt_iteratorfirst) == 
-            _RANDOM_ACCESS_ITERATOR &&
-        _GET_VECTOR_ITERATOR_TYPE(cpt_iteratorsecond) == 
-            _RANDOM_ACCESS_ITERATOR);
+        _GET_VECTOR_ITERATOR_TYPE(cpt_iteratorfirst) == _RANDOM_ACCESS_ITERATOR &&
+        _GET_VECTOR_ITERATOR_TYPE(cpt_iteratorsecond) == _RANDOM_ACCESS_ITERATOR);
 
     return true;
 }
@@ -1142,9 +1045,7 @@ static bool_t _same_vector_type(
             cpt_vectorfirst->_sz_typename,
             cpt_vectorsecond->_sz_typename,
             _ELEM_TYPE_NAME_SIZE) == 0);
-    assert(
-        cpt_vectorfirst->_pfun_cmp == 
-            cpt_vectorsecond->_pfun_cmp);
+    assert(cpt_vectorfirst->_pfun_cmp == cpt_vectorsecond->_pfun_cmp);
 
     return true;
 }
