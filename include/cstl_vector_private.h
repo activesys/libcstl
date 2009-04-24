@@ -59,203 +59,41 @@ typedef struct _tagvector
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _create_vector
- *        Parameters: in) t_typesize: size_t
- *                          the element type size.
- *                    in) s_typename: const char*
- *                          the element type name.
- *           Returns: vector_t
- *                          new vector.
- *       Description: create the new vector.
- *
- * ----------------------------------------------------------------------------
+ * Creation and initialization vector_t.
  */
 extern vector_t _create_vector(size_t t_typesize, const char* s_typename);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_init_elem
- *        Parameters: in) pt_vector: vector_t*
- *                    in) t_count: size_t
- *                          element count.
- *                    in) ...
- *                          element.
- *           Returns: void
- *       Description: initialize the vector.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _vector_init_elem(vector_t* pt_vector, size_t t_count, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_init_elem_varg
- *        Parameters: in) pt_vector: vector_t*
- *                    in) t_count: size_t
- *                          element count.
- *                    in) val_elemlist: va_list
- *                          element list.
- *           Returns: void
- *       Description: initialize the vector.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _vector_init_elem_varg(
     vector_t* pt_vector, size_t t_count, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_assign_elem
- *        Parameters: in) pt_vector: vector_t*
- *                          the vector for assign.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: assign n_elemcount copys of element.
- *
- * ----------------------------------------------------------------------------
+ * The assignment operator of vector_t.
  */
 extern void _vector_assign_elem(vector_t* pt_vector, size_t t_count, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_assign_elem_varg
- *        Parameters: in) pt_vector: vector_t*
- *                          the vector for assign.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) val_elemlist: va_list
- *                          the element list.
- *           Returns: void
- *       Description: assign n_elemcount copys of element.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _vector_assign_elem_varg(
     vector_t* pt_vector, size_t t_count, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_push_back
- *        Parameters: in) pt_vector: vector_t*
- *                          the vector.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: append a copy of element at the end.
- *
- * ----------------------------------------------------------------------------
+ * Insert a new element at the end of vector_t.
  */
 extern void _vector_push_back(vector_t* pt_vector, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_push_back_varg
- *        Parameters: in) pt_vector: vector_t*
- *                          the vector.
- *                    in) val_elemlist: va_list
- *                          the element.
- *           Returns: void
- *       Description: append a copy of element at the end.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _vector_push_back_varg(vector_t* pt_vector, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_resize_elem
- *        Parameters: in) pt_vector: vector_t*
- *                          the vector.
- *                    in) t_resize: size_t
- *                          the new size of vector.
- *                    in) ...
- *                          the default element.
- *           Returns: void
- *       Description: change the number of elements to t_resize, if the size
- *                    grows new element create with the default element.
- *
- * ----------------------------------------------------------------------------
+ * Append elements or erase elements from the end, as necessary to make the vector_t's
+ * size exactly t_resize elements.
  */
 extern void _vector_resize_elem(vector_t* pt_vector, size_t t_resize, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_resize_elem_varg
- *        Parameters: in) pt_vector: vector_t*
- *                          the vector.
- *                    in) t_resize: size_t
- *                          the new size of vector.
- *                    in) val_elemlist: va_list
- *                          the default element.
- *           Returns: void
- *       Description: change the number of elements to t_resize, if the size
- *                    grows new element create with the default element.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _vector_resize_elem_varg(
     vector_t* pt_vector, size_t t_resize, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_insert_n
- *        Parameters: in) pt_vector: vector_t*
- *                          the vector.
- *                    in) t_pos: vector_iterator_t
- *                          the insert position.
- *                    in) n_elemcount: int
- *                          the element count.
- *                    in) ...
- *                          the element list.
- *           Returns: vector_iterator_t
- *       Description: insert at iterator position t_pos n_elemcount copys of
- *                    element and return nothing.
- *
- * ----------------------------------------------------------------------------
+ * Insert t_count copys of element befor position t_pos.
  */
 extern vector_iterator_t _vector_insert_n(
-    vector_t* pt_vector, 
-    vector_iterator_t t_pos, 
-    size_t t_count, 
-    ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _vector_insert_n_varg
- *        Parameters: in) pt_vector: vector_t*
- *                          the vector.
- *                    in) t_pos: vector_iterator_t
- *                          the insert position.
- *                    in) n_elemcount: int
- *                          the element count.
- *                    in) val_elemlist: va_list
- *                          the element list.
- *           Returns: vector_iterator_t
- *       Description: insert at iterator position t_pos n_elemcount copys of
- *                    element and return nothing.
- *
- * ----------------------------------------------------------------------------
- */
+    vector_t* pt_vector, vector_iterator_t t_pos, size_t t_count, ...);
 extern vector_iterator_t _vector_insert_n_varg(
-    vector_t* pt_vector, 
-    vector_iterator_t t_pos, 
-    size_t t_count, 
-    va_list val_elemlist);
+    vector_t* pt_vector, vector_iterator_t t_pos, size_t t_count, va_list val_elemlist);
 
 #ifdef __cplusplus
 }
