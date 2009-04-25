@@ -23,9 +23,9 @@
 # set compiler and options
 CC = gcc
 CEXPFLAGS = -DCSTL_TYPES_UNIFICATION=2 -DNDEBUG
-CFLAGS = -c -g -ansi -pedantic -Wall -Wextra $(CEXPFLAGS)
+CFLAGS = -c -g -ansi -pedantic -Wall -Wextra -fPIC $(CEXPFLAGS)
 CPPFLAGS = -I include
-LINKSOFLAGS = -fPIC -shared -Wl,-soname,libcstl.so.1
+LINKSOFLAGS = -shared -Wl,-soname,libcstl.so.1
 
 ARFLAGS = ruv
 
@@ -54,7 +54,8 @@ LIBDIR = /usr/lib/
 LIBINCDIR = /usr/include/cstl/
 
 # set compilation targets
-TARGETVER = 1.0.0
+LIBCSTL = libcstl
+TARGETVER = 1.0.1
 LINKTARGET = libcstl.so
 SONAME = libcstl.so.1
 ARTARGET = $(BINDIR)/libcstl.a
@@ -102,9 +103,7 @@ install:
 
 .PHONY: uninstall
 uninstall:
-	$(RM) $(LIBDIR)$(LINKTARGET).$(TARGETVER)
-	$(RM) $(LIBDIR)$(SONAME)
-	$(RM) $(LIBDIR)$(LINKTARGET)
+	$(RM) $(LIBDIR)$(LIBCSTL).*
 	$(RM) $(LIBINCDIR)
 
 .PHONY: update

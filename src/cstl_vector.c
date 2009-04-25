@@ -354,6 +354,7 @@ void _vector_init_elem_varg(
     vector_t* pt_vector, size_t t_count, va_list val_elemlist)
 {
     size_t t_index = 0;
+    void*  pv_init_elem = NULL;
 
     assert(pt_vector != NULL);
     assert(
@@ -373,14 +374,19 @@ void _vector_init_elem_varg(
         pt_vector->_pc_endofstorage = 
             pt_vector->_pc_start + pt_vector->_t_typesize * (2 * t_count);
 
+        /* get varg value only once */
+        pv_init_elem = allocate(&pt_vector->_t_allocater, pt_vector->_t_typesize, 1);
+        assert(pv_init_elem != NULL);
+        _get_varg_value(
+            pv_init_elem, val_elemlist, pt_vector->_t_typesize, pt_vector->_sz_typename);
         for(t_index = 0; t_index < t_count; ++ t_index)
         {
-            _get_varg_value(
+            memcpy(
                 pt_vector->_pc_start + t_index * pt_vector->_t_typesize,
-                val_elemlist,
-                pt_vector->_t_typesize,
-                pt_vector->_sz_typename);
+                pv_init_elem,
+                pt_vector->_t_typesize);
         }
+        deallocate(&pt_vector->_t_allocater, pv_init_elem, pt_vector->_t_typesize, 1);
     }
 
     pt_vector->_pfun_cmp = _get_cmp_function(pt_vector->_sz_typename);
@@ -874,6 +880,8 @@ vector_iterator_t _vector_insert_n(
 vector_iterator_t _vector_insert_n_varg(
     vector_t* pt_vector, vector_iterator_t t_pos, size_t t_count, va_list val_elemlist)
 {
+    void* pv_init_elem = NULL;
+
     /* test the vector and iterator is valid */
     assert(_iterator_belong_to_vector(pt_vector, &t_pos));
 
@@ -902,14 +910,20 @@ vector_iterator_t _vector_insert_n_varg(
             pt_vector->_pc_finish - _GET_VECTOR_COREPOS(&t_pos)); 
         pt_vector->_pc_finish += t_count * pt_vector->_t_typesize;
         /* insert element counts copys to the pos */
+
+        /* get varg value only once */
+        pv_init_elem = allocate(&pt_vector->_t_allocater, pt_vector->_t_typesize, 1);
+        assert(pv_init_elem != NULL);
+        _get_varg_value(
+            pv_init_elem, val_elemlist, pt_vector->_t_typesize, pt_vector->_sz_typename);
         for(t_index = 0; t_index < t_count; ++t_index)
         {
-            _get_varg_value(
+            memcpy(
                 _GET_VECTOR_COREPOS(&t_pos) + t_index * pt_vector->_t_typesize,
-                val_elemlist,
-                pt_vector->_t_typesize,
-                pt_vector->_sz_typename);
+                pv_init_elem,
+                pt_vector->_t_typesize);
         }
+        deallocate(&pt_vector->_t_allocater, pv_init_elem, pt_vector->_t_typesize, 1);
 
         iterator_next_n(&t_pos, t_count);
     }
@@ -1020,6 +1034,7 @@ void _vector_resize_elem_varg(
     vector_iterator_t t_cutpos;     /* the cut position */
     size_t            t_expsize = 0;
     size_t            t_index = 0;
+    void*             pv_init_elem = NULL;
 
     assert(pt_vector != NULL);
 
@@ -1036,14 +1051,20 @@ void _vector_resize_elem_varg(
         {
             vector_reserve(pt_vector, vector_size(pt_vector) + 2 * t_expsize);
         }
+
+        /* get varg value only once */
+        pv_init_elem = allocate(&pt_vector->_t_allocater, pt_vector->_t_typesize, 1);
+        assert(pv_init_elem != NULL);
+        _get_varg_value(
+            pv_init_elem, val_elemlist, pt_vector->_t_typesize, pt_vector->_sz_typename);
         for(t_index = 0; t_index < t_expsize; ++t_index)
         {
-            _get_varg_value(
+            memcpy(
                 pt_vector->_pc_finish + t_index * pt_vector->_t_typesize,
-                val_elemlist,
-                pt_vector->_t_typesize,
-                pt_vector->_sz_typename);
+                pv_init_elem,
+                pt_vector->_t_typesize);
         }
+        deallocate(&pt_vector->_t_allocater, pv_init_elem, pt_vector->_t_typesize, 1);
         pt_vector->_pc_finish += t_expsize * pt_vector->_t_typesize;
     }
 }

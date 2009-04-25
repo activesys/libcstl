@@ -381,6 +381,8 @@ void _list_push_back_varg(list_t* pt_list, va_list val_elemlist)
 /* list function */
 void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)
 {
+    void* pv_init_elem = NULL;
+
     assert(
         pt_list != NULL &&
         pt_list->_pt_node == NULL &&
@@ -409,23 +411,32 @@ void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)
     {
         size_t t_index = 0;
         listnode_t* pt_node = NULL;
+
+        /* get varg value only once */
+        pv_init_elem = allocate(
+            &pt_list->_t_allocater, _LIST_NODE_SIZE(pt_list->_t_typesize), 1);
+        assert(pv_init_elem != NULL);
+        _get_varg_value(
+            ((listnode_t*)pv_init_elem)->_pc_data, val_elemlist,
+            pt_list->_t_typesize, pt_list->_sz_typename);
         for(t_index = 0; t_index < t_count; ++t_index)
         {
             pt_node = allocate(
                 &pt_list->_t_allocater, _LIST_NODE_SIZE(pt_list->_t_typesize), 1);
             assert(pt_node != NULL);
             memset(pt_node->_pc_data, 0x00, pt_list->_t_typesize);
-            _get_varg_value(
+            memcpy(
                 pt_node->_pc_data,
-                val_elemlist,
-                pt_list->_t_typesize,
-                pt_list->_sz_typename);
+                ((listnode_t*)pv_init_elem)->_pc_data,
+                pt_list->_t_typesize);
             pt_node->_pt_next = pt_list->_pt_node;
             pt_node->_pt_prev = pt_list->_pt_node->_pt_prev;
             pt_list->_pt_node->_pt_prev->_pt_next = pt_node;
             pt_list->_pt_node->_pt_prev = pt_node;
             pt_node = NULL;
         }
+        deallocate(
+            &pt_list->_t_allocater, pv_init_elem, _LIST_NODE_SIZE(pt_list->_t_typesize), 1);
     }
 
     pt_list->_pfun_cmp = _get_cmp_function(pt_list->_sz_typename);
@@ -900,20 +911,26 @@ list_iterator_t _list_insert_n_varg(
 {
     listnode_t* pt_node = NULL;    /* the insert node */
     size_t      t_index = 0;
+    void*       pv_init_elem = NULL;
 
     assert(_iterator_belong_to_list(pt_list, &t_pos));
 
+    /* get varg value only once */
+    pv_init_elem = allocate(&pt_list->_t_allocater, _LIST_NODE_SIZE(pt_list->_t_typesize), 1);
+    assert(pv_init_elem != NULL);
+    _get_varg_value(
+        ((listnode_t*)pv_init_elem)->_pc_data, val_elemlist,
+        pt_list->_t_typesize, pt_list->_sz_typename);
     for(t_index = 0; t_index < t_count; ++t_index)
     {
         /* allocate the memory for insert node */
         pt_node = allocate(
             &pt_list->_t_allocater, _LIST_NODE_SIZE(pt_list->_t_typesize), 1);
         assert(pt_node != NULL);
-        _get_varg_value(
+        memcpy(
             pt_node->_pc_data,
-            val_elemlist,
-            pt_list->_t_typesize,
-            pt_list->_sz_typename);
+            ((listnode_t*)pv_init_elem)->_pc_data,
+            pt_list->_t_typesize);
         /* insert the element in the position t_pos */
         pt_node->_pt_next = (listnode_t*)_GET_LIST_COREPOS(&t_pos);
         pt_node->_pt_prev = ((listnode_t*)_GET_LIST_COREPOS(&t_pos))->_pt_prev;
@@ -921,6 +938,8 @@ list_iterator_t _list_insert_n_varg(
         ((listnode_t*)_GET_LIST_COREPOS(&t_pos))->_pt_prev = pt_node;
         pt_node = NULL;
     }
+    deallocate(
+        &pt_list->_t_allocater, pv_init_elem, _LIST_NODE_SIZE(pt_list->_t_typesize), 1);
 
     return t_pos;
 }
@@ -1185,6 +1204,7 @@ void _list_resize_elem_varg(list_t* pt_list, size_t t_resize, va_list val_elemli
     listnode_t* pt_node = NULL; /* the node for allocate */
     size_t      t_listsize = 0; /* the list size */
     size_t      t_index = 0;
+    void*       pv_init_elem = NULL;
 
     assert(pt_list != NULL && pt_list->_pt_node != NULL);
 
@@ -1199,22 +1219,30 @@ void _list_resize_elem_varg(list_t* pt_list, size_t t_resize, va_list val_elemli
     }
     else
     {
+        /* get varg value only once */
+        pv_init_elem = allocate(
+            &pt_list->_t_allocater, _LIST_NODE_SIZE(pt_list->_t_typesize), 1);
+        assert(pv_init_elem != NULL);
+        _get_varg_value(
+            ((listnode_t*)pv_init_elem)->_pc_data, val_elemlist,
+            pt_list->_t_typesize, pt_list->_sz_typename);
         for(t_index = 0; t_index < t_resize - t_listsize; ++t_index)
         {
             pt_node = allocate(
                 &pt_list->_t_allocater, _LIST_NODE_SIZE(pt_list->_t_typesize), 1);
             assert(pt_node != NULL);
-            _get_varg_value(
+            memcpy(
                 pt_node->_pc_data,
-                val_elemlist,
-                pt_list->_t_typesize,
-                pt_list->_sz_typename);
+                ((listnode_t*)pv_init_elem)->_pc_data,
+                pt_list->_t_typesize);
             pt_node->_pt_next = pt_list->_pt_node;
             pt_node->_pt_prev = pt_list->_pt_node->_pt_prev;
             pt_list->_pt_node->_pt_prev->_pt_next = pt_node;
             pt_list->_pt_node->_pt_prev = pt_node;
             pt_node = NULL;
         }
+        deallocate(
+            &pt_list->_t_allocater, pv_init_elem, _LIST_NODE_SIZE(pt_list->_t_typesize), 1);
     }
 }
 
