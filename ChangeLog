@@ -260,3 +260,7 @@ cstl 1.0.0 : 2009-03-10 11:16:29
 
 libcstl 1.0.0 : 2009-04-20 20:33:23
 * Change project name frome cstl to libcstl. <Wangbo>
+
+libcstl 1.0.1 : 2009-04-25 14:59:49
+* Fixup bugs in initialization operation of all containers.
+* Fixup bugs in Makefile.

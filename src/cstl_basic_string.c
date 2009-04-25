@@ -484,6 +484,7 @@ void _basic_string_init_elem_varg(
 {
     size_t  t_index = 0;
     char*   pc_value = NULL;
+    void*   pv_init_elem = NULL;
 
     assert(pt_basic_string != NULL);
 
@@ -495,14 +496,25 @@ void _basic_string_init_elem_varg(
     {
         pc_value = (char*)vector_at(&pt_basic_string->_t_vector, 0);
         assert(pc_value != NULL);
+
+        /* get varg value only once */
+        pv_init_elem = allocate(
+            &pt_basic_string->_t_vector._t_allocater,
+            pt_basic_string->_t_vector._t_typesize, 1);
+        assert(pv_init_elem != NULL);
+        _get_varg_value(
+            pv_init_elem, val_elemlist,
+            pt_basic_string->_t_vector._t_typesize, pt_basic_string->_t_vector._sz_typename);
         for(t_index = 0; t_index < t_count; ++t_index)
         {
-            _get_varg_value(
+            memcpy(
                 pc_value + t_index * pt_basic_string->_t_vector._t_typesize,
-                val_elemlist,
-                pt_basic_string->_t_vector._t_typesize,
-                pt_basic_string->_t_vector._sz_typename);
+                pv_init_elem,
+                pt_basic_string->_t_vector._t_typesize);
         }
+        deallocate(
+            &pt_basic_string->_t_vector._t_allocater, pv_init_elem,
+            pt_basic_string->_t_vector._t_typesize, 1);
     }
 
     /* add null-terminated node */
