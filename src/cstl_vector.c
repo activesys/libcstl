@@ -16,8 +16,8 @@
  *  License along with this library; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  Author Email: activesys.wb@gmail.com
- *                activesys@sina.com.cn
+ *  Author e-mail: activesys.wb@gmail.com
+ *                 activesys@sina.com.cn
  */
 
 /** include section **/
@@ -115,8 +115,7 @@ void _vector_iterator_set_value(
     assert(vector_size(cpt_vector) > 0);
     assert(!iterator_equal(cpt_iterator, vector_end(cpt_vector)));
 
-    memcpy(
-        _GET_VECTOR_COREPOS(cpt_iterator), cpv_value, cpt_vector->_t_typesize);
+    memcpy(_GET_VECTOR_COREPOS(cpt_iterator), cpv_value, cpt_vector->_t_typesize);
 }
 
 const void* _vector_iterator_get_pointer(
@@ -162,9 +161,7 @@ void* _vector_iterator_at(
     assert(_iterator_belong_to_vector(cpt_vector, cpt_iterator));
 
     pc_indexpos = _GET_VECTOR_COREPOS(cpt_iterator) + cpt_vector->_t_typesize * un_index;
-    assert(
-        pc_indexpos >= cpt_vector->_pc_start &&
-        pc_indexpos < cpt_vector->_pc_finish);
+    assert(pc_indexpos >= cpt_vector->_pc_start && pc_indexpos < cpt_vector->_pc_finish);
 
     return pc_indexpos;
 }

@@ -16,8 +16,8 @@
  *  License along with this library; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  Author Email: activesys.wb@gmail.com
- *                activesys@sina.com.cn
+ *  Author e-mail: activesys.wb@gmail.com
+ *                 activesys@sina.com.cn
  */
 
 #ifndef _CSTL_MAP_H
