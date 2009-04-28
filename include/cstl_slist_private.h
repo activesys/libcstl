@@ -71,287 +71,50 @@ typedef struct _tagslist
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _create_slist
- *        Parameters: in) t_typesize: size_t
- *                          the element type size.
- *                    in) s_typename: const char*
- *                          the element type name.
- *           Returns: slist_t
- *                          new slist.
- *       Description: create the new slist.
- *
- * ----------------------------------------------------------------------------
+ * Create and initialize slist_t.
  */
 extern slist_t _create_slist(size_t t_typesize, const char* s_typename);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_init_elem
- *        Parameters: in) pt_slist: slist_t*
- *                    in) t_count: size_t
- *                          element count.
- *                    in) ...
- *                          element list.
- *           Returns: void
- *       Description: initialize the slist.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _slist_init_elem(slist_t* pt_slist, size_t t_count, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_init_elem_varg
- *        Parameters: in) pt_slist: slist_t*
- *                    in) t_count: size_t
- *                          element count.
- *                    in) val_elemlist: va_list
- *                          element list.
- *           Returns: void
- *       Description: initialize the slist.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _slist_init_elem_varg(
     slist_t* pt_slist, size_t t_count, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_assign_elem
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist for assign.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: assign n_elemcount copys of element.
- *
- * ----------------------------------------------------------------------------
+ * Assign operator functions.
  */
 extern void _slist_assign_elem(slist_t* pt_slist, size_t t_count, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_assign_elem_varg
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist for assign.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) val_elemlist: va_list
- *                          the element list.
- *           Returns: void
- *       Description: assign n_elemcount copys of element.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _slist_assign_elem_varg(
     slist_t* pt_slist, size_t t_count, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_push_front
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: append a copy of element at the front.
- *
- * ----------------------------------------------------------------------------
+ * Push front function.
  */
 extern void _slist_push_front(slist_t* pt_slist, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_push_front_varg
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) val_elemlist: va_slist
- *                          the element.
- *           Returns: void
- *       Description: append a copy of element at the front.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _slist_push_front_varg(slist_t* pt_slist, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_remove
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: remove all elements with the element value.
- *
- * ----------------------------------------------------------------------------
+ * Remove element form slist.
  */
 extern void _slist_remove(slist_t* pt_slist, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_remove_varg
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) val_elemlist: va_list
- *                          the element list.
- *           Returns: void
- *       Description: remove all elements with the element value.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _slist_remove_varg(slist_t* pt_slist, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_resize_elem
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) t_resize: size_t
- *                          the new size of slist.
- *                    in) ...
- *                          the default element.
- *           Returns: void
- *       Description: change the number of elements to t_resize, if the size
- *                    grows new element create with the default element.
- *
- * ----------------------------------------------------------------------------
+ * Reset slist_t size.
  */
 extern void _slist_resize_elem(slist_t* pt_slist, size_t t_resize, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_resize_elem_varg
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) t_resize: size_t
- *                          the new size of slist.
- *                    in) val_elemlist: va_list
- *                          the default element.
- *           Returns: void
- *       Description: change the number of elements to t_resize, if the size
- *                    grows new element create with the default element.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _slist_resize_elem_varg(
     slist_t* pt_slist, size_t t_resize, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_insert_after_n_varg
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) t_pos: slist_iterator_t
- *                          the insert_after position.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) val_elemlist: va_list
- *                          the element list.
- *           Returns: void
- *       Description: insert_after at iterator position t_pos n_elemcount copys of
- *                    element and return nothing.
- *
- * ----------------------------------------------------------------------------
+ * Insert operation functions.
  */
 extern void _slist_insert_after_n_varg(
-    slist_t* pt_slist, 
-    slist_iterator_t t_pos, 
-    size_t t_count, 
-    va_list val_elemlist);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_insert_after
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) t_pos: slist_iterator_t
- *                          the insert_after position.
- *                    in) ...
- *                          the element.
- *           Returns: slist_iterator_t
- *       Description: insert_after at iterator position t_pos a copy of element and 
- *                    return the new element position.
- *
- * ----------------------------------------------------------------------------
- */
+    slist_t* pt_slist, slist_iterator_t t_pos, size_t t_count, va_list val_elemlist);
 extern slist_iterator_t _slist_insert_after(
     slist_t* pt_slist, slist_iterator_t t_pos, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: slist_insert_after_n
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) t_pos: slist_iterator_t
- *                          the insert_after position.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: insert_after at iterator position t_pos n_elemcount copys of
- *                    element and return nothing.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _slist_insert_after_n(
     slist_t* pt_slist, slist_iterator_t t_pos, size_t t_count, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_insert
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) t_pos: slist_iterator_t
- *                          the insert position.
- *                    in) ...
- *                          the element.
- *           Returns: slist_iterator_t
- *       Description: insert at iterator position t_pos a copy of element and 
- *                    return the new element position.
- *
- * ----------------------------------------------------------------------------
- */
 extern slist_iterator_t _slist_insert(
     slist_t* pt_slist, slist_iterator_t t_pos, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _slist_insert_n
- *        Parameters: in) pt_slist: slist_t*
- *                          the slist.
- *                    in) t_pos: slist_iterator_t
- *                          the insert position.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: insert at iterator position t_pos n_elemcount copys of
- *                    element and return nothing.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _slist_insert_n(
     slist_t* pt_slist, slist_iterator_t t_pos, size_t t_count, ...);
 

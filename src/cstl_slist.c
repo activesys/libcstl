@@ -45,80 +45,23 @@
 /** local function prototype section **/
 #ifndef NDEBUG
 /*
- *  Functionname: _iterator_belong_to_slist
- *    Parameters: in) cpt_slist: const slist_t*
- *                    slist pointer.
- *                in) cpt_iterator: const slist_iterator_t*
- *                    slist iterator pointer.
- *       Returns: bool_t
- *   Description: test the iterator is valid one belong to the slist.
+ * Iterator support for assert.
  */
 static bool_t _iterator_belong_to_slist(
     const slist_t* cpt_slist, const slist_iterator_t* cpt_iterator);
-
-/*
- *  Functionname: _iterator_for_one_and_the_same_slist
- *    Parameters: in) cpt_iteratorfirst: const slist_iterator_t*
- *                    first slist iterator pointer.
- *                in) cpt_iteratorsecond: const slist_iterator_t*
- *                    second slist iterator pointer.
- *       Returns: bool_t
- *   Description: test the two slist iterator is one and the same of slist.
- */
 static bool_t _iterator_for_one_and_the_same_slist(
-    const slist_iterator_t* cpt_iteratorfirst, 
-    const slist_iterator_t* cpt_iteratorsecond);
-
-/*
- *  Functionname: _same_slist_iterator_type
- *    Parameters: in) cpt_slist: const slist_t*
- *                    the slist pointer
- *                in) cpt_iterator: const slist_iterator_t*
- *                    the slist iterator pointer
- *       Returns: bool_t
- *   Description: test the slist and iterator have the same type.
- */
+    const slist_iterator_t* cpt_iteratorfirst, const slist_iterator_t* cpt_iteratorsecond);
 static bool_t _same_slist_iterator_type(
     const slist_t* cpt_slist, const slist_iterator_t* cpt_iterator);
-
-/*
- *  Functionname: _same_slist_type
- *    Parameters: in) cpt_slistfirst: const slist_t*
- *                    first slist pointer.
- *                in) cpt_slistsecond: const slist_t*
- *                    second slist pointer.
- *       Returns: bool_t
- *   Description: test the two slist is have the same type.
- */
 static bool_t _same_slist_type(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
 #endif /* NDEBUG */
 
 /*
- *  Functionname: _transfer
- *    Parameters: in) t_pos: slist_iterator_t
- *                    the position of insert.
- *                in) t_begin: slist_iterator_t
- *                    the begin iterator of range.
- *                in) t_end: slist_iterator_t
- *                    the end iterator of range.
- *       Returns: void
- *   Description: transfer the range [t_begin+1, t_end) to position.
+ * Transfer functions.
  */
 static void _transfer(
     slist_iterator_t t_pos, slist_iterator_t t_begin, slist_iterator_t t_end);
-
-/*
- *  Functionname: _transfer_after
- *    Parameters: in) t_pos: slist_iterator_t
- *                    the position of insert.
- *                in) t_begin: slist_iterator_t
- *                    the begin iterator of range.
- *                in) t_end: slist_iterator_t
- *                    the end iterator of range.
- *       Returns: void
- *   Description: transfer the range [t_begin+1, t_end) to position.
- */
 static void _transfer_after(
     slist_iterator_t t_pos, slist_iterator_t t_begin, slist_iterator_t t_end);
 
@@ -572,12 +515,9 @@ void slist_init_copy_range(
     /* initialize the dest slist use the iterator slist */
     slist_init_n(pt_slist, iterator_distance(t_begin, t_end));
     /* copy the element from range [t_begin, t_end) to dest slist */
-    for(t_dest = slist_begin(pt_slist), 
-            t_src = t_begin;
-        !iterator_equal(&t_dest, slist_end(pt_slist)) &&
-            !iterator_equal(&t_src, t_end);
-        iterator_next(&t_dest),
-            iterator_next(&t_src))
+    for(t_dest = slist_begin(pt_slist), t_src = t_begin;
+        !iterator_equal(&t_dest, slist_end(pt_slist)) && !iterator_equal(&t_src, t_end);
+        iterator_next(&t_dest), iterator_next(&t_src))
     {
         memcpy(
             ((slistnode_t*)_GET_SLIST_COREPOS(&t_dest))->_pc_data,
@@ -907,10 +847,8 @@ slist_iterator_t slist_erase_after(slist_t* pt_slist, slist_iterator_t t_pos)
         ((slistnode_t*)_GET_SLIST_COREPOS(&t_pos))->_pt_next = pt_slistnode->_pt_next;
         /* destroy the element and destroy the node */
         deallocate(
-            &pt_slist->_t_allocater, 
-            pt_slistnode, 
-            _SLIST_NODE_SIZE(pt_slist->_t_typesize), 
-            1);
+            &pt_slist->_t_allocater, pt_slistnode, 
+            _SLIST_NODE_SIZE(pt_slist->_t_typesize), 1);
 
         iterator_next(&t_pos);
         return t_pos;
@@ -996,10 +934,8 @@ slist_iterator_t slist_erase_after_range(
         {
             pt_begin = pt_iterator->_pt_next;
             deallocate(
-                &pt_slist->_t_allocater, 
-                pt_iterator, 
-                _SLIST_NODE_SIZE(pt_slist->_t_typesize), 
-                1);
+                &pt_slist->_t_allocater, pt_iterator,
+                _SLIST_NODE_SIZE(pt_slist->_t_typesize), 1);
 
             pt_iterator = pt_begin;
         }
@@ -1096,11 +1032,8 @@ void slist_splice_after_pos(
 }
 
 void slist_splice_after_range(
-    slist_t* pt_slist, 
-    slist_iterator_t t_pos, 
-    slist_t* pt_slistsrc, 
-    slist_iterator_t t_beforefirst, 
-    slist_iterator_t t_beforelast)
+    slist_t* pt_slist, slist_iterator_t t_pos, 
+    slist_t* pt_slistsrc, slist_iterator_t t_beforefirst, slist_iterator_t t_beforelast)
 {
 #ifdef NDEBUG
     slist_t* pt_avoidwarning1 = NULL;
@@ -1244,8 +1177,7 @@ void slist_unique(slist_t* pt_slist)
                 /* if the current and next date is equal */
                 if((*pt_slist->_pfun_cmp)(
                     ((slistnode_t*)_GET_SLIST_COREPOS(&t_poscur))->_pc_data,
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_posnext))->_pc_data) 
-                    == 0)
+                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_posnext))->_pc_data) == 0)
                 { 
                     /* then erase next */
                     t_posnext = slist_erase(pt_slist, t_posnext);
@@ -1369,10 +1301,9 @@ void slist_sort(slist_t* pt_slist)
                 !iterator_equal(&t_pos, t_disorder);
                 iterator_next(&t_pos))
             {
-                n_cmpresult = 
-                    (*pt_slist->_pfun_cmp)(
-                        ((slistnode_t*)_GET_SLIST_COREPOS(&t_disorder))->_pc_data,
-                        ((slistnode_t*)_GET_SLIST_COREPOS(&t_pos))->_pc_data);
+                n_cmpresult = (*pt_slist->_pfun_cmp)(
+                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_disorder))->_pc_data,
+                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_pos))->_pc_data);
                 if(n_cmpresult < 0)
                 {
                     t_insert = t_disorder;
@@ -1397,11 +1328,10 @@ void slist_sort(slist_t* pt_slist)
                 !iterator_equal(&t_pos, t_disorder);
                 iterator_next(&t_pos))
             {
-                n_cmpresult =
-                    memcmp(
-                        ((slistnode_t*)_GET_SLIST_COREPOS(&t_disorder))->_pc_data,
-                        ((slistnode_t*)_GET_SLIST_COREPOS(&t_pos))->_pc_data,
-                        pt_slist->_t_typesize);
+                n_cmpresult = memcmp(
+                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_disorder))->_pc_data,
+                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_pos))->_pc_data,
+                    pt_slist->_t_typesize);
                 if(n_cmpresult < 0)
                 {
                     t_insert = t_disorder;
@@ -1441,9 +1371,9 @@ void slist_sort_if(slist_t* pt_slist, binary_function_t t_binary_op)
             iterator_next(&t_pos))
         {
             (*t_binary_op)(
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_disorder))->_pc_data,
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_pos))->_pc_data,
-                    &t_result);
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_disorder))->_pc_data,
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_pos))->_pc_data,
+                &t_result);
             if(t_result)
             {
                 t_insert = t_disorder;
@@ -1473,8 +1403,7 @@ void slist_merge(slist_t* pt_slistdest, slist_t* pt_slistsrc)
     {
         /* iterate dest and src slist */
         t_dest = slist_begin(pt_slistdest); 
-        while(!iterator_equal(&t_dest, slist_end(pt_slistdest)) &&
-              !slist_empty(pt_slistsrc))
+        while(!iterator_equal(&t_dest, slist_end(pt_slistdest)) && !slist_empty(pt_slistsrc))
         {
             t_src = slist_begin(pt_slistsrc);
             /* if src slist less then dest */
@@ -1497,8 +1426,7 @@ void slist_merge(slist_t* pt_slistdest, slist_t* pt_slistsrc)
     {
         /* iterate dest and src slist */
         t_dest = slist_begin(pt_slistdest); 
-        while(!iterator_equal(&t_dest, slist_end(pt_slistdest)) &&
-              !slist_empty(pt_slistsrc))
+        while(!iterator_equal(&t_dest, slist_end(pt_slistdest)) && !slist_empty(pt_slistsrc))
         {
             t_src = slist_begin(pt_slistsrc);
             /* if src slist less then dest */
@@ -1547,8 +1475,7 @@ void slist_merge_if(
 
     /* iterate dest and src slist */
     t_dest = slist_begin(pt_slistdest); 
-    while(!iterator_equal(&t_dest, slist_end(pt_slistdest)) &&
-          !slist_empty(pt_slistsrc))
+    while(!iterator_equal(&t_dest, slist_end(pt_slistdest)) && !slist_empty(pt_slistsrc))
     {
         t_src = slist_begin(pt_slistsrc);
         /* if src slist less then dest */
@@ -1602,7 +1529,9 @@ void _slist_resize_elem_varg(slist_t* pt_slist, size_t t_resize, va_list val_ele
     for(t_index = 0, t_pos = slist_begin(pt_slist);
         t_index < t_resize && !iterator_equal(&t_pos, slist_end(pt_slist));
         ++t_index, iterator_next(&t_pos))
+    {
         continue;
+    }
 
     if(t_index == t_resize)
     {
@@ -1638,12 +1567,12 @@ void _slist_resize_elem_varg(slist_t* pt_slist, size_t t_resize, va_list val_ele
             
             pt_slistnode->_pt_next = 
                 ((slistnode_t*)_GET_SLIST_COREPOS(&t_slistlast))->_pt_next;
-            ((slistnode_t*)_GET_SLIST_COREPOS(&t_slistlast))->_pt_next = 
-                pt_slistnode;
+            ((slistnode_t*)_GET_SLIST_COREPOS(&t_slistlast))->_pt_next = pt_slistnode;
             pt_slistnode = NULL;
         }
         deallocate(
-            &pt_slist->_t_allocater, pv_init_elem, _SLIST_NODE_SIZE(pt_slist->_t_typesize), 1);
+            &pt_slist->_t_allocater, pv_init_elem, 
+            _SLIST_NODE_SIZE(pt_slist->_t_typesize), 1);
     }
 }
 
@@ -1671,8 +1600,7 @@ bool_t slist_equal(
     }
 
     /* test compare and destroy element function */
-    if(cpt_slistfirst->_pfun_cmp != 
-            cpt_slistsecond->_pfun_cmp)
+    if(cpt_slistfirst->_pfun_cmp != cpt_slistsecond->_pfun_cmp)
     {
         return false;
     }
@@ -1686,17 +1614,14 @@ bool_t slist_equal(
     /* test each element */
     if(cpt_slistfirst->_pfun_cmp != NULL)
     {
-        for(t_first = slist_begin(cpt_slistfirst), 
-                t_second = slist_begin(cpt_slistsecond);
+        for(t_first = slist_begin(cpt_slistfirst), t_second = slist_begin(cpt_slistsecond);
             !iterator_equal(&t_first, slist_end(cpt_slistfirst)) &&
-                !iterator_equal(&t_second, slist_end(cpt_slistsecond));
-            iterator_next(&t_first),
-                iterator_next(&t_second))
+            !iterator_equal(&t_second, slist_end(cpt_slistsecond));
+            iterator_next(&t_first), iterator_next(&t_second))
         {
             if((*cpt_slistfirst->_pfun_cmp)(
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_first))->_pc_data,
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_second))->_pc_data)
-                != 0)
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_first))->_pc_data,
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_second))->_pc_data) != 0)
             {
                 return false;
             }
@@ -1704,18 +1629,15 @@ bool_t slist_equal(
     }
     else
     {
-        for(t_first = slist_begin(cpt_slistfirst), 
-                t_second = slist_begin(cpt_slistsecond);
+        for(t_first = slist_begin(cpt_slistfirst), t_second = slist_begin(cpt_slistsecond);
             !iterator_equal(&t_first, slist_end(cpt_slistfirst)) &&
-                !iterator_equal(&t_second, slist_end(cpt_slistsecond));
-            iterator_next(&t_first),
-                iterator_next(&t_second))
+            !iterator_equal(&t_second, slist_end(cpt_slistsecond));
+            iterator_next(&t_first), iterator_next(&t_second))
         {
             if(memcmp(
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_first))->_pc_data,
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_second))->_pc_data,
-                    cpt_slistfirst->_t_typesize)
-                != 0)
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_first))->_pc_data,
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_second))->_pc_data,
+                cpt_slistfirst->_t_typesize) != 0)
             {
                 return false;
             }
@@ -1746,17 +1668,14 @@ bool_t slist_less(
     /* test each element */
     if(cpt_slistfirst->_pfun_cmp != NULL)
     {
-        for(t_first = slist_begin(cpt_slistfirst),
-                t_second = slist_begin(cpt_slistsecond);
+        for(t_first = slist_begin(cpt_slistfirst), t_second = slist_begin(cpt_slistsecond);
             !iterator_equal(&t_first, slist_end(cpt_slistfirst)) &&
-                !iterator_equal(&t_second, slist_end(cpt_slistsecond));
-            iterator_next(&t_first),
-                iterator_next(&t_second))
+            !iterator_equal(&t_second, slist_end(cpt_slistsecond));
+            iterator_next(&t_first), iterator_next(&t_second))
         {
-            n_cmpresult = 
-                (*cpt_slistfirst->_pfun_cmp)(
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_first))->_pc_data,
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_second))->_pc_data);
+            n_cmpresult = (*cpt_slistfirst->_pfun_cmp)(
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_first))->_pc_data,
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_second))->_pc_data);
             /* if first < second return true */
             if(n_cmpresult < 0)
             {
@@ -1772,18 +1691,15 @@ bool_t slist_less(
     }
     else
     {
-        for(t_first = slist_begin(cpt_slistfirst),
-                t_second = slist_begin(cpt_slistsecond);
+        for(t_first = slist_begin(cpt_slistfirst), t_second = slist_begin(cpt_slistsecond);
             !iterator_equal(&t_first, slist_end(cpt_slistfirst)) &&
-                !iterator_equal(&t_second, slist_end(cpt_slistsecond));
-            iterator_next(&t_first),
-                iterator_next(&t_second))
+            !iterator_equal(&t_second, slist_end(cpt_slistsecond));
+            iterator_next(&t_first), iterator_next(&t_second))
         {
-            n_cmpresult = 
-                memcmp(
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_first))->_pc_data,
-                    ((slistnode_t*)_GET_SLIST_COREPOS(&t_second))->_pc_data,
-                    cpt_slistfirst->_t_typesize);
+            n_cmpresult = memcmp(
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_first))->_pc_data,
+                ((slistnode_t*)_GET_SLIST_COREPOS(&t_second))->_pc_data,
+                cpt_slistfirst->_t_typesize);
             /* if first < second return true */
             if(n_cmpresult < 0)
             {
@@ -1887,15 +1803,12 @@ static bool_t _same_slist_iterator_type(
         _GET_SLIST_CONTAINER_TYPE(cpt_iterator) == _SLIST_CONTAINER &&
         _GET_SLIST_ITERATOR_TYPE(cpt_iterator) == _FORWARD_ITERATOR);
     assert(
-        cpt_slist->_t_typesize == 
-            _GET_SLIST_CONTAINER(cpt_iterator)->_t_typesize &&
+        cpt_slist->_t_typesize == _GET_SLIST_CONTAINER(cpt_iterator)->_t_typesize &&
         strncmp(
             cpt_slist->_sz_typename,
             _GET_SLIST_CONTAINER(cpt_iterator)->_sz_typename,
             _ELEM_TYPE_NAME_SIZE) == 0);
-    assert(
-        cpt_slist->_pfun_cmp == 
-            _GET_SLIST_CONTAINER(cpt_iterator)->_pfun_cmp);
+    assert(cpt_slist->_pfun_cmp == _GET_SLIST_CONTAINER(cpt_iterator)->_pfun_cmp);
 
     return true;
 }
@@ -1909,12 +1822,10 @@ static bool_t _same_slist_type(
     assert(
         cpt_slistfirst->_t_typesize == cpt_slistsecond->_t_typesize &&
         strncmp(
-            cpt_slistfirst->_sz_typename,
-            cpt_slistsecond->_sz_typename,
+            cpt_slistfirst->_sz_typename, 
+            cpt_slistsecond->_sz_typename, 
             _ELEM_TYPE_NAME_SIZE) == 0);
-    assert(
-        cpt_slistfirst->_pfun_cmp == 
-            cpt_slistsecond->_pfun_cmp);
+    assert(cpt_slistfirst->_pfun_cmp == cpt_slistsecond->_pfun_cmp);
 
     return true;
 }

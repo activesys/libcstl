@@ -235,9 +235,7 @@ int string_compare(
 }
 
 int string_compare_substring_string(
-    const string_t* cpt_stringfirst, 
-    size_t t_firstpos,
-    size_t t_firstlen,
+    const string_t* cpt_stringfirst, size_t t_firstpos, size_t t_firstlen,
     const string_t* cpt_stringsecond)
 {
     return basic_string_compare_substring_string(
@@ -245,40 +243,29 @@ int string_compare_substring_string(
 }
 
 int string_compare_substring_substring(
-    const string_t* cpt_stringfirst,
-    size_t t_firstpos,
-    size_t t_firstlen,
-    const string_t* cpt_stringsecond,
-    size_t t_secondpos,
-    size_t t_secondlen)
+    const string_t* cpt_stringfirst, size_t t_firstpos, size_t t_firstlen,
+    const string_t* cpt_stringsecond, size_t t_secondpos, size_t t_secondlen)
 {
     return basic_string_compare_substring_substring(
         cpt_stringfirst, t_firstpos, t_firstlen, 
         cpt_stringsecond, t_secondpos, t_secondlen);
 }
 
-int string_compare_cstr(
-    const string_t* cpt_string, const char* s_cstr)
+int string_compare_cstr(const string_t* cpt_string, const char* s_cstr)
 {
     return basic_string_compare_cstr(cpt_string, s_cstr);
 }
 
 int string_compare_substring_cstr(
-    const string_t* cpt_string,
-    size_t t_firstpos,
-    size_t t_firstlen,
-    const char* s_cstr)
+    const string_t* cpt_string, size_t t_firstpos, size_t t_firstlen, const char* s_cstr)
 {
     return basic_string_compare_substring_cstr(
         cpt_string, t_firstpos, t_firstlen, s_cstr);
 }
 
 int string_compare_substring_subcstr(
-    const string_t* cpt_string,
-    size_t t_firstpos,
-    size_t t_firstlen,
-    const char* s_cstr,
-    size_t t_len)
+    const string_t* cpt_string, size_t t_firstpos, size_t t_firstlen,
+    const char* s_cstr, size_t t_len)
 {
     return basic_string_compare_substring_subcstr(
         cpt_string, t_firstpos, t_firstlen, s_cstr, t_len);
@@ -582,11 +569,8 @@ void string_insert_string(
 }
 
 void string_insert_substring(
-    string_t* pt_string,
-    size_t t_pos, 
-    const string_t* cpt_string_insert, 
-    size_t t_startpos,
-    size_t t_len)
+    string_t* pt_string, size_t t_pos, const string_t* cpt_string_insert, 
+    size_t t_startpos, size_t t_len)
 {
     basic_string_insert_substring(
         pt_string, t_pos, cpt_string_insert, t_startpos, t_len);
@@ -610,10 +594,8 @@ void string_insert_char(
 }
 
 void string_insert_range(
-    string_t* pt_string,
-    string_iterator_t t_pos,
-    string_iterator_t t_begin,
-    string_iterator_t t_end)
+    string_t* pt_string, string_iterator_t t_pos,
+    string_iterator_t t_begin, string_iterator_t t_end)
 {
     basic_string_insert_range(pt_string, t_pos, t_begin, t_end);
 }
@@ -625,9 +607,7 @@ string_iterator_t string_erase(string_t* pt_string, string_iterator_t t_pos)
 }
 
 string_iterator_t string_erase_range(
-    string_t* pt_string,
-    string_iterator_t t_begin,
-    string_iterator_t t_end)
+    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end)
 {
     return basic_string_erase_range(pt_string, t_begin, t_end);
 }
@@ -639,111 +619,76 @@ void string_erase_substring(string_t* pt_string, size_t t_pos, size_t t_len)
 
 /* replace */
 void string_replace(
-    string_t* pt_string, 
-    size_t t_pos, 
-    size_t t_len, 
-    const string_t* cpt_string_replace)
+    string_t* pt_string, size_t t_pos, size_t t_len, const string_t* cpt_string_replace)
 {
     basic_string_replace(pt_string, t_pos, t_len, cpt_string_replace);
 }
 
 void string_replace_substring(
-    string_t* pt_string,
-    size_t t_pos,
-    size_t t_len,
-    const string_t* cpt_string_replace,
-    size_t t_position,
-    size_t t_length)
+    string_t* pt_string, size_t t_pos, size_t t_len,
+    const string_t* cpt_string_replace, size_t t_position, size_t t_length)
 {
     basic_string_replace_substring(
         pt_string, t_pos, t_len, cpt_string_replace, t_position, t_length);
 }
 
 void string_replace_cstr(
-    string_t* pt_string,
-    size_t t_pos,
-    size_t t_len,
-    const char* s_cstr)
+    string_t* pt_string, size_t t_pos, size_t t_len, const char* s_cstr)
 {
     basic_string_replace_cstr(pt_string, t_pos, t_len, s_cstr);
 }
 
 void string_replace_subcstr(
-    string_t* pt_string,
-    size_t t_pos,
-    size_t t_len,
-    const char* s_cstr,
-    size_t t_length)
+    string_t* pt_string, size_t t_pos, size_t t_len, const char* s_cstr, size_t t_length)
 {
     basic_string_replace_subcstr(pt_string, t_pos, t_len, s_cstr, t_length);
 }
 
 void string_replace_char(
-    string_t* pt_string,
-    size_t t_pos,
-    size_t t_len,
-    size_t t_count,
-    char c_char)
+    string_t* pt_string, size_t t_pos, size_t t_len, size_t t_count, char c_char)
 {
     basic_string_replace_elem(pt_string, t_pos, t_len, t_count, c_char);
 }
 
 void string_range_replace(
-    string_t* pt_string,
-    string_iterator_t t_begin,
-    string_iterator_t t_end,
+    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
     const string_t* cpt_string_replace)
 {
     basic_string_range_replace(pt_string, t_begin, t_end, cpt_string_replace);
 }
 
 void string_range_replace_substring(
-    string_t* pt_string,
-    string_iterator_t t_begin,
-    string_iterator_t t_end,
-    const string_t* cpt_string_replace,
-    size_t t_pos,
-    size_t t_len)
+    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
+    const string_t* cpt_string_replace, size_t t_pos, size_t t_len)
 {
     basic_string_range_replace_substring(
         pt_string, t_begin, t_end, cpt_string_replace, t_pos, t_len);
 }
 
 void string_range_replace_cstr(
-    string_t* pt_string,
-    string_iterator_t t_begin,
-    string_iterator_t t_end,
+    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
     const char* s_cstr)
 {
     basic_string_range_replace_cstr(pt_string, t_begin, t_end, s_cstr);
 }
 
 void string_range_replace_subcstr(
-    string_t* pt_string,
-    string_iterator_t t_begin,
-    string_iterator_t t_end,
-    const char* s_cstr,
-    size_t t_len)
+    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
+    const char* s_cstr, size_t t_len)
 {
     basic_string_range_replace_subcstr(pt_string, t_begin, t_end, s_cstr, t_len);
 }
 
 void string_range_replace_char(
-    string_t* pt_string,
-    string_iterator_t t_begin,
-    string_iterator_t t_end,
-    size_t t_count,
-    char c_char)
+    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
+    size_t t_count, char c_char)
 {
     basic_string_range_replace_elem(pt_string, t_begin, t_end, t_count, c_char);
 }
 
 void string_replace_range(
-    string_t* pt_string,
-    string_iterator_t t_begin,
-    string_iterator_t t_end,
-    string_iterator_t t_first,
-    string_iterator_t t_last)
+    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
+    string_iterator_t t_first, string_iterator_t t_last)
 {
     basic_string_replace_range(pt_string, t_begin, t_end, t_first, t_last);
 }
@@ -763,8 +708,7 @@ void string_input(string_t* pt_string, FILE* fp_stream)
 
     clearerr(fp_stream);
     string_clear(pt_string);
-    while(!feof(fp_stream) && 
-          !ferror(fp_stream) && 
+    while(!feof(fp_stream) && !ferror(fp_stream) &&
           string_size(pt_string) < string_max_size(pt_string))
     {
         n_char = fgetc(fp_stream);
@@ -786,9 +730,7 @@ bool_t string_getline(string_t* pt_string, FILE* fp_stream)
 
     clearerr(fp_stream);
     string_clear(pt_string);
-    while(!feof(fp_stream) &&
-          !ferror(fp_stream) &&
-          n_char != '\n' &&
+    while(!feof(fp_stream) && !ferror(fp_stream) && n_char != '\n' &&
           string_size(pt_string) < string_max_size(pt_string))
     {
         n_char = fgetc(fp_stream);
@@ -841,8 +783,7 @@ bool_t string_getline(string_t* pt_string, FILE* fp_stream)
     }
 }
 
-bool_t string_getline_delimiter(
-    string_t* pt_string, FILE* fp_stream, char c_delimiter)
+bool_t string_getline_delimiter(string_t* pt_string, FILE* fp_stream, char c_delimiter)
 {
     int n_char = EOF;
 
@@ -856,9 +797,7 @@ bool_t string_getline_delimiter(
     {
         clearerr(fp_stream);
         string_clear(pt_string);
-        while(!feof(fp_stream) &&
-              !ferror(fp_stream) &&
-              (char)n_char != c_delimiter &&
+        while(!feof(fp_stream) && !ferror(fp_stream) && (char)n_char != c_delimiter &&
               string_size(pt_string) < string_max_size(pt_string))
         {
             n_char = fgetc(fp_stream);
