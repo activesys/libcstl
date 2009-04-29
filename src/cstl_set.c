@@ -70,9 +70,7 @@ set_iterator_t create_set_iterator(void)
 }
 
 void _set_iterator_get_value(
-    const struct _tagset* cpt_set, 
-    const set_iterator_t* cpt_iterator, 
-    void* pv_value)
+    const struct _tagset* cpt_set, const set_iterator_t* cpt_iterator, void* pv_value)
 {
     assert(cpt_set != NULL && cpt_iterator != NULL && pv_value != NULL);
     assert(
@@ -107,8 +105,7 @@ const void* _set_iterator_get_pointer(
 #endif
 }
 
-void _set_iterator_next(
-    const struct _tagset* cpt_set, set_iterator_t* pt_iterator)
+void _set_iterator_next(const struct _tagset* cpt_set, set_iterator_t* pt_iterator)
 {
     assert(cpt_set != NULL && pt_iterator != NULL);
     assert(
@@ -123,8 +120,7 @@ void _set_iterator_next(
 #endif
 }
 
-void _set_iterator_prev(
-    const struct _tagset* cpt_set, set_iterator_t* pt_iterator)
+void _set_iterator_prev(const struct _tagset* cpt_set, set_iterator_t* pt_iterator)
 {
     assert(cpt_set != NULL && pt_iterator != NULL);
     assert(
@@ -140,8 +136,7 @@ void _set_iterator_prev(
 }
 
 bool_t _set_iterator_equal(
-    const struct _tagset* cpt_set, 
-    const set_iterator_t* cpt_iterator, 
+    const struct _tagset* cpt_set, const set_iterator_t* cpt_iterator,
     set_iterator_t t_iterator)
 {
     assert(cpt_set != NULL && cpt_iterator != NULL);
@@ -182,8 +177,7 @@ int _set_iterator_distance(
 }
 
 bool_t _set_iterator_before(
-    const set_iterator_t* cpt_iteratorfirst,
-    const set_iterator_t* cpt_iteratorsecond)
+    const set_iterator_t* cpt_iteratorfirst, const set_iterator_t* cpt_iteratorsecond)
 {
     assert(cpt_iteratorfirst != NULL && cpt_iteratorsecond != NULL);
     assert(
@@ -263,8 +257,7 @@ void set_init_copy(set_t* pt_setdest, const set_t* cpt_setsrc)
 #endif
 }
 
-void set_init_copy_range(
-    set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end)
+void set_init_copy_range(set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end)
 {
     assert(pt_setdest != NULL);
     assert(
@@ -285,9 +278,7 @@ void set_init_copy_range(
 }
 
 void set_init_copy_range_cmp(
-    set_t* pt_setdest, 
-    set_iterator_t t_begin, 
-    set_iterator_t t_end,
+    set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end,
     int (*pfun_cmp)(const void*, const void*))
 {
     assert(pt_setdest != NULL);
@@ -484,10 +475,7 @@ set_iterator_t _set_find_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value, 
-            val_elemlist, 
-            t_typesize,
-            _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
     }
 
     t_newiterator = _avl_tree_find(_GET_SET_AVL_TREE(cpt_set), pc_value);
@@ -506,10 +494,7 @@ set_iterator_t _set_find_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_RB_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
     }
 
     t_newiterator = _rb_tree_find(_GET_SET_RB_TREE(cpt_set), pc_value);
@@ -552,10 +537,7 @@ size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
     }
 
     t_count = _avl_tree_count(_GET_SET_AVL_TREE(cpt_set), pc_value);
@@ -574,10 +556,7 @@ size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_RB_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
     }
 
     t_count = _rb_tree_count(_GET_SET_RB_TREE(cpt_set), pc_value);
@@ -616,10 +595,7 @@ set_iterator_t _set_lower_bound_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
     }
 
     t_newiterator = _avl_tree_lower_bound(_GET_SET_AVL_TREE(cpt_set), pc_value);
@@ -638,10 +614,7 @@ set_iterator_t _set_lower_bound_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_RB_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
     }
 
     t_newiterator = _rb_tree_lower_bound(_GET_SET_RB_TREE(cpt_set), pc_value);
@@ -684,10 +657,7 @@ set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
     }
 
     t_newiterator = _avl_tree_upper_bound(_GET_SET_AVL_TREE(cpt_set), pc_value);
@@ -706,10 +676,7 @@ set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_RB_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
     }
 
     t_newiterator = _rb_tree_upper_bound(_GET_SET_RB_TREE(cpt_set), pc_value);
@@ -759,10 +726,7 @@ pair_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
     }
 
     t_avlresult = _avl_tree_equal_range(_GET_SET_AVL_TREE(cpt_set), pc_value);
@@ -783,10 +747,7 @@ pair_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_RB_TREE(cpt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
     }
 
     t_rbresult = _rb_tree_equal_range(_GET_SET_RB_TREE(cpt_set), pc_value);
@@ -897,11 +858,9 @@ void set_swap(set_t* pt_setfirst, set_t* pt_setsecond)
     assert(pt_setfirst != NULL && pt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_swap(
-        _GET_SET_AVL_TREE(pt_setfirst), _GET_SET_AVL_TREE(pt_setsecond));
+    _avl_tree_swap(_GET_SET_AVL_TREE(pt_setfirst), _GET_SET_AVL_TREE(pt_setsecond));
 #else
-    _rb_tree_swap(
-        _GET_SET_RB_TREE(pt_setfirst), _GET_SET_RB_TREE(pt_setsecond));
+    _rb_tree_swap(_GET_SET_RB_TREE(pt_setfirst), _GET_SET_RB_TREE(pt_setsecond));
 #endif
 }
 
@@ -937,10 +896,7 @@ set_iterator_t _set_insert_varg(set_t* pt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_AVL_TREE(pt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(pt_set)->_sz_typename);
     }
 
     t_avlresult = _avl_tree_insert_unique(_GET_SET_AVL_TREE(pt_set), pc_value);
@@ -967,10 +923,7 @@ set_iterator_t _set_insert_varg(set_t* pt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_RB_TREE(pt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(pt_set)->_sz_typename);
     }
 
     t_rbresult = _rb_tree_insert_unique(_GET_SET_RB_TREE(pt_set), pc_value);
@@ -1026,10 +979,7 @@ set_iterator_t _set_insert_hint_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_AVL_TREE(pt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(pt_set)->_sz_typename);
     }
 
     t_avlresult = _avl_tree_insert_unique(_GET_SET_AVL_TREE(pt_set), pc_value);
@@ -1049,10 +999,7 @@ set_iterator_t _set_insert_hint_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_RB_TREE(pt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(pt_set)->_sz_typename);
     }
 
     t_rbresult = _rb_tree_insert_unique(_GET_SET_RB_TREE(pt_set), pc_value);
@@ -1069,8 +1016,7 @@ set_iterator_t _set_insert_hint_varg(
     return t_hint;
 }
 
-void set_insert_range(
-    set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
+void set_insert_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
 {
     assert(pt_set != NULL);
     assert(
@@ -1105,8 +1051,7 @@ void set_erase_pos(set_t* pt_set, set_iterator_t t_pos)
 #endif
 }
 
-void set_erase_range(
-    set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
+void set_erase_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
 {
     assert(pt_set != NULL);
     assert(
@@ -1152,10 +1097,7 @@ size_t _set_erase_varg(set_t* pt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_AVL_TREE(pt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(pt_set)->_sz_typename);
     }
 
     t_count = _avl_tree_erase(_GET_SET_AVL_TREE(pt_set), pc_value);
@@ -1174,10 +1116,7 @@ size_t _set_erase_varg(set_t* pt_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
-            _GET_SET_RB_TREE(pt_set)->_sz_typename);
+            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(pt_set)->_sz_typename);
     }
 
     t_count = _rb_tree_erase(_GET_SET_RB_TREE(pt_set), pc_value);
