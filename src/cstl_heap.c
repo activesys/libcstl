@@ -43,23 +43,11 @@
 
 /** local function prototype section **/
 /*
- *      Functionname: _adjust_heap
- *        Parameters: in) t_first: random_access_iterator_t
- *                            the first iterator.
- *                    in) t_last: random_access_iterator_t
- *                            the last iterator
- *                    in) t_parent: random_access_iterator_t
- *                            the parent iterator
- *                    in) t_binary_op: binary_function_t
- *                            binary function.
- *           Returns: void
- *       Description: adjust heap from parent.
+ * Adjust heap from parent.
  */
 static void _adjust_heap(
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_last,
-    random_access_iterator_t t_parent,
-    binary_function_t t_binary_op);
+    random_access_iterator_t t_first, random_access_iterator_t t_last,
+    random_access_iterator_t t_parent, binary_function_t t_binary_op);
 
 /** exported global variable definition section **/
 
@@ -151,8 +139,7 @@ void algo_pop_heap_if(
     }
 }
 
-void algo_sort_heap(
-    random_access_iterator_t t_first, random_access_iterator_t t_last)
+void algo_sort_heap(random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
     char* s_typename = _tools_get_typename(t_first);
     assert(s_typename != NULL);
@@ -176,8 +163,7 @@ void algo_sort_heap_if(
     }
 }
 
-void algo_make_heap(
-    random_access_iterator_t t_first, random_access_iterator_t t_last)
+void algo_make_heap(random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
     char* s_typename = _tools_get_typename(t_first);
     assert(s_typename != NULL);
@@ -219,8 +205,7 @@ void algo_make_heap_if(
     }
 }
 
-bool_t algo_is_heap(
-    random_access_iterator_t t_first, random_access_iterator_t t_last)
+bool_t algo_is_heap(random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
     char* s_typename = _tools_get_typename(t_first);
     assert(s_typename != NULL);
@@ -296,10 +281,8 @@ bool_t algo_is_heap_if(
 
 /** local function implementation section **/
 static void _adjust_heap(
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_last,
-    random_access_iterator_t t_parent,
-    binary_function_t t_binary_op)
+    random_access_iterator_t t_first, random_access_iterator_t t_last,
+    random_access_iterator_t t_parent, binary_function_t t_binary_op)
 {
     bool_t                   t_result = false;
     size_t                   t_len = 0;
