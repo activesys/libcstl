@@ -38,16 +38,9 @@
 /** local function prototype section **/
 #ifndef NDEBUG
 /*
- *  Functionname: _same_pair_type
- *    Parameters: in) cpt_pairfirst: const pair_t*
- *                    first pair pointer.
- *                in) cpt_pairsecond: const pair_t*
- *                    second pair pointer.
- *       Returns: bool_t
- *   Description: test the two pair is have the same type.
+ * Test the two pair is have the same type.
  */
-static bool_t _same_pair_type(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
+static bool_t _same_pair_type(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
 #endif /* NDEBUG */
 
 /** exported global variable definition section **/
@@ -93,10 +86,8 @@ void _pair_make_first(pair_t* pt_pair, ...)
 
     va_start(val_elemlist, pt_pair);
     _get_varg_value(
-        pt_pair->first,
-        val_elemlist,
-        pt_pair->_t_firsttypesize,
-        pt_pair->_sz_firsttypename);
+        pt_pair->first, val_elemlist,
+        pt_pair->_t_firsttypesize, pt_pair->_sz_firsttypename);
 }
 
 void _pair_make_second(pair_t* pt_pair, ...)
@@ -108,10 +99,8 @@ void _pair_make_second(pair_t* pt_pair, ...)
 
     va_start(val_elemlist, pt_pair);
     _get_varg_value(
-        pt_pair->second,
-        val_elemlist,
-        pt_pair->_t_secondtypesize,
-        pt_pair->_sz_secondtypename);
+        pt_pair->second, val_elemlist,
+        pt_pair->_t_secondtypesize, pt_pair->_sz_secondtypename);
 }
 
 /* pair function */
@@ -119,9 +108,7 @@ void pair_init(pair_t* pt_pair)
 {
     assert(pt_pair != NULL);
     assert(pt_pair->first == NULL && pt_pair->second == NULL);
-    assert(
-        pt_pair->_pfun_first_cmp == NULL &&
-        pt_pair->_pfun_second_cmp == NULL);
+    assert(pt_pair->_pfun_first_cmp == NULL && pt_pair->_pfun_second_cmp == NULL);
 
     pt_pair->first = malloc(pt_pair->_t_firsttypesize);
     if(pt_pair->first == NULL)
@@ -172,12 +159,10 @@ void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
         pt_pairdest->_t_secondtypesize == cpt_pairsrc->_t_secondtypesize);
     assert(
         strncmp(
-            pt_pairdest->_sz_firsttypename,
-            cpt_pairsrc->_sz_firsttypename,
+            pt_pairdest->_sz_firsttypename, cpt_pairsrc->_sz_firsttypename,
             _ELEM_TYPE_NAME_SIZE) == 0 &&
         strncmp(
-            pt_pairdest->_sz_secondtypename,
-            cpt_pairsrc->_sz_secondtypename,
+            pt_pairdest->_sz_secondtypename, cpt_pairsrc->_sz_secondtypename,
             _ELEM_TYPE_NAME_SIZE) == 0);
 
     /* initialize dest pair */
@@ -218,21 +203,17 @@ bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     }
 
     if(strncmp(
-        cpt_pairfirst->_sz_firsttypename, 
-        cpt_pairsecond->_sz_firsttypename, 
+        cpt_pairfirst->_sz_firsttypename, cpt_pairsecond->_sz_firsttypename, 
         _ELEM_TYPE_NAME_SIZE) != 0 ||
        strncmp(
-        cpt_pairfirst->_sz_secondtypename, 
-        cpt_pairsecond->_sz_secondtypename, 
+        cpt_pairfirst->_sz_secondtypename, cpt_pairsecond->_sz_secondtypename, 
         _ELEM_TYPE_NAME_SIZE) != 0)
     {
         return false;
     }
 
-    if(cpt_pairfirst->_pfun_first_cmp != 
-        cpt_pairsecond->_pfun_first_cmp ||
-       cpt_pairfirst->_pfun_second_cmp !=
-        cpt_pairsecond->_pfun_second_cmp)
+    if(cpt_pairfirst->_pfun_first_cmp != cpt_pairsecond->_pfun_first_cmp ||
+       cpt_pairfirst->_pfun_second_cmp != cpt_pairsecond->_pfun_second_cmp)
     {
         return false;
     }
@@ -248,8 +229,7 @@ bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     else
     {
         if(memcmp(
-            cpt_pairfirst->first, 
-            cpt_pairsecond->first, 
+            cpt_pairfirst->first, cpt_pairsecond->first, 
             cpt_pairfirst->_t_firsttypesize) != 0)
         {
             return false;
@@ -267,8 +247,7 @@ bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     else
     {
         if(memcmp(
-            cpt_pairfirst->second, 
-            cpt_pairsecond->second, 
+            cpt_pairfirst->second, cpt_pairsecond->second, 
             cpt_pairfirst->_t_secondtypesize) != 0)
         {
             return false;
@@ -298,8 +277,7 @@ bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     else
     {
         n_cmpresult = memcmp(
-            cpt_pairfirst->first, 
-            cpt_pairsecond->first, 
+            cpt_pairfirst->first, cpt_pairsecond->first, 
             cpt_pairfirst->_t_firsttypesize);
     }
 
@@ -321,8 +299,7 @@ bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     else
     {
         n_cmpresult = memcmp(
-            cpt_pairfirst->second, 
-            cpt_pairsecond->second, 
+            cpt_pairfirst->second, cpt_pairsecond->second,
             cpt_pairfirst->_t_secondtypesize);
     }
 
@@ -355,8 +332,7 @@ bool_t pair_great_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecon
 
 /** local function implementation section **/
 #ifndef NDEBUG
-static bool_t _same_pair_type(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
+static bool_t _same_pair_type(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 {
     assert(cpt_pairfirst != NULL && cpt_pairsecond != NULL);
 
@@ -365,19 +341,15 @@ static bool_t _same_pair_type(
         cpt_pairfirst->_t_secondtypesize == cpt_pairsecond->_t_secondtypesize);
     assert(
         strncmp(
-            cpt_pairfirst->_sz_firsttypename,
-            cpt_pairsecond->_sz_firsttypename,
+            cpt_pairfirst->_sz_firsttypename, cpt_pairsecond->_sz_firsttypename,
             _ELEM_TYPE_NAME_SIZE) == 0 &&
         strncmp(
-            cpt_pairfirst->_sz_secondtypename,
-            cpt_pairsecond->_sz_secondtypename,
+            cpt_pairfirst->_sz_secondtypename, cpt_pairsecond->_sz_secondtypename,
             _ELEM_TYPE_NAME_SIZE) == 0);
 
     assert(
-        cpt_pairfirst->_pfun_first_cmp == 
-            cpt_pairsecond->_pfun_first_cmp &&
-        cpt_pairfirst->_pfun_second_cmp == 
-            cpt_pairsecond->_pfun_second_cmp);
+        cpt_pairfirst->_pfun_first_cmp == cpt_pairsecond->_pfun_first_cmp &&
+        cpt_pairfirst->_pfun_second_cmp == cpt_pairsecond->_pfun_second_cmp);
 
     return true;
 }

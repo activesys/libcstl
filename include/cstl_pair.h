@@ -77,204 +77,31 @@ typedef struct _tagpair
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _create_pair
- *        Parameters: in) t_firsttypesize: size_t
- *                          the first element type size.
- *                    in) s_firsttypename: const char*
- *                          the first element type name.
- *                    in) t_secondtypesize: size_t
- *                          the second element type size.
- *                    in) s_secondtypename: const char*
- *                          the second element type name.
- *           Returns: pair_t
- *                          new pair.
- *       Description: create the new pair.
- *
- * ----------------------------------------------------------------------------
+ * Create, initialization and destroy functions.
  */
 extern pair_t _create_pair(
     size_t t_firsttypesize, const char* s_firsttypename,
     size_t t_secondtypesize, const char* s_secondtypename);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _make_first
- *        Parameters: in) pt_pair: pair_t*
- *                    in) first elemen.
- *           Returns: void
- *       Description: make the first element of pair.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _pair_make_first(pair_t* pt_pair, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _make_second
- *        Parameters: in) pt_pair: pair_t*
- *                    in) first elemen.
- *           Returns: void
- *       Description: make the second element of pair.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _pair_make_second(pair_t* pt_pair, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_init
- *        Parameters: in) pt_pair: pair_t*
- *           Returns: void
- *       Description: initialize the pair.
- *
- * ----------------------------------------------------------------------------
- */
 extern void pair_init(pair_t* pt_pair);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_destroy
- *        Parameters: in) pt_pair: pair_t*
- *           Returns: void
- *       Description: destroy the pair.
- *
- * ----------------------------------------------------------------------------
- */
 extern void pair_destroy(pair_t* pt_pair);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_init_copy
- *        Parameters: in) pt_pairdest: pair_t*
- *                          the dest pair.
- *                    in) cpt_pairsrc: const pair_t*
- *                          the source pair.
- *           Returns: void
- *       Description: copy the pair.
- *
- * ----------------------------------------------------------------------------
- */
 extern void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_assign
- *        Parameters: in) pt_pairdest: pair_t*
- *                          the dest pair.
- *                    in) cpt_pairsrc: const pair_t*
- *                          the source pair.
- *           Returns: void
- *       Description: copy the pair.
- *
- * ----------------------------------------------------------------------------
+ * Assign operator function.
  */
 extern void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_equal
- *        Parameters: in) cpt_pairfirst: const pair_t*
- *                          the first pair.
- *                    in) cpt_pairsecond: const pair_t*
- *                          the second pair.
- *           Returns: bool_t
- *       Description: return whether first pair equal to second pair.
- *
- * ----------------------------------------------------------------------------
+ * Relationship operator functions.
  */
-extern bool_t pair_equal(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_not_equal
- *        Parameters: in) cpt_pairfirst: const pair_t*
- *                          the first pair.
- *                    in) cpt_pairsecond: const pair_t*
- *                          the second pair.
- *           Returns: bool_t
- *       Description: return whether first pair not equal to second pair.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t pair_not_equal(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_less
- *        Parameters: in) cpt_pairfirst: const pair_t*
- *                          the first pair.
- *                    in) cpt_pairsecond: const pair_t*
- *                          the second pair.
- *           Returns: bool_t
- *       Description: return whether first pair less then second pair.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t pair_less(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_great
- *        Parameters: in) cpt_pairfirst: const pair_t*
- *                          the first pair.
- *                    in) cpt_pairsecond: const pair_t*
- *                          the second pair.
- *           Returns: bool_t
- *       Description: return whether first pair greater then second pair.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t pair_great(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_less_equal
- *        Parameters: in) cpt_pairfirst: const pair_t*
- *                          the first pair.
- *                    in) cpt_pairsecond: const pair_t*
- *                          the second pair.
- *           Returns: bool_t
- *       Description: return whether first pair less then or equal to the 
- *                    second pair.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t pair_less_equal(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: pair_great_equal
- *        Parameters: in) cpt_pairfirst: const pair_t*
- *                          the first pair.
- *                    in) cpt_pairsecond: const pair_t*
- *                          the second pair.
- *           Returns: bool_t
- *       Description: return whether first pair greater then or equal to the
- *                    second pair.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t pair_great_equal(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
+extern bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
+extern bool_t pair_not_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
+extern bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
+extern bool_t pair_great(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
+extern bool_t pair_less_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
+extern bool_t pair_great_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
 
 #ifdef __cplusplus
 }

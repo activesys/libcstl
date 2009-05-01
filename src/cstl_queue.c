@@ -326,17 +326,14 @@ void priority_queue_init_copy(
 
 void priority_queue_init_copy_range(
     priority_queue_t* pt_pqueuedest,
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_last)
+    random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
     priority_queue_init_copy_range_op(pt_pqueuedest, t_first, t_last, NULL);
 }
 
 void priority_queue_init_copy_range_op(
-    priority_queue_t* pt_pqueuedest,
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_last,
-    binary_function_t t_binary_op)
+    priority_queue_t* pt_pqueuedest, random_access_iterator_t t_first,
+    random_access_iterator_t t_last, binary_function_t t_binary_op)
 {
     assert(pt_pqueuedest != NULL);
 
@@ -346,14 +343,12 @@ void priority_queue_init_copy_range_op(
     if(pt_pqueuedest->_t_binary_op == NULL)
     {
         algo_make_heap(
-            vector_begin(&pt_pqueuedest->_t_vector),
-            vector_end(&pt_pqueuedest->_t_vector));
+            vector_begin(&pt_pqueuedest->_t_vector), vector_end(&pt_pqueuedest->_t_vector));
     }
     else
     {
         algo_make_heap_if(
-            vector_begin(&pt_pqueuedest->_t_vector),
-            vector_end(&pt_pqueuedest->_t_vector),
+            vector_begin(&pt_pqueuedest->_t_vector), vector_end(&pt_pqueuedest->_t_vector),
             pt_pqueuedest->_t_binary_op);
     }
 }
@@ -400,14 +395,12 @@ void _priority_queue_push(priority_queue_t* pt_pqueue, ...)
     if(pt_pqueue->_t_binary_op == NULL)
     {
         algo_push_heap(
-            vector_begin(&pt_pqueue->_t_vector),
-            vector_end(&pt_pqueue->_t_vector));
+            vector_begin(&pt_pqueue->_t_vector), vector_end(&pt_pqueue->_t_vector));
     }
     else
     {
         algo_push_heap_if(
-            vector_begin(&pt_pqueue->_t_vector),
-            vector_end(&pt_pqueue->_t_vector),
+            vector_begin(&pt_pqueue->_t_vector), vector_end(&pt_pqueue->_t_vector),
             pt_pqueue->_t_binary_op);
     }
 }
@@ -419,14 +412,12 @@ void priority_queue_pop(priority_queue_t* pt_pqueue)
     if(pt_pqueue->_t_binary_op == NULL)
     {
         algo_pop_heap(
-            vector_begin(&pt_pqueue->_t_vector),
-            vector_end(&pt_pqueue->_t_vector));
+            vector_begin(&pt_pqueue->_t_vector), vector_end(&pt_pqueue->_t_vector));
     }
     else
     {
         algo_pop_heap_if(
-            vector_begin(&pt_pqueue->_t_vector),
-            vector_end(&pt_pqueue->_t_vector),
+            vector_begin(&pt_pqueue->_t_vector), vector_end(&pt_pqueue->_t_vector),
             pt_pqueue->_t_binary_op);
     }
     vector_pop_back(&pt_pqueue->_t_vector);
