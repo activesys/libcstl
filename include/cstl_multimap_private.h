@@ -51,222 +51,42 @@ typedef struct _tagmultimap
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _create_multimap
- *        Parameters: in) t_keytypesize: size_t
- *                          the key element type size.
- *                    in) s_keytypename: const char*
- *                          the key element type name.
- *                    in) t_valuetypesize: size_t
- *                          the value element type size.
- *                    in) s_valuetypename: const char*
- *                          the value element type name.
- *           Returns: multimap_t
- *                          new multimap.
- *       Description: create the new multimap.
- *
- * ----------------------------------------------------------------------------
+ * Create the new multimap.
  */
 extern multimap_t _create_multimap(
     size_t t_keytypesize, const char* s_keytypename,
     size_t t_valuetypesize, const char* s_valuetypename);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_find
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) ...
- *                        the target value.
- *           Returns: multimap_iterator_t
- *                        the target iterator or end iterator.
- *       Description: find the value in multimap.
- *
- * ----------------------------------------------------------------------------
+ * Find operation functions.
  */
 extern multimap_iterator_t _multimap_find(const multimap_t* cpt_multimap, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_find_varg
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) val_elemlist: va_list
- *                        the target value.
- *           Returns: multimap_iterator_t
- *                        the target iterator or end iterator.
- *       Description: find the value in multimap.
- *
- * ----------------------------------------------------------------------------
- */
 extern multimap_iterator_t _multimap_find_varg(
     const multimap_t* cpt_multimap, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_count
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) ...
- *                        the target value.
- *           Returns: size_t
- *                        count.
- *       Description: counts the numbers of element whose key is value.
- *
- * ----------------------------------------------------------------------------
+ * Count operation functions.
  */
 extern size_t _multimap_count(const multimap_t* cpt_multimap, ...);
+extern size_t _multimap_count_varg(const multimap_t* cpt_multimap, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_count_varg
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) val_elemlist: va_list
- *                        the target value.
- *           Returns: size_t
- *                        count.
- *       Description: counts the numbers of element whose key is value.
- *
- * ----------------------------------------------------------------------------
+ * Lower bound, upper bound and equal range operation functions.
  */
-extern size_t _multimap_count_varg(
-    const multimap_t* cpt_multimap, va_list val_elemlist);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_lower_bound
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) ...
- *                        the target value.
- *           Returns: multimap_iterator_t
- *                        the target iterator or end iterator.
- *       Description: find the first element whose key is not less then value.
- *
- * ----------------------------------------------------------------------------
- */
-extern multimap_iterator_t _multimap_lower_bound(
-    const multimap_t* cpt_multimap, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_lower_bound_varg
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) val_elemlist: va_list
- *                        the target value.
- *           Returns: multimap_iterator_t
- *                        the target iterator or end iterator.
- *       Description: find the first element whose key is not less then value.
- *
- * ----------------------------------------------------------------------------
- */
+extern multimap_iterator_t _multimap_lower_bound(const multimap_t* cpt_multimap, ...);
 extern multimap_iterator_t _multimap_lower_bound_varg(
     const multimap_t* cpt_multimap, va_list val_elemlist);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_upper_bound
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) ...
- *                        the target value.
- *           Returns: multimap_iterator_t
- *                        the target iterator or end iterator.
- *       Description: find the first element whose key is greater then value.
- *
- * ----------------------------------------------------------------------------
- */
-extern multimap_iterator_t _multimap_upper_bound(
-    const multimap_t* cpt_multimap, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_upper_bound_varg
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) val_elemlist: va_list
- *                        the target value.
- *           Returns: multimap_iterator_t
- *                        the target iterator or end iterator.
- *       Description: find the first element whose key is greater then value.
- *
- * ----------------------------------------------------------------------------
- */
+extern multimap_iterator_t _multimap_upper_bound(const multimap_t* cpt_multimap, ...);
 extern multimap_iterator_t _multimap_upper_bound_varg(
     const multimap_t* cpt_multimap, va_list val_elemlist);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_equal_range
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) ...
- *                        the target value.
- *           Returns: pair_t(multimap_iterator_t, multimap_iterator_t).
- *       Description: find a range that contain all elements whos key is value.
- *
- * ----------------------------------------------------------------------------
- */
 extern pair_t _multimap_equal_range(const multimap_t* cpt_multimap, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_equal_range_varg
- *        Parameters: in) cpt_multimap: const multimap_t*
- *                        the multimap pointer.
- *                    in) val_elemlist: va_list
- *                        the target value.
- *           Returns: pair_t(multimap_iterator_t, multimap_iterator_t).
- *       Description: find a range that contain all elements whos key is value.
- *
- * ----------------------------------------------------------------------------
- */
 extern pair_t _multimap_equal_range_varg(
     const multimap_t* cpt_multimap, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_erase
- *        Parameters: in) pt_multimap: multimap_t*
- *                        the rb tree pointer.
- *                    in) ...
- *                        the target value.
- *           Returns: size_t
- *                        the element numbers.
- *       Description: erase all elements whose key is value.
- *
- * ----------------------------------------------------------------------------
+ * Erase operation functions.
  */
 extern size_t _multimap_erase(multimap_t* pt_multimap, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _multimap_erase_varg
- *        Parameters: in) pt_multimap: multimap_t*
- *                        the rb tree pointer.
- *                    in) val_elemlist: va_list
- *                        the target value.
- *           Returns: size_t
- *                        the element numbers.
- *       Description: erase all elements whose key is value.
- *
- * ----------------------------------------------------------------------------
- */
 extern size_t _multimap_erase_varg(multimap_t* pt_multimap, va_list val_elemlist);
 
 #ifdef __cplusplus
