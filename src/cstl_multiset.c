@@ -70,8 +70,7 @@ multiset_iterator_t create_multiset_iterator(void)
 }
 
 void _multiset_iterator_get_value(
-    const struct _tagmultiset* cpt_multiset, 
-    const multiset_iterator_t* cpt_iterator, 
+    const struct _tagmultiset* cpt_multiset, const multiset_iterator_t* cpt_iterator, 
     void* pv_value)
 {
     assert(cpt_multiset != NULL && cpt_iterator != NULL && pv_value != NULL);
@@ -90,8 +89,7 @@ void _multiset_iterator_get_value(
 }
 
 const void* _multiset_iterator_get_pointer(
-    const struct _tagmultiset* cpt_multiset, 
-    const multiset_iterator_t* cpt_iterator)
+    const struct _tagmultiset* cpt_multiset, const multiset_iterator_t* cpt_iterator)
 {
     assert(cpt_multiset != NULL && cpt_iterator != NULL);
     assert(
@@ -193,7 +191,7 @@ bool_t _multiset_iterator_before(
         _GET_MULTISET_CONTAINER_TYPE(cpt_iteratorsecond) == _MULTISET_CONTAINER && 
         _GET_MULTISET_ITERATOR_TYPE(cpt_iteratorsecond) == _BIDIRECTIONAL_ITERATOR &&
         _GET_MULTISET_CONTAINER(cpt_iteratorfirst) == 
-            _GET_MULTISET_CONTAINER(cpt_iteratorsecond));
+        _GET_MULTISET_CONTAINER(cpt_iteratorsecond));
 
 #ifdef CSTL_MULTISET_AVL_TREE
     return _avl_tree_iterator_before(cpt_iteratorfirst, cpt_iteratorsecond);
@@ -258,8 +256,7 @@ void multiset_destroy(multiset_t* pt_multiset)
 #endif
 }
 
-void multiset_init_copy(
-    multiset_t* pt_multisetdest, const multiset_t* cpt_multisetsrc)
+void multiset_init_copy(multiset_t* pt_multisetdest, const multiset_t* cpt_multisetsrc)
 {
     assert(pt_multisetdest != NULL && cpt_multisetsrc != NULL);
 
@@ -275,9 +272,7 @@ void multiset_init_copy(
 }
 
 void multiset_init_copy_range(
-    multiset_t* pt_multisetdest, 
-    multiset_iterator_t t_begin, 
-    multiset_iterator_t t_end)
+    multiset_t* pt_multisetdest, multiset_iterator_t t_begin, multiset_iterator_t t_end)
 {
     assert(pt_multisetdest != NULL);
     assert(
@@ -300,9 +295,7 @@ void multiset_init_copy_range(
 }
 
 void multiset_init_copy_range_cmp(
-    multiset_t* pt_multisetdest, 
-    multiset_iterator_t t_begin, 
-    multiset_iterator_t t_end,
+    multiset_t* pt_multisetdest, multiset_iterator_t t_begin, multiset_iterator_t t_end,
     int (*pfun_cmp)(const void*, const void*))
 {
     assert(pt_multisetdest != NULL);
@@ -325,8 +318,7 @@ void multiset_init_copy_range_cmp(
 #endif
 }
 
-void multiset_assign(
-    multiset_t* pt_multisetdest, const multiset_t* cpt_multisetsrc)
+void multiset_assign(multiset_t* pt_multisetdest, const multiset_t* cpt_multisetsrc)
 {
     assert(pt_multisetdest != NULL && cpt_multisetsrc != NULL);
 
@@ -450,8 +442,7 @@ multiset_iterator_t multiset_rend(const multiset_t* cpt_multiset)
     return t_newiterator;
 }
 
-int (*multiset_key_comp(const multiset_t* cpt_multiset))(
-    const void*, const void*)
+int (*multiset_key_comp(const multiset_t* cpt_multiset))(const void*, const void*)
 {
     assert(cpt_multiset != NULL);
 
@@ -462,8 +453,7 @@ int (*multiset_key_comp(const multiset_t* cpt_multiset))(
 #endif
 }
 
-int (*multiset_value_comp(const multiset_t* cpt_multiset))(
-    const void*, const void*)
+int (*multiset_value_comp(const multiset_t* cpt_multiset))(const void*, const void*)
 {
     return multiset_key_comp(cpt_multiset);
 }
@@ -507,14 +497,11 @@ multiset_iterator_t _multiset_find_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_AVL_TREE(cpt_multiset)->_sz_typename);
     }
 
-    t_newiterator = 
-        _avl_tree_find(_GET_MULTISET_AVL_TREE(cpt_multiset), pc_value);
+    t_newiterator = _avl_tree_find(_GET_MULTISET_AVL_TREE(cpt_multiset), pc_value);
 
     free(pc_value);
     pc_value = NULL;
@@ -530,14 +517,11 @@ multiset_iterator_t _multiset_find_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_RB_TREE(cpt_multiset)->_sz_typename);
     }
 
-    t_newiterator = 
-        _rb_tree_find(_GET_MULTISET_RB_TREE(cpt_multiset), pc_value);
+    t_newiterator = _rb_tree_find(_GET_MULTISET_RB_TREE(cpt_multiset), pc_value);
 
     free(pc_value);
     pc_value = NULL;
@@ -577,9 +561,7 @@ size_t _multiset_count_varg(const multiset_t* cpt_multiset, va_list val_elemlist
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_AVL_TREE(cpt_multiset)->_sz_typename);
     }
 
@@ -599,9 +581,7 @@ size_t _multiset_count_varg(const multiset_t* cpt_multiset, va_list val_elemlist
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_RB_TREE(cpt_multiset)->_sz_typename);
     }
 
@@ -642,14 +622,11 @@ multiset_iterator_t _multiset_lower_bound_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_AVL_TREE(cpt_multiset)->_sz_typename);
     }
 
-    t_newiterator = 
-        _avl_tree_lower_bound(_GET_MULTISET_AVL_TREE(cpt_multiset), pc_value);
+    t_newiterator = _avl_tree_lower_bound(_GET_MULTISET_AVL_TREE(cpt_multiset), pc_value);
 
     free(pc_value);
     pc_value = NULL;
@@ -665,14 +642,11 @@ multiset_iterator_t _multiset_lower_bound_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_RB_TREE(cpt_multiset)->_sz_typename);
     }
 
-    t_newiterator = 
-        _rb_tree_lower_bound(_GET_MULTISET_RB_TREE(cpt_multiset), pc_value);
+    t_newiterator = _rb_tree_lower_bound(_GET_MULTISET_RB_TREE(cpt_multiset), pc_value);
 
     free(pc_value);
     pc_value = NULL;
@@ -713,14 +687,11 @@ multiset_iterator_t _multiset_upper_bound_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_AVL_TREE(cpt_multiset)->_sz_typename);
     }
 
-    t_newiterator = 
-        _avl_tree_upper_bound(_GET_MULTISET_AVL_TREE(cpt_multiset), pc_value);
+    t_newiterator = _avl_tree_upper_bound(_GET_MULTISET_AVL_TREE(cpt_multiset), pc_value);
 
     free(pc_value);
     pc_value = NULL;
@@ -736,14 +707,11 @@ multiset_iterator_t _multiset_upper_bound_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_RB_TREE(cpt_multiset)->_sz_typename);
     }
 
-    t_newiterator = 
-        _rb_tree_upper_bound(_GET_MULTISET_RB_TREE(cpt_multiset), pc_value);
+    t_newiterator = _rb_tree_upper_bound(_GET_MULTISET_RB_TREE(cpt_multiset), pc_value);
 
     free(pc_value);
     pc_value = NULL;
@@ -763,8 +731,7 @@ pair_t _multiset_equal_range(const multiset_t* cpt_multiset, ...)
     return _multiset_equal_range_varg(cpt_multiset, val_elemlist);
 }
 
-pair_t _multiset_equal_range_varg(
-    const multiset_t* cpt_multiset, va_list val_elemlist)
+pair_t _multiset_equal_range_varg(const multiset_t* cpt_multiset, va_list val_elemlist)
 {
     char*               pc_value = NULL;
     size_t              t_typesize = 0;
@@ -791,14 +758,11 @@ pair_t _multiset_equal_range_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_AVL_TREE(cpt_multiset)->_sz_typename);
     }
 
-    t_avlresult = 
-        _avl_tree_equal_range(_GET_MULTISET_AVL_TREE(cpt_multiset), pc_value);
+    t_avlresult = _avl_tree_equal_range(_GET_MULTISET_AVL_TREE(cpt_multiset), pc_value);
     t_firstiterator = t_avlresult._t_first;
     t_seconditerator = t_avlresult._t_second._t_iterator;
 
@@ -816,9 +780,7 @@ pair_t _multiset_equal_range_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_RB_TREE(cpt_multiset)->_sz_typename);
     }
 
@@ -985,9 +947,7 @@ multiset_iterator_t _multiset_insert_varg(multiset_t* pt_multiset, va_list val_e
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_AVL_TREE(pt_multiset)->_sz_typename);
     }
 
@@ -1008,9 +968,7 @@ multiset_iterator_t _multiset_insert_varg(multiset_t* pt_multiset, va_list val_e
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_RB_TREE(pt_multiset)->_sz_typename);
     }
 
@@ -1056,9 +1014,7 @@ multiset_iterator_t _multiset_insert_hint_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_AVL_TREE(pt_multiset)->_sz_typename);
     }
 
@@ -1079,9 +1035,7 @@ multiset_iterator_t _multiset_insert_hint_varg(
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_RB_TREE(pt_multiset)->_sz_typename);
     }
 
@@ -1100,9 +1054,7 @@ multiset_iterator_t _multiset_insert_hint_varg(
 }
 
 void multiset_insert_range(
-    multiset_t* pt_multiset, 
-    multiset_iterator_t t_begin, 
-    multiset_iterator_t t_end)
+    multiset_t* pt_multiset, multiset_iterator_t t_begin, multiset_iterator_t t_end)
 {
     assert(pt_multiset != NULL);
     assert(
@@ -1116,11 +1068,9 @@ void multiset_insert_range(
         _GET_MULTISET_CONTAINER(&t_begin) == _GET_MULTISET_CONTAINER(&t_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_insert_equal_range(
-        _GET_MULTISET_AVL_TREE(pt_multiset), t_begin, t_end);
+    _avl_tree_insert_equal_range(_GET_MULTISET_AVL_TREE(pt_multiset), t_begin, t_end);
 #else
-    _rb_tree_insert_equal_range(
-        _GET_MULTISET_RB_TREE(pt_multiset), t_begin, t_end);
+    _rb_tree_insert_equal_range(_GET_MULTISET_RB_TREE(pt_multiset), t_begin, t_end);
 #endif
 }
 
@@ -1140,9 +1090,7 @@ void multiset_erase_pos(multiset_t* pt_multiset, multiset_iterator_t t_pos)
 }
 
 void multiset_erase_range(
-    multiset_t* pt_multiset, 
-    multiset_iterator_t t_begin, 
-    multiset_iterator_t t_end)
+    multiset_t* pt_multiset, multiset_iterator_t t_begin, multiset_iterator_t t_end)
 {
     assert(pt_multiset != NULL);
     assert(
@@ -1188,9 +1136,7 @@ size_t _multiset_erase_varg(multiset_t* pt_multiset, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_AVL_TREE(pt_multiset)->_sz_typename);
     }
 
@@ -1210,9 +1156,7 @@ size_t _multiset_erase_varg(multiset_t* pt_multiset, va_list val_elemlist)
     {
         memset(pc_value, 0x00, t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            t_typesize,
+            pc_value, val_elemlist, t_typesize,
             _GET_MULTISET_RB_TREE(pt_multiset)->_sz_typename);
     }
 
