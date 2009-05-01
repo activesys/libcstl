@@ -37,52 +37,11 @@ extern "C" {
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _iterator_same_type
- *        Parameters: in) t_iterator: iterator_t
- *                            the first iterator for distance.
- *                    in) t_iteratorsrc: iterator_t
- *                            the second iterator for distance.
- *           Returns: bool_t
- *       Description: check the first iterator is same the second.
- *
- * ----------------------------------------------------------------------------
+ * Private iterator functions.
  */
-extern bool_t _iterator_same_type(
-    iterator_t t_iteratorfirst, iterator_t t_iteratorsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _iterator_before
- *        Parameters: in) t_iterator: iterator_t
- *                            the first iterator for distance.
- *                    in) t_iteratorsrc: iterator_t
- *                            the second iterator for distance.
- *           Returns: bool_t
- *       Description: check the first iterator is before the second.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t _iterator_before(
-    iterator_t t_iteratorfirst, iterator_t t_iteratorsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _iterator_limit_type
- *        Parameters: in) t_iterator: iterator_t
- *                            the iterator.
- *                    in) t_limittype: iteratortype_t
- *                            the iterator type.
- *           Returns: bool_t
- *       Description: check the iterator type.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t _iterator_limit_type(
-    iterator_t t_iterator, iteratortype_t t_limittype);
+extern bool_t _iterator_same_type(iterator_t t_iteratorfirst, iterator_t t_iteratorsecond);
+extern bool_t _iterator_before(iterator_t t_iteratorfirst, iterator_t t_iteratorsecond);
+extern bool_t _iterator_limit_type(iterator_t t_iterator, iteratortype_t t_limittype);
 
 #ifdef __cplusplus
 }

@@ -247,250 +247,51 @@ typedef output_iterator_t           ostream_iterator_t;
 /** exported function prototype section **/
 /* the handler of iterator */
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_copy
- *        Parameters: modify) pt_iterator: iterator_t*
- *                            the iterator pointer for assign.
- *                    in) t_iteratorsrc: iterator_t
- *                            the source iterator
- *           Returns: void
- *       Description: copy the iterator for sepcify value.
- *
- * ----------------------------------------------------------------------------
+ * Copy and assign (private).
  */
 extern void iterator_copy(iterator_t* pt_iterator, iterator_t t_iteratorsrc);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_assign
- *        Parameters: modify) pt_iterator: iterator_t*
- *                            the iterator pointer for assign.
- *                    in) t_iteratorsrc: iterator_t
- *                            the source iterator
- *           Returns: void
- *       Description: assign the iterator for sepcify value.
- *
- * ----------------------------------------------------------------------------
- */
 extern void iterator_assign(iterator_t* pt_iterator, iterator_t t_iteratorsrc);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_get_value
- *        Parameters: in) cpt_iterator: const iterator_t*
- *                            the iterator pointer for getting value.
- *                    modify)pv_value: void*
- *                            the value pointer.
- *           Returns: void
- *       Description: get the value of current iterator.
- *
- * ----------------------------------------------------------------------------
+ * Get and set value.
  */
 extern void iterator_get_value(const iterator_t* cpt_iterator, void* pv_value);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_set_value
- *        Parameters: in) cpt_iterator: const iterator_t*
- *                            the iterator pointer for setting value.
- *                    in)cpv_value: const void*
- *                            the value pointer.
- *           Returns: void
- *       Description: set the value of current iterator.
- *
- * ----------------------------------------------------------------------------
- */
-extern void iterator_set_value(
-    const iterator_t* cpt_iterator, const void* cpv_value);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_get_pointer
- *        Parameters: in) cpt_iterator: const iterator_t*
- *                            the iterator pointer for getting pointer.
- *           Returns: const void*
- *                            the container pointer.
- *       Description: get the pointer of current iterator.
- *
- * ----------------------------------------------------------------------------
- */
+extern void iterator_set_value(const iterator_t* cpt_iterator, const void* cpv_value);
 extern const void* iterator_get_pointer(const iterator_t* cpt_iterator);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_next
- *        Parameters: in) pt_iterator: iterator_t*
- *                            the iterator pointer for getting pointer.
- *           Returns: void
- *       Description: to the next position of current iterator.
- *
- * ----------------------------------------------------------------------------
+ * Move iterator.
  */
 extern void iterator_next(iterator_t* pt_iterator);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_equal
- *        Parameters: in) cpt_iterator: const iterator_t*
- *                            the iterator pointer.
- *                    in) t_iterator: iterator_t
- *                            iterator.
- *           Returns: bool_t
- *       Description: if the two iterator is equal.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t iterator_equal(
-    const iterator_t* cpt_iterator, iterator_t t_iterator);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_prev
- *        Parameters: in) pt_iterator: iterator_t*
- *                            the iterator pointer for getting pointer.
- *           Returns: void
- *       Description: to the previous position of current iterator.
- *
- * ----------------------------------------------------------------------------
- */
 extern void iterator_prev(iterator_t* pt_iterator);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_at
- *        Parameters: in) cpt_iterator: const iterator_t*
- *                            the iterator pointer for getting value.
- *                    in) un_index: unsigned int
- *                            the index of iterator.
- *           Returns: void
- *       Description: get the value of current iterator with index n.
- *
- * ----------------------------------------------------------------------------
- */
-extern void* iterator_at(const iterator_t* cpt_iterator, unsigned int un_index);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_next_n
- *        Parameters: in) pt_iterator: iterator_t*
- *                            the iterator pointer for getting pointer.
- *                    in) n_step: int
- *                            the step of next.
- *           Returns: void
- *       Description: to the next n position of current iterator.
- *
- * ----------------------------------------------------------------------------
- */
 extern void iterator_next_n(iterator_t* pt_iterator, int n_step);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_prev_n
- *        Parameters: in) pt_iterator: iterator_t*
- *                            the iterator pointer for getting pointer.
- *                    in) n_step: int
- *                            the step of previous.
- *           Returns: void
- *       Description: to the previous n position of current iterator.
- *
- * ----------------------------------------------------------------------------
- */
 extern void iterator_prev_n(iterator_t* pt_iterator, int n_step);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_minus
- *        Parameters: in) cpt_iterator: const iterator_t*
- *                            the iterator pointer for minu.
- *                    in) t_iteratorsrc: iterator_t
- *                            the source iterator
- *           Returns: int
- *                            the distance of two iterator.
- *       Description: compute the distance of two iterator.
- *
- * ----------------------------------------------------------------------------
+ * Relationship operator functions.
  */
-extern int iterator_minus(
-    const iterator_t* cpt_iterator, iterator_t t_iterator);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_less
- *        Parameters: in) cpt_iterator: const iterator_t*
- *                            the iterator pointer for minu.
- *                    in) t_iteratorsrc: iterator_t
- *                            the source iterator
- *           Returns: bool_t
- *                            if the first iterator less then the second.
- *       Description: test if the first iterator less then the second.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t iterator_less(
-    const iterator_t* cpt_iterator, iterator_t t_iterator);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_less_equal
- *        Parameters: in) cpt_iterator: const iterator_t*
- *                            the iterator pointer for minu.
- *                    in) t_iteratorsrc: iterator_t
- *                            the source iterator
- *           Returns: bool_t
- *                            if the first iterator less equal then the second.
- *       Description: test if the first iterator less equal then the second.
- *
- * ----------------------------------------------------------------------------
- */
+extern bool_t iterator_equal(const iterator_t* cpt_iterator, iterator_t t_iterator);
+extern bool_t iterator_less(const iterator_t* cpt_iterator, iterator_t t_iterator);
 extern bool_t iterator_less_equal(
     const iterator_t* cpt_iterator, iterator_t t_iterator);
 
-/* the iterator auxilary function */
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_advance
- *        Parameters: in) pt_iterator: iterator_t*
- *                            the iterator pointer for getting pointer.
- *                    in) n_step: int
- *                            the step of next.
- *           Returns: void
- *       Description: to the next n position of current iterator.
- *
- * ----------------------------------------------------------------------------
+ * Element random access.
  */
-extern void iterator_advance(iterator_t* pt_iterator, int n_step);
+extern void* iterator_at(const iterator_t* cpt_iterator, unsigned int un_index);
+
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: iterator_distance
- *        Parameters: in) t_iterator: iterator_t
- *                            the first iterator for distance.
- *                    in) t_iteratorsrc: iterator_t
- *                            the second iterator for distance.
- *           Returns: int
- *                            the distance of two iterator.
- *       Description: compute the distance of two iterator.
- *
- * ----------------------------------------------------------------------------
+ * Distance.
  */
-extern int iterator_distance(
-    iterator_t t_iteratorfirst, iterator_t t_iteratorsecond);
+extern int iterator_minus(const iterator_t* cpt_iterator, iterator_t t_iterator);
+
+/* the iterator auxilary function */
+/*
+ * Advance and distance.
+ */
+extern void iterator_advance(iterator_t* pt_iterator, int n_step);
+extern int iterator_distance(iterator_t t_iteratorfirst, iterator_t t_iteratorsecond);
 
 #ifdef __cplusplus
 }

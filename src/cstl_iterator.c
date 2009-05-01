@@ -183,10 +183,7 @@ void iterator_copy(iterator_t* pt_iterator, iterator_t t_iteratorsrc)
     pt_iterator->_t_containertype = t_iteratorsrc._t_containertype;
     pt_iterator->_pt_container = t_iteratorsrc._pt_container;
     /*pt_iterator->_pc_corepos = t_iteratorsrc._pc_corepos;*/
-    memcpy(
-        &pt_iterator->_t_pos, 
-        &t_iteratorsrc._t_pos, 
-        sizeof(pt_iterator->_t_pos));
+    memcpy(&pt_iterator->_t_pos, &t_iteratorsrc._t_pos, sizeof(pt_iterator->_t_pos));
 }
 
 void iterator_assign(iterator_t* pt_iterator, iterator_t t_iteratorsrc)
@@ -203,10 +200,7 @@ void iterator_assign(iterator_t* pt_iterator, iterator_t t_iteratorsrc)
         pt_iterator->_t_containertype = t_iteratorsrc._t_containertype;
         pt_iterator->_pt_container = t_iteratorsrc._pt_container;
         /*pt_iterator->_pc_corepos = t_iteratorsrc._pc_corepos;*/
-        memcpy(
-            &pt_iterator->_t_pos,
-            &t_iteratorsrc._t_pos,
-            sizeof(pt_iterator->_t_pos));
+        memcpy(&pt_iterator->_t_pos, &t_iteratorsrc._t_pos, sizeof(pt_iterator->_t_pos));
     }
 }
 
@@ -225,80 +219,67 @@ void iterator_get_value(const iterator_t* cpt_iterator, void* pv_value)
     case _VECTOR_CONTAINER:
         _vector_iterator_get_value(
             (struct _tagvector*)(cpt_iterator->_pt_container),  
-            cpt_iterator, 
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _LIST_CONTAINER:
         _list_iterator_get_value(
             (struct _taglist*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _DEQUE_CONTAINER:
         _deque_iterator_get_value(
             (struct _tagdeque*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _SLIST_CONTAINER:
         _slist_iterator_get_value(
             (struct _tagslist*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _SET_CONTAINER:
         _set_iterator_get_value(
             (struct _tagset*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _MULTISET_CONTAINER:
         _multiset_iterator_get_value(
             (struct _tagmultiset*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _MAP_CONTAINER:
         _map_iterator_get_value(
             (struct _tagmap*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _MULTIMAP_CONTAINER:
         _multimap_iterator_get_value(
             (struct _tagmultimap*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _HASH_SET_CONTAINER:
         _hash_set_iterator_get_value(
             (struct _taghashset*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _HASH_MULTISET_CONTAINER:
         _hash_multiset_iterator_get_value(
             (struct _taghashmultiset*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _HASH_MAP_CONTAINER:
         _hash_map_iterator_get_value(
             (struct _taghashmap*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _HASH_MULTIMAP_CONTAINER:
         _hash_multimap_iterator_get_value(
             (struct _taghashmultimap*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     case _BASIC_STRING_CONTAINER:
         _basic_string_iterator_get_value(
             (struct _tagbasicstring*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            pv_value);
+            cpt_iterator, pv_value);
         break;
     default:
         assert(false);
@@ -321,32 +302,27 @@ void iterator_set_value(const iterator_t* cpt_iterator, const void* cpv_value)
     case _VECTOR_CONTAINER:
         _vector_iterator_set_value(
             (struct _tagvector*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            cpv_value);
+            cpt_iterator, cpv_value);
         break;
     case _LIST_CONTAINER:
         _list_iterator_set_value(
             (struct _taglist*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            cpv_value);
+            cpt_iterator, cpv_value);
         break;
     case _DEQUE_CONTAINER:
         _deque_iterator_set_value(
             (struct _tagdeque*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            cpv_value);
+            cpt_iterator, cpv_value);
         break;
     case _SLIST_CONTAINER:
         _slist_iterator_set_value(
             (struct _tagslist*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            cpv_value);
+            cpt_iterator, cpv_value);
         break;
     case _BASIC_STRING_CONTAINER:
         _basic_string_iterator_set_value(
             (struct _tagbasicstring*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            cpv_value);
+            cpt_iterator, cpv_value);
         break;
     default:
         assert(false);
@@ -549,80 +525,67 @@ bool_t iterator_equal(const iterator_t* cpt_iterator, iterator_t t_iterator)
     case _VECTOR_CONTAINER:
         return _vector_iterator_equal(
             (struct _tagvector*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _LIST_CONTAINER:
         return _list_iterator_equal(
             (struct _taglist*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _DEQUE_CONTAINER:
         return _deque_iterator_equal(
             (struct _tagdeque*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _SLIST_CONTAINER:
         return _slist_iterator_equal(
             (struct _tagslist*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _SET_CONTAINER:
         return _set_iterator_equal(
             (struct _tagset*)(cpt_iterator->_pt_container), 
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _MULTISET_CONTAINER:
         return _multiset_iterator_equal(
             (struct _tagmultiset*)(cpt_iterator->_pt_container),
-            cpt_iterator, 
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _MAP_CONTAINER:
         return _map_iterator_equal(
             (struct _tagmap*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _MULTIMAP_CONTAINER:
         return _multimap_iterator_equal(
             (struct _tagmultimap*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _HASH_SET_CONTAINER:
         return _hash_set_iterator_equal(
             (struct _taghashset*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _HASH_MULTISET_CONTAINER:
         return _hash_multiset_iterator_equal(
             (struct _taghashmultiset*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _HASH_MAP_CONTAINER:
         return _hash_map_iterator_equal(
             (struct _taghashmap*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _HASH_MULTIMAP_CONTAINER:
         return _hash_multimap_iterator_equal(
             (struct _taghashmultimap*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _BASIC_STRING_CONTAINER:
         return _basic_string_iterator_equal(
             (struct _tagbasicstring*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     default:
         assert(false);
@@ -641,20 +604,17 @@ void* iterator_at(const iterator_t* cpt_iterator, unsigned int un_index)
     case _VECTOR_CONTAINER:
         return _vector_iterator_at(
             (struct _tagvector*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            un_index);
+            cpt_iterator, un_index);
         break;
     case _DEQUE_CONTAINER:
         return _deque_iterator_at(
             (struct _tagdeque*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            un_index);
+            cpt_iterator, un_index);
         break;
     case _BASIC_STRING_CONTAINER:
         return _basic_string_iterator_at(
             (struct _tagbasicstring*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            un_index);
+            cpt_iterator, un_index);
         break;
     default:
         assert(false);
@@ -672,21 +632,18 @@ void iterator_next_n(iterator_t* pt_iterator, int n_step)
     {
     case _VECTOR_CONTAINER:
         _vector_iterator_next_n(
-            (struct _tagvector*)(pt_iterator->_pt_container), 
-            pt_iterator,
-            n_step);
+            (struct _tagvector*)(pt_iterator->_pt_container),
+            pt_iterator, n_step);
         break;
     case _DEQUE_CONTAINER:
         _deque_iterator_next_n(
             (struct _tagdeque*)(pt_iterator->_pt_container),
-            pt_iterator,
-            n_step);
+            pt_iterator, n_step);
         break;
     case _BASIC_STRING_CONTAINER:
         _basic_string_iterator_next_n(
             (struct _tagbasicstring*)(pt_iterator->_pt_container),
-            pt_iterator,
-            n_step);
+            pt_iterator, n_step);
         break;
     default:
         assert(false);
@@ -704,20 +661,17 @@ void iterator_prev_n(iterator_t* pt_iterator, int n_step)
     case _VECTOR_CONTAINER:
         _vector_iterator_prev_n(
             (struct _tagvector*)(pt_iterator->_pt_container),
-            pt_iterator,
-            n_step);
+            pt_iterator, n_step);
         break;
     case _DEQUE_CONTAINER:
         _deque_iterator_prev_n(
             (struct _tagdeque*)(pt_iterator->_pt_container),
-            pt_iterator,
-            n_step);
+            pt_iterator, n_step);
         break;
     case _BASIC_STRING_CONTAINER:
         _basic_string_iterator_prev_n(
             (struct _tagbasicstring*)(pt_iterator->_pt_container),
-            pt_iterator,
-            n_step);
+            pt_iterator, n_step);
         break;
     default:
         assert(false);
@@ -738,20 +692,17 @@ int iterator_minus(const iterator_t* cpt_iterator, iterator_t t_iterator)
     case _VECTOR_CONTAINER:
         return _vector_iterator_minus(
             (struct _tagvector*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _DEQUE_CONTAINER:
         return _deque_iterator_minus(
             (struct _tagdeque*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _BASIC_STRING_CONTAINER:
         return _basic_string_iterator_minus(
             (struct _tagbasicstring*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     default:
         assert(false);
@@ -760,8 +711,7 @@ int iterator_minus(const iterator_t* cpt_iterator, iterator_t t_iterator)
     }
 }
 
-bool_t iterator_less(
-    const iterator_t* cpt_iterator, iterator_t t_iterator)
+bool_t iterator_less(const iterator_t* cpt_iterator, iterator_t t_iterator)
 {
     assert(cpt_iterator != NULL);
     assert(cpt_iterator->_t_iteratortype == t_iterator._t_iteratortype);
@@ -774,20 +724,17 @@ bool_t iterator_less(
     case _VECTOR_CONTAINER:
         return _vector_iterator_less(
             (struct _tagvector*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _DEQUE_CONTAINER:
         return _deque_iterator_less(
             (struct _tagdeque*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     case _BASIC_STRING_CONTAINER:
         return _basic_string_iterator_less(
             (struct _tagbasicstring*)(cpt_iterator->_pt_container),
-            cpt_iterator,
-            t_iterator);
+            cpt_iterator, t_iterator);
         break;
     default:
         assert(false);
@@ -796,8 +743,7 @@ bool_t iterator_less(
     }
 }
 
-bool_t iterator_less_equal(
-    const iterator_t* cpt_iterator, iterator_t t_iterator)
+bool_t iterator_less_equal(const iterator_t* cpt_iterator, iterator_t t_iterator)
 {
     if(iterator_less(cpt_iterator, t_iterator) ||
        iterator_equal(cpt_iterator, t_iterator))
