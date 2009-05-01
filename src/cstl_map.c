@@ -47,35 +47,19 @@
 /** local function prototype section **/
 #ifndef NDEBUG
 /*
- *  Functionname: _same_map_pair_type
- *    Parameters: in) cpt_pairfirst: const pair_t*
- *                    first pair pointer.
- *                in) cpt_pairsecond: const pair_t*
- *                    second pair pointer.
- *       Returns: bool_t
- *   Description: test the two pair is have the same type.
+ * Test the two pair is have the same type.
  */
 static bool_t _same_map_pair_type(
     const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
 #endif /* NDEBUG */
 
 /*
- *  Functionname: _map_cmp
- *    Parameters: in) cpv_firstelem: const void*
- *                    first element.
- *                in) cpv_secondelem: const void*
- *                    second element.
- *       Returns: int
- *   Description: map element compare function.
+ * map_t element compare function.
  */
 static int _map_cmp(const void* cpv_firstelem, const void* cpv_secondelem);
 
 /*
- *  Functionname: _map_destroy_elem
- *    Parameters: in) pv_value: void*
- *                    value pointer.
- *       Returns: void
- *   Description: destroy element function.
+ * Destroy element function.
  */
 static void _map_destroy_elem(void* pv_value);
 
@@ -102,9 +86,7 @@ map_iterator_t create_map_iterator(void)
 }
 
 void _map_iterator_get_value(
-    const struct _tagmap* cpt_map, 
-    const map_iterator_t* cpt_iterator, 
-    void* pv_value)
+    const struct _tagmap* cpt_map, const map_iterator_t* cpt_iterator, void* pv_value)
 {
     assert(cpt_map != NULL && cpt_iterator != NULL && pv_value != NULL);
     assert(
@@ -139,8 +121,7 @@ const void* _map_iterator_get_pointer(
 #endif
 }
 
-void _map_iterator_next(
-    const struct _tagmap* cpt_map, map_iterator_t* pt_iterator)
+void _map_iterator_next(const struct _tagmap* cpt_map, map_iterator_t* pt_iterator)
 {
     assert(cpt_map != NULL && pt_iterator != NULL);
     assert(
@@ -155,8 +136,7 @@ void _map_iterator_next(
 #endif
 }
 
-void _map_iterator_prev(
-    const struct _tagmap* cpt_map, map_iterator_t* pt_iterator)
+void _map_iterator_prev(const struct _tagmap* cpt_map, map_iterator_t* pt_iterator)
 {
     assert(cpt_map != NULL && pt_iterator != NULL);
     assert(
@@ -172,8 +152,7 @@ void _map_iterator_prev(
 }
 
 bool_t _map_iterator_equal(
-    const struct _tagmap* cpt_map, 
-    const map_iterator_t* cpt_iterator,
+    const struct _tagmap* cpt_map, const map_iterator_t* cpt_iterator,
     map_iterator_t t_iterator)
 {
     assert(cpt_map != NULL && cpt_iterator != NULL);
@@ -298,10 +277,8 @@ void map_init_copy(map_t* pt_mapdest, const map_t* cpt_mapsrc)
 {
     assert(pt_mapdest != NULL && cpt_mapsrc != NULL);
     assert(
-        pt_mapdest->_t_pair._t_firsttypesize == 
-            cpt_mapsrc->_t_pair._t_firsttypesize &&
-        pt_mapdest->_t_pair._t_secondtypesize ==
-            cpt_mapsrc->_t_pair._t_secondtypesize);
+        pt_mapdest->_t_pair._t_firsttypesize == cpt_mapsrc->_t_pair._t_firsttypesize &&
+        pt_mapdest->_t_pair._t_secondtypesize == cpt_mapsrc->_t_pair._t_secondtypesize);
     assert(
         strncmp(
             pt_mapdest->_t_pair._sz_firsttypename,
@@ -321,8 +298,7 @@ void map_init_copy(map_t* pt_mapdest, const map_t* cpt_mapsrc)
     }
 }
 
-void map_init_copy_range(
-    map_t* pt_mapdest, map_iterator_t t_begin, map_iterator_t t_end)
+void map_init_copy_range(map_t* pt_mapdest, map_iterator_t t_begin, map_iterator_t t_end)
 {
     assert(pt_mapdest != NULL);
     assert(
@@ -488,10 +464,8 @@ bool_t map_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond)
     assert(cpt_mapfirst != NULL && cpt_mapsecond != NULL);
 
     /* test pair */
-    if(cpt_mapfirst->_t_pair._t_firsttypesize != 
-        cpt_mapsecond->_t_pair._t_firsttypesize || 
-       cpt_mapfirst->_t_pair._t_secondtypesize != 
-        cpt_mapsecond->_t_pair._t_secondtypesize)
+    if(cpt_mapfirst->_t_pair._t_firsttypesize != cpt_mapsecond->_t_pair._t_firsttypesize ||
+       cpt_mapfirst->_t_pair._t_secondtypesize != cpt_mapsecond->_t_pair._t_secondtypesize)
     {
         return false;
     }
@@ -506,10 +480,8 @@ bool_t map_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond)
     {
         return false;
     }
-    if(cpt_mapfirst->_t_pair._pfun_first_cmp != 
-        cpt_mapsecond->_t_pair._pfun_first_cmp || 
-       cpt_mapfirst->_t_pair._pfun_second_cmp != 
-        cpt_mapsecond->_t_pair._pfun_second_cmp)
+    if(cpt_mapfirst->_t_pair._pfun_first_cmp != cpt_mapsecond->_t_pair._pfun_first_cmp || 
+       cpt_mapfirst->_t_pair._pfun_second_cmp != cpt_mapsecond->_t_pair._pfun_second_cmp)
     {
         return false;
     }
@@ -675,10 +647,8 @@ map_iterator_t _map_find_varg(const map_t* cpt_map, va_list val_elemlist)
 
     /* get key */
     _get_varg_value(
-        cpt_map->_t_pair.first,
-        val_elemlist,
-        cpt_map->_t_pair._t_firsttypesize,
-        cpt_map->_t_pair._sz_firsttypename);
+        cpt_map->_t_pair.first, val_elemlist,
+        cpt_map->_t_pair._t_firsttypesize, cpt_map->_t_pair._sz_firsttypename);
     /* find key in tree */
 #ifdef CSTL_MAP_AVL_TREE
     t_iterator = _avl_tree_find(_GET_MAP_AVL_TREE(cpt_map), &cpt_map->_t_pair);
@@ -705,10 +675,8 @@ size_t _map_count_varg(const map_t* cpt_map, va_list val_elemlist)
     assert(cpt_map != NULL);
 
     _get_varg_value(
-        cpt_map->_t_pair.first,
-        val_elemlist,
-        cpt_map->_t_pair._t_firsttypesize,
-        cpt_map->_t_pair._sz_firsttypename);
+        cpt_map->_t_pair.first, val_elemlist,
+        cpt_map->_t_pair._t_firsttypesize, cpt_map->_t_pair._sz_firsttypename);
 #ifdef CSTL_MAP_AVL_TREE
     return _avl_tree_count(_GET_MAP_AVL_TREE(cpt_map), &cpt_map->_t_pair);
 #else
@@ -730,10 +698,8 @@ map_iterator_t _map_lower_bound_varg(const map_t* cpt_map, va_list val_elemlist)
     assert(cpt_map != NULL);
 
     _get_varg_value(
-        cpt_map->_t_pair.first,
-        val_elemlist,
-        cpt_map->_t_pair._t_firsttypesize,
-        cpt_map->_t_pair._sz_firsttypename);
+        cpt_map->_t_pair.first, val_elemlist,
+        cpt_map->_t_pair._t_firsttypesize, cpt_map->_t_pair._sz_firsttypename);
 #ifdef CSTL_MAP_AVL_TREE
     t_iterator = 
         _avl_tree_lower_bound(_GET_MAP_AVL_TREE(cpt_map), &cpt_map->_t_pair);
@@ -763,10 +729,8 @@ map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist)
     assert(cpt_map != NULL);
 
     _get_varg_value(
-        cpt_map->_t_pair.first,
-        val_elemlist,
-        cpt_map->_t_pair._t_firsttypesize,
-        cpt_map->_t_pair._sz_firsttypename);
+        cpt_map->_t_pair.first, val_elemlist,
+        cpt_map->_t_pair._t_firsttypesize, cpt_map->_t_pair._sz_firsttypename);
 #ifdef CSTL_MAP_AVL_TREE
     t_iterator = 
         _avl_tree_upper_bound(_GET_MAP_AVL_TREE(cpt_map), &cpt_map->_t_pair);
@@ -803,10 +767,8 @@ pair_t _map_equal_range_varg(const map_t* cpt_map, va_list val_elemlist)
     assert(cpt_map != NULL);
 
     _get_varg_value(
-        cpt_map->_t_pair.first,
-        val_elemlist,
-        cpt_map->_t_pair._t_firsttypesize,
-        cpt_map->_t_pair._sz_firsttypename);
+        cpt_map->_t_pair.first, val_elemlist,
+        cpt_map->_t_pair._t_firsttypesize, cpt_map->_t_pair._sz_firsttypename);
 #ifdef CSTL_MAP_AVL_TREE
     t_avlresult = 
         _avl_tree_equal_range(_GET_MAP_AVL_TREE(cpt_map), &cpt_map->_t_pair);
@@ -887,8 +849,7 @@ map_iterator_t map_insert(map_t* pt_map, const pair_t* cpt_pair)
     return t_result;
 }
 
-map_iterator_t map_insert_hint(
-    map_t* pt_map, map_iterator_t t_hint, const pair_t* cpt_pair)
+map_iterator_t map_insert_hint(map_t* pt_map, map_iterator_t t_hint, const pair_t* cpt_pair)
 {
     pair_t t_elempair;
     bool_t t_result;
@@ -932,8 +893,7 @@ map_iterator_t map_insert_hint(
     return t_hint;
 }
 
-void map_insert_range(
-    map_t* pt_map, map_iterator_t t_begin, map_iterator_t t_end)
+void map_insert_range(map_t* pt_map, map_iterator_t t_begin, map_iterator_t t_end)
 {
     map_iterator_t t_iterator;
 
@@ -971,8 +931,7 @@ void map_erase_pos(map_t* pt_map, map_iterator_t t_pos)
 #endif
 }
 
-void map_erase_range(
-    map_t* pt_map, map_iterator_t t_begin, map_iterator_t t_end)
+void map_erase_range(map_t* pt_map, map_iterator_t t_begin, map_iterator_t t_end)
 {
     assert(pt_map != NULL);
     assert(
@@ -981,8 +940,7 @@ void map_erase_range(
         _GET_MAP_CONTAINER_TYPE(&t_end) == _MAP_CONTAINER &&
         _GET_MAP_ITERATOR_TYPE(&t_end) == _BIDIRECTIONAL_ITERATOR);
     assert(
-        _GET_MAP_CONTAINER(&t_begin) == pt_map &&
-        _GET_MAP_CONTAINER(&t_end) == pt_map);
+        _GET_MAP_CONTAINER(&t_begin) == pt_map && _GET_MAP_CONTAINER(&t_end) == pt_map);
 
 #ifdef CSTL_MAP_AVL_TREE
     _avl_tree_erase_range(_GET_MAP_AVL_TREE(pt_map), t_begin, t_end);
@@ -1004,10 +962,8 @@ size_t _map_erase_varg(map_t* pt_map, va_list val_elemlist)
 
     /* get key */
     _get_varg_value(
-        pt_map->_t_pair.first,
-        val_elemlist,
-        pt_map->_t_pair._t_firsttypesize,
-        pt_map->_t_pair._sz_firsttypename);
+        pt_map->_t_pair.first, val_elemlist,
+        pt_map->_t_pair._t_firsttypesize, pt_map->_t_pair._sz_firsttypename);
 #ifdef CSTL_MAP_AVL_TREE
     return _avl_tree_erase(_GET_MAP_AVL_TREE(pt_map), &pt_map->_t_pair);
 #else
@@ -1040,21 +996,17 @@ void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
         pt_map->_t_pair._t_secondtypesize, pt_map->_t_pair._sz_secondtypename);
     pair_init(&t_elempair);
     _get_varg_value(
-        t_elempair.first,
-        val_elemlist,
-        t_elempair._t_firsttypesize,
-        t_elempair._sz_firsttypename);
+        t_elempair.first, val_elemlist,
+        t_elempair._t_firsttypesize, t_elempair._sz_firsttypename);
     memset(t_elempair.second, 0x00, t_elempair._t_secondtypesize);
 
 #ifdef CSTL_MAP_AVL_TREE
-    t_avlresult = 
-        _avl_tree_insert_unique(_GET_MAP_AVL_TREE(pt_map), &t_elempair);
+    t_avlresult = _avl_tree_insert_unique(_GET_MAP_AVL_TREE(pt_map), &t_elempair);
     pv_value = ((pair_t*)((avlnode_t*)
         _GET_AVL_TREE_COREPOS(&t_avlresult._t_first))->_pc_data)->second;
     t_result = t_avlresult._t_second._t_bool;
 #else
-    t_rbresult = 
-        _rb_tree_insert_unique(_GET_MAP_RB_TREE(pt_map), &t_elempair);
+    t_rbresult = _rb_tree_insert_unique(_GET_MAP_RB_TREE(pt_map), &t_elempair);
     pv_value = ((pair_t*)((rbnode_t*)
         _GET_RB_TREE_COREPOS(&t_rbresult._t_first))->_pc_data)->second;
     t_result = t_rbresult._t_second._t_bool;
@@ -1093,10 +1045,8 @@ static bool_t _same_map_pair_type(
             _ELEM_TYPE_NAME_SIZE) == 0);
 
     assert(
-        cpt_pairfirst->_pfun_first_cmp == 
-            cpt_pairsecond->_pfun_first_cmp &&
-        cpt_pairfirst->_pfun_second_cmp == 
-            cpt_pairsecond->_pfun_second_cmp);
+        cpt_pairfirst->_pfun_first_cmp == cpt_pairsecond->_pfun_first_cmp &&
+        cpt_pairfirst->_pfun_second_cmp == cpt_pairsecond->_pfun_second_cmp);
 
     return true;
 }
@@ -1120,8 +1070,7 @@ static int _map_cmp(const void* cpv_firstelem, const void* cpv_secondelem)
     }
     else
     {
-        return memcmp(
-            pt_first->first, pt_second->first, pt_first->_t_firsttypesize);
+        return memcmp(pt_first->first, pt_second->first, pt_first->_t_firsttypesize);
     }
 }
 

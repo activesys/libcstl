@@ -62,435 +62,78 @@ extern "C" {
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_init
- *        Parameters: in) pt_map: map_t*
- *           Returns: void
- *       Description: initialize the map.
- *
- * ----------------------------------------------------------------------------
+ * Initialization and destroy functions.
  */
 extern void map_init(map_t* pt_map);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_destroy
- *        Parameters: in) pt_map: map_t*
- *           Returns: void
- *       Description: destroy the map.
- *
- * ----------------------------------------------------------------------------
- */
 extern void map_destroy(map_t* pt_map);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_init_copy
- *        Parameters: in) pt_mapdest: map_t*
- *                        the dest map pointer.
- *                    in) cpt_mapsrc: const map_t*
- *                        the src map pointer.
- *           Returns: void
- *       Description: the copy constructor.
- *
- * ----------------------------------------------------------------------------
- */
 extern void map_init_copy(map_t* pt_mapdest, const map_t* cpt_mapsrc);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_init_copy_range_cmp
- *        Parameters: in) pt_mapdest: map_t*
- *                        the dest rb tree pointer.
- *                    in) t_begin: map_iterator_t
- *                        the begin iterator
- *                    in0 t_end: map_iterator_t
- *                        the end iterator.
- *                    in) pfun_key_cmp: int (*pfun)(const void*, const void*)
- *                          the function for element compare:
- *                          < 0  : element first < element second.
- *                          == 0 : element first == element second.
- *                          > 0  : element first > element second. 
- *           Returns: void
- *       Description: the copy constructor with range and key compare function.
- *
- * ----------------------------------------------------------------------------
- */
+/* private */
 extern void map_init_copy_range_cmp(
-    map_t* pt_mapdest, 
-    map_iterator_t t_begin, 
-    map_iterator_t t_end,
+    map_t* pt_mapdest, map_iterator_t t_begin, map_iterator_t t_end,
     int (*pfun_key_cmp)(const void*, const void*));
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_init_copy_range
- *        Parameters: in) pt_mapdest: map_t*
- *                        the dest rb tree pointer.
- *                    in) t_begin: map_iterator_t
- *                        the begin iterator
- *                    in0 t_end: map_iterator_t
- *                        the end iterator.
- *           Returns: void
- *       Description: the copy constructor with range.
- *
- * ----------------------------------------------------------------------------
- */
 extern void map_init_copy_range(
-    map_t* pt_mapdest, 
-    map_iterator_t t_begin, 
-    map_iterator_t t_end);
+    map_t* pt_mapdest, map_iterator_t t_begin, map_iterator_t t_end);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_assign
- *        Parameters: in) pt_mapdest: map_t*
- *                        the dest map pointer.
- *                    in) cpt_mapsrc: const map_t*
- *                        the src map pointer.
- *           Returns: void
- *       Description: assign the map_t from src to dest.
- *
- * ----------------------------------------------------------------------------
+ * Assign operator function.
  */
 extern void map_assign(map_t* pt_mapdest, const map_t* cpt_mapsrc);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_swap
- *        Parameters: in) pt_mapfirst: map_t*
- *                          the first map.
- *                    in) pt_mapsecond: map_t*
- *                          the second map.
- *           Returns: void
- *       Description: swap the datas of first map and second map.
- *
- * ----------------------------------------------------------------------------
+ * Swap the datas of first map and second map.
  */
 extern void map_swap(map_t* pt_mapfirst, map_t* pt_mapsecond);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_size
- *        Parameters: in) cpt_map: const map_t*
- *                          the dest map.
- *           Returns: size_t
- *       Description: get the map size.
- *
- * ----------------------------------------------------------------------------
+ * map_t size operation functions.
  */
 extern size_t map_size(const map_t* cpt_map);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_empty
- *        Parameters: in) cpt_map: const map_t*
- *                          the dest map.
- *           Returns: bool_t
- *       Description: if the map is empty.
- *
- * ----------------------------------------------------------------------------
- */
 extern bool_t map_empty(const map_t* cpt_map);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_max_size
- *        Parameters: in) cpt_map: const map_t*
- *                          the dest map.
- *           Returns: size_t
- *       Description: get the maximum capacity of map.
- *
- * ----------------------------------------------------------------------------
- */
 extern size_t map_max_size(const map_t* cpt_map);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_key_comp
- *        Parameters: in) cpt_map: const map_t*
- *                        the map pointer.
- *           Returns: int (*)(const void*, const void*)
- *       Description: return the compare function of key.
- *
- * ----------------------------------------------------------------------------
+ * Return the compare function of key (private).
  */
 extern int (*map_key_comp(const map_t* cpt_map))(const void*, const void*);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_value_comp
- *        Parameters: in) cpt_map: const map_t*
- *                        the map pointer.
- *           Returns: int (*)(const void*, const void*)
- *       Description: return the compare function of value.
- *
- * ----------------------------------------------------------------------------
- */
 extern int (*map_value_comp(const map_t* cpt_map))(const void*, const void*);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_clear
- *        Parameters: in) pt_map: map_t*
- *                          the map.
- *           Returns: void
- *       Description: remove all elements.
- *
- * ----------------------------------------------------------------------------
+ * Remove all elements.
  */
 extern void map_clear(map_t* pt_map);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_equal
- *        Parameters: in) cpt_mapfirst: const map_t*
- *                          the first map.
- *                    in) cpt_mapsecond: const map_t*
- *                          the second map.
- *           Returns: bool_t
- *       Description: return whether first map equal to second map.
- *
- * ----------------------------------------------------------------------------
+ * Relationship operator functions.
  */
-extern bool_t map_equal(
-    const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
+extern bool_t map_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
+extern bool_t map_not_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
+extern bool_t map_less(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
+extern bool_t map_great(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
+extern bool_t map_less_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
+extern bool_t map_great_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_not_equal
- *        Parameters: in) cpt_mapfirst: const map_t*
- *                          the first map.
- *                    in) cpt_mapsecond: const map_t*
- *                          the second map.
- *           Returns: bool_t
- *       Description: return whether first map not equal to second map.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t map_not_equal(
-    const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_less
- *        Parameters: in) cpt_mapfirst: const map_t*
- *                          the first map.
- *                    in) cpt_mapsecond: const map_t*
- *                          the second map.
- *           Returns: bool_t
- *       Description: return whether first map less then second map.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t map_less(
-    const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_great
- *        Parameters: in) cpt_mapfirst: const map_t*
- *                          the first map.
- *                    in) cpt_mapsecond: const map_t*
- *                          the second map.
- *           Returns: bool_t
- *       Description: return whether first map greater then second map.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t map_great(
-    const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_less_equal
- *        Parameters: in) cpt_mapfirst: const map_t*
- *                          the first map.
- *                    in) cpt_mapsecond: const map_t*
- *                          the second map.
- *           Returns: bool_t
- *       Description: return whether first map less then or equal to the 
- *                    second map.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t map_less_equal(
-    const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_great_equal
- *        Parameters: in) cpt_mapfirst: const map_t*
- *                          the first map.
- *                    in) cpt_mapsecond: const map_t*
- *                          the second map.
- *           Returns: bool_t
- *       Description: return whether first map greater then or equal to the
- *                    second map.
- *
- * ----------------------------------------------------------------------------
- */
-extern bool_t map_great_equal(
-    const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_begin
- *        Parameters: in) cpt_map: const map_t*
- *                          the map.
- *           Returns: map_iterator_t
- *       Description: return the random access iterator for the first element.
- *
- * ----------------------------------------------------------------------------
+ * Iterator support.
  */
 extern map_iterator_t map_begin(const map_t* cpt_map);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_end
- *        Parameters: in) cpt_map: const map_t*
- *                          the map.
- *           Returns: map_iterator_t
- *       Description: return the random access iterator for the last element.
- *
- * ----------------------------------------------------------------------------
- */
 extern map_iterator_t map_end(const map_t* cpt_map);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_rbegin
- *        Parameters: in) cpt_map: const map_t*
- *                          the map.
- *           Returns: map_reverse_iterator_t
- *       Description: return the reverse iterator for the first element of the
- *                    reverse iterator.
- *
- * ----------------------------------------------------------------------------
- */
+/* private */
 extern map_reverse_iterator_t map_rbegin(const map_t* cpt_map);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_rend
- *        Parameters: in) cpt_map: const map_t*
- *                          the map.
- *           Returns: map_reverse_iterator_t
- *       Description: return the reverse iterator for the last element of the
- *                    reverse iterator.
- *
- * ----------------------------------------------------------------------------
- */
 extern map_reverse_iterator_t map_rend(const map_t* cpt_map);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_insert
- *        Parameters: in) pt_map: map_t*
- *                        the map pointer.
- *                    in) cpt_pair: const pair_t*
- *                        the element pair.
- *           Returns: map_iterator_t
- *                        the insert result.
- *       Description: insert value into map.
- *
- * ----------------------------------------------------------------------------
+ * Insert operation functions.
  */
 extern map_iterator_t map_insert(map_t* pt_map, const pair_t* cpt_pair);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_insert_hint
- *        Parameters: in) pt_map: map_t*
- *                        the map pointer.
- *                    in) t_hint: map_iterator_t
- *                        the hint iterator.
- *                    in) ...
- *                        the target value.
- *           Returns: map_iterator_t
- *                        the iterator of new element.
- *       Description: insert value into map.
- *
- * ----------------------------------------------------------------------------
- */
 extern map_iterator_t map_insert_hint(
     map_t* pt_map, map_iterator_t t_hint, const pair_t* cpt_pair);
+extern void map_insert_range(map_t* pt_map, map_iterator_t t_begin, map_iterator_t t_end);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_insert_range
- *        Parameters: in) pt_map: map_t*
- *                        the rb tree pointer.
- *                    in) t_begin: map_iterator_t
- *                        the begin iterator
- *                    in0 t_end: map_iterator_t
- *                        the end iterator.
- *           Returns: void
- *       Description: insert a range into the map.
- *
- * ----------------------------------------------------------------------------
- */
-extern void map_insert_range(
-    map_t* pt_map, map_iterator_t t_begin, map_iterator_t t_end);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_erase_pos
- *        Parameters: in) pt_map: map_t*
- *                        the rb tree pointer.
- *                    in) t_pos: map_iterator_t
- *                        the erase iterator.
- *           Returns: void
- *       Description: erase the element pointed by t_pos.
- *
- * ----------------------------------------------------------------------------
+ * Erase element operation functions.
  */
 extern void map_erase_pos(map_t* pt_map, map_iterator_t t_pos);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: map_erase_range
- *        Parameters: in) pt_map: map_t*
- *                        the rb tree pointer.
- *                    in) t_begin: map_iterator_t
- *                        the begin iterator.
- *                    in) t_end: map_iterator_t
- *                        the end iterator.
- *           Returns: void
- *       Description: erase the all elements in the range.
- *
- * ----------------------------------------------------------------------------
- */
-extern void map_erase_range(
-    map_t* pt_map, map_iterator_t t_begin, map_iterator_t t_end);
+extern void map_erase_range(map_t* pt_map, map_iterator_t t_begin, map_iterator_t t_end);
 
 #ifdef __cplusplus
 }
