@@ -54,131 +54,20 @@ extern "C" {
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: algo_power
- *        Parameters: in) t_iterator: iterator_t
- *                        the initialize iterator
- *                    in) t_power: size_t
- *                        the power count.
- *                    out) pv_output: void*
- *                        the output value.
- *           Returns: void
- *       Description: exponenitation.
- *
- * ----------------------------------------------------------------------------
+ * Numeric algorithm functions.
  */
 extern void algo_power(iterator_t t_iterator, size_t t_power, void* pv_output);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: algo_power_if
- *        Parameters: in) t_iterator: t_iterator.
- *                        the initialize value.
- *                    in) t_power: size_t
- *                        the power count.
- *                    in) t_binary_op: binary_function_t
- *                        binary function.
- *                    out) pv_output: void*
- *                        the output value.
- *           Returns: void
- *       Description: exponenitation.
- *
- * ----------------------------------------------------------------------------
- */
 extern void algo_power_if(
-    iterator_t t_iterator,
-    size_t t_power,
-    binary_function_t t_binary_op,
-    void* pv_output);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: algo_adjacent_difference
- *        Parameters: in) t_first: t_iterator.
- *                        the first iterator.
- *                    in) t_last: iterator_t
- *                        the last iterator.
- *                    in) t_result: output_iterator_t
- *                        the output iterator.
- *           Returns: output_iterator_t
- *       Description: calculate the difference of adjacent elements in the range
- *                    [t_first, t_last).
- *
- * ----------------------------------------------------------------------------
- */
+    iterator_t t_iterator, size_t t_power, binary_function_t t_binary_op, void* pv_output);
 extern output_iterator_t algo_adjacent_difference(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    output_iterator_t t_result);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: algo_adjacent_difference_if
- *        Parameters: in) t_first: t_iterator.
- *                        the first iterator.
- *                    in) t_last: iterator_t
- *                        the last iterator.
- *                    in) t_result: output_iterator_t
- *                        the output iterator.
- *                    in) t_binary_op: binary_function_t
- *                        binary function.
- *           Returns: output_iterator_t
- *       Description: calculate the difference of adjacent elements in the range
- *                    [t_first, t_last).
- *
- * ----------------------------------------------------------------------------
- */
+    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result);
 extern output_iterator_t algo_adjacent_difference_if(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    output_iterator_t t_result,
+    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result,
     binary_function_t t_binary_op);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: algo_partial_sum
- *        Parameters: in) t_first: t_iterator.
- *                        the first iterator.
- *                    in) t_last: iterator_t
- *                        the last iterator.
- *                    in) t_result: output_iterator_t
- *                        the output iterator.
- *           Returns: output_iterator_t
- *       Description: calculate the partial sum in the range [t_first, t_last).
- *
- * ----------------------------------------------------------------------------
- */
 extern output_iterator_t algo_partial_sum(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    output_iterator_t t_result);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: algo_partial_sum_if
- *        Parameters: in) t_first: t_iterator.
- *                        the first iterator.
- *                    in) t_last: iterator_t
- *                        the last iterator.
- *                    in) t_result: output_iterator_t
- *                        the output iterator.
- *                    in) t_binary_op: binary_function_t
- *                        binary function.
- *           Returns: output_iterator_t
- *       Description: calculate the partial sum in the range [t_first, t_last).
- *
- * ----------------------------------------------------------------------------
- */
+    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result);
 extern output_iterator_t algo_partial_sum_if(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    output_iterator_t t_result,
+    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result,
     binary_function_t t_binary_op);
 
 #ifdef __cplusplus

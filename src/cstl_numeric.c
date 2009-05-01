@@ -57,17 +57,12 @@ void _algo_accumulate(
     va_start(val_elemlist, pv_output);
 
     _algo_accumulate_if_varg(
-        t_first, t_last,
-        _fun_get_binary(s_typename, _PLUS_FUN),
-        pv_output, val_elemlist);
+        t_first, t_last, _fun_get_binary(s_typename, _PLUS_FUN), pv_output, val_elemlist);
 }
 
 void _algo_accumulate_if(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    binary_function_t t_binary_op,
-    void* pv_output,
-    ...)
+    input_iterator_t t_first, input_iterator_t t_last, binary_function_t t_binary_op,
+    void* pv_output, ...)
 {
     va_list val_elemlist;
     va_start(val_elemlist, pv_output);
@@ -76,11 +71,8 @@ void _algo_accumulate_if(
 }
 
 void _algo_accumulate_if_varg(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    binary_function_t t_binary_op,
-    void* pv_output,
-    va_list val_elemlist)
+    input_iterator_t t_first, input_iterator_t t_last, binary_function_t t_binary_op,
+    void* pv_output, va_list val_elemlist)
 {
     iterator_t t_index;
     size_t     t_typesize = _tools_get_typesize(t_first);
@@ -102,11 +94,8 @@ void _algo_accumulate_if_varg(
 }
 
 void _algo_inner_product(
-    input_iterator_t t_first1,
-    input_iterator_t t_last1,
-    input_iterator_t t_first2,
-    void* pv_output,
-    ...)
+    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
+    void* pv_output, ...)
 {
     char* s_typename = _tools_get_typename(t_first1);
     va_list val_elemlist;
@@ -115,38 +104,25 @@ void _algo_inner_product(
     va_start(val_elemlist, pv_output);
 
     _algo_inner_product_if_varg(
-        t_first1, t_last1, t_first2,
-        _fun_get_binary(s_typename, _PLUS_FUN),
-        _fun_get_binary(s_typename, _MULTIPLIES_FUN),
-        pv_output, val_elemlist);
+        t_first1, t_last1, t_first2, _fun_get_binary(s_typename, _PLUS_FUN),
+        _fun_get_binary(s_typename, _MULTIPLIES_FUN), pv_output, val_elemlist);
 }
 
 void _algo_inner_product_if(
-    input_iterator_t t_first1,
-    input_iterator_t t_last1,
-    input_iterator_t t_first2,
-    binary_function_t t_binary_op1,
-    binary_function_t t_binary_op2,
-    void* pv_output,
-    ...)
+    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
+    binary_function_t t_binary_op1, binary_function_t t_binary_op2, void* pv_output, ...)
 {
     va_list val_elemlist;
     va_start(val_elemlist, pv_output);
 
     _algo_inner_product_if_varg(
-        t_first1, t_last1, t_first2,
-        t_binary_op1, t_binary_op2,
-        pv_output, val_elemlist);
+        t_first1, t_last1, t_first2, t_binary_op1, t_binary_op2, pv_output, val_elemlist);
 }
 
 void _algo_inner_product_if_varg(
-    input_iterator_t t_first1,
-    input_iterator_t t_last1,
-    input_iterator_t t_first2,
-    binary_function_t t_binary_op1,
-    binary_function_t t_binary_op2,
-    void* pv_output,
-    va_list val_elemlist)
+    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
+    binary_function_t t_binary_op1, binary_function_t t_binary_op2,
+    void* pv_output, va_list val_elemlist)
 {
     char*      pc_outputtmp = NULL;
     iterator_t t_index1;
@@ -181,8 +157,7 @@ void _algo_inner_product_if_varg(
         iterator_next(&t_index1), iterator_next(&t_index2))
     {
         (*t_binary_op2)(
-            iterator_get_pointer(&t_index1),
-            iterator_get_pointer(&t_index2),
+            iterator_get_pointer(&t_index1), iterator_get_pointer(&t_index2),
             pc_outputtmp);
         (*t_binary_op1)(pv_output, pc_outputtmp, pv_output);
     }
@@ -201,9 +176,7 @@ void algo_power(input_iterator_t t_iterator, size_t t_power, void* pv_output)
 }
 
 void algo_power_if(
-    input_iterator_t t_iterator,
-    size_t t_power,
-    binary_function_t t_binary_op,
+    input_iterator_t t_iterator, size_t t_power, binary_function_t t_binary_op,
     void* pv_output)
 {
     size_t t_index = 0;
@@ -226,9 +199,7 @@ void algo_power_if(
 }
 
 output_iterator_t algo_adjacent_difference(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    output_iterator_t t_result)
+    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
 {
     char* s_typename = _tools_get_typename(t_first);
     assert(s_typename != NULL);
@@ -238,9 +209,7 @@ output_iterator_t algo_adjacent_difference(
 }
 
 output_iterator_t algo_adjacent_difference_if(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    output_iterator_t t_result,
+    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result,
     binary_function_t t_binary_op)
 {
     iterator_t t_index;
@@ -298,9 +267,7 @@ output_iterator_t algo_adjacent_difference_if(
 }
 
 output_iterator_t algo_partial_sum(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    output_iterator_t t_result)
+    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
 {
     char* s_typename = _tools_get_typename(t_first);
     assert(s_typename != NULL);
@@ -310,9 +277,7 @@ output_iterator_t algo_partial_sum(
 }
 
 output_iterator_t algo_partial_sum_if(
-    input_iterator_t t_first,
-    input_iterator_t t_last,
-    output_iterator_t t_result,
+    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result,
     binary_function_t t_binary_op)
 {
     iterator_t t_index;
@@ -357,8 +322,7 @@ output_iterator_t algo_partial_sum_if(
     return t_result;
 }
 
-void _algo_iota(
-    forward_iterator_t t_first, forward_iterator_t t_last, ...)
+void _algo_iota(forward_iterator_t t_first, forward_iterator_t t_last, ...)
 {
     va_list val_elemlist;
     va_start(val_elemlist, t_last);
