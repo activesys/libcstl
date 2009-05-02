@@ -120,7 +120,7 @@ clean:
 	$(RM) $(addprefix $(BINDIR)/,$(subst .o,.d,$(OBJS))) 
 	$(RM) $(addprefix $(BINDIR)/,$(TESTOBJ))
 	$(RM) $(addprefix $(BINDIR)/,$(subst .o,.d,$(TESTOBJ)))
-	$(RM) core.* $(BINDIR)/core.*
+	$(RM) core.* $(BINDIR)/core.* $(BINDIR)/*
 
 .PHONY: remake
 remake:
