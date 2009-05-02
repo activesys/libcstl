@@ -64,229 +64,42 @@ typedef struct _tagdeque
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _create_deque
- *        Parameters: in) t_typesize: size_t
- *                          the element type size.
- *                    in) s_typename: const char*
- *                          the element type name.
- *           Returns: deque_t
- *                          new deque.
- *       Description: create the new deque.
- *
- * ----------------------------------------------------------------------------
+ * Create and initialization operation functions.
  */
 extern deque_t _create_deque(size_t t_typesize, const char* s_typename);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_init_elem
- *        Parameters: in) pt_deque: deque_t*
- *                    in) t_count: size_t
- *                          element count.
- *                    in) ...
- *                          element list.
- *           Returns: void
- *       Description: initialize the deque.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _deque_init_elem(deque_t* pt_deque, size_t t_count, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_init_elem_varg
- *        Parameters: in) pt_deque: deque_t*
- *                    in) t_count: size_t
- *                          element count.
- *                    in) val_elemlist: va_list
- *                          element list.
- *           Returns: void
- *       Description: initialize the deque.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _deque_init_elem_varg(
     deque_t* pt_deque, size_t t_count, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_assign_elem
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque for assign.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: assign n_elemcount copys of element.
- *
- * ----------------------------------------------------------------------------
+ * Assign operator functions.
  */
 extern void _deque_assign_elem(deque_t* pt_deque, size_t t_count, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_assign_elem_varg
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque for assign.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) val_elemlist: va_list
- *                          the element list.
- *           Returns: void
- *       Description: assign n_elemcount copys of element.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _deque_assign_elem_varg(
     deque_t* pt_deque, size_t t_count, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_push_back
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: append a copy of element at the end.
- *
- * ----------------------------------------------------------------------------
+ * Push element into deque_t.
  */
 extern void _deque_push_back(deque_t* pt_deque, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_push_back
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque.
- *                    in) val_elemlist: va_list
- *                          the element.
- *           Returns: void
- *       Description: append a copy of element at the end.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _deque_push_back_varg(deque_t* pt_deque, va_list val_elemlist);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_push_front
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque.
- *                    in) ...
- *                          the element.
- *           Returns: void
- *       Description: append a copy of element at the front.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _deque_push_front(deque_t* pt_deque, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_push_front
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque.
- *                    in) val_elemlist: va_list
- *                          the element.
- *           Returns: void
- *       Description: append a copy of element at the front.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _deque_push_front_varg(deque_t* pt_deque, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_resize_elem
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque.
- *                    in) t_resize: size_t
- *                          the new size of deque.
- *                    in) ...
- *                          the default element.
- *           Returns: void
- *       Description: change the number of elements to t_resize, if the size
- *                    grows new element create with the default element.
- *
- * ----------------------------------------------------------------------------
+ * Resize operation functions.
  */
 extern void _deque_resize_elem(deque_t* pt_deque, size_t t_resize, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_resize_elem_varg
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque.
- *                    in) t_resize: size_t
- *                          the new size of deque.
- *                    in) val_elemlist: va_list
- *                          the default element.
- *           Returns: void
- *       Description: change the number of elements to t_resize, if the size
- *                    grows new element create with the default element.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _deque_resize_elem_varg(
     deque_t* pt_deque, size_t t_resize, va_list val_elemlist);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_insert_n
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque.
- *                    in) t_pos: deque_iterator_t
- *                          the insert position.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) ...
- *                          the element.
- *           Returns: deque_iterator_t
- *       Description: insert at iterator position t_pos n_elemcount copys of
- *                    element and return nothing.
- *
- * ----------------------------------------------------------------------------
+ * Insert operation functions.
  */
 extern deque_iterator_t _deque_insert_n(
     deque_t* pt_deque, deque_iterator_t t_pos, size_t t_count, ...);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _deque_insert_n_varg
- *        Parameters: in) pt_deque: deque_t*
- *                          the deque.
- *                    in) t_pos: deque_iterator_t
- *                          the insert position.
- *                    in) t_count: size_t
- *                          the element count.
- *                    in) val_elemlist: va_list
- *                          the element list.
- *           Returns: deque_iterator_t
- *       Description: insert at iterator position t_pos n_elemcount copys of
- *                    element and return nothing.
- *
- * ----------------------------------------------------------------------------
- */
 extern deque_iterator_t _deque_insert_n_varg(
-    deque_t* pt_deque, 
-    deque_iterator_t t_pos, 
-    size_t t_count, va_list val_elemlist);
+    deque_t* pt_deque, deque_iterator_t t_pos, size_t t_count, va_list val_elemlist);
 
 #ifdef __cplusplus
 }
