@@ -94,578 +94,110 @@ typedef struct _tagavltreeresultpair
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _create_avl_tree
- *        Parameters: in) t_typesize: size_t
- *                          the element type size.
- *                    in) s_typename: const char*
- *                          the element type name.
- *           Returns: avl_tree_t
- *                          new avl_tree.
- *       Description: create the new avl_tree.
- *
- * ----------------------------------------------------------------------------
+ * Create, initialization and destroy operation functions.
  */
 extern avl_tree_t _create_avl_tree(size_t t_typesize, const char* s_typename);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_init
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *                    in) pfun_cmp: int (*pfun)(const void*, const void*)
- *                          the function for element compare:
- *                          < 0  : element first < element second.
- *                          == 0 : element first == element second.
- *                          > 0  : element first > element second. 
- *                    in) pfun_destroy_elem: void (*pfun)(void*)
- *                          the destroy element function.
- *           Returns: void
- *       Description: initialize the avl_tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _avl_tree_init(
-    avl_tree_t* pt_avl_tree,
-    int (*pfun_cmp)(const void*, const void*),
+    avl_tree_t* pt_avl_tree, int (*pfun_cmp)(const void*, const void*),
     void (*pfun_destroy_elem)(void*));
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_destroy
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *           Returns: void
- *       Description: destroy the avl_tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _avl_tree_destroy(avl_tree_t* pt_avl_tree);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_copy
- *        Parameters: in) pt_avl_tree_dest: avl_tree_t*
- *                        the dest avl tree pointer.
- *                    in) cpt_avl_tree_src: const avl_tree_t*
- *                        the src avl tree pointer.
- *           Returns: void
- *       Description: copy the avl_tree_t from src to dest.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _avl_tree_init_copy(
     avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_init_copy_range_cmp
- *        Parameters: in) pt_avl_tree_dest: avl_tree_t*
- *                        the dest rb tree pointer.
- *                    in) t_begin: avl_tree_iterator_t
- *                        the begin iterator
- *                    in0 t_end: avl_tree_iterator_t
- *                        the end iterator.
- *                    in) pfun_cmp: int (*pfun)(const void*, const void*)
- *                          the function for element compare:
- *                          < 0  : element first < element second.
- *                          == 0 : element first == element second.
- *                          > 0  : element first > element second. 
- *           Returns: void
- *       Description: the copy constructor with range and key compare function.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _avl_tree_init_copy_range_cmp(
-    avl_tree_t* pt_avl_tree_dest, 
-    avl_tree_iterator_t t_begin, 
-    avl_tree_iterator_t t_end,
+    avl_tree_t* pt_avl_tree_dest, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end,
     int (*pfun_cmp)(const void*, const void*));
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_init_copy_range
- *        Parameters: in) pt_avl_tree_dest: avl_tree_t*
- *                        the dest rb tree pointer.
- *                    in) t_begin: avl_tree_iterator_t
- *                        the begin iterator
- *                    in0 t_end: avl_tree_iterator_t
- *                        the end iterator.
- *           Returns: void
- *       Description: the copy constructor with range.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _avl_tree_init_copy_range(
-    avl_tree_t* pt_avl_tree_dest, 
-    avl_tree_iterator_t t_begin, 
-    avl_tree_iterator_t t_end);
+    avl_tree_t* pt_avl_tree_dest, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_assign
- *        Parameters: in) pt_avl_tree_dest: avl_tree_t*
- *                        the dest avl tree pointer.
- *                    in) cpt_avl_tree_src: const avl_tree_t*
- *                        the src avl tree pointer.
- *           Returns: void
- *       Description: assign the avl_tree_t from src to dest.
- *
- * ----------------------------------------------------------------------------
+ * Assign operator functions.
  */
 extern void _avl_tree_assign(
     avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_size
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                          the dest avl_tree.
- *           Returns: size_t
- *       Description: get the avl_tree size.
- *
- * ----------------------------------------------------------------------------
+ * avl_tree_t size operation functions.
  */
 extern size_t _avl_tree_size(const avl_tree_t* cpt_avl_tree);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_empty
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                          the dest avl_tree.
- *           Returns: bool_t
- *       Description: if the avl_tree is empty.
- *
- * ----------------------------------------------------------------------------
- */
 extern bool_t _avl_tree_empty(const avl_tree_t* cpt_avl_tree);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_max_size
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                          the dest avl_tree.
- *           Returns: size_t
- *       Description: get the maximum capacity of avl_tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern size_t _avl_tree_max_size(const avl_tree_t* cpt_avl_tree);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_begin
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                          the avl_tree.
- *           Returns: avl_tree_iterator_t
- *       Description: return the random access iterator for the first element.
- *
- * ----------------------------------------------------------------------------
+ * Iterator support.
  */
 extern avl_tree_iterator_t _avl_tree_begin(const avl_tree_t* cpt_avl_tree);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_end
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                          the avl_tree.
- *           Returns: avl_tree_iterator_t
- *       Description: return the random access iterator for the last element.
- *
- * ----------------------------------------------------------------------------
- */
 extern avl_tree_iterator_t _avl_tree_end(const avl_tree_t* cpt_avl_tree);
+/* private */
+extern avl_tree_reverse_iterator_t _avl_tree_rbegin(const avl_tree_t* cpt_avl_tree);
+extern avl_tree_reverse_iterator_t _avl_tree_rend(const avl_tree_t* cpt_avl_tree);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_rbegin
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                          the avl_tree.
- *           Returns: avl_tree_reverse_iterator_t
- *       Description: return the reverse iterator for the first element of the
- *                    reverse iterator.
- *
- * ----------------------------------------------------------------------------
- */
-extern avl_tree_reverse_iterator_t _avl_tree_rbegin(
-    const avl_tree_t* cpt_avl_tree);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_rend
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                          the avl_tree.
- *           Returns: avl_tree_reverse_iterator_t
- *       Description: return the reverse iterator for the last element of the
- *                    reverse iterator.
- *
- * ----------------------------------------------------------------------------
- */
-extern avl_tree_reverse_iterator_t _avl_tree_rend(
-    const avl_tree_t* cpt_avl_tree);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_key_comp
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                        the avl tree pointer.
- *           Returns: int (*)(const void*, const void*)
- *       Description: return the compare function of key.
- *
- * ----------------------------------------------------------------------------
+ * Return the compare function of key (private).
  */
 extern int (*_avl_tree_key_comp(const avl_tree_t* cpt_avl_tree))(
     const void*, const void*);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_find
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                        the avl tree pointer.
- *                    in) cpv_value: const void*
- *                        the target value.
- *           Returns: avl_tree_iterator_t
- *                        the target iterator or end iterator.
- *       Description: find the value in avl tree.
- *
- * ----------------------------------------------------------------------------
+ * Find operation functions.
  */
 extern avl_tree_iterator_t _avl_tree_find(
     const avl_tree_t* cpt_avl_tree, const void* cpv_value);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_clear
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *                          the avl_tree.
- *           Returns: void
- *       Description: remove all elements.
- *
- * ----------------------------------------------------------------------------
+ * Remove all elements.
  */
 extern void _avl_tree_clear(avl_tree_t* pt_avl_tree);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_count
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                        the avl tree pointer.
- *                    in) cpv_value: const void*
- *                        the target value.
- *           Returns: size_t
- *                        count.
- *       Description: counts the numbers of element whose key is value.
- *
- * ----------------------------------------------------------------------------
+ * Count, lower bound, upper bound and equal range operation functions.
  */
-extern size_t _avl_tree_count(
-    const avl_tree_t* cpt_avl_tree, const void* cpv_value);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_lower_bound
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                        the avl tree pointer.
- *                    in) cpv_value: const void*
- *                        the target value.
- *           Returns: avl_tree_iterator_t
- *                        the target iterator or end iterator.
- *       Description: find the first element whose key is not less then value.
- *
- * ----------------------------------------------------------------------------
- */
+extern size_t _avl_tree_count(const avl_tree_t* cpt_avl_tree, const void* cpv_value);
 extern avl_tree_iterator_t _avl_tree_lower_bound(
     const avl_tree_t* cpt_avl_tree, const void* cpv_value);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_upper_bound
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                        the avl tree pointer.
- *                    in) cpv_value: const void*
- *                        the target value.
- *           Returns: avl_tree_iterator_t
- *                        the target iterator or end iterator.
- *       Description: find the first element whose key is greater then value.
- *
- * ----------------------------------------------------------------------------
- */
 extern avl_tree_iterator_t _avl_tree_upper_bound(
     const avl_tree_t* cpt_avl_tree, const void* cpv_value);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_equal_range
- *        Parameters: in) cpt_avl_tree: const avl_tree_t*
- *                        the avl tree pointer.
- *                    in) cpv_value: const void*
- *                        the target value.
- *           Returns: avl_tree_result_pair_t
- *                        the result pair.
- *       Description: find a range that contain all elements whos key is value.
- *
- * ----------------------------------------------------------------------------
- */
 extern avl_tree_result_pair_t _avl_tree_equal_range(
     const avl_tree_t* cpt_avl_tree, const void* cpv_value);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_equal
- *        Parameters: in) cpt_avl_treefirst: const avl_tree_t*
- *                          the first avl_tree.
- *                    in) cpt_avl_treesecond: const avl_tree_t*
- *                          the second avl_tree.
- *           Returns: bool_t
- *       Description: return whether first avl_tree equal to second avl_tree.
- *
- * ----------------------------------------------------------------------------
+ * Relationship operator functions.
  */
 extern bool_t _avl_tree_equal(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_not_equal
- *        Parameters: in) cpt_avl_treefirst: const avl_tree_t*
- *                          the first avl_tree.
- *                    in) cpt_avl_treesecond: const avl_tree_t*
- *                          the second avl_tree.
- *           Returns: bool_t
- *       Description: return whether first avl_tree not equal to second avl_tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern bool_t _avl_tree_not_equal(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_less
- *        Parameters: in) cpt_avl_treefirst: const avl_tree_t*
- *                          the first avl_tree.
- *                    in) cpt_avl_treesecond: const avl_tree_t*
- *                          the second avl_tree.
- *           Returns: bool_t
- *       Description: return whether first avl_tree less then second avl_tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern bool_t _avl_tree_less(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_great
- *        Parameters: in) cpt_avl_treefirst: const avl_tree_t*
- *                          the first avl_tree.
- *                    in) cpt_avl_treesecond: const avl_tree_t*
- *                          the second avl_tree.
- *           Returns: bool_t
- *       Description: return whether first avl_tree greater then second avl_tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern bool_t _avl_tree_great(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_less_equal
- *        Parameters: in) cpt_avl_treefirst: const avl_tree_t*
- *                          the first avl_tree.
- *                    in) cpt_avl_treesecond: const avl_tree_t*
- *                          the second avl_tree.
- *           Returns: bool_t
- *       Description: return whether first avl_tree less then or equal to the 
- *                    second avl_tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern bool_t _avl_tree_less_equal(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_great_equal
- *        Parameters: in) cpt_avl_treefirst: const avl_tree_t*
- *                          the first avl_tree.
- *                    in) cpt_avl_treesecond: const avl_tree_t*
- *                          the second avl_tree.
- *           Returns: bool_t
- *       Description: return whether first avl_tree greater then or equal to the
- *                    second avl_tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern bool_t _avl_tree_great_equal(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_swap
- *        Parameters: in) pt_avl_treefirst: avl_tree_t*
- *                          the first avl_tree.
- *                    in) pt_avl_treesecond: avl_tree_t*
- *                          the second avl_tree.
- *           Returns: void
- *       Description: swap the datas of first avl_tree and second avl_tree.
- *
- * ----------------------------------------------------------------------------
+ * Swap the datas of first avl_tree and second avl_tree.
  */
-extern void _avl_tree_swap(
-    avl_tree_t* pt_avl_treefirst, avl_tree_t* pt_avl_treesecond);
+extern void _avl_tree_swap(avl_tree_t* pt_avl_treefirst, avl_tree_t* pt_avl_treesecond);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_insert_unique
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *                        the avl tree pointer.
- *                    in) cpv_value: const void*
- *                        the target value.
- *           Returns: avl_tree_iterator_t
- *                        the target iterator or end iterator.
- *       Description: insert unique value into avl tree.
- *
- * ----------------------------------------------------------------------------
+ * Insert operation functions.
  */
 extern avl_tree_result_pair_t _avl_tree_insert_unique(
     avl_tree_t* pt_avl_tree, const void* cpv_value);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_insert_equal
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *                        the avl tree pointer.
- *                    in) cpv_value: const void*
- *                        the target value.
- *           Returns: avl_tree_iterator_t
- *                        the target iterator or end iterator.
- *       Description: insert equal value into avl tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern avl_tree_iterator_t _avl_tree_insert_equal(
     avl_tree_t* pt_avl_tree, const void* cpv_value);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_insert_unique_range
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *                        the avl tree pointer.
- *                    in) t_begin: avl_tree_iterator_t
- *                        the begin iterator
- *                    in0 t_end: avl_tree_iterator_t
- *                        the end iterator.
- *           Returns: void
- *       Description: insert a range into the val tree.
- *
- * ----------------------------------------------------------------------------
- */
 extern void _avl_tree_insert_unique_range(
-    avl_tree_t* pt_avl_tree, 
-    avl_tree_iterator_t t_begin, 
-    avl_tree_iterator_t t_end);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_insert_equal_range
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *                        the avl tree pointer.
- *                    in) t_begin: avl_tree_iterator_t
- *                        the begin iterator.
- *                    in) t_end: avl_tree_iterator_t
- *                        the end iterator.
- *           Returns: void
- *       Description: insert a range into avl tree.
- *
- * ----------------------------------------------------------------------------
- */
+    avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
 extern void _avl_tree_insert_equal_range(
-    avl_tree_t* pt_avl_tree, 
-    avl_tree_iterator_t t_begin,
-    avl_tree_iterator_t t_end);
+    avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_erase_pos
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *                        the avl tree pointer.
- *                    in) t_pos: avl_tree_iterator_t
- *                        the erase iterator.
- *           Returns: void
- *       Description: erase the element pointed by t_pos.
- *
- * ----------------------------------------------------------------------------
+ * Erase operation functions.
  */
-extern void _avl_tree_erase_pos(
-    avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_pos);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_erase_range
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *                        the avl tree pointer.
- *                    in) t_begin: avl_tree_iterator_t
- *                        the begin iterator.
- *                    in) t_end: avl_tree_iterator_t
- *                        the end iterator.
- *           Returns: void
- *       Description: erase the all elements in the range.
- *
- * ----------------------------------------------------------------------------
- */
+extern void _avl_tree_erase_pos(avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_pos);
 extern void _avl_tree_erase_range(
-    avl_tree_t* pt_avl_tree, 
-    avl_tree_iterator_t t_begin, 
-    avl_tree_iterator_t t_end);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _avl_tree_erase
- *        Parameters: in) pt_avl_tree: avl_tree_t*
- *                        the avl tree pointer.
- *                    in) cpv_value: const void*
- *                        the target value.
- *           Returns: size_t
- *                        the element numbers.
- *       Description: erase all elements whose key is value.
- *
- * ----------------------------------------------------------------------------
- */
+    avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
 extern size_t _avl_tree_erase(avl_tree_t* pt_avl_tree, const void* cpv_value);
 
 #ifdef __cplusplus
