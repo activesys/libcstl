@@ -56,27 +56,21 @@ hash_multiset_iterator_t create_hash_multiset_iterator(void)
 {
     hash_multiset_iterator_t t_newiterator = _create_hashtable_iterator();
 
-    _GET_HASH_MULTISET_CONTAINER_TYPE(&t_newiterator) = 
-        _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(&t_newiterator) = 
-        _FORWARD_ITERATOR;
+    _GET_HASH_MULTISET_CONTAINER_TYPE(&t_newiterator) = _HASH_MULTISET_CONTAINER;
+    _GET_HASH_MULTISET_ITERATOR_TYPE(&t_newiterator) = _FORWARD_ITERATOR;
 
     return t_newiterator;
 }
 
 void _hash_multiset_iterator_get_value(
     const struct _taghashmultiset* cpt_hash_multiset,
-    const hash_multiset_iterator_t* cpt_iterator,
-    void* pv_value)
+    const hash_multiset_iterator_t* cpt_iterator, void* pv_value)
 {
     assert(cpt_hash_multiset != NULL && cpt_iterator != NULL && pv_value != NULL);
     assert(
-        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iterator) == 
-            _HASH_MULTISET_CONTAINER &&
-        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iterator) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTISET_CONTAINER(cpt_iterator) == 
-            cpt_hash_multiset);
+        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iterator) == _HASH_MULTISET_CONTAINER &&
+        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iterator) == _FORWARD_ITERATOR &&
+        _GET_HASH_MULTISET_CONTAINER(cpt_iterator) == cpt_hash_multiset);
 
     _hashtable_iterator_get_value(
         &cpt_hash_multiset->_t_hashtable, cpt_iterator, pv_value);
@@ -88,12 +82,9 @@ const void* _hash_multiset_iterator_get_pointer(
 {
     assert(cpt_hash_multiset != NULL && cpt_iterator != NULL);
     assert(
-        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iterator) == 
-            _HASH_MULTISET_CONTAINER &&
-        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iterator) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTISET_CONTAINER(cpt_iterator) == 
-            cpt_hash_multiset);
+        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iterator) == _HASH_MULTISET_CONTAINER &&
+        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iterator) == _FORWARD_ITERATOR &&
+        _GET_HASH_MULTISET_CONTAINER(cpt_iterator) == cpt_hash_multiset);
 
     return _hashtable_iterator_get_pointer(
         &cpt_hash_multiset->_t_hashtable, cpt_iterator);
@@ -105,31 +96,23 @@ void _hash_multiset_iterator_next(
 {
     assert(cpt_hash_multiset != NULL && pt_iterator != NULL);
     assert(
-        _GET_HASH_MULTISET_CONTAINER_TYPE(pt_iterator) == 
-            _HASH_MULTISET_CONTAINER &&
-        _GET_HASH_MULTISET_ITERATOR_TYPE(pt_iterator) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTISET_CONTAINER(pt_iterator) == 
-            cpt_hash_multiset);
+        _GET_HASH_MULTISET_CONTAINER_TYPE(pt_iterator) == _HASH_MULTISET_CONTAINER &&
+        _GET_HASH_MULTISET_ITERATOR_TYPE(pt_iterator) == _FORWARD_ITERATOR &&
+        _GET_HASH_MULTISET_CONTAINER(pt_iterator) == cpt_hash_multiset);
 
     _hashtable_iterator_next(&cpt_hash_multiset->_t_hashtable, pt_iterator);
 }
 
 bool_t _hash_multiset_iterator_equal(
     const struct _taghashmultiset* cpt_hash_multiset,
-    const hash_multiset_iterator_t* cpt_iterator,
-    hash_multiset_iterator_t t_iterator)
+    const hash_multiset_iterator_t* cpt_iterator, hash_multiset_iterator_t t_iterator)
 {
     assert(cpt_hash_multiset != NULL && cpt_iterator != NULL);
     assert(
-        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iterator) == 
-            _HASH_MULTISET_CONTAINER &&
-        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iterator) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTISET_CONTAINER_TYPE(&t_iterator) == 
-            _HASH_MULTISET_CONTAINER &&
-        _GET_HASH_MULTISET_ITERATOR_TYPE(&t_iterator) == 
-            _FORWARD_ITERATOR);
+        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iterator) == _HASH_MULTISET_CONTAINER &&
+        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iterator) == _FORWARD_ITERATOR &&
+        _GET_HASH_MULTISET_CONTAINER_TYPE(&t_iterator) == _HASH_MULTISET_CONTAINER &&
+        _GET_HASH_MULTISET_ITERATOR_TYPE(&t_iterator) == _FORWARD_ITERATOR);
     assert(
         _GET_HASH_MULTISET_CONTAINER(cpt_iterator) == cpt_hash_multiset &&
         _GET_HASH_MULTISET_CONTAINER(&t_iterator) == cpt_hash_multiset);
@@ -144,14 +127,10 @@ int _hash_multiset_iterator_distance(
 {
     assert(cpt_begin != NULL && cpt_end != NULL);
     assert(
-        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_begin) == 
-            _HASH_MULTISET_CONTAINER &&
-        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_begin) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_end) == 
-            _HASH_MULTISET_CONTAINER &&
-        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_end) == 
-            _FORWARD_ITERATOR &&
+        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_begin) == _HASH_MULTISET_CONTAINER &&
+        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_begin) == _FORWARD_ITERATOR &&
+        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_end) == _HASH_MULTISET_CONTAINER &&
+        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_end) == _FORWARD_ITERATOR &&
         _GET_HASH_MULTISET_CONTAINER(cpt_begin) == 
             _GET_HASH_MULTISET_CONTAINER(cpt_end));
 
@@ -164,14 +143,10 @@ bool_t _hash_multiset_iterator_before(
 {
     assert(cpt_iteratorfirst != NULL && cpt_iteratorsecond != NULL);
     assert(
-        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iteratorfirst) == 
-            _HASH_MULTISET_CONTAINER &&
-        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iteratorfirst) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iteratorsecond) == 
-            _HASH_MULTISET_CONTAINER &&
-        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iteratorsecond) == 
-            _FORWARD_ITERATOR &&
+        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iteratorfirst) == _HASH_MULTISET_CONTAINER &&
+        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iteratorfirst) == _FORWARD_ITERATOR &&
+        _GET_HASH_MULTISET_CONTAINER_TYPE(cpt_iteratorsecond) == _HASH_MULTISET_CONTAINER &&
+        _GET_HASH_MULTISET_ITERATOR_TYPE(cpt_iteratorsecond) == _FORWARD_ITERATOR &&
         _GET_HASH_MULTISET_CONTAINER(cpt_iteratorfirst) == 
             _GET_HASH_MULTISET_CONTAINER(cpt_iteratorsecond));
 
@@ -205,15 +180,13 @@ hash_multiset_t _create_hash_multiset(size_t t_typesize, const char* s_typename)
 
 /* hash_multiset function */
 void hash_multiset_init(
-    hash_multiset_t* pt_hash_multiset,
-    int (*pfun_hash)(const void*, size_t, size_t))
+    hash_multiset_t* pt_hash_multiset,int (*pfun_hash)(const void*, size_t, size_t))
 {
     hash_multiset_init_n(pt_hash_multiset, 0, pfun_hash);
 }
 
 void hash_multiset_init_n(
-    hash_multiset_t* pt_hash_multiset, 
-    size_t t_bucketcount,
+    hash_multiset_t* pt_hash_multiset, size_t t_bucketcount,
     int (*pfun_hash)(const void*, size_t, size_t))
 {
     assert(pt_hash_multiset != NULL);
@@ -230,31 +203,25 @@ void hash_multiset_destroy(hash_multiset_t* pt_hash_multiset)
 }
 
 void hash_multiset_init_copy(
-    hash_multiset_t* pt_hash_multisetdest, 
-    const hash_multiset_t* cpt_hash_multisetsrc)
+    hash_multiset_t* pt_hash_multisetdest, const hash_multiset_t* cpt_hash_multisetsrc)
 {
     assert(pt_hash_multisetdest != NULL && cpt_hash_multisetsrc != NULL);
 
     _hashtable_init_copy(
-        &pt_hash_multisetdest->_t_hashtable, 
-        &cpt_hash_multisetsrc->_t_hashtable);
+        &pt_hash_multisetdest->_t_hashtable, &cpt_hash_multisetsrc->_t_hashtable);
 }
 
 void hash_multiset_init_copy_range(
-    hash_multiset_t* pt_hash_multisetdest,
-    hash_multiset_iterator_t t_begin,
-    hash_multiset_iterator_t t_end,
-    int (*pfun_hash)(const void*, size_t, size_t))
+    hash_multiset_t* pt_hash_multisetdest, hash_multiset_iterator_t t_begin,
+    hash_multiset_iterator_t t_end, int (*pfun_hash)(const void*, size_t, size_t))
 {
     hash_multiset_init_copy_range_n(
         pt_hash_multisetdest, t_begin, t_end, 0, pfun_hash);
 }
 
 void hash_multiset_init_copy_range_n(
-    hash_multiset_t* pt_hash_multisetdest,
-    hash_multiset_iterator_t t_begin,
-    hash_multiset_iterator_t t_end,
-    size_t t_bucketcount,
+    hash_multiset_t* pt_hash_multisetdest, hash_multiset_iterator_t t_begin,
+    hash_multiset_iterator_t t_end, size_t t_bucketcount,
     int (*pfun_hash)(const void*, size_t, size_t))
 {
     assert(pt_hash_multisetdest != NULL);
@@ -275,25 +242,21 @@ void hash_multiset_init_copy_range_n(
 }
 
 void hash_multiset_assign(
-    hash_multiset_t* pt_hash_multisetdest, 
-    const hash_multiset_t* cpt_hash_multisetsrc)
+    hash_multiset_t* pt_hash_multisetdest, const hash_multiset_t* cpt_hash_multisetsrc)
 {
     assert(pt_hash_multisetdest != NULL && cpt_hash_multisetsrc != NULL);
 
     _hashtable_assign(
-        &pt_hash_multisetdest->_t_hashtable, 
-        &cpt_hash_multisetsrc->_t_hashtable);
+        &pt_hash_multisetdest->_t_hashtable, &cpt_hash_multisetsrc->_t_hashtable);
 }
 
 void hash_multiset_swap(
-    hash_multiset_t* pt_hash_multisetfirst, 
-    hash_multiset_t* pt_hash_multisetsecond)
+    hash_multiset_t* pt_hash_multisetfirst, hash_multiset_t* pt_hash_multisetsecond)
 {
     assert(pt_hash_multisetfirst != NULL && pt_hash_multisetsecond != NULL);
 
     _hashtable_swap(
-        &pt_hash_multisetfirst->_t_hashtable, 
-        &pt_hash_multisetsecond->_t_hashtable);
+        &pt_hash_multisetfirst->_t_hashtable, &pt_hash_multisetsecond->_t_hashtable);
 }
 
 size_t hash_multiset_size(const hash_multiset_t* cpt_hash_multiset)
@@ -354,8 +317,7 @@ bool_t hash_multiset_equal(
     assert(cpt_hash_multisetfirst != NULL && cpt_hash_multisetsecond != NULL);
 
     return _hashtable_equal(
-        &cpt_hash_multisetfirst->_t_hashtable, 
-        &cpt_hash_multisetsecond->_t_hashtable);
+        &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
 }
 
 bool_t hash_multiset_not_equal(
@@ -365,12 +327,10 @@ bool_t hash_multiset_not_equal(
     assert(cpt_hash_multisetfirst != NULL && cpt_hash_multisetsecond != NULL);
 
     return _hashtable_not_equal(
-        &cpt_hash_multisetfirst->_t_hashtable, 
-        &cpt_hash_multisetsecond->_t_hashtable);
+        &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
 }
 
-hash_multiset_iterator_t hash_multiset_begin(
-    const hash_multiset_t* cpt_hash_multiset)
+hash_multiset_iterator_t hash_multiset_begin(const hash_multiset_t* cpt_hash_multiset)
 {
     hash_multiset_iterator_t t_newiterator;
 
@@ -385,8 +345,7 @@ hash_multiset_iterator_t hash_multiset_begin(
     return t_newiterator;
 }
 
-hash_multiset_iterator_t hash_multiset_end(
-    const hash_multiset_t* cpt_hash_multiset)
+hash_multiset_iterator_t hash_multiset_end(const hash_multiset_t* cpt_hash_multiset)
 {
     hash_multiset_iterator_t t_newiterator;
 
@@ -427,9 +386,7 @@ hash_multiset_iterator_t _hash_multiset_find_varg(
     {
         memset(pc_value, 0x00, cpt_hash_multiset->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            cpt_hash_multiset->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, cpt_hash_multiset->_t_hashtable._t_typesize,
             cpt_hash_multiset->_t_hashtable._sz_typename);
     }
 
@@ -469,9 +426,7 @@ size_t _hash_multiset_count_varg(
     {
         memset(pc_value, 0x00, cpt_hash_multiset->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            cpt_hash_multiset->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, cpt_hash_multiset->_t_hashtable._t_typesize,
             cpt_hash_multiset->_t_hashtable._sz_typename);
     }
 
@@ -510,9 +465,7 @@ pair_t _hash_multiset_equal_range_varg(
     {
         memset(pc_value, 0x00, cpt_hash_multiset->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            cpt_hash_multiset->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, cpt_hash_multiset->_t_hashtable._t_typesize,
             cpt_hash_multiset->_t_hashtable._sz_typename);
     }
 
@@ -538,8 +491,7 @@ pair_t _hash_multiset_equal_range_varg(
     return t_pair;
 }
 
-hash_multiset_iterator_t _hash_multiset_insert(
-    hash_multiset_t* pt_hash_multiset, ...)
+hash_multiset_iterator_t _hash_multiset_insert(hash_multiset_t* pt_hash_multiset, ...)
 {
     va_list val_elemlist;
     va_start(val_elemlist, pt_hash_multiset);
@@ -564,9 +516,7 @@ hash_multiset_iterator_t _hash_multiset_insert_varg(
     {
         memset(pc_value, 0x00, pt_hash_multiset->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            pt_hash_multiset->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, pt_hash_multiset->_t_hashtable._t_typesize,
             pt_hash_multiset->_t_hashtable._sz_typename);
     }
 
@@ -583,8 +533,7 @@ hash_multiset_iterator_t _hash_multiset_insert_varg(
 
 void hash_multiset_insert_range(
     hash_multiset_t* pt_hash_multiset, 
-    hash_multiset_iterator_t t_begin, 
-    hash_multiset_iterator_t t_end)
+    hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end)
 {
     assert(pt_hash_multiset != NULL);
     assert(
@@ -614,8 +563,7 @@ void hash_multiset_erase_pos(
 
 void hash_multiset_erase_range(
     hash_multiset_t* pt_hash_multiset,
-    hash_multiset_iterator_t t_begin,
-    hash_multiset_iterator_t t_end)
+    hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end)
 {
     assert(pt_hash_multiset != NULL);
     assert(
@@ -637,8 +585,7 @@ size_t _hash_multiset_erase(hash_multiset_t* pt_hash_multiset, ...)
     return _hash_multiset_erase_varg(pt_hash_multiset, val_elemlist);
 }
 
-size_t _hash_multiset_erase_varg(
-    hash_multiset_t* pt_hash_multiset, va_list val_elemlist)
+size_t _hash_multiset_erase_varg(hash_multiset_t* pt_hash_multiset, va_list val_elemlist)
 {
     size_t  t_countsize = 0;
     char*   pc_value = NULL;
@@ -655,9 +602,7 @@ size_t _hash_multiset_erase_varg(
     {
         memset(pc_value, 0x00, pt_hash_multiset->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            pt_hash_multiset->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, pt_hash_multiset->_t_hashtable._t_typesize,
             pt_hash_multiset->_t_hashtable._sz_typename);
     }
 
