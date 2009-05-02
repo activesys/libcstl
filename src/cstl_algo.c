@@ -46,30 +46,14 @@
 
 /** local function prototype section **/
 /*
- *  Functionname: _partition_biditer
- *    Parameters: in) t_first: bidirectional_iterator_t
- *                    the first iterator
- *                in) t_last: bidirectional_iterator_t
- *                    the last iterator
- *                in) t_unary_op: unary_function_t
- *                    unary function
- *       Returns: bidirectional_iterator_t
- *   Description: partition with bidirectional_iterator_t.
+ * Partition with bidirectional_iterator_t.
  */
 static bidirectional_iterator_t _partition_biditer(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
     unary_function_t t_unary_op);
 
 /*
- *  Functionname: _rotate_forward
- *    Parameters: in) t_first: forward_iterator_t
- *                    the first iterator.
- *                in) t_middle: forward_iterator_t
- *                    the middle iterator.
- *                in) t_last: forward_iterator_t
- *                    the last iterator.
- *       Returns: void
- *   Description: rotates the elements in the range [t_first, t_last).
+ * Rotates the elements in the range [t_first, t_last).
  */
 static void _rotate_forward(
     forward_iterator_t t_first,
@@ -77,33 +61,14 @@ static void _rotate_forward(
     forward_iterator_t t_last);
 
 /*
- *  Functionname: _insertion_sort_if
- *    Parameters: in) t_first: random_access_iterator_t
- *                    the first iterator
- *                in) t_last: random_access_iterator_t
- *                    the last iterator
- *                in) t_binary_op: binary_function_t
- *                    binary function
- *                in) pc_value: char*
- *       Returns: void
- *   Description: the implement of insertion sort.
+ * The implement of insertion sort.
  */
 static void _insertion_sort_if(
     random_access_iterator_t t_first, random_access_iterator_t t_last,
     binary_function_t t_binary_op, char* pc_value);
 
 /*
- *  Functionname: _median_of_three_if
- *    Parameters: in) t_first: random_access_iterator_t
- *                    the first iterator.
- *                in) t_middle: random_access_iterator_t
- *                    the middle iterator.
- *                in) t_last: random_access_iterator_t
- *                    the last iterator.
- *                in) t_binary_op: binary_function_t
- *                    binary function
- *       Returns: random_access_iterator_t
- *   Description: return the median of three random_access_iterator_t
+ * Return the median of three random_access_iterator_t
  */
 static random_access_iterator_t _median_of_three_if(
     random_access_iterator_t t_first,
@@ -112,26 +77,12 @@ static random_access_iterator_t _median_of_three_if(
     binary_function_t t_binary_op);
 
 /*
- *  Functionname: _lg
- *    Parameters: in) t_n: size_t
- *       Returns: size_t
- *   Description: compute the logarithm of t_n.
+ * Compute the logarithm of t_n.
  */
 static size_t _lg(size_t t_n);
 
 /*
- *  Functionname: _intro_sort_if
- *    Parameters: in) t_first: random_access_iterator_t
- *                    the first iterator
- *                in) t_last: random_access_iterator_t
- *                    the last iterator
- *                in) t_binary_op: binary_function_t
- *                    binary function
- *                in) t_depth: size_t
- *                    the limit recursion depth.
- *                in) pc_value: char*
- *       Returns: void
- *   Description: the implement of intro sort.
+ * The implement of intro sort.
  */
 static void _intro_sort_if(
     random_access_iterator_t t_first, random_access_iterator_t t_last,
@@ -176,9 +127,7 @@ output_iterator_t algo_set_union_if(
     while(!iterator_equal(&t_first1, t_last1) && !iterator_equal(&t_first2, t_last2))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first1),
-            iterator_get_pointer(&t_first2),
-            &t_cmp);
+            iterator_get_pointer(&t_first1), iterator_get_pointer(&t_first2), &t_cmp);
         /* t_first1 < t_first2 */
         if(t_cmp)
         {
@@ -188,9 +137,7 @@ output_iterator_t algo_set_union_if(
         else
         {
             (*t_binary_op)(
-                iterator_get_pointer(&t_first2),
-                iterator_get_pointer(&t_first1),
-                &t_cmp);
+                iterator_get_pointer(&t_first2), iterator_get_pointer(&t_first1), &t_cmp);
             /* t_first2 < t_first1 */
             if(t_cmp)
             {
@@ -245,9 +192,7 @@ output_iterator_t algo_set_intersection_if(
     while(!iterator_equal(&t_first1, t_last1) && !iterator_equal(&t_first2, t_last2))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first1),
-            iterator_get_pointer(&t_first2),
-            &t_cmp);
+            iterator_get_pointer(&t_first1), iterator_get_pointer(&t_first2), &t_cmp);
         /* t_first1 < t_first2 */
         if(t_cmp)
         {
@@ -256,9 +201,7 @@ output_iterator_t algo_set_intersection_if(
         else
         {
             (*t_binary_op)(
-                iterator_get_pointer(&t_first2),
-                iterator_get_pointer(&t_first1),
-                &t_cmp);
+                iterator_get_pointer(&t_first2), iterator_get_pointer(&t_first1), &t_cmp);
             /* t_first2 < t_first1 */
             if(t_cmp)
             {
@@ -312,9 +255,7 @@ output_iterator_t algo_set_difference_if(
     while(!iterator_equal(&t_first1, t_last1) && !iterator_equal(&t_first2, t_last2))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first1),
-            iterator_get_pointer(&t_first2),
-            &t_cmp);
+            iterator_get_pointer(&t_first1), iterator_get_pointer(&t_first2), &t_cmp);
         /* t_first1 < t_first2 */
         if(t_cmp)
         {
@@ -325,9 +266,7 @@ output_iterator_t algo_set_difference_if(
         else
         {
             (*t_binary_op)(
-                iterator_get_pointer(&t_first2),
-                iterator_get_pointer(&t_first1),
-                &t_cmp);
+                iterator_get_pointer(&t_first2), iterator_get_pointer(&t_first1), &t_cmp);
             /* t_first2 < t_first1 */
             if(t_cmp)
             {
@@ -379,9 +318,7 @@ output_iterator_t algo_set_symmetric_difference_if(
     while(!iterator_equal(&t_first1, t_last1) && !iterator_equal(&t_first2, t_last2))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first1),
-            iterator_get_pointer(&t_first2),
-            &t_cmp);
+            iterator_get_pointer(&t_first1), iterator_get_pointer(&t_first2), &t_cmp);
         /* t_first1 < t_first2 */
         if(t_cmp)
         {
@@ -392,9 +329,7 @@ output_iterator_t algo_set_symmetric_difference_if(
         else
         {
             (*t_binary_op)(
-                iterator_get_pointer(&t_first2),
-                iterator_get_pointer(&t_first1),
-                &t_cmp);
+                iterator_get_pointer(&t_first2), iterator_get_pointer(&t_first1), &t_cmp);
             /* t_first2 < t_first1 */
             if(t_cmp)
             {
@@ -447,9 +382,7 @@ forward_iterator_t algo_adjacent_find_if(
     while(!iterator_equal(&t_next, t_last))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first),
-            iterator_get_pointer(&t_next),
-            &t_result);
+            iterator_get_pointer(&t_first), iterator_get_pointer(&t_next), &t_result);
         if(t_result)
         {
             return t_first;
@@ -487,10 +420,8 @@ size_t _algo_count_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     t_binary_op = _fun_get_binary(_tools_get_typename(t_first), _EQUAL_FUN);
     assert(t_binary_op != NULL);
@@ -558,10 +489,8 @@ input_iterator_t _algo_find_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     t_binary_op = _fun_get_binary(_tools_get_typename(t_first), _EQUAL_FUN);
     assert(t_binary_op != NULL);
@@ -637,9 +566,7 @@ input_iterator_t algo_find_first_of_if(
             iterator_next(&t_index))
         {
             (*t_binary_op)(
-                iterator_get_pointer(&t_first1),
-                iterator_get_pointer(&t_index),
-                &t_result);
+                iterator_get_pointer(&t_first1), iterator_get_pointer(&t_index), &t_result);
             if(t_result)
             {
                 return t_first1;
@@ -705,9 +632,7 @@ forward_iterator_t algo_search_if(
     for(; !iterator_equal(&t_first1, t_last1); iterator_next(&t_first1))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first1),
-            iterator_get_pointer(&t_first2),
-            &t_result);
+            iterator_get_pointer(&t_first1), iterator_get_pointer(&t_first2), &t_result);
         if(t_result)
         {
             for(t_index1 = t_first1, iterator_next(&t_index1),
@@ -791,10 +716,8 @@ forward_iterator_t _algo_search_n_if_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     for(; !iterator_equal(&t_first, t_last); iterator_next(&t_first))
     {
@@ -972,9 +895,7 @@ bool_t algo_includes_if(
     while(!iterator_equal(&t_first1, t_last1) && !iterator_equal(&t_first2, t_last2))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first2),
-            iterator_get_pointer(&t_first1),
-            &t_result);
+            iterator_get_pointer(&t_first2), iterator_get_pointer(&t_first1), &t_result);
         /* *t_first2 < *t_first1 */
         if(t_result)
         {
@@ -983,9 +904,7 @@ bool_t algo_includes_if(
         else
         {
             (*t_binary_op)(
-                iterator_get_pointer(&t_first1),
-                iterator_get_pointer(&t_first2),
-                &t_result);
+                iterator_get_pointer(&t_first1), iterator_get_pointer(&t_first2), &t_result);
             /* *t_first1 < *t_first2 */
             if(t_result)
             {
@@ -1044,9 +963,7 @@ forward_iterator_t algo_max_element_if(
         iterator_next(&t_first))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first),
-            iterator_get_pointer(&t_result),
-            &t_cmp);
+            iterator_get_pointer(&t_first), iterator_get_pointer(&t_result), &t_cmp);
         /* *t_first >= *t_result */
         if(!t_cmp)
         {
@@ -1091,9 +1008,7 @@ forward_iterator_t algo_min_element_if(
         iterator_next(&t_first))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first),
-            iterator_get_pointer(&t_result),
-            &t_cmp);
+            iterator_get_pointer(&t_first), iterator_get_pointer(&t_result), &t_cmp);
         /* *t_first < *t_result */
         if(t_cmp)
         {
@@ -1138,9 +1053,7 @@ output_iterator_t algo_merge_if(
     while(!iterator_equal(&t_first1, t_last1) && !iterator_equal(&t_first2, t_last2))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first2),
-            iterator_get_pointer(&t_first1),
-            &t_cmp);
+            iterator_get_pointer(&t_first2), iterator_get_pointer(&t_first1), &t_cmp);
         /* *t_first2 < *t_first1 */
         if(t_cmp)
         {
@@ -1296,10 +1209,8 @@ output_iterator_t _algo_remove_copy_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     t_binary_op = _fun_get_binary(_tools_get_typename(t_first), _EQUAL_FUN);
     assert(t_binary_op != NULL);
@@ -1416,10 +1327,8 @@ void _algo_replace_once_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_iterator),
-        _tools_get_typename(t_iterator));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_iterator), _tools_get_typename(t_iterator));
 
     iterator_set_value(&t_iterator, pc_value);
 
@@ -1457,10 +1366,8 @@ void _algo_replace_if_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     for(; !iterator_equal(&t_first, t_last); iterator_next(&t_first))
     {
@@ -1510,10 +1417,8 @@ output_iterator_t _algo_replace_copy_if_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     for(; !iterator_equal(&t_first, t_last); iterator_next(&t_first))
     {
@@ -1594,8 +1499,8 @@ forward_iterator_t algo_rotate(
     t_distance = iterator_distance(t_middle, t_last);
 
     if(_GET_ITERATOR_TYPE(&t_first) == _FORWARD_ITERATOR &&
-            _GET_ITERATOR_TYPE(&t_middle) == _FORWARD_ITERATOR &&
-            _GET_ITERATOR_TYPE(&t_last) == _FORWARD_ITERATOR)
+       _GET_ITERATOR_TYPE(&t_middle) == _FORWARD_ITERATOR &&
+       _GET_ITERATOR_TYPE(&t_last) == _FORWARD_ITERATOR)
     {
         _rotate_forward(t_first, t_middle, t_last);
     }
@@ -1710,9 +1615,7 @@ output_iterator_t algo_transform_binary(
         iterator_next(&t_first1), iterator_next(&t_first2), iterator_next(&t_result))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first1),
-            iterator_get_pointer(&t_first2),
-            pc_value);
+            iterator_get_pointer(&t_first1), iterator_get_pointer(&t_first2), pc_value);
         iterator_set_value(&t_result, pc_value);
     }
 
@@ -1777,9 +1680,7 @@ output_iterator_t algo_unique_copy_if(
     while(!iterator_equal(&t_first, t_last))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_result),
-            iterator_get_pointer(&t_first),
-            &t_cmp);
+            iterator_get_pointer(&t_result), iterator_get_pointer(&t_first), &t_cmp);
         if(!t_cmp)
         {
             iterator_next(&t_result);
@@ -1841,10 +1742,8 @@ forward_iterator_t _algo_lower_bound_if_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     t_len = iterator_distance(t_first, t_last);
     while(t_len > 0)
@@ -1920,10 +1819,8 @@ forward_iterator_t _algo_upper_bound_if_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     t_len = iterator_distance(t_first, t_last);
     while(t_len > 0)
@@ -2003,10 +1900,8 @@ pair_t _algo_equal_range_if_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     t_pair = create_pair(iterator_t, iterator_t);
     pair_init(&t_pair);
@@ -2104,10 +1999,8 @@ bool_t _algo_binary_search_if_varg(
         exit(EXIT_FAILURE);
     }
     _get_varg_value(
-        pc_value,
-        val_elemlist,
-        _tools_get_typesize(t_first),
-        _tools_get_typename(t_first));
+        pc_value, val_elemlist,
+        _tools_get_typesize(t_first), _tools_get_typename(t_first));
 
     if(!iterator_equal(&t_lower, t_last))
     {
@@ -2177,24 +2070,18 @@ bool_t algo_next_permutation_if(
         iterator_prev(&t_i);
 
         (*t_binary_op)(
-            iterator_get_pointer(&t_i),
-            iterator_get_pointer(&t_ii),
-            &t_result);
+            iterator_get_pointer(&t_i), iterator_get_pointer(&t_ii), &t_result);
         if(t_result)
         {
             t_j = t_last;
             iterator_prev(&t_j);
             (*t_binary_op)(
-                iterator_get_pointer(&t_i),
-                iterator_get_pointer(&t_j),
-                &t_result);
+                iterator_get_pointer(&t_i), iterator_get_pointer(&t_j), &t_result);
             while(!t_result)
             {
                 iterator_prev(&t_j);
                 (*t_binary_op)(
-                    iterator_get_pointer(&t_i),
-                    iterator_get_pointer(&t_j),
-                    &t_result);
+                    iterator_get_pointer(&t_i), iterator_get_pointer(&t_j), &t_result);
             }
             algo_iter_swap(t_i, t_j);
             algo_reverse(t_ii, t_last);
@@ -2254,24 +2141,18 @@ bool_t algo_prev_permutation_if(
         iterator_prev(&t_i);
 
         (*t_binary_op)(
-            iterator_get_pointer(&t_ii),
-            iterator_get_pointer(&t_i),
-            &t_result);
+            iterator_get_pointer(&t_ii), iterator_get_pointer(&t_i), &t_result);
         if(t_result)
         {
             t_j = t_last;
             iterator_prev(&t_j);
             (*t_binary_op)(
-                iterator_get_pointer(&t_j),
-                iterator_get_pointer(&t_i),
-                &t_result);
+                iterator_get_pointer(&t_j), iterator_get_pointer(&t_i), &t_result);
             while(!t_result)
             {
                 iterator_prev(&t_j);
                 (*t_binary_op)(
-                    iterator_get_pointer(&t_j),
-                    iterator_get_pointer(&t_i),
-                    &t_result);
+                    iterator_get_pointer(&t_j), iterator_get_pointer(&t_i), &t_result);
             }
             algo_iter_swap(t_i, t_j);
             algo_reverse(t_ii, t_last);
@@ -2471,9 +2352,7 @@ void algo_partial_sort_if(
         iterator_next(&t_iterator))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_iterator),
-            iterator_get_pointer(&t_first),
-            &t_result);
+            iterator_get_pointer(&t_iterator), iterator_get_pointer(&t_first), &t_result);
         if(t_result)
         {
             algo_pop_heap_if(t_first, t_middle, t_binary_op);
@@ -2530,9 +2409,7 @@ random_access_iterator_t algo_partial_sort_copy_if(
     for(; !iterator_equal(&t_first1, t_last1); iterator_next(&t_first1))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first1),
-            iterator_get_pointer(&t_first2),
-            &t_result);
+            iterator_get_pointer(&t_first1), iterator_get_pointer(&t_first2), &t_result);
         if(t_result) /* *t_first1 < *t_first2 */
         {
             algo_pop_heap_if(t_first2, t_iterator, t_binary_op);
@@ -2812,9 +2689,7 @@ bool_t algo_is_sorted_if(
         t_first = t_next, iterator_next(&t_next))
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_next),
-            iterator_get_pointer(&t_first),
-            &t_result);
+            iterator_get_pointer(&t_next), iterator_get_pointer(&t_first), &t_result);
         if(t_result) /* t_next < t_first */
         {
             return false;
@@ -3026,15 +2901,11 @@ static random_access_iterator_t _median_of_three_if(
     assert(t_binary_op != NULL);
 
     (*t_binary_op)(
-        iterator_get_pointer(&t_first),
-        iterator_get_pointer(&t_middle),
-        &t_result);
+        iterator_get_pointer(&t_first), iterator_get_pointer(&t_middle), &t_result);
     if(t_result) /* t_first < t_middle */
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_middle),
-            iterator_get_pointer(&t_last),
-            &t_result);
+            iterator_get_pointer(&t_middle), iterator_get_pointer(&t_last), &t_result);
         if(t_result) /* t_first < t_middle < t_last */
         {
             return t_middle;
@@ -3042,9 +2913,7 @@ static random_access_iterator_t _median_of_three_if(
         else /* t_last <= t_middle */
         {
             (*t_binary_op)(
-                iterator_get_pointer(&t_first),
-                iterator_get_pointer(&t_last),
-                &t_result);
+                iterator_get_pointer(&t_first), iterator_get_pointer(&t_last), &t_result);
             if(t_result) /* t_first < t_last <= t_middle */
             {
                 return t_last;
@@ -3058,9 +2927,7 @@ static random_access_iterator_t _median_of_three_if(
     else /* t_middle <= t_first */
     {
         (*t_binary_op)(
-            iterator_get_pointer(&t_first),
-            iterator_get_pointer(&t_last),
-            &t_result);
+            iterator_get_pointer(&t_first), iterator_get_pointer(&t_last), &t_result);
         if(t_result) /* t_middle <= t_first < t_last */
         {
             return t_first;
@@ -3068,9 +2935,7 @@ static random_access_iterator_t _median_of_three_if(
         else /* t_last <= t_first */
         {
             (*t_binary_op)(
-                iterator_get_pointer(&t_middle),
-                iterator_get_pointer(&t_last),
-                &t_result);
+                iterator_get_pointer(&t_middle), iterator_get_pointer(&t_last), &t_result);
             if(t_result) /* t_middle < t_last <= t_first */
             {
                 return t_last;
