@@ -652,8 +652,7 @@ void fun_plus_uchar(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned char*)pv_output = 
-        *(unsigned char*)cpv_first + *(unsigned char*)cpv_second;
+    *(unsigned char*)pv_output = *(unsigned char*)cpv_first + *(unsigned char*)cpv_second;
 }
 
 void fun_plus_short(
@@ -669,8 +668,7 @@ void fun_plus_ushort(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned short*)pv_output = 
-        *(unsigned short*)cpv_first + *(unsigned short*)cpv_second;
+    *(unsigned short*)pv_output = *(unsigned short*)cpv_first + *(unsigned short*)cpv_second;
 }
 
 void fun_plus_int(
@@ -702,8 +700,7 @@ void fun_plus_ulong(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned long*)pv_output = 
-        *(unsigned long*)cpv_first + *(unsigned long*)cpv_second;
+    *(unsigned long*)pv_output = *(unsigned long*)cpv_first + *(unsigned long*)cpv_second;
 }
 
 void fun_plus_float(
@@ -736,8 +733,7 @@ void fun_minus_uchar(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned char*)pv_output = 
-        *(unsigned char*)cpv_first - *(unsigned char*)cpv_second;
+    *(unsigned char*)pv_output = *(unsigned char*)cpv_first - *(unsigned char*)cpv_second;
 }
 
 void fun_minus_short(
@@ -753,8 +749,7 @@ void fun_minus_ushort(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned short*)pv_output = 
-        *(unsigned short*)cpv_first - *(unsigned short*)cpv_second;
+    *(unsigned short*)pv_output = *(unsigned short*)cpv_first - *(unsigned short*)cpv_second;
 }
 
 void fun_minus_int(
@@ -770,8 +765,7 @@ void fun_minus_uint(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned int*)pv_output = 
-        *(unsigned int*)cpv_first - *(unsigned int*)cpv_second;
+    *(unsigned int*)pv_output = *(unsigned int*)cpv_first - *(unsigned int*)cpv_second;
 }
 
 void fun_minus_long(
@@ -787,8 +781,7 @@ void fun_minus_ulong(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned long*)pv_output = 
-        *(unsigned long*)cpv_first - *(unsigned long*)cpv_second;
+    *(unsigned long*)pv_output = *(unsigned long*)cpv_first - *(unsigned long*)cpv_second;
 }
 
 void fun_minus_float(
@@ -821,8 +814,7 @@ void fun_multiplies_uchar(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned char*)pv_output = 
-        *(unsigned char*)cpv_first * *(unsigned char*)cpv_second;
+    *(unsigned char*)pv_output = *(unsigned char*)cpv_first * *(unsigned char*)cpv_second;
 }
 
 void fun_multiplies_short(
@@ -838,8 +830,7 @@ void fun_multiplies_ushort(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned short*)pv_output = 
-        *(unsigned short*)cpv_first * *(unsigned short*)cpv_second;
+    *(unsigned short*)pv_output = *(unsigned short*)cpv_first * *(unsigned short*)cpv_second;
 }
 
 void fun_multiplies_int(
@@ -855,8 +846,7 @@ void fun_multiplies_uint(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned int*)pv_output = 
-        *(unsigned int*)cpv_first * *(unsigned int*)cpv_second;
+    *(unsigned int*)pv_output = *(unsigned int*)cpv_first * *(unsigned int*)cpv_second;
 }
 
 void fun_multiplies_long(
@@ -872,8 +862,7 @@ void fun_multiplies_ulong(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(unsigned long*)pv_output = 
-        *(unsigned long*)cpv_first * *(unsigned long*)cpv_second;
+    *(unsigned long*)pv_output = *(unsigned long*)cpv_first * *(unsigned long*)cpv_second;
 }
 
 void fun_multiplies_float(
@@ -908,8 +897,7 @@ void fun_divides_uchar(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     assert(*(unsigned char*)cpv_second != 0x00);
-    *(unsigned char*)pv_output = 
-        *(unsigned char*)cpv_first / *(unsigned char*)cpv_second;
+    *(unsigned char*)pv_output = *(unsigned char*)cpv_first / *(unsigned char*)cpv_second;
 }
 
 void fun_divides_short(
@@ -927,8 +915,7 @@ void fun_divides_ushort(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     assert(*(unsigned short*)cpv_second != 0);
-    *(unsigned short*)pv_output = 
-        *(unsigned short*)cpv_first / *(unsigned short*)cpv_second;
+    *(unsigned short*)pv_output = *(unsigned short*)cpv_first / *(unsigned short*)cpv_second;
 }
 
 void fun_divides_int(
@@ -946,8 +933,7 @@ void fun_divides_uint(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     assert(*(unsigned int*)cpv_second != 0);
-    *(unsigned int*)pv_output = 
-        *(unsigned int*)cpv_first / *(unsigned int*)cpv_second;
+    *(unsigned int*)pv_output = *(unsigned int*)cpv_first / *(unsigned int*)cpv_second;
 }
 
 void fun_divides_long(
@@ -965,8 +951,7 @@ void fun_divides_ulong(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     assert(*(unsigned long*)cpv_second != 0);
-    *(unsigned long*)pv_output = 
-        *(unsigned long*)cpv_first / *(unsigned long*)cpv_second;
+    *(unsigned long*)pv_output = *(unsigned long*)cpv_first / *(unsigned long*)cpv_second;
 }
 
 void fun_divides_float(
@@ -974,9 +959,7 @@ void fun_divides_float(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    assert(
-        *(float*)cpv_second > FLT_EPSILON ||
-        *(float*)cpv_second < -FLT_EPSILON);
+    assert(*(float*)cpv_second > FLT_EPSILON || *(float*)cpv_second < -FLT_EPSILON);
     *(float*)pv_output = *(float*)cpv_first / *(float*)cpv_second;
 }
 
@@ -985,9 +968,7 @@ void fun_divides_double(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    assert(
-        *(double*)cpv_second > DBL_EPSILON ||
-        *(double*)cpv_second < -DBL_EPSILON);
+    assert(*(double*)cpv_second > DBL_EPSILON || *(double*)cpv_second < -DBL_EPSILON);
     *(double*)pv_output = *(double*)cpv_first / *(double*)cpv_second;
 }
 
@@ -1007,8 +988,7 @@ void fun_modulus_uchar(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     assert(*(unsigned char*)cpv_second != 0x00);
-    *(unsigned char*)pv_output = 
-        *(unsigned char*)cpv_first % *(unsigned char*)cpv_second;
+    *(unsigned char*)pv_output = *(unsigned char*)cpv_first % *(unsigned char*)cpv_second;
 }
 
 void fun_modulus_short(
@@ -1026,8 +1006,7 @@ void fun_modulus_ushort(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     assert(*(unsigned short*)cpv_second != 0);
-    *(unsigned short*)pv_output = 
-        *(unsigned short*)cpv_first % *(unsigned short*)cpv_second;
+    *(unsigned short*)pv_output = *(unsigned short*)cpv_first % *(unsigned short*)cpv_second;
 }
 
 void fun_modulus_int(
@@ -1045,8 +1024,7 @@ void fun_modulus_uint(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     assert(*(unsigned int*)cpv_second != 0);
-    *(unsigned int*)pv_output = 
-        *(unsigned int*)cpv_first % *(unsigned int*)cpv_second;
+    *(unsigned int*)pv_output = *(unsigned int*)cpv_first % *(unsigned int*)cpv_second;
 }
 
 void fun_modulus_long(
@@ -1064,8 +1042,7 @@ void fun_modulus_ulong(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     assert(*(unsigned long*)cpv_second != 0);
-    *(unsigned long*)pv_output = 
-        *(unsigned long*)cpv_first % *(unsigned long*)cpv_second;
+    *(unsigned long*)pv_output = *(unsigned long*)cpv_first % *(unsigned long*)cpv_second;
 }
 
 /* negation */
@@ -1128,8 +1105,7 @@ void fun_equal_uchar(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first == *(unsigned char*)cpv_second ? 
-        true : false;
+        *(unsigned char*)cpv_first == *(unsigned char*)cpv_second ? true : false;
 }
 
 void fun_equal_short(
@@ -1147,8 +1123,7 @@ void fun_equal_ushort(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first == *(unsigned short*)cpv_second ? 
-        true : false;
+        *(unsigned short*)cpv_first == *(unsigned short*)cpv_second ? true : false;
 }
 
 void fun_equal_int(
@@ -1166,8 +1141,7 @@ void fun_equal_uint(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first == *(unsigned int*)cpv_second ? 
-        true : false;
+        *(unsigned int*)cpv_first == *(unsigned int*)cpv_second ? true : false;
 }
 
 void fun_equal_long(
@@ -1185,8 +1159,7 @@ void fun_equal_ulong(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first == *(unsigned long*)cpv_second ? 
-        true : false;
+        *(unsigned long*)cpv_first == *(unsigned long*)cpv_second ? true : false;
 }
 
 void fun_equal_float(
@@ -1196,8 +1169,7 @@ void fun_equal_float(
 
     *(bool_t*)pv_output = 
         *(float*)cpv_first - *(float*)cpv_second < FLT_EPSILON &&
-        *(float*)cpv_first - *(float*)cpv_second > -FLT_EPSILON ? 
-        true : false;
+        *(float*)cpv_first - *(float*)cpv_second > -FLT_EPSILON ? true : false;
 }
 
 void fun_equal_double(
@@ -1207,8 +1179,7 @@ void fun_equal_double(
 
     *(bool_t*)pv_output = 
         *(double*)cpv_first - *(double*)cpv_second < DBL_EPSILON &&
-        *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? 
-        true : false;
+        *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? true : false;
 }
 
 /* inequality */
@@ -1227,8 +1198,7 @@ void fun_not_equal_uchar(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first != *(unsigned char*)cpv_second ? 
-        true : false;
+        *(unsigned char*)cpv_first != *(unsigned char*)cpv_second ? true : false;
 }
 
 void fun_not_equal_short(
@@ -1246,8 +1216,7 @@ void fun_not_equal_ushort(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first != *(unsigned short*)cpv_second ? 
-        true : false;
+        *(unsigned short*)cpv_first != *(unsigned short*)cpv_second ? true : false;
 }
 
 void fun_not_equal_int(
@@ -1265,8 +1234,7 @@ void fun_not_equal_uint(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first != *(unsigned int*)cpv_second ? 
-        true : false;
+        *(unsigned int*)cpv_first != *(unsigned int*)cpv_second ? true : false;
 }
 
 void fun_not_equal_long(
@@ -1284,8 +1252,7 @@ void fun_not_equal_ulong(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first != *(unsigned long*)cpv_second ? 
-        true : false;
+        *(unsigned long*)cpv_first != *(unsigned long*)cpv_second ? true : false;
 }
 
 void fun_not_equal_float(
@@ -1293,21 +1260,9 @@ void fun_not_equal_float(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    /*if(cpv_second != NULL)*/
-    /*{*/
-    /**(bool_t*)pv_output = */
-    /**(float*)cpv_first - *(float*)cpv_second >= FLT_EPSILON ||*/
-    /**(float*)cpv_first - *(float*)cpv_second <= -FLT_EPSILON ? */
-    /*true : false;*/
-    /*}*/
-    /*else*/
-    /*{*/
-    /**(bool_t*)pv_output = false;*/
-    /*}*/
     *(bool_t*)pv_output = 
         *(float*)cpv_first - *(float*)cpv_second >= FLT_EPSILON ||
-        *(float*)cpv_first - *(float*)cpv_second <= -FLT_EPSILON ? 
-        true : false;
+        *(float*)cpv_first - *(float*)cpv_second <= -FLT_EPSILON ? true : false;
 }
 
 void fun_not_equal_double(
@@ -1317,8 +1272,7 @@ void fun_not_equal_double(
 
     *(bool_t*)pv_output = 
         *(double*)cpv_first - *(double*)cpv_second >= DBL_EPSILON ||
-        *(double*)cpv_first - *(double*)cpv_second <= -DBL_EPSILON ? 
-        true : false;
+        *(double*)cpv_first - *(double*)cpv_second <= -DBL_EPSILON ? true : false;
 }
 
 /* greater */
@@ -1337,8 +1291,7 @@ void fun_great_uchar(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first > *(unsigned char*)cpv_second ? 
-        true : false;
+        *(unsigned char*)cpv_first > *(unsigned char*)cpv_second ? true : false;
 }
 
 void fun_great_short(
@@ -1356,8 +1309,7 @@ void fun_great_ushort(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first > *(unsigned short*)cpv_second ? 
-        true : false;
+        *(unsigned short*)cpv_first > *(unsigned short*)cpv_second ? true : false;
 }
 
 void fun_great_int(
@@ -1375,8 +1327,7 @@ void fun_great_uint(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first > *(unsigned int*)cpv_second ? 
-        true : false;
+        *(unsigned int*)cpv_first > *(unsigned int*)cpv_second ? true : false;
 }
 
 void fun_great_long(
@@ -1394,8 +1345,7 @@ void fun_great_ulong(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first > *(unsigned long*)cpv_second ? 
-        true : false;
+        *(unsigned long*)cpv_first > *(unsigned long*)cpv_second ? true : false;
 }
 
 void fun_great_float(
@@ -1404,8 +1354,7 @@ void fun_great_float(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(float*)cpv_first - *(float*)cpv_second >= FLT_EPSILON ? 
-        true : false;
+        *(float*)cpv_first - *(float*)cpv_second >= FLT_EPSILON ? true : false;
 }
 
 void fun_great_double(
@@ -1414,8 +1363,7 @@ void fun_great_double(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(double*)cpv_first - *(double*)cpv_second >= DBL_EPSILON ? 
-        true : false;
+        *(double*)cpv_first - *(double*)cpv_second >= DBL_EPSILON ? true : false;
 }
 
 /* greater or equal*/
@@ -1434,8 +1382,7 @@ void fun_great_equal_uchar(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first >= *(unsigned char*)cpv_second ? 
-        true : false;
+        *(unsigned char*)cpv_first >= *(unsigned char*)cpv_second ? true : false;
 }
 
 void fun_great_equal_short(
@@ -1453,8 +1400,7 @@ void fun_great_equal_ushort(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first >= *(unsigned short*)cpv_second ? 
-        true : false;
+        *(unsigned short*)cpv_first >= *(unsigned short*)cpv_second ? true : false;
 }
 
 void fun_great_equal_int(
@@ -1472,8 +1418,7 @@ void fun_great_equal_uint(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first >= *(unsigned int*)cpv_second ? 
-        true : false;
+        *(unsigned int*)cpv_first >= *(unsigned int*)cpv_second ? true : false;
 }
 
 void fun_great_equal_long(
@@ -1491,8 +1436,7 @@ void fun_great_equal_ulong(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first >= *(unsigned long*)cpv_second ? 
-        true : false;
+        *(unsigned long*)cpv_first >= *(unsigned long*)cpv_second ? true : false;
 }
 
 void fun_great_equal_float(
@@ -1501,8 +1445,7 @@ void fun_great_equal_float(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(float*)cpv_first - *(float*)cpv_second > -FLT_EPSILON ? 
-        true : false;
+        *(float*)cpv_first - *(float*)cpv_second > -FLT_EPSILON ? true : false;
 }
 
 void fun_great_equal_double(
@@ -1511,8 +1454,7 @@ void fun_great_equal_double(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? 
-        true : false;
+        *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? true : false;
 }
 
 /* less */
@@ -1531,8 +1473,7 @@ void fun_less_uchar(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first < *(unsigned char*)cpv_second ? 
-        true : false;
+        *(unsigned char*)cpv_first < *(unsigned char*)cpv_second ? true : false;
 }
 
 void fun_less_short(
@@ -1550,8 +1491,7 @@ void fun_less_ushort(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first < *(unsigned short*)cpv_second ? 
-        true : false;
+        *(unsigned short*)cpv_first < *(unsigned short*)cpv_second ? true : false;
 }
 
 void fun_less_int(
@@ -1569,8 +1509,7 @@ void fun_less_uint(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first < *(unsigned int*)cpv_second ?
-        true : false;
+        *(unsigned int*)cpv_first < *(unsigned int*)cpv_second ? true : false;
 }
 
 void fun_less_long(
@@ -1588,8 +1527,7 @@ void fun_less_ulong(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first < *(unsigned long*)cpv_second ? 
-        true : false;
+        *(unsigned long*)cpv_first < *(unsigned long*)cpv_second ? true : false;
 }
 
 void fun_less_float(
@@ -1598,8 +1536,7 @@ void fun_less_float(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(float*)cpv_first - *(float*)cpv_second < -FLT_EPSILON ? 
-        true : false;
+        *(float*)cpv_first - *(float*)cpv_second < -FLT_EPSILON ? true : false;
 }
 
 void fun_less_double(
@@ -1608,8 +1545,7 @@ void fun_less_double(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(double*)cpv_first - *(double*)cpv_second < -DBL_EPSILON ? 
-        true : false;
+        *(double*)cpv_first - *(double*)cpv_second < -DBL_EPSILON ? true : false;
 }
 
 /* less or equal*/
@@ -1628,8 +1564,7 @@ void fun_less_equal_uchar(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first <= *(unsigned char*)cpv_second ? 
-        true : false;
+        *(unsigned char*)cpv_first <= *(unsigned char*)cpv_second ? true : false;
 }
 
 void fun_less_equal_short(
@@ -1647,8 +1582,7 @@ void fun_less_equal_ushort(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first <= *(unsigned short*)cpv_second ? 
-        true : false;
+        *(unsigned short*)cpv_first <= *(unsigned short*)cpv_second ? true : false;
 }
 
 void fun_less_equal_int(
@@ -1666,8 +1600,7 @@ void fun_less_equal_uint(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first <= *(unsigned int*)cpv_second ? 
-        true : false;
+        *(unsigned int*)cpv_first <= *(unsigned int*)cpv_second ? true : false;
 }
 
 void fun_less_equal_long(
@@ -1685,8 +1618,7 @@ void fun_less_equal_ulong(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first <= *(unsigned long*)cpv_second ? 
-        true : false;
+        *(unsigned long*)cpv_first <= *(unsigned long*)cpv_second ? true : false;
 }
 
 void fun_less_equal_float(
@@ -1694,19 +1626,8 @@ void fun_less_equal_float(
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    /*if(cpv_second != NULL)*/
-    /*{*/
-    /**(bool_t*)pv_output = */
-    /**(float*)cpv_first - *(float*)cpv_second < FLT_EPSILON ? */
-    /*true : false;*/
-    /*}*/
-    /*else*/
-    /*{*/
-    /**(bool_t*)pv_output = false;*/
-    /*}*/
     *(bool_t*)pv_output = 
-        *(float*)cpv_first - *(float*)cpv_second < FLT_EPSILON ? 
-        true : false;
+        *(float*)cpv_first - *(float*)cpv_second < FLT_EPSILON ? true : false;
 }
 
 void fun_less_equal_double(
@@ -1715,8 +1636,7 @@ void fun_less_equal_double(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = 
-        *(double*)cpv_first - *(double*)cpv_second < DBL_EPSILON ? 
-        true : false;
+        *(double*)cpv_first - *(double*)cpv_second < DBL_EPSILON ? true : false;
 }
 
 /* logical */
@@ -1750,8 +1670,7 @@ void fun_random_number(const void* cpv_input, void* pv_output)
     assert(cpv_input != NULL && pv_output != NULL);
 
     srand((unsigned int)time(NULL) + rand());
-    *(size_t*)pv_output = *(size_t*)cpv_input != 0 ? 
-        rand() % *(size_t*)cpv_input : 0;
+    *(size_t*)pv_output = *(size_t*)cpv_input != 0 ? rand() % *(size_t*)cpv_input : 0;
 }
 
 /* default unary and binary function */

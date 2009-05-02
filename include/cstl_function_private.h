@@ -65,34 +65,10 @@ typedef enum _tagfunbinarytype
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _fun_get_unary
- *        Parameters: in) s_typename: const char*
- *                          the type name.
- *                    in) t_funtype: fun_unary_type_t
- *                          function type.
- *           Returns: unary_function_t
- *       Description: select unary function.
- *
- * ----------------------------------------------------------------------------
+ * Select default function.
  */
 extern unary_function_t _fun_get_unary(
     const char* s_typename, fun_unary_type_t t_funtype);
-
-/*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: _fun_get_binary
- *        Parameters: in) s_typename: const char*
- *                          the type name.
- *                    in) t_funtype: fun_binary_type_t
- *                          function type.
- *           Returns: unary_function_t
- *       Description: select binary function.
- *
- * ----------------------------------------------------------------------------
- */
 extern binary_function_t _fun_get_binary(
     const char* s_typename, fun_binary_type_t t_funtype);
 
