@@ -63,8 +63,7 @@ hash_set_iterator_t create_hash_set_iterator(void)
 }
 
 void _hash_set_iterator_get_value(
-    const struct _taghashset* cpt_hash_set,
-    const hash_set_iterator_t* cpt_iterator,
+    const struct _taghashset* cpt_hash_set, const hash_set_iterator_t* cpt_iterator,
     void* pv_value)
 {
     assert(cpt_hash_set != NULL && cpt_iterator != NULL && pv_value != NULL);
@@ -73,13 +72,11 @@ void _hash_set_iterator_get_value(
         _GET_HASH_SET_ITERATOR_TYPE(cpt_iterator) == _FORWARD_ITERATOR &&
         _GET_HASH_SET_CONTAINER(cpt_iterator) == cpt_hash_set);
 
-    _hashtable_iterator_get_value(
-        &cpt_hash_set->_t_hashtable, cpt_iterator, pv_value);
+    _hashtable_iterator_get_value(&cpt_hash_set->_t_hashtable, cpt_iterator, pv_value);
 }
 
 const void* _hash_set_iterator_get_pointer(
-    const struct _taghashset* cpt_hash_set, 
-    const hash_set_iterator_t* cpt_iterator)
+    const struct _taghashset* cpt_hash_set, const hash_set_iterator_t* cpt_iterator)
 {
     assert(cpt_hash_set != NULL && cpt_iterator != NULL);
     assert(
@@ -87,13 +84,11 @@ const void* _hash_set_iterator_get_pointer(
         _GET_HASH_SET_ITERATOR_TYPE(cpt_iterator) == _FORWARD_ITERATOR &&
         _GET_HASH_SET_CONTAINER(cpt_iterator) == cpt_hash_set);
 
-    return _hashtable_iterator_get_pointer(
-        &cpt_hash_set->_t_hashtable, cpt_iterator);
+    return _hashtable_iterator_get_pointer(&cpt_hash_set->_t_hashtable, cpt_iterator);
 }
 
 void _hash_set_iterator_next(
-    const struct _taghashset* cpt_hash_set,
-    hash_set_iterator_t* pt_iterator)
+    const struct _taghashset* cpt_hash_set, hash_set_iterator_t* pt_iterator)
 {
     assert(cpt_hash_set != NULL && pt_iterator != NULL);
     assert(
@@ -105,8 +100,7 @@ void _hash_set_iterator_next(
 }
 
 bool_t _hash_set_iterator_equal(
-    const struct _taghashset* cpt_hash_set,
-    const hash_set_iterator_t* cpt_iterator,
+    const struct _taghashset* cpt_hash_set, const hash_set_iterator_t* cpt_iterator,
     hash_set_iterator_t t_iterator)
 {
     assert(cpt_hash_set != NULL && cpt_iterator != NULL);
@@ -172,29 +166,25 @@ hash_set_t _create_hash_set(size_t t_typesize, const char* s_typename)
     strcat(ac_hashsettypename, ac_unifytypename);
     strcat(ac_hashsettypename, _HASH_SET_RIGHT_BRACKET);
 
-    t_new_hash_set._t_hashtable = 
-        _create_hashtable(t_typesize, ac_hashsettypename);
+    t_new_hash_set._t_hashtable = _create_hashtable(t_typesize, ac_hashsettypename);
 
     return t_new_hash_set;
 }
 
 /* hash_set function */
 void hash_set_init(
-    hash_set_t* pt_hash_set,
-    int (*pfun_hash)(const void*, size_t, size_t))
+    hash_set_t* pt_hash_set, int (*pfun_hash)(const void*, size_t, size_t))
 {
     hash_set_init_n(pt_hash_set, 0, pfun_hash);
 }
 
 void hash_set_init_n(
-    hash_set_t* pt_hash_set, 
-    size_t t_bucketcount,
+    hash_set_t* pt_hash_set, size_t t_bucketcount,
     int (*pfun_hash)(const void*, size_t, size_t))
 {
     assert(pt_hash_set != NULL);
 
-    _hashtable_init(
-        &pt_hash_set->_t_hashtable, t_bucketcount, pfun_hash, NULL, NULL);
+    _hashtable_init(&pt_hash_set->_t_hashtable, t_bucketcount, pfun_hash, NULL, NULL);
 }
 
 void hash_set_destroy(hash_set_t* pt_hash_set)
@@ -204,30 +194,23 @@ void hash_set_destroy(hash_set_t* pt_hash_set)
     _hashtable_destroy(&pt_hash_set->_t_hashtable);
 }
 
-void hash_set_init_copy(
-    hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc)
+void hash_set_init_copy(hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc)
 {
     assert(pt_hash_setdest != NULL && cpt_hash_setsrc != NULL);
 
-    _hashtable_init_copy(
-        &pt_hash_setdest->_t_hashtable, &cpt_hash_setsrc->_t_hashtable);
+    _hashtable_init_copy(&pt_hash_setdest->_t_hashtable, &cpt_hash_setsrc->_t_hashtable);
 }
 
 void hash_set_init_copy_range(
-    hash_set_t* pt_hash_setdest,
-    hash_set_iterator_t t_begin,
-    hash_set_iterator_t t_end,
+    hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end,
     int (*pfun_hash)(const void*, size_t, size_t))
 {
     hash_set_init_copy_range_n(pt_hash_setdest, t_begin, t_end, 0, pfun_hash);
 }
 
 void hash_set_init_copy_range_n(
-    hash_set_t* pt_hash_setdest,
-    hash_set_iterator_t t_begin,
-    hash_set_iterator_t t_end,
-    size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t))
+    hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end,
+    size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t))
 {
     assert(pt_hash_setdest != NULL);
     assert(
@@ -249,16 +232,14 @@ void hash_set_assign(
 {
     assert(pt_hash_setdest != NULL && cpt_hash_setsrc != NULL);
 
-    _hashtable_assign(
-        &pt_hash_setdest->_t_hashtable, &cpt_hash_setsrc->_t_hashtable);
+    _hashtable_assign(&pt_hash_setdest->_t_hashtable, &cpt_hash_setsrc->_t_hashtable);
 }
 
 void hash_set_swap(hash_set_t* pt_hash_setfirst, hash_set_t* pt_hash_setsecond)
 {
     assert(pt_hash_setfirst != NULL && pt_hash_setsecond != NULL);
 
-    _hashtable_swap(
-        &pt_hash_setfirst->_t_hashtable, &pt_hash_setsecond->_t_hashtable);
+    _hashtable_swap(&pt_hash_setfirst->_t_hashtable, &pt_hash_setsecond->_t_hashtable);
 }
 
 size_t hash_set_size(const hash_set_t* cpt_hash_set)
@@ -385,9 +366,7 @@ hash_set_iterator_t _hash_set_find_varg(
     {
         memset(pc_value, 0x00, cpt_hash_set->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            cpt_hash_set->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, cpt_hash_set->_t_hashtable._t_typesize,
             cpt_hash_set->_t_hashtable._sz_typename);
     }
 
@@ -426,9 +405,7 @@ size_t _hash_set_count_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist
     {
         memset(pc_value, 0x00, cpt_hash_set->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            cpt_hash_set->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, cpt_hash_set->_t_hashtable._t_typesize,
             cpt_hash_set->_t_hashtable._sz_typename);
     }
 
@@ -466,9 +443,7 @@ pair_t _hash_set_equal_range_varg(const hash_set_t* cpt_hash_set, va_list val_el
     {
         memset(pc_value, 0x00, cpt_hash_set->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            cpt_hash_set->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, cpt_hash_set->_t_hashtable._t_typesize,
             cpt_hash_set->_t_hashtable._sz_typename);
     }
 
@@ -501,8 +476,7 @@ hash_set_iterator_t _hash_set_insert(hash_set_t* pt_hash_set, ...)
     return _hash_set_insert_varg(pt_hash_set, val_elemlist);
 }
 
-hash_set_iterator_t _hash_set_insert_varg(
-    hash_set_t* pt_hash_set, va_list val_elemlist)
+hash_set_iterator_t _hash_set_insert_varg(hash_set_t* pt_hash_set, va_list val_elemlist)
 {
     hashtable_result_pair_t t_result;
     char*                   pc_value;
@@ -519,9 +493,7 @@ hash_set_iterator_t _hash_set_insert_varg(
     {
         memset(pc_value, 0x00, pt_hash_set->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            pt_hash_set->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, pt_hash_set->_t_hashtable._t_typesize,
             pt_hash_set->_t_hashtable._sz_typename);
     }
 
@@ -533,14 +505,11 @@ hash_set_iterator_t _hash_set_insert_varg(
     _GET_HASH_SET_CONTAINER_TYPE(&t_result._t_first) = _HASH_SET_CONTAINER;
     _GET_HASH_SET_ITERATOR_TYPE(&t_result._t_first) = _FORWARD_ITERATOR;
 
-    return t_result._t_second._t_bool ?
-        t_result._t_first : hash_set_end(pt_hash_set);
+    return t_result._t_second._t_bool ? t_result._t_first : hash_set_end(pt_hash_set);
 }
 
 void hash_set_insert_range(
-    hash_set_t* pt_hash_set, 
-    hash_set_iterator_t t_begin, 
-    hash_set_iterator_t t_end)
+    hash_set_t* pt_hash_set, hash_set_iterator_t t_begin, hash_set_iterator_t t_end)
 {
     assert(pt_hash_set != NULL);
     assert(
@@ -556,8 +525,7 @@ void hash_set_insert_range(
     _hashtable_insert_unique_range(&pt_hash_set->_t_hashtable, t_begin, t_end);
 }
 
-void hash_set_erase_pos(
-    hash_set_t* pt_hash_set, hash_set_iterator_t t_pos)
+void hash_set_erase_pos(hash_set_t* pt_hash_set, hash_set_iterator_t t_pos)
 {
     assert(pt_hash_set != NULL);
     assert(
@@ -569,9 +537,7 @@ void hash_set_erase_pos(
 }
 
 void hash_set_erase_range(
-    hash_set_t* pt_hash_set,
-    hash_set_iterator_t t_begin,
-    hash_set_iterator_t t_end)
+    hash_set_t* pt_hash_set, hash_set_iterator_t t_begin, hash_set_iterator_t t_end)
 {
     assert(pt_hash_set != NULL);
     assert(
@@ -610,9 +576,7 @@ size_t _hash_set_erase_varg(hash_set_t* pt_hash_set, va_list val_elemlist)
     {
         memset(pc_value, 0x00, pt_hash_set->_t_hashtable._t_typesize);
         _get_varg_value(
-            pc_value,
-            val_elemlist,
-            pt_hash_set->_t_hashtable._t_typesize,
+            pc_value, val_elemlist, pt_hash_set->_t_hashtable._t_typesize,
             pt_hash_set->_t_hashtable._sz_typename);
     }
 
