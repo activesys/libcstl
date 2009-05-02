@@ -76,86 +76,30 @@ typedef struct _tagalloc
 
 /** exported function prototype section **/
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: allocate_init
- *        Parameters: in) pt_allocater: alloc_t* 
- *                            the pointer to memory manager struct.
- *          Returns: void
- *      Description: initialize the alloc_t.
- *
- * ----------------------------------------------------------------------------
+ * Initialize the alloc_t.
  */
 extern void allocate_init(alloc_t* pt_allocater);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: allocate_destroy
- *        Parameters: in) pt_allocater: alloc_t* 
- *                            the pointer to memory manager struct.
- *          Returns: void
- *      Description: destroy the alloc_t.
- *
- * ----------------------------------------------------------------------------
+ * Destroy the alloc_t.
  */
 extern void allocate_destroy(alloc_t* pt_allocater);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: allocate
- *        Parameters: in) pt_allocater: alloc_t* 
- *                            the pointer to memory manager struct.
- *                    in) t_type : value_type_t
- *                            value type identify.
- *                    in) n_elemcount : int
- *                            element numbers for this type.
- *          Returns: void*
- *                       allocated memory.
- *
- *      Description: allocate memory for specify value type and specify element
- *                   numbers use default model or user model.
- *
- * ----------------------------------------------------------------------------
+ * Allocate memory for specify value type and specify element numbers use default
+ * model or user model.
  */
-extern void* allocate(
-    alloc_t* pt_allocater, size_t t_typesize, int n_elemcount);
+extern void* allocate(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: deallocate
- *        Parameters: in) pt_allocater: alloc_t 
- *                            the pointer to memory manager struct.
- *                    in) pv_allocmem : void*
- *                            the allocated memory for free.
- *                    in) t_type : value_type_t
- *                            value type identify.
- *                    in) n_elemcount : int
- *                            element numbers for this type.
- *          Returns: void
- *
- *      Description: free memory for specify value type and specify element
- *                   numbers use default model or user model.
- *
- * ----------------------------------------------------------------------------
+ * Free memory for specify value type and specify element numbers use default 
+ * model or user model.
  */
 extern void deallocate(
-    alloc_t* pt_allocater, void* pv_allocmem, 
-    size_t t_typesize, int n_elemcount);
+    alloc_t* pt_allocater, void* pv_allocmem, size_t t_typesize, int n_elemcount);
 
 /*
- * ----------------------------------------------------------------------------
- *
- *      Functionname: set_handler_handler
- *        Parameters: in) pfun_ewhandler : void (*pfun)(void)
- *                            the new out of memory handler.
- *           Returns: void (*pfun)(void)
- *                        the old malloc handler.
- *       Description: set the out of memory handler and return the old handler.
- *
- * ----------------------------------------------------------------------------
+ * Set the out of memory handler and return the old handler.
  */
 extern void (*set_malloc_handler(void (*pfun_newhandler)(void)))(void);
 

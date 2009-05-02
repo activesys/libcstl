@@ -38,54 +38,28 @@
 /** local function prototype section **/
 /* oom : out of memory */
 /*
- *  Functionname: _oom_malloc
- *    Parameters: in)t_memsize: size_t
- *                    the memory size for allocate.
- *       Returns: void*
- *   Description: malloc for out of memory condition.
+ * Malloc for out of memory condition.
  */
 static void* _oom_malloc(size_t t_memsize);
 
 /*
- *  Functionname: _malloc_allocate
- *    Parameters: in)t_memsize: size_t
- *                    the memory size for allocate.
- *       Returns: void*
- *   Description: malloc memory.
+ * Malloc memory.
  */
 static void* _malloc_allocate(size_t t_memsize);
 
 /*
- *  Functionname: _free_deallocate
- *    Parameters: in)pv_allocmem: void*
- *                    the allocated memory.
- *       Returns: void
- *   Description: free memory.
+ * Free memory.
  */
 static void _free_deallocate(void* pv_allocmem);
 
 /*
- *  Functionname: _apply_mem
- *    Parameters: in)pt_allocater: alloc_t*
- *                    manage memory struct pointer
- *                in)t_allocsize: size_t
- *                    the memory size for allocate.
- *       Returns: void
- *   Description: apply memory for memory pool and format the memory block, 
- *                then add it to the memory list.
+ * Apply memory for memory pool and format the memory block, 
+ * then add it to the memory list.
  */
 static void _apply_mem(alloc_t* pt_allocater, size_t t_allocsize);
 
 /*
- *  Functionname: _get_mem_from_mempool
- *    Parameters: in)pt_allocater: alloc_t*
- *                    manage memory struct pointer
- *                in)t_allocsize: size_t
- *                    the memory size for allocate.
- *                modify)pn_alloccount: int*
- *                    the memory block count for allocated.
- *       Returns: char*
- *   Description: apply memory for memory pool.
+ * Apply memory for memory pool.
  */
 static char* _get_mem_from_mempool(
     alloc_t* pt_allocater, size_t t_allocsize, int* pn_alloccount);
@@ -206,8 +180,7 @@ void* allocate(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount)
             pt_link = pt_allocater->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
             assert(pt_link);
         }
-        pt_allocater->_apt_memlink[_MEMLIST_INDEX(t_allocsize)] = 
-            pt_link->_pui_nextmem;
+        pt_allocater->_apt_memlink[_MEMLIST_INDEX(t_allocsize)] = pt_link->_pui_nextmem;
         pv_allocmem = (void*)pt_link;
     }
 
@@ -297,8 +270,7 @@ static void _apply_mem(alloc_t* pt_allocater, size_t t_allocsize)
 
     assert(pt_allocater);
 
-    pt_link = (_memlink_t*)_get_mem_from_mempool(
-                 pt_allocater, t_allocsize, &n_alloccount);
+    pt_link = (_memlink_t*)_get_mem_from_mempool(pt_allocater, t_allocsize, &n_alloccount);
     assert(pt_link);
 
     /* format the apply memory block to memory list format */
@@ -311,8 +283,7 @@ static void _apply_mem(alloc_t* pt_allocater, size_t t_allocsize)
         }
         else
         {
-            pt_link->_pui_nextmem = 
-                (_memlink_t*)((char*)pt_link + t_allocsize);
+            pt_link->_pui_nextmem = (_memlink_t*)((char*)pt_link + t_allocsize);
         }
         pt_link = pt_link->_pui_nextmem;
     }
@@ -358,16 +329,13 @@ static char* _get_mem_from_mempool(
         if(pt_allocater->_t_mempoolsize > 0)
         {
             ((_memlink_t*)pt_allocater->_pc_mempool)->_pui_nextmem = 
-                pt_allocater->_apt_memlink[_MEMLIST_INDEX(
-                    pt_allocater->_t_mempoolsize)];
-            pt_allocater->_apt_memlink[_MEMLIST_INDEX(
-                pt_allocater->_t_mempoolsize)] = 
-                    (_memlink_t*)pt_allocater->_pc_mempool;
+                pt_allocater->_apt_memlink[_MEMLIST_INDEX(pt_allocater->_t_mempoolsize)];
+            pt_allocater->_apt_memlink[_MEMLIST_INDEX(pt_allocater->_t_mempoolsize)] =
+                (_memlink_t*)pt_allocater->_pc_mempool;
             pt_allocater->_t_mempoolsize = 0;
         }
 
-        t_getmemsize = 2 * t_totalsize + 
-            _ROUND_UP(pt_allocater->_t_mempoolsize >> 4);
+        t_getmemsize = 2 * t_totalsize + _ROUND_UP(pt_allocater->_t_mempoolsize >> 4);
         pt_allocater->_pc_mempool = (char*)malloc(t_getmemsize);
 
         if(pt_allocater->_pc_mempool == NULL)
@@ -383,8 +351,7 @@ static char* _get_mem_from_mempool(
                         ((_memlink_t*)pt_allocater->_pc_mempool)->_pui_nextmem;
                     pt_allocater->_t_mempoolsize = (size_t)i;
 
-                    return _get_mem_from_mempool(
-                            pt_allocater, t_allocsize, pn_alloccount);
+                    return _get_mem_from_mempool(pt_allocater, t_allocsize, pn_alloccount);
                 }
             }
             pt_allocater->_pc_mempool = (char*)_oom_malloc(t_getmemsize);
@@ -406,13 +373,10 @@ static char* _get_mem_from_mempool(
                     pt_allocater->_ppc_allocatemempool[i] = NULL;
                 }
                 memcpy(
-                    pt_allocater->_ppc_allocatemempool,
-                    ppc_oldmempool,
+                    pt_allocater->_ppc_allocatemempool, ppc_oldmempool,
                     pt_allocater->_t_mempoolcount - _MEM_POOL_DEFAULT_COUNT);
                 free(ppc_oldmempool);
-                assert(
-                    pt_allocater->_n_mempoolindex < 
-                    pt_allocater->_t_mempoolcount);
+                assert(pt_allocater->_n_mempoolindex < pt_allocater->_t_mempoolcount);
             }
             else
             {
@@ -420,8 +384,8 @@ static char* _get_mem_from_mempool(
                 exit(EXIT_FAILURE);
             }
         }
-        pt_allocater->_ppc_allocatemempool[
-            pt_allocater->_n_mempoolindex++] = pt_allocater->_pc_mempool;
+        pt_allocater->_ppc_allocatemempool[pt_allocater->_n_mempoolindex++] =
+            pt_allocater->_pc_mempool;
 
         /* apply memory from system heap success or call _oom_malloc success */
         pt_allocater->_t_mempoolsize = t_getmemsize;
