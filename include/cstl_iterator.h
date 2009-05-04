@@ -31,142 +31,142 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* vector iterator handler */
-#define _GET_VECTOR_COREPOS(pt_iterator)\
-    ((pt_iterator)->_t_pos._pc_corepos)
-#define _GET_VECTOR_CONTAINER(pt_iterator)\
-    ((vector_t*)((pt_iterator)->_pt_container))
-#define _GET_VECTOR_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_VECTOR_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_VECTOR_COREPOS(t_iter)\
+    ((t_iter)._t_pos._pc_corepos)
+#define _GET_VECTOR_CONTAINER(t_iter)\
+    ((vector_t*)((t_iter)._pt_container))
+#define _GET_VECTOR_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_VECTOR_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* list iterator handler */
-#define _GET_LIST_COREPOS(pt_iterator)\
-    ((pt_iterator)->_t_pos._pc_corepos)
-#define _GET_LIST_CONTAINER(pt_iterator)\
-    ((list_t*)((pt_iterator)->_pt_container))
-#define _GET_LIST_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_LIST_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_LIST_COREPOS(t_iter)\
+    ((t_iter)._t_pos._pc_corepos)
+#define _GET_LIST_CONTAINER(t_iter)\
+    ((list_t*)((t_iter)._pt_container))
+#define _GET_LIST_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_LIST_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* deque iterator handler */
-#define _GET_DEQUE_MAP_POINTER(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_dequepos._ppc_mappos)
-#define _GET_DEQUE_FIRST_POS(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_dequepos._pc_first)
-#define _GET_DEQUE_AFTERLAST_POS(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_dequepos._pc_afterlast)
-#define _GET_DEQUE_COREPOS(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_dequepos._pc_corepos)
-#define _GET_DEQUE_CONTAINER(pt_iterator)\
-    ((deque_t*)((pt_iterator)->_pt_container))
-#define _GET_DEQUE_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_DEQUE_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_DEQUE_MAP_POINTER(t_iter)\
+    ((t_iter)._t_pos._t_dequepos._ppc_mappos)
+#define _GET_DEQUE_FIRST_POS(t_iter)\
+    ((t_iter)._t_pos._t_dequepos._pc_first)
+#define _GET_DEQUE_AFTERLAST_POS(t_iter)\
+    ((t_iter)._t_pos._t_dequepos._pc_afterlast)
+#define _GET_DEQUE_COREPOS(t_iter)\
+    ((t_iter)._t_pos._t_dequepos._pc_corepos)
+#define _GET_DEQUE_CONTAINER(t_iter)\
+    ((deque_t*)((t_iter)._pt_container))
+#define _GET_DEQUE_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_DEQUE_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* slist iterator handler */
-#define _GET_SLIST_COREPOS(pt_iterator)\
-    ((pt_iterator)->_t_pos._pc_corepos)
-#define _GET_SLIST_CONTAINER(pt_iterator)\
-    ((slist_t*)((pt_iterator)->_pt_container))
-#define _GET_SLIST_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_SLIST_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_SLIST_COREPOS(t_iter)\
+    ((t_iter)._t_pos._pc_corepos)
+#define _GET_SLIST_CONTAINER(t_iter)\
+    ((slist_t*)((t_iter)._pt_container))
+#define _GET_SLIST_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_SLIST_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* avl_tree iterator handler */
-#define _GET_AVL_TREE_COREPOS(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_treepos._pc_corepos)
-#define _GET_AVL_TREE(pt_iterator)\
-    ((avl_tree_t*)((pt_iterator)->_t_pos._t_treepos._pt_tree))
-#define _GET_AVL_TREE_POINTER(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_treepos._pt_tree)
+#define _GET_AVL_TREE_COREPOS(t_iter)\
+    ((t_iter)._t_pos._t_treepos._pc_corepos)
+#define _GET_AVL_TREE(t_iter)\
+    ((avl_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
+#define _GET_AVL_TREE_POINTER(t_iter)\
+    ((t_iter)._t_pos._t_treepos._pt_tree)
 /* rb_tree iterator handler */
-#define _GET_RB_TREE_COREPOS(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_treepos._pc_corepos)
-#define _GET_RB_TREE(pt_iterator)\
-    ((rb_tree_t*)((pt_iterator)->_t_pos._t_treepos._pt_tree))
-#define _GET_RB_TREE_POINTER(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_treepos._pt_tree)
+#define _GET_RB_TREE_COREPOS(t_iter)\
+    ((t_iter)._t_pos._t_treepos._pc_corepos)
+#define _GET_RB_TREE(t_iter)\
+    ((rb_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
+#define _GET_RB_TREE_POINTER(t_iter)\
+    ((t_iter)._t_pos._t_treepos._pt_tree)
 /* set iterator handler */
-#define _GET_SET_CONTAINER(pt_iterator)\
-    ((set_t*)((pt_iterator)->_pt_container))
-#define _GET_SET_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_SET_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_SET_CONTAINER(t_iter)\
+    ((set_t*)((t_iter)._pt_container))
+#define _GET_SET_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_SET_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* multiset iterator handler */
-#define _GET_MULTISET_CONTAINER(pt_iterator)\
-    ((multiset_t*)((pt_iterator)->_pt_container))
-#define _GET_MULTISET_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_MULTISET_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_MULTISET_CONTAINER(t_iter)\
+    ((multiset_t*)((t_iter)._pt_container))
+#define _GET_MULTISET_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_MULTISET_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* map iterator handler */
-#define _GET_MAP_CONTAINER(pt_iterator)\
-    ((map_t*)((pt_iterator)->_pt_container))
-#define _GET_MAP_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_MAP_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_MAP_CONTAINER(t_iter)\
+    ((map_t*)((t_iter)._pt_container))
+#define _GET_MAP_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_MAP_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* multimap iterator handler */
-#define _GET_MULTIMAP_CONTAINER(pt_iterator)\
-    ((multimap_t*)((pt_iterator)->_pt_container))
-#define _GET_MULTIMAP_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_MULTIMAP_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_MULTIMAP_CONTAINER(t_iter)\
+    ((multimap_t*)((t_iter)._pt_container))
+#define _GET_MULTIMAP_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_MULTIMAP_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* hashtable iterator handler */
-#define _GET_HASHTABLE_BUCKETPOS(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_hashpos._pc_bucketpos)
-#define _GET_HASHTABLE_COREPOS(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_hashpos._pc_corepos)
-#define _GET_HASHTABLE(pt_iterator)\
-    ((hashtable_t*)((pt_iterator)->_t_pos._t_hashpos._pt_hashtable))
-#define _GET_HASHTABLE_POINTER(pt_iterator)\
-    ((pt_iterator)->_t_pos._t_hashpos._pt_hashtable)
+#define _GET_HASHTABLE_BUCKETPOS(t_iter)\
+    ((t_iter)._t_pos._t_hashpos._pc_bucketpos)
+#define _GET_HASHTABLE_COREPOS(t_iter)\
+    ((t_iter)._t_pos._t_hashpos._pc_corepos)
+#define _GET_HASHTABLE(t_iter)\
+    ((hashtable_t*)((t_iter)._t_pos._t_hashpos._pt_hashtable))
+#define _GET_HASHTABLE_POINTER(t_iter)\
+    ((t_iter)._t_pos._t_hashpos._pt_hashtable)
 /* hash_set iterator handler */
-#define _GET_HASH_SET_CONTAINER(pt_iterator)\
-    ((hash_set_t*)((pt_iterator)->_pt_container))
-#define _GET_HASH_SET_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_HASH_SET_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_HASH_SET_CONTAINER(t_iter)\
+    ((hash_set_t*)((t_iter)._pt_container))
+#define _GET_HASH_SET_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_HASH_SET_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* hash_multiset iterator handler */
-#define _GET_HASH_MULTISET_CONTAINER(pt_iterator)\
-    ((hash_multiset_t*)((pt_iterator)->_pt_container))
-#define _GET_HASH_MULTISET_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_HASH_MULTISET_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_HASH_MULTISET_CONTAINER(t_iter)\
+    ((hash_multiset_t*)((t_iter)._pt_container))
+#define _GET_HASH_MULTISET_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_HASH_MULTISET_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* hash_map iterator handler */
-#define _GET_HASH_MAP_CONTAINER(pt_iterator)\
-    ((hash_map_t*)((pt_iterator)->_pt_container))
-#define _GET_HASH_MAP_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_HASH_MAP_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_HASH_MAP_CONTAINER(t_iter)\
+    ((hash_map_t*)((t_iter)._pt_container))
+#define _GET_HASH_MAP_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_HASH_MAP_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* hash_multimap iterator handler */
-#define _GET_HASH_MULTIMAP_CONTAINER(pt_iterator)\
-    ((hash_multimap_t*)((pt_iterator)->_pt_container))
-#define _GET_HASH_MULTIMAP_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_HASH_MULTIMAP_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_HASH_MULTIMAP_CONTAINER(t_iter)\
+    ((hash_multimap_t*)((t_iter)._pt_container))
+#define _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* basic_string iterator handler */
-#define _GET_BASIC_STRING_COREPOS(pt_iterator)\
-    ((pt_iterator)->_t_pos._pc_corepos)
-#define _GET_BASIC_STRING_CONTAINER(pt_iterator)\
-    ((basic_string_t*)((pt_iterator)->_pt_container))
-#define _GET_BASIC_STRING_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_BASIC_STRING_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_BASIC_STRING_COREPOS(t_iter)\
+    ((t_iter)._t_pos._pc_corepos)
+#define _GET_BASIC_STRING_CONTAINER(t_iter)\
+    ((basic_string_t*)((t_iter)._pt_container))
+#define _GET_BASIC_STRING_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_BASIC_STRING_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 /* for all container iterator */
-#define _GET_CONTAINER(pt_iterator)\
-    ((pt_iterator)->_pt_container)
-#define _GET_CONTAINER_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_containertype)
-#define _GET_ITERATOR_TYPE(pt_iterator)\
-    ((pt_iterator)->_t_iteratortype)
+#define _GET_CONTAINER(t_iter)\
+    ((t_iter)._pt_container)
+#define _GET_CONTAINER_TYPE(t_iter)\
+    ((t_iter)._t_containertype)
+#define _GET_ITERATOR_TYPE(t_iter)\
+    ((t_iter)._t_iteratortype)
 
 #define _STRING_CONTAINER        _BASIC_STRING_CONTAINER
 
@@ -247,51 +247,47 @@ typedef output_iterator_t           ostream_iterator_t;
 /** exported function prototype section **/
 /* the handler of iterator */
 /*
- * Copy and assign (private).
- */
-extern void iterator_copy(iterator_t* pt_iterator, iterator_t t_iteratorsrc);
-extern void iterator_assign(iterator_t* pt_iterator, iterator_t t_iteratorsrc);
-
-/*
  * Get and set value.
  */
-extern void iterator_get_value(const iterator_t* cpt_iterator, void* pv_value);
-extern void iterator_set_value(const iterator_t* cpt_iterator, const void* cpv_value);
-extern const void* iterator_get_pointer(const iterator_t* cpt_iterator);
+extern void iterator_get_value(iterator_t t_iter, void* pv_value);
+extern void iterator_set_value(iterator_t t_iter, const void* cpv_value);
+extern const void* iterator_get_pointer(iterator_t t_iter);
 
 /*
  * Move iterator.
  */
-extern void iterator_next(iterator_t* pt_iterator);
-extern void iterator_prev(iterator_t* pt_iterator);
-extern void iterator_next_n(iterator_t* pt_iterator, int n_step);
-extern void iterator_prev_n(iterator_t* pt_iterator, int n_step);
+extern void iterator_next(iterator_t t_iter);
+extern void iterator_prev(iterator_t t_iter);
+extern void iterator_next_n(iterator_t t_iter, int n_step);
+extern void iterator_prev_n(iterator_t t_iter, int n_step);
 
 /*
  * Relationship operator functions.
  */
-extern bool_t iterator_equal(const iterator_t* cpt_iterator, iterator_t t_iterator);
-extern bool_t iterator_less(const iterator_t* cpt_iterator, iterator_t t_iterator);
-extern bool_t iterator_less_equal(
-    const iterator_t* cpt_iterator, iterator_t t_iterator);
+extern bool_t iterator_equal(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t iterator_not_equal(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t iterator_less(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t iterator_less_equal(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t iterator_great(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t iterator_great_equal(iterator_t t_iterfirst, iterator_t t_itersecond);
 
 /*
  * Element random access.
  */
-extern void* iterator_at(const iterator_t* cpt_iterator, unsigned int un_index);
+extern void* iterator_at(iterator_t t_iter, int n_index);
 
 
 /*
  * Distance.
  */
-extern int iterator_minus(const iterator_t* cpt_iterator, iterator_t t_iterator);
+extern int iterator_minus(iterator_t t_iterfirst, iterator_t t_itersecond);
 
 /* the iterator auxilary function */
 /*
  * Advance and distance.
  */
-extern void iterator_advance(iterator_t* pt_iterator, int n_step);
-extern int iterator_distance(iterator_t t_iteratorfirst, iterator_t t_iteratorsecond);
+extern void iterator_advance(iterator_t t_iter, int n_step);
+extern int iterator_distance(iterator_t t_iterfirst, iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }

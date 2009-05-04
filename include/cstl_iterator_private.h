@@ -39,9 +39,9 @@ extern "C" {
 /*
  * Private iterator functions.
  */
-extern bool_t _iterator_same_type(iterator_t t_iteratorfirst, iterator_t t_iteratorsecond);
-extern bool_t _iterator_before(iterator_t t_iteratorfirst, iterator_t t_iteratorsecond);
-extern bool_t _iterator_limit_type(iterator_t t_iterator, iteratortype_t t_limittype);
+extern bool_t _iterator_same_type(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t _iterator_before(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t _iterator_limit_type(iterator_t t_iter, iteratortype_t t_limittype);
 
 #ifdef __cplusplus
 }
