@@ -305,51 +305,52 @@ const void* iterator_get_pointer(iterator_t t_iter)
     }
 }
 
-void iterator_next(iterator_t t_iter)
+iterator_t iterator_next(iterator_t t_iter)
 {
     switch(t_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
-        _vector_iterator_next(t_iter);
+        return _vector_iterator_next(t_iter);
         break;
     case _LIST_CONTAINER:
-        _list_iterator_next(t_iter);
+        return _list_iterator_next(t_iter);
         break;
     case _DEQUE_CONTAINER:
-        _deque_iterator_next(t_iter);
+        return _deque_iterator_next(t_iter);
         break;
     case _SLIST_CONTAINER:
-        _slist_iterator_next(t_iter);
+        return _slist_iterator_next(t_iter);
         break;
     case _SET_CONTAINER:
-        _set_iterator_next(t_iter);
+        return _set_iterator_next(t_iter);
         break;
     case _MULTISET_CONTAINER:
-        _multiset_iterator_next(t_iter);
+        return _multiset_iterator_next(t_iter);
         break;
     case _MAP_CONTAINER:
-        _map_iterator_next(t_iter);
+        return _map_iterator_next(t_iter);
         break;
     case _MULTIMAP_CONTAINER:
-        _multimap_iterator_next(t_iter);
+        return _multimap_iterator_next(t_iter);
         break;
     case _HASH_SET_CONTAINER:
-        _hash_set_iterator_next(t_iter);
+        return _hash_set_iterator_next(t_iter);
         break;
     case _HASH_MULTISET_CONTAINER:
-        _hash_multiset_iterator_next(t_iter);
+        return _hash_multiset_iterator_next(t_iter);
         break;
     case _HASH_MAP_CONTAINER:
-        _hash_map_iterator_next(t_iter);
+        return _hash_map_iterator_next(t_iter);
         break;
     case _HASH_MULTIMAP_CONTAINER:
-        _hash_multimap_iterator_next(t_iter);
+        return _hash_multimap_iterator_next(t_iter);
         break;
     case _BASIC_STRING_CONTAINER:
-        _basic_string_iterator_next(t_iter);
+        return _basic_string_iterator_next(t_iter);
         break;
     default:
         assert(false);
+        return t_iter;
         break;
     }
 }
@@ -361,73 +362,76 @@ void iterator_prev(iterator_t t_iter)
     switch(t_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
-        _vector_iterator_prev(t_iter);
+        return _vector_iterator_prev(t_iter);
         break;
     case _LIST_CONTAINER:
-        _list_iterator_prev(t_iter);
+        return _list_iterator_prev(t_iter);
         break;
     case _DEQUE_CONTAINER:
-        _deque_iterator_prev(t_iter);
+        return _deque_iterator_prev(t_iter);
         break;
     case _SET_CONTAINER:
-        _set_iterator_prev(t_iter);
+        return _set_iterator_prev(t_iter);
         break;
     case _MULTISET_CONTAINER:
-        _multiset_iterator_prev(t_iter);
+        return _multiset_iterator_prev(t_iter);
         break;
     case _MAP_CONTAINER:
-        _map_iterator_prev(t_iter);
+        return _map_iterator_prev(t_iter);
         break;
     case _MULTIMAP_CONTAINER:
-        _multimap_iterator_prev(t_iter);
+        return _multimap_iterator_prev(t_iter);
         break;
     case _BASIC_STRING_CONTAINER:
-        _basic_string_iterator_prev(t_iter);
+        return _basic_string_iterator_prev(t_iter);
         break;
     default:
         assert(false);
+        return t_iter;
         break;
     }
 }
 
-void iterator_next_n(iterator_t t_iter, int n_step)
+iterator_t iterator_next_n(iterator_t t_iter, int n_step)
 {
     assert(_iterator_limit_type(t_iter, _RANDOM_ACCESS_ITERATOR));
 
     switch(t_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
-        _vector_iterator_next_n(t_iter, n_step);
+        return _vector_iterator_next_n(t_iter, n_step);
         break;
     case _DEQUE_CONTAINER:
-        _deque_iterator_next_n(t_iter, n_step);
+        return _deque_iterator_next_n(t_iter, n_step);
         break;
     case _BASIC_STRING_CONTAINER:
-        _basic_string_iterator_next_n(t_iter, n_step);
+        return _basic_string_iterator_next_n(t_iter, n_step);
         break;
     default:
         assert(false);
+        return t_iter;
         break;
     }
 }
 
-void iterator_prev_n(iterator_t t_iter, int n_step)
+iterator_t iterator_prev_n(iterator_t t_iter, int n_step)
 {
     assert(_iterator_limit_type(t_iter, _RANDOM_ACCESS_ITERATOR));
 
     switch(t_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
-        _vector_iterator_prev_n(t_iter, n_step);
+        return _vector_iterator_prev_n(t_iter, n_step);
         break;
     case _DEQUE_CONTAINER:
-        _deque_iterator_prev_n(t_iter, n_step);
+        return _deque_iterator_prev_n(t_iter, n_step);
         break;
     case _BASIC_STRING_CONTAINER:
-        _basic_string_iterator_prev_n(t_iter, n_step);
+        return _basic_string_iterator_prev_n(t_iter, n_step);
         break;
     default:
         assert(false);
+        return t_iter;
         break;
     }
 }
@@ -589,7 +593,7 @@ int iterator_minus(iterator_t t_iterfirst, iterator_t t_itersecond)
 
 
 /* the auxiliary function of iterator */
-void iterator_advance(iterator_t t_iter, int n_step)
+iterator_t iterator_advance(iterator_t t_iter, int n_step)
 {
     int i = 0;
 
@@ -599,16 +603,18 @@ void iterator_advance(iterator_t t_iter, int n_step)
     {
         for(i = 0; i < abs(n_step); ++i)
         {
-            iterator_next(t_iter);
+            t_iter = iterator_next(t_iter);
         }
     }
     else
     {
         for(i = 0; i < abs(n_step); ++i)
         {
-            iterator_prev(pt_iter);
+            t_iter = iterator_prev(t_iter);
         }
     }
+
+    return t_iter;
 }
 
 int iterator_distance(iterator_t t_iterfirst, iterator_t t_itersecond)

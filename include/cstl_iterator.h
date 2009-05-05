@@ -256,10 +256,10 @@ extern const void* iterator_get_pointer(iterator_t t_iter);
 /*
  * Move iterator.
  */
-extern void iterator_next(iterator_t t_iter);
-extern void iterator_prev(iterator_t t_iter);
-extern void iterator_next_n(iterator_t t_iter, int n_step);
-extern void iterator_prev_n(iterator_t t_iter, int n_step);
+extern iterator_t iterator_next(iterator_t t_iter);
+extern iterator_t iterator_prev(iterator_t t_iter);
+extern iterator_t iterator_next_n(iterator_t t_iter, int n_step);
+extern iterator_t iterator_prev_n(iterator_t t_iter, int n_step);
 
 /*
  * Relationship operator functions.
@@ -286,7 +286,7 @@ extern int iterator_minus(iterator_t t_iterfirst, iterator_t t_itersecond);
 /*
  * Advance and distance.
  */
-extern void iterator_advance(iterator_t t_iter, int n_step);
+extern iterator_t iterator_advance(iterator_t t_iter, int n_step);
 extern int iterator_distance(iterator_t t_iterfirst, iterator_t t_itersecond);
 
 #ifdef __cplusplus

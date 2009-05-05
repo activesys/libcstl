@@ -34,7 +34,6 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t vector_iterator_t;
 typedef iterator_t vector_reverse_iterator_t;
-struct _tagvector;
 
 /** exported global variable declaration section **/
 
@@ -48,51 +47,37 @@ extern vector_iterator_t create_vector_iterator(void);
  * The relationship operator of iterator_t.
  */
 extern bool_t _vector_iterator_equal(
-    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator,
-    vector_iterator_t t_iterator);
+    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond);
 extern bool_t _vector_iterator_less(
-    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator,
-    vector_iterator_t t_iterator);
+    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond);
 extern bool_t _vector_iterator_before(
-    const vector_iterator_t* cpt_iteratorfirst, const vector_iterator_t* cpt_iteratorsecond);
+    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond);
 
 /*
  * Get and Set element that is referenced by iterator_t.
  */
-extern void _vector_iterator_get_value(
-    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator,
-    void* pv_value);
-extern void _vector_iterator_set_value(
-    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator,
-    const void* cpv_value);
-extern const void* _vector_iterator_get_pointer(
-    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator); 
+extern void _vector_iterator_get_value(vector_iterator_t t_iter, void* pv_value);
+extern void _vector_iterator_set_value(vector_iterator_t t_iter, const void* cpv_value);
+extern const void* _vector_iterator_get_pointer(vector_iterator_t t_iter); 
 
 /*
  * Increase or decrease operator of iterator_t.
  */
-extern void _vector_iterator_next(
-    const struct _tagvector* cpt_vector, vector_iterator_t* pt_iterator);
-extern void _vector_iterator_prev(
-    const struct _tagvector* cpt_vector, vector_iterator_t* pt_iterator);
-extern void _vector_iterator_next_n(
-    const struct _tagvector* cpt_vector, vector_iterator_t* pt_iterator, int n_step);
-extern void _vector_iterator_prev_n(
-    const struct _tagvector* cpt_vector, vector_iterator_t* pt_iterator, int n_step);
+extern vector_iterator_t _vector_iterator_next(vector_iterator_t t_iter);
+extern vector_iterator_t _vector_iterator_prev(vector_iterator_t t_iter);
+extern vector_iterator_t _vector_iterator_next_n(vector_iterator_t t_iter, int n_step);
+extern vector_iterator_t _vector_iterator_prev_n(vector_iterator_t t_iter, int n_step);
 
 /*
  * Access element randomly through iterator_t.
  */
-extern void* _vector_iterator_at(
-    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator,
-    unsigned int un_index);
+extern void* _vector_iterator_at(vector_iterator_t t_iter, int n_index);
 
 /*
  * Subaction operator of iterator_t.
  */
 extern int _vector_iterator_minus(
-    const struct _tagvector* cpt_vector, const vector_iterator_t* cpt_iterator, 
-    vector_iterator_t t_iterator);
+    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
