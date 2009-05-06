@@ -34,7 +34,6 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t list_iterator_t;
 typedef iterator_t list_reverse_iterator_t;
-struct _taglist;
 
 /** exported global variable declaration section **/
 
@@ -43,24 +42,17 @@ struct _taglist;
  * Iterator support.
  */
 extern list_iterator_t create_list_iterator(void);
-extern void _list_iterator_get_value(
-    const struct _taglist* cpt_list, const list_iterator_t* cpt_iterator, void* pv_value);
-extern void _list_iterator_set_value(
-    const struct _taglist* cpt_list, const list_iterator_t* cpt_iterator,
-    const void* cpv_value);
-extern const void* _list_iterator_get_pointer(
-    const struct _taglist* cpt_list, const list_iterator_t* cpt_iterator); 
-extern void _list_iterator_next(
-    const struct _taglist* cpt_list, list_iterator_t* pt_iterator);
-extern void _list_iterator_prev(
-    const struct _taglist* cpt_list, list_iterator_t* pt_iterator);
+extern void _list_iterator_get_value(list_iterator_t t_iter, void* pv_value);
+extern void _list_iterator_set_value(list_iterator_t cpt_iter, const void* cpv_value);
+extern const void* _list_iterator_get_pointer(list_iterator_t t_iter); 
+extern list_iterator_t _list_iterator_next(list_iterator_t t_iter);
+extern list_iterator_t _list_iterator_prev(list_iterator_t t_iter);
 extern bool_t _list_iterator_equal(
-    const struct _taglist* cpt_list, const list_iterator_t* cpt_iterator,
-    list_iterator_t t_iterator);
+    list_iterator_t t_iterfirst, list_iterator_t t_itersecond);
 extern int _list_iterator_distance(
-    const list_iterator_t* cpt_begin, const list_iterator_t* cpt_end);
+    list_iterator_t t_iterfirst, list_iterator_t t_itersecond);
 extern bool_t _list_iterator_before(
-    const list_iterator_t* cpt_iteratorfirst, const list_iterator_t* cpt_iteratorsecond);
+    list_iterator_t t_iterfirst, list_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
