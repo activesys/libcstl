@@ -44,47 +44,21 @@ struct _tagdeque;
  */
 extern deque_iterator_t create_deque_iterator(void);
 extern bool_t _deque_iterator_equal(
-    const struct _tagdeque* cpt_deque,
-    const deque_iterator_t* cpt_iterator,
-    deque_iterator_t t_iterator);
-extern void _deque_iterator_get_value(
-    const struct _tagdeque* cpt_deque,
-    const deque_iterator_t* cpt_iterator, 
-    void* pv_value);
-extern void _deque_iterator_set_value(
-    const struct _tagdeque* cpt_deque,
-    const deque_iterator_t* cpt_iterator, 
-    const void* cpv_value);
-extern const void* _deque_iterator_get_pointer(
-    const struct _tagdeque* cpt_deque,
-    const deque_iterator_t* cpt_iterator); 
-extern void _deque_iterator_next(
-    const struct _tagdeque* cpt_deque, deque_iterator_t* pt_iterator);
-extern void _deque_iterator_prev(
-    const struct _tagdeque* cpt_deque, deque_iterator_t* pt_iterator);
-extern void* _deque_iterator_at(
-    const struct _tagdeque* cpt_deque, 
-    const deque_iterator_t* cpt_iterator,
-    unsigned int un_index);
-extern void _deque_iterator_next_n(
-    const struct _tagdeque* cpt_deque, 
-    deque_iterator_t* pt_iterator,
-    int n_step);
-extern void _deque_iterator_prev_n(
-    const struct _tagdeque* cpt_deque, 
-    deque_iterator_t* pt_iterator,
-    int n_step);
+    deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
+extern void _deque_iterator_get_value(deque_iterator_t t_iter, void* pv_value);
+extern void _deque_iterator_set_value(deque_iterator_t t_iter, const void* cpv_value);
+extern const void* _deque_iterator_get_pointer(deque_iterator_t t_iter); 
+extern deque_iterator_t _deque_iterator_next(deque_iterator_t pt_iter);
+extern deque_iterator_t _deque_iterator_prev(deque_iterator_t t_iter);
+extern void* _deque_iterator_at(deque_iterator_t t_iter, int n_index);
+extern deque_iterator_t _deque_iterator_next_n(deque_iterator_t t_iter, int n_step);
+extern deque_iterator_t _deque_iterator_prev_n(deque_iterator_t t_iter, int n_step);
 extern int _deque_iterator_minus(
-    const struct _tagdeque* cpt_deque,
-    const deque_iterator_t* cpt_iterator, 
-    deque_iterator_t t_iterator);
+    deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
 extern bool_t _deque_iterator_less(
-    const struct _tagdeque* cpt_deque,
-    const deque_iterator_t* cpt_iterator,
-    deque_iterator_t t_iterator);
+    deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
 extern bool_t _deque_iterator_before(
-    const deque_iterator_t* cpt_iteratorfirst, 
-    const deque_iterator_t* cpt_iteratorsecond);
+    deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
