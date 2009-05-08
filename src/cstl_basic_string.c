@@ -30,6 +30,7 @@
 #include "cstl_types.h"
 #include "cstl_alloc.h"
 #include "cstl_iterator.h"
+#include "cstl_iterator_private.h"
 #include "cvector.h"
 
 #include "cstl_basic_string_iterator.h"
@@ -46,8 +47,7 @@
  * Assert support.
  */
 static bool_t _iterator_belong_to_basic_string(
-    const basic_string_t* cpt_basic_string, 
-    const basic_string_iterator_t* cpt_iterator);
+    const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter);
 static bool_t _same_basic_string_type(
     const basic_string_t* cpt_basic_stringfirst, 
     const basic_string_t* cpt_basic_stringsecond);
@@ -68,246 +68,228 @@ static size_t _get_valuestring_len(
 basic_string_iterator_t create_basic_string_iterator(void)
 {
     basic_string_iterator_t t_newiterator = create_vector_iterator();
-    _GET_BASIC_STRING_CONTAINER_TYPE(&t_newiterator) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
 
     return t_newiterator;
 }
 
 bool_t _basic_string_iterator_equal(
-    const struct _tagbasicstring* cpt_basic_string,
-    const basic_string_iterator_t* cpt_iterator,
-    basic_string_iterator_t t_iterator)
+    basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
 {
     bool_t t_result;
 
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, cpt_iterator));
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, &t_iterator));
+    assert(_iterator_same_type(t_iterfirst, t_itersecond));
+    assert(_GET_BASIC_STRING_CONTAINER(t_iterfirst) ==
+           _GET_BASIC_STRING_CONTAINER(t_itersecond));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iterfirst), t_iterfirst));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_itersecond), t_itersecond));
 
-    _GET_VECTOR_CONTAINER_TYPE(&t_iterator) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)cpt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iterfirst) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_itersecond) = _VECTOR_CONTAINER;
 
-    t_result = _vector_iterator_equal(
-        &cpt_basic_string->_t_vector, cpt_iterator, t_iterator);
+    t_result = _vector_iterator_equal(t_iterfirst, t_itersecond);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE(&t_iterator) = _BASIC_STRING_CONTAINER;
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)cpt_iterator) =
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iterfirst) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_itersecond) = _BASIC_STRING_CONTAINER;
 
     return t_result;
 }
 
 void _basic_string_iterator_get_value(
-    const struct _tagbasicstring* cpt_basic_string,
-    const basic_string_iterator_t* cpt_iterator,
-    void* pv_value)
+    basic_string_iterator_t t_iter, void* pv_value)
 {
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, cpt_iterator));
-    assert(!iterator_equal(cpt_iterator, basic_string_end(cpt_basic_string)));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iter), t_iter));
+    assert(!iterator_equal(t_iter,
+        basic_string_end(_GET_BASIC_STRING_CONTAINER(t_iter))));
 
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)cpt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iter) = _VECTOR_CONTAINER;
 
-    _vector_iterator_get_value(
-        &cpt_basic_string->_t_vector, cpt_iterator, pv_value);
+    _vector_iterator_get_value(t_iter, pv_value);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)cpt_iterator) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iter) = _BASIC_STRING_CONTAINER;
 }
 
 void _basic_string_iterator_set_value(
-    const struct _tagbasicstring* cpt_basic_string,
-    const basic_string_iterator_t* cpt_iterator,
-    const void* cpv_value)
+    basic_string_iterator_t t_iter, const void* cpv_value)
 {
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, cpt_iterator));
-    assert(!iterator_equal(cpt_iterator, basic_string_end(cpt_basic_string)));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iter), t_iter));
+    assert(!iterator_equal(t_iter,
+        basic_string_end(_GET_BASIC_STRING_CONTAINER(t_iter))));
 
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)cpt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iter) = _VECTOR_CONTAINER;
 
-    _vector_iterator_set_value(
-        &cpt_basic_string->_t_vector, cpt_iterator, cpv_value);
+    _vector_iterator_set_value(t_iter, cpv_value);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)cpt_iterator) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iter) = _BASIC_STRING_CONTAINER;
 }
 
-const void* _basic_string_iterator_get_pointer(
-    const struct _tagbasicstring* cpt_basic_string,
-    const basic_string_iterator_t* cpt_iterator)
+const void* _basic_string_iterator_get_pointer(basic_string_iterator_t t_iter)
 {
     void* pv_pointer = NULL;
 
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, cpt_iterator));
-    assert(!iterator_equal(cpt_iterator, basic_string_end(cpt_basic_string)));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iter), t_iter));
+    assert(!iterator_equal(t_iter,
+        basic_string_end(_GET_BASIC_STRING_CONTAINER(t_iter))));
 
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)cpt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iter) = _VECTOR_CONTAINER;
 
-    pv_pointer = (void*)_vector_iterator_get_pointer(
-        &cpt_basic_string->_t_vector, cpt_iterator);
+    pv_pointer = (void*)_vector_iterator_get_pointer(t_iter);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)cpt_iterator) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iter) = _BASIC_STRING_CONTAINER;
 
     return pv_pointer;
 }
 
-void _basic_string_iterator_next(
-    const struct _tagbasicstring* cpt_basic_string,
-    basic_string_iterator_t* pt_iterator)
+basic_string_iterator_t _basic_string_iterator_next(basic_string_iterator_t t_iter)
 {
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, pt_iterator));
-    assert(!iterator_equal(pt_iterator, basic_string_end(cpt_basic_string)));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iter), t_iter));
+    assert(!iterator_equal(t_iter,
+        basic_string_end(_GET_BASIC_STRING_CONTAINER(t_iter))));
 
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)pt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iter) = _VECTOR_CONTAINER;
 
-    _vector_iterator_next(&cpt_basic_string->_t_vector, pt_iterator);
+    t_iter = _vector_iterator_next(t_iter);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)pt_iterator) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iter) = _BASIC_STRING_CONTAINER;
+
+    return t_iter;
 }
 
-void _basic_string_iterator_prev(
-    const struct _tagbasicstring* cpt_basic_string,
-    basic_string_iterator_t* pt_iterator)
+basic_string_iterator_t _basic_string_iterator_prev(
+    basic_string_iterator_t t_iter)
 {
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, pt_iterator));
-    assert(!iterator_equal(pt_iterator, basic_string_begin(cpt_basic_string)));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iter), t_iter));
+    assert(!iterator_equal(t_iter,
+        basic_string_begin(_GET_BASIC_STRING_CONTAINER(t_iter))));
 
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)pt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iter) = _VECTOR_CONTAINER;
 
-    _vector_iterator_prev(&cpt_basic_string->_t_vector, pt_iterator);
+    t_iter = _vector_iterator_prev(t_iter);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)pt_iterator) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iter) = _BASIC_STRING_CONTAINER;
+
+    return t_iter;
 }
 
-void* _basic_string_iterator_at(
-    const struct _tagbasicstring* cpt_basic_string,
-    const basic_string_iterator_t* cpt_iterator,
-    unsigned int un_index)
+void* _basic_string_iterator_at(basic_string_iterator_t t_iter, int n_index)
 {
     void* pv_value = NULL;
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, cpt_iterator));
 
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)cpt_iterator) = 
-        _VECTOR_CONTAINER;
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iter), t_iter));
+    assert(!iterator_equal(t_iter,
+        basic_string_begin(_GET_BASIC_STRING_CONTAINER(t_iter))));
 
-    pv_value = _vector_iterator_at(
-        &cpt_basic_string->_t_vector, cpt_iterator, un_index);
+    _GET_VECTOR_CONTAINER_TYPE(t_iter) = _VECTOR_CONTAINER;
+
+    pv_value = _vector_iterator_at(t_iter, n_index);
     assert(pv_value != NULL);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)cpt_iterator) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iter) = _BASIC_STRING_CONTAINER;
 
     return pv_value;
 }
 
-void _basic_string_iterator_next_n(
-    const struct _tagbasicstring* cpt_basic_string,
-    basic_string_iterator_t* pt_iterator,
-    int n_step)
+basic_string_iterator_t _basic_string_iterator_next_n(
+    basic_string_iterator_t t_iter, int n_step)
 {
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, pt_iterator));
-    assert(!iterator_equal(pt_iterator, basic_string_end(cpt_basic_string)));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iter), t_iter));
+    assert(!iterator_equal(t_iter,
+        basic_string_end(_GET_BASIC_STRING_CONTAINER(t_iter))));
 
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)pt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iter) = _VECTOR_CONTAINER;
 
-    _vector_iterator_next_n(&cpt_basic_string->_t_vector, pt_iterator, n_step);
+    t_iter = _vector_iterator_next_n(t_iter, n_step);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)pt_iterator) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iter) = _BASIC_STRING_CONTAINER;
+
+    return t_iter;
 }
 
-void _basic_string_iterator_prev_n(
-    const struct _tagbasicstring* cpt_basic_string,
-    basic_string_iterator_t* pt_iterator,
-    int n_step)
+basic_string_iterator_t _basic_string_iterator_prev_n(
+    basic_string_iterator_t t_iter, int n_step)
 {
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, pt_iterator));
-    assert(!iterator_equal(pt_iterator, basic_string_begin(cpt_basic_string)));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iter), t_iter));
+    assert(!iterator_equal(t_iter,
+        basic_string_begin(_GET_BASIC_STRING_CONTAINER(t_iter))));
 
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)pt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iter) = _VECTOR_CONTAINER;
 
-    _vector_iterator_prev_n(&cpt_basic_string->_t_vector, pt_iterator, n_step);
+    t_iter = _vector_iterator_prev_n(t_iter, n_step);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)pt_iterator) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iter) = _BASIC_STRING_CONTAINER;
+
+    return t_iter;
 }
 
 int _basic_string_iterator_minus(
-    const struct _tagbasicstring* cpt_basic_string,
-    const basic_string_iterator_t* cpt_iterator,
-    basic_string_iterator_t t_iterator)
+    basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
 {
     int n_distance = 0;
 
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, cpt_iterator));
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, &t_iterator));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iterfirst), t_iterfirst));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_itersecond), t_itersecond));
 
-    _GET_VECTOR_CONTAINER_TYPE(&t_iterator) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)cpt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iterfirst) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_itersecond) = _VECTOR_CONTAINER;
 
-    n_distance = _vector_iterator_minus(
-        &cpt_basic_string->_t_vector, cpt_iterator, t_iterator);
+    n_distance = _vector_iterator_minus(t_iterfirst, t_itersecond);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE(&t_iterator) = _BASIC_STRING_CONTAINER;
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)cpt_iterator) =
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iterfirst) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_itersecond) = _BASIC_STRING_CONTAINER;
 
-    return n_distance;   
+    return n_distance;
 }
 
 bool_t _basic_string_iterator_less(
-    const struct _tagbasicstring* cpt_basic_string,
-    const basic_string_iterator_t* cpt_iterator,
-    basic_string_iterator_t t_iterator)
+    basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
 {
     bool_t t_result;
 
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, cpt_iterator));
-    assert(_iterator_belong_to_basic_string(cpt_basic_string, &t_iterator));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iterfirst), t_iterfirst));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_itersecond), t_itersecond));
 
-    _GET_VECTOR_CONTAINER_TYPE(&t_iterator) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)cpt_iterator) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iterfirst) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_itersecond) = _VECTOR_CONTAINER;
 
-    t_result = _vector_iterator_less(
-        &cpt_basic_string->_t_vector, cpt_iterator, t_iterator);
+    t_result = _vector_iterator_less(t_iterfirst, t_itersecond);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE(&t_iterator) = _BASIC_STRING_CONTAINER;
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)cpt_iterator) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iterfirst) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_itersecond) = _BASIC_STRING_CONTAINER;
 
     return t_result;   
 }
 
 bool_t _basic_string_iterator_before(
-    const basic_string_iterator_t* cpt_iteratorfirst,
-    const basic_string_iterator_t* cpt_iteratorsecond)
+    basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
 {
     bool_t t_result;
 
-    assert(cpt_iteratorfirst != NULL && cpt_iteratorsecond != NULL);
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_iterfirst), t_iterfirst));
+    assert(_iterator_belong_to_basic_string(
+        _GET_BASIC_STRING_CONTAINER(t_itersecond), t_itersecond));
 
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)cpt_iteratorfirst) = 
-        _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE((vector_iterator_t*)cpt_iteratorsecond) = 
-        _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_iterfirst) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_itersecond) = _VECTOR_CONTAINER;
 
-    t_result = _vector_iterator_before(cpt_iteratorfirst, cpt_iteratorsecond);
+    t_result = _vector_iterator_before(t_iterfirst, t_itersecond);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)cpt_iteratorfirst) = 
-        _BASIC_STRING_CONTAINER;
-    _GET_BASIC_STRING_CONTAINER_TYPE((basic_string_iterator_t*)cpt_iteratorsecond) = 
-        _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iterfirst) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_itersecond) = _BASIC_STRING_CONTAINER;
 
     return t_result;
 }
@@ -331,8 +313,7 @@ basic_string_t _create_basic_string(size_t t_typesize, const char* s_typename)
     strcat(ac_basicstringtypename, ac_unifytypename);
     strcat(ac_basicstringtypename, _BASIC_STRING_RIGHT_BRACKET);
 
-    t_new_basic_string._t_vector = 
-        _create_vector(t_typesize, ac_basicstringtypename);
+    t_new_basic_string._t_vector = _create_vector(t_typesize, ac_basicstringtypename);
 
     return t_new_basic_string;
 }
@@ -360,12 +341,11 @@ void basic_string_init_copy_range(
     basic_string_iterator_t t_begin, basic_string_iterator_t t_end)
 {
     assert(pt_basic_string != NULL);
-    assert(
-        _GET_BASIC_STRING_CONTAINER(&t_begin) != pt_basic_string &&
-        _GET_BASIC_STRING_CONTAINER(&t_end) != pt_basic_string);
+    assert(_GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
+           _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string);
 
-    _GET_VECTOR_CONTAINER_TYPE(&t_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(&t_end) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
 
     vector_init_copy_range(&pt_basic_string->_t_vector, t_begin, t_end);
     vector_push_back(&pt_basic_string->_t_vector, 0x00);
@@ -382,7 +362,7 @@ void basic_string_init_copy_substring(
     assert(t_pos < basic_string_size(cpt_basic_string_src));
 
     t_begin = basic_string_begin(cpt_basic_string_src);
-    iterator_next_n(&t_begin, t_pos);
+    t_begin = iterator_next_n(t_begin, t_pos);
 
     if(t_len == NPOS || 
        t_len + t_pos >= basic_string_size(cpt_basic_string_src))
@@ -392,11 +372,11 @@ void basic_string_init_copy_substring(
     else
     {
         t_end = basic_string_begin(cpt_basic_string_src);
-        iterator_next_n(&t_end, t_pos + t_len);
+        t_end = iterator_next_n(t_end, t_pos + t_len);
     }
 
-    _GET_VECTOR_CONTAINER_TYPE(&t_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(&t_end) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
 
     vector_init_copy_range(&pt_basic_string->_t_vector, t_begin, t_end);
     vector_push_back(&pt_basic_string->_t_vector, 0x00);
@@ -417,8 +397,7 @@ void basic_string_init_subcstr(
 
     assert(pt_basic_string != NULL);
 
-    t_length = _get_valuestring_len(
-        cpv_valuestring, 
+    t_length = _get_valuestring_len(cpv_valuestring, 
         pt_basic_string->_t_vector._t_typesize, 
         pt_basic_string->_t_vector._sz_typename);
     t_len = t_len < t_length ? t_len : t_length;
@@ -433,10 +412,9 @@ void basic_string_init_subcstr(
         assert(pc_value != NULL);
         for(t_index = 0; t_index < t_len; ++t_index)
         {
-           memcpy(
-                pc_value + t_index * pt_basic_string->_t_vector._t_typesize, 
-                (char*)cpv_valuestring + t_index * pt_basic_string->_t_vector._t_typesize,
-                pt_basic_string->_t_vector._t_typesize);
+           memcpy(pc_value + t_index * pt_basic_string->_t_vector._t_typesize, 
+               (char*)cpv_valuestring + t_index * pt_basic_string->_t_vector._t_typesize,
+               pt_basic_string->_t_vector._t_typesize);
         }
     }
 
@@ -475,15 +453,13 @@ void _basic_string_init_elem_varg(
             &pt_basic_string->_t_vector._t_allocater,
             pt_basic_string->_t_vector._t_typesize, 1);
         assert(pv_init_elem != NULL);
-        _get_varg_value(
-            pv_init_elem, val_elemlist,
-            pt_basic_string->_t_vector._t_typesize, pt_basic_string->_t_vector._sz_typename);
+        _get_varg_value(pv_init_elem, val_elemlist,
+            pt_basic_string->_t_vector._t_typesize,
+            pt_basic_string->_t_vector._sz_typename);
         for(t_index = 0; t_index < t_count; ++t_index)
         {
-            memcpy(
-                pc_value + t_index * pt_basic_string->_t_vector._t_typesize,
-                pv_init_elem,
-                pt_basic_string->_t_vector._t_typesize);
+            memcpy(pc_value + t_index * pt_basic_string->_t_vector._t_typesize,
+                   pv_init_elem, pt_basic_string->_t_vector._t_typesize);
         }
         deallocate(
             &pt_basic_string->_t_vector._t_allocater, pv_init_elem,
@@ -791,20 +767,15 @@ int basic_string_compare_substring_subcstr(
 
     /* get actual string length and value string length */
     t_stringlentmp = basic_string_size(cpt_basic_string) - t_stringpos;
-    t_valuestringlentmp = 
-        _get_valuestring_len(
-            cpv_valuestring, 
-            cpt_basic_string->_t_vector._t_typesize,
-            cpt_basic_string->_t_vector._sz_typename);
-    t_stringlen = 
-        t_stringlen < t_stringlentmp ? 
-        t_stringlen : t_stringlentmp;
-    t_valuestringlen = 
-        t_valuestringlen < t_valuestringlentmp ? 
-        t_valuestringlen : t_valuestringlentmp;
-    t_cmplen = 
-        t_stringlen < t_valuestringlen ? 
-        t_stringlen : t_valuestringlen;
+    t_valuestringlentmp = _get_valuestring_len(
+        cpv_valuestring, cpt_basic_string->_t_vector._t_typesize,
+        cpt_basic_string->_t_vector._sz_typename);
+    t_stringlen = t_stringlen < t_stringlentmp ?
+                  t_stringlen : t_stringlentmp;
+    t_valuestringlen = t_valuestringlen < t_valuestringlentmp ? 
+                       t_valuestringlen : t_valuestringlentmp;
+    t_cmplen = t_stringlen < t_valuestringlen ? 
+               t_stringlen : t_valuestringlen;
 
     pc_string = (char*)basic_string_at(cpt_basic_string, t_stringpos);
     pc_value = (char*)cpv_valuestring;
@@ -982,7 +953,7 @@ basic_string_iterator_t basic_string_begin(const basic_string_t* cpt_basic_strin
     assert(cpt_basic_string != NULL);
 
     t_newiterator = vector_begin(&cpt_basic_string->_t_vector);
-    _GET_BASIC_STRING_CONTAINER_TYPE(&t_newiterator) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
 
     return t_newiterator;
 }
@@ -995,7 +966,7 @@ basic_string_iterator_t basic_string_end(const basic_string_t* cpt_basic_string)
     assert(vector_size(&cpt_basic_string->_t_vector) > 0);
 
     t_newiterator = vector_rbegin(&cpt_basic_string->_t_vector);
-    _GET_BASIC_STRING_CONTAINER_TYPE(&t_newiterator) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
 
     return t_newiterator;
 }
@@ -1015,8 +986,8 @@ basic_string_reverse_iterator_t basic_string_rbegin(
     else
     {
         t_newiterator = vector_rbegin(&cpt_basic_string->_t_vector);
-        iterator_prev(&t_newiterator);
-        _GET_BASIC_STRING_CONTAINER_TYPE(&t_newiterator) = _BASIC_STRING_CONTAINER;
+        t_newiterator = iterator_prev(t_newiterator);
+        _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
     }
 
     return t_newiterator;
@@ -1029,7 +1000,7 @@ basic_string_reverse_iterator_t basic_string_rend(const basic_string_t* cpt_basi
     assert(cpt_basic_string != NULL);
 
     t_newiterator = vector_rend(&cpt_basic_string->_t_vector);
-    _GET_BASIC_STRING_CONTAINER_TYPE(&t_newiterator) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
 
     return t_newiterator;
 }
@@ -2250,11 +2221,11 @@ void basic_string_assign_range(
     basic_string_iterator_t t_begin, basic_string_iterator_t t_end)
 {
     assert(
-        _GET_BASIC_STRING_CONTAINER(&t_begin) != pt_basic_string &&
-        _GET_BASIC_STRING_CONTAINER(&t_end) != pt_basic_string);
+        _GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
+        _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string);
     assert(
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(&t_begin)) &&
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(&t_end)));
+        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
+        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
 
     basic_string_destroy(pt_basic_string);
     basic_string_init_copy_range(pt_basic_string, t_begin, t_end);
@@ -2367,14 +2338,14 @@ void basic_string_append_range(
     basic_string_iterator_t t_begin, basic_string_iterator_t t_end)
 {
     assert(
-        _GET_BASIC_STRING_CONTAINER(&t_begin) != pt_basic_string &&
-        _GET_BASIC_STRING_CONTAINER(&t_end) != pt_basic_string);
+        _GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
+        _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string);
     assert(
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(&t_begin)) &&
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(&t_end)));
+        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
+        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
 
     basic_string_append_subcstr(
-        pt_basic_string, iterator_get_pointer(&t_begin),
+        pt_basic_string, iterator_get_pointer(t_begin),
         iterator_distance(t_begin, t_end));
 }
 
@@ -2430,7 +2401,7 @@ void basic_string_insert_string(
 
     if(t_pos != 0)
     {
-        iterator_next_n(&t_insert, t_pos);
+        t_insert = iterator_next_n(t_insert, t_pos);
     }
 
     basic_string_insert_range(
@@ -2449,11 +2420,11 @@ void basic_string_insert_substring(
 
     if(t_pos != 0)
     {
-        iterator_next_n(&t_insert, t_pos);
+        t_insert = iterator_next_n(t_insert, t_pos);
     }
     if(t_startpos != 0)
     {
-        iterator_next_n(&t_begin, t_startpos);
+        t_begin = iterator_next_n(t_begin, t_startpos);
     }
     if(t_len == NPOS || t_startpos + t_len >= basic_string_size(cpt_basic_string_insert))
     {
@@ -2461,7 +2432,7 @@ void basic_string_insert_substring(
     }
     else
     {
-        iterator_next_n(&t_end, t_startpos + t_len);
+        t_end = iterator_next_n(t_end, t_startpos + t_len);
     }
 
     basic_string_insert_range(pt_basic_string, t_insert, t_begin, t_end);
@@ -2500,16 +2471,16 @@ void basic_string_insert_range(
     basic_string_iterator_t t_begin, basic_string_iterator_t t_end)
 {
     assert(
-        _GET_BASIC_STRING_CONTAINER(&t_begin) != pt_basic_string &&
-        _GET_BASIC_STRING_CONTAINER(&t_end) != pt_basic_string &&
-        _GET_BASIC_STRING_CONTAINER(&t_pos) == pt_basic_string);
+        _GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
+        _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string &&
+        _GET_BASIC_STRING_CONTAINER(t_pos) == pt_basic_string);
     assert(
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(&t_begin)) &&
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(&t_end)));
+        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
+        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
 
-    _GET_VECTOR_CONTAINER_TYPE(&t_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(&t_end) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(&t_pos) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_pos) = _VECTOR_CONTAINER;
 
     vector_insert_range(&pt_basic_string->_t_vector, t_pos, t_begin, t_end);
 }
@@ -2531,8 +2502,8 @@ void _basic_string_insert_elem_varg(
     assert(t_pos <= basic_string_size(pt_basic_string));
 
     t_insert = basic_string_begin(pt_basic_string);
-    iterator_next_n(&t_insert, t_pos);
-    _GET_VECTOR_CONTAINER_TYPE(&t_insert) = _VECTOR_CONTAINER;
+    t_insert = iterator_next_n(t_insert, t_pos);
+    _GET_VECTOR_CONTAINER_TYPE(t_insert) = _VECTOR_CONTAINER;
     _vector_insert_n_varg(&pt_basic_string->_t_vector, t_insert, t_count, val_elemlist);
 }
 
@@ -2542,13 +2513,13 @@ basic_string_iterator_t basic_string_erase(
 {
     basic_string_iterator_t t_iterator;
 
-    assert(_iterator_belong_to_basic_string(pt_basic_string, &t_pos));
-    assert(!iterator_equal(&t_pos, basic_string_end(pt_basic_string)));
+    assert(_iterator_belong_to_basic_string(pt_basic_string, t_pos));
+    assert(!iterator_equal(t_pos, basic_string_end(pt_basic_string)));
 
-    _GET_VECTOR_CONTAINER_TYPE(&t_pos) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_pos) = _VECTOR_CONTAINER;
 
     t_iterator = vector_erase(&pt_basic_string->_t_vector, t_pos);
-    _GET_BASIC_STRING_CONTAINER_TYPE(&t_iterator) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iterator) = _BASIC_STRING_CONTAINER;
 
     return t_iterator;
 }
@@ -2559,15 +2530,14 @@ basic_string_iterator_t basic_string_erase_range(
 {
     basic_string_iterator_t t_iterator;
 
-    assert(
-        _iterator_belong_to_basic_string(pt_basic_string, &t_begin) &&
-        _iterator_belong_to_basic_string(pt_basic_string, &t_end));
+    assert(_iterator_belong_to_basic_string(pt_basic_string, t_begin) &&
+           _iterator_belong_to_basic_string(pt_basic_string, t_end));
 
-    _GET_VECTOR_CONTAINER_TYPE(&t_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(&t_end) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
 
     t_iterator = vector_erase_range(&pt_basic_string->_t_vector, t_begin, t_end);
-    _GET_BASIC_STRING_CONTAINER_TYPE(&t_iterator) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_iterator) = _BASIC_STRING_CONTAINER;
 
     return t_iterator;
 }
@@ -2582,7 +2552,7 @@ void basic_string_erase_substring(
 
     if(t_pos != 0)
     {
-        iterator_next_n(&t_begin, t_pos);
+        t_begin = iterator_next_n(t_begin, t_pos);
     }
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
@@ -2590,7 +2560,7 @@ void basic_string_erase_substring(
     }
     else
     {
-        iterator_next_n(&t_end, t_pos + t_len);
+        t_end = iterator_next_n(t_end, t_pos + t_len);
     }
 
     basic_string_erase_range(pt_basic_string, t_begin, t_end);
@@ -2606,14 +2576,14 @@ void basic_string_replace(
 
     assert(t_pos < basic_string_size(pt_basic_string));
 
-    iterator_next_n(&t_begin, t_pos);
+    t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
         t_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        iterator_next_n(&t_end, t_pos + t_len);
+        t_end = iterator_next_n(t_end, t_pos + t_len);
     }
 
     basic_string_range_replace(
@@ -2629,14 +2599,14 @@ void basic_string_replace_substring(
 
     assert(t_pos < basic_string_size(pt_basic_string));
 
-    iterator_next_n(&t_begin, t_pos);
+    t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
         t_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        iterator_next_n(&t_end, t_pos + t_len);
+        t_end = iterator_next_n(t_end, t_pos + t_len);
     }
 
     basic_string_range_replace_substring(
@@ -2652,14 +2622,14 @@ void basic_string_replace_cstr(
 
     assert(t_pos < basic_string_size(pt_basic_string));
 
-    iterator_next_n(&t_begin, t_pos);
+    t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
         t_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        iterator_next_n(&t_end, t_pos + t_len);
+        t_end = iterator_next_n(t_end, t_pos + t_len);
     }
 
     basic_string_range_replace_cstr(
@@ -2675,14 +2645,14 @@ void basic_string_replace_subcstr(
 
     assert(t_pos < basic_string_size(pt_basic_string));
 
-    iterator_next_n(&t_begin, t_pos);
+    t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
         t_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        iterator_next_n(&t_end, t_pos + t_len);
+        t_end = iterator_next_n(t_end, t_pos + t_len);
     }
 
     basic_string_range_replace_subcstr(
@@ -2706,14 +2676,14 @@ void _basic_string_replace_elem_varg(
 
     assert(t_pos < basic_string_size(pt_basic_string));
 
-    iterator_next_n(&t_begin, t_pos);
+    t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
         t_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        iterator_next_n(&t_end, t_pos + t_len);
+        t_end = iterator_next_n(t_end, t_pos + t_len);
     }
     _basic_string_range_replace_elem_varg(
         pt_basic_string, t_begin, t_end, t_count, val_elemlist);
@@ -2804,13 +2774,12 @@ void basic_string_replace_range(
 #ifndef NDEBUG
 static bool_t _iterator_belong_to_basic_string(
     const basic_string_t* cpt_basic_string,
-    const basic_string_iterator_t* cpt_iterator)
+    basic_string_iterator_t t_iter)
 {
-    assert(cpt_basic_string != NULL && cpt_iterator != NULL);
-    assert(
-        _GET_BASIC_STRING_CONTAINER_TYPE(cpt_iterator) == _BASIC_STRING_CONTAINER &&
-        _GET_BASIC_STRING_ITERATOR_TYPE(cpt_iterator) == _RANDOM_ACCESS_ITERATOR &&
-        _GET_BASIC_STRING_CONTAINER(cpt_iterator) == cpt_basic_string);
+    assert(cpt_basic_string != NULL);
+    assert(_GET_BASIC_STRING_CONTAINER_TYPE(t_iter) == _BASIC_STRING_CONTAINER &&
+           _GET_BASIC_STRING_ITERATOR_TYPE(t_iter) == _RANDOM_ACCESS_ITERATOR &&
+           _GET_BASIC_STRING_CONTAINER(t_iter) == cpt_basic_string);
 
     return true;
 }
@@ -2820,16 +2789,13 @@ static bool_t _same_basic_string_type(
     const basic_string_t* cpt_basic_stringsecond)
 {
     assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
-    assert(
-        cpt_basic_stringfirst->_t_vector._t_typesize ==
-            cpt_basic_stringsecond->_t_vector._t_typesize &&
-        strncmp(
-            cpt_basic_stringfirst->_t_vector._sz_typename,
-            cpt_basic_stringsecond->_t_vector._sz_typename,
-            _ELEM_TYPE_NAME_SIZE) == 0);
-    assert(
-        cpt_basic_stringfirst->_t_vector._pfun_cmp ==
-            cpt_basic_stringsecond->_t_vector._pfun_cmp);
+    assert(cpt_basic_stringfirst->_t_vector._t_typesize ==
+           cpt_basic_stringsecond->_t_vector._t_typesize &&
+           strncmp(cpt_basic_stringfirst->_t_vector._sz_typename,
+                   cpt_basic_stringsecond->_t_vector._sz_typename,
+                   _ELEM_TYPE_NAME_SIZE) == 0);
+    assert(cpt_basic_stringfirst->_t_vector._pfun_cmp ==
+           cpt_basic_stringsecond->_t_vector._pfun_cmp);
 
     return true;
 }
