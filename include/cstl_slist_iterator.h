@@ -42,22 +42,16 @@ struct _tagslist;
  * Iterator support.
  */
 extern slist_iterator_t create_slist_iterator(void);
-extern void _slist_iterator_get_value(
-    const struct _tagslist* cpt_slist, const slist_iterator_t* cpt_iterator, void* pv_value);
-extern void _slist_iterator_set_value(
-    const struct _tagslist* cpt_slist, const slist_iterator_t* cpt_iterator,
-    const void* cpv_value);
+extern void _slist_iterator_get_value(slist_iterator_t t_iter, void* pv_value);
+extern void _slist_iterator_set_value(slist_iterator_t t_iter, const void* cpv_value);
 extern bool_t _slist_iterator_equal(
-    const struct _tagslist* cpt_slist, const slist_iterator_t* cpt_iterator,
-    slist_iterator_t t_iterator);
-extern const void* _slist_iterator_get_pointer(
-    const struct _tagslist* cpt_slist, const slist_iterator_t* cpt_iterator); 
-extern void _slist_iterator_next(
-    const struct _tagslist* cpt_slist, slist_iterator_t* pt_iterator);
+    slist_iterator_t t_iterfirst, slist_iterator_t t_itersecond);
+extern const void* _slist_iterator_get_pointer(slist_iterator_t t_iter); 
+extern slist_iterator_t _slist_iterator_next(slist_iterator_t t_iter);
 extern int _slist_iterator_distance(
-    const slist_iterator_t* cpt_begin, const slist_iterator_t* cpt_end);
+    slist_iterator_t t_iterfirst, slist_iterator_t t_itersecond);
 extern  bool_t _slist_iterator_before(
-    const slist_iterator_t* cpt_iteratorfirst, const slist_iterator_t* cpt_iteratorsecond);
+    slist_iterator_t t_iterfirst, slist_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
