@@ -42,21 +42,15 @@ struct _taghashset;
  * Iterator support.
  */
 extern hash_set_iterator_t create_hash_set_iterator(void);
-extern void _hash_set_iterator_get_value(
-    const struct _taghashset* cpt_hash_set, const hash_set_iterator_t* cpt_iterator, 
-    void* pv_value);
-extern const void* _hash_set_iterator_get_pointer(
-    const struct _taghashset* cpt_hash_set, const hash_set_iterator_t* cpt_iterator); 
-extern void _hash_set_iterator_next(
-    const struct _taghashset* cpt_hash_set, hash_set_iterator_t* pt_iterator);
+extern void _hash_set_iterator_get_value(hash_set_iterator_t t_iter, void* pv_value);
+extern const void* _hash_set_iterator_get_pointer(hash_set_iterator_t t_iter); 
+extern hash_set_iterator_t _hash_set_iterator_next(hash_set_iterator_t t_iter);
 extern bool_t _hash_set_iterator_equal(
-    const struct _taghashset* cpt_hash_set, const hash_set_iterator_t* cpt_iterator,
-    hash_set_iterator_t t_iterator);
+    hash_set_iterator_t t_iterfirst, hash_set_iterator_t t_itersecond);
 extern int _hash_set_iterator_distance(
-    const hash_set_iterator_t* cpt_begin, const hash_set_iterator_t* cpt_end);
+    hash_set_iterator_t t_iterfirst, hash_set_iterator_t t_itersecond);
 extern bool_t _hash_set_iterator_before(
-    const hash_set_iterator_t* cpt_iteratorfirst,
-    const hash_set_iterator_t* cpt_iteratorsecond);
+    hash_set_iterator_t t_iterfirst, hash_set_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
