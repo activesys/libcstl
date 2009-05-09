@@ -29,6 +29,7 @@
 #include "cstl_types.h"
 #include "cstl_alloc.h"
 #include "cstl_iterator.h"
+#include "cstl_iterator.h"
 
 #include "cvector.h"
 #include "cstl_hashtable_iterator.h"
@@ -78,127 +79,73 @@ hash_multimap_iterator_t create_hash_multimap_iterator(void)
 {
     hash_multimap_iterator_t t_newiterator = _create_hashtable_iterator();
 
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_newiterator) = 
-        _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_newiterator) = 
-        _FORWARD_ITERATOR;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_newiterator) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_newiterator) = _FORWARD_ITERATOR;
 
     return t_newiterator;
 }
 
 void _hash_multimap_iterator_get_value(
-    const struct _taghashmultimap* cpt_hash_multimap,
-    const hash_multimap_iterator_t* cpt_iterator,
-    void* pv_value)
+    hash_multimap_iterator_t t_iter, void* pv_value)
 {
-    assert(cpt_hash_multimap != NULL && cpt_iterator && pv_value != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(cpt_iterator) == 
-            _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(cpt_iterator) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER(cpt_iterator) == 
-            cpt_hash_multimap);
+    assert(pv_value != NULL);
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_iter) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_iter) == _FORWARD_ITERATOR);
 
-    _hashtable_iterator_get_value(
-        &cpt_hash_multimap->_t_hashtable, cpt_iterator, pv_value);
+    _hashtable_iterator_get_value(t_iter, pv_value);
 }
 
-const void* _hash_multimap_iterator_get_pointer(
-    const struct _taghashmultimap* cpt_hash_multimap,
-    const hash_multimap_iterator_t* cpt_iterator)
+const void* _hash_multimap_iterator_get_pointer(hash_multimap_iterator_t t_iter)
 {
-    assert(cpt_hash_multimap != NULL && cpt_iterator != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(cpt_iterator) == 
-            _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(cpt_iterator) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER(cpt_iterator) == 
-            cpt_hash_multimap);
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_iter) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_iter) == _FORWARD_ITERATOR);
 
-    return _hashtable_iterator_get_pointer(
-        &cpt_hash_multimap->_t_hashtable, cpt_iterator);
+    return _hashtable_iterator_get_pointer(t_iter);
 }
 
-void _hash_multimap_iterator_next(
-    const struct _taghashmultimap* cpt_hash_multimap,
-    hash_multimap_iterator_t* pt_iterator)
+hash_multimap_iterator_t _hash_multimap_iterator_next(hash_multimap_iterator_t t_iter)
 {
-    assert(cpt_hash_multimap != NULL && pt_iterator != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(pt_iterator) == 
-            _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(pt_iterator) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER(pt_iterator) == 
-            cpt_hash_multimap);
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_iter) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_iter) == _FORWARD_ITERATOR);
 
-    _hashtable_iterator_next(&cpt_hash_multimap->_t_hashtable, pt_iterator);
+    return _hashtable_iterator_next(t_iter);
 }
 
 bool_t _hash_multimap_iterator_equal(
-    const struct _taghashmultimap* cpt_hash_multimap,
-    const hash_multimap_iterator_t* cpt_iterator,
-    hash_multimap_iterator_t t_iterator)
+    hash_multimap_iterator_t t_iterfirst, hash_multimap_iterator_t t_itersecond)
 {
-    assert(cpt_hash_multimap != NULL && cpt_iterator != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(cpt_iterator) == 
-            _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(cpt_iterator) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_iterator) == 
-            _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_iterator) == 
-            _FORWARD_ITERATOR);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER(cpt_iterator) == 
-            cpt_hash_multimap &&
-        _GET_HASH_MULTIMAP_CONTAINER(&t_iterator) == 
-            cpt_hash_multimap);
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_iterfirst) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_iterfirst) == _FORWARD_ITERATOR &&
+           _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_itersecond) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_itersecond) == _FORWARD_ITERATOR);
 
-    return _hashtable_iterator_equal(
-        &cpt_hash_multimap->_t_hashtable, cpt_iterator, t_iterator);
+    return _hashtable_iterator_equal(t_iterfirst, t_itersecond);
 }
 
 int _hash_multimap_iterator_distance(
-    const hash_multimap_iterator_t* cpt_begin, const hash_multimap_iterator_t* cpt_end)
+    hash_multimap_iterator_t t_iterfirst, hash_multimap_iterator_t t_itersecond)
 {
-    assert(cpt_begin != NULL && cpt_end != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(cpt_begin) == 
-            _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(cpt_begin) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(cpt_end) == 
-            _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(cpt_end) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER(cpt_begin) == 
-            _GET_HASH_MULTIMAP_CONTAINER(cpt_end));
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_iterfirst) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_iterfirst) == _FORWARD_ITERATOR &&
+           _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_itersecond) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_itersecond) == _FORWARD_ITERATOR &&
+           _GET_HASH_MULTIMAP_CONTAINER(t_iterfirst) == 
+               _GET_HASH_MULTIMAP_CONTAINER(t_itersecond));
 
-    return _hashtable_iterator_distance(cpt_begin, cpt_end);
+    return _hashtable_iterator_distance(t_iterfirst, t_itersecond);
 }
 
 bool_t _hash_multimap_iterator_before(
-    const hash_multimap_iterator_t* cpt_iteratorfirst,
-    const hash_multimap_iterator_t* cpt_iteratorsecond)
+    hash_multimap_iterator_t t_iterfirst, hash_multimap_iterator_t t_itersecond)
 {
-    assert(cpt_iteratorfirst != NULL && cpt_iteratorsecond != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(cpt_iteratorfirst) == 
-            _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(cpt_iteratorfirst) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(cpt_iteratorsecond) == 
-            _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(cpt_iteratorsecond) == 
-            _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER(cpt_iteratorfirst) == 
-            _GET_HASH_MULTIMAP_CONTAINER(cpt_iteratorsecond));
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_iterfirst) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_iterfirst) == _FORWARD_ITERATOR &&
+           _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_itersecond) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_itersecond) == _FORWARD_ITERATOR &&
+           _GET_HASH_MULTIMAP_CONTAINER(t_iterfirst) == 
+               _GET_HASH_MULTIMAP_CONTAINER(t_itersecond));
 
-    return _hashtable_iterator_before(cpt_iteratorfirst, cpt_iteratorsecond);
+    return _hashtable_iterator_before(t_iterfirst, t_itersecond);
 }
 
 /* hash_multimap private function */
@@ -316,34 +263,28 @@ void hash_multimap_init_copy_range_n(
     int (*pfun_hash)(const void*, size_t, size_t))
 {
     assert(pt_hash_multimapdest != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_begin) == _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_begin) == _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_end) == _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_end) == _FORWARD_ITERATOR);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER(&t_begin) != pt_hash_multimapdest &&
-        _GET_HASH_MULTIMAP_CONTAINER(&t_end) != pt_hash_multimapdest &&
-        _GET_HASH_MULTIMAP_CONTAINER(&t_begin) == 
-            _GET_HASH_MULTIMAP_CONTAINER(&t_end));
-    assert(
-        pt_hash_multimapdest->_t_pair._t_firsttypesize == 
-            _GET_HASH_MULTIMAP_CONTAINER(&t_begin)->_t_pair._t_firsttypesize &&
-        pt_hash_multimapdest->_t_pair._t_secondtypesize == 
-            _GET_HASH_MULTIMAP_CONTAINER(&t_begin)->_t_pair._t_secondtypesize);
-    assert(
-        strncmp(
-            pt_hash_multimapdest->_t_pair._sz_firsttypename,
-            _GET_HASH_MULTIMAP_CONTAINER(&t_begin)->_t_pair._sz_firsttypename,
-            _ELEM_TYPE_NAME_SIZE) == 0 &&
-        strncmp(
-            pt_hash_multimapdest->_t_pair._sz_secondtypename,
-            _GET_HASH_MULTIMAP_CONTAINER(&t_begin)->_t_pair._sz_secondtypename,
-            _ELEM_TYPE_NAME_SIZE) == 0);
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_begin) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_begin) == _FORWARD_ITERATOR &&
+           _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_end) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_end) == _FORWARD_ITERATOR);
+    assert(_GET_HASH_MULTIMAP_CONTAINER(t_begin) != pt_hash_multimapdest &&
+           _GET_HASH_MULTIMAP_CONTAINER(t_end) != pt_hash_multimapdest &&
+           _GET_HASH_MULTIMAP_CONTAINER(t_begin) == 
+               _GET_HASH_MULTIMAP_CONTAINER(t_end));
+    assert(pt_hash_multimapdest->_t_pair._t_firsttypesize == 
+               _GET_HASH_MULTIMAP_CONTAINER(t_begin)->_t_pair._t_firsttypesize &&
+           pt_hash_multimapdest->_t_pair._t_secondtypesize == 
+               _GET_HASH_MULTIMAP_CONTAINER(t_begin)->_t_pair._t_secondtypesize);
+    assert(strncmp(pt_hash_multimapdest->_t_pair._sz_firsttypename,
+               _GET_HASH_MULTIMAP_CONTAINER(t_begin)->_t_pair._sz_firsttypename,
+               _ELEM_TYPE_NAME_SIZE) == 0 &&
+           strncmp(pt_hash_multimapdest->_t_pair._sz_secondtypename,
+               _GET_HASH_MULTIMAP_CONTAINER(t_begin)->_t_pair._sz_secondtypename,
+               _ELEM_TYPE_NAME_SIZE) == 0);
 
     hash_multimap_init_n(pt_hash_multimapdest, t_bucketcount, pfun_hash);
 
-    if(!hash_multimap_empty(_GET_HASH_MULTIMAP_CONTAINER(&t_begin)))
+    if(!hash_multimap_empty(_GET_HASH_MULTIMAP_CONTAINER(t_begin)))
     {
         hash_multimap_insert_range(pt_hash_multimapdest, t_begin, t_end);
     }
@@ -354,9 +295,8 @@ void hash_multimap_assign(
     const hash_multimap_t* cpt_hash_multimapsrc)
 {
     assert(pt_hash_multimapdest != NULL && cpt_hash_multimapsrc != NULL);
-    assert(
-        _same_hash_multimap_pair_type(
-                &pt_hash_multimapdest->_t_pair, &cpt_hash_multimapsrc->_t_pair));
+    assert(_same_hash_multimap_pair_type(
+        &pt_hash_multimapdest->_t_pair, &cpt_hash_multimapsrc->_t_pair));
 
     hash_multimap_destroy(pt_hash_multimapdest);
     hash_multimap_init_n(
@@ -378,9 +318,8 @@ void hash_multimap_swap(
     hash_multimap_t* pt_hash_multimapsecond)
 {
     assert(pt_hash_multimapfirst != NULL && pt_hash_multimapsecond != NULL);
-    assert(
-        _same_hash_multimap_pair_type(
-            &pt_hash_multimapfirst->_t_pair, &pt_hash_multimapsecond->_t_pair));
+    assert(_same_hash_multimap_pair_type(
+        &pt_hash_multimapfirst->_t_pair, &pt_hash_multimapsecond->_t_pair));
 
     _hashtable_swap(
         &pt_hash_multimapfirst->_t_hashtable, 
@@ -447,9 +386,9 @@ hash_multimap_iterator_t hash_multimap_begin(
 
     t_newiterator = _hashtable_begin(&cpt_hash_multimap->_t_hashtable);
 
-    _GET_CONTAINER(&t_newiterator) = (hash_multimap_t*)cpt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_newiterator) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_newiterator) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_newiterator) = (hash_multimap_t*)cpt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_newiterator) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_newiterator) = _FORWARD_ITERATOR;
 
     return t_newiterator;
 }
@@ -463,9 +402,9 @@ hash_multimap_iterator_t hash_multimap_end(
 
     t_newiterator = _hashtable_end(&cpt_hash_multimap->_t_hashtable);
 
-    _GET_CONTAINER(&t_newiterator) = (hash_multimap_t*)cpt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_newiterator) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_newiterator) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_newiterator) = (hash_multimap_t*)cpt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_newiterator) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_newiterator) = _FORWARD_ITERATOR;
 
     return t_newiterator;
 }
@@ -537,9 +476,9 @@ hash_multimap_iterator_t _hash_multimap_find_varg(
     t_iterator = _hashtable_find(
         &cpt_hash_multimap->_t_hashtable, &cpt_hash_multimap->_t_pair);
 
-    _GET_CONTAINER(&t_iterator) = (hash_multimap_t*)cpt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_iterator) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_iterator) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_iterator) = (hash_multimap_t*)cpt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_iterator) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_iterator) = _FORWARD_ITERATOR;
 
     return t_iterator;
 }
@@ -593,14 +532,14 @@ pair_t _hash_multimap_equal_range_varg(
         &cpt_hash_multimap->_t_hashtable, &cpt_hash_multimap->_t_pair);
 
     t_firstiterator = t_result._t_first;
-    _GET_CONTAINER(&t_firstiterator) = (hash_multimap_t*)cpt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_firstiterator) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_firstiterator) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_firstiterator) = (hash_multimap_t*)cpt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_firstiterator) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_firstiterator) = _FORWARD_ITERATOR;
 
     t_seconditerator = t_result._t_second._t_iterator;
-    _GET_CONTAINER(&t_seconditerator) = (hash_multimap_t*)cpt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_seconditerator) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_seconditerator) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_seconditerator) = (hash_multimap_t*)cpt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_seconditerator) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_seconditerator) = _FORWARD_ITERATOR;
 
     t_pair = create_pair(hash_multimap_iterator_t, hash_multimap_iterator_t);
     pair_init(&t_pair);
@@ -636,9 +575,9 @@ hash_multimap_iterator_t hash_multimap_insert(
      * There is no need for destroy the elempair, because the pair is copied 
      * to the tree, and it is destroied by tree when tree is desroied.
      */
-    _GET_CONTAINER(&t_result) = pt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_result) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_result) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_result) = pt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_result) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_result) = _FORWARD_ITERATOR;
 
     return t_result;
 }
@@ -650,22 +589,20 @@ void hash_multimap_insert_range(
     hash_multimap_iterator_t t_iterator;
 
     assert(pt_hash_multimap != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_begin) == _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_begin) == _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_end) == _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_end) == _FORWARD_ITERATOR);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER(&t_begin) != pt_hash_multimap &&
-        _GET_HASH_MULTIMAP_CONTAINER(&t_end) != pt_hash_multimap &&
-        _GET_HASH_MULTIMAP_CONTAINER(&t_begin) == 
-            _GET_HASH_MULTIMAP_CONTAINER(&t_end));
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_begin) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_begin) == _FORWARD_ITERATOR &&
+           _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_end) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_end) == _FORWARD_ITERATOR);
+    assert(_GET_HASH_MULTIMAP_CONTAINER(t_begin) != pt_hash_multimap &&
+           _GET_HASH_MULTIMAP_CONTAINER(t_end) != pt_hash_multimap &&
+           _GET_HASH_MULTIMAP_CONTAINER(t_begin) == 
+               _GET_HASH_MULTIMAP_CONTAINER(t_end));
 
     for(t_iterator = t_begin;
-        !iterator_equal(&t_iterator, t_end);
-        iterator_next(&t_iterator))
+        !iterator_equal(t_iterator, t_end);
+        t_iterator = iterator_next(t_iterator))
     {
-        hash_multimap_insert(pt_hash_multimap, (pair_t*)iterator_get_pointer(&t_iterator));
+        hash_multimap_insert(pt_hash_multimap, (pair_t*)iterator_get_pointer(t_iterator));
     }
 }
 
@@ -673,10 +610,9 @@ void hash_multimap_erase_pos(
     hash_multimap_t* pt_hash_multimap, hash_multimap_iterator_t t_pos)
 {
     assert(pt_hash_multimap != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_pos) == _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_pos) == _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER(&t_pos) == pt_hash_multimap);
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_pos) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_pos) == _FORWARD_ITERATOR &&
+           _GET_HASH_MULTIMAP_CONTAINER(t_pos) == pt_hash_multimap);
 
     _hashtable_erase_pos(&pt_hash_multimap->_t_hashtable, t_pos);
 }
@@ -686,14 +622,12 @@ void hash_multimap_erase_range(
     hash_multimap_iterator_t t_begin, hash_multimap_iterator_t t_end)
 {
     assert(pt_hash_multimap != NULL);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_begin) == _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_begin) == _FORWARD_ITERATOR &&
-        _GET_HASH_MULTIMAP_CONTAINER_TYPE(&t_end) == _HASH_MULTIMAP_CONTAINER &&
-        _GET_HASH_MULTIMAP_ITERATOR_TYPE(&t_end) == _FORWARD_ITERATOR);
-    assert(
-        _GET_HASH_MULTIMAP_CONTAINER(&t_begin) == pt_hash_multimap &&
-        _GET_HASH_MULTIMAP_CONTAINER(&t_end) == pt_hash_multimap);
+    assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_begin) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_begin) == _FORWARD_ITERATOR &&
+           _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_end) == _HASH_MULTIMAP_CONTAINER &&
+           _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_end) == _FORWARD_ITERATOR);
+    assert(_GET_HASH_MULTIMAP_CONTAINER(t_begin) == pt_hash_multimap &&
+           _GET_HASH_MULTIMAP_CONTAINER(t_end) == pt_hash_multimap);
 
     _hashtable_erase_range(&pt_hash_multimap->_t_hashtable, t_begin, t_end);
 }
@@ -734,20 +668,15 @@ static bool_t _same_hash_multimap_pair_type(
 
     assert(cpt_pairfirst->first != NULL && cpt_pairfirst->second != NULL);
     assert(cpt_pairsecond->first != NULL && cpt_pairsecond->second != NULL);
-    assert(
-        cpt_pairfirst->_t_firsttypesize == cpt_pairsecond->_t_firsttypesize && 
-        cpt_pairfirst->_t_secondtypesize == cpt_pairsecond->_t_secondtypesize);
-    assert(
-        strncmp(
-            cpt_pairfirst->_sz_firsttypename, cpt_pairsecond->_sz_firsttypename,
-            _ELEM_TYPE_NAME_SIZE) == 0 &&
-        strncmp(
-            cpt_pairfirst->_sz_secondtypename, cpt_pairsecond->_sz_secondtypename,
-            _ELEM_TYPE_NAME_SIZE) == 0);
+    assert(cpt_pairfirst->_t_firsttypesize == cpt_pairsecond->_t_firsttypesize && 
+           cpt_pairfirst->_t_secondtypesize == cpt_pairsecond->_t_secondtypesize);
+    assert(strncmp(cpt_pairfirst->_sz_firsttypename, cpt_pairsecond->_sz_firsttypename,
+              _ELEM_TYPE_NAME_SIZE) == 0 &&
+           strncmp(cpt_pairfirst->_sz_secondtypename, cpt_pairsecond->_sz_secondtypename,
+              _ELEM_TYPE_NAME_SIZE) == 0);
 
-    assert(
-        cpt_pairfirst->_pfun_first_cmp == cpt_pairsecond->_pfun_first_cmp &&
-        cpt_pairfirst->_pfun_second_cmp == cpt_pairsecond->_pfun_second_cmp);
+    assert(cpt_pairfirst->_pfun_first_cmp == cpt_pairsecond->_pfun_first_cmp &&
+           cpt_pairfirst->_pfun_second_cmp == cpt_pairsecond->_pfun_second_cmp);
 
     return true;
 }
