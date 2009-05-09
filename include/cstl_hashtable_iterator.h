@@ -42,21 +42,15 @@ struct _taghashtable;
  * Iterator support.
  */
 extern hashtable_iterator_t _create_hashtable_iterator(void);
-extern void _hashtable_iterator_get_value(
-    const struct _taghashtable* cpt_hashtable, const hashtable_iterator_t* cpt_iterator,
-    void* pv_value);
-extern const void* _hashtable_iterator_get_pointer(
-    const struct _taghashtable* cpt_hashtable, const hashtable_iterator_t* cpt_iterator);
-extern void _hashtable_iterator_next(
-    const struct _taghashtable* cpt_hashtable, hashtable_iterator_t* pt_iterator);
+extern void _hashtable_iterator_get_value(hashtable_iterator_t t_iter, void* pv_value);
+extern const void* _hashtable_iterator_get_pointer(hashtable_iterator_t t_iter);
+extern hashtable_iterator_t _hashtable_iterator_next(hashtable_iterator_t t_iter);
 extern bool_t _hashtable_iterator_equal(
-    const struct _taghashtable* cpt_hashtable, const hashtable_iterator_t* cpt_iterator,
-    hashtable_iterator_t t_iterator);
+    hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond);
 extern int _hashtable_iterator_distance(
-    const hashtable_iterator_t* cpt_begin, const hashtable_iterator_t* cpt_end);
+    hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond);
 extern bool_t _hashtable_iterator_before(
-    const hashtable_iterator_t* cpt_iteratorfirst, 
-    const hashtable_iterator_t* cpt_iteratorsecond);
+    hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
