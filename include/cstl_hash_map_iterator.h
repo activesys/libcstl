@@ -43,23 +43,17 @@ struct _taghashmap;
  */
 extern hash_map_iterator_t create_hash_map_iterator(void);
 extern void _hash_map_iterator_get_value(
-    const struct _taghashmap* cpt_hash_map,
-    const hash_map_iterator_t* cpt_iterator, 
-    void* pv_value);
+    hash_map_iterator_t t_iter, void* pv_value);
 extern const void* _hash_map_iterator_get_pointer(
-    const struct _taghashmap* cpt_hash_map,
-    const hash_map_iterator_t* cpt_iterator); 
-extern void _hash_map_iterator_next(
-    const struct _taghashmap* cpt_hash_map, hash_map_iterator_t* pt_iterator);
+    hash_map_iterator_t t_iter); 
+extern hash_map_iterator_t _hash_map_iterator_next(
+    hash_map_iterator_t t_iter);
 extern bool_t _hash_map_iterator_equal(
-    const struct _taghashmap* cpt_hash_map,
-    const hash_map_iterator_t* cpt_iterator,
-    hash_map_iterator_t t_iterator);
+    hash_map_iterator_t t_iterfirst, hash_map_iterator_t t_itersecond);
 extern int _hash_map_iterator_distance(
-    const hash_map_iterator_t* cpt_begin, const hash_map_iterator_t* cpt_end);
+    hash_map_iterator_t t_iterfirst, hash_map_iterator_t t_itersecond);
 extern bool_t _hash_map_iterator_before(
-    const hash_map_iterator_t* cpt_iteratorfirst, 
-    const hash_map_iterator_t* cpt_iteratorsecond);
+    hash_map_iterator_t t_iterfirst, hash_map_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
