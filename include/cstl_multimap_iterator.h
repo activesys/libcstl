@@ -34,7 +34,6 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t multimap_iterator_t;
 typedef iterator_t multimap_reverse_iterator_t;
-struct _tagmultimap;
 
 /** exported global variable declaration section **/
 
@@ -43,23 +42,16 @@ struct _tagmultimap;
  * Iterator support.
  */
 extern multimap_iterator_t create_multimap_iterator(void);
-extern void _multimap_iterator_get_value(
-    const struct _tagmultimap* cpt_multimap, const multimap_iterator_t* cpt_iterator, 
-    void* pv_value);
-extern const void* _multimap_iterator_get_pointer(
-    const struct _tagmultimap* cpt_multimap, const multimap_iterator_t* cpt_iterator);
-extern void _multimap_iterator_next(
-    const struct _tagmultimap* cpt_multimap, multimap_iterator_t* pt_iterator);
-extern void _multimap_iterator_prev(
-    const struct _tagmultimap* cpt_multimap, multimap_iterator_t* pt_iterator);
+extern void _multimap_iterator_get_value(multimap_iterator_t t_iter, void* pv_value);
+extern const void* _multimap_iterator_get_pointer(multimap_iterator_t t_iter);
+extern multimap_iterator_t _multimap_iterator_next(multimap_iterator_t t_iter);
+extern multimap_iterator_t _multimap_iterator_prev(multimap_iterator_t t_iter);
 extern bool_t _multimap_iterator_equal(
-    const struct _tagmultimap* cpt_multimap, const multimap_iterator_t* cpt_iterator,
-    multimap_iterator_t t_iterator);
+    multimap_iterator_t t_iterfirst, multimap_iterator_t t_itersecond);
 extern int _multimap_iterator_distance(
-    const multimap_iterator_t* cpt_begin, const multimap_iterator_t* cpt_end);
+    multimap_iterator_t t_iterfirst, multimap_iterator_t t_itersecond);
 extern bool_t _multimap_iterator_before(
-    const multimap_iterator_t* cpt_iteratorfirst,
-    const multimap_iterator_t* cpt_iteratorsecond);
+    multimap_iterator_t t_iterfirst, multimap_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }

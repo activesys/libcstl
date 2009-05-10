@@ -79,139 +79,106 @@ multimap_iterator_t create_multimap_iterator(void)
     t_newiterator = _create_rb_tree_iterator();
 #endif
 
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_newiterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_newiterator) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
 
-void _multimap_iterator_get_value(
-    const struct _tagmultimap* cpt_multimap, const multimap_iterator_t* cpt_iterator, 
-    void* pv_value)
+void _multimap_iterator_get_value(multimap_iterator_t t_iter, void* pv_value)
 {
-    assert(cpt_multimap != NULL && cpt_iterator != NULL && pv_value != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(cpt_iterator) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(cpt_iterator) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER(cpt_iterator) == cpt_multimap);
+    assert(pv_value != NULL);
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_iter) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    _avl_tree_iterator_get_value(
-        _GET_MULTIMAP_AVL_TREE(cpt_multimap), cpt_iterator, pv_value);
+    _avl_tree_iterator_get_value(t_iter, pv_value);
 #else
-    _rb_tree_iterator_get_value(
-        _GET_MULTIMAP_RB_TREE(cpt_multimap), cpt_iterator, pv_value);
+    _rb_tree_iterator_get_value(t_iter, pv_value);
 #endif
 }
 
-const void* _multimap_iterator_get_pointer(
-    const struct _tagmultimap* cpt_multimap, const multimap_iterator_t* cpt_iterator)
+const void* _multimap_iterator_get_pointer(multimap_iterator_t t_iter)
 {
-    assert(cpt_multimap != NULL && cpt_iterator != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(cpt_iterator) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(cpt_iterator) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER(cpt_iterator) == cpt_multimap);
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_iter) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    return _avl_tree_iterator_get_pointer(
-        _GET_MULTIMAP_AVL_TREE(cpt_multimap), cpt_iterator);
+    return _avl_tree_iterator_get_pointer(t_iter);
 #else
-    return _rb_tree_iterator_get_pointer(
-        _GET_MULTIMAP_RB_TREE(cpt_multimap), cpt_iterator);
+    return _rb_tree_iterator_get_pointer(t_iter);
 #endif
 }
 
-void _multimap_iterator_next(
-    const struct _tagmultimap* cpt_multimap, multimap_iterator_t* pt_iterator)
+multimap_iterator_t _multimap_iterator_next(multimap_iterator_t t_iter)
 {
-    assert(cpt_multimap != NULL && pt_iterator != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(pt_iterator) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(pt_iterator) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER(pt_iterator) == cpt_multimap);
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_iter) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    _avl_tree_iterator_next(_GET_MULTIMAP_AVL_TREE(cpt_multimap), pt_iterator);
+    return _avl_tree_iterator_next(t_iter);
 #else
-    _rb_tree_iterator_next(_GET_MULTIMAP_RB_TREE(cpt_multimap), pt_iterator);
+    return _rb_tree_iterator_next(t_iter);
 #endif
 }
 
-void _multimap_iterator_prev(
-    const struct _tagmultimap* cpt_multimap, multimap_iterator_t* pt_iterator)
+multimap_iterator_t _multimap_iterator_prev(multimap_iterator_t t_iter)
 {
-    assert(cpt_multimap != NULL && pt_iterator != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(pt_iterator) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(pt_iterator) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER(pt_iterator) == cpt_multimap);
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_iter) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    _avl_tree_iterator_prev(_GET_MULTIMAP_AVL_TREE(cpt_multimap), pt_iterator);
+    return _avl_tree_iterator_prev(t_iter);
 #else
-    _rb_tree_iterator_prev(_GET_MULTIMAP_RB_TREE(cpt_multimap), pt_iterator);
+    return _rb_tree_iterator_prev(t_iter);
 #endif
 }
 
 bool_t _multimap_iterator_equal(
-    const struct _tagmultimap* cpt_multimap, const multimap_iterator_t* cpt_iterator,
-    multimap_iterator_t t_iterator)
+    multimap_iterator_t t_iterfirst, multimap_iterator_t t_itersecond)
 {
-    assert(cpt_multimap != NULL && cpt_iterator != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(cpt_iterator) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(cpt_iterator) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_iterator) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_iterator) == _BIDIRECTIONAL_ITERATOR);
-    assert(
-        _GET_MULTIMAP_CONTAINER(cpt_iterator) == cpt_multimap &&
-        _GET_MULTIMAP_CONTAINER(&t_iterator) == cpt_multimap);
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_iterfirst) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_iterfirst) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER_TYPE(t_itersecond) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_itersecond) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    return _avl_tree_iterator_equal(
-        _GET_MULTIMAP_AVL_TREE(cpt_multimap), cpt_iterator, t_iterator);
+    return _avl_tree_iterator_equal(t_iterfirst, t_itersecond);
 #else
-    return _rb_tree_iterator_equal(
-        _GET_MULTIMAP_RB_TREE(cpt_multimap), cpt_iterator, t_iterator);
+    return _rb_tree_iterator_equal(t_iterfirst, t_itersecond);
 #endif
 }
 
 int _multimap_iterator_distance(
-    const multimap_iterator_t* cpt_begin, const multimap_iterator_t* cpt_end)
+    multimap_iterator_t t_iterfirst, multimap_iterator_t t_itersecond)
 {
-    assert(cpt_begin != NULL && cpt_end != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(cpt_begin) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(cpt_begin) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER_TYPE(cpt_end) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(cpt_end) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER(cpt_begin) == _GET_MULTIMAP_CONTAINER(cpt_end));
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_iterfirst) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_iterfirst) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER_TYPE(t_itersecond) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_itersecond) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER(t_iterfirst) == _GET_MULTIMAP_CONTAINER(t_itersecond));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    return _avl_tree_iterator_distance(cpt_begin, cpt_end);
+    return _avl_tree_iterator_distance(t_iterfirst, t_itersecond);
 #else
-    return _rb_tree_iterator_distance(cpt_begin, cpt_end);
+    return _rb_tree_iterator_distance(t_iterfirst, t_itersecond);
 #endif
 }
 
 bool_t _multimap_iterator_before(
-    const multimap_iterator_t* cpt_iteratorfirst,
-    const multimap_iterator_t* cpt_iteratorsecond)
+    multimap_iterator_t t_iterfirst, multimap_iterator_t t_itersecond)
 {
-    assert(cpt_iteratorfirst != NULL && cpt_iteratorsecond != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(cpt_iteratorfirst) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(cpt_iteratorfirst) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER_TYPE(cpt_iteratorsecond) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(cpt_iteratorsecond) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER(cpt_iteratorfirst) == 
-            _GET_MULTIMAP_CONTAINER(cpt_iteratorsecond));
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_iterfirst) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_iterfirst) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER_TYPE(t_itersecond) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_itersecond) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER(t_iterfirst) == 
+               _GET_MULTIMAP_CONTAINER(t_itersecond));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    return _avl_tree_iterator_before(cpt_iteratorfirst, cpt_iteratorsecond);
+    return _avl_tree_iterator_before(t_iterfirst, t_itersecond);
 #else
-    return _rb_tree_iterator_before(cpt_iteratorfirst, cpt_iteratorsecond);
+    return _rb_tree_iterator_before(t_iterfirst, t_itersecond);
 #endif
 }
 
@@ -313,34 +280,28 @@ void multimap_init_copy_range(
     multimap_t* pt_multimapdest, multimap_iterator_t t_begin, multimap_iterator_t t_end)
 {
     assert(pt_multimapdest != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_begin) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_begin) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_end) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(
-        _GET_MULTIMAP_CONTAINER(&t_begin) != pt_multimapdest &&
-        _GET_MULTIMAP_CONTAINER(&t_end) != pt_multimapdest &&
-        _GET_MULTIMAP_CONTAINER(&t_begin) == _GET_MULTIMAP_CONTAINER(&t_end));
-    assert(
-        pt_multimapdest->_t_pair._t_firsttypesize == 
-            _GET_MULTIMAP_CONTAINER(&t_begin)->_t_pair._t_firsttypesize &&
-        pt_multimapdest->_t_pair._t_secondtypesize ==
-            _GET_MULTIMAP_CONTAINER(&t_begin)->_t_pair._t_secondtypesize);
-    assert(
-        strncmp(
-            pt_multimapdest->_t_pair._sz_firsttypename,
-            _GET_MULTIMAP_CONTAINER(&t_begin)->_t_pair._sz_firsttypename,
-            _ELEM_TYPE_NAME_SIZE) == 0 &&
-        strncmp(
-            pt_multimapdest->_t_pair._sz_secondtypename,
-            _GET_MULTIMAP_CONTAINER(&t_begin)->_t_pair._sz_secondtypename,
-            _ELEM_TYPE_NAME_SIZE) == 0);
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_begin) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER_TYPE(t_end) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_MULTIMAP_CONTAINER(t_begin) != pt_multimapdest &&
+           _GET_MULTIMAP_CONTAINER(t_end) != pt_multimapdest &&
+           _GET_MULTIMAP_CONTAINER(t_begin) == _GET_MULTIMAP_CONTAINER(t_end));
+    assert(pt_multimapdest->_t_pair._t_firsttypesize == 
+           _GET_MULTIMAP_CONTAINER(t_begin)->_t_pair._t_firsttypesize &&
+           pt_multimapdest->_t_pair._t_secondtypesize ==
+           _GET_MULTIMAP_CONTAINER(t_begin)->_t_pair._t_secondtypesize);
+    assert(strncmp(pt_multimapdest->_t_pair._sz_firsttypename,
+           _GET_MULTIMAP_CONTAINER(t_begin)->_t_pair._sz_firsttypename,
+           _ELEM_TYPE_NAME_SIZE) == 0 &&
+           strncmp(pt_multimapdest->_t_pair._sz_secondtypename,
+           _GET_MULTIMAP_CONTAINER(t_begin)->_t_pair._sz_secondtypename,
+           _ELEM_TYPE_NAME_SIZE) == 0);
 
     /* initialize dest multimap with src multimap attribute */
     multimap_init(pt_multimapdest);
     /* insert all element from src to dest */
-    if(!multimap_empty(_GET_MULTIMAP_CONTAINER(&t_begin)))
+    if(!multimap_empty(_GET_MULTIMAP_CONTAINER(t_begin)))
     {
         multimap_insert_range(pt_multimapdest, t_begin, t_end);
     }
@@ -351,35 +312,29 @@ void multimap_init_copy_range_cmp(
     int (*pfun_key_cmp)(const void*, const void*))
 {
     assert(pt_multimapdest != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_begin) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_begin) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_end) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(
-        _GET_MULTIMAP_CONTAINER(&t_begin) != pt_multimapdest &&
-        _GET_MULTIMAP_CONTAINER(&t_end) != pt_multimapdest &&
-        _GET_MULTIMAP_CONTAINER(&t_begin) == _GET_MULTIMAP_CONTAINER(&t_end));
-    assert(
-        pt_multimapdest->_t_pair._t_firsttypesize == 
-            _GET_MULTIMAP_CONTAINER(&t_begin)->_t_pair._t_firsttypesize &&
-        pt_multimapdest->_t_pair._t_secondtypesize ==
-            _GET_MULTIMAP_CONTAINER(&t_begin)->_t_pair._t_secondtypesize);
-    assert(
-        strncmp(
-            pt_multimapdest->_t_pair._sz_firsttypename,
-            _GET_MULTIMAP_CONTAINER(&t_begin)->_t_pair._sz_firsttypename,
-            _ELEM_TYPE_NAME_SIZE) == 0 &&
-        strncmp(
-            pt_multimapdest->_t_pair._sz_secondtypename,
-            _GET_MULTIMAP_CONTAINER(&t_begin)->_t_pair._sz_secondtypename,
-            _ELEM_TYPE_NAME_SIZE) == 0);
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_begin) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER_TYPE(t_end) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_MULTIMAP_CONTAINER(t_begin) != pt_multimapdest &&
+           _GET_MULTIMAP_CONTAINER(t_end) != pt_multimapdest &&
+           _GET_MULTIMAP_CONTAINER(t_begin) == _GET_MULTIMAP_CONTAINER(t_end));
+    assert(pt_multimapdest->_t_pair._t_firsttypesize == 
+           _GET_MULTIMAP_CONTAINER(t_begin)->_t_pair._t_firsttypesize &&
+           pt_multimapdest->_t_pair._t_secondtypesize ==
+           _GET_MULTIMAP_CONTAINER(t_begin)->_t_pair._t_secondtypesize);
+    assert(strncmp(pt_multimapdest->_t_pair._sz_firsttypename,
+           _GET_MULTIMAP_CONTAINER(t_begin)->_t_pair._sz_firsttypename,
+           _ELEM_TYPE_NAME_SIZE) == 0 &&
+           strncmp(pt_multimapdest->_t_pair._sz_secondtypename,
+           _GET_MULTIMAP_CONTAINER(t_begin)->_t_pair._sz_secondtypename,
+           _ELEM_TYPE_NAME_SIZE) == 0);
 
     /* initialize dest multimap with src multimap attribute */
     multimap_init(pt_multimapdest);
     pt_multimapdest->_t_pair._pfun_first_cmp = pfun_key_cmp;
     /* insert all element from src to dest */
-    if(!multimap_empty(_GET_MULTIMAP_CONTAINER(&t_begin)))
+    if(!multimap_empty(_GET_MULTIMAP_CONTAINER(t_begin)))
     {
         multimap_insert_range(pt_multimapdest, t_begin, t_end);
     }
@@ -620,9 +575,9 @@ multimap_iterator_t multimap_begin(const multimap_t* cpt_multimap)
     t_newiterator = _rb_tree_begin(_GET_MULTIMAP_RB_TREE(cpt_multimap));
 #endif
 
-    _GET_CONTAINER(&t_newiterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_newiterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_newiterator) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_newiterator) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
@@ -639,9 +594,9 @@ multimap_iterator_t multimap_end(const multimap_t* cpt_multimap)
     t_newiterator = _rb_tree_end(_GET_MULTIMAP_RB_TREE(cpt_multimap));
 #endif
 
-    _GET_CONTAINER(&t_newiterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_newiterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_newiterator) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_newiterator) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
@@ -658,9 +613,9 @@ multimap_reverse_iterator_t multimap_rbegin(const multimap_t* cpt_multimap)
     t_newiterator = _rb_tree_rbegin(_GET_MULTIMAP_RB_TREE(cpt_multimap));
 #endif
 
-    _GET_CONTAINER(&t_newiterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_newiterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_newiterator) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_newiterator) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
@@ -677,9 +632,9 @@ multimap_reverse_iterator_t multimap_rend(const multimap_t* cpt_multimap)
     t_newiterator = _rb_tree_rend(_GET_MULTIMAP_RB_TREE(cpt_multimap));
 #endif
 
-    _GET_CONTAINER(&t_newiterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_newiterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_newiterator) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_newiterator) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
@@ -711,9 +666,9 @@ multimap_iterator_t _multimap_find_varg(
         _GET_MULTIMAP_RB_TREE(cpt_multimap), &cpt_multimap->_t_pair);
 #endif
 
-    _GET_CONTAINER(&t_iterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_iterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_iterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_iterator) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_iterator) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_iterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_iterator;
 }
@@ -764,9 +719,9 @@ multimap_iterator_t _multimap_lower_bound_varg(
         _GET_MULTIMAP_RB_TREE(cpt_multimap), &cpt_multimap->_t_pair);
 #endif
 
-    _GET_CONTAINER(&t_iterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_iterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_iterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_iterator) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_iterator) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_iterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_iterator;
 }
@@ -796,9 +751,9 @@ multimap_iterator_t _multimap_upper_bound_varg(
         _GET_MULTIMAP_RB_TREE(cpt_multimap), &cpt_multimap->_t_pair);
 #endif
 
-    _GET_CONTAINER(&t_iterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_iterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_iterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_iterator) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_iterator) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_iterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_iterator;
 }
@@ -838,12 +793,12 @@ pair_t _multimap_equal_range_varg(const multimap_t* cpt_multimap, va_list val_el
     t_second = t_rbresult._t_second._t_iterator;
 #endif
 
-    _GET_CONTAINER(&t_first) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_first) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_first) = _BIDIRECTIONAL_ITERATOR;
-    _GET_CONTAINER(&t_second) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_second) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_second) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_first) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_first) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_first) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_second) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_second) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_second) = _BIDIRECTIONAL_ITERATOR;
 
     t_pair = create_pair(multimap_iterator_t, multimap_iterator_t);
     pair_init(&t_pair);
@@ -880,9 +835,9 @@ multimap_iterator_t multimap_insert(
      * There is no need for destroy the elempair, because the pair is copied 
      * to the tree, and it is destroied by tree when tree is desroied.
      */
-    _GET_CONTAINER(&t_iterator) = pt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_iterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_iterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_iterator) = pt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_iterator) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_iterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_iterator;
 }
@@ -913,9 +868,9 @@ multimap_iterator_t multimap_insert_hint(
      * There is no need for destroy the elempair, because the pair is copied 
      * to the tree, and it is destroied by tree when tree is desroied.
      */
-    _GET_CONTAINER(&t_hint) = pt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(&t_hint) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(&t_hint) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_hint) = pt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_hint) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_hint) = _BIDIRECTIONAL_ITERATOR;
 
     return t_hint;
 }
@@ -926,31 +881,28 @@ void multimap_insert_range(
     multimap_iterator_t t_iterator;
 
     assert(pt_multimap != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_begin) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_begin) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_end) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(
-        _GET_MULTIMAP_CONTAINER(&t_begin) != pt_multimap &&
-        _GET_MULTIMAP_CONTAINER(&t_end) != pt_multimap &&
-        _GET_MULTIMAP_CONTAINER(&t_begin) == _GET_MULTIMAP_CONTAINER(&t_end));
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_begin) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER_TYPE(t_end) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_MULTIMAP_CONTAINER(t_begin) != pt_multimap &&
+           _GET_MULTIMAP_CONTAINER(t_end) != pt_multimap &&
+           _GET_MULTIMAP_CONTAINER(t_begin) == _GET_MULTIMAP_CONTAINER(t_end));
 
     for(t_iterator = t_begin;
-        !iterator_equal(&t_iterator, t_end);
-        iterator_next(&t_iterator))
+        !iterator_equal(t_iterator, t_end);
+        t_iterator = iterator_next(t_iterator))
     {
-        multimap_insert(pt_multimap, (pair_t*)iterator_get_pointer(&t_iterator));
+        multimap_insert(pt_multimap, (pair_t*)iterator_get_pointer(t_iterator));
     }
 }
 
 void multimap_erase_pos(multimap_t* pt_multimap, multimap_iterator_t t_pos)
 {
     assert(pt_multimap != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_pos) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_pos) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER(&t_pos) == pt_multimap);
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_pos) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_pos) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER(t_pos) == pt_multimap);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     _avl_tree_erase_pos(_GET_MULTIMAP_AVL_TREE(pt_multimap), t_pos);
@@ -963,14 +915,12 @@ void multimap_erase_range(
     multimap_t* pt_multimap, multimap_iterator_t t_begin, multimap_iterator_t t_end)
 {
     assert(pt_multimap != NULL);
-    assert(
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_begin) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_begin) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_MULTIMAP_CONTAINER_TYPE(&t_end) == _MULTIMAP_CONTAINER &&
-        _GET_MULTIMAP_ITERATOR_TYPE(&t_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(
-        _GET_MULTIMAP_CONTAINER(&t_begin) == pt_multimap &&
-        _GET_MULTIMAP_CONTAINER(&t_end) == pt_multimap);
+    assert(_GET_MULTIMAP_CONTAINER_TYPE(t_begin) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_MULTIMAP_CONTAINER_TYPE(t_end) == _MULTIMAP_CONTAINER &&
+           _GET_MULTIMAP_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_MULTIMAP_CONTAINER(t_begin) == pt_multimap &&
+           _GET_MULTIMAP_CONTAINER(t_end) == pt_multimap);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     _avl_tree_erase_range(_GET_MULTIMAP_AVL_TREE(pt_multimap), t_begin, t_end);
