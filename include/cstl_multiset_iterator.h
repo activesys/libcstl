@@ -34,7 +34,6 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t multiset_iterator_t;
 typedef iterator_t multiset_reverse_iterator_t;
-struct _tagmultiset;
 
 /** exported global variable declaration section **/
 
@@ -44,22 +43,16 @@ struct _tagmultiset;
  */
 extern multiset_iterator_t create_multiset_iterator(void);
 extern void _multiset_iterator_get_value(
-    const struct _tagmultiset* cpt_multiset, const multiset_iterator_t* cpt_iterator,
-    void* pv_value);
-extern const void* _multiset_iterator_get_pointer(
-    const struct _tagmultiset* cpt_multiset, const multiset_iterator_t* cpt_iterator);
-extern void _multiset_iterator_next(
-    const struct _tagmultiset* cpt_multiset, multiset_iterator_t* pt_iterator);
-extern void _multiset_iterator_prev(
-    const struct _tagmultiset* cpt_multiset, multiset_iterator_t* pt_iterator);
+    multiset_iterator_t t_iter, void* pv_value);
+extern const void* _multiset_iterator_get_pointer(multiset_iterator_t t_iter);
+extern multiset_iterator_t _multiset_iterator_next(multiset_iterator_t t_iter);
+extern multiset_iterator_t _multiset_iterator_prev(multiset_iterator_t t_iter);
 extern bool_t _multiset_iterator_equal(
-    const struct _tagmultiset* cpt_multiset, const multiset_iterator_t* cpt_iterator,
-    multiset_iterator_t t_iterator);
+    multiset_iterator_t t_iterfirst, multiset_iterator_t t_itersecond);
 extern int _multiset_iterator_distance(
-    const multiset_iterator_t* cpt_begin, const multiset_iterator_t* cpt_end);
+    multiset_iterator_t t_iterfirst, multiset_iterator_t t_itersecond);
 extern bool_t _multiset_iterator_before(
-    const multiset_iterator_t* cpt_iteratorfirst,
-    const multiset_iterator_t* cpt_iteratorsecond);
+    multiset_iterator_t t_iterfirst, multiset_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
