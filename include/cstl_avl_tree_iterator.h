@@ -44,25 +44,16 @@ struct _tagavltree;
  */
 extern avl_tree_iterator_t _create_avl_tree_iterator(void);
 extern void _avl_tree_iterator_get_value(
-    const struct _tagavltree* cpt_avl_tree,
-    const avl_tree_iterator_t* cpt_iterator, 
-    void* pv_value);
-extern const void* _avl_tree_iterator_get_pointer(
-    const struct _tagavltree* cpt_avl_tree,
-    const avl_tree_iterator_t* cpt_iterator); 
-extern void _avl_tree_iterator_next(
-    const struct _tagavltree* cpt_avl_tree, avl_tree_iterator_t* pt_iterator);
-extern void _avl_tree_iterator_prev(
-    const struct _tagavltree* cpt_avl_tree, avl_tree_iterator_t* pt_iterator);
+    avl_tree_iterator_t t_iter, void* pv_value);
+extern const void* _avl_tree_iterator_get_pointer(avl_tree_iterator_t t_iter); 
+extern avl_tree_iterator_t _avl_tree_iterator_next(avl_tree_iterator_t t_iter);
+extern avl_tree_iterator_t _avl_tree_iterator_prev(avl_tree_iterator_t t_iter);
 extern bool_t _avl_tree_iterator_equal(
-    const struct _tagavltree* cpt_avl_tree,
-    const avl_tree_iterator_t* cpt_iterator,
-    avl_tree_iterator_t t_iterator);
+    avl_tree_iterator_t t_iterfirst, avl_tree_iterator_t t_itersecond);
 extern int _avl_tree_iterator_distance(
-    const avl_tree_iterator_t* cpt_begin, const avl_tree_iterator_t* cpt_end);
+    avl_tree_iterator_t t_iterfirst, avl_tree_iterator_t t_itersecond);
 extern bool_t _avl_tree_iterator_before(
-    const avl_tree_iterator_t* cpt_iteratorfirst, 
-    const avl_tree_iterator_t* cpt_iteratorsecond);
+    avl_tree_iterator_t t_iterfirst, avl_tree_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
