@@ -44,22 +44,16 @@ struct _tagrbtree;
  */
 extern rb_tree_iterator_t _create_rb_tree_iterator(void);
 extern void _rb_tree_iterator_get_value(
-    const struct _tagrbtree* cpt_rb_tree, const rb_tree_iterator_t* cpt_iterator, 
-    void* pv_value);
-extern const void* _rb_tree_iterator_get_pointer(
-    const struct _tagrbtree* cpt_rb_tree, const rb_tree_iterator_t* cpt_iterator);
-extern void _rb_tree_iterator_next(
-    const struct _tagrbtree* cpt_rb_tree, rb_tree_iterator_t* pt_iterator);
-extern void _rb_tree_iterator_prev(
-    const struct _tagrbtree* cpt_rb_tree, rb_tree_iterator_t* pt_iterator);
+    rb_tree_iterator_t t_iter, void* pv_value);
+extern const void* _rb_tree_iterator_get_pointer(rb_tree_iterator_t t_iter);
+extern rb_tree_iterator_t _rb_tree_iterator_next(rb_tree_iterator_t t_iter);
+extern rb_tree_iterator_t _rb_tree_iterator_prev(rb_tree_iterator_t t_iter);
 extern bool_t _rb_tree_iterator_equal(
-    const struct _tagrbtree* cpt_rb_tree, const rb_tree_iterator_t* cpt_iterator,
-    rb_tree_iterator_t t_iterator);
+    rb_tree_iterator_t t_iterfirst, rb_tree_iterator_t t_itersecond);
 extern int _rb_tree_iterator_distance(
-    const rb_tree_iterator_t* cpt_begin, const rb_tree_iterator_t* cpt_end);
+    rb_tree_iterator_t t_iterfirst, rb_tree_iterator_t t_itersecond);
 extern bool_t _rb_tree_iterator_before(
-    const rb_tree_iterator_t* cpt_iteratorfirst,
-    const rb_tree_iterator_t* cpt_iteratorsecond);
+    rb_tree_iterator_t t_iterfirst, rb_tree_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
