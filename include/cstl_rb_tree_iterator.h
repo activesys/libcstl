@@ -34,7 +34,6 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t rb_tree_iterator_t;
 typedef iterator_t rb_tree_reverse_iterator_t;
-struct _tagrbtree;
 
 /** exported global variable declaration section **/
 

@@ -34,7 +34,6 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t avl_tree_iterator_t;
 typedef iterator_t avl_tree_reverse_iterator_t;
-struct _tagavltree;
 
 /** exported global variable declaration section **/
 

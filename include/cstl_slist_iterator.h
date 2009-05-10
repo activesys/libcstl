@@ -33,7 +33,6 @@ extern "C" {
 
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t slist_iterator_t;
-struct _tagslist;
 
 /** exported global variable declaration section **/
 

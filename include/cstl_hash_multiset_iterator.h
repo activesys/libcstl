@@ -33,7 +33,6 @@ extern "C" {
 
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t hash_multiset_iterator_t;
-struct _taghashmultiset;
 
 /** exported global variable declaration section **/
 

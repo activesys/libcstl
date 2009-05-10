@@ -34,7 +34,6 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t deque_iterator_t;
 typedef iterator_t deque_reverse_iterator_t;
-struct _tagdeque;
 
 /** exported global variable declaration section **/
 

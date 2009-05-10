@@ -33,7 +33,6 @@ extern "C" {
 
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t hash_map_iterator_t;
-struct _taghashmap;
 
 /** exported global variable declaration section **/
 

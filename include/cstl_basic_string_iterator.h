@@ -34,7 +34,6 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t basic_string_iterator_t;
 typedef iterator_t basic_string_reverse_iterator_t;
-struct _tagbasicstring;
 
 /** exported global variable declaration section **/
 
