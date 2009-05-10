@@ -34,7 +34,6 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef iterator_t map_iterator_t;
 typedef iterator_t map_reverse_iterator_t;
-struct _tagmap;
 
 /** exported global variable declaration section **/
 
@@ -43,19 +42,16 @@ struct _tagmap;
  * Iterator support.
  */
 extern map_iterator_t create_map_iterator(void);
-extern void _map_iterator_get_value(
-    const struct _tagmap* cpt_map, const map_iterator_t* cpt_iterator, void* pv_value);
-extern const void* _map_iterator_get_pointer(
-    const struct _tagmap* cpt_map, const map_iterator_t* cpt_iterator);
-extern void _map_iterator_next(const struct _tagmap* cpt_map, map_iterator_t* pt_iterator);
-extern void _map_iterator_prev(const struct _tagmap* cpt_map, map_iterator_t* pt_iterator);
+extern void _map_iterator_get_value(map_iterator_t t_iter, void* pv_value);
+extern const void* _map_iterator_get_pointer(map_iterator_t t_iter);
+extern map_iterator_t _map_iterator_next(map_iterator_t t_iter);
+extern map_iterator_t _map_iterator_prev(map_iterator_t t_iter);
 extern bool_t _map_iterator_equal(
-    const struct _tagmap* cpt_map, const map_iterator_t* cpt_iterator,
-    map_iterator_t t_iterator);
+    map_iterator_t t_iterfirst, map_iterator_t t_itersecond);
 extern int _map_iterator_distance(
-    const map_iterator_t* cpt_begin, const map_iterator_t* cpt_end);
+    map_iterator_t t_iterfirst, map_iterator_t t_itersecond);
 extern bool_t _map_iterator_before(
-    const map_iterator_t* cpt_iteratorfirst, const map_iterator_t* cpt_iteratorsecond);
+    map_iterator_t t_iterfirst, map_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }
