@@ -87,9 +87,9 @@ void _algo_accumulate_if_varg(
     }
 
     _get_varg_value(pv_output, val_elemlist, t_typesize, s_typename);
-    for(t_index = t_first; !iterator_equal(&t_index, t_last); iterator_next(&t_index))
+    for(t_index = t_first; !iterator_equal(t_index, t_last); t_index = iterator_next(t_index))
     {
-        (*t_binary_op)(pv_output, iterator_get_pointer(&t_index), pv_output);
+        (*t_binary_op)(pv_output, iterator_get_pointer(t_index), pv_output);
     }
 }
 
@@ -153,11 +153,11 @@ void _algo_inner_product_if_varg(
 
     _get_varg_value(pv_output, val_elemlist, t_typesize, s_typename);
     for(t_index1 = t_first1, t_index2 = t_first2;
-        !iterator_equal(&t_index1, t_last1);
-        iterator_next(&t_index1), iterator_next(&t_index2))
+        !iterator_equal(t_index1, t_last1);
+        t_index1 = iterator_next(t_index1), t_index2 = iterator_next(t_index2))
     {
         (*t_binary_op2)(
-            iterator_get_pointer(&t_index1), iterator_get_pointer(&t_index2),
+            iterator_get_pointer(t_index1), iterator_get_pointer(t_index2),
             pc_outputtmp);
         (*t_binary_op1)(pv_output, pc_outputtmp, pv_output);
     }
@@ -188,12 +188,12 @@ void algo_power_if(
         t_binary_op = fun_default_binary;
     }
 
-    memcpy(pv_output, iterator_get_pointer(&t_iterator), _tools_get_typesize(t_iterator));
+    memcpy(pv_output, iterator_get_pointer(t_iterator), _tools_get_typesize(t_iterator));
     if(t_power > 0)
     {
         for(t_index = 1; t_index < t_power; ++t_index)
         {
-            (*t_binary_op)(pv_output, iterator_get_pointer(&t_iterator), pv_output);
+            (*t_binary_op)(pv_output, iterator_get_pointer(t_iterator), pv_output);
         }
     }
 }
@@ -222,7 +222,7 @@ output_iterator_t algo_adjacent_difference_if(
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
     assert(_tools_same_elem_type(t_first, t_result));
 
-    if(iterator_equal(&t_first, t_last))
+    if(iterator_equal(t_first, t_last))
     {
         return t_result;
     }
@@ -242,16 +242,16 @@ output_iterator_t algo_adjacent_difference_if(
         exit(EXIT_FAILURE);
     }
 
-    iterator_get_value(&t_first, pc_value);
-    iterator_set_value(&t_result, pc_value);
-    for(t_index = t_first, iterator_next(&t_index);
-        !iterator_equal(&t_index, t_last);
-        iterator_next(&t_index))
+    iterator_get_value(t_first, pc_value);
+    iterator_set_value(t_result, pc_value);
+    for(t_index = t_first, t_index = iterator_next(t_index);
+        !iterator_equal(t_index, t_last);
+        t_index = iterator_next(t_index))
     {
-        iterator_get_value(&t_index, pc_tmp);
+        iterator_get_value(t_index, pc_tmp);
         (*t_binary_op)(pc_tmp, pc_value, pc_result);
-        iterator_next(&t_result);
-        iterator_set_value(&t_result, pc_result);
+        t_result = iterator_next(t_result);
+        iterator_set_value(t_result, pc_result);
         memcpy(pc_value, pc_tmp, t_typesize);
     }
 
@@ -262,7 +262,7 @@ output_iterator_t algo_adjacent_difference_if(
     pc_tmp = NULL;
     pc_result = NULL;
 
-    iterator_next(&t_result);
+    t_result = iterator_next(t_result);
     return t_result;
 }
 
@@ -287,7 +287,7 @@ output_iterator_t algo_partial_sum_if(
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
     assert(_tools_same_elem_type(t_first, t_result));
 
-    if(iterator_equal(&t_first, t_last))
+    if(iterator_equal(t_first, t_last))
     {
         return t_result;
     }
@@ -304,21 +304,21 @@ output_iterator_t algo_partial_sum_if(
         exit(EXIT_FAILURE);
     }
 
-    iterator_get_value(&t_first, pc_value);
-    iterator_set_value(&t_result, pc_value);
-    for(t_index = t_first, iterator_next(&t_index);
-        !iterator_equal(&t_index, t_last);
-        iterator_next(&t_index))
+    iterator_get_value(t_first, pc_value);
+    iterator_set_value(t_result, pc_value);
+    for(t_index = t_first, t_index = iterator_next(t_index);
+        !iterator_equal(t_index, t_last);
+        t_index = iterator_next(t_index))
     {
-        (*t_binary_op)(pc_value, iterator_get_pointer(&t_index), pc_value);
-        iterator_next(&t_result);
-        iterator_set_value(&t_result, pc_value);
+        (*t_binary_op)(pc_value, iterator_get_pointer(t_index), pc_value);
+        t_result = iterator_next(t_result);
+        iterator_set_value(t_result, pc_value);
     }
 
     free(pc_value);
     pc_value = NULL;
 
-    iterator_next(&t_result);
+    t_result = iterator_next(t_result);
     return t_result;
 }
 
@@ -353,10 +353,10 @@ void _algo_iota_varg(
     _get_varg_value(pc_value, val_elemlist, t_typesize, s_typename);
     t_unary_op = _fun_get_unary(s_typename, _INCREASE_FUN);
     for(t_index = t_first;
-        !iterator_equal(&t_index, t_last);
-        iterator_next(&t_index))
+        !iterator_equal(t_index, t_last);
+        t_index = iterator_next(t_index))
     {
-        iterator_set_value(&t_index, pc_value);
+        iterator_set_value(t_index, pc_value);
         (*t_unary_op)(pc_value, pc_value);
     }
 

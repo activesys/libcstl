@@ -53,7 +53,7 @@ bool_t _tools_valid_iterator_range(
 {
     return _iterator_same_type(t_first, t_last) &&
            _iterator_limit_type(t_first, t_limittype) &&
-           (iterator_equal(&t_first, t_last) || _iterator_before(t_first, t_last));
+           (iterator_equal(t_first, t_last) || _iterator_before(t_first, t_last));
 }
 
 char* _tools_get_typename(iterator_t t_iterator)
@@ -61,59 +61,59 @@ char* _tools_get_typename(iterator_t t_iterator)
     switch(t_iterator._t_containertype)
     {
     case _VECTOR_CONTAINER:
-        return _GET_VECTOR_CONTAINER(&t_iterator)->_sz_typename;
+        return _GET_VECTOR_CONTAINER(t_iterator)->_sz_typename;
         break;
     case _DEQUE_CONTAINER:
-        return _GET_DEQUE_CONTAINER(&t_iterator)->_sz_typename;
+        return _GET_DEQUE_CONTAINER(t_iterator)->_sz_typename;
         break;
     case _LIST_CONTAINER:
-        return _GET_LIST_CONTAINER(&t_iterator)->_sz_typename;
+        return _GET_LIST_CONTAINER(t_iterator)->_sz_typename;
         break;
     case _SLIST_CONTAINER:
-        return _GET_SLIST_CONTAINER(&t_iterator)->_sz_typename;
+        return _GET_SLIST_CONTAINER(t_iterator)->_sz_typename;
         break;
     case _SET_CONTAINER:
 #ifdef CSTL_SET_AVL_TREE
-        return _GET_AVL_TREE(&t_iterator)->_sz_typename;
+        return _GET_AVL_TREE(t_iterator)->_sz_typename;
 #else
-        return _GET_RB_TREE(&t_iterator)->_sz_typename;
+        return _GET_RB_TREE(t_iterator)->_sz_typename;
 #endif
         break;
     case _MULTISET_CONTAINER:
 #ifdef CSTL_MULTISET_AVL_TREE
-        return _GET_AVL_TREE(&t_iterator)->_sz_typename;
+        return _GET_AVL_TREE(t_iterator)->_sz_typename;
 #else
-        return _GET_RB_TREE(&t_iterator)->_sz_typename;
+        return _GET_RB_TREE(t_iterator)->_sz_typename;
 #endif
         break;
     case _MAP_CONTAINER:
 #ifdef CSTL_MAP_AVL_TREE
-        return _GET_AVL_TREE(&t_iterator)->_sz_typename;
+        return _GET_AVL_TREE(t_iterator)->_sz_typename;
 #else
-        return _GET_RB_TREE(&t_iterator)->_sz_typename;
+        return _GET_RB_TREE(t_iterator)->_sz_typename;
 #endif
         break;
     case _MULTIMAP_CONTAINER:
 #ifdef CSTL_MULTIMAP_AVL_TREE
-        return _GET_AVL_TREE(&t_iterator)->_sz_typename;
+        return _GET_AVL_TREE(t_iterator)->_sz_typename;
 #else
-        return _GET_RB_TREE(&t_iterator)->_sz_typename;
+        return _GET_RB_TREE(t_iterator)->_sz_typename;
 #endif
         break;
     case _HASH_SET_CONTAINER:
-        return _GET_HASHTABLE(&t_iterator)->_sz_typename;
+        return _GET_HASHTABLE(t_iterator)->_sz_typename;
         break;
     case _HASH_MULTISET_CONTAINER:
-        return _GET_HASHTABLE(&t_iterator)->_sz_typename;
+        return _GET_HASHTABLE(t_iterator)->_sz_typename;
         break;
     case _HASH_MAP_CONTAINER:
-        return _GET_HASHTABLE(&t_iterator)->_sz_typename;
+        return _GET_HASHTABLE(t_iterator)->_sz_typename;
         break;
     case _HASH_MULTIMAP_CONTAINER:
-        return _GET_HASHTABLE(&t_iterator)->_sz_typename;
+        return _GET_HASHTABLE(t_iterator)->_sz_typename;
         break;
     case _BASIC_STRING_CONTAINER:
-        return _GET_VECTOR_CONTAINER(&t_iterator)->_sz_typename;
+        return _GET_VECTOR_CONTAINER(t_iterator)->_sz_typename;
         break;
     default:
         assert(false);
@@ -127,59 +127,59 @@ size_t _tools_get_typesize(iterator_t t_iterator)
     switch(t_iterator._t_containertype)
     {
     case _VECTOR_CONTAINER:
-        return _GET_VECTOR_CONTAINER(&t_iterator)->_t_typesize;
+        return _GET_VECTOR_CONTAINER(t_iterator)->_t_typesize;
         break;
     case _DEQUE_CONTAINER:
-        return _GET_DEQUE_CONTAINER(&t_iterator)->_t_typesize;
+        return _GET_DEQUE_CONTAINER(t_iterator)->_t_typesize;
         break;
     case _LIST_CONTAINER:
-        return _GET_LIST_CONTAINER(&t_iterator)->_t_typesize;
+        return _GET_LIST_CONTAINER(t_iterator)->_t_typesize;
         break;
     case _SLIST_CONTAINER:
-        return _GET_SLIST_CONTAINER(&t_iterator)->_t_typesize;
+        return _GET_SLIST_CONTAINER(t_iterator)->_t_typesize;
         break;
     case _SET_CONTAINER:
 #ifdef CSTL_SET_AVL_TREE
-        return _GET_AVL_TREE(&t_iterator)->_t_typesize;
+        return _GET_AVL_TREE(t_iterator)->_t_typesize;
 #else
-        return _GET_RB_TREE(&t_iterator)->_t_typesize;
+        return _GET_RB_TREE(t_iterator)->_t_typesize;
 #endif
         break;
     case _MULTISET_CONTAINER:
 #ifdef CSTL_MULTISET_AVL_TREE
-        return _GET_AVL_TREE(&t_iterator)->_t_typesize;
+        return _GET_AVL_TREE(t_iterator)->_t_typesize;
 #else
-        return _GET_RB_TREE(&t_iterator)->_t_typesize;
+        return _GET_RB_TREE(t_iterator)->_t_typesize;
 #endif
         break;
     case _MAP_CONTAINER:
 #ifdef CSTL_MAP_AVL_TREE
-        return _GET_AVL_TREE(&t_iterator)->_t_typesize;
+        return _GET_AVL_TREE(t_iterator)->_t_typesize;
 #else
-        return _GET_RB_TREE(&t_iterator)->_t_typesize;
+        return _GET_RB_TREE(t_iterator)->_t_typesize;
 #endif
         break;
     case _MULTIMAP_CONTAINER:
 #ifdef CSTL_MULTIMAP_AVL_TREE
-        return _GET_AVL_TREE(&t_iterator)->_t_typesize;
+        return _GET_AVL_TREE(t_iterator)->_t_typesize;
 #else
-        return _GET_RB_TREE(&t_iterator)->_t_typesize;
+        return _GET_RB_TREE(t_iterator)->_t_typesize;
 #endif
         break;
     case _HASH_SET_CONTAINER:
-        return _GET_HASHTABLE(&t_iterator)->_t_typesize;
+        return _GET_HASHTABLE(t_iterator)->_t_typesize;
         break;
     case _HASH_MULTISET_CONTAINER:
-        return _GET_HASHTABLE(&t_iterator)->_t_typesize;
+        return _GET_HASHTABLE(t_iterator)->_t_typesize;
         break;
     case _HASH_MAP_CONTAINER:
-        return _GET_HASHTABLE(&t_iterator)->_t_typesize;
+        return _GET_HASHTABLE(t_iterator)->_t_typesize;
         break;
     case _HASH_MULTIMAP_CONTAINER:
-        return _GET_HASHTABLE(&t_iterator)->_t_typesize;
+        return _GET_HASHTABLE(t_iterator)->_t_typesize;
         break;
     case _BASIC_STRING_CONTAINER:
-        return _GET_VECTOR_CONTAINER(&t_iterator)->_t_typesize;
+        return _GET_VECTOR_CONTAINER(t_iterator)->_t_typesize;
         break;
     default:
         assert(false);

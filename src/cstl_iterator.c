@@ -355,7 +355,7 @@ iterator_t iterator_next(iterator_t t_iter)
     }
 }
 
-void iterator_prev(iterator_t t_iter)
+iterator_t iterator_prev(iterator_t t_iter)
 {
     assert(_iterator_limit_type(t_iter, _BIDIRECTIONAL_ITERATOR));
 

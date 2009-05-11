@@ -80,20 +80,20 @@ void algo_push_heap_if(
     }
 
     /* not empty range */
-    if(!iterator_equal(&t_first, t_last))
+    if(!iterator_equal(t_first, t_last))
     {
         /* get position */
         t_pos = iterator_distance(t_first, t_last) - 1;
         t_current = t_last;
-        iterator_prev(&t_current);
+        t_current = iterator_prev(t_current);
         t_parent = t_first;
         t_pos = t_pos == 0 ? t_pos : (t_pos - 1) / 2;
-        iterator_next_n(&t_parent, t_pos);
-        while(!iterator_equal(&t_current, t_first))
+        t_parent = iterator_next_n(t_parent, t_pos);
+        while(!iterator_equal(t_current, t_first))
         {
             (*t_binary_op)(
-                iterator_get_pointer(&t_current),
-                iterator_get_pointer(&t_parent),
+                iterator_get_pointer(t_current),
+                iterator_get_pointer(t_parent),
                 &t_result);
             if(t_result) /* t_current < t_parent */
             {
@@ -104,7 +104,7 @@ void algo_push_heap_if(
             t_current = t_parent;
             t_pos = t_pos == 0 ? t_pos : (t_pos - 1) / 2;
             t_parent = t_first;
-            iterator_next_n(&t_parent, t_pos);
+            t_parent = iterator_next_n(t_parent, t_pos);
         }
     }
 }
@@ -129,10 +129,10 @@ void algo_pop_heap_if(
         t_binary_op = fun_default_binary;
     }
 
-    if(!iterator_equal(&t_first, t_last))
+    if(!iterator_equal(t_first, t_last))
     {
         /* swap the first and prev */
-        iterator_prev(&t_last);
+        t_last = iterator_prev(t_last);
         algo_iter_swap(t_first, t_last);
 
         _adjust_heap(t_first, t_last, t_first, t_binary_op);
@@ -157,7 +157,7 @@ void algo_sort_heap_if(
         t_binary_op = fun_default_binary;
     }
 
-    for(; !iterator_equal(&t_first, t_last); iterator_prev(&t_last))
+    for(; !iterator_equal(t_first, t_last); t_last = iterator_prev(t_last))
     {
         algo_pop_heap_if(t_first, t_last, t_binary_op);
     }
@@ -192,7 +192,7 @@ void algo_make_heap_if(
         for(;;)
         {
             t_parent = t_first;
-            iterator_next_n(&t_parent, t_pos);
+            t_parent = iterator_next_n(t_parent, t_pos);
             _adjust_heap(t_first, t_last, t_parent, t_binary_op);
 
             if(t_pos == 0)
@@ -232,7 +232,7 @@ bool_t algo_is_heap_if(
         t_binary_op = fun_default_binary;
     }
 
-    if(iterator_equal(&t_first, t_last))
+    if(iterator_equal(t_first, t_last))
     {
         return false;
     }
@@ -244,16 +244,16 @@ bool_t algo_is_heap_if(
         t_rpos = t_ppos * 2 + 2;
 
         t_parent = t_first;
-        iterator_next_n(&t_parent, t_ppos);
+        t_parent = iterator_next_n(t_parent, t_ppos);
 
         if(t_lpos < t_len)
         {
             t_left = t_first;
-            iterator_next_n(&t_left, t_lpos);
+            t_left = iterator_next_n(t_left, t_lpos);
 
             (*t_binary_op)(
-                iterator_get_pointer(&t_parent),
-                iterator_get_pointer(&t_left),
+                iterator_get_pointer(t_parent),
+                iterator_get_pointer(t_left),
                 &t_result);
             if(t_result) /* t_parent < t_left */
             {
@@ -263,11 +263,11 @@ bool_t algo_is_heap_if(
         if(t_rpos < t_len)
         {
             t_right = t_first;
-            iterator_next_n(&t_right, t_rpos);
+            t_right = iterator_next_n(t_right, t_rpos);
 
             (*t_binary_op)(
-                iterator_get_pointer(&t_parent),
-                iterator_get_pointer(&t_right),
+                iterator_get_pointer(t_parent),
+                iterator_get_pointer(t_right),
                 &t_result);
             if(t_result) /* t_parent < t_right */
             {
@@ -296,7 +296,7 @@ static void _adjust_heap(
     assert(_tools_valid_iterator_range(t_parent, t_last, _RANDOM_ACCESS_ITERATOR));
     assert(t_binary_op != NULL);
 
-    if(!iterator_equal(&t_first, t_last))
+    if(!iterator_equal(t_first, t_last))
     {
         /* get left child and right child */
         t_len = iterator_distance(t_first, t_last);
@@ -308,18 +308,18 @@ static void _adjust_heap(
             if(t_rpos < t_len)
             {
                 t_left = t_right = t_first;
-                iterator_next_n(&t_left, t_lpos);
-                iterator_next_n(&t_right, t_rpos);
+                t_left = iterator_next_n(t_left, t_lpos);
+                t_right = iterator_next_n(t_right, t_rpos);
                 (*t_binary_op)(
-                    iterator_get_pointer(&t_right),
-                    iterator_get_pointer(&t_left),
+                    iterator_get_pointer(t_right),
+                    iterator_get_pointer(t_left),
                     &t_result);
                 /* t_right < t_left */
                 if(t_result)
                 {
                     (*t_binary_op)(
-                        iterator_get_pointer(&t_left),
-                        iterator_get_pointer(&t_parent),
+                        iterator_get_pointer(t_left),
+                        iterator_get_pointer(t_parent),
                         &t_result);
                     /* t_left < t_parent */
                     if(t_result)
@@ -336,8 +336,8 @@ static void _adjust_heap(
                 else /* t_right >= t_lef */
                 {
                     (*t_binary_op)(
-                        iterator_get_pointer(&t_right),
-                        iterator_get_pointer(&t_parent),
+                        iterator_get_pointer(t_right),
+                        iterator_get_pointer(t_parent),
                         &t_result);
                     /* t_right < t_parent */
                     if(t_result)
@@ -355,11 +355,11 @@ static void _adjust_heap(
             else /* don't have right child */
             {
                 t_left = t_first;
-                iterator_next_n(&t_left, t_lpos);
+                t_left = iterator_next_n(t_left, t_lpos);
 
                 (*t_binary_op)(
-                    iterator_get_pointer(&t_left),
-                    iterator_get_pointer(&t_parent),
+                    iterator_get_pointer(t_left),
+                    iterator_get_pointer(t_parent),
                     &t_result);
                 /* t_left < t_parent */
                 if(t_result)
