@@ -146,37 +146,37 @@ void test_numeric(void)
         algo_adjacent_difference(
                 slist_begin(&t_sl), slist_end(&t_sl), slist_begin(&t_sl));
         for(t_sli = slist_begin(&t_sl);
-                !iterator_equal(&t_sli, slist_end(&t_sl));
-                iterator_next(&t_sli))
+                !iterator_equal(t_sli, slist_end(&t_sl));
+                t_sli = iterator_next(t_sli))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_sli));
+            printf("%d ", *(int*)iterator_get_pointer(t_sli));
         }
         printf("\n");
         algo_partial_sum(
                 slist_begin(&t_sl), slist_end(&t_sl), slist_begin(&t_sl));
         for(t_sli = slist_begin(&t_sl);
-                !iterator_equal(&t_sli, slist_end(&t_sl));
-                iterator_next(&t_sli))
+                !iterator_equal(t_sli, slist_end(&t_sl));
+                t_sli = iterator_next(t_sli))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_sli));
+            printf("%d ", *(int*)iterator_get_pointer(t_sli));
         }
         printf("\n");
         algo_adjacent_difference_if(
             multiset_begin(&t_ms), multiset_end(&t_ms), slist_begin(&t_sl), fun_minus_int);
         for(t_sli = slist_begin(&t_sl);
-            !iterator_equal(&t_sli, slist_end(&t_sl));
-            iterator_next(&t_sli))
+            !iterator_equal(t_sli, slist_end(&t_sl));
+            t_sli = iterator_next(t_sli))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_sli));
+            printf("%d ", *(int*)iterator_get_pointer(t_sli));
         }
         printf("\n");
         algo_partial_sum_if(
             slist_begin(&t_sl), slist_end(&t_sl), slist_begin(&t_sl), fun_plus_int);
         for(t_sli = slist_begin(&t_sl);
-            !iterator_equal(&t_sli, slist_end(&t_sl));
-            iterator_next(&t_sli))
+            !iterator_equal(t_sli, slist_end(&t_sl));
+            t_sli = iterator_next(t_sli))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_sli));
+            printf("%d ", *(int*)iterator_get_pointer(t_sli));
         }
         printf("\n");
 
@@ -194,17 +194,17 @@ void test_numeric(void)
         deque_push_back(&t_d, 100.001);
 
         for(t_iterator = deque_begin(&t_d);
-            !iterator_equal(&t_iterator, deque_end(&t_d));
-            iterator_next(&t_iterator))
+            !iterator_equal(t_iterator, deque_end(&t_d));
+            t_iterator = iterator_next(t_iterator))
         {
-            printf("%f\n", *(float*)iterator_get_pointer(&t_iterator));
+            printf("%f\n", *(float*)iterator_get_pointer(t_iterator));
         }
         algo_iota(deque_begin(&t_d), deque_rbegin(&t_d), 0.01);
         for(t_iterator = deque_begin(&t_d);
-            !iterator_equal(&t_iterator, deque_end(&t_d));
-            iterator_next(&t_iterator))
+            !iterator_equal(t_iterator, deque_end(&t_d));
+            t_iterator = iterator_next(t_iterator))
         {
-            printf("%f\n", *(float*)iterator_get_pointer(&t_iterator));
+            printf("%f\n", *(float*)iterator_get_pointer(t_iterator));
         }
 
         deque_destroy(&t_d);

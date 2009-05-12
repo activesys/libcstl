@@ -80,29 +80,29 @@ void test_algobase(void)
     t_i = set_begin(&t_s);
     algo_fill(deque_begin(&t_d), deque_rbegin(&t_d), 20.0);
     for(t_i = deque_begin(&t_d);
-        !iterator_equal(&t_i, deque_end(&t_d));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, deque_end(&t_d));
+        t_i = iterator_next(t_i))
     {
-        printf("%f\n", *(float*)iterator_get_pointer(&t_i));
+        printf("%f\n", *(float*)iterator_get_pointer(t_i));
     }
     algo_fill_n(deque_begin(&t_d), 2, 99.98);
     for(t_i = deque_begin(&t_d);
-        !iterator_equal(&t_i, deque_end(&t_d));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, deque_end(&t_d));
+        t_i = iterator_next(t_i))
     {
-        printf("%f\n", *(float*)iterator_get_pointer(&t_i));
+        printf("%f\n", *(float*)iterator_get_pointer(t_i));
     }
 
     algo_iter_swap(deque_begin(&t_d), vector_begin(&t_v));
     t_i = deque_begin(&t_d);
-    printf("%f ", *(float*)iterator_get_pointer(&t_i));
+    printf("%f ", *(float*)iterator_get_pointer(t_i));
     t_i = vector_begin(&t_v);
-    printf("%f\n", *(float*)iterator_get_pointer(&t_i));
+    printf("%f\n", *(float*)iterator_get_pointer(t_i));
     for(t_i = deque_begin(&t_d);
-        !iterator_equal(&t_i, deque_end(&t_d));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, deque_end(&t_d));
+        t_i = iterator_next(t_i))
     {
-        printf("%f\n", *(float*)iterator_get_pointer(&t_i));
+        printf("%f\n", *(float*)iterator_get_pointer(t_i));
     }
 
     deque_clear(&t_d);
@@ -120,10 +120,10 @@ void test_algobase(void)
 
     t_i = algo_max(vector_begin(&t_v), deque_begin(&t_d));
     printf("max:%f, ", 
-        *(float*)iterator_get_pointer(&t_i));
+        *(float*)iterator_get_pointer(t_i));
     t_i = algo_min(vector_begin(&t_v), deque_begin(&t_d));
     printf("min:%f\n", 
-        *(float*)iterator_get_pointer(&t_i));
+        *(float*)iterator_get_pointer(t_i));
     if(t_i._t_containertype == _DEQUE_CONTAINER)
         printf("deque\n");
     else
@@ -131,16 +131,16 @@ void test_algobase(void)
 
     t_p = algo_mismatch_if(
         deque_begin(&t_d), deque_end(&t_d), vector_begin(&t_v), fun_not_equal_float);
-    if(iterator_equal(t_p.first, deque_end(&t_d)))
+    if(iterator_equal(*(iterator_t*)t_p.first, deque_end(&t_d)))
     {
         printf("<end, %f>\n",
-            *(float*)iterator_get_pointer(t_p.second));
+            *(float*)iterator_get_pointer(*(iterator_t*)t_p.second));
     }
     else
     {
         printf("<%f, %f>\n", 
-            *(float*)iterator_get_pointer(t_p.first),
-            *(float*)iterator_get_pointer(t_p.second));
+            *(float*)iterator_get_pointer(*(iterator_t*)t_p.first),
+            *(float*)iterator_get_pointer(*(iterator_t*)t_p.second));
     }
 
     set_clear(&t_s);
@@ -161,68 +161,68 @@ void test_algobase(void)
     vector_push_back(&t_v, 55.55);
     vector_push_back(&t_v, 66.66);
     printf("set: ");
-    for(t_i = set_begin(&t_s); !iterator_equal(&t_i, set_end(&t_s)); iterator_next(&t_i))
+    for(t_i = set_begin(&t_s); !iterator_equal(t_i, set_end(&t_s)); t_i = iterator_next(t_i))
     {
-        printf("%f, ", *(float*)iterator_get_pointer(&t_i));
+        printf("%f, ", *(float*)iterator_get_pointer(t_i));
     }
     printf("\n");
     printf("deque: ");
-    for(t_i = deque_begin(&t_d); !iterator_equal(&t_i, deque_end(&t_d)); iterator_next(&t_i))
+    for(t_i = deque_begin(&t_d); !iterator_equal(t_i, deque_end(&t_d)); t_i = iterator_next(t_i))
     {
-        printf("%f, ", *(float*)iterator_get_pointer(&t_i));
+        printf("%f, ", *(float*)iterator_get_pointer(t_i));
     }
     printf("\n");
     printf("vector: ");
-    for(t_i = vector_begin(&t_v); !iterator_equal(&t_i, vector_end(&t_v)); iterator_next(&t_i))
+    for(t_i = vector_begin(&t_v); !iterator_equal(t_i, vector_end(&t_v)); t_i = iterator_next(t_i))
     {
-        printf("%f, ", *(float*)iterator_get_pointer(&t_i));
+        printf("%f, ", *(float*)iterator_get_pointer(t_i));
     }
     printf("\n");
     t_i = vector_end(&t_v);
     /*iterator_advance(&t_i, 1);*/
     t_i = algo_copy_backward(set_begin(&t_s), set_end(&t_s), vector_rbegin(&t_v));
-    if(iterator_equal(&t_i, vector_end(&t_v)))
+    if(iterator_equal(t_i, vector_end(&t_v)))
     {
         printf("end\n");
     }
     else
     {
-        printf("%f\n", *(float*)iterator_get_pointer(&t_i));
+        printf("%f\n", *(float*)iterator_get_pointer(t_i));
     }
     printf("set: ");
-    for(t_i = set_begin(&t_s); !iterator_equal(&t_i, set_end(&t_s)); iterator_next(&t_i))
+    for(t_i = set_begin(&t_s); !iterator_equal(t_i, set_end(&t_s)); t_i = iterator_next(t_i))
     {
-        printf("%f, ", *(float*)iterator_get_pointer(&t_i));
+        printf("%f, ", *(float*)iterator_get_pointer(t_i));
     }
     printf("\n");
     printf("deque: ");
-    for(t_i = deque_begin(&t_d); !iterator_equal(&t_i, deque_end(&t_d)); iterator_next(&t_i))
+    for(t_i = deque_begin(&t_d); !iterator_equal(t_i, deque_end(&t_d)); t_i = iterator_next(t_i))
     {
-        printf("%f, ", *(float*)iterator_get_pointer(&t_i));
+        printf("%f, ", *(float*)iterator_get_pointer(t_i));
     }
     printf("\n");
     printf("vector: ");
-    for(t_i = vector_begin(&t_v); !iterator_equal(&t_i, vector_end(&t_v)); iterator_next(&t_i))
+    for(t_i = vector_begin(&t_v); !iterator_equal(t_i, vector_end(&t_v)); t_i = iterator_next(t_i))
     {
-        printf("%f, ", *(float*)iterator_get_pointer(&t_i));
+        printf("%f, ", *(float*)iterator_get_pointer(t_i));
     }
     printf("\n");
 
     t_i = set_end(&t_s);
-    while(!iterator_equal(&t_i, set_begin(&t_s)))
+    while(!iterator_equal(t_i, set_begin(&t_s)))
     {
-        iterator_prev(&t_i);
-        printf("%f, ", *(float*)iterator_get_pointer(&t_i));
+        t_i = iterator_prev(t_i);
+        printf("%f, ", *(float*)iterator_get_pointer(t_i));
     }
     printf("\n");
     multiset_insert(&t_ms, 89.45);
     multiset_insert(&t_ms, -22.01);
     multiset_insert(&t_ms, 34.0009);
     t_i = multiset_end(&t_ms);
-    while(!iterator_equal(&t_i, multiset_begin(&t_ms)))
+    while(!iterator_equal(t_i, multiset_begin(&t_ms)))
     {
-        iterator_prev(&t_i);
-        printf("%f, ", *(float*)iterator_get_pointer(&t_i));
+        t_i = iterator_prev(t_i);
+        printf("%f, ", *(float*)iterator_get_pointer(t_i));
     }
     printf("\n");
 

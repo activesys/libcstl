@@ -54,10 +54,10 @@ void test_set(void)
         set_insert(&t_s, 2);
 
         for(t_i = set_begin(&t_s);
-            !iterator_equal(&t_i, set_end(&t_s));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, set_end(&t_s));
+            t_i = iterator_next(t_i))
         {
-            iterator_get_value(&t_i, &n_value);
+            iterator_get_value(t_i, &n_value);
             printf("%d, ", n_value);
         }
         printf("\n");
@@ -77,23 +77,23 @@ void test_set(void)
         set_insert(&t_s, 6);
 
         t_i = set_lower_bound(&t_s, 3);
-        printf("lower_bound(3): %d\n", *(int*)iterator_get_pointer(&t_i));
+        printf("lower_bound(3): %d\n", *(int*)iterator_get_pointer(t_i));
         t_i = set_upper_bound(&t_s, 3);
-        printf("upper_bound(3): %d\n", *(int*)iterator_get_pointer(&t_i));
+        printf("upper_bound(3): %d\n", *(int*)iterator_get_pointer(t_i));
         t_range = set_equal_range(&t_s, 3);
         printf("equal_range(3): %d, %d\n\n",
-            *(int*)iterator_get_pointer((iterator_t*)(t_range.first)),
-            *(int*)iterator_get_pointer((iterator_t*)(t_range.second)));
+            *(int*)iterator_get_pointer(*(iterator_t*)(t_range.first)),
+            *(int*)iterator_get_pointer(*(iterator_t*)(t_range.second)));
         pair_destroy(&t_range);
 
         t_i = set_lower_bound(&t_s, 5);
-        printf("lower_bound(5): %d\n", *(int*)iterator_get_pointer(&t_i));
+        printf("lower_bound(5): %d\n", *(int*)iterator_get_pointer(t_i));
         t_i = set_upper_bound(&t_s, 5);
-        printf("upper_bound(5): %d\n", *(int*)iterator_get_pointer(&t_i));
+        printf("upper_bound(5): %d\n", *(int*)iterator_get_pointer(t_i));
         t_range = set_equal_range(&t_s, 5);
         printf("equal_range(5): %d, %d\n",
-            *(int*)iterator_get_pointer((iterator_t*)(t_range.first)),
-            *(int*)iterator_get_pointer((iterator_t*)(t_range.second)));
+            *(int*)iterator_get_pointer(*(iterator_t*)(t_range.first)),
+            *(int*)iterator_get_pointer(*(iterator_t*)(t_range.second)));
         pair_destroy(&t_range);
 
         set_destroy(&t_s);
@@ -113,15 +113,15 @@ void test_set(void)
         set_insert(&t_s1, 2);
         set_insert(&t_s1, 5);
         for(t_i = set_begin(&t_s1);
-            !iterator_equal(&t_i, set_end(&t_s1));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, set_end(&t_s1));
+            t_i = iterator_next(t_i))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
         t_i = set_insert(&t_s1, 4);
-        if(iterator_equal(&t_i, set_end(&t_s1)))
+        if(iterator_equal(t_i, set_end(&t_s1)))
         {
             printf("4 already exists!\n");
         }
@@ -133,20 +133,20 @@ void test_set(void)
 
         set_init_copy_range(&t_s2, set_begin(&t_s1), set_end(&t_s1));
         for(t_i = set_begin(&t_s2);
-            !iterator_equal(&t_i, set_end(&t_s2));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, set_end(&t_s2));
+            t_i = iterator_next(t_i))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
         set_erase_range(&t_s2, set_begin(&t_s2), set_find(&t_s2, 3));
         printf("%u element(s) removed!\n", set_erase(&t_s2, 5));
         for(t_i = set_begin(&t_s2);
-            !iterator_equal(&t_i, set_end(&t_s2));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, set_end(&t_s2));
+            t_i = iterator_next(t_i))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -168,15 +168,15 @@ void test_set(void)
         multiset_insert(&t_s1, 2);
         multiset_insert(&t_s1, 5);
         for(t_i = multiset_begin(&t_s1);
-            !iterator_equal(&t_i, multiset_end(&t_s1));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, multiset_end(&t_s1));
+            t_i = iterator_next(t_i))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
         t_i = multiset_insert(&t_s1, 4);
-        if(iterator_equal(&t_i, multiset_end(&t_s1)))
+        if(iterator_equal(t_i, multiset_end(&t_s1)))
         {
             printf("4 already exists!\n");
         }
@@ -188,20 +188,20 @@ void test_set(void)
 
         multiset_init_copy_range(&t_s2, multiset_begin(&t_s1), multiset_end(&t_s1));
         for(t_i = multiset_begin(&t_s2);
-            !iterator_equal(&t_i, multiset_end(&t_s2));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, multiset_end(&t_s2));
+            t_i = iterator_next(t_i))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
         multiset_erase_range(&t_s2, multiset_begin(&t_s2), multiset_find(&t_s2, 3));
         printf("%u element(s) removed!\n", multiset_erase(&t_s2, 5));
         for(t_i = multiset_begin(&t_s2);
-            !iterator_equal(&t_i, multiset_end(&t_s2));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, multiset_end(&t_s2));
+            t_i = iterator_next(t_i))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 

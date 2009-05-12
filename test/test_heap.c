@@ -60,91 +60,91 @@ void test_heap(void)
     vector_push_back(&t_v, 32);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     vector_push_back(&t_v, 13);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     vector_push_back(&t_v, 65);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     vector_push_back(&t_v, 31);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     vector_push_back(&t_v, 68);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     vector_push_back(&t_v, 50);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     vector_push_back(&t_v, 5);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     vector_push_back(&t_v, 34);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     vector_push_back(&t_v, 12);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     vector_push_back(&t_v, 42);
     algo_push_heap(vector_begin(&t_v), vector_end(&t_v));
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
 
@@ -154,10 +154,10 @@ void test_heap(void)
         algo_pop_heap(vector_begin(&t_v), vector_end(&t_v));
         vector_pop_back(&t_v);
         for(t_i = vector_begin(&t_v);
-                !iterator_equal(&t_i, vector_end(&t_v));
-                iterator_next(&t_i))
+                !iterator_equal(t_i, vector_end(&t_v));
+                t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
     }
@@ -202,10 +202,10 @@ void test_heap(void)
         algo_is_heap(vector_begin(&t_v), vector_end(&t_v)));
     algo_make_heap_if(vector_begin(&t_v), vector_end(&t_v), fun_great_int);
     for(t_i = vector_begin(&t_v);
-        !iterator_equal(&t_i, vector_end(&t_v));
-        iterator_next(&t_i))
+        !iterator_equal(t_i, vector_end(&t_v));
+        t_i = iterator_next(t_i))
     {
-        printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+        printf("%d, ", *(int*)iterator_get_pointer(t_i));
     }
     printf("\n");
     printf("is heap:%d\n",

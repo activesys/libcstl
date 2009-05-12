@@ -70,30 +70,30 @@ void test_basic_string(void)
     t_begin = basic_string_begin(&t_str);
     t_end = basic_string_end(&t_str);
     for(t_iterator = t_begin;
-        !iterator_equal(&t_iterator, t_end);
-        iterator_next(&t_iterator))
+        !iterator_equal(t_iterator, t_end);
+        t_iterator = iterator_next(t_iterator))
     {
-        iterator_get_value(&t_iterator, &c_char);
+        iterator_get_value(t_iterator, &c_char);
         printf("%c ", c_char);
     }
     printf("\n");
-    iterator_prev_n(&t_end, 3);
-    iterator_next_n(&t_begin, 2);
+    t_end = iterator_prev_n(t_end, 3);
+    t_begin = iterator_next_n(t_begin, 2);
     c_char = 'z';
     for(t_iterator = t_end;
-        !iterator_equal(&t_iterator, t_begin);
-        iterator_prev(&t_iterator))
+        !iterator_equal(t_iterator, t_begin);
+        t_iterator = iterator_prev(t_iterator))
     {
-        iterator_set_value(&t_iterator, &c_char);
+        iterator_set_value(t_iterator, &c_char);
         c_char--;
     }
     t_begin = basic_string_begin(&t_str);
     t_end = basic_string_end(&t_str);
     for(t_iterator = t_begin;
-        !iterator_equal(&t_iterator, t_end);
-        iterator_next(&t_iterator))
+        !iterator_equal(t_iterator, t_end);
+        t_iterator = iterator_next(t_iterator))
     {
-        printf("%c ", *(char*)iterator_get_pointer(&t_iterator));
+        printf("%c ", *(char*)iterator_get_pointer(t_iterator));
     }
     printf("\n");
 
@@ -866,7 +866,7 @@ void test_basic_string(void)
 
     t_begin = basic_string_begin(&t_str2);
     t_end = basic_string_rbegin(&t_str2);
-    iterator_next_n(&t_begin, 12);
+    t_begin = iterator_next_n(t_begin, 12);
     basic_string_assign_range(&t_str, t_begin, t_end);
     printf("\n");
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
@@ -956,8 +956,8 @@ void test_basic_string(void)
     printf("------------------------------------\n");
     t_begin = basic_string_begin(&t_str2);
     t_end = basic_string_rbegin(&t_str2);
-    iterator_next(&t_begin);
-    iterator_prev_n(&t_end, 4);
+    t_begin = iterator_next(t_begin);
+    t_end = iterator_prev_n(t_end, 4);
     basic_string_append_range(&t_str, t_begin, t_end);
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
         basic_string_size(&t_str),
@@ -1012,9 +1012,9 @@ void test_basic_string(void)
     printf("str1 - data: %s\n", (char*)basic_string_data(&t_str));
     printf("------------------------------------\n");
     t_begin = basic_string_begin(&t_str);
-    iterator_next(&t_begin);
+    t_begin = iterator_next(t_begin);
     t_iterator = basic_string_insert(&t_str, t_begin, 'N');
-    printf("%c\n", *(char*)iterator_get_pointer(&t_iterator));
+    printf("%c\n", *(char*)iterator_get_pointer(t_iterator));
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
             basic_string_size(&t_str),
             basic_string_length(&t_str),
@@ -1120,9 +1120,9 @@ void test_basic_string(void)
     printf("str1 - data: %s\n", (char*)basic_string_data(&t_str));
     printf("------------------------------------\n");
     t_iterator = basic_string_begin(&t_str);
-    iterator_next_n(&t_iterator, 10);
+    t_iterator = iterator_next_n(t_iterator, 10);
     t_begin = basic_string_begin(&t_str2);
-    iterator_next_n(&t_begin, 10);
+    t_begin = iterator_next_n(t_begin, 10);
     t_end = basic_string_end(&t_str2);
     basic_string_insert_range(&t_str, t_iterator, t_begin, t_end);
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
@@ -1143,9 +1143,9 @@ void test_basic_string(void)
     printf("------------------------------------\n");
     t_iterator = basic_string_end(&t_str);
     t_begin = basic_string_begin(&t_str2);
-    iterator_next_n(&t_begin, 10);
+    t_begin = iterator_next_n(t_begin, 10);
     t_end = basic_string_end(&t_str2);
-    iterator_prev_n(&t_end, 10);
+    t_end = iterator_prev_n(t_end, 10);
     basic_string_insert_range(&t_str, t_iterator, t_begin, t_end);
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
             basic_string_size(&t_str),
@@ -1372,7 +1372,7 @@ void test_basic_string(void)
     printf("str1 - data: %s\n", (char*)basic_string_data(&t_str));
     printf("------------------------------------\n");
     t_iterator = basic_string_erase(&t_str, basic_string_begin(&t_str));
-    printf("%c\n", *(char*)iterator_get_pointer(&t_iterator));
+    printf("%c\n", *(char*)iterator_get_pointer(t_iterator));
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
             basic_string_size(&t_str),
             basic_string_length(&t_str),
@@ -1390,9 +1390,9 @@ void test_basic_string(void)
     printf("str1 - data: %s\n", (char*)basic_string_data(&t_str));
     printf("------------------------------------\n");
     t_begin = basic_string_begin(&t_str);
-    iterator_next_n(&t_begin, 4);
+    t_begin = iterator_next_n(t_begin, 4);
     t_iterator = basic_string_erase(&t_str, t_begin);
-    printf("%c\n", *(char*)iterator_get_pointer(&t_iterator));
+    printf("%c\n", *(char*)iterator_get_pointer(t_iterator));
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
             basic_string_size(&t_str),
             basic_string_length(&t_str),
@@ -1410,7 +1410,7 @@ void test_basic_string(void)
     printf("str1 - data: %s\n", (char*)basic_string_data(&t_str));
     printf("------------------------------------\n");
     t_iterator = basic_string_erase(&t_str, basic_string_rbegin(&t_str));
-    printf("%d\n", iterator_equal(&t_iterator, basic_string_end(&t_str)));
+    printf("%d\n", iterator_equal(t_iterator, basic_string_end(&t_str)));
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
             basic_string_size(&t_str),
             basic_string_length(&t_str),
@@ -1429,9 +1429,9 @@ void test_basic_string(void)
     printf("------------------------------------\n");
     t_begin = basic_string_begin(&t_str);
     t_end = basic_string_begin(&t_str);
-    iterator_next_n(&t_end, 3);
+    t_end = iterator_next_n(t_end, 3);
     t_iterator = basic_string_erase_range(&t_str, t_begin, t_end);
-    printf("%c\n", *(char*)iterator_get_pointer(&t_iterator));
+    printf("%c\n", *(char*)iterator_get_pointer(t_iterator));
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
             basic_string_size(&t_str),
             basic_string_length(&t_str),
@@ -1450,9 +1450,9 @@ void test_basic_string(void)
     printf("------------------------------------\n");
     t_begin = basic_string_begin(&t_str);
     t_end = basic_string_rbegin(&t_str);
-    iterator_next_n(&t_begin, 6);
+    t_begin = iterator_next_n(t_begin, 6);
     t_iterator = basic_string_erase_range(&t_str, t_begin, t_end);
-    printf("%c\n", *(char*)iterator_get_pointer(&t_iterator));
+    printf("%c\n", *(char*)iterator_get_pointer(t_iterator));
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
             basic_string_size(&t_str),
             basic_string_length(&t_str),
@@ -1472,9 +1472,9 @@ void test_basic_string(void)
     printf("------------------------------------\n");
     t_begin = basic_string_begin(&t_str);
     t_end = basic_string_end(&t_str);
-    iterator_next_n(&t_begin, 2);
+    t_begin = iterator_next_n(t_begin, 2);
     t_iterator = basic_string_erase_range(&t_str, t_begin, t_end);
-    printf("%d\n", iterator_equal(&t_iterator, basic_string_end(&t_str)));
+    printf("%d\n", iterator_equal(t_iterator, basic_string_end(&t_str)));
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
             basic_string_size(&t_str),
             basic_string_length(&t_str),
@@ -1493,7 +1493,7 @@ void test_basic_string(void)
     printf("------------------------------------\n");
     basic_string_append_cstr(&t_str, "Windows 7, Fedora 10, Mac OS X");
     basic_string_erase_substring(&t_str, 0, 2);
-    printf("%d\n", iterator_equal(&t_iterator, basic_string_end(&t_str)));
+    printf("%d\n", iterator_equal(t_iterator, basic_string_end(&t_str)));
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
             basic_string_size(&t_str),
             basic_string_length(&t_str),
@@ -1564,7 +1564,7 @@ void test_basic_string(void)
     basic_string_append_cstr(&t_str, "Windows 7, Fedora 10, Mac OS X");
     t_begin = basic_string_begin(&t_str);
     t_end = basic_string_end(&t_str);
-    iterator_next_n(&t_begin, 9);
+    t_begin = iterator_next_n(t_begin, 9);
     basic_string_replace_range(
         &t_str, t_begin, t_end, basic_string_begin(&t_str2), basic_string_end(&t_str2));
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
@@ -1585,8 +1585,8 @@ void test_basic_string(void)
     printf("------------------------------------\n");
     t_begin = basic_string_begin(&t_str);
     t_end = basic_string_begin(&t_str);
-    iterator_next_n(&t_begin, 3);
-    iterator_next_n(&t_end, 9);
+    t_begin = iterator_next_n(t_begin, 3);
+    t_end = iterator_next_n(t_end, 9);
     basic_string_range_replace_subcstr(
         &t_str, t_begin, t_end, "Redhat Linux 9.0", NPOS);
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
@@ -1607,7 +1607,7 @@ void test_basic_string(void)
     printf("------------------------------------\n");
     t_begin = basic_string_begin(&t_str);
     t_end = basic_string_end(&t_str);
-    iterator_next_n(&t_begin, 3);
+    t_begin = iterator_next_n(t_begin, 3);
     basic_string_range_replace_cstr(
         &t_str, t_begin, t_end, "IBM OS2");
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 
@@ -1648,8 +1648,8 @@ void test_basic_string(void)
     printf("------------------------------------\n");
     t_begin = basic_string_begin(&t_str);
     t_end = basic_string_end(&t_str);
-    iterator_next_n(&t_begin, 3);
-    iterator_prev_n(&t_end, 3);
+    t_begin = iterator_next_n(t_begin, 3);
+    t_end = iterator_prev_n(t_end, 3);
     basic_string_range_replace(
         &t_str, t_begin, t_end, &t_str2);
     printf("str1 - size:%u, length:%u, max_size:%u, capacity:%u, empty:%d\n", 

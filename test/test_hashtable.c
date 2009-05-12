@@ -99,10 +99,10 @@ void test_hashtable(void)
         hash_set_insert(&t_hs, 55);
 
         for(t_i = hash_set_begin(&t_hs);
-            !iterator_equal(&t_i, hash_set_end(&t_hs));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, hash_set_end(&t_hs));
+            t_i = iterator_next(t_i))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -111,10 +111,10 @@ void test_hashtable(void)
             hash_set_insert(&t_hs, i);
         }
         for(t_i = hash_set_begin(&t_hs);
-            !iterator_equal(&t_i, hash_set_end(&t_hs));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, hash_set_end(&t_hs));
+            t_i = iterator_next(t_i))
         {
-            printf("%d ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 

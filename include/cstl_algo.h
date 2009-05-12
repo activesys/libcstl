@@ -54,10 +54,10 @@ extern "C" {
         iterator_t t_end = (t_last);\
         assert(_tools_valid_iterator_range(t_begin, t_end, _FORWARD_ITERATOR));\
         t_begin = algo_find(t_begin, t_end, (old_elem));\
-        while(!iterator_equal(&t_begin, t_end))\
+        while(!iterator_equal(t_begin, t_end))\
         {\
             _algo_replace_once(t_begin, (new_elem));\
-            iterator_next(&t_begin);\
+            t_begin = iterator_next(t_begin);\
             t_begin = algo_find(t_begin, t_end, (old_elem));\
         }\
     }while(false)
@@ -71,19 +71,19 @@ extern "C" {
         assert(_tools_valid_iterator_range(t_begin, t_end, _INPUT_ITERATOR));\
         assert(_iterator_limit_type(t_copy, _OUTPUT_ITERATOR));\
         assert(_tools_same_elem_type(t_begin, t_copy));\
-        for(; !iterator_equal(&t_begin, t_end); iterator_next(&t_begin))\
+        for(; !iterator_equal(t_begin, t_end); t_begin = iterator_next(t_begin))\
         {\
             t_tmp = algo_find(t_begin, t_end, (old_elem));\
-            if(iterator_equal(&t_tmp, t_begin))\
+            if(iterator_equal(t_tmp, t_begin))\
             {\
                 _algo_replace_once(t_copy, (new_elem));\
             }\
             else\
             {\
                 /* delete element */\
-                iterator_set_value(&t_copy, iterator_get_pointer(&t_begin));\
+                iterator_set_value(t_copy, iterator_get_pointer(t_begin));\
             }\
-            iterator_next(&t_copy);\
+            t_copy = iterator_next(t_copy);\
         }\
     }while(false)
 #define algo_replace_if(t_first, t_last, t_unary_op, elem)\

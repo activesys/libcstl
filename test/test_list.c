@@ -71,10 +71,10 @@ void test_list(void)
         }
 
         for(t_i = list_begin(&t_l);
-            !iterator_equal(&t_i, list_end(&t_l));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, list_end(&t_l));
+            t_i = iterator_next(t_i))
         {
-            printf("%c, ", *(char*)iterator_get_pointer(&t_i));
+            printf("%c, ", *(char*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -126,13 +126,13 @@ void test_list(void)
         }
 
         t_i = list_begin(&t_l);
-        printf("%d\n", *(int*)iterator_get_pointer(&t_i));
+        printf("%d\n", *(int*)iterator_get_pointer(t_i));
 
-        iterator_advance(&t_i, 3);
-        printf("%d\n", *(int*)iterator_get_pointer(&t_i));
+        t_i = iterator_advance(t_i, 3);
+        printf("%d\n", *(int*)iterator_get_pointer(t_i));
 
-        iterator_advance(&t_i, -1);
-        printf("%d\n", *(int*)iterator_get_pointer(&t_i));
+        t_i = iterator_advance(t_i, -1);
+        printf("%d\n", *(int*)iterator_get_pointer(t_i));
 
         list_destroy(&t_l);
     }

@@ -76,13 +76,13 @@ void test_vector(void)
         vector_push_back(&t_v, t_p3);
 
         for(t_i = vector_begin(&t_v);
-            !iterator_equal(&t_i, vector_end(&t_v));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, vector_end(&t_v));
+            t_i = iterator_next(t_i))
         {
             printf("<%d, %d>\n",
-                *(int*)((pair_t*)iterator_get_pointer(&t_i))->first,
-                *(int*)((pair_t*)iterator_get_pointer(&t_i))->second);
-            pair_destroy((pair_t*)iterator_get_pointer(&t_i));
+                *(int*)((pair_t*)iterator_get_pointer(t_i))->first,
+                *(int*)((pair_t*)iterator_get_pointer(t_i))->second);
+            pair_destroy((pair_t*)iterator_get_pointer(t_i));
         }
         vector_destroy(&t_v);
     }
@@ -158,31 +158,31 @@ void test_vector(void)
         }
         t_i = vector_end(&t_v);
         printf("number/distance: %d, %d\n",
-            iterator_minus(&t_i, vector_begin(&t_v)),
+            iterator_minus(t_i, vector_begin(&t_v)),
             iterator_distance(vector_begin(&t_v), vector_end(&t_v)));
 
         for(t_i = vector_begin(&t_v);
-            iterator_less(&t_i, vector_end(&t_v));
-            iterator_next(&t_i))
+            iterator_less(t_i, vector_end(&t_v));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
         t_begin = vector_begin(&t_v);
         for(i = 0; i < (int)vector_size(&t_v); ++i)
         {
-            printf("%d, ", *(int*)iterator_at(&t_begin, i));
+            printf("%d, ", *(int*)iterator_at(t_begin, i));
         }
         printf("\n");
 
         t_last = vector_end(&t_v);
-        iterator_prev(&t_last);
+        t_last = iterator_prev(t_last);
         for(t_i = vector_begin(&t_v);
-            iterator_less(&t_i, t_last);
-            iterator_next_n(&t_i, 2))
+            iterator_less(t_i, t_last);
+            t_i = iterator_next_n(t_i, 2))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 

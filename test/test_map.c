@@ -67,10 +67,10 @@ void test_map(void)
         multimap_insert(&t_mm, &t_p);
 
         for(t_i = multimap_begin(&t_mm);
-            !iterator_equal(&t_i, multimap_end(&t_mm));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, multimap_end(&t_mm));
+            t_i = iterator_next(t_i))
         {
-            printf("%c", *(char*)((pair_t*)iterator_get_pointer(&t_i))->second);
+            printf("%c", *(char*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
         printf("\n");
 
@@ -88,12 +88,12 @@ void test_map(void)
         *(double*)map_at(&t_m, 'N') = 0.0;
 
         for(t_i = map_begin(&t_m);
-            !iterator_equal(&t_i, map_end(&t_m));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, map_end(&t_m));
+            t_i = iterator_next(t_i))
         {
             printf("key:%c, value:%f\n",
-                *(char*)((pair_t*)iterator_get_pointer(&t_i))->first,
-                *(double*)((pair_t*)iterator_get_pointer(&t_i))->second);
+                *(char*)((pair_t*)iterator_get_pointer(t_i))->first,
+                *(double*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
         printf("\n");
 
@@ -111,29 +111,29 @@ void test_map(void)
         *(double*)map_at(&t_m, 'S') = 842.20;
 
         for(t_i = map_begin(&t_m);
-            !iterator_equal(&t_i, map_end(&t_m));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, map_end(&t_m));
+            t_i = iterator_next(t_i))
         {
             printf("key:%c, value:%f\n",
-                *(char*)((pair_t*)iterator_get_pointer(&t_i))->first,
-                *(double*)((pair_t*)iterator_get_pointer(&t_i))->second);
+                *(char*)((pair_t*)iterator_get_pointer(t_i))->first,
+                *(double*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
         printf("\n");
 
         for(t_i = map_begin(&t_m);
-            !iterator_equal(&t_i, map_end(&t_m));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, map_end(&t_m));
+            t_i = iterator_next(t_i))
         {
-            *(double*)((pair_t*)iterator_get_pointer(&t_i))->second *= 2;
+            *(double*)((pair_t*)iterator_get_pointer(t_i))->second *= 2;
         }
 
         for(t_i = map_begin(&t_m);
-            !iterator_equal(&t_i, map_end(&t_m));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, map_end(&t_m));
+            t_i = iterator_next(t_i))
         {
             printf("key:%c, value:%f\n",
-                *(char*)((pair_t*)iterator_get_pointer(&t_i))->first,
-                *(double*)((pair_t*)iterator_get_pointer(&t_i))->second);
+                *(char*)((pair_t*)iterator_get_pointer(t_i))->first,
+                *(double*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
         printf("\n");
 
@@ -141,12 +141,12 @@ void test_map(void)
         map_erase(&t_m, 'V');
 
         for(t_i = map_begin(&t_m);
-            !iterator_equal(&t_i, map_end(&t_m));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, map_end(&t_m));
+            t_i = iterator_next(t_i))
         {
             printf("key:%c, value:%f\n",
-                *(char*)((pair_t*)iterator_get_pointer(&t_i))->first,
-                *(double*)((pair_t*)iterator_get_pointer(&t_i))->second);
+                *(char*)((pair_t*)iterator_get_pointer(t_i))->first,
+                *(double*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
         printf("\n");
 
@@ -180,30 +180,30 @@ void test_map(void)
         printf("priority    memory(m)\n");
         printf("------------------------\n");
         for(t_i = multimap_begin(&t_mm);
-            !iterator_equal(&t_i, multimap_end(&t_mm));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, multimap_end(&t_mm));
+            t_i = iterator_next(t_i))
         {
             printf("%8d    %f\n",
-                *(int*)((pair_t*)iterator_get_pointer(&t_i))->first,
-                *(double*)((pair_t*)iterator_get_pointer(&t_i))->second);
+                *(int*)((pair_t*)iterator_get_pointer(t_i))->first,
+                *(double*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
         printf("\n");
 
         printf("priority: 0\n");
         for(t_i = multimap_lower_bound(&t_mm, 0);
-            !iterator_equal(&t_i, multimap_upper_bound(&t_mm, 0));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, multimap_upper_bound(&t_mm, 0));
+            t_i = iterator_next(t_i))
         {
             printf("        %f\n",
-                *(double*)((pair_t*)iterator_get_pointer(&t_i))->second);
+                *(double*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
         printf("priority: 4\n");
         for(t_i = multimap_lower_bound(&t_mm, 4);
-            !iterator_equal(&t_i, multimap_upper_bound(&t_mm, 4));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, multimap_upper_bound(&t_mm, 4));
+            t_i = iterator_next(t_i))
         {
             printf("        %f\n",
-                *(double*)((pair_t*)iterator_get_pointer(&t_i))->second);
+                *(double*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
         printf("\n");
 
@@ -224,19 +224,19 @@ void test_map(void)
         *(int*)map_at(&t_m, 7) = 3;
 
         t_i = map_find(&t_m, 3);
-        if(!iterator_equal(&t_i, map_end(&t_m)))
+        if(!iterator_equal(t_i, map_end(&t_m)))
         {
             printf("%d : %d\n",
-                *(int*)((pair_t*)iterator_get_pointer(&t_i))->first,
-                *(int*)((pair_t*)iterator_get_pointer(&t_i))->second);
+                *(int*)((pair_t*)iterator_get_pointer(t_i))->first,
+                *(int*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
 
         t_i = algo_find_if(map_begin(&t_m), map_end(&t_m), _find_value);
-        if(!iterator_equal(&t_i, map_end(&t_m)))
+        if(!iterator_equal(t_i, map_end(&t_m)))
         {
             printf("%d : %d\n",
-                *(int*)((pair_t*)iterator_get_pointer(&t_i))->first,
-                *(int*)((pair_t*)iterator_get_pointer(&t_i))->second);
+                *(int*)((pair_t*)iterator_get_pointer(t_i))->first,
+                *(int*)((pair_t*)iterator_get_pointer(t_i))->second);
         }
 
         map_destroy(&t_m);

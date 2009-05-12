@@ -90,19 +90,19 @@ void test_algo(void)
         vector_push_back(&t_v, 3);
 
         t_i = algo_min_element(vector_begin(&t_v), vector_end(&t_v));
-        printf("min:%d\n", *(int*)iterator_get_pointer(&t_i));
+        printf("min:%d\n", *(int*)iterator_get_pointer(t_i));
         t_i = algo_max_element(vector_begin(&t_v), vector_end(&t_v));
-        printf("max:%d\n", *(int*)iterator_get_pointer(&t_i));
+        printf("max:%d\n", *(int*)iterator_get_pointer(t_i));
 
         algo_sort(vector_begin(&t_v), vector_end(&t_v));
         t_i = algo_find(vector_begin(&t_v), vector_end(&t_v), 3);
         algo_reverse(t_i, vector_end(&t_v));
 
         for(t_i = vector_begin(&t_v);
-            !iterator_equal(&t_i, vector_end(&t_v));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, vector_end(&t_v));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -128,11 +128,11 @@ void test_algo(void)
         t_i35 = algo_find(list_begin(&t_l), list_end(&t_l), 35);
 
         t_i = algo_max_element(t_i25, t_i35);
-        printf("max: %d\n", *(int*)iterator_get_pointer(&t_i));
+        printf("max: %d\n", *(int*)iterator_get_pointer(t_i));
 
-        iterator_next(&t_i35);
+        t_i35 = iterator_next(t_i35);
         t_i = algo_max_element(t_i25, t_i35);
-        printf("max: %d\n", *(int*)iterator_get_pointer(&t_i));
+        printf("max: %d\n", *(int*)iterator_get_pointer(t_i));
 
         list_destroy(&t_l);
     }
@@ -169,10 +169,10 @@ void test_algo(void)
 
         printf("pre:  ");
         for(t_i = list_begin(&t_l);
-            !iterator_equal(&t_i, list_end(&t_l));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, list_end(&t_l));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -180,10 +180,10 @@ void test_algo(void)
 
         printf("post: ");
         for(t_i = list_begin(&t_l);
-            !iterator_equal(&t_i, list_end(&t_l));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, list_end(&t_l));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -203,20 +203,20 @@ void test_algo(void)
         }
 
         for(t_i = list_begin(&t_l);
-            !iterator_equal(&t_i, list_end(&t_l));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, list_end(&t_l));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
         t_end = algo_remove(list_begin(&t_l), list_end(&t_l), 3);
 
         for(t_i = list_begin(&t_l);
-            !iterator_equal(&t_i, t_end);
-            iterator_next(&t_i))
+            !iterator_equal(t_i, t_end);
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -225,10 +225,10 @@ void test_algo(void)
         list_erase_range(&t_l, t_end, list_end(&t_l));
 
         for(t_i = list_begin(&t_l);
-            !iterator_equal(&t_i, list_end(&t_l));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, list_end(&t_l));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -246,20 +246,20 @@ void test_algo(void)
         }
 
         for(t_i = set_begin(&t_s);
-            !iterator_equal(&t_i, set_end(&t_s));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, set_end(&t_s));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
         printf("number of removed elements: %d\n", set_erase(&t_s, 3));
 
         for(t_i = set_begin(&t_s);
-            !iterator_equal(&t_i, set_end(&t_s));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, set_end(&t_s));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -278,29 +278,29 @@ void test_algo(void)
         }
 
         for(t_i = list_begin(&t_l);
-            !iterator_equal(&t_i, list_end(&t_l));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, list_end(&t_l));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
         list_erase_range(
             &t_l, algo_remove(list_begin(&t_l), list_end(&t_l), 3), list_end(&t_l));
         for(t_i = list_begin(&t_l);
-            !iterator_equal(&t_i, list_end(&t_l));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, list_end(&t_l));
+            t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
         list_remove(&t_l, 4);
         for(t_i = list_begin(&t_l);
-            !iterator_equal(&t_i, list_end(&t_l));
-            iterator_next(&t_i))
+            !iterator_equal(t_i, list_end(&t_l));
+             t_i = iterator_next(t_i))
         {
-            printf("%d, ", *(int*)iterator_get_pointer(&t_i));
+            printf("%d, ", *(int*)iterator_get_pointer(t_i));
         }
         printf("\n");
 
@@ -357,14 +357,14 @@ void test_algo(void)
         }
 
         t_i = algo_find_if(list_begin(&t_l), list_end(&t_l), _isprime);
-        if(iterator_equal(&t_i, list_end(&t_l)))
+        if(iterator_equal(t_i, list_end(&t_l)))
         {
             printf("no prime number found!\n");
         }
         else
         {
             printf("%d is first prime number found!\n",
-                *(int*)iterator_get_pointer(&t_i));
+                *(int*)iterator_get_pointer(t_i));
         }
 
         list_destroy(&t_l);
@@ -552,17 +552,17 @@ void test_algo(void)
         printf("\n");
 
         t_pos1 = algo_find(list_begin(&t_l), list_end(&t_l), 4);
-        if(!iterator_equal(&t_pos1, list_end(&t_l)))
+        if(!iterator_equal(t_pos1, list_end(&t_l)))
         {
-            iterator_next(&t_pos1);
+            t_pos1 = iterator_next(t_pos1);
             t_pos2 = algo_find(t_pos1, list_end(&t_l), 4);
         }
 
-        if(!iterator_equal(&t_pos1, list_end(&t_l)) &&
-           !iterator_equal(&t_pos2, list_end(&t_l)))
+        if(!iterator_equal(t_pos1, list_end(&t_l)) &&
+           !iterator_equal(t_pos2, list_end(&t_l)))
         {
-            iterator_prev(&t_pos1);
-            iterator_next(&t_pos2);
+            t_pos1 = iterator_prev(t_pos1);
+            t_pos2 = iterator_next(t_pos2);
             algo_for_each(t_pos1, t_pos2, _print);
             printf("\n");
         }
@@ -609,14 +609,14 @@ void test_algo(void)
         printf("\n");
 
         t_pos = algo_adjacent_find(vector_begin(&t_v), vector_end(&t_v));
-        if(!iterator_equal(&t_pos, vector_end(&t_v)))
+        if(!iterator_equal(t_pos, vector_end(&t_v)))
         {
             printf("first two elements with equal value have position %d\n",
                 iterator_distance(vector_begin(&t_v), t_pos) + 1);
         }
 
         t_pos = algo_adjacent_find_if(vector_begin(&t_v), vector_end(&t_v), _doubled);
-        if(!iterator_equal(&t_pos, vector_end(&t_v)))
+        if(!iterator_equal(t_pos, vector_end(&t_v)))
         {
             printf("first two elements with second value twice the first have pos. %d\n",
                 iterator_distance(vector_begin(&t_v), t_pos) + 1);
@@ -735,29 +735,29 @@ void test_algo(void)
         printf("\n");
 
         t_p = algo_mismatch(vector_begin(&t_v), vector_end(&t_v), list_begin(&t_l));
-        if(iterator_equal(t_p.first, vector_end(&t_v)))
+        if(iterator_equal(*(iterator_t*)t_p.first, vector_end(&t_v)))
         {
             printf("no mismatch!\n");
         }
         else
         {
             printf("first mismatch: %d and %d\n",
-                *(int*)iterator_get_pointer(t_p.first),
-                *(int*)iterator_get_pointer(t_p.second));
+                *(int*)iterator_get_pointer(*(iterator_t*)t_p.first),
+                *(int*)iterator_get_pointer(*(iterator_t*)t_p.second));
         }
         pair_destroy(&t_p);
 
         t_p = algo_mismatch_if(
             vector_begin(&t_v), vector_end(&t_v), list_begin(&t_l), fun_less_equal_int);
-        if(iterator_equal(t_p.first, vector_end(&t_v)))
+        if(iterator_equal(*(iterator_t*)t_p.first, vector_end(&t_v)))
         {
             printf("always less-or-equal\n");
         }
         else
         {
             printf("not less-or-equal: %d and %d\n",
-                *(int*)iterator_get_pointer(t_p.first),
-                *(int*)iterator_get_pointer(t_p.second));
+                *(int*)iterator_get_pointer(*(iterator_t*)t_p.first),
+                *(int*)iterator_get_pointer(*(iterator_t*)t_p.second));
         }
         pair_destroy(&t_p);
 
@@ -793,11 +793,11 @@ void test_algo(void)
 
         t_pos = algo_search(
             deque_begin(&t_dq), deque_end(&t_dq), list_begin(&t_l), list_end(&t_l));
-        while(!iterator_equal(&t_pos, deque_end(&t_dq)))
+        while(!iterator_equal(t_pos, deque_end(&t_dq)))
         {
             printf("sub find with element %d\n",
                 iterator_distance(deque_begin(&t_dq), t_pos) + 1);
-            iterator_next(&t_pos);
+            t_pos = iterator_next(t_pos);
             t_pos = algo_search(
                 t_pos, deque_end(&t_dq), list_begin(&t_l), list_end(&t_l));
         }
@@ -828,12 +828,12 @@ void test_algo(void)
             vector_begin(&t_v), vector_end(&t_v),
             deque_begin(&t_dq), deque_end(&t_dq),
             _check_even);
-        while(!iterator_equal(&t_pos, vector_end(&t_v)))
+        while(!iterator_equal(t_pos, vector_end(&t_v)))
         {
             printf("subrange found starting with element %d\n",
                 iterator_distance(vector_begin(&t_v), t_pos) + 1);
 
-            iterator_next(&t_pos);
+            t_pos = iterator_next(t_pos);
             t_pos = algo_search_if(
                 t_pos, vector_end(&t_v),
                 deque_begin(&t_dq), deque_end(&t_dq),
@@ -858,7 +858,7 @@ void test_algo(void)
         printf("\n");
 
         t_pos = algo_search_n(deque_begin(&t_dq), deque_end(&t_dq), 4, 3);
-        if(iterator_equal(&t_pos, deque_end(&t_dq)))
+        if(iterator_equal(t_pos, deque_end(&t_dq)))
         {
             printf("no four consecutive elements with value 3 found\n");
         }
@@ -870,7 +870,7 @@ void test_algo(void)
 
         t_pos = algo_search_n_if(
             deque_begin(&t_dq), deque_end(&t_dq), 4, 3, fun_great_int);
-        if(iterator_equal(&t_pos, deque_end(&t_dq)))
+        if(iterator_equal(t_pos, deque_end(&t_dq)))
         {
             printf("no four consecutive elements with value > 3 found\n");
         }
@@ -912,7 +912,7 @@ void test_algo(void)
         t_pos = algo_search_end(
             deque_begin(&t_dq), deque_end(&t_dq), list_begin(&t_l), list_end(&t_l));
         t_end = deque_end(&t_dq);
-        while(!iterator_equal(&t_pos, t_end))
+        while(!iterator_equal(t_pos, t_end))
         {
             printf("sub found starting with element %d\n",
                 iterator_distance(deque_begin(&t_dq), t_pos) + 1);
@@ -959,34 +959,34 @@ void test_algo(void)
 
         /* case 1 */
         t_first = vector_begin(&t_v1);
-        iterator_advance(&t_first, 2);
+        t_first = iterator_advance(t_first, 2);
         t_last = t_first;
-        iterator_advance(&t_last, 5);
+        t_last = iterator_advance(t_last, 5);
         t_result = vector_begin(&t_v1);
         algo_copy(t_first, t_last, t_result);
 
         t_first = list_begin(&t_l1);
-        iterator_advance(&t_first, 2);
+        t_first = iterator_advance(t_first, 2);
         t_last = t_first;
-        iterator_advance(&t_last, 5);
+        t_last = iterator_advance(t_last, 5);
         t_result = list_begin(&t_l1);
         algo_copy(t_first, t_last, t_result);
 
         /* case 2 */
         t_first = vector_begin(&t_v2);
-        iterator_advance(&t_first, 2);
+        t_first = iterator_advance(t_first, 2);
         t_last = t_first;
-        iterator_advance(&t_last, 5);
+        t_last = iterator_advance(t_last, 5);
         t_result = vector_begin(&t_v2);
-        iterator_advance(&t_result, 4);
+        t_result = iterator_advance(t_result, 4);
         algo_copy(t_first, t_last, t_result);
 
         t_first = list_begin(&t_l2);
-        iterator_advance(&t_first, 2);
+        t_first = iterator_advance(t_first, 2);
         t_last = t_first;
-        iterator_advance(&t_last, 5);
+        t_last = iterator_advance(t_last, 5);
         t_result = list_begin(&t_l2);
-        iterator_advance(&t_result, 4);
+        t_result = iterator_advance(t_result, 4);
         algo_copy(t_first, t_last, t_result);
 
         printf("after copy:\n");
@@ -1043,33 +1043,33 @@ void test_algo(void)
 
         /* case 1 */
         t_first = vector_begin(&t_v1);
-        iterator_advance(&t_first, 2);
+        t_first = iterator_advance(t_first, 2);
         t_last = t_first;
-        iterator_advance(&t_last, 5);
+        t_last = iterator_advance(t_last, 5);
         t_result = vector_begin(&t_v1);
-        iterator_advance(&t_result, 5);
+        t_result = iterator_advance(t_result, 5);
         algo_copy_backward(t_first, t_last, t_result);
 
         t_first = list_begin(&t_l1);
-        iterator_advance(&t_first, 2);
+        t_first = iterator_advance(t_first, 2);
         t_last = t_first;
-        iterator_advance(&t_last, 5);
+        t_last = iterator_advance(t_last, 5);
         t_result = list_begin(&t_l1);
-        iterator_advance(&t_result, 5);
+        t_result = iterator_advance(t_result, 5);
         algo_copy_backward(t_first, t_last, t_result);
 
         /* case 2 */
         t_first = vector_begin(&t_v2);
-        iterator_advance(&t_first, 2);
+        t_first = iterator_advance(t_first, 2);
         t_last = t_first;
-        iterator_advance(&t_last, 5);
+        t_last = iterator_advance(t_last, 5);
         t_result = vector_end(&t_v2);
         algo_copy_backward(t_first, t_last, t_result);
 
         t_first = list_begin(&t_l2);
-        iterator_advance(&t_first, 2);
+        t_first = iterator_advance(t_first, 2);
         t_last = t_first;
-        iterator_advance(&t_last, 5);
+        t_last = iterator_advance(t_last, 5);
         t_result = list_end(&t_l2);
         algo_copy_backward(t_first, t_last, t_result);
 
@@ -1261,7 +1261,7 @@ void test_algo(void)
         printf("\n");
 
         t_first = t_last = vector_begin(&t_v);
-        iterator_advance(&t_last, 5);
+        t_last = iterator_advance(t_last, 5);
         algo_fill(t_first, t_last, 2);
         algo_for_each(vector_begin(&t_v), vector_end(&t_v), _print);
         printf("\n");
@@ -1269,8 +1269,8 @@ void test_algo(void)
         algo_for_each(vector_begin(&t_v), vector_end(&t_v), _print);
         printf("\n");
 
-        iterator_advance(&t_first, 10);
-        iterator_advance(&t_last, 10);
+        t_first = iterator_advance(t_first, 10);
+        t_last = iterator_advance(t_last, 10);
         algo_generate(t_first, t_last, _fibonacci);
         algo_for_each(vector_begin(&t_v), vector_end(&t_v), _print);
         printf("\n");
@@ -1399,7 +1399,7 @@ void test_algo(void)
         printf("\n");
         t_first = vector_begin(&t_v);
         t_last = vector_end(&t_v);
-        iterator_next(&t_first), iterator_prev(&t_last);
+        t_first = iterator_next(t_first), t_last = iterator_prev(t_last);
         algo_reverse(t_first, t_last);
         printf("reverse subrange: ");
         algo_for_each(vector_begin(&t_v), vector_end(&t_v), _print);
@@ -1431,14 +1431,14 @@ void test_algo(void)
         printf("\n");
 
         t_pos = vector_begin(&t_v);
-        iterator_next(&t_pos);
+        t_pos = iterator_next(t_pos);
         algo_rotate(vector_begin(&t_v), t_pos, vector_end(&t_v));
         printf("one left:      ");
         algo_for_each(vector_begin(&t_v), vector_end(&t_v), _print);
         printf("\n");
 
         t_pos = vector_end(&t_v);
-        iterator_prev_n(&t_pos, 2);
+        t_pos = iterator_prev_n(t_pos, 2);
         algo_rotate(vector_begin(&t_v), t_pos, vector_end(&t_v));
         printf("two right:     ");
         algo_for_each(vector_begin(&t_v), vector_end(&t_v), _print);
@@ -1543,13 +1543,13 @@ void test_algo(void)
         printf("vector1: ");
         algo_for_each(vector_begin(&t_v1), vector_end(&t_v1), _print);
         printf("\n");
-        printf("first odd element: %d\n", *(int*)iterator_get_pointer(&t_pos));
+        printf("first odd element: %d\n", *(int*)iterator_get_pointer(t_pos));
 
         t_pos = algo_stable_partition(vector_begin(&t_v2), vector_end(&t_v2), _is_even);
         printf("vector2: ");
         algo_for_each(vector_begin(&t_v2), vector_end(&t_v2), _print);
         printf("\n");
-        printf("first odd element: %d\n", *(int*)iterator_get_pointer(&t_pos));
+        printf("first odd element: %d\n", *(int*)iterator_get_pointer(t_pos));
 
         vector_destroy(&t_v1);
         vector_destroy(&t_v2);
@@ -1716,7 +1716,7 @@ void test_algo(void)
         printf("\n");
 
         t_pos = deque_begin(&t_dq);
-        iterator_advance(&t_pos, 5);
+        t_pos = iterator_advance(t_pos, 5);
         algo_partial_sort(deque_begin(&t_dq), t_pos, deque_end(&t_dq));
         algo_for_each(deque_begin(&t_dq), deque_end(&t_dq), _print);
         printf("\n");
@@ -1866,7 +1866,7 @@ void test_algo(void)
 
         algo_sort(vector_begin(&t_v1), vector_end(&t_v1));
         t_pos = vector_begin(&t_v2);
-        iterator_advance(&t_pos, 5);
+        t_pos = iterator_advance(t_pos, 5);
         algo_nth_element(vector_begin(&t_v2), t_pos, vector_end(&t_v2));
 
         printf("vector1: ");
@@ -1878,7 +1878,7 @@ void test_algo(void)
 
         algo_sort_if(vector_begin(&t_v1), vector_end(&t_v1), fun_great_int);
         t_pos = vector_begin(&t_v2);
-        iterator_advance(&t_pos, 4);
+        t_pos = iterator_advance(t_pos, 4);
         algo_nth_element_if(
             vector_begin(&t_v2), t_pos, vector_end(&t_v2), fun_great_int);
 
@@ -2027,7 +2027,7 @@ void test_algo(void)
         printf("\n");
 
         t_pos = algo_find(list_begin(&t_l), list_end(&t_l), 7);
-        iterator_next(&t_pos);
+        t_pos = iterator_next(t_pos);
         algo_inplace_merge(list_begin(&t_l), t_pos, list_end(&t_l));
         algo_for_each(list_begin(&t_l), list_end(&t_l), _print);
         printf("\n");
@@ -2216,44 +2216,44 @@ void test_algo(void)
         printf("\n");
 
         t_min = algo_min(vector_begin(&t_v), list_begin(&t_l));
-        printf("minmum between two first: %d\n", *(int*)iterator_get_pointer(&t_min));
+        printf("minmum between two first: %d\n", *(int*)iterator_get_pointer(t_min));
         t_max = algo_max(vector_begin(&t_v), list_begin(&t_l));
-        printf("maxmum between two first: %d\n", *(int*)iterator_get_pointer(&t_max));
+        printf("maxmum between two first: %d\n", *(int*)iterator_get_pointer(t_max));
 
         t_min = algo_min_if(vector_begin(&t_v), list_begin(&t_l), _absless);
         printf("minmum of absolute value between two first: %d\n",
-            *(int*)iterator_get_pointer(&t_min));
+            *(int*)iterator_get_pointer(t_min));
         t_max = algo_max_if(vector_begin(&t_v), list_begin(&t_l), _absless);
         printf("maxmum of absolute value between two first: %d\n",
-            *(int*)iterator_get_pointer(&t_max));
+            *(int*)iterator_get_pointer(t_max));
 
         t_min = algo_min_element(vector_begin(&t_v), vector_end(&t_v));
         printf("minmum in vector: %d\n",
-            *(int*)iterator_get_pointer(&t_min));
+            *(int*)iterator_get_pointer(t_min));
         t_max = algo_max_element(vector_begin(&t_v), vector_end(&t_v));
         printf("maxmum in vector: %d\n",
-            *(int*)iterator_get_pointer(&t_max));
+            *(int*)iterator_get_pointer(t_max));
 
         t_min = algo_min_element(list_begin(&t_l), list_end(&t_l));
         printf("minmum in list: %d\n",
-            *(int*)iterator_get_pointer(&t_min));
+            *(int*)iterator_get_pointer(t_min));
         t_max = algo_max_element(list_begin(&t_l), list_end(&t_l));
         printf("maxmum in list: %d\n",
-            *(int*)iterator_get_pointer(&t_max));
+            *(int*)iterator_get_pointer(t_max));
 
         t_min = algo_min_element_if(vector_begin(&t_v), vector_end(&t_v), _absless);
         printf("minmum of absolute value in vector: %d\n",
-            *(int*)iterator_get_pointer(&t_min));
+            *(int*)iterator_get_pointer(t_min));
         t_max = algo_max_element_if(vector_begin(&t_v), vector_end(&t_v), _absless);
         printf("maxmum of absolute value in vector: %d\n",
-            *(int*)iterator_get_pointer(&t_max));
+            *(int*)iterator_get_pointer(t_max));
 
         t_min = algo_min_element_if(list_begin(&t_l), list_end(&t_l), _absless);
         printf("minmum of absolute value in list: %d\n",
-            *(int*)iterator_get_pointer(&t_min));
+            *(int*)iterator_get_pointer(t_min));
         t_max = algo_max_element_if(list_begin(&t_l), list_end(&t_l), _absless);
         printf("maxmum of absolute value in list: %d\n",
-            *(int*)iterator_get_pointer(&t_max));
+            *(int*)iterator_get_pointer(t_max));
 
         vector_destroy(&t_v);
         list_destroy(&t_l);
