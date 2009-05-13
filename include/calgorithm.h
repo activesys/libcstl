@@ -30,6 +30,7 @@ extern "C" {
 /** include section **/
 #include <assert.h>
 
+#include "cstl_alloc.h"
 #include "cstl_types.h"
 #include "citerator.h"
 #include "cutility.h"

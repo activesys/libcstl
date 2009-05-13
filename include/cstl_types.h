@@ -61,7 +61,6 @@ extern "C" {
 /* cstl type */
 #define _BOOL_TYPE                   "bool_t"
 
-#define _ELEM_TYPE_NAME_SIZE         32 /* the element type name size */
 
 /* cstl container type */
 #define _CSTL_LEFT_BRACKET           '<'
@@ -148,9 +147,57 @@ typedef int     bool_t;         /* declaration for bool type */
 typedef void (*unary_function_t)(const void*, void*);
 typedef void (*binary_function_t)(const void*, const void*, void*);
 
+/* 
+ * Type register hash table.
+ */
+/* type structure for all container. */
+#define _ELEM_TYPE_NAME_SIZE         32 /* the element type name size */
+#define _TYPE_NAME_SIZE              255
+typedef struct _tagtype
+{
+    size_t            _t_typesize;                        /* type size */
+    char              _sz_typename[_TYPE_NAME_SIZE+1];      /* type name */
+    binary_function_t _t_typecopy;                        /* type copy function */
+    binary_function_t _t_typecmp;                         /* type compare function */
+    unary_function_t  _t_typedestroy;                     /* type destroy function */
+}_type_t;
+
+/* type register node */
+typedef struct _tagtypenode
+{
+    char                 _sz_typename[_TYPE_NAME_SIZE+1];   /* type name */
+    struct _tagtypenode* _pt_next;                        /* next node */
+    _type_t*             _pt_type;                        /* the registered type */
+}_typenode_t;
+
+/* type register table */
+#define _TYPE_REGISTER_BUCKET_COUNT  97   /* register hash table bucket count */
+typedef struct _tagtyperegister
+{
+    bool_t               _t_isinit; /* is initializate for built in types */
+    _typenode_t*         _apt_bucket[_TYPE_REGISTER_BUCKET_COUNT]; /* hash table */
+    alloc_t              _t_allocator;
+}_typeregister_t;
+
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
+#define type_register(type, type_copy, type_cmp, type_destroy)\
+    _type_register(sizeof(type), #type, (type_copy), (type_cmp), (type_destroy))
+#define type_unregister(type)\
+    _type_unregister(sizeof(type), #type)
+#define type_duplicate(type1, type2)\
+    _type_duplicate(sizeof(type1), #type1, sizeof(type2), #type2)
+
+extern bool_t _type_register(
+    size_t t_typesize, const char* s_typename,
+    binary_function_t t_typecopy,
+    binary_function_t t_typecmp,
+    unary_function_t t_typedestroy);
+extern void _type_unregister(size_t t_typesize, const char* s_typename);
+extern bool_t _type_duplicate(
+    size_t t_typesize1, const char* s_typename1,
+    size_t t_typesize2, const char* s_typename2);
 /*
  * Unify the C built-in types.
  */

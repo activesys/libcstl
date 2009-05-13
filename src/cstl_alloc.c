@@ -27,9 +27,8 @@
 #include <string.h>
 #include <stdarg.h>
 
-#include "cstl_types.h"
-
 #include "cstl_alloc.h"
+#include "cstl_types.h"
 
 /** local constant declaration and local macro section **/
 

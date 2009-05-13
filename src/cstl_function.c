@@ -28,6 +28,7 @@
 #include <float.h>
 #include <time.h>
 
+#include "cstl_alloc.h"
 #include "cstl_types.h"
 #include "citerator.h"
 #include "cstl_tools.h"

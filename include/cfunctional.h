@@ -31,6 +31,7 @@ extern "C" {
 #include <assert.h>
 #include <string.h>
 
+#include "cstl_alloc.h"
 #include "cstl_types.h"
 
 #include "cstl_function.h"

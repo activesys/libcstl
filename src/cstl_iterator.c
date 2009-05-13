@@ -26,6 +26,7 @@
 #include <string.h>
 #include <stdarg.h>
 
+#include "cstl_alloc.h"
 #include "cstl_types.h"
 
 #include "cstl_iterator.h"
