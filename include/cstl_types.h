@@ -36,30 +36,64 @@ extern "C" {
 #define true    1
 
 /* c built-in type */
-#define _INT_TYPE                    "int"
-#define _SIGNED_INT_TYPE             "signed int"
-#define _SIGNED_TYPE                 "signed"
-#define _UNSIGNED_INT_TYPE           "unsigned int"
-#define _UNSIGNED_TYPE               "unsigned"
 #define _CHAR_TYPE                   "char"
 #define _SIGNED_CHAR_TYPE            "signed char"
+
 #define _UNSIGNED_CHAR_TYPE          "unsigned char"
-#define _FLOAT_TYPE                  "float"
-#define _DOUBLE_TYPE                 "double"
+
 #define _SIGNED_SHORT_INT_TYPE       "signed short int"
 #define _SIGNED_SHORT_TYPE           "signed short"
 #define _SHORT_INT_TYPE              "short int"
 #define _SHORT_TYPE                  "short"
+
 #define _UNSIGNED_SHORT_INT_TYPE     "unsigned short int"
 #define _UNSIGNED_SHORT_TYPE         "unsigned short"
+
+#define _INT_TYPE                    "int"
+#define _SIGNED_TYPE                 "signed"
+#define _SIGNED_INT_TYPE             "signed int"
+
+#define _UNSIGNED_INT_TYPE           "unsigned int"
+#define _UNSIGNED_TYPE               "unsigned"
+
 #define _LONG_TYPE                   "long"
 #define _LONG_INT_TYPE               "long int"
 #define _SIGNED_LONG_TYPE            "signed long"
 #define _SIGNED_LONG_INT_TYPE        "signed long int"
+
 #define _UNSIGNED_LONG_TYPE          "unsigned long"
 #define _UNSIGNED_LONG_INT_TYPE      "unsigned long int"
-/* cstl type */
+
+#define _FLOAT_TYPE                  "float"
+#define _DOUBLE_TYPE                 "double"
+#define _LONG_DOUBLE_TYPE            "long double"
+
+#define _C_STRING_TYPE               "char*"
+
 #define _BOOL_TYPE                   "bool_t"
+/* cstl type */
+#define _VECTOR_TYPE                 "vector_t"
+#define _LIST_TYPE                   "list_t"
+#define _SLIST_TYPE                  "slist_t"
+#define _DEQUE_TYPE                  "deque_t"
+#define _STACK_TYPE                  "stack_t"
+#define _QUEUE_TYPE                  "queue_t"
+#define _PRIORITY_QUEUE_TYPE         "priority_queue_t"
+#define _SET_TYPE                    "set_t"
+#define _MAP_TYPE                    "map_t"
+#define _MULTISET_TYPE               "multiset_t"
+#define _MULTIMAP_TYPE               "multimap_t"
+#define _HASH_SET_TYPE               "hash_set_t"
+#define _HASH_MAP_TYPE               "hash_map_t"
+#define _HASH_MULTISET_TYPE          "hash_multiset_t"
+#define _HASH_MULTIMAP_TYPE          "hash_multimap_t"
+#define _STRING_TYPE                 "string_t"
+#define _PAIR_TYPE                   "pair_t"
+
+/* structure type */
+#define _STRUCT_TYPE                 "struct"
+#define _UNION_TYPE                  "union"
+#define _ENUM_TYPE                   "enum"
 
 
 /* cstl container type */

@@ -57,7 +57,7 @@
  *                             +------------------------------+
  *                             | _t_typesize = ???            |
  *                             | _sz_typename = "abc_t"       |
- *                             | _t_typecopy = abc_copy       | "registed type abc_t"
+ *                             | _t_typecopy = abc_copy       | "registered type abc_t"
  *                             | _t_typecmp = abc_cmp         |
  *                             | _t_typedestroy = abc_destroy |
  *                             +------------------------------+
@@ -65,6 +65,10 @@
 static _typeregister_t _gt_typeregister = {false, {NULL}, {{NULL}, NULL, NULL, 0, 0, 0}};
 
 /** local data type declaration and local struct, union, enum section **/
+typedef enum _tagtypestley
+{
+    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_CSTL, _TYPE_STRUCT, _TYPE_USER_DEFINE
+}_typestyle_t;
 
 /** local function prototype section **/
 /* default compare function */
@@ -83,8 +87,10 @@ static int _cmp_double(const void* cpv_first, const void* cpv_second);
 static size_t _type_hash(size_t t_typesize, const char* s_typename);
 /* init the register and register c builtin type and cstl builtin type */
 static void _type_init(void);
-/* test the type is registed or not */
-static bool_t _type_is_registed(size_t t_typesize, const char* s_typename);
+/* test the type is registered or not */
+static bool_t _type_is_registered(size_t t_typesize, const char* s_typename);
+/* normalize the typename, test the typename is valid or not and get the type style */
+static _typestyle_t _type_get_style(const char* s_typename);
 
 /** exported global variable definition section **/
 
@@ -102,8 +108,9 @@ bool_t _type_register(
         _type_init();
     }
 
-    /* if the type is registed */
-    if(_type_is_registed(t_typesize, s_typename) || strlen(s_typename) > _TYPE_NAME_SIZE)
+    /* test the typename is valid */
+    /* if the type is registered */
+    if(_type_is_registered(t_typesize, s_typename) || strlen(s_typename) > _TYPE_NAME_SIZE)
     {
          return false;
     }
@@ -116,8 +123,8 @@ bool_t _type_register(
         _type_t* pt_type = (_type_t*)allocate(
             &_gt_typeregister._t_allocator, sizeof(_type_t*), 1);
 
-        memset(pt_node, 1, sizeof(_typenode_t));
-        memset(pt_type, 1, sizeof(_type_t));
+        memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
+        memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
 
         /* register the new type */
         strncpy(pt_node->_sz_typename, s_typename, _TYPE_NAME_SIZE);
@@ -146,7 +153,7 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
         return;
     }
 
-    /* get the registed type pointer */
+    /* get the registered type pointer */
     pt_node = _gt_typeregister._apt_bucket[_type_hash(t_typesize, s_typename)];
     while(pt_node != NULL)
     {
@@ -217,8 +224,8 @@ bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
     size_t t_typesize2, const char* s_typename2)
 {
-    bool_t t_registed1 = false;
-    bool_t t_registed2 = false;
+    bool_t t_registered1 = false;
+    bool_t t_registered2 = false;
 
     if(!_gt_typeregister._t_isinit)
     {
@@ -232,17 +239,17 @@ bool_t _type_duplicate(
         return false;
     }
 
-    /* test the type1 and type2 is registed or not */
-    t_registed1 = _type_is_registed(t_typesize1, s_typename1);
-    t_registed2 = _type_is_registed(t_typesize2, s_typename2);
+    /* test the type1 and type2 is registered or not */
+    t_registered1 = _type_is_registered(t_typesize1, s_typename1);
+    t_registered2 = _type_is_registered(t_typesize2, s_typename2);
 
-    /* type1 and type2 all not registed */
-    if(!t_registed1 && !t_registed2)
+    /* type1 and type2 all unregistered */
+    if(!t_registered1 && !t_registered2)
     {
         return false;
     }
-    /* type1 and type2 all registed */
-    else if(t_registed1 && t_registed2)
+    /* type1 and type2 all registered */
+    else if(t_registered1 && t_registered2)
     {
         _typenode_t* pt_node1 = NULL;
         _typenode_t* pt_node2 = NULL;
@@ -285,7 +292,7 @@ bool_t _type_duplicate(
         }
         assert(pt_node2 != NULL && pt_type2 != NULL);
 
-        /* is same registed type */
+        /* is same registered type */
         if(pt_type1 == pt_type2)
         {
             return true;
@@ -295,53 +302,53 @@ bool_t _type_duplicate(
             return false;
         }
     }
-    /* only one type is registed */
+    /* only one type is registered */
     else
     {
         size_t       t_typesize = t_typesize1;
         size_t       t_pos = 0;
-        char*        s_registedname = NULL;
+        char*        s_registeredname = NULL;
         char*        s_duplicatename = NULL;
-        _typenode_t* pt_registed = NULL;
+        _typenode_t* pt_registered = NULL;
         _typenode_t* pt_duplicate = NULL;
         _type_t*     pt_type = NULL;
 
-        /* type1 is registed and type2 is not registed */
-        if(t_registed1 && !t_registed2)
+        /* type1 is registered and type2 is unregistered */
+        if(t_registered1 && !t_registered2)
         {
-            s_registedname = (char*)s_typename1;
+            s_registeredname = (char*)s_typename1;
             s_duplicatename = (char*)s_typename2;
         }
-        /* type1 is not registed and type2 is registed */
+        /* type1 is unregistered and type2 is registered */
         else
         {
-            s_registedname = (char*)s_typename2;
+            s_registeredname = (char*)s_typename2;
             s_duplicatename = (char*)s_typename1;
         }
 
-        /* get the registed type pointer */
-        pt_registed = _gt_typeregister._apt_bucket[_type_hash(t_typesize, s_registedname)];
-        assert(pt_registed != NULL);
-        while(pt_registed != NULL)
+        /* get the registered type pointer */
+        pt_registered = _gt_typeregister._apt_bucket[_type_hash(t_typesize, s_registeredname)];
+        assert(pt_registered != NULL);
+        while(pt_registered != NULL)
         {
-            if(strncmp(pt_registed->_sz_typename, s_registedname, _TYPE_NAME_SIZE) == 0)
+            if(strncmp(pt_registered->_sz_typename, s_registeredname, _TYPE_NAME_SIZE) == 0)
             {
-                pt_type = pt_registed->_pt_type;
+                pt_type = pt_registered->_pt_type;
                 assert(pt_type != NULL);
                 assert(pt_type->_t_typesize == t_typesize);
                 break;
             }
             else
             {
-                pt_registed = pt_registed->_pt_next;
+                pt_registered = pt_registered->_pt_next;
             }
         }
-        assert(pt_registed != NULL && pt_type != NULL);
+        assert(pt_registered != NULL && pt_type != NULL);
 
-        /* malloc typenode for not registed type */
+        /* malloc typenode for unregistered type */
         pt_duplicate = (_typenode_t*)allocate(
             &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-        memset(pt_duplicate, 1, sizeof(_typenode_t));
+        memset(pt_duplicate->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
         strncpy(pt_duplicate->_sz_typename, s_duplicatename, _TYPE_NAME_SIZE);
 
         pt_duplicate->_pt_type = pt_type;
@@ -354,9 +361,9 @@ bool_t _type_duplicate(
     }
 }
 
-static bool_t _type_is_registed(size_t t_typesize, const char* s_typename)
+static bool_t _type_is_registered(size_t t_typesize, const char* s_typename)
 {
-    _type_t*     pt_registed = NULL;
+    _type_t*     pt_registered = NULL;
     _typenode_t* pt_node = NULL;
 
     if(strlen(s_typename) > _TYPE_NAME_SIZE)
@@ -364,7 +371,7 @@ static bool_t _type_is_registed(size_t t_typesize, const char* s_typename)
         return false;
     }
 
-    /* get the registed type pointer */
+    /* get the registered type pointer */
     pt_node = _gt_typeregister._apt_bucket[_type_hash(t_typesize, s_typename)];
     if(pt_node != NULL)
     {
@@ -372,9 +379,9 @@ static bool_t _type_is_registed(size_t t_typesize, const char* s_typename)
         {
             if(strncmp(s_typename, pt_node->_sz_typename, _TYPE_NAME_SIZE) == 0)
             {
-                pt_registed = pt_node->_pt_type;
-                assert(pt_registed != NULL);
-                assert(t_typesize == pt_registed->_t_typesize);
+                pt_registered = pt_node->_pt_type;
+                assert(pt_registered != NULL);
+                assert(t_typesize == pt_registered->_t_typesize);
                 break;
             }
             else
@@ -383,7 +390,7 @@ static bool_t _type_is_registed(size_t t_typesize, const char* s_typename)
             }
         }
 
-        if(pt_registed != NULL)
+        if(pt_registered != NULL)
         {
             assert(pt_node != NULL);
             return true;
@@ -415,8 +422,56 @@ static size_t _type_hash(size_t t_typesize, const char* s_typename)
     return t_namesum % _TYPE_REGISTER_BUCKET_COUNT;
 }
 
+static _typestyle_t _type_get_style(const char* s_typename)
+{
+    /* incomplete */
+    char sz_normalname[_TYPE_NAME_SIZE + 1];
+
+    if(strlen(s_typename) > _TYPE_NAME_SIZE)
+    {
+        return _TYPE_INVALID;
+    }
+
+    return _TYPE_INVALID;
+}
+
 static void _type_init(void)
 {
+    size_t       t_i = 0;
+    size_t       t_pos = 0;
+    _typenode_t* pt_node = NULL;
+    _type_t*     pt_type = NULL;
+
+    /* set register hash table */
+    _gt_typeregister._t_isinit = true;
+    for(t_i = 0; t_i < _TYPE_REGISTER_BUCKET_COUNT; ++t_i)
+    {
+        _gt_typeregister._apt_bucket[t_i] = NULL;
+    }
+    /* init allocator */
+    allocate_init(&_gt_typeregister._t_allocator);
+
+    /* 
+     * insert the c builtin type 
+     */
+    /* insert char */
+    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
+    assert(pt_type != NULL);
+    pt_type->_t_typesize = sizeof(char);
+    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
+    strncpy(pt_node->_sz_typename, _CHAR_TYPE, _TYPE_NAME_SIZE);
+    /* get copy cmp and destroy function */
+
+    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
+    assert(pt_node != NULL);
+    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
+    strncpy(pt_node->_sz_typename, _CHAR_TYPE, _TYPE_NAME_SIZE);
+    t_pos = _type_hash(sizeof(char), _CHAR_TYPE);
+    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
+    _gt_typeregister._apt_bucket[t_pos] = pt_node;
+
+    
+    /* insert the cstl type */
 }
 
 void _unify_types(size_t t_typesize, char* sz_typename)

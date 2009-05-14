@@ -41,6 +41,7 @@
 #include "test_heap.h"
 #include "test_set.h"
 #include "test_map.h"
+#include "test_type.h"
 /* #include "test.h" */
 
 /** local constant declaration and local macro section **/
@@ -77,6 +78,7 @@ int main(int argc, char* argv[])
     /*test_map();*/
     /*test_string(argc, argv);*/
     /* test_string_getline(); */
+    test_type();
 
     argc = 0;
     argv = NULL;
