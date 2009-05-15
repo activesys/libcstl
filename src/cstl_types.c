@@ -205,6 +205,126 @@ static void _type_less_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_destroy_cstr(
     const void* cpv_input, void* pv_output);
+/* cstl container */
+/* vector_t */
+static void _type_copy_vector(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_vector(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_vector(
+    const void* cpv_input, void* pv_output);
+/* list_t */
+static void _type_copy_list(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_list(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_list(
+    const void* cpv_input, void* pv_output);
+/* slist_t */
+static void _type_copy_slist(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_slist(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_slist(
+    const void* cpv_input, void* pv_output);
+/* deque_t */
+static void _type_copy_deque(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_deque(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_deque(
+    const void* cpv_input, void* pv_output);
+/* stack_t */
+static void _type_copy_stack(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_stack(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_stack(
+    const void* cpv_input, void* pv_output);
+/* queue_t */
+static void _type_copy_queue(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_queue(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_queue(
+    const void* cpv_input, void* pv_output);
+/* priority_queue_t */
+static void _type_copy_priority_queue(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_priority_queue(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_priority_queue(
+    const void* cpv_input, void* pv_output);
+/* set_t */
+static void _type_copy_set(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_set(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_set(
+    const void* cpv_input, void* pv_output);
+/* map_t */
+static void _type_copy_map(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_map(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_map(
+    const void* cpv_input, void* pv_output);
+/* multiset_t */
+static void _type_copy_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_multiset(
+    const void* cpv_input, void* pv_output);
+/* multimap_t */
+static void _type_copy_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_multimap(
+    const void* cpv_input, void* pv_output);
+/* hash_set_t */
+static void _type_copy_hash_set(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_hash_set(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_hash_set(
+    const void* cpv_input, void* pv_output);
+/* hash_map_t */
+static void _type_copy_hash_map(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_hash_map(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_hash_map(
+    const void* cpv_input, void* pv_output);
+/* hash_multiset_t */
+static void _type_copy_hash_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_hash_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_hash_multiset(
+    const void* cpv_input, void* pv_output);
+/* hash_multimap_t */
+static void _type_copy_hash_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_hash_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_hash_multimap(
+    const void* cpv_input, void* pv_output);
+/* pair_t */
+static void _type_copy_pair(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_pair(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_pair(
+    const void* cpv_input, void* pv_output);
+/* string_t */
+static void _type_copy_string(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_string(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_string(
+    const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -1257,6 +1377,227 @@ static void _type_destroy_cstr(
     string_destroy((string_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
+
+/* cstl container */
+/* vector_t */
+static void _type_copy_vector(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    vector_assign((vector_t*)cpv_first, (vector_t*)cpv_second);
+    *(bool_t*)pv_output = true;
+}
+static void _type_less_vector(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = vector_less((vector_t*)cpv_first, (vector_t*)cpv_second);
+}
+static void _type_destroy_vector(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    vector_destroy((vector_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
+/* list_t */
+static void _type_copy_list(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    list_assign((list_t*)cpv_first, (list_t*)cpv_second);
+    *(bool_t*)pv_output = true;
+}
+static void _type_less_list(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = list_less((vector_t*)cpv_first, (vector_t*)cpv_second);
+}
+static void _type_destroy_list(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    list_destroy((list_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
+/* slist_t */
+static void _type_copy_slist(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    slist_assign((slist_t*)cpv_first, (slist_t*)cpv_second);
+    *(bool_t*)pv_output = true;
+}
+static void _type_less_slist(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = slist_less((slist_t*)cpv_first, (slist_t*)cpv_second);
+}
+static void _type_destroy_slist(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    slist_destroy((slist_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
+/* deque_t */
+static void _type_copy_deque(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    deque_assign((deque_t*)cpv_first, (deque_t*)cpv_second);
+    *(bool_t*)pv_output = true;
+}
+static void _type_less_deque(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = deque_less((deque_t*)cpv_first, (deque_t*)cpv_second);
+}
+static void _type_destroy_deque(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    deque_destroy((deque_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
+/* stack_t */
+static void _type_copy_stack(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    stack_assign((stack_t*)cpv_first, (stack_t*)cpv_second);
+    *(bool_t*)pv_output = true;
+}
+static void _type_less_stack(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = stack_less((stack_t*)cpv_first, (stack_t*)cpv_second);
+}
+static void _type_destroy_stack(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    stack_destroy((stack_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
+/* queue_t */
+static void _type_copy_queue(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    queue_assign((queue_t*)cpv_first, (queue_t*)cpv_second);
+    *(bool_t*)pv_output = true;
+}
+static void _type_less_queue(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = queue_less((queue_t*)cpv_first, (queue_t*)cpv_second);
+}
+static void _type_destroy_queue(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    queue_destroy((queue_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
+/* priority_queue_t */
+static void _type_copy_priority_queue(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    priority_queue_assign((priority_queue_t*)cpv_first, (priority_queue_t*)cpv_second);
+    *(bool_t*)pv_output = true;
+}
+static void _type_less_priority_queue(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = vector_less(
+        &((priority_queue_t*)cpv_first)->_t_vector, 
+        &((priority_queue_t*)cpv_second)->_t_vector);
+}
+static void _type_destroy_priority_queue(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    priority_queue_destroy((priority_queue_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
+/* set_t */
+static void _type_copy_set(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_set(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_set(
+    const void* cpv_input, void* pv_output);
+/* map_t */
+static void _type_copy_map(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_map(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_map(
+    const void* cpv_input, void* pv_output);
+/* multiset_t */
+static void _type_copy_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_multiset(
+    const void* cpv_input, void* pv_output);
+/* multimap_t */
+static void _type_copy_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_multimap(
+    const void* cpv_input, void* pv_output);
+/* hash_set_t */
+static void _type_copy_hash_set(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_hash_set(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_hash_set(
+    const void* cpv_input, void* pv_output);
+/* hash_map_t */
+static void _type_copy_hash_map(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_hash_map(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_hash_map(
+    const void* cpv_input, void* pv_output);
+/* hash_multiset_t */
+static void _type_copy_hash_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_hash_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_hash_multiset(
+    const void* cpv_input, void* pv_output);
+/* hash_multimap_t */
+static void _type_copy_hash_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_hash_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_hash_multimap(
+    const void* cpv_input, void* pv_output);
+/* pair_t */
+static void _type_copy_pair(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_pair(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_pair(
+    const void* cpv_input, void* pv_output);
+/* string_t */
+static void _type_copy_string(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_string(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_string(
+    const void* cpv_input, void* pv_output);
 
 /************************** destroy in the future ******************************/
 void _unify_types(size_t t_typesize, char* sz_typename)
