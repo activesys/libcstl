@@ -190,9 +190,9 @@ typedef void (*binary_function_t)(const void*, const void*, void*);
 typedef struct _tagtype
 {
     size_t            _t_typesize;                        /* type size */
-    char              _sz_typename[_TYPE_NAME_SIZE+1];      /* type name */
+    char              _sz_typename[_TYPE_NAME_SIZE+1];    /* type name */
     binary_function_t _t_typecopy;                        /* type copy function */
-    binary_function_t _t_typecmp;                         /* type compare function */
+    binary_function_t _t_typeless;                        /* type less function */
     unary_function_t  _t_typedestroy;                     /* type destroy function */
 }_type_t;
 
@@ -216,8 +216,8 @@ typedef struct _tagtyperegister
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-#define type_register(type, type_copy, type_cmp, type_destroy)\
-    _type_register(sizeof(type), #type, (type_copy), (type_cmp), (type_destroy))
+#define type_register(type, type_copy, type_less, type_destroy)\
+    _type_register(sizeof(type), #type, (type_copy), (type_less), (type_destroy))
 #define type_unregister(type)\
     _type_unregister(sizeof(type), #type)
 #define type_duplicate(type1, type2)\
@@ -226,7 +226,7 @@ typedef struct _tagtyperegister
 extern bool_t _type_register(
     size_t t_typesize, const char* s_typename,
     binary_function_t t_typecopy,
-    binary_function_t t_typecmp,
+    binary_function_t t_typeless,
     unary_function_t t_typedestroy);
 extern void _type_unregister(size_t t_typesize, const char* s_typename);
 extern bool_t _type_duplicate(
@@ -252,6 +252,18 @@ extern void _get_builtin_type(const char* s_typename, char* s_builtin);
  * Get default compare function.
  */
 extern int (*_get_cmp_function(const char* s_typename))(const void*, const void*);
+
+/* default copy, less, and destroy function */
+/* node: the pv_output is used for the size of default type, 
+ * so invoke the copy, less, and destroy functions must be put the 
+ * type size into the function through pv_output, even if is not used.
+ */
+extern void _type_copy_default(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_less_default(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_destroy_default(
+    const void* cpv_input, void* pv_output);
 
 #ifdef __cplusplus
 }
