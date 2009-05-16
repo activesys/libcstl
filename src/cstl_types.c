@@ -44,6 +44,35 @@
 #include "cutility.h"
 
 /** local constant declaration and local macro section **/
+/* the pt_type, pt_node and t_pos must be defined before use those macro */
+#define _TYPE_REGISTER_BEGIN()\
+    _typenode_t* pt_node = NULL;\
+    _type_t*     pt_type = NULL;\
+    size_t       t_pos = 0
+#define _TYPE_REGISTER_TYPE(type, type_text, type_suffix)\
+    do{\
+        pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);\
+        assert(pt_type != NULL);\
+        pt_type->_t_typesize = sizeof(type);\
+        memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
+        strncpy(pt_node->_sz_typename, type_text, _TYPE_NAME_SIZE);\
+        pt_type->_t_typecopy = _type_copy_##type_suffix;\
+        pt_type->_t_typeless = _type_less_##type_suffix;\
+        pt_type->_t_typedestroy = _type_destroy_##type_suffix;\
+    }while(false)
+#define _TYPE_REGISTER_TYPE_NODE(type, type_text)\
+    do{\
+        pt_node = (_typenode_t*)allocate(\
+            &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);\
+        assert(pt_node != NULL);\
+        memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
+        strncpy(pt_node->_sz_typename, type_text, _TYPE_NAME_SIZE);\
+        t_pos = _type_hash(sizeof(type), type_text);\
+        pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];\
+        _gt_typeregister._apt_bucket[t_pos] = pt_node;\
+        pt_node->_pt_type = pt_type;\
+    }while(false)
+#define _TYPE_REGISTER_END()
 /*
  * _gt_typeregister
  * +--------------------------------------------------------------------+
@@ -710,407 +739,120 @@ static void _type_init(void)
 
 static void _type_register_c_builtin(void)
 {
-    _typenode_t* pt_node = NULL;
-    _type_t*     pt_type = NULL;
-    size_t       t_pos = 0;
+    _TYPE_REGISTER_BEGIN();
 
-    /* 
-     * register char type 
-     */
-    /* char type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(char);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _CHAR_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_char;
-    pt_type->_t_typeless = _type_less_char;
-    pt_type->_t_typedestroy = _type_destroy_char;
-    /* insert char node */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _CHAR_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(char), _CHAR_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert signed char node */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _SIGNED_CHAR_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(signed char), _SIGNED_CHAR_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
+    /* register char type */
+    _TYPE_REGISTER_TYPE(char, _CHAR_TYPE, char);
+    _TYPE_REGISTER_TYPE_NODE(char, _CHAR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed char, _SIGNED_CHAR_TYPE);
+    /* register unsigned char */
+    _TYPE_REGISTER_TYPE(unsigned char, _UNSIGNED_CHAR_TYPE, uchar);
+    _TYPE_REGISTER_TYPE_NODE(unsigned char, _UNSIGNED_CHAR_TYPE);
+    /* register short */
+    _TYPE_REGISTER_TYPE(short, _SHORT_TYPE, short);
+    _TYPE_REGISTER_TYPE_NODE(short, _SHORT_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(short int, _SHORT_INT_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed short, _SIGNED_SHORT_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed short int, _SIGNED_SHORT_INT_TYPE);
+    /* register unsigned short */
+    _TYPE_REGISTER_TYPE(unsigned short, _UNSIGNED_SHORT_TYPE, ushort);
+    _TYPE_REGISTER_TYPE_NODE(unsigned short, _UNSIGNED_SHORT_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(unsigned short int, _UNSIGNED_SHORT_INT_TYPE);
+    /* register int */
+    _TYPE_REGISTER_TYPE(int, _INT_TYPE, int);
+    _TYPE_REGISTER_TYPE_NODE(int, _INT_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed, _SIGNED_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed int, _SIGNED_INT_TYPE);
+    /* register unsigned int */
+    _TYPE_REGISTER_TYPE(unsigned int, _UNSIGNED_INT_TYPE, uint);
+    _TYPE_REGISTER_TYPE_NODE(unsigned int, _UNSIGNED_INT_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed, _SIGNED_TYPE);
+    /* register long */
+    _TYPE_REGISTER_TYPE(long, _LONG_TYPE, long);
+    _TYPE_REGISTER_TYPE_NODE(long, _LONG_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(long int, _LONG_INT_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed long, _SIGNED_LONG_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed long int, _SIGNED_LONG_INT_TYPE);
+    /* register unsigned long */
+    _TYPE_REGISTER_TYPE(unsigned long, _UNSIGNED_LONG_TYPE, ulong);
+    _TYPE_REGISTER_TYPE_NODE(unsigned long, _UNSIGNED_LONG_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(unsigned long int, _UNSIGNED_LONG_INT_TYPE);
+    /* register float */
+    _TYPE_REGISTER_TYPE(float, _FLOAT_TYPE, float);
+    _TYPE_REGISTER_TYPE_NODE(float, _FLOAT_TYPE);
+    /* register double */
+    _TYPE_REGISTER_TYPE(double, _DOUBLE_TYPE, double);
+    _TYPE_REGISTER_TYPE_NODE(double, _DOUBLE_TYPE);
+    /* register long double */
+    _TYPE_REGISTER_TYPE(long double, _LONG_DOUBLE_TYPE, long_double);
+    _TYPE_REGISTER_TYPE_NODE(long double, _LONG_DOUBLE_TYPE);
+    /* register bool_t */
+    _TYPE_REGISTER_TYPE(bool_t, _BOOL_TYPE, bool);
+    _TYPE_REGISTER_TYPE_NODE(bool_t, _BOOL_TYPE);
+     /* register char* */
+    _TYPE_REGISTER_TYPE(string_t, _C_STRING_TYPE, cstr);
+    _TYPE_REGISTER_TYPE_NODE(string_t, _C_STRING_TYPE);
 
-    /*
-     * register unsigned char
-     */
-    /* unsigned char type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(unsigned char);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _UNSIGNED_CHAR_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_uchar;
-    pt_type->_t_typeless = _type_less_uchar;
-    pt_type->_t_typedestroy = _type_destroy_uchar;
-    /* insert unsigned char */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _UNSIGNED_CHAR_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(unsigned char), _UNSIGNED_CHAR_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register short
-     */
-    /* short type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(short);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _SHORT_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_short;
-    pt_type->_t_typeless = _type_less_short;
-    pt_type->_t_typedestroy = _type_destroy_short;
-    /* insert short */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _SHORT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(short), _SHORT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert short int */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _SHORT_INT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(short int), _SHORT_INT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert signed short */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _SIGNED_SHORT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(signed short), _SIGNED_SHORT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert signed short int */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _SIGNED_SHORT_INT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(signed short int), _SIGNED_SHORT_INT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register unsigned short
-     */
-    /* unsigned short type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(unsigned short);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _UNSIGNED_SHORT_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_ushort;
-    pt_type->_t_typeless = _type_less_ushort;
-    pt_type->_t_typedestroy = _type_destroy_ushort;
-    /* insert unsigned short */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _UNSIGNED_SHORT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(unsigned short), _UNSIGNED_SHORT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert unsigned short int */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _UNSIGNED_SHORT_INT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(unsigned short int), _UNSIGNED_SHORT_INT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register int
-     */
-    /* int type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(int);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _INT_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_int;
-    pt_type->_t_typeless = _type_less_int;
-    pt_type->_t_typedestroy = _type_destroy_int;
-    /* insert int */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _INT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(int), _INT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert signed */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _SIGNED_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(signed), _SIGNED_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert signed int */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _SIGNED_INT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(signed int), _SIGNED_INT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /* 
-     * register unsigned int
-     */
-    /* unsigned int type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(unsigned int);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _UNSIGNED_INT_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_uint;
-    pt_type->_t_typeless = _type_less_uint;
-    pt_type->_t_typedestroy = _type_destroy_uint;
-    /* insert unsigned int */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _UNSIGNED_INT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(unsigned int), _UNSIGNED_INT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert unsigned */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _UNSIGNED_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(unsigned), _UNSIGNED_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register long
-     */
-    /* long type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(long);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _LONG_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_long;
-    pt_type->_t_typeless = _type_less_long;
-    pt_type->_t_typedestroy = _type_destroy_long;
-    /* insert long */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _LONG_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(long), _LONG_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert long int */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _LONG_INT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(long int), _LONG_INT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert signed long */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _SIGNED_LONG_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(signed long), _SIGNED_LONG_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert signed long int */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _SIGNED_LONG_INT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(signed long int), _SIGNED_LONG_INT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register unsigned long
-     */
-    /* unsigned long type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(unsigned long);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _UNSIGNED_LONG_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_ulong;
-    pt_type->_t_typeless = _type_less_ulong;
-    pt_type->_t_typedestroy = _type_destroy_ulong;
-    /* insert unsigned long */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _UNSIGNED_LONG_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(unsigned long), _UNSIGNED_LONG_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-    /* insert unsigned long int */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _UNSIGNED_LONG_INT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(unsigned long int), _UNSIGNED_LONG_INT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register float
-     */
-    /* float type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(float);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _FLOAT_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_float;
-    pt_type->_t_typeless = _type_less_float;
-    pt_type->_t_typedestroy = _type_destroy_float;
-    /* insert float */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _FLOAT_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(float), _FLOAT_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register double
-     */
-    /* double type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(double);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _DOUBLE_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_double;
-    pt_type->_t_typeless = _type_less_double;
-    pt_type->_t_typedestroy = _type_destroy_double;
-    /* insert double */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _DOUBLE_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(double), _DOUBLE_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register long double
-     */
-    /* long double type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(long double);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _LONG_DOUBLE_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_long_double;
-    pt_type->_t_typeless = _type_less_long_double;
-    pt_type->_t_typedestroy = _type_destroy_long_double;
-    /* insert long double */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _LONG_DOUBLE_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(long double), _LONG_DOUBLE_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register bool_t
-     */
-    /* bool_t type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(bool_t);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _BOOL_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_bool;
-    pt_type->_t_typeless = _type_less_bool;
-    pt_type->_t_typedestroy = _type_destroy_bool;
-    /* insert bool_t */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _BOOL_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(bool_t), _BOOL_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
-
-    /*
-     * register char*
-     */
-    /* char* type node */
-    pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);
-    assert(pt_type != NULL);
-    pt_type->_t_typesize = sizeof(string_t);
-    memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_type->_sz_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE);
-    pt_type->_t_typecopy = _type_copy_cstr;
-    pt_type->_t_typeless = _type_less_cstr;
-    pt_type->_t_typedestroy = _type_destroy_cstr;
-    /* insert char* */
-    pt_node = (_typenode_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-    assert(pt_node != NULL);
-    memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_node->_sz_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE);
-    t_pos = _type_hash(sizeof(string_t), _C_STRING_TYPE);
-    pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
-    _gt_typeregister._apt_bucket[t_pos] = pt_node;
-    pt_node->_pt_type = pt_type;
+    _TYPE_REGISTER_END();
 }
 
 static void _type_register_cstl_container(void)
 {
+    _TYPE_REGISTER_BEGIN();
+
+    /* register vector_t */
+    _TYPE_REGISTER_TYPE(vector_t, _VECTOR_TYPE, vector);
+    _TYPE_REGISTER_TYPE_NODE(vector_t, _VECTOR_TYPE);
+    /* register list_t */
+    _TYPE_REGISTER_TYPE(list_t, _LIST_TYPE, list);
+    _TYPE_REGISTER_TYPE_NODE(list_t, _LIST_TYPE);
+    /* register slist_t */
+    _TYPE_REGISTER_TYPE(slist_t, _SLIST_TYPE, slist);
+    _TYPE_REGISTER_TYPE_NODE(slist_t, _SLIST_TYPE);
+    /* register deque_t */
+    _TYPE_REGISTER_TYPE(deque_t, _DEQUE_TYPE, deque);
+    _TYPE_REGISTER_TYPE_NODE(deque_t, _DEQUE_TYPE);
+    /* register stack_t */
+    _TYPE_REGISTER_TYPE(stack_t, _STACK_TYPE, stack);
+    _TYPE_REGISTER_TYPE_NODE(stack_t, _STACK_TYPE);
+    /* register queue_t */
+    _TYPE_REGISTER_TYPE(queue_t, _QUEUE_TYPE, queue);
+    _TYPE_REGISTER_TYPE_NODE(queue_t, _QUEUE_TYPE);
+    /* register priority_queue_t */
+    _TYPE_REGISTER_TYPE(priority_queue_t, _PRIORITY_QUEUE_TYPE, priority_queue);
+    _TYPE_REGISTER_TYPE_NODE(priority_queue_t, _PRIORITY_QUEUE_TYPE);
+    /* register set_t */
+    _TYPE_REGISTER_TYPE(set_t, _SET_TYPE, set);
+    _TYPE_REGISTER_TYPE_NODE(set_t, _SET_TYPE);
+    /* register map_t */
+    _TYPE_REGISTER_TYPE(map_t, _MAP_TYPE, map);
+    _TYPE_REGISTER_TYPE_NODE(map_t, _MAP_TYPE);
+    /* register multiset_t */
+    _TYPE_REGISTER_TYPE(multiset_t, _MULTISET_TYPE, multiset);
+    _TYPE_REGISTER_TYPE_NODE(multiset_t, _MULTISET_TYPE);
+    /* register multimap_t */
+    _TYPE_REGISTER_TYPE(multimap_t, _MULTIMAP_TYPE, multimap);
+    _TYPE_REGISTER_TYPE_NODE(multimap_t, _MULTIMAP_TYPE);
+    /* register hash_set_t */
+    _TYPE_REGISTER_TYPE(hash_set_t, _HASH_SET_TYPE, hash_set);
+    _TYPE_REGISTER_TYPE_NODE(hash_set_t, _HASH_SET_TYPE);
+    /* register hash_map_t */
+    _TYPE_REGISTER_TYPE(hash_map_t, _HASH_MAP_TYPE, hash_map);
+    _TYPE_REGISTER_TYPE_NODE(hash_map_t, _HASH_MAP_TYPE);
+    /* register hash_multiset_t */
+    _TYPE_REGISTER_TYPE(hash_multiset_t, _HASH_MULTISET_TYPE, hash_multiset);
+    _TYPE_REGISTER_TYPE_NODE(hash_multiset_t, _HASH_MULTISET_TYPE);
+    /* register hash_multimap_t */
+    _TYPE_REGISTER_TYPE(hash_multimap_t, _HASH_MULTIMAP_TYPE, hash_multimap);
+    _TYPE_REGISTER_TYPE_NODE(hash_multimap_t, _HASH_MULTIMAP_TYPE);
+    /* register pair_t */
+    _TYPE_REGISTER_TYPE(pair_t, _PAIR_TYPE, pair);
+    _TYPE_REGISTER_TYPE_NODE(pair_t, _PAIR_TYPE);
+    /* register string_t */
+    _TYPE_REGISTER_TYPE(string_t, _STRING_TYPE, string);
+    _TYPE_REGISTER_TYPE_NODE(string_t, _STRING_TYPE);
+
+    _TYPE_REGISTER_END();
 }
 
 /*
