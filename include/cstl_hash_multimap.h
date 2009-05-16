@@ -135,6 +135,9 @@ extern bool_t hash_multimap_equal(
 extern bool_t hash_multimap_not_equal(
     const hash_multimap_t* cpt_hash_multimapfirst, 
     const hash_multimap_t* cpt_hash_multimapsecond);
+extern bool_t hash_multimap_less(
+    const hash_multimap_t* cpt_hash_multimapfirst, 
+    const hash_multimap_t* cpt_hash_multimapsecond);
 
 /*
  * Insert operation functions.

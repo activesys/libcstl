@@ -123,6 +123,8 @@ extern bool_t hash_map_equal(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
 extern bool_t hash_map_not_equal(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
+extern bool_t hash_map_less(
+    const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
 
 /*
  * Insert operation functions.

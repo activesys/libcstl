@@ -453,6 +453,14 @@ bool_t hash_multimap_not_equal(
     return !hash_multimap_equal(cpt_hash_multimapfirst, cpt_hash_multimapsecond);
 }
 
+bool_t hash_multimap_less(
+    const hash_multimap_t* cpt_hash_multimapfirst, 
+    const hash_multimap_t* cpt_hash_multimapsecond)
+{
+    /* add now relationship operator */
+    return true;
+}
+
 hash_multimap_iterator_t _hash_multimap_find(
     const hash_multimap_t* cpt_hash_multimap, ...)
 {

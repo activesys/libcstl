@@ -286,6 +286,13 @@ bool_t hash_set_not_equal(
         &cpt_hash_setfirst->_t_hashtable, &cpt_hash_setsecond->_t_hashtable);
 }
 
+bool_t hash_set_less(
+    const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
+{
+    /* add now relationship operator */
+    return true;
+}
+
 hash_set_iterator_t hash_set_begin(const hash_set_t* cpt_hash_set)
 {
     hash_set_iterator_t t_newiterator;

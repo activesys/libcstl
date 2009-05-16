@@ -299,6 +299,14 @@ bool_t hash_multiset_not_equal(
         &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
 }
 
+bool_t hash_multiset_less(
+    const hash_multiset_t* cpt_hash_multisetfirst,
+    const hash_multiset_t* cpt_hash_multisetsecond)
+{
+    /* add now relationship operator */
+    return true;
+}
+
 hash_multiset_iterator_t hash_multiset_begin(const hash_multiset_t* cpt_hash_multiset)
 {
     hash_multiset_iterator_t t_newiterator;

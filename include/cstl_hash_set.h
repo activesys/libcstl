@@ -113,6 +113,8 @@ extern bool_t hash_set_equal(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
 extern bool_t hash_set_not_equal(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
+extern bool_t hash_set_less(
+    const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
 
 /*
  * Iterator support.

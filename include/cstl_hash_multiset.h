@@ -118,6 +118,9 @@ extern bool_t hash_multiset_equal(
 extern bool_t hash_multiset_not_equal(
     const hash_multiset_t* cpt_hash_multisetfirst, 
     const hash_multiset_t* cpt_hash_multisetsecond);
+extern bool_t hash_multiset_less(
+    const hash_multiset_t* cpt_hash_multisetfirst,
+    const hash_multiset_t* cpt_hash_multisetsecond);
 
 /*
  * Iterator support.

@@ -1160,6 +1160,13 @@ bool_t _hashtable_not_equal(
     return !_hashtable_equal(cpt_hashtablefirst, cpt_hashtablesecond);
 }
 
+bool_t _hashtable_less(
+    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+{
+    /* now relationship operator */
+    return true;
+}
+
 void _hashtable_insert_equal_range(
     hashtable_t* pt_hashtable, hashtable_iterator_t t_begin, hashtable_iterator_t t_end)
 {

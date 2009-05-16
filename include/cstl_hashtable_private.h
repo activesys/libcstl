@@ -142,6 +142,9 @@ extern bool_t _hashtable_equal(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
 extern bool_t _hashtable_not_equal(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
+/* add other relationship operator function */
+extern bool_t _hashtable_less(
+    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
 
 /*
  * Resize operation function.

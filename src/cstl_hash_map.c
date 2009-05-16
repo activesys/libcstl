@@ -431,6 +431,13 @@ bool_t hash_map_not_equal(
     return !hash_map_equal(cpt_hash_mapfirst, cpt_hash_mapsecond);
 }
 
+bool_t hash_map_less(
+    const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond)
+{
+    /* add now relationship operator */
+    return true;
+}
+
 hash_map_iterator_t _hash_map_find(const hash_map_t* cpt_hash_map, ...)
 {
     va_list val_elemlist;
