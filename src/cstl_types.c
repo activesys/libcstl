@@ -136,6 +136,14 @@ typedef enum _tagtypetoken
     _TOKEN_EMPTY
 }_typetoken_t;
 
+typedef struct _tagtypeanalysis
+{
+    char         _sz_typename[_TYPE_NAME_SIZE+1];
+    size_t       _t_index;
+    _typetoken_t _t_token;
+}_typeanalysis_t;
+_typeanalysis_t _gt_typeanalysis = {{'\0'}, 0, _TOKEN_INVALID};
+
 #define _TOKEN_MATCH(token) true
 
 #define _TOKEN_TEXT_CHAR           "char"
@@ -787,7 +795,6 @@ static _typestyle_t _type_get_style(const char* s_typename)
     size_t t_index = 0;
     size_t t_tokenlen = 0;
     _typestyle_t t_style = _TYPE_INVALID;
-    _typetoken_t t_token = _TOKEN_END_OF_INPUT;
 
     if(strlen(s_typename) > _TYPE_NAME_SIZE)
     {
@@ -798,8 +805,14 @@ static _typestyle_t _type_get_style(const char* s_typename)
     memset(s_tokentext, '\0', _TYPE_NAME_SIZE+1);
     memset(s_userdefine, '\0', _TYPE_NAME_SIZE+1);
 
+    /* initialize the type analysis */
+    memset(_gt_typeanalysis._sz_typename, '\0', _TYPE_NAME_SIZE+1);
+    _gt_typeanalysis._t_tokenindex = 0;
+    _gt_typeanalysis._t_token = _TOKEN_INVALID;
+    strncpy(_gt_typeanalysis._sz_typename, s_typename, _TYPE_NAME_SIZE);
+
     /* TYPE_DESCRIPT -> C_BUILTIN | USER_DEFINE | CSTL_CONTAINER */
-    t_token = _type_get_token(s_typename, s_tokentext, &t_tokenlen);
+    _type_get_token_skip_space(s_tokentext);
     switch(t_token)
     {
     /* TYPE_DESCRIPT -> C_BUILTIN */
@@ -814,7 +827,7 @@ static _typestyle_t _type_get_style(const char* s_typename)
     case _TOKEN_KEY_CHAR_POINTER:
     case _TOKEN_KEY_BOOL:
         strncat(s_formalname, s_tokentext, _TYPE_NAME_SIZE);
-        t_style = _type_parse_c_builtin(s_typename+t_tokenlen, t_token, s_formalname) ? 
+        t_style = _type_parse_c_builtin(s_formalname) ?
                   _TYPE_C_BUILTIN : _TYPE_INVALID;
         break;
     /* TYPE_DESCRIPT -> USER_DEFINE */
@@ -823,7 +836,7 @@ static _typestyle_t _type_get_style(const char* s_typename)
     case _TOKEN_KEY_UNION:
     case _TOKEN_IDENTIFIER:
         strncat(s_userdefine, s_tokentext, _TYPE_NAME_SIZE);
-        if(_type_parse_user_define(s_typename+t_tokenlen, t_token, s_userdefine))
+        if(_type_parse_user_define(s_userdefine))
         {
             if(_type_is_registered(s_userdefine))
             {
@@ -859,7 +872,7 @@ static _typestyle_t _type_get_style(const char* s_typename)
     case _TOKEN_KEY_PAIR:
     case _TOKEN_KEY_STRING:
         strncat(s_formalname, s_tokentext, _TYPE_NAME_SIZE);
-        t_style = _type_parse_cstl_container(s_typename+t_tokenlen, t_token, s_formalname) ?
+        t_style = _type_parse_cstl_container(s_formalname) ?
                   _TYPE_CSTL_CONTAINER : _TYPE_INVALID;
         break;
     default:
@@ -976,9 +989,39 @@ static bool_t _type_parse_cstl_container(
 static bool_t _type_parse_relation(
     const char* s_input, _typetoken_t t_token, char* s_formalname)
 {
+    size_t t_tokenlen = 0;
+    size_t t_leftbracklen = 0;
+    size_t t_commalen = 0;
+    size_t t_firstdescriptlen = 0;
+    size_t t_seconddescriptlen = 0;
+    char   s_tokentextindex[_TYPE_NAME_SIZE + 1];
+    char   s_firstdescript[_TYPE_NAME_SIZE + 1];
+    char   s_seconddescript[_TYPE_NAME_SIZE + 1];
+
+    memset(s_firstdescript, '\0', _TYPE_NAME_SIZE+1);
+    memset(s_seconddescript, '\0', _TYPE_NAME_SIZE+1);
+
     /* RELATION -> RELATION_NAME < TYPE_DESCRIPT, TYPE_DESCRIPT > */
     if(_type_parse_relation_name(s_input, t_token, s_formalname))
     {
+        t_token = _type_get_token(s_input, s_tokentext, &t_tokenlen);
+        t_leftbracklen = t_tokenlen;
+        strncat(s_formalname, s_tokentext, _TYPE_NAME_SIZE);
+        if(t_token != _TOKEN_SIGN_LEFT_BRACKET)
+        {
+            return false;
+        }
+        /* handle the first TYPE_DESCRIPT */
+        t_token = _type_get_token(s_input+t_leftbracklen, s_tokentext, &t_tokenlen);
+        strncat(s_firstdescript, s_tokentext, _TYPE_NAME_SIZE);
+        if(!_type_parse_type_descript(
+            s_input+t_leftbracklen+t_tokenlen, t_token, s_firstdescript))
+        {
+            return false;
+        }
+        strncat(s_formalname, s_firstdescript, _TYPE_NAME_SIZE);
+        t_firstdescriptlen = strlen(s_firstdescript);
+        /* if the last character is ',' or next token is ',' true */
     }
     else
     {
@@ -1034,7 +1077,7 @@ static bool_t _type_parse_sequence(
 {
     size_t t_leftbracklen = 0;
     size_t t_tokenlen = 0;
-    size_t t_typedestroylen = 0;                /* get the TYPE_DESCRIPT text len */
+    size_t t_typedescriptlen = 0;                /* get the TYPE_DESCRIPT text len */
     char   s_tokentext[_TYPE_NAME_SIZE + 1];
     char   s_typedescript[_TYPE_NAME_SIZE + 1]; /* get the TYPE_DESCRIPT text */
 
@@ -1059,7 +1102,7 @@ static bool_t _type_parse_sequence(
             return false;
         }
         strncat(s_formalname, s_typedescript, _TYPE_NAME_SIZE);
-        t_typedestroylen = strlen(s_typedescript);
+        t_typedescriptlen = strlen(s_typedescript);
         /* if the last char is '>' or next token is '>' true else false */
         if(s_formalname[strlen(s_formalname)-1] == '>')
         {
@@ -1068,7 +1111,7 @@ static bool_t _type_parse_sequence(
         else
         {
             t_token = _type_get_token(
-                s_input+t_leftbracklen+t_typedestroylen, s_tokentext, &t_tokenlen);
+                s_input+t_leftbracklen+t_typedescriptlen, s_tokentext, &t_tokenlen);
             strncat(s_formalname, s_tokentext, _TYPE_NAME_SIZE);
             return t_token == _TOKEN_SIGN_RIGHT_BRACKET ? true : false;
         }
@@ -1176,11 +1219,10 @@ static bool_t _type_parse_user_define_type(
     }
 }
 
-static bool_t _type_parse_c_builtin(
-    const char* s_input, _typetoken_t t_token, char* s_formalname)
+static bool_t _type_parse_c_builtin(char* s_formalname)
 {
     /* C_BUILTIN -> SIMPLE_BUILTIN | SIGNED_BUILTIN | UNSIGNED_BUILTIN */
-    switch(t_token)
+    switch(_gt_typeanalysis._t_token)
     {
     /* C_BUILTIN -> SIMPLE_BUILTIN */
     case _TOKEN_KEY_CHAR:
@@ -1191,15 +1233,15 @@ static bool_t _type_parse_c_builtin(
     case _TOKEN_KEY_DOUBLE:
     case _TOKEN_KEY_CHAR_POINTER:
     case _TOKEN_KEY_BOOL:
-        return _type_parse_simple_builtin(s_input, t_token, s_formalname);
+        return _type_parse_simple_builtin(s_formalname);
         break;
     /* C_BUILTIN -> SIGNED_BUILTIN */
     case _TOKEN_KEY_SIGNED:
-        return _type_parse_signed_builtin(s_input, t_token, s_formalname);
+        return _type_parse_signed_builtin(s_formalname);
         break;
     /* C_BUILTIN -> UNSIGNED_BUILTIN */
     case _TOKEN_KEY_UNSIGNED:
-        return _type_parse_unsigned_builtin(s_input, t_token, s_formalname);
+        return _type_parse_unsigned_builtin(s_formalname);
         break;
     default:
         return false;
@@ -1314,8 +1356,7 @@ static bool_t _type_parse_space_suffix(
     }
 }
 
-static bool_t _type_parse_simple_builtin(
-    const char* s_input, _typetoken_t t_token, char* s_formalname)
+static bool_t _type_parse_simple_builtin(char* s_formalname)
 {
     size_t t_tokenlen = 0;
     char   s_tokentext[_TYPE_NAME_SIZE + 1];
@@ -1324,7 +1365,7 @@ static bool_t _type_parse_simple_builtin(
      * SIMPLE_BUILTIN -> char | short COMMON_SUFFIX | int | long SIMPLE_LONG_SUFFIX |
      *                   float | double | char* | bool_t
      */
-    switch(t_token)
+    switch(_gt_typeanalysis._t_token)
     {
     /* SIMPLE_BUILTIN -> char */
     case _TOKEN_KEY_CHAR:
@@ -1333,7 +1374,7 @@ static bool_t _type_parse_simple_builtin(
     /* SIMPLE_BUILTIN -> short COMMON_SUFFIX */
     case _TOKEN_KEY_SHORT:
         _TOKEN_MATCH(_TOKEN_KEY_SHORT);
-        t_token = _type_get_token(s_input, s_tokentext, &t_tokenlen);
+        _type_get_token(s_tokentext);
         strncat(s_formalname, s_tokentext, _TYPE_NAME_SIZE);
         return _type_parse_common_suffix(s_input+t_tokenlen, t_token, s_formalname);
         break;
@@ -1444,17 +1485,24 @@ static bool_t _type_parse_simple_long_suffix_x(
     }
 }
 
-static _typetoken_t _type_get_token(
-    const char* s_input, char* s_tokentext, size_t* pt_tokenlen)
+static void _type_get_token_skip_space(char* s_tokentext)
+{
+    _type_get_token(s_tokentext);
+    if(_gt_typeanalysis._t_token == _TOKEN_SIGN_SPACE)
+    {
+        _type_get_token(s_tokentext);
+        assert(_gt_typeanalysis._t_token != _TOKEN_SIGN_SPACE);
+    }
+}
+
+static void _type_get_token(char* s_tokentext)
 {
     /*
      * this lexical analysis algorithm is associated with 
      * lexical state machine in cstl.bnf that is issured by activesys.cublog.cn
      */
-    size_t       t_inputindex = 0;
     size_t       t_tokentextindex = 0;
     _typelex_t   t_lexstate = _LEX_START;
-    _typetoken_t t_token = _TOKEN_END_OF_INPUT;
 
     memset(s_tokentext, '\0', _TYPE_NAME_SIZE+1);
 
@@ -1463,74 +1511,80 @@ static _typetoken_t _type_get_token(
         switch(t_lexstate)
         {
         case _LEX_START:
-            if(isalpha(s_input[t_inputindex]) || s_input[t_inputindex] == '_') 
+            if(isalpha(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index]) ||
+               _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '_') 
             {
-                s_tokentext[t_tokentextindex++] = s_input[t_inputindex++];
+                s_tokentext[t_tokentextindex++] =
+                _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index++];
                 t_lexstate = _LEX_IN_IDENTIFIER;
             }
-            else if(s_input[t_inputindex] == '<')
+            else if(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '<')
             {
-                s_tokentext[t_tokentextindex++] = s_input[t_inputindex++];
-                t_token = _TOKEN_SIGN_LEFT_BRACKET;
+                s_tokentext[t_tokentextindex++] =
+                _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index++];
+                _gt_typeanalysis._t_token = _TOKEN_SIGN_LEFT_BRACKET;
                 t_lexstate = _LEX_ACCEPT;
             }
-            else if(s_input[t_inputindex] == '>')
+            else if(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '>')
             {
-                s_tokentext[t_tokentextindex++] = s_input[t_inputindex++];
-                t_token = _TOKEN_SIGN_RIGHT_BRACKET;
+                s_tokentext[t_tokentextindex++] =
+                _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index++];
+                _gt_typeanalysis._t_token = _TOKEN_SIGN_RIGHT_BRACKET;
                 t_lexstate = _LEX_ACCEPT;
             }
-            else if(s_input[t_inputindex] == ',')
+            else if(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == ',')
             {
-                s_tokentext[t_tokentextindex++] = s_input[t_inputindex++];
-                t_token = _TOKEN_SIGN_COMMA;
+                s_tokentext[t_tokentextindex++] =
+                _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index++];
+                _gt_typeanalysis._t_token = _TOKEN_SIGN_COMMA;
                 t_lexstate = _LEX_ACCEPT;
             }
-            else if(isspace(s_input[t_inputindex]))
+            else if(isspace(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index]))
             {
                 s_tokentext[t_tokentextindex++] = ' ';
-                t_inputindex++;
+                _gt_typeanalysis._t_index++;
                 t_lexstate = _LEX_IN_SPACE;
             }
-            else if(s_input[t_inputindex] == '\0')
+            else if(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '\0')
             {
-                t_token =  _TOKEN_END_OF_INPUT;
+                _gt_typeanalysis._t_token =  _TOKEN_END_OF_INPUT;
                 t_lexstate = _LEX_ACCEPT;
             }
             else
             {
-                t_token =  _TOKEN_INVALID;
+                _gt_typeanalysis._t_token =  _TOKEN_INVALID;
                 t_lexstate = _LEX_ACCEPT;
             }
             break;
         case _LEX_IN_IDENTIFIER:
-            if(isalpha(s_input[t_inputindex]) ||
-               isdigit(s_input[t_inputindex]) ||
-               s_input[t_inputindex] == '_')
+            if(isalpha(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index]) ||
+               isdigit(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index]) ||
+               _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '_')
             {
-                s_tokentext[t_tokentextindex++] = s_input[t_inputindex++];
+                s_tokentext[t_tokentextindex++] =
+                _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index++];
                 t_lexstate = _LEX_IN_IDENTIFIER;
             }
             else
             {
-                t_token = _TOKEN_IDENTIFIER;
+                _gt_typeanalysis._t_token = _TOKEN_IDENTIFIER;
                 t_lexstate = _LEX_ACCEPT;
             }
             break;
         case _LEX_IN_SPACE:
-            if(isspace(s_input[t_inputindex]))
+            if(isspace(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index]))
             {
-                t_inputindex++;
+                _gt_typeanalysis._t_index++;
                 t_lexstate = _LEX_IN_SPACE;
             }
             else
             {
-                t_token = _TOKEN_SIGN_SPACE;
+                _gt_typeanalysis._t_token = _TOKEN_SIGN_SPACE;
                 t_lexstate = _LEX_ACCEPT;
             }
             break;
         default:
-            t_token = _TOKEN_INVALID;
+            _gt_typeanalysis._t_token = _TOKEN_INVALID;
             t_lexstate = _LEX_ACCEPT;
             assert(false);
             break;
@@ -1538,139 +1592,136 @@ static _typetoken_t _type_get_token(
     }
 
     /* if token is identifier then check is keyword */
-    if(t_token == _TOKEN_IDENTIFIER)
+    if(_gt_typeanalysis._t_token == _TOKEN_IDENTIFIER)
     {
         /* test c builtin */
         if(strncmp(s_tokentext, _TOKEN_TEXT_CHAR, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_CHAR;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_CHAR;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_SHORT, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_SHORT;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_SHORT;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_INT, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_INT;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_INT;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_LONG, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_LONG;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_LONG;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_DOUBLE, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_DOUBLE;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_DOUBLE;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_FLOAT, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_FLOAT;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_FLOAT;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_SIGNED, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_SIGNED;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_SIGNED;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_UNSIGNED, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_UNSIGNED;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_UNSIGNED;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_CHAR_POINTER, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_CHAR_POINTER;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_CHAR_POINTER;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_BOOL, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_BOOL;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_BOOL;
         }
         /* user define */
         else if(strncmp(s_tokentext, _TOKEN_TEXT_STRUCT, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_STRUCT;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_STRUCT;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_ENUM, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_ENUM;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_ENUM;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_UNION, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_UNION;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_UNION;
         }
         /* cstl containers */
         else if(strncmp(s_tokentext, _TOKEN_TEXT_VECTOR, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_VECTOR;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_VECTOR;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_LIST, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_LIST;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_LIST;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_SLIST, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_SLIST;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_SLIST;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_DEQUE, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_DEQUE;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_DEQUE;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_STACK, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_STACK;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_STACK;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_QUEUE, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_QUEUE;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_QUEUE;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_PRIORITY_QUEUE, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_PRIORITY_QUEUE;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_PRIORITY_QUEUE;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_SET, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_SET;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_SET;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_MAP, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_MAP;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_MAP;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_MULTISET, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_MULTISET;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_MULTISET;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_MULTIMAP, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_MULTIMAP;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_MULTIMAP;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_HASH_SET, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_HASH_SET;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_HASH_SET;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_HASH_MAP, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_HASH_MAP;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_HASH_MAP;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_HASH_MULTISET, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_HASH_MULTISET;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_HASH_MULTISET;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_HASH_MULTIMAP, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_HASH_MULTIMAP;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_HASH_MULTIMAP;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_PAIR, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_PAIR;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_PAIR;
         }
         else if(strncmp(s_tokentext, _TOKEN_TEXT_STRING, _TYPE_NAME_SIZE) == 0)
         {
-            t_token = _TOKEN_KEY_STRING;
+            _gt_typeanalysis._t_token = _TOKEN_KEY_STRING;
         }
         else
         {
-            t_token = _TOKEN_IDENTIFIER;
+            _gt_typeanalysis._t_token = _TOKEN_IDENTIFIER;
         }
     }
-
-    *pt_tokenlen = t_tokentextindex;
-    return t_token;
 }
 
 static void _type_init(void)
