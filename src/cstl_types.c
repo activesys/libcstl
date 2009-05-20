@@ -68,7 +68,7 @@
         assert(pt_node != NULL);\
         memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
         strncpy(pt_node->_sz_typename, type_text, _TYPE_NAME_SIZE);\
-        t_pos = _type_hash(sizeof(type), type_text);\
+        t_pos = _type_hash(type_text);\
         pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];\
         _gt_typeregister._apt_bucket[t_pos] = pt_node;\
         pt_node->_pt_type = pt_type;\
@@ -239,13 +239,13 @@ static int _cmp_double(const void* cpv_first, const void* cpv_second);
 /******************************* destroy in the future *****************************/
 
 /* register hash function */
-static size_t _type_hash(size_t t_typesize, const char* s_typename);
+static size_t _type_hash(const char* s_typename);
 /* init the register and register c builtin type and cstl builtin type */
 static void _type_init(void);
 /* test the type is registered or not */
-static bool_t _type_is_registered(size_t t_typesize, const char* s_typename);
+static bool_t _type_is_registered(const char* s_typename);
 /* normalize the typename, test the typename is valid or not and get the type style */
-static _typestyle_t _type_get_style(const char* s_typename);
+static _typestyle_t _type_get_style(const char* s_typename, char* s_formalname);
 /* register c builtin and cstl builtin */
 static void _type_register_c_builtin(void);
 static void _type_register_cstl_builtin(void);
@@ -483,6 +483,13 @@ static void _type_less_string(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_destroy_string(
     const void* cpv_input, void* pv_output);
+/* iterator_t */
+static void _type_copy_iterator(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_less_iterator(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _type_destroy_iterator(
+    const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -495,18 +502,19 @@ bool_t _type_register(
     binary_function_t t_typeless,
     unary_function_t t_typedestroy)
 {
+    char s_formalname[_TYPE_NAME_SIZE + 1];
+
     if(!_gt_typeregister._t_isinit)
     {
         _type_init();
     }
 
-    /* test the typename is valid */
-    /* if the type is registered */
-    if(_type_is_registered(t_typesize, s_typename) || strlen(s_typename) > _TYPE_NAME_SIZE)
+    /* the main aim is getting formal name */
+    _type_get_style(s_typename, s_formalname);
+    if(_type_is_registered(s_formalname) || strlen(s_typename) > _TYPE_NAME_SIZE)
     {
          return false;
     }
-    /* else */
     else
     {
         size_t t_pos = 0;
@@ -519,15 +527,16 @@ bool_t _type_register(
         memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
 
         /* register the new type */
-        strncpy(pt_node->_sz_typename, s_typename, _TYPE_NAME_SIZE);
-        strncpy(pt_type->_sz_typename, s_typename, _TYPE_NAME_SIZE);
+        strncpy(pt_node->_sz_typename, s_formalname, _TYPE_NAME_SIZE);
+        strncpy(pt_type->_sz_typename, s_formalname, _TYPE_NAME_SIZE);
         pt_type->_t_typesize = t_typesize;
-        pt_type->_t_typecopy = t_typecopy;
-        pt_type->_t_typeless = t_typeless;
-        pt_type->_t_typedestroy = t_typedestroy;
+        pt_type->_t_typecopy = t_typecopy != NULL ? t_typecopy : _type_copy_default;
+        pt_type->_t_typeless = t_typeless != NULL ? t_typeless : _type_less_default;
+        pt_type->_t_typedestroy = t_typedestroy != NULL ? 
+            t_typedestroy : _type_destroy_default;
 
         pt_node->_pt_type = pt_type;
-        t_pos = _type_hash(t_typesize, s_typename);
+        t_pos = _type_hash(s_formalname);
         pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];
         _gt_typeregister._apt_bucket[t_pos] = pt_node;
 
@@ -539,17 +548,22 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
 {
     _typenode_t* pt_node = NULL;
     _type_t*     pt_type = NULL;
+    size_t       t_avoidwarning = 0;
+    char         s_formalname[_TYPE_NAME_SIZE + 1];
 
+    t_avoidwarning = t_typesize;
     if(strlen(s_typename) > _TYPE_NAME_SIZE)
     {
         return;
     }
 
+    /* the main aim is getting formal name */
+    _type_get_style(s_typename, s_formalname);
     /* get the registered type pointer */
-    pt_node = _gt_typeregister._apt_bucket[_type_hash(t_typesize, s_typename)];
+    pt_node = _gt_typeregister._apt_bucket[_type_hash(s_formalname)];
     while(pt_node != NULL)
     {
-        if(strncmp(pt_node->_sz_typename, s_typename, _TYPE_NAME_SIZE) == 0)
+        if(strncmp(pt_node->_sz_typename, s_formalname, _TYPE_NAME_SIZE) == 0)
         {
             pt_type = pt_node->_pt_type;
             assert(pt_type != NULL);
@@ -618,6 +632,8 @@ bool_t _type_duplicate(
 {
     bool_t t_registered1 = false;
     bool_t t_registered2 = false;
+    char   s_formalname1[_TYPE_NAME_SIZE + 1];
+    char   s_formalname2[_TYPE_NAME_SIZE + 1];
 
     if(!_gt_typeregister._t_isinit)
     {
@@ -631,9 +647,11 @@ bool_t _type_duplicate(
         return false;
     }
 
+    _type_get_style(s_typename1, s_formalname1);
+    _type_get_style(s_typename2, s_formalname2);
     /* test the type1 and type2 is registered or not */
-    t_registered1 = _type_is_registered(t_typesize1, s_typename1);
-    t_registered2 = _type_is_registered(t_typesize2, s_typename2);
+    t_registered1 = _type_is_registered(s_formalname1);
+    t_registered2 = _type_is_registered(s_formalname2);
 
     /* type1 and type2 all unregistered */
     if(!t_registered1 && !t_registered2)
@@ -648,13 +666,13 @@ bool_t _type_duplicate(
         _type_t*     pt_type1 = NULL;
         _type_t*     pt_type2 = NULL;
 
-        pt_node1 = _gt_typeregister._apt_bucket[_type_hash(t_typesize1, s_typename1)];
-        pt_node2 = _gt_typeregister._apt_bucket[_type_hash(t_typesize2, s_typename2)]; 
+        pt_node1 = _gt_typeregister._apt_bucket[_type_hash(s_formalname1)];
+        pt_node2 = _gt_typeregister._apt_bucket[_type_hash(s_formalname2)]; 
         assert(pt_node1 != NULL && pt_node2 != NULL);
 
         while(pt_node1 != NULL)
         {
-            if(strncmp(pt_node1->_sz_typename, s_typename1, _TYPE_NAME_SIZE) == 0)
+            if(strncmp(pt_node1->_sz_typename, s_formalname1, _TYPE_NAME_SIZE) == 0)
             {
                 pt_type1 = pt_node1->_pt_type;
                 assert(pt_type1 != NULL);
@@ -670,7 +688,7 @@ bool_t _type_duplicate(
 
         while(pt_node2 != NULL)
         {
-            if(strncmp(pt_node2->_sz_typename, s_typename2, _TYPE_NAME_SIZE) == 0)
+            if(strncmp(pt_node2->_sz_typename, s_formalname2, _TYPE_NAME_SIZE) == 0)
             {
                 pt_type2 = pt_node2->_pt_type;
                 assert(pt_type2 != NULL);
@@ -697,7 +715,6 @@ bool_t _type_duplicate(
     /* only one type is registered */
     else
     {
-        size_t       t_typesize = t_typesize1;
         size_t       t_pos = 0;
         char*        s_registeredname = NULL;
         char*        s_duplicatename = NULL;
@@ -708,18 +725,18 @@ bool_t _type_duplicate(
         /* type1 is registered and type2 is unregistered */
         if(t_registered1 && !t_registered2)
         {
-            s_registeredname = (char*)s_typename1;
-            s_duplicatename = (char*)s_typename2;
+            s_registeredname = s_formalname1;
+            s_duplicatename = s_formalname2;
         }
         /* type1 is unregistered and type2 is registered */
         else
         {
-            s_registeredname = (char*)s_typename2;
-            s_duplicatename = (char*)s_typename1;
+            s_registeredname = s_formalname2;
+            s_duplicatename = s_formalname1;
         }
 
         /* get the registered type pointer */
-        pt_registered = _gt_typeregister._apt_bucket[_type_hash(t_typesize, s_registeredname)];
+        pt_registered = _gt_typeregister._apt_bucket[_type_hash(s_registeredname)];
         assert(pt_registered != NULL);
         while(pt_registered != NULL)
         {
@@ -745,7 +762,7 @@ bool_t _type_duplicate(
 
         pt_duplicate->_pt_type = pt_type;
 
-        t_pos = _type_hash(t_typesize, s_duplicatename);
+        t_pos = _type_hash(s_duplicatename);
         pt_duplicate->_pt_next = _gt_typeregister._apt_bucket[t_pos];
         _gt_typeregister._apt_bucket[t_pos] = pt_duplicate;
 
@@ -774,7 +791,7 @@ void _type_destroy_default(const void* cpv_input, void* pv_output)
     *(bool_t*)pv_output = true;
 }
 
-static bool_t _type_is_registered(size_t t_typesize, const char* s_typename)
+static bool_t _type_is_registered(const char* s_typename)
 {
     _type_t*     pt_registered = NULL;
     _typenode_t* pt_node = NULL;
@@ -785,7 +802,7 @@ static bool_t _type_is_registered(size_t t_typesize, const char* s_typename)
     }
 
     /* get the registered type pointer */
-    pt_node = _gt_typeregister._apt_bucket[_type_hash(t_typesize, s_typename)];
+    pt_node = _gt_typeregister._apt_bucket[_type_hash(s_typename)];
     if(pt_node != NULL)
     {
         while(pt_node != NULL)
@@ -794,7 +811,6 @@ static bool_t _type_is_registered(size_t t_typesize, const char* s_typename)
             {
                 pt_registered = pt_node->_pt_type;
                 assert(pt_registered != NULL);
-                assert(t_typesize == pt_registered->_t_typesize);
                 break;
             }
             else
@@ -820,13 +836,12 @@ static bool_t _type_is_registered(size_t t_typesize, const char* s_typename)
     }
 }
 
-static size_t _type_hash(size_t t_typesize, const char* s_typename)
+static size_t _type_hash(const char* s_typename)
 {
     size_t t_namesum = 0;
     size_t t_namelen = strlen(s_typename);
     size_t t_i = 0;
 
-    t_typesize = 0; /* avoid warning */
     for(t_i = 0; t_i < t_namelen; ++t_i)
     {
         t_namesum += (size_t)s_typename[t_i];
@@ -835,13 +850,12 @@ static size_t _type_hash(size_t t_typesize, const char* s_typename)
     return t_namesum % _TYPE_REGISTER_BUCKET_COUNT;
 }
 
-static _typestyle_t _type_get_style(const char* s_typename)
+static _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
 {
     /*
      * this parser algorithm is associated with BNF in cstl.bnf that is issured by
      * activesys.cublog.cn
      */
-    char   s_formalname[_TYPE_NAME_SIZE + 1];
     char   s_tokentext[_TYPE_NAME_SIZE + 1];
     char   s_userdefine[_TYPE_NAME_SIZE + 1];
     _typestyle_t t_style = _TYPE_INVALID;
@@ -888,13 +902,13 @@ static _typestyle_t _type_get_style(const char* s_typename)
         {
             if(_type_is_registered(s_userdefine))
             {
-                strncat(s_formalname, s_userdefine, _TYPE_NAME_SIZE);
                 t_style = _TYPE_USER_DEFINE;
             }
             else
             {
                 t_style = _TYPE_INVALID;
             }
+            strncat(s_formalname, s_userdefine, _TYPE_NAME_SIZE);
         }
         else
         {
@@ -2104,6 +2118,28 @@ static void _type_register_cstl_builtin(void)
     _TYPE_REGISTER_TYPE(string_t, _STRING_TYPE, string);
     _TYPE_REGISTER_TYPE_NODE(string_t, _STRING_TYPE);
 
+    /* register iterator_t */
+    _TYPE_REGISTER_TYPE(iterator_t, _ITERATOR_TYPE, iterator);
+    _TYPE_REGISTER_TYPE_NODE(iterator_t, _ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(vector_iterator_t, _VECTOR_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(list_iterator_t, _LIST_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(slist_iterator_t, _SLIST_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(deque_iterator_t, _DEQUE_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(set_iterator_t, _SET_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(map_iterator_t, _MAP_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(multiset_iterator_t, _MULTISET_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(multimap_iterator_t, _MULTIMAP_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(hash_set_iterator_t, _HASH_SET_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(hash_map_iterator_t, _HASH_MAP_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(hash_multiset_iterator_t, _HASH_MULTISET_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(hash_multimap_iterator_t, _HASH_MULTIMAP_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(string_iterator_t, _STRING_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(input_iterator_t, _INPUT_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(output_iterator_t, _OUTPUT_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(forward_iterator_t, _FORWARD_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(bidirectional_iterator_t, _BIDIRECTIONAL_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(random_access_iterator_t, _RANDOM_ACCESS_ITERATOR_TYPE);
+
     _TYPE_REGISTER_END();
 }
 
@@ -2733,6 +2769,26 @@ static void _type_destroy_string(
     assert(cpv_input != NULL && pv_output != NULL);
     string_destroy((string_t*)cpv_input);
     *(bool_t*)pv_output = true;
+}
+/* iterator_t */
+static void _type_copy_iterator(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    memcpy((iterator_t*)cpv_first, (iterator_t*)cpv_second, sizeof(iterator_t));
+    *(bool_t*)pv_output = true;
+}
+static void _type_less_iterator(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = memcmp((iterator_t*)cpv_first, (iterator_t*)cpv_second,
+        sizeof(iterator_t)) < 0 ? true : false;
+}
+static void _type_destroy_iterator(
+    const void* cpv_input, void* pv_output)
+{
+    _type_destroy_default(cpv_input, pv_output);
 }
 
 /************************** destroy in the future ******************************/

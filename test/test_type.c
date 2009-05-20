@@ -42,21 +42,6 @@ void test_type(void)
 {
     type_register(abc_t, NULL, NULL, NULL);
     type_register(struct _tagabc, NULL, NULL, NULL);
-    print_abc(abc_t);
-    print_abc(struct _tagabc);
-    print_abc(int);
-    print_abc(struct      
-
-
-
-
-
-
-
-
-            _tagabc               );
-    print_abc(signed                   long
-            int);
 }
 
 /** local function implementation section **/
