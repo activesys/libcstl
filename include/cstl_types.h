@@ -252,6 +252,7 @@ extern void _type_unregister(size_t t_typesize, const char* s_typename);
 extern bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
     size_t t_typesize2, const char* s_typename2);
+extern bool_t _type_get_type(_type_t* pv_type, const char* s_typename);
 /*
  * Unify the C built-in types.
  */

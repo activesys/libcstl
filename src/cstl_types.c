@@ -770,6 +770,54 @@ bool_t _type_duplicate(
     }
 }
 
+bool_t _type_get_type(_type_t* pt_type, const char* s_typename)
+{
+    char         s_registeredname[_TYPE_NAME_SIZE+1];
+    _type_t*     pt_registered = NULL;
+    _typenode_t* pt_node = NULL;
+    _typestyle_t t_style = _TYPE_INVALID;
+
+    assert(pt_type != NULL && s_typename != NULL);
+
+    memset(s_registeredname, '\0', _TYPE_NAME_SIZE+1);
+    t_style = _type_get_style(s_typename, pt_type->_sz_typename);
+    if(t_style == _TYPE_INVALID)
+    {
+        return false;
+    }
+    else if(t_style == _TYPE_C_BUILTIN || t_style == _TYPE_USER_DEFINE)
+    {
+        strncpy(s_registeredname, pt_type->_sz_typename, _TYPE_NAME_SIZE);
+    }
+    else /* get container name */
+    {
+        char* pc_leftbracket = strchr(pt_type->_sz_typename, '<');
+        assert(pc_leftbracket != NULL);
+        strncpy(s_registeredname, pt_type->_sz_typename, pc_leftbracket-pt_type->_sz_typename);
+    }
+
+    pt_node = _gt_typeregister._apt_bucket[_type_hash(s_registeredname)];
+    while(pt_node != NULL)
+    {
+        if(strncmp(pt_node->_sz_typename, s_registeredname, _TYPE_NAME_SIZE) == 0)
+        {
+            pt_registered = pt_node->_pt_type;
+            break;
+        }
+        else
+        {
+            pt_node = pt_node->_pt_next;
+        }
+    }
+
+    assert(pt_registered != NULL);
+    pt_type->_t_typesize = pt_registered->_t_typesize;
+    pt_type->_t_typecopy = pt_registered->_t_typecopy;
+    pt_type->_t_typeless = pt_registered->_t_typeless;
+    pt_type->_t_typedestroy = pt_registered->_t_typedestroy;
+    return true;
+}
+
 /* default copy, less, and destroy function */
 void _type_copy_default(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
