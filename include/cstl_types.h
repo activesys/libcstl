@@ -233,6 +233,12 @@ typedef struct _tagtyperegister
     alloc_t              _t_allocator;
 }_typeregister_t;
 
+typedef struct _tagtypecontainer
+{
+    char     _sz_typename[_TYPE_NAME_SIZE+1];
+    _type_t* _pt_type;
+}_typecontainer_t;
+
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
@@ -252,7 +258,8 @@ extern void _type_unregister(size_t t_typesize, const char* s_typename);
 extern bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
     size_t t_typesize2, const char* s_typename2);
-extern bool_t _type_get_type(_type_t* pv_type, const char* s_typename);
+extern void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename);
+extern bool_t _type_is_same(const char* s_typename1, const char* s_typename2);
 /*
  * Unify the C built-in types.
  */

@@ -152,7 +152,7 @@ typedef struct _tagtypeanalysis
     size_t       _t_index;
     _typetoken_t _t_token;
 }_typeanalysis_t;
-_typeanalysis_t _gt_typeanalysis = {{'\0'}, {'\0'}, 0, _TOKEN_INVALID};
+static _typeanalysis_t _gt_typeanalysis = {{'\0'}, {'\0'}, 0, _TOKEN_INVALID};
 
 #define _TOKEN_MATCH(s_tokentext, s_formalname)\
     do{\
@@ -243,7 +243,7 @@ static size_t _type_hash(const char* s_typename);
 /* init the register and register c builtin type and cstl builtin type */
 static void _type_init(void);
 /* test the type is registered or not */
-static bool_t _type_is_registered(const char* s_typename);
+static _type_t* _type_is_registered(const char* s_typename);
 /* normalize the typename, test the typename is valid or not and get the type style */
 static _typestyle_t _type_get_style(const char* s_typename, char* s_formalname);
 /* register c builtin and cstl builtin */
@@ -511,7 +511,7 @@ bool_t _type_register(
 
     /* the main aim is getting formal name */
     _type_get_style(s_typename, s_formalname);
-    if(_type_is_registered(s_formalname) || strlen(s_typename) > _TYPE_NAME_SIZE)
+    if(_type_is_registered(s_formalname) != NULL || strlen(s_typename) > _TYPE_NAME_SIZE)
     {
          return false;
     }
@@ -546,7 +546,6 @@ bool_t _type_register(
 
 void _type_unregister(size_t t_typesize, const char* s_typename)
 {
-    _typenode_t* pt_node = NULL;
     _type_t*     pt_type = NULL;
     size_t       t_avoidwarning = 0;
     char         s_formalname[_TYPE_NAME_SIZE + 1];
@@ -560,21 +559,7 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
     /* the main aim is getting formal name */
     _type_get_style(s_typename, s_formalname);
     /* get the registered type pointer */
-    pt_node = _gt_typeregister._apt_bucket[_type_hash(s_formalname)];
-    while(pt_node != NULL)
-    {
-        if(strncmp(pt_node->_sz_typename, s_formalname, _TYPE_NAME_SIZE) == 0)
-        {
-            pt_type = pt_node->_pt_type;
-            assert(pt_type != NULL);
-            assert(pt_type->_t_typesize == t_typesize);
-            break;
-        }
-        else
-        {
-            pt_node = pt_node->_pt_next;
-        }
-    }
+    pt_type = _type_is_registered(s_formalname);
 
     if(pt_type != NULL)
     {
@@ -630,10 +615,10 @@ bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
     size_t t_typesize2, const char* s_typename2)
 {
-    bool_t t_registered1 = false;
-    bool_t t_registered2 = false;
-    char   s_formalname1[_TYPE_NAME_SIZE + 1];
-    char   s_formalname2[_TYPE_NAME_SIZE + 1];
+    _type_t* pt_registered1 = NULL;
+    _type_t* pt_registered2 = false;
+    char     s_formalname1[_TYPE_NAME_SIZE + 1];
+    char     s_formalname2[_TYPE_NAME_SIZE + 1];
 
     if(!_gt_typeregister._t_isinit)
     {
@@ -650,109 +635,39 @@ bool_t _type_duplicate(
     _type_get_style(s_typename1, s_formalname1);
     _type_get_style(s_typename2, s_formalname2);
     /* test the type1 and type2 is registered or not */
-    t_registered1 = _type_is_registered(s_formalname1);
-    t_registered2 = _type_is_registered(s_formalname2);
+    pt_registered1 = _type_is_registered(s_formalname1);
+    pt_registered2 = _type_is_registered(s_formalname2);
 
     /* type1 and type2 all unregistered */
-    if(!t_registered1 && !t_registered2)
+    if(pt_registered1 == NULL && pt_registered2 == NULL)
     {
         return false;
     }
     /* type1 and type2 all registered */
-    else if(t_registered1 && t_registered2)
+    else if(pt_registered1 != NULL && pt_registered2 != NULL)
     {
-        _typenode_t* pt_node1 = NULL;
-        _typenode_t* pt_node2 = NULL;
-        _type_t*     pt_type1 = NULL;
-        _type_t*     pt_type2 = NULL;
-
-        pt_node1 = _gt_typeregister._apt_bucket[_type_hash(s_formalname1)];
-        pt_node2 = _gt_typeregister._apt_bucket[_type_hash(s_formalname2)]; 
-        assert(pt_node1 != NULL && pt_node2 != NULL);
-
-        while(pt_node1 != NULL)
-        {
-            if(strncmp(pt_node1->_sz_typename, s_formalname1, _TYPE_NAME_SIZE) == 0)
-            {
-                pt_type1 = pt_node1->_pt_type;
-                assert(pt_type1 != NULL);
-                assert(pt_type1->_t_typesize == t_typesize1);
-                break;
-            }
-            else
-            {
-                pt_node1 = pt_node1->_pt_next;
-            }
-        }
-        assert(pt_node1 != NULL && pt_type1 != NULL);
-
-        while(pt_node2 != NULL)
-        {
-            if(strncmp(pt_node2->_sz_typename, s_formalname2, _TYPE_NAME_SIZE) == 0)
-            {
-                pt_type2 = pt_node2->_pt_type;
-                assert(pt_type2 != NULL);
-                assert(pt_type2->_t_typesize == t_typesize2);
-                break;
-            }
-            else
-            {
-                pt_node2 = pt_node2->_pt_next;
-            }
-        }
-        assert(pt_node2 != NULL && pt_type2 != NULL);
-
-        /* is same registered type */
-        if(pt_type1 == pt_type2)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return pt_registered1 == pt_registered2 ? true : false;
     }
     /* only one type is registered */
     else
     {
         size_t       t_pos = 0;
-        char*        s_registeredname = NULL;
         char*        s_duplicatename = NULL;
-        _typenode_t* pt_registered = NULL;
         _typenode_t* pt_duplicate = NULL;
         _type_t*     pt_type = NULL;
 
         /* type1 is registered and type2 is unregistered */
-        if(t_registered1 && !t_registered2)
+        if(pt_registered1 != NULL && pt_registered2 == NULL)
         {
-            s_registeredname = s_formalname1;
+            pt_type = pt_registered1;
             s_duplicatename = s_formalname2;
         }
         /* type1 is unregistered and type2 is registered */
         else
         {
-            s_registeredname = s_formalname2;
+            pt_type = pt_registered2;
             s_duplicatename = s_formalname1;
         }
-
-        /* get the registered type pointer */
-        pt_registered = _gt_typeregister._apt_bucket[_type_hash(s_registeredname)];
-        assert(pt_registered != NULL);
-        while(pt_registered != NULL)
-        {
-            if(strncmp(pt_registered->_sz_typename, s_registeredname, _TYPE_NAME_SIZE) == 0)
-            {
-                pt_type = pt_registered->_pt_type;
-                assert(pt_type != NULL);
-                assert(pt_type->_t_typesize == t_typesize);
-                break;
-            }
-            else
-            {
-                pt_registered = pt_registered->_pt_next;
-            }
-        }
-        assert(pt_registered != NULL && pt_type != NULL);
 
         /* malloc typenode for unregistered type */
         pt_duplicate = (_typenode_t*)allocate(
@@ -770,51 +685,200 @@ bool_t _type_duplicate(
     }
 }
 
-bool_t _type_get_type(_type_t* pt_type, const char* s_typename)
+void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename)
 {
     char         s_registeredname[_TYPE_NAME_SIZE+1];
-    _type_t*     pt_registered = NULL;
-    _typenode_t* pt_node = NULL;
     _typestyle_t t_style = _TYPE_INVALID;
 
-    assert(pt_type != NULL && s_typename != NULL);
+    assert(pt_typecontainer != NULL && s_typename != NULL);
 
     memset(s_registeredname, '\0', _TYPE_NAME_SIZE+1);
-    t_style = _type_get_style(s_typename, pt_type->_sz_typename);
+    t_style = _type_get_style(s_typename, pt_typecontainer->_sz_typename);
     if(t_style == _TYPE_INVALID)
     {
-        return false;
+        pt_typecontainer->_pt_type = NULL;
     }
     else if(t_style == _TYPE_C_BUILTIN || t_style == _TYPE_USER_DEFINE)
     {
-        strncpy(s_registeredname, pt_type->_sz_typename, _TYPE_NAME_SIZE);
+        strncpy(s_registeredname, pt_typecontainer->_sz_typename, _TYPE_NAME_SIZE);
     }
     else /* get container name */
     {
-        char* pc_leftbracket = strchr(pt_type->_sz_typename, '<');
+        char* pc_leftbracket = strchr(pt_typecontainer->_sz_typename, '<');
         assert(pc_leftbracket != NULL);
-        strncpy(s_registeredname, pt_type->_sz_typename, pc_leftbracket-pt_type->_sz_typename);
+        strncpy(s_registeredname, pt_typecontainer->_sz_typename,
+                pc_leftbracket-pt_typecontainer->_sz_typename);
     }
 
-    pt_node = _gt_typeregister._apt_bucket[_type_hash(s_registeredname)];
-    while(pt_node != NULL)
-    {
-        if(strncmp(pt_node->_sz_typename, s_registeredname, _TYPE_NAME_SIZE) == 0)
+    pt_typecontainer->_pt_type = _type_is_registered(pt_typecontainer->_sz_typename);
+}
+
+bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
+{
+    char s_elemname1[_TYPE_NAME_SIZE+1];
+    char s_prefix1[_TYPE_NAME_SIZE+1];
+    char s_elemname2[_TYPE_NAME_SIZE+1];
+    char s_prefix2[_TYPE_NAME_SIZE+1];
+    char* pc_index1 = NULL;
+    char* pc_leftbracket1 = NULL;
+    char* pc_rightbracket1 = NULL;
+    char* pc_comma1 = NULL;
+    char* pc_index2 = NULL;
+    char* pc_leftbracket2 = NULL;
+    char* pc_rightbracket2 = NULL;
+    char* pc_comma2 = NULL;
+
+    memset(s_elemname1, '\0', _TYPE_NAME_SIZE+1);
+    memset(s_elemname2, '\0', _TYPE_NAME_SIZE+1);
+    memset(s_prefix1, '\0', _TYPE_NAME_SIZE+1);
+    memset(s_prefix2, '\0', _TYPE_NAME_SIZE+1);
+    strncpy(s_elemname1, s_typename1, _TYPE_NAME_SIZE);
+    strncpy(s_elemname2, s_typename2, _TYPE_NAME_SIZE);
+
+    do{
+        pc_leftbracket1 = strchr(s_elemname1, '<');
+        pc_comma1 = strchr(s_elemname1, ',');
+        pc_rightbracket1 = strchr(s_elemname1, '>');
+        pc_leftbracket2 = strchr(s_elemname2, '<');
+        pc_comma2 = strchr(s_elemname2, ',');
+        pc_rightbracket2 = strchr(s_elemname2, '>');
+
+        if(pc_leftbracket1 != NULL)
         {
-            pt_registered = pt_node->_pt_type;
-            break;
+            if(pc_comma1 != NULL)
+            {
+                if(pc_rightbracket1 != NULL)
+                {
+                    pc_index1 = pc_leftbracket1 - s_elemname1 < pc_comma1 - s_elemname1 ?
+                                pc_leftbracket1 - s_elemname1 < pc_rightbracket1 - s_elemname1 ?
+                                pc_leftbracket1 : pc_rightbracket1 :
+                                pc_comma1 - s_elemname1 < pc_rightbracket1 - s_elemname1 ?
+                                pc_comma1 : pc_rightbracket1;
+                }
+                else
+                {
+                    pc_index1 = pc_leftbracket1 - s_elemname1 < pc_comma1 - s_elemname1 ?
+                                pc_leftbracket1 : pc_comma1;
+                }
+            }
+            else
+            {
+                if(pc_rightbracket1 != NULL)
+                {
+                    pc_index1 = pc_leftbracket1 - s_elemname1 < pc_rightbracket1 - s_elemname1 ?
+                                pc_leftbracket1 : pc_rightbracket1;
+                }
+                else
+                {
+                    pc_index1 = pc_leftbracket1;
+                }
+            }
         }
         else
         {
-            pt_node = pt_node->_pt_next;
+            if(pc_comma1 != NULL)
+            {
+                if(pc_rightbracket1 != NULL)
+                {
+                    pc_index1 = pc_comma1 - s_elemname1 < pc_rightbracket1 - s_elemname1 ?
+                                pc_comma1 : pc_rightbracket1;
+                }
+                else
+                {
+                    pc_index1 = pc_comma1;
+                }
+            }
+            else
+            {
+                pc_index1 = pc_rightbracket1;
+            }
         }
-    }
 
-    assert(pt_registered != NULL);
-    pt_type->_t_typesize = pt_registered->_t_typesize;
-    pt_type->_t_typecopy = pt_registered->_t_typecopy;
-    pt_type->_t_typeless = pt_registered->_t_typeless;
-    pt_type->_t_typedestroy = pt_registered->_t_typedestroy;
+        if(pc_leftbracket2 != NULL)
+        {
+            if(pc_comma2 != NULL)
+            {
+                if(pc_rightbracket2 != NULL)
+                {
+                    pc_index2 = pc_leftbracket2 - s_elemname2 < pc_comma2 - s_elemname2 ?
+                                pc_leftbracket2 - s_elemname2 < pc_rightbracket2 - s_elemname2 ?
+                                pc_leftbracket2 : pc_rightbracket2 :
+                                pc_comma2 - s_elemname2 < pc_rightbracket2 - s_elemname2 ?
+                                pc_comma2 : pc_rightbracket2;
+                }
+                else
+                {
+                    pc_index2 = pc_leftbracket2 - s_elemname2 < pc_comma2 - s_elemname2 ?
+                                pc_leftbracket2 : pc_comma2;
+                }
+            }
+            else
+            {
+                if(pc_rightbracket2 != NULL)
+                {
+                    pc_index2 = pc_leftbracket2 - s_elemname2 < pc_rightbracket2 - s_elemname2 ?
+                                pc_leftbracket2 : pc_rightbracket2;
+                }
+                else
+                {
+                    pc_index2 = pc_leftbracket2;
+                }
+            }
+        }
+        else
+        {
+            if(pc_comma2 != NULL)
+            {
+                if(pc_rightbracket2 != NULL)
+                {
+                    pc_index2 = pc_comma2 - s_elemname2 < pc_rightbracket2 - s_elemname2 ?
+                                pc_comma2 : pc_rightbracket2;
+                }
+                else
+                {
+                    pc_index2 = pc_comma2;
+                }
+            }
+            else
+            {
+                pc_index2 = pc_rightbracket2;
+            }
+        }
+
+        if(pc_index1 != NULL && pc_index2 != NULL)
+        {
+            memset(s_prefix1, '\0', _TYPE_NAME_SIZE+1);
+            memset(s_prefix2, '\0', _TYPE_NAME_SIZE+1);
+            strncpy(s_prefix1, s_elemname1, pc_index1 - s_elemname1);
+            strncpy(s_prefix2, s_elemname2, pc_index2 - s_elemname2);
+
+            if(_type_is_registered(s_prefix1) != _type_is_registered(s_prefix2))
+            {
+                return false;
+            }
+
+            memset(s_prefix1, '\0', _TYPE_NAME_SIZE+1);
+            memset(s_prefix2, '\0', _TYPE_NAME_SIZE+1);
+            strncpy(s_prefix1, pc_index1+1, _TYPE_NAME_SIZE);
+            strncpy(s_prefix2, pc_index2+1, _TYPE_NAME_SIZE);
+            memset(s_elemname1, '\0', _TYPE_NAME_SIZE+1);
+            memset(s_elemname2, '\0', _TYPE_NAME_SIZE+1);
+            strncpy(s_elemname1, s_prefix1, _TYPE_NAME_SIZE);
+            strncpy(s_elemname2, s_prefix2, _TYPE_NAME_SIZE);
+        }
+        else
+        {
+            assert(pc_index1 == NULL && pc_index2 == NULL);
+            if(_type_is_registered(s_elemname1) != _type_is_registered(s_elemname2))
+            {
+                return false;
+            }
+        }
+    }while((pc_leftbracket1 != NULL || pc_comma1 != NULL || pc_rightbracket1 != NULL) &&
+           (pc_leftbracket2 != NULL || pc_comma2 != NULL || pc_rightbracket2 != NULL));
+    assert(pc_leftbracket1 == NULL && pc_comma1 == NULL && pc_rightbracket1 == NULL &&
+           pc_leftbracket2 == NULL && pc_comma2 == NULL && pc_rightbracket2 == NULL);
+
     return true;
 }
 
@@ -839,14 +903,14 @@ void _type_destroy_default(const void* cpv_input, void* pv_output)
     *(bool_t*)pv_output = true;
 }
 
-static bool_t _type_is_registered(const char* s_typename)
+static _type_t* _type_is_registered(const char* s_typename)
 {
     _type_t*     pt_registered = NULL;
     _typenode_t* pt_node = NULL;
 
     if(strlen(s_typename) > _TYPE_NAME_SIZE)
     {
-        return false;
+        return NULL;
     }
 
     /* get the registered type pointer */
@@ -866,22 +930,9 @@ static bool_t _type_is_registered(const char* s_typename)
                 pt_node = pt_node->_pt_next;
             }
         }
+    }
 
-        if(pt_registered != NULL)
-        {
-            assert(pt_node != NULL);
-            return true;
-        }
-        else
-        {
-            assert(pt_node == NULL);
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
+    return pt_registered;
 }
 
 static size_t _type_hash(const char* s_typename)
@@ -948,7 +999,7 @@ static _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
     case _TOKEN_IDENTIFIER:
         if(_type_parse_user_define(s_userdefine))
         {
-            if(_type_is_registered(s_userdefine))
+            if(_type_is_registered(s_userdefine) != NULL)
             {
                 t_style = _TYPE_USER_DEFINE;
             }
@@ -1040,7 +1091,7 @@ static bool_t _type_parse_type_descript(char* s_formalname)
         if(_type_parse_user_define(s_userdefine))
         {
             strncat(s_formalname, s_userdefine, _TYPE_NAME_SIZE);
-            return _type_is_registered(s_userdefine);
+            return _type_is_registered(s_userdefine) != NULL ? true : false;
         }
         else
         {

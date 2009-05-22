@@ -11,7 +11,7 @@ CC	Makefile	/^CC = gcc$/;"	m
 CEXPFLAGS	Makefile	/^CEXPFLAGS = -DCSTL_TYPES_UNIFICATION=2 -DNDEBUG$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -c -g -ansi -pedantic -Wall -Wextra -fPIC $(CEXPFLAGS)$/;"	m
 CPPFLAGS	Makefile	/^CPPFLAGS = -I include$/;"	m
-CSTL_TYPES_UNIFICATION	include/cstl_types.h	171;"	d
+CSTL_TYPES_UNIFICATION	include/cstl_types.h	191;"	d
 FALSE	include/cstl_types.h	33;"	d
 HEADERTARGET	Makefile	/^HEADERTARGET = $(INCDIR)\/*.h$/;"	m
 INCDIR	Makefile	/^INCDIR = include$/;"	m
@@ -41,11 +41,12 @@ TRUE	include/cstl_types.h	35;"	d
 _ALIGN	include/cstl_alloc.h	35;"	d
 _AVL_TREE_NODE_SIZE	src/cstl_avl_tree.c	37;"	d	file:
 _BASIC_STRING_CONTAINER	include/cstl_iterator.h	/^    _BASIC_STRING_CONTAINER$/;"	e	enum:_tagcontainertype
-_BASIC_STRING_IDENTIFY	include/cstl_types.h	148;"	d
-_BASIC_STRING_ITERATOR_NAME	include/cstl_types.h	151;"	d
-_BASIC_STRING_LEFT_BRACKET	include/cstl_types.h	149;"	d
-_BASIC_STRING_RIGHT_BRACKET	include/cstl_types.h	150;"	d
+_BASIC_STRING_IDENTIFY	include/cstl_types.h	168;"	d
+_BASIC_STRING_ITERATOR_NAME	include/cstl_types.h	171;"	d
+_BASIC_STRING_LEFT_BRACKET	include/cstl_types.h	169;"	d
+_BASIC_STRING_RIGHT_BRACKET	include/cstl_types.h	170;"	d
 _BIDIRECTIONAL_ITERATOR	include/cstl_iterator.h	/^    _BIDIRECTIONAL_ITERATOR,$/;"	e	enum:_tagiteratortype
+_BIDIRECTIONAL_ITERATOR_TYPE	include/cstl_types.h	110;"	d
 _BOOL_TYPE	include/cstl_types.h	73;"	d
 _CALGORITHM_H	include/calgorithm.h	24;"	d
 _CDEQUE_H	include/cdeque.h	24;"	d
@@ -71,7 +72,7 @@ _CSTL_AVL_TREE_PRIVATE_H	include/cstl_avl_tree_private.h	24;"	d
 _CSTL_BASIC_STRING_H	include/cstl_basic_string.h	24;"	d
 _CSTL_BASIC_STRING_ITERATOR_H	include/cstl_basic_string_iterator.h	24;"	d
 _CSTL_BASIC_STRING_PRIVATE_H	include/cstl_basic_string_private.h	24;"	d
-_CSTL_COMMA	include/cstl_types.h	102;"	d
+_CSTL_COMMA	include/cstl_types.h	122;"	d
 _CSTL_DEQUE_H	include/cstl_deque.h	24;"	d
 _CSTL_DEQUE_ITERATOR_H	include/cstl_deque_iterator.h	24;"	d
 _CSTL_DEQUE_PRIVATE_H	include/cstl_deque_private.h	24;"	d
@@ -94,7 +95,7 @@ _CSTL_HASH_SET_PRIVATE_H	include/cstl_hash_set_private.h	24;"	d
 _CSTL_HEAP_H	include/cstl_heap.h	24;"	d
 _CSTL_ITERATOR_H	include/cstl_iterator.h	24;"	d
 _CSTL_ITERATOR_PRIVATE_H	include/cstl_iterator_private.h	24;"	d
-_CSTL_LEFT_BRACKET	include/cstl_types.h	100;"	d
+_CSTL_LEFT_BRACKET	include/cstl_types.h	120;"	d
 _CSTL_LIST_H	include/cstl_list.h	24;"	d
 _CSTL_LIST_ITERATOR_H	include/cstl_list_iterator.h	24;"	d
 _CSTL_LIST_PRIVATE_H	include/cstl_list_private.h	24;"	d
@@ -114,7 +115,7 @@ _CSTL_QUEUE_H	include/cstl_queue.h	24;"	d
 _CSTL_QUEUE_PRIVATE_H	include/cstl_queue_private.h	24;"	d
 _CSTL_RB_TREE_ITERATOR_H	include/cstl_rb_tree_iterator.h	24;"	d
 _CSTL_RB_TREE_PRIVATE_H	include/cstl_rb_tree_private.h	24;"	d
-_CSTL_RIGHT_BRACKET	include/cstl_types.h	101;"	d
+_CSTL_RIGHT_BRACKET	include/cstl_types.h	121;"	d
 _CSTL_SET_H	include/cstl_set.h	24;"	d
 _CSTL_SET_ITERATOR_H	include/cstl_set_iterator.h	24;"	d
 _CSTL_SET_PRIVATE_H	include/cstl_set_private.h	24;"	d
@@ -137,16 +138,18 @@ _CVECTOR_H	include/cvector.h	24;"	d
 _C_STRING_TYPE	include/cstl_types.h	71;"	d
 _DEQUE_CONTAINER	include/cstl_iterator.h	/^    _DEQUE_CONTAINER,$/;"	e	enum:_tagcontainertype
 _DEQUE_ELEM_COUNT	src/cstl_deque.c	43;"	d	file:
+_DEQUE_ITERATOR_TYPE	include/cstl_types.h	97;"	d
 _DEQUE_MAP_COUNT	src/cstl_deque.c	41;"	d	file:
 _DEQUE_MAP_GROW_STEP	src/cstl_deque.c	42;"	d	file:
 _DEQUE_TYPE	include/cstl_types.h	78;"	d
 _DIVIDES_FUN	include/cstl_function_private.h	/^    _DIVIDES_FUN,$/;"	e	enum:_tagfunbinarytype
 _DOUBLE_TYPE	include/cstl_types.h	68;"	d
-_ELEM_TYPE_NAME_SIZE	include/cstl_types.h	188;"	d
-_ENUM_TYPE	include/cstl_types.h	96;"	d
+_ELEM_TYPE_NAME_SIZE	include/cstl_types.h	208;"	d
+_ENUM_TYPE	include/cstl_types.h	116;"	d
 _EQUAL_FUN	include/cstl_function_private.h	/^    _EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
 _FLOAT_TYPE	include/cstl_types.h	67;"	d
 _FORWARD_ITERATOR	include/cstl_iterator.h	/^    _FORWARD_ITERATOR,$/;"	e	enum:_tagiteratortype
+_FORWARD_ITERATOR_TYPE	include/cstl_types.h	109;"	d
 _GET_AVL_TREE	include/cstl_iterator.h	78;"	d
 _GET_AVL_TREE_COREPOS	include/cstl_iterator.h	76;"	d
 _GET_AVL_TREE_POINTER	include/cstl_iterator.h	80;"	d
@@ -226,41 +229,48 @@ _HASHTABLE_DEFAULT_BUCKET_COUNT	src/cstl_hashtable.c	45;"	d	file:
 _HASHTABLE_NODE_NAME	src/cstl_hashtable.c	44;"	d	file:
 _HASHTABLE_NODE_SIZE	src/cstl_hashtable.c	41;"	d	file:
 _HASHTABLE_PRIME_LIST_COUNT	src/cstl_hashtable.c	46;"	d	file:
-_HASH_MAP_COMMA	include/cstl_types.h	139;"	d
+_HASH_MAP_COMMA	include/cstl_types.h	159;"	d
 _HASH_MAP_CONTAINER	include/cstl_iterator.h	/^    _HASH_MAP_CONTAINER,$/;"	e	enum:_tagcontainertype
-_HASH_MAP_IDENTIFY	include/cstl_types.h	136;"	d
-_HASH_MAP_ITERATOR_NAME	include/cstl_types.h	140;"	d
-_HASH_MAP_LEFT_BRACKET	include/cstl_types.h	137;"	d
-_HASH_MAP_RIGHT_BRACKET	include/cstl_types.h	138;"	d
+_HASH_MAP_IDENTIFY	include/cstl_types.h	156;"	d
+_HASH_MAP_ITERATOR_NAME	include/cstl_types.h	160;"	d
+_HASH_MAP_ITERATOR_TYPE	include/cstl_types.h	103;"	d
+_HASH_MAP_LEFT_BRACKET	include/cstl_types.h	157;"	d
+_HASH_MAP_RIGHT_BRACKET	include/cstl_types.h	158;"	d
 _HASH_MAP_TYPE	include/cstl_types.h	87;"	d
-_HASH_MULTIMAP_COMMA	include/cstl_types.h	145;"	d
+_HASH_MULTIMAP_COMMA	include/cstl_types.h	165;"	d
 _HASH_MULTIMAP_CONTAINER	include/cstl_iterator.h	/^    _HASH_MULTIMAP_CONTAINER,$/;"	e	enum:_tagcontainertype
-_HASH_MULTIMAP_IDENTIFY	include/cstl_types.h	142;"	d
-_HASH_MULTIMAP_ITERATOR_NAME	include/cstl_types.h	146;"	d
-_HASH_MULTIMAP_LEFT_BRACKET	include/cstl_types.h	143;"	d
-_HASH_MULTIMAP_RIGHT_BRACKET	include/cstl_types.h	144;"	d
+_HASH_MULTIMAP_IDENTIFY	include/cstl_types.h	162;"	d
+_HASH_MULTIMAP_ITERATOR_NAME	include/cstl_types.h	166;"	d
+_HASH_MULTIMAP_ITERATOR_TYPE	include/cstl_types.h	105;"	d
+_HASH_MULTIMAP_LEFT_BRACKET	include/cstl_types.h	163;"	d
+_HASH_MULTIMAP_RIGHT_BRACKET	include/cstl_types.h	164;"	d
 _HASH_MULTIMAP_TYPE	include/cstl_types.h	89;"	d
 _HASH_MULTISET_CONTAINER	include/cstl_iterator.h	/^    _HASH_MULTISET_CONTAINER,$/;"	e	enum:_tagcontainertype
-_HASH_MULTISET_IDENTIFY	include/cstl_types.h	131;"	d
-_HASH_MULTISET_ITERATOR_NAME	include/cstl_types.h	134;"	d
-_HASH_MULTISET_LEFT_BRACKET	include/cstl_types.h	132;"	d
-_HASH_MULTISET_RIGHT_BRACKET	include/cstl_types.h	133;"	d
+_HASH_MULTISET_IDENTIFY	include/cstl_types.h	151;"	d
+_HASH_MULTISET_ITERATOR_NAME	include/cstl_types.h	154;"	d
+_HASH_MULTISET_ITERATOR_TYPE	include/cstl_types.h	104;"	d
+_HASH_MULTISET_LEFT_BRACKET	include/cstl_types.h	152;"	d
+_HASH_MULTISET_RIGHT_BRACKET	include/cstl_types.h	153;"	d
 _HASH_MULTISET_TYPE	include/cstl_types.h	88;"	d
 _HASH_SET_CONTAINER	include/cstl_iterator.h	/^    _HASH_SET_CONTAINER,$/;"	e	enum:_tagcontainertype
-_HASH_SET_IDENTIFY	include/cstl_types.h	126;"	d
-_HASH_SET_ITERATOR_NAME	include/cstl_types.h	129;"	d
-_HASH_SET_LEFT_BRACKET	include/cstl_types.h	127;"	d
-_HASH_SET_RIGHT_BRACKET	include/cstl_types.h	128;"	d
+_HASH_SET_IDENTIFY	include/cstl_types.h	146;"	d
+_HASH_SET_ITERATOR_NAME	include/cstl_types.h	149;"	d
+_HASH_SET_ITERATOR_TYPE	include/cstl_types.h	102;"	d
+_HASH_SET_LEFT_BRACKET	include/cstl_types.h	147;"	d
+_HASH_SET_RIGHT_BRACKET	include/cstl_types.h	148;"	d
 _HASH_SET_TYPE	include/cstl_types.h	86;"	d
 _INCREASE_FUN	include/cstl_function_private.h	/^    _INCREASE_FUN$/;"	e	enum:_tagfunbinarytype
 _INPUT_ITERATOR	include/cstl_iterator.h	/^    _INPUT_ITERATOR,$/;"	e	enum:_tagiteratortype
+_INPUT_ITERATOR_TYPE	include/cstl_types.h	107;"	d
 _INT_TYPE	include/cstl_types.h	52;"	d
+_ITERATOR_TYPE	include/cstl_types.h	93;"	d
 _LESS_EQUAL_FUN	include/cstl_function_private.h	/^    _LESS_EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
 _LESS_FUN	include/cstl_function_private.h	/^    _LESS_FUN,$/;"	e	enum:_tagfunbinarytype
 _LEX_ACCEPT	src/cstl_types.c	/^    _LEX_START, _LEX_IN_IDENTIFIER, _LEX_ACCEPT$/;"	e	enum:_tagtypelex	file:
 _LEX_IN_IDENTIFIER	src/cstl_types.c	/^    _LEX_START, _LEX_IN_IDENTIFIER, _LEX_ACCEPT$/;"	e	enum:_tagtypelex	file:
 _LEX_START	src/cstl_types.c	/^    _LEX_START, _LEX_IN_IDENTIFIER, _LEX_ACCEPT$/;"	e	enum:_tagtypelex	file:
 _LIST_CONTAINER	include/cstl_iterator.h	/^    _LIST_CONTAINER,$/;"	e	enum:_tagcontainertype
+_LIST_ITERATOR_TYPE	include/cstl_types.h	95;"	d
 _LIST_NODE_SIZE	src/cstl_list.c	41;"	d	file:
 _LIST_TYPE	include/cstl_types.h	76;"	d
 _LOGICAL_AND_FUN	include/cstl_function_private.h	/^    _LOGICAL_AND_FUN,$/;"	e	enum:_tagfunbinarytype
@@ -269,12 +279,13 @@ _LOGICAL_OR_FUN	include/cstl_function_private.h	/^    _LOGICAL_OR_FUN,$/;"	e	enu
 _LONG_DOUBLE_TYPE	include/cstl_types.h	69;"	d
 _LONG_INT_TYPE	include/cstl_types.h	60;"	d
 _LONG_TYPE	include/cstl_types.h	59;"	d
-_MAP_COMMA	include/cstl_types.h	117;"	d
+_MAP_COMMA	include/cstl_types.h	137;"	d
 _MAP_CONTAINER	include/cstl_iterator.h	/^    _MAP_CONTAINER,$/;"	e	enum:_tagcontainertype
-_MAP_IDENTIFY	include/cstl_types.h	114;"	d
-_MAP_ITERATOR_NAME	include/cstl_types.h	118;"	d
-_MAP_LEFT_BRACKET	include/cstl_types.h	115;"	d
-_MAP_RIGHT_BRACKET	include/cstl_types.h	116;"	d
+_MAP_IDENTIFY	include/cstl_types.h	134;"	d
+_MAP_ITERATOR_NAME	include/cstl_types.h	138;"	d
+_MAP_ITERATOR_TYPE	include/cstl_types.h	99;"	d
+_MAP_LEFT_BRACKET	include/cstl_types.h	135;"	d
+_MAP_RIGHT_BRACKET	include/cstl_types.h	136;"	d
 _MAP_TYPE	include/cstl_types.h	83;"	d
 _MAX_SMALL_MEM_SIZE	include/cstl_alloc.h	36;"	d
 _MEMLIST_INDEX	include/cstl_alloc.h	44;"	d
@@ -283,36 +294,41 @@ _MEM_LIST_COUNT	include/cstl_alloc.h	37;"	d
 _MEM_POOL_DEFAULT_COUNT	include/cstl_alloc.h	39;"	d
 _MINUS_FUN	include/cstl_function_private.h	/^    _MINUS_FUN,$/;"	e	enum:_tagfunbinarytype
 _MODULUS_FUN	include/cstl_function_private.h	/^    _MODULUS_FUN,$/;"	e	enum:_tagfunbinarytype
-_MULTIMAP_COMMA	include/cstl_types.h	123;"	d
+_MULTIMAP_COMMA	include/cstl_types.h	143;"	d
 _MULTIMAP_CONTAINER	include/cstl_iterator.h	/^    _MULTIMAP_CONTAINER,$/;"	e	enum:_tagcontainertype
-_MULTIMAP_IDENTIFY	include/cstl_types.h	120;"	d
-_MULTIMAP_ITERATOR_NAME	include/cstl_types.h	124;"	d
-_MULTIMAP_LEFT_BRACKET	include/cstl_types.h	121;"	d
-_MULTIMAP_RIGHT_BRACKET	include/cstl_types.h	122;"	d
+_MULTIMAP_IDENTIFY	include/cstl_types.h	140;"	d
+_MULTIMAP_ITERATOR_NAME	include/cstl_types.h	144;"	d
+_MULTIMAP_ITERATOR_TYPE	include/cstl_types.h	101;"	d
+_MULTIMAP_LEFT_BRACKET	include/cstl_types.h	141;"	d
+_MULTIMAP_RIGHT_BRACKET	include/cstl_types.h	142;"	d
 _MULTIMAP_TYPE	include/cstl_types.h	85;"	d
 _MULTIPLIES_FUN	include/cstl_function_private.h	/^    _MULTIPLIES_FUN,$/;"	e	enum:_tagfunbinarytype
 _MULTISET_CONTAINER	include/cstl_iterator.h	/^    _MULTISET_CONTAINER,$/;"	e	enum:_tagcontainertype
-_MULTISET_IDENTIFY	include/cstl_types.h	109;"	d
-_MULTISET_ITERATOR_NAME	include/cstl_types.h	112;"	d
-_MULTISET_LEFT_BRACKET	include/cstl_types.h	110;"	d
-_MULTISET_RIGHT_BRACKET	include/cstl_types.h	111;"	d
+_MULTISET_IDENTIFY	include/cstl_types.h	129;"	d
+_MULTISET_ITERATOR_NAME	include/cstl_types.h	132;"	d
+_MULTISET_ITERATOR_TYPE	include/cstl_types.h	100;"	d
+_MULTISET_LEFT_BRACKET	include/cstl_types.h	130;"	d
+_MULTISET_RIGHT_BRACKET	include/cstl_types.h	131;"	d
 _MULTISET_TYPE	include/cstl_types.h	84;"	d
 _NEGATE_FUN	include/cstl_function_private.h	/^    _NEGATE_FUN,$/;"	e	enum:_tagfununarytype
 _NOT_EQUAL_FUN	include/cstl_function_private.h	/^    _NOT_EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
 _OUTPUT_ITERATOR	include/cstl_iterator.h	/^    _OUTPUT_ITERATOR,$/;"	e	enum:_tagiteratortype
+_OUTPUT_ITERATOR_TYPE	include/cstl_types.h	108;"	d
 _PAIR_TYPE	include/cstl_types.h	91;"	d
 _PLUS_FUN	include/cstl_function_private.h	/^    _PLUS_FUN,$/;"	e	enum:_tagfunbinarytype
 _PRIORITY_QUEUE_TYPE	include/cstl_types.h	81;"	d
 _QUEUE_TYPE	include/cstl_types.h	80;"	d
 _RANDOM_ACCESS_ITERATOR	include/cstl_iterator.h	/^    _RANDOM_ACCESS_ITERATOR$/;"	e	enum:_tagiteratortype
+_RANDOM_ACCESS_ITERATOR_TYPE	include/cstl_types.h	111;"	d
 _RANDOM_NUMBER_FUN	include/cstl_function_private.h	/^    _RANDOM_NUMBER_FUN$/;"	e	enum:_tagfununarytype
 _RB_TREE_NODE_SIZE	src/cstl_rb_tree.c	37;"	d	file:
 _ROUND_UP	include/cstl_alloc.h	42;"	d
 _SET_CONTAINER	include/cstl_iterator.h	/^    _SET_CONTAINER,$/;"	e	enum:_tagcontainertype
-_SET_IDENTIFY	include/cstl_types.h	104;"	d
-_SET_ITERATOR_NAME	include/cstl_types.h	107;"	d
-_SET_LEFT_BRACKET	include/cstl_types.h	105;"	d
-_SET_RIGHT_BRACKET	include/cstl_types.h	106;"	d
+_SET_IDENTIFY	include/cstl_types.h	124;"	d
+_SET_ITERATOR_NAME	include/cstl_types.h	127;"	d
+_SET_ITERATOR_TYPE	include/cstl_types.h	98;"	d
+_SET_LEFT_BRACKET	include/cstl_types.h	125;"	d
+_SET_RIGHT_BRACKET	include/cstl_types.h	126;"	d
 _SET_TYPE	include/cstl_types.h	82;"	d
 _SHORT_INT_TYPE	include/cstl_types.h	46;"	d
 _SHORT_TYPE	include/cstl_types.h	47;"	d
@@ -324,12 +340,14 @@ _SIGNED_SHORT_INT_TYPE	include/cstl_types.h	44;"	d
 _SIGNED_SHORT_TYPE	include/cstl_types.h	45;"	d
 _SIGNED_TYPE	include/cstl_types.h	53;"	d
 _SLIST_CONTAINER	include/cstl_iterator.h	/^    _SLIST_CONTAINER,$/;"	e	enum:_tagcontainertype
+_SLIST_ITERATOR_TYPE	include/cstl_types.h	96;"	d
 _SLIST_NODE_SIZE	src/cstl_slist.c	41;"	d	file:
 _SLIST_TYPE	include/cstl_types.h	77;"	d
 _STACK_TYPE	include/cstl_types.h	79;"	d
 _STRING_CONTAINER	include/cstl_iterator.h	171;"	d
+_STRING_ITERATOR_TYPE	include/cstl_types.h	106;"	d
 _STRING_TYPE	include/cstl_types.h	90;"	d
-_STRUCT_TYPE	include/cstl_types.h	94;"	d
+_STRUCT_TYPE	include/cstl_types.h	114;"	d
 _TEST_ALGOBASE_H	test/test_algobase.h	24;"	d
 _TEST_ALGO_H	test/test_algo.h	24;"	d
 _TEST_AVL_TREE_H	test/test_avl_tree.h	24;"	d
@@ -403,73 +421,77 @@ _TOKEN_KEY_UNSIGNED	src/cstl_types.c	/^    _TOKEN_KEY_DOUBLE, _TOKEN_KEY_SIGNED,
 _TOKEN_KEY_VECTOR	src/cstl_types.c	/^    _TOKEN_KEY_VECTOR, _TOKEN_KEY_LIST, _TOKEN_KEY_SLIST, _TOKEN_KEY_DEQUE, _TOKEN_KEY_STACK,$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_KEY_VECTOR_ITERATOR	src/cstl_types.c	/^    _TOKEN_KEY_ITERATOR, _TOKEN_KEY_VECTOR_ITERATOR, _TOKEN_KEY_LIST_ITERATOR,$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_MATCH	src/cstl_types.c	157;"	d	file:
+_TOKEN_MATCH_IDENTIFIER	src/cstl_types.c	164;"	d	file:
 _TOKEN_MATCH_SPACE	src/cstl_types.c	162;"	d	file:
 _TOKEN_SIGN_COMMA	src/cstl_types.c	/^    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_SIGN_LEFT_BRACKET	src/cstl_types.c	/^    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_SIGN_RIGHT_BRACKET	src/cstl_types.c	/^    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_SIGN_SPACE	src/cstl_types.c	/^    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,$/;"	e	enum:_tagtypetoken	file:
-_TOKEN_TEXT_BIDIRECTIONAL_ITERATOR	src/cstl_types.c	212;"	d	file:
-_TOKEN_TEXT_BOOL	src/cstl_types.c	174;"	d	file:
-_TOKEN_TEXT_CHAR	src/cstl_types.c	165;"	d	file:
-_TOKEN_TEXT_CHAR_POINTER	src/cstl_types.c	173;"	d	file:
-_TOKEN_TEXT_DEQUE	src/cstl_types.c	181;"	d	file:
-_TOKEN_TEXT_DEQUE_ITERATOR	src/cstl_types.c	199;"	d	file:
-_TOKEN_TEXT_DOUBLE	src/cstl_types.c	170;"	d	file:
-_TOKEN_TEXT_ENUM	src/cstl_types.c	176;"	d	file:
-_TOKEN_TEXT_FLOAT	src/cstl_types.c	169;"	d	file:
-_TOKEN_TEXT_FORWARD_ITERATOR	src/cstl_types.c	211;"	d	file:
-_TOKEN_TEXT_HASH_MAP	src/cstl_types.c	190;"	d	file:
-_TOKEN_TEXT_HASH_MAP_ITERATOR	src/cstl_types.c	205;"	d	file:
-_TOKEN_TEXT_HASH_MULTIMAP	src/cstl_types.c	192;"	d	file:
-_TOKEN_TEXT_HASH_MULTIMAP_ITERATOR	src/cstl_types.c	207;"	d	file:
-_TOKEN_TEXT_HASH_MULTISET	src/cstl_types.c	191;"	d	file:
-_TOKEN_TEXT_HASH_MULTISET_ITERATOR	src/cstl_types.c	206;"	d	file:
-_TOKEN_TEXT_HASH_SET	src/cstl_types.c	189;"	d	file:
-_TOKEN_TEXT_HASH_SET_ITERATOR	src/cstl_types.c	204;"	d	file:
-_TOKEN_TEXT_INPUT_ITERATOR	src/cstl_types.c	209;"	d	file:
-_TOKEN_TEXT_INT	src/cstl_types.c	167;"	d	file:
-_TOKEN_TEXT_ITERATOR	src/cstl_types.c	195;"	d	file:
-_TOKEN_TEXT_LIST	src/cstl_types.c	179;"	d	file:
-_TOKEN_TEXT_LIST_ITERATOR	src/cstl_types.c	197;"	d	file:
-_TOKEN_TEXT_LONG	src/cstl_types.c	168;"	d	file:
-_TOKEN_TEXT_MAP	src/cstl_types.c	186;"	d	file:
-_TOKEN_TEXT_MAP_ITERATOR	src/cstl_types.c	201;"	d	file:
-_TOKEN_TEXT_MULTIMAP	src/cstl_types.c	188;"	d	file:
-_TOKEN_TEXT_MULTIMAP_ITERATOR	src/cstl_types.c	203;"	d	file:
-_TOKEN_TEXT_MULTISET	src/cstl_types.c	187;"	d	file:
-_TOKEN_TEXT_MULTISET_ITERATOR	src/cstl_types.c	202;"	d	file:
-_TOKEN_TEXT_OUTPUT_ITERATOR	src/cstl_types.c	210;"	d	file:
-_TOKEN_TEXT_PAIR	src/cstl_types.c	193;"	d	file:
-_TOKEN_TEXT_PRIORITY_QUEUE	src/cstl_types.c	184;"	d	file:
-_TOKEN_TEXT_QUEUE	src/cstl_types.c	183;"	d	file:
-_TOKEN_TEXT_RANDOM_ACCESS_ITERATOR	src/cstl_types.c	213;"	d	file:
-_TOKEN_TEXT_SET	src/cstl_types.c	185;"	d	file:
-_TOKEN_TEXT_SET_ITERATOR	src/cstl_types.c	200;"	d	file:
-_TOKEN_TEXT_SHORT	src/cstl_types.c	166;"	d	file:
-_TOKEN_TEXT_SIGNED	src/cstl_types.c	171;"	d	file:
-_TOKEN_TEXT_SLIST	src/cstl_types.c	180;"	d	file:
-_TOKEN_TEXT_SLIST_ITERATOR	src/cstl_types.c	198;"	d	file:
-_TOKEN_TEXT_SPACE	src/cstl_types.c	214;"	d	file:
-_TOKEN_TEXT_STACK	src/cstl_types.c	182;"	d	file:
-_TOKEN_TEXT_STRING	src/cstl_types.c	194;"	d	file:
-_TOKEN_TEXT_STRING_ITERATOR	src/cstl_types.c	208;"	d	file:
-_TOKEN_TEXT_STRUCT	src/cstl_types.c	175;"	d	file:
-_TOKEN_TEXT_UNION	src/cstl_types.c	177;"	d	file:
-_TOKEN_TEXT_UNSIGNED	src/cstl_types.c	172;"	d	file:
-_TOKEN_TEXT_VECTOR	src/cstl_types.c	178;"	d	file:
-_TOKEN_TEXT_VECTOR_ITERATOR	src/cstl_types.c	196;"	d	file:
+_TOKEN_TEXT_BIDIRECTIONAL_ITERATOR	src/cstl_types.c	214;"	d	file:
+_TOKEN_TEXT_BOOL	src/cstl_types.c	176;"	d	file:
+_TOKEN_TEXT_CHAR	src/cstl_types.c	167;"	d	file:
+_TOKEN_TEXT_CHAR_POINTER	src/cstl_types.c	175;"	d	file:
+_TOKEN_TEXT_COMMA	src/cstl_types.c	219;"	d	file:
+_TOKEN_TEXT_DEQUE	src/cstl_types.c	183;"	d	file:
+_TOKEN_TEXT_DEQUE_ITERATOR	src/cstl_types.c	201;"	d	file:
+_TOKEN_TEXT_DOUBLE	src/cstl_types.c	172;"	d	file:
+_TOKEN_TEXT_ENUM	src/cstl_types.c	178;"	d	file:
+_TOKEN_TEXT_FLOAT	src/cstl_types.c	171;"	d	file:
+_TOKEN_TEXT_FORWARD_ITERATOR	src/cstl_types.c	213;"	d	file:
+_TOKEN_TEXT_HASH_MAP	src/cstl_types.c	192;"	d	file:
+_TOKEN_TEXT_HASH_MAP_ITERATOR	src/cstl_types.c	207;"	d	file:
+_TOKEN_TEXT_HASH_MULTIMAP	src/cstl_types.c	194;"	d	file:
+_TOKEN_TEXT_HASH_MULTIMAP_ITERATOR	src/cstl_types.c	209;"	d	file:
+_TOKEN_TEXT_HASH_MULTISET	src/cstl_types.c	193;"	d	file:
+_TOKEN_TEXT_HASH_MULTISET_ITERATOR	src/cstl_types.c	208;"	d	file:
+_TOKEN_TEXT_HASH_SET	src/cstl_types.c	191;"	d	file:
+_TOKEN_TEXT_HASH_SET_ITERATOR	src/cstl_types.c	206;"	d	file:
+_TOKEN_TEXT_INPUT_ITERATOR	src/cstl_types.c	211;"	d	file:
+_TOKEN_TEXT_INT	src/cstl_types.c	169;"	d	file:
+_TOKEN_TEXT_ITERATOR	src/cstl_types.c	197;"	d	file:
+_TOKEN_TEXT_LEFT_BRACKET	src/cstl_types.c	217;"	d	file:
+_TOKEN_TEXT_LIST	src/cstl_types.c	181;"	d	file:
+_TOKEN_TEXT_LIST_ITERATOR	src/cstl_types.c	199;"	d	file:
+_TOKEN_TEXT_LONG	src/cstl_types.c	170;"	d	file:
+_TOKEN_TEXT_MAP	src/cstl_types.c	188;"	d	file:
+_TOKEN_TEXT_MAP_ITERATOR	src/cstl_types.c	203;"	d	file:
+_TOKEN_TEXT_MULTIMAP	src/cstl_types.c	190;"	d	file:
+_TOKEN_TEXT_MULTIMAP_ITERATOR	src/cstl_types.c	205;"	d	file:
+_TOKEN_TEXT_MULTISET	src/cstl_types.c	189;"	d	file:
+_TOKEN_TEXT_MULTISET_ITERATOR	src/cstl_types.c	204;"	d	file:
+_TOKEN_TEXT_OUTPUT_ITERATOR	src/cstl_types.c	212;"	d	file:
+_TOKEN_TEXT_PAIR	src/cstl_types.c	195;"	d	file:
+_TOKEN_TEXT_PRIORITY_QUEUE	src/cstl_types.c	186;"	d	file:
+_TOKEN_TEXT_QUEUE	src/cstl_types.c	185;"	d	file:
+_TOKEN_TEXT_RANDOM_ACCESS_ITERATOR	src/cstl_types.c	215;"	d	file:
+_TOKEN_TEXT_RIGHT_BRACKET	src/cstl_types.c	218;"	d	file:
+_TOKEN_TEXT_SET	src/cstl_types.c	187;"	d	file:
+_TOKEN_TEXT_SET_ITERATOR	src/cstl_types.c	202;"	d	file:
+_TOKEN_TEXT_SHORT	src/cstl_types.c	168;"	d	file:
+_TOKEN_TEXT_SIGNED	src/cstl_types.c	173;"	d	file:
+_TOKEN_TEXT_SLIST	src/cstl_types.c	182;"	d	file:
+_TOKEN_TEXT_SLIST_ITERATOR	src/cstl_types.c	200;"	d	file:
+_TOKEN_TEXT_SPACE	src/cstl_types.c	216;"	d	file:
+_TOKEN_TEXT_STACK	src/cstl_types.c	184;"	d	file:
+_TOKEN_TEXT_STRING	src/cstl_types.c	196;"	d	file:
+_TOKEN_TEXT_STRING_ITERATOR	src/cstl_types.c	210;"	d	file:
+_TOKEN_TEXT_STRUCT	src/cstl_types.c	177;"	d	file:
+_TOKEN_TEXT_UNION	src/cstl_types.c	179;"	d	file:
+_TOKEN_TEXT_UNSIGNED	src/cstl_types.c	174;"	d	file:
+_TOKEN_TEXT_VECTOR	src/cstl_types.c	180;"	d	file:
+_TOKEN_TEXT_VECTOR_ITERATOR	src/cstl_types.c	198;"	d	file:
 _TREE_TRAVERSE_H	test/tree_traverse.h	24;"	d
 _TYPE_CSTL_BUILTIN	src/cstl_types.c	/^    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN$/;"	e	enum:_tagtypestley	file:
 _TYPE_C_BUILTIN	src/cstl_types.c	/^    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN$/;"	e	enum:_tagtypestley	file:
 _TYPE_INVALID	src/cstl_types.c	/^    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN$/;"	e	enum:_tagtypestley	file:
-_TYPE_NAME_SIZE	include/cstl_types.h	189;"	d
+_TYPE_NAME_SIZE	include/cstl_types.h	209;"	d
 _TYPE_REGISTER_BEGIN	src/cstl_types.c	49;"	d	file:
-_TYPE_REGISTER_BUCKET_COUNT	include/cstl_types.h	208;"	d
+_TYPE_REGISTER_BUCKET_COUNT	include/cstl_types.h	228;"	d
 _TYPE_REGISTER_END	src/cstl_types.c	76;"	d	file:
 _TYPE_REGISTER_TYPE	src/cstl_types.c	53;"	d	file:
 _TYPE_REGISTER_TYPE_NODE	src/cstl_types.c	64;"	d	file:
 _TYPE_USER_DEFINE	src/cstl_types.c	/^    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN$/;"	e	enum:_tagtypestley	file:
-_UNION_TYPE	include/cstl_types.h	95;"	d
+_UNION_TYPE	include/cstl_types.h	115;"	d
 _UNSIGNED_CHAR_TYPE	include/cstl_types.h	42;"	d
 _UNSIGNED_INT_TYPE	include/cstl_types.h	56;"	d
 _UNSIGNED_LONG_INT_TYPE	include/cstl_types.h	65;"	d
@@ -478,6 +500,7 @@ _UNSIGNED_SHORT_INT_TYPE	include/cstl_types.h	49;"	d
 _UNSIGNED_SHORT_TYPE	include/cstl_types.h	50;"	d
 _UNSIGNED_TYPE	include/cstl_types.h	57;"	d
 _VECTOR_CONTAINER	include/cstl_iterator.h	/^    _VECTOR_CONTAINER,$/;"	e	enum:_tagcontainertype
+_VECTOR_ITERATOR_TYPE	include/cstl_types.h	94;"	d
 _VECTOR_TYPE	include/cstl_types.h	75;"	d
 _a_cmem	include/cstl_alloc.h	/^    char               _a_cmem[1];    \/* represent memory block *\/$/;"	m	union:_tagmemlink	access:public
 _abcgreat	test/test_algo.c	/^static void _abcgreat(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -1482,6 +1505,7 @@ _pt_right	include/cstl_avl_tree_private.h	/^    struct _tagavlnode* _pt_right;$/
 _pt_right	include/cstl_rb_tree_private.h	/^    struct _tagrbnode* _pt_right;$/;"	m	struct:_tagrbnode	typeref:struct:_tagrbnode::_tagrbnode	access:public
 _pt_tree	include/cstl_iterator.h	/^            void*   _pt_tree;       \/* point to the avl tree or rb tree*\/$/;"	m	struct:_tagiterator::__anon2::__anon4	access:public
 _pt_type	include/cstl_types.h	/^    _type_t*             _pt_type;                        \/* the registered type *\/$/;"	m	struct:_tagtypenode	access:public
+_pt_type	include/cstl_types.h	/^    _type_t* _pt_type;$/;"	m	struct:_tagtypecontainer	access:public
 _pui_nextmem	include/cstl_alloc.h	/^    union _tagmemlink* _pui_nextmem;  \/* point to next memory block *\/$/;"	m	union:_tagmemlink	typeref:union:_tagmemlink::_tagmemlink	access:public
 _queue_push	include/cstl_queue_private.h	/^extern void _queue_push(queue_t* pt_queue, ...);$/;"	p	signature:(queue_t* pt_queue, ...)
 _queue_push	src/cstl_queue.c	/^void _queue_push(queue_t* pt_queue, ...)$/;"	f	signature:(queue_t* pt_queue, ...)
@@ -1734,6 +1758,7 @@ _sz_typename	include/cstl_rb_tree_private.h	/^    char            _sz_typename[_
 _sz_typename	include/cstl_slist_private.h	/^    char            _sz_typename[_ELEM_TYPE_NAME_SIZE+1]; \/* element name *\/$/;"	m	struct:_tagslist	access:public
 _sz_typename	include/cstl_types.h	/^    char                 _sz_typename[_TYPE_NAME_SIZE+1];   \/* type name *\/$/;"	m	struct:_tagtypenode	access:public
 _sz_typename	include/cstl_types.h	/^    char              _sz_typename[_TYPE_NAME_SIZE+1];    \/* type name *\/$/;"	m	struct:_tagtype	access:public
+_sz_typename	include/cstl_types.h	/^    char     _sz_typename[_TYPE_NAME_SIZE+1];$/;"	m	struct:_tagtypecontainer	access:public
 _sz_typename	include/cstl_vector_private.h	/^    char    _sz_typename[_ELEM_TYPE_NAME_SIZE+1]; \/* element name *\/$/;"	m	struct:_tagvector	access:public
 _sz_typename	src/cstl_types.c	/^    char         _sz_typename[_TYPE_NAME_SIZE+1];$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _t_allocater	include/cstl_avl_tree_private.h	/^    alloc_t         _t_allocater;$/;"	m	struct:_tagavltree	access:public
@@ -2007,6 +2032,9 @@ _tagtypeanalysis::_sz_tokentext	src/cstl_types.c	/^    char         _sz_tokentex
 _tagtypeanalysis::_sz_typename	src/cstl_types.c	/^    char         _sz_typename[_TYPE_NAME_SIZE+1];$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _tagtypeanalysis::_t_index	src/cstl_types.c	/^    size_t       _t_index;$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _tagtypeanalysis::_t_token	src/cstl_types.c	/^    _typetoken_t _t_token;$/;"	m	struct:_tagtypeanalysis	file:	access:public
+_tagtypecontainer	include/cstl_types.h	/^typedef struct _tagtypecontainer$/;"	s
+_tagtypecontainer::_pt_type	include/cstl_types.h	/^    _type_t* _pt_type;$/;"	m	struct:_tagtypecontainer	access:public
+_tagtypecontainer::_sz_typename	include/cstl_types.h	/^    char     _sz_typename[_TYPE_NAME_SIZE+1];$/;"	m	struct:_tagtypecontainer	access:public
 _tagtypelex	src/cstl_types.c	/^typedef enum _tagtypelex$/;"	g	file:
 _tagtypenode	include/cstl_types.h	/^typedef struct _tagtypenode$/;"	s
 _tagtypenode::_pt_next	include/cstl_types.h	/^    struct _tagtypenode* _pt_next;                        \/* next node *\/$/;"	m	struct:_tagtypenode	typeref:struct:_tagtypenode::_tagtypenode	access:public
@@ -2064,6 +2092,8 @@ _type_copy_hash_set	src/cstl_types.c	/^static void _type_copy_hash_set($/;"	f	fi
 _type_copy_hash_set	src/cstl_types.c	/^static void _type_copy_hash_set($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_copy_int	src/cstl_types.c	/^static void _type_copy_int($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_copy_int	src/cstl_types.c	/^static void _type_copy_int($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
+_type_copy_iterator	src/cstl_types.c	/^static void _type_copy_iterator($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
+_type_copy_iterator	src/cstl_types.c	/^static void _type_copy_iterator($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_copy_list	src/cstl_types.c	/^static void _type_copy_list($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_copy_list	src/cstl_types.c	/^static void _type_copy_list($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_copy_long	src/cstl_types.c	/^static void _type_copy_long($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -2126,6 +2156,8 @@ _type_destroy_hash_set	src/cstl_types.c	/^static void _type_destroy_hash_set($/;
 _type_destroy_hash_set	src/cstl_types.c	/^static void _type_destroy_hash_set($/;"	p	file:	signature:( const void* cpv_input, void* pv_output)
 _type_destroy_int	src/cstl_types.c	/^static void _type_destroy_int($/;"	f	file:	signature:( const void* cpv_input, void* pv_output)
 _type_destroy_int	src/cstl_types.c	/^static void _type_destroy_int($/;"	p	file:	signature:( const void* cpv_input, void* pv_output)
+_type_destroy_iterator	src/cstl_types.c	/^static void _type_destroy_iterator($/;"	f	file:	signature:( const void* cpv_input, void* pv_output)
+_type_destroy_iterator	src/cstl_types.c	/^static void _type_destroy_iterator($/;"	p	file:	signature:( const void* cpv_input, void* pv_output)
 _type_destroy_list	src/cstl_types.c	/^static void _type_destroy_list($/;"	f	file:	signature:( const void* cpv_input, void* pv_output)
 _type_destroy_list	src/cstl_types.c	/^static void _type_destroy_list($/;"	p	file:	signature:( const void* cpv_input, void* pv_output)
 _type_destroy_long	src/cstl_types.c	/^static void _type_destroy_long($/;"	f	file:	signature:( const void* cpv_input, void* pv_output)
@@ -2166,16 +2198,20 @@ _type_destroy_vector	src/cstl_types.c	/^static void _type_destroy_vector($/;"	f	
 _type_destroy_vector	src/cstl_types.c	/^static void _type_destroy_vector($/;"	p	file:	signature:( const void* cpv_input, void* pv_output)
 _type_duplicate	include/cstl_types.h	/^extern bool_t _type_duplicate($/;"	p	signature:( size_t t_typesize1, const char* s_typename1, size_t t_typesize2, const char* s_typename2)
 _type_duplicate	src/cstl_types.c	/^bool_t _type_duplicate($/;"	f	signature:( size_t t_typesize1, const char* s_typename1, size_t t_typesize2, const char* s_typename2)
-_type_get_style	src/cstl_types.c	/^static _typestyle_t _type_get_style(const char* s_typename)$/;"	f	file:	signature:(const char* s_typename)
-_type_get_style	src/cstl_types.c	/^static _typestyle_t _type_get_style(const char* s_typename);$/;"	p	file:	signature:(const char* s_typename)
-_type_get_token	src/cstl_types.c	/^static _typetoken_t _type_get_token($/;"	p	file:	signature:( const char* s_input, char* s_tokentext, size_t* pt_tokenlen)
+_type_get_style	src/cstl_types.c	/^static _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)$/;"	f	file:	signature:(const char* s_typename, char* s_formalname)
+_type_get_style	src/cstl_types.c	/^static _typestyle_t _type_get_style(const char* s_typename, char* s_formalname);$/;"	p	file:	signature:(const char* s_typename, char* s_formalname)
 _type_get_token	src/cstl_types.c	/^static void _type_get_token(void)$/;"	f	file:	signature:(void)
-_type_hash	src/cstl_types.c	/^static size_t _type_hash(size_t t_typesize, const char* s_typename)$/;"	f	file:	signature:(size_t t_typesize, const char* s_typename)
-_type_hash	src/cstl_types.c	/^static size_t _type_hash(size_t t_typesize, const char* s_typename);$/;"	p	file:	signature:(size_t t_typesize, const char* s_typename)
+_type_get_token	src/cstl_types.c	/^static void _type_get_token(void);$/;"	p	file:	signature:(void)
+_type_get_type	include/cstl_types.h	/^extern void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename);$/;"	p	signature:(_typecontainer_t* pt_typecontainer, const char* s_typename)
+_type_get_type	src/cstl_types.c	/^void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename)$/;"	f	signature:(_typecontainer_t* pt_typecontainer, const char* s_typename)
+_type_hash	src/cstl_types.c	/^static size_t _type_hash(const char* s_typename)$/;"	f	file:	signature:(const char* s_typename)
+_type_hash	src/cstl_types.c	/^static size_t _type_hash(const char* s_typename);$/;"	p	file:	signature:(const char* s_typename)
 _type_init	src/cstl_types.c	/^static void _type_init(void)$/;"	f	file:	signature:(void)
 _type_init	src/cstl_types.c	/^static void _type_init(void);$/;"	p	file:	signature:(void)
-_type_is_registered	src/cstl_types.c	/^static bool_t _type_is_registered(size_t t_typesize, const char* s_typename)$/;"	f	file:	signature:(size_t t_typesize, const char* s_typename)
-_type_is_registered	src/cstl_types.c	/^static bool_t _type_is_registered(size_t t_typesize, const char* s_typename);$/;"	p	file:	signature:(size_t t_typesize, const char* s_typename)
+_type_is_registered	src/cstl_types.c	/^static bool_t _type_is_registered(const char* s_typename)$/;"	f	file:	signature:(const char* s_typename)
+_type_is_registered	src/cstl_types.c	/^static bool_t _type_is_registered(const char* s_typename);$/;"	p	file:	signature:(const char* s_typename)
+_type_is_same	include/cstl_types.h	/^extern bool_t _type_is_same(const char* s_typename1, const char* s_typename2);$/;"	p	signature:(const char* s_typename1, const char* s_typename2)
+_type_is_same	src/cstl_types.c	/^bool_t _type_is_same(const char* s_typename1, const char* s_typename2)$/;"	f	signature:(const char* s_typename1, const char* s_typename2)
 _type_less_bool	src/cstl_types.c	/^static void _type_less_bool($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_less_bool	src/cstl_types.c	/^static void _type_less_bool($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_less_char	src/cstl_types.c	/^static void _type_less_char($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -2200,6 +2236,8 @@ _type_less_hash_set	src/cstl_types.c	/^static void _type_less_hash_set($/;"	f	fi
 _type_less_hash_set	src/cstl_types.c	/^static void _type_less_hash_set($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_less_int	src/cstl_types.c	/^static void _type_less_int($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_less_int	src/cstl_types.c	/^static void _type_less_int($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
+_type_less_iterator	src/cstl_types.c	/^static void _type_less_iterator($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
+_type_less_iterator	src/cstl_types.c	/^static void _type_less_iterator($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_less_list	src/cstl_types.c	/^static void _type_less_list($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_less_list	src/cstl_types.c	/^static void _type_less_list($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_less_long	src/cstl_types.c	/^static void _type_less_long($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -2238,24 +2276,37 @@ _type_less_ushort	src/cstl_types.c	/^static void _type_less_ushort($/;"	f	file:	
 _type_less_ushort	src/cstl_types.c	/^static void _type_less_ushort($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_less_vector	src/cstl_types.c	/^static void _type_less_vector($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _type_less_vector	src/cstl_types.c	/^static void _type_less_vector($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
-_type_parse_c_builtin	src/cstl_types.c	/^static bool_t _type_parse_c_builtin($/;"	p	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
 _type_parse_c_builtin	src/cstl_types.c	/^static bool_t _type_parse_c_builtin(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
-_type_parse_common_suffix	src/cstl_types.c	/^static bool_t _type_parse_common_suffix($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_complex_suffix	src/cstl_types.c	/^static bool_t _type_parse_complex_suffix($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_cstl_builtin	src/cstl_types.c	/^static bool_t _type_parse_cstl_builtin($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_relation	src/cstl_types.c	/^static bool_t _type_parse_relation($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_relation_name	src/cstl_types.c	/^static bool_t _type_parse_relation_name($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_sequence	src/cstl_types.c	/^static bool_t _type_parse_sequence($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_sequence_name	src/cstl_types.c	/^static bool_t _type_parse_sequence_name($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
+_type_parse_c_builtin	src/cstl_types.c	/^static bool_t _type_parse_c_builtin(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_common_suffix	src/cstl_types.c	/^static bool_t _type_parse_common_suffix(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_common_suffix	src/cstl_types.c	/^static bool_t _type_parse_common_suffix(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_complex_suffix	src/cstl_types.c	/^static bool_t _type_parse_complex_suffix(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_complex_suffix	src/cstl_types.c	/^static bool_t _type_parse_complex_suffix(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_cstl_builtin	src/cstl_types.c	/^static bool_t _type_parse_cstl_builtin(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_cstl_builtin	src/cstl_types.c	/^static bool_t _type_parse_cstl_builtin(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_iterator	src/cstl_types.c	/^static bool_t _type_parse_iterator(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_iterator	src/cstl_types.c	/^static bool_t _type_parse_iterator(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_relation	src/cstl_types.c	/^static bool_t _type_parse_relation(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_relation	src/cstl_types.c	/^static bool_t _type_parse_relation(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_relation_name	src/cstl_types.c	/^static bool_t _type_parse_relation_name(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_relation_name	src/cstl_types.c	/^static bool_t _type_parse_relation_name(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_sequence	src/cstl_types.c	/^static bool_t _type_parse_sequence(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_sequence	src/cstl_types.c	/^static bool_t _type_parse_sequence(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_sequence_name	src/cstl_types.c	/^static bool_t _type_parse_sequence_name(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_sequence_name	src/cstl_types.c	/^static bool_t _type_parse_sequence_name(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
 _type_parse_signed_builtin	src/cstl_types.c	/^static bool_t _type_parse_signed_builtin(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_signed_builtin	src/cstl_types.c	/^static bool_t _type_parse_signed_builtin(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
 _type_parse_simple_builtin	src/cstl_types.c	/^static bool_t _type_parse_simple_builtin(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
-_type_parse_simple_long_suffix	src/cstl_types.c	/^static bool_t _type_parse_simple_long_suffix($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_simple_long_suffix_x	src/cstl_types.c	/^static bool_t _type_parse_simple_long_suffix_x($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_space_suffix	src/cstl_types.c	/^static bool_t _type_parse_space_suffix($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_type_descript	src/cstl_types.c	/^static bool_t _type_parse_type_descript($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname, const char* s_tokentext)
+_type_parse_simple_builtin	src/cstl_types.c	/^static bool_t _type_parse_simple_builtin(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_simple_long_suffix	src/cstl_types.c	/^static bool_t _type_parse_simple_long_suffix(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_simple_long_suffix	src/cstl_types.c	/^static bool_t _type_parse_simple_long_suffix(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_type_descript	src/cstl_types.c	/^static bool_t _type_parse_type_descript(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
 _type_parse_unsigned_builtin	src/cstl_types.c	/^static bool_t _type_parse_unsigned_builtin(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
-_type_parse_user_define	src/cstl_types.c	/^static bool_t _type_parse_user_define($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
-_type_parse_user_define_type	src/cstl_types.c	/^static bool_t _type_parse_user_define_type($/;"	f	file:	signature:( const char* s_input, _typetoken_t t_token, char* s_formalname)
+_type_parse_unsigned_builtin	src/cstl_types.c	/^static bool_t _type_parse_unsigned_builtin(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_user_define	src/cstl_types.c	/^static bool_t _type_parse_user_define(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_user_define	src/cstl_types.c	/^static bool_t _type_parse_user_define(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
+_type_parse_user_define_type	src/cstl_types.c	/^static bool_t _type_parse_user_define_type(char* s_formalname)$/;"	f	file:	signature:(char* s_formalname)
+_type_parse_user_define_type	src/cstl_types.c	/^static bool_t _type_parse_user_define_type(char* s_formalname);$/;"	p	file:	signature:(char* s_formalname)
 _type_register	include/cstl_types.h	/^extern bool_t _type_register($/;"	p	signature:( size_t t_typesize, const char* s_typename, binary_function_t t_typecopy, binary_function_t t_typeless, unary_function_t t_typedestroy)
 _type_register	src/cstl_types.c	/^bool_t _type_register($/;"	f	signature:( size_t t_typesize, const char* s_typename, binary_function_t t_typecopy, binary_function_t t_typeless, unary_function_t t_typedestroy)
 _type_register_c_builtin	src/cstl_types.c	/^static void _type_register_c_builtin(void)$/;"	f	file:	signature:(void)
@@ -2266,6 +2317,7 @@ _type_t	include/cstl_types.h	/^}_type_t;$/;"	t	typeref:struct:_tagtype
 _type_unregister	include/cstl_types.h	/^extern void _type_unregister(size_t t_typesize, const char* s_typename);$/;"	p	signature:(size_t t_typesize, const char* s_typename)
 _type_unregister	src/cstl_types.c	/^void _type_unregister(size_t t_typesize, const char* s_typename)$/;"	f	signature:(size_t t_typesize, const char* s_typename)
 _typeanalysis_t	src/cstl_types.c	/^}_typeanalysis_t;$/;"	t	typeref:struct:_tagtypeanalysis	file:
+_typecontainer_t	include/cstl_types.h	/^}_typecontainer_t;$/;"	t	typeref:struct:_tagtypecontainer
 _typelex_t	src/cstl_types.c	/^}_typelex_t;$/;"	t	typeref:enum:_tagtypelex	file:
 _typenode_t	include/cstl_types.h	/^}_typenode_t;$/;"	t	typeref:struct:_tagtypenode
 _typeregister_t	include/cstl_types.h	/^}_typeregister_t;$/;"	t	typeref:struct:_tagtyperegister
@@ -4270,9 +4322,9 @@ test_type	test/test_type.h	/^extern void test_type(void);$/;"	p	signature:(void)
 test_vector	test/test_vector.c	/^void test_vector(void)$/;"	f	signature:(void)
 test_vector	test/test_vector.h	/^extern void test_vector(void);$/;"	p	signature:(void)
 true	include/cstl_types.h	36;"	d
-type_duplicate	include/cstl_types.h	223;"	d
-type_register	include/cstl_types.h	219;"	d
-type_unregister	include/cstl_types.h	221;"	d
+type_duplicate	include/cstl_types.h	249;"	d
+type_register	include/cstl_types.h	245;"	d
+type_unregister	include/cstl_types.h	247;"	d
 unary_function_t	include/cstl_types.h	/^typedef void (*unary_function_t)(const void*, void*);$/;"	t
 vector_assign	include/cstl_vector.h	/^extern void vector_assign($/;"	p	signature:( vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
 vector_assign	src/cstl_vector.c	/^void vector_assign(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)$/;"	f	signature:(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
