@@ -260,6 +260,8 @@ extern bool_t _type_duplicate(
     size_t t_typesize2, const char* s_typename2);
 extern void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename);
 extern bool_t _type_is_same(const char* s_typename1, const char* s_typename2);
+
+extern void type_debug(void);
 /*
  * Unify the C built-in types.
  */

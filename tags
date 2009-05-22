@@ -962,7 +962,7 @@ _get_varg_value	include/cstl_types.h	/^extern void _get_varg_value($/;"	p	signat
 _get_varg_value	src/cstl_types.c	/^void _get_varg_value($/;"	f	signature:( void* pv_output, va_list val_elemlist, size_t t_typesize, const char* s_typename)
 _greater3	test/test_algo.c	/^static void _greater3(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _greater3	test/test_algo.c	/^static void _greater3(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
-_gt_typeanalysis	src/cstl_types.c	/^_typeanalysis_t _gt_typeanalysis = {{'\\0'}, {'\\0'}, 0, _TOKEN_INVALID};$/;"	v
+_gt_typeanalysis	src/cstl_types.c	/^static _typeanalysis_t _gt_typeanalysis = {{'\\0'}, {'\\0'}, 0, _TOKEN_INVALID};$/;"	v	file:
 _gt_typeregister	src/cstl_types.c	/^static _typeregister_t _gt_typeregister = {false, {NULL}, {{NULL}, NULL, NULL, 0, 0, 0}};$/;"	v	file:
 _hash_function_for_double	src/cstl_hashtable.c	/^static int _hash_function_for_double($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
 _hash_function_for_double	src/cstl_hashtable.c	/^static int _hash_function_for_double($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
@@ -2208,8 +2208,8 @@ _type_hash	src/cstl_types.c	/^static size_t _type_hash(const char* s_typename)$/
 _type_hash	src/cstl_types.c	/^static size_t _type_hash(const char* s_typename);$/;"	p	file:	signature:(const char* s_typename)
 _type_init	src/cstl_types.c	/^static void _type_init(void)$/;"	f	file:	signature:(void)
 _type_init	src/cstl_types.c	/^static void _type_init(void);$/;"	p	file:	signature:(void)
-_type_is_registered	src/cstl_types.c	/^static bool_t _type_is_registered(const char* s_typename)$/;"	f	file:	signature:(const char* s_typename)
-_type_is_registered	src/cstl_types.c	/^static bool_t _type_is_registered(const char* s_typename);$/;"	p	file:	signature:(const char* s_typename)
+_type_is_registered	src/cstl_types.c	/^static _type_t* _type_is_registered(const char* s_typename)$/;"	f	file:	signature:(const char* s_typename)
+_type_is_registered	src/cstl_types.c	/^static _type_t* _type_is_registered(const char* s_typename);$/;"	p	file:	signature:(const char* s_typename)
 _type_is_same	include/cstl_types.h	/^extern bool_t _type_is_same(const char* s_typename1, const char* s_typename2);$/;"	p	signature:(const char* s_typename1, const char* s_typename2)
 _type_is_same	src/cstl_types.c	/^bool_t _type_is_same(const char* s_typename1, const char* s_typename2)$/;"	f	signature:(const char* s_typename1, const char* s_typename2)
 _type_less_bool	src/cstl_types.c	/^static void _type_less_bool($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3781,7 +3781,6 @@ pair_not_equal	src/cstl_pair.c	/^bool_t pair_not_equal(const pair_t* cpt_pairfir
 pair_t	include/cstl_pair.h	/^}pair_t;$/;"	t	typeref:struct:_tagpair
 plus_struct	test/test_numeric.c	/^static void plus_struct(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 plus_struct	test/test_numeric.c	/^static void plus_struct(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
-print_abc	test/test_type.c	37;"	d	file:
 priority_queue_assign	include/cstl_queue.h	/^extern void priority_queue_assign($/;"	p	signature:( priority_queue_t* pt_pqueuedest, const priority_queue_t* cpt_pqueuesrc)
 priority_queue_assign	src/cstl_queue.c	/^void priority_queue_assign($/;"	f	signature:( priority_queue_t* pt_pqueuedest, const priority_queue_t* cpt_pqueuesrc)
 priority_queue_destroy	include/cstl_queue.h	/^extern void priority_queue_destroy(priority_queue_t* pt_pqueue);$/;"	p	signature:(priority_queue_t* pt_pqueue)
@@ -4322,6 +4321,8 @@ test_type	test/test_type.h	/^extern void test_type(void);$/;"	p	signature:(void)
 test_vector	test/test_vector.c	/^void test_vector(void)$/;"	f	signature:(void)
 test_vector	test/test_vector.h	/^extern void test_vector(void);$/;"	p	signature:(void)
 true	include/cstl_types.h	36;"	d
+type_debug	include/cstl_types.h	/^extern void type_debug(void);$/;"	p	signature:(void)
+type_debug	src/cstl_types.c	/^void type_debug(void)$/;"	f	signature:(void)
 type_duplicate	include/cstl_types.h	249;"	d
 type_register	include/cstl_types.h	245;"	d
 type_unregister	include/cstl_types.h	247;"	d

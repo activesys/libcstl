@@ -34,14 +34,11 @@ typedef struct _tagabc
     int a;
 }abc_t;
 
-#define print_abc(type)\
-    printf("%d, %s\n", sizeof(type), #type)
-
 /** exported function implementation section **/
 void test_type(void)
 {
     type_register(abc_t, NULL, NULL, NULL);
-    type_register(struct _tagabc, NULL, NULL, NULL);
+    type_debug();
 }
 
 /** local function implementation section **/

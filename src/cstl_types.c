@@ -56,7 +56,7 @@
         assert(pt_type != NULL);\
         pt_type->_t_typesize = sizeof(type);\
         memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
-        strncpy(pt_node->_sz_typename, type_text, _TYPE_NAME_SIZE);\
+        strncpy(pt_type->_sz_typename, type_text, _TYPE_NAME_SIZE);\
         pt_type->_t_typecopy = _type_copy_##type_suffix;\
         pt_type->_t_typeless = _type_less_##type_suffix;\
         pt_type->_t_typedestroy = _type_destroy_##type_suffix;\
@@ -496,6 +496,55 @@ static void _type_destroy_iterator(
 /** local global variable definition section **/
 
 /** exported function implementation section **/
+void type_debug(void)
+{
+    size_t t_i = 0;
+    size_t t_j = 0;
+    _typenode_t* pt_node = NULL;
+    _type_t* pt_type = NULL;
+    _type_t* apt_type[1024] = {NULL};
+
+    for(t_j = 0; t_j < 1024; ++t_j)
+    {
+        apt_type[t_j] = NULL;
+    }
+
+    for(t_i = 0; t_i < _TYPE_REGISTER_BUCKET_COUNT; ++t_i)
+    {
+        printf("[%u]", t_i);
+        pt_node = _gt_typeregister._apt_bucket[t_i];
+        while(pt_node != NULL)
+        {
+            printf("->[%s,%p]", pt_node->_sz_typename, pt_node->_pt_type);
+            for(t_j = 0; t_j < 1024; ++t_j)
+            {
+                if(apt_type[t_j] == pt_node->_pt_type)
+                {
+                    break;
+                }
+                else if(apt_type[t_j] == NULL)
+                {
+                    apt_type[t_j] = pt_node->_pt_type;
+                    break;
+                }
+            }
+            pt_node = pt_node->_pt_next;
+        }
+        printf("\n");
+    }
+
+    for(t_j = 0; t_j < 1024; ++t_j)
+    {
+        pt_type = apt_type[t_j];
+        if(pt_type != NULL)
+        {
+            printf("%p\n----------\n%d,%s,%p,%p,%p\n========================\n",
+                pt_type, pt_type->_t_typesize, pt_type->_sz_typename,
+                pt_type->_t_typecopy, pt_type->_t_typeless, pt_type->_t_typedestroy);
+        }
+    }
+}
+
 bool_t _type_register(
     size_t t_typesize, const char* s_typename,
     binary_function_t t_typecopy,
@@ -2131,7 +2180,7 @@ static void _type_register_c_builtin(void)
     /* register unsigned int */
     _TYPE_REGISTER_TYPE(unsigned int, _UNSIGNED_INT_TYPE, uint);
     _TYPE_REGISTER_TYPE_NODE(unsigned int, _UNSIGNED_INT_TYPE);
-    _TYPE_REGISTER_TYPE_NODE(signed, _SIGNED_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed, _UNSIGNED_TYPE);
     /* register long */
     _TYPE_REGISTER_TYPE(long, _LONG_TYPE, long);
     _TYPE_REGISTER_TYPE_NODE(long, _LONG_TYPE);
