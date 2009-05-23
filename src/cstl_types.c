@@ -570,7 +570,7 @@ bool_t _type_register(
         _typenode_t* pt_node = (_typenode_t*)allocate(
             &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
         _type_t* pt_type = (_type_t*)allocate(
-            &_gt_typeregister._t_allocator, sizeof(_type_t*), 1);
+            &_gt_typeregister._t_allocator, sizeof(_type_t), 1);
 
         memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
         memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
@@ -605,8 +605,11 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
         return;
     }
 
-    /* the main aim is getting formal name */
-    _type_get_style(s_typename, s_formalname);
+    /* only the user define type can be unregistered */
+    if(_type_get_style(s_typename, s_formalname) != _TYPE_USER_DEFINE)
+    {
+        return;
+    }
     /* get the registered type pointer */
     pt_type = _type_is_registered(s_formalname);
 
@@ -947,7 +950,7 @@ void _type_less_default(const void* cpv_first, const void* cpv_second, void* pv_
 void _type_destroy_default(const void* cpv_input, void* pv_output)
 {
     void* pv_avoidwarning = NULL;
-    assert(cpv_first != NULL && pv_output != NULL);
+    assert(cpv_input != NULL && pv_output != NULL);
     pv_avoidwarning = (void*)cpv_input;
     *(bool_t*)pv_output = true;
 }

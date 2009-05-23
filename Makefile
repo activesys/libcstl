@@ -22,7 +22,7 @@
 
 # set compiler and options
 CC = gcc
-CEXPFLAGS = -DCSTL_TYPES_UNIFICATION=2 -DNDEBUG
+CEXPFLAGS = -DCSTL_TYPES_UNIFICATION=2#-DNDEBUG
 CFLAGS = -c -g -ansi -pedantic -Wall -Wextra -fPIC $(CEXPFLAGS)
 CPPFLAGS = -I include
 LINKSOFLAGS = -shared -Wl,-soname,libcstl.so.1
