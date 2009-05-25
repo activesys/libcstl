@@ -8,7 +8,7 @@ ARFLAGS	Makefile	/^ARFLAGS = ruv$/;"	m
 ARTARGET	Makefile	/^ARTARGET = $(BINDIR)\/libcstl.a$/;"	m
 BINDIR	Makefile	/^BINDIR = bin$/;"	m
 CC	Makefile	/^CC = gcc$/;"	m
-CEXPFLAGS	Makefile	/^CEXPFLAGS = -DCSTL_TYPES_UNIFICATION=2 -DNDEBUG$/;"	m
+CEXPFLAGS	Makefile	/^CEXPFLAGS = -DCSTL_TYPES_UNIFICATION=2#-DNDEBUG$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -c -g -ansi -pedantic -Wall -Wextra -fPIC $(CEXPFLAGS)$/;"	m
 CPPFLAGS	Makefile	/^CPPFLAGS = -I include$/;"	m
 CSTL_TYPES_UNIFICATION	include/cstl_types.h	191;"	d
@@ -367,7 +367,6 @@ _TEST_STACK_H	test/test_stack.h	24;"	d
 _TEST_STRING_H	test/test_string.h	24;"	d
 _TEST_TYPE_H	test/test_type.h	12;"	d
 _TEST_VECTOR_H	test/test_vector.h	24;"	d
-_TOKEN_EMPTY	src/cstl_types.c	/^    _TOKEN_EMPTY$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_END_OF_INPUT	src/cstl_types.c	/^    _TOKEN_END_OF_INPUT,$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_IDENTIFIER	src/cstl_types.c	/^    _TOKEN_KEY_STRUCT, _TOKEN_KEY_ENUM, _TOKEN_KEY_UNION, _TOKEN_IDENTIFIER,$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_INVALID	src/cstl_types.c	/^    _TOKEN_INVALID,$/;"	e	enum:_tagtypetoken	file:
@@ -423,6 +422,7 @@ _TOKEN_KEY_VECTOR_ITERATOR	src/cstl_types.c	/^    _TOKEN_KEY_ITERATOR, _TOKEN_KE
 _TOKEN_MATCH	src/cstl_types.c	157;"	d	file:
 _TOKEN_MATCH_IDENTIFIER	src/cstl_types.c	164;"	d	file:
 _TOKEN_MATCH_SPACE	src/cstl_types.c	162;"	d	file:
+_TOKEN_ROLLBACK	src/cstl_types.c	/^    _TOKEN_ROLLBACK$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_SIGN_COMMA	src/cstl_types.c	/^    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_SIGN_LEFT_BRACKET	src/cstl_types.c	/^    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,$/;"	e	enum:_tagtypetoken	file:
 _TOKEN_SIGN_RIGHT_BRACKET	src/cstl_types.c	/^    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,$/;"	e	enum:_tagtypetoken	file:
@@ -2314,8 +2314,8 @@ _type_register_c_builtin	src/cstl_types.c	/^static void _type_register_c_builtin
 _type_register_cstl_builtin	src/cstl_types.c	/^static void _type_register_cstl_builtin(void)$/;"	f	file:	signature:(void)
 _type_register_cstl_builtin	src/cstl_types.c	/^static void _type_register_cstl_builtin(void);$/;"	p	file:	signature:(void)
 _type_t	include/cstl_types.h	/^}_type_t;$/;"	t	typeref:struct:_tagtype
-_type_unregister	include/cstl_types.h	/^extern void _type_unregister(size_t t_typesize, const char* s_typename);$/;"	p	signature:(size_t t_typesize, const char* s_typename)
-_type_unregister	src/cstl_types.c	/^void _type_unregister(size_t t_typesize, const char* s_typename)$/;"	f	signature:(size_t t_typesize, const char* s_typename)
+_type_token_rollback	src/cstl_types.c	/^static void _type_token_rollback(void)$/;"	f	file:	signature:(void)
+_type_token_rollback	src/cstl_types.c	/^static void _type_token_rollback(void);$/;"	p	file:	signature:(void)
 _typeanalysis_t	src/cstl_types.c	/^}_typeanalysis_t;$/;"	t	typeref:struct:_tagtypeanalysis	file:
 _typecontainer_t	include/cstl_types.h	/^}_typecontainer_t;$/;"	t	typeref:struct:_tagtypecontainer
 _typelex_t	src/cstl_types.c	/^}_typelex_t;$/;"	t	typeref:enum:_tagtypelex	file:
@@ -2379,6 +2379,7 @@ abc_t	test/test_type.c	/^}abc_t;$/;"	t	typeref:struct:_tagabc	file:
 abc_t::d_key	test/test_algo.c	/^    double d_key;$/;"	m	struct:abc_t	file:	access:public
 abc_t::l_value	test/test_algo.c	/^    long l_value;$/;"	m	struct:abc_t	file:	access:public
 abc_t::n_value	test/test_algo.c	/^    int n_value;$/;"	m	struct:abc_t	file:	access:public
+abcdefgh	test/test_type.c	/^typedef int abcdefgh;$/;"	t	file:
 algo_accumulate	include/cstl_numeric.h	37;"	d
 algo_accumulate_if	include/cstl_numeric.h	39;"	d
 algo_adjacent_difference	include/cstl_numeric.h	/^extern output_iterator_t algo_adjacent_difference($/;"	p	signature:( input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
@@ -3752,6 +3753,8 @@ multiset_t	include/cstl_multiset_private.h	/^}multiset_t;$/;"	t	typeref:struct:_
 multiset_upper_bound	include/cstl_multiset.h	46;"	d
 multiset_value_comp	include/cstl_multiset.h	/^extern int (*multiset_value_comp(const multiset_t* cpt_multiset))($/;"	p	signature:(const multiset_t* cpt_multiset)
 multiset_value_comp	src/cstl_multiset.c	/^int (*multiset_value_comp(const multiset_t* cpt_multiset))(const void*, const void*)$/;"	f	signature:(const multiset_t* cpt_multiset)
+myiter_t	test/test_type.c	/^typedef output_iterator_t myiter_t;$/;"	t	file:
+mymacro	test/test_type.c	40;"	d	file:
 n_a	test/test_numeric.c	/^    int n_a;$/;"	m	struct:_tagabc	file:	access:public
 n_value	test/test_algo.c	/^    int n_value;$/;"	m	struct:abc_t	file:	access:public
 ostream_iterator_t	include/cstl_iterator.h	/^typedef output_iterator_t           ostream_iterator_t;$/;"	t

@@ -141,8 +141,8 @@ typedef enum _tagtypetoken
     _TOKEN_KEY_RANDOM_ACCESS_ITERATOR,
     /* sign */
     _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,
-    /* empty */
-    _TOKEN_EMPTY
+    /* ROLLBACK */
+    _TOKEN_ROLLBACK
 }_typetoken_t;
 
 typedef struct _tagtypeanalysis
@@ -252,6 +252,7 @@ static void _type_register_cstl_builtin(void);
 
 /* the functions blow is used for analyse the type style */
 static void _type_get_token(void);
+static void _type_token_rollback(void);
 static bool_t _type_parse_c_builtin(char* s_formalname);
 static bool_t _type_parse_common_suffix(char* s_formalname);
 static bool_t _type_parse_simple_long_suffix(char* s_formalname);
@@ -593,6 +594,7 @@ bool_t _type_register(
     }
 }
 
+/*
 void _type_unregister(size_t t_typesize, const char* s_typename)
 {
     _type_t*     pt_type = NULL;
@@ -605,12 +607,10 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
         return;
     }
 
-    /* only the user define type can be unregistered */
     if(_type_get_style(s_typename, s_formalname) != _TYPE_USER_DEFINE)
     {
         return;
     }
-    /* get the registered type pointer */
     pt_type = _type_is_registered(s_formalname);
 
     if(pt_type != NULL)
@@ -662,6 +662,7 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
         deallocate(&_gt_typeregister._t_allocator, pt_type, sizeof(_type_t), 1);
     }
 }
+*/
 
 bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
@@ -744,11 +745,17 @@ void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename)
 
     assert(pt_typecontainer != NULL && s_typename != NULL);
 
+    if(!_gt_typeregister._t_isinit)
+    {
+        _type_init();
+    }
+
     memset(s_registeredname, '\0', _TYPE_NAME_SIZE+1);
     t_style = _type_get_style(s_typename, pt_typecontainer->_sz_typename);
     if(t_style == _TYPE_INVALID)
     {
         pt_typecontainer->_pt_type = NULL;
+        return;
     }
     else if(t_style == _TYPE_C_BUILTIN || t_style == _TYPE_USER_DEFINE)
     {
@@ -762,7 +769,7 @@ void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename)
                 pc_leftbracket-pt_typecontainer->_sz_typename);
     }
 
-    pt_typecontainer->_pt_type = _type_is_registered(pt_typecontainer->_sz_typename);
+    pt_typecontainer->_pt_type = _type_is_registered(s_registeredname);
 }
 
 bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
@@ -1208,16 +1215,16 @@ static bool_t _type_parse_cstl_builtin(char* s_formalname)
     case _TOKEN_KEY_STACK:
     case _TOKEN_KEY_QUEUE:
     case _TOKEN_KEY_PRIORITY_QUEUE:
+    case _TOKEN_KEY_SET:
+    case _TOKEN_KEY_MULTISET:
+    case _TOKEN_KEY_HASH_SET:
+    case _TOKEN_KEY_HASH_MULTISET:
         return _type_parse_sequence(s_formalname);
         break;
     /* CSTL_BUILTIN -> RELATION */
-    case _TOKEN_KEY_SET:
     case _TOKEN_KEY_MAP:
-    case _TOKEN_KEY_MULTISET:
     case _TOKEN_KEY_MULTIMAP:
-    case _TOKEN_KEY_HASH_SET:
     case _TOKEN_KEY_HASH_MAP:
-    case _TOKEN_KEY_HASH_MULTISET:
     case _TOKEN_KEY_HASH_MULTIMAP:
     case _TOKEN_KEY_PAIR:
         return _type_parse_relation(s_formalname);
@@ -1359,13 +1366,10 @@ static bool_t _type_parse_relation(char* s_formalname)
             return false;
         }
         /* , */
+        _type_get_token();
         if(_gt_typeanalysis._t_token != _TOKEN_SIGN_COMMA)
         {
-            _type_get_token();
-            if(_gt_typeanalysis._t_token != _TOKEN_SIGN_COMMA)
-            {
-                return false;
-            }
+            return false;
         }
         _TOKEN_MATCH(_TOKEN_TEXT_COMMA, s_formalname);
         /* TYPE_DESCRIPT */
@@ -1375,13 +1379,10 @@ static bool_t _type_parse_relation(char* s_formalname)
             return false;
         }
         /* > */
+        _type_get_token();
         if(_gt_typeanalysis._t_token != _TOKEN_SIGN_RIGHT_BRACKET)
         {
-            _type_get_token();
-            if(_gt_typeanalysis._t_token != _TOKEN_SIGN_RIGHT_BRACKET)
-            {
-                return false;
-            }
+            return false;
         }
         _TOKEN_MATCH(_TOKEN_TEXT_RIGHT_BRACKET, s_formalname);
         return true;
@@ -1395,38 +1396,20 @@ static bool_t _type_parse_relation(char* s_formalname)
 static bool_t _type_parse_relation_name(char* s_formalname)
 {
     /*
-     * RELATION_NAME -> set_t | map_t | multiset_t | multimap_t |
-     *                  hash_set_t | hash_map_t | hash_multiset_t | hash_multimap_t |
-     *                  pair_t
+     * RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
      */
     switch(_gt_typeanalysis._t_token)
     {
-    case _TOKEN_KEY_SET:
-        _TOKEN_MATCH(_TOKEN_TEXT_SET, s_formalname);
-        return true;
-        break;
     case _TOKEN_KEY_MAP:
         _TOKEN_MATCH(_TOKEN_TEXT_MAP, s_formalname);
-        return true;
-        break;
-    case _TOKEN_KEY_MULTISET:
-        _TOKEN_MATCH(_TOKEN_TEXT_MULTISET, s_formalname);
         return true;
         break;
     case _TOKEN_KEY_MULTIMAP:
         _TOKEN_MATCH(_TOKEN_TEXT_MULTIMAP, s_formalname);
         return true;
         break;
-    case _TOKEN_KEY_HASH_SET:
-        _TOKEN_MATCH(_TOKEN_TEXT_HASH_SET, s_formalname);
-        return true;
-        break;
     case _TOKEN_KEY_HASH_MAP:
         _TOKEN_MATCH(_TOKEN_TEXT_HASH_MAP, s_formalname);
-        return true;
-        break;
-    case _TOKEN_KEY_HASH_MULTISET:
-        _TOKEN_MATCH(_TOKEN_TEXT_HASH_MULTISET, s_formalname);
         return true;
         break;
     case _TOKEN_KEY_HASH_MULTIMAP:
@@ -1462,13 +1445,10 @@ static bool_t _type_parse_sequence(char* s_formalname)
             return false;
         }
         /* > */
+        _type_get_token();
         if(_gt_typeanalysis._t_token != _TOKEN_SIGN_RIGHT_BRACKET)
         {
-            _type_get_token();
-            if(_gt_typeanalysis._t_token != _TOKEN_SIGN_RIGHT_BRACKET)
-            {
-                return false;
-            }
+            return false;
         }
         _TOKEN_MATCH(_TOKEN_TEXT_RIGHT_BRACKET, s_formalname);
         return true;
@@ -1483,7 +1463,8 @@ static bool_t _type_parse_sequence_name(char* s_formalname)
 {
     /* 
      * SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | stack_t | 
-     *                  queue_t | priority_queue_t
+     *                  queue_t | priority_queue_t | set_t | multiset_t |
+     *                  hash_set_t | hash_multiset_t
      */
     switch(_gt_typeanalysis._t_token)
     {
@@ -1513,6 +1494,22 @@ static bool_t _type_parse_sequence_name(char* s_formalname)
         break;
     case _TOKEN_KEY_PRIORITY_QUEUE:
         _TOKEN_MATCH(_TOKEN_TEXT_PRIORITY_QUEUE, s_formalname);
+        return true;
+        break;
+    case _TOKEN_KEY_SET:
+        _TOKEN_MATCH(_TOKEN_TEXT_SET, s_formalname);
+        return true;
+        break;
+    case _TOKEN_KEY_MULTISET:
+        _TOKEN_MATCH(_TOKEN_TEXT_MULTISET, s_formalname);
+        return true;
+        break;
+    case _TOKEN_KEY_HASH_SET:
+        _TOKEN_MATCH(_TOKEN_TEXT_HASH_SET, s_formalname);
+        return true;
+        break;
+    case _TOKEN_KEY_HASH_MULTISET:
+        _TOKEN_MATCH(_TOKEN_TEXT_HASH_MULTISET, s_formalname);
         return true;
         break;
     default:
@@ -1683,6 +1680,7 @@ static bool_t _type_parse_complex_suffix(char* s_formalname)
     case _TOKEN_END_OF_INPUT:
     case _TOKEN_SIGN_RIGHT_BRACKET:
     case _TOKEN_SIGN_COMMA:
+        _type_token_rollback();
         return true;
         break;
     default:
@@ -1762,6 +1760,7 @@ static bool_t _type_parse_common_suffix(char* s_formalname)
     case _TOKEN_END_OF_INPUT:
     case _TOKEN_SIGN_RIGHT_BRACKET:
     case _TOKEN_SIGN_COMMA:
+        _type_token_rollback();
         return true;
         break;
     default:
@@ -1792,6 +1791,21 @@ static bool_t _type_parse_simple_long_suffix(char* s_formalname)
         return false;
         break;
     }
+}
+
+static void _type_token_rollback(void)
+{
+    assert(_gt_typeanalysis._t_token == _TOKEN_END_OF_INPUT ||
+           _gt_typeanalysis._t_token == _TOKEN_SIGN_COMMA ||
+           _gt_typeanalysis._t_token == _TOKEN_SIGN_RIGHT_BRACKET);
+    assert(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index-1] == '\0' ||
+           _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index-1] == ',' ||
+           _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index-1] == '>');
+    assert(strncmp(_gt_typeanalysis._sz_tokentext, "", _TYPE_NAME_SIZE) == 0 ||
+           strncmp(_gt_typeanalysis._sz_tokentext, ",", _TYPE_NAME_SIZE) == 0 ||
+           strncmp(_gt_typeanalysis._sz_tokentext, ">", _TYPE_NAME_SIZE) == 0);
+    _gt_typeanalysis._t_index--;
+    _gt_typeanalysis._t_token = _TOKEN_ROLLBACK;
 }
 
 static void _type_get_token(void)

@@ -34,7 +34,7 @@ typedef struct _tagabc
 {
     int a;
 }abc_t;
-typedef int myint_t;
+typedef int abcdefgh;
 typedef output_iterator_t myiter_t;
 
 #define mymacro(type) printf("%s\n", #type)
@@ -43,10 +43,39 @@ typedef output_iterator_t myiter_t;
 void test_type(void)
 {
     bool_t t_b = false;
+    _typecontainer_t t_type;
 
-    t_b = type_duplicate(myiter_t, list_iterator_t);
+    type_register(abc_t, NULL, NULL, NULL);
+    /*
+    _type_get_type(&t_type, "map_t         <            \
+            signed \
+            long \
+            int             , hash_multiset_t   < \
+set_t < \
+            pair_t       < \
+            abc_t             ,                    \
+\
+\
+            random_access_iterator_t>\
+\
+>\
+>\
+>");
+*/
+    /*_type_get_type(&t_type, "slist_t<int>");*/
+    /*_type_get_type(&t_type, "slist_t<signed char>");*/
+    /*_type_get_type(&t_type, "slist_t<long>");*/
+    /*_type_get_type(&t_type, "slist_t<abc_t>");*/
+    /*_type_get_type(&t_type, "slist_t<bbb_t>");*/
+    /*_type_get_type(&t_type, "slist_t<stack_t<int>>");*/
+    _type_get_type(&t_type, "slist_t<hash_multimap_t<double, string_t>>");
     type_debug();
-    t_b ? printf("true\n") : printf("false\n");
+    printf("%s:", t_type._sz_typename);
+    if(t_type._pt_type != NULL)
+    {
+        printf("%s,%p", t_type._pt_type->_sz_typename, t_type._pt_type);
+    }
+    printf("\n");
 }
 
 /** local function implementation section **/

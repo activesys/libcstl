@@ -254,7 +254,7 @@ extern bool_t _type_register(
     binary_function_t t_typecopy,
     binary_function_t t_typeless,
     unary_function_t t_typedestroy);
-extern void _type_unregister(size_t t_typesize, const char* s_typename);
+/*extern void _type_unregister(size_t t_typesize, const char* s_typename);*/
 extern bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
     size_t t_typesize2, const char* s_typename2);
