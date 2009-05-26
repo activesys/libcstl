@@ -46,9 +46,11 @@ void test_type(void)
     _typecontainer_t t_type;
 
     type_register(abc_t, NULL, NULL, NULL);
-    /*
+    type_register(char**, NULL, NULL, NULL);
+    type_register(int*, NULL, NULL, NULL);
+    type_register(unsigned long int*, NULL, NULL, NULL);
     _type_get_type(&t_type, "map_t         <            \
-            signed \
+            unsigned \
             long \
             int             , hash_multiset_t   < \
 set_t < \
@@ -61,14 +63,6 @@ set_t < \
 >\
 >\
 >");
-*/
-    /*_type_get_type(&t_type, "slist_t<int>");*/
-    /*_type_get_type(&t_type, "slist_t<signed char>");*/
-    /*_type_get_type(&t_type, "slist_t<long>");*/
-    /*_type_get_type(&t_type, "slist_t<abc_t>");*/
-    /*_type_get_type(&t_type, "slist_t<bbb_t>");*/
-    /*_type_get_type(&t_type, "slist_t<stack_t<int>>");*/
-    _type_get_type(&t_type, "slist_t<hash_multimap_t<double, string_t>>");
     type_debug();
     printf("%s:", t_type._sz_typename);
     if(t_type._pt_type != NULL)

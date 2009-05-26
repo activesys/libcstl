@@ -1117,7 +1117,8 @@ static _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
         break;
     }
 
-    return t_style;
+    _type_get_token();
+    return _gt_typeanalysis._t_token == _TOKEN_END_OF_INPUT ? t_style : _TYPE_INVALID;
 }
 
 static bool_t _type_parse_type_descript(char* s_formalname)
@@ -1871,7 +1872,8 @@ static void _type_get_token(void)
         case _LEX_IN_IDENTIFIER:
             if(isalpha(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index]) ||
                isdigit(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index]) ||
-               _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '_')
+               _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '_' ||
+               _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '*')
             {
                 _gt_typeanalysis._sz_tokentext[t_tokentextindex++] =
                 _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index++];
