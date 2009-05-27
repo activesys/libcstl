@@ -906,10 +906,52 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
 
         if(pc_index1 != NULL && pc_index2 != NULL)
         {
+            size_t t_index = 0;
+
             memset(s_prefix1, '\0', _TYPE_NAME_SIZE+1);
             memset(s_prefix2, '\0', _TYPE_NAME_SIZE+1);
             strncpy(s_prefix1, s_elemname1, pc_index1 - s_elemname1);
             strncpy(s_prefix2, s_elemname2, pc_index2 - s_elemname2);
+
+            /* trim around space */
+            for(t_index = 0; t_index < _TYPE_NAME_SIZE; ++t_index)
+            {
+                if(s_prefix1[t_index] != ' ')
+                {
+                    break;
+                }
+            }
+            memmove(s_prefix1, s_prefix1+t_index, strlen(s_prefix1)-t_index);
+            for(t_index = 0; t_index < _TYPE_NAME_SIZE; ++t_index)
+            {
+                if(s_prefix2[t_index] != ' ')
+                {
+                    break;
+                }
+            }
+            memmove(s_prefix2, s_prefix2+t_index, strlen(s_prefix2)-t_index);
+            for(t_index = strlen(s_prefix1); t_index > 0; --t_index)
+            {
+                if(s_prefix1[t_index-1] == ' ')
+                {
+                    s_prefix1[t_index-1] = '\0';
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for(t_index = strlen(s_prefix2); t_index > 0; --t_index)
+            {
+                if(s_prefix2[t_index-1] == ' ')
+                {
+                    s_prefix2[t_index-1] = '\0';
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             if(_type_is_registered(s_prefix1) != _type_is_registered(s_prefix2))
             {
@@ -1645,6 +1687,7 @@ static bool_t _type_parse_unsigned_builtin(char* s_formalname)
 
 static bool_t _type_parse_complex_suffix(char* s_formalname)
 {
+    char* pc_pointersign = NULL;
     /* 
      * COMPLEX_SUFFIX -> {+' '}char | {+' '}short COMMON_SUFFIX |
      *                   {+' '}int | {+' '}long COMMON_SUFFIX | $
@@ -1682,6 +1725,28 @@ static bool_t _type_parse_complex_suffix(char* s_formalname)
     case _TOKEN_SIGN_RIGHT_BRACKET:
     case _TOKEN_SIGN_COMMA:
         _type_token_rollback();
+        return true;
+        break;
+    /* COMPLEX_SUFFIX -> {+' '}char|short|int|long*... */
+    case _TOKEN_IDENTIFIER:
+        pc_pointersign = strchr(_gt_typeanalysis._sz_tokentext, '*');
+        if(pc_pointersign == NULL)
+        {/* not pointer type */
+            return false;
+        }
+        if(strncmp(_gt_typeanalysis._sz_tokentext, "char",
+            pc_pointersign-_gt_typeanalysis._sz_tokentext) != 0 &&
+           strncmp(_gt_typeanalysis._sz_tokentext, "int",
+            pc_pointersign-_gt_typeanalysis._sz_tokentext) != 0 &&
+           strncmp(_gt_typeanalysis._sz_tokentext, "short",
+            pc_pointersign-_gt_typeanalysis._sz_tokentext) != 0 &&
+           strncmp(_gt_typeanalysis._sz_tokentext, "long",
+            pc_pointersign-_gt_typeanalysis._sz_tokentext) != 0)
+        {/* not pointer of char or int or short or long type */
+            return false;
+        }
+        _TOKEN_MATCH_SPACE(s_formalname);
+        _TOKEN_MATCH_IDENTIFIER(s_formalname);
         return true;
         break;
     default:
@@ -1748,6 +1813,8 @@ static bool_t _type_parse_simple_builtin(char* s_formalname)
 
 static bool_t _type_parse_common_suffix(char* s_formalname)
 {
+    char* pc_pointersign = NULL;
+
     /* COMMON_SUFFIX -> {+' '}int | $ */
     switch(_gt_typeanalysis._t_token)
     {
@@ -1764,6 +1831,22 @@ static bool_t _type_parse_common_suffix(char* s_formalname)
         _type_token_rollback();
         return true;
         break;
+    /* COMMON_SUFFIX -> {+' '}int*... */
+    case _TOKEN_IDENTIFIER:
+        pc_pointersign = strchr(_gt_typeanalysis._sz_tokentext, '*');
+        if(pc_pointersign == NULL)
+        {/* not pointer type */
+            return false;
+        }
+        if(strncmp(_gt_typeanalysis._sz_tokentext, "int",
+            pc_pointersign-_gt_typeanalysis._sz_tokentext) != 0)
+        {/* not the pointer of int type */
+            return false;
+        }
+        _TOKEN_MATCH_SPACE(s_formalname);
+        _TOKEN_MATCH_IDENTIFIER(s_formalname);
+        return true;
+        break;
     default:
         return false;
         break;
@@ -1772,6 +1855,8 @@ static bool_t _type_parse_common_suffix(char* s_formalname)
 
 static bool_t _type_parse_simple_long_suffix(char* s_formalname)
 {
+    char* pc_pointersign = NULL;
+
     /* SIMPLE_LONG_SUFFIX -> {+' '}double | COMMON_SUFFIX */
     switch(_gt_typeanalysis._t_token)
     {
@@ -1787,6 +1872,22 @@ static bool_t _type_parse_simple_long_suffix(char* s_formalname)
     case _TOKEN_SIGN_RIGHT_BRACKET:
     case _TOKEN_SIGN_COMMA:
         return _type_parse_common_suffix(s_formalname);
+        break;
+    /* SIMPLE_LONG_SUFFIX -> {+' '}double*... */
+    case _TOKEN_IDENTIFIER:
+        pc_pointersign = strchr(_gt_typeanalysis._sz_tokentext, '*');
+        if(pc_pointersign == NULL)
+        {/* not pointer type */
+            return false;
+        }
+        if(strncmp(_gt_typeanalysis._sz_tokentext, "double",
+            pc_pointersign-_gt_typeanalysis._sz_tokentext) != 0)
+        {/* not pointer of double type */
+            return false;
+        }
+        _TOKEN_MATCH_SPACE(s_formalname);
+        _TOKEN_MATCH_IDENTIFIER(s_formalname);
+        return true;
         break;
     default:
         return false;
@@ -1872,8 +1973,7 @@ static void _type_get_token(void)
         case _LEX_IN_IDENTIFIER:
             if(isalpha(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index]) ||
                isdigit(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index]) ||
-               _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '_' ||
-               _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '*')
+               _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '_')
             {
                 _gt_typeanalysis._sz_tokentext[t_tokentextindex++] =
                 _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index++];
@@ -1896,6 +1996,24 @@ static void _type_get_token(void)
     /* if token is identifier then check is keyword */
     if(_gt_typeanalysis._t_token == _TOKEN_IDENTIFIER)
     {
+        /* handle pointer type "type*", "type *", "type   *", "type  *  * * *" and so on */
+        while(true)
+        {
+            if(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '*')
+            {
+                _gt_typeanalysis._sz_tokentext[t_tokentextindex++] =
+                _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index++];
+            }
+            else if(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == ' ')
+            {
+                _gt_typeanalysis._t_index++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
         /* test c builtin */
         if(strncmp(_gt_typeanalysis._sz_tokentext,
             _TOKEN_TEXT_CHAR, _TYPE_NAME_SIZE) == 0)

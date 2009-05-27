@@ -45,25 +45,34 @@ void test_type(void)
     bool_t t_b = false;
     _typecontainer_t t_type;
 
-    type_register(abc_t, NULL, NULL, NULL);
+    type_register(struct _tagabc, NULL, NULL, NULL);
+    type_duplicate(abc_t, struct _tagabc);
+    type_register(struct _tagabc    *, NULL, NULL, NULL);
+    type_duplicate(abc_t             *, struct   _tagabc*);
+    type_register(abc_t ****, NULL, NULL, NULL);
     type_register(char**, NULL, NULL, NULL);
     type_register(int*, NULL, NULL, NULL);
-    type_register(unsigned long int*, NULL, NULL, NULL);
-    _type_get_type(&t_type, "map_t         <            \
-            unsigned \
-            long \
-            int             , hash_multiset_t   < \
-set_t < \
-            pair_t       < \
-            abc_t             ,                    \
-\
-\
-            random_access_iterator_t>\
-\
->\
->\
->");
+    type_register(short int*  **   *  *, NULL, NULL, NULL);
+    type_register(unsigned int*, NULL, NULL, NULL);
+    type_register(signed char*     **** *****, NULL, NULL, NULL);
+    type_register(long double      **, NULL, NULL, NULL);
     type_debug();
+    /*printf("%s:", t_type._sz_typename);*/
+    /*if(t_type._pt_type != NULL)*/
+    /*{*/
+    /*printf("%s,%p", t_type._pt_type->_sz_typename, t_type._pt_type);*/
+    /*}*/
+    printf("%d\n", _type_is_same("int", "signed"));
+    printf("%d\n", _type_is_same("long", "signed short"));
+    printf("%d\n", _type_is_same("long double", "long double*"));
+    printf("%d\n", _type_is_same("vector_t<abc_t>", "vector_t          < struct _tagabc >"));
+    _type_get_type(&t_type, "vector_t<abc_t>");
+    printf("%s:", t_type._sz_typename);
+    if(t_type._pt_type != NULL)
+    {
+        printf("%s,%p", t_type._pt_type->_sz_typename, t_type._pt_type);
+    }
+    _type_get_type(&t_type, "vector_t       < struct _tagabc >");
     printf("%s:", t_type._sz_typename);
     if(t_type._pt_type != NULL)
     {
