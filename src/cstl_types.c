@@ -516,7 +516,7 @@ void type_debug(void)
         pt_node = _gt_typeregister._apt_bucket[t_i];
         while(pt_node != NULL)
         {
-            printf("->[%s,%p]", pt_node->_sz_typename, pt_node->_pt_type);
+            printf("->[%s,%p]", pt_node->_sz_typename, (void*)pt_node->_pt_type);
             for(t_j = 0; t_j < 1024; ++t_j)
             {
                 if(apt_type[t_j] == pt_node->_pt_type)
@@ -774,6 +774,7 @@ void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename)
 
 bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
 {
+    /* s_typename1 and s_typename2 is formal name */
     char s_elemname1[_TYPE_NAME_SIZE+1];
     char s_prefix1[_TYPE_NAME_SIZE+1];
     char s_elemname2[_TYPE_NAME_SIZE+1];
@@ -906,52 +907,10 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
 
         if(pc_index1 != NULL && pc_index2 != NULL)
         {
-            size_t t_index = 0;
-
             memset(s_prefix1, '\0', _TYPE_NAME_SIZE+1);
             memset(s_prefix2, '\0', _TYPE_NAME_SIZE+1);
             strncpy(s_prefix1, s_elemname1, pc_index1 - s_elemname1);
             strncpy(s_prefix2, s_elemname2, pc_index2 - s_elemname2);
-
-            /* trim around space */
-            for(t_index = 0; t_index < _TYPE_NAME_SIZE; ++t_index)
-            {
-                if(s_prefix1[t_index] != ' ')
-                {
-                    break;
-                }
-            }
-            memmove(s_prefix1, s_prefix1+t_index, strlen(s_prefix1)-t_index);
-            for(t_index = 0; t_index < _TYPE_NAME_SIZE; ++t_index)
-            {
-                if(s_prefix2[t_index] != ' ')
-                {
-                    break;
-                }
-            }
-            memmove(s_prefix2, s_prefix2+t_index, strlen(s_prefix2)-t_index);
-            for(t_index = strlen(s_prefix1); t_index > 0; --t_index)
-            {
-                if(s_prefix1[t_index-1] == ' ')
-                {
-                    s_prefix1[t_index-1] = '\0';
-                }
-                else
-                {
-                    break;
-                }
-            }
-            for(t_index = strlen(s_prefix2); t_index > 0; --t_index)
-            {
-                if(s_prefix2[t_index-1] == ' ')
-                {
-                    s_prefix2[t_index-1] = '\0';
-                }
-                else
-                {
-                    break;
-                }
-            }
 
             if(_type_is_registered(s_prefix1) != _type_is_registered(s_prefix2))
             {
@@ -1900,13 +1859,16 @@ static void _type_token_rollback(void)
     assert(_gt_typeanalysis._t_token == _TOKEN_END_OF_INPUT ||
            _gt_typeanalysis._t_token == _TOKEN_SIGN_COMMA ||
            _gt_typeanalysis._t_token == _TOKEN_SIGN_RIGHT_BRACKET);
-    assert(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index-1] == '\0' ||
+    assert(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] == '\0' ||
            _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index-1] == ',' ||
            _gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index-1] == '>');
     assert(strncmp(_gt_typeanalysis._sz_tokentext, "", _TYPE_NAME_SIZE) == 0 ||
            strncmp(_gt_typeanalysis._sz_tokentext, ",", _TYPE_NAME_SIZE) == 0 ||
            strncmp(_gt_typeanalysis._sz_tokentext, ">", _TYPE_NAME_SIZE) == 0);
-    _gt_typeanalysis._t_index--;
+    if(_gt_typeanalysis._sz_typename[_gt_typeanalysis._t_index] != '\0')
+    {
+        _gt_typeanalysis._t_index--;
+    }
     _gt_typeanalysis._t_token = _TOKEN_ROLLBACK;
 }
 

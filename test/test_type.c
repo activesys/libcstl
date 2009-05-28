@@ -42,7 +42,6 @@ typedef output_iterator_t myiter_t;
 /** exported function implementation section **/
 void test_type(void)
 {
-    bool_t t_b = false;
     _typecontainer_t t_type;
 
     type_register(struct _tagabc, NULL, NULL, NULL);
@@ -57,28 +56,18 @@ void test_type(void)
     type_register(signed char*     **** *****, NULL, NULL, NULL);
     type_register(long double      **, NULL, NULL, NULL);
     type_debug();
-    /*printf("%s:", t_type._sz_typename);*/
-    /*if(t_type._pt_type != NULL)*/
-    /*{*/
-    /*printf("%s,%p", t_type._pt_type->_sz_typename, t_type._pt_type);*/
-    /*}*/
+    _type_get_type(&t_type, "short");
+    printf("%s:", t_type._sz_typename);
+    if(t_type._pt_type != NULL)
+    {
+        printf("%s,%p\n", t_type._pt_type->_sz_typename, (void*)t_type._pt_type);
+    }
     printf("%d\n", _type_is_same("int", "signed"));
     printf("%d\n", _type_is_same("long", "signed short"));
     printf("%d\n", _type_is_same("long double", "long double*"));
-    printf("%d\n", _type_is_same("vector_t<abc_t>", "vector_t          < struct _tagabc >"));
-    _type_get_type(&t_type, "vector_t<abc_t>");
-    printf("%s:", t_type._sz_typename);
-    if(t_type._pt_type != NULL)
-    {
-        printf("%s,%p", t_type._pt_type->_sz_typename, t_type._pt_type);
-    }
-    _type_get_type(&t_type, "vector_t       < struct _tagabc >");
-    printf("%s:", t_type._sz_typename);
-    if(t_type._pt_type != NULL)
-    {
-        printf("%s,%p", t_type._pt_type->_sz_typename, t_type._pt_type);
-    }
-    printf("\n");
+    printf("%d\n", _type_is_same("vector_t<abc_t>", "vector_t<struct _tagabc>"));
+    printf("%d\n", _type_is_same("map_t<abc_t*,vector_t<pair_t<iterator_t,stack_t<char>>>>",
+        "map_t<struct _tagabc*,vector_t<pair_t<string_iterator_t,stack_t<signed char>>>>"));
 }
 
 /** local function implementation section **/
