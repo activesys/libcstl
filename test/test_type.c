@@ -55,7 +55,7 @@ void test_type(void)
     type_register(unsigned int*, NULL, NULL, NULL);
     type_register(signed char*     **** *****, NULL, NULL, NULL);
     type_register(long double      **, NULL, NULL, NULL);
-    type_debug();
+    /*type_debug();*/
     _type_get_type(&t_type, "short");
     printf("%s:", t_type._sz_typename);
     if(t_type._pt_type != NULL)

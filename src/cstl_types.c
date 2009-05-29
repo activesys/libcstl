@@ -57,6 +57,7 @@
         pt_type->_t_typesize = sizeof(type);\
         memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
         strncpy(pt_type->_sz_typename, type_text, _TYPE_NAME_SIZE);\
+        pt_type->_t_typeinit = _type_init_##type_suffix;\
         pt_type->_t_typecopy = _type_copy_##type_suffix;\
         pt_type->_t_typeless = _type_less_##type_suffix;\
         pt_type->_t_typedestroy = _type_destroy_##type_suffix;\
@@ -102,6 +103,7 @@
  *                             | _sz_typename = "abc_t"       |
  *                             | _t_typecopy = abc_copy       | "registered type abc_t"
  *                             | _t_typeless = abc_less       |
+ *                             | _t_typeinit = abc_init       |
  *                             | _t_typedestroy = abc_destroy |
  *                             +------------------------------+
  */
@@ -274,6 +276,8 @@ static bool_t _type_parse_cstl_builtin(char* s_formalname);
  */
 /* c builtin */
 /* char */
+static void _type_init_char(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_char(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_char(
@@ -281,6 +285,8 @@ static void _type_less_char(
 static void _type_destroy_char(
     const void* cpv_input, void* pv_output);
 /* unsigned char */
+static void _type_init_uchar(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_uchar(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_uchar(
@@ -288,6 +294,8 @@ static void _type_less_uchar(
 static void _type_destroy_uchar(
     const void* cpv_input, void* pv_output);
 /* short */
+static void _type_init_short(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_short(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_short(
@@ -295,6 +303,8 @@ static void _type_less_short(
 static void _type_destroy_short(
     const void* cpv_input, void* pv_output);
 /* unsigned short */
+static void _type_init_ushort(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_ushort(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_ushort(
@@ -302,6 +312,8 @@ static void _type_less_ushort(
 static void _type_destroy_ushort(
     const void* cpv_input, void* pv_output);
 /* int */
+static void _type_init_int(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_int(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_int(
@@ -309,6 +321,8 @@ static void _type_less_int(
 static void _type_destroy_int(
     const void* cpv_input, void* pv_output);
 /* unsigned int */
+static void _type_init_uint(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_uint(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_uint(
@@ -316,6 +330,8 @@ static void _type_less_uint(
 static void _type_destroy_uint(
     const void* cpv_input, void* pv_output);
 /* long */
+static void _type_init_long(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_long(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_long(
@@ -323,6 +339,8 @@ static void _type_less_long(
 static void _type_destroy_long(
     const void* cpv_input, void* pv_output);
 /* unsigned long */
+static void _type_init_ulong(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_ulong(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_ulong(
@@ -330,6 +348,8 @@ static void _type_less_ulong(
 static void _type_destroy_ulong(
     const void* cpv_input, void* pv_output);
 /* float */
+static void _type_init_float(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_float(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_float(
@@ -337,6 +357,8 @@ static void _type_less_float(
 static void _type_destroy_float(
     const void* cpv_input, void* pv_output);
 /* double */
+static void _type_init_double(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_double(
@@ -344,6 +366,8 @@ static void _type_less_double(
 static void _type_destroy_double(
     const void* cpv_input, void* pv_output);
 /* long double */
+static void _type_init_long_double(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_long_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_long_double(
@@ -351,6 +375,8 @@ static void _type_less_long_double(
 static void _type_destroy_long_double(
     const void* cpv_input, void* pv_output);
 /* bool_t */
+static void _type_init_bool(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_bool(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_bool(
@@ -358,6 +384,8 @@ static void _type_less_bool(
 static void _type_destroy_bool(
     const void* cpv_input, void* pv_output);
 /* char* */
+static void _type_init_cstr(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_cstr(
@@ -366,6 +394,8 @@ static void _type_destroy_cstr(
     const void* cpv_input, void* pv_output);
 /* cstl container */
 /* vector_t */
+static void _type_init_vector(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_vector(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_vector(
@@ -373,6 +403,8 @@ static void _type_less_vector(
 static void _type_destroy_vector(
     const void* cpv_input, void* pv_output);
 /* list_t */
+static void _type_init_list(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_list(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_list(
@@ -380,6 +412,8 @@ static void _type_less_list(
 static void _type_destroy_list(
     const void* cpv_input, void* pv_output);
 /* slist_t */
+static void _type_init_slist(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_slist(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_slist(
@@ -387,6 +421,8 @@ static void _type_less_slist(
 static void _type_destroy_slist(
     const void* cpv_input, void* pv_output);
 /* deque_t */
+static void _type_init_deque(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_deque(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_deque(
@@ -394,6 +430,8 @@ static void _type_less_deque(
 static void _type_destroy_deque(
     const void* cpv_input, void* pv_output);
 /* stack_t */
+static void _type_init_stack(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_stack(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_stack(
@@ -401,6 +439,8 @@ static void _type_less_stack(
 static void _type_destroy_stack(
     const void* cpv_input, void* pv_output);
 /* queue_t */
+static void _type_init_queue(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_queue(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_queue(
@@ -408,6 +448,8 @@ static void _type_less_queue(
 static void _type_destroy_queue(
     const void* cpv_input, void* pv_output);
 /* priority_queue_t */
+static void _type_init_priority_queue(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_priority_queue(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_priority_queue(
@@ -415,6 +457,8 @@ static void _type_less_priority_queue(
 static void _type_destroy_priority_queue(
     const void* cpv_input, void* pv_output);
 /* set_t */
+static void _type_init_set(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_set(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_set(
@@ -422,6 +466,8 @@ static void _type_less_set(
 static void _type_destroy_set(
     const void* cpv_input, void* pv_output);
 /* map_t */
+static void _type_init_map(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_map(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_map(
@@ -429,6 +475,8 @@ static void _type_less_map(
 static void _type_destroy_map(
     const void* cpv_input, void* pv_output);
 /* multiset_t */
+static void _type_init_multiset(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_multiset(
@@ -436,6 +484,8 @@ static void _type_less_multiset(
 static void _type_destroy_multiset(
     const void* cpv_input, void* pv_output);
 /* multimap_t */
+static void _type_init_multimap(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_multimap(
@@ -443,6 +493,8 @@ static void _type_less_multimap(
 static void _type_destroy_multimap(
     const void* cpv_input, void* pv_output);
 /* hash_set_t */
+static void _type_init_hash_set(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_hash_set(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_hash_set(
@@ -450,6 +502,8 @@ static void _type_less_hash_set(
 static void _type_destroy_hash_set(
     const void* cpv_input, void* pv_output);
 /* hash_map_t */
+static void _type_init_hash_map(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_hash_map(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_hash_map(
@@ -457,6 +511,8 @@ static void _type_less_hash_map(
 static void _type_destroy_hash_map(
     const void* cpv_input, void* pv_output);
 /* hash_multiset_t */
+static void _type_init_hash_multiset(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_hash_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_hash_multiset(
@@ -464,6 +520,8 @@ static void _type_less_hash_multiset(
 static void _type_destroy_hash_multiset(
     const void* cpv_input, void* pv_output);
 /* hash_multimap_t */
+static void _type_init_hash_multimap(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_hash_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_hash_multimap(
@@ -471,6 +529,8 @@ static void _type_less_hash_multimap(
 static void _type_destroy_hash_multimap(
     const void* cpv_input, void* pv_output);
 /* pair_t */
+static void _type_init_pair(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_pair(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_pair(
@@ -478,6 +538,8 @@ static void _type_less_pair(
 static void _type_destroy_pair(
     const void* cpv_input, void* pv_output);
 /* string_t */
+static void _type_init_string(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_string(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_string(
@@ -485,6 +547,8 @@ static void _type_less_string(
 static void _type_destroy_string(
     const void* cpv_input, void* pv_output);
 /* iterator_t */
+static void _type_init_iterator(
+    const void* cpv_input, void* pv_output);
 static void _type_copy_iterator(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _type_less_iterator(
@@ -497,6 +561,7 @@ static void _type_destroy_iterator(
 /** local global variable definition section **/
 
 /** exported function implementation section **/
+/*
 void type_debug(void)
 {
     size_t t_i = 0;
@@ -539,15 +604,18 @@ void type_debug(void)
         pt_type = apt_type[t_j];
         if(pt_type != NULL)
         {
-            printf("%p\n----------\n%d,%s,%p,%p,%p\n========================\n",
+            printf("%p\n----------\n%d,%s,%p,%p,%p,%p\n========================\n",
                 pt_type, pt_type->_t_typesize, pt_type->_sz_typename,
-                pt_type->_t_typecopy, pt_type->_t_typeless, pt_type->_t_typedestroy);
+                pt_type->_t_typecopy, pt_type->_t_typeless,
+                pt_type->_t_typeinit, pt_type->_t_typedestroy);
         }
     }
 }
+*/
 
 bool_t _type_register(
     size_t t_typesize, const char* s_typename,
+    unary_function_t t_typeinit,
     binary_function_t t_typecopy,
     binary_function_t t_typeless,
     unary_function_t t_typedestroy)
@@ -580,6 +648,7 @@ bool_t _type_register(
         strncpy(pt_node->_sz_typename, s_formalname, _TYPE_NAME_SIZE);
         strncpy(pt_type->_sz_typename, s_formalname, _TYPE_NAME_SIZE);
         pt_type->_t_typesize = t_typesize;
+        pt_type->_t_typeinit = t_typeinit != NULL ? t_typeinit : _type_init_default;
         pt_type->_t_typecopy = t_typecopy != NULL ? t_typecopy : _type_copy_default;
         pt_type->_t_typeless = t_typeless != NULL ? t_typeless : _type_less_default;
         pt_type->_t_typedestroy = t_typedestroy != NULL ? 
@@ -738,12 +807,12 @@ bool_t _type_duplicate(
     }
 }
 
-void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename)
+void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
 {
     char         s_registeredname[_TYPE_NAME_SIZE+1];
     _typestyle_t t_style = _TYPE_INVALID;
 
-    assert(pt_typecontainer != NULL && s_typename != NULL);
+    assert(pt_typeinfo != NULL && s_typename != NULL);
 
     if(!_gt_typeregister._t_isinit)
     {
@@ -751,25 +820,25 @@ void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename)
     }
 
     memset(s_registeredname, '\0', _TYPE_NAME_SIZE+1);
-    t_style = _type_get_style(s_typename, pt_typecontainer->_sz_typename);
+    t_style = _type_get_style(s_typename, pt_typeinfo->_sz_typename);
     if(t_style == _TYPE_INVALID)
     {
-        pt_typecontainer->_pt_type = NULL;
+        pt_typeinfo->_pt_type = NULL;
         return;
     }
     else if(t_style == _TYPE_C_BUILTIN || t_style == _TYPE_USER_DEFINE)
     {
-        strncpy(s_registeredname, pt_typecontainer->_sz_typename, _TYPE_NAME_SIZE);
+        strncpy(s_registeredname, pt_typeinfo->_sz_typename, _TYPE_NAME_SIZE);
     }
     else /* get container name */
     {
-        char* pc_leftbracket = strchr(pt_typecontainer->_sz_typename, '<');
+        char* pc_leftbracket = strchr(pt_typeinfo->_sz_typename, '<');
         assert(pc_leftbracket != NULL);
-        strncpy(s_registeredname, pt_typecontainer->_sz_typename,
-                pc_leftbracket-pt_typecontainer->_sz_typename);
+        strncpy(s_registeredname, pt_typeinfo->_sz_typename,
+                pc_leftbracket-pt_typeinfo->_sz_typename);
     }
 
-    pt_typecontainer->_pt_type = _type_is_registered(s_registeredname);
+    pt_typeinfo->_pt_type = _type_is_registered(s_registeredname);
 }
 
 bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
@@ -942,7 +1011,120 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
     return true;
 }
 
+void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output)
+{
+    assert(pt_typeinfo != NULL && pt_typeinfo->_pt_type != NULL);
+    assert(pv_output != NULL);
+
+    /*
+     * Note: the va_arg align at byte doundary for char, short and float type,
+     * so those type, which are char, short and float, can't be used in va_arg function.
+     */
+    /* char and shigned char */
+    if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(char));
+        *(char*)pv_output = (char)va_arg(val_elemlist, int);
+    }
+    /* unsigned char */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_CHAR_TYPE,
+        _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned char));
+        *(unsigned char*)pv_output = (unsigned char)va_arg(val_elemlist, int);
+    }
+    /* short, short int, signed short, signed short int */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _SHORT_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(short));
+        *(short*)pv_output = (short)va_arg(val_elemlist, int);
+    }
+    /* unsigned short, unsigned short int */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_SHORT_TYPE,
+        _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned short));
+        *(unsigned short*)pv_output = (unsigned short)va_arg(val_elemlist, int);
+    }
+    /* int, signed, signed int */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _INT_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(int));
+        *(int*)pv_output = va_arg(val_elemlist, int);
+    }
+    /* unsigned int, unsigned */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_INT_TYPE,
+        _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned int));
+        *(unsigned int*)pv_output = va_arg(val_elemlist, unsigned int);
+    }
+    /* long, long int, signed long, signed long int */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _LONG_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(long));
+        *(long*)pv_output = va_arg(val_elemlist, long);
+    }
+    /* unsigned long, unsigned long int */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_LONG_TYPE,
+        _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned long));
+        *(unsigned long*)pv_output = va_arg(val_elemlist, unsigned long);
+    }
+    /* float */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _FLOAT_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(float));
+        *(float*)pv_output = (float)va_arg(val_elemlist, double);
+    }
+    /* double */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _DOUBLE_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(double));
+        *(double*)pv_output = va_arg(val_elemlist, double);
+    }
+    /* long double */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _LONG_DOUBLE_TYPE,
+        _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(long double));
+        *(long double*)pv_output = va_arg(val_elemlist, long double);
+    }
+    /* bool_t */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(bool_t));
+        *(bool_t*)pv_output = va_arg(val_elemlist, int);
+    }
+    /* char* */
+    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _C_STRING_TYPE,
+        _TYPE_NAME_SIZE) == 0)
+    {
+        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(string_t));
+        char* s_str = va_arg(val_elemlist, char*);
+        string_assign_cstr((string_t*)pv_output, s_str);
+    }
+    /*
+     * other type include cstl built in type and user define type passed type pointer.
+     */
+    else
+    {
+        bool_t t_b = false;
+        void*  pv_elem = va_arg(val_elemlist, void*);
+        (*pt_typeinfo->_pt_type->_t_typecopy)(pv_output, pv_elem, &t_b);
+    }
+
+    va_end(val_elemlist);
+}
+
 /* default copy, less, and destroy function */
+void _type_init_default(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    memset((void*)cpv_input, 0x00, *(size_t*)pv_output);
+    *(bool_t*)pv_output = true;
+}
 void _type_copy_default(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2395,6 +2577,13 @@ static void _type_register_cstl_builtin(void)
  */
 /* c builtin */
 /* char */
+static void _type_init_char(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(char*)cpv_input = '\0';
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_char(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2414,6 +2603,13 @@ static void _type_destroy_char(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* unsigned char */
+static void _type_init_uchar(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(unsigned char*)cpv_input = 0x00;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_uchar(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2434,6 +2630,13 @@ static void _type_destroy_uchar(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* short */
+static void _type_init_short(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(short*)cpv_input = 0;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_short(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2453,6 +2656,13 @@ static void _type_destroy_short(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* unsigned short */
+static void _type_init_ushort(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(unsigned short*)cpv_input = 0;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_ushort(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2473,6 +2683,13 @@ static void _type_destroy_ushort(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* int */
+static void _type_init_int(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(int*)cpv_input = 0;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_int(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2492,6 +2709,13 @@ static void _type_destroy_int(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* unsigned int */
+static void _type_init_uint(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(unsigned int*)cpv_input = 0;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_uint(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2512,6 +2736,13 @@ static void _type_destroy_uint(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* long */
+static void _type_init_long(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(long*)cpv_input = 0;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_long(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2531,6 +2762,13 @@ static void _type_destroy_long(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* unsigned long */
+static void _type_init_ulong(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(unsigned long*)cpv_input = 0;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_ulong(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2551,6 +2789,13 @@ static void _type_destroy_ulong(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* float */
+static void _type_init_float(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(float*)cpv_input = 0.0;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_float(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2571,6 +2816,13 @@ static void _type_destroy_float(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* double */
+static void _type_init_double(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(double*)cpv_input = 0.0;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_double(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2591,6 +2843,13 @@ static void _type_destroy_double(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* long double */
+static void _type_init_long_double(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(long double*)cpv_input = 0.0;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_long_double(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2611,6 +2870,13 @@ static void _type_destroy_long_double(
     _type_destroy_default(cpv_input, pv_output);
 }
 /* bool_t */
+static void _type_init_bool(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(bool_t*)cpv_input = false;
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_bool(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2634,6 +2900,13 @@ static void _type_destroy_bool(
  * char* is specific c builtin type, the string_t is used for storing the 
  * char* or c_str type. 
  */
+static void _type_init_cstr(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    string_init((string_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2657,6 +2930,13 @@ static void _type_destroy_cstr(
 
 /* cstl container */
 /* vector_t */
+static void _type_init_vector(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    vector_init((vector_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_vector(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2678,6 +2958,13 @@ static void _type_destroy_vector(
     *(bool_t*)pv_output = true;
 }
 /* list_t */
+static void _type_init_list(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    list_init((list_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_list(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2699,6 +2986,13 @@ static void _type_destroy_list(
     *(bool_t*)pv_output = true;
 }
 /* slist_t */
+static void _type_init_slist(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    slist_init((slist_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_slist(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2720,6 +3014,13 @@ static void _type_destroy_slist(
     *(bool_t*)pv_output = true;
 }
 /* deque_t */
+static void _type_init_deque(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    deque_init((deque_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_deque(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2741,6 +3042,13 @@ static void _type_destroy_deque(
     *(bool_t*)pv_output = true;
 }
 /* stack_t */
+static void _type_init_stack(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    stack_init((stack_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_stack(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2762,6 +3070,13 @@ static void _type_destroy_stack(
     *(bool_t*)pv_output = true;
 }
 /* queue_t */
+static void _type_init_queue(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    queue_init((queue_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_queue(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2783,6 +3098,13 @@ static void _type_destroy_queue(
     *(bool_t*)pv_output = true;
 }
 /* priority_queue_t */
+static void _type_init_priority_queue(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    priority_queue_init((priority_queue_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_priority_queue(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2806,6 +3128,13 @@ static void _type_destroy_priority_queue(
     *(bool_t*)pv_output = true;
 }
 /* set_t */
+static void _type_init_set(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    set_init((set_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_set(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2827,6 +3156,13 @@ static void _type_destroy_set(
     *(bool_t*)pv_output = true;
 }
 /* map_t */
+static void _type_init_map(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    map_init((map_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_map(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2848,6 +3184,13 @@ static void _type_destroy_map(
     *(bool_t*)pv_output = true;
 }
 /* multiset_t */
+static void _type_init_multiset(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    multiset_init((multiset_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2869,6 +3212,13 @@ static void _type_destroy_multiset(
     *(bool_t*)pv_output = true;
 }
 /* multimap_t */
+static void _type_init_multimap(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    multimap_init((multimap_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2890,6 +3240,13 @@ static void _type_destroy_multimap(
     *(bool_t*)pv_output = true;
 }
 /* hash_set_t */
+static void _type_init_hash_set(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    hash_set_init((hash_set_t*)cpv_input, NULL);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_hash_set(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2911,6 +3268,13 @@ static void _type_destroy_hash_set(
     *(bool_t*)pv_output = true;
 }
 /* hash_map_t */
+static void _type_init_hash_map(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    hash_map_init((hash_map_t*)cpv_input, NULL);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_hash_map(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2932,6 +3296,13 @@ static void _type_destroy_hash_map(
     *(bool_t*)pv_output = true;
 }
 /* hash_multiset_t */
+static void _type_init_hash_multiset(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    hash_multiset_init((hash_multiset_t*)cpv_input, NULL);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_hash_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2954,6 +3325,13 @@ static void _type_destroy_hash_multiset(
     *(bool_t*)pv_output = true;
 }
 /* hash_multimap_t */
+static void _type_init_hash_multimap(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    hash_multimap_init((hash_multimap_t*)cpv_input, NULL);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_hash_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2976,6 +3354,13 @@ static void _type_destroy_hash_multimap(
     *(bool_t*)pv_output = true;
 }
 /* pair_t */
+static void _type_init_pair(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    pair_init((pair_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_pair(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -2997,6 +3382,13 @@ static void _type_destroy_pair(
     *(bool_t*)pv_output = true;
 }
 /* string_t */
+static void _type_init_string(
+    const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    string_init((string_t*)cpv_input);
+    *(bool_t*)pv_output = true;
+}
 static void _type_copy_string(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -3018,6 +3410,12 @@ static void _type_destroy_string(
     *(bool_t*)pv_output = true;
 }
 /* iterator_t */
+static void _type_init_iterator(
+    const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = sizeof(iterator_t);
+    _type_init_default(cpv_input, pv_output);
+}
 static void _type_copy_iterator(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {

@@ -213,6 +213,7 @@ typedef struct _tagtype
     char              _sz_typename[_TYPE_NAME_SIZE+1];    /* type name */
     binary_function_t _t_typecopy;                        /* type copy function */
     binary_function_t _t_typeless;                        /* type less function */
+    unary_function_t  _t_typeinit;                        /* type initialize function */
     unary_function_t  _t_typedestroy;                     /* type destroy function */
 }_type_t;
 
@@ -233,11 +234,11 @@ typedef struct _tagtyperegister
     alloc_t              _t_allocator;
 }_typeregister_t;
 
-typedef struct _tagtypecontainer
+typedef struct _tagtypeinfo
 {
     char     _sz_typename[_TYPE_NAME_SIZE+1];
     _type_t* _pt_type;
-}_typecontainer_t;
+}_typeinfo_t;
 
 /** exported global variable declaration section **/
 
@@ -251,6 +252,7 @@ typedef struct _tagtypecontainer
 
 extern bool_t _type_register(
     size_t t_typesize, const char* s_typename,
+    unary_function_t t_typeinit,
     binary_function_t t_typecopy,
     binary_function_t t_typeless,
     unary_function_t t_typedestroy);
@@ -258,10 +260,12 @@ extern bool_t _type_register(
 extern bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
     size_t t_typesize2, const char* s_typename2);
-extern void _type_get_type(_typecontainer_t* pt_typecontainer, const char* s_typename);
+extern void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename);
 extern bool_t _type_is_same(const char* s_typename1, const char* s_typename2);
+extern void _type_get_varg_value(
+    _typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output);
 
-extern void type_debug(void);
+/*extern void type_debug(void);*/
 /*
  * Unify the C built-in types.
  */
@@ -283,11 +287,13 @@ extern void _get_builtin_type(const char* s_typename, char* s_builtin);
  */
 extern int (*_get_cmp_function(const char* s_typename))(const void*, const void*);
 
-/* default copy, less, and destroy function */
+/* default initialize, copy, less, and destroy function */
 /* node: the pv_output is used for the size of default type, 
  * so invoke the copy, less, and destroy functions must be put the 
  * type size into the function through pv_output, even if is not used.
  */
+extern void _type_init_default(
+    const void* cpv_input, void* pv_output);
 extern void _type_copy_default(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _type_less_default(

@@ -33,8 +33,7 @@ extern "C" {
 /*
  * Creation and initialization vector_t.
  */
-#define create_vector(type)\
-    _create_vector(sizeof(type), #type) 
+#define create_vector(...) _create_vector(#__VA_ARGS__) 
 #define vector_init_elem(pt_vector, t_count, elem)\
     _vector_init_elem((pt_vector), (t_count), (elem))
 
