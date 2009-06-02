@@ -35,6 +35,8 @@
 #include "cstl_vector_private.h"
 #include "cstl_vector.h"
 
+#include "cstring.h"
+
 /** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
@@ -113,10 +115,19 @@ void _vector_iterator_get_value(vector_iterator_t t_iter, void* pv_value)
     assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
     assert(!iterator_equal(t_iter, vector_end(_GET_VECTOR_CONTAINER(t_iter))));
 
-    t_result = _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
-    _GET_VECTOR_TYPE_COPY_FUNCTION(_GET_VECTOR_CONTAINER(t_iter))(
-        pv_value, _GET_VECTOR_COREPOS(t_iter), &t_result);
-    assert(t_result);
+    /* char* */
+    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
+        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        *(char**)pv_value = (char*)string_c_str((string_t*)_GET_VECTOR_COREPOS(t_iter));
+    }
+    else
+    {
+        t_result = _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
+        _GET_VECTOR_TYPE_COPY_FUNCTION(_GET_VECTOR_CONTAINER(t_iter))(
+            pv_value, _GET_VECTOR_COREPOS(t_iter), &t_result);
+        assert(t_result);
+    }
 }
 
 void _vector_iterator_set_value(vector_iterator_t t_iter, const void* cpv_value)
@@ -127,10 +138,19 @@ void _vector_iterator_set_value(vector_iterator_t t_iter, const void* cpv_value)
     assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
     assert(!iterator_equal(t_iter, vector_end(_GET_VECTOR_CONTAINER(t_iter))));
 
-    t_result = _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
-    _GET_VECTOR_TYPE_COPY_FUNCTION(_GET_VECTOR_CONTAINER(t_iter))(
-        _GET_VECTOR_COREPOS(t_iter), cpv_value, &t_result);
-    assert(t_result);
+    /* char* */
+    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
+        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        string_assign_cstr((string_t*)_GET_VECTOR_COREPOS(t_iter), *(char**)cpv_value);
+    }
+    else
+    {
+        t_result = _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
+        _GET_VECTOR_TYPE_COPY_FUNCTION(_GET_VECTOR_CONTAINER(t_iter))(
+            _GET_VECTOR_COREPOS(t_iter), cpv_value, &t_result);
+        assert(t_result);
+    }
 }
 
 const void* _vector_iterator_get_pointer(vector_iterator_t t_iter)
@@ -138,7 +158,16 @@ const void* _vector_iterator_get_pointer(vector_iterator_t t_iter)
     assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
     assert(!iterator_equal(t_iter, vector_end(_GET_VECTOR_CONTAINER(t_iter))));
 
-    return _GET_VECTOR_COREPOS(t_iter);
+    /* char* */
+    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
+        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        return string_c_str((string_t*)_GET_VECTOR_COREPOS(t_iter));
+    }
+    else
+    {
+        return _GET_VECTOR_COREPOS(t_iter);
+    }
 }
 
 vector_iterator_t _vector_iterator_next(vector_iterator_t t_iter)
@@ -166,7 +195,16 @@ void* _vector_iterator_at(vector_iterator_t t_iter, int n_index)
         _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter)) * n_index;
     assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
 
-    return _GET_VECTOR_COREPOS(t_iter);
+    /* char* */
+    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
+        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        return (char*)string_c_str((string_t*)_GET_VECTOR_COREPOS(t_iter));
+    }
+    else
+    {
+        return _GET_VECTOR_COREPOS(t_iter);
+    }
 }
 
 vector_iterator_t _vector_iterator_next_n(vector_iterator_t t_iter, int n_step)
@@ -667,7 +705,15 @@ void* vector_at(const vector_t* cpt_vector, size_t t_pos)
     assert(cpt_vector != NULL);
     assert(t_pos < vector_size(cpt_vector));
 
-    return cpt_vector->_pc_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpt_vector);
+    if(strncmp(_GET_VECTOR_TYPE_BASENAME(cpt_vector), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        return (char*)string_c_str((string_t*)
+            (cpt_vector->_pc_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpt_vector)));
+    }
+    else
+    {
+        return cpt_vector->_pc_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpt_vector);
+    }
 }
 
 void* vector_front(const vector_t* cpt_vector)
@@ -690,7 +736,7 @@ void* vector_back(const vector_t* cpt_vector)
     }
     else
     {
-        return vector_at(cpt_vector, vector_size(cpt_vector) - 1);
+        return vector_at(cpt_vector, vector_size(cpt_vector)-1);
     }
 }
 
@@ -889,6 +935,7 @@ vector_iterator_t vector_erase(vector_t* pt_vector, vector_iterator_t t_pos)
     assert(_vector_iterator_belong_to_vector(pt_vector, t_pos));
     assert(!iterator_equal(t_pos, vector_end(pt_vector)));
 
+    /* destroy the deleted element */
     t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
     _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)(_GET_VECTOR_COREPOS(t_pos), &t_result);
     assert(t_result);
@@ -913,7 +960,7 @@ vector_iterator_t vector_erase_range(
     assert(iterator_equal(t_begin, t_end) || _vector_iterator_before(t_begin, t_end));
     assert(!iterator_equal(t_begin, vector_end(pt_vector)));
 
-    /* destroy elements */
+    /* destroy the deleted elements */
     for(t_iter = t_begin; !iterator_equal(t_iter, t_end); t_iter = iterator_next(t_iter))
     {
         t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);

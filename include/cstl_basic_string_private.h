@@ -43,7 +43,7 @@ typedef struct _tagbasicstring
 /*
  * Create and initialization operation functions.
  */
-extern basic_string_t _create_basic_string(size_t t_typesize, const char* s_typename);
+extern basic_string_t* _create_basic_string(const char* s_typename);
 extern void _basic_string_init_elem(basic_string_t* pt_basic_string, size_t t_count, ...);
 extern void _basic_string_init_elem_varg(
     basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist);

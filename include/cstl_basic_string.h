@@ -31,8 +31,7 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* create new basic_string with specify type */
-#define create_basic_string(type)\
-    _create_basic_string(sizeof(type), #type)
+#define create_basic_string(...) _create_basic_string(#__VA_ARGS__)
 /* initialize */
 #define basic_string_init_elem(pt_basic_string, t_count, elem)\
     _basic_string_init_elem((pt_basic_string), (t_count), (elem))
