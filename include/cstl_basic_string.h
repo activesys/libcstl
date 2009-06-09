@@ -183,7 +183,7 @@ extern int basic_string_compare_substring_subcstr(
 /*
  * Substring operation function.
  */
-extern basic_string_t basic_string_substr(
+extern basic_string_t* basic_string_substr(
     const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len);
 
 /*

@@ -733,7 +733,6 @@ int basic_string_compare_substring_subcstr(
     size_t t_index = 0;
     char*  pc_string = NULL;
     char*  pc_value = NULL;
-    int    n_cmpresult = 0;
     size_t t_stringlentmp = 0;
     size_t t_valuestringlentmp = 0;
     bool_t t_result = false;
@@ -780,21 +779,18 @@ int basic_string_compare_substring_subcstr(
 }
 
 /* substring and concatenation */
-basic_string_t basic_string_substr(
+basic_string_t* basic_string_substr(
     const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len)
 {
-    basic_string_t t_substr;
+    basic_string_t* pt_substr = NULL;
 
     assert(cpt_basic_string != NULL);
     assert(t_pos < basic_string_size(cpt_basic_string));
 
-    t_substr._t_vector = _create_vector(
-        cpt_basic_string->_t_vector._t_typesize,
-        cpt_basic_string->_t_vector._sz_typename);
-    basic_string_init_subcstr(
-        &t_substr, basic_string_at(cpt_basic_string, t_pos), t_len);
+    pt_substr = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(cpt_basic_string));
+    basic_string_init_subcstr(pt_substr, basic_string_at(cpt_basic_string, t_pos), t_len);
 
-    return t_substr;
+    return pt_substr;
 }
 
 void basic_string_connect(
@@ -802,8 +798,10 @@ void basic_string_connect(
 {
     size_t t_destlen = 0;
     size_t t_srclen = 0;
+    size_t t_index = 0;
     char*  pc_dest = NULL;
     char*  pc_src = NULL;
+    bool_t t_result = false;
 
     assert(_same_basic_string_type(pt_basic_string, cpt_basic_string_src));
 
@@ -814,11 +812,20 @@ void basic_string_connect(
     {
         vector_resize(&pt_basic_string->_t_vector, t_destlen + t_srclen);
 
-        pc_dest = (char*)vector_at(&pt_basic_string->_t_vector, t_destlen);
-        pc_src = (char*)vector_at(&cpt_basic_string_src->_t_vector, 0);
+        /*pc_dest = (char*)vector_at(&pt_basic_string->_t_vector, t_destlen);*/
+        /*pc_src = (char*)vector_at(&cpt_basic_string_src->_t_vector, 0);*/
+        pc_dest = pt_basic_string->_t_vector._pc_start +
+            t_destlen * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        pc_src = cpt_basic_string_src->_t_vector._pc_start;
         assert(pc_dest != NULL && pc_src != NULL);
 
-        memcpy(pc_dest, pc_src, t_srclen * pt_basic_string->_t_vector._t_typesize);
+        for(t_index = 0; t_index < t_srclen; ++t_index)
+        {
+            t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pc_src, &t_result);
+            pc_dest += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            pc_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string_src);
+        }
 
         /* add null-terminated */
         vector_push_back(&pt_basic_string->_t_vector, 0x00);
@@ -830,26 +837,33 @@ void basic_string_connect_cstr(
 {
     size_t t_destlen = 0;
     size_t t_srclen = 0;
+    size_t t_index = 0;
     char*  pc_dest = NULL;
     char*  pc_src = NULL;
+    bool_t t_result = false;
 
     assert(pt_basic_string != NULL && cpv_valuestring != NULL);
 
     t_destlen = basic_string_size(pt_basic_string);
-    t_srclen = _get_valuestring_len(
-        cpv_valuestring, 
-        pt_basic_string->_t_vector._t_typesize,
-        pt_basic_string->_t_vector._sz_typename);
+    t_srclen = _get_valuestring_len(pt_basic_string, cpv_valuestring);
 
     if(t_srclen > 0)
     {
         vector_resize(&pt_basic_string->_t_vector, t_destlen + t_srclen);
 
-        pc_dest = (char*)vector_at(&pt_basic_string->_t_vector, t_destlen);
+        /*pc_dest = (char*)vector_at(&pt_basic_string->_t_vector, t_destlen);*/
+        pc_dest = pt_basic_string->_t_vector._pc_start +
+            t_destlen * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
         pc_src = (char*)cpv_valuestring;
         assert(pc_dest != NULL && pc_src != NULL);
 
-        memcpy(pc_dest, pc_src, t_srclen * pt_basic_string->_t_vector._t_typesize);
+        for(t_index = 0; t_index < t_srclen; ++t_index)
+        {
+            t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pc_src, &t_result);
+            pc_dest += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            pc_src += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        }
 
         /* add null-terminated */
         vector_push_back(&pt_basic_string->_t_vector, 0x00);
