@@ -881,43 +881,40 @@ void _basic_string_connect_elem_varg(
     basic_string_t* pt_basic_string, va_list val_elemlist)
 {
     char*   pc_dest = NULL;
-    char*   pc_value = NULL;
-    char*   pc_nullterminated = NULL;
+    void*   pv_varg = NULL;
+    void*   pv_nullterminated = NULL;
+    bool_t  t_result = false;
 
     assert(pt_basic_string != NULL);
 
-    pc_dest = (char*)vector_at(
-        &pt_basic_string->_t_vector, basic_string_size(pt_basic_string));
+    pc_dest = pt_basic_string->_t_vector._pc_finish;
     assert(pc_dest != NULL);
 
-    pc_value = (char*)malloc(pt_basic_string->_t_vector._t_typesize);
-    pc_nullterminated = (char*)malloc(pt_basic_string->_t_vector._t_typesize);
-    if(pc_value == NULL || pc_nullterminated == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_nullterminated, 0x00, pt_basic_string->_t_vector._t_typesize);
-    }
+    pv_varg = allocate(&pt_basic_string->_t_vector._t_allocater,
+        _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string), 1);
+    pv_nullterminated = allocate(&pt_basic_string->_t_vector._t_allocater,
+        _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string), 1);
+    assert(pv_varg != NULL && pv_nullterminated != NULL);
+    t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+    _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_varg, &t_result);
+    assert(t_result);
+    memset(pv_nullterminated, 0x00, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
 
-    _get_varg_value(
-        pc_value, val_elemlist,
-        pt_basic_string->_t_vector._t_typesize,
-        pt_basic_string->_t_vector._sz_typename);
+    _type_get_varg_value(&pt_basic_string->_t_vector._t_typeinfo, val_elemlist, pv_varg);
     /* check input element is the null-terminated node */
-    if(memcmp(pc_value, pc_nullterminated, pt_basic_string->_t_vector._t_typesize) != 0)
+    if(memcmp(pv_varg, pv_nullterminated, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string)) != 0)
     {
-        memcpy(pc_dest, pc_value, pt_basic_string->_t_vector._t_typesize);
+        bool_t t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pv_varg, &t_result);
+        assert(t_result);
         /* add null-terminated */
         vector_push_back(&pt_basic_string->_t_vector, 0x00);
     }
 
-    free(pc_value);
-    free(pc_nullterminated);
-    pc_value = NULL;
-    pc_nullterminated = NULL;
+    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_varg,
+        _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string), 1);
+    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_nullterminated,
+        _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string), 1);
 }
 
 /* iterator support */
@@ -1013,19 +1010,20 @@ size_t basic_string_find_subcstr(
     size_t t_endpos = 0;
     char*  pc_string = NULL;
     char*  pc_cstr = NULL;
+    bool_t t_less = false;
+    bool_t t_great = false;
 
     assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
 
-    t_typesize = cpt_basic_string->_t_vector._t_typesize;
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _get_valuestring_len(
-        cpv_valuestring, t_typesize, cpt_basic_string->_t_vector._sz_typename);
+    t_cstrlen = _get_valuestring_len(cpt_basic_string, cpv_valuestring);
     t_cstrlen = t_len < t_cstrlen ? t_len : t_cstrlen;
 
     /* find position is beyond the range of cpt_basic_string */
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     if(basic_string_empty(cpt_basic_string) ||
        t_pos > basic_string_size(cpt_basic_string) ||
-       t_pos + t_cstrlen*t_typesize > basic_string_size(cpt_basic_string))
+       t_pos + t_cstrlen * t_typesize > basic_string_size(cpt_basic_string))
     {
         return NPOS;
     }
@@ -1037,82 +1035,50 @@ size_t basic_string_find_subcstr(
 
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
     pc_cstr = (char*)cpv_valuestring;
-    if(cpt_basic_string->_t_vector._pfun_cmp != NULL)
+    t_startpos = t_pos;
+    while(t_startpos != t_stringlen)
     {
-        t_startpos = t_pos;
-        while(t_startpos != t_stringlen)
+        t_less = t_great = t_typesize;
+        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+            pc_string + t_startpos * t_typesize, pc_cstr, &t_less);
+        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+            pc_cstr, pc_string + t_startpos * t_typesize, &t_great);
+        if(!t_less && !t_great)
         {
-            if(cpt_basic_string->_t_vector._pfun_cmp(
-                pc_string + t_startpos * t_typesize, pc_cstr) == 0)
+            t_endpos = 0;
+            while(t_endpos + t_startpos != t_stringlen && t_endpos != t_cstrlen)
             {
-                t_endpos = 0;
-                while(t_endpos + t_startpos != t_stringlen && t_endpos != t_cstrlen)
+                t_less = t_great = t_typesize;
+                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                    pc_string + (t_endpos + t_startpos) * t_typesize,
+                    pc_cstr + t_endpos * t_typesize, &t_less);
+                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                    pc_cstr + t_endpos * t_typesize,
+                    pc_string + (t_endpos + t_startpos) * t_typesize, &t_great);
+                if(!t_less && !t_great)
                 {
-                    if(cpt_basic_string->_t_vector._pfun_cmp(
-                        pc_string + (t_endpos+t_startpos) * t_typesize,
-                        pc_cstr + t_endpos * t_typesize) == 0)
-                    {
-                        t_endpos++;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    t_endpos++;
                 }
-
-                if(t_endpos == t_cstrlen)
+                else
                 {
-                    return t_startpos;
-                }
-                else if(t_endpos + t_startpos == t_stringlen)
-                {
-                    return NPOS;
+                    break;
                 }
             }
 
-            t_startpos++;
-        }
-
-        return NPOS;
-    }
-    else
-    {
-        t_startpos = t_pos;
-        while(t_startpos != t_stringlen)
-        {
-            if(memcmp(pc_string + t_startpos * t_typesize, pc_cstr, t_typesize) == 0)
+            if(t_endpos == t_cstrlen)
             {
-                t_endpos = 0;
-                while(t_endpos + t_startpos != t_stringlen && t_endpos != t_cstrlen)
-                {
-                    if(memcmp(
-                        pc_string + (t_endpos+t_startpos) * t_typesize,
-                        pc_cstr + t_endpos * t_typesize,
-                        t_typesize) == 0)
-                    {
-                        t_endpos++;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if(t_endpos == t_cstrlen)
-                {
-                    return t_startpos;
-                }
-                else if(t_endpos + t_startpos == t_stringlen)
-                {
-                    return NPOS;
-                }
+                return t_startpos;
             }
-
-            t_startpos++;
+            else if(t_endpos + t_startpos == t_stringlen)
+            {
+                return NPOS;
+            }
         }
 
-        return NPOS;
+        t_startpos++;
     }
+
+    return NPOS;
 }
 
 size_t _basic_string_find_elem(
@@ -1129,8 +1095,9 @@ size_t _basic_string_find_elem_varg(
     size_t  t_typesize = 0;
     size_t  t_findpos = 0;
     size_t  t_stringlen = 0;
-    char*   pc_value = NULL;
+    void*   pv_varg = NULL;
     char*   pc_string = NULL;
+    bool_t  t_result = false;
 
     assert(cpt_basic_string != NULL);
 
@@ -1140,23 +1107,13 @@ size_t _basic_string_find_elem_varg(
     }
 
     /* get element */
-    t_typesize = cpt_basic_string->_t_vector._t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-    }
-
-    _get_varg_value(
-        pc_value, 
-        val_elemlist,
-        t_typesize,
-        cpt_basic_string->_t_vector._sz_typename);
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    pv_varg = allocate(&cpt_basic_string->_t_vector._t_allocater, t_typesize, 1);
+    assert(pv_varg != NULL);
+    t_result = t_typesize;
+    _GET_BASIC_STRING_TYPE_INIT_FUNCTION(cpt_basic_string)(pv_varg, &t_result);
+    assert(t_result);
+    _type_get_varg_value(&cpt_basic_string->_t_vector._t_typeinfo, val_elemlist, pv_varg);
 
     /* find elemen */
     t_stringlen = basic_string_length(cpt_basic_string);
@@ -1168,26 +1125,6 @@ size_t _basic_string_find_elem_varg(
         {
             if(cpt_basic_string->_t_vector._pfun_cmp(
                 pc_string + t_findpos * t_typesize, pc_value) == 0)
-            {
-                break;
-            }
-            else
-            {
-                t_findpos++;
-            }
-        }
-
-        if(t_findpos == t_stringlen)
-        {
-            t_findpos = NPOS;
-        }
-    }
-    else
-    {
-        t_findpos = t_pos;
-        while(t_findpos != t_stringlen)
-        {
-            if(memcmp(pc_string + t_findpos * t_typesize, pc_value, t_typesize) == 0)
             {
                 break;
             }
