@@ -62,7 +62,7 @@
  */
 static bool_t _iterator_belong_to_basic_string(
     const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter);
-static bool_t _same_basic_string_type(
+static bool_t _basic_string_same_type(
     const basic_string_t* cpt_basic_stringfirst, 
     const basic_string_t* cpt_basic_stringsecond);
 #endif /* NDEBUG */
@@ -681,7 +681,7 @@ int basic_string_compare(
     const basic_string_t* cpt_basic_stringfirst,
     const basic_string_t* cpt_basic_stringsecond)
 {
-    assert(_same_basic_string_type(cpt_basic_stringfirst, cpt_basic_stringsecond));
+    assert(_basic_string_same_type(cpt_basic_stringfirst, cpt_basic_stringsecond));
 
     return basic_string_compare_substring_string(
         cpt_basic_stringfirst, 0, NPOS, cpt_basic_stringsecond);
@@ -691,7 +691,7 @@ int basic_string_compare_substring_string(
     const basic_string_t* cpt_basic_stringfirst, size_t t_firstpos, size_t t_firstlen,
     const basic_string_t* cpt_basic_stringsecond)
 {
-    assert(_same_basic_string_type(cpt_basic_stringfirst, cpt_basic_stringsecond));
+    assert(_basic_string_same_type(cpt_basic_stringfirst, cpt_basic_stringsecond));
 
     return basic_string_compare_substring_substring(
         cpt_basic_stringfirst, t_firstpos, t_firstlen,
@@ -702,7 +702,7 @@ int basic_string_compare_substring_substring(
     const basic_string_t* cpt_basic_stringfirst, size_t t_firstpos, size_t t_firstlen,
     const basic_string_t* cpt_basic_stringsecond, size_t t_secondpos, size_t t_secondlen)
 {
-    assert(_same_basic_string_type(cpt_basic_stringfirst, cpt_basic_stringsecond));
+    assert(_basic_string_same_type(cpt_basic_stringfirst, cpt_basic_stringsecond));
     assert(t_secondpos < basic_string_size(cpt_basic_stringsecond));
 
     return basic_string_compare_substring_subcstr(
@@ -803,7 +803,7 @@ void basic_string_connect(
     char*  pc_src = NULL;
     bool_t t_result = false;
 
-    assert(_same_basic_string_type(pt_basic_string, cpt_basic_string_src));
+    assert(_basic_string_same_type(pt_basic_string, cpt_basic_string_src));
 
     t_destlen = basic_string_size(pt_basic_string);
     t_srclen = basic_string_size(cpt_basic_string_src);
@@ -875,6 +875,7 @@ void _basic_string_connect_elem(basic_string_t* pt_basic_string, ...)
 void _basic_string_connect_elem_varg(
     basic_string_t* pt_basic_string, va_list val_elemlist)
 {
+    size_t  t_typesize = 0;
     char*   pc_dest = NULL;
     void*   pv_varg = NULL;
     void*   pv_nullterminated = NULL;
@@ -882,35 +883,31 @@ void _basic_string_connect_elem_varg(
 
     assert(pt_basic_string != NULL);
 
-    pc_dest = (char*)vector_at(
-        &pt_basic_string->_t_vector, basic_string_size(pt_basic_string));
-    assert(pc_dest != NULL);
-
-    pv_varg = allocate(&pt_basic_string->_t_vector._t_allocater,
-        _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string), 1);
-    pv_nullterminated = allocate(&pt_basic_string->_t_vector._t_allocater,
-        _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string), 1);
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+    pv_varg = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
+    pv_nullterminated = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
     assert(pv_varg != NULL && pv_nullterminated != NULL);
-    t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+    t_result = t_typesize;
     _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_varg, &t_result);
     assert(t_result);
-    memset(pv_nullterminated, 0x00, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
+    memset(pv_nullterminated, 0x00, t_typesize);
 
     _type_get_varg_value(&pt_basic_string->_t_vector._t_typeinfo, val_elemlist, pv_varg);
     /* check input element is the null-terminated node */
-    if(memcmp(pv_varg, pv_nullterminated, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string)) != 0)
+    if(memcmp(pv_varg, pv_nullterminated, t_typesize) != 0)
     {
-        bool_t t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        pc_dest = (char*)vector_at(
+            &pt_basic_string->_t_vector, basic_string_size(pt_basic_string));
+        assert(pc_dest != NULL);
+        t_result = t_typesize;
         _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pv_varg, &t_result);
         assert(t_result);
         /* add null-terminated */
         vector_push_back(&pt_basic_string->_t_vector, 0x00);
     }
 
-    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_varg,
-        _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string), 1);
-    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_nullterminated,
-        _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string), 1);
+    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_varg, t_typesize, 1);
+    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_nullterminated, t_typesize, 1);
 }
 
 /* iterator support */
@@ -1880,48 +1877,44 @@ void _basic_string_push_back(basic_string_t* pt_basic_string, ...)
 
 void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_elemlist)
 {
-    char*   pc_nullterminated = NULL;
-    char*   pc_value = NULL;
+    void*   pv_nullterminated = NULL;
+    void*   pv_varg = NULL;
     char*   pc_dest = NULL;
     size_t  t_typesize = 0;
+    bool_t  t_result = false;
 
     assert(pt_basic_string != NULL);
 
-    t_typesize = pt_basic_string->_t_vector._t_typesize;
-    pc_nullterminated = (char*)malloc(t_typesize);
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_nullterminated == NULL || pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_nullterminated, 0x00, t_typesize);
-    }
-    _get_varg_value(
-        pc_value, val_elemlist, t_typesize, pt_basic_string->_t_vector._sz_typename);
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+    pv_nullterminated = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
+    pv_varg = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
+    assert(pv_nullterminated != NULL && pv_varg != NULL);
+    t_result = t_typesize;
+    _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_varg, &t_result);
+    assert(t_result);
+    _type_get_varg_value(&pt_basic_string->_t_vector._t_typeinfo, val_elemlist, pv_varg);
+    memset(pv_nullterminated, 0x00, t_typesize);
 
-    if(memcmp(pc_nullterminated, pc_value, t_typesize) != 0)
+    if(memcmp(pv_nullterminated, pv_varg, t_typesize) != 0)
     {
         pc_dest = vector_at(
             &pt_basic_string->_t_vector, basic_string_size(pt_basic_string));
-        assert(pc_value != NULL);
+        assert(pc_dest != NULL);
 
-        memcpy(pc_dest, pc_value, t_typesize);
+        t_result = t_typesize;
+        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pv_varg, &t_result);
+        assert(t_result);
         vector_push_back(&pt_basic_string->_t_vector, 0x00);
     }
 
-    free(pc_nullterminated);
-    free(pc_value);
-    pc_nullterminated = NULL;
-    pc_value = NULL;
+    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_nullterminated, t_typesize, 1);
+    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_varg, t_typesize, 1);
 }
 
 void basic_string_assign(
     basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_assign)
 {
-    assert(_same_basic_string_type(pt_basic_string, cpt_basic_string_assign));
+    assert(_basic_string_same_type(pt_basic_string, cpt_basic_string_assign));
 
     basic_string_destroy(pt_basic_string);
     basic_string_init_copy(pt_basic_string, cpt_basic_string_assign);
@@ -1931,7 +1924,7 @@ void basic_string_assign_substring(
     basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_assign,
     size_t t_pos, size_t t_len)
 {
-    assert(_same_basic_string_type(pt_basic_string, cpt_basic_string_assign));
+    assert(_basic_string_same_type(pt_basic_string, cpt_basic_string_assign));
 
     basic_string_destroy(pt_basic_string);
     basic_string_init_copy_substring(
@@ -1947,14 +1940,8 @@ void basic_string_assign_cstr(
 void basic_string_assign_subcstr(
     basic_string_t* pt_basic_string, const void* cpv_valuestring, size_t t_len)
 {
-    int (*pfun_cmp)(const void*, const void*);
-    void (*pfun_destroy_elem)(void*);
-
     assert(pt_basic_string != NULL && cpv_valuestring != NULL);
 
-    /* same compare and destroy function */
-    pfun_cmp = pt_basic_string->_t_vector._pfun_cmp;
-    pfun_destroy_elem = NULL;
     /* destroy the basic_string */
     basic_string_destroy(pt_basic_string);
     /* initialize basic_string with value string */
@@ -1969,8 +1956,8 @@ void basic_string_assign_range(
         _GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
         _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string);
     assert(
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
+        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
+        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
 
     basic_string_destroy(pt_basic_string);
     basic_string_init_copy_range(pt_basic_string, t_begin, t_end);
@@ -1987,15 +1974,9 @@ void _basic_string_assign_elem(
 void _basic_string_assign_elem_varg(
     basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 {
-    int (*pfun_cmp)(const void*, const void*);
-    void (*pfun_destroy_elem)(void*);
     size_t  t_index = 0;
 
     assert(pt_basic_string != NULL);
-
-    /* same compare and destroy function */
-    pfun_cmp = pt_basic_string->_t_vector._pfun_cmp;
-    pfun_destroy_elem = NULL;
 
     /* destroy basic_string */
     basic_string_destroy(pt_basic_string);
@@ -2059,14 +2040,15 @@ void basic_string_append_subcstr(
     size_t t_typesize = 0;
     size_t t_cstrlen = 0;
     size_t t_stringlen = 0;
+    size_t t_index = 0;
     char*  pc_value = NULL;
+    bool_t t_result = false;
 
     assert(pt_basic_string != NULL && cpv_valuestring != NULL);
 
-    t_typesize = pt_basic_string->_t_vector._t_typesize;
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
     t_stringlen = basic_string_length(pt_basic_string);
-    t_cstrlen = _get_valuestring_len(
-        cpv_valuestring, t_typesize, pt_basic_string->_t_vector._sz_typename);
+    t_cstrlen = _get_valuestring_len(pt_basic_string, cpv_valuestring);
     t_len = t_len < t_cstrlen ? t_len : t_cstrlen;
 
     if(t_len > 0)
@@ -2074,7 +2056,14 @@ void basic_string_append_subcstr(
         basic_string_resize(pt_basic_string, t_stringlen + t_len, 0xcc);
         pc_value = (char*)basic_string_at(pt_basic_string, t_stringlen);
         assert(pc_value != NULL);
-        memcpy(pc_value, (char*)cpv_valuestring, t_len * t_typesize);
+        for(t_index = 0; t_index < t_len; ++t_index)
+        {
+            t_result = t_typesize;
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
+                pc_value + t_index * t_typesize,
+                (char*)cpv_valuestring + t_index * t_typesize, &t_result);
+            assert(t_result);
+        }
     }
 }
 
@@ -2086,8 +2075,8 @@ void basic_string_append_range(
         _GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
         _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string);
     assert(
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
+        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
+        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
 
     basic_string_append_subcstr(
         pt_basic_string, iterator_get_pointer(t_begin),
@@ -2193,22 +2182,17 @@ void basic_string_insert_subcstr(
     basic_string_t* pt_basic_string, size_t t_pos,
     const void* cpv_valuestring, size_t t_len)
 {
-    basic_string_t t_string;
+    basic_string_t* pt_string;
 
     assert(pt_basic_string != NULL && cpv_valuestring != NULL);
 
-    t_string = _create_basic_string(
-        pt_basic_string->_t_vector._t_typesize, pt_basic_string->_t_vector._sz_typename);
-    /* unify the type name */
-    memcpy(
-        t_string._t_vector._sz_typename, pt_basic_string->_t_vector._sz_typename,
-        _TYPE_NAME_SIZE);
+    pt_string = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(pt_basic_string));
 
-    basic_string_init_subcstr(&t_string, cpv_valuestring, t_len);
+    basic_string_init_subcstr(pt_string, cpv_valuestring, t_len);
 
-    basic_string_insert_string(pt_basic_string, t_pos, &t_string);
+    basic_string_insert_string(pt_basic_string, t_pos, pt_string);
 
-    basic_string_destroy(&t_string);
+    basic_string_destroy(pt_string);
 }
 
 void basic_string_insert_range(
@@ -2220,8 +2204,8 @@ void basic_string_insert_range(
         _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string &&
         _GET_BASIC_STRING_CONTAINER(t_pos) == pt_basic_string);
     assert(
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
-        _same_basic_string_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
+        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
+        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
 
     _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
     _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
@@ -2544,51 +2528,48 @@ static bool_t _basic_string_same_type(
 static size_t _get_valuestring_len(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 {
+    size_t t_typesize = 0;
+
     assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
 
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     /* char type */
     if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string),
         _CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        assert(_GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string) == 1);
+        assert(t_typesize == 1);
         return strlen(cpv_valuestring);
     }
     else
     {
         size_t t_len = 0;
         char*  pc_nullterminated = NULL;
-        bool_t t_resultless = false;
-        bool_t t_resultgreat = false;
+        bool_t t_less = false;
+        bool_t t_great = false;
 
         pc_nullterminated = (char*)allocate(
-            &((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater,
-            _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string), 1);
+            &((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
         assert(pc_nullterminated != NULL);
-        memset(pc_nullterminated, 0x00, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+        memset(pc_nullterminated, 0x00, t_typesize);
 
-        t_resultless = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        t_resultgreat = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        t_less = t_great = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            cpv_valuestring, pc_nullterminated, &t_resultless);
+            cpv_valuestring, pc_nullterminated, &t_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pc_nullterminated, cpv_valuestring, &t_resultgreat);
-        while(t_resultless || t_resultgreat)
+            pc_nullterminated, cpv_valuestring, &t_great);
+        while(t_less || t_great)
         {
             t_len++;
 
-            t_resultless = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-            t_resultgreat = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            t_less = t_great = t_typesize;
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                (char*)cpv_valuestring+t_len*_GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string),
-                pc_nullterminated, &t_resultless);
-            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pc_nullterminated,
-                (char*)cpv_valuestring+t_len*_GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string),
-                &t_resultgreat);
+                (char*)cpv_valuestring+t_len*t_typesize, pc_nullterminated, &t_less);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                pc_nullterminated, (char*)cpv_valuestring+t_len*t_typesize, &t_great);
         }
         
         deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater,
-            pc_nullterminated, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string), 1);
-        pc_nullterminated = NULL;
+            pc_nullterminated, t_typesize, 1);
 
         return t_len;
     }
