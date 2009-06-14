@@ -411,6 +411,8 @@ void vector_destroy(vector_t* pt_vector)
     pt_vector->_pc_start = NULL;
     pt_vector->_pc_finish = NULL;
     pt_vector->_pc_endofstorage = NULL;
+
+    free(pt_vector);
 }
 
 void vector_init_copy(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)

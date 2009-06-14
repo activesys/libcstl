@@ -1916,19 +1916,23 @@ void basic_string_assign(
 {
     assert(_basic_string_same_type(pt_basic_string, cpt_basic_string_assign));
 
-    basic_string_destroy(pt_basic_string);
-    basic_string_init_copy(pt_basic_string, cpt_basic_string_assign);
+    basic_string_assign_range(pt_basic_string,
+        basic_string_begin(cpt_basic_string_assign),
+        basic_string_end(cpt_basic_string_assign));
 }
 
 void basic_string_assign_substring(
     basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_assign,
     size_t t_pos, size_t t_len)
 {
+    basic_string_iterator_t t_begin;
+    basic_string_iterator_t t_end;
+
     assert(_basic_string_same_type(pt_basic_string, cpt_basic_string_assign));
 
-    basic_string_destroy(pt_basic_string);
-    basic_string_init_copy_substring(
-        pt_basic_string, cpt_basic_string_assign, t_pos, t_len);
+    t_begin = iterator_next_n(basic_string_begin(cpt_basic_string_assign), t_pos);
+    t_end = iterator_next_n(basic_string_begin(cpt_basic_string_assign), t_pos + t_len);
+    basic_string_assign_range(pt_basic_string, t_begin, t_end);
 }
 
 void basic_string_assign_cstr(
@@ -1940,27 +1944,52 @@ void basic_string_assign_cstr(
 void basic_string_assign_subcstr(
     basic_string_t* pt_basic_string, const void* cpv_valuestring, size_t t_len)
 {
+    size_t t_length = 0;
+    size_t t_index = 0;
+    char*  pc_value = NULL;
+    bool_t t_result = false;
+
     assert(pt_basic_string != NULL && cpv_valuestring != NULL);
 
-    /* destroy the basic_string */
-    basic_string_destroy(pt_basic_string);
-    /* initialize basic_string with value string */
-    basic_string_init_subcstr(pt_basic_string, cpv_valuestring, t_len);
+    t_length = _get_valuestring_len(pt_basic_string, cpv_valuestring);
+    t_len = t_len < t_length ? t_len : t_length;
+
+    vector_resize(&pt_basic_string->_t_vector, t_len);
+    assert(vector_size(&pt_basic_string->_t_vector) == t_len);
+
+    if(t_len > 0)
+    {
+        pc_value = (char*)vector_at(&pt_basic_string->_t_vector, 0); 
+        assert(pc_value != NULL);
+        for(t_index = 0; t_index < t_len; ++t_index)
+        {
+            t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
+                pc_value + t_index * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string),
+                (char*)cpv_valuestring + t_index*_GET_BASIC_STRING_TYPE_SIZE(pt_basic_string),
+                &t_result);
+            assert(t_result);
+        }
+    }
+
+    /* add null-terminated node */
+    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 void basic_string_assign_range(
     basic_string_t* pt_basic_string,
     basic_string_iterator_t t_begin, basic_string_iterator_t t_end)
 {
-    assert(
-        _GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
-        _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string);
-    assert(
-        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
-        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
+    assert(_GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
+           _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string);
+    assert(_basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
+           _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
 
-    basic_string_destroy(pt_basic_string);
-    basic_string_init_copy_range(pt_basic_string, t_begin, t_end);
+    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
+    vector_assign_range(&pt_basic_string->_t_vector, t_begin, t_end);
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_begin) = _BASIC_STRING_CONTAINER;
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_end) = _BASIC_STRING_CONTAINER;
 }
 
 void _basic_string_assign_elem(
@@ -1978,11 +2007,7 @@ void _basic_string_assign_elem_varg(
 
     assert(pt_basic_string != NULL);
 
-    /* destroy basic_string */
-    basic_string_destroy(pt_basic_string);
-
-    /* initialize basic_string */
-    vector_init(&pt_basic_string->_t_vector);
+    vector_clear(&pt_basic_string->_t_vector);
     assert(vector_size(&pt_basic_string->_t_vector) == 0);
 
     for(t_index = 0; t_index < t_count; ++t_index)
