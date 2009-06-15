@@ -41,22 +41,41 @@ typedef iterator_t deque_reverse_iterator_t;
 /*
  * Iterator support.
  */
+/*
+ * Create new iterator for deque.
+ */
 extern deque_iterator_t create_deque_iterator(void);
+
+/*
+ * Relationship operator of deque iterator.
+ */
 extern bool_t _deque_iterator_equal(
     deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
+extern bool_t _deque_iterator_less(
+    deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
+extern bool_t _deque_iterator_before(
+    deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
+
+/*
+ * Element accession.
+ */
 extern void _deque_iterator_get_value(deque_iterator_t t_iter, void* pv_value);
 extern void _deque_iterator_set_value(deque_iterator_t t_iter, const void* cpv_value);
 extern const void* _deque_iterator_get_pointer(deque_iterator_t t_iter); 
+
+/*
+ * Increase and decrease of deque iterator.
+ */
 extern deque_iterator_t _deque_iterator_next(deque_iterator_t pt_iter);
 extern deque_iterator_t _deque_iterator_prev(deque_iterator_t t_iter);
 extern void* _deque_iterator_at(deque_iterator_t t_iter, int n_index);
 extern deque_iterator_t _deque_iterator_next_n(deque_iterator_t t_iter, int n_step);
 extern deque_iterator_t _deque_iterator_prev_n(deque_iterator_t t_iter, int n_step);
+
+/*
+ * Distance of deque iterator.
+ */
 extern int _deque_iterator_minus(
-    deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
-extern bool_t _deque_iterator_less(
-    deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
-extern bool_t _deque_iterator_before(
     deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
 
 #ifdef __cplusplus

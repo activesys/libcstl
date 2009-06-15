@@ -40,7 +40,7 @@
 /** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
-/* macros of getting type information */
+/* macros for type informations */
 #define _GET_VECTOR_TYPE_SIZE(pt_vector)\
     ((pt_vector)->_t_typeinfo._pt_type->_t_typesize)
 #define _GET_VECTOR_TYPE_NAME(pt_vector)\

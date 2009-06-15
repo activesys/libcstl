@@ -36,9 +36,8 @@ extern "C" {
 typedef char**  _mappointer_t;
 typedef struct _tagdeque
 {
-    /* element identify */
-    size_t           _t_typesize;                          /* element size */
-    char             _sz_typename[_ELEM_TYPE_NAME_SIZE+1]; /* element name */
+    /* element type information */
+    _typeinfo_t      _t_typeinfo;
 
     /* memory allocate */
     alloc_t          _t_allocater;
@@ -50,14 +49,6 @@ typedef struct _tagdeque
     deque_iterator_t _t_start;
     /* the element after the last element */
     deque_iterator_t _t_finish;
-
-    /* 
-     * the compare function :
-     * < 0  : element first < element second.
-     * == 0 : element first == element second.
-     * > 0  : element first > element second. 
-     */
-    int (*_pfun_cmp)(const void*, const void*);
 }deque_t;
 
 /** exported global variable declaration section **/

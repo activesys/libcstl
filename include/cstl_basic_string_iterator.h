@@ -41,30 +41,53 @@ typedef iterator_t basic_string_reverse_iterator_t;
 /*
  * Iterator support.
  */
+/*
+ * Create new iterator for basic string.
+ */
 extern basic_string_iterator_t create_basic_string_iterator(void);
+
+/*
+ * The relationship operator of basic string iterator.
+ */
 extern bool_t _basic_string_iterator_equal(
     basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond);
+extern bool_t _basic_string_iterator_less(
+    basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond);
+extern bool_t _basic_string_iterator_before(
+    basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond);
+
+/*
+ * Element accession.
+ */
 extern void _basic_string_iterator_get_value(
     basic_string_iterator_t t_iter, void* pv_value);
 extern void _basic_string_iterator_set_value(
     basic_string_iterator_t t_iter, const void* cpv_value);
 extern const void* _basic_string_iterator_get_pointer(
-    basic_string_iterator_t t_iter); 
+    basic_string_iterator_t t_iter);
+
+/*
+ * Increase or decrease of basic string iterator.
+ */
 extern basic_string_iterator_t _basic_string_iterator_next(
     basic_string_iterator_t t_iter);
 extern basic_string_iterator_t _basic_string_iterator_prev(
     basic_string_iterator_t t_iter);
-extern void* _basic_string_iterator_at(
-    basic_string_iterator_t t_iter, int n_index);
 extern basic_string_iterator_t _basic_string_iterator_next_n(
     basic_string_iterator_t t_iter, int n_step);
 extern basic_string_iterator_t _basic_string_iterator_prev_n(
     basic_string_iterator_t t_iter, int n_step);
+
+/*
+ * Random access.
+ */
+extern void* _basic_string_iterator_at(
+    basic_string_iterator_t t_iter, int n_index);
+
+/*
+ * Distance of basic string iterator.
+ */
 extern int _basic_string_iterator_minus(
-    basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond);
-extern bool_t _basic_string_iterator_less(
-    basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond);
-extern bool_t _basic_string_iterator_before(
     basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond);
 
 #ifdef __cplusplus
