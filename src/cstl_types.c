@@ -1110,9 +1110,11 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
      */
     else
     {
-        bool_t t_b = false;
+        /* the pv_output must be initialized */
+        bool_t t_result = pt_typeinfo->_pt_type->_t_typesize;
         void*  pv_elem = va_arg(val_elemlist, void*);
-        (*pt_typeinfo->_pt_type->_t_typecopy)(pv_output, pv_elem, &t_b);
+        (*pt_typeinfo->_pt_type->_t_typecopy)(pv_output, pv_elem, &t_result);
+        assert(t_result);
     }
 
     va_end(val_elemlist);
