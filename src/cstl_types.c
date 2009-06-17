@@ -110,11 +110,6 @@
 static _typeregister_t _gt_typeregister = {false, {NULL}, {{NULL}, NULL, NULL, 0, 0, 0}};
 
 /** local data type declaration and local struct, union, enum section **/
-typedef enum _tagtypestley
-{
-    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN
-}_typestyle_t;
-
 typedef enum _tagtypetoken
 {
     /* invalid token */
@@ -810,7 +805,6 @@ bool_t _type_duplicate(
 void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
 {
     char         s_registeredname[_TYPE_NAME_SIZE+1];
-    _typestyle_t t_style = _TYPE_INVALID;
 
     assert(pt_typeinfo != NULL && s_typename != NULL);
 
@@ -820,13 +814,14 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
     }
 
     memset(s_registeredname, '\0', _TYPE_NAME_SIZE+1);
-    t_style = _type_get_style(s_typename, pt_typeinfo->_sz_typename);
-    if(t_style == _TYPE_INVALID)
+    pt_typeinfo->_t_style = _type_get_style(s_typename, pt_typeinfo->_sz_typename);
+    if(pt_typeinfo->_t_style == _TYPE_INVALID)
     {
         pt_typeinfo->_pt_type = NULL;
         return;
     }
-    else if(t_style == _TYPE_C_BUILTIN || t_style == _TYPE_USER_DEFINE)
+    else if(pt_typeinfo->_t_style == _TYPE_C_BUILTIN ||
+            pt_typeinfo->_t_style == _TYPE_USER_DEFINE)
     {
         strncpy(s_registeredname, pt_typeinfo->_sz_typename, _TYPE_NAME_SIZE);
     }
@@ -1009,6 +1004,23 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
            pc_leftbracket2 == NULL && pc_comma2 == NULL && pc_rightbracket2 == NULL);
 
     return true;
+}
+
+void _type_get_elem_typename(const char* s_typename, char* s_elemtypename)
+{
+    char* pc_left = NULL;   /* left bracket position */
+    char* pc_right = NULL;  /* right bracket position */
+
+    assert(s_typename != NULL && s_elemtypename != NULL);
+
+    memset(s_elemtypename, '\0', _TYPE_NAME_SIZE+1);
+    /* e.g. "vector_t<map_t<int,long>>" */
+    pc_left = strchr(s_typename, '<');
+    pc_right = strrchr(s_typename, '>');
+    assert(pc_left != NULL && pc_right != NULL && pc_left < pc_right &&
+           pc_right == s_typename + strlen(s_typename) - 1);
+
+    strncpy(s_elemtypename, pc_left + 1, pc_right - pc_left - 1);
 }
 
 void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output)
@@ -2936,8 +2948,18 @@ static void _type_init_vector(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
+    /* get type information */
+    _type_get_type(&((vector_t*)cpv_input)->_t_typeinfo, (char*)pv_output);
+    assert(((vector_t*)cpv_input)->_t_typeinfo._pt_type != NULL &&
+           ((vector_t*)cpv_input)->_t_typeinfo._t_style != _TYPE_INVALID &&
+           strncmp(((vector_t*)cpv_input)->_t_typeinfo._sz_typename,
+               (char*)pv_output, _TYPE_NAME_SIZE) == 0);
+    ((vector_t*)cpv_input)->_pc_start = NULL;
+    ((vector_t*)cpv_input)->_pc_finish = NULL;
+    ((vector_t*)cpv_input)->_pc_endofstorage = NULL;
+
+    /* initialize vector_t */
     vector_init((vector_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_vector(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -2956,7 +2978,7 @@ static void _type_destroy_vector(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    vector_destroy((vector_t*)cpv_input);
+    _vector_destroy_auxiliary((vector_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* list_t */

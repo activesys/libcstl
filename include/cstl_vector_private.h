@@ -32,6 +32,17 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
+/*
+ * vector_t
+ * _pc_start             _pc_finish      _pc_endofstorage
+ * |                     |               |
+ * V                     V               V
+ * +-------------------------------------+
+ * |    ... data ...     |               |
+ * +-------------------------------------+
+ * |<--------size()----->|
+ * |<---------------capacity()---------->|
+ */
 typedef struct _tagvector
 {
     /* element type information */

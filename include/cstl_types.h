@@ -234,10 +234,17 @@ typedef struct _tagtyperegister
     alloc_t              _t_allocator;
 }_typeregister_t;
 
+/* type style */
+typedef enum _tagtypestley
+{
+    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN
+}_typestyle_t;
+
 typedef struct _tagtypeinfo
 {
-    char     _sz_typename[_TYPE_NAME_SIZE+1];
-    _type_t* _pt_type;
+    char         _sz_typename[_TYPE_NAME_SIZE+1];
+    _type_t*     _pt_type;
+    _typestyle_t _t_style;
 }_typeinfo_t;
 
 /** exported global variable declaration section **/
@@ -264,6 +271,7 @@ extern void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename);
 extern bool_t _type_is_same(const char* s_typename1, const char* s_typename2);
 extern void _type_get_varg_value(
     _typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output);
+extern void _type_get_elem_typename(const char* s_typename, char* s_elemtypename);
 
 /*extern void type_debug(void);*/
 /*
