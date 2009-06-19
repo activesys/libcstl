@@ -55,6 +55,8 @@
     ((pt_basic_string)->_t_vector._t_typeinfo._pt_type->_t_typeless)
 #define _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)\
     ((pt_basic_string)->_t_vector._t_typeinfo._pt_type->_t_typedestroy)
+#define _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string)\
+    ((pt_basic_string)->_t_vector._t_typeinfo._t_style)
 
 /** local function prototype section **/
 #ifndef NDEBUG
@@ -73,6 +75,12 @@ static bool_t _basic_string_same_type(
  */
 static size_t _get_valuestring_len(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring);
+
+static void _basic_string_get_varg_value_auxiliary(
+    basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg);
+static void _basic_string_destroy_varg_value_auxiliary(
+    basic_string_t* pt_basic_string, void* pv_varg);
+static void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem);
 
 /** exported global variable definition section **/
 
@@ -312,6 +320,7 @@ bool_t _basic_string_iterator_before(
 /* basic_string private function */
 basic_string_t* _create_basic_string(const char* s_typename)
 {
+    assert(sizeof(basic_string_t) == sizeof(vector_t));
     return (basic_string_t*)_create_vector(s_typename);
 }
 
@@ -506,14 +515,7 @@ size_t basic_string_length(const basic_string_t* cpt_basic_string)
 
 bool_t basic_string_empty(const basic_string_t* cpt_basic_string)
 {
-    if(basic_string_size(cpt_basic_string) == 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return basic_string_size(cpt_basic_string) == 0 ? true : false;
 }
 
 size_t basic_string_max_size(const basic_string_t* cpt_basic_string)
@@ -541,8 +543,7 @@ void* basic_string_at(const basic_string_t* cpt_basic_string, size_t t_pos)
 
 /* comparisons */
 bool_t basic_string_equal(
-    const basic_string_t* cpt_basic_stringfirst,
-    const basic_string_t* cpt_basic_stringsecond)
+    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 {
     assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
 
@@ -551,8 +552,7 @@ bool_t basic_string_equal(
 }
 
 bool_t basic_string_not_equal(
-    const basic_string_t* cpt_basic_stringfirst,
-    const basic_string_t* cpt_basic_stringsecond)
+    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 {
     assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
 
@@ -561,8 +561,7 @@ bool_t basic_string_not_equal(
 }
 
 bool_t basic_string_less(
-    const basic_string_t* cpt_basic_stringfirst,
-    const basic_string_t* cpt_basic_stringsecond)
+    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 {
     assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
 
@@ -571,8 +570,7 @@ bool_t basic_string_less(
 }
 
 bool_t basic_string_less_equal(
-    const basic_string_t* cpt_basic_stringfirst,
-    const basic_string_t* cpt_basic_stringsecond)
+    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 {
     assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
 
@@ -581,8 +579,7 @@ bool_t basic_string_less_equal(
 }
 
 bool_t basic_string_great(
-    const basic_string_t* cpt_basic_stringfirst,
-    const basic_string_t* cpt_basic_stringsecond)
+    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 {
     assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
 
@@ -591,8 +588,7 @@ bool_t basic_string_great(
 }
 
 bool_t basic_string_great_equal(
-    const basic_string_t* cpt_basic_stringfirst,
-    const basic_string_t* cpt_basic_stringsecond)
+    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 {
     assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
 
@@ -603,84 +599,41 @@ bool_t basic_string_great_equal(
 bool_t basic_string_equal_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 {
-    if(basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) == 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) == 0 ? true : false;
 }
 
 bool_t basic_string_not_equal_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 {
-    if(basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) != 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) != 0 ? true : false;
 }
 
 bool_t basic_string_less_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 {
-    if(basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) < 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) < 0 ? true : false;
 }
 
 bool_t basic_string_less_equal_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 {
-    if(basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) <= 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) <= 0 ? true : false;
 }
 
 bool_t basic_string_great_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 {
-    if(basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) > 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) > 0 ? true : false;
 }
 
 bool_t basic_string_great_equal_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 {
-    if(basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) >= 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) >= 0 ? true : false;
 }
 
 int basic_string_compare(
-    const basic_string_t* cpt_basic_stringfirst,
-    const basic_string_t* cpt_basic_stringsecond)
+    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 {
     assert(_basic_string_same_type(cpt_basic_stringfirst, cpt_basic_stringsecond));
 
@@ -695,8 +648,7 @@ int basic_string_compare_substring_string(
     assert(_basic_string_same_type(cpt_basic_stringfirst, cpt_basic_stringsecond));
 
     return basic_string_compare_substring_substring(
-        cpt_basic_stringfirst, t_firstpos, t_firstlen,
-        cpt_basic_stringsecond, 0, NPOS);
+        cpt_basic_stringfirst, t_firstpos, t_firstlen, cpt_basic_stringsecond, 0, NPOS);
 }
 
 int basic_string_compare_substring_substring(
@@ -744,12 +696,10 @@ int basic_string_compare_substring_subcstr(
     /* get actual string length and value string length */
     t_stringlentmp = basic_string_size(cpt_basic_string) - t_stringpos;
     t_valuestringlentmp = _get_valuestring_len(cpt_basic_string, cpv_valuestring);
-    t_stringlen = t_stringlen < t_stringlentmp ?
-                  t_stringlen : t_stringlentmp;
-    t_valuestringlen = t_valuestringlen < t_valuestringlentmp ? 
+    t_stringlen = t_stringlen < t_stringlentmp ? t_stringlen : t_stringlentmp;
+    t_valuestringlen = t_valuestringlen < t_valuestringlentmp ?
                        t_valuestringlen : t_valuestringlentmp;
-    t_cmplen = t_stringlen < t_valuestringlen ? 
-               t_stringlen : t_valuestringlen;
+    t_cmplen = t_stringlen < t_valuestringlen ? t_stringlen : t_valuestringlen;
 
     pc_string = (char*)basic_string_at(cpt_basic_string, t_stringpos);
     pc_value = (char*)cpv_valuestring;
@@ -873,8 +823,7 @@ void _basic_string_connect_elem(basic_string_t* pt_basic_string, ...)
     _basic_string_connect_elem_varg(pt_basic_string, val_elemlist);
 }
 
-void _basic_string_connect_elem_varg(
-    basic_string_t* pt_basic_string, va_list val_elemlist)
+void _basic_string_connect_elem_varg(basic_string_t* pt_basic_string, va_list val_elemlist)
 {
     size_t  t_typesize = 0;
     char*   pc_dest = NULL;
@@ -888,12 +837,9 @@ void _basic_string_connect_elem_varg(
     pv_varg = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
     pv_nullterminated = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
     assert(pv_varg != NULL && pv_nullterminated != NULL);
-    t_result = t_typesize;
-    _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_varg, &t_result);
-    assert(t_result);
+    _basic_string_get_varg_value_auxiliary(pt_basic_string, val_elemlist, pv_varg);
     memset(pv_nullterminated, 0x00, t_typesize);
 
-    _type_get_varg_value(&pt_basic_string->_t_vector._t_typeinfo, val_elemlist, pv_varg);
     /* check input element is the null-terminated node */
     if(memcmp(pv_varg, pv_nullterminated, t_typesize) != 0)
     {
@@ -907,6 +853,7 @@ void _basic_string_connect_elem_varg(
         vector_push_back(&pt_basic_string->_t_vector, 0x00);
     }
 
+    _basic_string_destroy_varg_value_auxiliary(pt_basic_string, pv_varg);
     deallocate(&pt_basic_string->_t_vector._t_allocater, pv_varg, t_typesize, 1);
     deallocate(&pt_basic_string->_t_vector._t_allocater, pv_nullterminated, t_typesize, 1);
 }
@@ -1107,11 +1054,8 @@ size_t _basic_string_find_elem_varg(
     pv_varg = allocate(
         &((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
     assert(pv_varg != NULL);
-    t_result = t_typesize;
-    _GET_BASIC_STRING_TYPE_INIT_FUNCTION(cpt_basic_string)(pv_varg, &t_result);
-    assert(t_result);
-    _type_get_varg_value(
-        &((basic_string_t*)cpt_basic_string)->_t_vector._t_typeinfo, val_elemlist, pv_varg);
+    _basic_string_get_varg_value_auxiliary(
+        (basic_string_t*)cpt_basic_string, val_elemlist, pv_varg);
 
     /* find elemen */
     t_stringlen = basic_string_length(cpt_basic_string);
@@ -1138,6 +1082,7 @@ size_t _basic_string_find_elem_varg(
     {
         t_findpos = NPOS;
     }
+    _basic_string_destroy_varg_value_auxiliary((basic_string_t*)cpt_basic_string, pv_varg);
     deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, pv_varg,
         _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string), 1);
 
@@ -1285,11 +1230,8 @@ size_t _basic_string_rfind_elem_varg(
     pv_varg = allocate(
         &((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
     assert(pv_varg != NULL);
-    t_result = t_typesize;
-    _GET_BASIC_STRING_TYPE_INIT_FUNCTION(cpt_basic_string)(pv_varg, &t_result);
-    assert(t_result);
-    _type_get_varg_value(
-        &((basic_string_t*)cpt_basic_string)->_t_vector._t_typeinfo, val_elemlist, pv_varg);
+    _basic_string_get_varg_value_auxiliary(
+        (basic_string_t*)cpt_basic_string, val_elemlist, pv_varg);
 
     /* find elemen */
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
@@ -1318,6 +1260,7 @@ size_t _basic_string_rfind_elem_varg(
             }
         }
     }
+    _basic_string_destroy_varg_value_auxiliary((basic_string_t*)cpt_basic_string, pv_varg);
     deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, pv_varg,
         _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string), 1);
 
@@ -1526,11 +1469,8 @@ size_t _basic_string_find_first_not_of_elem_varg(
     pv_varg = allocate(
         &((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
     assert(pv_varg != NULL);
-    t_result = t_typesize;
-    _GET_BASIC_STRING_TYPE_INIT_FUNCTION(cpt_basic_string)(pv_varg, &t_result);
-    assert(t_result);
-    _type_get_varg_value(
-        &((basic_string_t*)cpt_basic_string)->_t_vector._t_typeinfo, val_elemlist, pv_varg);
+    _basic_string_get_varg_value_auxiliary(
+        (basic_string_t*)cpt_basic_string, val_elemlist, pv_varg);
 
     /* find elemen */
     t_stringlen = basic_string_length(cpt_basic_string);
@@ -1557,6 +1497,7 @@ size_t _basic_string_find_first_not_of_elem_varg(
     {
         t_findpos = NPOS;
     }
+    _basic_string_destroy_varg_value_auxiliary((basic_string_t*)cpt_basic_string, pv_varg);
     deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, pv_varg,
         _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string), 1);
 
@@ -1788,11 +1729,8 @@ size_t _basic_string_find_last_not_of_elem_varg(
     pv_varg = allocate(
         &((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
     assert(pv_varg != NULL);
-    t_result = t_typesize;
-    _GET_BASIC_STRING_TYPE_INIT_FUNCTION(cpt_basic_string)(pv_varg, &t_result);
-    assert(t_result);
-    _type_get_varg_value(
-        &((basic_string_t*)cpt_basic_string)->_t_vector._t_typeinfo, val_elemlist, pv_varg);
+    _basic_string_get_varg_value_auxiliary(
+        (basic_string_t*)cpt_basic_string, val_elemlist, pv_varg);
 
     /* find elemen */
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
@@ -1822,6 +1760,7 @@ size_t _basic_string_find_last_not_of_elem_varg(
         }
     }
 
+    _basic_string_destroy_varg_value_auxiliary((basic_string_t*)cpt_basic_string, pv_varg);
     deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, pv_varg,
         _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string), 1);
 
@@ -1890,17 +1829,14 @@ void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_e
     pv_nullterminated = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
     pv_varg = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
     assert(pv_nullterminated != NULL && pv_varg != NULL);
-    t_result = t_typesize;
-    _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_varg, &t_result);
-    assert(t_result);
-    _type_get_varg_value(&pt_basic_string->_t_vector._t_typeinfo, val_elemlist, pv_varg);
+    _basic_string_get_varg_value_auxiliary(pt_basic_string, val_elemlist, pv_varg);
     memset(pv_nullterminated, 0x00, t_typesize);
 
     if(memcmp(pv_nullterminated, pv_varg, t_typesize) != 0)
     {
-        pc_dest = vector_at(
-            &pt_basic_string->_t_vector, basic_string_size(pt_basic_string));
+        pc_dest = vector_at(&pt_basic_string->_t_vector, basic_string_size(pt_basic_string));
         assert(pc_dest != NULL);
+        _basic_string_init_elem_auxiliary(pt_basic_string, pc_dest);
 
         t_result = t_typesize;
         _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pv_varg, &t_result);
@@ -1908,6 +1844,7 @@ void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_e
         vector_push_back(&pt_basic_string->_t_vector, 0x00);
     }
 
+    _basic_string_destroy_varg_value_auxiliary(pt_basic_string, pv_varg);
     deallocate(&pt_basic_string->_t_vector._t_allocater, pv_nullterminated, t_typesize, 1);
     deallocate(&pt_basic_string->_t_vector._t_allocater, pv_varg, t_typesize, 1);
 }
@@ -2599,6 +2536,46 @@ static size_t _get_valuestring_len(
 
         return t_len;
     }
+}
+
+static void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem)
+{
+    assert(pt_vector != NULL && pv_elem != NULL);
+
+    /* initialize new elements */
+    if(_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_CSTL_BUILTIN)
+    {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(pt_vector), s_elemtypename);
+
+        _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, s_elemtypename);
+    }
+    else
+    {
+        bool_t t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, &t_result);
+        assert(t_result);
+    }
+}
+
+static void _basic_string_get_varg_value_auxiliary(
+    basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg)
+{
+    _basic_string_init_elem_auxiliary(pt_basic_string, pv_varg);
+    _type_get_varg_value(&pt_basic_string->_t_vector._t_typeinfo, val_elemlist, pv_varg);
+}
+
+static void _basic_string_destroy_varg_value_auxiliary(
+    basic_string_t* pt_basic_string, void* pv_varg)
+{
+    bool_t t_result = false;
+
+    assert(pt_basic_string != NULL && pv_varg != NULL);
+
+    t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+    _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pv_varg, &t_result);
+    assert(t_result);
 }
 
 /** eof **/
