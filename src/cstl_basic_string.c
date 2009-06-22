@@ -331,7 +331,6 @@ void basic_string_init(basic_string_t* pt_basic_string)
     assert(pt_basic_string != NULL);
 
     vector_init(&pt_basic_string->_t_vector);
-    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 void basic_string_init_copy(
@@ -354,7 +353,6 @@ void basic_string_init_copy_range(
     _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
 
     vector_init_copy_range(&pt_basic_string->_t_vector, t_begin, t_end);
-    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 void basic_string_init_copy_substring(
@@ -367,25 +365,21 @@ void basic_string_init_copy_substring(
     assert(pt_basic_string != NULL && cpt_basic_string_src != NULL);
     assert(t_pos < basic_string_size(cpt_basic_string_src));
 
-    t_begin = basic_string_begin(cpt_basic_string_src);
-    t_begin = iterator_next_n(t_begin, t_pos);
+    t_begin = iterator_next_n(basic_string_begin(cpt_basic_string), t_pos);
 
-    if(t_len == NPOS || 
-       t_len + t_pos >= basic_string_size(cpt_basic_string_src))
+    if(t_len == NPOS || t_len + t_pos >= basic_string_size(cpt_basic_string_src))
     {
         t_end = basic_string_end(cpt_basic_string_src);
     }
     else
     {
-        t_end = basic_string_begin(cpt_basic_string_src);
-        t_end = iterator_next_n(t_end, t_pos + t_len);
+        t_end = iterator_next_n(basic_string_end(cpt_basic_string_src), t_pos + t_len);
     }
 
     _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
     _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
 
     vector_init_copy_range(&pt_basic_string->_t_vector, t_begin, t_end);
-    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 void basic_string_init_cstr(
@@ -425,9 +419,6 @@ void basic_string_init_subcstr(
             assert(t_result);
         }
     }
-
-    /* add null-terminated node */
-    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 void _basic_string_init_elem(
@@ -442,8 +433,6 @@ void _basic_string_init_elem_varg(
     basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 {
     _vector_init_elem_varg(&pt_basic_string->_t_vector, t_count, val_elemlist);
-    /* add null-terminated node */
-    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 void basic_string_destroy(basic_string_t* pt_basic_string)
@@ -505,7 +494,7 @@ size_t basic_string_size(const basic_string_t* cpt_basic_string)
 {
     assert(cpt_basic_string != NULL);
 
-    return vector_size(&cpt_basic_string->_t_vector) - 1;
+    return vector_size(&cpt_basic_string->_t_vector);
 }
 
 size_t basic_string_length(const basic_string_t* cpt_basic_string)
@@ -522,14 +511,14 @@ size_t basic_string_max_size(const basic_string_t* cpt_basic_string)
 {
     assert(cpt_basic_string != NULL);
 
-    return (size_t)(-1) / _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string) - 1;
+    return (size_t)(-1) / _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 }
 
 size_t basic_string_capacity(const basic_string_t* cpt_basic_string)
 {
     assert(cpt_basic_string != NULL);
 
-    return vector_capacity(&cpt_basic_string->_t_vector) - 1;
+    return vector_capacity(&cpt_basic_string->_t_vector);
 }
 
 /* element access */
@@ -774,9 +763,6 @@ void basic_string_connect(
             pc_dest += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
             pc_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string_src);
         }
-
-        /* add null-terminated */
-        vector_push_back(&pt_basic_string->_t_vector, 0x00);
     }
 }
 
@@ -810,9 +796,6 @@ void basic_string_connect_cstr(
             pc_dest += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
             pc_src += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
         }
-
-        /* add null-terminated */
-        vector_push_back(&pt_basic_string->_t_vector, 0x00);
     }
 }
 
@@ -828,34 +811,25 @@ void _basic_string_connect_elem_varg(basic_string_t* pt_basic_string, va_list va
     size_t  t_typesize = 0;
     char*   pc_dest = NULL;
     void*   pv_varg = NULL;
-    void*   pv_nullterminated = NULL;
     bool_t  t_result = false;
 
     assert(pt_basic_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
     pv_varg = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
-    pv_nullterminated = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
-    assert(pv_varg != NULL && pv_nullterminated != NULL);
+    assert(pv_varg != NULL);
     _basic_string_get_varg_value_auxiliary(pt_basic_string, val_elemlist, pv_varg);
-    memset(pv_nullterminated, 0x00, t_typesize);
 
-    /* check input element is the null-terminated node */
-    if(memcmp(pv_varg, pv_nullterminated, t_typesize) != 0)
-    {
-        pc_dest = (char*)vector_at(
-            &pt_basic_string->_t_vector, basic_string_size(pt_basic_string));
-        assert(pc_dest != NULL);
-        t_result = t_typesize;
-        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pv_varg, &t_result);
-        assert(t_result);
-        /* add null-terminated */
-        vector_push_back(&pt_basic_string->_t_vector, 0x00);
-    }
+    vector_resize(&pt_basic_string->_t_vector, basic_string_size(pt_basic_string) + 1);
+    pc_dest = (char*)vector_at(
+        &pt_basic_string->_t_vector, basic_string_size(pt_basic_string) - 1);
+    assert(pc_dest != NULL);
+    t_result = t_typesize;
+    _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pv_varg, &t_result);
+    assert(t_result);
 
     _basic_string_destroy_varg_value_auxiliary(pt_basic_string, pv_varg);
     deallocate(&pt_basic_string->_t_vector._t_allocater, pv_varg, t_typesize, 1);
-    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_nullterminated, t_typesize, 1);
 }
 
 /* iterator support */
@@ -878,7 +852,7 @@ basic_string_iterator_t basic_string_end(const basic_string_t* cpt_basic_string)
     assert(cpt_basic_string != NULL);
     assert(vector_size(&cpt_basic_string->_t_vector) > 0);
 
-    t_newiterator = vector_rbegin(&cpt_basic_string->_t_vector);
+    t_newiterator = vector_end(&cpt_basic_string->_t_vector);
     _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
 
     return t_newiterator;
@@ -899,7 +873,6 @@ basic_string_reverse_iterator_t basic_string_rbegin(
     else
     {
         t_newiterator = vector_rbegin(&cpt_basic_string->_t_vector);
-        t_newiterator = iterator_prev(t_newiterator);
         _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
     }
 
@@ -1773,7 +1746,6 @@ void basic_string_clear(basic_string_t* pt_basic_string)
     assert(pt_basic_string != NULL);
 
     vector_clear(&pt_basic_string->_t_vector);
-    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 void basic_string_swap(
@@ -1788,7 +1760,7 @@ void basic_string_reserve(basic_string_t* pt_basic_string, size_t t_reservesize)
 {
     assert(pt_basic_string != NULL);
 
-    vector_reserve(&pt_basic_string->_t_vector, t_reservesize+1);
+    vector_reserve(&pt_basic_string->_t_vector, t_reservesize);
 }
 
 void _basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize, ...)
@@ -1803,9 +1775,7 @@ void _basic_string_resize_varg(
 {
     assert(pt_basic_string != NULL);
 
-    vector_pop_back(&pt_basic_string->_t_vector);
     _vector_resize_elem_varg(&pt_basic_string->_t_vector, t_resize, val_elemlist);
-    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 void _basic_string_push_back(basic_string_t* pt_basic_string, ...)
@@ -1817,7 +1787,6 @@ void _basic_string_push_back(basic_string_t* pt_basic_string, ...)
 
 void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_elemlist)
 {
-    void*   pv_nullterminated = NULL;
     void*   pv_varg = NULL;
     char*   pc_dest = NULL;
     size_t  t_typesize = 0;
@@ -1826,26 +1795,20 @@ void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_e
     assert(pt_basic_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-    pv_nullterminated = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
     pv_varg = allocate(&pt_basic_string->_t_vector._t_allocater, t_typesize, 1);
-    assert(pv_nullterminated != NULL && pv_varg != NULL);
+    assert(pv_varg != NULL);
     _basic_string_get_varg_value_auxiliary(pt_basic_string, val_elemlist, pv_varg);
-    memset(pv_nullterminated, 0x00, t_typesize);
 
-    if(memcmp(pv_nullterminated, pv_varg, t_typesize) != 0)
-    {
-        pc_dest = vector_at(&pt_basic_string->_t_vector, basic_string_size(pt_basic_string));
-        assert(pc_dest != NULL);
-        _basic_string_init_elem_auxiliary(pt_basic_string, pc_dest);
+    vector_resize(&pt_basic_string->_t_vector, basic_string_size(pt_basic_string) + 1);
+    pc_dest = vector_at(&pt_basic_string->_t_vector, basic_string_size(pt_basic_string) - 1);
+    assert(pc_dest != NULL);
+    _basic_string_init_elem_auxiliary(pt_basic_string, pc_dest);
 
-        t_result = t_typesize;
-        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pv_varg, &t_result);
-        assert(t_result);
-        vector_push_back(&pt_basic_string->_t_vector, 0x00);
-    }
+    t_result = t_typesize;
+    _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pv_varg, &t_result);
+    assert(t_result);
 
     _basic_string_destroy_varg_value_auxiliary(pt_basic_string, pv_varg);
-    deallocate(&pt_basic_string->_t_vector._t_allocater, pv_nullterminated, t_typesize, 1);
     deallocate(&pt_basic_string->_t_vector._t_allocater, pv_varg, t_typesize, 1);
 }
 
@@ -1909,9 +1872,6 @@ void basic_string_assign_subcstr(
             assert(t_result);
         }
     }
-
-    /* add null-terminated node */
-    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 void basic_string_assign_range(
@@ -1952,9 +1912,6 @@ void _basic_string_assign_elem_varg(
     {
         _vector_push_back_varg(&pt_basic_string->_t_vector, val_elemlist);
     }
-
-    /* add null-terminated node */
-    vector_push_back(&pt_basic_string->_t_vector, 0x00);
 }
 
 /* append */
@@ -2016,7 +1973,7 @@ void basic_string_append_subcstr(
 
     if(t_len > 0)
     {
-        basic_string_resize(pt_basic_string, t_stringlen + t_len, 0xcc);
+        vector_resize(&pt_basic_string->_t_vector, t_stringlen + t_len);
         pc_value = (char*)basic_string_at(pt_basic_string, t_stringlen);
         assert(pc_value != NULL);
         for(t_index = 0; t_index < t_len; ++t_index)
