@@ -40,6 +40,7 @@ typedef basic_string_t string_t;
 /*
  * Initialization and destroy operation functions.
  */
+extern string_t* create_string(void);
 extern void string_init(string_t* pt_string);
 extern void string_init_cstr(string_t* pt_string, const char* s_cstr);
 extern void string_init_subcstr(string_t* pt_string, const char* s_cstr, size_t t_len);
@@ -120,7 +121,7 @@ extern int string_compare_substring_subcstr(
 /*
  * Substring function.
  */
-extern string_t string_substr(const string_t* cpt_string, size_t t_pos, size_t t_len);
+extern string_t* string_substr(const string_t* cpt_string, size_t t_pos, size_t t_len);
 
 /*
  * Connect operation functions.
