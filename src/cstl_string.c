@@ -114,7 +114,10 @@ void string_init_copy_range(
 
     *pt_string = create_basic_string(char);
     basic_string_init_copy_range(pt_string, t_begin, t_end);
-    basic_string_push_back(pt_string, '\0');
+    if(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))))
+    {
+        basic_string_push_back(pt_string, '\0');
+    }
 }
 
 void string_destroy(string_t* pt_string)
@@ -620,15 +623,15 @@ string_iterator_t string_insert_n(
 void string_insert_string(
     string_t* pt_string, size_t t_pos, const string_t* cpt_string_insert)
 {
-    basic_string_insert_string(pt_string, t_pos, cpt_string_insert);
+    basic_string_insert_cstr(pt_string, t_pos, string_c_str(cpt_string_insert));
 }
 
 void string_insert_substring(
     string_t* pt_string, size_t t_pos, const string_t* cpt_string_insert, 
     size_t t_startpos, size_t t_len)
 {
-    basic_string_insert_substring(
-        pt_string, t_pos, cpt_string_insert, t_startpos, t_len);
+    basic_string_insert_subcstr(
+        pt_string, t_pos, string_c_str(cpt_string_insert), t_startpos, t_len);
 }
 
 void string_insert_cstr(string_t* pt_string, size_t t_pos, const char* s_cstr)
