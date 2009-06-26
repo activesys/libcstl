@@ -57,7 +57,7 @@ typedef struct _tagdeque
 /*
  * Create and initialization operation functions.
  */
-extern deque_t _create_deque(size_t t_typesize, const char* s_typename);
+extern deque_t* _create_deque(const char* s_typename);
 extern void _deque_init_elem(deque_t* pt_deque, size_t t_count, ...);
 extern void _deque_init_elem_varg(
     deque_t* pt_deque, size_t t_count, va_list val_elemlist);

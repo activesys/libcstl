@@ -3042,8 +3042,19 @@ static void _type_init_deque(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
+    /* get type information */
+    _type_get_type(&((deque_t*)cpv_input)->_t_typeinfo, (char*)pv_output);
+    assert(((deque_t*)cpv_input)->_t_typeinfo._pt_type != NULL &&
+           ((deque_t*)cpv_input)->_t_typeinfo._t_style != _TYPE_INVALID &&
+           strncmp(((deque_t*)cpv_input)->_t_typeinfo._sz_typename,
+               (char*)pv_output, _TYPE_NAME_SIZE) == 0);
+    ((deque_t*)cpv_input)->_ppc_map = NULL;
+    ((deque_t*)cpv_input)->_t_mapsize = 0;
+    ((deque_t*)cpv_input)->_t_start = create_deque_iterator();
+    ((deque_t*)cpv_input)->_t_finish = create_deque_iterator();
+
+    /* initialize deque_t */
     deque_init((deque_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_deque(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3062,7 +3073,7 @@ static void _type_destroy_deque(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    deque_destroy((deque_t*)cpv_input);
+    _deque_destroy_auxiliary((deque_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* stack_t */

@@ -31,8 +31,7 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* create new deque with specify type */
-#define create_deque(type)\
-    _create_deque(sizeof(type), #type)
+#define create_deque(...) _create_deque(#__VA_ARGS__)
 /* initialize */
 #define deque_init_elem(pt_deque, t_count, elem)\
     _deque_init_elem((pt_deque), (t_count), (elem))
