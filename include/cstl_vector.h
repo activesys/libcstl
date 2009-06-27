@@ -78,7 +78,6 @@ extern void vector_init_copy(vector_t* pt_vectordest, const vector_t* cpt_vector
 extern void vector_init_copy_range(
     vector_t* pt_vectordest, vector_iterator_t t_begin, vector_iterator_t t_end);
 extern void vector_destroy(vector_t* pt_vector);
-extern void _vector_destroy_auxiliary(vector_t* pt_vector);
 
 /*
  * Get the size and largest possible size of vector_t.

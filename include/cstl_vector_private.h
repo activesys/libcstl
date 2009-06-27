@@ -67,6 +67,7 @@ extern vector_t* _create_vector(const char* s_typename);
 extern void _vector_init_elem(vector_t* pt_vector, size_t t_count, ...);
 extern void _vector_init_elem_varg(
     vector_t* pt_vector, size_t t_count, va_list val_elemlist);
+extern void _vector_destroy_auxiliary(vector_t* pt_vector);
 
 /*
  * The assignment operator of vector_t.

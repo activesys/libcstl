@@ -1200,7 +1200,10 @@ static bool_t _vector_same_type(
     assert(cpt_vectorfirst != NULL && cpt_vectorsecond != NULL);
     return _type_is_same(_GET_VECTOR_TYPE_NAME(cpt_vectorfirst),
                          _GET_VECTOR_TYPE_NAME(cpt_vectorsecond)) &&
-           (cpt_vectorfirst->_t_typeinfo._pt_type == cpt_vectorsecond->_t_typeinfo._pt_type);
+           (cpt_vectorfirst->_t_typeinfo._pt_type ==
+            cpt_vectorsecond->_t_typeinfo._pt_type) &&
+           (cpt_vectorfirst->_t_typeinfo._t_style ==
+            cpt_vectorsecond->_t_typeinfo._t_style);
 }
 
 static void _vector_init_elem_auxiliary(vector_t* pt_vector, void* pv_elem)
