@@ -1100,7 +1100,31 @@ vector_iterator_t vector_erase_range(
 
 void vector_resize(vector_t* pt_vector, size_t t_resize)
 {
-    vector_resize_elem(pt_vector, t_resize, 0x00);
+    vector_iterator_t t_cutpos;     /* the cut position */
+    size_t            t_expsize = 0;
+    char*             pc_oldfinish = NULL;
+
+    assert(pt_vector != NULL);
+
+    if(t_resize < vector_size(pt_vector))
+    {
+        t_cutpos = vector_begin(pt_vector);
+        t_cutpos = iterator_next_n(t_cutpos, t_resize);
+        vector_erase_range(pt_vector, t_cutpos, vector_end(pt_vector));
+    }
+    else
+    {
+        t_expsize = t_resize - vector_size(pt_vector);
+        if(t_resize > vector_capacity(pt_vector))
+        {
+            vector_reserve(pt_vector, vector_size(pt_vector) + 2 * t_expsize);
+        }
+
+        /* initialize new elements */
+        pc_oldfinish = pt_vector->_pc_finish;
+        pt_vector->_pc_finish += t_expsize * _GET_VECTOR_TYPE_SIZE(pt_vector);
+        _vector_init_elem_range_auxiliary(pt_vector, pc_oldfinish, pt_vector->_pc_finish);
+    }
 }
 
 void _vector_resize_elem_varg(

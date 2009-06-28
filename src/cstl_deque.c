@@ -909,16 +909,36 @@ void _deque_assign_elem(deque_t* pt_deque, size_t t_count, ...)
 
 void _deque_assign_elem_varg(deque_t* pt_deque, size_t t_count, va_list val_elemlist)
 {
-    int (*pfun_cmp)(const void*, const void*);
+    deque_iterator_t t_iter;   /* the iterator of dest deque for iterate */
+    void*            pv_varg = NULL;
+    bool_t           t_result = false;
 
-    assert(pt_deque != NULL && pt_deque->_ppc_map != NULL && pt_deque->_t_mapsize > 0);
+    assert(pt_deque != NULL);
 
-    pfun_cmp = pt_deque->_pfun_cmp;
-    /* destroy the deque */
-    deque_destroy(pt_deque);
-    /* init the deque with the n_elemcount compare and element
-     * destroy function itself. */
-    _deque_init_elem_varg(pt_deque, t_count, val_elemlist);
+    /* init the dest deque with the distance between t_begin and t_end,
+     * compare and element destroy function. */
+    deque_resize(pt_deque, t_count);
+
+    if(t_count > 0)
+    {
+        pv_varg = allocate(&pt_deque->_t_allocater, _GET_DEQUE_TYPE_SIZE(pt_deque), 1);
+        assert(pv_varg != NULL);
+        _deque_get_varg_value_auxiliary(pt_deque, val_elemlist, pv_varg);
+
+        /* copy the elements from src range to dest deque */
+        for(t_iter = deque_begin(pt_deque);
+            !iterator_equal(t_iter, deque_end(pt_deque));
+            t_iter = iterator_next(t_iter))
+        {
+            t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
+            _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
+                _GET_DEQUE_COREPOS(t_iter), pv_varg, &t_result);
+            assert(t_result);
+        }
+
+        _deque_destroy_varg_value_auxiliary(pt_deque, pv_varg);
+        deallocate(&pt_deque->_t_allocater, pv_varg, _GET_DEQUE_TYPE_SIZE(pt_deque), 1);
+    }
 }
 
 void deque_assign_range(
@@ -926,25 +946,25 @@ void deque_assign_range(
 {
     deque_iterator_t t_dest;   /* the iterator of dest deque for iterate */
     deque_iterator_t t_src;    /* the iterator of src range for iterate */
+    bool_t           t_result = false;
 
     assert(_deque_same_deque_iterator_type(pt_deque, t_begin));
     assert(iterator_equal(t_begin, t_end) || _deque_iterator_before(t_begin, t_end));
 
-    /* destroy the dest deque */
-    deque_destroy(pt_deque);
     /* init the dest deque with the distance between t_begin and t_end,
      * compare and element destroy function. */
-    deque_init_n(pt_deque, iterator_distance(t_begin, t_end));
+    deque_resize(pt_deque, iterator_distance(t_begin, t_end));
     /* copy the elements from src range to dest deque */
     for(t_dest = pt_deque->_t_start, t_src = t_begin;
         !iterator_equal(t_dest, pt_deque->_t_finish) && !iterator_equal(t_src, t_end);
         t_dest = iterator_next(t_dest), t_src = iterator_next(t_src))
     {
-        memcpy(_GET_DEQUE_COREPOS(t_dest), _GET_DEQUE_COREPOS(t_src),
-            pt_deque->_t_typesize);
+        t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
+        _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
+            _GET_DEQUE_COREPOS(t_dest), _GET_DEQUE_COREPOS(t_src), &t_result);
+        assert(t_result);
     }
-    assert(iterator_equal(t_dest, pt_deque->_t_finish) &&
-           iterator_equal(t_src, t_end));
+    assert(iterator_equal(t_dest, pt_deque->_t_finish) && iterator_equal(t_src, t_end));
 }
 
 bool_t deque_equal(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond)
@@ -1338,7 +1358,14 @@ deque_iterator_t deque_erase_range(
 
 void deque_resize(deque_t* pt_deque, size_t t_resize)
 {
-    deque_resize_elem(pt_deque, t_resize, 0x00);
+    if(t_resize < deque_size(pt_deque))
+    {
+        _shrink_at_end(pt_deque, deque_size(pt_deque) - t_resize);
+    }
+    else if(t_resize > deque_size(pt_deque))
+    {
+        _expand_at_end(pt_deque, t_resize - deque_size(pt_deque), NULL);
+    }
 }
 
 void _deque_resize_elem(deque_t* pt_deque, size_t t_resize, ...)
@@ -1350,7 +1377,8 @@ void _deque_resize_elem(deque_t* pt_deque, size_t t_resize, ...)
 
 void _deque_resize_elem_varg(deque_t* pt_deque, size_t t_resize, va_list val_elemlist)
 {
-    void* pv_init_elem = NULL;
+    void*  pv_varg = NULL;
+    bool_t t_result = false;
 
     if(t_resize < deque_size(pt_deque))
     {
@@ -1358,21 +1386,24 @@ void _deque_resize_elem_varg(deque_t* pt_deque, size_t t_resize, va_list val_ele
     }
     else if(t_resize > deque_size(pt_deque))
     {
-        deque_iterator_t t_oldend = 
+        deque_iterator_t t_oldend =
             _expand_at_end(pt_deque, t_resize - deque_size(pt_deque), NULL);
 
         /* get varg value only once */
-        pv_init_elem = allocate(&pt_deque->_t_allocater, pt_deque->_t_typesize, 1);
-        assert(pv_init_elem != NULL);
-        _get_varg_value(
-            pv_init_elem, val_elemlist, pt_deque->_t_typesize, pt_deque->_sz_typename);
+        pv_varg = allocate(&pt_deque->_t_allocater, _GET_DEQUE_TYPE_SIZE(pt_deque), 1);
+        assert(pv_varg != NULL);
+        _deque_get_varg_value_auxiliary(pt_deque, val_elemlist, pv_varg);
         for(;
             !iterator_equal(t_oldend, deque_end(pt_deque)); 
             t_oldend = iterator_next(t_oldend))
         {
-            memcpy(_GET_DEQUE_COREPOS(t_oldend), pv_init_elem, pt_deque->_t_typesize);
+            t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
+            _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
+                _GET_DEQUE_COREPOS(t_oldend), pv_varg, &t_result);
+            assert(t_result);
         }
-        deallocate(&pt_deque->_t_allocater, pv_init_elem, pt_deque->_t_typesize, 1);
+        _deque_destroy_varg_value_auxiliary(pt_deque, pv_varg);
+        deallocate(&pt_deque->_t_allocater, pv_varg, _GET_DEQUE_TYPE_SIZE(pt_deque), 1);
     }
 }
 
