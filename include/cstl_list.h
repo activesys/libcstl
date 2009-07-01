@@ -31,8 +31,7 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* create new list with specific type */
-#define create_list(type)\
-    _create_list(sizeof(type), #type)
+#define create_list(...) _create_list(#__VA_ARGS__)
 /* initialize */
 #define list_init_elem(pt_list, t_count, elem)\
     _list_init_elem((pt_list), (t_count), (elem))

@@ -51,23 +51,14 @@ typedef struct _taglistnode
 
 typedef struct _taglist
 {
-    /* element identify */
-    size_t          _t_typesize;                          /* element size */
-    char            _sz_typename[_ELEM_TYPE_NAME_SIZE+1]; /* element name */
+    /* element type information */
+    _typeinfo_t _t_typeinfo;
 
     /* memory allocate */
-    alloc_t         _t_allocater;
+    alloc_t     _t_allocater;
 
     /* list core struct pointer */
-    listnode_t*     _pt_node;
-
-    /* 
-     * the compare function :
-     * < 0  : element first < element second.
-     * == 0 : element first == element second.
-     * > 0  : element first > element second. 
-     */
-    int (*_pfun_cmp)(const void*, const void*);
+    listnode_t* _pt_node;
 }list_t;
 
 /** exported global variable declaration section **/
@@ -76,7 +67,7 @@ typedef struct _taglist
 /*
  * Create and initialization operation functions.
  */
-extern list_t _create_list(size_t t_typesize, const char* s_typename);
+extern list_t* _create_list(const char* s_typename);
 extern void _list_init_elem(list_t* pt_list, size_t t_count, ...);
 extern void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist);
 
