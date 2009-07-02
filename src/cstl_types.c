@@ -2986,8 +2986,16 @@ static void _type_init_list(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
+    /* get type information */
+    _type_get_type(&((list_t*)cpv_input)->_t_typeinfo, (char*)pv_output);
+    assert(((list_t*)cpv_input)->_t_typeinfo._pt_type != NULL &&
+           ((list_t*)cpv_input)->_t_typeinfo._t_style != _TYPE_INVALID &&
+           strncmp(((list_t*)cpv_input)->_t_typeinfo._sz_typename,
+               (char*)pv_output, _TYPE_NAME_SIZE) == 0);
+    ((list_t*)cpv_input)->_pt_node = NULL;
+
+    /* initialize list_t */
     list_init((list_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_list(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3006,7 +3014,7 @@ static void _type_destroy_list(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    list_destroy((list_t*)cpv_input);
+    _list_destroy_auxiliary((list_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* slist_t */
