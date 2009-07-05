@@ -31,8 +31,7 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* create new slist with specific type */
-#define create_slist(type)\
-    _create_slist(sizeof(type), #type)
+#define create_slist(...) _create_slist(#__VA_ARGS__)
 /* initialize */
 #define slist_init_elem(pt_slist, t_count, elem)\
     _slist_init_elem((pt_slist), (t_count), (elem))
