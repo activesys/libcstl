@@ -31,8 +31,7 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* create new stack with specific type */
-#define create_stack(type)\
-    _create_stack(sizeof(type), #type) 
+#define create_stack(...) _create_stack(#__VA_ARGS__) 
 /* push */
 #define stack_push(pt_stack, elem)\
     _stack_push((pt_stack), (elem))

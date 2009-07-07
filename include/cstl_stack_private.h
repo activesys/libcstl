@@ -30,23 +30,18 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define _GET_STACK_DEQUE_SEQUENCE(_pt_stack)\
-    (&((_pt_stack)->_t_sequence._t_deque))
-#define _GET_STACK_LIST_SEQUENCE(_pt_stack)\
-    (&((_pt_stack)->_t_sequence._t_list))
-#define _GET_STACK_VECTOR_SEQUENCE(_pt_stack)\
-    (&((_pt_stack)->_t_sequence._t_vector))
 
 /** data type declaration and struct, union, enum section **/
 /* the stack struct default use deque_t */
 typedef struct _tagstack
 {
-    union
-    {
-        deque_t  _t_deque;
-        list_t   _t_list;
-        vector_t _t_vector;
-    }_t_sequence; 
+#if defined (CSTL_STACK_VECTOR_SEQUENCE)
+    vector_t _t_sequence;
+#elif defined (CSTL_STACK_LIST_SEQUENCE)
+    list_t   _t_sequence;
+#else
+    deque_t  _t_sequence;
+#endif
 }stack_t;
 
 /** exported global variable declaration section **/
@@ -55,7 +50,7 @@ typedef struct _tagstack
 /*
  * Create stack.
  */
-extern stack_t _create_stack(size_t t_typesize, const char* s_typename);
+extern stack_t* _create_stack(const char* s_typename);
 
 /*
  * Push element.

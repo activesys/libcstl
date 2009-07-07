@@ -31,8 +31,7 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* create new queue with specific type */
-#define create_queue(type)\
-    _create_queue(sizeof(type), #type) 
+#define create_queue(...) _create_queue(#__VA_ARGS__) 
 /* push */
 #define queue_push(pt_queue, elem)\
     _queue_push((pt_queue), (elem))

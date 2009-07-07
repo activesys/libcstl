@@ -43,19 +43,13 @@
 
 /** exported function implementation section **/
 /* queue private function */
-queue_t _create_queue(size_t t_typesize, const char* sz_typename)
+queue_t* _create_queue(const char* sz_typename)
 {
-    queue_t t_newqueue;
-
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    *_GET_QUEUE_LIST_SEQUENCE(&t_newqueue) = 
-        _create_list(t_typesize, sz_typename);
+    return (queue_t*)_create_list(sz_typename);
 #else
-    *_GET_QUEUE_DEQUE_SEQUENCE(&t_newqueue) = 
-        _create_deque(t_typesize, sz_typename);
+    return (queue_t*)_create_deque(sz_typename);
 #endif
-
-    return t_newqueue;
 }
 
 /* queue function */
@@ -64,9 +58,9 @@ void queue_init(queue_t* pt_queue)
     assert(pt_queue != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    list_init(_GET_QUEUE_LIST_SEQUENCE(pt_queue));
+    list_init(&pt_queue->_t_sequence);
 #else
-    deque_init(_GET_QUEUE_DEQUE_SEQUENCE(pt_queue));
+    deque_init(&pt_queue->_t_sequence);
 #endif
 }
 
@@ -75,9 +69,9 @@ void queue_destroy(queue_t* pt_queue)
     assert(pt_queue != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    list_destroy(_GET_QUEUE_LIST_SEQUENCE(pt_queue));
+    list_destroy(&pt_queue->_t_sequence);
 #else
-    deque_destroy(_GET_QUEUE_DEQUE_SEQUENCE(pt_queue));
+    deque_destroy(&pt_queue->_t_sequence);
 #endif
 }
 
@@ -86,13 +80,9 @@ void queue_init_copy(queue_t* pt_queuedest, const queue_t* cpt_queuesrc)
     assert(pt_queuedest != NULL && cpt_queuesrc != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    list_init_copy(
-        _GET_QUEUE_LIST_SEQUENCE(pt_queuedest),
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuesrc));
+    list_init_copy(&pt_queuedest->_t_sequence, &cpt_queuesrc->_t_sequence);
 #else
-    deque_init_copy(
-        _GET_QUEUE_DEQUE_SEQUENCE(pt_queuedest),
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuesrc));
+    deque_init_copy(&pt_queuedest->_t_sequence, &cpt_queuesrc->_t_sequence);
 #endif
 }
 
@@ -101,13 +91,9 @@ void queue_assign(queue_t* pt_queuedest, const queue_t* cpt_queuesrc)
     assert(pt_queuedest != NULL && cpt_queuesrc != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    list_assign(
-        _GET_QUEUE_LIST_SEQUENCE(pt_queuedest),
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuesrc));
+    list_assign(&pt_queuedest->_t_sequence, &cpt_queuesrc->_t_sequence);
 #else
-    deque_assign(
-        _GET_QUEUE_DEQUE_SEQUENCE(pt_queuedest),
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuesrc));
+    deque_assign(&pt_queuedest->_t_sequence, &cpt_queuesrc->_t_sequence);
 #endif
 }
 
@@ -116,9 +102,9 @@ bool_t queue_empty(const queue_t* cpt_queue)
     assert(cpt_queue != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_empty(_GET_QUEUE_LIST_SEQUENCE(cpt_queue));
+    return list_empty(&cpt_queue->_t_sequence);
 #else
-    return deque_empty(_GET_QUEUE_DEQUE_SEQUENCE(cpt_queue));
+    return deque_empty(&cpt_queue->_t_sequence);
 #endif
 }
 
@@ -127,9 +113,9 @@ size_t queue_size(const queue_t* cpt_queue)
     assert(cpt_queue != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_size(_GET_QUEUE_LIST_SEQUENCE(cpt_queue));
+    return list_size(&cpt_queue->_t_sequence);
 #else
-    return deque_size(_GET_QUEUE_DEQUE_SEQUENCE(cpt_queue));
+    return deque_size(&cpt_queue->_t_sequence);
 #endif
 }
 
@@ -138,9 +124,9 @@ void* queue_front(const queue_t* cpt_queue)
     assert(cpt_queue != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_front(_GET_QUEUE_LIST_SEQUENCE(cpt_queue));
+    return list_front(&cpt_queue->_t_sequence);
 #else
-    return deque_front(_GET_QUEUE_DEQUE_SEQUENCE(cpt_queue));
+    return deque_front(&cpt_queue->_t_sequence);
 #endif
 }
 
@@ -149,9 +135,9 @@ void* queue_back(const queue_t* cpt_queue)
     assert(cpt_queue != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_back(_GET_QUEUE_LIST_SEQUENCE(cpt_queue));
+    return list_back(&cpt_queue->_t_sequence);
 #else
-    return deque_back(_GET_QUEUE_DEQUE_SEQUENCE(cpt_queue));
+    return deque_back(&cpt_queue->_t_sequence);
 #endif
 }
 
@@ -167,9 +153,9 @@ void _queue_push_varg(queue_t* pt_queue, va_list val_elemlist)
     assert(pt_queue != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    _list_push_back_varg(_GET_QUEUE_LIST_SEQUENCE(pt_queue), val_elemlist);
+    _list_push_back_varg(&pt_queue->_t_sequence, val_elemlist);
 #else
-    _deque_push_back_varg(_GET_QUEUE_DEQUE_SEQUENCE(pt_queue), val_elemlist);
+    _deque_push_back_varg(&pt_queue->_t_sequence, val_elemlist);
 #endif
 }
 
@@ -178,9 +164,9 @@ void queue_pop(queue_t* pt_queue)
     assert(pt_queue != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    list_pop_front(_GET_QUEUE_LIST_SEQUENCE(pt_queue));
+    list_pop_front(&pt_queue->_t_sequence);
 #else
-    deque_pop_front(_GET_QUEUE_DEQUE_SEQUENCE(pt_queue));
+    deque_pop_front(&pt_queue->_t_sequence);
 #endif
 }
 
@@ -190,13 +176,9 @@ bool_t queue_equal(
     assert(cpt_queuefirst != NULL && cpt_queuesecond != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_equal(
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuesecond));
+    return list_equal(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #else
-    return deque_equal(
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuesecond));
+    return deque_equal(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #endif
 }
 
@@ -206,13 +188,9 @@ bool_t queue_not_equal(
     assert(cpt_queuefirst != NULL && cpt_queuesecond != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_not_equal(
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuesecond));
+    return list_not_equal(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #else
-    return deque_not_equal(
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuesecond));
+    return deque_not_equal(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #endif
 }
 
@@ -222,13 +200,9 @@ bool_t queue_less(
     assert(cpt_queuefirst != NULL && cpt_queuesecond != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_less(
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuesecond));
+    return list_less(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #else
-    return deque_less(
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuesecond));
+    return deque_less(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #endif
 }
 
@@ -238,13 +212,9 @@ bool_t queue_great(
     assert(cpt_queuefirst != NULL && cpt_queuesecond != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_great(
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuesecond));
+    return list_great(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #else
-    return deque_great(
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuesecond));
+    return deque_great(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #endif
 }
 
@@ -254,13 +224,9 @@ bool_t queue_less_equal(
     assert(cpt_queuefirst != NULL && cpt_queuesecond != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_less_equal(
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuesecond));
+    return list_less_equal(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #else
-    return deque_less_equal(
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuesecond));
+    return deque_less_equal(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #endif
 }
 
@@ -270,13 +236,9 @@ bool_t queue_great_equal(
     assert(cpt_queuefirst != NULL && cpt_queuesecond != NULL);
 
 #ifdef CSTL_QUEUE_LIST_SEQUENCE
-    return list_great_equal(
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_LIST_SEQUENCE(cpt_queuesecond));
+    return list_great_equal(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #else
-    return deque_great_equal(
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuefirst),
-        _GET_QUEUE_DEQUE_SEQUENCE(cpt_queuesecond));
+    return deque_great_equal(&cpt_queuefirst->_t_sequence, &cpt_queuesecond->_t_sequence);
 #endif
 }
 

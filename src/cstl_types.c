@@ -3022,8 +3022,16 @@ static void _type_init_slist(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
+    /* get type information */
+    _type_get_type(&((slist_t*)cpv_input)->_t_typeinfo, (char*)pv_output);
+    assert(((slist_t*)cpv_input)->_t_typeinfo._pt_type != NULL &&
+           ((slist_t*)cpv_input)->_t_typeinfo._t_style != _TYPE_INVALID &&
+           strncmp(((slist_t*)cpv_input)->_t_typeinfo._sz_typename,
+               (char*)pv_output, _TYPE_NAME_SIZE) == 0);
+    ((slist_t*)cpv_input)->_t_head._pt_next = NULL;
+
+    /* initialize slist_t */
     slist_init((slist_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_slist(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3042,7 +3050,7 @@ static void _type_destroy_slist(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    slist_destroy((slist_t*)cpv_input);
+    _slist_destroy_auxiliary((slist_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* deque_t */
@@ -3089,8 +3097,45 @@ static void _type_init_stack(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    stack_init((stack_t*)cpv_input);
-    *(bool_t*)pv_output = true;
+#if defined (CSTL_STACK_VECTOR_SEQUENCE)
+    /* get type information */
+    _type_get_type(&((stack_t*)cpv_input)->_t_sequence._t_typeinfo, (char*)pv_output);
+    assert(((stack_t*)cpv_input)->_t_sequence._t_typeinfo._pt_type != NULL &&
+           ((stack_t*)cpv_input)->_t_sequence._t_typeinfo._t_style != _TYPE_INVALID &&
+           strncmp(((stack_t*)cpv_input)->_t_sequence._t_typeinfo._sz_typename,
+               (char*)pv_output, _TYPE_NAME_SIZE) == 0);
+    ((stack_t*)cpv_input)->_t_sequence._pc_start = NULL;
+    ((stack_t*)cpv_input)->_t_sequence._pc_finish = NULL;
+    ((stack_t*)cpv_input)->_t_sequence._pc_endofstorage = NULL;
+
+    /* initialize vector_t */
+    vector_init(&((stack_t*)cpv_input)->_t_sequence);
+#elif defined (CSTL_STACK_LIST_SEQUENCE)
+    /* get type information */
+    _type_get_type(&((stack_t*)cpv_input)->_t_sequence._t_typeinfo, (char*)pv_output);
+    assert(((stack_t*)cpv_input)->_t_sequence._t_typeinfo._pt_type != NULL &&
+           ((stack_t*)cpv_input)->_t_sequence._t_typeinfo._t_style != _TYPE_INVALID &&
+           strncmp(((stack_t*)cpv_input)->_t_sequence._t_typeinfo._sz_typename,
+               (char*)pv_output, _TYPE_NAME_SIZE) == 0);
+    ((stack_t*)cpv_input)->_t_sequence._pt_node = NULL;
+
+    /* initialize list_t */
+    list_init(&((stack_t*)cpv_input)->_t_sequence);
+#else
+    /* get type information */
+    _type_get_type(&((stack_t*)cpv_input)->_t_sequence._t_typeinfo, (char*)pv_output);
+    assert(((stack_t*)cpv_input)->_t_sequence._t_typeinfo._pt_type != NULL &&
+           ((stack_t*)cpv_input)->_t_sequence._t_typeinfo._t_style != _TYPE_INVALID &&
+           strncmp(((stack_t*)cpv_input)->_t_sequence._t_typeinfo._sz_typename,
+               (char*)pv_output, _TYPE_NAME_SIZE) == 0);
+    ((stack_t*)cpv_input)->_t_sequence._ppc_map = NULL;
+    ((stack_t*)cpv_input)->_t_sequence._t_mapsize = 0;
+    ((stack_t*)cpv_input)->_t_sequence._t_start = create_deque_iterator();
+    ((stack_t*)cpv_input)->_t_sequence._t_finish = create_deque_iterator();
+
+    /* initialize deque_t */
+    deque_init(&((stack_t*)cpv_input)->_t_sequence);
+#endif
 }
 static void _type_copy_stack(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3109,7 +3154,13 @@ static void _type_destroy_stack(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    stack_destroy((stack_t*)cpv_input);
+#if defined (CSTL_STACK_VECTOR_SEQUENCE)
+    _vector_destroy_auxiliary(&((stack_t*)cpv_input)->_t_sequence);
+#elif defined (CSTL_STACK_LIST_SEQUENCE)
+    _list_destroy_auxiliary(&((stack_t*)cpv_input)->_t_sequence);
+#else
+    _deque_destroy_auxiliary(&((stack_t*)cpv_input)->_t_sequence);
+#endif
     *(bool_t*)pv_output = true;
 }
 /* queue_t */
@@ -3117,8 +3168,33 @@ static void _type_init_queue(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    queue_init((queue_t*)cpv_input);
-    *(bool_t*)pv_output = true;
+
+#ifdef CSTL_QUEUE_LIST_SEQUENCE
+    /* get type information */
+    _type_get_type(&((queue_t*)cpv_input)->_t_sequence._t_typeinfo, (char*)pv_output);
+    assert(((queue_t*)cpv_input)->_t_sequence._t_typeinfo._pt_type != NULL &&
+           ((queue_t*)cpv_input)->_t_sequence._t_typeinfo._t_style != _TYPE_INVALID &&
+           strncmp(((queue_t*)cpv_input)->_t_sequence._t_typeinfo._sz_typename,
+               (char*)pv_output, _TYPE_NAME_SIZE) == 0);
+    ((queue_t*)cpv_input)->_t_sequence._pt_node = NULL;
+
+    /* initialize list_t */
+    list_init(&((queue_t*)cpv_input)->_t_sequence);
+#else
+    /* get type information */
+    _type_get_type(&((queue_t*)cpv_input)->_t_sequence._t_typeinfo, (char*)pv_output);
+    assert(((queue_t*)cpv_input)->_t_sequence._t_typeinfo._pt_type != NULL &&
+           ((queue_t*)cpv_input)->_t_sequence._t_typeinfo._t_style != _TYPE_INVALID &&
+           strncmp(((queue_t*)cpv_input)->_t_sequence._t_typeinfo._sz_typename,
+               (char*)pv_output, _TYPE_NAME_SIZE) == 0);
+    ((queue_t*)cpv_input)->_t_sequence._ppc_map = NULL;
+    ((queue_t*)cpv_input)->_t_sequence._t_mapsize = 0;
+    ((queue_t*)cpv_input)->_t_sequence._t_start = create_deque_iterator();
+    ((queue_t*)cpv_input)->_t_sequence._t_finish = create_deque_iterator();
+
+    /* initialize deque_t */
+    deque_init(&((queue_t*)cpv_input)->_t_sequence);
+#endif
 }
 static void _type_copy_queue(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3137,7 +3213,11 @@ static void _type_destroy_queue(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    queue_destroy((queue_t*)cpv_input);
+#ifdef CSTL_QUEUE_LIST_SEQUENCE
+    _list_destroy_auxiliary(&((queue_t*)cpv_input)->_t_sequence);
+#else
+    _deque_destroy_auxiliary(&((queue_t*)cpv_input)->_t_sequence);
+#endif
     *(bool_t*)pv_output = true;
 }
 /* priority_queue_t */

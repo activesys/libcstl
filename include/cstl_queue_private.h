@@ -30,20 +30,16 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define _GET_QUEUE_DEQUE_SEQUENCE(_pt_queue)\
-    (&((_pt_queue)->_t_sequence._t_deque))
-#define _GET_QUEUE_LIST_SEQUENCE(_pt_queue)\
-    (&((_pt_queue)->_t_sequence._t_list))
 
 /** data type declaration and struct, union, enum section **/
 /* queue struct default use deque_t */
 typedef struct _tagqueue
 {
-    union
-    {
-        deque_t _t_deque;
-        list_t  _t_list;
-    }_t_sequence;
+#ifdef CSTL_QUEUE_LIST_SEQUENCE
+    list_t  _t_sequence;
+#else
+    deque_t _t_sequence;
+#endif
 }queue_t;
 
 typedef struct _tagpriority_queue
@@ -58,7 +54,7 @@ typedef struct _tagpriority_queue
 /*
  * Create the new queue.
  */
-extern queue_t _create_queue(size_t t_typesize, const char* s_typename);
+extern queue_t* _create_queue(const char* s_typename);
 
 /*
  * Append a copy of element at the top.
