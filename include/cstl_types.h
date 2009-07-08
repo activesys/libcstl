@@ -268,6 +268,8 @@ extern bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
     size_t t_typesize2, const char* s_typename2);
 extern void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename);
+extern void _type_get_type_pair(
+    _typeinfo_t* pt_typeinfofirst, _typeinfo_t* pt_typeinfosecond, const char* s_typename);
 extern bool_t _type_is_same(const char* s_typename1, const char* s_typename2);
 extern void _type_get_varg_value(
     _typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output);

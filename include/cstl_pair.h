@@ -30,10 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define create_pair(first_type, second_type)\
-    _create_pair(\
-        sizeof(first_type), #first_type, \
-        sizeof(second_type), #second_type)
+#define create_pair(...) _create_pair(#__VA_ARGS__)
 
 #define pair_make(pt_pair, first_elem, second_elem)\
     _pair_make_first((pt_pair),(first_elem)),_pair_make_second((pt_pair),(second_elem))
@@ -48,29 +45,12 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef struct _tagpair
 {
-    /* element identify */
-    size_t           _t_firsttypesize;
-    char             _sz_firsttypename[_ELEM_TYPE_NAME_SIZE+1];
-    size_t           _t_secondtypesize;
-    char             _sz_secondtypename[_ELEM_TYPE_NAME_SIZE+1];
+    /* element type information */
+    _typeinfo_t _t_typeinfofirst;
+    _typeinfo_t _t_typeinfosecond;
 
-    void*            first;
-    void*            second;
-
-    /* 
-     * the compare function :
-     * < 0  : element first < element second.
-     * == 0 : element first == element second.
-     * > 0  : element first > element second. 
-     */
-    int (*_pfun_first_cmp)(const void*, const void*);
-    /* 
-     * the compare function :
-     * < 0  : element first < element second.
-     * == 0 : element first == element second.
-     * > 0  : element first > element second. 
-     */
-    int (*_pfun_second_cmp)(const void*, const void*);
+    void*       first;
+    void*       second;
 }pair_t;
 
 /** exported global variable declaration section **/
@@ -79,13 +59,12 @@ typedef struct _tagpair
 /*
  * Create, initialization and destroy functions.
  */
-extern pair_t _create_pair(
-    size_t t_firsttypesize, const char* s_firsttypename,
-    size_t t_secondtypesize, const char* s_secondtypename);
+extern pair_t* _create_pair(const char* s_typename);
 extern void _pair_make_first(pair_t* pt_pair, ...);
 extern void _pair_make_second(pair_t* pt_pair, ...);
 extern void pair_init(pair_t* pt_pair);
 extern void pair_destroy(pair_t* pt_pair);
+extern void _pair_destroy_auxiliary(pair_t* pt_pair);
 extern void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc);
 
 /*

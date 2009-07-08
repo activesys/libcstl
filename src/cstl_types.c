@@ -802,6 +802,50 @@ bool_t _type_duplicate(
     }
 }
 
+void _type_get_type_pair(
+    _typeinfo_t* pt_typeinfofirst, _typeinfo_t* pt_typeinfosecond, const char* s_typename)
+{
+    /* this function get type information for pair_t and relation container */
+    char  s_firsttypename[_TYPE_NAME_SIZE + 1];
+    char  s_secondtypename[_TYPE_NAME_SIZE + 1];
+    char* pc_commapos = NULL;
+    char* pc_newstart = NULL;
+
+    assert(pt_typeinfofirst != NULL && pt_typeinfosecond != NULL && s_typename != NULL);
+
+    pt_typeinfofirst->_t_style = _TYPE_INVALID;
+    pt_typeinfofirst->_pt_type = NULL;
+    pt_typeinfosecond->_t_style = _TYPE_INVALID;
+    pt_typeinfosecond->_pt_type = NULL;
+
+    /* the type name is separated in two section by comma */
+    pc_newstart = (char*)s_typename;
+    while((pc_commapos = strchr(pc_newstart, _CSTL_COMMA)) != NULL)
+    {
+        memset(s_firsttypename, '\0', _TYPE_NAME_SIZE + 1);
+        memset(s_secondtypename, '\0', _TYPE_NAME_SIZE + 1);
+        strncpy(s_firsttypename, s_typename, pc_commapos - s_typename);
+        strncpy(s_secondtypename, pc_commapos + 1, _TYPE_NAME_SIZE);
+
+        _type_get_type(pt_typeinfofirst, s_firsttypename);
+        _type_get_type(pt_typeinfosecond, s_secondtypename);
+        if(pt_typeinfofirst->_t_style != _TYPE_INVALID &&
+           pt_typeinfofirst->_pt_type != NULL &&
+           pt_typeinfosecond->_t_style != _TYPE_INVALID &&
+           pt_typeinfosecond->_pt_type != NULL)
+        {
+            return;
+        }
+
+        pt_typeinfofirst->_t_style = _TYPE_INVALID;
+        pt_typeinfofirst->_pt_type = NULL;
+        pt_typeinfosecond->_t_style = _TYPE_INVALID;
+        pt_typeinfosecond->_pt_type = NULL;
+
+        pc_newstart = pc_commapos + 1;
+    }
+}
+
 void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
 {
     char         s_registeredname[_TYPE_NAME_SIZE+1];
