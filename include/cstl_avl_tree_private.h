@@ -57,26 +57,18 @@ typedef struct _tagavlnode
 
 typedef struct _tagavltree
 {
-    /* element identify */
-    size_t          _t_typesize;                          /* element size */
-    char            _sz_typename[_ELEM_TYPE_NAME_SIZE+1]; /* element name */
+    /* element type information */
+    _typeinfo_t      _t_typeinfo;
 
     /* memory allocate */
-    alloc_t         _t_allocater;
+    alloc_t          _t_allocater;
 
     /* avl tree node */
-    avlnode_t       _t_avlroot;
-    size_t          _t_nodecount;
+    avlnode_t        _t_avlroot;
+    size_t           _t_nodecount;
 
-    /* 
-     * the compare function :
-     * < 0  : element first < element second.
-     * == 0 : element first == element second.
-     * > 0  : element first > element second. 
-     */
-    int (*_pfun_cmp)(const void*, const void*);
-    /* the element destroy function */
-    void (*_pfun_destroy_elem)(void*);
+    /* less function */
+    binary_function_t _t_less;
 }avl_tree_t;
 
 /* for the result of equal_range and insert_unique function */
@@ -96,11 +88,12 @@ typedef struct _tagavltreeresultpair
 /*
  * Create, initialization and destroy operation functions.
  */
-extern avl_tree_t _create_avl_tree(size_t t_typesize, const char* s_typename);
+extern avl_tree_t* _create_avl_tree(const char* s_typename);
 extern void _avl_tree_init(
     avl_tree_t* pt_avl_tree, int (*pfun_cmp)(const void*, const void*),
     void (*pfun_destroy_elem)(void*));
 extern void _avl_tree_destroy(avl_tree_t* pt_avl_tree);
+extern void _avl_tree_destroy_auxiliary(avl_tree_t* pt_avl_tree);
 extern void _avl_tree_init_copy(
     avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src);
 extern void _avl_tree_init_copy_range_cmp(

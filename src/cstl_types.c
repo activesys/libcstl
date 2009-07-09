@@ -3525,8 +3525,18 @@ static void _type_init_pair(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
+
+    _type_get_type_pair(&((pair_t*)cpv_input)->_t_typeinfofirst,
+        &((pair_t*)cpv_input)->_t_typeinfosecond, (char*)pv_output);
+    assert(((pair_t*)cpv_input)->_t_typeinfofirst._t_style != _TYPE_INVALID &&
+           ((pair_t*)cpv_input)->_t_typeinfofirst._pt_type != NULL &&
+           ((pair_t*)cpv_input)->_t_typeinfosecond._t_style != _TYPE_INVALID &&
+           ((pair_t*)cpv_input)->_t_typeinfosecond._pt_type != NULL);
+    ((pair_t*)cpv_input)->first = NULL;
+    ((pair_t*)cpv_input)->second = NULL;
+
+    /* initialize pair */
     pair_init((pair_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_pair(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3545,7 +3555,7 @@ static void _type_destroy_pair(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    pair_destroy((pair_t*)cpv_input);
+    _pair_destroy_auxiliary((pair_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* string_t */
