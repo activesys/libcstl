@@ -89,16 +89,15 @@ typedef struct _tagavltreeresultpair
  * Create, initialization and destroy operation functions.
  */
 extern avl_tree_t* _create_avl_tree(const char* s_typename);
-extern void _avl_tree_init(
-    avl_tree_t* pt_avl_tree, int (*pfun_cmp)(const void*, const void*),
-    void (*pfun_destroy_elem)(void*));
+extern bool_t _create_avl_tree_auxiliary(avl_tree_t* pt_avl_tree, const char* s_typename);
+extern void _avl_tree_init(avl_tree_t* pt_avl_tree, binary_function_t t_less);
 extern void _avl_tree_destroy(avl_tree_t* pt_avl_tree);
 extern void _avl_tree_destroy_auxiliary(avl_tree_t* pt_avl_tree);
 extern void _avl_tree_init_copy(
     avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src);
-extern void _avl_tree_init_copy_range_cmp(
+extern void _avl_tree_init_copy_range_ex(
     avl_tree_t* pt_avl_tree_dest, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end,
-    int (*pfun_cmp)(const void*, const void*));
+    binary_function_t t_less);
 extern void _avl_tree_init_copy_range(
     avl_tree_t* pt_avl_tree_dest, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
 
