@@ -230,6 +230,14 @@ typedef struct _tagiterator
     iteratortype_t  _t_iteratortype;
 }iterator_t;
 
+/* range type */
+typedef struct _tagrange
+{
+    iterator_t t_begin;
+    iterator_t t_end;
+}range_t;
+
+
 /* declaration five iterator type */
 typedef iterator_t                  input_iterator_t;
 typedef iterator_t                  output_iterator_t;

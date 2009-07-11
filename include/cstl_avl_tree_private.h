@@ -71,16 +71,16 @@ typedef struct _tagavltree
     binary_function_t _t_less;
 }avl_tree_t;
 
-/* for the result of equal_range and insert_unique function */
-typedef struct _tagavltreeresultpair
-{
-    avl_tree_iterator_t _t_first;
-    union
-    {
-        avl_tree_iterator_t _t_iterator; /* for equal_range */
-        bool_t              _t_bool;     /* for insert_unique */
-    }_t_second;
-}avl_tree_result_pair_t;
+/**//* for the result of equal_range and insert_unique function */
+/*typedef struct _tagavltreeresultpair*/
+/*{*/
+/*avl_tree_iterator_t _t_first;*/
+/*union*/
+/*{*/
+/*avl_tree_iterator_t _t_iterator; *//* for equal_range */
+/*bool_t              _t_bool;     *//* for insert_unique */
+/*}_t_second;*/
+/*}avl_tree_result_pair_t;*/
 
 /** exported global variable declaration section **/
 
@@ -148,8 +148,7 @@ extern avl_tree_iterator_t _avl_tree_lower_bound(
     const avl_tree_t* cpt_avl_tree, const void* cpv_value);
 extern avl_tree_iterator_t _avl_tree_upper_bound(
     const avl_tree_t* cpt_avl_tree, const void* cpv_value);
-extern avl_tree_result_pair_t _avl_tree_equal_range(
-    const avl_tree_t* cpt_avl_tree, const void* cpv_value);
+extern range_t _avl_tree_equal_range(const avl_tree_t* cpt_avl_tree, const void* cpv_value);
 
 /*
  * Relationship operator functions.
@@ -175,7 +174,7 @@ extern void _avl_tree_swap(avl_tree_t* pt_avl_treefirst, avl_tree_t* pt_avl_tree
 /*
  * Insert operation functions.
  */
-extern avl_tree_result_pair_t _avl_tree_insert_unique(
+extern avl_tree_iterator_t _avl_tree_insert_unique(
     avl_tree_t* pt_avl_tree, const void* cpv_value);
 extern avl_tree_iterator_t _avl_tree_insert_equal(
     avl_tree_t* pt_avl_tree, const void* cpv_value);
