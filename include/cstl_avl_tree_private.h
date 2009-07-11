@@ -71,17 +71,6 @@ typedef struct _tagavltree
     binary_function_t _t_less;
 }avl_tree_t;
 
-/**//* for the result of equal_range and insert_unique function */
-/*typedef struct _tagavltreeresultpair*/
-/*{*/
-/*avl_tree_iterator_t _t_first;*/
-/*union*/
-/*{*/
-/*avl_tree_iterator_t _t_iterator; *//* for equal_range */
-/*bool_t              _t_bool;     *//* for insert_unique */
-/*}_t_second;*/
-/*}avl_tree_result_pair_t;*/
-
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
@@ -126,8 +115,7 @@ extern avl_tree_reverse_iterator_t _avl_tree_rend(const avl_tree_t* cpt_avl_tree
 /*
  * Return the compare function of key (private).
  */
-extern int (*_avl_tree_key_comp(const avl_tree_t* cpt_avl_tree))(
-    const void*, const void*);
+extern binary_function_t _avl_tree_key_less(const avl_tree_t* cpt_avl_tree);
 
 /*
  * Find operation functions.

@@ -523,8 +523,7 @@ void _avl_tree_init_copy_range_ex(
     }
 }
 
-void _avl_tree_assign(
-    avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src)
+void _avl_tree_assign(avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src)
 {
     assert(_avl_tree_same_type(pt_avl_tree_dest, cpt_avl_tree_src));
 
@@ -814,7 +813,7 @@ bool_t _avl_tree_equal(
     assert(cpt_avl_treefirst != NULL && cpt_avl_treesecond != NULL);
     
     /* test type */
-    if(_avl_tree_same_type(cpt_avl_treefirst, cpt_avl_treesecond))
+    if(!_avl_tree_same_type(cpt_avl_treefirst, cpt_avl_treesecond))
     {
         return false;
     }
