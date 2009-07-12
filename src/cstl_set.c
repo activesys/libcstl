@@ -45,10 +45,31 @@
 #include "cstl_set.h"
 
 /** local constant declaration and local macro section **/
+/* macros for type informations */
+#define _GET_SET_TYPE_SIZE(pt_set)\
+    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typesize)
+#define _GET_SET_TYPE_NAME(pt_set)\
+    ((pt_set)->_t_tree._t_typeinfo._sz_typename)
+#define _GET_SET_TYPE_BASENAME(pt_set)\
+    ((pt_set)->_t_tree._t_typeinfo._pt_type->_sz_typename)
+#define _GET_SET_TYPE_INIT_FUNCTION(pt_set)\
+    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typeinit)
+#define _GET_SET_TYPE_COPY_FUNCTION(pt_set)\
+    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typecopy)
+#define _GET_SET_TYPE_LESS_FUNCTION(pt_set)\
+    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typeless)
+#define _GET_SET_TYPE_DESTROY_FUNCTION(pt_set)\
+    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typedestroy)
+#define _GET_SET_TYPE_STYLE(pt_set)\
+    ((pt_set)->_t_tree._t_typeinfo._t_style)
 
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
+static void _set_init_elem_auxiliary(set_t* pt_set, void* pv_elem);
+static void _set_get_varg_value_auxiliary(
+    set_t* pt_set, va_list val_elemlist, void* pv_varg);
+static void _set_destroy_varg_value_auxiliary(set_t* pt_set, void* pv_varg);
 
 /** exported global variable definition section **/
 
@@ -424,57 +445,31 @@ set_iterator_t _set_find(const set_t* cpt_set, ...)
 
 set_iterator_t _set_find_varg(const set_t* cpt_set, va_list val_elemlist)
 {
-    char*          pc_value = NULL;
-    size_t         t_typesize = 0;
-    set_iterator_t t_newiterator;
+    set_iterator_t t_iter;
+    void*          pv_varg = NULL;
 
     assert(cpt_set != NULL);
 
+    pv_varg = allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    assert(pv_varg != NULL);
+    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+
 #ifdef CSTL_SET_AVL_TREE
-    t_typesize = _GET_SET_AVL_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_newiterator = _avl_tree_find(_GET_SET_AVL_TREE(cpt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _avl_tree_find(&cpt_set->_t_tree, pv_varg);
 #else
-    t_typesize = _GET_SET_RB_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_newiterator = _rb_tree_find(_GET_SET_RB_TREE(cpt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _rb_tree_find(&cpt_set->_t_tree, pv_varg);
 #endif
 
-    _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_newiterator) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
+    deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
 
-    return t_newiterator;
+    _GET_CONTAINER(t_iter) = (set_t*)cpt_set;
+    _GET_SET_CONTAINER_TYPE(t_iter) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+
+    return t_iter;
 }
 
 size_t _set_count(const set_t* cpt_set, ...)
@@ -486,51 +481,25 @@ size_t _set_count(const set_t* cpt_set, ...)
 
 size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist)
 {
-    char*          pc_value = NULL;
-    size_t         t_typesize = 0;
+    void*          pv_varg = NULL;
     size_t         t_count = 0;
 
     assert(cpt_set != NULL);
 
+    pv_varg = allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    assert(pv_varg != NULL);
+    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+
 #ifdef CSTL_SET_AVL_TREE
-    t_typesize = _GET_SET_AVL_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_count = _avl_tree_count(_GET_SET_AVL_TREE(cpt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_count = _avl_tree_count(&cpt_set->_t_tree, pv_varg);
 #else
-    t_typesize = _GET_SET_RB_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_count = _rb_tree_count(_GET_SET_RB_TREE(cpt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_count = _rb_tree_count(&cpt_set->_t_tree, pv_varg);
 #endif
+
+    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
+    deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
 
     return t_count;
 }
@@ -544,57 +513,31 @@ set_iterator_t _set_lower_bound(const set_t* cpt_set, ...)
 
 set_iterator_t _set_lower_bound_varg(const set_t* cpt_set, va_list val_elemlist)
 {
-    char*          pc_value = NULL;
-    size_t         t_typesize = 0;
-    set_iterator_t t_newiterator;
+    void*          pv_varg = NULL;
+    set_iterator_t t_iter;
 
     assert(cpt_set != NULL);
 
+    pv_varg = allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    assert(pv_varg != NULL);
+    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+
 #ifdef CSTL_SET_AVL_TREE
-    t_typesize = _GET_SET_AVL_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_newiterator = _avl_tree_lower_bound(_GET_SET_AVL_TREE(cpt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _avl_tree_lower_bound(&cpt_set->_t_tree, pv_varg);
 #else
-    t_typesize = _GET_SET_RB_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_newiterator = _rb_tree_lower_bound(_GET_SET_RB_TREE(cpt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _rb_tree_lower_bound(&cpt_set->_t_tree, pv_varg);
 #endif
 
-    _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_newiterator) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
+    deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
 
-    return t_newiterator;
+    _GET_CONTAINER(t_iter) = (set_t*)cpt_set;
+    _GET_SET_CONTAINER_TYPE(t_iter) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+
+    return t_iter;
 }
 
 set_iterator_t _set_upper_bound(const set_t* cpt_set, ...)
@@ -606,140 +549,71 @@ set_iterator_t _set_upper_bound(const set_t* cpt_set, ...)
 
 set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist)
 {
-    char*          pc_value = NULL;
-    size_t         t_typesize = 0;
-    set_iterator_t t_newiterator;
+    void*          pv_varg = NULL;
+    set_iterator_t t_iter;
 
     assert(cpt_set != NULL);
 
+    pv_varg = allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    assert(pv_varg != NULL);
+    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+
 #ifdef CSTL_SET_AVL_TREE
-    t_typesize = _GET_SET_AVL_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_newiterator = _avl_tree_upper_bound(_GET_SET_AVL_TREE(cpt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _avl_tree_upper_bound(&cpt_set->_t_tree, pv_varg);
 #else
-    t_typesize = _GET_SET_RB_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_newiterator = _rb_tree_upper_bound(_GET_SET_RB_TREE(cpt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _rb_tree_upper_bound(&cpt_set->_t_tree, pv_varg);
 #endif
 
-    _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_newiterator) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
+    deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
 
-    return t_newiterator;
+    _GET_CONTAINER(t_iter) = (set_t*)cpt_set;
+    _GET_SET_CONTAINER_TYPE(t_iter) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+
+    return t_iter;
 }
 
-pair_t _set_equal_range(const set_t* cpt_set, ...)
+range_t _set_equal_range(const set_t* cpt_set, ...)
 {
     va_list val_elemlist;
     va_start(val_elemlist, cpt_set);
     return _set_equal_range_varg(cpt_set, val_elemlist);
 }
 
-pair_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)
+range_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)
 {
-    char*          pc_value = NULL;
-    size_t         t_typesize = 0;
-    set_iterator_t t_firstiterator;
-    set_iterator_t t_seconditerator;
-    pair_t         t_pair;
-#ifdef CSTL_SET_AVL_TREE
-    avl_tree_result_pair_t t_avlresult;
-#else
-    rb_tree_result_pair_t  t_rbresult;
-#endif
+    void*          pv_varg = NULL;
+    range_t        t_range;
 
     assert(cpt_set != NULL);
 
+    pv_varg = allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    assert(pv_varg != NULL);
+    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+
 #ifdef CSTL_SET_AVL_TREE
-    t_typesize = _GET_SET_AVL_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_avlresult = _avl_tree_equal_range(_GET_SET_AVL_TREE(cpt_set), pc_value);
-    t_firstiterator = t_avlresult._t_first;
-    t_seconditerator = t_avlresult._t_second._t_iterator;
-
-    free(pc_value);
-    pc_value = NULL;
+    t_range = _avl_tree_equal_range(&cpt_set->_t_tree, pv_varg);
 #else
-    t_typesize = _GET_SET_RB_TREE(cpt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(cpt_set)->_sz_typename);
-    }
-
-    t_rbresult = _rb_tree_equal_range(_GET_SET_RB_TREE(cpt_set), pc_value);
-    t_firstiterator = t_rbresult._t_first;
-    t_seconditerator = t_rbresult._t_second._t_iterator;
-
-    free(pc_value);
-    pc_value = NULL;
+    t_range = _rb_tree_equal_range(&cpt_set->_t_tree, pv_varg);
 #endif
 
-    _GET_CONTAINER(t_firstiterator) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_firstiterator) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_firstiterator) = _BIDIRECTIONAL_ITERATOR;
+    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
+    deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+        _GET_SET_TYPE_SIZE(cpt_set), 1);
 
-    _GET_CONTAINER(t_seconditerator) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_seconditerator) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_seconditerator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_range.t_begin) = (set_t*)cpt_set;
+    _GET_SET_CONTAINER_TYPE(t_range.t_begin) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(t_range.t_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    /* create iterator pair */
-    t_pair = create_pair(set_iterator_t, set_iterator_t);
-    pair_init(&t_pair);
-    memcpy(t_pair.first, &t_firstiterator, t_pair._t_firsttypesize);
-    memcpy(t_pair.second, &t_seconditerator, t_pair._t_secondtypesize);
+    _GET_CONTAINER(t_range.t_end) = (set_t*)cpt_set;
+    _GET_SET_CONTAINER_TYPE(t_range.t_end) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(t_range.t_end) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_pair;
+    return t_range;
 }
 
 bool_t set_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
@@ -747,11 +621,9 @@ bool_t set_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
     assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_equal(
-        _GET_SET_AVL_TREE(cpt_setfirst), _GET_SET_AVL_TREE(cpt_setsecond));
+    return _avl_tree_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #else
-    return _rb_tree_equal(
-        _GET_SET_RB_TREE(cpt_setfirst), _GET_SET_RB_TREE(cpt_setsecond));
+    return _rb_tree_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #endif
 }
 
@@ -760,11 +632,9 @@ bool_t set_not_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
     assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_not_equal(
-        _GET_SET_AVL_TREE(cpt_setfirst), _GET_SET_AVL_TREE(cpt_setsecond));
+    return _avl_tree_not_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #else
-    return _rb_tree_not_equal(
-        _GET_SET_RB_TREE(cpt_setfirst), _GET_SET_RB_TREE(cpt_setsecond));
+    return _rb_tree_not_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #endif
 }
 
@@ -773,11 +643,9 @@ bool_t set_less(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
     assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_less(
-        _GET_SET_AVL_TREE(cpt_setfirst), _GET_SET_AVL_TREE(cpt_setsecond));
+    return _avl_tree_less(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #else
-    return _rb_tree_less(
-        _GET_SET_RB_TREE(cpt_setfirst), _GET_SET_RB_TREE(cpt_setsecond));
+    return _rb_tree_less(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #endif
 }
 
@@ -786,11 +654,9 @@ bool_t set_less_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
     assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_less_equal(
-        _GET_SET_AVL_TREE(cpt_setfirst), _GET_SET_AVL_TREE(cpt_setsecond));
+    return _avl_tree_less_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #else
-    return _rb_tree_less_equal(
-        _GET_SET_RB_TREE(cpt_setfirst), _GET_SET_RB_TREE(cpt_setsecond));
+    return _rb_tree_less_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #endif
 }
 
@@ -799,11 +665,9 @@ bool_t set_great(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
     assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_great(
-        _GET_SET_AVL_TREE(cpt_setfirst), _GET_SET_AVL_TREE(cpt_setsecond));
+    return _avl_tree_great(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #else
-    return _rb_tree_great(
-        _GET_SET_RB_TREE(cpt_setfirst), _GET_SET_RB_TREE(cpt_setsecond));
+    return _rb_tree_great(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #endif
 }
 
@@ -812,11 +676,9 @@ bool_t set_great_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
     assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_great_equal(
-        _GET_SET_AVL_TREE(cpt_setfirst), _GET_SET_AVL_TREE(cpt_setsecond));
+    return _avl_tree_great_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #else
-    return _rb_tree_great_equal(
-        _GET_SET_RB_TREE(cpt_setfirst), _GET_SET_RB_TREE(cpt_setsecond));
+    return _rb_tree_great_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #endif
 }
 
@@ -825,9 +687,9 @@ void set_swap(set_t* pt_setfirst, set_t* pt_setsecond)
     assert(pt_setfirst != NULL && pt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_swap(_GET_SET_AVL_TREE(pt_setfirst), _GET_SET_AVL_TREE(pt_setsecond));
+    _avl_tree_swap(&pt_setfirst->_t_tree, &pt_setsecond->_t_tree);
 #else
-    _rb_tree_swap(_GET_SET_RB_TREE(pt_setfirst), _GET_SET_RB_TREE(pt_setsecond));
+    _rb_tree_swap(&pt_setfirst->_t_tree, &pt_setsecond->_t_tree);
 #endif
 }
 
@@ -840,78 +702,29 @@ set_iterator_t _set_insert(set_t* pt_set, ...)
 
 set_iterator_t _set_insert_varg(set_t* pt_set, va_list val_elemlist)
 {
-    char*          pc_value = NULL;
-    size_t         t_typesize = 0;
-    set_iterator_t t_result;
-#ifdef CSTL_SET_AVL_TREE
-    avl_tree_result_pair_t t_avlresult;
-#else
-    rb_tree_result_pair_t  t_rbresult;
-#endif
+    void*          pv_varg = NULL;
+    set_iterator_t t_iter;
 
     assert(pt_set != NULL);
 
+    pv_varg = allocate(&pt_set->_t_tree._t_allocater, _GET_SET_TYPE_SIZE(pt_set), 1);
+    assert(pv_varg != NULL);
+    _set_get_varg_value_auxiliary(pt_set, val_elemlist, pv_varg);
+
 #ifdef CSTL_SET_AVL_TREE
-    t_typesize = _GET_SET_AVL_TREE(pt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(pt_set)->_sz_typename);
-    }
-
-    t_avlresult = _avl_tree_insert_unique(_GET_SET_AVL_TREE(pt_set), pc_value);
-    if(t_avlresult._t_second._t_bool)
-    {
-        t_result = t_avlresult._t_first;
-    }
-    else
-    {
-        t_result = set_end(pt_set);
-    }
-
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _avl_tree_insert_unique(&pt_set->_t_tree, pv_varg);
 #else
-    t_typesize = _GET_SET_RB_TREE(pt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(pt_set)->_sz_typename);
-    }
-
-    t_rbresult = _rb_tree_insert_unique(_GET_SET_RB_TREE(pt_set), pc_value);
-    if(t_rbresult._t_second._t_bool)
-    {
-        t_result = t_rbresult._t_first;
-    }
-    else
-    {
-        t_result = set_end(pt_set);
-    }
-
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _rb_tree_insert_unique(&pt_set->_t_tree, pv_varg);
 #endif
 
-    _GET_CONTAINER(t_result) = pt_set;
-    _GET_SET_CONTAINER_TYPE(t_result) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_result) = _BIDIRECTIONAL_ITERATOR;
+    _set_destroy_varg_value_auxiliary(pt_set, pv_varg);
+    deallocate(&pt_set->_t_tree._t_allocater, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
 
-    return t_result;
+    _GET_CONTAINER(t_iter) = pt_set;
+    _GET_SET_CONTAINER_TYPE(t_iter) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+
+    return t_iter;
 }
 
 set_iterator_t _set_insert_hint(set_t* pt_set, set_iterator_t t_hint, ...)
@@ -924,57 +737,22 @@ set_iterator_t _set_insert_hint(set_t* pt_set, set_iterator_t t_hint, ...)
 set_iterator_t _set_insert_hint_varg(
     set_t* pt_set, set_iterator_t t_hint, va_list val_elemlist)
 {
-    char*   pc_value = NULL;
-    size_t  t_typesize = 0;
-#ifdef CSTL_SET_AVL_TREE
-    avl_tree_result_pair_t t_avlresult;
-#else
-    rb_tree_result_pair_t  t_rbresult;
-#endif
+    void* pv_varg = NULL;
 
     assert(pt_set != NULL);
 
+    pv_varg = allocate(&pt_set->_t_tree._t_allocater, _GET_SET_TYPE_SIZE(pt_set), 1);
+    assert(pv_varg != NULL);
+    _set_get_varg_value_auxiliary(pt_set, val_elemlist, pv_varg);
+
 #ifdef CSTL_SET_AVL_TREE
-    t_typesize = _GET_SET_AVL_TREE(pt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(pt_set)->_sz_typename);
-    }
-
-    t_avlresult = _avl_tree_insert_unique(_GET_SET_AVL_TREE(pt_set), pc_value);
-    t_hint = t_avlresult._t_first;
-
-    free(pc_value);
-    pc_value = NULL;
+    t_hint = _avl_tree_insert_unique(&pt_set->_t_tree, pv_varg);
 #else
-    t_typesize = _GET_SET_RB_TREE(pt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(pt_set)->_sz_typename);
-    }
-
-    t_rbresult = _rb_tree_insert_unique(_GET_SET_RB_TREE(pt_set), pc_value);
-    t_hint = t_rbresult._t_first;
-
-    free(pc_value);
-    pc_value = NULL;
+    t_hint = _rb_tree_insert_unique(&pt_set->_t_tree, pv_varg);
 #endif
+
+    _set_destroy_varg_value_auxiliary(pt_set, pv_varg);
+    deallocate(&pt_set->_t_tree._t_allocater, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
 
     _GET_CONTAINER(t_hint) = pt_set;
     _GET_SET_CONTAINER_TYPE(t_hint) = _SET_CONTAINER;
@@ -995,9 +773,9 @@ void set_insert_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_en
            _GET_SET_CONTAINER(t_begin) == _GET_SET_CONTAINER(t_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_insert_unique_range(_GET_SET_AVL_TREE(pt_set), t_begin, t_end);
+    _avl_tree_insert_unique_range(&pt_set->_t_tree, t_begin, t_end);
 #else
-    _rb_tree_insert_unique_range(_GET_SET_RB_TREE(pt_set), t_begin, t_end);
+    _rb_tree_insert_unique_range(&pt_set->_t_tree, t_begin, t_end);
 #endif
 }
 
@@ -1009,9 +787,9 @@ void set_erase_pos(set_t* pt_set, set_iterator_t t_pos)
            _GET_SET_CONTAINER(t_pos) == pt_set);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_erase_pos(_GET_SET_AVL_TREE(pt_set), t_pos);
+    _avl_tree_erase_pos(&pt_set->_t_tree, t_pos);
 #else
-    _rb_tree_erase_pos(_GET_SET_RB_TREE(pt_set), t_pos);
+    _rb_tree_erase_pos(&pt_set->_t_tree, t_pos);
 #endif
 }
 
@@ -1026,9 +804,9 @@ void set_erase_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end
            _GET_SET_CONTAINER(t_end) == pt_set);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_erase_range(_GET_SET_AVL_TREE(pt_set), t_begin, t_end);
+    _avl_tree_erase_range(&pt_set->_t_tree, t_begin, t_end);
 #else
-    _rb_tree_erase_range(_GET_SET_RB_TREE(pt_set), t_begin, t_end);
+    _rb_tree_erase_range(&pt_set->_t_tree, t_begin, t_end);
 #endif
 }
 
@@ -1041,56 +819,63 @@ size_t _set_erase(set_t* pt_set, ...)
 
 size_t _set_erase_varg(set_t* pt_set, va_list val_elemlist)
 {
-    char*          pc_value = NULL;
-    size_t         t_typesize = 0;
+    void*          pv_varg = NULL;
     size_t         t_count = 0;
 
     assert(pt_set != NULL);
 
+    pv_varg = allocate(&pt_set->_t_tree._t_allocater, _GET_SET_TYPE_SIZE(pt_set), 1);
+    assert(pv_varg != NULL);
+    _set_get_varg_value_auxiliary(pt_set, val_elemlist, pv_varg);
+
 #ifdef CSTL_SET_AVL_TREE
-    t_typesize = _GET_SET_AVL_TREE(pt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_AVL_TREE(pt_set)->_sz_typename);
-    }
-
-    t_count = _avl_tree_erase(_GET_SET_AVL_TREE(pt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_count = _avl_tree_erase(&pt_set->_t_tree, pv_varg);
 #else
-    t_typesize = _GET_SET_RB_TREE(pt_set)->_t_typesize;
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, t_typesize, _GET_SET_RB_TREE(pt_set)->_sz_typename);
-    }
-
-    t_count = _rb_tree_erase(_GET_SET_RB_TREE(pt_set), pc_value);
-
-    free(pc_value);
-    pc_value = NULL;
+    t_count = _rb_tree_erase(&pt_set->_t_tree, pv_varg);
 #endif
+
+    _set_destroy_varg_value_auxiliary(pt_set, pv_varg);
+    deallocate(&pt_set->_t_tree._t_allocater, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
 
     return t_count;
 }
 
 /** local function implementation section **/
+static void _set_init_elem_auxiliary(set_t* pt_set, void* pv_elem)
+{
+    assert(pt_set != NULL && pv_elem != NULL);
+
+    /* initialize new elements */
+    if(_GET_SET_TYPE_STYLE(pt_set) == _TYPE_CSTL_BUILTIN)
+    {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(_GET_SET_TYPE_NAME(pt_set), s_elemtypename);
+
+        _GET_SET_TYPE_INIT_FUNCTION(pt_set)(pv_elem, s_elemtypename);
+    }
+    else
+    {
+        bool_t t_result = _GET_SET_TYPE_SIZE(pt_set);
+        _GET_SET_TYPE_INIT_FUNCTION(pt_set)(pv_elem, &t_result);
+        assert(t_result);
+    }
+}
+
+static void _set_get_varg_value_auxiliary(
+    set_t* pt_set, va_list val_elemlist, void* pv_varg)
+{
+    _set_init_elem_auxiliary(pt_set, pv_varg);
+    _type_get_varg_value(&pt_set->_t_tree._t_typeinfo, val_elemlist, pv_varg);
+}
+
+static void _set_destroy_varg_value_auxiliary(set_t* pt_set, void* pv_varg)
+{
+    /* destroy varg value and free memory */
+    bool_t t_result = _GET_SET_TYPE_SIZE(pt_set);
+    _GET_SET_TYPE_DESTROY_FUNCTION(pt_set)(pv_varg, &t_result);
+    assert(t_result);
+}
 
 /** eof **/
 

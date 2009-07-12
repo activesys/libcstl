@@ -264,6 +264,14 @@ _GET_RB_TREE_TYPE_STYLE	src/cstl_rb_tree.c	57;"	d	file:
 _GET_SET_CONTAINER	include/cstl_iterator.h	90;"	d
 _GET_SET_CONTAINER_TYPE	include/cstl_iterator.h	92;"	d
 _GET_SET_ITERATOR_TYPE	include/cstl_iterator.h	94;"	d
+_GET_SET_TYPE_BASENAME	src/cstl_set.c	53;"	d	file:
+_GET_SET_TYPE_COPY_FUNCTION	src/cstl_set.c	57;"	d	file:
+_GET_SET_TYPE_DESTROY_FUNCTION	src/cstl_set.c	61;"	d	file:
+_GET_SET_TYPE_INIT_FUNCTION	src/cstl_set.c	55;"	d	file:
+_GET_SET_TYPE_LESS_FUNCTION	src/cstl_set.c	59;"	d	file:
+_GET_SET_TYPE_NAME	src/cstl_set.c	51;"	d	file:
+_GET_SET_TYPE_SIZE	src/cstl_set.c	49;"	d	file:
+_GET_SET_TYPE_STYLE	src/cstl_set.c	63;"	d	file:
 _GET_SLIST_CONTAINER	include/cstl_iterator.h	69;"	d
 _GET_SLIST_CONTAINER_TYPE	include/cstl_iterator.h	71;"	d
 _GET_SLIST_COREPOS	include/cstl_iterator.h	67;"	d
@@ -4037,8 +4045,8 @@ set_insert_hint	include/cstl_set.h	56;"	d
 set_insert_range	include/cstl_set.h	/^extern void set_insert_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end);$/;"	p	signature:(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
 set_insert_range	src/cstl_set.c	/^void set_insert_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)$/;"	f	signature:(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
 set_iterator_t	include/cstl_set_iterator.h	/^typedef iterator_t set_iterator_t;$/;"	t
-set_key_comp	include/cstl_set.h	/^extern int (*set_key_comp(const set_t* cpt_set))(const void*, const void*);$/;"	p	signature:(const set_t* cpt_set)
-set_key_comp	src/cstl_set.c	/^int (*set_key_comp(const set_t* cpt_set))(const void*, const void*)$/;"	f	signature:(const set_t* cpt_set)
+set_key_less	include/cstl_set.h	/^extern binary_function_t set_key_less(const set_t* cpt_set);$/;"	p	signature:(const set_t* cpt_set)
+set_key_less	src/cstl_set.c	/^binary_function_t set_key_less(const set_t* cpt_set)$/;"	f	signature:(const set_t* cpt_set)
 set_less	include/cstl_set.h	/^extern bool_t set_less(const set_t* cpt_setfirst, const set_t* cpt_setsecond);$/;"	p	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 set_less	src/cstl_set.c	/^bool_t set_less(const set_t* cpt_setfirst, const set_t* cpt_setsecond)$/;"	f	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 set_less_equal	include/cstl_set.h	/^extern bool_t set_less_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);$/;"	p	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
@@ -4061,8 +4069,8 @@ set_swap	include/cstl_set.h	/^extern void set_swap(set_t* pt_setfirst, set_t* pt
 set_swap	src/cstl_set.c	/^void set_swap(set_t* pt_setfirst, set_t* pt_setsecond)$/;"	f	signature:(set_t* pt_setfirst, set_t* pt_setsecond)
 set_t	include/cstl_set_private.h	/^}set_t;$/;"	t	typeref:struct:_tagset
 set_upper_bound	include/cstl_set.h	45;"	d
-set_value_comp	include/cstl_set.h	/^extern int (*set_value_comp(const set_t* cpt_set))(const void*, const void*);$/;"	p	signature:(const set_t* cpt_set)
-set_value_comp	src/cstl_set.c	/^int (*set_value_comp(const set_t* cpt_set))(const void*, const void*)$/;"	f	signature:(const set_t* cpt_set)
+set_value_less	include/cstl_set.h	/^extern binary_function_t set_value_less(const set_t* cpt_set);$/;"	p	signature:(const set_t* cpt_set)
+set_value_less	src/cstl_set.c	/^binary_function_t set_value_less(const set_t* cpt_set)$/;"	f	signature:(const set_t* cpt_set)
 show_avlnode_info	test/tree_traverse.c	/^void show_avlnode_info(avlnode_t* pt_root)$/;"	f	signature:(avlnode_t* pt_root)
 show_avlnode_info	test/tree_traverse.h	/^extern void show_avlnode_info(avlnode_t* pt_root);$/;"	p	signature:(avlnode_t* pt_root)
 show_map_rbnode_info	test/tree_traverse.c	/^void show_map_rbnode_info(rbnode_t* pt_root)$/;"	f	signature:(rbnode_t* pt_root)
