@@ -32,11 +32,13 @@
 #include "cstl_iterator.h"
 #include "cstl_iterator_private.h"
 
+#ifdef CSTL_SET_AVL_TREE
 #include "cstl_avl_tree_iterator.h"
 #include "cstl_avl_tree_private.h"
+#else
 #include "cstl_rb_tree_iterator.h"
 #include "cstl_rb_tree_private.h"
-#include "cutility.h"
+#endif
 
 #include "cstl_set_iterator.h"
 #include "cstl_set_private.h"
@@ -164,32 +166,13 @@ bool_t _set_iterator_before(set_iterator_t t_iterfirst, set_iterator_t t_itersec
 }
 
 /* set private function */
-set_t _create_set(size_t t_typesize, const char* s_typename)
+set_t* _create_set(const char* s_typename)
 {
-    set_t t_newset;
-    char  ac_settypename[_ELEM_TYPE_NAME_SIZE+1];
-    char  ac_unifytypename[_ELEM_TYPE_NAME_SIZE+1];
-
-    assert(s_typename != NULL);
-
-    memset(ac_unifytypename, '\0', _ELEM_TYPE_NAME_SIZE+1);
-    strncpy(ac_unifytypename, s_typename, _ELEM_TYPE_NAME_SIZE);
-    _unify_types(t_typesize, ac_unifytypename);
-    
-    memset(ac_settypename, '\0', _ELEM_TYPE_NAME_SIZE+1);
-    strncpy(ac_settypename, _SET_IDENTIFY, _ELEM_TYPE_NAME_SIZE);
-    strcat(ac_settypename, _SET_LEFT_BRACKET);
-    strcat(ac_settypename, ac_unifytypename);
-    strcat(ac_settypename, _SET_RIGHT_BRACKET);
-  
-
 #ifdef CSTL_SET_AVL_TREE
-    *_GET_SET_AVL_TREE(&t_newset) = _create_avl_tree(t_typesize, ac_settypename);
+    return (set_t*)_create_avl_tree(s_typename);
 #else
-    *_GET_SET_RB_TREE(&t_newset) = _create_rb_tree(t_typesize, ac_settypename);
+    return (set_t*)_create_rb_tree(s_typename);
 #endif
-
-    return t_newset;
 }
 
 /* set function */
@@ -198,9 +181,31 @@ void set_init(set_t* pt_set)
     assert(pt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init(_GET_SET_AVL_TREE(pt_set), NULL, NULL);
+    _avl_tree_init(&pt_set->_t_tree, NULL);
 #else
-    _rb_tree_init(_GET_SET_RB_TREE(pt_set), NULL, NULL);
+    _rb_tree_init(&pt_set->_t_tree, NULL);
+#endif
+}
+
+void set_init_ex(set_t* pt_set, binary_function_t t_less)
+{
+    assert(pt_set != NULL);
+
+#ifdef CSTL_SET_AVL_TREE
+    _avl_tree_init(&pt_set->_t_tree, t_less);
+#else
+    _rb_tree_init(&pt_set->_t_tree, t_less);
+#endif
+}
+
+void _set_destroy_auxiliary(set_t* pt_set)
+{
+    assert(pt_set != NULL);
+
+#ifdef CSTL_SET_AVL_TREE
+    _avl_tree_destroy_auxiliary(&pt_set->_t_tree);
+#else
+    _rb_tree_destroy_auxiliary(&pt_set->_t_tree);
 #endif
 }
 
@@ -209,9 +214,9 @@ void set_destroy(set_t* pt_set)
     assert(pt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_destroy(_GET_SET_AVL_TREE(pt_set));
+    _avl_tree_destroy(&pt_set->_t_tree);
 #else
-    _rb_tree_destroy(_GET_SET_RB_TREE(pt_set));
+    _rb_tree_destroy(&pt_set->_t_tree);
 #endif
 }
 
@@ -220,9 +225,9 @@ void set_init_copy(set_t* pt_setdest, const set_t* cpt_setsrc)
     assert(pt_setdest != NULL && cpt_setsrc != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy(_GET_SET_AVL_TREE(pt_setdest), _GET_SET_AVL_TREE(cpt_setsrc));
+    _avl_tree_init_copy(&pt_setdest->_t_tree, &cpt_setsrc->_t_tree);
 #else
-    _rb_tree_init_copy(_GET_SET_RB_TREE(pt_setdest), _GET_SET_RB_TREE(cpt_setsrc));
+    _rb_tree_init_copy(&pt_setdest->_t_tree, &cpt_setsrc->_t_tree);
 #endif
 }
 
@@ -238,15 +243,14 @@ void set_init_copy_range(set_t* pt_setdest, set_iterator_t t_begin, set_iterator
            _GET_SET_CONTAINER(t_begin) == _GET_SET_CONTAINER(t_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range(_GET_SET_AVL_TREE(pt_setdest), t_begin, t_end);
+    _avl_tree_init_copy_range(&pt_setdest->_t_tree, t_begin, t_end);
 #else
-    _rb_tree_init_copy_range(_GET_SET_RB_TREE(pt_setdest), t_begin, t_end);
+    _rb_tree_init_copy_range(&pt_setdest->_t_tree, t_begin, t_end);
 #endif
 }
 
-void set_init_copy_range_cmp(
-    set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end,
-    int (*pfun_cmp)(const void*, const void*))
+void set_init_copy_range_ex(
+    set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, binary_function_t t_less)
 {
     assert(pt_setdest != NULL);
     assert(_GET_SET_CONTAINER_TYPE(t_begin) == _SET_CONTAINER &&
@@ -258,11 +262,9 @@ void set_init_copy_range_cmp(
            _GET_SET_CONTAINER(t_begin) == _GET_SET_CONTAINER(t_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range_cmp(
-        _GET_SET_AVL_TREE(pt_setdest), t_begin, t_end, pfun_cmp);
+    _avl_tree_init_copy_range_ex(&pt_setdest->_t_tree, t_begin, t_end, t_less);
 #else
-    _rb_tree_init_copy_range_cmp(
-        _GET_SET_RB_TREE(pt_setdest), t_begin, t_end, pfun_cmp);
+    _rb_tree_init_copy_range_ex(&pt_setdest->_t_tree, t_begin, t_end, t_less);
 #endif
 }
 
@@ -271,9 +273,9 @@ void set_assign(set_t* pt_setdest, const set_t* cpt_setsrc)
     assert(pt_setdest != NULL && cpt_setsrc != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_assign(_GET_SET_AVL_TREE(pt_setdest), _GET_SET_AVL_TREE(cpt_setsrc));
+    _avl_tree_assign(&pt_setdest->_t_tree, &cpt_setsrc->_t_tree);
 #else
-    _rb_tree_assign(_GET_SET_RB_TREE(pt_setdest), _GET_SET_RB_TREE(cpt_setsrc));
+    _rb_tree_assign(&pt_setdest->_t_tree, &cpt_setsrc->_t_tree);
 #endif
 }
 
@@ -282,9 +284,9 @@ bool_t set_empty(const set_t* cpt_set)
     assert(cpt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_empty(_GET_SET_AVL_TREE(cpt_set));
+    return _avl_tree_empty(&cpt_set->_t_tree);
 #else
-    return _rb_tree_empty(_GET_SET_RB_TREE(cpt_set));
+    return _rb_tree_empty(&cpt_set->_t_tree);
 #endif
 }
 
@@ -293,9 +295,9 @@ size_t set_size(const set_t* cpt_set)
     assert(cpt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_size(_GET_SET_AVL_TREE(cpt_set));
+    return _avl_tree_size(&cpt_set->_t_tree);
 #else
-    return _rb_tree_size(_GET_SET_RB_TREE(cpt_set));
+    return _rb_tree_size(&cpt_set->_t_tree);
 #endif
 }
 
@@ -304,9 +306,9 @@ size_t set_max_size(const set_t* cpt_set)
     assert(cpt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_max_size(_GET_SET_AVL_TREE(cpt_set));
+    return _avl_tree_max_size(&cpt_set->_t_tree);
 #else
-    return _rb_tree_max_size(_GET_SET_RB_TREE(cpt_set));
+    return _rb_tree_max_size(&cpt_set->_t_tree);
 #endif
 }
 
@@ -317,9 +319,9 @@ set_iterator_t set_begin(const set_t* cpt_set)
     assert(cpt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_newiterator = _avl_tree_begin(_GET_SET_AVL_TREE(cpt_set));
+    t_newiterator = _avl_tree_begin(&cpt_set->_t_tree);
 #else
-    t_newiterator = _rb_tree_begin(_GET_SET_RB_TREE(cpt_set));
+    t_newiterator = _rb_tree_begin(&cpt_set->_t_tree);
 #endif
 
     _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
@@ -336,9 +338,9 @@ set_iterator_t set_end(const set_t* cpt_set)
     assert(cpt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_newiterator = _avl_tree_end(_GET_SET_AVL_TREE(cpt_set));
+    t_newiterator = _avl_tree_end(&cpt_set->_t_tree);
 #else
-    t_newiterator = _rb_tree_end(_GET_SET_RB_TREE(cpt_set));
+    t_newiterator = _rb_tree_end(&cpt_set->_t_tree);
 #endif
 
     _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
@@ -355,9 +357,9 @@ set_iterator_t set_rbegin(const set_t* cpt_set)
     assert(cpt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_newiterator = _avl_tree_rbegin(_GET_SET_AVL_TREE(cpt_set));
+    t_newiterator = _avl_tree_rbegin(&cpt_set->_t_tree);
 #else
-    t_newiterator = _rb_tree_rbegin(_GET_SET_RB_TREE(cpt_set));
+    t_newiterator = _rb_tree_rbegin(&cpt_set->_t_tree);
 #endif
 
     _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
@@ -374,9 +376,9 @@ set_iterator_t set_rend(const set_t* cpt_set)
     assert(cpt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_newiterator = _avl_tree_rend(_GET_SET_AVL_TREE(cpt_set));
+    t_newiterator = _avl_tree_rend(&cpt_set->_t_tree);
 #else
-    t_newiterator = _rb_tree_rend(_GET_SET_RB_TREE(cpt_set));
+    t_newiterator = _rb_tree_rend(&cpt_set->_t_tree);
 #endif
 
     _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
@@ -386,20 +388,20 @@ set_iterator_t set_rend(const set_t* cpt_set)
     return t_newiterator;
 }
 
-int (*set_key_comp(const set_t* cpt_set))(const void*, const void*)
+binary_function_t set_key_less(const set_t* cpt_set)
 {
     assert(cpt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_key_comp(_GET_SET_AVL_TREE(cpt_set));
+    return _avl_tree_key_less(&cpt_set->_t_tree);
 #else
-    return _rb_tree_key_comp(_GET_SET_RB_TREE(cpt_set));
+    return _rb_tree_key_less(&cpt_set->_t_tree);
 #endif
 }
 
-int (*set_value_comp(const set_t* cpt_set))(const void*, const void*)
+binary_function_t set_value_less(const set_t* cpt_set)
 {
-    return set_key_comp(cpt_set);
+    return set_key_less(cpt_set);
 }
 
 void set_clear(set_t* pt_set)
@@ -407,9 +409,9 @@ void set_clear(set_t* pt_set)
     assert(pt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_clear(_GET_SET_AVL_TREE(pt_set));
+    _avl_tree_clear(&pt_set->_t_tree);
 #else
-    _rb_tree_clear(_GET_SET_RB_TREE(pt_set));
+    _rb_tree_clear(&pt_set->_t_tree);
 #endif
 }
 

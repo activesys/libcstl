@@ -30,20 +30,16 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define _GET_SET_AVL_TREE(pt_set)\
-    (&((pt_set)->_t_tree._t_avl))
-#define _GET_SET_RB_TREE(pt_set)\
-    (&((pt_set)->_t_tree._t_rb))
 
 /** data type declaration and struct, union, enum section **/
 /* the set use rb tree default */
 typedef struct _tagset
 {
-    union
-    {
-        avl_tree_t _t_avl;
-        rb_tree_t  _t_rb;
-    }_t_tree;
+#ifdef CSTL_SET_AVL_TREE
+    avl_tree_t _t_tree;
+#else
+    rb_tree_t  _t_tree;
+#endif
 }set_t;
 
 /** exported global variable declaration section **/
@@ -52,7 +48,8 @@ typedef struct _tagset
 /*
  * Create set_t.
  */
-extern set_t _create_set(size_t t_typesize, const char* s_typename);
+extern set_t* _create_set(const char* s_typename);
+extern void _set_destroy_auxiliary(set_t* pt_set);
 
 /*
  * Find operation functions.
@@ -73,8 +70,8 @@ extern set_iterator_t _set_lower_bound(const set_t* cpt_set, ...);
 extern set_iterator_t _set_lower_bound_varg(const set_t* cpt_set, va_list val_elemlist);
 extern set_iterator_t _set_upper_bound(const set_t* cpt_set, ...);
 extern set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist);
-extern pair_t _set_equal_range(const set_t* cpt_set, ...);
-extern pair_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist);
+extern range_t _set_equal_range(const set_t* cpt_set, ...);
+extern range_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist);
 
 /*
  * Erase element from set_t.

@@ -261,11 +261,9 @@ _GET_RB_TREE_TYPE_LESS_FUNCTION	src/cstl_rb_tree.c	53;"	d	file:
 _GET_RB_TREE_TYPE_NAME	src/cstl_rb_tree.c	45;"	d	file:
 _GET_RB_TREE_TYPE_SIZE	src/cstl_rb_tree.c	43;"	d	file:
 _GET_RB_TREE_TYPE_STYLE	src/cstl_rb_tree.c	57;"	d	file:
-_GET_SET_AVL_TREE	include/cstl_set_private.h	33;"	d
 _GET_SET_CONTAINER	include/cstl_iterator.h	90;"	d
 _GET_SET_CONTAINER_TYPE	include/cstl_iterator.h	92;"	d
 _GET_SET_ITERATOR_TYPE	include/cstl_iterator.h	94;"	d
-_GET_SET_RB_TREE	include/cstl_set_private.h	35;"	d
 _GET_SLIST_CONTAINER	include/cstl_iterator.h	69;"	d
 _GET_SLIST_CONTAINER_TYPE	include/cstl_iterator.h	71;"	d
 _GET_SLIST_COREPOS	include/cstl_iterator.h	67;"	d
@@ -667,7 +665,7 @@ _apply_mem	src/cstl_alloc.c	/^static void _apply_mem(alloc_t* pt_allocater, size
 _apt_bucket	include/cstl_types.h	/^    _typenode_t*         _apt_bucket[_TYPE_REGISTER_BUCKET_COUNT]; \/* hash table *\/$/;"	m	struct:_tagtyperegister	access:public
 _apt_memlink	include/cstl_alloc.h	/^    _memlink_t* _apt_memlink[_MEM_LIST_COUNT];   \/* memory list *\/$/;"	m	struct:_tagalloc	access:public
 _avl_tree_assign	include/cstl_avl_tree_private.h	/^extern void _avl_tree_assign($/;"	p	signature:( avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src)
-_avl_tree_assign	src/cstl_avl_tree.c	/^void _avl_tree_assign($/;"	f	signature:( avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src)
+_avl_tree_assign	src/cstl_avl_tree.c	/^void _avl_tree_assign(avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src)$/;"	f	signature:(avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src)
 _avl_tree_begin	include/cstl_avl_tree_private.h	/^extern avl_tree_iterator_t _avl_tree_begin(const avl_tree_t* cpt_avl_tree);$/;"	p	signature:(const avl_tree_t* cpt_avl_tree)
 _avl_tree_begin	src/cstl_avl_tree.c	/^avl_tree_iterator_t _avl_tree_begin(const avl_tree_t* cpt_avl_tree)$/;"	f	signature:(const avl_tree_t* cpt_avl_tree)
 _avl_tree_clear	include/cstl_avl_tree_private.h	/^extern void _avl_tree_clear(avl_tree_t* pt_avl_tree);$/;"	p	signature:(avl_tree_t* pt_avl_tree)
@@ -732,7 +730,7 @@ _avl_tree_iterator_next	include/cstl_avl_tree_iterator.h	/^extern avl_tree_itera
 _avl_tree_iterator_next	src/cstl_avl_tree.c	/^avl_tree_iterator_t _avl_tree_iterator_next(avl_tree_iterator_t t_iter)$/;"	f	signature:(avl_tree_iterator_t t_iter)
 _avl_tree_iterator_prev	include/cstl_avl_tree_iterator.h	/^extern avl_tree_iterator_t _avl_tree_iterator_prev(avl_tree_iterator_t t_iter);$/;"	p	signature:(avl_tree_iterator_t t_iter)
 _avl_tree_iterator_prev	src/cstl_avl_tree.c	/^avl_tree_iterator_t _avl_tree_iterator_prev(avl_tree_iterator_t t_iter)$/;"	f	signature:(avl_tree_iterator_t t_iter)
-_avl_tree_key_comp	include/cstl_avl_tree_private.h	/^extern int (*_avl_tree_key_comp(const avl_tree_t* cpt_avl_tree))($/;"	p	signature:(const avl_tree_t* cpt_avl_tree)
+_avl_tree_key_less	include/cstl_avl_tree_private.h	/^extern binary_function_t _avl_tree_key_less(const avl_tree_t* cpt_avl_tree);$/;"	p	signature:(const avl_tree_t* cpt_avl_tree)
 _avl_tree_key_less	src/cstl_avl_tree.c	/^binary_function_t _avl_tree_key_less(const avl_tree_t* cpt_avl_tree)$/;"	f	signature:(const avl_tree_t* cpt_avl_tree)
 _avl_tree_less	include/cstl_avl_tree_private.h	/^extern bool_t _avl_tree_less($/;"	p	signature:( const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond)
 _avl_tree_less	src/cstl_avl_tree.c	/^bool_t _avl_tree_less($/;"	f	signature:( const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond)
@@ -909,12 +907,13 @@ _create_priority_queue	src/cstl_queue.c	/^priority_queue_t _create_priority_queu
 _create_queue	include/cstl_queue_private.h	/^extern queue_t* _create_queue(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_queue	src/cstl_queue.c	/^queue_t* _create_queue(const char* sz_typename)$/;"	f	signature:(const char* sz_typename)
 _create_rb_tree	include/cstl_rb_tree_private.h	/^extern rb_tree_t* _create_rb_tree(const char* s_typename);$/;"	p	signature:(const char* s_typename)
-_create_rb_tree	src/cstl_rb_tree.c	/^rb_tree_t _create_rb_tree(size_t t_typesize, const char* s_typename)$/;"	f	signature:(size_t t_typesize, const char* s_typename)
+_create_rb_tree	src/cstl_rb_tree.c	/^rb_tree_t* _create_rb_tree(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_rb_tree_auxiliary	include/cstl_rb_tree_private.h	/^extern bool_t _create_rb_tree_auxiliary(rb_tree_t* pt_rb_tree, const char* s_typename);$/;"	p	signature:(rb_tree_t* pt_rb_tree, const char* s_typename)
+_create_rb_tree_auxiliary	src/cstl_rb_tree.c	/^bool_t _create_rb_tree_auxiliary(rb_tree_t* pt_rb_tree, const char* s_typename)$/;"	f	signature:(rb_tree_t* pt_rb_tree, const char* s_typename)
 _create_rb_tree_iterator	include/cstl_rb_tree_iterator.h	/^extern rb_tree_iterator_t _create_rb_tree_iterator(void);$/;"	p	signature:(void)
 _create_rb_tree_iterator	src/cstl_rb_tree.c	/^rb_tree_iterator_t _create_rb_tree_iterator(void)$/;"	f	signature:(void)
-_create_set	include/cstl_set_private.h	/^extern set_t _create_set(size_t t_typesize, const char* s_typename);$/;"	p	signature:(size_t t_typesize, const char* s_typename)
-_create_set	src/cstl_set.c	/^set_t _create_set(size_t t_typesize, const char* s_typename)$/;"	f	signature:(size_t t_typesize, const char* s_typename)
+_create_set	include/cstl_set_private.h	/^extern set_t* _create_set(const char* s_typename);$/;"	p	signature:(const char* s_typename)
+_create_set	src/cstl_set.c	/^set_t* _create_set(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_slist	include/cstl_slist_private.h	/^extern slist_t* _create_slist(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_slist	src/cstl_slist.c	/^slist_t* _create_slist(const char* sz_typename)$/;"	f	signature:(const char* sz_typename)
 _create_stack	include/cstl_stack_private.h	/^extern stack_t* _create_stack(const char* s_typename);$/;"	p	signature:(const char* s_typename)
@@ -1614,7 +1613,7 @@ _queue_push_varg	src/cstl_queue.c	/^void _queue_push_varg(queue_t* pt_queue, va_
 _quick_sort	src/cstl_list.c	/^static void _quick_sort($/;"	f	file:	signature:( list_iterator_t t_beforefirstpos, list_iterator_t t_afterlastpos, binary_function_t t_binary_op)
 _quick_sort	src/cstl_list.c	/^static void _quick_sort($/;"	p	file:	signature:( list_iterator_t t_beforefirstpos, list_iterator_t t_afterlastpos, binary_function_t t_binary_op)
 _rb_tree_assign	include/cstl_rb_tree_private.h	/^extern void _rb_tree_assign($/;"	p	signature:( rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src)
-_rb_tree_assign	src/cstl_rb_tree.c	/^void _rb_tree_assign($/;"	f	signature:( rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src)
+_rb_tree_assign	src/cstl_rb_tree.c	/^void _rb_tree_assign(rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src)$/;"	f	signature:(rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src)
 _rb_tree_begin	include/cstl_rb_tree_private.h	/^extern rb_tree_iterator_t _rb_tree_begin(const rb_tree_t* cpt_rb_tree);$/;"	p	signature:(const rb_tree_t* cpt_rb_tree)
 _rb_tree_begin	src/cstl_rb_tree.c	/^rb_tree_iterator_t _rb_tree_begin(const rb_tree_t* cpt_rb_tree)$/;"	f	signature:(const rb_tree_t* cpt_rb_tree)
 _rb_tree_clear	include/cstl_rb_tree_private.h	/^extern void _rb_tree_clear(rb_tree_t* pt_rb_tree);$/;"	p	signature:(rb_tree_t* pt_rb_tree)
@@ -1623,14 +1622,16 @@ _rb_tree_count	include/cstl_rb_tree_private.h	/^extern size_t _rb_tree_count($/;
 _rb_tree_count	src/cstl_rb_tree.c	/^size_t _rb_tree_count(const rb_tree_t* cpt_rb_tree, const void* cpv_value)$/;"	f	signature:(const rb_tree_t* cpt_rb_tree, const void* cpv_value)
 _rb_tree_destroy	include/cstl_rb_tree_private.h	/^extern void _rb_tree_destroy(rb_tree_t* pt_rb_tree);$/;"	p	signature:(rb_tree_t* pt_rb_tree)
 _rb_tree_destroy	src/cstl_rb_tree.c	/^void _rb_tree_destroy(rb_tree_t* pt_rb_tree)$/;"	f	signature:(rb_tree_t* pt_rb_tree)
+_rb_tree_destroy_auxiliary	include/cstl_rb_tree_private.h	/^extern void _rb_tree_destroy_auxiliary(rb_tree_t* pt_rb_tree);$/;"	p	signature:(rb_tree_t* pt_rb_tree)
+_rb_tree_destroy_auxiliary	src/cstl_rb_tree.c	/^void _rb_tree_destroy_auxiliary(rb_tree_t* pt_rb_tree)$/;"	f	signature:(rb_tree_t* pt_rb_tree)
 _rb_tree_empty	include/cstl_rb_tree_private.h	/^extern bool_t _rb_tree_empty(const rb_tree_t* cpt_rb_tree);$/;"	p	signature:(const rb_tree_t* cpt_rb_tree)
 _rb_tree_empty	src/cstl_rb_tree.c	/^bool_t _rb_tree_empty(const rb_tree_t* cpt_rb_tree)$/;"	f	signature:(const rb_tree_t* cpt_rb_tree)
 _rb_tree_end	include/cstl_rb_tree_private.h	/^extern rb_tree_iterator_t _rb_tree_end(const rb_tree_t* cpt_rb_tree);$/;"	p	signature:(const rb_tree_t* cpt_rb_tree)
 _rb_tree_end	src/cstl_rb_tree.c	/^rb_tree_iterator_t _rb_tree_end(const rb_tree_t* cpt_rb_tree)$/;"	f	signature:(const rb_tree_t* cpt_rb_tree)
 _rb_tree_equal	include/cstl_rb_tree_private.h	/^extern bool_t _rb_tree_equal($/;"	p	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
 _rb_tree_equal	src/cstl_rb_tree.c	/^bool_t _rb_tree_equal($/;"	f	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
-_rb_tree_equal_range	include/cstl_rb_tree_private.h	/^extern rb_tree_result_pair_t _rb_tree_equal_range($/;"	p	signature:( const rb_tree_t* cpt_rb_tree, const void* cpv_value)
-_rb_tree_equal_range	src/cstl_rb_tree.c	/^rb_tree_result_pair_t _rb_tree_equal_range($/;"	f	signature:( const rb_tree_t* cpt_rb_tree, const void* cpv_value)
+_rb_tree_equal_range	include/cstl_rb_tree_private.h	/^extern range_t _rb_tree_equal_range($/;"	p	signature:( const rb_tree_t* cpt_rb_tree, const void* cpv_value)
+_rb_tree_equal_range	src/cstl_rb_tree.c	/^range_t _rb_tree_equal_range(const rb_tree_t* cpt_rb_tree, const void* cpv_value)$/;"	f	signature:(const rb_tree_t* cpt_rb_tree, const void* cpv_value)
 _rb_tree_erase	include/cstl_rb_tree_private.h	/^extern size_t _rb_tree_erase(rb_tree_t* pt_rb_tree, const void* cpv_value);$/;"	p	signature:(rb_tree_t* pt_rb_tree, const void* cpv_value)
 _rb_tree_erase	src/cstl_rb_tree.c	/^size_t _rb_tree_erase(rb_tree_t* pt_rb_tree, const void* cpv_value)$/;"	f	signature:(rb_tree_t* pt_rb_tree, const void* cpv_value)
 _rb_tree_erase_pos	include/cstl_rb_tree_private.h	/^extern void _rb_tree_erase_pos(rb_tree_t* pt_rb_tree, rb_tree_iterator_t t_pos);$/;"	p	signature:(rb_tree_t* pt_rb_tree, rb_tree_iterator_t t_pos)
@@ -1643,20 +1644,22 @@ _rb_tree_great	include/cstl_rb_tree_private.h	/^extern bool_t _rb_tree_great($/;
 _rb_tree_great	src/cstl_rb_tree.c	/^bool_t _rb_tree_great($/;"	f	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
 _rb_tree_great_equal	include/cstl_rb_tree_private.h	/^extern bool_t _rb_tree_great_equal($/;"	p	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
 _rb_tree_great_equal	src/cstl_rb_tree.c	/^bool_t _rb_tree_great_equal($/;"	f	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
-_rb_tree_init	include/cstl_rb_tree_private.h	/^extern void _rb_tree_init($/;"	p	signature:( rb_tree_t* pt_rb_tree, int (*pfun_cmp)(const void*, const void*), void (*pfun_destroy_elem)(void*))
-_rb_tree_init	src/cstl_rb_tree.c	/^void _rb_tree_init($/;"	f	signature:( rb_tree_t* pt_rb_tree, int (*pfun_cmp)(const void*, const void*), void (*pfun_destroy_elem)(void*))
+_rb_tree_init	include/cstl_rb_tree_private.h	/^extern void _rb_tree_init(rb_tree_t* pt_rb_tree, binary_function_t t_less);$/;"	p	signature:(rb_tree_t* pt_rb_tree, binary_function_t t_less)
+_rb_tree_init	src/cstl_rb_tree.c	/^void _rb_tree_init(rb_tree_t* pt_rb_tree, binary_function_t t_less)$/;"	f	signature:(rb_tree_t* pt_rb_tree, binary_function_t t_less)
 _rb_tree_init_copy	include/cstl_rb_tree_private.h	/^extern void _rb_tree_init_copy($/;"	p	signature:( rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src)
 _rb_tree_init_copy	src/cstl_rb_tree.c	/^void _rb_tree_init_copy($/;"	f	signature:( rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src)
 _rb_tree_init_copy_range	include/cstl_rb_tree_private.h	/^extern void _rb_tree_init_copy_range($/;"	p	signature:( rb_tree_t* pt_rb_tree_dest, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end)
 _rb_tree_init_copy_range	src/cstl_rb_tree.c	/^void _rb_tree_init_copy_range($/;"	f	signature:( rb_tree_t* pt_rb_tree_dest, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end)
-_rb_tree_init_copy_range_cmp	include/cstl_rb_tree_private.h	/^extern void _rb_tree_init_copy_range_cmp($/;"	p	signature:( rb_tree_t* pt_rb_tree_dest, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end, int (*pfun_cmp)(const void*, const void*))
-_rb_tree_init_copy_range_cmp	src/cstl_rb_tree.c	/^void _rb_tree_init_copy_range_cmp($/;"	f	signature:( rb_tree_t* pt_rb_tree_dest, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end, int (*pfun_cmp)(const void*, const void*))
+_rb_tree_init_copy_range_ex	include/cstl_rb_tree_private.h	/^extern void _rb_tree_init_copy_range_ex($/;"	p	signature:( rb_tree_t* pt_rb_tree_dest, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end, binary_function_t t_less)
+_rb_tree_init_copy_range_ex	src/cstl_rb_tree.c	/^void _rb_tree_init_copy_range_ex($/;"	f	signature:( rb_tree_t* pt_rb_tree_dest, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end, binary_function_t t_less)
+_rb_tree_init_elem_auxiliary	src/cstl_rb_tree.c	/^static void _rb_tree_init_elem_auxiliary(rb_tree_t* pt_rb_tree, rbnode_t* pt_node)$/;"	f	file:	signature:(rb_tree_t* pt_rb_tree, rbnode_t* pt_node)
+_rb_tree_init_elem_auxiliary	src/cstl_rb_tree.c	/^static void _rb_tree_init_elem_auxiliary(rb_tree_t* pt_rb_tree, rbnode_t* pt_node);$/;"	p	file:	signature:(rb_tree_t* pt_rb_tree, rbnode_t* pt_node)
 _rb_tree_insert_equal	include/cstl_rb_tree_private.h	/^extern rb_tree_iterator_t _rb_tree_insert_equal($/;"	p	signature:( rb_tree_t* pt_rb_tree, const void* cpv_value)
 _rb_tree_insert_equal	src/cstl_rb_tree.c	/^rb_tree_iterator_t _rb_tree_insert_equal(rb_tree_t* pt_rb_tree, const void* cpv_value)$/;"	f	signature:(rb_tree_t* pt_rb_tree, const void* cpv_value)
 _rb_tree_insert_equal_range	include/cstl_rb_tree_private.h	/^extern void _rb_tree_insert_equal_range($/;"	p	signature:( rb_tree_t* pt_rb_tree, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end)
 _rb_tree_insert_equal_range	src/cstl_rb_tree.c	/^void _rb_tree_insert_equal_range($/;"	f	signature:( rb_tree_t* pt_rb_tree, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end)
-_rb_tree_insert_unique	include/cstl_rb_tree_private.h	/^extern rb_tree_result_pair_t _rb_tree_insert_unique($/;"	p	signature:( rb_tree_t* pt_rb_tree, const void* cpv_value)
-_rb_tree_insert_unique	src/cstl_rb_tree.c	/^rb_tree_result_pair_t _rb_tree_insert_unique($/;"	f	signature:( rb_tree_t* pt_rb_tree, const void* cpv_value)
+_rb_tree_insert_unique	include/cstl_rb_tree_private.h	/^extern rb_tree_iterator_t _rb_tree_insert_unique($/;"	p	signature:( rb_tree_t* pt_rb_tree, const void* cpv_value)
+_rb_tree_insert_unique	src/cstl_rb_tree.c	/^rb_tree_iterator_t _rb_tree_insert_unique(rb_tree_t* pt_rb_tree, const void* cpv_value)$/;"	f	signature:(rb_tree_t* pt_rb_tree, const void* cpv_value)
 _rb_tree_insert_unique_range	include/cstl_rb_tree_private.h	/^extern void _rb_tree_insert_unique_range($/;"	p	signature:( rb_tree_t* pt_rb_tree, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end)
 _rb_tree_insert_unique_range	src/cstl_rb_tree.c	/^void _rb_tree_insert_unique_range($/;"	f	signature:( rb_tree_t* pt_rb_tree, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end)
 _rb_tree_iterator_before	include/cstl_rb_tree_iterator.h	/^extern bool_t _rb_tree_iterator_before($/;"	p	signature:( rb_tree_iterator_t t_iterfirst, rb_tree_iterator_t t_itersecond)
@@ -1670,13 +1673,13 @@ _rb_tree_iterator_equal	src/cstl_rb_tree.c	/^bool_t _rb_tree_iterator_equal($/;"
 _rb_tree_iterator_get_pointer	include/cstl_rb_tree_iterator.h	/^extern const void* _rb_tree_iterator_get_pointer(rb_tree_iterator_t t_iter);$/;"	p	signature:(rb_tree_iterator_t t_iter)
 _rb_tree_iterator_get_pointer	src/cstl_rb_tree.c	/^const void* _rb_tree_iterator_get_pointer(rb_tree_iterator_t t_iter)$/;"	f	signature:(rb_tree_iterator_t t_iter)
 _rb_tree_iterator_get_value	include/cstl_rb_tree_iterator.h	/^extern void _rb_tree_iterator_get_value($/;"	p	signature:( rb_tree_iterator_t t_iter, void* pv_value)
-_rb_tree_iterator_get_value	src/cstl_rb_tree.c	/^void _rb_tree_iterator_get_value($/;"	f	signature:( rb_tree_iterator_t t_iter, void* pv_value)
+_rb_tree_iterator_get_value	src/cstl_rb_tree.c	/^void _rb_tree_iterator_get_value(rb_tree_iterator_t t_iter, void* pv_value)$/;"	f	signature:(rb_tree_iterator_t t_iter, void* pv_value)
 _rb_tree_iterator_next	include/cstl_rb_tree_iterator.h	/^extern rb_tree_iterator_t _rb_tree_iterator_next(rb_tree_iterator_t t_iter);$/;"	p	signature:(rb_tree_iterator_t t_iter)
 _rb_tree_iterator_next	src/cstl_rb_tree.c	/^rb_tree_iterator_t _rb_tree_iterator_next(rb_tree_iterator_t t_iter)$/;"	f	signature:(rb_tree_iterator_t t_iter)
 _rb_tree_iterator_prev	include/cstl_rb_tree_iterator.h	/^extern rb_tree_iterator_t _rb_tree_iterator_prev(rb_tree_iterator_t t_iter);$/;"	p	signature:(rb_tree_iterator_t t_iter)
 _rb_tree_iterator_prev	src/cstl_rb_tree.c	/^rb_tree_iterator_t _rb_tree_iterator_prev(rb_tree_iterator_t t_iter)$/;"	f	signature:(rb_tree_iterator_t t_iter)
-_rb_tree_key_comp	include/cstl_rb_tree_private.h	/^extern int (*_rb_tree_key_comp(const rb_tree_t* cpt_rb_tree))($/;"	p	signature:(const rb_tree_t* cpt_rb_tree)
-_rb_tree_key_comp	src/cstl_rb_tree.c	/^int (*_rb_tree_key_comp(const rb_tree_t* cpt_rb_tree))(const void*, const void*)$/;"	f	signature:(const rb_tree_t* cpt_rb_tree)
+_rb_tree_key_less	include/cstl_rb_tree_private.h	/^extern binary_function_t _rb_tree_key_less(const rb_tree_t* cpt_rb_tree);$/;"	p	signature:(const rb_tree_t* cpt_rb_tree)
+_rb_tree_key_less	src/cstl_rb_tree.c	/^binary_function_t _rb_tree_key_less(const rb_tree_t* cpt_rb_tree)$/;"	f	signature:(const rb_tree_t* cpt_rb_tree)
 _rb_tree_less	include/cstl_rb_tree_private.h	/^extern bool_t _rb_tree_less($/;"	p	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
 _rb_tree_less	src/cstl_rb_tree.c	/^bool_t _rb_tree_less($/;"	f	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
 _rb_tree_less_equal	include/cstl_rb_tree_private.h	/^extern bool_t _rb_tree_less_equal($/;"	p	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
@@ -1691,6 +1694,8 @@ _rb_tree_rbegin	include/cstl_rb_tree_private.h	/^extern rb_tree_reverse_iterator
 _rb_tree_rbegin	src/cstl_rb_tree.c	/^rb_tree_iterator_t _rb_tree_rbegin(const rb_tree_t* cpt_rb_tree)$/;"	f	signature:(const rb_tree_t* cpt_rb_tree)
 _rb_tree_rend	include/cstl_rb_tree_private.h	/^extern rb_tree_reverse_iterator_t _rb_tree_rend(const rb_tree_t* cpt_rb_tree);$/;"	p	signature:(const rb_tree_t* cpt_rb_tree)
 _rb_tree_rend	src/cstl_rb_tree.c	/^rb_tree_iterator_t _rb_tree_rend(const rb_tree_t* cpt_rb_tree)$/;"	f	signature:(const rb_tree_t* cpt_rb_tree)
+_rb_tree_same_rb_tree_iterator_type	src/cstl_rb_tree.c	/^static bool_t _rb_tree_same_rb_tree_iterator_type($/;"	f	file:	signature:( const rb_tree_t* cpt_rb_tree, rb_tree_iterator_t t_iter)
+_rb_tree_same_rb_tree_iterator_type	src/cstl_rb_tree.c	/^static bool_t _rb_tree_same_rb_tree_iterator_type($/;"	p	file:	signature:( const rb_tree_t* cpt_rb_tree, rb_tree_iterator_t t_iter)
 _rb_tree_same_type	src/cstl_rb_tree.c	/^static bool_t _rb_tree_same_type($/;"	f	file:	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
 _rb_tree_same_type	src/cstl_rb_tree.c	/^static bool_t _rb_tree_same_type($/;"	p	file:	signature:( const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
 _rb_tree_size	include/cstl_rb_tree_private.h	/^extern size_t _rb_tree_size(const rb_tree_t* cpt_rb_tree);$/;"	p	signature:(const rb_tree_t* cpt_rb_tree)
@@ -1721,15 +1726,15 @@ _same_map_pair_type	src/cstl_map.c	/^static bool_t _same_map_pair_type($/;"	f	fi
 _same_map_pair_type	src/cstl_map.c	/^static bool_t _same_map_pair_type($/;"	p	file:	signature:( const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 _same_multimap_pair_type	src/cstl_multimap.c	/^static bool_t _same_multimap_pair_type($/;"	f	file:	signature:( const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 _same_multimap_pair_type	src/cstl_multimap.c	/^static bool_t _same_multimap_pair_type($/;"	p	file:	signature:( const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-_same_rb_tree_iterator_type	src/cstl_rb_tree.c	/^static bool_t _same_rb_tree_iterator_type($/;"	f	file:	signature:( const rb_tree_t* cpt_rb_tree, rb_tree_iterator_t t_iter)
-_same_rb_tree_iterator_type	src/cstl_rb_tree.c	/^static bool_t _same_rb_tree_iterator_type($/;"	p	file:	signature:( const rb_tree_t* cpt_rb_tree, rb_tree_iterator_t t_iter)
 _set_count	include/cstl_set_private.h	/^extern size_t _set_count(const set_t* cpt_set, ...);$/;"	p	signature:(const set_t* cpt_set, ...)
 _set_count	src/cstl_set.c	/^size_t _set_count(const set_t* cpt_set, ...)$/;"	f	signature:(const set_t* cpt_set, ...)
 _set_count_varg	include/cstl_set_private.h	/^extern size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist);$/;"	p	signature:(const set_t* cpt_set, va_list val_elemlist)
 _set_count_varg	src/cstl_set.c	/^size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist)$/;"	f	signature:(const set_t* cpt_set, va_list val_elemlist)
-_set_equal_range	include/cstl_set_private.h	/^extern pair_t _set_equal_range(const set_t* cpt_set, ...);$/;"	p	signature:(const set_t* cpt_set, ...)
+_set_destroy_auxiliary	include/cstl_set_private.h	/^extern void _set_destroy_auxiliary(set_t* pt_set);$/;"	p	signature:(set_t* pt_set)
+_set_destroy_auxiliary	src/cstl_set.c	/^void _set_destroy_auxiliary(set_t* pt_set)$/;"	f	signature:(set_t* pt_set)
+_set_equal_range	include/cstl_set_private.h	/^extern range_t _set_equal_range(const set_t* cpt_set, ...);$/;"	p	signature:(const set_t* cpt_set, ...)
 _set_equal_range	src/cstl_set.c	/^pair_t _set_equal_range(const set_t* cpt_set, ...)$/;"	f	signature:(const set_t* cpt_set, ...)
-_set_equal_range_varg	include/cstl_set_private.h	/^extern pair_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist);$/;"	p	signature:(const set_t* cpt_set, va_list val_elemlist)
+_set_equal_range_varg	include/cstl_set_private.h	/^extern range_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist);$/;"	p	signature:(const set_t* cpt_set, va_list val_elemlist)
 _set_equal_range_varg	src/cstl_set.c	/^pair_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)$/;"	f	signature:(const set_t* cpt_set, va_list val_elemlist)
 _set_erase	include/cstl_set_private.h	/^extern size_t _set_erase(set_t* pt_set, ...);$/;"	p	signature:(set_t* pt_set, ...)
 _set_erase	src/cstl_set.c	/^size_t _set_erase(set_t* pt_set, ...)$/;"	f	signature:(set_t* pt_set, ...)
@@ -1854,9 +1859,8 @@ _t_allocater	include/cstl_slist_private.h	/^    alloc_t      _t_allocater;$/;"	m
 _t_allocater	include/cstl_vector_private.h	/^    alloc_t     _t_allocater;$/;"	m	struct:_tagvector	access:public
 _t_allocator	include/cstl_types.h	/^    alloc_t              _t_allocator;$/;"	m	struct:_tagtyperegister	access:public
 _t_avl	include/cstl_map_private.h	/^        avl_tree_t _t_avl;$/;"	m	union:_tagmap::__anon7	access:public
-_t_avl	include/cstl_multimap_private.h	/^        avl_tree_t _t_avl;$/;"	m	union:_tagmultimap::__anon10	access:public
+_t_avl	include/cstl_multimap_private.h	/^        avl_tree_t _t_avl;$/;"	m	union:_tagmultimap::__anon9	access:public
 _t_avl	include/cstl_multiset_private.h	/^        avl_tree_t _t_avl;$/;"	m	union:_tagmultiset::__anon8	access:public
-_t_avl	include/cstl_set_private.h	/^        avl_tree_t _t_avl;$/;"	m	union:_tagset::__anon9	access:public
 _t_avlroot	include/cstl_avl_tree_private.h	/^    avlnode_t        _t_avlroot;$/;"	m	struct:_tagavltree	access:public
 _t_binary_op	include/cstl_queue_private.h	/^    binary_function_t _t_binary_op;$/;"	m	struct:_tagpriority_queue	access:public
 _t_bool	include/cstl_hashtable_private.h	/^        bool_t              _t_bool;     \/* for insert_unique *\/$/;"	m	union:_taghashtableresultpair::__anon6	access:public
@@ -1893,9 +1897,8 @@ _t_pair	include/cstl_map_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmap	ac
 _t_pair	include/cstl_multimap_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmultimap	access:public
 _t_pos	include/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterator	typeref:union:_tagiterator::__anon1	access:public
 _t_rb	include/cstl_map_private.h	/^        rb_tree_t  _t_rb;$/;"	m	union:_tagmap::__anon7	access:public
-_t_rb	include/cstl_multimap_private.h	/^        rb_tree_t  _t_rb;$/;"	m	union:_tagmultimap::__anon10	access:public
+_t_rb	include/cstl_multimap_private.h	/^        rb_tree_t  _t_rb;$/;"	m	union:_tagmultimap::__anon9	access:public
 _t_rb	include/cstl_multiset_private.h	/^        rb_tree_t  _t_rb;$/;"	m	union:_tagmultiset::__anon8	access:public
-_t_rb	include/cstl_set_private.h	/^        rb_tree_t  _t_rb;$/;"	m	union:_tagset::__anon9	access:public
 _t_rbroot	include/cstl_rb_tree_private.h	/^    rbnode_t          _t_rbroot;$/;"	m	struct:_tagrbtree	access:public
 _t_second	include/cstl_hashtable_private.h	/^    }_t_second;$/;"	m	struct:_taghashtableresultpair	typeref:union:_taghashtableresultpair::__anon6	access:public
 _t_second	include/cstl_rb_tree_private.h	/^    }_t_second;$/;"	m	struct:_tagrbtreeresultpair	typeref:union:_tagrbtreeresultpair::__anon5	access:public
@@ -1905,9 +1908,9 @@ _t_start	include/cstl_deque_private.h	/^    deque_iterator_t _t_start;$/;"	m	str
 _t_style	include/cstl_types.h	/^    _typestyle_t _t_style;$/;"	m	struct:_tagtypeinfo	access:public
 _t_token	src/cstl_types.c	/^    _typetoken_t _t_token;$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _t_tree	include/cstl_map_private.h	/^    }_t_tree;$/;"	m	struct:_tagmap	typeref:union:_tagmap::__anon7	access:public
-_t_tree	include/cstl_multimap_private.h	/^    }_t_tree;$/;"	m	struct:_tagmultimap	typeref:union:_tagmultimap::__anon10	access:public
+_t_tree	include/cstl_multimap_private.h	/^    }_t_tree;$/;"	m	struct:_tagmultimap	typeref:union:_tagmultimap::__anon9	access:public
 _t_tree	include/cstl_multiset_private.h	/^    }_t_tree;$/;"	m	struct:_tagmultiset	typeref:union:_tagmultiset::__anon8	access:public
-_t_tree	include/cstl_set_private.h	/^    }_t_tree;$/;"	m	struct:_tagset	typeref:union:_tagset::__anon9	access:public
+_t_tree	include/cstl_set_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagset	access:public
 _t_treepos	include/cstl_iterator.h	/^        }_t_treepos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon3	access:public
 _t_typecopy	include/cstl_types.h	/^    binary_function_t _t_typecopy;                        \/* type copy function *\/$/;"	m	struct:_tagtype	access:public
 _t_typedestroy	include/cstl_types.h	/^    unary_function_t  _t_typedestroy;                     \/* type destroy function *\/$/;"	m	struct:_tagtype	access:public
@@ -2028,10 +2031,10 @@ _tagmemlink	include/cstl_alloc.h	/^typedef union _tagmemlink$/;"	u
 _tagmemlink::_a_cmem	include/cstl_alloc.h	/^    char               _a_cmem[1];    \/* represent memory block *\/$/;"	m	union:_tagmemlink	access:public
 _tagmemlink::_pui_nextmem	include/cstl_alloc.h	/^    union _tagmemlink* _pui_nextmem;  \/* point to next memory block *\/$/;"	m	union:_tagmemlink	typeref:union:_tagmemlink::_tagmemlink	access:public
 _tagmultimap	include/cstl_multimap_private.h	/^typedef struct _tagmultimap$/;"	s
-_tagmultimap::__anon10::_t_avl	include/cstl_multimap_private.h	/^        avl_tree_t _t_avl;$/;"	m	union:_tagmultimap::__anon10	access:public
-_tagmultimap::__anon10::_t_rb	include/cstl_multimap_private.h	/^        rb_tree_t  _t_rb;$/;"	m	union:_tagmultimap::__anon10	access:public
+_tagmultimap::__anon9::_t_avl	include/cstl_multimap_private.h	/^        avl_tree_t _t_avl;$/;"	m	union:_tagmultimap::__anon9	access:public
+_tagmultimap::__anon9::_t_rb	include/cstl_multimap_private.h	/^        rb_tree_t  _t_rb;$/;"	m	union:_tagmultimap::__anon9	access:public
 _tagmultimap::_t_pair	include/cstl_multimap_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmultimap	access:public
-_tagmultimap::_t_tree	include/cstl_multimap_private.h	/^    }_t_tree;$/;"	m	struct:_tagmultimap	typeref:union:_tagmultimap::__anon10	access:public
+_tagmultimap::_t_tree	include/cstl_multimap_private.h	/^    }_t_tree;$/;"	m	struct:_tagmultimap	typeref:union:_tagmultimap::__anon9	access:public
 _tagmultiset	include/cstl_multiset_private.h	/^typedef struct _tagmultiset$/;"	s
 _tagmultiset::__anon8::_t_avl	include/cstl_multiset_private.h	/^        avl_tree_t _t_avl;$/;"	m	union:_tagmultiset::__anon8	access:public
 _tagmultiset::__anon8::_t_rb	include/cstl_multiset_private.h	/^        rb_tree_t  _t_rb;$/;"	m	union:_tagmultiset::__anon8	access:public
@@ -2067,9 +2070,7 @@ _tagrbtreeresultpair::__anon5::_t_iterator	include/cstl_rb_tree_private.h	/^    
 _tagrbtreeresultpair::_t_first	include/cstl_rb_tree_private.h	/^    rb_tree_iterator_t _t_first;$/;"	m	struct:_tagrbtreeresultpair	access:public
 _tagrbtreeresultpair::_t_second	include/cstl_rb_tree_private.h	/^    }_t_second;$/;"	m	struct:_tagrbtreeresultpair	typeref:union:_tagrbtreeresultpair::__anon5	access:public
 _tagset	include/cstl_set_private.h	/^typedef struct _tagset$/;"	s
-_tagset::__anon9::_t_avl	include/cstl_set_private.h	/^        avl_tree_t _t_avl;$/;"	m	union:_tagset::__anon9	access:public
-_tagset::__anon9::_t_rb	include/cstl_set_private.h	/^        rb_tree_t  _t_rb;$/;"	m	union:_tagset::__anon9	access:public
-_tagset::_t_tree	include/cstl_set_private.h	/^    }_t_tree;$/;"	m	struct:_tagset	typeref:union:_tagset::__anon9	access:public
+_tagset::_t_tree	include/cstl_set_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagset	access:public
 _tagslist	include/cstl_slist_private.h	/^typedef struct _tagslist$/;"	s
 _tagslist::_t_allocater	include/cstl_slist_private.h	/^    alloc_t      _t_allocater;$/;"	m	struct:_tagslist	access:public
 _tagslist::_t_head	include/cstl_slist_private.h	/^    slistnode_t _t_head;$/;"	m	struct:_tagslist	access:public
@@ -4001,7 +4002,7 @@ set_begin	include/cstl_set.h	/^extern set_iterator_t set_begin(const set_t* cpt_
 set_begin	src/cstl_set.c	/^set_iterator_t set_begin(const set_t* cpt_set)$/;"	f	signature:(const set_t* cpt_set)
 set_clear	include/cstl_set.h	/^extern void set_clear(set_t* pt_set);$/;"	p	signature:(set_t* pt_set)
 set_clear	src/cstl_set.c	/^void set_clear(set_t* pt_set)$/;"	f	signature:(set_t* pt_set)
-set_count	include/cstl_set.h	40;"	d
+set_count	include/cstl_set.h	39;"	d
 set_destroy	include/cstl_set.h	/^extern void set_destroy(set_t* pt_set);$/;"	p	signature:(set_t* pt_set)
 set_destroy	src/cstl_set.c	/^void set_destroy(set_t* pt_set)$/;"	f	signature:(set_t* pt_set)
 set_empty	include/cstl_set.h	/^extern bool_t set_empty(const set_t* cpt_set);$/;"	p	signature:(const set_t* cpt_set)
@@ -4010,13 +4011,13 @@ set_end	include/cstl_set.h	/^extern set_iterator_t set_end(const set_t* cpt_set)
 set_end	src/cstl_set.c	/^set_iterator_t set_end(const set_t* cpt_set)$/;"	f	signature:(const set_t* cpt_set)
 set_equal	include/cstl_set.h	/^extern bool_t set_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);$/;"	p	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 set_equal	src/cstl_set.c	/^bool_t set_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)$/;"	f	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
-set_equal_range	include/cstl_set.h	49;"	d
-set_erase	include/cstl_set.h	52;"	d
+set_equal_range	include/cstl_set.h	48;"	d
+set_erase	include/cstl_set.h	51;"	d
 set_erase_pos	include/cstl_set.h	/^extern void set_erase_pos(set_t* pt_set, set_iterator_t t_pos);$/;"	p	signature:(set_t* pt_set, set_iterator_t t_pos)
 set_erase_pos	src/cstl_set.c	/^void set_erase_pos(set_t* pt_set, set_iterator_t t_pos)$/;"	f	signature:(set_t* pt_set, set_iterator_t t_pos)
 set_erase_range	include/cstl_set.h	/^extern void set_erase_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end);$/;"	p	signature:(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
 set_erase_range	src/cstl_set.c	/^void set_erase_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)$/;"	f	signature:(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
-set_find	include/cstl_set.h	37;"	d
+set_find	include/cstl_set.h	36;"	d
 set_great	include/cstl_set.h	/^extern bool_t set_great(const set_t* cpt_setfirst, const set_t* cpt_setsecond);$/;"	p	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 set_great	src/cstl_set.c	/^bool_t set_great(const set_t* cpt_setfirst, const set_t* cpt_setsecond)$/;"	f	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 set_great_equal	include/cstl_set.h	/^extern bool_t set_great_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);$/;"	p	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
@@ -4027,10 +4028,12 @@ set_init_copy	include/cstl_set.h	/^extern void set_init_copy(set_t* pt_setdest, 
 set_init_copy	src/cstl_set.c	/^void set_init_copy(set_t* pt_setdest, const set_t* cpt_setsrc)$/;"	f	signature:(set_t* pt_setdest, const set_t* cpt_setsrc)
 set_init_copy_range	include/cstl_set.h	/^extern void set_init_copy_range($/;"	p	signature:( set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end)
 set_init_copy_range	src/cstl_set.c	/^void set_init_copy_range(set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end)$/;"	f	signature:(set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end)
-set_init_copy_range_cmp	include/cstl_set.h	/^extern void set_init_copy_range_cmp($/;"	p	signature:( set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, int (*pfun_cmp)(const void*, const void*))
-set_init_copy_range_cmp	src/cstl_set.c	/^void set_init_copy_range_cmp($/;"	f	signature:( set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, int (*pfun_cmp)(const void*, const void*))
-set_insert	include/cstl_set.h	55;"	d
-set_insert_hint	include/cstl_set.h	57;"	d
+set_init_copy_range_ex	include/cstl_set.h	/^extern void set_init_copy_range_ex($/;"	p	signature:( set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, binary_function_t t_less)
+set_init_copy_range_ex	src/cstl_set.c	/^void set_init_copy_range_ex($/;"	f	signature:( set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, binary_function_t t_less)
+set_init_ex	include/cstl_set.h	/^extern void set_init_ex(set_t* pt_set, binary_function_t t_less);$/;"	p	signature:(set_t* pt_set, binary_function_t t_less)
+set_init_ex	src/cstl_set.c	/^void set_init_ex(set_t* pt_set, binary_function_t t_less)$/;"	f	signature:(set_t* pt_set, binary_function_t t_less)
+set_insert	include/cstl_set.h	54;"	d
+set_insert_hint	include/cstl_set.h	56;"	d
 set_insert_range	include/cstl_set.h	/^extern void set_insert_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end);$/;"	p	signature:(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
 set_insert_range	src/cstl_set.c	/^void set_insert_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)$/;"	f	signature:(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
 set_iterator_t	include/cstl_set_iterator.h	/^typedef iterator_t set_iterator_t;$/;"	t
@@ -4040,7 +4043,7 @@ set_less	include/cstl_set.h	/^extern bool_t set_less(const set_t* cpt_setfirst, 
 set_less	src/cstl_set.c	/^bool_t set_less(const set_t* cpt_setfirst, const set_t* cpt_setsecond)$/;"	f	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 set_less_equal	include/cstl_set.h	/^extern bool_t set_less_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);$/;"	p	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 set_less_equal	src/cstl_set.c	/^bool_t set_less_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)$/;"	f	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
-set_lower_bound	include/cstl_set.h	43;"	d
+set_lower_bound	include/cstl_set.h	42;"	d
 set_malloc_handler	include/cstl_alloc.h	/^extern void (*set_malloc_handler(void (*pfun_newhandler)(void)))(void);$/;"	p	signature:(void (*pfun_newhandler)(void))
 set_malloc_handler	src/cstl_alloc.c	/^void (*set_malloc_handler(void (*pfun_newhandler)(void)))(void)$/;"	f	signature:(void (*pfun_newhandler)(void))
 set_max_size	include/cstl_set.h	/^extern size_t set_max_size(const set_t* cpt_set);$/;"	p	signature:(const set_t* cpt_set)
@@ -4057,7 +4060,7 @@ set_size	src/cstl_set.c	/^size_t set_size(const set_t* cpt_set)$/;"	f	signature:
 set_swap	include/cstl_set.h	/^extern void set_swap(set_t* pt_setfirst, set_t* pt_setsecond);$/;"	p	signature:(set_t* pt_setfirst, set_t* pt_setsecond)
 set_swap	src/cstl_set.c	/^void set_swap(set_t* pt_setfirst, set_t* pt_setsecond)$/;"	f	signature:(set_t* pt_setfirst, set_t* pt_setsecond)
 set_t	include/cstl_set_private.h	/^}set_t;$/;"	t	typeref:struct:_tagset
-set_upper_bound	include/cstl_set.h	46;"	d
+set_upper_bound	include/cstl_set.h	45;"	d
 set_value_comp	include/cstl_set.h	/^extern int (*set_value_comp(const set_t* cpt_set))(const void*, const void*);$/;"	p	signature:(const set_t* cpt_set)
 set_value_comp	src/cstl_set.c	/^int (*set_value_comp(const set_t* cpt_set))(const void*, const void*)$/;"	f	signature:(const set_t* cpt_set)
 show_avlnode_info	test/tree_traverse.c	/^void show_avlnode_info(avlnode_t* pt_root)$/;"	f	signature:(avlnode_t* pt_root)
