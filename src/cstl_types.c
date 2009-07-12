@@ -3299,8 +3299,12 @@ static void _type_init_set(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
+#ifdef CSTL_SET_AVL_TREE
+    _create_avl_tree_auxiliary(&((set_t*)cpv_input)->_t_tree, (char*)pv_output);
+#else
+    _create_rb_tree_auxiliary(&((set_t*)cpv_input)->_t_tree, (char*)pv_output);
+#endif
     set_init((set_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_set(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3319,7 +3323,7 @@ static void _type_destroy_set(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    set_destroy((set_t*)cpv_input);
+    _set_destroy_auxiliary((set_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* map_t */
@@ -3355,8 +3359,12 @@ static void _type_init_multiset(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
+#ifdef CSTL_MULTISET_AVL_TREE
+    _create_avl_tree_auxiliary(&((multiset_t*)cpv_input)->_t_tree, (char*)pv_output);
+#else
+    _create_rb_tree_auxiliary(&((multiset_t*)cpv_input)->_t_tree, (char*)pv_output);
+#endif
     multiset_init((multiset_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3375,7 +3383,7 @@ static void _type_destroy_multiset(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    multiset_destroy((multiset_t*)cpv_input);
+    _multiset_destroy_auxiliary((multiset_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* multimap_t */

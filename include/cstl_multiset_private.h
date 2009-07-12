@@ -30,20 +30,16 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define _GET_MULTISET_AVL_TREE(pt_multiset)\
-    (&((pt_multiset)->_t_tree._t_avl))
-#define _GET_MULTISET_RB_TREE(pt_multiset)\
-    (&((pt_multiset)->_t_tree._t_rb))
 
 /** data type declaration and struct, union, enum section **/
 /* the multiset use rb tree default */
 typedef struct _tagmultiset
 {
-    union
-    {
-        avl_tree_t _t_avl;
-        rb_tree_t  _t_rb;
-    }_t_tree;
+#ifdef CSTL_MULTISET_AVL_TREE
+    avl_tree_t _t_tree;
+#else
+    rb_tree_t  _t_tree;
+#endif
 }multiset_t;
 
 /** exported global variable declaration section **/
@@ -52,7 +48,8 @@ typedef struct _tagmultiset
 /*
  * Create new multiset_t.
  */
-extern multiset_t _create_multiset(size_t t_typesize, const char* s_typename);
+extern multiset_t* _create_multiset(const char* s_typename);
+extern void _multiset_destroy_auxiliary(multiset_t* pv_multiset);
 
 /*
  * Find operation functions.
@@ -76,8 +73,8 @@ extern multiset_iterator_t _multiset_lower_bound_varg(
 extern multiset_iterator_t _multiset_upper_bound(const multiset_t* cpt_multiset, ...);
 extern multiset_iterator_t _multiset_upper_bound_varg(
     const multiset_t* cpt_multiset, va_list val_elemlist);
-extern pair_t _multiset_equal_range(const multiset_t* cpt_multiset, ...);
-extern pair_t _multiset_equal_range_varg(
+extern range_t _multiset_equal_range(const multiset_t* cpt_multiset, ...);
+extern range_t _multiset_equal_range_varg(
     const multiset_t* cpt_multiset, va_list val_elemlist);
 
 /*

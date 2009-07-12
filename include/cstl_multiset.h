@@ -31,8 +31,7 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* create new multiset with specific type */
-#define create_multiset(type)\
-    _create_multiset(sizeof(type), #type) 
+#define create_multiset(...) _create_multiset(#__VA_ARGS__) 
 /* find */
 #define multiset_find(cpt_multiset, elem)\
     _multiset_find((cpt_multiset), (elem))
@@ -66,13 +65,11 @@ extern "C" {
  * Initialization and destroy functions.
  */
 extern void multiset_init(multiset_t* pt_multiset);
+extern void multiset_init_ex(multiset_t* pt_multiset, binary_function_t t_less);
 extern void multiset_destroy(multiset_t* pt_multiset);
-extern void multiset_init_copy(
-    multiset_t* pt_multisetdest, const multiset_t* cpt_multisetsrc);
-/* private */
-extern void multiset_init_copy_range_cmp(
-    multiset_t* pt_multisetdest, multiset_iterator_t t_begin, multiset_iterator_t t_end,
-    int (*pfun_cmp)(const void*, const void*));
+extern void multiset_init_copy(multiset_t* pt_multisetdest, const multiset_t* cpt_multisetsrc);
+extern void multiset_init_copy_range_ex(multiset_t* pt_multisetdest,
+    multiset_iterator_t t_begin, multiset_iterator_t t_end, binary_function_t t_less);
 extern void multiset_init_copy_range(
     multiset_t* pt_multisetdest, multiset_iterator_t t_begin, multiset_iterator_t t_end);
 
@@ -101,10 +98,8 @@ extern multiset_reverse_iterator_t multiset_rend(const multiset_t* cpt_multiset)
 /*
  * Return the compare function of key (private).
  */
-extern int (*multiset_key_comp(const multiset_t* cpt_multiset))(
-    const void*, const void*);
-extern int (*multiset_value_comp(const multiset_t* cpt_multiset))(
-    const void*, const void*);
+extern binary_function_t multiset_key_less(const multiset_t* cpt_multiset);
+extern binary_function_t multiset_value_less(const multiset_t* cpt_multiset);
 
 /*
  * Remove all elements.
