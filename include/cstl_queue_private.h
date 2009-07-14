@@ -55,6 +55,8 @@ typedef struct _tagpriority_queue
  * Create the new queue.
  */
 extern queue_t* _create_queue(const char* s_typename);
+extern bool_t _create_queue_auxiliary(queue_t* pt_queue, const char* s_typename);
+extern void _queue_destroy_auxiliary(queue_t* pt_queue);
 
 /*
  * Append a copy of element at the top.

@@ -196,6 +196,17 @@ set_t* _create_set(const char* s_typename)
 #endif
 }
 
+bool_t _create_set_auxiliary(set_t* pt_set, const char* s_typename)
+{
+    assert(pt_set != NULL && s_typename != NULL);
+
+#ifdef CSTL_SET_AVL_TREE
+    return _create_avl_tree_auxiliary(&pt_set->_t_tree, s_typename);
+#else
+    return _create_rb_tree_auxiliary(&pt_set->_t_tree, s_typename);
+#endif
+}
+
 /* set function */
 void set_init(set_t* pt_set)
 {

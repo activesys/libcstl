@@ -52,6 +52,27 @@ queue_t* _create_queue(const char* sz_typename)
 #endif
 }
 
+bool_t _create_queue_auxiliary(queue_t* pt_queue, const char* s_typename)
+{
+    assert(pt_queue != NULL && s_typename != NULL);
+#ifdef CSTL_QUEUE_LIST_SEQUENCE
+    return _create_list_auxiliary(&pt_queue->_t_sequence, s_typename);
+#else
+    return _create_deque_auxiliary(&pt_queue->_t_sequence, s_typename);
+#endif
+}
+
+void _queue_destroy_auxiliary(queue_t* pt_queue)
+{
+    assert(pt_queue != NULL);
+
+#ifdef CSTL_QUEUE_LIST_SEQUENCE
+    _list_destroy_auxiliary(&pt_queue->_t_sequence);
+#else
+    _deque_destroy_auxiliary(&pt_queue->_t_sequence);
+#endif
+}
+
 /* queue function */
 void queue_init(queue_t* pt_queue)
 {

@@ -30,21 +30,17 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define _GET_MAP_AVL_TREE(pt_map)\
-    (&((pt_map)->_t_tree._t_avl))
-#define _GET_MAP_RB_TREE(pt_map)\
-    (&((pt_map)->_t_tree._t_rb))
 
 /** data type declaration and struct, union, enum section **/
 /* the map use rb tree default */
 typedef struct _tagmap
 {
     pair_t _t_pair;
-    union
-    {
-        avl_tree_t _t_avl;
-        rb_tree_t  _t_rb;
-    }_t_tree;
+#ifdef CSTL_MAP_AVL_TREE
+    avl_tree_t _t_tree;
+#else
+    rb_tree_t  _t_tree;
+#endif
 }map_t;
 
 /** exported global variable declaration section **/
@@ -53,9 +49,9 @@ typedef struct _tagmap
 /*
  * Create map.
  */
-extern map_t _create_map(
-    size_t t_keytypesize, const char* s_keytypename,
-    size_t t_valuetypesize, const char* s_valuetypename);
+extern map_t* _create_map(const char* s_typename);
+extern bool_t _create_map_auxiliary(map_t* pt_map, const char* s_typename);
+extern void _map_destroy_auxiliary(map_t* pt_map);
 
 /*
  * Find operation functions.

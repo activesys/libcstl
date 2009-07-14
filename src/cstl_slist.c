@@ -297,6 +297,21 @@ slist_t* _create_slist(const char* sz_typename)
     return pt_newslist;
 }
 
+bool_t _create_slist_auxiliary(slist_t* pt_slist, const char* s_typename)
+{
+    assert(pt_slist != NULL && s_typename != NULL);
+
+    _type_get_type(&pt_slist->_t_typeinfo, s_typename);
+    if(pt_slist->_t_typeinfo._t_style == _TYPE_INVALID)
+    {
+        return false;
+    }
+
+    pt_slist->_t_head._pt_next = NULL;
+
+    return true;
+}
+
 /* slist function */
 void slist_init(slist_t* pt_slist)
 {

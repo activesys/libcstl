@@ -506,6 +506,24 @@ deque_t* _create_deque(const char* sz_typename)
     return pt_newdeque;
 }
 
+bool_t _create_deque_auxiliary(deque_t* pt_deque, const char* s_typename)
+{
+    assert(pt_deque != NULL && s_typename != NULL);
+
+    _type_get_type(&pt_deque->_t_typeinfo, s_typename);
+    if(pt_deque->_t_typeinfo._t_style == _TYPE_INVALID)
+    {
+        return false;
+    }
+
+    pt_deque->_ppc_map = NULL;
+    pt_deque->_t_mapsize = 0;
+    pt_deque->_t_start = create_deque_iterator();
+    pt_deque->_t_finish = create_deque_iterator();
+
+    return true;
+}
+
 /* deque function */
 void deque_init(deque_t* pt_deque)
 {

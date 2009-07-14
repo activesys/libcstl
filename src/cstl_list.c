@@ -324,6 +324,21 @@ list_t* _create_list(const char* s_typename)
     return pt_newlist;
 }
 
+bool_t _create_list_auxiliary(list_t* pt_list, const char* s_typename)
+{
+    assert(pt_list != NULL && s_typename != NULL);
+
+    _type_get_type(&pt_list->_t_typeinfo, s_typename);
+    if(pt_list->_t_typeinfo._t_style == _TYPE_INVALID)
+    {
+        return false;
+    }
+
+    pt_list->_pt_node = NULL;
+
+    return true;
+}
+
 /* list function */
 void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)
 {

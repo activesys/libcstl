@@ -68,6 +68,7 @@ typedef struct _taglist
  * Create and initialization operation functions.
  */
 extern list_t* _create_list(const char* s_typename);
+extern bool_t _create_list_auxiliary(list_t* pt_list, const char* s_typename);
 extern void _list_init_elem(list_t* pt_list, size_t t_count, ...);
 extern void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist);
 extern void _list_destroy_auxiliary(list_t* pt_list);

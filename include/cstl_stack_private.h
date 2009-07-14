@@ -51,6 +51,8 @@ typedef struct _tagstack
  * Create stack.
  */
 extern stack_t* _create_stack(const char* s_typename);
+extern bool_t _create_stack_auxiliary(stack_t* pt_stack, const char* s_typename);
+extern void _stack_destroy_auxiliary(stack_t* pt_stack);
 
 /*
  * Push element.

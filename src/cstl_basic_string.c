@@ -324,6 +324,16 @@ basic_string_t* _create_basic_string(const char* s_typename)
     return (basic_string_t*)_create_vector(s_typename);
 }
 
+bool_t _create_basic_string_auxiliary(basic_string_t* pt_basic_string, const char* s_typename)
+{
+    return _create_vector_auxiliary(&pt_basic_string->_t_vector);
+}
+
+void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string)
+{
+    _vector_destroy_auxiliary(&pt_basic_string->_t_vector);
+}
+
 /* basic_string function */
 /* constructor, copy constructor and destructor */
 void basic_string_init(basic_string_t* pt_basic_string)

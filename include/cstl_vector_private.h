@@ -64,6 +64,7 @@ typedef struct _tagvector
  * Creation and initialization vector_t.
  */
 extern vector_t* _create_vector(const char* s_typename);
+extern bool_t _create_vector_auxiliary(vector_t* pt_vector, const char* s_typename);
 extern void _vector_init_elem(vector_t* pt_vector, size_t t_count, ...);
 extern void _vector_init_elem_varg(
     vector_t* pt_vector, size_t t_count, va_list val_elemlist);

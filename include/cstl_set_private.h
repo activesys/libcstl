@@ -49,6 +49,7 @@ typedef struct _tagset
  * Create set_t.
  */
 extern set_t* _create_set(const char* s_typename);
+extern bool_t _create_set_auxiliary(set_t* pt_set, const char* s_typename);
 extern void _set_destroy_auxiliary(set_t* pt_set);
 
 /*

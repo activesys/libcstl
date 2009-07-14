@@ -182,37 +182,85 @@ bool_t _map_iterator_before(
 }
 
 /* map private function */
-map_t _create_map(
-    size_t t_keytypesize, const char* s_keytypename, 
-    size_t t_valuetypesize, const char* s_valuetypename)
+map_t* _create_map(const char* s_typename)
 {
-    map_t t_newmap;
-    char  ac_maptypename[_ELEM_TYPE_NAME_SIZE+1];
+    map_t* pt_newmap = NULL;
+    char   s_typenameex[_TYPE_NAME_SIZE + 1];
+    bool_t t_result = false;
 
-    assert(t_keytypesize > 0 && t_valuetypesize > 0);
-    assert(s_keytypename != NULL && s_valuetypename != NULL);
+    assert(s_typename != NULL);
 
-    /* create pair */
-    t_newmap._t_pair = _create_pair(
-        t_keytypesize, s_keytypename, t_valuetypesize, s_valuetypename);
-    /* create tree */
-    memset(ac_maptypename, '\0', _ELEM_TYPE_NAME_SIZE+1);
-    strncpy(ac_maptypename, _MAP_IDENTIFY, _ELEM_TYPE_NAME_SIZE);
-    strcat(ac_maptypename, _MAP_LEFT_BRACKET);
-    strcat(ac_maptypename, t_newmap._t_pair._sz_firsttypename);
-    strcat(ac_maptypename, _MAP_COMMA);
-    strcat(ac_maptypename, t_newmap._t_pair._sz_secondtypename);
-    strcat(ac_maptypename, _MAP_RIGHT_BRACKET);
+    if((pt_newmap = (map_t*)malloc(sizeof(map_t))) == NULL)
+    {
+        return NULL;
+    }
+
+    t_result = _create_pair_auxiliary(&pt_newmap->_t_pair, s_typename);
+    if(!t_result)
+    {
+        free(pt_newmap);
+        return NULL;
+    }
+
+    memset(s_typenameex, '\0', _TYPE_NAME_SIZE + 1);
+    strncpy(s_typenameex, _PAIR_TYPE, _TYPE_NAME_SIZE);
+    strncat(s_typenameex, _CSTL_LEFT_BRACKET, _TYPE_NAME_SIZE);
+    strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
+    strncat(s_typenameex, _CSTL_RIGHT_BRACKET, _TYPE_NAME_SIZE);
 
 #ifdef CSTL_MAP_AVL_TREE
-    *_GET_MAP_AVL_TREE(&t_newmap) = 
-        _create_avl_tree(sizeof(pair_t), ac_maptypename);
+    t_result = _create_avl_tree_auxiliary(&pt_newmap->_t_tree, s_typenameex);
 #else
-    *_GET_MAP_RB_TREE(&t_newmap) = 
-        _create_rb_tree(sizeof(pair_t), ac_maptypename);
+    t_result = _create_rb_tree_auxiliary(&pt_newmap->_t_tree, s_typenameex);
 #endif
 
-    return t_newmap;
+    if(!t_result)
+    {
+        free(pt_newmap);
+        return NULL;
+    }
+
+    return pt_newmap;
+}
+
+bool_t _create_map_auxiliary(map_t* pt_map, const char* s_typename)
+{
+    char   s_typenameex[_TYPE_NAME_SIZE + 1];
+    bool_t t_result = false;
+
+    assert(pt_map != NULL && s_typename != NULL);
+
+    t_result = _create_pair_auxiliary(&pt_map->_t_pair, s_typename);
+    if(!t_result)
+    {
+        return false;
+    }
+
+    memset(s_typenameex, '\0', _TYPE_NAME_SIZE + 1);
+    strncpy(s_typenameex, _PAIR_TYPE, _TYPE_NAME_SIZE);
+    strncat(s_typenameex, _CSTL_LEFT_BRACKET, _TYPE_NAME_SIZE);
+    strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
+    strncat(s_typenameex, _CSTL_RIGHT_BRACKET, _TYPE_NAME_SIZE);
+
+#ifdef CSTL_MAP_AVL_TREE
+    t_result = _create_avl_tree_auxiliary(&pt_map->_t_tree, s_typenameex);
+#else
+    t_result = _create_rb_tree_auxiliary(&pt_map->_t_tree, s_typenameex);
+#endif
+
+    return t_result;
+}
+
+void _map_destroy_auxiliary(map_t* pt_map)
+{
+    assert(pt_map != NULL);
+
+    _pair_destroy_auxiliary(&pt_map->_t_pair);
+#ifdef CSTL_MAP_AVL_TREE
+    _avl_tree_destroy_auxiliary(&pt_map->_t_tree);
+#else
+    _rb_tree_destroy_auxiliary(&pt_map->_t_tree);
+#endif
 }
 
 /* map function */

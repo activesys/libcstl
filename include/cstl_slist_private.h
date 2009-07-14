@@ -65,6 +65,7 @@ typedef struct _tagslist
  * Create and initialize slist_t.
  */
 extern slist_t* _create_slist(const char* s_typename);
+extern bool_t _create_slist_auxiliary(slist_t* pt_slist, const char* s_typename);
 extern void _slist_init_elem(slist_t* pt_slist, size_t t_count, ...);
 extern void _slist_init_elem_varg(
     slist_t* pt_slist, size_t t_count, va_list val_elemlist);

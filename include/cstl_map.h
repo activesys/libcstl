@@ -30,10 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define create_map(key_type, value_type)\
-    _create_map(\
-        sizeof(key_type), #key_type, \
-        sizeof(value_type), #value_type)
+#define create_map(...) _create_map(#__VA_ARGS__)
 /* find */
 #define map_find(cpt_map, key_elem)\
     _map_find((cpt_map), (key_elem))

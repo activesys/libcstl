@@ -60,6 +60,7 @@ typedef struct _tagpair
  * Create, initialization and destroy functions.
  */
 extern pair_t* _create_pair(const char* s_typename);
+extern bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename);
 extern void _pair_make_first(pair_t* pt_pair, ...);
 extern void _pair_make_second(pair_t* pt_pair, ...);
 extern void pair_init(pair_t* pt_pair);

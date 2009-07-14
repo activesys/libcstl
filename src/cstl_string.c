@@ -55,6 +55,16 @@ string_t* create_string(void)
     return create_basic_string(char);
 }
 
+bool_t _create_string_auxiliary(string_t* pt_string)
+{
+    return _create_basic_string_auxiliary(pt_string, "char");
+}
+
+void _string_destroy_auxiliary(string_t* pt_string)
+{
+    _basic_string_destroy_auxiliary(pt_string);
+}
+
 void string_init(string_t* pt_string)
 {
     assert(pt_string != NULL);

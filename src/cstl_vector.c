@@ -295,6 +295,23 @@ vector_t* _create_vector(const char* s_typename)
     return pt_newvector;
 }
 
+bool_t _create_vector_auxiliary(vector_t* pt_vector, const char* s_typename)
+{
+    assert(pt_vector != NULL && s_typename != NULL);
+
+    _type_get_type(&pt_vector->_t_typeinfo, s_typename);
+    if(pt_vector->_t_typeinfo._t_style == _TYPE_INVALID)
+    {
+        return false;
+    }
+
+    pt_vector->_pc_start = NULL;
+    pt_vector->_pc_finish = NULL;
+    pt_vector->_pc_endofstorage = NULL;
+
+    return true;
+}
+
 /* vector function */
 /* initialize and destroy */
 void _vector_init_elem_varg(vector_t* pt_vector, size_t t_count, va_list val_elemlist)

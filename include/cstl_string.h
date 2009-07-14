@@ -37,6 +37,9 @@ typedef basic_string_t string_t;
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
+/* private for type information */
+extern bool_t _create_string_auxiliary(string_t* pt_string);
+extern void _string_destroy_auxiliary(string_t* pt_string);
 /*
  * Initialization and destroy operation functions.
  */

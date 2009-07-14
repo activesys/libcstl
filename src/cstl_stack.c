@@ -51,6 +51,30 @@ stack_t* _create_stack(const char* sz_typename)
 #endif
 }
 
+bool_t _create_stack_auxiliary(stack_t* pt_stack, const char* s_typename)
+{
+    assert(pt_stack != NULL && s_typename != NULL);
+#if defined (CSTL_STACK_VECTOR_SEQUENCE)
+    return _create_vector_auxiliary(&pt_stack->_t_sequence, s_typename);
+#elif defined (CSTL_STACK_LIST_SEQUENCE)
+    return _create_list_auxiliary(&pt_stack->_t_sequence, s_typename);
+#else
+    return _create_deque_auxiliary(&pt_stack->_t_sequence, s_typename);
+#endif
+}
+
+void _stack_destroy_auxiliary(stack_t* pt_stack)
+{
+    assert(pt_stack != NULL);
+#if defined (CSTL_STACK_VECTOR_SEQUENCE)
+    _vector_destroy_auxiliary(&pt_stack->_t_sequence);
+#elif defined (CSTL_STACK_LIST_SEQUENCE)
+    _list_destroy_auxiliary(&pt_stack->_t_sequence);
+#else
+    _deque_destroy_auxiliary(&pt_stack->_t_sequence);
+#endif
+}
+
 /* stack function */
 void stack_init(stack_t* pt_stack)
 {

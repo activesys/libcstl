@@ -123,6 +123,23 @@ pair_t* _create_pair(const char* s_typename)
     return pt_newpair;
 }
 
+bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename)
+{
+    assert(pt_pair != NULL && s_typename != NULL);
+
+    _type_get_type_pair(&pt_pair->_t_typeinfofirst, &pt_pair->_t_typeinfosecond, s_typename);
+    if(pt_pair->_t_typeinfofirst._t_style == _TYPE_INVALID ||
+       pt_pair->_t_typeinfosecond._t_style == _TYPE_INVALID)
+    {
+        return false;
+    }
+
+    pt_pair->first = NULL;
+    pt_pair->second = NULL;
+
+    return true;
+}
+
 void _pair_make_first(pair_t* pt_pair, ...)
 {
     va_list val_elemlist;
