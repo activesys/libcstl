@@ -68,8 +68,8 @@ extern map_iterator_t _map_lower_bound(const map_t* cpt_map, ...);
 extern map_iterator_t _map_lower_bound_varg(const map_t* cpt_map, va_list val_elemlist);
 extern map_iterator_t _map_upper_bound(const map_t* cpt_map, ...);
 extern map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist);
-extern pair_t _map_equal_range(const map_t* cpt_map, ...);
-extern pair_t _map_equal_range_varg(const map_t* cpt_map, va_list val_elemlist);
+extern range_t _map_equal_range(const map_t* cpt_map, ...);
+extern range_t _map_equal_range_varg(const map_t* cpt_map, va_list val_elemlist);
 
 /*
  * Random access operation functions.

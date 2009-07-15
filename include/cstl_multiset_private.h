@@ -49,6 +49,7 @@ typedef struct _tagmultiset
  * Create new multiset_t.
  */
 extern multiset_t* _create_multiset(const char* s_typename);
+extern bool_t _create_multiset_auxiliary(multiset_t* pt_multiset, const char* s_typename);
 extern void _multiset_destroy_auxiliary(multiset_t* pv_multiset);
 
 /*

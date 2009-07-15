@@ -200,6 +200,17 @@ multiset_t* _create_multiset(const char* s_typename)
 #endif
 }
 
+bool_t _create_multiset_auxiliary(multiset_t* pt_multiset, const char* s_typename)
+{
+    assert(pt_multiset != NULL && s_typename != NULL);
+
+#ifdef CSTL_MULTISET_AVL_TREE
+    return _create_avl_tree_auxiliary(&pt_multiset->_t_tree, s_typename);
+#else
+    return _create_rb_tree_auxiliary(&pt_multiset->_t_tree, s_typename);
+#endif
+}
+
 /* multiset function */
 void multiset_init(multiset_t* pt_multiset)
 {

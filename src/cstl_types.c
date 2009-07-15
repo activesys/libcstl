@@ -3276,12 +3276,11 @@ static void _type_destroy_map(
 static void _type_init_multiset(
     const void* cpv_input, void* pv_output)
 {
+    bool_t t_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
-#ifdef CSTL_MULTISET_AVL_TREE
-    _create_avl_tree_auxiliary(&((multiset_t*)cpv_input)->_t_tree, (char*)pv_output);
-#else
-    _create_rb_tree_auxiliary(&((multiset_t*)cpv_input)->_t_tree, (char*)pv_output);
-#endif
+
+    t_result = _create_multiset_auxiliary((multiset_t*)cpv_input, (char*)pv_output);
+    assert(t_result);
     multiset_init((multiset_t*)cpv_input);
 }
 static void _type_copy_multiset(

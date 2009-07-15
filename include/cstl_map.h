@@ -62,12 +62,11 @@ extern "C" {
  * Initialization and destroy functions.
  */
 extern void map_init(map_t* pt_map);
+extern void map_init_ex(map_t* pt_map, binary_function_t t_key_less);
 extern void map_destroy(map_t* pt_map);
 extern void map_init_copy(map_t* pt_mapdest, const map_t* cpt_mapsrc);
-/* private */
-extern void map_init_copy_range_cmp(
-    map_t* pt_mapdest, map_iterator_t t_begin, map_iterator_t t_end,
-    int (*pfun_key_cmp)(const void*, const void*));
+extern void map_init_copy_range_ex(map_t* pt_mapdest,
+    map_iterator_t t_begin, map_iterator_t t_end, binary_function_t t_key_less);
 extern void map_init_copy_range(
     map_t* pt_mapdest, map_iterator_t t_begin, map_iterator_t t_end);
 
@@ -91,8 +90,8 @@ extern size_t map_max_size(const map_t* cpt_map);
 /*
  * Return the compare function of key (private).
  */
-extern int (*map_key_comp(const map_t* cpt_map))(const void*, const void*);
-extern int (*map_value_comp(const map_t* cpt_map))(const void*, const void*);
+extern binary_function_t map_key_less(const map_t* cpt_map);
+extern binary_function_t map_value_less(const map_t* cpt_map);
 
 /*
  * Remove all elements.
