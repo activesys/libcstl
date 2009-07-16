@@ -30,10 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define create_multimap(key_type, value_type)\
-    _create_multimap(\
-        sizeof(key_type), #key_type, \
-        sizeof(value_type), #value_type)
+#define create_multimap(...) _create_multimap(#__VA_ARGS__)
 /* find */
 #define multimap_find(cpt_multimap, key_elem)\
     _multimap_find((cpt_multimap), (key_elem))
@@ -62,12 +59,12 @@ extern "C" {
  * Initialization and destroy functions.
  */
 extern void multimap_init(multimap_t* pt_multimap);
+extern void multimap_init_ex(multimap_t* pt_multimap, binary_function_t t_key_less);
 extern void multimap_destroy(multimap_t* pt_multimap);
 extern void multimap_init_copy(
     multimap_t* pt_multimapdest, const multimap_t* cpt_multimapsrc);
-extern void multimap_init_copy_range_cmp(
-    multimap_t* pt_multimapdest, multimap_iterator_t t_begin, multimap_iterator_t t_end,
-    int (*pfun_key_cmp)(const void*, const void*));
+extern void multimap_init_copy_range_ex(multimap_t* pt_multimapdest,
+    multimap_iterator_t t_begin, multimap_iterator_t t_end, binary_function_t t_key_less);
 extern void multimap_init_copy_range(
     multimap_t* pt_multimapdest, multimap_iterator_t t_begin, multimap_iterator_t t_end);
 
@@ -93,8 +90,8 @@ extern size_t multimap_max_size(const multimap_t* cpt_multimap);
 /*
  * Return the compare function of key.
  */
-extern int (*multimap_key_comp(const multimap_t* cpt_multimap))(const void*, const void*);
-extern int (*multimap_value_comp(const multimap_t* cpt_multimap))(const void*, const void*);
+extern binary_function_t multimap_key_less(const multimap_t* cpt_multimap);
+extern binary_function_t multimap_value_less(const multimap_t* cpt_multimap);
 
 /*
  * Remove all elements.

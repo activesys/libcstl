@@ -30,21 +30,17 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define _GET_MULTIMAP_AVL_TREE(pt_multimap)\
-    (&((pt_multimap)->_t_tree._t_avl))
-#define _GET_MULTIMAP_RB_TREE(pt_multimap)\
-    (&((pt_multimap)->_t_tree._t_rb))
 
 /** data type declaration and struct, union, enum section **/
 /* the multimap use rb tree default */
 typedef struct _tagmultimap
 {
     pair_t _t_pair;
-    union
-    {
-        avl_tree_t _t_avl;
-        rb_tree_t  _t_rb;
-    }_t_tree;
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    avl_tree_t _t_tree;
+#else
+    rb_tree_t  _t_tree;
+#endif
 }multimap_t;
 
 /** exported global variable declaration section **/
@@ -53,9 +49,9 @@ typedef struct _tagmultimap
 /*
  * Create the new multimap.
  */
-extern multimap_t _create_multimap(
-    size_t t_keytypesize, const char* s_keytypename,
-    size_t t_valuetypesize, const char* s_valuetypename);
+extern multimap_t* _create_multimap(const char* s_typename);
+extern bool_t _create_multimap_auxiliary(multimap_t* pt_multimap, const char* s_typename);
+extern void _multimap_destroy_auxiliary(multimap_t* pt_multimap);
 
 /*
  * Find operation functions.
@@ -79,8 +75,8 @@ extern multimap_iterator_t _multimap_lower_bound_varg(
 extern multimap_iterator_t _multimap_upper_bound(const multimap_t* cpt_multimap, ...);
 extern multimap_iterator_t _multimap_upper_bound_varg(
     const multimap_t* cpt_multimap, va_list val_elemlist);
-extern pair_t _multimap_equal_range(const multimap_t* cpt_multimap, ...);
-extern pair_t _multimap_equal_range_varg(
+extern range_t _multimap_equal_range(const multimap_t* cpt_multimap, ...);
+extern range_t _multimap_equal_range_varg(
     const multimap_t* cpt_multimap, va_list val_elemlist);
 
 /*

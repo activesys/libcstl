@@ -3307,7 +3307,11 @@ static void _type_destroy_multiset(
 static void _type_init_multimap(
     const void* cpv_input, void* pv_output)
 {
+    bool_t t_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
+
+    t_result = _create_multimap_auxiliary((multimap_t*)cpv_input, (char*)pv_output);
+    assert(t_result);
     multimap_init((multimap_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
@@ -3328,7 +3332,7 @@ static void _type_destroy_multimap(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    multimap_destroy((multimap_t*)cpv_input);
+    _multimap_destroy_auxiliary((multimap_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* hash_set_t */

@@ -66,9 +66,9 @@ extern size_t _hash_multimap_count_varg(
 /*
  * Equal range operation functions.
  */
-extern pair_t _hash_multimap_equal_range(
+extern range_t _hash_multimap_equal_range(
     const hash_multimap_t* cpt_hash_multimap, ...);
-extern pair_t _hash_multimap_equal_range_varg(
+extern range_t _hash_multimap_equal_range_varg(
     const hash_multimap_t* cpt_hash_multimap, va_list val_elemlist);
 
 /*

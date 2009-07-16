@@ -329,16 +329,8 @@ void map_init_ex(map_t* pt_map, binary_function_t t_key_less)
 
 void map_destroy(map_t* pt_map)
 {
-    assert(pt_map != NULL);
-
-    /* destroy pair */
-    pair_destroy(&pt_map->_t_pair);
-    /* destroy tree */
-#ifdef CSTL_MAP_AVL_TREE
-    _avl_tree_destroy(&pt_map->_t_tree);
-#else
-    _rb_tree_destroy(&pt_map->_t_tree);
-#endif
+    _map_destroy_auxiliary(pt_map);
+    free(pt_map);
 }
 
 void map_init_copy(map_t* pt_mapdest, const map_t* cpt_mapsrc)
