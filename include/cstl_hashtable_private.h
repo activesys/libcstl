@@ -40,42 +40,23 @@ typedef struct _taghashnode
 
 typedef struct _taghashtable
 {
-    /* element identify */
-    size_t          _t_typesize;                          /* element size */
-    char            _sz_typename[_ELEM_TYPE_NAME_SIZE+1]; /* element name */
+    /* element type information */
+    _typeinfo_t _t_typeinfo;
 
     /* memory allocate */
-    alloc_t         _t_allocater;
+    alloc_t     _t_allocater;
 
     /* buckets and node */
-    vector_t        _t_bucket;
-    size_t          _t_nodecount;
+    vector_t    _t_bucket;
+    size_t      _t_nodecount;
 
-    /* 
-     * the hash function:
-     * parameter 1: element pointer.
-     * parameter 2: element type size.
-     * parameter 3: bucket count.
-     */
-    int (*_pfun_hash)(const void*, size_t, size_t);
-    /* 
-     * the equal function
-     */
-    int (*_pfun_cmp)(const void*, const void*);
-    /* the element destroy function */
-    void (*_pfun_destroy_elem)(void*);
+    /* hash function */
+    unary_function_t _t_hash;
+    /* key less function */
+    binary_function_t _t_less;
 }hashtable_t;
 
 /* for the result of equal_range and insert_unique function */
-typedef struct _taghashtableresultpair
-{
-    hashtable_iterator_t _t_first;
-    union
-    {
-        hashtable_iterator_t _t_iterator; /* for equal_range */
-        bool_t              _t_bool;     /* for insert_unique */
-    }_t_second;
-}hashtable_result_pair_t;
 
 /** exported global variable declaration section **/
 
@@ -83,20 +64,17 @@ typedef struct _taghashtableresultpair
 /*
  * Create, initialization and destroy functions.
  */
-extern hashtable_t _create_hashtable(size_t t_typesize, const char* s_typename);
-extern void _hashtable_init(
-    hashtable_t* pt_hashtable, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t),
-    int (*pfun_cmp)(const void*, const void*),
-    void (*pfun_destroy_elem)(void*));
+extern hashtable_t* _create_hashtable(const char* s_typename);
+extern bool_t _create_hashtable_auxiliary(hashtable_t* pt_hashtable, const char* s_typename);
+extern void _hashtable_init(hashtable_t* pt_hashtable,
+    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less);
 extern void _hashtable_destroy(hashtable_t* pt_hashtable);
+extern void _hashtable_destroy_auxiliary(hashtable_t* pt_hashtable);
 extern void _hashtable_init_copy(
     hashtable_t* pt_hashtabledest, const hashtable_t* cpt_hashtablesrc);
-extern void _hashtable_init_copy_range(
-    hashtable_t* pt_hashtabledest,
-    hashtable_iterator_t t_begin, hashtable_iterator_t t_end, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t),
-    int (*pfun_cmp)(const void*, const void*));
+extern void _hashtable_init_copy_range(hashtable_t* pt_hashtabledest,
+    hashtable_iterator_t t_begin, hashtable_iterator_t t_end,
+    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less);
 
 /*
  * Assign operator function.
@@ -126,14 +104,12 @@ extern void _hashtable_clear(hashtable_t* pt_hashtable);
 /*
  * Return the hash function.
  */
-extern int (*_hashtable_hash_func(const hashtable_t* cpt_hashtable))(
-    const void*, size_t, size_t);
+extern unary_function_t _hashtable_hash(const hashtable_t* cpt_hashtable);
 
 /*
  * Return the compare function (private).
  */
-extern int (*_hashtable_key_comp(const hashtable_t* cpt_hashtable))(
-    const void*, const void*);
+extern binary_function_t _hashtable_key_less(const hashtable_t* cpt_hashtable);
 
 /*
  * Relationship operator functions.
@@ -142,8 +118,13 @@ extern bool_t _hashtable_equal(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
 extern bool_t _hashtable_not_equal(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
-/* add other relationship operator function */
 extern bool_t _hashtable_less(
+    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
+extern bool_t _hashtable_less_equal(
+    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
+extern bool_t _hashtable_great(
+    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
+extern bool_t _hashtable_great_equal(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
 
 /*
@@ -154,7 +135,7 @@ extern void _hashtable_resize(hashtable_t* pt_hashtable, size_t t_resize);
 /*
  * Insert operation functions.
  */
-extern hashtable_result_pair_t _hashtable_insert_unique(
+extern hashtable_iterator_t _hashtable_insert_unique(
     hashtable_t* pt_hashtable, const void* cpv_value);
 extern hashtable_iterator_t _hashtable_insert_equal(
     hashtable_t* pt_hashtable, const void* cpv_value);
@@ -172,7 +153,7 @@ extern hashtable_iterator_t _hashtable_find(
 /*
  * Equal range operation functions.
  */
-extern hashtable_result_pair_t _hashtable_equal_range(
+extern range_t _hashtable_equal_range(
     const hashtable_t* cpt_hashtable, const void* cpv_value);
 
 /*
