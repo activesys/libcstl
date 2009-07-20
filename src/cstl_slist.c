@@ -268,31 +268,21 @@ bool_t _slist_iterator_before(
 }
 
 /* slist private function */
-slist_t* _create_slist(const char* sz_typename)
+slist_t* _create_slist(const char* s_typename)
 {
     slist_t*    pt_newslist = NULL;
-    _typeinfo_t t_typeinfo;
-
-    assert(sz_typename != NULL);
-
-    /* get type information */
-    _type_get_type(&t_typeinfo, sz_typename);
-    if(t_typeinfo._t_style == _TYPE_INVALID)
-    {
-        return NULL;
-    }
 
     /* allocate memory for slist */
     if((pt_newslist = (slist_t*)malloc(sizeof(slist_t))) == NULL)
     {
         return NULL;
     }
-    memset(pt_newslist->_t_typeinfo._sz_typename, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(pt_newslist->_t_typeinfo._sz_typename, t_typeinfo._sz_typename, _TYPE_NAME_SIZE);
-    pt_newslist->_t_typeinfo._pt_type = t_typeinfo._pt_type;
-    pt_newslist->_t_typeinfo._t_style = t_typeinfo._t_style;
-    /* set compare and destroy element function */
-    pt_newslist->_t_head._pt_next = NULL;
+
+    if(!_create_slist_auxiliary(pt_newslist, s_typename))
+    {
+        free(pt_newslist);
+        return NULL;
+    }
 
     return pt_newslist;
 }

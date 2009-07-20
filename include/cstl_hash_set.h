@@ -30,8 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define create_hash_set(type)\
-    _create_hash_set(sizeof(type), #type)
+#define create_hash_set(...) _create_hash_set(#__VA_ARGS__)
 /* find */
 #define hash_set_find(cpt_hash_set, elem)\
     _hash_set_find((cpt_hash_set), (elem))
@@ -56,20 +55,16 @@ extern "C" {
 /*
  * Initialization and destroy functions.
  */
-extern void hash_set_init(
-    hash_set_t* pt_hash_set, int (*pfun_hash)(const void*, size_t, size_t));
-extern void hash_set_init_n(
-    hash_set_t* pt_hash_set, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t));
+extern void hash_set_init(hash_set_t* pt_hash_set);
+extern void hash_set_init_ex(hash_set_t* pt_hash_set, size_t t_bucketcount,
+    unary_function_t t_hash, binary_function_t t_less);
 extern void hash_set_destroy(hash_set_t* pt_hash_set);
-extern void hash_set_init_copy(
-    hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc);
+extern void hash_set_init_copy(hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc);
 extern void hash_set_init_copy_range(
-    hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end,
-    int (*pfun_hash)(const void*, size_t, size_t));
-extern void hash_set_init_copy_range_n(
-    hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end,
-    size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t));
+    hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end);
+extern void hash_set_init_copy_range_ex(hash_set_t* pt_hash_set,
+    hash_set_iterator_t t_begin, hash_set_iterator_t t_end, size_t t_bucketcount,
+    unary_function_t t_hash, binary_function_t t_less);
 
 /*
  * Assign operator function.
@@ -92,14 +87,12 @@ extern size_t hash_set_bucket_count(const hash_set_t* cpt_hash_set);
 /*
  * Return the hash function.
  */
-extern int (*hash_set_hash_func(const hash_set_t* cpt_hash_set))(
-    const void*, size_t, size_t);
+extern unary_function_t hash_set_hash(const hash_set_t* cpt_hash_set);
 
 /*
  * Return the compare function.
  */
-extern int (*hash_set_key_comp(const hash_set_t* cpt_hash_set))(
-    const void*, const void*);
+extern binary_function_t hash_set_key_less(const hash_set_t* cpt_hash_set);
 
 /*
  * Resize operation.
@@ -114,6 +107,12 @@ extern bool_t hash_set_equal(
 extern bool_t hash_set_not_equal(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
 extern bool_t hash_set_less(
+    const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
+extern bool_t hash_set_less_equal(
+    const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
+extern bool_t hash_set_great(
+    const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
+extern bool_t hash_set_great_equal(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
 
 /*

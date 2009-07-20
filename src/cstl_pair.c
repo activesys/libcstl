@@ -88,37 +88,18 @@ static bool_t _pair_same_type(const pair_t* cpt_pairfirst, const pair_t* cpt_pai
 /* private function */
 pair_t* _create_pair(const char* s_typename)
 {
-    _typeinfo_t t_typeinfofirst;
-    _typeinfo_t t_typeinfosecond;
     pair_t*     pt_newpair = NULL;
-
-    assert(s_typename != NULL);
-
-    /* get type information */
-    _type_get_type_pair(&t_typeinfofirst, &t_typeinfosecond, s_typename);
-    if(t_typeinfofirst._t_style == _TYPE_INVALID || t_typeinfosecond._t_style == _TYPE_INVALID)
-    {
-        return NULL;
-    }
 
     if((pt_newpair = (pair_t*)malloc(sizeof(pair_t))) == NULL)
     {
         return NULL;
     }
-    memset(pt_newpair->_t_typeinfofirst._sz_typename, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(pt_newpair->_t_typeinfofirst._sz_typename,
-        t_typeinfofirst._sz_typename, _TYPE_NAME_SIZE);
-    pt_newpair->_t_typeinfofirst._pt_type = t_typeinfofirst._pt_type;
-    pt_newpair->_t_typeinfofirst._t_style = t_typeinfofirst._t_style;
 
-    memset(pt_newpair->_t_typeinfosecond._sz_typename, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(pt_newpair->_t_typeinfosecond._sz_typename,
-        t_typeinfosecond._sz_typename, _TYPE_NAME_SIZE);
-    pt_newpair->_t_typeinfosecond._pt_type = t_typeinfosecond._pt_type;
-    pt_newpair->_t_typeinfosecond._t_style = t_typeinfosecond._t_style;
-
-    pt_newpair->first = NULL;
-    pt_newpair->second = NULL;
+    if(!_create_pair_auxiliary(pt_newpair, s_typename))
+    {
+        free(pt_newpair);
+        return NULL;
+    }
 
     return pt_newpair;
 }

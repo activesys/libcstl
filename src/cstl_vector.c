@@ -266,31 +266,19 @@ bool_t _vector_iterator_before(
 /* private vector function */
 vector_t* _create_vector(const char* s_typename)
 {
-    _typeinfo_t t_typeinfo;
     vector_t*   pt_newvector = NULL;
-
-    assert(s_typename != NULL);
-
-    /* get type information */
-    _type_get_type(&t_typeinfo, s_typename);
-    /* type name is invalid */
-    if(t_typeinfo._t_style == _TYPE_INVALID)
-    {
-        return NULL;
-    }
 
     /* allocate for vector_t and initialize it */
     if((pt_newvector = (vector_t*)malloc(sizeof(vector_t))) == NULL)
     {
         return NULL;
     }
-    memset(pt_newvector->_t_typeinfo._sz_typename, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(pt_newvector->_t_typeinfo._sz_typename, t_typeinfo._sz_typename,_TYPE_NAME_SIZE);
-    pt_newvector->_t_typeinfo._pt_type = t_typeinfo._pt_type;
-    pt_newvector->_t_typeinfo._t_style = t_typeinfo._t_style;
-    pt_newvector->_pc_start = NULL;
-    pt_newvector->_pc_finish = NULL;
-    pt_newvector->_pc_endofstorage = NULL;
+
+    if(!_create_vector_auxiliary(pt_newvector, s_typename))
+    {
+        free(pt_newvector);
+        return NULL;
+    }
 
     return pt_newvector;
 }

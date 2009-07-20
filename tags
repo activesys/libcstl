@@ -194,6 +194,14 @@ _GET_HASHTABLE	include/cstl_iterator.h	122;"	d
 _GET_HASHTABLE_BUCKETPOS	include/cstl_iterator.h	118;"	d
 _GET_HASHTABLE_COREPOS	include/cstl_iterator.h	120;"	d
 _GET_HASHTABLE_POINTER	include/cstl_iterator.h	124;"	d
+_GET_HASHTABLE_TYPE_BASENAME	src/cstl_hashtable.c	55;"	d	file:
+_GET_HASHTABLE_TYPE_COPY_FUNCTION	src/cstl_hashtable.c	59;"	d	file:
+_GET_HASHTABLE_TYPE_DESTROY_FUNCTION	src/cstl_hashtable.c	63;"	d	file:
+_GET_HASHTABLE_TYPE_INIT_FUNCTION	src/cstl_hashtable.c	57;"	d	file:
+_GET_HASHTABLE_TYPE_LESS_FUNCTION	src/cstl_hashtable.c	61;"	d	file:
+_GET_HASHTABLE_TYPE_NAME	src/cstl_hashtable.c	53;"	d	file:
+_GET_HASHTABLE_TYPE_SIZE	src/cstl_hashtable.c	51;"	d	file:
+_GET_HASHTABLE_TYPE_STYLE	src/cstl_hashtable.c	65;"	d	file:
 _GET_HASH_MAP_CONTAINER	include/cstl_iterator.h	141;"	d
 _GET_HASH_MAP_CONTAINER_TYPE	include/cstl_iterator.h	143;"	d
 _GET_HASH_MAP_ITERATOR_TYPE	include/cstl_iterator.h	145;"	d
@@ -206,6 +214,14 @@ _GET_HASH_MULTISET_ITERATOR_TYPE	include/cstl_iterator.h	138;"	d
 _GET_HASH_SET_CONTAINER	include/cstl_iterator.h	127;"	d
 _GET_HASH_SET_CONTAINER_TYPE	include/cstl_iterator.h	129;"	d
 _GET_HASH_SET_ITERATOR_TYPE	include/cstl_iterator.h	131;"	d
+_GET_HASH_SET_TYPE_BASENAME	src/cstl_hash_set.c	50;"	d	file:
+_GET_HASH_SET_TYPE_COPY_FUNCTION	src/cstl_hash_set.c	54;"	d	file:
+_GET_HASH_SET_TYPE_DESTROY_FUNCTION	src/cstl_hash_set.c	58;"	d	file:
+_GET_HASH_SET_TYPE_INIT_FUNCTION	src/cstl_hash_set.c	52;"	d	file:
+_GET_HASH_SET_TYPE_LESS_FUNCTION	src/cstl_hash_set.c	56;"	d	file:
+_GET_HASH_SET_TYPE_NAME	src/cstl_hash_set.c	48;"	d	file:
+_GET_HASH_SET_TYPE_SIZE	src/cstl_hash_set.c	46;"	d	file:
+_GET_HASH_SET_TYPE_STYLE	src/cstl_hash_set.c	60;"	d	file:
 _GET_ITERATOR_TYPE	include/cstl_iterator.h	168;"	d
 _GET_LIST_CONTAINER	include/cstl_iterator.h	45;"	d
 _GET_LIST_CONTAINER_TYPE	include/cstl_iterator.h	47;"	d
@@ -332,10 +348,10 @@ _GET_VECTOR_TYPE_SIZE	src/cstl_vector.c	44;"	d	file:
 _GET_VECTOR_TYPE_STYLE	src/cstl_vector.c	58;"	d	file:
 _GREAT_EQUAL_FUN	include/cstl_function_private.h	/^    _GREAT_EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
 _GREAT_FUN	include/cstl_function_private.h	/^    _GREAT_FUN,$/;"	e	enum:_tagfunbinarytype
-_HASHTABLE_DEFAULT_BUCKET_COUNT	src/cstl_hashtable.c	45;"	d	file:
-_HASHTABLE_NODE_NAME	src/cstl_hashtable.c	44;"	d	file:
-_HASHTABLE_NODE_SIZE	src/cstl_hashtable.c	41;"	d	file:
-_HASHTABLE_PRIME_LIST_COUNT	src/cstl_hashtable.c	46;"	d	file:
+_HASHTABLE_DEFAULT_BUCKET_COUNT	src/cstl_hashtable.c	47;"	d	file:
+_HASHTABLE_NODE_NAME	src/cstl_hashtable.c	46;"	d	file:
+_HASHTABLE_NODE_SIZE	src/cstl_hashtable.c	43;"	d	file:
+_HASHTABLE_PRIME_LIST_COUNT	src/cstl_hashtable.c	48;"	d	file:
 _HASH_MAP_COMMA	include/cstl_types.h	159;"	d
 _HASH_MAP_CONTAINER	include/cstl_iterator.h	/^    _HASH_MAP_CONTAINER,$/;"	e	enum:_tagcontainertype
 _HASH_MAP_IDENTIFY	include/cstl_types.h	156;"	d
@@ -934,10 +950,13 @@ _create_hash_multimap	include/cstl_hash_multimap_private.h	/^extern hash_multima
 _create_hash_multimap	src/cstl_hash_multimap.c	/^hash_multimap_t _create_hash_multimap($/;"	f	signature:( size_t t_keytypesize, const char* s_keytypename, size_t t_valuetypesize, const char* s_valuetypename)
 _create_hash_multiset	include/cstl_hash_multiset_private.h	/^extern hash_multiset_t _create_hash_multiset($/;"	p	signature:( size_t t_typesize, const char* s_typename)
 _create_hash_multiset	src/cstl_hash_multiset.c	/^hash_multiset_t _create_hash_multiset(size_t t_typesize, const char* s_typename)$/;"	f	signature:(size_t t_typesize, const char* s_typename)
-_create_hash_set	include/cstl_hash_set_private.h	/^extern hash_set_t _create_hash_set(size_t t_typesize, const char* s_typename);$/;"	p	signature:(size_t t_typesize, const char* s_typename)
-_create_hash_set	src/cstl_hash_set.c	/^hash_set_t _create_hash_set(size_t t_typesize, const char* s_typename)$/;"	f	signature:(size_t t_typesize, const char* s_typename)
-_create_hashtable	include/cstl_hashtable_private.h	/^extern hashtable_t _create_hashtable(size_t t_typesize, const char* s_typename);$/;"	p	signature:(size_t t_typesize, const char* s_typename)
+_create_hash_set	include/cstl_hash_set_private.h	/^extern hash_set_t* _create_hash_set(const char* s_typename);$/;"	p	signature:(const char* s_typename)
+_create_hash_set	src/cstl_hash_set.c	/^hash_set_t* _create_hash_set(const char* s_typename)$/;"	f	signature:(const char* s_typename)
+_create_hash_set_auxiliary	include/cstl_hash_set_private.h	/^extern bool_t _create_hash_set_auxiliary(hash_set_t* pt_hash_set, const char* s_typename);$/;"	p	signature:(hash_set_t* pt_hash_set, const char* s_typename)
+_create_hash_set_auxiliary	src/cstl_hash_set.c	/^bool_t _create_hash_set_auxiliary(hash_set_t* pt_hash_set, const char* s_typename)$/;"	f	signature:(hash_set_t* pt_hash_set, const char* s_typename)
+_create_hashtable	include/cstl_hashtable_private.h	/^extern hashtable_t* _create_hashtable(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_hashtable	src/cstl_hashtable.c	/^hashtable_t* _create_hashtable(const char* s_typename)$/;"	f	signature:(const char* s_typename)
+_create_hashtable_auxiliary	include/cstl_hashtable_private.h	/^extern bool_t _create_hashtable_auxiliary(hashtable_t* pt_hashtable, const char* s_typename);$/;"	p	signature:(hashtable_t* pt_hashtable, const char* s_typename)
 _create_hashtable_auxiliary	src/cstl_hashtable.c	/^bool_t _create_hashtable_auxiliary(hashtable_t* pt_hashtable, const char* s_typename)$/;"	f	signature:(hashtable_t* pt_hashtable, const char* s_typename)
 _create_hashtable_iterator	include/cstl_hashtable_iterator.h	/^extern hashtable_iterator_t _create_hashtable_iterator(void);$/;"	p	signature:(void)
 _create_hashtable_iterator	src/cstl_hashtable.c	/^hashtable_iterator_t _create_hashtable_iterator(void)$/;"	f	signature:(void)
@@ -1128,8 +1147,6 @@ _get_min_avlnode	src/cstl_avl_tree.c	/^static avlnode_t* _get_min_avlnode(const 
 _get_min_avlnode	src/cstl_avl_tree.c	/^static avlnode_t* _get_min_avlnode(const avlnode_t* cpt_root);$/;"	p	file:	signature:(const avlnode_t* cpt_root)
 _get_min_rbnode	src/cstl_rb_tree.c	/^static rbnode_t* _get_min_rbnode(const rbnode_t* cpt_root)$/;"	f	file:	signature:(const rbnode_t* cpt_root)
 _get_min_rbnode	src/cstl_rb_tree.c	/^static rbnode_t* _get_min_rbnode(const rbnode_t* cpt_root);$/;"	p	file:	signature:(const rbnode_t* cpt_root)
-_get_next_prime	src/cstl_hashtable.c	/^static unsigned long _get_next_prime(unsigned long ul_basenum)$/;"	f	file:	signature:(unsigned long ul_basenum)
-_get_next_prime	src/cstl_hashtable.c	/^static unsigned long _get_next_prime(unsigned long ul_basenum);$/;"	p	file:	signature:(unsigned long ul_basenum)
 _get_valuestring_len	src/cstl_basic_string.c	/^static size_t _get_valuestring_len($/;"	f	file:	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 _get_valuestring_len	src/cstl_basic_string.c	/^static size_t _get_valuestring_len($/;"	p	file:	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 _get_varg_value	include/cstl_types.h	/^extern void _get_varg_value($/;"	p	signature:( void* pv_output, va_list val_elemlist, size_t t_typesize, const char* s_typename)
@@ -1138,24 +1155,6 @@ _greater3	test/test_algo.c	/^static void _greater3(const void* cpv_input, void* 
 _greater3	test/test_algo.c	/^static void _greater3(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _gt_typeanalysis	src/cstl_types.c	/^static _typeanalysis_t _gt_typeanalysis = {{'\\0'}, {'\\0'}, 0, _TOKEN_INVALID};$/;"	v	file:
 _gt_typeregister	src/cstl_types.c	/^static _typeregister_t _gt_typeregister = {false, {NULL}, {{NULL}, NULL, NULL, 0, 0, 0}};$/;"	v	file:
-_hash_function_for_double	src/cstl_hashtable.c	/^static int _hash_function_for_double($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_double	src/cstl_hashtable.c	/^static int _hash_function_for_double($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_float	src/cstl_hashtable.c	/^static int _hash_function_for_float($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_float	src/cstl_hashtable.c	/^static int _hash_function_for_float($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_int	src/cstl_hashtable.c	/^static int _hash_function_for_int($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_int	src/cstl_hashtable.c	/^static int _hash_function_for_int($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_long	src/cstl_hashtable.c	/^static int _hash_function_for_long($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_long	src/cstl_hashtable.c	/^static int _hash_function_for_long($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_other	src/cstl_hashtable.c	/^static int _hash_function_for_other($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_other	src/cstl_hashtable.c	/^static int _hash_function_for_other($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_short	src/cstl_hashtable.c	/^static int _hash_function_for_short($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_short	src/cstl_hashtable.c	/^static int _hash_function_for_short($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_unsigned_int	src/cstl_hashtable.c	/^static int _hash_function_for_unsigned_int($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_unsigned_int	src/cstl_hashtable.c	/^static int _hash_function_for_unsigned_int($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_unsigned_long	src/cstl_hashtable.c	/^static int _hash_function_for_unsigned_long($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_unsigned_long	src/cstl_hashtable.c	/^static int _hash_function_for_unsigned_long($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_unsigned_short	src/cstl_hashtable.c	/^static int _hash_function_for_unsigned_short($/;"	f	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
-_hash_function_for_unsigned_short	src/cstl_hashtable.c	/^static int _hash_function_for_unsigned_short($/;"	p	file:	signature:( const void* cpv_value, size_t t_typesize, size_t t_bucketcount)
 _hash_map_at	include/cstl_hash_map_private.h	/^extern void* _hash_map_at(hash_map_t* pt_hash_map, ...);$/;"	p	signature:(hash_map_t* pt_hash_map, ...)
 _hash_map_at	src/cstl_hash_map.c	/^void* _hash_map_at(hash_map_t* pt_hash_map, ...)$/;"	f	signature:(hash_map_t* pt_hash_map, ...)
 _hash_map_at_varg	include/cstl_hash_map_private.h	/^extern void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist);$/;"	p	signature:(hash_map_t* pt_hash_map, va_list val_elemlist)
@@ -1264,9 +1263,11 @@ _hash_set_count	include/cstl_hash_set_private.h	/^extern size_t _hash_set_count(
 _hash_set_count	src/cstl_hash_set.c	/^size_t _hash_set_count(const hash_set_t* cpt_hash_set, ...)$/;"	f	signature:(const hash_set_t* cpt_hash_set, ...)
 _hash_set_count_varg	include/cstl_hash_set_private.h	/^extern size_t _hash_set_count_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist);$/;"	p	signature:(const hash_set_t* cpt_hash_set, va_list val_elemlist)
 _hash_set_count_varg	src/cstl_hash_set.c	/^size_t _hash_set_count_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist)$/;"	f	signature:(const hash_set_t* cpt_hash_set, va_list val_elemlist)
-_hash_set_equal_range	include/cstl_hash_set_private.h	/^extern pair_t _hash_set_equal_range(const hash_set_t* cpt_hash_set, ...);$/;"	p	signature:(const hash_set_t* cpt_hash_set, ...)
+_hash_set_destroy_auxiliary	include/cstl_hash_set_private.h	/^extern void _hash_set_destroy_auxiliary(hash_set_t* pt_hash_set);$/;"	p	signature:(hash_set_t* pt_hash_set)
+_hash_set_destroy_auxiliary	src/cstl_hash_set.c	/^void _hash_set_destroy_auxiliary(hash_set_t* pt_hash_set)$/;"	f	signature:(hash_set_t* pt_hash_set)
+_hash_set_equal_range	include/cstl_hash_set_private.h	/^extern range_t _hash_set_equal_range(const hash_set_t* cpt_hash_set, ...);$/;"	p	signature:(const hash_set_t* cpt_hash_set, ...)
 _hash_set_equal_range	src/cstl_hash_set.c	/^pair_t _hash_set_equal_range(const hash_set_t* cpt_hash_set, ...)$/;"	f	signature:(const hash_set_t* cpt_hash_set, ...)
-_hash_set_equal_range_varg	include/cstl_hash_set_private.h	/^extern pair_t _hash_set_equal_range_varg($/;"	p	signature:( const hash_set_t* cpt_hash_set, va_list val_elemlist)
+_hash_set_equal_range_varg	include/cstl_hash_set_private.h	/^extern range_t _hash_set_equal_range_varg($/;"	p	signature:( const hash_set_t* cpt_hash_set, va_list val_elemlist)
 _hash_set_equal_range_varg	src/cstl_hash_set.c	/^pair_t _hash_set_equal_range_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist)$/;"	f	signature:(const hash_set_t* cpt_hash_set, va_list val_elemlist)
 _hash_set_erase	include/cstl_hash_set_private.h	/^extern size_t _hash_set_erase(hash_set_t* pt_hash_set, ...);$/;"	p	signature:(hash_set_t* pt_hash_set, ...)
 _hash_set_erase	src/cstl_hash_set.c	/^size_t _hash_set_erase(hash_set_t* pt_hash_set, ...)$/;"	f	signature:(hash_set_t* pt_hash_set, ...)
@@ -1310,16 +1311,20 @@ _hashtable_clear	include/cstl_hashtable_private.h	/^extern void _hashtable_clear
 _hashtable_clear	src/cstl_hashtable.c	/^void _hashtable_clear(hashtable_t* pt_hashtable)$/;"	f	signature:(hashtable_t* pt_hashtable)
 _hashtable_count	include/cstl_hashtable_private.h	/^extern size_t _hashtable_count(const hashtable_t* cpt_hashtable, const void* cpv_value);$/;"	p	signature:(const hashtable_t* cpt_hashtable, const void* cpv_value)
 _hashtable_count	src/cstl_hashtable.c	/^size_t _hashtable_count(const hashtable_t* cpt_hashtable, const void* cpv_value)$/;"	f	signature:(const hashtable_t* cpt_hashtable, const void* cpv_value)
+_hashtable_default_hash	src/cstl_hashtable.c	/^static void _hashtable_default_hash(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_hashtable_default_hash	src/cstl_hashtable.c	/^static void _hashtable_default_hash(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _hashtable_destroy	include/cstl_hashtable_private.h	/^extern void _hashtable_destroy(hashtable_t* pt_hashtable);$/;"	p	signature:(hashtable_t* pt_hashtable)
 _hashtable_destroy	src/cstl_hashtable.c	/^void _hashtable_destroy(hashtable_t* pt_hashtable)$/;"	f	signature:(hashtable_t* pt_hashtable)
+_hashtable_destroy_auxiliary	include/cstl_hashtable_private.h	/^extern void _hashtable_destroy_auxiliary(hashtable_t* pt_hashtable);$/;"	p	signature:(hashtable_t* pt_hashtable)
+_hashtable_destroy_auxiliary	src/cstl_hashtable.c	/^void _hashtable_destroy_auxiliary(hashtable_t* pt_hashtable)$/;"	f	signature:(hashtable_t* pt_hashtable)
 _hashtable_empty	include/cstl_hashtable_private.h	/^extern bool_t _hashtable_empty(const hashtable_t* cpt_hashtable);$/;"	p	signature:(const hashtable_t* cpt_hashtable)
 _hashtable_empty	src/cstl_hashtable.c	/^bool_t _hashtable_empty(const hashtable_t* cpt_hashtable)$/;"	f	signature:(const hashtable_t* cpt_hashtable)
 _hashtable_end	include/cstl_hashtable_private.h	/^extern hashtable_iterator_t _hashtable_end(const hashtable_t* cpt_hashtable);$/;"	p	signature:(const hashtable_t* cpt_hashtable)
 _hashtable_end	src/cstl_hashtable.c	/^hashtable_iterator_t _hashtable_end(const hashtable_t* cpt_hashtable)$/;"	f	signature:(const hashtable_t* cpt_hashtable)
 _hashtable_equal	include/cstl_hashtable_private.h	/^extern bool_t _hashtable_equal($/;"	p	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
 _hashtable_equal	src/cstl_hashtable.c	/^bool_t _hashtable_equal($/;"	f	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
-_hashtable_equal_range	include/cstl_hashtable_private.h	/^extern hashtable_result_pair_t _hashtable_equal_range($/;"	p	signature:( const hashtable_t* cpt_hashtable, const void* cpv_value)
-_hashtable_equal_range	src/cstl_hashtable.c	/^hashtable_result_pair_t _hashtable_equal_range($/;"	f	signature:( const hashtable_t* cpt_hashtable, const void* cpv_value)
+_hashtable_equal_range	include/cstl_hashtable_private.h	/^extern range_t _hashtable_equal_range($/;"	p	signature:( const hashtable_t* cpt_hashtable, const void* cpv_value)
+_hashtable_equal_range	src/cstl_hashtable.c	/^range_t _hashtable_equal_range($/;"	f	signature:( const hashtable_t* cpt_hashtable, const void* cpv_value)
 _hashtable_erase	include/cstl_hashtable_private.h	/^extern size_t _hashtable_erase(hashtable_t* pt_hashtable, const void* cpv_value);$/;"	p	signature:(hashtable_t* pt_hashtable, const void* cpv_value)
 _hashtable_erase	src/cstl_hashtable.c	/^size_t _hashtable_erase(hashtable_t* pt_hashtable, const void* cpv_value)$/;"	f	signature:(hashtable_t* pt_hashtable, const void* cpv_value)
 _hashtable_erase_pos	include/cstl_hashtable_private.h	/^extern void _hashtable_erase_pos(hashtable_t* pt_hashtable, hashtable_iterator_t t_pos);$/;"	p	signature:(hashtable_t* pt_hashtable, hashtable_iterator_t t_pos)
@@ -1328,24 +1333,34 @@ _hashtable_erase_range	include/cstl_hashtable_private.h	/^extern void _hashtable
 _hashtable_erase_range	src/cstl_hashtable.c	/^void _hashtable_erase_range($/;"	f	signature:( hashtable_t* pt_hashtable, hashtable_iterator_t t_begin, hashtable_iterator_t t_end)
 _hashtable_find	include/cstl_hashtable_private.h	/^extern hashtable_iterator_t _hashtable_find($/;"	p	signature:( const hashtable_t* cpt_hashtable, const void* cpv_value)
 _hashtable_find	src/cstl_hashtable.c	/^hashtable_iterator_t _hashtable_find($/;"	f	signature:( const hashtable_t* cpt_hashtable, const void* cpv_value)
-_hashtable_hash_func	include/cstl_hashtable_private.h	/^extern int (*_hashtable_hash_func(const hashtable_t* cpt_hashtable))($/;"	p	signature:(const hashtable_t* cpt_hashtable)
-_hashtable_hash_func	src/cstl_hashtable.c	/^int (*_hashtable_hash_func(const hashtable_t* cpt_hashtable))($/;"	f	signature:(const hashtable_t* cpt_hashtable)
-_hashtable_init	include/cstl_hashtable_private.h	/^extern void _hashtable_init($/;"	p	signature:( hashtable_t* pt_hashtable, size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t), int (*pfun_cmp)(const void*, const void*), void (*pfun_destroy_elem)(void*))
-_hashtable_init	src/cstl_hashtable.c	/^void _hashtable_init($/;"	f	signature:( hashtable_t* pt_hashtable, size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t), int (*pfun_cmp)(const void*, const void*), void (*pfun_destroy_elem)(void*))
+_hashtable_get_prime	src/cstl_hashtable.c	/^static unsigned long _hashtable_get_prime(unsigned long ul_basenum)$/;"	f	file:	signature:(unsigned long ul_basenum)
+_hashtable_get_prime	src/cstl_hashtable.c	/^static unsigned long _hashtable_get_prime(unsigned long ul_basenum);$/;"	p	file:	signature:(unsigned long ul_basenum)
+_hashtable_great	include/cstl_hashtable_private.h	/^extern bool_t _hashtable_great($/;"	p	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+_hashtable_great	src/cstl_hashtable.c	/^bool_t _hashtable_great($/;"	f	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+_hashtable_great_equal	include/cstl_hashtable_private.h	/^extern bool_t _hashtable_great_equal($/;"	p	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+_hashtable_great_equal	src/cstl_hashtable.c	/^bool_t _hashtable_great_equal($/;"	f	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+_hashtable_hash	include/cstl_hashtable_private.h	/^extern unary_function_t _hashtable_hash(const hashtable_t* cpt_hashtable);$/;"	p	signature:(const hashtable_t* cpt_hashtable)
+_hashtable_hash	src/cstl_hashtable.c	/^unary_function_t _hashtable_hash(const hashtable_t* cpt_hashtable)$/;"	f	signature:(const hashtable_t* cpt_hashtable)
+_hashtable_init	include/cstl_hashtable_private.h	/^extern void _hashtable_init(hashtable_t* pt_hashtable,$/;"	p	signature:(hashtable_t* pt_hashtable, size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less)
+_hashtable_init	src/cstl_hashtable.c	/^void _hashtable_init(hashtable_t* pt_hashtable, size_t t_bucketcount,$/;"	f	signature:(hashtable_t* pt_hashtable, size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less)
 _hashtable_init_copy	include/cstl_hashtable_private.h	/^extern void _hashtable_init_copy($/;"	p	signature:( hashtable_t* pt_hashtabledest, const hashtable_t* cpt_hashtablesrc)
 _hashtable_init_copy	src/cstl_hashtable.c	/^void _hashtable_init_copy($/;"	f	signature:( hashtable_t* pt_hashtabledest, const hashtable_t* cpt_hashtablesrc)
-_hashtable_init_copy_range	include/cstl_hashtable_private.h	/^extern void _hashtable_init_copy_range($/;"	p	signature:( hashtable_t* pt_hashtabledest, hashtable_iterator_t t_begin, hashtable_iterator_t t_end, size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t), int (*pfun_cmp)(const void*, const void*))
-_hashtable_init_copy_range	src/cstl_hashtable.c	/^void _hashtable_init_copy_range($/;"	f	signature:( hashtable_t* pt_hashtabledest, hashtable_iterator_t t_begin, hashtable_iterator_t t_end, size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t), int (*pfun_cmp)(const void*, const void*))
+_hashtable_init_copy_range	include/cstl_hashtable_private.h	/^extern void _hashtable_init_copy_range(hashtable_t* pt_hashtabledest,$/;"	p	signature:(hashtable_t* pt_hashtabledest, hashtable_iterator_t t_begin, hashtable_iterator_t t_end, size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less)
+_hashtable_init_copy_range	src/cstl_hashtable.c	/^void _hashtable_init_copy_range(hashtable_t* pt_hashtabledest,$/;"	f	signature:(hashtable_t* pt_hashtabledest, hashtable_iterator_t t_begin, hashtable_iterator_t t_end, size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less)
+_hashtable_init_elem_auxiliary	src/cstl_hashtable.c	/^static void _hashtable_init_elem_auxiliary(hashtable_t* pt_hashtable, hashnode_t* pt_node)$/;"	f	file:	signature:(hashtable_t* pt_hashtable, hashnode_t* pt_node)
+_hashtable_init_elem_auxiliary	src/cstl_hashtable.c	/^static void _hashtable_init_elem_auxiliary(hashtable_t* pt_hashtable, hashnode_t* pt_node);$/;"	p	file:	signature:(hashtable_t* pt_hashtable, hashnode_t* pt_node)
 _hashtable_insert_equal	include/cstl_hashtable_private.h	/^extern hashtable_iterator_t _hashtable_insert_equal($/;"	p	signature:( hashtable_t* pt_hashtable, const void* cpv_value)
 _hashtable_insert_equal	src/cstl_hashtable.c	/^hashtable_iterator_t _hashtable_insert_equal($/;"	f	signature:( hashtable_t* pt_hashtable, const void* cpv_value)
 _hashtable_insert_equal_range	include/cstl_hashtable_private.h	/^extern void _hashtable_insert_equal_range($/;"	p	signature:( hashtable_t* pt_hashtable, hashtable_iterator_t t_begin, hashtable_iterator_t t_end)
 _hashtable_insert_equal_range	src/cstl_hashtable.c	/^void _hashtable_insert_equal_range($/;"	f	signature:( hashtable_t* pt_hashtable, hashtable_iterator_t t_begin, hashtable_iterator_t t_end)
-_hashtable_insert_unique	include/cstl_hashtable_private.h	/^extern hashtable_result_pair_t _hashtable_insert_unique($/;"	p	signature:( hashtable_t* pt_hashtable, const void* cpv_value)
-_hashtable_insert_unique	src/cstl_hashtable.c	/^hashtable_result_pair_t _hashtable_insert_unique($/;"	f	signature:( hashtable_t* pt_hashtable, const void* cpv_value)
+_hashtable_insert_unique	include/cstl_hashtable_private.h	/^extern hashtable_iterator_t _hashtable_insert_unique($/;"	p	signature:( hashtable_t* pt_hashtable, const void* cpv_value)
+_hashtable_insert_unique	src/cstl_hashtable.c	/^hashtable_iterator_t _hashtable_insert_unique($/;"	f	signature:( hashtable_t* pt_hashtable, const void* cpv_value)
 _hashtable_insert_unique_range	include/cstl_hashtable_private.h	/^extern void _hashtable_insert_unique_range($/;"	p	signature:( hashtable_t* pt_hashtable, hashtable_iterator_t t_begin, hashtable_iterator_t t_end)
 _hashtable_insert_unique_range	src/cstl_hashtable.c	/^void _hashtable_insert_unique_range($/;"	f	signature:( hashtable_t* pt_hashtable, hashtable_iterator_t t_begin, hashtable_iterator_t t_end)
 _hashtable_iterator_before	include/cstl_hashtable_iterator.h	/^extern bool_t _hashtable_iterator_before($/;"	p	signature:( hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond)
 _hashtable_iterator_before	src/cstl_hashtable.c	/^bool_t _hashtable_iterator_before($/;"	f	signature:( hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond)
+_hashtable_iterator_belong_to_hashtable	src/cstl_hashtable.c	/^static bool_t _hashtable_iterator_belong_to_hashtable($/;"	f	file:	signature:( const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
+_hashtable_iterator_belong_to_hashtable	src/cstl_hashtable.c	/^static bool_t _hashtable_iterator_belong_to_hashtable($/;"	p	file:	signature:( const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
 _hashtable_iterator_distance	include/cstl_hashtable_iterator.h	/^extern int _hashtable_iterator_distance($/;"	p	signature:( hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond)
 _hashtable_iterator_distance	src/cstl_hashtable.c	/^int _hashtable_iterator_distance($/;"	f	signature:( hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond)
 _hashtable_iterator_equal	include/cstl_hashtable_iterator.h	/^extern bool_t _hashtable_iterator_equal($/;"	p	signature:( hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond)
@@ -1356,10 +1371,12 @@ _hashtable_iterator_get_value	include/cstl_hashtable_iterator.h	/^extern void _h
 _hashtable_iterator_get_value	src/cstl_hashtable.c	/^void _hashtable_iterator_get_value($/;"	f	signature:( hashtable_iterator_t t_iter, void* pv_value)
 _hashtable_iterator_next	include/cstl_hashtable_iterator.h	/^extern hashtable_iterator_t _hashtable_iterator_next(hashtable_iterator_t t_iter);$/;"	p	signature:(hashtable_iterator_t t_iter)
 _hashtable_iterator_next	src/cstl_hashtable.c	/^hashtable_iterator_t _hashtable_iterator_next(hashtable_iterator_t t_iter)$/;"	f	signature:(hashtable_iterator_t t_iter)
-_hashtable_key_comp	include/cstl_hashtable_private.h	/^extern int (*_hashtable_key_comp(const hashtable_t* cpt_hashtable))($/;"	p	signature:(const hashtable_t* cpt_hashtable)
-_hashtable_key_comp	src/cstl_hashtable.c	/^int (*_hashtable_key_comp(const hashtable_t* cpt_hashtable))($/;"	f	signature:(const hashtable_t* cpt_hashtable)
+_hashtable_key_less	include/cstl_hashtable_private.h	/^extern binary_function_t _hashtable_key_less(const hashtable_t* cpt_hashtable);$/;"	p	signature:(const hashtable_t* cpt_hashtable)
+_hashtable_key_less	src/cstl_hashtable.c	/^binary_function_t _hashtable_key_less(const hashtable_t* cpt_hashtable)$/;"	f	signature:(const hashtable_t* cpt_hashtable)
 _hashtable_less	include/cstl_hashtable_private.h	/^extern bool_t _hashtable_less($/;"	p	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
 _hashtable_less	src/cstl_hashtable.c	/^bool_t _hashtable_less($/;"	f	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+_hashtable_less_equal	include/cstl_hashtable_private.h	/^extern bool_t _hashtable_less_equal($/;"	p	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+_hashtable_less_equal	src/cstl_hashtable.c	/^bool_t _hashtable_less_equal($/;"	f	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
 _hashtable_max_size	include/cstl_hashtable_private.h	/^extern size_t _hashtable_max_size(const hashtable_t* cpt_hashtable);$/;"	p	signature:(const hashtable_t* cpt_hashtable)
 _hashtable_max_size	src/cstl_hashtable.c	/^size_t _hashtable_max_size(const hashtable_t* cpt_hashtable)$/;"	f	signature:(const hashtable_t* cpt_hashtable)
 _hashtable_not_equal	include/cstl_hashtable_private.h	/^extern bool_t _hashtable_not_equal($/;"	p	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
@@ -1367,6 +1384,10 @@ _hashtable_not_equal	src/cstl_hashtable.c	/^bool_t _hashtable_not_equal($/;"	f	s
 _hashtable_prime_list	src/cstl_hashtable.c	/^static const unsigned long _hashtable_prime_list[_HASHTABLE_PRIME_LIST_COUNT] =$/;"	v	file:
 _hashtable_resize	include/cstl_hashtable_private.h	/^extern void _hashtable_resize(hashtable_t* pt_hashtable, size_t t_resize);$/;"	p	signature:(hashtable_t* pt_hashtable, size_t t_resize)
 _hashtable_resize	src/cstl_hashtable.c	/^void _hashtable_resize(hashtable_t* pt_hashtable, size_t t_resize)$/;"	f	signature:(hashtable_t* pt_hashtable, size_t t_resize)
+_hashtable_same_hashtable_iterator_type	src/cstl_hashtable.c	/^static bool_t _hashtable_same_hashtable_iterator_type($/;"	f	file:	signature:( const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
+_hashtable_same_hashtable_iterator_type	src/cstl_hashtable.c	/^static bool_t _hashtable_same_hashtable_iterator_type($/;"	p	file:	signature:( const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
+_hashtable_same_type	src/cstl_hashtable.c	/^static bool_t _hashtable_same_type($/;"	f	file:	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+_hashtable_same_type	src/cstl_hashtable.c	/^static bool_t _hashtable_same_type($/;"	p	file:	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
 _hashtable_size	include/cstl_hashtable_private.h	/^extern size_t _hashtable_size(const hashtable_t* cpt_hashtable);$/;"	p	signature:(const hashtable_t* cpt_hashtable)
 _hashtable_size	src/cstl_hashtable.c	/^size_t _hashtable_size(const hashtable_t* cpt_hashtable)$/;"	f	signature:(const hashtable_t* cpt_hashtable)
 _hashtable_swap	include/cstl_hashtable_private.h	/^extern void _hashtable_swap($/;"	p	signature:( hashtable_t* pt_hashtablefirst, hashtable_t* pt_hashtablesecond)
@@ -1388,8 +1409,6 @@ _iterator_before	include/cstl_iterator_private.h	/^extern bool_t _iterator_befor
 _iterator_before	src/cstl_iterator.c	/^bool_t _iterator_before(iterator_t t_iterfirst, iterator_t t_itersecond)$/;"	f	signature:(iterator_t t_iterfirst, iterator_t t_itersecond)
 _iterator_belong_to_basic_string	src/cstl_basic_string.c	/^static bool_t _iterator_belong_to_basic_string($/;"	f	file:	signature:( const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter)
 _iterator_belong_to_basic_string	src/cstl_basic_string.c	/^static bool_t _iterator_belong_to_basic_string($/;"	p	file:	signature:( const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter)
-_iterator_belong_to_hashtable	src/cstl_hashtable.c	/^static bool_t _iterator_belong_to_hashtable($/;"	f	file:	signature:( const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
-_iterator_belong_to_hashtable	src/cstl_hashtable.c	/^static bool_t _iterator_belong_to_hashtable($/;"	p	file:	signature:( const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
 _iterator_limit_type	include/cstl_iterator_private.h	/^extern bool_t _iterator_limit_type(iterator_t t_iter, iteratortype_t t_limittype);$/;"	p	signature:(iterator_t t_iter, iteratortype_t t_limittype)
 _iterator_limit_type	src/cstl_iterator.c	/^bool_t _iterator_limit_type(iterator_t t_iter, iteratortype_t t_limittype)$/;"	f	signature:(iterator_t t_iter, iteratortype_t t_limittype)
 _iterator_same_type	include/cstl_iterator_private.h	/^extern bool_t _iterator_same_type(iterator_t t_iterfirst, iterator_t t_itersecond);$/;"	p	signature:(iterator_t t_iterfirst, iterator_t t_itersecond)
@@ -1812,10 +1831,6 @@ _same_hash_map_pair_type	src/cstl_hash_map.c	/^static bool_t _same_hash_map_pair
 _same_hash_map_pair_type	src/cstl_hash_map.c	/^static bool_t _same_hash_map_pair_type($/;"	p	file:	signature:( const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 _same_hash_multimap_pair_type	src/cstl_hash_multimap.c	/^static bool_t _same_hash_multimap_pair_type($/;"	f	file:	signature:( const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 _same_hash_multimap_pair_type	src/cstl_hash_multimap.c	/^static bool_t _same_hash_multimap_pair_type($/;"	p	file:	signature:( const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-_same_hashtable_iterator_type	src/cstl_hashtable.c	/^static bool_t _same_hashtable_iterator_type($/;"	f	file:	signature:( const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
-_same_hashtable_iterator_type	src/cstl_hashtable.c	/^static bool_t _same_hashtable_iterator_type($/;"	p	file:	signature:( const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
-_same_hashtable_type	src/cstl_hashtable.c	/^static bool_t _same_hashtable_type($/;"	f	file:	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
-_same_hashtable_type	src/cstl_hashtable.c	/^static bool_t _same_hashtable_type($/;"	p	file:	signature:( const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
 _set_count	include/cstl_set_private.h	/^extern size_t _set_count(const set_t* cpt_set, ...);$/;"	p	signature:(const set_t* cpt_set, ...)
 _set_count	src/cstl_set.c	/^size_t _set_count(const set_t* cpt_set, ...)$/;"	f	signature:(const set_t* cpt_set, ...)
 _set_count_varg	include/cstl_set_private.h	/^extern size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist);$/;"	p	signature:(const set_t* cpt_set, va_list val_elemlist)
@@ -1959,14 +1974,12 @@ _t_allocater	include/cstl_vector_private.h	/^    alloc_t     _t_allocater;$/;"	m
 _t_allocator	include/cstl_types.h	/^    alloc_t              _t_allocator;$/;"	m	struct:_tagtyperegister	access:public
 _t_avlroot	include/cstl_avl_tree_private.h	/^    avlnode_t        _t_avlroot;$/;"	m	struct:_tagavltree	access:public
 _t_binary_op	include/cstl_queue_private.h	/^    binary_function_t _t_binary_op;$/;"	m	struct:_tagpriority_queue	access:public
-_t_bool	include/cstl_hashtable_private.h	/^        bool_t              _t_bool;     \/* for insert_unique *\/$/;"	m	union:_taghashtableresultpair::__anon6	access:public
 _t_bool	include/cstl_rb_tree_private.h	/^        bool_t              _t_bool;     \/* for insert_unique *\/$/;"	m	union:_tagrbtreeresultpair::__anon5	access:public
 _t_bucket	include/cstl_hashtable_private.h	/^    vector_t    _t_bucket;$/;"	m	struct:_taghashtable	access:public
 _t_color	include/cstl_rb_tree_private.h	/^    color_t            _t_color;$/;"	m	struct:_tagrbnode	access:public
 _t_containertype	include/cstl_iterator.h	/^    containertype_t _t_containertype;$/;"	m	struct:_tagiterator	access:public
 _t_dequepos	include/cstl_iterator.h	/^        }_t_dequepos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon2	access:public
 _t_finish	include/cstl_deque_private.h	/^    deque_iterator_t _t_finish;$/;"	m	struct:_tagdeque	access:public
-_t_first	include/cstl_hashtable_private.h	/^    hashtable_iterator_t _t_first;$/;"	m	struct:_taghashtableresultpair	access:public
 _t_first	include/cstl_rb_tree_private.h	/^    rb_tree_iterator_t _t_first;$/;"	m	struct:_tagrbtreeresultpair	access:public
 _t_hash	include/cstl_hashtable_private.h	/^    unary_function_t _t_hash;$/;"	m	struct:_taghashtable	access:public
 _t_hashpos	include/cstl_iterator.h	/^        }_t_hashpos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon4	access:public
@@ -1977,7 +1990,6 @@ _t_hashtable	include/cstl_hash_set_private.h	/^    hashtable_t _t_hashtable;$/;"
 _t_head	include/cstl_slist_private.h	/^    slistnode_t _t_head;$/;"	m	struct:_tagslist	access:public
 _t_index	src/cstl_types.c	/^    size_t       _t_index;$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _t_isinit	include/cstl_types.h	/^    bool_t               _t_isinit; \/* is initializate for built in types *\/$/;"	m	struct:_tagtyperegister	access:public
-_t_iterator	include/cstl_hashtable_private.h	/^        hashtable_iterator_t _t_iterator; \/* for equal_range *\/$/;"	m	union:_taghashtableresultpair::__anon6	access:public
 _t_iterator	include/cstl_rb_tree_private.h	/^        rb_tree_iterator_t _t_iterator;  \/* for equal_range *\/$/;"	m	union:_tagrbtreeresultpair::__anon5	access:public
 _t_iteratortype	include/cstl_iterator.h	/^    iteratortype_t  _t_iteratortype;$/;"	m	struct:_tagiterator	access:public
 _t_less	include/cstl_avl_tree_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_tagavltree	access:public
@@ -1995,7 +2007,6 @@ _t_pair	include/cstl_map_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmap	ac
 _t_pair	include/cstl_multimap_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmultimap	access:public
 _t_pos	include/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterator	typeref:union:_tagiterator::__anon1	access:public
 _t_rbroot	include/cstl_rb_tree_private.h	/^    rbnode_t          _t_rbroot;$/;"	m	struct:_tagrbtree	access:public
-_t_second	include/cstl_hashtable_private.h	/^    }_t_second;$/;"	m	struct:_taghashtableresultpair	typeref:union:_taghashtableresultpair::__anon6	access:public
 _t_second	include/cstl_rb_tree_private.h	/^    }_t_second;$/;"	m	struct:_tagrbtreeresultpair	typeref:union:_tagrbtreeresultpair::__anon5	access:public
 _t_sequence	include/cstl_queue_private.h	/^    list_t  _t_sequence;$/;"	m	struct:_tagqueue	access:public
 _t_sequence	include/cstl_stack_private.h	/^    vector_t _t_sequence;$/;"	m	struct:_tagstack	access:public
@@ -2082,11 +2093,6 @@ _taghashtable::_t_hash	include/cstl_hashtable_private.h	/^    unary_function_t _
 _taghashtable::_t_less	include/cstl_hashtable_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_taghashtable	access:public
 _taghashtable::_t_nodecount	include/cstl_hashtable_private.h	/^    size_t      _t_nodecount;$/;"	m	struct:_taghashtable	access:public
 _taghashtable::_t_typeinfo	include/cstl_hashtable_private.h	/^    _typeinfo_t _t_typeinfo;$/;"	m	struct:_taghashtable	access:public
-_taghashtableresultpair	include/cstl_hashtable_private.h	/^typedef struct _taghashtableresultpair$/;"	s
-_taghashtableresultpair::__anon6::_t_bool	include/cstl_hashtable_private.h	/^        bool_t              _t_bool;     \/* for insert_unique *\/$/;"	m	union:_taghashtableresultpair::__anon6	access:public
-_taghashtableresultpair::__anon6::_t_iterator	include/cstl_hashtable_private.h	/^        hashtable_iterator_t _t_iterator; \/* for equal_range *\/$/;"	m	union:_taghashtableresultpair::__anon6	access:public
-_taghashtableresultpair::_t_first	include/cstl_hashtable_private.h	/^    hashtable_iterator_t _t_first;$/;"	m	struct:_taghashtableresultpair	access:public
-_taghashtableresultpair::_t_second	include/cstl_hashtable_private.h	/^    }_t_second;$/;"	m	struct:_taghashtableresultpair	typeref:union:_taghashtableresultpair::__anon6	access:public
 _taginsertresult	src/cstl_avl_tree.c	/^typedef struct _taginsertresult$/;"	s	file:
 _taginsertresult::_pt_adjust	src/cstl_avl_tree.c	/^    avlnode_t* _pt_adjust;   \/* the adjusted root avlnode_t pointer *\/$/;"	m	struct:_taginsertresult	file:	access:public
 _taginsertresult::_pt_new	src/cstl_avl_tree.c	/^    avlnode_t* _pt_new;      \/* the new inserting avlnode_t* pointer *\/$/;"	m	struct:_taginsertresult	file:	access:public
@@ -3608,7 +3614,7 @@ hash_set_bucket_count	include/cstl_hash_set.h	/^extern size_t hash_set_bucket_co
 hash_set_bucket_count	src/cstl_hash_set.c	/^size_t hash_set_bucket_count(const hash_set_t* cpt_hash_set)$/;"	f	signature:(const hash_set_t* cpt_hash_set)
 hash_set_clear	include/cstl_hash_set.h	/^extern void hash_set_clear(hash_set_t* pt_hash_set);$/;"	p	signature:(hash_set_t* pt_hash_set)
 hash_set_clear	src/cstl_hash_set.c	/^void hash_set_clear(hash_set_t* pt_hash_set)$/;"	f	signature:(hash_set_t* pt_hash_set)
-hash_set_count	include/cstl_hash_set.h	39;"	d
+hash_set_count	include/cstl_hash_set.h	38;"	d
 hash_set_destroy	include/cstl_hash_set.h	/^extern void hash_set_destroy(hash_set_t* pt_hash_set);$/;"	p	signature:(hash_set_t* pt_hash_set)
 hash_set_destroy	src/cstl_hash_set.c	/^void hash_set_destroy(hash_set_t* pt_hash_set)$/;"	f	signature:(hash_set_t* pt_hash_set)
 hash_set_empty	include/cstl_hash_set.h	/^extern bool_t hash_set_empty(const hash_set_t* cpt_hash_set);$/;"	p	signature:(const hash_set_t* cpt_hash_set)
@@ -3617,33 +3623,36 @@ hash_set_end	include/cstl_hash_set.h	/^extern hash_set_iterator_t hash_set_end(c
 hash_set_end	src/cstl_hash_set.c	/^hash_set_iterator_t hash_set_end(const hash_set_t* cpt_hash_set)$/;"	f	signature:(const hash_set_t* cpt_hash_set)
 hash_set_equal	include/cstl_hash_set.h	/^extern bool_t hash_set_equal($/;"	p	signature:( const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
 hash_set_equal	src/cstl_hash_set.c	/^bool_t hash_set_equal($/;"	f	signature:( const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
-hash_set_equal_range	include/cstl_hash_set.h	42;"	d
-hash_set_erase	include/cstl_hash_set.h	48;"	d
+hash_set_equal_range	include/cstl_hash_set.h	41;"	d
+hash_set_erase	include/cstl_hash_set.h	47;"	d
 hash_set_erase_pos	include/cstl_hash_set.h	/^extern void hash_set_erase_pos(hash_set_t* pt_hash_set, hash_set_iterator_t t_pos);$/;"	p	signature:(hash_set_t* pt_hash_set, hash_set_iterator_t t_pos)
 hash_set_erase_pos	src/cstl_hash_set.c	/^void hash_set_erase_pos(hash_set_t* pt_hash_set, hash_set_iterator_t t_pos)$/;"	f	signature:(hash_set_t* pt_hash_set, hash_set_iterator_t t_pos)
 hash_set_erase_range	include/cstl_hash_set.h	/^extern void hash_set_erase_range($/;"	p	signature:( hash_set_t* pt_hash_set, hash_set_iterator_t t_begin, hash_set_iterator_t t_end)
 hash_set_erase_range	src/cstl_hash_set.c	/^void hash_set_erase_range($/;"	f	signature:( hash_set_t* pt_hash_set, hash_set_iterator_t t_begin, hash_set_iterator_t t_end)
-hash_set_find	include/cstl_hash_set.h	36;"	d
-hash_set_hash_func	include/cstl_hash_set.h	/^extern int (*hash_set_hash_func(const hash_set_t* cpt_hash_set))($/;"	p	signature:(const hash_set_t* cpt_hash_set)
+hash_set_find	include/cstl_hash_set.h	35;"	d
+hash_set_great	include/cstl_hash_set.h	/^extern bool_t hash_set_great($/;"	p	signature:( const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
+hash_set_great_equal	include/cstl_hash_set.h	/^extern bool_t hash_set_great_equal($/;"	p	signature:( const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
+hash_set_hash	include/cstl_hash_set.h	/^extern unary_function_t hash_set_hash(const hash_set_t* cpt_hash_set);$/;"	p	signature:(const hash_set_t* cpt_hash_set)
 hash_set_hash_func	src/cstl_hash_set.c	/^int (*hash_set_hash_func(const hash_set_t* cpt_hash_set))($/;"	f	signature:(const hash_set_t* cpt_hash_set)
-hash_set_init	include/cstl_hash_set.h	/^extern void hash_set_init($/;"	p	signature:( hash_set_t* pt_hash_set, int (*pfun_hash)(const void*, size_t, size_t))
+hash_set_init	include/cstl_hash_set.h	/^extern void hash_set_init(hash_set_t* pt_hash_set);$/;"	p	signature:(hash_set_t* pt_hash_set)
 hash_set_init	src/cstl_hash_set.c	/^void hash_set_init($/;"	f	signature:( hash_set_t* pt_hash_set, int (*pfun_hash)(const void*, size_t, size_t))
-hash_set_init_copy	include/cstl_hash_set.h	/^extern void hash_set_init_copy($/;"	p	signature:( hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc)
+hash_set_init_copy	include/cstl_hash_set.h	/^extern void hash_set_init_copy(hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc);$/;"	p	signature:(hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc)
 hash_set_init_copy	src/cstl_hash_set.c	/^void hash_set_init_copy(hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc)$/;"	f	signature:(hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc)
-hash_set_init_copy_range	include/cstl_hash_set.h	/^extern void hash_set_init_copy_range($/;"	p	signature:( hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end, int (*pfun_hash)(const void*, size_t, size_t))
+hash_set_init_copy_range	include/cstl_hash_set.h	/^extern void hash_set_init_copy_range($/;"	p	signature:( hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end)
 hash_set_init_copy_range	src/cstl_hash_set.c	/^void hash_set_init_copy_range($/;"	f	signature:( hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end, int (*pfun_hash)(const void*, size_t, size_t))
-hash_set_init_copy_range_n	include/cstl_hash_set.h	/^extern void hash_set_init_copy_range_n($/;"	p	signature:( hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end, size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t))
+hash_set_init_copy_range_ex	include/cstl_hash_set.h	/^extern void hash_set_init_copy_range_ex(hash_set_t* pt_hash_set,$/;"	p	signature:(hash_set_t* pt_hash_set, hash_set_iterator_t t_begin, hash_set_iterator_t t_end, size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less)
 hash_set_init_copy_range_n	src/cstl_hash_set.c	/^void hash_set_init_copy_range_n($/;"	f	signature:( hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end, size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t))
-hash_set_init_n	include/cstl_hash_set.h	/^extern void hash_set_init_n($/;"	p	signature:( hash_set_t* pt_hash_set, size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t))
+hash_set_init_ex	include/cstl_hash_set.h	/^extern void hash_set_init_ex(hash_set_t* pt_hash_set, size_t t_bucketcount,$/;"	p	signature:(hash_set_t* pt_hash_set, size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less)
 hash_set_init_n	src/cstl_hash_set.c	/^void hash_set_init_n($/;"	f	signature:( hash_set_t* pt_hash_set, size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t))
-hash_set_insert	include/cstl_hash_set.h	45;"	d
+hash_set_insert	include/cstl_hash_set.h	44;"	d
 hash_set_insert_range	include/cstl_hash_set.h	/^extern void hash_set_insert_range($/;"	p	signature:( hash_set_t* pt_hash_set, hash_set_iterator_t t_begin, hash_set_iterator_t t_end)
 hash_set_insert_range	src/cstl_hash_set.c	/^void hash_set_insert_range($/;"	f	signature:( hash_set_t* pt_hash_set, hash_set_iterator_t t_begin, hash_set_iterator_t t_end)
 hash_set_iterator_t	include/cstl_hash_set_iterator.h	/^typedef iterator_t hash_set_iterator_t;$/;"	t
-hash_set_key_comp	include/cstl_hash_set.h	/^extern int (*hash_set_key_comp(const hash_set_t* cpt_hash_set))($/;"	p	signature:(const hash_set_t* cpt_hash_set)
 hash_set_key_comp	src/cstl_hash_set.c	/^int (*hash_set_key_comp(const hash_set_t* cpt_hash_set))($/;"	f	signature:(const hash_set_t* cpt_hash_set)
+hash_set_key_less	include/cstl_hash_set.h	/^extern binary_function_t hash_set_key_less(const hash_set_t* cpt_hash_set);$/;"	p	signature:(const hash_set_t* cpt_hash_set)
 hash_set_less	include/cstl_hash_set.h	/^extern bool_t hash_set_less($/;"	p	signature:( const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
 hash_set_less	src/cstl_hash_set.c	/^bool_t hash_set_less($/;"	f	signature:( const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
+hash_set_less_equal	include/cstl_hash_set.h	/^extern bool_t hash_set_less_equal($/;"	p	signature:( const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
 hash_set_max_size	include/cstl_hash_set.h	/^extern size_t hash_set_max_size(const hash_set_t* cpt_hash_set);$/;"	p	signature:(const hash_set_t* cpt_hash_set)
 hash_set_max_size	src/cstl_hash_set.c	/^size_t hash_set_max_size(const hash_set_t* cpt_hash_set)$/;"	f	signature:(const hash_set_t* cpt_hash_set)
 hash_set_not_equal	include/cstl_hash_set.h	/^extern bool_t hash_set_not_equal($/;"	p	signature:( const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
@@ -3657,7 +3666,6 @@ hash_set_swap	src/cstl_hash_set.c	/^void hash_set_swap(hash_set_t* pt_hash_setfi
 hash_set_t	include/cstl_hash_set_private.h	/^}hash_set_t;$/;"	t	typeref:struct:_taghashset
 hashnode_t	include/cstl_hashtable_private.h	/^}hashnode_t;$/;"	t	typeref:struct:_taghashnode
 hashtable_iterator_t	include/cstl_hashtable_iterator.h	/^typedef iterator_t hashtable_iterator_t;$/;"	t
-hashtable_result_pair_t	include/cstl_hashtable_private.h	/^}hashtable_result_pair_t;$/;"	t	typeref:struct:_taghashtableresultpair
 hashtable_t	include/cstl_hashtable_private.h	/^}hashtable_t;$/;"	t	typeref:struct:_taghashtable
 input_iterator_t	include/cstl_iterator.h	/^typedef iterator_t                  input_iterator_t;$/;"	t
 insert_iterator_t	include/cstl_iterator.h	/^typedef output_iterator_t           insert_iterator_t;$/;"	t

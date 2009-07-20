@@ -218,36 +218,13 @@ bool_t _map_iterator_before(
 map_t* _create_map(const char* s_typename)
 {
     map_t* pt_newmap = NULL;
-    char   s_typenameex[_TYPE_NAME_SIZE + 1];
-    bool_t t_result = false;
-
-    assert(s_typename != NULL);
 
     if((pt_newmap = (map_t*)malloc(sizeof(map_t))) == NULL)
     {
         return NULL;
     }
 
-    t_result = _create_pair_auxiliary(&pt_newmap->_t_pair, s_typename);
-    if(!t_result)
-    {
-        free(pt_newmap);
-        return NULL;
-    }
-
-    memset(s_typenameex, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(s_typenameex, "pair_t", _TYPE_NAME_SIZE);
-    strncat(s_typenameex, "<", _TYPE_NAME_SIZE);
-    strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
-    strncat(s_typenameex, ">", _TYPE_NAME_SIZE);
-
-#ifdef CSTL_MAP_AVL_TREE
-    t_result = _create_avl_tree_auxiliary(&pt_newmap->_t_tree, s_typenameex);
-#else
-    t_result = _create_rb_tree_auxiliary(&pt_newmap->_t_tree, s_typenameex);
-#endif
-
-    if(!t_result)
+    if(!_create_map_auxiliary(pt_newmap, s_typename))
     {
         free(pt_newmap);
         return NULL;

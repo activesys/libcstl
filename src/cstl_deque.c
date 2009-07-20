@@ -470,19 +470,9 @@ bool_t _deque_iterator_less(deque_iterator_t t_iterfirst, deque_iterator_t t_ite
 }
 
 /* deque private function */
-deque_t* _create_deque(const char* sz_typename)
+deque_t* _create_deque(const char* s_typename)
 {
-    _typeinfo_t t_typeinfo;
     deque_t*    pt_newdeque = NULL;
-
-    assert(sz_typename != NULL);
-
-    /* get type information */
-    _type_get_type(&t_typeinfo, sz_typename);
-    if(t_typeinfo._t_style == _TYPE_INVALID)
-    {
-        return NULL;
-    }
 
     /* alloc memory for deque_t */
     if((pt_newdeque = (deque_t*)malloc(sizeof(deque_t))) == NULL)
@@ -490,18 +480,11 @@ deque_t* _create_deque(const char* sz_typename)
         return NULL;
     }
 
-    /* init type information */
-    memset(pt_newdeque->_t_typeinfo._sz_typename, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(pt_newdeque->_t_typeinfo._sz_typename, t_typeinfo._sz_typename, _TYPE_NAME_SIZE);
-    pt_newdeque->_t_typeinfo._pt_type = t_typeinfo._pt_type;
-    pt_newdeque->_t_typeinfo._t_style = t_typeinfo._t_style;
-
-    /* init map */
-    pt_newdeque->_ppc_map = NULL;
-    pt_newdeque->_t_mapsize = 0;
-    /* init start and finish iterator */
-    pt_newdeque->_t_start = create_deque_iterator();
-    pt_newdeque->_t_finish = create_deque_iterator();
+    if(!_create_deque_auxiliary(pt_newdeque, s_typename))
+    {
+        free(pt_newdeque);
+        return NULL;
+    }
 
     return pt_newdeque;
 }

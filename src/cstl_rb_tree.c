@@ -362,31 +362,17 @@ bool_t _rb_tree_iterator_before(
 rb_tree_t* _create_rb_tree(const char* s_typename)
 {
     rb_tree_t*  pt_newrbtree = NULL;
-    _typeinfo_t t_typeinfo;
-
-    /* get type information */
-    _type_get_type(&t_typeinfo, s_typename);
-    if(t_typeinfo._t_style == _TYPE_INVALID)
-    {
-        return NULL;
-    }
 
     if((pt_newrbtree = (rb_tree_t*)malloc(sizeof(rb_tree_t))) == NULL)
     {
         return NULL;
     }
-    memset(pt_newrbtree->_t_typeinfo._sz_typename, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(pt_newrbtree->_t_typeinfo._sz_typename, t_typeinfo._sz_typename, _TYPE_NAME_SIZE);
-    pt_newrbtree->_t_typeinfo._pt_type = t_typeinfo._pt_type;
-    pt_newrbtree->_t_typeinfo._t_style = t_typeinfo._t_style;
 
-    pt_newrbtree->_t_rbroot._pt_parent = NULL;
-    pt_newrbtree->_t_rbroot._pt_left = NULL;
-    pt_newrbtree->_t_rbroot._pt_right = NULL;
-    pt_newrbtree->_t_rbroot._t_color = red;
-    pt_newrbtree->_t_nodecount = 0;
-
-    pt_newrbtree->_t_less = NULL;
+    if(!_create_rb_tree_auxiliary(pt_newrbtree, s_typename))
+    {
+        free(pt_newrbtree);
+        return NULL;
+    }
 
     return pt_newrbtree;
 }

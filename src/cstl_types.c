@@ -3339,8 +3339,12 @@ static void _type_destroy_multimap(
 static void _type_init_hash_set(
     const void* cpv_input, void* pv_output)
 {
+    bool_t t_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
-    hash_set_init((hash_set_t*)cpv_input, NULL);
+
+    t_result = _create_hash_set_auxiliary((hash_set_t*)cpv_input, (char*)pv_output);
+    assert(t_result);
+    hash_set_init((hash_set_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 static void _type_copy_hash_set(
@@ -3360,7 +3364,7 @@ static void _type_destroy_hash_set(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    hash_set_destroy((hash_set_t*)cpv_input);
+    _hash_set_destroy_auxiliary((hash_set_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* hash_map_t */

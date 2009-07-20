@@ -219,35 +219,13 @@ bool_t _multimap_iterator_before(
 multimap_t* _create_multimap(const char* s_typename)
 {
     multimap_t* pt_newmultimap = NULL;
-    char        s_typenameex[_TYPE_NAME_SIZE + 1];
-    bool_t      t_result = false;
-
-    assert(s_typename != NULL);
 
     if((pt_newmultimap = (multimap_t*)malloc(sizeof(multimap_t))) == NULL)
     {
         return NULL;
     }
 
-    if(!_create_pair_auxiliary(&pt_newmultimap->_t_pair, s_typename))
-    {
-        free(pt_newmultimap);
-        return NULL;
-    }
-
-    memset(s_typenameex, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(s_typenameex, "pair_t", _TYPE_NAME_SIZE);
-    strncat(s_typenameex, "<", _TYPE_NAME_SIZE);
-    strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
-    strncat(s_typenameex, ">", _TYPE_NAME_SIZE);
-
-#ifdef CSTL_MULTIMAP_AVL_TREE
-    t_result = _create_avl_tree_auxiliary(&pt_newmultimap->_t_tree, s_typenameex);
-#else
-    t_result = _create_rb_tree_auxiliary(&pt_newmultimap->_t_tree, s_typenameex);
-#endif
-
-    if(!t_result)
+    if(!_create_multimap_auxiliary(pt_newmultimap, s_typename))
     {
         free(pt_newmultimap);
         return NULL;
@@ -260,6 +238,8 @@ bool_t _create_multimap_auxiliary(multimap_t* pt_multimap, const char* s_typenam
 {
     char   s_typenameex[_TYPE_NAME_SIZE + 1];
     bool_t t_result = false;
+
+    assert(pt_multimap != NULL && s_typename != NULL);
 
     t_result = _create_pair_auxiliary(&pt_multimap->_t_pair, s_typename);
     if(!t_result)

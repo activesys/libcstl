@@ -368,33 +368,17 @@ bool_t _avl_tree_iterator_before(
 avl_tree_t* _create_avl_tree(const char* s_typename)
 {
     avl_tree_t* pt_avl_tree = NULL;
-    _typeinfo_t t_typeinfo;
-
-    assert(s_typename != NULL);
-
-    /* get type information */
-    _type_get_type(&t_typeinfo, s_typename);
-    if(t_typeinfo._t_style == _TYPE_INVALID)
-    {
-        return NULL;
-    }
 
     if((pt_avl_tree = (avl_tree_t*)malloc(sizeof(avl_tree_t))) == NULL)
     {
         return NULL;
     }
-    memset(pt_avl_tree->_t_typeinfo._sz_typename, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(pt_avl_tree->_t_typeinfo._sz_typename, t_typeinfo._sz_typename, _TYPE_NAME_SIZE);
-    pt_avl_tree->_t_typeinfo._t_style = t_typeinfo._t_style;
-    pt_avl_tree->_t_typeinfo._pt_type = t_typeinfo._pt_type;
 
-    pt_avl_tree->_t_avlroot._pt_parent = NULL;
-    pt_avl_tree->_t_avlroot._pt_left = NULL;
-    pt_avl_tree->_t_avlroot._pt_right = NULL;
-    pt_avl_tree->_t_avlroot._un_height = 0;
-    pt_avl_tree->_t_nodecount = 0;
-
-    pt_avl_tree->_t_less = NULL;
+    if(!_create_avl_tree_auxiliary(pt_avl_tree, s_typename))
+    {
+        free(pt_avl_tree);
+        return NULL;
+    }
 
     return pt_avl_tree;
 }

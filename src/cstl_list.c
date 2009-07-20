@@ -301,25 +301,17 @@ bool_t _list_iterator_before(
 list_t* _create_list(const char* s_typename)
 {
     list_t*     pt_newlist = NULL;
-    _typeinfo_t t_typeinfo;
-
-    assert(s_typename != NULL);
-
-    _type_get_type(&t_typeinfo, s_typename);
-    if(t_typeinfo._t_style == _TYPE_INVALID)
-    {
-        return NULL;
-    }
 
     if((pt_newlist = (list_t*)malloc(sizeof(list_t))) == NULL)
     {
         return NULL;
     }
-    memset(pt_newlist->_t_typeinfo._sz_typename, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(pt_newlist->_t_typeinfo._sz_typename, t_typeinfo._sz_typename, _TYPE_NAME_SIZE);
-    pt_newlist->_t_typeinfo._t_style = t_typeinfo._t_style;
-    pt_newlist->_t_typeinfo._pt_type = t_typeinfo._pt_type;
-    pt_newlist->_pt_node = NULL;
+
+    if(!_create_list_auxiliary(pt_newlist, s_typename))
+    {
+        free(pt_newlist);
+        return NULL;
+    }
 
     return pt_newlist;
 }

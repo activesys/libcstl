@@ -695,34 +695,16 @@ hashtable_t* _create_hashtable(const char* s_typename)
 {
     hashtable_t* pt_newhashtable = NULL;
 
-    assert(s_typename != NULL);
-
     if((pt_newhashtable = (hashtable_t*)malloc(sizeof(hashtable_t))) == NULL)
     {
         return NULL;
     }
 
-    /* create new vector */
-    /* register hashnode_t* type for vecotr */
-    _type_register(sizeof(hashnode_t*), _HASHTABLE_NODE_NAME,
-        _hashnode_init, _hashnode_copy, _hashnode_less, _hashnode_destroy);
-    if(!_create_vector_auxiliary(&pt_newhashtable->_t_bucket, _HASHTABLE_NODE_NAME))
+    if(!_create_hashtable_auxiliary(pt_newhashtable, s_typename))
     {
         free(pt_newhashtable);
         return NULL;
     }
-
-    /* get type information */
-    _type_get_type(&pt_newhashtable->_t_typeinfo, s_typename);
-    if(pt_newhashtable->_t_typeinfo._t_style == _TYPE_INVALID)
-    {
-        free(pt_newhashtable);
-        return NULL;
-    }
-
-    pt_newhashtable->_t_nodecount = 0;
-    pt_newhashtable->_t_hash = NULL;
-    pt_newhashtable->_t_less = NULL;
 
     return pt_newhashtable;
 }

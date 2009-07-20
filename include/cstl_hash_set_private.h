@@ -43,7 +43,9 @@ typedef struct _taghashset
 /*
  * Create operation function.
  */
-extern hash_set_t _create_hash_set(size_t t_typesize, const char* s_typename);
+extern hash_set_t* _create_hash_set(const char* s_typename);
+extern bool_t _create_hash_set_auxiliary(hash_set_t* pt_hash_set, const char* s_typename);
+extern void _hash_set_destroy_auxiliary(hash_set_t* pt_hash_set);
 
 /*
  * Find operatio functions.
@@ -61,8 +63,8 @@ extern size_t _hash_set_count_varg(const hash_set_t* cpt_hash_set, va_list val_e
 /*
  * Equal range operation functions.
  */
-extern pair_t _hash_set_equal_range(const hash_set_t* cpt_hash_set, ...);
-extern pair_t _hash_set_equal_range_varg(
+extern range_t _hash_set_equal_range(const hash_set_t* cpt_hash_set, ...);
+extern range_t _hash_set_equal_range_varg(
     const hash_set_t* cpt_hash_set, va_list val_elemlist);
 
 /*
