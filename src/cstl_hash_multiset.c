@@ -63,6 +63,12 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
+static void _hash_multiset_init_elem_auxiliary(
+    hash_multiset_t* pt_hash_multiset, void* pv_elem);
+static void _hash_multiset_get_varg_value_auxiliary(
+    hash_multiset_t* pt_hash_multiset, va_list val_elemlist, void* pv_varg);
+static void _hash_multiset_destroy_varg_value_auxiliary(
+    hash_multiset_t* pt_hash_multiset, void* pv_varg);
 
 /** exported global variable definition section **/
 
@@ -143,11 +149,11 @@ bool_t _hash_multiset_iterator_before(
 }
 
 /* hash_multiset private function */
-hash_multiset_t _create_hash_multiset(size_t t_typesize, const char* s_typename)
+hash_multiset_t* _create_hash_multiset(const char* s_typename)
 {
     hash_multiset_t* pt_new_hash_multiset = NULL;
 
-    if((pt_new_hash_multiset = (hash_multiset_t*)malloc(size(hash_multiset_t))) == NULL)
+    if((pt_new_hash_multiset = (hash_multiset_t*)malloc(sizeof(hash_multiset_t))) == NULL)
     {
         return NULL;
     }
@@ -169,28 +175,30 @@ bool_t _create_hash_multiset_auxiliary(
     return _create_hashtable_auxiliary(&pt_hash_multiset->_t_hashtable, s_typename);
 }
 
-/* hash_multiset function */
-void hash_multiset_init(
-    hash_multiset_t* pt_hash_multiset,int (*pfun_hash)(const void*, size_t, size_t))
+void _hash_multiset_destroy_auxiliary(hash_multiset_t* pt_hash_multiset)
 {
-    hash_multiset_init_n(pt_hash_multiset, 0, pfun_hash);
+    assert(pt_hash_multiset != NULL);
+    _hashtable_destroy_auxiliary(&pt_hash_multiset->_t_hashtable);
 }
 
-void hash_multiset_init_n(
-    hash_multiset_t* pt_hash_multiset, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t))
+/* hash_multiset function */
+void hash_multiset_init(hash_multiset_t* pt_hash_multiset)
+{
+    hash_multiset_init_ex(pt_hash_multiset, 0, NULL, NULL);
+}
+
+void hash_multiset_init_ex(hash_multiset_t* pt_hash_multiset, size_t t_bucketcount,
+    unary_function_t t_hash, binary_function_t t_less)
 {
     assert(pt_hash_multiset != NULL);
 
-    _hashtable_init(
-        &pt_hash_multiset->_t_hashtable, t_bucketcount, pfun_hash, NULL, NULL);
+    _hashtable_init(&pt_hash_multiset->_t_hashtable, t_bucketcount, t_hash, t_less);
 }
 
 void hash_multiset_destroy(hash_multiset_t* pt_hash_multiset)
 {
-    assert(pt_hash_multiset != NULL);
-
-    _hashtable_destroy(&pt_hash_multiset->_t_hashtable);
+    _hash_multiset_destroy_auxiliary(pt_hash_multiset);
+    free(pt_hash_multiset);
 }
 
 void hash_multiset_init_copy(
@@ -202,18 +210,16 @@ void hash_multiset_init_copy(
         &pt_hash_multisetdest->_t_hashtable, &cpt_hash_multisetsrc->_t_hashtable);
 }
 
-void hash_multiset_init_copy_range(
-    hash_multiset_t* pt_hash_multisetdest, hash_multiset_iterator_t t_begin,
-    hash_multiset_iterator_t t_end, int (*pfun_hash)(const void*, size_t, size_t))
+void hash_multiset_init_copy_range(hash_multiset_t* pt_hash_multisetdest,
+    hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end)
 {
-    hash_multiset_init_copy_range_n(
-        pt_hash_multisetdest, t_begin, t_end, 0, pfun_hash);
+    hash_multiset_init_copy_range_ex(
+        pt_hash_multisetdest, t_begin, t_end, 0, NULL, NULL);
 }
 
-void hash_multiset_init_copy_range_n(
-    hash_multiset_t* pt_hash_multisetdest, hash_multiset_iterator_t t_begin,
-    hash_multiset_iterator_t t_end, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t))
+void hash_multiset_init_copy_range_ex(hash_multiset_t* pt_hash_multisetdest,
+    hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end,
+    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less)
 {
     assert(pt_hash_multisetdest != NULL);
     assert(_GET_HASH_MULTISET_CONTAINER_TYPE(t_begin) == _HASH_MULTISET_CONTAINER &&
@@ -226,7 +232,7 @@ void hash_multiset_init_copy_range_n(
                _GET_HASH_MULTISET_CONTAINER(t_end));
 
     _hashtable_init_copy_range(&pt_hash_multisetdest->_t_hashtable, 
-        t_begin, t_end, t_bucketcount, pfun_hash, NULL);
+        t_begin, t_end, t_bucketcount, t_hash, t_less);
 }
 
 void hash_multiset_assign(
@@ -275,20 +281,18 @@ size_t hash_multiset_bucket_count(const hash_multiset_t* cpt_hash_multiset)
     return _hashtable_bucket_count(&cpt_hash_multiset->_t_hashtable);
 }
 
-int (*hash_multiset_hash_func(const hash_multiset_t* cpt_hash_multiset))(
-    const void*, size_t, size_t)
+unary_function_t hash_multiset_hash(const hash_multiset_t* cpt_hash_multiset)
 {
     assert(cpt_hash_multiset != NULL);
 
-    return _hashtable_hash_func(&cpt_hash_multiset->_t_hashtable);
+    return _hashtable_hash(&cpt_hash_multiset->_t_hashtable);
 }
 
-int (*hash_multiset_key_comp(const hash_multiset_t* cpt_hash_multiset))(
-    const void*, const void*)
+binary_function_t hash_multiset_key_less(const hash_multiset_t* cpt_hash_multiset)
 {
     assert(cpt_hash_multiset != NULL);
 
-    return _hashtable_key_comp(&cpt_hash_multiset->_t_hashtable);
+    return _hashtable_key_less(&cpt_hash_multiset->_t_hashtable);
 }
 
 void hash_multiset_resize(hash_multiset_t* pt_hash_multiset, size_t t_resize)
@@ -322,8 +326,40 @@ bool_t hash_multiset_less(
     const hash_multiset_t* cpt_hash_multisetfirst,
     const hash_multiset_t* cpt_hash_multisetsecond)
 {
-    /* add now relationship operator */
-    return true;
+    assert(cpt_hash_multisetfirst != NULL && cpt_hash_multisetsecond != NULL);
+
+    return _hashtable_less(
+        &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
+}
+
+bool_t hash_multiset_less_equal(
+    const hash_multiset_t* cpt_hash_multisetfirst,
+    const hash_multiset_t* cpt_hash_multisetsecond)
+{
+    assert(cpt_hash_multisetfirst != NULL && cpt_hash_multisetsecond != NULL);
+
+    return _hashtable_less_equal(
+        &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
+}
+
+bool_t hash_multiset_great(
+    const hash_multiset_t* cpt_hash_multisetfirst,
+    const hash_multiset_t* cpt_hash_multisetsecond)
+{
+    assert(cpt_hash_multisetfirst != NULL && cpt_hash_multisetsecond != NULL);
+
+    return _hashtable_great(
+        &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
+}
+
+bool_t hash_multiset_great_equal(
+    const hash_multiset_t* cpt_hash_multisetfirst,
+    const hash_multiset_t* cpt_hash_multisetsecond)
+{
+    assert(cpt_hash_multisetfirst != NULL && cpt_hash_multisetsecond != NULL);
+
+    return _hashtable_great_equal(
+        &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
 }
 
 hash_multiset_iterator_t hash_multiset_begin(const hash_multiset_t* cpt_hash_multiset)
@@ -367,34 +403,28 @@ hash_multiset_iterator_t _hash_multiset_find(
 hash_multiset_iterator_t _hash_multiset_find_varg(
     const hash_multiset_t* cpt_hash_multiset, va_list val_elemlist)
 {
-    hash_multiset_iterator_t t_newiterator;
-    char*                    pc_value = NULL;
+    hash_multiset_iterator_t t_iter;
+    void*                    pv_varg = NULL;
 
     assert(cpt_hash_multiset != NULL);
 
-    pc_value = (char*)malloc(cpt_hash_multiset->_t_hashtable._t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, cpt_hash_multiset->_t_hashtable._t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, cpt_hash_multiset->_t_hashtable._t_typesize,
-            cpt_hash_multiset->_t_hashtable._sz_typename);
-    }
+    pv_varg = allocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater,
+        _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
+    assert(pv_varg != NULL);
+    _hash_multiset_get_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset,
+        val_elemlist, pv_varg);
 
-    t_newiterator = _hashtable_find(&cpt_hash_multiset->_t_hashtable, pc_value);
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _hashtable_find(&cpt_hash_multiset->_t_hashtable, pv_varg);
 
-    _GET_CONTAINER(t_newiterator) = (hash_multiset_t*)cpt_hash_multiset;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(t_newiterator) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(t_newiterator) = _FORWARD_ITERATOR;
+    _hash_multiset_destroy_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset, pv_varg);
+    deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
+        _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
 
-    return t_newiterator;
+    _GET_CONTAINER(t_iter) = (hash_multiset_t*)cpt_hash_multiset;
+    _GET_HASH_MULTISET_CONTAINER_TYPE(t_iter) = _HASH_MULTISET_CONTAINER;
+    _GET_HASH_MULTISET_ITERATOR_TYPE(t_iter) = _FORWARD_ITERATOR;
+
+    return t_iter;
 }
 
 size_t _hash_multiset_count(const hash_multiset_t* cpt_hash_multiset, ...)
@@ -407,84 +437,62 @@ size_t _hash_multiset_count(const hash_multiset_t* cpt_hash_multiset, ...)
 size_t _hash_multiset_count_varg(
     const hash_multiset_t* cpt_hash_multiset, va_list val_elemlist)
 {
-    size_t  t_countsize = 0;
-    char*   pc_value = NULL;
+    size_t t_count = 0;
+    void*  pv_varg = NULL;
 
     assert(cpt_hash_multiset != NULL);
 
-    pc_value = (char*)malloc(cpt_hash_multiset->_t_hashtable._t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, cpt_hash_multiset->_t_hashtable._t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, cpt_hash_multiset->_t_hashtable._t_typesize,
-            cpt_hash_multiset->_t_hashtable._sz_typename);
-    }
+    pv_varg = allocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater,
+        _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
+    assert(pv_varg != NULL);
+    _hash_multiset_get_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset,
+        val_elemlist, pv_varg);
 
-    t_countsize = _hashtable_count(&cpt_hash_multiset->_t_hashtable, pc_value);
-    free(pc_value);
-    pc_value = NULL;
+    t_count = _hashtable_count(&cpt_hash_multiset->_t_hashtable, pv_varg);
 
-    return t_countsize;
+    _hash_multiset_destroy_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset, pv_varg);
+    deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
+        _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
+
+    return t_count;
 }
 
-pair_t _hash_multiset_equal_range(const hash_multiset_t* cpt_hash_multiset, ...)
+range_t _hash_multiset_equal_range(const hash_multiset_t* cpt_hash_multiset, ...)
 {
     va_list val_elemlist;
     va_start(val_elemlist, cpt_hash_multiset);
     return _hash_multiset_equal_range_varg(cpt_hash_multiset, val_elemlist);
 }
 
-pair_t _hash_multiset_equal_range_varg(
+range_t _hash_multiset_equal_range_varg(
     const hash_multiset_t* cpt_hash_multiset, va_list val_elemlist)
 {
-    hash_multiset_iterator_t t_firstiterator;
-    hash_multiset_iterator_t t_seconditerator;
-    hashtable_result_pair_t  t_result;
-    char*                    pc_value = NULL;
-    pair_t                   t_pair;
+    range_t t_range;
+    void*   pv_varg = NULL;
 
     assert(cpt_hash_multiset != NULL);
 
-    pc_value = (char*)malloc(cpt_hash_multiset->_t_hashtable._t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, cpt_hash_multiset->_t_hashtable._t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, cpt_hash_multiset->_t_hashtable._t_typesize,
-            cpt_hash_multiset->_t_hashtable._sz_typename);
-    }
+    pv_varg = allocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater,
+        _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
+    assert(pv_varg != NULL);
+    _hash_multiset_get_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset,
+        val_elemlist, pv_varg);
 
-    t_result = _hashtable_equal_range(&cpt_hash_multiset->_t_hashtable, pc_value);
-    free(pc_value);
-    pc_value = NULL;
+    t_range = _hashtable_equal_range(&cpt_hash_multiset->_t_hashtable, pv_varg);
 
-    t_firstiterator = t_result._t_first;
-    _GET_CONTAINER(t_firstiterator) = (hash_multiset_t*)cpt_hash_multiset;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(t_firstiterator) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(t_firstiterator) = _FORWARD_ITERATOR;
+    _hash_multiset_destroy_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset, pv_varg);
+    deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
+        _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
 
-    t_seconditerator = t_result._t_second._t_iterator;
-    _GET_CONTAINER(t_seconditerator) = (hash_multiset_t*)cpt_hash_multiset;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(t_seconditerator) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(t_seconditerator) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_range.t_begin) = (hash_multiset_t*)cpt_hash_multiset;
+    _GET_HASH_MULTISET_CONTAINER_TYPE(t_range.t_begin) = _HASH_MULTISET_CONTAINER;
+    _GET_HASH_MULTISET_ITERATOR_TYPE(t_range.t_begin) = _FORWARD_ITERATOR;
 
-    t_pair = create_pair(hash_multiset_iterator_t, hash_multiset_iterator_t);
-    pair_init(&t_pair);
-    memcpy(t_pair.first, &t_firstiterator, t_pair._t_firsttypesize);
-    memcpy(t_pair.second, &t_seconditerator, t_pair._t_secondtypesize);
+    _GET_CONTAINER(t_range.t_end) = (hash_multiset_t*)cpt_hash_multiset;
+    _GET_HASH_MULTISET_CONTAINER_TYPE(t_range.t_end) = _HASH_MULTISET_CONTAINER;
+    _GET_HASH_MULTISET_ITERATOR_TYPE(t_range.t_end) = _FORWARD_ITERATOR;
 
-    return t_pair;
+    return t_range;
 }
 
 hash_multiset_iterator_t _hash_multiset_insert(hash_multiset_t* pt_hash_multiset, ...)
@@ -497,38 +505,30 @@ hash_multiset_iterator_t _hash_multiset_insert(hash_multiset_t* pt_hash_multiset
 hash_multiset_iterator_t _hash_multiset_insert_varg(
     hash_multiset_t* pt_hash_multiset, va_list val_elemlist)
 {
-    hash_multiset_iterator_t t_iterator;
-    char*                    pc_value;
+    hash_multiset_iterator_t t_iter;
+    void*                    pv_varg = NULL;
 
     assert(pt_hash_multiset != NULL);
 
-    pc_value = (char*)malloc(pt_hash_multiset->_t_hashtable._t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, pt_hash_multiset->_t_hashtable._t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, pt_hash_multiset->_t_hashtable._t_typesize,
-            pt_hash_multiset->_t_hashtable._sz_typename);
-    }
+    pv_varg = allocate(&pt_hash_multiset->_t_hashtable._t_allocater,
+        _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset), 1);
+    assert(pv_varg != NULL);
+    _hash_multiset_get_varg_value_auxiliary(pt_hash_multiset, val_elemlist, pv_varg);
 
-    t_iterator = _hashtable_insert_equal(&pt_hash_multiset->_t_hashtable, pc_value);
-    free(pc_value);
-    pc_value = NULL;
+    t_iter = _hashtable_insert_equal(&pt_hash_multiset->_t_hashtable, pv_varg);
 
-    _GET_CONTAINER(t_iterator) = pt_hash_multiset;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(t_iterator) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(t_iterator) = _FORWARD_ITERATOR;
+    _hash_multiset_destroy_varg_value_auxiliary(pt_hash_multiset, pv_varg);
+    deallocate(&pt_hash_multiset->_t_hashtable._t_allocater, pv_varg,
+        _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset), 1);
 
-    return t_iterator;
+    _GET_CONTAINER(t_iter) = pt_hash_multiset;
+    _GET_HASH_MULTISET_CONTAINER_TYPE(t_iter) = _HASH_MULTISET_CONTAINER;
+    _GET_HASH_MULTISET_ITERATOR_TYPE(t_iter) = _FORWARD_ITERATOR;
+
+    return t_iter;
 }
 
-void hash_multiset_insert_range(
-    hash_multiset_t* pt_hash_multiset, 
+void hash_multiset_insert_range(hash_multiset_t* pt_hash_multiset, 
     hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end)
 {
     assert(pt_hash_multiset != NULL);
@@ -578,30 +578,23 @@ size_t _hash_multiset_erase(hash_multiset_t* pt_hash_multiset, ...)
 
 size_t _hash_multiset_erase_varg(hash_multiset_t* pt_hash_multiset, va_list val_elemlist)
 {
-    size_t  t_countsize = 0;
-    char*   pc_value = NULL;
+    size_t t_count = 0;
+    void*  pv_varg = NULL;
 
     assert(pt_hash_multiset != NULL);
 
-    pc_value = (char*)malloc(pt_hash_multiset->_t_hashtable._t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        memset(pc_value, 0x00, pt_hash_multiset->_t_hashtable._t_typesize);
-        _get_varg_value(
-            pc_value, val_elemlist, pt_hash_multiset->_t_hashtable._t_typesize,
-            pt_hash_multiset->_t_hashtable._sz_typename);
-    }
+    pv_varg = allocate(&pt_hash_multiset->_t_hashtable._t_allocater,
+        _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset), 1);
+    assert(pv_varg != NULL);
+    _hash_multiset_get_varg_value_auxiliary(pt_hash_multiset, val_elemlist, pv_varg);
 
-    t_countsize = _hashtable_erase(&pt_hash_multiset->_t_hashtable, pc_value);
-    free(pc_value);
-    pc_value = NULL;
+    t_count = _hashtable_erase(&pt_hash_multiset->_t_hashtable, pv_varg);
 
-    return t_countsize;
+    _hash_multiset_destroy_varg_value_auxiliary(pt_hash_multiset, pv_varg);
+    deallocate(&pt_hash_multiset->_t_hashtable._t_allocater, pv_varg,
+        _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset), 1);
+
+    return t_count;
 }
 
 void hash_multiset_clear(hash_multiset_t* pt_hash_multiset)
@@ -612,6 +605,43 @@ void hash_multiset_clear(hash_multiset_t* pt_hash_multiset)
 }
 
 /** local function implementation section **/
+static void _hash_multiset_init_elem_auxiliary(
+    hash_multiset_t* pt_hash_multiset, void* pv_elem)
+{
+    assert(pt_hash_multiset != NULL && pv_elem != NULL);
+
+    /* initialize new elements */
+    if(_GET_HASH_MULTISET_TYPE_STYLE(pt_hash_multiset) == _TYPE_CSTL_BUILTIN)
+    {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(_GET_HASH_MULTISET_TYPE_NAME(pt_hash_multiset), s_elemtypename);
+
+        _GET_HASH_MULTISET_TYPE_INIT_FUNCTION(pt_hash_multiset)(pv_elem, s_elemtypename);
+    }
+    else
+    {
+        bool_t t_result = _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset);
+        _GET_HASH_MULTISET_TYPE_INIT_FUNCTION(pt_hash_multiset)(pv_elem, &t_result);
+        assert(t_result);
+    }
+}
+
+static void _hash_multiset_get_varg_value_auxiliary(
+    hash_multiset_t* pt_hash_multiset, va_list val_elemlist, void* pv_varg)
+{
+    _hash_multiset_init_elem_auxiliary(pt_hash_multiset, pv_varg);
+    _type_get_varg_value(&pt_hash_multiset->_t_hashtable._t_typeinfo, val_elemlist, pv_varg);
+}
+
+static void _hash_multiset_destroy_varg_value_auxiliary(
+    hash_multiset_t* pt_hash_multiset, void* pv_varg)
+{
+    /* destroy varg value and free memory */
+    bool_t t_result = _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset);
+    _GET_HASH_MULTISET_TYPE_DESTROY_FUNCTION(pt_hash_multiset)(pv_varg, &t_result);
+    assert(t_result);
+}
 
 /** eof **/
 
