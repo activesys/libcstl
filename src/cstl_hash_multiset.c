@@ -35,13 +35,30 @@
 #include "cvector.h"
 #include "cstl_hashtable_iterator.h"
 #include "cstl_hashtable_private.h"
-#include "cutility.h"
+/*#include "cutility.h"*/
 
 #include "cstl_hash_multiset_iterator.h"
 #include "cstl_hash_multiset_private.h"
 #include "cstl_hash_multiset.h"
 
 /** local constant declaration and local macro section **/
+/* macros for type informations */
+#define _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset)\
+    ((pt_hash_multiset)->_t_hashtable._t_typeinfo._pt_type->_t_typesize)
+#define _GET_HASH_MULTISET_TYPE_NAME(pt_hash_multiset)\
+    ((pt_hash_multiset)->_t_hashtable._t_typeinfo._sz_typename)
+#define _GET_HASH_MULTISET_TYPE_BASENAME(pt_hash_multiset)\
+    ((pt_hash_multiset)->_t_hashtable._t_typeinfo._pt_type->_sz_typename)
+#define _GET_HASH_MULTISET_TYPE_INIT_FUNCTION(pt_hash_multiset)\
+    ((pt_hash_multiset)->_t_hashtable._t_typeinfo._pt_type->_t_typeinit)
+#define _GET_HASH_MULTISET_TYPE_COPY_FUNCTION(pt_hash_multiset)\
+    ((pt_hash_multiset)->_t_hashtable._t_typeinfo._pt_type->_t_typecopy)
+#define _GET_HASH_MULTISET_TYPE_LESS_FUNCTION(pt_hash_multiset)\
+    ((pt_hash_multiset)->_t_hashtable._t_typeinfo._pt_type->_t_typeless)
+#define _GET_HASH_MULTISET_TYPE_DESTROY_FUNCTION(pt_hash_multiset)\
+    ((pt_hash_multiset)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy)
+#define _GET_HASH_MULTISET_TYPE_STYLE(pt_hash_multiset)\
+    ((pt_hash_multiset)->_t_hashtable._t_typeinfo._t_style)
 
 /** local data type declaration and local struct, union, enum section **/
 
@@ -128,26 +145,28 @@ bool_t _hash_multiset_iterator_before(
 /* hash_multiset private function */
 hash_multiset_t _create_hash_multiset(size_t t_typesize, const char* s_typename)
 {
-    hash_multiset_t t_new_hash_multiset;
-    char            ac_hashmultisettypename[_ELEM_TYPE_NAME_SIZE+1];
-    char            ac_unifytypename[_ELEM_TYPE_NAME_SIZE+1];
+    hash_multiset_t* pt_new_hash_multiset = NULL;
 
-    assert(s_typename != NULL);
+    if((pt_new_hash_multiset = (hash_multiset_t*)malloc(size(hash_multiset_t))) == NULL)
+    {
+        return NULL;
+    }
 
-    memset(ac_unifytypename, '\0', _ELEM_TYPE_NAME_SIZE+1);
-    strncpy(ac_unifytypename, s_typename, _ELEM_TYPE_NAME_SIZE);
-    _unify_types(t_typesize, ac_unifytypename);
-    
-    memset(ac_hashmultisettypename, '\0', _ELEM_TYPE_NAME_SIZE+1);
-    strncpy(ac_hashmultisettypename, _HASH_MULTISET_IDENTIFY, _ELEM_TYPE_NAME_SIZE);
-    strcat(ac_hashmultisettypename, _HASH_MULTISET_LEFT_BRACKET);
-    strcat(ac_hashmultisettypename, ac_unifytypename);
-    strcat(ac_hashmultisettypename, _HASH_MULTISET_RIGHT_BRACKET);
+    if(!_create_hash_multiset_auxiliary(pt_new_hash_multiset, s_typename))
+    {
+        free(pt_new_hash_multiset);
+        return NULL;
+    }
 
-    t_new_hash_multiset._t_hashtable = 
-        _create_hashtable(t_typesize, ac_hashmultisettypename);
+    return pt_new_hash_multiset;
+}
 
-    return t_new_hash_multiset;
+bool_t _create_hash_multiset_auxiliary(
+    hash_multiset_t* pt_hash_multiset, const char* s_typename)
+{
+    assert(pt_hash_multiset != NULL && s_typename != NULL);
+
+    return _create_hashtable_auxiliary(&pt_hash_multiset->_t_hashtable, s_typename);
 }
 
 /* hash_multiset function */

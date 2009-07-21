@@ -43,8 +43,10 @@ typedef struct _taghashmultiset
 /*
  * Create operation function.
  */
-extern hash_multiset_t _create_hash_multiset(
-    size_t t_typesize, const char* s_typename);
+extern hash_multiset_t* _create_hash_multiset(const char* s_typename);
+extern bool_t _create_hash_multiset_auxiliary(
+    hash_multiset_t* pt_hash_multiset, const char* s_typename);
+extern void _hash_multiset_destroy_auxiliary(hash_multiset_t* pt_hash_multiset);
 
 /*
  * Find operation functions.
@@ -64,8 +66,8 @@ extern size_t _hash_multiset_count_varg(
 /*
  * Equal range operation functions.
  */
-extern pair_t _hash_multiset_equal_range(const hash_multiset_t* cpt_hash_multiset, ...);
-extern pair_t _hash_multiset_equal_range_varg(
+extern range_t _hash_multiset_equal_range(const hash_multiset_t* cpt_hash_multiset, ...);
+extern range_t _hash_multiset_equal_range_varg(
     const hash_multiset_t* cpt_hash_multiset, va_list val_elemlist);
 
 /*

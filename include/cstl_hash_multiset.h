@@ -30,8 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define create_hash_multiset(type)\
-    _create_hash_multiset(sizeof(type), #type)
+#define create_hash_multiset(...) _create_hash_multiset(#__VA_ARGS__)
 /* find */
 #define hash_multiset_find(cpt_hash_multiset, elem)\
     _hash_multiset_find((cpt_hash_multiset), (elem))
@@ -56,21 +55,17 @@ extern "C" {
 /*
  * Initialization and destroy functions.
  */
-extern void hash_multiset_init(
-    hash_multiset_t* pt_hash_multiset, int (*pfun_hash)(const void*, size_t, size_t));
-extern void hash_multiset_init_n(
-    hash_multiset_t* pt_hash_multiset, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t));
+extern void hash_multiset_init(hash_multiset_t* pt_hash_multiset);
+extern void hash_multiset_init_ex(hash_multiset_t* pt_hash_multiset, size_t t_bucketcount,
+    unary_function_t t_hash, binary_function_t t_less);
 extern void hash_multiset_destroy(hash_multiset_t* pt_hash_multiset);
 extern void hash_multiset_init_copy(
     hash_multiset_t* pt_hash_multisetdest, const hash_multiset_t* cpt_hash_multisetsrc);
-extern void hash_multiset_init_copy_range(
-    hash_multiset_t* pt_hash_multisetdest, hash_multiset_iterator_t t_begin,
-    hash_multiset_iterator_t t_end, int (*pfun_hash)(const void*, size_t, size_t));
-extern void hash_multiset_init_copy_range_n(
-    hash_multiset_t* pt_hash_multisetdest, hash_multiset_iterator_t t_begin,
-    hash_multiset_iterator_t t_end, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t));
+extern void hash_multiset_init_copy_range(hash_multiset_t* pt_hash_multisetdest,
+    hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end);
+extern void hash_multiset_init_copy_range_ex(hash_multiset_t* pt_hash_multisetdest,
+    hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end, size_t t_bucketcount,
+    unary_function_t t_hash, binary_function_t t_less);
 
 /*
  * Assign operator function.
@@ -95,14 +90,12 @@ extern size_t hash_multiset_bucket_count(const hash_multiset_t* cpt_hash_multise
 /*
  * Return the hash function.
  */
-extern int (*hash_multiset_hash_func(const hash_multiset_t* cpt_hash_multiset))(
-    const void*, size_t, size_t);
+extern unary_function_t hash_multiset_hash(const hash_multiset_t* cpt_hash_multiset);
 
 /*
  * Return the compare function.
  */
-extern int (*hash_multiset_key_comp(const hash_multiset_t* cpt_hash_multiset))(
-    const void*, const void*);
+extern binary_function_t hash_multiset_key_less(const hash_multiset_t* cpt_hash_multiset);
 
 /*
  * Resize operation functions.
@@ -121,20 +114,26 @@ extern bool_t hash_multiset_not_equal(
 extern bool_t hash_multiset_less(
     const hash_multiset_t* cpt_hash_multisetfirst,
     const hash_multiset_t* cpt_hash_multisetsecond);
+extern bool_t hash_multiset_less_equal(
+    const hash_multiset_t* cpt_hash_multisetfirst,
+    const hash_multiset_t* cpt_hash_multisetsecond);
+extern bool_t hash_multiset_great(
+    const hash_multiset_t* cpt_hash_multisetfirst,
+    const hash_multiset_t* cpt_hash_multisetsecond);
+extern bool_t hash_multiset_great_equal(
+    const hash_multiset_t* cpt_hash_multisetfirst,
+    const hash_multiset_t* cpt_hash_multisetsecond);
 
 /*
  * Iterator support.
  */
-extern hash_multiset_iterator_t hash_multiset_begin(
-    const hash_multiset_t* cpt_hash_multiset);
-extern hash_multiset_iterator_t hash_multiset_end(
-    const hash_multiset_t* cpt_hash_multiset);
+extern hash_multiset_iterator_t hash_multiset_begin(const hash_multiset_t* cpt_hash_multiset);
+extern hash_multiset_iterator_t hash_multiset_end(const hash_multiset_t* cpt_hash_multiset);
 
 /*
  * Insert operation function.
  */
-extern void hash_multiset_insert_range(
-    hash_multiset_t* pt_hash_multiset, 
+extern void hash_multiset_insert_range(hash_multiset_t* pt_hash_multiset, 
     hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end);
 
 /*
@@ -142,8 +141,7 @@ extern void hash_multiset_insert_range(
  */
 extern void hash_multiset_erase_pos(
     hash_multiset_t* pt_hash_multiset, hash_multiset_iterator_t t_pos);
-extern void hash_multiset_erase_range(
-    hash_multiset_t* pt_hash_multiset,
+extern void hash_multiset_erase_range(hash_multiset_t* pt_hash_multiset,
     hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end);
 extern void hash_multiset_clear(hash_multiset_t* pt_hash_multiset);
 
