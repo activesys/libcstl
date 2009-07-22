@@ -3250,7 +3250,6 @@ static void _type_init_map(
     t_result = _create_map_auxiliary((map_t*)cpv_input, (char*)pv_output);
     assert(t_result);
     map_init((map_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_map(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3313,7 +3312,6 @@ static void _type_init_multimap(
     t_result = _create_multimap_auxiliary((multimap_t*)cpv_input, (char*)pv_output);
     assert(t_result);
     multimap_init((multimap_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3345,7 +3343,6 @@ static void _type_init_hash_set(
     t_result = _create_hash_set_auxiliary((hash_set_t*)cpv_input, (char*)pv_output);
     assert(t_result);
     hash_set_init((hash_set_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_hash_set(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3371,9 +3368,12 @@ static void _type_destroy_hash_set(
 static void _type_init_hash_map(
     const void* cpv_input, void* pv_output)
 {
+    bool_t t_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
-    hash_map_init((hash_map_t*)cpv_input, NULL);
-    *(bool_t*)pv_output = true;
+
+    t_result = _create_hash_map_auxiliary((hash_map_t*)cpv_input, (char*)pv_output);
+    assert(t_result);
+    hash_map_init((hash_map_t*)cpv_input);
 }
 static void _type_copy_hash_map(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3392,16 +3392,19 @@ static void _type_destroy_hash_map(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    hash_map_destroy((hash_map_t*)cpv_input);
+    _hash_map_destroy_auxiliary((hash_map_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* hash_multiset_t */
 static void _type_init_hash_multiset(
     const void* cpv_input, void* pv_output)
 {
+    bool_t t_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
-    hash_multiset_init((hash_multiset_t*)cpv_input, NULL);
-    *(bool_t*)pv_output = true;
+
+    t_result = _create_hash_multiset_auxiliary((hash_multiset_t*)cpv_input, (char*)pv_output);
+    assert(t_result);
+    hash_multiset_init((hash_multiset_t*)cpv_input);
 }
 static void _type_copy_hash_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3421,7 +3424,7 @@ static void _type_destroy_hash_multiset(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    hash_multiset_destroy((hash_multiset_t*)cpv_input);
+    _hash_multiset_destroy_auxiliary((hash_multiset_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* hash_multimap_t */
@@ -3457,17 +3460,11 @@ static void _type_destroy_hash_multimap(
 static void _type_init_pair(
     const void* cpv_input, void* pv_output)
 {
+    bool_t t_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    _type_get_type_pair(&((pair_t*)cpv_input)->_t_typeinfofirst,
-        &((pair_t*)cpv_input)->_t_typeinfosecond, (char*)pv_output);
-    assert(((pair_t*)cpv_input)->_t_typeinfofirst._t_style != _TYPE_INVALID &&
-           ((pair_t*)cpv_input)->_t_typeinfofirst._pt_type != NULL &&
-           ((pair_t*)cpv_input)->_t_typeinfosecond._t_style != _TYPE_INVALID &&
-           ((pair_t*)cpv_input)->_t_typeinfosecond._pt_type != NULL);
-    ((pair_t*)cpv_input)->first = NULL;
-    ((pair_t*)cpv_input)->second = NULL;
-
+    t_result = _create_pair_auxiliary((pair_t*)cpv_input, (char*)pv_output);
+    assert(t_result);
     /* initialize pair */
     pair_init((pair_t*)cpv_input);
 }
@@ -3500,7 +3497,6 @@ static void _type_init_string(
     t_result = _create_string_auxiliary((string_t*)cpv_input);
     assert(t_result);
     string_init((string_t*)cpv_input);
-    *(bool_t*)pv_output = true;
 }
 static void _type_copy_string(
     const void* cpv_first, const void* cpv_second, void* pv_output)

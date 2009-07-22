@@ -30,10 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define create_hash_map(key_type, value_type)\
-    _create_hash_map(\
-        sizeof(key_type), #key_type, \
-        sizeof(value_type), #value_type)
+#define create_hash_map(...) _create_hash_map(#__VA_ARGS__)
 /* find */
 #define hash_map_find(cpt_hash_map, key_elem)\
     _hash_map_find((cpt_hash_map), (key_elem))
@@ -58,20 +55,17 @@ extern "C" {
 /*
  * Initialization and destroy functions.
  */
-extern void hash_map_init(
-    hash_map_t* pt_hash_map, int (*pfun_hash)(const void*, size_t, size_t));
-extern void hash_map_init_n(
-    hash_map_t* pt_hash_map, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t));
+extern void hash_map_init(hash_map_t* pt_hash_map);
+extern void hash_map_init_ex(hash_map_t* pt_hash_map, size_t t_bucketcount,
+    unary_function_t t_hash, binary_function_t t_less);
 extern void hash_map_destroy(hash_map_t* pt_hash_map);
 extern void hash_map_init_copy(
     hash_map_t* pt_hash_mapdest, const hash_map_t* cpt_hash_mapsrc);
-extern void hash_map_init_copy_range(
-    hash_map_t* pt_hash_mapdest, hash_map_iterator_t t_begin,
-    hash_map_iterator_t t_end, int (*pfun_hash)(const void*, size_t, size_t));
-extern void hash_map_init_copy_range_n(
-    hash_map_t* pt_hash_mapdest, hash_map_iterator_t t_begin, hash_map_iterator_t t_end,
-    size_t t_bucketcount, int (*pfun_hash)(const void*, size_t, size_t));
+extern void hash_map_init_copy_range(hash_map_t* pt_hash_mapdest,
+    hash_map_iterator_t t_begin, hash_map_iterator_t t_end);
+extern void hash_map_init_copy_range_ex(hash_map_t* pt_hash_mapdest,
+    hash_map_iterator_t t_begin, hash_map_iterator_t t_end, size_t t_bucketcount,
+    unary_function_t t_hash, binary_function_t t_less);
 
 /*
  * Assign operator function.
@@ -96,14 +90,12 @@ extern size_t hash_map_bucket_count(const hash_map_t* cpt_hash_map);
 /*
  * Return the hash function.
  */
-extern int (*hash_map_hash_func(const hash_map_t* cpt_hash_map))(
-    const void*, size_t, size_t);
+extern unary_function_t hash_map_hash_func(const hash_map_t* cpt_hash_map);
 
 /*
  * Return the compare function.
  */
-extern int (*hash_map_key_comp(const hash_map_t* cpt_hash_map))(
-    const void*, const void*);
+extern binary_function_t hash_map_key_comp(const hash_map_t* cpt_hash_map);
 
 /*
  * hash_map_t resize operation function.
@@ -124,6 +116,12 @@ extern bool_t hash_map_equal(
 extern bool_t hash_map_not_equal(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
 extern bool_t hash_map_less(
+    const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
+extern bool_t hash_map_less_equal(
+    const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
+extern bool_t hash_map_great(
+    const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
+extern bool_t hash_map_great_great(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
 
 /*

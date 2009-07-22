@@ -44,9 +44,9 @@ typedef struct _taghashmap
 /*
  * Create operation function.
  */
-extern hash_map_t _create_hash_map(
-    size_t t_keytypesize, const char* s_keytypename,
-    size_t t_valuetypesize, const char* s_valuetypename);
+extern hash_map_t* _create_hash_map(const char* s_typename);
+extern bool_t _create_hash_map_auxiliary(hash_map_t* pt_hash_map, const char* s_typename);
+extern void _hash_map_destroy_auxiliary(hash_map_t* pt_hash_map);
 
 /*
  * Find operation functions.
@@ -65,8 +65,8 @@ extern size_t _hash_map_count_varg(
 /*
  * Equal range operation functions.
  */
-extern pair_t _hash_map_equal_range(const hash_map_t* cpt_hash_map, ...);
-extern pair_t _hash_map_equal_range_varg(
+extern range_t _hash_map_equal_range(const hash_map_t* cpt_hash_map, ...);
+extern range_t _hash_map_equal_range_varg(
     const hash_map_t* cpt_hash_map, va_list val_elemlist);
 
 /*
