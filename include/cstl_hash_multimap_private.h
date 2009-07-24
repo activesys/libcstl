@@ -44,9 +44,10 @@ typedef struct _taghashmultimap
 /*
  * Create operation functions.
  */
-extern hash_multimap_t _create_hash_multimap(
-    size_t t_keytypesize, const char* s_keytypename,
-    size_t t_valuetypesize, const char* s_valuetypename);
+extern hash_multimap_t* _create_hash_multimap(const char* s_typename);
+extern bool_t _create_hash_multimap_auxiliary(
+    hash_multimap_t* pt_hash_multimap, const char* s_typename);
+extern void _hash_multimap_destroy_auxiliary(hash_multimap_t* pt_hash_multimap);
 
 /*
  * Find operation function.

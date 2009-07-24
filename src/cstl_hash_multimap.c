@@ -84,25 +84,15 @@
 /*
  * Assert support.
  */
-static bool_t _same_hash_multimap_pair_type(
+static bool_t _hash_multimap_same_pair_type(
     const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
 #endif /* NDEBUG */
 
 /*
  * hash_multimap element compare function.
  */
-static int _hash_multimap_cmp(const void* cpv_firstelem, const void* cpv_secondelem);
-
-/*
- * Destroy element function.
- */
-static void _hash_multimap_destroy_elem(void* pv_value);
-
-/*
- * hash_multimap default hash function.
- */
-static int _hash_multimap_hash_function(
-    const void* cpv_value, size_t t_nodesize, size_t t_bucketcount);
+static void _hash_multimap_key_less(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -184,118 +174,104 @@ bool_t _hash_multimap_iterator_before(
 }
 
 /* hash_multimap private function */
-hash_multimap_t _create_hash_multimap(
-    size_t t_keytypesize, const char* s_keytypename, 
-    size_t t_valuetypesize, const char* s_valuetypename)
+hash_multimap_t* _create_hash_multimap(const char* s_typename)
 {
-    hash_multimap_t t_new_hash_multimap;
-    char            ac_hashmultimaptypename[_ELEM_TYPE_NAME_SIZE+1];
+    hash_multimap_t* pt_new_hash_multimap = NULL;
 
-    assert(t_keytypesize > 0 && t_valuetypesize > 0);
-    assert(s_keytypename != NULL && s_valuetypename != NULL);
+    if((pt_new_hash_multimap = (hash_multimap_t*)malloc(sizeof(hash_multimap_t))) == NULL)
+    {
+        return NULL;
+    }
 
-    /* create pair */
-    t_new_hash_multimap._t_pair = _create_pair(
-        t_keytypesize, s_keytypename, t_valuetypesize, s_valuetypename);
-    /* create tree */
-    memset(ac_hashmultimaptypename, '\0', _ELEM_TYPE_NAME_SIZE+1);
-    strncpy(ac_hashmultimaptypename, _HASH_MULTIMAP_IDENTIFY, _ELEM_TYPE_NAME_SIZE);
-    strcat(ac_hashmultimaptypename, _HASH_MULTIMAP_LEFT_BRACKET);
-    strcat(ac_hashmultimaptypename, t_new_hash_multimap._t_pair._sz_firsttypename);
-    strcat(ac_hashmultimaptypename, _HASH_MULTIMAP_COMMA);
-    strcat(ac_hashmultimaptypename, t_new_hash_multimap._t_pair._sz_secondtypename);
-    strcat(ac_hashmultimaptypename, _HASH_MULTIMAP_RIGHT_BRACKET);
+    if(!_create_hash_multimap_auxiliary(pt_new_hash_multimap, s_typename))
+    {
+        free(pt_new_hash_multimap);
+        return NULL;
+    }
 
-    t_new_hash_multimap._t_hashtable = 
-        _create_hashtable(sizeof(pair_t), ac_hashmultimaptypename);
-
-    return t_new_hash_multimap;
+    return pt_new_hash_multimap;
 }
 
-/* hash_multimap function */
-void hash_multimap_init(
-    hash_multimap_t* pt_hash_multimap,
-    int (*pfun_hash)(const void*, size_t, size_t))
+bool_t _create_hash_multimap_auxiliary(
+    hash_multimap_t* pt_hash_multimap, const char* s_typename)
 {
-    hash_multimap_init_n(pt_hash_multimap, 0, pfun_hash);
+    char s_typenameex[_TYPE_NAME_SIZE + 1];
+
+    assert(pt_hash_multimap != NULL && s_typename != NULL);
+
+    if(!_create_pair_auxiliary(&pt_hash_multimap->_t_pair, s_typename))
+    {
+        return false;
+    }
+
+    memset(s_typenameex, '\0', _TYPE_NAME_SIZE + 1);
+    strncpy(s_typenameex, "pair_t", _TYPE_NAME_SIZE);
+    strncat(s_typenameex, "<", _TYPE_NAME_SIZE);
+    strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
+    strncat(s_typenameex, ">", _TYPE_NAME_SIZE);
+
+    return _create_hashtable_auxiliary(&pt_hash_multimap->_t_hashtable, s_typenameex);
 }
 
-void hash_multimap_init_n(
-    hash_multimap_t* pt_hash_multimap, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t))
+void _hash_multimap_destroy_auxiliary(hash_multimap_t* pt_hash_multimap)
 {
     assert(pt_hash_multimap != NULL);
 
+    _pair_destroy_auxiliary(&pt_hash_multimap->_t_pair);
+    _hashtable_destroy_auxiliary(&pt_hash_multimap->_t_hashtable);
+}
+
+/* hash_multimap function */
+void hash_multimap_init(hash_multimap_t* pt_hash_multimap)
+{
+    hash_multimap_init_ex(pt_hash_multimap, 0, NULL, NULL);
+}
+
+void hash_multimap_init_ex(hash_multimap_t* pt_hash_multimap, size_t t_bucketcount,
+    unary_function_t t_hash, binary_function_t t_less)
+{
+    binary_function_t t_key_less = NULL;
+
+    assert(pt_hash_multimap != NULL);
+
+    t_key_less = t_less != NULL ? t_less : _hash_multimap_key_less;
     /* initialize the pair */
     pair_init(&pt_hash_multimap->_t_pair);
     /* initialize the hashtable */
-    if(pfun_hash != NULL)
-    {
-        _hashtable_init(
-            &pt_hash_multimap->_t_hashtable, t_bucketcount, pfun_hash, 
-            _hash_multimap_cmp, _hash_multimap_destroy_elem);
-    }
-    else
-    {
-        _hashtable_init(
-            &pt_hash_multimap->_t_hashtable, t_bucketcount, _hash_multimap_hash_function,
-            _hash_multimap_cmp, _hash_multimap_destroy_elem);
-    }
+    _hashtable_init(&pt_hash_multimap->_t_hashtable, t_bucketcount, t_hash, t_key_less);
 }
 
 void hash_multimap_destroy(hash_multimap_t* pt_hash_multimap)
 {
-    assert(pt_hash_multimap != NULL);
-
-    pair_destroy(&pt_hash_multimap->_t_pair);
-    _hashtable_destroy(&pt_hash_multimap->_t_hashtable);
+    _hash_multimap_destroy_auxiliary(pt_hash_multimap);
+    free(pt_hash_multimap);
 }
 
 void hash_multimap_init_copy(
     hash_multimap_t* pt_hash_multimapdest, const hash_multimap_t* cpt_hash_multimapsrc)
 {
     assert(pt_hash_multimapdest != NULL && cpt_hash_multimapsrc != NULL);
-    assert(
-        pt_hash_multimapdest->_t_pair._t_firsttypesize == 
-            cpt_hash_multimapsrc->_t_pair._t_firsttypesize &&
-        pt_hash_multimapdest->_t_pair._t_secondtypesize == 
-            cpt_hash_multimapsrc->_t_pair._t_secondtypesize);
-    assert(
-        strncmp(
-            pt_hash_multimapdest->_t_pair._sz_firsttypename,
-            cpt_hash_multimapsrc->_t_pair._sz_firsttypename,
-            _ELEM_TYPE_NAME_SIZE) == 0 &&
-        strncmp(
-            pt_hash_multimapdest->_t_pair._sz_secondtypename,
-            cpt_hash_multimapsrc->_t_pair._sz_secondtypename,
-            _ELEM_TYPE_NAME_SIZE) == 0);
+    assert(_hash_multimap_same_pair_type(
+        &pt_hash_multimapdest->_t_pair, &cpt_hash_multimapsrc->_t_pair));
 
-    hash_multimap_init_n(
-        pt_hash_multimapdest,
-        hash_multimap_bucket_count(cpt_hash_multimapsrc),
-        hash_multimap_hash_func(cpt_hash_multimapsrc));
+    hash_multimap_init(pt_hash_multimapdest);
 
     if(!hash_multimap_empty(cpt_hash_multimapsrc))
     {
-        hash_multimap_insert_range(
-            pt_hash_multimapdest, 
-            hash_multimap_begin(cpt_hash_multimapsrc), 
-            hash_multimap_end(cpt_hash_multimapsrc));
+        hash_multimap_insert_range(pt_hash_multimapdest, 
+            hash_multimap_begin(cpt_hash_multimapsrc), hash_multimap_end(cpt_hash_multimapsrc));
     }
 }
 
-void hash_multimap_init_copy_range(
-    hash_multimap_t* pt_hash_multimapdest, hash_multimap_iterator_t t_begin,
-    hash_multimap_iterator_t t_end, int (*pfun_hash)(const void*, size_t, size_t))
+void hash_multimap_init_copy_range(hash_multimap_t* pt_hash_multimapdest,
+    hash_multimap_iterator_t t_begin, hash_multimap_iterator_t t_end)
 {
-    hash_multimap_init_copy_range_n(
-        pt_hash_multimapdest, t_begin, t_end, 0, pfun_hash);
+    hash_multimap_init_copy_range_ex(pt_hash_multimapdest, t_begin, t_end, 0, NULL, NULL);
 }
 
-void hash_multimap_init_copy_range_n(
-    hash_multimap_t* pt_hash_multimapdest, hash_multimap_iterator_t t_begin,
-    hash_multimap_iterator_t t_end, size_t t_bucketcount,
-    int (*pfun_hash)(const void*, size_t, size_t))
+void hash_multimap_init_copy_range_ex(hash_multimap_t* pt_hash_multimapdest,
+    hash_multimap_iterator_t t_begin, hash_multimap_iterator_t t_end, size_t t_bucketcount,
+    unary_function_t t_hash, binary_function_t t_less)
 {
     assert(pt_hash_multimapdest != NULL);
     assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_begin) == _HASH_MULTIMAP_CONTAINER &&
@@ -306,18 +282,8 @@ void hash_multimap_init_copy_range_n(
            _GET_HASH_MULTIMAP_CONTAINER(t_end) != pt_hash_multimapdest &&
            _GET_HASH_MULTIMAP_CONTAINER(t_begin) == 
                _GET_HASH_MULTIMAP_CONTAINER(t_end));
-    assert(pt_hash_multimapdest->_t_pair._t_firsttypesize == 
-               _GET_HASH_MULTIMAP_CONTAINER(t_begin)->_t_pair._t_firsttypesize &&
-           pt_hash_multimapdest->_t_pair._t_secondtypesize == 
-               _GET_HASH_MULTIMAP_CONTAINER(t_begin)->_t_pair._t_secondtypesize);
-    assert(strncmp(pt_hash_multimapdest->_t_pair._sz_firsttypename,
-               _GET_HASH_MULTIMAP_CONTAINER(t_begin)->_t_pair._sz_firsttypename,
-               _ELEM_TYPE_NAME_SIZE) == 0 &&
-           strncmp(pt_hash_multimapdest->_t_pair._sz_secondtypename,
-               _GET_HASH_MULTIMAP_CONTAINER(t_begin)->_t_pair._sz_secondtypename,
-               _ELEM_TYPE_NAME_SIZE) == 0);
 
-    hash_multimap_init_n(pt_hash_multimapdest, t_bucketcount, pfun_hash);
+    hash_multimap_init_ex(pt_hash_multimapdest, t_bucketcount, t_hash, t_less);
 
     if(!hash_multimap_empty(_GET_HASH_MULTIMAP_CONTAINER(t_begin)))
     {
@@ -326,39 +292,29 @@ void hash_multimap_init_copy_range_n(
 }
 
 void hash_multimap_assign(
-    hash_multimap_t* pt_hash_multimapdest, 
-    const hash_multimap_t* cpt_hash_multimapsrc)
+    hash_multimap_t* pt_hash_multimapdest, const hash_multimap_t* cpt_hash_multimapsrc)
 {
     assert(pt_hash_multimapdest != NULL && cpt_hash_multimapsrc != NULL);
-    assert(_same_hash_multimap_pair_type(
+    assert(_hash_multimap_same_pair_type(
         &pt_hash_multimapdest->_t_pair, &cpt_hash_multimapsrc->_t_pair));
 
-    hash_multimap_destroy(pt_hash_multimapdest);
-    hash_multimap_init_n(
-        pt_hash_multimapdest,
-        hash_multimap_bucket_count(cpt_hash_multimapsrc),
-        hash_multimap_hash_func(cpt_hash_multimapsrc));
-
+    hash_multimap_clear(pt_hash_multimapdest);
     if(!hash_multimap_empty(cpt_hash_multimapsrc))
     {
-        hash_multimap_insert_range(
-            pt_hash_multimapdest, 
-            hash_multimap_begin(cpt_hash_multimapsrc), 
-            hash_multimap_end(cpt_hash_multimapsrc));
+        hash_multimap_insert_range(pt_hash_multimapdest, 
+            hash_multimap_begin(cpt_hash_multimapsrc), hash_multimap_end(cpt_hash_multimapsrc));
     }
 }
 
 void hash_multimap_swap(
-    hash_multimap_t* pt_hash_multimapfirst, 
-    hash_multimap_t* pt_hash_multimapsecond)
+    hash_multimap_t* pt_hash_multimapfirst, hash_multimap_t* pt_hash_multimapsecond)
 {
     assert(pt_hash_multimapfirst != NULL && pt_hash_multimapsecond != NULL);
-    assert(_same_hash_multimap_pair_type(
+    assert(_hash_multimap_same_pair_type(
         &pt_hash_multimapfirst->_t_pair, &pt_hash_multimapsecond->_t_pair));
 
     _hashtable_swap(
-        &pt_hash_multimapfirst->_t_hashtable, 
-        &pt_hash_multimapsecond->_t_hashtable);
+        &pt_hash_multimapfirst->_t_hashtable, &pt_hash_multimapsecond->_t_hashtable);
 }
 
 size_t hash_multimap_size(const hash_multimap_t* cpt_hash_multimap)
@@ -389,20 +345,18 @@ size_t hash_multimap_bucket_count(const hash_multimap_t* cpt_hash_multimap)
     return _hashtable_bucket_count(&cpt_hash_multimap->_t_hashtable);
 }
 
-int (*hash_multimap_hash_func(const hash_multimap_t* cpt_hash_multimap))(
-    const void*, size_t, size_t)
+unary_function_t hash_multimap_hash(const hash_multimap_t* cpt_hash_multimap)
 {
     assert(cpt_hash_multimap != NULL);
 
-    return _hashtable_hash_func(&cpt_hash_multimap->_t_hashtable);
+    return _hashtable_hash(&cpt_hash_multimap->_t_hashtable);
 }
 
-int (*hash_multimap_key_comp(const hash_multimap_t* cpt_hash_multimap))(
-    const void*, const void*)
+binary_function_t hash_multimap_key_less(const hash_multimap_t* cpt_hash_multimap)
 {
     assert(cpt_hash_multimap != NULL);
 
-    return cpt_hash_multimap->_t_pair._pfun_first_cmp;
+    return _hashtable_key_less(&cpt_hash_multimap->_t_hashtable);
 }
 
 void hash_multimap_resize(hash_multimap_t* pt_hash_multimap, size_t t_resize)
@@ -412,8 +366,7 @@ void hash_multimap_resize(hash_multimap_t* pt_hash_multimap, size_t t_resize)
     _hashtable_resize(&pt_hash_multimap->_t_hashtable, t_resize);
 }
 
-hash_multimap_iterator_t hash_multimap_begin(
-    const hash_multimap_t* cpt_hash_multimap)
+hash_multimap_iterator_t hash_multimap_begin(const hash_multimap_t* cpt_hash_multimap)
 {
     hash_multimap_iterator_t t_newiterator;
 
@@ -428,8 +381,7 @@ hash_multimap_iterator_t hash_multimap_begin(
     return t_newiterator;
 }
 
-hash_multimap_iterator_t hash_multimap_end(
-    const hash_multimap_t* cpt_hash_multimap)
+hash_multimap_iterator_t hash_multimap_end(const hash_multimap_t* cpt_hash_multimap)
 {
     hash_multimap_iterator_t t_newiterator;
 
@@ -450,32 +402,6 @@ bool_t hash_multimap_equal(
 {
     assert(cpt_hash_multimapfirst != NULL && cpt_hash_multimapsecond != NULL);
 
-    /* test pair */
-    if(cpt_hash_multimapfirst->_t_pair._t_firsttypesize != 
-        cpt_hash_multimapsecond->_t_pair._t_firsttypesize ||
-       cpt_hash_multimapfirst->_t_pair._t_secondtypesize != 
-        cpt_hash_multimapsecond->_t_pair._t_secondtypesize)
-    {
-        return false;
-    }
-    if(strncmp(
-        cpt_hash_multimapfirst->_t_pair._sz_firsttypename,
-        cpt_hash_multimapsecond->_t_pair._sz_firsttypename,
-        _ELEM_TYPE_NAME_SIZE) != 0 ||
-       strncmp(
-        cpt_hash_multimapfirst->_t_pair._sz_secondtypename,
-        cpt_hash_multimapsecond->_t_pair._sz_secondtypename,
-        _ELEM_TYPE_NAME_SIZE) != 0)
-    {
-        return false;
-    }
-    if(cpt_hash_multimapfirst->_t_pair._pfun_first_cmp != 
-        cpt_hash_multimapsecond->_t_pair._pfun_first_cmp ||
-       cpt_hash_multimapfirst->_t_pair._pfun_second_cmp != 
-        cpt_hash_multimapsecond->_t_pair._pfun_second_cmp)
-    {
-        return false;
-    }
     /* test hashtable */
     return _hashtable_equal(
         &cpt_hash_multimapfirst->_t_hashtable, &cpt_hash_multimapsecond->_t_hashtable);
@@ -485,15 +411,50 @@ bool_t hash_multimap_not_equal(
     const hash_multimap_t* cpt_hash_multimapfirst, 
     const hash_multimap_t* cpt_hash_multimapsecond)
 {
-    return !hash_multimap_equal(cpt_hash_multimapfirst, cpt_hash_multimapsecond);
+    assert(cpt_hash_multimapfirst != NULL && cpt_hash_multimapsecond != NULL);
+
+    return _hashtable_not_equal(
+        &cpt_hash_multimapfirst->_t_hashtable, &cpt_hash_multimapsecond->_t_hashtable);
 }
 
 bool_t hash_multimap_less(
     const hash_multimap_t* cpt_hash_multimapfirst, 
     const hash_multimap_t* cpt_hash_multimapsecond)
 {
-    /* add now relationship operator */
-    return true;
+    assert(cpt_hash_multimapfirst != NULL && cpt_hash_multimapsecond != NULL);
+
+    return _hashtable_less(
+        &cpt_hash_multimapfirst->_t_hashtable, &cpt_hash_multimapsecond->_t_hashtable);
+}
+
+bool_t hash_multimap_less_equal(
+    const hash_multimap_t* cpt_hash_multimapfirst, 
+    const hash_multimap_t* cpt_hash_multimapsecond)
+{
+    assert(cpt_hash_multimapfirst != NULL && cpt_hash_multimapsecond != NULL);
+
+    return _hashtable_less_equal(
+        &cpt_hash_multimapfirst->_t_hashtable, &cpt_hash_multimapsecond->_t_hashtable);
+}
+
+bool_t hash_multimap_great(
+    const hash_multimap_t* cpt_hash_multimapfirst, 
+    const hash_multimap_t* cpt_hash_multimapsecond)
+{
+    assert(cpt_hash_multimapfirst != NULL && cpt_hash_multimapsecond != NULL);
+
+    return _hashtable_great(
+        &cpt_hash_multimapfirst->_t_hashtable, &cpt_hash_multimapsecond->_t_hashtable);
+}
+
+bool_t hash_multimap_great_equal(
+    const hash_multimap_t* cpt_hash_multimapfirst, 
+    const hash_multimap_t* cpt_hash_multimapsecond)
+{
+    assert(cpt_hash_multimapfirst != NULL && cpt_hash_multimapsecond != NULL);
+
+    return _hashtable_great_equal(
+        &cpt_hash_multimapfirst->_t_hashtable, &cpt_hash_multimapsecond->_t_hashtable);
 }
 
 hash_multimap_iterator_t _hash_multimap_find(
@@ -511,10 +472,8 @@ hash_multimap_iterator_t _hash_multimap_find_varg(
 
     assert(cpt_hash_multimap != NULL);
 
-    _get_varg_value(
-        cpt_hash_multimap->_t_pair.first, val_elemlist, 
-        cpt_hash_multimap->_t_pair._t_firsttypesize,
-        cpt_hash_multimap->_t_pair._sz_firsttypename);
+    _type_get_varg_value(&((hash_multimap_t*)cpt_hash_multimap)->_t_pair._t_typeinfofirst,
+        val_elemlist, cpt_hash_multimap->_t_pair.first);
 
     t_iterator = _hashtable_find(
         &cpt_hash_multimap->_t_hashtable, &cpt_hash_multimap->_t_pair);
@@ -539,16 +498,14 @@ size_t _hash_multimap_count_varg(
 {
     assert(cpt_hash_multimap != NULL);
 
-    _get_varg_value(
-        cpt_hash_multimap->_t_pair.first, val_elemlist,
-        cpt_hash_multimap->_t_pair._t_firsttypesize,
-        cpt_hash_multimap->_t_pair._sz_firsttypename);
+    _type_get_varg_value(&((hash_multimap_t*)cpt_hash_multimap)->_t_pair._t_typeinfofirst,
+        val_elemlist, cpt_hash_multimap->_t_pair.first);
 
     return _hashtable_count(
         &cpt_hash_multimap->_t_hashtable, &cpt_hash_multimap->_t_pair);
 }
 
-pair_t _hash_multimap_equal_range(
+range_t _hash_multimap_equal_range(
     const hash_multimap_t* cpt_hash_multimap, ...)
 {
     va_list val_elemlist;
@@ -556,68 +513,41 @@ pair_t _hash_multimap_equal_range(
     return _hash_multimap_equal_range_varg(cpt_hash_multimap, val_elemlist);
 }
 
-pair_t _hash_multimap_equal_range_varg(
+range_t _hash_multimap_equal_range_varg(
     const hash_multimap_t* cpt_hash_multimap, va_list val_elemlist)
 {
-    hash_multimap_iterator_t t_firstiterator;
-    hash_multimap_iterator_t t_seconditerator;
-    hashtable_result_pair_t  t_result;
-    pair_t                   t_pair;
+    range_t  t_result;
 
     assert(cpt_hash_multimap != NULL);
 
-    _get_varg_value(
-        cpt_hash_multimap->_t_pair.first, val_elemlist, 
-        cpt_hash_multimap->_t_pair._t_firsttypesize,
-        cpt_hash_multimap->_t_pair._sz_firsttypename);
+    _type_get_varg_value(&((hash_multimap_t*)cpt_hash_multimap)->_t_pair._t_typeinfofirst,
+        val_elemlist, cpt_hash_multimap->_t_pair.first);
 
     t_result = _hashtable_equal_range(
         &cpt_hash_multimap->_t_hashtable, &cpt_hash_multimap->_t_pair);
 
-    t_firstiterator = t_result._t_first;
-    _GET_CONTAINER(t_firstiterator) = (hash_multimap_t*)cpt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_firstiterator) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_firstiterator) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_result.t_begin) = (hash_multimap_t*)cpt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_result.t_begin) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_result.t_begin) = _FORWARD_ITERATOR;
 
-    t_seconditerator = t_result._t_second._t_iterator;
-    _GET_CONTAINER(t_seconditerator) = (hash_multimap_t*)cpt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_seconditerator) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_seconditerator) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_result.t_end) = (hash_multimap_t*)cpt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_result.t_end) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_result.t_end) = _FORWARD_ITERATOR;
 
-    t_pair = create_pair(hash_multimap_iterator_t, hash_multimap_iterator_t);
-    pair_init(&t_pair);
-    memcpy(t_pair.first, &t_firstiterator, t_pair._t_firsttypesize);
-    memcpy(t_pair.second, &t_seconditerator, t_pair._t_secondtypesize);
-
-    return t_pair;
+    return t_result;
 }
 
 hash_multimap_iterator_t hash_multimap_insert(
     hash_multimap_t* pt_hash_multimap, const pair_t* cpt_pair)
 {
-    pair_t                   t_elempair;
     hash_multimap_iterator_t t_result;
 
     assert(pt_hash_multimap != NULL && cpt_pair != NULL);
-    assert(_same_hash_multimap_pair_type(&pt_hash_multimap->_t_pair, cpt_pair));
-
-    /* initialize new elemen pair */
-    t_elempair = _create_pair(
-        pt_hash_multimap->_t_pair._t_firsttypesize, 
-        pt_hash_multimap->_t_pair._sz_firsttypename,
-        pt_hash_multimap->_t_pair._t_secondtypesize,
-        pt_hash_multimap->_t_pair._sz_secondtypename);
-    pair_init(&t_elempair);
-    memcpy(t_elempair.first, cpt_pair->first, t_elempair._t_firsttypesize);
-    memcpy(t_elempair.second, cpt_pair->second, t_elempair._t_secondtypesize);
+    assert(_hash_multimap_same_pair_type(&pt_hash_multimap->_t_pair, cpt_pair));
 
     /* insert int hashtable */
-    t_result = _hashtable_insert_equal(&pt_hash_multimap->_t_hashtable, &t_elempair);
+    t_result = _hashtable_insert_equal(&pt_hash_multimap->_t_hashtable, cpt_pair);
 
-    /*
-     * There is no need for destroy the elempair, because the pair is copied 
-     * to the tree, and it is destroied by tree when tree is desroied.
-     */
     _GET_CONTAINER(t_result) = pt_hash_multimap;
     _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_result) = _HASH_MULTIMAP_CONTAINER;
     _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_result) = _FORWARD_ITERATOR;
@@ -686,10 +616,8 @@ size_t _hash_multimap_erase_varg(hash_multimap_t* pt_hash_multimap, va_list val_
 {
     assert(pt_hash_multimap != NULL);
 
-    _get_varg_value(
-        pt_hash_multimap->_t_pair.first, val_elemlist, 
-        pt_hash_multimap->_t_pair._t_firsttypesize,
-        pt_hash_multimap->_t_pair._sz_firsttypename);
+    _type_get_varg_value(&pt_hash_multimap->_t_pair._t_typeinfofirst,
+        val_elemlist, pt_hash_multimap->_t_pair.first);
 
     return _hashtable_erase(
         &pt_hash_multimap->_t_hashtable, &pt_hash_multimap->_t_pair);
@@ -704,128 +632,42 @@ void hash_multimap_clear(hash_multimap_t* pt_hash_multimap)
 
 /** local function implementation section **/
 #ifndef NDEBUG
-static bool_t _same_hash_multimap_pair_type(
+static bool_t _hash_multimap_same_pair_type(
     const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 {
     assert(cpt_pairfirst != NULL && cpt_pairsecond != NULL);
 
-    assert(cpt_pairfirst->first != NULL && cpt_pairfirst->second != NULL);
-    assert(cpt_pairsecond->first != NULL && cpt_pairsecond->second != NULL);
-    assert(cpt_pairfirst->_t_firsttypesize == cpt_pairsecond->_t_firsttypesize && 
-           cpt_pairfirst->_t_secondtypesize == cpt_pairsecond->_t_secondtypesize);
-    assert(strncmp(cpt_pairfirst->_sz_firsttypename, cpt_pairsecond->_sz_firsttypename,
-              _ELEM_TYPE_NAME_SIZE) == 0 &&
-           strncmp(cpt_pairfirst->_sz_secondtypename, cpt_pairsecond->_sz_secondtypename,
-              _ELEM_TYPE_NAME_SIZE) == 0);
-
-    assert(cpt_pairfirst->_pfun_first_cmp == cpt_pairsecond->_pfun_first_cmp &&
-           cpt_pairfirst->_pfun_second_cmp == cpt_pairsecond->_pfun_second_cmp);
-
-    return true;
+    return _type_is_same(cpt_pairfirst->_t_typeinfofirst._sz_typename,
+                         cpt_pairsecond->_t_typeinfofirst._sz_typename) &&
+           (cpt_pairfirst->_t_typeinfofirst._pt_type ==
+            cpt_pairsecond->_t_typeinfofirst._pt_type) &&
+           (cpt_pairfirst->_t_typeinfofirst._t_style ==
+            cpt_pairsecond->_t_typeinfofirst._t_style) &&
+           _type_is_same(cpt_pairfirst->_t_typeinfosecond._sz_typename,
+                         cpt_pairsecond->_t_typeinfosecond._sz_typename) &&
+           (cpt_pairfirst->_t_typeinfosecond._pt_type ==
+            cpt_pairsecond->_t_typeinfosecond._pt_type) &&
+           (cpt_pairfirst->_t_typeinfosecond._t_style ==
+            cpt_pairsecond->_t_typeinfosecond._t_style);
 }
 #endif /* NDEBUG */
 
-static int _hash_multimap_cmp(const void* cpv_firstelem, const void* cpv_secondelem)
+static void _hash_multimap_key_less(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     pair_t* pt_first = NULL;
     pair_t* pt_second = NULL;
 
-    assert(cpv_firstelem != NULL && cpv_secondelem != NULL);
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    pt_first = (pair_t*)cpv_firstelem;
-    pt_second = (pair_t*)cpv_secondelem;
+    pt_first = (pair_t*)cpv_first;
+    pt_second = (pair_t*)cpv_second;
 
-    assert(_same_hash_multimap_pair_type(pt_first, pt_second));
+    assert(_hash_multimap_same_pair_type(pt_first, pt_second));
 
-    if(pt_first->_pfun_first_cmp != NULL)
-    {
-        return (*pt_first->_pfun_first_cmp)(pt_first->first, pt_second->first);
-    }
-    else
-    {
-        return memcmp(pt_first->first, pt_second->first, pt_first->_t_firsttypesize);
-    }
-}
-
-static void _hash_multimap_destroy_elem(void* pv_value)
-{
-    assert(pv_value != NULL);
-
-    pair_destroy((pair_t*)pv_value);
-}
-
-static int _hash_multimap_hash_function(
-    const void* cpv_value, size_t t_nodesize, size_t t_bucketcount)
-{
-    size_t  t_sum = 0;
-    pair_t* pt_pair = NULL;
-    char*   pc_value = NULL;
-    size_t  t_index = 0;
-    size_t  t_avoidwarning = 0;
-    t_avoidwarning = t_nodesize;
-
-    assert(cpv_value != NULL && t_bucketcount > 0);
-
-    pt_pair = (pair_t*)cpv_value;
-
-    /* hash for int */
-    if(strncmp(
-        pt_pair->_sz_firsttypename, _INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
-    {
-        return abs(*(int*)pt_pair->first % t_bucketcount);
-    }
-    /* hash for unsigned int */
-    else if(strncmp(
-        pt_pair->_sz_firsttypename, _UNSIGNED_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
-    {
-        return *(unsigned int*)pt_pair->first % t_bucketcount;
-    }
-    /* hash for short */
-    else if(strncmp(
-        pt_pair->_sz_firsttypename, _SHORT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
-    {
-        return abs(*(short*)pt_pair->first % t_bucketcount);
-    }
-    /* hash for unsigned short */
-    else if(strncmp(
-        pt_pair->_sz_firsttypename, _UNSIGNED_SHORT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
-    {
-        return *(unsigned short*)pt_pair->first % t_bucketcount;
-    }
-    /* hash for long */
-    else if(strncmp(
-        pt_pair->_sz_firsttypename, _LONG_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
-    {
-        return abs(*(long*)pt_pair->first % t_bucketcount);
-    }
-    /* hash for unsigned long */
-    else if(strncmp(
-        pt_pair->_sz_firsttypename, _UNSIGNED_LONG_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
-    {
-        return *(unsigned long*)pt_pair->first % t_bucketcount;
-    }
-    /* hash for double */
-    else if(strncmp(
-        pt_pair->_sz_firsttypename, _DOUBLE_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
-    {
-        return (unsigned long)*(double*)pt_pair->first % t_bucketcount;
-    }
-    /* hash for float */
-    else if(strncmp(
-        pt_pair->_sz_firsttypename, _FLOAT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
-    {
-        return (unsigned long)*(float*)pt_pair->first % t_bucketcount;
-    }
-    else
-    {
-        pc_value = pt_pair->first;
-        for(t_index = 0; t_index < pt_pair->_t_firsttypesize; ++t_index)
-        {
-            t_sum += (size_t)pc_value[t_index];
-        }
-
-        return (int)(t_sum % t_bucketcount);
-    }
+    *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
+    pt_first->_t_typeinfofirst._pt_type->_t_typeless(
+        pt_first->first, pt_second->first, pv_output);
 }
 
 /** eof **/

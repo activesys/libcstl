@@ -3431,9 +3431,12 @@ static void _type_destroy_hash_multiset(
 static void _type_init_hash_multimap(
     const void* cpv_input, void* pv_output)
 {
+    bool_t t_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
-    hash_multimap_init((hash_multimap_t*)cpv_input, NULL);
-    *(bool_t*)pv_output = true;
+
+    t_result = _create_hash_multimap_auxiliary((hash_multimap_t*)cpv_input, (char*)pv_output);
+    assert(t_result);
+    hash_multimap_init((hash_multimap_t*)cpv_input);
 }
 static void _type_copy_hash_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3453,7 +3456,7 @@ static void _type_destroy_hash_multimap(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    hash_multimap_destroy((hash_multimap_t*)cpv_input);
+    _hash_multimap_destroy_auxiliary((hash_multimap_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 /* pair_t */
