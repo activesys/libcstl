@@ -127,46 +127,36 @@ void _algo_inner_product_if_varg(
     binary_function_t t_binary_op1, binary_function_t t_binary_op2,
     void* pv_output, va_list val_elemlist)
 {
-    char*      pc_outputtmp = NULL;
     iterator_t t_index1;
     iterator_t t_index2;
-    size_t     t_typesize = _tools_get_typesize(t_first1);
-    char*      s_typename = _tools_get_typename(t_first1);
+    void*      pv_tmp = NULL;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
     assert(pv_output != NULL);
 
-    pc_outputtmp = (char*)malloc(_tools_get_typesize(t_first1));
-    if(pc_outputtmp == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
+    pv_tmp = _iterator_allocate_init_elem(t_first1);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first1), val_elemlist, pv_output);
 
     if(t_binary_op1 == NULL)
     {
-        t_binary_op1 = fun_default_binary;
+        t_binary_op1 = _fun_get_binary(_iterator_get_typebasename(t_first1), _PLUS_FUN);
     }
     if(t_binary_op2 == NULL)
     {
-        t_binary_op2 = fun_default_binary;
+        t_binary_op2 = _fun_get_binary(_iterator_get_typebasename(t_first1), _MULTIPLIES_FUN);
     }
 
-    _get_varg_value(pv_output, val_elemlist, t_typesize, s_typename);
     for(t_index1 = t_first1, t_index2 = t_first2;
         !iterator_equal(t_index1, t_last1);
         t_index1 = iterator_next(t_index1), t_index2 = iterator_next(t_index2))
     {
-        (*t_binary_op2)(
-            iterator_get_pointer(t_index1), iterator_get_pointer(t_index2),
-            pc_outputtmp);
-        (*t_binary_op1)(pv_output, pc_outputtmp, pv_output);
+        (*t_binary_op2)(iterator_get_pointer(t_index1), iterator_get_pointer(t_index2), pv_tmp);
+        (*t_binary_op1)(pv_output, pv_tmp, pv_output);
     }
 
-    free(pc_outputtmp);
-    pc_outputtmp = NULL;
+    _iterator_deallocate_destroy_elem(t_first1, pv_tmp);
 }
 
 void algo_power(input_iterator_t t_iterator, size_t t_power, void* pv_output)

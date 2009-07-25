@@ -824,6 +824,219 @@ _typeinfo_t* _iterator_get_typeinfo(iterator_t t_iter)
     }
 }
 
+const char* _iterator_get_typename(iterator_t t_iter)
+{
+    switch(t_iter._t_iteratortype)
+    {
+    case _VECTOR_CONTAINER:
+        return ((vector_t*)t_iter._pt_container)->_t_typeinfo._sz_typename;
+        break;
+    case _DEQUE_CONTAINER:
+        return ((deque_t*)t_iter._pt_container)->_t_typeinfo._sz_typename;
+        break;
+    case _BASIC_STRING_CONTAINER:
+        return ((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo._sz_typename;
+        break;
+    case _LIST_CONTAINER:
+        return ((list_t*)t_iter._pt_container)->_t_typeinfo._sz_typename;
+        break;
+    case _SLIST_CONTAINER:
+        return ((slist_t*)t_iter._pt_container)->_t_typeinfo._sz_typename;
+        break;
+    case _SET_CONTAINER:
+        return ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._sz_typename;
+        break;
+    case _MULTISET_CONTAINER:
+        return ((multiset_t*)t_iter._pt_container)->_t_tree._t_typeinfo._sz_typename;
+        break;
+    case _MAP_CONTAINER:
+        return ((map_t*)t_iter._pt_container)->_t_tree._t_typeinfo._sz_typename;
+        break;
+    case _MULTIMAP_CONTAINER:
+        return ((multimap_t*)t_iter._pt_container)->_t_tree._t_typeinfo._sz_typename;
+        break;
+    case _HASH_SET_CONTAINER:
+        return ((hash_set_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._sz_typename;
+        break;
+    case _HASH_MULTISET_CONTAINER:
+        return ((hash_multiset_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._sz_typename;
+        break;
+    case _HASH_MAP_CONTAINER:
+        return  ((hash_map_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._sz_typename;
+        break;
+    case _HASH_MULTIMAP_CONTAINER:
+        return ((hash_multimap_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._sz_typename;
+        break;
+    default:
+        assert(false);
+        return NULL;
+        break;
+    }
+}
+
+bool_t _iterator_same_elem_type(iterator_t t_first, iterator_t t_last)
+{
+    return _type_is_same(_iterator_get_typename(t_first), _iterator_get_typename(t_last));
+}
+
+void* _iterator_allocate_init_elem(iterator_t t_iter)
+{
+    void* pv_value = NULL;
+
+    switch(t_iter._t_iteratortype)
+    {
+    case _VECTOR_CONTAINER:
+        pv_value = allocate(&((vector_t*)t_iter._pt_container)->_t_allocater,
+            ((vector_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize);
+        _vector_init_elem_auxiliary((vector_t*)t_iter._pt_container, pv_value);
+        break;
+    case _DEQUE_CONTAINER:
+        pv_value = allocate(&((deque_t*)t_iter._pt_container)->_t_allocater,
+            ((deque_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize);
+        _deque_init_elem_auxiliary((deque_t*)t_iter._pt_container, pv_value);
+        break;
+    case _BASIC_STRING_CONTAINER:
+        pv_value = allocate(&((basic_string_t*)t_iter._pt_container)->_t_vector._t_allocater,
+            ((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo._pt_type->_t_typesize);
+        _basic_string_init_elem_auxiliary((basic_string_t*)t_iter._pt_container, pv_value);
+        break;
+    case _LIST_CONTAINER:
+        pv_value = allocate(&((list_t*)t_iter._pt_container)->_t_allocater,
+            ((list_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize);
+        _list_init_elem_auxiliary((list_t*)t_iter._pt_container, pv_value);
+        break;
+    case _SLIST_CONTAINER:
+        pv_value = allocate(&((slist_t*)t_iter._pt_container)->_t_allocater,
+            ((slist_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize);
+        _slist_init_elem_auxiliary((slist_t*)t_iter._pt_container);
+        break;
+    case _SET_CONTAINER:
+        pv_value = allocate(&((set_t*)t_iter._pt_container)->_t_tree._t_allocater,
+            ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize);
+        _set_init_elem_auxiliary((set_t*)t_iter._pt_container, pv_value);
+        break;
+    case _MULTISET_CONTAINER:
+        pv_value = allocate(&((multiset_t*)t_iter._pt_container)->_t_tree._t_allocater,
+            ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize);
+        _multiset_init_elem_auxiliary((multiset_t*)t_iter._pt_container, pv_value);
+        break;
+    case _MAP_CONTAINER:
+        pv_value = allocate(&((map_t*)t_iter._pt_container)->_t_tree._t_allocater,
+            ((map_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize);
+        _map_init_elem_auxiliary((map_t*)t_iter._pt_container, pv_value);
+        break;
+    case _MULTIMAP_CONTAINER:
+        pv_value = allocate(&((multimap_t*)t_iter._pt_container)->_t_tree._t_allocater,
+            ((multimap_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize);
+        _multimap_init_elem_auxiliary((multimap_t*)t_iter._pt_container, pv_value);
+        break;
+    case _HASH_SET_CONTAINER:
+        pv_value = allocate(&((hash_set_t*)t_iter._pt_container)->_t_hashtable._t_allocater,
+            ((hash_set_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize);
+        _hash_set_init_elem_auxiliary((hash_set_t*)t_iter._pt_container, pv_value);
+        break;
+    case _HASH_MULTISET_CONTAINER:
+        pv_value = allocate(&((hash_multiset_t*)t_iter._pt_container)->_t_hashtable._t_allocater,
+            ((hash_multiset_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize);
+        _hash_multiset_init_elem_auxiliary((hash_multiset_t*)t_iter._pt_container, pv_value);
+        break;
+    case _HASH_MAP_CONTAINER:
+        pv_value = allocate(&((hash_map_t*)t_iter._pt_container)->_t_hashtable._t_allocater,
+            ((hash_map_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize);
+        _hash_map_init_elem_auxiliary((hash_map_t*)t_iter._pt_container, pv_value);
+        break;
+    case _HASH_MULTIMAP_CONTAINER:
+        pv_value = allocate(&((hash_multimap_t*)t_iter._pt_container)->_t_hashtable._t_allocater,
+            ((hash_multimap_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize);
+        _hash_multimap_init_elem_auxiliary((hash_multimap_t*)t_iter._pt_container, pv_value);
+        break;
+    default:
+        assert(false);
+        pv_value = NULL;
+        break;
+    }
+
+    return pv_value;
+}
+
+void _iterator_deallocate_destroy_elem(iterator_t t_iter, void* pv_value)
+{
+    assert(pv_value != NULL);
+
+    switch(t_iter._t_iteratortype)
+    {
+    case _VECTOR_CONTAINER:
+        pv_value = allocate(&((vector_t*)t_iter._pt_container)->_t_allocater,
+            ((vector_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize);
+        _vector_init_elem_auxiliary((vector_t*)t_iter._pt_container, pv_value);
+        break;
+    case _DEQUE_CONTAINER:
+        pv_value = allocate(&((deque_t*)t_iter._pt_container)->_t_allocater,
+            ((deque_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize);
+        _deque_init_elem_auxiliary((deque_t*)t_iter._pt_container, pv_value);
+        break;
+    case _BASIC_STRING_CONTAINER:
+        pv_value = allocate(&((basic_string_t*)t_iter._pt_container)->_t_vector._t_allocater,
+            ((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo._pt_type->_t_typesize);
+        _basic_string_init_elem_auxiliary((basic_string_t*)t_iter._pt_container, pv_value);
+        break;
+    case _LIST_CONTAINER:
+        pv_value = allocate(&((list_t*)t_iter._pt_container)->_t_allocater,
+            ((list_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize);
+        _list_init_elem_auxiliary((list_t*)t_iter._pt_container, pv_value);
+        break;
+    case _SLIST_CONTAINER:
+        pv_value = allocate(&((slist_t*)t_iter._pt_container)->_t_allocater,
+            ((slist_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize);
+        _slist_init_elem_auxiliary((slist_t*)t_iter._pt_container);
+        break;
+    case _SET_CONTAINER:
+        pv_value = allocate(&((set_t*)t_iter._pt_container)->_t_tree._t_allocater,
+            ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize);
+        _set_init_elem_auxiliary((set_t*)t_iter._pt_container, pv_value);
+        break;
+    case _MULTISET_CONTAINER:
+        pv_value = allocate(&((multiset_t*)t_iter._pt_container)->_t_tree._t_allocater,
+            ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize);
+        _multiset_init_elem_auxiliary((multiset_t*)t_iter._pt_container, pv_value);
+        break;
+    case _MAP_CONTAINER:
+        pv_value = allocate(&((map_t*)t_iter._pt_container)->_t_tree._t_allocater,
+            ((map_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize);
+        _map_init_elem_auxiliary((map_t*)t_iter._pt_container, pv_value);
+        break;
+    case _MULTIMAP_CONTAINER:
+        pv_value = allocate(&((multimap_t*)t_iter._pt_container)->_t_tree._t_allocater,
+            ((multimap_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize);
+        _multimap_init_elem_auxiliary((multimap_t*)t_iter._pt_container, pv_value);
+        break;
+    case _HASH_SET_CONTAINER:
+        pv_value = allocate(&((hash_set_t*)t_iter._pt_container)->_t_hashtable._t_allocater,
+            ((hash_set_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize);
+        _hash_set_init_elem_auxiliary((hash_set_t*)t_iter._pt_container, pv_value);
+        break;
+    case _HASH_MULTISET_CONTAINER:
+        pv_value = allocate(&((hash_multiset_t*)t_iter._pt_container)->_t_hashtable._t_allocater,
+            ((hash_multiset_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize);
+        _hash_multiset_init_elem_auxiliary((hash_multiset_t*)t_iter._pt_container, pv_value);
+        break;
+    case _HASH_MAP_CONTAINER:
+        pv_value = allocate(&((hash_map_t*)t_iter._pt_container)->_t_hashtable._t_allocater,
+            ((hash_map_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize);
+        _hash_map_init_elem_auxiliary((hash_map_t*)t_iter._pt_container, pv_value);
+        break;
+    case _HASH_MULTIMAP_CONTAINER:
+        pv_value = allocate(&((hash_multimap_t*)t_iter._pt_container)->_t_hashtable._t_allocater,
+            ((hash_multimap_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize);
+        _hash_multimap_init_elem_auxiliary((hash_multimap_t*)t_iter._pt_container, pv_value);
+        break;
+    default:
+        assert(false);
+        pv_value = NULL;
+        break;
+    }
+}
+
 /** local function implementation section **/
 
 /** eof **/

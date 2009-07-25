@@ -45,10 +45,14 @@ extern bool_t _iterator_limit_type(iterator_t t_iter, iteratortype_t t_limittype
 
 extern bool_t _iterator_valid_range(
     iterator_t t_first, iterator_t t_last, iteratortype_t t_type);
+extern bool_t _iterator_same_elem_type(iterator_t t_first, iterator_t t_last);
 
 extern _typestyle_t _iterator_get_typestyle(iterator_t t_iter);
 extern const char* _iterator_get_typebasename(iterator_t t_iter);
 extern _typeinfo_t* _iterator_get_typeinfo(iterator_t t_iter);
+extern const char* _iterator_get_typename(iterator_t t_iter);
+extern void* _iterator_allocate_init_elem(iterator_t t_iter);
+extern void _iterator_deallocate_destroy_elem(iterator_t t_iter, void* pv_value);
 
 #ifdef __cplusplus
 }
