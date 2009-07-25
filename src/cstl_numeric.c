@@ -52,18 +52,20 @@ void _algo_accumulate(
     input_iterator_t t_first, input_iterator_t t_last, void* pv_output, ...)
 {
     va_list val_elemlist;
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
 
-    va_start(val_elemlist, pv_output);
+    if(_iterator_get_typestyle(t_first) == _TYPE_C_BUILTIN &&
+       strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0)
+    {
+        va_start(val_elemlist, pv_output);
 
-    _algo_accumulate_if_varg(
-        t_first, t_last, _fun_get_binary(s_typename, _PLUS_FUN), pv_output, val_elemlist);
+        _algo_accumulate_if_varg(t_first, t_last,
+            _fun_get_binary(_iterator_get_typebasename(t_first), _PLUS_FUN),
+            pv_output, val_elemlist);
+    }
 }
 
-void _algo_accumulate_if(
-    input_iterator_t t_first, input_iterator_t t_last, binary_function_t t_binary_op,
-    void* pv_output, ...)
+void _algo_accumulate_if(input_iterator_t t_first, input_iterator_t t_last,
+    binary_function_t t_binary_op, void* pv_output, ...)
 {
     va_list val_elemlist;
     va_start(val_elemlist, pv_output);
@@ -71,26 +73,23 @@ void _algo_accumulate_if(
     _algo_accumulate_if_varg(t_first, t_last, t_binary_op, pv_output, val_elemlist);
 }
 
-void _algo_accumulate_if_varg(
-    input_iterator_t t_first, input_iterator_t t_last, binary_function_t t_binary_op,
-    void* pv_output, va_list val_elemlist)
+void _algo_accumulate_if_varg(input_iterator_t t_first, input_iterator_t t_last,
+    binary_function_t t_binary_op, void* pv_output, va_list val_elemlist)
 {
-    iterator_t t_index;
-    size_t     t_typesize = _tools_get_typesize(t_first);
-    char*      s_typename = _tools_get_typename(t_first);
+    iterator_t t_iter;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
     assert(pv_output != NULL);
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _PLUS_FUN);
     }
 
-    _get_varg_value(pv_output, val_elemlist, t_typesize, s_typename);
-    for(t_index = t_first; !iterator_equal(t_index, t_last); t_index = iterator_next(t_index))
+    _type_get_varg_value(_iterator_get_typeinfo(t_iter), val_elemlist, pv_output);
+    for(t_iter = t_first; !iterator_equal(t_iter, t_last); t_iter = iterator_next(t_iter))
     {
-        (*t_binary_op)(pv_output, iterator_get_pointer(t_index), pv_output);
+        (*t_binary_op)(pv_output, iterator_get_pointer(t_iter), pv_output);
     }
 }
 
@@ -98,15 +97,18 @@ void _algo_inner_product(
     input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
     void* pv_output, ...)
 {
-    char* s_typename = _tools_get_typename(t_first1);
     va_list val_elemlist;
-    assert(s_typename != NULL);
 
-    va_start(val_elemlist, pv_output);
+    if(_iterator_get_typestyle(t_first1) == _TYPE_C_BUILTIN &&
+       strncmp(_iterator_get_typebasename(t_first1), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0)
+    {
+        va_start(val_elemlist, pv_output);
 
-    _algo_inner_product_if_varg(
-        t_first1, t_last1, t_first2, _fun_get_binary(s_typename, _PLUS_FUN),
-        _fun_get_binary(s_typename, _MULTIPLIES_FUN), pv_output, val_elemlist);
+        _algo_inner_product_if_varg(t_first1, t_last1, t_first2,
+            _fun_get_binary(_iterator_get_typebasename(t_first1), _PLUS_FUN),
+            _fun_get_binary(_iterator_get_typebasename(t_first1), _MULTIPLIES_FUN),
+            pv_output, val_elemlist);
+    }
 }
 
 void _algo_inner_product_if(
@@ -116,8 +118,8 @@ void _algo_inner_product_if(
     va_list val_elemlist;
     va_start(val_elemlist, pv_output);
 
-    _algo_inner_product_if_varg(
-        t_first1, t_last1, t_first2, t_binary_op1, t_binary_op2, pv_output, val_elemlist);
+    _algo_inner_product_if_varg(t_first1, t_last1, t_first2,
+        t_binary_op1, t_binary_op2, pv_output, val_elemlist);
 }
 
 void _algo_inner_product_if_varg(

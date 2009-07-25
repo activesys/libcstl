@@ -31,19 +31,15 @@
 
 #include "cstl_iterator.h"
 #include "cstl_iterator_private.h"
-#include "cstl_vector_iterator.h"
-#include "cstl_list_iterator.h"
-#include "cstl_deque_iterator.h"
-#include "cstl_slist_iterator.h"
-#include "cstl_set_iterator.h"
-#include "cstl_multiset_iterator.h"
-#include "cstl_map_iterator.h"
-#include "cstl_multimap_iterator.h"
-#include "cstl_hash_set_iterator.h"
-#include "cstl_hash_multiset_iterator.h"
-#include "cstl_hash_map_iterator.h"
-#include "cstl_hash_multimap_iterator.h"
-#include "cstl_basic_string_iterator.h"
+#include "cvector.h"
+#include "clist.h"
+#include "cdeque.h"
+#include "cslist.h"
+#include "cset.h"
+#include "cmap.h"
+#include "chash_set.h"
+#include "chash_map.h"
+#include "cstring.h"
 
 /** local constant declaration and local macro section **/
 
@@ -662,6 +658,168 @@ int iterator_distance(iterator_t t_iterfirst, iterator_t t_itersecond)
     default:
         assert(false);
         return 0;
+        break;
+    }
+}
+
+bool_t _iterator_valid_range(iterator_t t_first, iterator_t t_last, iteratortype_t t_type)
+{
+    return _iterator_same_type(t_first, t_last) &&
+           _iterator_limit_type(t_first, t_type) &&
+           (iterator_equal(t_first, t_last) || _iterator_before(t_first, t_last));
+}
+
+_typestyle_t _iterator_get_typestyle(iterator_t t_iter)
+{
+    switch(t_iter._t_iteratortype)
+    {
+    case _VECTOR_CONTAINER:
+        return ((vector_t*)t_iter._pt_container)->_t_typeinfo._t_style;
+        break;
+    case _DEQUE_CONTAINER:
+        return ((deque_t*)t_iter._pt_container)->_t_typeinfo._t_style;
+        break;
+    case _BASIC_STRING_CONTAINER:
+        return ((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo._t_style;
+        break;
+    case _LIST_CONTAINER:
+        return ((list_t*)t_iter._pt_container)->_t_typeinfo._t_style;
+        break;
+    case _SLIST_CONTAINER:
+        return ((slist_t*)t_iter._pt_container)->_t_typeinfo._t_style;
+        break;
+    case _SET_CONTAINER:
+        return ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._t_style;
+        break;
+    case _MULTISET_CONTAINER:
+        return ((multiset_t*)t_iter._pt_container)->_t_tree._t_typeinfo._t_style;
+        break;
+    case _MAP_CONTAINER:
+        return ((map_t*)t_iter._pt_container)->_t_tree._t_typeinfo._t_style;
+        break;
+    case _MULTIMAP_CONTAINER:
+        return ((multimap_t*)t_iter._pt_container)->_t_tree._t_typeinfo._t_style;
+        break;
+    case _HASH_SET_CONTAINER:
+        return ((hash_set_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._t_style;
+        break;
+    case _HASH_MULTISET_CONTAINER:
+        return ((hash_multiset_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._t_style;
+        break;
+    case _HASH_MAP_CONTAINER:
+        return ((hash_map_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._t_style;
+        break;
+    case _HASH_MULTIMAP_CONTAINER:
+        return ((hash_multimap_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._t_style;
+        break;
+    default:
+        assert(false);
+        return _TYPE_INVALID;
+        break;
+    }
+}
+
+const char* _iterator_get_typebasename(iterator_t t_iter)
+{
+    switch(t_iter._t_iteratortype)
+    {
+    case _VECTOR_CONTAINER:
+        return ((vector_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _DEQUE_CONTAINER:
+        return ((deque_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _BASIC_STRING_CONTAINER:
+        return ((basic_string_t*)
+            t_iter._pt_container)->_t_vector._t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _LIST_CONTAINER:
+        return ((list_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _SLIST_CONTAINER:
+        return ((slist_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _SET_CONTAINER:
+        return ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _MULTISET_CONTAINER:
+        return ((multiset_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _MAP_CONTAINER:
+        return ((map_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _MULTIMAP_CONTAINER:
+        return ((multimap_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _HASH_SET_CONTAINER:
+        return ((hash_set_t*)
+            t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _HASH_MULTISET_CONTAINER:
+        return ((hash_multiset_t*)
+            t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _HASH_MAP_CONTAINER:
+        return ((hash_map_t*)
+            t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_sz_typename;
+        break;
+    case _HASH_MULTIMAP_CONTAINER:
+        return ((hash_multimap_t*)
+            t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_sz_typename;
+        break;
+    default:
+        assert(false);
+        return NULL;
+        break;
+    }
+}
+
+_typeinfo_t* _iterator_get_typeinfo(iterator_t t_iter)
+{
+    switch(t_iter._t_iteratortype)
+    {
+    case _VECTOR_CONTAINER:
+        return &((vector_t*)t_iter._pt_container)->_t_typeinfo;
+        break;
+    case _DEQUE_CONTAINER:
+        return &((deque_t*)t_iter._pt_container)->_t_typeinfo;
+        break;
+    case _BASIC_STRING_CONTAINER:
+        return &((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo;
+        break;
+    case _LIST_CONTAINER:
+        return &((list_t*)t_iter._pt_container)->_t_typeinfo;
+        break;
+    case _SLIST_CONTAINER:
+        return &((slist_t*)t_iter._pt_container)->_t_typeinfo;
+        break;
+    case _SET_CONTAINER:
+        return &((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo;
+        break;
+    case _MULTISET_CONTAINER:
+        return &((multiset_t*)t_iter._pt_container)->_t_tree._t_typeinfo;
+        break;
+    case _MAP_CONTAINER:
+        return &((map_t*)t_iter._pt_container)->_t_tree._t_typeinfo;
+        break;
+    case _MULTIMAP_CONTAINER:
+        return &((multimap_t*)t_iter._pt_container)->_t_tree._t_typeinfo;
+        break;
+    case _HASH_SET_CONTAINER:
+        return &((hash_set_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo;
+        break;
+    case _HASH_MULTISET_CONTAINER:
+        return &((hash_multiset_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo;
+        break;
+    case _HASH_MAP_CONTAINER:
+        return &((hash_map_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo;
+        break;
+    case _HASH_MULTIMAP_CONTAINER:
+        return &((hash_multimap_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo;
+        break;
+    default:
+        assert(false);
+        return NULL;
         break;
     }
 }

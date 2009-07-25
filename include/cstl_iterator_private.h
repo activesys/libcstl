@@ -43,6 +43,13 @@ extern bool_t _iterator_same_type(iterator_t t_iterfirst, iterator_t t_itersecon
 extern bool_t _iterator_before(iterator_t t_iterfirst, iterator_t t_itersecond);
 extern bool_t _iterator_limit_type(iterator_t t_iter, iteratortype_t t_limittype);
 
+extern bool_t _iterator_valid_range(
+    iterator_t t_first, iterator_t t_last, iteratortype_t t_type);
+
+extern _typestyle_t _iterator_get_typestyle(iterator_t t_iter);
+extern const char* _iterator_get_typebasename(iterator_t t_iter);
+extern _typeinfo_t* _iterator_get_typeinfo(iterator_t t_iter);
+
 #ifdef __cplusplus
 }
 #endif

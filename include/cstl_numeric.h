@@ -27,6 +27,14 @@
 extern "C" {
 #endif
 
+/*
+ * Note : The numeric algorithm functions are valid for c built-in types except c-string!
+ *        You can't use numeric algorithm functions with cstl built-in types and user-defined
+ *        types that whose numeric operation functions was not overwritted, but you can use
+ *        _if style numeric algorithm functions that use user-defined numeric operation
+ *        functions for that types.
+ */
+
 /** include section **/
 
 /** constant declaration and macro section **/
