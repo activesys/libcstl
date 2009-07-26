@@ -80,7 +80,7 @@ static void _basic_string_get_varg_value_auxiliary(
     basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg);
 static void _basic_string_destroy_varg_value_auxiliary(
     basic_string_t* pt_basic_string, void* pv_varg);
-static void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem);
+/*static void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem);*/
 
 /** exported global variable definition section **/
 
@@ -326,7 +326,7 @@ basic_string_t* _create_basic_string(const char* s_typename)
 
 bool_t _create_basic_string_auxiliary(basic_string_t* pt_basic_string, const char* s_typename)
 {
-    return _create_vector_auxiliary(&pt_basic_string->_t_vector);
+    return _create_vector_auxiliary(&pt_basic_string->_t_vector, s_typename);
 }
 
 void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string)
@@ -2429,6 +2429,27 @@ void basic_string_replace_range(
     basic_string_insert_range(pt_basic_string, t_iterator, t_first, t_last);
 }
 
+void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem)
+{
+    assert(pt_basic_string != NULL && pv_elem != NULL);
+
+    /* initialize new elements */
+    if(_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_CSTL_BUILTIN)
+    {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(pt_vector), s_elemtypename);
+
+        _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, s_elemtypename);
+    }
+    else
+    {
+        bool_t t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, &t_result);
+        assert(t_result);
+    }
+}
+
 /** local function implementation section **/
 #ifndef NDEBUG
 static bool_t _iterator_belong_to_basic_string(
@@ -2502,27 +2523,6 @@ static size_t _get_valuestring_len(
             pc_nullterminated, t_typesize, 1);
 
         return t_len;
-    }
-}
-
-static void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem)
-{
-    assert(pt_vector != NULL && pv_elem != NULL);
-
-    /* initialize new elements */
-    if(_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(pt_vector), s_elemtypename);
-
-        _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, s_elemtypename);
-    }
-    else
-    {
-        bool_t t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-        _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, &t_result);
-        assert(t_result);
     }
 }
 

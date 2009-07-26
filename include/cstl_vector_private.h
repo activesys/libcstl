@@ -99,6 +99,8 @@ extern vector_iterator_t _vector_insert_n(
 extern vector_iterator_t _vector_insert_n_varg(
     vector_t* pt_vector, vector_iterator_t t_pos, size_t t_count, va_list val_elemlist);
 
+extern void _vector_init_elem_auxiliary(vector_t* pt_vector, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

@@ -102,7 +102,7 @@ static deque_iterator_t _move_elem_to_begin(
 static void _deque_get_varg_value_auxiliary(
     deque_t* pt_deque, va_list val_elemlist, void* pv_varg);
 static void _deque_destroy_varg_value_auxiliary(deque_t* pt_deque, void* pv_varg);
-static void _deque_init_elem_auxiliary(deque_t* pt_deque, void* pv_elem);
+/*static void _deque_init_elem_auxiliary(deque_t* pt_deque, void* pv_elem);*/
 static void _deque_init_elem_range_auxiliary(
     deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end);
 
@@ -1368,6 +1368,27 @@ void deque_clear(deque_t* pt_deque)
     deque_erase_range(pt_deque, deque_begin(pt_deque), deque_end(pt_deque));
 }
 
+void _deque_init_elem_auxiliary(deque_t* pt_deque, void* pv_elem)
+{
+    assert(pt_deque != NULL && pv_elem != NULL);
+
+    /* initialize new elements */
+    if(_GET_DEQUE_TYPE_STYLE(pt_deque) == _TYPE_CSTL_BUILTIN)
+    {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(_GET_DEQUE_TYPE_NAME(pt_deque), s_elemtypename);
+
+        _GET_DEQUE_TYPE_INIT_FUNCTION(pt_deque)(pv_elem, s_elemtypename);
+    }
+    else
+    {
+        bool_t t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
+        _GET_DEQUE_TYPE_INIT_FUNCTION(pt_deque)(pv_elem, &t_result);
+        assert(t_result);
+    }
+}
+
 /** local function implementation section **/
 #ifndef NDEBUG
 static bool_t _deque_iterator_belong_to_deque(
@@ -1993,27 +2014,6 @@ static void _deque_destroy_varg_value_auxiliary(deque_t* pt_deque, void* pv_varg
     bool_t t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
     _GET_DEQUE_TYPE_DESTROY_FUNCTION(pt_deque)(pv_varg, &t_result);
     assert(t_result);
-}
-
-static void _deque_init_elem_auxiliary(deque_t* pt_deque, void* pv_elem)
-{
-    assert(pt_deque != NULL && pv_elem != NULL);
-
-    /* initialize new elements */
-    if(_GET_DEQUE_TYPE_STYLE(pt_deque) == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_DEQUE_TYPE_NAME(pt_deque), s_elemtypename);
-
-        _GET_DEQUE_TYPE_INIT_FUNCTION(pt_deque)(pv_elem, s_elemtypename);
-    }
-    else
-    {
-        bool_t t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
-        _GET_DEQUE_TYPE_INIT_FUNCTION(pt_deque)(pv_elem, &t_result);
-        assert(t_result);
-    }
 }
 
 static void _deque_init_elem_range_auxiliary(

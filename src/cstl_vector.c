@@ -74,7 +74,7 @@ static bool_t _vector_same_type(
 static void _vector_get_varg_value_auxiliary(
     vector_t* pt_vector, va_list val_elemlist, void* pv_varg);
 static void _vector_destroy_varg_value_auxiliary(vector_t* pt_vector, void* pv_varg);
-static void _vector_init_elem_auxiliary(vector_t* pt_vector, void* pv_elem);
+/*static void _vector_init_elem_auxiliary(vector_t* pt_vector, void* pv_elem);*/
 static void _vector_init_elem_range_auxiliary(
     vector_t* pt_vector, char* pc_start, char* pc_finish);
 
@@ -1194,6 +1194,27 @@ void vector_clear(vector_t* pt_vector)
     vector_erase_range(pt_vector, vector_begin(pt_vector), vector_end(pt_vector));
 }
 
+void _vector_init_elem_auxiliary(vector_t* pt_vector, void* pv_elem)
+{
+    assert(pt_vector != NULL && pv_elem != NULL);
+
+    /* initialize new elements */
+    if(_GET_VECTOR_TYPE_STYLE(pt_vector) == _TYPE_CSTL_BUILTIN)
+    {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(_GET_VECTOR_TYPE_NAME(pt_vector), s_elemtypename);
+
+        _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pv_elem, s_elemtypename);
+    }
+    else
+    {
+        bool_t t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
+        _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pv_elem, &t_result);
+        assert(t_result);
+    }
+}
+
 /** local function implementation section **/
 #ifndef NDEBUG
 static bool_t _vector_iterator_belong_to_vector(
@@ -1233,27 +1254,6 @@ static bool_t _vector_same_type(
             cpt_vectorsecond->_t_typeinfo._pt_type) &&
            (cpt_vectorfirst->_t_typeinfo._t_style ==
             cpt_vectorsecond->_t_typeinfo._t_style);
-}
-
-static void _vector_init_elem_auxiliary(vector_t* pt_vector, void* pv_elem)
-{
-    assert(pt_vector != NULL && pv_elem != NULL);
-
-    /* initialize new elements */
-    if(_GET_VECTOR_TYPE_STYLE(pt_vector) == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_VECTOR_TYPE_NAME(pt_vector), s_elemtypename);
-
-        _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pv_elem, s_elemtypename);
-    }
-    else
-    {
-        bool_t t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pv_elem, &t_result);
-        assert(t_result);
-    }
 }
 
 static void _vector_init_elem_range_auxiliary(

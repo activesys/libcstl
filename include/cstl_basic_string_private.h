@@ -139,6 +139,8 @@ extern void _basic_string_replace_elem_varg(
     basic_string_t* pt_basic_string, size_t t_pos,
     size_t t_len, size_t t_count, va_list val_elemlist);
 
+extern void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

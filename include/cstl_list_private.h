@@ -107,6 +107,8 @@ extern list_iterator_t _list_insert_n(
 extern list_iterator_t _list_insert_n_varg(
     list_t* pt_list, list_iterator_t t_pos, size_t t_count, va_list val_elemlist);
 
+extern void _list_init_elem_auxiliary(list_t* pt_list, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

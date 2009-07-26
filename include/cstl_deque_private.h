@@ -94,6 +94,8 @@ extern deque_iterator_t _deque_insert_n(
 extern deque_iterator_t _deque_insert_n_varg(
     deque_t* pt_deque, deque_iterator_t t_pos, size_t t_count, va_list val_elemlist);
 
+extern void _deque_init_elem_auxiliary(deque_t* pt_deque, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif
