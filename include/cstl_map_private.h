@@ -83,6 +83,8 @@ extern void* _map_at_varg(map_t* pt_map, va_list val_elemlist);
 extern size_t _map_erase(map_t* pt_map, ...);
 extern size_t _map_erase_varg(map_t* pt_map, va_list val_elemlist);
 
+extern void _map_init_elem_auxiliary(map_t* pt_map, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

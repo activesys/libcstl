@@ -81,6 +81,8 @@ extern void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist);
 extern size_t _hash_map_erase(hash_map_t* pt_hash_map, ...);
 extern size_t _hash_map_erase_varg(hash_map_t* pt_hash_map, va_list val_elemlist);
 
+extern void _hash_map_init_elem_auxiliary(hash_map_t* pt_hash_map, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

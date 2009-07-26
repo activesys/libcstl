@@ -671,106 +671,29 @@ bool_t _iterator_valid_range(iterator_t t_first, iterator_t t_last, iteratortype
 
 _typestyle_t _iterator_get_typestyle(iterator_t t_iter)
 {
-    switch(t_iter._t_iteratortype)
+    _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(t_iter);
+
+    if(pt_typeinfo != NULL)
     {
-    case _VECTOR_CONTAINER:
-        return ((vector_t*)t_iter._pt_container)->_t_typeinfo._t_style;
-        break;
-    case _DEQUE_CONTAINER:
-        return ((deque_t*)t_iter._pt_container)->_t_typeinfo._t_style;
-        break;
-    case _BASIC_STRING_CONTAINER:
-        return ((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo._t_style;
-        break;
-    case _LIST_CONTAINER:
-        return ((list_t*)t_iter._pt_container)->_t_typeinfo._t_style;
-        break;
-    case _SLIST_CONTAINER:
-        return ((slist_t*)t_iter._pt_container)->_t_typeinfo._t_style;
-        break;
-    case _SET_CONTAINER:
-        return ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._t_style;
-        break;
-    case _MULTISET_CONTAINER:
-        return ((multiset_t*)t_iter._pt_container)->_t_tree._t_typeinfo._t_style;
-        break;
-    case _MAP_CONTAINER:
-        return ((map_t*)t_iter._pt_container)->_t_tree._t_typeinfo._t_style;
-        break;
-    case _MULTIMAP_CONTAINER:
-        return ((multimap_t*)t_iter._pt_container)->_t_tree._t_typeinfo._t_style;
-        break;
-    case _HASH_SET_CONTAINER:
-        return ((hash_set_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._t_style;
-        break;
-    case _HASH_MULTISET_CONTAINER:
-        return ((hash_multiset_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._t_style;
-        break;
-    case _HASH_MAP_CONTAINER:
-        return ((hash_map_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._t_style;
-        break;
-    case _HASH_MULTIMAP_CONTAINER:
-        return ((hash_multimap_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._t_style;
-        break;
-    default:
-        assert(false);
+        return pt_typeinfo->_t_style;
+    }
+    else
+    {
         return _TYPE_INVALID;
-        break;
     }
 }
 
 const char* _iterator_get_typebasename(iterator_t t_iter)
 {
-    switch(t_iter._t_iteratortype)
+    _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(t_iter);
+
+    if(pt_typeinfo != NULL)
     {
-    case _VECTOR_CONTAINER:
-        return ((vector_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _DEQUE_CONTAINER:
-        return ((deque_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _BASIC_STRING_CONTAINER:
-        return ((basic_string_t*)
-            t_iter._pt_container)->_t_vector._t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _LIST_CONTAINER:
-        return ((list_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _SLIST_CONTAINER:
-        return ((slist_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _SET_CONTAINER:
-        return ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _MULTISET_CONTAINER:
-        return ((multiset_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _MAP_CONTAINER:
-        return ((map_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _MULTIMAP_CONTAINER:
-        return ((multimap_t*)t_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _HASH_SET_CONTAINER:
-        return ((hash_set_t*)
-            t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _HASH_MULTISET_CONTAINER:
-        return ((hash_multiset_t*)
-            t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _HASH_MAP_CONTAINER:
-        return ((hash_map_t*)
-            t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_sz_typename;
-        break;
-    case _HASH_MULTIMAP_CONTAINER:
-        return ((hash_multimap_t*)
-            t_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_sz_typename;
-        break;
-    default:
-        assert(false);
+        return pt_typeinfo->_pt_type->_sz_typename;
+    }
+    else
+    {
         return NULL;
-        break;
     }
 }
 
@@ -826,51 +749,43 @@ _typeinfo_t* _iterator_get_typeinfo(iterator_t t_iter)
 
 const char* _iterator_get_typename(iterator_t t_iter)
 {
-    switch(t_iter._t_iteratortype)
+    _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(t_iter);
+
+    if(pt_typeinfo != NULL)
     {
-    case _VECTOR_CONTAINER:
-        return ((vector_t*)t_iter._pt_container)->_t_typeinfo._sz_typename;
-        break;
-    case _DEQUE_CONTAINER:
-        return ((deque_t*)t_iter._pt_container)->_t_typeinfo._sz_typename;
-        break;
-    case _BASIC_STRING_CONTAINER:
-        return ((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo._sz_typename;
-        break;
-    case _LIST_CONTAINER:
-        return ((list_t*)t_iter._pt_container)->_t_typeinfo._sz_typename;
-        break;
-    case _SLIST_CONTAINER:
-        return ((slist_t*)t_iter._pt_container)->_t_typeinfo._sz_typename;
-        break;
-    case _SET_CONTAINER:
-        return ((set_t*)t_iter._pt_container)->_t_tree._t_typeinfo._sz_typename;
-        break;
-    case _MULTISET_CONTAINER:
-        return ((multiset_t*)t_iter._pt_container)->_t_tree._t_typeinfo._sz_typename;
-        break;
-    case _MAP_CONTAINER:
-        return ((map_t*)t_iter._pt_container)->_t_tree._t_typeinfo._sz_typename;
-        break;
-    case _MULTIMAP_CONTAINER:
-        return ((multimap_t*)t_iter._pt_container)->_t_tree._t_typeinfo._sz_typename;
-        break;
-    case _HASH_SET_CONTAINER:
-        return ((hash_set_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._sz_typename;
-        break;
-    case _HASH_MULTISET_CONTAINER:
-        return ((hash_multiset_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._sz_typename;
-        break;
-    case _HASH_MAP_CONTAINER:
-        return  ((hash_map_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._sz_typename;
-        break;
-    case _HASH_MULTIMAP_CONTAINER:
-        return ((hash_multimap_t*)t_iter._pt_container)->_t_hashtable._t_typeinfo._sz_typename;
-        break;
-    default:
-        assert(false);
+        return pt_typeinfo->_sz_typename;
+    }
+    else
+    {
         return NULL;
-        break;
+    }
+}
+
+binary_function_t _iterator_get_typecopy(iterator_t t_iter)
+{
+    _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(t_iter);
+
+    if(pt_typeinfo != NULL)
+    {
+        return pt_typeinfo->_pt_type->_t_typecopy;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+size_t _iterator_get_typesize(iterator_t t_iter)
+{
+    _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(t_iter);
+
+    if(pt_typeinfo != NULL)
+    {
+        return pt_typeinfo->_pt_type->_t_typesize;
+    }
+    else
+    {
+        return 0;
     }
 }
 
@@ -908,7 +823,7 @@ void* _iterator_allocate_init_elem(iterator_t t_iter)
     case _SLIST_CONTAINER:
         pv_value = allocate(&((slist_t*)t_iter._pt_container)->_t_allocater,
             ((slist_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize, 1);
-        _slist_init_elem_auxiliary((slist_t*)t_iter._pt_container);
+        _slist_init_elem_auxiliary((slist_t*)t_iter._pt_container, pv_value);
         break;
     case _SET_CONTAINER:
         pv_value = allocate(&((set_t*)t_iter._pt_container)->_t_tree._t_allocater,

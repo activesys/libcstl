@@ -880,6 +880,27 @@ void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
     }
 }
 
+void _map_init_elem_auxiliary(map_t* pt_map, void* pv_elem)
+{
+    assert(pt_map != NULL && pv_elem != NULL);
+
+    /* initialize new elements */
+    if(pt_map->_t_tree._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN)
+    {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(pt_map->_t_tree._t_typeinfo._sz_typename, s_elemtypename);
+
+        pt_map->_t_tree._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
+    }
+    else
+    {
+        bool_t t_result = pt_map->_t_tree._t_typeinfo._pt_type->_t_typesize;
+        pt_map->_t_tree._t_typeinfo._pt_type->_t_typeinit(pv_elem, &t_result);
+        assert(t_result);
+    }
+}
+
 /** local function implementation section **/
 #ifndef NDEBUG
 static bool_t _map_same_pair_type(

@@ -80,6 +80,8 @@ extern hash_set_iterator_t _hash_set_insert_varg(
 extern size_t _hash_set_erase(hash_set_t* pt_hash_set, ...);
 extern size_t _hash_set_erase_varg(hash_set_t* pt_hash_set, va_list val_elemlist);
 
+extern void _hash_set_init_elem_auxiliary(hash_set_t* pt_hash_set, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

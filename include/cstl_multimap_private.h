@@ -85,6 +85,8 @@ extern range_t _multimap_equal_range_varg(
 extern size_t _multimap_erase(multimap_t* pt_multimap, ...);
 extern size_t _multimap_erase_varg(multimap_t* pt_multimap, va_list val_elemlist);
 
+extern void _multimap_init_elem_auxiliary(multimap_t* pt_multimap, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

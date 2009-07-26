@@ -161,27 +161,26 @@ void _algo_inner_product_if_varg(
 
 void algo_power(input_iterator_t t_iterator, size_t t_power, void* pv_output)
 {
-    char* s_typename = _tools_get_typename(t_iterator);
-    assert(s_typename != NULL);
-
-    algo_power_if(
-        t_iterator, t_power, _fun_get_binary(s_typename, _MULTIPLIES_FUN), pv_output);
+    algo_power_if(t_iterator, t_power,
+        _fun_get_binary(_iterator_get_typebasename(t_iterator), _MULTIPLIES_FUN), pv_output);
 }
 
-void algo_power_if(
-    input_iterator_t t_iterator, size_t t_power, binary_function_t t_binary_op,
-    void* pv_output)
+void algo_power_if(input_iterator_t t_iterator, size_t t_power,
+    binary_function_t t_binary_op, void* pv_output)
 {
     size_t t_index = 0;
+    bool_t t_result = false;
 
     assert(_iterator_limit_type(t_iterator, _INPUT_ITERATOR));
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_iterator), _MULTIPLIES_FUN);
     }
 
-    memcpy(pv_output, iterator_get_pointer(t_iterator), _tools_get_typesize(t_iterator));
+    t_result = _iterator_get_typesize(t_iterator);
+    _iterator_get_typecopy(t_iterator)(pv_output, iterator_get_pointer(t_iterator), &t_result);
+    assert(t_result);
     if(t_power > 0)
     {
         for(t_index = 1; t_index < t_power; ++t_index)
@@ -194,11 +193,8 @@ void algo_power_if(
 output_iterator_t algo_adjacent_difference(
     input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_adjacent_difference_if(
-        t_first, t_last, t_result, _fun_get_binary(s_typename, _MINUS_FUN));
+    return algo_adjacent_difference_if(t_first, t_last, t_result,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _MINUS_FUN));
 }
 
 output_iterator_t algo_adjacent_difference_if(
@@ -206,14 +202,14 @@ output_iterator_t algo_adjacent_difference_if(
     binary_function_t t_binary_op)
 {
     iterator_t t_index;
-    size_t     t_typesize = 0;
+    bool_t     t_typesize = 0;
     char*      pc_value = NULL;
     char*      pc_tmp = NULL;
     char*      pc_result = NULL;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_same_elem_type(t_first, t_result));
 
     if(iterator_equal(t_first, t_last))
     {
@@ -222,18 +218,12 @@ output_iterator_t algo_adjacent_difference_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _MINUS_FUN);
     }
 
-    t_typesize = _tools_get_typesize(t_first);
-    pc_value = (char*)malloc(t_typesize);
-    pc_tmp = (char*)malloc(t_typesize);
-    pc_result = (char*)malloc(t_typesize);
-    if(pc_value == NULL || pc_tmp == NULL || pc_result == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
+    pc_value = _iterator_allocate_init_elem(t_first);
+    pc_tmp = _iterator_allocate_init_elem(t_first);
+    pc_result = _iterator_allocate_init_elem(t_first);
 
     iterator_get_value(t_first, pc_value);
     iterator_set_value(t_result, pc_value);
@@ -245,12 +235,15 @@ output_iterator_t algo_adjacent_difference_if(
         (*t_binary_op)(pc_tmp, pc_value, pc_result);
         t_result = iterator_next(t_result);
         iterator_set_value(t_result, pc_result);
-        memcpy(pc_value, pc_tmp, t_typesize);
+
+        t_typesize = _iterator_get_typesize(t_first);
+        _iterator_get_typecopy(t_first)(pc_value, pc_tmp, &t_typesize);
+        assert(t_typesize);
     }
 
-    free(pc_value);
-    free(pc_tmp);
-    free(pc_result);
+    _iterator_deallocate_destroy_elem(t_first, pc_value);
+    _iterator_deallocate_destroy_elem(t_first, pc_tmp);
+    _iterator_deallocate_destroy_elem(t_first, pc_result);
     pc_value = NULL;
     pc_tmp = NULL;
     pc_result = NULL;
@@ -262,11 +255,8 @@ output_iterator_t algo_adjacent_difference_if(
 output_iterator_t algo_partial_sum(
     input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_partial_sum_if(
-        t_first, t_last, t_result, _fun_get_binary(s_typename, _PLUS_FUN));
+    return algo_partial_sum_if(t_first, t_last, t_result,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _PLUS_FUN));
 }
 
 output_iterator_t algo_partial_sum_if(
@@ -276,9 +266,9 @@ output_iterator_t algo_partial_sum_if(
     iterator_t t_index;
     char*      pc_value = NULL;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_same_elem_type(t_first, t_result));
 
     if(iterator_equal(t_first, t_last))
     {
@@ -287,15 +277,10 @@ output_iterator_t algo_partial_sum_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _PLUS_FUN);
     }
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
+    pc_value = _iterator_allocate_init_elem(t_first);
 
     iterator_get_value(t_first, pc_value);
     iterator_set_value(t_result, pc_value);
@@ -308,7 +293,7 @@ output_iterator_t algo_partial_sum_if(
         iterator_set_value(t_result, pc_value);
     }
 
-    free(pc_value);
+    _iterator_deallocate_destroy_elem(t_first, pc_value);
     pc_value = NULL;
 
     t_result = iterator_next(t_result);
@@ -328,23 +313,13 @@ void _algo_iota_varg(
     iterator_t       t_index;
     char*            pc_value = NULL;
     unary_function_t t_unary_op;
-    size_t           t_typesize = 0;
-    char*            s_typename = NULL;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
-    t_typesize = _tools_get_typesize(t_first);
-    s_typename = _tools_get_typename(t_first);
+    pc_value = _iterator_allocate_init_elem(t_first);
 
-    pc_value = (char*)malloc(t_typesize);
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-
-    _get_varg_value(pc_value, val_elemlist, t_typesize, s_typename);
-    t_unary_op = _fun_get_unary(s_typename, _INCREASE_FUN);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pc_value);
+    t_unary_op = _fun_get_unary(_iterator_get_typebasename(t_first), _INCREASE_FUN);
     for(t_index = t_first;
         !iterator_equal(t_index, t_last);
         t_index = iterator_next(t_index))
@@ -353,7 +328,7 @@ void _algo_iota_varg(
         (*t_unary_op)(pc_value, pc_value);
     }
 
-    free(pc_value);
+    _iterator_deallocate_destroy_elem(t_first, pc_value);
     pc_value = NULL;
 }
 

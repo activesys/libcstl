@@ -89,6 +89,8 @@ extern set_iterator_t _set_insert_hint_varg(
 extern set_iterator_t _set_insert(set_t* pt_set, ...);
 extern set_iterator_t _set_insert_varg(set_t* pt_set, va_list val_elemlist);
 
+extern void _set_init_elem_auxiliary(set_t* pt_set, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

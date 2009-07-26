@@ -79,7 +79,7 @@ static bool_t _list_same_type(
 static void _list_get_varg_value_auxiliary(
     list_t* pt_list, va_list val_elemlist, listnode_t* pt_node);
 static void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_node);
-static void _list_init_elem_auxiliary(list_t* pt_list, listnode_t* pt_node);
+static void _list_init_node_auxiliary(list_t* pt_list, listnode_t* pt_node);
 /*
 static void _list_init_elem_range_auxiliary(
     list_t* pt_list, char* pc_start, char* pc_finish);
@@ -374,7 +374,7 @@ void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)
             pt_node = allocate(&pt_list->_t_allocater,
                 _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
             assert(pt_node != NULL);
-            _list_init_elem_auxiliary(pt_list, pt_node);
+            _list_init_node_auxiliary(pt_list, pt_node);
 
             t_result = _GET_LIST_TYPE_SIZE(pt_list);
             _GET_LIST_TYPE_COPY_FUNCTION(pt_list)(
@@ -434,7 +434,7 @@ void list_init_n(list_t* pt_list, size_t t_count)
             pt_node = allocate(&pt_list->_t_allocater,
                 _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
             assert(pt_node != NULL);
-            _list_init_elem_auxiliary(pt_list, pt_node);
+            _list_init_node_auxiliary(pt_list, pt_node);
 
             pt_node->_pt_next = pt_list->_pt_node;
             pt_node->_pt_prev = pt_list->_pt_node->_pt_prev;
@@ -860,7 +860,7 @@ list_iterator_t _list_insert_n_varg(
         pt_node = allocate(&pt_list->_t_allocater,
             _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
         assert(pt_node != NULL);
-        _list_init_elem_auxiliary(pt_list, pt_node);
+        _list_init_node_auxiliary(pt_list, pt_node);
 
         /* copy value from varg */
         t_result = _GET_LIST_TYPE_SIZE(pt_list);
@@ -1158,7 +1158,7 @@ void list_resize(list_t* pt_list, size_t t_resize)
             pt_node = allocate(&pt_list->_t_allocater,
                 _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
             assert(pt_node != NULL);
-            _list_init_elem_auxiliary(pt_list, pt_node);
+            _list_init_node_auxiliary(pt_list, pt_node);
 
             pt_node->_pt_next = pt_list->_pt_node;
             pt_node->_pt_prev = pt_list->_pt_node->_pt_prev;
@@ -1208,7 +1208,7 @@ void _list_resize_elem_varg(list_t* pt_list, size_t t_resize, va_list val_elemli
             pt_node = allocate(&pt_list->_t_allocater,
                 _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
             assert(pt_node != NULL);
-            _list_init_elem_auxiliary(pt_list, pt_node);
+            _list_init_node_auxiliary(pt_list, pt_node);
             t_result = _GET_LIST_TYPE_SIZE(pt_list);
             _GET_LIST_TYPE_COPY_FUNCTION(pt_list)(
                 pt_node->_pc_data, pt_varg->_pc_data, &t_result);
@@ -1488,6 +1488,27 @@ void list_reverse(list_t* pt_list)
             pt_node = pt_node->_pt_next;
             _transfer(list_begin(pt_list), t_pos, t_posnext);
         }
+    }
+}
+
+void _list_init_elem_auxiliary(list_t* pt_list, void* pv_elem)
+{
+    assert(pt_list != NULL && pv_elem != NULL);
+
+    /* initialize new elements */
+    if(_GET_LIST_TYPE_STYLE(pt_list) == _TYPE_CSTL_BUILTIN)
+    {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(_GET_LIST_TYPE_NAME(pt_list), s_elemtypename);
+
+        _GET_LIST_TYPE_INIT_FUNCTION(pt_list)(pv_elem, s_elemtypename);
+    }
+    else
+    {
+        bool_t t_result = _GET_LIST_TYPE_SIZE(pt_list);
+        _GET_LIST_TYPE_INIT_FUNCTION(pt_list)(pv_elem, &t_result);
+        assert(t_result);
     }
 }
 
@@ -1771,7 +1792,7 @@ static void _swap_node(listnode_t** ppt_first, listnode_t** ppt_second)
 static void _list_get_varg_value_auxiliary(
     list_t* pt_list, va_list val_elemlist, listnode_t* pt_node)
 {
-    _list_init_elem_auxiliary(pt_list, pt_node);
+    _list_init_node_auxiliary(pt_list, pt_node);
     _type_get_varg_value(&pt_list->_t_typeinfo, val_elemlist, pt_node->_pc_data);
 }
 
@@ -1782,7 +1803,7 @@ static void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_n
     assert(t_result);
 }
 
-static void _list_init_elem_auxiliary(list_t* pt_list, listnode_t* pt_node)
+static void _list_init_node_auxiliary(list_t* pt_list, listnode_t* pt_node)
 {
     assert(pt_list != NULL && pt_node != NULL);
 

@@ -63,7 +63,7 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-static void _hash_set_init_elem_auxiliary(hash_set_t* pt_hash_set, void* pv_elem);
+/*static void _hash_set_init_elem_auxiliary(hash_set_t* pt_hash_set, void* pv_elem);*/
 static void _hash_set_get_varg_value_auxiliary(
     hash_set_t* pt_hash_set, va_list val_elemlist, void* pv_varg);
 static void _hash_set_destroy_varg_value_auxiliary(hash_set_t* pt_hash_set, void* pv_varg);
@@ -579,8 +579,7 @@ void hash_set_clear(hash_set_t* pt_hash_set)
     _hashtable_clear(&pt_hash_set->_t_hashtable);
 }
 
-/** local function implementation section **/
-static void _hash_set_init_elem_auxiliary(hash_set_t* pt_hash_set, void* pv_elem)
+void _hash_set_init_elem_auxiliary(hash_set_t* pt_hash_set, void* pv_elem)
 {
     assert(pt_hash_set != NULL && pv_elem != NULL);
 
@@ -601,6 +600,7 @@ static void _hash_set_init_elem_auxiliary(hash_set_t* pt_hash_set, void* pv_elem
     }
 }
 
+/** local function implementation section **/
 static void _hash_set_get_varg_value_auxiliary(
     hash_set_t* pt_hash_set, va_list val_elemlist, void* pv_varg)
 {

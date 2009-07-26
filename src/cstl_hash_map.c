@@ -633,6 +633,28 @@ void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
     }
 }
 
+void _hash_map_init_elem_auxiliary(hash_map_t* pt_hash_map, void* pv_elem)
+{
+    assert(pt_hash_map != NULL && pv_elem != NULL);
+
+    /* initialize new elements */
+    if(pt_hash_map->_t_hashtable._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN)
+    {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(
+            pt_hash_map->_t_hashtable._t_typeinfo._sz_typename, s_elemtypename);
+
+        pt_hash_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
+    }
+    else
+    {
+        bool_t t_result = pt_hash_map->_t_hashtable._t_typeinfo._pt_type->_t_typesize;
+        pt_hash_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, &t_result);
+        assert(t_result);
+    }
+}
+
 /** local function implementation section **/
 #ifndef NDEBUG
 static bool_t _hash_map_same_pair_type(

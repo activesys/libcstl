@@ -111,6 +111,8 @@ extern slist_iterator_t _slist_insert(
 extern void _slist_insert_n(
     slist_t* pt_slist, slist_iterator_t t_pos, size_t t_count, ...);
 
+extern void _slist_init_elem_auxiliary(slist_t* pt_slist, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

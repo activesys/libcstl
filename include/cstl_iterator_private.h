@@ -51,6 +51,8 @@ extern _typestyle_t _iterator_get_typestyle(iterator_t t_iter);
 extern const char* _iterator_get_typebasename(iterator_t t_iter);
 extern _typeinfo_t* _iterator_get_typeinfo(iterator_t t_iter);
 extern const char* _iterator_get_typename(iterator_t t_iter);
+extern binary_function_t _iterator_get_typecopy(iterator_t t_iter);
+extern size_t _iterator_get_typesize(iterator_t t_iter);
 extern void* _iterator_allocate_init_elem(iterator_t t_iter);
 extern void _iterator_deallocate_destroy_elem(iterator_t t_iter, void* pv_value);
 

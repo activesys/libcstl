@@ -85,6 +85,9 @@ extern size_t _hash_multiset_erase(hash_multiset_t* pt_hash_multiset, ...);
 extern size_t _hash_multiset_erase_varg(
     hash_multiset_t* pt_hash_multiset, va_list val_elemlist);
 
+extern void _hash_multiset_init_elem_auxiliary(
+    hash_multiset_t* pt_hash_multiset, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

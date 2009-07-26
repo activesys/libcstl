@@ -79,6 +79,9 @@ extern size_t _hash_multimap_erase(hash_multimap_t* pt_hash_multimap, ...);
 extern size_t _hash_multimap_erase_varg(
     hash_multimap_t* pt_hash_multimap, va_list val_elemlist);
 
+extern void _hash_multimap_init_elem_auxiliary(
+    hash_multimap_t* pt_hash_multimap, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

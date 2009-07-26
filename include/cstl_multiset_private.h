@@ -95,6 +95,8 @@ extern multiset_iterator_t _multiset_insert_hint(
 extern multiset_iterator_t _multiset_insert_hint_varg(
     multiset_t* pt_multiset, multiset_iterator_t t_hint, va_list val_elemlist);
 
+extern void _multiset_init_elem_auxiliary(multiset_t* pt_multiset, void* pv_value);
+
 #ifdef __cplusplus
 }
 #endif

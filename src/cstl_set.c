@@ -66,7 +66,7 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-static void _set_init_elem_auxiliary(set_t* pt_set, void* pv_elem);
+/*static void _set_init_elem_auxiliary(set_t* pt_set, void* pv_elem);*/
 static void _set_get_varg_value_auxiliary(
     set_t* pt_set, va_list val_elemlist, void* pv_varg);
 static void _set_destroy_varg_value_auxiliary(set_t* pt_set, void* pv_varg);
@@ -851,8 +851,7 @@ size_t _set_erase_varg(set_t* pt_set, va_list val_elemlist)
     return t_count;
 }
 
-/** local function implementation section **/
-static void _set_init_elem_auxiliary(set_t* pt_set, void* pv_elem)
+void _set_init_elem_auxiliary(set_t* pt_set, void* pv_elem)
 {
     assert(pt_set != NULL && pv_elem != NULL);
 
@@ -873,6 +872,7 @@ static void _set_init_elem_auxiliary(set_t* pt_set, void* pv_elem)
     }
 }
 
+/** local function implementation section **/
 static void _set_get_varg_value_auxiliary(
     set_t* pt_set, va_list val_elemlist, void* pv_varg)
 {
