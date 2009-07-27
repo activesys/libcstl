@@ -375,7 +375,7 @@ void basic_string_init_copy_substring(
     assert(pt_basic_string != NULL && cpt_basic_string_src != NULL);
     assert(t_pos < basic_string_size(cpt_basic_string_src));
 
-    t_begin = iterator_next_n(basic_string_begin(cpt_basic_string), t_pos);
+    t_begin = iterator_next_n(basic_string_begin(cpt_basic_string_src), t_pos);
 
     if(t_len == NPOS || t_len + t_pos >= basic_string_size(cpt_basic_string_src))
     {
@@ -1021,7 +1021,6 @@ size_t _basic_string_find_elem_varg(
     size_t  t_stringlen = 0;
     void*   pv_varg = NULL;
     char*   pc_string = NULL;
-    bool_t  t_result = false;
     bool_t  t_less = false;
     bool_t  t_great = false;
 
@@ -1196,7 +1195,6 @@ size_t _basic_string_rfind_elem_varg(
     void*   pv_varg = NULL;
     char*   pc_string = NULL;
     size_t  t_findpos = 0;
-    bool_t  t_result = false;
     bool_t  t_less = false;
     bool_t  t_great = false;
 
@@ -1436,7 +1434,6 @@ size_t _basic_string_find_first_not_of_elem_varg(
     size_t  t_stringlen = 0;
     void*   pv_varg = NULL;
     char*   pc_string = NULL;
-    bool_t  t_result = false;
     bool_t  t_less = false;
     bool_t  t_great = false;
 
@@ -1695,7 +1692,6 @@ size_t _basic_string_find_last_not_of_elem_varg(
     void*   pv_varg = NULL;
     char*   pc_string = NULL;
     size_t  t_findpos = 0;
-    bool_t  t_result = false;
     bool_t  t_less = false;
     bool_t  t_great = false;
 
@@ -2438,7 +2434,7 @@ void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv
     {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(pt_vector), s_elemtypename);
+        _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(pt_basic_string), s_elemtypename);
 
         _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, s_elemtypename);
     }

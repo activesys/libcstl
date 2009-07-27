@@ -30,7 +30,7 @@
 #include "cstl_types.h"
 #include "citerator.h"
 #include "cfunctional.h"
-#include "cstl_tools.h"
+/*#include "cstl_tools.h"*/
 #include "cutility.h"
 
 #include "cstl_algobase.h"
@@ -71,9 +71,9 @@ bool_t algo_equal_if(
 {
     bool_t t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     if(t_binary_op == NULL)
     {
@@ -108,7 +108,7 @@ void _algo_fill_varg(
 {
     char* pc_value = NULL;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     pc_value = (char*)malloc(_tools_get_typesize(t_first));
     if(pc_value == NULL)
@@ -173,7 +173,7 @@ void algo_iter_swap(forward_iterator_t t_first, forward_iterator_t t_second)
 {
     char* pc_value = NULL;
 
-    assert(_tools_same_elem_type(t_first, t_second));
+    assert(_iterator_same_elem_type(t_first, t_second));
 
     pc_value = (char*)malloc(_tools_get_typesize(t_first));
     if(pc_value == NULL)
@@ -208,9 +208,9 @@ bool_t algo_lexicographical_compare_if(
 {
     bool_t t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     if(t_binary_op == NULL)
     {
@@ -262,9 +262,9 @@ int algo_lexicographical_compare_3way_if(
 {
     bool_t t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     if(t_binary_op == NULL)
     {
@@ -317,7 +317,7 @@ input_iterator_t algo_max_if(
 
     assert(_iterator_limit_type(t_first, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_second, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_second));
+    assert(_iterator_same_elem_type(t_first, t_second));
 
     if(t_binary_op == NULL)
     {
@@ -351,7 +351,7 @@ input_iterator_t algo_min_if(
 
     assert(_iterator_limit_type(t_first, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_second, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_second));
+    assert(_iterator_same_elem_type(t_first, t_second));
 
     if(t_binary_op == NULL)
     {
@@ -389,9 +389,9 @@ pair_t algo_mismatch_if(
     bool_t t_result = false;
     pair_t t_pair = create_pair(input_iterator_t, input_iterator_t);
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first1));
+    assert(_iterator_same_elem_type(t_first1, t_first1));
 
     pair_init(&t_pair);
     if(t_binary_op == NULL)
@@ -417,9 +417,9 @@ pair_t algo_mismatch_if(
 output_iterator_t algo_copy(
     input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
 {
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_same_elem_type(t_first, t_result));
 
     if((_GET_CONTAINER_TYPE(t_first) == _VECTOR_CONTAINER ||
         _GET_CONTAINER_TYPE(t_first) == _BASIC_STRING_CONTAINER) &&
@@ -452,9 +452,9 @@ bidirectional_iterator_t algo_copy_backward(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
     bidirectional_iterator_t t_result)
 {
-    assert(_tools_valid_iterator_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
     assert(_iterator_limit_type(t_result, _BIDIRECTIONAL_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_same_elem_type(t_first, t_result));
 
     if((_GET_CONTAINER_TYPE(t_first) == _VECTOR_CONTAINER ||
         _GET_CONTAINER_TYPE(t_first) == _BASIC_STRING_CONTAINER) &&
