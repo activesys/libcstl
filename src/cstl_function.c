@@ -62,14 +62,11 @@
 /* private function */
 unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funtype)
 {
-    char sz_builtin[_ELEM_TYPE_NAME_SIZE + 1];
-
     assert(s_typename != NULL);
 
-    _get_builtin_type(s_typename, sz_builtin);
     /* char */
-    if(strncmp(sz_builtin, _CHAR_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-       strncmp(sz_builtin, _SIGNED_CHAR_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    if(strncmp(s_typename, _CHAR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _SIGNED_CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _NEGATE_FUN)
         {
@@ -81,7 +78,7 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
         }
     }
     /* unsigned char */
-    else if(strncmp(sz_builtin, _UNSIGNED_CHAR_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _UNSIGNED_CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _INCREASE_FUN)
         {
@@ -89,10 +86,10 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
         }
     }
     /* short */
-    else if(strncmp(sz_builtin, _SHORT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SHORT_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_SHORT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_SHORT_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _SHORT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SHORT_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_SHORT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_SHORT_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _NEGATE_FUN)
         {
@@ -104,8 +101,8 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
         }
     }
     /* unsigned short */
-    else if(strncmp(sz_builtin, _UNSIGNED_SHORT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _UNSIGNED_SHORT_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _UNSIGNED_SHORT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _UNSIGNED_SHORT_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _INCREASE_FUN)
         {
@@ -113,9 +110,9 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
         }
     }
     /* int */
-    else if(strncmp(sz_builtin, _INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _NEGATE_FUN)
         {
@@ -127,8 +124,8 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
         }
     }
     /* unsigned int */
-    else if(strncmp(sz_builtin, _UNSIGNED_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _UNSIGNED_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _UNSIGNED_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _UNSIGNED_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _INCREASE_FUN)
         {
@@ -136,10 +133,10 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
         }
     }
     /* long */
-    else if(strncmp(sz_builtin, _LONG_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _LONG_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_LONG_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_LONG_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _NEGATE_FUN)
         {
@@ -151,8 +148,8 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
         }
     }
     /* unsigned long */
-    else if(strncmp(sz_builtin, _UNSIGNED_LONG_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _UNSIGNED_LONG_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _UNSIGNED_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _UNSIGNED_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _INCREASE_FUN)
         {
@@ -160,7 +157,7 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
         }
     }
     /* float */
-    else if(strncmp(sz_builtin, _FLOAT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _FLOAT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _NEGATE_FUN)
         {
@@ -172,7 +169,7 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
         }
     }
     /* double */
-    else if(strncmp(sz_builtin, _DOUBLE_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _DOUBLE_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _NEGATE_FUN)
         {
@@ -183,8 +180,15 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
             return _fun_increase_double;
         }
     }
+    else if(strncmp(s_typename, _LONG_DOUBLE_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        if(t_funtype == _NEGATE_FUN)
+        {
+            return fun_negate_long_double;
+        }
+    }
     /* bool_t */
-    else if(strncmp(sz_builtin, _BOOL_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         if(t_funtype == _LOGICAL_NOT_FUN)
         {
@@ -197,14 +201,11 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
 
 binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_funtype)
 {
-    char sz_builtin[_ELEM_TYPE_NAME_SIZE + 1];
-
     assert(s_typename != NULL);
 
-    _get_builtin_type(s_typename, sz_builtin);
     /* char */
-    if(strncmp(sz_builtin, _CHAR_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-       strncmp(sz_builtin, _SIGNED_CHAR_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    if(strncmp(s_typename, _CHAR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _SIGNED_CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -246,7 +247,7 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         }
     }
     /* unsigned char */
-    else if(strncmp(sz_builtin, _UNSIGNED_CHAR_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _UNSIGNED_CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -288,10 +289,10 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         }
     }
     /* short */
-    else if(strncmp(sz_builtin, _SHORT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SHORT_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_SHORT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_SHORT_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _SHORT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SHORT_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_SHORT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_SHORT_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -333,8 +334,8 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         }
     }
     /* unsigned short */
-    else if(strncmp(sz_builtin, _UNSIGNED_SHORT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _UNSIGNED_SHORT_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _UNSIGNED_SHORT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _UNSIGNED_SHORT_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -376,9 +377,9 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         }
     }
     /* int */
-    else if(strncmp(sz_builtin, _INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -420,8 +421,8 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         }
     }
     /* unsigned int */
-    else if(strncmp(sz_builtin, _UNSIGNED_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _UNSIGNED_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _UNSIGNED_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _UNSIGNED_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -463,10 +464,10 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         }
     }
     /* long */
-    else if(strncmp(sz_builtin, _LONG_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _LONG_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_LONG_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _SIGNED_LONG_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _SIGNED_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -508,8 +509,8 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         }
     }
     /* unsigned long */
-    else if(strncmp(sz_builtin, _UNSIGNED_LONG_TYPE, _ELEM_TYPE_NAME_SIZE) == 0 ||
-            strncmp(sz_builtin, _UNSIGNED_LONG_INT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _UNSIGNED_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(s_typename, _UNSIGNED_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -551,7 +552,7 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         }
     }
     /* float */
-    else if(strncmp(sz_builtin, _FLOAT_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _FLOAT_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -590,7 +591,7 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         }
     }
     /* double */
-    else if(strncmp(sz_builtin, _DOUBLE_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _DOUBLE_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -628,8 +629,47 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
             break;
         }
     }
+    /* long double */
+    else if(strncmp(s_typename, _LONG_DOUBLE_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _PLUS_FUN:
+            return fun_plus_long_double;
+            break;
+        case _MINUS_FUN:
+            return fun_minus_long_double;
+            break;
+        case _MULTIPLIES_FUN:
+            return fun_multiplies_long_double;
+            break;
+        case _DIVIDES_FUN:
+            return fun_divides_long_double;
+            break;
+        case _EQUAL_FUN:
+            return fun_equal_long_double;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_long_double;
+            break;
+        case _GREAT_FUN:
+            return fun_great_long_double;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_long_double;
+            break;
+        case _LESS_FUN:
+            return fun_less_long_double;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_long_double;
+            break;
+        default:
+            break;
+        }
+    }
     /* bool_t */
-    else if(strncmp(sz_builtin, _BOOL_TYPE, _ELEM_TYPE_NAME_SIZE) == 0)
+    else if(strncmp(s_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         switch(t_funtype)
         {
@@ -638,6 +678,438 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
             break;
         case _LOGICAL_OR_FUN:
             return fun_logical_or_bool;
+            break;
+        default:
+            break;
+        }
+    }
+    /* vector_t */
+    else if(strncmp(s_typename, _VECTOR_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_vector;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_vector;
+            break;
+        case _GREAT_FUN:
+            return fun_great_vector;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_vector;
+            break;
+        case _LESS_FUN:
+            return fun_less_vector;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_vector;
+            break;
+        default:
+            break;
+        }
+    }
+    /* deque_t */
+    else if(strncmp(s_typename, _DEQUE_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_deque;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_deque;
+            break;
+        case _GREAT_FUN:
+            return fun_great_deque;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_deque;
+            break;
+        case _LESS_FUN:
+            return fun_less_deque;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_deque;
+            break;
+        default:
+            break;
+        }
+    }
+    /* list_t */
+    else if(strncmp(s_typename, _LIST_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_list;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_list;
+            break;
+        case _GREAT_FUN:
+            return fun_great_list;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_list;
+            break;
+        case _LESS_FUN:
+            return fun_less_list;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_list;
+            break;
+        default:
+            break;
+        }
+    }
+    /* slist_t */
+    else if(strncmp(s_typename, _SLIST_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_slist;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_slist;
+            break;
+        case _GREAT_FUN:
+            return fun_great_slist;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_slist;
+            break;
+        case _LESS_FUN:
+            return fun_less_slist;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_slist;
+            break;
+        default:
+            break;
+        }
+    }
+    /* queue_t */
+    else if(strncmp(s_typename, _QUEUE_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_queue;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_queue;
+            break;
+        case _GREAT_FUN:
+            return fun_great_queue;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_queue;
+            break;
+        case _LESS_FUN:
+            return fun_less_queue;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_queue;
+            break;
+        default:
+            break;
+        }
+    }
+    /* stack_t */
+    else if(strncmp(s_typename, _STACK_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_stack;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_stack;
+            break;
+        case _GREAT_FUN:
+            return fun_great_stack;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_stack;
+            break;
+        case _LESS_FUN:
+            return fun_less_stack;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_stack;
+            break;
+        default:
+            break;
+        }
+    }
+    /* pair_t */
+    else if(strncmp(s_typename, _PAIR_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_pair;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_pair;
+            break;
+        case _GREAT_FUN:
+            return fun_great_pair;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_pair;
+            break;
+        case _LESS_FUN:
+            return fun_less_pair;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_pair;
+            break;
+        default:
+            break;
+        }
+    }
+    /* set_t */
+    else if(strncmp(s_typename, _SET_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_set;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_set;
+            break;
+        case _GREAT_FUN:
+            return fun_great_set;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_set;
+            break;
+        case _LESS_FUN:
+            return fun_less_set;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_set;
+            break;
+        default:
+            break;
+        }
+    }
+    /* map_t */
+    else if(strncmp(s_typename, _MAP_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_map;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_map;
+            break;
+        case _GREAT_FUN:
+            return fun_great_map;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_map;
+            break;
+        case _LESS_FUN:
+            return fun_less_map;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_map;
+            break;
+        default:
+            break;
+        }
+    }
+    /* multiset_t */
+    else if(strncmp(s_typename, _MULTISET_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_multiset;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_multiset;
+            break;
+        case _GREAT_FUN:
+            return fun_great_multiset;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_multiset;
+            break;
+        case _LESS_FUN:
+            return fun_less_multiset;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_multiset;
+            break;
+        default:
+            break;
+        }
+    }
+    /* multimap_t */
+    else if(strncmp(s_typename, _MULTIMAP_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_multimap;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_multimap;
+            break;
+        case _GREAT_FUN:
+            return fun_great_multimap;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_multimap;
+            break;
+        case _LESS_FUN:
+            return fun_less_multimap;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_multimap;
+            break;
+        default:
+            break;
+        }
+    }
+    /* hash_set_t */
+    else if(strncmp(s_typename, _HASH_SET_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_hash_set;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_hash_set;
+            break;
+        case _GREAT_FUN:
+            return fun_great_hash_set;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_hash_set;
+            break;
+        case _LESS_FUN:
+            return fun_less_hash_set;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_hash_set;
+            break;
+        default:
+            break;
+        }
+    }
+    /* hash_map_t */
+    else if(strncmp(s_typename, _HASH_MAP_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_hash_map;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_hash_map;
+            break;
+        case _GREAT_FUN:
+            return fun_great_hash_map;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_hash_map;
+            break;
+        case _LESS_FUN:
+            return fun_less_hash_map;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_hash_map;
+            break;
+        default:
+            break;
+        }
+    }
+    /* hash_multiset_t */
+    else if(strncmp(s_typename, _HASH_MULTISET_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_hash_multiset;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_hash_multiset;
+            break;
+        case _GREAT_FUN:
+            return fun_great_hash_multiset;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_hash_multiset;
+            break;
+        case _LESS_FUN:
+            return fun_less_hash_multiset;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_hash_multiset;
+            break;
+        default:
+            break;
+        }
+    }
+    /* hash_multimap_t */
+    else if(strncmp(s_typename, _HASH_MULTIMAP_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_hash_multimap;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_hash_multimap;
+            break;
+        case _GREAT_FUN:
+            return fun_great_hash_multimap;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_hash_multimap;
+            break;
+        case _LESS_FUN:
+            return fun_less_hash_multimap;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_hash_multimap;
+            break;
+        default:
+            break;
+        }
+    }
+    /* string_t */
+    else if(strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_string;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_string;
+            break;
+        case _GREAT_FUN:
+            return fun_great_string;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_string;
+            break;
+        case _LESS_FUN:
+            return fun_less_string;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_string;
             break;
         default:
             break;
@@ -733,6 +1205,14 @@ void fun_plus_double(
     *(double*)pv_output = *(double*)cpv_first + *(double*)cpv_second;
 }
 
+void fun_plus_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(long double*)pv_output = *(long double*)cpv_first + *(long double*)cpv_second;
+}
+
 /* minus */
 void fun_minus_char(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -814,6 +1294,14 @@ void fun_minus_double(
     *(double*)pv_output = *(double*)cpv_first - *(double*)cpv_second;
 }
 
+void fun_minus_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(long double*)pv_output = *(long double*)cpv_first - *(long double*)cpv_second;
+}
+
 /* multiplies */
 void fun_multiplies_char(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -893,6 +1381,14 @@ void fun_multiplies_double(
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(double*)pv_output = *(double*)cpv_first * *(double*)cpv_second;
+}
+
+void fun_multiplies_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(long double*)pv_output = *(long double*)cpv_first * *(long double*)cpv_second;
 }
 
 /* divides */
@@ -984,6 +1480,16 @@ void fun_divides_double(
 
     assert(*(double*)cpv_second > DBL_EPSILON || *(double*)cpv_second < -DBL_EPSILON);
     *(double*)pv_output = *(double*)cpv_first / *(double*)cpv_second;
+}
+
+void fun_divides_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    assert(*(long double*)cpv_second > LDBL_EPSILON ||
+           *(long double*)cpv_second < -LDBL_EPSILON);
+    *(long double*)pv_output = *(long double*)cpv_first / *(long double*)cpv_second;
 }
 
 /* modulus */
@@ -1102,6 +1608,13 @@ void fun_negate_double(const void* cpv_input, void* pv_output)
     *(double*)pv_output = -*(double*)cpv_input;
 }
 
+void fun_negate_long_double(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+
+    *(long double*)pv_output = -*(long double*)cpv_input;
+}
+
 /* comparisons */
 /* equality */
 void fun_equal_char(
@@ -1194,6 +1707,130 @@ void fun_equal_double(
     *(bool_t*)pv_output = 
         *(double*)cpv_first - *(double*)cpv_second < DBL_EPSILON &&
         *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? true : false;
+}
+
+void fun_equal_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = 
+        *(long double*)cpv_first - *(long double*)cpv_second < LDBL_EPSILON &&
+        *(long double*)cpv_first - *(long double*)cpv_second > -LDBL_EPSILON ? true : false;
+}
+
+void fun_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = vector_equal((vector_t*)cpv_first, (vector_t*)cpv_second);
+}
+
+void fun_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = deque_equal((deque_t*)cpv_first, (deque_t*)cpv_second);
+}
+
+void fun_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = list_equal((list_t*)cpv_first, (list_t*)cpv_second);
+}
+
+void fun_equal_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = slist_equal((slist_t*)cpv_first, (slist_t*)cpv_second);
+}
+
+void fun_equal_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = queue_equal((queue_t*)cpv_first, (queue_t*)cpv_second);
+}
+
+void fun_equal_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = stack_equal((stack_t*)cpv_first, (stack_t*)cpv_second);
+}
+
+void fun_equal_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = string_equal((string_t*)cpv_first, (string_t*)cpv_second);
+}
+
+void fun_equal_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = pair_equal((pair_t*)cpv_first, (pair_t*)cpv_second);
+}
+
+void fun_equal_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = set_equal((set_t*)cpv_first, (set_t*)cpv_second);
+}
+
+void fun_equal_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = map_equal((map_t*)cpv_first, (map_t*)cpv_second);
+}
+
+void fun_equal_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multiset_equal((multiset_t*)cpv_first, (multiset_t*)cpv_second);
+}
+
+void fun_equal_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multimap_equal((multimap_t*)cpv_first, (multimap_t*)cpv_second);
+}
+
+void fun_equal_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_set_equal((hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+}
+
+void fun_equal_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_map_equal((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+}
+
+void fun_equal_hash_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multiset_equal(
+        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+}
+
+void fun_equal_hash_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multimap_equal(
+        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
 /* inequality */
@@ -1289,6 +1926,132 @@ void fun_not_equal_double(
         *(double*)cpv_first - *(double*)cpv_second <= -DBL_EPSILON ? true : false;
 }
 
+void fun_not_equal_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = 
+        *(long double*)cpv_first - *(long double*)cpv_second >= LDBL_EPSILON ||
+        *(long double*)cpv_first - *(long double*)cpv_second <= -LDBL_EPSILON ? true : false;
+}
+
+void fun_not_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = vector_not_equal((vector_t*)cpv_first, (vector_t*)cpv_second);
+}
+
+void fun_not_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = deque_not_equal((deque_t*)cpv_first, (deque_t*)cpv_second);
+}
+
+void fun_not_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = list_not_equal((list_t*)cpv_first, (list_t*)cpv_second);
+}
+
+void fun_not_equal_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = slist_not_equal((slist_t*)cpv_first, (slist_t*)cpv_second);
+}
+
+void fun_not_equal_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = queue_not_equal((queue_t*)cpv_first, (queue_t*)cpv_second);
+}
+
+void fun_not_equal_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = stack_not_equal((stack_t*)cpv_first, (stack_t*)cpv_second);
+}
+
+void fun_not_equal_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = string_not_equal((string_t*)cpv_first, (string_t*)cpv_second);
+}
+
+void fun_not_equal_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = pair_not_equal((pair_t*)cpv_first, (pair_t*)cpv_second);
+}
+
+void fun_not_equal_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = set_not_equal((set_t*)cpv_first, (set_t*)cpv_second);
+}
+
+void fun_not_equal_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = map_not_equal((map_t*)cpv_first, (map_t*)cpv_second);
+}
+
+void fun_not_equal_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multiset_not_equal((multiset_t*)cpv_first, (multiset_t*)cpv_second);
+}
+
+void fun_not_equal_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multimap_not_equal((multimap_t*)cpv_first, (multimap_t*)cpv_second);
+}
+
+void fun_not_equal_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_set_not_equal((hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+}
+
+void fun_not_equal_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_map_not_equal((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+}
+
+void fun_not_equal_hash_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multiset_not_equal(
+        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+}
+
+void fun_not_equal_hash_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multimap_not_equal(
+        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+}
+
 /* greater */
 void fun_great_char(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -1378,6 +2141,131 @@ void fun_great_double(
 
     *(bool_t*)pv_output = 
         *(double*)cpv_first - *(double*)cpv_second >= DBL_EPSILON ? true : false;
+}
+
+void fun_great_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = 
+        *(long double*)cpv_first - *(long double*)cpv_second >= LDBL_EPSILON ? true : false;
+}
+
+void fun_great_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = vector_great((vector_t*)cpv_first, (vector_t*)cpv_second);
+}
+
+void fun_great_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = deque_great((deque_t*)cpv_first, (deque_t*)cpv_second);
+}
+
+void fun_great_list(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = list_great((list_t*)cpv_first, (list_t*)cpv_second);
+}
+
+void fun_great_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = slist_great((slist_t*)cpv_first, (slist_t*)cpv_second);
+}
+
+void fun_great_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = queue_great((queue_t*)cpv_first, (queue_t*)cpv_second);
+}
+
+void fun_great_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = stack_great((stack_t*)cpv_first, (stack_t*)cpv_second);
+}
+
+void fun_great_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = string_great((string_t*)cpv_first, (string_t*)cpv_second);
+}
+
+void fun_great_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = pair_great((pair_t*)cpv_first, (pair_t*)cpv_second);
+}
+
+void fun_great_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = set_great((set_t*)cpv_first, (set_t*)cpv_second);
+}
+
+void fun_great_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = map_great((map_t*)cpv_first, (map_t*)cpv_second);
+}
+
+void fun_great_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multiset_great((multiset_t*)cpv_first, (multiset_t*)cpv_second);
+}
+
+void fun_great_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multimap_great((multimap_t*)cpv_first, (multimap_t*)cpv_second);
+}
+
+void fun_great_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_set_great((hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+}
+
+void fun_great_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_map_great((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+}
+
+void fun_great_hash_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multiset_great(
+        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+}
+
+void fun_great_hash_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multimap_great(
+        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
 /* greater or equal*/
@@ -1471,6 +2359,135 @@ void fun_great_equal_double(
         *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? true : false;
 }
 
+void fun_great_equal_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = 
+        *(long double*)cpv_first - *(long double*)cpv_second > -LDBL_EPSILON ? true : false;
+}
+
+void fun_great_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = vector_great_equal((vector_t*)cpv_first, (vector_t*)cpv_second);
+}
+
+void fun_great_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = deque_great_equal((deque_t*)cpv_first, (deque_t*)cpv_second);
+}
+
+void fun_great_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = list_great_equal((list_t*)cpv_first, (list_t*)cpv_second);
+}
+
+void fun_great_equal_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = slist_great_equal((slist_t*)cpv_first, (slist_t*)cpv_second);
+}
+
+void fun_great_equal_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = queue_great_equal((queue_t*)cpv_first, (queue_t*)cpv_second);
+}
+
+void fun_great_equal_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = stack_great_equal((stack_t*)cpv_first, (stack_t*)cpv_second);
+}
+
+void fun_great_equal_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = string_great_equal((string_t*)cpv_first, (string_t*)cpv_second);
+}
+
+void fun_great_equal_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = pair_great_equal((pair_t*)cpv_first, (pair_t*)cpv_second);
+}
+
+void fun_great_equal_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = set_great_equal((set_t*)cpv_first, (set_t*)cpv_second);
+}
+
+void fun_great_equal_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = map_great_equal((map_t*)cpv_first, (map_t*)cpv_second);
+}
+
+void fun_great_equal_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multiset_great_equal(
+        (multiset_t*)cpv_first, (multiset_t*)cpv_second);
+}
+
+void fun_great_equal_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multimap_great_equal(
+        (multimap_t*)cpv_first, (multimap_t*)cpv_second);
+}
+
+void fun_great_equal_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_set_great_equal(
+        (hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+}
+
+void fun_great_equal_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_map_great_equal(
+        (hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+}
+
+void fun_great_equal_hash_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multiset_great_equal(
+        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+}
+
+void fun_great_equal_hash_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multimap_great_equal(
+        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+}
+
 /* less */
 void fun_less_char(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -1562,6 +2579,135 @@ void fun_less_double(
         *(double*)cpv_first - *(double*)cpv_second < -DBL_EPSILON ? true : false;
 }
 
+void fun_less_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = 
+        *(long double*)cpv_first - *(long double*)cpv_second < -LDBL_EPSILON ? true : false;
+}
+
+void fun_less_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = vector_less((vector_t*)cpv_first, (vector_t*)cpv_second);
+}
+
+void fun_less_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = deque_less((deque_t*)cpv_first, (deque_t*)cpv_second);
+}
+
+void fun_less_list(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = list_less((list_t*)cpv_first, (list_t*)cpv_second);
+}
+
+void fun_less_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = slist_less((slist_t*)cpv_first, (slist_t*)cpv_second);
+}
+
+void fun_less_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = queue_less((queue_t*)cpv_first, (queue_t*)cpv_second);
+}
+
+void fun_less_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = stack_less((stack_t*)cpv_first, (stack_t*)cpv_second);
+}
+
+void fun_less_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = string_less((string_t*)cpv_first, (string_t*)cpv_second);
+}
+
+void fun_less_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = pair_less((pair_t*)cpv_first, (pair_t*)cpv_second);
+}
+
+void fun_less_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = set_less((set_t*)cpv_first, (set_t*)cpv_second);
+}
+
+void fun_less_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = map_less((map_t*)cpv_first, (map_t*)cpv_second);
+}
+
+void fun_less_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multiset_less(
+        (multiset_t*)cpv_first, (multiset_t*)cpv_second);
+}
+
+void fun_less_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multimap_less(
+        (multimap_t*)cpv_first, (multimap_t*)cpv_second);
+}
+
+void fun_less_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_set_less(
+        (hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+}
+
+void fun_less_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_map_less(
+        (hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+}
+
+void fun_less_hash_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multiset_less(
+        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+}
+
+void fun_less_hash_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multimap_less(
+        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+}
+
 /* less or equal*/
 void fun_less_equal_char(
     const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -1651,6 +2797,135 @@ void fun_less_equal_double(
 
     *(bool_t*)pv_output = 
         *(double*)cpv_first - *(double*)cpv_second < DBL_EPSILON ? true : false;
+}
+
+void fun_less_equal_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = 
+        *(long double*)cpv_first - *(long double*)cpv_second < LDBL_EPSILON ? true : false;
+}
+
+void fun_less_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = vector_less_equal((vector_t*)cpv_first, (vector_t*)cpv_second);
+}
+
+void fun_less_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = deque_less_equal((deque_t*)cpv_first, (deque_t*)cpv_second);
+}
+
+void fun_less_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = list_less_equal((list_t*)cpv_first, (list_t*)cpv_second);
+}
+
+void fun_less_equal_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = slist_less_equal((slist_t*)cpv_first, (slist_t*)cpv_second);
+}
+
+void fun_less_equal_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = queue_less_equal((queue_t*)cpv_first, (queue_t*)cpv_second);
+}
+
+void fun_less_equal_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = stack_less_equal((stack_t*)cpv_first, (stack_t*)cpv_second);
+}
+
+void fun_less_equal_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = string_less_equal((string_t*)cpv_first, (string_t*)cpv_second);
+}
+
+void fun_less_equal_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = pair_less_equal((pair_t*)cpv_first, (pair_t*)cpv_second);
+}
+
+void fun_less_equal_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = set_less_equal((set_t*)cpv_first, (set_t*)cpv_second);
+}
+
+void fun_less_equal_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = map_less_equal((map_t*)cpv_first, (map_t*)cpv_second);
+}
+
+void fun_less_equal_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multiset_less_equal(
+        (multiset_t*)cpv_first, (multiset_t*)cpv_second);
+}
+
+void fun_less_equal_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = multimap_less_equal(
+        (multimap_t*)cpv_first, (multimap_t*)cpv_second);
+}
+
+void fun_less_equal_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_set_less_equal(
+        (hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+}
+
+void fun_less_equal_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_map_less_equal(
+        (hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+}
+
+void fun_less_equal_hash_multiset(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multiset_less_equal(
+        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+}
+
+void fun_less_equal_hash_multimap(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = hash_multimap_less_equal(
+        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
 /* logical */
