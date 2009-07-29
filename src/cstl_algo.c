@@ -30,8 +30,8 @@
 #include "cstl_types.h"
 #include "citerator.h"
 #include "cfunctional.h"
-#include "cstl_tools.h"
-#include "cutility.h"
+/*#include "cstl_tools.h"*/
+/*#include "cutility.h"*/
 
 #include "cstl_algobase.h"
 #include "cstl_algobase_private.h"
@@ -99,12 +99,8 @@ output_iterator_t algo_set_union(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result)
 {
-    char* s_typename = _tools_get_typename(t_first1);
-    assert(s_typename != NULL);
-
-    return algo_set_union_if(
-        t_first1, t_last1, t_first2, t_last2, t_result,
-        _fun_get_binary(s_typename, _LESS_FUN));
+    return algo_set_union_if(t_first1, t_last1, t_first2, t_last2, t_result,
+        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
 }
 
 output_iterator_t algo_set_union_if(
@@ -115,15 +111,15 @@ output_iterator_t algo_set_union_if(
 {
     bool_t t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
-    assert(_tools_same_elem_type(t_first1, t_result));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
+    assert(_iterator_same_elem_type(t_first1, t_result));
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
     }
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
     {
@@ -164,12 +160,9 @@ output_iterator_t algo_set_intersection(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result)
 {
-    char* s_typename = _tools_get_typename(t_first1);
-    assert(s_typename != NULL);
-
     return algo_set_intersection_if(
         t_first1, t_last1, t_first2, t_last2, t_result,
-        _fun_get_binary(s_typename, _LESS_FUN));
+        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
 }
 
 output_iterator_t algo_set_intersection_if(
@@ -180,15 +173,15 @@ output_iterator_t algo_set_intersection_if(
 {
     bool_t t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
-    assert(_tools_same_elem_type(t_first1, t_result));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
+    assert(_iterator_same_elem_type(t_first1, t_result));
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
     }
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
     {
@@ -227,12 +220,9 @@ output_iterator_t algo_set_difference(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result)
 {
-    char* s_typename = _tools_get_typename(t_first1);
-    assert(s_typename != NULL);
-
     return algo_set_difference_if(
         t_first1, t_last1, t_first2, t_last2, t_result,
-        _fun_get_binary(s_typename, _LESS_FUN));
+        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
 }
 
 output_iterator_t algo_set_difference_if(
@@ -243,15 +233,15 @@ output_iterator_t algo_set_difference_if(
 {
     bool_t t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
-    assert(_tools_same_elem_type(t_first1, t_result));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
+    assert(_iterator_same_elem_type(t_first1, t_result));
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
     }
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
     {
@@ -290,12 +280,9 @@ output_iterator_t algo_set_symmetric_difference(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result)
 {
-    char* s_typename = _tools_get_typename(t_first1);
-    assert(s_typename != NULL);
-
     return algo_set_symmetric_difference_if(
         t_first1, t_last1, t_first2, t_last2, t_result,
-        _fun_get_binary(s_typename, _LESS_FUN));
+        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
 }
 
 output_iterator_t algo_set_symmetric_difference_if(
@@ -306,15 +293,15 @@ output_iterator_t algo_set_symmetric_difference_if(
 {
     bool_t t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
-    assert(_tools_same_elem_type(t_first1, t_result));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
+    assert(_iterator_same_elem_type(t_first1, t_result));
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
     }
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
     {
@@ -353,11 +340,8 @@ output_iterator_t algo_set_symmetric_difference_if(
 forward_iterator_t algo_adjacent_find(
     forward_iterator_t t_first, forward_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_adjacent_find_if(
-        t_first, t_last, _fun_get_binary(s_typename, _EQUAL_FUN));
+    return algo_adjacent_find_if(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN));
 }
 
 forward_iterator_t algo_adjacent_find_if(
@@ -367,10 +351,10 @@ forward_iterator_t algo_adjacent_find_if(
     forward_iterator_t t_next;
     bool_t             t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -412,7 +396,7 @@ size_t _algo_count_varg(
     size_t            t_count = 0;
     binary_function_t t_binary_op;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
 
     pc_value = (char*)malloc(_tools_get_typesize(t_first));
     if(pc_value == NULL)
@@ -447,7 +431,7 @@ size_t algo_count_if(
     bool_t t_result = false;
     size_t t_count = 0;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
 
     if(t_unary_op == NULL)
     {
@@ -481,7 +465,7 @@ input_iterator_t _algo_find_varg(
     bool_t            t_result = false;
     binary_function_t t_binary_op;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
 
     pc_value = (char*)malloc(_tools_get_typesize(t_first));
     if(pc_value == NULL)
@@ -515,7 +499,7 @@ input_iterator_t algo_find_if(
 {
     bool_t t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
 
     if(t_unary_op == NULL)
     {
@@ -552,9 +536,9 @@ input_iterator_t algo_find_first_of_if(
     iterator_t t_index;
     bool_t     t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _FORWARD_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _FORWARD_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     if(t_binary_op == NULL)
     {
@@ -581,7 +565,7 @@ input_iterator_t algo_find_first_of_if(
 void algo_for_each(
     input_iterator_t t_first, input_iterator_t t_last, unary_function_t t_unary_op)
 {
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
     if(t_unary_op == NULL)
     {
         t_unary_op = fun_default_unary;
@@ -615,8 +599,8 @@ forward_iterator_t algo_search_if(
     size_t     t_len1 = 0;
     size_t     t_len2 = 0;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _FORWARD_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first1, t_last1, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _FORWARD_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -698,7 +682,7 @@ forward_iterator_t _algo_search_n_if_varg(
     iterator_t t_index;
     size_t     t_i = 0;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     if(t_count == 0)
     {
@@ -768,9 +752,9 @@ forward_iterator_t algo_search_end_if(
     forward_iterator_t t_tmp;
     forward_iterator_t t_result;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _FORWARD_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _FORWARD_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(t_first1, t_last1, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _FORWARD_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     t_result = t_tmp = t_last1;
     for(;;)
@@ -810,7 +794,7 @@ void algo_generate(
 {
     char* pc_value = NULL;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
     if(t_unary_op == NULL)
     {
         t_unary_op = fun_default_unary;
@@ -884,9 +868,9 @@ bool_t algo_includes_if(
 {
     bool_t t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     if(t_binary_op == NULL)
     {
@@ -946,7 +930,7 @@ forward_iterator_t algo_max_element_if(
     iterator_t t_result;
     bool_t     t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -991,7 +975,7 @@ forward_iterator_t algo_min_element_if(
     iterator_t t_result;
     bool_t     t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -1040,10 +1024,10 @@ output_iterator_t algo_merge_if(
 {
     bool_t t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
-    assert(_tools_same_elem_type(t_first1, t_result));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
+    assert(_iterator_same_elem_type(t_first1, t_result));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
 
     if(t_binary_op == NULL)
@@ -1079,7 +1063,7 @@ forward_iterator_t algo_partition(
     bool_t     t_result = false;
     iterator_t t_next;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
 
     if((_GET_ITERATOR_TYPE(t_first) == _BIDIRECTIONAL_ITERATOR &&
         _GET_ITERATOR_TYPE(t_last) == _BIDIRECTIONAL_ITERATOR) ||
@@ -1136,7 +1120,7 @@ forward_iterator_t algo_stable_partition(
     iterator_t t_next;
     iterator_t t_index;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     if(t_unary_op == NULL)
     {
@@ -1200,8 +1184,8 @@ output_iterator_t _algo_remove_copy_varg(
     bool_t            t_cmp = false;
     binary_function_t t_binary_op = NULL;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first, t_result));
 
     pc_value = (char*)malloc(_tools_get_typesize(t_first));
     if(pc_value == NULL)
@@ -1245,7 +1229,7 @@ forward_iterator_t _algo_remove_varg(
 {
     iterator_t t_next;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     t_first = _algo_find_varg(t_first, t_last, val_elemlist);
 
@@ -1267,7 +1251,7 @@ forward_iterator_t algo_remove_if(
 {
     iterator_t t_next;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     t_first = algo_find_if(t_first, t_last, t_unary_op);
     
@@ -1290,8 +1274,8 @@ output_iterator_t algo_remove_copy_if(
 {
     bool_t t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first, t_result));
 
     if(t_unary_op == NULL)
     {
@@ -1353,7 +1337,7 @@ void _algo_replace_if_varg(
     char*  pc_value = NULL;
     bool_t t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     if(t_unary_op == NULL)
     {
@@ -1402,9 +1386,9 @@ output_iterator_t _algo_replace_copy_if_varg(
     char*  pc_value = NULL;
     bool_t t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_same_elem_type(t_first, t_result));
 
     if(t_unary_op == NULL)
     {
@@ -1444,7 +1428,7 @@ output_iterator_t _algo_replace_copy_if_varg(
 void algo_reverse(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last)
 {
-    assert(_tools_valid_iterator_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
 
     for(;;)
     {
@@ -1467,8 +1451,8 @@ output_iterator_t algo_reverse_copy(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
     output_iterator_t t_result)
 {
-    assert(_tools_valid_iterator_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_valid_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_same_elem_type(t_first, t_result));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
 
     while(!iterator_equal(t_first, t_last))
@@ -1488,8 +1472,8 @@ forward_iterator_t algo_rotate(
 {
     size_t t_distance = 0;
 
-    assert(_tools_valid_iterator_range(t_first, t_middle, _FORWARD_ITERATOR));
-    assert(_tools_valid_iterator_range(t_middle, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_middle, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_middle, t_last, _FORWARD_ITERATOR));
 
     if(iterator_equal(t_first, t_middle) || 
        iterator_equal(t_middle, t_last))
@@ -1524,9 +1508,9 @@ output_iterator_t algo_rotate_copy(
     forward_iterator_t t_last,
     output_iterator_t t_result)
 {
-    assert(_tools_valid_iterator_range(t_first, t_middle, _FORWARD_ITERATOR));
-    assert(_tools_valid_iterator_range(t_middle, t_last, _FORWARD_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_valid_range(t_first, t_middle, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_middle, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_same_elem_type(t_first, t_result));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
 
     return algo_copy(t_first, t_middle, algo_copy(t_middle, t_last, t_result));
@@ -1536,8 +1520,8 @@ forward_iterator_t algo_swap_ranges(
     forward_iterator_t t_first1, forward_iterator_t t_last1,
     forward_iterator_t t_first2)
 {
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _FORWARD_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(t_first1, t_last1, _FORWARD_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
     assert(_iterator_limit_type(t_first2, _FORWARD_ITERATOR));
 
     for(;
@@ -1556,8 +1540,8 @@ output_iterator_t algo_transform(
 {
     char* pc_value = NULL;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first, t_result));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
 
     if(t_unary_op == NULL)
@@ -1593,10 +1577,10 @@ output_iterator_t algo_transform_binary(
 {
     char* pc_value = NULL;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
     assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_result));
+    assert(_iterator_same_elem_type(t_first1, t_result));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
 
     if(t_binary_op == NULL)
@@ -1641,7 +1625,7 @@ forward_iterator_t algo_unique_if(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_unary_op)
 {
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     t_first = algo_adjacent_find_if(t_first, t_last, t_unary_op);
     return algo_unique_copy_if(t_first, t_last, t_first, t_unary_op);
@@ -1664,8 +1648,8 @@ output_iterator_t algo_unique_copy_if(
 {
     bool_t t_cmp = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first, t_result));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
 
     if(t_binary_op == NULL)
@@ -1731,7 +1715,7 @@ forward_iterator_t _algo_lower_bound_if_varg(
     size_t     t_halflen = 0;
     iterator_t t_middle;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -1808,7 +1792,7 @@ forward_iterator_t _algo_upper_bound_if_varg(
     size_t     t_halflen = 0;
     iterator_t t_middle;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -1889,7 +1873,7 @@ pair_t _algo_equal_range_if_varg(
     iterator_t t_upper;
     pair_t     t_pair;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -2047,7 +2031,7 @@ bool_t algo_next_permutation_if(
     iterator_t t_j;
     bool_t     t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -2118,7 +2102,7 @@ bool_t algo_prev_permutation_if(
     iterator_t t_j;
     bool_t     t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -2185,7 +2169,7 @@ void algo_random_shuffle_if(
     size_t     t_len = 0;
     size_t     t_random = 0;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
 
     if(t_unary_op == NULL)
     {
@@ -2230,9 +2214,9 @@ random_access_iterator_t algo_random_sample_if(
     size_t     t_inlen = 0;
     size_t     t_random = 0;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _RANDOM_ACCESS_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     if(t_unary_op == NULL)
     {
@@ -2283,8 +2267,8 @@ output_iterator_t algo_random_sample_n_if(
     size_t t_tmp = 0;
     size_t t_random = 0;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _INPUT_ITERATOR));
-    assert(_tools_same_elem_type(t_first, t_result));
+    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first, t_result));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
 
     if(t_unary_op == NULL)
@@ -2336,8 +2320,8 @@ void algo_partial_sort_if(
     iterator_t t_iterator;
     bool_t     t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_middle, _RANDOM_ACCESS_ITERATOR));
-    assert(_tools_valid_iterator_range(t_middle, t_last, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_middle, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(t_middle, t_last, _RANDOM_ACCESS_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -2388,9 +2372,9 @@ random_access_iterator_t algo_partial_sort_copy_if(
     iterator_t t_prev;
     bool_t     t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_tools_valid_iterator_range(t_first2, t_last2, _RANDOM_ACCESS_ITERATOR));
-    assert(_tools_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     if(t_binary_op == NULL)
     {
@@ -2443,7 +2427,7 @@ void algo_sort_if(
     char*  pc_value = NULL;
     size_t t_len = 0;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -2499,8 +2483,8 @@ void algo_inplace_merge_if(
     size_t     t_i = 0;
     iterator_t t_index;
 
-    assert(_tools_valid_iterator_range(t_first, t_middle, _BIDIRECTIONAL_ITERATOR));
-    assert(_tools_valid_iterator_range(t_middle, t_last, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_middle, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_valid_range(t_middle, t_last, _BIDIRECTIONAL_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -2587,8 +2571,8 @@ void algo_nth_element_if(
     bool_t     t_result = false;
     char*      pc_value = NULL;
 
-    assert(_tools_valid_iterator_range(t_first, t_nth, _RANDOM_ACCESS_ITERATOR));
-    assert(_tools_valid_iterator_range(t_nth, t_last, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_nth, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(t_nth, t_last, _RANDOM_ACCESS_ITERATOR));
 
     if(t_binary_op == NULL)
     {
@@ -2676,7 +2660,7 @@ bool_t algo_is_sorted_if(
     bool_t     t_result = false;
     iterator_t t_next;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
     if(t_binary_op == NULL)
     {
         t_binary_op = fun_default_binary;
@@ -2716,7 +2700,7 @@ void algo_stable_sort_if(
     binary_function_t t_binary_op)
 {
     size_t t_len = 0;
-    assert(_tools_valid_iterator_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
     if(t_binary_op == NULL)
     {
         t_binary_op = fun_default_binary;
@@ -2755,7 +2739,7 @@ static bidirectional_iterator_t _partition_biditer(
 {
     bool_t t_result = false;
 
-    assert(_tools_valid_iterator_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_valid_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
 
     if(t_unary_op == NULL)
     {

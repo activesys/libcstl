@@ -118,12 +118,12 @@ extern forward_iterator_t _algo_upper_bound_if(
 extern forward_iterator_t _algo_upper_bound_if_varg(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_binary_op, va_list val_elemlist);
-extern pair_t _algo_equal_range(
+extern range_t _algo_equal_range(
     forward_iterator_t t_first, forward_iterator_t t_last, ...);
-extern pair_t _algo_equal_range_if(
+extern range_t _algo_equal_range_if(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_binary_op, ...);
-extern pair_t _algo_equal_range_if_varg(
+extern range_t _algo_equal_range_if_varg(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_binary_op, va_list val_elemlist);
 
