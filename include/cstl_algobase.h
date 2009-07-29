@@ -86,9 +86,9 @@ extern input_iterator_t algo_min_if(
 /*
  * mismatch algorithm.
  */
-extern pair_t algo_mismatch(
+extern range_t algo_mismatch(
     input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2);
-extern pair_t algo_mismatch_if(
+extern range_t algo_mismatch_if(
     input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
     binary_function_t t_binary_op);
 

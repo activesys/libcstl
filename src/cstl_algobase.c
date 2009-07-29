@@ -41,14 +41,6 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-/*
- * Copy and copy backward trivial.
- */
-static output_iterator_t _algo_copy_trivial(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result);
-static bidirectional_iterator_t _algo_copy_backward_trivial(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
-    bidirectional_iterator_t t_result);
 
 /** exported global variable definition section **/
 
@@ -58,11 +50,8 @@ static bidirectional_iterator_t _algo_copy_backward_trivial(
 bool_t algo_equal(
     input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2)
 {
-    char* s_typename = _tools_get_typename(t_first1);
-    assert(s_typename != NULL);
-
-    return algo_equal_if(
-        t_first1, t_last1, t_first2, _fun_get_binary(s_typename, _EQUAL_FUN));
+    return algo_equal_if(t_first1, t_last1, t_first2,
+        _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN));
 }
 
 bool_t algo_equal_if(
@@ -77,7 +66,7 @@ bool_t algo_equal_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN);
     }
 
     for(;
@@ -106,27 +95,20 @@ void _algo_fill(
 void _algo_fill_varg(
     forward_iterator_t t_first, forward_iterator_t t_last, va_list val_elemlist)
 {
-    char* pc_value = NULL;
+    void* pv_value = NULL;
 
     assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    _get_varg_value(
-        pc_value, val_elemlist,
-        _tools_get_typesize(t_first), _tools_get_typename(t_first));
+    pv_value = _iterator_allocate_init_elem(t_first);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
     for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
     {
-        iterator_set_value(t_first, pc_value);
+        iterator_set_value(t_first, pv_value);
     }
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 }
 
 output_iterator_t _algo_fill_n(
@@ -141,25 +123,18 @@ output_iterator_t _algo_fill_n_varg(
     output_iterator_t t_first, size_t t_fillsize, va_list val_elemlist)
 {
     size_t t_index = 0;
-    char*  pc_value = NULL;
+    void*  pv_value = NULL;
  
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    _get_varg_value(
-        pc_value, val_elemlist,
-        _tools_get_typesize(t_first), _tools_get_typename(t_first));
+    pv_value = _iterator_allocate_init_elem(t_first);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
     for(t_index = 0; t_index < t_fillsize; ++t_index, t_first = iterator_next(t_first))
     {
-        iterator_set_value(t_first, pc_value);
+        iterator_set_value(t_first, pv_value);
     }
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 
     return t_first;
 }
@@ -171,34 +146,26 @@ void algo_swap(forward_iterator_t t_first, forward_iterator_t t_second)
 
 void algo_iter_swap(forward_iterator_t t_first, forward_iterator_t t_second)
 {
-    char* pc_value = NULL;
+    void* pv_value = NULL;
 
     assert(_iterator_same_elem_type(t_first, t_second));
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
+    pv_value = _iterator_allocate_init_elem(t_first);
 
-    iterator_get_value(t_first, pc_value);
+    iterator_get_value(t_first, pv_value);
     iterator_set_value(t_first, iterator_get_pointer(t_second));
-    iterator_set_value(t_second, pc_value);
+    iterator_set_value(t_second, pv_value);
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 }
 
 bool_t algo_lexicographical_compare(
     input_iterator_t t_first1, input_iterator_t t_last1,
     input_iterator_t t_first2, input_iterator_t t_last2)
 {
-    char* s_typename = _tools_get_typename(t_first1);
-    assert(s_typename != NULL);
-
-    return algo_lexicographical_compare_if(
-        t_first1, t_last1, t_first2, t_last2, _fun_get_binary(s_typename, _LESS_FUN));
+    return algo_lexicographical_compare_if(t_first1, t_last1, t_first2, t_last2,
+        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
 }
 
 bool_t algo_lexicographical_compare_if(
@@ -214,7 +181,7 @@ bool_t algo_lexicographical_compare_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
     }
     for(;
         !iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2);
@@ -248,11 +215,8 @@ int algo_lexicographical_compare_3way(
     input_iterator_t t_first1, input_iterator_t t_last1,
     input_iterator_t t_first2, input_iterator_t t_last2)
 {
-    char* s_typename = _tools_get_typename(t_first1);
-    assert(s_typename != NULL);
-
-    return algo_lexicographical_compare_3way_if(
-        t_first1, t_last1, t_first2, t_last2, _fun_get_binary(s_typename, _LESS_FUN));
+    return algo_lexicographical_compare_3way_if(t_first1, t_last1, t_first2, t_last2,
+        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
 }
 
 int algo_lexicographical_compare_3way_if(
@@ -268,7 +232,7 @@ int algo_lexicographical_compare_3way_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
     }
     for(;
         !iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2);
@@ -304,10 +268,8 @@ int algo_lexicographical_compare_3way_if(
 
 input_iterator_t algo_max(input_iterator_t t_first, input_iterator_t t_second)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_max_if(t_first, t_second, _fun_get_binary(s_typename, _LESS_FUN));
+    return algo_max_if(t_first, t_second,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 input_iterator_t algo_max_if(
@@ -321,7 +283,7 @@ input_iterator_t algo_max_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
     (*t_binary_op)(
@@ -338,10 +300,8 @@ input_iterator_t algo_max_if(
 
 input_iterator_t algo_min(input_iterator_t t_first, input_iterator_t t_second)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_min_if(t_first, t_second, _fun_get_binary(s_typename, _LESS_FUN));
+    return algo_min_if(t_first, t_second,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 input_iterator_t algo_min_if(
@@ -355,7 +315,7 @@ input_iterator_t algo_min_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
     (*t_binary_op)(
@@ -370,33 +330,27 @@ input_iterator_t algo_min_if(
     }
 }
 
-pair_t algo_mismatch(
-    input_iterator_t t_first1,
-    input_iterator_t t_last1,
-    input_iterator_t t_first2)
+range_t algo_mismatch(input_iterator_t t_first1,
+    input_iterator_t t_last1, input_iterator_t t_first2)
 {
-    char* s_typename = _tools_get_typename(t_first1);
-    assert(s_typename != NULL);
-
-    return algo_mismatch_if(
-        t_first1, t_last1, t_first2, _fun_get_binary(s_typename, _EQUAL_FUN));
+    return algo_mismatch_if(t_first1, t_last1, t_first2,
+        _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN));
 }
 
-pair_t algo_mismatch_if(
+range_t algo_mismatch_if(
     input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
     binary_function_t t_binary_op)
 {
-    bool_t t_result = false;
-    pair_t t_pair = create_pair(input_iterator_t, input_iterator_t);
+    bool_t  t_result = false;
+    range_t t_range;
 
     assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
     assert(_iterator_same_elem_type(t_first1, t_first1));
 
-    pair_init(&t_pair);
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN);
     }
     for(;
         !iterator_equal(t_first1, t_last1);
@@ -410,8 +364,9 @@ pair_t algo_mismatch_if(
         }
     }
 
-    pair_make(&t_pair, t_first1, t_first2);
-    return t_pair;
+    t_range.t_begin = t_first1;
+    t_range.t_end = t_first2;
+    return t_range;
 }
 
 output_iterator_t algo_copy(
@@ -420,14 +375,6 @@ output_iterator_t algo_copy(
     assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
     assert(_iterator_same_elem_type(t_first, t_result));
-
-    if((_GET_CONTAINER_TYPE(t_first) == _VECTOR_CONTAINER ||
-        _GET_CONTAINER_TYPE(t_first) == _BASIC_STRING_CONTAINER) &&
-       (_GET_CONTAINER_TYPE(t_result) == _VECTOR_CONTAINER ||
-        _GET_CONTAINER_TYPE(t_result) == _BASIC_STRING_CONTAINER))
-    {
-        return _algo_copy_trivial(t_first, t_last, t_result);
-    }
 
     for(;
         !iterator_equal(t_first, t_last);
@@ -456,14 +403,6 @@ bidirectional_iterator_t algo_copy_backward(
     assert(_iterator_limit_type(t_result, _BIDIRECTIONAL_ITERATOR));
     assert(_iterator_same_elem_type(t_first, t_result));
 
-    if((_GET_CONTAINER_TYPE(t_first) == _VECTOR_CONTAINER ||
-        _GET_CONTAINER_TYPE(t_first) == _BASIC_STRING_CONTAINER) &&
-       (_GET_CONTAINER_TYPE(t_result) == _VECTOR_CONTAINER ||
-        _GET_CONTAINER_TYPE(t_result) == _BASIC_STRING_CONTAINER))
-    {
-        return _algo_copy_backward_trivial(t_first, t_last, t_result);
-    }
-
     while(!iterator_equal(t_first, t_last))
     {
         t_last = iterator_prev(t_last);
@@ -475,30 +414,6 @@ bidirectional_iterator_t algo_copy_backward(
 }
 
 /** local function implementation section **/
-static output_iterator_t _algo_copy_trivial(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
-{
-    size_t t_len = iterator_distance(t_first, t_last) * _tools_get_typesize(t_first);
-
-    memmove((void*)iterator_get_pointer(t_result), iterator_get_pointer(t_first), t_len);
-
-    _GET_VECTOR_COREPOS(t_result) += t_len;
-
-    return t_result;
-}
-
-static bidirectional_iterator_t _algo_copy_backward_trivial(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
-    bidirectional_iterator_t t_result)
-{
-    size_t t_len = iterator_distance(t_first, t_last) * _tools_get_typesize(t_first);
-
-    _GET_VECTOR_COREPOS(t_result) -= t_len;
-
-    memmove((void*)iterator_get_pointer(t_result), iterator_get_pointer(t_first), t_len);
-
-    return t_result;
-}
 
 /** eof **/
 
