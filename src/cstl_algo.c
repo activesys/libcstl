@@ -1306,7 +1306,7 @@ output_iterator_t _algo_replace_copy_if_varg(
     output_iterator_t t_result, unary_function_t t_unary_op,
     va_list val_elemlist)
 {
-    char*  pc_value = NULL;
+    void*  pv_value = NULL;
     bool_t t_cmp = false;
 
     assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
@@ -1318,22 +1318,15 @@ output_iterator_t _algo_replace_copy_if_varg(
         t_unary_op = fun_default_unary;
     }
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    _get_varg_value(
-        pc_value, val_elemlist,
-        _tools_get_typesize(t_first), _tools_get_typename(t_first));
+    pv_value = _iterator_allocate_init_elem(t_first);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
     for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
     {
         (*t_unary_op)(iterator_get_pointer(t_first), &t_cmp);
         if(t_cmp)
         {
-            iterator_set_value(t_result, pc_value);
+            iterator_set_value(t_result, pv_value);
         }
         else
         {
@@ -1342,8 +1335,8 @@ output_iterator_t _algo_replace_copy_if_varg(
         t_result = iterator_next(t_result);
     }
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 
     return t_result;
 }
@@ -1461,7 +1454,7 @@ output_iterator_t algo_transform(
     input_iterator_t t_first, input_iterator_t t_last,
     output_iterator_t t_result, unary_function_t t_unary_op)
 {
-    char* pc_value = NULL;
+    void* pv_value = NULL;
 
     assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
     assert(_iterator_same_elem_type(t_first, t_result));
@@ -1472,23 +1465,18 @@ output_iterator_t algo_transform(
         t_unary_op = fun_default_unary;
     }
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
+    pv_value = _iterator_allocate_init_elem(t_first);
 
     for(;
         !iterator_equal(t_first, t_last);
         t_first = iterator_next(t_first), t_result = iterator_next(t_result))
     {
-        (*t_unary_op)(iterator_get_pointer(t_first), pc_value);
-        iterator_set_value(t_result, pc_value);
+        (*t_unary_op)(iterator_get_pointer(t_first), pv_value);
+        iterator_set_value(t_result, pv_value);
     }
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 
     return t_result;
 }
@@ -1498,7 +1486,7 @@ output_iterator_t algo_transform_binary(
     input_iterator_t t_first2, output_iterator_t t_result,
     binary_function_t t_binary_op)
 {
-    char* pc_value = NULL;
+    void* pv_value = NULL;
 
     assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
     assert(_iterator_same_elem_type(t_first1, t_first2));
@@ -1511,12 +1499,7 @@ output_iterator_t algo_transform_binary(
         t_binary_op = fun_default_binary;
     }
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first1));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
+    pv_value = _iterator_allocate_init_elem(t_first1);
 
     for(;
         !iterator_equal(t_first1, t_last1);
@@ -1525,12 +1508,12 @@ output_iterator_t algo_transform_binary(
         t_result = iterator_next(t_result))
     {
         (*t_binary_op)(
-            iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), pc_value);
-        iterator_set_value(t_result, pc_value);
+            iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), pv_value);
+        iterator_set_value(t_result, pv_value);
     }
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first1, pv_value);
+    pv_value = NULL;
 
     return t_result;
 }
@@ -1538,31 +1521,26 @@ output_iterator_t algo_transform_binary(
 forward_iterator_t algo_unique(
     forward_iterator_t t_first, forward_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_unique_if(t_first, t_last, _fun_get_binary(s_typename, _EQUAL_FUN));
+    return algo_unique_if(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN));
 }
 
 forward_iterator_t algo_unique_if(
     forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_unary_op)
+    binary_function_t t_binary_op)
 {
     assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
-    t_first = algo_adjacent_find_if(t_first, t_last, t_unary_op);
-    return algo_unique_copy_if(t_first, t_last, t_first, t_unary_op);
+    t_first = algo_adjacent_find_if(t_first, t_last, t_binary_op);
+    return algo_unique_copy_if(t_first, t_last, t_first, t_binary_op);
 }
 
 output_iterator_t algo_unique_copy(
     input_iterator_t t_first, input_iterator_t t_last,
     output_iterator_t t_result)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_unique_copy_if(
-        t_first, t_last, t_result, _fun_get_binary(s_typename, _EQUAL_FUN));
+    return algo_unique_copy_if(t_first, t_last, t_result,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN));
 }
 
 output_iterator_t algo_unique_copy_if(
@@ -1577,7 +1555,7 @@ output_iterator_t algo_unique_copy_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -1608,31 +1586,27 @@ forward_iterator_t _algo_lower_bound(
     forward_iterator_t t_first, forward_iterator_t t_last, ...)
 {
     va_list val_elemlist;
-    char*   s_typename = _tools_get_typename(t_first);
-
-    assert(s_typename != NULL);
-
     va_start(val_elemlist, t_last);
 
-    return _algo_lower_bound_if_varg(
-        t_first, t_last, _fun_get_binary(s_typename, _LESS_FUN), val_elemlist);
+    return _algo_lower_bound_if_varg(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN), val_elemlist);
 }
 
 forward_iterator_t _algo_lower_bound_if(
     forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_unary_op, ...)
+    binary_function_t t_binary_op, ...)
 {
     va_list val_elemlist;
-    va_start(val_elemlist, t_unary_op);
+    va_start(val_elemlist, t_binary_op);
 
-    return _algo_lower_bound_if_varg(t_first, t_last, t_unary_op, val_elemlist);
+    return _algo_lower_bound_if_varg(t_first, t_last, t_binary_op, val_elemlist);
 }
 
 forward_iterator_t _algo_lower_bound_if_varg(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_binary_op, va_list val_elemlist)
 {
-    char*      pc_value = NULL;
+    void*      pv_value = NULL;
     bool_t     t_result = false;
     size_t     t_len = 0;
     size_t     t_halflen = 0;
@@ -1642,18 +1616,11 @@ forward_iterator_t _algo_lower_bound_if_varg(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    _get_varg_value(
-        pc_value, val_elemlist,
-        _tools_get_typesize(t_first), _tools_get_typename(t_first));
+    pv_value = _iterator_allocate_init_elem(t_first);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
     t_len = iterator_distance(t_first, t_last);
     while(t_len > 0)
@@ -1662,7 +1629,7 @@ forward_iterator_t _algo_lower_bound_if_varg(
         t_middle = t_first;
         t_middle = iterator_advance(t_middle, t_halflen);
 
-        (*t_binary_op)(iterator_get_pointer(t_middle), pc_value, &t_result);
+        (*t_binary_op)(iterator_get_pointer(t_middle), pv_value, &t_result);
         if(t_result) /* *t_middle < value */
         {
             t_first = t_middle;
@@ -1675,8 +1642,8 @@ forward_iterator_t _algo_lower_bound_if_varg(
         }
     }
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 
     return t_first;
 }
@@ -1685,14 +1652,10 @@ forward_iterator_t _algo_upper_bound(
     forward_iterator_t t_first, forward_iterator_t t_last, ...)
 {
     va_list val_elemlist;
-    char*   s_typename = _tools_get_typename(t_first);
-
-    assert(s_typename != NULL);
-
     va_start(val_elemlist, t_last);
 
-    return _algo_upper_bound_if_varg(
-        t_first, t_last, _fun_get_binary(s_typename, _LESS_FUN), val_elemlist);
+    return _algo_upper_bound_if_varg(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN), val_elemlist);
 }
 
 forward_iterator_t _algo_upper_bound_if(
@@ -1709,7 +1672,7 @@ forward_iterator_t _algo_upper_bound_if_varg(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_binary_op, va_list val_elemlist)
 {
-    char*      pc_value = NULL;
+    void*      pv_value = NULL;
     bool_t     t_result = false;
     size_t     t_len = 0;
     size_t     t_halflen = 0;
@@ -1719,18 +1682,11 @@ forward_iterator_t _algo_upper_bound_if_varg(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    _get_varg_value(
-        pc_value, val_elemlist,
-        _tools_get_typesize(t_first), _tools_get_typename(t_first));
+    pv_value = _iterator_allocate_init_elem(t_first);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
     t_len = iterator_distance(t_first, t_last);
     while(t_len > 0)
@@ -1739,7 +1695,7 @@ forward_iterator_t _algo_upper_bound_if_varg(
         t_middle = t_first;
         t_middle = iterator_advance(t_middle, t_halflen);
 
-        (*t_binary_op)(pc_value, iterator_get_pointer(t_middle), &t_result);
+        (*t_binary_op)(pv_value, iterator_get_pointer(t_middle), &t_result);
         if(t_result) /* value < *t_middle */
         {
             t_len = t_halflen;
@@ -1752,27 +1708,23 @@ forward_iterator_t _algo_upper_bound_if_varg(
         }
     }
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 
     return t_first;
 }
 
-pair_t _algo_equal_range(
+range_t _algo_equal_range(
     forward_iterator_t t_first, forward_iterator_t t_last, ...)
 {
     va_list val_elemlist;
-    char*   s_typename = _tools_get_typename(t_first);
-
-    assert(s_typename != NULL);
-
     va_start(val_elemlist, t_last);
 
-    return _algo_equal_range_if_varg(
-        t_first, t_last, _fun_get_binary(s_typename, _LESS_FUN), val_elemlist);
+    return _algo_equal_range_if_varg(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN), val_elemlist);
 }
 
-pair_t _algo_equal_range_if(
+range_t _algo_equal_range_if(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_binary_op, ...)
 {
@@ -1782,11 +1734,11 @@ pair_t _algo_equal_range_if(
     return _algo_equal_range_if_varg(t_first, t_last, t_binary_op, val_elemlist);
 }
 
-pair_t _algo_equal_range_if_varg(
+range_t _algo_equal_range_if_varg(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_binary_op, va_list val_elemlist)
 {
-    char*      pc_value = NULL;
+    void*      pv_value = NULL;
     bool_t     t_result = false;
     bool_t     t_equal = false;
     size_t     t_len = 0;
@@ -1794,27 +1746,17 @@ pair_t _algo_equal_range_if_varg(
     iterator_t t_middle;
     iterator_t t_lower;
     iterator_t t_upper;
-    pair_t     t_pair;
+    range_t    t_range;
 
     assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    _get_varg_value(
-        pc_value, val_elemlist,
-        _tools_get_typesize(t_first), _tools_get_typename(t_first));
-
-    t_pair = create_pair(iterator_t, iterator_t);
-    pair_init(&t_pair);
+    pv_value = _iterator_allocate_init_elem(t_first);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
     t_len = iterator_distance(t_first, t_last);
     while(t_len > 0)
@@ -1823,7 +1765,7 @@ pair_t _algo_equal_range_if_varg(
         t_middle = t_first;
         t_middle = iterator_advance(t_middle, t_halflen);
 
-        (*t_binary_op)(iterator_get_pointer(t_middle), pc_value, &t_result);
+        (*t_binary_op)(iterator_get_pointer(t_middle), pv_value, &t_result);
         if(t_result) /* *t_middle < value */
         {
             t_first = t_middle;
@@ -1832,7 +1774,7 @@ pair_t _algo_equal_range_if_varg(
         }
         else
         {
-            (*t_binary_op)(pc_value, iterator_get_pointer(t_middle), &t_result);
+            (*t_binary_op)(pv_value, iterator_get_pointer(t_middle), &t_result);
             if(t_result) /* value < *t_middle */
             {
                 t_len = t_halflen;
@@ -1846,35 +1788,33 @@ pair_t _algo_equal_range_if_varg(
                 t_upper = _algo_upper_bound_if_varg(
                     t_middle, t_first, t_binary_op, val_elemlist);
 
-                pair_make(&t_pair, t_lower, t_upper);
+                t_range.t_begin = t_lower;
+                t_range.t_end = t_upper;
                 t_equal = true;
                 break;
             }
         }
     }
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 
     if(!t_equal)
     {
-        pair_make(&t_pair, t_first, t_first);
+        t_range.t_begin = t_first;
+        t_range.t_end = t_first;
     }
-    return t_pair;
+    return t_range;
 }
 
 bool_t _algo_binary_search(
     forward_iterator_t t_first, forward_iterator_t t_last, ...)
 {
     va_list val_elemlist;
-    char*   s_typename = _tools_get_typename(t_first);
-
-    assert(s_typename != NULL);
-
     va_start(val_elemlist, t_last);
 
-    return _algo_binary_search_if_varg(
-        t_first, t_last, _fun_get_binary(s_typename, _LESS_FUN), val_elemlist);
+    return _algo_binary_search_if_varg(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN), val_elemlist);
 }
 
 bool_t _algo_binary_search_if(
@@ -1891,7 +1831,7 @@ bool_t _algo_binary_search_if_varg(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_binary_op, va_list val_elemlist)
 {
-    char*      pc_value = NULL;
+    void*      pv_value = NULL;
     iterator_t t_lower;
     bool_t     t_cmp = false;
     bool_t     t_result = false;
@@ -1899,22 +1839,15 @@ bool_t _algo_binary_search_if_varg(
     t_lower = _algo_lower_bound_if_varg(t_first, t_last, t_binary_op, val_elemlist);
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-    _get_varg_value(
-        pc_value, val_elemlist,
-        _tools_get_typesize(t_first), _tools_get_typename(t_first));
+    pv_value = _iterator_allocate_init_elem(t_first);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
     if(!iterator_equal(t_lower, t_last))
     {
-        (*t_binary_op)(pc_value, iterator_get_pointer(t_lower), &t_cmp);
+        (*t_binary_op)(pv_value, iterator_get_pointer(t_lower), &t_cmp);
         if(!t_cmp)
         {
             t_result = true;
@@ -1929,8 +1862,8 @@ bool_t _algo_binary_search_if_varg(
         t_result = false;
     }
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 
     return t_result;
 }
@@ -1938,11 +1871,8 @@ bool_t _algo_binary_search_if_varg(
 bool_t algo_next_permutation(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_next_permutation_if(
-        t_first, t_last, _fun_get_binary(s_typename, _LESS_FUN));
+    return algo_next_permutation_if(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 bool_t algo_next_permutation_if(
@@ -1958,7 +1888,7 @@ bool_t algo_next_permutation_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -2009,11 +1939,8 @@ bool_t algo_next_permutation_if(
 bool_t algo_prev_permutation(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_prev_permutation_if(
-        t_first, t_last, _fun_get_binary(s_typename, _LESS_FUN));
+    return algo_prev_permutation_if(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 bool_t algo_prev_permutation_if(
@@ -2029,7 +1956,7 @@ bool_t algo_prev_permutation_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -2226,11 +2153,8 @@ void algo_partial_sort(
     random_access_iterator_t t_middle,
     random_access_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    algo_partial_sort_if(
-        t_first, t_middle, t_last, _fun_get_binary(s_typename, _LESS_FUN));
+    algo_partial_sort_if(t_first, t_middle, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 void algo_partial_sort_if(
@@ -2248,7 +2172,7 @@ void algo_partial_sort_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_middle))
@@ -2279,11 +2203,8 @@ random_access_iterator_t algo_partial_sort_copy(
     input_iterator_t t_first1, input_iterator_t t_last1,
     random_access_iterator_t t_first2, random_access_iterator_t t_last2)
 {
-    char* s_typename = _tools_get_typename(t_first1);
-    assert(s_typename != NULL);
-
-    return algo_partial_sort_copy_if(
-        t_first1, t_last1, t_first2, t_last2, _fun_get_binary(s_typename, _LESS_FUN));
+    return algo_partial_sort_copy_if(t_first1, t_last1, t_first2, t_last2,
+        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
 }
 
 random_access_iterator_t algo_partial_sort_copy_if(
@@ -2301,7 +2222,7 @@ random_access_iterator_t algo_partial_sort_copy_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
     }
 
     if(iterator_equal(t_first1, t_last1) || iterator_equal(t_first2, t_last2))
@@ -2337,47 +2258,40 @@ random_access_iterator_t algo_partial_sort_copy_if(
 void algo_sort(
     random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    algo_sort_if(t_first, t_last, _fun_get_binary(s_typename, _LESS_FUN));
+    algo_sort_if(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 void algo_sort_if(
     random_access_iterator_t t_first, random_access_iterator_t t_last,
     binary_function_t t_binary_op)
 {
-    char*  pc_value = NULL;
+    void*  pv_value = NULL;
     size_t t_len = 0;
 
     assert(_iterator_valid_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
     if(!iterator_equal(t_first, t_last))
     {
-        pc_value = (char*)malloc(_tools_get_typesize(t_first));
-        if(pc_value == NULL)
-        {
-            fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-            exit(EXIT_FAILURE);
-        }
+        pv_value = _iterator_allocate_init_elem(t_first);
 
         t_len = iterator_distance(t_first, t_last);
         if(t_len > _CSTL_SORT_THRESHOLD)
         {
-            _intro_sort_if(t_first, t_last, t_binary_op, _lg(t_len)*2, pc_value);
+            _intro_sort_if(t_first, t_last, t_binary_op, _lg(t_len)*2, pv_value);
         }
         else
         {
-            _insertion_sort_if(t_first, t_last, t_binary_op, pc_value);
+            _insertion_sort_if(t_first, t_last, t_binary_op, pv_value);
         }
 
-        free(pc_value);
-        pc_value = NULL;
+        _iterator_deallocate_destroy_elem(t_first, pv_value);
+        pv_value = NULL;
     }
 }
 
@@ -2386,11 +2300,8 @@ void algo_inplace_merge(
     bidirectional_iterator_t t_middle,
     bidirectional_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    algo_inplace_merge_if(
-        t_first, t_middle, t_last, _fun_get_binary(s_typename, _LESS_FUN));
+    algo_inplace_merge_if(t_first, t_middle, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 void algo_inplace_merge_if(
@@ -2400,7 +2311,7 @@ void algo_inplace_merge_if(
     binary_function_t t_binary_op)
 {
     bool_t     t_result = false;
-    char*      pc_buf = NULL;
+    void*      pv_value = NULL;
     size_t     t_typesize = 0;
     size_t     t_len1 = 0;
     size_t     t_i = 0;
@@ -2411,7 +2322,7 @@ void algo_inplace_merge_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_middle) || iterator_equal(t_middle, t_last))
@@ -2421,12 +2332,7 @@ void algo_inplace_merge_if(
 
     t_typesize = _tools_get_typesize(t_first);
     t_len1 = iterator_distance(t_first, t_middle);
-    pc_buf = (char*)malloc(t_typesize * t_len1);
-    if(pc_buf == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
+    pv_value = _iterator_allocate_init_elem(t_first);
 
     /* copy elements of [t_first, t_middle) to buf */
     for(t_index = t_first, t_i = 0;
