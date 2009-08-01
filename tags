@@ -8,10 +8,9 @@ ARFLAGS	Makefile	/^ARFLAGS = ruv$/;"	m
 ARTARGET	Makefile	/^ARTARGET = $(BINDIR)\/libcstl.a$/;"	m
 BINDIR	Makefile	/^BINDIR = bin$/;"	m
 CC	Makefile	/^CC = gcc$/;"	m
-CEXPFLAGS	Makefile	/^CEXPFLAGS = -DCSTL_TYPES_UNIFICATION=2 -DNDEBUG$/;"	m
+CEXPFLAGS	Makefile	/^CEXPFLAGS = -DNDEBUG$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -c -g -ansi -Wall -Wextra -fPIC $(CEXPFLAGS)$/;"	m
 CPPFLAGS	Makefile	/^CPPFLAGS = -I include$/;"	m
-CSTL_TYPES_UNIFICATION	include/cstl_types.h	191;"	d
 FALSE	include/cstl_types.h	33;"	d
 HEADERTARGET	Makefile	/^HEADERTARGET = $(INCDIR)\/*.h$/;"	m
 INCDIR	Makefile	/^INCDIR = include$/;"	m
@@ -127,7 +126,6 @@ _CSTL_STACK_H	include/cstl_stack.h	24;"	d
 _CSTL_STACK_PRIVATE_H	include/cstl_stack_private.h	24;"	d
 _CSTL_STRING_H	include/cstl_string.h	24;"	d
 _CSTL_STRING_ITERATOR_H	include/cstl_string_iterator.h	24;"	d
-_CSTL_TOOLS_H	include/cstl_tools.h	24;"	d
 _CSTL_TYPES_H	include/cstl_types.h	24;"	d
 _CSTL_VECTOR_H	include/cstl_vector.h	24;"	d
 _CSTL_VECTOR_ITERATOR_H	include/cstl_vector_iterator.h	24;"	d
@@ -144,7 +142,6 @@ _DEQUE_MAP_GROW_STEP	src/cstl_deque.c	44;"	d	file:
 _DEQUE_TYPE	include/cstl_types.h	78;"	d
 _DIVIDES_FUN	include/cstl_function_private.h	/^    _DIVIDES_FUN,$/;"	e	enum:_tagfunbinarytype
 _DOUBLE_TYPE	include/cstl_types.h	68;"	d
-_ELEM_TYPE_NAME_SIZE	include/cstl_types.h	208;"	d
 _ENUM_TYPE	include/cstl_types.h	116;"	d
 _EQUAL_FUN	include/cstl_function_private.h	/^    _EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
 _FLOAT_TYPE	include/cstl_types.h	67;"	d
@@ -647,9 +644,9 @@ _TREE_TRAVERSE_H	test/tree_traverse.h	24;"	d
 _TYPE_CSTL_BUILTIN	include/cstl_types.h	/^    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN$/;"	e	enum:_tagtypestley
 _TYPE_C_BUILTIN	include/cstl_types.h	/^    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN$/;"	e	enum:_tagtypestley
 _TYPE_INVALID	include/cstl_types.h	/^    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN$/;"	e	enum:_tagtypestley
-_TYPE_NAME_SIZE	include/cstl_types.h	209;"	d
+_TYPE_NAME_SIZE	include/cstl_types.h	187;"	d
 _TYPE_REGISTER_BEGIN	src/cstl_types.c	49;"	d	file:
-_TYPE_REGISTER_BUCKET_COUNT	include/cstl_types.h	229;"	d
+_TYPE_REGISTER_BUCKET_COUNT	include/cstl_types.h	207;"	d
 _TYPE_REGISTER_END	src/cstl_types.c	77;"	d	file:
 _TYPE_REGISTER_TYPE	src/cstl_types.c	53;"	d	file:
 _TYPE_REGISTER_TYPE_NODE	src/cstl_types.c	65;"	d	file:
@@ -946,26 +943,6 @@ _both_even_or_odd	test/test_algo.c	/^static void _both_even_or_odd($/;"	p	file:	
 _both_even_or_odd	test/test_algo.c	/^static void _both_even_or_odd(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _check_even	test/test_algo.c	/^static void _check_even(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _check_even	test/test_algo.c	/^static void _check_even(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
-_cmp_char	src/cstl_types.c	/^static int _cmp_char(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_char	src/cstl_types.c	/^static int _cmp_char(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_double	src/cstl_types.c	/^static int _cmp_double(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_double	src/cstl_types.c	/^static int _cmp_double(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_float	src/cstl_types.c	/^static int _cmp_float(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_float	src/cstl_types.c	/^static int _cmp_float(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_int	src/cstl_types.c	/^static int _cmp_int(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_int	src/cstl_types.c	/^static int _cmp_int(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_long	src/cstl_types.c	/^static int _cmp_long(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_long	src/cstl_types.c	/^static int _cmp_long(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_short	src/cstl_types.c	/^static int _cmp_short(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_short	src/cstl_types.c	/^static int _cmp_short(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_uchar	src/cstl_types.c	/^static int _cmp_uchar(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_uchar	src/cstl_types.c	/^static int _cmp_uchar(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_uint	src/cstl_types.c	/^static int _cmp_uint(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_uint	src/cstl_types.c	/^static int _cmp_uint(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_ulong	src/cstl_types.c	/^static int _cmp_ulong(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_ulong	src/cstl_types.c	/^static int _cmp_ulong(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_ushort	src/cstl_types.c	/^static int _cmp_ushort(const void* cpv_first, const void* cpv_second)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second)
-_cmp_ushort	src/cstl_types.c	/^static int _cmp_ushort(const void* cpv_first, const void* cpv_second);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second)
 _create_avl_tree	include/cstl_avl_tree_private.h	/^extern avl_tree_t* _create_avl_tree(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_avl_tree	src/cstl_avl_tree.c	/^avl_tree_t* _create_avl_tree(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_avl_tree_auxiliary	include/cstl_avl_tree_private.h	/^extern bool_t _create_avl_tree_auxiliary(avl_tree_t* pt_avl_tree, const char* s_typename);$/;"	p	signature:(avl_tree_t* pt_avl_tree, const char* s_typename)
@@ -1173,10 +1150,6 @@ _fun_increase_ushort	src/cstl_function.c	/^void _fun_increase_ushort(const void*
 _g_pfun_defaultmallochandler	src/cstl_alloc.c	/^static void (*_g_pfun_defaultmallochandler)(void) = NULL;$/;"	v	file:
 _generate	test/test_algo.c	/^static void _generate(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _generate	test/test_algo.c	/^static void _generate(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
-_get_builtin_type	include/cstl_types.h	/^extern void _get_builtin_type(const char* s_typename, char* s_builtin);$/;"	p	signature:(const char* s_typename, char* s_builtin)
-_get_builtin_type	src/cstl_types.c	/^void _get_builtin_type(const char* s_typename, char* s_builtin)$/;"	f	signature:(const char* s_typename, char* s_builtin)
-_get_cmp_function	include/cstl_types.h	/^extern int (*_get_cmp_function(const char* s_typename))(const void*, const void*);$/;"	p	signature:(const char* s_typename)
-_get_cmp_function	src/cstl_types.c	/^int (*_get_cmp_function(const char* s_typename))(const void*, const void*)$/;"	f	signature:(const char* s_typename)
 _get_color	src/cstl_rb_tree.c	/^static color_t _get_color(const rbnode_t* cpt_root)$/;"	f	file:	signature:(const rbnode_t* cpt_root)
 _get_color	src/cstl_rb_tree.c	/^static color_t _get_color(const rbnode_t* cpt_root);$/;"	p	file:	signature:(const rbnode_t* cpt_root)
 _get_height	src/cstl_avl_tree.c	/^static int _get_height(const avlnode_t* cpt_root)$/;"	f	file:	signature:(const avlnode_t* cpt_root)
@@ -1193,8 +1166,6 @@ _get_min_rbnode	src/cstl_rb_tree.c	/^static rbnode_t* _get_min_rbnode(const rbno
 _get_min_rbnode	src/cstl_rb_tree.c	/^static rbnode_t* _get_min_rbnode(const rbnode_t* cpt_root);$/;"	p	file:	signature:(const rbnode_t* cpt_root)
 _get_valuestring_len	src/cstl_basic_string.c	/^static size_t _get_valuestring_len($/;"	f	file:	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 _get_valuestring_len	src/cstl_basic_string.c	/^static size_t _get_valuestring_len($/;"	p	file:	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
-_get_varg_value	include/cstl_types.h	/^extern void _get_varg_value($/;"	p	signature:( void* pv_output, va_list val_elemlist, size_t t_typesize, const char* s_typename)
-_get_varg_value	src/cstl_types.c	/^void _get_varg_value($/;"	f	signature:( void* pv_output, va_list val_elemlist, size_t t_typesize, const char* s_typename)
 _greater3	test/test_algo.c	/^static void _greater3(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _greater3	test/test_algo.c	/^static void _greater3(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _gt_typeanalysis	src/cstl_types.c	/^static _typeanalysis_t _gt_typeanalysis = {{'\\0'}, {'\\0'}, 0, _TOKEN_INVALID};$/;"	v	file:
@@ -2630,8 +2601,6 @@ _typeregister_t	include/cstl_types.h	/^}_typeregister_t;$/;"	t	typeref:struct:_t
 _typestyle_t	include/cstl_types.h	/^}_typestyle_t;$/;"	t	typeref:enum:_tagtypestley
 _typetoken_t	src/cstl_types.c	/^}_typetoken_t;$/;"	t	typeref:enum:_tagtypetoken	file:
 _un_height	include/cstl_avl_tree_private.h	/^    unsigned int        _un_height;$/;"	m	struct:_tagavlnode	access:public
-_unify_types	include/cstl_types.h	/^extern void _unify_types(size_t t_typesize, char* sz_typename);$/;"	p	signature:(size_t t_typesize, char* sz_typename)
-_unify_types	src/cstl_types.c	/^void _unify_types(size_t t_typesize, char* sz_typename)$/;"	f	signature:(size_t t_typesize, char* sz_typename)
 _vector_assign_elem	include/cstl_vector_private.h	/^extern void _vector_assign_elem(vector_t* pt_vector, size_t t_count, ...);$/;"	p	signature:(vector_t* pt_vector, size_t t_count, ...)
 _vector_assign_elem	src/cstl_vector.c	/^void _vector_assign_elem(vector_t* pt_vector, size_t t_count, ...)$/;"	f	signature:(vector_t* pt_vector, size_t t_count, ...)
 _vector_assign_elem_varg	include/cstl_vector_private.h	/^extern void _vector_assign_elem_varg($/;"	p	signature:( vector_t* pt_vector, size_t t_count, va_list val_elemlist)
@@ -4895,9 +4864,9 @@ test_type	test/test_type.h	/^extern void test_type(void);$/;"	p	signature:(void)
 test_vector	test/test_vector.c	/^void test_vector(void)$/;"	f	signature:(void)
 test_vector	test/test_vector.h	/^extern void test_vector(void);$/;"	p	signature:(void)
 true	include/cstl_types.h	36;"	d
-type_duplicate	include/cstl_types.h	257;"	d
-type_register	include/cstl_types.h	253;"	d
-type_unregister	include/cstl_types.h	255;"	d
+type_duplicate	include/cstl_types.h	235;"	d
+type_register	include/cstl_types.h	231;"	d
+type_unregister	include/cstl_types.h	233;"	d
 unary_function_t	include/cstl_types.h	/^typedef void (*unary_function_t)(const void*, void*);$/;"	t
 vector_assign	include/cstl_vector.h	/^extern void vector_assign($/;"	p	signature:( vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
 vector_assign	src/cstl_vector.c	/^void vector_assign(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)$/;"	f	signature:(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
