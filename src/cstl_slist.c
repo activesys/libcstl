@@ -72,9 +72,9 @@ static bool_t _slist_iterator_belong_to_slist(
     const slist_t* cpt_slist, slist_iterator_t t_iter);
 static bool_t _slist_same_slist_iterator_type(
     const slist_t* cpt_slist, slist_iterator_t t_iter);
+#endif /* NDEBUG */
 static bool_t _slist_same_type(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
-#endif /* NDEBUG */
 
 /*
  * Transfer functions.
@@ -1794,6 +1794,7 @@ static bool_t _slist_same_slist_iterator_type(
            _GET_SLIST_ITERATOR_TYPE(t_iter) == _FORWARD_ITERATOR);
     return _slist_same_type(cpt_slist, _GET_SLIST_CONTAINER(t_iter));
 }
+#endif /* NDEBUG */
 
 static bool_t _slist_same_type(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond)
@@ -1806,7 +1807,6 @@ static bool_t _slist_same_type(
            (cpt_slistfirst->_t_typeinfo._pt_type == cpt_slistsecond->_t_typeinfo._pt_type) &&
            (cpt_slistfirst->_t_typeinfo._t_style == cpt_slistsecond->_t_typeinfo._t_style);
 }
-#endif /* NDEBUG */
 
 static void _transfer_after(
     slist_iterator_t t_pos, slist_iterator_t t_begin, slist_iterator_t t_end)

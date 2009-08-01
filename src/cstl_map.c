@@ -433,6 +433,10 @@ binary_function_t map_key_less(const map_t* cpt_map)
 
 binary_function_t map_value_less(const map_t* cpt_map)
 {
+#ifdef NDEBUG
+    map_t* pt_avoidwarning = NULL;
+    pt_avoidwarning = (map_t*)cpt_map;
+#endif
     assert(cpt_map != NULL);
 
     return _map_value_less;

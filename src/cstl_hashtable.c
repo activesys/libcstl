@@ -74,11 +74,11 @@
  */
 static bool_t _hashtable_iterator_belong_to_hashtable(
     const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter);
-static bool_t _hashtable_same_type(
-    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
 static bool_t _hashtable_same_hashtable_iterator_type(
     const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter);
 #endif /* NDEBUG */
+static bool_t _hashtable_same_type(
+    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
 
 /* init, copy, less and destroy function for hashnode_t* type */
 static void _hashnode_init(const void* cpv_input, void* pv_output);
@@ -1136,6 +1136,14 @@ static bool_t _hashtable_iterator_belong_to_hashtable(
     }
 }
 
+static bool_t _hashtable_same_hashtable_iterator_type(
+    const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
+{
+    assert(cpt_hashtable != NULL && _GET_HASHTABLE(t_iter) != NULL);
+    return _hashtable_same_type(cpt_hashtable, _GET_HASHTABLE(t_iter));
+}
+#endif /* NDEBUG */
+
 static bool_t _hashtable_same_type(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
 {
@@ -1150,14 +1158,6 @@ static bool_t _hashtable_same_type(
            (cpt_hashtablefirst->_t_hash == cpt_hashtablesecond->_t_hash) &&
            (cpt_hashtablefirst->_t_less == cpt_hashtablesecond->_t_less);
 }
-
-static bool_t _hashtable_same_hashtable_iterator_type(
-    const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
-{
-    assert(cpt_hashtable != NULL && _GET_HASHTABLE(t_iter) != NULL);
-    return _hashtable_same_type(cpt_hashtable, _GET_HASHTABLE(t_iter));
-}
-#endif /* NDEBUG */
 
 static unsigned long _hashtable_get_prime(unsigned long ul_basenum)
 {

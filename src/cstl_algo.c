@@ -2311,8 +2311,7 @@ void algo_inplace_merge_if(
     binary_function_t t_binary_op)
 {
     bool_t     t_result = false;
-    void*      pv_value = NULL;
-    size_t     t_typesize = 0;
+    void**      pc_buf = NULL;
     size_t     t_len1 = 0;
     size_t     t_i = 0;
     iterator_t t_index;
@@ -2330,16 +2329,23 @@ void algo_inplace_merge_if(
         return;
     }
 
-    t_typesize = _tools_get_typesize(t_first);
     t_len1 = iterator_distance(t_first, t_middle);
-    pv_value = _iterator_allocate_init_elem(t_first);
+    pc_buf = (void**)malloc(sizeof(void*) * t_len1);
+    if(pc_buf == NULL)
+    {
+        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
+        exit(EXIT_FAILURE);
+    }
 
     /* copy elements of [t_first, t_middle) to buf */
     for(t_index = t_first, t_i = 0;
         !iterator_equal(t_index, t_middle);
         t_index = iterator_next(t_index), ++t_i)
     {
-        memcpy(pc_buf + t_i * t_typesize, iterator_get_pointer(t_index), t_typesize);
+        pc_buf[t_i] = _iterator_allocate_init_elem(t_first);
+        t_result = _iterator_get_typestyle(t_first);
+        _iterator_get_typecopy(t_first)(pc_buf[t_i], iterator_get_pointer(t_index), &t_result);
+        assert(t_result);
     }
     assert(t_i == t_len1);
 
@@ -2347,8 +2353,7 @@ void algo_inplace_merge_if(
     t_i = 0;
     while(!iterator_equal(t_middle, t_last) && t_i < t_len1)
     {
-        (*t_binary_op)(
-            iterator_get_pointer(t_middle), pc_buf + t_i * t_typesize, &t_result);
+        (*t_binary_op)(iterator_get_pointer(t_middle), pc_buf[t_i], &t_result);
         if(t_result) /* t_middle < pc_buf */
         {
             iterator_set_value(t_first, iterator_get_pointer(t_middle));
@@ -2356,7 +2361,7 @@ void algo_inplace_merge_if(
         }
         else /* pc_buf <= t_middle */
         {
-            iterator_set_value(t_first, pc_buf + t_i * t_typesize);
+            iterator_set_value(t_first, pc_buf[t_i]);
             t_i++;
         }
         t_first = iterator_next(t_first);
@@ -2367,11 +2372,15 @@ void algo_inplace_merge_if(
         assert(!iterator_equal(t_first, t_last));
         for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first), ++t_i)
         {
-            iterator_set_value(t_first, pc_buf + t_i * t_typesize);
+            iterator_set_value(t_first, pc_buf[t_i]);
         }
     }
     assert(t_i == t_len1 && iterator_equal(t_first, t_middle));
 
+    for(t_i = 0; t_i < t_len1; ++t_i)
+    {
+        _iterator_deallocate_destroy_elem(t_first, pc_buf[t_i]);
+    }
     free(pc_buf);
     pc_buf = NULL;
 }
@@ -2381,10 +2390,8 @@ void algo_nth_element(
     random_access_iterator_t t_nth,
     random_access_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    algo_nth_element_if(t_first, t_nth, t_last, _fun_get_binary(s_typename, _LESS_FUN));
+    algo_nth_element_if(t_first, t_nth, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 void algo_nth_element_if(
@@ -2398,22 +2405,17 @@ void algo_nth_element_if(
     iterator_t t_end;
     iterator_t t_prev;
     bool_t     t_result = false;
-    char*      pc_value = NULL;
+    void*      pv_value = NULL;
 
     assert(_iterator_valid_range(t_first, t_nth, _RANDOM_ACCESS_ITERATOR));
     assert(_iterator_valid_range(t_nth, t_last, _RANDOM_ACCESS_ITERATOR));
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
-    pc_value = (char*)malloc(_tools_get_typesize(t_first));
-    if(pc_value == NULL)
-    {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
+    pv_value = _iterator_allocate_init_elem(t_first);
 
     while(iterator_distance(t_first, t_last) > 3)
     {
@@ -2422,26 +2424,26 @@ void algo_nth_element_if(
         t_prev = t_last;
         t_prev = iterator_prev(t_prev);
         t_pivot = _median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
-        iterator_get_value(t_pivot, pc_value);
+        iterator_get_value(t_pivot, pv_value);
 
         t_begin = t_first;
         t_end = t_last;
         for(;;)
         {
             /* move begin */
-            (*t_binary_op)(iterator_get_pointer(t_begin), pc_value, &t_result);
+            (*t_binary_op)(iterator_get_pointer(t_begin), pv_value, &t_result);
             while(t_result)
             {
                 t_begin = iterator_next(t_begin);
-                (*t_binary_op)(iterator_get_pointer(t_begin), pc_value, &t_result);
+                (*t_binary_op)(iterator_get_pointer(t_begin), pv_value, &t_result);
             }
             /* move end */
             t_end = iterator_prev(t_end);
-            (*t_binary_op)(pc_value, iterator_get_pointer(t_end), &t_result);
+            (*t_binary_op)(pv_value, iterator_get_pointer(t_end), &t_result);
             while(t_result)
             {
                 t_end = iterator_prev(t_end);
-                (*t_binary_op)(pc_value, iterator_get_pointer(t_end), &t_result);
+                (*t_binary_op)(pv_value, iterator_get_pointer(t_end), &t_result);
             }
 
             /* across */
@@ -2467,19 +2469,17 @@ void algo_nth_element_if(
         }
     }
 
-    _insertion_sort_if(t_first, t_last, t_binary_op, pc_value);
+    _insertion_sort_if(t_first, t_last, t_binary_op, pv_value);
 
-    free(pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(t_first, pv_value);
+    pv_value = NULL;
 }
 
 bool_t algo_is_sorted(
     forward_iterator_t t_first, forward_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    return algo_is_sorted_if(t_first, t_last, _fun_get_binary(s_typename, _LESS_FUN));
+    return algo_is_sorted_if(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 bool_t algo_is_sorted_if(
@@ -2492,7 +2492,7 @@ bool_t algo_is_sorted_if(
     assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -2518,10 +2518,8 @@ bool_t algo_is_sorted_if(
 void algo_stable_sort(
     random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    char* s_typename = _tools_get_typename(t_first);
-    assert(s_typename != NULL);
-
-    algo_stable_sort_if(t_first, t_last, _fun_get_binary(s_typename, _LESS_FUN));
+    algo_stable_sort_if(t_first, t_last,
+        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
 }
 
 void algo_stable_sort_if(
@@ -2529,10 +2527,13 @@ void algo_stable_sort_if(
     binary_function_t t_binary_op)
 {
     size_t t_len = 0;
+    void*  pv_value = NULL;
+
     assert(_iterator_valid_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
+
     if(t_binary_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
     }
 
     t_len = iterator_distance(t_first, t_last);
@@ -2547,17 +2548,12 @@ void algo_stable_sort_if(
     }
     else
     {
-        char* pc_value = (char*)malloc(_tools_get_typesize(t_first));
-        if(pc_value == NULL)
-        {
-            fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-            exit(EXIT_FAILURE);
-        }
+        pv_value = _iterator_allocate_init_elem(t_first);
 
-        _insertion_sort_if(t_first, t_last, t_binary_op, pc_value);
+        _insertion_sort_if(t_first, t_last, t_binary_op, pv_value);
 
-        free(pc_value);
-        pc_value = NULL;
+        _iterator_deallocate_destroy_elem(t_first, pv_value);
+        pv_value = NULL;
     }
 }
 

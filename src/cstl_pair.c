@@ -73,12 +73,7 @@
     ((pt_pair)->_t_typeinfosecond._t_style)
 
 /** local function prototype section **/
-#ifndef NDEBUG
-/*
- * Test the two pair is have the same type.
- */
 static bool_t _pair_same_type(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-#endif /* NDEBUG */
 
 /** exported global variable definition section **/
 
@@ -377,7 +372,6 @@ bool_t pair_great_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecon
 }
 
 /** local function implementation section **/
-#ifndef NDEBUG
 static bool_t _pair_same_type(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 {
     assert(cpt_pairfirst != NULL && cpt_pairsecond != NULL);
@@ -395,7 +389,6 @@ static bool_t _pair_same_type(const pair_t* cpt_pairfirst, const pair_t* cpt_pai
            cpt_pairfirst->_t_typeinfosecond._t_style ==
            cpt_pairsecond->_t_typeinfosecond._t_style;
 }
-#endif /* NDEBUG */
 
 /** eof **/
 

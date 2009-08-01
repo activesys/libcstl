@@ -39,11 +39,13 @@ extern "C" {
 /*
  * libcstl iterator tools functions.
  */
+    /*
 extern bool_t _tools_valid_iterator_range(
     iterator_t t_first, iterator_t t_last, iteratortype_t t_limittype);
 extern char* _tools_get_typename(iterator_t t_iterator);
 extern size_t _tools_get_typesize(iterator_t t_iterator);
 extern bool_t _tools_same_elem_type(iterator_t t_first, iterator_t t_second);
+*/
 
 #ifdef __cplusplus
 }

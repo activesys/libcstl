@@ -67,7 +67,10 @@ extern void _queue_push_varg(queue_t* pt_queue, va_list val_elemlist);
 /*
  * Create the new priority queue.
  */
-extern priority_queue_t _create_priority_queue(size_t t_typesize, const char* s_typename);
+extern priority_queue_t* _create_priority_queue(const char* s_typename);
+extern bool_t _create_priority_queue_auxiliary(
+    priority_queue_t* pt_pqueue, const char* s_typename);
+extern void _priority_queue_destroy_auxiliary(priority_queue_t* pt_queue);
 
 /*
  * Append a copy of element at the top.

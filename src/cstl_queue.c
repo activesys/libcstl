@@ -265,24 +265,43 @@ bool_t queue_great_equal(
 
 /* priority queue function */
 /* create new priority queue */
-priority_queue_t _create_priority_queue(
-    size_t t_typesize, const char* s_typename)
+priority_queue_t* _create_priority_queue(const char* s_typename)
 {
-    priority_queue_t t_newpqueue;
+    priority_queue_t* pt_newpqueue = (priority_queue_t*)malloc(sizeof(priority_queue_t));
 
-    t_newpqueue._t_vector = _create_vector(t_typesize, s_typename);
-    t_newpqueue._t_binary_op = NULL;
+    if(pt_newpqueue == NULL)
+    {
+        return NULL;
+    }
 
-    return t_newpqueue;
+    if(!_create_priority_queue_auxiliary(pt_newpqueue, s_typename))
+    {
+        free(pt_newpqueue);
+        return NULL;
+    }
+
+    return pt_newpqueue;
+}
+
+bool_t _create_priority_queue_auxiliary(priority_queue_t* pt_pqueue,  const char* s_typename)
+{
+    assert(pt_pqueue != NULL && s_typename != NULL);
+
+    if(!_create_vector_auxiliary(&pt_pqueue->_t_vector, s_typename))
+    {
+        return false;
+    }
+    pt_pqueue->_t_binary_op = NULL;
+
+    return true;
 }
 
 void priority_queue_init(priority_queue_t* pt_pqueue)
 {
-    priority_queue_init_op(pt_pqueue, NULL);
+    priority_queue_init_ex(pt_pqueue, NULL);
 }
 
-void priority_queue_init_op(
-    priority_queue_t* pt_pqueue, binary_function_t t_binary_op)
+void priority_queue_init_ex(priority_queue_t* pt_pqueue, binary_function_t t_binary_op)
 {
     assert(pt_pqueue != NULL);
 
@@ -290,12 +309,18 @@ void priority_queue_init_op(
     pt_pqueue->_t_binary_op = t_binary_op;
 }
 
-void priority_queue_destroy(priority_queue_t* pt_pqueue)
+void _priority_queue_destroy_auxiliary(priority_queue_t* pt_pqueue)
 {
     assert(pt_pqueue != NULL);
 
-    vector_destroy(&pt_pqueue->_t_vector);
+    _vector_destroy_auxiliary(&pt_pqueue->_t_vector);
     pt_pqueue->_t_binary_op = NULL;
+}
+
+void priority_queue_destroy(priority_queue_t* pt_pqueue)
+{
+    _priority_queue_destroy_auxiliary(pt_pqueue);
+    free(pt_pqueue);
 }
 
 void priority_queue_init_copy(
@@ -311,10 +336,10 @@ void priority_queue_init_copy_range(
     priority_queue_t* pt_pqueuedest,
     random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    priority_queue_init_copy_range_op(pt_pqueuedest, t_first, t_last, NULL);
+    priority_queue_init_copy_range_ex(pt_pqueuedest, t_first, t_last, NULL);
 }
 
-void priority_queue_init_copy_range_op(
+void priority_queue_init_copy_range_ex(
     priority_queue_t* pt_pqueuedest, random_access_iterator_t t_first,
     random_access_iterator_t t_last, binary_function_t t_binary_op)
 {

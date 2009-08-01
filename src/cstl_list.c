@@ -1542,15 +1542,6 @@ static bool_t _list_iterator_belong_to_list(
     return false;
 }
 
-static bool_t _list_same_type(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
-{
-    assert(cpt_listfirst != NULL && cpt_listsecond != NULL);
-    return _type_is_same(_GET_LIST_TYPE_NAME(cpt_listfirst),
-                         _GET_LIST_TYPE_NAME(cpt_listsecond)) &&
-           (cpt_listfirst->_t_typeinfo._pt_type == cpt_listsecond->_t_typeinfo._pt_type) &&
-           (cpt_listfirst->_t_typeinfo._t_style == cpt_listsecond->_t_typeinfo._t_style);
-}
-
 static bool_t _list_same_list_iterator_type(
     const list_t* cpt_list, list_iterator_t t_iter)
 {
@@ -1560,6 +1551,15 @@ static bool_t _list_same_list_iterator_type(
     return _list_same_type(cpt_list, _GET_LIST_CONTAINER(t_iter));
 }
 #endif /* NDEBUG */
+
+static bool_t _list_same_type(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+{
+    assert(cpt_listfirst != NULL && cpt_listsecond != NULL);
+    return _type_is_same(_GET_LIST_TYPE_NAME(cpt_listfirst),
+                         _GET_LIST_TYPE_NAME(cpt_listsecond)) &&
+           (cpt_listfirst->_t_typeinfo._pt_type == cpt_listsecond->_t_typeinfo._pt_type) &&
+           (cpt_listfirst->_t_typeinfo._t_style == cpt_listsecond->_t_typeinfo._t_style);
+}
 
 static void _transfer(
     list_iterator_t t_pos, list_iterator_t t_begin, list_iterator_t t_end)

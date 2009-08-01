@@ -69,9 +69,9 @@
  */
 static bool_t _deque_iterator_belong_to_deque(
     const deque_t* cpt_deque, deque_iterator_t t_iter);
-#endif /* NDEBUG */
 static bool_t _deque_same_deque_iterator_type(
     const deque_t* cpt_deque, deque_iterator_t t_iter);
+#endif /* NDEBUG */
 static bool_t _deque_same_type(
     const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond);
 
@@ -1491,7 +1491,6 @@ static bool_t _deque_iterator_belong_to_deque(
 
     return false;
 }
-#endif /* NDEBUG */
 
 static bool_t _deque_same_deque_iterator_type(
     const deque_t* cpt_deque, deque_iterator_t t_iter)
@@ -1503,6 +1502,7 @@ static bool_t _deque_same_deque_iterator_type(
 
     return _deque_same_type(cpt_deque, _GET_DEQUE_CONTAINER(t_iter));
 }
+#endif /* NDEBUG */
 
 static bool_t _deque_same_type(
     const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond)

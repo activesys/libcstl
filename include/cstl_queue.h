@@ -37,8 +37,7 @@ extern "C" {
     _queue_push((pt_queue), (elem))
 
 /* create new priority queue */
-#define create_priority_queue(type)\
-    _create_priority_queue(sizeof(type), #type)
+#define create_priority_queue(...) _create_priority_queue(#__VA_ARGS__)
 /* push */
 #define priority_queue_push(pt_pqueue, elem)\
     _priority_queue_push((pt_pqueue), (elem))
@@ -91,7 +90,7 @@ extern bool_t queue_great_equal(
  * Initialization and destroy operation functions.
  */
 extern void priority_queue_init(priority_queue_t* pt_pqueue);
-extern void priority_queue_init_op(
+extern void priority_queue_init_ex(
     priority_queue_t* pt_pqueue, binary_function_t t_binary_op);
 extern void priority_queue_destroy(priority_queue_t* pt_pqueue);
 extern void priority_queue_init_copy(
@@ -99,7 +98,7 @@ extern void priority_queue_init_copy(
 extern void priority_queue_init_copy_range(
     priority_queue_t* pt_pqueuedest,
     random_access_iterator_t t_first, random_access_iterator_t t_last);
-extern void priority_queue_init_copy_range_op(
+extern void priority_queue_init_copy_range_ex(
     priority_queue_t* pt_pqueuedest, random_access_iterator_t t_first,
     random_access_iterator_t t_last, binary_function_t t_binary_op);
 

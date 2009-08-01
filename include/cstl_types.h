@@ -170,27 +170,6 @@ extern "C" {
 #define _BASIC_STRING_RIGHT_BRACKET  ">"
 #define _BASIC_STRING_ITERATOR_NAME  "basic_string_iterator_t"
 
-/* 
- * cstl types unification:
- * the macro CSTL_TYPES_UNIFICATION is definied for types unification,
- * if CSTL_TYPES_UNIFICATION = 1
- * e.g. cstl will deal "signed int" and "int" with different type.
- * if CSTL_TYPES_UNIFICATION = 2
- * e.g. cstl will deal "signed int" and "int" with the same type.
- * if CSTL_TYPES_UNIFICATION = 3
- * e.g. cstl will deal "unsigned int" and "int" with the same type.
- * if CSTL_TYPES_UNIFICATION = 4
- * e.g. cstl will deal "short" and "int" with the same type when the 
- * sizeof(short) == sizeof(int) or deal "long" and "int" with the same
- * type when sizeof(long) == sizeof(int).
- * when CSTL_TYPES_UNIFICATION greater then 4 will error.
- *
- * don't defined CSTL_TYPES_UNIFICATION will default define with value 2.
- */
-#ifndef CSTL_TYPES_UNIFICATION
-#define CSTL_TYPES_UNIFICATION   2
-#endif
-
 /** data type declaration and struct, union, enum section **/
 typedef int     bool_t;         /* declaration for bool type */
 
@@ -205,7 +184,6 @@ typedef void (*binary_function_t)(const void*, const void*, void*);
  * Type register hash table.
  */
 /* type structure for all container. */
-#define _ELEM_TYPE_NAME_SIZE         32 /* the element type name size */
 #define _TYPE_NAME_SIZE              255
 typedef struct _tagtype
 {
@@ -276,26 +254,6 @@ extern void _type_get_varg_value(
 extern void _type_get_elem_typename(const char* s_typename, char* s_elemtypename);
 
 /*extern void type_debug(void);*/
-/*
- * Unify the C built-in types.
- */
-extern void _unify_types(size_t t_typesize, char* sz_typename);
-
-/*
- * Get value form variable parameter.
- */
-extern void _get_varg_value(
-    void* pv_output, va_list val_elemlist, size_t t_typesize, const char* s_typename);
-
-/*
- * Get C built-in type.
- */
-extern void _get_builtin_type(const char* s_typename, char* s_builtin);
-
-/*
- * Get default compare function.
- */
-extern int (*_get_cmp_function(const char* s_typename))(const void*, const void*);
 
 /* default initialize, copy, less, and destroy function */
 /* node: the pv_output is used for the size of default type, 

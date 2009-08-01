@@ -1233,7 +1233,6 @@ static bool_t _vector_iterator_belong_to_vector(
         return false;
     }
 }
-#endif /* NDEBUG */
 
 static bool_t _vector_same_vector_iterator_type(
     const vector_t* cpt_vector, vector_iterator_t t_iter)
@@ -1243,6 +1242,7 @@ static bool_t _vector_same_vector_iterator_type(
            _GET_VECTOR_ITERATOR_TYPE(t_iter) == _RANDOM_ACCESS_ITERATOR);
     return _vector_same_type(cpt_vector, _GET_VECTOR_CONTAINER(t_iter));
 }
+#endif /* NDEBUG */
 
 static bool_t _vector_same_type(
     const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)

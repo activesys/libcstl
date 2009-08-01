@@ -21,6 +21,7 @@
  */
 
 /** include section **/
+/*
 #include <stdarg.h>
 
 #include "citerator.h"
@@ -36,6 +37,7 @@
 #include "cutility.h"
 
 #include "cstl_tools.h"
+*/
 
 /** local constant declaration and local macro section **/
 
@@ -48,6 +50,7 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
+/*
 bool_t _tools_valid_iterator_range(
     iterator_t t_first, iterator_t t_last, iteratortype_t t_limittype)
 {
@@ -199,6 +202,7 @@ bool_t _tools_same_elem_type(iterator_t t_first, iterator_t t_second)
     return strncmp(sz_firstname, sz_secondname, _ELEM_TYPE_NAME_SIZE) == 0 ? 
            true : false;
 }
+*/
 
 /** local function implementation section **/
 

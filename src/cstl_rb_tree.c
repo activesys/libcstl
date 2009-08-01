@@ -66,13 +66,13 @@
  */
 static bool_t _rb_tree_iterator_belong_to_rb_tree(
     const rb_tree_t* cpt_rb_tree, rb_tree_iterator_t t_iter);
-static bool_t _rb_tree_same_type(
-    const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond);
 static bool_t _rb_tree_same_rb_tree_iterator_type(
     const rb_tree_t* cpt_rb_tree, rb_tree_iterator_t t_iter);
 static bool_t _find_iterator(
     const rbnode_t* cpt_root, const rbnode_t* cpt_pos);
 #endif /* NDEBUG */
+static bool_t _rb_tree_same_type(
+    const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond);
 
 /*
  * Destroy the subtree with postorder traverse.
@@ -1446,20 +1446,6 @@ static bool_t _rb_tree_iterator_belong_to_rb_tree(
     }
 }
 
-static bool_t _rb_tree_same_type(
-    const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
-{
-    assert(cpt_rb_treefirst != NULL && cpt_rb_treesecond != NULL);
-
-    return _type_is_same(_GET_RB_TREE_TYPE_NAME(cpt_rb_treefirst),
-                         _GET_RB_TREE_TYPE_NAME(cpt_rb_treesecond)) &&
-           (cpt_rb_treefirst->_t_typeinfo._t_style ==
-            cpt_rb_treesecond->_t_typeinfo._t_style) &&
-           (cpt_rb_treefirst->_t_typeinfo._pt_type ==
-            cpt_rb_treesecond->_t_typeinfo._pt_type) &&
-           (cpt_rb_treefirst->_t_less == cpt_rb_treesecond->_t_less);
-}
-
 static bool_t _rb_tree_same_rb_tree_iterator_type(
     const rb_tree_t* cpt_rb_tree, rb_tree_iterator_t t_iter)
 {
@@ -1485,6 +1471,20 @@ static bool_t _find_iterator(const rbnode_t* cpt_root, const rbnode_t* cpt_pos)
     }
 }
 #endif /* NEDBUG */
+
+static bool_t _rb_tree_same_type(
+    const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond)
+{
+    assert(cpt_rb_treefirst != NULL && cpt_rb_treesecond != NULL);
+
+    return _type_is_same(_GET_RB_TREE_TYPE_NAME(cpt_rb_treefirst),
+                         _GET_RB_TREE_TYPE_NAME(cpt_rb_treesecond)) &&
+           (cpt_rb_treefirst->_t_typeinfo._t_style ==
+            cpt_rb_treesecond->_t_typeinfo._t_style) &&
+           (cpt_rb_treefirst->_t_typeinfo._pt_type ==
+            cpt_rb_treesecond->_t_typeinfo._pt_type) &&
+           (cpt_rb_treefirst->_t_less == cpt_rb_treesecond->_t_less);
+}
 
 static rbnode_t* _destroy_rb_tree(rb_tree_t* pt_rb_tree, rbnode_t* pt_root)
 {

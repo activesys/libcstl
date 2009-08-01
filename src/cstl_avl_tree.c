@@ -72,13 +72,13 @@ typedef struct _taginsertresult
  */
 static bool_t _avl_tree_iterator_belong_to_avl_tree(
     const avl_tree_t* cpt_avl_tree, avl_tree_iterator_t t_iter);
-static bool_t _avl_tree_same_type(
-    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
 static bool_t _avl_tree_same_avl_tree_iterator_type(
     const avl_tree_t* cpt_avl_tree, avl_tree_iterator_t t_iter);
 static bool_t _find_iterator(
     const avlnode_t* cpt_root, const avlnode_t* cpt_pos);
 #endif /* NDEBUG */
+static bool_t _avl_tree_same_type(
+    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
 
 /*
  * Travel subtree for find the value in preorder.
@@ -1420,20 +1420,6 @@ static bool_t _avl_tree_iterator_belong_to_avl_tree(
     }
 }
 
-static bool_t _avl_tree_same_type(
-    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond)
-{
-    assert(cpt_avl_treefirst != NULL && cpt_avl_treesecond != NULL);
-
-    return _type_is_same(_GET_AVL_TREE_TYPE_NAME(cpt_avl_treefirst),
-                         _GET_AVL_TREE_TYPE_NAME(cpt_avl_treesecond)) &&
-           (cpt_avl_treefirst->_t_typeinfo._t_style ==
-            cpt_avl_treesecond->_t_typeinfo._t_style) &&
-           (cpt_avl_treefirst->_t_typeinfo._pt_type ==
-            cpt_avl_treesecond->_t_typeinfo._pt_type) &&
-           (cpt_avl_treefirst->_t_less == cpt_avl_treesecond->_t_less);
-}
-
 static bool_t _avl_tree_same_avl_tree_iterator_type(
     const avl_tree_t* cpt_avl_tree, avl_tree_iterator_t t_iter)
 {
@@ -1459,6 +1445,20 @@ static bool_t _find_iterator(const avlnode_t* cpt_root, const avlnode_t* cpt_pos
     }
 }
 #endif /* NDEBUG */
+
+static bool_t _avl_tree_same_type(
+    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond)
+{
+    assert(cpt_avl_treefirst != NULL && cpt_avl_treesecond != NULL);
+
+    return _type_is_same(_GET_AVL_TREE_TYPE_NAME(cpt_avl_treefirst),
+                         _GET_AVL_TREE_TYPE_NAME(cpt_avl_treesecond)) &&
+           (cpt_avl_treefirst->_t_typeinfo._t_style ==
+            cpt_avl_treesecond->_t_typeinfo._t_style) &&
+           (cpt_avl_treefirst->_t_typeinfo._pt_type ==
+            cpt_avl_treesecond->_t_typeinfo._pt_type) &&
+           (cpt_avl_treefirst->_t_less == cpt_avl_treesecond->_t_less);
+}
 
 static avlnode_t* _find_value(
     const avl_tree_t* cpt_avl_tree, const avlnode_t* cpt_root, const void* cpv_value) 
