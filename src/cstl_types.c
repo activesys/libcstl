@@ -542,7 +542,7 @@ static void _type_destroy_iterator(
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-/*
+#ifndef NDEBUG
 void type_debug(void)
 {
     size_t t_i = 0;
@@ -592,7 +592,7 @@ void type_debug(void)
         }
     }
 }
-*/
+#endif /* NDEBUG */
 
 bool_t _type_register(
     size_t t_typesize, const char* s_typename,

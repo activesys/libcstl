@@ -259,7 +259,7 @@ void hash_map_init_copy_range(hash_map_t* pt_hash_mapdest,
     hash_map_init_copy_range_ex(pt_hash_mapdest, t_begin, t_end, 0, NULL, NULL);
 }
 
-void hash_map_init_copy_range_n(hash_map_t* pt_hash_mapdest,
+void hash_map_init_copy_range_ex(hash_map_t* pt_hash_mapdest,
     hash_map_iterator_t t_begin, hash_map_iterator_t t_end, size_t t_bucketcount,
     unary_function_t t_hash, binary_function_t t_less)
 {

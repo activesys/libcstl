@@ -57,7 +57,7 @@
 /** exported function implementation section **/
 int main(int argc, char* argv[])
 {
-    /*test_vector();*/
+    test_vector();
     /*test_list();*/
     /*test_deque();*/
     /*test_slist();*/
@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
     /*test_map();*/
     /*test_string(argc, argv);*/
     /* test_string_getline(); */
-    test_type();
+    /*test_type();*/
 
     argc = 0;
     argv = NULL;

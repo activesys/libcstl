@@ -1,8 +1,20 @@
 /*
- *  * file description ... *
+ *  The implement of types test.
  *  Copyright (c) 2009 Wangbo
  *
- *  * copyright description ... *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *  Author e-mail: activesys.wb@gmail.com
  *                 activesys@sina.com.cn
@@ -42,20 +54,21 @@ typedef output_iterator_t myiter_t;
 /** exported function implementation section **/
 void test_type(void)
 {
-    _typecontainer_t t_type;
-
-    type_register(struct _tagabc, NULL, NULL, NULL);
+    _typeinfo_t t_type;
+    type_register(struct _tagabc, NULL, NULL, NULL, NULL);
     type_duplicate(abc_t, struct _tagabc);
-    type_register(struct _tagabc    *, NULL, NULL, NULL);
+    type_register(struct _tagabc    *, NULL, NULL, NULL, NULL);
     type_duplicate(abc_t             *, struct   _tagabc*);
-    type_register(abc_t ****, NULL, NULL, NULL);
-    type_register(char**, NULL, NULL, NULL);
-    type_register(int*, NULL, NULL, NULL);
-    type_register(short int*  **   *  *, NULL, NULL, NULL);
-    type_register(unsigned int*, NULL, NULL, NULL);
-    type_register(signed char*     **** *****, NULL, NULL, NULL);
-    type_register(long double      **, NULL, NULL, NULL);
-    /*type_debug();*/
+    type_register(abc_t ****, NULL, NULL, NULL, NULL);
+    type_register(char**, NULL, NULL, NULL, NULL);
+    type_register(int*, NULL, NULL, NULL, NULL);
+    type_register(short int*  **   *  *, NULL, NULL, NULL, NULL);
+    type_register(unsigned int*, NULL, NULL, NULL, NULL);
+    type_register(signed char*     **** *****, NULL, NULL, NULL, NULL);
+    type_register(long double      **, NULL, NULL, NULL, NULL);
+#ifndef NDEBUG
+    type_debug();
+#endif
     _type_get_type(&t_type, "short");
     printf("%s:", t_type._sz_typename);
     if(t_type._pt_type != NULL)

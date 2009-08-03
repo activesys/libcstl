@@ -228,8 +228,8 @@ typedef struct _tagtypeinfo
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-#define type_register(type, type_copy, type_less, type_destroy)\
-    _type_register(sizeof(type), #type, (type_copy), (type_less), (type_destroy))
+#define type_register(type, type_init, type_copy, type_less, type_destroy)\
+    _type_register(sizeof(type), #type, (type_init), (type_copy), (type_less), (type_destroy))
 #define type_unregister(type)\
     _type_unregister(sizeof(type), #type)
 #define type_duplicate(type1, type2)\
@@ -253,7 +253,9 @@ extern void _type_get_varg_value(
     _typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output);
 extern void _type_get_elem_typename(const char* s_typename, char* s_elemtypename);
 
-/*extern void type_debug(void);*/
+#ifndef NDEBUG
+extern void type_debug(void);
+#endif
 
 /* default initialize, copy, less, and destroy function */
 /* node: the pv_output is used for the size of default type, 

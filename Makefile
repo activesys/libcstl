@@ -22,8 +22,7 @@
 
 # set compiler and options
 CC = gcc
-CEXPFLAGS = -DNDEBUG
-CFLAGS = -c -g -ansi -Wall -Wextra -fPIC $(CEXPFLAGS)
+CFLAGS = -c -g -ansi -Wall -Wextra -fPIC#-DNDEBUG
 CPPFLAGS = -I include
 LINKSOFLAGS = -shared -Wl,-soname,libcstl.so.1
 
@@ -55,9 +54,9 @@ LIBINCDIR = /usr/include/cstl/
 
 # set compilation targets
 LIBCSTL = libcstl
-TARGETVER = 1.0.1
+TARGETVER = 2.0.0
 LINKTARGET = libcstl.so
-SONAME = libcstl.so.1
+SONAME = libcstl.so.2
 ARTARGET = $(BINDIR)/libcstl.a
 SOTARGET = $(BINDIR)/libcstl.so.$(TARGETVER)
 TESTTARGET = $(BINDIR)/test
