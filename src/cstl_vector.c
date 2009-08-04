@@ -1111,7 +1111,11 @@ void vector_resize(vector_t* pt_vector, size_t t_resize)
 
     assert(pt_vector != NULL);
 
-    if(t_resize < vector_size(pt_vector))
+    if(t_resize == vector_size(pt_vector))
+    {
+        return;
+    }
+    else if(t_resize < vector_size(pt_vector))
     {
         t_cutpos = vector_begin(pt_vector);
         t_cutpos = iterator_next_n(t_cutpos, t_resize);
@@ -1261,7 +1265,7 @@ static void _vector_init_elem_range_auxiliary(
 {
     char* pc_pos = NULL;
 
-    assert(pt_vector != NULL && pc_start != NULL && pc_finish != NULL && pc_start < pc_finish);
+    assert(pt_vector != NULL && pc_start != NULL && pc_finish != NULL && pc_start <= pc_finish);
 
     /* initialize new elements */
     if(_GET_VECTOR_TYPE_STYLE(pt_vector) == _TYPE_CSTL_BUILTIN)

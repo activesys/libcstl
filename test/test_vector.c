@@ -38,17 +38,22 @@
 /** exported function implementation section **/
 void test_vector(void)
 {
-    vector_t* pv = create_vector(vector_t<int>);
-    vector_t* pvi = create_vector(int);
-    if(pv != NULL)
+    /* c builtin type */
     {
-        if(pvi != NULL)
+        vector_t* pv_int = create_vector(int);
+        if(pv_int == NULL)
         {
-            vector_push_back(pv, pvi);
-            vector_destroy(pvi);
+            return;
         }
-        printf("%d\n", vector_size(pv));
-        vector_destroy(pv);
+
+        vector_init(pv_int);
+        vector_destroy(pv_int);
+    }
+    /* user defined type */
+    {
+    }
+    /* libcstl builtin type */
+    {
     }
 }
 
