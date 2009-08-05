@@ -1148,7 +1148,11 @@ void _vector_resize_elem_varg(
 
     assert(pt_vector != NULL);
 
-    if(t_resize < vector_size(pt_vector))
+    if(t_resize == vector_size(pt_vector))
+    {
+        return;
+    }
+    else if(t_resize < vector_size(pt_vector))
     {
         t_cutpos = vector_begin(pt_vector);
         t_cutpos = iterator_next_n(t_cutpos, t_resize);
