@@ -50,7 +50,6 @@ void test_vector(void)
 
             vector_init(pv_int);
             vector_destroy(pv_int);
-            assert(true);
         }
         /* vector_init_n() */
         {
@@ -62,7 +61,6 @@ void test_vector(void)
 
             vector_init_n(pv_int, 3);
             vector_destroy(pv_int);
-            assert(true);
         }
         /* vector_init_elem() */
         {
@@ -74,7 +72,6 @@ void test_vector(void)
 
             vector_init_elem(pv_int, 3, 100);
             vector_destroy(pv_int);
-            assert(true);
         }
         /* vector_init_copy() */
         {
@@ -90,7 +87,6 @@ void test_vector(void)
             vector_init_copy(pv_int, pv_src);
             vector_destroy(pv_src);
             vector_destroy(pv_int);
-            assert(true);
         }
         /* vector_init_copy_range() */
         {
@@ -103,34 +99,118 @@ void test_vector(void)
             }
 
             vector_init_elem(pv_src, 3, -39);
-            vector_init_copy_range(pv_int, vector_begin(pv_src), iterator_next(vector_begin(pv_src)));
+            vector_init_copy_range(pv_int,
+                vector_begin(pv_src), iterator_next(vector_begin(pv_src)));
             vector_destroy(pv_src);
             vector_destroy(pv_int);
-            assert(true);
         }
         /* vector_size() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pv_int, 100);
+            printf("size: %d\n", vector_size(pv_int));
+            vector_destroy(pv_int);
         }
         /* vector_capacity() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init(pv_int);
+            printf("capacity: %d\n", vector_capacity(pv_int));
+            vector_destroy(pv_int);
         }
         /* vector_max_size() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pv_int, 20);
+            printf("max size: %d\n", vector_max_size(pv_int));
+            vector_destroy(pv_int);
         }
         /* vector_empty() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init(pv_int);
+            printf("empty: %d\n", vector_empty(pv_int));
+            vector_push_back(pv_int, 100);
+            printf("empty: %d\n", vector_empty(pv_int));
+            vector_destroy(pv_int);
         }
         /* vector_reserve() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 2, 33);
+            printf("capacity: %d\n", vector_capacity(pv_int));
+            vector_reserve(pv_int, 5);
+            printf("capacity: %d\n", vector_capacity(pv_int));
+            vector_destroy(pv_int);
         }
         /* vector_assign() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_signed = create_vector(signed);
+            if(pv_int == NULL || pv_signed == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 7, 33);
+            vector_init_elem(pv_signed, 5, -200);
+            vector_assign(pv_int, pv_signed);
+            vector_destroy(pv_int);
+            vector_destroy(pv_signed);
         }
         /* vector_assign_elem() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 7, 33);
+            vector_assign_elem(pv_int, 3, -88888);
+            vector_destroy(pv_int);
         }
         /* vector_assign_range() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_signed = create_vector(signed);
+            if(pv_int == NULL || pv_signed == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 7, 33);
+            vector_init_elem(pv_signed, 5, -200);
+            vector_assign_range(pv_int,
+                iterator_next(vector_begin(pv_signed)),
+                iterator_prev_n(vector_end(pv_signed), 2));
+            vector_destroy(pv_int);
+            vector_destroy(pv_signed);
         }
         /* vector_equal() */
         {

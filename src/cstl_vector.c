@@ -737,6 +737,11 @@ void* vector_at(const vector_t* cpt_vector, size_t t_pos)
     assert(cpt_vector != NULL);
     assert(t_pos < vector_size(cpt_vector));
 
+    if(vector_empty(cpt_vector))
+    {
+        return NULL;
+    }
+
     /* char* */
     if(strncmp(_GET_VECTOR_TYPE_BASENAME(cpt_vector), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
@@ -1092,7 +1097,7 @@ vector_iterator_t vector_erase_range(
            pt_vector->_pc_finish - t_erasesize * _GET_VECTOR_TYPE_SIZE(pt_vector));
 
     /* destroy the deleted elements */
-    for(; !iterator_equal(t_iter, t_end); t_begin = iterator_next(t_begin))
+    for(; !iterator_equal(t_begin, t_end); t_begin = iterator_next(t_begin))
     {
         t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
         _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)(_GET_VECTOR_COREPOS(t_begin), &t_result);
@@ -1100,7 +1105,7 @@ vector_iterator_t vector_erase_range(
     }
     pt_vector->_pc_finish -= t_erasesize * _GET_VECTOR_TYPE_SIZE(pt_vector);
 
-    return t_begin;
+    return t_iter;
 }
 
 void vector_resize(vector_t* pt_vector, size_t t_resize)
