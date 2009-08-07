@@ -214,39 +214,177 @@ void test_vector(void)
         }
         /* vector_equal() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_signed = create_vector(signed int);
+            if(pv_int == NULL || pv_signed == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 5, 100);
+            vector_init_elem(pv_signed, 5, 100);
+            printf("equal: %d\n", vector_equal(pv_int, pv_signed));
+            vector_destroy(pv_int);
+            vector_destroy(pv_signed);
         }
         /* vector_not_equal() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_signed = create_vector(signed);
+            if(pv_int == NULL || pv_signed == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 3, 300);
+            vector_init_elem(pv_signed, 3, 300);
+            printf("not equal: %d\n", vector_not_equal(pv_int, pv_signed));
+            vector_destroy(pv_int);
+            vector_destroy(pv_signed);
         }
         /* vector_less() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_signed = create_vector(signed);
+            if(pv_int == NULL || pv_signed == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 2, 200);
+            vector_init_elem(pv_signed, 2, 200);
+            printf("less: %d\n", vector_less(pv_int, pv_signed));
+            vector_destroy(pv_int);
+            vector_destroy(pv_signed);
         }
         /* vector_less_equal() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_signed = create_vector(signed);
+            if(pv_int == NULL || pv_signed == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 2, 200);
+            vector_init_elem(pv_signed, 2, 200);
+            printf("less equal: %d\n", vector_less_equal(pv_int, pv_signed));
+            vector_destroy(pv_int);
+            vector_destroy(pv_signed);
         }
         /* vector_great() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_signed = create_vector(signed);
+            if(pv_int == NULL || pv_signed == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 2, 200);
+            vector_init_elem(pv_signed, 2, 200);
+            printf("great: %d\n", vector_great(pv_int, pv_signed));
+            vector_destroy(pv_int);
+            vector_destroy(pv_signed);
         }
         /* vector_great_equal() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_signed = create_vector(signed);
+            if(pv_int == NULL || pv_signed == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 2, 200);
+            vector_init_elem(pv_signed, 2, 200);
+            printf("great equal: %d\n", vector_great_equal(pv_int, pv_signed));
+            vector_destroy(pv_int);
+            vector_destroy(pv_signed);
         }
         /* vector_swap() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_signed = create_vector(signed);
+            if(pv_int == NULL || pv_signed == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 0, 200);
+            vector_init_elem(pv_signed, 2, 200);
+            vector_swap(pv_int, pv_signed);
+            vector_destroy(pv_int);
+            vector_destroy(pv_signed);
         }
         /* vector_at() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 10, -99999);
+            if(vector_at(pv_int, 4) != NULL)
+            {
+                printf("%d\n", *(int*)vector_at(pv_int, 4));
+            }
+            vector_destroy(pv_int);
         }
         /* vector_front() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pv_int, 4);
+            if(vector_front(pv_int) != NULL)
+            {
+                printf("%d\n", *(int*)vector_front(pv_int));
+            }
+            vector_destroy(pv_int);
         }
         /* vector_back() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 4, -112);
+            if(vector_back(pv_int) != NULL)
+            {
+                printf("%d\n", *(int*)vector_back(pv_int));
+            }
+            vector_destroy(pv_int);
         }
         /* vector_begin() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pv_int, 10);
+            vector_begin(pv_int);
+            vector_destroy(pv_int);
         }
         /* vector_end() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pv_int, 10);
+            vector_end(pv_int);
+            vector_destroy(pv_int);
         }
         /* vector_insert() */
         {
