@@ -863,8 +863,7 @@ vector_iterator_t _vector_insert_n_varg(
             /* reserve the new size */
             /* new size = old size + 2 * element count */
             vector_reserve(pt_vector, vector_size(pt_vector) + 2 * t_count);
-            t_pos = vector_begin(pt_vector);
-            t_pos = iterator_next_n(t_pos, t_insertpos);
+            t_pos = iterator_next_n(vector_begin(pt_vector), t_insertpos);
         }
 
         /* insert the element counts of element to the position */
@@ -902,8 +901,6 @@ vector_iterator_t _vector_insert_n_varg(
             _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(pc_destpos, pc_pos, &t_result);
             assert(t_result);
         }
-        assert(_GET_VECTOR_COREPOS(t_pos) + t_count * _GET_VECTOR_TYPE_SIZE(pt_vector) ==
-               pc_destpos);
 
         /* get varg value only once */
         pv_varg = allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
@@ -923,7 +920,6 @@ vector_iterator_t _vector_insert_n_varg(
         deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
 
         t_pos = iterator_next_n(t_pos, t_count);
-        assert(_GET_VECTOR_COREPOS(t_pos) == pc_destpos);
     }
 
     return t_pos;
@@ -976,8 +972,6 @@ void vector_insert_range(
             _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(pc_destpos, pc_pos, &t_result);
             assert(t_result);
         }
-        assert(_GET_VECTOR_COREPOS(t_pos) + t_count * _GET_VECTOR_TYPE_SIZE(pt_vector) ==
-               pc_destpos);
 
         /* insert element counts copys to the pos */
         for(t_iterfirst = t_pos, t_itersecond = t_begin;
@@ -1185,7 +1179,7 @@ void _vector_resize_elem_varg(
         {
             t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-                pt_vector->_pc_finish + t_index * _GET_VECTOR_TYPE_SIZE(pt_vector),
+                pc_oldfinish + t_index * _GET_VECTOR_TYPE_SIZE(pt_vector),
                 pv_varg, &t_result);
             assert(t_result);
         }

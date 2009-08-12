@@ -388,33 +388,144 @@ void test_vector(void)
         }
         /* vector_insert() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init(pv_int);
+            vector_insert(pv_int, vector_end(pv_int), 10);
+            vector_destroy(pv_int);
         }
         /* vector_insert_n() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pv_int, 3);
+            vector_insert_n(pv_int, iterator_next(vector_begin(pv_int)), 5, 100);
+            vector_destroy(pv_int);
         }
         /* vector_insert_range() */
         {
+            vector_t* pv_int = create_vector(int);
+            vector_t* pv_insert = create_vector(signed);
+            if(pv_int == NULL || pv_insert == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 3, 12);
+            vector_init_elem(pv_insert, 5, 100);
+            vector_insert_range(pv_int, vector_end(pv_int),
+                iterator_next(vector_begin(pv_insert)), iterator_prev(vector_end(pv_insert)));
+            vector_destroy(pv_int);
+            vector_destroy(pv_insert);
         }
         /* vector_push_back() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 3, -22);
+            vector_push_back(pv_int, 100);
+            vector_destroy(pv_int);
         }
         /* vector_pop_back() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init(pv_int);
+            vector_push_back(pv_int, 100);
+            vector_push_back(pv_int, 200);
+            vector_push_back(pv_int, 300);
+            vector_pop_back(pv_int);
+            vector_destroy(pv_int);
         }
         /* vector_erase() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init(pv_int);
+            vector_push_back(pv_int, 100);
+            vector_push_back(pv_int, 200);
+            vector_push_back(pv_int, 300);
+            vector_erase(pv_int, iterator_next(vector_begin(pv_int)));
+            vector_destroy(pv_int);
         }
         /* vector_erase_range() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 10, 100);
+            vector_erase_range(pv_int, vector_begin(pv_int),
+                iterator_prev_n(vector_end(pv_int), 6));
+            vector_destroy(pv_int);
         }
         /* vector_clear() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 10, 100);
+            printf("%d\n", vector_empty(pv_int));
+            vector_clear(pv_int);
+            printf("%d\n", vector_empty(pv_int));
+            vector_destroy(pv_int);
         }
         /* vector_resize() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 100, 100);
+            printf("%d\n", vector_size(pv_int));
+            vector_resize(pv_int, 30);
+            printf("%d\n", vector_size(pv_int));
+            vector_resize(pv_int, 50);
+            printf("%d\n", vector_size(pv_int));
+            vector_destroy(pv_int);
         }
         /* vector_resize_elem() */
         {
+            vector_t* pv_int = create_vector(int);
+            if(pv_int == NULL)
+            {
+                return;
+            }
+
+            vector_init_elem(pv_int, 10, 100);
+            printf("%d\n", vector_size(pv_int));
+            vector_resize_elem(pv_int, 3, 200);
+            printf("%d\n", vector_size(pv_int));
+            vector_resize_elem(pv_int, 5, 300);
+            printf("%d\n", vector_size(pv_int));
+            vector_destroy(pv_int);
         }
     }
     /* user defined type */
