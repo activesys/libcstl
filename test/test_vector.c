@@ -22,14 +22,25 @@
 
 /** include section **/
 #include <stdio.h>
+#include <float.h>
 #include "cvector.h"
 #include "test_vector.h"
 
 /** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
+typedef struct _tagabc
+{
+    int    _n_first;
+    double _d_second;
+    char*  _pc_third;
+}abc_t;
 
 /** local function prototype section **/
+static void _abc_init(const void* cpv_input, void* pv_output);
+static void _abc_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _abc_less(const void* cpv_first, const void* cpv_second, void * pv_output);
+static void _abc_destroy(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -532,12 +543,48 @@ void test_vector(void)
     {
         /* create_vector(), vector_init(), vector_destroy() */
         {
+            vector_t* pt_abc = NULL;
+
+            type_register(abc_t, _abc_init, _abc_copy, _abc_less, _abc_destroy);
+            pt_abc = create_vector(abc_t);
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_abc);
+            vector_destroy(pt_abc);
         }
         /* vector_init_n() */
         {
+            vector_t* pt_abc = NULL;
+            type_duplicate(abc_t, struct _tagabc);
+            type_debug();
+            pt_abc = create_vector(struct _tagabc);
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 2);
+            vector_destroy(pt_abc);
         }
         /* vector_init_elem() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t t_abc;
+            bool_t t_result = false;
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+
+            _abc_init(&t_abc, &t_result);
+            t_abc._n_first = 100;
+            t_abc._d_second = 32.98;
+            memset(t_abc._pc_third, 0x33, sizeof(double));
+
+            vector_init_elem(pt_abc, 3, &t_abc);
+            vector_destroy(pt_abc);
         }
         /* vector_init_copy() */
         {
@@ -855,6 +902,70 @@ void test_vector(void)
 }
 
 /** local function implementation section **/
+static void _abc_init(const void* cpv_input, void* pv_output)
+{
+    abc_t* pt_input = (abc_t*)cpv_input;
+
+    assert(cpv_input != NULL && pv_output != NULL);
+
+    pt_input->_n_first = 0;
+    pt_input->_d_second = 0.0;
+    pt_input->_pc_third = (char*)malloc(sizeof(double));
+    if(pt_input->_pc_third == NULL)
+    {
+        *(bool_t*)pv_output = false;
+    }
+    else
+    {
+        memset(pt_input->_pc_third, 0x00, sizeof(double));
+        *(bool_t*)pv_output = true;
+    }
+}
+
+static void _abc_copy(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    abc_t* pt_first = (abc_t*)cpv_first;
+    abc_t* pt_second = (abc_t*)cpv_second;
+
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    pt_first->_n_first = pt_second->_n_first;
+    pt_first->_d_second = pt_second->_d_second;
+    memcpy(pt_first->_pc_third, pt_second->_pc_third, sizeof(double));
+    *(bool_t*)pv_output = true;
+}
+
+static void _abc_less(const void* cpv_first, const void* cpv_second, void * pv_output)
+{
+    abc_t* pt_first = (abc_t*)cpv_first;
+    abc_t* pt_second = (abc_t*)cpv_second;
+
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    if(pt_first->_n_first < pt_second->_n_first &&
+       pt_first->_d_second - pt_second->_d_second < DBL_EPSILON &&
+       memcmp(pt_first->_pc_third, pt_second->_pc_third, sizeof(double)) < 0)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _abc_destroy(const void* cpv_input, void* pv_output)
+{
+    abc_t* pt_input = (abc_t*)cpv_input;
+
+    assert(cpv_input != NULL && pv_output != NULL);
+
+    pt_input->_n_first = 0;
+    pt_input->_d_second = 0.0;
+    memset(pt_input->_pc_third, 0xcc, sizeof(double));
+    free(pt_input->_pc_third);
+    *(bool_t*)pv_output = true;
+}
 
 /** eof **/
 
