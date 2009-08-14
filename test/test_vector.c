@@ -588,24 +588,104 @@ void test_vector(void)
         }
         /* vector_init_copy() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            abc_t t_abc;
+            bool_t t_result = false;
+            if(pt_abc == NULL || pt_abcex == NULL)
+            {
+                return;
+            }
+            _abc_init(&t_abc, &t_result);
+            t_abc._n_first = 12345;
+            t_abc._d_second = 0.99;
+            memset(t_abc._pc_third, 0x77, sizeof(double));
+
+            vector_init_elem(pt_abcex, 3, &t_abc);
+            vector_init_copy(pt_abc, pt_abcex);
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
         }
         /* vector_init_copy_range() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            abc_t t_abc;
+            bool_t t_result = false;
+            if(pt_abc == NULL || pt_abcex == NULL)
+            {
+                return;
+            }
+            _abc_init(&t_abc, &t_result);
+            t_abc._n_first = 12345;
+            t_abc._d_second = 0.99;
+            memset(t_abc._pc_third, 0x77, sizeof(double));
+
+            vector_init_elem(pt_abcex, 5, &t_abc);
+            vector_init_copy_range(pt_abc,
+                iterator_next(vector_begin(pt_abcex)),
+                iterator_prev(vector_end(pt_abcex)));
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
         }
         /* vector_size() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 10);
+            printf("%d\n", vector_size(pt_abc));
+            vector_destroy(pt_abc);
         }
         /* vector_capacity() */
         {
+            vector_t* pt_abc = create_vector(struct _tagabc);
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 10);
+            printf("%d\n", vector_capacity(pt_abc));
+            vector_destroy(pt_abc);
         }
         /* vector_max_size() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 3);
+            printf("%d\n", vector_max_size(pt_abc));
+            vector_destroy(pt_abc);
         }
         /* vector_empty() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            printf("%d\n", vector_empty(pt_abc));
+            vector_destroy(pt_abc);
         }
         /* vector_reserve() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 2);
+            printf("%d\n", vector_capacity(pt_abc));
+            vector_reserve(pt_abc, 20);
+            printf("%d\n", vector_capacity(pt_abc));
+            vector_reserve(pt_abc, 2);
+            printf("%d\n", vector_capacity(pt_abc));
+            vector_destroy(pt_abc);
         }
         /* vector_assign() */
         {
