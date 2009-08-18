@@ -689,78 +689,900 @@ void test_vector(void)
         }
         /* vector_assign() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            if(pt_abc == NULL || pt_abcex == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 1);
+            vector_init_n(pt_abcex, 3);
+            printf("%d, %d\n", vector_size(pt_abc), vector_size(pt_abcex));
+            vector_assign(pt_abc, pt_abcex);
+            printf("%d, %d\n", vector_size(pt_abc), vector_size(pt_abcex));
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
         }
         /* vector_assign_elem() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t t_abc;
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 12);
+            printf("%d\n", vector_size(pt_abc));
+            t_abc._n_first = 99;
+            t_abc._d_second = 34.22;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            *(double*)(t_abc._pc_third) = 344.20;
+            vector_assign_elem(pt_abc, 3, &t_abc);
+            printf("%d : %d, %lf, %lf\n", vector_size(pt_abc),
+                ((abc_t*)vector_front(pt_abc))->_n_first,
+                ((abc_t*)vector_front(pt_abc))->_d_second,
+                *(double*)((abc_t*)vector_front(pt_abc))->_pc_third);
+            vector_destroy(pt_abc);
+            free(t_abc._pc_third);
         }
         /* vector_assign_range() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            abc_t t_abc;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || t_abc._pc_third == NULL || pt_abcex == NULL)
+            {
+                return;
+            }
+            t_abc._n_first = 1000;
+            t_abc._d_second = 2000.0002;
+            *(double*)t_abc._pc_third = 3000.0003;
+            vector_init_n(pt_abc, 2);
+            vector_init_elem(pt_abcex, 2, &t_abc);
+            t_abc._n_first = 4000;
+            t_abc._d_second = 5000.0005;
+            *(double*)t_abc._pc_third = 6000.0006;
+            vector_push_back(pt_abcex, &t_abc);
+            t_abc._n_first = 7000;
+            t_abc._d_second = 8000.0008;
+            *(double*)t_abc._pc_third = 9000.0009;
+            vector_push_back(pt_abcex, &t_abc);
+            printf("%d, %d\n", vector_size(pt_abc), vector_size(pt_abcex));
+            vector_assign_range(pt_abc,
+                vector_begin(pt_abcex), iterator_prev(vector_end(pt_abcex)));
+            printf("%d, %d\n", vector_size(pt_abc), vector_size(pt_abcex));
+            printf("%d, %lf, %lf\n",
+                ((abc_t*)vector_back(pt_abc))->_n_first,
+                ((abc_t*)vector_back(pt_abc))->_d_second,
+                *(double*)((abc_t*)vector_back(pt_abc))->_pc_third);
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
+            free(t_abc._pc_third);
         }
         /* vector_equal() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            if(pt_abc == NULL || pt_abcex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            vector_init(pt_abcex);
+            printf("%d\n", vector_equal(pt_abc, pt_abcex));
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
         }
         /* vector_not_equal() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            abc_t t_abc;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || pt_abcex == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            t_abc._n_first = 9;
+            t_abc._d_second = 123.43;
+            *(double*)t_abc._pc_third = 89.444;
+            vector_init_n(pt_abc, 3);
+            vector_init_elem(pt_abcex, 3, &t_abc);
+            printf("%d\n", vector_not_equal(pt_abc, pt_abcex));
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
+            free(t_abc._pc_third);
         }
         /* vector_less() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            if(pt_abc == NULL || pt_abcex == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 3);
+            vector_init_n(pt_abcex, 3);
+            printf("%d\n", vector_less(pt_abc, pt_abcex));
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
         }
         /* vector_less_equal() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            if(pt_abc == NULL || pt_abcex == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 3);
+            vector_init_n(pt_abcex, 3);
+            printf("%d\n", vector_less_equal(pt_abc, pt_abcex));
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
         }
         /* vector_great() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            abc_t t_abc;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || pt_abcex == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            t_abc._n_first = 9;
+            t_abc._d_second = 123.43;
+            *(double*)t_abc._pc_third = 89.444;
+            vector_init_n(pt_abc, 3);
+            vector_init_elem(pt_abcex, 3, &t_abc);
+            printf("%d\n", vector_great(pt_abc, pt_abcex));
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
+            free(t_abc._pc_third);
         }
         /* vector_great_equal() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            abc_t t_abc;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || pt_abcex == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            t_abc._n_first = 11119;
+            t_abc._d_second = 123.43;
+            *(double*)t_abc._pc_third = 89.444;
+            vector_init_n(pt_abc, 3);
+            vector_init_elem(pt_abcex, 3, &t_abc);
+            printf("%d\n", vector_great_equal(pt_abc, pt_abcex));
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
+            free(t_abc._pc_third);
         }
         /* vector_swap() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(abc_t);
+            if(pt_abc == NULL || pt_abcex == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 2);
+            vector_init_n(pt_abcex, 3);
+            ((abc_t*)vector_front(pt_abc))->_n_first = 100;
+            printf("%d, %d\n",
+                ((abc_t*)vector_front(pt_abc))->_n_first,
+                ((abc_t*)vector_front(pt_abcex))->_n_first);
+            vector_swap(pt_abc, pt_abcex);
+            printf("%d, %d\n",
+                ((abc_t*)vector_front(pt_abc))->_n_first,
+                ((abc_t*)vector_front(pt_abcex))->_n_first);
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
         }
         /* vector_at() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 3);
+            printf("%d\n", ((abc_t*)vector_at(pt_abc, 0))->_n_first);
+            ((abc_t*)vector_front(pt_abc))->_n_first = 6666666;
+            printf("%d\n", ((abc_t*)vector_at(pt_abc, 0))->_n_first);
+            vector_destroy(pt_abc);
         }
         /* vector_front() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t* pt_tmp = NULL;
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            pt_tmp = (abc_t*)vector_front(pt_abc);
+            if(pt_tmp != NULL)
+            {
+                printf("%d\n", pt_tmp->_n_first);
+            }
+            else
+            {
+                printf("no elements\n");
+            }
+            vector_destroy(pt_abc);
         }
         /* vector_back() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t* pt_tmp = NULL;
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 4);
+            pt_tmp = (abc_t*)vector_back(pt_abc);
+            if(pt_tmp != NULL)
+            {
+                printf("%d\n", pt_tmp->_n_first);
+            }
+            else
+            {
+                printf("no elements\n");
+            }
+            vector_destroy(pt_abc);
         }
         /* vector_begin() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            iterator_t t_iter;
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 12);
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_destroy(pt_abc);
         }
         /* vector_end() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            iterator_t t_iter;
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_destroy(pt_abc);
         }
         /* vector_insert() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t t_abc;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            t_abc._n_first = 99;
+            t_abc._d_second = 23.4;
+            *(double*)t_abc._pc_third = 33.22;
+            printf("%d\n", vector_size(pt_abc));
+            vector_insert(pt_abc, vector_end(pt_abc), &t_abc);
+            printf("%d : %d, %lf, %g\n", vector_size(pt_abc),
+                ((abc_t*)vector_front(pt_abc))->_n_first,
+                ((abc_t*)vector_front(pt_abc))->_d_second,
+                *(double*)((abc_t*)vector_front(pt_abc))->_pc_third);
+            vector_destroy(pt_abc);
+            free(t_abc._pc_third);
         }
         /* vector_insert_n() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t t_abc;
+            iterator_t t_iter;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 3);
+            t_abc._n_first = 99;
+            t_abc._d_second = 23.4;
+            *(double*)t_abc._pc_third = 33.22;
+            printf("%d\n", vector_size(pt_abc));
+            vector_insert_n(pt_abc, iterator_next(vector_begin(pt_abc)), 4, &t_abc);
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_destroy(pt_abc);
+            free(t_abc._pc_third);
         }
         /* vector_insert_range() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            vector_t* pt_abcex = create_vector(struct _tagabc);
+            abc_t t_abc;
+            iterator_t t_iter;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || pt_abcex == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 3);
+            t_abc._n_first = 99;
+            t_abc._d_second = 23.4;
+            *(double*)t_abc._pc_third = 33.22;
+            vector_init_elem(pt_abcex, 10, &t_abc);
+            vector_insert_range(pt_abc, iterator_next(vector_begin(pt_abc)),
+                iterator_next(vector_begin(pt_abcex)),
+                iterator_prev_n(vector_end(pt_abcex), 3));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_destroy(pt_abc);
+            vector_destroy(pt_abcex);
+            free(t_abc._pc_third);
         }
         /* vector_push_back() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t t_abc;
+            iterator_t t_iter;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            t_abc._n_first = 2222;
+            t_abc._d_second = 893243.2234;
+            *(double*)t_abc._pc_third = 0.000000002143;
+            vector_push_back(pt_abc, &t_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            t_abc._n_first = -432;
+            t_abc._d_second = -7828372.22;
+            *(double*)t_abc._pc_third = 3.14e-22;
+            vector_push_back(pt_abc, &t_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_destroy(pt_abc);
+            free(t_abc._pc_third);
         }
         /* vector_pop_back() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            iterator_t t_iter;
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_abc, 2);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_pop_back(pt_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_pop_back(pt_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_destroy(pt_abc);
         }
         /* vector_erase() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t t_abc;
+            iterator_t t_iter;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            
+            t_abc._n_first = -432;
+            t_abc._d_second = -7828372.22;
+            *(double*)t_abc._pc_third = 3.14e-22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 62;
+            t_abc._d_second = 372.02;
+            *(double*)t_abc._pc_third = 3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = -666;
+            t_abc._d_second = -3332222.22;
+            *(double*)t_abc._pc_third = 11.4e-22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 2;
+            t_abc._d_second = 372.22;
+            *(double*)t_abc._pc_third = 88883.14e-22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 432;
+            t_abc._d_second = 7828372.22;
+            *(double*)t_abc._pc_third = -3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_erase(pt_abc, vector_begin(pt_abc));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_erase(pt_abc, iterator_prev(vector_end(pt_abc)));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_erase(pt_abc, iterator_prev_n(vector_end(pt_abc), 2));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_erase(pt_abc, vector_begin(pt_abc));
+            vector_erase(pt_abc, vector_begin(pt_abc));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_destroy(pt_abc);
+            free(t_abc._pc_third);
         }
         /* vector_erase_range() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t t_abc;
+            iterator_t t_iter;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            
+            t_abc._n_first = 1;
+            t_abc._d_second = -7828372.22;
+            *(double*)t_abc._pc_third = 3.14e-22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 2;
+            t_abc._d_second = 372.02;
+            *(double*)t_abc._pc_third = 3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 3;
+            t_abc._d_second = -3332222.22;
+            *(double*)t_abc._pc_third = 11.4e-22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 4;
+            t_abc._d_second = 372.22;
+            *(double*)t_abc._pc_third = 88883.14e-22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 5;
+            t_abc._d_second = 7828372.22;
+            *(double*)t_abc._pc_third = -3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 6;
+            t_abc._d_second = 8888888.22;
+            *(double*)t_abc._pc_third = -3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 7;
+            t_abc._d_second = 1199992.22;
+            *(double*)t_abc._pc_third = 3.1422;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 8;
+            t_abc._d_second = -7828372.22;
+            *(double*)t_abc._pc_third = 2223.14e21;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 9;
+            t_abc._d_second = 7.22;
+            *(double*)t_abc._pc_third = 3.0e22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 10;
+            t_abc._d_second = 72.22;
+            *(double*)t_abc._pc_third = -3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_erase_range(pt_abc, vector_begin(pt_abc), vector_begin(pt_abc));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_erase_range(pt_abc, vector_begin(pt_abc),
+                iterator_next_n(vector_begin(pt_abc), 2));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_erase_range(pt_abc, iterator_prev_n(vector_end(pt_abc), 2),
+                vector_end(pt_abc));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_erase_range(pt_abc, iterator_next(vector_begin(pt_abc)),
+                iterator_prev_n(vector_end(pt_abc), 2));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_erase_range(pt_abc, vector_begin(pt_abc), vector_end(pt_abc));
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_destroy(pt_abc);
+            free(t_abc._pc_third);
         }
         /* vector_clear() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            abc_t t_abc;
+            iterator_t t_iter;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            
+            vector_clear(pt_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            t_abc._n_first = 1;
+            t_abc._d_second = -7828372.22;
+            *(double*)t_abc._pc_third = 3.14e-22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 2;
+            t_abc._d_second = 372.02;
+            *(double*)t_abc._pc_third = 3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 3;
+            t_abc._d_second = -3332222.22;
+            *(double*)t_abc._pc_third = 11.4e-22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 4;
+            t_abc._d_second = 372.22;
+            *(double*)t_abc._pc_third = 88883.14e-22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 5;
+            t_abc._d_second = 7828372.22;
+            *(double*)t_abc._pc_third = -3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 6;
+            t_abc._d_second = 8888888.22;
+            *(double*)t_abc._pc_third = -3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 7;
+            t_abc._d_second = 1199992.22;
+            *(double*)t_abc._pc_third = 3.1422;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 8;
+            t_abc._d_second = -7828372.22;
+            *(double*)t_abc._pc_third = 2223.14e21;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 9;
+            t_abc._d_second = 7.22;
+            *(double*)t_abc._pc_third = 3.0e22;
+            vector_push_back(pt_abc, &t_abc);
+            t_abc._n_first = 10;
+            t_abc._d_second = 72.22;
+            *(double*)t_abc._pc_third = -3.14e22;
+            vector_push_back(pt_abc, &t_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_clear(pt_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+
+            vector_destroy(pt_abc);
+            free(t_abc._pc_third);
         }
         /* vector_resize() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            iterator_t t_iter;
+            if(pt_abc == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_resize(pt_abc, 3);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_resize(pt_abc, 6);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_resize(pt_abc, 2);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_destroy(pt_abc);
         }
         /* vector_resize_elem() */
         {
+            vector_t* pt_abc = create_vector(abc_t);
+            iterator_t t_iter;
+            abc_t t_abc;
+            t_abc._pc_third = malloc(sizeof(double));
+            if(pt_abc == NULL || t_abc._pc_third == NULL)
+            {
+                return;
+            }
+            vector_init(pt_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            t_abc._n_first = 1;
+            t_abc._d_second = -7828372.22;
+            *(double*)t_abc._pc_third = 3.14e-22;
+            vector_resize_elem(pt_abc, 3, &t_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            t_abc._n_first = 2;
+            t_abc._d_second = 372.77;
+            *(double*)t_abc._pc_third = 351.22;
+            vector_resize_elem(pt_abc, 6, &t_abc);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            t_abc._n_first = 3;
+            t_abc._d_second = 372.77;
+            *(double*)t_abc._pc_third = 351.22;
+            vector_resize(pt_abc, 2);
+            printf("--------------------------------\n");
+            for(t_iter = vector_begin(pt_abc);
+                !iterator_equal(t_iter, vector_end(pt_abc));
+                t_iter = iterator_next(t_iter))
+            {
+                printf("%d, %lf, %g\n",
+                    ((abc_t*)iterator_get_pointer(t_iter))->_n_first,
+                    ((abc_t*)iterator_get_pointer(t_iter))->_d_second,
+                    *(double*)((abc_t*)iterator_get_pointer(t_iter))->_pc_third);
+            }
+            vector_destroy(pt_abc);
+            free(t_abc._pc_third);
         }
     }
     /* libcstl builtin type */
@@ -988,8 +1810,8 @@ static void _abc_init(const void* cpv_input, void* pv_output)
 
     assert(cpv_input != NULL && pv_output != NULL);
 
-    pt_input->_n_first = 0;
-    pt_input->_d_second = 0.0;
+    pt_input->_n_first = 1024;
+    pt_input->_d_second = 1024.1024;
     pt_input->_pc_third = (char*)malloc(sizeof(double));
     if(pt_input->_pc_third == NULL)
     {
@@ -997,7 +1819,7 @@ static void _abc_init(const void* cpv_input, void* pv_output)
     }
     else
     {
-        memset(pt_input->_pc_third, 0x00, sizeof(double));
+        memset(pt_input->_pc_third, 0x44, sizeof(double));
         *(bool_t*)pv_output = true;
     }
 }

@@ -662,10 +662,13 @@ _VECTOR_CONTAINER	include/cstl_iterator.h	/^    _VECTOR_CONTAINER,$/;"	e	enum:_t
 _VECTOR_ITERATOR_TYPE	include/cstl_types.h	94;"	d
 _VECTOR_TYPE	include/cstl_types.h	75;"	d
 _a_cmem	include/cstl_alloc.h	/^    char               _a_cmem[1];    \/* represent memory block *\/$/;"	m	union:_tagmemlink	access:public
+_abc_copy	test/test_vector.c	/^static void _abc_copy(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _abc_copy	test/test_vector.c	/^static void _abc_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_abc_destroy	test/test_vector.c	/^static void _abc_destroy(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _abc_destroy	test/test_vector.c	/^static void _abc_destroy(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _abc_init	test/test_vector.c	/^static void _abc_init(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _abc_init	test/test_vector.c	/^static void _abc_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_abc_less	test/test_vector.c	/^static void _abc_less(const void* cpv_first, const void* cpv_second, void * pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void * pv_output)
 _abc_less	test/test_vector.c	/^static void _abc_less(const void* cpv_first, const void* cpv_second, void * pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void * pv_output)
 _adjust_heap	src/cstl_heap.c	/^static void _adjust_heap($/;"	f	file:	signature:( random_access_iterator_t t_first, random_access_iterator_t t_last, random_access_iterator_t t_parent, binary_function_t t_binary_op)
 _adjust_heap	src/cstl_heap.c	/^static void _adjust_heap($/;"	p	file:	signature:( random_access_iterator_t t_first, random_access_iterator_t t_last, random_access_iterator_t t_parent, binary_function_t t_binary_op)

@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
     /*test_set();*/
     /*test_map();*/
     /*test_string(argc, argv);*/
-    /* test_string_getline(); */
+    /*test_string_getline(); */
     /*test_type();*/
 
     argc = 0;

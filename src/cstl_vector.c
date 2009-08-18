@@ -1074,7 +1074,6 @@ vector_iterator_t vector_erase_range(
 
     assert(_vector_iterator_belong_to_vector(pt_vector, t_begin));
     assert(iterator_equal(t_begin, t_end) || _vector_iterator_before(t_begin, t_end));
-    assert(!iterator_equal(t_begin, vector_end(pt_vector)));
 
     t_iter = t_begin;
     t_erasesize = iterator_distance(t_begin, t_end);
