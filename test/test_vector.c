@@ -1589,18 +1589,63 @@ void test_vector(void)
     {
         /* create_vector(), vector_init(), vector_destroy() */
         {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_init_n() */
         {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_vec, 3);
+            vector_destroy(pt_vec);
         }
         /* vector_init_elem() */
         {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            vector_t* pt_int = create_vector(signed);
+            if(pt_vec == NULL || pt_int == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_int, 3);
+            vector_init_elem(pt_vec, 2, pt_int);
+            vector_destroy(pt_int);
+            vector_destroy(pt_vec);
         }
         /* vector_init_copy() */
         {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            vector_t* pt_vecex = create_vector(vector_t<int>);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_vecex, 3);
+            vector_init_copy(pt_vec, pt_vecex);
+            vector_destroy(pt_vecex);
+            vector_destroy(pt_vec);
         }
         /* vector_init_copy_range() */
         {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            vector_t* pt_vecex = create_vector(vector_t<int>);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_vecex, 3);
+            vector_init_copy_range(pt_vec,
+                vector_begin(pt_vecex), iterator_prev(vector_end(pt_vecex)));
+            vector_destroy(pt_vecex);
+            vector_destroy(pt_vec);
         }
         /* vector_size() */
         {

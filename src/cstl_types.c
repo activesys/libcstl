@@ -1062,90 +1062,100 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
      * Note: the va_arg align at byte doundary for char, short and float type,
      * so those type, which are char, short and float, can't be used in va_arg function.
      */
-    /* char and shigned char */
-    if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
+    if(pt_typeinfo->_t_style == _TYPE_C_BUILTIN)
     {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(char));
-        *(char*)pv_output = (char)va_arg(val_elemlist, int);
-    }
-    /* unsigned char */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_CHAR_TYPE,
-        _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned char));
-        *(unsigned char*)pv_output = (unsigned char)va_arg(val_elemlist, int);
-    }
-    /* short, short int, signed short, signed short int */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _SHORT_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(short));
-        *(short*)pv_output = (short)va_arg(val_elemlist, int);
-    }
-    /* unsigned short, unsigned short int */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_SHORT_TYPE,
-        _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned short));
-        *(unsigned short*)pv_output = (unsigned short)va_arg(val_elemlist, int);
-    }
-    /* int, signed, signed int */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _INT_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(int));
-        *(int*)pv_output = va_arg(val_elemlist, int);
-    }
-    /* unsigned int, unsigned */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_INT_TYPE,
-        _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned int));
-        *(unsigned int*)pv_output = va_arg(val_elemlist, unsigned int);
-    }
-    /* long, long int, signed long, signed long int */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _LONG_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(long));
-        *(long*)pv_output = va_arg(val_elemlist, long);
-    }
-    /* unsigned long, unsigned long int */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_LONG_TYPE,
-        _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned long));
-        *(unsigned long*)pv_output = va_arg(val_elemlist, unsigned long);
-    }
-    /* float */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _FLOAT_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(float));
-        *(float*)pv_output = (float)va_arg(val_elemlist, double);
-    }
-    /* double */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _DOUBLE_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(double));
-        *(double*)pv_output = va_arg(val_elemlist, double);
-    }
-    /* long double */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _LONG_DOUBLE_TYPE,
-        _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(long double));
-        *(long double*)pv_output = va_arg(val_elemlist, long double);
-    }
-    /* bool_t */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(bool_t));
-        *(bool_t*)pv_output = va_arg(val_elemlist, int);
-    }
-    /* char* */
-    else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _C_STRING_TYPE,
-        _TYPE_NAME_SIZE) == 0)
-    {
-        assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(string_t));
-        char* s_str = va_arg(val_elemlist, char*);
-        string_assign_cstr((string_t*)pv_output, s_str);
+        /* char and shigned char */
+        if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(char));
+            *(char*)pv_output = (char)va_arg(val_elemlist, int);
+        }
+        /* unsigned char */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_CHAR_TYPE,
+            _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned char));
+            *(unsigned char*)pv_output = (unsigned char)va_arg(val_elemlist, int);
+        }
+        /* short, short int, signed short, signed short int */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _SHORT_TYPE,
+            _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(short));
+            *(short*)pv_output = (short)va_arg(val_elemlist, int);
+        }
+        /* unsigned short, unsigned short int */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_SHORT_TYPE,
+            _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned short));
+            *(unsigned short*)pv_output = (unsigned short)va_arg(val_elemlist, int);
+        }
+        /* int, signed, signed int */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _INT_TYPE, _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(int));
+            *(int*)pv_output = va_arg(val_elemlist, int);
+        }
+        /* unsigned int, unsigned */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_INT_TYPE,
+            _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned int));
+            *(unsigned int*)pv_output = va_arg(val_elemlist, unsigned int);
+        }
+        /* long, long int, signed long, signed long int */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _LONG_TYPE, _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(long));
+            *(long*)pv_output = va_arg(val_elemlist, long);
+        }
+        /* unsigned long, unsigned long int */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _UNSIGNED_LONG_TYPE,
+            _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned long));
+            *(unsigned long*)pv_output = va_arg(val_elemlist, unsigned long);
+        }
+        /* float */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _FLOAT_TYPE,
+            _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(float));
+            *(float*)pv_output = (float)va_arg(val_elemlist, double);
+        }
+        /* double */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _DOUBLE_TYPE,
+            _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(double));
+            *(double*)pv_output = va_arg(val_elemlist, double);
+        }
+        /* long double */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _LONG_DOUBLE_TYPE,
+            _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(long double));
+            *(long double*)pv_output = va_arg(val_elemlist, long double);
+        }
+        /* bool_t */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(bool_t));
+            *(bool_t*)pv_output = va_arg(val_elemlist, int);
+        }
+        /* char* */
+        else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _C_STRING_TYPE,
+            _TYPE_NAME_SIZE) == 0)
+        {
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(string_t));
+            char* s_str = va_arg(val_elemlist, char*);
+            string_assign_cstr((string_t*)pv_output, s_str);
+        }
+        else
+        {
+            assert(false);
+        }
     }
     /*
      * other type include cstl built in type and user define type passed type pointer.
