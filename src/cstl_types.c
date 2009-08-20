@@ -2106,6 +2106,11 @@ static void _type_token_rollback(void)
     {
         _gt_typeanalysis._t_index--;
     }
+    else if(_gt_typeanalysis._t_token == _TOKEN_SIGN_COMMA ||
+            _gt_typeanalysis._t_token == _TOKEN_SIGN_RIGHT_BRACKET)
+    {
+        _gt_typeanalysis._t_index--;
+    }
     _gt_typeanalysis._t_token = _TOKEN_ROLLBACK;
 }
 

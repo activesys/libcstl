@@ -513,7 +513,7 @@ void vector_reserve(vector_t* pt_vector, size_t t_reservesize)
             pc_newpos += _GET_VECTOR_TYPE_SIZE(pt_vector),
             pc_oldpos += _GET_VECTOR_TYPE_SIZE(pt_vector))
         {
-            /* copy from old vectot_t memory */
+            /* copy from old vector_t memory */
             t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(pc_newpos, pc_oldpos, &t_result);
             assert(t_result);
