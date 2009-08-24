@@ -2126,9 +2126,63 @@ void test_vector(void)
         }
         /* vector_front() */
         {
+            vector_t* pt_vec = create_vector(vector_t<signed>);
+            vector_t* pt_vecex = create_vector(int);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_push_back(pt_vecex, 89);
+            vector_push_back(pt_vecex, 222);
+            vector_push_back(pt_vecex, 12);
+            vector_push_back(pt_vec, pt_vecex);
+            if(vector_front(pt_vec) != NULL)
+            {
+                iterator_t t_iter;
+                for(t_iter = vector_begin(vector_front(pt_vec));
+                    !iterator_equal(t_iter, vector_end(vector_front(pt_vec)));
+                    t_iter = iterator_next(t_iter))
+                {
+                    printf("%d, ", *(int*)iterator_get_pointer(t_iter));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_back() */
         {
+            vector_t* pt_vec = create_vector(vector_t<signed>);
+            vector_t* pt_vecex = create_vector(int);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_push_back(pt_vecex, 89);
+            vector_push_back(pt_vecex, 222);
+            vector_push_back(pt_vecex, 12);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, -23);
+            vector_push_back(pt_vecex, -22222);
+            vector_push_back(pt_vec, pt_vecex);
+            if(vector_back(pt_vec) != NULL)
+            {
+                iterator_t t_iter;
+                for(t_iter = vector_begin(vector_back(pt_vec));
+                    !iterator_equal(t_iter, vector_end(vector_back(pt_vec)));
+                    t_iter = iterator_next(t_iter))
+                {
+                    printf("%d, ", *(int*)iterator_get_pointer(t_iter));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_begin() */
         {
@@ -2138,18 +2192,294 @@ void test_vector(void)
         }
         /* vector_insert() */
         {
+            vector_t* pt_vec = create_vector(vector_t<double>);
+            vector_t* pt_vecex = create_vector(double);
+            iterator_t t_iter;
+            iterator_t t_iterex;
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_push_back(pt_vecex, 4.30092);
+            vector_push_back(pt_vecex, 23.333135);
+            vector_insert(pt_vec, vector_begin(pt_vec), pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%g, ", *(double*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 2.0e5);
+            vector_push_back(pt_vecex, 4.9e-9);
+            vector_push_back(pt_vecex, -33.3e-4);
+            vector_insert(pt_vec, vector_begin(pt_vec), pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%g, ", *(double*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 6.3e3);
+            vector_push_back(pt_vecex, 9.845e-29);
+            vector_push_back(pt_vecex, -3.09e-14);
+            vector_insert(pt_vec, iterator_next(vector_begin(pt_vec)), pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%g, ", *(double*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_insert_n() */
         {
+            vector_t* pt_vec = create_vector(vector_t<float>);
+            vector_t* pt_vecex = create_vector(float);
+            iterator_t t_iter;
+            iterator_t t_iterex;
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_push_back(pt_vecex, 4.30092);
+            vector_push_back(pt_vecex, 23.333135);
+            vector_insert_n(pt_vec, vector_begin(pt_vec), 3, pt_vecex);
+            printf("\n");
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%f, ", *(float*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 2.0e5);
+            vector_push_back(pt_vecex, 4.9e-2);
+            vector_push_back(pt_vecex, -33.3e-4);
+            vector_insert_n(pt_vec, vector_begin(pt_vec), 2, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%f, ", *(float*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 6.3e3);
+            vector_push_back(pt_vecex, 9.845e-2);
+            vector_push_back(pt_vecex, -3.09e-3);
+            vector_insert_n(pt_vec, iterator_next(vector_begin(pt_vec)), 5, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%f, ", *(float*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_insert_range() */
         {
+            vector_t* pt_vec = create_vector(unsigned);
+            vector_t* pt_vecex1 = create_vector(vector_t<unsigned>);
+            vector_t* pt_vecex2 = create_vector(vector_t<unsigned int>);
+            vector_iterator_t t_iter;
+            vector_iterator_t t_iterex;
+            if(pt_vec == NULL || pt_vecex1 == NULL || pt_vecex2 == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex1);
+            vector_init(pt_vecex2);
+            vector_push_back(pt_vec, 12);
+            vector_push_back(pt_vec, 30);
+            vector_push_back(pt_vec, 1998);
+            vector_push_back(pt_vecex1, pt_vec);
+            vector_push_back(pt_vecex1, pt_vec);
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, 222);
+            vector_push_back(pt_vecex1, pt_vec);
+            vector_push_back(pt_vec, 0);
+            vector_push_back(pt_vec, 4444);
+            vector_push_back(pt_vec, 209);
+            vector_push_back(pt_vecex1, pt_vec);
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, 667);
+            vector_push_back(pt_vec, 766);
+            vector_push_back(pt_vecex1, pt_vec);
+            printf("vecex1:\n");
+            for(t_iterex = vector_begin(pt_vecex1);
+                !iterator_equal(t_iterex, vector_end(pt_vecex1));
+                t_iterex = iterator_next(t_iterex))
+            {
+                for(t_iter = vector_begin(iterator_get_pointer(t_iterex));
+                    !iterator_equal(t_iter, vector_end(iterator_get_pointer(t_iterex)));
+                    t_iter = iterator_next(t_iter))
+                {
+                    printf("%d, ", *(unsigned*)iterator_get_pointer(t_iter));
+                }
+                printf("\n");
+            }
+            vector_insert_range(pt_vecex2, vector_end(pt_vecex2), 
+                vector_begin(pt_vecex1), vector_end(pt_vecex1));
+            printf("vecex2:\n");
+            for(t_iterex = vector_begin(pt_vecex2);
+                !iterator_equal(t_iterex, vector_end(pt_vecex2));
+                t_iterex = iterator_next(t_iterex))
+            {
+                for(t_iter = vector_begin(iterator_get_pointer(t_iterex));
+                    !iterator_equal(t_iter, vector_end(iterator_get_pointer(t_iterex)));
+                    t_iter = iterator_next(t_iter))
+                {
+                    printf("%d, ", *(unsigned*)iterator_get_pointer(t_iter));
+                }
+                printf("\n");
+            }
+            vector_insert_range(pt_vecex2, vector_begin(pt_vecex2), 
+                iterator_next_n(vector_begin(pt_vecex1), 2), vector_end(pt_vecex1));
+            printf("vecex2:\n");
+            for(t_iterex = vector_begin(pt_vecex2);
+                !iterator_equal(t_iterex, vector_end(pt_vecex2));
+                t_iterex = iterator_next(t_iterex))
+            {
+                for(t_iter = vector_begin(iterator_get_pointer(t_iterex));
+                    !iterator_equal(t_iter, vector_end(iterator_get_pointer(t_iterex)));
+                    t_iter = iterator_next(t_iter))
+                {
+                    printf("%d, ", *(unsigned*)iterator_get_pointer(t_iter));
+                }
+                printf("\n");
+            }
+            vector_insert_range(pt_vecex2, iterator_next_n(vector_begin(pt_vecex2), 5), 
+                iterator_next_n(vector_begin(pt_vecex1), 2),
+                iterator_prev(vector_end(pt_vecex1)));
+            printf("vecex2:\n");
+            for(t_iterex = vector_begin(pt_vecex2);
+                !iterator_equal(t_iterex, vector_end(pt_vecex2));
+                t_iterex = iterator_next(t_iterex))
+            {
+                for(t_iter = vector_begin(iterator_get_pointer(t_iterex));
+                    !iterator_equal(t_iter, vector_end(iterator_get_pointer(t_iterex)));
+                    t_iter = iterator_next(t_iter))
+                {
+                    printf("%d, ", *(unsigned*)iterator_get_pointer(t_iter));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex1);
+            vector_destroy(pt_vecex2);
         }
         /* vector_push_back() */
         {
         }
         /* vector_pop_back() */
         {
+            vector_t* pt_vec = create_vector(vector_t<char>);
+            vector_t* pt_vecex = create_vector(signed char);
+            iterator_t t_iter;
+            iterator_t t_iterex;
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_push_back(pt_vecex, '9');
+            vector_push_back(pt_vecex, 'r');
+            vector_push_back(pt_vecex, 'G');
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, '#');
+            vector_push_back(pt_vecex, '^');
+            vector_push_back(pt_vecex, '@');
+            vector_push_back(pt_vecex, '~');
+            vector_push_back(pt_vec, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%c, ", *(char*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("\n");
+            vector_pop_back(pt_vec);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%c, ", *(char*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("\n");
+            vector_pop_back(pt_vec);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%c, ", *(char*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("\n");
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_erase() */
         {
