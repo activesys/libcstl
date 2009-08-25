@@ -2483,18 +2483,440 @@ void test_vector(void)
         }
         /* vector_erase() */
         {
+            vector_t* pt_vec = create_vector(vector_t<long>);
+            vector_t* pt_vecex = create_vector(signed long int);
+            iterator_t t_iter;
+            iterator_t t_iterex;
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_push_back(pt_vecex, 112);
+            vector_push_back(pt_vecex, -2409);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_insert_n(pt_vecex, vector_begin(pt_vecex), 4, -87654);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_push_back(pt_vecex, 234);
+            vector_push_back(pt_vecex, 112);
+            vector_push_back(pt_vec, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("erase middle:\n");
+            vector_erase(pt_vec, iterator_next(vector_begin(pt_vec)));
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("erase begin:\n");
+            vector_erase(pt_vec, vector_begin(pt_vec));
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("erase prev end:\n");
+            vector_erase(pt_vec, iterator_prev(vector_end(pt_vec)));
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_erase_range() */
         {
+            vector_t* pt_vec = create_vector(vector_t<long>);
+            vector_t* pt_vecex = create_vector(signed long int);
+            iterator_t t_iter;
+            iterator_t t_iterex;
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_push_back(pt_vecex, 112);
+            vector_push_back(pt_vecex, -2409);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_insert_n(pt_vecex, vector_begin(pt_vecex), 4, -87654);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_push_back(pt_vecex, 234);
+            vector_push_back(pt_vecex, 112);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 23);
+            vector_push_back(pt_vecex, -9765);
+            vector_push_back(pt_vecex, 898);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 28);
+            vector_push_back(pt_vecex, 5);
+            vector_push_back(pt_vecex, -33898);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 333);
+            vector_push_back(pt_vecex, 74);
+            vector_push_back(pt_vecex, -8);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 2355);
+            vector_push_back(pt_vecex, 5);
+            vector_push_back(pt_vecex, 0);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, -23);
+            vector_push_back(pt_vecex, -9765);
+            vector_push_back(pt_vecex, -898);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, -3);
+            vector_push_back(pt_vecex, -65);
+            vector_push_back(pt_vecex, 8);
+            vector_push_back(pt_vec, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("erase middle:\n");
+            vector_erase_range(pt_vec,
+                iterator_next(vector_begin(pt_vec)),
+                iterator_next_n(vector_begin(pt_vec), 3));
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("erase begin:\n");
+            vector_erase_range(pt_vec, vector_begin(pt_vec),
+                iterator_next_n(vector_begin(pt_vec), 2));
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("erase prev end:\n");
+            vector_erase_range(pt_vec, iterator_prev_n(vector_end(pt_vec), 3),
+                vector_end(pt_vec));
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_clear() */
         {
+            vector_t* pt_vec = create_vector(vector_t<long>);
+            vector_t* pt_vecex = create_vector(signed long int);
+            iterator_t t_iter;
+            iterator_t t_iterex;
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_push_back(pt_vecex, 112);
+            vector_push_back(pt_vecex, -2409);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_insert_n(pt_vecex, vector_begin(pt_vecex), 4, -87654);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_push_back(pt_vecex, 234);
+            vector_push_back(pt_vecex, 112);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 23);
+            vector_push_back(pt_vecex, -9765);
+            vector_push_back(pt_vecex, 898);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 28);
+            vector_push_back(pt_vecex, 5);
+            vector_push_back(pt_vecex, -33898);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 333);
+            vector_push_back(pt_vecex, 74);
+            vector_push_back(pt_vecex, -8);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 2355);
+            vector_push_back(pt_vecex, 5);
+            vector_push_back(pt_vecex, 0);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, -23);
+            vector_push_back(pt_vecex, -9765);
+            vector_push_back(pt_vecex, -898);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, -3);
+            vector_push_back(pt_vecex, -65);
+            vector_push_back(pt_vecex, 8);
+            vector_push_back(pt_vec, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("clear:\n");
+            vector_clear(pt_vec);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_resize() */
         {
+            vector_t* pt_vec = create_vector(vector_t<long>);
+            vector_t* pt_vecex = create_vector(signed long int);
+            iterator_t t_iter;
+            iterator_t t_iterex;
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_push_back(pt_vecex, 112);
+            vector_push_back(pt_vecex, -2409);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_insert_n(pt_vecex, vector_begin(pt_vecex), 4, -87654);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_push_back(pt_vecex, 234);
+            vector_push_back(pt_vecex, 112);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 23);
+            vector_push_back(pt_vecex, -9765);
+            vector_push_back(pt_vecex, 898);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 28);
+            vector_push_back(pt_vecex, 5);
+            vector_push_back(pt_vecex, -33898);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 333);
+            vector_push_back(pt_vecex, 74);
+            vector_push_back(pt_vecex, -8);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, 2355);
+            vector_push_back(pt_vecex, 5);
+            vector_push_back(pt_vecex, 0);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, -23);
+            vector_push_back(pt_vecex, -9765);
+            vector_push_back(pt_vecex, -898);
+            vector_push_back(pt_vec, pt_vecex);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, -3);
+            vector_push_back(pt_vecex, -65);
+            vector_push_back(pt_vecex, 8);
+            vector_push_back(pt_vec, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("resize: 3\n");
+            vector_resize(pt_vec, 3);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("resize: 6\n");
+            vector_resize(pt_vec, 6);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%ld, ", *(long*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_resize_elem() */
         {
+            vector_t* pt_vec = create_vector(vector_t<double>);
+            vector_t* pt_vecex = create_vector(double);
+            iterator_t t_iter;
+            iterator_t t_iterex;
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            printf("no resize:\n");
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%lf, ", *(double*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("resize: 3\n");
+            vector_insert_n(pt_vecex, vector_begin(pt_vecex), 3, 90.34);
+            vector_resize_elem(pt_vec, 3, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%lf, ", *(double*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("resize: 6\n");
+            vector_clear(pt_vecex);
+            vector_insert_n(pt_vecex, vector_begin(pt_vecex), 5, -0.009);
+            vector_resize_elem(pt_vec, 6, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%lf, ", *(double*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            printf("resize: 4\n");
+            vector_resize_elem(pt_vec, 4, pt_vecex);
+            for(t_iter = vector_begin(pt_vec);
+                !iterator_equal(t_iter, vector_end(pt_vec));
+                t_iter = iterator_next(t_iter))
+            {
+                for(t_iterex = vector_begin(iterator_get_pointer(t_iter));
+                    !iterator_equal(t_iterex, vector_end(iterator_get_pointer(t_iter)));
+                    t_iterex = iterator_next(t_iterex))
+                {
+                    printf("%lf, ", *(double*)iterator_get_pointer(t_iterex));
+                }
+                printf("\n");
+            }
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
     }
     /* c-string type */
