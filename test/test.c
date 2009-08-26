@@ -58,8 +58,8 @@
 int main(int argc, char* argv[])
 {
     test_vector();
+    test_deque();
     /*test_list();*/
-    /*test_deque();*/
     /*test_slist();*/
     /*test_stack();*/
     /*test_queue();*/
