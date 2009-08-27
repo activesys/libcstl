@@ -515,11 +515,12 @@ void deque_init(deque_t* pt_deque)
 
 void deque_init_n(deque_t* pt_deque, size_t t_count)
 {
-    size_t t_index = 0;
-    size_t t_startpos = 0;      /* the real map start pos */
-    size_t t_mapcount = 0;      /* the map count */
-    size_t t_validmapcount = 0; /* the valid count in map */
-    size_t t_endelemcount = 0;  /* the element count in the last container */
+    size_t     t_index = 0;
+    size_t     t_startpos = 0;      /* the real map start pos */
+    size_t     t_mapcount = 0;      /* the map count */
+    size_t     t_validmapcount = 0; /* the valid count in map */
+    size_t     t_endelemcount = 0;  /* the element count in the last container */
+    iterator_t t_iter;
     
     assert(pt_deque != NULL);
 
@@ -570,18 +571,9 @@ void deque_init_n(deque_t* pt_deque, size_t t_count)
 
     for(t_index = t_startpos; t_index < t_startpos + t_validmapcount; ++t_index)
     {
-        int i = 0;
-
         pt_deque->_ppc_map[t_index] = allocate(&pt_deque->_t_allocater,
             _GET_DEQUE_TYPE_SIZE(pt_deque), _DEQUE_ELEM_COUNT);
         assert(pt_deque->_ppc_map[t_index] != NULL);
-
-        for(i = 0; i < _DEQUE_ELEM_COUNT; ++i)
-        {
-            /* initialize all elements */
-            _deque_init_elem_auxiliary(pt_deque,
-                pt_deque->_ppc_map[t_index] + i * _GET_DEQUE_TYPE_SIZE(pt_deque));
-        }
     }
 
     /* initialize the start iterator */
@@ -600,6 +592,13 @@ void deque_init_n(deque_t* pt_deque, size_t t_count)
         _DEQUE_ELEM_COUNT * _GET_DEQUE_TYPE_SIZE(pt_deque);
     _GET_DEQUE_COREPOS(pt_deque->_t_finish) = _GET_DEQUE_FIRST_POS(pt_deque->_t_finish) + 
         t_endelemcount * _GET_DEQUE_TYPE_SIZE(pt_deque);
+
+    for(t_iter = deque_begin(pt_deque);
+        !iterator_equal(t_iter, deque_end(pt_deque));
+        t_iter = iterator_next(t_iter))
+    {
+        _deque_init_elem_auxiliary(pt_deque, (void*)iterator_get_pointer(t_iter));
+    }
 }
 
 void _deque_init_elem(deque_t* pt_deque, size_t t_count, ...)
@@ -637,13 +636,14 @@ void _deque_init_elem_varg(deque_t* pt_deque, size_t t_count, va_list val_elemli
      * ********************************************************************
      * the state of initialized deque
      */
-    size_t t_index = 0;
-    size_t t_startpos = 0;      /* the real map start pos */
-    size_t t_mapcount = 0;      /* the map count */
-    size_t t_validmapcount = 0; /* the valid count in map */
-    size_t t_endelemcount = 0;  /* the element count in the last container */
-    void*  pv_varg = NULL;
-    bool_t t_result = false;
+    size_t     t_index = 0;
+    size_t     t_startpos = 0;      /* the real map start pos */
+    size_t     t_mapcount = 0;      /* the map count */
+    size_t     t_validmapcount = 0; /* the valid count in map */
+    size_t     t_endelemcount = 0;  /* the element count in the last container */
+    void*      pv_varg = NULL;
+    bool_t     t_result = false;
+    iterator_t t_iter;
     
     assert(pt_deque != NULL);
 
@@ -692,36 +692,13 @@ void _deque_init_elem_varg(deque_t* pt_deque, size_t t_count, va_list val_elemli
     memset(pt_deque->_ppc_map, 0x00, sizeof(char*)*t_mapcount);
     t_startpos = (t_mapcount - t_validmapcount) / 2;
 
-    /* get varg value only once */
-    pv_varg = allocate(&pt_deque->_t_allocater, _GET_DEQUE_TYPE_SIZE(pt_deque), 1);
-    assert(pv_varg != NULL);
-    _deque_get_varg_value_auxiliary(pt_deque, val_elemlist, pv_varg);
-
     for(t_index = t_startpos; t_index < t_startpos + t_validmapcount; ++t_index)
     {
-        int i = 0;
-
         pt_deque->_ppc_map[t_index] = allocate(&pt_deque->_t_allocater,
             _GET_DEQUE_TYPE_SIZE(pt_deque), _DEQUE_ELEM_COUNT);
         assert(pt_deque->_ppc_map[t_index] != NULL);
-
-        for(i = 0; i < _DEQUE_ELEM_COUNT; ++i)
-        {
-            /* initialize all elements */
-            _deque_init_elem_auxiliary(pt_deque,
-                pt_deque->_ppc_map[t_index] + i * _GET_DEQUE_TYPE_SIZE(pt_deque));
-
-            /* copy element for varg value */
-            t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
-            _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                pt_deque->_ppc_map[t_index] + i * _GET_DEQUE_TYPE_SIZE(pt_deque),
-                pv_varg, &t_result);
-            assert(t_result);
-        }
     }
 
-    _deque_destroy_varg_value_auxiliary(pt_deque, pv_varg);
-    deallocate(&pt_deque->_t_allocater, pv_varg, _GET_DEQUE_TYPE_SIZE(pt_deque), 1);
     /* initialize the start iterator */
     _GET_CONTAINER(pt_deque->_t_start) = pt_deque;
     _GET_DEQUE_MAP_POINTER(pt_deque->_t_start) = pt_deque->_ppc_map + t_startpos;
@@ -738,6 +715,28 @@ void _deque_init_elem_varg(deque_t* pt_deque, size_t t_count, va_list val_elemli
         _DEQUE_ELEM_COUNT * _GET_DEQUE_TYPE_SIZE(pt_deque);
     _GET_DEQUE_COREPOS(pt_deque->_t_finish) = _GET_DEQUE_FIRST_POS(pt_deque->_t_finish) + 
         t_endelemcount * _GET_DEQUE_TYPE_SIZE(pt_deque);
+
+    /* get varg value only once */
+    pv_varg = allocate(&pt_deque->_t_allocater, _GET_DEQUE_TYPE_SIZE(pt_deque), 1);
+    assert(pv_varg != NULL);
+    _deque_get_varg_value_auxiliary(pt_deque, val_elemlist, pv_varg);
+
+    for(t_iter = deque_begin(pt_deque);
+        !iterator_equal(t_iter, deque_end(pt_deque));
+        t_iter = iterator_next(t_iter))
+    {
+        /* initialize all elements */
+        _deque_init_elem_auxiliary(pt_deque, (void*)iterator_get_pointer(t_iter));
+
+        /* copy element for varg value */
+        t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
+        _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
+            iterator_get_pointer(t_iter), pv_varg, &t_result);
+        assert(t_result);
+    }
+
+    _deque_destroy_varg_value_auxiliary(pt_deque, pv_varg);
+    deallocate(&pt_deque->_t_allocater, pv_varg, _GET_DEQUE_TYPE_SIZE(pt_deque), 1);
 }
 
 void deque_init_copy(deque_t* pt_dequedest, const deque_t* cpt_dequesrc)
