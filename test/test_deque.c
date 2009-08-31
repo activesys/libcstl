@@ -21,6 +21,7 @@
  */
 
 /** include section **/
+#include <stdio.h>
 #include "cdeque.h"
 #include "cvector.h"
 #include "test_deque.h"
@@ -44,6 +45,8 @@ void test_deque(void)
         {
             deque_t* pt_deq = create_deque(vector_t<int>);
             vector_t* pt_vec = create_vector(int);
+            iterator_t t_deq;
+            iterator_t t_vec;
             if(pt_deq == NULL || pt_vec == NULL)
             {
                 return;
@@ -51,6 +54,18 @@ void test_deque(void)
             vector_init_elem(pt_vec, 3, 999);
             deque_init_elem(pt_deq, 2, pt_vec);
             deque_push_back(pt_deq, pt_vec);
+            for(t_deq = deque_begin(pt_deq);
+                !iterator_equal(t_deq, deque_end(pt_deq));
+                t_deq = iterator_next(t_deq))
+            {
+                for(t_vec = vector_begin(iterator_get_pointer(t_deq));
+                    !iterator_equal(t_vec, vector_end(iterator_get_pointer(t_deq)));
+                    t_vec = iterator_next(t_vec))
+                {
+                    printf("%d, ", *(int*)iterator_get_pointer(t_vec));
+                }
+                printf("\n");
+            }
             deque_destroy(pt_deq);
             vector_destroy(pt_vec);
         }
