@@ -2084,6 +2084,9 @@ _tagbasicstring	include/cstl_basic_string_private.h	/^typedef struct _tagbasicst
 _tagbasicstring::_t_vector	include/cstl_basic_string_private.h	/^    vector_t _t_vector;$/;"	m	struct:_tagbasicstring	access:public
 _tagcolor	include/cstl_rb_tree_private.h	/^typedef enum _tagcolor$/;"	g
 _tagcontainertype	include/cstl_iterator.h	/^typedef enum _tagcontainertype$/;"	g
+_tagdeqabc	test/test_deque.c	/^typedef struct _tagdeqabc$/;"	s	file:
+_tagdeqabc::d_first	test/test_deque.c	/^    double d_first;$/;"	m	struct:_tagdeqabc	file:	access:public
+_tagdeqabc::n_second	test/test_deque.c	/^    int    n_second;$/;"	m	struct:_tagdeqabc	file:	access:public
 _tagdeque	include/cstl_deque_private.h	/^typedef struct _tagdeque$/;"	s
 _tagdeque::_ppc_map	include/cstl_deque_private.h	/^    _mappointer_t    _ppc_map;$/;"	m	struct:_tagdeque	access:public
 _tagdeque::_t_allocater	include/cstl_deque_private.h	/^    alloc_t          _t_allocater;$/;"	m	struct:_tagdeque	access:public
@@ -3122,9 +3125,11 @@ create_string	src/cstl_string.c	/^string_t* create_string(void)$/;"	f	signature:
 create_vector	include/cstl_vector.h	36;"	d
 create_vector_iterator	include/cstl_vector_iterator.h	/^extern vector_iterator_t create_vector_iterator(void);$/;"	p	signature:(void)
 create_vector_iterator	src/cstl_vector.c	/^vector_iterator_t create_vector_iterator(void)$/;"	f	signature:(void)
+d_first	test/test_deque.c	/^    double d_first;$/;"	m	struct:_tagdeqabc	file:	access:public
 deallocate	include/cstl_alloc.h	/^extern void deallocate($/;"	p	signature:( alloc_t* pt_allocater, void* pv_allocmem, size_t t_typesize, int n_elemcount)
 deallocate	src/cstl_alloc.c	/^void deallocate($/;"	f	signature:( alloc_t* , void* pv_allocmem, size_t , int )
 deallocate	src/cstl_alloc.c	/^void deallocate($/;"	f	signature:( alloc_t* pt_allocater, void* pv_allocmem, size_t t_typesize, int n_elemcount)
+deqabc_t	test/test_deque.c	/^}deqabc_t;$/;"	t	typeref:struct:_tagdeqabc	file:
 deque_assign	include/cstl_deque.h	/^extern void deque_assign(deque_t* pt_dequedest, const deque_t* cpt_dequesrc);$/;"	p	signature:(deque_t* pt_dequedest, const deque_t* cpt_dequesrc)
 deque_assign	src/cstl_deque.c	/^void deque_assign(deque_t* pt_dequedest, const deque_t* cpt_dequesrc)$/;"	f	signature:(deque_t* pt_dequedest, const deque_t* cpt_dequesrc)
 deque_assign_elem	include/cstl_deque.h	39;"	d
@@ -4242,6 +4247,7 @@ multiset_value_less	include/cstl_multiset.h	/^extern binary_function_t multiset_
 multiset_value_less	src/cstl_multiset.c	/^binary_function_t multiset_value_less(const multiset_t* cpt_multiset)$/;"	f	signature:(const multiset_t* cpt_multiset)
 myiter_t	test/test_type.c	/^typedef output_iterator_t myiter_t;$/;"	t	file:
 mymacro	test/test_type.c	52;"	d	file:
+n_second	test/test_deque.c	/^    int    n_second;$/;"	m	struct:_tagdeqabc	file:	access:public
 ostream_iterator_t	include/cstl_iterator.h	/^typedef output_iterator_t           ostream_iterator_t;$/;"	t
 output_iterator_t	include/cstl_iterator.h	/^typedef iterator_t                  output_iterator_t;$/;"	t
 pair_assign	include/cstl_pair.h	/^extern void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc);$/;"	p	signature:(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)

@@ -1183,12 +1183,12 @@ void _type_copy_default(const void* cpv_first, const void* cpv_second, void* pv_
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     memcpy((void*)cpv_first, cpv_second, *(size_t*)pv_output);
-    *(size_t*)pv_output = true;
+    *(bool_t*)pv_output = true;
 }
 void _type_less_default(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-    *(size_t*)pv_output = memcmp(cpv_first, cpv_second, *(size_t*)pv_output) == 0 ?
+    *(bool_t*)pv_output = memcmp(cpv_first, cpv_second, *(size_t*)pv_output) < 0 ?
                           true : false;
 }
 void _type_destroy_default(const void* cpv_input, void* pv_output)

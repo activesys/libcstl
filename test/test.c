@@ -21,6 +21,7 @@
  */
 
 /** include section **/
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "test_string.h"
@@ -57,7 +58,9 @@
 /** exported function implementation section **/
 int main(int argc, char* argv[])
 {
-    test_vector();
+    printf("========== test vector_t ==========\n");
+    /*test_vector();*/
+    printf("========== test deque_t  ==========\n");
     test_deque();
     /*test_list();*/
     /*test_slist();*/
