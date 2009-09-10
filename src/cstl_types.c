@@ -1148,8 +1148,8 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
         else if(strncmp(pt_typeinfo->_pt_type->_sz_typename, _C_STRING_TYPE,
             _TYPE_NAME_SIZE) == 0)
         {
-            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(string_t));
             char* s_str = va_arg(val_elemlist, char*);
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(string_t));
             string_assign_cstr((string_t*)pv_output, s_str);
         }
         else

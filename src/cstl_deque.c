@@ -408,7 +408,7 @@ int _deque_iterator_minus(deque_iterator_t t_iterfirst, deque_iterator_t t_iters
             _GET_DEQUE_FIRST_POS(t_itersecond)) / 
             _GET_DEQUE_TYPE_SIZE(_GET_DEQUE_CONTAINER(t_itersecond));
                
-        return -(t_beginsize + t_middlesize + t_endsize);
+        return -(int)(t_beginsize + t_middlesize + t_endsize);
     }
     else if(iterator_equal(t_iterfirst, t_itersecond))
     {

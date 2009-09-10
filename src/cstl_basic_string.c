@@ -491,8 +491,9 @@ size_t basic_string_copy(
     {
         t_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
         _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
-            pv_buffer + t_index * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string),
-            pv_copypos + t_index * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string), &t_result);
+            (char*)pv_buffer + t_index * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string),
+            (char*)pv_copypos + t_index * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string),
+            &t_result);
         assert(t_result);
     }
 

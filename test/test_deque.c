@@ -1694,6 +1694,48 @@ void test_deque(void)
         /* deque_max_size() */
         /* deque_equal() */
         {
+            deque_t* pt_deq1 = create_deque(deque_t<int>);
+            deque_t* pt_deq2 = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq1 == NULL || pt_deq2 == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq1);
+            deque_init(pt_deq2);
+            deque_init(pt_deqex);
+            printf("equal: %d, not equal: %d\n",
+                deque_equal(pt_deq1, pt_deq2), deque_not_equal(pt_deq1, pt_deq2));
+            printf("less: %d, less equal: %d\n",
+                deque_less(pt_deq1, pt_deq2), deque_less_equal(pt_deq1, pt_deq2));
+            printf("great: %d, great equal: %d\n",
+                deque_great(pt_deq1, pt_deq2), deque_great_equal(pt_deq1, pt_deq2));
+            deque_push_back(pt_deq1, pt_deqex);
+            printf("equal: %d, not equal: %d\n",
+                deque_equal(pt_deq1, pt_deq2), deque_not_equal(pt_deq1, pt_deq2));
+            printf("less: %d, less equal: %d\n",
+                deque_less(pt_deq1, pt_deq2), deque_less_equal(pt_deq1, pt_deq2));
+            printf("great: %d, great equal: %d\n",
+                deque_great(pt_deq1, pt_deq2), deque_great_equal(pt_deq1, pt_deq2));
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_push_back(pt_deq2, pt_deqex);
+            printf("equal: %d, not equal: %d\n",
+                deque_equal(pt_deq1, pt_deq2), deque_not_equal(pt_deq1, pt_deq2));
+            printf("less: %d, less equal: %d\n",
+                deque_less(pt_deq1, pt_deq2), deque_less_equal(pt_deq1, pt_deq2));
+            printf("great: %d, great equal: %d\n",
+                deque_great(pt_deq1, pt_deq2), deque_great_equal(pt_deq1, pt_deq2));
+            deque_push_back(pt_deqex, 29);
+            deque_push_back(pt_deq1, pt_deqex);
+            printf("equal: %d, not equal: %d\n",
+                deque_equal(pt_deq1, pt_deq2), deque_not_equal(pt_deq1, pt_deq2));
+            printf("less: %d, less equal: %d\n",
+                deque_less(pt_deq1, pt_deq2), deque_less_equal(pt_deq1, pt_deq2));
+            printf("great: %d, great equal: %d\n",
+                deque_great(pt_deq1, pt_deq2), deque_great_equal(pt_deq1, pt_deq2));
+            deque_destroy(pt_deq1);
+            deque_destroy(pt_deq2);
+            deque_destroy(pt_deqex);
         }
         /* deque_not_equal() */
         /* deque_less() */
@@ -1701,17 +1743,463 @@ void test_deque(void)
         /* deque_great() */
         /* deque_great_equal() */
         /* deque_assign() */
+        {
+            deque_t* pt_deq1 = create_deque(deque_t<int>);
+            deque_t* pt_deq2 = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq1 == NULL || pt_deq2 == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq1);
+            deque_init(pt_deq2);
+            deque_init(pt_deqex);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_push_back(pt_deqex, 34);
+            deque_push_back(pt_deqex, 120);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_assign(pt_deq1, pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_clear(pt_deq2);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_assign(pt_deq1, pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_clear(pt_deqex);
+            deque_clear(pt_deq2);
+            deque_push_front(pt_deqex, 11111);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_assign(pt_deq1, pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_clear(pt_deq2);
+            deque_assign(pt_deq1, pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_destroy(pt_deq1);
+            deque_destroy(pt_deq2);
+            deque_destroy(pt_deqex);
+        }
         /* deque_assign_elem() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_assign_elem(pt_deq, 3, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_push_back(pt_deqex, 112233);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 34567);
+            deque_assign_elem(pt_deq, 7, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 45);
+            deque_push_back(pt_deqex, 12);
+            deque_assign_elem(pt_deq, 2, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
         /* deque_assign_range() */
+        {
+            deque_t* pt_deq1 = create_deque(deque_t<int>);
+            deque_t* pt_deq2 = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq1 == NULL || pt_deq2 == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq1);
+            deque_init(pt_deq2);
+            deque_init(pt_deqex);
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 234);
+            deque_push_back(pt_deqex, 55);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_push_back(pt_deqex, 5);
+            deque_push_back(pt_deqex, 40);
+            deque_push_back(pt_deqex, 1);
+            deque_push_back(pt_deqex, -58);
+            deque_push_back(pt_deqex, -741);
+            deque_push_back(pt_deqex, 352);
+            deque_push_back(pt_deqex, 9557);
+            deque_push_back(pt_deqex, 575);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq2, pt_deqex);
+            _printdeque_cstl(pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            deque_assign_range(pt_deq1, deque_begin(pt_deq2), deque_begin(pt_deq2));
+            _printdeque_cstl(pt_deq1);
+            deque_assign_range(pt_deq1,
+                deque_begin(pt_deq2), iterator_prev_n(deque_end(pt_deq2), 4));
+            _printdeque_cstl(pt_deq1);
+            deque_assign_range(pt_deq1,
+                deque_begin(pt_deq2), iterator_prev(deque_end(pt_deq2)));
+            _printdeque_cstl(pt_deq1);
+            deque_assign_range(pt_deq1,
+                iterator_next_n(deque_begin(pt_deq2), 5), deque_end(pt_deq2));
+            _printdeque_cstl(pt_deq1);
+            deque_assign_range(pt_deq1,
+                iterator_next_n(deque_begin(pt_deq2), 3), iterator_prev(deque_end(pt_deq2)));
+            _printdeque_cstl(pt_deq1);
+            deque_assign_range(pt_deq1,
+                iterator_next_n(deque_begin(pt_deq2), 3),
+                iterator_prev_n(deque_end(pt_deq2), 4));
+            _printdeque_cstl(pt_deq1);
+            deque_destroy(pt_deq1);
+            deque_destroy(pt_deq2);
+            deque_destroy(pt_deqex);
+        }
         /* deque_swap() */
+        {
+            deque_t* pt_deq1 = create_deque(deque_t<int>);
+            deque_t* pt_deq2 = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq1 == NULL || pt_deq2 == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq1);
+            deque_init(pt_deq2);
+            deque_init(pt_deqex);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_swap(pt_deq1, pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 234);
+            deque_push_back(pt_deqex, 55);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_push_back(pt_deqex, 5);
+            deque_push_back(pt_deqex, 40);
+            deque_push_back(pt_deqex, 1);
+            deque_push_back(pt_deqex, -58);
+            deque_push_back(pt_deqex, -741);
+            deque_push_back(pt_deqex, 352);
+            deque_push_back(pt_deqex, 9557);
+            deque_push_back(pt_deqex, 575);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq2, pt_deqex);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_swap(pt_deq1, pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq2, pt_deqex);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_swap(pt_deq1, pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_clear(pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_swap(pt_deq1, pt_deq2);
+            _printdeque_cstl(pt_deq1);
+            _printdeque_cstl(pt_deq2);
+            deque_destroy(pt_deq1);
+            deque_destroy(pt_deq2);
+            deque_destroy(pt_deqex);
+        }
         /* deque_at() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            if(deque_front(pt_deq) != NULL || deque_back(pt_deq) != NULL)
+            {
+                assert(false);
+            }
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 234);
+            deque_push_back(pt_deqex, 55);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_push_back(pt_deqex, 5);
+            deque_push_back(pt_deqex, 40);
+            deque_push_back(pt_deqex, 1);
+            deque_push_back(pt_deqex, -58);
+            deque_push_back(pt_deqex, -741);
+            deque_push_back(pt_deqex, 352);
+            deque_push_back(pt_deqex, 9557);
+            deque_push_back(pt_deqex, 575);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_clear(deque_front(pt_deq));
+            deque_assign_elem(deque_back(pt_deq), 5, 100);
+            deque_push_back(deque_at(pt_deq, 3), 3333);
+            deque_push_front(deque_at(pt_deq, 3), 3333);
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
         /* deque_front() */
         /* deque_back() */
         /* deque_begin() */
         /* deque_end() */
         /* deque_insert() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            deque_push_front(pt_deqex, 100);
+            deque_push_back(pt_deqex, 200);
+            deque_push_back(pt_deqex, 300);
+            deque_insert(pt_deq, deque_begin(pt_deq), pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_clear(pt_deqex);
+            deque_assign_elem(pt_deqex, 5, 0);
+            deque_assign_elem(pt_deq, 5, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_assign_elem(pt_deqex, 5, 9);
+            deque_insert(pt_deq, deque_begin(pt_deq), pt_deqex);
+            deque_insert(pt_deq, deque_end(pt_deq), pt_deqex);
+            deque_insert(pt_deq, iterator_next_n(deque_begin(pt_deq), 4), pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
         /* deque_insert_n() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            deque_assign_elem(pt_deqex, 5, 0);
+            deque_insert_n(pt_deq, deque_begin(pt_deq), 5, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_clear(pt_deqex);
+            deque_assign_elem(pt_deqex, 5, 7);
+            deque_assign_elem(pt_deq, 5, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_assign_elem(pt_deqex, 5, 9);
+            deque_insert_n(pt_deq, deque_begin(pt_deq), 3, pt_deqex);
+            deque_assign_elem(pt_deqex, 5, 2);
+            deque_insert_n(pt_deq, deque_end(pt_deq), 4, pt_deqex);
+            deque_assign_elem(pt_deqex, 5, 1);
+            deque_insert_n(pt_deq, iterator_next_n(deque_begin(pt_deq), 4), 8, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
         /* deque_insert_range() */
+        {
+            deque_t* pt_deq1 = create_deque(deque_t<int>);
+            deque_t* pt_deq2 = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq1 == NULL || pt_deq2 == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq1);
+            deque_init(pt_deq2);
+            deque_init(pt_deqex);
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_push_back(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 234);
+            deque_push_back(pt_deqex, 55);
+            deque_push_front(pt_deq2, pt_deqex);
+            deque_push_back(pt_deqex, 5);
+            deque_push_back(pt_deqex, 40);
+            deque_push_back(pt_deqex, 1);
+            deque_push_back(pt_deqex, -58);
+            deque_push_back(pt_deqex, -741);
+            deque_push_back(pt_deqex, 352);
+            deque_push_back(pt_deqex, 9557);
+            deque_push_back(pt_deqex, 575);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq2, pt_deqex);
+            _printdeque_cstl(pt_deq2);
+            deque_insert_range(pt_deq1, deque_begin(pt_deq1),
+                deque_begin(pt_deq2), deque_end(pt_deq2));
+            _printdeque_cstl(pt_deq1);
+            deque_assign_elem(pt_deqex, 5, 0);
+            deque_assign_elem(pt_deq1, 5, pt_deqex);
+            _printdeque_cstl(pt_deq1);
+            deque_insert_range(pt_deq1, deque_begin(pt_deq1),
+                deque_begin(pt_deq2), iterator_next(deque_begin(pt_deq2)));
+            _printdeque_cstl(pt_deq1);
+            deque_insert_range(pt_deq1, deque_end(pt_deq1),
+                iterator_prev_n(deque_end(pt_deq2), 2), deque_end(pt_deq2));
+            _printdeque_cstl(pt_deq1);
+            deque_insert_range(pt_deq1, iterator_next_n(deque_begin(pt_deq1), 4),
+                iterator_next_n(deque_begin(pt_deq2), 2),
+                iterator_prev_n(deque_end(pt_deq2), 2));
+            _printdeque_cstl(pt_deq1);
+            deque_insert_range(pt_deq1, iterator_next_n(deque_begin(pt_deq1), 4),
+                iterator_next_n(deque_begin(pt_deq2), 2),
+                iterator_prev_n(deque_end(pt_deq2), 5));
+            _printdeque_cstl(pt_deq1);
+            deque_destroy(pt_deq1);
+            deque_destroy(pt_deq2);
+            deque_destroy(pt_deqex);
+        }
         /* deque_push_back() */
         /* deque_pop_back() */
         /* deque_push_front() */
