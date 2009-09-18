@@ -195,7 +195,7 @@ list_iterator_t _list_iterator_next(list_iterator_t t_iter)
 list_iterator_t _list_iterator_prev(list_iterator_t t_iter)
 {
     assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(t_iter), t_iter));
-    assert(!iterator_equal(t_iter, list_end(_GET_LIST_CONTAINER(t_iter))));
+    /* assert(!iterator_equal(t_iter, list_end(_GET_LIST_CONTAINER(t_iter)))); */
 
     _GET_LIST_COREPOS(t_iter) = (char*)(((listnode_t*)_GET_LIST_COREPOS(t_iter))->_pt_prev);
 
@@ -1053,7 +1053,7 @@ list_iterator_t list_erase_range(
 {
     assert(_list_iterator_belong_to_list(pt_list, t_begin));
     assert(iterator_equal(t_begin, t_end) || _list_iterator_before(t_begin, t_end));
-    assert(!iterator_equal(t_begin, list_end(pt_list)));
+    /* assert(!iterator_equal(t_begin, list_end(pt_list))); */
 
     while(!iterator_equal(t_begin, t_end))
     {
@@ -1328,8 +1328,8 @@ void list_splice_pos(
     assert(_list_iterator_belong_to_list(pt_list, t_pos));
     assert(_list_iterator_belong_to_list(pt_listsrc, t_possrc));
 
-    t_possrcnext = t_possrc;
-    t_possrcnext = iterator_next(t_possrcnext);
+    /* t_possrcnext = t_possrc; */
+    t_possrcnext = iterator_next(t_possrc);
     if(!list_empty(pt_listsrc) && !iterator_equal(t_possrc, list_end(pt_listsrc)))
     {
         _transfer(t_pos, t_possrc, t_possrcnext);

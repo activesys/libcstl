@@ -559,7 +559,7 @@ void test_vector(void)
         {
             vector_t* pt_abc = NULL;
             type_duplicate(abc_t, struct _tagabc);
-            type_debug();
+            _type_debug();
             pt_abc = create_vector(struct _tagabc);
             if(pt_abc == NULL)
             {

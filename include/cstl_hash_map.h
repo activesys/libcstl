@@ -90,12 +90,12 @@ extern size_t hash_map_bucket_count(const hash_map_t* cpt_hash_map);
 /*
  * Return the hash function.
  */
-extern unary_function_t hash_map_hash_func(const hash_map_t* cpt_hash_map);
+extern unary_function_t hash_map_hash(const hash_map_t* cpt_hash_map);
 
 /*
  * Return the compare function.
  */
-extern binary_function_t hash_map_key_comp(const hash_map_t* cpt_hash_map);
+extern binary_function_t hash_map_key_less(const hash_map_t* cpt_hash_map);
 
 /*
  * hash_map_t resize operation function.

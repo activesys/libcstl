@@ -54,7 +54,9 @@ typedef output_iterator_t myiter_t;
 /** exported function implementation section **/
 void test_type(void)
 {
+#ifndef _WIN32
     _typeinfo_t t_type;
+#endif
     type_register(struct _tagabc, NULL, NULL, NULL, NULL);
     type_duplicate(abc_t, struct _tagabc);
     type_register(struct _tagabc    *, NULL, NULL, NULL, NULL);
@@ -66,9 +68,10 @@ void test_type(void)
     type_register(unsigned int*, NULL, NULL, NULL, NULL);
     type_register(signed char*     **** *****, NULL, NULL, NULL, NULL);
     type_register(long double      **, NULL, NULL, NULL, NULL);
-#ifndef NDEBUG
-    type_debug();
-#endif
+
+    _type_debug();
+
+#ifndef _WIN32
     _type_get_type(&t_type, "short");
     printf("%s:", t_type._sz_typename);
     if(t_type._pt_type != NULL)
@@ -81,6 +84,7 @@ void test_type(void)
     printf("%d\n", _type_is_same("vector_t<abc_t>", "vector_t<struct _tagabc>"));
     printf("%d\n", _type_is_same("map_t<abc_t*,vector_t<pair_t<iterator_t,stack_t<char>>>>",
         "map_t<struct _tagabc*,vector_t<pair_t<string_iterator_t,stack_t<signed char>>>>"));
+#endif
 }
 
 /** local function implementation section **/

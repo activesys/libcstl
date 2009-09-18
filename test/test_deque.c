@@ -946,7 +946,7 @@ void test_deque(void)
     {
         type_register(deqabc_t, NULL, NULL, NULL, NULL);
         type_duplicate(deqabc_t, struct _tagdeqabc);
-        type_debug();
+        _type_debug();
         /* create_deque(), deque_init(), deque_destroy() */
         {
             deque_t* pt_deq = create_deque(deqabc_t);
@@ -2201,14 +2201,334 @@ void test_deque(void)
             deque_destroy(pt_deqex);
         }
         /* deque_push_back() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 234);
+            deque_push_back(pt_deqex, 55);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_push_back(pt_deqex, 5);
+            deque_push_back(pt_deqex, 40);
+            deque_push_back(pt_deqex, 1);
+            deque_push_back(pt_deqex, -58);
+            deque_push_back(pt_deqex, -741);
+            deque_push_back(pt_deqex, 352);
+            deque_push_back(pt_deqex, 9557);
+            deque_push_back(pt_deqex, 575);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_pop_back(pt_deq);
+            deque_pop_front(pt_deq);
+            _printdeque_cstl(pt_deq);
+            deque_pop_back(pt_deq);
+            deque_pop_back(pt_deq);
+            deque_pop_front(pt_deq);
+            deque_pop_front(pt_deq);
+            _printdeque_cstl(pt_deq);
+            deque_pop_front(pt_deq);
+            _printdeque_cstl(pt_deq);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 100);
+            deque_push_back(pt_deqex, 100);
+            deque_push_front(pt_deq, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_pop_back(pt_deq);
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
         /* deque_pop_back() */
         /* deque_push_front() */
         /* deque_pop_front() */
         /* deque_erase() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 234);
+            deque_push_back(pt_deqex, 55);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_push_back(pt_deqex, 5);
+            deque_push_back(pt_deqex, 40);
+            deque_push_back(pt_deqex, 1);
+            deque_push_back(pt_deqex, -58);
+            deque_push_back(pt_deqex, -741);
+            deque_push_back(pt_deqex, 352);
+            deque_push_back(pt_deqex, 9557);
+            deque_push_back(pt_deqex, 575);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_erase(pt_deq, deque_begin(pt_deq));
+            _printdeque_cstl(pt_deq);
+            deque_erase(pt_deq, iterator_prev(deque_end(pt_deq)));
+            _printdeque_cstl(pt_deq);
+            deque_erase(pt_deq, iterator_next(deque_begin(pt_deq)));
+            _printdeque_cstl(pt_deq);
+            deque_erase(pt_deq, iterator_prev_n(deque_end(pt_deq), 2));
+            _printdeque_cstl(pt_deq);
+            deque_erase(pt_deq, deque_begin(pt_deq));
+            deque_erase(pt_deq, deque_begin(pt_deq));
+            deque_erase(pt_deq, deque_begin(pt_deq));
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
         /* deque_erase_range() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 234);
+            deque_push_back(pt_deqex, 55);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_push_back(pt_deqex, 5);
+            deque_push_back(pt_deqex, 40);
+            deque_push_back(pt_deqex, 1);
+            deque_push_back(pt_deqex, -58);
+            deque_push_back(pt_deqex, -741);
+            deque_push_back(pt_deqex, 352);
+            deque_push_back(pt_deqex, 9557);
+            deque_push_back(pt_deqex, 575);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_erase_range(pt_deq,
+                deque_begin(pt_deq), iterator_next_n(deque_begin(pt_deq), 2));
+            _printdeque_cstl(pt_deq);
+            deque_erase_range(pt_deq,
+                iterator_prev_n(deque_end(pt_deq), 2), deque_end(pt_deq));
+            _printdeque_cstl(pt_deq);
+            deque_erase_range(pt_deq,
+                iterator_next(deque_begin(pt_deq)), iterator_prev_n(deque_end(pt_deq), 2));
+            _printdeque_cstl(pt_deq);
+            deque_erase_range(pt_deq,
+                iterator_next(deque_begin(pt_deq)), iterator_prev(deque_end(pt_deq)));
+            _printdeque_cstl(pt_deq);
+            deque_erase_range(pt_deq, deque_begin(pt_deq), deque_end(pt_deq));
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
         /* deque_clear() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_clear(pt_deq);
+            _printdeque_cstl(pt_deq);
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_push_back(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_back(pt_deqex, 555);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 234);
+            deque_push_back(pt_deqex, 55);
+            deque_push_front(pt_deq, pt_deqex);
+            deque_push_back(pt_deqex, 5);
+            deque_push_back(pt_deqex, 40);
+            deque_push_back(pt_deqex, 1);
+            deque_push_back(pt_deqex, -58);
+            deque_push_back(pt_deqex, -741);
+            deque_push_back(pt_deqex, 352);
+            deque_push_back(pt_deqex, 9557);
+            deque_push_back(pt_deqex, 575);
+            deque_push_back(pt_deqex, -555);
+            deque_push_front(pt_deq, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_clear(pt_deq);
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
         /* deque_resize() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            _printdeque_cstl(pt_deq);
+            deque_resize(pt_deq, 4);
+            _printdeque_cstl(pt_deq);
+            deque_resize(pt_deq, 13);
+            _printdeque_cstl(pt_deq);
+            deque_resize(pt_deq, 8);
+            _printdeque_cstl(pt_deq);
+            deque_resize(pt_deq, 0);
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+        }
         /* deque_resize_elem() */
+        {
+            deque_t* pt_deq = create_deque(deque_t<int>);
+            deque_t* pt_deqex = create_deque(int);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_push_back(pt_deqex, 908);
+            deque_push_back(pt_deqex, -223);
+            deque_push_back(pt_deqex, 22);
+            deque_resize_elem(pt_deq, 3, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, -1);
+            deque_resize_elem(pt_deq, 11, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_clear(pt_deqex);
+            deque_push_back(pt_deqex, 0);
+            deque_push_back(pt_deqex, 1999);
+            deque_push_back(pt_deqex, -4);
+            deque_push_back(pt_deqex, 2223);
+            deque_resize_elem(pt_deq, 6, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_clear(pt_deqex);
+            deque_push_front(pt_deqex, -445);
+            deque_push_front(pt_deqex, 2323);
+            deque_resize_elem(pt_deq, 0, pt_deqex);
+            _printdeque_cstl(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
     }
     /* c-string type */
 }

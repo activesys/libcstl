@@ -434,7 +434,7 @@ binary_function_t multimap_key_less(const multimap_t* cpt_multimap)
     return cpt_multimap->_t_tree._t_less;
 }
 
-binary_function_t multimap_value_comp(const multimap_t* cpt_multimap)
+binary_function_t multimap_value_less(const multimap_t* cpt_multimap)
 {
 #ifdef NDEBUG
     multimap_t* pt_avoidwarning = NULL;

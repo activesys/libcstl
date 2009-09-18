@@ -86,7 +86,7 @@ void _algo_accumulate_if_varg(input_iterator_t t_first, input_iterator_t t_last,
         t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _PLUS_FUN);
     }
 
-    _type_get_varg_value(_iterator_get_typeinfo(t_iter), val_elemlist, pv_output);
+    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_output);
     for(t_iter = t_first; !iterator_equal(t_iter, t_last); t_iter = iterator_next(t_iter))
     {
         (*t_binary_op)(pv_output, iterator_get_pointer(t_iter), pv_output);

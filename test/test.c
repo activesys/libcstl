@@ -61,8 +61,9 @@ int main(int argc, char* argv[])
     printf("========== test vector_t ==========\n");
     /*test_vector();*/
     printf("========== test deque_t  ==========\n");
-    test_deque();
-    /*test_list();*/
+    /*test_deque();*/
+    printf("========== test list_t  ==========\n");
+    test_list();
     /*test_slist();*/
     /*test_stack();*/
     /*test_queue();*/

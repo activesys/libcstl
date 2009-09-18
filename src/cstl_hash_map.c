@@ -331,7 +331,7 @@ size_t hash_map_bucket_count(const hash_map_t* cpt_hash_map)
     return _hashtable_bucket_count(&cpt_hash_map->_t_hashtable);
 }
 
-unary_function_t hash_map_hash_func(const hash_map_t* cpt_hash_map)
+unary_function_t hash_map_hash(const hash_map_t* cpt_hash_map)
 {
     assert(cpt_hash_map != NULL);
 

@@ -26,7 +26,9 @@
 #include <string.h>
 #include <time.h>
 #include <stdarg.h>
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 
 #include "citerator.h"
 #include "cvector.h"
