@@ -75,6 +75,8 @@ static void _printlist_user(const list_t* cpt_list);
 static void _remove_first_5(const void* cpv_input, void* pv_output);
 static void _listabc_great(const void* cpv_first, const void* cpv_second, void* pv_output);
 
+static void _printlist_list(const list_t* cpt_list);
+
 /** exported global variable definition section **/
 
 /** local global variable definition section **/
@@ -2284,6 +2286,339 @@ void test_list(void)
         }
     }
     /* for cstl built-in type */
+    {
+        /*create_list         */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            if(pt_list == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            list_destroy(pt_list);
+        }
+        /*list_init           */
+        /*list_init_n         */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            if(pt_list == NULL)
+            {
+                return;
+            }
+            list_init_n(pt_list, 4);
+            _printlist_list(pt_list);
+            list_destroy(pt_list);
+        }
+        /*_list_init_elem     */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(int);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init_elem(pt_listex, 3, 999);
+            list_init_elem(pt_list, 5, pt_listex);
+            _printlist_list(pt_list);
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
+        /*list_init_copy      */
+        {
+            list_t* pt_list1 = create_list(list_t<int>);
+            list_t* pt_list2 = create_list(list_t<signed int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list1 == NULL || pt_list2 == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init_elem(pt_listex, 10, 10);
+            list_init_elem(pt_list2, 10, pt_listex);
+            list_init_copy(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+            list_destroy(pt_list1);
+            list_destroy(pt_list2);
+            list_destroy(pt_listex);
+        }
+        /*list_init_copy_range*/
+        {
+            list_t* pt_list1 = create_list(list_t<int>);
+            list_t* pt_list2 = create_list(list_t<signed int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list1 == NULL || pt_list2 == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list2);
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list2, pt_listex);
+            list_init_copy_range(pt_list1,
+                iterator_advance(list_begin(pt_list2), 2), list_end(pt_list2));
+            _printlist_list(pt_list1);
+            list_destroy(pt_list1);
+            list_destroy(pt_list2);
+            list_destroy(pt_listex);
+        }
+        /*list_destroy        */
+        /*list_size           */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(int);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            list_init(pt_listex);
+            printf("size : %d, empty : %d, max size : %d\n",
+                list_size(pt_list), list_empty(pt_list), list_max_size(pt_list));
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_list, pt_listex);
+            printf("size : %d, empty : %d, max size : %d\n",
+                list_size(pt_list), list_empty(pt_list), list_max_size(pt_list));
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
+        /*list_empty          */
+        /*list_max_size       */
+        /*list_equal          */
+        {
+            list_t* pt_list1 = create_list(list_t<int>);
+            list_t* pt_list2 = create_list(list_t<int>);
+            list_t* pt_listex = create_list(int);
+            if(pt_list1 == NULL || pt_list2 == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_list1);
+            list_init(pt_list2);
+            list_init(pt_listex);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            printf("equal : %d, not equal : %d\n",
+                list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
+            printf("less : %d, less equal : %d\n",
+                list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
+            printf("great : %d, great equal : %d\n",
+                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 200);
+            list_push_back(pt_list1, pt_listex);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            printf("equal : %d, not equal : %d\n",
+                list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
+            printf("less : %d, less equal : %d\n",
+                list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
+            printf("great : %d, great equal : %d\n",
+                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            list_push_back(pt_list2, pt_listex);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            printf("equal : %d, not equal : %d\n",
+                list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
+            printf("less : %d, less equal : %d\n",
+                list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
+            printf("great : %d, great equal : %d\n",
+                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            list_clear(pt_listex);
+            list_push_back(pt_listex, -34);
+            list_push_back(pt_listex, 28);
+            list_push_back(pt_list2, pt_listex);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            printf("equal : %d, not equal : %d\n",
+                list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
+            printf("less : %d, less equal : %d\n",
+                list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
+            printf("great : %d, great equal : %d\n",
+                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            list_push_back(pt_listex, 98);
+            list_push_back(pt_list1, pt_listex);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            printf("equal : %d, not equal : %d\n",
+                list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
+            printf("less : %d, less equal : %d\n",
+                list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
+            printf("great : %d, great equal : %d\n",
+                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            list_push_back(pt_list2, pt_listex);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            printf("equal : %d, not equal : %d\n",
+                list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
+            printf("less : %d, less equal : %d\n",
+                list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
+            printf("great : %d, great equal : %d\n",
+                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            list_destroy(pt_list1);
+            list_destroy(pt_list2);
+            list_destroy(pt_listex);
+        }
+        /*list_not_equal      */
+        /*list_less           */
+        /*list_less_equal     */
+        /*list_great          */
+        /*list_great_equal    */
+        /*list_assign         */
+        {
+            list_t* pt_list1 = create_list(list_t<int>);
+            list_t* pt_list2 = create_list(list_t<signed int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list1 == NULL || pt_list2 == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list2);
+            list_init(pt_list1);
+            list_assign(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list2, pt_listex);
+            list_assign(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+
+            list_clear(pt_list2);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 777);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 91);
+            list_push_back(pt_listex, -17);
+            list_push_back(pt_listex, -22);
+            list_push_back(pt_listex, -9);
+            list_push_back(pt_listex, 11);
+            list_push_back(pt_list2, pt_listex);
+            list_assign(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+
+            list_clear(pt_list2);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 300);
+            list_push_back(pt_list2, pt_listex);
+            list_assign(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+
+            list_clear(pt_list2);
+            list_assign(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+
+            list_destroy(pt_list1);
+            list_destroy(pt_list2);
+            list_destroy(pt_listex);
+        }
+        /*list_assign_elem    */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(int);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            list_init(pt_listex);
+            list_assign_elem(pt_list, 0, pt_listex);
+            _printlist_list(pt_list);
+
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -31234);
+            list_push_back(pt_listex, 0);
+            list_assign_elem(pt_list, 4, pt_listex);
+            _printlist_list(pt_list);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 76031);
+            list_push_back(pt_listex, 98123);
+            list_assign_elem(pt_list, 13, pt_listex);
+            _printlist_list(pt_list);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 342);
+            list_push_back(pt_listex, -8);
+            list_assign_elem(pt_list, 2, pt_listex);
+            _printlist_list(pt_list);
+
+            list_assign_elem(pt_list, 0, pt_listex);
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
+        /*list_assign_range   */
+        /*list_swap           */
+        /*list_front          */
+        /*list_back           */
+        /*list_begin          */
+        /*list_end            */
+        /*_list_insert_n      */
+        /*list_insert_range   */
+        /*_list_push_back     */
+        /*list_pop_back       */
+        /*_list_push_front    */
+        /*list_pop_front      */
+        /*list_erase          */
+        /*list_erase_range    */
+        /*_list_remove        */
+        /*list_remove_if      */
+        /*list_resize         */
+        /*_list_resize_elem   */
+        /*list_clear          */
+        /*list_unique         */
+        /*list_unique_if      */
+        /*list_splice         */
+        /*list_splice_pos     */
+        /*list_splice_range   */
+        /*list_sort           */
+        /*list_sort_if        */
+        /*list_merge          */
+        /*list_merge_if       */
+        /*list_reverse        */
+    }
     /* for c-string type */
     /*create_list         */
     /*list_init           */
@@ -2335,6 +2670,25 @@ void test_list(void)
 }
 
 /** local function implementation section **/
+static void _printlist_list(const list_t* cpt_list)
+{
+    iterator_t t_iter;
+    iterator_t t_iterex;
+    printf("=====================================\n");
+    for(t_iter = list_begin(cpt_list);
+        !iterator_equal(t_iter, list_end(cpt_list));
+        t_iter = iterator_next(t_iter))
+    {
+        for(t_iterex = list_begin(iterator_get_pointer(t_iter));
+            !iterator_equal(t_iterex, list_end(iterator_get_pointer(t_iter)));
+            t_iterex = iterator_next(t_iterex))
+        {
+            printf("%d, ", *(int*)iterator_get_pointer(t_iterex));
+        }
+        printf("\n");
+    }
+}
+
 static void _printlist_user(const list_t* cpt_list)
 {
     iterator_t t_iter;
