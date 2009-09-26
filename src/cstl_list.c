@@ -906,6 +906,7 @@ void list_insert_range(
             _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
         assert(pt_node != NULL);
         pt_node->_pt_next = pt_node->_pt_prev = NULL;
+        _list_init_node_auxiliary(pt_list, pt_node);
         t_result = _GET_LIST_TYPE_SIZE(pt_list);
         _GET_LIST_TYPE_COPY_FUNCTION(pt_list)(
             pt_node->_pc_data, pt_nodeinrange->_pc_data, &t_result);

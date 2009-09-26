@@ -77,6 +77,9 @@ static void _listabc_great(const void* cpv_first, const void* cpv_second, void* 
 
 static void _printlist_list(const list_t* cpt_list);
 
+static void _list_remove_pre(const void* cpv_input, void* pv_output);
+static void _list_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output);
+
 /** exported global variable definition section **/
 
 /** local global variable definition section **/
@@ -2590,25 +2593,1006 @@ void test_list(void)
             list_destroy(pt_listex);
         }
         /*list_assign_range   */
+        {
+            list_t* pt_list1 = create_list(list_t<int>);
+            list_t* pt_list2 = create_list(list_t<signed int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list1 == NULL || pt_list2 == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list2);
+            list_init(pt_list1);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 777);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 91);
+            list_push_back(pt_listex, -17);
+            list_push_back(pt_listex, -22);
+            list_push_back(pt_listex, -9);
+            list_push_back(pt_listex, 11);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 300);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -31234);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 76031);
+            list_push_back(pt_listex, 98123);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 342);
+            list_push_back(pt_listex, -8);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1024);
+            list_push_back(pt_listex, 512);
+            list_push_back(pt_listex, 256);
+            list_push_back(pt_listex, 128);
+            list_push_back(pt_listex, 64);
+            list_push_back(pt_listex, 32);
+            list_push_back(pt_listex, 16);
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 4);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 1);
+            list_push_back(pt_list2, pt_listex);
+            _printlist_list(pt_list2);
+
+            list_assign_range(pt_list1, list_begin(pt_list2), list_begin(pt_list2));
+            _printlist_list(pt_list1);
+            list_assign_range(pt_list1,
+                list_begin(pt_list2), iterator_advance(list_begin(pt_list2), 2));
+            _printlist_list(pt_list1);
+            list_assign_range(pt_list1, iterator_next(list_begin(pt_list2)),
+                iterator_advance(list_end(pt_list2), -2));
+            _printlist_list(pt_list1);
+            list_assign_range(pt_list1,
+                iterator_advance(list_end(pt_list2), -2), list_end(pt_list2));
+            _printlist_list(pt_list1);
+            list_assign_range(pt_list1, list_end(pt_list2), list_end(pt_list2));
+            _printlist_list(pt_list1);
+
+            list_destroy(pt_list1);
+            list_destroy(pt_list2);
+            list_destroy(pt_listex);
+        }
         /*list_swap           */
+        {
+            list_t* pt_list1 = create_list(list_t<int>);
+            list_t* pt_list2 = create_list(list_t<signed int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list1 == NULL || pt_list2 == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list2);
+            list_init(pt_list1);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            list_swap(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 777);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 91);
+            list_push_back(pt_listex, -17);
+            list_push_back(pt_listex, -22);
+            list_push_back(pt_listex, -9);
+            list_push_back(pt_listex, 11);
+            list_push_back(pt_list2, pt_listex);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            list_swap(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 300);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -31234);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 76031);
+            list_push_back(pt_listex, 98123);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 342);
+            list_push_back(pt_listex, -8);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1024);
+            list_push_back(pt_listex, 512);
+            list_push_back(pt_listex, 256);
+            list_push_back(pt_listex, 128);
+            list_push_back(pt_listex, 64);
+            list_push_back(pt_listex, 32);
+            list_push_back(pt_listex, 16);
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 4);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 1);
+            list_push_back(pt_list2, pt_listex);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            list_swap(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+
+            list_clear(pt_list2);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            list_swap(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+
+            list_clear(pt_list2);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+            list_swap(pt_list1, pt_list2);
+            _printlist_list(pt_list1);
+            _printlist_list(pt_list2);
+
+            list_destroy(pt_list1);
+            list_destroy(pt_list2);
+            list_destroy(pt_listex);
+        }
         /*list_front          */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(int);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            list_init(pt_listex);
+            if(list_front(pt_list) != NULL)
+            {
+                list_assign_elem(list_front(pt_list), 4, 90);
+            }
+            if(list_back(pt_list) != NULL)
+            {
+                list_assign_elem(list_back(pt_list), 8, -10);
+            }
+            _printlist_list(pt_list);
+
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 121);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -8);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1000);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 10);
+            list_push_back(pt_listex, 1);
+            list_push_back(pt_list, pt_listex);
+            _printlist_list(pt_list);
+            if(list_front(pt_list) != NULL)
+            {
+                list_assign_elem(list_front(pt_list), 4, 90);
+            }
+            if(list_back(pt_list) != NULL)
+            {
+                list_assign_elem(list_back(pt_list), 8, -10);
+            }
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
         /*list_back           */
         /*list_begin          */
         /*list_end            */
-        /*_list_insert_n      */
+        /*list_insert         */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(int);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            list_init(pt_listex);
+
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 121);
+            list_insert(pt_list, list_begin(pt_list), pt_listex);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -8);
+            list_insert(pt_list, list_end(pt_list), pt_listex);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1000);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 10);
+            list_push_back(pt_listex, 1);
+            list_insert(pt_list, iterator_next(list_begin(pt_list)), pt_listex);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, -555);
+            list_insert(pt_list, list_begin(pt_list), pt_listex);
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
+        /*list_insert_n       */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(int);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            list_init(pt_listex);
+
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 121);
+            list_insert_n(pt_list, list_begin(pt_list), 2, pt_listex);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -8);
+            list_insert_n(pt_list, list_end(pt_list), 4, pt_listex);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1000);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 10);
+            list_push_back(pt_listex, 1);
+            list_insert_n(pt_list, iterator_next(list_begin(pt_list)), 5, pt_listex);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, -555);
+            list_insert_n(pt_list, list_begin(pt_list), 2, pt_listex);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 9999);
+            list_insert_n(pt_list, iterator_advance(list_end(pt_list), -3), 0, pt_listex);
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
         /*list_insert_range   */
-        /*_list_push_back     */
+        {
+            list_t* pt_list1 = create_list(list_t<int>);
+            list_t* pt_list2 = create_list(list_t<signed int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list1 == NULL || pt_list2 == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list2);
+            list_init(pt_list1);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 777);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 91);
+            list_push_back(pt_listex, -17);
+            list_push_back(pt_listex, -22);
+            list_push_back(pt_listex, -9);
+            list_push_back(pt_listex, 11);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 300);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -31234);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 76031);
+            list_push_back(pt_listex, 98123);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 342);
+            list_push_back(pt_listex, -8);
+            list_push_back(pt_list2, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1024);
+            list_push_back(pt_listex, 512);
+            list_push_back(pt_listex, 256);
+            list_push_back(pt_listex, 128);
+            list_push_back(pt_listex, 64);
+            list_push_back(pt_listex, 32);
+            list_push_back(pt_listex, 16);
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 4);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 1);
+            list_push_back(pt_list2, pt_listex);
+            _printlist_list(pt_list2);
+
+            list_insert_range(pt_list1, list_begin(pt_list1),
+                list_begin(pt_list2), list_begin(pt_list2));
+            _printlist_list(pt_list1);
+
+            list_insert_range(pt_list1, list_end(pt_list1),
+                list_begin(pt_list2), iterator_advance(list_begin(pt_list2), 3));
+            _printlist_list(pt_list1);
+
+            list_insert_range(pt_list1, iterator_next(list_begin(pt_list1)),
+                iterator_advance(list_begin(pt_list2), 4),
+                iterator_advance(list_begin(pt_list2), 6));
+            _printlist_list(pt_list1);
+
+            list_insert_range(pt_list1, iterator_advance(list_end(pt_list1), -2),
+                iterator_advance(list_begin(pt_list2), 4), list_end(pt_list2));
+            _printlist_list(pt_list1);
+
+            list_insert_range(pt_list1, iterator_advance(list_end(pt_list1), -2),
+                list_end(pt_list2), list_end(pt_list2));
+            _printlist_list(pt_list1);
+
+            list_destroy(pt_list1);
+            list_destroy(pt_list2);
+            list_destroy(pt_listex);
+        }
+        /*list_push_back      */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list, pt_listex);
+            _printlist_list(pt_list);
+            while(!list_empty(pt_list))
+            {
+                list_pop_front(pt_list);
+            }
+            _printlist_list(pt_list);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 777);
+            list_push_front(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 91);
+            list_push_back(pt_listex, -17);
+            list_push_back(pt_listex, -22);
+            list_push_back(pt_listex, -9);
+            list_push_back(pt_listex, 11);
+            list_push_front(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 300);
+            list_push_front(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -31234);
+            list_push_back(pt_listex, 0);
+            list_push_front(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 76031);
+            list_push_back(pt_listex, 98123);
+            list_push_front(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 342);
+            list_push_back(pt_listex, -8);
+            list_push_front(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1024);
+            list_push_back(pt_listex, 512);
+            list_push_back(pt_listex, 256);
+            list_push_back(pt_listex, 128);
+            list_push_back(pt_listex, 64);
+            list_push_back(pt_listex, 32);
+            list_push_back(pt_listex, 16);
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 4);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 1);
+            list_push_front(pt_list, pt_listex);
+            _printlist_list(pt_list);
+            while(!list_empty(pt_list))
+            {
+                list_pop_back(pt_list);
+            }
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
         /*list_pop_back       */
-        /*_list_push_front    */
+        /*list_push_front     */
         /*list_pop_front      */
         /*list_erase          */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list, pt_listex);
+            _printlist_list(pt_list);
+
+            list_erase(pt_list, iterator_next(list_begin(pt_list)));
+            _printlist_list(pt_list);
+            list_erase(pt_list, iterator_prev(list_end(pt_list)));
+            _printlist_list(pt_list);
+            list_erase(pt_list, list_begin(pt_list));
+            _printlist_list(pt_list);
+            list_erase(pt_list, list_begin(pt_list));
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
         /*list_erase_range    */
-        /*_list_remove        */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 777);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 91);
+            list_push_back(pt_listex, -17);
+            list_push_back(pt_listex, -22);
+            list_push_back(pt_listex, -9);
+            list_push_back(pt_listex, 11);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -31234);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 76031);
+            list_push_back(pt_listex, 98123);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 342);
+            list_push_back(pt_listex, -8);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1024);
+            list_push_back(pt_listex, 512);
+            list_push_back(pt_listex, 256);
+            list_push_back(pt_listex, 128);
+            list_push_back(pt_listex, 64);
+            list_push_back(pt_listex, 32);
+            list_push_back(pt_listex, 16);
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 4);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 1);
+            list_push_back(pt_list, pt_listex);
+            _printlist_list(pt_list);
+
+            list_erase_range(pt_list, list_begin(pt_list), list_begin(pt_list));
+            _printlist_list(pt_list);
+            list_erase_range(pt_list, list_begin(pt_list),
+                iterator_advance(list_begin(pt_list), 2));
+            _printlist_list(pt_list);
+            list_erase_range(pt_list, iterator_next(list_begin(pt_list)),
+                iterator_advance(list_begin(pt_list), 3));
+            _printlist_list(pt_list);
+            list_erase_range(pt_list,
+                iterator_advance(list_end(pt_list), -3), list_end(pt_list));
+            _printlist_list(pt_list);
+            list_erase_range(pt_list, list_begin(pt_list), list_end(pt_list));
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
+        /*list_remove         */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 777);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 91);
+            list_push_back(pt_listex, -17);
+            list_push_back(pt_listex, -22);
+            list_push_back(pt_listex, -9);
+            list_push_back(pt_listex, 11);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -31234);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 76031);
+            list_push_back(pt_listex, 98123);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 342);
+            list_push_back(pt_listex, -8);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1024);
+            list_push_back(pt_listex, 512);
+            list_push_back(pt_listex, 256);
+            list_push_back(pt_listex, 128);
+            list_push_back(pt_listex, 64);
+            list_push_back(pt_listex, 32);
+            list_push_back(pt_listex, 16);
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 4);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 1);
+            list_push_back(pt_list, pt_listex);
+
+            list_assign_elem(pt_listex, 10, -1);
+            list_insert(pt_list, list_begin(pt_list), pt_listex);
+            list_insert_n(pt_list, iterator_advance(list_begin(pt_list), 5), 3, pt_listex);
+            _printlist_list(pt_list);
+
+            list_remove(pt_list, pt_listex);
+            _printlist_list(pt_list);
+            list_assign_elem(pt_listex, 10, 1);
+            list_remove(pt_list, pt_listex);
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
         /*list_remove_if      */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 777);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 91);
+            list_push_back(pt_listex, -17);
+            list_push_back(pt_listex, -22);
+            list_push_back(pt_listex, -9);
+            list_push_back(pt_listex, 11);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -31234);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 76031);
+            list_push_back(pt_listex, 98123);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 342);
+            list_push_back(pt_listex, -8);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1024);
+            list_push_back(pt_listex, 512);
+            list_push_back(pt_listex, 256);
+            list_push_back(pt_listex, 128);
+            list_push_back(pt_listex, 64);
+            list_push_back(pt_listex, 32);
+            list_push_back(pt_listex, 16);
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 4);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 1);
+            list_push_back(pt_list, pt_listex);
+            _printlist_list(pt_list);
+
+            list_remove_if(pt_list, _list_remove_pre);
+            _printlist_list(pt_list);
+            list_remove_if(pt_list, _list_remove_pre);
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
         /*list_resize         */
-        /*_list_resize_elem   */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            if(pt_list == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            list_resize(pt_list, 0);
+            _printlist_list(pt_list);
+            list_resize(pt_list, 3);
+            _printlist_list(pt_list);
+            list_resize(pt_list, 8);
+            _printlist_list(pt_list);
+            list_resize(pt_list, 5);
+            _printlist_list(pt_list);
+            list_resize(pt_list, 0);
+            _printlist_list(pt_list);
+            list_destroy(pt_list);
+        }
+        /*list_resize_elem    */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list);
+
+            list_resize_elem(pt_list, 0, pt_listex);
+            _printlist_list(pt_list);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_resize_elem(pt_list, 4, pt_listex);
+            _printlist_list(pt_list);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_resize_elem(pt_list, 9, pt_listex);
+            _printlist_list(pt_list);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_resize_elem(pt_list, 7, pt_listex);
+            _printlist_list(pt_list);
+
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_resize_elem(pt_list, 0, pt_listex);
+            _printlist_list(pt_list);
+
+            list_clear(pt_list);
+            list_clear(pt_list);
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
         /*list_clear          */
         /*list_unique         */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            list_t* pt_listex = create_list(signed);
+            if(pt_list == NULL || pt_listex == NULL)
+            {
+                return;
+            }
+            list_init(pt_listex);
+            list_init(pt_list);
+
+            list_push_back(pt_listex, 34);
+            list_push_back(pt_listex, -350);
+            list_push_back(pt_listex, -300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -888);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 9000);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 761);
+            list_push_back(pt_listex, 331);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_listex, -1);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 777);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 91);
+            list_push_back(pt_listex, -17);
+            list_push_back(pt_listex, -22);
+            list_push_back(pt_listex, -9);
+            list_push_back(pt_listex, 11);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, 100);
+            list_push_back(pt_listex, 300);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 88);
+            list_push_back(pt_listex, -4);
+            list_push_back(pt_listex, -31234);
+            list_push_back(pt_listex, 0);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 76031);
+            list_push_back(pt_listex, 98123);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 90);
+            list_push_back(pt_listex, 342);
+            list_push_back(pt_listex, -8);
+            list_push_back(pt_list, pt_listex);
+            list_clear(pt_listex);
+            list_push_back(pt_listex, 1024);
+            list_push_back(pt_listex, 512);
+            list_push_back(pt_listex, 256);
+            list_push_back(pt_listex, 128);
+            list_push_back(pt_listex, 64);
+            list_push_back(pt_listex, 32);
+            list_push_back(pt_listex, 16);
+            list_push_back(pt_listex, 8);
+            list_push_back(pt_listex, 4);
+            list_push_back(pt_listex, 2);
+            list_push_back(pt_listex, 1);
+            list_push_back(pt_list, pt_listex);
+
+            list_assign_elem(pt_listex, 10, -1);
+            list_insert(pt_list, list_begin(pt_list), pt_listex);
+            list_insert_n(pt_list, iterator_advance(list_begin(pt_list), 5), 3, pt_listex);
+            _printlist_list(pt_list);
+
+            list_unique(pt_list);
+            _printlist_list(pt_list);
+
+            list_unique_if(pt_list, _list_unique_pre);
+            _printlist_list(pt_list);
+
+            list_destroy(pt_list);
+            list_destroy(pt_listex);
+        }
         /*list_unique_if      */
         /*list_splice         */
         /*list_splice_pos     */
@@ -2670,6 +3654,32 @@ void test_list(void)
 }
 
 /** local function implementation section **/
+static void _list_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = false;
+    if(list_front(cpv_first) != NULL && list_front(cpv_second) != NULL)
+    {
+        if(*(int*)list_front(cpv_first) == *(int*)list_front(cpv_second))
+        {
+            *(bool_t*)pv_output = true;
+        }
+    }
+}
+
+static void _list_remove_pre(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = false;
+    if(list_front(cpv_input) != NULL)
+    {
+        if(*(int*)list_front(cpv_input) == 88)
+        {
+            *(bool_t*)pv_output = true;
+        }
+    }
+}
+
 static void _printlist_list(const list_t* cpt_list)
 {
     iterator_t t_iter;
