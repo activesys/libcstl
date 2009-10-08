@@ -63,8 +63,9 @@ int main(int argc, char* argv[])
     printf("========== test deque_t  ==========\n");
     /*test_deque();*/
     printf("========== test list_t  ==========\n");
-    test_list();
-    /*test_slist();*/
+    /*test_list();*/
+    printf("========== test slist_t  ==========\n");
+    test_slist();
     /*test_stack();*/
     /*test_queue();*/
     /*test_pair();*/
