@@ -1545,7 +1545,14 @@ void _slist_resize_elem_varg(slist_t* pt_slist, size_t t_resize, va_list val_ele
         size_t           t_slistsize = slist_size(pt_slist);
         bool_t           t_result = false;
 
-        t_slistlast = slist_previous(pt_slist, slist_end(pt_slist));
+        if(!slist_empty(pt_slist))
+        {
+            t_slistlast = slist_previous(pt_slist, slist_end(pt_slist));
+        }
+        else
+        {
+            _GET_SLIST_COREPOS(t_slistlast) = (char*)&pt_slist->_t_head;
+        }
 
         /* get varg value only once */
         pt_varg = allocate(&pt_slist->_t_allocater,
@@ -1604,7 +1611,14 @@ void slist_resize(slist_t* pt_slist, size_t t_resize)
         slistnode_t*     pt_slistnode = NULL;
         size_t           t_slistsize = slist_size(pt_slist);
 
-        t_slistlast = slist_previous(pt_slist, slist_end(pt_slist));
+        if(!slist_empty(pt_slist))
+        {
+            t_slistlast = slist_previous(pt_slist, slist_end(pt_slist));
+        }
+        else
+        {
+            _GET_SLIST_COREPOS(t_slistlast) = (char*)&pt_slist->_t_head;
+        }
 
         for(t_index = 0; t_index < t_resize - t_slistsize; ++t_index)
         {

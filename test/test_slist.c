@@ -120,19 +120,132 @@ void test_slist(void)
         }
         /*slist_destroy           */
         /*slist_size              */
+        {
+            slist_t* pt_slist = create_slist(int);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            printf("empty : %d, size : %d, max size : %d\n",
+                slist_empty(pt_slist), slist_size(pt_slist), slist_max_size(pt_slist));
+            slist_push_front(pt_slist, 34);
+            slist_push_front(pt_slist, 90);
+            printf("empty : %d, size : %d, max size : %d\n",
+                slist_empty(pt_slist), slist_size(pt_slist), slist_max_size(pt_slist));
+            slist_destroy(pt_slist);
+        }
         /*slist_empty             */
         /*slist_max_size          */
         /*slist_begin             */
         /*slist_end               */
         /*slist_previous          */
+        {
+            slist_t* pt_slist = create_slist(int);
+            iterator_t t_iter;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_push_front(pt_slist, 34);
+            slist_push_front(pt_slist, 129);
+            slist_push_front(pt_slist, 1111);
+            printf("%d\n", *(int*)iterator_get_pointer(
+                slist_previous(pt_slist, slist_end(pt_slist))));
+            t_iter = iterator_next(slist_begin(pt_slist));
+            printf("%d\n", *(int*)iterator_get_pointer(slist_previous(pt_slist, t_iter)));
+            slist_destroy(pt_slist);
+        }
         /*slist_equal             */
+        {
+            slist_t* pt_slist = create_slist(int);
+            slist_t* pt_slistex = create_slist(int);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            printf("equal : %d, not equal : %d\n",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less : %d, less equal : %d\n",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great : %d, great equal : %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+
+            slist_push_front(pt_slist, 43);
+            printf("equal : %d, not equal : %d\n",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less : %d, less equal : %d\n",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great : %d, great equal : %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+
+            slist_push_front(pt_slistex, 43);
+            printf("equal : %d, not equal : %d\n",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less : %d, less equal : %d\n",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great : %d, great equal : %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+
+            slist_push_front(pt_slistex, 132);
+            printf("equal : %d, not equal : %d\n",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less : %d, less equal : %d\n",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great : %d, great equal : %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+
+            slist_push_front(pt_slist, 100);
+            slist_push_front(pt_slist, 12);
+            printf("equal : %d, not equal : %d\n",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less : %d, less equal : %d\n",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great : %d, great equal : %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+
+            slist_push_front(pt_slistex, 1);
+            printf("equal : %d, not equal : %d\n",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less : %d, less equal : %d\n",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great : %d, great equal : %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_not_equal         */
         /*slist_less              */
         /*slist_less_equal        */
         /*slist_great             */
         /*slist_great_equal       */
         /*slist_assign            */
-        /*_slist_assign_elem      */
+        {
+            slist_t* pt_slist = create_slist(long double);
+            slist_t* pt_slistex = create_slist(long double);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_assign(pt_slist, pt_slistex);
+            _printslist_c(pt_slist, "%Lf, ", long double);
+            slist_push_front(pt_slistex, 34.980);
+            slist_push_front(pt_slistex, -0.01);
+            slist_push_front(pt_slistex, 44.0912);
+            slist_assign(pt_slist, pt_slistex);
+            printf("size:%d\n", slist_size(pt_slist));
+            _printslist_c(pt_slistex, "%Lf, ", long double);
+            _printslist_c(pt_slist, "%Lf, ", long double);
+            printf("%Lf\n", *(long double*)iterator_get_pointer(slist_begin(pt_slist)));
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_assign_elem       */
         /*slist_assign_range      */
         /*slist_swap              */
         /*slist_front             */
@@ -163,7 +276,43 @@ void test_slist(void)
         /*slist_merge             */
         /*slist_merge_if          */
         /*slist_resize            */
-        /*_slist_resize_elem      */
+        {
+            slist_t* pt_slist = create_slist(int);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_resize(pt_slist, 3);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_resize(pt_slist, 10);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_resize(pt_slist, 4);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_resize(pt_slist, 0);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_destroy(pt_slist);
+        }
+        /*slist_resize_elem       */
+        {
+            slist_t* pt_slist = create_slist(int);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_resize_elem(pt_slist, 3, 100);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_resize_elem(pt_slist, 10, 200);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_resize_elem(pt_slist, 4, 300);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_resize_elem(pt_slist, 0, 400);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_destroy(pt_slist);
+        }
         /*slist_clear             */
     }
     /* user defined type */
