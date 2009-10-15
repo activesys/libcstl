@@ -41,6 +41,7 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
+static void _slist_remove_pred(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -246,16 +247,230 @@ void test_slist(void)
             slist_destroy(pt_slistex);
         }
         /*slist_assign_elem       */
+        {
+            slist_t* pt_slist = create_slist(double);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_assign_elem(pt_slist, 3, -90.334);
+            _printslist_c(pt_slist, "%g, ", double);
+            slist_assign_elem(pt_slist, 21, 0.0209);
+            _printslist_c(pt_slist, "%g, ", double);
+            slist_assign_elem(pt_slist, 7, -0.00002);
+            _printslist_c(pt_slist, "%g, ", double);
+            slist_assign_elem(pt_slist, 0, 88.88);
+            _printslist_c(pt_slist, "%g, ", double);
+            slist_destroy(pt_slist);
+        }
         /*slist_assign_range      */
+        {
+            slist_t* pt_slist = create_slist(int);
+            slist_t* pt_slistex = create_slist(signed);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_push_front(pt_slistex, 34);
+            slist_push_front(pt_slistex, -88);
+            slist_push_front(pt_slistex, 2009);
+            slist_push_front(pt_slistex, 12345);
+            slist_push_front(pt_slistex, -9888);
+            slist_push_front(pt_slistex, 2);
+            slist_push_front(pt_slistex, -9);
+            slist_push_front(pt_slistex, -222);
+            slist_push_front(pt_slistex, 2);
+            slist_push_front(pt_slistex, 70);
+            slist_push_front(pt_slistex, 21);
+            slist_push_front(pt_slistex, 2222);
+            slist_push_front(pt_slistex, 37);
+            _printslist_c(pt_slistex, "%d, ", int);
+            slist_assign_range(pt_slist, slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_assign_range(pt_slist, slist_begin(pt_slistex),
+                iterator_advance(slist_begin(pt_slistex), 2));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_assign_range(pt_slist, iterator_advance(slist_begin(pt_slistex), 1),
+                iterator_advance(slist_begin(pt_slistex), 10));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_assign_range(pt_slist, iterator_advance(slist_begin(pt_slistex), 10),
+                slist_end(pt_slistex));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_assign_range(pt_slist, slist_end(pt_slistex), slist_end(pt_slistex));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_swap              */
+        {
+            slist_t* pt_slist = create_slist(unsigned long);
+            slist_t* pt_slistex = create_slist(unsigned long int);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_swap(pt_slist, pt_slistex);
+            _printslist_c(pt_slist, "%lu, ", unsigned long);
+            _printslist_c(pt_slistex, "%lu, ", unsigned long);
+            slist_push_front(pt_slistex, 3);
+            slist_push_front(pt_slistex, 9);
+            slist_push_front(pt_slistex, 0);
+            slist_swap(pt_slist, pt_slistex);
+            _printslist_c(pt_slist, "%lu, ", unsigned long);
+            _printslist_c(pt_slistex, "%lu, ", unsigned long);
+            slist_push_front(pt_slistex, -2);
+            slist_push_front(pt_slistex, -9);
+            slist_push_front(pt_slistex, -2);
+            slist_push_front(pt_slistex, -111);
+            slist_push_front(pt_slistex, -44);
+            slist_swap(pt_slist, pt_slistex);
+            _printslist_c(pt_slist, "%lu, ", unsigned long);
+            _printslist_c(pt_slistex, "%lu, ", unsigned long);
+            slist_clear(pt_slistex);
+            slist_swap(pt_slist, pt_slistex);
+            _printslist_c(pt_slist, "%lu, ", unsigned long);
+            _printslist_c(pt_slistex, "%lu, ", unsigned long);
+            slist_clear(pt_slistex);
+            slist_swap(pt_slist, pt_slistex);
+            _printslist_c(pt_slist, "%lu, ", unsigned long);
+            _printslist_c(pt_slistex, "%lu, ", unsigned long);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_front             */
-        /*_slist_push_front       */
+        {
+            slist_t* pt_slist = create_slist(int);
+            size_t t_index = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                slist_push_front(pt_slist, t_index + 100);
+            }
+            while(!slist_empty(pt_slist))
+            {
+                if(slist_front(pt_slist) != NULL)
+                {
+                    printf("%d, ", *(int*)slist_front(pt_slist));
+                    slist_pop_front(pt_slist);
+                }
+            }
+            printf("\n");
+            slist_destroy(pt_slist);
+        }
+        /*slist_push_front        */
         /*slist_pop_front         */
-        /*_slist_insert           */
-        /*_slist_insert_n         */
+        /*slist_insert            */
+        {
+            slist_t* pt_slist = create_slist(char);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_insert(pt_slist, slist_end(pt_slist), 'Y');
+            _printslist_c(pt_slist, "%c, ", char);
+            slist_insert(pt_slist, slist_begin(pt_slist), 'O');
+            _printslist_c(pt_slist, "%c, ", char);
+            slist_insert(pt_slist, slist_end(pt_slist), 'U');
+            _printslist_c(pt_slist, "%c, ", char);
+            slist_insert(pt_slist, iterator_advance(slist_begin(pt_slist), 2), 'X');
+            _printslist_c(pt_slist, "%c, ", char);
+            slist_destroy(pt_slist);
+        }
+        /*slist_insert_n          */
+        {
+            slist_t* pt_slist = create_slist(char);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_insert_n(pt_slist, slist_end(pt_slist), 3, 'Y');
+            _printslist_c(pt_slist, "%c, ", char);
+            slist_insert_n(pt_slist, slist_begin(pt_slist), 7, 'O');
+            _printslist_c(pt_slist, "%c, ", char);
+            slist_insert_n(pt_slist, slist_end(pt_slist), 2, 'U');
+            _printslist_c(pt_slist, "%c, ", char);
+            slist_insert_n(pt_slist, iterator_advance(slist_begin(pt_slist), 2), 2, 'X');
+            _printslist_c(pt_slist, "%c, ", char);
+            slist_insert_n(pt_slist, iterator_advance(slist_begin(pt_slist), 2), 0, 'w');
+            _printslist_c(pt_slist, "%c, ", char);
+            slist_destroy(pt_slist);
+        }
         /*slist_insert_range      */
-        /*_slist_insert_after     */
-        /*_slist_insert_after_n   */
+        {
+            slist_t* pt_slist = create_slist(int);
+            slist_t* pt_slistex = create_slist(signed int);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_push_front(pt_slistex, 34);
+            slist_push_front(pt_slistex, -88);
+            slist_push_front(pt_slistex, 2009);
+            slist_push_front(pt_slistex, 12345);
+            slist_push_front(pt_slistex, -9888);
+            slist_push_front(pt_slistex, 2);
+            slist_push_front(pt_slistex, -9);
+            slist_push_front(pt_slistex, -222);
+            slist_push_front(pt_slistex, 2);
+            slist_push_front(pt_slistex, 70);
+            slist_push_front(pt_slistex, 21);
+            slist_push_front(pt_slistex, 2222);
+            slist_push_front(pt_slistex, 37);
+            _printslist_c(pt_slistex, "%d, ", int);
+            slist_insert_range(pt_slist, slist_begin(pt_slist),
+                slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_insert_range(pt_slist, slist_end(pt_slist),
+                slist_begin(pt_slistex), iterator_advance(slist_begin(pt_slistex), 2));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_insert_range(pt_slist, slist_begin(pt_slist),
+                iterator_advance(slist_begin(pt_slistex), 2),
+                iterator_advance(slist_begin(pt_slistex), 4));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_insert_range(pt_slist, iterator_advance(slist_begin(pt_slist), 3),
+                iterator_advance(slist_begin(pt_slistex), 3),
+                iterator_advance(slist_begin(pt_slistex), 6));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_insert_range(pt_slist, iterator_advance(slist_begin(pt_slist), 5),
+                iterator_advance(slist_begin(pt_slistex), 10), slist_end(pt_slistex));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_insert_range(pt_slist, slist_end(pt_slist),
+                slist_begin(pt_slistex), slist_end(pt_slistex));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_insert_range(pt_slist, slist_end(pt_slist),
+                slist_end(pt_slistex), slist_end(pt_slistex));
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_insert_after      */
+        {
+            /*
+            slist_t* pt_slist = create_slist(int);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_insert_after(pt_slist, slist_begin(pt_slist), 44);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_destroy(pt_slist);
+            */
+        }
+        /*slist_insert_after_n    */
         /*slist_insert_after_range*/
         /*slist_erase             */
         /*slist_erase_range       */
@@ -266,9 +481,83 @@ void test_slist(void)
         /*slist_splice_range      */
         /*slist_splice_after_pos  */
         /*slist_splice_after_range*/
-        /*_slist_remove           */
+        /*slist_remove            */
+        {
+            slist_t* pt_slist = create_slist(int);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_remove(pt_slist, 100);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_push_front(pt_slist, 29);
+            slist_push_front(pt_slist, 34);
+            slist_push_front(pt_slist, 100);
+            slist_push_front(pt_slist, 200);
+            slist_push_front(pt_slist, 2);
+            slist_push_front(pt_slist, 7);
+            slist_push_front(pt_slist, 100);
+            slist_push_front(pt_slist, 33);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_remove(pt_slist, 100);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_remove(pt_slist, 100);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_destroy(pt_slist);
+        }
         /*slist_remove_if         */
+        {
+            slist_t* pt_slist = create_slist(int);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_remove_if(pt_slist, _slist_remove_pred);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_push_front(pt_slist, 29);
+            slist_push_front(pt_slist, 35);
+            slist_push_front(pt_slist, 100);
+            slist_push_front(pt_slist, 200);
+            slist_push_front(pt_slist, 2);
+            slist_push_front(pt_slist, 7);
+            slist_push_front(pt_slist, 100);
+            slist_push_front(pt_slist, 33);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_remove_if(pt_slist, _slist_remove_pred);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_remove_if(pt_slist, _slist_remove_pred);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_destroy(pt_slist);
+        }
         /*slist_unique            */
+        {
+            slist_t* pt_slist = create_slist(int);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_unique(pt_slist);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_push_front(pt_slist, 29);
+            slist_push_front(pt_slist, 34);
+            slist_push_front(pt_slist, 100);
+            slist_push_front(pt_slist, 100);
+            slist_push_front(pt_slist, 200);
+            slist_push_front(pt_slist, 2);
+            slist_push_front(pt_slist, 7);
+            slist_push_front(pt_slist, 7);
+            slist_push_front(pt_slist, 100);
+            slist_push_front(pt_slist, 33);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_unique(pt_slist);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_unique(pt_slist);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_destroy(pt_slist);
+        }
         /*slist_unique_if         */
         /*slist_reverse           */
         /*slist_sort              */
@@ -314,6 +603,24 @@ void test_slist(void)
             slist_destroy(pt_slist);
         }
         /*slist_clear             */
+        {
+            slist_t* pt_slist = create_slist(int);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_clear(pt_slist);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_push_front(pt_slist, 1);
+            slist_push_front(pt_slist, 9);
+            slist_push_front(pt_slist, 28);
+            slist_push_front(pt_slist, -22);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_clear(pt_slist);
+            _printslist_c(pt_slist, "%d, ", int);
+            slist_destroy(pt_slist);
+        }
     }
     /* user defined type */
     {
@@ -380,6 +687,18 @@ void test_slist(void)
 }
 
 /** local function implementation section **/
+static void _slist_remove_pred(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    if(*(int*)cpv_input % 5 == 0)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
 
 /** eof **/
 
