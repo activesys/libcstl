@@ -50,6 +50,12 @@ typedef struct _tagcoordinates
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
+static void _slist_unique_coor_pred(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _slist_sort_coor_pred(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _slist_remove_coor_pred1(const void* cpv_input, void* pv_output);
+static void _slist_remove_coor_pred2(const void* cpv_input, void* pv_output);
 static void _printcoordinates(const slist_t* cpt_slist);
 static void _coordinates_init(const void* cpv_input, void* pv_output);
 static void _coordinates_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -1901,29 +1907,778 @@ void test_slist(void)
             slist_destroy(pt_slistex);
         }
         /*slist_insert_after      */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 10);
+            _printcoordinates(pt_slist);
+            t_coor.x = t_coor.y = t_coor.z = 100;
+            slist_insert_after(pt_slist, slist_begin(pt_slist), &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = t_coor.y = t_coor.z = 200;
+            slist_insert_after(pt_slist, iterator_advance(slist_begin(pt_slist), 5), &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = t_coor.y = t_coor.z = 300;
+            slist_insert_after(pt_slist,
+                slist_previous(pt_slist, slist_end(pt_slist)), &t_coor);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_insert_after_n    */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 10);
+            _printcoordinates(pt_slist);
+            t_coor.x = t_coor.y = t_coor.z = 1;
+            slist_insert_after_n(pt_slist, slist_begin(pt_slist), 0, &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = t_coor.y = t_coor.z = 100;
+            slist_insert_after_n(pt_slist, slist_begin(pt_slist), 3, &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = t_coor.y = t_coor.z = 200;
+            slist_insert_after_n(pt_slist,
+                iterator_advance(slist_begin(pt_slist), 5), 4, &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = t_coor.y = t_coor.z = 300;
+            slist_insert_after_n(pt_slist,
+                slist_previous(pt_slist, slist_end(pt_slist)), 5, &t_coor);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_insert_after_range*/
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            slist_t* pt_slistex = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 10);
+            slist_init(pt_slistex);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i;
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_insert_after_range(pt_slist, slist_begin(pt_slist),
+                slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _printcoordinates(pt_slist);
+            slist_insert_after_range(pt_slist, slist_begin(pt_slist),
+                slist_begin(pt_slistex), iterator_advance(slist_begin(pt_slistex), 3));
+            _printcoordinates(pt_slist);
+            slist_insert_after_range(pt_slist, iterator_advance(slist_begin(pt_slist), 3),
+                iterator_advance(slist_begin(pt_slistex), 3),
+                iterator_advance(slist_begin(pt_slistex), 6));
+            _printcoordinates(pt_slist);
+            slist_insert_after_range(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)),
+                iterator_advance(slist_begin(pt_slistex), 7),
+                slist_previous(pt_slistex, slist_end(pt_slistex)));
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_erase             */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i;
+                slist_push_front(pt_slist, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_erase(pt_slist, slist_begin(pt_slist));
+            _printcoordinates(pt_slist);
+            slist_erase(pt_slist, iterator_advance(slist_begin(pt_slist), 4));
+            _printcoordinates(pt_slist);
+            slist_erase(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)));
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_erase_range       */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_erase_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
+            _printcoordinates(pt_slist);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i;
+                slist_push_front(pt_slist, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_erase_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slist));
+            _printcoordinates(pt_slist);
+            slist_erase_range(pt_slist,
+                slist_begin(pt_slist), iterator_advance(slist_begin(pt_slist), 3));
+            _printcoordinates(pt_slist);
+            slist_erase_range(pt_slist,
+                iterator_advance(slist_begin(pt_slist), 3),
+                iterator_advance(slist_begin(pt_slist), 5));
+            _printcoordinates(pt_slist);
+            slist_erase_range(pt_slist,
+                slist_previous(pt_slist, slist_end(pt_slist)), slist_end(pt_slist));
+            _printcoordinates(pt_slist);
+            slist_erase_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_erase_after       */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i;
+                slist_push_front(pt_slist, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_erase_after(pt_slist, slist_begin(pt_slist));
+            _printcoordinates(pt_slist);
+            slist_erase_after(pt_slist, iterator_advance(slist_begin(pt_slist), 4));
+            _printcoordinates(pt_slist);
+            slist_erase_after(pt_slist,
+                slist_previous(pt_slist, slist_previous(pt_slist, slist_end(pt_slist))));
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_erase_after_range */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i;
+                slist_push_front(pt_slist, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slist));
+            _printcoordinates(pt_slist);
+            slist_erase_after_range(pt_slist,
+                slist_begin(pt_slist), iterator_advance(slist_begin(pt_slist), 3));
+            _printcoordinates(pt_slist);
+            slist_erase_after_range(pt_slist,
+                iterator_advance(slist_begin(pt_slist), 3),
+                iterator_advance(slist_begin(pt_slist), 5));
+            _printcoordinates(pt_slist);
+            slist_erase_after_range(pt_slist,
+                iterator_advance(slist_begin(pt_slist), 3), slist_end(pt_slist));
+            _printcoordinates(pt_slist);
+            slist_erase_after_range(pt_slist,
+                slist_previous(pt_slist, slist_end(pt_slist)), slist_end(pt_slist));
+            _printcoordinates(pt_slist);
+            slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_splice            */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            slist_t* pt_slistex = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_splice(pt_slist, slist_begin(pt_slist), pt_slistex);
+            t_coor.x = t_coor.y = t_coor.z = 0;
+            slist_insert_n(pt_slist, slist_begin(pt_slist), 10, &t_coor);
+            _printcoordinates(pt_slist);
+            slist_splice(pt_slist, slist_begin(pt_slist), pt_slistex);
+            _printcoordinates(pt_slist);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i + 1;
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            _printcoordinates(pt_slistex);
+            slist_splice(pt_slist, slist_begin(pt_slist), pt_slistex);
+            _printcoordinates(pt_slist);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = (i + 1) * 10;
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            _printcoordinates(pt_slistex);
+            slist_splice(pt_slist, iterator_advance(slist_begin(pt_slist), 11), pt_slistex);
+            _printcoordinates(pt_slist);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = (i + 1) * 100;
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            _printcoordinates(pt_slistex);
+            slist_splice(pt_slist, slist_end(pt_slist), pt_slistex);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_splice_pos        */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            slist_t* pt_slistex = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i + 1;
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            _printcoordinates(pt_slistex);
+            slist_splice_pos(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_pos(pt_slist, slist_begin(pt_slist),
+                pt_slistex, iterator_next(slist_begin(pt_slistex)));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_pos(pt_slist, slist_end(pt_slist),
+                pt_slistex, slist_previous(pt_slistex, slist_end(pt_slistex)));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_pos(pt_slist, iterator_advance(slist_begin(pt_slist), 2),
+                pt_slistex, iterator_advance(slist_begin(pt_slistex), 3));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_splice_range      */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            slist_t* pt_slistex = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_splice_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex), slist_end(pt_slistex));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            for(i = 0; i < 20; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i + 1;
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            _printcoordinates(pt_slistex);
+            slist_splice_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex),
+                iterator_advance(slist_begin(pt_slistex), 3));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, iterator_advance(slist_begin(pt_slistex), 2),
+                iterator_advance(slist_begin(pt_slistex), 5));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_range(pt_slist, iterator_advance(slist_begin(pt_slist), 3),
+                pt_slistex, iterator_advance(slist_begin(pt_slistex), 5),
+                slist_end(pt_slistex));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_range(pt_slist, slist_end(pt_slist),
+                pt_slistex, slist_end(pt_slistex), slist_end(pt_slistex));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_range(pt_slist, slist_end(pt_slist),
+                pt_slistex, slist_begin(pt_slistex), slist_end(pt_slistex));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_splice_after_pos  */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            slist_t* pt_slistex = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 10);
+            slist_init(pt_slistex);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i + 1;
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_after_pos(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_after_pos(pt_slist, iterator_advance(slist_begin(pt_slist), 5),
+                pt_slistex, iterator_advance(slist_begin(pt_slistex), 5));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_after_pos(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)),
+                pt_slistex, slist_previous(pt_slistex, slist_previous(
+                    pt_slistex, slist_end(pt_slistex))));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_splice_after_range*/
-        /*_slist_remove           */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            slist_t* pt_slistex = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 10);
+            slist_init(pt_slistex);
+            for(i = 0; i < 20; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i + 1;
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_after_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_after_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex),
+                iterator_advance(slist_begin(pt_slistex), 3));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_after_range(pt_slist, iterator_advance(slist_begin(pt_slist), 2),
+                pt_slistex, iterator_advance(slist_begin(pt_slistex), 3),
+                iterator_advance(slist_begin(pt_slistex), 5));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_after_range(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)),
+                pt_slistex, iterator_advance(slist_begin(pt_slistex), 5),
+                slist_previous(pt_slistex, slist_end(pt_slistex)));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_after_range(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)),
+                pt_slistex, slist_previous(pt_slistex, slist_end(pt_slistex)),
+                slist_previous(pt_slistex, slist_end(pt_slistex)));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_splice_after_range(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)),
+                pt_slistex, slist_begin(pt_slistex),
+                slist_previous(pt_slistex, slist_end(pt_slistex)));
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_remove            */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 5);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i;
+                slist_push_front(pt_slist, &t_coor);
+            }
+            t_coor.x = t_coor.y = t_coor.z = 3;
+            slist_insert_n(pt_slist, iterator_advance(slist_begin(pt_slist), 5), 2, &t_coor);
+            t_coor.x = t_coor.y = t_coor.z = 7;
+            slist_insert_n(pt_slist, slist_end(pt_slist), 4, &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = t_coor.y = t_coor.z = 33;
+            slist_remove(pt_slist, &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = t_coor.y = t_coor.z = 0;
+            slist_remove(pt_slist, &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = 6;
+            t_coor.y = 7;
+            t_coor.z = 8;
+            slist_remove(pt_slist, &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = 0;
+            t_coor.y = 7;
+            t_coor.z = 10;
+            slist_remove(pt_slist, &t_coor);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_remove_if         */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 3);
+            for(i = 0; i < 5; ++i)
+            {
+                t_coor.x = i;
+                t_coor.y = i * 10;
+                t_coor.z = i * 100;
+                slist_push_front(pt_slist, &t_coor);
+            }
+            for(i = 0; i < 3; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i + 1;
+                slist_insert(pt_slist, slist_end(pt_slist), &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_remove_if(pt_slist, _slist_remove_coor_pred1);
+            _printcoordinates(pt_slist);
+            slist_remove_if(pt_slist, _slist_remove_coor_pred1);
+            _printcoordinates(pt_slist);
+            slist_remove_if(pt_slist, _slist_remove_coor_pred2);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_unique            */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_unique(pt_slist);
+            _printcoordinates(pt_slist);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i + 1;
+                slist_push_front(pt_slist, &t_coor);
+                slist_push_front(pt_slist, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_unique(pt_slist);
+            _printcoordinates(pt_slist);
+            slist_unique(pt_slist);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_unique_if         */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_unique_if(pt_slist, _slist_unique_coor_pred);
+            _printcoordinates(pt_slist);
+            for(i = 0; i < 10; ++i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i + 1;
+                slist_push_front(pt_slist, &t_coor);
+            }
+            for(i = 100; i > 90; --i)
+            {
+                t_coor.x = t_coor.y = t_coor.z = i;
+                slist_push_front(pt_slist, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_unique_if(pt_slist, _slist_unique_coor_pred);
+            _printcoordinates(pt_slist);
+            slist_unique_if(pt_slist, _slist_unique_coor_pred);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_reverse           */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int n_count = 0;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_reverse(pt_slist);
+            _printcoordinates(pt_slist);
+            srand((unsigned)time(NULL) + 31);
+            n_count = rand() % 30;
+            for(i = 0; i < n_count; ++i)
+            {
+                t_coor.x = rand() - rand();
+                t_coor.y = rand() - rand();
+                t_coor.z = rand() - rand();
+                slist_push_front(pt_slist, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_reverse(pt_slist);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_sort              */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int n_count = 0;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_sort(pt_slist);
+            _printcoordinates(pt_slist);
+            srand((unsigned)time(NULL) + 31);
+            n_count = rand() % 100;
+            for(i = 0; i < n_count; ++i)
+            {
+                t_coor.x = rand() - rand();
+                t_coor.y = rand() - rand();
+                t_coor.z = rand() - rand();
+                slist_push_front(pt_slist, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_sort(pt_slist);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_sort_if           */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int n_count = 0;
+            int i = 0;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_sort_if(pt_slist, _slist_sort_coor_pred);
+            _printcoordinates(pt_slist);
+            srand((unsigned)time(NULL) + 31);
+            n_count = rand() % 100;
+            for(i = 0; i < n_count; ++i)
+            {
+                t_coor.x = rand() - rand();
+                t_coor.y = rand() - rand();
+                t_coor.z = rand() - rand();
+                slist_push_front(pt_slist, &t_coor);
+            }
+            _printcoordinates(pt_slist);
+            slist_sort_if(pt_slist, _slist_sort_coor_pred);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_merge             */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            slist_t* pt_slistex = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int n_count = 0;
+            int i = 0;
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_merge(pt_slist, pt_slistex);
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            srand((unsigned)time(NULL) + 1111);
+            n_count = rand() % 30;
+            for(i = 0; i < n_count; ++i)
+            {
+                t_coor.x = rand() - rand();
+                t_coor.y = rand() - rand();
+                t_coor.z = rand() - rand();
+                slist_push_front(pt_slist, &t_coor);
+            }
+            slist_sort(pt_slist);
+            _printcoordinates(pt_slist);
+            n_count = rand() % 30;
+            for(i = 0; i < n_count; ++i)
+            {
+                t_coor.x = rand() - rand();
+                t_coor.y = rand() - rand();
+                t_coor.z = rand() - rand();
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            slist_sort(pt_slistex);
+            _printcoordinates(pt_slistex);
+            slist_merge(pt_slist, pt_slistex);
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_merge_if          */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            slist_t* pt_slistex = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            int n_count = 0;
+            int i = 0;
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_merge_if(pt_slist, pt_slistex, _slist_sort_coor_pred);
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            srand((unsigned)time(NULL) + 1111);
+            n_count = rand() % 30;
+            for(i = 0; i < n_count; ++i)
+            {
+                t_coor.x = rand() - rand();
+                t_coor.y = rand() - rand();
+                t_coor.z = rand() - rand();
+                slist_push_front(pt_slist, &t_coor);
+            }
+            slist_sort_if(pt_slist, _slist_sort_coor_pred);
+            _printcoordinates(pt_slist);
+            n_count = rand() % 30;
+            for(i = 0; i < n_count; ++i)
+            {
+                t_coor.x = rand() - rand();
+                t_coor.y = rand() - rand();
+                t_coor.z = rand() - rand();
+                slist_push_front(pt_slistex, &t_coor);
+            }
+            slist_sort_if(pt_slistex, _slist_sort_coor_pred);
+            _printcoordinates(pt_slistex);
+            slist_merge_if(pt_slist, pt_slistex, _slist_sort_coor_pred);
+            _printcoordinates(pt_slist);
+            _printcoordinates(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
         /*slist_resize            */
-        /*_slist_resize_elem      */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            _printcoordinates(pt_slist);
+            slist_resize(pt_slist, 4);
+            _printcoordinates(pt_slist);
+            slist_resize(pt_slist, 11);
+            _printcoordinates(pt_slist);
+            slist_resize(pt_slist, 7);
+            _printcoordinates(pt_slist);
+            slist_resize(pt_slist, 0);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_resize_elem       */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            coordinates_t t_coor;
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            _printcoordinates(pt_slist);
+            t_coor.x = 8;
+            t_coor.y = 33;
+            t_coor.z = 128;
+            slist_resize_elem(pt_slist, 4, &t_coor);
+            _printcoordinates(pt_slist);
+            t_coor.x = 21;
+            t_coor.y = -66;
+            t_coor.z = -55;
+            slist_resize_elem(pt_slist, 11, &t_coor);
+            _printcoordinates(pt_slist);
+            slist_resize(pt_slist, 7);
+            _printcoordinates(pt_slist);
+            slist_resize(pt_slist, 0);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
         /*slist_clear             */
+        {
+            slist_t* pt_slist = create_slist(coordinates_t);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_clear(pt_slist);
+            _printcoordinates(pt_slist);
+            slist_resize(pt_slist, 3);
+            _printcoordinates(pt_slist);
+            slist_clear(pt_slist);
+            _printcoordinates(pt_slist);
+            slist_destroy(pt_slist);
+        }
     }
     /* cstl built-in type */
     {
@@ -1987,6 +2742,64 @@ void test_slist(void)
 }
 
 /** local function implementation section **/
+static void _slist_sort_coor_pred(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(((coordinates_t*)cpv_first)->x < ((coordinates_t*)cpv_second)->x)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _slist_unique_coor_pred(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(((coordinates_t*)cpv_first)->x < ((coordinates_t*)cpv_second)->x &&
+       ((coordinates_t*)cpv_first)->y < ((coordinates_t*)cpv_second)->y &&
+       ((coordinates_t*)cpv_first)->z < ((coordinates_t*)cpv_second)->z)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _slist_remove_coor_pred2(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    if(((coordinates_t*)cpv_input)->x * 10 == ((coordinates_t*)cpv_input)->y &&
+       ((coordinates_t*)cpv_input)->x * 100 == ((coordinates_t*)cpv_input)->z)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _slist_remove_coor_pred1(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    if(((coordinates_t*)cpv_input)->x == ((coordinates_t*)cpv_input)->y &&
+       ((coordinates_t*)cpv_input)->x == ((coordinates_t*)cpv_input)->z)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
 static void _printcoordinates(const slist_t* cpt_slist)
 {
     iterator_t t_iter;
