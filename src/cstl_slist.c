@@ -1740,7 +1740,7 @@ bool_t slist_less_equal(
 bool_t slist_great(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond)
 {
-    return !slist_less_equal(cpt_slistfirst, cpt_slistsecond);
+    return slist_less(cpt_slistsecond, cpt_slistfirst);
 }
 
 bool_t slist_great_equal(
