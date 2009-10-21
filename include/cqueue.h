@@ -30,6 +30,7 @@ extern "C" {
 /** include section **/
 #include "cdeque.h"
 #include "clist.h"
+#include "cvector.h"
 
 #include "cstl_queue_private.h"
 #include "cstl_queue.h"

@@ -24,7 +24,7 @@
 CC = gcc
 CFLAGS = -c -g -ansi -Wall -Wextra -fPIC#-DNDEBUG
 CPPFLAGS = -I include
-LINKSOFLAGS = -shared -Wl,-soname,libcstl.so.1
+LINKSOFLAGS = -shared -Wl,-soname,libcstl.so.2
 
 ARFLAGS = ruv
 
@@ -72,7 +72,7 @@ $(ARTARGET): $(addprefix $(BINDIR)/,$(OBJS))
 $(SOTARGET): $(addprefix $(BINDIR)/,$(OBJS))
 	$(CC) $^ $(LINKSOFLAGS) -o $@
 
-$(TESTTARGET): $(addprefix $(BINDIR)/,$(TESTOBJ)) $(ARTARGET)
+$(TESTTARGET): $(addprefix $(BINDIR)/,$(TESTOBJ))
 	$(CC) $^ $(ARTARGET) -o $@
 
 # include depend file

@@ -65,9 +65,11 @@ int main(int argc, char* argv[])
     printf("========== test list_t  ==========\n");
     /*test_list();*/
     printf("========== test slist_t  ==========\n");
-    test_slist();
+    /*test_slist();*/
+    printf("========== test stack_t  ==========\n");
     /*test_stack();*/
-    /*test_queue();*/
+    printf("========== test queue_t  ==========\n");
+    test_queue();
     /*test_pair();*/
     /*test_basic_string();*/
     /*test_avl_tree();*/

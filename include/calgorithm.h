@@ -34,7 +34,6 @@ extern "C" {
 #include "cstl_types.h"
 #include "citerator.h"
 #include "cutility.h"
-/*#include "cstl_tools.h"*/
 
 #include "cstl_algobase.h"
 #include "cstl_algobase_private.h"

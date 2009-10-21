@@ -21,13 +21,52 @@
  */
 
 /** include section **/
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+#include "cqueue.h"
 #include "test_queue.h"
 
 /** local constant declaration and local macro section **/
+#ifdef CSTL_QUEUE_LIST_SEQUENCE
+#define _QUEUE_ITERATOR_BEGIN(pt_queue)\
+    for(t_iter = list_begin(&(pt_queue)->_t_sequence);\
+        !iterator_equal(t_iter, list_end(&(pt_queue)->_t_sequence));\
+        t_iter = iterator_next(t_iter)){
+#else
+#define _QUEUE_ITERATOR_BEGIN(pt_queue)\
+    for(t_iter = deque_begin(&(pt_queue)->_t_sequence);\
+        !iterator_equal(t_iter, deque_end(&(pt_queue)->_t_sequence));\
+        t_iter = iterator_next(t_iter)){
+#endif
+
+#define _QUEUE_ITERATOR_END }printf("\n");
+
+#define _printqueue_c(pt_queue, fmt, type)\
+    do{\
+        iterator_t t_iter;\
+        printf("==================================\n");\
+        _QUEUE_ITERATOR_BEGIN(pt_queue)\
+            printf(fmt, *(type*)iterator_get_pointer(t_iter));\
+        _QUEUE_ITERATOR_END\
+    }while(false)
 
 /** local data type declaration and local struct, union, enum section **/
+typedef struct _tagweather
+{
+    int  _n_temperature;
+    char _s_city[31];
+}weather_t;
 
 /** local function prototype section **/
+static void _printqueue(const queue_t* cpt_queue);
+static void _weather_set(weather_t* pt_weather, const char* s_city, int n_temperature);
+static void _printweather(const queue_t* cpt_queue);
+static void _weather_init(const void* cpv_input, void* pv_output);
+static void _weather_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _weather_less(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _weather_destroy(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -36,6 +75,673 @@
 /** exported function implementation section **/
 void test_queue(void)
 {
+    /* c built-type */
+    {
+        /*create_queue     */
+        {
+            queue_t* pt_queue = create_queue(int);
+            if(pt_queue == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            _printqueue_c(pt_queue, "%d, ", int);
+            queue_destroy(pt_queue);
+        }
+        /*queue_init       */
+        /*queue_init_copy  */
+        {
+            queue_t* pt_queue1 = create_queue(double);
+            queue_t* pt_queue2 = create_queue(double);
+            if(pt_queue1 == NULL || pt_queue2 == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue2);
+            queue_push(pt_queue2, 38.42);
+            queue_push(pt_queue2, 5.0);
+            queue_push(pt_queue2, 100.111);
+            queue_init_copy(pt_queue1, pt_queue2);
+            _printqueue_c(pt_queue1, "%lf, ", double);
+            queue_destroy(pt_queue1);
+            queue_destroy(pt_queue2);
+        }
+        /*queue_destroy    */
+        /*queue_assign     */
+        {
+            queue_t* pt_queue1 = create_queue(int);
+            queue_t* pt_queue2 = create_queue(int);
+            if(pt_queue1 == NULL || pt_queue2 == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue1);
+            queue_init(pt_queue2);
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            queue_push(pt_queue2, 45);
+            queue_push(pt_queue2, -56);
+            queue_push(pt_queue2, 0);
+            queue_push(pt_queue2, 33);
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            queue_push(pt_queue2, 8899);
+            queue_push(pt_queue2, -4501);
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            queue_pop(pt_queue2);
+            queue_pop(pt_queue2);
+            queue_pop(pt_queue2);
+            queue_pop(pt_queue2);
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            while(!queue_empty(pt_queue2))
+            {
+                queue_pop(pt_queue2);
+            }
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            queue_destroy(pt_queue1);
+            queue_destroy(pt_queue2);
+        }
+        /*queue_empty      */
+        {
+            queue_t* pt_queue = create_queue(int);
+            if(pt_queue == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            printf("empty : %d, size : %d\n", queue_empty(pt_queue), queue_size(pt_queue));
+            queue_push(pt_queue, 45);
+            queue_push(pt_queue, 2);
+            queue_push(pt_queue, -5);
+            printf("empty : %d, size : %d\n", queue_empty(pt_queue), queue_size(pt_queue));
+            queue_destroy(pt_queue);
+        }
+        /*queue_size       */
+        /*queue_front      */
+        {
+            queue_t* pt_queue = create_queue(double);
+            if(pt_queue == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            _printqueue_c(pt_queue, "%lf, ", double);
+            if(queue_front(pt_queue) == NULL && queue_back(pt_queue) == NULL)
+            {
+                printf("front and back are null!\n");
+            }
+            queue_push(pt_queue, 8.4);
+            queue_push(pt_queue, 29.02);
+            queue_push(pt_queue, 333.45);
+            queue_push(pt_queue, 20.009);
+            _printqueue_c(pt_queue, "%lf, ", double);
+            while(!queue_empty(pt_queue))
+            {
+                if(queue_front(pt_queue) != NULL && queue_back(pt_queue) != NULL)
+                {
+                    *(double*)queue_front(pt_queue) = 2.0;
+                    *(double*)queue_back(pt_queue) += 100.0;
+                    _printqueue_c(pt_queue, "%lf, ", double);
+                }
+                queue_pop(pt_queue);
+            }
+            queue_destroy(pt_queue);
+        }
+        /*queue_back       */
+        /*queue_push       */
+        /*queue_pop        */
+        /*queue_equal      */
+        {
+            queue_t* pt_queue1 = create_queue(int);
+            queue_t* pt_queue2 = create_queue(int);
+            if(pt_queue1 == NULL || pt_queue2 == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue1);
+            queue_init(pt_queue2);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            _printqueue_c(pt_queue2, "%d, ", int);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            queue_push(pt_queue1, 45);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            _printqueue_c(pt_queue2, "%d, ", int);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            queue_push(pt_queue2, 45);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            _printqueue_c(pt_queue2, "%d, ", int);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            queue_push(pt_queue1, -39);
+            queue_push(pt_queue2, -4);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            _printqueue_c(pt_queue2, "%d, ", int);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            queue_push(pt_queue1, 100);
+            _printqueue_c(pt_queue1, "%d, ", int);
+            _printqueue_c(pt_queue2, "%d, ", int);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            queue_destroy(pt_queue1);
+            queue_destroy(pt_queue2);
+        }
+        /*queue_not_equal  */
+        /*queue_less       */
+        /*queue_less_equal */
+        /*queue_great      */
+        /*queue_great_equal*/
+    }
+    /* user defined type */
+    {
+        type_register(weather_t, _weather_init, _weather_copy, _weather_less, _weather_destroy);
+        type_duplicate(weather_t, struct _tagweather);
+        _type_debug();
+        /*create_queue     */
+        {
+            queue_t* pt_queue = create_queue(weather_t);
+            if(pt_queue == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            _printweather(pt_queue);
+            queue_destroy(pt_queue);
+        }
+        /*queue_init       */
+        /*queue_init_copy  */
+        {
+            queue_t* pt_queue1 = create_queue(weather_t);
+            queue_t* pt_queue2 = create_queue(weather_t);
+            weather_t t_wea;
+            bool_t t_result = 0;
+            if(pt_queue1 == NULL || pt_queue2 == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue2);
+
+            _weather_init(&t_wea, &t_result);
+            _weather_set(&t_wea, "Shenyang", 3);
+            queue_push(pt_queue2, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            queue_push(pt_queue2, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            queue_push(pt_queue2, &t_wea);
+            _weather_destroy(&t_wea, &t_result);
+
+            queue_init_copy(pt_queue1, pt_queue2);
+            _printweather(pt_queue1);
+
+            queue_destroy(pt_queue1);
+            queue_destroy(pt_queue2);
+        }
+        /*queue_destroy    */
+        /*queue_assign     */
+        {
+            queue_t* pt_queue1 = create_queue(weather_t);
+            queue_t* pt_queue2 = create_queue(weather_t);
+            weather_t t_wea;
+            bool_t t_result = 0;
+            if(pt_queue1 == NULL || pt_queue2 == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue2);
+            queue_init(pt_queue1);
+            queue_assign(pt_queue1, pt_queue2);
+
+            _weather_init(&t_wea, &t_result);
+
+            _weather_set(&t_wea, "Shenyang", 3);
+            queue_push(pt_queue2, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            queue_push(pt_queue2, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            queue_push(pt_queue2, &t_wea);
+            queue_assign(pt_queue1, pt_queue2);
+            _printweather(pt_queue1);
+
+            _weather_set(&t_wea, "Nanjing", 15);
+            queue_push(pt_queue2, &t_wea);
+            _weather_set(&t_wea, "Shanghai", 19);
+            queue_push(pt_queue2, &t_wea);
+            queue_assign(pt_queue1, pt_queue2);
+            _printweather(pt_queue1);
+
+            queue_pop(pt_queue2);
+            queue_pop(pt_queue2);
+            queue_pop(pt_queue2);
+            queue_assign(pt_queue1, pt_queue2);
+            _printweather(pt_queue1);
+
+            while(!queue_empty(pt_queue2))
+            {
+                queue_pop(pt_queue2);
+            }
+            queue_assign(pt_queue1, pt_queue2);
+            _printweather(pt_queue1);
+
+            _weather_destroy(&t_wea, &t_result);
+
+            queue_destroy(pt_queue1);
+            queue_destroy(pt_queue2);
+        }
+        /*queue_empty      */
+        {
+            queue_t* pt_queue = create_queue(struct _tagweather);
+            weather_t t_wea;
+            bool_t t_result = 0;
+            if(pt_queue == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            printf("empty : %d, size : %d\n", queue_empty(pt_queue), queue_size(pt_queue));
+
+            _weather_init(&t_wea, &t_result);
+            _weather_set(&t_wea, "Shenyang", 3);
+            queue_push(pt_queue, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            queue_push(pt_queue, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            queue_push(pt_queue, &t_wea);
+            _weather_destroy(&t_wea, &t_result);
+
+            printf("empty : %d, size : %d\n", queue_empty(pt_queue), queue_size(pt_queue));
+            queue_destroy(pt_queue);
+        }
+        /*queue_size       */
+        /*queue_front      */
+        {
+            queue_t* pt_queue = create_queue(weather_t);
+            weather_t t_wea;
+            bool_t t_result = false;
+            if(pt_queue == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            _printweather(pt_queue);
+            if(queue_front(pt_queue) == NULL && queue_back(pt_queue) == NULL)
+            {
+                printf("front and back are null!\n");
+            }
+            _weather_init(&t_wea, &t_result);
+            _weather_set(&t_wea, "Shenyang", 3);
+            queue_push(pt_queue, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            queue_push(pt_queue, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            queue_push(pt_queue, &t_wea);
+            _weather_destroy(&t_wea, &t_result);
+            _printweather(pt_queue);
+            while(!queue_empty(pt_queue))
+            {
+                if(queue_front(pt_queue) != NULL && queue_back(pt_queue) != NULL)
+                {
+                    ((weather_t*)queue_front(pt_queue))->_n_temperature = 100;
+                    ((weather_t*)queue_back(pt_queue))->_n_temperature += 100;
+                    _printweather(pt_queue);
+                }
+                queue_pop(pt_queue);
+            }
+            queue_destroy(pt_queue);
+        }
+        /*queue_back       */
+        /*queue_push       */
+        /*queue_pop        */
+        /*queue_equal      */
+        {
+            queue_t* pt_queue1 = create_queue(weather_t);
+            queue_t* pt_queue2 = create_queue(struct _tagweather);
+            weather_t t_wea;
+            if(pt_queue1 == NULL || pt_queue2 == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue1);
+            queue_init(pt_queue2);
+            _printweather(pt_queue1);
+            _printweather(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            _weather_set(&t_wea, "Shenyang", 3);
+            queue_push(pt_queue1, &t_wea);
+            _printweather(pt_queue1);
+            _printweather(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            queue_push(pt_queue2, &t_wea);
+            _printweather(pt_queue1);
+            _printweather(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            _weather_set(&t_wea, "Changchun", 0);
+            queue_push(pt_queue1, &t_wea);
+            _weather_set(&t_wea, "Wuhan", 22);
+            queue_push(pt_queue2, &t_wea);
+            _printweather(pt_queue1);
+            _printweather(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            _weather_set(&t_wea, "Guangzhou", 27);
+            queue_push(pt_queue1, &t_wea);
+            _printweather(pt_queue1);
+            _printweather(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            queue_destroy(pt_queue1);
+            queue_destroy(pt_queue2);
+        }
+        /*queue_not_equal  */
+        /*queue_less       */
+        /*queue_less_equal */
+        /*queue_great      */
+        /*queue_great_equal*/
+    }
+    /* cstl built-in type */
+    {
+        /*create_queue     */
+        {
+            queue_t* pt_queue = create_queue(queue_t<int>);
+            if(pt_queue == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            _printqueue(pt_queue);
+            queue_destroy(pt_queue);
+        }
+        /*queue_init       */
+        /*queue_init_copy  */
+        {
+        {
+            queue_t* pt_queue1 = create_queue(queue_t<int>);
+            queue_t* pt_queue2 = create_queue(queue_t<int>);
+            queue_t* pt_queueex = create_queue(int);
+            if(pt_queue1 == NULL || pt_queue2 == NULL || pt_queueex == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queueex);
+            queue_init(pt_queue2);
+            queue_push(pt_queueex, 38);
+            queue_push(pt_queue2, pt_queueex);
+            queue_push(pt_queueex, 5);
+            queue_push(pt_queue2, pt_queueex);
+            queue_push(pt_queueex, 100);
+            queue_push(pt_queue2, pt_queueex);
+            queue_init_copy(pt_queue1, pt_queue2);
+            _printqueue(pt_queue1);
+            queue_destroy(pt_queue1);
+            queue_destroy(pt_queue2);
+            queue_destroy(pt_queueex);
+        }
+        }
+        /*queue_destroy    */
+        /*queue_assign     */
+        {
+            queue_t* pt_queue1 = create_queue(queue_t<int>);
+            queue_t* pt_queue2 = create_queue(queue_t<int>);
+            queue_t* pt_queueex = create_queue(int);
+            if(pt_queue1 == NULL || pt_queue2 == NULL || pt_queueex == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue1);
+            queue_init(pt_queue2);
+            queue_init(pt_queueex);
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue(pt_queue1);
+
+            queue_push(pt_queueex, 45);
+            queue_push(pt_queue2, pt_queueex);
+            queue_push(pt_queueex, -56);
+            queue_push(pt_queue2, pt_queueex);
+            queue_push(pt_queueex, 0);
+            queue_push(pt_queue2, pt_queueex);
+            queue_push(pt_queueex, 33);
+            queue_push(pt_queue2, pt_queueex);
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue(pt_queue1);
+
+            queue_push(pt_queueex, 8899);
+            queue_push(pt_queue2, pt_queueex);
+            queue_push(pt_queueex, -4501);
+            queue_push(pt_queue2, pt_queueex);
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue(pt_queue1);
+
+            queue_pop(pt_queue2);
+            queue_pop(pt_queue2);
+            queue_pop(pt_queue2);
+            queue_pop(pt_queue2);
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue(pt_queue1);
+
+            while(!queue_empty(pt_queue2))
+            {
+                queue_pop(pt_queue2);
+            }
+            queue_assign(pt_queue1, pt_queue2);
+            _printqueue(pt_queue1);
+
+            queue_destroy(pt_queue1);
+            queue_destroy(pt_queue2);
+            queue_destroy(pt_queueex);
+        }
+        /*queue_empty      */
+        {
+            queue_t* pt_queue = create_queue(queue_t<int>);
+            queue_t* pt_queueex = create_queue(int);
+            if(pt_queue == NULL || pt_queueex == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            queue_init(pt_queueex);
+            printf("empty : %d, size : %d\n", queue_empty(pt_queue), queue_size(pt_queue));
+            queue_push(pt_queueex, 45);
+            queue_push(pt_queue, pt_queueex);
+            queue_push(pt_queueex, 2);
+            queue_push(pt_queue, pt_queueex);
+            queue_push(pt_queueex, -5);
+            queue_push(pt_queue, pt_queueex);
+            printf("empty : %d, size : %d\n", queue_empty(pt_queue), queue_size(pt_queue));
+            queue_destroy(pt_queue);
+            queue_destroy(pt_queueex);
+        }
+        /*queue_size       */
+        /*queue_front      */
+        {
+            queue_t* pt_queue = create_queue(queue_t<int>);
+            queue_t* pt_queueex = create_queue(int);
+            if(pt_queue == NULL || pt_queueex == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            queue_init(pt_queueex);
+            _printqueue(pt_queue);
+            if(queue_front(pt_queue) == NULL && queue_back(pt_queue) == NULL)
+            {
+                printf("front and back are null!\n");
+            }
+            queue_push(pt_queueex, 8);
+            queue_push(pt_queue, pt_queueex);
+            queue_push(pt_queueex, 29);
+            queue_push(pt_queue, pt_queueex);
+            queue_push(pt_queueex, 333);
+            queue_push(pt_queue, pt_queueex);
+            queue_push(pt_queueex, 2009);
+            queue_push(pt_queue, pt_queueex);
+            _printqueue(pt_queue);
+            while(!queue_empty(pt_queue))
+            {
+                if(queue_front(pt_queue) != NULL && queue_back(pt_queue) != NULL)
+                {
+                    queue_push(queue_front(pt_queue), 10000);
+                    queue_push(queue_back(pt_queue), - 10000);
+                    _printqueue(pt_queue);
+                }
+                queue_pop(pt_queue);
+            }
+            queue_destroy(pt_queue);
+            queue_destroy(pt_queueex);
+        }
+        /*queue_back       */
+        /*queue_push       */
+        /*queue_pop        */
+        /*queue_equal      */
+        {
+            queue_t* pt_queue1 = create_queue(queue_t<int>);
+            queue_t* pt_queue2 = create_queue(queue_t<int>);
+            queue_t* pt_queueex = create_queue(int);
+            if(pt_queue1 == NULL || pt_queue2 == NULL || pt_queueex == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue1);
+            queue_init(pt_queue2);
+            queue_init(pt_queueex);
+            _printqueue(pt_queue1);
+            _printqueue(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            queue_push(pt_queueex, 45);
+            queue_push(pt_queue1, pt_queueex);
+            _printqueue(pt_queue1);
+            _printqueue(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            queue_push(pt_queue2, pt_queueex);
+            _printqueue(pt_queue1);
+            _printqueue(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            queue_pop(pt_queueex);
+            queue_push(pt_queueex, -39);
+            queue_push(pt_queue1, pt_queueex);
+            queue_pop(pt_queueex);
+            queue_push(pt_queueex, -4);
+            queue_push(pt_queue2, pt_queueex);
+            _printqueue(pt_queue1);
+            _printqueue(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            queue_pop(pt_queueex);
+            queue_push(pt_queueex, 100);
+            queue_push(pt_queue1, pt_queueex);
+            _printqueue(pt_queue1);
+            _printqueue(pt_queue2);
+            printf("equal : %d, not equal : %d, ",
+                queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
+            printf("less : %d, less equal : %d, ",
+                queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
+            printf("great : %d, great equal : %d\n",
+                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+
+            queue_destroy(pt_queue1);
+            queue_destroy(pt_queue2);
+            queue_destroy(pt_queueex);
+        }
+        /*queue_not_equal  */
+        /*queue_less       */
+        /*queue_less_equal */
+        /*queue_great      */
+        /*queue_great_equal*/
+    }
+    /* c-string type */
+    {
+    }
+    /*_create_queue    */
+    /*queue_init       */
+    /*queue_init_copy  */
+    /*queue_destroy    */
+    /*queue_assign     */
+    /*queue_empty      */
+    /*queue_size       */
+    /*queue_front      */
+    /*queue_back       */
+    /*_queue_push      */
+    /*queue_pop        */
+    /*queue_equal      */
+    /*queue_not_equal  */
+    /*queue_less       */
+    /*queue_less_equal */
+    /*queue_great      */
+    /*queue_great_equal*/
 }
 
 void test_priority_queue(void)
@@ -43,6 +749,93 @@ void test_priority_queue(void)
 }
 
 /** local function implementation section **/
+static void _printqueue(const queue_t* cpt_queue)
+{
+    iterator_t t_pos;
+    assert(cpt_queue != NULL);
+
+    printf("+++++++++++++++++++++++++++++++++++++\n");
+#ifdef CSTL_QUEUE_LIST_SEQUENCE
+    for(t_pos = list_begin(&(cpt_queue)->_t_sequence);
+        !iterator_equal(t_pos, list_end(&(cpt_queue)->_t_sequence));
+        t_pos = iterator_next(t_pos))
+#else
+    for(t_pos = deque_begin(&(cpt_queue)->_t_sequence);
+        !iterator_equal(t_pos, deque_end(&(cpt_queue)->_t_sequence));
+        t_pos = iterator_next(t_pos))
+#endif
+    {
+        _printqueue_c((queue_t*)iterator_get_pointer(t_pos), "%d, ", int);
+    }
+}
+
+static void _weather_set(weather_t* pt_weather, const char* s_city, int n_temperature)
+{
+    assert(pt_weather != NULL && s_city != NULL);
+    memset(pt_weather->_s_city, '\0', 31);
+    strncpy(pt_weather->_s_city, s_city, 30);
+    pt_weather->_n_temperature = n_temperature;
+}
+
+static void _printweather(const queue_t* cpt_queue)
+{
+    iterator_t t_iter;
+    assert(cpt_queue != NULL);
+
+    printf("============================\n");
+#ifdef CSTL_QUEUE_LIST_SEQUENCE
+    for(t_iter = list_begin(&(cpt_queue)->_t_sequence);
+        !iterator_equal(t_iter, list_end(&(cpt_queue)->_t_sequence));
+        t_iter = iterator_next(t_iter))
+#else
+    for(t_iter = deque_begin(&(cpt_queue)->_t_sequence);
+        !iterator_equal(t_iter, deque_end(&(cpt_queue)->_t_sequence));
+        t_iter = iterator_next(t_iter))
+#endif
+    {
+        printf("(city:%s, %dC), ",
+            ((weather_t*)iterator_get_pointer(t_iter))->_s_city,
+            ((weather_t*)iterator_get_pointer(t_iter))->_n_temperature);
+    }
+    printf("\n");
+}
+
+static void _weather_init(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    memset(((weather_t*)cpv_input)->_s_city, '\0', 31);
+    ((weather_t*)cpv_input)->_n_temperature = 0;
+    *(bool_t*)pv_output = true;
+}
+
+static void _weather_copy(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    strncpy(((weather_t*)cpv_first)->_s_city, ((weather_t*)cpv_second)->_s_city, 30);
+    ((weather_t*)cpv_first)->_n_temperature = ((weather_t*)cpv_second)->_n_temperature;
+    *(bool_t*)pv_output = true;
+}
+
+static void _weather_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strncmp(((weather_t*)cpv_first)->_s_city, ((weather_t*)cpv_second)->_s_city, 30) < 0)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _weather_destroy(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    memset(((weather_t*)cpv_input)->_s_city, '\0', 31);
+    ((weather_t*)cpv_input)->_n_temperature = 0;
+    *(bool_t*)pv_output = true;
+}
 
 /** eof **/
 

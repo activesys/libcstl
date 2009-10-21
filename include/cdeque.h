@@ -36,8 +36,6 @@ extern "C" {
 #include "cstl_alloc.h"
 #include "cstl_types.h"
 #include "cstl_iterator.h"
-#include "cvector.h"
-#include "cfunctional.h"
 
 #include "cstl_deque_iterator.h"
 #include "cstl_deque_private.h"
