@@ -110,7 +110,7 @@ void string_init_copy_substring(
     assert(pt_string != NULL && cpt_string_src != NULL);
 
     basic_string_init_copy_substring(pt_string, cpt_string_src, t_pos, t_len);
-    if(t_pos + t_len <= string_size(cpt_string_src))
+    if(t_len != NPOS && t_pos + t_len <= string_size(cpt_string_src))
     {
         basic_string_push_back(pt_string, '\0');
     }

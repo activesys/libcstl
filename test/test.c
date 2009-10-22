@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
     printf("========== test stack_t  ==========\n");
     /*test_stack();*/
     printf("========== test queue_t  ==========\n");
-    test_queue();
+    /*test_queue();*/
     /*test_pair();*/
     /*test_basic_string();*/
     /*test_avl_tree();*/
@@ -83,7 +83,8 @@ int main(int argc, char* argv[])
     /*test_priority_queue();*/
     /*test_set();*/
     /*test_map();*/
-    /*test_string(argc, argv);*/
+    printf("========== test string_t  ==========\n");
+    test_string(argc, argv);
     /*test_string_getline(); */
     /*test_type();*/
 

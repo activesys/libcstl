@@ -383,7 +383,7 @@ void basic_string_init_copy_substring(
     }
     else
     {
-        t_end = iterator_next_n(basic_string_end(cpt_basic_string_src), t_pos + t_len);
+        t_end = iterator_next_n(basic_string_begin(cpt_basic_string_src), t_pos + t_len);
     }
 
     _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
