@@ -371,19 +371,517 @@ void test_string(int argc, char* argv[])
     /*string_great_cstr                 */
     /*string_great_equal_cstr           */
     /*string_compare                    */
+    {
+        string_t* pt_string1 = create_string();
+        string_t* pt_string2 = create_string();
+        if(pt_string1 == NULL || pt_string2 == NULL)
+        {
+            return;
+        }
+        string_init(pt_string1);
+        string_init(pt_string2);
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n", string_compare(pt_string1, pt_string2));
+
+        string_assign_cstr(pt_string1, "abc");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n", string_compare(pt_string1, pt_string2));
+
+        string_assign_cstr(pt_string2, "abc");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n", string_compare(pt_string1, pt_string2));
+
+        string_assign_cstr(pt_string1, "opq");
+        string_assign_cstr(pt_string2, "xyz");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n", string_compare(pt_string1, pt_string2));
+
+        string_assign_cstr(pt_string1, "mn");
+        string_assign_cstr(pt_string2, "mno");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n", string_compare(pt_string1, pt_string2));
+
+        string_assign_cstr(pt_string1, "u");
+        string_assign_cstr(pt_string2, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n", string_compare(pt_string1, pt_string2));
+        string_destroy(pt_string1);
+        string_destroy(pt_string2);
+    }
     /*string_compare_substring_string   */
+    {
+        string_t* pt_string1 = create_string();
+        string_t* pt_string2 = create_string();
+        if(pt_string1 == NULL || pt_string2 == NULL)
+        {
+            return;
+        }
+        string_init(pt_string1);
+        string_init(pt_string2);
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 0, NPOS, pt_string2));
+
+        string_assign_cstr(pt_string1, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 0, 0, pt_string2));
+
+        string_assign_cstr(pt_string2, "abc");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 0, 1, pt_string2));
+
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 0, 3, pt_string2));
+
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 0, 5, pt_string2));
+
+        string_assign_cstr(pt_string2, "xyz");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 15, 3, pt_string2));
+
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 23, 3, pt_string2));
+
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 23, NPOS, pt_string2));
+
+        string_assign_cstr(pt_string2, "u");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 0, NPOS, pt_string2));
+
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_string(pt_string1, 20, NPOS, pt_string2));
+
+        string_destroy(pt_string1);
+        string_destroy(pt_string2);
+    }
     /*string_compare_substring_substring*/
+    {
+        string_t* pt_string1 = create_string();
+        string_t* pt_string2 = create_string();
+        if(pt_string1 == NULL || pt_string2 == NULL)
+        {
+            return;
+        }
+        string_init(pt_string1);
+        string_init(pt_string2);
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 0, NPOS, pt_string2, 0, NPOS));
+
+        string_assign_cstr(pt_string1, "abcdefghijklmnopqrstuvwxyz");
+        string_assign_cstr(pt_string2, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 0, 0, pt_string2, 0, 0));
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 0, 3, pt_string2, 0, 0));
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 0, NPOS, pt_string2, 0, 0));
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 0, 0, pt_string2, 0, 12));
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 0, 0, pt_string2, 0, NPOS));
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 3, 5, pt_string2, 3, 5));
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 3, NPOS, pt_string2, 3, 5));
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 20, 5, pt_string2, 20, NPOS));
+        printf("compare : %d\n",
+            string_compare_substring_substring(pt_string1, 20, NPOS, pt_string2, 20, 100));
+
+        string_destroy(pt_string1);
+        string_destroy(pt_string2);
+    }
     /*string_compare_cstr               */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        _printstring(pt_string);
+        puts("");
+        printf("compare : %d\n", string_compare_cstr(pt_string, ""));
+
+        string_assign_cstr(pt_string, "abc");
+        _printstring(pt_string);
+        puts("");
+        printf("compare : %d\n", string_compare_cstr(pt_string, ""));
+
+        _printstring(pt_string);
+        puts("abc");
+        printf("compare : %d\n", string_compare_cstr(pt_string, "abc"));
+
+        string_assign_cstr(pt_string, "opq");
+        _printstring(pt_string);
+        puts("xyz");
+        printf("compare : %d\n", string_compare_cstr(pt_string, "xyz"));
+
+        string_assign_cstr(pt_string, "mn");
+        _printstring(pt_string);
+        puts("mno");
+        printf("compare : %d\n", string_compare_cstr(pt_string, "mno"));
+
+        string_assign_cstr(pt_string, "u");
+        _printstring(pt_string);
+        puts("abcdefghijklmnopqrstuvwxyz");
+        printf("compare : %d\n", string_compare_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz"));
+        string_destroy(pt_string);
+    }
     /*string_compare_substring_cstr     */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        _printstring(pt_string);
+        puts("");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 0, NPOS, ""));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 0, 0, ""));
+
+        _printstring(pt_string);
+        puts("abc");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 0, 1, "abc"));
+
+        _printstring(pt_string);
+        puts("abc");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 0, 3, "abc"));
+
+        _printstring(pt_string);
+        puts("abc");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 0, 5, "abc"));
+
+        _printstring(pt_string);
+        puts("xyz");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 15, 3, "xyz"));
+
+        _printstring(pt_string);
+        puts("xyz");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 23, 3, "xyz"));
+
+        _printstring(pt_string);
+        puts("xyz");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 23, NPOS, "xyz"));
+
+        _printstring(pt_string);
+        puts("u");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 0, NPOS, "u"));
+
+        _printstring(pt_string);
+        puts("u");
+        printf("compare : %d\n",
+            string_compare_substring_cstr(pt_string, 20, NPOS, "u"));
+
+        string_destroy(pt_string);
+    }
     /*string_compare_substring_subcstr  */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        _printstring(pt_string);
+        puts("");
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 0, NPOS, "", NPOS));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("abcdefghijklmnopqrstuvwxyz");
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 0, 0, "abcdefghijklmnopqrstuvwxyz", 0));
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 0, 3, "abcdefghijklmnopqrstuvwxyz", 0));
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 0, NPOS, "abcdefghijklmnopqrstuvwxyz", 0));
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 0, 0, "abcdefghijklmnopqrstuvwxyz", 12));
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 0, 0, "abcdefghijklmnopqrstuvwxyz", NPOS));
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 3, 5, "defghijklmnopqrstuvwxyz", 5));
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 3, NPOS, "defghijklmnopqrstuvwxyz", 5));
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 20, 5, "uvwxyz", NPOS));
+        printf("compare : %d\n",
+            string_compare_substring_subcstr(pt_string, 20, NPOS, "uvwxyz", 100));
+
+        string_destroy(pt_string);
+    }
     /*string_substr                     */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = NULL;
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init_cstr(pt_string, "abcdef");
+        _printstring(pt_string);
+        pt_stringex = string_substr(pt_string, 0, NPOS);
+        _printstring(pt_stringex);
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_connect                    */
+    {
+        string_t* pt_string1 = create_string();
+        string_t* pt_string2 = create_string();
+        if(pt_string1 == NULL || pt_string2 == NULL)
+        {
+            return;
+        }
+        string_init(pt_string1);
+        string_init(pt_string2);
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        string_connect(pt_string1, pt_string2);
+        _printstring(pt_string1);
+        string_assign_cstr(pt_string2, "abc");
+        _printstring(pt_string2);
+        string_connect(pt_string1, pt_string2);
+        _printstring(pt_string1);
+        string_assign_cstr(pt_string2, "");
+        _printstring(pt_string2);
+        string_connect(pt_string1, pt_string2);
+        _printstring(pt_string1);
+        string_assign_cstr(pt_string2, "xyz");
+        _printstring(pt_string2);
+        string_connect(pt_string1, pt_string2);
+        _printstring(pt_string1);
+        string_destroy(pt_string1);
+        string_destroy(pt_string2);
+    }
     /*string_connect_cstr               */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_connect_cstr(pt_string, "");
+        _printstring(pt_string);
+        string_connect_cstr(pt_string, "abc");
+        _printstring(pt_string);
+        string_connect_cstr(pt_string, "");
+        _printstring(pt_string);
+        string_connect_cstr(pt_string, "xyz");
+        _printstring(pt_string);
+        string_destroy(pt_string);
+    }
     /*string_connect_char               */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_connect_char(pt_string, 'a');
+        _printstring(pt_string);
+        string_connect_char(pt_string, 'b');
+        _printstring(pt_string);
+        string_connect_char(pt_string, 'c');
+        _printstring(pt_string);
+        string_destroy(pt_string);
+    }
     /*string_find                       */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL ||pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find(pt_string, pt_stringex, 1));
+        printf("%u\n", string_find(pt_string, pt_stringex, 4));
+
+        string_assign_cstr(pt_stringex, "abc");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find(pt_string, pt_stringex, 0));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_assign_cstr(pt_stringex, "");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find(pt_string, pt_stringex, 10));
+        printf("%u\n", string_find(pt_string, pt_stringex, 100));
+
+        string_assign_cstr(pt_stringex, "mno");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find(pt_string, pt_stringex, 5));
+        printf("%u\n", string_find(pt_string, pt_stringex, 20));
+        printf("%u\n", string_find(pt_string, pt_stringex, 100));
+        printf("%u\n", string_find(pt_string, pt_stringex, NPOS));
+
+        string_assign_cstr(pt_string, "aaa");
+        string_assign_cstr(pt_stringex, "aaaaa");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find(pt_string, pt_stringex, 0));
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_find_cstr                  */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_find_cstr(pt_string, "", 0));
+        printf("%u\n", string_find_cstr(pt_string, "", 1));
+        printf("%u\n", string_find_cstr(pt_string, "", 5));
+
+        _printstring(pt_string);
+        puts("abc");
+        printf("%u\n", string_find_cstr(pt_string, "abc", 0));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_find_cstr(pt_string, "", 0));
+        printf("%u\n", string_find_cstr(pt_string, "", 10));
+        printf("%u\n", string_find_cstr(pt_string, "", 100));
+
+        _printstring(pt_string);
+        puts("mno");
+        printf("%u\n", string_find_cstr(pt_string, "mno", 0));
+        printf("%u\n", string_find_cstr(pt_string, "mno", 5));
+        printf("%u\n", string_find_cstr(pt_string, "mno", 20));
+        printf("%u\n", string_find_cstr(pt_string, "mno", 100));
+        printf("%u\n", string_find_cstr(pt_string, "mno", NPOS));
+
+        string_assign_cstr(pt_string, "aaa");
+        _printstring(pt_string);
+        puts("aaaaa");
+        printf("%u\n", string_find_cstr(pt_string, "aaaaa", 0));
+
+        string_destroy(pt_string);
+    }
     /*string_find_subcstr               */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_find_subcstr(pt_string, "", 0, 0));
+        printf("%u\n", string_find_subcstr(pt_string, "", 0, 3));
+        printf("%u\n", string_find_subcstr(pt_string, "", 0, NPOS));
+        printf("%u\n", string_find_subcstr(pt_string, "", 1, 0));
+        printf("%u\n", string_find_subcstr(pt_string, "", NPOS, 0));
+        printf("%u\n", string_find_subcstr(pt_string, "", 1, 3));
+        printf("%u\n", string_find_subcstr(pt_string, "", NPOS, 3));
+        _printstring(pt_string);
+        puts("abcdefghijklmnopqrstrvwxyz");
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 0, 0));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 0, 3));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 0, NPOS));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 1, 0));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", NPOS, 0));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 1, 3));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", NPOS, 3));
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstrvwxyz");
+        _printstring(pt_string);
+        puts("abcdefghijklmnopqrstrvwxyz");
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 0, 0));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 0, 3));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 0, NPOS));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 1, 0));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", NPOS, 0));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", 1, 3));
+        printf("%u\n", string_find_subcstr(pt_string, "abcdefghijklmnopqrstrvwxyz", NPOS, 3));
+        string_destroy(pt_string);
+    }
     /*string_find_char                  */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        _printstring(pt_string);
+        puts("o");
+        printf("%u\n", string_find_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_char(pt_string, 'o', 10));
+        printf("%u\n", string_find_char(pt_string, 'o', NPOS));
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstrvwxyz");
+        _printstring(pt_string);
+        puts("o");
+        printf("%u\n", string_find_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_char(pt_string, 'o', 10));
+        printf("%u\n", string_find_char(pt_string, 'o', 20));
+        printf("%u\n", string_find_char(pt_string, 'o', NPOS));
+        string_destroy(pt_string);
+    }
     /*string_rfind                      */
     /*string_rfind_cstr                 */
     /*string_rfind_subcstr              */

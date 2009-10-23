@@ -84,6 +84,7 @@ extern void _basic_string_connect_elem_varg(
 extern void _basic_string_push_back(basic_string_t* pt_basic_string, ...);
 extern void _basic_string_push_back_varg(
     basic_string_t* pt_basic_string, va_list val_elemlist);
+extern void _basic_string_pop_back(basic_string_t* pt_basic_string);
 
 /*
  * Resize operation functions.

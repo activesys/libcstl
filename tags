@@ -8,7 +8,7 @@ ARFLAGS	Makefile	/^ARFLAGS = ruv$/;"	m
 ARTARGET	Makefile	/^ARTARGET = $(BINDIR)\/libcstl.a$/;"	m
 BINDIR	Makefile	/^BINDIR = bin$/;"	m
 CC	Makefile	/^CC = gcc$/;"	m
-CFLAGS	Makefile	/^CFLAGS = -c -g -ansi -Wall -Wextra -fPIC#-DCSTL_QUEUE_LIST_SEQUENCE#-DNDEBUG$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -c -g -ansi -Wall -Wextra -fPIC#-DNDEBUG$/;"	m
 CPPFLAGS	Makefile	/^CPPFLAGS = -I include$/;"	m
 FALSE	include/cstl_types.h	33;"	d
 HEADERTARGET	Makefile	/^HEADERTARGET = $(INCDIR)\/*.h$/;"	m
@@ -935,6 +935,8 @@ _basic_string_iterator_prev_n	include/cstl_basic_string_iterator.h	/^extern basi
 _basic_string_iterator_prev_n	src/cstl_basic_string.c	/^basic_string_iterator_t _basic_string_iterator_prev_n($/;"	f	signature:( basic_string_iterator_t t_iter, int n_step)
 _basic_string_iterator_set_value	include/cstl_basic_string_iterator.h	/^extern void _basic_string_iterator_set_value($/;"	p	signature:( basic_string_iterator_t t_iter, const void* cpv_value)
 _basic_string_iterator_set_value	src/cstl_basic_string.c	/^void _basic_string_iterator_set_value($/;"	f	signature:( basic_string_iterator_t t_iter, const void* cpv_value)
+_basic_string_pop_back	include/cstl_basic_string_private.h	/^extern void _basic_string_pop_back(basic_string_t* pt_basic_string);$/;"	p	signature:(basic_string_t* pt_basic_string)
+_basic_string_pop_back	src/cstl_basic_string.c	/^void _basic_string_pop_back(basic_string_t* pt_basic_string)$/;"	f	signature:(basic_string_t* pt_basic_string)
 _basic_string_push_back	include/cstl_basic_string_private.h	/^extern void _basic_string_push_back(basic_string_t* pt_basic_string, ...);$/;"	p	signature:(basic_string_t* pt_basic_string, ...)
 _basic_string_push_back	src/cstl_basic_string.c	/^void _basic_string_push_back(basic_string_t* pt_basic_string, ...)$/;"	f	signature:(basic_string_t* pt_basic_string, ...)
 _basic_string_push_back_varg	include/cstl_basic_string_private.h	/^extern void _basic_string_push_back_varg($/;"	p	signature:( basic_string_t* pt_basic_string, va_list val_elemlist)
@@ -1781,6 +1783,8 @@ _printlist_user	test/test_list.c	/^static void _printlist_user(const list_t* cpt
 _printlist_user	test/test_list.c	/^static void _printlist_user(const list_t* cpt_list);$/;"	p	file:	signature:(const list_t* cpt_list)
 _printpointer	test/test_stack.c	/^static void _printpointer(const stack_t* cpt_stack)$/;"	f	file:	signature:(const stack_t* cpt_stack)
 _printpointer	test/test_stack.c	/^static void _printpointer(const stack_t* cpt_stack);$/;"	p	file:	signature:(const stack_t* cpt_stack)
+_printqueue	test/test_queue.c	/^static void _printqueue(const queue_t* cpt_queue)$/;"	f	file:	signature:(const queue_t* cpt_queue)
+_printqueue	test/test_queue.c	/^static void _printqueue(const queue_t* cpt_queue);$/;"	p	file:	signature:(const queue_t* cpt_queue)
 _printqueue_c	test/test_queue.c	46;"	d	file:
 _printslist	test/test_slist.c	/^static void _printslist(const slist_t* cpt_slist)$/;"	f	file:	signature:(const slist_t* cpt_slist)
 _printslist	test/test_slist.c	/^static void _printslist(const slist_t* cpt_slist);$/;"	p	file:	signature:(const slist_t* cpt_slist)
@@ -1788,6 +1792,10 @@ _printslist_c	test/test_slist.c	32;"	d	file:
 _printstack	test/test_stack.c	/^static void _printstack(const stack_t* cpt_stack)$/;"	f	file:	signature:(const stack_t* cpt_stack)
 _printstack	test/test_stack.c	/^static void _printstack(const stack_t* cpt_stack);$/;"	p	file:	signature:(const stack_t* cpt_stack)
 _printstack_c	test/test_stack.c	50;"	d	file:
+_printstring	test/test_string.c	/^static void _printstring(const string_t* cpt_string)$/;"	f	file:	signature:(const string_t* cpt_string)
+_printstring	test/test_string.c	/^static void _printstring(const string_t* cpt_string);$/;"	p	file:	signature:(const string_t* cpt_string)
+_printweather	test/test_queue.c	/^static void _printweather(const queue_t* cpt_queue)$/;"	f	file:	signature:(const queue_t* cpt_queue)
+_printweather	test/test_queue.c	/^static void _printweather(const queue_t* cpt_queue);$/;"	p	file:	signature:(const queue_t* cpt_queue)
 _priority_queue_destroy_auxiliary	include/cstl_queue_private.h	/^extern void _priority_queue_destroy_auxiliary(priority_queue_t* pt_queue);$/;"	p	signature:(priority_queue_t* pt_queue)
 _priority_queue_destroy_auxiliary	src/cstl_queue.c	/^void _priority_queue_destroy_auxiliary(priority_queue_t* pt_pqueue)$/;"	f	signature:(priority_queue_t* pt_pqueue)
 _priority_queue_push	include/cstl_queue_private.h	/^extern void _priority_queue_push(priority_queue_t* pt_pqueue, ...);$/;"	p	signature:(priority_queue_t* pt_pqueue, ...)
@@ -2747,11 +2755,16 @@ _vector_same_type	src/cstl_vector.c	/^static bool_t _vector_same_type($/;"	f	fil
 _vector_same_type	src/cstl_vector.c	/^static bool_t _vector_same_type($/;"	p	file:	signature:( const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
 _vector_same_vector_iterator_type	src/cstl_vector.c	/^static bool_t _vector_same_vector_iterator_type($/;"	f	file:	signature:( const vector_t* cpt_vector, vector_iterator_t t_iter)
 _vector_same_vector_iterator_type	src/cstl_vector.c	/^static bool_t _vector_same_vector_iterator_type($/;"	p	file:	signature:( const vector_t* cpt_vector, vector_iterator_t t_iter)
+_weather_copy	test/test_queue.c	/^static void _weather_copy(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _weather_copy	test/test_queue.c	/^static void _weather_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_weather_destroy	test/test_queue.c	/^static void _weather_destroy(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _weather_destroy	test/test_queue.c	/^static void _weather_destroy(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _weather_init	test/test_queue.c	/^static void _weather_init(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _weather_init	test/test_queue.c	/^static void _weather_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_weather_less	test/test_queue.c	/^static void _weather_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _weather_less	test/test_queue.c	/^static void _weather_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_weather_set	test/test_queue.c	/^static void _weather_set(weather_t* pt_weather, const char* s_city, int n_temperature)$/;"	f	file:	signature:(weather_t* pt_weather, const char* s_city, int n_temperature)
+_weather_set	test/test_queue.c	/^static void _weather_set(weather_t* pt_weather, const char* s_city, int n_temperature);$/;"	p	file:	signature:(weather_t* pt_weather, const char* s_city, int n_temperature)
 _widdershins_rotate	src/cstl_rb_tree.c	/^static rbnode_t* _widdershins_rotate(rbnode_t* pt_root)$/;"	f	file:	signature:(rbnode_t* pt_root)
 _widdershins_rotate	src/cstl_rb_tree.c	/^static rbnode_t* _widdershins_rotate(rbnode_t* pt_root);$/;"	p	file:	signature:(rbnode_t* pt_root)
 a	test/test_type.c	/^    int a;$/;"	m	struct:_tagabc	file:	access:public
