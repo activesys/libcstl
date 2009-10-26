@@ -873,7 +873,7 @@ void test_string(int argc, char* argv[])
         printf("%u\n", string_find_char(pt_string, 'o', 0));
         printf("%u\n", string_find_char(pt_string, 'o', 10));
         printf("%u\n", string_find_char(pt_string, 'o', NPOS));
-        string_assign_cstr(pt_string, "abcdefghijklmnopqrstrvwxyz");
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
         _printstring(pt_string);
         puts("o");
         printf("%u\n", string_find_char(pt_string, 'o', 0));
@@ -883,14 +883,424 @@ void test_string(int argc, char* argv[])
         string_destroy(pt_string);
     }
     /*string_rfind                      */
+    {
+        string_t* pt_string1 = create_string();
+        string_t* pt_string2 = create_string();
+        if(pt_string1 == NULL || pt_string2 == NULL)
+        {
+            return;
+        }
+        string_init(pt_string1);
+        string_init(pt_string2);
+
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("%u\n", string_rfind(pt_string1, pt_string2, NPOS));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 100));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 0));
+
+        string_assign_cstr(pt_string2, "abc");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("%u\n", string_rfind(pt_string1, pt_string2, NPOS));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 100));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 0));
+
+        string_assign_cstr(pt_string1, "abcdefghijklmnopqrstuvwxyz");
+        string_assign_cstr(pt_string2, "");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("%u\n", string_rfind(pt_string1, pt_string2, NPOS));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 100));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 20));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 0));
+
+        string_assign_cstr(pt_string1, "abcdefghijabcklmnopabcqrstuvwxyzabc");
+        string_assign_cstr(pt_string2, "abc");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("%u\n", string_rfind(pt_string1, pt_string2, NPOS));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 100));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 20));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 0));
+
+        string_assign_cstr(pt_string1, "aaa");
+        string_assign_cstr(pt_string2, "aaaaa");
+        _printstring(pt_string1);
+        _printstring(pt_string2);
+        printf("%u\n", string_rfind(pt_string1, pt_string2, NPOS));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 100));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 1));
+        printf("%u\n", string_rfind(pt_string1, pt_string2, 0));
+
+        string_destroy(pt_string1);
+        string_destroy(pt_string2);
+    }
     /*string_rfind_cstr                 */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_rfind_cstr(pt_string, "", NPOS));
+        printf("%u\n", string_rfind_cstr(pt_string, "", 100));
+        printf("%u\n", string_rfind_cstr(pt_string, "", 0));
+
+        _printstring(pt_string);
+        puts("abc");
+        printf("%u\n", string_rfind_cstr(pt_string, "abc", NPOS));
+        printf("%u\n", string_rfind_cstr(pt_string, "abc", 100));
+        printf("%u\n", string_rfind_cstr(pt_string, "abc", 0));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_rfind_cstr(pt_string, "", NPOS));
+        printf("%u\n", string_rfind_cstr(pt_string, "", 100));
+        printf("%u\n", string_rfind_cstr(pt_string, "", 20));
+        printf("%u\n", string_rfind_cstr(pt_string, "", 0));
+
+        string_assign_cstr(pt_string, "abcdefghijabcklmnopabcqrstuvwxyzabc");
+        _printstring(pt_string);
+        puts("abc");
+        printf("%u\n", string_rfind_cstr(pt_string, "abc", NPOS));
+        printf("%u\n", string_rfind_cstr(pt_string, "abc", 100));
+        printf("%u\n", string_rfind_cstr(pt_string, "abc", 20));
+        printf("%u\n", string_rfind_cstr(pt_string, "abc", 0));
+
+        string_assign_cstr(pt_string, "aaa");
+        _printstring(pt_string);
+        puts("aaaaa");
+        printf("%u\n", string_rfind_cstr(pt_string, "aaaaa", NPOS));
+        printf("%u\n", string_rfind_cstr(pt_string, "aaaaa", 100));
+        printf("%u\n", string_rfind_cstr(pt_string, "aaaaa", 1));
+        printf("%u\n", string_rfind_cstr(pt_string, "aaaaa", 0));
+
+        string_destroy(pt_string);
+    }
     /*string_rfind_subcstr              */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_rfind_subcstr(pt_string, "", NPOS, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "", NPOS, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "", NPOS, NPOS));
+        printf("%u\n", string_rfind_subcstr(pt_string, "", 100, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "", 100, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "", 100, NPOS));
+        printf("%u\n", string_rfind_subcstr(pt_string, "", 0, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "", 0, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "", 0, NPOS));
+
+        _printstring(pt_string);
+        puts("abcdefghijklmnopqrstuvwxyz");
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS, 20));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS, NPOS));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100, 20));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100, NPOS));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0, 20));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0, NPOS));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("abcdefghijklmnopqrstuvwxyz");
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS, 20));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS, NPOS));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100, 20));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100, NPOS));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 20, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 20, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 20, 20));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 20, NPOS));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0, 0));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0, 100));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0, 20));
+        printf("%u\n", string_rfind_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0, NPOS));
+
+        string_destroy(pt_string);
+    }
     /*string_rfind_char                 */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        _printstring(pt_string);
+        puts("m");
+        printf("%u\n", string_rfind_char(pt_string, 'm', NPOS));
+        printf("%u\n", string_rfind_char(pt_string, 'm', 100));
+        printf("%u\n", string_rfind_char(pt_string, 'm', 0));
+
+        string_assign_cstr(pt_string, "abcdefghijklnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("m");
+        printf("%u\n", string_rfind_char(pt_string, 'm', NPOS));
+        printf("%u\n", string_rfind_char(pt_string, 'm', 100));
+        printf("%u\n", string_rfind_char(pt_string, 'm', 20));
+        printf("%u\n", string_rfind_char(pt_string, 'm', 0));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxmyz");
+        _printstring(pt_string);
+        puts("m");
+        printf("%u\n", string_rfind_char(pt_string, 'm', NPOS));
+        printf("%u\n", string_rfind_char(pt_string, 'm', 100));
+        printf("%u\n", string_rfind_char(pt_string, 'm', 20));
+        printf("%u\n", string_rfind_char(pt_string, 'm', 0));
+
+        string_destroy(pt_string);
+    }
     /*string_find_first_of              */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 100));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, NPOS));
+
+        string_assign_cstr(pt_stringex, "bmw");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 100));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, NPOS));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_assign_cstr(pt_stringex, "");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 100));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 20));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, NPOS));
+
+        string_assign_cstr(pt_stringex, "bmw");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 100));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, 20));
+        printf("%u\n", string_find_first_of(pt_string, pt_stringex, NPOS));
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_find_first_of_cstr         */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_find_first_of_cstr(pt_string, "", 0));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "", 100));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "", NPOS));
+
+        _printstring(pt_string);
+        puts("bmw");
+        printf("%u\n", string_find_first_of_cstr(pt_string, "bmw", 0));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "bmw", 100));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "bmw", NPOS));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_find_first_of_cstr(pt_string, "", 0));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "", 100));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "", 20));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "", NPOS));
+
+        _printstring(pt_string);
+        puts("bmw");
+        printf("%u\n", string_find_first_of_cstr(pt_string, "bmw", 0));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "bmw", 100));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "bmw", 20));
+        printf("%u\n", string_find_first_of_cstr(pt_string, "bmw", NPOS));
+
+        string_destroy(pt_string);
+    }
     /*string_find_first_of_subcstr      */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 0, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 0, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 0, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 100, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 100, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 100, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", NPOS, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", NPOS, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", NPOS, NPOS));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("");
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 0, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 0, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 0, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 100, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 100, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 100, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 20, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 20, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", 20, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", NPOS, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", NPOS, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "", NPOS, NPOS));
+
+        string_assign_cstr(pt_string, "");
+        _printstring(pt_string);
+        puts("bmw");
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", 0, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", 0, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", 0, 1));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", 0, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", 100, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", 100, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", 100, 1));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", 100, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", NPOS, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", NPOS, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", NPOS, 1));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "bmw", NPOS, NPOS));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("mwb");
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 0, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 0, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 0, 1));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 0, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 100, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 100, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 100, 1));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 100, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 20, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 20, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 20, 1));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", 20, NPOS));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", NPOS, 0));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", NPOS, 100));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", NPOS, 1));
+        printf("%u\n", string_find_first_of_subcstr(pt_string, "mwb", NPOS, NPOS));
+
+        string_destroy(pt_string);
+    }
     /*string_find_first_of_char         */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        _printstring(pt_string);
+        puts("m");
+        printf("%u\n", string_find_first_of_char(pt_string, 'm', 0));
+        printf("%u\n", string_find_first_of_char(pt_string, 'm', 100));
+        printf("%u\n", string_find_first_of_char(pt_string, 'm', NPOS));
+
+        string_assign_cstr(pt_string, "abcmdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("m");
+        printf("%u\n", string_find_first_of_char(pt_string, 'm', 0));
+        printf("%u\n", string_find_first_of_char(pt_string, 'm', 10));
+        printf("%u\n", string_find_first_of_char(pt_string, 'm', 20));
+        printf("%u\n", string_find_first_of_char(pt_string, 'm', 100));
+        printf("%u\n", string_find_first_of_char(pt_string, 'm', NPOS));
+
+        string_destroy(pt_string);
+    }
     /*string_find_first_not_of          */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 100));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, NPOS));
+
+        string_assign_cstr(pt_stringex, "bmw");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 100));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, NPOS));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_assign_cstr(pt_stringex, "");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 100));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 20));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, NPOS));
+
+        string_assign_cstr(pt_stringex, "bmw");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 0));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 100));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, 12));
+        printf("%u\n", string_find_first_not_of(pt_string, pt_stringex, NPOS));
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_find_first_not_of_cstr     */
     /*string_find_first_not_of_subcstr  */
     /*string_find_first_not_of_char     */
