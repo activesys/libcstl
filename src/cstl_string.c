@@ -546,49 +546,85 @@ size_t string_find_first_not_of_char(
 size_t string_find_last_of(
     const string_t* cpt_string, const string_t* cpt_string_find, size_t t_pos)
 {
-    return basic_string_find_last_of(cpt_string, cpt_string_find, t_pos);
+    return string_find_last_of_cstr(cpt_string, string_c_str(cpt_string_find), t_pos);
 }
 
 size_t string_find_last_of_cstr(
     const string_t* cpt_string, const char* s_cstr, size_t t_pos)
 {
-    return basic_string_find_last_of_cstr(cpt_string, s_cstr, t_pos);
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpt_string);
+    t_findpos = basic_string_find_last_of_cstr(cpt_string, s_cstr, t_pos);
+    basic_string_push_back((string_t*)cpt_string, '\0');
+
+    return t_findpos;
 }
 
 size_t string_find_last_of_subcstr(
     const string_t* cpt_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
-    return basic_string_find_last_of_subcstr(cpt_string, s_cstr, t_pos, t_len);
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpt_string);
+    t_findpos = basic_string_find_last_of_subcstr(cpt_string, s_cstr, t_pos, t_len);
+    basic_string_push_back((string_t*)cpt_string, '\0');
+
+    return t_findpos;
 }
 
 size_t string_find_last_of_char(
     const string_t* cpt_string, char c_char, size_t t_pos)
 {
-    return basic_string_find_last_of_elem(cpt_string, c_char, t_pos);
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpt_string);
+    t_findpos = basic_string_find_last_of_elem(cpt_string, c_char, t_pos);
+    basic_string_push_back((string_t*)cpt_string, '\0');
+
+    return t_findpos;
 }
 
 size_t string_find_last_not_of(
     const string_t* cpt_string, const string_t* cpt_string_find, size_t t_pos)
 {
-    return basic_string_find_last_not_of(cpt_string, cpt_string_find, t_pos);
+    return string_find_last_not_of_cstr(cpt_string, string_c_str(cpt_string_find), t_pos);
 }
 
 size_t string_find_last_not_of_cstr(
     const string_t* cpt_string, const char* s_cstr, size_t t_pos)
 {
-    return basic_string_find_last_not_of_cstr(cpt_string, s_cstr, t_pos);
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpt_string);
+    t_findpos = basic_string_find_last_not_of_cstr(cpt_string, s_cstr, t_pos);
+    basic_string_push_back((string_t*)cpt_string, '\0');
+
+    return t_findpos;
 }
 
 size_t string_find_last_not_of_subcstr(
     const string_t* cpt_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
-    return basic_string_find_last_not_of_subcstr(cpt_string, s_cstr, t_pos, t_len);
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpt_string);
+    t_findpos = basic_string_find_last_not_of_subcstr(cpt_string, s_cstr, t_pos, t_len);
+    basic_string_push_back((string_t*)cpt_string, '\0');
+
+    return t_findpos;
 }
 
 size_t string_find_last_not_of_char(
     const string_t* cpt_string, char c_char, size_t t_pos)
 {
-    return basic_string_find_last_not_of_elem(cpt_string, c_char, t_pos);
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpt_string);
+    t_findpos = basic_string_find_last_not_of_elem(cpt_string, c_char, t_pos);
+    basic_string_push_back((string_t*)cpt_string, '\0');
+
+    return t_findpos;
 }
 
 /* iterator support */
@@ -633,19 +669,19 @@ void string_swap(string_t* pt_stringfirst, string_t* pt_stringsecond)
 
 void string_reserve(string_t* pt_string, size_t t_reservesize)
 {
-    basic_string_reserve(pt_string, t_reservesize);
+    basic_string_reserve(pt_string, t_reservesize + 1);
 }
 
 void string_resize(string_t* pt_string, size_t t_resize, char c_char)
 {
-    basic_string_resize(pt_string, string_size(pt_string), '\0');
+    _basic_string_pop_back(pt_string);
     basic_string_resize(pt_string, t_resize, c_char);
     basic_string_push_back(pt_string, '\0');
 }
 
 void string_push_back(string_t* pt_string, char c_char)
 {
-    basic_string_resize(pt_string, string_size(pt_string), '\0');
+    _basic_string_pop_back(pt_string);
     basic_string_push_back(pt_string, c_char);
     basic_string_push_back(pt_string, '\0');
 }
