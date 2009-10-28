@@ -2316,6 +2316,87 @@ void test_string(int argc, char* argv[])
         string_destroy(pt_string);
     }
     /*string_find_last_of_char          */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        _printstring(pt_string);
+        puts("o");
+        printf("\nstring_find_char: 0, 100, NPOS\n");
+        printf("%u\n", string_find_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_find_first_of_char: 0, 100, NPOS\n");
+        printf("%u\n", string_find_first_of_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_first_of_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_first_of_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_find_first_not_of_char: 0, 100, NPOS\n");
+        printf("%u\n", string_find_first_not_of_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_first_not_of_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_first_not_of_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_rfind_char: 0, 100, NPOS\n");
+        printf("%u\n", string_rfind_char(pt_string, 'o', 0));
+        printf("%u\n", string_rfind_char(pt_string, 'o', 100));
+        printf("%u\n", string_rfind_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_find_last_of_char: 0, 100, NPOS\n");
+        printf("%u\n", string_find_last_of_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_last_of_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_last_of_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_find_last_not_of_char: 0, 100, NPOS\n");
+        printf("%u\n", string_find_last_not_of_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_last_not_of_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_last_not_of_char(pt_string, 'o', NPOS));
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+        puts("o");
+        printf("\nstring_find_char: 0, 20, 100, NPOS\n");
+        printf("%u\n", string_find_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_char(pt_string, 'o', 20));
+        printf("%u\n", string_find_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_find_first_of_char: 0, 20, 100, NPOS\n");
+        printf("%u\n", string_find_first_of_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_first_of_char(pt_string, 'o', 20));
+        printf("%u\n", string_find_first_of_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_first_of_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_find_first_not_of_char: 0, 20, 100, NPOS\n");
+        printf("%u\n", string_find_first_not_of_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_first_not_of_char(pt_string, 'o', 20));
+        printf("%u\n", string_find_first_not_of_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_first_not_of_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_rfind_char: 0, 20, 100, NPOS\n");
+        printf("%u\n", string_rfind_char(pt_string, 'o', 0));
+        printf("%u\n", string_rfind_char(pt_string, 'o', 20));
+        printf("%u\n", string_rfind_char(pt_string, 'o', 100));
+        printf("%u\n", string_rfind_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_find_last_of_char: 0, 20, 100, NPOS\n");
+        printf("%u\n", string_find_last_of_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_last_of_char(pt_string, 'o', 20));
+        printf("%u\n", string_find_last_of_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_last_of_char(pt_string, 'o', NPOS));
+
+        printf("\nstring_find_last_not_of_char: 0, 20, 100, NPOS\n");
+        printf("%u\n", string_find_last_not_of_char(pt_string, 'o', 0));
+        printf("%u\n", string_find_last_not_of_char(pt_string, 'o', 20));
+        printf("%u\n", string_find_last_not_of_char(pt_string, 'o', 100));
+        printf("%u\n", string_find_last_not_of_char(pt_string, 'o', NPOS));
+
+        string_destroy(pt_string);
+    }
     /*string_find_last_not_of           */
     /*string_find_last_not_of_cstr      */
     /*string_find_last_not_of_subcstr   */
@@ -2461,10 +2542,216 @@ void test_string(int argc, char* argv[])
         string_destroy(pt_string);
     }
     /*string_assign                     */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        string_assign(pt_string, pt_stringex);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_assign_cstr(pt_stringex, "alkdiebv");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        string_assign(pt_string, pt_stringex);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_assign_cstr(pt_stringex, "#$$#@%^*(*&^%#~!##$$%^&*&&^%$#@#$^*(");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        string_assign(pt_string, pt_stringex);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_assign_cstr(pt_stringex, "8734763984");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        string_assign(pt_string, pt_stringex);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_clear(pt_stringex);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        string_assign(pt_string, pt_stringex);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_assign_substring           */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        printf("================================\n");
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        string_assign_substring(pt_string, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_assign_substring(pt_string, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+        string_assign_substring(pt_string, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        string_assign_substring(pt_string, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_clear(pt_string);
+        string_assign_substring(pt_string, pt_stringex, 0, 10);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_clear(pt_string);
+        string_assign_substring(pt_string, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_clear(pt_string);
+        string_assign_substring(pt_string, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_clear(pt_string);
+        string_assign_substring(pt_string, pt_stringex, 10, 0);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_clear(pt_string);
+        string_assign_substring(pt_string, pt_stringex, 10, 10);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_clear(pt_string);
+        string_assign_substring(pt_string, pt_stringex, 10, 100);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_clear(pt_string);
+        string_assign_substring(pt_string, pt_stringex, 10, NPOS);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_assign_substring(pt_string, pt_stringex, 5, 0);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_assign_substring(pt_string, pt_stringex, 5, 5);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_assign_substring(pt_string, pt_stringex, 5, 500);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_assign_substring(pt_string, pt_stringex, 5, NPOS);
+        _printstring(pt_string);
+        _printstring(pt_stringex);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_assign_cstr                */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_assign_cstr(pt_string, "");
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Shenyang");
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "");
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_assign_subcstr             */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_assign_subcstr(pt_string, "", 0);
+        _printstring(pt_string);
+        string_assign_subcstr(pt_string, "", 100);
+        _printstring(pt_string);
+        string_assign_subcstr(pt_string, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0);
+        _printstring(pt_string);
+        string_assign_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 10);
+        _printstring(pt_string);
+        string_assign_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100);
+        _printstring(pt_string);
+        string_assign_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_assign_char                */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_assign_char(pt_string, 0, 'v');
+        _printstring(pt_string);
+        string_assign_char(pt_string, 10, 'q');
+        _printstring(pt_string);
+        string_assign_char(pt_string, 100, 'm');
+        _printstring(pt_string);
+        string_assign_char(pt_string, 2, 'c');
+        _printstring(pt_string);
+        string_assign_char(pt_string, 0, 'r');
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_assign_range               */
     /*string_append                     */
     /*string_append_substring           */

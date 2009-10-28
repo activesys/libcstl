@@ -1979,6 +1979,7 @@ void _basic_string_assign_elem_varg(
     vector_clear(&pt_basic_string->_t_vector);
     assert(vector_size(&pt_basic_string->_t_vector) == 0);
 
+    vector_reserve(&pt_basic_string->_t_vector, t_count * 2);
     for(t_index = 0; t_index < t_count; ++t_index)
     {
         _vector_push_back_varg(&pt_basic_string->_t_vector, val_elemlist);

@@ -695,10 +695,13 @@ void string_assign(string_t* pt_string, const string_t* cpt_string_assign)
 void string_assign_substring(
     string_t* pt_string, const string_t* cpt_string_assign, size_t t_pos, size_t t_len)
 {
-    basic_string_assign_substring(pt_string, cpt_string_assign, t_pos, t_len);
-    if(t_pos + t_len <= string_size(cpt_string_assign))
+    if(string_empty(cpt_string_assign))
     {
-        basic_string_push_back(pt_string, '\0');
+        string_assign_cstr(pt_string, "");
+    }
+    else
+    {
+        string_assign_subcstr(pt_string, string_at(cpt_string_assign, t_pos), t_len);
     }
 }
 
