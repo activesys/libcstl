@@ -393,6 +393,11 @@ iterator_t iterator_next_n(iterator_t t_iter, int n_step)
 {
     assert(_iterator_limit_type(t_iter, _RANDOM_ACCESS_ITERATOR));
 
+    if(n_step == 0)
+    {
+        return t_iter;
+    }
+
     switch(t_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
@@ -414,6 +419,11 @@ iterator_t iterator_next_n(iterator_t t_iter, int n_step)
 iterator_t iterator_prev_n(iterator_t t_iter, int n_step)
 {
     assert(_iterator_limit_type(t_iter, _RANDOM_ACCESS_ITERATOR));
+
+    if(n_step == 0)
+    {
+        return t_iter;
+    }
 
     switch(t_iter._t_containertype)
     {

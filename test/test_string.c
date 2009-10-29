@@ -2753,23 +2753,707 @@ void test_string(int argc, char* argv[])
         string_destroy(pt_string);
     }
     /*string_assign_range               */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_assign_range(pt_string, string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_stringex);
+        string_assign_range(pt_string, string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_range(pt_string,
+            string_begin(pt_stringex), iterator_next_n(string_begin(pt_stringex), 4));
+        _printstring(pt_string);
+
+        string_assign_range(pt_string, iterator_next_n(string_begin(pt_stringex), 5),
+            iterator_next_n(string_begin(pt_stringex), 20));
+        _printstring(pt_string);
+
+        string_assign_range(pt_string,
+            iterator_next_n(string_begin(pt_stringex), 20), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_range(pt_string, string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_append                     */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_append(pt_string, pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "CHINA");
+        _printstring(pt_stringex);
+
+        string_append(pt_string, pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, " - Shenyang");
+        _printstring(pt_stringex);
+
+        string_append(pt_string, pt_stringex);
+        _printstring(pt_string);
+
+        string_clear(pt_stringex);
+        _printstring(pt_stringex);
+
+        string_append(pt_string, pt_stringex);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_append_substring           */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_append_substring(pt_string, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_append_substring(pt_string, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_append_substring(pt_string, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_stringex);
+        string_append_substring(pt_string, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_append_substring(pt_string, pt_stringex, 0, 11);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_append_substring(pt_string, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_append_substring(pt_string, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_substring(pt_string, pt_stringex, 5, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_substring(pt_string, pt_stringex, 5, 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_substring(pt_string, pt_stringex, 5, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_substring(pt_string, pt_stringex, 5, NPOS);
+        _printstring(pt_string);
+
+        string_clear(pt_stringex);
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_substring(pt_string, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_substring(pt_string, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_substring(pt_string, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_append_cstr                */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_append_cstr(pt_string, "");
+        _printstring(pt_string);
+        string_append_cstr(pt_string, "Fedora 9");
+        _printstring(pt_string);
+        string_append_cstr(pt_string, " Linux");
+        _printstring(pt_string);
+        string_append_cstr(pt_string, "");
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_append_subcstr             */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_append_subcstr(pt_string, "", 0);
+        _printstring(pt_string);
+        string_append_subcstr(pt_string, "", 100);
+        _printstring(pt_string);
+        string_append_subcstr(pt_string, "", NPOS);
+        _printstring(pt_string);
+
+        string_append_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0);
+        _printstring(pt_string);
+        string_append_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 10);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_append_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_append_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_append_subcstr(pt_string, "abcdefghijklmnopqrstuvwxyz", NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_append_char                */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_append_char(pt_string, 0, 'A');
+        _printstring(pt_string);
+        string_append_char(pt_string, 10, 'B');
+        _printstring(pt_string);
+        string_append_char(pt_string, 20, 'C');
+        _printstring(pt_string);
+        string_append_char(pt_string, 0, 'D');
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_append_range               */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_append_range(pt_string, string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        _printstring(pt_stringex);
+        string_append_range(pt_string, string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+        string_append_range(pt_string, string_begin(pt_stringex),
+            iterator_next_n(string_begin(pt_stringex), 5));
+        _printstring(pt_string);
+
+        string_append_range(pt_string, iterator_next_n(string_begin(pt_stringex), 10),
+            iterator_next_n(string_begin(pt_stringex), 20));
+        _printstring(pt_string);
+
+        string_append_range(pt_string, iterator_next_n(string_begin(pt_stringex), 23),
+            string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_append_range(pt_string, string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_insert                     */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_insert(pt_string, string_begin(pt_string), 'A');
+        _printstring(pt_string);
+        string_insert(pt_string, string_begin(pt_string), 'B');
+        _printstring(pt_string);
+        string_insert(pt_string, string_end(pt_string), 'C');
+        _printstring(pt_string);
+        string_insert(pt_string, iterator_next(string_begin(pt_string)), 'D');
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_insert_n                   */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_insert_n(pt_string, string_end(pt_string), 0, 'A');
+        _printstring(pt_string);
+        string_insert_n(pt_string, string_end(pt_string), 3, 'B');
+        _printstring(pt_string);
+        string_insert_n(pt_string, string_end(pt_string), 5, 'C');
+        _printstring(pt_string);
+        string_insert_n(pt_string, string_begin(pt_string), 10, 'D');
+        _printstring(pt_string);
+        string_insert_n(pt_string, iterator_next_n(string_begin(pt_string), 5), 7, 'E');
+        _printstring(pt_string);
+        string_insert_n(pt_string, iterator_prev_n(string_end(pt_string), 2), 2, 'F');
+        _printstring(pt_string);
+        string_insert_n(pt_string, iterator_prev_n(string_end(pt_string), 5), 0, 'G');
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_insert_string              */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_insert_string(pt_string, 0, pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, " Enterprise");
+        string_insert_string(pt_string, 0, pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "Redhat");
+        string_insert_string(pt_string, 0, pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, " 5");
+        string_insert_string(pt_string, string_length(pt_string), pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, " Linux");
+        string_insert_string(pt_string,  string_length(pt_string) - 2, pt_stringex);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_insert_substring           */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_insert_substring(pt_string, 0, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        string_clear(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 0, 10);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        string_clear(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 5, 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 5, 10);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 5, 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, 5, NPOS);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_substring(pt_string, 0, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 0, pt_stringex, 5, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 0, pt_stringex, 5, 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 0, pt_stringex, 5, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 0, pt_stringex, 5, NPOS);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 0, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 5, pt_stringex, 5, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 5, pt_stringex, 5, 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 5, pt_stringex, 5, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 5, pt_stringex, 5, NPOS);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, 5, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, string_length(pt_string), pt_stringex, 5, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, string_length(pt_string), pt_stringex, 5, 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, string_length(pt_string), pt_stringex, 5, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, string_length(pt_string), pt_stringex, 5, NPOS);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_substring(pt_string, string_length(pt_string),
+            pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_insert_cstr                */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_insert_cstr(pt_string, 0, "");
+        _printstring(pt_string);
+
+        string_insert_cstr(pt_string, 0, "1234567890");
+        _printstring(pt_string);
+
+        string_insert_cstr(pt_string, 0, "Linux");
+        _printstring(pt_string);
+
+        string_insert_cstr(pt_string, 10, "Fedora");
+        _printstring(pt_string);
+
+        string_insert_cstr(pt_string, string_length(pt_string), "Redhat");
+        _printstring(pt_string);
+
+        string_insert_cstr(pt_string, 10, "");
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_insert_subcstr             */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_insert_subcstr(pt_string, 0, "", 0);
+        _printstring(pt_string);
+        string_insert_subcstr(pt_string, 0, "", 100);
+        _printstring(pt_string);
+        string_insert_subcstr(pt_string, 0, "", NPOS);
+        _printstring(pt_string);
+
+        string_clear(pt_string);
+        string_insert_subcstr(pt_string, 0, "abcdefghijklmnopqrstuvwxyz", 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_subcstr(pt_string, 0, "abcdefghijklmnopqrstuvwxyz", 10);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_subcstr(pt_string, 0, "abcdefghijklmnopqrstuvwxyz", 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_insert_subcstr(pt_string, 0, "abcdefghijklmnopqrstuvwxyz", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, 0, "abcdefghijklmnopqrstuvwxyz", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, 0, "abcdefghijklmnopqrstuvwxyz", 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, 0, "abcdefghijklmnopqrstuvwxyz", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, 0, "abcdefghijklmnopqrstuvwxyz", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, 5, "abcdefghijklmnopqrstuvwxyz", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, 5, "abcdefghijklmnopqrstuvwxyz", 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, 5, "abcdefghijklmnopqrstuvwxyz", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, 5, "abcdefghijklmnopqrstuvwxyz", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, string_length(pt_string), "abcdefghijklmnopqrstuvwxyz", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, string_length(pt_string), "abcdefghijklmnopqrstuvwxyz", 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, string_length(pt_string), "abcdefghijklmnopqrstuvwxyz", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_insert_subcstr(pt_string, string_length(pt_string), "abcdefghijklmnopqrstuvwxyz", NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_insert_char                */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_insert_char(pt_string, 0, 0, 'A');
+        _printstring(pt_string);
+        string_insert_char(pt_string, 0, 4, 'B');
+        _printstring(pt_string);
+        string_insert_char(pt_string, 0, 9, 'C');
+        _printstring(pt_string);
+        string_insert_char(pt_string, 10, 10, 'D');
+        _printstring(pt_string);
+        string_insert_char(pt_string, string_length(pt_string), 3, 'E');
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_insert_range               */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_insert_range(pt_string, string_begin(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "abcdefghijklmnopqrstuvwxyz");
+        string_insert_range(pt_string, string_begin(pt_string),
+            string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+        string_insert_range(pt_string, string_begin(pt_string),
+            string_begin(pt_stringex), iterator_next_n(string_begin(pt_stringex), 4));
+        _printstring(pt_string);
+        string_insert_range(pt_string, string_end(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 10),
+            iterator_next_n(string_begin(pt_stringex), 20));
+        _printstring(pt_string);
+        string_insert_range(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            iterator_prev_n(string_end(pt_stringex), 5), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_insert_range(pt_string, string_end(pt_string),
+            string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_erase                      */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_assign_cstr(pt_string, "CHINA");
+        _printstring(pt_string);
+        string_erase(pt_string, string_begin(pt_string));
+        _printstring(pt_string);
+        string_erase(pt_string, iterator_next(string_begin(pt_string)));
+        _printstring(pt_string);
+        string_erase(pt_string, iterator_prev(string_end(pt_string)));
+        _printstring(pt_string);
+        while(!string_empty(pt_string))
+        {
+            string_erase(pt_string, string_begin(pt_string));
+            _printstring(pt_string);
+        }
+
+        string_destroy(pt_string);
+    }
     /*string_erase_range                */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_erase_range(pt_string, string_begin(pt_string), string_end(pt_string));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Redhat Enterprise Linux 5");
+        _printstring(pt_string);
+        string_erase_range(pt_string, string_begin(pt_string), string_begin(pt_string));
+        _printstring(pt_string);
+        string_erase_range(pt_string,
+            string_begin(pt_string), iterator_next_n(string_begin(pt_string), 7));
+        _printstring(pt_string);
+        string_erase_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 10),
+            iterator_next_n(string_begin(pt_string), 17));
+        _printstring(pt_string);
+        string_erase_range(pt_string, iterator_prev(string_end(pt_string)), string_end(pt_string));
+        _printstring(pt_string);
+        string_erase_range(pt_string, string_end(pt_string), string_end(pt_string));
+        _printstring(pt_string);
+        string_erase_range(pt_string, string_begin(pt_string), string_end(pt_string));
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_erase_substring            */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_erase_substring(pt_string, 0, 0);
+        _printstring(pt_string);
+        string_erase_substring(pt_string, 0, 100);
+        _printstring(pt_string);
+        string_erase_substring(pt_string, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, 0, 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, 5, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, 5, 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, 5, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, 5, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, string_length(pt_string), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, string_length(pt_string), 10);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, string_length(pt_string), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz");
+        string_erase_substring(pt_string, string_length(pt_string), NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_replace                    */
     /*string_replace_substring          */
     /*string_replace_cstr               */

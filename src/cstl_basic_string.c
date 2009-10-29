@@ -864,7 +864,6 @@ basic_string_iterator_t basic_string_end(const basic_string_t* cpt_basic_string)
     basic_string_iterator_t t_newiterator;
 
     assert(cpt_basic_string != NULL);
-    assert(vector_size(&cpt_basic_string->_t_vector) > 0);
 
     t_newiterator = vector_end(&cpt_basic_string->_t_vector);
     _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
@@ -2113,6 +2112,7 @@ basic_string_iterator_t _basic_string_insert_n_varg(
 {
     assert(pt_basic_string != NULL);
 
+    _GET_BASIC_STRING_CONTAINER_TYPE(t_pos) = _VECTOR_CONTAINER;
     return _vector_insert_n_varg(
         &pt_basic_string->_t_vector, t_pos, t_count, val_elemlist);
 }
@@ -2179,11 +2179,8 @@ void basic_string_insert_subcstr(
     assert(pt_basic_string != NULL && cpv_valuestring != NULL);
 
     pt_string = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(pt_basic_string));
-
     basic_string_init_subcstr(pt_string, cpv_valuestring, t_len);
-
     basic_string_insert_string(pt_basic_string, t_pos, pt_string);
-
     basic_string_destroy(pt_string);
 }
 
@@ -2222,8 +2219,7 @@ void _basic_string_insert_elem_varg(
     assert(pt_basic_string != NULL);
     assert(t_pos <= basic_string_size(pt_basic_string));
 
-    t_insert = basic_string_begin(pt_basic_string);
-    t_insert = iterator_next_n(t_insert, t_pos);
+    t_insert = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
     _GET_VECTOR_CONTAINER_TYPE(t_insert) = _VECTOR_CONTAINER;
     _vector_insert_n_varg(&pt_basic_string->_t_vector, t_insert, t_count, val_elemlist);
 }
@@ -2269,7 +2265,7 @@ void basic_string_erase_substring(
     basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
     basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
 
-    assert(t_pos < basic_string_size(pt_basic_string));
+    assert(t_pos <= basic_string_size(pt_basic_string));
 
     if(t_pos != 0)
     {

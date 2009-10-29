@@ -726,48 +726,47 @@ void string_assign_char(string_t* pt_string, size_t t_count, char c_char)
 void string_assign_range(
     string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end)
 {
+    assert(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))));
     basic_string_assign_range(pt_string, t_begin, t_end);
-    if(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))))
-    {
-        basic_string_push_back(pt_string, '\0');
-    }
+    basic_string_push_back(pt_string, '\0');
 }
 
 /* append + += */
 void string_append(string_t* pt_string, const string_t* cpt_string_append)
 {
-    basic_string_resize(pt_string, string_size(pt_string), '\0');
-    basic_string_append(pt_string, cpt_string_append);
+    string_append_cstr(pt_string, string_c_str(cpt_string_append));
 }
 
 void string_append_substring(
     string_t* pt_string, const string_t* cpt_string_append, size_t t_pos, size_t t_len)
 {
-    basic_string_resize(pt_string, string_size(pt_string), '\0');
-    basic_string_append_substring(pt_string, cpt_string_append, t_pos, t_len);
-    if(t_pos + t_len <= string_size(cpt_string_append))
+    if(string_empty(cpt_string_append))
     {
-        basic_string_push_back(pt_string, '\0');
+        string_append_cstr(pt_string, "");
+    }
+    else
+    {
+        string_append_subcstr(pt_string, string_at(cpt_string_append, t_pos), t_len);
     }
 }
 
 void string_append_cstr(string_t* pt_string, const char* s_cstr)
 {
-    basic_string_resize(pt_string, string_size(pt_string), '\0');
+    _basic_string_pop_back(pt_string);
     basic_string_append_cstr(pt_string, s_cstr);
     basic_string_push_back(pt_string, '\0');
 }
 
 void string_append_subcstr(string_t* pt_string, const char* s_cstr, size_t t_len)
 {
-    basic_string_resize(pt_string, string_size(pt_string), '\0');
+    _basic_string_pop_back(pt_string);
     basic_string_append_subcstr(pt_string, s_cstr, t_len);
     basic_string_push_back(pt_string, '\0');
 }
 
 void string_append_char(string_t* pt_string, size_t t_count, char c_char)
 {
-    basic_string_resize(pt_string, string_size(pt_string), '\0');
+    _basic_string_pop_back(pt_string);
     basic_string_append_elem(pt_string, t_count, c_char);
     basic_string_push_back(pt_string, '\0');
 }
@@ -775,12 +774,10 @@ void string_append_char(string_t* pt_string, size_t t_count, char c_char)
 void string_append_range(
     string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end)
 {
-    basic_string_resize(pt_string, string_size(pt_string), '\0');
+    assert(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))));
+    _basic_string_pop_back(pt_string);
     basic_string_append_range(pt_string, t_begin, t_end);
-    if(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))))
-    {
-        basic_string_push_back(pt_string, '\0');
-    }
+    basic_string_push_back(pt_string, '\0');
 }
 
 /* insert */
@@ -799,32 +796,42 @@ string_iterator_t string_insert_n(
 void string_insert_string(
     string_t* pt_string, size_t t_pos, const string_t* cpt_string_insert)
 {
+    _basic_string_pop_back(pt_string);
     basic_string_insert_cstr(pt_string, t_pos, string_c_str(cpt_string_insert));
+    basic_string_push_back(pt_string, '\0');
 }
 
 void string_insert_substring(
     string_t* pt_string, size_t t_pos, const string_t* cpt_string_insert, 
     size_t t_startpos, size_t t_len)
 {
+    _basic_string_pop_back(pt_string);
     basic_string_insert_subcstr(
         pt_string, t_pos, string_at(cpt_string_insert, t_startpos), t_len);
+    basic_string_push_back(pt_string, '\0');
 }
 
 void string_insert_cstr(string_t* pt_string, size_t t_pos, const char* s_cstr)
 {
+    _basic_string_pop_back(pt_string);
     basic_string_insert_cstr(pt_string, t_pos, s_cstr);
+    basic_string_push_back(pt_string, '\0');
 }
 
 void string_insert_subcstr(
     string_t* pt_string, size_t t_pos, const char* s_cstr, size_t t_len)
 {
+    _basic_string_pop_back(pt_string);
     basic_string_insert_subcstr(pt_string, t_pos, s_cstr, t_len);
+    basic_string_push_back(pt_string, '\0');
 }
 
 void string_insert_char(
     string_t* pt_string, size_t t_pos, size_t t_count, char c_char)
 {
+    _basic_string_pop_back(pt_string);
     basic_string_insert_elem(pt_string, t_pos, t_count, c_char);
+    basic_string_push_back(pt_string, '\0');
 }
 
 void string_insert_range(
@@ -837,6 +844,7 @@ void string_insert_range(
 /* erase */
 string_iterator_t string_erase(string_t* pt_string, string_iterator_t t_pos)
 {
+    assert(!iterator_equal(t_pos, string_end(pt_string)));
     return basic_string_erase(pt_string, t_pos);
 }
 
@@ -848,7 +856,9 @@ string_iterator_t string_erase_range(
 
 void string_erase_substring(string_t* pt_string, size_t t_pos, size_t t_len)
 {
+    _basic_string_pop_back(pt_string);
     basic_string_erase_substring(pt_string, t_pos, t_len);
+    basic_string_push_back(pt_string, '\0');
 }
 
 /* replace */
