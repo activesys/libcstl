@@ -865,48 +865,66 @@ void string_erase_substring(string_t* pt_string, size_t t_pos, size_t t_len)
 void string_replace(
     string_t* pt_string, size_t t_pos, size_t t_len, const string_t* cpt_string_replace)
 {
+    _basic_string_pop_back(pt_string);
+    _basic_string_pop_back((string_t*)cpt_string_replace);
     basic_string_replace(pt_string, t_pos, t_len, cpt_string_replace);
+    basic_string_push_back(pt_string, '\0');
+    basic_string_push_back((string_t*)cpt_string_replace, '\0');
 }
 
 void string_replace_substring(
     string_t* pt_string, size_t t_pos, size_t t_len,
     const string_t* cpt_string_replace, size_t t_position, size_t t_length)
 {
+    _basic_string_pop_back(pt_string);
+    _basic_string_pop_back((string_t*)cpt_string_replace);
     basic_string_replace_substring(
         pt_string, t_pos, t_len, cpt_string_replace, t_position, t_length);
+    basic_string_push_back(pt_string, '\0');
+    basic_string_push_back((string_t*)cpt_string_replace, '\0');
 }
 
 void string_replace_cstr(
     string_t* pt_string, size_t t_pos, size_t t_len, const char* s_cstr)
 {
+    _basic_string_pop_back(pt_string);
     basic_string_replace_cstr(pt_string, t_pos, t_len, s_cstr);
+    basic_string_push_back(pt_string, '\0');
 }
 
 void string_replace_subcstr(
     string_t* pt_string, size_t t_pos, size_t t_len, const char* s_cstr, size_t t_length)
 {
+    _basic_string_pop_back(pt_string);
     basic_string_replace_subcstr(pt_string, t_pos, t_len, s_cstr, t_length);
+    basic_string_push_back(pt_string, '\0');
 }
 
 void string_replace_char(
     string_t* pt_string, size_t t_pos, size_t t_len, size_t t_count, char c_char)
 {
+    _basic_string_pop_back(pt_string);
     basic_string_replace_elem(pt_string, t_pos, t_len, t_count, c_char);
+    basic_string_push_back(pt_string, '\0');
 }
 
 void string_range_replace(
     string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
     const string_t* cpt_string_replace)
 {
+    _basic_string_pop_back((string_t*)cpt_string_replace);
     basic_string_range_replace(pt_string, t_begin, t_end, cpt_string_replace);
+    basic_string_push_back((string_t*)cpt_string_replace, '\0');
 }
 
 void string_range_replace_substring(
     string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
     const string_t* cpt_string_replace, size_t t_pos, size_t t_len)
 {
+    _basic_string_pop_back((string_t*)cpt_string_replace);
     basic_string_range_replace_substring(
         pt_string, t_begin, t_end, cpt_string_replace, t_pos, t_len);
+    basic_string_push_back((string_t*)cpt_string_replace, '\0');
 }
 
 void string_range_replace_cstr(

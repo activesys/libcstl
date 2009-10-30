@@ -2291,7 +2291,7 @@ void basic_string_replace(
     basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
     basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
 
-    assert(t_pos < basic_string_size(pt_basic_string));
+    assert(t_pos <= basic_string_size(pt_basic_string));
 
     t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
@@ -2314,7 +2314,7 @@ void basic_string_replace_substring(
     basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
     basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
 
-    assert(t_pos < basic_string_size(pt_basic_string));
+    assert(t_pos <= basic_string_size(pt_basic_string));
 
     t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
@@ -2337,7 +2337,7 @@ void basic_string_replace_cstr(
     basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
     basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
 
-    assert(t_pos < basic_string_size(pt_basic_string));
+    assert(t_pos <= basic_string_size(pt_basic_string));
 
     t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
@@ -2360,7 +2360,7 @@ void basic_string_replace_subcstr(
     basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
     basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
 
-    assert(t_pos < basic_string_size(pt_basic_string));
+    assert(t_pos <= basic_string_size(pt_basic_string));
 
     t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
@@ -2391,7 +2391,7 @@ void _basic_string_replace_elem_varg(
     basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
     basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
 
-    assert(t_pos < basic_string_size(pt_basic_string));
+    assert(t_pos <= basic_string_size(pt_basic_string));
 
     t_begin = iterator_next_n(t_begin, t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))

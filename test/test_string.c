@@ -3455,20 +3455,2206 @@ void test_string(int argc, char* argv[])
         string_destroy(pt_string);
     }
     /*string_replace                    */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_replace(pt_string, 0, 0, pt_stringex);
+        _printstring(pt_string);
+        string_replace(pt_string, 0, 100, pt_stringex);
+        _printstring(pt_string);
+        string_replace(pt_string, 0, NPOS, pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "CHINA");
+        string_replace(pt_string, 0, 0, pt_stringex);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace(pt_string, 0, 100, pt_stringex);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace(pt_string, 0, NPOS, pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 0, 0, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 0, 2, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 0, 100, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 0, NPOS, pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 2, 0, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 2, 7, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 2, 100, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 2, NPOS, pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, string_length(pt_string), 0, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, string_length(pt_string), 100, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, string_length(pt_string), NPOS, pt_stringex);
+        _printstring(pt_string);
+
+        string_clear(pt_stringex);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 2, 0, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 2, 7, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 2, 100, pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace(pt_string, 2, NPOS, pt_stringex);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_replace_substring          */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "Shenyang");
+        string_clear(pt_string);
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 2, 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 2, 2);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 2, 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 2, NPOS);
+        _printstring(pt_string);
+
+        string_clear(pt_stringex);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 6, 0, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 6, 2, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 6, 100, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 6, NPOS, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS, pt_stringex, 0, 100);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "Shenyang");
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 0, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 5, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, 100, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 0, NPOS, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 0, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 3, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, 100, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, 3, NPOS, pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0,
+            pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0,
+            pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 0,
+            pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100,
+            pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100,
+            pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), 100,
+            pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS, pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS, pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS, pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS, pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS, pt_stringex, 4, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS, pt_stringex, 4, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS, pt_stringex, 4, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS, pt_stringex, 4, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS,
+            pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS,
+            pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_substring(pt_string, string_length(pt_string), NPOS,
+            pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_replace_cstr               */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_replace_cstr(pt_string, 0, 0, "");
+        _printstring(pt_string);
+        string_replace_cstr(pt_string, 0, 100, "");
+        _printstring(pt_string);
+        string_replace_cstr(pt_string, 0, NPOS, "");
+        _printstring(pt_string);
+
+        string_replace_cstr(pt_string, 0, 0, "Linux");
+        _printstring(pt_string);
+        string_replace_cstr(pt_string, 0, 100, "Linux");
+        _printstring(pt_string);
+        string_replace_cstr(pt_string, 0, NPOS, "Linux");
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, 0, 0, "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, 0, 8, "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, 0, 100, "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, 0, NPOS, "Linux");
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, 3, 0, "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, 3, 4, "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, 3, 100, "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, 3, NPOS, "Linux");
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, string_length(pt_string), 0, "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, string_length(pt_string), 100, "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_cstr(pt_string, string_length(pt_string), NPOS, "Linux");
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_replace_subcstr            */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_replace_subcstr(pt_string, 0, 0, "", 0);
+        _printstring(pt_string);
+        string_replace_subcstr(pt_string, 0, 0, "", 100);
+        _printstring(pt_string);
+        string_replace_subcstr(pt_string, 0, 0, "", NPOS);
+        _printstring(pt_string);
+
+        string_replace_subcstr(pt_string, 0, 100, "", 0);
+        _printstring(pt_string);
+        string_replace_subcstr(pt_string, 0, 100, "", 100);
+        _printstring(pt_string);
+        string_replace_subcstr(pt_string, 0, 100, "", NPOS);
+
+        string_replace_subcstr(pt_string, 0, NPOS, "", 0);
+        _printstring(pt_string);
+        string_replace_subcstr(pt_string, 0, NPOS, "", 100);
+        _printstring(pt_string);
+        string_replace_subcstr(pt_string, 0, NPOS, "", NPOS);
+        _printstring(pt_string);
+
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, 0, "Linux", 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, 0, "Linux", 3);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, 0, "Linux", 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, 0, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, 100, "Linux", 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, 100, "Linux", 3);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, 100, "Linux", 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, 100, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, NPOS, "Linux", 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, NPOS, "Linux", 3);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, NPOS, "Linux", 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_subcstr(pt_string, 0, NPOS, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 0, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 0, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 0, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 3, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 3, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 3, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 100, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 100, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 100, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, NPOS, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, NPOS, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, NPOS, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 0, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 0, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 0, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 3, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 3, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 3, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 100, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 100, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 100, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, NPOS, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, NPOS, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, NPOS, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 0, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 0, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 0, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 100, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 100, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 100, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), NPOS, "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), NPOS, "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), NPOS, "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 0, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 0, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 0, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 0, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 3, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 3, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 3, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 3, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 100, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 100, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 100, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, 100, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, NPOS, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, NPOS, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, NPOS, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 0, NPOS, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 0, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 0, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 0, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 0, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 1, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 1, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 1, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 1, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 100, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 100, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 100, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, 100, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, NPOS, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, NPOS, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, NPOS, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, 3, NPOS, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 0, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 0, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 0, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 0, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 100, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 100, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 100, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), 100, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), NPOS, "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), NPOS, "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), NPOS, "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_subcstr(pt_string, string_length(pt_string), NPOS, "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_replace_char               */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_replace_char(pt_string, 0, 0, 0, 'A');
+        _printstring(pt_string);
+        string_replace_char(pt_string, 0, 100, 0, 'B');
+        _printstring(pt_string);
+        string_replace_char(pt_string, 0, NPOS, 0, 'C');
+        _printstring(pt_string);
+
+        string_clear(pt_string);
+        string_replace_char(pt_string, 0, 0, 10, 'D');
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_char(pt_string, 0, 100, 10, 'E');
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_char(pt_string, 0, NPOS, 10, 'F');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 0, 0, 0, 'G');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 0, 4, 0, 'H');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 0, 100, 0, 'I');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 0, NPOS, 0, 'J');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 0, 0, 10, 'K');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 0, 4, 10, 'L');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 0, 100, 10, 'M');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 0, NPOS, 10, 'N');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 4, 0, 0, 'O');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 4, 4, 0, 'P');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 4, 100, 0, 'Q');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 4, NPOS, 0, 'R');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 4, 0, 10, 'S');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 4, 4, 10, 'T');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 4, 100, 10, 'U');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, 4, NPOS, 10, 'V');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, string_length(pt_string), 0, 0, 'W');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, string_length(pt_string), 100, 0, 'X');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, string_length(pt_string), NPOS, 0, 'Y');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, string_length(pt_string), 0, 10, 'Z');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, string_length(pt_string), 100, 10, '$');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_replace_char(pt_string, string_length(pt_string), NPOS, 10, '&');
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_range_replace              */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_range_replace(pt_string, string_begin(pt_string), string_end(pt_string), pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, string_begin(pt_string), string_begin(pt_string), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 4), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, iterator_next_n(string_begin(pt_string), 4),
+            iterator_next_n(string_begin(pt_string), 7), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, iterator_next_n(string_begin(pt_string), 6),
+            string_end(pt_string), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, string_end(pt_string), string_end(pt_string), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, string_begin(pt_string), string_end(pt_string), pt_stringex);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "Linux");
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, string_begin(pt_string), string_begin(pt_string), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 4), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, iterator_next_n(string_begin(pt_string), 4),
+            iterator_next_n(string_begin(pt_string), 7), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, iterator_next_n(string_begin(pt_string), 6),
+            string_end(pt_string), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, string_end(pt_string), string_end(pt_string), pt_stringex);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "1234567890");
+        string_range_replace(pt_string, string_begin(pt_string), string_end(pt_string), pt_stringex);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_range_replace_substring    */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "Linux");
+        string_clear(pt_string);
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, 4);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_clear(pt_stringex);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string), string_end(pt_string),
+            pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string), string_end(pt_string),
+            pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string), string_end(pt_string),
+            pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_end(pt_string),
+            pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "Linux");
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 0, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 2, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 2, 2);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 2, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, 2, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string), string_begin(pt_string),
+            pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 0, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 2, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 2, 2);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 2, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), pt_stringex, 2, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3),
+            pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3),
+            pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3),
+            pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 0, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 2, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 2, 2);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 2, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), pt_stringex, 2, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 0, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 2, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 2, 2);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 2, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, 2, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, 0, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, 2, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, 2, 2);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, 2, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, 2, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_end(pt_string),
+            string_end(pt_string), pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, 0, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, 0, 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, 0, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, 0, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, 2, 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, 2, 2);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, 2, 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, 2, NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, string_length(pt_stringex), 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, string_length(pt_stringex), 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_substring(pt_string, string_begin(pt_string),
+            string_end(pt_string), pt_stringex, string_length(pt_stringex), NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_range_replace_cstr         */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_range_replace_cstr(pt_string, string_begin(pt_string), string_end(pt_string), "");
+        _printstring(pt_string);
+
+        string_range_replace_cstr(pt_string,
+            string_begin(pt_string), string_end(pt_string), "Linux");
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_cstr(pt_string,
+            string_begin(pt_string), string_begin(pt_string), "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_cstr(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_cstr(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_cstr(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_cstr(pt_string, string_end(pt_string),
+            string_end(pt_string), "Linux");
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_cstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "Linux");
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_range_replace_subcstr      */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "", 0);
+        _printstring(pt_string);
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "", 100);
+        _printstring(pt_string);
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "", NPOS);
+        _printstring(pt_string);
+
+        string_clear(pt_string);
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "Linux", 0);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "Linux", 3);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "Linux", 100);
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_begin(pt_string), "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_begin(pt_string), "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_begin(pt_string), "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_end(pt_string),
+            string_end(pt_string), "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_end(pt_string),
+            string_end(pt_string), "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_end(pt_string),
+            string_end(pt_string), "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_begin(pt_string), "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_begin(pt_string), "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_begin(pt_string), "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_begin(pt_string), "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_end(pt_string),
+            string_end(pt_string), "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_end(pt_string),
+            string_end(pt_string), "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_end(pt_string),
+            string_end(pt_string), "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_end(pt_string),
+            string_end(pt_string), "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "Linux", 0);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "Linux", 3);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "Linux", 100);
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_subcstr(pt_string, string_begin(pt_string),
+            string_end(pt_string), "Linux", NPOS);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_range_replace_char         */
+    {
+        string_t* pt_string = create_string();
+        if(pt_string == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_clear(pt_string);
+        string_range_replace_char(pt_string, string_begin(pt_string),
+            string_end(pt_string), 0, 'A');
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_range_replace_char(pt_string, string_begin(pt_string),
+            string_end(pt_string), 10, 'B');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, string_begin(pt_string),
+            string_begin(pt_string), 0, 'C');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, string_begin(pt_string),
+            string_begin(pt_string), 10, 'D');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), 0, 'E');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, string_begin(pt_string),
+            iterator_next_n(string_begin(pt_string), 3), 10, 'F');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), 0, 'G');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5), 10, 'H');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), 0, 'I');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_string), 10, 'J');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, string_end(pt_string),
+            string_end(pt_string), 0, 'K');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, string_end(pt_string),
+            string_end(pt_string), 10, 'L');
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, string_begin(pt_string),
+            string_end(pt_string), 0, 'M');
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_range_replace_char(pt_string, string_begin(pt_string),
+            string_end(pt_string), 10, 'N');
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_replace_range              */
+    {
+        string_t* pt_string = create_string();
+        string_t* pt_stringex = create_string();
+        if(pt_string == NULL || pt_stringex == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+        string_init(pt_stringex);
+
+        string_replace_range(pt_string, string_begin(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "Linux");
+        string_clear(pt_string);
+        string_replace_range(pt_string, string_begin(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_range(pt_string, string_begin(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), iterator_next_n(string_begin(pt_stringex), 2));
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_range(pt_string, string_begin(pt_string), string_end(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 2),
+            iterator_next_n(string_begin(pt_stringex), 4));
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_range(pt_string, string_begin(pt_string), string_end(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 3), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_range(pt_string, string_begin(pt_string), string_end(pt_string),
+            string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_clear(pt_string);
+        string_replace_range(pt_string, string_begin(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_clear(pt_stringex);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string, string_begin(pt_string), string_begin(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), iterator_next_n(string_begin(pt_string), 3),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 5), string_end(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string, string_end(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string, string_begin(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_stringex, "Linux");
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string, string_begin(pt_string), string_begin(pt_string),
+            string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string, string_begin(pt_string), string_begin(pt_string),
+            string_begin(pt_stringex), iterator_next_n(string_begin(pt_stringex), 2));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string, string_begin(pt_string), string_begin(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 2),
+            iterator_next_n(string_begin(pt_stringex), 4));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string, string_begin(pt_string), string_begin(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 3), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string, string_begin(pt_string), string_begin(pt_string),
+            string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string, string_begin(pt_string), string_begin(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), iterator_next_n(string_begin(pt_string), 3),
+            string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), iterator_next_n(string_begin(pt_string), 3),
+            string_begin(pt_stringex), iterator_next_n(string_begin(pt_stringex), 2));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_stringex), 2),
+            iterator_next_n(string_begin(pt_stringex), 4));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_stringex), 3), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), iterator_next_n(string_begin(pt_string), 3),
+            string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), iterator_next_n(string_begin(pt_string), 3),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            string_begin(pt_stringex), iterator_next_n(string_begin(pt_stringex), 2));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            iterator_next_n(string_begin(pt_stringex), 2),
+            iterator_next_n(string_begin(pt_stringex), 4));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            iterator_next_n(string_begin(pt_stringex), 3), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 3),
+            iterator_next_n(string_begin(pt_string), 5),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 5), string_end(pt_string),
+            string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 5), string_end(pt_string),
+            string_begin(pt_stringex), iterator_next_n(string_begin(pt_stringex), 2));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 5), string_end(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 2),
+            iterator_next_n(string_begin(pt_stringex), 4));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 5), string_end(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 3), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 5), string_end(pt_string),
+            string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            iterator_next_n(string_begin(pt_string), 5), string_end(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_end(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_end(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), iterator_next_n(string_begin(pt_stringex), 2));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_end(pt_string), string_end(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 2),
+            iterator_next_n(string_begin(pt_stringex), 4));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_end(pt_string), string_end(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 3), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_end(pt_string), string_end(pt_string),
+            string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_end(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), string_begin(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), iterator_next_n(string_begin(pt_stringex), 2));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), string_end(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 2),
+            iterator_next_n(string_begin(pt_stringex), 4));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), string_end(pt_string),
+            iterator_next_n(string_begin(pt_stringex), 3), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), string_end(pt_string),
+            string_end(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+        string_assign_cstr(pt_string, "Windows");
+        string_replace_range(pt_string,
+            string_begin(pt_string), string_end(pt_string),
+            string_begin(pt_stringex), string_end(pt_stringex));
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+        string_destroy(pt_stringex);
+    }
     /*string_output                     */
+    {
+        string_t* pt_string = create_string();
+        FILE* fp_str = fopen("string_output.txt", "w");
+        if(pt_string == NULL || fp_str == NULL)
+        {
+            return;
+        }
+
+        string_init(pt_string);
+
+        string_output(pt_string, stdout);
+        string_output(pt_string, fp_str);
+
+        string_assign_cstr(pt_string, "Windows\nLinux\nUnix\n");
+        string_output(pt_string, stderr);
+        string_output(pt_string, fp_str);
+
+        fclose(fp_str);
+        string_destroy(pt_string);
+    }
     /*string_input                      */
+    {
+        string_t* pt_string = create_string();
+        FILE* fp_str = fopen("string_output.txt", "r");
+        if(pt_string == NULL || fp_str == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_input(pt_string, stdin);
+        _printstring(pt_string);
+        string_input(pt_string, fp_str);
+        _printstring(pt_string);
+
+        fclose(fp_str);
+        string_destroy(pt_string);
+    }
     /*string_getline                    */
+    {
+        string_t* pt_string = create_string();
+        FILE* fp_str = fopen("string_output.txt", "r");
+        if(pt_string == NULL || fp_str == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_getline(pt_string, stdin);
+        _printstring(pt_string);
+        string_getline(pt_string, fp_str);
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
     /*string_getline_delimiter          */
+    {
+        string_t* pt_string = create_string();
+        FILE* fp_str = fopen("string_output.txt", "r");
+        if(pt_string == NULL || fp_str == NULL)
+        {
+            return;
+        }
+        string_init(pt_string);
+
+        string_getline_delimiter(pt_string, stdin, 'p');
+        _printstring(pt_string);
+        string_getline_delimiter(pt_string, fp_str, 'n');
+        _printstring(pt_string);
+
+        string_destroy(pt_string);
+    }
 
     argc = 0;
     argv = NULL;
