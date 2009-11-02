@@ -2961,7 +2961,12 @@ static void _type_destroy_bool(
 static void _type_init_cstr(
     const void* cpv_input, void* pv_output)
 {
+    bool_t t_result = false;
+
     assert(cpv_input != NULL && pv_output != NULL);
+
+    t_result = _create_string_auxiliary((string_t*)cpv_input);
+    assert(t_result);
     string_init((string_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
@@ -2982,7 +2987,7 @@ static void _type_destroy_cstr(
     const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
-    string_destroy((string_t*)cpv_input);
+    _string_destroy_auxiliary((string_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
 

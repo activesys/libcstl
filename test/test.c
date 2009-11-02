@@ -59,7 +59,7 @@
 int main(int argc, char* argv[])
 {
     printf("========== test vector_t ==========\n");
-    /*test_vector();*/
+    test_vector();
     printf("========== test deque_t  ==========\n");
     /*test_deque();*/
     printf("========== test list_t  ==========\n");
@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
     /*test_set();*/
     /*test_map();*/
     printf("========== test string_t  ==========\n");
-    test_string(argc, argv);
+    /*test_string(argc, argv);*/
     /*test_string_getline(); */
     /*test_type();*/
 

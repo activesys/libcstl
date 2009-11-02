@@ -42,6 +42,8 @@ static void _abc_copy(const void* cpv_first, const void* cpv_second, void* pv_ou
 static void _abc_less(const void* cpv_first, const void* cpv_second, void * pv_output);
 static void _abc_destroy(const void* cpv_input, void* pv_output);
 
+static void _print_vec_str(const vector_t* pt_vec);
+
 /** exported global variable definition section **/
 
 /** local global variable definition section **/
@@ -2923,15 +2925,53 @@ void test_vector(void)
     {
         /* create_vector(), vector_init(), vector_destroy() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_init_n() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_vec, 4);
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_init_elem() */
         {
+            vector_t* pt_vec = create_vector(char     *);
+            char s_str[31] = {'\0'};
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            strncpy(s_str, "Hello every body!", 30);
+            vector_init_elem(pt_vec, 3, s_str);
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_init_copy() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            vector_t* pt_vecex = create_vector(char*);
+            /*char s_str[31] = "Hello every body!";*/
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vecex);
+            vector_init_copy(pt_vec, pt_vecex);
+            _print_vec_str(pt_vecex);
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_init_copy_range() */
         {
@@ -3030,6 +3070,20 @@ void test_vector(void)
 }
 
 /** local function implementation section **/
+static void _print_vec_str(const vector_t* pt_vec)
+{
+    size_t t_index = 0;
+
+    assert(pt_vec != NULL);
+
+    printf("======================================\n");
+    /*printf("empty: %u, size: %u, capacity:%u, max_size: %u\n");*/
+    for(t_index = 0; t_index < vector_size(pt_vec); ++t_index)
+    {
+        printf("%s\n", (char*)vector_at(pt_vec, t_index));
+    }
+}
+
 static void _abc_init(const void* cpv_input, void* pv_output)
 {
     abc_t* pt_input = (abc_t*)cpv_input;
