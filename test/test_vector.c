@@ -2962,12 +2962,11 @@ void test_vector(void)
         {
             vector_t* pt_vec = create_vector(char*);
             vector_t* pt_vecex = create_vector(char*);
-            /*char s_str[31] = "Hello every body!";*/
             if(pt_vec == NULL || pt_vecex == NULL)
             {
                 return;
             }
-            vector_init(pt_vecex);
+            vector_init_elem(pt_vecex, 5, "Hello World!");
             vector_init_copy(pt_vec, pt_vecex);
             _print_vec_str(pt_vecex);
             vector_destroy(pt_vec);
@@ -2975,96 +2974,528 @@ void test_vector(void)
         }
         /* vector_init_copy_range() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            vector_t* pt_vecex = create_vector(char*);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init_elem(pt_vecex, 8, "Hello libcstl!");
+            vector_init_copy_range(pt_vec,
+                iterator_next_n(vector_begin(pt_vecex), 3), vector_end(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_size() */
-        {
-        }
         /* vector_capacity() */
-        {
-        }
         /* vector_max_size() */
-        {
-        }
         /* vector_empty() */
-        {
-        }
         /* vector_reserve() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            _print_vec_str(pt_vec);
+            vector_reserve(pt_vec, 0);
+            _print_vec_str(pt_vec);
+            vector_reserve(pt_vec, 10);
+            _print_vec_str(pt_vec);
+            vector_reserve(pt_vec, 15);
+            _print_vec_str(pt_vec);
+            vector_reserve(pt_vec, 4);
+            _print_vec_str(pt_vec);
+            vector_reserve(pt_vec, 0);
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_assign() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            vector_t* pt_vecex = create_vector(char*);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_assign(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            vector_push_back(pt_vecex, "Hello World!");
+            vector_push_back(pt_vecex, "Hello libcstl!");
+            vector_assign(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, "abcdefghijklmnopqrstuvwxyz");
+            vector_push_back(pt_vecex, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            vector_push_back(pt_vecex, "1234567890");
+            vector_assign(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            vector_clear(pt_vecex);
+            vector_push_back(pt_vecex, "!@@%#@$&$**(()_+||_)(*&^%$");
+            vector_assign(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            vector_clear(pt_vecex);
+            vector_assign(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_assign_elem() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            _print_vec_str(pt_vec);
+            vector_assign_elem(pt_vec, 0, "China");
+            _print_vec_str(pt_vec);
+            vector_assign_elem(pt_vec, 8, "ChinaUnix");
+            _print_vec_str(pt_vec);
+            vector_assign_elem(pt_vec, 21, "CSDN");
+            _print_vec_str(pt_vec);
+            vector_assign_elem(pt_vec, 5, "");
+            _print_vec_str(pt_vec);
+            vector_assign_elem(pt_vec, 0, "Google");
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_assign_range() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            vector_t* pt_vecex = create_vector(char*);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_assign_range(pt_vec, vector_begin(pt_vecex), vector_end(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_push_back(pt_vecex, "ChinaUnix");
+            vector_push_back(pt_vecex, "CSDN");
+            vector_push_back(pt_vecex, "China-Pub");
+            vector_push_back(pt_vecex, "Google");
+            vector_push_back(pt_vecex, "sina");
+            vector_push_back(pt_vecex, "163");
+            vector_push_back(pt_vecex, "mop");
+            vector_push_back(pt_vecex, "openv");
+            vector_assign_range(pt_vec, vector_begin(pt_vecex), vector_begin(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_assign_range(pt_vec,
+                vector_begin(pt_vecex), iterator_next_n(vector_begin(pt_vecex), 3));
+            _print_vec_str(pt_vec);
+            vector_assign_range(pt_vec,
+                iterator_next_n(vector_begin(pt_vecex), 2), iterator_next_n(vector_begin(pt_vecex), 5));
+            _print_vec_str(pt_vec);
+            vector_assign_range(pt_vec, iterator_prev(vector_end(pt_vecex)), vector_end(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_assign_range(pt_vec, vector_end(pt_vecex), vector_end(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_assign_range(pt_vec, vector_begin(pt_vecex), vector_end(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_equal() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            vector_t* pt_vecex = create_vector(char*);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            printf("equal: %d, not equal: %d, ",
+                vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
+            printf("less: %d, less equal: %d, ",
+                vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
+            printf("great: %d, great equal: %d\n",
+                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            vector_push_back(pt_vec, "China");
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            printf("equal: %d, not equal: %d, ",
+                vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
+            printf("less: %d, less equal: %d, ",
+                vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
+            printf("great: %d, great equal: %d\n",
+                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            vector_push_back(pt_vecex, "China");
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            printf("equal: %d, not equal: %d, ",
+                vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
+            printf("less: %d, less equal: %d, ",
+                vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
+            printf("great: %d, great equal: %d\n",
+                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            vector_push_back(pt_vecex, "UNIX");
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            printf("equal: %d, not equal: %d, ",
+                vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
+            printf("less: %d, less equal: %d, ",
+                vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
+            printf("great: %d, great equal: %d\n",
+                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            vector_push_back(pt_vec, "CSDN");
+            vector_push_back(pt_vec, "sina");
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            printf("equal: %d, not equal: %d, ",
+                vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
+            printf("less: %d, less equal: %d, ",
+                vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
+            printf("great: %d, great equal: %d\n",
+                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_not_equal() */
-        {
-        }
         /* vector_less() */
-        {
-        }
         /* vector_less_equal() */
-        {
-        }
         /* vector_great() */
-        {
-        }
         /* vector_great_equal() */
-        {
-        }
         /* vector_swap() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            vector_t* pt_vecex = create_vector(char*);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_swap(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            vector_assign_elem(pt_vecex, 3, "libcstl");
+            vector_swap(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            vector_assign_elem(pt_vecex, 9, "Hello World!");
+            vector_swap(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            vector_clear(pt_vecex);
+            vector_swap(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            vector_clear(pt_vecex);
+            vector_swap(pt_vec, pt_vecex);
+            _print_vec_str(pt_vec);
+            _print_vec_str(pt_vecex);
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_at() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            size_t i;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "I. Errors and Overflow");
+            vector_push_back(pt_vec,
+                "    In line with the discussion in NWG/RFC #48, we felt that two");
+            vector_push_back(pt_vec,
+                "types of errors should be distinguished.  One is a real error, such as");
+            vector_push_back(pt_vec,
+                "an RFC composed of two send sockets.  This type of error can only be");
+            vector_push_back(pt_vec,
+                "generated by a broken NCP.  In the absence of hardware and software");
+            vector_push_back(pt_vec,
+                "bugs, these events should never occur; the correct response upon");
+            vector_push_back(pt_vec,
+                "detection of such an event was outlined in the description of the ERR");
+            vector_push_back(pt_vec, "command in NWG/RFC #54.");
+
+            for(i = 0; i < vector_size(pt_vec); ++i)
+            {
+                puts((char*)vector_at(pt_vec, i));
+            }
+
+            printf("front: %s\n", (char*)vector_front(pt_vec));
+            printf("back: %s\n", (char*)vector_back(pt_vec));
+            vector_destroy(pt_vec);
         }
         /* vector_front() */
-        {
-        }
         /* vector_back() */
-        {
-        }
         /* vector_begin() */
-        {
-        }
         /* vector_end() */
-        {
-        }
         /* vector_insert() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            _print_vec_str(pt_vec);
+            vector_insert(pt_vec, vector_begin(pt_vec),
+                "The other \"error\" is an overflow condition arising because");
+            _print_vec_str(pt_vec);
+            vector_insert(pt_vec, vector_begin(pt_vec),
+                "finite system resources are exhausted.  An overflow condition could");
+            _print_vec_str(pt_vec);
+            vector_insert(pt_vec, vector_end(pt_vec),
+                "occur if an RFC was received, but there was no room to create the");
+            _print_vec_str(pt_vec);
+            vector_insert(pt_vec, iterator_next(vector_begin(pt_vec)),
+                "requisite tables and queues.  This is not a real error, in the sense");
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_insert_n() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_insert_n(pt_vec, vector_begin(pt_vec), 0, "0.  UNSPECIFIED ERROR");
+            _print_vec_str(pt_vec);
+            vector_insert_n(pt_vec, vector_begin(pt_vec), 3,
+                "1.  HOMOSEX  (invalid send/rcv pair in an RFC)");
+            _print_vec_str(pt_vec);
+            vector_insert_n(pt_vec, vector_begin(pt_vec), 7, "2.  ILLEGAL OP CODE");
+            _print_vec_str(pt_vec);
+            vector_insert_n(pt_vec, vector_end(pt_vec), 4,
+                "3.  ILLEGAL LEADER (bad message type, etc.)");
+            _print_vec_str(pt_vec);
+            vector_insert_n(pt_vec, iterator_prev_n(vector_end(pt_vec), 3), 2,
+                "6.  ILLEGAL COMMAND LENGTH (last command in message was too short)");
+            _print_vec_str(pt_vec);
+            vector_insert_n(pt_vec, iterator_next_n(vector_begin(pt_vec), 4), 0,
+                "8.  DATA OVERFLOW (message longer than advertised available");
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_insert_range() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            vector_t* pt_vecex = create_vector(char*);
+            if(pt_vec == NULL || pt_vecex == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_vecex);
+            vector_insert_range(pt_vec, vector_begin(pt_vec),
+                vector_begin(pt_vecex), vector_end(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_push_back(pt_vecex,
+                "       In light of the other considerations mentioned earlier, we");
+            vector_push_back(pt_vecex,
+                "would also like to propose an additional control command to singify");
+            vector_push_back(pt_vecex,
+                "overflow:");
+            vector_push_back(pt_vecex,
+                "        +-------------+-------------------+---------------------+");
+            vector_push_back(pt_vecex,
+                "        |     OVF     |     my socket     |     your socket     |");
+            vector_push_back(pt_vecex,
+                "        +-------------+-------------------+---------------------+");
+            vector_push_back(pt_vecex,
+                "The format of the message is similar to that of the CLS message, which");
+            vector_push_back(pt_vecex,
+                "it replaces in this context.  The socket numbers are 32 bits long and");
+            vector_insert_range(pt_vec, vector_begin(pt_vec),
+                vector_begin(pt_vecex), vector_begin(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_insert_range(pt_vec, vector_begin(pt_vec),
+                vector_begin(pt_vecex), iterator_next_n(vector_begin(pt_vecex), 3));
+            _print_vec_str(pt_vec);
+            vector_insert_range(pt_vec, vector_begin(pt_vec),
+                iterator_next_n(vector_begin(pt_vecex), 3),
+                iterator_next_n(vector_begin(pt_vecex), 6));
+            _print_vec_str(pt_vec);
+            vector_insert_range(pt_vec, vector_end(pt_vec),
+                iterator_prev_n(vector_end(pt_vecex), 2), vector_end(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_insert_range(pt_vec, iterator_prev(vector_end(pt_vec)),
+                vector_end(pt_vecex), vector_end(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_insert_range(pt_vec, vector_end(pt_vec),
+                vector_begin(pt_vecex), vector_end(pt_vecex));
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
+            vector_destroy(pt_vecex);
         }
         /* vector_push_back() */
-        {
-        }
         /* vector_pop_back() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_push_back(pt_vec,
+                "       In light of the other considerations mentioned earlier, we");
+            vector_push_back(pt_vec,
+                "would also like to propose an additional control command to singify");
+            vector_push_back(pt_vec,
+                "overflow:");
+            vector_push_back(pt_vec,
+                "        +-------------+-------------------+---------------------+");
+            vector_push_back(pt_vec,
+                "        |     OVF     |     my socket     |     your socket     |");
+            vector_push_back(pt_vec,
+                "        +-------------+-------------------+---------------------+");
+            vector_push_back(pt_vec,
+                "The format of the message is similar to that of the CLS message, which");
+            vector_push_back(pt_vec,
+                "it replaces in this context.  The socket numbers are 32 bits long and");
+
+            while(!vector_empty(pt_vec))
+            {
+                _print_vec_str(pt_vec);
+                vector_pop_back(pt_vec);
+            }
+            vector_destroy(pt_vec);
         }
         /* vector_erase() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "Abhay Bhushan, MIT-DMCG");
+            vector_push_back(pt_vec, "Bob Braden, UCLA-CCN");
+            vector_push_back(pt_vec, "Eric Harslem, RAND");
+            vector_push_back(pt_vec, "John Heafner, RAND");
+            vector_push_back(pt_vec, "Alex McKenzie, BBN-NET");
+            vector_push_back(pt_vec, "John Melvin, SRI-ARC");
+            vector_push_back(pt_vec, "Bob Sundberg, HARV");
+            vector_push_back(pt_vec, "Dick Watson, SRI-ARC");
+            vector_push_back(pt_vec, "Jim White, UCSB");
+            _print_vec_str(pt_vec);
+            vector_erase(pt_vec, vector_begin(pt_vec));
+            _print_vec_str(pt_vec);
+            vector_erase(pt_vec, iterator_prev(vector_end(pt_vec)));
+            _print_vec_str(pt_vec);
+            vector_erase(pt_vec, iterator_next_n(vector_begin(pt_vec), 3));
+            _print_vec_str(pt_vec);
+            while(!vector_empty(pt_vec))
+            {
+                vector_erase(pt_vec, vector_begin(pt_vec));
+            }
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_erase_range() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_erase_range(pt_vec, vector_begin(pt_vec), vector_end(pt_vec));
+            _print_vec_str(pt_vec);
+            vector_push_back(pt_vec, "Abhay Bhushan, MIT-DMCG");
+            vector_push_back(pt_vec, "Bob Braden, UCLA-CCN");
+            vector_push_back(pt_vec, "Eric Harslem, RAND");
+            vector_push_back(pt_vec, "John Heafner, RAND");
+            vector_push_back(pt_vec, "Alex McKenzie, BBN-NET");
+            vector_push_back(pt_vec, "John Melvin, SRI-ARC");
+            vector_push_back(pt_vec, "Bob Sundberg, HARV");
+            vector_push_back(pt_vec, "Dick Watson, SRI-ARC");
+            vector_push_back(pt_vec, "Jim White, UCSB");
+            _print_vec_str(pt_vec);
+            vector_erase_range(pt_vec, vector_begin(pt_vec), vector_begin(pt_vec));
+            _print_vec_str(pt_vec);
+            vector_erase_range(pt_vec,
+                vector_begin(pt_vec), iterator_next_n(vector_begin(pt_vec), 2));
+            _print_vec_str(pt_vec);
+            vector_erase_range(pt_vec,
+                iterator_next(vector_begin(pt_vec)), iterator_next_n(vector_begin(pt_vec), 3));
+            _print_vec_str(pt_vec);
+            vector_erase_range(pt_vec,
+                iterator_prev_n(vector_end(pt_vec), 2), vector_end(pt_vec));
+            _print_vec_str(pt_vec);
+            vector_erase_range(pt_vec, vector_end(pt_vec), vector_end(pt_vec));
+            _print_vec_str(pt_vec);
+            vector_erase_range(pt_vec, vector_begin(pt_vec), vector_end(pt_vec));
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_clear() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_clear(pt_vec);
+            _print_vec_str(pt_vec);
+            vector_push_back(pt_vec, "Abhay Bhushan, MIT-DMCG");
+            vector_push_back(pt_vec, "Bob Braden, UCLA-CCN");
+            vector_push_back(pt_vec, "Eric Harslem, RAND");
+            vector_push_back(pt_vec, "John Heafner, RAND");
+            vector_push_back(pt_vec, "Alex McKenzie, BBN-NET");
+            vector_push_back(pt_vec, "John Melvin, SRI-ARC");
+            vector_push_back(pt_vec, "Bob Sundberg, HARV");
+            vector_push_back(pt_vec, "Dick Watson, SRI-ARC");
+            vector_push_back(pt_vec, "Jim White, UCSB");
+            _print_vec_str(pt_vec);
+            vector_clear(pt_vec);
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_resize() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            _print_vec_str(pt_vec);
+            vector_resize(pt_vec, 3);
+            _print_vec_str(pt_vec);
+            vector_resize(pt_vec, 10);
+            _print_vec_str(pt_vec);
+            vector_resize(pt_vec, 6);
+            _print_vec_str(pt_vec);
+            vector_resize(pt_vec, 0);
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
         /* vector_resize_elem() */
         {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            _print_vec_str(pt_vec);
+            vector_resize_elem(pt_vec, 5, "\"MAIL\" <separator> (\"PRINTER\"/<ident>)");
+            _print_vec_str(pt_vec);
+            vector_resize_elem(pt_vec, 13, "<ident> is a NIC IDENT");
+            _print_vec_str(pt_vec);
+            vector_resize_elem(pt_vec, 7, "2) Append With Create the following file to a file");
+            _print_vec_str(pt_vec);
+            vector_resize_elem(pt_vec, 0, "");
+            _print_vec_str(pt_vec);
+            vector_destroy(pt_vec);
         }
     }
 }
@@ -3077,7 +3508,9 @@ static void _print_vec_str(const vector_t* pt_vec)
     assert(pt_vec != NULL);
 
     printf("======================================\n");
-    /*printf("empty: %u, size: %u, capacity:%u, max_size: %u\n");*/
+    printf("empty: %u, size: %u, capacity:%u, max_size: %u\n",
+        vector_empty(pt_vec), vector_size(pt_vec),
+        vector_capacity(pt_vec), vector_max_size(pt_vec));
     for(t_index = 0; t_index < vector_size(pt_vec); ++t_index)
     {
         printf("%s\n", (char*)vector_at(pt_vec, t_index));
