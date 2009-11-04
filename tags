@@ -1090,6 +1090,8 @@ _deque_iterator_equal	include/cstl_deque_iterator.h	/^extern bool_t _deque_itera
 _deque_iterator_equal	src/cstl_deque.c	/^bool_t _deque_iterator_equal($/;"	f	signature:( deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond)
 _deque_iterator_get_pointer	include/cstl_deque_iterator.h	/^extern const void* _deque_iterator_get_pointer(deque_iterator_t t_iter); $/;"	p	signature:(deque_iterator_t t_iter)
 _deque_iterator_get_pointer	src/cstl_deque.c	/^const void* _deque_iterator_get_pointer(deque_iterator_t t_iter)$/;"	f	signature:(deque_iterator_t t_iter)
+_deque_iterator_get_pointer_auxiliary	src/cstl_deque.c	/^static void* _deque_iterator_get_pointer_auxiliary(iterator_t t_iter)$/;"	f	file:	signature:(iterator_t t_iter)
+_deque_iterator_get_pointer_auxiliary	src/cstl_deque.c	/^static void* _deque_iterator_get_pointer_auxiliary(iterator_t t_iter);$/;"	p	file:	signature:(iterator_t t_iter)
 _deque_iterator_get_value	include/cstl_deque_iterator.h	/^extern void _deque_iterator_get_value(deque_iterator_t t_iter, void* pv_value);$/;"	p	signature:(deque_iterator_t t_iter, void* pv_value)
 _deque_iterator_get_value	src/cstl_deque.c	/^void _deque_iterator_get_value(deque_iterator_t t_iter, void* pv_value)$/;"	f	signature:(deque_iterator_t t_iter, void* pv_value)
 _deque_iterator_less	include/cstl_deque_iterator.h	/^extern bool_t _deque_iterator_less($/;"	p	signature:( deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond)
@@ -1770,6 +1772,10 @@ _pointer_less	test/test_stack.c	/^static void _pointer_less(const void* cpv_firs
 _ppc_allocatemempool	include/cstl_alloc.h	/^    char**      _ppc_allocatemempool;            \/* the allocated pool *\/$/;"	m	struct:_tagalloc	access:public
 _ppc_map	include/cstl_deque_private.h	/^    _mappointer_t    _ppc_map;$/;"	m	struct:_tagdeque	access:public
 _ppc_mappos	include/cstl_iterator.h	/^            char**  _ppc_mappos;    \/* point to the map *\/$/;"	m	struct:_tagiterator::__anon1::__anon2	access:public
+_print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_deque)$/;"	f	file:	signature:(const deque_t* pt_deque)
+_print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_deque);$/;"	p	file:	signature:(const deque_t* pt_deque)
+_print_vec_str	test/test_vector.c	/^static void _print_vec_str(const vector_t* pt_vec)$/;"	f	file:	signature:(const vector_t* pt_vec)
+_print_vec_str	test/test_vector.c	/^static void _print_vec_str(const vector_t* pt_vec);$/;"	p	file:	signature:(const vector_t* pt_vec)
 _printcoordinates	test/test_slist.c	/^static void _printcoordinates(const slist_t* cpt_slist)$/;"	f	file:	signature:(const slist_t* cpt_slist)
 _printcoordinates	test/test_slist.c	/^static void _printcoordinates(const slist_t* cpt_slist);$/;"	p	file:	signature:(const slist_t* cpt_slist)
 _printdeque_cstl	test/test_deque.c	/^static void _printdeque_cstl(const deque_t* pt_deque)$/;"	f	file:	signature:(const deque_t* pt_deque)

@@ -99,12 +99,16 @@ static deque_iterator_t _move_elem_to_begin(
     deque_t* pt_deque, deque_iterator_t t_begin, 
     deque_iterator_t t_end, size_t t_movesize);
 
+/*
+ * Auxiliary.
+ */
 static void _deque_get_varg_value_auxiliary(
     deque_t* pt_deque, va_list val_elemlist, void* pv_varg);
 static void _deque_destroy_varg_value_auxiliary(deque_t* pt_deque, void* pv_varg);
 /*static void _deque_init_elem_auxiliary(deque_t* pt_deque, void* pv_elem);*/
 static void _deque_init_elem_range_auxiliary(
     deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end);
+static void* _deque_iterator_get_pointer_auxiliary(iterator_t t_iter);
 
 /** exported global variable definition section **/
 
@@ -179,113 +183,66 @@ bool_t _deque_iterator_equal(
 
 void _deque_iterator_get_value(deque_iterator_t t_iter, void* pv_value)
 {
-    char*  pc_pos = NULL;
     bool_t t_result = false;
 
     assert(pv_value != NULL);
     assert(_deque_iterator_belong_to_deque(_GET_DEQUE_CONTAINER(t_iter), t_iter));
     assert(!iterator_equal(t_iter, deque_end(_GET_DEQUE_CONTAINER(t_iter))));
 
-    if(_GET_DEQUE_COREPOS(t_iter) != _GET_DEQUE_AFTERLAST_POS(t_iter))
-    {
-        pc_pos = _GET_DEQUE_COREPOS(t_iter);
-    }
-    else
-    {
-        /* 
-         * when the iterator is begin and the corepos equal to afterlast 
-         * then get the first element in next container.
-         */
-        _mappointer_t t_nextcontainer = _GET_DEQUE_MAP_POINTER(t_iter) + 1;
-        pc_pos = *t_nextcontainer;
-    }
-    assert(pc_pos != NULL);
-
     /* char* */
     if(strncmp(_GET_DEQUE_TYPE_BASENAME(_GET_DEQUE_CONTAINER(t_iter)),
         _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        *(char**)pv_value = (char*)string_c_str((string_t*)pc_pos);
+        *(char**)pv_value = (char*)string_c_str(
+            (string_t*)_deque_iterator_get_pointer_auxiliary(t_iter));
     }
     else
     {
         t_result = _GET_DEQUE_TYPE_SIZE(_GET_DEQUE_CONTAINER(t_iter));
         _GET_DEQUE_TYPE_COPY_FUNCTION(_GET_DEQUE_CONTAINER(t_iter))(
-            pv_value, pc_pos, &t_result);
+            pv_value, _deque_iterator_get_pointer_auxiliary(t_iter), &t_result);
         assert(t_result);
     }
 }
 
 void _deque_iterator_set_value(deque_iterator_t t_iter, const void* cpv_value)
 {
-    char*  pc_pos = NULL;
     bool_t t_result = false;
 
     assert(cpv_value != NULL);
     assert(_deque_iterator_belong_to_deque(_GET_DEQUE_CONTAINER(t_iter), t_iter));
     assert(!iterator_equal(t_iter, deque_end(_GET_DEQUE_CONTAINER(t_iter))));
 
-    if(_GET_DEQUE_COREPOS(t_iter) != _GET_DEQUE_AFTERLAST_POS(t_iter))
-    {
-        pc_pos = _GET_DEQUE_COREPOS(t_iter);
-    }
-    else
-    {
-        /* 
-         * when the iterator is begin and the corepos equal to afterlast 
-         * then get the first element in next container.
-         */
-        _mappointer_t t_nextcontainer = _GET_DEQUE_MAP_POINTER(t_iter) + 1;
-        pc_pos = *t_nextcontainer;
-    }
-    assert(pc_pos != NULL);
-
     /* char* */
     if(strncmp(_GET_DEQUE_TYPE_BASENAME(_GET_DEQUE_CONTAINER(t_iter)),
         _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        string_assign_cstr((string_t*)pc_pos, *(char**)cpv_value);
+        string_assign_cstr(
+            (string_t*)_deque_iterator_get_pointer_auxiliary(t_iter), *(char**)cpv_value);
     }
     else
     {
         t_result = _GET_DEQUE_TYPE_SIZE(_GET_DEQUE_CONTAINER(t_iter));
         _GET_DEQUE_TYPE_COPY_FUNCTION(_GET_DEQUE_CONTAINER(t_iter))(
-            pc_pos, cpv_value, &t_result);
+            _deque_iterator_get_pointer_auxiliary(t_iter), cpv_value, &t_result);
         assert(t_result);
     }
 }
 
 const void* _deque_iterator_get_pointer(deque_iterator_t t_iter)
 {
-    char* pc_pos = NULL;
-
     assert(_deque_iterator_belong_to_deque(_GET_DEQUE_CONTAINER(t_iter), t_iter));
     assert(!iterator_equal(t_iter, deque_end(_GET_DEQUE_CONTAINER(t_iter))));
-
-    if(_GET_DEQUE_COREPOS(t_iter) != _GET_DEQUE_AFTERLAST_POS(t_iter))
-    {
-        pc_pos = _GET_DEQUE_COREPOS(t_iter);
-    }
-    else
-    {
-        /* 
-         * when the iterator is begin and the corepos equal to afterlast 
-         * then get the first element in next container.
-         */
-        _mappointer_t t_nextcontainer = _GET_DEQUE_MAP_POINTER(t_iter) + 1;
-        pc_pos = *t_nextcontainer;
-    }
-    assert(pc_pos != NULL);
 
     /* char* */
     if(strncmp(_GET_DEQUE_TYPE_BASENAME(_GET_DEQUE_CONTAINER(t_iter)),
         _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return string_c_str((string_t*)pc_pos);
+        return string_c_str((string_t*)_deque_iterator_get_pointer_auxiliary(t_iter));
     }
     else
     {
-        return pc_pos;
+        return _deque_iterator_get_pointer_auxiliary(t_iter);
     }
 }
 
@@ -597,7 +554,7 @@ void deque_init_n(deque_t* pt_deque, size_t t_count)
         !iterator_equal(t_iter, deque_end(pt_deque));
         t_iter = iterator_next(t_iter))
     {
-        _deque_init_elem_auxiliary(pt_deque, (void*)iterator_get_pointer(t_iter));
+        _deque_init_elem_auxiliary(pt_deque, _deque_iterator_get_pointer_auxiliary(t_iter));
     }
 }
 
@@ -726,12 +683,12 @@ void _deque_init_elem_varg(deque_t* pt_deque, size_t t_count, va_list val_elemli
         t_iter = iterator_next(t_iter))
     {
         /* initialize all elements */
-        _deque_init_elem_auxiliary(pt_deque, (void*)iterator_get_pointer(t_iter));
+        _deque_init_elem_auxiliary(pt_deque, _deque_iterator_get_pointer_auxiliary(t_iter));
 
         /* copy element for varg value */
         t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
         _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-            iterator_get_pointer(t_iter), pv_varg, &t_result);
+            _deque_iterator_get_pointer_auxiliary(t_iter), pv_varg, &t_result);
         assert(t_result);
     }
 
@@ -765,7 +722,8 @@ void deque_init_copy_range(
     {
         t_result = _GET_DEQUE_TYPE_SIZE(pt_dequedest);
         _GET_DEQUE_TYPE_COPY_FUNCTION(pt_dequedest)(
-            iterator_get_pointer(t_dest), iterator_get_pointer(t_src), &t_result);
+            _deque_iterator_get_pointer_auxiliary(t_dest),
+            _deque_iterator_get_pointer_auxiliary(t_src), &t_result);
         assert(t_result);
     }
     assert(iterator_equal(t_dest, pt_dequedest->_t_finish) && iterator_equal(t_src, t_end));
@@ -786,7 +744,8 @@ void _deque_destroy_auxiliary(deque_t* pt_deque)
         t_iter = iterator_next(t_iter))
     {
         t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
-        _GET_DEQUE_TYPE_DESTROY_FUNCTION(pt_deque)(iterator_get_pointer(t_iter), &t_result);
+        _GET_DEQUE_TYPE_DESTROY_FUNCTION(pt_deque)(
+            _deque_iterator_get_pointer_auxiliary(t_iter), &t_result);
         assert(t_result);
     }
 
@@ -931,7 +890,7 @@ void _deque_assign_elem_varg(deque_t* pt_deque, size_t t_count, va_list val_elem
         {
             t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                iterator_get_pointer(t_iter), pv_varg, &t_result);
+                _deque_iterator_get_pointer_auxiliary(t_iter), pv_varg, &t_result);
             assert(t_result);
         }
 
@@ -960,7 +919,8 @@ void deque_assign_range(
     {
         t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
         _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-            iterator_get_pointer(t_dest), iterator_get_pointer(t_src), &t_result);
+            _deque_iterator_get_pointer_auxiliary(t_dest),
+            _deque_iterator_get_pointer_auxiliary(t_src), &t_result);
         assert(t_result);
     }
     assert(iterator_equal(t_dest, pt_deque->_t_finish) && iterator_equal(t_src, t_end));
@@ -996,9 +956,11 @@ bool_t deque_equal(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond
     {
         t_less = t_great = _GET_DEQUE_TYPE_SIZE(cpt_dequefirst);
         _GET_DEQUE_TYPE_LESS_FUNCTION(cpt_dequefirst)(
-            iterator_get_pointer(t_first), iterator_get_pointer(t_second), &t_less);
+            _deque_iterator_get_pointer_auxiliary(t_first),
+            _deque_iterator_get_pointer_auxiliary(t_second), &t_less);
         _GET_DEQUE_TYPE_LESS_FUNCTION(cpt_dequefirst)(
-            iterator_get_pointer(t_second), iterator_get_pointer(t_first), &t_great);
+            _deque_iterator_get_pointer_auxiliary(t_second),
+            _deque_iterator_get_pointer_auxiliary(t_first), &t_great);
         if(t_less || t_great)
         {
             return false;
@@ -1032,7 +994,8 @@ bool_t deque_less(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond)
     {
         t_result = _GET_DEQUE_TYPE_SIZE(cpt_dequefirst);
         _GET_DEQUE_TYPE_LESS_FUNCTION(cpt_dequefirst)(
-            iterator_get_pointer(t_first), iterator_get_pointer(t_second), &t_result);
+            _deque_iterator_get_pointer_auxiliary(t_first),
+            _deque_iterator_get_pointer_auxiliary(t_second), &t_result);
         if(t_result)
         {
             return true;
@@ -1040,7 +1003,8 @@ bool_t deque_less(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond)
 
         t_result = _GET_DEQUE_TYPE_SIZE(cpt_dequefirst);
         _GET_DEQUE_TYPE_LESS_FUNCTION(cpt_dequefirst)(
-            iterator_get_pointer(t_second), iterator_get_pointer(t_first), &t_result);
+            _deque_iterator_get_pointer_auxiliary(t_second),
+            _deque_iterator_get_pointer_auxiliary(t_first), &t_result);
         if(t_result)
         {
             return false;
@@ -1077,15 +1041,7 @@ void* deque_at(const deque_t* cpt_deque, size_t t_pos)
     t_iter = iterator_next_n(deque_begin(cpt_deque), t_pos);
     assert(_deque_iterator_belong_to_deque(cpt_deque, t_iter));
 
-    /* char* */
-    if(strncmp(_GET_DEQUE_TYPE_BASENAME(cpt_deque), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        return (char*)string_c_str((string_t*)iterator_get_pointer(t_iter));
-    }
-    else
-    {
-        return (void*)iterator_get_pointer(t_iter);
-    }
+    return (void*)iterator_get_pointer(t_iter);
 }
 
 void deque_swap(deque_t* pt_dequefirst, deque_t* pt_dequesecond)
@@ -1120,7 +1076,7 @@ void _deque_push_back_varg(deque_t* pt_deque, va_list val_elemlist)
 
     /* get value from varg */
     _type_get_varg_value(&pt_deque->_t_typeinfo, val_elemlist,
-        (void*)iterator_get_pointer(t_oldend));
+        _deque_iterator_get_pointer_auxiliary(t_oldend));
 }
 
 void deque_pop_back(deque_t* pt_deque)
@@ -1141,7 +1097,7 @@ void _deque_push_front_varg(deque_t* pt_deque, va_list val_elemlist)
     _expand_at_begin(pt_deque, 1, NULL);
     /* get value from varg */
     _type_get_varg_value(&pt_deque->_t_typeinfo, val_elemlist,
-        (void*)iterator_get_pointer(deque_begin(pt_deque)));
+        _deque_iterator_get_pointer_auxiliary(deque_begin(pt_deque)));
 }
 
 void deque_pop_front(deque_t* pt_deque)
@@ -1251,7 +1207,8 @@ void deque_insert_range(
         {
             t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                iterator_get_pointer(t_gap), iterator_get_pointer(t_begin), &t_result);
+                _deque_iterator_get_pointer_auxiliary(t_gap),
+                _deque_iterator_get_pointer_auxiliary(t_begin), &t_result);
             assert(t_result);
         }
         assert(iterator_equal(t_gap, t_pos) && iterator_equal(t_begin, t_end));
@@ -1267,7 +1224,8 @@ void deque_insert_range(
         {
             t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                iterator_get_pointer(t_pos), iterator_get_pointer(t_begin), &t_result);
+                _deque_iterator_get_pointer_auxiliary(t_pos),
+                _deque_iterator_get_pointer_auxiliary(t_begin), &t_result);
             assert(t_result);
         }
     }
@@ -1879,7 +1837,8 @@ static void _shrink_at_end(deque_t* pt_deque, size_t t_shrinksize)
         t_iter = iterator_next(t_iter))
     {
         t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
-        _GET_DEQUE_TYPE_DESTROY_FUNCTION(pt_deque)(iterator_get_pointer(t_iter), &t_result);
+        _GET_DEQUE_TYPE_DESTROY_FUNCTION(pt_deque)(
+            _deque_iterator_get_pointer_auxiliary(t_iter), &t_result);
         assert(t_result);
     }
     pt_deque->_t_finish = t_newend;
@@ -1913,7 +1872,8 @@ static void _shrink_at_begin(deque_t* pt_deque, size_t t_shrinksize)
         t_iter = iterator_next(t_iter))
     {
         t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
-        _GET_DEQUE_TYPE_DESTROY_FUNCTION(pt_deque)(iterator_get_pointer(t_iter), &t_result);
+        _GET_DEQUE_TYPE_DESTROY_FUNCTION(pt_deque)(
+            _deque_iterator_get_pointer_auxiliary(t_iter), &t_result);
         assert(t_result);
     }
     pt_deque->_t_start = t_newbegin;
@@ -1990,7 +1950,8 @@ static deque_iterator_t _move_elem_to_begin(
         {
             t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                iterator_get_pointer(t_targetbegin), iterator_get_pointer(t_begin), &t_result);
+                _deque_iterator_get_pointer_auxiliary(t_targetbegin),
+                _deque_iterator_get_pointer_auxiliary(t_begin), &t_result);
             assert(t_result);
         }
 
@@ -2044,10 +2005,36 @@ static void _deque_init_elem_range_auxiliary(
         for(t_iter = t_begin; !iterator_equal(t_iter, t_end); t_iter = iterator_next(t_iter))
         {
             bool_t t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
-            _GET_DEQUE_TYPE_INIT_FUNCTION(pt_deque)(iterator_get_pointer(t_iter), &t_result);
+            _GET_DEQUE_TYPE_INIT_FUNCTION(pt_deque)(
+                _deque_iterator_get_pointer_auxiliary(t_iter), &t_result);
             assert(t_result);
         }
     }
+}
+
+static void* _deque_iterator_get_pointer_auxiliary(iterator_t t_iter)
+{
+    char* pc_pos = NULL;
+
+    assert(_deque_iterator_belong_to_deque(_GET_DEQUE_CONTAINER(t_iter), t_iter));
+    assert(!iterator_equal(t_iter, deque_end(_GET_DEQUE_CONTAINER(t_iter))));
+
+    if(_GET_DEQUE_COREPOS(t_iter) != _GET_DEQUE_AFTERLAST_POS(t_iter))
+    {
+        pc_pos = _GET_DEQUE_COREPOS(t_iter);
+    }
+    else
+    {
+        /* 
+         * when the iterator is begin and the corepos equal to afterlast 
+         * then get the first element in next container.
+         */
+        _mappointer_t t_nextcontainer = _GET_DEQUE_MAP_POINTER(t_iter) + 1;
+        pc_pos = *t_nextcontainer;
+    }
+    assert(pc_pos != NULL);
+
+    return pc_pos;
 }
 
 /** eof **/

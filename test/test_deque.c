@@ -38,6 +38,7 @@ typedef struct _tagdeqabc
 /** local function prototype section **/
 static void _printdeque_cstl(const deque_t* pt_deque);
 static void _printdeque_user(const deque_t* pt_deque);
+static void _print_deq_str(const deque_t* pt_deque);
 
 /** exported global variable definition section **/
 
@@ -2531,9 +2532,397 @@ void test_deque(void)
         }
     }
     /* c-string type */
+    {
+        /*create_deque         */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
+        /*deque_init           */
+        /*deque_init_n         */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init_n(pt_deq, 10);
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
+        /*deque_init_elem      */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init_elem(pt_deq, 10, "VMware Workstation");
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
+        /*deque_init_copy      */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            deque_t* pt_deqex = create_deque(char*);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init_elem(pt_deqex, 5, "ActiveSys");
+            deque_init_copy(pt_deq, pt_deqex);
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
+        /*deque_init_copy_range*/
+        {
+            deque_t* pt_deq = create_deque(char*);
+            deque_t* pt_deqex = create_deque(char*);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deqex);
+            deque_push_back(pt_deqex,
+                "1.      Introduction ...........................................   3");
+            deque_push_back(pt_deqex,
+                "1.1.     Conventions Used in This Document .....................   4");
+            deque_push_back(pt_deqex,
+                "1.2.     Example mail messages .................................   4");
+            deque_push_back(pt_deqex,
+                "2.      Design .................................................   5");
+            deque_push_back(pt_deqex,
+                "2.1.     Form of the Language ..................................   5");
+            deque_push_back(pt_deqex,
+                "2.2.     Whitespace ............................................   5");
+            _print_deq_str(pt_deqex);
+            deque_init_copy_range(pt_deq, deque_begin(pt_deqex), deque_end(pt_deqex));
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
+        /*deque_destroy        */
+        /*deque_empty          */
+        /*deque_size           */
+        /*deque_max_size       */
+        /*deque_begin          */
+        /*deque_end            */
+        /*deque_assign         */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            deque_t* pt_deqex = create_deque(char*);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            deque_push_back(pt_deqex,
+                "1.      Introduction ...........................................   3");
+            deque_push_back(pt_deqex,
+                "1.1.     Conventions Used in This Document .....................   4");
+            deque_push_back(pt_deqex,
+                "1.2.     Example mail messages .................................   4");
+            deque_push_back(pt_deqex,
+                "2.      Design .................................................   5");
+            deque_push_back(pt_deqex,
+                "2.1.     Form of the Language ..................................   5");
+            deque_push_back(pt_deqex,
+                "2.2.     Whitespace ............................................   5");
+            deque_assign(pt_deq, pt_deqex);
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
+        /*deque_assign_elem    */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_assign_elem(pt_deq, 0,
+                "2.10.5.  Extensions and Optional Features ......................  16");
+            _print_deq_str(pt_deq);
+            deque_assign_elem(pt_deq, 4,
+                "6.2.1.   Template for Capability Registrations .................  28");
+            _print_deq_str(pt_deq);
+            deque_assign_elem(pt_deq, 9,
+                "14.     Full Copyright Statement ...............................  36");
+            _print_deq_str(pt_deq);
+            deque_assign_elem(pt_deq, 3,
+                "This memo documents a language that can be used to create filters for");
+            _print_deq_str(pt_deq);
+            deque_assign_elem(pt_deq, 0,
+                "not Turing-complete: it provides no way to write a loop or a function");
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
+        /*deque_assign_range   */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            deque_t* pt_deqex = create_deque(char*);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            deque_assign_range(pt_deq, deque_begin(pt_deqex), deque_end(pt_deqex));
+            _print_deq_str(pt_deq);
+            deque_push_back(pt_deqex,
+                "1.      Introduction ...........................................   3");
+            deque_push_back(pt_deqex,
+                "1.1.     Conventions Used in This Document .....................   4");
+            deque_push_back(pt_deqex,
+                "1.2.     Example mail messages .................................   4");
+            deque_push_back(pt_deqex,
+                "2.      Design .................................................   5");
+            deque_push_back(pt_deqex,
+                "2.1.     Form of the Language ..................................   5");
+            deque_push_back(pt_deqex,
+                "2.2.     Whitespace ............................................   5");
+            deque_push_back(pt_deqex,
+                "2.3.     Comments ..............................................   6");
+            deque_push_back(pt_deqex,
+                "2.4.     Literal Data ..........................................   6");
+            deque_push_back(pt_deqex,
+                "2.4.1.   Numbers ...............................................   6");
+            _print_deq_str(pt_deqex);
+            deque_assign_range(pt_deq, deque_begin(pt_deqex), deque_begin(pt_deqex));
+            _print_deq_str(pt_deq);
+            deque_assign_range(pt_deq, deque_begin(pt_deqex), iterator_next_n(deque_begin(pt_deqex), 3));
+            _print_deq_str(pt_deq);
+            deque_assign_range(pt_deq,
+                iterator_next_n(deque_begin(pt_deqex), 2), iterator_next_n(deque_begin(pt_deqex), 5));
+            _print_deq_str(pt_deq);
+            deque_assign_range(pt_deq,
+                iterator_next_n(deque_begin(pt_deqex), 5), deque_end(pt_deqex));
+            _print_deq_str(pt_deq);
+            deque_assign_range(pt_deq, deque_end(pt_deqex), deque_end(pt_deqex));
+            _print_deq_str(pt_deq);
+            deque_assign_range(pt_deq, deque_begin(pt_deqex), deque_end(pt_deqex));
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
+        /*deque_equal          */
+        /*deque_not_equal      */
+        /*deque_less           */
+        /*deque_less_equal     */
+        /*deque_great          */
+        /*deque_great_equal    */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            deque_t* pt_deqex = create_deque(char*);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            printf("equal: %d, not equal: %d, ",
+                deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
+            printf("less: %d, less equal: %d, ",
+                deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
+            printf("great: %d, great equal: %d\n",
+                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+            deque_push_back(pt_deq, "China");
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            printf("equal: %d, not equal: %d, ",
+                deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
+            printf("less: %d, less equal: %d, ",
+                deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
+            printf("great: %d, great equal: %d\n",
+                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+            deque_push_back(pt_deqex, "China");
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            printf("equal: %d, not equal: %d, ",
+                deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
+            printf("less: %d, less equal: %d, ",
+                deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
+            printf("great: %d, great equal: %d\n",
+                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+            deque_push_back(pt_deqex, "Unix");
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            printf("equal: %d, not equal: %d, ",
+                deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
+            printf("less: %d, less equal: %d, ",
+                deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
+            printf("great: %d, great equal: %d\n",
+                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+            deque_push_back(pt_deq, "Pub");
+            deque_push_back(pt_deq, "CSDN");
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            printf("equal: %d, not equal: %d, ",
+                deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
+            printf("less: %d, less equal: %d, ",
+                deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
+            printf("great: %d, great equal: %d\n",
+                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
+        /*deque_at             */
+        /*deque_swap           */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            deque_t* pt_deqex = create_deque(char*);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            deque_swap(pt_deq, pt_deqex);
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            deque_assign_elem(pt_deqex, 4, "A Mail Filtering Language");
+            deque_swap(pt_deq, pt_deqex);
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            deque_assign_elem(pt_deqex, 9, "Extensions and Optional Features");
+            deque_swap(pt_deq, pt_deqex);
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            deque_assign_elem(pt_deqex, 2, "Capability String");
+            deque_swap(pt_deq, pt_deqex);
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            deque_assign_elem(pt_deqex, 0, "Transmission");
+            deque_swap(pt_deq, pt_deqex);
+            _print_deq_str(pt_deq);
+            _print_deq_str(pt_deqex);
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
+        /*deque_front          */
+        /*deque_back           */
+        /*deque_push_back      */
+        /*deque_pop_back       */
+        /*deque_push_front     */
+        /*deque_pop_front      */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            _print_deq_str(pt_deq);
+            deque_push_front(pt_deq, "MTA");
+            puts(deque_front(pt_deq));
+            deque_push_front(pt_deq, "[FLAMES]");
+            puts(deque_front(pt_deq));
+            deque_push_front(pt_deq, "GUI-based");
+            puts(deque_front(pt_deq));
+            deque_push_front(pt_deq, "");
+            puts(deque_front(pt_deq));
+            deque_push_front(pt_deq, "preferred");
+            puts(deque_front(pt_deq));
+            while(!deque_empty(pt_deq))
+            {
+                deque_pop_back(pt_deq);
+            }
+            _print_deq_str(pt_deq);
+
+            deque_push_back(pt_deq, "Conventions Used in This Document");
+            puts(deque_back(pt_deq));
+            deque_push_back(pt_deq, "parenthesis are used for grouping, similar to [ABNF].");
+            puts(deque_back(pt_deq));
+            deque_push_back(pt_deq, "These are discussed in sections 2.7.1, 2.7.3, and 2.7.4");
+            puts(deque_back(pt_deq));
+            while(!deque_empty(pt_deq))
+            {
+                deque_pop_front(pt_deq);
+            }
+            _print_deq_str(pt_deq);
+
+            deque_destroy(pt_deq);
+        }
+        /*deque_insert_range   */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            deque_t* pt_deqex = create_deque(char*);
+            if(pt_deq == NULL || pt_deqex == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_init(pt_deqex);
+            deque_insert_range(pt_deq, deque_begin(pt_deq),
+                deque_begin(pt_deqex), deque_end(pt_deqex));
+            _print_deq_str(pt_deq);
+
+            deque_push_back(pt_deqex, "YOU MAY HAVE ALREADY WON TEN MILLION DOLLARS, BUT I DOUBT");
+            deque_push_back(pt_deqex, "IT!  SO JUST POST THIS TO SIX HUNDRED NEWSGROUPS!  IT WILL");
+            deque_push_back(pt_deqex, "GUARANTEE THAT YOU GET AT LEAST FIVE RESPONSES WITH MONEY!");
+            deque_push_back(pt_deqex, "MONEY! MONEY! COLD HARD CASH!  YOU WILL RECEIVE OVER");
+            deque_push_back(pt_deqex, "$20,000 IN LESS THAN TWO MONTHS!  AND IT'S LEGAL!!!!!!!!!");
+            deque_push_back(pt_deqex, "!!!!!!!!!!!!!!!!!!111111111!!!!!!!11111111111!!1  JUST");
+            deque_push_back(pt_deqex, "SEND $5 IN SMALL, UNMARKED BILLS TO THE ADDRESSES BELOW!");
+            deque_push_back(pt_deqex, "Subject: $$$ YOU, TOO, CAN BE A MILLIONAIRE! $$");
+            _print_deq_str(pt_deqex);
+
+            deque_insert_range(pt_deq, deque_begin(pt_deq),
+                deque_begin(pt_deqex), deque_begin(pt_deqex));
+            _print_deq_str(pt_deq);
+            deque_insert_range(pt_deq, deque_begin(pt_deq),
+                deque_begin(pt_deqex), iterator_next_n(deque_begin(pt_deqex), 3));
+            _print_deq_str(pt_deq);
+            deque_insert_range(pt_deq, deque_begin(pt_deq),
+                iterator_next(deque_begin(pt_deqex)), iterator_next_n(deque_begin(pt_deqex), 5));
+            _print_deq_str(pt_deq);
+            deque_insert_range(pt_deq, iterator_next_n(deque_begin(pt_deq), 2),
+                iterator_next_n(deque_begin(pt_deqex), 4), deque_end(pt_deqex));
+            _print_deq_str(pt_deq);
+            deque_insert_range(pt_deq, deque_end(pt_deq), deque_end(pt_deqex), deque_end(pt_deqex));
+            _print_deq_str(pt_deq);
+            deque_insert_range(pt_deq, deque_end(pt_deq), deque_begin(pt_deqex), deque_end(pt_deqex));
+            _print_deq_str(pt_deq);
+
+            deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
+        }
+        /*deque_insert_n       */
+        /*deque_erase          */
+        /*deque_erase_range    */
+        /*deque_clear          */
+        /*deque_resize         */
+        /*deque_resize_elem    */
+    }
 }
 
 /** local function implementation section **/
+static void _print_deq_str(const deque_t* pt_deque)
+{
+    size_t i = 0;
+
+    assert(pt_deque != NULL);
+    printf("====================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        deque_empty(pt_deque), deque_size(pt_deque), deque_max_size(pt_deque));
+    for(i = 0; i < deque_size(pt_deque); ++i)
+    {
+        puts((char*)deque_at(pt_deque, i));
+    }
+}
+
 static void _printdeque_cstl(const deque_t* pt_deque)
 {
     iterator_t t_iter, t_iterex;
