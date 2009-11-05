@@ -31,7 +31,6 @@
 #include "cstl_alloc.h"
 #include "cstl_types.h"
 #include "citerator.h"
-/*#include "cstl_tools.h"*/
 #include "cstl_function.h"
 #include "cstl_function_private.h"
 

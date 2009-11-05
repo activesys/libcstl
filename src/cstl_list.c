@@ -1123,7 +1123,8 @@ void list_remove_if(list_t* pt_list, unary_function_t t_unary_op)
     t_pos = list_begin(pt_list);
     while(!iterator_equal(t_pos, list_end(pt_list)))
     {
-        (*t_unary_op)(((listnode_t*)_GET_LIST_COREPOS(t_pos))->_pc_data, &t_result);
+        /*(*t_unary_op)(((listnode_t*)_GET_LIST_COREPOS(t_pos))->_pc_data, &t_result);*/
+        (*t_unary_op)(iterator_get_pointer(t_pos), &t_result);
         if(t_result)
         {
             t_pos = list_erase(pt_list, t_pos);
@@ -1279,20 +1280,45 @@ void list_unique_if(list_t* pt_list, binary_function_t t_binary_op)
     }
 
     pt_node = pt_list->_pt_node->_pt_next->_pt_next;
-    while(pt_node != pt_list->_pt_node)
+
+    /* char* */
+    if(strncmp(_GET_LIST_TYPE_BASENAME(pt_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        (*t_binary_op)(pt_node->_pt_prev->_pc_data, pt_node->_pc_data, &t_result);
-        if(t_result)
+        while(pt_node != pt_list->_pt_node)
         {
-            t_pos = create_list_iterator();
-            _GET_CONTAINER(t_pos) = pt_list;
-            _GET_LIST_COREPOS(t_pos) = (char*)pt_node;
-            t_pos = list_erase(pt_list, t_pos);
-            pt_node = (listnode_t*)_GET_LIST_COREPOS(t_pos);
+            (*t_binary_op)(string_c_str((string_t*)pt_node->_pt_prev->_pc_data),
+                string_c_str((string_t*)pt_node->_pc_data), &t_result);
+            if(t_result)
+            {
+                t_pos = create_list_iterator();
+                _GET_CONTAINER(t_pos) = pt_list;
+                _GET_LIST_COREPOS(t_pos) = (char*)pt_node;
+                t_pos = list_erase(pt_list, t_pos);
+                pt_node = (listnode_t*)_GET_LIST_COREPOS(t_pos);
+            }
+            else
+            {
+                pt_node = pt_node->_pt_next;
+            }
         }
-        else
+    }
+    else
+    {
+        while(pt_node != pt_list->_pt_node)
         {
-            pt_node = pt_node->_pt_next;
+            (*t_binary_op)(pt_node->_pt_prev->_pc_data, pt_node->_pc_data, &t_result);
+            if(t_result)
+            {
+                t_pos = create_list_iterator();
+                _GET_CONTAINER(t_pos) = pt_list;
+                _GET_LIST_COREPOS(t_pos) = (char*)pt_node;
+                t_pos = list_erase(pt_list, t_pos);
+                pt_node = (listnode_t*)_GET_LIST_COREPOS(t_pos);
+            }
+            else
+            {
+                pt_node = pt_node->_pt_next;
+            }
         }
     }
 }
@@ -1444,22 +1470,47 @@ void list_merge_if(
 
     pt_dest = pt_listdest->_pt_node->_pt_next;
     pt_src = pt_listsrc->_pt_node->_pt_next;
-    while(pt_dest != pt_listdest->_pt_node && pt_src != pt_listsrc->_pt_node)
+    /* char* */
+    if(strncmp(_GET_LIST_TYPE_BASENAME(pt_listdest), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        (*t_binary_op)(pt_src->_pc_data, pt_dest->_pc_data, &t_result);
-        if(t_result)
+        while(pt_dest != pt_listdest->_pt_node && pt_src != pt_listsrc->_pt_node)
         {
-            _GET_LIST_COREPOS(t_dest) = (char*)pt_dest;
-            _GET_LIST_COREPOS(t_src) = (char*)(pt_src);
-            _GET_LIST_COREPOS(t_srcnext) = (char*)(pt_src->_pt_next);
-            pt_src = pt_src->_pt_next;
-            _transfer(t_dest, t_src, t_srcnext);
-        }
-        else
-        {
-            pt_dest = pt_dest->_pt_next;
+            (*t_binary_op)(string_c_str((string_t*)pt_src->_pc_data),
+                string_c_str((string_t*)pt_dest->_pc_data), &t_result);
+            if(t_result)
+            {
+                _GET_LIST_COREPOS(t_dest) = (char*)pt_dest;
+                _GET_LIST_COREPOS(t_src) = (char*)(pt_src);
+                _GET_LIST_COREPOS(t_srcnext) = (char*)(pt_src->_pt_next);
+                pt_src = pt_src->_pt_next;
+                _transfer(t_dest, t_src, t_srcnext);
+            }
+            else
+            {
+                pt_dest = pt_dest->_pt_next;
+            }
         }
     }
+    else
+    {
+        while(pt_dest != pt_listdest->_pt_node && pt_src != pt_listsrc->_pt_node)
+        {
+            (*t_binary_op)(pt_src->_pc_data, pt_dest->_pc_data, &t_result);
+            if(t_result)
+            {
+                _GET_LIST_COREPOS(t_dest) = (char*)pt_dest;
+                _GET_LIST_COREPOS(t_src) = (char*)(pt_src);
+                _GET_LIST_COREPOS(t_srcnext) = (char*)(pt_src->_pt_next);
+                pt_src = pt_src->_pt_next;
+                _transfer(t_dest, t_src, t_srcnext);
+            }
+            else
+            {
+                pt_dest = pt_dest->_pt_next;
+            }
+        }
+    }
+
     if(pt_src != pt_listsrc->_pt_node)
     {
         _GET_LIST_COREPOS(t_src) = (char*)pt_src;
@@ -1619,57 +1670,128 @@ static void _quick_sort(
         if(t_binary_op != NULL)
         {
             bool_t t_result = false;
-            for(;;)
+            /* char* */
+            if(strncmp(_GET_LIST_TYPE_BASENAME(pt_container),
+                    _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
             {
-                /* move the before pointer next until the node > pivot */
-                (*t_binary_op)(pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
-                while(t_result && pt_beforepivot != pt_pivot->_pt_prev)
+                for(;;)
                 {
-                    pt_beforepivot = pt_beforepivot->_pt_next;
+                    /* move the before pointer next until the node > pivot */
+                    (*t_binary_op)(string_c_str((string_t*)pt_beforepivot->_pc_data),
+                        string_c_str((string_t*)pt_pivot->_pc_data), &t_result);
+                    while(t_result && pt_beforepivot != pt_pivot->_pt_prev)
+                    {
+                        pt_beforepivot = pt_beforepivot->_pt_next;
+                        (*t_binary_op)(string_c_str((string_t*)pt_beforepivot->_pc_data),
+                            string_c_str((string_t*)pt_pivot->_pc_data), &t_result);
+                    }
+
+                    /* move the after pointer prev until the node < pivot */
+                    (*t_binary_op)(string_c_str((string_t*)pt_pivot->_pc_data),
+                        string_c_str((string_t*)pt_afterpivot->_pc_data), &t_result);
+                    while(t_result && pt_afterpivot !=
+                            ((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next)
+                    {
+                        pt_afterpivot = pt_afterpivot->_pt_prev;
+                        (*t_binary_op)(string_c_str((string_t*)pt_pivot->_pc_data),
+                            string_c_str((string_t*)pt_afterpivot->_pc_data), &t_result);
+                    }
+
+                    /* if the before pointer before the after pointer then swap */
+                    _GET_LIST_COREPOS(t_beforepivot) = (char*)pt_beforepivot;
+                    _GET_LIST_COREPOS(t_afterpivot) = (char*)pt_afterpivot;
+                    if(_list_iterator_before(t_beforepivot, t_afterpivot))
+                    {
+                        _swap_node(&pt_beforepivot, &pt_afterpivot);
+                        pt_beforepivot = pt_beforepivot->_pt_next;
+                        pt_afterpivot = pt_afterpivot->_pt_prev;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                (*t_binary_op)(string_c_str((string_t*)pt_beforepivot->_pc_data),
+                    string_c_str((string_t*)pt_pivot->_pc_data), &t_result);
+                if(!t_result)
+                {
+                    _swap_node(&pt_beforepivot, &pt_pivot);
+                    pt_pivot = pt_beforepivot;
+                }
+                _GET_LIST_COREPOS(t_pivotpos) = (char*)pt_pivot;
+                if(((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next !=
+                       (listnode_t*)_GET_LIST_COREPOS(t_pivotpos) &&
+                   ((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next !=
+                       ((listnode_t*)_GET_LIST_COREPOS(t_pivotpos))->_pt_prev)
+                {
+                    _quick_sort(t_beforefirstpos, t_pivotpos, t_binary_op);
+                }
+                if(((listnode_t*)_GET_LIST_COREPOS(t_pivotpos))->_pt_next !=
+                       (listnode_t*)_GET_LIST_COREPOS(t_afterlastpos) &&
+                   ((listnode_t*)_GET_LIST_COREPOS(t_pivotpos))->_pt_next !=
+                       ((listnode_t*)_GET_LIST_COREPOS(t_afterlastpos))->_pt_prev)
+                {
+                    _quick_sort(t_pivotpos, t_afterlastpos, t_binary_op);
+                }
+            }
+            else
+            {
+                for(;;)
+                {
+                    /* move the before pointer next until the node > pivot */
                     (*t_binary_op)(pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
-                }
-                /* move the after pointer prev until the node < pivot */
-                (*t_binary_op)(pt_pivot->_pc_data, pt_afterpivot->_pc_data, &t_result);
-                while(t_result && pt_afterpivot !=
-                        ((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next)
-                {
-                    pt_afterpivot = pt_afterpivot->_pt_prev;
+                    while(t_result && pt_beforepivot != pt_pivot->_pt_prev)
+                    {
+                        pt_beforepivot = pt_beforepivot->_pt_next;
+                        (*t_binary_op)(pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
+                    }
+
+                    /* move the after pointer prev until the node < pivot */
                     (*t_binary_op)(pt_pivot->_pc_data, pt_afterpivot->_pc_data, &t_result);
+                    while(t_result && pt_afterpivot !=
+                            ((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next)
+                    {
+                        pt_afterpivot = pt_afterpivot->_pt_prev;
+                        (*t_binary_op)(pt_pivot->_pc_data, pt_afterpivot->_pc_data, &t_result);
+                    }
+
+                    /* if the before pointer before the after pointer then swap */
+                    _GET_LIST_COREPOS(t_beforepivot) = (char*)pt_beforepivot;
+                    _GET_LIST_COREPOS(t_afterpivot) = (char*)pt_afterpivot;
+                    if(_list_iterator_before(t_beforepivot, t_afterpivot))
+                    {
+                        _swap_node(&pt_beforepivot, &pt_afterpivot);
+                        pt_beforepivot = pt_beforepivot->_pt_next;
+                        pt_afterpivot = pt_afterpivot->_pt_prev;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                /* if the before pointer before the after pointer then swap */
-                _GET_LIST_COREPOS(t_beforepivot) = (char*)pt_beforepivot;
-                _GET_LIST_COREPOS(t_afterpivot) = (char*)pt_afterpivot;
-                if(_list_iterator_before(t_beforepivot, t_afterpivot))
+
+                (*t_binary_op)(pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
+                if(!t_result)
                 {
-                    _swap_node(&pt_beforepivot, &pt_afterpivot);
-                    pt_beforepivot = pt_beforepivot->_pt_next;
-                    pt_afterpivot = pt_afterpivot->_pt_prev;
+                    _swap_node(&pt_beforepivot, &pt_pivot);
+                    pt_pivot = pt_beforepivot;
                 }
-                else
+                _GET_LIST_COREPOS(t_pivotpos) = (char*)pt_pivot;
+                if(((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next !=
+                       (listnode_t*)_GET_LIST_COREPOS(t_pivotpos) &&
+                   ((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next !=
+                       ((listnode_t*)_GET_LIST_COREPOS(t_pivotpos))->_pt_prev)
                 {
-                    break;
+                    _quick_sort(t_beforefirstpos, t_pivotpos, t_binary_op);
                 }
-            }
-            (*t_binary_op)(pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
-            if(!t_result)
-            {
-                _swap_node(&pt_beforepivot, &pt_pivot);
-                pt_pivot = pt_beforepivot;
-            }
-            _GET_LIST_COREPOS(t_pivotpos) = (char*)pt_pivot;
-            if(((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next !=
-                   (listnode_t*)_GET_LIST_COREPOS(t_pivotpos) &&
-               ((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next !=
-                   ((listnode_t*)_GET_LIST_COREPOS(t_pivotpos))->_pt_prev)
-            {
-                _quick_sort(t_beforefirstpos, t_pivotpos, t_binary_op);
-            }
-            if(((listnode_t*)_GET_LIST_COREPOS(t_pivotpos))->_pt_next !=
-                   (listnode_t*)_GET_LIST_COREPOS(t_afterlastpos) &&
-               ((listnode_t*)_GET_LIST_COREPOS(t_pivotpos))->_pt_next !=
-                   ((listnode_t*)_GET_LIST_COREPOS(t_afterlastpos))->_pt_prev)
-            {
-                _quick_sort(t_pivotpos, t_afterlastpos, t_binary_op);
+                if(((listnode_t*)_GET_LIST_COREPOS(t_pivotpos))->_pt_next !=
+                       (listnode_t*)_GET_LIST_COREPOS(t_afterlastpos) &&
+                   ((listnode_t*)_GET_LIST_COREPOS(t_pivotpos))->_pt_next !=
+                       ((listnode_t*)_GET_LIST_COREPOS(t_afterlastpos))->_pt_prev)
+                {
+                    _quick_sort(t_pivotpos, t_afterlastpos, t_binary_op);
+                }
             }
         }
         else

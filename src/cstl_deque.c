@@ -1145,7 +1145,7 @@ deque_iterator_t _deque_insert_n_varg(
         {
             t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                iterator_get_pointer(t_gap), pv_varg, &t_result);
+                _deque_iterator_get_pointer_auxiliary(t_gap), pv_varg, &t_result);
             assert(t_result);
         }
         assert(iterator_equal(t_gap, t_pos));
@@ -1164,7 +1164,7 @@ deque_iterator_t _deque_insert_n_varg(
         {
             t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                iterator_get_pointer(t_pos), pv_varg, &t_result);
+                _deque_iterator_get_pointer_auxiliary(t_pos), pv_varg, &t_result);
             t_pos = iterator_next(t_pos);
             assert(t_result);
         }
@@ -1314,7 +1314,7 @@ void _deque_resize_elem_varg(deque_t* pt_deque, size_t t_resize, va_list val_ele
         {
             t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                iterator_get_pointer(t_oldend), pv_varg, &t_result);
+                _deque_iterator_get_pointer_auxiliary(t_oldend), pv_varg, &t_result);
             assert(t_result);
         }
         _deque_destroy_varg_value_auxiliary(pt_deque, pv_varg);
@@ -1892,7 +1892,7 @@ static deque_iterator_t _move_elem_to_end(
     deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end, size_t t_movesize)
 {
     /* if t_begin != t_end then do move */
-    if(!iterator_equal(t_begin, t_end))
+    if(!iterator_equal(t_begin, t_end) && t_movesize != 0)
     {
         /* the target range of move */
         deque_iterator_t t_targetbegin;
@@ -1914,7 +1914,8 @@ static deque_iterator_t _move_elem_to_end(
         {
             t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                iterator_get_pointer(t_targetend), iterator_get_pointer(t_end), &t_result);
+                _deque_iterator_get_pointer_auxiliary(t_targetend),
+                _deque_iterator_get_pointer_auxiliary(t_end), &t_result);
             assert(t_result);
         }
 
@@ -1929,7 +1930,7 @@ static deque_iterator_t _move_elem_to_end(
 static deque_iterator_t _move_elem_to_begin(
     deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end, size_t t_movesize)
 {
-    if(!iterator_equal(t_begin, t_end))
+    if(!iterator_equal(t_begin, t_end) && t_movesize != 0)
     {
         deque_iterator_t t_targetbegin;
         deque_iterator_t t_targetend;

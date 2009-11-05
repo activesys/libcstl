@@ -63,6 +63,11 @@ typedef struct _taglistabc
 }listabc_t;
 
 /** local function prototype section **/
+static void _list_str_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _list_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _list_str_remove_pre(const void* cpv_input, void* pv_output);
+static void _print_list_str(const list_t* cpt_list);
+
 static void _remove_mutiple_of_5(const void* cpv_input, void* pv_output);
 static void _absolute_value(const void* cpv_first, const void* cpv_second, void* pv_output);
 
@@ -4001,11 +4006,75 @@ void test_list(void)
     }
     /* for c-string type */
     /*create_list         */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_init           */
     /*list_init_n         */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init_n(pt_list, 6);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*_list_init_elem     */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init_elem(pt_list, 10, "|     Type      |    Length     |");
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_init_copy      */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init_elem(pt_listex, 4, "Value: 0061 (hex)");
+        list_init_copy(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_init_copy_range*/
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_listex);
+        list_push_back(pt_listex, "Multiple Network Control Protocols");
+        list_push_back(pt_listex, "Sharing Context Identifier Space");
+        list_push_back(pt_listex, "Demultiplexing of Datagrams");
+        list_push_back(pt_listex, "References");
+        list_push_back(pt_listex, "RTP-Compression Suboption");
+        list_push_back(pt_listex, "Configuration Option Format");
+        list_push_back(pt_listex, "Configuration Option");
+        _print_list_str(pt_listex);
+        list_init_copy_range(pt_list, list_begin(pt_listex), list_end(pt_listex));
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_destroy        */
     /*list_size           */
     /*list_empty          */
@@ -4016,40 +4085,961 @@ void test_list(void)
     /*list_less_equal     */
     /*list_great          */
     /*list_great_equal    */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        printf("equal: %d, not equal: %d, ",
+            list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
+        printf("less: %d, less equal: %d, ",
+            list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
+        printf("great: %d, great equal: %d\n",
+            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+
+        list_push_back(pt_list, "China");
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        printf("equal: %d, not equal: %d, ",
+            list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
+        printf("less: %d, less equal: %d, ",
+            list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
+        printf("great: %d, great equal: %d\n",
+            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+
+        list_push_back(pt_listex, "China");
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        printf("equal: %d, not equal: %d, ",
+            list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
+        printf("less: %d, less equal: %d, ",
+            list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
+        printf("great: %d, great equal: %d\n",
+            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+
+        list_push_back(pt_listex, "Unix");
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        printf("equal: %d, not equal: %d, ",
+            list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
+        printf("less: %d, less equal: %d, ",
+            list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
+        printf("great: %d, great equal: %d\n",
+            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+
+        list_push_back(pt_list, "CSDN");
+        list_push_back(pt_list, "Pub");
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        printf("equal: %d, not equal: %d, ",
+            list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
+        printf("less: %d, less equal: %d, ",
+            list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
+        printf("great: %d, great equal: %d\n",
+            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_assign         */
-    /*_list_assign_elem   */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        list_assign(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        list_push_back(pt_listex, "[RFC1661]");
+        list_push_back(pt_listex, "[RFC1331]");
+        list_push_back(pt_listex, "[RFC1332]");
+        list_assign(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        list_clear(pt_listex);
+        list_assign(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
+    /*list_assign_elem    */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_assign_elem(pt_list, 0, "protocol value for the IPCP");
+        _print_list_str(pt_list);
+        list_assign_elem(pt_list, 3, "such as multiclass multilink PPP [MCML]");
+        _print_list_str(pt_list);
+        list_assign_elem(pt_list, 17, "[RFC1332]");
+        _print_list_str(pt_list);
+        list_assign_elem(pt_list, 5, "");
+        _print_list_str(pt_list);
+        list_assign_elem(pt_list, 0, "NOTE: The of link and network layer parameter");
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_assign_range   */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        list_assign_range(pt_list, list_begin(pt_listex), list_end(pt_listex));
+        _print_list_str(pt_list);
+        list_push_back(pt_listex, "IP-Compression-Protocol");
+        list_push_back(pt_listex, "TCP_SPACE");
+        list_push_back(pt_listex, "NON_TCP_SPACE");
+        list_push_back(pt_listex, "F_MAX_PERIOD");
+        list_push_back(pt_listex, "F_MAX_TIME");
+        list_push_back(pt_listex, "MAX_HEADER");
+        list_push_back(pt_listex, "suboptions...");
+        _print_list_str(pt_listex);
+        list_assign_range(pt_list, list_begin(pt_listex), list_begin(pt_listex));
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_swap           */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        list_swap(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_assign_elem(pt_listex, 3, "allocated for TCP.");
+        list_swap(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_assign_elem(pt_listex, 10, "Suggested value: 15");
+        list_swap(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_assign_elem(pt_listex, 2, "NON_TCP_SPACE");
+        list_swap(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_clear(pt_listex);
+        list_swap(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_front          */
     /*list_back           */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_push_back(pt_list, "IMPLICIT SEQUENCE {");
+        puts(list_back(pt_list));
+        list_push_back(pt_list, "Connection-Oriented Accounting MIB");
+        puts(list_back(pt_list));
+        list_push_back(pt_list, "04 09 73 77 69 74 63 68 2d 31 32");
+        puts(list_back(pt_list));
+        list_push_back(pt_list, "OBJECT IDENTIFIER");
+        puts(list_back(pt_list));
+        while(!list_empty(pt_list))
+        {
+            list_pop_front(pt_list);
+        }
+        _print_list_str(pt_list);
+
+        list_push_front(pt_list, "OBJECT IDENTIFIER ::= { accountingControlMIB 1 }");
+        puts(list_front(pt_list));
+        list_push_front(pt_list, "TEXTUAL-CONVENTION");
+        puts(list_front(pt_list));
+        list_push_front(pt_list, "FileIndex ::= TEXTUAL-CONVENTION");
+        puts(list_front(pt_list));
+        while(!list_empty(pt_list))
+        {
+            list_pop_back(pt_list);
+        }
+        _print_list_str(pt_list);
+
+        list_destroy(pt_list);
+    }
     /*list_begin          */
     /*list_end            */
-    /*_list_insert_n      */
+    /*list_insert_n       */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_insert_n(pt_list, list_begin(pt_list), 0, "FileIndex ::= TEXTUAL-CONVENTION");
+        _print_list_str(pt_list);
+        list_insert_n(pt_list, list_begin(pt_list), 3, "Integer32 (1..65535)");
+        _print_list_str(pt_list);
+        list_insert_n(pt_list, list_begin(pt_list), 6, "The Accounting Information Selection table");
+        _print_list_str(pt_list);
+        list_insert_n(pt_list, iterator_advance(list_begin(pt_list), 3), 5, "");
+        _print_list_str(pt_list);
+        list_insert_n(pt_list, list_end(pt_list), 1, "acctngSelectionTable OBJECT-TYPE");
+        _print_list_str(pt_list);
+        list_insert_n(pt_list, list_end(pt_list), 0, "DESCRIPTION");
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_insert_range   */
-    /*_list_push_back     */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        list_insert_range(pt_list, list_begin(pt_list), list_begin(pt_listex), list_end(pt_listex));
+        _print_list_str(pt_list);
+        list_push_back(pt_listex, "acctngSelectionEntry OBJECT-TYPE");
+        list_push_back(pt_listex, "SYNTAX      AcctngSelectionEntry");
+        list_push_back(pt_listex, "MAX-ACCESS  not-accessible");
+        list_push_back(pt_listex, "STATUS      current");
+        list_push_back(pt_listex, "DESCRIPTION");
+        list_push_back(pt_listex, "An entry identifying an (subtree, list) tuple used to");
+        list_push_back(pt_listex, "select a set of accounting information which is to be");
+        list_push_back(pt_listex, "INDEX   { acctngSelectionIndex }");
+        _print_list_str(pt_listex);
+        list_insert_range(pt_list, list_begin(pt_list), list_begin(pt_listex), list_begin(pt_listex));
+        _print_list_str(pt_list);
+        list_insert_range(pt_list, list_begin(pt_list),
+            list_begin(pt_listex), iterator_advance(list_begin(pt_listex), 3));
+        _print_list_str(pt_list);
+        list_insert_range(pt_list, list_begin(pt_list),
+            iterator_advance(list_begin(pt_listex), 4), iterator_advance(list_begin(pt_listex), 6));
+        _print_list_str(pt_list);
+        list_insert_range(pt_list, iterator_advance(list_begin(pt_list), 3),
+            iterator_advance(list_begin(pt_listex), 5), list_end(pt_listex));
+        _print_list_str(pt_list);
+        list_insert_range(pt_list, list_end(pt_list), list_end(pt_listex), list_end(pt_listex));
+        _print_list_str(pt_list);
+        list_insert_range(pt_list, list_end(pt_list), list_begin(pt_listex), list_end(pt_listex));
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
+    /*list_push_back      */
     /*list_pop_back       */
-    /*_list_push_front    */
+    /*list_push_front     */
     /*list_pop_front      */
     /*list_erase          */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_push_back(pt_list, "svcIncoming(0)");
+        list_push_back(pt_list, "svcOutgoing(1)");
+        list_push_back(pt_list, "svpIncoming(2)");
+        list_push_back(pt_list, "svpOutgoing(3)");
+        list_push_back(pt_list, "pvc(4)");
+        list_push_back(pt_list, "pvp(5)");
+        list_push_back(pt_list, "spvcOriginator(6)");
+        list_push_back(pt_list, "spvcTarget(7)");
+        list_push_back(pt_list, "spvpOriginator(8)");
+        list_push_back(pt_list, "spvpTarget(9)");
+        _print_list_str(pt_list);
+        list_erase(pt_list, list_begin(pt_list));
+        _print_list_str(pt_list);
+        list_erase(pt_list, iterator_prev(list_end(pt_list)));
+        _print_list_str(pt_list);
+        list_erase(pt_list, iterator_advance(list_begin(pt_list), 3));
+        _print_list_str(pt_list);
+        while(!list_empty(pt_list))
+        {
+            list_erase(pt_list, list_begin(pt_list));
+        }
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_erase_range    */
-    /*_list_remove        */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_erase_range(pt_list, list_begin(pt_list), list_end(pt_list));
+        _print_list_str(pt_list);
+        list_push_back(pt_list, "svcIncoming(0)");
+        list_push_back(pt_list, "svcOutgoing(1)");
+        list_push_back(pt_list, "svpIncoming(2)");
+        list_push_back(pt_list, "svpOutgoing(3)");
+        list_push_back(pt_list, "pvc(4)");
+        list_push_back(pt_list, "pvp(5)");
+        list_push_back(pt_list, "spvcOriginator(6)");
+        list_push_back(pt_list, "spvcTarget(7)");
+        list_push_back(pt_list, "spvpOriginator(8)");
+        list_push_back(pt_list, "spvpTarget(9)");
+        _print_list_str(pt_list);
+        list_erase_range(pt_list, list_begin(pt_list), list_begin(pt_list));
+        _print_list_str(pt_list);
+        list_erase_range(pt_list, list_begin(pt_list), iterator_advance(list_begin(pt_list), 3));
+        _print_list_str(pt_list);
+        list_erase_range(pt_list, iterator_advance(list_begin(pt_list), 3), iterator_advance(list_begin(pt_list), 5));
+        _print_list_str(pt_list);
+        list_erase_range(pt_list, iterator_advance(list_begin(pt_list), 3), list_end(pt_list));
+        _print_list_str(pt_list);
+        list_erase_range(pt_list, list_end(pt_list), list_end(pt_list));
+        _print_list_str(pt_list);
+        list_erase_range(pt_list, list_begin(pt_list), list_end(pt_list));
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
+    /*list_remove         */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_remove(pt_list, "CSDN");
+        _print_list_str(pt_list);
+        list_push_back(pt_list, "China-pub");
+        list_push_back(pt_list, "CSDN");
+        list_push_back(pt_list, "ChinaUnix");
+        list_push_back(pt_list, "taobao");
+        list_push_back(pt_list, "sina");
+        list_push_back(pt_list, "baidu");
+        list_push_back(pt_list, "CSDN");
+        list_push_back(pt_list, "mop");
+        list_push_back(pt_list, "Google");
+        list_push_back(pt_list, "163");
+        _print_list_str(pt_list);
+        list_remove(pt_list, "CSDN");
+        _print_list_str(pt_list);
+        list_remove(pt_list, "Microsoft");
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_remove_if      */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_remove_if(pt_list, _list_str_remove_pre);
+        _print_list_str(pt_list);
+        list_push_back(pt_list, "China-pub");
+        list_push_back(pt_list, "CSDN");
+        list_push_back(pt_list, "ChinaUnix");
+        list_push_back(pt_list, "taobao");
+        list_push_back(pt_list, "sina");
+        list_push_back(pt_list, "baidu");
+        list_push_back(pt_list, "CSDN");
+        list_push_back(pt_list, "mop");
+        list_push_back(pt_list, "Google");
+        list_push_back(pt_list, "163");
+        _print_list_str(pt_list);
+        list_remove_if(pt_list, _list_str_remove_pre);
+        _print_list_str(pt_list);
+        list_remove_if(pt_list, _list_str_remove_pre);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_resize         */
-    /*_list_resize_elem   */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_resize(pt_list, 0);
+        _print_list_str(pt_list);
+        list_resize(pt_list, 5);
+        _print_list_str(pt_list);
+        list_resize(pt_list, 13);
+        _print_list_str(pt_list);
+        list_resize(pt_list, 3);
+        _print_list_str(pt_list);
+        list_resize(pt_list, 0);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
+    /*list_resize_elem    */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_resize_elem(pt_list, 0, "::= { acctngSelectionEntry 6 }");
+        _print_list_str(pt_list);
+        list_resize_elem(pt_list, 4, "Connection-Oriented Accounting MIB");
+        _print_list_str(pt_list);
+        list_resize_elem(pt_list, 9, "NOTIFICATION-TYPE");
+        _print_list_str(pt_list);
+        list_resize_elem(pt_list, 5, "");
+        _print_list_str(pt_list);
+        list_resize_elem(pt_list, 0, "STATUS");
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_clear          */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_clear(pt_list);
+        _print_list_str(pt_list);
+        list_push_back(pt_list, "acctngFileName");
+        list_push_back(pt_list, "acctngFileMaximumSize");
+        list_push_back(pt_list, "acctngControlTrapThreshold");
+        list_push_back(pt_list, "acctngFileNameSuffix");
+        _print_list_str(pt_list);
+        list_clear(pt_list);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_unique         */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_unique(pt_list);
+        _print_list_str(pt_list);
+        list_push_back(pt_list, "ChinaUnix");
+        list_push_back(pt_list, "CSDN");
+        list_push_back(pt_list, "mop");
+        list_push_back(pt_list, "microsoft");
+        list_push_back(pt_list, "microsoft");
+        list_push_back(pt_list, "baidu");
+        list_push_back(pt_list, "163");
+        list_push_back(pt_list, "119-110-112");
+        list_push_back(pt_list, "sina");
+        _print_list_str(pt_list);
+        list_unique(pt_list);
+        _print_list_str(pt_list);
+        list_unique(pt_list);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_unique_if      */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_unique_if(pt_list, _list_str_unique_pre);
+        _print_list_str(pt_list);
+        list_push_back(pt_list, "ChinaUnix");
+        list_push_back(pt_list, "CSDN");
+        list_push_back(pt_list, "mop");
+        list_push_back(pt_list, "microsoft");
+        list_push_back(pt_list, "microsoft");
+        list_push_back(pt_list, "baidu");
+        list_push_back(pt_list, "163");
+        list_push_back(pt_list, "119-110-112");
+        list_push_back(pt_list, "sina");
+        _print_list_str(pt_list);
+        list_unique_if(pt_list, _list_str_unique_pre);
+        _print_list_str(pt_list);
+        list_unique_if(pt_list, _list_str_unique_pre);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
     /*list_splice         */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        list_splice(pt_list, list_begin(pt_list), pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_assign_elem(pt_listex, 3, "OBJECTS");
+        list_splice(pt_list, list_begin(pt_list), pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_assign_elem(pt_listex, 2, "[Page 22]");
+        list_splice(pt_list, list_begin(pt_list), pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_assign_elem(pt_listex, 4, "");
+        list_splice(pt_list, iterator_advance(list_begin(pt_list), 2), pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_assign_elem(pt_listex, 6, "OBJECT IDENTIFIER");
+        list_splice(pt_list, list_end(pt_list), pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_clear(pt_listex);
+        list_splice(pt_list, list_end(pt_list), pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_splice_pos     */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        list_push_back(pt_listex, "Identifies v1, v2, or v3");
+        list_push_back(pt_listex, "Certificate serial number");
+        list_push_back(pt_listex, "an integer assigned by the issuer");
+        list_push_back(pt_listex, "OID of algorithm that was used to");
+        list_push_back(pt_listex, "sign the certificate");
+        list_push_back(pt_listex, "DN of the issuer (the CA who signed)");
+        list_push_back(pt_listex, "Validity period; a pair of UTCTime");
+        list_push_back(pt_listex, "values: \"not before\" and \"not after\"");
+        list_push_back(pt_listex, "DN of entity who owns the public key");
+        list_push_back(pt_listex, "Public key value and algorithm OID");
+        list_push_back(pt_listex, "Defined for v2, v3; optional");
+        list_push_back(pt_listex, "Defined for v2, v2; optional");
+        list_push_back(pt_listex, "Defined only for v3; optional");
+        _print_list_str(pt_listex);
+        list_splice_pos(pt_list, list_begin(pt_list), pt_listex, list_begin(pt_listex));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_splice_pos(pt_list, list_begin(pt_list), pt_listex, list_begin(pt_listex));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_splice_pos(pt_list, iterator_next(list_begin(pt_list)), pt_listex, iterator_next(list_begin(pt_listex)));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_splice_pos(pt_list, list_end(pt_list), pt_listex, iterator_prev(list_end(pt_listex)));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_splice_range   */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        list_splice_range(pt_list, list_begin(pt_list), pt_listex, list_begin(pt_listex), list_end(pt_listex));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_push_back(pt_listex, "Identifies v1, v2, or v3");
+        list_push_back(pt_listex, "Certificate serial number");
+        list_push_back(pt_listex, "an integer assigned by the issuer");
+        list_push_back(pt_listex, "OID of algorithm that was used to");
+        list_push_back(pt_listex, "sign the certificate");
+        list_push_back(pt_listex, "DN of the issuer (the CA who signed)");
+        list_push_back(pt_listex, "Validity period; a pair of UTCTime");
+        list_push_back(pt_listex, "values: \"not before\" and \"not after\"");
+        list_push_back(pt_listex, "DN of entity who owns the public key");
+        list_push_back(pt_listex, "Public key value and algorithm OID");
+        list_push_back(pt_listex, "Defined for v2, v3; optional");
+        list_push_back(pt_listex, "Defined for v2, v2; optional");
+        list_push_back(pt_listex, "Defined only for v3; optional");
+        _print_list_str(pt_listex);
+        list_splice_range(pt_list, list_begin(pt_list), pt_listex, list_begin(pt_listex), list_begin(pt_listex));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_splice_range(pt_list, list_begin(pt_list),
+            pt_listex, list_begin(pt_listex), iterator_advance(list_begin(pt_listex), 3));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_splice_range(pt_list, list_begin(pt_list),
+            pt_listex, iterator_next(list_begin(pt_listex)), iterator_advance(list_begin(pt_listex), 3));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_splice_range(pt_list, iterator_next(list_begin(pt_list)),
+            pt_listex, iterator_advance(list_begin(pt_listex), 6), list_end(pt_listex));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_splice_range(pt_list, list_end(pt_list), pt_listex, list_end(pt_listex), list_end(pt_listex));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_splice_range(pt_list, list_end(pt_list), pt_listex, list_begin(pt_listex), list_end(pt_listex));
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_sort           */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_sort(pt_list);
+        _print_list_str(pt_list);
+        list_push_back(pt_list, "Identifies v1, v2, or v3");
+        list_push_back(pt_list, "Certificate serial number");
+        list_push_back(pt_list, "an integer assigned by the issuer");
+        list_push_back(pt_list, "OID of algorithm that was used to");
+        list_push_back(pt_list, "sign the certificate");
+        list_push_back(pt_list, "DN of the issuer (the CA who signed)");
+        list_push_back(pt_list, "Validity period; a pair of UTCTime");
+        list_push_back(pt_list, "values: \"not before\" and \"not after\"");
+        list_push_back(pt_list, "DN of entity who owns the public key");
+        list_push_back(pt_list, "Public key value and algorithm OID");
+        list_push_back(pt_list, "Defined for v2, v3; optional");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "Defined for v2, v2; optional");
+        list_push_back(pt_list, "Defined only for v3; optional");
+        list_push_back(pt_list, "ChinaUnix");
+        list_push_back(pt_list, "svcIncoming(1)");
+        list_push_back(pt_list, "svcOutgoing(0)");
+        list_push_back(pt_list, "CSDN");
+        list_push_back(pt_list, "mop");
+        list_push_back(pt_list, "microsoft");
+        list_push_back(pt_list, "microsoft");
+        list_push_back(pt_list, "baidu");
+        list_push_back(pt_list, "163");
+        list_push_back(pt_list, "119-110-112");
+        list_push_back(pt_list, "sina");
+        list_push_back(pt_list, "svcIncoming(0)");
+        list_push_back(pt_list, "svcOutgoing(1)");
+        list_push_back(pt_list, "svpIncoming(2)");
+        list_push_back(pt_list, "svpOutgoing(3)");
+        list_push_back(pt_list, "pvc(4)");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "pvp(5)");
+        list_push_back(pt_list, "spvcOriginator(6)");
+        list_push_back(pt_list, "spvcTarget(7)");
+        list_push_back(pt_list, "spvpOriginator(8)");
+        list_push_back(pt_list, "spvpTarget(9)");
+        list_push_back(pt_list, "acctngFileName");
+        list_push_back(pt_list, "acctngFileMaximumSize");
+        list_push_back(pt_list, "acctngSelectionEntry OBJECT-TYPE");
+        list_push_back(pt_list, "SYNTAX      AcctngSelectionEntry");
+        list_push_back(pt_list, "MAX-ACCESS  not-accessible");
+        list_push_back(pt_list, "STATUS      current");
+        list_push_back(pt_list, "DESCRIPTION");
+        list_push_back(pt_list, "An entry identifying an (subtree, list) tuple used to");
+        list_push_back(pt_list, "select a set of accounting information which is to be");
+        list_push_back(pt_list, "INDEX   { acctngSelectionIndex }");
+        list_push_back(pt_list, "acctngControlTrapThreshold");
+        list_push_back(pt_list, "acctngFileNameSuffix");
+        _print_list_str(pt_list);
+        list_sort(pt_list);
+        _print_list_str(pt_list);
+
+        list_destroy(pt_list);
+    }
     /*list_sort_if        */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_sort_if(pt_list, _list_str_sort_pre);
+        _print_list_str(pt_list);
+        list_push_back(pt_list, "Identifies v1, v2, or v3");
+        list_push_back(pt_list, "Certificate serial number");
+        list_push_back(pt_list, "an integer assigned by the issuer");
+        list_push_back(pt_list, "OID of algorithm that was used to");
+        list_push_back(pt_list, "sign the certificate");
+        list_push_back(pt_list, "DN of the issuer (the CA who signed)");
+        list_push_back(pt_list, "Validity period; a pair of UTCTime");
+        list_push_back(pt_list, "values: \"not before\" and \"not after\"");
+        list_push_back(pt_list, "DN of entity who owns the public key");
+        list_push_back(pt_list, "Public key value and algorithm OID");
+        list_push_back(pt_list, "Defined for v2, v3; optional");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "Defined for v2, v2; optional");
+        list_push_back(pt_list, "Defined only for v3; optional");
+        list_push_back(pt_list, "ChinaUnix");
+        list_push_back(pt_list, "svcIncoming(1)");
+        list_push_back(pt_list, "svcOutgoing(0)");
+        list_push_back(pt_list, "CSDN");
+        list_push_back(pt_list, "mop");
+        list_push_back(pt_list, "microsoft");
+        list_push_back(pt_list, "microsoft");
+        list_push_back(pt_list, "baidu");
+        list_push_back(pt_list, "163");
+        list_push_back(pt_list, "119-110-112");
+        list_push_back(pt_list, "sina");
+        list_push_back(pt_list, "svcIncoming(0)");
+        list_push_back(pt_list, "svcOutgoing(1)");
+        list_push_back(pt_list, "svpIncoming(2)");
+        list_push_back(pt_list, "svpOutgoing(3)");
+        list_push_back(pt_list, "pvc(4)");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "pvp(5)");
+        list_push_back(pt_list, "spvcOriginator(6)");
+        list_push_back(pt_list, "spvcTarget(7)");
+        list_push_back(pt_list, "spvpOriginator(8)");
+        list_push_back(pt_list, "spvpTarget(9)");
+        list_push_back(pt_list, "acctngFileName");
+        list_push_back(pt_list, "acctngFileMaximumSize");
+        list_push_back(pt_list, "acctngSelectionEntry OBJECT-TYPE");
+        list_push_back(pt_list, "SYNTAX      AcctngSelectionEntry");
+        list_push_back(pt_list, "MAX-ACCESS  not-accessible");
+        list_push_back(pt_list, "STATUS      current");
+        list_push_back(pt_list, "DESCRIPTION");
+        list_push_back(pt_list, "An entry identifying an (subtree, list) tuple used to");
+        list_push_back(pt_list, "select a set of accounting information which is to be");
+        list_push_back(pt_list, "INDEX   { acctngSelectionIndex }");
+        list_push_back(pt_list, "acctngControlTrapThreshold");
+        list_push_back(pt_list, "acctngFileNameSuffix");
+        _print_list_str(pt_list);
+        list_sort_if(pt_list, _list_str_sort_pre);
+        _print_list_str(pt_list);
+
+        list_destroy(pt_list);
+    }
     /*list_merge          */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        list_merge(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_push_back(pt_list, "See: (usage note under)");
+        list_push_back(pt_list, "recovery of the data");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "(I) Use erasure or other means");
+        list_push_back(pt_list, "archival document series");
+        list_push_back(pt_list, "[A9009]");
+        list_push_back(pt_list, "[A3092]");
+        list_sort(pt_list);
+        list_merge(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+
+        list_clear(pt_list);
+        list_clear(pt_listex);
+        list_push_back(pt_listex, "Public key Cryptography");
+        list_push_back(pt_listex, "X9._42, 29 Jan 1999");
+        list_push_back(pt_listex, "Informational");
+        list_push_back(pt_listex, "issue with: Minerva M");
+        list_push_back(pt_listex, "7799-1:1999, effective 15 May 1999");
+        list_sort(pt_listex);
+        list_merge(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+
+        list_clear(pt_list);
+        list_clear(pt_listex);
+        list_push_back(pt_list, "See: (usage note under)");
+        list_push_back(pt_list, "recovery of the data");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "(I) Use erasure or other means");
+        list_push_back(pt_list, "archival document series");
+        list_push_back(pt_list, "[A9009]");
+        list_push_back(pt_list, "[A3092]");
+        list_sort(pt_list);
+        list_push_back(pt_listex, "Public key Cryptography");
+        list_push_back(pt_listex, "X9._42, 29 Jan 1999");
+        list_push_back(pt_listex, "Informational");
+        list_push_back(pt_listex, "issue with: Minerva M");
+        list_push_back(pt_listex, "7799-1:1999, effective 15 May 1999");
+        list_sort(pt_listex);
+        list_merge(pt_list, pt_listex);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_merge_if       */
+    {
+        list_t* pt_list = create_list(char*);
+        list_t* pt_listex = create_list(char*);
+        if(pt_list == NULL || pt_listex == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_init(pt_listex);
+        list_merge_if(pt_list, pt_listex, _list_str_sort_pre);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+        list_push_back(pt_list, "See: (usage note under)");
+        list_push_back(pt_list, "recovery of the data");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "(I) Use erasure or other means");
+        list_push_back(pt_list, "archival document series");
+        list_push_back(pt_list, "[A9009]");
+        list_push_back(pt_list, "[A3092]");
+        list_sort_if(pt_list, _list_str_sort_pre);
+        list_merge_if(pt_list, pt_listex, _list_str_sort_pre);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+
+        list_clear(pt_list);
+        list_clear(pt_listex);
+        list_push_back(pt_listex, "Public key Cryptography");
+        list_push_back(pt_listex, "X9._42, 29 Jan 1999");
+        list_push_back(pt_listex, "Informational");
+        list_push_back(pt_listex, "issue with: Minerva M");
+        list_push_back(pt_listex, "7799-1:1999, effective 15 May 1999");
+        list_sort_if(pt_listex, _list_str_sort_pre);
+        list_merge_if(pt_list, pt_listex, _list_str_sort_pre);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+
+        list_clear(pt_list);
+        list_clear(pt_listex);
+        list_push_back(pt_list, "See: (usage note under)");
+        list_push_back(pt_list, "recovery of the data");
+        list_push_back(pt_list, "");
+        list_push_back(pt_list, "(I) Use erasure or other means");
+        list_push_back(pt_list, "archival document series");
+        list_push_back(pt_list, "[A9009]");
+        list_push_back(pt_list, "[A3092]");
+        list_sort_if(pt_list, _list_str_sort_pre);
+        list_push_back(pt_listex, "Public key Cryptography");
+        list_push_back(pt_listex, "X9._42, 29 Jan 1999");
+        list_push_back(pt_listex, "Informational");
+        list_push_back(pt_listex, "issue with: Minerva M");
+        list_push_back(pt_listex, "7799-1:1999, effective 15 May 1999");
+        list_sort_if(pt_listex, _list_str_sort_pre);
+        list_merge_if(pt_list, pt_listex, _list_str_sort_pre);
+        _print_list_str(pt_list);
+        _print_list_str(pt_listex);
+
+        list_destroy(pt_list);
+        list_destroy(pt_listex);
+    }
     /*list_reverse        */
+    {
+        list_t* pt_list = create_list(char*);
+        if(pt_list == NULL)
+        {
+            return;
+        }
+        list_init(pt_list);
+        list_reverse(pt_list);
+        _print_list_str(pt_list);
+        list_push_back(pt_list, "[A3092]");
+        list_push_back(pt_list, "[A9009][A9017]");
+        list_push_back(pt_list, "[A9042][A9052][A9062]");
+        list_push_back(pt_list, "[ABA][ACM][Army][B7799]");
+        list_push_back(pt_list, "[Bell][CCIB][CIPSO][CSC1]");
+        list_push_back(pt_list, "[CSC2][CSC3][CSOR][Denn][DH76]");
+        _print_list_str(pt_list);
+        list_reverse(pt_list);
+        _print_list_str(pt_list);
+        list_destroy(pt_list);
+    }
 }
 
 /** local function implementation section **/
+static void _list_str_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strlen((char*)cpv_first) > strlen((char*)cpv_second))
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _list_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(((char*)cpv_first)[0] == ((char*)cpv_second)[0])
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _list_str_remove_pre(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    if(((char*)cpv_input)[0] == 'C')
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _print_list_str(const list_t* cpt_list)
+{
+    iterator_t t_iter;
+    assert(cpt_list != NULL);
+    printf("=====================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        list_empty(cpt_list), list_size(cpt_list), list_max_size(cpt_list));
+    for(t_iter = list_begin(cpt_list);
+        !iterator_equal(t_iter, list_end(cpt_list));
+        t_iter = iterator_next(t_iter))
+    {
+        puts((char*)iterator_get_pointer(t_iter));
+    }
+}
+
 static void _list_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);

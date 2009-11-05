@@ -2900,11 +2900,199 @@ void test_deque(void)
             deque_destroy(pt_deqex);
         }
         /*deque_insert_n       */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_insert_n(pt_deq, deque_begin(pt_deq), 0,
+                "The fields are transmitted from left to right.");
+            _print_deq_str(pt_deq);
+            deque_insert_n(pt_deq, deque_begin(pt_deq), 3,
+                "0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1");
+            _print_deq_str(pt_deq);
+            deque_insert_n(pt_deq, deque_begin(pt_deq), 5,
+                "|         F_MAX_PERIOD          |          F_MAX_TIME           |");
+            _print_deq_str(pt_deq);
+            deque_insert_n(pt_deq, iterator_next_n(deque_begin(pt_deq), 5), 2, "");
+            _print_deq_str(pt_deq);
+            deque_insert_n(pt_deq, deque_end(pt_deq), 3, "IP-Compression-Protocol");
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
         /*deque_erase          */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_push_back(pt_deq,
+                " 0                   1                   2                   3");
+            deque_push_back(pt_deq,
+                " 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|     Type      |    Length     |    IP-Compression-Protocol    |");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|           TCP_SPACE           |         NON_TCP_SPACE         |");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|         F_MAX_PERIOD          |          F_MAX_TIME           |");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|           MAX_HEADER          |          suboptions...");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            _print_deq_str(pt_deq);
+            deque_erase(pt_deq, deque_begin(pt_deq));
+            _print_deq_str(pt_deq);
+            deque_erase(pt_deq, iterator_prev(deque_end(pt_deq)));
+            _print_deq_str(pt_deq);
+            deque_erase(pt_deq, iterator_next_n(deque_begin(pt_deq), 3));
+            _print_deq_str(pt_deq);
+
+            while(!deque_empty(pt_deq))
+            {
+                deque_erase(pt_deq, deque_begin(pt_deq));
+            }
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
         /*deque_erase_range    */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_erase_range(pt_deq, deque_begin(pt_deq), deque_end(pt_deq));
+            _print_deq_str(pt_deq);
+            deque_push_back(pt_deq,
+                " 0                   1                   2                   3");
+            deque_push_back(pt_deq,
+                " 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|     Type      |    Length     |    IP-Compression-Protocol    |");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|           TCP_SPACE           |         NON_TCP_SPACE         |");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|         F_MAX_PERIOD          |          F_MAX_TIME           |");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|           MAX_HEADER          |          suboptions...");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            _print_deq_str(pt_deq);
+            deque_erase_range(pt_deq, deque_begin(pt_deq), deque_begin(pt_deq));
+            _print_deq_str(pt_deq);
+            deque_erase_range(pt_deq, deque_begin(pt_deq), iterator_next_n(deque_begin(pt_deq), 2));
+            _print_deq_str(pt_deq);
+            deque_erase_range(pt_deq,
+                iterator_next(deque_begin(pt_deq)), iterator_next_n(deque_begin(pt_deq), 4));
+            _print_deq_str(pt_deq);
+            deque_erase_range(pt_deq, iterator_prev_n(deque_end(pt_deq), 3), deque_end(pt_deq));
+            _print_deq_str(pt_deq);
+            deque_erase_range(pt_deq, deque_end(pt_deq), deque_end(pt_deq));
+            _print_deq_str(pt_deq);
+            deque_erase_range(pt_deq, deque_begin(pt_deq), deque_end(pt_deq));
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
         /*deque_clear          */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_clear(pt_deq);
+            _print_deq_str(pt_deq);
+            
+            deque_push_back(pt_deq,
+                " 0                   1                   2                   3");
+            deque_push_back(pt_deq,
+                " 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|     Type      |    Length     |    IP-Compression-Protocol    |");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|           TCP_SPACE           |         NON_TCP_SPACE         |");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|         F_MAX_PERIOD          |          F_MAX_TIME           |");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            deque_push_back(pt_deq,
+                "|           MAX_HEADER          |          suboptions...");
+            deque_push_back(pt_deq,
+                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+            _print_deq_str(pt_deq);
+            deque_clear(pt_deq);
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
         /*deque_resize         */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_resize(pt_deq, 0);
+            _print_deq_str(pt_deq);
+            deque_resize(pt_deq, 5);
+            _print_deq_str(pt_deq);
+            deque_resize(pt_deq, 10);
+            _print_deq_str(pt_deq);
+            deque_resize(pt_deq, 3);
+            _print_deq_str(pt_deq);
+            deque_resize(pt_deq, 0);
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
         /*deque_resize_elem    */
+        {
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+            deque_init(pt_deq);
+            deque_resize_elem(pt_deq, 0, "Suggested value: 15");
+            _print_deq_str(pt_deq);
+            deque_resize_elem(pt_deq, 7, "F_MAX_PERIOD");
+            _print_deq_str(pt_deq);
+            deque_resize_elem(pt_deq, 31, "IP Header Compression over PPP");
+            _print_deq_str(pt_deq);
+            deque_resize_elem(pt_deq, 13, "");
+            _print_deq_str(pt_deq);
+            deque_resize_elem(pt_deq, 0, "IP/UDP/RTP");
+            _print_deq_str(pt_deq);
+            deque_destroy(pt_deq);
+        }
     }
 }
 
