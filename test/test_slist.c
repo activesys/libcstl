@@ -23,6 +23,7 @@
 /** include section **/
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <time.h>
 #include "cslist.h"
 #include "cfunctional.h"
@@ -50,6 +51,11 @@ typedef struct _tagcoordinates
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
+static void _slist_str_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _slist_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _slist_str_remove_pre(const void* cpv_input, void* pv_output);
+static void _print_slist_src(const slist_t* cpt_slist);
+
 static void _slist_sort_slist_pred(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _slist_unique_slist_pred(
@@ -3934,63 +3940,1288 @@ void test_slist(void)
     }
     /* c-string type */
     {
+        /*create_slist            */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_init              */
+        /*slist_init_n            */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 6);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_init_elem         */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_elem(pt_slist, 20, "GSS_S_CALL_INACCESSIBLE_READ");
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_init_copy         */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init_elem(pt_slistex, 5, "GSS_S_CALL_INACCESSIBLE_WRITE");
+            slist_init_copy(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_init_copy_range   */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slistex);
+            slist_push_front(pt_slistex, "GSS_S_BAD_MECH");
+            slist_push_front(pt_slistex, "GSS_S_BAD_NAME");
+            slist_push_front(pt_slistex, "GSS_S_BAD_NAMETYPE");
+            slist_push_front(pt_slistex, "GSS_S_BAD_BINDINGS");
+            slist_push_front(pt_slistex, "GSS_S_BAD_STATUS");
+            slist_push_front(pt_slistex, "GSS_S_BAD_SIG");
+            slist_push_front(pt_slistex, "GSS_S_NO_CRED");
+            slist_push_front(pt_slistex, "GSS_S_NO_CONTEXT");
+            slist_push_front(pt_slistex, "GSS_S_DEFECTIVE_TOKEN");
+            _print_slist_src(pt_slistex);
+            slist_init_copy_range(pt_slist, slist_begin(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_destroy           */
+        /*slist_size              */
+        /*slist_empty             */
+        /*slist_max_size          */
+        /*slist_begin             */
+        /*slist_end               */
+        /*slist_previous          */
+        /*slist_equal             */
+        /*slist_not_equal         */
+        /*slist_less              */
+        /*slist_less_equal        */
+        /*slist_great             */
+        /*slist_great_equal       */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            printf("equal: %d, not equal: %d, ",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less: %d, less equal: %d, ",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great: %d, great equal: %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+
+            slist_push_front(pt_slist, "GSS_C_AF_NBS");
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            printf("equal: %d, not equal: %d, ",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less: %d, less equal: %d, ",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great: %d, great equal: %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+
+            slist_push_front(pt_slistex, "GSS_C_AF_NBS");
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            printf("equal: %d, not equal: %d, ",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less: %d, less equal: %d, ",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great: %d, great equal: %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+
+            slist_push_front(pt_slistex, "GSS_C_AF_UCMA");
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            printf("equal: %d, not equal: %d, ",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less: %d, less equal: %d, ",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great: %d, great equal: %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+
+            slist_push_front(pt_slist, "GSS_C_AF_JCMA");
+            slist_push_front(pt_slist, "GSS_C_AF_BCMA");
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            printf("equal: %d, not equal: %d, ",
+                slist_equal(pt_slist, pt_slistex), slist_not_equal(pt_slist, pt_slistex));
+            printf("less: %d, less equal: %d, ",
+                slist_less(pt_slist, pt_slistex), slist_less_equal(pt_slist, pt_slistex));
+            printf("great: %d, great equal: %d\n",
+                slist_great(pt_slist, pt_slistex), slist_great_equal(pt_slist, pt_slistex));
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_assign            */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_assign(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slistex, "CCITT protocols (eg X.25)");
+            slist_push_front(pt_slistex, "NSC Hyperchannel address type");
+            slist_push_front(pt_slistex, "No address specified");
+            slist_push_front(pt_slistex, "X25");
+            slist_push_front(pt_slistex, "OSI TP4 address type");
+            slist_assign(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            slist_clear(pt_slistex);
+            slist_assign(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_assign_elem       */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_assign_elem(pt_slist, 0, "signature is calculated in the same way");
+            _print_slist_src(pt_slist);
+            slist_assign_elem(pt_slist, 4, "2.1.12. Optional parameters");
+            _print_slist_src(pt_slist);
+            slist_assign_elem(pt_slist, 16, "Specify GSS_C_NO_BUFFER as a value.  For an input parameter this");
+            _print_slist_src(pt_slist);
+            slist_assign_elem(pt_slist, 3, "Integer types (output)");
+            _print_slist_src(pt_slist);
+            slist_assign_elem(pt_slist, 0, "GSS_C_NULL_OID_SET");
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_assign_range      */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_assign_range(pt_slist, slist_begin(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slistex, "CCITT protocols (eg X.25)");
+            slist_push_front(pt_slistex, "NSC Hyperchannel address type");
+            slist_push_front(pt_slistex, "No address specified");
+            slist_push_front(pt_slistex, "X25");
+            slist_push_front(pt_slistex, "OSI TP4 address type");
+            slist_push_front(pt_slistex, "Parameters");
+            slist_push_front(pt_slistex, "GSS_S_COMPLETE");
+            slist_push_front(pt_slistex, "GSS_S_NO_CRED     Credentials could not be accessed.");
+            slist_assign_range(pt_slist, slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_assign_range(pt_slist, slist_begin(pt_slistex), iterator_advance(slist_begin(pt_slistex), 3));
+            _print_slist_src(pt_slist);
+            slist_assign_range(pt_slist, iterator_next(slist_begin(pt_slistex)), iterator_advance(slist_begin(pt_slistex), 5));
+            _print_slist_src(pt_slist);
+            slist_assign_range(pt_slist, slist_previous(pt_slistex, slist_previous(pt_slistex, slist_end(pt_slistex))), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_assign_range(pt_slist, slist_end(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_assign_range(pt_slist, slist_begin(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_swap              */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_swap(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_assign_elem(pt_slistex, 5, "gss_cred_id_t * cred_handle)");
+            slist_swap(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_assign_elem(pt_slistex, 7, "minor_status");
+            slist_swap(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_assign_elem(pt_slistex, 2, "GSS_S_COMPLETE");
+            slist_swap(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_assign_elem(pt_slist, 0, "Function value");
+            slist_swap(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_front             */
+        /*slist_push_front        */
+        /*slist_pop_front         */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist, "the default credential will be released");
+            puts(slist_front(pt_slist));
+            slist_push_front(pt_slist, "GSSAPI - Overview and C bindings");
+            puts(slist_front(pt_slist));
+            slist_push_front(pt_slist, "typedef struct gss_OID_set_desc_struct\n{int     count;\n}");
+            puts(slist_front(pt_slist));
+            slist_push_front(pt_slist, "OM_uint32 initiator_addrtype;");
+            puts(slist_front(pt_slist));
+
+            while(!slist_empty(pt_slist))
+            {
+                slist_pop_front(pt_slist);
+            }
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_insert            */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_insert(pt_slist, slist_begin(pt_slist), "#define GSS_C_DELEG_FLAG 1");
+            _print_slist_src(pt_slist);
+            slist_insert(pt_slist, slist_begin(pt_slist), "#define GSS_C_SUPPLEMENTARY_MASK 0177777ul");
+            _print_slist_src(pt_slist);
+            slist_insert(pt_slist, slist_end(pt_slist), "#define GSS_CALLING_ERROR(x) \\");
+            _print_slist_src(pt_slist);
+            slist_insert(pt_slist, iterator_next(slist_begin(pt_slist)), "#define GSS_S_CALL_INACCESSIBLE_READ");
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_insert_n          */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_insert_n(pt_slist, slist_begin(pt_slist), 0, "#define GSS_S_BAD_MECH (1ul << GSS_C_ROUTINE_ERROR_OFFSET)");
+            _print_slist_src(pt_slist);
+            slist_insert_n(pt_slist, slist_begin(pt_slist), 3, "#define GSS_S_BAD_NAME (2ul << GSS_C_ROUTINE_ERROR_OFFSET)");
+            _print_slist_src(pt_slist);
+            slist_insert_n(pt_slist, slist_begin(pt_slist), 6, "(3ul << GSS_C_CALLING_ERROR_OFFSET)");
+            _print_slist_src(pt_slist);
+            slist_insert_n(pt_slist, slist_end(pt_slist), 2, "Supplementary info bits:");
+            _print_slist_src(pt_slist);
+            slist_insert_n(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)), 4, "");
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_insert_range      */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_insert_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slistex, "CCITT protocols (eg X.25)");
+            slist_push_front(pt_slistex, "NSC Hyperchannel address type");
+            slist_push_front(pt_slistex, "No address specified");
+            slist_push_front(pt_slistex, "X25");
+            slist_push_front(pt_slistex, "OSI TP4 address type");
+            slist_push_front(pt_slistex, "Parameters");
+            slist_push_front(pt_slistex, "GSS_S_COMPLETE");
+            slist_push_front(pt_slistex, "GSS_S_NO_CRED     Credentials could not be accessed.");
+            slist_push_front(pt_slistex, "#define GSS_S_CONTINUE_NEEDED (1ul << (GSS_C_SUPPLEMENTARY_OFFSET + 0))");
+            slist_push_front(pt_slistex, "#define GSS_S_OLD_TOKEN (1ul << (GSS_C_SUPPLEMENTARY_OFFSET + 2))");
+            _print_slist_src(pt_slistex);
+            slist_insert_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_insert_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slistex), iterator_advance(slist_begin(pt_slistex), 3));
+            _print_slist_src(pt_slist);
+            slist_insert_range(pt_slist, slist_begin(pt_slist),
+                iterator_advance(slist_begin(pt_slistex), 3), iterator_advance(slist_begin(pt_slistex), 5));
+            _print_slist_src(pt_slist);
+            slist_insert_range(pt_slist, slist_end(pt_slist), iterator_advance(slist_begin(pt_slistex), 5), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_insert_range(pt_slist, iterator_next(slist_begin(pt_slist)),
+                slist_previous(pt_slistex, slist_end(pt_slistex)), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_insert_range(pt_slist, slist_end(pt_slist), slist_end(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_insert_range(pt_slist, slist_end(pt_slist), slist_begin(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_insert_after      */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 3);
+            slist_insert_after(pt_slist, slist_begin(pt_slist), "Finally, function prototypes for the GSSAPI routines.");
+            _print_slist_src(pt_slist);
+            slist_insert_after(pt_slist, iterator_next(slist_begin(pt_slist)), "(OM_uint32*,       /* minor_status */");
+            _print_slist_src(pt_slist);
+            slist_insert_after(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)), "OM_uint32 gss_release_cred,");
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_insert_after_n    */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 3);
+            slist_insert_after_n(pt_slist, slist_begin(pt_slist), 0, "ifMauJabberState OBJECT-TYPE");
+            _print_slist_src(pt_slist);
+            slist_insert_after_n(pt_slist, slist_begin(pt_slist), 3, "dot3MauTypeAUI, this counter will always indicate");
+            _print_slist_src(pt_slist);
+            slist_insert_after_n(pt_slist, slist_begin(pt_slist), 5, "REFERENCE");
+            _print_slist_src(pt_slist);
+            slist_insert_after_n(pt_slist, iterator_next(slist_begin(pt_slist)), 2, "");
+            _print_slist_src(pt_slist);
+            slist_insert_after_n(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)), 4, "for broadband MAUs attached to DTEs.");
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_insert_after_range*/
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 3);
+            slist_init(pt_slistex);
+            slist_insert_after_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slistex, "CCITT protocols (eg X.25)");
+            slist_push_front(pt_slistex, "NSC Hyperchannel address type");
+            slist_push_front(pt_slistex, "No address specified");
+            slist_push_front(pt_slistex, "X25");
+            slist_push_front(pt_slistex, "OSI TP4 address type");
+            slist_push_front(pt_slistex, "Parameters");
+            slist_push_front(pt_slistex, "GSS_S_COMPLETE");
+            slist_push_front(pt_slistex, "GSS_S_NO_CRED     Credentials could not be accessed.");
+            slist_push_front(pt_slistex, "#define GSS_S_CONTINUE_NEEDED (1ul << (GSS_C_SUPPLEMENTARY_OFFSET + 0))");
+            slist_push_front(pt_slistex, "#define GSS_S_OLD_TOKEN (1ul << (GSS_C_SUPPLEMENTARY_OFFSET + 2))");
+            _print_slist_src(pt_slistex);
+
+            slist_insert_after_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_insert_after_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slistex), iterator_advance(slist_begin(pt_slistex), 3));
+            _print_slist_src(pt_slist);
+            slist_insert_after_range(pt_slist, iterator_next(slist_begin(pt_slist)),
+                iterator_advance(slist_begin(pt_slistex), 3), iterator_advance(slist_begin(pt_slistex), 6));
+            _print_slist_src(pt_slist);
+            slist_insert_after_range(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)),
+                iterator_advance(slist_begin(pt_slistex), 8), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_insert_after_range(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)), slist_end(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            slist_insert_after_range(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)), slist_begin(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_erase             */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_push_front(pt_slist, "SYNTAX    SEQUENCE OF BroadMauBasicEntry");
+            slist_push_front(pt_slist, "ACCESS    not-accessible");
+            slist_push_front(pt_slist, "STATUS    mandatory");
+            slist_push_front(pt_slist, "DESCRIPTION");
+            slist_push_front(pt_slist, "Table of descriptive and status information about");
+            slist_push_front(pt_slist, "the broadband MAUs connected to interfaces.");
+            slist_push_front(pt_slist, "{ dot3BroadMauBasicGroup 1 }");
+            slist_push_front(pt_slist, "broadMauBasicEntry OBJECT-TYPE");
+            slist_push_front(pt_slist, "BroadMauBasicEntry ::=");
+            _print_slist_src(pt_slist);
+            slist_erase(pt_slist, slist_begin(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_erase(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)));
+            _print_slist_src(pt_slist);
+            slist_erase(pt_slist, iterator_next(slist_begin(pt_slist)));
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_erase_range       */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_erase_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist, "SYNTAX    SEQUENCE OF BroadMauBasicEntry");
+            slist_push_front(pt_slist, "ACCESS    not-accessible");
+            slist_push_front(pt_slist, "STATUS    mandatory");
+            slist_push_front(pt_slist, "DESCRIPTION");
+            slist_push_front(pt_slist, "Table of descriptive and status information about");
+            slist_push_front(pt_slist, "the broadband MAUs connected to interfaces.");
+            slist_push_front(pt_slist, "{ dot3BroadMauBasicGroup 1 }");
+            slist_push_front(pt_slist, "broadMauBasicEntry OBJECT-TYPE");
+            slist_push_front(pt_slist, "BroadMauBasicEntry ::=");
+            _print_slist_src(pt_slist);
+            slist_erase_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_erase_range(pt_slist, slist_begin(pt_slist), iterator_advance(slist_begin(pt_slist), 2));
+            _print_slist_src(pt_slist);
+            slist_erase_range(pt_slist, iterator_next(slist_begin(pt_slist)), iterator_advance(slist_begin(pt_slist), 3));
+            _print_slist_src(pt_slist);
+            slist_erase_range(pt_slist, iterator_advance(slist_begin(pt_slist), 3), slist_end(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_erase_range(pt_slist, slist_end(pt_slist), slist_end(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_erase_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
+            _print_slist_src(pt_slist);
+            
+            slist_destroy(pt_slist);
+        }
+        /*slist_erase_after       */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_push_front(pt_slist, "SYNTAX    SEQUENCE OF BroadMauBasicEntry");
+            slist_push_front(pt_slist, "ACCESS    not-accessible");
+            slist_push_front(pt_slist, "STATUS    mandatory");
+            slist_push_front(pt_slist, "DESCRIPTION");
+            slist_push_front(pt_slist, "Table of descriptive and status information about");
+            slist_push_front(pt_slist, "the broadband MAUs connected to interfaces.");
+            slist_push_front(pt_slist, "{ dot3BroadMauBasicGroup 1 }");
+            slist_push_front(pt_slist, "broadMauBasicEntry OBJECT-TYPE");
+            slist_push_front(pt_slist, "BroadMauBasicEntry ::=");
+            _print_slist_src(pt_slist);
+            slist_erase_after(pt_slist, slist_begin(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_erase_after(pt_slist, iterator_next(slist_begin(pt_slist)));
+            _print_slist_src(pt_slist);
+            slist_erase_after(pt_slist, iterator_advance(slist_begin(pt_slist), 5));
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_erase_after_range */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist, "SYNTAX    SEQUENCE OF BroadMauBasicEntry");
+            slist_push_front(pt_slist, "ACCESS    not-accessible");
+            slist_push_front(pt_slist, "STATUS    mandatory");
+            slist_push_front(pt_slist, "DESCRIPTION");
+            slist_push_front(pt_slist, "Table of descriptive and status information about");
+            slist_push_front(pt_slist, "the broadband MAUs connected to interfaces.");
+            slist_push_front(pt_slist, "{ dot3BroadMauBasicGroup 1 }");
+            slist_push_front(pt_slist, "broadMauBasicEntry OBJECT-TYPE");
+            slist_push_front(pt_slist, "BroadMauBasicEntry ::=");
+            slist_push_front(pt_slist, "CCITT protocols (eg X.25)");
+            slist_push_front(pt_slist, "NSC Hyperchannel address type");
+            slist_push_front(pt_slist, "No address specified");
+            slist_push_front(pt_slist, "X25");
+            slist_push_front(pt_slist, "OSI TP4 address type");
+            slist_push_front(pt_slist, "Parameters");
+            slist_push_front(pt_slist, "GSS_S_COMPLETE");
+            slist_push_front(pt_slist, "GSS_S_NO_CRED     Credentials could not be accessed.");
+            slist_push_front(pt_slist, "#define GSS_S_CONTINUE_NEEDED (1ul << (GSS_C_SUPPLEMENTARY_OFFSET + 0))");
+            slist_push_front(pt_slist, "#define GSS_S_OLD_TOKEN (1ul << (GSS_C_SUPPLEMENTARY_OFFSET + 2))");
+            _print_slist_src(pt_slist);
+            slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_begin(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_erase_after_range(pt_slist, slist_begin(pt_slist), iterator_next(slist_begin(pt_slist)));
+            _print_slist_src(pt_slist);
+            slist_erase_after_range(pt_slist, slist_begin(pt_slist), iterator_advance(slist_begin(pt_slist), 3));
+            _print_slist_src(pt_slist);
+            slist_erase_after_range(pt_slist, iterator_next(slist_begin(pt_slist)), iterator_advance(slist_begin(pt_slist), 3));
+            _print_slist_src(pt_slist);
+            slist_erase_after_range(pt_slist, iterator_advance(slist_begin(pt_slist), 8), slist_end(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_erase_after_range(pt_slist, slist_end(pt_slist), slist_end(pt_slist));
+            _print_slist_src(pt_slist);
+            slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
+            _print_slist_src(pt_slist);
+            
+            slist_destroy(pt_slist);
+        }
+        /*slist_splice            */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_splice(pt_slist, slist_begin(pt_slist), pt_slistex);
+            _print_slist_src(pt_slist);
+            slist_assign_elem(pt_slistex, 3, "1. Should we try to build integrated documentation/computation systems?");
+            slist_splice(pt_slist, slist_begin(pt_slist), pt_slistex);
+            _print_slist_src(pt_slist);
+            slist_assign_elem(pt_slistex, 2, "");
+            slist_splice(pt_slist, slist_begin(pt_slist), pt_slistex);
+            _print_slist_src(pt_slist);
+            slist_assign_elem(pt_slistex, 4, "2. WYSIWYG editing of mathematical expressions.");
+            slist_splice(pt_slist, slist_end(pt_slist), pt_slistex);
+            _print_slist_src(pt_slist);
+            slist_assign_elem(pt_slistex, 3, "3. Interchange representation of mathematics.");
+            slist_splice(pt_slist, iterator_next(slist_begin(pt_slist)), pt_slistex);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_splice_pos        */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_push_front(pt_slistex,
+                "10.\"Presentation and Interchange of Mathematical Expressions in the Andrew System\",Maria Wadlow, Carnegie-Mellon University.");
+            slist_push_front(pt_slistex,
+                "9.\"Internal and External Representations of Valid Mathematical Reasoning\", Tryg Ager, Stanford University.");
+            slist_push_front(pt_slistex,
+                "8.\"Domain-Driven Expression Display in Scratchpad II\", Stephen Watt, IBM Yorktown Heights.");
+            slist_push_front(pt_slistex,
+                "7.\"CaminoReal: A Direct Manipulation Style User Interface for Mathematical Software\", Dennis Arnon, Xerox PARC.");
+            slist_push_front(pt_slistex,
+                "6.\"Iris User Interface for Computer Algebra Systemsi\", Benton Leong, University of Waterloo.");
+            slist_push_front(pt_slistex,
+                "5.\"INFOR: an Interactive WYSIWYG System for Technical Text\", William Schelter, University of Texas.");
+            slist_push_front(pt_slistex,
+                "4.\"MathScribe: A User Interface for Computer Algebra systems\", Neil Soiffer, Tektronix Labs.");
+            slist_push_front(pt_slistex,
+                "3.\"Milo: A Macintosh System for Students\", Ron Avitzur, Free Lance Developer, Palo Alto, CA.");
+            slist_push_front(pt_slistex,
+                "2.\"MATLAB - an Interactive Matrix Laboratory\", Cleve Moler, MathWorks Inc.");
+            slist_push_front(pt_slistex,
+                "1.\"The MathCad System: a Graphical Interface for Computer Mathematics\", Richard Smaby, MathSOFT Inc.");
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_pos(pt_slist, slist_begin(pt_slist), pt_slistex, slist_begin(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_pos(pt_slist, slist_begin(pt_slist), pt_slistex, slist_begin(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_pos(pt_slist, iterator_next(slist_begin(pt_slist)), pt_slistex, iterator_next(slist_begin(pt_slistex)));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_pos(pt_slist, slist_end(pt_slist), pt_slistex, slist_previous(pt_slistex, slist_end(pt_slistex)));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_splice_range      */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_splice_range(pt_slist, slist_begin(pt_slist), pt_slistex, slist_begin(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_push_front(pt_slistex,
+                "10.\"Presentation and Interchange of Mathematical Expressions in the Andrew System\",Maria Wadlow, Carnegie-Mellon University.");
+            slist_push_front(pt_slistex,
+                "9.\"Internal and External Representations of Valid Mathematical Reasoning\", Tryg Ager, Stanford University.");
+            slist_push_front(pt_slistex,
+                "8.\"Domain-Driven Expression Display in Scratchpad II\", Stephen Watt, IBM Yorktown Heights.");
+            slist_push_front(pt_slistex,
+                "7.\"CaminoReal: A Direct Manipulation Style User Interface for Mathematical Software\", Dennis Arnon, Xerox PARC.");
+            slist_push_front(pt_slistex,
+                "6.\"Iris User Interface for Computer Algebra Systemsi\", Benton Leong, University of Waterloo.");
+            slist_push_front(pt_slistex,
+                "5.\"INFOR: an Interactive WYSIWYG System for Technical Text\", William Schelter, University of Texas.");
+            slist_push_front(pt_slistex,
+                "4.\"MathScribe: A User Interface for Computer Algebra systems\", Neil Soiffer, Tektronix Labs.");
+            slist_push_front(pt_slistex,
+                "3.\"Milo: A Macintosh System for Students\", Ron Avitzur, Free Lance Developer, Palo Alto, CA.");
+            slist_push_front(pt_slistex,
+                "2.\"MATLAB - an Interactive Matrix Laboratory\", Cleve Moler, MathWorks Inc.");
+            slist_push_front(pt_slistex,
+                "1.\"The MathCad System: a Graphical Interface for Computer Mathematics\", Richard Smaby, MathSOFT Inc.");
+            slist_splice_range(pt_slist, slist_begin(pt_slist), pt_slistex, slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex), iterator_advance(slist_begin(pt_slistex), 3));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, iterator_next(slist_begin(pt_slistex)), iterator_advance(slist_begin(pt_slistex), 3));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_range(pt_slist, iterator_next(slist_begin(pt_slist)),
+                pt_slistex, iterator_advance(slist_begin(pt_slistex), 3), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_range(pt_slist, slist_end(pt_slist), pt_slistex, slist_end(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_range(pt_slist, slist_end(pt_slist), pt_slistex, slist_begin(pt_slistex), slist_end(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_splice_after_pos  */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 3);
+            slist_init(pt_slistex);
+            slist_push_front(pt_slistex,
+                "10.\"Presentation and Interchange of Mathematical Expressions in the Andrew System\",Maria Wadlow, Carnegie-Mellon University.");
+            slist_push_front(pt_slistex,
+                "9.\"Internal and External Representations of Valid Mathematical Reasoning\", Tryg Ager, Stanford University.");
+            slist_push_front(pt_slistex,
+                "8.\"Domain-Driven Expression Display in Scratchpad II\", Stephen Watt, IBM Yorktown Heights.");
+            slist_push_front(pt_slistex,
+                "7.\"CaminoReal: A Direct Manipulation Style User Interface for Mathematical Software\", Dennis Arnon, Xerox PARC.");
+            slist_push_front(pt_slistex,
+                "6.\"Iris User Interface for Computer Algebra Systemsi\", Benton Leong, University of Waterloo.");
+            slist_push_front(pt_slistex,
+                "5.\"INFOR: an Interactive WYSIWYG System for Technical Text\", William Schelter, University of Texas.");
+            slist_push_front(pt_slistex,
+                "4.\"MathScribe: A User Interface for Computer Algebra systems\", Neil Soiffer, Tektronix Labs.");
+            slist_push_front(pt_slistex,
+                "3.\"Milo: A Macintosh System for Students\", Ron Avitzur, Free Lance Developer, Palo Alto, CA.");
+            slist_push_front(pt_slistex,
+                "2.\"MATLAB - an Interactive Matrix Laboratory\", Cleve Moler, MathWorks Inc.");
+            slist_push_front(pt_slistex,
+                "1.\"The MathCad System: a Graphical Interface for Computer Mathematics\", Richard Smaby, MathSOFT Inc.");
+            slist_splice_after_pos(pt_slist, slist_begin(pt_slist), pt_slistex, slist_begin(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_after_pos(pt_slist, slist_begin(pt_slist), pt_slistex, slist_begin(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_after_pos(pt_slist, iterator_next(slist_begin(pt_slist)), pt_slistex, iterator_next(slist_begin(pt_slistex)));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_after_pos(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)),
+                pt_slistex, slist_previous(pt_slistex, slist_previous(pt_slistex, slist_end(pt_slistex))));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_splice_after_range*/
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init_n(pt_slist, 3);
+            slist_init(pt_slistex);
+            /*slist_splice_after_range(pt_slist, slist_begin(pt_slist), pt_slistex, slist_begin(pt_slistex), slist_end(pt_slistex));*/
+            /*_print_slist_src(pt_slist);*/
+            /*_print_slist_src(pt_slistex);*/
+            slist_push_front(pt_slistex,
+                "10.\"Presentation and Interchange of Mathematical Expressions in the Andrew System\",Maria Wadlow, Carnegie-Mellon University.");
+            slist_push_front(pt_slistex,
+                "9.\"Internal and External Representations of Valid Mathematical Reasoning\", Tryg Ager, Stanford University.");
+            slist_push_front(pt_slistex,
+                "8.\"Domain-Driven Expression Display in Scratchpad II\", Stephen Watt, IBM Yorktown Heights.");
+            slist_push_front(pt_slistex,
+                "7.\"CaminoReal: A Direct Manipulation Style User Interface for Mathematical Software\", Dennis Arnon, Xerox PARC.");
+            slist_push_front(pt_slistex,
+                "6.\"Iris User Interface for Computer Algebra Systemsi\", Benton Leong, University of Waterloo.");
+            slist_push_front(pt_slistex,
+                "5.\"INFOR: an Interactive WYSIWYG System for Technical Text\", William Schelter, University of Texas.");
+            slist_push_front(pt_slistex,
+                "4.\"MathScribe: A User Interface for Computer Algebra systems\", Neil Soiffer, Tektronix Labs.");
+            slist_push_front(pt_slistex,
+                "3.\"Milo: A Macintosh System for Students\", Ron Avitzur, Free Lance Developer, Palo Alto, CA.");
+            slist_push_front(pt_slistex,
+                "2.\"MATLAB - an Interactive Matrix Laboratory\", Cleve Moler, MathWorks Inc.");
+            slist_push_front(pt_slistex,
+                "1.\"The MathCad System: a Graphical Interface for Computer Mathematics\", Richard Smaby, MathSOFT Inc.");
+            slist_splice_after_range(pt_slist, slist_begin(pt_slist), pt_slistex, slist_begin(pt_slistex), slist_begin(pt_slistex));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_after_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex), iterator_next(slist_begin(pt_slistex)));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_after_range(pt_slist, slist_begin(pt_slist),
+                pt_slistex, slist_begin(pt_slistex), iterator_advance(slist_begin(pt_slistex), 3));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_splice_after_range(pt_slist, iterator_next(slist_begin(pt_slist)),
+                pt_slistex, iterator_next(slist_begin(pt_slistex)), iterator_advance(slist_begin(pt_slistex), 3));
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_remove            */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_remove(pt_slist, "NetworkAddress");
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "IpAddress");
+            _print_slist_src(pt_slist);
+            slist_remove(pt_slist, "NetworkAddress");
+            _print_slist_src(pt_slist);
+            slist_remove(pt_slist, "ipaddress");
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_remove_if         */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_remove_if(pt_slist, _slist_str_remove_pre);
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "monotonically");
+            slist_push_front(pt_slist, "4294967295");
+            _print_slist_src(pt_slist);
+            slist_remove_if(pt_slist, _slist_str_remove_pre);
+            _print_slist_src(pt_slist);
+            slist_remove_if(pt_slist, _slist_str_remove_pre);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_unique            */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_unique(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "monotonically");
+            slist_push_front(pt_slist, "4294967295");
+            _print_slist_src(pt_slist);
+            slist_unique(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_unique(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_unique_if         */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_unique_if(pt_slist, _slist_str_unique_pre);
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "monotonically");
+            slist_push_front(pt_slist, "4294967295");
+            _print_slist_src(pt_slist);
+            slist_unique_if(pt_slist, _slist_str_unique_pre);
+            _print_slist_src(pt_slist);
+            slist_unique_if(pt_slist, _slist_str_unique_pre);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_reverse           */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_reverse(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist,
+                "10.\"Presentation and Interchange of Mathematical Expressions in the Andrew System\",Maria Wadlow, Carnegie-Mellon University.");
+            slist_push_front(pt_slist,
+                "9.\"Internal and External Representations of Valid Mathematical Reasoning\", Tryg Ager, Stanford University.");
+            slist_push_front(pt_slist,
+                "8.\"Domain-Driven Expression Display in Scratchpad II\", Stephen Watt, IBM Yorktown Heights.");
+            slist_push_front(pt_slist,
+                "7.\"CaminoReal: A Direct Manipulation Style User Interface for Mathematical Software\", Dennis Arnon, Xerox PARC.");
+            slist_push_front(pt_slist,
+                "6.\"Iris User Interface for Computer Algebra Systemsi\", Benton Leong, University of Waterloo.");
+            slist_push_front(pt_slist,
+                "5.\"INFOR: an Interactive WYSIWYG System for Technical Text\", William Schelter, University of Texas.");
+            slist_push_front(pt_slist,
+                "4.\"MathScribe: A User Interface for Computer Algebra systems\", Neil Soiffer, Tektronix Labs.");
+            slist_push_front(pt_slist,
+                "3.\"Milo: A Macintosh System for Students\", Ron Avitzur, Free Lance Developer, Palo Alto, CA.");
+            slist_push_front(pt_slist,
+                "2.\"MATLAB - an Interactive Matrix Laboratory\", Cleve Moler, MathWorks Inc.");
+            slist_push_front(pt_slist,
+                "1.\"The MathCad System: a Graphical Interface for Computer Mathematics\", Richard Smaby, MathSOFT Inc.");
+            _print_slist_src(pt_slist);
+            slist_reverse(pt_slist);
+            _print_slist_src(pt_slist);
+
+            slist_destroy(pt_slist);
+        }
+        /*slist_sort              */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_sort(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "monotonically");
+            slist_push_front(pt_slist, "4294967295");
+            _print_slist_src(pt_slist);
+            slist_sort(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_sort_if           */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_sort_if(pt_slist, _slist_str_sort_pre);
+            _print_slist_src(pt_slist);
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "");
+            slist_push_front(pt_slist, "monotonically");
+            slist_push_front(pt_slist, "4294967295");
+            _print_slist_src(pt_slist);
+            slist_sort_if(pt_slist, _slist_str_sort_pre);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_merge             */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_merge(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_sort(pt_slist);
+            slist_merge(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+
+            slist_clear(pt_slist);
+            slist_push_front(pt_slistex, "IpAddress");
+            slist_push_front(pt_slistex, "original");
+            slist_push_front(pt_slistex, "NetworkAddress");
+            slist_push_front(pt_slistex, "");
+            slist_push_front(pt_slistex, "IpAddress");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "");
+            slist_push_front(pt_slistex, "monotonically");
+            slist_push_front(pt_slistex, "4294967295");
+            slist_sort(pt_slistex);
+            slist_merge(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+
+            slist_clear(pt_slist);
+            slist_clear(pt_slistex);
+            slist_push_front(pt_slistex, "IpAddress");
+            slist_push_front(pt_slistex, "original");
+            slist_push_front(pt_slistex, "NetworkAddress");
+            slist_push_front(pt_slistex, "");
+            slist_push_front(pt_slistex, "IpAddress");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "");
+            slist_push_front(pt_slistex, "monotonically");
+            slist_push_front(pt_slistex, "4294967295");
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_sort(pt_slist);
+            slist_sort(pt_slistex);
+            slist_merge(pt_slist, pt_slistex);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_merge_if          */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            slist_t* pt_slistex = create_slist(char*);
+            if(pt_slist == NULL || pt_slistex == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_init(pt_slistex);
+            slist_merge_if(pt_slist, pt_slistex, _slist_str_sort_pre);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_sort_if(pt_slist, _slist_str_sort_pre);
+            slist_merge_if(pt_slist, pt_slistex, _slist_str_sort_pre);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+
+            slist_clear(pt_slist);
+            slist_push_front(pt_slistex, "IpAddress");
+            slist_push_front(pt_slistex, "original");
+            slist_push_front(pt_slistex, "NetworkAddress");
+            slist_push_front(pt_slistex, "");
+            slist_push_front(pt_slistex, "IpAddress");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "");
+            slist_push_front(pt_slistex, "monotonically");
+            slist_push_front(pt_slistex, "4294967295");
+            slist_sort_if(pt_slistex, _slist_str_sort_pre);
+            slist_merge_if(pt_slist, pt_slistex, _slist_str_sort_pre);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+
+            slist_clear(pt_slist);
+            slist_clear(pt_slistex);
+            slist_push_front(pt_slistex, "IpAddress");
+            slist_push_front(pt_slistex, "original");
+            slist_push_front(pt_slistex, "NetworkAddress");
+            slist_push_front(pt_slistex, "");
+            slist_push_front(pt_slistex, "IpAddress");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "represents");
+            slist_push_front(pt_slistex, "");
+            slist_push_front(pt_slistex, "monotonically");
+            slist_push_front(pt_slistex, "4294967295");
+            slist_push_front(pt_slist, "NetworkAddress");
+            slist_push_front(pt_slist, "IpAddress");
+            slist_push_front(pt_slist, "application-wide");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "represents");
+            slist_push_front(pt_slist, "original");
+            slist_push_front(pt_slist, "ASN.1 EXTERNAL");
+            slist_sort_if(pt_slist, _slist_str_sort_pre);
+            slist_sort_if(pt_slistex, _slist_str_sort_pre);
+            slist_merge_if(pt_slist, pt_slistex, _slist_str_sort_pre);
+            _print_slist_src(pt_slist);
+            _print_slist_src(pt_slistex);
+
+            slist_destroy(pt_slist);
+            slist_destroy(pt_slistex);
+        }
+        /*slist_resize            */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_resize(pt_slist, 0);
+            _print_slist_src(pt_slist);
+            slist_resize(pt_slist, 5);
+            _print_slist_src(pt_slist);
+            slist_resize(pt_slist, 9);
+            _print_slist_src(pt_slist);
+            slist_resize(pt_slist, 3);
+            _print_slist_src(pt_slist);
+            slist_resize(pt_slist, 0);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_resize_elem       */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_resize_elem(pt_slist, 0, "cpptest");
+            _print_slist_src(pt_slist);
+            slist_resize_elem(pt_slist, 4, "Phone: +1 313 764-2278");
+            _print_slist_src(pt_slist);
+            slist_resize_elem(pt_slist, 18, "EMail: mcs@umich.edu");
+            _print_slist_src(pt_slist);
+            slist_resize_elem(pt_slist, 7, "");
+            _print_slist_src(pt_slist);
+            slist_resize_elem(pt_slist, 0, "University of Michigan");
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
+        /*slist_clear             */
+        {
+            slist_t* pt_slist = create_slist(char*);
+            if(pt_slist == NULL)
+            {
+                return;
+            }
+            slist_init(pt_slist);
+            slist_clear(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_assign_elem(pt_slist, 100, "The second form will see to it that existing values (if any) are2.2.4.2 Modify Reply");
+            _print_slist_src(pt_slist);
+            slist_clear(pt_slist);
+            _print_slist_src(pt_slist);
+            slist_destroy(pt_slist);
+        }
     }
-    /*_create_slist           */
-    /*slist_init              */
-    /*slist_init_n            */
-    /*_slist_init_elem        */
-    /*slist_init_copy         */
-    /*slist_init_copy_range   */
-    /*slist_destroy           */
-    /*slist_size              */
-    /*slist_empty             */
-    /*slist_max_size          */
-    /*slist_begin             */
-    /*slist_end               */
-    /*slist_previous          */
-    /*slist_equal             */
-    /*slist_not_equal         */
-    /*slist_less              */
-    /*slist_less_equal        */
-    /*slist_great             */
-    /*slist_great_equal       */
-    /*slist_assign            */
-    /*_slist_assign_elem      */
-    /*slist_assign_range      */
-    /*slist_swap              */
-    /*slist_front             */
-    /*_slist_push_front       */
-    /*slist_pop_front         */
-    /*_slist_insert           */
-    /*_slist_insert_n         */
-    /*slist_insert_range      */
-    /*_slist_insert_after     */
-    /*_slist_insert_after_n   */
-    /*slist_insert_after_range*/
-    /*slist_erase             */
-    /*slist_erase_range       */
-    /*slist_erase_after       */
-    /*slist_erase_after_range */
-    /*slist_splice            */
-    /*slist_splice_pos        */
-    /*slist_splice_range      */
-    /*slist_splice_after_pos  */
-    /*slist_splice_after_range*/
-    /*_slist_remove           */
-    /*slist_remove_if         */
-    /*slist_unique            */
-    /*slist_unique_if         */
-    /*slist_reverse           */
-    /*slist_sort              */
-    /*slist_sort_if           */
-    /*slist_merge             */
-    /*slist_merge_if          */
-    /*slist_resize            */
-    /*_slist_resize_elem      */
-    /*slist_clear             */
 }
 
 /** local function implementation section **/
+static void _slist_str_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strncmp((char*)cpv_first, (char*)cpv_second, 100) > 0)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _slist_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if((isupper(((char*)cpv_first)[0]) && isupper(((char*)cpv_second)[0])) ||
+       (islower(((char*)cpv_first)[0]) && islower(((char*)cpv_second)[0])))
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _slist_str_remove_pre(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    if(isupper(((char*)cpv_input)[0]) || strlen((char*)cpv_input) == 0)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _print_slist_src(const slist_t* cpt_slist)
+{
+    iterator_t t_iter;
+    assert(cpt_slist != NULL);
+    printf("=============================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        slist_empty(cpt_slist), slist_size(cpt_slist), slist_max_size(cpt_slist));
+    for(t_iter = slist_begin(cpt_slist);
+        !iterator_equal(t_iter, slist_end(cpt_slist));
+        t_iter = iterator_next(t_iter))
+    {
+        puts(iterator_get_pointer(t_iter));
+    }
+}
+
 static void _slist_sort_slist_pred(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
