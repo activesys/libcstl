@@ -184,7 +184,7 @@ void pair_init(pair_t* pt_pair)
     {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_PAIR_FIRST_TYPE_NAME(pt_pair), s_elemtypename);
+        _type_get_elem_typename(_GET_PAIR_SECOND_TYPE_NAME(pt_pair), s_elemtypename);
 
         _GET_PAIR_SECOND_TYPE_INIT_FUNCTION(pt_pair)(pt_pair->second, s_elemtypename);
     }

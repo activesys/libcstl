@@ -1549,6 +1549,12 @@ _list_same_type	src/cstl_list.c	/^static bool_t _list_same_type($/;"	p	file:	sig
 _list_same_type	src/cstl_list.c	/^static bool_t _list_same_type(const list_t* cpt_listfirst, const list_t* cpt_listsecond)$/;"	f	file:	signature:(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
 _list_sort_pre	test/test_list.c	/^static void _list_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_sort_pre	test/test_list.c	/^static void _list_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_list_str_remove_pre	test/test_list.c	/^static void _list_str_remove_pre(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_list_str_remove_pre	test/test_list.c	/^static void _list_str_remove_pre(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_list_str_sort_pre	test/test_list.c	/^static void _list_str_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_list_str_sort_pre	test/test_list.c	/^static void _list_str_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_list_str_unique_pre	test/test_list.c	/^static void _list_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_list_str_unique_pre	test/test_list.c	/^static void _list_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_unique_pre	test/test_list.c	/^static void _list_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_unique_pre	test/test_list.c	/^static void _list_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _listabc_copy	test/test_list.c	/^static void _listabc_copy(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -1725,12 +1731,14 @@ _multiset_upper_bound	include/cstl_multiset_private.h	/^extern multiset_iterator
 _multiset_upper_bound	src/cstl_multiset.c	/^multiset_iterator_t _multiset_upper_bound(const multiset_t* cpt_multiset, ...)$/;"	f	signature:(const multiset_t* cpt_multiset, ...)
 _multiset_upper_bound_varg	include/cstl_multiset_private.h	/^extern multiset_iterator_t _multiset_upper_bound_varg($/;"	p	signature:( const multiset_t* cpt_multiset, va_list val_elemlist)
 _multiset_upper_bound_varg	src/cstl_multiset.c	/^multiset_iterator_t _multiset_upper_bound_varg($/;"	f	signature:( const multiset_t* cpt_multiset, va_list val_elemlist)
+_n_first	test/test_pair.c	/^    int _n_first;$/;"	m	struct:_tagsample	file:	access:public
 _n_first	test/test_vector.c	/^    int    _n_first;$/;"	m	struct:_tagabc	file:	access:public
-_n_imaginary	test/test_list.c	/^            int _n_imaginary;$/;"	m	struct:_taglistabc::__anon6::_tagcomplex	file:	access:public
+_n_imaginary	test/test_list.c	/^            int _n_imaginary;$/;"	m	struct:_taglistabc::__anon1::_tagcomplex	file:	access:public
 _n_mempoolindex	include/cstl_alloc.h	/^    size_t      _n_mempoolindex;                 \/* memory pool index *\/$/;"	m	struct:_tagalloc	access:public
-_n_posx	test/test_list.c	/^            int _n_posx;$/;"	m	struct:_taglistabc::__anon6::_tagdescartes	file:	access:public
-_n_posy	test/test_list.c	/^            int _n_posy;$/;"	m	struct:_taglistabc::__anon6::_tagdescartes	file:	access:public
-_n_real	test/test_list.c	/^            int _n_real;$/;"	m	struct:_taglistabc::__anon6::_tagcomplex	file:	access:public
+_n_posx	test/test_list.c	/^            int _n_posx;$/;"	m	struct:_taglistabc::__anon1::_tagdescartes	file:	access:public
+_n_posy	test/test_list.c	/^            int _n_posy;$/;"	m	struct:_taglistabc::__anon1::_tagdescartes	file:	access:public
+_n_real	test/test_list.c	/^            int _n_real;$/;"	m	struct:_taglistabc::__anon1::_tagcomplex	file:	access:public
+_n_second	test/test_pair.c	/^    int _n_second;$/;"	m	struct:_tagsample	file:	access:public
 _n_temperature	test/test_queue.c	/^    int  _n_temperature;$/;"	m	struct:_tagweather	file:	access:public
 _oom_malloc	src/cstl_alloc.c	/^static void* _oom_malloc(size_t t_memsize)$/;"	f	file:	signature:(size_t t_memsize)
 _oom_malloc	src/cstl_alloc.c	/^static void* _oom_malloc(size_t t_memsize);$/;"	p	file:	signature:(size_t t_memsize)
@@ -1744,12 +1752,12 @@ _pair_same_type	src/cstl_pair.c	/^static bool_t _pair_same_type(const pair_t* cp
 _pair_same_type	src/cstl_pair.c	/^static bool_t _pair_same_type(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);$/;"	p	file:	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 _partition_biditer	src/cstl_algo.c	/^static bidirectional_iterator_t _partition_biditer($/;"	f	file:	signature:( bidirectional_iterator_t t_first, bidirectional_iterator_t t_last, unary_function_t t_unary_op)
 _partition_biditer	src/cstl_algo.c	/^static bidirectional_iterator_t _partition_biditer($/;"	p	file:	signature:( bidirectional_iterator_t t_first, bidirectional_iterator_t t_last, unary_function_t t_unary_op)
-_pc_afterlast	include/cstl_iterator.h	/^            char*   _pc_afterlast;  \/* the node after the last node *\/$/;"	m	struct:_tagiterator::__anon1::__anon2	access:public
-_pc_bucketpos	include/cstl_iterator.h	/^            char*   _pc_bucketpos;   \/* pointer to vector bucket position *\/$/;"	m	struct:_tagiterator::__anon1::__anon4	access:public
-_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon1::__anon2	access:public
-_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon1::__anon3	access:public
-_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon1::__anon4	access:public
-_pc_corepos	include/cstl_iterator.h	/^        char*       _pc_corepos;    \/* for vector list e.g. *\/$/;"	m	union:_tagiterator::__anon1	access:public
+_pc_afterlast	include/cstl_iterator.h	/^            char*   _pc_afterlast;  \/* the node after the last node *\/$/;"	m	struct:_tagiterator::__anon2::__anon3	access:public
+_pc_bucketpos	include/cstl_iterator.h	/^            char*   _pc_bucketpos;   \/* pointer to vector bucket position *\/$/;"	m	struct:_tagiterator::__anon2::__anon5	access:public
+_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon2::__anon3	access:public
+_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon2::__anon4	access:public
+_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon2::__anon5	access:public
+_pc_corepos	include/cstl_iterator.h	/^        char*       _pc_corepos;    \/* for vector list e.g. *\/$/;"	m	union:_tagiterator::__anon2	access:public
 _pc_data	include/cstl_avl_tree_private.h	/^    char                _pc_data[1];$/;"	m	struct:_tagavlnode	access:public
 _pc_data	include/cstl_hashtable_private.h	/^    char                 _pc_data[1];$/;"	m	struct:_taghashnode	access:public
 _pc_data	include/cstl_list_private.h	/^    char                 _pc_data[1];   \/* the element value *\/$/;"	m	struct:_taglistnode	access:public
@@ -1757,7 +1765,7 @@ _pc_data	include/cstl_rb_tree_private.h	/^    char               _pc_data[1];$/;
 _pc_data	include/cstl_slist_private.h	/^    char                  _pc_data[1];   \/* the element value *\/$/;"	m	struct:_tagslistnode	access:public
 _pc_endofstorage	include/cstl_vector_private.h	/^    char*       _pc_endofstorage;   \/* the end of capacity space *\/$/;"	m	struct:_tagvector	access:public
 _pc_finish	include/cstl_vector_private.h	/^    char*       _pc_finish;         \/* the end of used space *\/$/;"	m	struct:_tagvector	access:public
-_pc_first	include/cstl_iterator.h	/^            char*   _pc_first;$/;"	m	struct:_tagiterator::__anon1::__anon2	access:public
+_pc_first	include/cstl_iterator.h	/^            char*   _pc_first;$/;"	m	struct:_tagiterator::__anon2::__anon3	access:public
 _pc_mempool	include/cstl_alloc.h	/^    char*       _pc_mempool;                     \/* memory pool start *\/$/;"	m	struct:_tagalloc	access:public
 _pc_start	include/cstl_vector_private.h	/^    char*       _pc_start;          \/* the start of used space *\/$/;"	m	struct:_tagvector	access:public
 _pc_third	test/test_vector.c	/^    char*  _pc_third;$/;"	m	struct:_tagabc	file:	access:public
@@ -1771,9 +1779,17 @@ _pointer_less	test/test_stack.c	/^static void _pointer_less(const void* cpv_firs
 _pointer_less	test/test_stack.c	/^static void _pointer_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _ppc_allocatemempool	include/cstl_alloc.h	/^    char**      _ppc_allocatemempool;            \/* the allocated pool *\/$/;"	m	struct:_tagalloc	access:public
 _ppc_map	include/cstl_deque_private.h	/^    _mappointer_t    _ppc_map;$/;"	m	struct:_tagdeque	access:public
-_ppc_mappos	include/cstl_iterator.h	/^            char**  _ppc_mappos;    \/* point to the map *\/$/;"	m	struct:_tagiterator::__anon1::__anon2	access:public
+_ppc_mappos	include/cstl_iterator.h	/^            char**  _ppc_mappos;    \/* point to the map *\/$/;"	m	struct:_tagiterator::__anon2::__anon3	access:public
 _print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_deque)$/;"	f	file:	signature:(const deque_t* pt_deque)
 _print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_deque);$/;"	p	file:	signature:(const deque_t* pt_deque)
+_print_list_str	test/test_list.c	/^static void _print_list_str(const list_t* cpt_list)$/;"	f	file:	signature:(const list_t* cpt_list)
+_print_list_str	test/test_list.c	/^static void _print_list_str(const list_t* cpt_list);$/;"	p	file:	signature:(const list_t* cpt_list)
+_print_queue_str	test/test_queue.c	/^static void _print_queue_str(const queue_t* cpt_queue)$/;"	f	file:	signature:(const queue_t* cpt_queue)
+_print_queue_str	test/test_queue.c	/^static void _print_queue_str(const queue_t* cpt_queue);$/;"	p	file:	signature:(const queue_t* cpt_queue)
+_print_slist_src	test/test_slist.c	/^static void _print_slist_src(const slist_t* cpt_slist)$/;"	f	file:	signature:(const slist_t* cpt_slist)
+_print_slist_src	test/test_slist.c	/^static void _print_slist_src(const slist_t* cpt_slist);$/;"	p	file:	signature:(const slist_t* cpt_slist)
+_print_stack_str	test/test_stack.c	/^static void _print_stack_str(const stack_t* cpt_stack)$/;"	f	file:	signature:(const stack_t* cpt_stack)
+_print_stack_str	test/test_stack.c	/^static void _print_stack_str(const stack_t* cpt_stack);$/;"	p	file:	signature:(const stack_t* cpt_stack)
 _print_vec_str	test/test_vector.c	/^static void _print_vec_str(const vector_t* pt_vec)$/;"	f	file:	signature:(const vector_t* pt_vec)
 _print_vec_str	test/test_vector.c	/^static void _print_vec_str(const vector_t* pt_vec);$/;"	p	file:	signature:(const vector_t* pt_vec)
 _printcoordinates	test/test_slist.c	/^static void _printcoordinates(const slist_t* cpt_slist)$/;"	f	file:	signature:(const slist_t* cpt_slist)
@@ -1794,7 +1810,7 @@ _printqueue	test/test_queue.c	/^static void _printqueue(const queue_t* cpt_queue
 _printqueue_c	test/test_queue.c	46;"	d	file:
 _printslist	test/test_slist.c	/^static void _printslist(const slist_t* cpt_slist)$/;"	f	file:	signature:(const slist_t* cpt_slist)
 _printslist	test/test_slist.c	/^static void _printslist(const slist_t* cpt_slist);$/;"	p	file:	signature:(const slist_t* cpt_slist)
-_printslist_c	test/test_slist.c	32;"	d	file:
+_printslist_c	test/test_slist.c	33;"	d	file:
 _printstack	test/test_stack.c	/^static void _printstack(const stack_t* cpt_stack)$/;"	f	file:	signature:(const stack_t* cpt_stack)
 _printstack	test/test_stack.c	/^static void _printstack(const stack_t* cpt_stack);$/;"	p	file:	signature:(const stack_t* cpt_stack)
 _printstack_c	test/test_stack.c	50;"	d	file:
@@ -1808,7 +1824,7 @@ _priority_queue_push	include/cstl_queue_private.h	/^extern void _priority_queue_
 _priority_queue_push	src/cstl_queue.c	/^void _priority_queue_push(priority_queue_t* pt_pqueue, ...)$/;"	f	signature:(priority_queue_t* pt_pqueue, ...)
 _pt_adjust	src/cstl_avl_tree.c	/^    avlnode_t* _pt_adjust;   \/* the adjusted root avlnode_t pointer *\/$/;"	m	struct:_taginsertresult	file:	access:public
 _pt_container	include/cstl_iterator.h	/^    void*           _pt_container;$/;"	m	struct:_tagiterator	access:public
-_pt_hashtable	include/cstl_iterator.h	/^            void*   _pt_hashtable;   \/* point to hash node *\/$/;"	m	struct:_tagiterator::__anon1::__anon4	access:public
+_pt_hashtable	include/cstl_iterator.h	/^            void*   _pt_hashtable;   \/* point to hash node *\/$/;"	m	struct:_tagiterator::__anon2::__anon5	access:public
 _pt_left	include/cstl_avl_tree_private.h	/^    struct _tagavlnode* _pt_left;$/;"	m	struct:_tagavlnode	typeref:struct:_tagavlnode::_tagavlnode	access:public
 _pt_left	include/cstl_rb_tree_private.h	/^    struct _tagrbnode* _pt_left;$/;"	m	struct:_tagrbnode	typeref:struct:_tagrbnode::_tagrbnode	access:public
 _pt_new	src/cstl_avl_tree.c	/^    avlnode_t* _pt_new;      \/* the new inserting avlnode_t* pointer *\/$/;"	m	struct:_taginsertresult	file:	access:public
@@ -1822,7 +1838,7 @@ _pt_parent	include/cstl_rb_tree_private.h	/^    struct _tagrbnode* _pt_parent;$/
 _pt_prev	include/cstl_list_private.h	/^    struct _taglistnode* _pt_prev;$/;"	m	struct:_taglistnode	typeref:struct:_taglistnode::_taglistnode	access:public
 _pt_right	include/cstl_avl_tree_private.h	/^    struct _tagavlnode* _pt_right;$/;"	m	struct:_tagavlnode	typeref:struct:_tagavlnode::_tagavlnode	access:public
 _pt_right	include/cstl_rb_tree_private.h	/^    struct _tagrbnode* _pt_right;$/;"	m	struct:_tagrbnode	typeref:struct:_tagrbnode::_tagrbnode	access:public
-_pt_tree	include/cstl_iterator.h	/^            void*   _pt_tree;       \/* point to the avl tree or rb tree*\/$/;"	m	struct:_tagiterator::__anon1::__anon3	access:public
+_pt_tree	include/cstl_iterator.h	/^            void*   _pt_tree;       \/* point to the avl tree or rb tree*\/$/;"	m	struct:_tagiterator::__anon2::__anon4	access:public
 _pt_type	include/cstl_types.h	/^    _type_t*             _pt_type;                        \/* the registered type *\/$/;"	m	struct:_tagtypenode	access:public
 _pt_type	include/cstl_types.h	/^    _type_t*     _pt_type;$/;"	m	struct:_tagtypeinfo	access:public
 _pui_nextmem	include/cstl_alloc.h	/^    union _tagmemlink* _pui_nextmem;  \/* point to next memory block *\/$/;"	m	union:_tagmemlink	typeref:union:_tagmemlink::_tagmemlink	access:public
@@ -1941,6 +1957,11 @@ _right_signal_rotate	src/cstl_avl_tree.c	/^static avlnode_t* _right_signal_rotat
 _rotate_forward	src/cstl_algo.c	/^static void _rotate_forward($/;"	f	file:	signature:( forward_iterator_t t_first, forward_iterator_t t_middle, forward_iterator_t t_last)
 _rotate_forward	src/cstl_algo.c	/^static void _rotate_forward($/;"	p	file:	signature:( forward_iterator_t t_first, forward_iterator_t t_middle, forward_iterator_t t_last)
 _s_city	test/test_queue.c	/^    char _s_city[31];$/;"	m	struct:_tagweather	file:	access:public
+_sampel_destory	test/test_pair.c	/^static void _sampel_destory(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_sampel_init	test/test_pair.c	/^static void _sampel_init(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_sampel_init	test/test_pair.c	/^static void _sampel_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_sample_copy	test/test_pair.c	/^static void _sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_sample_less	test/test_pair.c	/^static void _sample_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _set_count	include/cstl_set_private.h	/^extern size_t _set_count(const set_t* cpt_set, ...);$/;"	p	signature:(const set_t* cpt_set, ...)
 _set_count	src/cstl_set.c	/^size_t _set_count(const set_t* cpt_set, ...)$/;"	f	signature:(const set_t* cpt_set, ...)
 _set_count_varg	include/cstl_set_private.h	/^extern size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist);$/;"	p	signature:(const set_t* cpt_set, va_list val_elemlist)
@@ -2071,6 +2092,12 @@ _slist_sort_coor_pred	test/test_slist.c	/^static void _slist_sort_coor_pred($/;"
 _slist_sort_coor_pred	test/test_slist.c	/^static void _slist_sort_coor_pred($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _slist_sort_slist_pred	test/test_slist.c	/^static void _slist_sort_slist_pred($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _slist_sort_slist_pred	test/test_slist.c	/^static void _slist_sort_slist_pred($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
+_slist_str_remove_pre	test/test_slist.c	/^static void _slist_str_remove_pre(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_slist_str_remove_pre	test/test_slist.c	/^static void _slist_str_remove_pre(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_slist_str_sort_pre	test/test_slist.c	/^static void _slist_str_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_slist_str_sort_pre	test/test_slist.c	/^static void _slist_str_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_slist_str_unique_pre	test/test_slist.c	/^static void _slist_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_slist_str_unique_pre	test/test_slist.c	/^static void _slist_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _slist_unique_coor_pred	test/test_slist.c	/^static void _slist_unique_coor_pred($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _slist_unique_coor_pred	test/test_slist.c	/^static void _slist_unique_coor_pred($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _slist_unique_pred	test/test_slist.c	/^static void _slist_unique_pred($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -2092,7 +2119,7 @@ _sz_typename	include/cstl_types.h	/^    char                 _sz_typename[_TYPE_
 _sz_typename	include/cstl_types.h	/^    char              _sz_typename[_TYPE_NAME_SIZE+1];    \/* type name *\/$/;"	m	struct:_tagtype	access:public
 _sz_typename	include/cstl_types.h	/^    char         _sz_typename[_TYPE_NAME_SIZE+1];$/;"	m	struct:_tagtypeinfo	access:public
 _sz_typename	src/cstl_types.c	/^    char         _sz_typename[_TYPE_NAME_SIZE+1];$/;"	m	struct:_tagtypeanalysis	file:	access:public
-_t_abc	test/test_list.c	/^    } _t_abc;$/;"	m	struct:_taglistabc	typeref:union:_taglistabc::__anon6	file:	access:public
+_t_abc	test/test_list.c	/^    } _t_abc;$/;"	m	struct:_taglistabc	typeref:union:_taglistabc::__anon1	file:	access:public
 _t_allocater	include/cstl_avl_tree_private.h	/^    alloc_t          _t_allocater;$/;"	m	struct:_tagavltree	access:public
 _t_allocater	include/cstl_deque_private.h	/^    alloc_t          _t_allocater;$/;"	m	struct:_tagdeque	access:public
 _t_allocater	include/cstl_hashtable_private.h	/^    alloc_t     _t_allocater;$/;"	m	struct:_taghashtable	access:public
@@ -2103,18 +2130,18 @@ _t_allocater	include/cstl_vector_private.h	/^    alloc_t     _t_allocater;$/;"	m
 _t_allocator	include/cstl_types.h	/^    alloc_t              _t_allocator;$/;"	m	struct:_tagtyperegister	access:public
 _t_avlroot	include/cstl_avl_tree_private.h	/^    avlnode_t        _t_avlroot;$/;"	m	struct:_tagavltree	access:public
 _t_binary_op	include/cstl_queue_private.h	/^    binary_function_t _t_binary_op;$/;"	m	struct:_tagpriority_queue	access:public
-_t_bool	include/cstl_rb_tree_private.h	/^        bool_t              _t_bool;     \/* for insert_unique *\/$/;"	m	union:_tagrbtreeresultpair::__anon5	access:public
+_t_bool	include/cstl_rb_tree_private.h	/^        bool_t              _t_bool;     \/* for insert_unique *\/$/;"	m	union:_tagrbtreeresultpair::__anon6	access:public
 _t_bucket	include/cstl_hashtable_private.h	/^    vector_t    _t_bucket;$/;"	m	struct:_taghashtable	access:public
 _t_color	include/cstl_rb_tree_private.h	/^    color_t            _t_color;$/;"	m	struct:_tagrbnode	access:public
-_t_complex	test/test_list.c	/^        } _t_complex;$/;"	m	union:_taglistabc::__anon6	typeref:struct:_taglistabc::__anon6::_tagcomplex	file:	access:public
+_t_complex	test/test_list.c	/^        } _t_complex;$/;"	m	union:_taglistabc::__anon1	typeref:struct:_taglistabc::__anon1::_tagcomplex	file:	access:public
 _t_containertype	include/cstl_iterator.h	/^    containertype_t _t_containertype;$/;"	m	struct:_tagiterator	access:public
-_t_dequepos	include/cstl_iterator.h	/^        }_t_dequepos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon2	access:public
-_t_descartes	test/test_list.c	/^        } _t_descartes;$/;"	m	union:_taglistabc::__anon6	typeref:struct:_taglistabc::__anon6::_tagdescartes	file:	access:public
+_t_dequepos	include/cstl_iterator.h	/^        }_t_dequepos;$/;"	m	union:_tagiterator::__anon2	typeref:struct:_tagiterator::__anon2::__anon3	access:public
+_t_descartes	test/test_list.c	/^        } _t_descartes;$/;"	m	union:_taglistabc::__anon1	typeref:struct:_taglistabc::__anon1::_tagdescartes	file:	access:public
 _t_finish	include/cstl_deque_private.h	/^    deque_iterator_t _t_finish;$/;"	m	struct:_tagdeque	access:public
 _t_first	include/cstl_rb_tree_private.h	/^    rb_tree_iterator_t _t_first;$/;"	m	struct:_tagrbtreeresultpair	access:public
 _t_flag	test/test_list.c	/^    abcflat_t _t_flag;$/;"	m	struct:_taglistabc	file:	access:public
 _t_hash	include/cstl_hashtable_private.h	/^    unary_function_t _t_hash;$/;"	m	struct:_taghashtable	access:public
-_t_hashpos	include/cstl_iterator.h	/^        }_t_hashpos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon4	access:public
+_t_hashpos	include/cstl_iterator.h	/^        }_t_hashpos;$/;"	m	union:_tagiterator::__anon2	typeref:struct:_tagiterator::__anon2::__anon5	access:public
 _t_hashtable	include/cstl_hash_map_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashmap	access:public
 _t_hashtable	include/cstl_hash_multimap_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashmultimap	access:public
 _t_hashtable	include/cstl_hash_multiset_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashmultiset	access:public
@@ -2122,7 +2149,7 @@ _t_hashtable	include/cstl_hash_set_private.h	/^    hashtable_t _t_hashtable;$/;"
 _t_head	include/cstl_slist_private.h	/^    slistnode_t _t_head;$/;"	m	struct:_tagslist	access:public
 _t_index	src/cstl_types.c	/^    size_t       _t_index;$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _t_isinit	include/cstl_types.h	/^    bool_t               _t_isinit; \/* is initializate for built in types *\/$/;"	m	struct:_tagtyperegister	access:public
-_t_iterator	include/cstl_rb_tree_private.h	/^        rb_tree_iterator_t _t_iterator;  \/* for equal_range *\/$/;"	m	union:_tagrbtreeresultpair::__anon5	access:public
+_t_iterator	include/cstl_rb_tree_private.h	/^        rb_tree_iterator_t _t_iterator;  \/* for equal_range *\/$/;"	m	union:_tagrbtreeresultpair::__anon6	access:public
 _t_iteratortype	include/cstl_iterator.h	/^    iteratortype_t  _t_iteratortype;$/;"	m	struct:_tagiterator	access:public
 _t_less	include/cstl_avl_tree_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_tagavltree	access:public
 _t_less	include/cstl_hashtable_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_taghashtable	access:public
@@ -2137,9 +2164,9 @@ _t_pair	include/cstl_hash_map_private.h	/^    pair_t      _t_pair;$/;"	m	struct:
 _t_pair	include/cstl_hash_multimap_private.h	/^    pair_t      _t_pair;$/;"	m	struct:_taghashmultimap	access:public
 _t_pair	include/cstl_map_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmap	access:public
 _t_pair	include/cstl_multimap_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmultimap	access:public
-_t_pos	include/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterator	typeref:union:_tagiterator::__anon1	access:public
+_t_pos	include/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterator	typeref:union:_tagiterator::__anon2	access:public
 _t_rbroot	include/cstl_rb_tree_private.h	/^    rbnode_t          _t_rbroot;$/;"	m	struct:_tagrbtree	access:public
-_t_second	include/cstl_rb_tree_private.h	/^    }_t_second;$/;"	m	struct:_tagrbtreeresultpair	typeref:union:_tagrbtreeresultpair::__anon5	access:public
+_t_second	include/cstl_rb_tree_private.h	/^    }_t_second;$/;"	m	struct:_tagrbtreeresultpair	typeref:union:_tagrbtreeresultpair::__anon6	access:public
 _t_sequence	include/cstl_queue_private.h	/^    list_t  _t_sequence;$/;"	m	struct:_tagqueue	access:public
 _t_sequence	include/cstl_stack_private.h	/^    vector_t _t_sequence;$/;"	m	struct:_tagstack	access:public
 _t_start	include/cstl_deque_private.h	/^    deque_iterator_t _t_start;$/;"	m	struct:_tagdeque	access:public
@@ -2151,7 +2178,7 @@ _t_tree	include/cstl_multimap_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_
 _t_tree	include/cstl_multimap_private.h	/^    rb_tree_t  _t_tree;$/;"	m	struct:_tagmultimap	access:public
 _t_tree	include/cstl_multiset_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagmultiset	access:public
 _t_tree	include/cstl_set_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagset	access:public
-_t_treepos	include/cstl_iterator.h	/^        }_t_treepos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon3	access:public
+_t_treepos	include/cstl_iterator.h	/^        }_t_treepos;$/;"	m	union:_tagiterator::__anon2	typeref:struct:_tagiterator::__anon2::__anon4	access:public
 _t_typecopy	include/cstl_types.h	/^    binary_function_t _t_typecopy;                        \/* type copy function *\/$/;"	m	struct:_tagtype	access:public
 _t_typedestroy	include/cstl_types.h	/^    unary_function_t  _t_typedestroy;                     \/* type destroy function *\/$/;"	m	struct:_tagtype	access:public
 _t_typeinfo	include/cstl_avl_tree_private.h	/^    _typeinfo_t      _t_typeinfo;$/;"	m	struct:_tagavltree	access:public
@@ -2197,7 +2224,7 @@ _tagavltree::_t_typeinfo	include/cstl_avl_tree_private.h	/^    _typeinfo_t      
 _tagbasicstring	include/cstl_basic_string_private.h	/^typedef struct _tagbasicstring$/;"	s
 _tagbasicstring::_t_vector	include/cstl_basic_string_private.h	/^    vector_t _t_vector;$/;"	m	struct:_tagbasicstring	access:public
 _tagcolor	include/cstl_rb_tree_private.h	/^typedef enum _tagcolor$/;"	g
-_tagcomplex	test/test_list.c	/^        struct _tagcomplex$/;"	s	union:_taglistabc::__anon6	file:	access:public
+_tagcomplex	test/test_list.c	/^        struct _tagcomplex$/;"	s	union:_taglistabc::__anon1	file:	access:public
 _tagcontainertype	include/cstl_iterator.h	/^typedef enum _tagcontainertype$/;"	g
 _tagcoordinates	test/test_slist.c	/^typedef struct _tagcoordinates$/;"	s	file:
 _tagcoordinates::x	test/test_slist.c	/^    int x;$/;"	m	struct:_tagcoordinates	file:	access:public
@@ -2213,7 +2240,7 @@ _tagdeque::_t_finish	include/cstl_deque_private.h	/^    deque_iterator_t _t_fini
 _tagdeque::_t_mapsize	include/cstl_deque_private.h	/^    size_t           _t_mapsize;$/;"	m	struct:_tagdeque	access:public
 _tagdeque::_t_start	include/cstl_deque_private.h	/^    deque_iterator_t _t_start;$/;"	m	struct:_tagdeque	access:public
 _tagdeque::_t_typeinfo	include/cstl_deque_private.h	/^    _typeinfo_t      _t_typeinfo;$/;"	m	struct:_tagdeque	access:public
-_tagdescartes	test/test_list.c	/^        struct _tagdescartes$/;"	s	union:_taglistabc::__anon6	file:	access:public
+_tagdescartes	test/test_list.c	/^        struct _tagdescartes$/;"	s	union:_taglistabc::__anon1	file:	access:public
 _tagfunbinarytype	include/cstl_function_private.h	/^typedef enum _tagfunbinarytype$/;"	g
 _tagfununarytype	include/cstl_function_private.h	/^typedef enum _tagfununarytype$/;"	g
 _taghashmap	include/cstl_hash_map_private.h	/^typedef struct _taghashmap$/;"	s
@@ -2240,38 +2267,38 @@ _taginsertresult	src/cstl_avl_tree.c	/^typedef struct _taginsertresult$/;"	s	fil
 _taginsertresult::_pt_adjust	src/cstl_avl_tree.c	/^    avlnode_t* _pt_adjust;   \/* the adjusted root avlnode_t pointer *\/$/;"	m	struct:_taginsertresult	file:	access:public
 _taginsertresult::_pt_new	src/cstl_avl_tree.c	/^    avlnode_t* _pt_new;      \/* the new inserting avlnode_t* pointer *\/$/;"	m	struct:_taginsertresult	file:	access:public
 _tagiterator	include/cstl_iterator.h	/^typedef struct _tagiterator$/;"	s
-_tagiterator::__anon1::__anon2::_pc_afterlast	include/cstl_iterator.h	/^            char*   _pc_afterlast;  \/* the node after the last node *\/$/;"	m	struct:_tagiterator::__anon1::__anon2	access:public
-_tagiterator::__anon1::__anon2::_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon1::__anon2	access:public
-_tagiterator::__anon1::__anon2::_pc_first	include/cstl_iterator.h	/^            char*   _pc_first;$/;"	m	struct:_tagiterator::__anon1::__anon2	access:public
-_tagiterator::__anon1::__anon2::_ppc_mappos	include/cstl_iterator.h	/^            char**  _ppc_mappos;    \/* point to the map *\/$/;"	m	struct:_tagiterator::__anon1::__anon2	access:public
-_tagiterator::__anon1::__anon3::_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon1::__anon3	access:public
-_tagiterator::__anon1::__anon3::_pt_tree	include/cstl_iterator.h	/^            void*   _pt_tree;       \/* point to the avl tree or rb tree*\/$/;"	m	struct:_tagiterator::__anon1::__anon3	access:public
-_tagiterator::__anon1::__anon4::_pc_bucketpos	include/cstl_iterator.h	/^            char*   _pc_bucketpos;   \/* pointer to vector bucket position *\/$/;"	m	struct:_tagiterator::__anon1::__anon4	access:public
-_tagiterator::__anon1::__anon4::_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon1::__anon4	access:public
-_tagiterator::__anon1::__anon4::_pt_hashtable	include/cstl_iterator.h	/^            void*   _pt_hashtable;   \/* point to hash node *\/$/;"	m	struct:_tagiterator::__anon1::__anon4	access:public
-_tagiterator::__anon1::_pc_corepos	include/cstl_iterator.h	/^        char*       _pc_corepos;    \/* for vector list e.g. *\/$/;"	m	union:_tagiterator::__anon1	access:public
-_tagiterator::__anon1::_t_dequepos	include/cstl_iterator.h	/^        }_t_dequepos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon2	access:public
-_tagiterator::__anon1::_t_hashpos	include/cstl_iterator.h	/^        }_t_hashpos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon4	access:public
-_tagiterator::__anon1::_t_treepos	include/cstl_iterator.h	/^        }_t_treepos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon3	access:public
+_tagiterator::__anon2::__anon3::_pc_afterlast	include/cstl_iterator.h	/^            char*   _pc_afterlast;  \/* the node after the last node *\/$/;"	m	struct:_tagiterator::__anon2::__anon3	access:public
+_tagiterator::__anon2::__anon3::_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon2::__anon3	access:public
+_tagiterator::__anon2::__anon3::_pc_first	include/cstl_iterator.h	/^            char*   _pc_first;$/;"	m	struct:_tagiterator::__anon2::__anon3	access:public
+_tagiterator::__anon2::__anon3::_ppc_mappos	include/cstl_iterator.h	/^            char**  _ppc_mappos;    \/* point to the map *\/$/;"	m	struct:_tagiterator::__anon2::__anon3	access:public
+_tagiterator::__anon2::__anon4::_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon2::__anon4	access:public
+_tagiterator::__anon2::__anon4::_pt_tree	include/cstl_iterator.h	/^            void*   _pt_tree;       \/* point to the avl tree or rb tree*\/$/;"	m	struct:_tagiterator::__anon2::__anon4	access:public
+_tagiterator::__anon2::__anon5::_pc_bucketpos	include/cstl_iterator.h	/^            char*   _pc_bucketpos;   \/* pointer to vector bucket position *\/$/;"	m	struct:_tagiterator::__anon2::__anon5	access:public
+_tagiterator::__anon2::__anon5::_pc_corepos	include/cstl_iterator.h	/^            char*   _pc_corepos;$/;"	m	struct:_tagiterator::__anon2::__anon5	access:public
+_tagiterator::__anon2::__anon5::_pt_hashtable	include/cstl_iterator.h	/^            void*   _pt_hashtable;   \/* point to hash node *\/$/;"	m	struct:_tagiterator::__anon2::__anon5	access:public
+_tagiterator::__anon2::_pc_corepos	include/cstl_iterator.h	/^        char*       _pc_corepos;    \/* for vector list e.g. *\/$/;"	m	union:_tagiterator::__anon2	access:public
+_tagiterator::__anon2::_t_dequepos	include/cstl_iterator.h	/^        }_t_dequepos;$/;"	m	union:_tagiterator::__anon2	typeref:struct:_tagiterator::__anon2::__anon3	access:public
+_tagiterator::__anon2::_t_hashpos	include/cstl_iterator.h	/^        }_t_hashpos;$/;"	m	union:_tagiterator::__anon2	typeref:struct:_tagiterator::__anon2::__anon5	access:public
+_tagiterator::__anon2::_t_treepos	include/cstl_iterator.h	/^        }_t_treepos;$/;"	m	union:_tagiterator::__anon2	typeref:struct:_tagiterator::__anon2::__anon4	access:public
 _tagiterator::_pt_container	include/cstl_iterator.h	/^    void*           _pt_container;$/;"	m	struct:_tagiterator	access:public
 _tagiterator::_t_containertype	include/cstl_iterator.h	/^    containertype_t _t_containertype;$/;"	m	struct:_tagiterator	access:public
 _tagiterator::_t_iteratortype	include/cstl_iterator.h	/^    iteratortype_t  _t_iteratortype;$/;"	m	struct:_tagiterator	access:public
-_tagiterator::_t_pos	include/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterator	typeref:union:_tagiterator::__anon1	access:public
+_tagiterator::_t_pos	include/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterator	typeref:union:_tagiterator::__anon2	access:public
 _tagiteratortype	include/cstl_iterator.h	/^typedef enum _tagiteratortype$/;"	g
 _taglist	include/cstl_list_private.h	/^typedef struct _taglist$/;"	s
 _taglist::_pt_node	include/cstl_list_private.h	/^    listnode_t* _pt_node;$/;"	m	struct:_taglist	access:public
 _taglist::_t_allocater	include/cstl_list_private.h	/^    alloc_t     _t_allocater;$/;"	m	struct:_taglist	access:public
 _taglist::_t_typeinfo	include/cstl_list_private.h	/^    _typeinfo_t _t_typeinfo;$/;"	m	struct:_taglist	access:public
 _taglistabc	test/test_list.c	/^typedef struct _taglistabc$/;"	s	file:
-_taglistabc::__anon6::_t_complex	test/test_list.c	/^        } _t_complex;$/;"	m	union:_taglistabc::__anon6	typeref:struct:_taglistabc::__anon6::_tagcomplex	file:	access:public
-_taglistabc::__anon6::_t_descartes	test/test_list.c	/^        } _t_descartes;$/;"	m	union:_taglistabc::__anon6	typeref:struct:_taglistabc::__anon6::_tagdescartes	file:	access:public
-_taglistabc::__anon6::_tagcomplex	test/test_list.c	/^        struct _tagcomplex$/;"	s	union:_taglistabc::__anon6	file:	access:public
-_taglistabc::__anon6::_tagcomplex::_n_imaginary	test/test_list.c	/^            int _n_imaginary;$/;"	m	struct:_taglistabc::__anon6::_tagcomplex	file:	access:public
-_taglistabc::__anon6::_tagcomplex::_n_real	test/test_list.c	/^            int _n_real;$/;"	m	struct:_taglistabc::__anon6::_tagcomplex	file:	access:public
-_taglistabc::__anon6::_tagdescartes	test/test_list.c	/^        struct _tagdescartes$/;"	s	union:_taglistabc::__anon6	file:	access:public
-_taglistabc::__anon6::_tagdescartes::_n_posx	test/test_list.c	/^            int _n_posx;$/;"	m	struct:_taglistabc::__anon6::_tagdescartes	file:	access:public
-_taglistabc::__anon6::_tagdescartes::_n_posy	test/test_list.c	/^            int _n_posy;$/;"	m	struct:_taglistabc::__anon6::_tagdescartes	file:	access:public
-_taglistabc::_t_abc	test/test_list.c	/^    } _t_abc;$/;"	m	struct:_taglistabc	typeref:union:_taglistabc::__anon6	file:	access:public
+_taglistabc::__anon1::_t_complex	test/test_list.c	/^        } _t_complex;$/;"	m	union:_taglistabc::__anon1	typeref:struct:_taglistabc::__anon1::_tagcomplex	file:	access:public
+_taglistabc::__anon1::_t_descartes	test/test_list.c	/^        } _t_descartes;$/;"	m	union:_taglistabc::__anon1	typeref:struct:_taglistabc::__anon1::_tagdescartes	file:	access:public
+_taglistabc::__anon1::_tagcomplex	test/test_list.c	/^        struct _tagcomplex$/;"	s	union:_taglistabc::__anon1	file:	access:public
+_taglistabc::__anon1::_tagcomplex::_n_imaginary	test/test_list.c	/^            int _n_imaginary;$/;"	m	struct:_taglistabc::__anon1::_tagcomplex	file:	access:public
+_taglistabc::__anon1::_tagcomplex::_n_real	test/test_list.c	/^            int _n_real;$/;"	m	struct:_taglistabc::__anon1::_tagcomplex	file:	access:public
+_taglistabc::__anon1::_tagdescartes	test/test_list.c	/^        struct _tagdescartes$/;"	s	union:_taglistabc::__anon1	file:	access:public
+_taglistabc::__anon1::_tagdescartes::_n_posx	test/test_list.c	/^            int _n_posx;$/;"	m	struct:_taglistabc::__anon1::_tagdescartes	file:	access:public
+_taglistabc::__anon1::_tagdescartes::_n_posy	test/test_list.c	/^            int _n_posy;$/;"	m	struct:_taglistabc::__anon1::_tagdescartes	file:	access:public
+_taglistabc::_t_abc	test/test_list.c	/^    } _t_abc;$/;"	m	struct:_taglistabc	typeref:union:_taglistabc::__anon1	file:	access:public
 _taglistabc::_t_flag	test/test_list.c	/^    abcflat_t _t_flag;$/;"	m	struct:_taglistabc	file:	access:public
 _taglistnode	include/cstl_list_private.h	/^typedef struct _taglistnode$/;"	s
 _taglistnode::_pc_data	include/cstl_list_private.h	/^    char                 _pc_data[1];   \/* the element value *\/$/;"	m	struct:_taglistnode	access:public
@@ -2316,10 +2343,13 @@ _tagrbtree::_t_nodecount	include/cstl_rb_tree_private.h	/^    size_t            
 _tagrbtree::_t_rbroot	include/cstl_rb_tree_private.h	/^    rbnode_t          _t_rbroot;$/;"	m	struct:_tagrbtree	access:public
 _tagrbtree::_t_typeinfo	include/cstl_rb_tree_private.h	/^    _typeinfo_t       _t_typeinfo;$/;"	m	struct:_tagrbtree	access:public
 _tagrbtreeresultpair	include/cstl_rb_tree_private.h	/^typedef struct _tagrbtreeresultpair$/;"	s
-_tagrbtreeresultpair::__anon5::_t_bool	include/cstl_rb_tree_private.h	/^        bool_t              _t_bool;     \/* for insert_unique *\/$/;"	m	union:_tagrbtreeresultpair::__anon5	access:public
-_tagrbtreeresultpair::__anon5::_t_iterator	include/cstl_rb_tree_private.h	/^        rb_tree_iterator_t _t_iterator;  \/* for equal_range *\/$/;"	m	union:_tagrbtreeresultpair::__anon5	access:public
+_tagrbtreeresultpair::__anon6::_t_bool	include/cstl_rb_tree_private.h	/^        bool_t              _t_bool;     \/* for insert_unique *\/$/;"	m	union:_tagrbtreeresultpair::__anon6	access:public
+_tagrbtreeresultpair::__anon6::_t_iterator	include/cstl_rb_tree_private.h	/^        rb_tree_iterator_t _t_iterator;  \/* for equal_range *\/$/;"	m	union:_tagrbtreeresultpair::__anon6	access:public
 _tagrbtreeresultpair::_t_first	include/cstl_rb_tree_private.h	/^    rb_tree_iterator_t _t_first;$/;"	m	struct:_tagrbtreeresultpair	access:public
-_tagrbtreeresultpair::_t_second	include/cstl_rb_tree_private.h	/^    }_t_second;$/;"	m	struct:_tagrbtreeresultpair	typeref:union:_tagrbtreeresultpair::__anon5	access:public
+_tagrbtreeresultpair::_t_second	include/cstl_rb_tree_private.h	/^    }_t_second;$/;"	m	struct:_tagrbtreeresultpair	typeref:union:_tagrbtreeresultpair::__anon6	access:public
+_tagsample	test/test_pair.c	/^typedef struct _tagsample$/;"	s	file:
+_tagsample::_n_first	test/test_pair.c	/^    int _n_first;$/;"	m	struct:_tagsample	file:	access:public
+_tagsample::_n_second	test/test_pair.c	/^    int _n_second;$/;"	m	struct:_tagsample	file:	access:public
 _tagset	include/cstl_set_private.h	/^typedef struct _tagset$/;"	s
 _tagset::_t_tree	include/cstl_set_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagset	access:public
 _tagslist	include/cstl_slist_private.h	/^typedef struct _tagslist$/;"	s
@@ -4487,6 +4517,7 @@ rb_tree_t	include/cstl_rb_tree_private.h	/^}rb_tree_t;$/;"	t	typeref:struct:_tag
 rbnode_t	include/cstl_rb_tree_private.h	/^}rbnode_t;$/;"	t	typeref:struct:_tagrbnode
 red	include/cstl_rb_tree_private.h	/^    red, black$/;"	e	enum:_tagcolor
 reverse_iterator_t	include/cstl_iterator.h	/^typedef iterator_t                  reverse_iterator_t;$/;"	t
+sample_t	test/test_pair.c	/^}sample_t;$/;"	t	typeref:struct:_tagsample	file:
 second	include/cstl_pair.h	/^    void*       second;$/;"	m	struct:_tagpair	access:public
 set_assign	include/cstl_set.h	/^extern void set_assign(set_t* pt_setdest, const set_t* cpt_setsrc);$/;"	p	signature:(set_t* pt_setdest, const set_t* cpt_setsrc)
 set_assign	src/cstl_set.c	/^void set_assign(set_t* pt_setdest, const set_t* cpt_setsrc)$/;"	f	signature:(set_t* pt_setdest, const set_t* cpt_setsrc)
