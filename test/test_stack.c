@@ -59,6 +59,8 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
+static void _print_stack_str(const stack_t* cpt_stack);
+
 static void _printstack(const stack_t* cpt_stack);
 static void _printpointer(const stack_t* cpt_stack);
 static void _pointer_init(const void* cpv_input, void* pv_output);
@@ -747,26 +749,199 @@ void test_stack(void)
     }
     /* c-string type */
     {
+        printf("************************************************\n");
+        /*create_stack     */
+        {
+            stack_t* pt_stack = create_stack(char*);
+            if(pt_stack == NULL)
+            {
+                return;
+            }
+            stack_init(pt_stack);
+            _print_stack_str(pt_stack);
+            stack_destroy(pt_stack);
+        }
+        /*stack_init       */
+        /*stack_init_copy  */
+        {
+            stack_t* pt_stack = create_stack(char*);
+            stack_t* pt_stackex = create_stack(char*);
+            if(pt_stack == NULL || pt_stackex == NULL)
+            {
+                return;
+            }
+            stack_init(pt_stackex);
+            stack_push(pt_stackex, "Eventual");
+            stack_push(pt_stackex, "Email: cherylp@stac.com");
+            stack_init_copy(pt_stack, pt_stackex);
+            _print_stack_str(pt_stack);
+            stack_destroy(pt_stack);
+            stack_destroy(pt_stackex);
+        }
+        /*stack_destroy    */
+        /*stack_assign     */
+        {
+            stack_t* pt_stack = create_stack(char*);
+            stack_t* pt_stackex = create_stack(char*);
+            if(pt_stack == NULL || pt_stackex == NULL)
+            {
+                return;
+            }
+            stack_init(pt_stackex);
+            stack_init(pt_stack);
+            stack_assign(pt_stack, pt_stackex);
+            _print_stack_str(pt_stack);
+            stack_push(pt_stackex, "CIDR as the solution for the short term routing table");
+            stack_push(pt_stackex, "explosion problem [1].");
+            stack_assign(pt_stack, pt_stackex);
+            _print_stack_str(pt_stack);
+            while(!stack_empty(pt_stackex))
+            {
+                stack_pop(pt_stackex);
+            }
+            stack_push(pt_stackex, "supporting, rather than defining, documents.");
+            stack_push(pt_stackex, "Applicability of CIDR");
+            stack_push(pt_stackex, "This Applicability Statement requires Internet");
+            stack_push(pt_stackex, "significantly slower than");
+            stack_push(pt_stackex, "");
+            stack_assign(pt_stack, pt_stackex);
+            _print_stack_str(pt_stack);
+
+            while(!stack_empty(pt_stackex))
+            {
+                stack_pop(pt_stackex);
+            }
+            stack_assign(pt_stack, pt_stackex);
+            _print_stack_str(pt_stack);
+            
+            stack_destroy(pt_stack);
+            stack_destroy(pt_stackex);
+        }
+        /*stack_empty      */
+        /*stack_size       */
+        /*stack_top        */
+        /*stack_push       */
+        /*stack_pop        */
+        {
+            stack_t* pt_stack = create_stack(char*);
+            if(pt_stack == NULL)
+            {
+                return;
+            }
+            stack_init(pt_stack);
+            _print_stack_str(pt_stack);
+            stack_push(pt_stack, "(1)  The SNMP protocol");
+            puts(stack_top(pt_stack));
+            stack_push(pt_stack, "(2)  For each such party");
+            puts(stack_top(pt_stack));
+            stack_push(pt_stack, "(3)  For each such access control entry");
+            puts(stack_top(pt_stack));
+            stack_push(pt_stack, "(4)  Whenever such a party");
+            puts(stack_top(pt_stack));
+            _print_stack_str(pt_stack);
+            while(!stack_empty(pt_stack))
+            {
+                stack_pop(pt_stack);
+            }
+            _print_stack_str(pt_stack);
+            stack_destroy(pt_stack);
+        }
+        /*stack_equal      */
+        /*stack_not_equal  */
+        /*stack_less       */
+        /*stack_less_equal */
+        /*stack_great      */
+        /*stack_great_equal*/
+        {
+            stack_t* pt_stack = create_stack(char*);
+            stack_t* pt_stackex = create_stack(char*);
+            if(pt_stack == NULL || pt_stackex == NULL)
+            {
+                return;
+            }
+            stack_init(pt_stack);
+            stack_init(pt_stackex);
+            _print_stack_str(pt_stack);
+            _print_stack_str(pt_stackex);
+            printf("equal: %d, not equal: %d, ",
+                stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
+            printf("less: %d, less equal: %d, ",
+                stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
+            printf("great: %d, great equal: %d\n",
+                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+
+            stack_push(pt_stack, "Only those instances corresponding to parties in the");
+            _print_stack_str(pt_stack);
+            _print_stack_str(pt_stackex);
+            printf("equal: %d, not equal: %d, ",
+                stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
+            printf("less: %d, less equal: %d, ",
+                stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
+            printf("great: %d, great equal: %d\n",
+                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+
+            stack_push(pt_stackex, "Only those instances corresponding to parties in the");
+            _print_stack_str(pt_stack);
+            _print_stack_str(pt_stackex);
+            printf("equal: %d, not equal: %d, ",
+                stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
+            printf("less: %d, less equal: %d, ",
+                stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
+            printf("great: %d, great equal: %d\n",
+                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+
+            stack_push(pt_stackex, "Whenever the SNMP");
+            _print_stack_str(pt_stack);
+            _print_stack_str(pt_stackex);
+            printf("equal: %d, not equal: %d, ",
+                stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
+            printf("less: %d, less equal: %d, ",
+                stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
+            printf("great: %d, great equal: %d\n",
+                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+
+            stack_push(pt_stack, "For each instance");
+            stack_push(pt_stack, "The SNMP protocol engine");
+            _print_stack_str(pt_stack);
+            _print_stack_str(pt_stackex);
+            printf("equal: %d, not equal: %d, ",
+                stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
+            printf("less: %d, less equal: %d, ",
+                stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
+            printf("great: %d, great equal: %d\n",
+                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+
+            stack_destroy(pt_stack);
+            stack_destroy(pt_stackex);
+        }
     }
-    /*_create_stack    */
-    /*stack_init       */
-    /*stack_init_copy  */
-    /*stack_destroy    */
-    /*stack_assign     */
-    /*stack_empty      */
-    /*stack_size       */
-    /*stack_top        */
-    /*_stack_push      */
-    /*stack_pop        */
-    /*stack_equal      */
-    /*stack_not_equal  */
-    /*stack_less       */
-    /*stack_less_equal */
-    /*stack_great      */
-    /*stack_great_equal*/
 }
 
 /** local function implementation section **/
+static void _print_stack_str(const stack_t* cpt_stack)
+{
+    iterator_t t_pos;
+    assert(cpt_stack != NULL);
+    printf("+++++++++++++++++++++++++++++++++++++\n");
+    printf("empty: %u, size: %u\n", stack_empty(cpt_stack), stack_size(cpt_stack));
+#if defined (CSTL_STACK_VECTOR_SEQUENCE)
+    for(t_pos = vector_begin(&cpt_stack->_t_sequence);
+        !iterator_equal(t_pos, vector_end(&cpt_stack->_t_sequence));
+        t_pos = iterator_next(t_pos))
+#elif defined (CSTL_STACK_LIST_SEQUENCE)
+    for(t_pos = list_begin(&cpt_stack->_t_sequence);
+        !iterator_equal(t_pos, list_end(&cpt_stack->_t_sequence));
+        t_pos = iterator_next(t_pos))
+#else
+    for(t_pos = deque_begin(&cpt_stack->_t_sequence);
+        !iterator_equal(t_pos, deque_end(&cpt_stack->_t_sequence));
+        t_pos = iterator_next(t_pos))
+#endif
+    {
+        puts(iterator_get_pointer(t_pos));
+    }
+}
+
 static void _printstack(const stack_t* cpt_stack)
 {
     iterator_t t_pos;

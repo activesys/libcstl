@@ -60,6 +60,7 @@ typedef struct _tagweather
 }weather_t;
 
 /** local function prototype section **/
+static void _print_queue_str(const queue_t* cpt_queue);
 static void _printqueue(const queue_t* cpt_queue);
 static void _weather_set(weather_t* pt_weather, const char* s_city, int n_temperature);
 static void _printweather(const queue_t* cpt_queue);
@@ -724,24 +725,160 @@ void test_queue(void)
     }
     /* c-string type */
     {
+        printf("**********************************************\n");
+        /*create_queue     */
+        {
+            queue_t* pt_queue = create_queue(char*);
+            if(pt_queue == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            _print_queue_str(pt_queue);
+            queue_destroy(pt_queue);
+        }
+        /*queue_init       */
+        /*queue_init_copy  */
+        {
+            queue_t* pt_queue = create_queue(char*);
+            queue_t* pt_queueex = create_queue(char*);
+            if(pt_queue == NULL || pt_queueex == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queueex);
+            queue_push(pt_queueex, "DASS");
+            queue_push(pt_queueex, "cryptographic");
+            queue_push(pt_queueex, "Today");
+            queue_init_copy(pt_queue, pt_queueex);
+            _print_queue_str(pt_queue);
+            queue_destroy(pt_queue);
+            queue_destroy(pt_queueex);
+        }
+        /*queue_destroy    */
+        /*queue_assign     */
+        {
+            queue_t* pt_queue = create_queue(char*);
+            queue_t* pt_queueex = create_queue(char*);
+            if(pt_queue == NULL || pt_queueex == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            queue_init(pt_queueex);
+            queue_assign(pt_queue, pt_queueex);
+            _print_queue_str(pt_queue);
+            queue_push(pt_queueex, "Timestamps vs. Challenge/Response");
+            queue_push(pt_queueex, "as timed out.");
+            queue_push(pt_queueex, "The disadvantage");
+            queue_assign(pt_queue, pt_queueex);
+            _print_queue_str(pt_queue);
+            while(!queue_empty(pt_queueex))
+            {
+                queue_pop(pt_queueex);
+            }
+            queue_assign(pt_queue, pt_queueex);
+            _print_queue_str(pt_queue);
+            queue_destroy(pt_queue);
+            queue_destroy(pt_queueex);
+        }
+        /*queue_empty      */
+        /*queue_size       */
+        /*queue_front      */
+        /*queue_back       */
+        /*queue_push       */
+        /*queue_pop        */
+        {
+            queue_t* pt_queue = create_queue(char*);
+            if(pt_queue == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            _print_queue_str(pt_queue);
+            queue_push(pt_queue, "Delegation");
+            puts(queue_back(pt_queue));
+            queue_push(pt_queue, "Certification Authorities");
+            puts(queue_back(pt_queue));
+            queue_push(pt_queue, "Certification Authority Hierarchy");
+            puts(queue_back(pt_queue));
+            _print_queue_str(pt_queue);
+            while(!queue_empty(pt_queue))
+            {
+                puts(queue_front(pt_queue));
+                queue_pop(pt_queue);
+            }
+            _print_queue_str(pt_queue);
+            queue_destroy(pt_queue);
+        }
+        /*queue_equal      */
+        /*queue_not_equal  */
+        /*queue_less       */
+        /*queue_less_equal */
+        /*queue_great      */
+        /*queue_great_equal*/
+        {
+            queue_t* pt_queue = create_queue(char*);
+            queue_t* pt_queueex = create_queue(char*);
+            if(pt_queue == NULL || pt_queueex == NULL)
+            {
+                return;
+            }
+            queue_init(pt_queue);
+            queue_init(pt_queueex);
+            _print_queue_str(pt_queue);
+            _print_queue_str(pt_queueex);
+            printf("equal: %d, not queue: %d, ",
+                queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
+            printf("less: %d, less equal: %d, ",
+                queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
+            printf("great: %d, great equal: %d\n",
+                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+
+            queue_push(pt_queue, "Because the CA hierarchy");
+            _print_queue_str(pt_queue);
+            _print_queue_str(pt_queueex);
+            printf("equal: %d, not queue: %d, ",
+                queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
+            printf("less: %d, less equal: %d, ",
+                queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
+            printf("great: %d, great equal: %d\n",
+                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+
+            queue_push(pt_queueex, "Because the CA hierarchy");
+            _print_queue_str(pt_queue);
+            _print_queue_str(pt_queueex);
+            printf("equal: %d, not queue: %d, ",
+                queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
+            printf("less: %d, less equal: %d, ",
+                queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
+            printf("great: %d, great equal: %d\n",
+                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+
+            queue_push(pt_queueex, "The implication is that");
+            _print_queue_str(pt_queue);
+            _print_queue_str(pt_queueex);
+            printf("equal: %d, not queue: %d, ",
+                queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
+            printf("less: %d, less equal: %d, ",
+                queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
+            printf("great: %d, great equal: %d\n",
+                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+
+            queue_push(pt_queue, "DASS uses the X.500");
+            queue_push(pt_queue, "In concept");
+            _print_queue_str(pt_queue);
+            _print_queue_str(pt_queueex);
+            printf("equal: %d, not queue: %d, ",
+                queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
+            printf("less: %d, less equal: %d, ",
+                queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
+            printf("great: %d, great equal: %d\n",
+                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+            queue_destroy(pt_queue);
+            queue_destroy(pt_queueex);
+        }
     }
-    /*_create_queue    */
-    /*queue_init       */
-    /*queue_init_copy  */
-    /*queue_destroy    */
-    /*queue_assign     */
-    /*queue_empty      */
-    /*queue_size       */
-    /*queue_front      */
-    /*queue_back       */
-    /*_queue_push      */
-    /*queue_pop        */
-    /*queue_equal      */
-    /*queue_not_equal  */
-    /*queue_less       */
-    /*queue_less_equal */
-    /*queue_great      */
-    /*queue_great_equal*/
 }
 
 void test_priority_queue(void)
@@ -749,6 +886,27 @@ void test_priority_queue(void)
 }
 
 /** local function implementation section **/
+static void _print_queue_str(const queue_t* cpt_queue)
+{
+    iterator_t t_pos;
+    assert(cpt_queue != NULL);
+
+    printf("+++++++++++++++++++++++++++++++++++++\n");
+    printf("empty: %d, size: %d\n", queue_empty(cpt_queue), queue_size(cpt_queue));
+#ifdef CSTL_QUEUE_LIST_SEQUENCE
+    for(t_pos = list_begin(&(cpt_queue)->_t_sequence);
+        !iterator_equal(t_pos, list_end(&(cpt_queue)->_t_sequence));
+        t_pos = iterator_next(t_pos))
+#else
+    for(t_pos = deque_begin(&(cpt_queue)->_t_sequence);
+        !iterator_equal(t_pos, deque_end(&(cpt_queue)->_t_sequence));
+        t_pos = iterator_next(t_pos))
+#endif
+    {
+        puts(iterator_get_pointer(t_pos));
+    }
+}
+
 static void _printqueue(const queue_t* cpt_queue)
 {
     iterator_t t_pos;
