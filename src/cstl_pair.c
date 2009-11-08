@@ -110,8 +110,8 @@ bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename)
         return false;
     }
 
-    pt_pair->first = NULL;
-    pt_pair->second = NULL;
+    pt_pair->_pv_first = NULL;
+    pt_pair->_pv_second = NULL;
 
     return true;
 }
@@ -121,10 +121,10 @@ void _pair_make_first(pair_t* pt_pair, ...)
     va_list val_elemlist;
 
     assert(pt_pair != NULL);
-    assert(pt_pair->first != NULL && pt_pair->second != NULL);
+    assert(pt_pair->_pv_first != NULL && pt_pair->_pv_second != NULL);
 
     va_start(val_elemlist, pt_pair);
-    _type_get_varg_value(&pt_pair->_t_typeinfofirst, val_elemlist, pt_pair->first);
+    _type_get_varg_value(&pt_pair->_t_typeinfofirst, val_elemlist, pt_pair->_pv_first);
 }
 
 void _pair_make_second(pair_t* pt_pair, ...)
@@ -132,36 +132,36 @@ void _pair_make_second(pair_t* pt_pair, ...)
     va_list val_elemlist;
 
     assert(pt_pair != NULL);
-    assert(pt_pair->first != NULL && pt_pair->second != NULL);
+    assert(pt_pair->_pv_first != NULL && pt_pair->_pv_second != NULL);
 
     va_start(val_elemlist, pt_pair);
-    _type_get_varg_value(&pt_pair->_t_typeinfosecond, val_elemlist, pt_pair->second);
+    _type_get_varg_value(&pt_pair->_t_typeinfosecond, val_elemlist, pt_pair->_pv_second);
 }
 
 /* pair function */
 void pair_init(pair_t* pt_pair)
 {
     assert(pt_pair != NULL);
-    assert(pt_pair->first == NULL && pt_pair->second == NULL);
+    assert(pt_pair->_pv_first == NULL && pt_pair->_pv_second == NULL);
 
-    if((pt_pair->first = malloc(_GET_PAIR_FIRST_TYPE_SIZE(pt_pair))) == NULL)
+    if((pt_pair->_pv_first = malloc(_GET_PAIR_FIRST_TYPE_SIZE(pt_pair))) == NULL)
     {
         fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
         exit(EXIT_FAILURE);
     }
     else
     {
-        memset(pt_pair->first, 0x00, _GET_PAIR_FIRST_TYPE_SIZE(pt_pair));
+        memset(pt_pair->_pv_first, 0x00, _GET_PAIR_FIRST_TYPE_SIZE(pt_pair));
     }
 
-    if((pt_pair->second = malloc(_GET_PAIR_SECOND_TYPE_SIZE(pt_pair))) == NULL)
+    if((pt_pair->_pv_second = malloc(_GET_PAIR_SECOND_TYPE_SIZE(pt_pair))) == NULL)
     {
         fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
         exit(EXIT_FAILURE);
     }
     else
     {
-        memset(pt_pair->second, 0x00, _GET_PAIR_SECOND_TYPE_SIZE(pt_pair));
+        memset(pt_pair->_pv_second, 0x00, _GET_PAIR_SECOND_TYPE_SIZE(pt_pair));
     }
 
     /* initialize new elements */
@@ -171,12 +171,12 @@ void pair_init(pair_t* pt_pair)
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_PAIR_FIRST_TYPE_NAME(pt_pair), s_elemtypename);
 
-        _GET_PAIR_FIRST_TYPE_INIT_FUNCTION(pt_pair)(pt_pair->first, s_elemtypename);
+        _GET_PAIR_FIRST_TYPE_INIT_FUNCTION(pt_pair)(pt_pair->_pv_first, s_elemtypename);
     }
     else
     {
         bool_t t_result = _GET_PAIR_FIRST_TYPE_SIZE(pt_pair);
-        _GET_PAIR_FIRST_TYPE_INIT_FUNCTION(pt_pair)(pt_pair->first, &t_result);
+        _GET_PAIR_FIRST_TYPE_INIT_FUNCTION(pt_pair)(pt_pair->_pv_first, &t_result);
         assert(t_result);
     }
 
@@ -186,12 +186,12 @@ void pair_init(pair_t* pt_pair)
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_PAIR_SECOND_TYPE_NAME(pt_pair), s_elemtypename);
 
-        _GET_PAIR_SECOND_TYPE_INIT_FUNCTION(pt_pair)(pt_pair->second, s_elemtypename);
+        _GET_PAIR_SECOND_TYPE_INIT_FUNCTION(pt_pair)(pt_pair->_pv_second, s_elemtypename);
     }
     else
     {
         bool_t t_result = _GET_PAIR_SECOND_TYPE_SIZE(pt_pair);
-        _GET_PAIR_SECOND_TYPE_INIT_FUNCTION(pt_pair)(pt_pair->second, &t_result);
+        _GET_PAIR_SECOND_TYPE_INIT_FUNCTION(pt_pair)(pt_pair->_pv_second, &t_result);
         assert(t_result);
     }
 }
@@ -201,21 +201,21 @@ void _pair_destroy_auxiliary(pair_t* pt_pair)
     bool_t t_result = false;
 
     assert(pt_pair != NULL);
-    assert(pt_pair->first != NULL && pt_pair->second != NULL);
+    assert(pt_pair->_pv_first != NULL && pt_pair->_pv_second != NULL);
 
     /* destroy first */
     t_result = _GET_PAIR_FIRST_TYPE_SIZE(pt_pair);
-    _GET_PAIR_FIRST_TYPE_DESTROY_FUNCTION(pt_pair)(pt_pair->first, &t_result);
+    _GET_PAIR_FIRST_TYPE_DESTROY_FUNCTION(pt_pair)(pt_pair->_pv_first, &t_result);
     assert(t_result);
-    free(pt_pair->first);
-    pt_pair->first = NULL;
+    free(pt_pair->_pv_first);
+    pt_pair->_pv_first = NULL;
 
     /* destroy second */
     t_result = _GET_PAIR_SECOND_TYPE_SIZE(pt_pair);
-    _GET_PAIR_SECOND_TYPE_DESTROY_FUNCTION(pt_pair)(pt_pair->second, &t_result);
+    _GET_PAIR_SECOND_TYPE_DESTROY_FUNCTION(pt_pair)(pt_pair->_pv_second, &t_result);
     assert(t_result);
-    free(pt_pair->second);
-    pt_pair->second = NULL;
+    free(pt_pair->_pv_second);
+    pt_pair->_pv_second = NULL;
 }
 
 void pair_destroy(pair_t* pt_pair)
@@ -229,7 +229,7 @@ void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
     bool_t t_result = false;
 
     assert(pt_pairdest != NULL && cpt_pairsrc != NULL);
-    assert(cpt_pairsrc->first != NULL && cpt_pairsrc->second != NULL);
+    assert(cpt_pairsrc->_pv_first != NULL && cpt_pairsrc->_pv_second != NULL);
     assert(_pair_same_type(pt_pairdest, cpt_pairsrc));
 
     /* initialize dest pair */
@@ -238,12 +238,12 @@ void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
     /* copy element */
     t_result = _GET_PAIR_FIRST_TYPE_SIZE(pt_pairdest);
     _GET_PAIR_FIRST_TYPE_COPY_FUNCTION(pt_pairdest)(
-        pt_pairdest->first, cpt_pairsrc->first, &t_result);
+        pt_pairdest->_pv_first, cpt_pairsrc->_pv_first, &t_result);
     assert(t_result);
 
     t_result = _GET_PAIR_SECOND_TYPE_SIZE(pt_pairdest);
     _GET_PAIR_SECOND_TYPE_COPY_FUNCTION(pt_pairdest)(
-        pt_pairdest->second, cpt_pairsrc->second, &t_result);
+        pt_pairdest->_pv_second, cpt_pairsrc->_pv_second, &t_result);
     assert(t_result);
 }
 
@@ -252,19 +252,47 @@ void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
     bool_t t_result = false;
 
     assert(pt_pairdest != NULL && cpt_pairsrc != NULL);
-    assert(cpt_pairsrc->first != NULL && cpt_pairsrc->second != NULL);
+    assert(cpt_pairsrc->_pv_first != NULL && cpt_pairsrc->_pv_second != NULL);
     assert(_pair_same_type(pt_pairdest, cpt_pairsrc));
 
     /* copy element */
     t_result = _GET_PAIR_FIRST_TYPE_SIZE(pt_pairdest);
     _GET_PAIR_FIRST_TYPE_COPY_FUNCTION(pt_pairdest)(
-        pt_pairdest->first, cpt_pairsrc->first, &t_result);
+        pt_pairdest->_pv_first, cpt_pairsrc->_pv_first, &t_result);
     assert(t_result);
 
     t_result = _GET_PAIR_SECOND_TYPE_SIZE(pt_pairdest);
     _GET_PAIR_SECOND_TYPE_COPY_FUNCTION(pt_pairdest)(
-        pt_pairdest->second, cpt_pairsrc->second, &t_result);
+        pt_pairdest->_pv_second, cpt_pairsrc->_pv_second, &t_result);
     assert(t_result);
+}
+
+void* pair_first(const pair_t* cpt_pair)
+{
+    assert(cpt_pair != NULL);
+    /* char* */
+    if(strncmp(_GET_PAIR_FIRST_TYPE_BASENAME(cpt_pair), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        return (void*)string_c_str((string_t*)cpt_pair->_pv_first);
+    }
+    else
+    {
+        return cpt_pair->_pv_first;
+    }
+}
+
+void* pair_second(const pair_t* cpt_pair)
+{
+    assert(cpt_pair != NULL);
+    /* char* */
+    if(strncmp(_GET_PAIR_SECOND_TYPE_BASENAME(cpt_pair), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        return (void*)string_c_str((string_t*)cpt_pair->_pv_second);
+    }
+    else
+    {
+        return cpt_pair->_pv_second;
+    }
 }
 
 bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
@@ -273,8 +301,8 @@ bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     bool_t t_great = false;
 
     assert(cpt_pairfirst != NULL && cpt_pairsecond != NULL);
-    assert(cpt_pairfirst->first != NULL && cpt_pairfirst->second != NULL);
-    assert(cpt_pairsecond->first != NULL && cpt_pairsecond->second != NULL);
+    assert(cpt_pairfirst->_pv_first != NULL && cpt_pairfirst->_pv_second != NULL);
+    assert(cpt_pairsecond->_pv_first != NULL && cpt_pairsecond->_pv_second != NULL);
 
     if(!_pair_same_type(cpt_pairfirst, cpt_pairsecond))
     {
@@ -284,9 +312,9 @@ bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     /* compare first */
     t_less = t_great = _GET_PAIR_FIRST_TYPE_SIZE(cpt_pairfirst);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairfirst->first, cpt_pairsecond->first, &t_less);
+        cpt_pairfirst->_pv_first, cpt_pairsecond->_pv_first, &t_less);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairsecond->first, cpt_pairfirst->first, &t_great);
+        cpt_pairsecond->_pv_first, cpt_pairfirst->_pv_first, &t_great);
     if(t_less || t_great)
     {
         return false;
@@ -295,9 +323,9 @@ bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     /* compare second */
     t_less = t_great = _GET_PAIR_SECOND_TYPE_SIZE(cpt_pairfirst);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairfirst->second, cpt_pairsecond->second, &t_less);
+        cpt_pairfirst->_pv_second, cpt_pairsecond->_pv_second, &t_less);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairsecond->second, cpt_pairfirst->second, &t_great);
+        cpt_pairsecond->_pv_second, cpt_pairfirst->_pv_second, &t_great);
     if(t_less || t_great)
     {
         return false;
@@ -320,7 +348,7 @@ bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     /* compare first */
     t_result = _GET_PAIR_FIRST_TYPE_SIZE(cpt_pairfirst);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairfirst->first, cpt_pairsecond->first, &t_result);
+        cpt_pairfirst->_pv_first, cpt_pairsecond->_pv_first, &t_result);
     if(t_result)
     {
         return true;
@@ -328,7 +356,7 @@ bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 
     t_result = _GET_PAIR_FIRST_TYPE_SIZE(cpt_pairfirst);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairsecond->first, cpt_pairfirst->first, &t_result);
+        cpt_pairsecond->_pv_first, cpt_pairfirst->_pv_first, &t_result);
     if(t_result)
     {
         return false;
@@ -337,7 +365,7 @@ bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     /* compare second */
     t_result = _GET_PAIR_SECOND_TYPE_SIZE(cpt_pairfirst);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairfirst->second, cpt_pairsecond->second, &t_result);
+        cpt_pairfirst->_pv_second, cpt_pairsecond->_pv_second, &t_result);
     if(t_result)
     {
         return true;
@@ -345,7 +373,7 @@ bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 
     t_result = _GET_PAIR_SECOND_TYPE_SIZE(cpt_pairfirst);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairsecond->second, cpt_pairfirst->second, &t_result);
+        cpt_pairsecond->_pv_second, cpt_pairfirst->_pv_second, &t_result);
     if(t_result)
     {
         return false;

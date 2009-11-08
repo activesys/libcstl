@@ -451,7 +451,7 @@ hash_map_iterator_t _hash_map_find_varg(
     assert(cpt_hash_map != NULL);
 
     _type_get_varg_value(&((hash_map_t*)cpt_hash_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_hash_map->_t_pair.first);
+        val_elemlist, cpt_hash_map->_t_pair._pv_first);
 
     t_iterator = _hashtable_find(&cpt_hash_map->_t_hashtable, &cpt_hash_map->_t_pair);
 
@@ -474,7 +474,7 @@ size_t _hash_map_count_varg(const hash_map_t* cpt_hash_map, va_list val_elemlist
     assert(cpt_hash_map != NULL);
 
     _type_get_varg_value(&((hash_map_t*)cpt_hash_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_hash_map->_t_pair.first);
+        val_elemlist, cpt_hash_map->_t_pair._pv_first);
 
     return _hashtable_count(&cpt_hash_map->_t_hashtable, &cpt_hash_map->_t_pair);
 }
@@ -494,7 +494,7 @@ range_t _hash_map_equal_range_varg(
     assert(cpt_hash_map != NULL);
 
     _type_get_varg_value(&((hash_map_t*)cpt_hash_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_hash_map->_t_pair.first);
+        val_elemlist, cpt_hash_map->_t_pair._pv_first);
 
     t_result = _hashtable_equal_range(
         &cpt_hash_map->_t_hashtable, &cpt_hash_map->_t_pair);
@@ -586,7 +586,7 @@ size_t _hash_map_erase_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
     assert(pt_hash_map != NULL);
 
     _type_get_varg_value(&pt_hash_map->_t_pair._t_typeinfofirst,
-        val_elemlist, pt_hash_map->_t_pair.first);
+        val_elemlist, pt_hash_map->_t_pair._pv_first);
 
     return _hashtable_erase(&pt_hash_map->_t_hashtable, &pt_hash_map->_t_pair);
 }
@@ -612,7 +612,7 @@ void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
     assert(pt_hash_map != NULL);
 
     _type_get_varg_value(&pt_hash_map->_t_pair._t_typeinfofirst,
-        val_elemlist, pt_hash_map->_t_pair.first);
+        val_elemlist, pt_hash_map->_t_pair._pv_first);
 
     t_result = _hashtable_insert_unique(&pt_hash_map->_t_hashtable, &pt_hash_map->_t_pair);
     if(iterator_equal(t_result, hash_map_end(pt_hash_map)))
@@ -625,11 +625,11 @@ void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
         _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         return (char*)string_c_str(
-            (string_t*)((pair_t*)iterator_get_pointer(t_result))->second);
+            (string_t*)((pair_t*)iterator_get_pointer(t_result))->_pv_second);
     }
     else
     {
-        return ((pair_t*)iterator_get_pointer(t_result))->second;
+        return ((pair_t*)iterator_get_pointer(t_result))->_pv_second;
     }
 }
 
@@ -691,7 +691,7 @@ static void _hash_map_key_less(const void* cpv_first, const void* cpv_second, vo
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
     pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-        pt_first->first, pt_second->first, pv_output);
+        pt_first->_pv_first, pt_second->_pv_first, pv_output);
 }
 
 /** eof **/

@@ -473,7 +473,7 @@ hash_multimap_iterator_t _hash_multimap_find_varg(
     assert(cpt_hash_multimap != NULL);
 
     _type_get_varg_value(&((hash_multimap_t*)cpt_hash_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_hash_multimap->_t_pair.first);
+        val_elemlist, cpt_hash_multimap->_t_pair._pv_first);
 
     t_iterator = _hashtable_find(
         &cpt_hash_multimap->_t_hashtable, &cpt_hash_multimap->_t_pair);
@@ -499,7 +499,7 @@ size_t _hash_multimap_count_varg(
     assert(cpt_hash_multimap != NULL);
 
     _type_get_varg_value(&((hash_multimap_t*)cpt_hash_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_hash_multimap->_t_pair.first);
+        val_elemlist, cpt_hash_multimap->_t_pair._pv_first);
 
     return _hashtable_count(
         &cpt_hash_multimap->_t_hashtable, &cpt_hash_multimap->_t_pair);
@@ -521,7 +521,7 @@ range_t _hash_multimap_equal_range_varg(
     assert(cpt_hash_multimap != NULL);
 
     _type_get_varg_value(&((hash_multimap_t*)cpt_hash_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_hash_multimap->_t_pair.first);
+        val_elemlist, cpt_hash_multimap->_t_pair._pv_first);
 
     t_result = _hashtable_equal_range(
         &cpt_hash_multimap->_t_hashtable, &cpt_hash_multimap->_t_pair);
@@ -617,7 +617,7 @@ size_t _hash_multimap_erase_varg(hash_multimap_t* pt_hash_multimap, va_list val_
     assert(pt_hash_multimap != NULL);
 
     _type_get_varg_value(&pt_hash_multimap->_t_pair._t_typeinfofirst,
-        val_elemlist, pt_hash_multimap->_t_pair.first);
+        val_elemlist, pt_hash_multimap->_t_pair._pv_first);
 
     return _hashtable_erase(
         &pt_hash_multimap->_t_hashtable, &pt_hash_multimap->_t_pair);
@@ -690,7 +690,7 @@ static void _hash_multimap_key_less(
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
     pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-        pt_first->first, pt_second->first, pv_output);
+        pt_first->_pv_first, pt_second->_pv_first, pv_output);
 }
 
 /** eof **/

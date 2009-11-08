@@ -49,8 +49,8 @@ typedef struct _tagpair
     _typeinfo_t _t_typeinfofirst;
     _typeinfo_t _t_typeinfosecond;
 
-    void*       first;
-    void*       second;
+    void*       _pv_first;
+    void*       _pv_second;
 }pair_t;
 
 /** exported global variable declaration section **/
@@ -72,6 +72,12 @@ extern void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc);
  * Assign operator function.
  */
 extern void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc);
+
+/*
+ * Access pair first and second element.
+ */
+extern void* pair_first(const pair_t* cpt_pair);
+extern void* pair_second(const pair_t* cpt_pair);
 
 /*
  * Relationship operator functions.

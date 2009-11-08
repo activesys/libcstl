@@ -620,7 +620,7 @@ multimap_iterator_t _multimap_find_varg(
 
     /* get key */
     _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair.first);
+        val_elemlist, cpt_multimap->_t_pair._pv_first);
     /* find key in tree */
 #ifdef CSTL_MULTIMAP_AVL_TREE
     t_iterator = _avl_tree_find(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
@@ -647,7 +647,7 @@ size_t _multimap_count_varg(const multimap_t* cpt_multimap, va_list val_elemlist
     assert(cpt_multimap != NULL);
 
     _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair.first);
+        val_elemlist, cpt_multimap->_t_pair._pv_first);
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_count(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
 #else
@@ -670,7 +670,7 @@ multimap_iterator_t _multimap_lower_bound_varg(
     assert(cpt_multimap != NULL);
 
     _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair.first);
+        val_elemlist, cpt_multimap->_t_pair._pv_first);
 #ifdef CSTL_MULTIMAP_AVL_TREE
     t_iterator = _avl_tree_lower_bound(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
 #else
@@ -699,7 +699,7 @@ multimap_iterator_t _multimap_upper_bound_varg(
     assert(cpt_multimap != NULL);
 
     _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair.first);
+        val_elemlist, cpt_multimap->_t_pair._pv_first);
 #ifdef CSTL_MULTIMAP_AVL_TREE
     t_iterator = _avl_tree_upper_bound(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
 #else
@@ -727,7 +727,7 @@ range_t _multimap_equal_range_varg(const multimap_t* cpt_multimap, va_list val_e
     assert(cpt_multimap != NULL);
 
     _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair.first);
+        val_elemlist, cpt_multimap->_t_pair._pv_first);
 #ifdef CSTL_MULTIMAP_AVL_TREE
     t_range = _avl_tree_equal_range(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
 #else
@@ -851,7 +851,7 @@ size_t _multimap_erase_varg(multimap_t* pt_multimap, va_list val_elemlist)
 
     /* get key */
     _type_get_varg_value(&pt_multimap->_t_pair._t_typeinfofirst,
-        val_elemlist, pt_multimap->_t_pair.first);
+        val_elemlist, pt_multimap->_t_pair._pv_first);
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_erase(&pt_multimap->_t_tree, &pt_multimap->_t_pair);
 #else
@@ -917,7 +917,7 @@ static void _multimap_key_less(
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
     pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-        pt_first->first, pt_second->second, pv_output);
+        pt_first->_pv_first, pt_second->_pv_first, pv_output);
 }
 
 static void _multimap_value_less(
@@ -935,7 +935,7 @@ static void _multimap_value_less(
 
     *(bool_t*)pv_output = pt_first->_t_typeinfosecond._pt_type->_t_typesize;
     pt_first->_t_typeinfosecond._pt_type->_t_typeless(
-        pt_first->second, pt_second->second, pv_output);
+        pt_first->_pv_second, pt_second->_pv_second, pv_output);
 }
 
 /** eof **/

@@ -135,8 +135,8 @@ void show_map_rbnode_info(rbnode_t* pt_root)
 {
     assert(pt_root != NULL);
     printf("<%d,%f> : ",
-        *(int*)(((pair_t*)(pt_root->_pc_data))->first),
-        *(double*)(((pair_t*)(pt_root->_pc_data))->second));
+        *(int*)(pair_first((pair_t*)(pt_root->_pc_data))),
+        *(double*)(pair_second((pair_t*)(pt_root->_pc_data))));
     if(pt_root->_t_color == red)
     {
         printf("r\n");
@@ -185,8 +185,8 @@ void test_travel_hashtable_pair(vector_t* pt_vector)
         while(pt_node != NULL)
         {
             printf(" <%d,%f>,", 
-                *(int*)((pair_t*)pt_node->_pc_data)->first,
-                *(double*)((pair_t*)pt_node->_pc_data)->second);
+                *(int*)pair_first(((pair_t*)pt_node->_pc_data)),
+                *(double*)pair_second(((pair_t*)pt_node->_pc_data)));
             pt_node = pt_node->_pt_next;
         }
         printf("\n");

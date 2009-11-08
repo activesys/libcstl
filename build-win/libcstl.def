@@ -384,6 +384,8 @@ EXPORTS
     pair_less_equal                         @11010
     pair_great                              @11011
     pair_great_equal                        @11012
+    pair_first                              @11013
+    pair_second                             @11014
 
 ; set_t interfaces
     _create_set                             @12000

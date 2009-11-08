@@ -614,7 +614,7 @@ map_iterator_t _map_find_varg(const map_t* cpt_map, va_list val_elemlist)
 
     /* get key */
     _type_get_varg_value(&((map_t*)cpt_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_map->_t_pair.first);
+        val_elemlist, cpt_map->_t_pair._pv_first);
     /* find key in tree */
 #ifdef CSTL_MAP_AVL_TREE
     t_iterator = _avl_tree_find(&cpt_map->_t_tree, &cpt_map->_t_pair);
@@ -641,7 +641,7 @@ size_t _map_count_varg(const map_t* cpt_map, va_list val_elemlist)
     assert(cpt_map != NULL);
 
     _type_get_varg_value(&((map_t*)cpt_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_map->_t_pair.first);
+        val_elemlist, cpt_map->_t_pair._pv_first);
 #ifdef CSTL_MAP_AVL_TREE
     return _avl_tree_count(&cpt_map->_t_tree, &cpt_map->_t_pair);
 #else
@@ -663,7 +663,7 @@ map_iterator_t _map_lower_bound_varg(const map_t* cpt_map, va_list val_elemlist)
     assert(cpt_map != NULL);
 
     _type_get_varg_value(&((map_t*)cpt_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_map->_t_pair.first);
+        val_elemlist, cpt_map->_t_pair._pv_first);
 #ifdef CSTL_MAP_AVL_TREE
     t_iterator = _avl_tree_lower_bound(&cpt_map->_t_tree, &cpt_map->_t_pair);
 #else
@@ -691,7 +691,7 @@ map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist)
     assert(cpt_map != NULL);
 
     _type_get_varg_value(&((map_t*)cpt_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_map->_t_pair.first);
+        val_elemlist, cpt_map->_t_pair._pv_first);
 #ifdef CSTL_MAP_AVL_TREE
     t_iterator = _avl_tree_upper_bound(&cpt_map->_t_tree, &cpt_map->_t_pair);
 #else
@@ -719,7 +719,7 @@ range_t _map_equal_range_varg(const map_t* cpt_map, va_list val_elemlist)
     assert(cpt_map != NULL);
 
     _type_get_varg_value(&((map_t*)cpt_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_map->_t_pair.first);
+        val_elemlist, cpt_map->_t_pair._pv_first);
 #ifdef CSTL_MAP_AVL_TREE
     t_range = _avl_tree_equal_range(&cpt_map->_t_tree, &cpt_map->_t_pair);
 #else
@@ -839,7 +839,7 @@ size_t _map_erase_varg(map_t* pt_map, va_list val_elemlist)
 
     /* get key */
     _type_get_varg_value(&pt_map->_t_pair._t_typeinfofirst,
-        val_elemlist, pt_map->_t_pair.first);
+        val_elemlist, pt_map->_t_pair._pv_first);
 #ifdef CSTL_MAP_AVL_TREE
     return _avl_tree_erase(&pt_map->_t_tree, &pt_map->_t_pair);
 #else
@@ -861,7 +861,7 @@ void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
     assert(pt_map != NULL);
 
     _type_get_varg_value(&pt_map->_t_pair._t_typeinfofirst,
-        val_elemlist, pt_map->_t_pair.first);
+        val_elemlist, pt_map->_t_pair._pv_first);
 #ifdef CSTL_MAP_AVL_TREE
     t_iter = _avl_tree_insert_unique(&pt_map->_t_tree, &pt_map->_t_pair);
 #else
@@ -876,11 +876,12 @@ void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
     /* char* */
     if(strncmp(_GET_MAP_SECOND_TYPE_BASENAME(pt_map), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return (char*)string_c_str((string_t*)((pair_t*)iterator_get_pointer(t_iter))->second);
+        return (char*)string_c_str(
+            (string_t*)((pair_t*)iterator_get_pointer(t_iter))->_pv_second);
     }
     else
     {
-        return ((pair_t*)iterator_get_pointer(t_iter))->second;
+        return ((pair_t*)iterator_get_pointer(t_iter))->_pv_second;
     }
 }
 
@@ -941,7 +942,7 @@ static void _map_key_less(const void* cpv_first, const void* cpv_second, void* p
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
     pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-        pt_first->first, pt_second->first, pv_output);
+        pt_first->_pv_first, pt_second->_pv_first, pv_output);
 }
 
 static void _map_value_less(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -958,7 +959,7 @@ static void _map_value_less(const void* cpv_first, const void* cpv_second, void*
 
     *(bool_t*)pv_output = pt_first->_t_typeinfosecond._pt_type->_t_typesize;
     pt_first->_t_typeinfosecond._pt_type->_t_typeless(
-        pt_first->second, pt_second->second, pv_output);
+        pt_first->_pv_second, pt_second->_pv_second, pv_output);
 }
 
 /** eof **/
