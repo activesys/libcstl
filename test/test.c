@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
     printf("========== test queue_t  ==========\n");
     /*test_queue();*/
     printf("========== test pair_t  ==========\n");
-    test_pair();
+    /*test_pair();*/
     /*test_basic_string();*/
     /*test_avl_tree();*/
     /*test_rb_tree();*/
@@ -82,7 +82,8 @@ int main(int argc, char* argv[])
     /*test_algo();*/
     /*test_heap();*/
     /*test_priority_queue();*/
-    /*test_set();*/
+    printf("========== test set_t  ==========\n");
+    test_set();
     /*test_map();*/
     printf("========== test string_t  ==========\n");
     /*test_string(argc, argv);*/
