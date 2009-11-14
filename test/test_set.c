@@ -441,6 +441,7 @@ void test_set(void)
                 return;
             }
             set_init(pt_set);
+            t_iter = set_begin(pt_set);
             _print_set_c(pt_set, "%lf, ", double);
             set_insert_hint(pt_set, t_iter, 45.6);
             set_insert_hint(pt_set, t_iter, 0.9);
@@ -500,9 +501,102 @@ void test_set(void)
         }
         /*set_erase             */
         {
+            set_t* pt_set = create_set(int);
+            size_t t_count = 0;
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            t_count = set_erase(pt_set, 40);
+            printf("%d\n", t_count);
+            _print_set_c(pt_set, "%d, ", int);
+            set_insert(pt_set, 2);
+            set_insert(pt_set, 90);
+            set_insert(pt_set, 23);
+            set_insert(pt_set, 6);
+            set_insert(pt_set, -4);
+            _print_set_c(pt_set, "%d, ", int);
+            t_count = set_erase(pt_set, 44);
+            printf("%d\n", t_count);
+            _print_set_c(pt_set, "%d, ", int);
+            t_count = set_erase(pt_set, 90);
+            printf("%d\n", t_count);
+            _print_set_c(pt_set, "%d, ", int);
+            set_destroy(pt_set);
         }
         /*set_erase_pos         */
+        {
+            set_t* pt_set = create_set(int);
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_insert(pt_set, 78);
+            set_insert(pt_set, 4);
+            set_insert(pt_set, 0);
+            set_insert(pt_set, 23);
+            set_insert(pt_set, 44);
+            set_insert(pt_set, 3);
+            _print_set_c(pt_set, "%d, ", int);
+            set_erase_pos(pt_set, set_begin(pt_set));
+            _print_set_c(pt_set, "%d, ", int);
+            set_erase_pos(pt_set, iterator_prev(set_end(pt_set)));
+            _print_set_c(pt_set, "%d, ", int);
+            set_erase_pos(pt_set, iterator_next(set_begin(pt_set)));
+            _print_set_c(pt_set, "%d, ", int);
+            set_destroy(pt_set);
+        }
         /*set_erase_range       */
+        {
+            set_t* pt_set = create_set(int);
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_erase_range(pt_set, set_begin(pt_set), set_end(pt_set));
+            _print_set_c(pt_set, "%d, ", int);
+            set_insert(pt_set, 78);
+            set_insert(pt_set, 4);
+            set_insert(pt_set, 0);
+            set_insert(pt_set, 23);
+            set_insert(pt_set, 44);
+            set_insert(pt_set, 3);
+            set_insert(pt_set, 2);
+            set_insert(pt_set, 90);
+            set_insert(pt_set, 23);
+            set_insert(pt_set, 6);
+            set_insert(pt_set, -4);
+            set_insert(pt_set, 445);
+            set_insert(pt_set, -84);
+            set_insert(pt_set, 45);
+            set_insert(pt_set, 2);
+            set_insert(pt_set, 0);
+            set_insert(pt_set, 49);
+            set_insert(pt_set, 23);
+            set_insert(pt_set, -7);
+            set_insert(pt_set, 12);
+            set_insert(pt_set, 8);
+            set_insert(pt_set, 55);
+            set_insert(pt_set, 3);
+            _print_set_c(pt_set, "%d, ", int);
+            set_erase_range(pt_set, set_begin(pt_set), set_begin(pt_set));
+            _print_set_c(pt_set, "%d, ", int);
+            set_erase_range(pt_set, set_begin(pt_set), iterator_advance(set_begin(pt_set), 3));
+            _print_set_c(pt_set, "%d, ", int);
+            set_erase_range(pt_set, iterator_advance(set_begin(pt_set), 5),
+                iterator_advance(set_begin(pt_set), 9));
+            _print_set_c(pt_set, "%d, ", int);
+            set_erase_range(pt_set, iterator_advance(set_begin(pt_set), 10), set_end(pt_set));
+            _print_set_c(pt_set, "%d, ", int);
+            set_erase_range(pt_set, set_end(pt_set), set_end(pt_set));
+            _print_set_c(pt_set, "%d, ", int);
+            set_erase_range(pt_set, set_begin(pt_set), set_end(pt_set));
+            _print_set_c(pt_set, "%d, ", int);
+            set_destroy(pt_set);
+        }
     }
     /* user defined type */
     {
