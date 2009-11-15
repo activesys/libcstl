@@ -1451,7 +1451,13 @@ static bool_t _rb_tree_same_rb_tree_iterator_type(
 {
     assert(cpt_rb_tree != NULL && _GET_RB_TREE(t_iter) != NULL);
 
-    return _rb_tree_same_type(cpt_rb_tree, _GET_RB_TREE(t_iter));
+    /*return _rb_tree_same_type(cpt_rb_tree, _GET_RB_TREE(t_iter));*/
+    return _type_is_same(_GET_RB_TREE_TYPE_NAME(cpt_rb_tree),
+                         _GET_RB_TREE_TYPE_NAME(_GET_RB_TREE(t_iter))) &&
+           (cpt_rb_tree->_t_typeinfo._t_style ==
+            _GET_RB_TREE(t_iter)->_t_typeinfo._t_style) &&
+           (cpt_rb_tree->_t_typeinfo._pt_type ==
+            _GET_RB_TREE(t_iter)->_t_typeinfo._pt_type);
 }
 
 static bool_t _find_iterator(const rbnode_t* cpt_root, const rbnode_t* cpt_pos)

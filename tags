@@ -1732,6 +1732,7 @@ _multiset_upper_bound	src/cstl_multiset.c	/^multiset_iterator_t _multiset_upper_
 _multiset_upper_bound_varg	include/cstl_multiset_private.h	/^extern multiset_iterator_t _multiset_upper_bound_varg($/;"	p	signature:( const multiset_t* cpt_multiset, va_list val_elemlist)
 _multiset_upper_bound_varg	src/cstl_multiset.c	/^multiset_iterator_t _multiset_upper_bound_varg($/;"	f	signature:( const multiset_t* cpt_multiset, va_list val_elemlist)
 _n_first	test/test_pair.c	/^    int _n_first;$/;"	m	struct:_tagsample	file:	access:public
+_n_first	test/test_set.c	/^    int _n_first;$/;"	m	struct:_tagsetsample	file:	access:public
 _n_first	test/test_vector.c	/^    int    _n_first;$/;"	m	struct:_tagabc	file:	access:public
 _n_imaginary	test/test_list.c	/^            int _n_imaginary;$/;"	m	struct:_taglistabc::__anon1::_tagcomplex	file:	access:public
 _n_mempoolindex	include/cstl_alloc.h	/^    size_t      _n_mempoolindex;                 \/* memory pool index *\/$/;"	m	struct:_tagalloc	access:public
@@ -1739,7 +1740,9 @@ _n_posx	test/test_list.c	/^            int _n_posx;$/;"	m	struct:_taglistabc::__
 _n_posy	test/test_list.c	/^            int _n_posy;$/;"	m	struct:_taglistabc::__anon1::_tagdescartes	file:	access:public
 _n_real	test/test_list.c	/^            int _n_real;$/;"	m	struct:_taglistabc::__anon1::_tagcomplex	file:	access:public
 _n_second	test/test_pair.c	/^    int _n_second;$/;"	m	struct:_tagsample	file:	access:public
+_n_second	test/test_set.c	/^    int _n_second;$/;"	m	struct:_tagsetsample	file:	access:public
 _n_temperature	test/test_queue.c	/^    int  _n_temperature;$/;"	m	struct:_tagweather	file:	access:public
+_n_third	test/test_set.c	/^    int _n_third;$/;"	m	struct:_tagsetsample	file:	access:public
 _oom_malloc	src/cstl_alloc.c	/^static void* _oom_malloc(size_t t_memsize)$/;"	f	file:	signature:(size_t t_memsize)
 _oom_malloc	src/cstl_alloc.c	/^static void* _oom_malloc(size_t t_memsize);$/;"	p	file:	signature:(size_t t_memsize)
 _pair_destroy_auxiliary	include/cstl_pair.h	/^extern void _pair_destroy_auxiliary(pair_t* pt_pair);$/;"	p	signature:(pair_t* pt_pair)
@@ -1786,6 +1789,7 @@ _print_list_str	test/test_list.c	/^static void _print_list_str(const list_t* cpt
 _print_list_str	test/test_list.c	/^static void _print_list_str(const list_t* cpt_list);$/;"	p	file:	signature:(const list_t* cpt_list)
 _print_queue_str	test/test_queue.c	/^static void _print_queue_str(const queue_t* cpt_queue)$/;"	f	file:	signature:(const queue_t* cpt_queue)
 _print_queue_str	test/test_queue.c	/^static void _print_queue_str(const queue_t* cpt_queue);$/;"	p	file:	signature:(const queue_t* cpt_queue)
+_print_set_c	test/test_set.c	32;"	d	file:
 _print_slist_src	test/test_slist.c	/^static void _print_slist_src(const slist_t* cpt_slist)$/;"	f	file:	signature:(const slist_t* cpt_slist)
 _print_slist_src	test/test_slist.c	/^static void _print_slist_src(const slist_t* cpt_slist);$/;"	p	file:	signature:(const slist_t* cpt_slist)
 _print_stack_str	test/test_stack.c	/^static void _print_stack_str(const stack_t* cpt_stack)$/;"	f	file:	signature:(const stack_t* cpt_stack)
@@ -2021,6 +2025,11 @@ _set_upper_bound	include/cstl_set_private.h	/^extern set_iterator_t _set_upper_b
 _set_upper_bound	src/cstl_set.c	/^set_iterator_t _set_upper_bound(const set_t* cpt_set, ...)$/;"	f	signature:(const set_t* cpt_set, ...)
 _set_upper_bound_varg	include/cstl_set_private.h	/^extern set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist);$/;"	p	signature:(const set_t* cpt_set, va_list val_elemlist)
 _set_upper_bound_varg	src/cstl_set.c	/^set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist)$/;"	f	signature:(const set_t* cpt_set, va_list val_elemlist)
+_setsample_copy	test/test_set.c	/^static void _setsample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_setsample_destroy	test/test_set.c	/^static void _setsample_destroy(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_setsample_init	test/test_set.c	/^static void _setsample_init(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_setsample_init	test/test_set.c	/^static void _setsample_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_setsample_less	test/test_set.c	/^static void _setsample_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _shrink_at_begin	src/cstl_deque.c	/^static void _shrink_at_begin(deque_t* pt_deque, size_t t_shrinksize)$/;"	f	file:	signature:(deque_t* pt_deque, size_t t_shrinksize)
 _shrink_at_begin	src/cstl_deque.c	/^static void _shrink_at_begin(deque_t* pt_deque, size_t t_shrinksize);$/;"	p	file:	signature:(deque_t* pt_deque, size_t t_shrinksize)
 _shrink_at_end	src/cstl_deque.c	/^static void _shrink_at_end(deque_t* pt_deque, size_t t_shrinksize)$/;"	f	file:	signature:(deque_t* pt_deque, size_t t_shrinksize)
@@ -2357,6 +2366,10 @@ _tagsample::_n_first	test/test_pair.c	/^    int _n_first;$/;"	m	struct:_tagsampl
 _tagsample::_n_second	test/test_pair.c	/^    int _n_second;$/;"	m	struct:_tagsample	file:	access:public
 _tagset	include/cstl_set_private.h	/^typedef struct _tagset$/;"	s
 _tagset::_t_tree	include/cstl_set_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagset	access:public
+_tagsetsample	test/test_set.c	/^typedef struct _tagsetsample$/;"	s	file:
+_tagsetsample::_n_first	test/test_set.c	/^    int _n_first;$/;"	m	struct:_tagsetsample	file:	access:public
+_tagsetsample::_n_second	test/test_set.c	/^    int _n_second;$/;"	m	struct:_tagsetsample	file:	access:public
+_tagsetsample::_n_third	test/test_set.c	/^    int _n_third;$/;"	m	struct:_tagsetsample	file:	access:public
 _tagslist	include/cstl_slist_private.h	/^typedef struct _tagslist$/;"	s
 _tagslist::_t_allocater	include/cstl_slist_private.h	/^    alloc_t      _t_allocater;$/;"	m	struct:_tagslist	access:public
 _tagslist::_t_head	include/cstl_slist_private.h	/^    slistnode_t _t_head;$/;"	m	struct:_tagslist	access:public
@@ -4458,6 +4471,7 @@ pair_make	include/cstl_pair.h	35;"	d
 pair_not_equal	include/cstl_pair.h	/^extern bool_t pair_not_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);$/;"	p	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 pair_not_equal	src/cstl_pair.c	/^bool_t pair_not_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)$/;"	f	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 pair_second	include/cstl_pair.h	/^extern void* pair_second(const pair_t* cpt_pair);$/;"	p	signature:(const pair_t* cpt_pair)
+pair_second	src/cstl_pair.c	/^void* pair_second(const pair_t* cpt_pair)$/;"	f	signature:(const pair_t* cpt_pair)
 pair_t	include/cstl_pair.h	/^}pair_t;$/;"	t	typeref:struct:_tagpair
 priority_queue_assign	include/cstl_queue.h	/^extern void priority_queue_assign($/;"	p	signature:( priority_queue_t* pt_pqueuedest, const priority_queue_t* cpt_pqueuesrc)
 priority_queue_assign	src/cstl_queue.c	/^void priority_queue_assign($/;"	f	signature:( priority_queue_t* pt_pqueuedest, const priority_queue_t* cpt_pqueuesrc)
@@ -4592,6 +4606,7 @@ set_t	include/cstl_set_private.h	/^}set_t;$/;"	t	typeref:struct:_tagset
 set_upper_bound	include/cstl_set.h	45;"	d
 set_value_less	include/cstl_set.h	/^extern binary_function_t set_value_less(const set_t* cpt_set);$/;"	p	signature:(const set_t* cpt_set)
 set_value_less	src/cstl_set.c	/^binary_function_t set_value_less(const set_t* cpt_set)$/;"	f	signature:(const set_t* cpt_set)
+setsample_t	test/test_set.c	/^}setsample_t;$/;"	t	typeref:struct:_tagsetsample	file:
 show_avlnode_info	test/tree_traverse.c	/^void show_avlnode_info(avlnode_t* pt_root)$/;"	f	signature:(avlnode_t* pt_root)
 show_avlnode_info	test/tree_traverse.h	/^extern void show_avlnode_info(avlnode_t* pt_root);$/;"	p	signature:(avlnode_t* pt_root)
 show_map_rbnode_info	test/tree_traverse.c	/^void show_map_rbnode_info(rbnode_t* pt_root)$/;"	f	signature:(rbnode_t* pt_root)
