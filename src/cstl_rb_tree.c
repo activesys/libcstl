@@ -472,7 +472,8 @@ void _rb_tree_init_copy_range(
            _rb_tree_iterator_before(t_begin, t_end));
 
     /* init the rb tree with the src rb tree */
-    _rb_tree_init(pt_rb_tree_dest, _GET_RB_TREE(t_begin)->_t_less);
+    _rb_tree_init(pt_rb_tree_dest,
+        _GET_RB_TREE_TYPE_LESS_FUNCTION(_GET_RB_TREE(t_begin)));
     /* insert all elements of src into dest */
     if(!_rb_tree_empty(_GET_RB_TREE(t_begin)))
     {
