@@ -1677,19 +1677,343 @@ void test_set(void)
             set_destroy(pt_set);
         }
         /*set_clear             */
+        {
+            set_t* pt_set = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init(pt_setex);
+            set_clear(pt_set);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, 67);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, 33);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 11);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, -9);
+            set_insert(pt_set, pt_setex);
+            _print_set_set(pt_set);
+            set_clear(pt_set);
+            _print_set_set(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
         /*set_equal             */
         /*set_not_equal         */
         /*set_less              */
         /*set_less_equal        */
         /*set_great             */
         /*set_great_equal       */
+        {
+            set_t* pt_set1 = create_set(set_t<int>);
+            set_t* pt_set2 = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            if(pt_set1 == NULL || pt_set2 == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set1);
+            set_init(pt_set2);
+            set_init(pt_setex);
+            _print_set_set(pt_set1);
+            _print_set_set(pt_set2);
+            printf("equal: %d, not equal: %d, ",
+                set_equal(pt_set1, pt_set2), set_not_equal(pt_set1, pt_set2));
+            printf("less: %d, less equal: %d, ",
+                set_less(pt_set1, pt_set2), set_less_equal(pt_set1, pt_set2));
+            printf("great: %d, great equal: %d\n",
+                set_great(pt_set1, pt_set2), set_great_equal(pt_set1, pt_set2));
+
+            set_insert(pt_setex, 45);
+            set_insert(pt_setex, 88);
+            set_insert(pt_setex, 3);
+            set_insert(pt_setex, 73);
+            set_insert(pt_set1, pt_setex);
+            _print_set_set(pt_set1);
+            _print_set_set(pt_set2);
+            printf("equal: %d, not equal: %d, ",
+                set_equal(pt_set1, pt_set2), set_not_equal(pt_set1, pt_set2));
+            printf("less: %d, less equal: %d, ",
+                set_less(pt_set1, pt_set2), set_less_equal(pt_set1, pt_set2));
+            printf("great: %d, great equal: %d\n",
+                set_great(pt_set1, pt_set2), set_great_equal(pt_set1, pt_set2));
+
+            set_insert(pt_set2, pt_setex);
+            _print_set_set(pt_set1);
+            _print_set_set(pt_set2);
+            printf("equal: %d, not equal: %d, ",
+                set_equal(pt_set1, pt_set2), set_not_equal(pt_set1, pt_set2));
+            printf("less: %d, less equal: %d, ",
+                set_less(pt_set1, pt_set2), set_less_equal(pt_set1, pt_set2));
+            printf("great: %d, great equal: %d\n",
+                set_great(pt_set1, pt_set2), set_great_equal(pt_set1, pt_set2));
+
+            set_clear(pt_setex);
+            set_insert(pt_setex, 45);
+            set_insert(pt_setex, 30);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, 90);
+            set_insert(pt_set1, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, -30);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, -90);
+            set_insert(pt_set1, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 30);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, 0);
+            set_insert(pt_set2, pt_setex);
+            _print_set_set(pt_set1);
+            _print_set_set(pt_set2);
+            printf("equal: %d, not equal: %d, ",
+                set_equal(pt_set1, pt_set2), set_not_equal(pt_set1, pt_set2));
+            printf("less: %d, less equal: %d, ",
+                set_less(pt_set1, pt_set2), set_less_equal(pt_set1, pt_set2));
+            printf("great: %d, great equal: %d\n",
+                set_great(pt_set1, pt_set2), set_great_equal(pt_set1, pt_set2));
+
+            set_destroy(pt_set1);
+            set_destroy(pt_set2);
+            set_destroy(pt_setex);
+        }
         /*set_swap              */
-        /*_set_find             */
-        /*_set_count            */
-        /*_set_lower_bound      */
-        /*_set_upper_bound      */
-        /*_set_equal_range      */
-        /*_set_insert           */
+        {
+            set_t* pt_set1 = create_set(set_t<int>);
+            set_t* pt_set2 = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            if(pt_set1 == NULL || pt_set2 == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set1);
+            set_init(pt_set2);
+            set_init(pt_setex);
+            set_swap(pt_set1, pt_set2);
+            _print_set_set(pt_set1);
+            _print_set_set(pt_set2);
+            set_insert(pt_setex, 59);
+            set_insert(pt_setex, 66);
+            set_insert(pt_setex, 32);
+            set_insert(pt_setex, 9);
+            set_insert(pt_setex, 300);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 45);
+            set_insert(pt_setex, -44);
+            set_insert(pt_setex, 4);
+            set_insert(pt_set2, pt_setex);
+            set_swap(pt_set1, pt_set2);
+            _print_set_set(pt_set1);
+            _print_set_set(pt_set2);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 300);
+            set_insert(pt_setex, 39);
+            set_insert(pt_setex, 45);
+            set_insert(pt_setex, 400);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 30);
+            set_insert(pt_setex, 9);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 0);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -30);
+            set_insert(pt_setex, -9);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 0);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -3000);
+            set_insert(pt_setex, 5000);
+            set_insert(pt_set2, pt_setex);
+            set_swap(pt_set1, pt_set2);
+            _print_set_set(pt_set1);
+            _print_set_set(pt_set2);
+            set_clear(pt_set2);
+            set_swap(pt_set1, pt_set2);
+            _print_set_set(pt_set1);
+            _print_set_set(pt_set2);
+            set_destroy(pt_set1);
+            set_destroy(pt_set2);
+            set_destroy(pt_setex);
+        }
+        /*set_find              */
+        {
+            set_t* pt_set = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            iterator_t t_iterex;
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init(pt_setex);
+            t_iterex = set_find(pt_set, pt_setex);
+            if(iterator_equal(t_iterex, set_end(pt_set)))
+            {
+                printf("not found, count: %d\n", set_count(pt_set, pt_setex));
+            }
+            else
+            {
+                _print_set_c(iterator_get_pointer(t_iterex), "%d, ", int);
+                printf("count: %d\n", set_count(pt_set, pt_setex));
+            }
+
+            set_insert(pt_setex, 45);
+            set_insert(pt_setex, 40);
+            set_insert(pt_setex, 22);
+            set_insert(pt_setex, 11);
+            set_insert(pt_setex, 6);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 240);
+            set_insert(pt_setex, 22);
+            set_insert(pt_setex, 191);
+            set_insert(pt_setex, 60);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 75);
+            set_insert(pt_setex, 91);
+            set_insert(pt_setex, 6);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 95);
+            set_insert(pt_setex, 888);
+            set_insert(pt_setex, 72);
+            set_insert(pt_setex, 333);
+            set_insert(pt_setex, 80);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 35);
+            set_insert(pt_setex, 240);
+            set_insert(pt_setex, -2);
+            set_insert(pt_setex, -91);
+            set_insert(pt_setex, 0);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            t_iterex = set_find(pt_set, pt_setex);
+            if(iterator_equal(t_iterex, set_end(pt_set)))
+            {
+                printf("not found, count: %d\n", set_count(pt_set, pt_setex));
+            }
+            else
+            {
+                _print_set_c(iterator_get_pointer(t_iterex), "%d, ", int);
+                printf("count: %d\n", set_count(pt_set, pt_setex));
+            }
+            set_clear(pt_setex);
+            set_insert(pt_setex, 75);
+            set_insert(pt_setex, 91);
+            set_insert(pt_setex, 6);
+            t_iterex = set_find(pt_set, pt_setex);
+            if(iterator_equal(t_iterex, set_end(pt_set)))
+            {
+                printf("not found, count: %d\n", set_count(pt_set, pt_setex));
+            }
+            else
+            {
+                _print_set_c(iterator_get_pointer(t_iterex), "%d, ", int);
+                printf("count: %d\n", set_count(pt_set, pt_setex));
+            }
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
+        /*set_count             */
+        /*set_lower_bound       */
+        /*set_upper_bound       */
+        /*set_equal_range       */
+        {
+            set_t* pt_set = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            iterator_t t_begin;
+            iterator_t t_end;
+            range_t t_range;
+            iterator_t t_iterex;
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init(pt_setex);
+            t_begin = set_lower_bound(pt_set, pt_setex);
+            t_end = set_upper_bound(pt_set, pt_setex);
+            t_range = set_equal_range(pt_set, pt_setex);
+            assert(iterator_equal(t_begin, set_end(pt_set)) &&
+                   iterator_equal(t_end, set_end(pt_set)) &&
+                   iterator_equal(t_range.t_begin, set_end(pt_set)) &&
+                   iterator_equal(t_range.t_end, set_end(pt_set)));
+            set_insert(pt_setex, 35);
+            set_insert(pt_setex, 20);
+            set_insert(pt_setex, 233);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, 3);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 15);
+            set_insert(pt_setex, 54);
+            set_insert(pt_setex, -45);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 8);
+            set_insert(pt_setex, 9);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            _print_set_set(pt_set);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 15);
+            set_insert(pt_setex, 54);
+            set_insert(pt_setex, -45);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            t_begin = set_lower_bound(pt_set, pt_setex);
+            t_end = set_upper_bound(pt_set, pt_setex);
+            t_range = set_equal_range(pt_set, pt_setex);
+            assert(iterator_equal(t_begin, set_begin(pt_set)) &&
+                   iterator_equal(t_end, iterator_next(set_begin(pt_set))) &&
+                   iterator_equal(t_range.t_begin, set_begin(pt_set)) &&
+                   iterator_equal(t_range.t_end, iterator_next(set_begin(pt_set))));
+            set_clear(pt_setex);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 8);
+            set_insert(pt_setex, 3);
+            t_begin = set_lower_bound(pt_set, pt_setex);
+            t_end = set_upper_bound(pt_set, pt_setex);
+            t_range = set_equal_range(pt_set, pt_setex);
+            t_iterex = set_lower_bound(pt_set, pt_setex);
+            _print_set_c(iterator_get_pointer(t_iterex), "%d, ", int);
+            assert(iterator_equal(t_begin, t_iterex) &&
+                   iterator_equal(t_end, t_iterex) &&
+                   iterator_equal(t_range.t_begin, t_iterex) &&
+                   iterator_equal(t_range.t_end, t_iterex));
+
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
+        /*set_insert            */
         {
             set_t* pt_set = create_set(set_t<int>);
             set_t* pt_setex = create_set(int);
