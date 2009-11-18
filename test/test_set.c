@@ -23,6 +23,7 @@
 /** include section **/
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
 
 #include "cset.h"
 #include "cfunctional.h"
@@ -53,6 +54,8 @@ typedef struct _tagsetsample
 }setsample_t;
 
 /** local function prototype section **/
+static void _set_cstr_pre(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _print_set_cstr(const set_t* cpt_set);
 static void _print_set_set(const set_t* cpt_set);
 static void _print_set_user(const set_t* cpt_set);
 static void _setsample_init(const void* cpv_input, void* pv_output);
@@ -2047,49 +2050,402 @@ void test_set(void)
             set_destroy(pt_set);
             set_destroy(pt_setex);
         }
+        /*set_insert_hint       */
+        {
+            set_t* pt_set = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            set_iterator_t t_iter;
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init(pt_setex);
+            t_iter = set_begin(pt_set);
+            set_insert(pt_setex, 3445);
+            set_insert(pt_setex, 98);
+            set_insert(pt_setex, 900);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 555);
+            set_insert_hint(pt_set, t_iter, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, -455);
+            set_insert_hint(pt_set, t_iter, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 923);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 4489);
+            set_insert_hint(pt_set, t_iter, pt_setex);
+            _print_set_set(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
+        /*set_insert_range      */
+        {
+            set_t* pt_set1 = create_set(set_t<int>);
+            set_t* pt_set2 = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            if(pt_set1 == NULL || pt_set2 == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set1);
+            set_init_ex(pt_set2, fun_great_set);
+            set_init(pt_setex);
+            set_insert_range(pt_set1, set_begin(pt_set2), set_end(pt_set2));
+            _print_set_set(pt_set1);
+            set_insert(pt_setex, 3445);
+            set_insert(pt_setex, 98);
+            set_insert(pt_setex, 900);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 555);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, -455);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 923);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 4489);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 35);
+            set_insert(pt_setex, 20);
+            set_insert(pt_setex, 233);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, 3);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 15);
+            set_insert(pt_setex, 54);
+            set_insert(pt_setex, -45);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set2, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 8);
+            set_insert(pt_setex, 9);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set2, pt_setex);
+            _print_set_set(pt_set2);
+            set_insert_range(pt_set1, set_begin(pt_set2), set_begin(pt_set2));
+            _print_set_set(pt_set1);
+            set_insert_range(pt_set1, set_begin(pt_set2),
+                iterator_advance(set_begin(pt_set2), 2));
+            _print_set_set(pt_set1);
+            set_insert_range(pt_set1, iterator_advance(set_begin(pt_set2), 3),
+                iterator_advance(set_begin(pt_set2), 5));
+            _print_set_set(pt_set1);
+            set_insert_range(pt_set1, iterator_advance(set_begin(pt_set2), 5),
+                set_end(pt_set2));
+            _print_set_set(pt_set1);
+            set_insert_range(pt_set1, set_end(pt_set2), set_end(pt_set2));
+            _print_set_set(pt_set1);
+            set_clear(pt_set1);
+            set_insert_range(pt_set1, set_begin(pt_set2), set_end(pt_set2));
+            _print_set_set(pt_set1);
+
+            set_destroy(pt_set1);
+            set_destroy(pt_set2);
+            set_destroy(pt_setex);
+        }
+        /*set_erase             */
+        {
+            set_t* pt_set = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init(pt_setex);
+            set_erase(pt_set, pt_setex);
+            _print_set_set(pt_set);
+            set_insert(pt_setex, 3445);
+            set_insert(pt_setex, 98);
+            set_insert(pt_setex, 900);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 555);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, -455);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 923);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 4489);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 35);
+            set_insert(pt_setex, 20);
+            set_insert(pt_setex, 233);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, 3);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 15);
+            set_insert(pt_setex, 54);
+            set_insert(pt_setex, -45);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 8);
+            set_insert(pt_setex, 9);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            _print_set_set(pt_set);
+            set_clear(pt_setex);
+            set_erase(pt_set, pt_setex);
+            _print_set_set(pt_set);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 35);
+            set_insert(pt_setex, 20);
+            set_insert(pt_setex, 233);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, 3);
+            set_insert(pt_set, pt_setex);
+            set_erase(pt_set, pt_setex);
+            _print_set_set(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
+        /*set_erase_pos         */
+        {
+            set_t* pt_set = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init(pt_setex);
+            set_insert(pt_setex, 3445);
+            set_insert(pt_setex, 98);
+            set_insert(pt_setex, 900);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 555);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, -455);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 923);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 4489);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 35);
+            set_insert(pt_setex, 20);
+            set_insert(pt_setex, 233);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, 3);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 15);
+            set_insert(pt_setex, 54);
+            set_insert(pt_setex, -45);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 8);
+            set_insert(pt_setex, 9);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            _print_set_set(pt_set);
+            set_erase_pos(pt_set, set_begin(pt_set));
+            _print_set_set(pt_set);
+            set_erase_pos(pt_set, iterator_prev(set_end(pt_set)));
+            _print_set_set(pt_set);
+            set_erase_pos(pt_set, iterator_advance(set_begin(pt_set), 2));
+            _print_set_set(pt_set);
+            while(!set_empty(pt_set))
+            {
+                set_erase_pos(pt_set, set_begin(pt_set));
+            }
+            _print_set_set(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
+        /*set_erase_range       */
+        {
+            set_t* pt_set = create_set(set_t<int>);
+            set_t* pt_setex = create_set(int);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init(pt_setex);
+            set_erase_range(pt_set, set_begin(pt_set), set_end(pt_set));
+            _print_set_set(pt_set);
+            set_insert(pt_setex, 3445);
+            set_insert(pt_setex, 98);
+            set_insert(pt_setex, 900);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 555);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, -455);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 923);
+            set_insert(pt_setex, 23);
+            set_insert(pt_setex, 4489);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 35);
+            set_insert(pt_setex, 20);
+            set_insert(pt_setex, 233);
+            set_insert(pt_setex, -4);
+            set_insert(pt_setex, 3);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 15);
+            set_insert(pt_setex, 54);
+            set_insert(pt_setex, -45);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 2);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            set_clear(pt_setex);
+            set_insert(pt_setex, 5);
+            set_insert(pt_setex, 8);
+            set_insert(pt_setex, 9);
+            set_insert(pt_setex, -5);
+            set_insert(pt_setex, 4);
+            set_insert(pt_setex, 23);
+            set_insert(pt_set, pt_setex);
+            _print_set_set(pt_set);
+            set_erase_range(pt_set, set_begin(pt_set), set_begin(pt_set));
+            _print_set_set(pt_set);
+            set_erase_range(pt_set, set_begin(pt_set),
+                iterator_advance(set_begin(pt_set), 2));
+            _print_set_set(pt_set);
+            set_erase_range(pt_set, iterator_next(set_begin(pt_set)),
+                iterator_advance(set_begin(pt_set), 3));
+            _print_set_set(pt_set);
+            set_erase_range(pt_set, iterator_advance(set_begin(pt_set), 2), set_end(pt_set));
+            _print_set_set(pt_set);
+            set_erase_range(pt_set, set_end(pt_set), set_end(pt_set));
+            _print_set_set(pt_set);
+            set_erase_range(pt_set, set_begin(pt_set), set_end(pt_set));
+            _print_set_set(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
+    }
+    /* c-str type */
+    {
+        /*create_set            */
+        {
+            set_t* pt_set = create_set(char*);
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            _print_set_cstr(pt_set);
+            set_insert(pt_set, "abcdefg");
+            set_insert(pt_set, "opqrst");
+            set_insert(pt_set, "opqrst");
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+        }
+        /*set_init              */
+        /*set_init_ex           */
+        {
+            set_t* pt_set = create_set(char*);
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            /*
+             * bugs in get type with c-string.
+             */
+            set_init_ex(pt_set, _set_cstr_pre);
+            _print_set_cstr(pt_set);
+            set_insert(pt_set, "abcdefghij");
+            set_insert(pt_set, "abcd");
+            set_insert(pt_set, "fghijkl");
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+        }
+        /*set_init_copy         */
+        /*set_init_copy_range   */
+        /*set_init_copy_range_ex*/
+        /*set_destroy           */
+        /*set_assign            */
+        /*set_size              */
+        /*set_empty             */
+        /*set_max_size          */
+        /*set_begin             */
+        /*set_end               */
+        /*set_key_less          */
+        /*set_value_less        */
+        /*set_clear             */
+        /*set_equal             */
+        /*set_not_equal         */
+        /*set_less              */
+        /*set_less_equal        */
+        /*set_great             */
+        /*set_great_equal       */
+        /*set_swap              */
+        /*_set_find             */
+        /*_set_count            */
+        /*_set_lower_bound      */
+        /*_set_upper_bound      */
+        /*_set_equal_range      */
+        /*_set_insert           */
         /*_set_insert_hint      */
         /*set_insert_range      */
         /*_set_erase            */
         /*set_erase_pos         */
         /*set_erase_range       */
     }
-    /* c-str type */
-    {
-    }
-    /*_create_set           */
-    /*set_init              */
-    /*set_init_ex           */
-    /*set_init_copy         */
-    /*set_init_copy_range   */
-    /*set_init_copy_range_ex*/
-    /*set_destroy           */
-    /*set_assign            */
-    /*set_size              */
-    /*set_empty             */
-    /*set_max_size          */
-    /*set_begin             */
-    /*set_end               */
-    /*set_key_less          */
-    /*set_value_less        */
-    /*set_clear             */
-    /*set_equal             */
-    /*set_not_equal         */
-    /*set_less              */
-    /*set_less_equal        */
-    /*set_great             */
-    /*set_great_equal       */
-    /*set_swap              */
-    /*_set_find             */
-    /*_set_count            */
-    /*_set_lower_bound      */
-    /*_set_upper_bound      */
-    /*_set_equal_range      */
-    /*_set_insert           */
-    /*_set_insert_hint      */
-    /*set_insert_range      */
-    /*_set_erase            */
-    /*set_erase_pos         */
-    /*set_erase_range       */
 
     /*
     set_t* pt_set = create_set(int);
@@ -2151,6 +2507,34 @@ void test_set(void)
 }
 
 /** local function implementation section **/
+static void _set_cstr_pre(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strlen((char*)cpv_first) < strlen((char*)cpv_second))
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _print_set_cstr(const set_t* cpt_set)
+{
+    iterator_t t_iter;
+    assert(cpt_set != NULL);
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        set_empty(cpt_set), set_size(cpt_set), set_max_size(cpt_set));
+    for(t_iter = set_begin(cpt_set);
+        !iterator_equal(t_iter, set_end(cpt_set));
+        t_iter = iterator_next(t_iter))
+    {
+        puts(iterator_get_pointer(t_iter));
+    }
+}
+
 static void _print_set_set(const set_t* cpt_set)
 {
     iterator_t t_iter;
