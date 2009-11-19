@@ -2415,10 +2415,96 @@ void test_set(void)
             set_destroy(pt_set);
         }
         /*set_init_copy         */
+        {
+            set_t* pt_set = create_set(char*);
+            set_t* pt_setex = create_set(char*);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init_ex(pt_setex, _set_cstr_pre);
+            set_insert(pt_setex, "achieving the goals of the Internet standards process");
+            set_insert(pt_setex, "needed, and the wishes of the WG should");
+            set_insert(pt_setex, "There shall be an extended Last Call for public review.");
+            set_init_copy(pt_set, pt_setex);
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
         /*set_init_copy_range   */
+        {
+            set_t* pt_set = create_set(char* );
+            set_t* pt_setex = create_set(   char   *   );
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init_ex(pt_setex, _set_cstr_pre);
+            set_insert(pt_setex, "When the IESG (on reviewing a recommendation a variance)");
+            set_insert(pt_setex, "do not apply or lead to a deadlock");
+            set_insert(pt_setex, "Depending on the results of the Last Call");
+            set_insert(pt_setex, "accept the solution; or revise the proposal");
+            set_insert(pt_setex, "Draft, and initiate another extended Last Call");
+            set_insert(pt_setex, "In any case");
+            set_insert(pt_setex, "When the IESG accepts a solution");
+            set_insert(pt_setex, "IESG -- and Brian Carpenter");
+            _print_set_cstr(pt_setex);
+            set_init_copy_range(pt_set, set_begin(pt_setex), set_end(pt_setex));
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
         /*set_init_copy_range_ex*/
+        {
+            set_t* pt_set = create_set(char* );
+            set_t* pt_setex = create_set(   char   *   );
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init_ex(pt_setex, _set_cstr_pre);
+            set_insert(pt_setex, "When the IESG (on reviewing a recommendation a variance)");
+            set_insert(pt_setex, "do not apply or lead to a deadlock");
+            set_insert(pt_setex, "Depending on the results of the Last Call");
+            set_insert(pt_setex, "accept the solution; or revise the proposal");
+            set_insert(pt_setex, "Draft, and initiate another extended Last Call");
+            set_insert(pt_setex, "In any case");
+            set_insert(pt_setex, "When the IESG accepts a solution");
+            set_insert(pt_setex, "IESG -- and Brian Carpenter");
+            _print_set_cstr(pt_setex);
+            set_init_copy_range_ex(pt_set, set_begin(pt_setex),
+                set_end(pt_setex), _set_cstr_pre);
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
         /*set_destroy           */
         /*set_assign            */
+        {
+            set_t* pt_set = create_set(char*);
+            set_t* pt_setex = create_set(char *);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init_ex(pt_set, _set_cstr_pre);
+            set_init_ex(pt_setex, _set_cstr_pre);
+            set_assign(pt_set, pt_setex);
+            _print_set_cstr(pt_set);
+            set_insert(pt_setex, "Jon Postel");
+            set_insert(pt_setex, "USC - ISI, Suite 1001");
+            set_insert(pt_setex, "4676 Admiralty Way");
+            set_insert(pt_setex, "Marina del Rey, CA  90292-6695");
+            set_insert(pt_setex, "Phone: 310-822-1511");
+            set_insert(pt_setex, "EMail: postel@isi.edu");
+            set_assign(pt_set, pt_setex);
+            _print_set_cstr(pt_set);
+            set_clear(pt_setex);
+            set_assign(pt_set, pt_setex);
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
         /*set_size              */
         /*set_empty             */
         /*set_max_size          */
@@ -2426,7 +2512,42 @@ void test_set(void)
         /*set_end               */
         /*set_key_less          */
         /*set_value_less        */
+        {
+            set_t* pt_set = create_set(char*);
+            set_t* pt_setex = create_set(char*);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init_ex(pt_setex, _set_cstr_pre);
+            assert(set_key_less(pt_set) != _set_cstr_pre &&
+                   set_value_less(pt_set) != _set_cstr_pre &&
+                   set_key_less(pt_setex) == _set_cstr_pre &&
+                   set_value_less(pt_setex) == _set_cstr_pre);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
         /*set_clear             */
+        {
+            set_t* pt_set = create_set(char*);
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_clear(pt_set);
+            _print_set_cstr(pt_set);
+            set_insert(pt_set, "no Working Group is constituted");
+            set_insert(pt_set, "community from entering or advancing the specification the");
+            set_insert(pt_set, "community that result from noncompliance with section 5");
+            set_insert(pt_set, "(c) alternatives to the granting of a variance");
+            set_insert(pt_set, "community.");
+            _print_set_cstr(pt_set);
+            set_clear(pt_set);
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+        }
         /*set_equal             */
         /*set_not_equal         */
         /*set_less              */
