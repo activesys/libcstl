@@ -128,6 +128,10 @@ static avlnode_t* _rebalance_avl_tree(avlnode_t* pt_root);
 /* initialize element auxiliary function */
 static void _avl_tree_init_elem_auxiliary(avl_tree_t* pt_avl_tree, avlnode_t* pt_node);
 
+/* element less function auxiliary */
+static void _avl_tree_elem_less_auxiliary(const avl_tree_t* cpt_avl_tree,
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+
 /** exported global variable definition section **/
 
 /** local global variable definition section **/
@@ -480,7 +484,8 @@ void _avl_tree_init_copy_range(
            _avl_tree_iterator_before(t_begin, t_end));
 
     /* init the avl tree with the src avl tree */
-    _avl_tree_init(pt_avl_tree_dest, _GET_AVL_TREE(t_begin)->_t_less);
+    _avl_tree_init(pt_avl_tree_dest,
+        _GET_AVL_TREE_TYPE_LESS_FUNCTION(_GET_AVL_TREE(t_begin)));
     /* insert all elements of src into dest */
     if(!_avl_tree_empty(_GET_AVL_TREE(t_begin)))
     {
@@ -663,8 +668,12 @@ avl_tree_iterator_t _avl_tree_lower_bound(
         pt_prev = cpt_avl_tree->_t_avlroot._pt_parent;
 
         t_less = t_great = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
+        /*
         cpt_avl_tree->_t_less(cpv_value, pt_prev->_pc_data, &t_less);
         cpt_avl_tree->_t_less(pt_prev->_pc_data, cpv_value, &t_great);
+        */
+        _avl_tree_elem_less_auxiliary(cpt_avl_tree, cpv_value, pt_prev->_pc_data, &t_less);
+        _avl_tree_elem_less_auxiliary(cpt_avl_tree, pt_prev->_pc_data, cpv_value, &t_great);
         /* t_less || (!t_less && !t_great) i.e. cpv_value <= pt_prev->_pc_data */
         if(t_less || !t_great)
         {
@@ -678,8 +687,12 @@ avl_tree_iterator_t _avl_tree_lower_bound(
         {
             pt_prev = pt_cur;
             t_less = t_great = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
+            /*
             cpt_avl_tree->_t_less(cpv_value, pt_prev->_pc_data, &t_less);
             cpt_avl_tree->_t_less(pt_prev->_pc_data, cpv_value, &t_great);
+            */
+            _avl_tree_elem_less_auxiliary(cpt_avl_tree, cpv_value, pt_prev->_pc_data, &t_less);
+            _avl_tree_elem_less_auxiliary(cpt_avl_tree, pt_prev->_pc_data, cpv_value, &t_great);
             if(t_less || !t_great)
             {
                 pt_cur = pt_prev->_pt_left;
@@ -728,7 +741,8 @@ avl_tree_iterator_t _avl_tree_upper_bound(
     {
         pt_prev = cpt_avl_tree->_t_avlroot._pt_parent;
         t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-        cpt_avl_tree->_t_less(cpv_value, pt_prev->_pc_data, &t_result);
+        /*cpt_avl_tree->_t_less(cpv_value, pt_prev->_pc_data, &t_result);*/
+        _avl_tree_elem_less_auxiliary(cpt_avl_tree, cpv_value, pt_prev->_pc_data, &t_result);
         if(t_result)
         {
             pt_cur = pt_prev->_pt_left;
@@ -741,7 +755,8 @@ avl_tree_iterator_t _avl_tree_upper_bound(
         {
             pt_prev = pt_cur;
             t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-            cpt_avl_tree->_t_less(cpv_value, pt_prev->_pc_data, &t_result);
+            /*cpt_avl_tree->_t_less(cpv_value, pt_prev->_pc_data, &t_result);*/
+            _avl_tree_elem_less_auxiliary(cpt_avl_tree, cpv_value, pt_prev->_pc_data, &t_result);
             if(t_result)
             {
                 pt_cur = pt_prev->_pt_left;
@@ -815,9 +830,17 @@ bool_t _avl_tree_equal(
         t_second = _avl_tree_iterator_next(t_second))
     {
         t_less = t_great = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_treefirst);
+        /*
         cpt_avl_treefirst->_t_less(((avlnode_t*)_GET_AVL_TREE_COREPOS(t_first))->_pc_data,
             ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_second))->_pc_data, &t_less);
         cpt_avl_treefirst->_t_less(((avlnode_t*)_GET_AVL_TREE_COREPOS(t_second))->_pc_data,
+            ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_first))->_pc_data, &t_great);
+        */
+        _avl_tree_elem_less_auxiliary(cpt_avl_treefirst,
+            ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_first))->_pc_data,
+            ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_second))->_pc_data, &t_less);
+        _avl_tree_elem_less_auxiliary(cpt_avl_treefirst,
+            ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_second))->_pc_data,
             ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_first))->_pc_data, &t_great);
         if(t_less || t_great)
         {
@@ -854,14 +877,24 @@ bool_t _avl_tree_less(
         t_second = _avl_tree_iterator_next(t_second))
     {
         t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_treefirst);
+        /*
         cpt_avl_treefirst->_t_less(((avlnode_t*)_GET_AVL_TREE_COREPOS(t_first))->_pc_data,
+            ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_second))->_pc_data, &t_result);
+        */
+        _avl_tree_elem_less_auxiliary(cpt_avl_treefirst,
+            ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_first))->_pc_data,
             ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_second))->_pc_data, &t_result);
         if(t_result)
         {
             return true;
         }
         t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_treefirst);
+        /*
         cpt_avl_treefirst->_t_less(((avlnode_t*)_GET_AVL_TREE_COREPOS(t_second))->_pc_data,
+            ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_first))->_pc_data, &t_result);
+        */
+        _avl_tree_elem_less_auxiliary(cpt_avl_treefirst,
+            ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_second))->_pc_data,
             ((avlnode_t*)_GET_AVL_TREE_COREPOS(t_first))->_pc_data, &t_result);
         if(t_result)
         {
@@ -1425,7 +1458,12 @@ static bool_t _avl_tree_same_avl_tree_iterator_type(
 {
     assert(cpt_avl_tree != NULL && _GET_AVL_TREE(t_iter) != NULL);
 
-    return _avl_tree_same_type(cpt_avl_tree, _GET_AVL_TREE(t_iter));
+    return _type_is_same(_GET_AVL_TREE_TYPE_NAME(cpt_avl_tree),
+                         _GET_AVL_TREE_TYPE_NAME(_GET_AVL_TREE(t_iter))) &&
+           (cpt_avl_tree->_t_typeinfo._t_style ==
+            _GET_AVL_TREE(t_iter)->_t_typeinfo._t_style) &&
+           (cpt_avl_tree->_t_typeinfo._pt_type ==
+            _GET_AVL_TREE(t_iter)->_t_typeinfo._pt_type);
 }
 
 static bool_t _find_iterator(const avlnode_t* cpt_root, const avlnode_t* cpt_pos)
@@ -1473,14 +1511,16 @@ static avlnode_t* _find_value(
     }
 
     t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-    cpt_avl_tree->_t_less(cpv_value, cpt_root->_pc_data, &t_result);
+    /*cpt_avl_tree->_t_less(cpv_value, cpt_root->_pc_data, &t_result);*/
+    _avl_tree_elem_less_auxiliary(cpt_avl_tree, cpv_value, cpt_root->_pc_data, &t_result);
     if(t_result)
     {
         return _find_value(cpt_avl_tree, cpt_root->_pt_left, cpv_value);
     }
 
     t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-    cpt_avl_tree->_t_less(cpt_root->_pc_data, cpv_value, &t_result);
+    /*cpt_avl_tree->_t_less(cpt_root->_pc_data, cpv_value, &t_result);*/
+    _avl_tree_elem_less_auxiliary(cpt_avl_tree, cpt_root->_pc_data, cpv_value, &t_result);
     if(t_result)
     {
         return _find_value(cpt_avl_tree, cpt_root->_pt_right, cpv_value);
@@ -1689,7 +1729,8 @@ static _insert_result_t _insert_avlnode(
     /* compare the value and current node */
     /* if value < current node then insert into left subtree */
     t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-    cpt_avl_tree->_t_less(cpv_value, pt_root->_pc_data, &t_result);
+    /*cpt_avl_tree->_t_less(cpv_value, pt_root->_pc_data, &t_result);*/
+    _avl_tree_elem_less_auxiliary(cpt_avl_tree, cpv_value, pt_root->_pc_data, &t_result);
     if(t_result)
     {
         t_insert_result = _insert_avlnode(cpt_avl_tree, pt_root->_pt_left, cpv_value);
@@ -1776,6 +1817,25 @@ static void _avl_tree_init_elem_auxiliary(avl_tree_t* pt_avl_tree, avlnode_t* pt
         bool_t t_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
         _GET_AVL_TREE_TYPE_INIT_FUNCTION(pt_avl_tree)(pt_node->_pc_data, &t_result);
         assert(t_result);
+    }
+}
+
+static void _avl_tree_elem_less_auxiliary(const avl_tree_t* cpt_avl_tree,
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpt_avl_tree != NULL && cpv_first != NULL &&
+           cpv_second != NULL && pv_output != NULL); 
+
+    if(strncmp(_GET_AVL_TREE_TYPE_BASENAME(cpt_avl_tree),
+        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
+       cpt_avl_tree->_t_less != _GET_AVL_TREE_TYPE_LESS_FUNCTION(cpt_avl_tree))
+    {
+        cpt_avl_tree->_t_less(string_c_str((string_t*)cpv_first),
+            string_c_str((string_t*)cpv_second), pv_output);
+    }
+    else
+    {
+        cpt_avl_tree->_t_less(cpv_first, cpv_second, pv_output);
     }
 }
 

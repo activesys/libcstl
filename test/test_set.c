@@ -2554,18 +2554,379 @@ void test_set(void)
         /*set_less_equal        */
         /*set_great             */
         /*set_great_equal       */
+        {
+            set_t* pt_set = create_set(char*);
+            set_t* pt_setex = create_set(char*);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init(pt_setex);
+            _print_set_cstr(pt_set);
+            _print_set_cstr(pt_setex);
+            printf("equal: %d, not equal: %d, ",
+                set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
+            printf("less: %d, less equal: %d, ",
+                set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
+            printf("great: %d, great equal: %d\n",
+                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+
+            set_insert(pt_set, "Eric Brunsen");
+            _print_set_cstr(pt_set);
+            _print_set_cstr(pt_setex);
+            printf("equal: %d, not equal: %d, ",
+                set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
+            printf("less: %d, less equal: %d, ",
+                set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
+            printf("great: %d, great equal: %d\n",
+                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+
+            set_insert(pt_setex, "Eric Brunsen");
+            _print_set_cstr(pt_set);
+            _print_set_cstr(pt_setex);
+            printf("equal: %d, not equal: %d, ",
+                set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
+            printf("less: %d, less equal: %d, ",
+                set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
+            printf("great: %d, great equal: %d\n",
+                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+
+            set_insert(pt_set, "Author's Address");
+            set_insert(pt_set, "Eastern New Mexico University");
+            set_insert(pt_setex, "Phone: (505) 562-2694");
+            _print_set_cstr(pt_set);
+            _print_set_cstr(pt_setex);
+            printf("equal: %d, not equal: %d, ",
+                set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
+            printf("less: %d, less equal: %d, ",
+                set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
+            printf("great: %d, great equal: %d\n",
+                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
         /*set_swap              */
-        /*_set_find             */
-        /*_set_count            */
-        /*_set_lower_bound      */
-        /*_set_upper_bound      */
-        /*_set_equal_range      */
-        /*_set_insert           */
-        /*_set_insert_hint      */
+        {
+            set_t* pt_set = create_set(char*);
+            set_t* pt_setex = create_set(char*);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_init(pt_setex);
+            set_swap(pt_set, pt_setex);
+            _print_set_cstr(pt_set);
+            _print_set_cstr(pt_setex);
+            set_insert(pt_setex, "some gauge of how many people");
+            set_insert(pt_setex, "OS/2 User Group");
+            set_insert(pt_setex, "You may recognize some of the names in this group");
+            set_swap(pt_set, pt_setex);
+            _print_set_cstr(pt_set);
+            _print_set_cstr(pt_setex);
+            set_insert(pt_setex, "systems or CPU's.");
+            set_insert(pt_setex, "number of researchers and implementers.");
+            set_insert(pt_setex, "There is a group called The Phoenix Group");
+            set_insert(pt_setex, "their desires for OS/2 to IBM.");
+            set_insert(pt_setex, "organizations such as SHARE, GUIDE, COMMON");
+            set_insert(pt_setex, "Company (DECIUS)");
+            set_insert(pt_setex, "(SHARE, GUIDE and COMMON)");
+            set_swap(pt_set, pt_setex);
+            _print_set_cstr(pt_set);
+            _print_set_cstr(pt_setex);
+            set_clear(pt_setex);
+            set_swap(pt_set, pt_setex);
+            _print_set_cstr(pt_set);
+            _print_set_cstr(pt_setex);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
+        /*set_find              */
+        /*set_count             */
+        {
+            set_t* pt_set = create_set(char*);
+            iterator_t t_iter;
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            t_iter = set_find(pt_set, "SONET to Sonnet Translation");
+            if(!iterator_equal(t_iter, set_end(pt_set)))
+            {
+                printf("cstr: %s, count: %d\n", (char*)iterator_get_pointer(t_iter),
+                    set_count(pt_set, "SONET to Sonnet Translation"));
+            }
+            else
+            {
+                printf("not found, count: %d\n",
+                    set_count(pt_set, "SONET to Sonnet Translation"));
+            }
+            set_insert(pt_set, "(SONNET).");
+            set_insert(pt_set, "Protocol Overview");
+            set_insert(pt_set, "this memo is unlimited.");
+            set_insert(pt_set, "OCh-#");
+            set_insert(pt_set, "indicates 50%");
+            _print_set_cstr(pt_set);
+            t_iter = set_find(pt_set, "2**704");
+            if(!iterator_equal(t_iter, set_end(pt_set)))
+            {
+                printf("cstr: %s, count: %d\n", (char*)iterator_get_pointer(t_iter),
+                    set_count(pt_set, "2**704"));
+            }
+            else
+            {
+                printf("not found, count: %d\n",
+                    set_count(pt_set, "SONET to Sonnet Translation"));
+            }
+            t_iter = set_find(pt_set, "OCh-#");
+            if(!iterator_equal(t_iter, set_end(pt_set)))
+            {
+                printf("cstr: %s, count: %d\n", (char*)iterator_get_pointer(t_iter),
+                    set_count(pt_set, "OCh-#"));
+            }
+            else
+            {
+                printf("not found, count: %d\n",
+                    set_count(pt_set, "SONET to Sonnet Translation"));
+            }
+
+            set_destroy(pt_set);
+        }
+        /*set_lower_bound       */
+        /*set_upper_bound       */
+        /*set_equal_range       */
+        {
+            set_t* pt_set = create_set(char*);
+            iterator_t t_begin;
+            iterator_t t_end;
+            range_t t_range;
+            iterator_t t_iter;
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            t_begin = set_lower_bound(pt_set, "SONET");
+            t_end = set_upper_bound(pt_set, "SONET");
+            t_range = set_equal_range(pt_set, "SONET");
+            assert(iterator_equal(t_begin, set_end(pt_set)) &&
+                   iterator_equal(t_end, set_end(pt_set)) &&
+                   iterator_equal(t_range.t_begin, set_end(pt_set)) &&
+                   iterator_equal(t_range.t_end, set_end(pt_set)));
+            set_insert(pt_set, "And sable curls,...");
+            set_insert(pt_set, "OC-1, the OC-1");
+            set_insert(pt_set, "Full many a glorious morning have I seen");
+            set_insert(pt_set, "Kissing with golden face...");
+            set_insert(pt_set, "When");
+            set_insert(pt_set, "individual");
+            set_insert(pt_set, "When");
+            set_insert(pt_set, "I all alone beweep my outcast state");
+            _print_set_cstr(pt_set);
+            t_begin = set_lower_bound(pt_set, "Globe Communications");
+            t_end = set_upper_bound(pt_set, "Globe Communications");
+            t_range = set_equal_range(pt_set, "Globe Communications");
+            t_iter = set_lower_bound(pt_set, "Globe Communications");
+            assert(iterator_equal(t_begin, t_iter) &&
+                   iterator_equal(t_end, t_iter) &&
+                   iterator_equal(t_range.t_begin, t_iter) &&
+                   iterator_equal(t_range.t_end, t_iter));
+            t_begin = set_lower_bound(pt_set, "I all alone beweep my outcast state");
+            t_end = set_upper_bound(pt_set, "I all alone beweep my outcast state");
+            t_range = set_equal_range(pt_set, "I all alone beweep my outcast state");
+            t_iter = set_lower_bound(pt_set, "I all alone beweep my outcast state");
+            assert(iterator_equal(t_end, iterator_next(t_begin)) &&
+                   iterator_equal(t_range.t_begin, t_begin) &&
+                   iterator_equal(t_range.t_end, t_end));
+            set_destroy(pt_set);
+        }
+        /*set_insert            */
+        {
+            set_t* pt_set = create_set(char*);
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init_ex(pt_set, _set_cstr_pre);
+            _print_set_cstr(pt_set);
+            set_insert(pt_set, "BIB-VERSION:: CS-TR-v2.1");
+            set_insert(pt_set, "ID:: OUKS//CS-TR-91-123");
+            set_insert(pt_set, "ENTRY:: January 15, 1992");
+            set_insert(pt_set, "ORGANIZATION:: Oceanview University, Kansas Computer Science");
+            set_insert(pt_set, "TYPE:: Technical Report");
+            set_insert(pt_set, "REVISION:: January 5, 1995; FTP access information added");
+            set_insert(pt_set, "AUTHOR:: Finnegan, James A.");
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+        }
+        /*set_insert_hint       */
+        {
+            set_t* pt_set = create_set(char*);
+            iterator_t t_iter;
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init_ex(pt_set, _set_cstr_pre);
+            t_iter = set_begin(pt_set);
+            _print_set_cstr(pt_set);
+            set_insert_hint(pt_set, t_iter, "Oceanview, KS 54321  Tel: 913-456-7890");
+            set_insert_hint(pt_set, t_iter, "<Finnegan@cs.ouks.edu>");
+            set_insert_hint(pt_set, t_iter, "AUTHOR:: Pooh, Winnie The");
+            set_insert_hint(pt_set, t_iter, "DATE:: December 1991");
+            set_insert_hint(pt_set, t_iter, "PAGES:: 48");
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+        }
         /*set_insert_range      */
-        /*_set_erase            */
+        {
+            set_t* pt_set = create_set(char*);
+            set_t* pt_setex = create_set(char*);
+            if(pt_set == NULL || pt_setex == NULL)
+            {
+                return;
+            }
+            set_init_ex(pt_set, _set_cstr_pre);
+            set_init(pt_setex);
+            set_insert_range(pt_set, set_begin(pt_setex), set_end(pt_setex));
+            _print_set_cstr(pt_set);
+            set_insert(pt_setex, "HANDLE:: hdl:oceanview.electr/CS-TR-91-123");
+            set_insert(pt_setex, "OTHER_ACCESS::url:http://electr.oceanview.edu/CS-TR-91-123");
+            set_insert(pt_setex, "OTHER_ACCESS:: url:ftp://electr.oceanview.edu/CS-TR-91-123");
+            set_insert(pt_setex, "KEYWORD:: Scientific Communication");
+            set_insert(pt_setex, "CR-CATEGORY:: D.0");
+            set_insert(pt_setex, "SERIES:: Communication");
+            set_insert(pt_setex, "FUNDING:: FAS");
+            set_insert(pt_setex, "CONTRACT:: FAS-91-C-1234");
+            set_insert(pt_setex, "MONITORING:: FNBO");
+            set_insert(pt_setex, "LANGUAGE:: English");
+            set_insert(pt_setex, "CONTACT:: 100 Aker Wood");
+            _print_set_cstr(pt_setex);
+            set_insert_range(pt_set, set_begin(pt_setex), set_begin(pt_setex));
+            _print_set_cstr(pt_set);
+            set_insert_range(pt_set, set_begin(pt_setex),
+                iterator_advance(set_begin(pt_setex), 3));
+            _print_set_cstr(pt_set);
+            set_insert_range(pt_set, iterator_advance(set_begin(pt_setex), 4),
+                iterator_advance(set_begin(pt_setex), 6));
+            _print_set_cstr(pt_set);
+            set_insert_range(pt_set, iterator_advance(set_begin(pt_setex), 8),
+                set_end(pt_setex));
+            _print_set_cstr(pt_set);
+            set_insert_range(pt_set, set_end(pt_setex), set_end(pt_setex));
+            _print_set_cstr(pt_set);
+            set_clear(pt_set);
+            set_insert_range(pt_set, set_begin(pt_setex), set_end(pt_setex));
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+            set_destroy(pt_setex);
+        }
+        /*set_erase             */
+        {
+            set_t* pt_set = create_set(char*);
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_erase(pt_set, "Keep It Simple.");
+            _print_set_cstr(pt_set);
+            set_insert(pt_set, "HANDLE:: hdl:oceanview.electr/CS-TR-91-123");
+            set_insert(pt_set, "OTHER_ACCESS::url:http://electr.oceanview.edu/CS-TR-91-123");
+            set_insert(pt_set, "OTHER_ACCESS:: url:ftp://electr.oceanview.edu/CS-TR-91-123");
+            set_insert(pt_set, "KEYWORD:: Scientific Communication");
+            set_insert(pt_set, "CR-CATEGORY:: D.0");
+            set_insert(pt_set, "SERIES:: Communication");
+            set_insert(pt_set, "FUNDING:: FAS");
+            set_insert(pt_set, "CONTRACT:: FAS-91-C-1234");
+            set_insert(pt_set, "MONITORING:: FNBO");
+            set_insert(pt_set, "LANGUAGE:: English");
+            set_insert(pt_set, "CONTACT:: 100 Aker Wood");
+            set_erase(pt_set, "Keep It Simple.");
+            _print_set_cstr(pt_set);
+            set_erase(pt_set, "FUNDING:: FAS");
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+        }
         /*set_erase_pos         */
+        {
+            set_t* pt_set = create_set(char*);
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_insert(pt_set, "HANDLE:: hdl:oceanview.electr/CS-TR-91-123");
+            set_insert(pt_set, "OTHER_ACCESS::url:http://electr.oceanview.edu/CS-TR-91-123");
+            set_insert(pt_set, "OTHER_ACCESS:: url:ftp://electr.oceanview.edu/CS-TR-91-123");
+            set_insert(pt_set, "KEYWORD:: Scientific Communication");
+            set_insert(pt_set, "CR-CATEGORY:: D.0");
+            set_insert(pt_set, "SERIES:: Communication");
+            set_insert(pt_set, "FUNDING:: FAS");
+            set_insert(pt_set, "CONTRACT:: FAS-91-C-1234");
+            set_insert(pt_set, "MONITORING:: FNBO");
+            set_insert(pt_set, "LANGUAGE:: English");
+            set_insert(pt_set, "CONTACT:: 100 Aker Wood");
+            _print_set_cstr(pt_set);
+            set_erase_pos(pt_set, set_begin(pt_set));
+            _print_set_cstr(pt_set);
+            set_erase_pos(pt_set, iterator_prev(set_end(pt_set)));
+            _print_set_cstr(pt_set);
+            set_erase_pos(pt_set, iterator_advance(set_begin(pt_set), 4));
+            _print_set_cstr(pt_set);
+            while(!set_empty(pt_set))
+            {
+                set_erase_pos(pt_set, set_begin(pt_set));
+            }
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+        }
         /*set_erase_range       */
+        {
+            set_t* pt_set = create_set(char*);
+            if(pt_set == NULL)
+            {
+                return;
+            }
+            set_init(pt_set);
+            set_erase_range(pt_set, set_begin(pt_set), set_end(pt_set));
+            _print_set_cstr(pt_set);
+            set_insert(pt_set, "BIB-VERSION:: CS-TR-v2.1");
+            set_insert(pt_set, "ID:: OUKS//CS-TR-91-123");
+            set_insert(pt_set, "ENTRY:: January 15, 1992");
+            set_insert(pt_set, "ORGANIZATION:: Oceanview University, Kansas Computer Science");
+            set_insert(pt_set, "TYPE:: Technical Report");
+            set_insert(pt_set, "REVISION:: January 5, 1995; FTP access information added");
+            set_insert(pt_set, "AUTHOR:: Finnegan, James A.");
+            set_insert(pt_set, "HANDLE:: hdl:oceanview.electr/CS-TR-91-123");
+            set_insert(pt_set, "OTHER_ACCESS::url:http://electr.oceanview.edu/CS-TR-91-123");
+            set_insert(pt_set, "OTHER_ACCESS:: url:ftp://electr.oceanview.edu/CS-TR-91-123");
+            set_insert(pt_set, "KEYWORD:: Scientific Communication");
+            set_insert(pt_set, "CR-CATEGORY:: D.0");
+            set_insert(pt_set, "SERIES:: Communication");
+            set_insert(pt_set, "FUNDING:: FAS");
+            set_insert(pt_set, "CONTRACT:: FAS-91-C-1234");
+            set_insert(pt_set, "MONITORING:: FNBO");
+            set_insert(pt_set, "LANGUAGE:: English");
+            set_insert(pt_set, "CONTACT:: 100 Aker Wood");
+            _print_set_cstr(pt_set);
+            set_erase_range(pt_set, set_begin(pt_set), set_begin(pt_set));
+            _print_set_cstr(pt_set);
+            set_erase_range(pt_set, set_begin(pt_set), iterator_advance(set_begin(pt_set), 3));
+            _print_set_cstr(pt_set);
+            set_erase_range(pt_set, iterator_advance(set_begin(pt_set), 2),
+                iterator_advance(set_begin(pt_set), 5));
+            _print_set_cstr(pt_set);
+            set_erase_range(pt_set, iterator_advance(set_begin(pt_set), 5), set_end(pt_set));
+            _print_set_cstr(pt_set);
+            set_erase_range(pt_set, set_end(pt_set), set_end(pt_set));
+            _print_set_cstr(pt_set);
+            set_erase_range(pt_set, set_begin(pt_set), set_end(pt_set));
+            _print_set_cstr(pt_set);
+            set_destroy(pt_set);
+        }
     }
 
     /*
