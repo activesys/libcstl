@@ -83,7 +83,9 @@ int main(int argc, char* argv[])
     /*test_heap();*/
     /*test_priority_queue();*/
     printf("========== test set_t  ==========\n");
-    test_set();
+    /*test_set();*/
+    printf("========== test multiset_t =======\n");
+    test_multiset();
     /*test_map();*/
     printf("========== test string_t  ==========\n");
     /*test_string(argc, argv);*/

@@ -35,6 +35,7 @@ extern "C" {
 
 /** exported global variable declaration section **/
 extern void test_set(void);
+extern void test_multiset(void);
 
 /** exported function prototype section **/
 
