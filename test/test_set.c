@@ -28,6 +28,7 @@
 #include "cset.h"
 #include "cfunctional.h"
 #include "test_set.h"
+/*#include "tree_traverse.h"*/
 
 /** local constant declaration and local macro section **/
 #define _print_set_c(pt_set, fmt, type)\
@@ -67,8 +68,11 @@ typedef struct _tagsetsample
     int _n_second;
     int _n_third;
 }setsample_t;
+typedef setsample_t multisetsample_t;
 
 /** local function prototype section **/
+static void _print_multiset_user(const multiset_t* cpt_mset);
+
 static void _set_cstr_pre(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _print_set_cstr(const set_t* cpt_set);
 static void _print_set_set(const set_t* cpt_set);
@@ -3564,8 +3568,417 @@ void test_multiset(void)
             multiset_destroy(pt_mset);
         }
         /*multiset_erase_range       */
+        {
+            multiset_t* pt_mset = create_multiset(int);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_erase_range(pt_mset, multiset_begin(pt_mset), multiset_end(pt_mset));
+            _print_multiset_c(pt_mset, "%d, ", int);
+            multiset_insert(pt_mset, 234);
+            multiset_insert(pt_mset, -233);
+            multiset_insert(pt_mset, 220);
+            multiset_insert(pt_mset, 22);
+            multiset_insert(pt_mset, -88);
+            multiset_insert(pt_mset, 0);
+            multiset_insert(pt_mset, 0);
+            multiset_insert(pt_mset, 23);
+            multiset_insert(pt_mset, -3);
+            multiset_insert(pt_mset, 456);
+            multiset_insert(pt_mset, 111);
+            multiset_insert(pt_mset, 90);
+            multiset_insert(pt_mset, 4);
+            multiset_insert(pt_mset, 20);
+            multiset_insert(pt_mset, -566);
+            multiset_insert(pt_mset, -53);
+            _print_multiset_c(pt_mset, "%d, ", int);
+            multiset_erase_range(pt_mset, multiset_begin(pt_mset), multiset_begin(pt_mset));
+            _print_multiset_c(pt_mset, "%d, ", int);
+            multiset_erase_range(pt_mset, multiset_begin(pt_mset),
+                iterator_advance(multiset_begin(pt_mset), 4));
+            _print_multiset_c(pt_mset, "%d, ", int);
+            multiset_erase_range(pt_mset, iterator_next(multiset_begin(pt_mset)),
+                iterator_advance(multiset_begin(pt_mset), 3));
+            _print_multiset_c(pt_mset, "%d, ", int);
+            multiset_erase_range(pt_mset, iterator_advance(multiset_begin(pt_mset), 3),
+                multiset_end(pt_mset));
+            _print_multiset_c(pt_mset, "%d, ", int);
+            multiset_erase_range(pt_mset, multiset_end(pt_mset), multiset_end(pt_mset));
+            _print_multiset_c(pt_mset, "%d, ", int);
+            multiset_erase_range(pt_mset, multiset_begin(pt_mset), multiset_end(pt_mset));
+            _print_multiset_c(pt_mset, "%d, ", int);
+            multiset_destroy(pt_mset);
+        }
     }
     /* user define type */
+    {
+        type_register(setsample_t, _setsample_init, _setsample_copy,
+            _setsample_less, _setsample_destroy);
+        type_duplicate(setsample_t, multisetsample_t);
+        _type_debug();
+        /*create_multiset            */
+        {
+            multiset_t* pt_mset = create_multiset(multisetsample_t);
+            multisetsample_t t_mss;
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            _print_multiset_user(pt_mset);
+            t_mss._n_first = 78;
+            t_mss._n_second = -4;
+            t_mss._n_third = 2234;
+            multiset_insert(pt_mset, &t_mss);
+            t_mss._n_first = 0;
+            t_mss._n_second = 0;
+            t_mss._n_third = 0;
+            multiset_insert(pt_mset, &t_mss);
+            t_mss._n_first = 45;
+            t_mss._n_second = 900;
+            t_mss._n_third = 223;
+            multiset_insert(pt_mset, &t_mss);
+            _print_multiset_user(pt_mset);
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_init              */
+        /*multiset_init_ex           */
+        {
+            multiset_t* pt_mset = create_multiset(multisetsample_t);
+            multisetsample_t t_mss;
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init_ex(pt_mset, _setsample_great);
+            _print_multiset_user(pt_mset);
+            t_mss._n_first = 84;
+            t_mss._n_second = 0;
+            t_mss._n_third = -5;
+            multiset_insert(pt_mset, &t_mss);
+            t_mss._n_first = 23;
+            t_mss._n_second = 90;
+            t_mss._n_third = 22222;
+            multiset_insert(pt_mset, &t_mss);
+            t_mss._n_first = -3990;
+            t_mss._n_second = 9000;
+            t_mss._n_third = 22;
+            multiset_insert(pt_mset, &t_mss);
+            t_mss._n_first = 10;
+            t_mss._n_second = 789;
+            t_mss._n_third = 90;
+            multiset_insert(pt_mset, &t_mss);
+            multiset_insert(pt_mset, &t_mss);
+            _print_multiset_user(pt_mset);
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_init_copy         */
+        {
+            multiset_t* pt_mset = create_multiset(setsample_t);
+            multiset_t* pt_msetex = create_multiset(multisetsample_t);
+            setsample_t t_ss;
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init_ex(pt_msetex, _setsample_great);
+            t_ss._n_first = 34;
+            t_ss._n_second = 4893;
+            t_ss._n_third = 289;
+            multiset_insert(pt_msetex, &t_ss);
+            t_ss._n_first = 0;
+            t_ss._n_second = -878;
+            t_ss._n_third = -3;
+            multiset_insert(pt_msetex, &t_ss);
+            multiset_insert(pt_msetex, &t_ss);
+            t_ss._n_first = 53;
+            t_ss._n_second = 55;
+            t_ss._n_third = 122;
+            multiset_insert(pt_msetex, &t_ss);
+            multiset_insert(pt_msetex, &t_ss);
+            multiset_init_copy(pt_mset, pt_msetex);
+            _print_multiset_user(pt_mset);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_init_copy_range   */
+        {
+            multiset_t* pt_mset = create_multiset(setsample_t);
+            multiset_t* pt_msetex = create_multiset(multisetsample_t);
+            setsample_t t_ss;
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init_ex(pt_msetex, _setsample_great);
+            t_ss._n_first = 34;
+            t_ss._n_second = 4893;
+            t_ss._n_third = 289;
+            multiset_insert(pt_msetex, &t_ss);
+            t_ss._n_first = 0;
+            t_ss._n_second = -878;
+            t_ss._n_third = -3;
+            multiset_insert(pt_msetex, &t_ss);
+            multiset_insert(pt_msetex, &t_ss);
+            t_ss._n_first = 53;
+            t_ss._n_second = 55;
+            t_ss._n_third = 122;
+            multiset_insert(pt_msetex, &t_ss);
+            multiset_insert(pt_msetex, &t_ss);
+            _print_multiset_user(pt_msetex);
+            multiset_init_copy_range(pt_mset, multiset_begin(pt_msetex),
+                multiset_end(pt_msetex));
+            _print_multiset_user(pt_mset);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_init_copy_range_ex*/
+        {
+            multiset_t* pt_mset = create_multiset(setsample_t);
+            multiset_t* pt_msetex = create_multiset(multisetsample_t);
+            setsample_t t_ss;
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_msetex);
+            t_ss._n_first = 34;
+            t_ss._n_second = 4893;
+            t_ss._n_third = 289;
+            multiset_insert(pt_msetex, &t_ss);
+            t_ss._n_first = 0;
+            t_ss._n_second = -878;
+            t_ss._n_third = -3;
+            multiset_insert(pt_msetex, &t_ss);
+            multiset_insert(pt_msetex, &t_ss);
+            t_ss._n_first = 53;
+            t_ss._n_second = 55;
+            t_ss._n_third = 122;
+            multiset_insert(pt_msetex, &t_ss);
+            multiset_insert(pt_msetex, &t_ss);
+            _print_multiset_user(pt_msetex);
+            multiset_init_copy_range_ex(pt_mset, multiset_begin(pt_msetex),
+                multiset_end(pt_msetex), _setsample_great);
+            _print_multiset_user(pt_mset);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_destroy           */
+        /*multiset_assign            */
+        {
+            multiset_t* pt_mset = create_multiset(setsample_t);
+            multiset_t* pt_msetex = create_multiset(multisetsample_t);
+            setsample_t t_ss;
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init_ex(pt_msetex, _setsample_great);
+            multiset_init_ex(pt_mset, _setsample_great);
+            t_ss._n_first = 34;
+            t_ss._n_second = 4893;
+            t_ss._n_third = 289;
+            multiset_insert(pt_msetex, &t_ss);
+            t_ss._n_first = 0;
+            t_ss._n_second = -878;
+            t_ss._n_third = -3;
+            multiset_insert(pt_msetex, &t_ss);
+            multiset_insert(pt_msetex, &t_ss);
+            t_ss._n_first = 53;
+            t_ss._n_second = 55;
+            t_ss._n_third = 122;
+            multiset_insert(pt_msetex, &t_ss);
+            multiset_insert(pt_msetex, &t_ss);
+            _print_multiset_user(pt_msetex);
+            multiset_assign(pt_mset, pt_msetex);
+            _print_multiset_user(pt_mset);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_size              */
+        /*multiset_empty             */
+        /*multiset_max_size          */
+        /*multiset_begin             */
+        /*multiset_end               */
+        /*multiset_key_less          */
+        /*multiset_value_less        */
+        {
+            multiset_t* pt_mset = create_multiset(multisetsample_t);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            assert(multiset_key_less(pt_mset) == _setsample_less &&
+                   multiset_value_less(pt_mset) == _setsample_less);
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_clear             */
+        {
+            multiset_t* pt_mset = create_multiset(multisetsample_t);
+            setsample_t t_ss;
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_clear(pt_mset);
+            _print_multiset_user(pt_mset);
+            t_ss._n_first = 34;
+            t_ss._n_second = 4893;
+            t_ss._n_third = 289;
+            multiset_insert(pt_mset, &t_ss);
+            t_ss._n_first = 0;
+            t_ss._n_second = -878;
+            t_ss._n_third = -3;
+            multiset_insert(pt_mset, &t_ss);
+            multiset_insert(pt_mset, &t_ss);
+            t_ss._n_first = 53;
+            t_ss._n_second = 55;
+            t_ss._n_third = 122;
+            multiset_insert(pt_mset, &t_ss);
+            multiset_insert(pt_mset, &t_ss);
+            _print_multiset_user(pt_mset);
+            multiset_clear(pt_mset);
+            _print_multiset_user(pt_mset);
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_equal             */
+        /*multiset_not_equal         */
+        /*multiset_less              */
+        /*multiset_less_equal        */
+        /*multiset_great             */
+        /*multiset_great_equal       */
+        {
+            multiset_t* pt_mset = create_multiset(setsample_t);
+            multiset_t* pt_msetex = create_multiset(multisetsample_t);
+            multisetsample_t t_mss;
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_init(pt_msetex);
+            _print_multiset_user(pt_mset);
+            _print_multiset_user(pt_msetex);
+            printf("equal: %d, not equal: %d, ",
+                multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
+            printf("less: %d, less equal: %d, ",
+                multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
+            printf("great: %d, great equal: %d\n",
+                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            t_mss._n_first = 43;
+            t_mss._n_second = 556;
+            t_mss._n_third = 556;
+            multiset_insert(pt_mset, &t_mss);
+            _print_multiset_user(pt_mset);
+            _print_multiset_user(pt_msetex);
+            printf("equal: %d, not equal: %d, ",
+                multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
+            printf("less: %d, less equal: %d, ",
+                multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
+            printf("great: %d, great equal: %d\n",
+                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            multiset_insert(pt_msetex, &t_mss);
+            _print_multiset_user(pt_mset);
+            _print_multiset_user(pt_msetex);
+            printf("equal: %d, not equal: %d, ",
+                multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
+            printf("less: %d, less equal: %d, ",
+                multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
+            printf("great: %d, great equal: %d\n",
+                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+
+            t_mss._n_first = 43;
+            t_mss._n_second = 6;
+            t_mss._n_third = 596;
+            multiset_insert(pt_mset, &t_mss);
+            t_mss._n_first = 43;
+            t_mss._n_second = 98456;
+            t_mss._n_third = 596;
+            multiset_insert(pt_mset, &t_mss);
+            t_mss._n_first = 4300;
+            t_mss._n_second = 8056;
+            t_mss._n_third = 506;
+            multiset_insert(pt_msetex, &t_mss);
+            _print_multiset_user(pt_mset);
+            _print_multiset_user(pt_msetex);
+            printf("equal: %d, not equal: %d, ",
+                multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
+            printf("less: %d, less equal: %d, ",
+                multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
+            printf("great: %d, great equal: %d\n",
+                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_swap              */
+        {
+            multiset_t* pt_mset = create_multiset(setsample_t);
+            multiset_t* pt_msetex = create_multiset(multisetsample_t);
+            multisetsample_t t_mss;
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_init(pt_msetex);
+            multiset_swap(pt_mset, pt_msetex);
+            _print_multiset_user(pt_mset);
+            _print_multiset_user(pt_msetex);
+
+            t_mss._n_first = 43;
+            t_mss._n_second = 556;
+            t_mss._n_third = 556;
+            multiset_insert(pt_msetex, &t_mss);
+            t_mss._n_first = -3;
+            t_mss._n_second = 956;
+            t_mss._n_third = -56;
+            multiset_insert(pt_msetex, &t_mss);
+            multiset_swap(pt_mset, pt_msetex);
+            _print_multiset_user(pt_mset);
+            _print_multiset_user(pt_msetex);
+
+
+            t_mss._n_first = 43;
+            t_mss._n_second = 6;
+            t_mss._n_third = 596;
+            multiset_insert(pt_msetex, &t_mss);
+            t_mss._n_first = 43;
+            t_mss._n_second = 98456;
+            t_mss._n_third = 596;
+            multiset_insert(pt_msetex, &t_mss);
+            t_mss._n_first = 4300;
+            t_mss._n_second = 8056;
+            t_mss._n_third = 506;
+            multiset_insert(pt_msetex, &t_mss);
+            multiset_swap(pt_mset, pt_msetex);
+            _print_multiset_user(pt_mset);
+            _print_multiset_user(pt_msetex);
+
+            multiset_clear(pt_msetex);
+            multiset_swap(pt_mset, pt_msetex);
+            _print_multiset_user(pt_mset);
+            _print_multiset_user(pt_msetex);
+
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*_multiset_find             */
+        /*_multiset_count            */
+        /*_multiset_lower_bound      */
+        /*_multiset_upper_bound      */
+        /*_multiset_equal_range      */
+        /*_multiset_insert           */
+        /*_multiset_insert_hint      */
+        /*multiset_insert_range      */
+        /*_multiset_erase            */
+        /*multiset_erase_pos         */
+        /*multiset_erase_range       */
+    }
     /* cstl built-in type */
     /* c-string type */
 
@@ -3606,6 +4019,26 @@ void test_multiset(void)
 }
 
 /** local function implementation section **/
+static void _print_multiset_user(const multiset_t* cpt_mset)
+{
+    iterator_t t_iter;
+    assert(cpt_mset != NULL);
+
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        multiset_empty(cpt_mset), multiset_size(cpt_mset), multiset_max_size(cpt_mset));
+    for(t_iter = multiset_begin(cpt_mset);
+        !iterator_equal(t_iter, multiset_end(cpt_mset));
+        t_iter = iterator_next(t_iter))
+    {
+        printf("<%d, %d, %d>, ",
+            ((setsample_t*)iterator_get_pointer(t_iter))->_n_first,
+            ((setsample_t*)iterator_get_pointer(t_iter))->_n_second,
+            ((setsample_t*)iterator_get_pointer(t_iter))->_n_third);
+    }
+    printf("\n");
+}
+
 static void _set_cstr_pre(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);

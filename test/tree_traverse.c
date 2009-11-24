@@ -120,7 +120,7 @@ void show_avlnode_info(avlnode_t* pt_root)
 void show_rbnode_info(rbnode_t* pt_root)
 {
     assert(pt_root != NULL);
-    printf("%d : ", *(int*)pt_root->_pc_data);
+    printf("%lf : ", *(double*)pt_root->_pc_data);
     if(pt_root->_t_color == red)
     {
         printf("r\n");

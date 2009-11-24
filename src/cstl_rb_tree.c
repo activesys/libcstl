@@ -2364,7 +2364,8 @@ static void _fixup_deletion(rb_tree_t* pt_rb_tree, rbnode_t* pt_pos, rbnode_t* p
                  *                           l(b)
                  */
                 rbnode_t* pt_sright = pt_sibling->_pt_right;
-                pt_parent->_pt_left = _deasil_rotate(pt_sibling);
+                /*pt_parent->_pt_left = _deasil_rotate(pt_sibling);*/
+                pt_parent->_pt_left = _widdershins_rotate(pt_sibling);
                 pt_parent->_pt_left->_pt_parent = pt_parent;
                 assert(pt_sright == pt_parent->_pt_left);
 

@@ -28,6 +28,7 @@ extern "C" {
 #endif
 
 /** include section **/
+#include "cvector.h"
 
 /** constant declaration and macro section **/
 
