@@ -71,6 +71,7 @@ typedef struct _tagsetsample
 typedef setsample_t multisetsample_t;
 
 /** local function prototype section **/
+static void _print_multiset_cstr(const multiset_t* cpt_mset);
 static void _print_multiset_multiset(const multiset_t* cpt_mset);
 static void _print_multiset_user(const multiset_t* cpt_mset);
 
@@ -5358,44 +5359,194 @@ void test_multiset(void)
         }
     }
     /* c-string type */
-
-    /*_create_multiset           */
-    /*multiset_init              */
-    /*multiset_init_ex           */
-    /*multiset_init_copy         */
-    /*multiset_init_copy_range   */
-    /*multiset_init_copy_range_ex*/
-    /*multiset_destroy           */
-    /*multiset_assign            */
-    /*multiset_size              */
-    /*multiset_empty             */
-    /*multiset_max_size          */
-    /*multiset_begin             */
-    /*multiset_end               */
-    /*multiset_key_less          */
-    /*multiset_value_less        */
-    /*multiset_clear             */
-    /*multiset_equal             */
-    /*multiset_not_equal         */
-    /*multiset_less              */
-    /*multiset_less_equal        */
-    /*multiset_great             */
-    /*multiset_great_equal       */
-    /*multiset_swap              */
-    /*_multiset_find             */
-    /*_multiset_count            */
-    /*_multiset_lower_bound      */
-    /*_multiset_upper_bound      */
-    /*_multiset_equal_range      */
-    /*_multiset_insert           */
-    /*_multiset_insert_hint      */
-    /*multiset_insert_range      */
-    /*_multiset_erase            */
-    /*multiset_erase_pos         */
-    /*multiset_erase_range       */
+    {
+        /*create_multiset            */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_insert(pt_mset, "dsApplIfInOps OBJECT-TYPE");
+            multiset_insert(pt_mset, "SYNTAX Counter32");
+            multiset_insert(pt_mset, "MAX-ACCESS read-only");
+            multiset_insert(pt_mset, "Number of requests received from DUAs or other");
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_init              */
+        /*multiset_init_ex           */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init_ex(pt_mset, _set_cstr_pre);
+            multiset_insert(pt_mset, "dsApplIfInOps OBJECT-TYPE");
+            multiset_insert(pt_mset, "SYNTAX Counter32");
+            multiset_insert(pt_mset, "MAX-ACCESS read-only");
+            multiset_insert(pt_mset, "Number of requests received from DUAs or other");
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_init_copy         */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            multiset_t* pt_msetex = create_multiset(char*);
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init_ex(pt_msetex, _set_cstr_pre);
+            multiset_insert(pt_msetex, "The dsIntTable contains statistical data on the peer");
+            multiset_insert(pt_msetex, "Directory Servers");
+            multiset_insert(pt_msetex, "Server interacts or");
+            multiset_insert(pt_msetex, "expected to provide");
+            multiset_insert(pt_msetex, "neighbours on the Directory Server's performance");
+            multiset_insert(pt_msetex, "The table keeps track of the last");
+            multiset_insert(pt_msetex, "with which  the  monitored");
+            multiset_init_copy(pt_mset, pt_msetex);
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_init_copy_range   */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            multiset_t* pt_msetex = create_multiset(char*);
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init_ex(pt_msetex, _set_cstr_pre);
+            multiset_insert(pt_msetex, "The dsIntTable contains statistical data on the peer");
+            multiset_insert(pt_msetex, "Directory Servers");
+            multiset_insert(pt_msetex, "Server interacts or");
+            multiset_insert(pt_msetex, "expected to provide");
+            multiset_insert(pt_msetex, "neighbours on the Directory Server's performance");
+            multiset_insert(pt_msetex, "The table keeps track of the last");
+            multiset_insert(pt_msetex, "with which  the  monitored");
+            multiset_init_copy_range(pt_mset,
+                multiset_begin(pt_msetex), multiset_end(pt_msetex));
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_init_copy_range_ex*/
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            multiset_t* pt_msetex = create_multiset(char*);
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_msetex);
+            multiset_insert(pt_msetex, "The dsIntTable contains statistical data on the peer");
+            multiset_insert(pt_msetex, "Directory Servers");
+            multiset_insert(pt_msetex, "Server interacts or");
+            multiset_insert(pt_msetex, "expected to provide");
+            multiset_insert(pt_msetex, "neighbours on the Directory Server's performance");
+            multiset_insert(pt_msetex, "The table keeps track of the last");
+            multiset_insert(pt_msetex, "with which  the  monitored");
+            multiset_init_copy_range_ex(pt_mset,
+                multiset_begin(pt_msetex), multiset_end(pt_msetex), _set_cstr_pre);
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_destroy           */
+        /*multiset_assign            */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            multiset_t* pt_msetex = create_multiset(char*);
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_msetex);
+            multiset_init(pt_mset);
+            multiset_assign(pt_mset, pt_msetex);
+            _print_multiset_cstr(pt_mset);
+            multiset_insert(pt_msetex, "The dsIntTable contains statistical data on the peer");
+            multiset_insert(pt_msetex, "Directory Servers");
+            multiset_insert(pt_msetex, "Server interacts or");
+            multiset_insert(pt_msetex, "expected to provide");
+            multiset_assign(pt_mset, pt_msetex);
+            _print_multiset_cstr(pt_mset);
+            multiset_clear(pt_msetex);
+            multiset_insert(pt_msetex, "neighbours on the Directory Server's performance");
+            multiset_insert(pt_msetex, "The table keeps track of the last");
+            multiset_insert(pt_msetex, "with which  the  monitored");
+            multiset_insert(pt_msetex, "dsIntEntDirectoryName");
+            multiset_insert(pt_msetex, "ZeroBasedCounter32");
+            multiset_insert(pt_msetex, "URLString");
+            multiset_insert(pt_msetex, "MAX-ACCESS not-accessible");
+            multiset_assign(pt_mset, pt_msetex);
+            _print_multiset_cstr(pt_mset);
+            multiset_clear(pt_msetex);
+            multiset_assign(pt_mset, pt_msetex);
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_size              */
+        /*multiset_empty             */
+        /*multiset_max_size          */
+        /*multiset_begin             */
+        /*multiset_end               */
+        /*multiset_key_less          */
+        /*multiset_value_less        */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init_ex(pt_mset, _set_cstr_pre);
+            assert(multiset_key_less(pt_mset) == _set_cstr_pre &&
+                multiset_value_less(pt_mset) == _set_cstr_pre);
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_clear             */
+        /*multiset_equal             */
+        /*multiset_not_equal         */
+        /*multiset_less              */
+        /*multiset_less_equal        */
+        /*multiset_great             */
+        /*multiset_great_equal       */
+        /*multiset_swap              */
+        /*_multiset_find             */
+        /*_multiset_count            */
+        /*_multiset_lower_bound      */
+        /*_multiset_upper_bound      */
+        /*_multiset_equal_range      */
+        /*_multiset_insert           */
+        /*_multiset_insert_hint      */
+        /*multiset_insert_range      */
+        /*_multiset_erase            */
+        /*multiset_erase_pos         */
+        /*multiset_erase_range       */
+    }
 }
 
 /** local function implementation section **/
+static void _print_multiset_cstr(const multiset_t* cpt_mset)
+{
+    iterator_t t_iter;
+    assert(cpt_mset != NULL);
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        multiset_empty(cpt_mset), multiset_size(cpt_mset), multiset_max_size(cpt_mset));
+    for(t_iter = multiset_begin(cpt_mset);
+        !iterator_equal(t_iter, multiset_end(cpt_mset));
+        t_iter = iterator_next(t_iter))
+    {
+        puts(iterator_get_pointer(t_iter));
+    }
+}
+
 static void _print_multiset_multiset(const multiset_t* cpt_mset)
 {
     iterator_t t_iter;
