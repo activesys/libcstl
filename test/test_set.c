@@ -5510,24 +5510,418 @@ void test_multiset(void)
             multiset_destroy(pt_mset);
         }
         /*multiset_clear             */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_clear(pt_mset);
+            _print_multiset_cstr(pt_mset);
+            multiset_insert(pt_mset, "SNMPv1 by itself is such an insecure environment");
+            multiset_insert(pt_mset, "Access Control Model RFC 2575 [15] is recommended");
+            multiset_insert(pt_mset, "Glenn Mansfield");
+            multiset_insert(pt_mset, "Authors' Addresses");
+            multiset_insert(pt_mset, "6-6-3 Minami Yoshinari");
+            _print_multiset_cstr(pt_mset);
+            multiset_clear(pt_mset);
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+        }
         /*multiset_equal             */
         /*multiset_not_equal         */
         /*multiset_less              */
         /*multiset_less_equal        */
         /*multiset_great             */
         /*multiset_great_equal       */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            multiset_t* pt_msetex = create_multiset(char*);
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_msetex);
+            multiset_init(pt_mset);
+            _print_multiset_cstr(pt_mset);
+            _print_multiset_cstr(pt_msetex);
+            printf("equal: %d, not equal: %d, ",
+                multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
+            printf("less: %d, less equal: %d, ",
+                multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
+            printf("great: %d, great equal: %d\n",
+                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+
+            multiset_insert(pt_mset, "Phone: +81-22-303-4012");
+            multiset_insert(pt_mset, "Richmond TW9 1DT");
+            _print_multiset_cstr(pt_mset);
+            _print_multiset_cstr(pt_msetex);
+            printf("equal: %d, not equal: %d, ",
+                multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
+            printf("less: %d, less equal: %d, ",
+                multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
+            printf("great: %d, great equal: %d\n",
+                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+
+            multiset_insert(pt_msetex, "Phone: +81-22-303-4012");
+            multiset_insert(pt_msetex, "Richmond TW9 1DT");
+            _print_multiset_cstr(pt_mset);
+            _print_multiset_cstr(pt_msetex);
+            printf("equal: %d, not equal: %d, ",
+                multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
+            printf("less: %d, less equal: %d, ",
+                multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
+            printf("great: %d, great equal: %d\n",
+                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+
+            multiset_insert(pt_mset, "Phone: +44-181-332-9091");
+            multiset_insert(pt_mset, "Phone: +44-181-332-9091");
+            multiset_insert(pt_msetex, "Richmond TW9 1DT");
+            _print_multiset_cstr(pt_mset);
+            _print_multiset_cstr(pt_msetex);
+            printf("equal: %d, not equal: %d, ",
+                multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
+            printf("less: %d, less equal: %d, ",
+                multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
+            printf("great: %d, great equal: %d\n",
+                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
         /*multiset_swap              */
-        /*_multiset_find             */
-        /*_multiset_count            */
-        /*_multiset_lower_bound      */
-        /*_multiset_upper_bound      */
-        /*_multiset_equal_range      */
-        /*_multiset_insert           */
-        /*_multiset_insert_hint      */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            multiset_t* pt_msetex = create_multiset(char*);
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_msetex);
+            multiset_init(pt_mset);
+            multiset_swap(pt_mset, pt_msetex);
+            _print_multiset_cstr(pt_mset);
+            _print_multiset_cstr(pt_msetex);
+            multiset_insert(pt_msetex, "Phone: +44-181-332-9091");
+            multiset_insert(pt_msetex, "Phone: +44-181-332-9091");
+            multiset_insert(pt_msetex, "Richmond TW9 1DT");
+            multiset_swap(pt_mset, pt_msetex);
+            _print_multiset_cstr(pt_mset);
+            _print_multiset_cstr(pt_msetex);
+            multiset_insert(pt_msetex, "Phone: +81-22-303-4012");
+            multiset_insert(pt_msetex, "Richmond TW9 1DT");
+            multiset_insert(pt_msetex, "Richmond TW9 1DT");
+            multiset_insert(pt_msetex, "EMail: Steve.Kille@MessagingDirect.com");
+            multiset_insert(pt_msetex, "RFC 2575 [15]");
+            multiset_insert(pt_msetex, "MIB");
+            multiset_swap(pt_mset, pt_msetex);
+            _print_multiset_cstr(pt_mset);
+            _print_multiset_cstr(pt_msetex);
+            multiset_clear(pt_msetex);
+            multiset_swap(pt_mset, pt_msetex);
+            _print_multiset_cstr(pt_mset);
+            _print_multiset_cstr(pt_msetex);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_find              */
+        /*multiset_count             */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            iterator_t  t_iter;
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            t_iter = multiset_find(pt_mset, "WebTV Networks, Inc.");
+            if(iterator_equal(t_iter, multiset_end(pt_mset)))
+            {
+                printf("not found! count : %u\n",
+                    multiset_count(pt_mset, "WebTV Networks, Inc."));
+            }
+            else
+            {
+                printf("found! count : %u\n",
+                    multiset_count(pt_mset, "WebTV Networks, Inc."));
+            }
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Request for Comments: 2652");
+            multiset_insert(pt_mset, "Category: Standards Track");
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "WebTV Networks, Inc.");
+            multiset_insert(pt_mset, "August 1999");
+            multiset_insert(pt_mset, "Network Solutions, Inc.");
+            multiset_insert(pt_mset, "J. Allen");
+            _print_multiset_cstr(pt_mset);
+            t_iter = multiset_find(pt_mset, "WebTV Networks, Inc.");
+            if(iterator_equal(t_iter, multiset_end(pt_mset)))
+            {
+                printf("not found! count : %u\n",
+                    multiset_count(pt_mset, "WebTV Networks, Inc."));
+            }
+            else
+            {
+                printf("found! count : %u\n",
+                    multiset_count(pt_mset, "WebTV Networks, Inc."));
+            }
+
+            t_iter = multiset_find(pt_mset, "MIME Object Definitions");
+            if(iterator_equal(t_iter, multiset_end(pt_mset)))
+            {
+                printf("not found! count : %u\n",
+                    multiset_count(pt_mset, "MIME Object Definitions"));
+            }
+            else
+            {
+                printf("found! count : %u\n",
+                    multiset_count(pt_mset, "MIME Object Definitions"));
+            }
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_lower_bound       */
+        /*multiset_upper_bound       */
+        /*multiset_equal_range       */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            iterator_t t_begin;
+            iterator_t t_end;
+            range_t    t_range;
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            t_begin = multiset_lower_bound(pt_mset, "Copyright (C) The Internet Society");
+            t_end = multiset_upper_bound(pt_mset, "Copyright (C) The Internet Society");
+            t_range = multiset_equal_range(pt_mset, "Copyright (C) The Internet Society");
+            assert(iterator_equal(t_begin, multiset_end(pt_mset)) &&
+                iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_begin, t_range.t_begin) &&
+                iterator_equal(t_end, t_range.t_end));
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Request for Comments: 2652");
+            multiset_insert(pt_mset, "Category: Standards Track");
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "WebTV Networks, Inc.");
+            multiset_insert(pt_mset, "August 1999");
+            multiset_insert(pt_mset, "Network Solutions, Inc.");
+            multiset_insert(pt_mset, "J. Allen");
+            _print_multiset_cstr(pt_mset);
+            t_begin = multiset_lower_bound(pt_mset, "Copyright (C) The Internet Society");
+            t_end = multiset_upper_bound(pt_mset, "Copyright (C) The Internet Society");
+            t_range = multiset_equal_range(pt_mset, "Copyright (C) The Internet Society");
+            assert(iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_begin, t_range.t_begin) &&
+                iterator_equal(t_end, t_range.t_end));
+            t_begin = multiset_lower_bound(pt_mset, "Network Working Group");
+            t_end = multiset_upper_bound(pt_mset, "Network Working Group");
+            t_range = multiset_equal_range(pt_mset, "Network Working Group");
+            assert(iterator_equal(iterator_advance(t_begin, 2), t_end) &&
+                iterator_equal(t_begin, t_range.t_begin) &&
+                iterator_equal(t_end, t_range.t_end));
+
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_insert            */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            _print_multiset_cstr(pt_mset);
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "Network Working Group");
+            _print_multiset_cstr(pt_mset);
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Request for Comments: 2652");
+            multiset_insert(pt_mset, "Category: Standards Track");
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "WebTV Networks, Inc.");
+            multiset_insert(pt_mset, "August 1999");
+            multiset_insert(pt_mset, "Network Solutions, Inc.");
+            multiset_insert(pt_mset, "J. Allen");
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+        }
+        /*multiset_insert_hint       */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            iterator_t  t_iter;
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            t_iter = multiset_begin(pt_mset);
+            _print_multiset_cstr(pt_mset);
+            multiset_insert_hint(pt_mset, t_iter, "M. Mealling");
+            multiset_insert_hint(pt_mset, t_iter, "Network Working Group");
+            _print_multiset_cstr(pt_mset);
+            multiset_insert_hint(pt_mset, t_iter, "Network Working Group");
+            multiset_insert_hint(pt_mset, t_iter, "Request for Comments: 2652");
+            multiset_insert_hint(pt_mset, t_iter, "Category: Standards Track");
+            multiset_insert_hint(pt_mset, t_iter, "M. Mealling");
+            multiset_insert_hint(pt_mset, t_iter, "WebTV Networks, Inc.");
+            multiset_insert_hint(pt_mset, t_iter, "August 1999");
+            multiset_insert_hint(pt_mset, t_iter, "Network Solutions, Inc.");
+            multiset_insert_hint(pt_mset, t_iter, "J. Allen");
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+        }
         /*multiset_insert_range      */
-        /*_multiset_erase            */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            multiset_t* pt_msetex = create_multiset(char*);
+            if(pt_mset == NULL || pt_msetex == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_init_ex(pt_msetex, _set_cstr_pre);
+            multiset_insert_range(pt_mset,
+                multiset_begin(pt_msetex), multiset_end(pt_msetex));
+            _print_multiset_cstr(pt_mset);
+            multiset_insert(pt_msetex, "M. Mealling");
+            multiset_insert(pt_msetex, "Network Working Group");
+            multiset_insert(pt_msetex, "Network Working Group");
+            multiset_insert(pt_msetex, "Request for Comments: 2652");
+            multiset_insert(pt_msetex, "Category: Standards Track");
+            multiset_insert(pt_msetex, "M. Mealling");
+            multiset_insert(pt_msetex, "WebTV Networks, Inc.");
+            multiset_insert(pt_msetex, "August 1999");
+            multiset_insert(pt_msetex, "Network Solutions, Inc.");
+            multiset_insert(pt_msetex, "J. Allen");
+            _print_multiset_cstr(pt_msetex);
+            multiset_insert_range(pt_mset,
+                multiset_begin(pt_msetex), multiset_begin(pt_msetex));
+            _print_multiset_cstr(pt_mset);
+            multiset_insert_range(pt_mset,
+                multiset_begin(pt_msetex), iterator_advance(multiset_begin(pt_msetex), 3));
+            _print_multiset_cstr(pt_mset);
+            multiset_insert_range(pt_mset,
+                iterator_next(multiset_begin(pt_msetex)),
+                iterator_advance(multiset_begin(pt_msetex), 5));
+            _print_multiset_cstr(pt_mset);
+            multiset_insert_range(pt_mset,
+                iterator_advance(multiset_begin(pt_msetex), 7), multiset_end(pt_msetex));
+            _print_multiset_cstr(pt_mset);
+            multiset_insert_range(pt_mset,
+                multiset_end(pt_msetex), multiset_end(pt_msetex));
+            _print_multiset_cstr(pt_mset);
+            multiset_insert_range(pt_mset,
+                multiset_begin(pt_msetex), multiset_end(pt_msetex));
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+            multiset_destroy(pt_msetex);
+        }
+        /*multiset_erase             */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_erase(pt_mset, "All Rights Reserved.");
+            _print_multiset_cstr(pt_mset);
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Request for Comments: 2652");
+            multiset_insert(pt_mset, "Category: Standards Track");
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "WebTV Networks, Inc.");
+            multiset_insert(pt_mset, "August 1999");
+            multiset_insert(pt_mset, "Network Solutions, Inc.");
+            multiset_insert(pt_mset, "J. Allen");
+            _print_multiset_cstr(pt_mset);
+            multiset_erase(pt_mset, "All Rights Reserved.");
+            _print_multiset_cstr(pt_mset);
+            multiset_erase(pt_mset, "Category: Standards Track");
+            _print_multiset_cstr(pt_mset);
+            multiset_erase(pt_mset, "Network Working Group");
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+        }
         /*multiset_erase_pos         */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Request for Comments: 2652");
+            multiset_insert(pt_mset, "Category: Standards Track");
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "WebTV Networks, Inc.");
+            multiset_insert(pt_mset, "August 1999");
+            multiset_insert(pt_mset, "Network Solutions, Inc.");
+            multiset_insert(pt_mset, "J. Allen");
+            _print_multiset_cstr(pt_mset);
+            multiset_erase_pos(pt_mset, multiset_begin(pt_mset));
+            _print_multiset_cstr(pt_mset);
+            multiset_erase_pos(pt_mset, iterator_prev(multiset_end(pt_mset)));
+            _print_multiset_cstr(pt_mset);
+            multiset_erase_pos(pt_mset, iterator_advance(multiset_begin(pt_mset), 3));
+            _print_multiset_cstr(pt_mset);
+            while(!multiset_empty(pt_mset))
+            {
+                multiset_erase_pos(pt_mset, multiset_begin(pt_mset));
+            }
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+        }
         /*multiset_erase_range       */
+        {
+            multiset_t* pt_mset = create_multiset(char*);
+            if(pt_mset == NULL)
+            {
+                return;
+            }
+            multiset_init(pt_mset);
+            multiset_erase_range(pt_mset,
+                multiset_begin(pt_mset), multiset_end(pt_mset));
+            _print_multiset_cstr(pt_mset);
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Network Working Group");
+            multiset_insert(pt_mset, "Request for Comments: 2652");
+            multiset_insert(pt_mset, "Category: Standards Track");
+            multiset_insert(pt_mset, "M. Mealling");
+            multiset_insert(pt_mset, "WebTV Networks, Inc.");
+            multiset_insert(pt_mset, "August 1999");
+            multiset_insert(pt_mset, "Network Solutions, Inc.");
+            multiset_insert(pt_mset, "J. Allen");
+            _print_multiset_cstr(pt_mset);
+            multiset_erase_range(pt_mset, multiset_begin(pt_mset), multiset_begin(pt_mset));
+            _print_multiset_cstr(pt_mset);
+            multiset_erase_range(pt_mset,
+                multiset_begin(pt_mset), iterator_advance(multiset_begin(pt_mset), 3));
+            _print_multiset_cstr(pt_mset);
+            multiset_erase_range(pt_mset,
+                iterator_next(multiset_begin(pt_mset)),
+                iterator_advance(multiset_begin(pt_mset), 3));
+            _print_multiset_cstr(pt_mset);
+            multiset_erase_range(pt_mset,
+                iterator_advance(multiset_begin(pt_mset), 2), multiset_end(pt_mset));
+            _print_multiset_cstr(pt_mset);
+            multiset_erase_range(pt_mset, multiset_end(pt_mset), multiset_end(pt_mset));
+            _print_multiset_cstr(pt_mset);
+            multiset_erase_range(pt_mset, multiset_begin(pt_mset), multiset_end(pt_mset));
+            _print_multiset_cstr(pt_mset);
+            multiset_destroy(pt_mset);
+        }
     }
 }
 
