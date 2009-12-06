@@ -113,6 +113,10 @@ bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename)
     pt_pair->_pv_first = NULL;
     pt_pair->_pv_second = NULL;
 
+    /* this two members are only used for map key and value compare. */
+    pt_pair->_t_mapkeyless = NULL;
+    pt_pair->_t_mapvalueless = NULL;
+
     return true;
 }
 

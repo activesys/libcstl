@@ -46,11 +46,15 @@ extern "C" {
 typedef struct _tagpair
 {
     /* element type information */
-    _typeinfo_t _t_typeinfofirst;
-    _typeinfo_t _t_typeinfosecond;
+    _typeinfo_t       _t_typeinfofirst;
+    _typeinfo_t       _t_typeinfosecond;
 
-    void*       _pv_first;
-    void*       _pv_second;
+    void*             _pv_first;
+    void*             _pv_second;
+
+    /* this two member are only used for map key and value compare. */
+    binary_function_t _t_mapkeyless;
+    binary_function_t _t_mapvalueless;
 }pair_t;
 
 /** exported global variable declaration section **/

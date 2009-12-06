@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
     printf("========== test queue_t  ==========\n");
     /*test_queue();*/
     printf("========== test pair_t  ==========\n");
-    /*test_pair();*/
+    test_pair();
     /*test_basic_string();*/
     /*test_avl_tree();*/
     /*test_rb_tree();*/
@@ -85,7 +85,8 @@ int main(int argc, char* argv[])
     printf("========== test set_t  ==========\n");
     /*test_set();*/
     printf("========== test multiset_t =======\n");
-    test_multiset();
+    /*test_multiset();*/
+    printf("========== test map_t  ==========\n");
     /*test_map();*/
     printf("========== test string_t  ==========\n");
     /*test_string(argc, argv);*/
