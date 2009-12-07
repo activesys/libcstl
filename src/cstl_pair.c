@@ -220,6 +220,9 @@ void _pair_destroy_auxiliary(pair_t* pt_pair)
     assert(t_result);
     free(pt_pair->_pv_second);
     pt_pair->_pv_second = NULL;
+
+    pt_pair->_t_mapkeyless = NULL;
+    pt_pair->_t_mapvalueless = NULL;
 }
 
 void pair_destroy(pair_t* pt_pair)

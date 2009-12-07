@@ -35,11 +35,14 @@ extern "C" {
 /* the map use rb tree default */
 typedef struct _tagmap
 {
-    pair_t _t_pair;
+    pair_t            _t_pair;
+    binary_function_t _t_keyless;   /* for init ex */
+    binary_function_t _t_valueless;
+
 #ifdef CSTL_MAP_AVL_TREE
-    avl_tree_t _t_tree;
+    avl_tree_t        _t_tree;
 #else
-    rb_tree_t  _t_tree;
+    rb_tree_t         _t_tree;
 #endif
 }map_t;
 

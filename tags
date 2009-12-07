@@ -2189,6 +2189,7 @@ _t_index	src/cstl_types.c	/^    size_t       _t_index;$/;"	m	struct:_tagtypeanal
 _t_isinit	include/cstl_types.h	/^    bool_t               _t_isinit; \/* is initializate for built in types *\/$/;"	m	struct:_tagtyperegister	access:public
 _t_iterator	include/cstl_rb_tree_private.h	/^        rb_tree_iterator_t _t_iterator;  \/* for equal_range *\/$/;"	m	union:_tagrbtreeresultpair::__anon6	access:public
 _t_iteratortype	include/cstl_iterator.h	/^    iteratortype_t  _t_iteratortype;$/;"	m	struct:_tagiterator	access:public
+_t_keyless	include/cstl_map_private.h	/^    binary_function_t _t_keyless;   \/* for init ex *\/$/;"	m	struct:_tagmap	access:public
 _t_less	include/cstl_avl_tree_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_tagavltree	access:public
 _t_less	include/cstl_hashtable_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_taghashtable	access:public
 _t_less	include/cstl_rb_tree_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_tagrbtree	access:public
@@ -2202,7 +2203,7 @@ _t_nodecount	include/cstl_hashtable_private.h	/^    size_t      _t_nodecount;$/;
 _t_nodecount	include/cstl_rb_tree_private.h	/^    size_t            _t_nodecount;$/;"	m	struct:_tagrbtree	access:public
 _t_pair	include/cstl_hash_map_private.h	/^    pair_t      _t_pair;$/;"	m	struct:_taghashmap	access:public
 _t_pair	include/cstl_hash_multimap_private.h	/^    pair_t      _t_pair;$/;"	m	struct:_taghashmultimap	access:public
-_t_pair	include/cstl_map_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmap	access:public
+_t_pair	include/cstl_map_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_tagmap	access:public
 _t_pair	include/cstl_multimap_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmultimap	access:public
 _t_pos	include/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterator	typeref:union:_tagiterator::__anon2	access:public
 _t_rbroot	include/cstl_rb_tree_private.h	/^    rbnode_t          _t_rbroot;$/;"	m	struct:_tagrbtree	access:public
@@ -2212,8 +2213,8 @@ _t_sequence	include/cstl_stack_private.h	/^    vector_t _t_sequence;$/;"	m	struc
 _t_start	include/cstl_deque_private.h	/^    deque_iterator_t _t_start;$/;"	m	struct:_tagdeque	access:public
 _t_style	include/cstl_types.h	/^    _typestyle_t _t_style;$/;"	m	struct:_tagtypeinfo	access:public
 _t_token	src/cstl_types.c	/^    _typetoken_t _t_token;$/;"	m	struct:_tagtypeanalysis	file:	access:public
-_t_tree	include/cstl_map_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagmap	access:public
-_t_tree	include/cstl_map_private.h	/^    rb_tree_t  _t_tree;$/;"	m	struct:_tagmap	access:public
+_t_tree	include/cstl_map_private.h	/^    avl_tree_t        _t_tree;$/;"	m	struct:_tagmap	access:public
+_t_tree	include/cstl_map_private.h	/^    rb_tree_t         _t_tree;$/;"	m	struct:_tagmap	access:public
 _t_tree	include/cstl_multimap_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagmultimap	access:public
 _t_tree	include/cstl_multimap_private.h	/^    rb_tree_t  _t_tree;$/;"	m	struct:_tagmultimap	access:public
 _t_tree	include/cstl_multiset_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagmultiset	access:public
@@ -2233,6 +2234,7 @@ _t_typeinfosecond	include/cstl_pair.h	/^    _typeinfo_t       _t_typeinfosecond;
 _t_typeinit	include/cstl_types.h	/^    unary_function_t  _t_typeinit;                        \/* type initialize function *\/$/;"	m	struct:_tagtype	access:public
 _t_typeless	include/cstl_types.h	/^    binary_function_t _t_typeless;                        \/* type less function *\/$/;"	m	struct:_tagtype	access:public
 _t_typesize	include/cstl_types.h	/^    size_t            _t_typesize;                        \/* type size *\/$/;"	m	struct:_tagtype	access:public
+_t_valueless	include/cstl_map_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_tagmap	access:public
 _t_vector	include/cstl_basic_string_private.h	/^    vector_t _t_vector;$/;"	m	struct:_tagbasicstring	access:public
 _t_vector	include/cstl_queue_private.h	/^    vector_t          _t_vector;$/;"	m	struct:_tagpriority_queue	access:public
 _tagabc	test/test_type.c	/^typedef struct _tagabc$/;"	s	file:
@@ -2345,9 +2347,11 @@ _taglistnode::_pc_data	include/cstl_list_private.h	/^    char                 _p
 _taglistnode::_pt_next	include/cstl_list_private.h	/^    struct _taglistnode* _pt_next;$/;"	m	struct:_taglistnode	typeref:struct:_taglistnode::_taglistnode	access:public
 _taglistnode::_pt_prev	include/cstl_list_private.h	/^    struct _taglistnode* _pt_prev;$/;"	m	struct:_taglistnode	typeref:struct:_taglistnode::_taglistnode	access:public
 _tagmap	include/cstl_map_private.h	/^typedef struct _tagmap$/;"	s
-_tagmap::_t_pair	include/cstl_map_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmap	access:public
-_tagmap::_t_tree	include/cstl_map_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagmap	access:public
-_tagmap::_t_tree	include/cstl_map_private.h	/^    rb_tree_t  _t_tree;$/;"	m	struct:_tagmap	access:public
+_tagmap::_t_keyless	include/cstl_map_private.h	/^    binary_function_t _t_keyless;   \/* for init ex *\/$/;"	m	struct:_tagmap	access:public
+_tagmap::_t_pair	include/cstl_map_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_tagmap	access:public
+_tagmap::_t_tree	include/cstl_map_private.h	/^    avl_tree_t        _t_tree;$/;"	m	struct:_tagmap	access:public
+_tagmap::_t_tree	include/cstl_map_private.h	/^    rb_tree_t         _t_tree;$/;"	m	struct:_tagmap	access:public
+_tagmap::_t_valueless	include/cstl_map_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_tagmap	access:public
 _tagmemlink	include/cstl_alloc.h	/^typedef union _tagmemlink$/;"	u
 _tagmemlink::_a_cmem	include/cstl_alloc.h	/^    char               _a_cmem[1];    \/* represent memory block *\/$/;"	m	union:_tagmemlink	access:public
 _tagmemlink::_pui_nextmem	include/cstl_alloc.h	/^    union _tagmemlink* _pui_nextmem;  \/* point to next memory block *\/$/;"	m	union:_tagmemlink	typeref:union:_tagmemlink::_tagmemlink	access:public

@@ -94,7 +94,9 @@ static bool_t _map_same_pair_type(const pair_t* cpt_pairfirst, const pair_t* cpt
  * map key less and value less
  */
 static void _map_key_less(const void* cpv_first, const void* cpv_second, void* pv_output);
+/*
 static void _map_value_less(const void* cpv_first, const void* cpv_second, void* pv_output);
+*/
 
 /** exported global variable definition section **/
 
@@ -230,6 +232,9 @@ map_t* _create_map(const char* s_typename)
         return NULL;
     }
 
+    pt_newmap->_t_keyless = NULL;
+    pt_newmap->_t_valueless = NULL;
+
     return pt_newmap;
 }
 
@@ -271,6 +276,9 @@ void _map_destroy_auxiliary(map_t* pt_map)
 #else
     _rb_tree_destroy_auxiliary(&pt_map->_t_tree);
 #endif
+
+    pt_map->_t_keyless = NULL;
+    pt_map->_t_valueless = NULL;
 }
 
 /* map function */
@@ -290,17 +298,17 @@ void map_init(map_t* pt_map)
 
 void map_init_ex(map_t* pt_map, binary_function_t t_key_less)
 {
-    binary_function_t t_less = NULL;
-
     assert(pt_map != NULL);
 
-    t_less = t_key_less != NULL ? t_key_less : _map_key_less;
+    /*t_less = t_key_less != NULL ? t_key_less : _map_key_less;*/
+    pt_map->_t_keyless = t_key_less;
+    pt_map->_t_pair._t_mapkeyless = t_key_less;
 
     pair_init(&pt_map->_t_pair);
 #ifdef CSTL_MAP_AVL_TREE
-    _avl_tree_init(&pt_map->_t_tree, t_less);
+    _avl_tree_init(&pt_map->_t_tree, _map_key_less);
 #else
-    _rb_tree_init(&pt_map->_t_tree, t_less);
+    _rb_tree_init(&pt_map->_t_tree, _map_key_less);
 #endif
 }
 
@@ -317,6 +325,10 @@ void map_init_copy(map_t* pt_mapdest, const map_t* cpt_mapsrc)
 
     /* initialize dest map with src map attribute */
     map_init(pt_mapdest);
+    pt_mapdest->_t_keyless = cpt_mapsrc->_t_keyless;
+    pt_mapdest->_t_valueless = cpt_mapsrc->_t_valueless;
+    pt_mapdest->_t_pair._t_mapkeyless = cpt_mapsrc->_t_pair._t_mapkeyless;
+    pt_mapdest->_t_pair._t_mapvalueless = cpt_mapsrc->_t_pair._t_mapvalueless;
     /* insert all element from src to dest */
     if(!map_empty(cpt_mapsrc))
     {
@@ -428,18 +440,28 @@ binary_function_t map_key_less(const map_t* cpt_map)
 {
     assert(cpt_map != NULL);
 
-    return cpt_map->_t_tree._t_less;
+    if(cpt_map->_t_keyless != NULL)
+    {
+        return cpt_map->_t_keyless;
+    }
+    else
+    {
+        return _GET_MAP_FIRST_TYPE_LESS_FUNCTION(cpt_map);
+    }
 }
 
 binary_function_t map_value_less(const map_t* cpt_map)
 {
-#ifdef NDEBUG
-    map_t* pt_avoidwarning = NULL;
-    pt_avoidwarning = (map_t*)cpt_map;
-#endif
     assert(cpt_map != NULL);
 
-    return _map_value_less;
+    if(cpt_map->_t_valueless != NULL)
+    {
+        return cpt_map->_t_valueless;
+    }
+    else
+    {
+        return _GET_MAP_SECOND_TYPE_LESS_FUNCTION(cpt_map);
+    }
 }
 
 void map_clear(map_t* pt_map)
@@ -741,6 +763,11 @@ map_iterator_t map_insert(map_t* pt_map, const pair_t* cpt_pair)
     map_iterator_t t_iter;
 
     assert(pt_map != NULL && cpt_pair != NULL);
+
+    /* set key less function and value less function */
+    ((pair_t*)cpt_pair)->_t_mapkeyless = pt_map->_t_keyless;
+    ((pair_t*)cpt_pair)->_t_mapvalueless = pt_map->_t_valueless;
+
     assert(_map_same_pair_type(&pt_map->_t_pair, cpt_pair));
 
     /* insert pair into tree */
@@ -760,6 +787,11 @@ map_iterator_t map_insert(map_t* pt_map, const pair_t* cpt_pair)
 map_iterator_t map_insert_hint(map_t* pt_map, map_iterator_t t_hint, const pair_t* cpt_pair)
 {
     assert(pt_map != NULL && cpt_pair != NULL);
+
+    /* set key less function and value less function */
+    ((pair_t*)cpt_pair)->_t_mapkeyless = pt_map->_t_keyless;
+    ((pair_t*)cpt_pair)->_t_mapvalueless = pt_map->_t_valueless;
+
     assert(_map_same_pair_type(&pt_map->_t_pair, cpt_pair));
 
 #ifdef CSTL_MAP_AVL_TREE
@@ -924,7 +956,9 @@ static bool_t _map_same_pair_type(
            (cpt_pairfirst->_t_typeinfosecond._pt_type ==
             cpt_pairsecond->_t_typeinfosecond._pt_type) &&
            (cpt_pairfirst->_t_typeinfosecond._t_style ==
-            cpt_pairsecond->_t_typeinfosecond._t_style);
+            cpt_pairsecond->_t_typeinfosecond._t_style) &&
+           (cpt_pairfirst->_t_mapkeyless == cpt_pairsecond->_t_mapkeyless) &&
+           (cpt_pairfirst->_t_mapvalueless == cpt_pairsecond->_t_mapvalueless);
 }
 #endif /* NDEBUG */
 
@@ -941,10 +975,18 @@ static void _map_key_less(const void* cpv_first, const void* cpv_second, void* p
     assert(_map_same_pair_type(pt_first, pt_second));
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-        pt_first->_pv_first, pt_second->_pv_first, pv_output);
+    if(pt_first->_t_mapkeyless != NULL) /* the external key compare */
+    {
+        pt_first->_t_mapkeyless(pt_first->_pv_first, pt_second->_pv_first, pv_output);
+    }
+    else
+    {
+        pt_first->_t_typeinfofirst._pt_type->_t_typeless(
+            pt_first->_pv_first, pt_second->_pv_first, pv_output);
+    }
 }
 
+/*
 static void _map_value_less(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     pair_t* pt_first = NULL;
@@ -958,9 +1000,17 @@ static void _map_value_less(const void* cpv_first, const void* cpv_second, void*
     assert(_map_same_pair_type(pt_first, pt_second));
 
     *(bool_t*)pv_output = pt_first->_t_typeinfosecond._pt_type->_t_typesize;
-    pt_first->_t_typeinfosecond._pt_type->_t_typeless(
-        pt_first->_pv_second, pt_second->_pv_second, pv_output);
+    if(pt_first->_t_mapvalueless != NULL)
+    {
+        pt_first->_t_mapvalueless(pt_first->_pv_second, pt_second->_pv_second, pv_output);
+    }
+    else
+    {
+        pt_first->_t_typeinfosecond._pt_type->_t_typeless(
+            pt_first->_pv_second, pt_second->_pv_second, pv_output);
+    }
 }
+*/
 
 /** eof **/
 
