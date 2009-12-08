@@ -252,6 +252,9 @@ void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
     _GET_PAIR_SECOND_TYPE_COPY_FUNCTION(pt_pairdest)(
         pt_pairdest->_pv_second, cpt_pairsrc->_pv_second, &t_result);
     assert(t_result);
+
+    pt_pairdest->_t_mapkeyless = cpt_pairsrc->_t_mapkeyless;
+    pt_pairdest->_t_mapvalueless = cpt_pairsrc->_t_mapvalueless;
 }
 
 void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
@@ -272,6 +275,9 @@ void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
     _GET_PAIR_SECOND_TYPE_COPY_FUNCTION(pt_pairdest)(
         pt_pairdest->_pv_second, cpt_pairsrc->_pv_second, &t_result);
     assert(t_result);
+
+    pt_pairdest->_t_mapkeyless = cpt_pairsrc->_t_mapkeyless;
+    pt_pairdest->_t_mapvalueless = cpt_pairsrc->_t_mapvalueless;
 }
 
 void* pair_first(const pair_t* cpt_pair)

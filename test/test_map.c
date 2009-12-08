@@ -22,9 +22,26 @@
 
 /** include section **/
 #include "cmap.h"
+#include "cfunctional.h"
 #include "test_map.h"
 
 /** local constant declaration and local macro section **/
+#define _print_map_c(pt_map, fmt, key_type, value_type)\
+    do{\
+        iterator_t t_iter;\
+        printf("=======================================\n");\
+        printf("empty: %u, size: %u, max_size: %u\n",\
+            map_empty(pt_map), map_size(pt_map), map_max_size(pt_map));\
+        for(t_iter = map_begin(pt_map);\
+            !iterator_equal(t_iter, map_end(pt_map));\
+            t_iter = iterator_next(t_iter))\
+        {\
+            printf(fmt,\
+                *(key_type*)pair_first((pair_t*)iterator_get_pointer(t_iter)),\
+                *(value_type*)pair_second((pair_t*)iterator_get_pointer(t_iter)));\
+        }\
+        printf("\n");\
+    }while(false)
 
 /** local data type declaration and local struct, union, enum section **/
 
@@ -41,10 +58,47 @@ void test_map(void)
     {
         /*create_map            */
         {
-
+            map_t* pt_map = create_map(int, double);
+            pair_t* pt_pair = create_pair(int, double);
+            if(pt_map == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            map_init(pt_map);
+            pair_init(pt_pair);
+            _print_map_c(pt_map, "<key: %d, value: %lf>, ", int, double);
+            pair_make(pt_pair, 1223, 90.22);
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, 42, 23094.222);
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, -45, 23.00);
+            map_insert(pt_map, pt_pair);
+            _print_map_c(pt_map, "<key: %d, value: %lf>, ", int, double);
+            map_destroy(pt_map);
+            pair_destroy(pt_pair);
         }
         /*map_init              */
         /*map_init_ex           */
+        {
+            map_t* pt_map = create_map(int, double);
+            pair_t* pt_pair = create_pair(int, double);
+            if(pt_map == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            map_init_ex(pt_map, fun_great_int);
+            pair_init(pt_pair);
+            _print_map_c(pt_map, "<key: %d, value: %lf>, ", int, double);
+            pair_make(pt_pair, 1223, 90.22);
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, 42, 23094.222);
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, -45, 23.00);
+            map_insert(pt_map, pt_pair);
+            _print_map_c(pt_map, "<key: %d, value: %lf>, ", int, double);
+            map_destroy(pt_map);
+            pair_destroy(pt_pair);
+        }
         /*map_init_copy         */
         /*map_init_copy_range   */
         /*map_init_copy_range_ex*/
