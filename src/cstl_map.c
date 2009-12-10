@@ -321,7 +321,6 @@ void map_destroy(map_t* pt_map)
 void map_init_copy(map_t* pt_mapdest, const map_t* cpt_mapsrc)
 {
     assert(pt_mapdest != NULL && cpt_mapsrc != NULL);
-    assert(_map_same_pair_type(&pt_mapdest->_t_pair, &cpt_mapsrc->_t_pair));
 
     /* initialize dest map with src map attribute */
     map_init(pt_mapdest);
@@ -329,6 +328,8 @@ void map_init_copy(map_t* pt_mapdest, const map_t* cpt_mapsrc)
     pt_mapdest->_t_valueless = cpt_mapsrc->_t_valueless;
     pt_mapdest->_t_pair._t_mapkeyless = cpt_mapsrc->_t_pair._t_mapkeyless;
     pt_mapdest->_t_pair._t_mapvalueless = cpt_mapsrc->_t_pair._t_mapvalueless;
+
+    assert(_map_same_pair_type(&pt_mapdest->_t_pair, &cpt_mapsrc->_t_pair));
     /* insert all element from src to dest */
     if(!map_empty(cpt_mapsrc))
     {
@@ -899,6 +900,10 @@ void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
 #else
     t_iter = _rb_tree_insert_unique(&pt_map->_t_tree, &pt_map->_t_pair);
 #endif
+
+    _GET_CONTAINER(t_iter) = pt_map;
+    _GET_MAP_CONTAINER_TYPE(t_iter) = _MAP_CONTAINER;
+    _GET_MAP_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
 
     if(iterator_equal(t_iter, map_end(pt_map)))
     {
