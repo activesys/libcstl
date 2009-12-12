@@ -982,7 +982,7 @@ static void _map_key_less(const void* cpv_first, const void* cpv_second, void* p
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
     if(pt_first->_t_mapkeyless != NULL) /* the external key compare */
     {
-        pt_first->_t_mapkeyless(pt_first->_pv_first, pt_second->_pv_first, pv_output);
+        pt_first->_t_mapkeyless(pair_first(pt_first), pair_first(pt_second), pv_output);
     }
     else
     {

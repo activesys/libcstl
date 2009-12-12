@@ -77,8 +77,10 @@ static void _mapvalue_destroy(const void* cpv_input, void* pv_output);
 
 static void _print_map_user(const map_t* cpt_map);
 static void _print_map_cstl(const map_t* cpt_map);
+static void _print_map_cstr(const map_t* cpt_map);
 static void _mapkey_number_great(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _mapkey_pair_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _mapkey_cstr_len_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -3802,45 +3804,225 @@ void test_map(void)
     }
     /* c-string types */
     {
+        /*create_map            */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_map == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            map_init(pt_map);
+            pair_init(pt_pair);
+            pair_make(pt_pair, "China", "ShenYang");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "UK", "London");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "USA", "NewYork");
+            map_insert(pt_map, pt_pair);
+            _print_map_cstr(pt_map);
+            map_destroy(pt_map);
+            pair_destroy(pt_pair);
+        }
+        /*map_init              */
+        /*map_init_ex           */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_map == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            map_init_ex(pt_map, _mapkey_cstr_len_less);
+            pair_init(pt_pair);
+            pair_make(pt_pair, "China", "ShenYang");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "UK", "London");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "USA", "NewYork");
+            map_insert(pt_map, pt_pair);
+            _print_map_cstr(pt_map);
+            map_destroy(pt_map);
+            pair_destroy(pt_pair);
+        }
+        /*map_init_copy         */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            map_t* pt_mapex = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_map == NULL || pt_mapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            map_init_ex(pt_mapex, _mapkey_cstr_len_less);
+            pair_init(pt_pair);
+
+            pair_make(pt_pair, "Real world", "In producing this document");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            map_insert(pt_mapex, pt_pair);
+
+            map_init_copy(pt_map, pt_mapex);
+
+            _print_map_cstr(pt_map);
+            map_destroy(pt_map);
+            map_destroy(pt_mapex);
+            pair_destroy(pt_pair);
+        }
+        /*map_init_copy_range   */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            map_t* pt_mapex = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_map == NULL || pt_mapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            map_init_ex(pt_mapex, _mapkey_cstr_len_less);
+            pair_init(pt_pair);
+
+            pair_make(pt_pair, "Real world", "In producing this document");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            map_insert(pt_mapex, pt_pair);
+            _print_map_cstr(pt_mapex);
+
+            map_init_copy_range(pt_map, map_begin(pt_mapex), map_end(pt_mapex));
+
+            _print_map_cstr(pt_map);
+            map_destroy(pt_map);
+            map_destroy(pt_mapex);
+            pair_destroy(pt_pair);
+        }
+        /*map_init_copy_range_ex*/
+        {
+            map_t* pt_map = create_map(char*, char*);
+            map_t* pt_mapex = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_map == NULL || pt_mapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            map_init(pt_mapex);
+            pair_init(pt_pair);
+
+            pair_make(pt_pair, "Real world", "In producing this document");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            map_insert(pt_mapex, pt_pair);
+            _print_map_cstr(pt_mapex);
+
+            map_init_copy_range_ex(pt_map, map_begin(pt_mapex),
+                map_end(pt_mapex), _mapkey_cstr_len_less);
+
+            _print_map_cstr(pt_map);
+            map_destroy(pt_map);
+            map_destroy(pt_mapex);
+            pair_destroy(pt_pair);
+        }
+        /*map_destroy           */
+        /*map_assign            */
+        /*map_swap              */
+        /*map_size              */
+        /*map_empty             */
+        /*map_max_size          */
+        /*map_key_less          */
+        /*map_value_less        */
+        /*map_clear             */
+        /*map_equal             */
+        /*map_not_equal         */
+        /*map_less              */
+        /*map_less_equal        */
+        /*map_great             */
+        /*map_great_equal       */
+        /*map_begin             */
+        /*map_end               */
+        /*map_find              */
+        /*map_count             */
+        /*map_lower_bound       */
+        /*map_upper_bound       */
+        /*map_equal_range       */
+        /*map_at                */
+        /*map_insert            */
+        /*map_insert_hint       */
+        /*map_insert_range      */
+        /*map_erase             */
+        /*map_erase_pos         */
+        /*map_erase_range       */
     }
-    /*create_map            */
-    /*map_init              */
-    /*map_init_ex           */
-    /*map_init_copy         */
-    /*map_init_copy_range   */
-    /*map_init_copy_range_ex*/
-    /*map_destroy           */
-    /*map_assign            */
-    /*map_swap              */
-    /*map_size              */
-    /*map_empty             */
-    /*map_max_size          */
-    /*map_key_less          */
-    /*map_value_less        */
-    /*map_clear             */
-    /*map_equal             */
-    /*map_not_equal         */
-    /*map_less              */
-    /*map_less_equal        */
-    /*map_great             */
-    /*map_great_equal       */
-    /*map_begin             */
-    /*map_end               */
-    /*map_find              */
-    /*map_count             */
-    /*map_lower_bound       */
-    /*map_upper_bound       */
-    /*map_equal_range       */
-    /*map_at                */
-    /*map_insert            */
-    /*map_insert_hint       */
-    /*map_insert_range      */
-    /*map_erase             */
-    /*map_erase_pos         */
-    /*map_erase_range       */
 }
 
 /** local function implementation section **/
+static void _mapkey_cstr_len_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strlen((char*)cpv_first) < strlen((char*)cpv_second))
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _print_map_cstr(const map_t* cpt_map)
+{
+    pair_t* pt_pair = NULL;
+
+    iterator_t t_iter;
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        map_empty(cpt_map), map_size(cpt_map), map_max_size(cpt_map));
+
+    for(t_iter = map_begin(cpt_map);
+        !iterator_equal(t_iter, map_end(cpt_map));
+        t_iter = iterator_next(t_iter))
+    {
+        pt_pair = (pair_t*)iterator_get_pointer(t_iter);
+        assert(pt_pair != NULL);
+        printf("<%s, %s>\n", (char*)pair_first(pt_pair), (char*)pair_second(pt_pair));
+    }
+}
+
 static void _mapkey_pair_great(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
