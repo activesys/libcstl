@@ -3960,23 +3960,263 @@ void test_map(void)
         }
         /*map_destroy           */
         /*map_assign            */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            map_t* pt_mapex = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_map == NULL || pt_mapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            map_init(pt_map);
+            map_init(pt_mapex);
+            pair_init(pt_pair);
+            map_assign(pt_map, pt_mapex);
+            _print_map_cstr(pt_map);
+
+            pair_make(pt_pair, "Real world", "In producing this document");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            map_insert(pt_mapex, pt_pair);
+            map_assign(pt_map, pt_mapex);
+            _print_map_cstr(pt_map);
+
+            map_clear(pt_mapex);
+            pair_make(pt_pair, "Test set up", "The");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            map_insert(pt_mapex, pt_pair);
+            map_assign(pt_map, pt_mapex);
+            _print_map_cstr(pt_map);
+
+            map_clear(pt_mapex);
+            map_assign(pt_map, pt_mapex);
+            _print_map_cstr(pt_map);
+
+            map_destroy(pt_map);
+            map_destroy(pt_mapex);
+            pair_destroy(pt_pair);
+        }
         /*map_swap              */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            map_t* pt_mapex = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_map == NULL || pt_map == NULL || pt_mapex == NULL)
+            {
+                return;
+            }
+            map_init(pt_map);
+            map_init(pt_mapex);
+            pair_init(pt_pair);
+
+            map_swap(pt_map, pt_mapex);
+            _print_map_cstr(pt_map);
+            _print_map_cstr(pt_mapex);
+
+            pair_make(pt_pair, "Test set up", "The");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            map_insert(pt_mapex, pt_pair);
+            map_swap(pt_map, pt_mapex);
+            _print_map_cstr(pt_map);
+            _print_map_cstr(pt_mapex);
+
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            map_insert(pt_mapex, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            map_insert(pt_mapex, pt_pair);
+            map_swap(pt_map, pt_mapex);
+            _print_map_cstr(pt_map);
+            _print_map_cstr(pt_mapex);
+
+            map_clear(pt_mapex);
+            map_swap(pt_map, pt_mapex);
+            _print_map_cstr(pt_map);
+            _print_map_cstr(pt_mapex);
+
+            map_destroy(pt_map);
+            map_destroy(pt_mapex);
+            pair_destroy(pt_pair);
+        }
         /*map_size              */
         /*map_empty             */
         /*map_max_size          */
         /*map_key_less          */
         /*map_value_less        */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            if(pt_map == NULL)
+            {
+                return;
+            }
+            map_init_ex(pt_map, _mapkey_cstr_len_less);
+            assert(map_key_less(pt_map) == _mapkey_cstr_len_less &&
+                map_key_less(pt_map) != map_value_less(pt_map));
+            map_destroy(pt_map);
+        }
         /*map_clear             */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_map == NULL)
+            {
+                return;
+            }
+            map_init(pt_map);
+            pair_init(pt_pair);
+            map_clear(pt_map);
+            _print_map_cstr(pt_map);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            map_insert(pt_map, pt_pair);
+            _print_map_cstr(pt_map);
+            map_clear(pt_map);
+            _print_map_cstr(pt_map);
+            map_destroy(pt_map);
+            pair_destroy(pt_pair);
+        }
         /*map_equal             */
         /*map_not_equal         */
         /*map_less              */
         /*map_less_equal        */
         /*map_great             */
         /*map_great_equal       */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            map_t* pt_mapex = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_map == NULL || pt_map == NULL || pt_mapex == NULL)
+            {
+                return;
+            }
+            map_init(pt_map);
+            map_init(pt_mapex);
+            pair_init(pt_pair);
+
+            _print_map_cstr(pt_map);
+            _print_map_cstr(pt_mapex);
+            printf("equal: %d, not equal: %d, ",
+                map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
+            printf("less: %d, less equal: %d, ",
+                map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
+            printf("great: %d, great equal: %d\n",
+                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+
+            pair_make(pt_pair, "Test set up", "The");
+            map_insert(pt_map, pt_pair);
+            _print_map_cstr(pt_map);
+            _print_map_cstr(pt_mapex);
+            printf("equal: %d, not equal: %d, ",
+                map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
+            printf("less: %d, less equal: %d, ",
+                map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
+            printf("great: %d, great equal: %d\n",
+                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+
+            map_insert(pt_mapex, pt_pair);
+            _print_map_cstr(pt_map);
+            _print_map_cstr(pt_mapex);
+            printf("equal: %d, not equal: %d, ",
+                map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
+            printf("less: %d, less equal: %d, ",
+                map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
+            printf("great: %d, great equal: %d\n",
+                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            map_insert(pt_mapex, pt_pair);
+            _print_map_cstr(pt_map);
+            _print_map_cstr(pt_mapex);
+            printf("equal: %d, not equal: %d, ",
+                map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
+            printf("less: %d, less equal: %d, ",
+                map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
+            printf("great: %d, great equal: %d\n",
+                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+
+            map_destroy(pt_map);
+            map_destroy(pt_mapex);
+            pair_destroy(pt_pair);
+        }
         /*map_begin             */
         /*map_end               */
         /*map_find              */
         /*map_count             */
+        {
+            map_t* pt_map = create_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            iterator_t t_iter;
+            if(pt_map == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            map_init(pt_map);
+            pair_init(pt_pair);
+
+            t_iter = map_find(pt_map, "abcdefg");
+            if(iterator_equal(t_iter, map_end(pt_map)))
+            {
+                printf("not found, count: %u\n", map_count(pt_map, "abcdefg"));
+            }
+            else
+            {
+                printf("found, count: %u\n", map_count(pt_map, "abcdefg"));
+            }
+
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            map_insert(pt_map, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            map_insert(pt_map, pt_pair);
+            t_iter = map_find(pt_map, "abcdefg");
+            if(iterator_equal(t_iter, map_end(pt_map)))
+            {
+                printf("not found, count: %u\n", map_count(pt_map, "abcdefg"));
+            }
+            else
+            {
+                printf("found, count: %u\n", map_count(pt_map, "abcdefg"));
+            }
+            t_iter = map_find(pt_map, "is");
+            if(iterator_equal(t_iter, map_end(pt_map)))
+            {
+                printf("not found, count: %u\n", map_count(pt_map, "is"));
+            }
+            else
+            {
+                printf("found, count: %u\n", map_count(pt_map, "is"));
+            }
+
+            map_destroy(pt_map);
+            pair_destroy(pt_pair);
+        }
         /*map_lower_bound       */
         /*map_upper_bound       */
         /*map_equal_range       */
