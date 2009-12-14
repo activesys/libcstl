@@ -94,8 +94,10 @@ static bool_t _multimap_same_pair_type(
 /* default element less function for multimap_t */
 static void _multimap_key_less(
     const void* cpv_first, const void* cpv_second, void* pv_output);
+/*
 static void _multimap_value_less(
     const void* cpv_first, const void* cpv_second, void* pv_output);
+*/
 
 /** exported global variable definition section **/
 
@@ -231,6 +233,9 @@ multimap_t* _create_multimap(const char* s_typename)
         return NULL;
     }
 
+    pt_newmultimap->_t_keyless = NULL;
+    pt_newmultimap->_t_valueless = NULL;
+
     return pt_newmultimap;
 }
 
@@ -279,17 +284,17 @@ void multimap_init(multimap_t* pt_multimap)
 
 void multimap_init_ex(multimap_t* pt_multimap, binary_function_t t_key_less)
 {
-    binary_function_t t_less = NULL;
-
     assert(pt_multimap != NULL);
 
-    t_less = t_key_less != NULL ? t_key_less : _multimap_key_less;
+    /*t_less = t_key_less != NULL ? t_key_less : _multimap_key_less;*/
+    pt_multimap->_t_keyless = t_key_less;
+    pt_multimap->_t_pair._t_mapkeyless = t_key_less;
 
     pair_init(&pt_multimap->_t_pair);
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    _avl_tree_init(&pt_multimap->_t_tree, t_less);
+    _avl_tree_init(&pt_multimap->_t_tree, _multimap_key_less);
 #else
-    _rb_tree_init(&pt_multimap->_t_tree, t_less);
+    _rb_tree_init(&pt_multimap->_t_tree, _multimap_key_less);
 #endif
 }
 
@@ -303,6 +308,9 @@ void _multimap_destroy_auxiliary(multimap_t* pt_multimap)
 #else
     _rb_tree_destroy_auxiliary(&pt_multimap->_t_tree);
 #endif
+
+    pt_multimap->_t_keyless = NULL;
+    pt_multimap->_t_valueless = NULL;
 }
 
 void multimap_destroy(multimap_t* pt_multimap)
@@ -314,10 +322,15 @@ void multimap_destroy(multimap_t* pt_multimap)
 void multimap_init_copy(multimap_t* pt_multimapdest, const multimap_t* cpt_multimapsrc)
 {
     assert(pt_multimapdest != NULL && cpt_multimapsrc != NULL);
-    assert(_multimap_same_pair_type(&pt_multimapdest->_t_pair, &cpt_multimapsrc->_t_pair));
 
     /* initialize dest multimap with src multimap attribute */
     multimap_init(pt_multimapdest);
+    pt_multimapdest->_t_keyless = cpt_multimapsrc->_t_keyless;
+    pt_multimapdest->_t_valueless = cpt_multimapsrc->_t_valueless;
+    pt_multimapdest->_t_pair._t_mapkeyless = cpt_multimapsrc->_t_pair._t_mapkeyless;
+    pt_multimapdest->_t_pair._t_mapvalueless = cpt_multimapsrc->_t_pair._t_mapvalueless;
+
+    assert(_multimap_same_pair_type(&pt_multimapdest->_t_pair, &cpt_multimapsrc->_t_pair));
     /* insert all element from src to dest */
     if(!multimap_empty(cpt_multimapsrc))
     {
@@ -431,18 +444,28 @@ binary_function_t multimap_key_less(const multimap_t* cpt_multimap)
 {
     assert(cpt_multimap != NULL);
 
-    return cpt_multimap->_t_tree._t_less;
+    if(cpt_multimap->_t_keyless != NULL)
+    {
+        return cpt_multimap->_t_keyless;
+    }
+    else
+    {
+        return _GET_MULTIMAP_FIRST_TYPE_LESS_FUNCTION(cpt_multimap);
+    }
 }
 
 binary_function_t multimap_value_less(const multimap_t* cpt_multimap)
 {
-#ifdef NDEBUG
-    multimap_t* pt_avoidwarning = NULL;
-    pt_avoidwarning = (multimap_t*)cpt_multimap;
-#endif
     assert(cpt_multimap != NULL);
 
-    return _multimap_value_less;
+    if(cpt_multimap->_t_valueless != NULL)
+    {
+        return cpt_multimap->_t_valueless;
+    }
+    else
+    {
+        return _GET_MULTIMAP_SECOND_TYPE_LESS_FUNCTION(cpt_multimap);
+    }
 }
 
 void multimap_clear(multimap_t* pt_multimap)
@@ -484,6 +507,7 @@ bool_t multimap_less(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
+    assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_less(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -496,6 +520,7 @@ bool_t multimap_less_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
+    assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_less_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -508,6 +533,7 @@ bool_t multimap_great(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
+    assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_great(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -520,6 +546,7 @@ bool_t multimap_great_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
+    assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_great_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -750,6 +777,10 @@ multimap_iterator_t multimap_insert(
     multimap_iterator_t t_iterator;
 
     assert(pt_multimap != NULL && cpt_pair != NULL);
+
+    ((pair_t*)cpt_pair)->_t_mapkeyless = pt_multimap->_t_keyless;
+    ((pair_t*)cpt_pair)->_t_mapvalueless = pt_multimap->_t_valueless;
+
     assert(_multimap_same_pair_type(&pt_multimap->_t_pair, cpt_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
@@ -769,6 +800,10 @@ multimap_iterator_t multimap_insert_hint(
     multimap_t* pt_multimap, multimap_iterator_t t_hint, const pair_t* cpt_pair)
 {
     assert(pt_multimap != NULL && cpt_pair != NULL);
+
+    ((pair_t*)cpt_pair)->_t_mapkeyless = pt_multimap->_t_keyless;
+    ((pair_t*)cpt_pair)->_t_mapvalueless = pt_multimap->_t_valueless;
+
     assert(_multimap_same_pair_type(&pt_multimap->_t_pair, cpt_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
@@ -898,7 +933,9 @@ static bool_t _multimap_same_pair_type(
            (cpt_pairfirst->_t_typeinfosecond._pt_type ==
             cpt_pairsecond->_t_typeinfosecond._pt_type) &&
            (cpt_pairfirst->_t_typeinfosecond._t_style ==
-            cpt_pairsecond->_t_typeinfosecond._t_style);
+            cpt_pairsecond->_t_typeinfosecond._t_style) &&
+           (cpt_pairfirst->_t_mapkeyless == cpt_pairsecond->_t_mapkeyless) &&
+           (cpt_pairfirst->_t_mapvalueless == cpt_pairsecond->_t_mapvalueless);
 }
 #endif /* NDEBUG */
 
@@ -916,10 +953,18 @@ static void _multimap_key_less(
     assert(_multimap_same_pair_type(pt_first, pt_second));
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-        pt_first->_pv_first, pt_second->_pv_first, pv_output);
+    if(pt_first->_t_mapkeyless != NULL)
+    {
+        pt_first->_t_mapkeyless(pair_first(pt_first), pair_first(pt_second), pv_output);
+    }
+    else
+    {
+        pt_first->_t_typeinfofirst._pt_type->_t_typeless(
+            pt_first->_pv_first, pt_second->_pv_first, pv_output);
+    }
 }
 
+/*
 static void _multimap_value_less(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -937,6 +982,7 @@ static void _multimap_value_less(
     pt_first->_t_typeinfosecond._pt_type->_t_typeless(
         pt_first->_pv_second, pt_second->_pv_second, pv_output);
 }
+*/
 
 /** eof **/
 

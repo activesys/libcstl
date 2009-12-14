@@ -87,7 +87,9 @@ int main(int argc, char* argv[])
     printf("========== test multiset_t =======\n");
     /*test_multiset();*/
     printf("========== test map_t  ==========\n");
-    test_map();
+    /*test_map();*/
+    printf("========== test multimap_t  ==========\n");
+    test_multimap();
     printf("========== test string_t  ==========\n");
     /*test_string(argc, argv);*/
     /*test_string_getline(); */

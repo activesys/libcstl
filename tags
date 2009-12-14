@@ -44,7 +44,7 @@ _APS_NEXT_CONTROL_VALUE	build-win/resource.h	11;"	d
 _APS_NEXT_RESOURCE_VALUE	build-win/resource.h	9;"	d
 _APS_NEXT_SYMED_VALUE	build-win/resource.h	12;"	d
 _AVL_TREE_NODE_SIZE	src/cstl_avl_tree.c	39;"	d	file:
-_B	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
+_B	test/test_map.c	/^    _ERR, _B, _KB, _MB$/;"	e	enum:_tagunits	file:
 _BASIC_STRING_CONTAINER	include/cstl_iterator.h	/^    _BASIC_STRING_CONTAINER$/;"	e	enum:_tagcontainertype
 _BASIC_STRING_IDENTIFY	include/cstl_types.h	168;"	d
 _BASIC_STRING_ITERATOR_NAME	include/cstl_types.h	171;"	d
@@ -61,7 +61,6 @@ _CHASH_MAP_H	include/chash_map.h	24;"	d
 _CHASH_SET_H	include/chash_set.h	24;"	d
 _CITERATOR_H	include/citerator.h	24;"	d
 _CLIST_H	include/clist.h	24;"	d
-_CM	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
 _CMAP_H	include/cmap.h	24;"	d
 _CNUMERIC_H	include/cnumeric.h	24;"	d
 _CQUEUE_H	include/cqueue.h	24;"	d
@@ -150,11 +149,12 @@ _DEQUE_TYPE	include/cstl_types.h	78;"	d
 _DIVIDES_FUN	include/cstl_function_private.h	/^    _DIVIDES_FUN,$/;"	e	enum:_tagfunbinarytype
 _DOUBLE_TYPE	include/cstl_types.h	68;"	d
 _ENUM_TYPE	include/cstl_types.h	116;"	d
+_ENV_AND_COND_LEN	test/test_map.c	63;"	d	file:
 _EQUAL_FUN	include/cstl_function_private.h	/^    _EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
+_ERR	test/test_map.c	/^    _ERR, _B, _KB, _MB$/;"	e	enum:_tagunits	file:
 _FLOAT_TYPE	include/cstl_types.h	67;"	d
 _FORWARD_ITERATOR	include/cstl_iterator.h	/^    _FORWARD_ITERATOR,$/;"	e	enum:_tagiteratortype
 _FORWARD_ITERATOR_TYPE	include/cstl_types.h	109;"	d
-_GB	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
 _GET_AVL_TREE	include/cstl_iterator.h	78;"	d
 _GET_AVL_TREE_COREPOS	include/cstl_iterator.h	76;"	d
 _GET_AVL_TREE_POINTER	include/cstl_iterator.h	80;"	d
@@ -393,7 +393,6 @@ _GET_VECTOR_TYPE_SIZE	src/cstl_vector.c	44;"	d	file:
 _GET_VECTOR_TYPE_STYLE	src/cstl_vector.c	58;"	d	file:
 _GREAT_EQUAL_FUN	include/cstl_function_private.h	/^    _GREAT_EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
 _GREAT_FUN	include/cstl_function_private.h	/^    _GREAT_FUN,$/;"	e	enum:_tagfunbinarytype
-_H	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
 _HASHTABLE_DEFAULT_BUCKET_COUNT	src/cstl_hashtable.c	47;"	d	file:
 _HASHTABLE_NODE_NAME	src/cstl_hashtable.c	46;"	d	file:
 _HASHTABLE_NODE_SIZE	src/cstl_hashtable.c	43;"	d	file:
@@ -433,11 +432,7 @@ _INPUT_ITERATOR	include/cstl_iterator.h	/^    _INPUT_ITERATOR,$/;"	e	enum:_tagit
 _INPUT_ITERATOR_TYPE	include/cstl_types.h	107;"	d
 _INT_TYPE	include/cstl_types.h	52;"	d
 _ITERATOR_TYPE	include/cstl_types.h	93;"	d
-_KB	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
-_KBpreS	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
-_KG	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
-_KM	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
-_KMpreH	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
+_KB	test/test_map.c	/^    _ERR, _B, _KB, _MB$/;"	e	enum:_tagunits	file:
 _LESS_EQUAL_FUN	include/cstl_function_private.h	/^    _LESS_EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
 _LESS_FUN	include/cstl_function_private.h	/^    _LESS_FUN,$/;"	e	enum:_tagfunbinarytype
 _LEX_ACCEPT	src/cstl_types.c	/^    _LEX_START, _LEX_IN_IDENTIFIER, _LEX_ACCEPT$/;"	e	enum:_tagtypelex	file:
@@ -462,7 +457,7 @@ _MAP_LEFT_BRACKET	include/cstl_types.h	135;"	d
 _MAP_RIGHT_BRACKET	include/cstl_types.h	136;"	d
 _MAP_TYPE	include/cstl_types.h	83;"	d
 _MAX_SMALL_MEM_SIZE	include/cstl_alloc.h	36;"	d
-_MB	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
+_MB	test/test_map.c	/^    _ERR, _B, _KB, _MB$/;"	e	enum:_tagunits	file:
 _MEMLIST_INDEX	include/cstl_alloc.h	44;"	d
 _MEM_BLOCK_COUNT	include/cstl_alloc.h	38;"	d
 _MEM_LIST_COUNT	include/cstl_alloc.h	37;"	d
@@ -485,7 +480,6 @@ _MULTISET_ITERATOR_TYPE	include/cstl_types.h	100;"	d
 _MULTISET_LEFT_BRACKET	include/cstl_types.h	130;"	d
 _MULTISET_RIGHT_BRACKET	include/cstl_types.h	131;"	d
 _MULTISET_TYPE	include/cstl_types.h	84;"	d
-_MpreS	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
 _NEGATE_FUN	include/cstl_function_private.h	/^    _NEGATE_FUN,$/;"	e	enum:_tagfununarytype
 _NOT_EQUAL_FUN	include/cstl_function_private.h	/^    _NOT_EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
 _OUTPUT_ITERATOR	include/cstl_iterator.h	/^    _OUTPUT_ITERATOR,$/;"	e	enum:_tagiteratortype
@@ -502,7 +496,6 @@ _RANDOM_ACCESS_ITERATOR_TYPE	include/cstl_types.h	111;"	d
 _RANDOM_NUMBER_FUN	include/cstl_function_private.h	/^    _RANDOM_NUMBER_FUN$/;"	e	enum:_tagfununarytype
 _RB_TREE_NODE_SIZE	src/cstl_rb_tree.c	39;"	d	file:
 _ROUND_UP	include/cstl_alloc.h	42;"	d
-_S	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
 _SET_CONTAINER	include/cstl_iterator.h	/^    _SET_CONTAINER,$/;"	e	enum:_tagcontainertype
 _SET_IDENTIFY	include/cstl_types.h	124;"	d
 _SET_ITERATOR_NAME	include/cstl_types.h	127;"	d
@@ -532,8 +525,6 @@ _STRING_CONTAINER	include/cstl_iterator.h	171;"	d
 _STRING_ITERATOR_TYPE	include/cstl_types.h	106;"	d
 _STRING_TYPE	include/cstl_types.h	90;"	d
 _STRUCT_TYPE	include/cstl_types.h	114;"	d
-_T	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
-_TB	test/test_map.c	/^    _KG, _KM, _S, _T, _MpreS, _CM, _H, _KMpreH, _B, _KB, _MB, _GB, _TB, _KBpreS$/;"	e	enum:_tagunits	file:
 _TEST_ALGOBASE_H	test/test_algobase.h	24;"	d
 _TEST_ALGO_H	test/test_algo.h	24;"	d
 _TEST_AVL_TREE_H	test/test_avl_tree.h	24;"	d
@@ -1635,16 +1626,29 @@ _map_upper_bound	include/cstl_map_private.h	/^extern map_iterator_t _map_upper_b
 _map_upper_bound	src/cstl_map.c	/^map_iterator_t _map_upper_bound(const map_t* cpt_map, ...)$/;"	f	signature:(const map_t* cpt_map, ...)
 _map_upper_bound_varg	include/cstl_map_private.h	/^extern map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpt_map, va_list val_elemlist)
 _map_upper_bound_varg	src/cstl_map.c	/^map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpt_map, va_list val_elemlist)
+_mapkey_copy	test/test_map.c	/^static void _mapkey_copy(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _mapkey_copy	test/test_map.c	/^static void _mapkey_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_mapkey_cstr_len_less	test/test_map.c	/^static void _mapkey_cstr_len_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_mapkey_cstr_len_less	test/test_map.c	/^static void _mapkey_cstr_len_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_mapkey_destroy	test/test_map.c	/^static void _mapkey_destroy(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _mapkey_destroy	test/test_map.c	/^static void _mapkey_destroy(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _mapkey_init	test/test_map.c	/^static void _mapkey_init(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _mapkey_init	test/test_map.c	/^static void _mapkey_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_mapkey_less	test/test_map.c	/^static void _mapkey_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _mapkey_less	test/test_map.c	/^static void _mapkey_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_mapkey_number_great	test/test_map.c	/^static void _mapkey_number_great(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_mapkey_number_great	test/test_map.c	/^static void _mapkey_number_great(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_mapkey_pair_great	test/test_map.c	/^static void _mapkey_pair_great(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_mapkey_pair_great	test/test_map.c	/^static void _mapkey_pair_great(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _mapkey_t	test/test_map.c	/^}_mapkey_t;$/;"	t	typeref:struct:_tagmapkey	file:
 _mappointer_t	include/cstl_deque_private.h	/^typedef char**  _mappointer_t;$/;"	t
+_mapvalue_copy	test/test_map.c	/^static void _mapvalue_copy(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _mapvalue_copy	test/test_map.c	/^static void _mapvalue_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_mapvalue_destroy	test/test_map.c	/^static void _mapvalue_destroy(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _mapvalue_destroy	test/test_map.c	/^static void _mapvalue_destroy(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_mapvalue_init	test/test_map.c	/^static void _mapvalue_init(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _mapvalue_init	test/test_map.c	/^static void _mapvalue_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_mapvalue_less	test/test_map.c	/^static void _mapvalue_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _mapvalue_less	test/test_map.c	/^static void _mapvalue_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _mapvalue_t	test/test_map.c	/^}_mapvalue_t;$/;"	t	typeref:struct:_tagmapvalue	file:
 _median_of_three_if	src/cstl_algo.c	/^static random_access_iterator_t _median_of_three_if($/;"	f	file:	signature:( random_access_iterator_t t_first, random_access_iterator_t t_middle, random_access_iterator_t t_last, binary_function_t t_binary_op)
@@ -1700,8 +1704,6 @@ _multimap_upper_bound	include/cstl_multimap_private.h	/^extern multimap_iterator
 _multimap_upper_bound	src/cstl_multimap.c	/^multimap_iterator_t _multimap_upper_bound(const multimap_t* cpt_multimap, ...)$/;"	f	signature:(const multimap_t* cpt_multimap, ...)
 _multimap_upper_bound_varg	include/cstl_multimap_private.h	/^extern multimap_iterator_t _multimap_upper_bound_varg($/;"	p	signature:( const multimap_t* cpt_multimap, va_list val_elemlist)
 _multimap_upper_bound_varg	src/cstl_multimap.c	/^multimap_iterator_t _multimap_upper_bound_varg($/;"	f	signature:( const multimap_t* cpt_multimap, va_list val_elemlist)
-_multimap_value_less	src/cstl_multimap.c	/^static void _multimap_value_less($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
-_multimap_value_less	src/cstl_multimap.c	/^static void _multimap_value_less($/;"	p	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _multiset_count	include/cstl_multiset_private.h	/^extern size_t _multiset_count(const multiset_t* cpt_multiset, ...);$/;"	p	signature:(const multiset_t* cpt_multiset, ...)
 _multiset_count	src/cstl_multiset.c	/^size_t _multiset_count(const multiset_t* cpt_multiset, ...)$/;"	f	signature:(const multiset_t* cpt_multiset, ...)
 _multiset_count_varg	include/cstl_multiset_private.h	/^extern size_t _multiset_count_varg(const multiset_t* cpt_multiset, va_list val_elemlist);$/;"	p	signature:(const multiset_t* cpt_multiset, va_list val_elemlist)
@@ -1812,7 +1814,14 @@ _print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_
 _print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_deque);$/;"	p	file:	signature:(const deque_t* pt_deque)
 _print_list_str	test/test_list.c	/^static void _print_list_str(const list_t* cpt_list)$/;"	f	file:	signature:(const list_t* cpt_list)
 _print_list_str	test/test_list.c	/^static void _print_list_str(const list_t* cpt_list);$/;"	p	file:	signature:(const list_t* cpt_list)
-_print_map_c	test/test_map.c	29;"	d	file:
+_print_map_c	test/test_map.c	30;"	d	file:
+_print_map_cstl	test/test_map.c	/^static void _print_map_cstl(const map_t* cpt_map)$/;"	f	file:	signature:(const map_t* cpt_map)
+_print_map_cstl	test/test_map.c	/^static void _print_map_cstl(const map_t* cpt_map);$/;"	p	file:	signature:(const map_t* cpt_map)
+_print_map_cstr	test/test_map.c	/^static void _print_map_cstr(const map_t* cpt_map)$/;"	f	file:	signature:(const map_t* cpt_map)
+_print_map_cstr	test/test_map.c	/^static void _print_map_cstr(const map_t* cpt_map);$/;"	p	file:	signature:(const map_t* cpt_map)
+_print_map_user	test/test_map.c	/^static void _print_map_user(const map_t* cpt_map)$/;"	f	file:	signature:(const map_t* cpt_map)
+_print_map_user	test/test_map.c	/^static void _print_map_user(const map_t* cpt_map);$/;"	p	file:	signature:(const map_t* cpt_map)
+_print_mulitmap_c	test/test_map.c	46;"	d	file:
 _print_multiset_c	test/test_set.c	49;"	d	file:
 _print_multiset_cstr	test/test_set.c	/^static void _print_multiset_cstr(const multiset_t* cpt_mset)$/;"	f	file:	signature:(const multiset_t* cpt_mset)
 _print_multiset_cstr	test/test_set.c	/^static void _print_multiset_cstr(const multiset_t* cpt_mset);$/;"	p	file:	signature:(const multiset_t* cpt_mset)
@@ -2004,8 +2013,8 @@ _right_signal_rotate	src/cstl_avl_tree.c	/^static avlnode_t* _right_signal_rotat
 _rotate_forward	src/cstl_algo.c	/^static void _rotate_forward($/;"	f	file:	signature:( forward_iterator_t t_first, forward_iterator_t t_middle, forward_iterator_t t_last)
 _rotate_forward	src/cstl_algo.c	/^static void _rotate_forward($/;"	p	file:	signature:( forward_iterator_t t_first, forward_iterator_t t_middle, forward_iterator_t t_last)
 _s_city	test/test_queue.c	/^    char _s_city[31];$/;"	m	struct:_tagweather	file:	access:public
-_s_condition	test/test_map.c	/^    char[20] _s_condition;$/;"	m	struct:_tagmapvalue	file:	access:public
-_s_enviroment	test/test_map.c	/^    char[20] _s_enviroment;$/;"	m	struct:_tagmapvalue	file:	access:public
+_s_condition	test/test_map.c	/^    char _s_condition[_ENV_AND_COND_LEN];$/;"	m	struct:_tagmapvalue	file:	access:public
+_s_enviroment	test/test_map.c	/^    char _s_enviroment[_ENV_AND_COND_LEN];$/;"	m	struct:_tagmapvalue	file:	access:public
 _sample_copy	test/test_pair.c	/^static void _sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _sample_copy	test/test_pair.c	/^static void _sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _sample_destory	test/test_pair.c	/^static void _sample_destory(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
@@ -2216,6 +2225,7 @@ _t_isinit	include/cstl_types.h	/^    bool_t               _t_isinit; \/* is init
 _t_iterator	include/cstl_rb_tree_private.h	/^        rb_tree_iterator_t _t_iterator;  \/* for equal_range *\/$/;"	m	union:_tagrbtreeresultpair::__anon5	access:public
 _t_iteratortype	include/cstl_iterator.h	/^    iteratortype_t  _t_iteratortype;$/;"	m	struct:_tagiterator	access:public
 _t_keyless	include/cstl_map_private.h	/^    binary_function_t _t_keyless;   \/* for init ex *\/$/;"	m	struct:_tagmap	access:public
+_t_keyless	include/cstl_multimap_private.h	/^    binary_function_t _t_keyless; \/* for init ex *\/$/;"	m	struct:_tagmultimap	access:public
 _t_less	include/cstl_avl_tree_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_tagavltree	access:public
 _t_less	include/cstl_hashtable_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_taghashtable	access:public
 _t_less	include/cstl_rb_tree_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_tagrbtree	access:public
@@ -2230,7 +2240,7 @@ _t_nodecount	include/cstl_rb_tree_private.h	/^    size_t            _t_nodecount
 _t_pair	include/cstl_hash_map_private.h	/^    pair_t      _t_pair;$/;"	m	struct:_taghashmap	access:public
 _t_pair	include/cstl_hash_multimap_private.h	/^    pair_t      _t_pair;$/;"	m	struct:_taghashmultimap	access:public
 _t_pair	include/cstl_map_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_tagmap	access:public
-_t_pair	include/cstl_multimap_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmultimap	access:public
+_t_pair	include/cstl_multimap_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_tagmultimap	access:public
 _t_pos	include/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterator	typeref:union:_tagiterator::__anon1	access:public
 _t_rbroot	include/cstl_rb_tree_private.h	/^    rbnode_t          _t_rbroot;$/;"	m	struct:_tagrbtree	access:public
 _t_second	include/cstl_rb_tree_private.h	/^    }_t_second;$/;"	m	struct:_tagrbtreeresultpair	typeref:union:_tagrbtreeresultpair::__anon5	access:public
@@ -2241,8 +2251,8 @@ _t_style	include/cstl_types.h	/^    _typestyle_t _t_style;$/;"	m	struct:_tagtype
 _t_token	src/cstl_types.c	/^    _typetoken_t _t_token;$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _t_tree	include/cstl_map_private.h	/^    avl_tree_t        _t_tree;$/;"	m	struct:_tagmap	access:public
 _t_tree	include/cstl_map_private.h	/^    rb_tree_t         _t_tree;$/;"	m	struct:_tagmap	access:public
-_t_tree	include/cstl_multimap_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagmultimap	access:public
-_t_tree	include/cstl_multimap_private.h	/^    rb_tree_t  _t_tree;$/;"	m	struct:_tagmultimap	access:public
+_t_tree	include/cstl_multimap_private.h	/^    avl_tree_t        _t_tree;$/;"	m	struct:_tagmultimap	access:public
+_t_tree	include/cstl_multimap_private.h	/^    rb_tree_t         _t_tree;$/;"	m	struct:_tagmultimap	access:public
 _t_tree	include/cstl_multiset_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagmultiset	access:public
 _t_tree	include/cstl_set_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagset	access:public
 _t_treepos	include/cstl_iterator.h	/^        }_t_treepos;$/;"	m	union:_tagiterator::__anon1	typeref:struct:_tagiterator::__anon1::__anon3	access:public
@@ -2262,6 +2272,7 @@ _t_typeless	include/cstl_types.h	/^    binary_function_t _t_typeless;           
 _t_typesize	include/cstl_types.h	/^    size_t            _t_typesize;                        \/* type size *\/$/;"	m	struct:_tagtype	access:public
 _t_unit	test/test_map.c	/^    _units_t _t_unit;$/;"	m	struct:_tagmapkey	file:	access:public
 _t_valueless	include/cstl_map_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_tagmap	access:public
+_t_valueless	include/cstl_multimap_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_tagmultimap	access:public
 _t_vector	include/cstl_basic_string_private.h	/^    vector_t _t_vector;$/;"	m	struct:_tagbasicstring	access:public
 _t_vector	include/cstl_queue_private.h	/^    vector_t          _t_vector;$/;"	m	struct:_tagpriority_queue	access:public
 _tagabc	test/test_type.c	/^typedef struct _tagabc$/;"	s	file:
@@ -2383,15 +2394,17 @@ _tagmapkey	test/test_map.c	/^typedef struct _tagmapkey$/;"	s	file:
 _tagmapkey::_t_unit	test/test_map.c	/^    _units_t _t_unit;$/;"	m	struct:_tagmapkey	file:	access:public
 _tagmapkey::_un_number	test/test_map.c	/^    unsigned _un_number;$/;"	m	struct:_tagmapkey	file:	access:public
 _tagmapvalue	test/test_map.c	/^typedef struct _tagmapvalue$/;"	s	file:
-_tagmapvalue::_s_condition	test/test_map.c	/^    char[20] _s_condition;$/;"	m	struct:_tagmapvalue	file:	access:public
-_tagmapvalue::_s_enviroment	test/test_map.c	/^    char[20] _s_enviroment;$/;"	m	struct:_tagmapvalue	file:	access:public
+_tagmapvalue::_s_condition	test/test_map.c	/^    char _s_condition[_ENV_AND_COND_LEN];$/;"	m	struct:_tagmapvalue	file:	access:public
+_tagmapvalue::_s_enviroment	test/test_map.c	/^    char _s_enviroment[_ENV_AND_COND_LEN];$/;"	m	struct:_tagmapvalue	file:	access:public
 _tagmemlink	include/cstl_alloc.h	/^typedef union _tagmemlink$/;"	u
 _tagmemlink::_a_cmem	include/cstl_alloc.h	/^    char               _a_cmem[1];    \/* represent memory block *\/$/;"	m	union:_tagmemlink	access:public
 _tagmemlink::_pui_nextmem	include/cstl_alloc.h	/^    union _tagmemlink* _pui_nextmem;  \/* point to next memory block *\/$/;"	m	union:_tagmemlink	typeref:union:_tagmemlink::_tagmemlink	access:public
 _tagmultimap	include/cstl_multimap_private.h	/^typedef struct _tagmultimap$/;"	s
-_tagmultimap::_t_pair	include/cstl_multimap_private.h	/^    pair_t _t_pair;$/;"	m	struct:_tagmultimap	access:public
-_tagmultimap::_t_tree	include/cstl_multimap_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagmultimap	access:public
-_tagmultimap::_t_tree	include/cstl_multimap_private.h	/^    rb_tree_t  _t_tree;$/;"	m	struct:_tagmultimap	access:public
+_tagmultimap::_t_keyless	include/cstl_multimap_private.h	/^    binary_function_t _t_keyless; \/* for init ex *\/$/;"	m	struct:_tagmultimap	access:public
+_tagmultimap::_t_pair	include/cstl_multimap_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_tagmultimap	access:public
+_tagmultimap::_t_tree	include/cstl_multimap_private.h	/^    avl_tree_t        _t_tree;$/;"	m	struct:_tagmultimap	access:public
+_tagmultimap::_t_tree	include/cstl_multimap_private.h	/^    rb_tree_t         _t_tree;$/;"	m	struct:_tagmultimap	access:public
+_tagmultimap::_t_valueless	include/cstl_multimap_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_tagmultimap	access:public
 _tagmultiset	include/cstl_multiset_private.h	/^typedef struct _tagmultiset$/;"	s
 _tagmultiset::_t_tree	include/cstl_multiset_private.h	/^    avl_tree_t _t_tree;$/;"	m	struct:_tagmultiset	access:public
 _tagpair	include/cstl_pair.h	/^typedef struct _tagpair$/;"	s
@@ -5055,6 +5068,8 @@ test_list	test/test_list.c	/^void test_list(void)$/;"	f	signature:(void)
 test_list	test/test_list.h	/^extern void test_list(void);$/;"	p	signature:(void)
 test_map	test/test_map.c	/^void test_map(void)$/;"	f	signature:(void)
 test_map	test/test_map.h	/^extern void test_map(void);$/;"	p	signature:(void)
+test_multimap	test/test_map.c	/^void test_multimap(void)$/;"	f	signature:(void)
+test_multimap	test/test_map.h	/^extern void test_multimap(void);$/;"	p	signature:(void)
 test_multiset	test/test_set.c	/^void test_multiset(void)$/;"	f	signature:(void)
 test_multiset	test/test_set.h	/^extern void test_multiset(void);$/;"	p	signature:(void)
 test_numeric	test/test_numeric.c	/^void test_numeric(void)$/;"	f	signature:(void)

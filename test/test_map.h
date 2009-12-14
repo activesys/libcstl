@@ -35,6 +35,7 @@ extern "C" {
 
 /** exported global variable declaration section **/
 extern void test_map(void);
+extern void test_multimap(void);
 
 /** exported function prototype section **/
 
