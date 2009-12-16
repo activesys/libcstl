@@ -98,6 +98,7 @@ static void _print_map_cstr(const map_t* cpt_map);
 static void _mapkey_number_great(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _mapkey_pair_great(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _mapkey_cstr_len_less(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _print_multimap_user(const multimap_t* cpt_mmap);
 
 /** exported global variable definition section **/
 
@@ -5003,16 +5004,1532 @@ void test_multimap(void)
         /*multimap_lower_bound       */
         /*multimap_upper_bound       */
         /*multimap_equal_range       */
+        {
+            multimap_t* pt_mmap = create_multimap(int, long);
+            pair_t* pt_pair = create_pair(int, long);
+            iterator_t t_begin;
+            iterator_t t_end;
+            range_t t_range;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            t_begin = multimap_lower_bound(pt_mmap, 78);
+            t_end = multimap_upper_bound(pt_mmap, 78);
+            t_range = multimap_equal_range(pt_mmap, 78);
+            assert(iterator_equal(t_begin, multimap_end(pt_mmap)) &&
+                iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+            pair_make(pt_pair, 5, 2323);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 0, 123456);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -60, -8249339);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 234, 324);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 90, 909090);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 2, 222);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %ld>, ", int, long);
+            t_begin = multimap_lower_bound(pt_mmap, 78);
+            t_end = multimap_upper_bound(pt_mmap, 78);
+            t_range = multimap_equal_range(pt_mmap, 78);
+            assert(iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+            t_begin = multimap_lower_bound(pt_mmap, 90);
+            t_end = multimap_upper_bound(pt_mmap, 90);
+            t_range = multimap_equal_range(pt_mmap, 90);
+            assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
         /*multimap_insert            */
+        {
+            multimap_t* pt_mmap = create_multimap(int, long);
+            pair_t* pt_pair = create_pair(int, long);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_make(pt_pair, 23, -849);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 10, 111111);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 10, 222);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 34, 43);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 34, 12243);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 4555, 984);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 10, 238493);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 34, 2344455);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %ld>, ", int, long);
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
         /*multimap_insert_hint       */
+        {
+            multimap_t* pt_mmap = create_multimap(int, long);
+            pair_t* pt_pair = create_pair(int, long);
+            iterator_t t_pos;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            t_pos = multimap_begin(pt_mmap);
+            pair_make(pt_pair, 23, -849);
+            multimap_insert_hint(pt_mmap, t_pos, pt_pair);
+            pair_make(pt_pair, 10, 222);
+            multimap_insert_hint(pt_mmap, t_pos, pt_pair);
+            pair_make(pt_pair, 34, 43);
+            multimap_insert_hint(pt_mmap, t_pos, pt_pair);
+            pair_make(pt_pair, 4555, 984);
+            multimap_insert_hint(pt_mmap, t_pos, pt_pair);
+            pair_make(pt_pair, 10, 238493);
+            multimap_insert_hint(pt_mmap, t_pos, pt_pair);
+            pair_make(pt_pair, 34, 2344455);
+            multimap_insert_hint(pt_mmap, t_pos, pt_pair);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %ld>, ", int, long);
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
         /*multimap_insert_range      */
+        {
+            multimap_t* pt_mmap = create_multimap(int, double);
+            multimap_t* pt_mmapex = create_multimap(int, double);
+            pair_t* pt_pair = create_pair(int, double);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            multimap_init_ex(pt_mmapex, fun_great_int);
+            pair_init(pt_pair);
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+
+            pair_make(pt_pair, 19, 90.23445);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, 2, 90.23445);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, 88, 74.28);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, 90, -3565.3);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, 213, 45);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, -48, -45.0);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, -33, -90.23);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, 232, 33);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, -100, -100.0);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, 100, 100.0);
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, 3, 7.21);
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_c(pt_mmapex, "<key: %d, value: %lf>, ", int, double);
+
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_begin(pt_mmapex));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex),
+                iterator_advance(multimap_begin(pt_mmapex), 3));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_insert_range(pt_mmap, iterator_advance(multimap_begin(pt_mmapex), 4),
+                iterator_advance(multimap_begin(pt_mmapex), 6));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_insert_range(pt_mmap, iterator_advance(multimap_begin(pt_mmapex), 7),
+                multimap_end(pt_mmapex));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_insert_range(pt_mmap, multimap_end(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            /*multimap_clear(pt_mmap);*/
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
         /*multimap_erase             */
+        {
+            multimap_t* pt_mmap = create_multimap(int, double);
+            pair_t* pt_pair = create_pair(int, double);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            multimap_erase(pt_mmap, 89);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            pair_make(pt_pair, 19, 90.23445);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 2, 90.23445);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 88, 74.28);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -33, -90.23);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -33, -90.23);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 90, -3565.3);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 213, 45);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -48, -45.0);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -33, -90.23);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 232, 33);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -100, -100.0);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 100, 100.0);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 3, 7.21);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase(pt_mmap, 89);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase(pt_mmap, 88);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase(pt_mmap, -33);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
         /*multimap_erase_pos         */
+        {
+            multimap_t* pt_mmap = create_multimap(int, double);
+            pair_t* pt_pair = create_pair(int, double);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_make(pt_pair, 19, 90.23445);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 2, 90.23445);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 88, 74.28);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 90, -3565.3);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 213, 45);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -48, -45.0);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -33, -90.23);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 232, 33);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -100, -100.0);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 100, 100.0);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 3, 7.21);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase_pos(pt_mmap, multimap_begin(pt_mmap));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase_pos(pt_mmap, iterator_prev(multimap_end(pt_mmap)));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase_pos(pt_mmap, iterator_advance(multimap_begin(pt_mmap), 5));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+
+            while(!multimap_empty(pt_mmap))
+            {
+                multimap_erase_pos(pt_mmap, multimap_begin(pt_mmap));
+            }
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
         /*multimap_erase_range       */
+        {
+            multimap_t* pt_mmap = create_multimap(int, double);
+            pair_t* pt_pair = create_pair(int, double);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+
+            pair_make(pt_pair, 19, 90.23445);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 2, 90.23445);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 88, 74.28);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 90, -3565.3);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 213, 45);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -48, -45.0);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -33, -90.23);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 232, 33);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, -100, -100.0);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 100, 100.0);
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, 3, 7.21);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_begin(pt_mmap));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), iterator_advance(multimap_begin(pt_mmap), 3));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase_range(pt_mmap, iterator_next(multimap_begin(pt_mmap)),
+                iterator_advance(multimap_begin(pt_mmap), 3));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase_range(pt_mmap, iterator_advance(multimap_begin(pt_mmap), 3), multimap_end(pt_mmap));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase_range(pt_mmap, multimap_end(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
     }
     /* user defined type */
+    {
+        type_register(_mapkey_t, _mapkey_init, _mapkey_copy, _mapkey_less, _mapkey_destroy);
+        type_register(_mapvalue_t, _mapvalue_init, _mapvalue_copy, _mapvalue_less, _mapvalue_destroy);
+        type_duplicate(_mapkey_t, struct _tagmapkey);
+        type_duplicate(_mapvalue_t, struct _tagmapvalue);
+        _type_debug();
+        /*create_multimap            */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5000;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _print_multimap_user(pt_mmap);
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_init              */
+        /*multimap_init_ex           */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmap, _mapkey_number_great);
+            pair_init(pt_pair);
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5000;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _print_multimap_user(pt_mmap);
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_init_copy         */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            multimap_t* pt_mmapex = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            pair_init(pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_user(pt_mmapex);
+
+            multimap_init_copy(pt_mmap, pt_mmapex);
+            _print_multimap_user(pt_mmap);
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_init_copy_range   */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            multimap_t* pt_mmapex = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmapex, _mapkey_number_great);
+            pair_init(pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 0;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1024;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_user(pt_mmapex);
+
+            multimap_init_copy_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_user(pt_mmap);
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_init_copy_range_ex*/
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            multimap_t* pt_mmapex = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            pair_init(pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 0;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_user(pt_mmapex);
+
+            multimap_init_copy_range_ex(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex), _mapkey_number_great);
+            _print_multimap_user(pt_mmap);
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_destroy           */
+        /*multimap_assign            */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            multimap_t* pt_mmapex = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 0;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_user(pt_mmap);
+
+            multimap_clear(pt_mmapex);
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_user(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_swap              */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            multimap_t* pt_mmapex = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_user(pt_mmap);
+            _print_multimap_user(pt_mmapex);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_user(pt_mmap);
+            _print_multimap_user(pt_mmapex);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 0;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 9;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_user(pt_mmap);
+            _print_multimap_user(pt_mmapex);
+
+            multimap_clear(pt_mmapex);
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 7;
+            strcpy(_t_value._s_enviroment, "FTP");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_user(pt_mmap);
+            _print_multimap_user(pt_mmapex);
+
+            multimap_clear(pt_mmapex);
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_user(pt_mmap);
+            _print_multimap_user(pt_mmapex);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_size              */
+        /*multimap_empty             */
+        /*multimap_max_size          */
+        /*multimap_key_less          */
+        /*multimap_value_less        */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            if(pt_mmap == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            assert(multimap_key_less(pt_mmap) == _mapkey_less &&
+                multimap_value_less(pt_mmap) == _mapvalue_less);
+            multimap_destroy(pt_mmap);
+        }
+        /*multimap_clear             */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(_mapkey_t, _mapvalue_t);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            multimap_clear(pt_mmap);
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 9;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_user(pt_mmap);
+
+            multimap_clear(pt_mmap);
+            _print_multimap_user(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_equal             */
+        /*multimap_not_equal         */
+        /*multimap_less              */
+        /*multimap_less_equal        */
+        /*multimap_great             */
+        /*multimap_great_equal       */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            multimap_t* pt_mmapex = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            _print_multimap_user(pt_mmap);
+            _print_multimap_user(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_user(pt_mmap);
+            _print_multimap_user(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_user(pt_mmap);
+            _print_multimap_user(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 6;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_user(pt_mmap);
+            _print_multimap_user(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_begin             */
+        /*multimap_end               */
+        /*multimap_find              */
+        /*multimap_count             */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(_mapkey_t, _mapvalue_t);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            iterator_t t_iter;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            t_iter = multimap_find(pt_mmap, &_t_key);
+            if(iterator_equal(t_iter, multimap_end(pt_mmap)))
+            {
+                printf("not found, count: %u\n", multimap_count(pt_mmap, &_t_key));
+            }
+            else
+            {
+                printf("found, count: %d\n", multimap_count(pt_mmap, &_t_key));
+            }
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 9;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 19;
+            t_iter = multimap_find(pt_mmap, &_t_key);
+            if(iterator_equal(t_iter, multimap_end(pt_mmap)))
+            {
+                printf("not found, count: %u\n", multimap_count(pt_mmap, &_t_key));
+            }
+            else
+            {
+                printf("found, count: %d\n", multimap_count(pt_mmap, &_t_key));
+            }
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            t_iter = multimap_find(pt_mmap, &_t_key);
+            if(iterator_equal(t_iter, multimap_end(pt_mmap)))
+            {
+                printf("not found, count: %u\n", multimap_count(pt_mmap, &_t_key));
+            }
+            else
+            {
+                printf("found, count: %d\n", multimap_count(pt_mmap, &_t_key));
+            }
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_lower_bound       */
+        /*multimap_upper_bound       */
+        /*multimap_equal_range       */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(_mapkey_t, _mapvalue_t);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            iterator_t t_begin;
+            iterator_t t_end;
+            range_t t_range;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            t_begin = multimap_lower_bound(pt_mmap, &_t_key);
+            t_end = multimap_upper_bound(pt_mmap, &_t_key);
+            t_range = multimap_equal_range(pt_mmap, &_t_key);
+            assert(iterator_equal(t_begin, multimap_end(pt_mmap)) &&
+                iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 9;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 19;
+            t_begin = multimap_lower_bound(pt_mmap, &_t_key);
+            t_end = multimap_upper_bound(pt_mmap, &_t_key);
+            t_range = multimap_equal_range(pt_mmap, &_t_key);
+            assert(iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            t_begin = multimap_lower_bound(pt_mmap, &_t_key);
+            t_end = multimap_upper_bound(pt_mmap, &_t_key);
+            t_range = multimap_equal_range(pt_mmap, &_t_key);
+            assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_insert            */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(_mapkey_t, _mapvalue_t);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 9;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1024;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _print_multimap_user(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_insert_hint       */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(_mapkey_t, _mapvalue_t);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            iterator_t t_iter;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            t_iter = multimap_begin(pt_mmap);
+
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert_hint(pt_mmap, t_iter, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert_hint(pt_mmap, t_iter, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert_hint(pt_mmap, t_iter, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 9;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert_hint(pt_mmap, t_iter, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1024;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert_hint(pt_mmap, t_iter, pt_pair);
+
+            _print_multimap_user(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_insert_range      */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            multimap_t* pt_mmapex = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            multimap_init_ex(pt_mmap, _mapkey_number_great);
+            pair_init(pt_pair);
+
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 0;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_user(pt_mmapex);
+
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_begin(pt_mmapex));
+            _print_multimap_user(pt_mmap);
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex),
+                iterator_advance(multimap_begin(pt_mmapex), 3));
+            _print_multimap_user(pt_mmap);
+            multimap_insert_range(pt_mmap, iterator_advance(multimap_begin(pt_mmapex), 4), 
+                iterator_advance(multimap_begin(pt_mmapex), 5));
+            _print_multimap_user(pt_mmap);
+            multimap_insert_range(pt_mmap, iterator_advance(multimap_begin(pt_mmapex), 6),
+                multimap_end(pt_mmapex));
+            _print_multimap_user(pt_mmap);
+            multimap_insert_range(pt_mmap, multimap_end(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_user(pt_mmap);
+            /*multimap_clear(pt_mmap);*/
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_user(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_erase             */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            multimap_erase(pt_mmap, &_t_key);
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 0;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1024;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 11;
+            multimap_erase(pt_mmap, &_t_key);
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            multimap_erase(pt_mmap, &_t_key);
+            _print_multimap_user(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_erase_pos         */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 0;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_user(pt_mmap);
+
+            multimap_erase_pos(pt_mmap, multimap_begin(pt_mmap));
+            _print_multimap_user(pt_mmap);
+            multimap_erase_pos(pt_mmap, iterator_prev(multimap_end(pt_mmap)));
+            _print_multimap_user(pt_mmap);
+            multimap_erase_pos(pt_mmap, iterator_advance(multimap_begin(pt_mmap), 3));
+            _print_multimap_user(pt_mmap);
+            while(!multimap_empty(pt_mmap))
+            {
+                multimap_erase_pos(pt_mmap, multimap_begin(pt_mmap));
+            }
+            _print_multimap_user(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_erase_range       */
+        {
+            multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
+            pair_t* pt_pair = create_pair(struct _tagmapkey, struct _tagmapvalue);
+            _mapkey_t _t_key;
+            _mapvalue_t _t_value;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_user(pt_mmap);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 89;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 2;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "3G");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 5100;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 0;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _B;
+            _t_key._un_number = 1025;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _KB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Upload");
+            strcpy(_t_value._s_condition, "Modem");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _t_key._t_unit = _MB;
+            _t_key._un_number = 1;
+            strcpy(_t_value._s_enviroment, "Download");
+            strcpy(_t_value._s_condition, "PPPoE");
+            pair_make(pt_pair, &_t_key, &_t_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_user(pt_mmap);
+
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_begin(pt_mmap));
+            _print_multimap_user(pt_mmap);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), iterator_advance(multimap_begin(pt_mmap), 2));
+            _print_multimap_user(pt_mmap);
+            multimap_erase_range(pt_mmap, iterator_next(multimap_begin(pt_mmap)),
+                iterator_advance(multimap_begin(pt_mmap), 3));
+            _print_multimap_user(pt_mmap);
+            multimap_erase_range(pt_mmap, iterator_advance(multimap_begin(pt_mmap), 2), multimap_end(pt_mmap));
+            _print_multimap_user(pt_mmap);
+            multimap_erase_range(pt_mmap, multimap_end(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_user(pt_mmap);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_user(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+    }
     /* cstl built-in type */
+    {
+    }
     /* c-string type */
+    {
+    }
     /*create_multimap            */
     /*multimap_init              */
     /*multimap_init_ex           */
@@ -5050,6 +6567,39 @@ void test_multimap(void)
 }
 
 /** local function implementation section **/
+static void _print_multimap_user(const multimap_t* cpt_mmap)
+{
+    pair_t*  pt_pair = NULL;
+    unsigned un_number = 0;
+    _units_t t_unit = 0;
+    char*    s_enviroment = NULL;
+    char*    s_condition = NULL;
+
+    iterator_t t_iter;
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        multimap_empty(cpt_mmap), multimap_size(cpt_mmap), multimap_max_size(cpt_mmap));
+    for(t_iter = multimap_begin(cpt_mmap);
+        !iterator_equal(t_iter, multimap_end(cpt_mmap));
+        t_iter = iterator_next(t_iter))
+    {
+        pt_pair = (pair_t*)iterator_get_pointer(t_iter);
+        un_number = ((_mapkey_t*)pair_first(pt_pair))->_un_number;
+        t_unit = ((_mapkey_t*)pair_first(pt_pair))->_t_unit;
+        s_enviroment = ((_mapvalue_t*)pair_second(pt_pair))->_s_enviroment;
+        s_condition = ((_mapvalue_t*)pair_second(pt_pair))->_s_condition;
+        printf("<key: [%d ", un_number);
+        switch(t_unit)
+        {
+        case _B: printf("B/s]"); break;
+        case _KB: printf("KB/s]"); break;
+        case _MB: printf("MB/s]"); break;
+        default: printf("ERR]"); break;
+        }
+        printf(", value: (%s, %s)>\n", s_enviroment, s_condition);
+    }
+}
+
 static void _mapkey_cstr_len_less(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
