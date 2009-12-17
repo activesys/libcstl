@@ -99,6 +99,8 @@ static void _mapkey_number_great(const void* cpv_first, const void* cpv_second, 
 static void _mapkey_pair_great(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _mapkey_cstr_len_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _print_multimap_user(const multimap_t* cpt_mmap);
+static void _print_multimap_cstl(const multimap_t* cpt_mmap);
+static void _print_multimap_cstr(const multimap_t* cpt_mmap);
 
 /** exported global variable definition section **/
 
@@ -6526,47 +6528,2396 @@ void test_multimap(void)
     }
     /* cstl built-in type */
     {
+        /*create_multimap            */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            pair_make(pt_key, 34, 90.2);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_init              */
+        /*multimap_init_ex           */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmap, _mapkey_pair_great);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            pair_make(pt_key, 34, 90.2);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_init_copy         */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            multimap_t* pt_mmapex = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmap, _mapkey_pair_great);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            pair_make(pt_key, 34, 90.2);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            multimap_init_copy(pt_mmapex, pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_init_copy_range   */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            multimap_t* pt_mmapex = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmapex, _mapkey_pair_great);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            pair_make(pt_key, 34, 90.2);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, -0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 902);
+            list_push_back(pt_value, 1);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 912111);
+            list_push_back(pt_value, 11111);
+            list_push_back(pt_value, 9022434);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, -748945);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 4222.0);
+            list_clear(pt_value);
+            list_push_back(pt_value, 3456789);
+            list_push_back(pt_value, 1);
+            list_push_back(pt_value, 100);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -400, 42.220);
+            list_clear(pt_value);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -1300, 42.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 1500);
+            list_push_back(pt_value, 1300);
+            list_push_back(pt_value, 1100);
+            list_push_back(pt_value, 900);
+            list_push_back(pt_value, 700);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -400, 1242.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 10000);
+            list_push_back(pt_value, 20000);
+            list_push_back(pt_value, 30000);
+            list_push_back(pt_value, 40000);
+            list_push_back(pt_value, 50000);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 456, 0.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 4, 2.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 1998);
+            list_push_back(pt_value, 2008);
+            list_push_back(pt_value, 2018);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _print_multimap_cstl(pt_mmapex);
+            multimap_init_copy_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_init_copy_range_ex*/
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            multimap_t* pt_mmapex = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            pair_make(pt_key, 34, 90.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, -0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 902);
+            list_push_back(pt_value, 1);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 912111);
+            list_push_back(pt_value, 11111);
+            list_push_back(pt_value, 9022434);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, -748945);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 4222.0);
+            list_clear(pt_value);
+            list_push_back(pt_value, 3456789);
+            list_push_back(pt_value, 1);
+            list_push_back(pt_value, 100);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -400, 42.220);
+            list_clear(pt_value);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -1300, 42.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 1500);
+            list_push_back(pt_value, 1300);
+            list_push_back(pt_value, 1100);
+            list_push_back(pt_value, 900);
+            list_push_back(pt_value, 700);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -400, 1242.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 10000);
+            list_push_back(pt_value, 20000);
+            list_push_back(pt_value, 30000);
+            list_push_back(pt_value, 40000);
+            list_push_back(pt_value, 50000);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 456, 0.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 4, 2.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 1998);
+            list_push_back(pt_value, 2008);
+            list_push_back(pt_value, 2018);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _print_multimap_cstl(pt_mmapex);
+            multimap_init_copy_range_ex(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex), _mapkey_pair_great);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_destroy           */
+        /*multimap_assign            */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            multimap_t* pt_mmapex = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+
+            pair_make(pt_key, -400, 1242.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 10000);
+            list_push_back(pt_value, 20000);
+            list_push_back(pt_value, 30000);
+            list_push_back(pt_value, 40000);
+            list_push_back(pt_value, 50000);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 456, 0.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 4, 2.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 1998);
+            list_push_back(pt_value, 2008);
+            list_push_back(pt_value, 2018);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_clear(pt_mmapex);
+            pair_make(pt_key, 34, 90.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 902);
+            list_push_back(pt_value, 1);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 912111);
+            list_push_back(pt_value, 11111);
+            list_push_back(pt_value, 9022434);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, -748945);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 4222.0);
+            list_clear(pt_value);
+            list_push_back(pt_value, 3456789);
+            list_push_back(pt_value, 1);
+            list_push_back(pt_value, 100);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_clear(pt_mmapex);
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_clear(pt_mmapex);
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_swap              */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            multimap_t* pt_mmapex = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+
+            pair_make(pt_key, -400, 1242.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 10000);
+            list_push_back(pt_value, 20000);
+            list_push_back(pt_value, 30000);
+            list_push_back(pt_value, 40000);
+            list_push_back(pt_value, 50000);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 456, 0.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 4, 2.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 1998);
+            list_push_back(pt_value, 2008);
+            list_push_back(pt_value, 2018);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+
+            multimap_clear(pt_mmapex);
+            pair_make(pt_key, 34, 90.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, -0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 902);
+            list_push_back(pt_value, 1);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 912111);
+            list_push_back(pt_value, 11111);
+            list_push_back(pt_value, 9022434);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, -748945);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 4222.0);
+            list_clear(pt_value);
+            list_push_back(pt_value, 3456789);
+            list_push_back(pt_value, 1);
+            list_push_back(pt_value, 100);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+
+            multimap_clear(pt_mmapex);
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+
+            multimap_clear(pt_mmapex);
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_cstl(pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_size              */
+        /*multimap_empty             */
+        /*multimap_max_size          */
+        /*multimap_key_less          */
+        /*multimap_value_less        */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            if(pt_mmap == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmap, _mapkey_pair_great);
+            assert(multimap_key_less(pt_mmap) == _mapkey_pair_great &&
+                multimap_key_less(pt_mmap) != multimap_value_less(pt_mmap));
+            multimap_destroy(pt_mmap);
+        }
+        /*multimap_clear             */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            multimap_clear(pt_mmap);
+            _print_multimap_cstl(pt_mmap);
+
+            pair_make(pt_key, 378, -0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 902);
+            list_push_back(pt_value, 1);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 378, 0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 912111);
+            list_push_back(pt_value, 11111);
+            list_push_back(pt_value, 9022434);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, -748945);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 378, 4222.0);
+            list_clear(pt_value);
+            list_push_back(pt_value, 3456789);
+            list_push_back(pt_value, 1);
+            list_push_back(pt_value, 100);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_clear(pt_mmap);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_equal             */
+        /*multimap_not_equal         */
+        /*multimap_less              */
+        /*multimap_less_equal        */
+        /*multimap_great             */
+        /*multimap_great_equal       */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            multimap_t* pt_mmapex = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            _print_multimap_cstl(pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            pair_make(pt_key, 378, 4222.0);
+            list_clear(pt_value);
+            list_push_back(pt_value, 3456789);
+            list_push_back(pt_value, 1);
+            list_push_back(pt_value, 100);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstl(pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_cstl(pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 34, 90.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            _print_multimap_cstl(pt_mmap);
+            _print_multimap_cstl(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_begin             */
+        /*multimap_end               */
+        /*multimap_find              */
+        /*multimap_count             */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            iterator_t t_iter;
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            t_iter = multimap_find(pt_mmap, pt_key);
+            if(iterator_equal(t_iter, multimap_end(pt_mmap)))
+            {
+                printf("not found, count: %u\n", multimap_count(pt_mmap, pt_key));
+            }
+            else
+            {
+                printf("found, count: %u\n", multimap_count(pt_mmap, pt_key));
+            }
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 34, 90.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 88, 88.88);
+            t_iter = multimap_find(pt_mmap, pt_key);
+            if(iterator_equal(t_iter, multimap_end(pt_mmap)))
+            {
+                printf("not found, count: %u\n", multimap_count(pt_mmap, pt_key));
+            }
+            else
+            {
+                printf("found, count: %u\n", multimap_count(pt_mmap, pt_key));
+            }
+            pair_make(pt_key, 0, -10000.2);
+            t_iter = multimap_find(pt_mmap, pt_key);
+            if(iterator_equal(t_iter, multimap_end(pt_mmap)))
+            {
+                printf("not found, count: %u\n", multimap_count(pt_mmap, pt_key));
+            }
+            else
+            {
+                printf("found, count: %u\n", multimap_count(pt_mmap, pt_key));
+            }
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_lower_bound       */
+        /*multimap_upper_bound       */
+        /*multimap_equal_range       */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            iterator_t t_begin;
+            iterator_t t_end;
+            range_t t_range;
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            t_begin = multimap_lower_bound(pt_mmap, pt_key);
+            t_end = multimap_upper_bound(pt_mmap, pt_key);
+            t_range = multimap_equal_range(pt_mmap, pt_key);
+            assert(iterator_equal(t_begin, multimap_end(pt_mmap)) &&
+                iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 34, 90.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 8, 88.88);
+            t_begin = multimap_lower_bound(pt_mmap, pt_key);
+            t_end = multimap_upper_bound(pt_mmap, pt_key);
+            t_range = multimap_equal_range(pt_mmap, pt_key);
+            assert(iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+
+            pair_make(pt_key, 0, -10000.2);
+            t_begin = multimap_lower_bound(pt_mmap, pt_key);
+            t_end = multimap_upper_bound(pt_mmap, pt_key);
+            t_range = multimap_equal_range(pt_mmap, pt_key);
+            assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_insert            */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+            _print_multimap_cstl(pt_mmap);
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 100);
+            list_push_back(pt_value, 89);
+            list_push_back(pt_value, 2);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 34, 90.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_insert_hint       */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            iterator_t t_iter;
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+            _print_multimap_cstl(pt_mmap);
+            t_iter = multimap_begin(pt_mmap);
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert_hint(pt_mmap, t_iter, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert_hint(pt_mmap, t_iter, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 100);
+            list_push_back(pt_value, 89);
+            list_push_back(pt_value, 2);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert_hint(pt_mmap, t_iter, pt_pair);
+
+            pair_make(pt_key, 34, 90.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert_hint(pt_mmap, t_iter, pt_pair);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_insert_range      */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            multimap_t* pt_mmapex = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmapex, _mapkey_pair_great);
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_cstl(pt_mmap);
+
+            pair_make(pt_key, 34, 90.2);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, -0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 902);
+            list_push_back(pt_value, 1);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 912111);
+            list_push_back(pt_value, 11111);
+            list_push_back(pt_value, 9022434);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, -748945);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 378, 4222.0);
+            list_clear(pt_value);
+            list_push_back(pt_value, 3456789);
+            list_push_back(pt_value, 1);
+            list_push_back(pt_value, 100);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -400, 42.220);
+            list_clear(pt_value);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -1300, 42.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 1500);
+            list_push_back(pt_value, 1300);
+            list_push_back(pt_value, 1100);
+            list_push_back(pt_value, 900);
+            list_push_back(pt_value, 700);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, -400, 1242.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 10000);
+            list_push_back(pt_value, 20000);
+            list_push_back(pt_value, 30000);
+            list_push_back(pt_value, 40000);
+            list_push_back(pt_value, 50000);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 456, 0.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 4, 2.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 1998);
+            list_push_back(pt_value, 2008);
+            list_push_back(pt_value, 2018);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_cstl(pt_mmapex);
+
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_begin(pt_mmapex));
+            _print_multimap_cstl(pt_mmap);
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), iterator_advance(multimap_begin(pt_mmapex), 3));
+            _print_multimap_cstl(pt_mmap);
+            multimap_insert_range(pt_mmap, iterator_advance(multimap_begin(pt_mmapex), 4), iterator_advance(multimap_begin(pt_mmapex), 6));
+            _print_multimap_cstl(pt_mmap);
+            multimap_insert_range(pt_mmap, iterator_advance(multimap_begin(pt_mmapex), 8), multimap_end(pt_mmapex));
+            _print_multimap_cstl(pt_mmap);
+            multimap_insert_range(pt_mmap, multimap_end(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_cstl(pt_mmap);
+            /*multimap_clear(pt_mmap);*/
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_erase             */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+            multimap_erase(pt_mmap, pt_key);
+            _print_multimap_cstl(pt_mmap);
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 100);
+            list_push_back(pt_value, 89);
+            list_push_back(pt_value, 2);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 34, 90.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstl(pt_mmap);
+
+            pair_make(pt_key, 7, 23.23);
+            multimap_erase(pt_mmap, pt_key);
+            _print_multimap_cstl(pt_mmap);
+            pair_make(pt_key, -4, 0.989);
+            multimap_erase(pt_mmap, pt_key);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_erase_pos         */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            pair_make(pt_key, 34, 90.2);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 378, -0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 902);
+            list_push_back(pt_value, 1);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 378, 0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 912111);
+            list_push_back(pt_value, 11111);
+            list_push_back(pt_value, 9022434);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, -748945);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 378, 4222.0);
+            list_clear(pt_value);
+            list_push_back(pt_value, 3456789);
+            list_push_back(pt_value, 1);
+            list_push_back(pt_value, 100);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -400, 42.220);
+            list_clear(pt_value);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -1300, 42.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 1500);
+            list_push_back(pt_value, 1300);
+            list_push_back(pt_value, 1100);
+            list_push_back(pt_value, 900);
+            list_push_back(pt_value, 700);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -400, 1242.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 10000);
+            list_push_back(pt_value, 20000);
+            list_push_back(pt_value, 30000);
+            list_push_back(pt_value, 40000);
+            list_push_back(pt_value, 50000);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 456, 0.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 4, 2.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 1998);
+            list_push_back(pt_value, 2008);
+            list_push_back(pt_value, 2018);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_erase_pos(pt_mmap, multimap_begin(pt_mmap));
+            _print_multimap_cstl(pt_mmap);
+            multimap_erase_pos(pt_mmap, iterator_prev(multimap_end(pt_mmap)));
+            _print_multimap_cstl(pt_mmap);
+            multimap_erase_pos(pt_mmap, iterator_advance(multimap_begin(pt_mmap), 3));
+            _print_multimap_cstl(pt_mmap);
+            while(!multimap_empty(pt_mmap))
+            {
+                multimap_erase_pos(pt_mmap, multimap_begin(pt_mmap));
+            }
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
+        /*multimap_erase_range       */
+        {
+            multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
+            pair_t* pt_pair = create_pair(pair_t<int, double>, list_t<long>);
+            pair_t* pt_key = create_pair(int, double);
+            list_t* pt_value = create_list(long);
+            if(pt_mmap == NULL || pt_pair == NULL || pt_key == NULL || pt_value == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_init(pt_key);
+            list_init(pt_value);
+
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_cstl(pt_mmap);
+
+            pair_make(pt_key, 34, 90.2);
+            list_push_back(pt_value, 32445);
+            list_push_back(pt_value, -37394);
+            list_push_back(pt_value, 9090909);
+            list_push_back(pt_value, -342134);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -4, 0.989);
+            list_clear(pt_value);
+            list_push_back(pt_value, 130000);
+            list_push_back(pt_value, 89039);
+            list_push_back(pt_value, 2929);
+            list_push_back(pt_value, 908728282);
+            list_push_back(pt_value, 3222);
+            list_push_back(pt_value, 3232222);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 378, -0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 902);
+            list_push_back(pt_value, 1);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 378, 0.4222);
+            list_clear(pt_value);
+            list_push_back(pt_value, 912111);
+            list_push_back(pt_value, 11111);
+            list_push_back(pt_value, 9022434);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, -748945);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            list_push_back(pt_value, 111);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 378, 4222.0);
+            list_clear(pt_value);
+            list_push_back(pt_value, 3456789);
+            list_push_back(pt_value, 1);
+            list_push_back(pt_value, 100);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -400, 42.220);
+            list_clear(pt_value);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -1300, 42.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 1500);
+            list_push_back(pt_value, 1300);
+            list_push_back(pt_value, 1100);
+            list_push_back(pt_value, 900);
+            list_push_back(pt_value, 700);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, -400, 1242.220);
+            list_clear(pt_value);
+            list_push_back(pt_value, 10000);
+            list_push_back(pt_value, 20000);
+            list_push_back(pt_value, 30000);
+            list_push_back(pt_value, 40000);
+            list_push_back(pt_value, 50000);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 456, 0.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 4, 2.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 0);
+            list_push_back(pt_value, 1998);
+            list_push_back(pt_value, 2008);
+            list_push_back(pt_value, 2018);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+
+            pair_make(pt_key, 0, -10000.2);
+            list_clear(pt_value);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            list_push_back(pt_value, 9);
+            pair_make(pt_pair, pt_key, pt_value);
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_begin(pt_mmap));
+            _print_multimap_cstl(pt_mmap);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), iterator_advance(multimap_begin(pt_mmap), 3));
+            _print_multimap_cstl(pt_mmap);
+            multimap_erase_range(pt_mmap, iterator_next(multimap_begin(pt_mmap)), iterator_advance(multimap_begin(pt_mmap), 4));
+            _print_multimap_cstl(pt_mmap);
+            multimap_erase_range(pt_mmap, iterator_advance(multimap_begin(pt_mmap), 3), multimap_end(pt_mmap));
+            _print_multimap_cstl(pt_mmap);
+            multimap_erase_range(pt_mmap, multimap_end(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_cstl(pt_mmap);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_cstl(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+            pair_destroy(pt_key);
+            list_destroy(pt_value);
+        }
     }
     /* c-string type */
     {
+        /*create_multimap            */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_make(pt_pair, "China", "ShenYang");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "UK", "London");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "USA", "NewYork");
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_init              */
+        /*multimap_init_ex           */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmap, _mapkey_cstr_len_less);
+            pair_init(pt_pair);
+            pair_make(pt_pair, "China", "ShenYang");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "UK", "London");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "USA", "NewYork");
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_init_copy         */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            multimap_t* pt_mmapex = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmapex, _mapkey_cstr_len_less);
+            pair_init(pt_pair);
+
+            pair_make(pt_pair, "Real world", "In producing this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmapex, pt_pair);
+
+            multimap_init_copy(pt_mmap, pt_mmapex);
+
+            _print_multimap_cstr(pt_mmap);
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_init_copy_range   */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            multimap_t* pt_mmapex = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmapex, _mapkey_cstr_len_less);
+            pair_init(pt_pair);
+
+            pair_make(pt_pair, "Real world", "In producing this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_cstr(pt_mmapex);
+
+            multimap_init_copy_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+
+            _print_multimap_cstr(pt_mmap);
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_init_copy_range_ex*/
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            multimap_t* pt_mmapex = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmapex);
+            pair_init(pt_pair);
+
+            pair_make(pt_pair, "Real world", "In producing this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_cstr(pt_mmapex);
+
+            multimap_init_copy_range_ex(pt_mmap, multimap_begin(pt_mmapex),
+                multimap_end(pt_mmapex), _mapkey_cstr_len_less);
+
+            _print_multimap_cstr(pt_mmap);
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_destroy           */
+        /*multimap_assign            */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            multimap_t* pt_mmapex = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            multimap_init(pt_mmapex);
+            pair_init(pt_pair);
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_cstr(pt_mmap);
+
+            pair_make(pt_pair, "Real world", "In producing this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_clear(pt_mmapex);
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_clear(pt_mmapex);
+            multimap_assign(pt_mmap, pt_mmapex);
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_swap              */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            multimap_t* pt_mmapex = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_mmap == NULL || pt_mmapex == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            multimap_init(pt_mmapex);
+            pair_init(pt_pair);
+
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_cstr(pt_mmap);
+            _print_multimap_cstr(pt_mmapex);
+
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_cstr(pt_mmap);
+            _print_multimap_cstr(pt_mmapex);
+
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmapex, pt_pair);
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_cstr(pt_mmap);
+            _print_multimap_cstr(pt_mmapex);
+
+            multimap_clear(pt_mmapex);
+            multimap_swap(pt_mmap, pt_mmapex);
+            _print_multimap_cstr(pt_mmap);
+            _print_multimap_cstr(pt_mmapex);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_size              */
+        /*multimap_empty             */
+        /*multimap_max_size          */
+        /*multimap_key_less          */
+        /*multimap_value_less        */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            if(pt_mmap == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmap, _mapkey_cstr_len_less);
+            assert(multimap_key_less(pt_mmap) == _mapkey_cstr_len_less &&
+                multimap_key_less(pt_mmap) != multimap_value_less(pt_mmap));
+            multimap_destroy(pt_mmap);
+        }
+        /*multimap_clear             */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            multimap_clear(pt_mmap);
+            _print_multimap_cstr(pt_mmap);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+            multimap_clear(pt_mmap);
+            _print_multimap_cstr(pt_mmap);
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_equal             */
+        /*multimap_not_equal         */
+        /*multimap_less              */
+        /*multimap_less_equal        */
+        /*multimap_great             */
+        /*multimap_great_equal       */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            multimap_t* pt_mmapex = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_mmap == NULL || pt_mmapex == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            multimap_init(pt_mmapex);
+            pair_init(pt_pair);
+
+            _print_multimap_cstr(pt_mmap);
+            _print_multimap_cstr(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+            _print_multimap_cstr(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+            _print_multimap_cstr(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+            _print_multimap_cstr(pt_mmapex);
+            printf("equal: %d, not equal: %d, ",
+                multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
+            printf("less: %d, less equal: %d, ",
+                multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
+            printf("great: %d, great equal: %d\n",
+                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_begin             */
+        /*multimap_end               */
+        /*multimap_find              */
+        /*multimap_count             */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            iterator_t t_iter;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            t_iter = multimap_find(pt_mmap, "abcdefg");
+            if(iterator_equal(t_iter, multimap_end(pt_mmap)))
+            {
+                printf("not found, count: %u\n", multimap_count(pt_mmap, "abcdefg"));
+            }
+            else
+            {
+                printf("found, count: %u\n", multimap_count(pt_mmap, "abcdefg"));
+            }
+
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmap, pt_pair);
+            t_iter = multimap_find(pt_mmap, "abcdefg");
+            if(iterator_equal(t_iter, multimap_end(pt_mmap)))
+            {
+                printf("not found, count: %u\n", multimap_count(pt_mmap, "abcdefg"));
+            }
+            else
+            {
+                printf("found, count: %u\n", multimap_count(pt_mmap, "abcdefg"));
+            }
+            t_iter = multimap_find(pt_mmap, "is");
+            if(iterator_equal(t_iter, multimap_end(pt_mmap)))
+            {
+                printf("not found, count: %u\n", multimap_count(pt_mmap, "is"));
+            }
+            else
+            {
+                printf("found, count: %u\n", multimap_count(pt_mmap, "is"));
+            }
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_lower_bound       */
+        /*multimap_upper_bound       */
+        /*multimap_equal_range       */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            iterator_t t_begin;
+            iterator_t t_end;
+            range_t t_range;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            t_begin = multimap_lower_bound(pt_mmap, "abcdefg");
+            t_end = multimap_upper_bound(pt_mmap, "abcdefg");
+            t_range = multimap_equal_range(pt_mmap, "abcdefg");
+            assert(iterator_equal(t_begin, multimap_end(pt_mmap)) &&
+                iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+
+            t_begin = multimap_lower_bound(pt_mmap, "abcdefg");
+            t_end = multimap_upper_bound(pt_mmap, "abcdefg");
+            t_range = multimap_equal_range(pt_mmap, "abcdefg");
+            assert(iterator_equal(t_begin, t_end) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+
+            t_begin = multimap_lower_bound(pt_mmap, "is");
+            t_end = multimap_upper_bound(pt_mmap, "is");
+            t_range = multimap_equal_range(pt_mmap, "is");
+            assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
+                iterator_equal(t_range.t_begin, t_begin) &&
+                iterator_equal(t_range.t_end, t_end));
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_insert            */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            _print_multimap_cstr(pt_mmap);
+
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "is", "abcdefghijklmn");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_insert_hint       */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            iterator_t t_hint;
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            t_hint = multimap_begin(pt_mmap);
+            _print_multimap_cstr(pt_mmap);
+
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert_hint(pt_mmap, t_hint, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert_hint(pt_mmap, t_hint, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert_hint(pt_mmap, t_hint, pt_pair);
+            pair_make(pt_pair, "is", "abcdefghijklmn");
+            multimap_insert_hint(pt_mmap, t_hint, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert_hint(pt_mmap, t_hint, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_insert_range      */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            multimap_t* pt_mmapex = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_mmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            multimap_init_ex(pt_mmapex, _mapkey_cstr_len_less);
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_cstr(pt_mmap);
+
+            pair_make(pt_pair, "Real world", "In producing this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmapex, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmapex, pt_pair);
+            _print_multimap_cstr(pt_mmapex);
+
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_begin(pt_mmapex));
+            _print_multimap_cstr(pt_mmap);
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), iterator_advance(multimap_begin(pt_mmapex), 3));
+            _print_multimap_cstr(pt_mmap);
+            multimap_insert_range(pt_mmap, iterator_advance(multimap_begin(pt_mmapex), 4),
+                iterator_advance(multimap_begin(pt_mmapex), 6));
+            _print_multimap_cstr(pt_mmap);
+            multimap_insert_range(pt_mmap, iterator_advance(multimap_begin(pt_mmapex), 7), multimap_end(pt_mmapex));
+            _print_multimap_cstr(pt_mmap);
+            multimap_insert_range(pt_mmap, multimap_end(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_cstr(pt_mmap);
+            /*multimap_clear(pt_mmap);*/
+            multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            multimap_destroy(pt_mmapex);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_erase             */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            multimap_erase(pt_mmap, "abcdefg");
+            _print_multimap_cstr(pt_mmap);
+            pair_make(pt_pair, "Real world", "In producing this document");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_erase(pt_mmap, "abcdefg");
+            _print_multimap_cstr(pt_mmap);
+            multimap_erase(pt_mmap, "MUST");
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_erase_pos         */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            pair_make(pt_pair, "Real world", "In producing this document");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_erase_pos(pt_mmap, multimap_begin(pt_mmap));
+            _print_multimap_cstr(pt_mmap);
+            multimap_erase_pos(pt_mmap, iterator_prev(multimap_end(pt_mmap)));
+            _print_multimap_cstr(pt_mmap);
+            multimap_erase_pos(pt_mmap, iterator_advance(multimap_begin(pt_mmap), 4));
+            _print_multimap_cstr(pt_mmap);
+            while(!multimap_empty(pt_mmap))
+            {
+                multimap_erase_pos(pt_mmap, multimap_begin(pt_mmap));
+            }
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
+        /*multimap_erase_range       */
+        {
+            multimap_t* pt_mmap = create_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_mmap == NULL || pt_pair == NULL)
+            {
+            }
+            multimap_init(pt_mmap);
+            pair_init(pt_pair);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_cstr(pt_mmap);
+            pair_make(pt_pair, "Real world", "In producing this document");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Evaluating", "Performing all of the recommended");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Informational", "In this document");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "MUST", "OPTIONAL");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Test set up", "The");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Benchmarking Methodology", "tester");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "DUT", "Test set up for multiple media types");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "receiver", "sender");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "is", "server on an FDDI backbone");
+            multimap_insert(pt_mmap, pt_pair);
+            pair_make(pt_pair, "Frame sizes", "64, 128, 256, 512, 1024, 1280, 1518");
+            multimap_insert(pt_mmap, pt_pair);
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_begin(pt_mmap));
+            _print_multimap_cstr(pt_mmap);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), iterator_advance(multimap_begin(pt_mmap), 3));
+            _print_multimap_cstr(pt_mmap);
+            multimap_erase_range(pt_mmap, iterator_next(multimap_begin(pt_mmap)), iterator_advance(multimap_begin(pt_mmap), 3));
+            _print_multimap_cstr(pt_mmap);
+            multimap_erase_range(pt_mmap, iterator_advance(multimap_begin(pt_mmap), 2), multimap_end(pt_mmap));
+            _print_multimap_cstr(pt_mmap);
+            multimap_erase_range(pt_mmap, multimap_end(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_cstr(pt_mmap);
+            multimap_erase_range(pt_mmap, multimap_begin(pt_mmap), multimap_end(pt_mmap));
+            _print_multimap_cstr(pt_mmap);
+
+            multimap_destroy(pt_mmap);
+            pair_destroy(pt_pair);
+        }
     }
-    /*create_multimap            */
-    /*multimap_init              */
-    /*multimap_init_ex           */
-    /*multimap_init_copy         */
-    /*multimap_init_copy_range   */
-    /*multimap_init_copy_range_ex*/
-    /*multimap_destroy           */
-    /*multimap_assign            */
-    /*multimap_swap              */
-    /*multimap_size              */
-    /*multimap_empty             */
-    /*multimap_max_size          */
-    /*multimap_key_less          */
-    /*multimap_value_less        */
-    /*multimap_clear             */
-    /*multimap_equal             */
-    /*multimap_not_equal         */
-    /*multimap_less              */
-    /*multimap_less_equal        */
-    /*multimap_great             */
-    /*multimap_great_equal       */
-    /*multimap_begin             */
-    /*multimap_end               */
-    /*multimap_find              */
-    /*multimap_count             */
-    /*multimap_lower_bound       */
-    /*multimap_upper_bound       */
-    /*multimap_equal_range       */
-    /*multimap_insert            */
-    /*multimap_insert_hint       */
-    /*multimap_insert_range      */
-    /*multimap_erase             */
-    /*multimap_erase_pos         */
-    /*multimap_erase_range       */
 }
 
 /** local function implementation section **/
+static void _print_multimap_cstr(const multimap_t* cpt_mmap)
+{
+    pair_t* pt_pair = NULL;
+
+    iterator_t t_iter;
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        multimap_empty(cpt_mmap), multimap_size(cpt_mmap), multimap_max_size(cpt_mmap));
+
+    for(t_iter = multimap_begin(cpt_mmap);
+        !iterator_equal(t_iter, multimap_end(cpt_mmap));
+        t_iter = iterator_next(t_iter))
+    {
+        pt_pair = (pair_t*)iterator_get_pointer(t_iter);
+        assert(pt_pair != NULL);
+        printf("<%s, %s>\n", (char*)pair_first(pt_pair), (char*)pair_second(pt_pair));
+    }
+}
+
+static void _print_multimap_cstl(const multimap_t* cpt_mmap)
+{
+    pair_t* pt_key = NULL;
+    list_t* pt_value = NULL;
+
+    iterator_t t_iter;
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u\n",
+        multimap_empty(cpt_mmap), multimap_size(cpt_mmap), multimap_max_size(cpt_mmap));
+
+    for(t_iter = multimap_begin(cpt_mmap);
+        !iterator_equal(t_iter, multimap_end(cpt_mmap));
+        t_iter = iterator_next(t_iter))
+    {
+        iterator_t t_pos;
+        pt_key = (pair_t*)pair_first((pair_t*)iterator_get_pointer(t_iter));
+        pt_value = (list_t*)pair_second((pair_t*)iterator_get_pointer(t_iter));
+        assert(pt_key != NULL && pt_value != NULL);
+        printf("<%d, %lf>: ", *(int*)pair_first(pt_key), *(double*)pair_second(pt_key));
+        for(t_pos = list_begin(pt_value);
+            !iterator_equal(t_pos, list_end(pt_value));
+            t_pos = iterator_next(t_pos))
+        {
+            printf("[%ld]", *(long*)iterator_get_pointer(t_pos));
+        }
+        printf("\n----------------------------\n");
+    }
+}
+
 static void _print_multimap_user(const multimap_t* cpt_mmap)
 {
     pair_t*  pt_pair = NULL;
