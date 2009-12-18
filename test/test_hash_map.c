@@ -1,5 +1,5 @@
 /*
- *  The implementation of hashtable test.
+ *  The implementation of hash_map_t and hash_multimap_t test.
  *  Copyright (C)  2008 2009  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
@@ -21,8 +21,7 @@
  */
 
 /** include section **/
-#include "chash_set.h"
-#include "test_hashtable.h"
+#include "test_hash_map.h"
 
 /** local constant declaration and local macro section **/
 
@@ -35,7 +34,11 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-void test_hashtable(void)
+void test_hash_map(void)
+{
+}
+
+void test_hash_multimap(void)
 {
 }
 

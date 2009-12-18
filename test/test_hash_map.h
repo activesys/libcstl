@@ -1,5 +1,5 @@
 /*
- *  The implementation of hashtable test.
+ *  The interface of hash_map_t and hash_multimap_t test.
  *  Copyright (C)  2008 2009  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
@@ -20,26 +20,29 @@
  *                 activesys@sina.com.cn
  */
 
+#ifndef _TEST_HASH_MAP_H
+#define _TEST_HASH_MAP_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /** include section **/
-#include "chash_set.h"
-#include "test_hashtable.h"
 
-/** local constant declaration and local macro section **/
+/** constant declaration and macro section **/
 
-/** local data type declaration and local struct, union, enum section **/
+/** data type declaration and struct, union, enum section **/
 
-/** local function prototype section **/
+/** exported global variable declaration section **/
 
-/** exported global variable definition section **/
+/** exported function prototype section **/
+void test_hash_map(void);
+void test_hash_multimap(void);
 
-/** local global variable definition section **/
-
-/** exported function implementation section **/
-void test_hashtable(void)
-{
+#ifdef __cplusplus
 }
+#endif
 
-/** local function implementation section **/
-
+#endif /* _TEST_HASH_MAP_H */
 /** eof **/
 

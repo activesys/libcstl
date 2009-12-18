@@ -30,6 +30,19 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
+#define _debug_hash_set_c(pt_hset, fmt, type)\
+    do{\
+        size_t t_index = 0;\
+        printf("=======================================\n");\
+        printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",\
+            hash_set_empty(pt_hset), hash_set_size(pt_hset),\
+            hash_set_max_size(pt_hset), hash_set_bucket_count(pt_hset));\
+        for(t_index = 0; t_index < pt_hset->_t_hashtable._t_bucket; ++t_index)\
+        {\
+            /* debug for hash table */\
+        }\
+        printf("=======================================\n");\
+    }while(false)
 
 /** data type declaration and struct, union, enum section **/
 

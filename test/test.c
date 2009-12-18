@@ -43,6 +43,8 @@
 #include "test_set.h"
 #include "test_map.h"
 #include "test_type.h"
+#include "test_hash_set.h"
+#include "test_hash_map.h"
 /* #include "test.h" */
 
 /** local constant declaration and local macro section **/
@@ -89,11 +91,19 @@ int main(int argc, char* argv[])
     printf("========== test map_t  ==========\n");
     /*test_map();*/
     printf("========== test multimap_t  ==========\n");
-    test_multimap();
+    /*test_multimap();*/
     printf("========== test string_t  ==========\n");
     /*test_string(argc, argv);*/
     /*test_string_getline(); */
     /*test_type();*/
+    printf("========== test hash_set_t  ==========\n");
+    test_hash_set();
+    printf("========== test hash_multiset_t  ==========\n");
+    /*test_hash_multiset();*/
+    printf("========== test hash_map_t  ==========\n");
+    /*test_hash_map();*/
+    printf("========== test hash_multimap_t  ==========\n");
+    /*test_hash_multimap();*/
 
     argc = 0;
     argv = NULL;
