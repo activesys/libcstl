@@ -794,7 +794,8 @@ void _hashtable_init_copy(
     hashtable_t* pt_hashtabledest, const hashtable_t* cpt_hashtablesrc)
 {
     assert(pt_hashtabledest != NULL && cpt_hashtablesrc != NULL);
-    assert(_hashtable_same_type(pt_hashtabledest, cpt_hashtablesrc));
+    assert(pt_hashtabledest->_t_typeinfo._pt_type == cpt_hashtablesrc->_t_typeinfo._pt_type &&
+        pt_hashtabledest->_t_typeinfo._t_style == cpt_hashtablesrc->_t_typeinfo._t_style);
 
     /* initialize the dest hashtable with src hashtable attribute */
     _hashtable_init(pt_hashtabledest, _hashtable_bucket_count(cpt_hashtablesrc),
@@ -1140,7 +1141,12 @@ static bool_t _hashtable_same_hashtable_iterator_type(
     const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
 {
     assert(cpt_hashtable != NULL && _GET_HASHTABLE(t_iter) != NULL);
-    return _hashtable_same_type(cpt_hashtable, _GET_HASHTABLE(t_iter));
+    return _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable),
+                         _GET_HASHTABLE_TYPE_NAME(_GET_HASHTABLE(t_iter))) &&
+           (cpt_hashtable->_t_typeinfo._pt_type ==
+            _GET_HASHTABLE(t_iter)->_t_typeinfo._pt_type) &&
+           (cpt_hashtable->_t_typeinfo._t_style ==
+            _GET_HASHTABLE(t_iter)->_t_typeinfo._t_style);
 }
 #endif /* NDEBUG */
 

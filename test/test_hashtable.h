@@ -37,9 +37,19 @@ extern "C" {
         printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",\
             hash_set_empty(pt_hset), hash_set_size(pt_hset),\
             hash_set_max_size(pt_hset), hash_set_bucket_count(pt_hset));\
-        for(t_index = 0; t_index < pt_hset->_t_hashtable._t_bucket; ++t_index)\
+        for(t_index = 0; t_index < hash_set_bucket_count(pt_hset); ++t_index)\
         {\
-            /* debug for hash table */\
+            hashnode_t** ppt_bucket = (hashnode_t**)vector_at(&pt_hset->_t_hashtable._t_bucket, t_index);\
+            hashnode_t*  pt_node = *ppt_bucket;\
+            printf("[%u]", t_index);\
+            while(pt_node != NULL)\
+            {\
+                printf("->[");\
+                printf(fmt, *(type*)(pt_node->_pc_data));\
+                printf("]");\
+                pt_node = pt_node->_pt_next;\
+            }\
+            printf("\n");\
         }\
         printf("=======================================\n");\
     }while(false)
