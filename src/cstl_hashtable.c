@@ -989,12 +989,6 @@ bool_t _hashtable_equal(
     {
         return false;
     }
-    /* check vector bucket count */
-    if(vector_size(&cpt_hashtablefirst->_t_bucket) !=
-       vector_size(&cpt_hashtablesecond->_t_bucket))
-    {
-        return false;
-    }
     /* check each element */
     for(t_first = _hashtable_begin(cpt_hashtablefirst),
         t_second = _hashtable_begin(cpt_hashtablesecond);
@@ -1031,7 +1025,43 @@ bool_t _hashtable_not_equal(
 bool_t _hashtable_less(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
 {
+    hashtable_iterator_t t_first;
+    hashtable_iterator_t t_second;
+    bool_t               t_less = false;
+    bool_t               t_great = false;
+
     assert(_hashtable_same_type(cpt_hashtablefirst, cpt_hashtablesecond));
+
+    /* check vector bucket count */
+    if(vector_size(&cpt_hashtablefirst->_t_bucket) ==
+       vector_size(&cpt_hashtablesecond->_t_bucket))
+    {
+        /* check each element */
+        for(t_first = _hashtable_begin(cpt_hashtablefirst),
+            t_second = _hashtable_begin(cpt_hashtablesecond);
+            !_hashtable_iterator_equal(t_first, _hashtable_end(cpt_hashtablefirst)) && 
+            !_hashtable_iterator_equal(t_second, _hashtable_end(cpt_hashtablesecond));
+            t_first = _hashtable_iterator_next(t_first),
+            t_second = _hashtable_iterator_next(t_second))
+        {
+            t_less = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtablefirst);
+            cpt_hashtablefirst->_t_less(
+                ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data,
+                ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data, &t_less);
+            if(t_less)
+            {
+                return true;
+            }
+            t_great = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtablefirst);
+            cpt_hashtablefirst->_t_less(
+                ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data,
+                ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data, &t_great);
+            if(t_great)
+            {
+                return false;
+            }
+        }
+    }
 
     return _hashtable_size(cpt_hashtablefirst) < _hashtable_size(cpt_hashtablesecond) ?
            true : false;
