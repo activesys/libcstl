@@ -46,11 +46,11 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
+static void _hash_set_int_hash(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
 /** local global variable definition section **/
-static void _hash_set_int_hash(const void* cpv_input, void* pv_output);
 
 /** exported function implementation section **/
 void test_hash_set(void)
@@ -653,6 +653,45 @@ void test_hash_set(void)
     }
     /* user defined type */
     {
+        type_register(hash_sample_t, _hash_sample_init, _hash_sample_copy, _hash_sample_less,
+            _hash_sample_destroy);
+        type_duplicate(hash_sample_t, struct _taghashsample);
+        _type_debug();
+        /*create_hash_set            */
+        {
+        }
+        /*hash_set_init              */
+        /*hash_set_init_ex           */
+        /*hash_set_init_copy         */
+        /*hash_set_init_copy_range   */
+        /*hash_set_init_copy_range_ex*/
+        /*hash_set_destroy           */
+        /*hash_set_assign            */
+        /*hash_set_swap              */
+        /*hash_set_size              */
+        /*hash_set_empty             */
+        /*hash_set_max_size          */
+        /*hash_set_bucket_count      */
+        /*hash_set_hash              */
+        /*hash_set_key_less          */
+        /*hash_set_resize            */
+        /*hash_set_equal             */
+        /*hash_set_not_equal         */
+        /*hash_set_less              */
+        /*hash_set_less_equal        */
+        /*hash_set_great             */
+        /*hash_set_great_equal       */
+        /*hash_set_begin             */
+        /*hash_set_end               */
+        /*hash_set_find              */
+        /*hash_set_count             */
+        /*hash_set_equal_range       */
+        /*hash_set_insert            */
+        /*hash_set_insert_range      */
+        /*hash_set_erase             */
+        /*hash_set_erase_pos         */
+        /*hash_set_erase_range       */
+        /*hash_set_clear             */
     }
     /* cstl type */
     {

@@ -28,6 +28,7 @@ extern "C" {
 #endif
 
 /** include section **/
+#include "chash_set.h"
 
 /** constant declaration and macro section **/
 #define _debug_hash_set_c(pt_hset, fmt, type)\
@@ -55,11 +56,24 @@ extern "C" {
     }while(false)
 
 /** data type declaration and struct, union, enum section **/
+typedef struct _taghashsample
+{
+    double _d_first;
+    long   _l_second;
+}hash_sample_t;
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
 extern void test_hashtable(void);
+extern void _debug_hash_set_user(const hash_set_t* cpt_hset);
+extern void _print_hash_sample(const hash_set_t* cpt_hset);
+extern void _hash_sample_init(const void* cpv_input, void* pv_output);
+extern void _hash_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _hash_sample_less(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _hash_sample_destroy(const void* cpv_input, void* pv_output);
+extern void _hash_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _hash_set_sample_hash(const void* cpv_input, void* pv_output);
 
 #ifdef __cplusplus
 }
