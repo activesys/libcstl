@@ -659,12 +659,168 @@ void test_hash_set(void)
         _type_debug();
         /*create_hash_set            */
         {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hset);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 22390;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = -9834.223;
+            t_sample._l_second = 409303;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = 2323.2323;
+            t_sample._l_second = 4;
+            hash_set_insert(pt_hset, &t_sample);
+            _debug_hash_set_user(pt_hset);
+            _print_hash_sample(pt_hset);
+            hash_set_destroy(pt_hset);
         }
         /*hash_set_init              */
         /*hash_set_init_ex           */
+        {
+            hash_set_t* pt_hset = create_hash_set(struct _taghashsample);
+            hash_sample_t t_sample;
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 200, _hash_set_sample_hash, NULL);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 22390;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = -9834.223;
+            t_sample._l_second = 409303;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = 2323.2323;
+            t_sample._l_second = 4;
+            hash_set_insert(pt_hset, &t_sample);
+            _debug_hash_set_user(pt_hset);
+            _print_hash_sample(pt_hset);
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_init_copy         */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_set_t* pt_hsetex = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hsetex);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 22390;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = -9834.223;
+            t_sample._l_second = 409303;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 2323.2323;
+            t_sample._l_second = 4;
+            hash_set_insert(pt_hsetex, &t_sample);
+            _print_hash_sample(pt_hsetex);
+            hash_set_init_copy(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_init_copy_range   */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_set_t* pt_hsetex = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hsetex, 100, _hash_set_sample_hash, NULL);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 22390;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = -9834.223;
+            t_sample._l_second = 409303;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 2323.2323;
+            t_sample._l_second = 4;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 0.2323;
+            t_sample._l_second = 66666;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 2323.0;
+            t_sample._l_second = -66666;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 0.0;
+            t_sample._l_second = 0;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 1.1;
+            t_sample._l_second = 1;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 8.8;
+            t_sample._l_second = 8;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 44444.4;
+            t_sample._l_second = -5666;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 44.4;
+            t_sample._l_second = -5666;
+            hash_set_insert(pt_hsetex, &t_sample);
+            _print_hash_sample(pt_hsetex);
+            hash_set_init_copy_range(pt_hset, hash_set_begin(pt_hsetex),
+                hash_set_end(pt_hsetex));
+            _print_hash_sample(pt_hset);
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_init_copy_range_ex*/
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_set_t* pt_hsetex = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hsetex, 100, _hash_set_sample_hash, NULL);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 22390;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = -9834.223;
+            t_sample._l_second = 409303;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 2323.2323;
+            t_sample._l_second = 4;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 0.2323;
+            t_sample._l_second = 66666;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 2323.0;
+            t_sample._l_second = -66666;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 0.0;
+            t_sample._l_second = 0;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 1.1;
+            t_sample._l_second = 1;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 8.8;
+            t_sample._l_second = 8;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 44444.4;
+            t_sample._l_second = -5666;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 44.4;
+            t_sample._l_second = -5666;
+            hash_set_insert(pt_hsetex, &t_sample);
+            _print_hash_sample(pt_hsetex);
+            hash_set_init_copy_range_ex(pt_hset, hash_set_begin(pt_hsetex),
+                hash_set_end(pt_hsetex), 80, NULL, _hash_sample_great);
+            _print_hash_sample(pt_hset);
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_destroy           */
         /*hash_set_assign            */
         /*hash_set_swap              */
