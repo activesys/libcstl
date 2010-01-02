@@ -823,14 +823,150 @@ void test_hash_set(void)
         }
         /*hash_set_destroy           */
         /*hash_set_assign            */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_set_t* pt_hsetex = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hset);
+            hash_set_init(pt_hsetex);
+            hash_set_assign(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            t_sample._d_first = 45.90;
+            t_sample._l_second = 3490;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = -10.01111;
+            t_sample._l_second = 9009;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 45.087;
+            t_sample._l_second = -290;
+            hash_set_insert(pt_hsetex, &t_sample);
+            hash_set_assign(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            hash_set_clear(pt_hsetex);
+            t_sample._d_first = 40.099;
+            t_sample._l_second = -670;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 122121.0;
+            t_sample._l_second = 56.029;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 45.09898;
+            t_sample._l_second = 898;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 230.9;
+            t_sample._l_second = -7777;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 45.99999;
+            t_sample._l_second = 459999;
+            hash_set_insert(pt_hsetex, &t_sample);
+            hash_set_assign(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            hash_set_clear(pt_hsetex);
+            t_sample._d_first = 4.5;
+            t_sample._l_second = 45;
+            hash_set_insert(pt_hsetex, &t_sample);
+            hash_set_assign(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            hash_set_clear(pt_hsetex);
+            hash_set_assign(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_swap              */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_set_t* pt_hsetex = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hset);
+            hash_set_init(pt_hsetex);
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            _print_hash_sample(pt_hsetex);
+            t_sample._d_first = 45.90;
+            t_sample._l_second = 3490;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = -10.01111;
+            t_sample._l_second = 9009;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 45.087;
+            t_sample._l_second = -290;
+            hash_set_insert(pt_hsetex, &t_sample);
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            _print_hash_sample(pt_hsetex);
+            hash_set_clear(pt_hsetex);
+            t_sample._d_first = 40.099;
+            t_sample._l_second = -670;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 122121.0;
+            t_sample._l_second = 56.029;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 45.09898;
+            t_sample._l_second = 898;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 230.9;
+            t_sample._l_second = -7777;
+            hash_set_insert(pt_hsetex, &t_sample);
+            t_sample._d_first = 45.99999;
+            t_sample._l_second = 459999;
+            hash_set_insert(pt_hsetex, &t_sample);
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            _print_hash_sample(pt_hsetex);
+            hash_set_clear(pt_hsetex);
+            t_sample._d_first = 4.5;
+            t_sample._l_second = 45;
+            hash_set_insert(pt_hsetex, &t_sample);
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            _print_hash_sample(pt_hsetex);
+            hash_set_clear(pt_hsetex);
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_sample(pt_hset);
+            _print_hash_sample(pt_hsetex);
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_size              */
         /*hash_set_empty             */
         /*hash_set_max_size          */
         /*hash_set_bucket_count      */
         /*hash_set_hash              */
         /*hash_set_key_less          */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 100, _hash_set_sample_hash, _hash_sample_great);
+            assert(hash_set_hash(pt_hset) == _hash_set_sample_hash &&
+                hash_set_key_less(pt_hset) == _hash_sample_great);
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_resize            */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hset);
+            _print_hash_sample(pt_hset);
+            hash_set_resize(pt_hset, 100);
+            _print_hash_sample(pt_hset);
+            hash_set_resize(pt_hset, 80);
+            _print_hash_sample(pt_hset);
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_equal             */
         /*hash_set_not_equal         */
         /*hash_set_less              */
