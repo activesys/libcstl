@@ -973,12 +973,174 @@ void test_hash_set(void)
         /*hash_set_less_equal        */
         /*hash_set_great             */
         /*hash_set_great_equal       */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_set_t* pt_hsetex = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hset);
+            hash_set_init(pt_hsetex);
+            _print_hash_sample(pt_hset);
+            _print_hash_sample(pt_hsetex);
+            printf("equal: %d, not equal: %d, ",
+                hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            t_sample._d_first = 34.98;
+            t_sample._l_second = 34;
+            hash_set_insert(pt_hset, &t_sample);
+            _print_hash_sample(pt_hset);
+            _print_hash_sample(pt_hsetex);
+            printf("equal: %d, not equal: %d, ",
+                hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            hash_set_insert(pt_hsetex, &t_sample);
+            _print_hash_sample(pt_hset);
+            _print_hash_sample(pt_hsetex);
+            printf("equal: %d, not equal: %d, ",
+                hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            t_sample._d_first = -90.23;
+            t_sample._l_second = 0;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = 452.33;
+            t_sample._l_second = 90;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = 23232.2;
+            t_sample._l_second = 4849;
+            hash_set_insert(pt_hsetex, &t_sample);
+            _print_hash_sample(pt_hset);
+            _print_hash_sample(pt_hsetex);
+            printf("equal: %d, not equal: %d, ",
+                hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_begin             */
         /*hash_set_end               */
         /*hash_set_find              */
         /*hash_set_count             */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            iterator_t t_iter;
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hset);
+            t_sample._d_first = 0.09;
+            t_sample._l_second = 45;
+            t_iter = hash_set_find(pt_hset, &t_sample);
+            if(iterator_equal(t_iter, hash_set_end(pt_hset)))
+            {
+                printf("not found, count : %d\n", hash_set_count(pt_hset, &t_sample));
+            }
+            else
+            {
+                printf("found, count : %d\n", hash_set_count(pt_hset, &t_sample));
+            }
+            t_sample._d_first = 34234.23;
+            t_sample._l_second = 4;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = 67.22;
+            t_sample._l_second = 0;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = -8784.23;
+            t_sample._l_second = 90;
+            hash_set_insert(pt_hset, &t_sample);
+            _print_hash_sample(pt_hset);
+            t_sample._d_first = 0.09;
+            t_sample._l_second = 45;
+            t_iter = hash_set_find(pt_hset, &t_sample);
+            if(iterator_equal(t_iter, hash_set_end(pt_hset)))
+            {
+                printf("not found, count : %d\n", hash_set_count(pt_hset, &t_sample));
+            }
+            else
+            {
+                printf("found, count : %d\n", hash_set_count(pt_hset, &t_sample));
+            }
+            hash_set_insert(pt_hset, &t_sample);
+            _print_hash_sample(pt_hset);
+            t_iter = hash_set_find(pt_hset, &t_sample);
+            if(iterator_equal(t_iter, hash_set_end(pt_hset)))
+            {
+                printf("not found, count : %d\n", hash_set_count(pt_hset, &t_sample));
+            }
+            else
+            {
+                printf("found, count : %d\n", hash_set_count(pt_hset, &t_sample));
+            }
+
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_equal_range       */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            range_t t_range;
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hset);
+            t_sample._d_first = 344.23;
+            t_sample._l_second = 445;
+            t_range = hash_set_equal_range(pt_hset, &t_sample);
+            assert(iterator_equal(t_range.t_begin, hash_set_end(pt_hset)));
+            assert(iterator_equal(t_range.t_end, hash_set_end(pt_hset)));
+
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 23;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = 23.23;
+            t_sample._l_second = 0;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = 111.111;
+            t_sample._l_second = -34;
+            hash_set_insert(pt_hset, &t_sample);
+            _print_hash_sample(pt_hset);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 23;
+            t_range = hash_set_equal_range(pt_hset, &t_sample);
+            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_insert            */
+        {
+            hash_set_t* pt_hset = create_hash_set(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 100, _hash_set_int_hash, NULL);
+            t_sample._d_first = 4.555;
+            t_sample._l_second = 0;
+            hash_set_insert(pt_hset, &t_sample);
+            t_sample._d_first = 23.232;
+            t_sample._l_second = 1111;
+            hash_set_insert(pt_hset, &t_sample);
+            _print_hash_sample(pt_hset);
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_insert_range      */
         /*hash_set_erase             */
         /*hash_set_erase_pos         */
