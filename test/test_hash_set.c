@@ -851,7 +851,7 @@ void test_hash_set(void)
             t_sample._l_second = -670;
             hash_set_insert(pt_hsetex, &t_sample);
             t_sample._d_first = 122121.0;
-            t_sample._l_second = 56.029;
+            t_sample._l_second = 56;
             hash_set_insert(pt_hsetex, &t_sample);
             t_sample._d_first = 45.09898;
             t_sample._l_second = 898;
@@ -907,7 +907,7 @@ void test_hash_set(void)
             t_sample._l_second = -670;
             hash_set_insert(pt_hsetex, &t_sample);
             t_sample._d_first = 122121.0;
-            t_sample._l_second = 56.029;
+            t_sample._l_second = 56029;
             hash_set_insert(pt_hsetex, &t_sample);
             t_sample._d_first = 45.09898;
             t_sample._l_second = 898;

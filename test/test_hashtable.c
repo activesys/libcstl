@@ -40,8 +40,8 @@ void test_hashtable(void)
 
 void _debug_hash_set_user(const hash_set_t* cpt_hset)
 {
-    assert(cpt_hset != NULL);
     size_t t_index = 0;
+    assert(cpt_hset != NULL);
     printf("=======================================\n");
     printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
         hash_set_empty(cpt_hset), hash_set_size(cpt_hset),
