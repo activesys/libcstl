@@ -31,6 +31,22 @@ extern "C" {
 #include "chash_set.h"
 
 /** constant declaration and macro section **/
+#define _print_hash_set_c(pt_hset, fmt, type)\
+    do{\
+        iterator_t t_iter;\
+        printf("=======================================\n");\
+        printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",\
+            hash_set_empty(pt_hset), hash_set_size(pt_hset),\
+            hash_set_max_size(pt_hset), hash_set_bucket_count(pt_hset));\
+        for(t_iter = hash_set_begin(pt_hset);\
+            !iterator_equal(t_iter, hash_set_end(pt_hset));\
+            t_iter = iterator_next(t_iter))\
+        {\
+            printf(fmt, *(type*)iterator_get_pointer(t_iter));\
+        }\
+        printf("\n");\
+    }while(false)
+
 #define _debug_hash_set_c(pt_hset, fmt, type)\
     do{\
         size_t t_index = 0;\
@@ -74,6 +90,9 @@ extern void _hash_sample_less(const void* cpv_first, const void* cpv_second, voi
 extern void _hash_sample_destroy(const void* cpv_input, void* pv_output);
 extern void _hash_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hash_set_sample_hash(const void* cpv_input, void* pv_output);
+extern void _print_hash_set_cstl(const hash_set_t* cpt_hset);
+extern void _hash_set_cstl_hash(const void* cpv_input, void* pv_output);
+extern void _hash_set_int_hash(const void* cpv_input, void* pv_output);
 
 #ifdef __cplusplus
 }

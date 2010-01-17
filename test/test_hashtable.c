@@ -38,6 +38,33 @@ void test_hashtable(void)
 {
 }
 
+void _print_hash_set_cstl(const hash_set_t* cpt_hset)
+{
+    iterator_t t_itercstl;
+    assert(cpt_hset != NULL);
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_set_empty(cpt_hset), hash_set_size(cpt_hset),
+        hash_set_max_size(cpt_hset), hash_set_bucket_count(cpt_hset));
+    for(t_itercstl = hash_set_begin(cpt_hset);
+        !iterator_equal(t_itercstl, hash_set_end(cpt_hset));
+        t_itercstl = iterator_next(t_itercstl))
+    {
+        _print_hash_set_c((hash_set_t*)iterator_get_pointer(t_itercstl), "%d, ", int);
+    }
+}
+void _hash_set_cstl_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(size_t*)pv_output = hash_set_size((hash_set_t*)cpv_input);
+}
+
+void _hash_set_int_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(int*)pv_output = *(int*)cpv_input;
+}
+
 void _debug_hash_set_user(const hash_set_t* cpt_hset)
 {
     size_t t_index = 0;
