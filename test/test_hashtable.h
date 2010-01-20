@@ -93,6 +93,8 @@ extern void _hash_set_sample_hash(const void* cpv_input, void* pv_output);
 extern void _print_hash_set_cstl(const hash_set_t* cpt_hset);
 extern void _hash_set_cstl_hash(const void* cpv_input, void* pv_output);
 extern void _hash_set_int_hash(const void* cpv_input, void* pv_output);
+extern void _print_hash_set_cstr(const hash_set_t* cpt_hset);
+extern void _hash_set_cstr_hash(const void* cpv_input, void* pv_output);
 
 #ifdef __cplusplus
 }

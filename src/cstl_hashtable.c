@@ -99,6 +99,9 @@ static unsigned long _hashtable_get_prime(unsigned long ul_basenum);
 /* initialize new element */
 static void _hashtable_init_elem_auxiliary(hashtable_t* pt_hashtable, hashnode_t* pt_node);
 
+/* hash auxiliary */
+static void _hashtable_hash_auxiliary(const hashtable_t* cpt_hashtable, const void* cpv_input, void* pv_output);
+
 /** exported global variable definition section **/
 
 /** local global variable definition section **/
@@ -338,7 +341,8 @@ void _hashtable_resize(hashtable_t* pt_hashtable, size_t t_resize)
             pt_nodelist = pt_node->_pt_next;
 
             t_tmp = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
-            pt_hashtable->_t_hash(pt_node->_pc_data, &t_tmp);
+            /*pt_hashtable->_t_hash(pt_node->_pc_data, &t_tmp);*/
+            _hashtable_hash_auxiliary(pt_hashtable, pt_node->_pc_data, &t_tmp);
             t_pos = t_tmp % t_bucketcount;
             ppt_bucket = (hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_pos);
             pt_node->_pt_next = *ppt_bucket;
@@ -379,7 +383,8 @@ hashtable_iterator_t _hashtable_insert_equal(
     /* hash */
     t_bucketcount = _hashtable_bucket_count(pt_hashtable);
     t_tmp = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
-    pt_hashtable->_t_hash(pt_node->_pc_data, &t_tmp);
+    /*pt_hashtable->_t_hash(pt_node->_pc_data, &t_tmp);*/
+    _hashtable_hash_auxiliary(pt_hashtable, pt_node->_pc_data, &t_tmp);
     t_pos = t_tmp % t_bucketcount;
 
     /* insert node into hashtable, note the node has same value together */
@@ -470,7 +475,8 @@ hashtable_iterator_t _hashtable_find(
 
     t_bucketcount = _hashtable_bucket_count(cpt_hashtable);
     t_tmp = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtable);
-    cpt_hashtable->_t_hash(cpv_value, &t_tmp);
+    /*cpt_hashtable->_t_hash(cpv_value, &t_tmp);*/
+    _hashtable_hash_auxiliary(cpt_hashtable, cpv_value, &t_tmp);
     t_pos = t_tmp % t_bucketcount;
     ppt_bucket = (hashnode_t**)vector_at(&cpt_hashtable->_t_bucket, t_pos);
     pt_node = *ppt_bucket;
@@ -525,7 +531,8 @@ range_t _hashtable_equal_range(
 
     t_bucketcount = _hashtable_bucket_count(cpt_hashtable);
     t_tmp = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtable);
-    cpt_hashtable->_t_hash(cpv_value, &t_tmp);
+    /*cpt_hashtable->_t_hash(cpv_value, &t_tmp);*/
+    _hashtable_hash_auxiliary(cpt_hashtable, cpv_value, &t_tmp);
     t_pos = t_tmp % t_bucketcount;
     ppt_bucket = (hashnode_t**)vector_at(&cpt_hashtable->_t_bucket, t_pos);
 
@@ -1276,6 +1283,20 @@ static void _hashtable_init_elem_auxiliary(hashtable_t* pt_hashtable, hashnode_t
         _GET_HASHTABLE_TYPE_INIT_FUNCTION(pt_hashtable)(pt_node->_pc_data, &t_result);
         assert(t_result);
     }
+}
+
+static void _hashtable_hash_auxiliary(const hashtable_t* cpt_hashtable, const void* cpv_input, void* pv_output)
+{
+    assert(cpt_hashtable != NULL && cpv_input != NULL && pv_output != NULL);
+
+    if(strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        cpt_hashtable->_t_hash(string_c_str((string_t*)cpv_input), pv_output);
+    }
+    else
+    {
+        cpt_hashtable->_t_hash(cpv_input, pv_output);
+    } 
 }
 
 /** eof **/

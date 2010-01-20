@@ -38,6 +38,28 @@ void test_hashtable(void)
 {
 }
 
+void _hash_set_cstr_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(size_t*)pv_output = strlen((char*)cpv_input);
+}
+
+void _print_hash_set_cstr(const hash_set_t* cpt_hset)
+{
+    iterator_t t_iter;
+    assert(cpt_hset != NULL);
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_set_empty(cpt_hset), hash_set_size(cpt_hset),
+        hash_set_max_size(cpt_hset), hash_set_bucket_count(cpt_hset));
+    for(t_iter= hash_set_begin(cpt_hset);
+        !iterator_equal(t_iter, hash_set_end(cpt_hset));
+        t_iter= iterator_next(t_iter))
+    {
+        printf("%s\n", (char*)iterator_get_pointer(t_iter));
+    }
+}
+
 void _print_hash_set_cstl(const hash_set_t* cpt_hset)
 {
     iterator_t t_itercstl;

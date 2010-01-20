@@ -2560,40 +2560,88 @@ void test_hash_set(void)
     }
     /* c-string type */
     {
+        /*create_hash_set            */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hset);
+            hash_set_insert(pt_hset, "abcdefg");
+            hash_set_insert(pt_hset, "ooooooooooooooooo");
+            hash_set_insert(pt_hset, "hhhhkadfoqwbn");
+            hash_set_insert(pt_hset, "12124120");
+            _print_hash_set_cstr(pt_hset);
+            hash_set_destroy(pt_hset);
+        }
+        /*hash_set_init              */
+        /*hash_set_init_ex           */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 50, _hash_set_cstr_hash, NULL);
+            hash_set_insert(pt_hset, "999");
+            hash_set_insert(pt_hset, "7");
+            hash_set_insert(pt_hset, "bbaklsf");
+            hash_set_insert(pt_hset, "1111111111111");
+            hash_set_insert(pt_hset, "yyy");
+            _print_hash_set_cstr(pt_hset);
+            hash_set_destroy(pt_hset);
+        }
+        /*hash_set_init_copy         */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            hash_set_t* pt_hsetex = create_hash_set(char*);
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hsetex, 100, _hash_set_cstr_hash, NULL);
+            hash_set_insert(pt_hsetex, "bbbb");
+            hash_set_insert(pt_hsetex, "99999999");
+            hash_set_insert(pt_hsetex, "");
+            hash_set_insert(pt_hsetex, "vv");
+            hash_set_insert(pt_hsetex, "nnn");
+            hash_set_insert(pt_hsetex, ".,._t_hashtable,");
+            hash_set_init_copy(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_destroy(pt_hsetex);
+            hash_set_destroy(pt_hset);
+        }
+        /*hash_set_init_copy_range   */
+        /*hash_set_init_copy_range_ex*/
+        /*hash_set_destroy           */
+        /*hash_set_assign            */
+        /*hash_set_swap              */
+        /*hash_set_size              */
+        /*hash_set_empty             */
+        /*hash_set_max_size          */
+        /*hash_set_bucket_count      */
+        /*hash_set_hash              */
+        /*hash_set_key_less          */
+        /*hash_set_resize            */
+        /*hash_set_equal             */
+        /*hash_set_not_equal         */
+        /*hash_set_less              */
+        /*hash_set_less_equal        */
+        /*hash_set_great             */
+        /*hash_set_great_equal       */
+        /*hash_set_begin             */
+        /*hash_set_end               */
+        /*hash_set_find              */
+        /*hash_set_count             */
+        /*hash_set_equal_range       */
+        /*hash_set_insert            */
+        /*hash_set_insert_range      */
+        /*hash_set_erase             */
+        /*hash_set_erase_pos         */
+        /*hash_set_erase_range       */
+        /*hash_set_clear             */
     }
-    /*create_hash_set            */
-    /*hash_set_init              */
-    /*hash_set_init_ex           */
-    /*hash_set_init_copy         */
-    /*hash_set_init_copy_range   */
-    /*hash_set_init_copy_range_ex*/
-    /*hash_set_destroy           */
-    /*hash_set_assign            */
-    /*hash_set_swap              */
-    /*hash_set_size              */
-    /*hash_set_empty             */
-    /*hash_set_max_size          */
-    /*hash_set_bucket_count      */
-    /*hash_set_hash              */
-    /*hash_set_key_less          */
-    /*hash_set_resize            */
-    /*hash_set_equal             */
-    /*hash_set_not_equal         */
-    /*hash_set_less              */
-    /*hash_set_less_equal        */
-    /*hash_set_great             */
-    /*hash_set_great_equal       */
-    /*hash_set_begin             */
-    /*hash_set_end               */
-    /*hash_set_find              */
-    /*hash_set_count             */
-    /*hash_set_equal_range       */
-    /*hash_set_insert            */
-    /*hash_set_insert_range      */
-    /*hash_set_erase             */
-    /*hash_set_erase_pos         */
-    /*hash_set_erase_range       */
-    /*hash_set_clear             */
 }
 
 void test_hash_multiset(void)
