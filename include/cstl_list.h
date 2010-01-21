@@ -1,6 +1,6 @@
 /*
  *  The user interface of list.
- *  Copyright (C)  2008 2009  Wangbo
+ *  Copyright (C)  2008,2009,2010  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public

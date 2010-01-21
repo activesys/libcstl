@@ -1,6 +1,6 @@
 /*
  *  The implementation of hashtable test.
- *  Copyright (C)  2008 2009  Wangbo
+ *  Copyright (C)  2008,2009,2010  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -36,6 +36,19 @@
 /** exported function implementation section **/
 void test_hashtable(void)
 {
+}
+
+void _hash_set_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strcmp((char*)cpv_first, (char*)cpv_second) < 0)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
 }
 
 void _hash_set_cstr_hash(const void* cpv_input, void* pv_output)

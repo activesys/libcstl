@@ -1,6 +1,6 @@
 /*
  *  The implementation of hash_set_t and hash_multiset_t test.
- *  Copyright (C)  2008 2009  Wangbo
+ *  Copyright (C)  2008,2009,2010  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -2613,7 +2613,57 @@ void test_hash_set(void)
             hash_set_destroy(pt_hset);
         }
         /*hash_set_init_copy_range   */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            hash_set_t* pt_hsetex = create_hash_set(char*);
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hsetex, 100, _hash_set_cstr_hash, _hash_set_cstr_less);
+            hash_set_insert(pt_hsetex, "abcdefghijklmn");
+            hash_set_insert(pt_hsetex, "00000000");
+            hash_set_insert(pt_hsetex, "uu");
+            hash_set_insert(pt_hsetex, "abcdefghijklmn");
+            hash_set_insert(pt_hsetex, "94lebgqoi34asdh;adfasd");
+            hash_set_insert(pt_hsetex, "787878");
+            hash_set_insert(pt_hsetex, "444444");
+            hash_set_insert(pt_hsetex, "4902u30230");
+            hash_set_insert(pt_hsetex, "tta");
+            hash_set_init_copy_range(pt_hset,
+                hash_set_begin(pt_hsetex), hash_set_end(pt_hsetex));
+            _print_hash_set_cstr(pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_init_copy_range_ex*/
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            hash_set_t* pt_hsetex = create_hash_set(char*);
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hsetex);
+            hash_set_insert(pt_hsetex, "abcdefghijklmn");
+            hash_set_insert(pt_hsetex, "00000000");
+            hash_set_insert(pt_hsetex, "uu");
+            hash_set_insert(pt_hsetex, "abcdefghijklmn");
+            hash_set_insert(pt_hsetex, "94lebgqoi34asdh;adfasd");
+            hash_set_insert(pt_hsetex, "787878");
+            hash_set_insert(pt_hsetex, "444444");
+            hash_set_insert(pt_hsetex, "4902u30230");
+            hash_set_insert(pt_hsetex, "tta");
+            hash_set_init_copy_range_ex(pt_hset,
+                hash_set_begin(pt_hsetex),
+                hash_set_end(pt_hsetex),
+                100, _hash_set_cstr_hash, _hash_set_cstr_less);
+            _print_hash_set_cstr(pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_destroy           */
         /*hash_set_assign            */
         /*hash_set_swap              */

@@ -1,6 +1,6 @@
 /*
  *  The implementation of hashtable.
- *  Copyright (C)  2008 2009  Wangbo
+ *  Copyright (C)  2008,2009,2010  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -101,6 +101,9 @@ static void _hashtable_init_elem_auxiliary(hashtable_t* pt_hashtable, hashnode_t
 
 /* hash auxiliary */
 static void _hashtable_hash_auxiliary(const hashtable_t* cpt_hashtable, const void* cpv_input, void* pv_output);
+/* less auxiliary */
+static void _hashtable_elem_less_auxiliary(const hashtable_t* cpt_hashtable,
+    const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -399,8 +402,10 @@ hashtable_iterator_t _hashtable_insert_equal(
     else
     {
         t_less = t_great = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
-        pt_hashtable->_t_less(pt_cur->_pc_data, pt_node->_pc_data, &t_less);
-        pt_hashtable->_t_less(pt_node->_pc_data, pt_cur->_pc_data, &t_great);
+        /*pt_hashtable->_t_less(pt_cur->_pc_data, pt_node->_pc_data, &t_less);*/
+        /*pt_hashtable->_t_less(pt_node->_pc_data, pt_cur->_pc_data, &t_great);*/
+        _hashtable_elem_less_auxiliary(pt_hashtable, pt_cur->_pc_data, pt_node->_pc_data, &t_less);
+        _hashtable_elem_less_auxiliary(pt_hashtable, pt_node->_pc_data, pt_cur->_pc_data, &t_great);
         if(!t_less && !t_great)
         {
             pt_node->_pt_next = pt_cur;
@@ -411,8 +416,12 @@ hashtable_iterator_t _hashtable_insert_equal(
             while(pt_cur->_pt_next != NULL)
             {
                 t_less = t_great = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
-                pt_hashtable->_t_less(pt_cur->_pt_next->_pc_data, pt_node->_pc_data, &t_less);
-                pt_hashtable->_t_less(pt_node->_pc_data, pt_cur->_pt_next->_pc_data, &t_great);
+                /*pt_hashtable->_t_less(pt_cur->_pt_next->_pc_data, pt_node->_pc_data, &t_less);*/
+                /*pt_hashtable->_t_less(pt_node->_pc_data, pt_cur->_pt_next->_pc_data, &t_great);*/
+                _hashtable_elem_less_auxiliary(
+                    pt_hashtable, pt_cur->_pt_next->_pc_data, pt_node->_pc_data, &t_less);
+                _hashtable_elem_less_auxiliary(
+                    pt_hashtable, pt_node->_pc_data, pt_cur->_pt_next->_pc_data, &t_great);
 
                 if(t_less || t_great)
                 {
@@ -484,8 +493,10 @@ hashtable_iterator_t _hashtable_find(
     while(pt_node != NULL)
     {
         t_less = t_great = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtable);
-        cpt_hashtable->_t_less(pt_node->_pc_data, cpv_value, &t_less);
-        cpt_hashtable->_t_less(cpv_value, pt_node->_pc_data, &t_great);
+        /*cpt_hashtable->_t_less(pt_node->_pc_data, cpv_value, &t_less);*/
+        /*cpt_hashtable->_t_less(cpv_value, pt_node->_pc_data, &t_great);*/
+        _hashtable_elem_less_auxiliary(cpt_hashtable, pt_node->_pc_data, cpv_value, &t_less);
+        _hashtable_elem_less_auxiliary(cpt_hashtable, cpv_value, pt_node->_pc_data, &t_great);
         if(t_less || t_great)
         {
             pt_node = pt_node->_pt_next;
@@ -539,8 +550,10 @@ range_t _hashtable_equal_range(
     for(pt_begin = *ppt_bucket; pt_begin != NULL; pt_begin = pt_begin->_pt_next)
     {
         t_less = t_great = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtable);
-        cpt_hashtable->_t_less(pt_begin->_pc_data, cpv_value, &t_less);
-        cpt_hashtable->_t_less(cpv_value, pt_begin->_pc_data, &t_great);
+        /*cpt_hashtable->_t_less(pt_begin->_pc_data, cpv_value, &t_less);*/
+        /*cpt_hashtable->_t_less(cpv_value, pt_begin->_pc_data, &t_great);*/
+        _hashtable_elem_less_auxiliary(cpt_hashtable, pt_begin->_pc_data, cpv_value, &t_less);
+        _hashtable_elem_less_auxiliary(cpt_hashtable, cpv_value, pt_begin->_pc_data, &t_great);
         if(!t_less && !t_great)
         {
             for(pt_end = pt_begin->_pt_next;
@@ -548,8 +561,10 @@ range_t _hashtable_equal_range(
                 pt_end = pt_end->_pt_next)
             {
                 t_less = t_great = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtable);
-                cpt_hashtable->_t_less(pt_end->_pc_data, cpv_value, &t_less);
-                cpt_hashtable->_t_less(cpv_value, pt_end->_pc_data, &t_great);
+                /*cpt_hashtable->_t_less(pt_end->_pc_data, cpv_value, &t_less);*/
+                /*cpt_hashtable->_t_less(cpv_value, pt_end->_pc_data, &t_great);*/
+                _hashtable_elem_less_auxiliary(cpt_hashtable, pt_end->_pc_data, cpv_value, &t_less);
+                _hashtable_elem_less_auxiliary(cpt_hashtable, cpv_value, pt_end->_pc_data, &t_great);
                 if(t_less || t_great)
                 {
                     _GET_HASHTABLE_BUCKETPOS(t_result.t_begin) = (char*)ppt_bucket;
@@ -1005,10 +1020,16 @@ bool_t _hashtable_equal(
         t_second = _hashtable_iterator_next(t_second))
     {
         t_less = t_great = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtablefirst);
-        cpt_hashtablefirst->_t_less(
+        /*cpt_hashtablefirst->_t_less(*/
+        /*((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data,*/
+        /*((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data, &t_less);*/
+        /*cpt_hashtablefirst->_t_less(*/
+        /*((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data,*/
+        /*((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data, &t_great);*/
+        _hashtable_elem_less_auxiliary(cpt_hashtablefirst,
             ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data,
             ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data, &t_less);
-        cpt_hashtablefirst->_t_less(
+        _hashtable_elem_less_auxiliary(cpt_hashtablefirst,
             ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data,
             ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data, &t_great);
         if(t_less || t_great)
@@ -1052,7 +1073,10 @@ bool_t _hashtable_less(
             t_second = _hashtable_iterator_next(t_second))
         {
             t_less = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtablefirst);
-            cpt_hashtablefirst->_t_less(
+            /*cpt_hashtablefirst->_t_less(*/
+            /*((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data,*/
+            /*((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data, &t_less);*/
+            _hashtable_elem_less_auxiliary(cpt_hashtablefirst,
                 ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data,
                 ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data, &t_less);
             if(t_less)
@@ -1060,7 +1084,10 @@ bool_t _hashtable_less(
                 return true;
             }
             t_great = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtablefirst);
-            cpt_hashtablefirst->_t_less(
+            /*cpt_hashtablefirst->_t_less(*/
+            /*((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data,*/
+            /*((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data, &t_great);*/
+            _hashtable_elem_less_auxiliary(cpt_hashtablefirst,
                 ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data,
                 ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data, &t_great);
             if(t_great)
@@ -1297,6 +1324,22 @@ static void _hashtable_hash_auxiliary(const hashtable_t* cpt_hashtable, const vo
     {
         cpt_hashtable->_t_hash(cpv_input, pv_output);
     } 
+}
+
+static void _hashtable_elem_less_auxiliary(const hashtable_t* cpt_hashtable,
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpt_hashtable != NULL && cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    if(strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
+       cpt_hashtable->_t_less != _GET_HASHTABLE_TYPE_LESS_FUNCTION(cpt_hashtable))
+    {
+        cpt_hashtable->_t_less(string_c_str((string_t*)cpv_first), string_c_str((string_t*)cpv_second), pv_output);
+    }
+    else
+    {
+        cpt_hashtable->_t_less(cpv_first, cpv_second, pv_output);
+    }
 }
 
 /** eof **/

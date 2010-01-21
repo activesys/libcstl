@@ -1,6 +1,6 @@
 /*
  *  The interface of hashtable test.
- *  Copyright (C)  2008 2009  Wangbo
+ *  Copyright (C)  2008,2009,2010  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -95,6 +95,7 @@ extern void _hash_set_cstl_hash(const void* cpv_input, void* pv_output);
 extern void _hash_set_int_hash(const void* cpv_input, void* pv_output);
 extern void _print_hash_set_cstr(const hash_set_t* cpt_hset);
 extern void _hash_set_cstr_hash(const void* cpv_input, void* pv_output);
+extern void _hash_set_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 #ifdef __cplusplus
 }
