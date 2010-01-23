@@ -2666,31 +2666,479 @@ void test_hash_set(void)
         }
         /*hash_set_destroy           */
         /*hash_set_assign            */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            hash_set_t* pt_hsetex = create_hash_set(char*);
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hsetex);
+            hash_set_init(pt_hset);
+            hash_set_assign(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_insert(pt_hsetex, "abcdefghijklmn");
+            hash_set_insert(pt_hsetex, "00000000");
+            hash_set_insert(pt_hsetex, "uu");
+            hash_set_assign(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_clear(pt_hsetex);
+            hash_set_insert(pt_hsetex, "abcdefghijklmn");
+            hash_set_insert(pt_hsetex, "94lebgqoi34asdh;adfasd");
+            hash_set_insert(pt_hsetex, "787878");
+            hash_set_insert(pt_hsetex, "444444");
+            hash_set_insert(pt_hsetex, "4902u30230");
+            hash_set_insert(pt_hsetex, "tta");
+            hash_set_assign(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_clear(pt_hsetex);
+            hash_set_assign(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_swap              */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            hash_set_t* pt_hsetex = create_hash_set(char*);
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hsetex, 50, _hash_set_cstr_hash, NULL);
+            hash_set_init_ex(pt_hset, 50, _hash_set_cstr_hash, NULL);
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            _print_hash_set_cstr(pt_hsetex);
+            hash_set_insert(pt_hsetex, "abcdefghijklmn");
+            hash_set_insert(pt_hsetex, "00000000");
+            hash_set_insert(pt_hsetex, "uu");
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            _print_hash_set_cstr(pt_hsetex);
+            hash_set_clear(pt_hsetex);
+            hash_set_insert(pt_hsetex, "abcdefghijklmn");
+            hash_set_insert(pt_hsetex, "94lebgqoi34asdh;adfasd");
+            hash_set_insert(pt_hsetex, "787878");
+            hash_set_insert(pt_hsetex, "444444");
+            hash_set_insert(pt_hsetex, "4902u30230");
+            hash_set_insert(pt_hsetex, "tta");
+            hash_set_insert(pt_hsetex, "444444");
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            _print_hash_set_cstr(pt_hsetex);
+            hash_set_clear(pt_hsetex);
+            hash_set_insert(pt_hsetex, "66666");
+            hash_set_insert(pt_hsetex, "al;dhiqwegfbfgoqwehfodghf");
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            _print_hash_set_cstr(pt_hsetex);
+            hash_set_clear(pt_hsetex);
+            hash_set_swap(pt_hset, pt_hsetex);
+            _print_hash_set_cstr(pt_hset);
+            _print_hash_set_cstr(pt_hsetex);
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_size              */
         /*hash_set_empty             */
         /*hash_set_max_size          */
         /*hash_set_bucket_count      */
         /*hash_set_hash              */
         /*hash_set_key_less          */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 100, _hash_set_cstr_hash, _hash_set_cstr_less);
+            assert(hash_set_hash(pt_hset) == _hash_set_cstr_hash &&
+                hash_set_key_less(pt_hset) == _hash_set_cstr_less);
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_resize            */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init(pt_hset);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_resize(pt_hset, 100);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_resize(pt_hset, 400);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_resize(pt_hset, 10);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_resize(pt_hset, 0);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_equal             */
         /*hash_set_not_equal         */
         /*hash_set_less              */
         /*hash_set_less_equal        */
         /*hash_set_great             */
         /*hash_set_great_equal       */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            hash_set_t* pt_hsetex = create_hash_set(char*);
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 100, _hash_set_cstr_hash, NULL);
+            hash_set_init_ex(pt_hsetex, 100, _hash_set_cstr_hash, NULL);
+            _print_hash_set_cstr(pt_hset);
+            _print_hash_set_cstr(pt_hsetex);
+            printf("equal: %d, not equal: %d, ",
+                hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+
+            hash_set_insert(pt_hset, "ynuopqdasdgq");
+            _print_hash_set_cstr(pt_hset);
+            _print_hash_set_cstr(pt_hsetex);
+            printf("equal: %d, not equal: %d, ",
+                hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+
+            hash_set_insert(pt_hsetex, "ynuopqdasdgq");
+            _print_hash_set_cstr(pt_hset);
+            _print_hash_set_cstr(pt_hsetex);
+            printf("equal: %d, not equal: %d, ",
+                hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+
+            hash_set_insert(pt_hset, "ynuop");
+            hash_set_insert(pt_hset, "vvvvvvvv");
+            hash_set_insert(pt_hset, "bbbbbb");
+            hash_set_insert(pt_hsetex, "ynuopqdasdgqxxxxxxx");
+            _print_hash_set_cstr(pt_hset);
+            _print_hash_set_cstr(pt_hsetex);
+            printf("equal: %d, not equal: %d, ",
+                hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_begin             */
         /*hash_set_end               */
         /*hash_set_find              */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            iterator_t t_iter;
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 10, _hash_set_cstr_hash, NULL);
+            t_iter = hash_set_find(pt_hset, "abcdefg");
+            if(iterator_equal(t_iter, hash_set_end(pt_hset)))
+            {
+                printf("not found, count : %d\n", hash_set_count(pt_hset, "abcdefg"));
+            }
+            else
+            {
+                printf("found, count : %d\n", hash_set_count(pt_hset, "abcdefg"));
+            }
+
+            hash_set_insert(pt_hset, "rtrtrtm");
+            hash_set_insert(pt_hset, "bvn");
+            hash_set_insert(pt_hset, "abcdefg");
+            hash_set_insert(pt_hset, ",._t_hashtable,._t_.,.,..,.,.,");
+            hash_set_insert(pt_hset, "vvv");
+            _print_hash_set_cstr(pt_hset);
+
+            t_iter = hash_set_find(pt_hset, "mmmmmm");
+            if(iterator_equal(t_iter, hash_set_end(pt_hset)))
+            {
+                printf("not found, count : %d\n", hash_set_count(pt_hset, "mmmmmm"));
+            }
+            else
+            {
+                printf("found, count : %d\n", hash_set_count(pt_hset, "mmmmmm"));
+            }
+            t_iter = hash_set_find(pt_hset, "abcdefg");
+            if(iterator_equal(t_iter, hash_set_end(pt_hset)))
+            {
+                printf("not found, count : %d\n", hash_set_count(pt_hset, "abcdefg"));
+            }
+            else
+            {
+                printf("found, count : %d\n", hash_set_count(pt_hset, "abcdefg"));
+            }
+
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_count             */
         /*hash_set_equal_range       */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            range_t t_range;
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 10, _hash_set_cstr_hash, NULL);
+            t_range = hash_set_equal_range(pt_hset, "abcdefg");
+            assert(iterator_equal(t_range.t_begin, hash_set_end(pt_hset)) &&
+                iterator_equal(t_range.t_begin, t_range.t_end));
+            hash_set_insert(pt_hset, "lskdj");
+            hash_set_insert(pt_hset, "bbbbbbbbb");
+            hash_set_insert(pt_hset, "abcdefg");
+            hash_set_insert(pt_hset, "nmnm");
+            hash_set_insert(pt_hset, "mmmm");
+            _print_hash_set_cstr(pt_hset);
+            t_range = hash_set_equal_range(pt_hset, "opqrst");
+            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            t_range = hash_set_equal_range(pt_hset, "abcdefg");
+            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_insert            */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 45, _hash_set_cstr_hash, NULL);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_insert(pt_hset, "45454545");
+            hash_set_insert(pt_hset, "00000");
+            hash_set_insert(pt_hset, "124!@##@");
+            hash_set_insert(pt_hset, "%^&*");
+            _print_hash_set_cstr(pt_hset);
+            hash_set_insert(pt_hset, "00000");
+            hash_set_insert(pt_hset, "%^&*");
+            hash_set_insert(pt_hset, "--------");
+            _print_hash_set_cstr(pt_hset);
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_insert_range      */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            hash_set_t* pt_hsetex = create_hash_set(char*);
+            if(pt_hset == NULL || pt_hsetex == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 100, _hash_set_cstr_hash, NULL);
+            hash_set_init(pt_hsetex);
+            hash_set_insert_range(pt_hset, hash_set_begin(pt_hsetex), hash_set_end(pt_hsetex));
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_insert(pt_hsetex, "xcvbnm");
+            hash_set_insert(pt_hsetex, "<><><><><><>");
+            hash_set_insert(pt_hsetex, "cccc");
+            hash_set_insert(pt_hsetex, "@@@@@@@@");
+            hash_set_insert(pt_hsetex, "@@@@@@@@");
+            hash_set_insert(pt_hsetex, "()()");
+            hash_set_insert(pt_hsetex, "help");
+            hash_set_insert(pt_hsetex, "me!!!!!!!!!!!!!!");
+            hash_set_insert(pt_hsetex, "++++");
+            hash_set_insert(pt_hsetex, "76894");
+            hash_set_insert(pt_hsetex, "bfqweoihabgasodifjw");
+            hash_set_insert(pt_hsetex, "aaaaaaaa");
+            hash_set_insert(pt_hsetex, "{}{}{}{}{}{");
+            hash_set_insert(pt_hsetex, "########");
+            hash_set_insert(pt_hsetex, "%%%%%%%%%%%%%%");
+            hash_set_insert(pt_hsetex, "$$$$$$$$$$$$$$");
+            hash_set_insert(pt_hsetex, "!!!!!!!!!!");
+            _print_hash_set_cstr(pt_hsetex);
+
+            hash_set_insert_range(pt_hset, hash_set_begin(pt_hsetex),
+                hash_set_begin(pt_hsetex));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_insert_range(pt_hset, hash_set_begin(pt_hsetex),
+                iterator_advance(hash_set_begin(pt_hsetex), 3));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_insert_range(pt_hset, iterator_advance(hash_set_begin(pt_hsetex), 4),
+                iterator_advance(hash_set_begin(pt_hsetex), 6));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_insert_range(pt_hset, iterator_advance(hash_set_begin(pt_hsetex), 7),
+                hash_set_end(pt_hsetex));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_insert_range(pt_hset, hash_set_end(pt_hsetex), hash_set_end(pt_hsetex));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_clear(pt_hset);
+            hash_set_insert_range(pt_hset, hash_set_begin(pt_hsetex), hash_set_end(pt_hsetex));
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_destroy(pt_hset);
+            hash_set_destroy(pt_hsetex);
+        }
         /*hash_set_erase             */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 100, _hash_set_cstr_hash, NULL);
+            hash_set_erase(pt_hset, "76894");
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_insert(pt_hset, "xcvbnm");
+            hash_set_insert(pt_hset, "<><><><><><>");
+            hash_set_insert(pt_hset, "cccc");
+            hash_set_insert(pt_hset, "@@@@@@@@");
+            hash_set_insert(pt_hset, "@@@@@@@@");
+            hash_set_insert(pt_hset, "()()");
+            hash_set_insert(pt_hset, "help");
+            hash_set_insert(pt_hset, "me!!!!!!!!!!!!!!");
+            hash_set_insert(pt_hset, "++++");
+            hash_set_insert(pt_hset, "76894");
+            hash_set_insert(pt_hset, "bfqweoihabgasodifjw");
+            hash_set_insert(pt_hset, "aaaaaaaa");
+            hash_set_insert(pt_hset, "{}{}{}{}{}{");
+            hash_set_insert(pt_hset, "########");
+            hash_set_insert(pt_hset, "%%%%%%%%%%%%%%");
+            hash_set_insert(pt_hset, "$$$$$$$$$$$$$$");
+            hash_set_insert(pt_hset, "!!!!!!!!!!");
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_erase(pt_hset, "mnopq");
+            _print_hash_set_cstr(pt_hset);
+            hash_set_erase(pt_hset, "76894");
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_erase_pos         */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 100, _hash_set_cstr_hash, NULL);
+            hash_set_insert(pt_hset, "xcvbnm");
+            hash_set_insert(pt_hset, "<><><><><><>");
+            hash_set_insert(pt_hset, "cccc");
+            hash_set_insert(pt_hset, "@@@@@@@@");
+            hash_set_insert(pt_hset, "@@@@@@@@");
+            hash_set_insert(pt_hset, "()()");
+            hash_set_insert(pt_hset, "help");
+            hash_set_insert(pt_hset, "me!!!!!!!!!!!!!!");
+            hash_set_insert(pt_hset, "++++");
+            hash_set_insert(pt_hset, "76894");
+            hash_set_insert(pt_hset, "bfqweoihabgasodifjw");
+            hash_set_insert(pt_hset, "aaaaaaaa");
+            hash_set_insert(pt_hset, "{}{}{}{}{}{");
+            hash_set_insert(pt_hset, "########");
+            hash_set_insert(pt_hset, "%%%%%%%%%%%%%%");
+            hash_set_insert(pt_hset, "$$$$$$$$$$$$$$");
+            hash_set_insert(pt_hset, "!!!!!!!!!!");
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_erase_pos(pt_hset, hash_set_begin(pt_hset));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_erase_pos(pt_hset, iterator_advance(hash_set_begin(pt_hset), 5));
+            _print_hash_set_cstr(pt_hset);
+            while(!hash_set_empty(pt_hset))
+            {
+                hash_set_erase_pos(pt_hset, hash_set_begin(pt_hset));
+            }
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_erase_range       */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 100, _hash_set_cstr_hash, NULL);
+            hash_set_erase_range(pt_hset, hash_set_begin(pt_hset), hash_set_end(pt_hset));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_insert(pt_hset, "xcvbnm");
+            hash_set_insert(pt_hset, "<><><><><><>");
+            hash_set_insert(pt_hset, "cccc");
+            hash_set_insert(pt_hset, "@@@@@@@@");
+            hash_set_insert(pt_hset, "@@@@@@@@");
+            hash_set_insert(pt_hset, "()()");
+            hash_set_insert(pt_hset, "help");
+            hash_set_insert(pt_hset, "me!!!!!!!!!!!!!!");
+            hash_set_insert(pt_hset, "++++");
+            hash_set_insert(pt_hset, "76894");
+            hash_set_insert(pt_hset, "bfqweoihabgasodifjw");
+            hash_set_insert(pt_hset, "aaaaaaaa");
+            hash_set_insert(pt_hset, "{}{}{}{}{}{");
+            hash_set_insert(pt_hset, "########");
+            hash_set_insert(pt_hset, "%%%%%%%%%%%%%%");
+            hash_set_insert(pt_hset, "$$$$$$$$$$$$$$");
+            hash_set_insert(pt_hset, "!!!!!!!!!!");
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_erase_range(pt_hset, hash_set_begin(pt_hset), hash_set_begin(pt_hset));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_erase_range(pt_hset, hash_set_begin(pt_hset),
+                iterator_advance(hash_set_begin(pt_hset), 3));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_erase_range(pt_hset, iterator_next(hash_set_begin(pt_hset)),
+                iterator_advance(hash_set_begin(pt_hset), 3));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_erase_range(pt_hset, iterator_advance(hash_set_begin(pt_hset), 4),
+                hash_set_end(pt_hset));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_erase_range(pt_hset, hash_set_end(pt_hset), hash_set_end(pt_hset));
+            _print_hash_set_cstr(pt_hset);
+            hash_set_erase_range(pt_hset, hash_set_begin(pt_hset), hash_set_end(pt_hset));
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_destroy(pt_hset);
+        }
         /*hash_set_clear             */
+        {
+            hash_set_t* pt_hset = create_hash_set(char*);
+            if(pt_hset == NULL)
+            {
+                return;
+            }
+            hash_set_init_ex(pt_hset, 100, _hash_set_cstr_hash, NULL);
+            hash_set_clear(pt_hset);
+            _print_hash_set_cstr(pt_hset);
+            hash_set_insert(pt_hset, "xcvbnm");
+            hash_set_insert(pt_hset, "<><><><><><>");
+            hash_set_insert(pt_hset, "cccc");
+            hash_set_insert(pt_hset, "@@@@@@@@");
+            hash_set_insert(pt_hset, "@@@@@@@@");
+            hash_set_insert(pt_hset, "()()");
+            hash_set_insert(pt_hset, "help");
+            hash_set_insert(pt_hset, "me!!!!!!!!!!!!!!");
+            hash_set_insert(pt_hset, "++++");
+            hash_set_insert(pt_hset, "76894");
+            hash_set_insert(pt_hset, "bfqweoihabgasodifjw");
+            hash_set_insert(pt_hset, "aaaaaaaa");
+            hash_set_insert(pt_hset, "{}{}{}{}{}{");
+            hash_set_insert(pt_hset, "########");
+            hash_set_insert(pt_hset, "%%%%%%%%%%%%%%");
+            hash_set_insert(pt_hset, "$$$$$$$$$$$$$$");
+            hash_set_insert(pt_hset, "!!!!!!!!!!");
+            _print_hash_set_cstr(pt_hset);
+            hash_set_clear(pt_hset);
+            _print_hash_set_cstr(pt_hset);
+
+            hash_set_destroy(pt_hset);
+        }
     }
 }
 
