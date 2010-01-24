@@ -71,6 +71,45 @@ extern "C" {
         printf("=======================================\n");\
     }while(false)
 
+#define _print_hash_multiset_c(pt_hmset, fmt, type)\
+    do{\
+        iterator_t t_iter;\
+        printf("=======================================\n");\
+        printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",\
+            hash_multiset_empty(pt_hmset), hash_multiset_size(pt_hmset),\
+            hash_multiset_max_size(pt_hmset), hash_multiset_bucket_count(pt_hmset));\
+        for(t_iter = hash_multiset_begin(pt_hmset);\
+            !iterator_equal(t_iter, hash_multiset_end(pt_hmset));\
+            t_iter = iterator_next(t_iter))\
+        {\
+            printf(fmt, *(type*)iterator_get_pointer(t_iter));\
+        }\
+        printf("\n");\
+    }while(false)
+
+#define _debug_hash_multiset_c(pt_hmset, fmt, type)\
+    do{\
+        size_t t_index = 0;\
+        printf("=======================================\n");\
+        printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",\
+            hash_multiset_empty(pt_hmset), hash_multiset_size(pt_hmset),\
+            hash_multiset_max_size(pt_hmset), hash_multiset_bucket_count(pt_hmset));\
+        for(t_index = 0; t_index < hash_multiset_bucket_count(pt_hmset); ++t_index)\
+        {\
+            hashnode_t** ppt_bucket = (hashnode_t**)vector_at(&pt_hmset->_t_hashtable._t_bucket, t_index);\
+            hashnode_t*  pt_node = *ppt_bucket;\
+            printf("[%u]", t_index);\
+            while(pt_node != NULL)\
+            {\
+                printf("->[");\
+                printf(fmt, *(type*)(pt_node->_pc_data));\
+                printf("]");\
+                pt_node = pt_node->_pt_next;\
+            }\
+            printf("\n");\
+        }\
+        printf("=======================================\n");\
+    }while(false)
 /** data type declaration and struct, union, enum section **/
 typedef struct _taghashsample
 {
@@ -83,7 +122,9 @@ typedef struct _taghashsample
 /** exported function prototype section **/
 extern void test_hashtable(void);
 extern void _debug_hash_set_user(const hash_set_t* cpt_hset);
-extern void _print_hash_sample(const hash_set_t* cpt_hset);
+extern void _debug_hash_multiset_user(const hash_multiset_t* cpt_hmset);
+extern void _print_hash_set_sample(const hash_set_t* cpt_hset);
+extern void _print_hash_multiset_sample(const hash_multiset_t* cpt_hmset);
 extern void _hash_sample_init(const void* cpv_input, void* pv_output);
 extern void _hash_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hash_sample_less(const void* cpv_first, const void* cpv_second, void* pv_output);

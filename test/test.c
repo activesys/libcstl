@@ -97,9 +97,9 @@ int main(int argc, char* argv[])
     /*test_string_getline(); */
     /*test_type();*/
     printf("========== test hash_set_t  ==========\n");
-    test_hash_set();
+    /*test_hash_set();*/
     printf("========== test hash_multiset_t  ==========\n");
-    /*test_hash_multiset();*/
+    test_hash_multiset();
     printf("========== test hash_map_t  ==========\n");
     /*test_hash_map();*/
     printf("========== test hash_multimap_t  ==========\n");

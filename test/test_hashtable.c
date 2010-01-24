@@ -100,6 +100,29 @@ void _hash_set_int_hash(const void* cpv_input, void* pv_output)
     *(int*)pv_output = *(int*)cpv_input;
 }
 
+void _debug_hash_multiset_user(const hash_multiset_t* cpt_hmset)
+{
+    size_t t_index = 0;
+    assert(cpt_hmset != NULL);
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_multiset_empty(cpt_hmset), hash_multiset_size(cpt_hmset),
+        hash_multiset_max_size(cpt_hmset), hash_multiset_bucket_count(cpt_hmset));
+    for(t_index = 0; t_index < hash_multiset_bucket_count(cpt_hmset); ++t_index)
+    {
+        hashnode_t** ppt_bucket = (hashnode_t**)vector_at(&cpt_hmset->_t_hashtable._t_bucket, t_index);
+        hashnode_t*  pt_node = *ppt_bucket;
+        printf("[%u]", t_index);
+        while(pt_node != NULL)
+        {
+            printf("->[%lf,%ld]", ((hash_sample_t*)(pt_node->_pc_data))->_d_first,
+                ((hash_sample_t*)(pt_node->_pc_data))->_l_second);
+            pt_node = pt_node->_pt_next;
+        }
+        printf("\n");
+    }
+    printf("=======================================\n");
+}
 void _debug_hash_set_user(const hash_set_t* cpt_hset)
 {
     size_t t_index = 0;
@@ -124,7 +147,24 @@ void _debug_hash_set_user(const hash_set_t* cpt_hset)
     printf("=======================================\n");
 }
 
-void _print_hash_sample(const hash_set_t* cpt_hset)
+void _print_hash_multiset_sample(const hash_multiset_t* cpt_hmset)
+{
+    iterator_t t_iter;
+    assert(cpt_hmset != NULL);
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_multiset_empty(cpt_hmset), hash_multiset_size(cpt_hmset),
+        hash_multiset_max_size(cpt_hmset), hash_multiset_bucket_count(cpt_hmset));
+    for(t_iter = hash_multiset_begin(cpt_hmset);
+        !iterator_equal(t_iter, hash_multiset_end(cpt_hmset));
+        t_iter = iterator_next(t_iter))
+    {
+        printf("[%lf,%ld], ", ((hash_sample_t*)iterator_get_pointer(t_iter))->_d_first,
+            ((hash_sample_t*)iterator_get_pointer(t_iter))->_l_second);
+    }
+    printf("\n");
+}
+void _print_hash_set_sample(const hash_set_t* cpt_hset)
 {
     iterator_t t_iter;
     assert(cpt_hset != NULL);

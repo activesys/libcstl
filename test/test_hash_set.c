@@ -660,7 +660,7 @@ void test_hash_set(void)
             t_sample._l_second = 4;
             hash_set_insert(pt_hset, &t_sample);
             _debug_hash_set_user(pt_hset);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_init              */
@@ -683,7 +683,7 @@ void test_hash_set(void)
             t_sample._l_second = 4;
             hash_set_insert(pt_hset, &t_sample);
             _debug_hash_set_user(pt_hset);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_init_copy         */
@@ -705,9 +705,9 @@ void test_hash_set(void)
             t_sample._d_first = 2323.2323;
             t_sample._l_second = 4;
             hash_set_insert(pt_hsetex, &t_sample);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hsetex);
             hash_set_init_copy(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
         }
@@ -751,10 +751,10 @@ void test_hash_set(void)
             t_sample._d_first = 44.4;
             t_sample._l_second = -5666;
             hash_set_insert(pt_hsetex, &t_sample);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hsetex);
             hash_set_init_copy_range(pt_hset, hash_set_begin(pt_hsetex),
                 hash_set_end(pt_hsetex));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
         }
@@ -798,10 +798,10 @@ void test_hash_set(void)
             t_sample._d_first = 44.4;
             t_sample._l_second = -5666;
             hash_set_insert(pt_hsetex, &t_sample);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hsetex);
             hash_set_init_copy_range_ex(pt_hset, hash_set_begin(pt_hsetex),
                 hash_set_end(pt_hsetex), 80, NULL, _hash_sample_great);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
         }
@@ -818,7 +818,7 @@ void test_hash_set(void)
             hash_set_init(pt_hset);
             hash_set_init(pt_hsetex);
             hash_set_assign(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             t_sample._d_first = 45.90;
             t_sample._l_second = 3490;
             hash_set_insert(pt_hsetex, &t_sample);
@@ -829,7 +829,7 @@ void test_hash_set(void)
             t_sample._l_second = -290;
             hash_set_insert(pt_hsetex, &t_sample);
             hash_set_assign(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_clear(pt_hsetex);
             t_sample._d_first = 40.099;
             t_sample._l_second = -670;
@@ -847,16 +847,16 @@ void test_hash_set(void)
             t_sample._l_second = 459999;
             hash_set_insert(pt_hsetex, &t_sample);
             hash_set_assign(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_clear(pt_hsetex);
             t_sample._d_first = 4.5;
             t_sample._l_second = 45;
             hash_set_insert(pt_hsetex, &t_sample);
             hash_set_assign(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_clear(pt_hsetex);
             hash_set_assign(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
         }
@@ -872,8 +872,8 @@ void test_hash_set(void)
             hash_set_init(pt_hset);
             hash_set_init(pt_hsetex);
             hash_set_swap(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hset);
+            _print_hash_set_sample(pt_hsetex);
             t_sample._d_first = 45.90;
             t_sample._l_second = 3490;
             hash_set_insert(pt_hsetex, &t_sample);
@@ -884,8 +884,8 @@ void test_hash_set(void)
             t_sample._l_second = -290;
             hash_set_insert(pt_hsetex, &t_sample);
             hash_set_swap(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hset);
+            _print_hash_set_sample(pt_hsetex);
             hash_set_clear(pt_hsetex);
             t_sample._d_first = 40.099;
             t_sample._l_second = -670;
@@ -903,19 +903,19 @@ void test_hash_set(void)
             t_sample._l_second = 459999;
             hash_set_insert(pt_hsetex, &t_sample);
             hash_set_swap(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hset);
+            _print_hash_set_sample(pt_hsetex);
             hash_set_clear(pt_hsetex);
             t_sample._d_first = 4.5;
             t_sample._l_second = 45;
             hash_set_insert(pt_hsetex, &t_sample);
             hash_set_swap(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hset);
+            _print_hash_set_sample(pt_hsetex);
             hash_set_clear(pt_hsetex);
             hash_set_swap(pt_hset, pt_hsetex);
-            _print_hash_sample(pt_hset);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hset);
+            _print_hash_set_sample(pt_hsetex);
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
         }
@@ -944,11 +944,11 @@ void test_hash_set(void)
                 return;
             }
             hash_set_init(pt_hset);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_resize(pt_hset, 100);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_resize(pt_hset, 80);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_equal             */
@@ -967,8 +967,8 @@ void test_hash_set(void)
             }
             hash_set_init(pt_hset);
             hash_set_init(pt_hsetex);
-            _print_hash_sample(pt_hset);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hset);
+            _print_hash_set_sample(pt_hsetex);
             printf("equal: %d, not equal: %d, ",
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
@@ -978,8 +978,8 @@ void test_hash_set(void)
             t_sample._d_first = 34.98;
             t_sample._l_second = 34;
             hash_set_insert(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hset);
+            _print_hash_set_sample(pt_hsetex);
             printf("equal: %d, not equal: %d, ",
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
@@ -987,8 +987,8 @@ void test_hash_set(void)
             printf("great: %d, great equal: %d\n",
                 hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
             hash_set_insert(pt_hsetex, &t_sample);
-            _print_hash_sample(pt_hset);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hset);
+            _print_hash_set_sample(pt_hsetex);
             printf("equal: %d, not equal: %d, ",
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
@@ -1004,8 +1004,8 @@ void test_hash_set(void)
             t_sample._d_first = 23232.2;
             t_sample._l_second = 4849;
             hash_set_insert(pt_hsetex, &t_sample);
-            _print_hash_sample(pt_hset);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hset);
+            _print_hash_set_sample(pt_hsetex);
             printf("equal: %d, not equal: %d, ",
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
@@ -1048,7 +1048,7 @@ void test_hash_set(void)
             t_sample._d_first = -8784.23;
             t_sample._l_second = 90;
             hash_set_insert(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             t_sample._d_first = 0.09;
             t_sample._l_second = 45;
             t_iter = hash_set_find(pt_hset, &t_sample);
@@ -1061,7 +1061,7 @@ void test_hash_set(void)
                 printf("found, count : %d\n", hash_set_count(pt_hset, &t_sample));
             }
             hash_set_insert(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             t_iter = hash_set_find(pt_hset, &t_sample);
             if(iterator_equal(t_iter, hash_set_end(pt_hset)))
             {
@@ -1100,7 +1100,7 @@ void test_hash_set(void)
             t_sample._d_first = 111.111;
             t_sample._l_second = -34;
             hash_set_insert(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             t_sample._d_first = 45.098;
             t_sample._l_second = 23;
             t_range = hash_set_equal_range(pt_hset, &t_sample);
@@ -1122,7 +1122,7 @@ void test_hash_set(void)
             t_sample._d_first = 23.232;
             t_sample._l_second = 1111;
             hash_set_insert(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_insert_range      */
@@ -1137,7 +1137,7 @@ void test_hash_set(void)
             hash_set_init(pt_hset);
             hash_set_init(pt_hsetex);
             hash_set_insert_range(pt_hset, hash_set_begin(pt_hsetex), hash_set_end(pt_hsetex));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             t_sample._d_first = 44.23;
             t_sample._l_second = 99;
             hash_set_insert(pt_hsetex, &t_sample);
@@ -1174,22 +1174,22 @@ void test_hash_set(void)
             t_sample._d_first = -32.9;
             t_sample._l_second = 43;
             hash_set_insert(pt_hsetex, &t_sample);
-            _print_hash_sample(pt_hsetex);
+            _print_hash_set_sample(pt_hsetex);
 
             hash_set_insert_range(pt_hset, hash_set_begin(pt_hsetex), hash_set_begin(pt_hsetex));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_insert_range(pt_hset, hash_set_begin(pt_hsetex), iterator_advance(hash_set_begin(pt_hsetex), 3));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_insert_range(pt_hset, iterator_advance(hash_set_begin(pt_hsetex), 5), iterator_advance(hash_set_begin(pt_hsetex), 7));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_insert_range(pt_hset, iterator_advance(hash_set_begin(pt_hsetex), 9), hash_set_end(pt_hsetex));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_insert_range(pt_hset, hash_set_end(pt_hsetex), hash_set_end(pt_hsetex));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             hash_set_clear(pt_hset);
             hash_set_insert_range(pt_hset, hash_set_begin(pt_hsetex), hash_set_end(pt_hsetex));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
@@ -1206,7 +1206,7 @@ void test_hash_set(void)
             t_sample._d_first = 0.445;
             t_sample._l_second = 789;
             hash_set_erase(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             t_sample._d_first = 44.23;
             t_sample._l_second = 99;
@@ -1244,16 +1244,16 @@ void test_hash_set(void)
             t_sample._d_first = -32.9;
             t_sample._l_second = 43;
             hash_set_insert(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             t_sample._d_first = 29989.0092;
             t_sample._l_second = 834934;
             hash_set_erase(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             t_sample._d_first = -32.7;
             t_sample._l_second = 43;
             hash_set_erase(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             hash_set_destroy(pt_hset);
         }
@@ -1302,17 +1302,17 @@ void test_hash_set(void)
             t_sample._d_first = -32.9;
             t_sample._l_second = 43;
             hash_set_insert(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             hash_set_erase_pos(pt_hset, hash_set_begin(pt_hset));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_erase_pos(pt_hset, iterator_advance(hash_set_begin(pt_hset), 5));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             while(!hash_set_empty(pt_hset))
             {
                 hash_set_erase_pos(pt_hset, hash_set_begin(pt_hset));
             }
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             hash_set_destroy(pt_hset);
         }
@@ -1362,20 +1362,20 @@ void test_hash_set(void)
             t_sample._d_first = -32.9;
             t_sample._l_second = 43;
             hash_set_insert(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             hash_set_erase_range(pt_hset, hash_set_begin(pt_hset), hash_set_begin(pt_hset));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_erase_range(pt_hset, hash_set_begin(pt_hset), iterator_next(hash_set_begin(pt_hset)));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_erase_range(pt_hset, iterator_advance(hash_set_begin(pt_hset), 3), iterator_advance(hash_set_begin(pt_hset), 6));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_erase_range(pt_hset, iterator_advance(hash_set_begin(pt_hset), 5), hash_set_end(pt_hset));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_erase_range(pt_hset, hash_set_end(pt_hset), hash_set_end(pt_hset));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             hash_set_erase_range(pt_hset, hash_set_begin(pt_hset), hash_set_end(pt_hset));
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             hash_set_destroy(pt_hset);
         }
@@ -1389,7 +1389,7 @@ void test_hash_set(void)
             }
             hash_set_init(pt_hset);
             hash_set_clear(pt_hset);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
             t_sample._d_first = 44.23;
             t_sample._l_second = 99;
             hash_set_insert(pt_hset, &t_sample);
@@ -1426,10 +1426,10 @@ void test_hash_set(void)
             t_sample._d_first = -32.9;
             t_sample._l_second = 43;
             hash_set_insert(pt_hset, &t_sample);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             hash_set_clear(pt_hset);
-            _print_hash_sample(pt_hset);
+            _print_hash_set_sample(pt_hset);
 
             hash_set_destroy(pt_hset);
         }
@@ -3144,6 +3144,790 @@ void test_hash_set(void)
 
 void test_hash_multiset(void)
 {
+    /* c built-in type */
+    {
+        /*create_hash_multiset            */
+        /*hash_multiset_init              */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            hash_multiset_insert(pt_hmset, 48);
+            hash_multiset_insert(pt_hmset, 1234);
+            hash_multiset_insert(pt_hmset, 483945);
+            hash_multiset_insert(pt_hmset, -74);
+            hash_multiset_insert(pt_hmset, 45);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _debug_hash_multiset_c(pt_hmset, "%d", int);
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_init_ex           */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init_ex(pt_hmset, 100, _hash_set_int_hash, fun_great_int);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            hash_multiset_insert(pt_hmset, 48);
+            hash_multiset_insert(pt_hmset, 1234);
+            hash_multiset_insert(pt_hmset, 483945);
+            hash_multiset_insert(pt_hmset, -74);
+            hash_multiset_insert(pt_hmset, -74);
+            hash_multiset_insert(pt_hmset, 45);
+            hash_multiset_insert(pt_hmset, 48);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _debug_hash_multiset_c(pt_hmset, "%d", int);
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_init_copy         */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(double);
+            hash_multiset_t* pt_hmsetex = create_hash_multiset(double);
+            if(pt_hmset == NULL || pt_hmsetex == NULL)
+            {
+                return;
+            }
+            hash_multiset_init_ex(pt_hmsetex, 80, NULL, NULL);
+            hash_multiset_insert(pt_hmsetex, 45.90);
+            hash_multiset_insert(pt_hmsetex, 2.08);
+            hash_multiset_insert(pt_hmsetex, -22.34);
+            hash_multiset_insert(pt_hmsetex, 2.08);
+            hash_multiset_insert(pt_hmsetex, 12.099);
+            hash_multiset_init_copy(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmsetex, "%lf, ", double);
+            _print_hash_multiset_c(pt_hmset, "%lf, ", double);
+            hash_multiset_destroy(pt_hmset);
+            hash_multiset_destroy(pt_hmsetex);
+        }
+        /*hash_multiset_init_copy_range   */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            hash_multiset_t* pt_hmsetex = create_hash_multiset(signed int);
+            if(pt_hmset == NULL || pt_hmsetex == NULL)
+            {
+                return;
+            }
+            hash_multiset_init_ex(pt_hmsetex, 110, _hash_set_int_hash, NULL);
+            hash_multiset_insert(pt_hmsetex, 290);
+            hash_multiset_insert(pt_hmsetex, -82784);
+            hash_multiset_insert(pt_hmsetex, 2220);
+            hash_multiset_insert(pt_hmsetex, 45);
+            hash_multiset_insert(pt_hmsetex, 100);
+            hash_multiset_insert(pt_hmsetex, 29000);
+            hash_multiset_insert(pt_hmsetex, 23);
+            hash_multiset_init_copy_range(pt_hmset, hash_multiset_begin(pt_hmsetex),
+                hash_multiset_end(pt_hmsetex));
+            /*_debug_hash_multiset_c(pt_hmsetex, "%d", int);*/
+            /*_debug_hash_multiset_c(pt_hmset, "%d", int);*/
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            hash_multiset_destroy(pt_hmset);
+            hash_multiset_destroy(pt_hmsetex);
+        }
+        /*hash_multiset_init_copy_range_ex*/
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            hash_multiset_t* pt_hmsetex = create_hash_multiset(signed int);
+            if(pt_hmset == NULL || pt_hmsetex == NULL)
+            {
+                return;
+            }
+            hash_multiset_init_ex(pt_hmsetex, 110, _hash_set_int_hash, NULL);
+            hash_multiset_insert(pt_hmsetex, 290);
+            hash_multiset_insert(pt_hmsetex, -82784);
+            hash_multiset_insert(pt_hmsetex, 2220);
+            hash_multiset_insert(pt_hmsetex, 45);
+            hash_multiset_insert(pt_hmsetex, 100);
+            hash_multiset_insert(pt_hmsetex, 29000);
+            hash_multiset_insert(pt_hmsetex, 23);
+            hash_multiset_insert(pt_hmsetex, 23);
+            hash_multiset_insert(pt_hmsetex, 92);
+            hash_multiset_insert(pt_hmsetex, 94);
+            hash_multiset_insert(pt_hmsetex, 95);
+            hash_multiset_insert(pt_hmsetex, 96);
+            hash_multiset_insert(pt_hmsetex, 97);
+            hash_multiset_insert(pt_hmsetex, 98);
+            hash_multiset_insert(pt_hmsetex, 99);
+            hash_multiset_insert(pt_hmsetex, 101);
+            hash_multiset_init_copy_range_ex(pt_hmset, hash_multiset_begin(pt_hmsetex),
+                hash_multiset_end(pt_hmsetex), 90, NULL, fun_great_int);
+            _debug_hash_multiset_c(pt_hmsetex, "%d", int);
+            _debug_hash_multiset_c(pt_hmset, "%d", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            hash_multiset_destroy(pt_hmset);
+            hash_multiset_destroy(pt_hmsetex);
+        }
+        /*hash_multiset_destroy           */
+        /*hash_multiset_assign            */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            hash_multiset_t* pt_hmsetex = create_hash_multiset(int);
+            size_t t_index = 0;
+            if(pt_hmset == NULL || pt_hmsetex == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            hash_multiset_init(pt_hmsetex);
+            hash_multiset_assign(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_insert(pt_hmsetex, 340);
+            hash_multiset_insert(pt_hmsetex, 1009);
+            hash_multiset_insert(pt_hmsetex, -76);
+            hash_multiset_insert(pt_hmsetex, 50);
+            hash_multiset_insert(pt_hmsetex, 21);
+            hash_multiset_insert(pt_hmsetex, -785);
+            hash_multiset_assign(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_clear(pt_hmsetex);
+            hash_multiset_insert(pt_hmsetex, 88);
+            hash_multiset_insert(pt_hmsetex, 245);
+            hash_multiset_insert(pt_hmsetex, 120);
+            hash_multiset_assign(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_clear(pt_hmsetex);
+            for(t_index = 0; t_index < 100; ++t_index)
+            {
+                hash_multiset_insert(pt_hmsetex, t_index);
+            }
+            hash_multiset_assign(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_clear(pt_hmsetex);
+            hash_multiset_assign(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_destroy(pt_hmset);
+            hash_multiset_destroy(pt_hmsetex);
+        }
+        /*hash_multiset_swap              */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            hash_multiset_t* pt_hmsetex = create_hash_multiset(int);
+            if(pt_hmset == NULL || pt_hmsetex == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            hash_multiset_init_ex(pt_hmsetex, 90, NULL, NULL);
+            hash_multiset_swap(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+
+            hash_multiset_insert(pt_hmsetex, 450);
+            hash_multiset_insert(pt_hmsetex, -45);
+            hash_multiset_insert(pt_hmsetex, 90);
+            hash_multiset_insert(pt_hmsetex, 233);
+            hash_multiset_insert(pt_hmsetex, 109);
+            hash_multiset_insert(pt_hmsetex, 2);
+            hash_multiset_swap(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+
+            hash_multiset_insert(pt_hmsetex, 4);
+            hash_multiset_insert(pt_hmsetex, -334);
+            hash_multiset_insert(pt_hmsetex, 1212);
+            hash_multiset_insert(pt_hmsetex, 1);
+            hash_multiset_insert(pt_hmsetex, 444);
+            hash_multiset_insert(pt_hmsetex, 12);
+            hash_multiset_insert(pt_hmsetex, 45);
+            hash_multiset_insert(pt_hmsetex, 999);
+            hash_multiset_insert(pt_hmsetex, 999);
+            hash_multiset_insert(pt_hmsetex, 999);
+            hash_multiset_insert(pt_hmsetex, 999);
+            hash_multiset_insert(pt_hmsetex, 9);
+            hash_multiset_insert(pt_hmsetex, -56);
+            hash_multiset_insert(pt_hmsetex, 4);
+            hash_multiset_insert(pt_hmsetex, 4);
+            hash_multiset_insert(pt_hmsetex, 34);
+            hash_multiset_swap(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+
+            hash_multiset_clear(pt_hmsetex);
+            hash_multiset_insert(pt_hmsetex, 45);
+            hash_multiset_insert(pt_hmsetex, 909);
+            hash_multiset_insert(pt_hmsetex, 5);
+            hash_multiset_swap(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+
+            hash_multiset_clear(pt_hmsetex);
+            hash_multiset_swap(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+
+            hash_multiset_destroy(pt_hmset);
+            hash_multiset_destroy(pt_hmsetex);
+        }
+        /*hash_multiset_size              */
+        /*hash_multiset_empty             */
+        /*hash_multiset_max_size          */
+        /*hash_multiset_bucket_count      */
+        /*hash_multiset_hash              */
+        /*hash_multiset_key_less          */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init_ex(pt_hmset, 100, _hash_set_int_hash, fun_great_int);
+            assert(hash_multiset_hash(pt_hmset) == _hash_set_int_hash &&
+                hash_multiset_key_less(pt_hmset) == fun_great_int);
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_resize            */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_insert(pt_hmset, 56);
+            hash_multiset_insert(pt_hmset, -5);
+            hash_multiset_insert(pt_hmset, 677);
+            hash_multiset_insert(pt_hmset, 90);
+            hash_multiset_insert(pt_hmset, 23);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_resize(pt_hmset, 30);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_resize(pt_hmset, 100);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_resize(pt_hmset, 90);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_equal             */
+        /*hash_multiset_not_equal         */
+        /*hash_multiset_less              */
+        /*hash_multiset_less_equal        */
+        /*hash_multiset_great             */
+        /*hash_multiset_great_equal       */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            hash_multiset_t* pt_hmsetex = create_hash_multiset(int);
+            if(pt_hmset == NULL || pt_hmsetex == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            hash_multiset_init(pt_hmsetex);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            printf("equal: %d, not equal: %d, ",
+                hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+
+            hash_multiset_insert(pt_hmset, 23);
+            hash_multiset_insert(pt_hmset, 40);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            printf("equal: %d, not equal: %d, ",
+                hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+
+            hash_multiset_insert(pt_hmsetex, 23);
+            hash_multiset_insert(pt_hmsetex, 40);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            printf("equal: %d, not equal: %d, ",
+                hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+
+            hash_multiset_insert(pt_hmset, 61);
+            hash_multiset_insert(pt_hmset, 60);
+            hash_multiset_insert(pt_hmsetex, 64);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            printf("equal: %d, not equal: %d, ",
+                hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+
+            hash_multiset_resize(pt_hmsetex, 80);
+            _print_hash_multiset_c(pt_hmset, "%d, ", int);
+            _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
+            printf("equal: %d, not equal: %d, ",
+                hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
+            printf("less: %d, less equal: %d, ",
+                hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
+            printf("great: %d, great equal: %d\n",
+                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+
+            hash_multiset_destroy(pt_hmset);
+            hash_multiset_destroy(pt_hmsetex);
+        }
+        /*hash_multiset_begin             */
+        /*hash_multiset_end               */
+        /*hash_multiset_find              */
+        /*hash_multiset_count             */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            iterator_t t_iter;
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            t_iter = hash_multiset_find(pt_hmset, 34);
+            if(iterator_equal(t_iter, hash_multiset_end(pt_hmset)))
+            {
+                printf("not found!, count : %u\n", hash_multiset_count(pt_hmset, 34));
+            }
+            else
+            {
+                printf("found!, count : %u\n", hash_multiset_count(pt_hmset, 34));
+            }
+            hash_multiset_insert(pt_hmset, 56);
+            hash_multiset_insert(pt_hmset, 45);
+            hash_multiset_insert(pt_hmset, 88);
+            hash_multiset_insert(pt_hmset, 900);
+
+            t_iter = hash_multiset_find(pt_hmset, 34);
+            if(iterator_equal(t_iter, hash_multiset_end(pt_hmset)))
+            {
+                printf("not found!, count : %u\n", hash_multiset_count(pt_hmset, 34));
+            }
+            else
+            {
+                printf("found!, count : %u\n", hash_multiset_count(pt_hmset, 34));
+            }
+            t_iter = hash_multiset_find(pt_hmset, 88);
+            if(iterator_equal(t_iter, hash_multiset_end(pt_hmset)))
+            {
+                printf("not found!, count : %u\n", hash_multiset_count(pt_hmset, 88));
+            }
+            else
+            {
+                printf("found!, count : %u\n", hash_multiset_count(pt_hmset, 88));
+            }
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_equal_range       */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(int);
+            range_t t_range;
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            t_range = hash_multiset_equal_range(pt_hmset, 45);
+            assert(iterator_equal(t_range.t_begin, hash_multiset_end(pt_hmset)) &&
+                iterator_equal(t_range.t_begin, t_range.t_end));
+            hash_multiset_insert(pt_hmset, 344);
+            hash_multiset_insert(pt_hmset, 90);
+            hash_multiset_insert(pt_hmset, 456);
+            hash_multiset_insert(pt_hmset, 30);
+            hash_multiset_insert(pt_hmset, 4567);
+            hash_multiset_insert(pt_hmset, 2);
+            t_range = hash_multiset_equal_range(pt_hmset, 45);
+            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            t_range = hash_multiset_equal_range(pt_hmset, 90);
+            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_insert            */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(double);
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            _print_hash_multiset_c(pt_hmset, "%lf, ", double);
+            hash_multiset_insert(pt_hmset, 0.000000001);
+            hash_multiset_insert(pt_hmset, 0.0000000001);
+            hash_multiset_insert(pt_hmset, -22.445);
+            hash_multiset_insert(pt_hmset, -0.999);
+            hash_multiset_insert(pt_hmset, -0.999);
+            hash_multiset_insert(pt_hmset, -273984.0);
+            hash_multiset_insert(pt_hmset, 12.012783);
+            _debug_hash_multiset_c(pt_hmset, "%g", double);
+            _print_hash_multiset_c(pt_hmset, "%g, ", double);
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_insert_range      */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(long);
+            hash_multiset_t* pt_hmsetex = create_hash_multiset(long);
+            if(pt_hmset == NULL || pt_hmsetex == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            hash_multiset_init(pt_hmsetex);
+            hash_multiset_insert_range(pt_hmset, hash_multiset_begin(pt_hmsetex), hash_multiset_end(pt_hmsetex));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_insert(pt_hmsetex, 34232344);
+            hash_multiset_insert(pt_hmsetex, 90090);
+            hash_multiset_insert(pt_hmsetex, 123445);
+            hash_multiset_insert(pt_hmsetex, -4345);
+            hash_multiset_insert(pt_hmsetex, 2300020);
+            hash_multiset_insert(pt_hmsetex, 50);
+            hash_multiset_insert(pt_hmsetex, 4550);
+            hash_multiset_insert(pt_hmsetex, 4);
+            hash_multiset_insert(pt_hmsetex, 8888);
+            hash_multiset_insert(pt_hmsetex, 444444);
+            hash_multiset_insert(pt_hmsetex, 890093);
+            _print_hash_multiset_c(pt_hmsetex, "%ld, ", long);
+            hash_multiset_insert_range(pt_hmset, hash_multiset_begin(pt_hmsetex),
+                hash_multiset_begin(pt_hmsetex));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_insert_range(pt_hmset, hash_multiset_begin(pt_hmsetex),
+                iterator_advance(hash_multiset_begin(pt_hmsetex), 3));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_insert_range(pt_hmset, iterator_advance(hash_multiset_begin(pt_hmsetex), 5),
+                iterator_advance(hash_multiset_begin(pt_hmsetex), 7));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_insert_range(pt_hmset, iterator_advance(hash_multiset_begin(pt_hmsetex), 8),
+                hash_multiset_end(pt_hmsetex));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_insert_range(pt_hmset, hash_multiset_end(pt_hmsetex), hash_multiset_end(pt_hmsetex));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_clear(pt_hmset);
+            hash_multiset_insert_range(pt_hmset, hash_multiset_begin(pt_hmsetex), hash_multiset_end(pt_hmsetex));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_destroy(pt_hmset);
+            hash_multiset_destroy(pt_hmsetex);
+        }
+        /*hash_multiset_erase             */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(long);
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            hash_multiset_erase(pt_hmset, 345);
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_insert(pt_hmset, 34232344);
+            hash_multiset_insert(pt_hmset, 90090);
+            hash_multiset_insert(pt_hmset, 123445);
+            hash_multiset_insert(pt_hmset, -4345);
+            hash_multiset_insert(pt_hmset, 2300020);
+            hash_multiset_insert(pt_hmset, 50);
+            hash_multiset_insert(pt_hmset, 4550);
+            hash_multiset_insert(pt_hmset, 4);
+            hash_multiset_insert(pt_hmset, 8888);
+            hash_multiset_insert(pt_hmset, 444444);
+            hash_multiset_insert(pt_hmset, 890093);
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase(pt_hmset, 345);
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase(pt_hmset, 4550);
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_erase_pos         */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(long);
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            hash_multiset_insert(pt_hmset, 34232344);
+            hash_multiset_insert(pt_hmset, 90090);
+            hash_multiset_insert(pt_hmset, 123445);
+            hash_multiset_insert(pt_hmset, -4345);
+            hash_multiset_insert(pt_hmset, 2300020);
+            hash_multiset_insert(pt_hmset, 50);
+            hash_multiset_insert(pt_hmset, 4550);
+            hash_multiset_insert(pt_hmset, 4);
+            hash_multiset_insert(pt_hmset, 8888);
+            hash_multiset_insert(pt_hmset, 444444);
+            hash_multiset_insert(pt_hmset, 890093);
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase_pos(pt_hmset, hash_multiset_begin(pt_hmset));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase_pos(pt_hmset, iterator_advance(hash_multiset_begin(pt_hmset), 3));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            while(!hash_multiset_empty(pt_hmset))
+            {
+                hash_multiset_erase_pos(pt_hmset, hash_multiset_begin(pt_hmset));
+            }
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_erase_range       */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(long);
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            hash_multiset_erase_range(pt_hmset, hash_multiset_begin(pt_hmset), hash_multiset_end(pt_hmset));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_insert(pt_hmset, 34232344);
+            hash_multiset_insert(pt_hmset, 90090);
+            hash_multiset_insert(pt_hmset, 123445);
+            hash_multiset_insert(pt_hmset, -4345);
+            hash_multiset_insert(pt_hmset, 2300020);
+            hash_multiset_insert(pt_hmset, 50);
+            hash_multiset_insert(pt_hmset, 4550);
+            hash_multiset_insert(pt_hmset, 4);
+            hash_multiset_insert(pt_hmset, 8888);
+            hash_multiset_insert(pt_hmset, 444444);
+            hash_multiset_insert(pt_hmset, 890093);
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase_range(pt_hmset, hash_multiset_begin(pt_hmset), hash_multiset_begin(pt_hmset));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase_range(pt_hmset, hash_multiset_begin(pt_hmset),
+                iterator_advance(hash_multiset_begin(pt_hmset), 3));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase_range(pt_hmset, iterator_advance(hash_multiset_begin(pt_hmset), 2),
+                iterator_advance(hash_multiset_begin(pt_hmset), 5));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase_range(pt_hmset, iterator_advance(hash_multiset_begin(pt_hmset), 3),
+                hash_multiset_end(pt_hmset));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase_range(pt_hmset, hash_multiset_end(pt_hmset), hash_multiset_end(pt_hmset));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_erase_range(pt_hmset, hash_multiset_begin(pt_hmset), hash_multiset_end(pt_hmset));
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_clear             */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(long);
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            hash_multiset_clear(pt_hmset);
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_insert(pt_hmset, 34232344);
+            hash_multiset_insert(pt_hmset, 90090);
+            hash_multiset_insert(pt_hmset, 123445);
+            hash_multiset_insert(pt_hmset, -4345);
+            hash_multiset_insert(pt_hmset, 2300020);
+            hash_multiset_insert(pt_hmset, 50);
+            hash_multiset_insert(pt_hmset, 4550);
+            hash_multiset_insert(pt_hmset, 4);
+            hash_multiset_insert(pt_hmset, 8888);
+            hash_multiset_insert(pt_hmset, 444444);
+            hash_multiset_insert(pt_hmset, 890093);
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_clear(pt_hmset);
+            _print_hash_multiset_c(pt_hmset, "%ld, ", long);
+            hash_multiset_destroy(pt_hmset);
+        }
+    }
+    /* user defined type */
+    {
+        type_register(hash_sample_t, _hash_sample_init, _hash_sample_copy, _hash_sample_less,
+            _hash_sample_destroy);
+        type_duplicate(hash_sample_t, struct _taghashsample);
+        _type_debug();
+        /*create_hash_multiset            */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmset);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 22390;
+            hash_multiset_insert(pt_hmset, &t_sample);
+            t_sample._d_first = -9834.223;
+            t_sample._l_second = 409303;
+            hash_multiset_insert(pt_hmset, &t_sample);
+            t_sample._d_first = 2323.2323;
+            t_sample._l_second = 4;
+            hash_multiset_insert(pt_hmset, &t_sample);
+            _debug_hash_multiset_user(pt_hmset);
+            _print_hash_multiset_sample(pt_hmset);
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_init              */
+        /*hash_multiset_init_ex           */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(struct _taghashsample);
+            hash_sample_t t_sample;
+            if(pt_hmset == NULL)
+            {
+                return;
+            }
+            hash_multiset_init_ex(pt_hmset, 200, _hash_set_sample_hash, NULL);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 22390;
+            hash_multiset_insert(pt_hmset, &t_sample);
+            t_sample._d_first = -9834.223;
+            t_sample._l_second = 409303;
+            hash_multiset_insert(pt_hmset, &t_sample);
+            t_sample._d_first = 2323.2323;
+            t_sample._l_second = 4;
+            hash_multiset_insert(pt_hmset, &t_sample);
+            _debug_hash_multiset_user(pt_hmset);
+            _print_hash_multiset_sample(pt_hmset);
+            hash_multiset_destroy(pt_hmset);
+        }
+        /*hash_multiset_init_copy         */
+        {
+            hash_multiset_t* pt_hmset = create_hash_multiset(hash_sample_t);
+            hash_multiset_t* pt_hmsetex = create_hash_multiset(hash_sample_t);
+            hash_sample_t t_sample;
+            if(pt_hmset == NULL || pt_hmsetex == NULL)
+            {
+                return;
+            }
+            hash_multiset_init(pt_hmsetex);
+            t_sample._d_first = 45.098;
+            t_sample._l_second = 22390;
+            hash_multiset_insert(pt_hmsetex, &t_sample);
+            t_sample._d_first = -9834.223;
+            t_sample._l_second = 409303;
+            hash_multiset_insert(pt_hmsetex, &t_sample);
+            t_sample._d_first = 2323.2323;
+            t_sample._l_second = 4;
+            hash_multiset_insert(pt_hmsetex, &t_sample);
+            _print_hash_multiset_sample(pt_hmsetex);
+            hash_multiset_init_copy(pt_hmset, pt_hmsetex);
+            _print_hash_multiset_sample(pt_hmset);
+            hash_multiset_destroy(pt_hmset);
+            hash_multiset_destroy(pt_hmsetex);
+        }
+        /*hash_multiset_init_copy_range   */
+        /*hash_multiset_init_copy_range_ex*/
+        /*hash_multiset_destroy           */
+        /*hash_multiset_assign            */
+        /*hash_multiset_swap              */
+        /*hash_multiset_size              */
+        /*hash_multiset_empty             */
+        /*hash_multiset_max_size          */
+        /*hash_multiset_bucket_count      */
+        /*hash_multiset_hash              */
+        /*hash_multiset_key_less          */
+        /*hash_multiset_resize            */
+        /*hash_multiset_equal             */
+        /*hash_multiset_not_equal         */
+        /*hash_multiset_less              */
+        /*hash_multiset_less_equal        */
+        /*hash_multiset_great             */
+        /*hash_multiset_great_equal       */
+        /*hash_multiset_begin             */
+        /*hash_multiset_end               */
+        /*hash_multiset_find              */
+        /*hash_multiset_count             */
+        /*hash_multiset_equal_range       */
+        /*hash_multiset_insert            */
+        /*hash_multiset_insert_range      */
+        /*hash_multiset_erase             */
+        /*hash_multiset_erase_pos         */
+        /*hash_multiset_erase_range       */
+        /*hash_multiset_clear             */
+    }
+    /* cstl type */
+    {
+        /*create_hash_multiset            */
+        /*hash_multiset_init              */
+        /*hash_multiset_init_ex           */
+        /*hash_multiset_init_copy         */
+        /*hash_multiset_init_copy_range   */
+        /*hash_multiset_init_copy_range_ex*/
+        /*hash_multiset_destroy           */
+        /*hash_multiset_assign            */
+        /*hash_multiset_swap              */
+        /*hash_multiset_size              */
+        /*hash_multiset_empty             */
+        /*hash_multiset_max_size          */
+        /*hash_multiset_bucket_count      */
+        /*hash_multiset_hash              */
+        /*hash_multiset_key_less          */
+        /*hash_multiset_resize            */
+        /*hash_multiset_equal             */
+        /*hash_multiset_not_equal         */
+        /*hash_multiset_less              */
+        /*hash_multiset_less_equal        */
+        /*hash_multiset_great             */
+        /*hash_multiset_great_equal       */
+        /*hash_multiset_begin             */
+        /*hash_multiset_end               */
+        /*hash_multiset_find              */
+        /*hash_multiset_count             */
+        /*hash_multiset_equal_range       */
+        /*hash_multiset_insert            */
+        /*hash_multiset_insert_range      */
+        /*hash_multiset_erase             */
+        /*hash_multiset_erase_pos         */
+        /*hash_multiset_erase_range       */
+        /*hash_multiset_clear             */
+    }
+    /* c-string type */
+    {
+    }
+    /*create_hash_multiset            */
+    /*hash_multiset_init              */
+    /*hash_multiset_init_ex           */
+    /*hash_multiset_init_copy         */
+    /*hash_multiset_init_copy_range   */
+    /*hash_multiset_init_copy_range_ex*/
+    /*hash_multiset_destroy           */
+    /*hash_multiset_assign            */
+    /*hash_multiset_swap              */
+    /*hash_multiset_size              */
+    /*hash_multiset_empty             */
+    /*hash_multiset_max_size          */
+    /*hash_multiset_bucket_count      */
+    /*hash_multiset_hash              */
+    /*hash_multiset_key_less          */
+    /*hash_multiset_resize            */
+    /*hash_multiset_equal             */
+    /*hash_multiset_not_equal         */
+    /*hash_multiset_less              */
+    /*hash_multiset_less_equal        */
+    /*hash_multiset_great             */
+    /*hash_multiset_great_equal       */
+    /*hash_multiset_begin             */
+    /*hash_multiset_end               */
+    /*hash_multiset_find              */
+    /*hash_multiset_count             */
+    /*hash_multiset_equal_range       */
+    /*hash_multiset_insert            */
+    /*hash_multiset_insert_range      */
+    /*hash_multiset_erase             */
+    /*hash_multiset_erase_pos         */
+    /*hash_multiset_erase_range       */
+    /*hash_multiset_clear             */
 }
 
 /** local function implementation section **/
