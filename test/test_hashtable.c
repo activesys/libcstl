@@ -73,6 +73,21 @@ void _print_hash_set_cstr(const hash_set_t* cpt_hset)
     }
 }
 
+void _print_hash_multiset_cstl(const hash_multiset_t* cpt_hmset)
+{
+    iterator_t t_itercstl;
+    assert(cpt_hmset != NULL);
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_multiset_empty(cpt_hmset), hash_multiset_size(cpt_hmset),
+        hash_multiset_max_size(cpt_hmset), hash_multiset_bucket_count(cpt_hmset));
+    for(t_itercstl = hash_multiset_begin(cpt_hmset);
+        !iterator_equal(t_itercstl, hash_multiset_end(cpt_hmset));
+        t_itercstl = iterator_next(t_itercstl))
+    {
+        _print_hash_multiset_c((hash_multiset_t*)iterator_get_pointer(t_itercstl), "%d, ", int);
+    }
+}
 void _print_hash_set_cstl(const hash_set_t* cpt_hset)
 {
     iterator_t t_itercstl;
@@ -87,6 +102,11 @@ void _print_hash_set_cstl(const hash_set_t* cpt_hset)
     {
         _print_hash_set_c((hash_set_t*)iterator_get_pointer(t_itercstl), "%d, ", int);
     }
+}
+void _hash_multiset_cstl_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(size_t*)pv_output = hash_multiset_size((hash_multiset_t*)cpv_input);
 }
 void _hash_set_cstl_hash(const void* cpv_input, void* pv_output)
 {
