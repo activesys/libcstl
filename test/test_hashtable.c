@@ -38,6 +38,39 @@ void test_hashtable(void)
 {
 }
 
+void _print_hash_multiset_cstr(const hash_multiset_t* cpt_hmset)
+{
+    iterator_t t_iter;
+    assert(cpt_hmset != NULL);
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_multiset_empty(cpt_hmset), hash_multiset_size(cpt_hmset),
+        hash_multiset_max_size(cpt_hmset), hash_multiset_bucket_count(cpt_hmset));
+    for(t_iter= hash_multiset_begin(cpt_hmset);
+        !iterator_equal(t_iter, hash_multiset_end(cpt_hmset));
+        t_iter= iterator_next(t_iter))
+    {
+        printf("%s\n", (char*)iterator_get_pointer(t_iter));
+    }
+}
+void _hash_multiset_cstr_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(size_t*)pv_output = strlen((char*)cpv_input);
+}
+void _hash_multiset_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strcmp((char*)cpv_first, (char*)cpv_second) < 0)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
 void _hash_set_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);

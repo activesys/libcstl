@@ -139,6 +139,9 @@ extern void _hash_set_int_hash(const void* cpv_input, void* pv_output);
 extern void _print_hash_set_cstr(const hash_set_t* cpt_hset);
 extern void _hash_set_cstr_hash(const void* cpv_input, void* pv_output);
 extern void _hash_set_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _print_hash_multiset_cstr(const hash_multiset_t* cpt_hmset);
+extern void _hash_multiset_cstr_hash(const void* cpv_input, void* pv_output);
+extern void _hash_multiset_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 #ifdef __cplusplus
 }
