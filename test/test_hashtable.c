@@ -38,6 +38,12 @@ void test_hashtable(void)
 {
 }
 
+void _hash_map_int_key_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(size_t*)pv_output = *(int*)pair_first((pair_t*)cpv_input);
+}
+
 void _print_hash_multiset_cstr(const hash_multiset_t* cpt_hmset)
 {
     iterator_t t_iter;

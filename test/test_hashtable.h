@@ -29,8 +29,27 @@ extern "C" {
 
 /** include section **/
 #include "chash_set.h"
+#include "chash_map.h"
 
 /** constant declaration and macro section **/
+#define _print_hash_map_c(pt_hmap, fmt, key_type, value_type)\
+    do{\
+        iterator_t t_iter;\
+        printf("=======================================\n");\
+        printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",\
+            hash_map_empty(pt_hmap), hash_map_size(pt_hmap),\
+            hash_map_max_size(pt_hmap), hash_map_bucket_count(pt_hmap));\
+        for(t_iter = hash_map_begin(pt_hmap);\
+            !iterator_equal(t_iter, hash_map_end(pt_hmap));\
+            t_iter = iterator_next(t_iter))\
+        {\
+            printf(fmt,\
+                *(key_type*)pair_first((pair_t*)iterator_get_pointer(t_iter)),\
+                *(value_type*)pair_second((pair_t*)iterator_get_pointer(t_iter)));\
+        }\
+        printf("\n");\
+    }while(false)
+
 #define _print_hash_set_c(pt_hset, fmt, type)\
     do{\
         iterator_t t_iter;\
@@ -142,6 +161,7 @@ extern void _hash_set_cstr_less(const void* cpv_first, const void* cpv_second, v
 extern void _print_hash_multiset_cstr(const hash_multiset_t* cpt_hmset);
 extern void _hash_multiset_cstr_hash(const void* cpv_input, void* pv_output);
 extern void _hash_multiset_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _hash_map_int_key_hash(const void* cpv_input, void* pv_output);
 
 #ifdef __cplusplus
 }
