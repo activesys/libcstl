@@ -203,6 +203,9 @@ bool_t _create_hash_map_auxiliary(hash_map_t* pt_hash_map, const char* s_typenam
     strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
     strncat(s_typenameex, ">", _TYPE_NAME_SIZE);
 
+    pt_hash_map->_t_keyless = NULL;
+    pt_hash_map->_t_valueless = NULL;
+
     return _create_hashtable_auxiliary(&pt_hash_map->_t_hashtable, s_typenameex);
 }
 
@@ -212,6 +215,9 @@ void _hash_map_destroy_auxiliary(hash_map_t* pt_hash_map)
 
     _pair_destroy_auxiliary(&pt_hash_map->_t_pair);
     _hashtable_destroy_auxiliary(&pt_hash_map->_t_hashtable);
+
+    pt_hash_map->_t_keyless = NULL;
+    pt_hash_map->_t_valueless = NULL;
 }
 
 /* hash_map function */
@@ -223,15 +229,15 @@ void hash_map_init(hash_map_t* pt_hash_map)
 void hash_map_init_ex(hash_map_t* pt_hash_map, size_t t_bucketcount,
     unary_function_t t_hash, binary_function_t t_less)
 {
-    binary_function_t t_key_less = NULL;
-
     assert(pt_hash_map != NULL);
 
-    t_key_less = t_less != NULL ? t_less : _hash_map_key_less;
+    /*t_key_less = t_less != NULL ? t_less : _hash_map_key_less;*/
+    pt_hash_map->_t_keyless = t_less;
+    pt_hash_map->_t_pair._t_mapkeyless = t_less;
     /* initialize the pair */
     pair_init(&pt_hash_map->_t_pair);
     /* initialize the hashtable */
-    _hashtable_init(&pt_hash_map->_t_hashtable, t_bucketcount, t_hash, t_key_less);
+    _hashtable_init(&pt_hash_map->_t_hashtable, t_bucketcount, t_hash, _hash_map_key_less);
 }
 
 void hash_map_destroy(hash_map_t* pt_hash_map)
@@ -243,9 +249,14 @@ void hash_map_destroy(hash_map_t* pt_hash_map)
 void hash_map_init_copy(hash_map_t* pt_hash_mapdest, const hash_map_t* cpt_hash_mapsrc)
 {
     assert(pt_hash_mapdest != NULL && cpt_hash_mapsrc != NULL);
-    assert(_hash_map_same_pair_type(&pt_hash_mapdest->_t_pair, &cpt_hash_mapsrc->_t_pair));
 
     hash_map_init(pt_hash_mapdest);
+    pt_hash_mapdest->_t_keyless = cpt_hash_mapsrc->_t_keyless;
+    pt_hash_mapdest->_t_valueless = cpt_hash_mapsrc->_t_keyless;
+    pt_hash_mapdest->_t_pair._t_mapkeyless = cpt_hash_mapsrc->_t_pair._t_mapkeyless;
+    pt_hash_mapdest->_t_pair._t_mapvalueless = cpt_hash_mapsrc->_t_pair._t_mapvalueless;
+    assert(_hash_map_same_pair_type(&pt_hash_mapdest->_t_pair, &cpt_hash_mapsrc->_t_pair));
+
     if(!hash_map_empty(cpt_hash_mapsrc))
     {
         hash_map_insert_range(pt_hash_mapdest, 
@@ -342,7 +353,15 @@ binary_function_t hash_map_key_less(const hash_map_t* cpt_hash_map)
 {
     assert(cpt_hash_map != NULL);
 
-    return _hashtable_key_less(&cpt_hash_map->_t_hashtable);
+    /*return _hashtable_key_less(&cpt_hash_map->_t_hashtable);*/
+    if(cpt_hash_map->_t_keyless != NULL)
+    {
+        return cpt_hash_map->_t_keyless;
+    }
+    else
+    {
+        return _GET_HASH_MAP_FIRST_TYPE_LESS_FUNCTION(cpt_hash_map);
+    }
 }
 
 void hash_map_resize(hash_map_t* pt_hash_map, size_t t_resize)
@@ -516,6 +535,9 @@ hash_map_iterator_t hash_map_insert(
     hash_map_iterator_t t_result;
 
     assert(pt_hash_map != NULL && cpt_pair != NULL);
+    /* set key less and value less function */
+    ((pair_t*)cpt_pair)->_t_mapkeyless = pt_hash_map->_t_keyless;
+    ((pair_t*)cpt_pair)->_t_mapvalueless = pt_hash_map->_t_valueless;
     assert(_hash_map_same_pair_type(&pt_hash_map->_t_pair, cpt_pair));
 
     /* insert int hashtable */
@@ -615,6 +637,10 @@ void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
         val_elemlist, pt_hash_map->_t_pair._pv_first);
 
     t_result = _hashtable_insert_unique(&pt_hash_map->_t_hashtable, &pt_hash_map->_t_pair);
+    _GET_CONTAINER(t_result) = pt_hash_map;
+    _GET_HASH_MAP_CONTAINER_TYPE(t_result) = _HASH_MAP_CONTAINER;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_result) = _FORWARD_ITERATOR;
+
     if(iterator_equal(t_result, hash_map_end(pt_hash_map)))
     {
         t_result = _hash_map_find_varg(pt_hash_map, val_elemlist);
@@ -673,7 +699,9 @@ static bool_t _hash_map_same_pair_type(
            (cpt_pairfirst->_t_typeinfosecond._pt_type ==
             cpt_pairsecond->_t_typeinfosecond._pt_type) &&
            (cpt_pairfirst->_t_typeinfosecond._t_style ==
-            cpt_pairsecond->_t_typeinfosecond._t_style);
+            cpt_pairsecond->_t_typeinfosecond._t_style) &&
+           (cpt_pairfirst->_t_mapkeyless == cpt_pairsecond->_t_mapkeyless) &&
+           (cpt_pairfirst->_t_mapvalueless == cpt_pairsecond->_t_mapvalueless);
 }
 #endif /* NDEBUG */
 
@@ -690,8 +718,15 @@ static void _hash_map_key_less(const void* cpv_first, const void* cpv_second, vo
     assert(_hash_map_same_pair_type(pt_first, pt_second));
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-        pt_first->_pv_first, pt_second->_pv_first, pv_output);
+    if(pt_first->_t_mapkeyless != NULL) /* external key less function */
+    {
+        pt_first->_t_mapkeyless(pair_first(pt_first), pair_first(pt_second), pv_output);
+    }
+    else
+    {
+        pt_first->_t_typeinfofirst._pt_type->_t_typeless(
+            pt_first->_pv_first, pt_second->_pv_first, pv_output);
+    }
 }
 
 /** eof **/

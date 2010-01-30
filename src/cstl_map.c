@@ -232,9 +232,6 @@ map_t* _create_map(const char* s_typename)
         return NULL;
     }
 
-    pt_newmap->_t_keyless = NULL;
-    pt_newmap->_t_valueless = NULL;
-
     return pt_newmap;
 }
 
@@ -262,6 +259,9 @@ bool_t _create_map_auxiliary(map_t* pt_map, const char* s_typename)
 #else
     t_result = _create_rb_tree_auxiliary(&pt_map->_t_tree, s_typenameex);
 #endif
+
+    pt_map->_t_keyless = NULL;
+    pt_map->_t_valueless = NULL;
 
     return t_result;
 }
