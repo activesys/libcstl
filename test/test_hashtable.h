@@ -143,6 +143,7 @@ extern void test_hashtable(void);
 extern void _debug_hash_set_user(const hash_set_t* cpt_hset);
 extern void _debug_hash_multiset_user(const hash_multiset_t* cpt_hmset);
 extern void _print_hash_set_sample(const hash_set_t* cpt_hset);
+extern void _print_hash_map_sample(const hash_map_t* cpt_hmap);
 extern void _print_hash_multiset_sample(const hash_multiset_t* cpt_hmset);
 extern void _hash_sample_init(const void* cpv_input, void* pv_output);
 extern void _hash_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -150,6 +151,7 @@ extern void _hash_sample_less(const void* cpv_first, const void* cpv_second, voi
 extern void _hash_sample_destroy(const void* cpv_input, void* pv_output);
 extern void _hash_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hash_set_sample_hash(const void* cpv_input, void* pv_output);
+extern void _hash_map_sample_hash(const void* cpv_input, void* pv_output);
 extern void _print_hash_set_cstl(const hash_set_t* cpt_hset);
 extern void _print_hash_multiset_cstl(const hash_multiset_t* cpt_hmset);
 extern void _hash_set_cstl_hash(const void* cpv_input, void* pv_output);

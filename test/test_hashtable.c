@@ -206,6 +206,25 @@ void _debug_hash_set_user(const hash_set_t* cpt_hset)
     printf("=======================================\n");
 }
 
+void _print_hash_map_sample(const hash_map_t* cpt_hmap)
+{
+    iterator_t t_iter;
+    assert(cpt_hmap != NULL);
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_map_empty(cpt_hmap), hash_map_size(cpt_hmap),
+        hash_map_max_size(cpt_hmap), hash_map_bucket_count(cpt_hmap));
+    for(t_iter = hash_map_begin(cpt_hmap);
+        !iterator_equal(t_iter, hash_map_end(cpt_hmap));
+        t_iter = iterator_next(t_iter))
+    {
+        pair_t* pt_pair = (pair_t*)iterator_get_pointer(t_iter);
+        printf("<%d, [%lf,%ld]>, ", *(int*)pair_first(pt_pair),
+            ((hash_sample_t*)pair_second(pt_pair))->_d_first,
+            ((hash_sample_t*)pair_second(pt_pair))->_l_second);
+    }
+    printf("\n");
+}
 void _print_hash_multiset_sample(const hash_multiset_t* cpt_hmset)
 {
     iterator_t t_iter;
@@ -291,6 +310,12 @@ void _hash_sample_great(const void* cpv_first, const void* cpv_second, void* pv_
     }
 }
 
+void _hash_map_sample_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    pair_t* pt_pair = (pair_t*)cpv_input;
+    *(int*)pv_output = *(int*)pair_first(pt_pair);
+}
 void _hash_set_sample_hash(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
