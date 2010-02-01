@@ -21,6 +21,7 @@
  */
 
 /** include section **/
+#include "clist.h"
 #include "chash_map.h"
 #include "cfunctional.h"
 #include "test_hashtable.h"
@@ -1422,6 +1423,209 @@ void test_hash_map(void)
     }
     /* cstl built-in type */
     {
+        /*create_hash_map            */
+        /*hash_map_init              */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init(pt_hmap);
+            list_t* pt_list = (list_t*)hash_map_at(pt_hmap, 10);
+            list_push_back(pt_list, 10);
+            list_push_back(pt_list, 12);
+            list_push_back(pt_list, 49230);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 0);
+            pt_list = (list_t*)hash_map_at(pt_hmap, 45);
+            list_push_back(pt_list, 234);
+            list_push_back(pt_list, 111);
+            pt_list = (list_t*)hash_map_at(pt_hmap, 9);
+            list_push_back(pt_list, 1111);
+            list_push_back(pt_list, 45);
+            list_push_back(pt_list, 12345);
+            list_push_back(pt_list, -83);
+            list_push_back(pt_list, -3434);
+            list_push_back(pt_list, 222);
+            _print_hash_map_cstl(pt_hmap);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_init_ex           */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
+            list_t* pt_list = (list_t*)hash_map_at(pt_hmap, 10);
+            list_push_back(pt_list, 10);
+            list_push_back(pt_list, 12);
+            list_push_back(pt_list, 49230);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 0);
+            pt_list = (list_t*)hash_map_at(pt_hmap, 45);
+            list_push_back(pt_list, 234);
+            list_push_back(pt_list, 111);
+            pt_list = (list_t*)hash_map_at(pt_hmap, 9);
+            list_push_back(pt_list, 1111);
+            list_push_back(pt_list, 45);
+            list_push_back(pt_list, 12345);
+            list_push_back(pt_list, -83);
+            list_push_back(pt_list, -3434);
+            list_push_back(pt_list, 222);
+            _print_hash_map_cstl(pt_hmap);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_init_copy         */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            hash_map_t* pt_hmapex = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
+            if(pt_hmap == NULL || pt_hmapex == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmapex, 100, _hash_map_cstl_hash, NULL);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 10);
+            list_push_back(pt_list, 10);
+            list_push_back(pt_list, 12);
+            list_push_back(pt_list, 49230);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 0);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 45);
+            list_push_back(pt_list, 234);
+            list_push_back(pt_list, 111);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 9);
+            list_push_back(pt_list, 1111);
+            list_push_back(pt_list, 45);
+            list_push_back(pt_list, 12345);
+            list_push_back(pt_list, -83);
+            list_push_back(pt_list, -3434);
+            list_push_back(pt_list, 222);
+            hash_map_init_copy(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_init_copy_range   */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            hash_map_t* pt_hmapex = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
+            if(pt_hmap == NULL || pt_hmapex == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmapex, 100, _hash_map_cstl_hash, NULL);
+
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 10);
+            list_push_back(pt_list, 10);
+            list_push_back(pt_list, 12);
+            list_push_back(pt_list, 49230);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 0);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 45);
+            list_push_back(pt_list, 234);
+            list_push_back(pt_list, 111);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 9);
+            list_push_back(pt_list, 1111);
+            list_push_back(pt_list, 45);
+            list_push_back(pt_list, 12345);
+            list_push_back(pt_list, -83);
+            list_push_back(pt_list, -3434);
+            list_push_back(pt_list, 222);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 3);
+            list_push_back(pt_list, 1124);
+            list_push_back(pt_list, 0);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 0);
+            list_push_back(pt_list, 0);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 78);
+            list_push_back(pt_list, 4);
+
+            hash_map_init_copy_range(pt_hmap,
+                hash_map_begin(pt_hmapex),
+                hash_map_end(pt_hmapex));
+            _print_hash_map_cstl(pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+        }
+        /*hash_map_init_copy_range_ex*/
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            hash_map_t* pt_hmapex = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
+            if(pt_hmap == NULL || pt_hmapex == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmapex, 100, _hash_map_cstl_hash, NULL);
+
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 10);
+            list_push_back(pt_list, 10);
+            list_push_back(pt_list, 12);
+            list_push_back(pt_list, 49230);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 0);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 45);
+            list_push_back(pt_list, 234);
+            list_push_back(pt_list, 111);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 9);
+            list_push_back(pt_list, 1111);
+            list_push_back(pt_list, 45);
+            list_push_back(pt_list, 12345);
+            list_push_back(pt_list, -83);
+            list_push_back(pt_list, -3434);
+            list_push_back(pt_list, 222);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 3);
+            list_push_back(pt_list, 1124);
+            list_push_back(pt_list, 0);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 0);
+            list_push_back(pt_list, 0);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 78);
+            list_push_back(pt_list, 4);
+
+            hash_map_init_copy_range_ex(pt_hmap,
+                hash_map_begin(pt_hmapex), hash_map_end(pt_hmapex),
+                0, _hash_map_cstl_hash, NULL);
+            _print_hash_map_cstl(pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+        }
+        /*hash_map_destroy           */
+        /*hash_map_assign            */
+        /*hash_map_swap              */
+        /*hash_map_size              */
+        /*hash_map_empty             */
+        /*hash_map_max_size          */
+        /*hash_map_bucket_count      */
+        /*hash_map_hash              */
+        /*hash_map_key_less          */
+        /*hash_map_resize            */
+        /*hash_map_equal             */
+        /*hash_map_not_equal         */
+        /*hash_map_less              */
+        /*hash_map_less_equal        */
+        /*hash_map_great             */
+        /*hash_map_great_equal       */
+        /*hash_map_begin             */
+        /*hash_map_end               */
+        /*hash_map_find              */
+        /*hash_map_count             */
+        /*hash_map_equal_range       */
+        /*hash_map_at                */
+        /*hash_map_insert            */
+        /*hash_map_insert_range      */
+        /*hash_map_erase             */
+        /*hash_map_erase_pos         */
+        /*hash_map_erase_range       */
+        /*hash_map_clear             */
     }
     /* c-string type */
     {

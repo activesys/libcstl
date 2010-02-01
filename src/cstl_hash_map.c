@@ -250,7 +250,8 @@ void hash_map_init_copy(hash_map_t* pt_hash_mapdest, const hash_map_t* cpt_hash_
 {
     assert(pt_hash_mapdest != NULL && cpt_hash_mapsrc != NULL);
 
-    hash_map_init(pt_hash_mapdest);
+    hash_map_init_ex(pt_hash_mapdest, hash_map_bucket_count(cpt_hash_mapsrc),
+        hash_map_hash(cpt_hash_mapsrc), hash_map_key_less(cpt_hash_mapsrc));
     pt_hash_mapdest->_t_keyless = cpt_hash_mapsrc->_t_keyless;
     pt_hash_mapdest->_t_valueless = cpt_hash_mapsrc->_t_keyless;
     pt_hash_mapdest->_t_pair._t_mapkeyless = cpt_hash_mapsrc->_t_pair._t_mapkeyless;
