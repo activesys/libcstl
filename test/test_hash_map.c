@@ -1600,25 +1600,313 @@ void test_hash_map(void)
         }
         /*hash_map_destroy           */
         /*hash_map_assign            */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            hash_map_t* pt_hmapex = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
+            if(pt_hmap == NULL || pt_hmapex == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
+            hash_map_init_ex(pt_hmapex, 100, _hash_map_cstl_hash, NULL);
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 12);
+            list_push_back(pt_list, 3234);
+            list_push_back(pt_list, -876);
+            list_push_back(pt_list, 4);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 2);
+            list_push_back(pt_list, -79);
+            list_push_back(pt_list, 3);
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+
+            hash_map_clear(pt_hmapex);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 55);
+            list_push_back(pt_list, 78);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 34);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 567);
+            list_push_back(pt_list, 445);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 4);
+            list_push_back(pt_list, 4);
+            list_push_back(pt_list, 4);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 22);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 5);
+            list_push_back(pt_list, 100);
+            list_push_back(pt_list, 200);
+            list_push_back(pt_list, 300);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 45);
+            list_push_back(pt_list, 222);
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+
+            hash_map_clear(pt_hmapex);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 444);
+            list_push_back(pt_list, 0);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 3);
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+
+            hash_map_clear(pt_hmapex);
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+        }
         /*hash_map_swap              */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            hash_map_t* pt_hmapex = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
+            if(pt_hmap == NULL || pt_hmapex == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
+            hash_map_init_ex(pt_hmapex, 100, _hash_map_cstl_hash, NULL);
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+            _print_hash_map_cstl(pt_hmapex);
+
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 12);
+            list_push_back(pt_list, 3234);
+            list_push_back(pt_list, -876);
+            list_push_back(pt_list, 4);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 2);
+            list_push_back(pt_list, -79);
+            list_push_back(pt_list, 3);
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+            _print_hash_map_cstl(pt_hmapex);
+
+            hash_map_clear(pt_hmapex);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 55);
+            list_push_back(pt_list, 78);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 34);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 567);
+            list_push_back(pt_list, 445);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 4);
+            list_push_back(pt_list, 4);
+            list_push_back(pt_list, 4);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 22);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 5);
+            list_push_back(pt_list, 100);
+            list_push_back(pt_list, 200);
+            list_push_back(pt_list, 300);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 45);
+            list_push_back(pt_list, 222);
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+            _print_hash_map_cstl(pt_hmapex);
+
+            hash_map_clear(pt_hmapex);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 444);
+            list_push_back(pt_list, 0);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 3);
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+            _print_hash_map_cstl(pt_hmapex);
+
+            hash_map_clear(pt_hmapex);
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstl(pt_hmap);
+            _print_hash_map_cstl(pt_hmapex);
+
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+        }
         /*hash_map_size              */
         /*hash_map_empty             */
         /*hash_map_max_size          */
         /*hash_map_bucket_count      */
         /*hash_map_hash              */
         /*hash_map_key_less          */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 100, _hash_map_cstl_hash, fun_great_int);
+            assert(hash_map_hash(pt_hmap) == _hash_map_cstl_hash &&
+                hash_map_key_less(pt_hmap) == fun_great_int);
+            hash_map_destroy(pt_hmap);
+        }
         /*hash_map_resize            */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
+            _print_hash_map_cstl(pt_hmap);
+            hash_map_resize(pt_hmap, 50);
+            _print_hash_map_cstl(pt_hmap);
+            hash_map_resize(pt_hmap, 100);
+            _print_hash_map_cstl(pt_hmap);
+            hash_map_resize(pt_hmap, 700);
+            _print_hash_map_cstl(pt_hmap);
+            hash_map_resize(pt_hmap, 30);
+            _print_hash_map_cstl(pt_hmap);
+            hash_map_resize(pt_hmap, 0);
+            _print_hash_map_cstl(pt_hmap);
+            hash_map_destroy(pt_hmap);
+        }
         /*hash_map_equal             */
         /*hash_map_not_equal         */
         /*hash_map_less              */
         /*hash_map_less_equal        */
         /*hash_map_great             */
         /*hash_map_great_equal       */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            hash_map_t* pt_hmapex = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
+            if(pt_hmap == NULL || pt_hmapex == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
+            hash_map_init_ex(pt_hmapex, 0, _hash_map_cstl_hash, NULL);
+            _print_hash_map_cstl(pt_hmap);
+            _print_hash_map_cstl(pt_hmapex);
+            printf("equal: %d, not equal: %d, ",
+                hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+
+            pt_list = (list_t*)hash_map_at(pt_hmap, 34);
+            list_push_back(pt_list, 56);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 90);
+            _print_hash_map_cstl(pt_hmap);
+            _print_hash_map_cstl(pt_hmapex);
+            printf("equal: %d, not equal: %d, ",
+                hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 34);
+            list_push_back(pt_list, 56);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 90);
+            _print_hash_map_cstl(pt_hmap);
+            _print_hash_map_cstl(pt_hmapex);
+            printf("equal: %d, not equal: %d, ",
+                hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+
+            pt_list = (list_t*)hash_map_at(pt_hmap, 20);
+            pt_list = (list_t*)hash_map_at(pt_hmap, 10);
+            list_push_back(pt_list, 232);
+            list_push_back(pt_list, 4455);
+            list_push_back(pt_list, 8989);
+            pt_list = (list_t*)hash_map_at(pt_hmapex, 50);
+            list_push_back(pt_list, 0);
+            list_push_back(pt_list, 0);
+            _print_hash_map_cstl(pt_hmap);
+            _print_hash_map_cstl(pt_hmapex);
+            printf("equal: %d, not equal: %d, ",
+                hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+        }
         /*hash_map_begin             */
         /*hash_map_end               */
         /*hash_map_find              */
         /*hash_map_count             */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
+            iterator_t t_iter;
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
+
+            t_iter = hash_map_find(pt_hmap, 0);
+            if(iterator_equal(t_iter, hash_map_end(pt_hmap)))
+            {
+                printf("not found! count : %u\n", hash_map_count(pt_hmap, 0));
+            }
+            else
+            {
+                printf("found! count : %u\n", hash_map_count(pt_hmap, 0));
+            }
+            pt_list = (list_t*)hash_map_at(pt_hmap, 4);
+            list_push_back(pt_list, 3);
+            list_push_back(pt_list, 0);
+            list_push_back(pt_list, 112);
+            list_push_back(pt_list, 909);
+            pt_list = (list_t*)hash_map_at(pt_hmap, 23);
+            list_push_back(pt_list, 122);
+            list_push_back(pt_list, 89);
+            list_push_back(pt_list, 0);
+            pt_list = (list_t*)hash_map_at(pt_hmap, 2);
+            list_push_back(pt_list, 9);
+
+            t_iter = hash_map_find(pt_hmap, 0);
+            if(iterator_equal(t_iter, hash_map_end(pt_hmap)))
+            {
+                printf("not found! count : %u\n", hash_map_count(pt_hmap, 0));
+            }
+            else
+            {
+                printf("found! count : %u\n", hash_map_count(pt_hmap, 0));
+            }
+            t_iter = hash_map_find(pt_hmap, 4);
+            if(iterator_equal(t_iter, hash_map_end(pt_hmap)))
+            {
+                printf("not found! count : %u\n", hash_map_count(pt_hmap, 4));
+            }
+            else
+            {
+                printf("found! count : %u\n", hash_map_count(pt_hmap, 4));
+            }
+
+            hash_map_destroy(pt_hmap);
+        }
         /*hash_map_equal_range       */
+        {
+            hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
+            range_t t_range;
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
+            t_range = hash_map_equal_range(pt_hmap, 4);
+            assert(iterator_equal(t_range.t_begin, hash_map_end(pt_hmap)) &&
+                iterator_equal(t_range.t_begin, t_range.t_end));
+            pt_list = (list_t*)hash_map_at(pt_hmap, 4);
+            list_push_back(pt_list, 232);
+            list_push_back(pt_list, 0);
+            hash_map_destroy(pt_hmap);
+        }
         /*hash_map_at                */
         /*hash_map_insert            */
         /*hash_map_insert_range      */
