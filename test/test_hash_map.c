@@ -2238,42 +2238,743 @@ void test_hash_map(void)
     }
     /* c-string type */
     {
-    }
+        /*create_hash_map            */
+        /*hash_map_init              */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init(pt_hmap);
+            hash_map_at(pt_hmap, "abcdefg");
+            hash_map_at(pt_hmap, "a");
+            hash_map_at(pt_hmap, "a");
+            hash_map_at(pt_hmap, "7");
+            hash_map_at(pt_hmap, "88");
+            hash_map_at(pt_hmap, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_init_ex           */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, _hash_map_cstr_less);
+            hash_map_at(pt_hmap, "abcdefg");
+            hash_map_at(pt_hmap, "a");
+            hash_map_at(pt_hmap, "a");
+            hash_map_at(pt_hmap, "7");
+            hash_map_at(pt_hmap, "88");
+            hash_map_at(pt_hmap, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012");
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_init_copy         */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            hash_map_t* pt_hmapex = create_hash_map(char*,char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_hmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_map_init_ex(pt_hmapex, 100, _hash_map_cstr_hash, NULL);
 
-    /*create_hash_map            */
-    /*hash_map_init              */
-    /*hash_map_init_ex           */
-    /*hash_map_init_copy         */
-    /*hash_map_init_copy_range   */
-    /*hash_map_init_copy_range_ex*/
-    /*hash_map_destroy           */
-    /*hash_map_assign            */
-    /*hash_map_swap              */
-    /*hash_map_size              */
-    /*hash_map_empty             */
-    /*hash_map_max_size          */
-    /*hash_map_bucket_count      */
-    /*hash_map_hash              */
-    /*hash_map_key_less          */
-    /*hash_map_resize            */
-    /*hash_map_equal             */
-    /*hash_map_not_equal         */
-    /*hash_map_less              */
-    /*hash_map_less_equal        */
-    /*hash_map_great             */
-    /*hash_map_great_equal       */
-    /*hash_map_begin             */
-    /*hash_map_end               */
-    /*hash_map_find              */
-    /*hash_map_count             */
-    /*hash_map_equal_range       */
-    /*hash_map_at                */
-    /*hash_map_insert            */
-    /*hash_map_insert_range      */
-    /*hash_map_erase             */
-    /*hash_map_erase_pos         */
-    /*hash_map_erase_range       */
-    /*hash_map_clear             */
+            pair_make(pt_pair, "8woobw", "WTO");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "b", "BB");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "VVV", "VVV");
+            hash_map_insert(pt_hmapex, pt_pair);
+
+            hash_map_init_copy(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_init_copy_range   */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            hash_map_t* pt_hmapex = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_hmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_map_init_ex(pt_hmapex, 100, _hash_map_cstr_hash, NULL);
+
+            pair_make(pt_pair, "qqb", "qqq");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "uuu", "lakdfadfiasd;flkja");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "tqwobqwepoqehawlaskfqweoppqweif", "l");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "laksslsllls", "ool");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "llllllllllllllll", "akldf");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "1111", "zai guo qu de yi nian li");
+            hash_map_insert(pt_hmapex, pt_pair);
+
+            _print_hash_map_cstr(pt_hmapex);
+            hash_map_init_copy_range(pt_hmap,
+                hash_map_begin(pt_hmapex), hash_map_end(pt_hmapex));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_init_copy_range_ex*/
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            hash_map_t* pt_hmapex = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_hmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_map_init(pt_hmapex);
+
+            pair_make(pt_pair, "qqb", "qqq");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "uuu", "lakdfadfiasd;flkja");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "tqwobqwepoqehawlaskfqweoppqweif", "l");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "laksslsllls", "ool");
+            hash_map_insert(pt_hmapex, pt_pair);
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "llllllllllllllll", "akldf");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "1111", "zai guo qu de yi nian li");
+            hash_map_insert(pt_hmapex, pt_pair);
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "hhh", "lskflskjflaskdfj");
+            hash_map_insert(pt_hmapex, pt_pair);
+
+            _print_hash_map_cstr(pt_hmapex);
+            hash_map_init_copy_range_ex(pt_hmap,
+                hash_map_begin(pt_hmapex), hash_map_end(pt_hmapex),
+                100, _hash_map_cstr_hash, NULL);
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_destroy           */
+        /*hash_map_assign            */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            hash_map_t* pt_hmapex = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_hmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+            hash_map_init_ex(pt_hmapex, 0, _hash_map_cstr_hash, NULL);
+            pair_init(pt_pair);
+
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+
+            pair_make(pt_pair, "uuuuu", "httpd");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "ladjkfoweijf", "al;kdfjoqwiejf");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "bnbnbnb", "bnbnbnbn");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "||||||||++++", "23948720349(*%&^%*(&)(*)_(*&%&$E");
+            hash_map_insert(pt_hmapex, pt_pair);
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_clear(pt_hmapex);
+            pair_make(pt_pair, "pair", "hash_map");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_map_insert(pt_hmapex, pt_pair);
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_clear(pt_hmapex);
+            pair_make(pt_pair, "first", "1st");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "nine", "9");
+            hash_map_insert(pt_hmapex, pt_pair);
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_clear(pt_hmapex);
+            hash_map_assign(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_swap              */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            hash_map_t* pt_hmapex = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_hmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+            hash_map_init_ex(pt_hmapex, 0, _hash_map_cstr_hash, NULL);
+            pair_init(pt_pair);
+
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+            _print_hash_map_cstr(pt_hmapex);
+
+            pair_make(pt_pair, "uuuuu", "httpd");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "ladjkfoweijf", "al;kdfjoqwiejf");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "bnbnbnb", "bnbnbnbn");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "||||||||++++", "23948720349(*%&^%*(&)(*)_(*&%&$E");
+            hash_map_insert(pt_hmapex, pt_pair);
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+            _print_hash_map_cstr(pt_hmapex);
+
+            hash_map_clear(pt_hmapex);
+            pair_make(pt_pair, "pair", "hash_map");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_map_insert(pt_hmapex, pt_pair);
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+            _print_hash_map_cstr(pt_hmapex);
+
+            hash_map_clear(pt_hmapex);
+            pair_make(pt_pair, "first", "1st");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "nine", "9");
+            hash_map_insert(pt_hmapex, pt_pair);
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+            _print_hash_map_cstr(pt_hmapex);
+
+            hash_map_clear(pt_hmapex);
+            hash_map_swap(pt_hmap, pt_hmapex);
+            _print_hash_map_cstr(pt_hmap);
+            _print_hash_map_cstr(pt_hmapex);
+
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_size              */
+        /*hash_map_empty             */
+        /*hash_map_max_size          */
+        /*hash_map_bucket_count      */
+        /*hash_map_hash              */
+        /*hash_map_key_less          */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, _hash_map_cstr_less);
+            assert(hash_map_hash(pt_hmap) == _hash_map_cstr_hash &&
+                hash_map_key_less(pt_hmap) == _hash_map_cstr_less);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_resize            */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            if(pt_hmap == NULL)
+            {
+                return;
+            }
+            hash_map_init(pt_hmap);
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_resize(pt_hmap, 40);
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_resize(pt_hmap, 90);
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_resize(pt_hmap, 900);
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_resize(pt_hmap, 44);
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_resize(pt_hmap, 0);
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_equal             */
+        /*hash_map_not_equal         */
+        /*hash_map_less              */
+        /*hash_map_less_equal        */
+        /*hash_map_great             */
+        /*hash_map_great_equal       */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            hash_map_t* pt_hmapex = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_hmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, _hash_map_cstr_less);
+            hash_map_init_ex(pt_hmapex, 0, _hash_map_cstr_hash, _hash_map_cstr_less);
+            pair_init(pt_pair);
+
+            _print_hash_map_cstr(pt_hmap);
+            _print_hash_map_cstr(pt_hmapex);            
+            printf("equal: %d, not equal: %d, ",
+                hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+
+            pair_make(pt_pair, "bowsg", "alsdkfjoawhaosdfloasdkjflkasjdf");
+            hash_map_insert(pt_hmap, pt_pair);
+            _print_hash_map_cstr(pt_hmap);
+            _print_hash_map_cstr(pt_hmapex);            
+            printf("equal: %d, not equal: %d, ",
+                hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+
+            hash_map_insert(pt_hmapex, pt_pair);
+            _print_hash_map_cstr(pt_hmap);
+            _print_hash_map_cstr(pt_hmapex);            
+            printf("equal: %d, not equal: %d, ",
+                hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+
+            pair_make(pt_pair, "7394934347", "sghsdfjkasdfjksdfjkl;asdfjkl;");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "ls", "lsl -lhp");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "nxcvnnmz,zn,xcznzlajha;djkfas", "");
+            hash_map_insert(pt_hmapex, pt_pair);
+            _print_hash_map_cstr(pt_hmap);
+            _print_hash_map_cstr(pt_hmapex);            
+            printf("equal: %d, not equal: %d, ",
+                hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_begin             */
+        /*hash_map_end               */
+        /*hash_map_find              */
+        /*hash_map_count             */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            iterator_t t_iter;
+            if(pt_hmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+            t_iter = hash_map_find(pt_hmap, "lskdf");
+            if(iterator_equal(t_iter, hash_map_end(pt_hmap)))
+            {
+                printf("not found, count : %u\n", hash_map_count(pt_hmap, "lskdf"));
+            }
+            else
+            {
+                printf("found, count : %u\n", hash_map_count(pt_hmap, "lskdf"));
+            }
+
+            pair_make(pt_pair, "pair", "hash_map");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_map_insert(pt_hmap, pt_pair);
+            t_iter = hash_map_find(pt_hmap, "lskdf");
+            if(iterator_equal(t_iter, hash_map_end(pt_hmap)))
+            {
+                printf("not found, count : %u\n", hash_map_count(pt_hmap, "lskdf"));
+            }
+            else
+            {
+                printf("found, count : %u\n", hash_map_count(pt_hmap, "lskdf"));
+            }
+            t_iter = hash_map_find(pt_hmap, "1111");
+            if(iterator_equal(t_iter, hash_map_end(pt_hmap)))
+            {
+                printf("not found, count : %u\n", hash_map_count(pt_hmap, "1111"));
+            }
+            else
+            {
+                printf("found, count : %u\n", hash_map_count(pt_hmap, "1111"));
+            }
+
+            hash_map_destroy(pt_hmap);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_equal_range       */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            range_t t_range;
+            if(pt_hmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+            t_range = hash_map_equal_range(pt_hmap, "lskdf");
+            assert(iterator_equal(t_range.t_begin, hash_map_end(pt_hmap)) &&
+                iterator_equal(t_range.t_begin, t_range.t_end));
+
+            pair_make(pt_pair, "pair", "hash_map");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_map_insert(pt_hmap, pt_pair);
+            t_range = hash_map_equal_range(pt_hmap, "lskdf");
+            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            t_range = hash_map_equal_range(pt_hmap, "1111");
+            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+
+            hash_map_destroy(pt_hmap);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_at                */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+            pair_init(pt_pair);
+            hash_map_at(pt_hmap, "slkdfjosidjf");
+            hash_map_at(pt_hmap, "lllllll");
+            _print_hash_map_cstr(pt_hmap);
+            pair_make(pt_pair, "lsdkkkkk", ":::::::");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "uls", "lsl");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "lllllljslkjd", ";laskdfjeiieslvg");
+            hash_map_insert(pt_hmap, pt_pair);
+            _print_hash_map_cstr(pt_hmap);
+
+            ((char*)hash_map_at(pt_hmap, "uls"))[1] = 'S';
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_destroy(pt_hmap);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_insert            */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+            _print_hash_map_cstr(pt_hmap);
+            pair_make(pt_pair, "lksdjflsdkj", "llllllllllllllll");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "uuuu", "UUUUUUUUUUUUUUUUUU");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "llll", "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            hash_map_insert(pt_hmap, pt_pair);
+            hash_map_insert(pt_hmap, pt_pair);
+            _print_hash_map_cstr(pt_hmap);
+
+            pair_destroy(pt_pair);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_insert_range      */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            hash_map_t* pt_hmapex = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_hmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+            hash_map_init_ex(pt_hmapex, 0, _hash_map_cstr_hash, NULL);
+            pair_init(pt_pair);
+
+            hash_map_insert_range(pt_hmap, hash_map_begin(pt_hmapex), hash_map_end(pt_hmapex));
+            _print_hash_map_cstr(pt_hmap);
+
+            pair_make(pt_pair, "uuuuu", "httpd");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "ladjkfoweijf", "al;kdfjoqwiejf");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "bnbnbnb", "bnbnbnbn");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "||||||||++++", "23948720349(*%&^%*(&)(*)_(*&%&$E");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "pair", "hash_map");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "first", "1st");
+            hash_map_insert(pt_hmapex, pt_pair);
+            pair_make(pt_pair, "nine", "9");
+            hash_map_insert(pt_hmapex, pt_pair);
+            _print_hash_map_cstr(pt_hmapex);
+
+            hash_map_insert_range(pt_hmap,
+                hash_map_begin(pt_hmapex), hash_map_begin(pt_hmapex));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_insert_range(pt_hmap,
+                hash_map_begin(pt_hmapex), iterator_advance(hash_map_begin(pt_hmapex), 3));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_insert_range(pt_hmap,
+                iterator_advance(hash_map_begin(pt_hmapex), 5),
+                iterator_advance(hash_map_begin(pt_hmapex), 7));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_insert_range(pt_hmap,
+                iterator_advance(hash_map_begin(pt_hmapex), 10), hash_map_end(pt_hmapex));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_insert_range(pt_hmap,
+                hash_map_end(pt_hmapex), hash_map_end(pt_hmapex));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_insert_range(pt_hmap,
+                hash_map_begin(pt_hmapex), hash_map_end(pt_hmapex));
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_erase             */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+
+            hash_map_erase(pt_hmap, "ok");
+            _print_hash_map_cstr(pt_hmap);
+
+            pair_make(pt_pair, "lksdjflsdkj", "llllllllllllllll");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "uuuu", "UUUUUUUUUUUUUUUUUU");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "llll", "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            hash_map_insert(pt_hmap, pt_pair);
+            hash_map_insert(pt_hmap, pt_pair);
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_erase(pt_hmap, "ok");
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_erase(pt_hmap, "uuuu");
+            _print_hash_map_cstr(pt_hmap);
+
+            pair_destroy(pt_pair);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_erase_pos         */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+
+            pair_make(pt_pair, "lksdjflsdkj", "llllllllllllllll");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "uuuu", "UUUUUUUUUUUUUUUUUU");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "llll", "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            hash_map_insert(pt_hmap, pt_pair);
+            hash_map_insert(pt_hmap, pt_pair);
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_erase_pos(pt_hmap, hash_map_begin(pt_hmap));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_erase_pos(pt_hmap, iterator_next(hash_map_begin(pt_hmap)));
+            _print_hash_map_cstr(pt_hmap);
+            while(!hash_map_empty(pt_hmap))
+            {
+                hash_map_erase_pos(pt_hmap, hash_map_begin(pt_hmap));
+            }
+            _print_hash_map_cstr(pt_hmap);
+
+            pair_destroy(pt_pair);
+            hash_map_destroy(pt_hmap);
+        }
+        /*hash_map_erase_range       */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+            pair_init(pt_pair);
+
+            hash_map_erase_range(pt_hmap, hash_map_begin(pt_hmap), hash_map_end(pt_hmap));
+            _print_hash_map_cstr(pt_hmap);
+
+            pair_make(pt_pair, "uuuuu", "httpd");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "ladjkfoweijf", "al;kdfjoqwiejf");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "bnbnbnb", "bnbnbnbn");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "||||||||++++", "23948720349(*%&^%*(&)(*)_(*&%&$E");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "pair", "hash_map");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "first", "1st");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "nine", "9");
+            hash_map_insert(pt_hmap, pt_pair);
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_erase_range(pt_hmap,
+                hash_map_begin(pt_hmap), hash_map_begin(pt_hmap));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_erase_range(pt_hmap,
+                hash_map_begin(pt_hmap), iterator_advance(hash_map_begin(pt_hmap), 3));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_erase_range(pt_hmap,
+                iterator_advance(hash_map_begin(pt_hmap), 2),
+                iterator_advance(hash_map_begin(pt_hmap), 5));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_erase_range(pt_hmap,
+                iterator_advance(hash_map_begin(pt_hmap), 3), hash_map_end(pt_hmap));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_erase_range(pt_hmap,
+                hash_map_end(pt_hmap), hash_map_end(pt_hmap));
+            _print_hash_map_cstr(pt_hmap);
+            hash_map_erase_range(pt_hmap,
+                hash_map_begin(pt_hmap), hash_map_end(pt_hmap));
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_destroy(pt_hmap);
+            pair_destroy(pt_pair);
+        }
+        /*hash_map_clear             */
+        {
+            hash_map_t* pt_hmap = create_hash_map(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
+
+            hash_map_clear(pt_hmap);
+            _print_hash_map_cstr(pt_hmap);
+
+            pair_make(pt_pair, "lksdjflsdkj", "llllllllllllllll");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "uuuu", "UUUUUUUUUUUUUUUUUU");
+            hash_map_insert(pt_hmap, pt_pair);
+            pair_make(pt_pair, "llll", "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            hash_map_insert(pt_hmap, pt_pair);
+            hash_map_insert(pt_hmap, pt_pair);
+            _print_hash_map_cstr(pt_hmap);
+
+            hash_map_clear(pt_hmap);
+            _print_hash_map_cstr(pt_hmap);
+            pair_destroy(pt_pair);
+            hash_map_destroy(pt_hmap);
+        }
+    }
 }
 
 void test_hash_multimap(void)

@@ -4436,6 +4436,7 @@ void test_map(void)
             pair_t* pt_pair = create_pair(char*, char*);
             if(pt_map == NULL || pt_pair == NULL)
             {
+                return;
             }
             map_init(pt_map);
             pair_init(pt_pair);
@@ -4477,6 +4478,7 @@ void test_map(void)
             pair_t* pt_pair = create_pair(char*, char*);
             if(pt_map == NULL || pt_pair == NULL)
             {
+                return;
             }
             map_init(pt_map);
             pair_init(pt_pair);
@@ -4523,6 +4525,7 @@ void test_map(void)
             pair_t* pt_pair = create_pair(char*, char*);
             if(pt_map == NULL || pt_pair == NULL)
             {
+                return;
             }
             map_init(pt_map);
             pair_init(pt_pair);
@@ -8736,6 +8739,7 @@ void test_multimap(void)
             pair_t* pt_pair = create_pair(char*, char*);
             if(pt_mmap == NULL || pt_pair == NULL)
             {
+                return;
             }
             multimap_init(pt_mmap);
             pair_init(pt_pair);
@@ -8777,6 +8781,7 @@ void test_multimap(void)
             pair_t* pt_pair = create_pair(char*, char*);
             if(pt_mmap == NULL || pt_pair == NULL)
             {
+                return;
             }
             multimap_init(pt_mmap);
             pair_init(pt_pair);
@@ -8823,6 +8828,7 @@ void test_multimap(void)
             pair_t* pt_pair = create_pair(char*, char*);
             if(pt_mmap == NULL || pt_pair == NULL)
             {
+                return;
             }
             multimap_init(pt_mmap);
             pair_init(pt_pair);

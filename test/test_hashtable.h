@@ -166,6 +166,10 @@ extern void _hash_multiset_cstr_less(const void* cpv_first, const void* cpv_seco
 extern void _hash_map_int_key_hash(const void* cpv_input, void* pv_output);
 extern void _hash_map_cstl_hash(const void* cpv_input, void* pv_output);
 extern void _print_hash_map_cstl(const hash_map_t* cpt_hmap);
+extern void _print_hash_map_cstr(const hash_map_t* cpt_hmap);
+extern void _hash_map_cstr_hash(const void* cpv_input, void* pv_output);
+extern void _hash_map_cstr_less(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
 
 #ifdef __cplusplus
 }

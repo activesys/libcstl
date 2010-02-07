@@ -311,6 +311,44 @@ void _hash_sample_great(const void* cpv_first, const void* cpv_second, void* pv_
     }
 }
 
+void _print_hash_map_cstr(const hash_map_t* cpt_hmap)
+{
+    iterator_t t_iter;
+    assert(cpt_hmap != NULL);
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_map_empty(cpt_hmap), hash_map_size(cpt_hmap),
+        hash_map_max_size(cpt_hmap), hash_map_bucket_count(cpt_hmap));
+    for(t_iter = hash_map_begin(cpt_hmap);
+        !iterator_equal(t_iter, hash_map_end(cpt_hmap));
+        t_iter = iterator_next(t_iter))
+    {
+        pair_t* pt_pair = (pair_t*)iterator_get_pointer(t_iter);
+        printf("<%s, %s>, ", (char*)pair_first(pt_pair), (char*)pair_second(pt_pair));
+    }
+    printf("\n");
+}
+
+void _hash_map_cstr_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    pair_t* pt_pair = (pair_t*)cpv_input;
+    *(int*)pv_output = strlen((char*)pair_first(pt_pair));
+}
+
+void _hash_map_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strlen((char*)cpv_first) < strlen((char*)cpv_second))
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
 void _print_hash_map_cstl(const hash_map_t* cpt_hmap)
 {
     iterator_t t_iter;
