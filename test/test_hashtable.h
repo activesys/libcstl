@@ -50,6 +50,24 @@ extern "C" {
         printf("\n");\
     }while(false)
 
+#define _print_hash_multimap_c(pt_hmmap, fmt, key_type, value_type)\
+    do{\
+        iterator_t t_iter;\
+        printf("=======================================\n");\
+        printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",\
+            hash_multimap_empty(pt_hmmap), hash_multimap_size(pt_hmmap),\
+            hash_multimap_max_size(pt_hmmap), hash_multimap_bucket_count(pt_hmmap));\
+        for(t_iter = hash_multimap_begin(pt_hmmap);\
+            !iterator_equal(t_iter, hash_multimap_end(pt_hmmap));\
+            t_iter = iterator_next(t_iter))\
+        {\
+            printf(fmt,\
+                *(key_type*)pair_first((pair_t*)iterator_get_pointer(t_iter)),\
+                *(value_type*)pair_second((pair_t*)iterator_get_pointer(t_iter)));\
+        }\
+        printf("\n");\
+    }while(false)
+
 #define _print_hash_set_c(pt_hset, fmt, type)\
     do{\
         iterator_t t_iter;\
@@ -144,6 +162,7 @@ extern void _debug_hash_set_user(const hash_set_t* cpt_hset);
 extern void _debug_hash_multiset_user(const hash_multiset_t* cpt_hmset);
 extern void _print_hash_set_sample(const hash_set_t* cpt_hset);
 extern void _print_hash_map_sample(const hash_map_t* cpt_hmap);
+extern void _print_hash_multimap_sample(const hash_multimap_t* cpt_hmmap);
 extern void _print_hash_multiset_sample(const hash_multiset_t* cpt_hmset);
 extern void _hash_sample_init(const void* cpv_input, void* pv_output);
 extern void _hash_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -152,6 +171,7 @@ extern void _hash_sample_destroy(const void* cpv_input, void* pv_output);
 extern void _hash_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hash_set_sample_hash(const void* cpv_input, void* pv_output);
 extern void _hash_map_sample_hash(const void* cpv_input, void* pv_output);
+extern void _hash_multimap_sample_hash(const void* cpv_input, void* pv_output);
 extern void _print_hash_set_cstl(const hash_set_t* cpt_hset);
 extern void _print_hash_multiset_cstl(const hash_multiset_t* cpt_hmset);
 extern void _hash_set_cstl_hash(const void* cpv_input, void* pv_output);
@@ -164,6 +184,7 @@ extern void _print_hash_multiset_cstr(const hash_multiset_t* cpt_hmset);
 extern void _hash_multiset_cstr_hash(const void* cpv_input, void* pv_output);
 extern void _hash_multiset_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hash_map_int_key_hash(const void* cpv_input, void* pv_output);
+extern void _hash_multimap_int_key_hash(const void* cpv_input, void* pv_output);
 extern void _hash_map_cstl_hash(const void* cpv_input, void* pv_output);
 extern void _print_hash_map_cstl(const hash_map_t* cpt_hmap);
 extern void _print_hash_map_cstr(const hash_map_t* cpt_hmap);

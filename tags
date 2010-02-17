@@ -1068,10 +1068,10 @@ _d_first	test/test_hashtable.h	/^    double _d_first;$/;"	m	struct:_taghashsampl
 _d_second	test/test_vector.c	/^    double _d_second;$/;"	m	struct:_tagabc	file:	access:public
 _deasil_rotate	src/cstl_rb_tree.c	/^static rbnode_t* _deasil_rotate(rbnode_t* pt_root)$/;"	f	file:	signature:(rbnode_t* pt_root)
 _deasil_rotate	src/cstl_rb_tree.c	/^static rbnode_t* _deasil_rotate(rbnode_t* pt_root);$/;"	p	file:	signature:(rbnode_t* pt_root)
-_debug_hash_multiset_c	test/test_hashtable.h	109;"	d
+_debug_hash_multiset_c	test/test_hashtable.h	127;"	d
 _debug_hash_multiset_user	test/test_hashtable.c	/^void _debug_hash_multiset_user(const hash_multiset_t* cpt_hmset)$/;"	f	signature:(const hash_multiset_t* cpt_hmset)
 _debug_hash_multiset_user	test/test_hashtable.h	/^extern void _debug_hash_multiset_user(const hash_multiset_t* cpt_hmset);$/;"	p	signature:(const hash_multiset_t* cpt_hmset)
-_debug_hash_set_c	test/test_hashtable.h	69;"	d
+_debug_hash_set_c	test/test_hashtable.h	87;"	d
 _debug_hash_set_user	test/test_hashtable.c	/^void _debug_hash_set_user(const hash_set_t* cpt_hset)$/;"	f	signature:(const hash_set_t* cpt_hset)
 _debug_hash_set_user	test/test_hashtable.h	/^extern void _debug_hash_set_user(const hash_set_t* cpt_hset);$/;"	p	signature:(const hash_set_t* cpt_hset)
 _deque_assign_elem	include/cstl_deque_private.h	/^extern void _deque_assign_elem(deque_t* pt_deque, size_t t_count, ...);$/;"	p	signature:(deque_t* pt_deque, size_t t_count, ...)
@@ -1211,6 +1211,12 @@ _hash_map_count	include/cstl_hash_map_private.h	/^extern size_t _hash_map_count(
 _hash_map_count	src/cstl_hash_map.c	/^size_t _hash_map_count(const hash_map_t* cpt_hash_map, ...)$/;"	f	signature:(const hash_map_t* cpt_hash_map, ...)
 _hash_map_count_varg	include/cstl_hash_map_private.h	/^extern size_t _hash_map_count_varg($/;"	p	signature:( const hash_map_t* cpt_hash_map, va_list val_elemlist)
 _hash_map_count_varg	src/cstl_hash_map.c	/^size_t _hash_map_count_varg(const hash_map_t* cpt_hash_map, va_list val_elemlist)$/;"	f	signature:(const hash_map_t* cpt_hash_map, va_list val_elemlist)
+_hash_map_cstl_hash	test/test_hashtable.c	/^void _hash_map_cstl_hash(const void* cpv_input, void* pv_output)$/;"	f	signature:(const void* cpv_input, void* pv_output)
+_hash_map_cstl_hash	test/test_hashtable.h	/^extern void _hash_map_cstl_hash(const void* cpv_input, void* pv_output);$/;"	p	signature:(const void* cpv_input, void* pv_output)
+_hash_map_cstr_hash	test/test_hashtable.c	/^void _hash_map_cstr_hash(const void* cpv_input, void* pv_output)$/;"	f	signature:(const void* cpv_input, void* pv_output)
+_hash_map_cstr_hash	test/test_hashtable.h	/^extern void _hash_map_cstr_hash(const void* cpv_input, void* pv_output);$/;"	p	signature:(const void* cpv_input, void* pv_output)
+_hash_map_cstr_less	test/test_hashtable.c	/^void _hash_map_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_hash_map_cstr_less	test/test_hashtable.h	/^extern void _hash_map_cstr_less($/;"	p	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _hash_map_destroy_auxiliary	include/cstl_hash_map_private.h	/^extern void _hash_map_destroy_auxiliary(hash_map_t* pt_hash_map);$/;"	p	signature:(hash_map_t* pt_hash_map)
 _hash_map_destroy_auxiliary	src/cstl_hash_map.c	/^void _hash_map_destroy_auxiliary(hash_map_t* pt_hash_map)$/;"	f	signature:(hash_map_t* pt_hash_map)
 _hash_map_equal_range	include/cstl_hash_map_private.h	/^extern range_t _hash_map_equal_range(const hash_map_t* cpt_hash_map, ...);$/;"	p	signature:(const hash_map_t* cpt_hash_map, ...)
@@ -1245,6 +1251,8 @@ _hash_map_key_less	src/cstl_hash_map.c	/^static void _hash_map_key_less(const vo
 _hash_map_key_less	src/cstl_hash_map.c	/^static void _hash_map_key_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _hash_map_same_pair_type	src/cstl_hash_map.c	/^static bool_t _hash_map_same_pair_type($/;"	f	file:	signature:( const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 _hash_map_same_pair_type	src/cstl_hash_map.c	/^static bool_t _hash_map_same_pair_type($/;"	p	file:	signature:( const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
+_hash_map_sample_hash	test/test_hashtable.c	/^void _hash_map_sample_hash(const void* cpv_input, void* pv_output)$/;"	f	signature:(const void* cpv_input, void* pv_output)
+_hash_map_sample_hash	test/test_hashtable.h	/^extern void _hash_map_sample_hash(const void* cpv_input, void* pv_output);$/;"	p	signature:(const void* cpv_input, void* pv_output)
 _hash_multimap_count	include/cstl_hash_multimap_private.h	/^extern size_t _hash_multimap_count(const hash_multimap_t* cpt_hash_multimap, ...);$/;"	p	signature:(const hash_multimap_t* cpt_hash_multimap, ...)
 _hash_multimap_count	src/cstl_hash_multimap.c	/^size_t _hash_multimap_count($/;"	f	signature:( const hash_multimap_t* cpt_hash_multimap, ...)
 _hash_multimap_count_varg	include/cstl_hash_multimap_private.h	/^extern size_t _hash_multimap_count_varg($/;"	p	signature:( const hash_multimap_t* cpt_hash_multimap, va_list val_elemlist)
@@ -1265,6 +1273,8 @@ _hash_multimap_find_varg	include/cstl_hash_multimap_private.h	/^extern hash_mult
 _hash_multimap_find_varg	src/cstl_hash_multimap.c	/^hash_multimap_iterator_t _hash_multimap_find_varg($/;"	f	signature:( const hash_multimap_t* cpt_hash_multimap, va_list val_elemlist)
 _hash_multimap_init_elem_auxiliary	include/cstl_hash_multimap_private.h	/^extern void _hash_multimap_init_elem_auxiliary($/;"	p	signature:( hash_multimap_t* pt_hash_multimap, void* pv_value)
 _hash_multimap_init_elem_auxiliary	src/cstl_hash_multimap.c	/^void _hash_multimap_init_elem_auxiliary(hash_multimap_t* pt_hash_multimap, void* pv_elem)$/;"	f	signature:(hash_multimap_t* pt_hash_multimap, void* pv_elem)
+_hash_multimap_int_key_hash	test/test_hashtable.c	/^void _hash_multimap_int_key_hash(const void* cpv_input, void* pv_output)$/;"	f	signature:(const void* cpv_input, void* pv_output)
+_hash_multimap_int_key_hash	test/test_hashtable.h	/^extern void _hash_multimap_int_key_hash(const void* cpv_input, void* pv_output);$/;"	p	signature:(const void* cpv_input, void* pv_output)
 _hash_multimap_iterator_before	include/cstl_hash_multimap_iterator.h	/^extern bool_t _hash_multimap_iterator_before($/;"	p	signature:( hash_multimap_iterator_t t_iterfirst, hash_multimap_iterator_t t_itersecond)
 _hash_multimap_iterator_before	src/cstl_hash_multimap.c	/^bool_t _hash_multimap_iterator_before($/;"	f	signature:( hash_multimap_iterator_t t_iterfirst, hash_multimap_iterator_t t_itersecond)
 _hash_multimap_iterator_distance	include/cstl_hash_multimap_iterator.h	/^extern int _hash_multimap_iterator_distance($/;"	p	signature:( hash_multimap_iterator_t t_iterfirst, hash_multimap_iterator_t t_itersecond)
@@ -1855,14 +1865,21 @@ _ppc_mappos	include/cstl_iterator.h	/^            char**  _ppc_mappos;    \/* po
 _print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_deque)$/;"	f	file:	signature:(const deque_t* pt_deque)
 _print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_deque);$/;"	p	file:	signature:(const deque_t* pt_deque)
 _print_hash_map_c	test/test_hashtable.h	35;"	d
-_print_hash_multiset_c	test/test_hashtable.h	93;"	d
+_print_hash_map_cstl	test/test_hashtable.c	/^void _print_hash_map_cstl(const hash_map_t* cpt_hmap)$/;"	f	signature:(const hash_map_t* cpt_hmap)
+_print_hash_map_cstl	test/test_hashtable.h	/^extern void _print_hash_map_cstl(const hash_map_t* cpt_hmap);$/;"	p	signature:(const hash_map_t* cpt_hmap)
+_print_hash_map_cstr	test/test_hashtable.c	/^void _print_hash_map_cstr(const hash_map_t* cpt_hmap)$/;"	f	signature:(const hash_map_t* cpt_hmap)
+_print_hash_map_cstr	test/test_hashtable.h	/^extern void _print_hash_map_cstr(const hash_map_t* cpt_hmap);$/;"	p	signature:(const hash_map_t* cpt_hmap)
+_print_hash_map_sample	test/test_hashtable.c	/^void _print_hash_map_sample(const hash_map_t* cpt_hmap)$/;"	f	signature:(const hash_map_t* cpt_hmap)
+_print_hash_map_sample	test/test_hashtable.h	/^extern void _print_hash_map_sample(const hash_map_t* cpt_hmap);$/;"	p	signature:(const hash_map_t* cpt_hmap)
+_print_hash_multimap_c	test/test_hashtable.h	53;"	d
+_print_hash_multiset_c	test/test_hashtable.h	111;"	d
 _print_hash_multiset_cstl	test/test_hashtable.c	/^void _print_hash_multiset_cstl(const hash_multiset_t* cpt_hmset)$/;"	f	signature:(const hash_multiset_t* cpt_hmset)
 _print_hash_multiset_cstl	test/test_hashtable.h	/^extern void _print_hash_multiset_cstl(const hash_multiset_t* cpt_hmset);$/;"	p	signature:(const hash_multiset_t* cpt_hmset)
 _print_hash_multiset_cstr	test/test_hashtable.c	/^void _print_hash_multiset_cstr(const hash_multiset_t* cpt_hmset)$/;"	f	signature:(const hash_multiset_t* cpt_hmset)
 _print_hash_multiset_cstr	test/test_hashtable.h	/^extern void _print_hash_multiset_cstr(const hash_multiset_t* cpt_hmset);$/;"	p	signature:(const hash_multiset_t* cpt_hmset)
 _print_hash_multiset_sample	test/test_hashtable.c	/^void _print_hash_multiset_sample(const hash_multiset_t* cpt_hmset)$/;"	f	signature:(const hash_multiset_t* cpt_hmset)
 _print_hash_multiset_sample	test/test_hashtable.h	/^extern void _print_hash_multiset_sample(const hash_multiset_t* cpt_hmset);$/;"	p	signature:(const hash_multiset_t* cpt_hmset)
-_print_hash_set_c	test/test_hashtable.h	53;"	d
+_print_hash_set_c	test/test_hashtable.h	71;"	d
 _print_hash_set_cstl	test/test_hashtable.c	/^void _print_hash_set_cstl(const hash_set_t* cpt_hset)$/;"	f	signature:(const hash_set_t* cpt_hset)
 _print_hash_set_cstl	test/test_hashtable.h	/^extern void _print_hash_set_cstl(const hash_set_t* cpt_hset);$/;"	p	signature:(const hash_set_t* cpt_hset)
 _print_hash_set_cstr	test/test_hashtable.c	/^void _print_hash_set_cstr(const hash_set_t* cpt_hset)$/;"	f	signature:(const hash_set_t* cpt_hset)
@@ -2279,7 +2296,7 @@ _t_flag	test/test_list.c	/^    abcflat_t _t_flag;$/;"	m	struct:_taglistabc	file:
 _t_hash	include/cstl_hashtable_private.h	/^    unary_function_t _t_hash;$/;"	m	struct:_taghashtable	access:public
 _t_hashpos	include/cstl_iterator.h	/^        }_t_hashpos;$/;"	m	union:_tagiterator::__anon3	typeref:struct:_tagiterator::__anon3::__anon6	access:public
 _t_hashtable	include/cstl_hash_map_private.h	/^    hashtable_t       _t_hashtable;$/;"	m	struct:_taghashmap	access:public
-_t_hashtable	include/cstl_hash_multimap_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashmultimap	access:public
+_t_hashtable	include/cstl_hash_multimap_private.h	/^    hashtable_t       _t_hashtable;$/;"	m	struct:_taghashmultimap	access:public
 _t_hashtable	include/cstl_hash_multiset_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashmultiset	access:public
 _t_hashtable	include/cstl_hash_set_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashset	access:public
 _t_head	include/cstl_slist_private.h	/^    slistnode_t _t_head;$/;"	m	struct:_tagslist	access:public
@@ -2288,6 +2305,7 @@ _t_isinit	include/cstl_types.h	/^    bool_t               _t_isinit; \/* is init
 _t_iterator	include/cstl_rb_tree_private.h	/^        rb_tree_iterator_t _t_iterator;  \/* for equal_range *\/$/;"	m	union:_tagrbtreeresultpair::__anon2	access:public
 _t_iteratortype	include/cstl_iterator.h	/^    iteratortype_t  _t_iteratortype;$/;"	m	struct:_tagiterator	access:public
 _t_keyless	include/cstl_hash_map_private.h	/^    binary_function_t _t_keyless;    \/* for external key less *\/$/;"	m	struct:_taghashmap	access:public
+_t_keyless	include/cstl_hash_multimap_private.h	/^    binary_function_t _t_keyless; \/* external key less *\/$/;"	m	struct:_taghashmultimap	access:public
 _t_keyless	include/cstl_map_private.h	/^    binary_function_t _t_keyless;   \/* for init ex *\/$/;"	m	struct:_tagmap	access:public
 _t_keyless	include/cstl_multimap_private.h	/^    binary_function_t _t_keyless; \/* for init ex *\/$/;"	m	struct:_tagmultimap	access:public
 _t_less	include/cstl_avl_tree_private.h	/^    binary_function_t _t_less;$/;"	m	struct:_tagavltree	access:public
@@ -2302,7 +2320,7 @@ _t_nodecount	include/cstl_avl_tree_private.h	/^    size_t           _t_nodecount
 _t_nodecount	include/cstl_hashtable_private.h	/^    size_t      _t_nodecount;$/;"	m	struct:_taghashtable	access:public
 _t_nodecount	include/cstl_rb_tree_private.h	/^    size_t            _t_nodecount;$/;"	m	struct:_tagrbtree	access:public
 _t_pair	include/cstl_hash_map_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_taghashmap	access:public
-_t_pair	include/cstl_hash_multimap_private.h	/^    pair_t      _t_pair;$/;"	m	struct:_taghashmultimap	access:public
+_t_pair	include/cstl_hash_multimap_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_taghashmultimap	access:public
 _t_pair	include/cstl_map_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_tagmap	access:public
 _t_pair	include/cstl_multimap_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_tagmultimap	access:public
 _t_pos	include/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterator	typeref:union:_tagiterator::__anon3	access:public
@@ -2336,6 +2354,7 @@ _t_typeless	include/cstl_types.h	/^    binary_function_t _t_typeless;           
 _t_typesize	include/cstl_types.h	/^    size_t            _t_typesize;                        \/* type size *\/$/;"	m	struct:_tagtype	access:public
 _t_unit	test/test_map.c	/^    _units_t _t_unit;$/;"	m	struct:_tagmapkey	file:	access:public
 _t_valueless	include/cstl_hash_map_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_taghashmap	access:public
+_t_valueless	include/cstl_hash_multimap_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_taghashmultimap	access:public
 _t_valueless	include/cstl_map_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_tagmap	access:public
 _t_valueless	include/cstl_multimap_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_tagmultimap	access:public
 _t_vector	include/cstl_basic_string_private.h	/^    vector_t _t_vector;$/;"	m	struct:_tagbasicstring	access:public
@@ -2394,8 +2413,10 @@ _taghashmap::_t_keyless	include/cstl_hash_map_private.h	/^    binary_function_t 
 _taghashmap::_t_pair	include/cstl_hash_map_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_taghashmap	access:public
 _taghashmap::_t_valueless	include/cstl_hash_map_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_taghashmap	access:public
 _taghashmultimap	include/cstl_hash_multimap_private.h	/^typedef struct _taghashmultimap$/;"	s
-_taghashmultimap::_t_hashtable	include/cstl_hash_multimap_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashmultimap	access:public
-_taghashmultimap::_t_pair	include/cstl_hash_multimap_private.h	/^    pair_t      _t_pair;$/;"	m	struct:_taghashmultimap	access:public
+_taghashmultimap::_t_hashtable	include/cstl_hash_multimap_private.h	/^    hashtable_t       _t_hashtable;$/;"	m	struct:_taghashmultimap	access:public
+_taghashmultimap::_t_keyless	include/cstl_hash_multimap_private.h	/^    binary_function_t _t_keyless; \/* external key less *\/$/;"	m	struct:_taghashmultimap	access:public
+_taghashmultimap::_t_pair	include/cstl_hash_multimap_private.h	/^    pair_t            _t_pair;$/;"	m	struct:_taghashmultimap	access:public
+_taghashmultimap::_t_valueless	include/cstl_hash_multimap_private.h	/^    binary_function_t _t_valueless;$/;"	m	struct:_taghashmultimap	access:public
 _taghashmultiset	include/cstl_hash_multiset_private.h	/^typedef struct _taghashmultiset$/;"	s
 _taghashmultiset::_t_hashtable	include/cstl_hash_multiset_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashmultiset	access:public
 _taghashnode	include/cstl_hashtable_private.h	/^typedef struct _taghashnode$/;"	s

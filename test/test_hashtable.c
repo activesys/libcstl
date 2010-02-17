@@ -39,6 +39,12 @@ void test_hashtable(void)
 {
 }
 
+void _hash_multimap_int_key_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(size_t*)pv_output = *(int*)pair_first((pair_t*)cpv_input);
+}
+
 void _hash_map_int_key_hash(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
@@ -207,6 +213,25 @@ void _debug_hash_set_user(const hash_set_t* cpt_hset)
     printf("=======================================\n");
 }
 
+void _print_hash_multimap_sample(const hash_multimap_t* cpt_hmmap)
+{
+    iterator_t t_iter;
+    assert(cpt_hmmap != NULL);
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_multimap_empty(cpt_hmmap), hash_multimap_size(cpt_hmmap),
+        hash_multimap_max_size(cpt_hmmap), hash_multimap_bucket_count(cpt_hmmap));
+    for(t_iter = hash_multimap_begin(cpt_hmmap);
+        !iterator_equal(t_iter, hash_multimap_end(cpt_hmmap));
+        t_iter = iterator_next(t_iter))
+    {
+        pair_t* pt_pair = (pair_t*)iterator_get_pointer(t_iter);
+        printf("<%d, [%lf,%ld]>, ", *(int*)pair_first(pt_pair),
+            ((hash_sample_t*)pair_second(pt_pair))->_d_first,
+            ((hash_sample_t*)pair_second(pt_pair))->_l_second);
+    }
+    printf("\n");
+}
 void _print_hash_map_sample(const hash_map_t* cpt_hmap)
 {
     iterator_t t_iter;
@@ -382,6 +407,12 @@ void _hash_map_cstl_hash(const void* cpv_input, void* pv_output)
     *(int*)pv_output = *(int*)pair_first(pt_pair);
 }
 
+void _hash_multimap_sample_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    pair_t* pt_pair = (pair_t*)cpv_input;
+    *(int*)pv_output = *(int*)pair_first(pt_pair);
+}
 void _hash_map_sample_hash(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);

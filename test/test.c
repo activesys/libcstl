@@ -101,9 +101,9 @@ int main(int argc, char* argv[])
     printf("========== test hash_multiset_t  ==========\n");
     /*test_hash_multiset();*/
     printf("========== test hash_map_t  ==========\n");
-    test_hash_map();
+    /*test_hash_map();*/
     printf("========== test hash_multimap_t  ==========\n");
-    /*test_hash_multimap();*/
+    test_hash_multimap();
 
     argc = 0;
     argv = NULL;

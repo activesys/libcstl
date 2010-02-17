@@ -210,6 +210,9 @@ bool_t _create_hash_multimap_auxiliary(
     strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
     strncat(s_typenameex, ">", _TYPE_NAME_SIZE);
 
+    pt_hash_multimap->_t_keyless = NULL;
+    pt_hash_multimap->_t_valueless = NULL;
+
     return _create_hashtable_auxiliary(&pt_hash_multimap->_t_hashtable, s_typenameex);
 }
 
@@ -219,6 +222,9 @@ void _hash_multimap_destroy_auxiliary(hash_multimap_t* pt_hash_multimap)
 
     _pair_destroy_auxiliary(&pt_hash_multimap->_t_pair);
     _hashtable_destroy_auxiliary(&pt_hash_multimap->_t_hashtable);
+
+    pt_hash_multimap->_t_keyless = NULL;
+    pt_hash_multimap->_t_valueless = NULL;
 }
 
 /* hash_multimap function */
@@ -230,15 +236,16 @@ void hash_multimap_init(hash_multimap_t* pt_hash_multimap)
 void hash_multimap_init_ex(hash_multimap_t* pt_hash_multimap, size_t t_bucketcount,
     unary_function_t t_hash, binary_function_t t_less)
 {
-    binary_function_t t_key_less = NULL;
-
     assert(pt_hash_multimap != NULL);
 
-    t_key_less = t_less != NULL ? t_less : _hash_multimap_key_less;
+    /*t_key_less = t_less != NULL ? t_less : _hash_multimap_key_less;*/
+    pt_hash_multimap->_t_keyless = t_less;
+    pt_hash_multimap->_t_pair._t_mapkeyless = t_less;
     /* initialize the pair */
     pair_init(&pt_hash_multimap->_t_pair);
     /* initialize the hashtable */
-    _hashtable_init(&pt_hash_multimap->_t_hashtable, t_bucketcount, t_hash, t_key_less);
+    _hashtable_init(&pt_hash_multimap->_t_hashtable, t_bucketcount,
+        t_hash, _hash_multimap_key_less);
 }
 
 void hash_multimap_destroy(hash_multimap_t* pt_hash_multimap)
@@ -251,6 +258,10 @@ void hash_multimap_init_copy(
     hash_multimap_t* pt_hash_multimapdest, const hash_multimap_t* cpt_hash_multimapsrc)
 {
     assert(pt_hash_multimapdest != NULL && cpt_hash_multimapsrc != NULL);
+    pt_hash_multimapdest->_t_keyless = cpt_hash_multimapsrc->_t_keyless;
+    pt_hash_multimapdest->_t_valueless = cpt_hash_multimapsrc->_t_valueless;
+    pt_hash_multimapdest->_t_pair._t_mapkeyless = cpt_hash_multimapsrc->_t_pair._t_mapkeyless;
+    pt_hash_multimapdest->_t_pair._t_mapvalueless = cpt_hash_multimapsrc->_t_pair._t_mapvalueless;
     assert(_hash_multimap_same_pair_type(
         &pt_hash_multimapdest->_t_pair, &cpt_hash_multimapsrc->_t_pair));
 
@@ -356,7 +367,15 @@ binary_function_t hash_multimap_key_less(const hash_multimap_t* cpt_hash_multima
 {
     assert(cpt_hash_multimap != NULL);
 
-    return _hashtable_key_less(&cpt_hash_multimap->_t_hashtable);
+    /*return _hashtable_key_less(&cpt_hash_multimap->_t_hashtable);*/
+    if (cpt_hash_multimap->_t_keyless != NULL)
+    {
+        return cpt_hash_multimap->_t_keyless;
+    }
+    else
+    {
+        return _GET_HASH_MULTIMAP_FIRST_TYPE_LESS_FUNCTION(cpt_hash_multimap);
+    }
 }
 
 void hash_multimap_resize(hash_multimap_t* pt_hash_multimap, size_t t_resize)
@@ -543,6 +562,8 @@ hash_multimap_iterator_t hash_multimap_insert(
     hash_multimap_iterator_t t_result;
 
     assert(pt_hash_multimap != NULL && cpt_pair != NULL);
+    ((pair_t*)cpt_pair)->_t_mapkeyless = pt_hash_multimap->_t_keyless;
+    ((pair_t*)cpt_pair)->_t_mapvalueless = pt_hash_multimap->_t_valueless;
     assert(_hash_multimap_same_pair_type(&pt_hash_multimap->_t_pair, cpt_pair));
 
     /* insert int hashtable */
@@ -671,7 +692,9 @@ static bool_t _hash_multimap_same_pair_type(
            (cpt_pairfirst->_t_typeinfosecond._pt_type ==
             cpt_pairsecond->_t_typeinfosecond._pt_type) &&
            (cpt_pairfirst->_t_typeinfosecond._t_style ==
-            cpt_pairsecond->_t_typeinfosecond._t_style);
+            cpt_pairsecond->_t_typeinfosecond._t_style) &&
+           (cpt_pairfirst->_t_mapkeyless == cpt_pairsecond->_t_mapkeyless) &&
+           (cpt_pairfirst->_t_mapvalueless == cpt_pairsecond->_t_mapvalueless);
 }
 #endif /* NDEBUG */
 
@@ -689,8 +712,15 @@ static void _hash_multimap_key_less(
     assert(_hash_multimap_same_pair_type(pt_first, pt_second));
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-        pt_first->_pv_first, pt_second->_pv_first, pv_output);
+    if (pt_first->_t_mapkeyless != NULL) /* external key less */
+    {
+        pt_first->_t_mapkeyless(pair_first(pt_first), pair_first(pt_second), pv_output);
+    }
+    else
+    {
+        pt_first->_t_typeinfofirst._pt_type->_t_typeless(
+            pt_first->_pv_first, pt_second->_pv_first, pv_output);
+    }
 }
 
 /** eof **/

@@ -34,8 +34,10 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef struct _taghashmultimap
 {
-    pair_t      _t_pair;
-    hashtable_t _t_hashtable;
+    pair_t            _t_pair;
+    hashtable_t       _t_hashtable;
+    binary_function_t _t_keyless; /* external key less */
+    binary_function_t _t_valueless;
 }hash_multimap_t;
 
 /** exported global variable declaration section **/
