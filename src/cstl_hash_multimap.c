@@ -258,14 +258,16 @@ void hash_multimap_init_copy(
     hash_multimap_t* pt_hash_multimapdest, const hash_multimap_t* cpt_hash_multimapsrc)
 {
     assert(pt_hash_multimapdest != NULL && cpt_hash_multimapsrc != NULL);
+    hash_multimap_init_ex(pt_hash_multimapdest,
+        hash_multimap_bucket_count(cpt_hash_multimapsrc),
+        hash_multimap_hash(cpt_hash_multimapsrc),
+        hash_multimap_key_less(cpt_hash_multimapsrc));
     pt_hash_multimapdest->_t_keyless = cpt_hash_multimapsrc->_t_keyless;
     pt_hash_multimapdest->_t_valueless = cpt_hash_multimapsrc->_t_valueless;
     pt_hash_multimapdest->_t_pair._t_mapkeyless = cpt_hash_multimapsrc->_t_pair._t_mapkeyless;
     pt_hash_multimapdest->_t_pair._t_mapvalueless = cpt_hash_multimapsrc->_t_pair._t_mapvalueless;
     assert(_hash_multimap_same_pair_type(
         &pt_hash_multimapdest->_t_pair, &cpt_hash_multimapsrc->_t_pair));
-
-    hash_multimap_init(pt_hash_multimapdest);
 
     if(!hash_multimap_empty(cpt_hash_multimapsrc))
     {

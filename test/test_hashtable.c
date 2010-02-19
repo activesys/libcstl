@@ -374,6 +374,31 @@ void _hash_map_cstr_less(const void* cpv_first, const void* cpv_second, void* pv
     }
 }
 
+void _print_hash_multimap_cstl(const hash_multimap_t* cpt_hmmap)
+{
+    iterator_t t_iter;
+    iterator_t t_iterlist;
+    assert(cpt_hmmap != NULL);
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_multimap_empty(cpt_hmmap), hash_multimap_size(cpt_hmmap),
+        hash_multimap_max_size(cpt_hmmap), hash_multimap_bucket_count(cpt_hmmap));
+    for(t_iter = hash_multimap_begin(cpt_hmmap);
+        !iterator_equal(t_iter, hash_multimap_end(cpt_hmmap));
+        t_iter = iterator_next(t_iter))
+    {
+        pair_t* pt_pair = (pair_t*)iterator_get_pointer(t_iter);
+        printf("<%d,[", *(int*)pair_first(pt_pair));
+        list_t* pt_list = (list_t*)pair_second(pt_pair);
+        for(t_iterlist = list_begin(pt_list);
+            !iterator_equal(t_iterlist, list_end(pt_list));
+            t_iterlist = iterator_next(t_iterlist))
+        {
+            printf("%d,", *(int*)iterator_get_pointer(t_iterlist));
+        }
+        printf("]>\n");
+    }
+}
 void _print_hash_map_cstl(const hash_map_t* cpt_hmap)
 {
     iterator_t t_iter;
@@ -400,6 +425,12 @@ void _print_hash_map_cstl(const hash_map_t* cpt_hmap)
     }
 }
 
+void _hash_multimap_cstl_hash(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    pair_t* pt_pair = (pair_t*)cpv_input;
+    *(int*)pv_output = *(int*)pair_first(pt_pair);
+}
 void _hash_map_cstl_hash(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
