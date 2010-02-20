@@ -356,8 +356,9 @@ void _print_hash_map_cstr(const hash_map_t* cpt_hmap)
 
 void _hash_map_cstr_hash(const void* cpv_input, void* pv_output)
 {
+    pair_t* pt_pair = NULL;
     assert(cpv_input != NULL && pv_output != NULL);
-    pair_t* pt_pair = (pair_t*)cpv_input;
+    pt_pair = (pair_t*)cpv_input;
     *(int*)pv_output = strlen((char*)pair_first(pt_pair));
 }
 
@@ -388,8 +389,8 @@ void _print_hash_multimap_cstl(const hash_multimap_t* cpt_hmmap)
         t_iter = iterator_next(t_iter))
     {
         pair_t* pt_pair = (pair_t*)iterator_get_pointer(t_iter);
-        printf("<%d,[", *(int*)pair_first(pt_pair));
         list_t* pt_list = (list_t*)pair_second(pt_pair);
+        printf("<%d,[", *(int*)pair_first(pt_pair));
         for(t_iterlist = list_begin(pt_list);
             !iterator_equal(t_iterlist, list_end(pt_list));
             t_iterlist = iterator_next(t_iterlist))
@@ -413,8 +414,8 @@ void _print_hash_map_cstl(const hash_map_t* cpt_hmap)
         t_iter = iterator_next(t_iter))
     {
         pair_t* pt_pair = (pair_t*)iterator_get_pointer(t_iter);
-        printf("<%d,[", *(int*)pair_first(pt_pair));
         list_t* pt_list = (list_t*)pair_second(pt_pair);
+        printf("<%d,[", *(int*)pair_first(pt_pair));
         for(t_iterlist = list_begin(pt_list);
             !iterator_equal(t_iterlist, list_end(pt_list));
             t_iterlist = iterator_next(t_iterlist))
@@ -427,27 +428,31 @@ void _print_hash_map_cstl(const hash_map_t* cpt_hmap)
 
 void _hash_multimap_cstl_hash(const void* cpv_input, void* pv_output)
 {
+    pair_t* pt_pair = NULL;
     assert(cpv_input != NULL && pv_output != NULL);
-    pair_t* pt_pair = (pair_t*)cpv_input;
+    pt_pair = (pair_t*)cpv_input;
     *(int*)pv_output = *(int*)pair_first(pt_pair);
 }
 void _hash_map_cstl_hash(const void* cpv_input, void* pv_output)
 {
+    pair_t* pt_pair = NULL;
     assert(cpv_input != NULL && pv_output != NULL);
-    pair_t* pt_pair = (pair_t*)cpv_input;
+    pt_pair = (pair_t*)cpv_input;
     *(int*)pv_output = *(int*)pair_first(pt_pair);
 }
 
 void _hash_multimap_sample_hash(const void* cpv_input, void* pv_output)
 {
+    pair_t* pt_pair = NULL;
     assert(cpv_input != NULL && pv_output != NULL);
-    pair_t* pt_pair = (pair_t*)cpv_input;
+    pt_pair = (pair_t*)cpv_input;
     *(int*)pv_output = *(int*)pair_first(pt_pair);
 }
 void _hash_map_sample_hash(const void* cpv_input, void* pv_output)
 {
+    pair_t* pt_pair = NULL;
     assert(cpv_input != NULL && pv_output != NULL);
-    pair_t* pt_pair = (pair_t*)cpv_input;
+    pt_pair = (pair_t*)cpv_input;
     *(int*)pv_output = *(int*)pair_first(pt_pair);
 }
 void _hash_set_sample_hash(const void* cpv_input, void* pv_output)

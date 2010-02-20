@@ -1427,12 +1427,13 @@ void test_hash_map(void)
         /*hash_map_init              */
         {
             hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
             if(pt_hmap == NULL)
             {
                 return;
             }
             hash_map_init(pt_hmap);
-            list_t* pt_list = (list_t*)hash_map_at(pt_hmap, 10);
+            pt_list = (list_t*)hash_map_at(pt_hmap, 10);
             list_push_back(pt_list, 10);
             list_push_back(pt_list, 12);
             list_push_back(pt_list, 49230);
@@ -1454,12 +1455,13 @@ void test_hash_map(void)
         /*hash_map_init_ex           */
         {
             hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
+            list_t* pt_list = NULL;
             if(pt_hmap == NULL)
             {
                 return;
             }
             hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
-            list_t* pt_list = (list_t*)hash_map_at(pt_hmap, 10);
+            pt_list = (list_t*)hash_map_at(pt_hmap, 10);
             list_push_back(pt_list, 10);
             list_push_back(pt_list, 12);
             list_push_back(pt_list, 49230);
