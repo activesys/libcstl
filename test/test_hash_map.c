@@ -5841,40 +5841,738 @@ void test_hash_multimap(void)
     }
     /* c-string */
     {
+        /*create_hash_multimap            */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_multimap_init(pt_hmmap);
+            pair_init(pt_pair);
+            pair_make(pt_pair, "abcdefg", "ubgoas839329");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "a", "llllllll");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "0948349", ">?<:NBNBN<>");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "a", "7");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "88", "99");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_destroy(pt_hmmap);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_init              */
+        /*hash_multimap_init_ex           */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_multimap_init_ex(pt_hmmap, 100,
+                _hash_multimap_cstr_hash, _hash_multimap_cstr_less);
+            pair_init(pt_pair);
+            pair_make(pt_pair, "abcdefg", "ubgoas839329");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "a", "llllllll");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "0948349", ">?<:NBNBN<>");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "a", "7");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "88", "99");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_destroy(pt_hmmap);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_init_copy         */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            hash_multimap_t* pt_hmmapex = create_hash_multimap(char*,char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_hmmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_multimap_init_ex(pt_hmmapex, 100, _hash_multimap_cstr_hash, NULL);
+
+            pair_make(pt_pair, "8woobw", "WTO");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "b", "BB");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "VVV", "VVV");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+
+            hash_multimap_init_copy(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_destroy(pt_hmmap);
+            hash_multimap_destroy(pt_hmmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_init_copy_range   */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            hash_multimap_t* pt_hmmapex = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_hmmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_multimap_init_ex(pt_hmmapex, 100, _hash_multimap_cstr_hash, NULL);
+
+            pair_make(pt_pair, "qqb", "qqq");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "uuu", "lakdfadfiasd;flkja");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "tqwobqwepoqehawlaskfqweoppqweif", "l");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "laksslsllls", "ool");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "llllllllllllllll", "akldf");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "1111", "zai guo qu de yi nian li");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+
+            _print_hash_multimap_cstr(pt_hmmapex);
+            hash_multimap_init_copy_range(pt_hmmap,
+                hash_multimap_begin(pt_hmmapex), hash_multimap_end(pt_hmmapex));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_destroy(pt_hmmap);
+            hash_multimap_destroy(pt_hmmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_init_copy_range_ex*/
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            hash_multimap_t* pt_hmmapex = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_hmmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_multimap_init(pt_hmmapex);
+
+            pair_make(pt_pair, "qqb", "qqq");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "uuu", "lakdfadfiasd;flkja");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "tqwobqwepoqehawlaskfqweoppqweif", "l");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "laksslsllls", "ool");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "llllllllllllllll", "akldf");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "1111", "zai guo qu de yi nian li");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "hhh", "lskflskjflaskdfj");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+
+            _print_hash_multimap_cstr(pt_hmmapex);
+            hash_multimap_init_copy_range_ex(pt_hmmap,
+                hash_multimap_begin(pt_hmmapex), hash_multimap_end(pt_hmmapex),
+                100, _hash_multimap_cstr_hash, NULL);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_destroy(pt_hmmap);
+            hash_multimap_destroy(pt_hmmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_destroy           */
+        /*hash_multimap_assign            */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            hash_multimap_t* pt_hmmapex = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_hmmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+            hash_multimap_init_ex(pt_hmmapex, 0, _hash_multimap_cstr_hash, NULL);
+            pair_init(pt_pair);
+
+            hash_multimap_assign(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            pair_make(pt_pair, "uuuuu", "httpd");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "ladjkfoweijf", "al;kdfjoqwiejf");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "bnbnbnb", "bnbnbnbn");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "||||||||++++", "23948720349(*%&^%*(&)(*)_(*&%&$E");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            hash_multimap_assign(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_clear(pt_hmmapex);
+            pair_make(pt_pair, "pair", "hash_multimap");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            hash_multimap_assign(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_clear(pt_hmmapex);
+            pair_make(pt_pair, "first", "1st");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "nine", "9");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            hash_multimap_assign(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_clear(pt_hmmapex);
+            hash_multimap_assign(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_destroy(pt_hmmap);
+            hash_multimap_destroy(pt_hmmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_swap              */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            hash_multimap_t* pt_hmmapex = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_hmmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+            hash_multimap_init_ex(pt_hmmapex, 0, _hash_multimap_cstr_hash, NULL);
+            pair_init(pt_pair);
+
+            hash_multimap_swap(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmapex);
+
+            pair_make(pt_pair, "uuuuu", "httpd");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "ladjkfoweijf", "al;kdfjoqwiejf");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "bnbnbnb", "bnbnbnbn");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "||||||||++++", "23948720349(*%&^%*(&)(*)_(*&%&$E");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            hash_multimap_swap(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmapex);
+
+            hash_multimap_clear(pt_hmmapex);
+            pair_make(pt_pair, "pair", "hash_multimap");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            hash_multimap_swap(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmapex);
+
+            hash_multimap_clear(pt_hmmapex);
+            pair_make(pt_pair, "first", "1st");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "nine", "9");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            hash_multimap_swap(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmapex);
+
+            hash_multimap_clear(pt_hmmapex);
+            hash_multimap_swap(pt_hmmap, pt_hmmapex);
+            _print_hash_multimap_cstr(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmapex);
+
+            hash_multimap_destroy(pt_hmmap);
+            hash_multimap_destroy(pt_hmmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_size              */
+        /*hash_multimap_empty             */
+        /*hash_multimap_max_size          */
+        /*hash_multimap_bucket_count      */
+        /*hash_multimap_hash              */
+        /*hash_multimap_key_less          */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            if(pt_hmmap == NULL)
+            {
+                return;
+            }
+            hash_multimap_init_ex(pt_hmmap, 0,
+                _hash_multimap_cstr_hash, _hash_multimap_cstr_less);
+            assert(hash_multimap_hash(pt_hmmap) == _hash_multimap_cstr_hash &&
+                hash_multimap_key_less(pt_hmmap) == _hash_multimap_cstr_less);
+            hash_multimap_destroy(pt_hmmap);
+        }
+        /*hash_multimap_resize            */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            if(pt_hmmap == NULL)
+            {
+                return;
+            }
+            hash_multimap_init(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_resize(pt_hmmap, 40);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_resize(pt_hmmap, 90);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_resize(pt_hmmap, 900);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_resize(pt_hmmap, 44);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_resize(pt_hmmap, 0);
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_destroy(pt_hmmap);
+        }
+        /*hash_multimap_equal             */
+        /*hash_multimap_not_equal         */
+        /*hash_multimap_less              */
+        /*hash_multimap_less_equal        */
+        /*hash_multimap_great             */
+        /*hash_multimap_great_equal       */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            hash_multimap_t* pt_hmmapex = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_hmmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, _hash_multimap_cstr_less);
+            hash_multimap_init_ex(pt_hmmapex, 0, _hash_multimap_cstr_hash, _hash_multimap_cstr_less);
+            pair_init(pt_pair);
+
+            _print_hash_multimap_cstr(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmapex);            
+            printf("equal: %d, not equal: %d, ",
+                hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+
+            pair_make(pt_pair, "bowsg", "alsdkfjoawhaosdfloasdkjflkasjdf");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmapex);            
+            printf("equal: %d, not equal: %d, ",
+                hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmapex);            
+            printf("equal: %d, not equal: %d, ",
+                hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+
+            pair_make(pt_pair, "7394934347", "sghsdfjkasdfjksdfjkl;asdfjkl;");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "ls", "lsl -lhp");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "nxcvnnmz,zn,xcznzlajha;djkfas", "");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmapex);            
+            printf("equal: %d, not equal: %d, ",
+                hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
+            printf("less: %d, less equal: %d, ",
+                hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
+            printf("great: %d, great equal: %d\n",
+                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+
+            hash_multimap_destroy(pt_hmmap);
+            hash_multimap_destroy(pt_hmmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_begin             */
+        /*hash_multimap_end               */
+        /*hash_multimap_find              */
+        /*hash_multimap_count             */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            iterator_t t_iter;
+            if(pt_hmmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+            t_iter = hash_multimap_find(pt_hmmap, "lskdf");
+            if(iterator_equal(t_iter, hash_multimap_end(pt_hmmap)))
+            {
+                printf("not found, count : %u\n", hash_multimap_count(pt_hmmap, "lskdf"));
+            }
+            else
+            {
+                printf("found, count : %u\n", hash_multimap_count(pt_hmmap, "lskdf"));
+            }
+
+            pair_make(pt_pair, "pair", "hash_multimap");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "1111", "lasjkflasdjflkasdjflkasjdf");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            t_iter = hash_multimap_find(pt_hmmap, "lskdf");
+            if(iterator_equal(t_iter, hash_multimap_end(pt_hmmap)))
+            {
+                printf("not found, count : %u\n", hash_multimap_count(pt_hmmap, "lskdf"));
+            }
+            else
+            {
+                printf("found, count : %u\n", hash_multimap_count(pt_hmmap, "lskdf"));
+            }
+            t_iter = hash_multimap_find(pt_hmmap, "1111");
+            if(iterator_equal(t_iter, hash_multimap_end(pt_hmmap)))
+            {
+                printf("not found, count : %u\n", hash_multimap_count(pt_hmmap, "1111"));
+            }
+            else
+            {
+                printf("found, count : %u\n", hash_multimap_count(pt_hmmap, "1111"));
+            }
+
+            hash_multimap_destroy(pt_hmmap);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_equal_range       */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            range_t t_range;
+            if(pt_hmmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+            t_range = hash_multimap_equal_range(pt_hmmap, "lskdf");
+            assert(iterator_equal(t_range.t_begin, hash_multimap_end(pt_hmmap)) &&
+                iterator_equal(t_range.t_begin, t_range.t_end));
+
+            pair_make(pt_pair, "pair", "hash_multimap");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            t_range = hash_multimap_equal_range(pt_hmmap, "lskdf");
+            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            t_range = hash_multimap_equal_range(pt_hmmap, "1111");
+            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+
+            hash_multimap_destroy(pt_hmmap);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_insert            */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+            _print_hash_multimap_cstr(pt_hmmap);
+            pair_make(pt_pair, "lksdjflsdkj", "llllllllllllllll");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "uuuu", "UUUUUUUUUUUUUUUUUU");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "llll", "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            pair_destroy(pt_pair);
+            hash_multimap_destroy(pt_hmmap);
+        }
+        /*hash_multimap_insert_range      */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            hash_multimap_t* pt_hmmapex = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_hmmapex == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+            hash_multimap_init_ex(pt_hmmapex, 0, _hash_multimap_cstr_hash, NULL);
+            pair_init(pt_pair);
+
+            hash_multimap_insert_range(pt_hmmap, hash_multimap_begin(pt_hmmapex), hash_multimap_end(pt_hmmapex));
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            pair_make(pt_pair, "uuuuu", "httpd");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "ladjkfoweijf", "al;kdfjoqwiejf");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "bnbnbnb", "bnbnbnbn");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "||||||||++++", "23948720349(*%&^%*(&)(*)_(*&%&$E");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "pair", "hash_multimap");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "first", "1st");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            pair_make(pt_pair, "nine", "9");
+            hash_multimap_insert(pt_hmmapex, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmapex);
+
+            hash_multimap_insert_range(pt_hmmap,
+                hash_multimap_begin(pt_hmmapex), hash_multimap_begin(pt_hmmapex));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_insert_range(pt_hmmap,
+                hash_multimap_begin(pt_hmmapex), iterator_advance(hash_multimap_begin(pt_hmmapex), 3));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_insert_range(pt_hmmap,
+                iterator_advance(hash_multimap_begin(pt_hmmapex), 5),
+                iterator_advance(hash_multimap_begin(pt_hmmapex), 7));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_insert_range(pt_hmmap,
+                iterator_advance(hash_multimap_begin(pt_hmmapex), 10), hash_multimap_end(pt_hmmapex));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_insert_range(pt_hmmap,
+                hash_multimap_end(pt_hmmapex), hash_multimap_end(pt_hmmapex));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_insert_range(pt_hmmap,
+                hash_multimap_begin(pt_hmmapex), hash_multimap_end(pt_hmmapex));
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_destroy(pt_hmmap);
+            hash_multimap_destroy(pt_hmmapex);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_erase             */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+
+            hash_multimap_erase(pt_hmmap, "ok");
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            pair_make(pt_pair, "lksdjflsdkj", "llllllllllllllll");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "uuuu", "UUUUUUUUUUUUUUUUUU");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "llll", "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_erase(pt_hmmap, "ok");
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_erase(pt_hmmap, "uuuu");
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            pair_destroy(pt_pair);
+            hash_multimap_destroy(pt_hmmap);
+        }
+        /*hash_multimap_erase_pos         */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+
+            pair_make(pt_pair, "lksdjflsdkj", "llllllllllllllll");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "uuuu", "UUUUUUUUUUUUUUUUUU");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "llll", "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_erase_pos(pt_hmmap, hash_multimap_begin(pt_hmmap));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_erase_pos(pt_hmmap, iterator_next(hash_multimap_begin(pt_hmmap)));
+            _print_hash_multimap_cstr(pt_hmmap);
+            while(!hash_multimap_empty(pt_hmmap))
+            {
+                hash_multimap_erase_pos(pt_hmmap, hash_multimap_begin(pt_hmmap));
+            }
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            pair_destroy(pt_pair);
+            hash_multimap_destroy(pt_hmmap);
+        }
+        /*hash_multimap_erase_range       */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+            pair_init(pt_pair);
+
+            hash_multimap_erase_range(pt_hmmap, hash_multimap_begin(pt_hmmap), hash_multimap_end(pt_hmmap));
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            pair_make(pt_pair, "uuuuu", "httpd");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "ladjkfoweijf", "al;kdfjoqwiejf");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "bnbnbnb", "bnbnbnbn");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "||||||||++++", "23948720349(*%&^%*(&)(*)_(*&%&$E");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "pair", "hash_multimap");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "**&&^%^&*((&^^%%", "hhh");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "uasdhfo", "alsllsls");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "1111", "222222222");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "88888888", "034950234950234");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "", "");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "huadl", ":a;lsdkf");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "first", "1st");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "nine", "9");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_erase_range(pt_hmmap,
+                hash_multimap_begin(pt_hmmap), hash_multimap_begin(pt_hmmap));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_erase_range(pt_hmmap,
+                hash_multimap_begin(pt_hmmap), iterator_advance(hash_multimap_begin(pt_hmmap), 3));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_erase_range(pt_hmmap,
+                iterator_advance(hash_multimap_begin(pt_hmmap), 2),
+                iterator_advance(hash_multimap_begin(pt_hmmap), 5));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_erase_range(pt_hmmap,
+                iterator_advance(hash_multimap_begin(pt_hmmap), 3), hash_multimap_end(pt_hmmap));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_erase_range(pt_hmmap,
+                hash_multimap_end(pt_hmmap), hash_multimap_end(pt_hmmap));
+            _print_hash_multimap_cstr(pt_hmmap);
+            hash_multimap_erase_range(pt_hmmap,
+                hash_multimap_begin(pt_hmmap), hash_multimap_end(pt_hmmap));
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_destroy(pt_hmmap);
+            pair_destroy(pt_pair);
+        }
+        /*hash_multimap_clear             */
+        {
+            hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
+            pair_t* pt_pair = create_pair(char*, char*);
+            if(pt_hmmap == NULL || pt_pair == NULL)
+            {
+                return;
+            }
+            pair_init(pt_pair);
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
+
+            hash_multimap_clear(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            pair_make(pt_pair, "lksdjflsdkj", "llllllllllllllll");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "uuuu", "UUUUUUUUUUUUUUUUUU");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            pair_make(pt_pair, "llll", "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            hash_multimap_insert(pt_hmmap, pt_pair);
+            _print_hash_multimap_cstr(pt_hmmap);
+
+            hash_multimap_clear(pt_hmmap);
+            _print_hash_multimap_cstr(pt_hmmap);
+            pair_destroy(pt_pair);
+            hash_multimap_destroy(pt_hmmap);
+        }
     }
-    /*create_hash_multimap            */
-    /*hash_multimap_init              */
-    /*hash_multimap_init_ex           */
-    /*hash_multimap_init_copy         */
-    /*hash_multimap_init_copy_range   */
-    /*hash_multimap_init_copy_range_ex*/
-    /*hash_multimap_destroy           */
-    /*hash_multimap_assign            */
-    /*hash_multimap_swap              */
-    /*hash_multimap_size              */
-    /*hash_multimap_empty             */
-    /*hash_multimap_max_size          */
-    /*hash_multimap_bucket_count      */
-    /*hash_multimap_hash              */
-    /*hash_multimap_key_less          */
-    /*hash_multimap_resize            */
-    /*hash_multimap_equal             */
-    /*hash_multimap_not_equal         */
-    /*hash_multimap_less              */
-    /*hash_multimap_less_equal        */
-    /*hash_multimap_great             */
-    /*hash_multimap_great_equal       */
-    /*hash_multimap_begin             */
-    /*hash_multimap_end               */
-    /*hash_multimap_find              */
-    /*hash_multimap_count             */
-    /*hash_multimap_equal_range       */
-    /*hash_multimap_insert            */
-    /*hash_multimap_insert_range      */
-    /*hash_multimap_erase             */
-    /*hash_multimap_erase_pos         */
-    /*hash_multimap_erase_range       */
-    /*hash_multimap_clear             */
 }
 
 /** local function implementation section **/

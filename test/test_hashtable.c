@@ -336,6 +336,23 @@ void _hash_sample_great(const void* cpv_first, const void* cpv_second, void* pv_
     }
 }
 
+void _print_hash_multimap_cstr(const hash_multimap_t* cpt_hmmap)
+{
+    iterator_t t_iter;
+    assert(cpt_hmmap != NULL);
+    printf("=======================================\n");
+    printf("empty: %u, size: %u, max_size: %u, bucket count: %u\n",
+        hash_multimap_empty(cpt_hmmap), hash_multimap_size(cpt_hmmap),
+        hash_multimap_max_size(cpt_hmmap), hash_multimap_bucket_count(cpt_hmmap));
+    for(t_iter = hash_multimap_begin(cpt_hmmap);
+        !iterator_equal(t_iter, hash_multimap_end(cpt_hmmap));
+        t_iter = iterator_next(t_iter))
+    {
+        pair_t* pt_pair = (pair_t*)iterator_get_pointer(t_iter);
+        printf("<%s, %s>, ", (char*)pair_first(pt_pair), (char*)pair_second(pt_pair));
+    }
+    printf("\n");
+}
 void _print_hash_map_cstr(const hash_map_t* cpt_hmap)
 {
     iterator_t t_iter;
@@ -354,6 +371,13 @@ void _print_hash_map_cstr(const hash_map_t* cpt_hmap)
     printf("\n");
 }
 
+void _hash_multimap_cstr_hash(const void* cpv_input, void* pv_output)
+{
+    pair_t* pt_pair = NULL;
+    assert(cpv_input != NULL && pv_output != NULL);
+    pt_pair = (pair_t*)cpv_input;
+    *(int*)pv_output = strlen((char*)pair_first(pt_pair));
+}
 void _hash_map_cstr_hash(const void* cpv_input, void* pv_output)
 {
     pair_t* pt_pair = NULL;
@@ -362,6 +386,18 @@ void _hash_map_cstr_hash(const void* cpv_input, void* pv_output)
     *(int*)pv_output = strlen((char*)pair_first(pt_pair));
 }
 
+void _hash_multimap_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strlen((char*)cpv_first) < strlen((char*)cpv_second))
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
 void _hash_map_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
