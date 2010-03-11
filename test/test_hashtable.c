@@ -376,14 +376,14 @@ void _hash_multimap_cstr_hash(const void* cpv_input, void* pv_output)
     pair_t* pt_pair = NULL;
     assert(cpv_input != NULL && pv_output != NULL);
     pt_pair = (pair_t*)cpv_input;
-    *(int*)pv_output = strlen((char*)pair_first(pt_pair));
+    *(size_t*)pv_output = strlen((char*)pair_first(pt_pair));
 }
 void _hash_map_cstr_hash(const void* cpv_input, void* pv_output)
 {
     pair_t* pt_pair = NULL;
     assert(cpv_input != NULL && pv_output != NULL);
     pt_pair = (pair_t*)cpv_input;
-    *(int*)pv_output = strlen((char*)pair_first(pt_pair));
+    *(size_t*)pv_output = strlen((char*)pair_first(pt_pair));
 }
 
 void _hash_multimap_cstr_less(const void* cpv_first, const void* cpv_second, void* pv_output)

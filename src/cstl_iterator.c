@@ -709,7 +709,7 @@ const char* _iterator_get_typebasename(iterator_t t_iter)
 
 _typeinfo_t* _iterator_get_typeinfo(iterator_t t_iter)
 {
-    switch(t_iter._t_iteratortype)
+    switch(t_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
         return &((vector_t*)t_iter._pt_container)->_t_typeinfo;
@@ -808,7 +808,7 @@ void* _iterator_allocate_init_elem(iterator_t t_iter)
 {
     void* pv_value = NULL;
 
-    switch(t_iter._t_iteratortype)
+    switch(t_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
         pv_value = allocate(&((vector_t*)t_iter._pt_container)->_t_allocater,
@@ -890,7 +890,7 @@ void _iterator_deallocate_destroy_elem(iterator_t t_iter, void* pv_value)
 
     assert(pv_value != NULL);
 
-    switch(t_iter._t_iteratortype)
+    switch(t_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
         ((vector_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(

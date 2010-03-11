@@ -78,12 +78,6 @@ int main(int argc, char* argv[])
     /*test_avl_tree();*/
     /*test_rb_tree();*/
     /*test_hashtable();*/
-    /*test_function();*/
-    /*test_numeric();*/
-    /*test_algobase();*/
-    /*test_algo();*/
-    /*test_heap();*/
-    /*test_priority_queue();*/
     printf("========== test set_t  ==========\n");
     /*test_set();*/
     printf("========== test multiset_t =======\n");
@@ -103,7 +97,14 @@ int main(int argc, char* argv[])
     printf("========== test hash_map_t  ==========\n");
     /*test_hash_map();*/
     printf("========== test hash_multimap_t  ==========\n");
-    test_hash_multimap();
+    /*test_hash_multimap();*/
+    /*test_function();*/
+    printf("========== test numeric algorithm ==========\n");
+    test_numeric();
+    /*test_algobase();*/
+    /*test_algo();*/
+    /*test_heap();*/
+    /*test_priority_queue();*/
 
     argc = 0;
     argv = NULL;
