@@ -127,7 +127,7 @@ typedef enum _tagtypetoken
     _TOKEN_KEY_QUEUE, _TOKEN_KEY_PRIORITY_QUEUE, _TOKEN_KEY_SET, _TOKEN_KEY_MAP,
     _TOKEN_KEY_MULTISET, _TOKEN_KEY_MULTIMAP, _TOKEN_KEY_HASH_SET, _TOKEN_KEY_HASH_MAP,
     _TOKEN_KEY_HASH_MULTISET, _TOKEN_KEY_HASH_MULTIMAP, _TOKEN_KEY_PAIR, _TOKEN_KEY_STRING,
-    /* cst iterator */
+    /* cstl iterator */
     _TOKEN_KEY_ITERATOR, _TOKEN_KEY_VECTOR_ITERATOR, _TOKEN_KEY_LIST_ITERATOR,
     _TOKEN_KEY_SLIST_ITERATOR, _TOKEN_KEY_DEQUE_ITERATOR, _TOKEN_KEY_SET_ITERATOR,
     _TOKEN_KEY_MAP_ITERATOR, _TOKEN_KEY_MULTISET_ITERATOR, _TOKEN_KEY_MULTIMAP_ITERATOR,
@@ -855,10 +855,17 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
     }
     else /* get container name */
     {
-        char* pc_leftbracket = strchr(pt_typeinfo->_sz_typename, '<');
-        assert(pc_leftbracket != NULL);
-        strncpy(s_registeredname, pt_typeinfo->_sz_typename,
-                pc_leftbracket-pt_typeinfo->_sz_typename);
+        /* the string_t is special codition */
+        if(strncmp(pt_typeinfo->_sz_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+        {
+            strncpy(s_registeredname, pt_typeinfo->_sz_typename, _TYPE_NAME_SIZE);
+        }
+        else
+        {
+            char* pc_leftbracket = strchr(pt_typeinfo->_sz_typename, '<');
+            assert(pc_leftbracket != NULL);
+            strncpy(s_registeredname, pt_typeinfo->_sz_typename, pc_leftbracket-pt_typeinfo->_sz_typename);
+        }
     }
 
     pt_typeinfo->_pt_type = _type_is_registered(s_registeredname);
@@ -1042,13 +1049,22 @@ void _type_get_elem_typename(const char* s_typename, char* s_elemtypename)
     assert(s_typename != NULL && s_elemtypename != NULL);
 
     memset(s_elemtypename, '\0', _TYPE_NAME_SIZE+1);
-    /* e.g. "vector_t<map_t<int,long>>" */
-    pc_left = strchr(s_typename, '<');
-    pc_right = strrchr(s_typename, '>');
-    assert(pc_left != NULL && pc_right != NULL && pc_left < pc_right &&
-           pc_right == s_typename + strlen(s_typename) - 1);
 
-    strncpy(s_elemtypename, pc_left + 1, pc_right - pc_left - 1);
+    /* the string_t is special condition */
+    if(strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        strncpy(s_elemtypename, s_typename, _TYPE_NAME_SIZE);
+    }
+    else
+    {
+        /* e.g. "vector_t<map_t<int,long>>" */
+        pc_left = strchr(s_typename, '<');
+        pc_right = strrchr(s_typename, '>');
+        assert(pc_left != NULL && pc_right != NULL && pc_left < pc_right &&
+               pc_right == s_typename + strlen(s_typename) - 1);
+
+        strncpy(s_elemtypename, pc_left + 1, pc_right - pc_left - 1);
+    }
 }
 
 void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output)
