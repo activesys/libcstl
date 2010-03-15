@@ -100,10 +100,11 @@ int main(int argc, char* argv[])
     /*test_hash_multimap();*/
     /*test_function();*/
     printf("========== test numeric algorithm ==========\n");
-    test_numeric();
+    /*test_numeric();*/
     /*test_algobase();*/
     /*test_algo();*/
-    /*test_heap();*/
+    printf("========== test heap algorithm ==========\n");
+    test_heap();
     /*test_priority_queue();*/
 
     argc = 0;

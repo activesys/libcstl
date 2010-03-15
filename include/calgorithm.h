@@ -29,6 +29,7 @@ extern "C" {
 
 /** include section **/
 #include <assert.h>
+#include <stdarg.h>
 
 #include "cstl_alloc.h"
 #include "cstl_types.h"

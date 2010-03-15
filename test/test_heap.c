@@ -21,6 +21,10 @@
  */
 
 /** include section **/
+#include <stdio.h>
+#include "clist.h"
+#include "cvector.h"
+#include "calgorithm.h"
 #include "test_heap.h"
 
 /** local constant declaration and local macro section **/
@@ -28,6 +32,7 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
+static void _print_int(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -36,9 +41,81 @@
 /** exported function implementation section **/
 void test_heap(void)
 {
+    /* c built-in type */
+    {
+        /*algo_make_heap   */
+        {
+            vector_t* pt_vec = create_vector(int);
+            size_t t_index = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_make_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            for(t_index = 3; t_index <= 7; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            for(t_index = 5; t_index <= 9; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            for(t_index = 1; t_index <= 4; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_make_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
+        /*algo_make_heap_if*/
+        /*algo_push_heap   */
+        /*algo_push_heap_if*/
+        /*algo_pop_heap    */
+        /*algo_pop_heap_if */
+        /*algo_sort_heap   */
+        /*algo_sort_heap_if*/
+        /*algo_is_heap     */
+        /*algo_is_heap_if  */
+    }
+    /* user define type */
+    {
+    }
+    /* string_t type */
+    {
+    }
+    /* c-string type */
+    {
+    }
+    /*algo_push_heap   */
+    /*algo_push_heap_if*/
+    /*algo_pop_heap    */
+    /*algo_pop_heap_if */
+    /*algo_sort_heap   */
+    /*algo_sort_heap_if*/
+    /*algo_make_heap   */
+    /*algo_make_heap_if*/
+    /*algo_is_heap     */
+    /*algo_is_heap_if  */
 }
 
 /** local function implementation section **/
+static void _print_int(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    printf("%d, ", *(int*)cpv_input);
+}
 
 /** eof **/
 
