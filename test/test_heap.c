@@ -249,8 +249,119 @@ void test_heap(void)
             vector_destroy(pt_vec);
         }
         /*algo_pop_heap_if */
+        {
+            vector_t* pt_vec = create_vector(int);
+            size_t t_index = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            algo_pop_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            for(t_index = 3; t_index <= 7; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            for(t_index = 5; t_index <= 9; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            for(t_index = 1; t_index <= 4; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_make_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            algo_pop_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_pop_heap_if(vector_begin(pt_vec), iterator_prev(vector_end(pt_vec)), fun_great_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
         /*algo_sort_heap   */
+        {
+            vector_t* pt_vec = create_vector(int);
+            size_t t_index = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            algo_sort_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            for(t_index = 3; t_index <= 7; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            for(t_index = 5; t_index <= 9; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            for(t_index = 1; t_index <= 4; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            algo_make_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_sort_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
         /*algo_sort_heap_if*/
+        {
+            vector_t* pt_vec = create_vector(int);
+            size_t t_index = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            algo_sort_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            for(t_index = 3; t_index <= 7; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            for(t_index = 5; t_index <= 9; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            for(t_index = 1; t_index <= 4; ++t_index)
+            {
+                vector_push_back(pt_vec, t_index);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            algo_make_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_sort_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
         /*algo_is_heap     */
         /*algo_is_heap_if  */
     }
