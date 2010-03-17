@@ -50,8 +50,7 @@
 bool_t algo_equal(
     input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2)
 {
-    return algo_equal_if(t_first1, t_last1, t_first2,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN));
+    return algo_equal_if(t_first1, t_last1, t_first2, _fun_get_binary(t_first1, _EQUAL_FUN));
 }
 
 bool_t algo_equal_if(
@@ -66,7 +65,7 @@ bool_t algo_equal_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
     }
 
     for(;
@@ -165,7 +164,7 @@ bool_t algo_lexicographical_compare(
     input_iterator_t t_first2, input_iterator_t t_last2)
 {
     return algo_lexicographical_compare_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
+        _fun_get_binary(t_first1, _LESS_FUN));
 }
 
 bool_t algo_lexicographical_compare_if(
@@ -181,7 +180,7 @@ bool_t algo_lexicographical_compare_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
     }
     for(;
         !iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2);
@@ -216,7 +215,7 @@ int algo_lexicographical_compare_3way(
     input_iterator_t t_first2, input_iterator_t t_last2)
 {
     return algo_lexicographical_compare_3way_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
+        _fun_get_binary(t_first1, _LESS_FUN));
 }
 
 int algo_lexicographical_compare_3way_if(
@@ -232,7 +231,7 @@ int algo_lexicographical_compare_3way_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
     }
     for(;
         !iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2);
@@ -268,8 +267,7 @@ int algo_lexicographical_compare_3way_if(
 
 input_iterator_t algo_max(input_iterator_t t_first, input_iterator_t t_second)
 {
-    return algo_max_if(t_first, t_second,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    return algo_max_if(t_first, t_second, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 input_iterator_t algo_max_if(
@@ -283,7 +281,7 @@ input_iterator_t algo_max_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     (*t_binary_op)(
@@ -300,8 +298,7 @@ input_iterator_t algo_max_if(
 
 input_iterator_t algo_min(input_iterator_t t_first, input_iterator_t t_second)
 {
-    return algo_min_if(t_first, t_second,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    return algo_min_if(t_first, t_second, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 input_iterator_t algo_min_if(
@@ -315,7 +312,7 @@ input_iterator_t algo_min_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     (*t_binary_op)(
@@ -334,7 +331,7 @@ range_t algo_mismatch(input_iterator_t t_first1,
     input_iterator_t t_last1, input_iterator_t t_first2)
 {
     return algo_mismatch_if(t_first1, t_last1, t_first2,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN));
+        _fun_get_binary(t_first1, _EQUAL_FUN));
 }
 
 range_t algo_mismatch_if(
@@ -350,7 +347,7 @@ range_t algo_mismatch_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
     }
     for(;
         !iterator_equal(t_first1, t_last1);

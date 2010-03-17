@@ -67,10 +67,8 @@ typedef enum _tagfunbinarytype
 /*
  * Select default function.
  */
-extern unary_function_t _fun_get_unary(
-    const char* s_typename, fun_unary_type_t t_funtype);
-extern binary_function_t _fun_get_binary(
-    const char* s_typename, fun_binary_type_t t_funtype);
+extern unary_function_t _fun_get_unary(iterator_t t_iter, fun_unary_type_t t_funtype);
+extern binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype);
 
 /* increase */
 extern void _fun_increase_char(const void* cpv_input, void* pv_output);

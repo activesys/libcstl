@@ -58,8 +58,7 @@ void _algo_accumulate(
     {
         va_start(val_elemlist, pv_output);
 
-        _algo_accumulate_if_varg(t_first, t_last,
-            _fun_get_binary(_iterator_get_typebasename(t_first), _PLUS_FUN),
+        _algo_accumulate_if_varg(t_first, t_last, _fun_get_binary(t_first, _PLUS_FUN),
             pv_output, val_elemlist);
     }
 }
@@ -83,7 +82,7 @@ void _algo_accumulate_if_varg(input_iterator_t t_first, input_iterator_t t_last,
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _PLUS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _PLUS_FUN);
     }
 
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_output);
@@ -105,8 +104,7 @@ void _algo_inner_product(
         va_start(val_elemlist, pv_output);
 
         _algo_inner_product_if_varg(t_first1, t_last1, t_first2,
-            _fun_get_binary(_iterator_get_typebasename(t_first1), _PLUS_FUN),
-            _fun_get_binary(_iterator_get_typebasename(t_first1), _MULTIPLIES_FUN),
+            _fun_get_binary(t_first1, _PLUS_FUN), _fun_get_binary(t_first1, _MULTIPLIES_FUN),
             pv_output, val_elemlist);
     }
 }
@@ -141,11 +139,11 @@ void _algo_inner_product_if_varg(
 
     if(t_binary_op1 == NULL)
     {
-        t_binary_op1 = _fun_get_binary(_iterator_get_typebasename(t_first1), _PLUS_FUN);
+        t_binary_op1 = _fun_get_binary(t_first1, _PLUS_FUN);
     }
     if(t_binary_op2 == NULL)
     {
-        t_binary_op2 = _fun_get_binary(_iterator_get_typebasename(t_first1), _MULTIPLIES_FUN);
+        t_binary_op2 = _fun_get_binary(t_first1, _MULTIPLIES_FUN);
     }
 
     for(t_index1 = t_first1, t_index2 = t_first2;
@@ -162,7 +160,7 @@ void _algo_inner_product_if_varg(
 void algo_power(input_iterator_t t_iterator, size_t t_power, void* pv_output)
 {
     algo_power_if(t_iterator, t_power,
-        _fun_get_binary(_iterator_get_typebasename(t_iterator), _MULTIPLIES_FUN), pv_output);
+        _fun_get_binary(t_iterator, _MULTIPLIES_FUN), pv_output);
 }
 
 void algo_power_if(input_iterator_t t_iterator, size_t t_power,
@@ -175,7 +173,7 @@ void algo_power_if(input_iterator_t t_iterator, size_t t_power,
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_iterator), _MULTIPLIES_FUN);
+        t_binary_op = _fun_get_binary(t_iterator, _MULTIPLIES_FUN);
     }
 
     t_result = _iterator_get_typesize(t_iterator);
@@ -194,7 +192,7 @@ output_iterator_t algo_adjacent_difference(
     input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
 {
     return algo_adjacent_difference_if(t_first, t_last, t_result,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _MINUS_FUN));
+        _fun_get_binary(t_first, _MINUS_FUN));
 }
 
 output_iterator_t algo_adjacent_difference_if(
@@ -218,7 +216,7 @@ output_iterator_t algo_adjacent_difference_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _MINUS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _MINUS_FUN);
     }
 
     pc_value = _iterator_allocate_init_elem(t_first);
@@ -256,7 +254,7 @@ output_iterator_t algo_partial_sum(
     input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
 {
     return algo_partial_sum_if(t_first, t_last, t_result,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _PLUS_FUN));
+        _fun_get_binary(t_first, _PLUS_FUN));
 }
 
 output_iterator_t algo_partial_sum_if(
@@ -277,7 +275,7 @@ output_iterator_t algo_partial_sum_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _PLUS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _PLUS_FUN);
     }
 
     pc_value = _iterator_allocate_init_elem(t_first);
@@ -319,7 +317,7 @@ void _algo_iota_varg(
     pc_value = _iterator_allocate_init_elem(t_first);
 
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pc_value);
-    t_unary_op = _fun_get_unary(_iterator_get_typebasename(t_first), _INCREASE_FUN);
+    t_unary_op = _fun_get_unary(t_first, _INCREASE_FUN);
     for(t_index = t_first;
         !iterator_equal(t_index, t_last);
         t_index = iterator_next(t_index))

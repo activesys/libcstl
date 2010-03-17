@@ -100,7 +100,7 @@ output_iterator_t algo_set_union(
     output_iterator_t t_result)
 {
     return algo_set_union_if(t_first1, t_last1, t_first2, t_last2, t_result,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
+        _fun_get_binary(t_first1, _LESS_FUN));
 }
 
 output_iterator_t algo_set_union_if(
@@ -119,7 +119,7 @@ output_iterator_t algo_set_union_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
     }
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
     {
@@ -160,9 +160,8 @@ output_iterator_t algo_set_intersection(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result)
 {
-    return algo_set_intersection_if(
-        t_first1, t_last1, t_first2, t_last2, t_result,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
+    return algo_set_intersection_if(t_first1, t_last1, t_first2, t_last2, t_result,
+        _fun_get_binary(t_first1, _LESS_FUN));
 }
 
 output_iterator_t algo_set_intersection_if(
@@ -181,7 +180,7 @@ output_iterator_t algo_set_intersection_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
     }
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
     {
@@ -220,9 +219,8 @@ output_iterator_t algo_set_difference(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result)
 {
-    return algo_set_difference_if(
-        t_first1, t_last1, t_first2, t_last2, t_result,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
+    return algo_set_difference_if(t_first1, t_last1, t_first2, t_last2, t_result,
+        _fun_get_binary(t_first1, _LESS_FUN));
 }
 
 output_iterator_t algo_set_difference_if(
@@ -241,7 +239,7 @@ output_iterator_t algo_set_difference_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
     }
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
     {
@@ -280,9 +278,8 @@ output_iterator_t algo_set_symmetric_difference(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result)
 {
-    return algo_set_symmetric_difference_if(
-        t_first1, t_last1, t_first2, t_last2, t_result,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
+    return algo_set_symmetric_difference_if(t_first1, t_last1, t_first2, t_last2, t_result,
+        _fun_get_binary(t_first1, _LESS_FUN));
 }
 
 output_iterator_t algo_set_symmetric_difference_if(
@@ -301,7 +298,7 @@ output_iterator_t algo_set_symmetric_difference_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
     }
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
     {
@@ -340,8 +337,7 @@ output_iterator_t algo_set_symmetric_difference_if(
 forward_iterator_t algo_adjacent_find(
     forward_iterator_t t_first, forward_iterator_t t_last)
 {
-    return algo_adjacent_find_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN));
+    return algo_adjacent_find_if(t_first, t_last, _fun_get_binary(t_first, _EQUAL_FUN));
 }
 
 forward_iterator_t algo_adjacent_find_if(
@@ -354,7 +350,7 @@ forward_iterator_t algo_adjacent_find_if(
     assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN);
+        t_binary_op = _fun_get_binary(t_first, _EQUAL_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -401,7 +397,7 @@ size_t _algo_count_varg(
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
-    t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN);
+    t_binary_op = _fun_get_binary(t_first, _EQUAL_FUN);
     assert(t_binary_op != NULL);
     for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
     {
@@ -463,7 +459,7 @@ input_iterator_t _algo_find_varg(
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
-    t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN);
+    t_binary_op = _fun_get_binary(t_first, _EQUAL_FUN);
     assert(t_binary_op != NULL);
     for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
     {
@@ -508,7 +504,7 @@ input_iterator_t algo_find_first_of(
     forward_iterator_t t_first2, forward_iterator_t t_last2)
 {
     return algo_find_first_of_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN));
+        _fun_get_binary(t_first1, _EQUAL_FUN));
 }
 
 input_iterator_t algo_find_first_of_if(
@@ -525,7 +521,7 @@ input_iterator_t algo_find_first_of_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
     }
     for(; !iterator_equal(t_first1, t_last1); t_first1 = iterator_next(t_first1))
     {
@@ -565,7 +561,7 @@ forward_iterator_t algo_search(
     forward_iterator_t t_first2, forward_iterator_t t_last2)
 {
     return algo_search_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN));
+        _fun_get_binary(t_first1, _EQUAL_FUN));
 }
 
 forward_iterator_t algo_search_if(
@@ -584,7 +580,7 @@ forward_iterator_t algo_search_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
     }
 
     t_len1 = iterator_distance(t_first1, t_last1);
@@ -635,7 +631,7 @@ forward_iterator_t _algo_search_n(
     va_start(val_elemlist, t_count);
 
     return _algo_search_n_if_varg(t_first, t_last, t_count,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN), val_elemlist);
+        _fun_get_binary(t_first, _EQUAL_FUN), val_elemlist);
 }
 
 forward_iterator_t _algo_search_n_if(
@@ -667,7 +663,7 @@ forward_iterator_t _algo_search_n_if_varg(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN);
+        t_binary_op = _fun_get_binary(t_first, _EQUAL_FUN);
     }
 
     pv_value = _iterator_allocate_init_elem(t_first);
@@ -707,7 +703,7 @@ forward_iterator_t algo_search_end(
     forward_iterator_t t_first2, forward_iterator_t t_last2)
 {
     return algo_search_end_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _EQUAL_FUN));
+        _fun_get_binary(t_first1, _EQUAL_FUN));
 }
 
 forward_iterator_t algo_search_end_if(
@@ -811,7 +807,7 @@ bool_t algo_includes(
     input_iterator_t t_first2, input_iterator_t t_last2)
 {
     return algo_includes_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
+        _fun_get_binary(t_first1, _LESS_FUN));
 }
 
 bool_t algo_includes_if(
@@ -827,7 +823,7 @@ bool_t algo_includes_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
     }
 
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
@@ -870,7 +866,7 @@ forward_iterator_t algo_max_element(
     forward_iterator_t t_first, forward_iterator_t t_last)
 {
     return algo_max_element_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+        _fun_get_binary(t_first, _LESS_FUN));
 }
 
 forward_iterator_t algo_max_element_if(
@@ -884,7 +880,7 @@ forward_iterator_t algo_max_element_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -913,7 +909,7 @@ forward_iterator_t algo_min_element(
     forward_iterator_t t_first, forward_iterator_t t_last)
 {
     return algo_min_element_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+        _fun_get_binary(t_first, _LESS_FUN));
 }
 
 forward_iterator_t algo_min_element_if(
@@ -927,7 +923,7 @@ forward_iterator_t algo_min_element_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -958,7 +954,7 @@ output_iterator_t algo_merge(
     output_iterator_t t_result)
 {
     return algo_merge_if(t_first1, t_last1, t_first2, t_last2, t_result,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
+        _fun_get_binary(t_first1, _LESS_FUN));
 }
 
 output_iterator_t algo_merge_if(
@@ -976,7 +972,7 @@ output_iterator_t algo_merge_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
     }
 
     while(!iterator_equal(t_first1, t_last1) && !iterator_equal(t_first2, t_last2))
@@ -1134,7 +1130,7 @@ output_iterator_t _algo_remove_copy_varg(
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
-    t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN);
+    t_binary_op = _fun_get_binary(t_first, _EQUAL_FUN);
     assert(t_binary_op != NULL);
     for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
     {
@@ -1521,8 +1517,7 @@ output_iterator_t algo_transform_binary(
 forward_iterator_t algo_unique(
     forward_iterator_t t_first, forward_iterator_t t_last)
 {
-    return algo_unique_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN));
+    return algo_unique_if(t_first, t_last, _fun_get_binary(t_first, _EQUAL_FUN));
 }
 
 forward_iterator_t algo_unique_if(
@@ -1540,7 +1535,7 @@ output_iterator_t algo_unique_copy(
     output_iterator_t t_result)
 {
     return algo_unique_copy_if(t_first, t_last, t_result,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN));
+        _fun_get_binary(t_first, _EQUAL_FUN));
 }
 
 output_iterator_t algo_unique_copy_if(
@@ -1555,7 +1550,7 @@ output_iterator_t algo_unique_copy_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _EQUAL_FUN);
+        t_binary_op = _fun_get_binary(t_first, _EQUAL_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -1589,7 +1584,7 @@ forward_iterator_t _algo_lower_bound(
     va_start(val_elemlist, t_last);
 
     return _algo_lower_bound_if_varg(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN), val_elemlist);
+        _fun_get_binary(t_first, _LESS_FUN), val_elemlist);
 }
 
 forward_iterator_t _algo_lower_bound_if(
@@ -1616,7 +1611,7 @@ forward_iterator_t _algo_lower_bound_if_varg(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     pv_value = _iterator_allocate_init_elem(t_first);
@@ -1655,7 +1650,7 @@ forward_iterator_t _algo_upper_bound(
     va_start(val_elemlist, t_last);
 
     return _algo_upper_bound_if_varg(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN), val_elemlist);
+        _fun_get_binary(t_first, _LESS_FUN), val_elemlist);
 }
 
 forward_iterator_t _algo_upper_bound_if(
@@ -1682,7 +1677,7 @@ forward_iterator_t _algo_upper_bound_if_varg(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     pv_value = _iterator_allocate_init_elem(t_first);
@@ -1721,7 +1716,7 @@ range_t _algo_equal_range(
     va_start(val_elemlist, t_last);
 
     return _algo_equal_range_if_varg(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN), val_elemlist);
+        _fun_get_binary(t_first, _LESS_FUN), val_elemlist);
 }
 
 range_t _algo_equal_range_if(
@@ -1752,7 +1747,7 @@ range_t _algo_equal_range_if_varg(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     pv_value = _iterator_allocate_init_elem(t_first);
@@ -1814,7 +1809,7 @@ bool_t _algo_binary_search(
     va_start(val_elemlist, t_last);
 
     return _algo_binary_search_if_varg(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN), val_elemlist);
+        _fun_get_binary(t_first, _LESS_FUN), val_elemlist);
 }
 
 bool_t _algo_binary_search_if(
@@ -1839,7 +1834,7 @@ bool_t _algo_binary_search_if_varg(
     t_lower = _algo_lower_bound_if_varg(t_first, t_last, t_binary_op, val_elemlist);
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     pv_value = _iterator_allocate_init_elem(t_first);
@@ -1872,7 +1867,7 @@ bool_t algo_next_permutation(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last)
 {
     return algo_next_permutation_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+        _fun_get_binary(t_first, _LESS_FUN));
 }
 
 bool_t algo_next_permutation_if(
@@ -1888,7 +1883,7 @@ bool_t algo_next_permutation_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -1940,7 +1935,7 @@ bool_t algo_prev_permutation(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last)
 {
     return algo_prev_permutation_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+        _fun_get_binary(t_first, _LESS_FUN));
 }
 
 bool_t algo_prev_permutation_if(
@@ -1956,7 +1951,7 @@ bool_t algo_prev_permutation_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -2154,7 +2149,7 @@ void algo_partial_sort(
     random_access_iterator_t t_last)
 {
     algo_partial_sort_if(t_first, t_middle, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+        _fun_get_binary(t_first, _LESS_FUN));
 }
 
 void algo_partial_sort_if(
@@ -2172,7 +2167,7 @@ void algo_partial_sort_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_middle))
@@ -2204,7 +2199,7 @@ random_access_iterator_t algo_partial_sort_copy(
     random_access_iterator_t t_first2, random_access_iterator_t t_last2)
 {
     return algo_partial_sort_copy_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN));
+        _fun_get_binary(t_first1, _LESS_FUN));
 }
 
 random_access_iterator_t algo_partial_sort_copy_if(
@@ -2222,7 +2217,7 @@ random_access_iterator_t algo_partial_sort_copy_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first1), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
     }
 
     if(iterator_equal(t_first1, t_last1) || iterator_equal(t_first2, t_last2))
@@ -2258,8 +2253,7 @@ random_access_iterator_t algo_partial_sort_copy_if(
 void algo_sort(
     random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    algo_sort_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    algo_sort_if(t_first, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 void algo_sort_if(
@@ -2273,7 +2267,7 @@ void algo_sort_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(!iterator_equal(t_first, t_last))
@@ -2300,8 +2294,7 @@ void algo_inplace_merge(
     bidirectional_iterator_t t_middle,
     bidirectional_iterator_t t_last)
 {
-    algo_inplace_merge_if(t_first, t_middle, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    algo_inplace_merge_if(t_first, t_middle, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 void algo_inplace_merge_if(
@@ -2321,7 +2314,7 @@ void algo_inplace_merge_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_middle) || iterator_equal(t_middle, t_last))
@@ -2390,8 +2383,7 @@ void algo_nth_element(
     random_access_iterator_t t_nth,
     random_access_iterator_t t_last)
 {
-    algo_nth_element_if(t_first, t_nth, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    algo_nth_element_if(t_first, t_nth, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 void algo_nth_element_if(
@@ -2412,7 +2404,7 @@ void algo_nth_element_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     pv_value = _iterator_allocate_init_elem(t_first);
@@ -2478,8 +2470,7 @@ void algo_nth_element_if(
 bool_t algo_is_sorted(
     forward_iterator_t t_first, forward_iterator_t t_last)
 {
-    return algo_is_sorted_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    return algo_is_sorted_if(t_first, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 bool_t algo_is_sorted_if(
@@ -2492,7 +2483,7 @@ bool_t algo_is_sorted_if(
     assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
@@ -2518,8 +2509,7 @@ bool_t algo_is_sorted_if(
 void algo_stable_sort(
     random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    algo_stable_sort_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    algo_stable_sort_if(t_first, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 void algo_stable_sort_if(
@@ -2533,7 +2523,7 @@ void algo_stable_sort_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     t_len = iterator_distance(t_first, t_last);

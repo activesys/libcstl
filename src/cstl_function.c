@@ -59,9 +59,14 @@
 
 /** exported function implementation section **/
 /* private function */
-unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funtype)
+unary_function_t _fun_get_unary(iterator_t t_iter, fun_unary_type_t t_funtype)
 {
-    assert(s_typename != NULL);
+    const char* s_typename = _iterator_get_typebasename(t_iter);
+
+    if(s_typename == NULL)
+    {
+        return fun_default_unary;
+    }
 
     /* char */
     if(strncmp(s_typename, _CHAR_TYPE, _TYPE_NAME_SIZE) == 0 ||
@@ -198,9 +203,15 @@ unary_function_t _fun_get_unary(const char* s_typename, fun_unary_type_t t_funty
     return fun_default_unary;
 }
 
-binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_funtype)
+binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype)
 {
-    assert(s_typename != NULL);
+    const char* s_typename = _iterator_get_typebasename(t_iter);
+    _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(t_iter);
+
+    if(s_typename == NULL)
+    {
+        return fun_default_binary;
+    }
 
     /* char */
     if(strncmp(s_typename, _CHAR_TYPE, _TYPE_NAME_SIZE) == 0 ||
@@ -1113,6 +1124,11 @@ binary_function_t _fun_get_binary(const char* s_typename, fun_binary_type_t t_fu
         default:
             break;
         }
+    }
+
+    if(pt_typeinfo != NULL && pt_typeinfo->_pt_type != NULL && t_funtype == _LESS_FUN)
+    {
+        return pt_typeinfo->_pt_type->_t_typeless;
     }
 
     return fun_default_binary;

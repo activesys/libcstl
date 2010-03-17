@@ -58,8 +58,7 @@ static void _adjust_heap(
 void algo_push_heap(
     random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    algo_push_heap_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    algo_push_heap_if(t_first, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 void algo_push_heap_if(
@@ -75,7 +74,7 @@ void algo_push_heap_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     /* not empty range */
@@ -111,8 +110,7 @@ void algo_push_heap_if(
 void algo_pop_heap(
     random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    algo_pop_heap_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    algo_pop_heap_if(t_first, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 void algo_pop_heap_if(
@@ -123,7 +121,7 @@ void algo_pop_heap_if(
 
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(!iterator_equal(t_first, t_last))
@@ -138,8 +136,7 @@ void algo_pop_heap_if(
 
 void algo_sort_heap(random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    algo_sort_heap_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    algo_sort_heap_if(t_first, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 void algo_sort_heap_if(
@@ -149,7 +146,7 @@ void algo_sort_heap_if(
     assert(_iterator_valid_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     for(; !iterator_equal(t_first, t_last); t_last = iterator_prev(t_last))
@@ -160,8 +157,7 @@ void algo_sort_heap_if(
 
 void algo_make_heap(random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    algo_make_heap_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    algo_make_heap_if(t_first, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 void algo_make_heap_if(
@@ -175,7 +171,7 @@ void algo_make_heap_if(
     assert(_iterator_valid_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     t_len = iterator_distance(t_first, t_last);
@@ -200,8 +196,7 @@ void algo_make_heap_if(
 
 bool_t algo_is_heap(random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
-    return algo_is_heap_if(t_first, t_last,
-        _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN));
+    return algo_is_heap_if(t_first, t_last, _fun_get_binary(t_first, _LESS_FUN));
 }
 
 bool_t algo_is_heap_if(
@@ -220,7 +215,7 @@ bool_t algo_is_heap_if(
     assert(_iterator_valid_range(t_first, t_last, _RANDOM_ACCESS_ITERATOR));
     if(t_binary_op == NULL)
     {
-        t_binary_op = _fun_get_binary(_iterator_get_typebasename(t_first), _LESS_FUN);
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
     if(iterator_equal(t_first, t_last))
