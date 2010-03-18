@@ -39,6 +39,7 @@ static void _print_int(const void* cpv_input, void* pv_output);
 static void _print_hash_sample(const void* cpv_input, void* pv_output);
 static void _print_cstl(const void* cpv_input, void* pv_output);
 static void _print_string(const void* cpv_input, void* pv_output);
+static void _print_cstr(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -957,6 +958,441 @@ void test_heap(void)
             list_destroy(pt_list);
         }
         /*algo_make_heap_if*/
+        {
+            vector_t* pt_vec = create_vector(list_t<int>);
+            list_t* pt_list = create_list(int);
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            list_init(pt_list);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstl);
+            printf("\n");
+
+            list_push_back(pt_list, 56);
+            list_push_back(pt_list, 22);
+            list_push_back(pt_list, 90);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, -8);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 8);
+            list_push_back(pt_list, 22);
+            list_push_back(pt_list, 45);
+            list_push_back(pt_list, 4);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 9);
+            list_push_back(pt_list, 45);
+            list_push_back(pt_list, 3);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, -5);
+            list_push_back(pt_list, -6);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 3);
+            vector_push_back(pt_vec, pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstl);
+            printf("\n");
+            algo_make_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstl);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
+        /*algo_push_heap   */
+        {
+            vector_t* pt_vec = create_vector(string_t);
+            string_t* pt_string = create_string();
+            if(pt_vec == NULL || pt_string == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            string_init(pt_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "llsiehjg");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "00000000");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344bbb");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ll,znhah");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ttt");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "VVVVV");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "$&!@#$&*");
+            vector_push_back(pt_vec, pt_string);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_make_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "xxxxx");
+            vector_push_back(pt_vec, pt_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_push_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            string_destroy(pt_string);
+        }
+        /*algo_push_heap_if*/
+        {
+            vector_t* pt_vec = create_vector(string_t);
+            string_t* pt_string = create_string();
+            if(pt_vec == NULL || pt_string == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            string_init(pt_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "llsiehjg");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "00000000");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344bbb");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ll,znhah");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ttt");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "VVVVV");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "$&!@#$&*");
+            vector_push_back(pt_vec, pt_string);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_make_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "###xx");
+            vector_push_back(pt_vec, pt_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_push_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            string_destroy(pt_string);
+        }
+        /*algo_pop_heap    */
+        {
+            vector_t* pt_vec = create_vector(string_t);
+            string_t* pt_string = create_string();
+            if(pt_vec == NULL || pt_string == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            string_init(pt_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "llsiehjg");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "00000000");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344bbb");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ll,znhah");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ttt");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "VVVVV");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "$&!@#$&*");
+            vector_push_back(pt_vec, pt_string);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_make_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            algo_pop_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            string_destroy(pt_string);
+        }
+        /*algo_pop_heap_if */
+        {
+            vector_t* pt_vec = create_vector(string_t);
+            string_t* pt_string = create_string();
+            if(pt_vec == NULL || pt_string == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            string_init(pt_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "llsiehjg");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "00000000");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344bbb");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ll,znhah");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ttt");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "VVVVV");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "$&!@#$&*");
+            vector_push_back(pt_vec, pt_string);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_make_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            algo_pop_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            string_destroy(pt_string);
+        }
+        /*algo_sort_heap   */
+        {
+            vector_t* pt_vec = create_vector(string_t);
+            string_t* pt_string = create_string();
+            if(pt_vec == NULL || pt_string == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            string_init(pt_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "llsiehjg");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "00000000");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344bbb");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ll,znhah");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ttt");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "VVVVV");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "$&!@#$&*");
+            vector_push_back(pt_vec, pt_string);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_make_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            algo_sort_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            string_destroy(pt_string);
+        }
+        /*algo_sort_heap_if*/
+        {
+            vector_t* pt_vec = create_vector(string_t);
+            string_t* pt_string = create_string();
+            if(pt_vec == NULL || pt_string == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            string_init(pt_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "llsiehjg");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "00000000");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344bbb");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ll,znhah");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ttt");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "VVVVV");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "$&!@#$&*");
+            vector_push_back(pt_vec, pt_string);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_make_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            algo_sort_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_string);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            string_destroy(pt_string);
+        }
+        /*algo_is_heap     */
+        {
+            vector_t* pt_vec = create_vector(string_t);
+            string_t* pt_string = create_string();
+            if(pt_vec == NULL || pt_string == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            string_init(pt_string);
+            printf("is heap : %d\n", algo_is_heap(vector_begin(pt_vec), vector_end(pt_vec)));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "llsiehjg");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "00000000");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344bbb");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ll,znhah");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ttt");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "VVVVV");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "$&!@#$&*");
+            vector_push_back(pt_vec, pt_string);
+
+            printf("is heap : %d\n", algo_is_heap(vector_begin(pt_vec), vector_end(pt_vec)));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_make_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            printf("is heap : %d\n", algo_is_heap(vector_begin(pt_vec), vector_end(pt_vec)));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            string_destroy(pt_string);
+        }
+        /*algo_is_heap_if  */
+        {
+            vector_t* pt_vec = create_vector(string_t);
+            string_t* pt_string = create_string();
+            if(pt_vec == NULL || pt_string == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            string_init(pt_string);
+            printf("is heap : %d\n", algo_is_heap_if(
+                vector_begin(pt_vec), vector_end(pt_vec), fun_great_string));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            string_assign_cstr(pt_string, "llsiehjg");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "00000000");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344bbb");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "3344");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ll,znhah");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "ttt");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "VVVVV");
+            vector_push_back(pt_vec, pt_string);
+            string_assign_cstr(pt_string, "$&!@#$&*");
+            vector_push_back(pt_vec, pt_string);
+
+            printf("is heap : %d\n", algo_is_heap_if(
+                vector_begin(pt_vec), vector_end(pt_vec), fun_great_string));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+            algo_make_heap_if(vector_begin(pt_vec), vector_end(pt_vec), fun_great_string);
+            printf("is heap : %d\n", algo_is_heap_if(
+                vector_begin(pt_vec), vector_end(pt_vec), fun_great_string));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_string);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            string_destroy(pt_string);
+        }
+    }
+    /* c-string type */
+    {
+        /*algo_make_heap   */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            vector_push_back(pt_vec, "yiwvos");
+            vector_push_back(pt_vec, "wllllllll");
+            vector_push_back(pt_vec, "88bzloa");
+            vector_push_back(pt_vec, "pppppp");
+            vector_push_back(pt_vec, "GGG");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, ")(");
+            vector_push_back(pt_vec, "tt");
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            algo_make_heap(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
+        /*algo_make_heap_if*/
         /*algo_push_heap   */
         /*algo_push_heap_if*/
         /*algo_pop_heap    */
@@ -966,22 +1402,15 @@ void test_heap(void)
         /*algo_is_heap     */
         /*algo_is_heap_if  */
     }
-    /* c-string type */
-    {
-    }
-    /*algo_make_heap   */
-    /*algo_make_heap_if*/
-    /*algo_push_heap   */
-    /*algo_push_heap_if*/
-    /*algo_pop_heap    */
-    /*algo_pop_heap_if */
-    /*algo_sort_heap   */
-    /*algo_sort_heap_if*/
-    /*algo_is_heap     */
-    /*algo_is_heap_if  */
 }
 
 /** local function implementation section **/
+static void _print_cstr(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    printf("<%s>, ", (char*)cpv_input);
+}
+
 static void _print_int(const void* cpv_input, void* pv_output)
 {
     pv_output = NULL;

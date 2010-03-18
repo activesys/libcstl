@@ -149,14 +149,17 @@ void algo_iter_swap(forward_iterator_t t_first, forward_iterator_t t_second)
 
     assert(_iterator_same_elem_type(t_first, t_second));
 
-    pv_value = _iterator_allocate_init_elem(t_first);
+    if(!iterator_equal(t_first, t_second))
+    {
+        pv_value = _iterator_allocate_init_elem(t_first);
 
-    iterator_get_value(t_first, pv_value);
-    iterator_set_value(t_first, iterator_get_pointer(t_second));
-    iterator_set_value(t_second, pv_value);
+        iterator_get_value(t_first, pv_value);
+        iterator_set_value(t_first, iterator_get_pointer(t_second));
+        iterator_set_value(t_second, pv_value);
 
-    _iterator_deallocate_destroy_elem(t_first, pv_value);
-    pv_value = NULL;
+        _iterator_deallocate_destroy_elem(t_first, pv_value);
+        pv_value = NULL;
+    }
 }
 
 bool_t algo_lexicographical_compare(

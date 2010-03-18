@@ -678,6 +678,33 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             break;
         }
     }
+    /* c-string */
+    else if(strncmp(s_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        switch(t_funtype)
+        {
+        case _EQUAL_FUN:
+            return fun_equal_cstr;
+            break;
+        case _NOT_EQUAL_FUN:
+            return fun_not_equal_cstr;
+            break;
+        case _GREAT_FUN:
+            return fun_great_cstr;
+            break;
+        case _GREAT_EQUAL_FUN:
+            return fun_great_equal_cstr;
+            break;
+        case _LESS_FUN:
+            return fun_less_cstr;
+            break;
+        case _LESS_EQUAL_FUN:
+            return fun_less_equal_cstr;
+            break;
+        default:
+            break;
+        }
+    }
     /* bool_t */
     else if(strncmp(s_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0)
     {
@@ -1734,6 +1761,26 @@ void fun_equal_long_double(
         *(long double*)cpv_first - *(long double*)cpv_second > -LDBL_EPSILON ? true : false;
 }
 
+void fun_equal_cstr(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    char* s_first = NULL;
+    char* s_second = NULL;
+    size_t t_firstlen = 0;
+    size_t t_secondlen = 0;
+    size_t t_len = 0;
+
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    s_first = (char*)cpv_first;
+    s_second = (char*)cpv_second;
+    t_firstlen = strlen(s_first);
+    t_secondlen = strlen(s_second);
+    t_len = t_firstlen > t_secondlen ? t_firstlen : t_secondlen;
+
+    *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) == 0 ? true : false;
+}
+
 void fun_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -1949,6 +1996,26 @@ void fun_not_equal_long_double(
     *(bool_t*)pv_output = 
         *(long double*)cpv_first - *(long double*)cpv_second >= LDBL_EPSILON ||
         *(long double*)cpv_first - *(long double*)cpv_second <= -LDBL_EPSILON ? true : false;
+}
+
+void fun_not_equal_cstr(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    char* s_first = NULL;
+    char* s_second = NULL;
+    size_t t_firstlen = 0;
+    size_t t_secondlen = 0;
+    size_t t_len = 0;
+
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    s_first = (char*)cpv_first;
+    s_second = (char*)cpv_second;
+    t_firstlen = strlen(s_first);
+    t_secondlen = strlen(s_second);
+    t_len = t_firstlen > t_secondlen ? t_firstlen : t_secondlen;
+
+    *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) != 0 ? true : false;
 }
 
 void fun_not_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -2167,6 +2234,26 @@ void fun_great_long_double(
         *(long double*)cpv_first - *(long double*)cpv_second >= LDBL_EPSILON ? true : false;
 }
 
+void fun_great_cstr(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    char* s_first = NULL;
+    char* s_second = NULL;
+    size_t t_firstlen = 0;
+    size_t t_secondlen = 0;
+    size_t t_len = 0;
+
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    s_first = (char*)cpv_first;
+    s_second = (char*)cpv_second;
+    t_firstlen = strlen(s_first);
+    t_secondlen = strlen(s_second);
+    t_len = t_firstlen > t_secondlen ? t_firstlen : t_secondlen;
+
+    *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) > 0 ? true : false;
+}
+
 void fun_great_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2381,6 +2468,26 @@ void fun_great_equal_long_double(
 
     *(bool_t*)pv_output = 
         *(long double*)cpv_first - *(long double*)cpv_second > -LDBL_EPSILON ? true : false;
+}
+
+void fun_great_equal_cstr(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    char* s_first = NULL;
+    char* s_second = NULL;
+    size_t t_firstlen = 0;
+    size_t t_secondlen = 0;
+    size_t t_len = 0;
+
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    s_first = (char*)cpv_first;
+    s_second = (char*)cpv_second;
+    t_firstlen = strlen(s_first);
+    t_secondlen = strlen(s_second);
+    t_len = t_firstlen > t_secondlen ? t_firstlen : t_secondlen;
+
+    *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) >= 0 ? true : false;
 }
 
 void fun_great_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -2603,6 +2710,26 @@ void fun_less_long_double(
         *(long double*)cpv_first - *(long double*)cpv_second < -LDBL_EPSILON ? true : false;
 }
 
+void fun_less_cstr(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    char* s_first = NULL;
+    char* s_second = NULL;
+    size_t t_firstlen = 0;
+    size_t t_secondlen = 0;
+    size_t t_len = 0;
+
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    s_first = (char*)cpv_first;
+    s_second = (char*)cpv_second;
+    t_firstlen = strlen(s_first);
+    t_secondlen = strlen(s_second);
+    t_len = t_firstlen > t_secondlen ? t_firstlen : t_secondlen;
+
+    *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) < 0 ? true : false;
+}
+
 void fun_less_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2821,6 +2948,26 @@ void fun_less_equal_long_double(
 
     *(bool_t*)pv_output = 
         *(long double*)cpv_first - *(long double*)cpv_second < LDBL_EPSILON ? true : false;
+}
+
+void fun_less_equal_cstr(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    char* s_first = NULL;
+    char* s_second = NULL;
+    size_t t_firstlen = 0;
+    size_t t_secondlen = 0;
+    size_t t_len = 0;
+
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    s_first = (char*)cpv_first;
+    s_second = (char*)cpv_second;
+    t_firstlen = strlen(s_first);
+    t_secondlen = strlen(s_second);
+    t_len = t_firstlen > t_secondlen ? t_firstlen : t_secondlen;
+
+    *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) <= 0 ? true : false;
 }
 
 void fun_less_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)

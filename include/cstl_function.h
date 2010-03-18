@@ -232,6 +232,8 @@ extern void fun_equal_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_equal_long_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_equal_cstr(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
 
 extern void fun_equal_vector(
     const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -287,6 +289,8 @@ extern void fun_not_equal_float(
 extern void fun_not_equal_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_not_equal_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_not_equal_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 
 extern void fun_not_equal_vector(
@@ -344,6 +348,8 @@ extern void fun_great_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_great_long_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_great_cstr(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
 
 extern void fun_great_vector(
     const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -399,6 +405,8 @@ extern void fun_great_equal_float(
 extern void fun_great_equal_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_great_equal_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_great_equal_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 
 extern void fun_great_equal_vector(
@@ -456,6 +464,8 @@ extern void fun_less_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_long_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_less_cstr(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
 
 extern void fun_less_vector(
     const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -511,6 +521,8 @@ extern void fun_less_equal_float(
 extern void fun_less_equal_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_equal_long_double(
+    const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_less_equal_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 
 extern void fun_less_equal_vector(
