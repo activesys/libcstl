@@ -30,6 +30,7 @@
 #include "cstl_types.h"
 #include "citerator.h"
 #include "cfunctional.h"
+#include "cstring.h"
 /*#include "cstl_tools.h"*/
 /*#include "cutility.h"*/
 
@@ -153,9 +154,19 @@ void algo_iter_swap(forward_iterator_t t_first, forward_iterator_t t_second)
     {
         pv_value = _iterator_allocate_init_elem(t_first);
 
-        iterator_get_value(t_first, pv_value);
-        iterator_set_value(t_first, iterator_get_pointer(t_second));
-        iterator_set_value(t_second, pv_value);
+        /* c string */
+        if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+        {
+            string_assign_cstr((string_t*)pv_value, iterator_get_pointer(t_first));
+            iterator_set_value(t_first, iterator_get_pointer(t_second));
+            iterator_set_value(t_second, string_c_str((string_t*)pv_value));
+        }
+        else
+        {
+            iterator_get_value(t_first, pv_value);
+            iterator_set_value(t_first, iterator_get_pointer(t_second));
+            iterator_set_value(t_second, pv_value);
+        }
 
         _iterator_deallocate_destroy_elem(t_first, pv_value);
         pv_value = NULL;
