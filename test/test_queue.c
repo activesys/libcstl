@@ -26,6 +26,9 @@
 #include <assert.h>
 
 #include "cqueue.h"
+#include "cvector.h"
+#include "calgorithm.h"
+#include "cfunctional.h"
 #include "test_queue.h"
 
 /** local constant declaration and local macro section **/
@@ -68,6 +71,11 @@ static void _weather_init(const void* cpv_input, void* pv_output);
 static void _weather_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _weather_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _weather_destroy(const void* cpv_input, void* pv_output);
+static void _print_pq_int(const priority_queue_t* cpt_pq);
+static void _print_int(const void* cpv_input, void* pv_output);
+static void _weather_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _print_pq_user(const priority_queue_t* cpt_pq);
+static void _print_user(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -883,9 +891,428 @@ void test_queue(void)
 
 void test_priority_queue(void)
 {
+    /* c built-in type */
+    {
+        /*_create_priority_queue           */
+        /*priority_queue_init              */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(int);
+            if(pt_pq == NULL)
+            {
+                return;
+            }
+            priority_queue_init(pt_pq);
+            _print_pq_int(pt_pq);
+            priority_queue_push(pt_pq, 45);
+            priority_queue_push(pt_pq, 5);
+            priority_queue_push(pt_pq, 95);
+            priority_queue_push(pt_pq, 4);
+            priority_queue_push(pt_pq, -5);
+            _print_pq_int(pt_pq);
+            priority_queue_destroy(pt_pq);
+        }
+        /*priority_queue_init_ex           */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(int);
+            if(pt_pq == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pq, fun_great_int);
+            _print_pq_int(pt_pq);
+            priority_queue_push(pt_pq, 45);
+            priority_queue_push(pt_pq, 5);
+            priority_queue_push(pt_pq, 95);
+            priority_queue_push(pt_pq, 4);
+            priority_queue_push(pt_pq, -5);
+            _print_pq_int(pt_pq);
+            priority_queue_destroy(pt_pq);
+        }
+        /*priority_queue_init_copy         */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(int);
+            priority_queue_t* pt_pqex = create_priority_queue(int);
+            if(pt_pq == NULL || pt_pqex == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pqex, fun_great_int);
+            priority_queue_push(pt_pqex, 45);
+            priority_queue_push(pt_pqex, 5);
+            priority_queue_push(pt_pqex, 95);
+            priority_queue_push(pt_pqex, 4);
+            priority_queue_push(pt_pqex, -5);
+            _print_pq_int(pt_pqex);
+            priority_queue_init_copy(pt_pq, pt_pqex);
+            _print_pq_int(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+            priority_queue_destroy(pt_pqex);
+        }
+        /*priority_queue_init_copy_range   */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(int);
+            vector_t* pt_vec = create_vector(int);
+            if(pt_pq == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, 45);
+            vector_push_back(pt_vec, 5);
+            vector_push_back(pt_vec, 95);
+            vector_push_back(pt_vec, 4);
+            vector_push_back(pt_vec, -5);
+            priority_queue_init_copy_range(pt_pq, vector_begin(pt_vec), vector_end(pt_vec));
+            _print_pq_int(pt_pq);
+            vector_destroy(pt_vec);
+            priority_queue_destroy(pt_pq);
+        }
+        /*priority_queue_init_copy_range_ex*/
+        {
+            priority_queue_t* pt_pq = create_priority_queue(int);
+            vector_t* pt_vec = create_vector(int);
+            if(pt_pq == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, 45);
+            vector_push_back(pt_vec, 5);
+            vector_push_back(pt_vec, 95);
+            vector_push_back(pt_vec, 4);
+            vector_push_back(pt_vec, -5);
+            priority_queue_init_copy_range_ex(pt_pq,
+                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int);
+            _print_pq_int(pt_pq);
+            vector_destroy(pt_vec);
+            priority_queue_destroy(pt_pq);
+        }
+        /*priority_queue_destroy           */
+        /*priority_queue_assign            */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(int);
+            priority_queue_t* pt_pqex = create_priority_queue(int);
+            if(pt_pq == NULL || pt_pqex == NULL)
+            {
+                return;
+            }
+            priority_queue_init(pt_pq);
+            priority_queue_init_ex(pt_pqex, fun_great_int);
+            priority_queue_push(pt_pqex, 45);
+            priority_queue_push(pt_pqex, 5);
+            priority_queue_push(pt_pqex, 95);
+            priority_queue_push(pt_pqex, 4);
+            priority_queue_push(pt_pqex, -5);
+            _print_pq_int(pt_pqex);
+            priority_queue_assign(pt_pq, pt_pqex);
+            _print_pq_int(pt_pq);
+            priority_queue_destroy(pt_pq);
+            priority_queue_destroy(pt_pqex);
+        }
+        /*priority_queue_empty             */
+        /*priority_queue_size              */
+        /*priority_queue_top               */
+        /*priority_queue_push              */
+        /*priority_queue_pop               */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(int);
+            if(pt_pq == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pq, fun_great_int);
+            _print_pq_int(pt_pq);
+            priority_queue_push(pt_pq, 45);
+            priority_queue_push(pt_pq, 5);
+            priority_queue_push(pt_pq, 95);
+            priority_queue_push(pt_pq, 4);
+            priority_queue_push(pt_pq, -5);
+            _print_pq_int(pt_pq);
+            priority_queue_pop(pt_pq);
+            _print_pq_int(pt_pq);
+            while(!priority_queue_empty(pt_pq))
+            {
+                priority_queue_pop(pt_pq);
+            }
+            _print_pq_int(pt_pq);
+            priority_queue_destroy(pt_pq);
+        }
+    }
+    /* user defined type */
+    {
+        type_register(weather_t, _weather_init, _weather_copy, _weather_less, _weather_destroy);
+        type_duplicate(weather_t, struct _tagweather);
+        /*_create_priority_queue           */
+        /*priority_queue_init              */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(weather_t);
+            weather_t t_wea;
+            bool_t t_result;
+            if(pt_pq == NULL)
+            {
+                return;
+            }
+            priority_queue_init(pt_pq);
+            _weather_init(&t_wea, &t_result);
+
+            _weather_set(&t_wea, "Shenyang", 3);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Nanjing", 15);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Shanghai", 19);
+            priority_queue_push(pt_pq, &t_wea);
+            _print_pq_user(pt_pq);
+            priority_queue_destroy(pt_pq);
+        }
+        /*priority_queue_init_ex           */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(weather_t);
+            weather_t t_wea;
+            bool_t t_result;
+            if(pt_pq == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pq, _weather_great);
+            _weather_init(&t_wea, &t_result);
+
+            _weather_set(&t_wea, "Shenyang", 3);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Nanjing", 15);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Shanghai", 19);
+            priority_queue_push(pt_pq, &t_wea);
+            _print_pq_user(pt_pq);
+            priority_queue_destroy(pt_pq);
+        }
+        /*priority_queue_init_copy         */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(weather_t);
+            priority_queue_t* pt_pqex = create_priority_queue(weather_t);
+            weather_t t_wea;
+            bool_t t_result;
+            if(pt_pq == NULL || pt_pqex == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pq, _weather_great);
+            _weather_init(&t_wea, &t_result);
+
+            _weather_set(&t_wea, "Shenyang", 3);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Nanjing", 15);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Shanghai", 19);
+            priority_queue_push(pt_pq, &t_wea);
+            _print_pq_user(pt_pq);
+
+            priority_queue_init_copy(pt_pqex, pt_pq);
+            _print_pq_user(pt_pqex);
+            priority_queue_destroy(pt_pq);
+            priority_queue_destroy(pt_pqex);
+        }
+        /*priority_queue_init_copy_range   */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(weather_t);
+            vector_t* pt_vec = create_vector(weather_t);
+            weather_t t_wea;
+            bool_t t_result;
+            if(pt_pq == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            _weather_init(&t_wea, &t_result);
+
+            _weather_set(&t_wea, "Shenyang", 3);
+            vector_push_back(pt_vec, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            vector_push_back(pt_vec, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            vector_push_back(pt_vec, &t_wea);
+            _weather_set(&t_wea, "Nanjing", 15);
+            vector_push_back(pt_vec, &t_wea);
+            _weather_set(&t_wea, "Shanghai", 19);
+            vector_push_back(pt_vec, &t_wea);
+
+            priority_queue_init_copy_range(pt_pq, vector_begin(pt_vec), vector_end(pt_vec));
+            _print_pq_user(pt_pq);
+            priority_queue_destroy(pt_pq);
+            vector_destroy(pt_vec);
+        }
+        /*priority_queue_init_copy_range_ex*/
+        {
+            priority_queue_t* pt_pq = create_priority_queue(weather_t);
+            vector_t* pt_vec = create_vector(weather_t);
+            weather_t t_wea;
+            bool_t t_result;
+            if(pt_pq == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            _weather_init(&t_wea, &t_result);
+
+            _weather_set(&t_wea, "Shenyang", 3);
+            vector_push_back(pt_vec, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            vector_push_back(pt_vec, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            vector_push_back(pt_vec, &t_wea);
+            _weather_set(&t_wea, "Nanjing", 15);
+            vector_push_back(pt_vec, &t_wea);
+            _weather_set(&t_wea, "Shanghai", 19);
+            vector_push_back(pt_vec, &t_wea);
+
+            priority_queue_init_copy_range_ex(pt_pq,
+                vector_begin(pt_vec), vector_end(pt_vec), _weather_great);
+            _print_pq_user(pt_pq);
+            priority_queue_destroy(pt_pq);
+            vector_destroy(pt_vec);
+        }
+        /*priority_queue_destroy           */
+        /*priority_queue_assign            */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(weather_t);
+            priority_queue_t* pt_pqex = create_priority_queue(weather_t);
+            weather_t t_wea;
+            bool_t t_result;
+            if(pt_pq == NULL || pt_pqex == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pq, _weather_great);
+            priority_queue_init(pt_pqex);
+            _weather_init(&t_wea, &t_result);
+
+            _weather_set(&t_wea, "Shenyang", 3);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Nanjing", 15);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Shanghai", 19);
+            priority_queue_push(pt_pq, &t_wea);
+            _print_pq_user(pt_pq);
+
+            priority_queue_assign(pt_pqex, pt_pq);
+            _print_pq_user(pt_pqex);
+            priority_queue_destroy(pt_pq);
+            priority_queue_destroy(pt_pqex);
+        }
+        /*priority_queue_empty             */
+        /*priority_queue_size              */
+        /*priority_queue_top               */
+        /*_priority_queue_push             */
+        /*priority_queue_pop               */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(weather_t);
+            weather_t t_wea;
+            bool_t t_result;
+            if(pt_pq == NULL)
+            {
+                return;
+            }
+            priority_queue_init(pt_pq);
+            _weather_init(&t_wea, &t_result);
+
+            _weather_set(&t_wea, "Shenyang", 3);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Beijing", 7);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Haerbin", -4);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Nanjing", 15);
+            priority_queue_push(pt_pq, &t_wea);
+            _weather_set(&t_wea, "Shanghai", 19);
+            priority_queue_push(pt_pq, &t_wea);
+            _print_pq_user(pt_pq);
+            priority_queue_pop(pt_pq);
+            _print_pq_user(pt_pq);
+            while(!priority_queue_empty(pt_pq))
+            {
+                priority_queue_pop(pt_pq);
+            }
+            _print_pq_user(pt_pq);
+            priority_queue_destroy(pt_pq);
+        }
+    }
+    /* cstl built-in type */
+    {
+    }
+    /* c string type */
+    {
+    }
+
+    /*_create_priority_queue           */
+    /*priority_queue_init              */
+    /*priority_queue_init_ex           */
+    /*priority_queue_init_copy         */
+    /*priority_queue_init_copy_range   */
+    /*priority_queue_init_copy_range_ex*/
+    /*priority_queue_destroy           */
+    /*priority_queue_assign            */
+    /*priority_queue_empty             */
+    /*priority_queue_size              */
+    /*priority_queue_top               */
+    /*_priority_queue_push             */
+    /*priority_queue_pop               */
 }
 
 /** local function implementation section **/
+static void _print_pq_user(const priority_queue_t* cpt_pq)
+{
+    assert(cpt_pq != NULL);
+    printf("empty : %d, size : %d",
+        priority_queue_empty(cpt_pq), priority_queue_size(cpt_pq));
+    if(!priority_queue_empty(cpt_pq))
+    {
+        printf(", top : (city:%s, %dC)\n",
+            ((weather_t*)priority_queue_top(cpt_pq))->_s_city,
+            ((weather_t*)priority_queue_top(cpt_pq))->_n_temperature);
+        algo_for_each(vector_begin(&cpt_pq->_t_vector), vector_end(&cpt_pq->_t_vector),
+            _print_user);
+    }
+    printf("\n");
+}
+static void _print_user(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    printf("(city:%s, %dC), ", ((weather_t*)cpv_input)->_s_city,
+        ((weather_t*)cpv_input)->_n_temperature);
+}
+static void _print_pq_int(const priority_queue_t* cpt_pq)
+{
+    assert(cpt_pq != NULL);
+    printf("empty : %d, size : %d",
+        priority_queue_empty(cpt_pq), priority_queue_size(cpt_pq));
+    if(!priority_queue_empty(cpt_pq))
+    {
+        printf(", top : %d\n", *(int*)priority_queue_top(cpt_pq));
+        algo_for_each(vector_begin(&cpt_pq->_t_vector), vector_end(&cpt_pq->_t_vector),
+            _print_int);
+    }
+    printf("\n");
+}
+static void _print_int(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    printf("%d, ", *(int*)cpv_input);
+}
+
 static void _print_queue_str(const queue_t* cpt_queue)
 {
     iterator_t t_pos;
@@ -978,6 +1405,19 @@ static void _weather_less(const void* cpv_first, const void* cpv_second, void* p
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     if(strncmp(((weather_t*)cpv_first)->_s_city, ((weather_t*)cpv_second)->_s_city, 30) < 0)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
+static void _weather_great(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(strncmp(((weather_t*)cpv_first)->_s_city, ((weather_t*)cpv_second)->_s_city, 30) > 0)
     {
         *(bool_t*)pv_output = true;
     }

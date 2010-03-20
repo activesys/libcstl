@@ -104,8 +104,9 @@ int main(int argc, char* argv[])
     /*test_algobase();*/
     /*test_algo();*/
     printf("========== test heap algorithm ==========\n");
-    test_heap();
-    /*test_priority_queue();*/
+    /*test_heap();*/
+    printf("========== test heap algorithm ==========\n");
+    test_priority_queue();
 
     argc = 0;
     argv = NULL;
