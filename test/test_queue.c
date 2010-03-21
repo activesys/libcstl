@@ -29,6 +29,7 @@
 #include "cvector.h"
 #include "calgorithm.h"
 #include "cfunctional.h"
+#include "clist.h"
 #include "test_queue.h"
 
 /** local constant declaration and local macro section **/
@@ -76,6 +77,10 @@ static void _print_int(const void* cpv_input, void* pv_output);
 static void _weather_great(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _print_pq_user(const priority_queue_t* cpt_pq);
 static void _print_user(const void* cpv_input, void* pv_output);
+static void _print_pq_cstl(const priority_queue_t* cpt_pq);
+static void _print_list(const void* cpv_input, void* pv_output);
+static void _print_pq_cstr(const priority_queue_t* cpt_pq);
+static void _print_cstr(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -1252,27 +1257,550 @@ void test_priority_queue(void)
     }
     /* cstl built-in type */
     {
+        /*_create_priority_queue           */
+        /*priority_queue_init              */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(list_t<int>);
+            list_t* pt_list = create_list(int);
+            if(pt_pq == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            priority_queue_init(pt_pq);
+            list_push_back(pt_list, 334);
+            list_push_back(pt_list, 90);
+            list_push_back(pt_list, 44);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 400);
+            list_push_back(pt_list, 455);
+            list_push_back(pt_list, -5);
+            list_push_back(pt_list, 3);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, -400);
+            list_push_back(pt_list, 12);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 1);
+            list_push_back(pt_list, 34);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            _print_pq_cstl(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+            list_destroy(pt_list);
+        }
+        /*priority_queue_init_ex           */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(list_t<int>);
+            list_t* pt_list = create_list(int);
+            if(pt_pq == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            priority_queue_init_ex(pt_pq, fun_great_list);
+            list_push_back(pt_list, 334);
+            list_push_back(pt_list, 90);
+            list_push_back(pt_list, 44);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 400);
+            list_push_back(pt_list, 455);
+            list_push_back(pt_list, -5);
+            list_push_back(pt_list, 3);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, -400);
+            list_push_back(pt_list, 12);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 1);
+            list_push_back(pt_list, 34);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            _print_pq_cstl(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+            list_destroy(pt_list);
+        }
+        /*priority_queue_init_copy         */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(list_t<int>);
+            priority_queue_t* pt_pqex = create_priority_queue(list_t<int>);
+            list_t* pt_list = create_list(int);
+            if(pt_pq == NULL || pt_list == NULL || pt_pqex == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            priority_queue_init_ex(pt_pq, fun_great_list);
+            list_push_back(pt_list, 334);
+            list_push_back(pt_list, 90);
+            list_push_back(pt_list, 44);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 400);
+            list_push_back(pt_list, 455);
+            list_push_back(pt_list, -5);
+            list_push_back(pt_list, 3);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, -400);
+            list_push_back(pt_list, 12);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 1);
+            list_push_back(pt_list, 34);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            _print_pq_cstl(pt_pq);
+
+            priority_queue_init_copy(pt_pqex, pt_pq);
+            _print_pq_cstl(pt_pqex);
+
+            priority_queue_destroy(pt_pq);
+            priority_queue_destroy(pt_pqex);
+            list_destroy(pt_list);
+        }
+        /*priority_queue_init_copy_range   */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(list_t<int>);
+            vector_t* pt_vec = create_vector(list_t<int>);
+            list_t* pt_list = create_list(int);
+            if(pt_pq == NULL || pt_list == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+            list_push_back(pt_list, 334);
+            list_push_back(pt_list, 90);
+            list_push_back(pt_list, 44);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 400);
+            list_push_back(pt_list, 455);
+            list_push_back(pt_list, -5);
+            list_push_back(pt_list, 3);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, -400);
+            list_push_back(pt_list, 12);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 1);
+            list_push_back(pt_list, 34);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            vector_push_back(pt_vec, pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_list);
+            printf("\n");
+
+            priority_queue_init_copy_range(pt_pq, vector_begin(pt_vec), vector_end(pt_vec));
+            _print_pq_cstl(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
+        /*priority_queue_init_copy_range_ex*/
+        {
+            priority_queue_t* pt_pq = create_priority_queue(list_t<int>);
+            vector_t* pt_vec = create_vector(list_t<int>);
+            list_t* pt_list = create_list(int);
+            if(pt_pq == NULL || pt_list == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+            list_push_back(pt_list, 334);
+            list_push_back(pt_list, 90);
+            list_push_back(pt_list, 44);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 400);
+            list_push_back(pt_list, 455);
+            list_push_back(pt_list, -5);
+            list_push_back(pt_list, 3);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, -400);
+            list_push_back(pt_list, 12);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 1);
+            list_push_back(pt_list, 34);
+            vector_push_back(pt_vec, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            vector_push_back(pt_vec, pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_list);
+            printf("\n");
+
+            priority_queue_init_copy_range_ex(pt_pq,
+                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list);
+            _print_pq_cstl(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
+        /*priority_queue_destroy           */
+        /*priority_queue_assign            */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(list_t<int>);
+            priority_queue_t* pt_pqex = create_priority_queue(list_t<int>);
+            list_t* pt_list = create_list(int);
+            if(pt_pq == NULL || pt_list == NULL || pt_pqex == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            priority_queue_init_ex(pt_pq, fun_great_list);
+            priority_queue_init(pt_pqex);
+            list_push_back(pt_list, 334);
+            list_push_back(pt_list, 90);
+            list_push_back(pt_list, 44);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 400);
+            list_push_back(pt_list, 455);
+            list_push_back(pt_list, -5);
+            list_push_back(pt_list, 3);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, -400);
+            list_push_back(pt_list, 12);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 1);
+            list_push_back(pt_list, 34);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            _print_pq_cstl(pt_pq);
+
+            priority_queue_assign(pt_pqex, pt_pq);
+            _print_pq_cstl(pt_pqex);
+
+            priority_queue_destroy(pt_pq);
+            priority_queue_destroy(pt_pqex);
+            list_destroy(pt_list);
+        }
+        /*priority_queue_empty             */
+        /*priority_queue_size              */
+        /*priority_queue_top               */
+        /*_priority_queue_push             */
+        /*priority_queue_pop               */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(list_t<int>);
+            list_t* pt_list = create_list(int);
+            if(pt_pq == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            priority_queue_init_ex(pt_pq, fun_great_list);
+            list_push_back(pt_list, 334);
+            list_push_back(pt_list, 90);
+            list_push_back(pt_list, 44);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 400);
+            list_push_back(pt_list, 455);
+            list_push_back(pt_list, -5);
+            list_push_back(pt_list, 3);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, -400);
+            list_push_back(pt_list, 12);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 1);
+            list_push_back(pt_list, 34);
+            priority_queue_push(pt_pq, pt_list);
+            list_clear(pt_list);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            list_push_back(pt_list, 300);
+            priority_queue_push(pt_pq, pt_list);
+            _print_pq_cstl(pt_pq);
+            priority_queue_pop(pt_pq);
+            _print_pq_cstl(pt_pq);
+            while(!priority_queue_empty(pt_pq))
+            {
+                priority_queue_pop(pt_pq);
+            }
+            _print_pq_cstl(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+            list_destroy(pt_list);
+        }
     }
     /* c string type */
     {
-    }
+        /*_create_priority_queue           */
+        /*priority_queue_init              */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(char*);
+            if(pt_pq == NULL)
+            {
+                return;
+            }
+            priority_queue_init(pt_pq);
+            priority_queue_push(pt_pq, "lllllsjsf");
+            priority_queue_push(pt_pq, "00000000000");
+            priority_queue_push(pt_pq, "ooooooooooooo");
+            priority_queue_push(pt_pq, "$$$$$");
+            priority_queue_push(pt_pq, "SSSSSSSSSSSSSSS");
+            priority_queue_push(pt_pq, "jjjjjjjj");
+            priority_queue_push(pt_pq, "VVVVVVVVVVVVVVV");
+            _print_pq_cstr(pt_pq);
 
-    /*_create_priority_queue           */
-    /*priority_queue_init              */
-    /*priority_queue_init_ex           */
-    /*priority_queue_init_copy         */
-    /*priority_queue_init_copy_range   */
-    /*priority_queue_init_copy_range_ex*/
-    /*priority_queue_destroy           */
-    /*priority_queue_assign            */
-    /*priority_queue_empty             */
-    /*priority_queue_size              */
-    /*priority_queue_top               */
-    /*_priority_queue_push             */
-    /*priority_queue_pop               */
+            priority_queue_destroy(pt_pq);
+        }
+        /*priority_queue_init_ex           */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(char*);
+            if(pt_pq == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pq, fun_great_cstr);
+            priority_queue_push(pt_pq, "lllllsjsf");
+            priority_queue_push(pt_pq, "00000000000");
+            priority_queue_push(pt_pq, "ooooooooooooo");
+            priority_queue_push(pt_pq, "$$$$$");
+            priority_queue_push(pt_pq, "SSSSSSSSSSSSSSS");
+            priority_queue_push(pt_pq, "jjjjjjjj");
+            priority_queue_push(pt_pq, "VVVVVVVVVVVVVVV");
+            _print_pq_cstr(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+        }
+        /*priority_queue_init_copy         */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(char*);
+            priority_queue_t* pt_pqex = create_priority_queue(char*);
+            if(pt_pq == NULL || pt_pqex == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pq, fun_great_cstr);
+            priority_queue_push(pt_pq, "lllllsjsf");
+            priority_queue_push(pt_pq, "00000000000");
+            priority_queue_push(pt_pq, "ooooooooooooo");
+            priority_queue_push(pt_pq, "$$$$$");
+            priority_queue_push(pt_pq, "SSSSSSSSSSSSSSS");
+            priority_queue_push(pt_pq, "jjjjjjjj");
+            priority_queue_push(pt_pq, "VVVVVVVVVVVVVVV");
+            _print_pq_cstr(pt_pq);
+            priority_queue_init_copy(pt_pqex, pt_pq);
+            _print_pq_cstr(pt_pqex);
+
+            priority_queue_destroy(pt_pq);
+            priority_queue_destroy(pt_pqex);
+        }
+        /*priority_queue_init_copy_range   */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(char*);
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_pq == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "lllllsjsf");
+            vector_push_back(pt_vec, "00000000000");
+            vector_push_back(pt_vec, "ooooooooooooo");
+            vector_push_back(pt_vec, "$$$$$");
+            vector_push_back(pt_vec, "SSSSSSSSSSSSSSS");
+            vector_push_back(pt_vec, "jjjjjjjj");
+            vector_push_back(pt_vec, "VVVVVVVVVVVVVVV");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            priority_queue_init_copy_range(pt_pq, vector_begin(pt_vec), vector_end(pt_vec));
+            _print_pq_cstr(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+            vector_destroy(pt_vec);
+        }
+        /*priority_queue_init_copy_range_ex*/
+        {
+            priority_queue_t* pt_pq = create_priority_queue(char*);
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_pq == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "lllllsjsf");
+            vector_push_back(pt_vec, "00000000000");
+            vector_push_back(pt_vec, "ooooooooooooo");
+            vector_push_back(pt_vec, "$$$$$");
+            vector_push_back(pt_vec, "SSSSSSSSSSSSSSS");
+            vector_push_back(pt_vec, "jjjjjjjj");
+            vector_push_back(pt_vec, "VVVVVVVVVVVVVVV");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            priority_queue_init_copy_range_ex(pt_pq,
+                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr);
+            _print_pq_cstr(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+            vector_destroy(pt_vec);
+        }
+        /*priority_queue_destroy           */
+        /*priority_queue_assign            */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(char*);
+            priority_queue_t* pt_pqex = create_priority_queue(char*);
+            if(pt_pq == NULL || pt_pqex == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pq, fun_great_cstr);
+            priority_queue_init(pt_pqex);
+            priority_queue_push(pt_pq, "lllllsjsf");
+            priority_queue_push(pt_pq, "00000000000");
+            priority_queue_push(pt_pq, "ooooooooooooo");
+            priority_queue_push(pt_pq, "$$$$$");
+            priority_queue_push(pt_pq, "SSSSSSSSSSSSSSS");
+            priority_queue_push(pt_pq, "jjjjjjjj");
+            priority_queue_push(pt_pq, "VVVVVVVVVVVVVVV");
+            _print_pq_cstr(pt_pq);
+            priority_queue_assign(pt_pqex, pt_pq);
+            _print_pq_cstr(pt_pqex);
+
+            priority_queue_destroy(pt_pq);
+            priority_queue_destroy(pt_pqex);
+        }
+        /*priority_queue_empty             */
+        /*priority_queue_size              */
+        /*priority_queue_top               */
+        /*_priority_queue_push             */
+        /*priority_queue_pop               */
+        {
+            priority_queue_t* pt_pq = create_priority_queue(char*);
+            if(pt_pq == NULL)
+            {
+                return;
+            }
+            priority_queue_init_ex(pt_pq, fun_great_cstr);
+            priority_queue_push(pt_pq, "lllllsjsf");
+            priority_queue_push(pt_pq, "00000000000");
+            priority_queue_push(pt_pq, "ooooooooooooo");
+            priority_queue_push(pt_pq, "$$$$$");
+            priority_queue_push(pt_pq, "SSSSSSSSSSSSSSS");
+            priority_queue_push(pt_pq, "jjjjjjjj");
+            priority_queue_push(pt_pq, "VVVVVVVVVVVVVVV");
+            _print_pq_cstr(pt_pq);
+            priority_queue_pop(pt_pq);
+            _print_pq_cstr(pt_pq);
+            while(!priority_queue_empty(pt_pq))
+            {
+                priority_queue_pop(pt_pq);
+            }
+            _print_pq_cstr(pt_pq);
+
+            priority_queue_destroy(pt_pq);
+        }
+    }
 }
 
 /** local function implementation section **/
+static void _print_pq_cstr(const priority_queue_t* cpt_pq)
+{
+    assert(cpt_pq != NULL);
+    printf("empty : %d, size : %d",
+        priority_queue_empty(cpt_pq), priority_queue_size(cpt_pq));
+    if(!priority_queue_empty(cpt_pq))
+    {
+        printf(", top : %s\n", (char*)priority_queue_top(cpt_pq));
+        algo_for_each(vector_begin(&cpt_pq->_t_vector), vector_end(&cpt_pq->_t_vector),
+            _print_cstr);
+    }
+    printf("\n");
+}
+static void _print_cstr(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    printf("%s\n", (char*)cpv_input);
+}
+static void _print_pq_cstl(const priority_queue_t* cpt_pq)
+{
+    assert(cpt_pq != NULL);
+    printf("empty : %d, size : %d",
+        priority_queue_empty(cpt_pq), priority_queue_size(cpt_pq));
+    if(!priority_queue_empty(cpt_pq))
+    {
+        printf(", top : ");
+        _print_list((list_t*)priority_queue_top(cpt_pq), NULL);
+        algo_for_each(vector_begin(&cpt_pq->_t_vector), vector_end(&cpt_pq->_t_vector),
+            _print_list);
+    }
+    printf("\n");
+}
+static void _print_list(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    printf("[");
+    algo_for_each(list_begin((list_t*)cpv_input), list_end((list_t*)cpv_input), _print_int);
+    printf("]\n");
+}
+
 static void _print_pq_user(const priority_queue_t* cpt_pq)
 {
     assert(cpt_pq != NULL);
