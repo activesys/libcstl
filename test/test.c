@@ -101,12 +101,13 @@ int main(int argc, char* argv[])
     /*test_function();*/
     printf("========== test numeric algorithm ==========\n");
     /*test_numeric();*/
-    /*test_algobase();*/
-    /*test_algo();*/
     printf("========== test heap algorithm ==========\n");
     /*test_heap();*/
     printf("========== test heap algorithm ==========\n");
-    test_priority_queue();
+    /*test_priority_queue();*/
+    printf("========== test basic algorithm ==========\n");
+    test_algobase();
+    /*test_algo();*/
 
     argc = 0;
     argv = NULL;

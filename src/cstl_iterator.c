@@ -446,6 +446,12 @@ iterator_t iterator_prev_n(iterator_t t_iter, int n_step)
 bool_t iterator_equal(iterator_t t_iterfirst, iterator_t t_itersecond)
 {
     assert(_iterator_limit_type(t_iterfirst, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(t_itersecond, _INPUT_ITERATOR));
+
+    if(t_iterfirst._t_containertype != t_itersecond._t_containertype)
+    {
+        return false;
+    }
 
     switch(t_iterfirst._t_containertype)
     {
