@@ -24,6 +24,7 @@
 #include "cvector.h"
 #include "clist.h"
 #include "calgorithm.h"
+#include "cnumeric.h"
 #include "cfunctional.h"
 #include "test_algobase.h"
 
@@ -34,6 +35,7 @@
 /** local function prototype section **/
 static void _print_int(const void* cpv_input, void* pv_output);
 static void _equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _absless(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -576,11 +578,216 @@ void test_algobase(void)
         /*algo_max_if                         */
         /*algo_min                            */
         /*algo_min_if                         */
+        {
+            vector_t* pt_vec = create_vector(int);
+            list_t* pt_list = create_list(int);
+            iterator_t t_min;
+            iterator_t t_max;
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_vec, 10);
+            list_init_n(pt_list, 10);
+            algo_iota(list_begin(pt_list), list_end(pt_list), -2);
+            algo_iota(vector_begin(pt_vec), vector_end(pt_vec), -9);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            t_min = algo_min(list_begin(pt_list), vector_begin(pt_vec));
+            t_max = algo_max(list_begin(pt_list), vector_begin(pt_vec));
+            printf("minmum between two begin : %d\n", *(int*)iterator_get_pointer(t_min));
+            printf("maxmum between two begin : %d\n", *(int*)iterator_get_pointer(t_max));
+
+            t_min = algo_min_if(list_begin(pt_list), vector_begin(pt_vec), _absless);
+            t_max = algo_max_if(list_begin(pt_list), vector_begin(pt_vec), _absless);
+            printf("minmum of absolute between two begin : %d\n",
+                *(int*)iterator_get_pointer(t_min));
+            printf("maxmum of absolute between two begin : %d\n",
+                *(int*)iterator_get_pointer(t_max));
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
         /*algo_mismatch                       */
         /*algo_mismatch_if                    */
+        {
+            vector_t* pt_vec = create_vector(int);
+            list_t* pt_list = create_list(int);
+            range_t t_range;
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_vec, 5);
+            list_init_n(pt_list, 5);
+            algo_iota(list_begin(pt_list), list_end(pt_list), 2);
+            list_push_back(pt_list, 11);
+            list_push_back(pt_list, 22);
+            list_push_back(pt_list, 33);
+            algo_iota(vector_begin(pt_vec), vector_end(pt_vec), 2);
+            vector_push_back(pt_vec, 44);
+            vector_push_back(pt_vec, 55);
+            vector_push_back(pt_vec, 9);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            t_range = algo_mismatch(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec));
+            printf("the first mismatch : %d and %d\n",
+                *(int*)iterator_get_pointer(t_range.t_begin),
+                *(int*)iterator_get_pointer(t_range.t_end));
+            t_range = algo_mismatch_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), fun_less_equal_int);
+            printf("not less or equal : %d and %d\n",
+                *(int*)iterator_get_pointer(t_range.t_begin),
+                *(int*)iterator_get_pointer(t_range.t_end));
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
         /*algo_copy                           */
         /*algo_copy_n                         */
         /*algo_copy_backward                  */
+        {
+            vector_t* pt_vec1 = create_vector(int);
+            vector_t* pt_vec2 = create_vector(int);
+            list_t* pt_list1 = create_list(int);
+            list_t* pt_list2 = create_list(int);
+            if(pt_vec1 == NULL || pt_vec2 == NULL || pt_list1 == NULL || pt_list2 == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_vec1, 10);
+            vector_init_n(pt_vec2, 10);
+            list_init_n(pt_list1, 10);
+            list_init_n(pt_list2, 10);
+
+            algo_iota(vector_begin(pt_vec1), vector_end(pt_vec1), 0);
+            algo_iota(vector_begin(pt_vec2), vector_end(pt_vec2), 0);
+            algo_iota(list_begin(pt_list1), list_end(pt_list1), 0);
+            algo_iota(list_begin(pt_list2), list_end(pt_list2), 0);
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), _print_int);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), _print_int);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_int);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_int);
+            printf("\n\n");
+
+            algo_copy(iterator_advance(list_begin(pt_list1), 4),
+                list_end(pt_list1), list_begin(pt_list1));
+            algo_copy(iterator_advance(list_begin(pt_list2), 6),
+                list_end(pt_list2), list_begin(pt_list2));
+            algo_copy(vector_begin(pt_vec1), iterator_advance(vector_begin(pt_vec1), 6),
+                iterator_advance(vector_begin(pt_vec1), 3));
+            algo_copy(vector_begin(pt_vec2), iterator_advance(vector_begin(pt_vec2), 3),
+                iterator_advance(vector_begin(pt_vec2), 6));
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), _print_int);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), _print_int);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_int);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_int);
+            printf("\n\n");
+
+            algo_iota(vector_begin(pt_vec1), vector_end(pt_vec1), 0);
+            algo_iota(vector_begin(pt_vec2), vector_end(pt_vec2), 0);
+            algo_iota(list_begin(pt_list1), list_end(pt_list1), 0);
+            algo_iota(list_begin(pt_list2), list_end(pt_list2), 0);
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), _print_int);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), _print_int);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_int);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_int);
+            printf("\n\n");
+
+            algo_copy_n(iterator_advance(list_begin(pt_list1), 4), 5, list_begin(pt_list1));
+            algo_copy_n(iterator_advance(list_begin(pt_list2), 6), 3, list_begin(pt_list2));
+            algo_copy_n(vector_begin(pt_vec1), 6, iterator_advance(vector_begin(pt_vec1), 3));
+            algo_copy_n(vector_begin(pt_vec2), 3, iterator_advance(vector_begin(pt_vec2), 6));
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), _print_int);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), _print_int);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_int);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_int);
+            printf("\n\n");
+
+            algo_iota(vector_begin(pt_vec1), vector_end(pt_vec1), 0);
+            algo_iota(vector_begin(pt_vec2), vector_end(pt_vec2), 0);
+            algo_iota(list_begin(pt_list1), list_end(pt_list1), 0);
+            algo_iota(list_begin(pt_list2), list_end(pt_list2), 0);
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), _print_int);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), _print_int);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_int);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_int);
+            printf("\n\n");
+
+            algo_copy_backward(iterator_advance(list_begin(pt_list1), 4), list_end(pt_list1),
+                iterator_advance(list_begin(pt_list1), 7));
+            algo_copy_backward(iterator_advance(list_begin(pt_list2), 6), list_end(pt_list2),
+                iterator_advance(list_begin(pt_list2), 5));
+            algo_copy_backward(vector_begin(pt_vec1),
+                iterator_advance(vector_begin(pt_vec1), 6),
+                iterator_prev(vector_end(pt_vec1)));
+            algo_copy_backward(vector_begin(pt_vec2),
+                iterator_advance(vector_begin(pt_vec2), 3),
+                iterator_prev(vector_end(pt_vec2)));
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), _print_int);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), _print_int);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_int);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_int);
+            printf("\n\n");
+
+            vector_destroy(pt_vec1);
+            vector_destroy(pt_vec2);
+            list_destroy(pt_list1);
+            list_destroy(pt_list2);
+        }
     }
     /* user define type */
     {
@@ -613,6 +820,19 @@ void test_algobase(void)
 }
 
 /** local function implementation section **/
+static void _absless(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(abs(*(int*)cpv_first) < abs(*(int*)cpv_second))
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
 static void _equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
