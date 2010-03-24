@@ -59,6 +59,8 @@ bool_t algo_equal_if(
     binary_function_t t_binary_op)
 {
     bool_t t_result = false;
+    bool_t t_less = false;
+    bool_t t_great = false;
 
     assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
@@ -69,15 +71,37 @@ bool_t algo_equal_if(
         t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
     }
 
-    for(;
-        !iterator_equal(t_first1, t_last1);
-        t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
+    if(t_binary_op == fun_default_binary)
     {
-        (*t_binary_op)(
-            iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
-        if(!t_result)
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
+        for(; !iterator_equal(t_first1, t_last1);
+            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
         {
-            return false;
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_less);
+            if(t_less)
+            {
+                return false;
+            }
+            (*t_binary_op)(
+                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_great);
+            if(t_great)
+            {
+                return false;
+            }
+        }
+    }
+    else
+    {
+        for(; !iterator_equal(t_first1, t_last1);
+            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
+            if(!t_result)
+            {
+                return false;
+            }
         }
     }
 
@@ -353,6 +377,8 @@ range_t algo_mismatch_if(
     binary_function_t t_binary_op)
 {
     bool_t  t_result = false;
+    bool_t  t_less = false;
+    bool_t  t_great = false;
     range_t t_range;
 
     assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
@@ -363,15 +389,38 @@ range_t algo_mismatch_if(
     {
         t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
     }
-    for(;
-        !iterator_equal(t_first1, t_last1);
-        t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
+
+    if(t_binary_op == fun_default_binary)
     {
-        (*t_binary_op)(
-            iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
-        if(!t_result)
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
+        for(; !iterator_equal(t_first1, t_last1);
+            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
         {
-            break;
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_less);
+            if(t_less)
+            {
+                break;
+            }
+            (*t_binary_op)(
+                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_great);
+            if(t_great)
+            {
+                break;
+            }
+        }
+    }
+    else
+    {
+        for(; !iterator_equal(t_first1, t_last1);
+            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
+            if(!t_result)
+            {
+                break;
+            }
         }
     }
 

@@ -791,6 +791,978 @@ void test_algobase(void)
     }
     /* user define type */
     {
+        type_register(algo_sample_t, algo_sample_init, algo_sample_copy,
+            algo_sample_less, algo_sample_destroy);
+        type_duplicate(algo_sample_t, struct _tagalgosample);
+        /*_algo_fill                          */
+        {
+            list_t* pt_list = create_list(algo_sample_t);
+            algo_sample_t t_sample;
+            if(pt_list == NULL)
+            {
+                return;
+            }
+            list_init_n(pt_list, 10);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 100;
+            t_sample._t_content = 200;
+            algo_fill(list_begin(pt_list), list_begin(pt_list), &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 90;
+            t_sample._t_content = 250;
+            algo_fill(list_begin(pt_list), iterator_advance(list_begin(pt_list), 3),
+                &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 512;
+            t_sample._t_content = 1024;
+            algo_fill(iterator_next(list_begin(pt_list)),
+                iterator_advance(list_begin(pt_list), 5), &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 10000;
+            algo_fill(iterator_advance(list_begin(pt_list), 6), list_end(pt_list), &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 33;
+            t_sample._t_content = 0;
+            algo_fill(list_end(pt_list), list_end(pt_list), &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 1234;
+            t_sample._t_content = 6789;
+            algo_fill(list_begin(pt_list), list_end(pt_list), &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            list_destroy(pt_list);
+        }
+        /*_algo_fill_n                        */
+        {
+            list_t* pt_list = create_list(algo_sample_t);
+            algo_sample_t t_sample;
+            if(pt_list == NULL)
+            {
+                return;
+            }
+            list_init_n(pt_list, 10);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 455;
+            t_sample._t_content = 554;
+            algo_fill_n(list_begin(pt_list), 0, &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 90;
+            t_sample._t_content = 90;
+            algo_fill_n(list_begin(pt_list), 3, &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 512;
+            t_sample._t_content = 900;
+            algo_fill_n(iterator_next(list_begin(pt_list)), 5, &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 33;
+            t_sample._t_content = 33;
+            algo_fill_n(list_end(pt_list), 0, &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 1024;
+            t_sample._t_content = 0;
+            algo_fill_n(list_begin(pt_list), list_size(pt_list), &t_sample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            list_destroy(pt_list);
+        }
+        /*algo_equal                          */
+        {
+            list_t* pt_list = create_list(algo_sample_t);
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            size_t t_index = 0;
+            algo_sample_t t_sample;
+            if(pt_list == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+
+            printf("equal : %d\n", algo_equal(
+                list_begin(pt_list), list_end(pt_list), vector_begin(pt_vec)));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = t_index;
+                list_push_back(pt_list, &t_sample);
+                t_sample._t_id = t_index * 100;
+                t_sample._t_content = t_index * 200;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            printf("equal : %d\n", algo_equal(
+                list_begin(pt_list), list_end(pt_list), vector_begin(pt_vec)));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            list_clear(pt_list);
+            vector_clear(pt_vec);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = t_index;
+                list_push_back(pt_list, &t_sample);
+                t_sample._t_content = t_index + 5;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            printf("equal : %d\n", algo_equal(
+                list_begin(pt_list), list_end(pt_list), vector_begin(pt_vec)));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            list_clear(pt_list);
+            vector_clear(pt_vec);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = t_index;
+                list_push_back(pt_list, &t_sample);
+                vector_push_back(pt_vec, &t_sample);
+            }
+            printf("equal : %d\n", algo_equal(
+                list_begin(pt_list), list_end(pt_list), vector_begin(pt_vec)));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
+        /*algo_equal_if                       */
+        {
+            list_t* pt_list = create_list(algo_sample_t);
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            size_t t_index = 0;
+            algo_sample_t t_sample;
+            if(pt_list == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+
+            printf("equal : %d\n", algo_equal_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), algo_sample_equal));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = t_index;
+                list_push_back(pt_list, &t_sample);
+                t_sample._t_id = t_index * 100;
+                t_sample._t_content = t_index * 200;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            printf("equal : %d\n", algo_equal_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), algo_sample_equal));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            list_clear(pt_list);
+            vector_clear(pt_vec);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = t_index;
+                list_push_back(pt_list, &t_sample);
+                t_sample._t_content = t_index + 5;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            printf("equal : %d\n", algo_equal_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), algo_sample_equal));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            list_clear(pt_list);
+            vector_clear(pt_vec);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = t_index;
+                list_push_back(pt_list, &t_sample);
+                vector_push_back(pt_vec, &t_sample);
+            }
+            printf("equal : %d\n", algo_equal_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), algo_sample_equal));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
+        /*algo_swap                           */
+        /*algo_iter_swap                      */
+        {
+            list_t* pt_list = create_list(algo_sample_t);
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            size_t t_index = 0;
+            algo_sample_t t_sample;
+            if(pt_list == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index + 1;
+                t_sample._t_content = t_index + 10;
+                list_push_back(pt_list, &t_sample);
+                t_sample._t_id = t_index * 5;
+                t_sample._t_content = t_index * 10;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            algo_swap(list_begin(pt_list), list_begin(pt_list));
+            algo_iter_swap(vector_begin(pt_vec), vector_begin(pt_vec));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            algo_swap(list_begin(pt_list), iterator_advance(list_begin(pt_list), 5));
+            algo_iter_swap(vector_begin(pt_vec), iterator_next_n(vector_begin(pt_vec), 5));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            algo_swap(list_begin(pt_list), iterator_next(vector_begin(pt_vec)));
+            algo_iter_swap(vector_begin(pt_vec), iterator_next(list_begin(pt_list)));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            list_destroy(pt_list);
+            vector_destroy(pt_vec);
+        }
+        /*algo_lexicographical_compare        */
+        /*algo_lexicographical_compare_if     */
+        {
+            list_t* pt_list = create_list(algo_sample_t);
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            algo_sample_t t_sample;
+            if(pt_list == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)));
+
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)));
+
+            list_clear(pt_list);
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            vector_clear(pt_vec);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 8;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 7;
+            vector_push_back(pt_vec, &t_sample);
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)));
+
+            list_clear(pt_list);
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            vector_clear(pt_vec);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 8;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 7;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)));
+
+            list_clear(pt_list);
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            vector_clear(pt_vec);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 8;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)));
+
+            list_clear(pt_list);
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            vector_clear(pt_vec);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 8;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 5;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec)));
+
+            list_destroy(pt_list);
+            vector_destroy(pt_vec);
+        }
+        /*algo_lexicographical_compare_3way   */
+        /*algo_lexicographical_compare_3way_if*/
+        {
+            list_t* pt_list = create_list(algo_sample_t);
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            algo_sample_t t_sample;
+            if(pt_list == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+
+            list_clear(pt_list);
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            vector_clear(pt_vec);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 8;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 7;
+            vector_push_back(pt_vec, &t_sample);
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+
+            list_clear(pt_list);
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            vector_clear(pt_vec);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 8;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 7;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+
+            list_clear(pt_list);
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            vector_clear(pt_vec);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 8;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+
+            list_clear(pt_list);
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            vector_clear(pt_vec);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 8;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 5;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+
+            list_destroy(pt_list);
+            vector_destroy(pt_vec);
+        }
+        /*algo_max                            */
+        /*algo_max_if                         */
+        /*algo_min                            */
+        /*algo_min_if                         */
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            list_t* pt_list = create_list(algo_sample_t);
+            iterator_t t_min;
+            iterator_t t_max;
+            algo_sample_t t_sample;
+            size_t t_index = 0;
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            list_init(pt_list);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = 10 - t_index;
+                list_push_back(pt_list, &t_sample);
+                t_sample._t_id = t_index + 3;
+                t_sample._t_content = t_index;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_min = algo_min(list_begin(pt_list), vector_begin(pt_vec));
+            t_max = algo_max(list_begin(pt_list), vector_begin(pt_vec));
+            printf("minmum between two begin : ");
+            algo_sample_show(iterator_get_pointer(t_min), NULL);
+            printf("\n");
+            printf("maxmum between two begin : ");
+            algo_sample_show(iterator_get_pointer(t_max), NULL);
+            printf("\n");
+
+            t_min = algo_min_if(list_begin(pt_list), vector_begin(pt_vec),
+                algo_sample_content_less);
+            t_max = algo_max_if(list_begin(pt_list), vector_begin(pt_vec),
+                algo_sample_content_less);
+            printf("minmum of content between two begin : ");
+            algo_sample_show(iterator_get_pointer(t_min), NULL);
+            printf("\n");
+            printf("maxmum of content between two begin : ");
+            algo_sample_show(iterator_get_pointer(t_max), NULL);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
+        /*algo_mismatch                       */
+        /*algo_mismatch_if                    */
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            list_t* pt_list = create_list(algo_sample_t);
+            range_t t_range;
+            size_t t_index = 0;
+            algo_sample_t t_sample;
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            list_init(pt_list);
+            for(t_index = 0; t_index < 5; ++t_index)
+            {
+                t_sample._t_id = t_index + 2;
+                t_sample._t_content = t_index * 2;
+                list_push_back(pt_list, &t_sample);
+                t_sample._t_content = t_index * 3;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            t_sample._t_id = 11;
+            t_sample._t_content = 11 * 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 22;
+            t_sample._t_content = 22 * 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 33;
+            t_sample._t_content = 33 * 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 44;
+            t_sample._t_content = 44 * 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 55;
+            t_sample._t_content = 55 * 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 9;
+            t_sample._t_content = 9 * 2;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_range = algo_mismatch(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec));
+            printf("the first mismatch : ");
+            algo_sample_show(iterator_get_pointer(t_range.t_begin), NULL);
+            printf("and ");
+            algo_sample_show(iterator_get_pointer(t_range.t_end), NULL);
+            printf("\n");
+            t_range = algo_mismatch_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), algo_sample_equal);
+            printf("the first mismatch : ");
+            algo_sample_show(iterator_get_pointer(t_range.t_begin), NULL);
+            printf("and ");
+            algo_sample_show(iterator_get_pointer(t_range.t_end), NULL);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
+        /*algo_copy                           */
+        /*algo_copy_n                         */
+        /*algo_copy_backward                  */
+        {
+            vector_t* pt_vec1 = create_vector(algo_sample_t);
+            vector_t* pt_vec2 = create_vector(algo_sample_t);
+            list_t* pt_list1 = create_list(algo_sample_t);
+            list_t* pt_list2 = create_list(algo_sample_t);
+            algo_sample_t t_sample;
+            size_t t_index = 0;
+            if(pt_vec1 == NULL || pt_vec2 == NULL || pt_list1 == NULL || pt_list2 == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec1);
+            vector_init(pt_vec2);
+            list_init(pt_list1);
+            list_init(pt_list2);
+
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = t_index * 2;
+                vector_push_back(pt_vec1, &t_sample);
+                vector_push_back(pt_vec2, &t_sample);
+                list_push_back(pt_list1, &t_sample);
+                list_push_back(pt_list2, &t_sample);
+            }
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), algo_sample_show);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), algo_sample_show);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), algo_sample_show);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), algo_sample_show);
+            printf("\n\n");
+
+            algo_copy(iterator_advance(list_begin(pt_list1), 4),
+                list_end(pt_list1), list_begin(pt_list1));
+            algo_copy(iterator_advance(list_begin(pt_list2), 6),
+                list_end(pt_list2), list_begin(pt_list2));
+            algo_copy(vector_begin(pt_vec1), iterator_advance(vector_begin(pt_vec1), 6),
+                iterator_advance(vector_begin(pt_vec1), 3));
+            algo_copy(vector_begin(pt_vec2), iterator_advance(vector_begin(pt_vec2), 3),
+                iterator_advance(vector_begin(pt_vec2), 6));
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), algo_sample_show);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), algo_sample_show);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), algo_sample_show);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), algo_sample_show);
+            printf("\n\n");
+
+            list_clear(pt_list1);
+            list_clear(pt_list2);
+            vector_clear(pt_vec1);
+            vector_clear(pt_vec2);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = t_index * 2;
+                vector_push_back(pt_vec1, &t_sample);
+                vector_push_back(pt_vec2, &t_sample);
+                list_push_back(pt_list1, &t_sample);
+                list_push_back(pt_list2, &t_sample);
+            }
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), algo_sample_show);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), algo_sample_show);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), algo_sample_show);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), algo_sample_show);
+            printf("\n\n");
+
+            algo_copy_n(iterator_advance(list_begin(pt_list1), 4), 5, list_begin(pt_list1));
+            algo_copy_n(iterator_advance(list_begin(pt_list2), 6), 3, list_begin(pt_list2));
+            algo_copy_n(vector_begin(pt_vec1), 6, iterator_advance(vector_begin(pt_vec1), 3));
+            algo_copy_n(vector_begin(pt_vec2), 3, iterator_advance(vector_begin(pt_vec2), 6));
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), algo_sample_show);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), algo_sample_show);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), algo_sample_show);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), algo_sample_show);
+            printf("\n\n");
+
+            list_clear(pt_list1);
+            list_clear(pt_list2);
+            vector_clear(pt_vec1);
+            vector_clear(pt_vec2);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                t_sample._t_id = t_index;
+                t_sample._t_content = t_index * 2;
+                vector_push_back(pt_vec1, &t_sample);
+                vector_push_back(pt_vec2, &t_sample);
+                list_push_back(pt_list1, &t_sample);
+                list_push_back(pt_list2, &t_sample);
+            }
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), algo_sample_show);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), algo_sample_show);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), algo_sample_show);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), algo_sample_show);
+            printf("\n\n");
+
+            algo_copy_backward(iterator_advance(list_begin(pt_list1), 4), list_end(pt_list1),
+                iterator_advance(list_begin(pt_list1), 7));
+            algo_copy_backward(iterator_advance(list_begin(pt_list2), 6), list_end(pt_list2),
+                iterator_advance(list_begin(pt_list2), 5));
+            algo_copy_backward(vector_begin(pt_vec1),
+                iterator_advance(vector_begin(pt_vec1), 6),
+                iterator_prev(vector_end(pt_vec1)));
+            algo_copy_backward(vector_begin(pt_vec2),
+                iterator_advance(vector_begin(pt_vec2), 3),
+                iterator_prev(vector_end(pt_vec2)));
+            printf("list1  : ");
+            algo_for_each(list_begin(pt_list1), list_end(pt_list1), algo_sample_show);
+            printf("\n");
+            printf("list2  : ");
+            algo_for_each(list_begin(pt_list2), list_end(pt_list2), algo_sample_show);
+            printf("\n");
+            printf("vector1: ");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), algo_sample_show);
+            printf("\n");
+            printf("vector2: ");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), algo_sample_show);
+            printf("\n\n");
+
+            vector_destroy(pt_vec1);
+            vector_destroy(pt_vec2);
+            list_destroy(pt_list1);
+            list_destroy(pt_list2);
+        }
     }
     /* cstl built-in type */
     {
@@ -817,6 +1789,83 @@ void test_algobase(void)
     /*algo_copy                           */
     /*algo_copy_n                         */
     /*algo_copy_backward                  */
+}
+
+void algo_sample_init(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    ((algo_sample_t*)cpv_input)->_t_id = 0;
+    ((algo_sample_t*)cpv_input)->_t_content = 0;
+    *(bool_t*)pv_output = true;
+}
+void algo_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    ((algo_sample_t*)cpv_first)->_t_id = ((algo_sample_t*)cpv_second)->_t_id;
+    ((algo_sample_t*)cpv_first)->_t_content = ((algo_sample_t*)cpv_second)->_t_content;
+    *(bool_t*)pv_output = true;
+}
+void algo_sample_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(((algo_sample_t*)cpv_first)->_t_id < ((algo_sample_t*)cpv_second)->_t_id)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+void algo_sample_destroy(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    ((algo_sample_t*)cpv_input)->_t_id = 0;
+    ((algo_sample_t*)cpv_input)->_t_content = 0;
+    *(bool_t*)pv_output = true;
+}
+void algo_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(((algo_sample_t*)cpv_first)->_t_id > ((algo_sample_t*)cpv_second)->_t_id)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+void algo_sample_content_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(((algo_sample_t*)cpv_first)->_t_content < ((algo_sample_t*)cpv_second)->_t_content)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+void algo_sample_equal(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(((algo_sample_t*)cpv_first)->_t_id == ((algo_sample_t*)cpv_second)->_t_id &&
+       ((algo_sample_t*)cpv_first)->_t_content == ((algo_sample_t*)cpv_second)->_t_content)
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+void algo_sample_show(const void* cpv_input, void* pv_output)
+{
+    algo_sample_t* pt_sample = (algo_sample_t*)cpv_input;
+    pv_output = NULL;
+    printf("<%u, %u>, ", pt_sample->_t_id, pt_sample->_t_content);
 }
 
 /** local function implementation section **/

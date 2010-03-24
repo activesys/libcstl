@@ -487,9 +487,9 @@ _OUTPUT_ITERATOR_TYPE	include/cstl_types.h	108;"	d
 _PAIR_TYPE	include/cstl_types.h	91;"	d
 _PLUS_FUN	include/cstl_function_private.h	/^    _PLUS_FUN,$/;"	e	enum:_tagfunbinarytype
 _PRIORITY_QUEUE_TYPE	include/cstl_types.h	81;"	d
-_QUEUE_ITERATOR_BEGIN	test/test_queue.c	33;"	d	file:
-_QUEUE_ITERATOR_BEGIN	test/test_queue.c	38;"	d	file:
-_QUEUE_ITERATOR_END	test/test_queue.c	44;"	d	file:
+_QUEUE_ITERATOR_BEGIN	test/test_queue.c	37;"	d	file:
+_QUEUE_ITERATOR_BEGIN	test/test_queue.c	42;"	d	file:
+_QUEUE_ITERATOR_END	test/test_queue.c	48;"	d	file:
 _QUEUE_TYPE	include/cstl_types.h	80;"	d
 _RANDOM_ACCESS_ITERATOR	include/cstl_iterator.h	/^    _RANDOM_ACCESS_ITERATOR$/;"	e	enum:_tagiteratortype
 _RANDOM_ACCESS_ITERATOR_TYPE	include/cstl_types.h	111;"	d
@@ -690,6 +690,8 @@ _abc_init	test/test_vector.c	/^static void _abc_init(const void* cpv_input, void
 _abc_init	test/test_vector.c	/^static void _abc_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _abc_less	test/test_vector.c	/^static void _abc_less(const void* cpv_first, const void* cpv_second, void * pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void * pv_output)
 _abc_less	test/test_vector.c	/^static void _abc_less(const void* cpv_first, const void* cpv_second, void * pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void * pv_output)
+_absless	test/test_algobase.c	/^static void _absless(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_absless	test/test_algobase.c	/^static void _absless(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _absolute_value	test/test_list.c	/^static void _absolute_value(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _absolute_value	test/test_list.c	/^static void _absolute_value(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _adjust_heap	src/cstl_heap.c	/^static void _adjust_heap($/;"	f	file:	signature:( random_access_iterator_t t_first, random_access_iterator_t t_last, random_access_iterator_t t_parent, binary_function_t t_binary_op)
@@ -1144,6 +1146,8 @@ _destroy_avl_tree	src/cstl_avl_tree.c	/^static avlnode_t* _destroy_avl_tree(avl_
 _destroy_avl_tree	src/cstl_avl_tree.c	/^static avlnode_t* _destroy_avl_tree(avl_tree_t* pt_avl_tree, avlnode_t* pt_root);$/;"	p	file:	signature:(avl_tree_t* pt_avl_tree, avlnode_t* pt_root)
 _destroy_rb_tree	src/cstl_rb_tree.c	/^static rbnode_t* _destroy_rb_tree(rb_tree_t* pt_rb_tree, rbnode_t* pt_root)$/;"	f	file:	signature:(rb_tree_t* pt_rb_tree, rbnode_t* pt_root)
 _destroy_rb_tree	src/cstl_rb_tree.c	/^static rbnode_t* _destroy_rb_tree(rb_tree_t* pt_rb_tree, rbnode_t* pt_root);$/;"	p	file:	signature:(rb_tree_t* pt_rb_tree, rbnode_t* pt_root)
+_equal_ex	test/test_algobase.c	/^static void _equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_equal_ex	test/test_algobase.c	/^static void _equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _expand_at_begin	src/cstl_deque.c	/^static deque_iterator_t _expand_at_begin($/;"	f	file:	signature:( deque_t* pt_deque, size_t t_expandsize, deque_iterator_t* pt_pos)
 _expand_at_begin	src/cstl_deque.c	/^static deque_iterator_t _expand_at_begin($/;"	p	file:	signature:( deque_t* pt_deque, size_t t_expandsize, deque_iterator_t* pt_pos)
 _expand_at_end	src/cstl_deque.c	/^static deque_iterator_t _expand_at_end($/;"	f	file:	signature:( deque_t* pt_deque, size_t t_expandsize, deque_iterator_t* pt_pos)
@@ -1878,6 +1882,8 @@ _print_cstl	test/test_heap.c	/^static void _print_cstl(const void* cpv_input, vo
 _print_cstl	test/test_heap.c	/^static void _print_cstl(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _print_cstr	test/test_heap.c	/^static void _print_cstr(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _print_cstr	test/test_heap.c	/^static void _print_cstr(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_print_cstr	test/test_queue.c	/^static void _print_cstr(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_print_cstr	test/test_queue.c	/^static void _print_cstr(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_deque)$/;"	f	file:	signature:(const deque_t* pt_deque)
 _print_deq_str	test/test_deque.c	/^static void _print_deq_str(const deque_t* pt_deque);$/;"	p	file:	signature:(const deque_t* pt_deque)
 _print_hash_map_c	test/test_hashtable.h	35;"	d
@@ -1910,10 +1916,16 @@ _print_hash_set_cstr	test/test_hashtable.c	/^void _print_hash_set_cstr(const has
 _print_hash_set_cstr	test/test_hashtable.h	/^extern void _print_hash_set_cstr(const hash_set_t* cpt_hset);$/;"	p	signature:(const hash_set_t* cpt_hset)
 _print_hash_set_sample	test/test_hashtable.c	/^void _print_hash_set_sample(const hash_set_t* cpt_hset)$/;"	f	signature:(const hash_set_t* cpt_hset)
 _print_hash_set_sample	test/test_hashtable.h	/^extern void _print_hash_set_sample(const hash_set_t* cpt_hset);$/;"	p	signature:(const hash_set_t* cpt_hset)
+_print_int	test/test_algobase.c	/^static void _print_int(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_print_int	test/test_algobase.c	/^static void _print_int(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _print_int	test/test_heap.c	/^static void _print_int(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _print_int	test/test_heap.c	/^static void _print_int(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _print_int	test/test_numeric.c	/^static void _print_int(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _print_int	test/test_numeric.c	/^static void _print_int(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_print_int	test/test_queue.c	/^static void _print_int(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_print_int	test/test_queue.c	/^static void _print_int(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_print_list	test/test_queue.c	/^static void _print_list(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_print_list	test/test_queue.c	/^static void _print_list(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _print_list_str	test/test_list.c	/^static void _print_list_str(const list_t* cpt_list)$/;"	f	file:	signature:(const list_t* cpt_list)
 _print_list_str	test/test_list.c	/^static void _print_list_str(const list_t* cpt_list);$/;"	p	file:	signature:(const list_t* cpt_list)
 _print_map_c	test/test_map.c	30;"	d	file:
@@ -1937,6 +1949,14 @@ _print_multiset_multiset	test/test_set.c	/^static void _print_multiset_multiset(
 _print_multiset_multiset	test/test_set.c	/^static void _print_multiset_multiset(const multiset_t* cpt_mset);$/;"	p	file:	signature:(const multiset_t* cpt_mset)
 _print_multiset_user	test/test_set.c	/^static void _print_multiset_user(const multiset_t* cpt_mset)$/;"	f	file:	signature:(const multiset_t* cpt_mset)
 _print_multiset_user	test/test_set.c	/^static void _print_multiset_user(const multiset_t* cpt_mset);$/;"	p	file:	signature:(const multiset_t* cpt_mset)
+_print_pq_cstl	test/test_queue.c	/^static void _print_pq_cstl(const priority_queue_t* cpt_pq)$/;"	f	file:	signature:(const priority_queue_t* cpt_pq)
+_print_pq_cstl	test/test_queue.c	/^static void _print_pq_cstl(const priority_queue_t* cpt_pq);$/;"	p	file:	signature:(const priority_queue_t* cpt_pq)
+_print_pq_cstr	test/test_queue.c	/^static void _print_pq_cstr(const priority_queue_t* cpt_pq)$/;"	f	file:	signature:(const priority_queue_t* cpt_pq)
+_print_pq_cstr	test/test_queue.c	/^static void _print_pq_cstr(const priority_queue_t* cpt_pq);$/;"	p	file:	signature:(const priority_queue_t* cpt_pq)
+_print_pq_int	test/test_queue.c	/^static void _print_pq_int(const priority_queue_t* cpt_pq)$/;"	f	file:	signature:(const priority_queue_t* cpt_pq)
+_print_pq_int	test/test_queue.c	/^static void _print_pq_int(const priority_queue_t* cpt_pq);$/;"	p	file:	signature:(const priority_queue_t* cpt_pq)
+_print_pq_user	test/test_queue.c	/^static void _print_pq_user(const priority_queue_t* cpt_pq)$/;"	f	file:	signature:(const priority_queue_t* cpt_pq)
+_print_pq_user	test/test_queue.c	/^static void _print_pq_user(const priority_queue_t* cpt_pq);$/;"	p	file:	signature:(const priority_queue_t* cpt_pq)
 _print_queue_str	test/test_queue.c	/^static void _print_queue_str(const queue_t* cpt_queue)$/;"	f	file:	signature:(const queue_t* cpt_queue)
 _print_queue_str	test/test_queue.c	/^static void _print_queue_str(const queue_t* cpt_queue);$/;"	p	file:	signature:(const queue_t* cpt_queue)
 _print_set_c	test/test_set.c	34;"	d	file:
@@ -1952,6 +1972,8 @@ _print_stack_str	test/test_stack.c	/^static void _print_stack_str(const stack_t*
 _print_stack_str	test/test_stack.c	/^static void _print_stack_str(const stack_t* cpt_stack);$/;"	p	file:	signature:(const stack_t* cpt_stack)
 _print_string	test/test_heap.c	/^static void _print_string(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _print_string	test/test_heap.c	/^static void _print_string(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_print_user	test/test_queue.c	/^static void _print_user(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_print_user	test/test_queue.c	/^static void _print_user(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _print_vec_str	test/test_vector.c	/^static void _print_vec_str(const vector_t* pt_vec)$/;"	f	file:	signature:(const vector_t* pt_vec)
 _print_vec_str	test/test_vector.c	/^static void _print_vec_str(const vector_t* pt_vec);$/;"	p	file:	signature:(const vector_t* pt_vec)
 _printcoordinates	test/test_slist.c	/^static void _printcoordinates(const slist_t* cpt_slist)$/;"	f	file:	signature:(const slist_t* cpt_slist)
@@ -1969,7 +1991,7 @@ _printpointer	test/test_stack.c	/^static void _printpointer(const stack_t* cpt_s
 _printpointer	test/test_stack.c	/^static void _printpointer(const stack_t* cpt_stack);$/;"	p	file:	signature:(const stack_t* cpt_stack)
 _printqueue	test/test_queue.c	/^static void _printqueue(const queue_t* cpt_queue)$/;"	f	file:	signature:(const queue_t* cpt_queue)
 _printqueue	test/test_queue.c	/^static void _printqueue(const queue_t* cpt_queue);$/;"	p	file:	signature:(const queue_t* cpt_queue)
-_printqueue_c	test/test_queue.c	46;"	d	file:
+_printqueue_c	test/test_queue.c	50;"	d	file:
 _printslist	test/test_slist.c	/^static void _printslist(const slist_t* cpt_slist)$/;"	f	file:	signature:(const slist_t* cpt_slist)
 _printslist	test/test_slist.c	/^static void _printslist(const slist_t* cpt_slist);$/;"	p	file:	signature:(const slist_t* cpt_slist)
 _printslist_c	test/test_slist.c	33;"	d	file:
@@ -2318,6 +2340,7 @@ _t_bucket	include/cstl_hashtable_private.h	/^    vector_t    _t_bucket;$/;"	m	st
 _t_color	include/cstl_rb_tree_private.h	/^    color_t            _t_color;$/;"	m	struct:_tagrbnode	access:public
 _t_complex	test/test_list.c	/^        } _t_complex;$/;"	m	union:_taglistabc::__anon6	typeref:struct:_taglistabc::__anon6::_tagcomplex	file:	access:public
 _t_containertype	include/cstl_iterator.h	/^    containertype_t _t_containertype;$/;"	m	struct:_tagiterator	access:public
+_t_content	test/test_algobase.h	/^    size_t _t_content;$/;"	m	struct:_tagalgosample	access:public
 _t_dequepos	include/cstl_iterator.h	/^        }_t_dequepos;$/;"	m	union:_tagiterator::__anon2	typeref:struct:_tagiterator::__anon2::__anon3	access:public
 _t_descartes	test/test_list.c	/^        } _t_descartes;$/;"	m	union:_taglistabc::__anon6	typeref:struct:_taglistabc::__anon6::_tagdescartes	file:	access:public
 _t_finish	include/cstl_deque_private.h	/^    deque_iterator_t _t_finish;$/;"	m	struct:_tagdeque	access:public
@@ -2330,6 +2353,7 @@ _t_hashtable	include/cstl_hash_multimap_private.h	/^    hashtable_t       _t_has
 _t_hashtable	include/cstl_hash_multiset_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashmultiset	access:public
 _t_hashtable	include/cstl_hash_set_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashset	access:public
 _t_head	include/cstl_slist_private.h	/^    slistnode_t _t_head;$/;"	m	struct:_tagslist	access:public
+_t_id	test/test_algobase.h	/^    size_t _t_id;$/;"	m	struct:_tagalgosample	access:public
 _t_index	src/cstl_types.c	/^    size_t       _t_index;$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _t_isinit	include/cstl_types.h	/^    bool_t               _t_isinit; \/* is initializate for built in types *\/$/;"	m	struct:_tagtyperegister	access:public
 _t_iterator	include/cstl_rb_tree_private.h	/^        rb_tree_iterator_t _t_iterator;  \/* for equal_range *\/$/;"	m	union:_tagrbtreeresultpair::__anon1	access:public
@@ -2396,6 +2420,9 @@ _tagabc::_n_first	test/test_vector.c	/^    int    _n_first;$/;"	m	struct:_tagabc
 _tagabc::_pc_third	test/test_vector.c	/^    char*  _pc_third;$/;"	m	struct:_tagabc	file:	access:public
 _tagabc::a	test/test_type.c	/^    int a;$/;"	m	struct:_tagabc	file:	access:public
 _tagabcflag	test/test_list.c	/^typedef enum _tagabcflag$/;"	g	file:
+_tagalgosample	test/test_algobase.h	/^typedef struct _tagalgosample$/;"	s
+_tagalgosample::_t_content	test/test_algobase.h	/^    size_t _t_content;$/;"	m	struct:_tagalgosample	access:public
+_tagalgosample::_t_id	test/test_algobase.h	/^    size_t _t_id;$/;"	m	struct:_tagalgosample	access:public
 _tagalloc	include/cstl_alloc.h	/^typedef struct _tagalloc$/;"	s
 _tagalloc::_apt_memlink	include/cstl_alloc.h	/^    _memlink_t* _apt_memlink[_MEM_LIST_COUNT];   \/* memory list *\/$/;"	m	struct:_tagalloc	access:public
 _tagalloc::_n_mempoolindex	include/cstl_alloc.h	/^    size_t      _n_mempoolindex;                 \/* memory pool index *\/$/;"	m	struct:_tagalloc	access:public
@@ -3015,6 +3042,8 @@ _weather_copy	test/test_queue.c	/^static void _weather_copy(const void* cpv_firs
 _weather_copy	test/test_queue.c	/^static void _weather_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _weather_destroy	test/test_queue.c	/^static void _weather_destroy(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _weather_destroy	test/test_queue.c	/^static void _weather_destroy(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+_weather_great	test/test_queue.c	/^static void _weather_great(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_weather_great	test/test_queue.c	/^static void _weather_great(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _weather_init	test/test_queue.c	/^static void _weather_init(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _weather_init	test/test_queue.c	/^static void _weather_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _weather_less	test/test_queue.c	/^static void _weather_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3201,6 +3230,21 @@ algo_rotate	include/cstl_algo.h	/^extern forward_iterator_t algo_rotate($/;"	p	s
 algo_rotate	src/cstl_algo.c	/^forward_iterator_t algo_rotate($/;"	f	signature:( forward_iterator_t t_first, forward_iterator_t t_middle, forward_iterator_t t_last)
 algo_rotate_copy	include/cstl_algo.h	/^extern output_iterator_t algo_rotate_copy($/;"	p	signature:( forward_iterator_t t_first, forward_iterator_t t_middle, forward_iterator_t t_last, output_iterator_t t_result)
 algo_rotate_copy	src/cstl_algo.c	/^output_iterator_t algo_rotate_copy($/;"	f	signature:( forward_iterator_t t_first, forward_iterator_t t_middle, forward_iterator_t t_last, output_iterator_t t_result)
+algo_sample_copy	test/test_algobase.c	/^void algo_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+algo_sample_copy	test/test_algobase.h	/^extern void algo_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+algo_sample_destroy	test/test_algobase.c	/^void algo_sample_destroy(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+algo_sample_destroy	test/test_algobase.h	/^extern void algo_sample_destroy(const void* cpv_input, void* pv_output);$/;"	p	signature:(const void* cpv_input, void* pv_output)
+algo_sample_equal	test/test_algobase.c	/^void algo_sample_equal(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+algo_sample_equal	test/test_algobase.h	/^extern void algo_sample_equal(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+algo_sample_great	test/test_algobase.c	/^void algo_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+algo_sample_great	test/test_algobase.h	/^extern void algo_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+algo_sample_init	test/test_algobase.c	/^void algo_sample_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+algo_sample_init	test/test_algobase.h	/^extern void algo_sample_init(const void* cpv_input, void* pv_output);$/;"	p	signature:(const void* cpv_input, void* pv_output)
+algo_sample_less	test/test_algobase.c	/^void algo_sample_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+algo_sample_less	test/test_algobase.h	/^extern void algo_sample_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+algo_sample_show	test/test_algobase.c	/^void algo_sample_show(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
+algo_sample_show	test/test_algobase.h	/^extern void algo_sample_show(const void* cpv_input, void* pv_output);$/;"	p	signature:(const void* cpv_input, void* pv_output)
+algo_sample_t	test/test_algobase.h	/^}algo_sample_t;$/;"	t	typeref:struct:_tagalgosample
 algo_search	include/cstl_algo.h	/^extern forward_iterator_t algo_search($/;"	p	signature:( forward_iterator_t t_first1, forward_iterator_t t_last1, forward_iterator_t t_first2, forward_iterator_t t_last2)
 algo_search	src/cstl_algo.c	/^forward_iterator_t algo_search($/;"	f	signature:( forward_iterator_t t_first1, forward_iterator_t t_last1, forward_iterator_t t_first2, forward_iterator_t t_last2)
 algo_search_end	include/cstl_algo.h	/^extern forward_iterator_t algo_search_end($/;"	p	signature:( forward_iterator_t t_first1, forward_iterator_t t_last1, forward_iterator_t t_first2, forward_iterator_t t_last2)

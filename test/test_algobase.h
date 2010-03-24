@@ -32,11 +32,24 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
+typedef struct _tagalgosample
+{
+    size_t _t_id;
+    size_t _t_content;
+}algo_sample_t;
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
 extern void test_algobase(void);
+extern void algo_sample_init(const void* cpv_input, void* pv_output);
+extern void algo_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void algo_sample_less(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void algo_sample_destroy(const void* cpv_input, void* pv_output);
+extern void algo_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void algo_sample_equal(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void algo_sample_show(const void* cpv_input, void* pv_output);
+extern void algo_sample_content_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 #ifdef __cplusplus
 }
