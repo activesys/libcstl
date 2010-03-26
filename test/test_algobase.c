@@ -36,6 +36,9 @@
 static void _print_int(const void* cpv_input, void* pv_output);
 static void _equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _absless(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _print_vector(const void* cpv_input, void* pv_output);
+static void _print_list(const void* cpv_input, void* pv_output);
+static void _list_equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -1766,6 +1769,321 @@ void test_algobase(void)
     }
     /* cstl built-in type */
     {
+        /*_algo_fill                          */
+        {
+            list_t* pt_list = create_list(vector_t<int>);
+            vector_t* pt_vec = create_vector(int);
+            if(pt_list == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            list_init_n(pt_list, 10);
+            vector_init(pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_push_back(pt_vec, 100);
+            vector_push_back(pt_vec, 200);
+            vector_push_back(pt_vec, 300);
+            algo_fill(list_begin(pt_list), list_begin(pt_list), pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, -890);
+            algo_fill(list_begin(pt_list), iterator_advance(list_begin(pt_list), 3),
+                pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, 123);
+            vector_push_back(pt_vec, 456);
+            vector_push_back(pt_vec, 789);
+            algo_fill(iterator_next(list_begin(pt_list)),
+                iterator_advance(list_begin(pt_list), 5), pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, 1);
+            algo_fill(iterator_advance(list_begin(pt_list), 6), list_end(pt_list), pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_push_back(pt_vec, 0);
+            vector_push_back(pt_vec, 0);
+            algo_fill(list_end(pt_list), list_end(pt_list), pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_push_back(pt_vec, 1000);
+            vector_push_back(pt_vec, 2000);
+            algo_fill(list_begin(pt_list), list_end(pt_list), pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            list_destroy(pt_list);
+            vector_destroy(pt_vec);
+        }
+        /*_algo_fill_n                        */
+        {
+            list_t* pt_list = create_list(vector_t<int>);
+            vector_t* pt_vec = create_vector(int);
+            if(pt_list == NULL || pt_vec == NULL)
+            {
+                return;
+            }
+            list_init_n(pt_list, 10);
+            vector_init(pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_push_back(pt_vec, 100);
+            vector_push_back(pt_vec, 200);
+            vector_push_back(pt_vec, 300);
+            algo_fill_n(list_begin(pt_list), 0, pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, -890);
+            algo_fill_n(list_begin(pt_list), 3, pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, 123);
+            vector_push_back(pt_vec, 456);
+            vector_push_back(pt_vec, 789);
+            algo_fill_n(iterator_next(list_begin(pt_list)), 5, pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, 1);
+            algo_fill_n(iterator_advance(list_begin(pt_list), 6), 3, pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_push_back(pt_vec, 0);
+            vector_push_back(pt_vec, 0);
+            algo_fill_n(list_end(pt_list), 0, pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            vector_push_back(pt_vec, 1000);
+            vector_push_back(pt_vec, 2000);
+            algo_fill_n(list_begin(pt_list), list_size(pt_list), pt_vec);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            list_destroy(pt_list);
+            vector_destroy(pt_vec);
+        }
+        /*algo_equal                          */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            vector_t* pt_vec = create_vector(list_t<int>);
+            list_t* pt_item = create_list(int);
+            size_t t_index = 0;
+            if(pt_list == NULL || pt_vec == NULL || pt_item == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+            list_init(pt_item);
+
+            printf("equal : %d\n", algo_equal(
+                list_begin(pt_list), list_end(pt_list), vector_begin(pt_vec)));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_list);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_list);
+            printf("\n");
+
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                list_clear(pt_item);
+                list_push_back(pt_item, t_index);
+                list_push_back(pt_list, pt_item);
+                list_clear(pt_item);
+                list_push_back(pt_item, t_index + 5);
+                vector_push_back(pt_vec, pt_item);
+            }
+            printf("equal : %d\n", algo_equal(
+                list_begin(pt_list), list_end(pt_list), vector_begin(pt_vec)));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_list);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_list);
+            printf("\n");
+
+            list_clear(pt_list);
+            vector_clear(pt_vec);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                list_clear(pt_item);
+                list_push_back(pt_item, t_index);
+                list_push_back(pt_list, pt_item);
+                vector_push_back(pt_vec, pt_item);
+            }
+            printf("equal : %d\n", algo_equal(
+                list_begin(pt_list), list_end(pt_list), vector_begin(pt_vec)));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_list);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_list);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+            list_destroy(pt_item);
+        }
+        /*algo_equal_if                       */
+        {
+            list_t* pt_list = create_list(list_t<int>);
+            vector_t* pt_vec = create_vector(list_t<int>);
+            list_t* pt_item = create_list(int);
+            size_t t_index = 0;
+            if(pt_list == NULL || pt_vec == NULL || pt_item == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+            list_init(pt_item);
+
+            printf("equal : %d\n", algo_equal_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), _list_equal_ex));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_list);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_list);
+            printf("\n");
+
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                list_clear(pt_item);
+                list_push_back(pt_item, t_index);
+                list_push_back(pt_list, pt_item);
+                list_clear(pt_item);
+                list_push_back(pt_item, t_index + 5);
+                vector_push_back(pt_vec, pt_item);
+            }
+            printf("equal : %d\n", algo_equal_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), _list_equal_ex));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_list);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_list);
+            printf("\n");
+
+            list_clear(pt_list);
+            vector_clear(pt_vec);
+            for(t_index = 0; t_index < 10; ++t_index)
+            {
+                list_clear(pt_item);
+                list_push_back(pt_item, t_index);
+                list_push_back(pt_list, pt_item);
+                vector_push_back(pt_vec, pt_item);
+            }
+            printf("equal : %d\n", algo_equal_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), _list_equal_ex));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_list);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_list);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+            list_destroy(pt_item);
+        }
+        /*algo_swap                           */
+        /*algo_iter_swap                      */
+        {
+            list_t* pt_list = create_list(vector_t<int>);
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            vector_t* pt_item = create_vector(int);
+            size_t t_index = 0;
+            if(pt_list == NULL || pt_vec == NULL || pt_item == NULL)
+            {
+                return;
+            }
+            list_init(pt_list);
+            vector_init(pt_vec);
+            vector_init(pt_item);
+
+            for(t_index = 0; t_index < 7; ++t_index)
+            {
+                vector_push_back(pt_item, t_index + 1);
+                list_push_back(pt_list, pt_item);
+            }
+            vector_clear(pt_item);
+            for(t_index = 0; t_index < 7; ++t_index)
+            {
+                vector_push_back(pt_item, t_index * 2);
+                vector_push_back(pt_vec, pt_item);
+            }
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+
+            algo_swap(list_begin(pt_list), list_begin(pt_list));
+            algo_iter_swap(vector_begin(pt_vec), vector_begin(pt_vec));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+
+            algo_swap(list_begin(pt_list), iterator_advance(list_begin(pt_list), 5));
+            algo_iter_swap(vector_begin(pt_vec), iterator_next_n(vector_begin(pt_vec), 5));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+
+            algo_swap(list_begin(pt_list), iterator_next(vector_begin(pt_vec)));
+            algo_iter_swap(vector_begin(pt_vec), iterator_next(list_begin(pt_list)));
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+
+            list_destroy(pt_list);
+            vector_destroy(pt_vec);
+            vector_destroy(pt_item);
+        }
+        /*algo_lexicographical_compare        */
+        /*algo_lexicographical_compare_if     */
+        /*algo_lexicographical_compare_3way   */
+        /*algo_lexicographical_compare_3way_if*/
+        /*algo_max                            */
+        /*algo_max_if                         */
+        /*algo_min                            */
+        /*algo_min_if                         */
+        /*algo_mismatch                       */
+        /*algo_mismatch_if                    */
+        /*algo_copy                           */
+        /*algo_copy_n                         */
+        /*algo_copy_backward                  */
     }
     /* c string type */
     {
@@ -1895,10 +2213,40 @@ static void _equal_ex(const void* cpv_first, const void* cpv_second, void* pv_ou
     }
 }
 
+static void _list_equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(list_size((list_t*)cpv_first) == list_size((list_t*)cpv_second))
+    {
+        *(bool_t*)pv_output = true;
+    }
+    else
+    {
+        *(bool_t*)pv_output = false;
+    }
+}
+
 static void _print_int(const void* cpv_input, void* pv_output)
 {
     pv_output = NULL;
     printf("%d, ", *(int*)cpv_input);
+}
+
+static void _print_vector(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    printf("[");
+    algo_for_each(vector_begin((vector_t*)cpv_input), vector_end((vector_t*)cpv_input),
+        _print_int);
+    printf("], ");
+}
+
+static void _print_list(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    printf("[");
+    algo_for_each(list_begin((list_t*)cpv_input), list_end((list_t*)cpv_input), _print_int);
+    printf("], ");
 }
 
 /** eof **/
