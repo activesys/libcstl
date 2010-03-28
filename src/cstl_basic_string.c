@@ -578,21 +578,21 @@ bool_t basic_string_less_equal(
         &cpt_basic_stringfirst->_t_vector, &cpt_basic_stringsecond->_t_vector);
 }
 
-bool_t basic_string_great(
+bool_t basic_string_greater(
     const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 {
     assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
 
-    return vector_great(
+    return vector_greater(
         &cpt_basic_stringfirst->_t_vector, &cpt_basic_stringsecond->_t_vector);
 }
 
-bool_t basic_string_great_equal(
+bool_t basic_string_greater_equal(
     const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 {
     assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
 
-    return vector_great_equal(
+    return vector_greater_equal(
         &cpt_basic_stringfirst->_t_vector, &cpt_basic_stringsecond->_t_vector);
 }
 
@@ -620,13 +620,13 @@ bool_t basic_string_less_equal_cstr(
     return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) <= 0 ? true : false;
 }
 
-bool_t basic_string_great_cstr(
+bool_t basic_string_greater_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 {
     return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) > 0 ? true : false;
 }
 
-bool_t basic_string_great_equal_cstr(
+bool_t basic_string_greater_equal_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 {
     return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) >= 0 ? true : false;
@@ -939,7 +939,7 @@ size_t basic_string_find_subcstr(
     char*  pc_string = NULL;
     char*  pc_cstr = NULL;
     bool_t t_less = false;
-    bool_t t_great = false;
+    bool_t t_greater = false;
 
     assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
 
@@ -965,24 +965,24 @@ size_t basic_string_find_subcstr(
     t_startpos = t_pos;
     while(t_startpos != t_stringlen)
     {
-        t_less = t_great = t_typesize;
+        t_less = t_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
             pc_string + t_startpos * t_typesize, pc_cstr, &t_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pc_cstr, pc_string + t_startpos * t_typesize, &t_great);
-        if(!t_less && !t_great)
+            pc_cstr, pc_string + t_startpos * t_typesize, &t_greater);
+        if(!t_less && !t_greater)
         {
             t_endpos = 0;
             while(t_endpos + t_startpos != t_stringlen && t_endpos != t_len)
             {
-                t_less = t_great = t_typesize;
+                t_less = t_greater = t_typesize;
                 _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                     pc_string + (t_endpos + t_startpos) * t_typesize,
                     pc_cstr + t_endpos * t_typesize, &t_less);
                 _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                     pc_cstr + t_endpos * t_typesize,
-                    pc_string + (t_endpos + t_startpos) * t_typesize, &t_great);
-                if(!t_less && !t_great)
+                    pc_string + (t_endpos + t_startpos) * t_typesize, &t_greater);
+                if(!t_less && !t_greater)
                 {
                     t_endpos++;
                 }
@@ -1025,7 +1025,7 @@ size_t _basic_string_find_elem_varg(
     void*   pv_varg = NULL;
     char*   pc_string = NULL;
     bool_t  t_less = false;
-    bool_t  t_great = false;
+    bool_t  t_greater = false;
 
     assert(cpt_basic_string != NULL);
 
@@ -1048,12 +1048,12 @@ size_t _basic_string_find_elem_varg(
     t_findpos = t_pos;
     while(t_findpos != t_stringlen)
     {
-        t_less = t_great = t_typesize;
+        t_less = t_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
             pc_string + t_findpos * t_typesize, pv_varg, &t_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pv_varg, pc_string + t_findpos * t_typesize, &t_great);
-        if(!t_less && !t_great)
+            pv_varg, pc_string + t_findpos * t_typesize, &t_greater);
+        if(!t_less && !t_greater)
         {
             break;
         }
@@ -1108,7 +1108,7 @@ size_t basic_string_rfind_subcstr(
     char*  pc_string = NULL;
     char*  pc_cstr = NULL;
     bool_t t_less = false;
-    bool_t t_great = false;
+    bool_t t_greater = false;
 
     assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
 
@@ -1141,24 +1141,24 @@ size_t basic_string_rfind_subcstr(
     t_startpos = t_pos == t_stringlen ? t_pos - 1 : t_pos;
     for(;;)
     {
-        t_less = t_great = t_typesize;
+        t_less = t_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
             pc_string + t_startpos * t_typesize, pc_cstr, &t_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pc_cstr, pc_string + t_startpos * t_typesize, &t_great);
-        if(!t_less && !t_great)
+            pc_cstr, pc_string + t_startpos * t_typesize, &t_greater);
+        if(!t_less && !t_greater)
         {
             t_endpos = 0;
             while(t_endpos + t_startpos != t_stringlen && t_endpos != t_len)
             {
-                t_less = t_great = t_typesize;
+                t_less = t_greater = t_typesize;
                 _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                     pc_string + (t_endpos + t_startpos) * t_typesize,
                     pc_cstr + t_endpos * t_typesize, &t_less);
                 _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                     pc_cstr + t_endpos * t_typesize,
-                    pc_string + (t_endpos + t_startpos) * t_typesize, &t_great);
-                if(!t_less && !t_great)
+                    pc_string + (t_endpos + t_startpos) * t_typesize, &t_greater);
+                if(!t_less && !t_greater)
                 {
                     t_endpos++;
                 }
@@ -1204,7 +1204,7 @@ size_t _basic_string_rfind_elem_varg(
     char*   pc_string = NULL;
     size_t  t_findpos = 0;
     bool_t  t_less = false;
-    bool_t  t_great = false;
+    bool_t  t_greater = false;
 
     assert(cpt_basic_string != NULL);
 
@@ -1231,12 +1231,12 @@ size_t _basic_string_rfind_elem_varg(
     t_findpos = t_pos == t_stringlen ? t_pos - 1 : t_pos;
     for(;;)
     {
-        t_less = t_great = t_typesize;
+        t_less = t_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
             pc_string + t_findpos * t_typesize, pv_varg, &t_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pv_varg, pc_string + t_findpos * t_typesize, &t_great);
-        if(!t_less && !t_great)
+            pv_varg, pc_string + t_findpos * t_typesize, &t_greater);
+        if(!t_less && !t_greater)
         {
             break;
         }
@@ -1294,7 +1294,7 @@ size_t basic_string_find_first_of_subcstr(
     char*  pc_string = NULL;
     char*  pc_cstr = NULL;
     bool_t t_less = false;
-    bool_t t_great = false;
+    bool_t t_greater = false;
 
     assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
 
@@ -1328,14 +1328,14 @@ size_t basic_string_find_first_of_subcstr(
         t_endpos = 0;
         while(t_endpos != t_len)
         {
-            t_less = t_great = t_typesize;
+            t_less = t_greater = t_typesize;
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                 pc_string + t_startpos * t_typesize,
                 pc_cstr + t_endpos * t_typesize, &t_less);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                 pc_cstr + t_endpos * t_typesize,
-                pc_string + t_startpos * t_typesize, &t_great);
-            if(!t_less && !t_great)
+                pc_string + t_startpos * t_typesize, &t_greater);
+            if(!t_less && !t_greater)
             {
                 return t_startpos;
             }
@@ -1385,7 +1385,7 @@ size_t basic_string_find_first_not_of_subcstr(
     char*  pc_string = NULL;
     char*  pc_cstr = NULL;
     bool_t t_less = false;
-    bool_t t_great = false;
+    bool_t t_greater = false;
 
     assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
 
@@ -1417,14 +1417,14 @@ size_t basic_string_find_first_not_of_subcstr(
         t_endpos = 0;
         while(t_endpos != t_len)
         {
-            t_less = t_great = t_typesize;
+            t_less = t_greater = t_typesize;
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                 pc_string + t_startpos * t_typesize,
                 pc_cstr + t_endpos * t_typesize, &t_less);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                 pc_cstr + t_endpos * t_typesize,
-                pc_string + t_startpos * t_typesize, &t_great);
-            if(!t_less && !t_great)
+                pc_string + t_startpos * t_typesize, &t_greater);
+            if(!t_less && !t_greater)
             {
                 break;
             }
@@ -1464,7 +1464,7 @@ size_t _basic_string_find_first_not_of_elem_varg(
     void*   pv_varg = NULL;
     char*   pc_string = NULL;
     bool_t  t_less = false;
-    bool_t  t_great = false;
+    bool_t  t_greater = false;
 
     assert(cpt_basic_string != NULL);
 
@@ -1487,12 +1487,12 @@ size_t _basic_string_find_first_not_of_elem_varg(
     t_findpos = t_pos;
     while(t_findpos != t_stringlen)
     {
-        t_less = t_great = t_typesize;
+        t_less = t_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
             pc_string + t_findpos * t_typesize, pv_varg, &t_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pv_varg, pc_string + t_findpos * t_typesize, &t_great);
-        if(t_less || t_great)
+            pv_varg, pc_string + t_findpos * t_typesize, &t_greater);
+        if(t_less || t_greater)
         {
             break;
         }
@@ -1547,7 +1547,7 @@ size_t basic_string_find_last_of_subcstr(
     char*  pc_string = NULL;
     char*  pc_cstr = NULL;
     bool_t t_less = false;
-    bool_t t_great = false;
+    bool_t t_greater = false;
 
     assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
 
@@ -1585,14 +1585,14 @@ size_t basic_string_find_last_of_subcstr(
         t_endpos = 0;
         while(t_endpos != t_len)
         {
-            t_less = t_great = t_typesize;
+            t_less = t_greater = t_typesize;
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                 pc_string + t_startpos * t_typesize,
                 pc_cstr + t_endpos * t_typesize, &t_less);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                 pc_cstr + t_endpos * t_typesize,
-                pc_string + t_startpos * t_typesize, &t_great);
-            if(!t_less && !t_great)
+                pc_string + t_startpos * t_typesize, &t_greater);
+            if(!t_less && !t_greater)
             {
                 return t_startpos;
             }
@@ -1649,7 +1649,7 @@ size_t basic_string_find_last_not_of_subcstr(
     char*  pc_string = NULL;
     char*  pc_cstr = NULL;
     bool_t t_less = false;
-    bool_t t_great = false;
+    bool_t t_greater = false;
 
     assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
 
@@ -1692,14 +1692,14 @@ size_t basic_string_find_last_not_of_subcstr(
         t_endpos = 0;
         while(t_endpos != t_len)
         {
-            t_less = t_great = t_typesize;
+            t_less = t_greater = t_typesize;
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                 pc_string + t_startpos * t_typesize,
                 pc_cstr + t_endpos * t_typesize, &t_less);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                 pc_cstr + t_endpos * t_typesize,
-                pc_string + t_startpos * t_typesize, &t_great);
-            if(!t_less && !t_great)
+                pc_string + t_startpos * t_typesize, &t_greater);
+            if(!t_less && !t_greater)
             {
                 break;
             }
@@ -1747,7 +1747,7 @@ size_t _basic_string_find_last_not_of_elem_varg(
     char*   pc_string = NULL;
     size_t  t_findpos = 0;
     bool_t  t_less = false;
-    bool_t  t_great = false;
+    bool_t  t_greater = false;
 
     assert(cpt_basic_string != NULL);
 
@@ -1774,12 +1774,12 @@ size_t _basic_string_find_last_not_of_elem_varg(
     t_findpos = t_pos == t_stringlen ? t_pos - 1 : t_pos;
     for(;;)
     {
-        t_less = t_great = t_typesize;
+        t_less = t_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
             pc_string + t_findpos * t_typesize, pv_varg, &t_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pv_varg, pc_string + t_findpos * t_typesize, &t_great);
-        if(t_less || t_great)
+            pv_varg, pc_string + t_findpos * t_typesize, &t_greater);
+        if(t_less || t_greater)
         {
             break;
         }
@@ -2554,27 +2554,27 @@ static size_t _get_valuestring_len(
         size_t t_len = 0;
         char*  pc_nullterminated = NULL;
         bool_t t_less = false;
-        bool_t t_great = false;
+        bool_t t_greater = false;
 
         pc_nullterminated = (char*)allocate(
             &((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
         assert(pc_nullterminated != NULL);
         memset(pc_nullterminated, 0x00, t_typesize);
 
-        t_less = t_great = t_typesize;
+        t_less = t_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
             cpv_valuestring, pc_nullterminated, &t_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pc_nullterminated, cpv_valuestring, &t_great);
-        while(t_less || t_great)
+            pc_nullterminated, cpv_valuestring, &t_greater);
+        while(t_less || t_greater)
         {
             t_len++;
 
-            t_less = t_great = t_typesize;
+            t_less = t_greater = t_typesize;
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
                 (char*)cpv_valuestring+t_len*t_typesize, pc_nullterminated, &t_less);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                pc_nullterminated, (char*)cpv_valuestring+t_len*t_typesize, &t_great);
+                pc_nullterminated, (char*)cpv_valuestring+t_len*t_typesize, &t_greater);
         }
         
         deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater,

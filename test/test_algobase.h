@@ -46,7 +46,7 @@ extern void algo_sample_init(const void* cpv_input, void* pv_output);
 extern void algo_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void algo_sample_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void algo_sample_destroy(const void* cpv_input, void* pv_output);
-extern void algo_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void algo_sample_greater(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void algo_sample_equal(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void algo_sample_show(const void* cpv_input, void* pv_output);
 extern void algo_sample_content_less(const void* cpv_first, const void* cpv_second, void* pv_output);

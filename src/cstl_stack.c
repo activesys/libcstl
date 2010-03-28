@@ -240,17 +240,17 @@ bool_t stack_less(
 #endif
 }
 
-bool_t stack_great(
+bool_t stack_greater(
     const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond)
 {
     assert(cpt_stackfirst != NULL && cpt_stacksecond != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_great(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
+    return vector_greater(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_great(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
+    return list_greater(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
 #else
-    return deque_great(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
+    return deque_greater(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
 #endif
 }
 
@@ -268,17 +268,17 @@ bool_t stack_less_equal(
 #endif
 }
 
-bool_t stack_great_equal(
+bool_t stack_greater_equal(
     const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond)
 {
     assert(cpt_stackfirst != NULL && cpt_stacksecond != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_great_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
+    return vector_greater_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_great_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
+    return list_greater_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
 #else
-    return deque_great_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
+    return deque_greater_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
 #endif
 }
 

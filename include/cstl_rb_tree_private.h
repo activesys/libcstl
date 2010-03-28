@@ -167,11 +167,11 @@ extern bool_t _rb_tree_not_equal(
     const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond);
 extern bool_t _rb_tree_less(
     const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond);
-extern bool_t _rb_tree_great(
+extern bool_t _rb_tree_greater(
     const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond);
 extern bool_t _rb_tree_less_equal(
     const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond);
-extern bool_t _rb_tree_great_equal(
+extern bool_t _rb_tree_greater_equal(
     const rb_tree_t* cpt_rb_treefirst, const rb_tree_t* cpt_rb_treesecond);
 
 /*

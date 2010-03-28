@@ -120,10 +120,10 @@ extern bool_t hash_multimap_less(
 extern bool_t hash_multimap_less_equal(
     const hash_multimap_t* cpt_hash_multimapfirst,
     const hash_multimap_t* cpt_hash_multimapsecond);
-extern bool_t hash_multimap_great(
+extern bool_t hash_multimap_greater(
     const hash_multimap_t* cpt_hash_multimapfirst,
     const hash_multimap_t* cpt_hash_multimapsecond);
-extern bool_t hash_multimap_great_equal(
+extern bool_t hash_multimap_greater_equal(
     const hash_multimap_t* cpt_hash_multimapfirst,
     const hash_multimap_t* cpt_hash_multimapsecond);
 

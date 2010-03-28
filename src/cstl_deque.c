@@ -931,7 +931,7 @@ bool_t deque_equal(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond
     deque_iterator_t t_first;  /* the iterator to first deque for iterate */
     deque_iterator_t t_second; /* the iterator to second deque for iterate */
     bool_t           t_less = false;
-    bool_t           t_great = false;
+    bool_t           t_greater = false;
 
     assert(cpt_dequefirst != NULL && cpt_dequesecond != NULL &&
            cpt_dequefirst->_ppc_map != NULL && cpt_dequesecond->_ppc_map != NULL &&
@@ -954,14 +954,14 @@ bool_t deque_equal(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond
         t_first = iterator_next(t_first),
         t_second = iterator_next(t_second))
     {
-        t_less = t_great = _GET_DEQUE_TYPE_SIZE(cpt_dequefirst);
+        t_less = t_greater = _GET_DEQUE_TYPE_SIZE(cpt_dequefirst);
         _GET_DEQUE_TYPE_LESS_FUNCTION(cpt_dequefirst)(
             _deque_iterator_get_pointer_auxiliary(t_first),
             _deque_iterator_get_pointer_auxiliary(t_second), &t_less);
         _GET_DEQUE_TYPE_LESS_FUNCTION(cpt_dequefirst)(
             _deque_iterator_get_pointer_auxiliary(t_second),
-            _deque_iterator_get_pointer_auxiliary(t_first), &t_great);
-        if(t_less || t_great)
+            _deque_iterator_get_pointer_auxiliary(t_first), &t_greater);
+        if(t_less || t_greater)
         {
             return false;
         }
@@ -1020,14 +1020,14 @@ bool_t deque_less_equal(const deque_t* cpt_dequefirst, const deque_t* cpt_deques
            deque_equal(cpt_dequefirst, cpt_dequesecond)) ? true : false;
 }
 
-bool_t deque_great(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond)
+bool_t deque_greater(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond)
 {
     return deque_less(cpt_dequesecond, cpt_dequefirst);
 }
 
-bool_t deque_great_equal(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond)
+bool_t deque_greater_equal(const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond)
 {
-    return (deque_great(cpt_dequefirst, cpt_dequesecond) ||
+    return (deque_greater(cpt_dequefirst, cpt_dequesecond) ||
            deque_equal(cpt_dequefirst, cpt_dequesecond)) ? true : false;
 }
 

@@ -78,7 +78,7 @@ static void _listabc_less(const void* cpv_first, const void* cpv_second, void* p
 
 static void _printlist_user(const list_t* cpt_list);
 static void _remove_first_5(const void* cpv_input, void* pv_output);
-static void _listabc_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _listabc_greater(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 static void _printlist_list(const list_t* cpt_list);
 
@@ -198,16 +198,16 @@ void test_list(void)
                 list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
             printf("less : %d, less equal : %d\n",
                 list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
-            printf("great : %d, great equal : %d\n",
-                list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+            printf("greater : %d, greater equal : %d\n",
+                list_greater(pt_list, pt_listex), list_greater_equal(pt_list, pt_listex));
             list_destroy(pt_list);
             list_destroy(pt_listex);
         }
         /*list_not_equal      */
         /*list_less           */
         /*list_less_equal     */
-        /*list_great          */
-        /*list_great_equal    */
+        /*list_greater          */
+        /*list_greater_equal    */
         /*list_assign         */
         {
             list_t* pt_list = create_list(int);
@@ -816,7 +816,7 @@ void test_list(void)
                 list_push_back(pt_list, rand());
             }
             _printlist_c(pt_list, "%d, ", int);
-            list_sort_if(pt_list, fun_great_int);
+            list_sort_if(pt_list, fun_greater_int);
             printf("count : %d, size: %d\n", n_count, list_size(pt_list));
             _printlist_c(pt_list, "%d, ", int);
             list_destroy(pt_list);
@@ -876,8 +876,8 @@ void test_list(void)
             {
                 list_push_back(pt_list, rand() - rand());
             }
-            list_sort_if(pt_list, fun_great_int);
-            list_merge_if(pt_list, pt_listex, fun_great_int);
+            list_sort_if(pt_list, fun_greater_int);
+            list_merge_if(pt_list, pt_listex, fun_greater_int);
             _printlist_c(pt_list, "%d, ", int);
             _printlist_c(pt_listex, "%d, ", int);
 
@@ -886,8 +886,8 @@ void test_list(void)
             {
                 list_push_back(pt_listex, rand() - rand());
             }
-            list_sort_if(pt_listex, fun_great_int);
-            list_merge_if(pt_list, pt_listex, fun_great_int);
+            list_sort_if(pt_listex, fun_greater_int);
+            list_merge_if(pt_list, pt_listex, fun_greater_int);
             _printlist_c(pt_list, "%d, ", int);
             _printlist_c(pt_listex, "%d, ", int);
 
@@ -897,8 +897,8 @@ void test_list(void)
             {
                 list_push_back(pt_listex, rand() - rand());
             }
-            list_sort_if(pt_listex, fun_great_int);
-            list_merge_if(pt_list, pt_listex, fun_great_int);
+            list_sort_if(pt_listex, fun_greater_int);
+            list_merge_if(pt_list, pt_listex, fun_greater_int);
             _printlist_c(pt_list, "%d, ", int);
             _printlist_c(pt_listex, "%d, ", int);
             list_destroy(pt_list);
@@ -1073,16 +1073,16 @@ void test_list(void)
                 list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
             printf("less : %d, less equal : %d\n",
                 list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
-            printf("great : %d, great equal : %d\n",
-                list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+            printf("greater : %d, greater equal : %d\n",
+                list_greater(pt_list, pt_listex), list_greater_equal(pt_list, pt_listex));
             list_destroy(pt_list);
             list_destroy(pt_listex);
         }
         /*list_not_equal      */
         /*list_less           */
         /*list_less_equal     */
-        /*list_great          */
-        /*list_great_equal    */
+        /*list_greater          */
+        /*list_greater_equal    */
         /*list_assign         */
         {
             list_t* pt_list = create_list(listabc_t);
@@ -2150,7 +2150,7 @@ void test_list(void)
                 list_push_back(pt_list, &t_abc);
             }
             _printlist_user(pt_list);
-            list_sort_if(pt_list, _listabc_great);
+            list_sort_if(pt_list, _listabc_greater);
             _printlist_user(pt_list);
             printf("%d, %d\n", list_size(pt_list), n_count);
             list_destroy(pt_list);
@@ -2232,10 +2232,10 @@ void test_list(void)
                 t_abc._t_abc._t_descartes._n_posy = rand() - rand();
                 list_push_back(pt_listex, &t_abc);
             }
-            list_sort_if(pt_listex, _listabc_great);
+            list_sort_if(pt_listex, _listabc_greater);
             _printlist_user(pt_list);
             _printlist_user(pt_listex);
-            list_merge_if(pt_list, pt_listex, _listabc_great);
+            list_merge_if(pt_list, pt_listex, _listabc_greater);
             _printlist_user(pt_list);
             _printlist_user(pt_listex);
             srand((unsigned)time(NULL) + 19);
@@ -2247,19 +2247,19 @@ void test_list(void)
                 t_abc._t_abc._t_descartes._n_posy = rand() - rand();
                 list_push_back(pt_listex, &t_abc);
             }
-            list_sort_if(pt_listex, _listabc_great);
+            list_sort_if(pt_listex, _listabc_greater);
             _printlist_user(pt_list);
             _printlist_user(pt_listex);
-            list_merge_if(pt_list, pt_listex, _listabc_great);
+            list_merge_if(pt_list, pt_listex, _listabc_greater);
             _printlist_user(pt_list);
             _printlist_user(pt_listex);
-            list_merge_if(pt_list, pt_listex, _listabc_great);
+            list_merge_if(pt_list, pt_listex, _listabc_greater);
             _printlist_user(pt_list);
             _printlist_user(pt_listex);
             list_clear(pt_list);
             _printlist_user(pt_list);
             _printlist_user(pt_listex);
-            list_merge_if(pt_list, pt_listex, _listabc_great);
+            list_merge_if(pt_list, pt_listex, _listabc_greater);
             _printlist_user(pt_list);
             _printlist_user(pt_listex);
             list_destroy(pt_list);
@@ -2428,8 +2428,8 @@ void test_list(void)
                 list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
             printf("less : %d, less equal : %d\n",
                 list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
-            printf("great : %d, great equal : %d\n",
-                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            printf("greater : %d, greater equal : %d\n",
+                list_greater(pt_list1, pt_list2), list_greater_equal(pt_list1, pt_list2));
             list_push_back(pt_listex, 100);
             list_push_back(pt_listex, 200);
             list_push_back(pt_list1, pt_listex);
@@ -2439,8 +2439,8 @@ void test_list(void)
                 list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
             printf("less : %d, less equal : %d\n",
                 list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
-            printf("great : %d, great equal : %d\n",
-                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            printf("greater : %d, greater equal : %d\n",
+                list_greater(pt_list1, pt_list2), list_greater_equal(pt_list1, pt_list2));
             list_push_back(pt_list2, pt_listex);
             _printlist_list(pt_list1);
             _printlist_list(pt_list2);
@@ -2448,8 +2448,8 @@ void test_list(void)
                 list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
             printf("less : %d, less equal : %d\n",
                 list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
-            printf("great : %d, great equal : %d\n",
-                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            printf("greater : %d, greater equal : %d\n",
+                list_greater(pt_list1, pt_list2), list_greater_equal(pt_list1, pt_list2));
             list_clear(pt_listex);
             list_push_back(pt_listex, -34);
             list_push_back(pt_listex, 28);
@@ -2460,8 +2460,8 @@ void test_list(void)
                 list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
             printf("less : %d, less equal : %d\n",
                 list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
-            printf("great : %d, great equal : %d\n",
-                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            printf("greater : %d, greater equal : %d\n",
+                list_greater(pt_list1, pt_list2), list_greater_equal(pt_list1, pt_list2));
             list_push_back(pt_listex, 98);
             list_push_back(pt_list1, pt_listex);
             _printlist_list(pt_list1);
@@ -2470,8 +2470,8 @@ void test_list(void)
                 list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
             printf("less : %d, less equal : %d\n",
                 list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
-            printf("great : %d, great equal : %d\n",
-                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            printf("greater : %d, greater equal : %d\n",
+                list_greater(pt_list1, pt_list2), list_greater_equal(pt_list1, pt_list2));
             list_push_back(pt_list2, pt_listex);
             _printlist_list(pt_list1);
             _printlist_list(pt_list2);
@@ -2479,8 +2479,8 @@ void test_list(void)
                 list_equal(pt_list1, pt_list2), list_not_equal(pt_list1, pt_list2));
             printf("less : %d, less equal : %d\n",
                 list_less(pt_list1, pt_list2), list_less_equal(pt_list1, pt_list2));
-            printf("great : %d, great equal : %d\n",
-                list_great(pt_list1, pt_list2), list_great_equal(pt_list1, pt_list2));
+            printf("greater : %d, greater equal : %d\n",
+                list_greater(pt_list1, pt_list2), list_greater_equal(pt_list1, pt_list2));
             list_destroy(pt_list1);
             list_destroy(pt_list2);
             list_destroy(pt_listex);
@@ -2488,8 +2488,8 @@ void test_list(void)
         /*list_not_equal      */
         /*list_less           */
         /*list_less_equal     */
-        /*list_great          */
-        /*list_great_equal    */
+        /*list_greater          */
+        /*list_greater_equal    */
         /*list_assign         */
         {
             list_t* pt_list1 = create_list(list_t<int>);
@@ -4083,8 +4083,8 @@ void test_list(void)
     /*list_not_equal      */
     /*list_less           */
     /*list_less_equal     */
-    /*list_great          */
-    /*list_great_equal    */
+    /*list_greater          */
+    /*list_greater_equal    */
     {
         list_t* pt_list = create_list(char*);
         list_t* pt_listex = create_list(char*);
@@ -4100,8 +4100,8 @@ void test_list(void)
             list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
         printf("less: %d, less equal: %d, ",
             list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
-        printf("great: %d, great equal: %d\n",
-            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+        printf("greater: %d, greater equal: %d\n",
+            list_greater(pt_list, pt_listex), list_greater_equal(pt_list, pt_listex));
 
         list_push_back(pt_list, "China");
         _print_list_str(pt_list);
@@ -4110,8 +4110,8 @@ void test_list(void)
             list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
         printf("less: %d, less equal: %d, ",
             list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
-        printf("great: %d, great equal: %d\n",
-            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+        printf("greater: %d, greater equal: %d\n",
+            list_greater(pt_list, pt_listex), list_greater_equal(pt_list, pt_listex));
 
         list_push_back(pt_listex, "China");
         _print_list_str(pt_list);
@@ -4120,8 +4120,8 @@ void test_list(void)
             list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
         printf("less: %d, less equal: %d, ",
             list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
-        printf("great: %d, great equal: %d\n",
-            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+        printf("greater: %d, greater equal: %d\n",
+            list_greater(pt_list, pt_listex), list_greater_equal(pt_list, pt_listex));
 
         list_push_back(pt_listex, "Unix");
         _print_list_str(pt_list);
@@ -4130,8 +4130,8 @@ void test_list(void)
             list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
         printf("less: %d, less equal: %d, ",
             list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
-        printf("great: %d, great equal: %d\n",
-            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+        printf("greater: %d, greater equal: %d\n",
+            list_greater(pt_list, pt_listex), list_greater_equal(pt_list, pt_listex));
 
         list_push_back(pt_list, "CSDN");
         list_push_back(pt_list, "Pub");
@@ -4141,8 +4141,8 @@ void test_list(void)
             list_equal(pt_list, pt_listex), list_not_equal(pt_list, pt_listex));
         printf("less: %d, less equal: %d, ",
             list_less(pt_list, pt_listex), list_less_equal(pt_list, pt_listex));
-        printf("great: %d, great equal: %d\n",
-            list_great(pt_list, pt_listex), list_great_equal(pt_list, pt_listex));
+        printf("greater: %d, greater equal: %d\n",
+            list_greater(pt_list, pt_listex), list_greater_equal(pt_list, pt_listex));
         list_destroy(pt_list);
         list_destroy(pt_listex);
     }
@@ -5201,7 +5201,7 @@ static void _listabc_less(const void* cpv_first, const void* cpv_second, void* p
     }
 }
 
-static void _listabc_great(const void* cpv_first, const void* cpv_second, void* pv_output)
+static void _listabc_greater(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     {

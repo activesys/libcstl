@@ -89,9 +89,9 @@ extern void* pair_second(const pair_t* cpt_pair);
 extern bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
 extern bool_t pair_not_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
 extern bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-extern bool_t pair_great(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
+extern bool_t pair_greater(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
 extern bool_t pair_less_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-extern bool_t pair_great_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
+extern bool_t pair_greater_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
 
 #ifdef __cplusplus
 }

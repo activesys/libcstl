@@ -83,9 +83,9 @@ extern size_t list_max_size(const list_t* cpt_list);
 extern bool_t list_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
 extern bool_t list_not_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
 extern bool_t list_less(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
-extern bool_t list_great(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
+extern bool_t list_greater(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
 extern bool_t list_less_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
-extern bool_t list_great_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
+extern bool_t list_greater_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
 
 /*
  * Assign operator functions.

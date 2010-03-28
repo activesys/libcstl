@@ -276,8 +276,8 @@ extern bool_t iterator_equal(iterator_t t_iterfirst, iterator_t t_itersecond);
 extern bool_t iterator_not_equal(iterator_t t_iterfirst, iterator_t t_itersecond);
 extern bool_t iterator_less(iterator_t t_iterfirst, iterator_t t_itersecond);
 extern bool_t iterator_less_equal(iterator_t t_iterfirst, iterator_t t_itersecond);
-extern bool_t iterator_great(iterator_t t_iterfirst, iterator_t t_itersecond);
-extern bool_t iterator_great_equal(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t iterator_greater(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t iterator_greater_equal(iterator_t t_iterfirst, iterator_t t_itersecond);
 
 /*
  * Element random access.

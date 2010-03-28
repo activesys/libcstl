@@ -671,25 +671,25 @@ bool_t set_less_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 #endif
 }
 
-bool_t set_great(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
+bool_t set_greater(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 {
     assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_great(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _avl_tree_greater(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #else
-    return _rb_tree_great(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _rb_tree_greater(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #endif
 }
 
-bool_t set_great_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
+bool_t set_greater_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 {
     assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_great_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _avl_tree_greater_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #else
-    return _rb_tree_great_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _rb_tree_greater_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
 #endif
 }
 

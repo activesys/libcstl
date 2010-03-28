@@ -110,9 +110,9 @@ extern bool_t hash_set_less(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
 extern bool_t hash_set_less_equal(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
-extern bool_t hash_set_great(
+extern bool_t hash_set_greater(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
-extern bool_t hash_set_great_equal(
+extern bool_t hash_set_greater_equal(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond);
 
 /*

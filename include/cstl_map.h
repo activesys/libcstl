@@ -104,9 +104,9 @@ extern void map_clear(map_t* pt_map);
 extern bool_t map_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
 extern bool_t map_not_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
 extern bool_t map_less(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
-extern bool_t map_great(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
+extern bool_t map_greater(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
 extern bool_t map_less_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
-extern bool_t map_great_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
+extern bool_t map_greater_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond);
 
 /*
  * Iterator support.

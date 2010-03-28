@@ -67,7 +67,7 @@ void test_hash_set(void)
             {
                 return;
             }
-            hash_set_init_ex(pt_hset, 0, _hash_set_int_hash, fun_great_int);
+            hash_set_init_ex(pt_hset, 0, _hash_set_int_hash, fun_greater_int);
             _print_hash_set_c(pt_hset, "%d, ", int);
             hash_set_insert(pt_hset, 48);
             hash_set_insert(pt_hset, 1234);
@@ -146,7 +146,7 @@ void test_hash_set(void)
             hash_set_insert(pt_hsetex, 99);
             hash_set_insert(pt_hsetex, 101);
             hash_set_init_copy_range_ex(pt_hset, hash_set_begin(pt_hsetex),
-                hash_set_end(pt_hsetex), 90, NULL, fun_great_int);
+                hash_set_end(pt_hsetex), 90, NULL, fun_greater_int);
             _debug_hash_set_c(pt_hsetex, "%d", int);
             _debug_hash_set_c(pt_hset, "%d", int);
             _print_hash_set_c(pt_hsetex, "%d, ", int);
@@ -274,9 +274,9 @@ void test_hash_set(void)
             {
                 return;
             }
-            hash_set_init_ex(pt_hset, 100, _hash_set_int_hash, fun_great_int);
+            hash_set_init_ex(pt_hset, 100, _hash_set_int_hash, fun_greater_int);
             assert(hash_set_hash(pt_hset) == _hash_set_int_hash &&
-                hash_set_key_less(pt_hset) == fun_great_int);
+                hash_set_key_less(pt_hset) == fun_greater_int);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_resize            */
@@ -311,8 +311,8 @@ void test_hash_set(void)
         /*hash_set_not_equal         */
         /*hash_set_less              */
         /*hash_set_less_equal        */
-        /*hash_set_great             */
-        /*hash_set_great_equal       */
+        /*hash_set_greater             */
+        /*hash_set_greater_equal       */
         {
             hash_set_t* pt_hset = create_hash_set(int);
             hash_set_t* pt_hsetex = create_hash_set(int);
@@ -328,8 +328,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
 
             hash_set_insert(pt_hset, 23);
             hash_set_insert(pt_hset, 40);
@@ -339,8 +339,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
 
             hash_set_insert(pt_hsetex, 23);
             hash_set_insert(pt_hsetex, 40);
@@ -350,8 +350,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
 
             hash_set_insert(pt_hset, 61);
             hash_set_insert(pt_hset, 60);
@@ -362,8 +362,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
 
             hash_set_resize(pt_hsetex, 80);
             _print_hash_set_c(pt_hset, "%d, ", int);
@@ -372,8 +372,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
 
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
@@ -800,7 +800,7 @@ void test_hash_set(void)
             hash_set_insert(pt_hsetex, &t_sample);
             _print_hash_set_sample(pt_hsetex);
             hash_set_init_copy_range_ex(pt_hset, hash_set_begin(pt_hsetex),
-                hash_set_end(pt_hsetex), 80, NULL, _hash_sample_great);
+                hash_set_end(pt_hsetex), 80, NULL, _hash_sample_greater);
             _print_hash_set_sample(pt_hset);
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
@@ -931,9 +931,9 @@ void test_hash_set(void)
             {
                 return;
             }
-            hash_set_init_ex(pt_hset, 100, _hash_set_sample_hash, _hash_sample_great);
+            hash_set_init_ex(pt_hset, 100, _hash_set_sample_hash, _hash_sample_greater);
             assert(hash_set_hash(pt_hset) == _hash_set_sample_hash &&
-                hash_set_key_less(pt_hset) == _hash_sample_great);
+                hash_set_key_less(pt_hset) == _hash_sample_greater);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_resize            */
@@ -955,8 +955,8 @@ void test_hash_set(void)
         /*hash_set_not_equal         */
         /*hash_set_less              */
         /*hash_set_less_equal        */
-        /*hash_set_great             */
-        /*hash_set_great_equal       */
+        /*hash_set_greater             */
+        /*hash_set_greater_equal       */
         {
             hash_set_t* pt_hset = create_hash_set(hash_sample_t);
             hash_set_t* pt_hsetex = create_hash_set(hash_sample_t);
@@ -973,8 +973,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
             t_sample._d_first = 34.98;
             t_sample._l_second = 34;
             hash_set_insert(pt_hset, &t_sample);
@@ -984,8 +984,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
             hash_set_insert(pt_hsetex, &t_sample);
             _print_hash_set_sample(pt_hset);
             _print_hash_set_sample(pt_hsetex);
@@ -993,8 +993,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
             t_sample._d_first = -90.23;
             t_sample._l_second = 0;
             hash_set_insert(pt_hset, &t_sample);
@@ -1010,8 +1010,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
         }
@@ -1843,8 +1843,8 @@ void test_hash_set(void)
         /*hash_set_not_equal         */
         /*hash_set_less              */
         /*hash_set_less_equal        */
-        /*hash_set_great             */
-        /*hash_set_great_equal       */
+        /*hash_set_greater             */
+        /*hash_set_greater_equal       */
         {
             hash_set_t* pt_hset1 = create_hash_set(hash_set_t<int>);
             hash_set_t* pt_hset2 = create_hash_set(hash_set_t<int>);
@@ -1862,8 +1862,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset1, pt_hset2), hash_set_not_equal(pt_hset1, pt_hset2));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset1, pt_hset2), hash_set_less_equal(pt_hset1, pt_hset2));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset1, pt_hset2), hash_set_great_equal(pt_hset1, pt_hset2));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset1, pt_hset2), hash_set_greater_equal(pt_hset1, pt_hset2));
 
             hash_set_insert(pt_hsetex, 23);
             hash_set_insert(pt_hsetex, 56);
@@ -1876,8 +1876,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset1, pt_hset2), hash_set_not_equal(pt_hset1, pt_hset2));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset1, pt_hset2), hash_set_less_equal(pt_hset1, pt_hset2));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset1, pt_hset2), hash_set_great_equal(pt_hset1, pt_hset2));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset1, pt_hset2), hash_set_greater_equal(pt_hset1, pt_hset2));
 
             hash_set_insert(pt_hset2, pt_hsetex);
             _print_hash_set_cstl(pt_hset1);
@@ -1886,8 +1886,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset1, pt_hset2), hash_set_not_equal(pt_hset1, pt_hset2));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset1, pt_hset2), hash_set_less_equal(pt_hset1, pt_hset2));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset1, pt_hset2), hash_set_great_equal(pt_hset1, pt_hset2));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset1, pt_hset2), hash_set_greater_equal(pt_hset1, pt_hset2));
 
             hash_set_clear(pt_hsetex);
             hash_set_insert(pt_hsetex, 333);
@@ -1913,8 +1913,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset1, pt_hset2), hash_set_not_equal(pt_hset1, pt_hset2));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset1, pt_hset2), hash_set_less_equal(pt_hset1, pt_hset2));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset1, pt_hset2), hash_set_great_equal(pt_hset1, pt_hset2));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset1, pt_hset2), hash_set_greater_equal(pt_hset1, pt_hset2));
             
             hash_set_destroy(pt_hsetex);
             hash_set_destroy(pt_hset1);
@@ -2780,8 +2780,8 @@ void test_hash_set(void)
         /*hash_set_not_equal         */
         /*hash_set_less              */
         /*hash_set_less_equal        */
-        /*hash_set_great             */
-        /*hash_set_great_equal       */
+        /*hash_set_greater             */
+        /*hash_set_greater_equal       */
         {
             hash_set_t* pt_hset = create_hash_set(char*);
             hash_set_t* pt_hsetex = create_hash_set(char*);
@@ -2797,8 +2797,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
 
             hash_set_insert(pt_hset, "ynuopqdasdgq");
             _print_hash_set_cstr(pt_hset);
@@ -2807,8 +2807,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
 
             hash_set_insert(pt_hsetex, "ynuopqdasdgq");
             _print_hash_set_cstr(pt_hset);
@@ -2817,8 +2817,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
 
             hash_set_insert(pt_hset, "ynuop");
             hash_set_insert(pt_hset, "vvvvvvvv");
@@ -2830,8 +2830,8 @@ void test_hash_set(void)
                 hash_set_equal(pt_hset, pt_hsetex), hash_set_not_equal(pt_hset, pt_hsetex));
             printf("less: %d, less equal: %d, ",
                 hash_set_less(pt_hset, pt_hsetex), hash_set_less_equal(pt_hset, pt_hsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_set_great(pt_hset, pt_hsetex), hash_set_great_equal(pt_hset, pt_hsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_set_greater(pt_hset, pt_hsetex), hash_set_greater_equal(pt_hset, pt_hsetex));
 
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
@@ -3172,7 +3172,7 @@ void test_hash_multiset(void)
             {
                 return;
             }
-            hash_multiset_init_ex(pt_hmset, 100, _hash_set_int_hash, fun_great_int);
+            hash_multiset_init_ex(pt_hmset, 100, _hash_set_int_hash, fun_greater_int);
             _print_hash_multiset_c(pt_hmset, "%d, ", int);
             hash_multiset_insert(pt_hmset, 48);
             hash_multiset_insert(pt_hmset, 1234);
@@ -3256,7 +3256,7 @@ void test_hash_multiset(void)
             hash_multiset_insert(pt_hmsetex, 99);
             hash_multiset_insert(pt_hmsetex, 101);
             hash_multiset_init_copy_range_ex(pt_hmset, hash_multiset_begin(pt_hmsetex),
-                hash_multiset_end(pt_hmsetex), 90, NULL, fun_great_int);
+                hash_multiset_end(pt_hmsetex), 90, NULL, fun_greater_int);
             _debug_hash_multiset_c(pt_hmsetex, "%d", int);
             _debug_hash_multiset_c(pt_hmset, "%d", int);
             _print_hash_multiset_c(pt_hmsetex, "%d, ", int);
@@ -3387,9 +3387,9 @@ void test_hash_multiset(void)
             {
                 return;
             }
-            hash_multiset_init_ex(pt_hmset, 100, _hash_set_int_hash, fun_great_int);
+            hash_multiset_init_ex(pt_hmset, 100, _hash_set_int_hash, fun_greater_int);
             assert(hash_multiset_hash(pt_hmset) == _hash_set_int_hash &&
-                hash_multiset_key_less(pt_hmset) == fun_great_int);
+                hash_multiset_key_less(pt_hmset) == fun_greater_int);
             hash_multiset_destroy(pt_hmset);
         }
         /*hash_multiset_resize            */
@@ -3424,8 +3424,8 @@ void test_hash_multiset(void)
         /*hash_multiset_not_equal         */
         /*hash_multiset_less              */
         /*hash_multiset_less_equal        */
-        /*hash_multiset_great             */
-        /*hash_multiset_great_equal       */
+        /*hash_multiset_greater             */
+        /*hash_multiset_greater_equal       */
         {
             hash_multiset_t* pt_hmset = create_hash_multiset(int);
             hash_multiset_t* pt_hmsetex = create_hash_multiset(int);
@@ -3441,8 +3441,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
 
             hash_multiset_insert(pt_hmset, 23);
             hash_multiset_insert(pt_hmset, 40);
@@ -3452,8 +3452,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
 
             hash_multiset_insert(pt_hmsetex, 23);
             hash_multiset_insert(pt_hmsetex, 40);
@@ -3463,8 +3463,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
 
             hash_multiset_insert(pt_hmset, 61);
             hash_multiset_insert(pt_hmset, 60);
@@ -3475,8 +3475,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
 
             hash_multiset_resize(pt_hmsetex, 80);
             _print_hash_multiset_c(pt_hmset, "%d, ", int);
@@ -3485,8 +3485,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
 
             hash_multiset_destroy(pt_hmset);
             hash_multiset_destroy(pt_hmsetex);
@@ -3914,7 +3914,7 @@ void test_hash_multiset(void)
             hash_multiset_insert(pt_hmsetex, &t_sample);
             _print_hash_multiset_sample(pt_hmsetex);
             hash_multiset_init_copy_range_ex(pt_hmset, hash_multiset_begin(pt_hmsetex),
-                hash_multiset_end(pt_hmsetex), 80, NULL, _hash_sample_great);
+                hash_multiset_end(pt_hmsetex), 80, NULL, _hash_sample_greater);
             _print_hash_multiset_sample(pt_hmset);
             hash_multiset_destroy(pt_hmset);
             hash_multiset_destroy(pt_hmsetex);
@@ -3992,9 +3992,9 @@ void test_hash_multiset(void)
             {
                 return;
             }
-            hash_multiset_init_ex(pt_hmset, 100, _hash_set_sample_hash, _hash_sample_great);
+            hash_multiset_init_ex(pt_hmset, 100, _hash_set_sample_hash, _hash_sample_greater);
             assert(hash_multiset_hash(pt_hmset) == _hash_set_sample_hash &&
-                hash_multiset_key_less(pt_hmset) == _hash_sample_great);
+                hash_multiset_key_less(pt_hmset) == _hash_sample_greater);
             hash_multiset_destroy(pt_hmset);
         }
         /*hash_multiset_resize            */
@@ -4016,8 +4016,8 @@ void test_hash_multiset(void)
         /*hash_multiset_not_equal         */
         /*hash_multiset_less              */
         /*hash_multiset_less_equal        */
-        /*hash_multiset_great             */
-        /*hash_multiset_great_equal       */
+        /*hash_multiset_greater             */
+        /*hash_multiset_greater_equal       */
         {
             hash_multiset_t* pt_hmset = create_hash_multiset(hash_sample_t);
             hash_multiset_t* pt_hmsetex = create_hash_multiset(hash_sample_t);
@@ -4034,8 +4034,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
             t_sample._d_first = 34.98;
             t_sample._l_second = 34;
             hash_multiset_insert(pt_hmset, &t_sample);
@@ -4045,8 +4045,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
             hash_multiset_insert(pt_hmsetex, &t_sample);
             _print_hash_multiset_sample(pt_hmset);
             _print_hash_multiset_sample(pt_hmsetex);
@@ -4054,8 +4054,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
             t_sample._d_first = -90.23;
             t_sample._l_second = 0;
             hash_multiset_insert(pt_hmset, &t_sample);
@@ -4071,8 +4071,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
             hash_multiset_destroy(pt_hmset);
             hash_multiset_destroy(pt_hmsetex);
         }
@@ -4864,8 +4864,8 @@ void test_hash_multiset(void)
         /*hash_multiset_not_equal         */
         /*hash_multiset_less              */
         /*hash_multiset_less_equal        */
-        /*hash_multiset_great             */
-        /*hash_multiset_great_equal       */
+        /*hash_multiset_greater             */
+        /*hash_multiset_greater_equal       */
         {
             hash_multiset_t* pt_hmset1 = create_hash_multiset(hash_multiset_t<int>);
             hash_multiset_t* pt_hmset2 = create_hash_multiset(hash_multiset_t<int>);
@@ -4883,8 +4883,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset1, pt_hmset2), hash_multiset_not_equal(pt_hmset1, pt_hmset2));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset1, pt_hmset2), hash_multiset_less_equal(pt_hmset1, pt_hmset2));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset1, pt_hmset2), hash_multiset_great_equal(pt_hmset1, pt_hmset2));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset1, pt_hmset2), hash_multiset_greater_equal(pt_hmset1, pt_hmset2));
 
             hash_multiset_insert(pt_hmsetex, 23);
             hash_multiset_insert(pt_hmsetex, 56);
@@ -4897,8 +4897,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset1, pt_hmset2), hash_multiset_not_equal(pt_hmset1, pt_hmset2));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset1, pt_hmset2), hash_multiset_less_equal(pt_hmset1, pt_hmset2));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset1, pt_hmset2), hash_multiset_great_equal(pt_hmset1, pt_hmset2));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset1, pt_hmset2), hash_multiset_greater_equal(pt_hmset1, pt_hmset2));
 
             hash_multiset_insert(pt_hmset2, pt_hmsetex);
             _print_hash_multiset_cstl(pt_hmset1);
@@ -4907,8 +4907,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset1, pt_hmset2), hash_multiset_not_equal(pt_hmset1, pt_hmset2));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset1, pt_hmset2), hash_multiset_less_equal(pt_hmset1, pt_hmset2));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset1, pt_hmset2), hash_multiset_great_equal(pt_hmset1, pt_hmset2));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset1, pt_hmset2), hash_multiset_greater_equal(pt_hmset1, pt_hmset2));
 
             hash_multiset_clear(pt_hmsetex);
             hash_multiset_insert(pt_hmsetex, 333);
@@ -4934,8 +4934,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset1, pt_hmset2), hash_multiset_not_equal(pt_hmset1, pt_hmset2));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset1, pt_hmset2), hash_multiset_less_equal(pt_hmset1, pt_hmset2));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset1, pt_hmset2), hash_multiset_great_equal(pt_hmset1, pt_hmset2));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset1, pt_hmset2), hash_multiset_greater_equal(pt_hmset1, pt_hmset2));
             
             hash_multiset_destroy(pt_hmsetex);
             hash_multiset_destroy(pt_hmset1);
@@ -5784,8 +5784,8 @@ void test_hash_multiset(void)
         /*hash_multiset_not_equal         */
         /*hash_multiset_less              */
         /*hash_multiset_less_equal        */
-        /*hash_multiset_great             */
-        /*hash_multiset_great_equal       */
+        /*hash_multiset_greater             */
+        /*hash_multiset_greater_equal       */
         {
             hash_multiset_t* pt_hmset = create_hash_multiset(char*);
             hash_multiset_t* pt_hmsetex = create_hash_multiset(char*);
@@ -5801,8 +5801,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
 
             hash_multiset_insert(pt_hmset, "ynuopqdasdgq");
             _print_hash_multiset_cstr(pt_hmset);
@@ -5811,8 +5811,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
 
             hash_multiset_insert(pt_hmsetex, "ynuopqdasdgq");
             _print_hash_multiset_cstr(pt_hmset);
@@ -5821,8 +5821,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
 
             hash_multiset_insert(pt_hmset, "ynuop");
             hash_multiset_insert(pt_hmset, "vvvvvvvv");
@@ -5834,8 +5834,8 @@ void test_hash_multiset(void)
                 hash_multiset_equal(pt_hmset, pt_hmsetex), hash_multiset_not_equal(pt_hmset, pt_hmsetex));
             printf("less: %d, less equal: %d, ",
                 hash_multiset_less(pt_hmset, pt_hmsetex), hash_multiset_less_equal(pt_hmset, pt_hmsetex));
-            printf("great: %d, great equal: %d\n",
-                hash_multiset_great(pt_hmset, pt_hmsetex), hash_multiset_great_equal(pt_hmset, pt_hmsetex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multiset_greater(pt_hmset, pt_hmsetex), hash_multiset_greater_equal(pt_hmset, pt_hmsetex));
 
             hash_multiset_destroy(pt_hmset);
             hash_multiset_destroy(pt_hmsetex);

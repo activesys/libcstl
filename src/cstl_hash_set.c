@@ -328,21 +328,21 @@ bool_t hash_set_less_equal(
         &cpt_hash_setfirst->_t_hashtable, &cpt_hash_setsecond->_t_hashtable);
 }
 
-bool_t hash_set_great(
+bool_t hash_set_greater(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
 {
     assert(cpt_hash_setfirst != NULL && cpt_hash_setsecond != NULL);
 
-    return _hashtable_great(
+    return _hashtable_greater(
         &cpt_hash_setfirst->_t_hashtable, &cpt_hash_setsecond->_t_hashtable);
 }
 
-bool_t hash_set_great_equal(
+bool_t hash_set_greater_equal(
     const hash_set_t* cpt_hash_setfirst, const hash_set_t* cpt_hash_setsecond)
 {
     assert(cpt_hash_setfirst != NULL && cpt_hash_setsecond != NULL);
 
-    return _hashtable_great_equal(
+    return _hashtable_greater_equal(
         &cpt_hash_setfirst->_t_hashtable, &cpt_hash_setsecond->_t_hashtable);
 }
 

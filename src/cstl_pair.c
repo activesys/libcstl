@@ -311,7 +311,7 @@ void* pair_second(const pair_t* cpt_pair)
 bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 {
     bool_t t_less = false;
-    bool_t t_great = false;
+    bool_t t_greater = false;
 
     assert(cpt_pairfirst != NULL && cpt_pairsecond != NULL);
     assert(cpt_pairfirst->_pv_first != NULL && cpt_pairfirst->_pv_second != NULL);
@@ -323,23 +323,23 @@ bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
     }
 
     /* compare first */
-    t_less = t_great = _GET_PAIR_FIRST_TYPE_SIZE(cpt_pairfirst);
+    t_less = t_greater = _GET_PAIR_FIRST_TYPE_SIZE(cpt_pairfirst);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cpt_pairfirst)(
         cpt_pairfirst->_pv_first, cpt_pairsecond->_pv_first, &t_less);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairsecond->_pv_first, cpt_pairfirst->_pv_first, &t_great);
-    if(t_less || t_great)
+        cpt_pairsecond->_pv_first, cpt_pairfirst->_pv_first, &t_greater);
+    if(t_less || t_greater)
     {
         return false;
     }
 
     /* compare second */
-    t_less = t_great = _GET_PAIR_SECOND_TYPE_SIZE(cpt_pairfirst);
+    t_less = t_greater = _GET_PAIR_SECOND_TYPE_SIZE(cpt_pairfirst);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cpt_pairfirst)(
         cpt_pairfirst->_pv_second, cpt_pairsecond->_pv_second, &t_less);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cpt_pairfirst)(
-        cpt_pairsecond->_pv_second, cpt_pairfirst->_pv_second, &t_great);
-    if(t_less || t_great)
+        cpt_pairsecond->_pv_second, cpt_pairfirst->_pv_second, &t_greater);
+    if(t_less || t_greater)
     {
         return false;
     }
@@ -401,14 +401,14 @@ bool_t pair_less_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond
             pair_equal(cpt_pairfirst, cpt_pairsecond)) ? true : false;
 }
 
-bool_t pair_great(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
+bool_t pair_greater(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 {
     return pair_less(cpt_pairsecond, cpt_pairfirst);
 }
 
-bool_t pair_great_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
+bool_t pair_greater_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 {
-    return (pair_great(cpt_pairfirst, cpt_pairsecond) ||
+    return (pair_greater(cpt_pairfirst, cpt_pairsecond) ||
             pair_equal(cpt_pairfirst, cpt_pairsecond)) ? true : false;
 }
 

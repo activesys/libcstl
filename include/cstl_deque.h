@@ -99,11 +99,11 @@ extern bool_t deque_not_equal(
     const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond);
 extern bool_t deque_less(
     const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond);
-extern bool_t deque_great(
+extern bool_t deque_greater(
     const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond);
 extern bool_t deque_less_equal(
     const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond);
-extern bool_t deque_great_equal(
+extern bool_t deque_greater_equal(
     const deque_t* cpt_dequefirst, const deque_t* cpt_dequesecond);
 
 /*

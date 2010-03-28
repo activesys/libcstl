@@ -207,16 +207,16 @@ bool_t string_less_equal(
     return basic_string_less_equal(cpt_stringfirst, cpt_stringsecond);
 }
 
-bool_t string_great(
+bool_t string_greater(
     const string_t* cpt_stringfirst, const string_t* cpt_stringsecond)
 {
-    return basic_string_great(cpt_stringfirst, cpt_stringsecond);
+    return basic_string_greater(cpt_stringfirst, cpt_stringsecond);
 }
 
-bool_t string_great_equal(
+bool_t string_greater_equal(
     const string_t* cpt_stringfirst, const string_t* cpt_stringsecond)
 {
-    return basic_string_great_equal(cpt_stringfirst, cpt_stringsecond);
+    return basic_string_greater_equal(cpt_stringfirst, cpt_stringsecond);
 }
 
 bool_t string_equal_cstr(const string_t* cpt_string, const char* s_cstr)
@@ -263,23 +263,23 @@ bool_t string_less_equal_cstr(const string_t* cpt_string, const char* s_cstr)
     return t_result;
 }
 
-bool_t string_great_cstr(const string_t* cpt_string, const char* s_cstr)
+bool_t string_greater_cstr(const string_t* cpt_string, const char* s_cstr)
 {
     bool_t t_result = false;
 
     _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_great_cstr(cpt_string, s_cstr);
+    t_result = basic_string_greater_cstr(cpt_string, s_cstr);
     basic_string_push_back((basic_string_t*)cpt_string, '\0');
 
     return t_result;
 }
 
-bool_t string_great_equal_cstr(const string_t* cpt_string, const char* s_cstr)
+bool_t string_greater_equal_cstr(const string_t* cpt_string, const char* s_cstr)
 {
     bool_t t_result = false;
 
     _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_great_equal_cstr(cpt_string, s_cstr);
+    t_result = basic_string_greater_equal_cstr(cpt_string, s_cstr);
     basic_string_push_back((basic_string_t*)cpt_string, '\0');
 
     return t_result;

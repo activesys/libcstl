@@ -122,9 +122,9 @@ extern bool_t _hashtable_less(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
 extern bool_t _hashtable_less_equal(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
-extern bool_t _hashtable_great(
+extern bool_t _hashtable_greater(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
-extern bool_t _hashtable_great_equal(
+extern bool_t _hashtable_greater_equal(
     const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
 
 /*

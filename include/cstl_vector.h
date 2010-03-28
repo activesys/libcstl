@@ -101,11 +101,11 @@ extern bool_t vector_not_equal(
     const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
 extern bool_t vector_less(
     const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
-extern bool_t vector_great(
+extern bool_t vector_greater(
     const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
 extern bool_t vector_less_equal(
     const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
-extern bool_t vector_great_equal(
+extern bool_t vector_greater_equal(
     const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
 
 /*

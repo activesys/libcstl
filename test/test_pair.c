@@ -116,8 +116,8 @@ void test_pair(void)
         /*pair_not_equal   */
         /*pair_less        */
         /*pair_less_equal  */
-        /*pair_great       */
-        /*pair_great_equal */
+        /*pair_greater       */
+        /*pair_greater_equal */
         {
             pair_t* pt_pair = create_pair(int, int);
             pair_t* pt_pairex = create_pair(int, int);
@@ -133,8 +133,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
             pair_make(pt_pair, 45, -98);
             printf("<%d, %d>\n", *(int*)pair_first(pt_pair), *(int*)pair_second(pt_pair));
             printf("<%d, %d>\n", *(int*)pair_first(pt_pairex), *(int*)pair_second(pt_pairex));
@@ -142,8 +142,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
             pair_make(pt_pairex, 45, -98);
             printf("<%d, %d>\n", *(int*)pair_first(pt_pair), *(int*)pair_second(pt_pair));
             printf("<%d, %d>\n", *(int*)pair_first(pt_pairex), *(int*)pair_second(pt_pairex));
@@ -151,8 +151,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
             pair_make(pt_pair, 19, 86978);
             pair_make(pt_pairex, 33, -87898);
             printf("<%d, %d>\n", *(int*)pair_first(pt_pair), *(int*)pair_second(pt_pair));
@@ -161,8 +161,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
             pair_make(pt_pair, 77, 86978);
             pair_make(pt_pairex, 77, -87898);
             printf("<%d, %d>\n", *(int*)pair_first(pt_pair), *(int*)pair_second(pt_pair));
@@ -171,8 +171,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
             pair_destroy(pt_pair);
             pair_destroy(pt_pairex);
         }
@@ -272,8 +272,8 @@ void test_pair(void)
         /*pair_not_equal   */
         /*pair_less        */
         /*pair_less_equal  */
-        /*pair_great       */
-        /*pair_great_equal */
+        /*pair_greater       */
+        /*pair_greater_equal */
         {
             pair_t* pt_pair = create_pair(sample_t, int);
             pair_t* pt_pairex = create_pair(sample_t, int);
@@ -296,8 +296,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             t_sa._n_first = 456;
             t_sa._n_second = 789;
@@ -314,8 +314,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             t_sa._n_first = 456;
             t_sa._n_second = 789;
@@ -332,8 +332,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             t_sa._n_first = 456;
             t_sa._n_second = -789;
@@ -353,8 +353,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             pair_destroy(pt_pair);
             pair_destroy(pt_pairex);
@@ -474,8 +474,8 @@ void test_pair(void)
         /*pair_not_equal   */
         /*pair_less        */
         /*pair_less_equal  */
-        /*pair_great       */
-        /*pair_great_equal */
+        /*pair_greater       */
+        /*pair_greater_equal */
         {
             pair_t* pt_pair = create_pair(pair_t<int, int>, pair_t<double, double>);
             pair_t* pt_pairex = create_pair(pair_t<int, int>, pair_t<double, double>);
@@ -504,8 +504,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             pair_make(pt_pair1, 5, 2);
             pair_make(pt_pair2, 0.560, 0.23);
@@ -524,8 +524,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             pair_make(pt_pair1, 5, 2);
             pair_make(pt_pair2, 0.560, 0.23);
@@ -544,8 +544,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             pair_make(pt_pair1, -5, 2300);
             pair_make(pt_pair2, 9.560, 10.23);
@@ -566,8 +566,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
             pair_destroy(pt_pair);
             pair_destroy(pt_pairex);
             pair_destroy(pt_pair1);
@@ -639,8 +639,8 @@ void test_pair(void)
         /*pair_not_equal   */
         /*pair_less        */
         /*pair_less_equal  */
-        /*pair_great       */
-        /*pair_great_equal */
+        /*pair_greater       */
+        /*pair_greater_equal */
         {
             pair_t* pt_pair = create_pair(char*, int);
             pair_t* pt_pairex = create_pair(char*, int);
@@ -656,8 +656,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             pair_make(pt_pair, "Linux", 100);
             printf("<%s, %d>\n", (char*)pair_first(pt_pair), *(int*)pair_second(pt_pair));
@@ -666,8 +666,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             pair_make(pt_pairex, "Linux", 100);
             printf("<%s, %d>\n", (char*)pair_first(pt_pair), *(int*)pair_second(pt_pair));
@@ -676,8 +676,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
 
             pair_make(pt_pair, "AIX", 9100);
             printf("<%s, %d>\n", (char*)pair_first(pt_pair), *(int*)pair_second(pt_pair));
@@ -686,8 +686,8 @@ void test_pair(void)
                 pair_equal(pt_pair, pt_pairex), pair_not_equal(pt_pair, pt_pairex));
             printf("less: %d, less equal: %d, ",
                 pair_less(pt_pair, pt_pairex), pair_less_equal(pt_pair, pt_pairex));
-            printf("great: %d, great equal: %d\n",
-                pair_great(pt_pair, pt_pairex), pair_great_equal(pt_pair, pt_pairex));
+            printf("greater: %d, greater equal: %d\n",
+                pair_greater(pt_pair, pt_pairex), pair_greater_equal(pt_pair, pt_pairex));
             pair_destroy(pt_pair);
             pair_destroy(pt_pairex);
         }

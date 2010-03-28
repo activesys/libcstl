@@ -107,11 +107,11 @@ extern bool_t multimap_not_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond);
 extern bool_t multimap_less(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond);
-extern bool_t multimap_great(
+extern bool_t multimap_greater(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond);
 extern bool_t multimap_less_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond);
-extern bool_t multimap_great_equal(
+extern bool_t multimap_greater_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond);
 
 /*

@@ -147,11 +147,11 @@ extern bool_t _avl_tree_not_equal(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
 extern bool_t _avl_tree_less(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_great(
+extern bool_t _avl_tree_greater(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
 extern bool_t _avl_tree_less_equal(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_great_equal(
+extern bool_t _avl_tree_greater_equal(
     const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
 
 /*

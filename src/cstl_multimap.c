@@ -529,29 +529,29 @@ bool_t multimap_less_equal(
 #endif
 }
 
-bool_t multimap_great(
+bool_t multimap_greater(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
     assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    return _avl_tree_great(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
+    return _avl_tree_greater(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
 #else
-    return _rb_tree_great(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
+    return _rb_tree_greater(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
 #endif
 }
 
-bool_t multimap_great_equal(
+bool_t multimap_greater_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
     assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    return _avl_tree_great_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
+    return _avl_tree_greater_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
 #else
-    return _rb_tree_great_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
+    return _rb_tree_greater_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
 #endif
 }
 

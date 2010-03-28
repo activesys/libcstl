@@ -74,7 +74,7 @@ static void _weather_less(const void* cpv_first, const void* cpv_second, void* p
 static void _weather_destroy(const void* cpv_input, void* pv_output);
 static void _print_pq_int(const priority_queue_t* cpt_pq);
 static void _print_int(const void* cpv_input, void* pv_output);
-static void _weather_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _weather_greater(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _print_pq_user(const priority_queue_t* cpt_pq);
 static void _print_user(const void* cpv_input, void* pv_output);
 static void _print_pq_cstl(const priority_queue_t* cpt_pq);
@@ -223,8 +223,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
             queue_push(pt_queue1, 45);
             _printqueue_c(pt_queue1, "%d, ", int);
             _printqueue_c(pt_queue2, "%d, ", int);
@@ -232,8 +232,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
             queue_push(pt_queue2, 45);
             _printqueue_c(pt_queue1, "%d, ", int);
             _printqueue_c(pt_queue2, "%d, ", int);
@@ -241,8 +241,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
             queue_push(pt_queue1, -39);
             queue_push(pt_queue2, -4);
             _printqueue_c(pt_queue1, "%d, ", int);
@@ -251,8 +251,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
             queue_push(pt_queue1, 100);
             _printqueue_c(pt_queue1, "%d, ", int);
             _printqueue_c(pt_queue2, "%d, ", int);
@@ -260,16 +260,16 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
             queue_destroy(pt_queue1);
             queue_destroy(pt_queue2);
         }
         /*queue_not_equal  */
         /*queue_less       */
         /*queue_less_equal */
-        /*queue_great      */
-        /*queue_great_equal*/
+        /*queue_greater      */
+        /*queue_greater_equal*/
     }
     /* user defined type */
     {
@@ -447,8 +447,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             _weather_set(&t_wea, "Shenyang", 3);
             queue_push(pt_queue1, &t_wea);
@@ -458,8 +458,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             queue_push(pt_queue2, &t_wea);
             _printweather(pt_queue1);
@@ -468,8 +468,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             _weather_set(&t_wea, "Changchun", 0);
             queue_push(pt_queue1, &t_wea);
@@ -481,8 +481,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             _weather_set(&t_wea, "Guangzhou", 27);
             queue_push(pt_queue1, &t_wea);
@@ -492,8 +492,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             queue_destroy(pt_queue1);
             queue_destroy(pt_queue2);
@@ -501,8 +501,8 @@ void test_queue(void)
         /*queue_not_equal  */
         /*queue_less       */
         /*queue_less_equal */
-        /*queue_great      */
-        /*queue_great_equal*/
+        /*queue_greater      */
+        /*queue_greater_equal*/
     }
     /* cstl built-in type */
     {
@@ -675,8 +675,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             queue_push(pt_queueex, 45);
             queue_push(pt_queue1, pt_queueex);
@@ -686,8 +686,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             queue_push(pt_queue2, pt_queueex);
             _printqueue(pt_queue1);
@@ -696,8 +696,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             queue_pop(pt_queueex);
             queue_push(pt_queueex, -39);
@@ -711,8 +711,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             queue_pop(pt_queueex);
             queue_push(pt_queueex, 100);
@@ -723,8 +723,8 @@ void test_queue(void)
                 queue_equal(pt_queue1, pt_queue2), queue_not_equal(pt_queue1, pt_queue2));
             printf("less : %d, less equal : %d, ",
                 queue_less(pt_queue1, pt_queue2), queue_less_equal(pt_queue1, pt_queue2));
-            printf("great : %d, great equal : %d\n",
-                queue_great(pt_queue1, pt_queue2), queue_great_equal(pt_queue1, pt_queue2));
+            printf("greater : %d, greater equal : %d\n",
+                queue_greater(pt_queue1, pt_queue2), queue_greater_equal(pt_queue1, pt_queue2));
 
             queue_destroy(pt_queue1);
             queue_destroy(pt_queue2);
@@ -733,8 +733,8 @@ void test_queue(void)
         /*queue_not_equal  */
         /*queue_less       */
         /*queue_less_equal */
-        /*queue_great      */
-        /*queue_great_equal*/
+        /*queue_greater      */
+        /*queue_greater_equal*/
     }
     /* c-string type */
     {
@@ -828,8 +828,8 @@ void test_queue(void)
         /*queue_not_equal  */
         /*queue_less       */
         /*queue_less_equal */
-        /*queue_great      */
-        /*queue_great_equal*/
+        /*queue_greater      */
+        /*queue_greater_equal*/
         {
             queue_t* pt_queue = create_queue(char*);
             queue_t* pt_queueex = create_queue(char*);
@@ -845,8 +845,8 @@ void test_queue(void)
                 queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
             printf("less: %d, less equal: %d, ",
                 queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
-            printf("great: %d, great equal: %d\n",
-                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+            printf("greater: %d, greater equal: %d\n",
+                queue_greater(pt_queue, pt_queueex), queue_greater_equal(pt_queue, pt_queueex));
 
             queue_push(pt_queue, "Because the CA hierarchy");
             _print_queue_str(pt_queue);
@@ -855,8 +855,8 @@ void test_queue(void)
                 queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
             printf("less: %d, less equal: %d, ",
                 queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
-            printf("great: %d, great equal: %d\n",
-                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+            printf("greater: %d, greater equal: %d\n",
+                queue_greater(pt_queue, pt_queueex), queue_greater_equal(pt_queue, pt_queueex));
 
             queue_push(pt_queueex, "Because the CA hierarchy");
             _print_queue_str(pt_queue);
@@ -865,8 +865,8 @@ void test_queue(void)
                 queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
             printf("less: %d, less equal: %d, ",
                 queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
-            printf("great: %d, great equal: %d\n",
-                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+            printf("greater: %d, greater equal: %d\n",
+                queue_greater(pt_queue, pt_queueex), queue_greater_equal(pt_queue, pt_queueex));
 
             queue_push(pt_queueex, "The implication is that");
             _print_queue_str(pt_queue);
@@ -875,8 +875,8 @@ void test_queue(void)
                 queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
             printf("less: %d, less equal: %d, ",
                 queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
-            printf("great: %d, great equal: %d\n",
-                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+            printf("greater: %d, greater equal: %d\n",
+                queue_greater(pt_queue, pt_queueex), queue_greater_equal(pt_queue, pt_queueex));
 
             queue_push(pt_queue, "DASS uses the X.500");
             queue_push(pt_queue, "In concept");
@@ -886,8 +886,8 @@ void test_queue(void)
                 queue_equal(pt_queue, pt_queueex), queue_not_equal(pt_queue, pt_queueex));
             printf("less: %d, less equal: %d, ",
                 queue_less(pt_queue, pt_queueex), queue_less_equal(pt_queue, pt_queueex));
-            printf("great: %d, great equal: %d\n",
-                queue_great(pt_queue, pt_queueex), queue_great_equal(pt_queue, pt_queueex));
+            printf("greater: %d, greater equal: %d\n",
+                queue_greater(pt_queue, pt_queueex), queue_greater_equal(pt_queue, pt_queueex));
             queue_destroy(pt_queue);
             queue_destroy(pt_queueex);
         }
@@ -923,7 +923,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pq, fun_great_int);
+            priority_queue_init_ex(pt_pq, fun_greater_int);
             _print_pq_int(pt_pq);
             priority_queue_push(pt_pq, 45);
             priority_queue_push(pt_pq, 5);
@@ -941,7 +941,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pqex, fun_great_int);
+            priority_queue_init_ex(pt_pqex, fun_greater_int);
             priority_queue_push(pt_pqex, 45);
             priority_queue_push(pt_pqex, 5);
             priority_queue_push(pt_pqex, 95);
@@ -988,7 +988,7 @@ void test_priority_queue(void)
             vector_push_back(pt_vec, 4);
             vector_push_back(pt_vec, -5);
             priority_queue_init_copy_range_ex(pt_pq,
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int);
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int);
             _print_pq_int(pt_pq);
             vector_destroy(pt_vec);
             priority_queue_destroy(pt_pq);
@@ -1003,7 +1003,7 @@ void test_priority_queue(void)
                 return;
             }
             priority_queue_init(pt_pq);
-            priority_queue_init_ex(pt_pqex, fun_great_int);
+            priority_queue_init_ex(pt_pqex, fun_greater_int);
             priority_queue_push(pt_pqex, 45);
             priority_queue_push(pt_pqex, 5);
             priority_queue_push(pt_pqex, 95);
@@ -1026,7 +1026,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pq, fun_great_int);
+            priority_queue_init_ex(pt_pq, fun_greater_int);
             _print_pq_int(pt_pq);
             priority_queue_push(pt_pq, 45);
             priority_queue_push(pt_pq, 5);
@@ -1083,7 +1083,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pq, _weather_great);
+            priority_queue_init_ex(pt_pq, _weather_greater);
             _weather_init(&t_wea, &t_result);
 
             _weather_set(&t_wea, "Shenyang", 3);
@@ -1109,7 +1109,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pq, _weather_great);
+            priority_queue_init_ex(pt_pq, _weather_greater);
             _weather_init(&t_wea, &t_result);
 
             _weather_set(&t_wea, "Shenyang", 3);
@@ -1181,7 +1181,7 @@ void test_priority_queue(void)
             vector_push_back(pt_vec, &t_wea);
 
             priority_queue_init_copy_range_ex(pt_pq,
-                vector_begin(pt_vec), vector_end(pt_vec), _weather_great);
+                vector_begin(pt_vec), vector_end(pt_vec), _weather_greater);
             _print_pq_user(pt_pq);
             priority_queue_destroy(pt_pq);
             vector_destroy(pt_vec);
@@ -1197,7 +1197,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pq, _weather_great);
+            priority_queue_init_ex(pt_pq, _weather_greater);
             priority_queue_init(pt_pqex);
             _weather_init(&t_wea, &t_result);
 
@@ -1309,7 +1309,7 @@ void test_priority_queue(void)
                 return;
             }
             list_init(pt_list);
-            priority_queue_init_ex(pt_pq, fun_great_list);
+            priority_queue_init_ex(pt_pq, fun_greater_list);
             list_push_back(pt_list, 334);
             list_push_back(pt_list, 90);
             list_push_back(pt_list, 44);
@@ -1352,7 +1352,7 @@ void test_priority_queue(void)
                 return;
             }
             list_init(pt_list);
-            priority_queue_init_ex(pt_pq, fun_great_list);
+            priority_queue_init_ex(pt_pq, fun_greater_list);
             list_push_back(pt_list, 334);
             list_push_back(pt_list, 90);
             list_push_back(pt_list, 44);
@@ -1479,7 +1479,7 @@ void test_priority_queue(void)
             printf("\n");
 
             priority_queue_init_copy_range_ex(pt_pq,
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list);
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list);
             _print_pq_cstl(pt_pq);
 
             priority_queue_destroy(pt_pq);
@@ -1497,7 +1497,7 @@ void test_priority_queue(void)
                 return;
             }
             list_init(pt_list);
-            priority_queue_init_ex(pt_pq, fun_great_list);
+            priority_queue_init_ex(pt_pq, fun_greater_list);
             priority_queue_init(pt_pqex);
             list_push_back(pt_list, 334);
             list_push_back(pt_list, 90);
@@ -1548,7 +1548,7 @@ void test_priority_queue(void)
                 return;
             }
             list_init(pt_list);
-            priority_queue_init_ex(pt_pq, fun_great_list);
+            priority_queue_init_ex(pt_pq, fun_greater_list);
             list_push_back(pt_list, 334);
             list_push_back(pt_list, 90);
             list_push_back(pt_list, 44);
@@ -1618,7 +1618,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pq, fun_great_cstr);
+            priority_queue_init_ex(pt_pq, fun_greater_cstr);
             priority_queue_push(pt_pq, "lllllsjsf");
             priority_queue_push(pt_pq, "00000000000");
             priority_queue_push(pt_pq, "ooooooooooooo");
@@ -1638,7 +1638,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pq, fun_great_cstr);
+            priority_queue_init_ex(pt_pq, fun_greater_cstr);
             priority_queue_push(pt_pq, "lllllsjsf");
             priority_queue_push(pt_pq, "00000000000");
             priority_queue_push(pt_pq, "ooooooooooooo");
@@ -1696,7 +1696,7 @@ void test_priority_queue(void)
             algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
             printf("\n");
             priority_queue_init_copy_range_ex(pt_pq,
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr);
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr);
             _print_pq_cstr(pt_pq);
 
             priority_queue_destroy(pt_pq);
@@ -1711,7 +1711,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pq, fun_great_cstr);
+            priority_queue_init_ex(pt_pq, fun_greater_cstr);
             priority_queue_init(pt_pqex);
             priority_queue_push(pt_pq, "lllllsjsf");
             priority_queue_push(pt_pq, "00000000000");
@@ -1738,7 +1738,7 @@ void test_priority_queue(void)
             {
                 return;
             }
-            priority_queue_init_ex(pt_pq, fun_great_cstr);
+            priority_queue_init_ex(pt_pq, fun_greater_cstr);
             priority_queue_push(pt_pq, "lllllsjsf");
             priority_queue_push(pt_pq, "00000000000");
             priority_queue_push(pt_pq, "ooooooooooooo");
@@ -1942,7 +1942,7 @@ static void _weather_less(const void* cpv_first, const void* cpv_second, void* p
     }
 }
 
-static void _weather_great(const void* cpv_first, const void* cpv_second, void* pv_output)
+static void _weather_greater(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     if(strncmp(((weather_t*)cpv_first)->_s_city, ((weather_t*)cpv_second)->_s_city, 30) > 0)

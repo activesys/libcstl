@@ -285,7 +285,7 @@ void test_vector(void)
             vector_destroy(pv_int);
             vector_destroy(pv_signed);
         }
-        /* vector_great() */
+        /* vector_greater() */
         {
             vector_t* pv_int = create_vector(int);
             vector_t* pv_signed = create_vector(signed);
@@ -296,11 +296,11 @@ void test_vector(void)
 
             vector_init_elem(pv_int, 2, 200);
             vector_init_elem(pv_signed, 2, 200);
-            printf("great: %d\n", vector_great(pv_int, pv_signed));
+            printf("greater: %d\n", vector_greater(pv_int, pv_signed));
             vector_destroy(pv_int);
             vector_destroy(pv_signed);
         }
-        /* vector_great_equal() */
+        /* vector_greater_equal() */
         {
             vector_t* pv_int = create_vector(int);
             vector_t* pv_signed = create_vector(signed);
@@ -311,7 +311,7 @@ void test_vector(void)
 
             vector_init_elem(pv_int, 2, 200);
             vector_init_elem(pv_signed, 2, 200);
-            printf("great equal: %d\n", vector_great_equal(pv_int, pv_signed));
+            printf("greater equal: %d\n", vector_greater_equal(pv_int, pv_signed));
             vector_destroy(pv_int);
             vector_destroy(pv_signed);
         }
@@ -828,7 +828,7 @@ void test_vector(void)
             vector_destroy(pt_abc);
             vector_destroy(pt_abcex);
         }
-        /* vector_great() */
+        /* vector_greater() */
         {
             vector_t* pt_abc = create_vector(abc_t);
             vector_t* pt_abcex = create_vector(struct _tagabc);
@@ -843,12 +843,12 @@ void test_vector(void)
             *(double*)t_abc._pc_third = 89.444;
             vector_init_n(pt_abc, 3);
             vector_init_elem(pt_abcex, 3, &t_abc);
-            printf("%d\n", vector_great(pt_abc, pt_abcex));
+            printf("%d\n", vector_greater(pt_abc, pt_abcex));
             vector_destroy(pt_abc);
             vector_destroy(pt_abcex);
             free(t_abc._pc_third);
         }
-        /* vector_great_equal() */
+        /* vector_greater_equal() */
         {
             vector_t* pt_abc = create_vector(abc_t);
             vector_t* pt_abcex = create_vector(struct _tagabc);
@@ -863,7 +863,7 @@ void test_vector(void)
             *(double*)t_abc._pc_third = 89.444;
             vector_init_n(pt_abc, 3);
             vector_init_elem(pt_abcex, 3, &t_abc);
-            printf("%d\n", vector_great_equal(pt_abc, pt_abcex));
+            printf("%d\n", vector_greater_equal(pt_abc, pt_abcex));
             vector_destroy(pt_abc);
             vector_destroy(pt_abcex);
             free(t_abc._pc_third);
@@ -1983,8 +1983,8 @@ void test_vector(void)
             printf("not equal: %d\n", vector_not_equal(pt_vec, pt_vecex));
             printf("less: %d\n", vector_less(pt_vec, pt_vecex));
             printf("less equal: %d\n", vector_less_equal(pt_vec, pt_vecex));
-            printf("great: %d\n", vector_great(pt_vec, pt_vecex));
-            printf("great equal: %d\n", vector_great_equal(pt_vec, pt_vecex));
+            printf("greater: %d\n", vector_greater(pt_vec, pt_vecex));
+            printf("greater equal: %d\n", vector_greater_equal(pt_vec, pt_vecex));
             vector_destroy(pt_vec);
             vector_destroy(pt_vecex);
             vector_destroy(pt_vecex1);
@@ -1998,10 +1998,10 @@ void test_vector(void)
         /* vector_less_equal() */
         {
         }
-        /* vector_great() */
+        /* vector_greater() */
         {
         }
-        /* vector_great_equal() */
+        /* vector_greater_equal() */
         {
         }
         /* vector_swap() */
@@ -3118,8 +3118,8 @@ void test_vector(void)
                 vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
             printf("less: %d, less equal: %d, ",
                 vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
-            printf("great: %d, great equal: %d\n",
-                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            printf("greater: %d, greater equal: %d\n",
+                vector_greater(pt_vec, pt_vecex), vector_greater_equal(pt_vec, pt_vecex));
             vector_push_back(pt_vec, "China");
             _print_vec_str(pt_vec);
             _print_vec_str(pt_vecex);
@@ -3127,8 +3127,8 @@ void test_vector(void)
                 vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
             printf("less: %d, less equal: %d, ",
                 vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
-            printf("great: %d, great equal: %d\n",
-                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            printf("greater: %d, greater equal: %d\n",
+                vector_greater(pt_vec, pt_vecex), vector_greater_equal(pt_vec, pt_vecex));
             vector_push_back(pt_vecex, "China");
             _print_vec_str(pt_vec);
             _print_vec_str(pt_vecex);
@@ -3136,8 +3136,8 @@ void test_vector(void)
                 vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
             printf("less: %d, less equal: %d, ",
                 vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
-            printf("great: %d, great equal: %d\n",
-                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            printf("greater: %d, greater equal: %d\n",
+                vector_greater(pt_vec, pt_vecex), vector_greater_equal(pt_vec, pt_vecex));
             vector_push_back(pt_vecex, "UNIX");
             _print_vec_str(pt_vec);
             _print_vec_str(pt_vecex);
@@ -3145,8 +3145,8 @@ void test_vector(void)
                 vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
             printf("less: %d, less equal: %d, ",
                 vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
-            printf("great: %d, great equal: %d\n",
-                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            printf("greater: %d, greater equal: %d\n",
+                vector_greater(pt_vec, pt_vecex), vector_greater_equal(pt_vec, pt_vecex));
             vector_push_back(pt_vec, "CSDN");
             vector_push_back(pt_vec, "sina");
             _print_vec_str(pt_vec);
@@ -3155,16 +3155,16 @@ void test_vector(void)
                 vector_equal(pt_vec, pt_vecex), vector_not_equal(pt_vec, pt_vecex));
             printf("less: %d, less equal: %d, ",
                 vector_less(pt_vec, pt_vecex), vector_less_equal(pt_vec, pt_vecex));
-            printf("great: %d, great equal: %d\n",
-                vector_great(pt_vec, pt_vecex), vector_great_equal(pt_vec, pt_vecex));
+            printf("greater: %d, greater equal: %d\n",
+                vector_greater(pt_vec, pt_vecex), vector_greater_equal(pt_vec, pt_vecex));
             vector_destroy(pt_vec);
             vector_destroy(pt_vecex);
         }
         /* vector_not_equal() */
         /* vector_less() */
         /* vector_less_equal() */
-        /* vector_great() */
-        /* vector_great_equal() */
+        /* vector_greater() */
+        /* vector_greater_equal() */
         /* vector_swap() */
         {
             vector_t* pt_vec = create_vector(char*);

@@ -543,7 +543,7 @@ bool_t vector_equal(
     vector_iterator_t t_iterfirst;
     vector_iterator_t t_itersecond;
     bool_t            t_resultless = false;
-    bool_t            t_resultgreat = false;
+    bool_t            t_resultgreater = false;
 
     assert(cpt_vectorfirst != NULL && cpt_vectorsecond != NULL);
 
@@ -567,12 +567,12 @@ bool_t vector_equal(
         t_itersecond = iterator_next(t_itersecond))
     {
         t_resultless = _GET_VECTOR_TYPE_SIZE(cpt_vectorfirst);
-        t_resultgreat = _GET_VECTOR_TYPE_SIZE(cpt_vectorsecond);
+        t_resultgreater = _GET_VECTOR_TYPE_SIZE(cpt_vectorsecond);
         _GET_VECTOR_TYPE_LESS_FUNCTION(cpt_vectorfirst)(_GET_VECTOR_COREPOS(t_iterfirst),
             _GET_VECTOR_COREPOS(t_itersecond), &t_resultless);
         _GET_VECTOR_TYPE_LESS_FUNCTION(cpt_vectorsecond)(_GET_VECTOR_COREPOS(t_itersecond),
-            _GET_VECTOR_COREPOS(t_iterfirst), &t_resultgreat);
-        if(t_resultless || t_resultgreat)
+            _GET_VECTOR_COREPOS(t_iterfirst), &t_resultgreater);
+        if(t_resultless || t_resultgreater)
         {
             return false;
         }
@@ -616,7 +616,7 @@ bool_t vector_less(
         t_result = _GET_VECTOR_TYPE_SIZE(cpt_vectorfirst);
         _GET_VECTOR_TYPE_LESS_FUNCTION(cpt_vectorfirst)(
             _GET_VECTOR_COREPOS(t_itersecond), _GET_VECTOR_COREPOS(t_iterfirst), &t_result);
-        /* if any element in first vector are great then the second return false */
+        /* if any element in first vector are greater then the second return false */
         if(t_result)
         {
             return false;
@@ -628,7 +628,7 @@ bool_t vector_less(
         true : false;
 }
 
-bool_t vector_great(
+bool_t vector_greater(
     const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
 {
     return vector_less(cpt_vectorsecond, cpt_vectorfirst);
@@ -641,10 +641,10 @@ bool_t vector_less_equal(
             vector_equal(cpt_vectorfirst, cpt_vectorsecond)) ? true : false;
 }
 
-bool_t vector_great_equal(
+bool_t vector_greater_equal(
     const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
 {
-    return (vector_great(cpt_vectorfirst, cpt_vectorsecond) ||
+    return (vector_greater(cpt_vectorfirst, cpt_vectorsecond) ||
             vector_equal(cpt_vectorfirst, cpt_vectorsecond)) ? true : false;
 }
 

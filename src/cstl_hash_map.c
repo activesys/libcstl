@@ -438,21 +438,21 @@ bool_t hash_map_less_equal(
         &cpt_hash_mapfirst->_t_hashtable, &cpt_hash_mapsecond->_t_hashtable);
 }
 
-bool_t hash_map_great(
+bool_t hash_map_greater(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond)
 {
     assert(cpt_hash_mapfirst != NULL && cpt_hash_mapsecond != NULL);
 
-    return _hashtable_great(
+    return _hashtable_greater(
         &cpt_hash_mapfirst->_t_hashtable, &cpt_hash_mapsecond->_t_hashtable);
 }
 
-bool_t hash_map_great_equal(
+bool_t hash_map_greater_equal(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond)
 {
     assert(cpt_hash_mapfirst != NULL && cpt_hash_mapsecond != NULL);
 
-    return _hashtable_great_equal(
+    return _hashtable_greater_equal(
         &cpt_hash_mapfirst->_t_hashtable, &cpt_hash_mapsecond->_t_hashtable);
 }
 

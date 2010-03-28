@@ -115,11 +115,11 @@ extern bool_t multiset_not_equal(
     const multiset_t* cpt_multisetfirst, const multiset_t* cpt_multisetsecond);
 extern bool_t multiset_less(
     const multiset_t* cpt_multisetfirst, const multiset_t* cpt_multisetsecond);
-extern bool_t multiset_great(
+extern bool_t multiset_greater(
     const multiset_t* cpt_multisetfirst, const multiset_t* cpt_multisetsecond);
 extern bool_t multiset_less_equal(
     const multiset_t* cpt_multisetfirst, const multiset_t* cpt_multisetsecond);
-extern bool_t multiset_great_equal(
+extern bool_t multiset_greater_equal(
     const multiset_t* cpt_multisetfirst, const multiset_t* cpt_multisetsecond);
 
 /*

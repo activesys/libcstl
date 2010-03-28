@@ -111,9 +111,9 @@ extern void set_clear(set_t* pt_set);
 extern bool_t set_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);
 extern bool_t set_not_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);
 extern bool_t set_less(const set_t* cpt_setfirst, const set_t* cpt_setsecond);
-extern bool_t set_great(const set_t* cpt_setfirst, const set_t* cpt_setsecond);
+extern bool_t set_greater(const set_t* cpt_setfirst, const set_t* cpt_setsecond);
 extern bool_t set_less_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);
-extern bool_t set_great_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);
+extern bool_t set_greater_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);
 
 /*
  * Swap the datas of first set and second set.

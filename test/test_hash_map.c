@@ -330,9 +330,9 @@ void test_hash_map(void)
             {
                 return;
             }
-            hash_map_init_ex(pt_hmap, 100, _hash_map_int_key_hash, fun_great_int);
+            hash_map_init_ex(pt_hmap, 100, _hash_map_int_key_hash, fun_greater_int);
             assert(hash_map_hash(pt_hmap) == _hash_map_int_key_hash &&
-                hash_map_key_less(pt_hmap) == fun_great_int);
+                hash_map_key_less(pt_hmap) == fun_greater_int);
             hash_map_destroy(pt_hmap);
         }
         /*hash_map_resize            */
@@ -358,8 +358,8 @@ void test_hash_map(void)
         /*hash_map_not_equal         */
         /*hash_map_less              */
         /*hash_map_less_equal        */
-        /*hash_map_great             */
-        /*hash_map_great_equal       */
+        /*hash_map_greater             */
+        /*hash_map_greater_equal       */
         {
             hash_map_t* pt_hmap = create_hash_map(int, double);
             hash_map_t* pt_hmapex = create_hash_map(int, double);
@@ -378,8 +378,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             pair_make(pt_pair, 4, 89.23);
             hash_map_insert(pt_hmap, pt_pair);
@@ -389,8 +389,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             hash_map_insert(pt_hmapex, pt_pair);
             _print_hash_map_c(pt_hmap, "<%d, %lf>, ", int, double);
@@ -399,8 +399,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             pair_make(pt_pair, 2, 90.2);
             hash_map_insert(pt_hmap, pt_pair);
@@ -414,8 +414,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             hash_map_destroy(pt_hmap);
             hash_map_destroy(pt_hmapex);
@@ -976,9 +976,9 @@ void test_hash_map(void)
             {
                 return;
             }
-            hash_map_init_ex(pt_hmap, 0, _hash_map_sample_hash, fun_great_int);
+            hash_map_init_ex(pt_hmap, 0, _hash_map_sample_hash, fun_greater_int);
             assert(hash_map_hash(pt_hmap) == _hash_map_sample_hash &&
-                hash_map_key_less(pt_hmap) == fun_great_int);
+                hash_map_key_less(pt_hmap) == fun_greater_int);
             hash_map_destroy(pt_hmap);
         }
         /*hash_map_resize            */
@@ -1004,8 +1004,8 @@ void test_hash_map(void)
         /*hash_map_not_equal         */
         /*hash_map_less              */
         /*hash_map_less_equal        */
-        /*hash_map_great             */
-        /*hash_map_great_equal       */
+        /*hash_map_greater             */
+        /*hash_map_greater_equal       */
         {
             hash_map_t* pt_hmap = create_hash_map(int, hash_sample_t);
             hash_map_t* pt_hmapex = create_hash_map(int, hash_sample_t);
@@ -1025,8 +1025,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             t_sample._d_first = 89.23;
             t_sample._l_second = -11002244;
@@ -1038,8 +1038,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             hash_map_insert(pt_hmapex, pt_pair);
             _print_hash_map_sample(pt_hmap);
@@ -1048,8 +1048,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             t_sample._d_first = 90.2;
             t_sample._l_second = 5555555;
@@ -1069,8 +1069,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             hash_map_destroy(pt_hmap);
             hash_map_destroy(pt_hmapex);
@@ -1738,9 +1738,9 @@ void test_hash_map(void)
             {
                 return;
             }
-            hash_map_init_ex(pt_hmap, 100, _hash_map_cstl_hash, fun_great_int);
+            hash_map_init_ex(pt_hmap, 100, _hash_map_cstl_hash, fun_greater_int);
             assert(hash_map_hash(pt_hmap) == _hash_map_cstl_hash &&
-                hash_map_key_less(pt_hmap) == fun_great_int);
+                hash_map_key_less(pt_hmap) == fun_greater_int);
             hash_map_destroy(pt_hmap);
         }
         /*hash_map_resize            */
@@ -1768,8 +1768,8 @@ void test_hash_map(void)
         /*hash_map_not_equal         */
         /*hash_map_less              */
         /*hash_map_less_equal        */
-        /*hash_map_great             */
-        /*hash_map_great_equal       */
+        /*hash_map_greater             */
+        /*hash_map_greater_equal       */
         {
             hash_map_t* pt_hmap = create_hash_map(int, list_t<int>);
             hash_map_t* pt_hmapex = create_hash_map(int, list_t<int>);
@@ -1786,8 +1786,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             pt_list = (list_t*)hash_map_at(pt_hmap, 34);
             list_push_back(pt_list, 56);
@@ -1799,8 +1799,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             pt_list = (list_t*)hash_map_at(pt_hmapex, 34);
             list_push_back(pt_list, 56);
@@ -1812,8 +1812,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             pt_list = (list_t*)hash_map_at(pt_hmap, 20);
             pt_list = (list_t*)hash_map_at(pt_hmap, 10);
@@ -1829,8 +1829,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             hash_map_destroy(pt_hmap);
             hash_map_destroy(pt_hmapex);
@@ -2541,8 +2541,8 @@ void test_hash_map(void)
         /*hash_map_not_equal         */
         /*hash_map_less              */
         /*hash_map_less_equal        */
-        /*hash_map_great             */
-        /*hash_map_great_equal       */
+        /*hash_map_greater             */
+        /*hash_map_greater_equal       */
         {
             hash_map_t* pt_hmap = create_hash_map(char*, char*);
             hash_map_t* pt_hmapex = create_hash_map(char*, char*);
@@ -2561,8 +2561,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             pair_make(pt_pair, "bowsg", "alsdkfjoawhaosdfloasdkjflkasjdf");
             hash_map_insert(pt_hmap, pt_pair);
@@ -2572,8 +2572,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             hash_map_insert(pt_hmapex, pt_pair);
             _print_hash_map_cstr(pt_hmap);
@@ -2582,8 +2582,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             pair_make(pt_pair, "7394934347", "sghsdfjkasdfjksdfjkl;asdfjkl;");
             hash_map_insert(pt_hmap, pt_pair);
@@ -2597,8 +2597,8 @@ void test_hash_map(void)
                 hash_map_equal(pt_hmap, pt_hmapex), hash_map_not_equal(pt_hmap, pt_hmapex));
             printf("less: %d, less equal: %d, ",
                 hash_map_less(pt_hmap, pt_hmapex), hash_map_less_equal(pt_hmap, pt_hmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_map_great(pt_hmap, pt_hmapex), hash_map_great_equal(pt_hmap, pt_hmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_map_greater(pt_hmap, pt_hmapex), hash_map_greater_equal(pt_hmap, pt_hmapex));
 
             hash_map_destroy(pt_hmap);
             hash_map_destroy(pt_hmapex);
@@ -3273,9 +3273,9 @@ void test_hash_multimap(void)
             {
                 return;
             }
-            hash_multimap_init_ex(pt_hmmap, 100, _hash_multimap_int_key_hash, fun_great_int);
+            hash_multimap_init_ex(pt_hmmap, 100, _hash_multimap_int_key_hash, fun_greater_int);
             assert(hash_multimap_hash(pt_hmmap) == _hash_multimap_int_key_hash &&
-                hash_multimap_key_less(pt_hmmap) == fun_great_int);
+                hash_multimap_key_less(pt_hmmap) == fun_greater_int);
             hash_multimap_destroy(pt_hmmap);
         }
         /*hash_multimap_resize            */
@@ -3301,8 +3301,8 @@ void test_hash_multimap(void)
         /*hash_multimap_not_equal         */
         /*hash_multimap_less              */
         /*hash_multimap_less_equal        */
-        /*hash_multimap_great             */
-        /*hash_multimap_great_equal       */
+        /*hash_multimap_greater             */
+        /*hash_multimap_greater_equal       */
         {
             hash_multimap_t* pt_hmmap = create_hash_multimap(int, double);
             hash_multimap_t* pt_hmmapex = create_hash_multimap(int, double);
@@ -3321,8 +3321,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             pair_make(pt_pair, 4, 89.23);
             hash_multimap_insert(pt_hmmap, pt_pair);
@@ -3332,8 +3332,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             hash_multimap_insert(pt_hmmapex, pt_pair);
             _print_hash_multimap_c(pt_hmmap, "<%d, %lf>, ", int, double);
@@ -3342,8 +3342,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             pair_make(pt_pair, 2, 90.2);
             hash_multimap_insert(pt_hmmap, pt_pair);
@@ -3357,8 +3357,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             hash_multimap_destroy(pt_hmmap);
             hash_multimap_destroy(pt_hmmapex);
@@ -4096,9 +4096,9 @@ void test_hash_multimap(void)
             {
                 return;
             }
-            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_sample_hash, fun_great_int);
+            hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_sample_hash, fun_greater_int);
             assert(hash_multimap_hash(pt_hmmap) == _hash_multimap_sample_hash &&
-                hash_multimap_key_less(pt_hmmap) == fun_great_int);
+                hash_multimap_key_less(pt_hmmap) == fun_greater_int);
             hash_multimap_destroy(pt_hmmap);
         }
         /*hash_multimap_resize            */
@@ -4124,8 +4124,8 @@ void test_hash_multimap(void)
         /*hash_multimap_not_equal         */
         /*hash_multimap_less              */
         /*hash_multimap_less_equal        */
-        /*hash_multimap_great             */
-        /*hash_multimap_great_equal       */
+        /*hash_multimap_greater             */
+        /*hash_multimap_greater_equal       */
         {
             hash_multimap_t* pt_hmmap = create_hash_multimap(int, hash_sample_t);
             hash_multimap_t* pt_hmmapex = create_hash_multimap(int, hash_sample_t);
@@ -4145,8 +4145,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             t_sample._d_first = 89.23;
             t_sample._l_second = -11002244;
@@ -4158,8 +4158,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             hash_multimap_insert(pt_hmmapex, pt_pair);
             _print_hash_multimap_sample(pt_hmmap);
@@ -4168,8 +4168,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             t_sample._d_first = 90.2;
             t_sample._l_second = 5555555;
@@ -4189,8 +4189,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             hash_multimap_destroy(pt_hmmap);
             hash_multimap_destroy(pt_hmmapex);
@@ -5130,9 +5130,9 @@ void test_hash_multimap(void)
             {
                 return;
             }
-            hash_multimap_init_ex(pt_hmmap, 100, _hash_multimap_cstl_hash, fun_great_int);
+            hash_multimap_init_ex(pt_hmmap, 100, _hash_multimap_cstl_hash, fun_greater_int);
             assert(hash_multimap_hash(pt_hmmap) == _hash_multimap_cstl_hash &&
-                hash_multimap_key_less(pt_hmmap) == fun_great_int);
+                hash_multimap_key_less(pt_hmmap) == fun_greater_int);
             hash_multimap_destroy(pt_hmmap);
         }
         /*hash_multimap_resize            */
@@ -5160,8 +5160,8 @@ void test_hash_multimap(void)
         /*hash_multimap_not_equal         */
         /*hash_multimap_less              */
         /*hash_multimap_less_equal        */
-        /*hash_multimap_great             */
-        /*hash_multimap_great_equal       */
+        /*hash_multimap_greater             */
+        /*hash_multimap_greater_equal       */
         {
             hash_multimap_t* pt_hmmap = create_hash_multimap(int, list_t<int>);
             hash_multimap_t* pt_hmmapex = create_hash_multimap(int, list_t<int>);
@@ -5181,8 +5181,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             list_clear(pt_list);
             list_push_back(pt_list, 56);
@@ -5196,8 +5196,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             list_clear(pt_list);
             list_push_back(pt_list, 5006);
@@ -5213,8 +5213,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             list_clear(pt_list);
             pair_make(pt_pair, 20, pt_list);
@@ -5236,8 +5236,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             hash_multimap_destroy(pt_hmmap);
             hash_multimap_destroy(pt_hmmapex);
@@ -6162,8 +6162,8 @@ void test_hash_multimap(void)
         /*hash_multimap_not_equal         */
         /*hash_multimap_less              */
         /*hash_multimap_less_equal        */
-        /*hash_multimap_great             */
-        /*hash_multimap_great_equal       */
+        /*hash_multimap_greater             */
+        /*hash_multimap_greater_equal       */
         {
             hash_multimap_t* pt_hmmap = create_hash_multimap(char*, char*);
             hash_multimap_t* pt_hmmapex = create_hash_multimap(char*, char*);
@@ -6182,8 +6182,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             pair_make(pt_pair, "bowsg", "alsdkfjoawhaosdfloasdkjflkasjdf");
             hash_multimap_insert(pt_hmmap, pt_pair);
@@ -6193,8 +6193,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             hash_multimap_insert(pt_hmmapex, pt_pair);
             _print_hash_multimap_cstr(pt_hmmap);
@@ -6203,8 +6203,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             pair_make(pt_pair, "7394934347", "sghsdfjkasdfjksdfjkl;asdfjkl;");
             hash_multimap_insert(pt_hmmap, pt_pair);
@@ -6218,8 +6218,8 @@ void test_hash_multimap(void)
                 hash_multimap_equal(pt_hmmap, pt_hmmapex), hash_multimap_not_equal(pt_hmmap, pt_hmmapex));
             printf("less: %d, less equal: %d, ",
                 hash_multimap_less(pt_hmmap, pt_hmmapex), hash_multimap_less_equal(pt_hmmap, pt_hmmapex));
-            printf("great: %d, great equal: %d\n",
-                hash_multimap_great(pt_hmmap, pt_hmmapex), hash_multimap_great_equal(pt_hmmap, pt_hmmapex));
+            printf("greater: %d, greater equal: %d\n",
+                hash_multimap_greater(pt_hmmap, pt_hmmapex), hash_multimap_greater_equal(pt_hmmap, pt_hmmapex));
 
             hash_multimap_destroy(pt_hmmap);
             hash_multimap_destroy(pt_hmmapex);

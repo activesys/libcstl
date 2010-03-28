@@ -182,9 +182,9 @@ void test_deque(void)
             printf("less : %d, less equal : %d\n",
                 deque_less(pt_deq, pt_deqex),
                 deque_less_equal(pt_deq, pt_deqex));
-            printf("great : %d, great equal : %d\n",
-                deque_great(pt_deq, pt_deqex),
-                deque_great_equal(pt_deq, pt_deqex));
+            printf("greater : %d, greater equal : %d\n",
+                deque_greater(pt_deq, pt_deqex),
+                deque_greater_equal(pt_deq, pt_deqex));
             deque_destroy(pt_deq);
             deque_destroy(pt_deqex);
         }
@@ -197,10 +197,10 @@ void test_deque(void)
         /* deque_less_equal() */
         {
         }
-        /* deque_great() */
+        /* deque_greater() */
         {
         }
-        /* deque_great_equal() */
+        /* deque_greater_equal() */
         {
         }
         /* deque_assign() */
@@ -1057,46 +1057,46 @@ void test_deque(void)
             deque_init(pt_deq);
             deque_init(pt_deqex);
             printf("equal: %d, not equal: %d, "
-                   "less: %d, less equal: %d, great: %d, great equal: %d\n",
+                   "less: %d, less equal: %d, greater: %d, greater equal: %d\n",
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex),
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex),
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
             t_abc.d_first = 2.3;
             t_abc.n_second = 889;
             deque_push_back(pt_deqex, &t_abc);
             printf("equal: %d, not equal: %d, "
-                   "less: %d, less equal: %d, great: %d, great equal: %d\n",
+                   "less: %d, less equal: %d, greater: %d, greater equal: %d\n",
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex),
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex),
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
             deque_push_back(pt_deq, &t_abc);
             printf("equal: %d, not equal: %d, "
-                   "less: %d, less equal: %d, great: %d, great equal: %d\n",
+                   "less: %d, less equal: %d, greater: %d, greater equal: %d\n",
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex),
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex),
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
             deque_push_back(pt_deq, &t_abc);
             printf("equal: %d, not equal: %d, "
-                   "less: %d, less equal: %d, great: %d, great equal: %d\n",
+                   "less: %d, less equal: %d, greater: %d, greater equal: %d\n",
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex),
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex),
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
             t_abc.d_first = 2.3;
             t_abc.n_second = 77;
             deque_push_back(pt_deqex, &t_abc);
             printf("equal: %d, not equal: %d, "
-                   "less: %d, less equal: %d, great: %d, great equal: %d\n",
+                   "less: %d, less equal: %d, greater: %d, greater equal: %d\n",
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex),
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex),
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
             deque_destroy(pt_deq);
             deque_destroy(pt_deqex);
         }
         /* deque_not_equal() */
         /* deque_less() */
         /* deque_less_equal() */
-        /* deque_great() */
-        /* deque_great_equal() */
+        /* deque_greater() */
+        /* deque_greater_equal() */
         /* deque_assign() */
         {
             deque_t* pt_deq = create_deque(deqabc_t);
@@ -1709,31 +1709,31 @@ void test_deque(void)
                 deque_equal(pt_deq1, pt_deq2), deque_not_equal(pt_deq1, pt_deq2));
             printf("less: %d, less equal: %d\n",
                 deque_less(pt_deq1, pt_deq2), deque_less_equal(pt_deq1, pt_deq2));
-            printf("great: %d, great equal: %d\n",
-                deque_great(pt_deq1, pt_deq2), deque_great_equal(pt_deq1, pt_deq2));
+            printf("greater: %d, greater equal: %d\n",
+                deque_greater(pt_deq1, pt_deq2), deque_greater_equal(pt_deq1, pt_deq2));
             deque_push_back(pt_deq1, pt_deqex);
             printf("equal: %d, not equal: %d\n",
                 deque_equal(pt_deq1, pt_deq2), deque_not_equal(pt_deq1, pt_deq2));
             printf("less: %d, less equal: %d\n",
                 deque_less(pt_deq1, pt_deq2), deque_less_equal(pt_deq1, pt_deq2));
-            printf("great: %d, great equal: %d\n",
-                deque_great(pt_deq1, pt_deq2), deque_great_equal(pt_deq1, pt_deq2));
+            printf("greater: %d, greater equal: %d\n",
+                deque_greater(pt_deq1, pt_deq2), deque_greater_equal(pt_deq1, pt_deq2));
             deque_push_back(pt_deq2, pt_deqex);
             deque_push_back(pt_deq2, pt_deqex);
             printf("equal: %d, not equal: %d\n",
                 deque_equal(pt_deq1, pt_deq2), deque_not_equal(pt_deq1, pt_deq2));
             printf("less: %d, less equal: %d\n",
                 deque_less(pt_deq1, pt_deq2), deque_less_equal(pt_deq1, pt_deq2));
-            printf("great: %d, great equal: %d\n",
-                deque_great(pt_deq1, pt_deq2), deque_great_equal(pt_deq1, pt_deq2));
+            printf("greater: %d, greater equal: %d\n",
+                deque_greater(pt_deq1, pt_deq2), deque_greater_equal(pt_deq1, pt_deq2));
             deque_push_back(pt_deqex, 29);
             deque_push_back(pt_deq1, pt_deqex);
             printf("equal: %d, not equal: %d\n",
                 deque_equal(pt_deq1, pt_deq2), deque_not_equal(pt_deq1, pt_deq2));
             printf("less: %d, less equal: %d\n",
                 deque_less(pt_deq1, pt_deq2), deque_less_equal(pt_deq1, pt_deq2));
-            printf("great: %d, great equal: %d\n",
-                deque_great(pt_deq1, pt_deq2), deque_great_equal(pt_deq1, pt_deq2));
+            printf("greater: %d, greater equal: %d\n",
+                deque_greater(pt_deq1, pt_deq2), deque_greater_equal(pt_deq1, pt_deq2));
             deque_destroy(pt_deq1);
             deque_destroy(pt_deq2);
             deque_destroy(pt_deqex);
@@ -1741,8 +1741,8 @@ void test_deque(void)
         /* deque_not_equal() */
         /* deque_less() */
         /* deque_less_equal() */
-        /* deque_great() */
-        /* deque_great_equal() */
+        /* deque_greater() */
+        /* deque_greater_equal() */
         /* deque_assign() */
         {
             deque_t* pt_deq1 = create_deque(deque_t<int>);
@@ -2718,8 +2718,8 @@ void test_deque(void)
         /*deque_not_equal      */
         /*deque_less           */
         /*deque_less_equal     */
-        /*deque_great          */
-        /*deque_great_equal    */
+        /*deque_greater          */
+        /*deque_greater_equal    */
         {
             deque_t* pt_deq = create_deque(char*);
             deque_t* pt_deqex = create_deque(char*);
@@ -2735,8 +2735,8 @@ void test_deque(void)
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
             printf("less: %d, less equal: %d, ",
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
-            printf("great: %d, great equal: %d\n",
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+            printf("greater: %d, greater equal: %d\n",
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
             deque_push_back(pt_deq, "China");
             _print_deq_str(pt_deq);
             _print_deq_str(pt_deqex);
@@ -2744,8 +2744,8 @@ void test_deque(void)
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
             printf("less: %d, less equal: %d, ",
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
-            printf("great: %d, great equal: %d\n",
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+            printf("greater: %d, greater equal: %d\n",
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
             deque_push_back(pt_deqex, "China");
             _print_deq_str(pt_deq);
             _print_deq_str(pt_deqex);
@@ -2753,8 +2753,8 @@ void test_deque(void)
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
             printf("less: %d, less equal: %d, ",
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
-            printf("great: %d, great equal: %d\n",
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+            printf("greater: %d, greater equal: %d\n",
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
             deque_push_back(pt_deqex, "Unix");
             _print_deq_str(pt_deq);
             _print_deq_str(pt_deqex);
@@ -2762,8 +2762,8 @@ void test_deque(void)
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
             printf("less: %d, less equal: %d, ",
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
-            printf("great: %d, great equal: %d\n",
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+            printf("greater: %d, greater equal: %d\n",
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
             deque_push_back(pt_deq, "Pub");
             deque_push_back(pt_deq, "CSDN");
             _print_deq_str(pt_deq);
@@ -2772,8 +2772,8 @@ void test_deque(void)
                 deque_equal(pt_deq, pt_deqex), deque_not_equal(pt_deq, pt_deqex));
             printf("less: %d, less equal: %d, ",
                 deque_less(pt_deq, pt_deqex), deque_less_equal(pt_deq, pt_deqex));
-            printf("great: %d, great equal: %d\n",
-                deque_great(pt_deq, pt_deqex), deque_great_equal(pt_deq, pt_deqex));
+            printf("greater: %d, greater equal: %d\n",
+                deque_greater(pt_deq, pt_deqex), deque_greater_equal(pt_deq, pt_deqex));
 
             deque_destroy(pt_deq);
             deque_destroy(pt_deqex);

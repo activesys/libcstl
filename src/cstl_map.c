@@ -522,27 +522,27 @@ bool_t map_less_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond)
 #endif
 }
 
-bool_t map_great(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond)
+bool_t map_greater(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond)
 {
     assert(cpt_mapfirst != NULL && cpt_mapsecond != NULL);
     assert(_map_same_pair_type(&cpt_mapfirst->_t_pair, &cpt_mapsecond->_t_pair));
 
 #ifdef CSTL_MAP_AVL_TREE
-    return _avl_tree_great(&cpt_mapfirst->_t_tree, &cpt_mapsecond->_t_tree);
+    return _avl_tree_greater(&cpt_mapfirst->_t_tree, &cpt_mapsecond->_t_tree);
 #else
-    return _rb_tree_great(&cpt_mapfirst->_t_tree, &cpt_mapsecond->_t_tree);
+    return _rb_tree_greater(&cpt_mapfirst->_t_tree, &cpt_mapsecond->_t_tree);
 #endif
 }
 
-bool_t map_great_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond)
+bool_t map_greater_equal(const map_t* cpt_mapfirst, const map_t* cpt_mapsecond)
 {
     assert(cpt_mapfirst != NULL && cpt_mapsecond != NULL);
     assert(_map_same_pair_type(&cpt_mapfirst->_t_pair, &cpt_mapsecond->_t_pair));
 
 #ifdef CSTL_MAP_AVL_TREE
-    return _avl_tree_great_equal(&cpt_mapfirst->_t_tree, &cpt_mapsecond->_t_tree);
+    return _avl_tree_greater_equal(&cpt_mapfirst->_t_tree, &cpt_mapsecond->_t_tree);
 #else
-    return _rb_tree_great_equal(&cpt_mapfirst->_t_tree, &cpt_mapsecond->_t_tree);
+    return _rb_tree_greater_equal(&cpt_mapfirst->_t_tree, &cpt_mapsecond->_t_tree);
 #endif
 }
 

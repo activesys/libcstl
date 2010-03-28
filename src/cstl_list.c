@@ -226,7 +226,7 @@ int _list_iterator_distance(
     listnode_t* pt_node = NULL;    /* the iterate pointer */
     int         n_distance = 0;    /* the distance of two iterator */
 
-    /* if the end > begin then distance is great zero */
+    /* if the end > begin then distance is greater zero */
     if(_list_iterator_before(t_iterfirst, t_itersecond))
     {
         for(pt_node = (listnode_t*)_GET_LIST_COREPOS(t_iterfirst);
@@ -567,7 +567,7 @@ bool_t list_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
     listnode_t* pt_nodefirst = NULL;    /* the firs list node pointer */
     listnode_t* pt_nodesecond = NULL;   /* the second node pointer */
     bool_t      t_less = false;
-    bool_t      t_great = false;
+    bool_t      t_greater = false;
 
     assert(cpt_listfirst != NULL && cpt_listsecond != NULL);
     assert(cpt_listfirst->_pt_node != NULL && cpt_listsecond->_pt_node != NULL);
@@ -589,12 +589,12 @@ bool_t list_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
         pt_nodefirst = pt_nodefirst->_pt_next,
         pt_nodesecond = pt_nodesecond->_pt_next)
     {
-        t_less = t_great = _GET_LIST_TYPE_SIZE(cpt_listfirst);
+        t_less = t_greater = _GET_LIST_TYPE_SIZE(cpt_listfirst);
         _GET_LIST_TYPE_LESS_FUNCTION(cpt_listfirst)(
             pt_nodefirst->_pc_data, pt_nodesecond->_pc_data, &t_less);
         _GET_LIST_TYPE_LESS_FUNCTION(cpt_listfirst)(
-            pt_nodesecond->_pc_data, pt_nodefirst->_pc_data, &t_great);
-        if(t_less || t_great)
+            pt_nodesecond->_pc_data, pt_nodefirst->_pc_data, &t_greater);
+        if(t_less || t_greater)
         {
             return false;
         }
@@ -645,7 +645,7 @@ bool_t list_less(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
     return list_size(cpt_listfirst) < list_size(cpt_listsecond) ? true : false;
 }
 
-bool_t list_great(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+bool_t list_greater(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
 {
     return list_less(cpt_listsecond, cpt_listfirst);
 }
@@ -656,9 +656,9 @@ bool_t list_less_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond
             list_equal(cpt_listfirst, cpt_listsecond)) ? true : false;
 }
 
-bool_t list_great_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+bool_t list_greater_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
 {
-    return (list_great(cpt_listfirst, cpt_listsecond) ||
+    return (list_greater(cpt_listfirst, cpt_listsecond) ||
             list_equal(cpt_listfirst, cpt_listsecond)) ? true : false;
 }
 
@@ -1076,7 +1076,7 @@ void _list_remove_varg(list_t* pt_list, va_list val_elemlist)
     list_iterator_t t_pos;    /* the remove element position */
     listnode_t*     pt_varg = NULL;
     bool_t          t_less = false;
-    bool_t          t_great = false;
+    bool_t          t_greater = false;
 
     assert(pt_list != NULL && pt_list->_pt_node != NULL);
 
@@ -1088,12 +1088,12 @@ void _list_remove_varg(list_t* pt_list, va_list val_elemlist)
     t_pos = list_begin(pt_list);
     while(!iterator_equal(t_pos, list_end(pt_list)))
     {
-        t_less = t_great = _GET_LIST_TYPE_SIZE(pt_list);
+        t_less = t_greater = _GET_LIST_TYPE_SIZE(pt_list);
         _GET_LIST_TYPE_LESS_FUNCTION(pt_list)(
             ((listnode_t*)_GET_LIST_COREPOS(t_pos))->_pc_data, pt_varg->_pc_data, &t_less);
         _GET_LIST_TYPE_LESS_FUNCTION(pt_list)(
-            pt_varg->_pc_data, ((listnode_t*)_GET_LIST_COREPOS(t_pos))->_pc_data, &t_great);
-        if(t_less || t_great)
+            pt_varg->_pc_data, ((listnode_t*)_GET_LIST_COREPOS(t_pos))->_pc_data, &t_greater);
+        if(t_less || t_greater)
         {
             t_pos = iterator_next(t_pos);
         }
@@ -1239,19 +1239,19 @@ void list_unique(list_t* pt_list)
     list_iterator_t t_pos;
     listnode_t*     pt_node = NULL;   /* current node */
     bool_t          t_less = false;
-    bool_t          t_great = false;
+    bool_t          t_greater = false;
 
     assert(pt_list != NULL && pt_list->_pt_node != NULL);
 
     pt_node = pt_list->_pt_node->_pt_next->_pt_next;
     while(pt_node != pt_list->_pt_node)
     {
-        t_less = t_great = _GET_LIST_TYPE_SIZE(pt_list);
+        t_less = t_greater = _GET_LIST_TYPE_SIZE(pt_list);
         _GET_LIST_TYPE_LESS_FUNCTION(pt_list)(
             pt_node->_pt_prev->_pc_data, pt_node->_pc_data, &t_less);
         _GET_LIST_TYPE_LESS_FUNCTION(pt_list)(
-            pt_node->_pc_data, pt_node->_pt_prev->_pc_data, &t_great);
-        if(t_less || t_great)
+            pt_node->_pc_data, pt_node->_pt_prev->_pc_data, &t_greater);
+        if(t_less || t_greater)
         {
             pt_node = pt_node->_pt_next;
         }

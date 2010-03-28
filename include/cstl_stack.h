@@ -74,11 +74,11 @@ extern bool_t stack_not_equal(
     const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond);
 extern bool_t stack_less(
     const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond);
-extern bool_t stack_great(
+extern bool_t stack_greater(
     const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond);
 extern bool_t stack_less_equal(
     const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond);
-extern bool_t stack_great_equal(
+extern bool_t stack_greater_equal(
     const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond);
 
 #ifdef __cplusplus

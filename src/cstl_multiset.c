@@ -683,27 +683,27 @@ bool_t multiset_less_equal(
 #endif
 }
 
-bool_t multiset_great(
+bool_t multiset_greater(
     const multiset_t* cpt_multisetfirst, const multiset_t* cpt_multisetsecond)
 {
     assert(cpt_multisetfirst != NULL && cpt_multisetsecond != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    return _avl_tree_great(&cpt_multisetfirst->_t_tree, &cpt_multisetsecond->_t_tree);
+    return _avl_tree_greater(&cpt_multisetfirst->_t_tree, &cpt_multisetsecond->_t_tree);
 #else
-    return _rb_tree_great(&cpt_multisetfirst->_t_tree, &cpt_multisetsecond->_t_tree);
+    return _rb_tree_greater(&cpt_multisetfirst->_t_tree, &cpt_multisetsecond->_t_tree);
 #endif
 }
 
-bool_t multiset_great_equal(
+bool_t multiset_greater_equal(
     const multiset_t* cpt_multisetfirst, const multiset_t* cpt_multisetsecond)
 {
     assert(cpt_multisetfirst != NULL && cpt_multisetsecond != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    return _avl_tree_great_equal(&cpt_multisetfirst->_t_tree, &cpt_multisetsecond->_t_tree);
+    return _avl_tree_greater_equal(&cpt_multisetfirst->_t_tree, &cpt_multisetsecond->_t_tree);
 #else
-    return _rb_tree_great_equal(&cpt_multisetfirst->_t_tree, &cpt_multisetsecond->_t_tree);
+    return _rb_tree_greater_equal(&cpt_multisetfirst->_t_tree, &cpt_multisetsecond->_t_tree);
 #endif
 }
 

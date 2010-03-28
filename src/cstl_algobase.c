@@ -60,7 +60,7 @@ bool_t algo_equal_if(
 {
     bool_t t_result = false;
     bool_t t_less = false;
-    bool_t t_great = false;
+    bool_t t_greater = false;
 
     assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
@@ -84,8 +84,8 @@ bool_t algo_equal_if(
                 return false;
             }
             (*t_binary_op)(
-                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_great);
-            if(t_great)
+                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_greater);
+            if(t_greater)
             {
                 return false;
             }
@@ -398,7 +398,7 @@ range_t algo_mismatch_if(
 {
     bool_t  t_result = false;
     bool_t  t_less = false;
-    bool_t  t_great = false;
+    bool_t  t_greater = false;
     range_t t_range;
 
     assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
@@ -423,8 +423,8 @@ range_t algo_mismatch_if(
                 break;
             }
             (*t_binary_op)(
-                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_great);
-            if(t_great)
+                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_greater);
+            if(t_greater)
             {
                 break;
             }

@@ -230,8 +230,8 @@ void test_string(int argc, char* argv[])
             string_equal(pt_string1, pt_string2), string_not_equal(pt_string1, pt_string2));
         printf("less : %d, less equal : %d, ",
             string_less(pt_string1, pt_string2), string_less_equal(pt_string1, pt_string2));
-        printf("great : %d, great equal : %d\n",
-            string_great(pt_string1, pt_string2), string_great_equal(pt_string1, pt_string2));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater(pt_string1, pt_string2), string_greater_equal(pt_string1, pt_string2));
 
         string_assign_cstr(pt_string1, "abc");
         _printstring(pt_string1);
@@ -240,8 +240,8 @@ void test_string(int argc, char* argv[])
             string_equal(pt_string1, pt_string2), string_not_equal(pt_string1, pt_string2));
         printf("less : %d, less equal : %d, ",
             string_less(pt_string1, pt_string2), string_less_equal(pt_string1, pt_string2));
-        printf("great : %d, great equal : %d\n",
-            string_great(pt_string1, pt_string2), string_great_equal(pt_string1, pt_string2));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater(pt_string1, pt_string2), string_greater_equal(pt_string1, pt_string2));
 
         string_assign_cstr(pt_string2, "abc");
         _printstring(pt_string1);
@@ -250,8 +250,8 @@ void test_string(int argc, char* argv[])
             string_equal(pt_string1, pt_string2), string_not_equal(pt_string1, pt_string2));
         printf("less : %d, less equal : %d, ",
             string_less(pt_string1, pt_string2), string_less_equal(pt_string1, pt_string2));
-        printf("great : %d, great equal : %d\n",
-            string_great(pt_string1, pt_string2), string_great_equal(pt_string1, pt_string2));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater(pt_string1, pt_string2), string_greater_equal(pt_string1, pt_string2));
 
         string_assign_cstr(pt_string1, "opq");
         string_assign_cstr(pt_string2, "xyz");
@@ -261,8 +261,8 @@ void test_string(int argc, char* argv[])
             string_equal(pt_string1, pt_string2), string_not_equal(pt_string1, pt_string2));
         printf("less : %d, less equal : %d, ",
             string_less(pt_string1, pt_string2), string_less_equal(pt_string1, pt_string2));
-        printf("great : %d, great equal : %d\n",
-            string_great(pt_string1, pt_string2), string_great_equal(pt_string1, pt_string2));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater(pt_string1, pt_string2), string_greater_equal(pt_string1, pt_string2));
 
         string_assign_cstr(pt_string1, "mn");
         string_assign_cstr(pt_string2, "mno");
@@ -272,8 +272,8 @@ void test_string(int argc, char* argv[])
             string_equal(pt_string1, pt_string2), string_not_equal(pt_string1, pt_string2));
         printf("less : %d, less equal : %d, ",
             string_less(pt_string1, pt_string2), string_less_equal(pt_string1, pt_string2));
-        printf("great : %d, great equal : %d\n",
-            string_great(pt_string1, pt_string2), string_great_equal(pt_string1, pt_string2));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater(pt_string1, pt_string2), string_greater_equal(pt_string1, pt_string2));
 
         string_assign_cstr(pt_string1, "u");
         string_assign_cstr(pt_string2, "abcdefghijklmnopqrstuvwxyz");
@@ -283,8 +283,8 @@ void test_string(int argc, char* argv[])
             string_equal(pt_string1, pt_string2), string_not_equal(pt_string1, pt_string2));
         printf("less : %d, less equal : %d, ",
             string_less(pt_string1, pt_string2), string_less_equal(pt_string1, pt_string2));
-        printf("great : %d, great equal : %d\n",
-            string_great(pt_string1, pt_string2), string_great_equal(pt_string1, pt_string2));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater(pt_string1, pt_string2), string_greater_equal(pt_string1, pt_string2));
 
         string_destroy(pt_string1);
         string_destroy(pt_string2);
@@ -292,8 +292,8 @@ void test_string(int argc, char* argv[])
     /*string_not_equal                  */
     /*string_less                       */
     /*string_less_equal                 */
-    /*string_great                      */
-    /*string_great_equal                */
+    /*string_greater                      */
+    /*string_greater_equal                */
     /*string_equal_cstr                 */
     {
         string_t* pt_string = create_string();
@@ -308,8 +308,8 @@ void test_string(int argc, char* argv[])
             string_equal_cstr(pt_string, ""), string_not_equal_cstr(pt_string, ""));
         printf("less : %d, less equal : %d, ",
             string_less_cstr(pt_string, ""), string_less_equal_cstr(pt_string, ""));
-        printf("great : %d, great equal : %d\n",
-            string_great_cstr(pt_string, ""), string_great_equal_cstr(pt_string, ""));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater_cstr(pt_string, ""), string_greater_equal_cstr(pt_string, ""));
 
         string_assign_cstr(pt_string, "abc");
         _printstring(pt_string);
@@ -318,8 +318,8 @@ void test_string(int argc, char* argv[])
             string_equal_cstr(pt_string, ""), string_not_equal_cstr(pt_string, ""));
         printf("less : %d, less equal : %d, ",
             string_less_cstr(pt_string, ""), string_less_equal_cstr(pt_string, ""));
-        printf("great : %d, great equal : %d\n",
-            string_great_cstr(pt_string, ""), string_great_equal_cstr(pt_string, ""));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater_cstr(pt_string, ""), string_greater_equal_cstr(pt_string, ""));
 
         _printstring(pt_string);
         puts("abc");
@@ -327,8 +327,8 @@ void test_string(int argc, char* argv[])
             string_equal_cstr(pt_string, "abc"), string_not_equal_cstr(pt_string, "abc"));
         printf("less : %d, less equal : %d, ",
             string_less_cstr(pt_string, "abc"), string_less_equal_cstr(pt_string, "abc"));
-        printf("great : %d, great equal : %d\n",
-            string_great_cstr(pt_string, "abc"), string_great_equal_cstr(pt_string, "abc"));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater_cstr(pt_string, "abc"), string_greater_equal_cstr(pt_string, "abc"));
 
         string_assign_cstr(pt_string, "opq");
         _printstring(pt_string);
@@ -337,8 +337,8 @@ void test_string(int argc, char* argv[])
             string_equal_cstr(pt_string, "xyz"), string_not_equal_cstr(pt_string, "xyz"));
         printf("less : %d, less equal : %d, ",
             string_less_cstr(pt_string, "xyz"), string_less_equal_cstr(pt_string, "xyz"));
-        printf("great : %d, great equal : %d\n",
-            string_great_cstr(pt_string, "xyz"), string_great_equal_cstr(pt_string, "xyz"));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater_cstr(pt_string, "xyz"), string_greater_equal_cstr(pt_string, "xyz"));
 
         string_assign_cstr(pt_string, "mn");
         _printstring(pt_string);
@@ -347,8 +347,8 @@ void test_string(int argc, char* argv[])
             string_equal_cstr(pt_string, "mno"), string_not_equal_cstr(pt_string, "mno"));
         printf("less : %d, less equal : %d, ",
             string_less_cstr(pt_string, "mno"), string_less_equal_cstr(pt_string, "mno"));
-        printf("great : %d, great equal : %d\n",
-            string_great_cstr(pt_string, "mno"), string_great_equal_cstr(pt_string, "mno"));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater_cstr(pt_string, "mno"), string_greater_equal_cstr(pt_string, "mno"));
 
         string_assign_cstr(pt_string, "u");
         _printstring(pt_string);
@@ -359,17 +359,17 @@ void test_string(int argc, char* argv[])
         printf("less : %d, less equal : %d, ",
             string_less_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz"),
             string_less_equal_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz"));
-        printf("great : %d, great equal : %d\n",
-            string_great_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz"),
-            string_great_equal_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz"));
+        printf("greater : %d, greater equal : %d\n",
+            string_greater_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz"),
+            string_greater_equal_cstr(pt_string, "abcdefghijklmnopqrstuvwxyz"));
 
         string_destroy(pt_string);
     }
     /*string_not_equal_cstr             */
     /*string_less_cstr                  */
     /*string_less_equal_cstr            */
-    /*string_great_cstr                 */
-    /*string_great_equal_cstr           */
+    /*string_greater_cstr                 */
+    /*string_greater_equal_cstr           */
     /*string_compare                    */
     {
         string_t* pt_string1 = create_string();

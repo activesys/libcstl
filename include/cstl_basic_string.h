@@ -137,13 +137,13 @@ extern bool_t basic_string_not_equal(
 extern bool_t basic_string_less(
     const basic_string_t* cpt_basic_stringfirst, 
     const basic_string_t* cpt_basic_stringsecond);
-extern bool_t basic_string_great(
+extern bool_t basic_string_greater(
     const basic_string_t* cpt_basic_stringfirst, 
     const basic_string_t* cpt_basic_stringsecond);
 extern bool_t basic_string_less_equal(
     const basic_string_t* cpt_basic_stringfirst, 
     const basic_string_t* cpt_basic_stringsecond);
-extern bool_t basic_string_great_equal(
+extern bool_t basic_string_greater_equal(
     const basic_string_t* cpt_basic_stringfirst, 
     const basic_string_t* cpt_basic_stringsecond);
 extern bool_t basic_string_equal_cstr(
@@ -152,11 +152,11 @@ extern bool_t basic_string_not_equal_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
 extern bool_t basic_string_less_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
-extern bool_t basic_string_great_cstr(
+extern bool_t basic_string_greater_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
 extern bool_t basic_string_less_equal_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
-extern bool_t basic_string_great_equal_cstr(
+extern bool_t basic_string_greater_equal_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
 
 /*

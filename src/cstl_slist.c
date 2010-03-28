@@ -1170,7 +1170,7 @@ void _slist_remove_varg(slist_t* pt_slist, va_list val_elemlist)
     slist_iterator_t t_iter; /* for iterate */
     slistnode_t*     pt_varg = NULL;
     bool_t           t_less = false;
-    bool_t           t_great = false;
+    bool_t           t_greater = false;
 
     /* test the pointer is valid */
     assert(pt_slist != NULL);
@@ -1183,12 +1183,12 @@ void _slist_remove_varg(slist_t* pt_slist, va_list val_elemlist)
     t_iter = slist_begin(pt_slist);
     while(!iterator_equal(t_iter, slist_end(pt_slist)))
     {
-        t_less = t_great = _GET_SLIST_TYPE_SIZE(pt_slist);
+        t_less = t_greater = _GET_SLIST_TYPE_SIZE(pt_slist);
         _GET_SLIST_TYPE_LESS_FUNCTION(pt_slist)(
             pt_varg->_pc_data, ((slistnode_t*)_GET_SLIST_COREPOS(t_iter))->_pc_data, &t_less);
         _GET_SLIST_TYPE_LESS_FUNCTION(pt_slist)(
-            ((slistnode_t*)_GET_SLIST_COREPOS(t_iter))->_pc_data, pt_varg->_pc_data, &t_great);
-        if(t_less || t_great)
+            ((slistnode_t*)_GET_SLIST_COREPOS(t_iter))->_pc_data, pt_varg->_pc_data, &t_greater);
+        if(t_less || t_greater)
         {
             t_iter = iterator_next(t_iter);
         }
@@ -1239,26 +1239,26 @@ void slist_unique(slist_t* pt_slist)
     slist_iterator_t t_poscur;
     slist_iterator_t t_posnext;
     bool_t           t_less = false;
-    bool_t           t_great = false;
+    bool_t           t_greater = false;
 
     /* test the slist is valid */
     assert(pt_slist != NULL);
 
-    /* if the size great then 1 */
+    /* if the size greater then 1 */
     if(slist_size(pt_slist) > 1)
     {
         t_poscur = slist_begin(pt_slist);
         t_posnext = iterator_next(t_poscur);
         while(!iterator_equal(t_posnext, slist_end(pt_slist)))
         {
-            t_less = t_great = _GET_SLIST_TYPE_SIZE(pt_slist);
+            t_less = t_greater = _GET_SLIST_TYPE_SIZE(pt_slist);
             _GET_SLIST_TYPE_LESS_FUNCTION(pt_slist)(
                 ((slistnode_t*)_GET_SLIST_COREPOS(t_poscur))->_pc_data,
                 ((slistnode_t*)_GET_SLIST_COREPOS(t_posnext))->_pc_data, &t_less);
             _GET_SLIST_TYPE_LESS_FUNCTION(pt_slist)(
                 ((slistnode_t*)_GET_SLIST_COREPOS(t_posnext))->_pc_data,
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_poscur))->_pc_data, &t_great);
-            if(t_less || t_great)
+                ((slistnode_t*)_GET_SLIST_COREPOS(t_poscur))->_pc_data, &t_greater);
+            if(t_less || t_greater)
             {
                 t_poscur = iterator_next(t_poscur);
                 t_posnext = iterator_next(t_posnext);
@@ -1653,7 +1653,7 @@ bool_t slist_equal(
     slist_iterator_t t_first;  /* iterator for first slist */
     slist_iterator_t t_second; /* iterator for second slist */
     bool_t           t_less = false;
-    bool_t           t_great = false;
+    bool_t           t_greater = false;
 
     assert(cpt_slistfirst != NULL && cpt_slistsecond != NULL);
 
@@ -1674,14 +1674,14 @@ bool_t slist_equal(
         !iterator_equal(t_second, slist_end(cpt_slistsecond));
         t_first = iterator_next(t_first), t_second = iterator_next(t_second))
     {
-        t_less = t_great = _GET_SLIST_TYPE_SIZE(cpt_slistfirst);
+        t_less = t_greater = _GET_SLIST_TYPE_SIZE(cpt_slistfirst);
         _GET_SLIST_TYPE_LESS_FUNCTION(cpt_slistfirst)(
             ((slistnode_t*)_GET_SLIST_COREPOS(t_first))->_pc_data,
             ((slistnode_t*)_GET_SLIST_COREPOS(t_second))->_pc_data, &t_less);
         _GET_SLIST_TYPE_LESS_FUNCTION(cpt_slistfirst)(
             ((slistnode_t*)_GET_SLIST_COREPOS(t_second))->_pc_data,
-            ((slistnode_t*)_GET_SLIST_COREPOS(t_first))->_pc_data, &t_great);
-        if(t_less || t_great)
+            ((slistnode_t*)_GET_SLIST_COREPOS(t_first))->_pc_data, &t_greater);
+        if(t_less || t_greater)
         {
             return false;
         }
@@ -1750,16 +1750,16 @@ bool_t slist_less_equal(
             slist_equal(cpt_slistfirst, cpt_slistsecond)) ? true : false;
 }
 
-bool_t slist_great(
+bool_t slist_greater(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond)
 {
     return slist_less(cpt_slistsecond, cpt_slistfirst);
 }
 
-bool_t slist_great_equal(
+bool_t slist_greater_equal(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond)
 {
-    return (slist_great(cpt_slistfirst, cpt_slistsecond) ||
+    return (slist_greater(cpt_slistfirst, cpt_slistsecond) ||
             slist_equal(cpt_slistfirst, cpt_slistsecond)) ? true : false;
 }
 

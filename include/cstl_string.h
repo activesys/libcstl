@@ -87,11 +87,11 @@ extern bool_t string_not_equal(
     const string_t* cpt_stringfirst, const string_t* cpt_stringsecond);
 extern bool_t string_less(
     const string_t* cpt_stringfirst, const string_t* cpt_stringsecond);
-extern bool_t string_great(
+extern bool_t string_greater(
     const string_t* cpt_stringfirst, const string_t* cpt_stringsecond);
 extern bool_t string_less_equal(
     const string_t* cpt_stringfirst, const string_t* cpt_stringsecond);
-extern bool_t string_great_equal(
+extern bool_t string_greater_equal(
     const string_t* cpt_stringfirst, const string_t* cpt_stringsecond);
 extern bool_t string_equal_cstr(
     const string_t* cpt_string, const char* s_cstr);
@@ -99,11 +99,11 @@ extern bool_t string_not_equal_cstr(
     const string_t* cpt_string, const char* s_cstr); 
 extern bool_t string_less_cstr(
     const string_t* cpt_string, const char* s_cstr); 
-extern bool_t string_great_cstr(
+extern bool_t string_greater_cstr(
     const string_t* cpt_string, const char* s_cstr); 
 extern bool_t string_less_equal_cstr(
     const string_t* cpt_string, const char* s_cstr); 
-extern bool_t string_great_equal_cstr(
+extern bool_t string_greater_equal_cstr(
     const string_t* cpt_string, const char* s_cstr); 
 /* Compare operation functions. */
 extern int string_compare(

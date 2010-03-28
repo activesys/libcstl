@@ -241,10 +241,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_char;
             break;
         case _GREAT_FUN:
-            return fun_great_char;
+            return fun_greater_char;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_char;
+            return fun_greater_equal_char;
             break;
         case _LESS_FUN:
             return fun_less_char;
@@ -283,10 +283,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_uchar;
             break;
         case _GREAT_FUN:
-            return fun_great_uchar;
+            return fun_greater_uchar;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_uchar;
+            return fun_greater_equal_uchar;
             break;
         case _LESS_FUN:
             return fun_less_uchar;
@@ -328,10 +328,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_short;
             break;
         case _GREAT_FUN:
-            return fun_great_short;
+            return fun_greater_short;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_short;
+            return fun_greater_equal_short;
             break;
         case _LESS_FUN:
             return fun_less_short;
@@ -371,10 +371,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_ushort;
             break;
         case _GREAT_FUN:
-            return fun_great_ushort;
+            return fun_greater_ushort;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_ushort;
+            return fun_greater_equal_ushort;
             break;
         case _LESS_FUN:
             return fun_less_ushort;
@@ -415,10 +415,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_int;
             break;
         case _GREAT_FUN:
-            return fun_great_int;
+            return fun_greater_int;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_int;
+            return fun_greater_equal_int;
             break;
         case _LESS_FUN:
             return fun_less_int;
@@ -458,10 +458,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_uint;
             break;
         case _GREAT_FUN:
-            return fun_great_uint;
+            return fun_greater_uint;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_uint;
+            return fun_greater_equal_uint;
             break;
         case _LESS_FUN:
             return fun_less_uint;
@@ -503,10 +503,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_long;
             break;
         case _GREAT_FUN:
-            return fun_great_long;
+            return fun_greater_long;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_long;
+            return fun_greater_equal_long;
             break;
         case _LESS_FUN:
             return fun_less_long;
@@ -546,10 +546,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_ulong;
             break;
         case _GREAT_FUN:
-            return fun_great_ulong;
+            return fun_greater_ulong;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_ulong;
+            return fun_greater_equal_ulong;
             break;
         case _LESS_FUN:
             return fun_less_ulong;
@@ -585,10 +585,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_float;
             break;
         case _GREAT_FUN:
-            return fun_great_float;
+            return fun_greater_float;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_float;
+            return fun_greater_equal_float;
             break;
         case _LESS_FUN:
             return fun_less_float;
@@ -624,10 +624,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_double;
             break;
         case _GREAT_FUN:
-            return fun_great_double;
+            return fun_greater_double;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_double;
+            return fun_greater_equal_double;
             break;
         case _LESS_FUN:
             return fun_less_double;
@@ -663,10 +663,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_long_double;
             break;
         case _GREAT_FUN:
-            return fun_great_long_double;
+            return fun_greater_long_double;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_long_double;
+            return fun_greater_equal_long_double;
             break;
         case _LESS_FUN:
             return fun_less_long_double;
@@ -690,10 +690,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_cstr;
             break;
         case _GREAT_FUN:
-            return fun_great_cstr;
+            return fun_greater_cstr;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_cstr;
+            return fun_greater_equal_cstr;
             break;
         case _LESS_FUN:
             return fun_less_cstr;
@@ -732,10 +732,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_vector;
             break;
         case _GREAT_FUN:
-            return fun_great_vector;
+            return fun_greater_vector;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_vector;
+            return fun_greater_equal_vector;
             break;
         case _LESS_FUN:
             return fun_less_vector;
@@ -759,10 +759,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_deque;
             break;
         case _GREAT_FUN:
-            return fun_great_deque;
+            return fun_greater_deque;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_deque;
+            return fun_greater_equal_deque;
             break;
         case _LESS_FUN:
             return fun_less_deque;
@@ -786,10 +786,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_list;
             break;
         case _GREAT_FUN:
-            return fun_great_list;
+            return fun_greater_list;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_list;
+            return fun_greater_equal_list;
             break;
         case _LESS_FUN:
             return fun_less_list;
@@ -813,10 +813,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_slist;
             break;
         case _GREAT_FUN:
-            return fun_great_slist;
+            return fun_greater_slist;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_slist;
+            return fun_greater_equal_slist;
             break;
         case _LESS_FUN:
             return fun_less_slist;
@@ -840,10 +840,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_queue;
             break;
         case _GREAT_FUN:
-            return fun_great_queue;
+            return fun_greater_queue;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_queue;
+            return fun_greater_equal_queue;
             break;
         case _LESS_FUN:
             return fun_less_queue;
@@ -867,10 +867,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_stack;
             break;
         case _GREAT_FUN:
-            return fun_great_stack;
+            return fun_greater_stack;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_stack;
+            return fun_greater_equal_stack;
             break;
         case _LESS_FUN:
             return fun_less_stack;
@@ -894,10 +894,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_pair;
             break;
         case _GREAT_FUN:
-            return fun_great_pair;
+            return fun_greater_pair;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_pair;
+            return fun_greater_equal_pair;
             break;
         case _LESS_FUN:
             return fun_less_pair;
@@ -921,10 +921,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_set;
             break;
         case _GREAT_FUN:
-            return fun_great_set;
+            return fun_greater_set;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_set;
+            return fun_greater_equal_set;
             break;
         case _LESS_FUN:
             return fun_less_set;
@@ -948,10 +948,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_map;
             break;
         case _GREAT_FUN:
-            return fun_great_map;
+            return fun_greater_map;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_map;
+            return fun_greater_equal_map;
             break;
         case _LESS_FUN:
             return fun_less_map;
@@ -975,10 +975,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_multiset;
             break;
         case _GREAT_FUN:
-            return fun_great_multiset;
+            return fun_greater_multiset;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_multiset;
+            return fun_greater_equal_multiset;
             break;
         case _LESS_FUN:
             return fun_less_multiset;
@@ -1002,10 +1002,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_multimap;
             break;
         case _GREAT_FUN:
-            return fun_great_multimap;
+            return fun_greater_multimap;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_multimap;
+            return fun_greater_equal_multimap;
             break;
         case _LESS_FUN:
             return fun_less_multimap;
@@ -1029,10 +1029,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_hash_set;
             break;
         case _GREAT_FUN:
-            return fun_great_hash_set;
+            return fun_greater_hash_set;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_hash_set;
+            return fun_greater_equal_hash_set;
             break;
         case _LESS_FUN:
             return fun_less_hash_set;
@@ -1056,10 +1056,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_hash_map;
             break;
         case _GREAT_FUN:
-            return fun_great_hash_map;
+            return fun_greater_hash_map;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_hash_map;
+            return fun_greater_equal_hash_map;
             break;
         case _LESS_FUN:
             return fun_less_hash_map;
@@ -1083,10 +1083,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_hash_multiset;
             break;
         case _GREAT_FUN:
-            return fun_great_hash_multiset;
+            return fun_greater_hash_multiset;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_hash_multiset;
+            return fun_greater_equal_hash_multiset;
             break;
         case _LESS_FUN:
             return fun_less_hash_multiset;
@@ -1110,10 +1110,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_hash_multimap;
             break;
         case _GREAT_FUN:
-            return fun_great_hash_multimap;
+            return fun_greater_hash_multimap;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_hash_multimap;
+            return fun_greater_equal_hash_multimap;
             break;
         case _LESS_FUN:
             return fun_less_hash_multimap;
@@ -1137,10 +1137,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
             return fun_not_equal_string;
             break;
         case _GREAT_FUN:
-            return fun_great_string;
+            return fun_greater_string;
             break;
         case _GREAT_EQUAL_FUN:
-            return fun_great_equal_string;
+            return fun_greater_equal_string;
             break;
         case _LESS_FUN:
             return fun_less_string;
@@ -2135,7 +2135,7 @@ void fun_not_equal_hash_multimap(
 }
 
 /* greater */
-void fun_great_char(
+void fun_greater_char(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2144,7 +2144,7 @@ void fun_great_char(
         *(char*)cpv_first > *(char*)cpv_second ? true : false;
 }
 
-void fun_great_uchar(
+void fun_greater_uchar(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2153,7 +2153,7 @@ void fun_great_uchar(
         *(unsigned char*)cpv_first > *(unsigned char*)cpv_second ? true : false;
 }
 
-void fun_great_short(
+void fun_greater_short(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2162,7 +2162,7 @@ void fun_great_short(
         *(short*)cpv_first > *(short*)cpv_second ? true : false;
 }
 
-void fun_great_ushort(
+void fun_greater_ushort(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2171,7 +2171,7 @@ void fun_great_ushort(
         *(unsigned short*)cpv_first > *(unsigned short*)cpv_second ? true : false;
 }
 
-void fun_great_int(
+void fun_greater_int(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2180,7 +2180,7 @@ void fun_great_int(
         *(int*)cpv_first > *(int*)cpv_second ? true : false;
 }
 
-void fun_great_uint(
+void fun_greater_uint(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2189,7 +2189,7 @@ void fun_great_uint(
         *(unsigned int*)cpv_first > *(unsigned int*)cpv_second ? true : false;
 }
 
-void fun_great_long(
+void fun_greater_long(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2198,7 +2198,7 @@ void fun_great_long(
         *(long*)cpv_first > *(long*)cpv_second ? true : false;
 }
 
-void fun_great_ulong(
+void fun_greater_ulong(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2207,7 +2207,7 @@ void fun_great_ulong(
         *(unsigned long*)cpv_first > *(unsigned long*)cpv_second ? true : false;
 }
 
-void fun_great_float(
+void fun_greater_float(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2216,7 +2216,7 @@ void fun_great_float(
         *(float*)cpv_first - *(float*)cpv_second >= FLT_EPSILON ? true : false;
 }
 
-void fun_great_double(
+void fun_greater_double(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2225,7 +2225,7 @@ void fun_great_double(
         *(double*)cpv_first - *(double*)cpv_second >= DBL_EPSILON ? true : false;
 }
 
-void fun_great_long_double(
+void fun_greater_long_double(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2234,7 +2234,7 @@ void fun_great_long_double(
         *(long double*)cpv_first - *(long double*)cpv_second >= LDBL_EPSILON ? true : false;
 }
 
-void fun_great_cstr(
+void fun_greater_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     char* s_first = NULL;
@@ -2254,124 +2254,124 @@ void fun_great_cstr(
     *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) > 0 ? true : false;
 }
 
-void fun_great_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = vector_great((vector_t*)cpv_first, (vector_t*)cpv_second);
+    *(bool_t*)pv_output = vector_greater((vector_t*)cpv_first, (vector_t*)cpv_second);
 }
 
-void fun_great_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = deque_great((deque_t*)cpv_first, (deque_t*)cpv_second);
+    *(bool_t*)pv_output = deque_greater((deque_t*)cpv_first, (deque_t*)cpv_second);
 }
 
-void fun_great_list(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_list(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = list_great((list_t*)cpv_first, (list_t*)cpv_second);
+    *(bool_t*)pv_output = list_greater((list_t*)cpv_first, (list_t*)cpv_second);
 }
 
-void fun_great_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = slist_great((slist_t*)cpv_first, (slist_t*)cpv_second);
+    *(bool_t*)pv_output = slist_greater((slist_t*)cpv_first, (slist_t*)cpv_second);
 }
 
-void fun_great_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = queue_great((queue_t*)cpv_first, (queue_t*)cpv_second);
+    *(bool_t*)pv_output = queue_greater((queue_t*)cpv_first, (queue_t*)cpv_second);
 }
 
-void fun_great_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = stack_great((stack_t*)cpv_first, (stack_t*)cpv_second);
+    *(bool_t*)pv_output = stack_greater((stack_t*)cpv_first, (stack_t*)cpv_second);
 }
 
-void fun_great_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_string(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = string_great((string_t*)cpv_first, (string_t*)cpv_second);
+    *(bool_t*)pv_output = string_greater((string_t*)cpv_first, (string_t*)cpv_second);
 }
 
-void fun_great_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = pair_great((pair_t*)cpv_first, (pair_t*)cpv_second);
+    *(bool_t*)pv_output = pair_greater((pair_t*)cpv_first, (pair_t*)cpv_second);
 }
 
-void fun_great_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_set(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = set_great((set_t*)cpv_first, (set_t*)cpv_second);
+    *(bool_t*)pv_output = set_greater((set_t*)cpv_first, (set_t*)cpv_second);
 }
 
-void fun_great_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_map(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = map_great((map_t*)cpv_first, (map_t*)cpv_second);
+    *(bool_t*)pv_output = map_greater((map_t*)cpv_first, (map_t*)cpv_second);
 }
 
-void fun_great_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multiset_great((multiset_t*)cpv_first, (multiset_t*)cpv_second);
+    *(bool_t*)pv_output = multiset_greater((multiset_t*)cpv_first, (multiset_t*)cpv_second);
 }
 
-void fun_great_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multimap_great((multimap_t*)cpv_first, (multimap_t*)cpv_second);
+    *(bool_t*)pv_output = multimap_greater((multimap_t*)cpv_first, (multimap_t*)cpv_second);
 }
 
-void fun_great_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_set_great((hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+    *(bool_t*)pv_output = hash_set_greater((hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
 }
 
-void fun_great_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_map_great((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+    *(bool_t*)pv_output = hash_map_greater((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
 }
 
-void fun_great_hash_multiset(
+void fun_greater_hash_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multiset_great(
+    *(bool_t*)pv_output = hash_multiset_greater(
         (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
 }
 
-void fun_great_hash_multimap(
+void fun_greater_hash_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multimap_great(
+    *(bool_t*)pv_output = hash_multimap_greater(
         (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
 /* greater or equal*/
-void fun_great_equal_char(
+void fun_greater_equal_char(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2380,7 +2380,7 @@ void fun_great_equal_char(
         *(char*)cpv_first >= *(char*)cpv_second ? true : false;
 }
 
-void fun_great_equal_uchar(
+void fun_greater_equal_uchar(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2389,7 +2389,7 @@ void fun_great_equal_uchar(
         *(unsigned char*)cpv_first >= *(unsigned char*)cpv_second ? true : false;
 }
 
-void fun_great_equal_short(
+void fun_greater_equal_short(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2398,7 +2398,7 @@ void fun_great_equal_short(
         *(short*)cpv_first >= *(short*)cpv_second ? true : false;
 }
 
-void fun_great_equal_ushort(
+void fun_greater_equal_ushort(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2407,7 +2407,7 @@ void fun_great_equal_ushort(
         *(unsigned short*)cpv_first >= *(unsigned short*)cpv_second ? true : false;
 }
 
-void fun_great_equal_int(
+void fun_greater_equal_int(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2416,7 +2416,7 @@ void fun_great_equal_int(
         *(int*)cpv_first >= *(int*)cpv_second ? true : false;
 }
 
-void fun_great_equal_uint(
+void fun_greater_equal_uint(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2425,7 +2425,7 @@ void fun_great_equal_uint(
         *(unsigned int*)cpv_first >= *(unsigned int*)cpv_second ? true : false;
 }
 
-void fun_great_equal_long(
+void fun_greater_equal_long(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2434,7 +2434,7 @@ void fun_great_equal_long(
         *(long*)cpv_first >= *(long*)cpv_second ? true : false;
 }
 
-void fun_great_equal_ulong(
+void fun_greater_equal_ulong(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2443,7 +2443,7 @@ void fun_great_equal_ulong(
         *(unsigned long*)cpv_first >= *(unsigned long*)cpv_second ? true : false;
 }
 
-void fun_great_equal_float(
+void fun_greater_equal_float(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2452,7 +2452,7 @@ void fun_great_equal_float(
         *(float*)cpv_first - *(float*)cpv_second > -FLT_EPSILON ? true : false;
 }
 
-void fun_great_equal_double(
+void fun_greater_equal_double(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2461,7 +2461,7 @@ void fun_great_equal_double(
         *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? true : false;
 }
 
-void fun_great_equal_long_double(
+void fun_greater_equal_long_double(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -2470,7 +2470,7 @@ void fun_great_equal_long_double(
         *(long double*)cpv_first - *(long double*)cpv_second > -LDBL_EPSILON ? true : false;
 }
 
-void fun_great_equal_cstr(
+void fun_greater_equal_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     char* s_first = NULL;
@@ -2490,123 +2490,123 @@ void fun_great_equal_cstr(
     *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) >= 0 ? true : false;
 }
 
-void fun_great_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = vector_great_equal((vector_t*)cpv_first, (vector_t*)cpv_second);
+    *(bool_t*)pv_output = vector_greater_equal((vector_t*)cpv_first, (vector_t*)cpv_second);
 }
 
-void fun_great_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = deque_great_equal((deque_t*)cpv_first, (deque_t*)cpv_second);
+    *(bool_t*)pv_output = deque_greater_equal((deque_t*)cpv_first, (deque_t*)cpv_second);
 }
 
-void fun_great_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = list_great_equal((list_t*)cpv_first, (list_t*)cpv_second);
+    *(bool_t*)pv_output = list_greater_equal((list_t*)cpv_first, (list_t*)cpv_second);
 }
 
-void fun_great_equal_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_slist(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = slist_great_equal((slist_t*)cpv_first, (slist_t*)cpv_second);
+    *(bool_t*)pv_output = slist_greater_equal((slist_t*)cpv_first, (slist_t*)cpv_second);
 }
 
-void fun_great_equal_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = queue_great_equal((queue_t*)cpv_first, (queue_t*)cpv_second);
+    *(bool_t*)pv_output = queue_greater_equal((queue_t*)cpv_first, (queue_t*)cpv_second);
 }
 
-void fun_great_equal_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_stack(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = stack_great_equal((stack_t*)cpv_first, (stack_t*)cpv_second);
+    *(bool_t*)pv_output = stack_greater_equal((stack_t*)cpv_first, (stack_t*)cpv_second);
 }
 
-void fun_great_equal_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_string(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = string_great_equal((string_t*)cpv_first, (string_t*)cpv_second);
+    *(bool_t*)pv_output = string_greater_equal((string_t*)cpv_first, (string_t*)cpv_second);
 }
 
-void fun_great_equal_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_pair(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = pair_great_equal((pair_t*)cpv_first, (pair_t*)cpv_second);
+    *(bool_t*)pv_output = pair_greater_equal((pair_t*)cpv_first, (pair_t*)cpv_second);
 }
 
-void fun_great_equal_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_set(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = set_great_equal((set_t*)cpv_first, (set_t*)cpv_second);
+    *(bool_t*)pv_output = set_greater_equal((set_t*)cpv_first, (set_t*)cpv_second);
 }
 
-void fun_great_equal_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_map(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = map_great_equal((map_t*)cpv_first, (map_t*)cpv_second);
+    *(bool_t*)pv_output = map_greater_equal((map_t*)cpv_first, (map_t*)cpv_second);
 }
 
-void fun_great_equal_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multiset_great_equal(
+    *(bool_t*)pv_output = multiset_greater_equal(
         (multiset_t*)cpv_first, (multiset_t*)cpv_second);
 }
 
-void fun_great_equal_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multimap_great_equal(
+    *(bool_t*)pv_output = multimap_greater_equal(
         (multimap_t*)cpv_first, (multimap_t*)cpv_second);
 }
 
-void fun_great_equal_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_set_great_equal(
+    *(bool_t*)pv_output = hash_set_greater_equal(
         (hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
 }
 
-void fun_great_equal_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_map_great_equal(
+    *(bool_t*)pv_output = hash_map_greater_equal(
         (hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
 }
 
-void fun_great_equal_hash_multiset(
+void fun_greater_equal_hash_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multiset_great_equal(
+    *(bool_t*)pv_output = hash_multiset_greater_equal(
         (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
 }
 
-void fun_great_equal_hash_multimap(
+void fun_greater_equal_hash_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multimap_great_equal(
+    *(bool_t*)pv_output = hash_multimap_greater_equal(
         (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 

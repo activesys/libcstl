@@ -79,10 +79,10 @@ extern bool_t queue_equal(const queue_t* cpt_queuefirst, const queue_t* cpt_queu
 extern bool_t queue_not_equal(
     const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
 extern bool_t queue_less(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
-extern bool_t queue_great(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
+extern bool_t queue_greater(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
 extern bool_t queue_less_equal(
     const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
-extern bool_t queue_great_equal(
+extern bool_t queue_greater_equal(
     const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
 
 /* priority queue */

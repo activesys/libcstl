@@ -95,8 +95,8 @@ static void _mapvalue_destroy(const void* cpv_input, void* pv_output);
 static void _print_map_user(const map_t* cpt_map);
 static void _print_map_cstl(const map_t* cpt_map);
 static void _print_map_cstr(const map_t* cpt_map);
-static void _mapkey_number_great(const void* cpv_first, const void* cpv_second, void* pv_output);
-static void _mapkey_pair_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _mapkey_number_greater(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _mapkey_pair_greater(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _mapkey_cstr_len_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _print_multimap_user(const multimap_t* cpt_mmap);
 static void _print_multimap_cstl(const multimap_t* cpt_mmap);
@@ -141,7 +141,7 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_map, fun_great_int);
+            map_init_ex(pt_map, fun_greater_int);
             pair_init(pt_pair);
             _print_map_c(pt_map, "<key: %d, value: %lf>, ", int, double);
             pair_make(pt_pair, 1223, 90.22);
@@ -164,7 +164,7 @@ void test_map(void)
                 return;
             }
             pair_init(pt_pair);
-            map_init_ex(pt_mapex, fun_great_char);
+            map_init_ex(pt_mapex, fun_greater_char);
             pair_make(pt_pair, 'i', 349);
             map_insert(pt_mapex, pt_pair);
             pair_make(pt_pair, '$', 0);
@@ -190,7 +190,7 @@ void test_map(void)
                 return;
             }
             pair_init(pt_pair);
-            map_init_ex(pt_mapex, fun_great_char);
+            map_init_ex(pt_mapex, fun_greater_char);
             pair_make(pt_pair, 'i', 349);
             map_insert(pt_mapex, pt_pair);
             pair_make(pt_pair, '$', 0);
@@ -242,7 +242,7 @@ void test_map(void)
             pair_make(pt_pair, '@', -555);
             map_insert(pt_mapex, pt_pair);
             _print_map_c(pt_mapex, "<key: '%c', value: %d>, ", char, short);
-            map_init_copy_range_ex(pt_map, map_begin(pt_mapex), map_end(pt_mapex), fun_great_char);
+            map_init_copy_range_ex(pt_map, map_begin(pt_mapex), map_end(pt_mapex), fun_greater_char);
             _print_map_c(pt_map, "<key: '%c', value: %d>, ", char, short);
             pair_destroy(pt_pair);
             map_destroy(pt_map);
@@ -366,8 +366,8 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_map, fun_great_long);
-            assert(map_key_less(pt_map) == fun_great_long && map_value_less(pt_map) != NULL &&
+            map_init_ex(pt_map, fun_greater_long);
+            assert(map_key_less(pt_map) == fun_greater_long && map_value_less(pt_map) != NULL &&
                 map_key_less(pt_map) != map_value_less(pt_map));
             map_destroy(pt_map);
         }
@@ -403,8 +403,8 @@ void test_map(void)
         /*map_not_equal         */
         /*map_less              */
         /*map_less_equal        */
-        /*map_great             */
-        /*map_great_equal       */
+        /*map_greater             */
+        /*map_greater_equal       */
         {
             map_t* pt_map = create_map(int, long);
             map_t* pt_mapex = create_map(int, long);
@@ -422,8 +422,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             pair_make(pt_pair, 42, -900);
             map_insert(pt_map, pt_pair);
@@ -433,8 +433,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             map_insert(pt_mapex, pt_pair);
             _print_map_c(pt_map, "<key: %d, value: %ld>, ", int, long);
@@ -443,8 +443,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             pair_make(pt_pair, -56, 23);
             map_insert(pt_map, pt_pair);
@@ -458,8 +458,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             map_destroy(pt_map);
             map_destroy(pt_mapex);
@@ -678,7 +678,7 @@ void test_map(void)
                 return;
             }
             map_init(pt_map);
-            map_init_ex(pt_mapex, fun_great_int);
+            map_init_ex(pt_mapex, fun_greater_int);
             pair_init(pt_pair);
             map_insert_range(pt_map, map_begin(pt_mapex), map_end(pt_mapex));
             _print_map_c(pt_map, "<key: %d, value: %lf>, ", int, double);
@@ -931,7 +931,7 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_map, _mapkey_number_great);
+            map_init_ex(pt_map, _mapkey_number_greater);
             pair_init(pt_pair);
             _print_map_user(pt_map);
 
@@ -1013,7 +1013,7 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_mapex, _mapkey_number_great);
+            map_init_ex(pt_mapex, _mapkey_number_greater);
             pair_init(pt_pair);
 
             _t_key._t_unit = _B;
@@ -1136,7 +1136,7 @@ void test_map(void)
             map_insert(pt_mapex, pt_pair);
             _print_map_user(pt_mapex);
 
-            map_init_copy_range_ex(pt_map, map_begin(pt_mapex), map_end(pt_mapex), _mapkey_number_great);
+            map_init_copy_range_ex(pt_map, map_begin(pt_mapex), map_end(pt_mapex), _mapkey_number_greater);
             _print_map_user(pt_map);
             map_destroy(pt_map);
             map_destroy(pt_mapex);
@@ -1395,8 +1395,8 @@ void test_map(void)
         /*map_not_equal         */
         /*map_less              */
         /*map_less_equal        */
-        /*map_great             */
-        /*map_great_equal       */
+        /*map_greater             */
+        /*map_greater_equal       */
         {
             map_t* pt_map = create_map(_mapkey_t, _mapvalue_t);
             map_t* pt_mapex = create_map(_mapkey_t, _mapvalue_t);
@@ -1417,8 +1417,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             _t_key._t_unit = _MB;
             _t_key._un_number = 2;
@@ -1432,8 +1432,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             map_insert(pt_mapex, pt_pair);
             _print_map_user(pt_map);
@@ -1442,8 +1442,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             _t_key._t_unit = _B;
             _t_key._un_number = 1025;
@@ -1469,8 +1469,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             map_destroy(pt_map);
             map_destroy(pt_mapex);
@@ -1815,7 +1815,7 @@ void test_map(void)
                 return;
             }
             map_init(pt_mapex);
-            map_init_ex(pt_map, _mapkey_number_great);
+            map_init_ex(pt_map, _mapkey_number_greater);
             pair_init(pt_pair);
 
             map_insert_range(pt_map, map_begin(pt_mapex), map_end(pt_mapex));
@@ -1902,7 +1902,7 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_map, _mapkey_number_great);
+            map_init_ex(pt_map, _mapkey_number_greater);
             pair_init(pt_pair);
 
             map_erase(pt_map, &_t_key);
@@ -2187,7 +2187,7 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_map, _mapkey_pair_great);
+            map_init_ex(pt_map, _mapkey_pair_greater);
             pair_init(pt_pair);
             pair_init(pt_key);
             list_init(pt_value);
@@ -2229,7 +2229,7 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_map, _mapkey_pair_great);
+            map_init_ex(pt_map, _mapkey_pair_greater);
             pair_init(pt_pair);
             pair_init(pt_key);
             list_init(pt_value);
@@ -2273,7 +2273,7 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_mapex, _mapkey_pair_great);
+            map_init_ex(pt_mapex, _mapkey_pair_greater);
             pair_init(pt_pair);
             pair_init(pt_key);
             list_init(pt_value);
@@ -2512,7 +2512,7 @@ void test_map(void)
             map_insert(pt_mapex, pt_pair);
 
             _print_map_cstl(pt_mapex);
-            map_init_copy_range_ex(pt_map, map_begin(pt_mapex), map_end(pt_mapex), _mapkey_pair_great);
+            map_init_copy_range_ex(pt_map, map_begin(pt_mapex), map_end(pt_mapex), _mapkey_pair_greater);
             _print_map_cstl(pt_map);
 
             map_destroy(pt_map);
@@ -2792,8 +2792,8 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_map, _mapkey_pair_great);
-            assert(map_key_less(pt_map) == _mapkey_pair_great &&
+            map_init_ex(pt_map, _mapkey_pair_greater);
+            assert(map_key_less(pt_map) == _mapkey_pair_greater &&
                 map_key_less(pt_map) != map_value_less(pt_map));
             map_destroy(pt_map);
         }
@@ -2856,8 +2856,8 @@ void test_map(void)
         /*map_not_equal         */
         /*map_less              */
         /*map_less_equal        */
-        /*map_great             */
-        /*map_great_equal       */
+        /*map_greater             */
+        /*map_greater_equal       */
         {
             map_t* pt_map = create_map(pair_t<int, double>, list_t<long>);
             map_t* pt_mapex = create_map(pair_t<int, double>, list_t<long>);
@@ -2880,8 +2880,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             pair_make(pt_key, 378, 4222.0);
             list_clear(pt_value);
@@ -2896,8 +2896,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             map_insert(pt_mapex, pt_pair);
             _print_map_cstl(pt_map);
@@ -2906,8 +2906,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             pair_make(pt_key, 0, -10000.2);
             list_clear(pt_value);
@@ -2950,8 +2950,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             map_destroy(pt_map);
             map_destroy(pt_mapex);
@@ -3339,7 +3339,7 @@ void test_map(void)
             {
                 return;
             }
-            map_init_ex(pt_mapex, _mapkey_pair_great);
+            map_init_ex(pt_mapex, _mapkey_pair_greater);
             map_init(pt_map);
             pair_init(pt_pair);
             pair_init(pt_key);
@@ -4119,8 +4119,8 @@ void test_map(void)
         /*map_not_equal         */
         /*map_less              */
         /*map_less_equal        */
-        /*map_great             */
-        /*map_great_equal       */
+        /*map_greater             */
+        /*map_greater_equal       */
         {
             map_t* pt_map = create_map(char*, char*);
             map_t* pt_mapex = create_map(char*, char*);
@@ -4139,8 +4139,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             pair_make(pt_pair, "Test set up", "The");
             map_insert(pt_map, pt_pair);
@@ -4150,8 +4150,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             map_insert(pt_mapex, pt_pair);
             _print_map_cstr(pt_map);
@@ -4160,8 +4160,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             pair_make(pt_pair, "Benchmarking Methodology", "tester");
             map_insert(pt_map, pt_pair);
@@ -4175,8 +4175,8 @@ void test_map(void)
                 map_equal(pt_map, pt_mapex), map_not_equal(pt_map, pt_mapex));
             printf("less: %d, less equal: %d, ",
                 map_less(pt_map, pt_mapex), map_less_equal(pt_map, pt_mapex));
-            printf("great: %d, great equal: %d\n",
-                map_great(pt_map, pt_mapex), map_great_equal(pt_map, pt_mapex));
+            printf("greater: %d, greater equal: %d\n",
+                map_greater(pt_map, pt_mapex), map_greater_equal(pt_map, pt_mapex));
 
             map_destroy(pt_map);
             map_destroy(pt_mapex);
@@ -4606,7 +4606,7 @@ void test_multimap(void)
             {
                 return;
             }
-            multimap_init_ex(pt_mmap, fun_great_int);
+            multimap_init_ex(pt_mmap, fun_greater_int);
             pair_init(pt_pair);
             _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
             pair_make(pt_pair, 1223, 90.22);
@@ -4629,7 +4629,7 @@ void test_multimap(void)
                 return;
             }
             pair_init(pt_pair);
-            multimap_init_ex(pt_mmapex, fun_great_char);
+            multimap_init_ex(pt_mmapex, fun_greater_char);
             pair_make(pt_pair, 'i', 349);
             multimap_insert(pt_mmapex, pt_pair);
             pair_make(pt_pair, '$', 0);
@@ -4659,7 +4659,7 @@ void test_multimap(void)
                 return;
             }
             pair_init(pt_pair);
-            multimap_init_ex(pt_mmapex, fun_great_char);
+            multimap_init_ex(pt_mmapex, fun_greater_char);
             pair_make(pt_pair, 'i', 349);
             multimap_insert(pt_mmapex, pt_pair);
             pair_make(pt_pair, '$', 0);
@@ -4693,7 +4693,7 @@ void test_multimap(void)
                 return;
             }
             pair_init(pt_pair);
-            multimap_init_ex(pt_mmapex, fun_great_char);
+            multimap_init_ex(pt_mmapex, fun_greater_char);
             pair_make(pt_pair, 'i', 349);
             multimap_insert(pt_mmapex, pt_pair);
             pair_make(pt_pair, '$', 0);
@@ -4711,7 +4711,7 @@ void test_multimap(void)
             pair_make(pt_pair, '@', -555);
             multimap_insert(pt_mmapex, pt_pair);
             _print_multimap_c(pt_mmapex, "<key: '%c', value: %d>, ", char, short);
-            multimap_init_copy_range_ex(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex), fun_great_char);
+            multimap_init_copy_range_ex(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex), fun_greater_char);
             _print_multimap_c(pt_mmap, "<key: '%c', value: %d>, ", char, short);
             pair_destroy(pt_pair);
             multimap_destroy(pt_mmap);
@@ -4835,8 +4835,8 @@ void test_multimap(void)
             {
                 return;
             }
-            multimap_init_ex(pt_mmap, fun_great_long);
-            assert(multimap_key_less(pt_mmap) == fun_great_long && multimap_value_less(pt_mmap) != NULL &&
+            multimap_init_ex(pt_mmap, fun_greater_long);
+            assert(multimap_key_less(pt_mmap) == fun_greater_long && multimap_value_less(pt_mmap) != NULL &&
                 multimap_key_less(pt_mmap) != multimap_value_less(pt_mmap));
             multimap_destroy(pt_mmap);
         }
@@ -4872,8 +4872,8 @@ void test_multimap(void)
         /*multimap_not_equal         */
         /*multimap_less              */
         /*multimap_less_equal        */
-        /*multimap_great             */
-        /*multimap_great_equal       */
+        /*multimap_greater             */
+        /*multimap_greater_equal       */
         {
             multimap_t* pt_mmap = create_multimap(int, long);
             multimap_t* pt_mmapex = create_multimap(int, long);
@@ -4891,8 +4891,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             pair_make(pt_pair, 42, -900);
             multimap_insert(pt_mmap, pt_pair);
@@ -4902,8 +4902,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             multimap_insert(pt_mmapex, pt_pair);
             _print_multimap_c(pt_mmap, "<key: %d, value: %ld>, ", int, long);
@@ -4912,8 +4912,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             pair_make(pt_pair, -56, 23);
             multimap_insert(pt_mmap, pt_pair);
@@ -4927,8 +4927,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             multimap_destroy(pt_mmap);
             multimap_destroy(pt_mmapex);
@@ -5124,7 +5124,7 @@ void test_multimap(void)
                 return;
             }
             multimap_init(pt_mmap);
-            multimap_init_ex(pt_mmapex, fun_great_int);
+            multimap_init_ex(pt_mmapex, fun_greater_int);
             pair_init(pt_pair);
             multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
             _print_multimap_c(pt_mmap, "<key: %d, value: %lf>, ", int, double);
@@ -5383,7 +5383,7 @@ void test_multimap(void)
             {
                 return;
             }
-            multimap_init_ex(pt_mmap, _mapkey_number_great);
+            multimap_init_ex(pt_mmap, _mapkey_number_greater);
             pair_init(pt_pair);
             _print_multimap_user(pt_mmap);
 
@@ -5465,7 +5465,7 @@ void test_multimap(void)
             {
                 return;
             }
-            multimap_init_ex(pt_mmapex, _mapkey_number_great);
+            multimap_init_ex(pt_mmapex, _mapkey_number_greater);
             pair_init(pt_pair);
 
             _t_key._t_unit = _B;
@@ -5588,7 +5588,7 @@ void test_multimap(void)
             multimap_insert(pt_mmapex, pt_pair);
             _print_multimap_user(pt_mmapex);
 
-            multimap_init_copy_range_ex(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex), _mapkey_number_great);
+            multimap_init_copy_range_ex(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex), _mapkey_number_greater);
             _print_multimap_user(pt_mmap);
             multimap_destroy(pt_mmap);
             multimap_destroy(pt_mmapex);
@@ -5847,8 +5847,8 @@ void test_multimap(void)
         /*multimap_not_equal         */
         /*multimap_less              */
         /*multimap_less_equal        */
-        /*multimap_great             */
-        /*multimap_great_equal       */
+        /*multimap_greater             */
+        /*multimap_greater_equal       */
         {
             multimap_t* pt_mmap = create_multimap(_mapkey_t, _mapvalue_t);
             multimap_t* pt_mmapex = create_multimap(_mapkey_t, _mapvalue_t);
@@ -5869,8 +5869,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             _t_key._t_unit = _MB;
             _t_key._un_number = 2;
@@ -5884,8 +5884,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             multimap_insert(pt_mmapex, pt_pair);
             _print_multimap_user(pt_mmap);
@@ -5894,8 +5894,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             _t_key._t_unit = _B;
             _t_key._un_number = 1025;
@@ -5921,8 +5921,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             multimap_destroy(pt_mmap);
             multimap_destroy(pt_mmapex);
@@ -6211,7 +6211,7 @@ void test_multimap(void)
                 return;
             }
             multimap_init(pt_mmapex);
-            multimap_init_ex(pt_mmap, _mapkey_number_great);
+            multimap_init_ex(pt_mmap, _mapkey_number_greater);
             pair_init(pt_pair);
 
             multimap_insert_range(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex));
@@ -6583,7 +6583,7 @@ void test_multimap(void)
             {
                 return;
             }
-            multimap_init_ex(pt_mmap, _mapkey_pair_great);
+            multimap_init_ex(pt_mmap, _mapkey_pair_greater);
             pair_init(pt_pair);
             pair_init(pt_key);
             list_init(pt_value);
@@ -6625,7 +6625,7 @@ void test_multimap(void)
             {
                 return;
             }
-            multimap_init_ex(pt_mmap, _mapkey_pair_great);
+            multimap_init_ex(pt_mmap, _mapkey_pair_greater);
             pair_init(pt_pair);
             pair_init(pt_key);
             list_init(pt_value);
@@ -6669,7 +6669,7 @@ void test_multimap(void)
             {
                 return;
             }
-            multimap_init_ex(pt_mmapex, _mapkey_pair_great);
+            multimap_init_ex(pt_mmapex, _mapkey_pair_greater);
             pair_init(pt_pair);
             pair_init(pt_key);
             list_init(pt_value);
@@ -6908,7 +6908,7 @@ void test_multimap(void)
             multimap_insert(pt_mmapex, pt_pair);
 
             _print_multimap_cstl(pt_mmapex);
-            multimap_init_copy_range_ex(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex), _mapkey_pair_great);
+            multimap_init_copy_range_ex(pt_mmap, multimap_begin(pt_mmapex), multimap_end(pt_mmapex), _mapkey_pair_greater);
             _print_multimap_cstl(pt_mmap);
 
             multimap_destroy(pt_mmap);
@@ -7188,8 +7188,8 @@ void test_multimap(void)
             {
                 return;
             }
-            multimap_init_ex(pt_mmap, _mapkey_pair_great);
-            assert(multimap_key_less(pt_mmap) == _mapkey_pair_great &&
+            multimap_init_ex(pt_mmap, _mapkey_pair_greater);
+            assert(multimap_key_less(pt_mmap) == _mapkey_pair_greater &&
                 multimap_key_less(pt_mmap) != multimap_value_less(pt_mmap));
             multimap_destroy(pt_mmap);
         }
@@ -7252,8 +7252,8 @@ void test_multimap(void)
         /*multimap_not_equal         */
         /*multimap_less              */
         /*multimap_less_equal        */
-        /*multimap_great             */
-        /*multimap_great_equal       */
+        /*multimap_greater             */
+        /*multimap_greater_equal       */
         {
             multimap_t* pt_mmap = create_multimap(pair_t<int, double>, list_t<long>);
             multimap_t* pt_mmapex = create_multimap(pair_t<int, double>, list_t<long>);
@@ -7276,8 +7276,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             pair_make(pt_key, 378, 4222.0);
             list_clear(pt_value);
@@ -7292,8 +7292,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             multimap_insert(pt_mmapex, pt_pair);
             _print_multimap_cstl(pt_mmap);
@@ -7302,8 +7302,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             pair_make(pt_key, 0, -10000.2);
             list_clear(pt_value);
@@ -7346,8 +7346,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             multimap_destroy(pt_mmap);
             multimap_destroy(pt_mmapex);
@@ -7672,7 +7672,7 @@ void test_multimap(void)
             {
                 return;
             }
-            multimap_init_ex(pt_mmapex, _mapkey_pair_great);
+            multimap_init_ex(pt_mmapex, _mapkey_pair_greater);
             multimap_init(pt_mmap);
             pair_init(pt_pair);
             pair_init(pt_key);
@@ -8452,8 +8452,8 @@ void test_multimap(void)
         /*multimap_not_equal         */
         /*multimap_less              */
         /*multimap_less_equal        */
-        /*multimap_great             */
-        /*multimap_great_equal       */
+        /*multimap_greater             */
+        /*multimap_greater_equal       */
         {
             multimap_t* pt_mmap = create_multimap(char*, char*);
             multimap_t* pt_mmapex = create_multimap(char*, char*);
@@ -8472,8 +8472,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             pair_make(pt_pair, "Test set up", "The");
             multimap_insert(pt_mmap, pt_pair);
@@ -8483,8 +8483,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             multimap_insert(pt_mmapex, pt_pair);
             _print_multimap_cstr(pt_mmap);
@@ -8493,8 +8493,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             pair_make(pt_pair, "Benchmarking Methodology", "tester");
             multimap_insert(pt_mmap, pt_pair);
@@ -8508,8 +8508,8 @@ void test_multimap(void)
                 multimap_equal(pt_mmap, pt_mmapex), multimap_not_equal(pt_mmap, pt_mmapex));
             printf("less: %d, less equal: %d, ",
                 multimap_less(pt_mmap, pt_mmapex), multimap_less_equal(pt_mmap, pt_mmapex));
-            printf("great: %d, great equal: %d\n",
-                multimap_great(pt_mmap, pt_mmapex), multimap_great_equal(pt_mmap, pt_mmapex));
+            printf("greater: %d, greater equal: %d\n",
+                multimap_greater(pt_mmap, pt_mmapex), multimap_greater_equal(pt_mmap, pt_mmapex));
 
             multimap_destroy(pt_mmap);
             multimap_destroy(pt_mmapex);
@@ -8989,10 +8989,10 @@ static void _print_map_cstr(const map_t* cpt_map)
     }
 }
 
-static void _mapkey_pair_great(const void* cpv_first, const void* cpv_second, void* pv_output)
+static void _mapkey_pair_greater(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-    *(bool_t*)pv_output = pair_great((pair_t*)cpv_first, (pair_t*)cpv_second);
+    *(bool_t*)pv_output = pair_greater((pair_t*)cpv_first, (pair_t*)cpv_second);
 }
 
 static void _print_map_cstl(const map_t* cpt_map)
@@ -9057,7 +9057,7 @@ static void _print_map_user(const map_t* cpt_map)
     }
 }
 
-static void _mapkey_number_great(const void* cpv_first, const void* cpv_second, void* pv_output)
+static void _mapkey_number_greater(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     if(((_mapkey_t*)cpv_first)->_un_number > ((_mapkey_t*)cpv_second)->_un_number)

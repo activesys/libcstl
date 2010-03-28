@@ -117,10 +117,10 @@ extern bool_t hash_multiset_less(
 extern bool_t hash_multiset_less_equal(
     const hash_multiset_t* cpt_hash_multisetfirst,
     const hash_multiset_t* cpt_hash_multisetsecond);
-extern bool_t hash_multiset_great(
+extern bool_t hash_multiset_greater(
     const hash_multiset_t* cpt_hash_multisetfirst,
     const hash_multiset_t* cpt_hash_multisetsecond);
-extern bool_t hash_multiset_great_equal(
+extern bool_t hash_multiset_greater_equal(
     const hash_multiset_t* cpt_hash_multisetfirst,
     const hash_multiset_t* cpt_hash_multisetsecond);
 

@@ -342,23 +342,23 @@ bool_t hash_multiset_less_equal(
         &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
 }
 
-bool_t hash_multiset_great(
+bool_t hash_multiset_greater(
     const hash_multiset_t* cpt_hash_multisetfirst,
     const hash_multiset_t* cpt_hash_multisetsecond)
 {
     assert(cpt_hash_multisetfirst != NULL && cpt_hash_multisetsecond != NULL);
 
-    return _hashtable_great(
+    return _hashtable_greater(
         &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
 }
 
-bool_t hash_multiset_great_equal(
+bool_t hash_multiset_greater_equal(
     const hash_multiset_t* cpt_hash_multisetfirst,
     const hash_multiset_t* cpt_hash_multisetsecond)
 {
     assert(cpt_hash_multisetfirst != NULL && cpt_hash_multisetsecond != NULL);
 
-    return _hashtable_great_equal(
+    return _hashtable_greater_equal(
         &cpt_hash_multisetfirst->_t_hashtable, &cpt_hash_multisetsecond->_t_hashtable);
 }
 

@@ -82,7 +82,7 @@ static void _print_set_user(const set_t* cpt_set);
 static void _setsample_init(const void* cpv_input, void* pv_output);
 static void _setsample_destroy(const void* cpv_input, void* pv_output);
 static void _setsample_less(const void* cpv_first, const void* cpv_second, void* pv_output);
-static void _setsample_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _setsample_greater(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _setsample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
@@ -113,7 +113,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set, fun_great_double);
+            set_init_ex(pt_set, fun_greater_double);
             _print_set_c(pt_set, "%lf, ", double);
             set_insert(pt_set, 45.98);
             set_insert(pt_set, -4.098);
@@ -131,7 +131,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_setex, fun_great_int);
+            set_init_ex(pt_setex, fun_greater_int);
             set_insert(pt_setex, 800);
             set_insert(pt_setex, 400);
             set_insert(pt_setex, 20);
@@ -150,7 +150,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_setex, fun_great_double);
+            set_init_ex(pt_setex, fun_greater_double);
             set_insert(pt_setex, 34.2);
             set_insert(pt_setex, 0.91);
             set_insert(pt_setex, -4.4);
@@ -174,7 +174,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_setex, fun_great_int);
+            set_init_ex(pt_setex, fun_greater_int);
             set_insert(pt_setex, 200);
             set_insert(pt_setex, 100);
             set_insert(pt_setex, -4);
@@ -187,7 +187,7 @@ void test_set(void)
             set_insert(pt_setex, 78);
             _print_set_c(pt_setex, "%d, ", int);
             set_init_copy_range_ex(pt_set, set_begin(pt_setex),
-                set_end(pt_setex), fun_great_int);
+                set_end(pt_setex), fun_greater_int);
             _print_set_c(pt_set, "%d, ", int);
             set_destroy(pt_set);
             set_destroy(pt_setex);
@@ -201,8 +201,8 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set, fun_great_double);
-            set_init_ex(pt_setex, fun_great_double);
+            set_init_ex(pt_set, fun_greater_double);
+            set_init_ex(pt_setex, fun_greater_double);
             set_assign(pt_set, pt_setex);
             _print_set_c(pt_set, "%lf, ", double);
             set_insert(pt_setex, 845.22);
@@ -242,9 +242,9 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set, fun_great_int);
-            printf("%d, %d\n", set_key_less(pt_set) == fun_great_int,
-                set_value_less(pt_set) == fun_great_int);
+            set_init_ex(pt_set, fun_greater_int);
+            printf("%d, %d\n", set_key_less(pt_set) == fun_greater_int,
+                set_value_less(pt_set) == fun_greater_int);
             set_destroy(pt_set);
         }
         /*set_clear             */
@@ -269,8 +269,8 @@ void test_set(void)
         /*set_not_equal         */
         /*set_less              */
         /*set_less_equal        */
-        /*set_great             */
-        /*set_great_equal       */
+        /*set_greater             */
+        /*set_greater_equal       */
         {
             set_t* pt_set = create_set(int);
             set_t* pt_setex = create_set(int);
@@ -286,8 +286,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             set_insert(pt_set, 45);
             _print_set_c(pt_set, "%d, ", int);
@@ -296,8 +296,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             set_insert(pt_setex, 45);
             _print_set_c(pt_set, "%d, ", int);
@@ -306,8 +306,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             set_insert(pt_set, 4);
             set_insert(pt_set, 5);
@@ -318,8 +318,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             set_destroy(pt_set);
             set_destroy(pt_setex);
@@ -660,7 +660,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set, _setsample_great);
+            set_init_ex(pt_set, _setsample_greater);
             _print_set_user(pt_set);
             set_destroy(pt_set);
         }
@@ -673,7 +673,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_setex, _setsample_great);
+            set_init_ex(pt_setex, _setsample_greater);
             t_ss._n_first = 40;
             t_ss._n_second = -45;
             t_ss._n_third = 223;
@@ -704,7 +704,7 @@ void test_set(void)
              * error in _rb_tree_init_copy_range and _rb_tree_init_copy_range_ex and
              * _rb_tree_same_type functions.
              */
-            set_init_ex(pt_setex, _setsample_great);
+            set_init_ex(pt_setex, _setsample_greater);
             t_ss._n_first = -9;
             t_ss._n_second = 5;
             t_ss._n_third = 4;
@@ -736,7 +736,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_setex, _setsample_great);
+            set_init_ex(pt_setex, _setsample_greater);
             t_ss._n_first = 56;
             t_ss._n_second = 3;
             t_ss._n_third = 344;
@@ -778,8 +778,8 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set, _setsample_great);
-            set_init_ex(pt_setex, _setsample_great);
+            set_init_ex(pt_set, _setsample_greater);
+            set_init_ex(pt_setex, _setsample_greater);
             set_assign(pt_set, pt_setex);
             _print_set_user(pt_set);
             t_ss._n_first = 0;
@@ -865,8 +865,8 @@ void test_set(void)
         /*set_not_equal         */
         /*set_less              */
         /*set_less_equal        */
-        /*set_great             */
-        /*set_great_equal       */
+        /*set_greater             */
+        /*set_greater_equal       */
         {
             set_t* pt_set = create_set(setsample_t);
             set_t* pt_setex = create_set(setsample_t);
@@ -883,8 +883,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             t_ss._n_first = 9;
             t_ss._n_second = 45;
@@ -896,8 +896,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             t_ss._n_first = 9;
             t_ss._n_second = 45;
@@ -909,8 +909,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             t_ss._n_first = 9;
             t_ss._n_second = 45;
@@ -922,8 +922,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             t_ss._n_first = 49;
             t_ss._n_second = 45;
@@ -943,8 +943,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             set_destroy(pt_set);
             set_destroy(pt_setex);
@@ -1165,7 +1165,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set, _setsample_great);
+            set_init_ex(pt_set, _setsample_greater);
             _print_set_user(pt_set);
             t_ss._n_first = 100;
             t_ss._n_second = 200;
@@ -1222,7 +1222,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set, _setsample_great);
+            set_init_ex(pt_set, _setsample_greater);
             set_init(pt_setex);
             set_insert_range(pt_set, set_begin(pt_setex), set_end(pt_setex));
             _print_set_user(pt_set);
@@ -1496,7 +1496,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set, fun_great_set);
+            set_init_ex(pt_set, fun_greater_set);
             _print_set_set(pt_set);
             set_destroy(pt_set);
         }
@@ -1509,7 +1509,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set2, fun_great_set);
+            set_init_ex(pt_set2, fun_greater_set);
             set_init(pt_setex);
             set_insert(pt_setex, 45);
             set_insert(pt_setex, 2);
@@ -1541,7 +1541,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set2, fun_great_set);
+            set_init_ex(pt_set2, fun_greater_set);
             set_init(pt_setex);
             set_insert(pt_setex, 45);
             set_insert(pt_setex, 2);
@@ -1590,7 +1590,7 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set2, fun_great_set);
+            set_init_ex(pt_set2, fun_greater_set);
             set_init(pt_setex);
             set_insert(pt_setex, 45);
             set_insert(pt_setex, 2);
@@ -1625,7 +1625,7 @@ void test_set(void)
             set_insert(pt_set2, pt_setex);
             _print_set_set(pt_set2);
             set_init_copy_range_ex(pt_set1, set_begin(pt_set2),
-                set_end(pt_set2), fun_great_set);
+                set_end(pt_set2), fun_greater_set);
             _print_set_set(pt_set1);
             set_destroy(pt_set1);
             set_destroy(pt_set2);
@@ -1641,8 +1641,8 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set1, fun_great_set);
-            set_init_ex(pt_set2, fun_great_set);
+            set_init_ex(pt_set1, fun_greater_set);
+            set_init_ex(pt_set2, fun_greater_set);
             set_init(pt_setex);
             set_assign(pt_set1, pt_set2);
             _print_set_set(pt_set1);
@@ -1695,9 +1695,9 @@ void test_set(void)
             {
                 return;
             }
-            set_init_ex(pt_set, fun_great_set);
-            printf("%d, %d\n", set_key_less(pt_set) == fun_great_set,
-                   set_value_less(pt_set) == fun_great_set);
+            set_init_ex(pt_set, fun_greater_set);
+            printf("%d, %d\n", set_key_less(pt_set) == fun_greater_set,
+                   set_value_less(pt_set) == fun_greater_set);
             set_destroy(pt_set);
         }
         /*set_clear             */
@@ -1731,8 +1731,8 @@ void test_set(void)
         /*set_not_equal         */
         /*set_less              */
         /*set_less_equal        */
-        /*set_great             */
-        /*set_great_equal       */
+        /*set_greater             */
+        /*set_greater_equal       */
         {
             set_t* pt_set1 = create_set(set_t<int>);
             set_t* pt_set2 = create_set(set_t<int>);
@@ -1750,8 +1750,8 @@ void test_set(void)
                 set_equal(pt_set1, pt_set2), set_not_equal(pt_set1, pt_set2));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set1, pt_set2), set_less_equal(pt_set1, pt_set2));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set1, pt_set2), set_great_equal(pt_set1, pt_set2));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set1, pt_set2), set_greater_equal(pt_set1, pt_set2));
 
             set_insert(pt_setex, 45);
             set_insert(pt_setex, 88);
@@ -1764,8 +1764,8 @@ void test_set(void)
                 set_equal(pt_set1, pt_set2), set_not_equal(pt_set1, pt_set2));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set1, pt_set2), set_less_equal(pt_set1, pt_set2));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set1, pt_set2), set_great_equal(pt_set1, pt_set2));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set1, pt_set2), set_greater_equal(pt_set1, pt_set2));
 
             set_insert(pt_set2, pt_setex);
             _print_set_set(pt_set1);
@@ -1774,8 +1774,8 @@ void test_set(void)
                 set_equal(pt_set1, pt_set2), set_not_equal(pt_set1, pt_set2));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set1, pt_set2), set_less_equal(pt_set1, pt_set2));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set1, pt_set2), set_great_equal(pt_set1, pt_set2));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set1, pt_set2), set_greater_equal(pt_set1, pt_set2));
 
             set_clear(pt_setex);
             set_insert(pt_setex, 45);
@@ -1801,8 +1801,8 @@ void test_set(void)
                 set_equal(pt_set1, pt_set2), set_not_equal(pt_set1, pt_set2));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set1, pt_set2), set_less_equal(pt_set1, pt_set2));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set1, pt_set2), set_great_equal(pt_set1, pt_set2));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set1, pt_set2), set_greater_equal(pt_set1, pt_set2));
 
             set_destroy(pt_set1);
             set_destroy(pt_set2);
@@ -2047,7 +2047,7 @@ void test_set(void)
             }
             /*
              * type is not matching. pt_set is set_t<int> and pt_setex is 
-             * set_t<int, fun_great_int>.
+             * set_t<int, fun_greater_int>.
              */
             set_init(pt_set);
             set_init(pt_setex);
@@ -2113,7 +2113,7 @@ void test_set(void)
                 return;
             }
             set_init(pt_set1);
-            set_init_ex(pt_set2, fun_great_set);
+            set_init_ex(pt_set2, fun_greater_set);
             set_init(pt_setex);
             set_insert_range(pt_set1, set_begin(pt_set2), set_end(pt_set2));
             _print_set_set(pt_set1);
@@ -2573,8 +2573,8 @@ void test_set(void)
         /*set_not_equal         */
         /*set_less              */
         /*set_less_equal        */
-        /*set_great             */
-        /*set_great_equal       */
+        /*set_greater             */
+        /*set_greater_equal       */
         {
             set_t* pt_set = create_set(char*);
             set_t* pt_setex = create_set(char*);
@@ -2590,8 +2590,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             set_insert(pt_set, "Eric Brunsen");
             _print_set_cstr(pt_set);
@@ -2600,8 +2600,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             set_insert(pt_setex, "Eric Brunsen");
             _print_set_cstr(pt_set);
@@ -2610,8 +2610,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             set_insert(pt_set, "Author's Address");
             set_insert(pt_set, "Eastern New Mexico University");
@@ -2622,8 +2622,8 @@ void test_set(void)
                 set_equal(pt_set, pt_setex), set_not_equal(pt_set, pt_setex));
             printf("less: %d, less equal: %d, ",
                 set_less(pt_set, pt_setex), set_less_equal(pt_set, pt_setex));
-            printf("great: %d, great equal: %d\n",
-                set_great(pt_set, pt_setex), set_great_equal(pt_set, pt_setex));
+            printf("greater: %d, greater equal: %d\n",
+                set_greater(pt_set, pt_setex), set_greater_equal(pt_set, pt_setex));
 
             set_destroy(pt_set);
             set_destroy(pt_setex);
@@ -2978,11 +2978,11 @@ void test_set(void)
     _print_set_c(pt_setex, "%d, ", int);
     set_init_copy_range(pt_setex2, set_begin(pt_set), set_end(pt_set));
     _print_set_c(pt_setex2, "%d, ", int);
-    set_init_copy_range_ex(pt_setex3, set_begin(pt_set), set_end(pt_set), fun_great_int);
+    set_init_copy_range_ex(pt_setex3, set_begin(pt_set), set_end(pt_set), fun_greater_int);
     _print_set_c(pt_setex3, "%d, ", int);
 
     printf("===================================\n");
-    set_init_ex(pt_set1, fun_great_int);
+    set_init_ex(pt_set1, fun_greater_int);
     set_insert(pt_set1, 34);
     set_insert(pt_set1, 90);
     set_insert(pt_set1, 3);
@@ -2995,7 +2995,7 @@ void test_set(void)
     _print_set_c(pt_set2, "%d, ", int);
     set_init_copy_range(pt_set3, set_begin(pt_set1), set_end(pt_set1));
     _print_set_c(pt_set3, "%d, ", int);
-    set_init_copy_range_ex(pt_set4, set_begin(pt_set1), set_end(pt_set1), fun_great_int);
+    set_init_copy_range_ex(pt_set4, set_begin(pt_set1), set_end(pt_set1), fun_greater_int);
     _print_set_c(pt_set4, "%d, ", int);
 
     set_destroy(pt_set);
@@ -3038,7 +3038,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_mset, fun_great_double);
+            multiset_init_ex(pt_mset, fun_greater_double);
             _print_multiset_c(pt_mset, "%lf, ", double);
             multiset_insert(pt_mset, 43.452);
             multiset_insert(pt_mset, 0.009);
@@ -3056,7 +3056,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_msetex, fun_great_double);
+            multiset_init_ex(pt_msetex, fun_greater_double);
             multiset_insert(pt_msetex, 78.243211);
             multiset_insert(pt_msetex, 223.22);
             multiset_insert(pt_msetex, -787.2);
@@ -3075,7 +3075,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_msetex, fun_great_int);
+            multiset_init_ex(pt_msetex, fun_greater_int);
             multiset_insert(pt_msetex, 209);
             multiset_insert(pt_msetex, 1212);
             multiset_insert(pt_msetex, 2);
@@ -3118,7 +3118,7 @@ void test_multiset(void)
             multiset_insert(pt_msetex, -12);
             _print_multiset_c(pt_msetex, "%d, ", int);
             multiset_init_copy_range_ex(pt_mset,
-                multiset_begin(pt_msetex), multiset_end(pt_msetex), fun_great_int);
+                multiset_begin(pt_msetex), multiset_end(pt_msetex), fun_greater_int);
             _print_multiset_c(pt_mset, "%d, ", int);
             multiset_destroy(pt_mset);
             multiset_destroy(pt_msetex);
@@ -3190,8 +3190,8 @@ void test_multiset(void)
         /*multiset_not_equal         */
         /*multiset_less              */
         /*multiset_less_equal        */
-        /*multiset_great             */
-        /*multiset_great_equal       */
+        /*multiset_greater             */
+        /*multiset_greater_equal       */
         {
             multiset_t* pt_mset = create_multiset(int);
             multiset_t* pt_msetex = create_multiset(int);
@@ -3207,8 +3207,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
 
             multiset_insert(pt_mset, 4567);
             _print_multiset_c(pt_mset, "%d, ", int);
@@ -3217,8 +3217,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
 
             multiset_insert(pt_msetex, 4567);
             _print_multiset_c(pt_mset, "%d, ", int);
@@ -3227,8 +3227,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
 
             multiset_insert(pt_mset, 334);
             multiset_insert(pt_mset, 9092);
@@ -3239,8 +3239,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
             
             multiset_destroy(pt_mset);
             multiset_destroy(pt_msetex);
@@ -3254,7 +3254,7 @@ void test_multiset(void)
                 return;
             }
             multiset_init(pt_mset);
-            multiset_init_ex(pt_msetex, fun_great_int);
+            multiset_init_ex(pt_msetex, fun_greater_int);
             multiset_swap(pt_mset, pt_msetex);
             _print_multiset_c(pt_mset, "%d, ", int);
             _print_multiset_c(pt_msetex, "%d, ", int);
@@ -3396,7 +3396,7 @@ void test_multiset(void)
                 return;
             }
             multiset_init(pt_mset);
-            multiset_init_ex(pt_msetex, fun_great_double);
+            multiset_init_ex(pt_msetex, fun_greater_double);
             multiset_insert(pt_mset, 2344.222);
             multiset_insert(pt_mset, -234.0);
             multiset_insert(pt_mset, 90.90);
@@ -3427,7 +3427,7 @@ void test_multiset(void)
                 return;
             }
             multiset_init(pt_mset);
-            multiset_init_ex(pt_msetex, fun_great_int);
+            multiset_init_ex(pt_msetex, fun_greater_int);
             t_iter = multiset_begin(pt_mset);
             t_iterex = multiset_begin(pt_msetex);
             multiset_insert_hint(pt_mset, t_iter, 92);
@@ -3455,7 +3455,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_mset, fun_great_double);
+            multiset_init_ex(pt_mset, fun_greater_double);
             multiset_init(pt_msetex);
             multiset_insert_range(pt_mset, multiset_begin(pt_msetex), multiset_end(pt_msetex));
             _print_multiset_c(pt_mset, "%g, ", double);
@@ -3654,7 +3654,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_mset, _setsample_great);
+            multiset_init_ex(pt_mset, _setsample_greater);
             _print_multiset_user(pt_mset);
             t_mss._n_first = 84;
             t_mss._n_second = 0;
@@ -3685,7 +3685,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_msetex, _setsample_great);
+            multiset_init_ex(pt_msetex, _setsample_greater);
             t_ss._n_first = 34;
             t_ss._n_second = 4893;
             t_ss._n_third = 289;
@@ -3714,7 +3714,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_msetex, _setsample_great);
+            multiset_init_ex(pt_msetex, _setsample_greater);
             t_ss._n_first = 34;
             t_ss._n_second = 4893;
             t_ss._n_third = 289;
@@ -3762,7 +3762,7 @@ void test_multiset(void)
             multiset_insert(pt_msetex, &t_ss);
             _print_multiset_user(pt_msetex);
             multiset_init_copy_range_ex(pt_mset, multiset_begin(pt_msetex),
-                multiset_end(pt_msetex), _setsample_great);
+                multiset_end(pt_msetex), _setsample_greater);
             _print_multiset_user(pt_mset);
             multiset_destroy(pt_mset);
             multiset_destroy(pt_msetex);
@@ -3777,8 +3777,8 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_msetex, _setsample_great);
-            multiset_init_ex(pt_mset, _setsample_great);
+            multiset_init_ex(pt_msetex, _setsample_greater);
+            multiset_init_ex(pt_mset, _setsample_greater);
             t_ss._n_first = 34;
             t_ss._n_second = 4893;
             t_ss._n_third = 289;
@@ -3851,8 +3851,8 @@ void test_multiset(void)
         /*multiset_not_equal         */
         /*multiset_less              */
         /*multiset_less_equal        */
-        /*multiset_great             */
-        /*multiset_great_equal       */
+        /*multiset_greater             */
+        /*multiset_greater_equal       */
         {
             multiset_t* pt_mset = create_multiset(setsample_t);
             multiset_t* pt_msetex = create_multiset(multisetsample_t);
@@ -3869,8 +3869,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
             t_mss._n_first = 43;
             t_mss._n_second = 556;
             t_mss._n_third = 556;
@@ -3881,8 +3881,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
             multiset_insert(pt_msetex, &t_mss);
             _print_multiset_user(pt_mset);
             _print_multiset_user(pt_msetex);
@@ -3890,8 +3890,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
 
             t_mss._n_first = 43;
             t_mss._n_second = 6;
@@ -3911,8 +3911,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
 
             multiset_destroy(pt_mset);
             multiset_destroy(pt_msetex);
@@ -4182,7 +4182,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_mset, _setsample_great);
+            multiset_init_ex(pt_mset, _setsample_greater);
             multiset_init(pt_msetex);
             multiset_insert_range(pt_mset, multiset_begin(pt_msetex), multiset_end(pt_msetex));
             _print_multiset_user(pt_mset);
@@ -4291,7 +4291,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_mset, _setsample_great);
+            multiset_init_ex(pt_mset, _setsample_greater);
             _print_multiset_user(pt_mset);
             t_mss._n_first = 43;
             t_mss._n_second = 556;
@@ -4343,7 +4343,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_mset, _setsample_great);
+            multiset_init_ex(pt_mset, _setsample_greater);
             multiset_erase_range(pt_mset, multiset_begin(pt_mset), multiset_end(pt_mset));
             _print_multiset_user(pt_mset);
             _print_multiset_user(pt_mset);
@@ -4429,7 +4429,7 @@ void test_multiset(void)
             {
                 return;
             }
-            multiset_init_ex(pt_mset, fun_great_multiset);
+            multiset_init_ex(pt_mset, fun_greater_multiset);
             multiset_init(pt_msetex);
             multiset_insert(pt_msetex, 23499);
             multiset_insert(pt_msetex, -38);
@@ -4455,7 +4455,7 @@ void test_multiset(void)
                 return;
             }
             multiset_init(pt_msetex);
-            multiset_init_ex(pt_mset2, fun_great_multiset);
+            multiset_init_ex(pt_mset2, fun_greater_multiset);
             multiset_insert(pt_msetex, 23499);
             multiset_insert(pt_msetex, -38);
             multiset_insert(pt_msetex, 930);
@@ -4488,7 +4488,7 @@ void test_multiset(void)
                 return;
             }
             multiset_init(pt_msetex);
-            multiset_init_ex(pt_mset2, fun_great_multiset);
+            multiset_init_ex(pt_mset2, fun_greater_multiset);
             multiset_insert(pt_msetex, 23499);
             multiset_insert(pt_msetex, -38);
             multiset_insert(pt_msetex, 930);
@@ -4586,7 +4586,7 @@ void test_multiset(void)
             multiset_insert(pt_mset2, pt_msetex);
             _print_multiset_multiset(pt_mset2);
             multiset_init_copy_range_ex(pt_mset1,
-                multiset_begin(pt_mset2), multiset_end(pt_mset2), fun_great_multiset);
+                multiset_begin(pt_mset2), multiset_end(pt_mset2), fun_greater_multiset);
             _print_multiset_multiset(pt_mset1);
             multiset_destroy(pt_mset1);
             multiset_destroy(pt_mset2);
@@ -4707,8 +4707,8 @@ void test_multiset(void)
         /*multiset_not_equal         */
         /*multiset_less              */
         /*multiset_less_equal        */
-        /*multiset_great             */
-        /*multiset_great_equal       */
+        /*multiset_greater             */
+        /*multiset_greater_equal       */
         {
             multiset_t* pt_mset1 = create_multiset(multiset_t<int>);
             multiset_t* pt_mset2 = create_multiset(multiset_t<int>);
@@ -4726,8 +4726,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset1, pt_mset2), multiset_not_equal(pt_mset1, pt_mset2));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset1, pt_mset2), multiset_less_equal(pt_mset1, pt_mset2));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset1, pt_mset2), multiset_great_equal(pt_mset1, pt_mset2));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset1, pt_mset2), multiset_greater_equal(pt_mset1, pt_mset2));
 
             multiset_insert(pt_msetex, 23499);
             multiset_insert(pt_msetex, -38);
@@ -4740,8 +4740,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset1, pt_mset2), multiset_not_equal(pt_mset1, pt_mset2));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset1, pt_mset2), multiset_less_equal(pt_mset1, pt_mset2));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset1, pt_mset2), multiset_great_equal(pt_mset1, pt_mset2));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset1, pt_mset2), multiset_greater_equal(pt_mset1, pt_mset2));
 
             multiset_insert(pt_mset2, pt_msetex);
             _print_multiset_multiset(pt_mset1);
@@ -4750,8 +4750,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset1, pt_mset2), multiset_not_equal(pt_mset1, pt_mset2));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset1, pt_mset2), multiset_less_equal(pt_mset1, pt_mset2));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset1, pt_mset2), multiset_great_equal(pt_mset1, pt_mset2));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset1, pt_mset2), multiset_greater_equal(pt_mset1, pt_mset2));
 
             multiset_clear(pt_msetex);
             multiset_insert(pt_msetex, 49);
@@ -4775,8 +4775,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset1, pt_mset2), multiset_not_equal(pt_mset1, pt_mset2));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset1, pt_mset2), multiset_less_equal(pt_mset1, pt_mset2));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset1, pt_mset2), multiset_great_equal(pt_mset1, pt_mset2));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset1, pt_mset2), multiset_greater_equal(pt_mset1, pt_mset2));
 
             multiset_destroy(pt_mset1);
             multiset_destroy(pt_mset2);
@@ -5533,8 +5533,8 @@ void test_multiset(void)
         /*multiset_not_equal         */
         /*multiset_less              */
         /*multiset_less_equal        */
-        /*multiset_great             */
-        /*multiset_great_equal       */
+        /*multiset_greater             */
+        /*multiset_greater_equal       */
         {
             multiset_t* pt_mset = create_multiset(char*);
             multiset_t* pt_msetex = create_multiset(char*);
@@ -5550,8 +5550,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
 
             multiset_insert(pt_mset, "Phone: +81-22-303-4012");
             multiset_insert(pt_mset, "Richmond TW9 1DT");
@@ -5561,8 +5561,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
 
             multiset_insert(pt_msetex, "Phone: +81-22-303-4012");
             multiset_insert(pt_msetex, "Richmond TW9 1DT");
@@ -5572,8 +5572,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
 
             multiset_insert(pt_mset, "Phone: +44-181-332-9091");
             multiset_insert(pt_mset, "Phone: +44-181-332-9091");
@@ -5584,8 +5584,8 @@ void test_multiset(void)
                 multiset_equal(pt_mset, pt_msetex), multiset_not_equal(pt_mset, pt_msetex));
             printf("less: %d, less equal: %d, ",
                 multiset_less(pt_mset, pt_msetex), multiset_less_equal(pt_mset, pt_msetex));
-            printf("great: %d, great equal: %d\n",
-                multiset_great(pt_mset, pt_msetex), multiset_great_equal(pt_mset, pt_msetex));
+            printf("greater: %d, greater equal: %d\n",
+                multiset_greater(pt_mset, pt_msetex), multiset_greater_equal(pt_mset, pt_msetex));
             multiset_destroy(pt_mset);
             multiset_destroy(pt_msetex);
         }
@@ -6095,7 +6095,7 @@ static void _setsample_less(const void* cpv_first, const void* cpv_second, void*
     }
 }
 
-static void _setsample_great(const void* cpv_first, const void* cpv_second, void* pv_output)
+static void _setsample_greater(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     if(((setsample_t*)cpv_first)->_n_first > ((setsample_t*)cpv_second)->_n_first)

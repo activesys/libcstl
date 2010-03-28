@@ -215,8 +215,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_push(pt_stack1, 45.22);
             _printstack_c(pt_stack1, "%lf, ", double);
             _printstack_c(pt_stack2, "%lf, ", double);
@@ -224,8 +224,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_push(pt_stack2, 45.22);
             _printstack_c(pt_stack1, "%lf, ", double);
             _printstack_c(pt_stack2, "%lf, ", double);
@@ -233,8 +233,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_push(pt_stack1, -18.4909);
             stack_push(pt_stack2, -4.35);
             _printstack_c(pt_stack1, "%lf, ", double);
@@ -243,8 +243,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_push(pt_stack1, 100.0);
             _printstack_c(pt_stack1, "%lf, ", double);
             _printstack_c(pt_stack2, "%lf, ", double);
@@ -252,16 +252,16 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_destroy(pt_stack1);
             stack_destroy(pt_stack2);
         }
         /*stack_not_equal  */
         /*stack_less       */
         /*stack_less_equal */
-        /*stack_great      */
-        /*stack_great_equal*/
+        /*stack_greater      */
+        /*stack_greater_equal*/
     }
     /* user defined type */
     {
@@ -449,8 +449,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
 
             _pointer_init(&pn_pointer, &t_result);
 
@@ -462,8 +462,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
 
             *pn_pointer = 45;
             stack_push(pt_stack2, &pn_pointer);
@@ -473,8 +473,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
 
             *pn_pointer = -18;
             stack_push(pt_stack1, &pn_pointer);
@@ -486,8 +486,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
 
             *pn_pointer = 100;
             stack_push(pt_stack1, &pn_pointer);
@@ -497,8 +497,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
 
             _pointer_destroy(&pn_pointer, &t_result);
 
@@ -508,8 +508,8 @@ void test_stack(void)
         /*stack_not_equal  */
         /*stack_less       */
         /*stack_less_equal */
-        /*stack_great      */
-        /*stack_great_equal*/
+        /*stack_greater      */
+        /*stack_greater_equal*/
     }
     /* cstl built-in type */
     {
@@ -691,8 +691,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_push(pt_stackex, 45);
             stack_push(pt_stack1, pt_stackex);
             _printstack(pt_stack1);
@@ -701,8 +701,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_push(pt_stack2, pt_stackex);
             _printstack(pt_stack1);
             _printstack(pt_stack2);
@@ -710,8 +710,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_pop(pt_stackex);
             stack_push(pt_stackex, -18);
             stack_push(pt_stack1, pt_stackex);
@@ -724,8 +724,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_pop(pt_stackex);
             stack_push(pt_stackex, 100);
             stack_push(pt_stack1, pt_stackex);
@@ -735,8 +735,8 @@ void test_stack(void)
                 stack_equal(pt_stack1, pt_stack2), stack_not_equal(pt_stack1, pt_stack2));
             printf("less : %d, less equal : %d, ",
                 stack_less(pt_stack1, pt_stack2), stack_less_equal(pt_stack1, pt_stack2));
-            printf("great : %d, great equal : %d\n",
-                stack_great(pt_stack1, pt_stack2), stack_great_equal(pt_stack1, pt_stack2));
+            printf("greater : %d, greater equal : %d\n",
+                stack_greater(pt_stack1, pt_stack2), stack_greater_equal(pt_stack1, pt_stack2));
             stack_destroy(pt_stack1);
             stack_destroy(pt_stack2);
             stack_destroy(pt_stackex);
@@ -744,8 +744,8 @@ void test_stack(void)
         /*stack_not_equal  */
         /*stack_less       */
         /*stack_less_equal */
-        /*stack_great      */
-        /*stack_great_equal*/
+        /*stack_greater      */
+        /*stack_greater_equal*/
     }
     /* c-string type */
     {
@@ -850,8 +850,8 @@ void test_stack(void)
         /*stack_not_equal  */
         /*stack_less       */
         /*stack_less_equal */
-        /*stack_great      */
-        /*stack_great_equal*/
+        /*stack_greater      */
+        /*stack_greater_equal*/
         {
             stack_t* pt_stack = create_stack(char*);
             stack_t* pt_stackex = create_stack(char*);
@@ -867,8 +867,8 @@ void test_stack(void)
                 stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
             printf("less: %d, less equal: %d, ",
                 stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
-            printf("great: %d, great equal: %d\n",
-                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+            printf("greater: %d, greater equal: %d\n",
+                stack_greater(pt_stack, pt_stackex), stack_greater_equal(pt_stack, pt_stackex));
 
             stack_push(pt_stack, "Only those instances corresponding to parties in the");
             _print_stack_str(pt_stack);
@@ -877,8 +877,8 @@ void test_stack(void)
                 stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
             printf("less: %d, less equal: %d, ",
                 stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
-            printf("great: %d, great equal: %d\n",
-                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+            printf("greater: %d, greater equal: %d\n",
+                stack_greater(pt_stack, pt_stackex), stack_greater_equal(pt_stack, pt_stackex));
 
             stack_push(pt_stackex, "Only those instances corresponding to parties in the");
             _print_stack_str(pt_stack);
@@ -887,8 +887,8 @@ void test_stack(void)
                 stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
             printf("less: %d, less equal: %d, ",
                 stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
-            printf("great: %d, great equal: %d\n",
-                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+            printf("greater: %d, greater equal: %d\n",
+                stack_greater(pt_stack, pt_stackex), stack_greater_equal(pt_stack, pt_stackex));
 
             stack_push(pt_stackex, "Whenever the SNMP");
             _print_stack_str(pt_stack);
@@ -897,8 +897,8 @@ void test_stack(void)
                 stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
             printf("less: %d, less equal: %d, ",
                 stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
-            printf("great: %d, great equal: %d\n",
-                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+            printf("greater: %d, greater equal: %d\n",
+                stack_greater(pt_stack, pt_stackex), stack_greater_equal(pt_stack, pt_stackex));
 
             stack_push(pt_stack, "For each instance");
             stack_push(pt_stack, "The SNMP protocol engine");
@@ -908,8 +908,8 @@ void test_stack(void)
                 stack_equal(pt_stack, pt_stackex), stack_not_equal(pt_stack, pt_stackex));
             printf("less: %d, less equal: %d, ",
                 stack_less(pt_stack, pt_stackex), stack_less_equal(pt_stack, pt_stackex));
-            printf("great: %d, great equal: %d\n",
-                stack_great(pt_stack, pt_stackex), stack_great_equal(pt_stack, pt_stackex));
+            printf("greater: %d, greater equal: %d\n",
+                stack_greater(pt_stack, pt_stackex), stack_greater_equal(pt_stack, pt_stackex));
 
             stack_destroy(pt_stack);
             stack_destroy(pt_stackex);

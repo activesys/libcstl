@@ -180,11 +180,11 @@ extern bool_t slist_not_equal(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
 extern bool_t slist_less(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
-extern bool_t slist_great(
+extern bool_t slist_greater(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
 extern bool_t slist_less_equal(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
-extern bool_t slist_great_equal(
+extern bool_t slist_greater_equal(
     const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
 
 #ifdef __cplusplus

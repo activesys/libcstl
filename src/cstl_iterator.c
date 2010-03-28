@@ -541,14 +541,14 @@ bool_t iterator_less_equal(iterator_t t_iterfirst, iterator_t t_itersecond)
     }
 }
 
-bool_t iterator_great(iterator_t t_iterfirst, iterator_t t_itersecond)
+bool_t iterator_greater(iterator_t t_iterfirst, iterator_t t_itersecond)
 {
     return iterator_less(t_itersecond, t_iterfirst);
 }
 
-bool_t iterator_great_equal(iterator_t t_iterfirst, iterator_t t_itersecond)
+bool_t iterator_greater_equal(iterator_t t_iterfirst, iterator_t t_itersecond)
 {
-    if(iterator_great(t_iterfirst, t_itersecond) ||
+    if(iterator_greater(t_iterfirst, t_itersecond) ||
        iterator_equal(t_iterfirst, t_itersecond))
     {
         return true;

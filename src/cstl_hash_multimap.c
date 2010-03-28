@@ -458,23 +458,23 @@ bool_t hash_multimap_less_equal(
         &cpt_hash_multimapfirst->_t_hashtable, &cpt_hash_multimapsecond->_t_hashtable);
 }
 
-bool_t hash_multimap_great(
+bool_t hash_multimap_greater(
     const hash_multimap_t* cpt_hash_multimapfirst, 
     const hash_multimap_t* cpt_hash_multimapsecond)
 {
     assert(cpt_hash_multimapfirst != NULL && cpt_hash_multimapsecond != NULL);
 
-    return _hashtable_great(
+    return _hashtable_greater(
         &cpt_hash_multimapfirst->_t_hashtable, &cpt_hash_multimapsecond->_t_hashtable);
 }
 
-bool_t hash_multimap_great_equal(
+bool_t hash_multimap_greater_equal(
     const hash_multimap_t* cpt_hash_multimapfirst, 
     const hash_multimap_t* cpt_hash_multimapsecond)
 {
     assert(cpt_hash_multimapfirst != NULL && cpt_hash_multimapsecond != NULL);
 
-    return _hashtable_great_equal(
+    return _hashtable_greater_equal(
         &cpt_hash_multimapfirst->_t_hashtable, &cpt_hash_multimapsecond->_t_hashtable);
 }
 

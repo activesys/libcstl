@@ -20,8 +20,8 @@ EXPORTS
     iterator_not_equal                      @2008
     iterator_less                           @2009
     iterator_less_equal                     @2010
-    iterator_great                          @2011
-    iterator_great_equal                    @2012
+    iterator_greater                        @2011
+    iterator_greater_equal                  @2012
     iterator_at                             @2013
     iterator_minus                          @2014
     iterator_advance                        @2015
@@ -44,8 +44,8 @@ EXPORTS
     vector_not_equal                        @3013
     vector_less                             @3014
     vector_less_equal                       @3015
-    vector_great                            @3016
-    vector_great_equal                      @3017
+    vector_greater                          @3016
+    vector_greater_equal                    @3017
     vector_assign                           @3018
     _vector_assign_elem                     @3019
     vector_assign_range                     @3020
@@ -85,8 +85,8 @@ EXPORTS
     deque_not_equal                         @4016
     deque_less                              @4017
     deque_less_equal                        @4018
-    deque_great                             @4019
-    deque_great_equal                       @4020
+    deque_greater                           @4019
+    deque_greater_equal                     @4020
     deque_at                                @4021
     deque_front                             @4022
     deque_back                              @4023
@@ -118,8 +118,8 @@ EXPORTS
     list_not_equal                          @5011
     list_less                               @5012
     list_less_equal                         @5013
-    list_great                              @5014
-    list_great_equal                        @5015
+    list_greater                            @5014
+    list_greater_equal                      @5015
     list_assign                             @5016
     _list_assign_elem                       @5017
     list_assign_range                       @5018
@@ -170,8 +170,8 @@ EXPORTS
     slist_not_equal                         @6014
     slist_less                              @6015
     slist_less_equal                        @6016
-    slist_great                             @6017
-    slist_great_equal                       @6018
+    slist_greater                           @6017
+    slist_greater_equal                     @6018
     slist_assign                            @6019
     _slist_assign_elem                      @6020
     slist_assign_range                      @6021
@@ -222,8 +222,8 @@ EXPORTS
     stack_not_equal                         @7011
     stack_less                              @7012
     stack_less_equal                        @7013
-    stack_great                             @7014
-    stack_great_equal                       @7015
+    stack_greater                           @7014
+    stack_greater_equal                     @7015
 
 ; queue_t interfaces
     _create_queue                           @8000
@@ -241,8 +241,8 @@ EXPORTS
     queue_not_equal                         @8012
     queue_less                              @8013
     queue_less_equal                        @8014
-    queue_great                             @8015
-    queue_great_equal                       @8016
+    queue_greater                           @8015
+    queue_greater_equal                     @8016
 
 ; priority_queue_t interfaces
     _create_priority_queue                  @9000
@@ -282,14 +282,14 @@ EXPORTS
     string_not_equal                        @10019
     string_less                             @10020
     string_less_equal                       @10021
-    string_great                            @10022
-    string_great_equal                      @10023
+    string_greater                          @10022
+    string_greater_equal                    @10023
     string_equal_cstr                       @10024
     string_not_equal_cstr                   @10025
     string_less_cstr                        @10026
     string_less_equal_cstr                  @10027
-    string_great_cstr                       @10028
-    string_great_equal_cstr                 @10029
+    string_greater_cstr                     @10028
+    string_greater_equal_cstr               @10029
     string_compare                          @10030
     string_compare_substring_string         @10031
     string_compare_substring_substring      @10032
@@ -382,8 +382,8 @@ EXPORTS
     pair_not_equal                          @11008
     pair_less                               @11009
     pair_less_equal                         @11010
-    pair_great                              @11011
-    pair_great_equal                        @11012
+    pair_greater                            @11011
+    pair_greater_equal                      @11012
     pair_first                              @11013
     pair_second                             @11014
 
@@ -408,8 +408,8 @@ EXPORTS
     set_not_equal                           @12017
     set_less                                @12018
     set_less_equal                          @12019
-    set_great                               @12020
-    set_great_equal                         @12021
+    set_greater                             @12020
+    set_greater_equal                       @12021
     set_swap                                @12022
     _set_find                               @12023
     _set_count                              @12024
@@ -444,8 +444,8 @@ EXPORTS
     multiset_not_equal                      @13017
     multiset_less                           @13018
     multiset_less_equal                     @13019
-    multiset_great                          @13020
-    multiset_great_equal                    @13021
+    multiset_greater                        @13020
+    multiset_greater_equal                  @13021
     multiset_swap                           @13022
     _multiset_find                          @13023
     _multiset_count                         @13024
@@ -479,8 +479,8 @@ EXPORTS
     map_not_equal                           @14016
     map_less                                @14017
     map_less_equal                          @14018
-    map_great                               @14019
-    map_great_equal                         @14020
+    map_greater                             @14019
+    map_greater_equal                       @14020
     map_begin                               @14021
     map_end                                 @14022
     _map_find                               @14023
@@ -516,8 +516,8 @@ EXPORTS
     multimap_not_equal                      @15016
     multimap_less                           @15017
     multimap_less_equal                     @15018
-    multimap_great                          @15019
-    multimap_great_equal                    @15020
+    multimap_greater                        @15019
+    multimap_greater_equal                  @15020
     multimap_begin                          @15021
     multimap_end                            @15022
     _multimap_find                          @15023
@@ -553,8 +553,8 @@ EXPORTS
     hash_set_not_equal                      @16017
     hash_set_less                           @16018
     hash_set_less_equal                     @16019
-    hash_set_great                          @16020
-    hash_set_great_equal                    @16021
+    hash_set_greater                        @16020
+    hash_set_greater_equal                  @16021
     hash_set_begin                          @16022
     hash_set_end                            @16023
     _hash_set_find                          @16024
@@ -588,8 +588,8 @@ EXPORTS
     hash_multiset_not_equal                 @17017
     hash_multiset_less                      @17018
     hash_multiset_less_equal                @17019
-    hash_multiset_great                     @17020
-    hash_multiset_great_equal               @17021
+    hash_multiset_greater                   @17020
+    hash_multiset_greater_equal             @17021
     hash_multiset_begin                     @17022
     hash_multiset_end                       @17023
     _hash_multiset_find                     @17024
@@ -623,8 +623,8 @@ EXPORTS
     hash_map_not_equal                      @18017
     hash_map_less                           @18018
     hash_map_less_equal                     @18019
-    hash_map_great                          @18020
-    hash_map_great_equal                    @18021
+    hash_map_greater                        @18020
+    hash_map_greater_equal                  @18021
     hash_map_begin                          @18022
     hash_map_end                            @18023
     _hash_map_find                          @18024
@@ -659,8 +659,8 @@ EXPORTS
     hash_multimap_not_equal                 @19017
     hash_multimap_less                      @19018
     hash_multimap_less_equal                @19019
-    hash_multimap_great                     @19020
-    hash_multimap_great_equal               @19021
+    hash_multimap_greater                   @19020
+    hash_multimap_greater_equal             @19021
     hash_multimap_begin                     @19022
     hash_multimap_end                       @19023
     _hash_multimap_find                     @19024
@@ -923,60 +923,60 @@ EXPORTS
     fun_not_equal_hash_map                  @24110
     fun_not_equal_hash_multiset             @24111
     fun_not_equal_hash_multimap             @24112
-    fun_great_char                          @24113
-    fun_great_uchar                         @24114
-    fun_great_short                         @24115
-    fun_great_ushort                        @24116
-    fun_great_int                           @24117
-    fun_great_uint                          @24118
-    fun_great_long                          @24119
-    fun_great_ulong                         @24120
-    fun_great_float                         @24121
-    fun_great_double                        @24122
-    fun_great_long_double                   @24123
-    fun_great_vector                        @24124
-    fun_great_deque                         @24125
-    fun_great_list                          @24126
-    fun_great_slist                         @24127
-    fun_great_queue                         @24128
-    fun_great_stack                         @24129
-    fun_great_string                        @24130
-    fun_great_pair                          @24131
-    fun_great_set                           @24132
-    fun_great_map                           @24133
-    fun_great_multiset                      @24134
-    fun_great_multimap                      @24135
-    fun_great_hash_set                      @24136
-    fun_great_hash_map                      @24137
-    fun_great_hash_multiset                 @24138
-    fun_great_hash_multimap                 @24139
-    fun_great_equal_char                    @24140
-    fun_great_equal_uchar                   @24141
-    fun_great_equal_short                   @24142
-    fun_great_equal_ushort                  @24143
-    fun_great_equal_int                     @24144
-    fun_great_equal_uint                    @24145
-    fun_great_equal_long                    @24146
-    fun_great_equal_ulong                   @24147
-    fun_great_equal_float                   @24148
-    fun_great_equal_double                  @24149
-    fun_great_equal_long_double             @24150
-    fun_great_equal_vector                  @24151
-    fun_great_equal_deque                   @24152
-    fun_great_equal_list                    @24153
-    fun_great_equal_slist                   @24154
-    fun_great_equal_queue                   @24155
-    fun_great_equal_stack                   @24156
-    fun_great_equal_string                  @24157
-    fun_great_equal_pair                    @24158
-    fun_great_equal_set                     @24159
-    fun_great_equal_map                     @24160
-    fun_great_equal_multiset                @24161
-    fun_great_equal_multimap                @24162
-    fun_great_equal_hash_set                @24163
-    fun_great_equal_hash_map                @24164
-    fun_great_equal_hash_multiset           @24165
-    fun_great_equal_hash_multimap           @24166
+    fun_greater_char                        @24113
+    fun_greater_uchar                       @24114
+    fun_greater_short                       @24115
+    fun_greater_ushort                      @24116
+    fun_greater_int                         @24117
+    fun_greater_uint                        @24118
+    fun_greater_long                        @24119
+    fun_greater_ulong                       @24120
+    fun_greater_float                       @24121
+    fun_greater_double                      @24122
+    fun_greater_long_double                 @24123
+    fun_greater_vector                      @24124
+    fun_greater_deque                       @24125
+    fun_greater_list                        @24126
+    fun_greater_slist                       @24127
+    fun_greater_queue                       @24128
+    fun_greater_stack                       @24129
+    fun_greater_string                      @24130
+    fun_greater_pair                        @24131
+    fun_greater_set                         @24132
+    fun_greater_map                         @24133
+    fun_greater_multiset                    @24134
+    fun_greater_multimap                    @24135
+    fun_greater_hash_set                    @24136
+    fun_greater_hash_map                    @24137
+    fun_greater_hash_multiset               @24138
+    fun_greater_hash_multimap               @24139
+    fun_greater_equal_char                  @24140
+    fun_greater_equal_uchar                 @24141
+    fun_greater_equal_short                 @24142
+    fun_greater_equal_ushort                @24143
+    fun_greater_equal_int                   @24144
+    fun_greater_equal_uint                  @24145
+    fun_greater_equal_long                  @24146
+    fun_greater_equal_ulong                 @24147
+    fun_greater_equal_float                 @24148
+    fun_greater_equal_double                @24149
+    fun_greater_equal_long_double           @24150
+    fun_greater_equal_vector                @24151
+    fun_greater_equal_deque                 @24152
+    fun_greater_equal_list                  @24153
+    fun_greater_equal_slist                 @24154
+    fun_greater_equal_queue                 @24155
+    fun_greater_equal_stack                 @24156
+    fun_greater_equal_string                @24157
+    fun_greater_equal_pair                  @24158
+    fun_greater_equal_set                   @24159
+    fun_greater_equal_map                   @24160
+    fun_greater_equal_multiset              @24161
+    fun_greater_equal_multimap              @24162
+    fun_greater_equal_hash_set              @24163
+    fun_greater_equal_hash_map              @24164
+    fun_greater_equal_hash_multiset         @24165
+    fun_greater_equal_hash_multimap         @24166
     fun_less_char                           @24167
     fun_less_uchar                          @24168
     fun_less_short                          @24169
@@ -1037,8 +1037,8 @@ EXPORTS
     fun_random_number                       @24224
     fun_default_unary                       @24225
     fun_default_binary                      @24226
-    fun_great_cstr                          @24227
-    fun_great_equal_cstr                    @24228
+    fun_greater_cstr                        @24227
+    fun_greater_equal_cstr                  @24228
     fun_less_cstr                           @24229
     fun_less_equal_cstr                     @24230
     fun_equal_cstr                          @24231

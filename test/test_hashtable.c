@@ -323,7 +323,7 @@ void _hash_sample_destroy(const void* cpv_input, void* pv_output)
     *(bool_t*)pv_output = true;
 }
 
-void _hash_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output)
+void _hash_sample_greater(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     if(((hash_sample_t*)cpv_first)->_d_first > ((hash_sample_t*)cpv_second)->_d_first)

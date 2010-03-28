@@ -168,7 +168,7 @@ extern void _hash_sample_init(const void* cpv_input, void* pv_output);
 extern void _hash_sample_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hash_sample_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hash_sample_destroy(const void* cpv_input, void* pv_output);
-extern void _hash_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _hash_sample_greater(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hash_set_sample_hash(const void* cpv_input, void* pv_output);
 extern void _hash_map_sample_hash(const void* cpv_input, void* pv_output);
 extern void _hash_multimap_sample_hash(const void* cpv_input, void* pv_output);

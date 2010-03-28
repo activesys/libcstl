@@ -119,9 +119,9 @@ extern bool_t hash_map_less(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
 extern bool_t hash_map_less_equal(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
-extern bool_t hash_map_great(
+extern bool_t hash_map_greater(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
-extern bool_t hash_map_great_equal(
+extern bool_t hash_map_greater_equal(
     const hash_map_t* cpt_hash_mapfirst, const hash_map_t* cpt_hash_mapsecond);
 
 /*

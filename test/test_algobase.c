@@ -456,11 +456,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int));
 
             list_push_back(pt_list, 3);
             list_push_back(pt_list, 2);
@@ -478,36 +478,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int));
-
-            list_clear(pt_list);
-            list_push_back(pt_list, 3);
-            list_push_back(pt_list, 2);
-            list_push_back(pt_list, 8);
-            list_push_back(pt_list, 7);
-            vector_clear(pt_vec);
-            vector_push_back(pt_vec, 3);
-            vector_push_back(pt_vec, 2);
-            vector_push_back(pt_vec, 8);
-            vector_push_back(pt_vec, 7);
-            vector_push_back(pt_vec, 7);
-            printf("list  : ");
-            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
-            printf("\n");
-            printf("vector: ");
-            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
-            printf("\n");
-            printf("algo_lexicographical_compare() : ");
-            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int) == 0 ?
-                printf("false\n") : printf("true\n");
-            printf("algo_lexicographical_compare_3way() : %d\n",
-                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int));
 
             list_clear(pt_list);
             list_push_back(pt_list, 3);
@@ -519,6 +494,7 @@ void test_algobase(void)
             vector_push_back(pt_vec, 2);
             vector_push_back(pt_vec, 8);
             vector_push_back(pt_vec, 7);
+            vector_push_back(pt_vec, 7);
             printf("list  : ");
             algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
             printf("\n");
@@ -527,11 +503,35 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int));
+
+            list_clear(pt_list);
+            list_push_back(pt_list, 3);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 8);
+            list_push_back(pt_list, 7);
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, 3);
+            vector_push_back(pt_vec, 2);
+            vector_push_back(pt_vec, 8);
+            vector_push_back(pt_vec, 7);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int));
 
             list_clear(pt_list);
             list_push_back(pt_list, 3);
@@ -550,11 +550,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int));
 
             list_clear(pt_list);
             list_push_back(pt_list, 3);
@@ -574,11 +574,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_int));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int));
 
             list_destroy(pt_list);
             vector_destroy(pt_vec);
@@ -1326,11 +1326,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater));
 
             t_sample._t_id = 3;
             list_push_back(pt_list, &t_sample);
@@ -1356,44 +1356,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
-
-            list_clear(pt_list);
-            t_sample._t_id = 3;
-            list_push_back(pt_list, &t_sample);
-            t_sample._t_id = 2;
-            list_push_back(pt_list, &t_sample);
-            t_sample._t_id = 8;
-            list_push_back(pt_list, &t_sample);
-            t_sample._t_id = 7;
-            list_push_back(pt_list, &t_sample);
-            vector_clear(pt_vec);
-            t_sample._t_id = 3;
-            vector_push_back(pt_vec, &t_sample);
-            t_sample._t_id = 2;
-            vector_push_back(pt_vec, &t_sample);
-            t_sample._t_id = 8;
-            vector_push_back(pt_vec, &t_sample);
-            t_sample._t_id = 7;
-            vector_push_back(pt_vec, &t_sample);
-            vector_push_back(pt_vec, &t_sample);
-            printf("list  : ");
-            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
-            printf("\n");
-            printf("vector: ");
-            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
-            printf("\n");
-            printf("algo_lexicographical_compare() : ");
-            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
-                printf("false\n") : printf("true\n");
-            printf("algo_lexicographical_compare_3way() : %d\n",
-                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater));
 
             list_clear(pt_list);
             t_sample._t_id = 3;
@@ -1413,6 +1380,7 @@ void test_algobase(void)
             vector_push_back(pt_vec, &t_sample);
             t_sample._t_id = 7;
             vector_push_back(pt_vec, &t_sample);
+            vector_push_back(pt_vec, &t_sample);
             printf("list  : ");
             algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
             printf("\n");
@@ -1421,11 +1389,43 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater));
+
+            list_clear(pt_list);
+            t_sample._t_id = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 2;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 7;
+            list_push_back(pt_list, &t_sample);
+            vector_clear(pt_vec);
+            t_sample._t_id = 3;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 8;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 7;
+            vector_push_back(pt_vec, &t_sample);
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater));
 
             list_clear(pt_list);
             t_sample._t_id = 3;
@@ -1451,11 +1451,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater));
 
             list_clear(pt_list);
             t_sample._t_id = 3;
@@ -1483,11 +1483,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_great));
+                vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater));
 
             list_destroy(pt_list);
             vector_destroy(pt_vec);
@@ -2251,11 +2251,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list));
 
             list_clear(pt_item);
             list_push_back(pt_item, 3);
@@ -2283,11 +2283,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list));
 
             list_clear(pt_list);
             list_clear(pt_item);
@@ -2324,11 +2324,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list));
 
             vector_pop_back(pt_vec);
             printf("list  : ");
@@ -2339,11 +2339,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list));
 
             vector_pop_back(pt_vec);
             printf("list  : ");
@@ -2354,11 +2354,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list));
 
             list_clear(pt_item);
             list_push_back(pt_item, 5);
@@ -2371,11 +2371,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_list));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_list));
 
             list_destroy(pt_list);
             vector_destroy(pt_vec);
@@ -3112,11 +3112,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr));
 
             list_push_back(pt_list, "3");
             list_push_back(pt_list, "2");
@@ -3134,36 +3134,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr));
-
-            list_clear(pt_list);
-            list_push_back(pt_list, "3");
-            list_push_back(pt_list, "2");
-            list_push_back(pt_list, "8");
-            list_push_back(pt_list, "7");
-            vector_clear(pt_vec);
-            vector_push_back(pt_vec, "3");
-            vector_push_back(pt_vec, "2");
-            vector_push_back(pt_vec, "8");
-            vector_push_back(pt_vec, "7");
-            vector_push_back(pt_vec, "7");
-            printf("list  : ");
-            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
-            printf("\n");
-            printf("vector: ");
-            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
-            printf("\n");
-            printf("algo_lexicographical_compare() : ");
-            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr) == 0 ?
-                printf("false\n") : printf("true\n");
-            printf("algo_lexicographical_compare_3way() : %d\n",
-                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr));
 
             list_clear(pt_list);
             list_push_back(pt_list, "3");
@@ -3175,6 +3150,7 @@ void test_algobase(void)
             vector_push_back(pt_vec, "2");
             vector_push_back(pt_vec, "8");
             vector_push_back(pt_vec, "7");
+            vector_push_back(pt_vec, "7");
             printf("list  : ");
             algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
             printf("\n");
@@ -3183,11 +3159,35 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr));
+
+            list_clear(pt_list);
+            list_push_back(pt_list, "3");
+            list_push_back(pt_list, "2");
+            list_push_back(pt_list, "8");
+            list_push_back(pt_list, "7");
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, "3");
+            vector_push_back(pt_vec, "2");
+            vector_push_back(pt_vec, "8");
+            vector_push_back(pt_vec, "7");
+            printf("list  : ");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+            printf("vector: ");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            printf("algo_lexicographical_compare() : ");
+            algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr) == 0 ?
+                printf("false\n") : printf("true\n");
+            printf("algo_lexicographical_compare_3way() : %d\n",
+                algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr));
 
             list_clear(pt_list);
             list_push_back(pt_list, "3");
@@ -3206,11 +3206,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr));
 
             list_clear(pt_list);
             list_push_back(pt_list, "3");
@@ -3230,11 +3230,11 @@ void test_algobase(void)
             printf("\n");
             printf("algo_lexicographical_compare() : ");
             algo_lexicographical_compare_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr) == 0 ?
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr) == 0 ?
                 printf("false\n") : printf("true\n");
             printf("algo_lexicographical_compare_3way() : %d\n",
                 algo_lexicographical_compare_3way_if(list_begin(pt_list), list_end(pt_list),
-                vector_begin(pt_vec), vector_end(pt_vec), fun_great_cstr));
+                vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr));
 
             list_destroy(pt_list);
             vector_destroy(pt_vec);
@@ -3629,7 +3629,7 @@ void algo_sample_destroy(const void* cpv_input, void* pv_output)
     ((algo_sample_t*)cpv_input)->_t_content = 0;
     *(bool_t*)pv_output = true;
 }
-void algo_sample_great(const void* cpv_first, const void* cpv_second, void* pv_output)
+void algo_sample_greater(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     if(((algo_sample_t*)cpv_first)->_t_id > ((algo_sample_t*)cpv_second)->_t_id)

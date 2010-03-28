@@ -326,120 +326,120 @@ extern void fun_not_equal_hash_multiset(
 extern void fun_not_equal_hash_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 /* greater then */
-extern void fun_great_char(
+extern void fun_greater_char(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_uchar(
+extern void fun_greater_uchar(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_short(
+extern void fun_greater_short(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_ushort(
+extern void fun_greater_ushort(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_int(
+extern void fun_greater_int(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_uint(
+extern void fun_greater_uint(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_long(
+extern void fun_greater_long(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_ulong(
+extern void fun_greater_ulong(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_float(
+extern void fun_greater_float(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_double(
+extern void fun_greater_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_long_double(
+extern void fun_greater_long_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_cstr(
+extern void fun_greater_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 
-extern void fun_great_vector(
+extern void fun_greater_vector(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_deque(
+extern void fun_greater_deque(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_list(
+extern void fun_greater_list(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_slist(
+extern void fun_greater_slist(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_queue(
+extern void fun_greater_queue(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_stack(
+extern void fun_greater_stack(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_string(
+extern void fun_greater_string(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_pair(
+extern void fun_greater_pair(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_set(
+extern void fun_greater_set(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_map(
+extern void fun_greater_map(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_multiset(
+extern void fun_greater_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_multimap(
+extern void fun_greater_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_hash_set(
+extern void fun_greater_hash_set(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_hash_map(
+extern void fun_greater_hash_map(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_hash_multiset(
+extern void fun_greater_hash_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_hash_multimap(
+extern void fun_greater_hash_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 /* greater then or equal*/
-extern void fun_great_equal_char(
+extern void fun_greater_equal_char(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_uchar(
+extern void fun_greater_equal_uchar(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_short(
+extern void fun_greater_equal_short(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_ushort(
+extern void fun_greater_equal_ushort(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_int(
+extern void fun_greater_equal_int(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_uint(
+extern void fun_greater_equal_uint(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_long(
+extern void fun_greater_equal_long(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_ulong(
+extern void fun_greater_equal_ulong(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_float(
+extern void fun_greater_equal_float(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_double(
+extern void fun_greater_equal_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_long_double(
+extern void fun_greater_equal_long_double(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_cstr(
+extern void fun_greater_equal_cstr(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 
-extern void fun_great_equal_vector(
+extern void fun_greater_equal_vector(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_deque(
+extern void fun_greater_equal_deque(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_list(
+extern void fun_greater_equal_list(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_slist(
+extern void fun_greater_equal_slist(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_queue(
+extern void fun_greater_equal_queue(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_stack(
+extern void fun_greater_equal_stack(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_string(
+extern void fun_greater_equal_string(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_pair(
+extern void fun_greater_equal_pair(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_set(
+extern void fun_greater_equal_set(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_map(
+extern void fun_greater_equal_map(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_multiset(
+extern void fun_greater_equal_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_multimap(
+extern void fun_greater_equal_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_hash_set(
+extern void fun_greater_equal_hash_set(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_hash_map(
+extern void fun_greater_equal_hash_map(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_hash_multiset(
+extern void fun_greater_equal_hash_multiset(
     const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void fun_great_equal_hash_multimap(
+extern void fun_greater_equal_hash_multimap(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 /* less then */
 extern void fun_less_char(
