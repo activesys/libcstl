@@ -126,9 +126,19 @@ void _algo_fill_varg(
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
-    for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        iterator_set_value(t_first, pv_value);
+        for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
+        {
+            iterator_set_value(t_first, string_c_str((string_t*)pv_value));
+        }
+    }
+    else
+    {
+        for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
+        {
+            iterator_set_value(t_first, pv_value);
+        }
     }
 
     _iterator_deallocate_destroy_elem(t_first, pv_value);
@@ -152,9 +162,19 @@ output_iterator_t _algo_fill_n_varg(
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
-    for(t_index = 0; t_index < t_fillsize; ++t_index, t_first = iterator_next(t_first))
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        iterator_set_value(t_first, pv_value);
+        for(t_index = 0; t_index < t_fillsize; ++t_index, t_first = iterator_next(t_first))
+        {
+            iterator_set_value(t_first, string_c_str((string_t*)pv_value));
+        }
+    }
+    else
+    {
+        for(t_index = 0; t_index < t_fillsize; ++t_index, t_first = iterator_next(t_first))
+        {
+            iterator_set_value(t_first, pv_value);
+        }
     }
 
     _iterator_deallocate_destroy_elem(t_first, pv_value);
