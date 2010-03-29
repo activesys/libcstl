@@ -1783,8 +1783,8 @@ range_t _algo_equal_range_if_varg(
                 t_upper = _algo_upper_bound_if_varg(
                     t_middle, t_first, t_binary_op, val_elemlist);
 
-                t_range.t_begin = t_lower;
-                t_range.t_end = t_upper;
+                t_range.it_begin = t_lower;
+                t_range.it_end = t_upper;
                 t_equal = true;
                 break;
             }
@@ -1796,8 +1796,8 @@ range_t _algo_equal_range_if_varg(
 
     if(!t_equal)
     {
-        t_range.t_begin = t_first;
-        t_range.t_end = t_first;
+        t_range.it_begin = t_first;
+        t_range.it_end = t_first;
     }
     return t_range;
 }

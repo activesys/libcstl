@@ -761,12 +761,12 @@ range_t _multimap_equal_range_varg(const multimap_t* cpt_multimap, va_list val_e
     t_range = _rb_tree_equal_range(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
 #endif
 
-    _GET_CONTAINER(t_range.t_begin) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(t_range.t_begin) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(t_range.t_begin) = _BIDIRECTIONAL_ITERATOR;
-    _GET_CONTAINER(t_range.t_end) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(t_range.t_end) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(t_range.t_end) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_range.it_begin) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_range.it_begin) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_range.it_end) = (multimap_t*)cpt_multimap;
+    _GET_MULTIMAP_CONTAINER_TYPE(t_range.it_end) = _MULTIMAP_CONTAINER;
+    _GET_MULTIMAP_ITERATOR_TYPE(t_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return t_range;
 }

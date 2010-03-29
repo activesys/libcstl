@@ -652,13 +652,13 @@ void test_algobase(void)
             t_range = algo_mismatch(list_begin(pt_list), list_end(pt_list),
                 vector_begin(pt_vec));
             printf("the first mismatch : %d and %d\n",
-                *(int*)iterator_get_pointer(t_range.t_begin),
-                *(int*)iterator_get_pointer(t_range.t_end));
+                *(int*)iterator_get_pointer(t_range.it_begin),
+                *(int*)iterator_get_pointer(t_range.it_end));
             t_range = algo_mismatch_if(list_begin(pt_list), list_end(pt_list),
                 vector_begin(pt_vec), fun_less_equal_int);
             printf("not less or equal : %d and %d\n",
-                *(int*)iterator_get_pointer(t_range.t_begin),
-                *(int*)iterator_get_pointer(t_range.t_end));
+                *(int*)iterator_get_pointer(t_range.it_begin),
+                *(int*)iterator_get_pointer(t_range.it_end));
 
             vector_destroy(pt_vec);
             list_destroy(pt_list);
@@ -1598,16 +1598,16 @@ void test_algobase(void)
             t_range = algo_mismatch(list_begin(pt_list), list_end(pt_list),
                 vector_begin(pt_vec));
             printf("the first mismatch : ");
-            algo_sample_show(iterator_get_pointer(t_range.t_begin), NULL);
+            algo_sample_show(iterator_get_pointer(t_range.it_begin), NULL);
             printf("and ");
-            algo_sample_show(iterator_get_pointer(t_range.t_end), NULL);
+            algo_sample_show(iterator_get_pointer(t_range.it_end), NULL);
             printf("\n");
             t_range = algo_mismatch_if(list_begin(pt_list), list_end(pt_list),
                 vector_begin(pt_vec), algo_sample_equal);
             printf("the first mismatch : ");
-            algo_sample_show(iterator_get_pointer(t_range.t_begin), NULL);
+            algo_sample_show(iterator_get_pointer(t_range.it_begin), NULL);
             printf("and ");
-            algo_sample_show(iterator_get_pointer(t_range.t_end), NULL);
+            algo_sample_show(iterator_get_pointer(t_range.it_end), NULL);
             printf("\n");
 
             vector_destroy(pt_vec);
@@ -2515,20 +2515,20 @@ void test_algobase(void)
             t_range = algo_mismatch(list_begin(pt_list), list_end(pt_list),
                 vector_begin(pt_vec));
             printf("the first mismatch : [");
-            algo_for_each(list_begin((list_t*)iterator_get_pointer(t_range.t_begin)),
-                list_end((list_t*)iterator_get_pointer(t_range.t_begin)), _print_int);
+            algo_for_each(list_begin((list_t*)iterator_get_pointer(t_range.it_begin)),
+                list_end((list_t*)iterator_get_pointer(t_range.it_begin)), _print_int);
             printf("] and [");
-            algo_for_each(list_begin((list_t*)iterator_get_pointer(t_range.t_end)),
-                list_end((list_t*)iterator_get_pointer(t_range.t_end)), _print_int);
+            algo_for_each(list_begin((list_t*)iterator_get_pointer(t_range.it_end)),
+                list_end((list_t*)iterator_get_pointer(t_range.it_end)), _print_int);
             printf("]\n");
             t_range = algo_mismatch_if(list_begin(pt_list), list_end(pt_list),
                 vector_begin(pt_vec), fun_less_equal_list);
             printf("not less or equal : [");
-            algo_for_each(list_begin((list_t*)iterator_get_pointer(t_range.t_begin)),
-                list_end((list_t*)iterator_get_pointer(t_range.t_begin)), _print_int);
+            algo_for_each(list_begin((list_t*)iterator_get_pointer(t_range.it_begin)),
+                list_end((list_t*)iterator_get_pointer(t_range.it_begin)), _print_int);
             printf("] and [");
-            algo_for_each(list_begin((list_t*)iterator_get_pointer(t_range.t_end)),
-                list_end((list_t*)iterator_get_pointer(t_range.t_end)), _print_int);
+            algo_for_each(list_begin((list_t*)iterator_get_pointer(t_range.it_end)),
+                list_end((list_t*)iterator_get_pointer(t_range.it_end)), _print_int);
             printf("]\n");
 
             vector_destroy(pt_vec);
@@ -3331,13 +3331,13 @@ void test_algobase(void)
             t_range = algo_mismatch(list_begin(pt_list), list_end(pt_list),
                 vector_begin(pt_vec));
             printf("the first mismatch : %s and %s\n",
-                (char*)iterator_get_pointer(t_range.t_begin),
-                (char*)iterator_get_pointer(t_range.t_end));
+                (char*)iterator_get_pointer(t_range.it_begin),
+                (char*)iterator_get_pointer(t_range.it_end));
             t_range = algo_mismatch_if(list_begin(pt_list), list_end(pt_list),
                 vector_begin(pt_vec), fun_less_equal_cstr);
             printf("not less or equal : %s and %s\n",
-                (char*)iterator_get_pointer(t_range.t_begin),
-                (char*)iterator_get_pointer(t_range.t_end));
+                (char*)iterator_get_pointer(t_range.it_begin),
+                (char*)iterator_get_pointer(t_range.it_end));
 
             vector_destroy(pt_vec);
             list_destroy(pt_list);

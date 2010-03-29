@@ -426,8 +426,8 @@ void test_set(void)
             t_range = set_equal_range(pt_set, 4);
             assert(iterator_equal(t_begin, set_end(pt_set)) &&
                    iterator_equal(t_end, set_end(pt_set)) &&
-                   iterator_equal(t_range.t_begin, set_end(pt_set)) &&
-                   iterator_equal(t_range.t_end, set_end(pt_set)));
+                   iterator_equal(t_range.it_begin, set_end(pt_set)) &&
+                   iterator_equal(t_range.it_end, set_end(pt_set)));
             set_insert(pt_set, 35);
             set_insert(pt_set, 20);
             set_insert(pt_set, 233);
@@ -439,8 +439,8 @@ void test_set(void)
             t_range = set_equal_range(pt_set, -4);
             assert(iterator_equal(t_begin, set_begin(pt_set)) &&
                    iterator_equal(t_end, iterator_next(set_begin(pt_set))) &&
-                   iterator_equal(t_range.t_begin, set_begin(pt_set)) &&
-                   iterator_equal(t_range.t_end, iterator_next(set_begin(pt_set))));
+                   iterator_equal(t_range.it_begin, set_begin(pt_set)) &&
+                   iterator_equal(t_range.it_end, iterator_next(set_begin(pt_set))));
             t_begin = set_lower_bound(pt_set, 4);
             t_end = set_upper_bound(pt_set, 4);
             t_range = set_equal_range(pt_set, 4);
@@ -448,8 +448,8 @@ void test_set(void)
             printf("%d\n", *(int*)iterator_get_pointer(t_iter));
             assert(iterator_equal(t_begin, t_iter) &&
                    iterator_equal(t_end, t_iter) &&
-                   iterator_equal(t_range.t_begin, t_iter) &&
-                   iterator_equal(t_range.t_end, t_iter));
+                   iterator_equal(t_range.it_begin, t_iter) &&
+                   iterator_equal(t_range.it_end, t_iter));
 
             set_destroy(pt_set);
         }
@@ -1102,8 +1102,8 @@ void test_set(void)
             t_range = set_equal_range(pt_set, &t_ss);
             assert(iterator_equal(t_begin, set_end(pt_set)) &&
                    iterator_equal(t_end, set_end(pt_set)) &&
-                   iterator_equal(t_range.t_begin, set_end(pt_set)) &&
-                   iterator_equal(t_range.t_end, set_end(pt_set)));
+                   iterator_equal(t_range.it_begin, set_end(pt_set)) &&
+                   iterator_equal(t_range.it_end, set_end(pt_set)));
             t_ss._n_first = 35;
             t_ss._n_second = 33;
             t_ss._n_third = 21;
@@ -1137,8 +1137,8 @@ void test_set(void)
             t_range = set_equal_range(pt_set, &t_ss);
             assert(iterator_equal(t_begin, set_begin(pt_set)) &&
                    iterator_equal(t_end, iterator_next(set_begin(pt_set))) &&
-                   iterator_equal(t_range.t_begin, set_begin(pt_set)) &&
-                   iterator_equal(t_range.t_end, iterator_next(set_begin(pt_set))));
+                   iterator_equal(t_range.it_begin, set_begin(pt_set)) &&
+                   iterator_equal(t_range.it_end, iterator_next(set_begin(pt_set))));
             t_ss._n_first = 4;
             t_ss._n_second = 4;
             t_ss._n_third = 4;
@@ -1152,8 +1152,8 @@ void test_set(void)
                 ((setsample_t*)iterator_get_pointer(t_iter))->_n_third);
             assert(iterator_equal(t_begin, t_iter) &&
                    iterator_equal(t_end, t_iter) &&
-                   iterator_equal(t_range.t_begin, t_iter) &&
-                   iterator_equal(t_range.t_end, t_iter));
+                   iterator_equal(t_range.it_begin, t_iter) &&
+                   iterator_equal(t_range.it_end, t_iter));
 
             set_destroy(pt_set);
         }
@@ -1976,8 +1976,8 @@ void test_set(void)
             t_range = set_equal_range(pt_set, pt_setex);
             assert(iterator_equal(t_begin, set_end(pt_set)) &&
                    iterator_equal(t_end, set_end(pt_set)) &&
-                   iterator_equal(t_range.t_begin, set_end(pt_set)) &&
-                   iterator_equal(t_range.t_end, set_end(pt_set)));
+                   iterator_equal(t_range.it_begin, set_end(pt_set)) &&
+                   iterator_equal(t_range.it_end, set_end(pt_set)));
             set_insert(pt_setex, 35);
             set_insert(pt_setex, 20);
             set_insert(pt_setex, 233);
@@ -2018,8 +2018,8 @@ void test_set(void)
             t_range = set_equal_range(pt_set, pt_setex);
             assert(iterator_equal(t_begin, set_begin(pt_set)) &&
                    iterator_equal(t_end, iterator_next(set_begin(pt_set))) &&
-                   iterator_equal(t_range.t_begin, set_begin(pt_set)) &&
-                   iterator_equal(t_range.t_end, iterator_next(set_begin(pt_set))));
+                   iterator_equal(t_range.it_begin, set_begin(pt_set)) &&
+                   iterator_equal(t_range.it_end, iterator_next(set_begin(pt_set))));
             set_clear(pt_setex);
             set_insert(pt_setex, -5);
             set_insert(pt_setex, 8);
@@ -2031,8 +2031,8 @@ void test_set(void)
             _print_set_c(iterator_get_pointer(t_iterex), "%d, ", int);
             assert(iterator_equal(t_begin, t_iterex) &&
                    iterator_equal(t_end, t_iterex) &&
-                   iterator_equal(t_range.t_begin, t_iterex) &&
-                   iterator_equal(t_range.t_end, t_iterex));
+                   iterator_equal(t_range.it_begin, t_iterex) &&
+                   iterator_equal(t_range.it_end, t_iterex));
 
             set_destroy(pt_set);
             set_destroy(pt_setex);
@@ -2735,8 +2735,8 @@ void test_set(void)
             t_range = set_equal_range(pt_set, "SONET");
             assert(iterator_equal(t_begin, set_end(pt_set)) &&
                    iterator_equal(t_end, set_end(pt_set)) &&
-                   iterator_equal(t_range.t_begin, set_end(pt_set)) &&
-                   iterator_equal(t_range.t_end, set_end(pt_set)));
+                   iterator_equal(t_range.it_begin, set_end(pt_set)) &&
+                   iterator_equal(t_range.it_end, set_end(pt_set)));
             set_insert(pt_set, "And sable curls,...");
             set_insert(pt_set, "OC-1, the OC-1");
             set_insert(pt_set, "Full many a glorious morning have I seen");
@@ -2752,15 +2752,15 @@ void test_set(void)
             t_iter = set_lower_bound(pt_set, "Globe Communications");
             assert(iterator_equal(t_begin, t_iter) &&
                    iterator_equal(t_end, t_iter) &&
-                   iterator_equal(t_range.t_begin, t_iter) &&
-                   iterator_equal(t_range.t_end, t_iter));
+                   iterator_equal(t_range.it_begin, t_iter) &&
+                   iterator_equal(t_range.it_end, t_iter));
             t_begin = set_lower_bound(pt_set, "I all alone beweep my outcast state");
             t_end = set_upper_bound(pt_set, "I all alone beweep my outcast state");
             t_range = set_equal_range(pt_set, "I all alone beweep my outcast state");
             t_iter = set_lower_bound(pt_set, "I all alone beweep my outcast state");
             assert(iterator_equal(t_end, iterator_next(t_begin)) &&
-                   iterator_equal(t_range.t_begin, t_begin) &&
-                   iterator_equal(t_range.t_end, t_end));
+                   iterator_equal(t_range.it_begin, t_begin) &&
+                   iterator_equal(t_range.it_end, t_end));
             set_destroy(pt_set);
         }
         /*set_insert            */
@@ -3358,8 +3358,8 @@ void test_multiset(void)
             t_range = multiset_equal_range(pt_mset, n_elem);
             assert(iterator_equal(t_begin, multiset_end(pt_mset)) &&
                    iterator_equal(t_end, multiset_end(pt_mset)) &&
-                   iterator_equal(t_range.t_begin, multiset_end(pt_mset)) &&
-                   iterator_equal(t_range.t_end, multiset_end(pt_mset)));
+                   iterator_equal(t_range.it_begin, multiset_end(pt_mset)) &&
+                   iterator_equal(t_range.it_end, multiset_end(pt_mset)));
             multiset_insert(pt_mset, 23234);
             multiset_insert(pt_mset, 222);
             multiset_insert(pt_mset, 222);
@@ -3375,15 +3375,15 @@ void test_multiset(void)
             t_iter = multiset_lower_bound(pt_mset, n_elem);
             assert(iterator_equal(t_begin, t_iter) &&
                    iterator_equal(t_end, t_iter) &&
-                   iterator_equal(t_range.t_begin, t_iter) &&
-                   iterator_equal(t_range.t_end, t_iter));
+                   iterator_equal(t_range.it_begin, t_iter) &&
+                   iterator_equal(t_range.it_end, t_iter));
             n_elem = 222;
             t_begin = multiset_lower_bound(pt_mset, n_elem);
             t_end = multiset_upper_bound(pt_mset, n_elem);
             t_range = multiset_equal_range(pt_mset, n_elem);
             t_iter = multiset_lower_bound(pt_mset, n_elem);
             assert(iterator_distance(t_begin, t_end) ==
-                iterator_distance(t_range.t_begin, t_range.t_end));
+                iterator_distance(t_range.it_begin, t_range.it_end));
             printf("%d\n", iterator_distance(t_begin, t_end));
             multiset_destroy(pt_mset);
         }
@@ -4072,8 +4072,8 @@ void test_multiset(void)
             t_range = multiset_equal_range(pt_mset, &t_mss);
             assert(iterator_equal(t_begin, multiset_end(pt_mset)) &&
                    iterator_equal(t_begin, t_end) &&
-                   iterator_equal(t_begin, t_range.t_begin) &&
-                   iterator_equal(t_end, t_range.t_end));
+                   iterator_equal(t_begin, t_range.it_begin) &&
+                   iterator_equal(t_end, t_range.it_end));
             t_mss._n_first = 43;
             t_mss._n_second = 556;
             t_mss._n_third = 556;
@@ -4106,8 +4106,8 @@ void test_multiset(void)
             t_iter = multiset_lower_bound(pt_mset, &t_mss);
             assert(iterator_equal(t_begin, t_iter) &&
                    iterator_equal(t_end, t_iter) &&
-                   iterator_equal(t_range.t_begin, t_iter) &&
-                   iterator_equal(t_range.t_end, t_iter));
+                   iterator_equal(t_range.it_begin, t_iter) &&
+                   iterator_equal(t_range.it_end, t_iter));
             t_mss._n_first = 43;
             t_mss._n_second = 98456;
             t_mss._n_third = 596;
@@ -4115,8 +4115,8 @@ void test_multiset(void)
             t_end = multiset_upper_bound(pt_mset, &t_mss);
             t_range = multiset_equal_range(pt_mset, &t_mss);
             assert(iterator_equal(iterator_advance(t_begin, 4), t_end) &&
-                   iterator_equal(t_begin, t_range.t_begin) &&
-                   iterator_equal(t_end, t_range.t_end));
+                   iterator_equal(t_begin, t_range.it_begin) &&
+                   iterator_equal(t_end, t_range.it_end));
             multiset_destroy(pt_mset);
         }
         /*multiset_insert            */
@@ -4946,8 +4946,8 @@ void test_multiset(void)
             t_range = multiset_equal_range(pt_mset, pt_msetex);
             assert(iterator_equal(t_begin, multiset_end(pt_mset)) &&
                    iterator_equal(t_begin, t_end) &&
-                   iterator_equal(t_begin, t_range.t_begin) &&
-                   iterator_equal(t_end, t_range.t_end));
+                   iterator_equal(t_begin, t_range.it_begin) &&
+                   iterator_equal(t_end, t_range.it_end));
 
             multiset_insert(pt_msetex, 23499);
             multiset_insert(pt_msetex, -38);
@@ -4994,8 +4994,8 @@ void test_multiset(void)
             t_end = multiset_upper_bound(pt_mset, pt_msetex);
             t_range = multiset_equal_range(pt_mset, pt_msetex);
             assert(iterator_equal(t_begin, t_end) &&
-                   iterator_equal(t_begin, t_range.t_begin) &&
-                   iterator_equal(t_range.t_begin, t_range.t_end));
+                   iterator_equal(t_begin, t_range.it_begin) &&
+                   iterator_equal(t_range.it_begin, t_range.it_end));
             multiset_clear(pt_msetex);
             multiset_insert(pt_msetex, 23499);
             multiset_insert(pt_msetex, -38);
@@ -5005,8 +5005,8 @@ void test_multiset(void)
             t_end = multiset_upper_bound(pt_mset, pt_msetex);
             t_range = multiset_equal_range(pt_mset, pt_msetex);
             assert(iterator_equal(iterator_next(t_begin), t_end) &&
-                   iterator_equal(t_begin, t_range.t_begin) &&
-                   iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+                   iterator_equal(t_begin, t_range.it_begin) &&
+                   iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
 
             multiset_destroy(pt_mset);
             multiset_destroy(pt_msetex);
@@ -5699,8 +5699,8 @@ void test_multiset(void)
             t_range = multiset_equal_range(pt_mset, "Copyright (C) The Internet Society");
             assert(iterator_equal(t_begin, multiset_end(pt_mset)) &&
                 iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_begin, t_range.t_begin) &&
-                iterator_equal(t_end, t_range.t_end));
+                iterator_equal(t_begin, t_range.it_begin) &&
+                iterator_equal(t_end, t_range.it_end));
             multiset_insert(pt_mset, "M. Mealling");
             multiset_insert(pt_mset, "Network Working Group");
             multiset_insert(pt_mset, "Network Working Group");
@@ -5716,14 +5716,14 @@ void test_multiset(void)
             t_end = multiset_upper_bound(pt_mset, "Copyright (C) The Internet Society");
             t_range = multiset_equal_range(pt_mset, "Copyright (C) The Internet Society");
             assert(iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_begin, t_range.t_begin) &&
-                iterator_equal(t_end, t_range.t_end));
+                iterator_equal(t_begin, t_range.it_begin) &&
+                iterator_equal(t_end, t_range.it_end));
             t_begin = multiset_lower_bound(pt_mset, "Network Working Group");
             t_end = multiset_upper_bound(pt_mset, "Network Working Group");
             t_range = multiset_equal_range(pt_mset, "Network Working Group");
             assert(iterator_equal(iterator_advance(t_begin, 2), t_end) &&
-                iterator_equal(t_begin, t_range.t_begin) &&
-                iterator_equal(t_end, t_range.t_end));
+                iterator_equal(t_begin, t_range.it_begin) &&
+                iterator_equal(t_end, t_range.it_end));
 
             multiset_destroy(pt_mset);
         }

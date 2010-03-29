@@ -484,13 +484,13 @@ range_t _hash_multiset_equal_range_varg(
     deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
         _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
 
-    _GET_CONTAINER(t_range.t_begin) = (hash_multiset_t*)cpt_hash_multiset;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(t_range.t_begin) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(t_range.t_begin) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_range.it_begin) = (hash_multiset_t*)cpt_hash_multiset;
+    _GET_HASH_MULTISET_CONTAINER_TYPE(t_range.it_begin) = _HASH_MULTISET_CONTAINER;
+    _GET_HASH_MULTISET_ITERATOR_TYPE(t_range.it_begin) = _FORWARD_ITERATOR;
 
-    _GET_CONTAINER(t_range.t_end) = (hash_multiset_t*)cpt_hash_multiset;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(t_range.t_end) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(t_range.t_end) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_range.it_end) = (hash_multiset_t*)cpt_hash_multiset;
+    _GET_HASH_MULTISET_CONTAINER_TYPE(t_range.it_end) = _HASH_MULTISET_CONTAINER;
+    _GET_HASH_MULTISET_ITERATOR_TYPE(t_range.it_end) = _FORWARD_ITERATOR;
 
     return t_range;
 }

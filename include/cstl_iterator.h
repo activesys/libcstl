@@ -233,8 +233,8 @@ typedef struct _tagiterator
 /* range type */
 typedef struct _tagrange
 {
-    iterator_t t_begin;
-    iterator_t t_end;
+    iterator_t it_begin;
+    iterator_t it_end;
 }range_t;
 
 

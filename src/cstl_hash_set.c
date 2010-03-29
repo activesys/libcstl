@@ -462,13 +462,13 @@ range_t _hash_set_equal_range_varg(const hash_set_t* cpt_hash_set, va_list val_e
     deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocater, pv_varg,
         _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
 
-    _GET_CONTAINER(t_range.t_begin) = (hash_set_t*)cpt_hash_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_range.t_begin) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_range.t_begin) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_range.it_begin) = (hash_set_t*)cpt_hash_set;
+    _GET_HASH_SET_CONTAINER_TYPE(t_range.it_begin) = _HASH_SET_CONTAINER;
+    _GET_HASH_SET_ITERATOR_TYPE(t_range.it_begin) = _FORWARD_ITERATOR;
 
-    _GET_CONTAINER(t_range.t_end) = (hash_set_t*)cpt_hash_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_range.t_end) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_range.t_end) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_range.it_end) = (hash_set_t*)cpt_hash_set;
+    _GET_HASH_SET_CONTAINER_TYPE(t_range.it_end) = _HASH_SET_CONTAINER;
+    _GET_HASH_SET_ITERATOR_TYPE(t_range.it_end) = _FORWARD_ITERATOR;
 
     return t_range;
 }

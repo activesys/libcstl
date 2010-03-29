@@ -519,13 +519,13 @@ range_t _hash_map_equal_range_varg(
     t_result = _hashtable_equal_range(
         &cpt_hash_map->_t_hashtable, &cpt_hash_map->_t_pair);
 
-    _GET_CONTAINER(t_result.t_begin) = (hash_map_t*)cpt_hash_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(t_result.t_begin) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_result.t_begin) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_result.it_begin) = (hash_map_t*)cpt_hash_map;
+    _GET_HASH_MAP_CONTAINER_TYPE(t_result.it_begin) = _HASH_MAP_CONTAINER;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_result.it_begin) = _FORWARD_ITERATOR;
 
-    _GET_CONTAINER(t_result.t_end) = (hash_map_t*)cpt_hash_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(t_result.t_end) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_result.t_end) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_result.it_end) = (hash_map_t*)cpt_hash_map;
+    _GET_HASH_MAP_CONTAINER_TYPE(t_result.it_end) = _HASH_MAP_CONTAINER;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_result.it_end) = _FORWARD_ITERATOR;
 
     return t_result;
 }

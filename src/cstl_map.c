@@ -749,12 +749,12 @@ range_t _map_equal_range_varg(const map_t* cpt_map, va_list val_elemlist)
     t_range = _rb_tree_equal_range(&cpt_map->_t_tree, &cpt_map->_t_pair);
 #endif
 
-    _GET_CONTAINER(t_range.t_begin) = (map_t*)cpt_map;
-    _GET_MAP_CONTAINER_TYPE(t_range.t_begin) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(t_range.t_begin) = _BIDIRECTIONAL_ITERATOR;
-    _GET_CONTAINER(t_range.t_end) = (map_t*)cpt_map;
-    _GET_MAP_CONTAINER_TYPE(t_range.t_end) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(t_range.t_end) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_range.it_begin) = (map_t*)cpt_map;
+    _GET_MAP_CONTAINER_TYPE(t_range.it_begin) = _MAP_CONTAINER;
+    _GET_MAP_ITERATOR_TYPE(t_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_range.it_end) = (map_t*)cpt_map;
+    _GET_MAP_CONTAINER_TYPE(t_range.it_end) = _MAP_CONTAINER;
+    _GET_MAP_ITERATOR_TYPE(t_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return t_range;
 }

@@ -434,8 +434,8 @@ void test_hash_set(void)
             }
             hash_set_init(pt_hset);
             t_range = hash_set_equal_range(pt_hset, 45);
-            assert(iterator_equal(t_range.t_begin, hash_set_end(pt_hset)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_set_end(pt_hset)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
             hash_set_insert(pt_hset, 344);
             hash_set_insert(pt_hset, 90);
             hash_set_insert(pt_hset, 456);
@@ -443,9 +443,9 @@ void test_hash_set(void)
             hash_set_insert(pt_hset, 4567);
             hash_set_insert(pt_hset, 2);
             t_range = hash_set_equal_range(pt_hset, 45);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_set_equal_range(pt_hset, 90);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_set_destroy(pt_hset);
         }
         /*hash_set_insert            */
@@ -1087,8 +1087,8 @@ void test_hash_set(void)
             t_sample._d_first = 344.23;
             t_sample._l_second = 445;
             t_range = hash_set_equal_range(pt_hset, &t_sample);
-            assert(iterator_equal(t_range.t_begin, hash_set_end(pt_hset)));
-            assert(iterator_equal(t_range.t_end, hash_set_end(pt_hset)));
+            assert(iterator_equal(t_range.it_begin, hash_set_end(pt_hset)));
+            assert(iterator_equal(t_range.it_end, hash_set_end(pt_hset)));
 
             hash_set_insert(pt_hset, &t_sample);
             t_sample._d_first = 45.098;
@@ -1104,7 +1104,7 @@ void test_hash_set(void)
             t_sample._d_first = 45.098;
             t_sample._l_second = 23;
             t_range = hash_set_equal_range(pt_hset, &t_sample);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_set_destroy(pt_hset);
         }
         /*hash_set_insert            */
@@ -2041,8 +2041,8 @@ void test_hash_set(void)
             hash_set_init_ex(pt_hset, 50, _hash_set_cstl_hash, NULL);
             hash_set_init(pt_hsetex);
             t_range = hash_set_equal_range(pt_hset, pt_hsetex);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end) &&
-                iterator_equal(t_range.t_begin, hash_set_end(pt_hset)));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end) &&
+                iterator_equal(t_range.it_begin, hash_set_end(pt_hset)));
             hash_set_insert(pt_hsetex, 12239);
             hash_set_insert(pt_hsetex, 20);
             hash_set_insert(pt_hsetex, -847);
@@ -2101,7 +2101,7 @@ void test_hash_set(void)
             hash_set_insert(pt_hsetex, 3);
             hash_set_insert(pt_hsetex, 55);
             t_range = hash_set_equal_range(pt_hset, pt_hsetex);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
 
             hash_set_clear(pt_hsetex);
             hash_set_insert(pt_hsetex, 4444);
@@ -2112,7 +2112,7 @@ void test_hash_set(void)
             hash_set_insert(pt_hsetex, 55);
 
             t_range = hash_set_equal_range(pt_hset, pt_hsetex);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_set_destroy(pt_hset);
             hash_set_destroy(pt_hsetex);
         }
@@ -2896,8 +2896,8 @@ void test_hash_set(void)
             }
             hash_set_init_ex(pt_hset, 10, _hash_set_cstr_hash, NULL);
             t_range = hash_set_equal_range(pt_hset, "abcdefg");
-            assert(iterator_equal(t_range.t_begin, hash_set_end(pt_hset)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_set_end(pt_hset)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
             hash_set_insert(pt_hset, "lskdj");
             hash_set_insert(pt_hset, "bbbbbbbbb");
             hash_set_insert(pt_hset, "abcdefg");
@@ -2905,9 +2905,9 @@ void test_hash_set(void)
             hash_set_insert(pt_hset, "mmmm");
             _print_hash_set_cstr(pt_hset);
             t_range = hash_set_equal_range(pt_hset, "opqrst");
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_set_equal_range(pt_hset, "abcdefg");
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_set_destroy(pt_hset);
         }
         /*hash_set_insert            */
@@ -3547,8 +3547,8 @@ void test_hash_multiset(void)
             }
             hash_multiset_init(pt_hmset);
             t_range = hash_multiset_equal_range(pt_hmset, 45);
-            assert(iterator_equal(t_range.t_begin, hash_multiset_end(pt_hmset)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_multiset_end(pt_hmset)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
             hash_multiset_insert(pt_hmset, 344);
             hash_multiset_insert(pt_hmset, 90);
             hash_multiset_insert(pt_hmset, 456);
@@ -3556,9 +3556,9 @@ void test_hash_multiset(void)
             hash_multiset_insert(pt_hmset, 4567);
             hash_multiset_insert(pt_hmset, 2);
             t_range = hash_multiset_equal_range(pt_hmset, 45);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_multiset_equal_range(pt_hmset, 90);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_multiset_destroy(pt_hmset);
         }
         /*hash_multiset_insert            */
@@ -4148,8 +4148,8 @@ void test_hash_multiset(void)
             t_sample._d_first = 344.23;
             t_sample._l_second = 445;
             t_range = hash_multiset_equal_range(pt_hmset, &t_sample);
-            assert(iterator_equal(t_range.t_begin, hash_multiset_end(pt_hmset)));
-            assert(iterator_equal(t_range.t_end, hash_multiset_end(pt_hmset)));
+            assert(iterator_equal(t_range.it_begin, hash_multiset_end(pt_hmset)));
+            assert(iterator_equal(t_range.it_end, hash_multiset_end(pt_hmset)));
 
             hash_multiset_insert(pt_hmset, &t_sample);
             t_sample._d_first = 45.098;
@@ -4165,7 +4165,7 @@ void test_hash_multiset(void)
             t_sample._d_first = 45.098;
             t_sample._l_second = 23;
             t_range = hash_multiset_equal_range(pt_hmset, &t_sample);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_multiset_destroy(pt_hmset);
         }
         /*hash_multiset_insert            */
@@ -5062,8 +5062,8 @@ void test_hash_multiset(void)
             hash_multiset_init_ex(pt_hmset, 50, _hash_multiset_cstl_hash, NULL);
             hash_multiset_init(pt_hmsetex);
             t_range = hash_multiset_equal_range(pt_hmset, pt_hmsetex);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end) &&
-                iterator_equal(t_range.t_begin, hash_multiset_end(pt_hmset)));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end) &&
+                iterator_equal(t_range.it_begin, hash_multiset_end(pt_hmset)));
             hash_multiset_insert(pt_hmsetex, 12239);
             hash_multiset_insert(pt_hmsetex, 20);
             hash_multiset_insert(pt_hmsetex, -847);
@@ -5122,7 +5122,7 @@ void test_hash_multiset(void)
             hash_multiset_insert(pt_hmsetex, 3);
             hash_multiset_insert(pt_hmsetex, 55);
             t_range = hash_multiset_equal_range(pt_hmset, pt_hmsetex);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
 
             hash_multiset_clear(pt_hmsetex);
             hash_multiset_insert(pt_hmsetex, 4444);
@@ -5133,7 +5133,7 @@ void test_hash_multiset(void)
             hash_multiset_insert(pt_hmsetex, 55);
 
             t_range = hash_multiset_equal_range(pt_hmset, pt_hmsetex);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_multiset_destroy(pt_hmset);
             hash_multiset_destroy(pt_hmsetex);
         }
@@ -5902,8 +5902,8 @@ void test_hash_multiset(void)
             }
             hash_multiset_init_ex(pt_hmset, 10, _hash_multiset_cstr_hash, NULL);
             t_range = hash_multiset_equal_range(pt_hmset, "abcdefg");
-            assert(iterator_equal(t_range.t_begin, hash_multiset_end(pt_hmset)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_multiset_end(pt_hmset)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
             hash_multiset_insert(pt_hmset, "lskdj");
             hash_multiset_insert(pt_hmset, "bbbbbbbbb");
             hash_multiset_insert(pt_hmset, "abcdefg");
@@ -5911,9 +5911,9 @@ void test_hash_multiset(void)
             hash_multiset_insert(pt_hmset, "mmmm");
             _print_hash_multiset_cstr(pt_hmset);
             t_range = hash_multiset_equal_range(pt_hmset, "opqrst");
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_multiset_equal_range(pt_hmset, "abcdefg");
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_multiset_destroy(pt_hmset);
         }
         /*hash_multiset_insert            */

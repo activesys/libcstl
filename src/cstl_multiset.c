@@ -624,13 +624,13 @@ range_t _multiset_equal_range_varg(const multiset_t* cpt_multiset, va_list val_e
     deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
 
-    _GET_CONTAINER(t_range.t_begin) = (multiset_t*)cpt_multiset;
-    _GET_MULTISET_CONTAINER_TYPE(t_range.t_begin) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(t_range.t_begin) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_range.it_begin) = (multiset_t*)cpt_multiset;
+    _GET_MULTISET_CONTAINER_TYPE(t_range.it_begin) = _MULTISET_CONTAINER;
+    _GET_MULTISET_ITERATOR_TYPE(t_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(t_range.t_end) = (multiset_t*)cpt_multiset;
-    _GET_MULTISET_CONTAINER_TYPE(t_range.t_end) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(t_range.t_end) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_range.it_end) = (multiset_t*)cpt_multiset;
+    _GET_MULTISET_CONTAINER_TYPE(t_range.it_end) = _MULTISET_CONTAINER;
+    _GET_MULTISET_ITERATOR_TYPE(t_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return t_range;
 }

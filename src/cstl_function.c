@@ -240,10 +240,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_char;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_char;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_char;
             break;
         case _LESS_FUN:
@@ -282,10 +282,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_uchar;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_uchar;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_uchar;
             break;
         case _LESS_FUN:
@@ -327,10 +327,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_short;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_short;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_short;
             break;
         case _LESS_FUN:
@@ -370,10 +370,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_ushort;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_ushort;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_ushort;
             break;
         case _LESS_FUN:
@@ -414,10 +414,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_int;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_int;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_int;
             break;
         case _LESS_FUN:
@@ -457,10 +457,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_uint;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_uint;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_uint;
             break;
         case _LESS_FUN:
@@ -502,10 +502,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_long;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_long;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_long;
             break;
         case _LESS_FUN:
@@ -545,10 +545,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_ulong;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_ulong;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_ulong;
             break;
         case _LESS_FUN:
@@ -584,10 +584,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_float;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_float;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_float;
             break;
         case _LESS_FUN:
@@ -623,10 +623,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_double;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_double;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_double;
             break;
         case _LESS_FUN:
@@ -662,10 +662,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_long_double;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_long_double;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_long_double;
             break;
         case _LESS_FUN:
@@ -689,10 +689,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_cstr;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_cstr;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_cstr;
             break;
         case _LESS_FUN:
@@ -731,10 +731,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_vector;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_vector;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_vector;
             break;
         case _LESS_FUN:
@@ -758,10 +758,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_deque;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_deque;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_deque;
             break;
         case _LESS_FUN:
@@ -785,10 +785,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_list;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_list;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_list;
             break;
         case _LESS_FUN:
@@ -812,10 +812,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_slist;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_slist;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_slist;
             break;
         case _LESS_FUN:
@@ -839,10 +839,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_queue;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_queue;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_queue;
             break;
         case _LESS_FUN:
@@ -866,10 +866,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_stack;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_stack;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_stack;
             break;
         case _LESS_FUN:
@@ -893,10 +893,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_pair;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_pair;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_pair;
             break;
         case _LESS_FUN:
@@ -920,10 +920,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_set;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_set;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_set;
             break;
         case _LESS_FUN:
@@ -947,10 +947,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_map;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_map;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_map;
             break;
         case _LESS_FUN:
@@ -974,10 +974,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_multiset;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_multiset;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_multiset;
             break;
         case _LESS_FUN:
@@ -1001,10 +1001,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_multimap;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_multimap;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_multimap;
             break;
         case _LESS_FUN:
@@ -1028,10 +1028,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_hash_set;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_hash_set;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_hash_set;
             break;
         case _LESS_FUN:
@@ -1055,10 +1055,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_hash_map;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_hash_map;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_hash_map;
             break;
         case _LESS_FUN:
@@ -1082,10 +1082,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_hash_multiset;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_hash_multiset;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_hash_multiset;
             break;
         case _LESS_FUN:
@@ -1109,10 +1109,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_hash_multimap;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_hash_multimap;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_hash_multimap;
             break;
         case _LESS_FUN:
@@ -1136,10 +1136,10 @@ binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype
         case _NOT_EQUAL_FUN:
             return fun_not_equal_string;
             break;
-        case _GREAT_FUN:
+        case _GREATER_FUN:
             return fun_greater_string;
             break;
-        case _GREAT_EQUAL_FUN:
+        case _GREATER_EQUAL_FUN:
             return fun_greater_equal_string;
             break;
         case _LESS_FUN:

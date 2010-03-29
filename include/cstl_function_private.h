@@ -50,8 +50,8 @@ typedef enum _tagfunbinarytype
     /* comparisons */
     _EQUAL_FUN,
     _NOT_EQUAL_FUN,
-    _GREAT_FUN,
-    _GREAT_EQUAL_FUN,
+    _GREATER_FUN,
+    _GREATER_EQUAL_FUN,
     _LESS_FUN,
     _LESS_EQUAL_FUN,
     /* logical */

@@ -444,8 +444,8 @@ range_t algo_mismatch_if(
         }
     }
 
-    t_range.t_begin = t_first1;
-    t_range.t_end = t_first2;
+    t_range.it_begin = t_first1;
+    t_range.it_end = t_first2;
     return t_range;
 }
 

@@ -537,8 +537,8 @@ range_t _hashtable_equal_range(
 
     assert(cpt_hashtable != NULL && cpv_value != NULL);
 
-    t_result.t_begin = _create_hashtable_iterator();
-    t_result.t_end = _create_hashtable_iterator();
+    t_result.it_begin = _create_hashtable_iterator();
+    t_result.it_end = _create_hashtable_iterator();
 
     t_bucketcount = _hashtable_bucket_count(cpt_hashtable);
     t_tmp = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtable);
@@ -567,21 +567,21 @@ range_t _hashtable_equal_range(
                 _hashtable_elem_less_auxiliary(cpt_hashtable, cpv_value, pt_end->_pc_data, &t_greater);
                 if(t_less || t_greater)
                 {
-                    _GET_HASHTABLE_BUCKETPOS(t_result.t_begin) = (char*)ppt_bucket;
-                    _GET_HASHTABLE_COREPOS(t_result.t_begin) = (char*)pt_begin;
-                    _GET_HASHTABLE_POINTER(t_result.t_begin) = (hashnode_t*)cpt_hashtable;
+                    _GET_HASHTABLE_BUCKETPOS(t_result.it_begin) = (char*)ppt_bucket;
+                    _GET_HASHTABLE_COREPOS(t_result.it_begin) = (char*)pt_begin;
+                    _GET_HASHTABLE_POINTER(t_result.it_begin) = (hashnode_t*)cpt_hashtable;
 
-                    _GET_HASHTABLE_BUCKETPOS(t_result.t_end) = (char*)ppt_bucket;
-                    _GET_HASHTABLE_COREPOS(t_result.t_end) = (char*)pt_end;
-                    _GET_HASHTABLE_POINTER(t_result.t_end) = (hashtable_t*)cpt_hashtable;
+                    _GET_HASHTABLE_BUCKETPOS(t_result.it_end) = (char*)ppt_bucket;
+                    _GET_HASHTABLE_COREPOS(t_result.it_end) = (char*)pt_end;
+                    _GET_HASHTABLE_POINTER(t_result.it_end) = (hashtable_t*)cpt_hashtable;
 
                     return t_result;
                 }
             }
             
-            _GET_HASHTABLE_BUCKETPOS(t_result.t_begin) = (char*)ppt_bucket;
-            _GET_HASHTABLE_COREPOS(t_result.t_begin) = (char*)pt_begin;
-            _GET_HASHTABLE_POINTER(t_result.t_begin) = (hashtable_t*)cpt_hashtable;
+            _GET_HASHTABLE_BUCKETPOS(t_result.it_begin) = (char*)ppt_bucket;
+            _GET_HASHTABLE_COREPOS(t_result.it_begin) = (char*)pt_begin;
+            _GET_HASHTABLE_POINTER(t_result.it_begin) = (hashtable_t*)cpt_hashtable;
 
             for(t_index = t_pos + 1; t_index < t_bucketcount; ++t_index)
             {
@@ -589,22 +589,22 @@ range_t _hashtable_equal_range(
                 pt_end = *ppt_bucket;
                 if(pt_end != NULL)
                 {
-                    _GET_HASHTABLE_BUCKETPOS(t_result.t_end) = (char*)ppt_bucket;
-                    _GET_HASHTABLE_COREPOS(t_result.t_end) = (char*)pt_end;
-                    _GET_HASHTABLE_POINTER(t_result.t_end) = (hashtable_t*)cpt_hashtable;
+                    _GET_HASHTABLE_BUCKETPOS(t_result.it_end) = (char*)ppt_bucket;
+                    _GET_HASHTABLE_COREPOS(t_result.it_end) = (char*)pt_end;
+                    _GET_HASHTABLE_POINTER(t_result.it_end) = (hashtable_t*)cpt_hashtable;
 
                     return t_result;
                 }
             }
 
-            t_result.t_end = _hashtable_end(cpt_hashtable);
+            t_result.it_end = _hashtable_end(cpt_hashtable);
 
             return t_result;
         }
     }
 
-    t_result.t_begin = _hashtable_end(cpt_hashtable);
-    t_result.t_end = _hashtable_end(cpt_hashtable);
+    t_result.it_begin = _hashtable_end(cpt_hashtable);
+    t_result.it_end = _hashtable_end(cpt_hashtable);
 
     return t_result;
 }
@@ -613,7 +613,7 @@ size_t _hashtable_count(const hashtable_t* cpt_hashtable, const void* cpv_value)
 {
     range_t t_range = _hashtable_equal_range(cpt_hashtable, cpv_value);
 
-    return abs(_hashtable_iterator_distance(t_range.t_begin, t_range.t_end));
+    return abs(_hashtable_iterator_distance(t_range.it_begin, t_range.it_end));
 }
 
 void _hashtable_erase_pos(hashtable_t* pt_hashtable, hashtable_iterator_t t_pos)
@@ -692,9 +692,9 @@ size_t _hashtable_erase(hashtable_t* pt_hashtable, const void* cpv_value)
     size_t t_countsize = _hashtable_count(pt_hashtable, cpv_value);
     range_t t_range = _hashtable_equal_range(pt_hashtable, cpv_value);
 
-    if(!_hashtable_iterator_equal(t_range.t_begin, _hashtable_end(pt_hashtable)))
+    if(!_hashtable_iterator_equal(t_range.it_begin, _hashtable_end(pt_hashtable)))
     {
-        _hashtable_erase_range(pt_hashtable, t_range.t_begin, t_range.t_end);
+        _hashtable_erase_range(pt_hashtable, t_range.it_begin, t_range.it_end);
     }
 
     return t_countsize;

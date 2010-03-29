@@ -557,8 +557,8 @@ void test_map(void)
             t_range = map_equal_range(pt_map, 78);
             assert(iterator_equal(t_begin, map_end(pt_map)) &&
                 iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
             pair_make(pt_pair, 5, 2323);
             map_insert(pt_map, pt_pair);
             pair_make(pt_pair, 0, 123456);
@@ -576,14 +576,14 @@ void test_map(void)
             t_end = map_upper_bound(pt_map, 78);
             t_range = map_equal_range(pt_map, 78);
             assert(iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
             t_begin = map_lower_bound(pt_map, 90);
             t_end = map_upper_bound(pt_map, 90);
             t_range = map_equal_range(pt_map, 90);
             assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
             map_destroy(pt_map);
             pair_destroy(pt_pair);
         }
@@ -1582,8 +1582,8 @@ void test_map(void)
             t_range = map_equal_range(pt_map, &_t_key);
             assert(iterator_equal(t_begin, map_end(pt_map)) &&
                 iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             _t_key._t_unit = _B;
             _t_key._un_number = 1025;
@@ -1620,8 +1620,8 @@ void test_map(void)
             t_end = map_upper_bound(pt_map, &_t_key);
             t_range = map_equal_range(pt_map, &_t_key);
             assert(iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             _t_key._t_unit = _KB;
             _t_key._un_number = 1;
@@ -1629,8 +1629,8 @@ void test_map(void)
             t_end = map_upper_bound(pt_map, &_t_key);
             t_range = map_equal_range(pt_map, &_t_key);
             assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             map_destroy(pt_map);
             pair_destroy(pt_pair);
@@ -3074,8 +3074,8 @@ void test_map(void)
             t_range = map_equal_range(pt_map, pt_key);
             assert(iterator_equal(t_begin, map_end(pt_map)) &&
                 iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             pair_make(pt_key, 0, -10000.2);
             list_clear(pt_value);
@@ -3117,16 +3117,16 @@ void test_map(void)
             t_end = map_upper_bound(pt_map, pt_key);
             t_range = map_equal_range(pt_map, pt_key);
             assert(iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             pair_make(pt_key, 0, -10000.2);
             t_begin = map_lower_bound(pt_map, pt_key);
             t_end = map_upper_bound(pt_map, pt_key);
             t_range = map_equal_range(pt_map, pt_key);
             assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             map_destroy(pt_map);
             pair_destroy(pt_pair);
@@ -4258,8 +4258,8 @@ void test_map(void)
             t_range = map_equal_range(pt_map, "abcdefg");
             assert(iterator_equal(t_begin, map_end(pt_map)) &&
                 iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
             pair_make(pt_pair, "DUT", "Test set up for multiple media types");
             map_insert(pt_map, pt_pair);
             pair_make(pt_pair, "receiver", "sender");
@@ -4274,15 +4274,15 @@ void test_map(void)
             t_end = map_upper_bound(pt_map, "abcdefg");
             t_range = map_equal_range(pt_map, "abcdefg");
             assert(iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             t_begin = map_lower_bound(pt_map, "is");
             t_end = map_upper_bound(pt_map, "is");
             t_range = map_equal_range(pt_map, "is");
             assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             map_destroy(pt_map);
             pair_destroy(pt_pair);
@@ -5026,8 +5026,8 @@ void test_multimap(void)
             t_range = multimap_equal_range(pt_mmap, 78);
             assert(iterator_equal(t_begin, multimap_end(pt_mmap)) &&
                 iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
             pair_make(pt_pair, 5, 2323);
             multimap_insert(pt_mmap, pt_pair);
             pair_make(pt_pair, 0, 123456);
@@ -5045,14 +5045,14 @@ void test_multimap(void)
             t_end = multimap_upper_bound(pt_mmap, 78);
             t_range = multimap_equal_range(pt_mmap, 78);
             assert(iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
             t_begin = multimap_lower_bound(pt_mmap, 90);
             t_end = multimap_upper_bound(pt_mmap, 90);
             t_range = multimap_equal_range(pt_mmap, 90);
             assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
             multimap_destroy(pt_mmap);
             pair_destroy(pt_pair);
         }
@@ -6034,8 +6034,8 @@ void test_multimap(void)
             t_range = multimap_equal_range(pt_mmap, &_t_key);
             assert(iterator_equal(t_begin, multimap_end(pt_mmap)) &&
                 iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             _t_key._t_unit = _B;
             _t_key._un_number = 1025;
@@ -6072,8 +6072,8 @@ void test_multimap(void)
             t_end = multimap_upper_bound(pt_mmap, &_t_key);
             t_range = multimap_equal_range(pt_mmap, &_t_key);
             assert(iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             _t_key._t_unit = _KB;
             _t_key._un_number = 1;
@@ -6081,8 +6081,8 @@ void test_multimap(void)
             t_end = multimap_upper_bound(pt_mmap, &_t_key);
             t_range = multimap_equal_range(pt_mmap, &_t_key);
             assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             multimap_destroy(pt_mmap);
             pair_destroy(pt_pair);
@@ -7470,8 +7470,8 @@ void test_multimap(void)
             t_range = multimap_equal_range(pt_mmap, pt_key);
             assert(iterator_equal(t_begin, multimap_end(pt_mmap)) &&
                 iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             pair_make(pt_key, 0, -10000.2);
             list_clear(pt_value);
@@ -7513,16 +7513,16 @@ void test_multimap(void)
             t_end = multimap_upper_bound(pt_mmap, pt_key);
             t_range = multimap_equal_range(pt_mmap, pt_key);
             assert(iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             pair_make(pt_key, 0, -10000.2);
             t_begin = multimap_lower_bound(pt_mmap, pt_key);
             t_end = multimap_upper_bound(pt_mmap, pt_key);
             t_range = multimap_equal_range(pt_mmap, pt_key);
             assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             multimap_destroy(pt_mmap);
             pair_destroy(pt_pair);
@@ -8591,8 +8591,8 @@ void test_multimap(void)
             t_range = multimap_equal_range(pt_mmap, "abcdefg");
             assert(iterator_equal(t_begin, multimap_end(pt_mmap)) &&
                 iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
             pair_make(pt_pair, "DUT", "Test set up for multiple media types");
             multimap_insert(pt_mmap, pt_pair);
             pair_make(pt_pair, "receiver", "sender");
@@ -8607,15 +8607,15 @@ void test_multimap(void)
             t_end = multimap_upper_bound(pt_mmap, "abcdefg");
             t_range = multimap_equal_range(pt_mmap, "abcdefg");
             assert(iterator_equal(t_begin, t_end) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             t_begin = multimap_lower_bound(pt_mmap, "is");
             t_end = multimap_upper_bound(pt_mmap, "is");
             t_range = multimap_equal_range(pt_mmap, "is");
             assert(iterator_equal(t_begin, iterator_prev(t_end)) &&
-                iterator_equal(t_range.t_begin, t_begin) &&
-                iterator_equal(t_range.t_end, t_end));
+                iterator_equal(t_range.it_begin, t_begin) &&
+                iterator_equal(t_range.it_end, t_end));
 
             multimap_destroy(pt_mmap);
             pair_destroy(pt_pair);

@@ -616,13 +616,13 @@ range_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)
     deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
 
-    _GET_CONTAINER(t_range.t_begin) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_range.t_begin) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_range.t_begin) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_range.it_begin) = (set_t*)cpt_set;
+    _GET_SET_CONTAINER_TYPE(t_range.it_begin) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(t_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(t_range.t_end) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_range.t_end) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_range.t_end) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(t_range.it_end) = (set_t*)cpt_set;
+    _GET_SET_CONTAINER_TYPE(t_range.it_end) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(t_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return t_range;
 }

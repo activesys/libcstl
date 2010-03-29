@@ -547,13 +547,13 @@ range_t _hash_multimap_equal_range_varg(
     t_result = _hashtable_equal_range(
         &cpt_hash_multimap->_t_hashtable, &cpt_hash_multimap->_t_pair);
 
-    _GET_CONTAINER(t_result.t_begin) = (hash_multimap_t*)cpt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_result.t_begin) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_result.t_begin) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_result.it_begin) = (hash_multimap_t*)cpt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_result.it_begin) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_result.it_begin) = _FORWARD_ITERATOR;
 
-    _GET_CONTAINER(t_result.t_end) = (hash_multimap_t*)cpt_hash_multimap;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_result.t_end) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_result.t_end) = _FORWARD_ITERATOR;
+    _GET_CONTAINER(t_result.it_end) = (hash_multimap_t*)cpt_hash_multimap;
+    _GET_HASH_MULTIMAP_CONTAINER_TYPE(t_result.it_end) = _HASH_MULTIMAP_CONTAINER;
+    _GET_HASH_MULTIMAP_ITERATOR_TYPE(t_result.it_end) = _FORWARD_ITERATOR;
 
     return t_result;
 }

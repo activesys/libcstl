@@ -492,8 +492,8 @@ void test_hash_map(void)
             pair_init(pt_pair);
 
             t_range = hash_map_equal_range(pt_hmap, 0);
-            assert(iterator_equal(t_range.t_begin, hash_map_end(pt_hmap)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_map_end(pt_hmap)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
 
             pair_make(pt_pair, 3, 290.2323);
             hash_map_insert(pt_hmap, pt_pair);
@@ -504,9 +504,9 @@ void test_hash_map(void)
             pair_make(pt_pair, 14, 44.4);
             hash_map_insert(pt_hmap, pt_pair);
             t_range = hash_map_equal_range(pt_hmap, 0);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_map_equal_range(pt_hmap, 14);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
 
             hash_map_destroy(pt_hmap);
             pair_destroy(pt_pair);
@@ -1136,8 +1136,8 @@ void test_hash_map(void)
             }
             hash_map_init_ex(pt_hmap, 0, _hash_map_sample_hash, NULL);
             t_range = hash_map_equal_range(pt_hmap, 0);
-            assert(iterator_equal(t_range.t_begin, hash_map_end(pt_hmap)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_map_end(pt_hmap)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
             ((hash_sample_t*)hash_map_at(pt_hmap, 9))->_d_first = -5.11;
             ((hash_sample_t*)hash_map_at(pt_hmap, 9))->_l_second = 50;
             ((hash_sample_t*)hash_map_at(pt_hmap, 56))->_d_first = -5.11;
@@ -1145,9 +1145,9 @@ void test_hash_map(void)
             ((hash_sample_t*)hash_map_at(pt_hmap, 54))->_d_first = -5.11;
             ((hash_sample_t*)hash_map_at(pt_hmap, 54))->_l_second = 50;
             t_range = hash_map_equal_range(pt_hmap, 0);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_map_equal_range(pt_hmap, 56);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
 
             hash_map_destroy(pt_hmap);
         }
@@ -1902,8 +1902,8 @@ void test_hash_map(void)
             }
             hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
             t_range = hash_map_equal_range(pt_hmap, 4);
-            assert(iterator_equal(t_range.t_begin, hash_map_end(pt_hmap)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_map_end(pt_hmap)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
             pt_list = (list_t*)hash_map_at(pt_hmap, 4);
             list_push_back(pt_list, 232);
             list_push_back(pt_list, 0);
@@ -1916,9 +1916,9 @@ void test_hash_map(void)
             pt_list = (list_t*)hash_map_at(pt_hmap, 5);
             list_push_front(pt_list, 28);
             t_range = hash_map_equal_range(pt_hmap, 10);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_map_equal_range(pt_hmap, 5);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_map_destroy(pt_hmap);
         }
         /*hash_map_at                */
@@ -2676,8 +2676,8 @@ void test_hash_map(void)
             pair_init(pt_pair);
             hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, NULL);
             t_range = hash_map_equal_range(pt_hmap, "lskdf");
-            assert(iterator_equal(t_range.t_begin, hash_map_end(pt_hmap)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_map_end(pt_hmap)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
 
             pair_make(pt_pair, "pair", "hash_map");
             hash_map_insert(pt_hmap, pt_pair);
@@ -2694,9 +2694,9 @@ void test_hash_map(void)
             pair_make(pt_pair, "huadl", ":a;lsdkf");
             hash_map_insert(pt_hmap, pt_pair);
             t_range = hash_map_equal_range(pt_hmap, "lskdf");
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_map_equal_range(pt_hmap, "1111");
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
 
             hash_map_destroy(pt_hmap);
             pair_destroy(pt_pair);
@@ -3435,8 +3435,8 @@ void test_hash_multimap(void)
             pair_init(pt_pair);
 
             t_range = hash_multimap_equal_range(pt_hmmap, 0);
-            assert(iterator_equal(t_range.t_begin, hash_multimap_end(pt_hmmap)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_multimap_end(pt_hmmap)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
 
             pair_make(pt_pair, 3, 290.2323);
             hash_multimap_insert(pt_hmmap, pt_pair);
@@ -3447,9 +3447,9 @@ void test_hash_multimap(void)
             pair_make(pt_pair, 14, 44.4);
             hash_multimap_insert(pt_hmmap, pt_pair);
             t_range = hash_multimap_equal_range(pt_hmmap, 0);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_multimap_equal_range(pt_hmmap, 14);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
 
             hash_multimap_destroy(pt_hmmap);
             pair_destroy(pt_pair);
@@ -4279,8 +4279,8 @@ void test_hash_multimap(void)
             pair_init(pt_pair);
             hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_sample_hash, NULL);
             t_range = hash_multimap_equal_range(pt_hmmap, 0);
-            assert(iterator_equal(t_range.t_begin, hash_multimap_end(pt_hmmap)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_multimap_end(pt_hmmap)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
             /*((hash_sample_t*)hash_multimap_at(pt_hmmap, 9))->_d_first = -5.11;*/
             /*((hash_sample_t*)hash_multimap_at(pt_hmmap, 9))->_l_second = 50;*/
             /*((hash_sample_t*)hash_multimap_at(pt_hmmap, 56))->_d_first = -5.11;*/
@@ -4304,9 +4304,9 @@ void test_hash_multimap(void)
             pair_make(pt_pair, 54, &t_sample);
             hash_multimap_insert(pt_hmmap, pt_pair);
             t_range = hash_multimap_equal_range(pt_hmmap, 0);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_multimap_equal_range(pt_hmmap, 54);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
 
             hash_multimap_destroy(pt_hmmap);
             pair_destroy(pt_pair);
@@ -5325,8 +5325,8 @@ void test_hash_multimap(void)
             pair_init(pt_pair);
             list_init(pt_list);
             t_range = hash_multimap_equal_range(pt_hmmap, 4);
-            assert(iterator_equal(t_range.t_begin, hash_multimap_end(pt_hmmap)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_multimap_end(pt_hmmap)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
             list_clear(pt_list);
             list_push_back(pt_list, 3);
             list_push_back(pt_list, 0);
@@ -5345,9 +5345,9 @@ void test_hash_multimap(void)
             pair_make(pt_pair, 2, pt_list);
             hash_multimap_insert(pt_hmmap, pt_pair);
             t_range = hash_multimap_equal_range(pt_hmmap, 10);
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_multimap_equal_range(pt_hmmap, 4);
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
             hash_multimap_destroy(pt_hmmap);
             pair_destroy(pt_pair);
             list_destroy(pt_list);
@@ -6299,8 +6299,8 @@ void test_hash_multimap(void)
             pair_init(pt_pair);
             hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstr_hash, NULL);
             t_range = hash_multimap_equal_range(pt_hmmap, "lskdf");
-            assert(iterator_equal(t_range.t_begin, hash_multimap_end(pt_hmmap)) &&
-                iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, hash_multimap_end(pt_hmmap)) &&
+                iterator_equal(t_range.it_begin, t_range.it_end));
 
             pair_make(pt_pair, "pair", "hash_multimap");
             hash_multimap_insert(pt_hmmap, pt_pair);
@@ -6317,9 +6317,9 @@ void test_hash_multimap(void)
             pair_make(pt_pair, "huadl", ":a;lsdkf");
             hash_multimap_insert(pt_hmmap, pt_pair);
             t_range = hash_multimap_equal_range(pt_hmmap, "lskdf");
-            assert(iterator_equal(t_range.t_begin, t_range.t_end));
+            assert(iterator_equal(t_range.it_begin, t_range.it_end));
             t_range = hash_multimap_equal_range(pt_hmmap, "1111");
-            assert(iterator_equal(iterator_next(t_range.t_begin), t_range.t_end));
+            assert(iterator_equal(iterator_next(t_range.it_begin), t_range.it_end));
 
             hash_multimap_destroy(pt_hmmap);
             pair_destroy(pt_pair);

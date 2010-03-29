@@ -805,7 +805,7 @@ size_t _rb_tree_count(const rb_tree_t* cpt_rb_tree, const void* cpv_value)
 
     t_range = _rb_tree_equal_range(cpt_rb_tree, cpv_value);
 
-    return abs(_rb_tree_iterator_distance(t_range.t_begin, t_range.t_end));
+    return abs(_rb_tree_iterator_distance(t_range.it_begin, t_range.it_end));
 }
 
 rb_tree_iterator_t _rb_tree_lower_bound(
@@ -954,8 +954,8 @@ range_t _rb_tree_equal_range(const rb_tree_t* cpt_rb_tree, const void* cpv_value
 
     assert(cpt_rb_tree != NULL && cpv_value != NULL);
 
-    t_range.t_begin = _rb_tree_lower_bound(cpt_rb_tree, cpv_value);
-    t_range.t_end = _rb_tree_upper_bound(cpt_rb_tree, cpv_value);
+    t_range.it_begin = _rb_tree_lower_bound(cpt_rb_tree, cpv_value);
+    t_range.it_end = _rb_tree_upper_bound(cpt_rb_tree, cpv_value);
 
     return t_range;
 }
@@ -1449,9 +1449,9 @@ size_t _rb_tree_erase(rb_tree_t* pt_rb_tree, const void* cpv_value)
     size_t t_countsize = _rb_tree_count(pt_rb_tree, cpv_value);
     range_t t_range = _rb_tree_equal_range(pt_rb_tree, cpv_value);
 
-    if(!_rb_tree_iterator_equal(t_range.t_begin, _rb_tree_end(pt_rb_tree)))
+    if(!_rb_tree_iterator_equal(t_range.it_begin, _rb_tree_end(pt_rb_tree)))
     {
-        _rb_tree_erase_range(pt_rb_tree, t_range.t_begin, t_range.t_end);
+        _rb_tree_erase_range(pt_rb_tree, t_range.it_begin, t_range.it_end);
     }
 
     return t_countsize;
