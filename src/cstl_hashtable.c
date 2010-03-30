@@ -1318,6 +1318,7 @@ static void _hashtable_hash_auxiliary(const hashtable_t* cpt_hashtable, const vo
 
     if(strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
+        *(size_t*)pv_output = strlen(string_c_str((string_t*)cpv_input));
         cpt_hashtable->_t_hash(string_c_str((string_t*)cpv_input), pv_output);
     }
     else

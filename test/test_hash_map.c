@@ -1333,7 +1333,6 @@ void test_hash_map(void)
                 hash_map_erase_pos(pt_hmap, hash_map_begin(pt_hmap));
             }
             _print_hash_map_sample(pt_hmap);
-            while(!hash_map_empty(pt_hmap))
             hash_map_destroy(pt_hmap);
         }
         /*hash_map_erase_range       */
@@ -1509,6 +1508,7 @@ void test_hash_map(void)
             hash_map_init_copy(pt_hmap, pt_hmapex);
             _print_hash_map_cstl(pt_hmap);
             hash_map_destroy(pt_hmap);
+            hash_map_destroy(pt_hmapex);
         }
         /*hash_map_init_copy_range   */
         {

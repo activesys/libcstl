@@ -1139,6 +1139,7 @@ void test_priority_queue(void)
             {
                 return;
             }
+            vector_init(pt_vec);
             _weather_init(&t_wea, &t_result);
 
             _weather_set(&t_wea, "Shenyang", 3);
@@ -1167,6 +1168,7 @@ void test_priority_queue(void)
             {
                 return;
             }
+            vector_init(pt_vec);
             _weather_init(&t_wea, &t_result);
 
             _weather_set(&t_wea, "Shenyang", 3);

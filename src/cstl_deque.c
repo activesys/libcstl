@@ -751,7 +751,7 @@ void _deque_destroy_auxiliary(deque_t* pt_deque)
 
     /* destroy the all element container */
     for(t_mappos = _GET_DEQUE_MAP_POINTER(pt_deque->_t_start);
-        t_mappos != _GET_DEQUE_MAP_POINTER(pt_deque->_t_finish);
+        t_mappos <= _GET_DEQUE_MAP_POINTER(pt_deque->_t_finish);
         ++t_mappos)
     {
         deallocate(&pt_deque->_t_allocater, *t_mappos,

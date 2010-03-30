@@ -607,6 +607,7 @@ void test_vector(void)
             vector_init_copy(pt_abc, pt_abcex);
             vector_destroy(pt_abc);
             vector_destroy(pt_abcex);
+            _abc_destroy(&t_abc, &t_result);
         }
         /* vector_init_copy_range() */
         {
@@ -629,6 +630,7 @@ void test_vector(void)
                 iterator_prev(vector_end(pt_abcex)));
             vector_destroy(pt_abc);
             vector_destroy(pt_abcex);
+            _abc_destroy(&t_abc, &t_result);
         }
         /* vector_size() */
         {
@@ -1683,6 +1685,8 @@ void test_vector(void)
             vector_push_back(pt_vec, pt_vecex1);
             printf("%d\n", vector_capacity(pt_vec));
             vector_destroy(pt_vec);
+            vector_destroy(pt_vecex1);
+            vector_destroy(pt_vecex2);
         }
         /* vector_max_size() */
         {

@@ -579,6 +579,7 @@ void test_deque(void)
             }
             printf("\n");
             deque_destroy(pt_deq);
+            deque_destroy(pt_deqex);
         }
         /* deque_push_back() */
         {
