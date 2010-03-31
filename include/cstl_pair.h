@@ -52,9 +52,9 @@ typedef struct _tagpair
     void*             _pv_first;
     void*             _pv_second;
 
-    /* this two member are only used for map key and value compare. */
-    binary_function_t _t_mapkeyless;
-    binary_function_t _t_mapvalueless;
+    /* this two members are only used for map key and value compare. */
+    binary_function_t _t_mapkeycompare;
+    binary_function_t _t_mapvaluecompare;
 }pair_t;
 
 /** exported global variable declaration section **/

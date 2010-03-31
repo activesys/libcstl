@@ -36,8 +36,8 @@ extern "C" {
 typedef struct _tagmultimap
 {
     pair_t            _t_pair;
-    binary_function_t _t_keyless; /* for init ex */
-    binary_function_t _t_valueless;
+    binary_function_t _t_keycompare; /* for init ex */
+    binary_function_t _t_valuecompare;
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     avl_tree_t        _t_tree;

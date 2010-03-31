@@ -65,11 +65,11 @@ extern "C" {
  * Initialization and destroy functions.
  */
 extern void multiset_init(multiset_t* pt_multiset);
-extern void multiset_init_ex(multiset_t* pt_multiset, binary_function_t t_less);
+extern void multiset_init_ex(multiset_t* pt_multiset, binary_function_t t_compare);
 extern void multiset_destroy(multiset_t* pt_multiset);
 extern void multiset_init_copy(multiset_t* pt_multisetdest, const multiset_t* cpt_multisetsrc);
 extern void multiset_init_copy_range_ex(multiset_t* pt_multisetdest,
-    multiset_iterator_t t_begin, multiset_iterator_t t_end, binary_function_t t_less);
+    multiset_iterator_t t_begin, multiset_iterator_t t_end, binary_function_t t_compare);
 extern void multiset_init_copy_range(
     multiset_t* pt_multisetdest, multiset_iterator_t t_begin, multiset_iterator_t t_end);
 
@@ -98,8 +98,8 @@ extern multiset_reverse_iterator_t multiset_rend(const multiset_t* cpt_multiset)
 /*
  * Return the compare function of key (private).
  */
-extern binary_function_t multiset_key_less(const multiset_t* cpt_multiset);
-extern binary_function_t multiset_value_less(const multiset_t* cpt_multiset);
+extern binary_function_t multiset_key_comp(const multiset_t* cpt_multiset);
+extern binary_function_t multiset_value_comp(const multiset_t* cpt_multiset);
 
 /*
  * Remove all elements.

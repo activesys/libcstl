@@ -233,7 +233,7 @@ void hash_map_init_ex(hash_map_t* pt_hash_map, size_t t_bucketcount,
 
     /*t_key_less = t_less != NULL ? t_less : _hash_map_key_less;*/
     pt_hash_map->_t_keyless = t_less;
-    pt_hash_map->_t_pair._t_mapkeyless = t_less;
+    pt_hash_map->_t_pair._t_mapkeycompare = t_less;
     /* initialize the pair */
     pair_init(&pt_hash_map->_t_pair);
     /* initialize the hashtable */
@@ -254,8 +254,8 @@ void hash_map_init_copy(hash_map_t* pt_hash_mapdest, const hash_map_t* cpt_hash_
         hash_map_hash(cpt_hash_mapsrc), hash_map_key_less(cpt_hash_mapsrc));
     pt_hash_mapdest->_t_keyless = cpt_hash_mapsrc->_t_keyless;
     pt_hash_mapdest->_t_valueless = cpt_hash_mapsrc->_t_keyless;
-    pt_hash_mapdest->_t_pair._t_mapkeyless = cpt_hash_mapsrc->_t_pair._t_mapkeyless;
-    pt_hash_mapdest->_t_pair._t_mapvalueless = cpt_hash_mapsrc->_t_pair._t_mapvalueless;
+    pt_hash_mapdest->_t_pair._t_mapkeycompare = cpt_hash_mapsrc->_t_pair._t_mapkeycompare;
+    pt_hash_mapdest->_t_pair._t_mapvaluecompare = cpt_hash_mapsrc->_t_pair._t_mapvaluecompare;
     assert(_hash_map_same_pair_type(&pt_hash_mapdest->_t_pair, &cpt_hash_mapsrc->_t_pair));
 
     if(!hash_map_empty(cpt_hash_mapsrc))
@@ -537,8 +537,8 @@ hash_map_iterator_t hash_map_insert(
 
     assert(pt_hash_map != NULL && cpt_pair != NULL);
     /* set key less and value less function */
-    ((pair_t*)cpt_pair)->_t_mapkeyless = pt_hash_map->_t_keyless;
-    ((pair_t*)cpt_pair)->_t_mapvalueless = pt_hash_map->_t_valueless;
+    ((pair_t*)cpt_pair)->_t_mapkeycompare = pt_hash_map->_t_keyless;
+    ((pair_t*)cpt_pair)->_t_mapvaluecompare = pt_hash_map->_t_valueless;
     assert(_hash_map_same_pair_type(&pt_hash_map->_t_pair, cpt_pair));
 
     /* insert int hashtable */
@@ -701,8 +701,8 @@ static bool_t _hash_map_same_pair_type(
             cpt_pairsecond->_t_typeinfosecond._pt_type) &&
            (cpt_pairfirst->_t_typeinfosecond._t_style ==
             cpt_pairsecond->_t_typeinfosecond._t_style) &&
-           (cpt_pairfirst->_t_mapkeyless == cpt_pairsecond->_t_mapkeyless) &&
-           (cpt_pairfirst->_t_mapvalueless == cpt_pairsecond->_t_mapvalueless);
+           (cpt_pairfirst->_t_mapkeycompare == cpt_pairsecond->_t_mapkeycompare) &&
+           (cpt_pairfirst->_t_mapvaluecompare == cpt_pairsecond->_t_mapvaluecompare);
 }
 #endif /* NDEBUG */
 
@@ -719,9 +719,9 @@ static void _hash_map_key_less(const void* cpv_first, const void* cpv_second, vo
     assert(_hash_map_same_pair_type(pt_first, pt_second));
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if(pt_first->_t_mapkeyless != NULL) /* external key less function */
+    if(pt_first->_t_mapkeycompare != NULL) /* external key compare function */
     {
-        pt_first->_t_mapkeyless(pair_first(pt_first), pair_first(pt_second), pv_output);
+        pt_first->_t_mapkeycompare(pair_first(pt_first), pair_first(pt_second), pv_output);
     }
     else
     {

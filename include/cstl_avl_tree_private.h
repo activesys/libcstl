@@ -67,8 +67,8 @@ typedef struct _tagavltree
     avlnode_t        _t_avlroot;
     size_t           _t_nodecount;
 
-    /* less function */
-    binary_function_t _t_less;
+    /* compare function for the inserting order */
+    binary_function_t _t_compare;
 }avl_tree_t;
 
 /** exported global variable declaration section **/
@@ -79,14 +79,14 @@ typedef struct _tagavltree
  */
 extern avl_tree_t* _create_avl_tree(const char* s_typename);
 extern bool_t _create_avl_tree_auxiliary(avl_tree_t* pt_avl_tree, const char* s_typename);
-extern void _avl_tree_init(avl_tree_t* pt_avl_tree, binary_function_t t_less);
+extern void _avl_tree_init(avl_tree_t* pt_avl_tree, binary_function_t t_compare);
 extern void _avl_tree_destroy(avl_tree_t* pt_avl_tree);
 extern void _avl_tree_destroy_auxiliary(avl_tree_t* pt_avl_tree);
 extern void _avl_tree_init_copy(
     avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src);
 extern void _avl_tree_init_copy_range_ex(
     avl_tree_t* pt_avl_tree_dest, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end,
-    binary_function_t t_less);
+    binary_function_t t_compare);
 extern void _avl_tree_init_copy_range(
     avl_tree_t* pt_avl_tree_dest, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
 
@@ -113,9 +113,9 @@ extern avl_tree_reverse_iterator_t _avl_tree_rbegin(const avl_tree_t* cpt_avl_tr
 extern avl_tree_reverse_iterator_t _avl_tree_rend(const avl_tree_t* cpt_avl_tree);
 
 /*
- * Return the compare function of key (private).
+ * Return the compare function of key.
  */
-extern binary_function_t _avl_tree_key_less(const avl_tree_t* cpt_avl_tree);
+extern binary_function_t _avl_tree_key_comp(const avl_tree_t* cpt_avl_tree);
 
 /*
  * Find operation functions.

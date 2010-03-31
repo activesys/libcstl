@@ -65,13 +65,13 @@ extern "C" {
  * Initialization and destroy operation functions.
  */
 extern void set_init(set_t* pt_set);
-extern void set_init_ex(set_t* pt_set, binary_function_t t_less);
+extern void set_init_ex(set_t* pt_set, binary_function_t t_compare);
 extern void set_destroy(set_t* pt_set);
 extern void set_init_copy(set_t* pt_setdest, const set_t* cpt_setsrc);
 extern void set_init_copy_range(
     set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end);
 extern void set_init_copy_range_ex(
-    set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, binary_function_t t_less);
+    set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, binary_function_t t_compare);
 
 /*
  * Assign operator function.
@@ -95,10 +95,10 @@ extern set_reverse_iterator_t set_rbegin(const set_t* cpt_set);
 extern set_reverse_iterator_t set_rend(const set_t* cpt_set);
 
 /*
- * Compare functions. (private)
+ * Compare functions.
  */
-extern binary_function_t set_key_less(const set_t* cpt_set);
-extern binary_function_t set_value_less(const set_t* cpt_set);
+extern binary_function_t set_key_comp(const set_t* cpt_set);
+extern binary_function_t set_value_comp(const set_t* cpt_set);
 
 /*
  * Remove all elements.

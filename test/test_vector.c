@@ -587,6 +587,7 @@ void test_vector(void)
 
             vector_init_elem(pt_abc, 3, &t_abc);
             vector_destroy(pt_abc);
+            _abc_destroy(&t_abc, &t_result);
         }
         /* vector_init_copy() */
         {

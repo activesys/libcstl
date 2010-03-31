@@ -219,14 +219,14 @@ void set_init(set_t* pt_set)
 #endif
 }
 
-void set_init_ex(set_t* pt_set, binary_function_t t_less)
+void set_init_ex(set_t* pt_set, binary_function_t t_compare)
 {
     assert(pt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init(&pt_set->_t_tree, t_less);
+    _avl_tree_init(&pt_set->_t_tree, t_compare);
 #else
-    _rb_tree_init(&pt_set->_t_tree, t_less);
+    _rb_tree_init(&pt_set->_t_tree, t_compare);
 #endif
 }
 
@@ -282,7 +282,7 @@ void set_init_copy_range(set_t* pt_setdest, set_iterator_t t_begin, set_iterator
 }
 
 void set_init_copy_range_ex(
-    set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, binary_function_t t_less)
+    set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, binary_function_t t_compare)
 {
     assert(pt_setdest != NULL);
     assert(_GET_SET_CONTAINER_TYPE(t_begin) == _SET_CONTAINER &&
@@ -294,9 +294,9 @@ void set_init_copy_range_ex(
            _GET_SET_CONTAINER(t_begin) == _GET_SET_CONTAINER(t_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range_ex(&pt_setdest->_t_tree, t_begin, t_end, t_less);
+    _avl_tree_init_copy_range_ex(&pt_setdest->_t_tree, t_begin, t_end, t_compare);
 #else
-    _rb_tree_init_copy_range_ex(&pt_setdest->_t_tree, t_begin, t_end, t_less);
+    _rb_tree_init_copy_range_ex(&pt_setdest->_t_tree, t_begin, t_end, t_compare);
 #endif
 }
 
@@ -420,20 +420,20 @@ set_iterator_t set_rend(const set_t* cpt_set)
     return t_newiterator;
 }
 
-binary_function_t set_key_less(const set_t* cpt_set)
+binary_function_t set_key_comp(const set_t* cpt_set)
 {
     assert(cpt_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_key_less(&cpt_set->_t_tree);
+    return _avl_tree_key_comp(&cpt_set->_t_tree);
 #else
-    return _rb_tree_key_less(&cpt_set->_t_tree);
+    return _rb_tree_key_comp(&cpt_set->_t_tree);
 #endif
 }
 
-binary_function_t set_value_less(const set_t* cpt_set)
+binary_function_t set_value_comp(const set_t* cpt_set)
 {
-    return set_key_less(cpt_set);
+    return set_key_comp(cpt_set);
 }
 
 void set_clear(set_t* pt_set)

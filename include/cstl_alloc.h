@@ -66,7 +66,7 @@ typedef struct _tagalloc
     char**      _ppc_allocatemempool;            /* the allocated pool */
     char*       _pc_mempool;                     /* memory pool start */
     size_t      _t_mempoolsize;                  /* memory pool size */
-    size_t      _n_mempoolindex;                 /* memory pool index */
+    size_t      _t_mempoolindex;                 /* memory pool index */
     size_t      _t_mempoolcount;                 /* memory pool count */
 }alloc_t;
 

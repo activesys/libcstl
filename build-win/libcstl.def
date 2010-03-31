@@ -401,8 +401,8 @@ EXPORTS
     set_max_size                            @12010
     set_begin                               @12011
     set_end                                 @12012
-    set_key_less                            @12013
-    set_value_less                          @12014
+    set_key_comp                            @12013
+    set_value_comp                          @12014
     set_clear                               @12015
     set_equal                               @12016
     set_not_equal                           @12017
@@ -437,8 +437,8 @@ EXPORTS
     multiset_max_size                       @13010
     multiset_begin                          @13011
     multiset_end                            @13012
-    multiset_key_less                       @13013
-    multiset_value_less                     @13014
+    multiset_key_comp                       @13013
+    multiset_value_comp                     @13014
     multiset_clear                          @13015
     multiset_equal                          @13016
     multiset_not_equal                      @13017
@@ -472,8 +472,8 @@ EXPORTS
     map_size                                @14009
     map_empty                               @14010
     map_max_size                            @14011
-    map_key_less                            @14012
-    map_value_less                          @14013
+    map_key_comp                            @14012
+    map_value_comp                          @14013
     map_clear                               @14014
     map_equal                               @14015
     map_not_equal                           @14016
@@ -509,8 +509,8 @@ EXPORTS
     multimap_size                           @15009
     multimap_empty                          @15010
     multimap_max_size                       @15011
-    multimap_key_less                       @15012
-    multimap_value_less                     @15013
+    multimap_key_comp                       @15012
+    multimap_value_comp                     @15013
     multimap_clear                          @15014
     multimap_equal                          @15015
     multimap_not_equal                      @15016
@@ -547,7 +547,7 @@ EXPORTS
     hash_set_max_size                       @16011
     hash_set_bucket_count                   @16012
     hash_set_hash                           @16013
-    hash_set_key_less                       @16014
+    hash_set_key_comp                       @16014
     hash_set_resize                         @16015
     hash_set_equal                          @16016
     hash_set_not_equal                      @16017
@@ -582,7 +582,7 @@ EXPORTS
     hash_multiset_max_size                  @17011
     hash_multiset_bucket_count              @17012
     hash_multiset_hash                      @17013
-    hash_multiset_key_less                  @17014
+    hash_multiset_key_comp                  @17014
     hash_multiset_resize                    @17015
     hash_multiset_equal                     @17016
     hash_multiset_not_equal                 @17017
@@ -617,7 +617,7 @@ EXPORTS
     hash_map_max_size                       @18011
     hash_map_bucket_count                   @18012
     hash_map_hash                           @18013
-    hash_map_key_less                       @18014
+    hash_map_key_comp                       @18014
     hash_map_resize                         @18015
     hash_map_equal                          @18016
     hash_map_not_equal                      @18017
@@ -653,7 +653,7 @@ EXPORTS
     hash_multimap_max_size                  @19011
     hash_multimap_bucket_count              @19012
     hash_multimap_hash                      @19013
-    hash_multimap_key_less                  @19014
+    hash_multimap_key_comp                  @19014
     hash_multimap_resize                    @19015
     hash_multimap_equal                     @19016
     hash_multimap_not_equal                 @19017

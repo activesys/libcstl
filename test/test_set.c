@@ -243,8 +243,8 @@ void test_set(void)
                 return;
             }
             set_init_ex(pt_set, fun_greater_int);
-            printf("%d, %d\n", set_key_less(pt_set) == fun_greater_int,
-                set_value_less(pt_set) == fun_greater_int);
+            printf("%d, %d\n", set_key_comp(pt_set) == fun_greater_int,
+                set_value_comp(pt_set) == fun_greater_int);
             set_destroy(pt_set);
         }
         /*set_clear             */
@@ -829,8 +829,8 @@ void test_set(void)
                 return;
             }
             set_init(pt_set);
-            assert(set_key_less(pt_set) == _setsample_less);
-            assert(set_value_less(pt_set) == _setsample_less);
+            assert(set_key_comp(pt_set) == _setsample_less);
+            assert(set_value_comp(pt_set) == _setsample_less);
             set_destroy(pt_set);
         }
         /*set_clear             */
@@ -1696,8 +1696,8 @@ void test_set(void)
                 return;
             }
             set_init_ex(pt_set, fun_greater_set);
-            printf("%d, %d\n", set_key_less(pt_set) == fun_greater_set,
-                   set_value_less(pt_set) == fun_greater_set);
+            printf("%d, %d\n", set_key_comp(pt_set) == fun_greater_set,
+                   set_value_comp(pt_set) == fun_greater_set);
             set_destroy(pt_set);
         }
         /*set_clear             */
@@ -2542,10 +2542,10 @@ void test_set(void)
             }
             set_init(pt_set);
             set_init_ex(pt_setex, _set_cstr_pre);
-            assert(set_key_less(pt_set) != _set_cstr_pre &&
-                   set_value_less(pt_set) != _set_cstr_pre &&
-                   set_key_less(pt_setex) == _set_cstr_pre &&
-                   set_value_less(pt_setex) == _set_cstr_pre);
+            assert(set_key_comp(pt_set) != _set_cstr_pre &&
+                   set_value_comp(pt_set) != _set_cstr_pre &&
+                   set_key_comp(pt_setex) == _set_cstr_pre &&
+                   set_value_comp(pt_setex) == _set_cstr_pre);
             set_destroy(pt_set);
             set_destroy(pt_setex);
         }
@@ -3163,7 +3163,7 @@ void test_multiset(void)
                 return;
             }
             multiset_init(pt_mset);
-            assert(multiset_key_less(pt_mset) == multiset_value_less(pt_mset));
+            assert(multiset_key_comp(pt_mset) == multiset_value_comp(pt_mset));
             multiset_destroy(pt_mset);
         }
         /*multiset_clear             */
@@ -3813,8 +3813,8 @@ void test_multiset(void)
                 return;
             }
             multiset_init(pt_mset);
-            assert(multiset_key_less(pt_mset) == _setsample_less &&
-                   multiset_value_less(pt_mset) == _setsample_less);
+            assert(multiset_key_comp(pt_mset) == _setsample_less &&
+                   multiset_value_comp(pt_mset) == _setsample_less);
             multiset_destroy(pt_mset);
         }
         /*multiset_clear             */
@@ -4671,7 +4671,7 @@ void test_multiset(void)
                 return;
             }
             multiset_init(pt_mset);
-            assert(multiset_key_less(pt_mset) == multiset_value_less(pt_mset));
+            assert(multiset_key_comp(pt_mset) == multiset_value_comp(pt_mset));
             multiset_destroy(pt_mset);
         }
         /*multiset_clear             */
@@ -5505,8 +5505,8 @@ void test_multiset(void)
                 return;
             }
             multiset_init_ex(pt_mset, _set_cstr_pre);
-            assert(multiset_key_less(pt_mset) == _set_cstr_pre &&
-                multiset_value_less(pt_mset) == _set_cstr_pre);
+            assert(multiset_key_comp(pt_mset) == _set_cstr_pre &&
+                multiset_value_comp(pt_mset) == _set_cstr_pre);
             multiset_destroy(pt_mset);
         }
         /*multiset_clear             */

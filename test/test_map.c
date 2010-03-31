@@ -367,8 +367,8 @@ void test_map(void)
                 return;
             }
             map_init_ex(pt_map, fun_greater_long);
-            assert(map_key_less(pt_map) == fun_greater_long && map_value_less(pt_map) != NULL &&
-                map_key_less(pt_map) != map_value_less(pt_map));
+            assert(map_key_comp(pt_map) == fun_greater_long && map_value_comp(pt_map) != NULL &&
+                map_key_comp(pt_map) != map_value_comp(pt_map));
             map_destroy(pt_map);
         }
         /*map_clear             */
@@ -1337,8 +1337,7 @@ void test_map(void)
                 return;
             }
             map_init(pt_map);
-            assert(map_key_less(pt_map) == _mapkey_less &&
-                map_value_less(pt_map) == _mapvalue_less);
+            assert(map_key_comp(pt_map) == _mapkey_less);
             map_destroy(pt_map);
         }
         /*map_clear             */
@@ -2793,8 +2792,8 @@ void test_map(void)
                 return;
             }
             map_init_ex(pt_map, _mapkey_pair_greater);
-            assert(map_key_less(pt_map) == _mapkey_pair_greater &&
-                map_key_less(pt_map) != map_value_less(pt_map));
+            assert(map_key_comp(pt_map) == _mapkey_pair_greater &&
+                map_key_comp(pt_map) != map_value_comp(pt_map));
             map_destroy(pt_map);
         }
         /*map_clear             */
@@ -4085,8 +4084,8 @@ void test_map(void)
                 return;
             }
             map_init_ex(pt_map, _mapkey_cstr_len_less);
-            assert(map_key_less(pt_map) == _mapkey_cstr_len_less &&
-                map_key_less(pt_map) != map_value_less(pt_map));
+            assert(map_key_comp(pt_map) == _mapkey_cstr_len_less &&
+                map_key_comp(pt_map) != map_value_comp(pt_map));
             map_destroy(pt_map);
         }
         /*map_clear             */
@@ -4836,8 +4835,8 @@ void test_multimap(void)
                 return;
             }
             multimap_init_ex(pt_mmap, fun_greater_long);
-            assert(multimap_key_less(pt_mmap) == fun_greater_long && multimap_value_less(pt_mmap) != NULL &&
-                multimap_key_less(pt_mmap) != multimap_value_less(pt_mmap));
+            assert(multimap_key_comp(pt_mmap) == fun_greater_long && multimap_value_comp(pt_mmap) != NULL &&
+                multimap_key_comp(pt_mmap) != multimap_value_comp(pt_mmap));
             multimap_destroy(pt_mmap);
         }
         /*multimap_clear             */
@@ -5789,8 +5788,7 @@ void test_multimap(void)
                 return;
             }
             multimap_init(pt_mmap);
-            assert(multimap_key_less(pt_mmap) == _mapkey_less &&
-                multimap_value_less(pt_mmap) == _mapvalue_less);
+            assert(multimap_key_comp(pt_mmap) == _mapkey_less);
             multimap_destroy(pt_mmap);
         }
         /*multimap_clear             */
@@ -7189,8 +7187,8 @@ void test_multimap(void)
                 return;
             }
             multimap_init_ex(pt_mmap, _mapkey_pair_greater);
-            assert(multimap_key_less(pt_mmap) == _mapkey_pair_greater &&
-                multimap_key_less(pt_mmap) != multimap_value_less(pt_mmap));
+            assert(multimap_key_comp(pt_mmap) == _mapkey_pair_greater &&
+                multimap_key_comp(pt_mmap) != multimap_value_comp(pt_mmap));
             multimap_destroy(pt_mmap);
         }
         /*multimap_clear             */
@@ -8418,8 +8416,8 @@ void test_multimap(void)
                 return;
             }
             multimap_init_ex(pt_mmap, _mapkey_cstr_len_less);
-            assert(multimap_key_less(pt_mmap) == _mapkey_cstr_len_less &&
-                multimap_key_less(pt_mmap) != multimap_value_less(pt_mmap));
+            assert(multimap_key_comp(pt_mmap) == _mapkey_cstr_len_less &&
+                multimap_key_comp(pt_mmap) != multimap_value_comp(pt_mmap));
             multimap_destroy(pt_mmap);
         }
         /*multimap_clear             */

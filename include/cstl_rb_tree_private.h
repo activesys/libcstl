@@ -71,8 +71,8 @@ typedef struct _tagrbtree
     rbnode_t          _t_rbroot;
     size_t            _t_nodecount;
 
-    /* less function */
-    binary_function_t _t_less;
+    /* compare function for the inserting order */
+    binary_function_t _t_compare;
 }rb_tree_t;
 
 /* for the result of equal_range and insert_unique function */
@@ -94,14 +94,14 @@ typedef struct _tagrbtreeresultpair
  */
 extern rb_tree_t* _create_rb_tree(const char* s_typename);
 extern bool_t _create_rb_tree_auxiliary(rb_tree_t* pt_rb_tree, const char* s_typename);
-extern void _rb_tree_init(rb_tree_t* pt_rb_tree, binary_function_t t_less);
+extern void _rb_tree_init(rb_tree_t* pt_rb_tree, binary_function_t t_compare);
 extern void _rb_tree_destroy(rb_tree_t* pt_rb_tree);
 extern void _rb_tree_destroy_auxiliary(rb_tree_t* pt_rb_tree);
 extern void _rb_tree_init_copy(
     rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src);
 extern void _rb_tree_init_copy_range_ex(
     rb_tree_t* pt_rb_tree_dest, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end,
-    binary_function_t t_less);
+    binary_function_t t_compare);
 extern void _rb_tree_init_copy_range(
     rb_tree_t* pt_rb_tree_dest, rb_tree_iterator_t t_begin, rb_tree_iterator_t t_end);
 
@@ -129,7 +129,7 @@ extern rb_tree_reverse_iterator_t _rb_tree_rend(const rb_tree_t* cpt_rb_tree);
 /*
  * Return the compare function of key.
  */
-extern binary_function_t _rb_tree_key_less(const rb_tree_t* cpt_rb_tree);
+extern binary_function_t _rb_tree_key_comp(const rb_tree_t* cpt_rb_tree);
 
 /*
  * Find the value in rb tree.

@@ -114,8 +114,8 @@ bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename)
     pt_pair->_pv_second = NULL;
 
     /* this two members are only used for map key and value compare. */
-    pt_pair->_t_mapkeyless = NULL;
-    pt_pair->_t_mapvalueless = NULL;
+    pt_pair->_t_mapkeycompare = NULL;
+    pt_pair->_t_mapvaluecompare = NULL;
 
     return true;
 }
@@ -221,8 +221,8 @@ void _pair_destroy_auxiliary(pair_t* pt_pair)
     free(pt_pair->_pv_second);
     pt_pair->_pv_second = NULL;
 
-    pt_pair->_t_mapkeyless = NULL;
-    pt_pair->_t_mapvalueless = NULL;
+    pt_pair->_t_mapkeycompare = NULL;
+    pt_pair->_t_mapvaluecompare = NULL;
 }
 
 void pair_destroy(pair_t* pt_pair)
@@ -253,8 +253,8 @@ void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
         pt_pairdest->_pv_second, cpt_pairsrc->_pv_second, &t_result);
     assert(t_result);
 
-    pt_pairdest->_t_mapkeyless = cpt_pairsrc->_t_mapkeyless;
-    pt_pairdest->_t_mapvalueless = cpt_pairsrc->_t_mapvalueless;
+    pt_pairdest->_t_mapkeycompare = cpt_pairsrc->_t_mapkeycompare;
+    pt_pairdest->_t_mapvaluecompare = cpt_pairsrc->_t_mapvaluecompare;
 }
 
 void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
@@ -276,8 +276,8 @@ void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
         pt_pairdest->_pv_second, cpt_pairsrc->_pv_second, &t_result);
     assert(t_result);
 
-    pt_pairdest->_t_mapkeyless = cpt_pairsrc->_t_mapkeyless;
-    pt_pairdest->_t_mapvalueless = cpt_pairsrc->_t_mapvalueless;
+    pt_pairdest->_t_mapkeycompare = cpt_pairsrc->_t_mapkeycompare;
+    pt_pairdest->_t_mapvaluecompare = cpt_pairsrc->_t_mapvaluecompare;
 }
 
 void* pair_first(const pair_t* cpt_pair)

@@ -91,12 +91,10 @@ static bool_t _map_same_pair_type(const pair_t* cpt_pairfirst, const pair_t* cpt
 #endif /* NDEBUG */
 
 /*
- * map key less and value less
+ * map key compare and value compare
  */
-static void _map_key_less(const void* cpv_first, const void* cpv_second, void* pv_output);
-/*
-static void _map_value_less(const void* cpv_first, const void* cpv_second, void* pv_output);
-*/
+/*static void _map_key_compare(const void* cpv_first, const void* cpv_second, void* pv_output);*/
+static void _map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -260,8 +258,8 @@ bool_t _create_map_auxiliary(map_t* pt_map, const char* s_typename)
     t_result = _create_rb_tree_auxiliary(&pt_map->_t_tree, s_typenameex);
 #endif
 
-    pt_map->_t_keyless = NULL;
-    pt_map->_t_valueless = NULL;
+    pt_map->_t_keycompare = NULL;
+    pt_map->_t_valuecompare = NULL;
 
     return t_result;
 }
@@ -277,8 +275,8 @@ void _map_destroy_auxiliary(map_t* pt_map)
     _rb_tree_destroy_auxiliary(&pt_map->_t_tree);
 #endif
 
-    pt_map->_t_keyless = NULL;
-    pt_map->_t_valueless = NULL;
+    pt_map->_t_keycompare = NULL;
+    pt_map->_t_valuecompare = NULL;
 }
 
 /* map function */
@@ -290,25 +288,25 @@ void map_init(map_t* pt_map)
     pair_init(&pt_map->_t_pair);
     /* initialize the tree */
 #ifdef CSTL_MAP_AVL_TREE
-    _avl_tree_init(&pt_map->_t_tree, _map_key_less);
+    _avl_tree_init(&pt_map->_t_tree, _map_value_compare);
 #else
-    _rb_tree_init(&pt_map->_t_tree, _map_key_less);
+    _rb_tree_init(&pt_map->_t_tree, _map_value_compare);
 #endif
 }
 
-void map_init_ex(map_t* pt_map, binary_function_t t_key_less)
+void map_init_ex(map_t* pt_map, binary_function_t t_keycompare)
 {
     assert(pt_map != NULL);
 
     /*t_less = t_key_less != NULL ? t_key_less : _map_key_less;*/
-    pt_map->_t_keyless = t_key_less;
-    pt_map->_t_pair._t_mapkeyless = t_key_less;
+    pt_map->_t_keycompare = t_keycompare;
+    pt_map->_t_pair._t_mapkeycompare = t_keycompare;
 
     pair_init(&pt_map->_t_pair);
 #ifdef CSTL_MAP_AVL_TREE
-    _avl_tree_init(&pt_map->_t_tree, _map_key_less);
+    _avl_tree_init(&pt_map->_t_tree, _map_value_compare);
 #else
-    _rb_tree_init(&pt_map->_t_tree, _map_key_less);
+    _rb_tree_init(&pt_map->_t_tree, _map_value_compare);
 #endif
 }
 
@@ -324,10 +322,10 @@ void map_init_copy(map_t* pt_mapdest, const map_t* cpt_mapsrc)
 
     /* initialize dest map with src map attribute */
     map_init(pt_mapdest);
-    pt_mapdest->_t_keyless = cpt_mapsrc->_t_keyless;
-    pt_mapdest->_t_valueless = cpt_mapsrc->_t_valueless;
-    pt_mapdest->_t_pair._t_mapkeyless = cpt_mapsrc->_t_pair._t_mapkeyless;
-    pt_mapdest->_t_pair._t_mapvalueless = cpt_mapsrc->_t_pair._t_mapvalueless;
+    pt_mapdest->_t_keycompare = cpt_mapsrc->_t_keycompare;
+    pt_mapdest->_t_valuecompare = cpt_mapsrc->_t_valuecompare;
+    pt_mapdest->_t_pair._t_mapkeycompare = cpt_mapsrc->_t_pair._t_mapkeycompare;
+    pt_mapdest->_t_pair._t_mapvaluecompare = cpt_mapsrc->_t_pair._t_mapvaluecompare;
 
     assert(_map_same_pair_type(&pt_mapdest->_t_pair, &cpt_mapsrc->_t_pair));
     /* insert all element from src to dest */
@@ -358,7 +356,7 @@ void map_init_copy_range(map_t* pt_mapdest, map_iterator_t t_begin, map_iterator
 }
 
 void map_init_copy_range_ex(map_t* pt_mapdest,
-    map_iterator_t t_begin, map_iterator_t t_end, binary_function_t t_key_less)
+    map_iterator_t t_begin, map_iterator_t t_end, binary_function_t t_keycompare)
 {
     assert(pt_mapdest != NULL);
     assert(_GET_MAP_CONTAINER_TYPE(t_begin) == _MAP_CONTAINER &&
@@ -370,7 +368,7 @@ void map_init_copy_range_ex(map_t* pt_mapdest,
            _GET_MAP_CONTAINER(t_begin) == _GET_MAP_CONTAINER(t_end));
 
     /* initialize dest map with src map attribute */
-    map_init_ex(pt_mapdest, t_key_less);
+    map_init_ex(pt_mapdest, t_keycompare);
     /* insert all element from src to dest */
     if(!map_empty(_GET_MAP_CONTAINER(t_begin)))
     {
@@ -437,13 +435,13 @@ size_t map_max_size(const map_t* cpt_map)
 #endif
 }
 
-binary_function_t map_key_less(const map_t* cpt_map)
+binary_function_t map_key_comp(const map_t* cpt_map)
 {
     assert(cpt_map != NULL);
 
-    if(cpt_map->_t_keyless != NULL)
+    if(cpt_map->_t_keycompare != NULL)
     {
-        return cpt_map->_t_keyless;
+        return cpt_map->_t_keycompare;
     }
     else
     {
@@ -451,18 +449,11 @@ binary_function_t map_key_less(const map_t* cpt_map)
     }
 }
 
-binary_function_t map_value_less(const map_t* cpt_map)
+binary_function_t map_value_comp(const map_t* cpt_map)
 {
     assert(cpt_map != NULL);
 
-    if(cpt_map->_t_valueless != NULL)
-    {
-        return cpt_map->_t_valueless;
-    }
-    else
-    {
-        return _GET_MAP_SECOND_TYPE_LESS_FUNCTION(cpt_map);
-    }
+    return _map_value_compare;
 }
 
 void map_clear(map_t* pt_map)
@@ -766,8 +757,8 @@ map_iterator_t map_insert(map_t* pt_map, const pair_t* cpt_pair)
     assert(pt_map != NULL && cpt_pair != NULL);
 
     /* set key less function and value less function */
-    ((pair_t*)cpt_pair)->_t_mapkeyless = pt_map->_t_keyless;
-    ((pair_t*)cpt_pair)->_t_mapvalueless = pt_map->_t_valueless;
+    ((pair_t*)cpt_pair)->_t_mapkeycompare = pt_map->_t_keycompare;
+    ((pair_t*)cpt_pair)->_t_mapvaluecompare = pt_map->_t_valuecompare;
 
     assert(_map_same_pair_type(&pt_map->_t_pair, cpt_pair));
 
@@ -790,8 +781,8 @@ map_iterator_t map_insert_hint(map_t* pt_map, map_iterator_t t_hint, const pair_
     assert(pt_map != NULL && cpt_pair != NULL);
 
     /* set key less function and value less function */
-    ((pair_t*)cpt_pair)->_t_mapkeyless = pt_map->_t_keyless;
-    ((pair_t*)cpt_pair)->_t_mapvalueless = pt_map->_t_valueless;
+    ((pair_t*)cpt_pair)->_t_mapkeycompare = pt_map->_t_keycompare;
+    ((pair_t*)cpt_pair)->_t_mapvaluecompare = pt_map->_t_valuecompare;
 
     assert(_map_same_pair_type(&pt_map->_t_pair, cpt_pair));
 
@@ -962,12 +953,12 @@ static bool_t _map_same_pair_type(
             cpt_pairsecond->_t_typeinfosecond._pt_type) &&
            (cpt_pairfirst->_t_typeinfosecond._t_style ==
             cpt_pairsecond->_t_typeinfosecond._t_style) &&
-           (cpt_pairfirst->_t_mapkeyless == cpt_pairsecond->_t_mapkeyless) &&
-           (cpt_pairfirst->_t_mapvalueless == cpt_pairsecond->_t_mapvalueless);
+           (cpt_pairfirst->_t_mapkeycompare == cpt_pairsecond->_t_mapkeycompare) &&
+           (cpt_pairfirst->_t_mapvaluecompare == cpt_pairsecond->_t_mapvaluecompare);
 }
 #endif /* NDEBUG */
 
-static void _map_key_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+static void _map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     pair_t* pt_first = NULL;
     pair_t* pt_second = NULL;
@@ -980,9 +971,9 @@ static void _map_key_less(const void* cpv_first, const void* cpv_second, void* p
     assert(_map_same_pair_type(pt_first, pt_second));
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if(pt_first->_t_mapkeyless != NULL) /* the external key compare */
+    if(pt_first->_t_mapkeycompare != NULL) /* the external key compare */
     {
-        pt_first->_t_mapkeyless(pair_first(pt_first), pair_first(pt_second), pv_output);
+        pt_first->_t_mapkeycompare(pair_first(pt_first), pair_first(pt_second), pv_output);
     }
     else
     {
@@ -990,32 +981,6 @@ static void _map_key_less(const void* cpv_first, const void* cpv_second, void* p
             pt_first->_pv_first, pt_second->_pv_first, pv_output);
     }
 }
-
-/*
-static void _map_value_less(const void* cpv_first, const void* cpv_second, void* pv_output)
-{
-    pair_t* pt_first = NULL;
-    pair_t* pt_second = NULL;
-
-    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-
-    pt_first = (pair_t*)cpv_first;
-    pt_second = (pair_t*)cpv_second;
-
-    assert(_map_same_pair_type(pt_first, pt_second));
-
-    *(bool_t*)pv_output = pt_first->_t_typeinfosecond._pt_type->_t_typesize;
-    if(pt_first->_t_mapvalueless != NULL)
-    {
-        pt_first->_t_mapvalueless(pt_first->_pv_second, pt_second->_pv_second, pv_output);
-    }
-    else
-    {
-        pt_first->_t_typeinfosecond._pt_type->_t_typeless(
-            pt_first->_pv_second, pt_second->_pv_second, pv_output);
-    }
-}
-*/
 
 /** eof **/
 

@@ -223,14 +223,14 @@ void multiset_init(multiset_t* pt_multiset)
 #endif
 }
 
-void multiset_init_ex(multiset_t* pt_multiset, binary_function_t t_less)
+void multiset_init_ex(multiset_t* pt_multiset, binary_function_t t_compare)
 {
     assert(pt_multiset != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_init(&pt_multiset->_t_tree, t_less);
+    _avl_tree_init(&pt_multiset->_t_tree, t_compare);
 #else
-    _rb_tree_init(&pt_multiset->_t_tree, t_less);
+    _rb_tree_init(&pt_multiset->_t_tree, t_compare);
 #endif
 }
 
@@ -287,7 +287,7 @@ void multiset_init_copy_range(
 }
 
 void multiset_init_copy_range_ex(multiset_t* pt_multisetdest,
-    multiset_iterator_t t_begin, multiset_iterator_t t_end, binary_function_t t_less)
+    multiset_iterator_t t_begin, multiset_iterator_t t_end, binary_function_t t_compare)
 {
     assert(pt_multisetdest != NULL);
     assert(_GET_MULTISET_CONTAINER_TYPE(t_begin) == _MULTISET_CONTAINER &&
@@ -299,9 +299,9 @@ void multiset_init_copy_range_ex(multiset_t* pt_multisetdest,
            _GET_MULTISET_CONTAINER(t_begin) == _GET_MULTISET_CONTAINER(t_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_init_copy_range_ex(&pt_multisetdest->_t_tree, t_begin, t_end, t_less);
+    _avl_tree_init_copy_range_ex(&pt_multisetdest->_t_tree, t_begin, t_end, t_compare);
 #else
-    _rb_tree_init_copy_range_ex(&pt_multisetdest->_t_tree, t_begin, t_end, t_less);
+    _rb_tree_init_copy_range_ex(&pt_multisetdest->_t_tree, t_begin, t_end, t_compare);
 #endif
 }
 
@@ -425,20 +425,20 @@ multiset_iterator_t multiset_rend(const multiset_t* cpt_multiset)
     return t_newiterator;
 }
 
-binary_function_t multiset_key_less(const multiset_t* cpt_multiset)
+binary_function_t multiset_key_comp(const multiset_t* cpt_multiset)
 {
     assert(cpt_multiset != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    return _avl_tree_key_less(&cpt_multiset->_t_tree);
+    return _avl_tree_key_comp(&cpt_multiset->_t_tree);
 #else
-    return _rb_tree_key_less(&cpt_multiset->_t_tree);
+    return _rb_tree_key_comp(&cpt_multiset->_t_tree);
 #endif
 }
 
-binary_function_t multiset_value_less(const multiset_t* cpt_multiset)
+binary_function_t multiset_value_comp(const multiset_t* cpt_multiset)
 {
-    return multiset_key_less(cpt_multiset);
+    return multiset_key_comp(cpt_multiset);
 }
 
 void multiset_clear(multiset_t* pt_multiset)

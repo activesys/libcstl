@@ -104,7 +104,7 @@ void allocate_init(alloc_t* pt_allocater)
     assert(pt_allocater != NULL);
 
     pt_allocater->_t_mempoolsize = 0;
-    pt_allocater->_n_mempoolindex = 0;
+    pt_allocater->_t_mempoolindex = 0;
     pt_allocater->_pc_mempool = NULL;
     
     for(i = 0; i < _MEM_LIST_COUNT; ++i)
@@ -151,7 +151,7 @@ void allocate_destroy(alloc_t* pt_allocater)
     }
 
     pt_allocater->_pc_mempool = NULL;
-    pt_allocater->_n_mempoolindex = 0;
+    pt_allocater->_t_mempoolindex = 0;
     pt_allocater->_t_mempoolsize = 0;
     pt_allocater->_t_mempoolcount = 0;
 }
@@ -323,7 +323,7 @@ static char* _get_mem_from_mempool(
     else
     {
         /* if the memory pool conatiner is full */
-        assert(pt_allocater->_n_mempoolindex <= pt_allocater->_t_mempoolcount);
+        assert(pt_allocater->_t_mempoolindex <= pt_allocater->_t_mempoolcount);
         /* take the small memory block to the memory list */
         if(pt_allocater->_t_mempoolsize > 0)
         {
@@ -357,7 +357,7 @@ static char* _get_mem_from_mempool(
         }
 
         /* if the memory pool container is full */
-        if(pt_allocater->_n_mempoolindex == pt_allocater->_t_mempoolcount)
+        if(pt_allocater->_t_mempoolindex == pt_allocater->_t_mempoolcount)
         {
             char** ppc_oldmempool = pt_allocater->_ppc_allocatemempool;
 
@@ -375,7 +375,7 @@ static char* _get_mem_from_mempool(
                     pt_allocater->_ppc_allocatemempool, ppc_oldmempool,
                     pt_allocater->_t_mempoolcount - _MEM_POOL_DEFAULT_COUNT);
                 free(ppc_oldmempool);
-                assert(pt_allocater->_n_mempoolindex < pt_allocater->_t_mempoolcount);
+                assert(pt_allocater->_t_mempoolindex < pt_allocater->_t_mempoolcount);
             }
             else
             {
@@ -383,7 +383,7 @@ static char* _get_mem_from_mempool(
                 exit(EXIT_FAILURE);
             }
         }
-        pt_allocater->_ppc_allocatemempool[pt_allocater->_n_mempoolindex++] =
+        pt_allocater->_ppc_allocatemempool[pt_allocater->_t_mempoolindex++] =
             pt_allocater->_pc_mempool;
 
         /* apply memory from system heap success or call _oom_malloc success */
