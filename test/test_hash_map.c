@@ -332,7 +332,7 @@ void test_hash_map(void)
             }
             hash_map_init_ex(pt_hmap, 100, _hash_map_int_key_hash, fun_greater_int);
             assert(hash_map_hash(pt_hmap) == _hash_map_int_key_hash &&
-                hash_map_key_less(pt_hmap) == fun_greater_int);
+                hash_map_key_comp(pt_hmap) == fun_greater_int);
             hash_map_destroy(pt_hmap);
         }
         /*hash_map_resize            */
@@ -978,7 +978,7 @@ void test_hash_map(void)
             }
             hash_map_init_ex(pt_hmap, 0, _hash_map_sample_hash, fun_greater_int);
             assert(hash_map_hash(pt_hmap) == _hash_map_sample_hash &&
-                hash_map_key_less(pt_hmap) == fun_greater_int);
+                hash_map_key_comp(pt_hmap) == fun_greater_int);
             hash_map_destroy(pt_hmap);
         }
         /*hash_map_resize            */
@@ -1740,7 +1740,7 @@ void test_hash_map(void)
             }
             hash_map_init_ex(pt_hmap, 100, _hash_map_cstl_hash, fun_greater_int);
             assert(hash_map_hash(pt_hmap) == _hash_map_cstl_hash &&
-                hash_map_key_less(pt_hmap) == fun_greater_int);
+                hash_map_key_comp(pt_hmap) == fun_greater_int);
             hash_map_destroy(pt_hmap);
         }
         /*hash_map_resize            */
@@ -2513,7 +2513,7 @@ void test_hash_map(void)
             }
             hash_map_init_ex(pt_hmap, 0, _hash_map_cstr_hash, _hash_map_cstr_less);
             assert(hash_map_hash(pt_hmap) == _hash_map_cstr_hash &&
-                hash_map_key_less(pt_hmap) == _hash_map_cstr_less);
+                hash_map_key_comp(pt_hmap) == _hash_map_cstr_less);
             hash_map_destroy(pt_hmap);
         }
         /*hash_map_resize            */
@@ -3275,7 +3275,7 @@ void test_hash_multimap(void)
             }
             hash_multimap_init_ex(pt_hmmap, 100, _hash_multimap_int_key_hash, fun_greater_int);
             assert(hash_multimap_hash(pt_hmmap) == _hash_multimap_int_key_hash &&
-                hash_multimap_key_less(pt_hmmap) == fun_greater_int);
+                hash_multimap_key_comp(pt_hmmap) == fun_greater_int);
             hash_multimap_destroy(pt_hmmap);
         }
         /*hash_multimap_resize            */
@@ -4098,7 +4098,7 @@ void test_hash_multimap(void)
             }
             hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_sample_hash, fun_greater_int);
             assert(hash_multimap_hash(pt_hmmap) == _hash_multimap_sample_hash &&
-                hash_multimap_key_less(pt_hmmap) == fun_greater_int);
+                hash_multimap_key_comp(pt_hmmap) == fun_greater_int);
             hash_multimap_destroy(pt_hmmap);
         }
         /*hash_multimap_resize            */
@@ -5132,7 +5132,7 @@ void test_hash_multimap(void)
             }
             hash_multimap_init_ex(pt_hmmap, 100, _hash_multimap_cstl_hash, fun_greater_int);
             assert(hash_multimap_hash(pt_hmmap) == _hash_multimap_cstl_hash &&
-                hash_multimap_key_less(pt_hmmap) == fun_greater_int);
+                hash_multimap_key_comp(pt_hmmap) == fun_greater_int);
             hash_multimap_destroy(pt_hmmap);
         }
         /*hash_multimap_resize            */
@@ -6134,7 +6134,7 @@ void test_hash_multimap(void)
             hash_multimap_init_ex(pt_hmmap, 0,
                 _hash_multimap_cstr_hash, _hash_multimap_cstr_less);
             assert(hash_multimap_hash(pt_hmmap) == _hash_multimap_cstr_hash &&
-                hash_multimap_key_less(pt_hmmap) == _hash_multimap_cstr_less);
+                hash_multimap_key_comp(pt_hmmap) == _hash_multimap_cstr_less);
             hash_multimap_destroy(pt_hmmap);
         }
         /*hash_multimap_resize            */

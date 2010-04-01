@@ -57,7 +57,7 @@ extern "C" {
  */
 extern void hash_map_init(hash_map_t* pt_hash_map);
 extern void hash_map_init_ex(hash_map_t* pt_hash_map, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less);
+    unary_function_t t_hash, binary_function_t t_compare);
 extern void hash_map_destroy(hash_map_t* pt_hash_map);
 extern void hash_map_init_copy(
     hash_map_t* pt_hash_mapdest, const hash_map_t* cpt_hash_mapsrc);
@@ -65,7 +65,7 @@ extern void hash_map_init_copy_range(hash_map_t* pt_hash_mapdest,
     hash_map_iterator_t t_begin, hash_map_iterator_t t_end);
 extern void hash_map_init_copy_range_ex(hash_map_t* pt_hash_mapdest,
     hash_map_iterator_t t_begin, hash_map_iterator_t t_end, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less);
+    unary_function_t t_hash, binary_function_t t_compare);
 
 /*
  * Assign operator function.
@@ -95,7 +95,8 @@ extern unary_function_t hash_map_hash(const hash_map_t* cpt_hash_map);
 /*
  * Return the compare function.
  */
-extern binary_function_t hash_map_key_less(const hash_map_t* cpt_hash_map);
+extern binary_function_t hash_map_key_comp(const hash_map_t* cpt_hash_map);
+extern binary_function_t hash_map_value_comp(const hash_map_t* cpt_hash_map);
 
 /*
  * hash_map_t resize operation function.

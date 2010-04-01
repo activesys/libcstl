@@ -185,11 +185,11 @@ void hash_set_init(hash_set_t* pt_hash_set)
 }
 
 void hash_set_init_ex(hash_set_t* pt_hash_set, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less)
+    unary_function_t t_hash, binary_function_t t_compare)
 {
     assert(pt_hash_set != NULL);
 
-    _hashtable_init(&pt_hash_set->_t_hashtable, t_bucketcount, t_hash, t_less);
+    _hashtable_init(&pt_hash_set->_t_hashtable, t_bucketcount, t_hash, t_compare);
 }
 
 void hash_set_destroy(hash_set_t* pt_hash_set)
@@ -213,7 +213,7 @@ void hash_set_init_copy_range(hash_set_t* pt_hash_setdest,
 
 void hash_set_init_copy_range_ex(hash_set_t* pt_hash_setdest,
     hash_set_iterator_t t_begin, hash_set_iterator_t t_end, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less)
+    unary_function_t t_hash, binary_function_t t_compare)
 {
     assert(pt_hash_setdest != NULL);
     assert(_GET_HASH_SET_CONTAINER_TYPE(t_begin) == _HASH_SET_CONTAINER &&
@@ -225,7 +225,7 @@ void hash_set_init_copy_range_ex(hash_set_t* pt_hash_setdest,
            _GET_HASH_SET_CONTAINER(t_begin) == _GET_HASH_SET_CONTAINER(t_end));
 
     _hashtable_init_copy_range(&pt_hash_setdest->_t_hashtable, t_begin, t_end,
-        t_bucketcount, t_hash, t_less);
+        t_bucketcount, t_hash, t_compare);
 }
 
 void hash_set_assign(
@@ -278,11 +278,18 @@ unary_function_t hash_set_hash(const hash_set_t* cpt_hash_set)
     return _hashtable_hash(&cpt_hash_set->_t_hashtable);
 }
 
-binary_function_t hash_set_key_less(const hash_set_t* cpt_hash_set)
+binary_function_t hash_set_key_comp(const hash_set_t* cpt_hash_set)
 {
     assert(cpt_hash_set != NULL);
 
-    return _hashtable_key_less(&cpt_hash_set->_t_hashtable);
+    return _hashtable_key_comp(&cpt_hash_set->_t_hashtable);
+}
+
+binary_function_t hash_set_value_comp(const hash_set_t* cpt_hash_set)
+{
+    assert(cpt_hash_set != NULL);
+
+    return _hashtable_key_comp(&cpt_hash_set->_t_hashtable);
 }
 
 void hash_set_resize(hash_set_t* pt_hash_set, size_t t_resize)

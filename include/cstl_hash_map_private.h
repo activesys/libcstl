@@ -36,8 +36,8 @@ typedef struct _taghashmap
 {
     pair_t            _t_pair;
     hashtable_t       _t_hashtable;
-    binary_function_t _t_keyless;    /* for external key less */
-    binary_function_t _t_valueless;
+    binary_function_t _t_keycompare;    /* for external key compare */
+    binary_function_t _t_valuecompare;
 }hash_map_t;
 
 /** exported global variable declaration section **/

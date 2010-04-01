@@ -57,14 +57,14 @@ extern "C" {
  */
 extern void hash_set_init(hash_set_t* pt_hash_set);
 extern void hash_set_init_ex(hash_set_t* pt_hash_set, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less);
+    unary_function_t t_hash, binary_function_t t_compare);
 extern void hash_set_destroy(hash_set_t* pt_hash_set);
 extern void hash_set_init_copy(hash_set_t* pt_hash_setdest, const hash_set_t* cpt_hash_setsrc);
 extern void hash_set_init_copy_range(
     hash_set_t* pt_hash_setdest, hash_set_iterator_t t_begin, hash_set_iterator_t t_end);
 extern void hash_set_init_copy_range_ex(hash_set_t* pt_hash_set,
     hash_set_iterator_t t_begin, hash_set_iterator_t t_end, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less);
+    unary_function_t t_hash, binary_function_t t_compare);
 
 /*
  * Assign operator function.
@@ -92,7 +92,8 @@ extern unary_function_t hash_set_hash(const hash_set_t* cpt_hash_set);
 /*
  * Return the compare function.
  */
-extern binary_function_t hash_set_key_less(const hash_set_t* cpt_hash_set);
+extern binary_function_t hash_set_key_comp(const hash_set_t* cpt_hash_set);
+extern binary_function_t hash_set_value_comp(const hash_set_t* cpt_hash_set);
 
 /*
  * Resize operation.

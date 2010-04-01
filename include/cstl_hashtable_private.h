@@ -52,8 +52,8 @@ typedef struct _taghashtable
 
     /* hash function */
     unary_function_t _t_hash;
-    /* key less function */
-    binary_function_t _t_less;
+    /* key compare function */
+    binary_function_t _t_compare;
 }hashtable_t;
 
 /* for the result of equal_range and insert_unique function */
@@ -67,14 +67,14 @@ typedef struct _taghashtable
 extern hashtable_t* _create_hashtable(const char* s_typename);
 extern bool_t _create_hashtable_auxiliary(hashtable_t* pt_hashtable, const char* s_typename);
 extern void _hashtable_init(hashtable_t* pt_hashtable,
-    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less);
+    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_compare);
 extern void _hashtable_destroy(hashtable_t* pt_hashtable);
 extern void _hashtable_destroy_auxiliary(hashtable_t* pt_hashtable);
 extern void _hashtable_init_copy(
     hashtable_t* pt_hashtabledest, const hashtable_t* cpt_hashtablesrc);
 extern void _hashtable_init_copy_range(hashtable_t* pt_hashtabledest,
     hashtable_iterator_t t_begin, hashtable_iterator_t t_end,
-    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less);
+    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_compare);
 
 /*
  * Assign operator function.
@@ -109,7 +109,7 @@ extern unary_function_t _hashtable_hash(const hashtable_t* cpt_hashtable);
 /*
  * Return the compare function (private).
  */
-extern binary_function_t _hashtable_key_less(const hashtable_t* cpt_hashtable);
+extern binary_function_t _hashtable_key_comp(const hashtable_t* cpt_hashtable);
 
 /*
  * Relationship operator functions.

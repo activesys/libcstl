@@ -54,7 +54,7 @@ extern "C" {
  */
 extern void hash_multimap_init(hash_multimap_t* pt_hash_multimap);
 extern void hash_multimap_init_ex(hash_multimap_t* pt_hash_multimap, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less);
+    unary_function_t t_hash, binary_function_t t_compare);
 extern void hash_multimap_destroy(hash_multimap_t* pt_hash_multimap);
 extern void hash_multimap_init_copy(
     hash_multimap_t* pt_hash_multimapdest, const hash_multimap_t* cpt_hash_multimapsrc);
@@ -62,7 +62,7 @@ extern void hash_multimap_init_copy_range(hash_multimap_t* pt_hash_multimapdest,
     hash_multimap_iterator_t t_begin, hash_multimap_iterator_t t_end);
 extern void hash_multimap_init_copy_range_ex(hash_multimap_t* pt_hash_multimapdest,
     hash_multimap_iterator_t t_begin, hash_multimap_iterator_t t_end,
-    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less);
+    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_compare);
 
 /*
  * Assign operator function.
@@ -92,7 +92,8 @@ extern unary_function_t hash_multimap_hash(const hash_multimap_t* cpt_hash_multi
 /*
  * Return the compare function.
  */
-extern binary_function_t hash_multimap_key_less(const hash_multimap_t* cpt_hash_multimap);
+extern binary_function_t hash_multimap_key_comp(const hash_multimap_t* cpt_hash_multimap);
+extern binary_function_t hash_multimap_value_comp(const hash_multimap_t* cpt_hash_multimap);
 
 /*
  * Resize operation function.

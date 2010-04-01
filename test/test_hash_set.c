@@ -276,7 +276,7 @@ void test_hash_set(void)
             }
             hash_set_init_ex(pt_hset, 100, _hash_set_int_hash, fun_greater_int);
             assert(hash_set_hash(pt_hset) == _hash_set_int_hash &&
-                hash_set_key_less(pt_hset) == fun_greater_int);
+                hash_set_key_comp(pt_hset) == fun_greater_int);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_resize            */
@@ -933,7 +933,7 @@ void test_hash_set(void)
             }
             hash_set_init_ex(pt_hset, 100, _hash_set_sample_hash, _hash_sample_greater);
             assert(hash_set_hash(pt_hset) == _hash_set_sample_hash &&
-                hash_set_key_less(pt_hset) == _hash_sample_greater);
+                hash_set_key_comp(pt_hset) == _hash_sample_greater);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_resize            */
@@ -1817,7 +1817,7 @@ void test_hash_set(void)
             }
             hash_set_init_ex(pt_hset, 100, _hash_set_cstl_hash, NULL);
             assert(hash_set_hash(pt_hset) == _hash_set_cstl_hash &&
-                hash_set_key_less(pt_hset) != NULL);
+                hash_set_key_comp(pt_hset) != NULL);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_resize            */
@@ -2754,7 +2754,7 @@ void test_hash_set(void)
             }
             hash_set_init_ex(pt_hset, 100, _hash_set_cstr_hash, _hash_set_cstr_less);
             assert(hash_set_hash(pt_hset) == _hash_set_cstr_hash &&
-                hash_set_key_less(pt_hset) == _hash_set_cstr_less);
+                hash_set_key_comp(pt_hset) == _hash_set_cstr_less);
             hash_set_destroy(pt_hset);
         }
         /*hash_set_resize            */
@@ -3389,7 +3389,7 @@ void test_hash_multiset(void)
             }
             hash_multiset_init_ex(pt_hmset, 100, _hash_set_int_hash, fun_greater_int);
             assert(hash_multiset_hash(pt_hmset) == _hash_set_int_hash &&
-                hash_multiset_key_less(pt_hmset) == fun_greater_int);
+                hash_multiset_key_comp(pt_hmset) == fun_greater_int);
             hash_multiset_destroy(pt_hmset);
         }
         /*hash_multiset_resize            */
@@ -3994,7 +3994,7 @@ void test_hash_multiset(void)
             }
             hash_multiset_init_ex(pt_hmset, 100, _hash_set_sample_hash, _hash_sample_greater);
             assert(hash_multiset_hash(pt_hmset) == _hash_set_sample_hash &&
-                hash_multiset_key_less(pt_hmset) == _hash_sample_greater);
+                hash_multiset_key_comp(pt_hmset) == _hash_sample_greater);
             hash_multiset_destroy(pt_hmset);
         }
         /*hash_multiset_resize            */
@@ -4838,7 +4838,7 @@ void test_hash_multiset(void)
             }
             hash_multiset_init_ex(pt_hset, 100, _hash_multiset_cstl_hash, NULL);
             assert(hash_multiset_hash(pt_hset) == _hash_multiset_cstl_hash &&
-                hash_multiset_key_less(pt_hset) != NULL);
+                hash_multiset_key_comp(pt_hset) != NULL);
             hash_multiset_destroy(pt_hset);
         }
         /*hash_multiset_resize            */
@@ -5758,7 +5758,7 @@ void test_hash_multiset(void)
             }
             hash_multiset_init_ex(pt_hmset, 100, _hash_multiset_cstr_hash, _hash_multiset_cstr_less);
             assert(hash_multiset_hash(pt_hmset) == _hash_multiset_cstr_hash &&
-                hash_multiset_key_less(pt_hmset) == _hash_multiset_cstr_less);
+                hash_multiset_key_comp(pt_hmset) == _hash_multiset_cstr_less);
             hash_multiset_destroy(pt_hmset);
         }
         /*hash_multiset_resize            */

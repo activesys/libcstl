@@ -57,7 +57,7 @@ extern "C" {
  */
 extern void hash_multiset_init(hash_multiset_t* pt_hash_multiset);
 extern void hash_multiset_init_ex(hash_multiset_t* pt_hash_multiset, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less);
+    unary_function_t t_hash, binary_function_t t_compare);
 extern void hash_multiset_destroy(hash_multiset_t* pt_hash_multiset);
 extern void hash_multiset_init_copy(
     hash_multiset_t* pt_hash_multisetdest, const hash_multiset_t* cpt_hash_multisetsrc);
@@ -65,7 +65,7 @@ extern void hash_multiset_init_copy_range(hash_multiset_t* pt_hash_multisetdest,
     hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end);
 extern void hash_multiset_init_copy_range_ex(hash_multiset_t* pt_hash_multisetdest,
     hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less);
+    unary_function_t t_hash, binary_function_t t_compare);
 
 /*
  * Assign operator function.
@@ -95,7 +95,8 @@ extern unary_function_t hash_multiset_hash(const hash_multiset_t* cpt_hash_multi
 /*
  * Return the compare function.
  */
-extern binary_function_t hash_multiset_key_less(const hash_multiset_t* cpt_hash_multiset);
+extern binary_function_t hash_multiset_key_comp(const hash_multiset_t* cpt_hash_multiset);
+extern binary_function_t hash_multiset_value_comp(const hash_multiset_t* cpt_hash_multiset);
 
 /*
  * Resize operation functions.

@@ -566,6 +566,7 @@ EXPORTS
     hash_set_erase_pos                      @16030
     hash_set_erase_range                    @16031
     hash_set_clear                          @16032
+    hash_set_value_comp                     @16033
 
 ; hash_multiset_t interfaces
     _create_hash_multiset                   @17000
@@ -601,6 +602,7 @@ EXPORTS
     hash_multiset_erase_pos                 @17030
     hash_multiset_erase_range               @17031
     hash_multiset_clear                     @17032
+    hash_multiset_value_comp                @17033
 
 ; hash_map_t interfaces
     _create_hash_map                        @18000
@@ -637,6 +639,7 @@ EXPORTS
     hash_map_erase_pos                      @18031
     hash_map_erase_range                    @18032
     hash_map_clear                          @18033
+    hash_map_value_comp                     @18034
 
 ; hash_multimap_t interfaces
     _create_hash_multimap                   @19000
@@ -672,6 +675,7 @@ EXPORTS
     hash_multimap_erase_pos                 @19030
     hash_multimap_erase_range               @19031
     hash_multimap_clear                     @19032
+    hash_multimap_value_comp                @19033
 
 ; numberic algorithm interfaces
     _algo_iota                              @20000

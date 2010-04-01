@@ -188,11 +188,11 @@ void hash_multiset_init(hash_multiset_t* pt_hash_multiset)
 }
 
 void hash_multiset_init_ex(hash_multiset_t* pt_hash_multiset, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less)
+    unary_function_t t_hash, binary_function_t t_compare)
 {
     assert(pt_hash_multiset != NULL);
 
-    _hashtable_init(&pt_hash_multiset->_t_hashtable, t_bucketcount, t_hash, t_less);
+    _hashtable_init(&pt_hash_multiset->_t_hashtable, t_bucketcount, t_hash, t_compare);
 }
 
 void hash_multiset_destroy(hash_multiset_t* pt_hash_multiset)
@@ -219,7 +219,7 @@ void hash_multiset_init_copy_range(hash_multiset_t* pt_hash_multisetdest,
 
 void hash_multiset_init_copy_range_ex(hash_multiset_t* pt_hash_multisetdest,
     hash_multiset_iterator_t t_begin, hash_multiset_iterator_t t_end,
-    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_less)
+    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_compare)
 {
     assert(pt_hash_multisetdest != NULL);
     assert(_GET_HASH_MULTISET_CONTAINER_TYPE(t_begin) == _HASH_MULTISET_CONTAINER &&
@@ -232,7 +232,7 @@ void hash_multiset_init_copy_range_ex(hash_multiset_t* pt_hash_multisetdest,
                _GET_HASH_MULTISET_CONTAINER(t_end));
 
     _hashtable_init_copy_range(&pt_hash_multisetdest->_t_hashtable, 
-        t_begin, t_end, t_bucketcount, t_hash, t_less);
+        t_begin, t_end, t_bucketcount, t_hash, t_compare);
 }
 
 void hash_multiset_assign(
@@ -288,11 +288,18 @@ unary_function_t hash_multiset_hash(const hash_multiset_t* cpt_hash_multiset)
     return _hashtable_hash(&cpt_hash_multiset->_t_hashtable);
 }
 
-binary_function_t hash_multiset_key_less(const hash_multiset_t* cpt_hash_multiset)
+binary_function_t hash_multiset_key_comp(const hash_multiset_t* cpt_hash_multiset)
 {
     assert(cpt_hash_multiset != NULL);
 
-    return _hashtable_key_less(&cpt_hash_multiset->_t_hashtable);
+    return _hashtable_key_comp(&cpt_hash_multiset->_t_hashtable);
+}
+
+binary_function_t hash_multiset_value_comp(const hash_multiset_t* cpt_hash_multiset)
+{
+    assert(cpt_hash_multiset != NULL);
+
+    return _hashtable_key_comp(&cpt_hash_multiset->_t_hashtable);
 }
 
 void hash_multiset_resize(hash_multiset_t* pt_hash_multiset, size_t t_resize)

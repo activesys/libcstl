@@ -91,7 +91,7 @@ static bool_t _hash_multimap_same_pair_type(
 /*
  * hash_multimap element compare function.
  */
-static void _hash_multimap_key_less(
+static void _hash_multimap_value_compare(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
@@ -210,8 +210,8 @@ bool_t _create_hash_multimap_auxiliary(
     strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
     strncat(s_typenameex, ">", _TYPE_NAME_SIZE);
 
-    pt_hash_multimap->_t_keyless = NULL;
-    pt_hash_multimap->_t_valueless = NULL;
+    pt_hash_multimap->_t_keycompare = NULL;
+    pt_hash_multimap->_t_valuecompare = NULL;
 
     return _create_hashtable_auxiliary(&pt_hash_multimap->_t_hashtable, s_typenameex);
 }
@@ -223,8 +223,8 @@ void _hash_multimap_destroy_auxiliary(hash_multimap_t* pt_hash_multimap)
     _pair_destroy_auxiliary(&pt_hash_multimap->_t_pair);
     _hashtable_destroy_auxiliary(&pt_hash_multimap->_t_hashtable);
 
-    pt_hash_multimap->_t_keyless = NULL;
-    pt_hash_multimap->_t_valueless = NULL;
+    pt_hash_multimap->_t_keycompare = NULL;
+    pt_hash_multimap->_t_valuecompare = NULL;
 }
 
 /* hash_multimap function */
@@ -234,18 +234,18 @@ void hash_multimap_init(hash_multimap_t* pt_hash_multimap)
 }
 
 void hash_multimap_init_ex(hash_multimap_t* pt_hash_multimap, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less)
+    unary_function_t t_hash, binary_function_t t_compare)
 {
     assert(pt_hash_multimap != NULL);
 
     /*t_key_less = t_less != NULL ? t_less : _hash_multimap_key_less;*/
-    pt_hash_multimap->_t_keyless = t_less;
-    pt_hash_multimap->_t_pair._t_mapkeycompare = t_less;
+    pt_hash_multimap->_t_keycompare = t_compare;
+    pt_hash_multimap->_t_pair._t_mapkeycompare = t_compare;
     /* initialize the pair */
     pair_init(&pt_hash_multimap->_t_pair);
     /* initialize the hashtable */
     _hashtable_init(&pt_hash_multimap->_t_hashtable, t_bucketcount,
-        t_hash, _hash_multimap_key_less);
+        t_hash, _hash_multimap_value_compare);
 }
 
 void hash_multimap_destroy(hash_multimap_t* pt_hash_multimap)
@@ -261,9 +261,9 @@ void hash_multimap_init_copy(
     hash_multimap_init_ex(pt_hash_multimapdest,
         hash_multimap_bucket_count(cpt_hash_multimapsrc),
         hash_multimap_hash(cpt_hash_multimapsrc),
-        hash_multimap_key_less(cpt_hash_multimapsrc));
-    pt_hash_multimapdest->_t_keyless = cpt_hash_multimapsrc->_t_keyless;
-    pt_hash_multimapdest->_t_valueless = cpt_hash_multimapsrc->_t_valueless;
+        hash_multimap_key_comp(cpt_hash_multimapsrc));
+    pt_hash_multimapdest->_t_keycompare = cpt_hash_multimapsrc->_t_keycompare;
+    pt_hash_multimapdest->_t_valuecompare = cpt_hash_multimapsrc->_t_valuecompare;
     pt_hash_multimapdest->_t_pair._t_mapkeycompare = cpt_hash_multimapsrc->_t_pair._t_mapkeycompare;
     pt_hash_multimapdest->_t_pair._t_mapvaluecompare = cpt_hash_multimapsrc->_t_pair._t_mapvaluecompare;
     assert(_hash_multimap_same_pair_type(
@@ -284,7 +284,7 @@ void hash_multimap_init_copy_range(hash_multimap_t* pt_hash_multimapdest,
 
 void hash_multimap_init_copy_range_ex(hash_multimap_t* pt_hash_multimapdest,
     hash_multimap_iterator_t t_begin, hash_multimap_iterator_t t_end, size_t t_bucketcount,
-    unary_function_t t_hash, binary_function_t t_less)
+    unary_function_t t_hash, binary_function_t t_compare)
 {
     assert(pt_hash_multimapdest != NULL);
     assert(_GET_HASH_MULTIMAP_CONTAINER_TYPE(t_begin) == _HASH_MULTIMAP_CONTAINER &&
@@ -296,7 +296,7 @@ void hash_multimap_init_copy_range_ex(hash_multimap_t* pt_hash_multimapdest,
            _GET_HASH_MULTIMAP_CONTAINER(t_begin) == 
                _GET_HASH_MULTIMAP_CONTAINER(t_end));
 
-    hash_multimap_init_ex(pt_hash_multimapdest, t_bucketcount, t_hash, t_less);
+    hash_multimap_init_ex(pt_hash_multimapdest, t_bucketcount, t_hash, t_compare);
 
     if(!hash_multimap_empty(_GET_HASH_MULTIMAP_CONTAINER(t_begin)))
     {
@@ -365,19 +365,26 @@ unary_function_t hash_multimap_hash(const hash_multimap_t* cpt_hash_multimap)
     return _hashtable_hash(&cpt_hash_multimap->_t_hashtable);
 }
 
-binary_function_t hash_multimap_key_less(const hash_multimap_t* cpt_hash_multimap)
+binary_function_t hash_multimap_key_comp(const hash_multimap_t* cpt_hash_multimap)
 {
     assert(cpt_hash_multimap != NULL);
 
     /*return _hashtable_key_less(&cpt_hash_multimap->_t_hashtable);*/
-    if (cpt_hash_multimap->_t_keyless != NULL)
+    if (cpt_hash_multimap->_t_keycompare != NULL)
     {
-        return cpt_hash_multimap->_t_keyless;
+        return cpt_hash_multimap->_t_keycompare;
     }
     else
     {
         return _GET_HASH_MULTIMAP_FIRST_TYPE_LESS_FUNCTION(cpt_hash_multimap);
     }
+}
+
+binary_function_t hash_multimap_value_comp(const hash_multimap_t* cpt_hash_multimap)
+{
+    assert(cpt_hash_multimap != NULL);
+
+    return _hash_multimap_value_compare;
 }
 
 void hash_multimap_resize(hash_multimap_t* pt_hash_multimap, size_t t_resize)
@@ -564,8 +571,8 @@ hash_multimap_iterator_t hash_multimap_insert(
     hash_multimap_iterator_t t_result;
 
     assert(pt_hash_multimap != NULL && cpt_pair != NULL);
-    ((pair_t*)cpt_pair)->_t_mapkeycompare = pt_hash_multimap->_t_keyless;
-    ((pair_t*)cpt_pair)->_t_mapvaluecompare = pt_hash_multimap->_t_valueless;
+    ((pair_t*)cpt_pair)->_t_mapkeycompare = pt_hash_multimap->_t_keycompare;
+    ((pair_t*)cpt_pair)->_t_mapvaluecompare = pt_hash_multimap->_t_valuecompare;
     assert(_hash_multimap_same_pair_type(&pt_hash_multimap->_t_pair, cpt_pair));
 
     /* insert int hashtable */
@@ -700,7 +707,7 @@ static bool_t _hash_multimap_same_pair_type(
 }
 #endif /* NDEBUG */
 
-static void _hash_multimap_key_less(
+static void _hash_multimap_value_compare(
     const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     pair_t* pt_first = NULL;
