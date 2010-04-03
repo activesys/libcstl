@@ -45,6 +45,8 @@ extern void _hash_multimap_iterator_get_value(
     hash_multimap_iterator_t t_iter, void* pv_value);
 extern const void* _hash_multimap_iterator_get_pointer(
     hash_multimap_iterator_t t_iter); 
+extern hash_multimap_iterator_t _hash_multimap_iterator_prev(
+    hash_multimap_iterator_t t_iter);
 extern hash_multimap_iterator_t _hash_multimap_iterator_next(
     hash_multimap_iterator_t t_iter);
 extern bool_t _hash_multimap_iterator_equal(

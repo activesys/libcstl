@@ -45,6 +45,8 @@ extern void _hash_map_iterator_get_value(
     hash_map_iterator_t t_iter, void* pv_value);
 extern const void* _hash_map_iterator_get_pointer(
     hash_map_iterator_t t_iter); 
+extern hash_map_iterator_t _hash_map_iterator_prev(
+    hash_map_iterator_t t_iter);
 extern hash_map_iterator_t _hash_map_iterator_next(
     hash_map_iterator_t t_iter);
 extern bool_t _hash_map_iterator_equal(

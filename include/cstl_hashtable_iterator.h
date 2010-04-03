@@ -44,6 +44,7 @@ extern hashtable_iterator_t _create_hashtable_iterator(void);
 extern void _hashtable_iterator_get_value(hashtable_iterator_t t_iter, void* pv_value);
 extern const void* _hashtable_iterator_get_pointer(hashtable_iterator_t t_iter);
 extern hashtable_iterator_t _hashtable_iterator_next(hashtable_iterator_t t_iter);
+extern hashtable_iterator_t _hashtable_iterator_prev(hashtable_iterator_t t_iter);
 extern bool_t _hashtable_iterator_equal(
     hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond);
 extern int _hashtable_iterator_distance(

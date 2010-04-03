@@ -101,7 +101,7 @@ hash_map_iterator_t create_hash_map_iterator(void)
     hash_map_iterator_t t_newiterator = _create_hashtable_iterator();
 
     _GET_HASH_MAP_CONTAINER_TYPE(t_newiterator) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_newiterator) = _FORWARD_ITERATOR;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
@@ -110,7 +110,7 @@ void _hash_map_iterator_get_value(hash_map_iterator_t t_iter, void* pv_value)
 {
     assert(pv_value != NULL);
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_iter) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_iter) == _FORWARD_ITERATOR);
+           _GET_HASH_MAP_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
 
     _hashtable_iterator_get_value(t_iter, pv_value);
 }
@@ -118,15 +118,23 @@ void _hash_map_iterator_get_value(hash_map_iterator_t t_iter, void* pv_value)
 const void* _hash_map_iterator_get_pointer(hash_map_iterator_t t_iter)
 {
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_iter) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_iter) == _FORWARD_ITERATOR);
+           _GET_HASH_MAP_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
 
     return _hashtable_iterator_get_pointer(t_iter);
+}
+
+hash_map_iterator_t _hash_map_iterator_prev(hash_map_iterator_t t_iter)
+{
+    assert(_GET_HASH_MAP_CONTAINER_TYPE(t_iter) == _HASH_MAP_CONTAINER &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
+
+    return _hashtable_iterator_prev(t_iter);
 }
 
 hash_map_iterator_t _hash_map_iterator_next(hash_map_iterator_t t_iter)
 {
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_iter) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_iter) == _FORWARD_ITERATOR);
+           _GET_HASH_MAP_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
 
     return _hashtable_iterator_next(t_iter);
 }
@@ -135,9 +143,9 @@ bool_t _hash_map_iterator_equal(
     hash_map_iterator_t t_iterfirst, hash_map_iterator_t t_itersecond)
 {
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_iterfirst) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_iterfirst) == _FORWARD_ITERATOR &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_iterfirst) == _BIDIRECTIONAL_ITERATOR &&
            _GET_HASH_MAP_CONTAINER_TYPE(t_itersecond) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_itersecond) == _FORWARD_ITERATOR);
+           _GET_HASH_MAP_ITERATOR_TYPE(t_itersecond) == _BIDIRECTIONAL_ITERATOR);
 
     return _hashtable_iterator_equal(t_iterfirst, t_itersecond);
 }
@@ -146,9 +154,9 @@ int _hash_map_iterator_distance(
     hash_map_iterator_t t_iterfirst, hash_map_iterator_t t_itersecond)
 {
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_iterfirst) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_iterfirst) == _FORWARD_ITERATOR &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_iterfirst) == _BIDIRECTIONAL_ITERATOR &&
            _GET_HASH_MAP_CONTAINER_TYPE(t_itersecond) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_itersecond) == _FORWARD_ITERATOR &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_itersecond) == _BIDIRECTIONAL_ITERATOR &&
            _GET_HASH_MAP_CONTAINER(t_iterfirst) == _GET_HASH_MAP_CONTAINER(t_itersecond));
 
     return _hashtable_iterator_distance(t_iterfirst, t_itersecond);
@@ -158,9 +166,9 @@ bool_t _hash_map_iterator_before(
     hash_map_iterator_t t_iterfirst, hash_map_iterator_t t_itersecond)
 {
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_iterfirst) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_iterfirst) == _FORWARD_ITERATOR &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_iterfirst) == _BIDIRECTIONAL_ITERATOR &&
            _GET_HASH_MAP_CONTAINER_TYPE(t_itersecond) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_itersecond) == _FORWARD_ITERATOR &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_itersecond) == _BIDIRECTIONAL_ITERATOR &&
            _GET_HASH_MAP_CONTAINER(t_iterfirst) == 
                _GET_HASH_MAP_CONTAINER(t_itersecond));
 
@@ -277,9 +285,9 @@ void hash_map_init_copy_range_ex(hash_map_t* pt_hash_mapdest,
 {
     assert(pt_hash_mapdest != NULL);
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_begin) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_begin) == _FORWARD_ITERATOR &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
            _GET_HASH_MAP_CONTAINER_TYPE(t_end) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_end) == _FORWARD_ITERATOR);
+           _GET_HASH_MAP_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
     assert(_GET_HASH_MAP_CONTAINER(t_begin) != pt_hash_mapdest &&
            _GET_HASH_MAP_CONTAINER(t_end) != pt_hash_mapdest &&
            _GET_HASH_MAP_CONTAINER(t_begin) == _GET_HASH_MAP_CONTAINER(t_end));
@@ -389,7 +397,7 @@ hash_map_iterator_t hash_map_begin(const hash_map_t* cpt_hash_map)
 
     _GET_CONTAINER(t_newiterator) = (hash_map_t*)cpt_hash_map;
     _GET_HASH_MAP_CONTAINER_TYPE(t_newiterator) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_newiterator) = _FORWARD_ITERATOR;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
@@ -404,7 +412,7 @@ hash_map_iterator_t hash_map_end(const hash_map_t* cpt_hash_map)
 
     _GET_CONTAINER(t_newiterator) = (hash_map_t*)cpt_hash_map;
     _GET_HASH_MAP_CONTAINER_TYPE(t_newiterator) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_newiterator) = _FORWARD_ITERATOR;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
@@ -484,7 +492,7 @@ hash_map_iterator_t _hash_map_find_varg(
 
     _GET_CONTAINER(t_iterator) = (hash_map_t*)cpt_hash_map;
     _GET_HASH_MAP_CONTAINER_TYPE(t_iterator) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_iterator) = _FORWARD_ITERATOR;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_iterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_iterator;
 }
@@ -528,11 +536,11 @@ range_t _hash_map_equal_range_varg(
 
     _GET_CONTAINER(t_result.it_begin) = (hash_map_t*)cpt_hash_map;
     _GET_HASH_MAP_CONTAINER_TYPE(t_result.it_begin) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_result.it_begin) = _FORWARD_ITERATOR;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_result.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
     _GET_CONTAINER(t_result.it_end) = (hash_map_t*)cpt_hash_map;
     _GET_HASH_MAP_CONTAINER_TYPE(t_result.it_end) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_result.it_end) = _FORWARD_ITERATOR;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_result.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return t_result;
 }
@@ -553,7 +561,7 @@ hash_map_iterator_t hash_map_insert(
 
     _GET_CONTAINER(t_result) = pt_hash_map;
     _GET_HASH_MAP_CONTAINER_TYPE(t_result) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_result) = _FORWARD_ITERATOR;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_result) = _BIDIRECTIONAL_ITERATOR;
 
     return t_result;
 }
@@ -565,9 +573,9 @@ void hash_map_insert_range(
 
     assert(pt_hash_map != NULL);
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_begin) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_begin) == _FORWARD_ITERATOR &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
            _GET_HASH_MAP_CONTAINER_TYPE(t_end) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_end) == _FORWARD_ITERATOR);
+           _GET_HASH_MAP_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
     assert(_GET_HASH_MAP_CONTAINER(t_begin) != pt_hash_map &&
            _GET_HASH_MAP_CONTAINER(t_end) != pt_hash_map &&
            _GET_HASH_MAP_CONTAINER(t_begin) == _GET_HASH_MAP_CONTAINER(t_end));
@@ -584,7 +592,7 @@ void hash_map_erase_pos(hash_map_t* pt_hash_map, hash_map_iterator_t t_pos)
 {
     assert(pt_hash_map != NULL);
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_pos) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_pos) == _FORWARD_ITERATOR &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_pos) == _BIDIRECTIONAL_ITERATOR &&
            _GET_HASH_MAP_CONTAINER(t_pos) == pt_hash_map);
 
     _hashtable_erase_pos(&pt_hash_map->_t_hashtable, t_pos);
@@ -595,9 +603,9 @@ void hash_map_erase_range(
 {
     assert(pt_hash_map != NULL);
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_begin) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_begin) == _FORWARD_ITERATOR &&
+           _GET_HASH_MAP_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
            _GET_HASH_MAP_CONTAINER_TYPE(t_end) == _HASH_MAP_CONTAINER &&
-           _GET_HASH_MAP_ITERATOR_TYPE(t_end) == _FORWARD_ITERATOR);
+           _GET_HASH_MAP_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
     assert(_GET_HASH_MAP_CONTAINER(t_begin) == pt_hash_map &&
            _GET_HASH_MAP_CONTAINER(t_end) == pt_hash_map);
 
@@ -647,7 +655,7 @@ void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
     t_result = _hashtable_insert_unique(&pt_hash_map->_t_hashtable, &pt_hash_map->_t_pair);
     _GET_CONTAINER(t_result) = pt_hash_map;
     _GET_HASH_MAP_CONTAINER_TYPE(t_result) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_result) = _FORWARD_ITERATOR;
+    _GET_HASH_MAP_ITERATOR_TYPE(t_result) = _BIDIRECTIONAL_ITERATOR;
 
     if(iterator_equal(t_result, hash_map_end(pt_hash_map)))
     {

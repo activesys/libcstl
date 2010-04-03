@@ -44,6 +44,7 @@ extern hash_set_iterator_t create_hash_set_iterator(void);
 extern void _hash_set_iterator_get_value(hash_set_iterator_t t_iter, void* pv_value);
 extern const void* _hash_set_iterator_get_pointer(hash_set_iterator_t t_iter); 
 extern hash_set_iterator_t _hash_set_iterator_next(hash_set_iterator_t t_iter);
+extern hash_set_iterator_t _hash_set_iterator_prev(hash_set_iterator_t t_iter);
 extern bool_t _hash_set_iterator_equal(
     hash_set_iterator_t t_iterfirst, hash_set_iterator_t t_itersecond);
 extern int _hash_set_iterator_distance(

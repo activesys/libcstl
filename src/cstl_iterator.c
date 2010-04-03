@@ -382,6 +382,18 @@ iterator_t iterator_prev(iterator_t t_iter)
     case _BASIC_STRING_CONTAINER:
         return _basic_string_iterator_prev(t_iter);
         break;
+    case _HASH_SET_CONTAINER:
+        return _hash_set_iterator_prev(t_iter);
+        break;
+    case _HASH_MULTISET_CONTAINER:
+        return _hash_multiset_iterator_prev(t_iter);
+        break;
+    case _HASH_MAP_CONTAINER:
+        return _hash_map_iterator_prev(t_iter);
+        break;
+    case _HASH_MULTIMAP_CONTAINER:
+        return _hash_multimap_iterator_prev(t_iter);
+        break;
     default:
         assert(false);
         return t_iter;
