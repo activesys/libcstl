@@ -716,7 +716,6 @@ forward_iterator_t algo_search_end_if(
 
     assert(_iterator_valid_range(t_first1, t_last1, _FORWARD_ITERATOR));
     assert(_iterator_valid_range(t_first2, t_last2, _FORWARD_ITERATOR));
-    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     t_result = t_tmp = t_last1;
     for(;;)
@@ -1166,15 +1165,13 @@ forward_iterator_t _algo_remove_varg(
 
     t_first = _algo_find_varg(t_first, t_last, val_elemlist);
 
-    t_next = t_first;
-    t_next = iterator_next(t_next);
-
     if(iterator_equal(t_first, t_last))
     {
         return t_first;
     }
     else
     {
+        t_next = iterator_next(t_first);
         return _algo_remove_copy_varg(t_next, t_last, t_first, val_elemlist);
     }
 }

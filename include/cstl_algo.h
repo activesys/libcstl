@@ -52,7 +52,7 @@ extern "C" {
     {\
         iterator_t t_begin = (t_first);\
         iterator_t t_end = (t_last);\
-        assert(_tools_valid_iterator_range(t_begin, t_end, _FORWARD_ITERATOR));\
+        assert(_iterator_valid_range(t_begin, t_end, _FORWARD_ITERATOR));\
         t_begin = algo_find(t_begin, t_end, (old_elem));\
         while(!iterator_equal(t_begin, t_end))\
         {\
@@ -68,9 +68,8 @@ extern "C" {
         iterator_t t_end = (t_last);\
         iterator_t t_copy = (t_result);\
         iterator_t t_tmp;\
-        assert(_tools_valid_iterator_range(t_begin, t_end, _INPUT_ITERATOR));\
+        assert(_iterator_valid_range(t_begin, t_end, _INPUT_ITERATOR));\
         assert(_iterator_limit_type(t_copy, _OUTPUT_ITERATOR));\
-        assert(_tools_same_elem_type(t_begin, t_copy));\
         for(; !iterator_equal(t_begin, t_end); t_begin = iterator_next(t_begin))\
         {\
             t_tmp = algo_find(t_begin, t_end, (old_elem));\
