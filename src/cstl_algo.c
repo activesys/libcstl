@@ -1828,12 +1828,12 @@ bool_t _algo_binary_search_if_varg(
     bool_t     t_cmp = false;
     bool_t     t_result = false;
 
-    t_lower = _algo_lower_bound_if_varg(t_first, t_last, t_binary_op, val_elemlist);
     if(t_binary_op == NULL)
     {
         t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
+    t_lower = _algo_lower_bound_if_varg(t_first, t_last, t_binary_op, val_elemlist);
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 

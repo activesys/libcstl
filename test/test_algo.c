@@ -282,10 +282,217 @@ void test_algo(void)
         /*_algo_lower_bound_if            */
         /*_algo_upper_bound               */
         /*_algo_upper_bound_if            */
+        {
+            vector_t* pt_vec = create_vector(int);
+            iterator_t t_lower, t_upper;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pt_vec, 15);
+
+            printf("\n");
+            algo_iota(vector_begin(pt_vec), vector_end(pt_vec), 1);
+            algo_iota(iterator_next_n(vector_begin(pt_vec), 7), vector_end(pt_vec), 5);
+            algo_iota(iterator_next_n(vector_begin(pt_vec), 12), vector_end(pt_vec), 3);
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), 0);
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), 0);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_lower), *(int*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), 2);
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), 2);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_lower), *(int*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), 5);
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), 5);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_lower), *(int*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), 15);
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), 15);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_lower), *(int*)iterator_get_pointer(t_upper));
+            }
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), 0, fun_greater_int);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), 0, fun_greater_int);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_lower), *(int*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), 2, fun_greater_int);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), 2, fun_greater_int);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_lower), *(int*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), 5, fun_greater_int);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), 5, fun_greater_int);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_lower), *(int*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), 15, fun_greater_int);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), 15, fun_greater_int);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_lower), *(int*)iterator_get_pointer(t_upper));
+            }
+
+            printf("\n");
+            vector_destroy(pt_vec);
+        }
         /*_algo_equal_range               */
         /*_algo_equal_range_if            */
+        {
+            vector_t* pt_vec = create_vector(int);
+            range_t t_range;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pt_vec, 15);
+
+            printf("\n");
+            algo_iota(vector_begin(pt_vec), vector_end(pt_vec), 1);
+            algo_iota(iterator_next_n(vector_begin(pt_vec), 7), vector_end(pt_vec), 5);
+            algo_iota(iterator_next_n(vector_begin(pt_vec), 12), vector_end(pt_vec), 3);
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), 0);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_range.it_begin), *(int*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), 2);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_range.it_begin), *(int*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), 5);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_range.it_begin), *(int*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), 15);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_range.it_begin), *(int*)iterator_get_pointer(t_range.it_end));
+            }
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), 0, fun_greater_int);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_range.it_begin), *(int*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), 2, fun_greater_int);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_range.it_begin), *(int*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), 5, fun_greater_int);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_range.it_begin), *(int*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), 15, fun_greater_int);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    *(int*)iterator_get_pointer(t_range.it_begin), *(int*)iterator_get_pointer(t_range.it_end));
+            }
+
+            printf("\n");
+            vector_destroy(pt_vec);
+        }
         /*_algo_binary_search             */
         /*_algo_binary_search_if          */
+        {
+            vector_t* pt_vec = create_vector(int);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pt_vec, 10);
+
+            algo_iota(vector_begin(pt_vec), vector_end(pt_vec), 1);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            if(algo_binary_search(vector_begin(pt_vec), vector_end(pt_vec), 5))
+            {
+                printf("5 is present.\n");
+            }
+            else
+            {
+                printf("5 is not present.\n");
+            }
+            if(algo_binary_search(vector_begin(pt_vec), vector_end(pt_vec), 15))
+            {
+                printf("15 is present.\n");
+            }
+            else
+            {
+                printf("15 is not present.\n");
+            }
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            if(algo_binary_search_if(vector_begin(pt_vec), vector_end(pt_vec), 5, fun_greater_int))
+            {
+                printf("greater than 5 is present.\n");
+            }
+            else
+            {
+                printf("greater than 5 is not present.\n");
+            }
+            if(algo_binary_search_if(vector_begin(pt_vec), vector_end(pt_vec), 10, fun_greater_int))
+            {
+                printf("greater than 10 is present.\n");
+            }
+            else
+            {
+                printf("greater than 10 is not present.\n");
+            }
+
+            vector_destroy(pt_vec);
+        }
         /*algo_set_union                  */
         /*algo_set_union_if               */
         /*algo_set_intersection           */
@@ -670,6 +877,46 @@ void test_algo(void)
         /*algo_min_element_if             */
         /*algo_merge                      */
         /*algo_merge_if                   */
+        {
+            vector_t* pt_vec = create_vector(int);
+            list_t* pt_list = create_list(int);
+            deque_t* pt_deq = create_deque(int);
+            if(pt_vec == NULL || pt_list == NULL || pt_deq == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_vec, 10);
+            list_init_n(pt_list, 5);
+            deque_init_n(pt_deq, 15);
+
+            printf("\n");
+            algo_iota(vector_begin(pt_vec), vector_end(pt_vec), 1);
+            algo_iota(list_begin(pt_list), list_end(pt_list), 4);
+            algo_merge(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), deque_begin(pt_deq));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_int);
+            printf("\n");
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int);
+            list_sort_if(pt_list, fun_greater_int);
+            algo_merge_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), deque_begin(pt_deq), fun_greater_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_int);
+            printf("\n");
+
+            printf("\n");
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+            deque_destroy(pt_deq);
+        }
         /*algo_partition                  */
         /*algo_stable_partition           */
         {
@@ -1195,6 +1442,33 @@ void test_algo(void)
         }
         /*algo_inplace_merge              */
         /*algo_inplace_merge_if           */
+        {
+            vector_t* pt_vec = create_vector(int);
+            int i = 0;
+            iterator_t t_iter;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+
+            for(i = 0; i < 7; ++i)
+            {
+                vector_push_back(pt_vec, i);
+            }
+            for(i = 2; i < 5; ++i)
+            {
+                vector_push_back(pt_vec, i);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            t_iter = algo_find(vector_begin(pt_vec), vector_end(pt_vec), 7);
+            algo_inplace_merge(vector_begin(pt_vec), iterator_next(t_iter), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
         /*algo_nth_element                */
         /*algo_nth_element_if             */
         {
