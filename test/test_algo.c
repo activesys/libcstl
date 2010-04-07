@@ -501,6 +501,103 @@ void test_algo(void)
         /*algo_set_difference_if          */
         /*algo_set_symmetric_difference   */
         /*algo_set_symmetric_difference_if*/
+        {
+            vector_t* pt_vec = create_vector(int);
+            list_t* pt_list = create_list(int);
+            deque_t* pt_deq = create_deque(int);
+            iterator_t t_iter;
+            if(pt_vec == NULL || pt_list == NULL || pt_deq == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, 1);
+            vector_push_back(pt_vec, 2);
+            vector_push_back(pt_vec, 2);
+            vector_push_back(pt_vec, 4);
+            vector_push_back(pt_vec, 6);
+            vector_push_back(pt_vec, 7);
+            vector_push_back(pt_vec, 7);
+            vector_push_back(pt_vec, 9);
+            list_init(pt_list);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 2);
+            list_push_back(pt_list, 3);
+            list_push_back(pt_list, 6);
+            list_push_back(pt_list, 6);
+            list_push_back(pt_list, 8);
+            list_push_back(pt_list, 9);
+            deque_init_n(pt_deq, vector_size(pt_vec) + list_size(pt_list));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
+            printf("\n");
+            algo_merge(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list), list_end(pt_list),
+                deque_begin(pt_deq));
+            printf("merge:\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_int);
+            printf("\n");
+
+            t_iter = algo_set_union(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                    list_end(pt_list), deque_begin(pt_deq));
+            printf("union:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_int);
+            printf("\n");
+            t_iter = algo_set_intersection(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("intersection:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_int);
+            printf("\n");
+            t_iter = algo_set_difference(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_int);
+            printf("\n");
+            t_iter = algo_set_symmetric_difference(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("symmetric difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_int);
+            printf("\n");
+
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            list_reverse(pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
+            printf("\n");
+            algo_merge_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list), list_end(pt_list),
+                deque_begin(pt_deq), fun_greater_int);
+            printf("merge:\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_int);
+            printf("\n");
+
+            t_iter = algo_set_union_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                    list_end(pt_list), deque_begin(pt_deq), fun_greater_int);
+            printf("union:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_int);
+            printf("\n");
+            t_iter = algo_set_intersection_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), fun_greater_int);
+            printf("intersection:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_int);
+            printf("\n");
+            t_iter = algo_set_difference_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), fun_greater_int);
+            printf("difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_int);
+            printf("\n");
+            t_iter = algo_set_symmetric_difference_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), fun_greater_int);
+            printf("symmetric difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_int);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+            deque_destroy(pt_deq);
+        }
         /*algo_adjacent_find              */
         /*algo_adjacent_find_if           */
         {
@@ -871,10 +968,113 @@ void test_algo(void)
         }
         /*algo_includes                   */
         /*algo_includes_if                */
+        {
+            vector_t* pt_vec = create_vector(int);
+            deque_t* pt_deq = create_deque(int);
+            list_t* pt_list = create_list(int);
+            if(pt_vec == NULL || pt_deq == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            vector_init_n(pt_vec, 10);
+            deque_init(pt_deq);
+            list_init(pt_list);
+
+            algo_iota(vector_begin(pt_vec), vector_end(pt_vec), 1);
+            deque_push_back(pt_deq, 3);
+            deque_push_back(pt_deq, 4);
+            deque_push_back(pt_deq, 7);
+            list_push_back(pt_list, 6);
+            list_push_back(pt_list, 9);
+            list_push_back(pt_list, 12);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_int);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
+            printf("\n");
+
+            if(algo_includes(vector_begin(pt_vec), vector_end(pt_vec),
+                    deque_begin(pt_deq), deque_end(pt_deq)))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+            if(algo_includes(vector_begin(pt_vec), vector_end(pt_vec),
+                    list_begin(pt_list), list_end(pt_list)))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_reverse(deque_begin(pt_deq), deque_end(pt_deq));
+            list_reverse(pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_int);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);
+            printf("\n");
+
+            if(algo_includes_if(vector_begin(pt_vec), vector_end(pt_vec),
+                    deque_begin(pt_deq), deque_end(pt_deq), fun_greater_int))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+            if(algo_includes_if(vector_begin(pt_vec), vector_end(pt_vec),
+                    list_begin(pt_list), list_end(pt_list), fun_greater_int))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+
+            vector_destroy(pt_vec);
+            deque_destroy(pt_deq);
+            list_destroy(pt_list);
+        }
         /*algo_max_element                */
         /*algo_max_element_if             */
         /*algo_min_element                */
         /*algo_min_element_if             */
+        {
+            vector_t* pt_vec = create_vector(int);
+            iterator_t t_max, t_min;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init_n(pt_vec, 15);
+            algo_iota(vector_begin(pt_vec), vector_end(pt_vec), -4);
+            algo_random_shuffle(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            t_max = algo_max_element(vector_begin(pt_vec), vector_end(pt_vec));
+            t_min = algo_min_element(vector_begin(pt_vec), vector_end(pt_vec));
+            printf("max: %d, min: %d.\n", *(int*)iterator_get_pointer(t_max),
+                *(int*)iterator_get_pointer(t_min));
+            t_max = algo_max_element_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int);
+            t_min = algo_min_element_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int);
+            printf("max: %d, min: %d.\n", *(int*)iterator_get_pointer(t_max),
+                *(int*)iterator_get_pointer(t_min));
+            
+            vector_destroy(pt_vec);
+        }
         /*algo_merge                      */
         /*algo_merge_if                   */
         {
@@ -1246,6 +1446,77 @@ void test_algo(void)
         /*algo_next_permutation_if        */
         /*algo_prev_permutation           */
         /*algo_prev_permutation_if        */
+        {
+            vector_t* pt_vec = create_vector(int);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, 1);
+            vector_push_back(pt_vec, 2);
+            vector_push_back(pt_vec, 3);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            while(algo_next_permutation(vector_begin(pt_vec), vector_end(pt_vec)))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+                printf("\n");
+            }
+            printf("afterward:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            while(algo_prev_permutation(vector_begin(pt_vec), vector_end(pt_vec)))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+                printf("\n");
+            }
+            printf("now:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            while(algo_prev_permutation(vector_begin(pt_vec), vector_end(pt_vec)))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+                printf("\n");
+            }
+            printf("afterward:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            while(algo_next_permutation_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+                printf("\n");
+            }
+            printf("afterward:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            while(algo_prev_permutation_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+                printf("\n");
+            }
+            printf("now:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            while(algo_prev_permutation_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_int))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+                printf("\n");
+            }
+            printf("afterward:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
         /*algo_random_shuffle             */
         /*algo_random_shuffle_if          */
         {
@@ -1451,8 +1722,9 @@ void test_algo(void)
                 return;
             }
             vector_init(pt_vec);
+            printf("\n");
 
-            for(i = 0; i < 7; ++i)
+            for(i = 0; i < 8; ++i)
             {
                 vector_push_back(pt_vec, i);
             }
@@ -1467,6 +1739,23 @@ void test_algo(void)
             algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
             printf("\n");
 
+            vector_clear(pt_vec);
+            for(i = 10; i > 3; --i)
+            {
+                vector_push_back(pt_vec, i);
+            }
+            for(i = 5; i > 0; --i)
+            {
+                vector_push_back(pt_vec, i);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+            t_iter = algo_find(vector_begin(pt_vec), vector_end(pt_vec), 4);
+            algo_inplace_merge_if(vector_begin(pt_vec), iterator_next(t_iter), vector_end(pt_vec), fun_greater_int);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_int);
+            printf("\n");
+
+            printf("\n");
             vector_destroy(pt_vec);
         }
         /*algo_nth_element                */
