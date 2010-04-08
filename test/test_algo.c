@@ -29,6 +29,7 @@
 #include "calgorithm.h"
 #include "cfunctional.h"
 #include "cnumeric.h"
+#include "test_algobase.h"
 #include "test_algo.h"
 
 /** local constant declaration and local macro section **/
@@ -39,7 +40,9 @@
 static void _print_int(const void* cpv_input, void* pv_output);
 static void _plus100(const void* cpv_input, void* pv_output);
 static void _is_even(const void* cpv_input, void* pv_output);
+static void _is_even_sample(const void* cpv_input, void* pv_output);
 static void _mod3(const void* cpv_input, void* pv_output);
+static void _mod3_sample(const void* cpv_input, void* pv_output);
 static void _doubled(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _check_even(const void* cpv_first, const void* cpv_second, void* pv_output);
 
@@ -1907,6 +1910,905 @@ void test_algo(void)
     }
     /* user define type */
     {
+        type_register(algo_sample_t, algo_sample_init, algo_sample_copy,
+            algo_sample_less, algo_sample_destroy);
+        type_duplicate(algo_sample_t, struct _tagalgosample);
+        /*_algo_count                     */
+        /*algo_count_if                   */
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            algo_sample_t t_sample;
+            int i = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 4;
+            printf("the number of id equal to 4: %u.\n",
+                algo_count(vector_begin(pt_vec), vector_end(pt_vec), &t_sample));
+            printf("the number of id even: %u.\n",
+                algo_count_if(vector_begin(pt_vec), vector_end(pt_vec), _is_even_sample));
+
+            for(i = 1; i < 10; ++i)
+            {
+                t_sample._t_id = i;
+                t_sample._t_content = i * 100;
+                vector_push_back(pt_vec, &t_sample);
+                t_sample._t_id = i + 3;
+                t_sample._t_content = (i + 3) * 200;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 4;
+            printf("the number of id equal to 4: %u.\n",
+                algo_count(vector_begin(pt_vec), vector_end(pt_vec), &t_sample));
+            printf("the number of id even: %u.\n",
+                algo_count_if(vector_begin(pt_vec), vector_end(pt_vec), _is_even_sample));
+
+            vector_destroy(pt_vec);
+        }
+        /*_algo_find                      */
+        /*algo_find_if                    */
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            algo_sample_t t_sample;
+            iterator_t t_iter;
+            int i = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 4;
+            t_iter = algo_find(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("The element id 4 is not in the vector.\n");
+            }
+            else
+            {
+                printf("The element id 4 is already exist.\n");
+            }
+
+            for(i = 1; i < 10; ++i)
+            {
+                t_sample._t_id = i;
+                t_sample._t_content = i * 10;
+                vector_push_back(pt_vec, &t_sample);
+                t_sample._t_id = i + 5;
+                t_sample._t_content = (i + 5) * 30;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 4;
+            t_iter = algo_find(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("The element 4 is not in the vector.\n");
+            }
+            else
+            {
+                printf("The element 4 is already exist.\n");
+            }
+
+            t_sample._t_id = 4;
+            t_iter = algo_find(iterator_next(t_iter), vector_end(pt_vec), &t_sample);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("The second 4 is not in the vector.\n");
+            }
+            else
+            {
+                printf("The second 4 is already exist.\n");
+            }
+
+            vector_clear(pt_vec);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            t_iter = algo_find_if(vector_begin(pt_vec), vector_end(pt_vec), _is_even_sample);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no even element.\n");
+            }
+            else
+            {
+                printf("The first even element id is: %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_iter))->_t_id);
+            }
+
+            for(i = 1; i < 10; ++i)
+            {
+                t_sample._t_id = i;
+                t_sample._t_content = i + 100;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            t_iter = algo_find_if(vector_begin(pt_vec), vector_end(pt_vec), _is_even_sample);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no even element.\n");
+            }
+            else
+            {
+                printf("The first even element id is: %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_iter))->_t_id);
+            }
+            t_iter = algo_find_if(iterator_next(t_iter), vector_end(pt_vec), _is_even_sample);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no even element.\n");
+            }
+            else
+            {
+                printf("The second even element id is: %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_iter))->_t_id);
+            }
+
+            vector_destroy(pt_vec);
+        }
+        /*_algo_search_n                  */
+        /*_algo_search_n_if               */
+        {
+            deque_t* pt_deq = create_deque(algo_sample_t);
+            algo_sample_t t_sample;
+            iterator_t t_iter;
+            int i = 0;
+
+            if(pt_deq == NULL)
+            {
+                return;
+            }
+
+            deque_init(pt_deq);
+
+            for(i = 0; i < 10; ++i)
+            {
+                t_sample._t_id = i;
+                t_sample._t_content = i * 10;
+                deque_push_back(pt_deq, &t_sample);
+            }
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 3;
+            t_iter = algo_search_n(deque_begin(pt_deq), deque_end(pt_deq), 4, &t_sample);
+            if(iterator_equal(t_iter, deque_end(pt_deq)))
+            {
+                printf("no four consecutive elements with value 3 found.\n");
+            }
+            else
+            {
+                printf("four consecutive elements with value 3 start with %d. element.\n",
+                    iterator_distance(deque_begin(pt_deq), t_iter) + 1);
+            }
+
+            t_iter = algo_search_n_if(deque_begin(pt_deq), deque_end(pt_deq),
+                4, &t_sample, algo_sample_greater);
+            if(iterator_equal(t_iter, deque_end(pt_deq)))
+            {
+                printf("no four consecutive elements with value > 3 found.\n");
+            }
+            else
+            {
+                printf("four consecutive elements with value > 3 start with %d. element.\n",
+                    iterator_distance(deque_begin(pt_deq), t_iter) + 1);
+            }
+
+            for(i = 0; i < 5; ++i)
+            {
+                t_sample._t_id = 3;
+                t_sample._t_content = 0;
+                deque_push_back(pt_deq, &t_sample);
+            }
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), algo_sample_show);
+            printf("\n");
+            t_sample._t_id = 3;
+            t_iter = algo_search_n(deque_begin(pt_deq), deque_end(pt_deq), 4, &t_sample);
+            if(iterator_equal(t_iter, deque_end(pt_deq)))
+            {
+                printf("no four consecutive elements with value 3 found.\n");
+            }
+            else
+            {
+                printf("four consecutive elements with value 3 start with %d. element.\n",
+                    iterator_distance(deque_begin(pt_deq), t_iter) + 1);
+            }
+
+            deque_destroy(pt_deq);
+        }
+        /*_algo_remove_copy               */
+        /*_algo_remove                    */
+        /*algo_remove_if                  */
+        /*algo_remove_copy_if             */
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            list_t* pt_list = create_list(algo_sample_t);
+            algo_sample_t t_sample;
+            iterator_t t_iter;
+            int i = 0;
+
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            for(i = 0; i < 4; ++i)
+            {
+                t_sample._t_id = i + 2;
+                t_sample._t_content = i + 2;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 8; ++i)
+            {
+                t_sample._t_id = i + 4;
+                t_sample._t_content = i + 4;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 8; ++i)
+            {
+                t_sample._t_id = i + 1;
+                t_sample._t_content = i + 1;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            list_init_n(pt_list, vector_size(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 100;
+            t_iter = algo_remove(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            algo_for_each(vector_begin(pt_vec), t_iter, algo_sample_show);
+            printf("\n");
+            t_sample._t_id = 5;
+            t_iter = algo_remove(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            algo_for_each(vector_begin(pt_vec), t_iter, algo_sample_show);
+            printf("\n");
+
+            vector_clear(pt_vec);
+            for(i = 0; i < 4; ++i)
+            {
+                t_sample._t_id = i + 2;
+                t_sample._t_content = i + 2;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 8; ++i)
+            {
+                t_sample._t_id = i + 4;
+                t_sample._t_content = i + 4;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 8; ++i)
+            {
+                t_sample._t_id = i + 1;
+                t_sample._t_content = i + 1;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            t_iter = algo_remove_if(vector_begin(pt_vec), vector_end(pt_vec), _is_even_sample);
+            algo_for_each(vector_begin(pt_vec), t_iter, algo_sample_show);
+            printf("\n");
+
+            vector_clear(pt_vec);
+            for(i = 0; i < 4; ++i)
+            {
+                t_sample._t_id = i + 2;
+                t_sample._t_content = i + 2;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 8; ++i)
+            {
+                t_sample._t_id = i + 4;
+                t_sample._t_content = i + 4;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 8; ++i)
+            {
+                t_sample._t_id = i + 1;
+                t_sample._t_content = i + 1;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            t_sample._t_id = 3;
+            t_iter = algo_remove_copy(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), &t_sample);
+            algo_for_each(list_begin(pt_list), t_iter, algo_sample_show);
+            printf("\n");
+
+            vector_clear(pt_vec);
+            for(i = 0; i < 4; ++i)
+            {
+                t_sample._t_id = i + 2;
+                t_sample._t_content = i + 2;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 8; ++i)
+            {
+                t_sample._t_id = i + 4;
+                t_sample._t_content = i + 4;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 8; ++i)
+            {
+                t_sample._t_id = i + 1;
+                t_sample._t_content = i + 1;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            t_iter = algo_remove_copy_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), _mod3_sample);
+            algo_for_each(list_begin(pt_list), t_iter, algo_sample_show);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
+        /*algo_replace                    */
+        /*algo_replace_copy               */
+        /*_algo_replace_if                */
+        /*_algo_replace_copy_if           */
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            list_t* pt_list = create_list(algo_sample_t);
+            algo_sample_t t_sample;
+            algo_sample_t t_newsample;
+            int i = 0;
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            list_init_n(pt_list, 20);
+
+            printf("\n");
+            for(i = 0; i < 10; ++i)
+            {
+                t_sample._t_id = i;
+                t_sample._t_content = i;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 10; ++i)
+            {
+                t_sample._t_id = i;
+                t_sample._t_content = i * 10;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 6;
+            t_newsample._t_id = 42;
+            t_newsample._t_content = 42;
+            algo_replace(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, &t_newsample);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_newsample._t_id = 300;
+            t_newsample._t_content = 300;
+            algo_replace_if(vector_begin(pt_vec), vector_end(pt_vec), _is_even_sample, &t_newsample);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 300;
+            t_newsample._t_id = 100;
+            t_newsample._t_content = 100;
+            algo_replace_copy(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), &t_sample, &t_newsample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            vector_clear(pt_vec);
+            for(i = 0; i < 20; ++i)
+            {
+                t_sample._t_id = i + 1;
+                t_sample._t_content = i * 10;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            t_newsample._t_id = 0;
+            t_newsample._t_content = 0;
+            algo_replace_copy_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), _is_even_sample, &t_newsample);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
+        /*_algo_lower_bound               */
+        /*_algo_lower_bound_if            */
+        /*_algo_upper_bound               */
+        /*_algo_upper_bound_if            */
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            algo_sample_t t_sample;
+            iterator_t t_lower, t_upper;
+            int i = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            printf("\n");
+            for(i = 0; i < 7; ++i)
+            {
+                t_sample._t_id = i + 1;
+                t_sample._t_content = i + 1;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 5; ++i)
+            {
+                t_sample._t_id = i + 5;
+                t_sample._t_content = i + 5;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 5; ++i)
+            {
+                t_sample._t_id = i + 3;
+                t_sample._t_content = i + 3;
+            }
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 0;
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_lower))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_upper))->_t_id);
+            }
+            t_sample._t_id = 2;
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_lower))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_upper))->_t_id);
+            }
+            t_sample._t_id = 5;
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_lower))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_upper))->_t_id);
+            }
+            t_sample._t_id = 15;
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_lower))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_upper))->_t_id);
+            }
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            t_sample._t_id = 0;
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_lower))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_upper))->_t_id);
+            }
+            t_sample._t_id = 2;
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_lower))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_upper))->_t_id);
+            }
+            t_sample._t_id = 5;
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_lower))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_upper))->_t_id);
+            }
+            t_sample._t_id = 15;
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_lower))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_upper))->_t_id);
+            }
+
+            printf("\n");
+            vector_destroy(pt_vec);
+        }
+        /*_algo_equal_range               */
+        /*_algo_equal_range_if            */
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            algo_sample_t t_sample;
+            range_t t_range;
+            int i = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            printf("\n");
+            for(i = 0; i < 7; ++i)
+            {
+                t_sample._t_id = i + 1;
+                t_sample._t_content = i + 1;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 5; ++i)
+            {
+                t_sample._t_id = i + 5;
+                t_sample._t_content = i + 5;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            for(i = 0; i < 5; ++i)
+            {
+                t_sample._t_id = i + 3;
+                t_sample._t_content = i + 3;
+            }
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+
+            t_sample._t_id = 0;
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_begin))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_end))->_t_id);
+            }
+            t_sample._t_id = 2;
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_begin))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_end))->_t_id);
+            }
+            t_sample._t_id = 5;
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_begin))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_end))->_t_id);
+            }
+            t_sample._t_id = 15;
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), &t_sample);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_begin))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_end))->_t_id);
+            }
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            t_sample._t_id = 0;
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_begin))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_end))->_t_id);
+            }
+            t_sample._t_id = 2;
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_begin))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_end))->_t_id);
+            }
+            t_sample._t_id = 5;
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_begin))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_end))->_t_id);
+            }
+            t_sample._t_id = 15;
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %d, upper : %d.\n",
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_begin))->_t_id,
+                    ((algo_sample_t*)iterator_get_pointer(t_range.it_end))->_t_id);
+            }
+
+            printf("\n");
+            vector_destroy(pt_vec);
+        }
+        /*_algo_binary_search             */
+        /*_algo_binary_search_if          */
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            algo_sample_t t_sample;
+            int i = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            for(i = 0; i < 10; ++i)
+            {
+                t_sample._t_id = i;
+                t_sample._t_content = i;
+                vector_push_back(pt_vec, &t_sample);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            t_sample._t_id = 5;
+            if(algo_binary_search(vector_begin(pt_vec), vector_end(pt_vec), &t_sample))
+            {
+                printf("5 is present.\n");
+            }
+            else
+            {
+                printf("5 is not present.\n");
+            }
+            t_sample._t_id = 15;
+            if(algo_binary_search(vector_begin(pt_vec), vector_end(pt_vec), &t_sample))
+            {
+                printf("15 is present.\n");
+            }
+            else
+            {
+                printf("15 is not present.\n");
+            }
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_greater);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            t_sample._t_id = 5;
+            if(algo_binary_search_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater))
+            {
+                printf("greater than 5 is present.\n");
+            }
+            else
+            {
+                printf("greater than 5 is not present.\n");
+            }
+            t_sample._t_id = 15;
+            if(algo_binary_search_if(vector_begin(pt_vec), vector_end(pt_vec), &t_sample, algo_sample_greater))
+            {
+                printf("greater than 10 is present.\n");
+            }
+            else
+            {
+                printf("greater than 10 is not present.\n");
+            }
+
+            vector_destroy(pt_vec);
+        }
+        /*algo_set_union                  */
+        /*algo_set_union_if               */
+        /*algo_set_intersection           */
+        /*algo_set_intersection_if        */
+        /*algo_set_difference             */
+        /*algo_set_difference_if          */
+        /*algo_set_symmetric_difference   */
+        /*algo_set_symmetric_difference_if*/
+        {
+            vector_t* pt_vec = create_vector(algo_sample_t);
+            list_t* pt_list = create_list(algo_sample_t);
+            deque_t* pt_deq = create_deque(algo_sample_t);
+            iterator_t t_iter;
+            algo_sample_t t_sample;
+            if(pt_vec == NULL || pt_list == NULL || pt_deq == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            t_sample._t_id = 1;
+            t_sample._t_content = 1;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 2;
+            t_sample._t_content = 2;
+            vector_push_back(pt_vec, &t_sample);
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 4;
+            t_sample._t_content = 4;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 6;
+            t_sample._t_content = 6;
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 7;
+            t_sample._t_content = 7;
+            vector_push_back(pt_vec, &t_sample);
+            vector_push_back(pt_vec, &t_sample);
+            t_sample._t_id = 9;
+            t_sample._t_content = 9;
+            vector_push_back(pt_vec, &t_sample);
+            list_init(pt_list);
+            t_sample._t_id = 2;
+            t_sample._t_content = 2;
+            list_push_back(pt_list, &t_sample);
+            list_push_back(pt_list, &t_sample);
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 3;
+            t_sample._t_content = 3;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 6;
+            t_sample._t_content = 6;
+            list_push_back(pt_list, &t_sample);
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 8;
+            t_sample._t_content = 8;
+            list_push_back(pt_list, &t_sample);
+            t_sample._t_id = 9;
+            t_sample._t_content = 9;
+            list_push_back(pt_list, &t_sample);
+            deque_init_n(pt_deq, vector_size(pt_vec) + list_size(pt_list));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            algo_merge(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list), list_end(pt_list),
+                deque_begin(pt_deq));
+            printf("merge:\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), algo_sample_show);
+            printf("\n");
+
+            t_iter = algo_set_union(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                    list_end(pt_list), deque_begin(pt_deq));
+            printf("union:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, algo_sample_show);
+            printf("\n");
+            t_iter = algo_set_intersection(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("intersection:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, algo_sample_show);
+            printf("\n");
+            t_iter = algo_set_difference(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, algo_sample_show);
+            printf("\n");
+            t_iter = algo_set_symmetric_difference(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("symmetric difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, algo_sample_show);
+            printf("\n");
+
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            list_reverse(pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), algo_sample_show);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), algo_sample_show);
+            printf("\n");
+            algo_merge_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list), list_end(pt_list),
+                deque_begin(pt_deq), algo_sample_greater);
+            printf("merge:\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), algo_sample_show);
+            printf("\n");
+
+            t_iter = algo_set_union_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                    list_end(pt_list), deque_begin(pt_deq), algo_sample_greater);
+            printf("union:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, algo_sample_show);
+            printf("\n");
+            t_iter = algo_set_intersection_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), algo_sample_greater);
+            printf("intersection:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, algo_sample_show);
+            printf("\n");
+            t_iter = algo_set_difference_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), algo_sample_greater);
+            printf("difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, algo_sample_show);
+            printf("\n");
+            t_iter = algo_set_symmetric_difference_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), algo_sample_greater);
+            printf("symmetric difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, algo_sample_show);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+            deque_destroy(pt_deq);
+        }
+        /*algo_adjacent_find              */
+        /*algo_adjacent_find_if           */
+        /*algo_find_first_of              */
+        /*algo_find_first_of_if           */
+        /*algo_for_each                   */
+        /*algo_search                     */
+        /*algo_search_if                  */
+        /*algo_search_end                 */
+        /*algo_search_end_if              */
+        /*algo_find_end                   */
+        /*algo_find_end_if                */
+        /*algo_generate                   */
+        /*algo_generate_n                 */
+        /*algo_includes                   */
+        /*algo_includes_if                */
+        /*algo_max_element                */
+        /*algo_max_element_if             */
+        /*algo_min_element                */
+        /*algo_min_element_if             */
+        /*algo_merge                      */
+        /*algo_merge_if                   */
+        /*algo_partition                  */
+        /*algo_stable_partition           */
+        /*algo_reverse                    */
+        /*algo_reverse_copy               */
+        /*algo_rotate                     */
+        /*algo_rotate_copy                */
+        /*algo_swap_ranges                */
+        /*algo_transform                  */
+        /*algo_transform_binary           */
+        /*algo_unique                     */
+        /*algo_unique_if                  */
+        /*algo_unique_copy                */
+        /*algo_unique_copy_if             */
+        /*algo_next_permutation           */
+        /*algo_next_permutation_if        */
+        /*algo_prev_permutation           */
+        /*algo_prev_permutation_if        */
+        /*algo_random_shuffle             */
+        /*algo_random_shuffle_if          */
+        /*algo_random_sample              */
+        /*algo_random_sample_if           */
+        /*algo_random_sample_n            */
+        /*algo_random_sample_n_if         */
+        /*algo_partial_sort               */
+        /*algo_partial_sort_if            */
+        /*algo_partial_sort_copy          */
+        /*algo_partial_sort_copy_if       */
+        /*algo_sort                       */
+        /*algo_sort_if                    */
+        /*algo_inplace_merge              */
+        /*algo_inplace_merge_if           */
+        /*algo_nth_element                */
+        /*algo_nth_element_if             */
+        /*algo_is_sorted                  */
+        /*algo_is_sorted_if               */
+        /*algo_stable_sort                */
+        /*algo_stable_sort_if             */
     }
     /* cstl built-in type */
     {
@@ -2024,10 +2926,22 @@ static void _is_even(const void* cpv_input, void* pv_output)
     *(bool_t*)pv_output = *(int*)cpv_input % 2 == 0 ? true : false;
 }
 
+static void _is_even_sample(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = ((algo_sample_t*)cpv_input)->_t_id % 2 == 0 ? true : false;
+}
+
 static void _mod3(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
     *(bool_t*)pv_output = *(int*)cpv_input % 3 == 0 ? true : false;
+}
+
+static void _mod3_sample(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = ((algo_sample_t*)cpv_input)->_t_id % 3 == 0 ? true : false;
 }
 
 static void _doubled(const void* cpv_first, const void* cpv_second, void* pv_output)

@@ -102,8 +102,7 @@ int main(int argc, char* argv[])
     printf("========== test numeric algorithm ==========\n");
     /*test_numeric();*/
     printf("========== test heap algorithm ==========\n");
-    printf("========== test heap algorithm ==========\n");
-    test_heap();
+    /*test_heap();*/
     printf("========== test heap algorithm ==========\n");
     /*test_priority_queue();*/
     printf("========== test basic algorithm ==========\n");
