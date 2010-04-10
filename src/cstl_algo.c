@@ -1771,6 +1771,8 @@ output_iterator_t algo_unique_copy_if(
     output_iterator_t t_result, binary_function_t t_binary_op)
 {
     bool_t t_cmp = false;
+    bool_t t_less = false;
+    bool_t t_greater = false;
 
     assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
     assert(_iterator_same_elem_type(t_first, t_result));
@@ -1786,19 +1788,43 @@ output_iterator_t algo_unique_copy_if(
         return t_result;
     }
 
-    iterator_set_value(t_result, iterator_get_pointer(t_first));
-    t_first = iterator_next(t_first);
-    while(!iterator_equal(t_first, t_last))
+    if(t_binary_op == fun_default_binary)
     {
-        (*t_binary_op)(
-            iterator_get_pointer(t_result), iterator_get_pointer(t_first), &t_cmp);
-        if(!t_cmp)
-        {
-            t_result = iterator_next(t_result);
-            iterator_set_value(t_result, iterator_get_pointer(t_first));
-        }
+        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
 
+        iterator_set_value(t_result, iterator_get_pointer(t_first));
         t_first = iterator_next(t_first);
+        while(!iterator_equal(t_first, t_last))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_result), iterator_get_pointer(t_first), &t_less);
+            (*t_binary_op)(
+                iterator_get_pointer(t_first), iterator_get_pointer(t_result), &t_greater);
+            if(t_less || t_greater)
+            {
+                t_result = iterator_next(t_result);
+                iterator_set_value(t_result, iterator_get_pointer(t_first));
+            }
+
+            t_first = iterator_next(t_first);
+        }
+    }
+    else
+    {
+        iterator_set_value(t_result, iterator_get_pointer(t_first));
+        t_first = iterator_next(t_first);
+        while(!iterator_equal(t_first, t_last))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_result), iterator_get_pointer(t_first), &t_cmp);
+            if(!t_cmp)
+            {
+                t_result = iterator_next(t_result);
+                iterator_set_value(t_result, iterator_get_pointer(t_first));
+            }
+
+            t_first = iterator_next(t_first);
+        }
     }
 
     t_result = iterator_next(t_result);
