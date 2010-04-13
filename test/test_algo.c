@@ -53,6 +53,7 @@ static void _check_even_sample(const void* cpv_first, const void* cpv_second, vo
 static void _is_even_vector(const void* cpv_input, void* pv_output);
 static void _print_vector(const void* cpv_input, void* pv_output);
 static void _mod3_vector(const void* cpv_input, void* pv_output);
+static void _doubled_vector(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -5020,10 +5021,416 @@ void test_algo(void)
         /*algo_set_difference_if          */
         /*algo_set_symmetric_difference   */
         /*algo_set_symmetric_difference_if*/
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            list_t* pt_list = create_list(vector_t<int>);
+            deque_t* pt_deq = create_deque(vector_t<int>);
+            vector_t* pt_item = create_vector(int);
+            iterator_t t_iter;
+            int i = 0;
+            if(pt_vec == NULL || pt_list == NULL || pt_deq == NULL || pt_item == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_item);
+            vector_init(pt_vec);
+            for(i = 0; i < 1; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 2; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 2; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 4; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 6; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 7; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 7; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 9; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            list_init(pt_list);
+            vector_clear(pt_item);
+            for(i = 0; i < 2; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            list_push_back(pt_list, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 2; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            list_push_back(pt_list, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 2; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            list_push_back(pt_list, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 3; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            list_push_back(pt_list, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 6; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            list_push_back(pt_list, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 6; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            list_push_back(pt_list, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 8; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            list_push_back(pt_list, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 9; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            list_push_back(pt_list, pt_item);
+            deque_init_n(pt_deq, vector_size(pt_vec) + list_size(pt_list));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n\n");
+            algo_merge(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list), list_end(pt_list),
+                deque_begin(pt_deq));
+            printf("merge:\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_vector);
+            printf("\n\n");
+
+            t_iter = algo_set_union(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                    list_end(pt_list), deque_begin(pt_deq));
+            printf("union:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_vector);
+            printf("\n\n");
+            t_iter = algo_set_intersection(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("intersection:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_vector);
+            printf("\n\n");
+            t_iter = algo_set_difference(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_vector);
+            printf("\n\n");
+            t_iter = algo_set_symmetric_difference(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("symmetric difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_vector);
+            printf("\n\n");
+
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            list_reverse(pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n\n");
+            algo_merge_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list), list_end(pt_list),
+                deque_begin(pt_deq), fun_greater_vector);
+            printf("merge:\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_vector);
+            printf("\n\n");
+
+            t_iter = algo_set_union_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                    list_end(pt_list), deque_begin(pt_deq), fun_greater_vector);
+            printf("union:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_vector);
+            printf("\n\n");
+            t_iter = algo_set_intersection_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), fun_greater_vector);
+            printf("intersection:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_vector);
+            printf("\n\n");
+            t_iter = algo_set_difference_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), fun_greater_vector);
+            printf("difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_vector);
+            printf("\n\n");
+            t_iter = algo_set_symmetric_difference_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), fun_greater_vector);
+            printf("symmetric difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_vector);
+            printf("\n\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+            deque_destroy(pt_deq);
+            vector_destroy(pt_item);
+        }
         /*algo_adjacent_find              */
         /*algo_adjacent_find_if           */
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            vector_t* pt_item = create_vector(int);
+            iterator_t t_iter;
+            int i = 0;
+            if(pt_vec == NULL || pt_item == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_item);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+
+            t_iter = algo_adjacent_find(vector_begin(pt_vec), vector_end(pt_vec));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no two elements with equal value.\n");
+            }
+            else
+            {
+                printf("first two elements with equal value have position %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            t_iter = algo_adjacent_find_if(vector_begin(pt_vec), vector_end(pt_vec), _doubled_vector);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no two elements with second value twice the first.\n");
+            }
+            else
+            {
+                printf("first two elements with second value twice the first have pos %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            vector_clear(pt_item);
+            for(i = 0; i < 1; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 3; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 2; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 4; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 5; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 5; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 0; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_vec, pt_item);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+
+            t_iter = algo_adjacent_find(vector_begin(pt_vec), vector_end(pt_vec));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no two elements with equal value.\n");
+            }
+            else
+            {
+                printf("first two elements with equal value have position %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            t_iter = algo_adjacent_find_if(vector_begin(pt_vec), vector_end(pt_vec), _doubled_vector);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no two elements with second value twice the first.\n");
+            }
+            else
+            {
+                printf("first two elements with second value twice the first have pos %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            vector_destroy(pt_vec);
+            vector_destroy(pt_item);
+        }
         /*algo_find_first_of              */
         /*algo_find_first_of_if           */
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            list_t* pt_list = create_list(vector_t<int>);
+            vector_t* pt_item = create_vector(int);
+            iterator_t t_iter;
+            int i = 0;
+            if(pt_vec == NULL || pt_list == NULL || pt_item == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_item);
+            list_init(pt_list);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n\n");
+
+            t_iter = algo_find_first_of(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+            t_iter = algo_find_first_of_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _doubled_vector);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            vector_clear(pt_item);
+            for(i = 0; i < 10; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+            vector_clear(pt_item);
+            for(i = 0; i < 3; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            for(i = 3; i < 6; ++i)
+            {
+                vector_push_back(pt_item, i);
+                list_push_back(pt_list, pt_item);
+            }
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n\n");
+
+            t_iter = algo_find_first_of(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+            t_iter = algo_find_first_of_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _doubled_vector);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n\n");
+
+            t_iter = algo_find_first_of(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+            t_iter = algo_find_first_of_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _doubled_vector);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            vector_destroy(pt_vec);
+            vector_destroy(pt_item);
+            list_destroy(pt_list);
+        }
         /*algo_for_each                   */
         /*algo_search                     */
         /*algo_search_if                  */
@@ -5239,6 +5646,12 @@ static void _doubled(const void* cpv_first, const void* cpv_second, void* pv_out
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     *(bool_t*)pv_output = *(int*)cpv_first * 2 == *(int*)cpv_second ? true : false;
+}
+
+static void _doubled_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = vector_size((vector_t*)cpv_first) * 2 == vector_size((vector_t*)cpv_second) ? true : false;
 }
 
 static void _plus_sample(const void* cpv_first, const void* cpv_second, void* pv_output)

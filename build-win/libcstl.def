@@ -26,6 +26,8 @@ EXPORTS
     iterator_minus                          @2014
     iterator_advance                        @2015
     iterator_distance                       @2016
+    _iterator_valid_range                   @2017
+    _iterator_limit_type                    @2018
 
 ; vector_t interfaces
     _create_vector                          @3000
@@ -812,6 +814,7 @@ EXPORTS
     algo_is_sorted_if                       @23085
     algo_stable_sort                        @23086
     algo_stable_sort_if                     @23087
+    _algo_replace_once                      @23088
 
 ; function interface
     fun_plus_char                           @24000
