@@ -54,6 +54,8 @@ static void _is_even_vector(const void* cpv_input, void* pv_output);
 static void _print_vector(const void* cpv_input, void* pv_output);
 static void _mod3_vector(const void* cpv_input, void* pv_output);
 static void _doubled_vector(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _plus100_vector(const void* cpv_input, void* pv_output);
+static void _check_even_vector(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -5432,22 +5434,436 @@ void test_algo(void)
             list_destroy(pt_list);
         }
         /*algo_for_each                   */
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            vector_t* pt_item = create_vector(int);
+            int i = 0;
+            if(pt_vec == NULL || pt_item == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_init(pt_item);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _plus100_vector);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+
+            for(i = 0; i < 10; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _plus100_vector);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            vector_destroy(pt_item);
+        }
         /*algo_search                     */
         /*algo_search_if                  */
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            deque_t* pt_deq = create_deque(vector_t<int>);
+            list_t* pt_list = create_list(bool_t);
+            vector_t* pt_item = create_vector(int);
+            iterator_t t_iter;
+            int i = 0;
+
+            if(pt_vec == NULL || pt_deq == NULL || pt_list == NULL || pt_item == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            deque_init(pt_deq);
+            list_init(pt_list);
+            vector_init(pt_item);
+
+            for(i = 0; i < 10; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+            vector_clear(pt_item);
+            for(i = 0; i < 7; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+            vector_clear(pt_item);
+            for(i = 0; i < 3; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            for(i = 3; i < 7; ++i)
+            {
+                vector_push_back(pt_item, i);
+                deque_push_back(pt_deq, pt_item);
+            }
+            list_push_back(pt_list, true);
+            list_push_back(pt_list, false);
+            list_push_back(pt_list, true);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_vector);
+            printf("\n");
+
+            t_iter = algo_search(vector_begin(pt_vec), vector_end(pt_vec),
+                deque_begin(pt_deq), deque_end(pt_deq));
+            while(!iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("sub find with element %d\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+                t_iter = iterator_next(t_iter);
+                t_iter = algo_search(t_iter, vector_end(pt_vec),
+                    deque_begin(pt_deq), deque_end(pt_deq));
+            }
+
+            t_iter = algo_search_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _check_even_vector);
+            while(!iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("sub find with element %d\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+                t_iter = iterator_next(t_iter);
+                t_iter = algo_search_if(t_iter, vector_end(pt_vec),
+                    list_begin(pt_list), list_end(pt_list), _check_even_vector);
+            }
+
+            vector_destroy(pt_vec);
+            deque_destroy(pt_deq);
+            list_destroy(pt_list);
+            vector_destroy(pt_item);
+        }
         /*algo_search_end                 */
         /*algo_search_end_if              */
         /*algo_find_end                   */
         /*algo_find_end_if                */
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            deque_t* pt_deq = create_deque(vector_t<int>);
+            list_t* pt_list = create_list(bool_t);
+            vector_t* pt_item = create_vector(int);
+            iterator_t t_iter;
+            iterator_t t_end;
+            int i = 0;
+
+            if(pt_vec == NULL || pt_deq == NULL || pt_list == NULL || pt_item == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_init(pt_item);
+            deque_init(pt_deq);
+            list_init(pt_list);
+
+            for(i = 0; i < 10; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+            vector_clear(pt_item);
+            for(i = 0; i < 7; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+            vector_clear(pt_item);
+            for(i = 0; i < 3; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            for(i = 3; i < 7; ++i)
+            {
+                vector_push_back(pt_item, i);
+                deque_push_back(pt_deq, pt_item);
+            }
+            list_push_back(pt_list, true);
+            list_push_back(pt_list, false);
+            list_push_back(pt_list, true);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_vector);
+            printf("\n");
+
+            t_iter = algo_search_end(vector_begin(pt_vec), vector_end(pt_vec),
+                deque_begin(pt_deq), deque_end(pt_deq));
+            t_end = vector_end(pt_vec);
+            while(!iterator_equal(t_iter, t_end))
+            {
+                printf("sub find with element %d\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+                t_end = t_iter;
+                t_iter = algo_search_end(vector_begin(pt_vec), t_end,
+                    deque_begin(pt_deq), deque_end(pt_deq));
+            }
+
+            t_iter = algo_search_end_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _check_even_vector);
+            t_end = vector_end(pt_vec);
+            while(!iterator_equal(t_iter, t_end))
+            {
+                printf("sub find with element %d\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+                t_end = t_iter;
+                t_iter = algo_search_end_if(vector_begin(pt_vec), t_end,
+                    list_begin(pt_list), list_end(pt_list), _check_even_vector);
+            }
+
+            vector_destroy(pt_vec);
+            vector_destroy(pt_item);
+            deque_destroy(pt_deq);
+            list_destroy(pt_list);
+        }
         /*algo_generate                   */
         /*algo_generate_n                 */
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            vector_t* pt_item = create_vector(int);
+            int i = 0;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_init(pt_item);
+            for(i = 0; i < 10; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            algo_generate(vector_begin(pt_vec), vector_end(pt_vec), _plus100_vector);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            algo_generate_n(vector_begin(pt_vec), 5, _plus100_vector);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            vector_destroy(pt_item);
+        }
         /*algo_includes                   */
         /*algo_includes_if                */
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            deque_t* pt_deq = create_deque(vector_t<int>);
+            list_t* pt_list = create_list(vector_t<int>);
+            vector_t* pt_item = create_vector(int);
+            int i = 0;
+            if(pt_vec == NULL || pt_deq == NULL || pt_list == NULL || pt_item == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_init(pt_item);
+            deque_init(pt_deq);
+            list_init(pt_list);
+
+            for(i = 0; i < 10; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+            vector_clear(pt_item);
+            for(i = 0; i < 3; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_item, 3);
+            deque_push_back(pt_deq, pt_item);
+            vector_push_back(pt_item, 4);
+            deque_push_back(pt_deq, pt_item);
+            vector_push_back(pt_item, 5);
+            vector_push_back(pt_item, 6);
+            vector_push_back(pt_item, 7);
+            deque_push_back(pt_deq, pt_item);
+            vector_clear(pt_item);
+            for(i = 0; i < 6; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            vector_push_back(pt_item, 6);
+            list_push_back(pt_list, pt_item);
+            vector_push_back(pt_item, 7);
+            vector_push_back(pt_item, 8);
+            vector_push_back(pt_item, 9);
+            list_push_back(pt_list, pt_item);
+            vector_push_back(pt_item, 10);
+            vector_push_back(pt_item, 11);
+            vector_push_back(pt_item, 12);
+            list_push_back(pt_list, pt_item);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_vector);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            if(algo_includes(vector_begin(pt_vec), vector_end(pt_vec),
+                    deque_begin(pt_deq), deque_end(pt_deq)))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+            if(algo_includes(vector_begin(pt_vec), vector_end(pt_vec),
+                    list_begin(pt_list), list_end(pt_list)))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_reverse(deque_begin(pt_deq), deque_end(pt_deq));
+            list_reverse(pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_vector);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+
+            if(algo_includes_if(vector_begin(pt_vec), vector_end(pt_vec),
+                    deque_begin(pt_deq), deque_end(pt_deq), fun_greater_vector))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+            if(algo_includes_if(vector_begin(pt_vec), vector_end(pt_vec),
+                    list_begin(pt_list), list_end(pt_list), fun_greater_vector))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+
+            vector_destroy(pt_vec);
+            deque_destroy(pt_deq);
+            list_destroy(pt_list);
+            vector_destroy(pt_item);
+        }
         /*algo_max_element                */
         /*algo_max_element_if             */
         /*algo_min_element                */
         /*algo_min_element_if             */
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            vector_t* pt_item = create_vector(int);
+            int i = 0;
+            iterator_t t_max, t_min;
+            if(pt_vec == NULL || pt_item == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_init(pt_item);
+            for(i = 0; i < 15; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+            algo_random_shuffle(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            t_max = algo_max_element(vector_begin(pt_vec), vector_end(pt_vec));
+            t_min = algo_min_element(vector_begin(pt_vec), vector_end(pt_vec));
+            printf("max: %d, min: %d.\n", vector_size((vector_t*)iterator_get_pointer(t_max)),
+                vector_size((vector_t*)iterator_get_pointer(t_min)));
+            t_max = algo_max_element_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_vector);
+            t_min = algo_min_element_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_vector);
+            printf("max: %d, min: %d.\n", vector_size((vector_t*)iterator_get_pointer(t_max)),
+                vector_size((vector_t*)iterator_get_pointer(t_min)));
+            
+            vector_destroy(pt_vec);
+            vector_destroy(pt_item);
+        }
         /*algo_merge                      */
         /*algo_merge_if                   */
+        {
+            vector_t* pt_vec = create_vector(vector_t<int>);
+            list_t* pt_list = create_list(vector_t<int>);
+            deque_t* pt_deq = create_deque(vector_t<int>);
+            vector_t* pt_item = create_vector(int);
+            int i = 0;
+            if(pt_vec == NULL || pt_list == NULL || pt_deq == NULL || pt_item == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            list_init(pt_list);
+            vector_init(pt_item);
+
+            for(i = 0; i < 10; ++i)
+            {
+                vector_push_back(pt_item, i);
+                vector_push_back(pt_vec, pt_item);
+            }
+            vector_clear(pt_item);
+            for(i = 0; i < 4; ++i)
+            {
+                vector_push_back(pt_item, i);
+            }
+            for(i = 4; i < 9; ++i)
+            {
+                vector_push_back(pt_item, i);
+                list_push_back(pt_list, pt_item);
+            }
+
+            deque_init_n(pt_deq, vector_size(pt_vec) + list_size(pt_list));
+            printf("\n");
+            algo_merge(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), deque_begin(pt_deq));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_vector);
+            printf("\n");
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_vector);
+            list_sort_if(pt_list, fun_greater_vector);
+            algo_merge_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), deque_begin(pt_deq), fun_greater_vector);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_vector);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_vector);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_vector);
+            printf("\n");
+
+            printf("\n");
+            vector_destroy(pt_vec);
+            vector_destroy(pt_item);
+            list_destroy(pt_list);
+            deque_destroy(pt_deq);
+        }
         /*algo_partition                  */
         /*algo_stable_partition           */
         /*algo_reverse                    */
@@ -5593,6 +6009,12 @@ static void _plus100(const void* cpv_input, void* pv_output)
     *(int*)cpv_input += 100;
 }
 
+static void _plus100_vector(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    vector_push_back((vector_t*)cpv_input, 100);
+}
+
 static void _plus100_sample(const void* cpv_input, void* pv_output)
 {
     pv_output = NULL;
@@ -5679,6 +6101,19 @@ static void _check_even(const void* cpv_first, const void* cpv_second, void* pv_
     else
     {
         *(bool_t*)pv_output = *(int*)cpv_first % 2 == 0 ? false : true;
+    }
+}
+
+static void _check_even_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(*(bool_t*)cpv_second)
+    {
+        *(bool_t*)pv_output = vector_size((vector_t*)cpv_first) % 2 == 0 ? true : false;
+    }
+    else
+    {
+        *(bool_t*)pv_output = vector_size((vector_t*)cpv_first) % 2 == 0 ? false : true;
     }
 }
 
