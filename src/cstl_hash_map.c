@@ -89,6 +89,7 @@ static bool_t _hash_map_same_pair_type(
 #endif /* NDEBUG */
 
 static void _hash_map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _hash_map_default_hash(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -237,15 +238,18 @@ void hash_map_init(hash_map_t* pt_hash_map)
 void hash_map_init_ex(hash_map_t* pt_hash_map, size_t t_bucketcount,
     unary_function_t t_hash, binary_function_t t_compare)
 {
+    unary_function_t t_default_hash = NULL;
+
     assert(pt_hash_map != NULL);
 
     /*t_key_less = t_less != NULL ? t_less : _hash_map_key_less;*/
     pt_hash_map->_t_keycompare = t_compare;
     pt_hash_map->_t_pair._t_mapkeycompare = t_compare;
+    t_default_hash = t_hash != NULL ? t_hash : _hash_map_default_hash;
     /* initialize the pair */
     pair_init(&pt_hash_map->_t_pair);
     /* initialize the hashtable */
-    _hashtable_init(&pt_hash_map->_t_hashtable, t_bucketcount, t_hash, _hash_map_value_compare);
+    _hashtable_init(&pt_hash_map->_t_hashtable, t_bucketcount, t_default_hash, _hash_map_value_compare);
 }
 
 void hash_map_destroy(hash_map_t* pt_hash_map)
@@ -283,6 +287,8 @@ void hash_map_init_copy_range_ex(hash_map_t* pt_hash_mapdest,
     hash_map_iterator_t t_begin, hash_map_iterator_t t_end, size_t t_bucketcount,
     unary_function_t t_hash, binary_function_t t_compare)
 {
+    unary_function_t t_default_hash = NULL;
+
     assert(pt_hash_mapdest != NULL);
     assert(_GET_HASH_MAP_CONTAINER_TYPE(t_begin) == _HASH_MAP_CONTAINER &&
            _GET_HASH_MAP_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
@@ -292,7 +298,8 @@ void hash_map_init_copy_range_ex(hash_map_t* pt_hash_mapdest,
            _GET_HASH_MAP_CONTAINER(t_end) != pt_hash_mapdest &&
            _GET_HASH_MAP_CONTAINER(t_begin) == _GET_HASH_MAP_CONTAINER(t_end));
 
-    hash_map_init_ex(pt_hash_mapdest, t_bucketcount, t_hash, t_compare);
+    t_default_hash = t_hash != NULL ? t_hash : _hash_map_default_hash;
+    hash_map_init_ex(pt_hash_mapdest, t_bucketcount, t_default_hash, t_compare);
     if(!hash_map_empty(_GET_HASH_MAP_CONTAINER(t_begin)))
     {
         hash_map_insert_range(pt_hash_mapdest, t_begin, t_end);
@@ -743,6 +750,35 @@ static void _hash_map_value_compare(const void* cpv_first, const void* cpv_secon
         pt_first->_t_typeinfofirst._pt_type->_t_typeless(
             pt_first->_pv_first, pt_second->_pv_first, pv_output);
     }
+}
+
+static void _hash_map_default_hash(const void* cpv_input, void* pv_output)
+{
+    pair_t* pt_pair = NULL;
+    char*   pc_value = NULL;
+    size_t  t_sum = 0;
+    size_t  t_index = 0;
+    size_t  t_len = 0;
+
+    assert(cpv_input != NULL && pv_output != NULL);
+
+    pt_pair = (pair_t*)cpv_input;
+    pc_value = (char*)pair_first(pt_pair);
+    if(strncmp(pt_pair->_t_typeinfofirst._pt_type->_sz_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        t_len = strlen(pc_value);
+    }
+    else
+    {
+        t_len = pt_pair->_t_typeinfofirst._pt_type->_t_typesize;
+    }
+
+    for(t_index = 0; t_index < t_len; ++t_index)
+    {
+        t_sum += (size_t)pc_value[t_index];
+    }
+
+    *(size_t*)pv_output = t_sum;
 }
 
 /** eof **/
