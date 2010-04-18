@@ -1025,11 +1025,23 @@ void algo_generate(
 
     pv_value = _iterator_allocate_init_elem(t_first);
 
-    for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        iterator_get_value(t_first, pv_value);
-        (*t_unary_op)(pv_value, pv_value);
-        iterator_set_value(t_first, pv_value);
+        for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
+        {
+            string_assign_cstr((string_t*)pv_value, (char*)iterator_get_pointer(t_first));
+            (*t_unary_op)(string_c_str((string_t*)pv_value), (char*)string_c_str((string_t*)pv_value));
+            iterator_set_value(t_first, string_c_str((string_t*)pv_value));
+        }
+    }
+    else
+    {
+        for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
+        {
+            iterator_get_value(t_first, pv_value);
+            (*t_unary_op)(pv_value, pv_value);
+            iterator_set_value(t_first, pv_value);
+        }
     }
 
     _iterator_deallocate_destroy_elem(t_first, pv_value);
@@ -1050,11 +1062,23 @@ output_iterator_t algo_generate_n(
 
     pv_value = _iterator_allocate_init_elem(t_first);
 
-    for(t_index = 0; t_index < t_count; ++t_index, t_first = iterator_next(t_first))
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        iterator_get_value(t_first, pv_value);
-        (*t_unary_op)(pv_value, pv_value);
-        iterator_set_value(t_first, pv_value);
+        for(t_index = 0; t_index < t_count; ++t_index, t_first = iterator_next(t_first))
+        {
+            string_assign_cstr((string_t*)pv_value, (char*)iterator_get_pointer(t_first));
+            (*t_unary_op)(string_c_str((string_t*)pv_value), (char*)string_c_str((string_t*)pv_value));
+            iterator_set_value(t_first, string_c_str((string_t*)pv_value));
+        }
+    }
+    else
+    {
+        for(t_index = 0; t_index < t_count; ++t_index, t_first = iterator_next(t_first))
+        {
+            iterator_get_value(t_first, pv_value);
+            (*t_unary_op)(pv_value, pv_value);
+            iterator_set_value(t_first, pv_value);
+        }
     }
 
     _iterator_deallocate_destroy_elem(t_first, pv_value);
@@ -1983,23 +2007,48 @@ forward_iterator_t _algo_lower_bound_if_varg(
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
-    t_len = iterator_distance(t_first, t_last);
-    while(t_len > 0)
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        t_halflen = t_len >> 1;
-        t_middle = t_first;
-        t_middle = iterator_advance(t_middle, t_halflen);
+        t_len = iterator_distance(t_first, t_last);
+        while(t_len > 0)
+        {
+            t_halflen = t_len >> 1;
+            t_middle = t_first;
+            t_middle = iterator_advance(t_middle, t_halflen);
 
-        (*t_binary_op)(iterator_get_pointer(t_middle), pv_value, &t_result);
-        if(t_result) /* *t_middle < value */
-        {
-            t_first = t_middle;
-            t_first = iterator_next(t_first);
-            t_len = t_len - t_halflen - 1;
+            (*t_binary_op)(iterator_get_pointer(t_middle), string_c_str((string_t*)pv_value), &t_result);
+            if(t_result) /* *t_middle < value */
+            {
+                t_first = t_middle;
+                t_first = iterator_next(t_first);
+                t_len = t_len - t_halflen - 1;
+            }
+            else
+            {
+                t_len = t_halflen;
+            }
         }
-        else
+    }
+    else
+    {
+        t_len = iterator_distance(t_first, t_last);
+        while(t_len > 0)
         {
-            t_len = t_halflen;
+            t_halflen = t_len >> 1;
+            t_middle = t_first;
+            t_middle = iterator_advance(t_middle, t_halflen);
+
+            (*t_binary_op)(iterator_get_pointer(t_middle), pv_value, &t_result);
+            if(t_result) /* *t_middle < value */
+            {
+                t_first = t_middle;
+                t_first = iterator_next(t_first);
+                t_len = t_len - t_halflen - 1;
+            }
+            else
+            {
+                t_len = t_halflen;
+            }
         }
     }
 
@@ -2049,23 +2098,48 @@ forward_iterator_t _algo_upper_bound_if_varg(
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
-    t_len = iterator_distance(t_first, t_last);
-    while(t_len > 0)
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        t_halflen = t_len >> 1;
-        t_middle = t_first;
-        t_middle = iterator_advance(t_middle, t_halflen);
+        t_len = iterator_distance(t_first, t_last);
+        while(t_len > 0)
+        {
+            t_halflen = t_len >> 1;
+            t_middle = t_first;
+            t_middle = iterator_advance(t_middle, t_halflen);
 
-        (*t_binary_op)(pv_value, iterator_get_pointer(t_middle), &t_result);
-        if(t_result) /* value < *t_middle */
-        {
-            t_len = t_halflen;
+            (*t_binary_op)(string_c_str((string_t*)pv_value), iterator_get_pointer(t_middle), &t_result);
+            if(t_result) /* value < *t_middle */
+            {
+                t_len = t_halflen;
+            }
+            else
+            {
+                t_first = t_middle;
+                t_first = iterator_next(t_first);
+                t_len = t_len - t_halflen - 1;
+            }
         }
-        else
+    }
+    else
+    {
+        t_len = iterator_distance(t_first, t_last);
+        while(t_len > 0)
         {
-            t_first = t_middle;
-            t_first = iterator_next(t_first);
-            t_len = t_len - t_halflen - 1;
+            t_halflen = t_len >> 1;
+            t_middle = t_first;
+            t_middle = iterator_advance(t_middle, t_halflen);
+
+            (*t_binary_op)(pv_value, iterator_get_pointer(t_middle), &t_result);
+            if(t_result) /* value < *t_middle */
+            {
+                t_len = t_halflen;
+            }
+            else
+            {
+                t_first = t_middle;
+                t_first = iterator_next(t_first);
+                t_len = t_len - t_halflen - 1;
+            }
         }
     }
 
@@ -2119,40 +2193,83 @@ range_t _algo_equal_range_if_varg(
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
-    t_len = iterator_distance(t_first, t_last);
-    while(t_len > 0)
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        t_halflen = t_len >> 1;
-        t_middle = t_first;
-        t_middle = iterator_advance(t_middle, t_halflen);
+        t_len = iterator_distance(t_first, t_last);
+        while(t_len > 0)
+        {
+            t_halflen = t_len >> 1;
+            t_middle = t_first;
+            t_middle = iterator_advance(t_middle, t_halflen);
 
-        (*t_binary_op)(iterator_get_pointer(t_middle), pv_value, &t_result);
-        if(t_result) /* *t_middle < value */
-        {
-            t_first = t_middle;
-            t_first = iterator_next(t_first);
-            t_len = t_len - t_halflen - 1;
-        }
-        else
-        {
-            (*t_binary_op)(pv_value, iterator_get_pointer(t_middle), &t_result);
-            if(t_result) /* value < *t_middle */
+            (*t_binary_op)(iterator_get_pointer(t_middle), string_c_str((string_t*)pv_value), &t_result);
+            if(t_result) /* *t_middle < value */
             {
-                t_len = t_halflen;
+                t_first = t_middle;
+                t_first = iterator_next(t_first);
+                t_len = t_len - t_halflen - 1;
             }
             else
             {
-                t_lower = _algo_lower_bound_if_varg(
-                    t_first, t_middle, t_binary_op, val_elemlist);
-                t_first = iterator_advance(t_first, t_len);
-                t_middle = iterator_next(t_middle);
-                t_upper = _algo_upper_bound_if_varg(
-                    t_middle, t_first, t_binary_op, val_elemlist);
+                (*t_binary_op)(string_c_str((string_t*)pv_value), iterator_get_pointer(t_middle), &t_result);
+                if(t_result) /* value < *t_middle */
+                {
+                    t_len = t_halflen;
+                }
+                else
+                {
+                    t_lower = _algo_lower_bound_if_varg(
+                        t_first, t_middle, t_binary_op, val_elemlist);
+                    t_first = iterator_advance(t_first, t_len);
+                    t_middle = iterator_next(t_middle);
+                    t_upper = _algo_upper_bound_if_varg(
+                        t_middle, t_first, t_binary_op, val_elemlist);
 
-                t_range.it_begin = t_lower;
-                t_range.it_end = t_upper;
-                t_equal = true;
-                break;
+                    t_range.it_begin = t_lower;
+                    t_range.it_end = t_upper;
+                    t_equal = true;
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        t_len = iterator_distance(t_first, t_last);
+        while(t_len > 0)
+        {
+            t_halflen = t_len >> 1;
+            t_middle = t_first;
+            t_middle = iterator_advance(t_middle, t_halflen);
+
+            (*t_binary_op)(iterator_get_pointer(t_middle), pv_value, &t_result);
+            if(t_result) /* *t_middle < value */
+            {
+                t_first = t_middle;
+                t_first = iterator_next(t_first);
+                t_len = t_len - t_halflen - 1;
+            }
+            else
+            {
+                (*t_binary_op)(pv_value, iterator_get_pointer(t_middle), &t_result);
+                if(t_result) /* value < *t_middle */
+                {
+                    t_len = t_halflen;
+                }
+                else
+                {
+                    t_lower = _algo_lower_bound_if_varg(
+                        t_first, t_middle, t_binary_op, val_elemlist);
+                    t_first = iterator_advance(t_first, t_len);
+                    t_middle = iterator_next(t_middle);
+                    t_upper = _algo_upper_bound_if_varg(
+                        t_middle, t_first, t_binary_op, val_elemlist);
+
+                    t_range.it_begin = t_lower;
+                    t_range.it_end = t_upper;
+                    t_equal = true;
+                    break;
+                }
             }
         }
     }
@@ -2206,12 +2323,19 @@ bool_t _algo_binary_search_if_varg(
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
-    if(!iterator_equal(t_lower, t_last))
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        (*t_binary_op)(pv_value, iterator_get_pointer(t_lower), &t_cmp);
-        if(!t_cmp)
+        if(!iterator_equal(t_lower, t_last))
         {
-            t_result = true;
+            (*t_binary_op)(string_c_str((string_t*)pv_value), iterator_get_pointer(t_lower), &t_cmp);
+            if(!t_cmp)
+            {
+                t_result = true;
+            }
+            else
+            {
+                t_result = false;
+            }
         }
         else
         {
@@ -2220,7 +2344,22 @@ bool_t _algo_binary_search_if_varg(
     }
     else
     {
-        t_result = false;
+        if(!iterator_equal(t_lower, t_last))
+        {
+            (*t_binary_op)(pv_value, iterator_get_pointer(t_lower), &t_cmp);
+            if(!t_cmp)
+            {
+                t_result = true;
+            }
+            else
+            {
+                t_result = false;
+            }
+        }
+        else
+        {
+            t_result = false;
+        }
     }
 
     _iterator_deallocate_destroy_elem(t_first, pv_value);
@@ -3024,36 +3163,74 @@ static void _insertion_sort_if(
         return;
     }
 
-    for(t_bound = t_first, t_bound = iterator_next(t_bound);
-        !iterator_equal(t_bound, t_last);
-        t_bound = iterator_next(t_bound))
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        iterator_get_value(t_bound, pc_value);
+        for(t_bound = t_first, t_bound = iterator_next(t_bound);
+            !iterator_equal(t_bound, t_last);
+            t_bound = iterator_next(t_bound))
+        {
+            string_assign_cstr((string_t*)pc_value, (char*)iterator_get_pointer(t_bound));
 
-        (*t_binary_op)(pc_value, iterator_get_pointer(t_first), &t_result);
-        if(t_result) /* pc_value < *t_first */
-        {
-            iterator_t t_next = t_bound;
-            t_next = iterator_next(t_next);
-            algo_copy_backward(t_first, t_bound, t_next);
-            iterator_set_value(t_first, pc_value);
-        }
-        else
-        {
-            iterator_t t_tmp = t_bound;
-            iterator_t t_prev = t_tmp;
-            t_prev = iterator_prev(t_prev);
-            (*t_binary_op)(pc_value, iterator_get_pointer(t_prev), &t_result);
-            while(t_result) /* pc_value < *t_prev */
+            (*t_binary_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(t_first), &t_result);
+            if(t_result) /* pc_value < *t_first */
             {
-                iterator_set_value(t_tmp, iterator_get_pointer(t_prev));
-                t_tmp = t_prev;
-                t_prev = iterator_prev(t_prev);
-
-                (*t_binary_op)(pc_value, iterator_get_pointer(t_prev), &t_result);
+                iterator_t t_next = t_bound;
+                t_next = iterator_next(t_next);
+                algo_copy_backward(t_first, t_bound, t_next);
+                iterator_set_value(t_first, string_c_str((string_t*)pc_value));
             }
+            else
+            {
+                iterator_t t_tmp = t_bound;
+                iterator_t t_prev = t_tmp;
+                t_prev = iterator_prev(t_prev);
+                (*t_binary_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(t_prev), &t_result);
+                while(t_result) /* pc_value < *t_prev */
+                {
+                    iterator_set_value(t_tmp, iterator_get_pointer(t_prev));
+                    t_tmp = t_prev;
+                    t_prev = iterator_prev(t_prev);
 
-            iterator_set_value(t_tmp, pc_value);
+                    (*t_binary_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(t_prev), &t_result);
+                }
+
+                iterator_set_value(t_tmp, string_c_str((string_t*)pc_value));
+            }
+        }
+    }
+    else
+    {
+        for(t_bound = t_first, t_bound = iterator_next(t_bound);
+            !iterator_equal(t_bound, t_last);
+            t_bound = iterator_next(t_bound))
+        {
+            iterator_get_value(t_bound, pc_value);
+
+            (*t_binary_op)(pc_value, iterator_get_pointer(t_first), &t_result);
+            if(t_result) /* pc_value < *t_first */
+            {
+                iterator_t t_next = t_bound;
+                t_next = iterator_next(t_next);
+                algo_copy_backward(t_first, t_bound, t_next);
+                iterator_set_value(t_first, pc_value);
+            }
+            else
+            {
+                iterator_t t_tmp = t_bound;
+                iterator_t t_prev = t_tmp;
+                t_prev = iterator_prev(t_prev);
+                (*t_binary_op)(pc_value, iterator_get_pointer(t_prev), &t_result);
+                while(t_result) /* pc_value < *t_prev */
+                {
+                    iterator_set_value(t_tmp, iterator_get_pointer(t_prev));
+                    t_tmp = t_prev;
+                    t_prev = iterator_prev(t_prev);
+
+                    (*t_binary_op)(pc_value, iterator_get_pointer(t_prev), &t_result);
+                }
+
+                iterator_set_value(t_tmp, pc_value);
+            }
         }
     }
 }
@@ -3161,40 +3338,81 @@ static void _intro_sort_if(
     t_prev = t_last;
     t_prev = iterator_prev(t_prev);
     t_pivot = _median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
-    iterator_get_value(t_pivot, pc_value);
 
-    t_begin = t_first;
-    t_end = t_last;
-    for(;;)
+    /* the pc_value must be string_t type when the container type is char* */
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        /* move begin */
-        (*t_binary_op)(iterator_get_pointer(t_begin), pc_value, &t_result);
-        while(t_result)
+        string_assign_cstr((string_t*)pc_value, (char*)iterator_get_pointer(t_pivot));
+        t_begin = t_first;
+        t_end = t_last;
+        for(;;)
         {
-            t_begin = iterator_next(t_begin);
-            (*t_binary_op)(iterator_get_pointer(t_begin), pc_value, &t_result);
-        }
-        /* move end */
-        t_end = iterator_prev(t_end);
-        (*t_binary_op)(pc_value, iterator_get_pointer(t_end), &t_result);
-        while(t_result)
-        {
+            /* move begin */
+            (*t_binary_op)(iterator_get_pointer(t_begin), string_c_str((string_t*)pc_value), &t_result);
+            while(t_result)
+            {
+                t_begin = iterator_next(t_begin);
+                (*t_binary_op)(iterator_get_pointer(t_begin), string_c_str((string_t*)pc_value), &t_result);
+            }
+            /* move end */
             t_end = iterator_prev(t_end);
-            (*t_binary_op)(pc_value, iterator_get_pointer(t_end), &t_result);
-        }
+            (*t_binary_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(t_end), &t_result);
+            while(t_result)
+            {
+                t_end = iterator_prev(t_end);
+                (*t_binary_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(t_end), &t_result);
+            }
 
-        /* across */
-        if(!iterator_less(t_begin, t_end))
-        {
-            t_pivot = t_begin;
-            break;
-        }
-        else
-        {
-            algo_iter_swap(t_begin, t_end);
-            t_begin = iterator_next(t_begin);
+            /* across */
+            if(!iterator_less(t_begin, t_end))
+            {
+                t_pivot = t_begin;
+                break;
+            }
+            else
+            {
+                algo_iter_swap(t_begin, t_end);
+                t_begin = iterator_next(t_begin);
+            }
         }
     }
+    else
+    {
+        iterator_get_value(t_pivot, pc_value);
+        t_begin = t_first;
+        t_end = t_last;
+        for(;;)
+        {
+            /* move begin */
+            (*t_binary_op)(iterator_get_pointer(t_begin), pc_value, &t_result);
+            while(t_result)
+            {
+                t_begin = iterator_next(t_begin);
+                (*t_binary_op)(iterator_get_pointer(t_begin), pc_value, &t_result);
+            }
+            /* move end */
+            t_end = iterator_prev(t_end);
+            (*t_binary_op)(pc_value, iterator_get_pointer(t_end), &t_result);
+            while(t_result)
+            {
+                t_end = iterator_prev(t_end);
+                (*t_binary_op)(pc_value, iterator_get_pointer(t_end), &t_result);
+            }
+
+            /* across */
+            if(!iterator_less(t_begin, t_end))
+            {
+                t_pivot = t_begin;
+                break;
+            }
+            else
+            {
+                algo_iter_swap(t_begin, t_end);
+                t_begin = iterator_next(t_begin);
+            }
+        }
+    }
+
 
     /* sort [t_first, t_pivot) */
     _intro_sort_if(t_first, t_pivot, t_binary_op, t_depth, pc_value);

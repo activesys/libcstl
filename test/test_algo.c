@@ -23,6 +23,7 @@
 /** include section **/
 #include <assert.h>
 #include <stdio.h>
+#include <ctype.h>
 #include "cvector.h"
 #include "clist.h"
 #include "cdeque.h"
@@ -61,6 +62,9 @@ static void _binary_copy_vector(const void* cpv_first, const void* cpv_second, v
 static void _print_cstr(const void* cpv_input, void* pv_output);
 static void _is_even_cstr(const void* cpv_input, void* pv_output);
 static void _mod3_cstr(const void* cpv_input, void* pv_output);
+static void _doubled_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _toupper_cstr(const void* cpv_input, void* pv_output);
+static void _check_even_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -7172,10 +7176,260 @@ void test_algo(void)
         /*_algo_lower_bound_if            */
         /*_algo_upper_bound               */
         /*_algo_upper_bound_if            */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            iterator_t t_lower, t_upper;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            printf("\n");
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMM");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nb");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), "!!");
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), "!!");
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_lower), (char*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), "abc");
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), "abc");
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_lower), (char*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), "xxx");
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), "xxx");
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_lower), (char*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound(vector_begin(pt_vec), vector_end(pt_vec), "~~");
+            t_upper = algo_upper_bound(vector_begin(pt_vec), vector_end(pt_vec), "~~");
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_lower), (char*)iterator_get_pointer(t_upper));
+            }
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), "!!", fun_greater_cstr);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), "!!", fun_greater_cstr);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_lower), (char*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), "abc", fun_greater_cstr);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), "abc", fun_greater_cstr);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_lower), (char*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), "xxx", fun_greater_cstr);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), "xxx", fun_greater_cstr);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_lower), (char*)iterator_get_pointer(t_upper));
+            }
+            t_lower = algo_lower_bound_if(vector_begin(pt_vec), vector_end(pt_vec), "~~", fun_greater_cstr);
+            t_upper = algo_upper_bound_if(vector_begin(pt_vec), vector_end(pt_vec), "~~", fun_greater_cstr);
+            if(!iterator_equal(t_lower, vector_end(pt_vec)) && !iterator_equal(t_upper, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_lower), (char*)iterator_get_pointer(t_upper));
+            }
+
+            printf("\n");
+            vector_destroy(pt_vec);
+        }
         /*_algo_equal_range               */
         /*_algo_equal_range_if            */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            range_t t_range;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            printf("\n");
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMM");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nb");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), "!!");
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_range.it_begin), (char*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), "abc");
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_range.it_begin), (char*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), "xxx");
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_range.it_begin), (char*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range(vector_begin(pt_vec), vector_end(pt_vec), "~~");
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_range.it_begin), (char*)iterator_get_pointer(t_range.it_end));
+            }
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), "!!", fun_greater_cstr);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_range.it_begin), (char*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), "abc", fun_greater_cstr);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_range.it_begin), (char*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), "xxx", fun_greater_cstr);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_range.it_begin), (char*)iterator_get_pointer(t_range.it_end));
+            }
+            t_range = algo_equal_range_if(vector_begin(pt_vec), vector_end(pt_vec), "~~", fun_greater_cstr);
+            if(!iterator_equal(t_range.it_begin, vector_end(pt_vec)) && !iterator_equal(t_range.it_end, vector_end(pt_vec)))
+            {
+                printf("lower : %s, upper : %s.\n",
+                    (char*)iterator_get_pointer(t_range.it_begin), (char*)iterator_get_pointer(t_range.it_end));
+            }
+
+            printf("\n");
+            vector_destroy(pt_vec);
+        }
         /*_algo_binary_search             */
         /*_algo_binary_search_if          */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMM");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nb");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            printf("\n");
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            if(algo_binary_search(vector_begin(pt_vec), vector_end(pt_vec), "abc"))
+            {
+                printf("\"abc\" is present.\n");
+            }
+            else
+            {
+                printf("\"abc\" is not present.\n");
+            }
+            if(algo_binary_search(vector_begin(pt_vec), vector_end(pt_vec), "www"))
+            {
+                printf("\"www\" is present.\n");
+            }
+            else
+            {
+                printf("\"www\" is not present.\n");
+            }
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            if(algo_binary_search_if(vector_begin(pt_vec), vector_end(pt_vec), "abc", fun_greater_cstr))
+            {
+                printf("greater than \"abc\" is present.\n");
+            }
+            else
+            {
+                printf("greater than \"abc\" is not present.\n");
+            }
+            if(algo_binary_search_if(vector_begin(pt_vec), vector_end(pt_vec), "www", fun_greater_cstr))
+            {
+                printf("greater than \"www\" is present.\n");
+            }
+            else
+            {
+                printf("greater than \"www\" is not present.\n");
+            }
+
+            vector_destroy(pt_vec);
+        }
         /*algo_set_union                  */
         /*algo_set_union_if               */
         /*algo_set_intersection           */
@@ -7184,19 +7438,560 @@ void test_algo(void)
         /*algo_set_difference_if          */
         /*algo_set_symmetric_difference   */
         /*algo_set_symmetric_difference_if*/
+        {
+            vector_t* pt_vec = create_vector(char*);
+            list_t* pt_list = create_list(char*);
+            deque_t* pt_deq = create_deque(char*);
+            iterator_t t_iter;
+            if(pt_vec == NULL || pt_list == NULL || pt_deq == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "MMM");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "ggg");
+            vector_push_back(pt_vec, "jjj");
+            vector_push_back(pt_vec, "lll");
+            vector_push_back(pt_vec, "lll");
+            vector_push_back(pt_vec, "xxx");
+            list_init(pt_list);
+            list_push_back(pt_list, "abc");
+            list_push_back(pt_list, "abc");
+            list_push_back(pt_list, "abc");
+            list_push_back(pt_list, "ert");
+            list_push_back(pt_list, "jjj");
+            list_push_back(pt_list, "jjj");
+            list_push_back(pt_list, "nnn");
+            list_push_back(pt_list, "xxx");
+            deque_init_n(pt_deq, vector_size(pt_vec) + list_size(pt_list));
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+            algo_merge(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list), list_end(pt_list),
+                deque_begin(pt_deq));
+            printf("merge:\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            t_iter = algo_set_union(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                    list_end(pt_list), deque_begin(pt_deq));
+            printf("union:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+            t_iter = algo_set_intersection(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("intersection:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+            t_iter = algo_set_difference(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+            t_iter = algo_set_symmetric_difference(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq));
+            printf("symmetric difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            list_reverse(pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+            algo_merge_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list), list_end(pt_list),
+                deque_begin(pt_deq), fun_greater_cstr);
+            printf("merge:\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            t_iter = algo_set_union_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                    list_end(pt_list), deque_begin(pt_deq), fun_greater_cstr);
+            printf("union:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+            t_iter = algo_set_intersection_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), fun_greater_cstr);
+            printf("intersection:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+            t_iter = algo_set_difference_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), fun_greater_cstr);
+            printf("difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+            t_iter = algo_set_symmetric_difference_if(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list),
+                list_end(pt_list), deque_begin(pt_deq), fun_greater_cstr);
+            printf("symmetric difference:\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+            deque_destroy(pt_deq);
+        }
         /*algo_adjacent_find              */
         /*algo_adjacent_find_if           */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            iterator_t t_iter;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            t_iter = algo_adjacent_find(vector_begin(pt_vec), vector_end(pt_vec));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no two elements with equal value.\n");
+            }
+            else
+            {
+                printf("first two elements with equal value have position %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            t_iter = algo_adjacent_find_if(vector_begin(pt_vec), vector_end(pt_vec), _doubled_cstr);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no two elements with second value twice the first.\n");
+            }
+            else
+            {
+                printf("first two elements with second value twice the first have pos %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMM");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nb");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            t_iter = algo_adjacent_find(vector_begin(pt_vec), vector_end(pt_vec));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no two elements with equal value.\n");
+            }
+            else
+            {
+                printf("first two elements with equal value have position %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            t_iter = algo_adjacent_find_if(vector_begin(pt_vec), vector_end(pt_vec), _doubled_cstr);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no two elements with second value twice the first.\n");
+            }
+            else
+            {
+                printf("first two elements with second value twice the first have pos %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            vector_destroy(pt_vec);
+        }
         /*algo_find_first_of              */
         /*algo_find_first_of_if           */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            list_t* pt_list = create_list(char*);
+            iterator_t t_iter;
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            list_init(pt_list);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+
+            t_iter = algo_find_first_of(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+            t_iter = algo_find_first_of_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _doubled_cstr);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMM");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nb");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            list_push_back(pt_list, "uu");
+            list_push_back(pt_list, "abc");
+            list_push_back(pt_list, "1234");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+
+            t_iter = algo_find_first_of(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+            t_iter = algo_find_first_of_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _doubled_cstr);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+
+            t_iter = algo_find_first_of(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list));
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+            t_iter = algo_find_first_of_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _doubled_cstr);
+            if(iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("no element in vector for serach.\n");
+            }
+            else
+            {
+                printf("first elment in vector for search is element %d.\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+            }
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
         /*algo_for_each                   */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _toupper_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMM");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nb");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _toupper_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
         /*algo_search                     */
         /*algo_search_if                  */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            deque_t* pt_deq = create_deque(char*);
+            list_t* pt_list = create_list(bool_t);
+            iterator_t t_iter;
+
+            if(pt_vec == NULL || pt_deq == NULL || pt_list == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            deque_init(pt_deq);
+            list_init(pt_list);
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            deque_push_back(pt_deq, "xxx");
+            deque_push_back(pt_deq, "xxxyyy");
+            deque_push_back(pt_deq, "xxx");
+            list_push_back(pt_list, true);
+            list_push_back(pt_list, false);
+            list_push_back(pt_list, true);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            t_iter = algo_search(vector_begin(pt_vec), vector_end(pt_vec),
+                deque_begin(pt_deq), deque_end(pt_deq));
+            while(!iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("sub find with element %d\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+                t_iter = iterator_next(t_iter);
+                t_iter = algo_search(t_iter, vector_end(pt_vec),
+                    deque_begin(pt_deq), deque_end(pt_deq));
+            }
+
+            t_iter = algo_search_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _check_even_cstr);
+            while(!iterator_equal(t_iter, vector_end(pt_vec)))
+            {
+                printf("sub find with element %d\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+                t_iter = iterator_next(t_iter);
+                t_iter = algo_search_if(t_iter, vector_end(pt_vec),
+                    list_begin(pt_list), list_end(pt_list), _check_even_cstr);
+            }
+
+            vector_destroy(pt_vec);
+            deque_destroy(pt_deq);
+            list_destroy(pt_list);
+        }
         /*algo_search_end                 */
         /*algo_search_end_if              */
         /*algo_find_end                   */
         /*algo_find_end_if                */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            deque_t* pt_deq = create_deque(char*);
+            list_t* pt_list = create_list(bool_t);
+            iterator_t t_iter;
+            iterator_t t_end;
+
+            if(pt_vec == NULL || pt_deq == NULL || pt_list == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            deque_init(pt_deq);
+            list_init(pt_list);
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            deque_push_back(pt_deq, "xxx");
+            deque_push_back(pt_deq, "xxxyyy");
+            deque_push_back(pt_deq, "xxx");
+            list_push_back(pt_list, true);
+            list_push_back(pt_list, false);
+            list_push_back(pt_list, true);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            t_iter = algo_search_end(vector_begin(pt_vec), vector_end(pt_vec),
+                deque_begin(pt_deq), deque_end(pt_deq));
+            t_end = vector_end(pt_vec);
+            while(!iterator_equal(t_iter, t_end))
+            {
+                printf("sub find with element %d\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+                t_end = t_iter;
+                t_iter = algo_search_end(vector_begin(pt_vec), t_end,
+                    deque_begin(pt_deq), deque_end(pt_deq));
+            }
+
+            t_iter = algo_search_end_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), _check_even_cstr);
+            t_end = vector_end(pt_vec);
+            while(!iterator_equal(t_iter, t_end))
+            {
+                printf("sub find with element %d\n",
+                    iterator_distance(vector_begin(pt_vec), t_iter) + 1);
+                t_end = t_iter;
+                t_iter = algo_search_end_if(vector_begin(pt_vec), t_end,
+                    list_begin(pt_list), list_end(pt_list), _check_even_cstr);
+            }
+
+            vector_destroy(pt_vec);
+            deque_destroy(pt_deq);
+            list_destroy(pt_list);
+        }
         /*algo_generate                   */
         /*algo_generate_n                 */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_generate(vector_begin(pt_vec), vector_end(pt_vec), _toupper_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            vector_clear(pt_vec);
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_generate_n(vector_begin(pt_vec), 5, _toupper_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
         /*algo_includes                   */
         /*algo_includes_if                */
         /*algo_max_element                */
@@ -7252,12 +8047,17 @@ static void _print_int(const void* cpv_input, void* pv_output)
     printf("%d, ", *(int*)cpv_input);
 }
 
+static void _toupper_cstr(const void* cpv_input, void* pv_output)
+{
+    pv_output = NULL;
+    *(char*)cpv_input = toupper(*(char*)cpv_input);
+}
+
 static void _print_cstr(const void* cpv_input, void* pv_output)
 {
     pv_output = NULL;
     printf("%s, ", (char*)cpv_input);
 }
-
 
 static void _plus100(const void* cpv_input, void* pv_output)
 {
@@ -7344,6 +8144,13 @@ static void _doubled(const void* cpv_first, const void* cpv_second, void* pv_out
     *(bool_t*)pv_output = *(int*)cpv_first * 2 == *(int*)cpv_second ? true : false;
 }
 
+static void _doubled_cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = strlen((char*)cpv_first) * 2 == strlen((char*)cpv_second) ? true : false;
+}
+
+
 static void _doubled_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -7375,6 +8182,19 @@ static void _check_even(const void* cpv_first, const void* cpv_second, void* pv_
     else
     {
         *(bool_t*)pv_output = *(int*)cpv_first % 2 == 0 ? false : true;
+    }
+}
+
+static void _check_even_cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    if(*(bool_t*)cpv_second)
+    {
+        *(bool_t*)pv_output = strlen((char*)cpv_first) % 2 == 0 ? true : false;
+    }
+    else
+    {
+        *(bool_t*)pv_output = strlen((char*)cpv_first) % 2 == 0 ? false : true;
     }
 }
 

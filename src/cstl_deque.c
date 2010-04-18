@@ -218,7 +218,7 @@ void _deque_iterator_set_value(deque_iterator_t t_iter, const void* cpv_value)
         _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         string_assign_cstr(
-            (string_t*)_deque_iterator_get_pointer_auxiliary(t_iter), *(char**)cpv_value);
+            (string_t*)_deque_iterator_get_pointer_auxiliary(t_iter), (char*)cpv_value);
     }
     else
     {
