@@ -65,6 +65,8 @@ static void _mod3_cstr(const void* cpv_input, void* pv_output);
 static void _doubled_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
 static void _toupper_cstr(const void* cpv_input, void* pv_output);
 static void _check_even_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
+static void _tolower_cstr_ex(const void* cpv_input, void* pv_output);
+static void _toupper_cstr_ex(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -7994,25 +7996,574 @@ void test_algo(void)
         }
         /*algo_includes                   */
         /*algo_includes_if                */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            deque_t* pt_deq = create_deque(char*);
+            list_t* pt_list = create_list(char*);
+            if(pt_vec == NULL || pt_deq == NULL || pt_list == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            deque_init(pt_deq);
+            list_init(pt_list);
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            deque_push_back(pt_deq, "abcd");
+            deque_push_back(pt_deq, "MMMM");
+            deque_push_back(pt_deq, "uuu");
+            list_push_back(pt_list, "@@@@");
+            list_push_back(pt_list, "uuu");
+            list_push_back(pt_list, "XXX");
+
+            printf("\n");
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_sort(deque_begin(pt_deq), deque_end(pt_deq));
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+            list_sort(pt_list);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+
+            if(algo_includes(vector_begin(pt_vec), vector_end(pt_vec),
+                    deque_begin(pt_deq), deque_end(pt_deq)))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+            if(algo_includes(vector_begin(pt_vec), vector_end(pt_vec),
+                    list_begin(pt_list), list_end(pt_list)))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_reverse(deque_begin(pt_deq), deque_end(pt_deq));
+            list_reverse(pt_list);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+
+            if(algo_includes_if(vector_begin(pt_vec), vector_end(pt_vec),
+                    deque_begin(pt_deq), deque_end(pt_deq), fun_greater_cstr))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+            if(algo_includes_if(vector_begin(pt_vec), vector_end(pt_vec),
+                    list_begin(pt_list), list_end(pt_list), fun_greater_cstr))
+            {
+                printf("includes.\n");
+            }
+            else
+            {
+                printf("not includes.\n");
+            }
+
+            vector_destroy(pt_vec);
+            deque_destroy(pt_deq);
+            list_destroy(pt_list);
+        }
         /*algo_max_element                */
         /*algo_max_element_if             */
         /*algo_min_element                */
         /*algo_min_element_if             */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            iterator_t t_max, t_min;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            printf("\n");
+            algo_random_shuffle(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            t_max = algo_max_element(vector_begin(pt_vec), vector_end(pt_vec));
+            t_min = algo_min_element(vector_begin(pt_vec), vector_end(pt_vec));
+            printf("max: %s, min: %s.\n", (char*)iterator_get_pointer(t_max),
+                (char*)iterator_get_pointer(t_min));
+            t_max = algo_max_element_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr);
+            t_min = algo_min_element_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr);
+            printf("max: %s, min: %s.\n", (char*)iterator_get_pointer(t_max),
+                (char*)iterator_get_pointer(t_min));
+            
+            vector_destroy(pt_vec);
+        }
         /*algo_merge                      */
         /*algo_merge_if                   */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            list_t* pt_list = create_list(char*);
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_vec == NULL || pt_list == NULL || pt_deq == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            list_init(pt_list);
+            list_push_back(pt_list, "ggg");
+            list_push_back(pt_list, "ccxx");
+            list_push_back(pt_list, "BBB");
+            list_push_back(pt_list, "789");
+            list_push_back(pt_list, "[[[[[[");
+            deque_init_n(pt_deq, vector_size(pt_vec) + list_size(pt_list));
+
+            printf("\n");
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            list_sort(pt_list);
+            algo_merge(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), deque_begin(pt_deq));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr);
+            list_sort_if(pt_list, fun_greater_cstr);
+            algo_merge_if(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), list_end(pt_list), deque_begin(pt_deq), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            printf("\n");
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+            deque_destroy(pt_deq);
+        }
         /*algo_partition                  */
         /*algo_stable_partition           */
+        {
+            vector_t* pt_vec1 = create_vector(char*);
+            vector_t* pt_vec2 = create_vector(char*);
+            if(pt_vec1 == NULL || pt_vec2 == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec1);
+            vector_init(pt_vec2);
+
+            vector_push_back(pt_vec1, "ksbkd");
+            vector_push_back(pt_vec1, "bbbbbbbbb");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "abcd");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "MMMM"); 
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxxyyy");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "$%%%%");
+            vector_push_back(pt_vec1, "@@@@");
+            vector_push_back(pt_vec1, "nba");
+            vector_push_back(pt_vec1, "help");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxxyyy");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "uuu");
+            vector_push_back(pt_vec1, "+_*/");
+            vector_push_back(pt_vec2, "ksbkd");
+            vector_push_back(pt_vec2, "bbbbbbbbb");
+            vector_push_back(pt_vec2, "abc");
+            vector_push_back(pt_vec2, "abcd");
+            vector_push_back(pt_vec2, "abc");
+            vector_push_back(pt_vec2, "MMMM"); 
+            vector_push_back(pt_vec2, "xxx");
+            vector_push_back(pt_vec2, "xxxyyy");
+            vector_push_back(pt_vec2, "xxx");
+            vector_push_back(pt_vec2, "$%%%%");
+            vector_push_back(pt_vec2, "@@@@");
+            vector_push_back(pt_vec2, "nba");
+            vector_push_back(pt_vec2, "help");
+            vector_push_back(pt_vec2, "abc");
+            vector_push_back(pt_vec2, "xxx");
+            vector_push_back(pt_vec2, "xxxyyy");
+            vector_push_back(pt_vec2, "xxx");
+            vector_push_back(pt_vec2, "uuu");
+            vector_push_back(pt_vec2, "+_*/");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+
+            algo_partition(vector_begin(pt_vec1), vector_end(pt_vec1), _is_even_cstr);
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_stable_partition(vector_begin(pt_vec2), vector_end(pt_vec2), _is_even_cstr);
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec1);
+            vector_destroy(pt_vec2);
+        }
         /*algo_reverse                    */
         /*algo_reverse_copy               */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            list_t* pt_list = create_list(char*);
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            list_init_n(pt_list, vector_size(pt_vec));
+
+            printf("\n");
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_reverse(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            algo_reverse(iterator_next_n(vector_begin(pt_vec), 3),
+                iterator_prev_n(vector_end(pt_vec), 3));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            algo_reverse_copy(vector_begin(pt_vec), vector_end(pt_vec), list_begin(pt_list));
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
         /*algo_rotate                     */
         /*algo_rotate_copy                */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            list_t* pt_list = create_list(char*);
+
+            if(pt_vec == NULL || pt_list == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            list_init_n(pt_list, vector_size(pt_vec));
+
+            printf("\n");
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_rotate(vector_begin(pt_vec), vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_rotate(vector_begin(pt_vec), iterator_next_n(vector_begin(pt_vec), 3),
+                vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_rotate(vector_begin(pt_vec), iterator_next_n(vector_begin(pt_vec), 5),
+                vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_rotate(vector_begin(pt_vec), vector_end(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_rotate_copy(vector_begin(pt_vec), iterator_next_n(vector_begin(pt_vec), 5),
+                vector_end(pt_vec), list_begin(pt_list));
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+        }
         /*algo_swap_ranges                */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_vec == NULL || pt_deq == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            deque_init(pt_deq);
+
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+            algo_swap_ranges(vector_begin(pt_vec), vector_end(pt_vec), deque_begin(pt_deq));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            deque_push_back(pt_deq, "xxx");
+            deque_push_back(pt_deq, "$%%%%");
+            deque_push_back(pt_deq, "@@@@");
+            deque_push_back(pt_deq, "nba");
+            deque_push_back(pt_deq, "help");
+            deque_push_back(pt_deq, "abc");
+            deque_push_back(pt_deq, "xxx");
+            deque_push_back(pt_deq, "xxxyyy");
+            deque_push_back(pt_deq, "xxx");
+            deque_push_back(pt_deq, "uuu");
+            deque_push_back(pt_deq, "+_*/");
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+            algo_swap_ranges(vector_begin(pt_vec), vector_end(pt_vec), deque_begin(pt_deq));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            deque_destroy(pt_deq);
+        }
         /*algo_transform                  */
         /*algo_transform_binary           */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            list_t* pt_list = create_list(char*);
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_vec == NULL || pt_list == NULL || pt_deq == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            list_init_n(pt_list, vector_size(pt_vec));
+            deque_init_n(pt_deq, vector_size(pt_vec));
+
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_transform(vector_begin(pt_vec), vector_end(pt_vec),
+                vector_begin(pt_vec), _toupper_cstr_ex);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            algo_transform(vector_begin(pt_vec), vector_end(pt_vec),
+                list_begin(pt_list), _tolower_cstr_ex);
+            algo_for_each(list_begin(pt_list), list_end(pt_list), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            list_destroy(pt_list);
+            deque_destroy(pt_deq);
+        }
         /*algo_unique                     */
         /*algo_unique_if                  */
         /*algo_unique_copy                */
         /*algo_unique_copy_if             */
+        {
+            vector_t* pt_vec1 = create_vector(char*);
+            vector_t* pt_vec2 = create_vector(char*);
+            list_t* pt_list = create_list(char*);
+            iterator_t t_iter;
+
+            if(pt_vec1 == NULL || pt_vec2 == NULL || pt_list == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec1);
+            vector_push_back(pt_vec1, "ksbkd");
+            vector_push_back(pt_vec1, "bbbbbbbbb");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "abcd");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "MMMM"); 
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxxyyy");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "$%%%%");
+            vector_push_back(pt_vec1, "$%%%%");
+            vector_push_back(pt_vec1, "$%%%%");
+            vector_push_back(pt_vec1, "$%%%%");
+            vector_push_back(pt_vec1, "@@@@");
+            vector_push_back(pt_vec1, "nba");
+            vector_push_back(pt_vec1, "help");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxxyyy");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "uuu");
+            vector_push_back(pt_vec1, "+_*/");
+            vector_init_copy(pt_vec2, pt_vec1);
+            list_init_n(pt_list, vector_size(pt_vec1));
+
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            t_iter = algo_unique(vector_begin(pt_vec2), vector_end(pt_vec2));
+            algo_for_each(vector_begin(pt_vec2), t_iter, _print_cstr);
+            printf("\n");
+            vector_assign(pt_vec2, pt_vec1);
+            t_iter = algo_unique_if(vector_begin(pt_vec2), vector_end(pt_vec2),
+                fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec2), t_iter, _print_cstr);
+            printf("\n");
+            vector_assign(pt_vec2, pt_vec1);
+            t_iter = algo_unique_copy(vector_begin(pt_vec2), vector_end(pt_vec2),
+                list_begin(pt_list));
+            algo_for_each(list_begin(pt_list), t_iter, _print_cstr);
+            printf("\n");
+            vector_assign(pt_vec2, pt_vec1);
+            t_iter = algo_unique_copy_if(vector_begin(pt_vec2), vector_end(pt_vec2),
+                list_begin(pt_list), fun_greater_cstr);
+            algo_for_each(list_begin(pt_list), t_iter, _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec1);
+            vector_destroy(pt_vec2);
+            list_destroy(pt_list);
+        }
         /*algo_next_permutation           */
         /*algo_next_permutation_if        */
         /*algo_prev_permutation           */
@@ -8051,6 +8602,16 @@ static void _toupper_cstr(const void* cpv_input, void* pv_output)
 {
     pv_output = NULL;
     *(char*)cpv_input = toupper(*(char*)cpv_input);
+}
+
+static void _toupper_cstr_ex(const void* cpv_input, void* pv_output)
+{
+    *(char*)pv_output = toupper(*(char*)cpv_input);
+}
+
+static void _tolower_cstr_ex(const void* cpv_input, void* pv_output)
+{
+    *(char*)pv_output = tolower(*(char*)cpv_input);
 }
 
 static void _print_cstr(const void* cpv_input, void* pv_output)

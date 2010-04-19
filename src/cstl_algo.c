@@ -1827,12 +1827,26 @@ output_iterator_t algo_transform(
 
     pv_value = _iterator_allocate_init_elem(t_first);
 
-    for(;
-        !iterator_equal(t_first, t_last);
-        t_first = iterator_next(t_first), t_result = iterator_next(t_result))
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        (*t_unary_op)(iterator_get_pointer(t_first), pv_value);
-        iterator_set_value(t_result, pv_value);
+        for(;
+            !iterator_equal(t_first, t_last);
+            t_first = iterator_next(t_first), t_result = iterator_next(t_result))
+        {
+            string_assign_cstr((string_t*)pv_value, (char*)iterator_get_pointer(t_first));
+            (*t_unary_op)(iterator_get_pointer(t_first), (char*)string_c_str((string_t*)pv_value));
+            iterator_set_value(t_result, string_c_str((string_t*)pv_value));
+        }
+    }
+    else
+    {
+        for(;
+            !iterator_equal(t_first, t_last);
+            t_first = iterator_next(t_first), t_result = iterator_next(t_result))
+        {
+            (*t_unary_op)(iterator_get_pointer(t_first), pv_value);
+            iterator_set_value(t_result, pv_value);
+        }
     }
 
     _iterator_deallocate_destroy_elem(t_first, pv_value);
@@ -1861,15 +1875,32 @@ output_iterator_t algo_transform_binary(
 
     pv_value = _iterator_allocate_init_elem(t_first1);
 
-    for(;
-        !iterator_equal(t_first1, t_last1);
-        t_first1 = iterator_next(t_first1),
-        t_first2 = iterator_next(t_first2),
-        t_result = iterator_next(t_result))
+    if(strncmp(_iterator_get_typebasename(t_first1), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        (*t_binary_op)(
-            iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), pv_value);
-        iterator_set_value(t_result, pv_value);
+        for(;
+            !iterator_equal(t_first1, t_last1);
+            t_first1 = iterator_next(t_first1),
+            t_first2 = iterator_next(t_first2),
+            t_result = iterator_next(t_result))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2),
+                (char*)string_c_str((string_t*)pv_value));
+            iterator_set_value(t_result, string_c_str((string_t*)pv_value));
+        }
+    }
+    else
+    {
+        for(;
+            !iterator_equal(t_first1, t_last1);
+            t_first1 = iterator_next(t_first1),
+            t_first2 = iterator_next(t_first2),
+            t_result = iterator_next(t_result))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), pv_value);
+            iterator_set_value(t_result, pv_value);
+        }
     }
 
     _iterator_deallocate_destroy_elem(t_first1, pv_value);
