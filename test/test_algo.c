@@ -8568,26 +8568,564 @@ void test_algo(void)
         /*algo_next_permutation_if        */
         /*algo_prev_permutation           */
         /*algo_prev_permutation_if        */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "aaa");
+            vector_push_back(pt_vec, "bbb");
+            vector_push_back(pt_vec, "ccc");
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            while(algo_next_permutation(vector_begin(pt_vec), vector_end(pt_vec)))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+                printf("\n");
+            }
+            printf("afterward:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            while(algo_prev_permutation(vector_begin(pt_vec), vector_end(pt_vec)))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+                printf("\n");
+            }
+            printf("now:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            while(algo_prev_permutation(vector_begin(pt_vec), vector_end(pt_vec)))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+                printf("\n");
+            }
+            printf("afterward:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            while(algo_next_permutation_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+                printf("\n");
+            }
+            printf("afterward:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            while(algo_prev_permutation_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+                printf("\n");
+            }
+            printf("now:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            while(algo_prev_permutation_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr))
+            {
+                algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+                printf("\n");
+            }
+            printf("afterward:\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
         /*algo_random_shuffle             */
         /*algo_random_shuffle_if          */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_random_shuffle(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_random_shuffle(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            algo_random_shuffle(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+        }
         /*algo_random_sample              */
         /*algo_random_sample_if           */
         /*algo_random_sample_n            */
         /*algo_random_sample_n_if         */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            deque_t* pt_deq = create_deque(char*);
+            if(pt_vec == NULL || pt_deq == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "bbbtttooo");
+            vector_push_back(pt_vec, "<<<<<bb>>");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            deque_init_n(pt_deq, vector_size(pt_vec) - 5);
+
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            algo_random_sample(vector_begin(pt_vec), vector_end(pt_vec),
+                deque_begin(pt_deq), deque_end(pt_deq));
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            deque_resize(pt_deq, 20);
+            algo_random_sample(vector_begin(pt_vec), vector_end(pt_vec),
+                deque_begin(pt_deq), deque_end(pt_deq));
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            deque_clear(pt_deq);
+            deque_resize(pt_deq, 20);
+            algo_random_sample_n(vector_begin(pt_vec), vector_end(pt_vec),
+                deque_begin(pt_deq), 5);
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec);
+            deque_destroy(pt_deq);
+        }
         /*algo_partial_sort               */
         /*algo_partial_sort_if            */
         /*algo_partial_sort_copy          */
         /*algo_partial_sort_copy_if       */
+        {
+            vector_t* pt_vec1 = create_vector(char*);
+            vector_t* pt_vec2 = create_vector(char*);
+            deque_t* pt_deq = create_deque(char*);
+            iterator_t t_iter;
+            if(pt_vec1 == NULL || pt_vec2 == NULL || pt_deq == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec1);
+            vector_init_n(pt_vec2, 10);
+            deque_init_n(pt_deq, 30);
+
+            vector_push_back(pt_vec1, "ksbkd");
+            vector_push_back(pt_vec1, "bbbbbbbbb");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "abcd");
+            vector_push_back(pt_vec1, "MMMM"); 
+            vector_push_back(pt_vec1, "$%%%%");
+            vector_push_back(pt_vec1, "@@@@");
+            vector_push_back(pt_vec1, "nba");
+            vector_push_back(pt_vec1, "help");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxxyyy");
+            vector_push_back(pt_vec1, "uuu");
+            vector_push_back(pt_vec1, "+_*/");
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+
+            algo_partial_sort(vector_begin(pt_vec1), vector_begin(pt_vec1),
+                vector_end(pt_vec1));
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_partial_sort(vector_begin(pt_vec1),
+                iterator_next_n(vector_begin(pt_vec1), 5), vector_end(pt_vec1));
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_partial_sort(vector_begin(pt_vec1), vector_end(pt_vec1),
+                vector_end(pt_vec1));
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+
+            algo_random_shuffle(vector_begin(pt_vec1), vector_end(pt_vec1));
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_partial_sort_if(vector_begin(pt_vec1), vector_begin(pt_vec1),
+                vector_end(pt_vec1), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_partial_sort_if(vector_begin(pt_vec1),
+                iterator_next_n(vector_begin(pt_vec1), 5), vector_end(pt_vec1),
+                fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_partial_sort_if(vector_begin(pt_vec1), vector_end(pt_vec1),
+                vector_end(pt_vec1), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+
+            algo_random_shuffle(vector_begin(pt_vec1), vector_end(pt_vec1));
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            t_iter = algo_partial_sort_copy(vector_begin(pt_vec1), vector_end(pt_vec1),
+                vector_begin(pt_vec2), vector_end(pt_vec2));
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), t_iter, _print_cstr);
+            printf("\n");
+            t_iter = algo_partial_sort_copy_if(vector_begin(pt_vec1), vector_end(pt_vec1),
+                vector_begin(pt_vec2), vector_end(pt_vec2), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), t_iter, _print_cstr);
+            printf("\n");
+
+            algo_random_shuffle(vector_begin(pt_vec1), vector_end(pt_vec1));
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            t_iter = algo_partial_sort_copy(vector_begin(pt_vec1), vector_end(pt_vec1),
+                deque_begin(pt_deq), deque_end(pt_deq));
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+            t_iter = algo_partial_sort_copy_if(vector_begin(pt_vec1), vector_end(pt_vec1),
+                deque_begin(pt_deq), deque_end(pt_deq), fun_greater_cstr);
+            algo_for_each(deque_begin(pt_deq), deque_end(pt_deq), _print_cstr);
+            printf("\n");
+            algo_for_each(deque_begin(pt_deq), t_iter, _print_cstr);
+            printf("\n");
+
+            printf("\n");
+            vector_destroy(pt_vec1);
+            vector_destroy(pt_vec2);
+            deque_destroy(pt_deq);
+        }
         /*algo_sort                       */
         /*algo_sort_if                    */
+        {
+            vector_t* pt_vec1 = create_vector(char*);
+            vector_t* pt_vec2 = create_vector(char*);
+            if(pt_vec1 == NULL || pt_vec2 == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec1);
+            vector_init(pt_vec2);
+
+            printf("\n");
+            vector_push_back(pt_vec1, "ksbkd");
+            vector_push_back(pt_vec1, "bbbbbbbbb");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "abcd");
+            vector_push_back(pt_vec1, "MMMM"); 
+            vector_push_back(pt_vec1, "$%%%%");
+            vector_push_back(pt_vec1, "@@@@");
+            vector_push_back(pt_vec1, "nba");
+            vector_push_back(pt_vec1, "help");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxxyyy");
+            vector_push_back(pt_vec1, "uuu");
+            vector_push_back(pt_vec1, "+_*/");
+            vector_assign(pt_vec2, pt_vec1);
+            algo_random_shuffle(vector_begin(pt_vec1), vector_end(pt_vec1));
+            algo_random_shuffle(vector_begin(pt_vec2), vector_end(pt_vec2));
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+            algo_sort(vector_begin(pt_vec1), vector_end(pt_vec1));
+            algo_sort_if(vector_begin(pt_vec2), vector_end(pt_vec2), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec1);
+            vector_destroy(pt_vec2);
+        }
         /*algo_inplace_merge              */
         /*algo_inplace_merge_if           */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            iterator_t t_iter;
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec);
+            printf("\n");
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            algo_sort(vector_begin(pt_vec), iterator_next_n(vector_begin(pt_vec), 5));
+            algo_sort(iterator_next_n(vector_begin(pt_vec), 5), vector_end(pt_vec));
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            t_iter = iterator_next_n(vector_begin(pt_vec), 5);
+            algo_inplace_merge(vector_begin(pt_vec), t_iter, vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            algo_random_shuffle(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_sort_if(vector_begin(pt_vec), iterator_next_n(vector_begin(pt_vec), 6), fun_greater_cstr);
+            algo_sort_if(iterator_next_n(vector_begin(pt_vec), 6), vector_end(pt_vec), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            t_iter = iterator_next_n(vector_begin(pt_vec), 6);
+            algo_inplace_merge_if(vector_begin(pt_vec), t_iter, vector_end(pt_vec), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+
+            printf("\n");
+            vector_destroy(pt_vec);
+        }
         /*algo_nth_element                */
         /*algo_nth_element_if             */
+        {
+            vector_t* pt_vec1 = create_vector(char*);
+            vector_t* pt_vec2 = create_vector(char*);
+            if(pt_vec1 == NULL || pt_vec2 == NULL)
+            {
+                return;
+            }
+            vector_init(pt_vec1);
+            vector_init(pt_vec2);
+
+            printf("\n");
+            vector_push_back(pt_vec1, "ksbkd");
+            vector_push_back(pt_vec1, "bbbbbbbbb");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "abcd");
+            vector_push_back(pt_vec1, "MMMM"); 
+            vector_push_back(pt_vec1, "$%%%%");
+            vector_push_back(pt_vec1, "@@@@");
+            vector_push_back(pt_vec1, "nba");
+            vector_push_back(pt_vec1, "help");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxxyyy");
+            vector_push_back(pt_vec1, "uuu");
+            vector_push_back(pt_vec1, "+_*/");
+            vector_assign(pt_vec2, pt_vec1);
+            algo_random_shuffle(vector_begin(pt_vec1), vector_end(pt_vec1));
+            algo_random_shuffle(vector_begin(pt_vec2), vector_end(pt_vec2));
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+
+            algo_nth_element(vector_begin(pt_vec1), iterator_next_n(vector_begin(pt_vec1), 9),
+                vector_end(pt_vec1));
+            algo_sort(vector_begin(pt_vec2), vector_end(pt_vec2));
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+
+            algo_nth_element_if(vector_begin(pt_vec1),
+                iterator_next_n(vector_begin(pt_vec1), 9), vector_end(pt_vec1),
+                fun_greater_cstr);
+            algo_sort_if(vector_begin(pt_vec2), vector_end(pt_vec2), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+
+            printf("\n");
+            vector_destroy(pt_vec1);
+            vector_destroy(pt_vec2);
+        }
         /*algo_is_sorted                  */
         /*algo_is_sorted_if               */
+        {
+            vector_t* pt_vec = create_vector(char*);
+            if(pt_vec == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec);
+
+            vector_push_back(pt_vec, "ksbkd");
+            vector_push_back(pt_vec, "bbbbbbbbb");
+            vector_push_back(pt_vec, "abc");
+            vector_push_back(pt_vec, "abcd");
+            vector_push_back(pt_vec, "MMMM"); 
+            vector_push_back(pt_vec, "$%%%%");
+            vector_push_back(pt_vec, "@@@@");
+            vector_push_back(pt_vec, "nba");
+            vector_push_back(pt_vec, "help");
+            vector_push_back(pt_vec, "xxx");
+            vector_push_back(pt_vec, "xxxyyy");
+            vector_push_back(pt_vec, "uuu");
+            vector_push_back(pt_vec, "+_*/");
+            printf("\n");
+            algo_random_shuffle(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            if(algo_is_sorted(vector_begin(pt_vec), vector_end(pt_vec)))
+            {
+                printf("is sorted.\n");
+            }
+            else
+            {
+                printf("is not sorted.\n");
+            }
+            if(algo_is_sorted_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr))
+            {
+                printf("is greater sorted.\n");
+            }
+            else
+            {
+                printf("is not sorted.\n");
+            }
+            algo_sort(vector_begin(pt_vec), vector_end(pt_vec));
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            if(algo_is_sorted(vector_begin(pt_vec), vector_end(pt_vec)))
+            {
+                printf("is sorted.\n");
+            }
+            else
+            {
+                printf("is not sorted.\n");
+            }
+            if(algo_is_sorted_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr))
+            {
+                printf("is greater sorted.\n");
+            }
+            else
+            {
+                printf("is not sorted.\n");
+            }
+            algo_sort_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec), vector_end(pt_vec), _print_cstr);
+            printf("\n");
+            if(algo_is_sorted(vector_begin(pt_vec), vector_end(pt_vec)))
+            {
+                printf("is sorted.\n");
+            }
+            else
+            {
+                printf("is not sorted.\n");
+            }
+            if(algo_is_sorted_if(vector_begin(pt_vec), vector_end(pt_vec), fun_greater_cstr))
+            {
+                printf("is greater sorted.\n");
+            }
+            else
+            {
+                printf("is not sorted.\n");
+            }
+
+            vector_destroy(pt_vec);
+        }
         /*algo_stable_sort                */
         /*algo_stable_sort_if             */
+        {
+            vector_t* pt_vec1 = create_vector(char*);
+            vector_t* pt_vec2 = create_vector(char*);
+            if(pt_vec1 == NULL || pt_vec2 == NULL)
+            {
+                return;
+            }
+
+            vector_init(pt_vec1);
+            vector_init(pt_vec2);
+
+            vector_push_back(pt_vec1, "ksbkd");
+            vector_push_back(pt_vec1, "bbbbbbbbb");
+            vector_push_back(pt_vec1, "abc");
+            vector_push_back(pt_vec1, "abcd");
+            vector_push_back(pt_vec1, "MMMM"); 
+            vector_push_back(pt_vec1, "$%%%%");
+            vector_push_back(pt_vec1, "@@@@");
+            vector_push_back(pt_vec1, "nba");
+            vector_push_back(pt_vec1, "help");
+            vector_push_back(pt_vec1, "xxx");
+            vector_push_back(pt_vec1, "xxxyyy");
+            vector_push_back(pt_vec1, "uuu");
+            vector_push_back(pt_vec1, "+_*/");
+            vector_assign(pt_vec2, pt_vec1);
+            printf("\n");
+            algo_random_shuffle(vector_begin(pt_vec1), vector_end(pt_vec1));
+            algo_random_shuffle(vector_begin(pt_vec2), vector_end(pt_vec2));
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+            algo_stable_sort(vector_begin(pt_vec1), vector_end(pt_vec1));
+            algo_stable_sort_if(vector_begin(pt_vec2), vector_end(pt_vec2), fun_greater_cstr);
+            algo_for_each(vector_begin(pt_vec1), vector_end(pt_vec1), _print_cstr);
+            printf("\n");
+            algo_for_each(vector_begin(pt_vec2), vector_end(pt_vec2), _print_cstr);
+            printf("\n");
+
+            vector_destroy(pt_vec1);
+            vector_destroy(pt_vec2);
+        }
     }
 }
 

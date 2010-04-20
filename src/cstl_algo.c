@@ -2858,60 +2858,123 @@ void algo_inplace_merge_if(
         return;
     }
 
-    t_len1 = iterator_distance(t_first, t_middle);
-    pc_buf = (void**)malloc(sizeof(void*) * t_len1);
-    if(pc_buf == NULL)
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
-        exit(EXIT_FAILURE);
-    }
-
-    /* copy elements of [t_first, t_middle) to buf */
-    for(t_index = t_first, t_i = 0;
-        !iterator_equal(t_index, t_middle);
-        t_index = iterator_next(t_index), ++t_i)
-    {
-        pc_buf[t_i] = _iterator_allocate_init_elem(t_first);
-        t_result = _iterator_get_typestyle(t_first);
-        _iterator_get_typecopy(t_first)(pc_buf[t_i], iterator_get_pointer(t_index), &t_result);
-        assert(t_result);
-    }
-    assert(t_i == t_len1);
-
-    /* merge buf and [t_middle, t_last) to [t_first, t_last) */
-    t_i = 0;
-    while(!iterator_equal(t_middle, t_last) && t_i < t_len1)
-    {
-        (*t_binary_op)(iterator_get_pointer(t_middle), pc_buf[t_i], &t_result);
-        if(t_result) /* t_middle < pc_buf */
+        t_len1 = iterator_distance(t_first, t_middle);
+        pc_buf = (void**)malloc(sizeof(void*) * t_len1);
+        if(pc_buf == NULL)
         {
-            iterator_set_value(t_first, iterator_get_pointer(t_middle));
-            t_middle = iterator_next(t_middle);
+            fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
+            exit(EXIT_FAILURE);
         }
-        else /* pc_buf <= t_middle */
-        {
-            iterator_set_value(t_first, pc_buf[t_i]);
-            t_i++;
-        }
-        t_first = iterator_next(t_first);
-    }
 
-    if(iterator_equal(t_middle, t_last) && t_i < t_len1)
-    {
-        assert(!iterator_equal(t_first, t_last));
-        for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first), ++t_i)
+        /* copy elements of [t_first, t_middle) to buf */
+        for(t_index = t_first, t_i = 0;
+            !iterator_equal(t_index, t_middle);
+            t_index = iterator_next(t_index), ++t_i)
         {
-            iterator_set_value(t_first, pc_buf[t_i]);
+            pc_buf[t_i] = _iterator_allocate_init_elem(t_first);
+            t_result = _iterator_get_typestyle(t_first);
+            /*
+            _iterator_get_typecopy(t_first)(pc_buf[t_i], iterator_get_pointer(t_index), &t_result);
+            assert(t_result);
+            */
+            string_assign_cstr((string_t*)pc_buf[t_i], (char*)iterator_get_pointer(t_index));
         }
-    }
-    assert(t_i == t_len1 && iterator_equal(t_first, t_middle));
+        assert(t_i == t_len1);
 
-    for(t_i = 0; t_i < t_len1; ++t_i)
-    {
-        _iterator_deallocate_destroy_elem(t_first, pc_buf[t_i]);
+        /* merge buf and [t_middle, t_last) to [t_first, t_last) */
+        t_i = 0;
+        while(!iterator_equal(t_middle, t_last) && t_i < t_len1)
+        {
+            (*t_binary_op)(iterator_get_pointer(t_middle), string_c_str((string_t*)pc_buf[t_i]), &t_result);
+            if(t_result) /* t_middle < pc_buf */
+            {
+                iterator_set_value(t_first, iterator_get_pointer(t_middle));
+                t_middle = iterator_next(t_middle);
+            }
+            else /* pc_buf <= t_middle */
+            {
+                iterator_set_value(t_first, string_c_str((string_t*)pc_buf[t_i]));
+                t_i++;
+            }
+            t_first = iterator_next(t_first);
+        }
+
+        if(iterator_equal(t_middle, t_last) && t_i < t_len1)
+        {
+            assert(!iterator_equal(t_first, t_last));
+            for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first), ++t_i)
+            {
+                iterator_set_value(t_first, string_c_str((string_t*)pc_buf[t_i]));
+            }
+        }
+        assert(t_i == t_len1 && iterator_equal(t_first, t_middle));
+
+        for(t_i = 0; t_i < t_len1; ++t_i)
+        {
+            _iterator_deallocate_destroy_elem(t_first, pc_buf[t_i]);
+        }
+        free(pc_buf);
+        pc_buf = NULL;
     }
-    free(pc_buf);
-    pc_buf = NULL;
+    else
+    {
+        t_len1 = iterator_distance(t_first, t_middle);
+        pc_buf = (void**)malloc(sizeof(void*) * t_len1);
+        if(pc_buf == NULL)
+        {
+            fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
+            exit(EXIT_FAILURE);
+        }
+
+        /* copy elements of [t_first, t_middle) to buf */
+        for(t_index = t_first, t_i = 0;
+            !iterator_equal(t_index, t_middle);
+            t_index = iterator_next(t_index), ++t_i)
+        {
+            pc_buf[t_i] = _iterator_allocate_init_elem(t_first);
+            t_result = _iterator_get_typestyle(t_first);
+            _iterator_get_typecopy(t_first)(pc_buf[t_i], iterator_get_pointer(t_index), &t_result);
+            assert(t_result);
+        }
+        assert(t_i == t_len1);
+
+        /* merge buf and [t_middle, t_last) to [t_first, t_last) */
+        t_i = 0;
+        while(!iterator_equal(t_middle, t_last) && t_i < t_len1)
+        {
+            (*t_binary_op)(iterator_get_pointer(t_middle), pc_buf[t_i], &t_result);
+            if(t_result) /* t_middle < pc_buf */
+            {
+                iterator_set_value(t_first, iterator_get_pointer(t_middle));
+                t_middle = iterator_next(t_middle);
+            }
+            else /* pc_buf <= t_middle */
+            {
+                iterator_set_value(t_first, pc_buf[t_i]);
+                t_i++;
+            }
+            t_first = iterator_next(t_first);
+        }
+
+        if(iterator_equal(t_middle, t_last) && t_i < t_len1)
+        {
+            assert(!iterator_equal(t_first, t_last));
+            for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first), ++t_i)
+            {
+                iterator_set_value(t_first, pc_buf[t_i]);
+            }
+        }
+        assert(t_i == t_len1 && iterator_equal(t_first, t_middle));
+
+        for(t_i = 0; t_i < t_len1; ++t_i)
+        {
+            _iterator_deallocate_destroy_elem(t_first, pc_buf[t_i]);
+        }
+        free(pc_buf);
+        pc_buf = NULL;
+    }
 }
 
 void algo_nth_element(
@@ -2945,55 +3008,112 @@ void algo_nth_element_if(
 
     pv_value = _iterator_allocate_init_elem(t_first);
 
-    while(iterator_distance(t_first, t_last) > 3)
+    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        t_pivot = t_first;
-        t_pivot = iterator_advance(t_pivot, iterator_distance(t_first, t_last) / 2);
-        t_prev = t_last;
-        t_prev = iterator_prev(t_prev);
-        t_pivot = _median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
-        iterator_get_value(t_pivot, pv_value);
-
-        t_begin = t_first;
-        t_end = t_last;
-        for(;;)
+        while(iterator_distance(t_first, t_last) > 3)
         {
-            /* move begin */
-            (*t_binary_op)(iterator_get_pointer(t_begin), pv_value, &t_result);
-            while(t_result)
+            t_pivot = t_first;
+            t_pivot = iterator_advance(t_pivot, iterator_distance(t_first, t_last) / 2);
+            t_prev = t_last;
+            t_prev = iterator_prev(t_prev);
+            t_pivot = _median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
+            string_assign_cstr((string_t*)pv_value, (char*)iterator_get_pointer(t_pivot));
+
+            t_begin = t_first;
+            t_end = t_last;
+            for(;;)
             {
-                t_begin = iterator_next(t_begin);
-                (*t_binary_op)(iterator_get_pointer(t_begin), pv_value, &t_result);
-            }
-            /* move end */
-            t_end = iterator_prev(t_end);
-            (*t_binary_op)(pv_value, iterator_get_pointer(t_end), &t_result);
-            while(t_result)
-            {
+                /* move begin */
+                (*t_binary_op)(iterator_get_pointer(t_begin), string_c_str((string_t*)pv_value), &t_result);
+                while(t_result)
+                {
+                    t_begin = iterator_next(t_begin);
+                    (*t_binary_op)(iterator_get_pointer(t_begin), string_c_str((string_t*)pv_value), &t_result);
+                }
+                /* move end */
                 t_end = iterator_prev(t_end);
-                (*t_binary_op)(pv_value, iterator_get_pointer(t_end), &t_result);
+                (*t_binary_op)(string_c_str((string_t*)pv_value), iterator_get_pointer(t_end), &t_result);
+                while(t_result)
+                {
+                    t_end = iterator_prev(t_end);
+                    (*t_binary_op)(string_c_str((string_t*)pv_value), iterator_get_pointer(t_end), &t_result);
+                }
+
+                /* across */
+                if(!iterator_less(t_begin, t_end))
+                {
+                    t_pivot = t_begin;
+                    break;
+                }
+                else
+                {
+                    algo_iter_swap(t_begin, t_end);
+                    t_begin = iterator_next(t_begin);
+                }
             }
 
-            /* across */
-            if(!iterator_less(t_begin, t_end))
+            if(iterator_less_equal(t_pivot, t_nth))
             {
-                t_pivot = t_begin;
-                break;
+                t_first = t_pivot;
             }
             else
             {
-                algo_iter_swap(t_begin, t_end);
-                t_begin = iterator_next(t_begin);
+                t_last = t_pivot;
             }
         }
+    }
+    else
+    {
+        while(iterator_distance(t_first, t_last) > 3)
+        {
+            t_pivot = t_first;
+            t_pivot = iterator_advance(t_pivot, iterator_distance(t_first, t_last) / 2);
+            t_prev = t_last;
+            t_prev = iterator_prev(t_prev);
+            t_pivot = _median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
+            iterator_get_value(t_pivot, pv_value);
 
-        if(iterator_less_equal(t_pivot, t_nth))
-        {
-            t_first = t_pivot;
-        }
-        else
-        {
-            t_last = t_pivot;
+            t_begin = t_first;
+            t_end = t_last;
+            for(;;)
+            {
+                /* move begin */
+                (*t_binary_op)(iterator_get_pointer(t_begin), pv_value, &t_result);
+                while(t_result)
+                {
+                    t_begin = iterator_next(t_begin);
+                    (*t_binary_op)(iterator_get_pointer(t_begin), pv_value, &t_result);
+                }
+                /* move end */
+                t_end = iterator_prev(t_end);
+                (*t_binary_op)(pv_value, iterator_get_pointer(t_end), &t_result);
+                while(t_result)
+                {
+                    t_end = iterator_prev(t_end);
+                    (*t_binary_op)(pv_value, iterator_get_pointer(t_end), &t_result);
+                }
+
+                /* across */
+                if(!iterator_less(t_begin, t_end))
+                {
+                    t_pivot = t_begin;
+                    break;
+                }
+                else
+                {
+                    algo_iter_swap(t_begin, t_end);
+                    t_begin = iterator_next(t_begin);
+                }
+            }
+
+            if(iterator_less_equal(t_pivot, t_nth))
+            {
+                t_first = t_pivot;
+            }
+            else
+            {
+                t_last = t_pivot;
+            }
         }
     }
 

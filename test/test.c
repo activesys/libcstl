@@ -61,52 +61,52 @@
 int main(int argc, char* argv[])
 {
     printf("========== test vector_t ==========\n");
-    /*test_vector();*/
+    test_vector();
     printf("========== test deque_t  ==========\n");
-    /*test_deque();*/
+    test_deque();
     printf("========== test list_t  ==========\n");
-    /*test_list();*/
+    test_list();
     printf("========== test slist_t  ==========\n");
-    /*test_slist();*/
+    test_slist();
     printf("========== test stack_t  ==========\n");
-    /*test_stack();*/
+    test_stack();
     printf("========== test queue_t  ==========\n");
-    /*test_queue();*/
+    test_queue();
     printf("========== test pair_t  ==========\n");
-    /*test_pair();*/
+    test_pair();
     /*test_basic_string();*/
     /*test_avl_tree();*/
     /*test_rb_tree();*/
     /*test_hashtable();*/
     printf("========== test set_t  ==========\n");
-    /*test_set();*/
+    test_set();
     printf("========== test multiset_t =======\n");
-    /*test_multiset();*/
+    test_multiset();
     printf("========== test map_t  ==========\n");
-    /*test_map();*/
+    test_map();
     printf("========== test multimap_t  ==========\n");
-    /*test_multimap();*/
+    test_multimap();
     printf("========== test string_t  ==========\n");
-    /*test_string(argc, argv);*/
+    test_string(argc, argv);
     /*test_string_getline(); */
     /*test_type();*/
     printf("========== test hash_set_t  ==========\n");
-    /*test_hash_set();*/
+    test_hash_set();
     printf("========== test hash_multiset_t  ==========\n");
-    /*test_hash_multiset();*/
+    test_hash_multiset();
     printf("========== test hash_map_t  ==========\n");
-    /*test_hash_map();*/
+    test_hash_map();
     printf("========== test hash_multimap_t  ==========\n");
-    /*test_hash_multimap();*/
+    test_hash_multimap();
     /*test_function();*/
     printf("========== test numeric algorithm ==========\n");
-    /*test_numeric();*/
+    test_numeric();
     printf("========== test heap algorithm ==========\n");
-    /*test_heap();*/
+    test_heap();
     printf("========== test heap algorithm ==========\n");
-    /*test_priority_queue();*/
+    test_priority_queue();
     printf("========== test basic algorithm ==========\n");
-    /*test_algobase();*/
+    test_algobase();
     printf("========== test algorithm ==========\n");
     test_algo();
 
