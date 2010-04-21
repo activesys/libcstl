@@ -93,7 +93,6 @@ static bool_t _map_same_pair_type(const pair_t* cpt_pairfirst, const pair_t* cpt
 /*
  * map key compare and value compare
  */
-/*static void _map_key_compare(const void* cpv_first, const void* cpv_second, void* pv_output);*/
 static void _map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
@@ -298,7 +297,6 @@ void map_init_ex(map_t* pt_map, binary_function_t t_keycompare)
 {
     assert(pt_map != NULL);
 
-    /*t_less = t_key_less != NULL ? t_key_less : _map_key_less;*/
     pt_map->_t_keycompare = t_keycompare;
     pt_map->_t_pair._t_mapkeycompare = t_keycompare;
 

@@ -1220,7 +1220,6 @@ void slist_remove_if(slist_t* pt_slist, unary_function_t t_unary_op)
     while(!iterator_equal(t_pos, slist_end(pt_slist)))
     {
         /* operate each element use pufn_op, if it yield true */
-        /*(*t_unary_op)(((slistnode_t*)_GET_SLIST_COREPOS(t_pos))->_pc_data, &t_result);*/
         (*t_unary_op)(iterator_get_pointer(t_pos), &t_result);
         if(t_result)
         {
@@ -1292,12 +1291,6 @@ void slist_unique_if(slist_t* pt_slist, binary_function_t t_binary_op)
 
         while(!iterator_equal(t_posnext, slist_end(pt_slist)))
         {
-            /*
-            (*t_binary_op)(
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_poscur))->_pc_data,
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_posnext))->_pc_data,
-                &t_result);
-            */
             (*t_binary_op)(iterator_get_pointer(t_poscur),
                 iterator_get_pointer(t_posnext), &t_result);
             if(t_result)
@@ -1398,12 +1391,6 @@ void slist_sort_if(slist_t* pt_slist, binary_function_t t_binary_op)
             !iterator_equal(t_pos, t_disorder);
             t_pos = iterator_next(t_pos))
         {
-            /*
-            (*t_binary_op)(
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_disorder))->_pc_data,
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_pos))->_pc_data,
-                &t_result);
-            */
             (*t_binary_op)(iterator_get_pointer(t_disorder),
                 iterator_get_pointer(t_pos), &t_result);
             if(t_result)
@@ -1486,12 +1473,6 @@ void slist_merge_if(
     {
         t_src = slist_begin(pt_slistsrc);
         /* if src slist less then dest */
-        /*
-        (*t_binary_op)(
-            ((slistnode_t*)_GET_SLIST_COREPOS(t_src))->_pc_data,
-            ((slistnode_t*)_GET_SLIST_COREPOS(t_dest))->_pc_data,
-            &t_result);
-        */
         (*t_binary_op)(iterator_get_pointer(t_src),
             iterator_get_pointer(t_dest), &t_result);
         if(t_result)

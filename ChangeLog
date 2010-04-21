@@ -259,8 +259,14 @@ cstl 1.0.0 : 2009-03-10 11:16:29
 * Build release version cstl-1.0.0. <Wangbo>
 
 libcstl 1.0.0 : 2009-04-20 20:33:23
-* Change project name frome cstl to libcstl. <Wangbo>
+* Change project name from cstl to libcstl. <Wangbo>
 
 libcstl 1.0.1 : 2009-04-25 14:59:49
 * Fixup bugs in initialization operation of all containers.
 * Fixup bugs in Makefile.
+
+libcstl 2.0.0-preview : 2009-11-01 08:45:22
+* Release preview version for libcstl-2.0.0. <Wangbo>
+
+libcstl 2.0.0-beta : 2010-04-21 11:26:34
+* Release bate version for libcstl-2.0.0. <Wangbo>

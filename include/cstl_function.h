@@ -30,51 +30,6 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/*
-#define CSTL_BINARY_FUNCTION_BEGIN(\
-    cpv_first, t_firsttype, cpv_second, t_secondtype, pv_output, t_outputtype)\
-    assert(cpv_first != NULL && pv_output != NULL);\
-    if(cpv_second == NULL){\
-        if(strcmp(#t_firsttype, #t_outputtype) == 0){\
-            *(t_outputtype*)pv_output = *(t_outputtype*)cpv_first;\
-        }else if(strcmp(#t_outputtype, _CHAR_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _SIGNED_CHAR_TYPE) == 0){\
-            *(char*)pv_output = '\0';\
-        }else if(strcmp(#t_outputtype, _UNSIGNED_CHAR_TYPE) == 0){\
-            *(unsigned char*)pv_output = 0x00;\
-        }else if(strcmp(#t_outputtype, _SHORT_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _SHORT_INT_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _SIGNED_SHORT_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _SIGNED_SHORT_INT_TYPE) == 0){\
-            *(short*)pv_output = 0;\
-        }else if(strcmp(#t_outputtype, _UNSIGNED_SHORT_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _UNSIGNED_SHORT_INT_TYPE) == 0){\
-            *(unsigned short*)pv_output = 0;\
-        }else if(strcmp(#t_outputtype, _INT_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _SIGNED_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _SIGNED_INT_TYPE) == 0){\
-            *(int*)pv_output = 0;\
-        }else if(strcmp(#t_outputtype, _UNSIGNED_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _UNSIGNED_INT_TYPE) == 0){\
-            *(unsigned int*)pv_output = 0;\
-        }else if(strcmp(#t_outputtype, _LONG_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _LONG_INT_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _SIGNED_LONG_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _SIGNED_LONG_INT_TYPE) == 0){\
-            *(long*)pv_output = 0;\
-        }else if(strcmp(#t_outputtype, _UNSIGNED_LONG_TYPE) == 0 ||\
-                 strcmp(#t_outputtype, _UNSIGNED_LONG_INT_TYPE) == 0){\
-            *(unsigned long*)pv_output = 0;\
-        }else if(strcmp(#t_outputtype, _FLOAT_TYPE) == 0){\
-            *(float*)pv_output = 0.0;\
-        }else if(strcmp(#t_outputtype, _DOUBLE_TYPE) == 0){\
-            *(double*)pv_output = 0.0;\
-        }else if(strcmp(#t_outputtype, _BOOL_TYPE) == 0){\
-            *(bool_t*)pv_output = false;\
-        }\
-    }else{
-#define CSTL_BINARY_FUNCTION_END }
-*/
 
 /** data type declaration and struct, union, enum section **/
 

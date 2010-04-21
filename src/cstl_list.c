@@ -80,10 +80,6 @@ static void _list_get_varg_value_auxiliary(
     list_t* pt_list, va_list val_elemlist, listnode_t* pt_node);
 static void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_node);
 static void _list_init_node_auxiliary(list_t* pt_list, listnode_t* pt_node);
-/*
-static void _list_init_elem_range_auxiliary(
-    list_t* pt_list, char* pc_start, char* pc_finish);
-*/
 
 /*
  * Transfer the range [t_begin, t_end) to position.
@@ -195,7 +191,6 @@ list_iterator_t _list_iterator_next(list_iterator_t t_iter)
 list_iterator_t _list_iterator_prev(list_iterator_t t_iter)
 {
     assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(t_iter), t_iter));
-    /* assert(!iterator_equal(t_iter, list_end(_GET_LIST_CONTAINER(t_iter)))); */
 
     _GET_LIST_COREPOS(t_iter) = (char*)(((listnode_t*)_GET_LIST_COREPOS(t_iter))->_pt_prev);
 
@@ -1054,7 +1049,6 @@ list_iterator_t list_erase_range(
 {
     assert(_list_iterator_belong_to_list(pt_list, t_begin));
     assert(iterator_equal(t_begin, t_end) || _list_iterator_before(t_begin, t_end));
-    /* assert(!iterator_equal(t_begin, list_end(pt_list))); */
 
     while(!iterator_equal(t_begin, t_end))
     {
@@ -1123,7 +1117,6 @@ void list_remove_if(list_t* pt_list, unary_function_t t_unary_op)
     t_pos = list_begin(pt_list);
     while(!iterator_equal(t_pos, list_end(pt_list)))
     {
-        /*(*t_unary_op)(((listnode_t*)_GET_LIST_COREPOS(t_pos))->_pc_data, &t_result);*/
         (*t_unary_op)(iterator_get_pointer(t_pos), &t_result);
         if(t_result)
         {

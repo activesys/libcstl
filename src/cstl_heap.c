@@ -30,7 +30,6 @@
 #include "cstl_types.h"
 #include "citerator.h"
 #include "cfunctional.h"
-/*#include "cstl_tools.h"*/
 #include "cutility.h"
 
 #include "cstl_algobase.h"

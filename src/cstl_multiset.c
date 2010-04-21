@@ -66,7 +66,6 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-/*static void _multiset_init_elem_auxiliary(multiset_t* pt_multiset, void* pv_elem);*/
 static void _multiset_get_varg_value_auxiliary(
     multiset_t* pt_multiset, va_list val_elemlist, void* pv_varg);
 static void _multiset_destroy_varg_value_auxiliary(multiset_t* pt_multiset, void* pv_varg);

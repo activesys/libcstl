@@ -250,7 +250,7 @@ void test_algobase(void)
             for(t_index = 0; t_index < 10; ++t_index)
             {
                 list_push_back(pt_list, t_index + 1);
-                vector_push_back(pt_vec, -t_index - 1);
+                vector_push_back(pt_vec, -(int)t_index - 1);
             }
             printf("list  : ");
             algo_for_each(list_begin(pt_list), list_end(pt_list), _print_int);

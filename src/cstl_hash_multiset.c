@@ -35,7 +35,6 @@
 #include "cvector.h"
 #include "cstl_hashtable_iterator.h"
 #include "cstl_hashtable_private.h"
-/*#include "cutility.h"*/
 
 #include "cstl_hash_multiset_iterator.h"
 #include "cstl_hash_multiset_private.h"
@@ -63,8 +62,6 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-/*static void _hash_multiset_init_elem_auxiliary(
-    hash_multiset_t* pt_hash_multiset, void* pv_elem);*/
 static void _hash_multiset_get_varg_value_auxiliary(
     hash_multiset_t* pt_hash_multiset, va_list val_elemlist, void* pv_varg);
 static void _hash_multiset_destroy_varg_value_auxiliary(

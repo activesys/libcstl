@@ -249,7 +249,6 @@ void hash_multimap_init_ex(hash_multimap_t* pt_hash_multimap, size_t t_bucketcou
 
     assert(pt_hash_multimap != NULL);
 
-    /*t_key_less = t_less != NULL ? t_less : _hash_multimap_key_less;*/
     pt_hash_multimap->_t_keycompare = t_compare;
     pt_hash_multimap->_t_pair._t_mapkeycompare = t_compare;
     t_default_hash = t_hash != NULL ? t_hash : _hash_multimap_default_hash;
@@ -384,7 +383,6 @@ binary_function_t hash_multimap_key_comp(const hash_multimap_t* cpt_hash_multima
 {
     assert(cpt_hash_multimap != NULL);
 
-    /*return _hashtable_key_less(&cpt_hash_multimap->_t_hashtable);*/
     if (cpt_hash_multimap->_t_keycompare != NULL)
     {
         return cpt_hash_multimap->_t_keycompare;

@@ -31,7 +31,6 @@
 #include "cstl_types.h"
 #include "citerator.h"
 #include "cfunctional.h"
-/*#include "cstl_tools.h"*/
 
 #include "cstl_numeric.h"
 #include "cstl_numeric_private.h"

@@ -6542,6 +6542,7 @@ void test_algo(void)
 
             vector_init(pt_vec1);
             vector_init(pt_vec2);
+            vector_init(pt_item);
 
             for(i = 0; i < 15; ++i)
             {

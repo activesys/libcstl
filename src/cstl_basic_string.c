@@ -80,7 +80,6 @@ static void _basic_string_get_varg_value_auxiliary(
     basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg);
 static void _basic_string_destroy_varg_value_auxiliary(
     basic_string_t* pt_basic_string, void* pv_varg);
-/*static void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem);*/
 
 /** exported global variable definition section **/
 
@@ -1313,12 +1312,6 @@ size_t basic_string_find_first_of_subcstr(
     {
         return NPOS;
     }
-    /*
-    if(t_len == 0)
-    {
-        return t_pos;
-    }
-    */
 
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
     pc_cstr = (char*)cpv_valuestring;
@@ -1570,12 +1563,6 @@ size_t basic_string_find_last_of_subcstr(
     {
         return NPOS;
     }
-    /*
-    if(t_len == 0)
-    {
-        return t_pos;
-    }
-    */
 
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
     pc_cstr = (char*)cpv_valuestring;

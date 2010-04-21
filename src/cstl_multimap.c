@@ -92,10 +92,6 @@ static bool_t _multimap_same_pair_type(
 #endif /* NDEBUG */
 
 /* default element compare function for multimap_t */
-/*
-static void _multimap_key_less(
-    const void* cpv_first, const void* cpv_second, void* pv_output);
-*/
 static void _multimap_value_compare(
     const void* cpv_first, const void* cpv_second, void* pv_output);
 
@@ -286,7 +282,6 @@ void multimap_init_ex(multimap_t* pt_multimap, binary_function_t t_keycompare)
 {
     assert(pt_multimap != NULL);
 
-    /*t_less = t_key_less != NULL ? t_key_less : _multimap_key_less;*/
     pt_multimap->_t_keycompare = t_keycompare;
     pt_multimap->_t_pair._t_mapkeycompare = t_keycompare;
 

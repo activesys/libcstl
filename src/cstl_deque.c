@@ -105,7 +105,6 @@ static deque_iterator_t _move_elem_to_begin(
 static void _deque_get_varg_value_auxiliary(
     deque_t* pt_deque, va_list val_elemlist, void* pv_varg);
 static void _deque_destroy_varg_value_auxiliary(deque_t* pt_deque, void* pv_varg);
-/*static void _deque_init_elem_auxiliary(deque_t* pt_deque, void* pv_elem);*/
 static void _deque_init_elem_range_auxiliary(
     deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end);
 static void* _deque_iterator_get_pointer_auxiliary(iterator_t t_iter);

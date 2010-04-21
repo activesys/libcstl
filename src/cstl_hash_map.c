@@ -242,7 +242,6 @@ void hash_map_init_ex(hash_map_t* pt_hash_map, size_t t_bucketcount,
 
     assert(pt_hash_map != NULL);
 
-    /*t_key_less = t_less != NULL ? t_less : _hash_map_key_less;*/
     pt_hash_map->_t_keycompare = t_compare;
     pt_hash_map->_t_pair._t_mapkeycompare = t_compare;
     t_default_hash = t_hash != NULL ? t_hash : _hash_map_default_hash;
@@ -369,7 +368,6 @@ binary_function_t hash_map_key_comp(const hash_map_t* cpt_hash_map)
 {
     assert(cpt_hash_map != NULL);
 
-    /*return _hashtable_key_less(&cpt_hash_map->_t_hashtable);*/
     if(cpt_hash_map->_t_keycompare != NULL)
     {
         return cpt_hash_map->_t_keycompare;

@@ -31,8 +31,6 @@
 #include "citerator.h"
 #include "cstring.h"
 #include "cfunctional.h"
-/*#include "cstl_tools.h"*/
-/*#include "cutility.h"*/
 
 #include "cstl_algobase.h"
 #include "cstl_algobase_private.h"
@@ -2875,10 +2873,6 @@ void algo_inplace_merge_if(
         {
             pc_buf[t_i] = _iterator_allocate_init_elem(t_first);
             t_result = _iterator_get_typestyle(t_first);
-            /*
-            _iterator_get_typecopy(t_first)(pc_buf[t_i], iterator_get_pointer(t_index), &t_result);
-            assert(t_result);
-            */
             string_assign_cstr((string_t*)pc_buf[t_i], (char*)iterator_get_pointer(t_index));
         }
         assert(t_i == t_len1);

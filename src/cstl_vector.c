@@ -74,7 +74,6 @@ static bool_t _vector_same_type(
 static void _vector_get_varg_value_auxiliary(
     vector_t* pt_vector, va_list val_elemlist, void* pv_varg);
 static void _vector_destroy_varg_value_auxiliary(vector_t* pt_vector, void* pv_varg);
-/*static void _vector_init_elem_auxiliary(vector_t* pt_vector, void* pv_elem);*/
 static void _vector_init_elem_range_auxiliary(
     vector_t* pt_vector, char* pc_start, char* pc_finish);
 

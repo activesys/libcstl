@@ -31,8 +31,6 @@
 #include "citerator.h"
 #include "cfunctional.h"
 #include "cstring.h"
-/*#include "cstl_tools.h"*/
-/*#include "cutility.h"*/
 
 #include "cstl_algobase.h"
 #include "cstl_algobase_private.h"
