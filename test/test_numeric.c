@@ -358,6 +358,10 @@ static void _print_char(const void* cpv_input, void* pv_output)
 
 static void _fun_plus_string(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
+#ifdef NDEBUG
+    void* pv_avoidwarning = (void*)cpv_first;
+    pv_avoidwarning = NULL;
+#endif
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     if(!string_empty((string_t*)pv_output))
     {

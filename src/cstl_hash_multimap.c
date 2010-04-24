@@ -395,6 +395,10 @@ binary_function_t hash_multimap_key_comp(const hash_multimap_t* cpt_hash_multima
 
 binary_function_t hash_multimap_value_comp(const hash_multimap_t* cpt_hash_multimap)
 {
+#ifdef NDEBUG
+    void* pv_avoidwarning = (void*)cpt_hash_multimap;
+    pv_avoidwarning = NULL;
+#endif
     assert(cpt_hash_multimap != NULL);
 
     return _hash_multimap_value_compare;

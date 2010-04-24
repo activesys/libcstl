@@ -22,7 +22,18 @@
 
 # set compiler and options
 CC = gcc
-CFLAGS = -c -g -ansi -Wall -Wextra -fPIC#-DNDEBUG
+# The CFLAGS_EX compile options is additional options
+#
+# NDEBUG                     : No debug and assertion information.
+# CSTL_STACK_VECTOR_SEQUENCE : Use the vector to achieve stack.
+# CSTL_STACK_LIST_SEQUENCE   : Use the list to achieve stack.
+# CSTL_QUEUE_LIST_SEQUENCE   : Use the list to achieve queue.
+# CSTL_SET_AVL_TREE          : Use the avl tree to achieve set.
+# CSTL_MULTISET_AVL_TREE     : Use the avl tree to achieve multiset.
+# CSTL_MAP_AVL_TREE          : Use the avl tree to achieve map.
+# CSTL_MULTIMAP_AVL_TREE     : Use the avl tree to achieve multimap.
+CFLAGS_EX =#-DNDEBUG
+CFLAGS = -c -g -ansi -Wall -Wextra -fPIC $(CFLAGS_EX)
 CPPFLAGS = -I include
 LINKSOFLAGS = -shared -Wl,-soname,libcstl.so.2
 

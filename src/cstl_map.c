@@ -449,6 +449,10 @@ binary_function_t map_key_comp(const map_t* cpt_map)
 
 binary_function_t map_value_comp(const map_t* cpt_map)
 {
+#ifdef NDEBUG
+    void* pv_avoidwarning = (void*)cpt_map;
+    pv_avoidwarning = NULL;
+#endif
     assert(cpt_map != NULL);
 
     return _map_value_compare;

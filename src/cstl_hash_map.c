@@ -380,6 +380,10 @@ binary_function_t hash_map_key_comp(const hash_map_t* cpt_hash_map)
 
 binary_function_t hash_map_value_comp(const hash_map_t* cpt_hash_map)
 {
+#ifdef NDEBUG
+    void* pv_avoidwarning = (void*)cpt_hash_map;
+    pv_avoidwarning = NULL;
+#endif 
     assert(cpt_hash_map != NULL);
 
     return _hash_map_value_compare;
