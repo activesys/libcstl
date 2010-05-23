@@ -1663,6 +1663,7 @@ static void _quick_sort(
         if(t_binary_op != NULL)
         {
             bool_t t_result = false;
+            bool_t t_greater = false;
             /* char* */
             if(strncmp(_GET_LIST_TYPE_BASENAME(pt_container),
                     _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
@@ -1672,14 +1673,19 @@ static void _quick_sort(
                     /* move the before pointer next until the node > pivot */
                     (*t_binary_op)(string_c_str((string_t*)pt_beforepivot->_pc_data),
                         string_c_str((string_t*)pt_pivot->_pc_data), &t_result);
-                    while(t_result && pt_beforepivot != pt_pivot->_pt_prev)
+                    (*t_binary_op)(string_c_str((string_t*)pt_pivot->_pc_data),
+                        string_c_str((string_t*)pt_beforepivot->_pc_data), &t_greater);
+                    while((t_result || (!t_result && !t_greater)) &&
+                          pt_beforepivot != pt_pivot->_pt_prev)
                     {
                         pt_beforepivot = pt_beforepivot->_pt_next;
                         (*t_binary_op)(string_c_str((string_t*)pt_beforepivot->_pc_data),
                             string_c_str((string_t*)pt_pivot->_pc_data), &t_result);
+                        (*t_binary_op)(string_c_str((string_t*)pt_pivot->_pc_data),
+                            string_c_str((string_t*)pt_beforepivot->_pc_data), &t_greater);
                     }
 
-                    /* move the after pointer prev until the node < pivot */
+                    /* move the after pointer prev until the node <= pivot */
                     (*t_binary_op)(string_c_str((string_t*)pt_pivot->_pc_data),
                         string_c_str((string_t*)pt_afterpivot->_pc_data), &t_result);
                     while(t_result && pt_afterpivot !=
@@ -1734,13 +1740,16 @@ static void _quick_sort(
                 {
                     /* move the before pointer next until the node > pivot */
                     (*t_binary_op)(pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
-                    while(t_result && pt_beforepivot != pt_pivot->_pt_prev)
+                    (*t_binary_op)(pt_pivot->_pc_data, pt_beforepivot->_pc_data, &t_greater);
+                    while((t_result || (!t_result && !t_greater)) &&
+                          pt_beforepivot != pt_pivot->_pt_prev)
                     {
                         pt_beforepivot = pt_beforepivot->_pt_next;
                         (*t_binary_op)(pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
+                        (*t_binary_op)(pt_pivot->_pc_data, pt_beforepivot->_pc_data, &t_greater);
                     }
 
-                    /* move the after pointer prev until the node < pivot */
+                    /* move the after pointer prev until the node <= pivot */
                     (*t_binary_op)(pt_pivot->_pc_data, pt_afterpivot->_pc_data, &t_result);
                     while(t_result && pt_afterpivot !=
                             ((listnode_t*)_GET_LIST_COREPOS(t_beforefirstpos))->_pt_next)
@@ -1790,21 +1799,27 @@ static void _quick_sort(
         else
         {
             bool_t t_result = false;
+            bool_t t_greater = false;
             for(;;)
             {
                 /* move the before pointer next until the node > pivot */
-                t_result = _GET_LIST_TYPE_SIZE(pt_container);
+                t_result = t_greater = _GET_LIST_TYPE_SIZE(pt_container);
                 _GET_LIST_TYPE_LESS_FUNCTION(pt_container)(
                     pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
-                while(t_result && pt_beforepivot != pt_pivot->_pt_prev)
+                _GET_LIST_TYPE_LESS_FUNCTION(pt_container)(
+                    pt_pivot->_pc_data, pt_beforepivot->_pc_data, &t_greater);
+                while((t_result || (!t_result && !t_greater)) &&
+                      pt_beforepivot != pt_pivot->_pt_prev)
                 {
                     pt_beforepivot = pt_beforepivot->_pt_next;
 
-                    t_result = _GET_LIST_TYPE_SIZE(pt_container);
+                    t_result = t_greater = _GET_LIST_TYPE_SIZE(pt_container);
                     _GET_LIST_TYPE_LESS_FUNCTION(pt_container)(
                         pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
+                    _GET_LIST_TYPE_LESS_FUNCTION(pt_container)(
+                        pt_pivot->_pc_data, pt_beforepivot->_pc_data, &t_greater);
                 }
-                /* move the after pointer prev until the node < pivot */
+                /* move the after pointer prev until the node <= pivot */
                 t_result = _GET_LIST_TYPE_SIZE(pt_container);
                 _GET_LIST_TYPE_LESS_FUNCTION(pt_container)(
                     pt_pivot->_pc_data, pt_afterpivot->_pc_data, &t_result);
