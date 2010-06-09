@@ -270,3 +270,6 @@ libcstl 2.0.0-preview : 2009-11-01 08:45:22
 
 libcstl 2.0.0-beta : 2010-04-21 11:26:34
 * Release bate version for libcstl-2.0.0. <Wangbo>
+
+libcstl 2.0.0 : 2010-06-09 19:46:33
+* Release libcstl-2.0.0. <Wangbo>
