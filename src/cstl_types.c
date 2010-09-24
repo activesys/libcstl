@@ -557,7 +557,7 @@ void _type_debug(void)
 
     for(t_i = 0; t_i < _TYPE_REGISTER_BUCKET_COUNT; ++t_i)
     {
-        printf("[%u]", t_i);
+        printf("[%lu]", (unsigned long)t_i);
         pt_node = _gt_typeregister._apt_bucket[t_i];
         while(pt_node != NULL)
         {
@@ -584,8 +584,8 @@ void _type_debug(void)
         pt_type = apt_type[t_j];
         if(pt_type != NULL)
         {
-            printf("%p\n----------\n%d,%s,%p,%p,%p,%p\n========================\n",
-                pt_type, pt_type->_t_typesize, pt_type->_sz_typename,
+            printf("%p\n----------\n%lu,%s,%p,%p,%p,%p\n========================\n",
+                pt_type, (unsigned long)pt_type->_t_typesize, pt_type->_sz_typename,
                 pt_type->_t_typecopy, pt_type->_t_typeless,
                 pt_type->_t_typeinit, pt_type->_t_typedestroy);
         }

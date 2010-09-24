@@ -85,8 +85,8 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_vector.lo
 libcstl_la_OBJECTS = $(am_libcstl_la_OBJECTS)
 libcstl_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(libcstl_la_LDFLAGS) $(LDFLAGS) -o $@
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libcstl_la_CFLAGS) \
+	$(CFLAGS) $(libcstl_la_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -249,6 +249,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_vector.c
 
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
+libcstl_la_CFLAGS = -Wall -Wextra
 libcstl_la_LDFLAGS = -version-info 2:1:0
 all: all-am
 
@@ -375,200 +376,200 @@ distclean-compile:
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
 
 libcstl_la-cstl_algo.lo: cstl_algo.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algo.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algo.Tpo -c -o libcstl_la-cstl_algo.lo `test -f 'cstl_algo.c' || echo '$(srcdir)/'`cstl_algo.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algo.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algo.Tpo -c -o libcstl_la-cstl_algo.lo `test -f 'cstl_algo.c' || echo '$(srcdir)/'`cstl_algo.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_algo.Tpo $(DEPDIR)/libcstl_la-cstl_algo.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_algo.c' object='libcstl_la-cstl_algo.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algo.lo `test -f 'cstl_algo.c' || echo '$(srcdir)/'`cstl_algo.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algo.lo `test -f 'cstl_algo.c' || echo '$(srcdir)/'`cstl_algo.c
 
 libcstl_la-cstl_algobase.lo: cstl_algobase.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algobase.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algobase.Tpo -c -o libcstl_la-cstl_algobase.lo `test -f 'cstl_algobase.c' || echo '$(srcdir)/'`cstl_algobase.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algobase.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algobase.Tpo -c -o libcstl_la-cstl_algobase.lo `test -f 'cstl_algobase.c' || echo '$(srcdir)/'`cstl_algobase.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_algobase.Tpo $(DEPDIR)/libcstl_la-cstl_algobase.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_algobase.c' object='libcstl_la-cstl_algobase.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algobase.lo `test -f 'cstl_algobase.c' || echo '$(srcdir)/'`cstl_algobase.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algobase.lo `test -f 'cstl_algobase.c' || echo '$(srcdir)/'`cstl_algobase.c
 
 libcstl_la-cstl_alloc.lo: cstl_alloc.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_alloc.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_alloc.Tpo -c -o libcstl_la-cstl_alloc.lo `test -f 'cstl_alloc.c' || echo '$(srcdir)/'`cstl_alloc.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_alloc.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_alloc.Tpo -c -o libcstl_la-cstl_alloc.lo `test -f 'cstl_alloc.c' || echo '$(srcdir)/'`cstl_alloc.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_alloc.Tpo $(DEPDIR)/libcstl_la-cstl_alloc.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_alloc.c' object='libcstl_la-cstl_alloc.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_alloc.lo `test -f 'cstl_alloc.c' || echo '$(srcdir)/'`cstl_alloc.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_alloc.lo `test -f 'cstl_alloc.c' || echo '$(srcdir)/'`cstl_alloc.c
 
 libcstl_la-cstl_avl_tree.lo: cstl_avl_tree.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_avl_tree.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_avl_tree.Tpo -c -o libcstl_la-cstl_avl_tree.lo `test -f 'cstl_avl_tree.c' || echo '$(srcdir)/'`cstl_avl_tree.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_avl_tree.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_avl_tree.Tpo -c -o libcstl_la-cstl_avl_tree.lo `test -f 'cstl_avl_tree.c' || echo '$(srcdir)/'`cstl_avl_tree.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_avl_tree.Tpo $(DEPDIR)/libcstl_la-cstl_avl_tree.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_avl_tree.c' object='libcstl_la-cstl_avl_tree.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_avl_tree.lo `test -f 'cstl_avl_tree.c' || echo '$(srcdir)/'`cstl_avl_tree.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_avl_tree.lo `test -f 'cstl_avl_tree.c' || echo '$(srcdir)/'`cstl_avl_tree.c
 
 libcstl_la-cstl_basic_string.lo: cstl_basic_string.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_basic_string.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_basic_string.Tpo -c -o libcstl_la-cstl_basic_string.lo `test -f 'cstl_basic_string.c' || echo '$(srcdir)/'`cstl_basic_string.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_basic_string.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_basic_string.Tpo -c -o libcstl_la-cstl_basic_string.lo `test -f 'cstl_basic_string.c' || echo '$(srcdir)/'`cstl_basic_string.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_basic_string.Tpo $(DEPDIR)/libcstl_la-cstl_basic_string.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_basic_string.c' object='libcstl_la-cstl_basic_string.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_basic_string.lo `test -f 'cstl_basic_string.c' || echo '$(srcdir)/'`cstl_basic_string.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_basic_string.lo `test -f 'cstl_basic_string.c' || echo '$(srcdir)/'`cstl_basic_string.c
 
 libcstl_la-cstl_deque.lo: cstl_deque.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_deque.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_deque.Tpo -c -o libcstl_la-cstl_deque.lo `test -f 'cstl_deque.c' || echo '$(srcdir)/'`cstl_deque.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_deque.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_deque.Tpo -c -o libcstl_la-cstl_deque.lo `test -f 'cstl_deque.c' || echo '$(srcdir)/'`cstl_deque.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_deque.Tpo $(DEPDIR)/libcstl_la-cstl_deque.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_deque.c' object='libcstl_la-cstl_deque.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_deque.lo `test -f 'cstl_deque.c' || echo '$(srcdir)/'`cstl_deque.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_deque.lo `test -f 'cstl_deque.c' || echo '$(srcdir)/'`cstl_deque.c
 
 libcstl_la-cstl_function.lo: cstl_function.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_function.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_function.Tpo -c -o libcstl_la-cstl_function.lo `test -f 'cstl_function.c' || echo '$(srcdir)/'`cstl_function.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_function.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_function.Tpo -c -o libcstl_la-cstl_function.lo `test -f 'cstl_function.c' || echo '$(srcdir)/'`cstl_function.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_function.Tpo $(DEPDIR)/libcstl_la-cstl_function.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_function.c' object='libcstl_la-cstl_function.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_function.lo `test -f 'cstl_function.c' || echo '$(srcdir)/'`cstl_function.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_function.lo `test -f 'cstl_function.c' || echo '$(srcdir)/'`cstl_function.c
 
 libcstl_la-cstl_hash_map.lo: cstl_hash_map.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_map.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_map.Tpo -c -o libcstl_la-cstl_hash_map.lo `test -f 'cstl_hash_map.c' || echo '$(srcdir)/'`cstl_hash_map.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_map.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_map.Tpo -c -o libcstl_la-cstl_hash_map.lo `test -f 'cstl_hash_map.c' || echo '$(srcdir)/'`cstl_hash_map.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_hash_map.Tpo $(DEPDIR)/libcstl_la-cstl_hash_map.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_hash_map.c' object='libcstl_la-cstl_hash_map.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_map.lo `test -f 'cstl_hash_map.c' || echo '$(srcdir)/'`cstl_hash_map.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_map.lo `test -f 'cstl_hash_map.c' || echo '$(srcdir)/'`cstl_hash_map.c
 
 libcstl_la-cstl_hash_multimap.lo: cstl_hash_multimap.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_multimap.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_multimap.Tpo -c -o libcstl_la-cstl_hash_multimap.lo `test -f 'cstl_hash_multimap.c' || echo '$(srcdir)/'`cstl_hash_multimap.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_multimap.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_multimap.Tpo -c -o libcstl_la-cstl_hash_multimap.lo `test -f 'cstl_hash_multimap.c' || echo '$(srcdir)/'`cstl_hash_multimap.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_hash_multimap.Tpo $(DEPDIR)/libcstl_la-cstl_hash_multimap.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_hash_multimap.c' object='libcstl_la-cstl_hash_multimap.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_multimap.lo `test -f 'cstl_hash_multimap.c' || echo '$(srcdir)/'`cstl_hash_multimap.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_multimap.lo `test -f 'cstl_hash_multimap.c' || echo '$(srcdir)/'`cstl_hash_multimap.c
 
 libcstl_la-cstl_hash_multiset.lo: cstl_hash_multiset.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_multiset.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_multiset.Tpo -c -o libcstl_la-cstl_hash_multiset.lo `test -f 'cstl_hash_multiset.c' || echo '$(srcdir)/'`cstl_hash_multiset.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_multiset.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_multiset.Tpo -c -o libcstl_la-cstl_hash_multiset.lo `test -f 'cstl_hash_multiset.c' || echo '$(srcdir)/'`cstl_hash_multiset.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_hash_multiset.Tpo $(DEPDIR)/libcstl_la-cstl_hash_multiset.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_hash_multiset.c' object='libcstl_la-cstl_hash_multiset.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_multiset.lo `test -f 'cstl_hash_multiset.c' || echo '$(srcdir)/'`cstl_hash_multiset.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_multiset.lo `test -f 'cstl_hash_multiset.c' || echo '$(srcdir)/'`cstl_hash_multiset.c
 
 libcstl_la-cstl_hash_set.lo: cstl_hash_set.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_set.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_set.Tpo -c -o libcstl_la-cstl_hash_set.lo `test -f 'cstl_hash_set.c' || echo '$(srcdir)/'`cstl_hash_set.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_set.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_set.Tpo -c -o libcstl_la-cstl_hash_set.lo `test -f 'cstl_hash_set.c' || echo '$(srcdir)/'`cstl_hash_set.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_hash_set.Tpo $(DEPDIR)/libcstl_la-cstl_hash_set.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_hash_set.c' object='libcstl_la-cstl_hash_set.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_set.lo `test -f 'cstl_hash_set.c' || echo '$(srcdir)/'`cstl_hash_set.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_set.lo `test -f 'cstl_hash_set.c' || echo '$(srcdir)/'`cstl_hash_set.c
 
 libcstl_la-cstl_hashtable.lo: cstl_hashtable.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hashtable.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hashtable.Tpo -c -o libcstl_la-cstl_hashtable.lo `test -f 'cstl_hashtable.c' || echo '$(srcdir)/'`cstl_hashtable.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hashtable.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hashtable.Tpo -c -o libcstl_la-cstl_hashtable.lo `test -f 'cstl_hashtable.c' || echo '$(srcdir)/'`cstl_hashtable.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_hashtable.Tpo $(DEPDIR)/libcstl_la-cstl_hashtable.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_hashtable.c' object='libcstl_la-cstl_hashtable.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hashtable.lo `test -f 'cstl_hashtable.c' || echo '$(srcdir)/'`cstl_hashtable.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hashtable.lo `test -f 'cstl_hashtable.c' || echo '$(srcdir)/'`cstl_hashtable.c
 
 libcstl_la-cstl_heap.lo: cstl_heap.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_heap.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_heap.Tpo -c -o libcstl_la-cstl_heap.lo `test -f 'cstl_heap.c' || echo '$(srcdir)/'`cstl_heap.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_heap.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_heap.Tpo -c -o libcstl_la-cstl_heap.lo `test -f 'cstl_heap.c' || echo '$(srcdir)/'`cstl_heap.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_heap.Tpo $(DEPDIR)/libcstl_la-cstl_heap.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_heap.c' object='libcstl_la-cstl_heap.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_heap.lo `test -f 'cstl_heap.c' || echo '$(srcdir)/'`cstl_heap.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_heap.lo `test -f 'cstl_heap.c' || echo '$(srcdir)/'`cstl_heap.c
 
 libcstl_la-cstl_iterator.lo: cstl_iterator.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_iterator.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_iterator.Tpo -c -o libcstl_la-cstl_iterator.lo `test -f 'cstl_iterator.c' || echo '$(srcdir)/'`cstl_iterator.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_iterator.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_iterator.Tpo -c -o libcstl_la-cstl_iterator.lo `test -f 'cstl_iterator.c' || echo '$(srcdir)/'`cstl_iterator.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_iterator.Tpo $(DEPDIR)/libcstl_la-cstl_iterator.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_iterator.c' object='libcstl_la-cstl_iterator.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_iterator.lo `test -f 'cstl_iterator.c' || echo '$(srcdir)/'`cstl_iterator.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_iterator.lo `test -f 'cstl_iterator.c' || echo '$(srcdir)/'`cstl_iterator.c
 
 libcstl_la-cstl_list.lo: cstl_list.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_list.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_list.Tpo -c -o libcstl_la-cstl_list.lo `test -f 'cstl_list.c' || echo '$(srcdir)/'`cstl_list.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_list.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_list.Tpo -c -o libcstl_la-cstl_list.lo `test -f 'cstl_list.c' || echo '$(srcdir)/'`cstl_list.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_list.Tpo $(DEPDIR)/libcstl_la-cstl_list.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_list.c' object='libcstl_la-cstl_list.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_list.lo `test -f 'cstl_list.c' || echo '$(srcdir)/'`cstl_list.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_list.lo `test -f 'cstl_list.c' || echo '$(srcdir)/'`cstl_list.c
 
 libcstl_la-cstl_map.lo: cstl_map.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_map.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_map.Tpo -c -o libcstl_la-cstl_map.lo `test -f 'cstl_map.c' || echo '$(srcdir)/'`cstl_map.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_map.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_map.Tpo -c -o libcstl_la-cstl_map.lo `test -f 'cstl_map.c' || echo '$(srcdir)/'`cstl_map.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_map.Tpo $(DEPDIR)/libcstl_la-cstl_map.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_map.c' object='libcstl_la-cstl_map.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_map.lo `test -f 'cstl_map.c' || echo '$(srcdir)/'`cstl_map.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_map.lo `test -f 'cstl_map.c' || echo '$(srcdir)/'`cstl_map.c
 
 libcstl_la-cstl_multimap.lo: cstl_multimap.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_multimap.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_multimap.Tpo -c -o libcstl_la-cstl_multimap.lo `test -f 'cstl_multimap.c' || echo '$(srcdir)/'`cstl_multimap.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_multimap.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_multimap.Tpo -c -o libcstl_la-cstl_multimap.lo `test -f 'cstl_multimap.c' || echo '$(srcdir)/'`cstl_multimap.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_multimap.Tpo $(DEPDIR)/libcstl_la-cstl_multimap.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_multimap.c' object='libcstl_la-cstl_multimap.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_multimap.lo `test -f 'cstl_multimap.c' || echo '$(srcdir)/'`cstl_multimap.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_multimap.lo `test -f 'cstl_multimap.c' || echo '$(srcdir)/'`cstl_multimap.c
 
 libcstl_la-cstl_multiset.lo: cstl_multiset.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_multiset.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_multiset.Tpo -c -o libcstl_la-cstl_multiset.lo `test -f 'cstl_multiset.c' || echo '$(srcdir)/'`cstl_multiset.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_multiset.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_multiset.Tpo -c -o libcstl_la-cstl_multiset.lo `test -f 'cstl_multiset.c' || echo '$(srcdir)/'`cstl_multiset.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_multiset.Tpo $(DEPDIR)/libcstl_la-cstl_multiset.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_multiset.c' object='libcstl_la-cstl_multiset.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_multiset.lo `test -f 'cstl_multiset.c' || echo '$(srcdir)/'`cstl_multiset.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_multiset.lo `test -f 'cstl_multiset.c' || echo '$(srcdir)/'`cstl_multiset.c
 
 libcstl_la-cstl_numeric.lo: cstl_numeric.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_numeric.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_numeric.Tpo -c -o libcstl_la-cstl_numeric.lo `test -f 'cstl_numeric.c' || echo '$(srcdir)/'`cstl_numeric.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_numeric.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_numeric.Tpo -c -o libcstl_la-cstl_numeric.lo `test -f 'cstl_numeric.c' || echo '$(srcdir)/'`cstl_numeric.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_numeric.Tpo $(DEPDIR)/libcstl_la-cstl_numeric.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_numeric.c' object='libcstl_la-cstl_numeric.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_numeric.lo `test -f 'cstl_numeric.c' || echo '$(srcdir)/'`cstl_numeric.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_numeric.lo `test -f 'cstl_numeric.c' || echo '$(srcdir)/'`cstl_numeric.c
 
 libcstl_la-cstl_pair.lo: cstl_pair.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_pair.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_pair.Tpo -c -o libcstl_la-cstl_pair.lo `test -f 'cstl_pair.c' || echo '$(srcdir)/'`cstl_pair.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_pair.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_pair.Tpo -c -o libcstl_la-cstl_pair.lo `test -f 'cstl_pair.c' || echo '$(srcdir)/'`cstl_pair.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_pair.Tpo $(DEPDIR)/libcstl_la-cstl_pair.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_pair.c' object='libcstl_la-cstl_pair.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_pair.lo `test -f 'cstl_pair.c' || echo '$(srcdir)/'`cstl_pair.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_pair.lo `test -f 'cstl_pair.c' || echo '$(srcdir)/'`cstl_pair.c
 
 libcstl_la-cstl_queue.lo: cstl_queue.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_queue.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_queue.Tpo -c -o libcstl_la-cstl_queue.lo `test -f 'cstl_queue.c' || echo '$(srcdir)/'`cstl_queue.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_queue.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_queue.Tpo -c -o libcstl_la-cstl_queue.lo `test -f 'cstl_queue.c' || echo '$(srcdir)/'`cstl_queue.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_queue.Tpo $(DEPDIR)/libcstl_la-cstl_queue.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_queue.c' object='libcstl_la-cstl_queue.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_queue.lo `test -f 'cstl_queue.c' || echo '$(srcdir)/'`cstl_queue.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_queue.lo `test -f 'cstl_queue.c' || echo '$(srcdir)/'`cstl_queue.c
 
 libcstl_la-cstl_rb_tree.lo: cstl_rb_tree.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_rb_tree.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_rb_tree.Tpo -c -o libcstl_la-cstl_rb_tree.lo `test -f 'cstl_rb_tree.c' || echo '$(srcdir)/'`cstl_rb_tree.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_rb_tree.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_rb_tree.Tpo -c -o libcstl_la-cstl_rb_tree.lo `test -f 'cstl_rb_tree.c' || echo '$(srcdir)/'`cstl_rb_tree.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_rb_tree.Tpo $(DEPDIR)/libcstl_la-cstl_rb_tree.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_rb_tree.c' object='libcstl_la-cstl_rb_tree.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_rb_tree.lo `test -f 'cstl_rb_tree.c' || echo '$(srcdir)/'`cstl_rb_tree.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_rb_tree.lo `test -f 'cstl_rb_tree.c' || echo '$(srcdir)/'`cstl_rb_tree.c
 
 libcstl_la-cstl_set.lo: cstl_set.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_set.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_set.Tpo -c -o libcstl_la-cstl_set.lo `test -f 'cstl_set.c' || echo '$(srcdir)/'`cstl_set.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_set.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_set.Tpo -c -o libcstl_la-cstl_set.lo `test -f 'cstl_set.c' || echo '$(srcdir)/'`cstl_set.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_set.Tpo $(DEPDIR)/libcstl_la-cstl_set.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_set.c' object='libcstl_la-cstl_set.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_set.lo `test -f 'cstl_set.c' || echo '$(srcdir)/'`cstl_set.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_set.lo `test -f 'cstl_set.c' || echo '$(srcdir)/'`cstl_set.c
 
 libcstl_la-cstl_slist.lo: cstl_slist.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_slist.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_slist.Tpo -c -o libcstl_la-cstl_slist.lo `test -f 'cstl_slist.c' || echo '$(srcdir)/'`cstl_slist.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_slist.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_slist.Tpo -c -o libcstl_la-cstl_slist.lo `test -f 'cstl_slist.c' || echo '$(srcdir)/'`cstl_slist.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_slist.Tpo $(DEPDIR)/libcstl_la-cstl_slist.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_slist.c' object='libcstl_la-cstl_slist.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_slist.lo `test -f 'cstl_slist.c' || echo '$(srcdir)/'`cstl_slist.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_slist.lo `test -f 'cstl_slist.c' || echo '$(srcdir)/'`cstl_slist.c
 
 libcstl_la-cstl_stack.lo: cstl_stack.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_stack.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_stack.Tpo -c -o libcstl_la-cstl_stack.lo `test -f 'cstl_stack.c' || echo '$(srcdir)/'`cstl_stack.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_stack.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_stack.Tpo -c -o libcstl_la-cstl_stack.lo `test -f 'cstl_stack.c' || echo '$(srcdir)/'`cstl_stack.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_stack.Tpo $(DEPDIR)/libcstl_la-cstl_stack.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_stack.c' object='libcstl_la-cstl_stack.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_stack.lo `test -f 'cstl_stack.c' || echo '$(srcdir)/'`cstl_stack.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_stack.lo `test -f 'cstl_stack.c' || echo '$(srcdir)/'`cstl_stack.c
 
 libcstl_la-cstl_string.lo: cstl_string.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_string.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_string.Tpo -c -o libcstl_la-cstl_string.lo `test -f 'cstl_string.c' || echo '$(srcdir)/'`cstl_string.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_string.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_string.Tpo -c -o libcstl_la-cstl_string.lo `test -f 'cstl_string.c' || echo '$(srcdir)/'`cstl_string.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_string.Tpo $(DEPDIR)/libcstl_la-cstl_string.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_string.c' object='libcstl_la-cstl_string.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_string.lo `test -f 'cstl_string.c' || echo '$(srcdir)/'`cstl_string.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_string.lo `test -f 'cstl_string.c' || echo '$(srcdir)/'`cstl_string.c
 
 libcstl_la-cstl_types.lo: cstl_types.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_types.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_types.Tpo -c -o libcstl_la-cstl_types.lo `test -f 'cstl_types.c' || echo '$(srcdir)/'`cstl_types.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_types.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_types.Tpo -c -o libcstl_la-cstl_types.lo `test -f 'cstl_types.c' || echo '$(srcdir)/'`cstl_types.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_types.Tpo $(DEPDIR)/libcstl_la-cstl_types.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_types.c' object='libcstl_la-cstl_types.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_types.lo `test -f 'cstl_types.c' || echo '$(srcdir)/'`cstl_types.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_types.lo `test -f 'cstl_types.c' || echo '$(srcdir)/'`cstl_types.c
 
 libcstl_la-cstl_vector.lo: cstl_vector.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_vector.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_vector.Tpo -c -o libcstl_la-cstl_vector.lo `test -f 'cstl_vector.c' || echo '$(srcdir)/'`cstl_vector.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_vector.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_vector.Tpo -c -o libcstl_la-cstl_vector.lo `test -f 'cstl_vector.c' || echo '$(srcdir)/'`cstl_vector.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_vector.Tpo $(DEPDIR)/libcstl_la-cstl_vector.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_vector.c' object='libcstl_la-cstl_vector.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_vector.lo `test -f 'cstl_vector.c' || echo '$(srcdir)/'`cstl_vector.c
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_vector.lo `test -f 'cstl_vector.c' || echo '$(srcdir)/'`cstl_vector.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
