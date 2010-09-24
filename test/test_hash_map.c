@@ -21,9 +21,9 @@
  */
 
 /** include section **/
-#include "clist.h"
-#include "chash_map.h"
-#include "cfunctional.h"
+#include <cstl/clist.h>
+#include <cstl/chash_map.h>
+#include <cstl/cfunctional.h>
 #include "test_hashtable.h"
 #include "test_hash_map.h"
 

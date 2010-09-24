@@ -1,0 +1,3 @@
+test-test_rb_tree.o: test_rb_tree.c test_rb_tree.h
+
+test_rb_tree.h:

@@ -21,12 +21,12 @@
  */
 
 /** include section **/
-#include "cdeque.h"
-#include "clist.h"
-#include "cvector.h"
+#include <cstl/cdeque.h>
+#include <cstl/clist.h>
+#include <cstl/cvector.h>
 
-#include "cstl_stack_private.h"
-#include "cstl_stack.h"
+#include <cstl/cstl_stack_private.h>
+#include <cstl/cstl_stack.h>
 
 /** local constant declaration and local macro section **/
 

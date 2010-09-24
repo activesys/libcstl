@@ -21,9 +21,9 @@
  */
 
 /** include section **/
-#include "chash_set.h"
+#include <cstl/chash_set.h>
 #include "test_hashtable.h"
-#include "cfunctional.h"
+#include <cstl/cfunctional.h>
 #include "test_hash_set.h"
 
 /** local constant declaration and local macro section **/

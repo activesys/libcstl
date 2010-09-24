@@ -1,0 +1,3 @@
+test-test_avl_tree.o: test_avl_tree.c test_avl_tree.h
+
+test_avl_tree.h:

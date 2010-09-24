@@ -27,12 +27,12 @@
 #include <stdarg.h>
 #include <string.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
 
-#include "cstl_pair.h"
+#include <cstl/cstl_pair.h>
 
-#include "cstring.h"
+#include <cstl/cstring.h>
 
 /** local constant declaration and local macro section **/
 

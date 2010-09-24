@@ -27,13 +27,13 @@
 #include <string.h>
 #include <stdarg.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "citerator.h"
-#include "cfunctional.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/citerator.h>
+#include <cstl/cfunctional.h>
 
-#include "cstl_numeric.h"
-#include "cstl_numeric_private.h"
+#include <cstl/cstl_numeric.h>
+#include <cstl/cstl_numeric_private.h>
 
 /** local constant declaration and local macro section **/
 

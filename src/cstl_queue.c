@@ -21,15 +21,15 @@
  */
 
 /** include section **/
-#include "cdeque.h"
-#include "clist.h"
-#include "cvector.h"
-#include "cfunctional.h"
-#include "cutility.h"
-#include "calgorithm.h"
+#include <cstl/cdeque.h>
+#include <cstl/clist.h>
+#include <cstl/cvector.h>
+#include <cstl/cfunctional.h>
+#include <cstl/cutility.h>
+#include <cstl/calgorithm.h>
 
-#include "cstl_queue_private.h"
-#include "cstl_queue.h"
+#include <cstl/cstl_queue_private.h>
+#include <cstl/cstl_queue.h>
 
 /** local constant declaration and local macro section **/
 

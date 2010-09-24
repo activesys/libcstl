@@ -27,17 +27,17 @@
 #include <stdarg.h>
 #include <string.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "cstl_iterator.h"
-#include "cstl_iterator_private.h"
-#include "cfunctional.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/cstl_iterator.h>
+#include <cstl/cstl_iterator_private.h>
+#include <cstl/cfunctional.h>
 
-#include "cstl_slist_iterator.h"
-#include "cstl_slist_private.h"
-#include "cstl_slist.h"
+#include <cstl/cstl_slist_iterator.h>
+#include <cstl/cstl_slist_private.h>
+#include <cstl/cstl_slist.h>
 
-#include "cstring.h"
+#include <cstl/cstring.h>
 
 /** local constant declaration and local macro section **/
 #define _SLIST_NODE_SIZE(typesize)\

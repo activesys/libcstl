@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "cstack.h"
+#include <cstl/cstack.h>
 #include "test_stack.h"
 
 /** local constant declaration and local macro section **/

@@ -26,16 +26,16 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "citerator.h"
-#include "cfunctional.h"
-#include "cutility.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/citerator.h>
+#include <cstl/cfunctional.h>
+#include <cstl/cutility.h>
 
-#include "cstl_algobase.h"
-#include "cstl_algobase_private.h"
+#include <cstl/cstl_algobase.h>
+#include <cstl/cstl_algobase_private.h>
 
-#include "cstl_heap.h"
+#include <cstl/cstl_heap.h>
 
 /** local constant declaration and local macro section **/
 
