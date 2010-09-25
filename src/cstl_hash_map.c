@@ -482,9 +482,14 @@ bool_t hash_map_greater_equal(
 
 hash_map_iterator_t _hash_map_find(const hash_map_t* cpt_hash_map, ...)
 {
+    hash_map_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_map);
-    return _hash_map_find_varg(cpt_hash_map, val_elemlist);
+    t_iter = _hash_map_find_varg(cpt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 hash_map_iterator_t _hash_map_find_varg(
@@ -508,9 +513,14 @@ hash_map_iterator_t _hash_map_find_varg(
 
 size_t _hash_map_count(const hash_map_t* cpt_hash_map, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_map);
-    return _hash_map_count_varg(cpt_hash_map, val_elemlist);
+    t_count = _hash_map_count_varg(cpt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_map_count_varg(const hash_map_t* cpt_hash_map, va_list val_elemlist)
@@ -525,9 +535,14 @@ size_t _hash_map_count_varg(const hash_map_t* cpt_hash_map, va_list val_elemlist
 
 range_t _hash_map_equal_range(const hash_map_t* cpt_hash_map, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_map);
-    return _hash_map_equal_range_varg(cpt_hash_map, val_elemlist);
+    t_range = _hash_map_equal_range_varg(cpt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _hash_map_equal_range_varg(
@@ -623,9 +638,14 @@ void hash_map_erase_range(
 
 size_t _hash_map_erase(hash_map_t* pt_hash_map, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_hash_map);
-    return _hash_map_erase_varg(pt_hash_map, val_elemlist);
+    t_count = _hash_map_erase_varg(pt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_map_erase_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
@@ -647,9 +667,14 @@ void hash_map_clear(hash_map_t* pt_hash_map)
 
 void* _hash_map_at(hash_map_t* pt_hash_map, ...)
 {
+    void* pv_result = NULL;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_hash_map);
-    return _hash_map_at_varg(pt_hash_map, val_elemlist);
+    pv_result = _hash_map_at_varg(pt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return pv_result;
 }
 
 void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)

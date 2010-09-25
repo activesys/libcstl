@@ -110,8 +110,10 @@ void _algo_fill(
     forward_iterator_t t_first, forward_iterator_t t_last, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_last);
     _algo_fill_varg(t_first, t_last, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _algo_fill_varg(
@@ -146,9 +148,14 @@ void _algo_fill_varg(
 output_iterator_t _algo_fill_n(
     output_iterator_t t_first, size_t t_fillsize, ...)
 {
+    output_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_fillsize);
-    return _algo_fill_n_varg(t_first, t_fillsize, val_elemlist);
+    t_iter = _algo_fill_n_varg(t_first, t_fillsize, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 output_iterator_t _algo_fill_n_varg(

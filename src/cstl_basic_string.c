@@ -434,8 +434,10 @@ void _basic_string_init_elem(
     basic_string_t* pt_basic_string, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _basic_string_init_elem_varg(pt_basic_string, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _basic_string_init_elem_varg(
@@ -815,8 +817,10 @@ void basic_string_connect_cstr(
 void _basic_string_connect_elem(basic_string_t* pt_basic_string, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_basic_string);
     _basic_string_connect_elem_varg(pt_basic_string, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _basic_string_connect_elem_varg(basic_string_t* pt_basic_string, va_list val_elemlist)
@@ -1010,9 +1014,14 @@ size_t basic_string_find_subcstr(
 size_t _basic_string_find_elem(
     const basic_string_t* cpt_basic_string, size_t t_pos, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_pos);
-    return _basic_string_find_elem_varg(cpt_basic_string, t_pos, val_elemlist);
+    t_count = _basic_string_find_elem_varg(cpt_basic_string, t_pos, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _basic_string_find_elem_varg(
@@ -1189,9 +1198,14 @@ size_t basic_string_rfind_subcstr(
 size_t _basic_string_rfind_elem(
     const basic_string_t* cpt_basic_string, size_t t_pos, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_pos);
-    return _basic_string_rfind_elem_varg(cpt_basic_string, t_pos, val_elemlist);
+    t_count = _basic_string_rfind_elem_varg(cpt_basic_string, t_pos, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _basic_string_rfind_elem_varg(
@@ -1443,9 +1457,14 @@ size_t basic_string_find_first_not_of_subcstr(
 size_t _basic_string_find_first_not_of_elem(
     const basic_string_t* cpt_basic_string, size_t t_pos, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_pos);
-    return _basic_string_find_first_not_of_elem_varg(cpt_basic_string, t_pos, val_elemlist);
+    t_count = _basic_string_find_first_not_of_elem_varg(cpt_basic_string, t_pos, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _basic_string_find_first_not_of_elem_varg(
@@ -1719,10 +1738,15 @@ size_t basic_string_find_last_not_of_subcstr(
 size_t _basic_string_find_last_not_of_elem(
     const basic_string_t* cpt_basic_string, size_t t_pos, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_pos);
-    return _basic_string_find_last_not_of_elem_varg(
+    t_count = _basic_string_find_last_not_of_elem_varg(
         cpt_basic_string, t_pos, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _basic_string_find_last_not_of_elem_varg(
@@ -1817,8 +1841,10 @@ void basic_string_reserve(basic_string_t* pt_basic_string, size_t t_reservesize)
 void _basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_resize);
     _basic_string_resize_varg(pt_basic_string, t_resize, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _basic_string_resize_varg(
