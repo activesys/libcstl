@@ -392,8 +392,10 @@ void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)
 void _list_init_elem(list_t* pt_list, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _list_init_elem_varg(pt_list, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void list_init_n(list_t* pt_list, size_t t_count)
@@ -665,8 +667,10 @@ void list_assign(list_t* pt_listdest, const list_t* cpt_listsrc)
 void _list_assign_elem(list_t* pt_list, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _list_assign_elem_varg(pt_list, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _list_assign_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)
@@ -828,9 +832,14 @@ list_reverse_iterator_t list_rend(const list_t* cpt_list)
 list_iterator_t _list_insert_n(
     list_t* pt_list, list_iterator_t t_pos, size_t t_count, ...)
 {
+    list_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
-    return _list_insert_n_varg(pt_list, t_pos, t_count, val_elemlist);
+    t_iter = _list_insert_n_varg(pt_list, t_pos, t_count, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 list_iterator_t _list_insert_n_varg(
@@ -934,8 +943,10 @@ void list_insert_range(
 void _list_push_back(list_t* pt_list, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_list);
     _list_push_back_varg(pt_list, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _list_push_back_varg(list_t* pt_list, va_list val_elemlist)
@@ -980,8 +991,10 @@ void list_pop_back(list_t* pt_list)
 void _list_push_front(list_t* pt_list, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_list);
     _list_push_front_varg(pt_list, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _list_push_front_varg(list_t* pt_list, va_list val_elemlist)
@@ -1061,8 +1074,10 @@ list_iterator_t list_erase_range(
 void _list_remove(list_t* pt_list, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_list);
     _list_remove_varg(pt_list, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _list_remove_varg(list_t* pt_list, va_list val_elemlist)
@@ -1167,8 +1182,10 @@ void list_resize(list_t* pt_list, size_t t_resize)
 void _list_resize_elem(list_t* pt_list, size_t t_resize, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_resize);
     _list_resize_elem_varg(pt_list, t_resize, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _list_resize_elem_varg(list_t* pt_list, size_t t_resize, va_list val_elemlist)

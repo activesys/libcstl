@@ -1183,7 +1183,7 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
         assert(t_result);
     }
 
-    va_end(val_elemlist);
+    /*va_end(val_elemlist);*/
 }
 
 /* default copy, less, and destroy function */

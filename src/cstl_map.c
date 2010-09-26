@@ -617,9 +617,14 @@ map_reverse_iterator_t map_rend(const map_t* cpt_map)
 
 map_iterator_t _map_find(const map_t* cpt_map, ...)
 {
+    map_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_map);
-    return _map_find_varg(cpt_map, val_elemlist);
+    t_iter = _map_find_varg(cpt_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 map_iterator_t _map_find_varg(const map_t* cpt_map, va_list val_elemlist)
@@ -647,9 +652,14 @@ map_iterator_t _map_find_varg(const map_t* cpt_map, va_list val_elemlist)
 
 size_t _map_count(const map_t* cpt_map, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_map);
-    return _map_count_varg(cpt_map, val_elemlist);
+    t_count = _map_count_varg(cpt_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _map_count_varg(const map_t* cpt_map, va_list val_elemlist)
@@ -667,9 +677,14 @@ size_t _map_count_varg(const map_t* cpt_map, va_list val_elemlist)
 
 map_iterator_t _map_lower_bound(const map_t* cpt_map, ...)
 {
+    map_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_map);
-    return _map_lower_bound_varg(cpt_map, val_elemlist);
+    t_iter = _map_lower_bound_varg(cpt_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 map_iterator_t _map_lower_bound_varg(const map_t* cpt_map, va_list val_elemlist)
@@ -695,9 +710,14 @@ map_iterator_t _map_lower_bound_varg(const map_t* cpt_map, va_list val_elemlist)
 
 map_iterator_t _map_upper_bound(const map_t* cpt_map, ...)
 {
+    map_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_map);
-    return _map_upper_bound_varg(cpt_map, val_elemlist);
+    t_iter = _map_upper_bound_varg(cpt_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist)
@@ -723,9 +743,14 @@ map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist)
 
 range_t _map_equal_range(const map_t* cpt_map, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_map);
-    return _map_equal_range_varg(cpt_map, val_elemlist);
+    t_range = _map_equal_range_varg(cpt_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _map_equal_range_varg(const map_t* cpt_map, va_list val_elemlist)
@@ -854,9 +879,14 @@ void map_erase_range(map_t* pt_map, map_iterator_t t_begin, map_iterator_t t_end
 
 size_t _map_erase(map_t* pt_map, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_map);
-    return _map_erase_varg(pt_map, val_elemlist);
+    t_count = _map_erase_varg(pt_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _map_erase_varg(map_t* pt_map, va_list val_elemlist)
@@ -875,9 +905,14 @@ size_t _map_erase_varg(map_t* pt_map, va_list val_elemlist)
 
 void* _map_at(map_t* pt_map, ...)
 {
+    void* pv_result = NULL;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_map);
-    return _map_at_varg(pt_map, val_elemlist);
+    pv_result = _map_at_varg(pt_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return pv_result;
 }
 
 void* _map_at_varg(map_t* pt_map, va_list val_elemlist)

@@ -448,9 +448,14 @@ void set_clear(set_t* pt_set)
 
 set_iterator_t _set_find(const set_t* cpt_set, ...)
 {
+    set_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_set);
-    return _set_find_varg(cpt_set, val_elemlist);
+    t_iter = _set_find_varg(cpt_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 set_iterator_t _set_find_varg(const set_t* cpt_set, va_list val_elemlist)
@@ -484,9 +489,14 @@ set_iterator_t _set_find_varg(const set_t* cpt_set, va_list val_elemlist)
 
 size_t _set_count(const set_t* cpt_set, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_set);
-    return _set_count_varg(cpt_set, val_elemlist);
+    t_count = _set_count_varg(cpt_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist)
@@ -516,9 +526,14 @@ size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist)
 
 set_iterator_t _set_lower_bound(const set_t* cpt_set, ...)
 {
+    set_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_set);
-    return _set_lower_bound_varg(cpt_set, val_elemlist);
+    t_iter = _set_lower_bound_varg(cpt_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 set_iterator_t _set_lower_bound_varg(const set_t* cpt_set, va_list val_elemlist)
@@ -552,9 +567,14 @@ set_iterator_t _set_lower_bound_varg(const set_t* cpt_set, va_list val_elemlist)
 
 set_iterator_t _set_upper_bound(const set_t* cpt_set, ...)
 {
+    set_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_set);
-    return _set_upper_bound_varg(cpt_set, val_elemlist);
+    t_iter = _set_upper_bound_varg(cpt_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist)
@@ -588,9 +608,14 @@ set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist)
 
 range_t _set_equal_range(const set_t* cpt_set, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_set);
-    return _set_equal_range_varg(cpt_set, val_elemlist);
+    t_range = _set_equal_range_varg(cpt_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)
@@ -705,9 +730,14 @@ void set_swap(set_t* pt_setfirst, set_t* pt_setsecond)
 
 set_iterator_t _set_insert(set_t* pt_set, ...)
 {
+    set_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_set);
-    return _set_insert_varg(pt_set, val_elemlist);
+    t_iter = _set_insert_varg(pt_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 set_iterator_t _set_insert_varg(set_t* pt_set, va_list val_elemlist)
@@ -739,9 +769,14 @@ set_iterator_t _set_insert_varg(set_t* pt_set, va_list val_elemlist)
 
 set_iterator_t _set_insert_hint(set_t* pt_set, set_iterator_t t_hint, ...)
 {
+    set_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_hint);
-    return _set_insert_hint_varg(pt_set, t_hint, val_elemlist);
+    t_iter = _set_insert_hint_varg(pt_set, t_hint, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 set_iterator_t _set_insert_hint_varg(
@@ -822,9 +857,14 @@ void set_erase_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end
 
 size_t _set_erase(set_t* pt_set, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_set);
-    return _set_erase_varg(pt_set, val_elemlist);
+    t_count = _set_erase_varg(pt_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _set_erase_varg(set_t* pt_set, va_list val_elemlist)

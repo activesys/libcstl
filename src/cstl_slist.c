@@ -339,8 +339,10 @@ void slist_init_n(slist_t* pt_slist, size_t t_count)
 void _slist_init_elem(slist_t* pt_slist, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _slist_init_elem_varg(pt_slist, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _slist_init_elem_varg(slist_t* pt_slist, size_t t_count, va_list val_elemlist)
@@ -535,8 +537,10 @@ void slist_assign(slist_t* pt_slistdest, const slist_t* cpt_slistsrc)
 void _slist_assign_elem(slist_t* pt_slist, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _slist_assign_elem_varg(pt_slist, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _slist_assign_elem_varg(slist_t* pt_slist, size_t t_count, va_list val_elemlist)
@@ -634,6 +638,7 @@ void _slist_push_front(slist_t* pt_slist, ...)
 
     va_start(val_elemlist, pt_slist);
     _slist_push_front_varg(pt_slist, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _slist_push_front_varg(slist_t* pt_slist, va_list val_elemlist)
@@ -714,6 +719,7 @@ slist_iterator_t _slist_insert(slist_t* pt_slist, slist_iterator_t t_pos, ...)
         /* call insert_after */
         _slist_insert_after_n_varg(pt_slist, slist_previous(pt_slist, t_pos), 1, val_elemlist);
     }
+    va_end(val_elemlist);
 
     /* return the new element iterator */
     return slist_previous(pt_slist, t_pos);
@@ -726,6 +732,7 @@ slist_iterator_t _slist_insert_after(
 
     va_start(val_elemlist, t_pos);
     _slist_insert_after_n_varg(pt_slist, t_pos, 1, val_elemlist);
+    va_end(val_elemlist);
     t_pos = iterator_next(t_pos);
 
     return t_pos;
@@ -757,6 +764,7 @@ void _slist_insert_n(
         _slist_insert_after_n_varg(
             pt_slist, slist_previous(pt_slist, t_pos), t_count, val_elemlist);
     }
+    va_end(val_elemlist);
 }
 
 void _slist_insert_after_n(
@@ -766,6 +774,7 @@ void _slist_insert_after_n(
 
     va_start(val_elemlist, t_count);
     _slist_insert_after_n_varg(pt_slist, t_pos, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _slist_insert_after_n_varg(
@@ -1161,8 +1170,10 @@ void slist_splice_after_range(
 void _slist_remove(slist_t* pt_slist, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_slist);
     _slist_remove_varg(pt_slist, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _slist_remove_varg(slist_t* pt_slist, va_list val_elemlist)
@@ -1506,8 +1517,10 @@ void slist_clear(slist_t* pt_slist)
 void _slist_resize_elem(slist_t* pt_slist, size_t t_resize, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_resize);
     _slist_resize_elem_varg(pt_slist, t_resize, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _slist_resize_elem_varg(slist_t* pt_slist, size_t t_resize, va_list val_elemlist)

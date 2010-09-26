@@ -129,6 +129,7 @@ void _pair_make_first(pair_t* pt_pair, ...)
 
     va_start(val_elemlist, pt_pair);
     _type_get_varg_value(&pt_pair->_t_typeinfofirst, val_elemlist, pt_pair->_pv_first);
+    va_end(val_elemlist);
 }
 
 void _pair_make_second(pair_t* pt_pair, ...)
@@ -140,6 +141,7 @@ void _pair_make_second(pair_t* pt_pair, ...)
 
     va_start(val_elemlist, pt_pair);
     _type_get_varg_value(&pt_pair->_t_typeinfosecond, val_elemlist, pt_pair->_pv_second);
+    va_end(val_elemlist);
 }
 
 /* pair function */

@@ -168,8 +168,10 @@ void* stack_top(const stack_t* cpt_stack)
 void _stack_push(stack_t* pt_stack, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_stack);
     _stack_push_varg(pt_stack, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _stack_push_varg(stack_t* pt_stack, va_list val_elemlist)

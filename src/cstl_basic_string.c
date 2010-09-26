@@ -1864,8 +1864,10 @@ void _basic_string_pop_back(basic_string_t* pt_basic_string)
 void _basic_string_push_back(basic_string_t* pt_basic_string, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_basic_string);
     _basic_string_push_back_varg(pt_basic_string, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_elemlist)
@@ -1977,8 +1979,10 @@ void _basic_string_assign_elem(
     basic_string_t* pt_basic_string, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _basic_string_assign_elem_varg(pt_basic_string, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _basic_string_assign_elem_varg(
@@ -2091,8 +2095,10 @@ void _basic_string_append_elem(
     basic_string_t* pt_basic_string, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _basic_string_append_elem_varg(pt_basic_string, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _basic_string_append_elem_varg(
@@ -2106,17 +2112,27 @@ void _basic_string_append_elem_varg(
 basic_string_iterator_t _basic_string_insert(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, ...)
 {
+    basic_string_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_pos);
-    return _basic_string_insert_n_varg(pt_basic_string, t_pos, 1, val_elemlist);
+    t_iter = _basic_string_insert_n_varg(pt_basic_string, t_pos, 1, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 basic_string_iterator_t _basic_string_insert_n(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, ...)
 {
+    basic_string_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
-    return _basic_string_insert_n_varg(pt_basic_string, t_pos, t_count, val_elemlist);
+    t_iter = _basic_string_insert_n_varg(pt_basic_string, t_pos, t_count, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 basic_string_iterator_t _basic_string_insert_n_varg(
@@ -2220,8 +2236,10 @@ void _basic_string_insert_elem(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _basic_string_insert_elem_varg(pt_basic_string, t_pos, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _basic_string_insert_elem_varg(
@@ -2393,8 +2411,10 @@ void _basic_string_replace_elem(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _basic_string_replace_elem_varg(pt_basic_string, t_pos, t_len, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _basic_string_replace_elem_varg(
@@ -2473,9 +2493,11 @@ void _basic_string_range_replace_elem(
     basic_string_iterator_t t_end, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _basic_string_range_replace_elem_varg(
         pt_basic_string, t_begin, t_end, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _basic_string_range_replace_elem_varg(

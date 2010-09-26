@@ -625,9 +625,14 @@ multimap_reverse_iterator_t multimap_rend(const multimap_t* cpt_multimap)
 
 multimap_iterator_t _multimap_find(const multimap_t* cpt_multimap, ...)
 {
+    multimap_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_find_varg(cpt_multimap, val_elemlist);
+    t_iter = _multimap_find_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multimap_iterator_t _multimap_find_varg(
@@ -656,9 +661,14 @@ multimap_iterator_t _multimap_find_varg(
 
 size_t _multimap_count(const multimap_t* cpt_multimap, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_count_varg(cpt_multimap, val_elemlist);
+    t_count = _multimap_count_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _multimap_count_varg(const multimap_t* cpt_multimap, va_list val_elemlist)
@@ -676,9 +686,14 @@ size_t _multimap_count_varg(const multimap_t* cpt_multimap, va_list val_elemlist
 
 multimap_iterator_t _multimap_lower_bound(const multimap_t* cpt_multimap, ...)
 {
+    multimap_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_lower_bound_varg(cpt_multimap, val_elemlist);
+    t_iter = _multimap_lower_bound_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multimap_iterator_t _multimap_lower_bound_varg(
@@ -705,9 +720,14 @@ multimap_iterator_t _multimap_lower_bound_varg(
 
 multimap_iterator_t _multimap_upper_bound(const multimap_t* cpt_multimap, ...)
 {
+    multimap_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_upper_bound_varg(cpt_multimap, val_elemlist);
+    t_iter = _multimap_upper_bound_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multimap_iterator_t _multimap_upper_bound_varg(
@@ -734,9 +754,14 @@ multimap_iterator_t _multimap_upper_bound_varg(
 
 range_t _multimap_equal_range(const multimap_t* cpt_multimap, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_equal_range_varg(cpt_multimap, val_elemlist);
+    t_range = _multimap_equal_range_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _multimap_equal_range_varg(const multimap_t* cpt_multimap, va_list val_elemlist)
@@ -867,9 +892,14 @@ void multimap_erase_range(
 
 size_t _multimap_erase(multimap_t* pt_multimap, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_multimap);
-    return _multimap_erase_varg(pt_multimap, val_elemlist);
+    t_count = _multimap_erase_varg(pt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _multimap_erase_varg(multimap_t* pt_multimap, va_list val_elemlist)
