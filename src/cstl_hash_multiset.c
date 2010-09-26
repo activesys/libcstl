@@ -407,9 +407,14 @@ hash_multiset_iterator_t hash_multiset_end(const hash_multiset_t* cpt_hash_multi
 hash_multiset_iterator_t _hash_multiset_find(
     const hash_multiset_t* cpt_hash_multiset, ...)
 {
+    hash_multiset_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_multiset);
-    return _hash_multiset_find_varg(cpt_hash_multiset, val_elemlist);
+    t_iter = _hash_multiset_find_varg(cpt_hash_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 hash_multiset_iterator_t _hash_multiset_find_varg(
@@ -441,9 +446,14 @@ hash_multiset_iterator_t _hash_multiset_find_varg(
 
 size_t _hash_multiset_count(const hash_multiset_t* cpt_hash_multiset, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_multiset);
-    return _hash_multiset_count_varg(cpt_hash_multiset, val_elemlist);
+    t_count = _hash_multiset_count_varg(cpt_hash_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_multiset_count_varg(
@@ -471,9 +481,14 @@ size_t _hash_multiset_count_varg(
 
 range_t _hash_multiset_equal_range(const hash_multiset_t* cpt_hash_multiset, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_multiset);
-    return _hash_multiset_equal_range_varg(cpt_hash_multiset, val_elemlist);
+    t_range = _hash_multiset_equal_range_varg(cpt_hash_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _hash_multiset_equal_range_varg(
@@ -509,9 +524,14 @@ range_t _hash_multiset_equal_range_varg(
 
 hash_multiset_iterator_t _hash_multiset_insert(hash_multiset_t* pt_hash_multiset, ...)
 {
+    hash_multiset_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_hash_multiset);
-    return _hash_multiset_insert_varg(pt_hash_multiset, val_elemlist);
+    t_iter = _hash_multiset_insert_varg(pt_hash_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 hash_multiset_iterator_t _hash_multiset_insert_varg(
@@ -583,9 +603,14 @@ void hash_multiset_erase_range(
 
 size_t _hash_multiset_erase(hash_multiset_t* pt_hash_multiset, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_hash_multiset);
-    return _hash_multiset_erase_varg(pt_hash_multiset, val_elemlist);
+    t_count = _hash_multiset_erase_varg(pt_hash_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_multiset_erase_varg(hash_multiset_t* pt_hash_multiset, va_list val_elemlist)

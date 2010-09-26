@@ -391,9 +391,14 @@ hash_set_iterator_t hash_set_end(const hash_set_t* cpt_hash_set)
 
 hash_set_iterator_t _hash_set_find(const hash_set_t* cpt_hash_set, ...)
 {
+    hash_set_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_set);
-    return _hash_set_find_varg(cpt_hash_set, val_elemlist);
+    t_iter = _hash_set_find_varg(cpt_hash_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 hash_set_iterator_t _hash_set_find_varg(
@@ -424,9 +429,14 @@ hash_set_iterator_t _hash_set_find_varg(
 
 size_t _hash_set_count(const hash_set_t* cpt_hash_set, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_set);
-    return _hash_set_count_varg(cpt_hash_set, val_elemlist);
+    t_count = _hash_set_count_varg(cpt_hash_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_set_count_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist)
@@ -452,9 +462,14 @@ size_t _hash_set_count_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist
 
 range_t _hash_set_equal_range(const hash_set_t* cpt_hash_set, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_set);
-    return _hash_set_equal_range_varg(cpt_hash_set, val_elemlist);
+    t_range = _hash_set_equal_range_varg(cpt_hash_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _hash_set_equal_range_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist)
@@ -488,9 +503,14 @@ range_t _hash_set_equal_range_varg(const hash_set_t* cpt_hash_set, va_list val_e
 
 hash_set_iterator_t _hash_set_insert(hash_set_t* pt_hash_set, ...)
 {
+    hash_set_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_hash_set);
-    return _hash_set_insert_varg(pt_hash_set, val_elemlist);
+    t_iter = _hash_set_insert_varg(pt_hash_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 hash_set_iterator_t _hash_set_insert_varg(hash_set_t* pt_hash_set, va_list val_elemlist)
@@ -559,9 +579,14 @@ void hash_set_erase_range(
 
 size_t _hash_set_erase(hash_set_t* pt_hash_set, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_hash_set);
-    return _hash_set_erase_varg(pt_hash_set, val_elemlist);
+    t_count = _hash_set_erase_varg(pt_hash_set, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_set_erase_varg(hash_set_t* pt_hash_set, va_list val_elemlist)
