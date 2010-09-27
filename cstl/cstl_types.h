@@ -28,6 +28,13 @@ extern "C" {
 #endif
 
 /** include section **/
+#include <stddef.h>
+#ifdef HAVE_STDINT_T
+#   include <stdint.h>
+#endif
+#ifdef HAVE_INTTYPES_H
+#   include <inttypes.h>
+#endif
 
 /** constant declaration and macro section **/
 #define FALSE   0               /* declaration false bool type */
@@ -171,7 +178,7 @@ extern "C" {
 #define _BASIC_STRING_ITERATOR_NAME  "basic_string_iterator_t"
 
 /** data type declaration and struct, union, enum section **/
-typedef int     bool_t;         /* declaration for bool type */
+typedef size_t     bool_t;         /* declaration for bool type */
 
 /*
  * Type definition of unary function and binary function.
