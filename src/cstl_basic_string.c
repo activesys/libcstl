@@ -21,6 +21,9 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -1998,7 +2001,11 @@ void _basic_string_assign_elem_varg(
     vector_reserve(&pt_basic_string->_t_vector, t_count * 2);
     for(t_index = 0; t_index < t_count; ++t_index)
     {
-        _vector_push_back_varg(&pt_basic_string->_t_vector, val_elemlist);
+        va_list val_elemlist_copy;
+
+        va_copy(val_elemlist_copy, val_elemlist);
+        _vector_push_back_varg(&pt_basic_string->_t_vector, val_elemlist_copy);
+        va_end(val_elemlist_copy);
     }
 }
 

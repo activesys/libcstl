@@ -79,7 +79,7 @@
 #define PACKAGE_TARNAME "libcstl"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL ""
+/* #undef PACKAGE_URL */
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "2.1.0"

@@ -21,6 +21,9 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <cstl/cdeque.h>
 #include <cstl/clist.h>
 #include <cstl/cvector.h>

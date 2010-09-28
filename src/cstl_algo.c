@@ -21,6 +21,9 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -1509,20 +1512,26 @@ forward_iterator_t _algo_remove_varg(
     forward_iterator_t t_first, forward_iterator_t t_last, va_list val_elemlist)
 {
     iterator_t t_next;
+    iterator_t t_result;
+    va_list    val_elemlist_copy;
 
     assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
+    va_copy(val_elemlist_copy, val_elemlist);
     t_first = _algo_find_varg(t_first, t_last, val_elemlist);
 
     if(iterator_equal(t_first, t_last))
     {
-        return t_first;
+        t_result = t_first;
     }
     else
     {
         t_next = iterator_next(t_first);
-        return _algo_remove_copy_varg(t_next, t_last, t_first, val_elemlist);
+        t_result = _algo_remove_copy_varg(t_next, t_last, t_first, val_elemlist_copy);
     }
+    va_end(val_elemlist_copy);
+
+    return t_result;
 }
 
 forward_iterator_t algo_remove_if(
@@ -2267,6 +2276,7 @@ range_t _algo_equal_range_if_varg(
     iterator_t t_lower;
     iterator_t t_upper;
     range_t    t_range;
+    va_list    val_elemlist_copy; /* copy val_elemlist for lower bound and upper bound*/
 
     assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
 
@@ -2276,6 +2286,7 @@ range_t _algo_equal_range_if_varg(
     }
 
     pv_value = _iterator_allocate_init_elem(t_first);
+    va_copy(val_elemlist_copy, val_elemlist);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 
     if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
@@ -2303,12 +2314,21 @@ range_t _algo_equal_range_if_varg(
                 }
                 else
                 {
+                    va_list val_elemlist_lb_copy; /* copy val_elemlist for lower bound */
+                    va_list val_elemlist_ub_copy; /* copy val_elemlist for upper bound */
+
+                    va_copy(val_elemlist_lb_copy, val_elemlist_copy);
+                    va_copy(val_elemlist_ub_copy, val_elemlist_copy);
+
                     t_lower = _algo_lower_bound_if_varg(
-                        t_first, t_middle, t_binary_op, val_elemlist);
+                        t_first, t_middle, t_binary_op, val_elemlist_lb_copy);
                     t_first = iterator_advance(t_first, t_len);
                     t_middle = iterator_next(t_middle);
                     t_upper = _algo_upper_bound_if_varg(
-                        t_middle, t_first, t_binary_op, val_elemlist);
+                        t_middle, t_first, t_binary_op, val_elemlist_ub_copy);
+
+                    va_end(val_elemlist_lb_copy);
+                    va_end(val_elemlist_ub_copy);
 
                     t_range.it_begin = t_lower;
                     t_range.it_end = t_upper;
@@ -2343,12 +2363,21 @@ range_t _algo_equal_range_if_varg(
                 }
                 else
                 {
+                    va_list val_elemlist_lb_copy; /* copy val_elemlist for lower bound */
+                    va_list val_elemlist_ub_copy; /* copy val_elemlist for upper bound */
+
+                    va_copy(val_elemlist_lb_copy, val_elemlist_copy);
+                    va_copy(val_elemlist_ub_copy, val_elemlist_copy);
+
                     t_lower = _algo_lower_bound_if_varg(
-                        t_first, t_middle, t_binary_op, val_elemlist);
+                        t_first, t_middle, t_binary_op, val_elemlist_lb_copy);
                     t_first = iterator_advance(t_first, t_len);
                     t_middle = iterator_next(t_middle);
                     t_upper = _algo_upper_bound_if_varg(
-                        t_middle, t_first, t_binary_op, val_elemlist);
+                        t_middle, t_first, t_binary_op, val_elemlist_ub_copy);
+
+                    va_end(val_elemlist_lb_copy);
+                    va_end(val_elemlist_ub_copy);
 
                     t_range.it_begin = t_lower;
                     t_range.it_end = t_upper;
@@ -2359,6 +2388,7 @@ range_t _algo_equal_range_if_varg(
         }
     }
 
+    va_end(val_elemlist_copy);
     _iterator_deallocate_destroy_elem(t_first, pv_value);
     pv_value = NULL;
 
@@ -2406,13 +2436,17 @@ bool_t _algo_binary_search_if_varg(
     iterator_t t_lower;
     bool_t     t_cmp = false;
     bool_t     t_result = false;
+    va_list    val_elemlist_copy; /* copy val_elemlist for lower bound */
 
     if(t_binary_op == NULL)
     {
         t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
     }
 
-    t_lower = _algo_lower_bound_if_varg(t_first, t_last, t_binary_op, val_elemlist);
+    va_copy(val_elemlist_copy, val_elemlist);
+    t_lower = _algo_lower_bound_if_varg(t_first, t_last, t_binary_op, val_elemlist_copy);
+    va_end(val_elemlist_copy);
+
     pv_value = _iterator_allocate_init_elem(t_first);
     _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
 

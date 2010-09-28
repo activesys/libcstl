@@ -21,6 +21,9 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -754,15 +757,23 @@ void _slist_insert_n(
         /* call slist push front n_elemcount times */
         for(t_index = 0; t_index < t_count; ++t_index)
         {
-            _slist_push_front_varg(pt_slist, val_elemlist);
+            va_list val_elemlist_copy;
+
+            va_copy(val_elemlist_copy, val_elemlist);
+            _slist_push_front_varg(pt_slist, val_elemlist_copy);
+            va_end(val_elemlist_copy);
         }
     }
     /* else get the previous iterator */
     else
     {
+        va_list val_elemlist_copy;
+
         /* call slist insert after n function */
+        va_copy(val_elemlist_copy, val_elemlist);
         _slist_insert_after_n_varg(
-            pt_slist, slist_previous(pt_slist, t_pos), t_count, val_elemlist);
+            pt_slist, slist_previous(pt_slist, t_pos), t_count, val_elemlist_copy);
+        va_end(val_elemlist_copy);
     }
     va_end(val_elemlist);
 }

@@ -21,6 +21,9 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -680,9 +683,11 @@ void* _hash_map_at(hash_map_t* pt_hash_map, ...)
 void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
 {
     hash_map_iterator_t t_result;
+    va_list val_elemlist_copy;
 
     assert(pt_hash_map != NULL);
 
+    va_copy(val_elemlist_copy, val_elemlist);
     _type_get_varg_value(&pt_hash_map->_t_pair._t_typeinfofirst,
         val_elemlist, pt_hash_map->_t_pair._pv_first);
 
@@ -693,7 +698,7 @@ void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
 
     if(iterator_equal(t_result, hash_map_end(pt_hash_map)))
     {
-        t_result = _hash_map_find_varg(pt_hash_map, val_elemlist);
+        t_result = _hash_map_find_varg(pt_hash_map, val_elemlist_copy);
     }
 
     /* char* */
@@ -707,6 +712,8 @@ void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
     {
         return ((pair_t*)iterator_get_pointer(t_result))->_pv_second;
     }
+
+    va_end(val_elemlist_copy);
 }
 
 void _hash_map_init_elem_auxiliary(hash_map_t* pt_hash_map, void* pv_elem)

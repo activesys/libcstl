@@ -21,6 +21,9 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -1182,8 +1185,6 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
         (*pt_typeinfo->_pt_type->_t_typecopy)(pv_output, pv_elem, &t_result);
         assert(t_result);
     }
-
-    /*va_end(val_elemlist);*/
 }
 
 /* default copy, less, and destroy function */

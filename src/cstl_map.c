@@ -21,6 +21,9 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -918,9 +921,11 @@ void* _map_at(map_t* pt_map, ...)
 void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
 {
     map_iterator_t t_iter;
+    va_list val_elemlist_copy;
 
     assert(pt_map != NULL);
 
+    va_copy(val_elemlist_copy, val_elemlist);
     _type_get_varg_value(&pt_map->_t_pair._t_typeinfofirst,
         val_elemlist, pt_map->_t_pair._pv_first);
 #ifdef CSTL_MAP_AVL_TREE
@@ -935,7 +940,7 @@ void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
 
     if(iterator_equal(t_iter, map_end(pt_map)))
     {
-        t_iter = _map_find_varg(pt_map, val_elemlist);
+        t_iter = _map_find_varg(pt_map, val_elemlist_copy);
     }
 
     /* char* */
@@ -948,6 +953,8 @@ void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
     {
         return ((pair_t*)iterator_get_pointer(t_iter))->_pv_second;
     }
+
+    va_end(val_elemlist_copy);
 }
 
 void _map_init_elem_auxiliary(map_t* pt_map, void* pv_elem)
