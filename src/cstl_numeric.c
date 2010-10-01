@@ -21,19 +21,22 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "citerator.h"
-#include "cfunctional.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/citerator.h>
+#include <cstl/cfunctional.h>
 
-#include "cstl_numeric.h"
-#include "cstl_numeric_private.h"
+#include <cstl/cstl_numeric.h>
+#include <cstl/cstl_numeric_private.h>
 
 /** local constant declaration and local macro section **/
 
@@ -56,9 +59,9 @@ void _algo_accumulate(
        strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0)
     {
         va_start(val_elemlist, pv_output);
-
         _algo_accumulate_if_varg(t_first, t_last, _fun_get_binary(t_first, _PLUS_FUN),
             pv_output, val_elemlist);
+        va_end(val_elemlist);
     }
 }
 
@@ -66,9 +69,10 @@ void _algo_accumulate_if(input_iterator_t t_first, input_iterator_t t_last,
     binary_function_t t_binary_op, void* pv_output, ...)
 {
     va_list val_elemlist;
-    va_start(val_elemlist, pv_output);
 
+    va_start(val_elemlist, pv_output);
     _algo_accumulate_if_varg(t_first, t_last, t_binary_op, pv_output, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _algo_accumulate_if_varg(input_iterator_t t_first, input_iterator_t t_last,
@@ -101,10 +105,10 @@ void _algo_inner_product(
        strncmp(_iterator_get_typebasename(t_first1), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0)
     {
         va_start(val_elemlist, pv_output);
-
         _algo_inner_product_if_varg(t_first1, t_last1, t_first2,
             _fun_get_binary(t_first1, _PLUS_FUN), _fun_get_binary(t_first1, _MULTIPLIES_FUN),
             pv_output, val_elemlist);
+        va_end(val_elemlist);
     }
 }
 
@@ -113,10 +117,11 @@ void _algo_inner_product_if(
     binary_function_t t_binary_op1, binary_function_t t_binary_op2, void* pv_output, ...)
 {
     va_list val_elemlist;
-    va_start(val_elemlist, pv_output);
 
+    va_start(val_elemlist, pv_output);
     _algo_inner_product_if_varg(t_first1, t_last1, t_first2,
         t_binary_op1, t_binary_op2, pv_output, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _algo_inner_product_if_varg(
@@ -300,8 +305,10 @@ output_iterator_t algo_partial_sum_if(
 void _algo_iota(forward_iterator_t t_first, forward_iterator_t t_last, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_last);
     _algo_iota_varg(t_first, t_last, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _algo_iota_varg(

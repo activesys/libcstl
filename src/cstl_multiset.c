@@ -21,28 +21,31 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "cstl_iterator.h"
-#include "cstl_iterator_private.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/cstl_iterator.h>
+#include <cstl/cstl_iterator_private.h>
 
 #ifdef CSTL_MULTISET_AVL_TREE
-#include "cstl_avl_tree_iterator.h"
-#include "cstl_avl_tree_private.h"
+#include <cstl/cstl_avl_tree_iterator.h>
+#include <cstl/cstl_avl_tree_private.h>
 #else
-#include "cstl_rb_tree_iterator.h"
-#include "cstl_rb_tree_private.h"
+#include <cstl/cstl_rb_tree_iterator.h>
+#include <cstl/cstl_rb_tree_private.h>
 #endif
 
-#include "cstl_multiset_iterator.h"
-#include "cstl_multiset_private.h"
-#include "cstl_multiset.h"
+#include <cstl/cstl_multiset_iterator.h>
+#include <cstl/cstl_multiset_private.h>
+#include <cstl/cstl_multiset.h>
 
 /** local constant declaration and local macro section **/
 /* macros for type informations */
@@ -453,9 +456,14 @@ void multiset_clear(multiset_t* pt_multiset)
 
 multiset_iterator_t _multiset_find(const multiset_t* cpt_multiset, ...)
 {
+    multiset_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multiset);
-    return _multiset_find_varg(cpt_multiset, val_elemlist);
+    t_iter = _multiset_find_varg(cpt_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multiset_iterator_t _multiset_find_varg(
@@ -490,9 +498,14 @@ multiset_iterator_t _multiset_find_varg(
 
 size_t _multiset_count(const multiset_t* cpt_multiset, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multiset);
-    return _multiset_count_varg(cpt_multiset, val_elemlist);
+    t_count = _multiset_count_varg(cpt_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _multiset_count_varg(const multiset_t* cpt_multiset, va_list val_elemlist)
@@ -522,9 +535,14 @@ size_t _multiset_count_varg(const multiset_t* cpt_multiset, va_list val_elemlist
 
 multiset_iterator_t _multiset_lower_bound(const multiset_t* cpt_multiset, ...)
 {
+    multiset_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multiset);
-    return _multiset_lower_bound_varg(cpt_multiset, val_elemlist);
+    t_iter = _multiset_lower_bound_varg(cpt_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multiset_iterator_t _multiset_lower_bound_varg(
@@ -559,9 +577,14 @@ multiset_iterator_t _multiset_lower_bound_varg(
 
 multiset_iterator_t _multiset_upper_bound(const multiset_t* cpt_multiset, ...)
 {
+    multiset_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multiset);
-    return _multiset_upper_bound_varg(cpt_multiset, val_elemlist);
+    t_iter = _multiset_upper_bound_varg(cpt_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multiset_iterator_t _multiset_upper_bound_varg(
@@ -596,9 +619,14 @@ multiset_iterator_t _multiset_upper_bound_varg(
 
 range_t _multiset_equal_range(const multiset_t* cpt_multiset, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multiset);
-    return _multiset_equal_range_varg(cpt_multiset, val_elemlist);
+    t_range = _multiset_equal_range_varg(cpt_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _multiset_equal_range_varg(const multiset_t* cpt_multiset, va_list val_elemlist)
@@ -719,9 +747,14 @@ void multiset_swap(multiset_t* pt_multisetfirst, multiset_t* pt_multisetsecond)
 
 multiset_iterator_t _multiset_insert(multiset_t* pt_multiset, ...)
 {
+    multiset_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_multiset);
-    return _multiset_insert_varg(pt_multiset, val_elemlist);
+    t_iter = _multiset_insert_varg(pt_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multiset_iterator_t _multiset_insert_varg(multiset_t* pt_multiset, va_list val_elemlist)
@@ -756,9 +789,14 @@ multiset_iterator_t _multiset_insert_varg(multiset_t* pt_multiset, va_list val_e
 multiset_iterator_t _multiset_insert_hint(
     multiset_t* pt_multiset, multiset_iterator_t t_hint, ...)
 {
+    multiset_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_hint);
-    return _multiset_insert_hint_varg(pt_multiset, t_hint, val_elemlist);
+    t_iter = _multiset_insert_hint_varg(pt_multiset, t_hint, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multiset_iterator_t _multiset_insert_hint_varg(
@@ -843,9 +881,14 @@ void multiset_erase_range(
 
 size_t _multiset_erase(multiset_t* pt_multiset, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_multiset);
-    return _multiset_erase_varg(pt_multiset, val_elemlist);
+    t_count = _multiset_erase_varg(pt_multiset, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _multiset_erase_varg(multiset_t* pt_multiset, va_list val_elemlist)

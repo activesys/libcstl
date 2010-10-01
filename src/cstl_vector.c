@@ -21,21 +21,24 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "cstl_iterator.h"
-#include "cstl_iterator_private.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/cstl_iterator.h>
+#include <cstl/cstl_iterator_private.h>
 
-#include "cstl_vector_iterator.h"
-#include "cstl_vector_private.h"
-#include "cstl_vector.h"
+#include <cstl/cstl_vector_iterator.h>
+#include <cstl/cstl_vector_private.h>
+#include <cstl/cstl_vector.h>
 
-#include "cstring.h"
+#include <cstl/cstring.h>
 
 /** local constant declaration and local macro section **/
 
@@ -340,6 +343,7 @@ void _vector_init_elem(vector_t* pt_vector, size_t t_count, ...)
 
     va_start(val_elemlist, t_count);
     _vector_init_elem_varg(pt_vector, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void vector_init_n(vector_t* pt_vector, size_t t_count)
@@ -692,6 +696,7 @@ void _vector_assign_elem(vector_t* pt_vector, size_t t_count, ...)
 
     va_start(val_elemlist, t_count);
     _vector_assign_elem_varg(pt_vector, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void vector_assign_range(
@@ -834,9 +839,14 @@ vector_reverse_iterator_t vector_rend(const vector_t* cpt_vector)
 vector_iterator_t _vector_insert_n(
     vector_t* pt_vector, vector_iterator_t t_pos, size_t t_count, ...)
 {
+    vector_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
-    return _vector_insert_n_varg(pt_vector, t_pos, t_count, val_elemlist);
+    t_iter = _vector_insert_n_varg(pt_vector, t_pos, t_count, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 vector_iterator_t _vector_insert_n_varg(
@@ -991,8 +1001,10 @@ void vector_insert_range(
 void _vector_push_back(vector_t* pt_vector, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_vector);
     _vector_push_back_varg(pt_vector, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _vector_push_back_varg(vector_t* pt_vector, va_list val_elemlist)
@@ -1195,8 +1207,10 @@ void _vector_resize_elem_varg(
 void _vector_resize_elem(vector_t* pt_vector, size_t t_resize, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_resize);
     _vector_resize_elem_varg(pt_vector, t_resize, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void vector_clear(vector_t* pt_vector)

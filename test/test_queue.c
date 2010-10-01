@@ -25,11 +25,11 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "cqueue.h"
-#include "cvector.h"
-#include "calgorithm.h"
-#include "cfunctional.h"
-#include "clist.h"
+#include <cstl/cqueue.h>
+#include <cstl/cvector.h>
+#include <cstl/calgorithm.h>
+#include <cstl/cfunctional.h>
+#include <cstl/clist.h>
 #include "test_queue.h"
 
 /** local constant declaration and local macro section **/

@@ -27,9 +27,9 @@
 #include <assert.h>
 #include <stdarg.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "clist.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/clist.h>
 
 #include "test_type.h"
 

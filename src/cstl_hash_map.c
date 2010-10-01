@@ -21,25 +21,28 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "cstl_iterator.h"
-#include "cstl_iterator_private.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/cstl_iterator.h>
+#include <cstl/cstl_iterator_private.h>
 
-#include "cvector.h"
-#include "cstl_hashtable_iterator.h"
-#include "cstl_hashtable_private.h"
-#include "cutility.h"
-#include "cstring.h"
+#include <cstl/cvector.h>
+#include <cstl/cstl_hashtable_iterator.h>
+#include <cstl/cstl_hashtable_private.h>
+#include <cstl/cutility.h>
+#include <cstl/cstring.h>
 
-#include "cstl_hash_map_iterator.h"
-#include "cstl_hash_map_private.h"
-#include "cstl_hash_map.h"
+#include <cstl/cstl_hash_map_iterator.h>
+#include <cstl/cstl_hash_map_private.h>
+#include <cstl/cstl_hash_map.h>
 
 /** local constant declaration and local macro section **/
 /* macros for type informations */
@@ -482,9 +485,14 @@ bool_t hash_map_greater_equal(
 
 hash_map_iterator_t _hash_map_find(const hash_map_t* cpt_hash_map, ...)
 {
+    hash_map_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_map);
-    return _hash_map_find_varg(cpt_hash_map, val_elemlist);
+    t_iter = _hash_map_find_varg(cpt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 hash_map_iterator_t _hash_map_find_varg(
@@ -508,9 +516,14 @@ hash_map_iterator_t _hash_map_find_varg(
 
 size_t _hash_map_count(const hash_map_t* cpt_hash_map, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_map);
-    return _hash_map_count_varg(cpt_hash_map, val_elemlist);
+    t_count = _hash_map_count_varg(cpt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_map_count_varg(const hash_map_t* cpt_hash_map, va_list val_elemlist)
@@ -525,9 +538,14 @@ size_t _hash_map_count_varg(const hash_map_t* cpt_hash_map, va_list val_elemlist
 
 range_t _hash_map_equal_range(const hash_map_t* cpt_hash_map, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_map);
-    return _hash_map_equal_range_varg(cpt_hash_map, val_elemlist);
+    t_range = _hash_map_equal_range_varg(cpt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _hash_map_equal_range_varg(
@@ -623,9 +641,14 @@ void hash_map_erase_range(
 
 size_t _hash_map_erase(hash_map_t* pt_hash_map, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_hash_map);
-    return _hash_map_erase_varg(pt_hash_map, val_elemlist);
+    t_count = _hash_map_erase_varg(pt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_map_erase_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
@@ -647,17 +670,24 @@ void hash_map_clear(hash_map_t* pt_hash_map)
 
 void* _hash_map_at(hash_map_t* pt_hash_map, ...)
 {
+    void* pv_result = NULL;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_hash_map);
-    return _hash_map_at_varg(pt_hash_map, val_elemlist);
+    pv_result = _hash_map_at_varg(pt_hash_map, val_elemlist);
+    va_end(val_elemlist);
+
+    return pv_result;
 }
 
 void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
 {
     hash_map_iterator_t t_result;
+    va_list val_elemlist_copy;
 
     assert(pt_hash_map != NULL);
 
+    va_copy(val_elemlist_copy, val_elemlist);
     _type_get_varg_value(&pt_hash_map->_t_pair._t_typeinfofirst,
         val_elemlist, pt_hash_map->_t_pair._pv_first);
 
@@ -668,7 +698,7 @@ void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
 
     if(iterator_equal(t_result, hash_map_end(pt_hash_map)))
     {
-        t_result = _hash_map_find_varg(pt_hash_map, val_elemlist);
+        t_result = _hash_map_find_varg(pt_hash_map, val_elemlist_copy);
     }
 
     /* char* */
@@ -682,6 +712,8 @@ void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
     {
         return ((pair_t*)iterator_get_pointer(t_result))->_pv_second;
     }
+
+    va_end(val_elemlist_copy);
 }
 
 void _hash_map_init_elem_auxiliary(hash_map_t* pt_hash_map, void* pv_elem)

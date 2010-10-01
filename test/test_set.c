@@ -25,8 +25,8 @@
 #include <assert.h>
 #include <string.h>
 
-#include "cset.h"
-#include "cfunctional.h"
+#include <cstl/cset.h>
+#include <cstl/cfunctional.h>
 #include "test_set.h"
 /*#include "tree_traverse.h"*/
 

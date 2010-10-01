@@ -21,25 +21,28 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
 
-#include "cstl_iterator.h"
-#include "cstl_iterator_private.h"
-#include "cvector.h"
-#include "clist.h"
-#include "cdeque.h"
-#include "cslist.h"
-#include "cset.h"
-#include "cmap.h"
-#include "chash_set.h"
-#include "chash_map.h"
-#include "cstring.h"
+#include <cstl/cstl_iterator.h>
+#include <cstl/cstl_iterator_private.h>
+#include <cstl/cvector.h>
+#include <cstl/clist.h>
+#include <cstl/cdeque.h>
+#include <cstl/cslist.h>
+#include <cstl/cset.h>
+#include <cstl/cmap.h>
+#include <cstl/chash_set.h>
+#include <cstl/chash_map.h>
+#include <cstl/cstring.h>
 
 /** local constant declaration and local macro section **/
 

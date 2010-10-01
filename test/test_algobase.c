@@ -22,12 +22,12 @@
 
 /** include section **/
 #include <ctype.h>
-#include "cvector.h"
-#include "clist.h"
-#include "cstring.h"
-#include "calgorithm.h"
-#include "cnumeric.h"
-#include "cfunctional.h"
+#include <cstl/cvector.h>
+#include <cstl/clist.h>
+#include <cstl/cstring.h>
+#include <cstl/calgorithm.h>
+#include <cstl/cnumeric.h>
+#include <cstl/cfunctional.h>
 #include "test_algobase.h"
 
 /** local constant declaration and local macro section **/

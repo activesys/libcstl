@@ -22,12 +22,12 @@
 
 /** include section **/
 #include <stdio.h>
-#include "cvector.h"
-#include "clist.h"
-#include "cset.h"
-#include "cstring.h"
-#include "cnumeric.h"
-#include "calgorithm.h"
+#include <cstl/cvector.h>
+#include <cstl/clist.h>
+#include <cstl/cset.h>
+#include <cstl/cstring.h>
+#include <cstl/cnumeric.h>
+#include <cstl/calgorithm.h>
 #include "test_numeric.h"
 
 /** local constant declaration and local macro section **/

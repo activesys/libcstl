@@ -22,11 +22,11 @@
 
 /** include section **/
 #include <stdio.h>
-#include "clist.h"
-#include "cvector.h"
-#include "cstring.h"
-#include "calgorithm.h"
-#include "cfunctional.h"
+#include <cstl/clist.h>
+#include <cstl/cvector.h>
+#include <cstl/cstring.h>
+#include <cstl/calgorithm.h>
+#include <cstl/cfunctional.h>
 #include "test_hashtable.h"
 #include "test_heap.h"
 
