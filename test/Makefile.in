@@ -237,6 +237,7 @@ test_SOURCES = test.c \
 
 test_CPPFLAGS = -I$(srcdir)/..
 test_LDADD = ../src/libcstl.la
+CLEANFILES = core.*, string_output.txt
 all: all-am
 
 .SUFFIXES:
@@ -766,6 +767,7 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)

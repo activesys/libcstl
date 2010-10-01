@@ -78,16 +78,16 @@ DIST_SOURCES = $(test_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/wb/project/libcstl/branches/2/missing --run aclocal-1.11
-AMTAR = ${SHELL} /home/wb/project/libcstl/branches/2/missing --run tar
+ACLOCAL = ${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run aclocal-1.11
+AMTAR = ${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run tar
 AR = ar
-AUTOCONF = ${SHELL} /home/wb/project/libcstl/branches/2/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/wb/project/libcstl/branches/2/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/wb/project/libcstl/branches/2/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run automake-1.11
 AWK = gawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g
+CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -115,7 +115,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/wb/project/libcstl/branches/2/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
 NMEDIT = 
@@ -126,21 +126,21 @@ OTOOL64 =
 PACKAGE = libcstl
 PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
-PACKAGE_STRING = libcstl 2.1.0
+PACKAGE_STRING = libcstl 2.0.1
 PACKAGE_TARNAME = libcstl
-PACKAGE_URL = @PACKAGE_URL@
-PACKAGE_VERSION = 2.1.0
+PACKAGE_URL = 
+PACKAGE_VERSION = 2.0.1
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = strip
-VERSION = 2.1.0
-abs_builddir = /home/wb/project/libcstl/branches/2/test
-abs_srcdir = /home/wb/project/libcstl/branches/2/test
-abs_top_builddir = /home/wb/project/libcstl/branches/2
-abs_top_srcdir = /home/wb/project/libcstl/branches/2
+VERSION = 2.0.1
+abs_builddir = /home/wb/project/libcstl/branches/2.0/test
+abs_srcdir = /home/wb/project/libcstl/branches/2.0/test
+abs_top_builddir = /home/wb/project/libcstl/branches/2.0
+abs_top_srcdir = /home/wb/project/libcstl/branches/2.0
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
 am__include = include
@@ -168,7 +168,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/wb/project/libcstl/branches/2/install-sh
+install_sh = ${SHELL} /home/wb/project/libcstl/branches/2.0/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -237,6 +237,7 @@ test_SOURCES = test.c \
 
 test_CPPFLAGS = -I$(srcdir)/..
 test_LDADD = ../src/libcstl.la
+CLEANFILES = core.*, string_output.txt
 all: all-am
 
 .SUFFIXES:
@@ -766,6 +767,7 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)

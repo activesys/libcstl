@@ -1,8 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-# AC_PREREQ([2.65])
-AC_INIT([libcstl], [2.1.0], [activesys.wb@gmail.com])
+AC_INIT([libcstl], [2.0.1], [activesys.wb@gmail.com])
 AC_COPYRIGHT([Copyright (C) 2008, 2009, 2010 Wangbo.])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 LT_INIT

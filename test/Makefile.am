@@ -47,3 +47,4 @@ test_SOURCES = test.c \
 	       tree_traverse.h
 test_CPPFLAGS = -I$(srcdir)/..
 test_LDADD = ../src/libcstl.la
+CLEANFILES = core.*, string_output.txt
