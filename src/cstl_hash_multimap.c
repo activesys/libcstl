@@ -21,25 +21,28 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "cstl_iterator.h"
-#include "cstl_iterator.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/cstl_iterator.h>
+#include <cstl/cstl_iterator.h>
 
-#include "cvector.h"
-#include "cstl_hashtable_iterator.h"
-#include "cstl_hashtable_private.h"
-#include "cutility.h"
-#include "cstring.h"
+#include <cstl/cvector.h>
+#include <cstl/cstl_hashtable_iterator.h>
+#include <cstl/cstl_hashtable_private.h>
+#include <cstl/cutility.h>
+#include <cstl/cstring.h>
 
-#include "cstl_hash_multimap_iterator.h"
-#include "cstl_hash_multimap_private.h"
-#include "cstl_hash_multimap.h"
+#include <cstl/cstl_hash_multimap_iterator.h>
+#include <cstl/cstl_hash_multimap_private.h>
+#include <cstl/cstl_hash_multimap.h>
 
 /** local constant declaration and local macro section **/
 /* macros for type informations */
@@ -505,9 +508,14 @@ bool_t hash_multimap_greater_equal(
 hash_multimap_iterator_t _hash_multimap_find(
     const hash_multimap_t* cpt_hash_multimap, ...)
 {
+    hash_multimap_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_multimap);
-    return _hash_multimap_find_varg(cpt_hash_multimap, val_elemlist);
+    t_iter = _hash_multimap_find_varg(cpt_hash_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 hash_multimap_iterator_t _hash_multimap_find_varg(
@@ -533,9 +541,14 @@ hash_multimap_iterator_t _hash_multimap_find_varg(
 size_t _hash_multimap_count(
     const hash_multimap_t* cpt_hash_multimap, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_multimap);
-    return _hash_multimap_count_varg(cpt_hash_multimap, val_elemlist);
+    t_count = _hash_multimap_count_varg(cpt_hash_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_multimap_count_varg(
@@ -553,9 +566,14 @@ size_t _hash_multimap_count_varg(
 range_t _hash_multimap_equal_range(
     const hash_multimap_t* cpt_hash_multimap, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_hash_multimap);
-    return _hash_multimap_equal_range_varg(cpt_hash_multimap, val_elemlist);
+    t_range = _hash_multimap_equal_range_varg(cpt_hash_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _hash_multimap_equal_range_varg(
@@ -654,9 +672,14 @@ void hash_multimap_erase_range(
 
 size_t _hash_multimap_erase(hash_multimap_t* pt_hash_multimap, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_hash_multimap);
-    return _hash_multimap_erase_varg(pt_hash_multimap, val_elemlist);
+    t_count = _hash_multimap_erase_varg(pt_hash_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _hash_multimap_erase_varg(hash_multimap_t* pt_hash_multimap, va_list val_elemlist)

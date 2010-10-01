@@ -21,9 +21,9 @@
  */
 
 /** include section **/
-#include "clist.h"
-#include "cmap.h"
-#include "cfunctional.h"
+#include <cstl/clist.h>
+#include <cstl/cmap.h>
+#include <cstl/cfunctional.h>
 #include "test_map.h"
 
 /** local constant declaration and local macro section **/

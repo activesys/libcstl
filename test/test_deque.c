@@ -22,8 +22,8 @@
 
 /** include section **/
 #include <stdio.h>
-#include "cdeque.h"
-/*#include "cvector.h"*/
+#include <cstl/cdeque.h>
+/*#include <cstl/cvector.h>*/
 #include "test_deque.h"
 
 /** local constant declaration and local macro section **/

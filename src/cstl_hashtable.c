@@ -21,23 +21,26 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "cstl_iterator.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/cstl_iterator.h>
 
-#include "cstl_vector_iterator.h"
-#include "cstl_vector_private.h"
-#include "cstl_vector.h"
+#include <cstl/cstl_vector_iterator.h>
+#include <cstl/cstl_vector_private.h>
+#include <cstl/cstl_vector.h>
 
-#include "cstl_hashtable_iterator.h"
-#include "cstl_hashtable_private.h"
+#include <cstl/cstl_hashtable_iterator.h>
+#include <cstl/cstl_hashtable_private.h>
 
-#include "cstring.h"
+#include <cstl/cstring.h>
 
 /** local constant declaration and local macro section **/
 #define _HASHTABLE_NODE_SIZE(typesize)\

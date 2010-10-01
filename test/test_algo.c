@@ -24,12 +24,12 @@
 #include <assert.h>
 #include <stdio.h>
 #include <ctype.h>
-#include "cvector.h"
-#include "clist.h"
-#include "cdeque.h"
-#include "calgorithm.h"
-#include "cfunctional.h"
-#include "cnumeric.h"
+#include <cstl/cvector.h>
+#include <cstl/clist.h>
+#include <cstl/cdeque.h>
+#include <cstl/calgorithm.h>
+#include <cstl/cfunctional.h>
+#include <cstl/cnumeric.h>
 #include "test_algobase.h"
 #include "test_algo.h"
 

@@ -21,6 +21,9 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -28,21 +31,21 @@
 #include <stdarg.h>
 #include <float.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
 
-#include "cvector.h"
-#include "clist.h"
-#include "cslist.h"
-#include "cdeque.h"
-#include "cstack.h"
-#include "cqueue.h"
-#include "cset.h"
-#include "cmap.h"
-#include "chash_set.h"
-#include "chash_map.h"
-#include "cstring.h"
-#include "cutility.h"
+#include <cstl/cvector.h>
+#include <cstl/clist.h>
+#include <cstl/cslist.h>
+#include <cstl/cdeque.h>
+#include <cstl/cstack.h>
+#include <cstl/cqueue.h>
+#include <cstl/cset.h>
+#include <cstl/cmap.h>
+#include <cstl/chash_set.h>
+#include <cstl/chash_map.h>
+#include <cstl/cstring.h>
+#include <cstl/cutility.h>
 
 /** local constant declaration and local macro section **/
 /* the pt_type, pt_node and t_pos must be defined before use those macro */
@@ -557,7 +560,7 @@ void _type_debug(void)
 
     for(t_i = 0; t_i < _TYPE_REGISTER_BUCKET_COUNT; ++t_i)
     {
-        printf("[%u]", t_i);
+        printf("[%lu]", (unsigned long)t_i);
         pt_node = _gt_typeregister._apt_bucket[t_i];
         while(pt_node != NULL)
         {
@@ -584,8 +587,8 @@ void _type_debug(void)
         pt_type = apt_type[t_j];
         if(pt_type != NULL)
         {
-            printf("%p\n----------\n%d,%s,%p,%p,%p,%p\n========================\n",
-                pt_type, pt_type->_t_typesize, pt_type->_sz_typename,
+            printf("%p\n----------\n%lu,%s,%p,%p,%p,%p\n========================\n",
+                pt_type, (unsigned long)pt_type->_t_typesize, pt_type->_sz_typename,
                 pt_type->_t_typecopy, pt_type->_t_typeless,
                 pt_type->_t_typeinit, pt_type->_t_typedestroy);
         }
@@ -1182,8 +1185,6 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
         (*pt_typeinfo->_pt_type->_t_typecopy)(pv_output, pv_elem, &t_result);
         assert(t_result);
     }
-
-    va_end(val_elemlist);
 }
 
 /* default copy, less, and destroy function */

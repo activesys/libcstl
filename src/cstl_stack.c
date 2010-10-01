@@ -21,12 +21,15 @@
  */
 
 /** include section **/
-#include "cdeque.h"
-#include "clist.h"
-#include "cvector.h"
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
+#include <cstl/cdeque.h>
+#include <cstl/clist.h>
+#include <cstl/cvector.h>
 
-#include "cstl_stack_private.h"
-#include "cstl_stack.h"
+#include <cstl/cstl_stack_private.h>
+#include <cstl/cstl_stack.h>
 
 /** local constant declaration and local macro section **/
 
@@ -168,8 +171,10 @@ void* stack_top(const stack_t* cpt_stack)
 void _stack_push(stack_t* pt_stack, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_stack);
     _stack_push_varg(pt_stack, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _stack_push_varg(stack_t* pt_stack, va_list val_elemlist)

@@ -26,7 +26,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "cstring.h"
+#include <cstl/cstring.h>
 #include "test_string.h"
 
 /** local constant declaration and local macro section **/

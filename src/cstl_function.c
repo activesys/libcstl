@@ -21,6 +21,9 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,24 +31,24 @@
 #include <float.h>
 #include <time.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "citerator.h"
-#include "cstl_function.h"
-#include "cstl_function_private.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/citerator.h>
+#include <cstl/cstl_function.h>
+#include <cstl/cstl_function_private.h>
 
-#include "cvector.h"
-#include "clist.h"
-#include "cdeque.h"
-#include "cslist.h"
-#include "cstack.h"
-#include "cqueue.h"
-#include "cstring.h"
-#include "cutility.h"
-#include "cset.h"
-#include "cmap.h"
-#include "chash_set.h"
-#include "chash_map.h"
+#include <cstl/cvector.h>
+#include <cstl/clist.h>
+#include <cstl/cdeque.h>
+#include <cstl/cslist.h>
+#include <cstl/cstack.h>
+#include <cstl/cqueue.h>
+#include <cstl/cstring.h>
+#include <cstl/cutility.h>
+#include <cstl/cset.h>
+#include <cstl/cmap.h>
+#include <cstl/chash_set.h>
+#include <cstl/chash_map.h>
 
 /** local constant declaration and local macro section **/
 

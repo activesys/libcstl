@@ -25,8 +25,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
-#include "cslist.h"
-#include "cfunctional.h"
+#include <cstl/cslist.h>
+#include <cstl/cfunctional.h>
 #include "test_slist.h"
 
 /** local constant declaration and local macro section **/

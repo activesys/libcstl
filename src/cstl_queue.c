@@ -21,15 +21,18 @@
  */
 
 /** include section **/
-#include "cdeque.h"
-#include "clist.h"
-#include "cvector.h"
-#include "cfunctional.h"
-#include "cutility.h"
-#include "calgorithm.h"
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
+#include <cstl/cdeque.h>
+#include <cstl/clist.h>
+#include <cstl/cvector.h>
+#include <cstl/cfunctional.h>
+#include <cstl/cutility.h>
+#include <cstl/calgorithm.h>
 
-#include "cstl_queue_private.h"
-#include "cstl_queue.h"
+#include <cstl/cstl_queue_private.h>
+#include <cstl/cstl_queue.h>
 
 /** local constant declaration and local macro section **/
 
@@ -165,8 +168,10 @@ void* queue_back(const queue_t* cpt_queue)
 void _queue_push(queue_t* pt_queue, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_queue);
     _queue_push_varg(pt_queue, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _queue_push_varg(queue_t* pt_queue, va_list val_elemlist)
@@ -399,6 +404,7 @@ void _priority_queue_push(priority_queue_t* pt_pqueue, ...)
 
     va_start(val_elemlist, pt_pqueue);
     _vector_push_back_varg(&pt_pqueue->_t_vector, val_elemlist);
+    va_end(val_elemlist);
 
     if(pt_pqueue->_t_binary_op == NULL)
     {

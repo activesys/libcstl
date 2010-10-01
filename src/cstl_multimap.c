@@ -21,28 +21,31 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "cstl_iterator.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/cstl_iterator.h>
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-#include "cstl_avl_tree_iterator.h"
-#include "cstl_avl_tree_private.h"
+#include <cstl/cstl_avl_tree_iterator.h>
+#include <cstl/cstl_avl_tree_private.h>
 #else
-#include "cstl_rb_tree_iterator.h"
-#include "cstl_rb_tree_private.h"
+#include <cstl/cstl_rb_tree_iterator.h>
+#include <cstl/cstl_rb_tree_private.h>
 #endif
-#include "cutility.h"
-#include "cstring.h"
+#include <cstl/cutility.h>
+#include <cstl/cstring.h>
 
-#include "cstl_multimap_iterator.h"
-#include "cstl_multimap_private.h"
-#include "cstl_multimap.h"
+#include <cstl/cstl_multimap_iterator.h>
+#include <cstl/cstl_multimap_private.h>
+#include <cstl/cstl_multimap.h>
 
 /** local constant declaration and local macro section **/
 /* macros for type informations */
@@ -625,9 +628,14 @@ multimap_reverse_iterator_t multimap_rend(const multimap_t* cpt_multimap)
 
 multimap_iterator_t _multimap_find(const multimap_t* cpt_multimap, ...)
 {
+    multimap_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_find_varg(cpt_multimap, val_elemlist);
+    t_iter = _multimap_find_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multimap_iterator_t _multimap_find_varg(
@@ -656,9 +664,14 @@ multimap_iterator_t _multimap_find_varg(
 
 size_t _multimap_count(const multimap_t* cpt_multimap, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_count_varg(cpt_multimap, val_elemlist);
+    t_count = _multimap_count_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _multimap_count_varg(const multimap_t* cpt_multimap, va_list val_elemlist)
@@ -676,9 +689,14 @@ size_t _multimap_count_varg(const multimap_t* cpt_multimap, va_list val_elemlist
 
 multimap_iterator_t _multimap_lower_bound(const multimap_t* cpt_multimap, ...)
 {
+    multimap_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_lower_bound_varg(cpt_multimap, val_elemlist);
+    t_iter = _multimap_lower_bound_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multimap_iterator_t _multimap_lower_bound_varg(
@@ -705,9 +723,14 @@ multimap_iterator_t _multimap_lower_bound_varg(
 
 multimap_iterator_t _multimap_upper_bound(const multimap_t* cpt_multimap, ...)
 {
+    multimap_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_upper_bound_varg(cpt_multimap, val_elemlist);
+    t_iter = _multimap_upper_bound_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 multimap_iterator_t _multimap_upper_bound_varg(
@@ -734,9 +757,14 @@ multimap_iterator_t _multimap_upper_bound_varg(
 
 range_t _multimap_equal_range(const multimap_t* cpt_multimap, ...)
 {
+    range_t t_range;
     va_list val_elemlist;
+
     va_start(val_elemlist, cpt_multimap);
-    return _multimap_equal_range_varg(cpt_multimap, val_elemlist);
+    t_range = _multimap_equal_range_varg(cpt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_range;
 }
 
 range_t _multimap_equal_range_varg(const multimap_t* cpt_multimap, va_list val_elemlist)
@@ -867,9 +895,14 @@ void multimap_erase_range(
 
 size_t _multimap_erase(multimap_t* pt_multimap, ...)
 {
+    size_t t_count = 0;
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_multimap);
-    return _multimap_erase_varg(pt_multimap, val_elemlist);
+    t_count = _multimap_erase_varg(pt_multimap, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_count;
 }
 
 size_t _multimap_erase_varg(multimap_t* pt_multimap, va_list val_elemlist)

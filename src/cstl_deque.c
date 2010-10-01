@@ -21,21 +21,24 @@
  */
 
 /** include section **/
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
 #include <assert.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 
-#include "cstl_alloc.h"
-#include "cstl_types.h"
-#include "cstl_iterator.h"
-#include "cstl_iterator_private.h"
+#include <cstl/cstl_alloc.h>
+#include <cstl/cstl_types.h>
+#include <cstl/cstl_iterator.h>
+#include <cstl/cstl_iterator_private.h>
 
-#include "cstl_deque_iterator.h"
-#include "cstl_deque_private.h"
-#include "cstl_deque.h"
+#include <cstl/cstl_deque_iterator.h>
+#include <cstl/cstl_deque_private.h>
+#include <cstl/cstl_deque.h>
 
-#include "cstring.h"
+#include <cstl/cstring.h>
 
 /** local constant declaration and local macro section **/
 
@@ -560,8 +563,10 @@ void deque_init_n(deque_t* pt_deque, size_t t_count)
 void _deque_init_elem(deque_t* pt_deque, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _deque_init_elem_varg(pt_deque, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _deque_init_elem_varg(deque_t* pt_deque, size_t t_count, va_list val_elemlist)
@@ -860,8 +865,10 @@ void deque_assign(deque_t* pt_dequedest, const deque_t* cpt_dequesrc)
 void _deque_assign_elem(deque_t* pt_deque, size_t t_count, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
     _deque_assign_elem_varg(pt_deque, t_count, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _deque_assign_elem_varg(deque_t* pt_deque, size_t t_count, va_list val_elemlist)
@@ -1064,8 +1071,10 @@ void deque_swap(deque_t* pt_dequefirst, deque_t* pt_dequesecond)
 void _deque_push_back(deque_t* pt_deque, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_deque);
     _deque_push_back_varg(pt_deque, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _deque_push_back_varg(deque_t* pt_deque, va_list val_elemlist)
@@ -1087,8 +1096,10 @@ void deque_pop_back(deque_t* pt_deque)
 void _deque_push_front(deque_t* pt_deque, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, pt_deque);
     _deque_push_front_varg(pt_deque, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _deque_push_front_varg(deque_t* pt_deque, va_list val_elemlist)
@@ -1108,9 +1119,14 @@ void deque_pop_front(deque_t* pt_deque)
 deque_iterator_t _deque_insert_n(
     deque_t* pt_deque, deque_iterator_t t_pos, size_t t_count, ...)
 {
+    deque_iterator_t t_iter;
     va_list val_elemlist;
+
     va_start(val_elemlist, t_count);
-    return _deque_insert_n_varg(pt_deque, t_pos, t_count, val_elemlist);
+    t_iter = _deque_insert_n_varg(pt_deque, t_pos, t_count, val_elemlist);
+    va_end(val_elemlist);
+
+    return t_iter;
 }
 
 deque_iterator_t _deque_insert_n_varg(
@@ -1285,8 +1301,10 @@ void deque_resize(deque_t* pt_deque, size_t t_resize)
 void _deque_resize_elem(deque_t* pt_deque, size_t t_resize, ...)
 {
     va_list val_elemlist;
+
     va_start(val_elemlist, t_resize);
     _deque_resize_elem_varg(pt_deque, t_resize, val_elemlist);
+    va_end(val_elemlist);
 }
 
 void _deque_resize_elem_varg(deque_t* pt_deque, size_t t_resize, va_list val_elemlist)
