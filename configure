@@ -11693,7 +11693,7 @@ fi
 
 ac_config_headers="$ac_config_headers config.h"
 
-ac_config_files="$ac_config_files Makefile cstl/Makefile src/Makefile build-win/Makefile build-win/vc8/Makefile build-win/vc9/Makefile doc/Makefile test/Makefile"
+ac_config_files="$ac_config_files Makefile cstl/Makefile src/Makefile build-win/Makefile build-win/vc8/Makefile build-win/vc9/Makefile doc/Makefile doc/user/Makefile test/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -12674,6 +12674,7 @@ do
     "build-win/vc8/Makefile") CONFIG_FILES="$CONFIG_FILES build-win/vc8/Makefile" ;;
     "build-win/vc9/Makefile") CONFIG_FILES="$CONFIG_FILES build-win/vc9/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
+    "doc/user/Makefile") CONFIG_FILES="$CONFIG_FILES doc/user/Makefile" ;;
     "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
 
   *) as_fn_error "invalid argument: \`$ac_config_target'" "$LINENO" 5;;

@@ -118,6 +118,7 @@ AC_CONFIG_FILES([
     build-win/vc8/Makefile
     build-win/vc9/Makefile
     doc/Makefile
+    doc/user/Makefile
     test/Makefile
 ])
 AC_OUTPUT

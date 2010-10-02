@@ -404,7 +404,7 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 "
 
 # Files that config.status was made for.
-config_files=" Makefile cstl/Makefile src/Makefile build-win/Makefile build-win/vc8/Makefile build-win/vc9/Makefile doc/Makefile test/Makefile"
+config_files=" Makefile cstl/Makefile src/Makefile build-win/Makefile build-win/vc8/Makefile build-win/vc9/Makefile doc/Makefile doc/user/Makefile test/Makefile"
 config_headers=" config.h"
 config_commands=" depfiles libtool"
 
@@ -448,7 +448,7 @@ Copyright (C) 2009 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/wb/project/libcstl/branches/2.0'
+ac_pwd='/home/wb/project/libcstl/trunk'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
@@ -745,6 +745,7 @@ do
     "build-win/vc8/Makefile") CONFIG_FILES="$CONFIG_FILES build-win/vc8/Makefile" ;;
     "build-win/vc9/Makefile") CONFIG_FILES="$CONFIG_FILES build-win/vc9/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
+    "doc/user/Makefile") CONFIG_FILES="$CONFIG_FILES doc/user/Makefile" ;;
     "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
 
   *) as_fn_error "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
@@ -859,7 +860,7 @@ S["build"]="x86_64-unknown-linux-gnu"
 S["LIBTOOL"]="$(SHELL) $(top_builddir)/libtool"
 S["am__untar"]="${AMTAR} xf -"
 S["am__tar"]="${AMTAR} chof - \"$$tardir\""
-S["AMTAR"]="${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run tar"
+S["AMTAR"]="${SHELL} /home/wb/project/libcstl/trunk/missing --run tar"
 S["am__leading_dot"]="."
 S["SET_MAKE"]=""
 S["AWK"]="gawk"
@@ -867,12 +868,12 @@ S["mkdir_p"]="/bin/mkdir -p"
 S["MKDIR_P"]="/bin/mkdir -p"
 S["INSTALL_STRIP_PROGRAM"]="$(install_sh) -c -s"
 S["STRIP"]="strip"
-S["install_sh"]="${SHELL} /home/wb/project/libcstl/branches/2.0/install-sh"
-S["MAKEINFO"]="${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run makeinfo"
-S["AUTOHEADER"]="${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run autoheader"
-S["AUTOMAKE"]="${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run automake-1.11"
-S["AUTOCONF"]="${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run autoconf"
-S["ACLOCAL"]="${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run aclocal-1.11"
+S["install_sh"]="${SHELL} /home/wb/project/libcstl/trunk/install-sh"
+S["MAKEINFO"]="${SHELL} /home/wb/project/libcstl/trunk/missing --run makeinfo"
+S["AUTOHEADER"]="${SHELL} /home/wb/project/libcstl/trunk/missing --run autoheader"
+S["AUTOMAKE"]="${SHELL} /home/wb/project/libcstl/trunk/missing --run automake-1.11"
+S["AUTOCONF"]="${SHELL} /home/wb/project/libcstl/trunk/missing --run autoconf"
+S["ACLOCAL"]="${SHELL} /home/wb/project/libcstl/trunk/missing --run aclocal-1.11"
 S["VERSION"]="2.0.1"
 S["PACKAGE"]="libcstl"
 S["CYGPATH_W"]="echo"
