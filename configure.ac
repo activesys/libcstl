@@ -4,13 +4,14 @@
 AC_INIT([libcstl], [2.0.1], [activesys.wb@gmail.com])
 AC_COPYRIGHT([Copyright (C) 2008, 2009, 2010 Wangbo.])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-LT_INIT
+#LT_INIT
 AC_CONFIG_SRCDIR([src/cstl_vector.c])
 AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_RANLIB
+AC_PROG_LIBTOOL
 
 # Checks for libraries.
 
@@ -120,5 +121,7 @@ AC_CONFIG_FILES([
     doc/Makefile
     doc/user/Makefile
     test/Makefile
+    test/ut/Makefile
+    test/it/Makefile
 ])
 AC_OUTPUT

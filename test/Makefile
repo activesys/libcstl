@@ -15,7 +15,6 @@
 
 
 
-
 pkgdatadir = $(datadir)/libcstl
 pkgincludedir = $(includedir)/libcstl
 pkglibdir = $(libdir)/libcstl
@@ -32,9 +31,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
-noinst_PROGRAMS = test$(EXEEXT)
+build_triplet = i686-pc-linux-gnu
+host_triplet = i686-pc-linux-gnu
 subdir = test
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -45,39 +43,49 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-PROGRAMS = $(noinst_PROGRAMS)
-am_test_OBJECTS = test-test.$(OBJEXT) test-test_algo.$(OBJEXT) \
-	test-test_algobase.$(OBJEXT) test-test_avl_tree.$(OBJEXT) \
-	test-test_deque.$(OBJEXT) test-test_function.$(OBJEXT) \
-	test-test_hash_map.$(OBJEXT) test-test_hash_set.$(OBJEXT) \
-	test-test_hashtable.$(OBJEXT) test-test_heap.$(OBJEXT) \
-	test-test_list.$(OBJEXT) test-test_map.$(OBJEXT) \
-	test-test_numeric.$(OBJEXT) test-test_pair.$(OBJEXT) \
-	test-test_queue.$(OBJEXT) test-test_rb_tree.$(OBJEXT) \
-	test-test_set.$(OBJEXT) test-test_slist.$(OBJEXT) \
-	test-test_stack.$(OBJEXT) test-test_string.$(OBJEXT) \
-	test-test_type.$(OBJEXT) test-test_vector.$(OBJEXT) \
-	test-tree_traverse.$(OBJEXT)
-test_OBJECTS = $(am_test_OBJECTS)
-test_DEPENDENCIES = ../src/libcstl.la
-DEFAULT_INCLUDES = -I. -I$(top_builddir)
-depcomp = $(SHELL) $(top_srcdir)/depcomp
-am__depfiles_maybe = depfiles
-am__mv = mv -f
-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CCLD = $(CC)
-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
-SOURCES = $(test_SOURCES)
-DIST_SOURCES = $(test_SOURCES)
+SOURCES =
+DIST_SOURCES =
+RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+	html-recursive info-recursive install-data-recursive \
+	install-dvi-recursive install-exec-recursive \
+	install-html-recursive install-info-recursive \
+	install-pdf-recursive install-ps-recursive install-recursive \
+	installcheck-recursive installdirs-recursive pdf-recursive \
+	ps-recursive uninstall-recursive
+RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
+  distclean-recursive maintainer-clean-recursive
+AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
+	$(RECURSIVE_CLEAN_TARGETS:-recursive=) tags TAGS ctags CTAGS \
+	distdir
 ETAGS = etags
 CTAGS = ctags
+DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+am__relativize = \
+  dir0=`pwd`; \
+  sed_first='s,^\([^/]*\)/.*$$,\1,'; \
+  sed_rest='s,^[^/]*/*,,'; \
+  sed_last='s,^.*/\([^/]*\)$$,\1,'; \
+  sed_butlast='s,/*[^/]*$$,,'; \
+  while test -n "$$dir1"; do \
+    first=`echo "$$dir1" | sed -e "$$sed_first"`; \
+    if test "$$first" != "."; then \
+      if test "$$first" = ".."; then \
+        dir2=`echo "$$dir0" | sed -e "$$sed_last"`/"$$dir2"; \
+        dir0=`echo "$$dir0" | sed -e "$$sed_butlast"`; \
+      else \
+        first2=`echo "$$dir2" | sed -e "$$sed_first"`; \
+        if test "$$first2" = "$$first"; then \
+          dir2=`echo "$$dir2" | sed -e "$$sed_rest"`; \
+        else \
+          dir2="../$$dir2"; \
+        fi; \
+        dir0="$$dir0"/"$$first"; \
+      fi; \
+    fi; \
+    dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
+  done; \
+  reldir="$$dir2"
 ACLOCAL = ${SHELL} /home/wb/project/libcstl/trunk/missing --run aclocal-1.11
 AMTAR = ${SHELL} /home/wb/project/libcstl/trunk/missing --run tar
 AR = ar
@@ -107,7 +115,7 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LD = /usr/bin/ld -m elf_x86_64
+LD = /usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
@@ -149,22 +157,22 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = i686-pc-linux-gnu
 build_alias = 
-build_cpu = x86_64
+build_cpu = i686
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = x86_64-unknown-linux-gnu
+host = i686-pc-linux-gnu
 host_alias = 
-host_cpu = x86_64
+host_cpu = i686
 host_os = linux-gnu
-host_vendor = unknown
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -173,7 +181,6 @@ libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
-lt_ECHO = echo
 mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
@@ -189,59 +196,12 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-test_SOURCES = test.c \
-	       test_algo.c \
-	       test_algobase.c \
-	       test_avl_tree.c \
-	       test_deque.c \
-	       test_function.c \
-	       test_hash_map.c \
-	       test_hash_set.c \
-	       test_hashtable.c \
-	       test_heap.c \
-	       test_list.c \
-	       test_map.c \
-	       test_numeric.c \
-	       test_pair.c \
-	       test_queue.c \
-	       test_rb_tree.c \
-	       test_set.c \
-	       test_slist.c \
-	       test_stack.c \
-	       test_string.c \
-	       test_type.c \
-	       test_vector.c \
-	       tree_traverse.c \
-	       test_algo.h \
-	       test_algobase.h \
-	       test_avl_tree.h \
-	       test_deque.h \
-	       test_function.h \
-	       test_hash_map.h \
-	       test_hash_set.h \
-	       test_hashtable.h \
-	       test_heap.h \
-	       test_list.h \
-	       test_map.h \
-	       test_numeric.h \
-	       test_pair.h \
-	       test_queue.h \
-	       test_rb_tree.h \
-	       test_set.h \
-	       test_slist.h \
-	       test_stack.h \
-	       test_string.h \
-	       test_type.h \
-	       test_vector.h \
-	       tree_traverse.h
 
-test_CPPFLAGS = -I$(srcdir)/..
-test_LDADD = ../src/libcstl.la
-CLEANFILES = core.*, string_output.txt
-all: all-am
+# for unit testing and integration testing
+SUBDIRS = ut it
+all: all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .c .lo .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -273,396 +233,81 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
-clean-noinstPROGRAMS:
-	@list='$(noinst_PROGRAMS)'; test -n "$$list" || exit 0; \
-	echo " rm -f" $$list; \
-	rm -f $$list || exit $$?; \
-	test -n "$(EXEEXT)" || exit 0; \
-	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
-	echo " rm -f" $$list; \
-	rm -f $$list
-test$(EXEEXT): $(test_OBJECTS) $(test_DEPENDENCIES) 
-	@rm -f test$(EXEEXT)
-	$(LINK) $(test_OBJECTS) $(test_LDADD) $(LIBS)
-
-mostlyclean-compile:
-	-rm -f *.$(OBJEXT)
-
-distclean-compile:
-	-rm -f *.tab.c
-
-include ./$(DEPDIR)/test-test.Po
-include ./$(DEPDIR)/test-test_algo.Po
-include ./$(DEPDIR)/test-test_algobase.Po
-include ./$(DEPDIR)/test-test_avl_tree.Po
-include ./$(DEPDIR)/test-test_deque.Po
-include ./$(DEPDIR)/test-test_function.Po
-include ./$(DEPDIR)/test-test_hash_map.Po
-include ./$(DEPDIR)/test-test_hash_set.Po
-include ./$(DEPDIR)/test-test_hashtable.Po
-include ./$(DEPDIR)/test-test_heap.Po
-include ./$(DEPDIR)/test-test_list.Po
-include ./$(DEPDIR)/test-test_map.Po
-include ./$(DEPDIR)/test-test_numeric.Po
-include ./$(DEPDIR)/test-test_pair.Po
-include ./$(DEPDIR)/test-test_queue.Po
-include ./$(DEPDIR)/test-test_rb_tree.Po
-include ./$(DEPDIR)/test-test_set.Po
-include ./$(DEPDIR)/test-test_slist.Po
-include ./$(DEPDIR)/test-test_stack.Po
-include ./$(DEPDIR)/test-test_string.Po
-include ./$(DEPDIR)/test-test_type.Po
-include ./$(DEPDIR)/test-test_vector.Po
-include ./$(DEPDIR)/test-tree_traverse.Po
-
-.c.o:
-	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(COMPILE) -c $<
-
-.c.obj:
-	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(COMPILE) -c `$(CYGPATH_W) '$<'`
-
-.c.lo:
-	$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
-#	source='$<' object='$@' libtool=yes \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(LTCOMPILE) -c -o $@ $<
-
-test-test.o: test.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test.o -MD -MP -MF $(DEPDIR)/test-test.Tpo -c -o test-test.o `test -f 'test.c' || echo '$(srcdir)/'`test.c
-	$(am__mv) $(DEPDIR)/test-test.Tpo $(DEPDIR)/test-test.Po
-#	source='test.c' object='test-test.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test.o `test -f 'test.c' || echo '$(srcdir)/'`test.c
-
-test-test.obj: test.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test.obj -MD -MP -MF $(DEPDIR)/test-test.Tpo -c -o test-test.obj `if test -f 'test.c'; then $(CYGPATH_W) 'test.c'; else $(CYGPATH_W) '$(srcdir)/test.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test.Tpo $(DEPDIR)/test-test.Po
-#	source='test.c' object='test-test.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test.obj `if test -f 'test.c'; then $(CYGPATH_W) 'test.c'; else $(CYGPATH_W) '$(srcdir)/test.c'; fi`
-
-test-test_algo.o: test_algo.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_algo.o -MD -MP -MF $(DEPDIR)/test-test_algo.Tpo -c -o test-test_algo.o `test -f 'test_algo.c' || echo '$(srcdir)/'`test_algo.c
-	$(am__mv) $(DEPDIR)/test-test_algo.Tpo $(DEPDIR)/test-test_algo.Po
-#	source='test_algo.c' object='test-test_algo.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_algo.o `test -f 'test_algo.c' || echo '$(srcdir)/'`test_algo.c
-
-test-test_algo.obj: test_algo.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_algo.obj -MD -MP -MF $(DEPDIR)/test-test_algo.Tpo -c -o test-test_algo.obj `if test -f 'test_algo.c'; then $(CYGPATH_W) 'test_algo.c'; else $(CYGPATH_W) '$(srcdir)/test_algo.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_algo.Tpo $(DEPDIR)/test-test_algo.Po
-#	source='test_algo.c' object='test-test_algo.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_algo.obj `if test -f 'test_algo.c'; then $(CYGPATH_W) 'test_algo.c'; else $(CYGPATH_W) '$(srcdir)/test_algo.c'; fi`
-
-test-test_algobase.o: test_algobase.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_algobase.o -MD -MP -MF $(DEPDIR)/test-test_algobase.Tpo -c -o test-test_algobase.o `test -f 'test_algobase.c' || echo '$(srcdir)/'`test_algobase.c
-	$(am__mv) $(DEPDIR)/test-test_algobase.Tpo $(DEPDIR)/test-test_algobase.Po
-#	source='test_algobase.c' object='test-test_algobase.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_algobase.o `test -f 'test_algobase.c' || echo '$(srcdir)/'`test_algobase.c
-
-test-test_algobase.obj: test_algobase.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_algobase.obj -MD -MP -MF $(DEPDIR)/test-test_algobase.Tpo -c -o test-test_algobase.obj `if test -f 'test_algobase.c'; then $(CYGPATH_W) 'test_algobase.c'; else $(CYGPATH_W) '$(srcdir)/test_algobase.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_algobase.Tpo $(DEPDIR)/test-test_algobase.Po
-#	source='test_algobase.c' object='test-test_algobase.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_algobase.obj `if test -f 'test_algobase.c'; then $(CYGPATH_W) 'test_algobase.c'; else $(CYGPATH_W) '$(srcdir)/test_algobase.c'; fi`
-
-test-test_avl_tree.o: test_avl_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_avl_tree.o -MD -MP -MF $(DEPDIR)/test-test_avl_tree.Tpo -c -o test-test_avl_tree.o `test -f 'test_avl_tree.c' || echo '$(srcdir)/'`test_avl_tree.c
-	$(am__mv) $(DEPDIR)/test-test_avl_tree.Tpo $(DEPDIR)/test-test_avl_tree.Po
-#	source='test_avl_tree.c' object='test-test_avl_tree.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_avl_tree.o `test -f 'test_avl_tree.c' || echo '$(srcdir)/'`test_avl_tree.c
-
-test-test_avl_tree.obj: test_avl_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_avl_tree.obj -MD -MP -MF $(DEPDIR)/test-test_avl_tree.Tpo -c -o test-test_avl_tree.obj `if test -f 'test_avl_tree.c'; then $(CYGPATH_W) 'test_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/test_avl_tree.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_avl_tree.Tpo $(DEPDIR)/test-test_avl_tree.Po
-#	source='test_avl_tree.c' object='test-test_avl_tree.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_avl_tree.obj `if test -f 'test_avl_tree.c'; then $(CYGPATH_W) 'test_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/test_avl_tree.c'; fi`
-
-test-test_deque.o: test_deque.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_deque.o -MD -MP -MF $(DEPDIR)/test-test_deque.Tpo -c -o test-test_deque.o `test -f 'test_deque.c' || echo '$(srcdir)/'`test_deque.c
-	$(am__mv) $(DEPDIR)/test-test_deque.Tpo $(DEPDIR)/test-test_deque.Po
-#	source='test_deque.c' object='test-test_deque.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_deque.o `test -f 'test_deque.c' || echo '$(srcdir)/'`test_deque.c
-
-test-test_deque.obj: test_deque.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_deque.obj -MD -MP -MF $(DEPDIR)/test-test_deque.Tpo -c -o test-test_deque.obj `if test -f 'test_deque.c'; then $(CYGPATH_W) 'test_deque.c'; else $(CYGPATH_W) '$(srcdir)/test_deque.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_deque.Tpo $(DEPDIR)/test-test_deque.Po
-#	source='test_deque.c' object='test-test_deque.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_deque.obj `if test -f 'test_deque.c'; then $(CYGPATH_W) 'test_deque.c'; else $(CYGPATH_W) '$(srcdir)/test_deque.c'; fi`
-
-test-test_function.o: test_function.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_function.o -MD -MP -MF $(DEPDIR)/test-test_function.Tpo -c -o test-test_function.o `test -f 'test_function.c' || echo '$(srcdir)/'`test_function.c
-	$(am__mv) $(DEPDIR)/test-test_function.Tpo $(DEPDIR)/test-test_function.Po
-#	source='test_function.c' object='test-test_function.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_function.o `test -f 'test_function.c' || echo '$(srcdir)/'`test_function.c
-
-test-test_function.obj: test_function.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_function.obj -MD -MP -MF $(DEPDIR)/test-test_function.Tpo -c -o test-test_function.obj `if test -f 'test_function.c'; then $(CYGPATH_W) 'test_function.c'; else $(CYGPATH_W) '$(srcdir)/test_function.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_function.Tpo $(DEPDIR)/test-test_function.Po
-#	source='test_function.c' object='test-test_function.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_function.obj `if test -f 'test_function.c'; then $(CYGPATH_W) 'test_function.c'; else $(CYGPATH_W) '$(srcdir)/test_function.c'; fi`
-
-test-test_hash_map.o: test_hash_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_hash_map.o -MD -MP -MF $(DEPDIR)/test-test_hash_map.Tpo -c -o test-test_hash_map.o `test -f 'test_hash_map.c' || echo '$(srcdir)/'`test_hash_map.c
-	$(am__mv) $(DEPDIR)/test-test_hash_map.Tpo $(DEPDIR)/test-test_hash_map.Po
-#	source='test_hash_map.c' object='test-test_hash_map.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_hash_map.o `test -f 'test_hash_map.c' || echo '$(srcdir)/'`test_hash_map.c
-
-test-test_hash_map.obj: test_hash_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_hash_map.obj -MD -MP -MF $(DEPDIR)/test-test_hash_map.Tpo -c -o test-test_hash_map.obj `if test -f 'test_hash_map.c'; then $(CYGPATH_W) 'test_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/test_hash_map.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_hash_map.Tpo $(DEPDIR)/test-test_hash_map.Po
-#	source='test_hash_map.c' object='test-test_hash_map.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_hash_map.obj `if test -f 'test_hash_map.c'; then $(CYGPATH_W) 'test_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/test_hash_map.c'; fi`
-
-test-test_hash_set.o: test_hash_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_hash_set.o -MD -MP -MF $(DEPDIR)/test-test_hash_set.Tpo -c -o test-test_hash_set.o `test -f 'test_hash_set.c' || echo '$(srcdir)/'`test_hash_set.c
-	$(am__mv) $(DEPDIR)/test-test_hash_set.Tpo $(DEPDIR)/test-test_hash_set.Po
-#	source='test_hash_set.c' object='test-test_hash_set.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_hash_set.o `test -f 'test_hash_set.c' || echo '$(srcdir)/'`test_hash_set.c
-
-test-test_hash_set.obj: test_hash_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_hash_set.obj -MD -MP -MF $(DEPDIR)/test-test_hash_set.Tpo -c -o test-test_hash_set.obj `if test -f 'test_hash_set.c'; then $(CYGPATH_W) 'test_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/test_hash_set.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_hash_set.Tpo $(DEPDIR)/test-test_hash_set.Po
-#	source='test_hash_set.c' object='test-test_hash_set.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_hash_set.obj `if test -f 'test_hash_set.c'; then $(CYGPATH_W) 'test_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/test_hash_set.c'; fi`
-
-test-test_hashtable.o: test_hashtable.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_hashtable.o -MD -MP -MF $(DEPDIR)/test-test_hashtable.Tpo -c -o test-test_hashtable.o `test -f 'test_hashtable.c' || echo '$(srcdir)/'`test_hashtable.c
-	$(am__mv) $(DEPDIR)/test-test_hashtable.Tpo $(DEPDIR)/test-test_hashtable.Po
-#	source='test_hashtable.c' object='test-test_hashtable.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_hashtable.o `test -f 'test_hashtable.c' || echo '$(srcdir)/'`test_hashtable.c
-
-test-test_hashtable.obj: test_hashtable.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_hashtable.obj -MD -MP -MF $(DEPDIR)/test-test_hashtable.Tpo -c -o test-test_hashtable.obj `if test -f 'test_hashtable.c'; then $(CYGPATH_W) 'test_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/test_hashtable.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_hashtable.Tpo $(DEPDIR)/test-test_hashtable.Po
-#	source='test_hashtable.c' object='test-test_hashtable.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_hashtable.obj `if test -f 'test_hashtable.c'; then $(CYGPATH_W) 'test_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/test_hashtable.c'; fi`
-
-test-test_heap.o: test_heap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_heap.o -MD -MP -MF $(DEPDIR)/test-test_heap.Tpo -c -o test-test_heap.o `test -f 'test_heap.c' || echo '$(srcdir)/'`test_heap.c
-	$(am__mv) $(DEPDIR)/test-test_heap.Tpo $(DEPDIR)/test-test_heap.Po
-#	source='test_heap.c' object='test-test_heap.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_heap.o `test -f 'test_heap.c' || echo '$(srcdir)/'`test_heap.c
-
-test-test_heap.obj: test_heap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_heap.obj -MD -MP -MF $(DEPDIR)/test-test_heap.Tpo -c -o test-test_heap.obj `if test -f 'test_heap.c'; then $(CYGPATH_W) 'test_heap.c'; else $(CYGPATH_W) '$(srcdir)/test_heap.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_heap.Tpo $(DEPDIR)/test-test_heap.Po
-#	source='test_heap.c' object='test-test_heap.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_heap.obj `if test -f 'test_heap.c'; then $(CYGPATH_W) 'test_heap.c'; else $(CYGPATH_W) '$(srcdir)/test_heap.c'; fi`
-
-test-test_list.o: test_list.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_list.o -MD -MP -MF $(DEPDIR)/test-test_list.Tpo -c -o test-test_list.o `test -f 'test_list.c' || echo '$(srcdir)/'`test_list.c
-	$(am__mv) $(DEPDIR)/test-test_list.Tpo $(DEPDIR)/test-test_list.Po
-#	source='test_list.c' object='test-test_list.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_list.o `test -f 'test_list.c' || echo '$(srcdir)/'`test_list.c
-
-test-test_list.obj: test_list.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_list.obj -MD -MP -MF $(DEPDIR)/test-test_list.Tpo -c -o test-test_list.obj `if test -f 'test_list.c'; then $(CYGPATH_W) 'test_list.c'; else $(CYGPATH_W) '$(srcdir)/test_list.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_list.Tpo $(DEPDIR)/test-test_list.Po
-#	source='test_list.c' object='test-test_list.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_list.obj `if test -f 'test_list.c'; then $(CYGPATH_W) 'test_list.c'; else $(CYGPATH_W) '$(srcdir)/test_list.c'; fi`
-
-test-test_map.o: test_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_map.o -MD -MP -MF $(DEPDIR)/test-test_map.Tpo -c -o test-test_map.o `test -f 'test_map.c' || echo '$(srcdir)/'`test_map.c
-	$(am__mv) $(DEPDIR)/test-test_map.Tpo $(DEPDIR)/test-test_map.Po
-#	source='test_map.c' object='test-test_map.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_map.o `test -f 'test_map.c' || echo '$(srcdir)/'`test_map.c
-
-test-test_map.obj: test_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_map.obj -MD -MP -MF $(DEPDIR)/test-test_map.Tpo -c -o test-test_map.obj `if test -f 'test_map.c'; then $(CYGPATH_W) 'test_map.c'; else $(CYGPATH_W) '$(srcdir)/test_map.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_map.Tpo $(DEPDIR)/test-test_map.Po
-#	source='test_map.c' object='test-test_map.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_map.obj `if test -f 'test_map.c'; then $(CYGPATH_W) 'test_map.c'; else $(CYGPATH_W) '$(srcdir)/test_map.c'; fi`
-
-test-test_numeric.o: test_numeric.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_numeric.o -MD -MP -MF $(DEPDIR)/test-test_numeric.Tpo -c -o test-test_numeric.o `test -f 'test_numeric.c' || echo '$(srcdir)/'`test_numeric.c
-	$(am__mv) $(DEPDIR)/test-test_numeric.Tpo $(DEPDIR)/test-test_numeric.Po
-#	source='test_numeric.c' object='test-test_numeric.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_numeric.o `test -f 'test_numeric.c' || echo '$(srcdir)/'`test_numeric.c
-
-test-test_numeric.obj: test_numeric.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_numeric.obj -MD -MP -MF $(DEPDIR)/test-test_numeric.Tpo -c -o test-test_numeric.obj `if test -f 'test_numeric.c'; then $(CYGPATH_W) 'test_numeric.c'; else $(CYGPATH_W) '$(srcdir)/test_numeric.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_numeric.Tpo $(DEPDIR)/test-test_numeric.Po
-#	source='test_numeric.c' object='test-test_numeric.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_numeric.obj `if test -f 'test_numeric.c'; then $(CYGPATH_W) 'test_numeric.c'; else $(CYGPATH_W) '$(srcdir)/test_numeric.c'; fi`
-
-test-test_pair.o: test_pair.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_pair.o -MD -MP -MF $(DEPDIR)/test-test_pair.Tpo -c -o test-test_pair.o `test -f 'test_pair.c' || echo '$(srcdir)/'`test_pair.c
-	$(am__mv) $(DEPDIR)/test-test_pair.Tpo $(DEPDIR)/test-test_pair.Po
-#	source='test_pair.c' object='test-test_pair.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_pair.o `test -f 'test_pair.c' || echo '$(srcdir)/'`test_pair.c
-
-test-test_pair.obj: test_pair.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_pair.obj -MD -MP -MF $(DEPDIR)/test-test_pair.Tpo -c -o test-test_pair.obj `if test -f 'test_pair.c'; then $(CYGPATH_W) 'test_pair.c'; else $(CYGPATH_W) '$(srcdir)/test_pair.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_pair.Tpo $(DEPDIR)/test-test_pair.Po
-#	source='test_pair.c' object='test-test_pair.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_pair.obj `if test -f 'test_pair.c'; then $(CYGPATH_W) 'test_pair.c'; else $(CYGPATH_W) '$(srcdir)/test_pair.c'; fi`
-
-test-test_queue.o: test_queue.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_queue.o -MD -MP -MF $(DEPDIR)/test-test_queue.Tpo -c -o test-test_queue.o `test -f 'test_queue.c' || echo '$(srcdir)/'`test_queue.c
-	$(am__mv) $(DEPDIR)/test-test_queue.Tpo $(DEPDIR)/test-test_queue.Po
-#	source='test_queue.c' object='test-test_queue.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_queue.o `test -f 'test_queue.c' || echo '$(srcdir)/'`test_queue.c
-
-test-test_queue.obj: test_queue.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_queue.obj -MD -MP -MF $(DEPDIR)/test-test_queue.Tpo -c -o test-test_queue.obj `if test -f 'test_queue.c'; then $(CYGPATH_W) 'test_queue.c'; else $(CYGPATH_W) '$(srcdir)/test_queue.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_queue.Tpo $(DEPDIR)/test-test_queue.Po
-#	source='test_queue.c' object='test-test_queue.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_queue.obj `if test -f 'test_queue.c'; then $(CYGPATH_W) 'test_queue.c'; else $(CYGPATH_W) '$(srcdir)/test_queue.c'; fi`
-
-test-test_rb_tree.o: test_rb_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_rb_tree.o -MD -MP -MF $(DEPDIR)/test-test_rb_tree.Tpo -c -o test-test_rb_tree.o `test -f 'test_rb_tree.c' || echo '$(srcdir)/'`test_rb_tree.c
-	$(am__mv) $(DEPDIR)/test-test_rb_tree.Tpo $(DEPDIR)/test-test_rb_tree.Po
-#	source='test_rb_tree.c' object='test-test_rb_tree.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_rb_tree.o `test -f 'test_rb_tree.c' || echo '$(srcdir)/'`test_rb_tree.c
-
-test-test_rb_tree.obj: test_rb_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_rb_tree.obj -MD -MP -MF $(DEPDIR)/test-test_rb_tree.Tpo -c -o test-test_rb_tree.obj `if test -f 'test_rb_tree.c'; then $(CYGPATH_W) 'test_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/test_rb_tree.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_rb_tree.Tpo $(DEPDIR)/test-test_rb_tree.Po
-#	source='test_rb_tree.c' object='test-test_rb_tree.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_rb_tree.obj `if test -f 'test_rb_tree.c'; then $(CYGPATH_W) 'test_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/test_rb_tree.c'; fi`
-
-test-test_set.o: test_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_set.o -MD -MP -MF $(DEPDIR)/test-test_set.Tpo -c -o test-test_set.o `test -f 'test_set.c' || echo '$(srcdir)/'`test_set.c
-	$(am__mv) $(DEPDIR)/test-test_set.Tpo $(DEPDIR)/test-test_set.Po
-#	source='test_set.c' object='test-test_set.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_set.o `test -f 'test_set.c' || echo '$(srcdir)/'`test_set.c
-
-test-test_set.obj: test_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_set.obj -MD -MP -MF $(DEPDIR)/test-test_set.Tpo -c -o test-test_set.obj `if test -f 'test_set.c'; then $(CYGPATH_W) 'test_set.c'; else $(CYGPATH_W) '$(srcdir)/test_set.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_set.Tpo $(DEPDIR)/test-test_set.Po
-#	source='test_set.c' object='test-test_set.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_set.obj `if test -f 'test_set.c'; then $(CYGPATH_W) 'test_set.c'; else $(CYGPATH_W) '$(srcdir)/test_set.c'; fi`
-
-test-test_slist.o: test_slist.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_slist.o -MD -MP -MF $(DEPDIR)/test-test_slist.Tpo -c -o test-test_slist.o `test -f 'test_slist.c' || echo '$(srcdir)/'`test_slist.c
-	$(am__mv) $(DEPDIR)/test-test_slist.Tpo $(DEPDIR)/test-test_slist.Po
-#	source='test_slist.c' object='test-test_slist.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_slist.o `test -f 'test_slist.c' || echo '$(srcdir)/'`test_slist.c
-
-test-test_slist.obj: test_slist.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_slist.obj -MD -MP -MF $(DEPDIR)/test-test_slist.Tpo -c -o test-test_slist.obj `if test -f 'test_slist.c'; then $(CYGPATH_W) 'test_slist.c'; else $(CYGPATH_W) '$(srcdir)/test_slist.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_slist.Tpo $(DEPDIR)/test-test_slist.Po
-#	source='test_slist.c' object='test-test_slist.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_slist.obj `if test -f 'test_slist.c'; then $(CYGPATH_W) 'test_slist.c'; else $(CYGPATH_W) '$(srcdir)/test_slist.c'; fi`
-
-test-test_stack.o: test_stack.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_stack.o -MD -MP -MF $(DEPDIR)/test-test_stack.Tpo -c -o test-test_stack.o `test -f 'test_stack.c' || echo '$(srcdir)/'`test_stack.c
-	$(am__mv) $(DEPDIR)/test-test_stack.Tpo $(DEPDIR)/test-test_stack.Po
-#	source='test_stack.c' object='test-test_stack.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_stack.o `test -f 'test_stack.c' || echo '$(srcdir)/'`test_stack.c
-
-test-test_stack.obj: test_stack.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_stack.obj -MD -MP -MF $(DEPDIR)/test-test_stack.Tpo -c -o test-test_stack.obj `if test -f 'test_stack.c'; then $(CYGPATH_W) 'test_stack.c'; else $(CYGPATH_W) '$(srcdir)/test_stack.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_stack.Tpo $(DEPDIR)/test-test_stack.Po
-#	source='test_stack.c' object='test-test_stack.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_stack.obj `if test -f 'test_stack.c'; then $(CYGPATH_W) 'test_stack.c'; else $(CYGPATH_W) '$(srcdir)/test_stack.c'; fi`
-
-test-test_string.o: test_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_string.o -MD -MP -MF $(DEPDIR)/test-test_string.Tpo -c -o test-test_string.o `test -f 'test_string.c' || echo '$(srcdir)/'`test_string.c
-	$(am__mv) $(DEPDIR)/test-test_string.Tpo $(DEPDIR)/test-test_string.Po
-#	source='test_string.c' object='test-test_string.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_string.o `test -f 'test_string.c' || echo '$(srcdir)/'`test_string.c
-
-test-test_string.obj: test_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_string.obj -MD -MP -MF $(DEPDIR)/test-test_string.Tpo -c -o test-test_string.obj `if test -f 'test_string.c'; then $(CYGPATH_W) 'test_string.c'; else $(CYGPATH_W) '$(srcdir)/test_string.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_string.Tpo $(DEPDIR)/test-test_string.Po
-#	source='test_string.c' object='test-test_string.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_string.obj `if test -f 'test_string.c'; then $(CYGPATH_W) 'test_string.c'; else $(CYGPATH_W) '$(srcdir)/test_string.c'; fi`
-
-test-test_type.o: test_type.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_type.o -MD -MP -MF $(DEPDIR)/test-test_type.Tpo -c -o test-test_type.o `test -f 'test_type.c' || echo '$(srcdir)/'`test_type.c
-	$(am__mv) $(DEPDIR)/test-test_type.Tpo $(DEPDIR)/test-test_type.Po
-#	source='test_type.c' object='test-test_type.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_type.o `test -f 'test_type.c' || echo '$(srcdir)/'`test_type.c
-
-test-test_type.obj: test_type.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_type.obj -MD -MP -MF $(DEPDIR)/test-test_type.Tpo -c -o test-test_type.obj `if test -f 'test_type.c'; then $(CYGPATH_W) 'test_type.c'; else $(CYGPATH_W) '$(srcdir)/test_type.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_type.Tpo $(DEPDIR)/test-test_type.Po
-#	source='test_type.c' object='test-test_type.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_type.obj `if test -f 'test_type.c'; then $(CYGPATH_W) 'test_type.c'; else $(CYGPATH_W) '$(srcdir)/test_type.c'; fi`
-
-test-test_vector.o: test_vector.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_vector.o -MD -MP -MF $(DEPDIR)/test-test_vector.Tpo -c -o test-test_vector.o `test -f 'test_vector.c' || echo '$(srcdir)/'`test_vector.c
-	$(am__mv) $(DEPDIR)/test-test_vector.Tpo $(DEPDIR)/test-test_vector.Po
-#	source='test_vector.c' object='test-test_vector.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_vector.o `test -f 'test_vector.c' || echo '$(srcdir)/'`test_vector.c
-
-test-test_vector.obj: test_vector.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-test_vector.obj -MD -MP -MF $(DEPDIR)/test-test_vector.Tpo -c -o test-test_vector.obj `if test -f 'test_vector.c'; then $(CYGPATH_W) 'test_vector.c'; else $(CYGPATH_W) '$(srcdir)/test_vector.c'; fi`
-	$(am__mv) $(DEPDIR)/test-test_vector.Tpo $(DEPDIR)/test-test_vector.Po
-#	source='test_vector.c' object='test-test_vector.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-test_vector.obj `if test -f 'test_vector.c'; then $(CYGPATH_W) 'test_vector.c'; else $(CYGPATH_W) '$(srcdir)/test_vector.c'; fi`
-
-test-tree_traverse.o: tree_traverse.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-tree_traverse.o -MD -MP -MF $(DEPDIR)/test-tree_traverse.Tpo -c -o test-tree_traverse.o `test -f 'tree_traverse.c' || echo '$(srcdir)/'`tree_traverse.c
-	$(am__mv) $(DEPDIR)/test-tree_traverse.Tpo $(DEPDIR)/test-tree_traverse.Po
-#	source='tree_traverse.c' object='test-tree_traverse.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-tree_traverse.o `test -f 'tree_traverse.c' || echo '$(srcdir)/'`tree_traverse.c
-
-test-tree_traverse.obj: tree_traverse.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT test-tree_traverse.obj -MD -MP -MF $(DEPDIR)/test-tree_traverse.Tpo -c -o test-tree_traverse.obj `if test -f 'tree_traverse.c'; then $(CYGPATH_W) 'tree_traverse.c'; else $(CYGPATH_W) '$(srcdir)/tree_traverse.c'; fi`
-	$(am__mv) $(DEPDIR)/test-tree_traverse.Tpo $(DEPDIR)/test-tree_traverse.Po
-#	source='tree_traverse.c' object='test-tree_traverse.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o test-tree_traverse.obj `if test -f 'tree_traverse.c'; then $(CYGPATH_W) 'tree_traverse.c'; else $(CYGPATH_W) '$(srcdir)/tree_traverse.c'; fi`
-
 mostlyclean-libtool:
 	-rm -f *.lo
 
 clean-libtool:
 	-rm -rf .libs _libs
+
+# This directory's subdirectories are mostly independent; you can cd
+# into them and run `make' without going through this Makefile.
+# To change the values of `make' variables: instead of editing Makefiles,
+# (1) if the variable is set in `config.status', edit `config.status'
+#     (which will cause the Makefiles to be regenerated when you run `make');
+# (2) otherwise, pass the desired values on the `make' command line.
+$(RECURSIVE_TARGETS):
+	@fail= failcom='exit 1'; \
+	for f in x $$MAKEFLAGS; do \
+	  case $$f in \
+	    *=* | --[!k]*);; \
+	    *k*) failcom='fail=yes';; \
+	  esac; \
+	done; \
+	dot_seen=no; \
+	target=`echo $@ | sed s/-recursive//`; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  echo "Making $$target in $$subdir"; \
+	  if test "$$subdir" = "."; then \
+	    dot_seen=yes; \
+	    local_target="$$target-am"; \
+	  else \
+	    local_target="$$target"; \
+	  fi; \
+	  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
+	  || eval $$failcom; \
+	done; \
+	if test "$$dot_seen" = "no"; then \
+	  $(MAKE) $(AM_MAKEFLAGS) "$$target-am" || exit 1; \
+	fi; test -z "$$fail"
+
+$(RECURSIVE_CLEAN_TARGETS):
+	@fail= failcom='exit 1'; \
+	for f in x $$MAKEFLAGS; do \
+	  case $$f in \
+	    *=* | --[!k]*);; \
+	    *k*) failcom='fail=yes';; \
+	  esac; \
+	done; \
+	dot_seen=no; \
+	case "$@" in \
+	  distclean-* | maintainer-clean-*) list='$(DIST_SUBDIRS)' ;; \
+	  *) list='$(SUBDIRS)' ;; \
+	esac; \
+	rev=''; for subdir in $$list; do \
+	  if test "$$subdir" = "."; then :; else \
+	    rev="$$subdir $$rev"; \
+	  fi; \
+	done; \
+	rev="$$rev ."; \
+	target=`echo $@ | sed s/-recursive//`; \
+	for subdir in $$rev; do \
+	  echo "Making $$target in $$subdir"; \
+	  if test "$$subdir" = "."; then \
+	    local_target="$$target-am"; \
+	  else \
+	    local_target="$$target"; \
+	  fi; \
+	  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
+	  || eval $$failcom; \
+	done && test -z "$$fail"
+tags-recursive:
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  test "$$subdir" = . || ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) tags); \
+	done
+ctags-recursive:
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  test "$$subdir" = . || ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) ctags); \
+	done
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -674,10 +319,23 @@ ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	mkid -fID $$unique
 tags: TAGS
 
-TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
 	set x; \
 	here=`pwd`; \
+	if ($(ETAGS) --etags-include --version) >/dev/null 2>&1; then \
+	  include_option=--etags-include; \
+	  empty_fix=.; \
+	else \
+	  include_option=--include; \
+	  empty_fix=; \
+	fi; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    test ! -f $$subdir/TAGS || \
+	      set "$$@" "$$include_option=$$here/$$subdir/TAGS"; \
+	  fi; \
+	done; \
 	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
@@ -696,7 +354,7 @@ TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 	  fi; \
 	fi
 ctags: CTAGS
-CTAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+CTAGS: ctags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
 	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
@@ -746,19 +404,48 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
+	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    test -d "$(distdir)/$$subdir" \
+	    || $(MKDIR_P) "$(distdir)/$$subdir" \
+	    || exit 1; \
+	  fi; \
+	done
+	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    dir1=$$subdir; dir2="$(distdir)/$$subdir"; \
+	    $(am__relativize); \
+	    new_distdir=$$reldir; \
+	    dir1=$$subdir; dir2="$(top_distdir)"; \
+	    $(am__relativize); \
+	    new_top_distdir=$$reldir; \
+	    echo " (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir="$$new_top_distdir" distdir="$$new_distdir" \\"; \
+	    echo "     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)"; \
+	    ($(am__cd) $$subdir && \
+	      $(MAKE) $(AM_MAKEFLAGS) \
+	        top_distdir="$$new_top_distdir" \
+	        distdir="$$new_distdir" \
+		am__remove_distdir=: \
+		am__skip_length_check=: \
+		am__skip_mode_fix=: \
+	        distdir) \
+	      || exit 1; \
+	  fi; \
+	done
 check-am: all-am
-check: check-am
-all-am: Makefile $(PROGRAMS)
-installdirs:
-install: install-am
-install-exec: install-exec-am
-install-data: install-data-am
-uninstall: uninstall-am
+check: check-recursive
+all-am: Makefile
+installdirs: installdirs-recursive
+installdirs-am:
+install: install-recursive
+install-exec: install-exec-recursive
+install-data: install-data-recursive
+uninstall: uninstall-recursive
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 
-installcheck: installcheck-am
+installcheck: installcheck-recursive
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
 	  install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
@@ -767,7 +454,6 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
@@ -776,91 +462,88 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-am
+clean: clean-recursive
 
-clean-am: clean-generic clean-libtool clean-noinstPROGRAMS \
-	mostlyclean-am
+clean-am: clean-generic clean-libtool mostlyclean-am
 
-distclean: distclean-am
-	-rm -rf ./$(DEPDIR)
+distclean: distclean-recursive
 	-rm -f Makefile
-distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-tags
+distclean-am: clean-am distclean-generic distclean-tags
 
-dvi: dvi-am
+dvi: dvi-recursive
 
 dvi-am:
 
-html: html-am
+html: html-recursive
 
 html-am:
 
-info: info-am
+info: info-recursive
 
 info-am:
 
 install-data-am:
 
-install-dvi: install-dvi-am
+install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
 install-exec-am:
 
-install-html: install-html-am
+install-html: install-html-recursive
 
 install-html-am:
 
-install-info: install-info-am
+install-info: install-info-recursive
 
 install-info-am:
 
 install-man:
 
-install-pdf: install-pdf-am
+install-pdf: install-pdf-recursive
 
 install-pdf-am:
 
-install-ps: install-ps-am
+install-ps: install-ps-recursive
 
 install-ps-am:
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-am
-	-rm -rf ./$(DEPDIR)
+maintainer-clean: maintainer-clean-recursive
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-am
+mostlyclean: mostlyclean-recursive
 
-mostlyclean-am: mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool
+mostlyclean-am: mostlyclean-generic mostlyclean-libtool
 
-pdf: pdf-am
+pdf: pdf-recursive
 
 pdf-am:
 
-ps: ps-am
+ps: ps-recursive
 
 ps-am:
 
 uninstall-am:
 
-.MAKE: install-am install-strip
+.MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) ctags-recursive \
+	install-am install-strip tags-recursive
 
-.PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstPROGRAMS ctags distclean \
-	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
-	pdf pdf-am ps ps-am tags uninstall uninstall-am
+.PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
+	all all-am check check-am clean clean-generic clean-libtool \
+	ctags ctags-recursive distclean distclean-generic \
+	distclean-libtool distclean-tags distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs installdirs-am maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic \
+	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-recursive \
+	uninstall uninstall-am
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
