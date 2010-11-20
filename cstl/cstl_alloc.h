@@ -35,8 +35,8 @@ extern "C" {
 #define _ALIGN                  8     /* boundary for small memory block */
 #define _MAX_SMALL_MEM_SIZE     128   /* the maxinum size of small memory */
 #define _MEM_LIST_COUNT         _MAX_SMALL_MEM_SIZE/_ALIGN
-#define _MEM_BLOCK_COUNT        20    /* default block count getted from pool */
-#define _MEM_POOL_DEFAULT_COUNT 4096  /* memory pool count */
+#define _MEM_BLOCK_COUNT        16    /* default block count getted from pool */
+#define _MEM_POOL_DEFAULT_COUNT 16  /* memory pool count */
 
 /* round up the size of memory to the multiple of 8 */
 #define _ROUND_UP(nmemsize)      (((nmemsize) + _ALIGN - 1) & ~(_ALIGN - 1))

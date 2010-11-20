@@ -70,9 +70,10 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libcstl_la_LIBADD =
 am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_algobase.lo libcstl_la-cstl_alloc.lo \
-	libcstl_la-cstl_avl_tree.lo libcstl_la-cstl_basic_string.lo \
-	libcstl_la-cstl_deque.lo libcstl_la-cstl_function.lo \
-	libcstl_la-cstl_hash_map.lo libcstl_la-cstl_hash_multimap.lo \
+	libcstl_la-cstl_alloc_aux.lo libcstl_la-cstl_avl_tree.lo \
+	libcstl_la-cstl_basic_string.lo libcstl_la-cstl_deque.lo \
+	libcstl_la-cstl_function.lo libcstl_la-cstl_hash_map.lo \
+	libcstl_la-cstl_hash_multimap.lo \
 	libcstl_la-cstl_hash_multiset.lo libcstl_la-cstl_hash_set.lo \
 	libcstl_la-cstl_hashtable.lo libcstl_la-cstl_heap.lo \
 	libcstl_la-cstl_iterator.lo libcstl_la-cstl_list.lo \
@@ -220,7 +221,7 @@ top_srcdir = ..
 lib_LTLIBRARIES = libcstl.la
 libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_algobase.c \
-		     cstl_alloc.c \
+		     cstl_alloc.c cstl_alloc_aux.c cstl_alloc_aux.h \
 		     cstl_avl_tree.c \
 		     cstl_basic_string.c \
 		     cstl_deque.c \
@@ -327,6 +328,7 @@ distclean-compile:
 include ./$(DEPDIR)/libcstl_la-cstl_algo.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_algobase.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_alloc.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_alloc_aux.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_avl_tree.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_basic_string.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_deque.Plo
@@ -394,6 +396,13 @@ libcstl_la-cstl_alloc.lo: cstl_alloc.c
 #	source='cstl_alloc.c' object='libcstl_la-cstl_alloc.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_alloc.lo `test -f 'cstl_alloc.c' || echo '$(srcdir)/'`cstl_alloc.c
+
+libcstl_la-cstl_alloc_aux.lo: cstl_alloc_aux.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_alloc_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_alloc_aux.Tpo -c -o libcstl_la-cstl_alloc_aux.lo `test -f 'cstl_alloc_aux.c' || echo '$(srcdir)/'`cstl_alloc_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_alloc_aux.Tpo $(DEPDIR)/libcstl_la-cstl_alloc_aux.Plo
+#	source='cstl_alloc_aux.c' object='libcstl_la-cstl_alloc_aux.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_alloc_aux.lo `test -f 'cstl_alloc_aux.c' || echo '$(srcdir)/'`cstl_alloc_aux.c
 
 libcstl_la-cstl_avl_tree.lo: cstl_avl_tree.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_avl_tree.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_avl_tree.Tpo -c -o libcstl_la-cstl_avl_tree.lo `test -f 'cstl_avl_tree.c' || echo '$(srcdir)/'`cstl_avl_tree.c

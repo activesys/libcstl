@@ -23,6 +23,7 @@ cstlinclude_HEADERS =	calgorithm.h \
 			cstl_basic_string.h \
 			cstl_basic_string_iterator.h \
 			cstl_basic_string_private.h \
+			cstl_def.h \
 			cstl_deque.h \
 			cstl_deque_iterator.h \
 			cstl_deque_private.h \

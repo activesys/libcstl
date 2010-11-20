@@ -2,7 +2,7 @@
 lib_LTLIBRARIES = libcstl.la
 libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_algobase.c \
-		     cstl_alloc.c \
+		     cstl_alloc.c cstl_alloc_aux.c cstl_alloc_aux.h \
 		     cstl_avl_tree.c \
 		     cstl_basic_string.c \
 		     cstl_deque.c \
