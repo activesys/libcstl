@@ -1,3 +1,0 @@
-it-test_function.o: test_function.c test_function.h
-
-test_function.h:
