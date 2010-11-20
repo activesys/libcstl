@@ -7,24 +7,23 @@ it-test_stack.o: test_stack.c /usr/include/stdio.h \
  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib/gcc/i686-redhat-linux/4.5.1/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h /usr/include/stdlib.h \
- /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/bits/byteswap.h /usr/include/sys/types.h \
- /usr/include/time.h /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
- /usr/include/alloca.h /usr/include/assert.h ../../cstl/cstack.h \
- ../../cstl/cdeque.h /usr/include/string.h /usr/include/xlocale.h \
- /usr/include/bits/string.h /usr/include/bits/string2.h \
- ../../cstl/cstl_alloc.h ../../cstl/cstl_types.h \
- ../../cstl/cstl_iterator.h ../../cstl/cstl_deque_iterator.h \
- ../../cstl/cstl_deque_private.h ../../cstl/cstl_deque.h \
- ../../cstl/clist.h ../../cstl/cstl_list_iterator.h \
- ../../cstl/cstl_list_private.h ../../cstl/cstl_list.h \
- ../../cstl/cvector.h ../../cstl/cstl_vector_iterator.h \
- ../../cstl/cstl_vector_private.h ../../cstl/cstl_vector.h \
- ../../cstl/cstl_stack_private.h ../../cstl/cstl_stack.h test_stack.h
+ /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+ /usr/include/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
+ /usr/include/sys/types.h /usr/include/time.h /usr/include/sys/select.h \
+ /usr/include/bits/select.h /usr/include/bits/sigset.h \
+ /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
+ /usr/include/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/assert.h ../../cstl/cstack.h ../../cstl/cdeque.h \
+ /usr/include/string.h /usr/include/xlocale.h ../../cstl/cstl_alloc.h \
+ ../../cstl/cstl_types.h ../../cstl/cstl_iterator.h \
+ ../../cstl/cstl_deque_iterator.h ../../cstl/cstl_deque_private.h \
+ ../../cstl/cstl_deque.h ../../cstl/clist.h \
+ ../../cstl/cstl_list_iterator.h ../../cstl/cstl_list_private.h \
+ ../../cstl/cstl_list.h ../../cstl/cvector.h \
+ ../../cstl/cstl_vector_iterator.h ../../cstl/cstl_vector_private.h \
+ ../../cstl/cstl_vector.h ../../cstl/cstl_stack_private.h \
+ ../../cstl/cstl_stack.h test_stack.h
 
 /usr/include/stdio.h:
 
@@ -55,8 +54,6 @@ it-test_stack.o: test_stack.c /usr/include/stdio.h \
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
-
-/usr/include/bits/stdio.h:
 
 /usr/include/stdlib.h:
 
@@ -97,10 +94,6 @@ it-test_stack.o: test_stack.c /usr/include/stdio.h \
 /usr/include/string.h:
 
 /usr/include/xlocale.h:
-
-/usr/include/bits/string.h:
-
-/usr/include/bits/string2.h:
 
 ../../cstl/cstl_alloc.h:
 

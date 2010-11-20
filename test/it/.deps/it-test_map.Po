@@ -12,8 +12,7 @@ it-test_map.o: test_map.c ../../cstl/clist.h /usr/include/assert.h \
  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
  /usr/include/alloca.h \
  /usr/lib/gcc/i686-redhat-linux/4.5.1/include/stdarg.h \
- /usr/include/string.h /usr/include/xlocale.h /usr/include/bits/string.h \
- /usr/include/bits/string2.h ../../cstl/cstl_alloc.h \
+ /usr/include/string.h /usr/include/xlocale.h ../../cstl/cstl_alloc.h \
  ../../cstl/cstl_types.h ../../cstl/cstl_iterator.h \
  ../../cstl/cstl_list_iterator.h ../../cstl/cstl_list_private.h \
  ../../cstl/cstl_list.h ../../cstl/cmap.h \
@@ -22,12 +21,11 @@ it-test_map.o: test_map.c ../../cstl/clist.h /usr/include/assert.h \
  ../../cstl/cutility.h /usr/include/stdio.h /usr/include/libio.h \
  /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h ../../cstl/cstl_pair.h \
- ../../cstl/cstl_map_iterator.h ../../cstl/cstl_map_private.h \
- ../../cstl/cstl_map.h ../../cstl/cstl_multimap_iterator.h \
- ../../cstl/cstl_multimap_private.h ../../cstl/cstl_multimap.h \
- ../../cstl/cfunctional.h ../../cstl/cstl_function.h \
- ../../cstl/cstl_function_private.h test_map.h
+ ../../cstl/cstl_pair.h ../../cstl/cstl_map_iterator.h \
+ ../../cstl/cstl_map_private.h ../../cstl/cstl_map.h \
+ ../../cstl/cstl_multimap_iterator.h ../../cstl/cstl_multimap_private.h \
+ ../../cstl/cstl_multimap.h ../../cstl/cfunctional.h \
+ ../../cstl/cstl_function.h ../../cstl/cstl_function_private.h test_map.h
 
 ../../cstl/clist.h:
 
@@ -85,10 +83,6 @@ it-test_map.o: test_map.c ../../cstl/clist.h /usr/include/assert.h \
 
 /usr/include/xlocale.h:
 
-/usr/include/bits/string.h:
-
-/usr/include/bits/string2.h:
-
 ../../cstl/cstl_alloc.h:
 
 ../../cstl/cstl_types.h:
@@ -124,8 +118,6 @@ it-test_map.o: test_map.c ../../cstl/clist.h /usr/include/assert.h \
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
-
-/usr/include/bits/stdio.h:
 
 ../../cstl/cstl_pair.h:
 

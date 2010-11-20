@@ -13,16 +13,15 @@ it-test_algobase.o: test_algobase.c /usr/include/ctype.h \
  /usr/include/bits/select.h /usr/include/bits/sigset.h \
  /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
  /usr/include/bits/pthreadtypes.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/bits/string.h \
- /usr/include/bits/string2.h ../../cstl/cstl_alloc.h \
- ../../cstl/cstl_types.h ../../cstl/cstl_iterator.h \
- ../../cstl/cstl_vector_iterator.h ../../cstl/cstl_vector_private.h \
- ../../cstl/cstl_vector.h ../../cstl/clist.h \
- ../../cstl/cstl_list_iterator.h ../../cstl/cstl_list_private.h \
- ../../cstl/cstl_list.h ../../cstl/cstring.h /usr/include/stdio.h \
- /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/include/string.h ../../cstl/cstl_alloc.h ../../cstl/cstl_types.h \
+ ../../cstl/cstl_iterator.h ../../cstl/cstl_vector_iterator.h \
+ ../../cstl/cstl_vector_private.h ../../cstl/cstl_vector.h \
+ ../../cstl/clist.h ../../cstl/cstl_list_iterator.h \
+ ../../cstl/cstl_list_private.h ../../cstl/cstl_list.h \
+ ../../cstl/cstring.h /usr/include/stdio.h /usr/include/libio.h \
+ /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h ../../cstl/cstl_basic_string_iterator.h \
+ ../../cstl/cstl_basic_string_iterator.h \
  ../../cstl/cstl_basic_string_private.h ../../cstl/cstl_basic_string.h \
  ../../cstl/cstl_string_iterator.h ../../cstl/cstl_string.h \
  ../../cstl/calgorithm.h ../../cstl/citerator.h \
@@ -99,10 +98,6 @@ it-test_algobase.o: test_algobase.c /usr/include/ctype.h \
 
 /usr/include/string.h:
 
-/usr/include/bits/string.h:
-
-/usr/include/bits/string2.h:
-
 ../../cstl/cstl_alloc.h:
 
 ../../cstl/cstl_types.h:
@@ -136,8 +131,6 @@ it-test_algobase.o: test_algobase.c /usr/include/ctype.h \
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
-
-/usr/include/bits/stdio.h:
 
 ../../cstl/cstl_basic_string_iterator.h:
 

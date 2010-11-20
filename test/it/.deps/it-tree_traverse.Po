@@ -7,25 +7,23 @@ it-tree_traverse.o: tree_traverse.c /usr/include/stdio.h \
  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib/gcc/i686-redhat-linux/4.5.1/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h /usr/include/stdlib.h \
- /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/bits/byteswap.h /usr/include/sys/types.h \
- /usr/include/time.h /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
- /usr/include/alloca.h /usr/include/string.h /usr/include/xlocale.h \
- /usr/include/bits/string.h /usr/include/bits/string2.h \
- /usr/include/unistd.h /usr/include/bits/posix_opt.h \
- /usr/include/bits/environments.h /usr/include/bits/confname.h \
- /usr/include/getopt.h ../../cstl/citerator.h /usr/include/assert.h \
- ../../cstl/cstl_alloc.h ../../cstl/cstl_types.h \
- ../../cstl/cstl_iterator.h ../../cstl/cstl_iterator_private.h \
- ../../cstl/cstl_vector_iterator.h ../../cstl/cstl_list_iterator.h \
- ../../cstl/cstl_deque_iterator.h ../../cstl/cstl_slist_iterator.h \
- ../../cstl/cstl_set_iterator.h ../../cstl/cstl_multiset_iterator.h \
- ../../cstl/cstl_map_iterator.h ../../cstl/cstl_multimap_iterator.h \
- ../../cstl/cstl_hash_set_iterator.h \
+ /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+ /usr/include/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
+ /usr/include/sys/types.h /usr/include/time.h /usr/include/sys/select.h \
+ /usr/include/bits/select.h /usr/include/bits/sigset.h \
+ /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
+ /usr/include/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/string.h /usr/include/xlocale.h /usr/include/unistd.h \
+ /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
+ /usr/include/bits/confname.h /usr/include/getopt.h \
+ ../../cstl/citerator.h /usr/include/assert.h ../../cstl/cstl_alloc.h \
+ ../../cstl/cstl_types.h ../../cstl/cstl_iterator.h \
+ ../../cstl/cstl_iterator_private.h ../../cstl/cstl_vector_iterator.h \
+ ../../cstl/cstl_list_iterator.h ../../cstl/cstl_deque_iterator.h \
+ ../../cstl/cstl_slist_iterator.h ../../cstl/cstl_set_iterator.h \
+ ../../cstl/cstl_multiset_iterator.h ../../cstl/cstl_map_iterator.h \
+ ../../cstl/cstl_multimap_iterator.h ../../cstl/cstl_hash_set_iterator.h \
  ../../cstl/cstl_hash_multiset_iterator.h \
  ../../cstl/cstl_hash_map_iterator.h \
  ../../cstl/cstl_hash_multimap_iterator.h \
@@ -84,8 +82,6 @@ it-tree_traverse.o: tree_traverse.c /usr/include/stdio.h \
 
 /usr/include/bits/sys_errlist.h:
 
-/usr/include/bits/stdio.h:
-
 /usr/include/stdlib.h:
 
 /usr/include/bits/waitflags.h:
@@ -119,10 +115,6 @@ it-tree_traverse.o: tree_traverse.c /usr/include/stdio.h \
 /usr/include/string.h:
 
 /usr/include/xlocale.h:
-
-/usr/include/bits/string.h:
-
-/usr/include/bits/string2.h:
 
 /usr/include/unistd.h:
 
