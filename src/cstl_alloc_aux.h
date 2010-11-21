@@ -34,54 +34,57 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 
 /** exported global variable declaration section **/
-extern void (*_g_pfun_default_malloc_handler)(void);
+extern void (*_gpfun_malloc_handler)(void);
 
 /** exported function prototype section **/
 /**
  * Malloc for out of memory condition.
- * @param t_memset memory size.
+ * @param t_memset  memory size.
  * @return point to the allocated memory.
  */
 extern void* _alloc_malloc_out_of_memory(size_t t_memsize);
 
 /**
  * Malloc memory.
- * @param t_memsize memory size.
+ * @param t_memsize  memory size.
  * @return point to the allocated memory.
  */
 extern void* _alloc_malloc(size_t t_memsize);
 
 /**
  * Free memory.
- * @param pv_allocmem memory.
+ * @param pv_allocmem  memory.
  * @return void.
  * @remarks if pv_allocmem == NULL, then the function of behavior is undefined.
  */
 extern void _alloc_free(void* pv_allocmem);
 
+#ifndef _CSTL_USER_MODEL
 /**
  * Apply a formated memory list.
- * @param pt_allocater pointer that point to allocater.
- * @param t_allocsize  the size of allocated memory.
+ * @param pt_allocator  pointer that point to allocator.
+ * @param t_allocsize   the size of allocated memory.
  * @return void.
- * @remarks if pt_allocater == NULL then the function of behavior is undefined.
+ * @remarks if pt_allocator == NULL then the function of behavior is undefined.
  */
-extern void _alloc_apply_formated_memory(alloc_t* pt_allocater, size_t t_allocsize);
+extern void _alloc_apply_formated_memory(alloc_t* pt_allocator, size_t t_allocsize);
 
 /**
  * Get memory chunk from memory pool.
- * @param pt_allocater  pointer pointes to allocater.
- * @param t_allocsize   the size of allocated memory chunk.
- * @param pn_alloccount the number of allocated memory chunk.
+ * @param pt_allocator   pointer pointes to allocator.
+ * @param t_allocsize    the size of allocated memory chunk.
+ * @param pn_alloccount  the number of allocated memory chunk.
  * @return pointer pointes to allocated chunk.
- * @remarks if pt_allocater == NULL or pn_alloccount == NULL, then the function of behavior is undefined.
+ * @remarks if pt_allocator == NULL or pn_alloccount == NULL, then the function of behavior is undefined.
  *          if the total size of allocated memory chunk is less than the size of memory pool, then allocated
  *          memory chunk from memory pool directly. if the size of memory pool is less than total size of
  *          allocated memory chunk, but greater than or equal to the size of only one memory chunk, than
  *          allocated appropriate number of memory chunk, then update the allocate count. otherwise allocated
  *          larger memory pool from allocated memory chunk.
  */
-extern char* _alloc_get_memory_chunk(alloc_t* pt_allocater, size_t t_allocsize, size_t* pt_alloccount);
+extern char* _alloc_get_memory_chunk(alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount);
+
+#endif /* _CSTL_USER_MODEL */
 
 #ifdef __cplusplus
 }

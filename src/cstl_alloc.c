@@ -21,15 +21,7 @@
  */
 
 /** include section **/
-#ifdef HAVE_CONFIG_H
-#   include <config.h>
-#endif
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 
@@ -48,56 +40,75 @@
 /** exported function implementation section **/
 #ifdef _CSTL_USER_MODEL
 
-void allocate_init(alloc_t* /* pt_allocater */)
+/**
+ * Initialize the alloc_t.
+ */
+void _alloc_init(alloc_t* pt_allocator)
 {
+    pt_allocator = NULL;
 }
 
-void allocate_destroy(alloc_t* /* pt_allocater */)
+/**
+ * Destroy the alloc_t.
+ */
+void _alloc_destroy(alloc_t* pt_allocator)
 {
+    pt_allocator = NULL;
 }
 
-void* allocate(alloc_t* /* pt_allocater */, size_t t_typesize, int n_elemcount)
+/**
+ * Allocate to user specified amount of memory.
+ */
+void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count)
 {
     /* total allocated memory size */
-    size_t t_allocsize = t_typesize * n_elemcount;
-    
+    size_t t_allocsize = t_size * t_count;
+
+    pt_allocator = NULL;
     return _alloc_malloc(t_allocsize);
 }
 
-void deallocate(
-    alloc_t* /* pt_allocater */, void* pv_allocmem, 
-    size_t /* t_typesize */, int /* n_elemcount */)
+/**
+ * Release allocated memory
+ */
+void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
 {
     assert(pv_allocmem != NULL);
+
+    pt_allocator = NULL;
+    t_size = 0;
+    t_count = 0;
     _alloc_free(pv_allocmem);
 }
 
 #else
 
-void allocate_init(alloc_t* pt_allocater)
+/**
+ * Initialize the alloc_t.
+ */
+void _alloc_init(alloc_t* pt_allocator)
 {
-    int i = 0;
+    size_t i = 0;
 
-    assert(pt_allocater != NULL);
+    assert(pt_allocator != NULL);
 
-    pt_allocater->_t_mempoolsize = 0;
-    pt_allocater->_t_mempoolindex = 0;
-    pt_allocater->_pc_mempool = NULL;
+    pt_allocator->_t_mempoolsize = 0;
+    pt_allocator->_t_mempoolindex = 0;
+    pt_allocator->_pc_mempool = NULL;
     
     for(i = 0; i < _MEM_LIST_COUNT; ++i)
     {
-        pt_allocater->_apt_memlink[i] = NULL;
+        pt_allocator->_apt_memlink[i] = NULL;
     }
 
     /* initialize memory pool */
-    pt_allocater->_t_mempoolcount = _MEM_POOL_DEFAULT_COUNT;
-    pt_allocater->_ppc_allocatemempool = 
-        (char**)malloc(pt_allocater->_t_mempoolcount * sizeof(char*));
-    if(pt_allocater->_ppc_allocatemempool != NULL)
+    pt_allocator->_t_mempoolcount = _MEM_POOL_DEFAULT_COUNT;
+    pt_allocator->_ppc_allocatemempool = (char**)malloc(pt_allocator->_t_mempoolcount * sizeof(char*));
+    if(pt_allocator->_ppc_allocatemempool != NULL)
     {
-        for(i = 0; i < (int)pt_allocater->_t_mempoolcount; ++i)
+        for(i = 0; i < pt_allocator->_t_mempoolcount; ++i)
         {
-            pt_allocater->_ppc_allocatemempool[i] = NULL;
+            pt_allocator->_ppc_allocatemempool[i] = NULL;
         }
     }
     else
@@ -107,40 +118,45 @@ void allocate_init(alloc_t* pt_allocater)
     }
 }
 
-void allocate_destroy(alloc_t* pt_allocater)
+/**
+ * Destroy the alloc_t.
+ */
+void _alloc_destroy(alloc_t* pt_allocator)
 {
-    int i = 0;
+    size_t i = 0;
 
-    assert(pt_allocater != NULL);
+    assert(pt_allocator != NULL);
 
     /* destroy memory pool */
-    for(i = 0; i < (int)pt_allocater->_t_mempoolcount; ++i)
+    for(i = 0; i < pt_allocator->_t_mempoolcount; ++i)
     {
-        free(pt_allocater->_ppc_allocatemempool[i]);
-        pt_allocater->_ppc_allocatemempool[i] = NULL;
+        free(pt_allocator->_ppc_allocatemempool[i]);
+        pt_allocator->_ppc_allocatemempool[i] = NULL;
     }
-    free(pt_allocater->_ppc_allocatemempool);
-    pt_allocater->_ppc_allocatemempool = NULL;
+    free(pt_allocator->_ppc_allocatemempool);
+    pt_allocator->_ppc_allocatemempool = NULL;
 
     for(i = 0; i < _MEM_LIST_COUNT; ++i)
     {
-        pt_allocater->_apt_memlink[i] = NULL;
+        pt_allocator->_apt_memlink[i] = NULL;
     }
 
-    pt_allocater->_pc_mempool = NULL;
-    pt_allocater->_t_mempoolindex = 0;
-    pt_allocater->_t_mempoolsize = 0;
-    pt_allocater->_t_mempoolcount = 0;
+    pt_allocator->_pc_mempool = NULL;
+    pt_allocator->_t_mempoolindex = 0;
+    pt_allocator->_t_mempoolsize = 0;
+    pt_allocator->_t_mempoolcount = 0;
 }
 
-void* allocate(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount)
+/**
+ * Allocate to user specified amount of memory.
+ */
+void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count)
 {
-    void*       pv_allocmem = NULL;     /* allocated memory pointer */
-    _memlink_t* pt_link = NULL;         /* memory link */
-    size_t      t_allocsize = t_typesize * n_elemcount; 
-                                        /* allocated memory size */
+    void*       pv_allocmem = NULL;               /* allocated memory pointer */
+    _memlink_t* pt_link = NULL;                   /* memory link */
+    size_t      t_allocsize = t_size * t_count;   /* allocated memory size */
 
-    assert(pt_allocater != NULL);
+    assert(pt_allocator != NULL);
 
     if(t_allocsize > _MAX_SMALL_MEM_SIZE)
     {
@@ -149,27 +165,28 @@ void* allocate(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount)
     }
     else
     {
-        pt_link = pt_allocater->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
+        pt_link = pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
         if(pt_link == NULL)
         {
-            _alloc_apply_formated_memory(pt_allocater, _ROUND_UP(t_allocsize));
-            pt_link = pt_allocater->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
+            _alloc_apply_formated_memory(pt_allocator, _ROUND_UP(t_allocsize));
+            pt_link = pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
             assert(pt_link);
         }
-        pt_allocater->_apt_memlink[_MEMLIST_INDEX(t_allocsize)] = pt_link->_pui_nextmem;
+        pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)] = pt_link->_pui_nextmem;
         pv_allocmem = (void*)pt_link;
     }
 
     return pv_allocmem;
 }
 
-void deallocate(
-    alloc_t* pt_allocater, void* pv_allocmem, 
-    size_t t_typesize, int n_elemcount)
+/**
+ * Release allocated memory
+ */
+void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
 {
-    size_t t_allocsize = t_typesize * n_elemcount; /* allocated memory size */
+    size_t t_allocsize = t_size * t_count; /* allocated memory size */
 
-    assert(pt_allocater != NULL);
+    assert(pt_allocator != NULL);
     assert(pv_allocmem != NULL);
 
     if(t_allocsize > _MAX_SMALL_MEM_SIZE)
@@ -178,19 +195,20 @@ void deallocate(
     }
     else
     {
-        ((_memlink_t*)pv_allocmem)->_pui_nextmem = 
-            pt_allocater->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
-        pt_allocater->_apt_memlink[_MEMLIST_INDEX(t_allocsize)] = 
-            ((_memlink_t*)pv_allocmem);
+        ((_memlink_t*)pv_allocmem)->_pui_nextmem = pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
+        pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)] = ((_memlink_t*)pv_allocmem);
     }
 }
 
 #endif
 
-void (*set_malloc_handler(void (*pfun_newhandler)(void)))(void)
+/**
+ * Set the out of memory handler and return the old handler.
+ */
+void (*_alloc_set_malloc_handler(void (*pfun_newhandler)(void)))(void)
 {
-    void (*pfun_oldhandler)(void) = _g_pfun_default_malloc_handler;
-    _g_pfun_default_malloc_handler = pfun_newhandler;
+    void (*pfun_oldhandler)(void) = _gpfun_malloc_handler;
+    _gpfun_malloc_handler = pfun_newhandler;
 
     return pfun_oldhandler;
 }

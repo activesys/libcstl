@@ -75,33 +75,54 @@ typedef struct _tagalloc
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
+/**
  * Initialize the alloc_t.
+ * @param pt_allocator  pointer that points to allocator.
+ * @return void.
+ * @remarks if pt_allocator == NULL, then function of the behavior is undefined.
  */
-extern void allocate_init(alloc_t* pt_allocater);
+extern void _alloc_init(alloc_t* pt_allocator);
 
-/*
+/**
  * Destroy the alloc_t.
+ * @param pt_allocator  pointer that points to allocator.
+ * @return void.
+ * @remarks if pt_allocator == NULL, then function of the behavior is undefined. if pt_allocator is not initialized by
+ *          _alloc_init, then function of the behavior is undefined.
  */
-extern void allocate_destroy(alloc_t* pt_allocater);
+extern void _alloc_destroy(alloc_t* pt_allocator);
 
-/*
- * Allocate memory for specify value type and specify element numbers use default
- * model or user model.
+/**
+ * Allocate to user specified amount of memory.
+ * @param pt_allocator  pointer that points to allocator.
+ * @param t_size        memory size.
+ * @param t_count       memory count.
+ * @return point to the allocated memory.
+ * @remarks if pt_allocator == NULL, then function of the behavior is undefined. if allocator is not initialized by
+ *          _alloc_init, then function of the behavior is undefined. the size of allocated memory is t_size * t_count.
  */
-extern void* allocate(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount);
+extern void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count);
 
-/*
- * Free memory for specify value type and specify element numbers use default 
- * model or user model.
+/**
+ * Release allocated memory
+ * @param pt_allocator  pointer that point to allocator.
+ * @param pv_allocmem   pointer that point to allocated memory.
+ * @param t_size        allocated memory size.
+ * @param t_count       allocated memory count.
+ * @return void.
+ * @remarks if pt_allocater == NULL or pv_allocmem == NULL, then function of the behavior is undefined. if allocator is
+ *          not initialized by _alloc_init, or pv_allocmem is not allocated by _alloc_allocate, then function of the
+ *          behavior is undefined.
  */
-extern void deallocate(
-    alloc_t* pt_allocater, void* pv_allocmem, size_t t_typesize, int n_elemcount);
+extern void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count);
 
-/*
+/**
  * Set the out of memory handler and return the old handler.
+ * @param pfun_newhandler  new out of memory handler.
+ * @return old hanlder.
+ * @remarks if pfun_newhandler == NULL, than delete the out of memory handler.
  */
-extern void (*set_malloc_handler(void (*pfun_newhandler)(void)))(void);
+extern void (*_alloc_set_malloc_handler(void (*pfun_newhandler)(void)))(void);
 
 #ifdef __cplusplus
 }

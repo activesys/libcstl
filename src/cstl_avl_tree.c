@@ -425,7 +425,7 @@ void _avl_tree_init(avl_tree_t* pt_avl_tree, binary_function_t t_compare)
     pt_avl_tree->_t_avlroot._pt_left = &pt_avl_tree->_t_avlroot;
     pt_avl_tree->_t_avlroot._pt_right = &pt_avl_tree->_t_avlroot;
 
-    allocate_init(&pt_avl_tree->_t_allocater);
+    _alloc_init(&pt_avl_tree->_t_allocater);
 
     if(t_compare != NULL)
     {
@@ -450,7 +450,7 @@ void _avl_tree_destroy_auxiliary(avl_tree_t* pt_avl_tree)
     pt_avl_tree->_t_nodecount = 0;
 
     /* destroy allocator */
-    allocate_destroy(&pt_avl_tree->_t_allocater);
+    _alloc_destroy(&pt_avl_tree->_t_allocater);
 
     pt_avl_tree->_t_compare = NULL;
 }
@@ -1351,7 +1351,7 @@ void _avl_tree_erase_pos(avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_pos)
     t_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
     _GET_AVL_TREE_TYPE_DESTROY_FUNCTION(pt_avl_tree)(pt_cur->_pc_data, &t_result);
     assert(t_result);
-    deallocate(&pt_avl_tree->_t_allocater, pt_cur,
+    _alloc_deallocate(&pt_avl_tree->_t_allocater, pt_cur,
         _AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(pt_avl_tree)), 1);
     pt_avl_tree->_t_nodecount--;
     if(pt_avl_tree->_t_nodecount == 0)
@@ -1523,7 +1523,7 @@ static avlnode_t* _destroy_avl_tree(avl_tree_t* pt_avl_tree, avlnode_t* pt_root)
         t_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
         _GET_AVL_TREE_TYPE_DESTROY_FUNCTION(pt_avl_tree)(pt_root->_pc_data, &t_result);
         assert(t_result);
-        deallocate(&pt_avl_tree->_t_allocater, pt_root,
+        _alloc_deallocate(&pt_avl_tree->_t_allocater, pt_root,
             _AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(pt_avl_tree)), 1);
     }
     
@@ -1685,7 +1685,7 @@ static _insert_result_t _insert_avlnode(
     /* if root is NULL then allocate memory */
     if(pt_root == NULL)
     {
-        pt_root = allocate((alloc_t*)&cpt_avl_tree->_t_allocater,
+        pt_root = _alloc_allocate((alloc_t*)&cpt_avl_tree->_t_allocater,
             _AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree)), 1);
         assert(pt_root != NULL);
         _avl_tree_init_elem_auxiliary((avl_tree_t*)cpt_avl_tree, pt_root);

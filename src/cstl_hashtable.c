@@ -457,7 +457,7 @@ hashtable_iterator_t _hashtable_insert_equal(
     _hashtable_resize(pt_hashtable, _hashtable_size(pt_hashtable)+1);
 
     /* allocate node */
-    pt_node = allocate(&pt_hashtable->_t_allocater,
+    pt_node = _alloc_allocate(&pt_hashtable->_t_allocater,
         _HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)), 1);
     assert(pt_node != NULL);
     _hashtable_init_elem_auxiliary(pt_hashtable, pt_node);
@@ -724,7 +724,7 @@ void _hashtable_erase_pos(hashtable_t* pt_hashtable, hashtable_iterator_t t_pos)
     t_result = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
     _GET_HASHTABLE_TYPE_DESTROY_FUNCTION(pt_hashtable)(pt_deletion->_pc_data, &t_result);
     assert(t_result);
-    deallocate(&pt_hashtable->_t_allocater, pt_deletion,
+    _alloc_deallocate(&pt_hashtable->_t_allocater, pt_deletion,
         _HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)), 1);
     /* update the hashtable size */
     pt_hashtable->_t_nodecount--;
@@ -836,7 +836,7 @@ void _hashtable_init(hashtable_t* pt_hashtable, size_t t_bucketcount,
            pt_hashtable->_t_compare == NULL);
 
     /* initialize the allocator */
-    allocate_init(&pt_hashtable->_t_allocater);
+    _alloc_init(&pt_hashtable->_t_allocater);
 
     /* initialize the bucket vector and node count */
     vector_init(&pt_hashtable->_t_bucket);
@@ -868,7 +868,7 @@ void _hashtable_destroy_auxiliary(hashtable_t* pt_hashtable)
     _vector_destroy_auxiliary(&pt_hashtable->_t_bucket);
 
     /* destroy allocator */
-    allocate_destroy(&pt_hashtable->_t_allocater);
+    _alloc_destroy(&pt_hashtable->_t_allocater);
 
     /* destroy hash, compare and destroy element function */
     pt_hashtable->_t_hash = NULL;
@@ -1038,7 +1038,7 @@ void _hashtable_clear(hashtable_t* pt_hashtable)
             _GET_HASHTABLE_TYPE_DESTROY_FUNCTION(pt_hashtable)(
                 pt_deletion->_pc_data, &t_result);
             assert(t_result);
-            deallocate(&pt_hashtable->_t_allocater,  pt_deletion, 
+            _alloc_deallocate(&pt_hashtable->_t_allocater,  pt_deletion, 
                 _HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)), 1);
         }
     }

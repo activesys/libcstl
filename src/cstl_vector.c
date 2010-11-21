@@ -315,7 +315,7 @@ void _vector_init_elem_varg(vector_t* pt_vector, size_t t_count, va_list val_ele
     if(t_count > 0)
     {
         /* get varg value only once */
-        pv_varg = allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+        pv_varg = _alloc_allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
         assert(pv_varg != NULL);
         _vector_get_varg_value_auxiliary(pt_vector, val_elemlist, pv_varg);
 
@@ -333,7 +333,7 @@ void _vector_init_elem_varg(vector_t* pt_vector, size_t t_count, va_list val_ele
 
         /* destroy varg value and free memory */
         _vector_destroy_varg_value_auxiliary(pt_vector, pv_varg);
-        deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+        _alloc_deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
     }
 }
 
@@ -353,10 +353,10 @@ void vector_init_n(vector_t* pt_vector, size_t t_count)
            pt_vector->_pc_endofstorage == NULL);
     assert(pt_vector->_t_typeinfo._pt_type != NULL);
 
-    allocate_init(&pt_vector->_t_allocater);
+    _alloc_init(&pt_vector->_t_allocater);
     if(t_count > 0)
     {
-        pt_vector->_pc_start = allocate(
+        pt_vector->_pc_start = _alloc_allocate(
             &pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), (2 * t_count));
         assert(pt_vector->_pc_start != NULL);
         pt_vector->_pc_finish =
@@ -397,12 +397,12 @@ void _vector_destroy_auxiliary(vector_t* pt_vector)
     /* free vector memory */
     if(pt_vector->_pc_start != NULL)
     {
-        deallocate(&pt_vector->_t_allocater, pt_vector->_pc_start,
+        _alloc_deallocate(&pt_vector->_t_allocater, pt_vector->_pc_start,
             _GET_VECTOR_TYPE_SIZE(pt_vector), 
             (pt_vector->_pc_endofstorage - pt_vector->_pc_start) /
             _GET_VECTOR_TYPE_SIZE(pt_vector));
     }
-    allocate_destroy(&pt_vector->_t_allocater);
+    _alloc_destroy(&pt_vector->_t_allocater);
 
     pt_vector->_pc_start = NULL;
     pt_vector->_pc_finish = NULL;
@@ -497,7 +497,7 @@ void vector_reserve(vector_t* pt_vector, size_t t_reservesize)
     if(vector_capacity(pt_vector) < t_reservesize)
     {
         /* allocate the new vector with reserve size */
-        pc_reservemem = allocate(&pt_vector->_t_allocater,
+        pc_reservemem = _alloc_allocate(&pt_vector->_t_allocater,
             _GET_VECTOR_TYPE_SIZE(pt_vector), t_reservesize);
         assert(pc_reservemem != NULL);
         /* get the new position */
@@ -530,7 +530,7 @@ void vector_reserve(vector_t* pt_vector, size_t t_reservesize)
         /* free the old vector element */
         if(pt_vector->_pc_start != NULL)
         {
-            deallocate(&pt_vector->_t_allocater, pt_vector->_pc_start,
+            _alloc_deallocate(&pt_vector->_t_allocater, pt_vector->_pc_start,
                 _GET_VECTOR_TYPE_SIZE(pt_vector),
                 t_oldcapacity / _GET_VECTOR_TYPE_SIZE(pt_vector));
         }
@@ -669,7 +669,7 @@ void _vector_assign_elem_varg(
     assert(pt_vector != NULL);
 
     /* get value from varg */
-    pv_varg = allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+    pv_varg = _alloc_allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
     assert(pv_varg != NULL);
     _vector_get_varg_value_auxiliary(pt_vector, val_elemlist, pv_varg);
 
@@ -687,7 +687,7 @@ void _vector_assign_elem_varg(
 
     /* destroy varg and free memory */
     _vector_destroy_varg_value_auxiliary(pt_vector, pv_varg);
-    deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+    _alloc_deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
 }
 
 void _vector_assign_elem(vector_t* pt_vector, size_t t_count, ...)
@@ -912,7 +912,7 @@ vector_iterator_t _vector_insert_n_varg(
         }
 
         /* get varg value only once */
-        pv_varg = allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+        pv_varg = _alloc_allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
         assert(pv_varg != NULL);
         _vector_get_varg_value_auxiliary(pt_vector, val_elemlist, pv_varg);
         /* copy value for varg */
@@ -926,7 +926,7 @@ vector_iterator_t _vector_insert_n_varg(
         }
         /* destroy varg and free memory */
         _vector_destroy_varg_value_auxiliary(pt_vector, pv_varg);
-        deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+        _alloc_deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
 
         t_pos = iterator_next_n(t_pos, t_count);
     }
@@ -1181,7 +1181,7 @@ void _vector_resize_elem_varg(
         }
 
         /* get varg value only once */
-        pv_varg = allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+        pv_varg = _alloc_allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
         assert(pv_varg != NULL);
         _vector_get_varg_value_auxiliary(pt_vector, val_elemlist, pv_varg);
 
@@ -1200,7 +1200,7 @@ void _vector_resize_elem_varg(
         }
         /* destroy varg */
         _vector_destroy_varg_value_auxiliary(pt_vector, pv_varg);
-        deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+        _alloc_deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
     }
 }
 

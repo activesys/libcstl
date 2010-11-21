@@ -474,7 +474,7 @@ multiset_iterator_t _multiset_find_varg(
 
     assert(cpt_multiset != NULL);
 
-    pv_varg = allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
     assert(pv_varg != NULL);
     _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
@@ -486,7 +486,7 @@ multiset_iterator_t _multiset_find_varg(
 #endif
 
     _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
 
     _GET_CONTAINER(t_iter) = (multiset_t*)cpt_multiset;
@@ -515,7 +515,7 @@ size_t _multiset_count_varg(const multiset_t* cpt_multiset, va_list val_elemlist
 
     assert(cpt_multiset != NULL);
 
-    pv_varg = allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
     assert(pv_varg != NULL);
     _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
@@ -527,7 +527,7 @@ size_t _multiset_count_varg(const multiset_t* cpt_multiset, va_list val_elemlist
 #endif
 
     _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
 
     return t_count;
@@ -553,7 +553,7 @@ multiset_iterator_t _multiset_lower_bound_varg(
 
     assert(cpt_multiset != NULL);
 
-    pv_varg = allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
     assert(pv_varg != NULL);
     _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
@@ -565,7 +565,7 @@ multiset_iterator_t _multiset_lower_bound_varg(
 #endif
 
     _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
 
     _GET_CONTAINER(t_iter) = (multiset_t*)cpt_multiset;
@@ -595,7 +595,7 @@ multiset_iterator_t _multiset_upper_bound_varg(
 
     assert(cpt_multiset != NULL);
 
-    pv_varg = allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
     assert(pv_varg != NULL);
     _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
@@ -607,7 +607,7 @@ multiset_iterator_t _multiset_upper_bound_varg(
 #endif
 
     _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
 
     _GET_CONTAINER(t_iter) = (multiset_t*)cpt_multiset;
@@ -636,7 +636,7 @@ range_t _multiset_equal_range_varg(const multiset_t* cpt_multiset, va_list val_e
 
     assert(cpt_multiset != NULL);
 
-    pv_varg = allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
     assert(pv_varg != NULL);
     _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
@@ -648,7 +648,7 @@ range_t _multiset_equal_range_varg(const multiset_t* cpt_multiset, va_list val_e
 #endif
 
     _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocater, pv_varg,
         _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
 
     _GET_CONTAINER(t_range.it_begin) = (multiset_t*)cpt_multiset;
@@ -764,7 +764,7 @@ multiset_iterator_t _multiset_insert_varg(multiset_t* pt_multiset, va_list val_e
 
     assert(pt_multiset != NULL);
 
-    pv_varg = allocate(&pt_multiset->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&pt_multiset->_t_tree._t_allocater,
         _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
     assert(pv_varg != NULL);
     _multiset_get_varg_value_auxiliary(pt_multiset, val_elemlist, pv_varg);
@@ -776,7 +776,7 @@ multiset_iterator_t _multiset_insert_varg(multiset_t* pt_multiset, va_list val_e
 #endif
 
     _multiset_destroy_varg_value_auxiliary(pt_multiset, pv_varg);
-    deallocate(&pt_multiset->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&pt_multiset->_t_tree._t_allocater, pv_varg,
         _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
 
     _GET_CONTAINER(t_iter) = pt_multiset;
@@ -806,7 +806,7 @@ multiset_iterator_t _multiset_insert_hint_varg(
 
     assert(pt_multiset != NULL);
 
-    pv_varg = allocate(&pt_multiset->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&pt_multiset->_t_tree._t_allocater,
         _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
     assert(pv_varg != NULL);
     _multiset_get_varg_value_auxiliary(pt_multiset, val_elemlist, pv_varg);
@@ -818,7 +818,7 @@ multiset_iterator_t _multiset_insert_hint_varg(
 #endif
 
     _multiset_destroy_varg_value_auxiliary(pt_multiset, pv_varg);
-    deallocate(&pt_multiset->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&pt_multiset->_t_tree._t_allocater, pv_varg,
         _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
 
     _GET_CONTAINER(t_hint) = pt_multiset;
@@ -898,7 +898,7 @@ size_t _multiset_erase_varg(multiset_t* pt_multiset, va_list val_elemlist)
 
     assert(pt_multiset != NULL);
 
-    pv_varg = allocate(&pt_multiset->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&pt_multiset->_t_tree._t_allocater,
         _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
     assert(pv_varg != NULL);
     _multiset_get_varg_value_auxiliary(pt_multiset, val_elemlist, pv_varg);
@@ -910,7 +910,7 @@ size_t _multiset_erase_varg(multiset_t* pt_multiset, va_list val_elemlist)
 #endif
 
     _multiset_destroy_varg_value_auxiliary(pt_multiset, pv_varg);
-    deallocate(&pt_multiset->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&pt_multiset->_t_tree._t_allocater, pv_varg,
         _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
 
     return t_count;

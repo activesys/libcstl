@@ -192,10 +192,10 @@ CPPFLAGS	src/Makefile	/^CPPFLAGS = $/;"	m
 CPPFLAGS	test/Makefile	/^CPPFLAGS = $/;"	m
 CPPFLAGS	test/it/Makefile	/^CPPFLAGS = $/;"	m
 CPPFLAGS	test/ut/Makefile	/^CPPFLAGS = $/;"	m
-CSTL_MAJOR_VERSION	cstl/cstl_def.h	48;"	d
-CSTL_MINOR_VERSION	cstl/cstl_def.h	49;"	d
-CSTL_REVISION_VERSION	cstl/cstl_def.h	50;"	d
-CSTL_VERSION	cstl/cstl_def.h	47;"	d
+CSTL_MAJOR_VERSION	cstl/cstl_def.h	62;"	d
+CSTL_MINOR_VERSION	cstl/cstl_def.h	63;"	d
+CSTL_REVISION_VERSION	cstl/cstl_def.h	64;"	d
+CSTL_VERSION	cstl/cstl_def.h	61;"	d
 CTAGS	Makefile	/^CTAGS = ctags$/;"	m
 CTAGS	build-win/Makefile	/^CTAGS = ctags$/;"	m
 CTAGS	cstl/Makefile	/^CTAGS = ctags$/;"	m
@@ -898,7 +898,9 @@ SUBDIRS	doc/Makefile	/^SUBDIRS = user$/;"	m
 SUBDIRS	test/Makefile	/^SUBDIRS = it ut$/;"	m
 TESTS	test/ut/Makefile	/^TESTS = $(check_PROGRAMS)$/;"	m
 TRUE	cstl/cstl_types.h	36;"	d
-UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	36;"	d
+UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	39;"	d
+UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	53;"	d
+UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	34;"	d
 VERSION	Makefile	/^VERSION = 2.0.1$/;"	m
 VERSION	build-win/Makefile	/^VERSION = 2.0.1$/;"	m
 VERSION	build-win/vc8/Makefile	/^VERSION = 2.0.1$/;"	m
@@ -1556,6 +1558,7 @@ _UNSIGNED_SHORT_INT_TYPE	cstl/cstl_types.h	50;"	d
 _UNSIGNED_SHORT_TYPE	cstl/cstl_types.h	51;"	d
 _UNSIGNED_TYPE	cstl/cstl_types.h	58;"	d
 _UT_CSTL_ALLOC_AUX_H	test/ut/ut_cstl_alloc_aux.h	2;"	d
+_UT_CSTL_ALLOC_H	test/ut/ut_cstl_alloc.h	2;"	d
 _VECTOR_CONTAINER	cstl/cstl_iterator.h	/^    _VECTOR_CONTAINER,$/;"	e	enum:_tagcontainertype
 _VECTOR_ITERATOR_TYPE	cstl/cstl_types.h	95;"	d
 _VECTOR_TYPE	cstl/cstl_types.h	76;"	d
@@ -1656,16 +1659,26 @@ _algo_upper_bound_if	cstl/cstl_algo_private.h	/^extern forward_iterator_t _algo_
 _algo_upper_bound_if	src/cstl_algo.c	/^forward_iterator_t _algo_upper_bound_if($/;"	f	signature:( forward_iterator_t t_first, forward_iterator_t t_last, binary_function_t t_binary_op, ...)
 _algo_upper_bound_if_varg	cstl/cstl_algo_private.h	/^extern forward_iterator_t _algo_upper_bound_if_varg($/;"	p	signature:( forward_iterator_t t_first, forward_iterator_t t_last, binary_function_t t_binary_op, va_list val_elemlist)
 _algo_upper_bound_if_varg	src/cstl_algo.c	/^forward_iterator_t _algo_upper_bound_if_varg($/;"	f	signature:( forward_iterator_t t_first, forward_iterator_t t_last, binary_function_t t_binary_op, va_list val_elemlist)
-_alloc_apply_formated_memory	src/cstl_alloc_aux.c	/^void _alloc_apply_formated_memory(alloc_t* pt_allocater, size_t t_allocsize)$/;"	f	signature:(alloc_t* pt_allocater, size_t t_allocsize)
-_alloc_apply_formated_memory	src/cstl_alloc_aux.h	/^extern void _alloc_apply_formated_memory(alloc_t* pt_allocater, size_t t_allocsize);$/;"	p	signature:(alloc_t* pt_allocater, size_t t_allocsize)
+_alloc_allocate	cstl/cstl_alloc.h	/^extern void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count);$/;"	p	signature:(alloc_t* pt_allocator, size_t t_size, size_t t_count)
+_alloc_allocate	src/cstl_alloc.c	/^void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count)$/;"	f	signature:(alloc_t* pt_allocator, size_t t_size, size_t t_count)
+_alloc_apply_formated_memory	src/cstl_alloc_aux.c	/^void _alloc_apply_formated_memory(alloc_t* pt_allocator, size_t t_allocsize)$/;"	f	signature:(alloc_t* pt_allocator, size_t t_allocsize)
+_alloc_apply_formated_memory	src/cstl_alloc_aux.h	/^extern void _alloc_apply_formated_memory(alloc_t* pt_allocator, size_t t_allocsize);$/;"	p	signature:(alloc_t* pt_allocator, size_t t_allocsize)
+_alloc_deallocate	cstl/cstl_alloc.h	/^extern void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count);$/;"	p	signature:(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
+_alloc_deallocate	src/cstl_alloc.c	/^void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)$/;"	f	signature:(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
+_alloc_destroy	cstl/cstl_alloc.h	/^extern void _alloc_destroy(alloc_t* pt_allocator);$/;"	p	signature:(alloc_t* pt_allocator)
+_alloc_destroy	src/cstl_alloc.c	/^void _alloc_destroy(alloc_t* pt_allocator)$/;"	f	signature:(alloc_t* pt_allocator)
 _alloc_free	src/cstl_alloc_aux.c	/^void _alloc_free(void* pv_allocmem)$/;"	f	signature:(void* pv_allocmem)
 _alloc_free	src/cstl_alloc_aux.h	/^extern void _alloc_free(void* pv_allocmem);$/;"	p	signature:(void* pv_allocmem)
-_alloc_get_memory_chunk	src/cstl_alloc_aux.c	/^char* _alloc_get_memory_chunk(alloc_t* pt_allocater, size_t t_allocsize, size_t* pt_alloccount)$/;"	f	signature:(alloc_t* pt_allocater, size_t t_allocsize, size_t* pt_alloccount)
-_alloc_get_memory_chunk	src/cstl_alloc_aux.h	/^extern char* _alloc_get_memory_chunk(alloc_t* pt_allocater, size_t t_allocsize, size_t* pt_alloccount);$/;"	p	signature:(alloc_t* pt_allocater, size_t t_allocsize, size_t* pt_alloccount)
+_alloc_get_memory_chunk	src/cstl_alloc_aux.c	/^char* _alloc_get_memory_chunk(alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount)$/;"	f	signature:(alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount)
+_alloc_get_memory_chunk	src/cstl_alloc_aux.h	/^extern char* _alloc_get_memory_chunk(alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount);$/;"	p	signature:(alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount)
+_alloc_init	cstl/cstl_alloc.h	/^extern void _alloc_init(alloc_t* pt_allocator);$/;"	p	signature:(alloc_t* pt_allocator)
+_alloc_init	src/cstl_alloc.c	/^void _alloc_init(alloc_t* pt_allocator)$/;"	f	signature:(alloc_t* pt_allocator)
 _alloc_malloc	src/cstl_alloc_aux.c	/^void* _alloc_malloc(size_t t_memsize)$/;"	f	signature:(size_t t_memsize)
 _alloc_malloc	src/cstl_alloc_aux.h	/^extern void* _alloc_malloc(size_t t_memsize);$/;"	p	signature:(size_t t_memsize)
 _alloc_malloc_out_of_memory	src/cstl_alloc_aux.c	/^void* _alloc_malloc_out_of_memory(size_t t_memsize)$/;"	f	signature:(size_t t_memsize)
 _alloc_malloc_out_of_memory	src/cstl_alloc_aux.h	/^extern void* _alloc_malloc_out_of_memory(size_t t_memsize);$/;"	p	signature:(size_t t_memsize)
+_alloc_set_malloc_handler	cstl/cstl_alloc.h	/^extern void (*_alloc_set_malloc_handler(void (*pfun_newhandler)(void)))(void);$/;"	p	signature:(void (*pfun_newhandler)(void))
+_alloc_set_malloc_handler	src/cstl_alloc.c	/^void (*_alloc_set_malloc_handler(void (*pfun_newhandler)(void)))(void)$/;"	f	signature:(void (*pfun_newhandler)(void))
 _apt_bucket	cstl/cstl_types.h	/^    _typenode_t*         _apt_bucket[_TYPE_REGISTER_BUCKET_COUNT]; \/* hash table *\/$/;"	m	struct:_tagtyperegister	access:public
 _apt_memlink	cstl/cstl_alloc.h	/^    _memlink_t* _apt_memlink[_MEM_LIST_COUNT];   \/* memory list *\/$/;"	m	struct:_tagalloc	access:public
 _avl_tree_assign	cstl/cstl_avl_tree_private.h	/^extern void _avl_tree_assign($/;"	p	signature:( avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src)
@@ -2096,7 +2109,6 @@ _fun_increase_ushort	cstl/cstl_function_private.h	/^extern void _fun_increase_us
 _fun_increase_ushort	src/cstl_function.c	/^void _fun_increase_ushort(const void* cpv_input, void* pv_output)$/;"	f	signature:(const void* cpv_input, void* pv_output)
 _fun_plus_string	test/it/test_numeric.c	/^static void _fun_plus_string(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _fun_plus_string	test/it/test_numeric.c	/^static void _fun_plus_string(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
-_g_pfun_defaultmallochandler	src/cstl_alloc_aux.c	/^void (*_g_pfun_defaultmallochandler)(void) = NULL;$/;"	v
 _get_color	src/cstl_rb_tree.c	/^static color_t _get_color(const rbnode_t* cpt_root)$/;"	f	file:	signature:(const rbnode_t* cpt_root)
 _get_color	src/cstl_rb_tree.c	/^static color_t _get_color(const rbnode_t* cpt_root);$/;"	p	file:	signature:(const rbnode_t* cpt_root)
 _get_height	src/cstl_avl_tree.c	/^static int _get_height(const avlnode_t* cpt_root)$/;"	f	file:	signature:(const avlnode_t* cpt_root)
@@ -2111,6 +2123,7 @@ _get_min_rbnode	src/cstl_rb_tree.c	/^static rbnode_t* _get_min_rbnode(const rbno
 _get_min_rbnode	src/cstl_rb_tree.c	/^static rbnode_t* _get_min_rbnode(const rbnode_t* cpt_root);$/;"	p	file:	signature:(const rbnode_t* cpt_root)
 _get_valuestring_len	src/cstl_basic_string.c	/^static size_t _get_valuestring_len($/;"	f	file:	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 _get_valuestring_len	src/cstl_basic_string.c	/^static size_t _get_valuestring_len($/;"	p	file:	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+_gpfun_malloc_handler	src/cstl_alloc_aux.c	/^void (*_gpfun_malloc_handler)(void) = NULL;$/;"	v
 _gt_typeanalysis	src/cstl_types.c	/^static _typeanalysis_t _gt_typeanalysis = {{'\\0'}, {'\\0'}, 0, _TOKEN_INVALID};$/;"	v	file:
 _gt_typeregister	src/cstl_types.c	/^static _typeregister_t _gt_typeregister = {false, {NULL}, {{NULL}, NULL, NULL, 0, 0, 0}};$/;"	v	file:
 _hash_map_at	cstl/cstl_hash_map_private.h	/^extern void* _hash_map_at(hash_map_t* pt_hash_map, ...);$/;"	p	signature:(hash_map_t* pt_hash_map, ...)
@@ -4344,15 +4357,6 @@ algo_unique_if	src/cstl_algo.c	/^forward_iterator_t algo_unique_if($/;"	f	signat
 algo_upper_bound	cstl/cstl_algo.h	98;"	d
 algo_upper_bound_if	cstl/cstl_algo.h	100;"	d
 alloc_t	cstl/cstl_alloc.h	/^}alloc_t;$/;"	t	typeref:struct:_tagalloc
-allocate	cstl/cstl_alloc.h	/^extern void* allocate(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount);$/;"	p	signature:(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount)
-allocate	src/cstl_alloc.c	/^void* allocate(alloc_t* \/* pt_allocater *\/, size_t t_typesize, int n_elemcount)$/;"	f	signature:(alloc_t* , size_t t_typesize, int n_elemcount)
-allocate	src/cstl_alloc.c	/^void* allocate(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount)$/;"	f	signature:(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount)
-allocate_destroy	cstl/cstl_alloc.h	/^extern void allocate_destroy(alloc_t* pt_allocater);$/;"	p	signature:(alloc_t* pt_allocater)
-allocate_destroy	src/cstl_alloc.c	/^void allocate_destroy(alloc_t* \/* pt_allocater *\/)$/;"	f	signature:(alloc_t* )
-allocate_destroy	src/cstl_alloc.c	/^void allocate_destroy(alloc_t* pt_allocater)$/;"	f	signature:(alloc_t* pt_allocater)
-allocate_init	cstl/cstl_alloc.h	/^extern void allocate_init(alloc_t* pt_allocater);$/;"	p	signature:(alloc_t* pt_allocater)
-allocate_init	src/cstl_alloc.c	/^void allocate_init(alloc_t* \/* pt_allocater *\/)$/;"	f	signature:(alloc_t* )
-allocate_init	src/cstl_alloc.c	/^void allocate_init(alloc_t* pt_allocater)$/;"	f	signature:(alloc_t* pt_allocater)
 am__CONFIG_DISTCLEAN_FILES	Makefile	/^am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \\$/;"	m
 am__aclocal_m4_deps	Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/configure.ac$/;"	m
 am__aclocal_m4_deps	build-win/Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/configure.ac$/;"	m
@@ -4502,8 +4506,8 @@ as_fn_set_status	configure	/^as_fn_set_status ()$/;"	f
 as_fn_success	configure	/^as_fn_success () { as_fn_return 0; }$/;"	f
 as_fn_unset	config.status	/^as_fn_unset ()$/;"	f
 as_fn_unset	configure	/^as_fn_unset ()$/;"	f
-assert	cstl/cstl_def.h	43;"	d
-assert	cstl/cstl_def.h	44;"	d
+assert	cstl/cstl_def.h	49;"	d
+assert	cstl/cstl_def.h	50;"	d
 avl_tree_iterator_t	cstl/cstl_avl_tree_iterator.h	/^typedef iterator_t avl_tree_iterator_t;$/;"	t
 avl_tree_reverse_iterator_t	cstl/cstl_avl_tree_iterator.h	/^typedef iterator_t avl_tree_reverse_iterator_t;$/;"	t
 avl_tree_t	cstl/cstl_avl_tree_private.h	/^}avl_tree_t;$/;"	t	typeref:struct:_tagavltree
@@ -4873,9 +4877,6 @@ datarootdir	src/Makefile	/^datarootdir = ${prefix}\/share$/;"	m
 datarootdir	test/Makefile	/^datarootdir = ${prefix}\/share$/;"	m
 datarootdir	test/it/Makefile	/^datarootdir = ${prefix}\/share$/;"	m
 datarootdir	test/ut/Makefile	/^datarootdir = ${prefix}\/share$/;"	m
-deallocate	cstl/cstl_alloc.h	/^extern void deallocate($/;"	p	signature:( alloc_t* pt_allocater, void* pv_allocmem, size_t t_typesize, int n_elemcount)
-deallocate	src/cstl_alloc.c	/^void deallocate($/;"	f	signature:( alloc_t* , void* pv_allocmem, size_t , int )
-deallocate	src/cstl_alloc.c	/^void deallocate($/;"	f	signature:( alloc_t* pt_allocater, void* pv_allocmem, size_t t_typesize, int n_elemcount)
 depcomp	src/Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/depcomp$/;"	m
 depcomp	test/it/Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/depcomp$/;"	m
 depcomp	test/ut/Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/depcomp$/;"	m
@@ -6214,6 +6215,7 @@ main	config.guess	/^	main ()$/;"	f
 main	config.guess	/^main ()$/;"	f
 main	test/it/test.c	/^int main(int argc, char* argv[])$/;"	f	signature:(int argc, char* argv[])
 main	test/ut/ut_main.c	/^int main(int argc, char* argv[])$/;"	f	signature:(int argc, char* argv[])
+malloc_handler	test/ut/ut_cstl_alloc_aux.c	/^static void malloc_handler(void){}$/;"	f	file:	signature:(void)
 mandir	Makefile	/^mandir = ${datarootdir}\/man$/;"	m
 mandir	build-win/Makefile	/^mandir = ${datarootdir}\/man$/;"	m
 mandir	build-win/vc8/Makefile	/^mandir = ${datarootdir}\/man$/;"	m
@@ -6315,7 +6317,7 @@ mkinstalldirs	src/Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
 mkinstalldirs	test/Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
 mkinstalldirs	test/it/Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
 mkinstalldirs	test/ut/Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
-mock_assert	cstl/cstl_def.h	/^    extern void mock_assert(const int result, const char* const expression, const char* const file, const int line);$/;"	p	signature:(const int result, const char* const expression, const char* const file, const int line)
+mock_assert	cstl/cstl_def.h	/^    extern void  mock_assert(const int result, const char* const expression, const char* const file, const int line);$/;"	p	signature:(const int result, const char* const expression, const char* const file, const int line)
 multimap_assign	cstl/cstl_multimap.h	/^extern void multimap_assign($/;"	p	signature:( multimap_t* pt_multimapdest, const multimap_t* cpt_multimapsrc)
 multimap_assign	src/cstl_multimap.c	/^void multimap_assign(multimap_t* pt_multimapdest, const multimap_t* cpt_multimapsrc)$/;"	f	signature:(multimap_t* pt_multimapdest, const multimap_t* cpt_multimapsrc)
 multimap_begin	cstl/cstl_multimap.h	/^extern multimap_iterator_t multimap_begin(const multimap_t* cpt_multimap);$/;"	p	signature:(const multimap_t* cpt_multimap)
@@ -6452,6 +6454,7 @@ multisetsample_t	test/it/test_set.c	/^typedef setsample_t multisetsample_t;$/;"	
 myiter_t	test/it/test_type.c	/^typedef output_iterator_t myiter_t;$/;"	t	file:
 mymacro	test/it/test_type.c	52;"	d	file:
 n_second	test/it/test_deque.c	/^    int    n_second;$/;"	m	struct:_tagdeqabc	file:	access:public
+new_handler	test/ut/ut_cstl_alloc.c	/^static void new_handler(void){}$/;"	f	file:	signature:(void)
 oldincludedir	Makefile	/^oldincludedir = \/usr\/include$/;"	m
 oldincludedir	build-win/Makefile	/^oldincludedir = \/usr\/include$/;"	m
 oldincludedir	build-win/vc8/Makefile	/^oldincludedir = \/usr\/include$/;"	m
@@ -6706,8 +6709,6 @@ set_less	src/cstl_set.c	/^bool_t set_less(const set_t* cpt_setfirst, const set_t
 set_less_equal	cstl/cstl_set.h	/^extern bool_t set_less_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);$/;"	p	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 set_less_equal	src/cstl_set.c	/^bool_t set_less_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)$/;"	f	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
 set_lower_bound	cstl/cstl_set.h	42;"	d
-set_malloc_handler	cstl/cstl_alloc.h	/^extern void (*set_malloc_handler(void (*pfun_newhandler)(void)))(void);$/;"	p	signature:(void (*pfun_newhandler)(void))
-set_malloc_handler	src/cstl_alloc.c	/^void (*set_malloc_handler(void (*pfun_newhandler)(void)))(void)$/;"	f	signature:(void (*pfun_newhandler)(void))
 set_max_size	cstl/cstl_set.h	/^extern size_t set_max_size(const set_t* cpt_set);$/;"	p	signature:(const set_t* cpt_set)
 set_max_size	src/cstl_set.c	/^size_t set_max_size(const set_t* cpt_set)$/;"	f	signature:(const set_t* cpt_set)
 set_not_equal	cstl/cstl_set.h	/^extern bool_t set_not_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond);$/;"	p	signature:(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
@@ -7143,14 +7144,34 @@ target_alias	src/Makefile	/^target_alias = $/;"	m
 target_alias	test/Makefile	/^target_alias = $/;"	m
 target_alias	test/it/Makefile	/^target_alias = $/;"	m
 target_alias	test/ut/Makefile	/^target_alias = $/;"	m
-test__alloc_apply_formated_memory__invalid_allocater	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_apply_formated_memory__invalid_allocater(void** state)$/;"	f	signature:(void** state)
-test__alloc_apply_formated_memory__invalid_allocater	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_apply_formated_memory__invalid_allocater(void** state);$/;"	p	signature:(void** state)
+test__alloc_allocate__greater_than_max_small_memory	test/ut/ut_cstl_alloc.c	/^void test__alloc_allocate__greater_than_max_small_memory(void** state)$/;"	f	signature:(void** state)
+test__alloc_allocate__greater_than_max_small_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_allocate__greater_than_max_small_memory(void** state);$/;"	p	signature:(void** state)
+test__alloc_allocate__invalid_alocator	test/ut/ut_cstl_alloc.c	/^void test__alloc_allocate__invalid_alocator(void** state)$/;"	f	signature:(void** state)
+test__alloc_allocate__invalid_alocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_allocate__invalid_alocator(void** state);$/;"	p	signature:(void** state)
+test__alloc_allocate__less_than_max_small_memory	test/ut/ut_cstl_alloc.c	/^void test__alloc_allocate__less_than_max_small_memory(void** state)$/;"	f	signature:(void** state)
+test__alloc_allocate__less_than_max_small_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_allocate__less_than_max_small_memory(void** state);$/;"	p	signature:(void** state)
+test__alloc_apply_formated_memory__invalid_allocator	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_apply_formated_memory__invalid_allocator(void** state)$/;"	f	signature:(void** state)
+test__alloc_apply_formated_memory__invalid_allocator	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_apply_formated_memory__invalid_allocator(void** state);$/;"	p	signature:(void** state)
 test__alloc_apply_formated_memory__success	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_apply_formated_memory__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_apply_formated_memory__success	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_apply_formated_memory__success(void** state);$/;"	p	signature:(void** state)
+test__alloc_deallocate__greater_than_max_small_memory	test/ut/ut_cstl_alloc.c	/^void test__alloc_deallocate__greater_than_max_small_memory(void** state)$/;"	f	signature:(void** state)
+test__alloc_deallocate__greater_than_max_small_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_deallocate__greater_than_max_small_memory(void** state);$/;"	p	signature:(void** state)
+test__alloc_deallocate__invalid_allocated_memory	test/ut/ut_cstl_alloc.c	/^void test__alloc_deallocate__invalid_allocated_memory(void** state)$/;"	f	signature:(void** state)
+test__alloc_deallocate__invalid_allocated_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_deallocate__invalid_allocated_memory(void** state);$/;"	p	signature:(void** state)
+test__alloc_deallocate__invalid_allocator	test/ut/ut_cstl_alloc.c	/^void test__alloc_deallocate__invalid_allocator(void** state)$/;"	f	signature:(void** state)
+test__alloc_deallocate__invalid_allocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_deallocate__invalid_allocator(void** state);$/;"	p	signature:(void** state)
+test__alloc_deallocate__less_than_max_small_memory	test/ut/ut_cstl_alloc.c	/^void test__alloc_deallocate__less_than_max_small_memory(void** state)$/;"	f	signature:(void** state)
+test__alloc_deallocate__less_than_max_small_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_deallocate__less_than_max_small_memory(void** state);$/;"	p	signature:(void** state)
+test__alloc_destroy__invalid_allocator	test/ut/ut_cstl_alloc.c	/^void test__alloc_destroy__invalid_allocator(void** state)$/;"	f	signature:(void** state)
+test__alloc_destroy__invalid_allocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_destroy__invalid_allocator(void** state);$/;"	p	signature:(void** state)
+test__alloc_destroy__success	test/ut/ut_cstl_alloc.c	/^void test__alloc_destroy__success(void** state)$/;"	f	signature:(void** state)
+test__alloc_destroy__success	test/ut/ut_cstl_alloc.h	/^void test__alloc_destroy__success(void** state);$/;"	p	signature:(void** state)
+test__alloc_destroy__success_after_allocate	test/ut/ut_cstl_alloc.c	/^void test__alloc_destroy__success_after_allocate(void** state)$/;"	f	signature:(void** state)
+test__alloc_destroy__success_after_allocate	test/ut/ut_cstl_alloc.h	/^void test__alloc_destroy__success_after_allocate(void** state);$/;"	p	signature:(void** state)
 test__alloc_free__invalid_memory	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_free__invalid_memory(void** state)$/;"	f	signature:(void** state)
 test__alloc_free__invalid_memory	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_free__invalid_memory(void** state);$/;"	p	signature:(void** state)
-test__alloc_get_memory_chunk__invalid_allocater	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_get_memory_chunk__invalid_allocater(void** state)$/;"	f	signature:(void** state)
-test__alloc_get_memory_chunk__invalid_allocater	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_get_memory_chunk__invalid_allocater(void** state);$/;"	p	signature:(void** state)
+test__alloc_get_memory_chunk__invalid_allocator	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_get_memory_chunk__invalid_allocator(void** state)$/;"	f	signature:(void** state)
+test__alloc_get_memory_chunk__invalid_allocator	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_get_memory_chunk__invalid_allocator(void** state);$/;"	p	signature:(void** state)
 test__alloc_get_memory_chunk__invalid_alloccount	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_get_memory_chunk__invalid_alloccount(void** state)$/;"	f	signature:(void** state)
 test__alloc_get_memory_chunk__invalid_alloccount	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_get_memory_chunk__invalid_alloccount(void** state);$/;"	p	signature:(void** state)
 test__alloc_get_memory_chunk__memory_pool_less_than_total_size_greater_than_one_size	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_get_memory_chunk__memory_pool_less_than_total_size_greater_than_one_size(void** state)$/;"	f	signature:(void** state)
@@ -7163,10 +7184,18 @@ test__alloc_get_memory_chunk__reallocate_memory_pool_container	test/ut/ut_cstl_a
 test__alloc_get_memory_chunk__reallocate_memory_pool_container	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_get_memory_chunk__reallocate_memory_pool_container(void** state);$/;"	p	signature:(void** state)
 test__alloc_get_memory_chunk__total_size_less_than_memory_pool	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_get_memory_chunk__total_size_less_than_memory_pool(void** state)$/;"	f	signature:(void** state)
 test__alloc_get_memory_chunk__total_size_less_than_memory_pool	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_get_memory_chunk__total_size_less_than_memory_pool(void** state);$/;"	p	signature:(void** state)
+test__alloc_init__invalid_allocator	test/ut/ut_cstl_alloc.c	/^void test__alloc_init__invalid_allocator(void** state)$/;"	f	signature:(void** state)
+test__alloc_init__invalid_allocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_init__invalid_allocator(void** state);$/;"	p	signature:(void** state)
+test__alloc_init__success	test/ut/ut_cstl_alloc.c	/^void test__alloc_init__success(void** state)$/;"	f	signature:(void** state)
+test__alloc_init__success	test/ut/ut_cstl_alloc.h	/^void test__alloc_init__success(void** state);$/;"	p	signature:(void** state)
 test__alloc_malloc__success	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_malloc__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_malloc__success	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_malloc__success(void** state);$/;"	p	signature:(void** state)
 test__alloc_malloc_out_of_memory__success	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_malloc_out_of_memory__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_malloc_out_of_memory__success	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_malloc_out_of_memory__success(void** state);$/;"	p	signature:(void** state)
+test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.c	/^void test__alloc_set_malloc_handler___delete_handler(void** state)$/;"	f	signature:(void** state)
+test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___delete_handler(void** state);$/;"	p	signature:(void** state)
+test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.c	/^void test__alloc_set_malloc_handler___new_handler(void** state)$/;"	f	signature:(void** state)
+test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___new_handler(void** state);$/;"	p	signature:(void** state)
 test_algo	test/it/test_algo.c	/^void test_algo(void)$/;"	f	signature:(void)
 test_algo	test/it/test_algo.h	/^extern void test_algo(void);$/;"	p	signature:(void)
 test_algobase	test/it/test_algobase.c	/^void test_algobase(void)$/;"	f	signature:(void)
@@ -7282,7 +7311,7 @@ type_duplicate	cstl/cstl_types.h	236;"	d
 type_register	cstl/cstl_types.h	232;"	d
 type_unregister	cstl/cstl_types.h	234;"	d
 unary_function_t	cstl/cstl_types.h	/^typedef void (*unary_function_t)(const void*, void*);$/;"	t
-ut_CPPFLAGS	test/ut/Makefile	/^ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)\/..\/.. -I$(srcdir)\/..\/..\/src$/;"	m
+ut_CPPFLAGS	test/ut/Makefile	/^ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)\/..\/.. -I$(srcdir)\/..\/..\/src -D_CSTL_USER_MODEL$/;"	m
 ut_LDADD	test/ut/Makefile	/^ut_LDADD = $(LDADD)$/;"	m
 ut_LDFLAGS	test/ut/Makefile	/^ut_LDFLAGS = -lcmockery$/;"	m
 ut_LINK	test/ut/Makefile	/^ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \\$/;"	m

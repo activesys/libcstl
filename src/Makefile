@@ -115,7 +115,7 @@ AUTOMAKE = ${SHELL} /home/wb/project/libcstl/trunk/missing --run automake-1.11
 AWK = gawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2
+CFLAGS = -g
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo

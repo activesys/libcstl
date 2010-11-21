@@ -428,7 +428,7 @@ hash_multiset_iterator_t _hash_multiset_find_varg(
 
     assert(cpt_hash_multiset != NULL);
 
-    pv_varg = allocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater,
         _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
     assert(pv_varg != NULL);
     _hash_multiset_get_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset,
@@ -437,7 +437,7 @@ hash_multiset_iterator_t _hash_multiset_find_varg(
     t_iter = _hashtable_find(&cpt_hash_multiset->_t_hashtable, pv_varg);
 
     _hash_multiset_destroy_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset, pv_varg);
-    deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
         _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
 
     _GET_CONTAINER(t_iter) = (hash_multiset_t*)cpt_hash_multiset;
@@ -467,7 +467,7 @@ size_t _hash_multiset_count_varg(
 
     assert(cpt_hash_multiset != NULL);
 
-    pv_varg = allocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater,
         _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
     assert(pv_varg != NULL);
     _hash_multiset_get_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset,
@@ -476,7 +476,7 @@ size_t _hash_multiset_count_varg(
     t_count = _hashtable_count(&cpt_hash_multiset->_t_hashtable, pv_varg);
 
     _hash_multiset_destroy_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset, pv_varg);
-    deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
         _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
 
     return t_count;
@@ -502,7 +502,7 @@ range_t _hash_multiset_equal_range_varg(
 
     assert(cpt_hash_multiset != NULL);
 
-    pv_varg = allocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater,
         _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
     assert(pv_varg != NULL);
     _hash_multiset_get_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset,
@@ -511,7 +511,7 @@ range_t _hash_multiset_equal_range_varg(
     t_range = _hashtable_equal_range(&cpt_hash_multiset->_t_hashtable, pv_varg);
 
     _hash_multiset_destroy_varg_value_auxiliary((hash_multiset_t*)cpt_hash_multiset, pv_varg);
-    deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&((hash_multiset_t*)cpt_hash_multiset)->_t_hashtable._t_allocater, pv_varg,
         _GET_HASH_MULTISET_TYPE_SIZE(cpt_hash_multiset), 1);
 
     _GET_CONTAINER(t_range.it_begin) = (hash_multiset_t*)cpt_hash_multiset;
@@ -545,7 +545,7 @@ hash_multiset_iterator_t _hash_multiset_insert_varg(
 
     assert(pt_hash_multiset != NULL);
 
-    pv_varg = allocate(&pt_hash_multiset->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&pt_hash_multiset->_t_hashtable._t_allocater,
         _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset), 1);
     assert(pv_varg != NULL);
     _hash_multiset_get_varg_value_auxiliary(pt_hash_multiset, val_elemlist, pv_varg);
@@ -553,7 +553,7 @@ hash_multiset_iterator_t _hash_multiset_insert_varg(
     t_iter = _hashtable_insert_equal(&pt_hash_multiset->_t_hashtable, pv_varg);
 
     _hash_multiset_destroy_varg_value_auxiliary(pt_hash_multiset, pv_varg);
-    deallocate(&pt_hash_multiset->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&pt_hash_multiset->_t_hashtable._t_allocater, pv_varg,
         _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset), 1);
 
     _GET_CONTAINER(t_iter) = pt_hash_multiset;
@@ -623,7 +623,7 @@ size_t _hash_multiset_erase_varg(hash_multiset_t* pt_hash_multiset, va_list val_
 
     assert(pt_hash_multiset != NULL);
 
-    pv_varg = allocate(&pt_hash_multiset->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&pt_hash_multiset->_t_hashtable._t_allocater,
         _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset), 1);
     assert(pv_varg != NULL);
     _hash_multiset_get_varg_value_auxiliary(pt_hash_multiset, val_elemlist, pv_varg);
@@ -631,7 +631,7 @@ size_t _hash_multiset_erase_varg(hash_multiset_t* pt_hash_multiset, va_list val_
     t_count = _hashtable_erase(&pt_hash_multiset->_t_hashtable, pv_varg);
 
     _hash_multiset_destroy_varg_value_auxiliary(pt_hash_multiset, pv_varg);
-    deallocate(&pt_hash_multiset->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&pt_hash_multiset->_t_hashtable._t_allocater, pv_varg,
         _GET_HASH_MULTISET_TYPE_SIZE(pt_hash_multiset), 1);
 
     return t_count;

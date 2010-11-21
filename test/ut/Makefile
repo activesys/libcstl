@@ -45,7 +45,8 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-cstl_alloc_aux.$(OBJEXT) \
-	ut-ut_cstl_alloc_aux.$(OBJEXT) ut-cstl_alloc.$(OBJEXT)
+	ut-cstl_alloc.$(OBJEXT) ut-ut_cstl_alloc_aux.$(OBJEXT) \
+	ut-ut_cstl_alloc.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -80,7 +81,7 @@ AUTOMAKE = ${SHELL} /home/wb/project/libcstl/trunk/missing --run automake-1.11
 AWK = gawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2
+CFLAGS = -g
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -182,9 +183,11 @@ top_build_prefix = ../../
 top_builddir = ../..
 top_srcdir = ../..
 ut_SOURCES = ut_main.c \
-	     $(srcdir)/../../src/cstl_alloc_aux.c ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h $(srcdir)/../../src/cstl_alloc.c
+	     $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
+	     ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
+	     ut_cstl_alloc.c ut_cstl_alloc.h
 
-ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
+ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src -D_CSTL_USER_MODEL
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)
 CLEANFILES = core.*
@@ -243,6 +246,7 @@ distclean-compile:
 
 include ./$(DEPDIR)/ut-cstl_alloc.Po
 include ./$(DEPDIR)/ut-cstl_alloc_aux.Po
+include ./$(DEPDIR)/ut-ut_cstl_alloc.Po
 include ./$(DEPDIR)/ut-ut_cstl_alloc_aux.Po
 include ./$(DEPDIR)/ut-ut_main.Po
 
@@ -295,6 +299,20 @@ ut-cstl_alloc_aux.obj: $(srcdir)/../../src/cstl_alloc_aux.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_alloc_aux.obj `if test -f '$(srcdir)/../../src/cstl_alloc_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc_aux.c'; fi`
 
+ut-cstl_alloc.o: $(srcdir)/../../src/cstl_alloc.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_alloc.o -MD -MP -MF $(DEPDIR)/ut-cstl_alloc.Tpo -c -o ut-cstl_alloc.o `test -f '$(srcdir)/../../src/cstl_alloc.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc.c
+	$(am__mv) $(DEPDIR)/ut-cstl_alloc.Tpo $(DEPDIR)/ut-cstl_alloc.Po
+#	source='$(srcdir)/../../src/cstl_alloc.c' object='ut-cstl_alloc.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_alloc.o `test -f '$(srcdir)/../../src/cstl_alloc.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc.c
+
+ut-cstl_alloc.obj: $(srcdir)/../../src/cstl_alloc.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_alloc.obj -MD -MP -MF $(DEPDIR)/ut-cstl_alloc.Tpo -c -o ut-cstl_alloc.obj `if test -f '$(srcdir)/../../src/cstl_alloc.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_alloc.Tpo $(DEPDIR)/ut-cstl_alloc.Po
+#	source='$(srcdir)/../../src/cstl_alloc.c' object='ut-cstl_alloc.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_alloc.obj `if test -f '$(srcdir)/../../src/cstl_alloc.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc.c'; fi`
+
 ut-ut_cstl_alloc_aux.o: ut_cstl_alloc_aux.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo -c -o ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
 	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/ut-ut_cstl_alloc_aux.Po
@@ -309,19 +327,19 @@ ut-ut_cstl_alloc_aux.obj: ut_cstl_alloc_aux.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc_aux.obj `if test -f 'ut_cstl_alloc_aux.c'; then $(CYGPATH_W) 'ut_cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc_aux.c'; fi`
 
-ut-cstl_alloc.o: $(srcdir)/../../src/cstl_alloc.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_alloc.o -MD -MP -MF $(DEPDIR)/ut-cstl_alloc.Tpo -c -o ut-cstl_alloc.o `test -f '$(srcdir)/../../src/cstl_alloc.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc.c
-	$(am__mv) $(DEPDIR)/ut-cstl_alloc.Tpo $(DEPDIR)/ut-cstl_alloc.Po
-#	source='$(srcdir)/../../src/cstl_alloc.c' object='ut-cstl_alloc.o' libtool=no \
+ut-ut_cstl_alloc.o: ut_cstl_alloc.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc.Tpo -c -o ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc.Tpo $(DEPDIR)/ut-ut_cstl_alloc.Po
+#	source='ut_cstl_alloc.c' object='ut-ut_cstl_alloc.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_alloc.o `test -f '$(srcdir)/../../src/cstl_alloc.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
 
-ut-cstl_alloc.obj: $(srcdir)/../../src/cstl_alloc.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_alloc.obj -MD -MP -MF $(DEPDIR)/ut-cstl_alloc.Tpo -c -o ut-cstl_alloc.obj `if test -f '$(srcdir)/../../src/cstl_alloc.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_alloc.Tpo $(DEPDIR)/ut-cstl_alloc.Po
-#	source='$(srcdir)/../../src/cstl_alloc.c' object='ut-cstl_alloc.obj' libtool=no \
+ut-ut_cstl_alloc.obj: ut_cstl_alloc.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc.Tpo -c -o ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc.Tpo $(DEPDIR)/ut-ut_cstl_alloc.Po
+#	source='ut_cstl_alloc.c' object='ut-ut_cstl_alloc.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_alloc.obj `if test -f '$(srcdir)/../../src/cstl_alloc.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

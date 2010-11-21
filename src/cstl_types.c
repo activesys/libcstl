@@ -55,7 +55,7 @@
     size_t       t_pos = 0
 #define _TYPE_REGISTER_TYPE(type, type_text, type_suffix)\
     do{\
-        pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);\
+        pt_type = (_type_t*)_alloc_allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);\
         assert(pt_type != NULL);\
         pt_type->_t_typesize = sizeof(type);\
         memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
@@ -67,7 +67,7 @@
     }while(false)
 #define _TYPE_REGISTER_TYPE_NODE(type, type_text)\
     do{\
-        pt_node = (_typenode_t*)allocate(\
+        pt_node = (_typenode_t*)_alloc_allocate(\
             &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);\
         assert(pt_node != NULL);\
         memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
@@ -618,9 +618,9 @@ bool_t _type_register(
     else
     {
         size_t t_pos = 0;
-        _typenode_t* pt_node = (_typenode_t*)allocate(
+        _typenode_t* pt_node = (_typenode_t*)_alloc_allocate(
             &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-        _type_t* pt_type = (_type_t*)allocate(
+        _type_t* pt_type = (_type_t*)_alloc_allocate(
             &_gt_typeregister._t_allocator, sizeof(_type_t), 1);
 
         memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
@@ -680,7 +680,7 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
                     if(pt_curnode == _gt_typeregister._apt_bucket[t_i])
                     {
                         _gt_typeregister._apt_bucket[t_i] = pt_curnode->_pt_next;
-                        deallocate(&_gt_typeregister._t_allocator,
+                        _alloc_deallocate(&_gt_typeregister._t_allocator,
                             pt_curnode, sizeof(_typenode_t), 1);
                         pt_curnode = pt_prevnode = _gt_typeregister._apt_bucket[t_i];
                     }
@@ -688,7 +688,7 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
                     {
                         assert(pt_prevnode->_pt_next == pt_curnode);
                         pt_prevnode->_pt_next = pt_curnode->_pt_next;
-                        deallocate(&_gt_typeregister._t_allocator,
+                        _alloc_deallocate(&_gt_typeregister._t_allocator,
                             pt_curnode, sizeof(_typenode_t), 1);
                         pt_curnode = pt_prevnode->_pt_next;
                     }
@@ -710,7 +710,7 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
             }
         }
 
-        deallocate(&_gt_typeregister._t_allocator, pt_type, sizeof(_type_t), 1);
+        _alloc_deallocate(&_gt_typeregister._t_allocator, pt_type, sizeof(_type_t), 1);
     }
 }
 */
@@ -774,7 +774,7 @@ bool_t _type_duplicate(
         }
 
         /* malloc typenode for unregistered type */
-        pt_duplicate = (_typenode_t*)allocate(
+        pt_duplicate = (_typenode_t*)_alloc_allocate(
             &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
         memset(pt_duplicate->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
         strncpy(pt_duplicate->_sz_typename, s_duplicatename, _TYPE_NAME_SIZE);
@@ -2499,7 +2499,7 @@ static void _type_init(void)
         _gt_typeregister._apt_bucket[t_i] = NULL;
     }
     /* init allocator */
-    allocate_init(&_gt_typeregister._t_allocator);
+    _alloc_init(&_gt_typeregister._t_allocator);
 
     _type_register_c_builtin();
     _type_register_cstl_builtin();

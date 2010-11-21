@@ -316,7 +316,7 @@ void slist_init_n(slist_t* pt_slist, size_t t_count)
     assert(pt_slist != NULL && pt_slist->_t_head._pt_next == NULL);
 
     /* initialize the allocator */
-    allocate_init(&pt_slist->_t_allocater);
+    _alloc_init(&pt_slist->_t_allocater);
 
     /* allocate memory for n_elemcount slist node */
     if(t_count > 0)
@@ -326,7 +326,7 @@ void slist_init_n(slist_t* pt_slist, size_t t_count)
 
         for(t_index = 0; t_index < t_count; ++t_index)
         {
-            pt_slistnode = allocate(&pt_slist->_t_allocater,
+            pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
                 _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
             assert(pt_slistnode != NULL);
             _slist_init_node_auxiliary(pt_slist, pt_slistnode);
@@ -356,7 +356,7 @@ void _slist_init_elem_varg(slist_t* pt_slist, size_t t_count, va_list val_elemli
     assert(pt_slist != NULL && pt_slist->_t_head._pt_next == NULL);
 
     /* initialize the allocator */
-    allocate_init(&pt_slist->_t_allocater);
+    _alloc_init(&pt_slist->_t_allocater);
 
     /* allocate memory for n_elemcount slist node */
     if(t_count > 0)
@@ -365,14 +365,14 @@ void _slist_init_elem_varg(slist_t* pt_slist, size_t t_count, va_list val_elemli
         slistnode_t* pt_slistnode = NULL;
 
         /* get varg value only once */
-        pt_varg = allocate(&pt_slist->_t_allocater,
+        pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
             _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
         assert(pt_varg != NULL);
         _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
 
         for(t_index = 0; t_index < t_count; ++t_index)
         {
-            pt_slistnode = allocate(&pt_slist->_t_allocater,
+            pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
                 _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
             assert(pt_slistnode != NULL);
             _slist_init_node_auxiliary(pt_slist, pt_slistnode);
@@ -389,7 +389,7 @@ void _slist_init_elem_varg(slist_t* pt_slist, size_t t_count, va_list val_elemli
         }
 
         _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-        deallocate(&pt_slist->_t_allocater, pt_varg,
+        _alloc_deallocate(&pt_slist->_t_allocater, pt_varg,
             _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
     }
 }
@@ -408,7 +408,7 @@ void _slist_destroy_auxiliary(slist_t* pt_slist)
     /* test the pt_slist is valid */
     assert(pt_slist != NULL);
 
-    /* deallocate all nodes in slist */
+    /* _alloc_deallocate all nodes in slist */
     while(pt_slist->_t_head._pt_next != NULL)
     {
         pt_slistnode = pt_slist->_t_head._pt_next;
@@ -420,13 +420,13 @@ void _slist_destroy_auxiliary(slist_t* pt_slist)
         t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
         _GET_SLIST_TYPE_DESTROY_FUNCTION(pt_slist)(pt_slistnode->_pc_data, &t_result);
         assert(t_result);
-        deallocate(&pt_slist->_t_allocater, pt_slistnode, 
+        _alloc_deallocate(&pt_slist->_t_allocater, pt_slistnode, 
             _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
         pt_slistnode = NULL;
     }
 
-    /* deallocate the allocator */
-    allocate_destroy(&pt_slist->_t_allocater);
+    /* _alloc_deallocate the allocator */
+    _alloc_destroy(&pt_slist->_t_allocater);
 }
 
 slist_iterator_t slist_begin(const slist_t* cpt_slist)
@@ -557,7 +557,7 @@ void _slist_assign_elem_varg(slist_t* pt_slist, size_t t_count, va_list val_elem
     slist_resize(pt_slist, t_count);
 
     /* get varg value */
-    pt_varg = allocate(&pt_slist->_t_allocater,
+    pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
         _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
     assert(pt_varg != NULL);
     _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
@@ -576,7 +576,7 @@ void _slist_assign_elem_varg(slist_t* pt_slist, size_t t_count, va_list val_elem
 
     /* destroy varg value */
     _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-    deallocate(&pt_slist->_t_allocater, pt_varg,
+    _alloc_deallocate(&pt_slist->_t_allocater, pt_varg,
         _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
 }
 
@@ -651,7 +651,7 @@ void _slist_push_front_varg(slist_t* pt_slist, va_list val_elemlist)
     assert(pt_slist != NULL);
 
     /* allocate memory for new element and copy the element from elemlist */
-    pt_slistnode = allocate(&pt_slist->_t_allocater,
+    pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
         _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
     assert(pt_slistnode != NULL);
     _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_slistnode);
@@ -677,7 +677,7 @@ void slist_pop_front(slist_t* pt_slist)
     t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
     _GET_SLIST_TYPE_DESTROY_FUNCTION(pt_slist)(pt_slistnode->_pc_data, &t_result);
     assert(t_result);
-    deallocate(&pt_slist->_t_allocater, pt_slistnode, 
+    _alloc_deallocate(&pt_slist->_t_allocater, pt_slistnode, 
         _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
 }
 
@@ -800,7 +800,7 @@ void _slist_insert_after_n_varg(
     assert(!iterator_equal(t_pos, slist_end(pt_slist)));
 
     /* get varg value only once */
-    pt_varg = allocate(&pt_slist->_t_allocater,
+    pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
         _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
     assert(pt_varg != NULL);
     _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
@@ -808,7 +808,7 @@ void _slist_insert_after_n_varg(
     for(t_index = 0; t_index < t_count; ++t_index)
     {
         /* allocate slist node */
-        pt_slistnode = allocate(&pt_slist->_t_allocater,
+        pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
             _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
         assert(pt_slistnode != NULL);
         _slist_init_node_auxiliary(pt_slist, pt_slistnode);
@@ -827,7 +827,7 @@ void _slist_insert_after_n_varg(
 
     /* destroy varg value */
     _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-    deallocate(&pt_slist->_t_allocater, pt_varg,
+    _alloc_deallocate(&pt_slist->_t_allocater, pt_varg,
         _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
 }
 
@@ -853,7 +853,7 @@ void slist_insert_range(
 
         for(t_iter= t_begin; !iterator_equal(t_iter, t_end); t_iter= iterator_next(t_iter))
         {
-            pt_slistnode = allocate(&pt_slist->_t_allocater,
+            pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
                 _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
             assert(pt_slistnode != NULL);
             _slist_init_node_auxiliary(pt_slist, pt_slistnode);
@@ -913,7 +913,7 @@ void slist_insert_after_range(
     /* allocate new elements and copy the element from range */
     for(t_iter= t_begin; !iterator_equal(t_iter, t_end); t_iter = iterator_next(t_iter))
     {
-        pt_slistnode = allocate(&pt_slist->_t_allocater,
+        pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
             _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
         assert(pt_slistnode != NULL);
         _slist_init_node_auxiliary(pt_slist, pt_slistnode);
@@ -968,7 +968,7 @@ slist_iterator_t slist_erase_after(slist_t* pt_slist, slist_iterator_t t_pos)
         t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
         _GET_SLIST_TYPE_DESTROY_FUNCTION(pt_slist)(pt_slistnode->_pc_data, &t_result);
         assert(t_result);
-        deallocate(&pt_slist->_t_allocater, pt_slistnode, 
+        _alloc_deallocate(&pt_slist->_t_allocater, pt_slistnode, 
             _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
 
         t_pos = iterator_next(t_pos);
@@ -1058,7 +1058,7 @@ slist_iterator_t slist_erase_after_range(
             t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
             _GET_SLIST_TYPE_DESTROY_FUNCTION(pt_slist)(pt_iter->_pc_data, &t_result);
             assert(t_result);
-            deallocate(&pt_slist->_t_allocater, pt_iter,
+            _alloc_deallocate(&pt_slist->_t_allocater, pt_iter,
                 _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
 
             pt_iter = pt_begin;
@@ -1197,7 +1197,7 @@ void _slist_remove_varg(slist_t* pt_slist, va_list val_elemlist)
     /* test the pointer is valid */
     assert(pt_slist != NULL);
 
-    pt_varg = allocate(&pt_slist->_t_allocater,
+    pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
         _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
     assert(pt_varg != NULL);
     _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
@@ -1221,7 +1221,7 @@ void _slist_remove_varg(slist_t* pt_slist, va_list val_elemlist)
     }
 
     _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-    deallocate(&pt_slist->_t_allocater, pt_varg,
+    _alloc_deallocate(&pt_slist->_t_allocater, pt_varg,
         _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
 }
 
@@ -1573,14 +1573,14 @@ void _slist_resize_elem_varg(slist_t* pt_slist, size_t t_resize, va_list val_ele
         }
 
         /* get varg value only once */
-        pt_varg = allocate(&pt_slist->_t_allocater,
+        pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
             _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
         assert(pt_varg != NULL);
         _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
 
         for(t_index = 0; t_index < t_resize - t_slistsize; ++t_index)
         {
-            pt_slistnode = allocate(&pt_slist->_t_allocater,
+            pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
                 _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
             assert(pt_slistnode != NULL);
             _slist_init_node_auxiliary(pt_slist, pt_slistnode);
@@ -1597,7 +1597,7 @@ void _slist_resize_elem_varg(slist_t* pt_slist, size_t t_resize, va_list val_ele
         }
 
         _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-        deallocate(&pt_slist->_t_allocater, pt_varg, 
+        _alloc_deallocate(&pt_slist->_t_allocater, pt_varg, 
             _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
     }
 }
@@ -1640,7 +1640,7 @@ void slist_resize(slist_t* pt_slist, size_t t_resize)
 
         for(t_index = 0; t_index < t_resize - t_slistsize; ++t_index)
         {
-            pt_slistnode = allocate(&pt_slist->_t_allocater,
+            pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
                 _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
             assert(pt_slistnode != NULL);
             _slist_init_node_auxiliary(pt_slist, pt_slistnode);
