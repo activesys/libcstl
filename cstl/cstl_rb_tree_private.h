@@ -65,7 +65,7 @@ typedef struct _tagrbtree
     _typeinfo_t       _t_typeinfo;
 
     /* memory allocate */
-    alloc_t           _t_allocater;
+    _alloc_t          _t_allocater;
 
     /* rb tree node */
     rbnode_t          _t_rbroot;

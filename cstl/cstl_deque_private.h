@@ -40,7 +40,7 @@ typedef struct _tagdeque
     _typeinfo_t      _t_typeinfo;
 
     /* memory allocate */
-    alloc_t          _t_allocater;
+    _alloc_t         _t_allocater;
 
     /* the element manager map and size */
     _mappointer_t    _ppc_map;

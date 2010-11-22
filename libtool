@@ -2,7 +2,7 @@
 
 # libtool - Provide generalized library-building support services.
 # Generated automatically by config.status (libcstl) 2.0.1
-# Libtool was configured on host ActiveServer:
+# Libtool was configured on host ActiveSys:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 #
 #   Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005,
@@ -63,12 +63,12 @@ ECHO="printf %s\\n"
 
 # The host system.
 host_alias=
-host=x86_64-unknown-linux-gnu
+host=i686-pc-linux-gnu
 host_os=linux-gnu
 
 # The build system.
 build_alias=
-build=x86_64-unknown-linux-gnu
+build=i686-pc-linux-gnu
 build_os=linux-gnu
 
 # A sed program that does not truncate output.
@@ -93,7 +93,7 @@ NM="/usr/bin/nm -B"
 LN_S="ln -s"
 
 # What is the maximum length of a command?
-max_cmd_len=1966080
+max_cmd_len=1572864
 
 # Object file suffix (normally "o").
 objext=o
@@ -237,10 +237,10 @@ finish_eval=""
 hardcode_into_libs=yes
 
 # Compile-time system search path for libraries.
-sys_lib_search_path_spec="/usr/lib/gcc/x86_64-redhat-linux/4.4.4 /usr/lib64 /lib64 "
+sys_lib_search_path_spec="/usr/lib/gcc/i686-redhat-linux/4.5.1 /usr/lib /lib "
 
 # Run-time system search path for libraries.
-sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib /usr/lib64/ctapi /usr/lib64/news/lib /usr/lib64/mysql /usr/lib64/qt-3.3/lib /usr/lib64/tcl8.5 /usr/lib64/xulrunner-1.9.1 "
+sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib /usr/lib/atlas /usr/lib/ctapi /usr/lib/mysql /usr/lib/qt-3.3/lib /usr/lib/tcl8.5 /usr/lib/xulrunner-1.9.2 "
 
 # Whether dlopen is supported.
 dlopen_support=unknown
@@ -257,7 +257,7 @@ striplib="strip --strip-unneeded"
 
 
 # The linker used to build libraries.
-LD="/usr/bin/ld -m elf_x86_64"
+LD="/usr/bin/ld"
 
 # How to create reloadable object files.
 reload_flag=" -r"

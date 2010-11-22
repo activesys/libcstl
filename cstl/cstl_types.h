@@ -210,7 +210,7 @@ typedef struct _tagtyperegister
 {
     bool_t               _t_isinit; /* is initializate for built in types */
     _typenode_t*         _apt_bucket[_TYPE_REGISTER_BUCKET_COUNT]; /* hash table */
-    alloc_t              _t_allocator;
+    _alloc_t             _t_allocator;
 }_typeregister_t;
 
 /* type style */

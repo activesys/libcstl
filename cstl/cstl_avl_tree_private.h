@@ -61,7 +61,7 @@ typedef struct _tagavltree
     _typeinfo_t      _t_typeinfo;
 
     /* memory allocate */
-    alloc_t          _t_allocater;
+    _alloc_t         _t_allocater;
 
     /* avl tree node */
     avlnode_t        _t_avlroot;

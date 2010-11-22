@@ -1678,7 +1678,7 @@ static _insert_result_t _insert_avlnode(
     /* if root is NULL then allocate memory */
     if(pt_root == NULL)
     {
-        pt_root = _alloc_allocate((alloc_t*)&cpt_avl_tree->_t_allocater,
+        pt_root = _alloc_allocate((_alloc_t*)&cpt_avl_tree->_t_allocater,
             _AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree)), 1);
         assert(pt_root != NULL);
         _avl_tree_init_elem_auxiliary((avl_tree_t*)cpt_avl_tree, pt_root);

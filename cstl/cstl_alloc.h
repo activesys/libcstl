@@ -40,7 +40,7 @@ extern "C" {
 
 /* round up the size of memory to the multiple of 8 */
 #define _MEM_ROUND_UP(memsize)      (((memsize) + _MEM_ALIGNMENT - 1) & ~(_MEM_ALIGNMENT - 1))
-/* get the memory list index with nmemsize */
+/* get the memory link index with memsize */
 #define _MEM_LINK_INDEX(memsize)    (((memsize) + _MEM_ALIGNMENT - 1) / _MEM_ALIGNMENT - 1)
 
 #endif
@@ -50,7 +50,7 @@ extern "C" {
 
 typedef struct _tagalloc
 {
-}alloc_t;
+}_alloc_t;
 
 #else
 
@@ -63,12 +63,12 @@ typedef union _tagmemlink
 typedef struct _tagalloc
 {
     _memlink_t* _apt_memlink[_MEM_LINK_COUNT];   /* memory list */
-    char**      _ppc_allocatemempool;            /* the allocated pool */
-    char*       _pc_mempool;                     /* memory pool start */
+    byte_t**    _ppby_mempoolcontainer;          /* memory pool container */
+    byte_t*     _pby_mempool;                    /* memory pool start */
     size_t      _t_mempoolsize;                  /* memory pool size */
     size_t      _t_mempoolindex;                 /* memory pool index */
     size_t      _t_mempoolcount;                 /* memory pool count */
-}alloc_t;
+}_alloc_t;
 
 #endif
 
@@ -76,21 +76,21 @@ typedef struct _tagalloc
 
 /** exported function prototype section **/
 /**
- * Initialize the alloc_t.
+ * Initialize the _alloc_t.
  * @param pt_allocator  pointer that points to allocator.
  * @return void.
  * @remarks if pt_allocator == NULL, then function of the behavior is undefined.
  */
-extern void _alloc_init(alloc_t* pt_allocator);
+extern void _alloc_init(_alloc_t* pt_allocator);
 
 /**
- * Destroy the alloc_t.
+ * Destroy the _alloc_t.
  * @param pt_allocator  pointer that points to allocator.
  * @return void.
  * @remarks if pt_allocator == NULL, then function of the behavior is undefined. if pt_allocator is not initialized by
  *          _alloc_init, then function of the behavior is undefined.
  */
-extern void _alloc_destroy(alloc_t* pt_allocator);
+extern void _alloc_destroy(_alloc_t* pt_allocator);
 
 /**
  * Allocate to user specified amount of memory.
@@ -101,7 +101,7 @@ extern void _alloc_destroy(alloc_t* pt_allocator);
  * @remarks if pt_allocator == NULL, then function of the behavior is undefined. if allocator is not initialized by
  *          _alloc_init, then function of the behavior is undefined. the size of allocated memory is t_size * t_count.
  */
-extern void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count);
+extern void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_count);
 
 /**
  * Release allocated memory
@@ -114,7 +114,7 @@ extern void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_coun
  *          not initialized by _alloc_init, or pv_allocmem is not allocated by _alloc_allocate, then function of the
  *          behavior is undefined.
  */
-extern void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count);
+extern void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count);
 
 /**
  * Set the out of memory handler and return the old handler.

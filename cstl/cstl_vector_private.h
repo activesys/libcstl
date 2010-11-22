@@ -49,7 +49,7 @@ typedef struct _tagvector
     _typeinfo_t _t_typeinfo;
 
     /* memory allocate */
-    alloc_t     _t_allocater;
+    _alloc_t    _t_allocater;
 
     /* vector core struct pointer */
     char*       _pc_start;          /* the start of used space */

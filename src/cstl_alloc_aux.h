@@ -67,7 +67,7 @@ extern void _alloc_free(void* pv_allocmem);
  * @return void.
  * @remarks if pt_allocator == NULL then the function of behavior is undefined.
  */
-extern void _alloc_apply_formated_memory(alloc_t* pt_allocator, size_t t_allocsize);
+extern void _alloc_apply_formated_memory(_alloc_t* pt_allocator, size_t t_allocsize);
 
 /**
  * Get memory chunk from memory pool.
@@ -82,7 +82,7 @@ extern void _alloc_apply_formated_memory(alloc_t* pt_allocator, size_t t_allocsi
  *          allocated appropriate number of memory chunk, then update the allocate count. otherwise allocated
  *          larger memory pool from allocated memory chunk.
  */
-extern char* _alloc_get_memory_chunk(alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount);
+extern byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount);
 
 #endif /* _CSTL_USER_MODEL */
 

@@ -23,29 +23,29 @@ void test__alloc_get_memory_chunk__invalid_allocator(void** state)
 
 void test__alloc_get_memory_chunk__invalid_alloccount(void** state)
 {
-    alloc_t allocator;
+    _alloc_t allocator;
     expect_assert_failure(_alloc_get_memory_chunk(&allocator, 8, NULL));
 }
 
 void test__alloc_get_memory_chunk__total_size_less_than_memory_pool(void** state)
 {
     size_t t_alloccount = 2;
-    alloc_t allocator;
-    char* pc_malloc = NULL;
+    _alloc_t allocator;
+    byte_t* pby_malloc = NULL;
     size_t t_old_size = 0;
     _alloc_init(&allocator);
 
-    allocator._t_mempoolsize = t_old_size = 64 * sizeof(char);
-    allocator._pc_mempool = (char*)malloc(allocator._t_mempoolsize);
-    allocator._ppc_allocatemempool[allocator._t_mempoolindex++] = allocator._pc_mempool;
+    allocator._t_mempoolsize = t_old_size = 64 * sizeof(byte_t);
+    allocator._pby_mempool = (byte_t*)malloc(allocator._t_mempoolsize);
+    allocator._ppby_mempoolcontainer[allocator._t_mempoolindex++] = allocator._pby_mempool;
 
-    pc_malloc = _alloc_get_memory_chunk(&allocator, 8, &t_alloccount);
+    pby_malloc = _alloc_get_memory_chunk(&allocator, 8, &t_alloccount);
 
-    assert_true(pc_malloc != NULL);
+    assert_true(pby_malloc != NULL);
     assert_true(t_alloccount == 2);
-    assert_true(pc_malloc == allocator._ppc_allocatemempool[0]);
+    assert_true(pby_malloc == allocator._ppby_mempoolcontainer[0]);
     assert_true(allocator._t_mempoolsize == t_old_size - 2 * 8);
-    assert_true(allocator._pc_mempool = allocator._ppc_allocatemempool[0] + 2 * 8);
+    assert_true(allocator._pby_mempool = allocator._ppby_mempoolcontainer[0] + 2 * 8);
 
     _alloc_destroy(&allocator);
 }
@@ -53,22 +53,22 @@ void test__alloc_get_memory_chunk__total_size_less_than_memory_pool(void** state
 void test__alloc_get_memory_chunk__memory_pool_less_than_total_size_greater_than_one_size(void** state)
 {
     size_t t_alloccount = 100;
-    alloc_t allocator;
-    char* pc_malloc = NULL;
+    _alloc_t allocator;
+    byte_t* pby_malloc = NULL;
     size_t t_old_size = 0;
     _alloc_init(&allocator);
 
-    allocator._t_mempoolsize = t_old_size = 64 * sizeof(char);
-    allocator._pc_mempool = (char*)malloc(allocator._t_mempoolsize);
-    allocator._ppc_allocatemempool[allocator._t_mempoolindex++] = allocator._pc_mempool;
+    allocator._t_mempoolsize = t_old_size = 64 * sizeof(byte_t);
+    allocator._pby_mempool = (byte_t*)malloc(allocator._t_mempoolsize);
+    allocator._ppby_mempoolcontainer[allocator._t_mempoolindex++] = allocator._pby_mempool;
 
-    pc_malloc = _alloc_get_memory_chunk(&allocator, 8, &t_alloccount);
+    pby_malloc = _alloc_get_memory_chunk(&allocator, 8, &t_alloccount);
 
-    assert_true(pc_malloc != NULL);
+    assert_true(pby_malloc != NULL);
     assert_true(t_alloccount == 8);
-    assert_true(pc_malloc == allocator._ppc_allocatemempool[0]);
+    assert_true(pby_malloc == allocator._ppby_mempoolcontainer[0]);
     assert_true(allocator._t_mempoolsize == 0);
-    assert_true(allocator._pc_mempool = allocator._ppc_allocatemempool[0] + t_old_size);
+    assert_true(allocator._pby_mempool = allocator._ppby_mempoolcontainer[0] + t_old_size);
 
     _alloc_destroy(&allocator);
 }
@@ -76,17 +76,17 @@ void test__alloc_get_memory_chunk__memory_pool_less_than_total_size_greater_than
 void test__alloc_get_memory_chunk__memory_pool_size_equal_to_0(void** state)
 {
     size_t t_alloccount = 10;
-    alloc_t allocator;
-    char* pc_malloc = NULL;
+    _alloc_t allocator;
+    byte_t* pby_malloc = NULL;
     _alloc_init(&allocator);
 
-    pc_malloc = _alloc_get_memory_chunk(&allocator, 8, &t_alloccount);
+    pby_malloc = _alloc_get_memory_chunk(&allocator, 8, &t_alloccount);
 
-    assert_true(pc_malloc != NULL);
+    assert_true(pby_malloc != NULL);
     assert_true(t_alloccount == 10);
-    assert_true(pc_malloc == allocator._ppc_allocatemempool[0]);
+    assert_true(pby_malloc == allocator._ppby_mempoolcontainer[0]);
     assert_true(allocator._t_mempoolsize == 80);
-    assert_true(allocator._pc_mempool = allocator._ppc_allocatemempool[0] + t_alloccount * 8);
+    assert_true(allocator._pby_mempool = allocator._ppby_mempoolcontainer[0] + t_alloccount * 8);
 
     _alloc_destroy(&allocator);
 }
@@ -94,23 +94,23 @@ void test__alloc_get_memory_chunk__memory_pool_size_equal_to_0(void** state)
 void test__alloc_get_memory_chunk__memory_pool_size_less_then_one_allocated_chunk(void** state)
 {
     size_t t_alloccount = 2;
-    alloc_t allocator;
-    char* pc_malloc = NULL;
+    _alloc_t allocator;
+    byte_t* pby_malloc = NULL;
     size_t t_old_size = 0;
     _alloc_init(&allocator);
 
     allocator._t_mempoolsize = t_old_size = 8;
-    allocator._pc_mempool = (char*)malloc(allocator._t_mempoolsize);
-    allocator._ppc_allocatemempool[allocator._t_mempoolindex++] = allocator._pc_mempool;
+    allocator._pby_mempool = (byte_t*)malloc(allocator._t_mempoolsize);
+    allocator._ppby_mempoolcontainer[allocator._t_mempoolindex++] = allocator._pby_mempool;
 
-    pc_malloc = _alloc_get_memory_chunk(&allocator, 16, &t_alloccount);
+    pby_malloc = _alloc_get_memory_chunk(&allocator, 16, &t_alloccount);
 
-    assert_true(pc_malloc != NULL);
+    assert_true(pby_malloc != NULL);
     assert_true(t_alloccount == 2);
-    assert_true(pc_malloc == allocator._ppc_allocatemempool[1]);
+    assert_true(pby_malloc == allocator._ppby_mempoolcontainer[1]);
     assert_true(allocator._t_mempoolsize == 32);
-    assert_true(allocator._pc_mempool = allocator._ppc_allocatemempool[1] + 32);
-    assert_true(allocator._ppc_allocatemempool[0] == (char*)allocator._apt_memlink[_MEMLIST_INDEX(t_old_size)]);
+    assert_true(allocator._pby_mempool = allocator._ppby_mempoolcontainer[1] + 32);
+    assert_true(allocator._ppby_mempoolcontainer[0] == (byte_t*)allocator._apt_memlink[_MEM_LINK_INDEX(t_old_size)]);
 
     _alloc_destroy(&allocator);
 }
@@ -118,26 +118,26 @@ void test__alloc_get_memory_chunk__memory_pool_size_less_then_one_allocated_chun
 void test__alloc_get_memory_chunk__reallocate_memory_pool_container(void** state)
 {
     size_t t_alloccount = 2;
-    alloc_t allocator;
-    char* pc_malloc = NULL;
+    _alloc_t allocator;
+    byte_t* pby_malloc = NULL;
     size_t t_old_size = 0;
     _alloc_init(&allocator);
 
     allocator._t_mempoolsize = t_old_size = 8;
-    allocator._pc_mempool = (char*)malloc(allocator._t_mempoolsize);
+    allocator._pby_mempool = (byte_t*)malloc(allocator._t_mempoolsize);
     allocator._t_mempoolindex = _MEM_POOL_DEFAULT_COUNT - 1;
-    allocator._ppc_allocatemempool[allocator._t_mempoolindex++] = allocator._pc_mempool;
+    allocator._ppby_mempoolcontainer[allocator._t_mempoolindex++] = allocator._pby_mempool;
 
-    pc_malloc = _alloc_get_memory_chunk(&allocator, 16, &t_alloccount);
+    pby_malloc = _alloc_get_memory_chunk(&allocator, 16, &t_alloccount);
 
-    assert_true(pc_malloc != NULL);
+    assert_true(pby_malloc != NULL);
     assert_true(t_alloccount == 2);
-    assert_true(pc_malloc == allocator._ppc_allocatemempool[_MEM_POOL_DEFAULT_COUNT]);
+    assert_true(pby_malloc == allocator._ppby_mempoolcontainer[_MEM_POOL_DEFAULT_COUNT]);
     assert_true(allocator._t_mempoolcount = 2 * _MEM_POOL_DEFAULT_COUNT);
     assert_true(allocator._t_mempoolsize == 32);
-    assert_true(allocator._pc_mempool = allocator._ppc_allocatemempool[_MEM_POOL_DEFAULT_COUNT] + 32);
-    assert_true(allocator._ppc_allocatemempool[_MEM_POOL_DEFAULT_COUNT - 1] == 
-            (char*)allocator._apt_memlink[_MEMLIST_INDEX(t_old_size)]);
+    assert_true(allocator._pby_mempool = allocator._ppby_mempoolcontainer[_MEM_POOL_DEFAULT_COUNT] + 32);
+    assert_true(allocator._ppby_mempoolcontainer[_MEM_POOL_DEFAULT_COUNT - 1] == 
+            (byte_t*)allocator._apt_memlink[_MEM_LINK_INDEX(t_old_size)]);
 
     _alloc_destroy(&allocator);
 }
@@ -152,19 +152,19 @@ void test__alloc_apply_formated_memory__invalid_allocator(void** state)
 
 void test__alloc_apply_formated_memory__success(void** state)
 {
-    alloc_t allocator;
+    _alloc_t allocator;
     _memlink_t* pt_link = NULL;
     _memlink_t* pt_link_prev = NULL;
     _alloc_init(&allocator);
 
     _alloc_apply_formated_memory(&allocator, 8);
 
-    for(pt_link_prev = allocator._apt_memlink[_MEMLIST_INDEX(8)], pt_link = pt_link_prev->_pui_nextmem;
+    for(pt_link_prev = allocator._apt_memlink[_MEM_LINK_INDEX(8)], pt_link = pt_link_prev->_pui_nextmem;
         pt_link != NULL; pt_link_prev = pt_link, pt_link = pt_link_prev->_pui_nextmem)
     {
-        assert_true((char*)pt_link == (char*)pt_link_prev + 8);
+        assert_true((byte_t*)pt_link == (byte_t*)pt_link_prev + 8);
     }
-    assert_true((char*)allocator._pc_mempool == (char*)pt_link_prev + 8);
+    assert_true((byte_t*)allocator._pby_mempool == (byte_t*)pt_link_prev + 8);
 
     _alloc_destroy(&allocator);
 }

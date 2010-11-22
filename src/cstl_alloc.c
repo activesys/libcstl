@@ -41,17 +41,17 @@
 #ifdef _CSTL_USER_MODEL
 
 /**
- * Initialize the alloc_t.
+ * Initialize the _alloc_t.
  */
-void _alloc_init(alloc_t* pt_allocator)
+void _alloc_init(_alloc_t* pt_allocator)
 {
     pt_allocator = NULL;
 }
 
 /**
- * Destroy the alloc_t.
+ * Destroy the _alloc_t.
  */
-void _alloc_destroy(alloc_t* pt_allocator)
+void _alloc_destroy(_alloc_t* pt_allocator)
 {
     pt_allocator = NULL;
 }
@@ -59,7 +59,7 @@ void _alloc_destroy(alloc_t* pt_allocator)
 /**
  * Allocate to user specified amount of memory.
  */
-void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count)
+void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_count)
 {
     /* total allocated memory size */
     size_t t_allocsize = t_size * t_count;
@@ -71,7 +71,7 @@ void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count)
 /**
  * Release allocated memory
  */
-void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
+void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
 {
     assert(pv_allocmem != NULL);
 
@@ -84,9 +84,9 @@ void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, 
 #else
 
 /**
- * Initialize the alloc_t.
+ * Initialize the _alloc_t.
  */
-void _alloc_init(alloc_t* pt_allocator)
+void _alloc_init(_alloc_t* pt_allocator)
 {
     size_t i = 0;
 
@@ -94,7 +94,7 @@ void _alloc_init(alloc_t* pt_allocator)
 
     pt_allocator->_t_mempoolsize = 0;
     pt_allocator->_t_mempoolindex = 0;
-    pt_allocator->_pc_mempool = NULL;
+    pt_allocator->_pby_mempool = NULL;
     
     for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
@@ -103,12 +103,12 @@ void _alloc_init(alloc_t* pt_allocator)
 
     /* initialize memory pool */
     pt_allocator->_t_mempoolcount = _MEM_POOL_DEFAULT_COUNT;
-    pt_allocator->_ppc_allocatemempool = (char**)malloc(pt_allocator->_t_mempoolcount * sizeof(char*));
-    if(pt_allocator->_ppc_allocatemempool != NULL)
+    pt_allocator->_ppby_mempoolcontainer = (byte_t**)malloc(pt_allocator->_t_mempoolcount * sizeof(byte_t*));
+    if(pt_allocator->_ppby_mempoolcontainer != NULL)
     {
         for(i = 0; i < pt_allocator->_t_mempoolcount; ++i)
         {
-            pt_allocator->_ppc_allocatemempool[i] = NULL;
+            pt_allocator->_ppby_mempoolcontainer[i] = NULL;
         }
     }
     else
@@ -119,9 +119,9 @@ void _alloc_init(alloc_t* pt_allocator)
 }
 
 /**
- * Destroy the alloc_t.
+ * Destroy the _alloc_t.
  */
-void _alloc_destroy(alloc_t* pt_allocator)
+void _alloc_destroy(_alloc_t* pt_allocator)
 {
     size_t i = 0;
 
@@ -130,18 +130,18 @@ void _alloc_destroy(alloc_t* pt_allocator)
     /* destroy memory pool */
     for(i = 0; i < pt_allocator->_t_mempoolcount; ++i)
     {
-        free(pt_allocator->_ppc_allocatemempool[i]);
-        pt_allocator->_ppc_allocatemempool[i] = NULL;
+        free(pt_allocator->_ppby_mempoolcontainer[i]);
+        pt_allocator->_ppby_mempoolcontainer[i] = NULL;
     }
-    free(pt_allocator->_ppc_allocatemempool);
-    pt_allocator->_ppc_allocatemempool = NULL;
+    free(pt_allocator->_ppby_mempoolcontainer);
+    pt_allocator->_ppby_mempoolcontainer = NULL;
 
     for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         pt_allocator->_apt_memlink[i] = NULL;
     }
 
-    pt_allocator->_pc_mempool = NULL;
+    pt_allocator->_pby_mempool = NULL;
     pt_allocator->_t_mempoolindex = 0;
     pt_allocator->_t_mempoolsize = 0;
     pt_allocator->_t_mempoolcount = 0;
@@ -150,7 +150,7 @@ void _alloc_destroy(alloc_t* pt_allocator)
 /**
  * Allocate to user specified amount of memory.
  */
-void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count)
+void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_count)
 {
     void*       pv_allocmem = NULL;               /* allocated memory pointer */
     _memlink_t* pt_link = NULL;                   /* memory link */
@@ -182,7 +182,7 @@ void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count)
 /**
  * Release allocated memory
  */
-void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
+void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
 {
     size_t t_allocsize = t_size * t_count; /* allocated memory size */
 

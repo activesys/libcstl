@@ -23,10 +23,10 @@ void test__alloc_init__success(void** state)
 {
 #ifndef _CSTL_USER_MODEL
     size_t i = 0;
-    alloc_t allocator;
+    _alloc_t allocator;
     _alloc_init(&allocator);
 
-    assert_true(allocator._pc_mempool == NULL);
+    assert_true(allocator._pby_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
@@ -34,10 +34,10 @@ void test__alloc_init__success(void** state)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
-    assert_true(allocator._ppc_allocatemempool != NULL);
+    assert_true(allocator._ppby_mempoolcontainer != NULL);
     for(i = 0; i < allocator._t_mempoolcount; ++i)
     {
-        assert_true(allocator._ppc_allocatemempool[i] == NULL);
+        assert_true(allocator._ppby_mempoolcontainer[i] == NULL);
     }
 #endif
 }
@@ -56,10 +56,10 @@ void test__alloc_destroy__success(void** state)
 {
 #ifndef _CSTL_USER_MODEL
     size_t i = 0;
-    alloc_t allocator;
+    _alloc_t allocator;
     _alloc_init(&allocator);
 
-    assert_true(allocator._pc_mempool == NULL);
+    assert_true(allocator._pby_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
@@ -67,14 +67,14 @@ void test__alloc_destroy__success(void** state)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
-    assert_true(allocator._ppc_allocatemempool != NULL);
+    assert_true(allocator._ppby_mempoolcontainer != NULL);
     for(i = 0; i < allocator._t_mempoolcount; ++i)
     {
-        assert_true(allocator._ppc_allocatemempool[i] == NULL);
+        assert_true(allocator._ppby_mempoolcontainer[i] == NULL);
     }
 
     _alloc_destroy(&allocator);
-    assert_true(allocator._pc_mempool == NULL);
+    assert_true(allocator._pby_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == 0);
@@ -82,7 +82,7 @@ void test__alloc_destroy__success(void** state)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
-    assert_true(allocator._ppc_allocatemempool == NULL);
+    assert_true(allocator._ppby_mempoolcontainer == NULL);
 #endif
 }
 
@@ -91,19 +91,19 @@ void test__alloc_destroy__success_after_allocate(void** state)
 #ifndef _CSTL_USER_MODEL
     size_t i = 0;
     void* pv_mem = NULL;
-    alloc_t allocator;
+    _alloc_t allocator;
     _alloc_init(&allocator);
     pv_mem = _alloc_allocate(&allocator, 8, 1);
 
     assert_true(pv_mem != NULL);
-    assert_true(allocator._pc_mempool == allocator._ppc_allocatemempool[0] + 128);
+    assert_true(allocator._pby_mempool == allocator._ppby_mempoolcontainer[0] + 128);
     assert_true(allocator._t_mempoolsize == 128);
     assert_true(allocator._t_mempoolindex == 1);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    assert_true(allocator._ppc_allocatemempool[0] == pv_mem);
+    assert_true(allocator._ppby_mempoolcontainer[0] == pv_mem);
     for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
-        if(i == _MEMLIST_INDEX(8))
+        if(i == _MEM_LINK_INDEX(8))
         {
             assert_true(allocator._apt_memlink[i] == pv_mem + 8);
         }
@@ -112,14 +112,14 @@ void test__alloc_destroy__success_after_allocate(void** state)
             assert_true(allocator._apt_memlink[i] == NULL);
         }
     }
-    assert_true(allocator._ppc_allocatemempool != NULL);
+    assert_true(allocator._ppby_mempoolcontainer != NULL);
     for(i = allocator._t_mempoolindex; i < allocator._t_mempoolcount; ++i)
     {
-        assert_true(allocator._ppc_allocatemempool[i] == NULL);
+        assert_true(allocator._ppby_mempoolcontainer[i] == NULL);
     }
 
     _alloc_destroy(&allocator);
-    assert_true(allocator._pc_mempool == NULL);
+    assert_true(allocator._pby_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == 0);
@@ -127,7 +127,7 @@ void test__alloc_destroy__success_after_allocate(void** state)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
-    assert_true(allocator._ppc_allocatemempool == NULL);
+    assert_true(allocator._ppby_mempoolcontainer == NULL);
 #endif
 }
 
@@ -146,13 +146,13 @@ void test__alloc_allocate__greater_than_max_small_memory(void** state)
 #ifndef _CSTL_USER_MODEL
     size_t i = 0;
     void* pv_mem = NULL;
-    alloc_t allocator;
+    _alloc_t allocator;
     _alloc_init(&allocator);
 
     pv_mem = _alloc_allocate(&allocator, _MEM_SMALL_MEM_SIZE_MAX, 2);
 
     assert_true(pv_mem != NULL);
-    assert_true(allocator._pc_mempool == NULL);
+    assert_true(allocator._pby_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
@@ -160,10 +160,10 @@ void test__alloc_allocate__greater_than_max_small_memory(void** state)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
-    assert_true(allocator._ppc_allocatemempool != NULL);
+    assert_true(allocator._ppby_mempoolcontainer != NULL);
     for(i = 0; i < allocator._t_mempoolcount; ++i)
     {
-        assert_true(allocator._ppc_allocatemempool[i] == NULL);
+        assert_true(allocator._ppby_mempoolcontainer[i] == NULL);
     }
 
     _alloc_destroy(&allocator);
@@ -179,18 +179,18 @@ void test__alloc_allocate__less_than_max_small_memory(void** state)
 #ifndef _CSTL_USER_MODEL
     size_t i = 0;
     void* pv_mem = NULL;
-    alloc_t allocator;
+    _alloc_t allocator;
     _alloc_init(&allocator);
     pv_mem = _alloc_allocate(&allocator, 8, 1);
 
-    assert_true(allocator._pc_mempool == allocator._ppc_allocatemempool[0] + 128);
+    assert_true(allocator._pby_mempool == allocator._ppby_mempoolcontainer[0] + 128);
     assert_true(allocator._t_mempoolsize == 128);
     assert_true(allocator._t_mempoolindex == 1);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    assert_true(allocator._ppc_allocatemempool[0] == pv_mem);
+    assert_true(allocator._ppby_mempoolcontainer[0] == pv_mem);
     for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
-        if(i == _MEMLIST_INDEX(8))
+        if(i == _MEM_LINK_INDEX(8))
         {
             assert_true(allocator._apt_memlink[i] == pv_mem + 8);
         }
@@ -199,7 +199,7 @@ void test__alloc_allocate__less_than_max_small_memory(void** state)
             assert_true(allocator._apt_memlink[i] == NULL);
         }
     }
-    assert_true(allocator._ppc_allocatemempool != NULL);
+    assert_true(allocator._ppby_mempoolcontainer != NULL);
 
     _alloc_destroy(&allocator);
 #else
@@ -216,7 +216,7 @@ void test__alloc_deallocate__invalid_allocator(void** state)
 {
 #ifndef _CSTL_USER_MODEL
     void* pv_mem = NULL;
-    alloc_t allocater;
+    _alloc_t allocater;
     _alloc_init(&allocater);
 
     pv_mem = _alloc_allocate(&allocater, 8, 1);
@@ -231,7 +231,7 @@ void test__alloc_deallocate__invalid_allocator(void** state)
 void test__alloc_deallocate__invalid_allocated_memory(void** state)
 {
 #ifndef _CSTL_USER_MODEL
-    alloc_t allocater;
+    _alloc_t allocater;
     _alloc_init(&allocater);
 
     expect_assert_failure(_alloc_deallocate(&allocater, NULL, 8, 1));
@@ -247,13 +247,13 @@ void test__alloc_deallocate__greater_than_max_small_memory(void** state)
 #ifndef _CSTL_USER_MODEL
     size_t i = 0;
     void* pv_mem = NULL;
-    alloc_t allocator;
+    _alloc_t allocator;
     _alloc_init(&allocator);
 
     pv_mem = _alloc_allocate(&allocator, _MEM_SMALL_MEM_SIZE_MAX, 2);
 
     assert_true(pv_mem != NULL);
-    assert_true(allocator._pc_mempool == NULL);
+    assert_true(allocator._pby_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
@@ -261,15 +261,15 @@ void test__alloc_deallocate__greater_than_max_small_memory(void** state)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
-    assert_true(allocator._ppc_allocatemempool != NULL);
+    assert_true(allocator._ppby_mempoolcontainer != NULL);
     for(i = 0; i < allocator._t_mempoolcount; ++i)
     {
-        assert_true(allocator._ppc_allocatemempool[i] == NULL);
+        assert_true(allocator._ppby_mempoolcontainer[i] == NULL);
     }
 
     _alloc_deallocate(&allocator, pv_mem, _MEM_SMALL_MEM_SIZE_MAX, 2);
 
-    assert_true(allocator._pc_mempool == NULL);
+    assert_true(allocator._pby_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
@@ -277,10 +277,10 @@ void test__alloc_deallocate__greater_than_max_small_memory(void** state)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
-    assert_true(allocator._ppc_allocatemempool != NULL);
+    assert_true(allocator._ppby_mempoolcontainer != NULL);
     for(i = 0; i < allocator._t_mempoolcount; ++i)
     {
-        assert_true(allocator._ppc_allocatemempool[i] == NULL);
+        assert_true(allocator._ppby_mempoolcontainer[i] == NULL);
     }
 
     _alloc_destroy(&allocator);
@@ -296,18 +296,18 @@ void test__alloc_deallocate__less_than_max_small_memory(void** state)
 #ifndef _CSTL_USER_MODEL
     size_t i = 0;
     void* pv_mem = NULL;
-    alloc_t allocator;
+    _alloc_t allocator;
     _alloc_init(&allocator);
     pv_mem = _alloc_allocate(&allocator, 8, 1);
 
-    assert_true(allocator._pc_mempool == allocator._ppc_allocatemempool[0] + 128);
+    assert_true(allocator._pby_mempool == allocator._ppby_mempoolcontainer[0] + 128);
     assert_true(allocator._t_mempoolsize == 128);
     assert_true(allocator._t_mempoolindex == 1);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    assert_true(allocator._ppc_allocatemempool[0] == pv_mem);
+    assert_true(allocator._ppby_mempoolcontainer[0] == pv_mem);
     for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
-        if(i == _MEMLIST_INDEX(8))
+        if(i == _MEM_LINK_INDEX(8))
         {
             assert_true(allocator._apt_memlink[i] == pv_mem + 8);
         }
@@ -316,27 +316,27 @@ void test__alloc_deallocate__less_than_max_small_memory(void** state)
             assert_true(allocator._apt_memlink[i] == NULL);
         }
     }
-    assert_true(allocator._ppc_allocatemempool != NULL);
+    assert_true(allocator._ppby_mempoolcontainer != NULL);
 
     _alloc_deallocate(&allocator, pv_mem, 8, 1);
 
-    assert_true(allocator._pc_mempool == allocator._ppc_allocatemempool[0] + 128);
+    assert_true(allocator._pby_mempool == allocator._ppby_mempoolcontainer[0] + 128);
     assert_true(allocator._t_mempoolsize == 128);
     assert_true(allocator._t_mempoolindex == 1);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    assert_true(allocator._ppc_allocatemempool[0] == (char*)allocator._apt_memlink[_MEMLIST_INDEX(8)]);
+    assert_true(allocator._ppby_mempoolcontainer[0] == (byte_t*)allocator._apt_memlink[_MEM_LINK_INDEX(8)]);
     for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
-        if(i == _MEMLIST_INDEX(8))
+        if(i == _MEM_LINK_INDEX(8))
         {
-            assert_true((char*)allocator._apt_memlink[i] == allocator._ppc_allocatemempool[0]);
+            assert_true((byte_t*)allocator._apt_memlink[i] == allocator._ppby_mempoolcontainer[0]);
         }
         else
         {
             assert_true(allocator._apt_memlink[i] == NULL);
         }
     }
-    assert_true(allocator._ppc_allocatemempool != NULL);
+    assert_true(allocator._ppby_mempoolcontainer != NULL);
 
     _alloc_destroy(&allocator);
 #else

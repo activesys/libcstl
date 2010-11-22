@@ -55,7 +55,7 @@ typedef struct _taglist
     _typeinfo_t _t_typeinfo;
 
     /* memory allocate */
-    alloc_t     _t_allocater;
+    _alloc_t    _t_allocater;
 
     /* list core struct pointer */
     listnode_t* _pt_node;
