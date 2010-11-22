@@ -96,7 +96,7 @@ void _alloc_init(alloc_t* pt_allocator)
     pt_allocator->_t_mempoolindex = 0;
     pt_allocator->_pc_mempool = NULL;
     
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         pt_allocator->_apt_memlink[i] = NULL;
     }
@@ -136,7 +136,7 @@ void _alloc_destroy(alloc_t* pt_allocator)
     free(pt_allocator->_ppc_allocatemempool);
     pt_allocator->_ppc_allocatemempool = NULL;
 
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         pt_allocator->_apt_memlink[i] = NULL;
     }
@@ -158,21 +158,21 @@ void* _alloc_allocate(alloc_t* pt_allocator, size_t t_size, size_t t_count)
 
     assert(pt_allocator != NULL);
 
-    if(t_allocsize > _MAX_SMALL_MEM_SIZE)
+    if(t_allocsize > _MEM_SMALL_MEM_SIZE_MAX)
     {
         pv_allocmem = _alloc_malloc(t_allocsize);
         assert(pv_allocmem);
     }
     else
     {
-        pt_link = pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
+        pt_link = pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)];
         if(pt_link == NULL)
         {
-            _alloc_apply_formated_memory(pt_allocator, _ROUND_UP(t_allocsize));
-            pt_link = pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
+            _alloc_apply_formated_memory(pt_allocator, _MEM_ROUND_UP(t_allocsize));
+            pt_link = pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)];
             assert(pt_link);
         }
-        pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)] = pt_link->_pui_nextmem;
+        pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)] = pt_link->_pui_nextmem;
         pv_allocmem = (void*)pt_link;
     }
 
@@ -189,14 +189,14 @@ void _alloc_deallocate(alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, 
     assert(pt_allocator != NULL);
     assert(pv_allocmem != NULL);
 
-    if(t_allocsize > _MAX_SMALL_MEM_SIZE)
+    if(t_allocsize > _MEM_SMALL_MEM_SIZE_MAX)
     {
         _alloc_free(pv_allocmem);
     }
     else
     {
-        ((_memlink_t*)pv_allocmem)->_pui_nextmem = pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)];
-        pt_allocator->_apt_memlink[_MEMLIST_INDEX(t_allocsize)] = ((_memlink_t*)pv_allocmem);
+        ((_memlink_t*)pv_allocmem)->_pui_nextmem = pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)];
+        pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)] = ((_memlink_t*)pv_allocmem);
     }
 }
 

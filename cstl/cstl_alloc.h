@@ -32,16 +32,16 @@ extern "C" {
 /** constant declaration and macro section **/
 #ifndef _CSTL_USER_MODEL
 
-#define _ALIGN                  8     /* boundary for small memory block */
-#define _MAX_SMALL_MEM_SIZE     128   /* the maxinum size of small memory */
-#define _MEM_LIST_COUNT         _MAX_SMALL_MEM_SIZE/_ALIGN
-#define _MEM_BLOCK_COUNT        16    /* default block count getted from pool */
-#define _MEM_POOL_DEFAULT_COUNT 16  /* memory pool count */
+#define _MEM_ALIGNMENT              8     /* boundary for small memory block */
+#define _MEM_SMALL_MEM_SIZE_MAX     128   /* the maxinum size of small memory */
+#define _MEM_LINK_COUNT             _MEM_SMALL_MEM_SIZE_MAX/_MEM_ALIGNMENT
+#define _MEM_CHUNK_COUNT            16    /* default chunk count getted from pool */
+#define _MEM_POOL_DEFAULT_COUNT     16  /* memory pool count */
 
 /* round up the size of memory to the multiple of 8 */
-#define _ROUND_UP(nmemsize)      (((nmemsize) + _ALIGN - 1) & ~(_ALIGN - 1))
+#define _MEM_ROUND_UP(memsize)      (((memsize) + _MEM_ALIGNMENT - 1) & ~(_MEM_ALIGNMENT - 1))
 /* get the memory list index with nmemsize */
-#define _MEMLIST_INDEX(nmemsize) (((nmemsize) + _ALIGN - 1) / _ALIGN - 1)
+#define _MEM_LINK_INDEX(memsize)    (((memsize) + _MEM_ALIGNMENT - 1) / _MEM_ALIGNMENT - 1)
 
 #endif
 
@@ -57,12 +57,12 @@ typedef struct _tagalloc
 typedef union _tagmemlink
 {
     union _tagmemlink* _pui_nextmem;  /* point to next memory block */
-    char               _a_cmem[1];    /* represent memory block */
+    byte_t             _pby_mem[1];    /* represent memory block */
 }_memlink_t;
 
 typedef struct _tagalloc
 {
-    _memlink_t* _apt_memlink[_MEM_LIST_COUNT];   /* memory list */
+    _memlink_t* _apt_memlink[_MEM_LINK_COUNT];   /* memory list */
     char**      _ppc_allocatemempool;            /* the allocated pool */
     char*       _pc_mempool;                     /* memory pool start */
     size_t      _t_mempoolsize;                  /* memory pool size */

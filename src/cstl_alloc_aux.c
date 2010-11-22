@@ -98,7 +98,7 @@ void _alloc_free(void* pv_allocmem)
  */
 void _alloc_apply_formated_memory(alloc_t* pt_allocator, size_t t_allocsize)
 {
-    size_t      t_alloccount = _MEM_BLOCK_COUNT;
+    size_t      t_alloccount = _MEM_CHUNK_COUNT;
     _memlink_t* pt_link = NULL;
     size_t      i = 0;
 
@@ -177,7 +177,7 @@ char* _alloc_get_memory_chunk(alloc_t* pt_allocator, size_t t_allocsize, size_t*
         if(pt_allocator->_pc_mempool == NULL)
         {
             /* search the memory list for unuse memory that meet the size */
-            for(i = t_allocsize; i < _MAX_SMALL_MEM_SIZE; i += _ALIGN)
+            for(i = t_allocsize; i < _MEM_SMALL_MEM_SIZE_MAX; i += _MEM_ALIGNMENT)
             {
                 pt_allocator->_pc_mempool = (char*)pt_allocator->_apt_memlink[_MEMLIST_INDEX(i)];
                 if(pt_allocator->_pc_mempool != NULL)

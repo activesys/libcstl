@@ -5,6 +5,7 @@
 
 #include "ut_cstl_alloc.h"
 
+#include "cstl/cstl_def.h"
 #include "cstl/cstl_alloc.h"
 #include "cstl_alloc_aux.h"
 
@@ -29,7 +30,7 @@ void test__alloc_init__success(void** state)
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
@@ -62,7 +63,7 @@ void test__alloc_destroy__success(void** state)
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
@@ -77,7 +78,7 @@ void test__alloc_destroy__success(void** state)
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == 0);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
@@ -100,7 +101,7 @@ void test__alloc_destroy__success_after_allocate(void** state)
     assert_true(allocator._t_mempoolindex == 1);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
     assert_true(allocator._ppc_allocatemempool[0] == pv_mem);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         if(i == _MEMLIST_INDEX(8))
         {
@@ -122,7 +123,7 @@ void test__alloc_destroy__success_after_allocate(void** state)
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == 0);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
@@ -148,14 +149,14 @@ void test__alloc_allocate__greater_than_max_small_memory(void** state)
     alloc_t allocator;
     _alloc_init(&allocator);
 
-    pv_mem = _alloc_allocate(&allocator, _MAX_SMALL_MEM_SIZE, 2);
+    pv_mem = _alloc_allocate(&allocator, _MEM_SMALL_MEM_SIZE_MAX, 2);
 
     assert_true(pv_mem != NULL);
     assert_true(allocator._pc_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
@@ -187,7 +188,7 @@ void test__alloc_allocate__less_than_max_small_memory(void** state)
     assert_true(allocator._t_mempoolindex == 1);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
     assert_true(allocator._ppc_allocatemempool[0] == pv_mem);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         if(i == _MEMLIST_INDEX(8))
         {
@@ -249,14 +250,14 @@ void test__alloc_deallocate__greater_than_max_small_memory(void** state)
     alloc_t allocator;
     _alloc_init(&allocator);
 
-    pv_mem = _alloc_allocate(&allocator, _MAX_SMALL_MEM_SIZE, 2);
+    pv_mem = _alloc_allocate(&allocator, _MEM_SMALL_MEM_SIZE_MAX, 2);
 
     assert_true(pv_mem != NULL);
     assert_true(allocator._pc_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
@@ -266,13 +267,13 @@ void test__alloc_deallocate__greater_than_max_small_memory(void** state)
         assert_true(allocator._ppc_allocatemempool[i] == NULL);
     }
 
-    _alloc_deallocate(&allocator, pv_mem, _MAX_SMALL_MEM_SIZE, 2);
+    _alloc_deallocate(&allocator, pv_mem, _MEM_SMALL_MEM_SIZE_MAX, 2);
 
     assert_true(allocator._pc_mempool == NULL);
     assert_true(allocator._t_mempoolsize == 0);
     assert_true(allocator._t_mempoolindex == 0);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         assert_true(allocator._apt_memlink[i] == NULL);
     }
@@ -304,7 +305,7 @@ void test__alloc_deallocate__less_than_max_small_memory(void** state)
     assert_true(allocator._t_mempoolindex == 1);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
     assert_true(allocator._ppc_allocatemempool[0] == pv_mem);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         if(i == _MEMLIST_INDEX(8))
         {
@@ -324,7 +325,7 @@ void test__alloc_deallocate__less_than_max_small_memory(void** state)
     assert_true(allocator._t_mempoolindex == 1);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
     assert_true(allocator._ppc_allocatemempool[0] == (char*)allocator._apt_memlink[_MEMLIST_INDEX(8)]);
-    for(i = 0; i < _MEM_LIST_COUNT; ++i)
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         if(i == _MEMLIST_INDEX(8))
         {

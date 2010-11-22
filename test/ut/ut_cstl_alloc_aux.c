@@ -7,6 +7,7 @@
 
 #include "ut_cstl_alloc_aux.h"
 
+#include "cstl/cstl_def.h"
 #include "cstl/cstl_alloc.h"
 #include "cstl_alloc_aux.h"
 

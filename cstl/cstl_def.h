@@ -36,6 +36,9 @@ extern "C" {
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <ctype.h>
+#include <float.h>
+#include <time.h>
 
 /** constant declaration and macro section **/
 #ifdef _CSTL_UNIT_TESTING
@@ -64,6 +67,7 @@ extern "C" {
 #define CSTL_REVISION_VERSION    1
 
 /** data type declaration and struct, union, enum section **/
+typedef unsigned char            byte_t;
 
 /** exported global variable declaration section **/
 

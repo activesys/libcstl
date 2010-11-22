@@ -28,9 +28,7 @@ extern "C" {
 #endif
 
 /** include section **/
-#include <assert.h>
-#include <string.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 
