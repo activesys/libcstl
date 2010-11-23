@@ -32,8 +32,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = i686-pc-linux-gnu
-host_triplet = i686-pc-linux-gnu
+build_triplet = x86_64-unknown-linux-gnu
+host_triplet = x86_64-unknown-linux-gnu
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -83,7 +83,9 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_rb_tree.lo libcstl_la-cstl_set.lo \
 	libcstl_la-cstl_slist.lo libcstl_la-cstl_stack.lo \
 	libcstl_la-cstl_string.lo libcstl_la-cstl_types.lo \
-	libcstl_la-cstl_vector.lo
+	libcstl_la-cstl_vector.lo libcstl_la-cstl_vector_iterator.lo \
+	libcstl_la-cstl_vector_private.lo \
+	libcstl_la-cstl_vector_aux.lo
 libcstl_la_OBJECTS = $(am_libcstl_la_OBJECTS)
 libcstl_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libcstl_la_CFLAGS) \
@@ -135,7 +137,7 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LD = /usr/bin/ld
+LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
@@ -156,7 +158,6 @@ PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
 PACKAGE_STRING = libcstl 2.0.1
 PACKAGE_TARNAME = libcstl
-PACKAGE_URL = 
 PACKAGE_VERSION = 2.0.1
 PATH_SEPARATOR = :
 RANLIB = ranlib
@@ -177,22 +178,22 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = i686-pc-linux-gnu
+build = x86_64-unknown-linux-gnu
 build_alias = 
-build_cpu = i686
+build_cpu = x86_64
 build_os = linux-gnu
-build_vendor = pc
+build_vendor = unknown
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = i686-pc-linux-gnu
+host = x86_64-unknown-linux-gnu
 host_alias = 
-host_cpu = i686
+host_cpu = x86_64
 host_os = linux-gnu
-host_vendor = pc
+host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -201,6 +202,7 @@ libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
+lt_ECHO = echo
 mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
@@ -246,7 +248,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_stack.c \
 		     cstl_string.c \
 		     cstl_types.c \
-		     cstl_vector.c
+		     cstl_vector.c cstl_vector_iterator.c cstl_vector_private.c cstl_vector_aux.c cstl_vector_aux.h
 
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
 libcstl_la_CFLAGS = -Wall -Wextra
@@ -354,6 +356,9 @@ include ./$(DEPDIR)/libcstl_la-cstl_stack.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_string.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_types.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_vector.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_vector_aux.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_vector_iterator.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_vector_private.Plo
 
 .c.o:
 	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -578,6 +583,27 @@ libcstl_la-cstl_vector.lo: cstl_vector.c
 #	source='cstl_vector.c' object='libcstl_la-cstl_vector.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_vector.lo `test -f 'cstl_vector.c' || echo '$(srcdir)/'`cstl_vector.c
+
+libcstl_la-cstl_vector_iterator.lo: cstl_vector_iterator.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_vector_iterator.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_vector_iterator.Tpo -c -o libcstl_la-cstl_vector_iterator.lo `test -f 'cstl_vector_iterator.c' || echo '$(srcdir)/'`cstl_vector_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_vector_iterator.Tpo $(DEPDIR)/libcstl_la-cstl_vector_iterator.Plo
+#	source='cstl_vector_iterator.c' object='libcstl_la-cstl_vector_iterator.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_vector_iterator.lo `test -f 'cstl_vector_iterator.c' || echo '$(srcdir)/'`cstl_vector_iterator.c
+
+libcstl_la-cstl_vector_private.lo: cstl_vector_private.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_vector_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_vector_private.Tpo -c -o libcstl_la-cstl_vector_private.lo `test -f 'cstl_vector_private.c' || echo '$(srcdir)/'`cstl_vector_private.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_vector_private.Tpo $(DEPDIR)/libcstl_la-cstl_vector_private.Plo
+#	source='cstl_vector_private.c' object='libcstl_la-cstl_vector_private.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_vector_private.lo `test -f 'cstl_vector_private.c' || echo '$(srcdir)/'`cstl_vector_private.c
+
+libcstl_la-cstl_vector_aux.lo: cstl_vector_aux.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_vector_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_vector_aux.Tpo -c -o libcstl_la-cstl_vector_aux.lo `test -f 'cstl_vector_aux.c' || echo '$(srcdir)/'`cstl_vector_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_vector_aux.Tpo $(DEPDIR)/libcstl_la-cstl_vector_aux.Plo
+#	source='cstl_vector_aux.c' object='libcstl_la-cstl_vector_aux.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_vector_aux.lo `test -f 'cstl_vector_aux.c' || echo '$(srcdir)/'`cstl_vector_aux.c
 
 mostlyclean-libtool:
 	-rm -f *.lo

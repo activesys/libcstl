@@ -31,11 +31,6 @@ extern "C" {
 #include <stddef.h>
 
 /** constant declaration and macro section **/
-#define FALSE   0               /* declaration false bool type */
-#define false   0
-#define TRUE    1               /* declaration true bool type */
-#define true    1
-
 /* c built-in type */
 #define _CHAR_TYPE                   "char"
 #define _SIGNED_CHAR_TYPE            "signed char"
@@ -172,7 +167,6 @@ extern "C" {
 #define _BASIC_STRING_ITERATOR_NAME  "basic_string_iterator_t"
 
 /** data type declaration and struct, union, enum section **/
-typedef size_t     bool_t;         /* declaration for bool type */
 
 /*
  * Type definition of unary function and binary function.

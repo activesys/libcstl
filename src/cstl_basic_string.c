@@ -84,7 +84,7 @@ static void _basic_string_destroy_varg_value_auxiliary(
 /* basic_string iterator function */
 basic_string_iterator_t create_basic_string_iterator(void)
 {
-    basic_string_iterator_t t_newiterator = create_vector_iterator();
+    basic_string_iterator_t t_newiterator = _create_vector_iterator();
     _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
 
     return t_newiterator;

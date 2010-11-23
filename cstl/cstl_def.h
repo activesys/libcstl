@@ -66,8 +66,17 @@ extern "C" {
 #define CSTL_MINOR_VERSION       0
 #define CSTL_REVISION_VERSION    1
 
+/**
+ * for bool_t type
+ */
+#define FALSE   0               /* declaration false bool type */
+#define false   0
+#define TRUE    1               /* declaration true bool type */
+#define true    1
+
 /** data type declaration and struct, union, enum section **/
 typedef unsigned char            byte_t;
+typedef size_t                   bool_t;         /* declaration for bool type */
 
 /** exported global variable declaration section **/
 

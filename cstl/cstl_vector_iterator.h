@@ -38,16 +38,23 @@ typedef iterator_t vector_reverse_iterator_t;
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create new iterator_t of vector_t.
+/**
+ * Create new vector iterator.
+ * @param void.
+ * @return new vector iterator.
+ * @remarks the newly created vector iterator is not a valid iterator, it does not belong to any vector.
  */
-extern vector_iterator_t create_vector_iterator(void);
+extern vector_iterator_t _create_vector_iterator(void);
 
-/*
- * The relationship operator of iterator_t.
+/**
+ * Compare two iterators for equality.
+ * @param it_first   first iterator.
+ * @param it_second  second iterator.
+ * @return true if two iterators are equal, otherwise return false.
+ * @remarks if two iterators with different container type or iterator type, then behavior is undefined.
+ *          if two iterators are not belong to same container, then behavior is undefined.
  */
-extern bool_t _vector_iterator_equal(
-    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond);
+extern bool_t _vector_iterator_equal(vector_iterator_t it_first, vector_iterator_t it_second);
 extern bool_t _vector_iterator_less(
     vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond);
 extern bool_t _vector_iterator_before(

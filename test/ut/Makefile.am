@@ -1,9 +1,38 @@
 # for libcstl unit testing.
 check_PROGRAMS = ut
 ut_SOURCES = ut_main.c \
-	     $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
-	     ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
-	     ut_cstl_alloc.c ut_cstl_alloc.h
+             $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
+	     $(srcdir)/../../src/cstl_algo.c \
+	     $(srcdir)/../../src/cstl_algobase.c \
+	     $(srcdir)/../../src/cstl_function.c \
+             $(srcdir)/../../src/cstl_iterator.c \
+             $(srcdir)/../../src/cstl_avl_tree.c \
+	     $(srcdir)/../../src/cstl_basic_string.c \
+	     $(srcdir)/../../src/cstl_deque.c \
+	     $(srcdir)/../../src/cstl_hash_map.c \
+	     $(srcdir)/../../src/cstl_hash_multimap.c \
+	     $(srcdir)/../../src/cstl_hash_multiset.c \
+	     $(srcdir)/../../src/cstl_hash_set.c \
+	     $(srcdir)/../../src/cstl_hashtable.c \
+	     $(srcdir)/../../src/cstl_heap.c \
+	     $(srcdir)/../../src/cstl_list.c \
+	     $(srcdir)/../../src/cstl_map.c \
+	     $(srcdir)/../../src/cstl_multimap.c \
+	     $(srcdir)/../../src/cstl_multiset.c \
+	     $(srcdir)/../../src/cstl_numeric.c \
+	     $(srcdir)/../../src/cstl_rb_tree.c \
+	     $(srcdir)/../../src/cstl_set.c \
+	     $(srcdir)/../../src/cstl_slist.c \
+	     $(srcdir)/../../src/cstl_queue.c \
+	     $(srcdir)/../../src/cstl_string.c \
+	     $(srcdir)/../../src/cstl_types.c \
+	     $(srcdir)/../../src/cstl_pair.c \
+	     $(srcdir)/../../src/cstl_stack.c \
+             ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
+             ut_cstl_alloc.c ut_cstl_alloc.h \
+             $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
+	     $(srcdir)/../../src/cstl_vector_private.c $(srcdir)/../../src/cstl_vector_aux.c \
+             ut_cstl_vector_iterator.c ut_cstl_vector_iterator.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)
