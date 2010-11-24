@@ -55,16 +55,46 @@ extern vector_iterator_t _create_vector_iterator(void);
  *          if two iterators are not belong to same container, then behavior is undefined.
  */
 extern bool_t _vector_iterator_equal(vector_iterator_t it_first, vector_iterator_t it_second);
-extern bool_t _vector_iterator_less(
-    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond);
-extern bool_t _vector_iterator_before(
-    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond);
 
-/*
- * Get and Set element that is referenced by iterator_t.
+/**
+ * Testing of the first iterator is less than the second iterator.
+ * @param it_first   first iterator.
+ * @param it_second  second iterator.
+ * @return true if the first iterator is less than the second one, otherwise return false.
+ * @remarks if two iterators with different container type or iterator type, then behavior is undefined.
+ *          if two iterators are not belong to same container, then behavior is undefined.
  */
-extern void _vector_iterator_get_value(vector_iterator_t t_iter, void* pv_value);
-extern void _vector_iterator_set_value(vector_iterator_t t_iter, const void* cpv_value);
+extern bool_t _vector_iterator_less(vector_iterator_t it_first, vector_iterator_t it_second);
+
+/**
+ * Testing of the first iterator is located in front of the second iterator.
+ * @param it_first   first iterator.
+ * @param it_second  second iterator.
+ * @return true if the first iterator is in front of the second iterator, otherwise return false.
+ * @remarks if two iterators with different container type or iterator type, then behavior is undefined.
+ *          if two iterators are not belong to same container, then behavior is undefined.
+ */
+extern bool_t _vector_iterator_before(vector_iterator_t it_first, vector_iterator_t it_second);
+
+/**
+ * Get iterator reference data.
+ * @param it_iter vector iterator.
+ * @param pv_value point to buffer that be used to save date.
+ * @return void.
+ * @remarks it_iter must be valid vector iterator, otherwise the behavior is undefined. if pv_value == NULL,
+ *          then the behavior is undefined.
+ */
+extern void _vector_iterator_get_value(vector_iterator_t it_iter, void* pv_value);
+
+/**
+ * Set iterator reference data.
+ * @param it_iter vector iterator.
+ * @param cpv_value point to buffer that be used to save date.
+ * @return void.
+ * @remarks it_iter must be valid vector iterator, otherwise the behavior is undefined. if pv_value == NULL,
+ *          then the behavior is undefined.
+ */
+extern void _vector_iterator_set_value(vector_iterator_t it_iter, const void* cpv_value);
 extern const void* _vector_iterator_get_pointer(vector_iterator_t t_iter); 
 
 /*

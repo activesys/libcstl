@@ -57,14 +57,14 @@ typedef struct _tagalloc
 typedef union _tagmemlink
 {
     union _tagmemlink* _pui_nextmem;  /* point to next memory block */
-    byte_t             _pby_mem[1];    /* represent memory block */
+    _byte_t            _pby_mem[1];    /* represent memory block */
 }_memlink_t;
 
 typedef struct _tagalloc
 {
     _memlink_t* _apt_memlink[_MEM_LINK_COUNT];   /* memory list */
-    byte_t**    _ppby_mempoolcontainer;          /* memory pool container */
-    byte_t*     _pby_mempool;                    /* memory pool start */
+    _byte_t**   _ppby_mempoolcontainer;          /* memory pool container */
+    _byte_t*    _pby_mempool;                    /* memory pool start */
     size_t      _t_mempoolsize;                  /* memory pool size */
     size_t      _t_mempoolindex;                 /* memory pool index */
     size_t      _t_mempoolcount;                 /* memory pool count */

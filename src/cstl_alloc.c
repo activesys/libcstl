@@ -103,7 +103,7 @@ void _alloc_init(_alloc_t* pt_allocator)
 
     /* initialize memory pool */
     pt_allocator->_t_mempoolcount = _MEM_POOL_DEFAULT_COUNT;
-    pt_allocator->_ppby_mempoolcontainer = (byte_t**)malloc(pt_allocator->_t_mempoolcount * sizeof(byte_t*));
+    pt_allocator->_ppby_mempoolcontainer = (_byte_t**)malloc(pt_allocator->_t_mempoolcount * sizeof(_byte_t*));
     if(pt_allocator->_ppby_mempoolcontainer != NULL)
     {
         for(i = 0; i < pt_allocator->_t_mempoolcount; ++i)

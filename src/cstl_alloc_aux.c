@@ -117,7 +117,7 @@ void _alloc_apply_formated_memory(_alloc_t* pt_allocator, size_t t_allocsize)
         }
         else
         {
-            pt_link->_pui_nextmem = (_memlink_t*)((byte_t*)pt_link + t_allocsize);
+            pt_link->_pui_nextmem = (_memlink_t*)((_byte_t*)pt_link + t_allocsize);
         }
         pt_link = pt_link->_pui_nextmem;
     }
@@ -126,12 +126,12 @@ void _alloc_apply_formated_memory(_alloc_t* pt_allocator, size_t t_allocsize)
 /**
  * Get memory chunk from memory pool.
  */
-byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount)
+_byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount)
 {
-    size_t t_totalsize = 0;     /* total size of alloc */
-    byte_t*  pby_allocmem = NULL;  /* the allocated memory block */
-    size_t t_getmemsize = 0;    /* bytes to get memory from system heap */
-    size_t i = 0;
+    size_t    t_totalsize = 0;     /* total size of alloc */
+    _byte_t*  pby_allocmem = NULL;  /* the allocated memory block */
+    size_t    t_getmemsize = 0;    /* bytes to get memory from system heap */
+    size_t    i = 0;
 
     assert(pt_allocator);
     assert(pt_alloccount);
@@ -172,14 +172,14 @@ byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, size
         }
 
         t_getmemsize = 2 * t_totalsize;
-        pt_allocator->_pby_mempool = (byte_t*)malloc(t_getmemsize);
+        pt_allocator->_pby_mempool = (_byte_t*)malloc(t_getmemsize);
 
         if(pt_allocator->_pby_mempool == NULL)
         {
             /* search the memory list for unuse memory that meet the size */
             for(i = t_allocsize; i < _MEM_SMALL_MEM_SIZE_MAX; i += _MEM_ALIGNMENT)
             {
-                pt_allocator->_pby_mempool = (byte_t*)pt_allocator->_apt_memlink[_MEM_LINK_INDEX(i)];
+                pt_allocator->_pby_mempool = (_byte_t*)pt_allocator->_apt_memlink[_MEM_LINK_INDEX(i)];
                 if(pt_allocator->_pby_mempool != NULL)
                 {
                     pt_allocator->_apt_memlink[_MEM_LINK_INDEX(i)] = ((_memlink_t*)pt_allocator->_pby_mempool)->_pui_nextmem;
@@ -188,16 +188,16 @@ byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, size
                     return _alloc_get_memory_chunk(pt_allocator, t_allocsize, pt_alloccount);
                 }
             }
-            pt_allocator->_pby_mempool = (byte_t*)_alloc_malloc_out_of_memory(t_getmemsize);
+            pt_allocator->_pby_mempool = (_byte_t*)_alloc_malloc_out_of_memory(t_getmemsize);
         }
 
         /* if the memory pool container is full */
         if(pt_allocator->_t_mempoolindex == pt_allocator->_t_mempoolcount)
         {
-            byte_t** ppby_oldmempool = pt_allocator->_ppby_mempoolcontainer;
+            _byte_t** ppby_oldmempool = pt_allocator->_ppby_mempoolcontainer;
 
             pt_allocator->_t_mempoolcount += _MEM_POOL_DEFAULT_COUNT;
-            pt_allocator->_ppby_mempoolcontainer = (byte_t**)malloc(pt_allocator->_t_mempoolcount * sizeof(byte_t*));
+            pt_allocator->_ppby_mempoolcontainer = (_byte_t**)malloc(pt_allocator->_t_mempoolcount * sizeof(_byte_t*));
             if(pt_allocator->_ppby_mempoolcontainer != NULL)
             {
                 for(i = 0; i < pt_allocator->_t_mempoolcount; ++i)
@@ -205,7 +205,7 @@ byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, size
                     pt_allocator->_ppby_mempoolcontainer[i] = NULL;
                 }
                 memcpy(pt_allocator->_ppby_mempoolcontainer, ppby_oldmempool,
-                    (pt_allocator->_t_mempoolcount - _MEM_POOL_DEFAULT_COUNT) * sizeof(byte_t*));
+                    (pt_allocator->_t_mempoolcount - _MEM_POOL_DEFAULT_COUNT) * sizeof(_byte_t*));
                 free(ppby_oldmempool);
                 assert(pt_allocator->_t_mempoolindex < pt_allocator->_t_mempoolcount);
             }

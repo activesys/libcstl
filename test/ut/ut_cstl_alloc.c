@@ -324,12 +324,12 @@ void test__alloc_deallocate__less_than_max_small_memory(void** state)
     assert_true(allocator._t_mempoolsize == 128);
     assert_true(allocator._t_mempoolindex == 1);
     assert_true(allocator._t_mempoolcount == _MEM_POOL_DEFAULT_COUNT);
-    assert_true(allocator._ppby_mempoolcontainer[0] == (byte_t*)allocator._apt_memlink[_MEM_LINK_INDEX(8)]);
+    assert_true(allocator._ppby_mempoolcontainer[0] == (_byte_t*)allocator._apt_memlink[_MEM_LINK_INDEX(8)]);
     for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
         if(i == _MEM_LINK_INDEX(8))
         {
-            assert_true((byte_t*)allocator._apt_memlink[i] == allocator._ppby_mempoolcontainer[0]);
+            assert_true((_byte_t*)allocator._apt_memlink[i] == allocator._ppby_mempoolcontainer[0]);
         }
         else
         {

@@ -75,7 +75,7 @@ extern "C" {
 #define true    1
 
 /** data type declaration and struct, union, enum section **/
-typedef unsigned char            byte_t;
+typedef unsigned char            _byte_t;
 typedef size_t                   bool_t;         /* declaration for bool type */
 
 /** exported global variable declaration section **/
