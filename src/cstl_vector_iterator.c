@@ -121,39 +121,47 @@ void _vector_iterator_set_value(vector_iterator_t it_iter, const void* cpv_value
     }
 }
 
-const void* _vector_iterator_get_pointer(vector_iterator_t t_iter)
+/**
+ * Get the pointer that point to the iterator reference data.
+ */
+const void* _vector_iterator_get_pointer(vector_iterator_t it_iter)
 {
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    assert(!iterator_equal(t_iter, vector_end(_GET_VECTOR_CONTAINER(t_iter))));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
+    assert(!iterator_equal(it_iter, vector_end(_GET_VECTOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
-        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return string_c_str((string_t*)_GET_VECTOR_COREPOS(t_iter));
+        return string_c_str((string_t*)_GET_VECTOR_COREPOS(it_iter));
     }
     else
     {
-        return _GET_VECTOR_COREPOS(t_iter);
+        return _GET_VECTOR_COREPOS(it_iter);
     }
 }
 
-vector_iterator_t _vector_iterator_next(vector_iterator_t t_iter)
+/**
+ * Get the iterator that reference next data.
+ */
+vector_iterator_t _vector_iterator_next(vector_iterator_t it_iter)
 {
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) += _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
+    _GET_VECTOR_COREPOS(it_iter) += _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(it_iter));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
 
-    return t_iter;
+    return it_iter;
 }
 
-vector_iterator_t _vector_iterator_prev(vector_iterator_t t_iter)
+/**
+ * Get the iterator that reference previous data.
+ */
+vector_iterator_t _vector_iterator_prev(vector_iterator_t it_iter)
 {
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) -= _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
+    _GET_VECTOR_COREPOS(it_iter) -= _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(it_iter));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
 
-    return t_iter;
+    return it_iter;
 }
 
 void* _vector_iterator_at(vector_iterator_t t_iter, int n_index)
@@ -175,14 +183,16 @@ void* _vector_iterator_at(vector_iterator_t t_iter, int n_index)
     }
 }
 
-vector_iterator_t _vector_iterator_next_n(vector_iterator_t t_iter, int n_step)
+/**
+ * Get the iterator that reference next n data.
+ */
+vector_iterator_t _vector_iterator_next_n(vector_iterator_t it_iter, int n_step)
 {
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) +=
-        _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter)) * n_step;
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
+    _GET_VECTOR_COREPOS(it_iter) += _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(it_iter)) * n_step;
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
 
-    return t_iter;
+    return it_iter;
 }
 
 vector_iterator_t _vector_iterator_prev_n(vector_iterator_t t_iter, int n_step)

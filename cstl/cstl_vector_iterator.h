@@ -95,13 +95,40 @@ extern void _vector_iterator_get_value(vector_iterator_t it_iter, void* pv_value
  *          then the behavior is undefined.
  */
 extern void _vector_iterator_set_value(vector_iterator_t it_iter, const void* cpv_value);
-extern const void* _vector_iterator_get_pointer(vector_iterator_t t_iter); 
 
-/*
- * Increase or decrease operator of iterator_t.
+/**
+ * Get the pointer that point to the iterator reference data.
+ * @param it_iter vector iterator.
+ * @return data pointer.
+ * @remarks it_iter must be valid vector iterator, otherwise the behavior is undefined.
  */
-extern vector_iterator_t _vector_iterator_next(vector_iterator_t t_iter);
-extern vector_iterator_t _vector_iterator_prev(vector_iterator_t t_iter);
+extern const void* _vector_iterator_get_pointer(vector_iterator_t it_iter); 
+
+/**
+ * Get the iterator that reference next data.
+ * @param it_iter vector iterator.
+ * @return next iterator.
+ * @remarks it_iter and the returned iterator must be valid vector iterator, otherwise the behavior is undefined.
+ */
+extern vector_iterator_t _vector_iterator_next(vector_iterator_t it_iter);
+
+/**
+ * Get the iterator that reference previous data.
+ * @param it_iter vector iterator.
+ * @return previous iterator.
+ * @remarks it_iter and the returned iterator must be valid vector iterator, otherwise the behavior is undefined.
+ */
+extern vector_iterator_t _vector_iterator_prev(vector_iterator_t it_iter);
+
+/**
+ * Get the iterator that reference next n data.
+ * @param it_iter vector iterator.
+ * @param n_step steps to move.
+ * @return next n iterator.
+ * @remarks it_iter and the returned iterator must be valid vector iterator, otherwise the behavior is undefined.
+ *          if n_step > 0, iterator move to the end of the container. if n_step < 0, iterator move to the begin of
+ *          the container. if n_step == 0, iterator dose not move.
+ */
 extern vector_iterator_t _vector_iterator_next_n(vector_iterator_t t_iter, int n_step);
 extern vector_iterator_t _vector_iterator_prev_n(vector_iterator_t t_iter, int n_step);
 
