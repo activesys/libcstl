@@ -129,19 +129,40 @@ extern vector_iterator_t _vector_iterator_prev(vector_iterator_t it_iter);
  *          if n_step > 0, iterator move to the end of the container. if n_step < 0, iterator move to the begin of
  *          the container. if n_step == 0, iterator dose not move.
  */
-extern vector_iterator_t _vector_iterator_next_n(vector_iterator_t t_iter, int n_step);
-extern vector_iterator_t _vector_iterator_prev_n(vector_iterator_t t_iter, int n_step);
+extern vector_iterator_t _vector_iterator_next_n(vector_iterator_t it_iter, int n_step);
 
-/*
- * Access element randomly through iterator_t.
+/**
+ * Get the iterator that reference previous n data.
+ * @param it_iter vector iterator.
+ * @param n_step steps to move.
+ * @return next n iterator.
+ * @remarks it_iter and the returned iterator must be valid vector iterator, otherwise the behavior is undefined.
+ *          if n_step > 0, iterator move to the begin of the container. if n_step < 0, iterator move to the end of
+ *          the container. if n_step == 0, iterator dose not move.
  */
-extern void* _vector_iterator_at(vector_iterator_t t_iter, int n_index);
+extern vector_iterator_t _vector_iterator_prev_n(vector_iterator_t it_iter, int n_step);
 
-/*
- * Subaction operator of iterator_t.
+/**
+ * Access iterator reference data randomly with subscript.
+ * @param it_iter vector iterator.
+ * @param n_index subscript
+ * @return reference data.
+ * @remarks it_iter must be valid vector iterator, and referenced data must whitin the vector, otherwise the behavior
+ *          is undefined. if n_index > 0, iterator move to the begin of the container. if n_index < 0, iterator move to
+ *          the end of the container. if n_index == 0, return iterator reference data.
  */
-extern int _vector_iterator_minus(
-    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond);
+extern void* _vector_iterator_at(vector_iterator_t it_iter, int n_index);
+
+/**
+ * Calculate the distance between two iterators.
+ * @param it_first first vector iterator.
+ * @param it_second second vector iterator.
+ * @return the distance between two iterators.
+ * @remarks the two iterators must be valid vector iterator, otherwist the behavious is undefined. if it_first < it_second,
+ *          then return value < 0, if it_first > it_second, then return value > 0, if it_first == it_second, then return
+ *          value == 0.
+ */
+extern int _vector_iterator_minus(vector_iterator_t it_first, vector_iterator_t it_second);
 
 #ifdef __cplusplus
 }

@@ -45,14 +45,18 @@
 
 /** exported function implementation section **/
 #ifndef NDEBUG
-bool_t _vector_iterator_belong_to_vector(
-    const vector_t* cpt_vector, vector_iterator_t t_iter)
+/**
+ * Test iterator referenced data is within the vector.
+ */
+bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_iterator_t it_iter)
 {
-    assert(cpt_vector != NULL);
-    assert(_GET_VECTOR_CONTAINER(t_iter) == cpt_vector);
+    assert(cpvec_vector != NULL);
+    assert(it_iter._t_iteratortype == _RANDOM_ACCESS_ITERATOR);
+    assert(it_iter._t_containertype == _VECTOR_CONTAINER);
+    assert(_GET_VECTOR_CONTAINER(it_iter) == cpvec_vector);
 
-    if(_GET_VECTOR_COREPOS(t_iter) >= cpt_vector->_pc_start &&
-       _GET_VECTOR_COREPOS(t_iter) <= cpt_vector->_pc_finish)
+    if(_GET_VECTOR_COREPOS(it_iter) >= cpvec_vector->_pc_start &&
+       _GET_VECTOR_COREPOS(it_iter) <= cpvec_vector->_pc_finish)
     {
         return true;
     }

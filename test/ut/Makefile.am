@@ -32,7 +32,8 @@ ut_SOURCES = ut_main.c \
              ut_cstl_alloc.c ut_cstl_alloc.h \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
 	     $(srcdir)/../../src/cstl_vector_private.c $(srcdir)/../../src/cstl_vector_aux.c \
-             ut_cstl_vector_iterator.c ut_cstl_vector_iterator.h
+             ut_cstl_vector_iterator.c ut_cstl_vector_iterator.h \
+	     ut_cstl_vector_aux.c ut_cstl_vector_aux.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

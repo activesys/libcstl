@@ -54,11 +54,15 @@ extern "C" {
 
 /** exported function prototype section **/
 #ifndef NDEBUG
-/*
- * Private function for assert.
+/**
+ * Test iterator referenced data is within the vector.
+ * @param cpvec_vector point to vector container.
+ * @param it_iter vector iterator.
+ * @return if iterator referenced is within the vector, then return true, otherwise return false.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined, the it_iter must be valie vector iterator and
+ *          must belong to vector, otherwist the behavior is undefined. 
  */
-extern bool_t _vector_iterator_belong_to_vector(
-    const vector_t* cpt_vector, vector_iterator_t t_iter);
+extern bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_iterator_t it_iter);
 extern bool_t _vector_same_vector_iterator_type(
     const vector_t* cpt_vector, vector_iterator_t t_iter);
 #endif /* NDEBUG */

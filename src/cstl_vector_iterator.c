@@ -82,7 +82,7 @@ void _vector_iterator_get_value(vector_iterator_t it_iter, void* pv_value)
 
     assert(pv_value != NULL);
     assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
-    assert(!iterator_equal(it_iter, vector_end(_GET_VECTOR_CONTAINER(it_iter))));
+    assert(!_vector_iterator_equal(it_iter, vector_end(_GET_VECTOR_CONTAINER(it_iter))));
 
     /* char* */
     if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
@@ -106,7 +106,7 @@ void _vector_iterator_set_value(vector_iterator_t it_iter, const void* cpv_value
 
     assert(cpv_value != NULL);
     assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
-    assert(!iterator_equal(it_iter, vector_end(_GET_VECTOR_CONTAINER(it_iter))));
+    assert(!_vector_iterator_equal(it_iter, vector_end(_GET_VECTOR_CONTAINER(it_iter))));
 
     /* char* */
     if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
@@ -127,7 +127,7 @@ void _vector_iterator_set_value(vector_iterator_t it_iter, const void* cpv_value
 const void* _vector_iterator_get_pointer(vector_iterator_t it_iter)
 {
     assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
-    assert(!iterator_equal(it_iter, vector_end(_GET_VECTOR_CONTAINER(it_iter))));
+    assert(!_vector_iterator_equal(it_iter, vector_end(_GET_VECTOR_CONTAINER(it_iter))));
 
     /* char* */
     if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
@@ -164,23 +164,13 @@ vector_iterator_t _vector_iterator_prev(vector_iterator_t it_iter)
     return it_iter;
 }
 
-void* _vector_iterator_at(vector_iterator_t t_iter, int n_index)
+/**
+ * Access iterator reference data randomly with subscript.
+ */
+void* _vector_iterator_at(vector_iterator_t it_iter, int n_index)
 {
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) +=
-        _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter)) * n_index;
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-
-    /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
-        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        return (char*)string_c_str((string_t*)_GET_VECTOR_COREPOS(t_iter));
-    }
-    else
-    {
-        return _GET_VECTOR_COREPOS(t_iter);
-    }
+    it_iter = _vector_iterator_next_n(it_iter, n_index);
+    return (void*)_vector_iterator_get_pointer(it_iter);
 }
 
 /**
@@ -195,27 +185,30 @@ vector_iterator_t _vector_iterator_next_n(vector_iterator_t it_iter, int n_step)
     return it_iter;
 }
 
-vector_iterator_t _vector_iterator_prev_n(vector_iterator_t t_iter, int n_step)
+/**
+ * Get the iterator that reference previous n data.
+ */
+vector_iterator_t _vector_iterator_prev_n(vector_iterator_t it_iter, int n_step)
 {
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) -=
-        _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter)) * n_step;
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
+    _GET_VECTOR_COREPOS(it_iter) -= _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(it_iter)) * n_step;
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_iter), it_iter));
 
-    return t_iter;
+    return it_iter;
 }
 
-int _vector_iterator_minus(vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond)
+/**
+ * Calculate the distance between two iterators.
+ */
+int _vector_iterator_minus(vector_iterator_t it_first, vector_iterator_t it_second)
 {
-    assert(_iterator_same_type(t_iterfirst, t_itersecond));
-    assert(_GET_VECTOR_CONTAINER(t_iterfirst) == _GET_VECTOR_CONTAINER(t_itersecond));
-    assert(_vector_iterator_belong_to_vector(
-        _GET_VECTOR_CONTAINER(t_iterfirst), t_iterfirst));
-    assert(_vector_iterator_belong_to_vector(
-        _GET_VECTOR_CONTAINER(t_itersecond), t_itersecond));
+    assert(_iterator_same_type(it_first, it_second));
+    assert(_GET_VECTOR_CONTAINER(it_first) == _GET_VECTOR_CONTAINER(it_second));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_first), it_first));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_second), it_second));
 
-    return (_GET_VECTOR_COREPOS(t_iterfirst) - _GET_VECTOR_COREPOS(t_itersecond)) / 
-           (int)_GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iterfirst));
+    return (_GET_VECTOR_COREPOS(it_first) - _GET_VECTOR_COREPOS(it_second)) / 
+           (int)_GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(it_first));
 }
 
 /**

@@ -40,7 +40,7 @@ void test__vector_iterator_equal__different_iterator_type(void** state)
     vector_iterator_t it_first = _create_vector_iterator();
     vector_iterator_t it_second = _create_vector_iterator();
 
-    it_first._t_iteratortype = _RANDOM_ACCESS_ITERATOR;
+    it_first._t_iteratortype = _INPUT_ITERATOR;
 
     expect_assert_failure(_vector_iterator_equal(it_first, it_second));
 }
@@ -141,7 +141,7 @@ void test__vector_iterator_less__different_iterator_type(void** state)
     vector_iterator_t it_first = _create_vector_iterator();
     vector_iterator_t it_second = _create_vector_iterator();
 
-    it_first._t_iteratortype = _RANDOM_ACCESS_ITERATOR;
+    it_first._t_iteratortype = _INPUT_ITERATOR;
 
     expect_assert_failure(_vector_iterator_less(it_first, it_second));
 }
@@ -258,7 +258,7 @@ void test__vector_iterator_before__different_iterator_type(void** state)
     vector_iterator_t it_first = _create_vector_iterator();
     vector_iterator_t it_second = _create_vector_iterator();
 
-    it_first._t_iteratortype = _RANDOM_ACCESS_ITERATOR;
+    it_first._t_iteratortype = _INPUT_ITERATOR;
 
     expect_assert_failure(_vector_iterator_before(it_first, it_second));
 }
@@ -375,6 +375,51 @@ void test__vector_iterator_get_value__invalid_iterator(void** state)
     vector_destroy(pvec);
 }
 
+void test__vector_iterator_get_value__invalid_iterator_container_type(void** state)
+{
+    int value;
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_get_value(it_iter, &value));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_value__invalid_iterator_iterator_type(void** state)
+{
+    int value;
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_get_value(it_iter, &value));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_value__invalid_iterator_container_pointer(void** state)
+{
+    int value;
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_vector_iterator_get_value(it_iter, &value));
+
+    vector_destroy(pvec);
+}
+
 void test__vector_iterator_get_value__vector_end(void** state)
 {
     int value;
@@ -444,6 +489,51 @@ void test__vector_iterator_set_value__invalid_iterator(void** state)
     vector_init_n(pvec, 10);
     it_iter = vector_begin(pvec);
     it_iter._t_pos._pc_corepos = NULL;
+
+    expect_assert_failure(_vector_iterator_set_value(it_iter, &value));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_set_value__invalid_iterator_container_type(void** state)
+{
+    int value;
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_set_value(it_iter, &value));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_set_value__invalid_iterator_iterator_type(void** state)
+{
+    int value;
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_set_value(it_iter, &value));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_set_value__invalid_iterator_container_pointer(void** state)
+{
+    int value;
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._pt_container = NULL;
 
     expect_assert_failure(_vector_iterator_set_value(it_iter, &value));
 
@@ -524,6 +614,48 @@ void test__vector_iterator_get_pointer__invalid_iterator(void** state)
     vector_destroy(pvec);
 }
 
+void test__vector_iterator_get_pointer__invalid_iterator_container_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_get_pointer(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_pointer__invalid_iterator_iterator_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_get_pointer(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_pointer__invalid_iterator_container_pointer(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_vector_iterator_get_pointer(it_iter));
+
+    vector_destroy(pvec);
+}
+
 void test__vector_iterator_get_pointer__vector_end(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -580,6 +712,48 @@ void test__vector_iterator_next__invalid_iterator(void** state)
     vector_destroy(pvec);
 }
 
+void test__vector_iterator_next__invalid_iterator_container_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_next(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_next__invalid_iterator_iterator_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_next(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_next__invalid_iterator_container_pointer(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_vector_iterator_next(it_iter));
+
+    vector_destroy(pvec);
+}
+
 void test__vector_iterator_next__invalid_returned_iterator(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -625,6 +799,48 @@ void test__vector_iterator_prev__invalid_iterator(void** state)
     vector_destroy(pvec);
 }
 
+void test__vector_iterator_prev__invalid_iterator_container_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_prev(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev__invalid_iterator_iterator_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_prev(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev__invalid_iterator_container_pointer(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_vector_iterator_prev(it_iter));
+
+    vector_destroy(pvec);
+}
+
 void test__vector_iterator_prev__invalid_returned_iterator(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -664,6 +880,48 @@ void test__vector_iterator_next_n__invalid_iterator(void** state)
     vector_init_n(pvec, 10);
     it_iter = vector_begin(pvec);
     it_iter._t_pos._pc_corepos = NULL;
+
+    expect_assert_failure(_vector_iterator_next_n(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_next_n__invalid_iterator_container_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_next_n(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_next_n__invalid_iterator_iterator_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_next_n(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_next_n__invalid_iterator_container_pointer(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._pt_container = NULL;
 
     expect_assert_failure(_vector_iterator_next_n(it_iter, 10));
 
@@ -737,6 +995,466 @@ void test__vector_iterator_next_n__does_not_move_successfully(void** state)
     it_next_n = _vector_iterator_next_n(it_iter, 0);
 
     assert_true(it_iter._t_pos._pc_corepos == it_next_n._t_pos._pc_corepos);
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test _vector_iterator_prev_n
+ */
+void test__vector_iterator_prev_n__invalid_iterator(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_pos._pc_corepos = NULL;
+
+    expect_assert_failure(_vector_iterator_prev_n(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev_n__invalid_iterator_container_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_prev_n(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev_n__invalid_iterator_iterator_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_prev_n(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev_n__invalid_iterator_container_pointer(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_vector_iterator_prev_n(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev_n__move_to_end_invalid_returned_iterator(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+
+    expect_assert_failure(_vector_iterator_prev_n(it_iter, -20));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev_n__move_to_begin_invalid_returned_iterator(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+
+    expect_assert_failure(_vector_iterator_prev_n(it_iter, 20));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev_n__move_to_end_successfully(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+    vector_iterator_t it_prev_n;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_prev_n = _vector_iterator_prev_n(it_iter, -10);
+
+    assert_true(it_iter._t_pos._pc_corepos + 10 * pvec->_t_typeinfo._pt_type->_t_typesize == it_prev_n._t_pos._pc_corepos);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev_n__move_to_front_successfully(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+    vector_iterator_t it_prev_n;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+    it_prev_n = _vector_iterator_prev_n(it_iter, 10);
+
+    assert_true(it_iter._t_pos._pc_corepos - 10 * pvec->_t_typeinfo._pt_type->_t_typesize == it_prev_n._t_pos._pc_corepos);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_prev_n__does_not_move_successfully(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+    vector_iterator_t it_prev_n;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_prev_n = _vector_iterator_prev_n(it_iter, 0);
+
+    assert_true(it_iter._t_pos._pc_corepos == it_prev_n._t_pos._pc_corepos);
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test _vector_iterator_at
+ */
+void test__vector_iterator_at__invalid_iterator(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_pos._pc_corepos = NULL;
+
+    expect_assert_failure(_vector_iterator_at(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__invalid_iterator_container_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_at(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__invalid_iterator_iterator_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_at(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__invalid_iterator_container_pointer(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_vector_iterator_at(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__move_to_end_invalid_returned_iterator(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+
+    expect_assert_failure(_vector_iterator_at(it_iter, 20));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__move_to_begin_invalid_returned_iterator(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+
+    expect_assert_failure(_vector_iterator_at(it_iter, -20));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__end_invalid_iterator(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_elem(pvec, 10, 100);
+    it_iter = vector_begin(pvec);
+
+    expect_assert_failure(_vector_iterator_at(it_iter, 10));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__move_to_end_successfully(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+    int i = 0;
+
+    vector_init(pvec);
+    for(i = 0; i < 10; ++i)
+    {
+        vector_push_back(pvec, i);
+    }
+    it_iter = vector_begin(pvec);
+
+    assert_int_equal(*(int*)_vector_iterator_at(it_iter, 5), 5);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__move_to_end_cstr_successfully(void** state)
+{
+    vector_t* pvec = create_vector(char*);
+    vector_iterator_t it_iter;
+    char* s_at = NULL;
+
+    vector_init(pvec);
+    vector_push_back(pvec, "abc");
+    vector_push_back(pvec, "def");
+    vector_push_back(pvec, "hij");
+    vector_push_back(pvec, "klm");
+    vector_push_back(pvec, "nop");
+    it_iter = vector_begin(pvec);
+    s_at = (char*)_vector_iterator_at(it_iter, 3);
+
+    assert_true(strcmp(s_at, "klm") == 0);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__move_to_front_successfully(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+    int i = 0;
+
+    vector_init(pvec);
+    for(i = 0;i < 10; ++i)
+    {
+        vector_push_back(pvec, i);
+    }
+    it_iter = vector_end(pvec);
+
+    assert_int_equal(*(int*)_vector_iterator_at(it_iter, -2), 8);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__move_to_front_cstr_successfully(void** state)
+{
+    vector_t* pvec = create_vector(char*);
+    vector_iterator_t it_iter;
+    char* s_at = NULL;
+
+    vector_init(pvec);
+    vector_push_back(pvec, "abc");
+    vector_push_back(pvec, "def");
+    vector_push_back(pvec, "hij");
+    vector_push_back(pvec, "klm");
+    vector_push_back(pvec, "nop");
+    it_iter = vector_end(pvec);
+    s_at = (char*)_vector_iterator_at(it_iter, -3);
+
+    assert_true(strcmp(s_at, "hij") == 0);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__does_not_move_successfully(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+    int i = 0;
+
+    vector_init(pvec);
+    for(i = 0; i < 10; ++i)
+    {
+        vector_push_back(pvec, i);
+    }
+    it_iter = _vector_iterator_next_n(vector_begin(pvec), 4);
+
+    assert_int_equal(*(int*)_vector_iterator_at(it_iter, 0), 4);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_at__does_not_move_cstr_successfully(void** state)
+{
+    vector_t* pvec = create_vector(char*);
+    vector_iterator_t it_iter;
+    char* s_at = NULL;
+
+    vector_init(pvec);
+    vector_push_back(pvec, "abc");
+    vector_push_back(pvec, "def");
+    vector_push_back(pvec, "hij");
+    vector_push_back(pvec, "klm");
+    vector_push_back(pvec, "nop");
+    it_iter = vector_begin(pvec);
+    s_at = (char*)_vector_iterator_at(it_iter, 0);
+
+    assert_true(strcmp(s_at, "abc") == 0);
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test _vector_iterator_minus
+ */
+void test__vector_iterator_minus__different_container_type(void** state)
+{
+    vector_iterator_t it_first = _create_vector_iterator();
+    vector_iterator_t it_second = _create_vector_iterator();
+
+    it_first._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_minus(it_first, it_second));
+}
+
+void test__vector_iterator_minus__different_iterator_type(void** state)
+{
+    vector_iterator_t it_first = _create_vector_iterator();
+    vector_iterator_t it_second = _create_vector_iterator();
+
+    it_first._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_minus(it_first, it_second));
+}
+
+void test__vector_iterator_minus__different_container_pointer(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_first = _create_vector_iterator();
+    vector_iterator_t it_second = _create_vector_iterator();
+
+    vector_init(pvec);
+
+    it_first = vector_begin(pvec);
+
+    expect_assert_failure(_vector_iterator_minus(it_first, it_second));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_minus__first_is_not_belong_to_vector(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_first = _create_vector_iterator();
+    vector_iterator_t it_second = _create_vector_iterator();
+
+    vector_init_n(pvec, 10);
+
+    it_first = it_second = vector_begin(pvec);
+    it_first._t_pos._pc_corepos = NULL;
+
+    expect_assert_failure(_vector_iterator_minus(it_first, it_second));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_minus__second_is_not_belong_to_vector(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_first = _create_vector_iterator();
+    vector_iterator_t it_second = _create_vector_iterator();
+
+    vector_init_n(pvec, 10);
+
+    it_first = it_second = vector_begin(pvec);
+    it_second._t_pos._pc_corepos = NULL;
+
+    expect_assert_failure(_vector_iterator_minus(it_first, it_second));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_minus__first_less_then_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_first = _create_vector_iterator();
+    vector_iterator_t it_second = _create_vector_iterator();
+
+    vector_init_n(pvec, 10);
+
+    it_first = vector_begin(pvec);
+    it_second = vector_end(pvec);
+
+    assert_int_equal(_vector_iterator_minus(it_first, it_second), -10);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_minus__first_greater_then_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_first = _create_vector_iterator();
+    vector_iterator_t it_second = _create_vector_iterator();
+
+    vector_init_n(pvec, 10);
+
+    it_first = vector_end(pvec);
+    it_second = vector_begin(pvec);
+
+    assert_int_equal(_vector_iterator_minus(it_first, it_second), 10);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_minus__first_equal_to_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_first = _create_vector_iterator();
+    vector_iterator_t it_second = _create_vector_iterator();
+
+    vector_init_n(pvec, 10);
+
+    it_first = vector_begin(pvec);
+    it_second = vector_begin(pvec);
+
+    assert_int_equal(_vector_iterator_minus(it_first, it_second), 0);
 
     vector_destroy(pvec);
 }
