@@ -123,3 +123,93 @@ void test__vector_iterator_belong_to_vector__greater_than_end(void** state)
     vector_destroy(pvec);
 }
 
+/*
+ * test _vector_same_type
+ */
+void test__vector_same_type__null_first(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(_vector_same_type(NULL, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_same_type__null_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(_vector_same_type(pvec, NULL));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_same_type__not_same_type_name(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+
+    assert_false(_vector_same_type(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__vector_same_type__not_same_type_pointer(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+
+    pvec_second->_t_typeinfo._pt_type = NULL;
+    assert_false(_vector_same_type(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__vector_same_type__not_same_type_style(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+
+    pvec_second->_t_typeinfo._t_style = _TYPE_CSTL_BUILTIN;
+    assert_false(_vector_same_type(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__vector_same_type__same_type(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+
+    assert_true(_vector_same_type(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__vector_same_type__same_type_duplicate_name(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(signed);
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+
+    assert_true(_vector_same_type(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+

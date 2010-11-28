@@ -66,8 +66,15 @@ extern bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, ve
 extern bool_t _vector_same_vector_iterator_type(
     const vector_t* cpt_vector, vector_iterator_t t_iter);
 #endif /* NDEBUG */
-extern bool_t _vector_same_type(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
+
+/**
+ * Test the type that saved in the vector container is same.
+ * @param cpvec_first first vector.
+ * @param cpvec_second second vector.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpvec_first == NULL or cpvec_second == NULL, the behavior is undefined.
+ */
+extern bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_second);
 
 extern void _vector_get_varg_value_auxiliary(
     vector_t* pt_vector, va_list val_elemlist, void* pv_varg);
