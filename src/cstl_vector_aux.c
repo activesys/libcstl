@@ -66,13 +66,16 @@ bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_it
     }
 }
 
-bool_t _vector_same_vector_iterator_type(
-    const vector_t* cpt_vector, vector_iterator_t t_iter)
+/**
+ * Test the type that saved in the vector container and referenced by it_iter are same.
+ */
+bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_iterator_t it_iter)
 {
-    assert(cpt_vector != NULL && _GET_VECTOR_CONTAINER(t_iter) != NULL);
-    assert(_GET_VECTOR_CONTAINER_TYPE(t_iter) == _VECTOR_CONTAINER &&
-           _GET_VECTOR_ITERATOR_TYPE(t_iter) == _RANDOM_ACCESS_ITERATOR);
-    return _vector_same_type(cpt_vector, _GET_VECTOR_CONTAINER(t_iter));
+    assert(cpvec_vector != NULL);
+    assert(_GET_VECTOR_CONTAINER(it_iter) != NULL);
+    assert(_GET_VECTOR_CONTAINER_TYPE(it_iter) == _VECTOR_CONTAINER);
+    assert(_GET_VECTOR_ITERATOR_TYPE(it_iter) == _RANDOM_ACCESS_ITERATOR);
+    return _vector_same_type(cpvec_vector, _GET_VECTOR_CONTAINER(it_iter));
 }
 #endif /* NDEBUG */
 

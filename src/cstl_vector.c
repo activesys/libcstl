@@ -56,7 +56,7 @@ void vector_init_n(vector_t* pt_vector, size_t t_count)
            pt_vector->_pc_endofstorage == NULL);
     assert(pt_vector->_t_typeinfo._pt_type != NULL);
 
-    _alloc_init(&pt_vector->_t_allocater);
+    /*_alloc_init(&pt_vector->_t_allocater);*/
     if(t_count > 0)
     {
         pt_vector->_pc_start = _alloc_allocate(

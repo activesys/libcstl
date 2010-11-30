@@ -22,6 +22,15 @@ void test__vector_same_type__not_same_type_pointer(void** state);
 void test__vector_same_type__not_same_type_style(void** state);
 void test__vector_same_type__same_type(void** state);
 void test__vector_same_type__same_type_duplicate_name(void** state);
+/*
+ * test _vector_same_vector_iterator_type
+ */
+void test__vector_same_vector_iterator_type__null_vector(void** state);
+void test__vector_same_vector_iterator_type__iterator_null_container(void** state);
+void test__vector_same_vector_iterator_type__iterator_not_vector_container(void** state);
+void test__vector_same_vector_iterator_type__iterator_not_random_iterator(void** state);
+void test__vector_same_vector_iterator_type__same(void** state);
+void test__vector_same_vector_iterator_type__not_same(void** state);
 
 #define UT_CSTL_VECTOR_AUX_CASE \
     unit_test(test__vector_iterator_belong_to_vector__null_container_pointer),\
@@ -38,7 +47,13 @@ void test__vector_same_type__same_type_duplicate_name(void** state);
     unit_test(test__vector_same_type__not_same_type_pointer),\
     unit_test(test__vector_same_type__not_same_type_style),\
     unit_test(test__vector_same_type__same_type),\
-    unit_test(test__vector_same_type__same_type_duplicate_name)
+    unit_test(test__vector_same_type__same_type_duplicate_name),\
+    unit_test(test__vector_same_vector_iterator_type__null_vector),\
+    unit_test(test__vector_same_vector_iterator_type__iterator_null_container),\
+    unit_test(test__vector_same_vector_iterator_type__iterator_not_vector_container),\
+    unit_test(test__vector_same_vector_iterator_type__iterator_not_random_iterator),\
+    unit_test(test__vector_same_vector_iterator_type__same),\
+    unit_test(test__vector_same_vector_iterator_type__not_same)
 
 #endif /* _UT_CSTL_VECTOR_AUX_H_ */
 

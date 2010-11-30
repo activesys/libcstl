@@ -10,6 +10,7 @@
 #include "ut_cstl_alloc.h"
 #include "ut_cstl_vector_iterator.h"
 #include "ut_cstl_vector_aux.h"
+#include "ut_cstl_vector_private.h"
 
 int main(int argc, char* argv[])
 {
@@ -17,7 +18,8 @@ int main(int argc, char* argv[])
         UT_CSTL_ALLOC_AUX_CASE,
         UT_CSTL_ALLOC_CASE,
         UT_CSTL_VECTOR_ITERATOR_CASE,
-        UT_CSTL_VECTOR_AUX_CASE
+        UT_CSTL_VECTOR_AUX_CASE,
+        UT_CSTL_VECTOR_PRIVATE_CASE
     };
 
     return run_tests(tests);

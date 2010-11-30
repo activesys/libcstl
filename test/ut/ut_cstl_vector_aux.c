@@ -213,3 +213,85 @@ void test__vector_same_type__same_type_duplicate_name(void** state)
     vector_destroy(pvec_second);
 }
 
+/*
+ * test _vector_same_vector_iterator_type
+ */
+void test__vector_same_vector_iterator_type__null_vector(void** state)
+{
+    vector_iterator_t it_iter;
+
+    expect_assert_failure(_vector_same_vector_iterator_type(NULL, it_iter));
+}
+
+void test__vector_same_vector_iterator_type__iterator_null_container(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter = _create_vector_iterator();
+
+    vector_init(pvec);
+
+    expect_assert_failure(_vector_same_vector_iterator_type(pvec, it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_same_vector_iterator_type__iterator_not_vector_container(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec);
+    it_iter = vector_begin(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_same_vector_iterator_type(pvec, it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_same_vector_iterator_type__iterator_not_random_iterator(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec);
+    it_iter = vector_begin(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_same_vector_iterator_type(pvec, it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_same_vector_iterator_type__same(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(signed);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    it_iter = vector_begin(pvec_second);
+
+    assert_true(_vector_same_vector_iterator_type(pvec_first, it_iter));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__vector_same_vector_iterator_type__not_same(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    it_iter = vector_begin(pvec_second);
+
+    assert_false(_vector_same_vector_iterator_type(pvec_first, it_iter));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+

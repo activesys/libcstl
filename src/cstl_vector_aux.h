@@ -63,8 +63,15 @@ extern "C" {
  *          must belong to vector, otherwist the behavior is undefined. 
  */
 extern bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_iterator_t it_iter);
-extern bool_t _vector_same_vector_iterator_type(
-    const vector_t* cpt_vector, vector_iterator_t t_iter);
+
+/**
+ * Test the type that saved in the vector container and referenced by it_iter are same.
+ * @param cpvec_vector vector container.
+ * @param it_iter      vector iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpvec_first == NULL or it_iter is not vector iterator, then the behavior is undefined.
+ */
+extern bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_iterator_t it_iter);
 #endif /* NDEBUG */
 
 /**

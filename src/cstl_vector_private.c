@@ -45,6 +45,9 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
+/**
+ * Create vector container.
+ */
 vector_t* _create_vector(const char* s_typename)
 {
     vector_t*   pt_newvector = NULL;
@@ -78,6 +81,7 @@ bool_t _create_vector_auxiliary(vector_t* pt_vector, const char* s_typename)
     pt_vector->_pc_finish = NULL;
     pt_vector->_pc_endofstorage = NULL;
 
+    _alloc_init(&pt_vector->_t_allocater);
     return true;
 }
 

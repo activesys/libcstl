@@ -60,8 +60,12 @@ typedef struct _tagvector
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Creation and initialization vector_t.
+/**
+ * Create vector container.
+ * @param s_typename element type name.
+ * @return if create vector successfully, then return vector pointer, else return NULL.
+ * @remarks if s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name,
+ *          libcstl builtin typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern vector_t* _create_vector(const char* s_typename);
 extern bool_t _create_vector_auxiliary(vector_t* pt_vector, const char* s_typename);
