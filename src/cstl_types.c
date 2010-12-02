@@ -849,8 +849,27 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
     }
     else /* get container name */
     {
-        /* the string_t is special codition */
-        if(strncmp(pt_typeinfo->_sz_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+        /* the string_t and iterator types are special codition */
+        if(strncmp(pt_typeinfo->_sz_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _FORWARD_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _BIDIRECTIONAL_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _RANDOM_ACCESS_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _VECTOR_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _LIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _SLIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _DEQUE_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _HASH_SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0)
         {
             strncpy(s_registeredname, pt_typeinfo->_sz_typename, _TYPE_NAME_SIZE);
         }
@@ -1044,8 +1063,27 @@ void _type_get_elem_typename(const char* s_typename, char* s_elemtypename)
 
     memset(s_elemtypename, '\0', _TYPE_NAME_SIZE+1);
 
-    /* the string_t is special condition */
-    if(strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    /* the string_t and iterator types are special condition */
+    if(strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _FORWARD_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _BIDIRECTIONAL_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _RANDOM_ACCESS_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _VECTOR_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _LIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _SLIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _DEQUE_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _HASH_SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         strncpy(s_elemtypename, s_typename, _TYPE_NAME_SIZE);
     }
@@ -3544,8 +3582,10 @@ static void _type_destroy_string(
 static void _type_init_iterator(
     const void* cpv_input, void* pv_output)
 {
-    *(size_t*)pv_output = sizeof(iterator_t);
-    _type_init_default(cpv_input, pv_output);
+    void* pv_avoidwarning = NULL;
+    bool_t b_result = sizeof(iterator_t);
+    _type_init_default(cpv_input, &b_result);
+    pv_avoidwarning = (void*)pv_output;
 }
 static void _type_copy_iterator(
     const void* cpv_first, const void* cpv_second, void* pv_output)

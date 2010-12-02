@@ -468,5 +468,3 @@ void test__vector_init_elem_range_auxiliary__successfully_iterator(void** state)
     vector_destroy(pvec);
 }
 
-/* void test__vector_init_elem_range_auxiliary__successfully_container */
-
