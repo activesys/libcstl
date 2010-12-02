@@ -83,11 +83,35 @@ extern bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, ve
  */
 extern bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_second);
 
-extern void _vector_get_varg_value_auxiliary(
-    vector_t* pt_vector, va_list val_elemlist, void* pv_varg);
-extern void _vector_destroy_varg_value_auxiliary(vector_t* pt_vector, void* pv_varg);
-extern void _vector_init_elem_range_auxiliary(
-    vector_t* pt_vector, char* pc_start, char* pc_finish);
+/**
+ * Obtain data from variable argument list, the data type and vector element data type are same.
+ * @param pvec_vector  vector container.
+ * @param val_elemlist variable argument list.
+ * @param pv_varg      data buffer.
+ * @return void.
+ * @remarks if pvec_vector == NULL or pv_varg == NULL, then the behavior is undefined.
+ */
+extern void _vector_get_varg_value_auxiliary(vector_t* pvec_vector, va_list val_elemlist, void* pv_varg);
+
+/**
+ * Destroy data, the data type and vector element data type are same.
+ * @param pvec_vector  vector container.
+ * @param pv_varg      data buffer.
+ * @return void.
+ * @remarks if pvec_vector == NULL or pv_varg == NULL, then the behavior is undefined.
+ */
+extern void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg);
+
+/**
+ * Initialize data within range [pby_start, pby_finish) according to vector element data type.
+ * @param pvec_vector  vector container.
+ * @param pby_start    range start.
+ * @param pby_finish   range end.
+ * @return void.
+ * @remarks if pvec_vector == NULL, pby_start == NULL or pby_finish == NULL, then the behavior is undefined.
+ *          if pby_finish < pby_start, then the behavior is undefined.
+ */
+extern void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, char* pc_start, char* pc_finish);
 
 #ifdef __cplusplus
 }

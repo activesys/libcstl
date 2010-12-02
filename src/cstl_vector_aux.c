@@ -91,49 +91,65 @@ bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_seco
            (cpvec_first->_t_typeinfo._t_style == cpvec_second->_t_typeinfo._t_style);
 }
 
-void _vector_init_elem_range_auxiliary(
-    vector_t* pt_vector, char* pc_start, char* pc_finish)
+/**
+ * Initialize data within range [pby_start, pby_finish) according to vector element data type.
+ */
+void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, char* pc_start, char* pc_finish)
 {
     char* pc_pos = NULL;
 
-    assert(pt_vector != NULL && pc_start != NULL && pc_finish != NULL && pc_start <= pc_finish);
+    assert(pvec_vector != NULL);
+    assert(pc_start != NULL);
+    assert(pc_finish != NULL);
+    assert(pc_start <= pc_finish);
 
     /* initialize new elements */
-    if(_GET_VECTOR_TYPE_STYLE(pt_vector) == _TYPE_CSTL_BUILTIN)
+    if(_GET_VECTOR_TYPE_STYLE(pvec_vector) == _TYPE_CSTL_BUILTIN)
     {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_VECTOR_TYPE_NAME(pt_vector), s_elemtypename);
+        _type_get_elem_typename(_GET_VECTOR_TYPE_NAME(pvec_vector), s_elemtypename);
 
-        for(pc_pos = pc_start; pc_pos < pc_finish; pc_pos += _GET_VECTOR_TYPE_SIZE(pt_vector))
+        for(pc_pos = pc_start; pc_pos < pc_finish; pc_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
-            _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pc_pos, s_elemtypename);
+            _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pc_pos, s_elemtypename);
         }
     }
     else
     {
-        for(pc_pos = pc_start; pc_pos < pc_finish; pc_pos += _GET_VECTOR_TYPE_SIZE(pt_vector))
+        for(pc_pos = pc_start; pc_pos < pc_finish; pc_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
-            bool_t t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pc_pos, &t_result);
-            assert(t_result);
+            bool_t b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pc_pos, &b_result);
+            assert(b_result);
         }
     }
 }
 
-void _vector_get_varg_value_auxiliary(
-    vector_t* pt_vector, va_list val_elemlist, void* pv_varg)
+/**
+ * Obtain data from variable argument list, the data type and vector element data type are same.
+ */
+void _vector_get_varg_value_auxiliary(vector_t* pvec_vector, va_list val_elemlist, void* pv_varg)
 {
-    _vector_init_elem_auxiliary(pt_vector, pv_varg);
-    _type_get_varg_value(&pt_vector->_t_typeinfo, val_elemlist, pv_varg);
+    assert(pvec_vector != NULL);
+    assert(pv_varg != NULL);
+
+    _vector_init_elem_auxiliary(pvec_vector, pv_varg);
+    _type_get_varg_value(&pvec_vector->_t_typeinfo, val_elemlist, pv_varg);
 }
 
-void _vector_destroy_varg_value_auxiliary(vector_t* pt_vector, void* pv_varg)
+/**
+ * Destroy data, the data type and vector element data type are same.
+ */
+void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg)
 {
+    assert(pvec_vector != NULL);
+    assert(pv_varg != NULL);
+
     /* destroy varg value and free memory */
-    bool_t t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-    _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)(pv_varg, &t_result);
-    assert(t_result);
+    bool_t b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+    _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(pv_varg, &b_result);
+    assert(b_result);
 }
 
 /** local function implementation section **/

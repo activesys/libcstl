@@ -1,7 +1,7 @@
 #ifndef _UT_DEF_H_
 #define _UT_DEF_H_
 
-#define UT_SUIT_SEPARATOR_OPEN  printf("\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ")
+#define UT_SUIT_SEPARATOR_OPEN  printf("\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ")
 #define UT_SUIT_SEPARATOR_CLOSE printf(" >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n")
 #define UT_CASE_SEPARATOR_OPEN  printf("-------------------------------- ")
 #define UT_CASE_SEPARATOR_CLOSE printf(" --------------------------------\n")

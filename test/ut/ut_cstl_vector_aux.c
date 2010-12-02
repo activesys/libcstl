@@ -301,3 +301,172 @@ void test__vector_same_vector_iterator_type__not_same(void** state)
     vector_destroy(pvec_second);
 }
 
+/*
+ * test _vector_get_varg_value_auxiliary
+ */
+UT_CASE_DEFINATION(_vector_get_varg_value_auxiliary)
+
+static void _wrapper_vector_get_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg, ...)
+{
+    va_list val_elemlist;
+    va_start(val_elemlist, pv_varg);
+    _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
+    va_end(val_elemlist);
+}
+
+void test__vector_get_varg_value_auxiliary__null_vector_container(void** state)
+{
+    int varg = 0;
+    expect_assert_failure(_wrapper_vector_get_varg_value_auxiliary(NULL, &varg, 100));
+}
+
+void test__vector_get_varg_value_auxiliary__null_varg(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+    expect_assert_failure(_wrapper_vector_get_varg_value_auxiliary(pvec, NULL, 100));
+    vector_destroy(pvec);
+}
+
+void test__vector_get_varg_value_auxiliary__successfully(void** state)
+{
+    int varg = 0;
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+    _wrapper_vector_get_varg_value_auxiliary(pvec, &varg, 100);
+    assert_int_equal(varg, 100);
+    vector_destroy(pvec);
+}
+
+/*
+ * test _vector_destroy_varg_value_auxiliary
+ */
+UT_CASE_DEFINATION(_vector_destroy_varg_value_auxiliary)
+void test__vector_destroy_varg_value_auxiliary__null_vector_container(void** state)
+{
+    int varg = 0;
+    expect_assert_failure(_vector_destroy_varg_value_auxiliary(NULL, &varg));
+}
+
+void test__vector_destroy_varg_value_auxiliary__null_varg(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+    expect_assert_failure(_vector_destroy_varg_value_auxiliary(pvec, NULL));
+    vector_destroy(pvec);
+}
+
+void test__vector_destroy_varg_value_auxiliary__successfully(void** state)
+{
+    int varg = 100;
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+    _vector_destroy_varg_value_auxiliary(pvec, &varg);
+    vector_destroy(pvec);
+}
+
+/*
+ * test _vector_init_elem_range_auxiliary
+ */
+UT_CASE_DEFINATION(_vector_init_elem_range_auxiliary)
+void test__vector_init_elem_range_auxiliary__null_vector_containter(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init_elem(pvec, 10, 100);
+
+    expect_assert_failure(_vector_init_elem_range_auxiliary(NULL, pvec->_pc_start, pvec->_pc_finish));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_init_elem_range_auxiliary__null_pby_start(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init_elem(pvec, 10, 100);
+
+    expect_assert_failure(_vector_init_elem_range_auxiliary(pvec, NULL, pvec->_pc_finish));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_init_elem_range_auxiliary__null_pby_finish(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init_elem(pvec, 10, 100);
+
+    expect_assert_failure(_vector_init_elem_range_auxiliary(pvec, pvec->_pc_start, NULL));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_init_elem_range_auxiliary__pby_finish_less_then_pby_start(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init_elem(pvec, 10, 100);
+
+    expect_assert_failure(_vector_init_elem_range_auxiliary(pvec, pvec->_pc_finish, pvec->_pc_start));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_init_elem_range_auxiliary__successfully_int(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(int);
+    vector_init_elem(pvec, 10, 100);
+
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_int_equal(*(int*)vector_at(pvec, i), 100);
+    }
+    _vector_init_elem_range_auxiliary(pvec, pvec->_pc_start, pvec->_pc_finish);
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_int_equal(*(int*)vector_at(pvec, i), 0);
+    }
+
+    vector_destroy(pvec);
+}
+
+void test__vector_init_elem_range_auxiliary__successfully_cstr(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(char*);
+    vector_init_elem(pvec, 10, "abcdefg");
+
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_true(strcmp((char*)vector_at(pvec, i), "abcdefg") == 0);
+    }
+    _vector_init_elem_range_auxiliary(pvec, pvec->_pc_start, pvec->_pc_finish);
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_true(strcmp((char*)vector_at(pvec, i), "") == 0);
+    }
+
+    vector_destroy(pvec);
+}
+
+void test__vector_init_elem_range_auxiliary__successfully_iterator(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(iterator_t);
+    vector_iterator_t it_iter = _create_vector_iterator();
+    vector_init_elem(pvec, 10, &it_iter);
+
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_true(memcmp((iterator_t*)vector_at(pvec, i), &it_iter, sizeof(iterator_t)) == 0);
+    }
+    _vector_init_elem_range_auxiliary(pvec, pvec->_pc_start, pvec->_pc_finish);
+    memset(&it_iter, 0x00, sizeof(iterator_t));
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_true(memcmp((iterator_t*)vector_at(pvec, i), &it_iter, sizeof(iterator_t)) == 0);
+    }
+
+    vector_destroy(pvec);
+}
+
+/* void test__vector_init_elem_range_auxiliary__successfully_container */
+
