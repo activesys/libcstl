@@ -9,11 +9,16 @@
 #include "cstl/cvector.h"
 #include "cstl_vector_aux.h"
 
+#include "ut_def.h"
 #include "ut_cstl_vector_private.h"
+
+UT_CASE_DEFINATION(cstl_vector_private)
 
 /*
  * test _create_vector
  */
+UT_ITEM_DEFINATION(_create_vector)
+
 void test__create_vector__null_typename(void** state)
 {
     expect_assert_failure(_create_vector(NULL));

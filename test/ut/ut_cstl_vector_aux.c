@@ -9,11 +9,15 @@
 #include "cstl/cvector.h"
 #include "cstl_vector_aux.h"
 
+#include "ut_def.h"
 #include "ut_cstl_vector_aux.h"
+
+UT_CASE_DEFINATION(cstl_vector_aux)
 
 /*
  * test _vector_iterator_belong_to_vector
  */
+UT_ITEM_DEFINATION(_vector_iterator_belong_to_vector)
 void test__vector_iterator_belong_to_vector__null_container_pointer(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -126,6 +130,7 @@ void test__vector_iterator_belong_to_vector__greater_than_end(void** state)
 /*
  * test _vector_same_type
  */
+UT_ITEM_DEFINATION(_vector_same_type)
 void test__vector_same_type__null_first(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -216,6 +221,7 @@ void test__vector_same_type__same_type_duplicate_name(void** state)
 /*
  * test _vector_same_vector_iterator_type
  */
+UT_ITEM_DEFINATION(_vector_same_vector_iterator_type)
 void test__vector_same_vector_iterator_type__null_vector(void** state)
 {
     vector_iterator_t it_iter;

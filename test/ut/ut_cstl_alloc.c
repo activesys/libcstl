@@ -3,15 +3,19 @@
 #include <setjmp.h>
 #include <google/cmockery.h>
 
+#include "ut_def.h"
 #include "ut_cstl_alloc.h"
 
 #include "cstl/cstl_def.h"
 #include "cstl/cstl_alloc.h"
 #include "cstl_alloc_aux.h"
 
+UT_CASE_DEFINATION(cstl_alloc)
+
 /*
  * test _alloc_init
  */
+UT_ITEM_DEFINATION(_alloc_init)
 void test__alloc_init__invalid_allocator(void** state)
 {
 #ifndef _CSTL_USER_MODEL
@@ -45,6 +49,7 @@ void test__alloc_init__success(void** state)
 /*
  * test _alloc_destroy
  */
+UT_ITEM_DEFINATION(_alloc_destroy)
 void test__alloc_destroy__invalid_allocator(void** state)
 {
 #ifndef _CSTL_USER_MODEL
@@ -134,6 +139,7 @@ void test__alloc_destroy__success_after_allocate(void** state)
 /*
  * test allocate
  */
+UT_ITEM_DEFINATION(_alloc_allocate)
 void test__alloc_allocate__invalid_alocator(void** state)
 {
 #ifndef _CSTL_USER_MODEL
@@ -212,6 +218,7 @@ void test__alloc_allocate__less_than_max_small_memory(void** state)
 /*
  * test _alloc_deallocate
  */
+UT_ITEM_DEFINATION(_alloc_deallocate)
 void test__alloc_deallocate__invalid_allocator(void** state)
 {
 #ifndef _CSTL_USER_MODEL
@@ -349,6 +356,7 @@ void test__alloc_deallocate__less_than_max_small_memory(void** state)
 /*
  * test _alloc_set_malloc_handler
  */
+UT_ITEM_DEFINATION(_alloc_set_malloc_handler)
 static void new_handler(void){}
 void test__alloc_set_malloc_handler___new_handler(void** state)
 {

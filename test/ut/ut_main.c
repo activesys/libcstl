@@ -6,6 +6,7 @@
 #include <setjmp.h>
 #include <google/cmockery.h>
 
+#include "ut_def.h"
 #include "ut_cstl_alloc_aux.h"
 #include "ut_cstl_alloc.h"
 #include "ut_cstl_vector_iterator.h"
