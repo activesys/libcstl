@@ -469,17 +469,17 @@ INSTALL_STRIP_PROGRAM	src/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 INSTALL_STRIP_PROGRAM	test/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
 INSTALL_STRIP_PROGRAM	test/it/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
 INSTALL_STRIP_PROGRAM	test/ut/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
-LD	Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	build-win/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	build-win/vc8/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	build-win/vc9/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	cstl/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	doc/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	doc/user/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	src/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	test/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	test/it/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
-LD	test/ut/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	build-win/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	build-win/vc8/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	build-win/vc9/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	cstl/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	doc/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	doc/user/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	src/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	test/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	test/it/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	test/ut/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
 LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
 LDFLAGS	build-win/Makefile	/^LDFLAGS = $/;"	m
 LDFLAGS	build-win/vc8/Makefile	/^LDFLAGS = $/;"	m
@@ -747,7 +747,6 @@ PACKAGE_URL	doc/user/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	src/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	test/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	test/it/Makefile	/^PACKAGE_URL = $/;"	m
-PACKAGE_URL	test/ut/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_VERSION	Makefile	/^PACKAGE_VERSION = 2.0.1$/;"	m
 PACKAGE_VERSION	build-win/Makefile	/^PACKAGE_VERSION = 2.0.1$/;"	m
 PACKAGE_VERSION	build-win/vc8/Makefile	/^PACKAGE_VERSION = 2.0.1$/;"	m
@@ -896,11 +895,48 @@ SUBDIRS	doc/Makefile	/^SUBDIRS = user$/;"	m
 SUBDIRS	test/Makefile	/^SUBDIRS = it ut$/;"	m
 TESTS	test/ut/Makefile	/^TESTS = $(check_PROGRAMS)$/;"	m
 TRUE	cstl/cstl_def.h	74;"	d
-UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	39;"	d
-UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	53;"	d
-UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	34;"	d
-UT_CSTL_VECTOR_AUX_CASE	test/ut/ut_cstl_vector_aux.h	16;"	d
-UT_CSTL_VECTOR_ITERATOR_CASE	test/ut/ut_cstl_vector_iterator.h	142;"	d
+UT_CASE	test/ut/ut_def.h	30;"	d
+UT_CASE_DECLARATION	test/ut/ut_def.h	20;"	d
+UT_CASE_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_CASE_DEFINATION(_alloc_allocate)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_CASE_DEFINATION(_alloc_deallocate)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_CASE_DEFINATION(_alloc_destroy)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_CASE_DEFINATION(_alloc_apply_formated_memory)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_CASE_DEFINATION(_alloc_free)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_CASE_DEFINATION(_alloc_malloc)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_CASE_DEFINATION(_vector_same_type)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_CASE_DEFINATION(_vector_same_vector_iterator_type)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_at)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_before)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_equal)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_get_pointer)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_get_value)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_less)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_minus)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_next)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_next_n)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_prev)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_prev_n)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_set_value)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_def.h	23;"	d
+UT_CASE_SEPARATOR_CLOSE	test/ut/ut_def.h	7;"	d
+UT_CASE_SEPARATOR_OPEN	test/ut/ut_def.h	6;"	d
+UT_CASE_SEPARATOR_START	test/ut/ut_def.h	8;"	d
+UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	46;"	d
+UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	60;"	d
+UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	40;"	d
+UT_CSTL_VECTOR_AUX_CASE	test/ut/ut_cstl_vector_aux.h	40;"	d
+UT_CSTL_VECTOR_ITERATOR_CASE	test/ut/ut_cstl_vector_iterator.h	157;"	d
+UT_CSTL_VECTOR_PRIVATE_CASE	test/ut/ut_cstl_vector_private.h	16;"	d
+UT_SUIT_BEGIN	test/ut/ut_def.h	17;"	d
+UT_SUIT_DECLARATION	test/ut/ut_def.h	10;"	d
+UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_SUIT_DEFINATION(cstl_alloc)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_SUIT_DEFINATION(cstl_alloc_aux)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_SUIT_DEFINATION(cstl_vector_aux)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_SUIT_DEFINATION(cstl_vector_iterator)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_vector_private.c	/^UT_SUIT_DEFINATION(cstl_vector_private)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_def.h	13;"	d
+UT_SUIT_SEPARATOR_CLOSE	test/ut/ut_def.h	5;"	d
+UT_SUIT_SEPARATOR_OPEN	test/ut/ut_def.h	4;"	d
 VERSION	Makefile	/^VERSION = 2.0.1$/;"	m
 VERSION	build-win/Makefile	/^VERSION = 2.0.1$/;"	m
 VERSION	build-win/vc8/Makefile	/^VERSION = 2.0.1$/;"	m
@@ -1562,6 +1598,8 @@ _UT_CSTL_ALLOC_AUX_H	test/ut/ut_cstl_alloc_aux.h	2;"	d
 _UT_CSTL_ALLOC_H	test/ut/ut_cstl_alloc.h	2;"	d
 _UT_CSTL_VECTOR_AUX_H_	test/ut/ut_cstl_vector_aux.h	2;"	d
 _UT_CSTL_VECTOR_ITERATOR_H_	test/ut/ut_cstl_vector_iterator.h	2;"	d
+_UT_CSTL_VECTOR_PRIVATE_H_	test/ut/ut_cstl_vector_private.h	2;"	d
+_UT_DEF_H_	test/ut/ut_def.h	2;"	d
 _VECTOR_CONTAINER	cstl/cstl_iterator.h	/^    _VECTOR_CONTAINER,$/;"	e	enum:_tagcontainertype
 _VECTOR_ITERATOR_TYPE	cstl/cstl_types.h	90;"	d
 _VECTOR_TYPE	cstl/cstl_types.h	71;"	d
@@ -4018,10 +4056,10 @@ _vector_resize_elem	cstl/cstl_vector_private.h	/^extern void _vector_resize_elem
 _vector_resize_elem	src/cstl_vector_private.c	/^void _vector_resize_elem(vector_t* pt_vector, size_t t_resize, ...)$/;"	f	signature:(vector_t* pt_vector, size_t t_resize, ...)
 _vector_resize_elem_varg	cstl/cstl_vector_private.h	/^extern void _vector_resize_elem_varg($/;"	p	signature:( vector_t* pt_vector, size_t t_resize, va_list val_elemlist)
 _vector_resize_elem_varg	src/cstl_vector_private.c	/^void _vector_resize_elem_varg($/;"	f	signature:( vector_t* pt_vector, size_t t_resize, va_list val_elemlist)
-_vector_same_type	src/cstl_vector_aux.c	/^bool_t _vector_same_type($/;"	f	signature:( const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
-_vector_same_type	src/cstl_vector_aux.h	/^extern bool_t _vector_same_type($/;"	p	signature:( const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
-_vector_same_vector_iterator_type	src/cstl_vector_aux.c	/^bool_t _vector_same_vector_iterator_type($/;"	f	signature:( const vector_t* cpt_vector, vector_iterator_t t_iter)
-_vector_same_vector_iterator_type	src/cstl_vector_aux.h	/^extern bool_t _vector_same_vector_iterator_type($/;"	p	signature:( const vector_t* cpt_vector, vector_iterator_t t_iter)
+_vector_same_type	src/cstl_vector_aux.c	/^bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_second)$/;"	f	signature:(const vector_t* cpvec_first, const vector_t* cpvec_second)
+_vector_same_type	src/cstl_vector_aux.h	/^extern bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_second);$/;"	p	signature:(const vector_t* cpvec_first, const vector_t* cpvec_second)
+_vector_same_vector_iterator_type	src/cstl_vector_aux.c	/^bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_iterator_t it_iter)$/;"	f	signature:(const vector_t* cpvec_vector, vector_iterator_t it_iter)
+_vector_same_vector_iterator_type	src/cstl_vector_aux.h	/^extern bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_iterator_t it_iter);$/;"	p	signature:(const vector_t* cpvec_vector, vector_iterator_t it_iter)
 _weather_copy	test/it/test_queue.c	/^static void _weather_copy(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _weather_copy	test/it/test_queue.c	/^static void _weather_copy(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _weather_destroy	test/it/test_queue.c	/^static void _weather_destroy(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
@@ -4493,7 +4531,7 @@ am__vpath_adj_setup	doc/user/Makefile	/^am__vpath_adj_setup = srcdirstrip=`echo 
 am__vpath_adj_setup	src/Makefile	/^am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;$/;"	m
 am_it_OBJECTS	test/it/Makefile	/^am_it_OBJECTS = it-test.$(OBJEXT) it-test_algo.$(OBJEXT) \\$/;"	m
 am_libcstl_la_OBJECTS	src/Makefile	/^am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \\$/;"	m
-am_ut_OBJECTS	test/ut/Makefile	/^am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-cstl_alloc_aux.$(OBJEXT) \\$/;"	m
+am_ut_OBJECTS	test/ut/Makefile	/^am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \\$/;"	m
 as_fn_append	config.status	/^  as_fn_append ()$/;"	f
 as_fn_append	configure	/^  as_fn_append ()$/;"	f
 as_fn_arith	config.status	/^  as_fn_arith ()$/;"	f
@@ -4731,17 +4769,17 @@ bindir	test/it/Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
 bindir	test/ut/Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
 black	cstl/cstl_rb_tree_private.h	/^    red, black$/;"	e	enum:_tagcolor
 bool_t	cstl/cstl_def.h	/^typedef size_t                   bool_t;         \/* declaration for bool type *\/$/;"	t
-build	Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	build-win/Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	build-win/vc8/Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	build-win/vc9/Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	cstl/Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	doc/Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	doc/user/Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	src/Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	test/Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	test/it/Makefile	/^build = i686-pc-linux-gnu$/;"	m
-build	test/ut/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	build-win/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	build-win/vc8/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	build-win/vc9/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	cstl/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	doc/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	doc/user/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	src/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	test/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	test/it/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	test/ut/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
 build_alias	Makefile	/^build_alias = $/;"	m
 build_alias	build-win/Makefile	/^build_alias = $/;"	m
 build_alias	build-win/vc8/Makefile	/^build_alias = $/;"	m
@@ -4753,17 +4791,17 @@ build_alias	src/Makefile	/^build_alias = $/;"	m
 build_alias	test/Makefile	/^build_alias = $/;"	m
 build_alias	test/it/Makefile	/^build_alias = $/;"	m
 build_alias	test/ut/Makefile	/^build_alias = $/;"	m
-build_cpu	Makefile	/^build_cpu = i686$/;"	m
-build_cpu	build-win/Makefile	/^build_cpu = i686$/;"	m
-build_cpu	build-win/vc8/Makefile	/^build_cpu = i686$/;"	m
-build_cpu	build-win/vc9/Makefile	/^build_cpu = i686$/;"	m
-build_cpu	cstl/Makefile	/^build_cpu = i686$/;"	m
-build_cpu	doc/Makefile	/^build_cpu = i686$/;"	m
-build_cpu	doc/user/Makefile	/^build_cpu = i686$/;"	m
-build_cpu	src/Makefile	/^build_cpu = i686$/;"	m
-build_cpu	test/Makefile	/^build_cpu = i686$/;"	m
-build_cpu	test/it/Makefile	/^build_cpu = i686$/;"	m
-build_cpu	test/ut/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	build-win/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	build-win/vc8/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	build-win/vc9/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	cstl/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	doc/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	doc/user/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	src/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	test/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	test/it/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	test/ut/Makefile	/^build_cpu = x86_64$/;"	m
 build_os	Makefile	/^build_os = linux-gnu$/;"	m
 build_os	build-win/Makefile	/^build_os = linux-gnu$/;"	m
 build_os	build-win/vc8/Makefile	/^build_os = linux-gnu$/;"	m
@@ -4775,28 +4813,28 @@ build_os	src/Makefile	/^build_os = linux-gnu$/;"	m
 build_os	test/Makefile	/^build_os = linux-gnu$/;"	m
 build_os	test/it/Makefile	/^build_os = linux-gnu$/;"	m
 build_os	test/ut/Makefile	/^build_os = linux-gnu$/;"	m
-build_triplet	Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	build-win/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	build-win/vc8/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	build-win/vc9/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	cstl/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	doc/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	doc/user/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	src/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	test/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	test/it/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_triplet	test/ut/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
-build_vendor	Makefile	/^build_vendor = pc$/;"	m
-build_vendor	build-win/Makefile	/^build_vendor = pc$/;"	m
-build_vendor	build-win/vc8/Makefile	/^build_vendor = pc$/;"	m
-build_vendor	build-win/vc9/Makefile	/^build_vendor = pc$/;"	m
-build_vendor	cstl/Makefile	/^build_vendor = pc$/;"	m
-build_vendor	doc/Makefile	/^build_vendor = pc$/;"	m
-build_vendor	doc/user/Makefile	/^build_vendor = pc$/;"	m
-build_vendor	src/Makefile	/^build_vendor = pc$/;"	m
-build_vendor	test/Makefile	/^build_vendor = pc$/;"	m
-build_vendor	test/it/Makefile	/^build_vendor = pc$/;"	m
-build_vendor	test/ut/Makefile	/^build_vendor = pc$/;"	m
+build_triplet	Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	build-win/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	build-win/vc8/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	build-win/vc9/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	cstl/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	doc/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	doc/user/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	src/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	test/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	test/it/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_triplet	test/ut/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_vendor	Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	build-win/Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	build-win/vc8/Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	build-win/vc9/Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	cstl/Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	doc/Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	doc/user/Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	src/Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	test/Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	test/it/Makefile	/^build_vendor = unknown$/;"	m
+build_vendor	test/ut/Makefile	/^build_vendor = unknown$/;"	m
 builddir	Makefile	/^builddir = .$/;"	m
 builddir	build-win/Makefile	/^builddir = .$/;"	m
 builddir	build-win/vc8/Makefile	/^builddir = .$/;"	m
@@ -5855,17 +5893,17 @@ hash_set_value_comp	src/cstl_hash_set.c	/^binary_function_t hash_set_value_comp(
 hashnode_t	cstl/cstl_hashtable_private.h	/^}hashnode_t;$/;"	t	typeref:struct:_taghashnode
 hashtable_iterator_t	cstl/cstl_hashtable_iterator.h	/^typedef iterator_t hashtable_iterator_t;$/;"	t
 hashtable_t	cstl/cstl_hashtable_private.h	/^}hashtable_t;$/;"	t	typeref:struct:_taghashtable
-host	Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	build-win/Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	build-win/vc8/Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	build-win/vc9/Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	cstl/Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	doc/Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	doc/user/Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	src/Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	test/Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	test/it/Makefile	/^host = i686-pc-linux-gnu$/;"	m
-host	test/ut/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	build-win/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	build-win/vc8/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	build-win/vc9/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	cstl/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	doc/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	doc/user/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	src/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	test/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	test/it/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	test/ut/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
 host_alias	Makefile	/^host_alias = $/;"	m
 host_alias	build-win/Makefile	/^host_alias = $/;"	m
 host_alias	build-win/vc8/Makefile	/^host_alias = $/;"	m
@@ -5877,17 +5915,17 @@ host_alias	src/Makefile	/^host_alias = $/;"	m
 host_alias	test/Makefile	/^host_alias = $/;"	m
 host_alias	test/it/Makefile	/^host_alias = $/;"	m
 host_alias	test/ut/Makefile	/^host_alias = $/;"	m
-host_cpu	Makefile	/^host_cpu = i686$/;"	m
-host_cpu	build-win/Makefile	/^host_cpu = i686$/;"	m
-host_cpu	build-win/vc8/Makefile	/^host_cpu = i686$/;"	m
-host_cpu	build-win/vc9/Makefile	/^host_cpu = i686$/;"	m
-host_cpu	cstl/Makefile	/^host_cpu = i686$/;"	m
-host_cpu	doc/Makefile	/^host_cpu = i686$/;"	m
-host_cpu	doc/user/Makefile	/^host_cpu = i686$/;"	m
-host_cpu	src/Makefile	/^host_cpu = i686$/;"	m
-host_cpu	test/Makefile	/^host_cpu = i686$/;"	m
-host_cpu	test/it/Makefile	/^host_cpu = i686$/;"	m
-host_cpu	test/ut/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	build-win/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	build-win/vc8/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	build-win/vc9/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	cstl/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	doc/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	doc/user/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	src/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	test/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	test/it/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	test/ut/Makefile	/^host_cpu = x86_64$/;"	m
 host_os	Makefile	/^host_os = linux-gnu$/;"	m
 host_os	build-win/Makefile	/^host_os = linux-gnu$/;"	m
 host_os	build-win/vc8/Makefile	/^host_os = linux-gnu$/;"	m
@@ -5899,28 +5937,28 @@ host_os	src/Makefile	/^host_os = linux-gnu$/;"	m
 host_os	test/Makefile	/^host_os = linux-gnu$/;"	m
 host_os	test/it/Makefile	/^host_os = linux-gnu$/;"	m
 host_os	test/ut/Makefile	/^host_os = linux-gnu$/;"	m
-host_triplet	Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	build-win/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	build-win/vc8/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	build-win/vc9/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	cstl/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	doc/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	doc/user/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	src/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	test/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	test/it/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_triplet	test/ut/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
-host_vendor	Makefile	/^host_vendor = pc$/;"	m
-host_vendor	build-win/Makefile	/^host_vendor = pc$/;"	m
-host_vendor	build-win/vc8/Makefile	/^host_vendor = pc$/;"	m
-host_vendor	build-win/vc9/Makefile	/^host_vendor = pc$/;"	m
-host_vendor	cstl/Makefile	/^host_vendor = pc$/;"	m
-host_vendor	doc/Makefile	/^host_vendor = pc$/;"	m
-host_vendor	doc/user/Makefile	/^host_vendor = pc$/;"	m
-host_vendor	src/Makefile	/^host_vendor = pc$/;"	m
-host_vendor	test/Makefile	/^host_vendor = pc$/;"	m
-host_vendor	test/it/Makefile	/^host_vendor = pc$/;"	m
-host_vendor	test/ut/Makefile	/^host_vendor = pc$/;"	m
+host_triplet	Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	build-win/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	build-win/vc8/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	build-win/vc9/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	cstl/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	doc/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	doc/user/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	src/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	test/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	test/it/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_triplet	test/ut/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_vendor	Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	build-win/Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	build-win/vc8/Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	build-win/vc9/Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	cstl/Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	doc/Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	doc/user/Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	src/Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	test/Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	test/it/Makefile	/^host_vendor = unknown$/;"	m
+host_vendor	test/ut/Makefile	/^host_vendor = unknown$/;"	m
 htmldir	Makefile	/^htmldir = ${docdir}$/;"	m
 htmldir	build-win/Makefile	/^htmldir = ${docdir}$/;"	m
 htmldir	build-win/vc8/Makefile	/^htmldir = ${docdir}$/;"	m
@@ -7138,11 +7176,9 @@ target_alias	test/it/Makefile	/^target_alias = $/;"	m
 target_alias	test/ut/Makefile	/^target_alias = $/;"	m
 test__alloc_allocate__greater_than_max_small_memory	test/ut/ut_cstl_alloc.c	/^void test__alloc_allocate__greater_than_max_small_memory(void** state)$/;"	f	signature:(void** state)
 test__alloc_allocate__greater_than_max_small_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_allocate__greater_than_max_small_memory(void** state);$/;"	p	signature:(void** state)
-test__alloc_allocate__invalid_alocator	test/ut/ut_cstl_alloc.c	/^void test__alloc_allocate__invalid_alocator(void** state)$/;"	f	signature:(void** state)
 test__alloc_allocate__invalid_alocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_allocate__invalid_alocator(void** state);$/;"	p	signature:(void** state)
 test__alloc_allocate__less_than_max_small_memory	test/ut/ut_cstl_alloc.c	/^void test__alloc_allocate__less_than_max_small_memory(void** state)$/;"	f	signature:(void** state)
 test__alloc_allocate__less_than_max_small_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_allocate__less_than_max_small_memory(void** state);$/;"	p	signature:(void** state)
-test__alloc_apply_formated_memory__invalid_allocator	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_apply_formated_memory__invalid_allocator(void** state)$/;"	f	signature:(void** state)
 test__alloc_apply_formated_memory__invalid_allocator	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_apply_formated_memory__invalid_allocator(void** state);$/;"	p	signature:(void** state)
 test__alloc_apply_formated_memory__success	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_apply_formated_memory__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_apply_formated_memory__success	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_apply_formated_memory__success(void** state);$/;"	p	signature:(void** state)
@@ -7150,19 +7186,15 @@ test__alloc_deallocate__greater_than_max_small_memory	test/ut/ut_cstl_alloc.c	/^
 test__alloc_deallocate__greater_than_max_small_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_deallocate__greater_than_max_small_memory(void** state);$/;"	p	signature:(void** state)
 test__alloc_deallocate__invalid_allocated_memory	test/ut/ut_cstl_alloc.c	/^void test__alloc_deallocate__invalid_allocated_memory(void** state)$/;"	f	signature:(void** state)
 test__alloc_deallocate__invalid_allocated_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_deallocate__invalid_allocated_memory(void** state);$/;"	p	signature:(void** state)
-test__alloc_deallocate__invalid_allocator	test/ut/ut_cstl_alloc.c	/^void test__alloc_deallocate__invalid_allocator(void** state)$/;"	f	signature:(void** state)
 test__alloc_deallocate__invalid_allocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_deallocate__invalid_allocator(void** state);$/;"	p	signature:(void** state)
 test__alloc_deallocate__less_than_max_small_memory	test/ut/ut_cstl_alloc.c	/^void test__alloc_deallocate__less_than_max_small_memory(void** state)$/;"	f	signature:(void** state)
 test__alloc_deallocate__less_than_max_small_memory	test/ut/ut_cstl_alloc.h	/^void test__alloc_deallocate__less_than_max_small_memory(void** state);$/;"	p	signature:(void** state)
-test__alloc_destroy__invalid_allocator	test/ut/ut_cstl_alloc.c	/^void test__alloc_destroy__invalid_allocator(void** state)$/;"	f	signature:(void** state)
 test__alloc_destroy__invalid_allocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_destroy__invalid_allocator(void** state);$/;"	p	signature:(void** state)
 test__alloc_destroy__success	test/ut/ut_cstl_alloc.c	/^void test__alloc_destroy__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_destroy__success	test/ut/ut_cstl_alloc.h	/^void test__alloc_destroy__success(void** state);$/;"	p	signature:(void** state)
 test__alloc_destroy__success_after_allocate	test/ut/ut_cstl_alloc.c	/^void test__alloc_destroy__success_after_allocate(void** state)$/;"	f	signature:(void** state)
 test__alloc_destroy__success_after_allocate	test/ut/ut_cstl_alloc.h	/^void test__alloc_destroy__success_after_allocate(void** state);$/;"	p	signature:(void** state)
-test__alloc_free__invalid_memory	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_free__invalid_memory(void** state)$/;"	f	signature:(void** state)
 test__alloc_free__invalid_memory	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_free__invalid_memory(void** state);$/;"	p	signature:(void** state)
-test__alloc_get_memory_chunk__invalid_allocator	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_get_memory_chunk__invalid_allocator(void** state)$/;"	f	signature:(void** state)
 test__alloc_get_memory_chunk__invalid_allocator	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_get_memory_chunk__invalid_allocator(void** state);$/;"	p	signature:(void** state)
 test__alloc_get_memory_chunk__invalid_alloccount	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_get_memory_chunk__invalid_alloccount(void** state)$/;"	f	signature:(void** state)
 test__alloc_get_memory_chunk__invalid_alloccount	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_get_memory_chunk__invalid_alloccount(void** state);$/;"	p	signature:(void** state)
@@ -7176,11 +7208,9 @@ test__alloc_get_memory_chunk__reallocate_memory_pool_container	test/ut/ut_cstl_a
 test__alloc_get_memory_chunk__reallocate_memory_pool_container	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_get_memory_chunk__reallocate_memory_pool_container(void** state);$/;"	p	signature:(void** state)
 test__alloc_get_memory_chunk__total_size_less_than_memory_pool	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_get_memory_chunk__total_size_less_than_memory_pool(void** state)$/;"	f	signature:(void** state)
 test__alloc_get_memory_chunk__total_size_less_than_memory_pool	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_get_memory_chunk__total_size_less_than_memory_pool(void** state);$/;"	p	signature:(void** state)
-test__alloc_init__invalid_allocator	test/ut/ut_cstl_alloc.c	/^void test__alloc_init__invalid_allocator(void** state)$/;"	f	signature:(void** state)
 test__alloc_init__invalid_allocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_init__invalid_allocator(void** state);$/;"	p	signature:(void** state)
 test__alloc_init__success	test/ut/ut_cstl_alloc.c	/^void test__alloc_init__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_init__success	test/ut/ut_cstl_alloc.h	/^void test__alloc_init__success(void** state);$/;"	p	signature:(void** state)
-test__alloc_malloc__success	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_malloc__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_malloc__success	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_malloc__success(void** state);$/;"	p	signature:(void** state)
 test__alloc_malloc_out_of_memory__success	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_malloc_out_of_memory__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_malloc_out_of_memory__success	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_malloc_out_of_memory__success(void** state);$/;"	p	signature:(void** state)
@@ -7188,7 +7218,15 @@ test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.c	/^void t
 test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___delete_handler(void** state);$/;"	p	signature:(void** state)
 test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.c	/^void test__alloc_set_malloc_handler___new_handler(void** state)$/;"	f	signature:(void** state)
 test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___new_handler(void** state);$/;"	p	signature:(void** state)
-test__create_vector_iterator__successfully	test/ut/ut_cstl_vector_iterator.c	/^void test__create_vector_iterator__successfully(void** state)$/;"	f	signature:(void** state)
+test__create_vector__c_builtin_type	test/ut/ut_cstl_vector_private.c	/^void test__create_vector__c_builtin_type(void** state)$/;"	f	signature:(void** state)
+test__create_vector__c_builtin_type	test/ut/ut_cstl_vector_private.h	/^void test__create_vector__c_builtin_type(void** state);$/;"	p	signature:(void** state)
+test__create_vector__libcstl_builtin_type	test/ut/ut_cstl_vector_private.c	/^void test__create_vector__libcstl_builtin_type(void** state)$/;"	f	signature:(void** state)
+test__create_vector__libcstl_builtin_type	test/ut/ut_cstl_vector_private.h	/^void test__create_vector__libcstl_builtin_type(void** state);$/;"	p	signature:(void** state)
+test__create_vector__null_typename	test/ut/ut_cstl_vector_private.h	/^void test__create_vector__null_typename(void** state);$/;"	p	signature:(void** state)
+test__create_vector__registed_type	test/ut/ut_cstl_vector_private.c	/^void test__create_vector__registed_type(void** state)$/;"	f	signature:(void** state)
+test__create_vector__registed_type	test/ut/ut_cstl_vector_private.h	/^void test__create_vector__registed_type(void** state);$/;"	p	signature:(void** state)
+test__create_vector__unregisted_type	test/ut/ut_cstl_vector_private.c	/^void test__create_vector__unregisted_type(void** state)$/;"	f	signature:(void** state)
+test__create_vector__unregisted_type	test/ut/ut_cstl_vector_private.h	/^void test__create_vector__unregisted_type(void** state);$/;"	p	signature:(void** state)
 test__create_vector_iterator__successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__create_vector_iterator__successfully(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_at__does_not_move_cstr_successfully	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_at__does_not_move_cstr_successfully(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_at__does_not_move_cstr_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_at__does_not_move_cstr_successfully(void** state);$/;"	p	signature:(void** state)
@@ -7196,7 +7234,6 @@ test__vector_iterator_at__does_not_move_successfully	test/ut/ut_cstl_vector_iter
 test__vector_iterator_at__does_not_move_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_at__does_not_move_successfully(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_at__end_invalid_iterator	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_at__end_invalid_iterator(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_at__end_invalid_iterator	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_at__end_invalid_iterator(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_at__invalid_iterator	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_at__invalid_iterator(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_at__invalid_iterator	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_at__invalid_iterator(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_at__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_at__invalid_iterator_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_at__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_at__invalid_iterator_container_pointer(void** state);$/;"	p	signature:(void** state)
@@ -7218,7 +7255,6 @@ test__vector_iterator_at__move_to_front_successfully	test/ut/ut_cstl_vector_iter
 test__vector_iterator_at__move_to_front_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_at__move_to_front_successfully(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_before__different_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_before__different_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_before__different_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_before__different_container_pointer(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_before__different_container_type	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_before__different_container_type(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_before__different_container_type	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_before__different_container_type(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_before__different_iterator_type	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_before__different_iterator_type(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_before__different_iterator_type	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_before__different_iterator_type(void** state);$/;"	p	signature:(void** state)
@@ -7244,13 +7280,11 @@ test__vector_iterator_belong_to_vector__invalid_iterator_iterator_type	test/ut/u
 test__vector_iterator_belong_to_vector__invalid_iterator_iterator_type	test/ut/ut_cstl_vector_aux.h	/^void test__vector_iterator_belong_to_vector__invalid_iterator_iterator_type(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_belong_to_vector__less_than_begin	test/ut/ut_cstl_vector_aux.c	/^void test__vector_iterator_belong_to_vector__less_than_begin(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_belong_to_vector__less_than_begin	test/ut/ut_cstl_vector_aux.h	/^void test__vector_iterator_belong_to_vector__less_than_begin(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_belong_to_vector__null_container_pointer	test/ut/ut_cstl_vector_aux.c	/^void test__vector_iterator_belong_to_vector__null_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_belong_to_vector__null_container_pointer	test/ut/ut_cstl_vector_aux.h	/^void test__vector_iterator_belong_to_vector__null_container_pointer(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_belong_to_vector__within_vector	test/ut/ut_cstl_vector_aux.c	/^void test__vector_iterator_belong_to_vector__within_vector(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_belong_to_vector__within_vector	test/ut/ut_cstl_vector_aux.h	/^void test__vector_iterator_belong_to_vector__within_vector(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_equal__different_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_equal__different_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_equal__different_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_equal__different_container_pointer(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_equal__different_container_type	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_equal__different_container_type(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_equal__different_container_type	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_equal__different_container_type(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_equal__different_iterator_type	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_equal__different_iterator_type(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_equal__different_iterator_type	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_equal__different_iterator_type(void** state);$/;"	p	signature:(void** state)
@@ -7262,7 +7296,6 @@ test__vector_iterator_equal__not_equal	test/ut/ut_cstl_vector_iterator.c	/^void 
 test__vector_iterator_equal__not_equal	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_equal__not_equal(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_equal__second_is_not_belong_to_vector	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_equal__second_is_not_belong_to_vector(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_equal__second_is_not_belong_to_vector	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_equal__second_is_not_belong_to_vector(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_get_pointer__invalid_iterator	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_get_pointer__invalid_iterator(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_get_pointer__invalid_iterator	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_get_pointer__invalid_iterator(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_get_pointer__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_get_pointer__invalid_iterator_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_get_pointer__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_get_pointer__invalid_iterator_container_pointer(void** state);$/;"	p	signature:(void** state)
@@ -7276,7 +7309,6 @@ test__vector_iterator_get_pointer__successfully_cstr	test/ut/ut_cstl_vector_iter
 test__vector_iterator_get_pointer__successfully_cstr	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_get_pointer__successfully_cstr(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_get_pointer__vector_end	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_get_pointer__vector_end(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_get_pointer__vector_end	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_get_pointer__vector_end(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_get_value__invalid_iterator	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_get_value__invalid_iterator(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_get_value__invalid_iterator	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_get_value__invalid_iterator(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_get_value__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_get_value__invalid_iterator_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_get_value__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_get_value__invalid_iterator_container_pointer(void** state);$/;"	p	signature:(void** state)
@@ -7294,7 +7326,6 @@ test__vector_iterator_get_value__vector_end	test/ut/ut_cstl_vector_iterator.c	/^
 test__vector_iterator_get_value__vector_end	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_get_value__vector_end(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_less__different_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_less__different_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_less__different_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_less__different_container_pointer(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_less__different_container_type	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_less__different_container_type(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_less__different_container_type	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_less__different_container_type(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_less__different_iterator_type	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_less__different_iterator_type(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_less__different_iterator_type	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_less__different_iterator_type(void** state);$/;"	p	signature:(void** state)
@@ -7310,7 +7341,6 @@ test__vector_iterator_less__second_is_not_belong_to_vector	test/ut/ut_cstl_vecto
 test__vector_iterator_less__second_is_not_belong_to_vector	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_less__second_is_not_belong_to_vector(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_minus__different_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_minus__different_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_minus__different_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_minus__different_container_pointer(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_minus__different_container_type	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_minus__different_container_type(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_minus__different_container_type	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_minus__different_container_type(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_minus__different_iterator_type	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_minus__different_iterator_type(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_minus__different_iterator_type	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_minus__different_iterator_type(void** state);$/;"	p	signature:(void** state)
@@ -7324,7 +7354,6 @@ test__vector_iterator_minus__first_less_then_second	test/ut/ut_cstl_vector_itera
 test__vector_iterator_minus__first_less_then_second	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_minus__first_less_then_second(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_minus__second_is_not_belong_to_vector	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_minus__second_is_not_belong_to_vector(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_minus__second_is_not_belong_to_vector	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_minus__second_is_not_belong_to_vector(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_next__invalid_iterator	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_next__invalid_iterator(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_next__invalid_iterator	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_next__invalid_iterator(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_next__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_next__invalid_iterator_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_next__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_next__invalid_iterator_container_pointer(void** state);$/;"	p	signature:(void** state)
@@ -7338,7 +7367,6 @@ test__vector_iterator_next__successfully	test/ut/ut_cstl_vector_iterator.c	/^voi
 test__vector_iterator_next__successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_next__successfully(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_next_n__does_not_move_successfully	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_next_n__does_not_move_successfully(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_next_n__does_not_move_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_next_n__does_not_move_successfully(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_next_n__invalid_iterator	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_next_n__invalid_iterator(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_next_n__invalid_iterator	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_next_n__invalid_iterator(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_next_n__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_next_n__invalid_iterator_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_next_n__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_next_n__invalid_iterator_container_pointer(void** state);$/;"	p	signature:(void** state)
@@ -7354,7 +7382,6 @@ test__vector_iterator_next_n__move_to_end_successfully	test/ut/ut_cstl_vector_it
 test__vector_iterator_next_n__move_to_end_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_next_n__move_to_end_successfully(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_next_n__move_to_front_successfully	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_next_n__move_to_front_successfully(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_next_n__move_to_front_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_next_n__move_to_front_successfully(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_prev__invalid_iterator	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_prev__invalid_iterator(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_prev__invalid_iterator	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_prev__invalid_iterator(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_prev__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_prev__invalid_iterator_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_prev__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_prev__invalid_iterator_container_pointer(void** state);$/;"	p	signature:(void** state)
@@ -7368,7 +7395,6 @@ test__vector_iterator_prev__successfully	test/ut/ut_cstl_vector_iterator.c	/^voi
 test__vector_iterator_prev__successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_prev__successfully(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_prev_n__does_not_move_successfully	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_prev_n__does_not_move_successfully(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_prev_n__does_not_move_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_prev_n__does_not_move_successfully(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_prev_n__invalid_iterator	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_prev_n__invalid_iterator(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_prev_n__invalid_iterator	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_prev_n__invalid_iterator(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_prev_n__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_prev_n__invalid_iterator_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_prev_n__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_prev_n__invalid_iterator_container_pointer(void** state);$/;"	p	signature:(void** state)
@@ -7384,7 +7410,6 @@ test__vector_iterator_prev_n__move_to_end_successfully	test/ut/ut_cstl_vector_it
 test__vector_iterator_prev_n__move_to_end_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_prev_n__move_to_end_successfully(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_prev_n__move_to_front_successfully	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_prev_n__move_to_front_successfully(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_prev_n__move_to_front_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_prev_n__move_to_front_successfully(void** state);$/;"	p	signature:(void** state)
-test__vector_iterator_set_value__invalid_iterator	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_set_value__invalid_iterator(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_set_value__invalid_iterator	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_set_value__invalid_iterator(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_set_value__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_set_value__invalid_iterator_container_pointer(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_set_value__invalid_iterator_container_pointer	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_set_value__invalid_iterator_container_pointer(void** state);$/;"	p	signature:(void** state)
@@ -7400,6 +7425,30 @@ test__vector_iterator_set_value__successfully_cstr	test/ut/ut_cstl_vector_iterat
 test__vector_iterator_set_value__successfully_cstr	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_set_value__successfully_cstr(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_set_value__vector_end	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_set_value__vector_end(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_set_value__vector_end	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_set_value__vector_end(void** state);$/;"	p	signature:(void** state)
+test__vector_same_type__not_same_type_name	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_type__not_same_type_name(void** state)$/;"	f	signature:(void** state)
+test__vector_same_type__not_same_type_name	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_type__not_same_type_name(void** state);$/;"	p	signature:(void** state)
+test__vector_same_type__not_same_type_pointer	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_type__not_same_type_pointer(void** state)$/;"	f	signature:(void** state)
+test__vector_same_type__not_same_type_pointer	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_type__not_same_type_pointer(void** state);$/;"	p	signature:(void** state)
+test__vector_same_type__not_same_type_style	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_type__not_same_type_style(void** state)$/;"	f	signature:(void** state)
+test__vector_same_type__not_same_type_style	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_type__not_same_type_style(void** state);$/;"	p	signature:(void** state)
+test__vector_same_type__null_first	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_type__null_first(void** state);$/;"	p	signature:(void** state)
+test__vector_same_type__null_second	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_type__null_second(void** state)$/;"	f	signature:(void** state)
+test__vector_same_type__null_second	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_type__null_second(void** state);$/;"	p	signature:(void** state)
+test__vector_same_type__same_type	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_type__same_type(void** state)$/;"	f	signature:(void** state)
+test__vector_same_type__same_type	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_type__same_type(void** state);$/;"	p	signature:(void** state)
+test__vector_same_type__same_type_duplicate_name	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_type__same_type_duplicate_name(void** state)$/;"	f	signature:(void** state)
+test__vector_same_type__same_type_duplicate_name	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_type__same_type_duplicate_name(void** state);$/;"	p	signature:(void** state)
+test__vector_same_vector_iterator_type__iterator_not_random_iterator	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_vector_iterator_type__iterator_not_random_iterator(void** state)$/;"	f	signature:(void** state)
+test__vector_same_vector_iterator_type__iterator_not_random_iterator	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_vector_iterator_type__iterator_not_random_iterator(void** state);$/;"	p	signature:(void** state)
+test__vector_same_vector_iterator_type__iterator_not_vector_container	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_vector_iterator_type__iterator_not_vector_container(void** state)$/;"	f	signature:(void** state)
+test__vector_same_vector_iterator_type__iterator_not_vector_container	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_vector_iterator_type__iterator_not_vector_container(void** state);$/;"	p	signature:(void** state)
+test__vector_same_vector_iterator_type__iterator_null_container	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_vector_iterator_type__iterator_null_container(void** state)$/;"	f	signature:(void** state)
+test__vector_same_vector_iterator_type__iterator_null_container	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_vector_iterator_type__iterator_null_container(void** state);$/;"	p	signature:(void** state)
+test__vector_same_vector_iterator_type__not_same	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_vector_iterator_type__not_same(void** state)$/;"	f	signature:(void** state)
+test__vector_same_vector_iterator_type__not_same	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_vector_iterator_type__not_same(void** state);$/;"	p	signature:(void** state)
+test__vector_same_vector_iterator_type__null_vector	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_vector_iterator_type__null_vector(void** state);$/;"	p	signature:(void** state)
+test__vector_same_vector_iterator_type__same	test/ut/ut_cstl_vector_aux.c	/^void test__vector_same_vector_iterator_type__same(void** state)$/;"	f	signature:(void** state)
+test__vector_same_vector_iterator_type__same	test/ut/ut_cstl_vector_aux.h	/^void test__vector_same_vector_iterator_type__same(void** state);$/;"	p	signature:(void** state)
 test_algo	test/it/test_algo.c	/^void test_algo(void)$/;"	f	signature:(void)
 test_algo	test/it/test_algo.h	/^extern void test_algo(void);$/;"	p	signature:(void)
 test_algobase	test/it/test_algobase.c	/^void test_algobase(void)$/;"	f	signature:(void)
@@ -7408,6 +7457,10 @@ test_avl_tree	test/it/test_avl_tree.c	/^void test_avl_tree(void)$/;"	f	signature
 test_avl_tree	test/it/test_avl_tree.h	/^extern void test_avl_tree(void);$/;"	p	signature:(void)
 test_basic_string	test/it/test_string.c	/^void test_basic_string(void)$/;"	f	signature:(void)
 test_basic_string	test/it/test_string.h	/^void test_basic_string(void);$/;"	p	signature:(void)
+test_case_setup	test/ut/ut_def.c	/^void test_case_setup(void** state)$/;"	f	signature:(void** state)
+test_case_setup	test/ut/ut_def.h	/^void test_case_setup(void** state);$/;"	p	signature:(void** state)
+test_case_teardown	test/ut/ut_def.c	/^void test_case_teardown(void** state)$/;"	f	signature:(void** state)
+test_case_teardown	test/ut/ut_def.h	/^void test_case_teardown(void** state);$/;"	p	signature:(void** state)
 test_deque	test/it/test_deque.c	/^void test_deque(void)$/;"	f	signature:(void)
 test_deque	test/it/test_deque.h	/^extern void test_deque(void);$/;"	p	signature:(void)
 test_function	test/it/test_function.c	/^void test_function(void)$/;"	f	signature:(void)
@@ -7520,7 +7573,7 @@ ut_LDADD	test/ut/Makefile	/^ut_LDADD = $(LDADD)$/;"	m
 ut_LDFLAGS	test/ut/Makefile	/^ut_LDFLAGS = -lcmockery$/;"	m
 ut_LINK	test/ut/Makefile	/^ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \\$/;"	m
 ut_OBJECTS	test/ut/Makefile	/^ut_OBJECTS = $(am_ut_OBJECTS)$/;"	m
-ut_SOURCES	test/ut/Makefile	/^ut_SOURCES = ut_main.c \\$/;"	m
+ut_SOURCES	test/ut/Makefile	/^ut_SOURCES = ut_main.c ut_def.c ut_def.h \\$/;"	m
 vector_assign	cstl/cstl_vector.h	/^extern void vector_assign($/;"	p	signature:( vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
 vector_assign	src/cstl_vector.c	/^void vector_assign(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)$/;"	f	signature:(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
 vector_assign_elem	cstl/cstl_vector.h	43;"	d

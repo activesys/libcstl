@@ -12,13 +12,12 @@
 #include "cstl/cstl_alloc.h"
 #include "cstl_alloc_aux.h"
 
-UT_CASE_DEFINATION(cstl_alloc_aux)
-
 #ifndef _CSTL_USER_MODEL
+UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_get_memory_chunk)
 /*
  * test _alloc_get_memory_chunk
  */
-UT_ITEM_DEFINATION(_alloc_get_memory_chunk)
+UT_CASE_DEFINATION(_alloc_get_memory_chunk)
 void test__alloc_get_memory_chunk__invalid_allocator(void** state)
 {
     size_t t_alloccount = 2;
@@ -149,7 +148,7 @@ void test__alloc_get_memory_chunk__reallocate_memory_pool_container(void** state
 /*
  * test _alloc_apply_formated_memory
  */
-UT_ITEM_DEFINATION(_alloc_apply_formated_memory)
+UT_CASE_DEFINATION(_alloc_apply_formated_memory)
 void test__alloc_apply_formated_memory__invalid_allocator(void** state)
 {
     expect_assert_failure(_alloc_apply_formated_memory(NULL, 8));
@@ -173,12 +172,14 @@ void test__alloc_apply_formated_memory__success(void** state)
 
     _alloc_destroy(&allocator);
 }
+#else
+UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_free)
 #endif /* _CSTL_USER_MODEL */
 
 /*
  * test _alloc_free
  */
-UT_ITEM_DEFINATION(_alloc_free)
+UT_CASE_DEFINATION(_alloc_free)
 void test__alloc_free__invalid_memory(void** state)
 {
     expect_assert_failure(_alloc_free(NULL));
@@ -187,7 +188,7 @@ void test__alloc_free__invalid_memory(void** state)
 /*
  * test _alloc_malloc
  */
-UT_ITEM_DEFINATION(_alloc_malloc)
+UT_CASE_DEFINATION(_alloc_malloc)
 void test__alloc_malloc__success(void** state)
 {
     void* pv_allocmem = _alloc_malloc(8);
@@ -198,7 +199,7 @@ void test__alloc_malloc__success(void** state)
 /*
  * test _alloc_malloc_out_of_memory
  */
-UT_ITEM_DEFINATION(_alloc_malloc_out_of_memory)
+UT_CASE_DEFINATION(_alloc_malloc_out_of_memory)
 static void malloc_handler(void){}
 
 void test__alloc_malloc_out_of_memory__success(void** state)

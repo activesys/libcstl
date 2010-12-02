@@ -11,12 +11,12 @@
 #include "ut_def.h"
 #include "ut_cstl_vector_iterator.h"
 
-UT_CASE_DEFINATION(cstl_vector_iterator)
+UT_SUIT_DEFINATION(cstl_vector_iterator, _create_vector_iterator)
 
 /*
  * test _create_vector_iterator
  */
-UT_ITEM_DEFINATION(_create_vector_iterator)
+UT_CASE_DEFINATION(_create_vector_iterator)
 void test__create_vector_iterator__successfully(void** state)
 {
     vector_iterator_t it_iter = _create_vector_iterator();
@@ -29,7 +29,7 @@ void test__create_vector_iterator__successfully(void** state)
 /*
  * test _vector_iterator_equal
  */
-UT_ITEM_DEFINATION(_vector_iterator_equal)
+UT_CASE_DEFINATION(_vector_iterator_equal)
 void test__vector_iterator_equal__different_container_type(void** state)
 {
     vector_iterator_t it_first = _create_vector_iterator();
@@ -131,7 +131,7 @@ void test__vector_iterator_equal__not_equal(void** state)
 /*
  * test _vector_iterator_less
  */
-UT_ITEM_DEFINATION(_vector_iterator_less)
+UT_CASE_DEFINATION(_vector_iterator_less)
 void test__vector_iterator_less__different_container_type(void** state)
 {
     vector_iterator_t it_first = _create_vector_iterator();
@@ -249,7 +249,7 @@ void test__vector_iterator_less__first_less_than_second(void** state)
 /*
  * test _vector_iterator_before
  */
-UT_ITEM_DEFINATION(_vector_iterator_before)
+UT_CASE_DEFINATION(_vector_iterator_before)
 void test__vector_iterator_before__different_container_type(void** state)
 {
     vector_iterator_t it_first = _create_vector_iterator();
@@ -367,7 +367,7 @@ void test__vector_iterator_before__first_before_second(void** state)
 /*
  * test _vector_iterator_get_value
  */
-UT_ITEM_DEFINATION(_vector_iterator_get_value)
+UT_CASE_DEFINATION(_vector_iterator_get_value)
 void test__vector_iterator_get_value__invalid_iterator(void** state)
 {
     int value;
@@ -488,7 +488,7 @@ void test__vector_iterator_get_value__successfully_cstr(void** state)
 /*
  * test _vector_iterator_set_value
  */
-UT_ITEM_DEFINATION(_vector_iterator_set_value)
+UT_CASE_DEFINATION(_vector_iterator_set_value)
 void test__vector_iterator_set_value__invalid_iterator(void** state)
 {
     int value;
@@ -609,7 +609,7 @@ void test__vector_iterator_set_value__successfully_cstr(void** state)
 /*
  * test _vector_iterator_get_pointer
  */
-UT_ITEM_DEFINATION(_vector_iterator_get_pointer)
+UT_CASE_DEFINATION(_vector_iterator_get_pointer)
 void test__vector_iterator_get_pointer__invalid_iterator(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -708,7 +708,7 @@ void test__vector_iterator_get_pointer__successfully_cstr(void** state)
 /*
  * test _vector_iterator_next
  */
-UT_ITEM_DEFINATION(_vector_iterator_next)
+UT_CASE_DEFINATION(_vector_iterator_next)
 void test__vector_iterator_next__invalid_iterator(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -796,7 +796,7 @@ void test__vector_iterator_next__successfully(void** state)
 /*
  * test _vector_iterator_prev
  */
-UT_ITEM_DEFINATION(_vector_iterator_prev)
+UT_CASE_DEFINATION(_vector_iterator_prev)
 void test__vector_iterator_prev__invalid_iterator(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -884,7 +884,7 @@ void test__vector_iterator_prev__successfully(void** state)
 /*
  * test _vector_iterator_next_n
  */
-UT_ITEM_DEFINATION(_vector_iterator_next_n)
+UT_CASE_DEFINATION(_vector_iterator_next_n)
 void test__vector_iterator_next_n__invalid_iterator(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -1015,7 +1015,7 @@ void test__vector_iterator_next_n__does_not_move_successfully(void** state)
 /*
  * test _vector_iterator_prev_n
  */
-UT_ITEM_DEFINATION(_vector_iterator_prev_n)
+UT_CASE_DEFINATION(_vector_iterator_prev_n)
 void test__vector_iterator_prev_n__invalid_iterator(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -1146,7 +1146,7 @@ void test__vector_iterator_prev_n__does_not_move_successfully(void** state)
 /*
  * test _vector_iterator_at
  */
-UT_ITEM_DEFINATION(_vector_iterator_at)
+UT_CASE_DEFINATION(_vector_iterator_at)
 void test__vector_iterator_at__invalid_iterator(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -1359,7 +1359,7 @@ void test__vector_iterator_at__does_not_move_cstr_successfully(void** state)
 /*
  * test _vector_iterator_minus
  */
-UT_ITEM_DEFINATION(_vector_iterator_minus)
+UT_CASE_DEFINATION(_vector_iterator_minus)
 void test__vector_iterator_minus__different_container_type(void** state)
 {
     vector_iterator_t it_first = _create_vector_iterator();

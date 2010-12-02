@@ -44,12 +44,13 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-cstl_alloc_aux.$(OBJEXT) \
-	ut-cstl_alloc.$(OBJEXT) ut-cstl_algo.$(OBJEXT) \
-	ut-cstl_algobase.$(OBJEXT) ut-cstl_function.$(OBJEXT) \
-	ut-cstl_iterator.$(OBJEXT) ut-cstl_avl_tree.$(OBJEXT) \
-	ut-cstl_basic_string.$(OBJEXT) ut-cstl_deque.$(OBJEXT) \
-	ut-cstl_hash_map.$(OBJEXT) ut-cstl_hash_multimap.$(OBJEXT) \
+am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
+	ut-cstl_alloc_aux.$(OBJEXT) ut-cstl_alloc.$(OBJEXT) \
+	ut-cstl_algo.$(OBJEXT) ut-cstl_algobase.$(OBJEXT) \
+	ut-cstl_function.$(OBJEXT) ut-cstl_iterator.$(OBJEXT) \
+	ut-cstl_avl_tree.$(OBJEXT) ut-cstl_basic_string.$(OBJEXT) \
+	ut-cstl_deque.$(OBJEXT) ut-cstl_hash_map.$(OBJEXT) \
+	ut-cstl_hash_multimap.$(OBJEXT) \
 	ut-cstl_hash_multiset.$(OBJEXT) ut-cstl_hash_set.$(OBJEXT) \
 	ut-cstl_hashtable.$(OBJEXT) ut-cstl_heap.$(OBJEXT) \
 	ut-cstl_list.$(OBJEXT) ut-cstl_map.$(OBJEXT) \
@@ -200,7 +201,7 @@ target_alias =
 top_build_prefix = ../../
 top_builddir = ../..
 top_srcdir = ../..
-ut_SOURCES = ut_main.c ut_def.h \
+ut_SOURCES = ut_main.c ut_def.c ut_def.h \
              $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
 	     $(srcdir)/../../src/cstl_algo.c \
 	     $(srcdir)/../../src/cstl_algobase.c \
@@ -330,6 +331,7 @@ include ./$(DEPDIR)/ut-ut_cstl_alloc_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_private.Po
+include ./$(DEPDIR)/ut-ut_def.Po
 include ./$(DEPDIR)/ut-ut_main.Po
 
 .c.o:
@@ -366,6 +368,20 @@ ut-ut_main.obj: ut_main.c
 #	source='ut_main.c' object='ut-ut_main.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_main.obj `if test -f 'ut_main.c'; then $(CYGPATH_W) 'ut_main.c'; else $(CYGPATH_W) '$(srcdir)/ut_main.c'; fi`
+
+ut-ut_def.o: ut_def.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_def.o -MD -MP -MF $(DEPDIR)/ut-ut_def.Tpo -c -o ut-ut_def.o `test -f 'ut_def.c' || echo '$(srcdir)/'`ut_def.c
+	$(am__mv) $(DEPDIR)/ut-ut_def.Tpo $(DEPDIR)/ut-ut_def.Po
+#	source='ut_def.c' object='ut-ut_def.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_def.o `test -f 'ut_def.c' || echo '$(srcdir)/'`ut_def.c
+
+ut-ut_def.obj: ut_def.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_def.obj -MD -MP -MF $(DEPDIR)/ut-ut_def.Tpo -c -o ut-ut_def.obj `if test -f 'ut_def.c'; then $(CYGPATH_W) 'ut_def.c'; else $(CYGPATH_W) '$(srcdir)/ut_def.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_def.Tpo $(DEPDIR)/ut-ut_def.Po
+#	source='ut_def.c' object='ut-ut_def.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_def.obj `if test -f 'ut_def.c'; then $(CYGPATH_W) 'ut_def.c'; else $(CYGPATH_W) '$(srcdir)/ut_def.c'; fi`
 
 ut-cstl_alloc_aux.o: $(srcdir)/../../src/cstl_alloc_aux.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_alloc_aux.Tpo -c -o ut-cstl_alloc_aux.o `test -f '$(srcdir)/../../src/cstl_alloc_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc_aux.c

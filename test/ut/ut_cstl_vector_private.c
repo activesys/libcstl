@@ -12,12 +12,12 @@
 #include "ut_def.h"
 #include "ut_cstl_vector_private.h"
 
-UT_CASE_DEFINATION(cstl_vector_private)
+UT_SUIT_DEFINATION(cstl_vector_private, _create_vector)
 
 /*
  * test _create_vector
  */
-UT_ITEM_DEFINATION(_create_vector)
+UT_CASE_DEFINATION(_create_vector)
 
 void test__create_vector__null_typename(void** state)
 {

@@ -1,6 +1,6 @@
 # for libcstl unit testing.
 check_PROGRAMS = ut
-ut_SOURCES = ut_main.c ut_def.h \
+ut_SOURCES = ut_main.c ut_def.c ut_def.h \
              $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
 	     $(srcdir)/../../src/cstl_algo.c \
 	     $(srcdir)/../../src/cstl_algobase.c \
