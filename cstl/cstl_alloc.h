@@ -117,6 +117,14 @@ extern void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_cou
 extern void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count);
 
 /**
+ * Test alloc_t is initialized.
+ * @param cpt_allocator  allocator.
+ * @return if allocator is initialized then return true, else return false.
+ * @remarks if cpt_allocator == NULL then the behavior is undefined.
+ */
+extern bool_t _alloc_is_inited(const _alloc_t* cpt_allocator);
+
+/**
  * Set the out of memory handler and return the old handler.
  * @param pfun_newhandler  new out of memory handler.
  * @return old hanlder.

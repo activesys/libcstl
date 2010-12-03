@@ -68,18 +68,72 @@ typedef struct _tagvector
  *          libcstl builtin typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern vector_t* _create_vector(const char* s_typename);
-extern bool_t _create_vector_auxiliary(vector_t* pt_vector, const char* s_typename);
-extern void _vector_init_elem(vector_t* pt_vector, size_t t_count, ...);
-extern void _vector_init_elem_varg(
-    vector_t* pt_vector, size_t t_count, va_list val_elemlist);
-extern void _vector_destroy_auxiliary(vector_t* pt_vector);
 
-/*
- * The assignment operator of vector_t.
+/**
+ * Create vector container auxiliary function.
+ * @param pvec_vector uncreated container.
+ * @param s_typename  element type name.
+ * @return if create vector successfully return true, otherwise return false.
+ * @remarks if s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name,
+ *          libcstl builtin typename or registed user defined type name, otherwise the function will return false.
  */
-extern void _vector_assign_elem(vector_t* pt_vector, size_t t_count, ...);
-extern void _vector_assign_elem_varg(
-    vector_t* pt_vector, size_t t_count, va_list val_elemlist);
+extern bool_t _create_vector_auxiliary(vector_t* pvec_vector, const char* s_typename);
+
+/**
+ * Initialize vector with specified element.
+ * @param pvec_vector  uninitialized vector container.
+ * @param t_count      element number.
+ * @param ...          specificed element.
+ * @return void
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. the type of specificed element and vecotr element
+ *          type must be same, otherwise the behavior is undefined. the first specificed element is in use, others are
+ *          not in use.
+ */
+extern void _vector_init_elem(vector_t* pvec_vector, size_t t_count, ...);
+
+/**
+ * Initialize vector with variable argument list of specified element.
+ * @param pvec_vector  uninitialized vector container.
+ * @param t_count      element number.
+ * @param val_elemlist variable argument list of specificed element.
+ * @return void
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. the type of specificed element and vecotr element
+ *          type must be same, otherwise the behavior is undefined. the first specificed element is in use, others are
+ *          not in use.
+ */
+extern void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist);
+
+/**
+ * Destroy vector container auxiliary function.
+ * @param pvec_vector  vector container.
+ * @return void.
+ * @remarks if pvec_vector == NULL or vector is not created by create_vector() function, then the behavior is undefined.
+ */
+extern void _vector_destroy_auxiliary(vector_t* pvec_vector);
+
+/**
+ * Assign vector with specificed element.
+ * @param pvec_vector  vector container.
+ * @param t_count      element number.
+ * @param ...          specificed element.
+ * @return void.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use.
+ */
+extern void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...);
+
+/**
+ * Assign vector with variable argument of specificed element.
+ * @param pvec_vector  vector container.
+ * @param t_count      element number.
+ * @param val_elemlist variable argumnet list of specificed element.
+ * @return void.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use.
+ */
+extern void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist);
 
 /*
  * Insert a new element at the end of vector_t.

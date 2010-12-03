@@ -72,6 +72,22 @@ extern bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, ve
  * @remarks if cpvec_first == NULL or it_iter is not vector iterator, then the behavior is undefined.
  */
 extern bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_iterator_t it_iter);
+
+/**
+ * Test vector is created by create_vector.
+ * @param cpvec_vector  vector container.
+ * @return if vector is created by create_vector, then return true, else return false.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined.
+ */
+extern bool_t _vector_is_created(const vector_t* cpvec_vector);
+
+/**
+ * Test vector is initialized by vector initialization functions.
+ * @param cpvec_vector  vector container.
+ * @return if vector is initialized by vector initialization functions, then return true, else return false.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined.
+ */
+extern bool_t _vector_is_inited(const vector_t* cpvec_vector);
 #endif /* NDEBUG */
 
 /**

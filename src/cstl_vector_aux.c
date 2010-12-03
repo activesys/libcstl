@@ -77,6 +77,66 @@ bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_it
     assert(_GET_VECTOR_ITERATOR_TYPE(it_iter) == _RANDOM_ACCESS_ITERATOR);
     return _vector_same_type(cpvec_vector, _GET_VECTOR_CONTAINER(it_iter));
 }
+
+/**
+ * Test vector is created by create_vector.
+ */
+bool_t _vector_is_created(const vector_t* cpvec_vector)
+{
+    assert(cpvec_vector != NULL);
+
+    if(cpvec_vector->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+       cpvec_vector->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+       cpvec_vector->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
+    {
+        return false;
+    }
+
+    if(cpvec_vector->_pc_start != NULL || cpvec_vector->_pc_finish != NULL || cpvec_vector->_pc_endofstorage != NULL)
+    {
+        return false;
+    }
+
+    return _alloc_is_inited(&cpvec_vector->_t_allocater);
+}
+
+/**
+ * Test vector is initialized by vector initialization functions.
+ */
+bool_t _vector_is_inited(const vector_t* cpvec_vector)
+{
+    assert(cpvec_vector != NULL);
+
+    if(cpvec_vector->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+       cpvec_vector->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+       cpvec_vector->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
+    {
+        return false;
+    }
+
+    if(!_alloc_is_inited(&cpvec_vector->_t_allocater))
+    {
+        return false;
+    }
+
+    if(cpvec_vector->_pc_start == NULL && cpvec_vector->_pc_finish == NULL && cpvec_vector->_pc_endofstorage == NULL)
+    {
+        return true;
+    }
+    else if(cpvec_vector->_pc_start != NULL &&
+            cpvec_vector->_pc_finish != NULL &&
+            cpvec_vector->_pc_endofstorage != NULL &&
+            cpvec_vector->_pc_finish >= cpvec_vector->_pc_start &&
+            cpvec_vector->_pc_endofstorage >= cpvec_vector->_pc_start &&
+            cpvec_vector->_pc_endofstorage >= cpvec_vector->_pc_finish)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 #endif /* NDEBUG */
 
 /**

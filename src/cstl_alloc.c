@@ -81,6 +81,15 @@ void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size,
     _alloc_free(pv_allocmem);
 }
 
+/**
+ * Test alloc_t is initialized.
+ */
+bool_t _alloc_is_inited(const _alloc_t* cpt_allocator)
+{
+    cpt_allocator = NULL;
+    return true;
+}
+
 #else
 
 /**
@@ -198,6 +207,44 @@ void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size,
         ((_memlink_t*)pv_allocmem)->_pui_nextmem = pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)];
         pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)] = ((_memlink_t*)pv_allocmem);
     }
+}
+
+/**
+ * Test alloc_t is initialized.
+ */
+bool_t _alloc_is_inited(const _alloc_t* cpt_allocator)
+{
+    size_t i = 0;
+
+    assert(cpt_allocator != NULL);
+
+    if(cpt_allocator->_t_mempoolsize != 0 || cpt_allocator->_t_mempoolindex != 0 || cpt_allocator->_pby_mempool != NULL)
+    {
+        return false;
+    }
+
+    for(i = 0; i < _MEM_LINK_COUNT; ++i)
+    {
+        if(cpt_allocator->_apt_memlink[i] != NULL)
+        {
+            return false;
+        }
+    }
+
+    if(cpt_allocator->_t_mempoolcount != _MEM_POOL_DEFAULT_COUNT || cpt_allocator->_ppby_mempoolcontainer == NULL)
+    {
+        return false;
+    }
+
+    for(i = 0; i < cpt_allocator->_t_mempoolcount; ++i)
+    {
+        if(cpt_allocator->_ppby_mempoolcontainer[i] != NULL)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 #endif

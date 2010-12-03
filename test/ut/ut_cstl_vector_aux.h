@@ -62,6 +62,30 @@ void test__vector_init_elem_range_auxiliary__successfully_int(void** state);
 void test__vector_init_elem_range_auxiliary__successfully_cstr(void** state);
 void test__vector_init_elem_range_auxiliary__successfully_iterator(void** state);
 void test__vector_init_elem_range_auxiliary__successfully_container(void** state);
+/*
+ * test _vector_is_created
+ */
+UT_CASE_DECLARATION(_vector_is_created)
+void test__vector_is_created__null_vector_container(void** state);
+void test__vector_is_created__non_created_invalid_start(void** state);
+void test__vector_is_created__non_created_invalid_finish(void** state);
+void test__vector_is_created__non_created_invalid_endofstorage(void** state);
+void test__vector_is_created__non_created_invalid_type_style(void** state);
+void test__vector_is_created__non_created_non_init_allocator(void** state);
+void test__vector_is_created__created(void** state);
+/*
+ * test _vector_is_inited
+ */
+UT_CASE_DECLARATION(_vector_is_inited)
+void test__vector_is_inited__null_vector_container(void** state);
+void test__vector_is_inited__non_inited_not_all_null(void** state);
+void test__vector_is_inited__non_inited_finish_less_than_start(void** state);
+void test__vector_is_inited__non_inited_endofstorage_less_than_start(void** state);
+void test__vector_is_inited__non_inited_endofstorage_less_than_finish(void** state);
+void test__vector_is_inited__non_inited_invalid_type_style(void** state);
+void test__vector_is_inited__non_inited_non_init_allocator(void** state);
+void test__vector_is_inited__inited_empty(void** state);
+void test__vector_is_inited__inited_non_empty(void** state);
 
 #define UT_CSTL_VECTOR_AUX_CASE \
     UT_SUIT_BEGIN(cstl_vector_aux, test__vector_iterator_belong_to_vector__null_container_pointer),\
@@ -98,7 +122,23 @@ void test__vector_init_elem_range_auxiliary__successfully_container(void** state
     UT_CASE(test__vector_init_elem_range_auxiliary__successfully_int),\
     UT_CASE(test__vector_init_elem_range_auxiliary__successfully_cstr),\
     UT_CASE(test__vector_init_elem_range_auxiliary__successfully_iterator),\
-    UT_CASE(test__vector_init_elem_range_auxiliary__successfully_container)
+    UT_CASE(test__vector_init_elem_range_auxiliary__successfully_container),\
+    UT_CASE_BEGIN(_vector_is_created, test__vector_is_created__null_vector_container),\
+    UT_CASE(test__vector_is_created__non_created_invalid_start),\
+    UT_CASE(test__vector_is_created__non_created_invalid_finish),\
+    UT_CASE(test__vector_is_created__non_created_invalid_endofstorage),\
+    UT_CASE(test__vector_is_created__non_created_invalid_type_style),\
+    UT_CASE(test__vector_is_created__non_created_non_init_allocator),\
+    UT_CASE(test__vector_is_created__created),\
+    UT_CASE_BEGIN(_vector_is_inited, test__vector_is_inited__null_vector_container),\
+    UT_CASE(test__vector_is_inited__non_inited_not_all_null),\
+    UT_CASE(test__vector_is_inited__non_inited_finish_less_than_start),\
+    UT_CASE(test__vector_is_inited__non_inited_endofstorage_less_than_start),\
+    UT_CASE(test__vector_is_inited__non_inited_endofstorage_less_than_finish),\
+    UT_CASE(test__vector_is_inited__non_inited_invalid_type_style),\
+    UT_CASE(test__vector_is_inited__non_inited_non_init_allocator),\
+    UT_CASE(test__vector_is_inited__inited_empty),\
+    UT_CASE(test__vector_is_inited__inited_non_empty)
 
 #endif /* _UT_CSTL_VECTOR_AUX_H_ */
 
