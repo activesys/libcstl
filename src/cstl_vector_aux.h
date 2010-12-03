@@ -129,6 +129,14 @@ extern void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv
  */
 extern void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, char* pc_start, char* pc_finish);
 
+/**
+ * Calculate new capacity according to old size and insert size.
+ * @param t_old_size     vector old size.
+ * @param t_insert_size  vector insert size.
+ * @return new capacity.
+ */
+extern size_t _vector_calculate_new_capacity(size_t t_old_size, size_t t_insert_size);
+
 #ifdef __cplusplus
 }
 #endif

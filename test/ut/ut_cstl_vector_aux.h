@@ -83,7 +83,6 @@ void test__vector_is_inited__non_inited_finish_less_than_start(void** state);
 void test__vector_is_inited__non_inited_endofstorage_less_than_start(void** state);
 void test__vector_is_inited__non_inited_endofstorage_less_than_finish(void** state);
 void test__vector_is_inited__non_inited_invalid_type_style(void** state);
-void test__vector_is_inited__non_inited_non_init_allocator(void** state);
 void test__vector_is_inited__inited_empty(void** state);
 void test__vector_is_inited__inited_non_empty(void** state);
 
@@ -136,7 +135,6 @@ void test__vector_is_inited__inited_non_empty(void** state);
     UT_CASE(test__vector_is_inited__non_inited_endofstorage_less_than_start),\
     UT_CASE(test__vector_is_inited__non_inited_endofstorage_less_than_finish),\
     UT_CASE(test__vector_is_inited__non_inited_invalid_type_style),\
-    UT_CASE(test__vector_is_inited__non_inited_non_init_allocator),\
     UT_CASE(test__vector_is_inited__inited_empty),\
     UT_CASE(test__vector_is_inited__inited_non_empty)
 

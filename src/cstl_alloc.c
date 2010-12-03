@@ -81,6 +81,7 @@ void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size,
     _alloc_free(pv_allocmem);
 }
 
+#ifndef NDEBUG
 /**
  * Test alloc_t is initialized.
  */
@@ -89,6 +90,7 @@ bool_t _alloc_is_inited(const _alloc_t* cpt_allocator)
     cpt_allocator = NULL;
     return true;
 }
+#endif /* NDEBUG */
 
 #else
 
@@ -209,6 +211,7 @@ void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size,
     }
 }
 
+#ifndef NDEBUG
 /**
  * Test alloc_t is initialized.
  */
@@ -246,8 +249,9 @@ bool_t _alloc_is_inited(const _alloc_t* cpt_allocator)
 
     return true;
 }
+#endif /* NDEBUG */
 
-#endif
+#endif /* _CSTL_USER_MODEL */
 
 /**
  * Set the out of memory handler and return the old handler.

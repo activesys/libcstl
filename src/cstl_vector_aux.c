@@ -32,8 +32,8 @@
 
 #include "cstl_vector_aux.h"
 
-
 /** local constant declaration and local macro section **/
+#define _VECTOR_CAPACITY_SHRESHOLD_SIZE     16 /* capacity shreshold size */
 
 /** local data type declaration and local struct, union, enum section **/
 
@@ -110,11 +110,6 @@ bool_t _vector_is_inited(const vector_t* cpvec_vector)
     if(cpvec_vector->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
        cpvec_vector->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
        cpvec_vector->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
-        return false;
-    }
-
-    if(!_alloc_is_inited(&cpvec_vector->_t_allocater))
     {
         return false;
     }
@@ -210,6 +205,20 @@ void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg)
     bool_t b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
     _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(pv_varg, &b_result);
     assert(b_result);
+}
+
+/**
+ * Calculate new capacity according to old size and insert size.
+ */
+size_t _vector_calculate_new_capacity(size_t t_old_size, size_t t_insert_size)
+{
+    size_t t_grow_size = (t_old_size + t_insert_size) / 2;
+    if(t_grow_size < _VECTOR_CAPACITY_SHRESHOLD_SIZE)
+    {
+        t_grow_size = _VECTOR_CAPACITY_SHRESHOLD_SIZE;
+    }
+
+    return t_old_size + t_insert_size + t_grow_size;
 }
 
 /** local function implementation section **/

@@ -97,6 +97,7 @@ void _vector_init_elem(vector_t* pvec_vector, size_t t_count, ...)
     va_list val_elemlist;
 
     assert(pvec_vector != NULL);
+    assert(_vector_is_created(pvec_vector));
 
     va_start(val_elemlist, t_count);
     _vector_init_elem_varg(pvec_vector, t_count, val_elemlist);
@@ -113,6 +114,7 @@ void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_e
     vector_iterator_t it_iter;
 
     assert(pvec_vector != NULL);
+    assert(_vector_is_created(pvec_vector));
 
     /* initialize vector_t */
     vector_init_n(pvec_vector, t_count);
@@ -149,9 +151,8 @@ void _vector_destroy_auxiliary(vector_t* pvec_vector)
     bool_t            b_result = false;
 
     assert(pvec_vector != NULL);
-    assert(pvec_vector->_pc_finish - pvec_vector->_pc_start >= 0);
-    assert(pvec_vector->_pc_endofstorage - pvec_vector->_pc_start >= 0);
-    
+    assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
+
     /* destroy all elements */
     for(it_iter = vector_begin(pvec_vector);
         !iterator_equal(it_iter, vector_end(pvec_vector));
@@ -177,47 +178,49 @@ void _vector_destroy_auxiliary(vector_t* pvec_vector)
 /**
  * Assign vector with specificed element.
  */
-void _vector_assign_elem(vector_t* pt_vector, size_t t_count, ...)
+void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...)
 {
     va_list val_elemlist;
 
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
+
     va_start(val_elemlist, t_count);
-    _vector_assign_elem_varg(pt_vector, t_count, val_elemlist);
+    _vector_assign_elem_varg(pvec_vector, t_count, val_elemlist);
     va_end(val_elemlist);
 }
 
 /**
  * Assign vector with variable argument list of specificed element.
  */
-void _vector_assign_elem_varg(
-    vector_t* pt_vector, size_t t_count, va_list val_elemlist)
+void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist)
 {
-    iterator_t t_iter;
-    bool_t     t_result = false;
+    iterator_t it_iter;
+    bool_t     b_result = false;
     void*      pv_varg = NULL;
 
-    assert(pt_vector != NULL);
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
 
     /* get value from varg */
-    pv_varg = _alloc_allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+    pv_varg = _alloc_allocate(&pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
     assert(pv_varg != NULL);
-    _vector_get_varg_value_auxiliary(pt_vector, val_elemlist, pv_varg);
+    _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
 
     /* copy value from varg for each element */
-    vector_resize(pt_vector, t_count);
-    for(t_iter = vector_begin(pt_vector);
-        !iterator_equal(t_iter, vector_end(pt_vector));
-        t_iter = iterator_next(t_iter))
+    vector_resize(pvec_vector, t_count);
+    for(it_iter = vector_begin(pvec_vector);
+        !iterator_equal(it_iter, vector_end(pvec_vector));
+        it_iter = iterator_next(it_iter))
     {
-        t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-            _GET_VECTOR_COREPOS(t_iter), pv_varg, &t_result);
-        assert(t_result);
+        b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_iter), pv_varg, &b_result);
+        assert(b_result);
     }
 
     /* destroy varg and free memory */
-    _vector_destroy_varg_value_auxiliary(pt_vector, pv_varg);
-    _alloc_deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+    _vector_destroy_varg_value_auxiliary(pvec_vector, pv_varg);
+    _alloc_deallocate(&pvec_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
 }
 
 void _vector_push_back(vector_t* pt_vector, ...)

@@ -87,7 +87,7 @@ extern bool_t _create_vector_auxiliary(vector_t* pvec_vector, const char* s_type
  * @return void
  * @remarks if pvec_vector == NULL, then the behavior is undefined. the type of specificed element and vecotr element
  *          type must be same, otherwise the behavior is undefined. the first specificed element is in use, others are
- *          not in use.
+ *          not in use. vector container must be created by create_vector, otherwise the behavior is undefined.
  */
 extern void _vector_init_elem(vector_t* pvec_vector, size_t t_count, ...);
 
@@ -99,7 +99,7 @@ extern void _vector_init_elem(vector_t* pvec_vector, size_t t_count, ...);
  * @return void
  * @remarks if pvec_vector == NULL, then the behavior is undefined. the type of specificed element and vecotr element
  *          type must be same, otherwise the behavior is undefined. the first specificed element is in use, others are
- *          not in use.
+ *          not in use. vector container must be created by create_vector, otherwise the behavior is undefined.
  */
 extern void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist);
 
@@ -108,6 +108,7 @@ extern void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_lis
  * @param pvec_vector  vector container.
  * @return void.
  * @remarks if pvec_vector == NULL or vector is not created by create_vector() function, then the behavior is undefined.
+ *          vector container must be create_vector, otherwise the behavior is undefined.
  */
 extern void _vector_destroy_auxiliary(vector_t* pvec_vector);
 
@@ -119,7 +120,7 @@ extern void _vector_destroy_auxiliary(vector_t* pvec_vector);
  * @return void.
  * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
  *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
- *          in use, others are not in use.
+ *          in use, others are not in use. vector container must be initialized, otherwise the behavior is undefined.
  */
 extern void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...);
 
@@ -131,7 +132,7 @@ extern void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...);
  * @return void.
  * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
  *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
- *          in use, others are not in use.
+ *          in use, others are not in use. vector container must be initialized, otherwise the behavior is undefined.
  */
 extern void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist);
 

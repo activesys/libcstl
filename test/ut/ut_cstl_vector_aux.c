@@ -638,20 +638,6 @@ void test__vector_is_inited__non_inited_invalid_type_style(void** state)
     _alloc_destroy(&vec._t_allocater);
 }
 
-void test__vector_is_inited__non_inited_non_init_allocator(void** state)
-{
-    vector_t vec;
-    vec._pc_start = NULL;
-    vec._pc_finish = NULL;
-    vec._pc_endofstorage = NULL;
-    vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocater);
-    vec._t_allocater._t_mempoolsize = 1;
-    assert_false(_vector_is_inited(&vec));
-    vec._t_allocater._t_mempoolsize = 0;
-    _alloc_destroy(&vec._t_allocater);
-}
-
 void test__vector_is_inited__inited_empty(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -665,10 +651,19 @@ void test__vector_is_inited__inited_empty(void** state)
 void test__vector_is_inited__inited_non_empty(void** state)
 {
     vector_t* pvec = create_vector(int);
-    vector_init_n(pvec, 19);
+    vector_init_n(pvec, 1);
 
     assert_true(_vector_is_inited(pvec));
 
     vector_destroy(pvec);
 }
+
+/*
+ * test _vector_calculate_new_capacity
+ */
+/*
+UT_CASE_DEFINATION(_vector_calculate_new_capacity)
+void test__vector_calculate_new_capacity__
+*/
+
 

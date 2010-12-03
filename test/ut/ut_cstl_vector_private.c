@@ -130,12 +130,21 @@ void test__vector_init_elem__vector_init_elem_varg__null_vector_container(void**
     expect_assert_failure(_vector_init_elem(NULL, 10, 100));
 }
 
+void test__vector_init_elem__vector_init_elem_varg__non_created(void** state)
+{
+    vector_t vec;
+    vec._pc_start = 0x89;
+
+    expect_assert_failure(_vector_init_elem(&vec, 10, 100));
+}
+
 void test__vector_init_elem__vector_init_elem_varg__successfully_0_count(void** state)
 {
     vector_t* pvec = create_vector(int);
 
     _vector_init_elem(pvec, 0, 100);
     assert_true(vector_size(pvec) == 0);
+    /*assert_true(vector_capacity(pvec) == 0);*/
 
     vector_destroy(pvec);
 }
@@ -151,6 +160,7 @@ void test__vector_init_elem__vector_init_elem_varg__successfully(void** state)
     {
         assert_true(*(int*)vector_at(pvec, i) == 100);
     }
+    /*assert_true(vector_capacity(pvec) == 0);*/
 
     vector_destroy(pvec);
 }
@@ -166,6 +176,7 @@ void test__vector_init_elem__vector_init_elem_varg__successfully_multiple_specif
     {
         assert_true(*(int*)vector_at(pvec, i) == 100);
     }
+    /*assert_true(vector_capacity(pvec) == 0);*/
 
     vector_destroy(pvec);
 }
@@ -234,5 +245,101 @@ void test__vector_destroy_auxiliary__successfully(void** state)
     assert_true(pvec->_pc_start == NULL);
 
     free(pvec);
+}
+
+/*
+ * test _vector_assign_elem and _vector_assign_elem_varg
+ */
+UT_CASE_DEFINATION(_vector_assign_elem__vector_assign_elem_varg)
+void test__vector_assign_elem__vector_assign_elem_varg__null_vector_container(void** state)
+{
+    expect_assert_failure(_vector_assign_elem(NULL, 10, 100));
+}
+
+void test__vector_assign_elem__vector_assign_elem_varg__non_inited(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    pvec->_pc_start = 0x89;
+    expect_assert_failure(_vector_assign_elem(pvec, 10, 100));
+
+    pvec->_pc_start = NULL;
+    vector_destroy(pvec);
+}
+
+void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_0_count(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    _vector_assign_elem(pvec, 0, 100);
+    assert_true(vector_size(pvec) == 0);
+    /* assert_true(vector_capacity(pvec) == 0); */
+
+    vector_destroy(pvec);
+}
+
+void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_n_count(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    _vector_assign_elem(pvec, 8, 100);
+    assert_true(vector_size(pvec) == 8);
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec, i) == 100);
+    }
+    /* assert_true(vector_capacity(pvec) == 0); */
+
+    vector_destroy(pvec);
+}
+
+void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_0_count(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 9, 45);
+    _vector_assign_elem(pvec, 0, 100);
+    assert_true(vector_size(pvec) == 0);
+    /* assert_true(vector_capacity(pvec) == 0); */
+
+    vector_destroy(pvec);
+}
+
+void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 9, 45);
+    _vector_assign_elem(pvec, 4, 100);
+    assert_true(vector_size(pvec) == 4);
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec, i) == 100);
+    }
+    /* assert_true(vector_capacity(pvec) == 0); */
+
+    vector_destroy(pvec);
+}
+
+void test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    _vector_assign_elem(pvec, 4, 100, 200, 300, 400);
+    assert_true(vector_size(pvec) == 4);
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec, i) == 100);
+    }
+    /* assert_true(vector_capacity(pvec) == 0); */
+
+    vector_destroy(pvec);
 }
 
