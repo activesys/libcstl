@@ -851,25 +851,25 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
     {
         /* the string_t and iterator types are special codition */
         if(strncmp(pt_typeinfo->_sz_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _FORWARD_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _BIDIRECTIONAL_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _RANDOM_ACCESS_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _VECTOR_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _LIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _SLIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _DEQUE_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _HASH_SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-           strncmp(s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0)
+           strncmp(pt_typeinfo->_sz_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _FORWARD_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _BIDIRECTIONAL_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _RANDOM_ACCESS_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _VECTOR_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _LIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _SLIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _DEQUE_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _HASH_SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0)
         {
             strncpy(s_registeredname, pt_typeinfo->_sz_typename, _TYPE_NAME_SIZE);
         }

@@ -61,6 +61,7 @@ void test__vector_init_elem_range_auxiliary__pby_finish_less_then_pby_start(void
 void test__vector_init_elem_range_auxiliary__successfully_int(void** state);
 void test__vector_init_elem_range_auxiliary__successfully_cstr(void** state);
 void test__vector_init_elem_range_auxiliary__successfully_iterator(void** state);
+void test__vector_init_elem_range_auxiliary__successfully_container(void** state);
 
 #define UT_CSTL_VECTOR_AUX_CASE \
     UT_SUIT_BEGIN(cstl_vector_aux, test__vector_iterator_belong_to_vector__null_container_pointer),\
@@ -96,7 +97,8 @@ void test__vector_init_elem_range_auxiliary__successfully_iterator(void** state)
     UT_CASE(test__vector_init_elem_range_auxiliary__pby_finish_less_then_pby_start),\
     UT_CASE(test__vector_init_elem_range_auxiliary__successfully_int),\
     UT_CASE(test__vector_init_elem_range_auxiliary__successfully_cstr),\
-    UT_CASE(test__vector_init_elem_range_auxiliary__successfully_iterator)
+    UT_CASE(test__vector_init_elem_range_auxiliary__successfully_iterator),\
+    UT_CASE(test__vector_init_elem_range_auxiliary__successfully_container)
 
 #endif /* _UT_CSTL_VECTOR_AUX_H_ */
 

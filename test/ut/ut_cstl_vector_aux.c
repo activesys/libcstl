@@ -468,3 +468,24 @@ void test__vector_init_elem_range_auxiliary__successfully_iterator(void** state)
     vector_destroy(pvec);
 }
 
+void test__vector_init_elem_range_auxiliary__successfully_container(void** state)
+{
+    size_t i = 0;
+    vector_t a_vec[10];
+    vector_t* pvec = create_vector(vector_t<int>);
+    vector_init(pvec);
+
+    _vector_init_elem_range_auxiliary(pvec, a_vec, a_vec + 10);
+    for(i = 0; i < 10; ++i)
+    {
+        assert_true(a_vec[i]._t_typeinfo._t_style == _TYPE_C_BUILTIN);
+        assert_true(strcmp(a_vec[i]._t_typeinfo._sz_typename, _INT_TYPE) == 0);
+        assert_true(a_vec[i]._t_typeinfo._pt_type != NULL);
+        assert_true(a_vec[i]._pc_start == NULL);
+        assert_true(a_vec[i]._pc_finish == NULL);
+        assert_true(a_vec[i]._pc_endofstorage == NULL);
+    }
+
+    vector_destroy(pvec);
+}
+
