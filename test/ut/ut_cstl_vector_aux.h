@@ -85,6 +85,28 @@ void test__vector_is_inited__non_inited_endofstorage_less_than_finish(void** sta
 void test__vector_is_inited__non_inited_invalid_type_style(void** state);
 void test__vector_is_inited__inited_empty(void** state);
 void test__vector_is_inited__inited_non_empty(void** state);
+/*
+ * test _vector_calculate_new_capacity
+ */
+UT_CASE_DECLARATION(_vector_calculate_new_capacity)
+void test__vector_calculate_new_capacity__0_size_0_insert(void** state);
+void test__vector_calculate_new_capacity__0_size_1_insert(void** state);
+void test__vector_calculate_new_capacity__0_size_8_insert(void** state);
+void test__vector_calculate_new_capacity__0_size_48_insert(void** state);
+void test__vector_calculate_new_capacity__0_size_1000_insert(void** state);
+void test__vector_calculate_new_capacity__5_size_0_insert(void** state);
+void test__vector_calculate_new_capacity__5_size_1_insert(void** state);
+void test__vector_calculate_new_capacity__5_size_10_insert(void** state);
+void test__vector_calculate_new_capacity__5_size_40_insert(void** state);
+void test__vector_calculate_new_capacity__5_size_4000_insert(void** state);
+void test__vector_calculate_new_capacity__40_size_0_insert(void** state);
+void test__vector_calculate_new_capacity__40_size_1_insert(void** state);
+void test__vector_calculate_new_capacity__40_size_40_insert(void** state);
+void test__vector_calculate_new_capacity__40_size_50000_insert(void** state);
+void test__vector_calculate_new_capacity__12345_size_0_insert(void** state);
+void test__vector_calculate_new_capacity__12345_size_1_insert(void** state);
+void test__vector_calculate_new_capacity__12345_size_16_insert(void** state);
+void test__vector_calculate_new_capacity__12345_size_1600894_insert(void** state);
 
 #define UT_CSTL_VECTOR_AUX_CASE \
     UT_SUIT_BEGIN(cstl_vector_aux, test__vector_iterator_belong_to_vector__null_container_pointer),\
@@ -136,7 +158,25 @@ void test__vector_is_inited__inited_non_empty(void** state);
     UT_CASE(test__vector_is_inited__non_inited_endofstorage_less_than_finish),\
     UT_CASE(test__vector_is_inited__non_inited_invalid_type_style),\
     UT_CASE(test__vector_is_inited__inited_empty),\
-    UT_CASE(test__vector_is_inited__inited_non_empty)
+    UT_CASE(test__vector_is_inited__inited_non_empty),\
+    UT_CASE_BEGIN(_vector_calculate_new_capacity, test__vector_calculate_new_capacity__0_size_0_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__0_size_1_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__0_size_8_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__0_size_48_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__0_size_1000_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__5_size_0_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__5_size_1_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__5_size_10_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__5_size_40_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__5_size_4000_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__40_size_0_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__40_size_1_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__40_size_40_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__40_size_50000_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__12345_size_0_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__12345_size_1_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__12345_size_16_insert),\
+    UT_CASE(test__vector_calculate_new_capacity__12345_size_1600894_insert)
 
 #endif /* _UT_CSTL_VECTOR_AUX_H_ */
 

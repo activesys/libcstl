@@ -905,9 +905,11 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_CASE_DEFINATION(_alloc_destroy)$
 UT_CASE_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_CASE_DEFINATION(_alloc_is_inited)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_CASE_DEFINATION(_alloc_apply_formated_memory)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_CASE_DEFINATION(_alloc_malloc)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_CASE_DEFINATION(_vector_calculate_new_capacity)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_CASE_DEFINATION(_vector_destroy_varg_value_auxiliary)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_CASE_DEFINATION(_vector_init_elem_range_auxiliary)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_CASE_DEFINATION(_vector_is_created)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_CASE_DEFINATION(_vector_is_inited)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_CASE_DEFINATION(_vector_same_type)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_CASE_DEFINATION(_vector_same_vector_iterator_type)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_at)$/;"	f
@@ -923,6 +925,7 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vecto
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_prev_n)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_CASE_DEFINATION(_vector_iterator_set_value)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_private.c	/^UT_CASE_DEFINATION(_create_vector_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_vector_private.c	/^UT_CASE_DEFINATION(_vector_assign_elem__vector_assign_elem_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_private.c	/^UT_CASE_DEFINATION(_vector_destroy_auxiliary)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector_private.c	/^UT_CASE_DEFINATION(_vector_init_elem__vector_init_elem_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_def.h	23;"	d
@@ -930,10 +933,10 @@ UT_CASE_SEPARATOR_CLOSE	test/ut/ut_def.h	7;"	d
 UT_CASE_SEPARATOR_OPEN	test/ut/ut_def.h	6;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	46;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	60;"	d
-UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	40;"	d
-UT_CSTL_VECTOR_AUX_CASE	test/ut/ut_cstl_vector_aux.h	73;"	d
+UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	53;"	d
+UT_CSTL_VECTOR_AUX_CASE	test/ut/ut_cstl_vector_aux.h	111;"	d
 UT_CSTL_VECTOR_ITERATOR_CASE	test/ut/ut_cstl_vector_iterator.h	157;"	d
-UT_CSTL_VECTOR_PRIVATE_CASE	test/ut/ut_cstl_vector_private.h	44;"	d
+UT_CSTL_VECTOR_PRIVATE_CASE	test/ut/ut_cstl_vector_private.h	56;"	d
 UT_SUIT_BEGIN	test/ut/ut_def.h	17;"	d
 UT_SUIT_DECLARATION	test/ut/ut_def.h	9;"	d
 UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_SUIT_DEFINATION(cstl_alloc, _alloc_init)$/;"	f
@@ -1608,6 +1611,7 @@ _UT_CSTL_VECTOR_AUX_H_	test/ut/ut_cstl_vector_aux.h	2;"	d
 _UT_CSTL_VECTOR_ITERATOR_H_	test/ut/ut_cstl_vector_iterator.h	2;"	d
 _UT_CSTL_VECTOR_PRIVATE_H_	test/ut/ut_cstl_vector_private.h	2;"	d
 _UT_DEF_H_	test/ut/ut_def.h	2;"	d
+_VECTOR_CAPACITY_SHRESHOLD_SIZE	src/cstl_vector_aux.c	36;"	d	file:
 _VECTOR_CONTAINER	cstl/cstl_iterator.h	/^    _VECTOR_CONTAINER,$/;"	e	enum:_tagcontainertype
 _VECTOR_ITERATOR_TYPE	cstl/cstl_types.h	90;"	d
 _VECTOR_TYPE	cstl/cstl_types.h	71;"	d
@@ -4011,9 +4015,11 @@ _un_height	cstl/cstl_avl_tree_private.h	/^    unsigned int        _un_height;$/;
 _un_number	test/it/test_map.c	/^    unsigned _un_number;$/;"	m	struct:_tagmapkey	file:	access:public
 _units_t	test/it/test_map.c	/^}_units_t;$/;"	t	typeref:enum:_tagunits	file:
 _vector_assign_elem	cstl/cstl_vector_private.h	/^extern void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...);$/;"	p	signature:(vector_t* pvec_vector, size_t t_count, ...)
-_vector_assign_elem	src/cstl_vector_private.c	/^void _vector_assign_elem(vector_t* pt_vector, size_t t_count, ...)$/;"	f	signature:(vector_t* pt_vector, size_t t_count, ...)
+_vector_assign_elem	src/cstl_vector_private.c	/^void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...)$/;"	f	signature:(vector_t* pvec_vector, size_t t_count, ...)
 _vector_assign_elem_varg	cstl/cstl_vector_private.h	/^extern void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist);$/;"	p	signature:(vector_t* pvec_vector, size_t t_count, va_list val_elemlist)
-_vector_assign_elem_varg	src/cstl_vector_private.c	/^void _vector_assign_elem_varg($/;"	f	signature:( vector_t* pt_vector, size_t t_count, va_list val_elemlist)
+_vector_assign_elem_varg	src/cstl_vector_private.c	/^void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist)$/;"	f	signature:(vector_t* pvec_vector, size_t t_count, va_list val_elemlist)
+_vector_calculate_new_capacity	src/cstl_vector_aux.c	/^size_t _vector_calculate_new_capacity(size_t t_old_size, size_t t_insert_size)$/;"	f	signature:(size_t t_old_size, size_t t_insert_size)
+_vector_calculate_new_capacity	src/cstl_vector_aux.h	/^extern size_t _vector_calculate_new_capacity(size_t t_old_size, size_t t_insert_size);$/;"	p	signature:(size_t t_old_size, size_t t_insert_size)
 _vector_destroy_auxiliary	cstl/cstl_vector_private.h	/^extern void _vector_destroy_auxiliary(vector_t* pvec_vector);$/;"	p	signature:(vector_t* pvec_vector)
 _vector_destroy_auxiliary	src/cstl_vector_private.c	/^void _vector_destroy_auxiliary(vector_t* pvec_vector)$/;"	f	signature:(vector_t* pvec_vector)
 _vector_destroy_varg_value_auxiliary	src/cstl_vector_aux.c	/^void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg)$/;"	f	signature:(vector_t* pvec_vector, void* pv_varg)
@@ -7226,7 +7232,23 @@ test__alloc_get_memory_chunk__total_size_less_than_memory_pool	test/ut/ut_cstl_a
 test__alloc_init__invalid_allocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_init__invalid_allocator(void** state);$/;"	p	signature:(void** state)
 test__alloc_init__success	test/ut/ut_cstl_alloc.c	/^void test__alloc_init__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_init__success	test/ut/ut_cstl_alloc.h	/^void test__alloc_init__success(void** state);$/;"	p	signature:(void** state)
+test__alloc_is_inited__invalid_default_mempoolcount	test/ut/ut_cstl_alloc.c	/^void test__alloc_is_inited__invalid_default_mempoolcount(void** state)$/;"	f	signature:(void** state)
+test__alloc_is_inited__invalid_default_mempoolcount	test/ut/ut_cstl_alloc.h	/^void test__alloc_is_inited__invalid_default_mempoolcount(void** state);$/;"	p	signature:(void** state)
 test__alloc_is_inited__non_empty_memlink	test/ut/ut_cstl_alloc.c	/^void test__alloc_is_inited__non_empty_memlink(void** state)$/;"	f	signature:(void** state)
+test__alloc_is_inited__non_empty_memlink	test/ut/ut_cstl_alloc.h	/^void test__alloc_is_inited__non_empty_memlink(void** state);$/;"	p	signature:(void** state)
+test__alloc_is_inited__non_empty_mempoolcontainer	test/ut/ut_cstl_alloc.c	/^void test__alloc_is_inited__non_empty_mempoolcontainer(void** state)$/;"	f	signature:(void** state)
+test__alloc_is_inited__non_empty_mempoolcontainer	test/ut/ut_cstl_alloc.h	/^void test__alloc_is_inited__non_empty_mempoolcontainer(void** state);$/;"	p	signature:(void** state)
+test__alloc_is_inited__non_null_mempool	test/ut/ut_cstl_alloc.c	/^void test__alloc_is_inited__non_null_mempool(void** state)$/;"	f	signature:(void** state)
+test__alloc_is_inited__non_null_mempool	test/ut/ut_cstl_alloc.h	/^void test__alloc_is_inited__non_null_mempool(void** state);$/;"	p	signature:(void** state)
+test__alloc_is_inited__non_zero_mempoolindex	test/ut/ut_cstl_alloc.c	/^void test__alloc_is_inited__non_zero_mempoolindex(void** state)$/;"	f	signature:(void** state)
+test__alloc_is_inited__non_zero_mempoolindex	test/ut/ut_cstl_alloc.h	/^void test__alloc_is_inited__non_zero_mempoolindex(void** state);$/;"	p	signature:(void** state)
+test__alloc_is_inited__non_zero_mempoolsize	test/ut/ut_cstl_alloc.c	/^void test__alloc_is_inited__non_zero_mempoolsize(void** state)$/;"	f	signature:(void** state)
+test__alloc_is_inited__non_zero_mempoolsize	test/ut/ut_cstl_alloc.h	/^void test__alloc_is_inited__non_zero_mempoolsize(void** state);$/;"	p	signature:(void** state)
+test__alloc_is_inited__null_allocator	test/ut/ut_cstl_alloc.h	/^void test__alloc_is_inited__null_allocator(void** state);$/;"	p	signature:(void** state)
+test__alloc_is_inited__null_mempoolcontainer	test/ut/ut_cstl_alloc.c	/^void test__alloc_is_inited__null_mempoolcontainer(void** state)$/;"	f	signature:(void** state)
+test__alloc_is_inited__null_mempoolcontainer	test/ut/ut_cstl_alloc.h	/^void test__alloc_is_inited__null_mempoolcontainer(void** state);$/;"	p	signature:(void** state)
+test__alloc_is_inited__successfully	test/ut/ut_cstl_alloc.c	/^void test__alloc_is_inited__successfully(void** state)$/;"	f	signature:(void** state)
+test__alloc_is_inited__successfully	test/ut/ut_cstl_alloc.h	/^void test__alloc_is_inited__successfully(void** state);$/;"	p	signature:(void** state)
 test__alloc_malloc__success	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_malloc__success(void** state);$/;"	p	signature:(void** state)
 test__alloc_malloc_out_of_memory__success	test/ut/ut_cstl_alloc_aux.c	/^void test__alloc_malloc_out_of_memory__success(void** state)$/;"	f	signature:(void** state)
 test__alloc_malloc_out_of_memory__success	test/ut/ut_cstl_alloc_aux.h	/^void test__alloc_malloc_out_of_memory__success(void** state);$/;"	p	signature:(void** state)
@@ -7255,6 +7277,54 @@ test__create_vector_auxiliary__registed_type	test/ut/ut_cstl_vector_private.h	/^
 test__create_vector_auxiliary__unregisted_type	test/ut/ut_cstl_vector_private.c	/^void test__create_vector_auxiliary__unregisted_type(void** state)$/;"	f	signature:(void** state)
 test__create_vector_auxiliary__unregisted_type	test/ut/ut_cstl_vector_private.h	/^void test__create_vector_auxiliary__unregisted_type(void** state);$/;"	p	signature:(void** state)
 test__create_vector_iterator__successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__create_vector_iterator__successfully(void** state);$/;"	p	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__non_inited	test/ut/ut_cstl_vector_private.c	/^void test__vector_assign_elem__vector_assign_elem_varg__non_inited(void** state)$/;"	f	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__non_inited	test/ut/ut_cstl_vector_private.h	/^void test__vector_assign_elem__vector_assign_elem_varg__non_inited(void** state);$/;"	p	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__null_vector_container	test/ut/ut_cstl_vector_private.h	/^void test__vector_assign_elem__vector_assign_elem_varg__null_vector_container(void** state);$/;"	p	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_0_count	test/ut/ut_cstl_vector_private.c	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_0_count(void** state)$/;"	f	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_0_count	test/ut/ut_cstl_vector_private.h	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_0_count(void** state);$/;"	p	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_n_count	test/ut/ut_cstl_vector_private.c	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_n_count(void** state)$/;"	f	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_n_count	test/ut/ut_cstl_vector_private.h	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_n_count(void** state);$/;"	p	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_0_count	test/ut/ut_cstl_vector_private.c	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_0_count(void** state)$/;"	f	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_0_count	test/ut/ut_cstl_vector_private.h	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_0_count(void** state);$/;"	p	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count	test/ut/ut_cstl_vector_private.c	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count(void** state)$/;"	f	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count	test/ut/ut_cstl_vector_private.h	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count(void** state);$/;"	p	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count	test/ut/ut_cstl_vector_private.c	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count(void** state)$/;"	f	signature:(void** state)
+test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count	test/ut/ut_cstl_vector_private.h	/^void test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__0_size_0_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__0_size_0_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__0_size_1000_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__0_size_1000_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__0_size_1000_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__0_size_1000_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__0_size_1_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__0_size_1_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__0_size_1_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__0_size_1_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__0_size_48_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__0_size_48_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__0_size_48_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__0_size_48_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__0_size_8_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__0_size_8_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__0_size_8_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__0_size_8_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__12345_size_0_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__12345_size_0_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__12345_size_0_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__12345_size_0_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__12345_size_1600894_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__12345_size_1600894_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__12345_size_1600894_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__12345_size_1600894_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__12345_size_16_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__12345_size_16_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__12345_size_16_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__12345_size_16_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__12345_size_1_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__12345_size_1_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__12345_size_1_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__12345_size_1_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__40_size_0_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__40_size_0_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__40_size_0_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__40_size_0_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__40_size_1_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__40_size_1_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__40_size_1_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__40_size_1_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__40_size_40_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__40_size_40_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__40_size_40_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__40_size_40_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__40_size_50000_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__40_size_50000_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__40_size_50000_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__40_size_50000_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_0_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__5_size_0_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_0_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__5_size_0_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_10_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__5_size_10_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_10_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__5_size_10_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_1_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__5_size_1_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_1_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__5_size_1_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_4000_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__5_size_4000_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_4000_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__5_size_4000_insert(void** state);$/;"	p	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_40_insert	test/ut/ut_cstl_vector_aux.c	/^void test__vector_calculate_new_capacity__5_size_40_insert(void** state)$/;"	f	signature:(void** state)
+test__vector_calculate_new_capacity__5_size_40_insert	test/ut/ut_cstl_vector_aux.h	/^void test__vector_calculate_new_capacity__5_size_40_insert(void** state);$/;"	p	signature:(void** state)
 test__vector_destroy_auxiliary__invalid_vector_container_endofstorage_less_than_start	test/ut/ut_cstl_vector_private.c	/^void test__vector_destroy_auxiliary__invalid_vector_container_endofstorage_less_than_start(void** state)$/;"	f	signature:(void** state)
 test__vector_destroy_auxiliary__invalid_vector_container_endofstorage_less_than_start	test/ut/ut_cstl_vector_private.h	/^void test__vector_destroy_auxiliary__invalid_vector_container_endofstorage_less_than_start(void** state);$/;"	p	signature:(void** state)
 test__vector_destroy_auxiliary__invalid_vector_container_finish_less_than_start	test/ut/ut_cstl_vector_private.c	/^void test__vector_destroy_auxiliary__invalid_vector_container_finish_less_than_start(void** state)$/;"	f	signature:(void** state)
@@ -7277,6 +7347,8 @@ test__vector_get_varg_value_auxiliary__null_vector_container	test/ut/ut_cstl_vec
 test__vector_get_varg_value_auxiliary__null_vector_container	test/ut/ut_cstl_vector_aux.h	/^void test__vector_get_varg_value_auxiliary__null_vector_container(void** state);$/;"	p	signature:(void** state)
 test__vector_get_varg_value_auxiliary__successfully	test/ut/ut_cstl_vector_aux.c	/^void test__vector_get_varg_value_auxiliary__successfully(void** state)$/;"	f	signature:(void** state)
 test__vector_get_varg_value_auxiliary__successfully	test/ut/ut_cstl_vector_aux.h	/^void test__vector_get_varg_value_auxiliary__successfully(void** state);$/;"	p	signature:(void** state)
+test__vector_init_elem__vector_init_elem_varg__non_created	test/ut/ut_cstl_vector_private.c	/^void test__vector_init_elem__vector_init_elem_varg__non_created(void** state)$/;"	f	signature:(void** state)
+test__vector_init_elem__vector_init_elem_varg__non_created	test/ut/ut_cstl_vector_private.h	/^void test__vector_init_elem__vector_init_elem_varg__non_created(void** state);$/;"	p	signature:(void** state)
 test__vector_init_elem__vector_init_elem_varg__null_vector_container	test/ut/ut_cstl_vector_private.h	/^void test__vector_init_elem__vector_init_elem_varg__null_vector_container(void** state);$/;"	p	signature:(void** state)
 test__vector_init_elem__vector_init_elem_varg__successfully	test/ut/ut_cstl_vector_private.c	/^void test__vector_init_elem__vector_init_elem_varg__successfully(void** state)$/;"	f	signature:(void** state)
 test__vector_init_elem__vector_init_elem_varg__successfully	test/ut/ut_cstl_vector_private.h	/^void test__vector_init_elem__vector_init_elem_varg__successfully(void** state);$/;"	p	signature:(void** state)
@@ -7301,9 +7373,32 @@ test__vector_init_elem_range_auxiliary__successfully_iterator	test/ut/ut_cstl_ve
 test__vector_init_elem_range_auxiliary__successfully_iterator	test/ut/ut_cstl_vector_aux.h	/^void test__vector_init_elem_range_auxiliary__successfully_iterator(void** state);$/;"	p	signature:(void** state)
 test__vector_is_created__created	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_created__created(void** state)$/;"	f	signature:(void** state)
 test__vector_is_created__created	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_created__created(void** state);$/;"	p	signature:(void** state)
-test__vector_is_created__non_created	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_created__non_created(void** state)$/;"	f	signature:(void** state)
-test__vector_is_created__non_created	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_created__non_created(void** state);$/;"	p	signature:(void** state)
+test__vector_is_created__non_created_invalid_endofstorage	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_created__non_created_invalid_endofstorage(void** state)$/;"	f	signature:(void** state)
+test__vector_is_created__non_created_invalid_endofstorage	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_created__non_created_invalid_endofstorage(void** state);$/;"	p	signature:(void** state)
+test__vector_is_created__non_created_invalid_finish	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_created__non_created_invalid_finish(void** state)$/;"	f	signature:(void** state)
+test__vector_is_created__non_created_invalid_finish	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_created__non_created_invalid_finish(void** state);$/;"	p	signature:(void** state)
+test__vector_is_created__non_created_invalid_start	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_created__non_created_invalid_start(void** state)$/;"	f	signature:(void** state)
+test__vector_is_created__non_created_invalid_start	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_created__non_created_invalid_start(void** state);$/;"	p	signature:(void** state)
+test__vector_is_created__non_created_invalid_type_style	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_created__non_created_invalid_type_style(void** state)$/;"	f	signature:(void** state)
+test__vector_is_created__non_created_invalid_type_style	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_created__non_created_invalid_type_style(void** state);$/;"	p	signature:(void** state)
+test__vector_is_created__non_created_non_init_allocator	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_created__non_created_non_init_allocator(void** state)$/;"	f	signature:(void** state)
+test__vector_is_created__non_created_non_init_allocator	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_created__non_created_non_init_allocator(void** state);$/;"	p	signature:(void** state)
 test__vector_is_created__null_vector_container	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_created__null_vector_container(void** state);$/;"	p	signature:(void** state)
+test__vector_is_inited__inited_empty	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_inited__inited_empty(void** state)$/;"	f	signature:(void** state)
+test__vector_is_inited__inited_empty	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_inited__inited_empty(void** state);$/;"	p	signature:(void** state)
+test__vector_is_inited__inited_non_empty	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_inited__inited_non_empty(void** state)$/;"	f	signature:(void** state)
+test__vector_is_inited__inited_non_empty	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_inited__inited_non_empty(void** state);$/;"	p	signature:(void** state)
+test__vector_is_inited__non_inited_endofstorage_less_than_finish	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_inited__non_inited_endofstorage_less_than_finish(void** state)$/;"	f	signature:(void** state)
+test__vector_is_inited__non_inited_endofstorage_less_than_finish	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_inited__non_inited_endofstorage_less_than_finish(void** state);$/;"	p	signature:(void** state)
+test__vector_is_inited__non_inited_endofstorage_less_than_start	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_inited__non_inited_endofstorage_less_than_start(void** state)$/;"	f	signature:(void** state)
+test__vector_is_inited__non_inited_endofstorage_less_than_start	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_inited__non_inited_endofstorage_less_than_start(void** state);$/;"	p	signature:(void** state)
+test__vector_is_inited__non_inited_finish_less_than_start	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_inited__non_inited_finish_less_than_start(void** state)$/;"	f	signature:(void** state)
+test__vector_is_inited__non_inited_finish_less_than_start	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_inited__non_inited_finish_less_than_start(void** state);$/;"	p	signature:(void** state)
+test__vector_is_inited__non_inited_invalid_type_style	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_inited__non_inited_invalid_type_style(void** state)$/;"	f	signature:(void** state)
+test__vector_is_inited__non_inited_invalid_type_style	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_inited__non_inited_invalid_type_style(void** state);$/;"	p	signature:(void** state)
+test__vector_is_inited__non_inited_not_all_null	test/ut/ut_cstl_vector_aux.c	/^void test__vector_is_inited__non_inited_not_all_null(void** state)$/;"	f	signature:(void** state)
+test__vector_is_inited__non_inited_not_all_null	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_inited__non_inited_not_all_null(void** state);$/;"	p	signature:(void** state)
+test__vector_is_inited__null_vector_container	test/ut/ut_cstl_vector_aux.h	/^void test__vector_is_inited__null_vector_container(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_at__does_not_move_cstr_successfully	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_at__does_not_move_cstr_successfully(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_at__does_not_move_cstr_successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__vector_iterator_at__does_not_move_cstr_successfully(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_at__does_not_move_successfully	test/ut/ut_cstl_vector_iterator.c	/^void test__vector_iterator_at__does_not_move_successfully(void** state)$/;"	f	signature:(void** state)

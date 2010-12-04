@@ -30,6 +30,7 @@ void test__vector_init_elem__vector_init_elem_varg__null_vector_container(void**
 void test__vector_init_elem__vector_init_elem_varg__non_created(void** state);
 void test__vector_init_elem__vector_init_elem_varg__successfully_0_count(void** state);
 void test__vector_init_elem__vector_init_elem_varg__successfully(void** state);
+void test__vector_init_elem__vector_init_elem_varg__successfully_large_amounts_of_data(void** state);
 void test__vector_init_elem__vector_init_elem_varg__successfully_multiple_specificed_element(void** state);
 /*
  * test _vector_destroy_auxiliary
@@ -51,6 +52,7 @@ void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assi
 void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_n_count(void** state);
 void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_0_count(void** state);
 void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count(void** state);
+void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count_n_less_than_m(void** state);
 void test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count(void** state);
 
 #define UT_CSTL_VECTOR_PRIVATE_CASE \
@@ -65,10 +67,12 @@ void test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_co
     UT_CASE(test__create_vector_auxiliary__c_builtin_type),\
     UT_CASE(test__create_vector_auxiliary__libcstl_builtin_type),\
     UT_CASE(test__create_vector_auxiliary__registed_type),\
-    UT_CASE_BEGIN(_vector_init_elem__vector_init_elem_varg, test__vector_init_elem__vector_init_elem_varg__null_vector_container),\
+    UT_CASE_BEGIN(_vector_init_elem__vector_init_elem_varg,\
+            test__vector_init_elem__vector_init_elem_varg__null_vector_container),\
     UT_CASE(test__vector_init_elem__vector_init_elem_varg__non_created),\
     UT_CASE(test__vector_init_elem__vector_init_elem_varg__successfully_0_count),\
     UT_CASE(test__vector_init_elem__vector_init_elem_varg__successfully),\
+    UT_CASE(test__vector_init_elem__vector_init_elem_varg__successfully_large_amounts_of_data),\
     UT_CASE(test__vector_init_elem__vector_init_elem_varg__successfully_multiple_specificed_element),\
     UT_CASE_BEGIN(_vector_destroy_auxiliary, test__vector_destroy_auxiliary__null_vector_container),\
     UT_CASE(test__vector_destroy_auxiliary__invalid_vector_container_finish_less_than_start),\
@@ -83,6 +87,7 @@ void test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_co
     UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_init_0_assign_n_count),\
     UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_0_count),\
     UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count),\
+    UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count_n_less_than_m),\
     UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count)
 
 #endif /* _UT_CSTL_VECTOR_PRIVATE_H_ */

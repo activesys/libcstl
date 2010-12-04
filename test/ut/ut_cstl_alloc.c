@@ -437,7 +437,7 @@ void test__alloc_is_inited__non_null_mempool(void** state)
 
     t_allocator._t_mempoolsize = 0;
     t_allocator._t_mempoolindex = 0;
-    t_allocator._pby_mempool = 0xcc;
+    t_allocator._pby_mempool = (_byte_t*)0xcc;
     
     for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
@@ -472,7 +472,7 @@ void test__alloc_is_inited__non_empty_memlink(void** state)
     
     for(i = 0; i < _MEM_LINK_COUNT; ++i)
     {
-        t_allocator._apt_memlink[i] = 0xcc;
+        t_allocator._apt_memlink[i] = (_memlink_t*)0xcc;
     }
 
     /* initialize memory pool */
@@ -567,7 +567,7 @@ void test__alloc_is_inited__non_empty_mempoolcontainer(void** state)
     {
         for(i = 0; i < t_allocator._t_mempoolcount; ++i)
         {
-            t_allocator._ppby_mempoolcontainer[i] = 0xcc;
+            t_allocator._ppby_mempoolcontainer[i] = (_byte_t*)0xcc;
         }
     }
 

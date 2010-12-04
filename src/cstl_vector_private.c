@@ -223,6 +223,9 @@ void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val
     _alloc_deallocate(&pvec_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
 }
 
+/**
+ * Add specificed element at the end of vector container. 
+ */
 void _vector_push_back(vector_t* pt_vector, ...)
 {
     va_list val_elemlist;
@@ -232,6 +235,9 @@ void _vector_push_back(vector_t* pt_vector, ...)
     va_end(val_elemlist);
 }
 
+/**
+ * Add specificed element from variable argument list at the end of vector container. 
+ */
 void _vector_push_back_varg(vector_t* pt_vector, va_list val_elemlist)
 {
     char*  pc_last = NULL;

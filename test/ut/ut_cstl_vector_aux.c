@@ -475,7 +475,7 @@ void test__vector_init_elem_range_auxiliary__successfully_container(void** state
     vector_t* pvec = create_vector(vector_t<int>);
     vector_init(pvec);
 
-    _vector_init_elem_range_auxiliary(pvec, a_vec, a_vec + 10);
+    _vector_init_elem_range_auxiliary(pvec, (char*)a_vec, (char*)(a_vec + 10));
     for(i = 0; i < 10; ++i)
     {
         assert_true(a_vec[i]._t_typeinfo._t_style == _TYPE_C_BUILTIN);
@@ -501,7 +501,7 @@ void test__vector_is_created__null_vector_container(void** state)
 void test__vector_is_created__non_created_invalid_start(void** state)
 {
     vector_t vec;
-    vec._pc_start = 0xcc;
+    vec._pc_start = (char*)0xcc;
     vec._pc_finish = NULL;
     vec._pc_endofstorage = NULL;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -514,7 +514,7 @@ void test__vector_is_created__non_created_invalid_finish(void** state)
 {
     vector_t vec;
     vec._pc_start = NULL;
-    vec._pc_finish = 0xcc;
+    vec._pc_finish = (char*)0xcc;
     vec._pc_endofstorage = NULL;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     _alloc_init(&vec._t_allocater);
@@ -527,7 +527,7 @@ void test__vector_is_created__non_created_invalid_endofstorage(void** state)
     vector_t vec;
     vec._pc_start = NULL;
     vec._pc_finish = NULL;
-    vec._pc_endofstorage = 0xcc;
+    vec._pc_endofstorage = (char*)0xcc;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     _alloc_init(&vec._t_allocater);
     assert_false(_vector_is_created(&vec));
@@ -581,7 +581,7 @@ void test__vector_is_inited__null_vector_container(void** state)
 void test__vector_is_inited__non_inited_not_all_null(void** state)
 {
     vector_t vec;
-    vec._pc_start = 0xcc;
+    vec._pc_start = (char*)0xcc;
     vec._pc_finish = NULL;
     vec._pc_endofstorage = NULL;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -593,9 +593,9 @@ void test__vector_is_inited__non_inited_not_all_null(void** state)
 void test__vector_is_inited__non_inited_finish_less_than_start(void** state)
 {
     vector_t vec;
-    vec._pc_start = 0x18;
-    vec._pc_finish = 0x08;
-    vec._pc_endofstorage = 0x20;
+    vec._pc_start = (char*)0x18;
+    vec._pc_finish = (char*)0x08;
+    vec._pc_endofstorage = (char*)0x20;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     _alloc_init(&vec._t_allocater);
     assert_false(_vector_is_inited(&vec));
@@ -605,9 +605,9 @@ void test__vector_is_inited__non_inited_finish_less_than_start(void** state)
 void test__vector_is_inited__non_inited_endofstorage_less_than_start(void** state)
 {
     vector_t vec;
-    vec._pc_start = 0x18;
-    vec._pc_finish = 0x20;
-    vec._pc_endofstorage = 0x0c;
+    vec._pc_start = (char*)0x18;
+    vec._pc_finish = (char*)0x20;
+    vec._pc_endofstorage = (char*)0x0c;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     _alloc_init(&vec._t_allocater);
     assert_false(_vector_is_inited(&vec));
@@ -617,9 +617,9 @@ void test__vector_is_inited__non_inited_endofstorage_less_than_start(void** stat
 void test__vector_is_inited__non_inited_endofstorage_less_than_finish(void** state)
 {
     vector_t vec;
-    vec._pc_start = 0x08;
-    vec._pc_finish = 0x20;
-    vec._pc_endofstorage = 0x0c;
+    vec._pc_start = (char*)0x08;
+    vec._pc_finish = (char*)0x20;
+    vec._pc_endofstorage = (char*)0x0c;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     _alloc_init(&vec._t_allocater);
     assert_false(_vector_is_inited(&vec));
@@ -661,9 +661,94 @@ void test__vector_is_inited__inited_non_empty(void** state)
 /*
  * test _vector_calculate_new_capacity
  */
-/*
 UT_CASE_DEFINATION(_vector_calculate_new_capacity)
-void test__vector_calculate_new_capacity__
-*/
+void test__vector_calculate_new_capacity__0_size_0_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(0, 0) == 16);
+}
 
+void test__vector_calculate_new_capacity__0_size_1_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(0, 1) == 17);
+}
+
+void test__vector_calculate_new_capacity__0_size_8_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(0, 8) == 24);
+}
+
+void test__vector_calculate_new_capacity__0_size_48_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(0, 48) == 72);
+}
+
+void test__vector_calculate_new_capacity__0_size_1000_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(0, 1000) == 1500);
+}
+
+void test__vector_calculate_new_capacity__5_size_0_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(5, 0) == 21);
+}
+
+void test__vector_calculate_new_capacity__5_size_1_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(5, 1) == 22);
+}
+
+void test__vector_calculate_new_capacity__5_size_10_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(5, 10) == 31);
+}
+
+void test__vector_calculate_new_capacity__5_size_40_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(5, 40) == 67);
+}
+
+void test__vector_calculate_new_capacity__5_size_4000_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(5, 4000) == 6007);
+}
+
+void test__vector_calculate_new_capacity__40_size_0_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(40, 0) == 60);
+}
+
+void test__vector_calculate_new_capacity__40_size_1_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(40, 1) == 61);
+}
+
+void test__vector_calculate_new_capacity__40_size_40_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(40, 40) == 120);
+}
+
+void test__vector_calculate_new_capacity__40_size_50000_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(40, 50000) == 75060);
+}
+
+void test__vector_calculate_new_capacity__12345_size_0_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(12345, 0) == 18517);
+}
+
+void test__vector_calculate_new_capacity__12345_size_1_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(12345, 1) == 18519);
+}
+
+void test__vector_calculate_new_capacity__12345_size_16_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(12345, 16) == 18541);
+}
+
+void test__vector_calculate_new_capacity__12345_size_1600894_insert(void** state)
+{
+    assert_true(_vector_calculate_new_capacity(12345, 1600894) == 2419858);
+}
 

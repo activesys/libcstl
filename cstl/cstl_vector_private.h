@@ -136,11 +136,27 @@ extern void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...);
  */
 extern void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist);
 
-/*
- * Insert a new element at the end of vector_t.
+/**
+ * Add specificed element at the end of vector container. 
+ * @param pvec_vector  vector container.
+ * @param val_elemlist specificed element.
+ * @return void.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. vector container must be initialized, otherwise the behavior is undefined.
  */
-extern void _vector_push_back(vector_t* pt_vector, ...);
-extern void _vector_push_back_varg(vector_t* pt_vector, va_list val_elemlist);
+extern void _vector_push_back(vector_t* pvec_vector, ...);
+
+/**
+ * Add specificed element from variable argument list at the end of vector container. 
+ * @param pvec_vector  vector container.
+ * @param val_elemlist variable argumnet list of specificed element.
+ * @return void.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. vector container must be initialized, otherwise the behavior is undefined.
+ */
+extern void _vector_push_back_varg(vector_t* pvec_vector, va_list val_elemlist);
 
 /*
  * Append elements or erase elements from the end, as necessary to make the vector_t's
