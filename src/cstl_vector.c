@@ -46,36 +46,38 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-
-/* vector function */
-
-void vector_init_n(vector_t* pt_vector, size_t t_count)
+/**
+ * Initialize empty vector container.
+ */
+void vector_init(vector_t* pvec_vector)
 {
-    assert(pt_vector != NULL);
-    assert(pt_vector->_pc_start == NULL && pt_vector->_pc_finish == NULL &&
-           pt_vector->_pc_endofstorage == NULL);
-    assert(pt_vector->_t_typeinfo._pt_type != NULL);
+    assert(pvec_vector != NULL);
+    assert(_vector_is_created(pvec_vector));
 
-    /*_alloc_init(&pt_vector->_t_allocater);*/
-    if(t_count > 0)
-    {
-        pt_vector->_pc_start = _alloc_allocate(
-            &pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), (2 * t_count));
-        assert(pt_vector->_pc_start != NULL);
-        pt_vector->_pc_finish =
-            pt_vector->_pc_start + _GET_VECTOR_TYPE_SIZE(pt_vector) * t_count;
-        pt_vector->_pc_endofstorage =
-            pt_vector->_pc_start + _GET_VECTOR_TYPE_SIZE(pt_vector) * (2 * t_count);
-
-        /* initialize all elements */
-        _vector_init_elem_range_auxiliary(
-            pt_vector, pt_vector->_pc_start, pt_vector->_pc_finish);
-    }
+    vector_init_n(pvec_vector, 0);
 }
 
-void vector_init(vector_t* pt_vector)
+/**
+ * Initialize vector container with mutiple default element.
+ */
+void vector_init_n(vector_t* pvec_vector, size_t t_count)
 {
-    vector_init_n(pt_vector, 0);
+    assert(pvec_vector != NULL);
+    assert(_vector_is_created(pvec_vector));
+
+    if(t_count > 0)
+    {
+        size_t t_newcapacity = _vector_calculate_new_capacity(0, t_count);
+
+        pvec_vector->_pc_start = _alloc_allocate(
+            &pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_newcapacity);
+        assert(pvec_vector->_pc_start != NULL);
+        pvec_vector->_pc_finish = pvec_vector->_pc_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_count;
+        pvec_vector->_pc_endofstorage = pvec_vector->_pc_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_newcapacity;
+
+        /* initialize all elements */
+        _vector_init_elem_range_auxiliary(pvec_vector, pvec_vector->_pc_start, pvec_vector->_pc_finish);
+    }
 }
 
 void vector_destroy(vector_t* pt_vector)

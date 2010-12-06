@@ -30,8 +30,11 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/*
- * Creation and initialization vector_t.
+/**
+ * Create vector container that save specificed element type.
+ * @param typename    specificed element type.
+ * @return return vector pointer, if create vector container successfully, otherwise return NULL.
+ * @remarks the format of specificed element type reference <<The libcstl Library Reference Manual>> Chapter 8.
  */
 #define create_vector(...) _create_vector(#__VA_ARGS__) 
 #define vector_init_elem(pt_vector, t_count, elem)\
@@ -69,11 +72,25 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Initialization and destroy operation of vector_t.
+/**
+ * Initialize empty vector container.
+ * @param pvec_vector    vector container.
+ * @return void.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. pvec_vector muse be created by create_vector(),
+ *          otherwise the behavior is undefined. the size of vector and the capacity of vector is 0 after initialization.
  */
-extern void vector_init(vector_t* pt_vector);
-extern void vector_init_n(vector_t* pt_vector, size_t t_count);
+extern void vector_init(vector_t* pvec_vector);
+
+/**
+ * Initialize vector container with mutiple default element.
+ * @param pvec_vector    vector container.
+ * @param t_count        default element number.
+ * @return void.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. pvec_vector muse be created by create_vector(),
+ *          otherwise the behavior is undefined. the size of vector is t_count after initialization. the capacity of
+ *          vector is satisfied capacity assignment algorithm.
+ */
+extern void vector_init_n(vector_t* pvec_vector, size_t t_count);
 extern void vector_init_copy(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc);
 extern void vector_init_copy_range(
     vector_t* pt_vectordest, vector_iterator_t t_begin, vector_iterator_t t_end);

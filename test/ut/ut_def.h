@@ -13,7 +13,7 @@
     void test_suit_##suit##_setup(void** state)\
     {UT_SUIT_SEPARATOR_OPEN;printf("test " #suit ".c");UT_SUIT_SEPARATOR_CLOSE;\
      UT_CASE_SEPARATOR_OPEN;printf("test " #first_case_name);UT_CASE_SEPARATOR_CLOSE;}\
-    void test_suit_##suit##_teardown(void** state){}
+    void test_suit_##suit##_teardown(void** state){printf("\n");}
 #define UT_SUIT_BEGIN(suit, test_case)\
     unit_test_setup_teardown(test_case, test_suit_##suit##_setup, test_suit_##suit##_teardown)
 

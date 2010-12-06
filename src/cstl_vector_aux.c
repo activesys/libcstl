@@ -92,6 +92,11 @@ bool_t _vector_is_created(const vector_t* cpvec_vector)
         return false;
     }
 
+    if(cpvec_vector->_t_typeinfo._pt_type == NULL)
+    {
+        return false;
+    }
+
     if(cpvec_vector->_pc_start != NULL || cpvec_vector->_pc_finish != NULL || cpvec_vector->_pc_endofstorage != NULL)
     {
         return false;
