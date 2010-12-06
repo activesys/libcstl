@@ -141,6 +141,9 @@ bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_seco
 {
     assert(cpvec_first != NULL);
     assert(cpvec_second != NULL);
+    assert(_vector_is_inited(cpvec_first) || _vector_is_created(cpvec_first));
+    assert(_vector_is_inited(cpvec_second) || _vector_is_created(cpvec_second));
+
     return _type_is_same(_GET_VECTOR_TYPE_NAME(cpvec_first), _GET_VECTOR_TYPE_NAME(cpvec_second)) &&
            (cpvec_first->_t_typeinfo._pt_type == cpvec_second->_t_typeinfo._pt_type) &&
            (cpvec_first->_t_typeinfo._t_style == cpvec_second->_t_typeinfo._t_style);
@@ -157,6 +160,7 @@ void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, char* pc_start, ch
     assert(pc_start != NULL);
     assert(pc_finish != NULL);
     assert(pc_start <= pc_finish);
+    assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
 
     /* initialize new elements */
     if(_GET_VECTOR_TYPE_STYLE(pvec_vector) == _TYPE_CSTL_BUILTIN)
@@ -188,6 +192,7 @@ void _vector_get_varg_value_auxiliary(vector_t* pvec_vector, va_list val_elemlis
 {
     assert(pvec_vector != NULL);
     assert(pv_varg != NULL);
+    assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
 
     _vector_init_elem_auxiliary(pvec_vector, pv_varg);
     _type_get_varg_value(&pvec_vector->_t_typeinfo, val_elemlist, pv_varg);
@@ -200,6 +205,7 @@ void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg)
 {
     assert(pvec_vector != NULL);
     assert(pv_varg != NULL);
+    assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
 
     /* destroy varg value and free memory */
     bool_t b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
@@ -210,15 +216,15 @@ void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg)
 /**
  * Calculate new capacity according to old size and insert size.
  */
-size_t _vector_calculate_new_capacity(size_t t_old_size, size_t t_insert_size)
+size_t _vector_calculate_new_capacity(size_t t_oldsize, size_t t_insertsize)
 {
-    size_t t_grow_size = (t_old_size + t_insert_size) / 2;
-    if(t_grow_size < _VECTOR_CAPACITY_SHRESHOLD_SIZE)
+    size_t t_growsize = (t_oldsize + t_insertsize) / 2;
+    if(t_growsize < _VECTOR_CAPACITY_SHRESHOLD_SIZE)
     {
-        t_grow_size = _VECTOR_CAPACITY_SHRESHOLD_SIZE;
+        t_growsize = _VECTOR_CAPACITY_SHRESHOLD_SIZE;
     }
 
-    return t_old_size + t_insert_size + t_grow_size;
+    return t_oldsize + t_insertsize + t_growsize;
 }
 
 /** local function implementation section **/

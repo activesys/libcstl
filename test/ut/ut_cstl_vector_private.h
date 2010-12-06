@@ -54,6 +54,65 @@ void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assi
 void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count(void** state);
 void test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count_n_less_than_m(void** state);
 void test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count(void** state);
+/*
+ * test _vector_push_back and _vector_push_back_varg
+ */
+UT_CASE_DECLARATION(_vector_push_back__vector_push_back_varg)
+void test__vector_push_back__vector_push_back_varg__null_vector_container(void** state);
+void test__vector_push_back__vector_push_back_varg__non_inited(void** state);
+void test__vector_push_back__vector_push_back_varg__successfully_empty(void** state);
+void test__vector_push_back__vector_push_back_varg__successfully_capacity_not_change(void** state);
+void test__vector_push_back__vector_push_back_varg__successfully_capacity_change(void** state);
+void test__vector_push_back__vector_push_back_varg__successfully_multiple_element(void** state);
+/*
+ * test _vector_resize_elem and _vector_resize_elem_varg
+ */
+UT_CASE_DECLARATION(_vector_resize_elem__vector_resize_elem_varg)
+void test__vector_resize_elem__vector_resize_elem_varg__null_vector_container(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__non_inited(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_0_resize_0(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_0_resize_10(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_0_resize_1000(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_10_resize_0(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_10_resize_10(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_10_resize_1000(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_0(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_10(void** setate);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_1000(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_1200(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_2000(void** state);
+void test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_2000_multiple(void** state);
+/*
+ * test _vector_insert_n and _vector_insert_n_varg
+ */
+UT_CASE_DECLARATION(_vector_insert_n__vector_insert_n_varg)
+void test__vector_insert_n__vector_insert_n_varg__null_vector_container(void** state);
+void test__vector_insert_n__vector_insert_n_varg__non_inited(void** state);
+void test__vector_insert_n__vector_insert_n_varg__invalid_position(void** state);
+void test__vector_insert_n__vector_insert_n_varg__empty_insert_0(void** state);
+void test__vector_insert_n__vector_insert_n_varg__empty_insert_10(void** state);
+void test__vector_insert_n__vector_insert_n_varg__empty_insert_1000(void** state);
+void test__vector_insert_n__vector_insert_n_varg__begin_insert_0(void** state);
+void test__vector_insert_n__vector_insert_n_varg__begin_insert_10(void** state);
+void test__vector_insert_n__vector_insert_n_varg__begin_insert_1000(void** state);
+void test__vector_insert_n__vector_insert_n_varg__middle_insert_0(void** state);
+void test__vector_insert_n__vector_insert_n_varg__middle_insert_10(void** state);
+void test__vector_insert_n__vector_insert_n_varg__middle_insert_1000(void** state);
+void test__vector_insert_n__vector_insert_n_varg__end_insert_0(void** state);
+void test__vector_insert_n__vector_insert_n_varg__end_insert_10(void** state);
+void test__vector_insert_n__vector_insert_n_varg__end_insert_1000(void** state);
+void test__vector_insert_n__vector_insert_n_varg__end_insert_1000_multiple(void** state);
+/*
+ * test _vector_init_elem_auxiliary
+ */
+UT_CASE_DECLARATION(_vector_init_elem_auxiliary)
+void test__vector_init_elem_auxiliary__null_vector_container(void** state);
+void test__vector_init_elem_auxiliary__null_elem(void** state);
+void test__vector_init_elem_auxiliary__non_created_vector(void** state);
+void test__vector_init_elem_auxiliary__successfully_int(void** state);
+void test__vector_init_elem_auxiliary__successfully_cstr(void** state);
+void test__vector_init_elem_auxiliary__successfully_iterator(void** state);
+void test__vector_init_elem_auxiliary__successfully_container(void** state);
 
 #define UT_CSTL_VECTOR_PRIVATE_CASE \
     UT_SUIT_BEGIN(cstl_vector_private, test__create_vector__null_typename),\
@@ -88,7 +147,53 @@ void test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_co
     UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_0_count),\
     UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count),\
     UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_init_n_assign_m_count_n_less_than_m),\
-    UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count)
+    UT_CASE(test__vector_assign_elem__vector_assign_elem_varg__successfully_multiple_count),\
+    UT_CASE_BEGIN(_vector_push_back__vector_push_back_varg,\
+        test__vector_push_back__vector_push_back_varg__null_vector_container),\
+    UT_CASE(test__vector_push_back__vector_push_back_varg__non_inited),\
+    UT_CASE(test__vector_push_back__vector_push_back_varg__successfully_empty),\
+    UT_CASE(test__vector_push_back__vector_push_back_varg__successfully_capacity_not_change),\
+    UT_CASE(test__vector_push_back__vector_push_back_varg__successfully_capacity_change),\
+    UT_CASE(test__vector_push_back__vector_push_back_varg__successfully_multiple_element),\
+    UT_CASE_BEGIN(_vector_resize_elem__vector_resize_elem_varg,\
+        test__vector_resize_elem__vector_resize_elem_varg__null_vector_container),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__non_inited),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_0_resize_0),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_0_resize_10),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_0_resize_1000),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_10_resize_0),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_10_resize_10),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_10_resize_1000),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_0),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_10),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_1000),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_1200),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_2000),\
+    UT_CASE(test__vector_resize_elem__vector_resize_elem_varg__successfully_1000_resize_2000_multiple),\
+    UT_CASE_BEGIN(_vector_insert_n__vector_insert_n_varg,\
+        test__vector_insert_n__vector_insert_n_varg__null_vector_container),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__non_inited),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__invalid_position),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__empty_insert_0),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__empty_insert_10),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__empty_insert_1000),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__begin_insert_0),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__begin_insert_10),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__begin_insert_1000),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__middle_insert_0),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__middle_insert_10),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__middle_insert_1000),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__end_insert_0),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__end_insert_10),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__end_insert_1000),\
+    UT_CASE(test__vector_insert_n__vector_insert_n_varg__end_insert_1000_multiple),\
+    UT_CASE_BEGIN(_vector_init_elem_auxiliary, test__vector_init_elem_auxiliary__null_vector_container),\
+    UT_CASE(test__vector_init_elem_auxiliary__null_elem),\
+    UT_CASE(test__vector_init_elem_auxiliary__non_created_vector),\
+    UT_CASE(test__vector_init_elem_auxiliary__successfully_int),\
+    UT_CASE(test__vector_init_elem_auxiliary__successfully_cstr),\
+    UT_CASE(test__vector_init_elem_auxiliary__successfully_iterator),\
+    UT_CASE(test__vector_init_elem_auxiliary__successfully_container)
 
 #endif /* _UT_CSTL_VECTOR_PRIVATE_H_ */
 

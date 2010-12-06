@@ -151,6 +151,30 @@ void test__vector_same_type__null_second(void** state)
     vector_destroy(pvec);
 }
 
+void test__vector_same_type__non_created_first(void** state)
+{
+    vector_t vec;
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    vec._t_typeinfo._t_style = 100;
+    expect_assert_failure(_vector_same_type(&vec, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_same_type__non_created_second(void** state)
+{
+    vector_t vec;
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    vec._t_typeinfo._t_style = 100;
+    expect_assert_failure(_vector_same_type(pvec, &vec));
+
+    vector_destroy(pvec);
+}
+
 void test__vector_same_type__not_same_type_name(void** state)
 {
     vector_t* pvec_first = create_vector(int);
@@ -328,6 +352,14 @@ void test__vector_get_varg_value_auxiliary__null_varg(void** state)
     vector_destroy(pvec);
 }
 
+void test__vector_get_varg_value_auxiliary__non_created(void** state)
+{
+    int varg = 0;
+    vector_t vec;
+    vec._t_typeinfo._t_style = 100;
+    expect_assert_failure(_wrapper_vector_get_varg_value_auxiliary(&vec, &varg, 100));
+}
+
 void test__vector_get_varg_value_auxiliary__successfully(void** state)
 {
     int varg = 0;
@@ -354,6 +386,14 @@ void test__vector_destroy_varg_value_auxiliary__null_varg(void** state)
     vector_init(pvec);
     expect_assert_failure(_vector_destroy_varg_value_auxiliary(pvec, NULL));
     vector_destroy(pvec);
+}
+
+void test__vector_destroy_varg_value_auxiliary__non_created(void** state)
+{
+    int varg = 0;
+    vector_t vec;
+    vec._t_typeinfo._t_style = 100;
+    expect_assert_failure(_vector_destroy_varg_value_auxiliary(&vec, &varg));
 }
 
 void test__vector_destroy_varg_value_auxiliary__successfully(void** state)
@@ -406,6 +446,18 @@ void test__vector_init_elem_range_auxiliary__pby_finish_less_then_pby_start(void
 
     expect_assert_failure(_vector_init_elem_range_auxiliary(pvec, pvec->_pc_finish, pvec->_pc_start));
 
+    vector_destroy(pvec);
+}
+
+void test__vector_init_elem_range_auxiliary__non_created(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init_elem(pvec, 10, 100);
+    pvec->_t_typeinfo._t_style = 100;
+
+    expect_assert_failure(_vector_init_elem_range_auxiliary(pvec, pvec->_pc_start, pvec->_pc_finish));
+
+    pvec->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
     vector_destroy(pvec);
 }
 
@@ -478,6 +530,7 @@ void test__vector_init_elem_range_auxiliary__successfully_container(void** state
     _vector_init_elem_range_auxiliary(pvec, (char*)a_vec, (char*)(a_vec + 10));
     for(i = 0; i < 10; ++i)
     {
+        assert_true(_alloc_is_inited(&a_vec[i]._t_allocater));
         assert_true(a_vec[i]._t_typeinfo._t_style == _TYPE_C_BUILTIN);
         assert_true(strcmp(a_vec[i]._t_typeinfo._sz_typename, _INT_TYPE) == 0);
         assert_true(a_vec[i]._t_typeinfo._pt_type != NULL);

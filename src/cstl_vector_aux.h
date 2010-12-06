@@ -95,7 +95,8 @@ extern bool_t _vector_is_inited(const vector_t* cpvec_vector);
  * @param cpvec_first first vector.
  * @param cpvec_second second vector.
  * @return if the type is same, return true, else return false.
- * @remarks if cpvec_first == NULL or cpvec_second == NULL, the behavior is undefined.
+ * @remarks if cpvec_first == NULL or cpvec_second == NULL, the behavior is undefined. the two vector must be
+ *          initialized or created by create_vector(), otherwise the behavior is undefined.
  */
 extern bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_second);
 
@@ -105,7 +106,8 @@ extern bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpv
  * @param val_elemlist variable argument list.
  * @param pv_varg      data buffer.
  * @return void.
- * @remarks if pvec_vector == NULL or pv_varg == NULL, then the behavior is undefined.
+ * @remarks if pvec_vector == NULL or pv_varg == NULL, then the behavior is undefined. pvec_vector must be initialized
+ *          or created by create_vector(), otherwise the behavior is undefined.
  */
 extern void _vector_get_varg_value_auxiliary(vector_t* pvec_vector, va_list val_elemlist, void* pv_varg);
 
@@ -114,7 +116,8 @@ extern void _vector_get_varg_value_auxiliary(vector_t* pvec_vector, va_list val_
  * @param pvec_vector  vector container.
  * @param pv_varg      data buffer.
  * @return void.
- * @remarks if pvec_vector == NULL or pv_varg == NULL, then the behavior is undefined.
+ * @remarks if pvec_vector == NULL or pv_varg == NULL, then the behavior is undefined. pvec_vector must be initialized
+ *          or created by create_vector(), otherwise the behavior is undefined.
  */
 extern void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg);
 
@@ -125,17 +128,18 @@ extern void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv
  * @param pby_finish   range end.
  * @return void.
  * @remarks if pvec_vector == NULL, pby_start == NULL or pby_finish == NULL, then the behavior is undefined.
- *          if pby_finish < pby_start, then the behavior is undefined.
+ *          if pby_finish < pby_start, then the behavior is undefined. pvec_vector must be initialized or created
+ *          by create_vector(), otherwise the behavior is undefined.
  */
 extern void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, char* pc_start, char* pc_finish);
 
 /**
  * Calculate new capacity according to old size and insert size.
- * @param t_old_size     vector old size.
- * @param t_insert_size  vector insert size.
+ * @param t_oldsize     vector old size.
+ * @param t_insertsize  vector insert size.
  * @return new capacity.
  */
-extern size_t _vector_calculate_new_capacity(size_t t_old_size, size_t t_insert_size);
+extern size_t _vector_calculate_new_capacity(size_t t_oldsize, size_t t_insertsize);
 
 #ifdef __cplusplus
 }

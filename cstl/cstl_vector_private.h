@@ -120,7 +120,7 @@ extern void _vector_destroy_auxiliary(vector_t* pvec_vector);
  * @return void.
  * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
  *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
- *          in use, others are not in use. vector container must be initialized, otherwise the behavior is undefined.
+ *          in use, others are not in use.
  */
 extern void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...);
 
@@ -132,7 +132,7 @@ extern void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...);
  * @return void.
  * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
  *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
- *          in use, others are not in use. vector container must be initialized, otherwise the behavior is undefined.
+ *          in use, others are not in use.
  */
 extern void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist);
 
@@ -143,7 +143,7 @@ extern void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_l
  * @return void.
  * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
  *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
- *          in use, others are not in use. vector container must be initialized, otherwise the behavior is undefined.
+ *          in use, others are not in use.
  */
 extern void _vector_push_back(vector_t* pvec_vector, ...);
 
@@ -154,7 +154,7 @@ extern void _vector_push_back(vector_t* pvec_vector, ...);
  * @return void.
  * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
  *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
- *          in use, others are not in use. vector container must be initialized, otherwise the behavior is undefined.
+ *          in use, others are not in use.
  */
 extern void _vector_push_back_varg(vector_t* pvec_vector, va_list val_elemlist);
 
@@ -162,19 +162,73 @@ extern void _vector_push_back_varg(vector_t* pvec_vector, va_list val_elemlist);
  * Append elements or erase elements from the end, as necessary to make the vector_t's
  * size exactly t_resize elements.
  */
-extern void _vector_resize_elem(vector_t* pt_vector, size_t t_resize, ...);
-extern void _vector_resize_elem_varg(
-    vector_t* pt_vector, size_t t_resize, va_list val_elemlist);
+/**
+ * Reset the size of vector elements.
+ * @param pvec_vector   vector container.
+ * @param t_resize      new size of vector elements.
+ * @param ...           specificed element.
+ * @return void.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. if t_resize less than current vector size, then erase elmement from the end.
+ *          if t_resize greater than current vector size, then append elements to the end, and the element is specificed
+ *          element.
+ */
+extern void _vector_resize_elem(vector_t* pvec_vector, size_t t_resize, ...);
 
-/*
- * Insert t_count copys of element befor position t_pos.
+/**
+ * Reset the size of vector elements, and filled element is from variable argument list.
+ * @param pvec_vector   vector container.
+ * @param t_resize      new size of vector elements.
+ * @param ...           specificed element.
+ * @return void.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and vector element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. if t_resize less than current vector size, then erase elmement from the end.
+ *          if t_resize greater than current vector size, then append elements to the end, and the element is from
+ *          variable argument list.
+ */
+extern void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list val_elemlist);
+
+/**
+ * Insert multiple copys of element befor specificed position.
+ * @param pvec_vector   vector container.
+ * @param it_pos        insert position.
+ * @param t_count       element number.
+ * @param ...           specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the it_pos must be invalid
+ *          iterator of vector container, otherwise the behavior is undefined. the type of specificed element and vector
+ *          element type must be same, otherwise the behavior is undefined. the first specificed is in use, others are not
+ *          in use.
  */
 extern vector_iterator_t _vector_insert_n(
-    vector_t* pt_vector, vector_iterator_t t_pos, size_t t_count, ...);
-extern vector_iterator_t _vector_insert_n_varg(
-    vector_t* pt_vector, vector_iterator_t t_pos, size_t t_count, va_list val_elemlist);
+    vector_t* pvec_vector, vector_iterator_t it_pos, size_t t_count, ...);
 
-extern void _vector_init_elem_auxiliary(vector_t* pt_vector, void* pv_value);
+/**
+ * Insert multiple copys of element befor specificed position, the element is from variable argument list.
+ * @param pvec_vector   vector container.
+ * @param it_pos        insert position.
+ * @param t_count       element number.
+ * @param ...           specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the it_pos must be invalid
+ *          iterator of vector container, otherwise the behavior is undefined. the type of specificed element and vector
+ *          element type must be same, otherwise the behavior is undefined. the first specificed is in use, others are not
+ *          in use. the inserted element is from variable argument list.
+ */
+extern vector_iterator_t _vector_insert_n_varg(
+    vector_t* pvec_vector, vector_iterator_t it_pos, size_t t_count, va_list val_elemlist);
+
+/**
+ * Initialize element with vector element type auxiliary function.
+ * @param pvec_vector   vector container.
+ * @param pv_elem       initialized element.
+ * @return void.
+ * @remarks if pvec_vector == NULL or pv_elem == NULL, then the behavior is undefined. pvec_vector must be initialized
+ *          vector container or created by create_vector, otherwise the behavior is undefined.
+ */
+extern void _vector_init_elem_auxiliary(vector_t* pvec_vector, void* pv_elem);
 
 #ifdef __cplusplus
 }
