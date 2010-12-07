@@ -68,6 +68,143 @@ void test_vector_destroy__non_created(void** state);
 void test_vector_destroy__created_non_inited(void** state);
 void test_vector_destroy__inited_empty(void** state);
 void test_vector_destroy__inited_non_empty(void** state);
+/*
+ * test vector_size
+ */
+UT_CASE_DECLARATION(vector_size)
+void test_vector_size__null_vector_container(void** state);
+void test_vector_size__non_inited(void** state);
+void test_vector_size__successfully_empty(void** state);
+void test_vector_size__successfully_non_empty(void** state);
+/*
+ * test vector_empty
+ */
+UT_CASE_DECLARATION(vector_empty)
+void test_vector_empty__null_vector_container(void** state);
+void test_vector_empty__non_inited(void** state);
+void test_vector_empty__successfully_empty(void** state);
+void test_vector_empty__successfully_non_empty(void** state);
+/*
+ * test vector_max_size
+ */
+UT_CASE_DECLARATION(vector_max_size)
+void test_vector_max_size__null_vector_container(void** state);
+void test_vector_max_size__non_inited(void** state);
+void test_vector_max_size__successfully(void** state);
+/*
+ * test vector_capacity
+ */
+UT_CASE_DECLARATION(vector_capacity)
+void test_vector_capacity__null_vector_container(void** state);
+void test_vector_capacity__non_inited(void** state);
+void test_vector_capacity__successfully_empty(void** state);
+void test_vector_capacity__successfully_little(void** state);
+void test_vector_capacity__successfully_huge(void** state);
+/*
+ * test vector_reserve
+ */
+UT_CASE_DECLARATION(vector_reserve)
+void test_vector_reserve__null_vector_container(void** state);
+void test_vector_reserve__non_inited(void** state);
+void test_vector_reserve__shrink(void** state);
+void test_vector_reserve__not_change(void** state);
+void test_vector_reserve__expand(void** state);
+/*
+ * test vector_equal
+ */
+UT_CASE_DECLARATION(vector_equal)
+void test_vector_equal__null_first(void** state);
+void test_vector_equal__null_second(void** state);
+void test_vector_equal__non_inited_first(void** state);
+void test_vector_equal__non_inited_second(void** state);
+void test_vector_equal__not_same_type(void** state);
+void test_vector_equal__same_vector(void** state);
+void test_vector_equal__size_first_less_than_second(void** state);
+void test_vector_equal__size_first_greater_than_second(void** state);
+void test_vector_equal__size_equal_0(void** state);
+void test_vector_equal__size_equal_elem_first_less_than_second(void** state);
+void test_vector_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_vector_equal__size_equal_elem_equal(void** state);
+/*
+ * test vector_not_equal
+ */
+UT_CASE_DECLARATION(vector_not_equal)
+void test_vector_not_equal__null_first(void** state);
+void test_vector_not_equal__null_second(void** state);
+void test_vector_not_equal__non_inited_first(void** state);
+void test_vector_not_equal__non_inited_second(void** state);
+void test_vector_not_equal__not_same_type(void** state);
+void test_vector_not_equal__same_vector(void** state);
+void test_vector_not_equal__size_first_less_than_second(void** state);
+void test_vector_not_equal__size_first_greater_than_second(void** state);
+void test_vector_not_equal__size_equal_0(void** state);
+void test_vector_not_equal__size_equal_elem_first_less_than_second(void** state);
+void test_vector_not_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_vector_not_equal__size_equal_elem_equal(void** state);
+/*
+ * test vector_less
+ */
+UT_CASE_DECLARATION(vector_less)
+void test_vector_less__null_first(void** state);
+void test_vector_less__null_second(void** state);
+void test_vector_less__non_inited_first(void** state);
+void test_vector_less__non_inited_second(void** state);
+void test_vector_less__not_same_type(void** state);
+void test_vector_less__same_vector(void** state);
+void test_vector_less__size_first_less_than_second(void** state);
+void test_vector_less__size_first_greater_than_second(void** state);
+void test_vector_less__size_equal_0(void** state);
+void test_vector_less__size_equal_elem_first_less_than_second(void** state);
+void test_vector_less__size_equal_elem_first_greater_than_second(void** state);
+void test_vector_less__size_equal_elem_equal(void** state);
+/*
+ * test vector_less_equal
+ */
+UT_CASE_DECLARATION(vector_less_equal)
+void test_vector_less_equal__null_first(void** state);
+void test_vector_less_equal__null_second(void** state);
+void test_vector_less_equal__non_inited_first(void** state);
+void test_vector_less_equal__non_inited_second(void** state);
+void test_vector_less_equal__not_same_type(void** state);
+void test_vector_less_equal__same_vector(void** state);
+void test_vector_less_equal__size_first_less_than_second(void** state);
+void test_vector_less_equal__size_first_greater_than_second(void** state);
+void test_vector_less_equal__size_equal_0(void** state);
+void test_vector_less_equal__size_equal_elem_first_less_than_second(void** state);
+void test_vector_less_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_vector_less_equal__size_equal_elem_equal(void** state);
+/*
+ * test vector_greater
+ */
+UT_CASE_DECLARATION(vector_greater)
+void test_vector_greater__null_first(void** state);
+void test_vector_greater__null_second(void** state);
+void test_vector_greater__non_inited_first(void** state);
+void test_vector_greater__non_inited_second(void** state);
+void test_vector_greater__not_same_type(void** state);
+void test_vector_greater__same_vector(void** state);
+void test_vector_greater__size_first_less_than_second(void** state);
+void test_vector_greater__size_first_greater_than_second(void** state);
+void test_vector_greater__size_equal_0(void** state);
+void test_vector_greater__size_equal_elem_first_less_than_second(void** state);
+void test_vector_greater__size_equal_elem_first_greater_than_second(void** state);
+void test_vector_greater__size_equal_elem_equal(void** state);
+/*
+ * test vector_greater_equal
+ */
+UT_CASE_DECLARATION(vector_greater_equal)
+void test_vector_greater_equal__null_first(void** state);
+void test_vector_greater_equal__null_second(void** state);
+void test_vector_greater_equal__non_inited_first(void** state);
+void test_vector_greater_equal__non_inited_second(void** state);
+void test_vector_greater_equal__not_same_type(void** state);
+void test_vector_greater_equal__same_vector(void** state);
+void test_vector_greater_equal__size_first_less_than_second(void** state);
+void test_vector_greater_equal__size_first_greater_than_second(void** state);
+void test_vector_greater_equal__size_equal_0(void** state);
+void test_vector_greater_equal__size_equal_elem_first_less_than_second(void** state);
+void test_vector_greater_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_vector_greater_equal__size_equal_elem_equal(void** state);
 
 #define UT_CSTL_VECTOR_CASE\
     UT_SUIT_BEGIN(cstl_vector, test_vector_init__null_vector_container),\
@@ -114,7 +251,100 @@ void test_vector_destroy__inited_non_empty(void** state);
     UT_CASE(test_vector_destroy__non_created),\
     UT_CASE(test_vector_destroy__created_non_inited),\
     UT_CASE(test_vector_destroy__inited_empty),\
-    UT_CASE(test_vector_destroy__inited_non_empty)
+    UT_CASE(test_vector_destroy__inited_non_empty),\
+    UT_CASE_BEGIN(vector_size, test_vector_size__null_vector_container),\
+    UT_CASE(test_vector_size__non_inited),\
+    UT_CASE(test_vector_size__successfully_empty),\
+    UT_CASE(test_vector_size__successfully_non_empty),\
+    UT_CASE_BEGIN(vector_empty, test_vector_empty__null_vector_container),\
+    UT_CASE(test_vector_empty__non_inited),\
+    UT_CASE(test_vector_empty__successfully_empty),\
+    UT_CASE(test_vector_empty__successfully_non_empty),\
+    UT_CASE_BEGIN(vector_max_size, test_vector_max_size__null_vector_container),\
+    UT_CASE(test_vector_max_size__non_inited),\
+    UT_CASE(test_vector_max_size__successfully),\
+    UT_CASE_BEGIN(vector_capacity, test_vector_capacity__null_vector_container),\
+    UT_CASE(test_vector_capacity__non_inited),\
+    UT_CASE(test_vector_capacity__successfully_empty),\
+    UT_CASE(test_vector_capacity__successfully_little),\
+    UT_CASE(test_vector_capacity__successfully_huge),\
+    UT_CASE_BEGIN(vector_reserve, test_vector_reserve__null_vector_container),\
+    UT_CASE(test_vector_reserve__non_inited),\
+    UT_CASE(test_vector_reserve__shrink),\
+    UT_CASE(test_vector_reserve__not_change),\
+    UT_CASE(test_vector_reserve__expand),\
+    UT_CASE_BEGIN(vector_equal, test_vector_equal__null_first),\
+    UT_CASE(test_vector_equal__null_second),\
+    UT_CASE(test_vector_equal__non_inited_first),\
+    UT_CASE(test_vector_equal__non_inited_second),\
+    UT_CASE(test_vector_equal__not_same_type),\
+    UT_CASE(test_vector_equal__same_vector),\
+    UT_CASE(test_vector_equal__size_first_less_than_second),\
+    UT_CASE(test_vector_equal__size_first_greater_than_second),\
+    UT_CASE(test_vector_equal__size_equal_0),\
+    UT_CASE(test_vector_equal__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_vector_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_vector_equal__size_equal_elem_equal),\
+    UT_CASE_BEGIN(vector_not_equal, test_vector_not_equal__null_first),\
+    UT_CASE(test_vector_not_equal__null_second),\
+    UT_CASE(test_vector_not_equal__non_inited_first),\
+    UT_CASE(test_vector_not_equal__non_inited_second),\
+    UT_CASE(test_vector_not_equal__not_same_type),\
+    UT_CASE(test_vector_not_equal__same_vector),\
+    UT_CASE(test_vector_not_equal__size_first_less_than_second),\
+    UT_CASE(test_vector_not_equal__size_first_greater_than_second),\
+    UT_CASE(test_vector_not_equal__size_equal_0),\
+    UT_CASE(test_vector_not_equal__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_vector_not_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_vector_not_equal__size_equal_elem_equal),\
+    UT_CASE_BEGIN(vector_less, test_vector_less__null_first),\
+    UT_CASE(test_vector_less__null_second),\
+    UT_CASE(test_vector_less__non_inited_first),\
+    UT_CASE(test_vector_less__non_inited_second),\
+    UT_CASE(test_vector_less__not_same_type),\
+    UT_CASE(test_vector_less__same_vector),\
+    UT_CASE(test_vector_less__size_first_less_than_second),\
+    UT_CASE(test_vector_less__size_first_greater_than_second),\
+    UT_CASE(test_vector_less__size_equal_0),\
+    UT_CASE(test_vector_less__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_vector_less__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_vector_less__size_equal_elem_equal),\
+    UT_CASE_BEGIN(vector_less_equal, test_vector_less_equal__null_first),\
+    UT_CASE(test_vector_less_equal__null_second),\
+    UT_CASE(test_vector_less_equal__non_inited_first),\
+    UT_CASE(test_vector_less_equal__non_inited_second),\
+    UT_CASE(test_vector_less_equal__not_same_type),\
+    UT_CASE(test_vector_less_equal__same_vector),\
+    UT_CASE(test_vector_less_equal__size_first_less_than_second),\
+    UT_CASE(test_vector_less_equal__size_first_greater_than_second),\
+    UT_CASE(test_vector_less_equal__size_equal_0),\
+    UT_CASE(test_vector_less_equal__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_vector_less_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_vector_less_equal__size_equal_elem_equal),\
+    UT_CASE_BEGIN(vector_greater, test_vector_greater__null_first),\
+    UT_CASE(test_vector_greater__null_second),\
+    UT_CASE(test_vector_greater__non_inited_first),\
+    UT_CASE(test_vector_greater__non_inited_second),\
+    UT_CASE(test_vector_greater__not_same_type),\
+    UT_CASE(test_vector_greater__same_vector),\
+    UT_CASE(test_vector_greater__size_first_less_than_second),\
+    UT_CASE(test_vector_greater__size_first_greater_than_second),\
+    UT_CASE(test_vector_greater__size_equal_0),\
+    UT_CASE(test_vector_greater__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_vector_greater__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_vector_greater__size_equal_elem_equal),\
+    UT_CASE_BEGIN(vector_greater_equal, test_vector_greater_equal__null_first),\
+    UT_CASE(test_vector_greater_equal__null_second),\
+    UT_CASE(test_vector_greater_equal__non_inited_first),\
+    UT_CASE(test_vector_greater_equal__non_inited_second),\
+    UT_CASE(test_vector_greater_equal__not_same_type),\
+    UT_CASE(test_vector_greater_equal__same_vector),\
+    UT_CASE(test_vector_greater_equal__size_first_less_than_second),\
+    UT_CASE(test_vector_greater_equal__size_first_greater_than_second),\
+    UT_CASE(test_vector_greater_equal__size_equal_0),\
+    UT_CASE(test_vector_greater_equal__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_vector_greater_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_vector_greater_equal__size_equal_elem_equal)
 
 #endif /* _UT_CSTL_VECTOR_H_ */
 

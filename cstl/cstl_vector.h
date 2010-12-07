@@ -135,40 +135,129 @@ extern void vector_init_copy_range(vector_t* pvec_dest, vector_iterator_t it_beg
  */
 extern void vector_destroy(vector_t* pvec_vector);
 
-/*
- * Get the size and largest possible size of vector_t.
+/**
+ * Get vector element size.
+ * @param cpvec_vector   vector container.
+ * @return vector element size.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. cpvec_vector must be initialized, otherwise the
+ *          behavior is undefined.
  */
-extern size_t vector_size(const vector_t* cpt_vector);
-extern bool_t vector_empty(const vector_t* cpt_vector);
-extern size_t vector_max_size(const vector_t* cpt_vector);
+extern size_t vector_size(const vector_t* cpvec_vector);
 
-/*
- * Capacity operation.
+/**
+ * Test vector is empty.
+ * @param cpvec_vector   vector container.
+ * @return if vector is empty return true, else return false.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. cpvec_vector must be initialized, otherwise the
+ *          behavior is undefined.
  */
-extern size_t vector_capacity(const vector_t* cpt_vector);
-extern void vector_reserve(vector_t* pt_vector, size_t t_reservesize);
+extern bool_t vector_empty(const vector_t* cpvec_vector);
 
-/*
- * The relationship operator of vector_t.
+/**
+ * Return maximum element number.
+ * @param cpvec_vector   vector container.
+ * @return maximum number.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. cpvec_vector must be initialized, otherwise the
+ *          behavior is undefined. this number is not fixed number.
  */
-extern bool_t vector_equal(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
-extern bool_t vector_not_equal(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
-extern bool_t vector_less(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
-extern bool_t vector_greater(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
-extern bool_t vector_less_equal(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
-extern bool_t vector_greater_equal(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
+extern size_t vector_max_size(const vector_t* cpvec_vector);
 
-/*
- * The assignment operator of vector_t.
+/**
+ * Get vector capacity.
+ * @param cpvec_vector   vector container.
+ * @return vector capacity.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. cpvec_vector must be initialized, otherwise the
+ *          behavior is undefined.
  */
-extern void vector_assign(
-    vector_t* pt_vectordest, const vector_t* cpt_vectorsrc);
+extern size_t vector_capacity(const vector_t* cpvec_vector);
+
+/**
+ * Set vector capacity.
+ * @param pvec_vector   vector container.
+ * @param t_reservesize  new capacity.
+ * @return vector capacity.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. pvec_vector must be initialized, otherwise the
+ *          behavior is undefined. if t_reservesize > vector_capacity(), then t_reservesize is new capacity, otherwise
+ *          capacity is not change.
+ */
+extern void vector_reserve(vector_t* pvec_vector, size_t t_reservesize);
+
+/**
+ * Test the two vectors are equal.
+ * @param cpvec_first   first vector container.
+ * @param cpvec_second  second vector container.
+ * @return if first vector equal to second vector, then return true, else return false.
+ * @remarks if cpvec_first == NULL or cpvec_second == NULL, then the behavior is undefined. the two vectors must be
+ *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, then return false.
+ *          if cpvec_first == cpvec_second, then return true.
+ */
+extern bool_t vector_equal(const vector_t* cpvec_first, const vector_t* cpvec_second);
+
+/**
+ * Test the two vectors are unequal.
+ * @param cpvec_first   first vector container.
+ * @param cpvec_second  second vector container.
+ * @return if first vector unequal to second vector, then return true, else return false.
+ * @remarks if cpvec_first == NULL or cpvec_second == NULL, then the behavior is undefined. the two vectors must be
+ *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, then return true.
+ *          if cpvec_first == cpvec_second, then return false.
+ */
+extern bool_t vector_not_equal(const vector_t* cpvec_first, const vector_t* cpvec_second);
+
+/**
+ * Test the first vector is less than the second vector.
+ * @param cpvec_first   first vector container.
+ * @param cpvec_second  second vector container.
+ * @return if the first vector is less than the second vector, then return true, else return false.
+ * @remarks if cpvec_first == NULL or cpvec_second == NULL, then the behavior is undefined. the two vectors must be
+ *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, the behavior is
+ *          undefined. if cpvec_first == cpvec_second, then return false.
+ */
+extern bool_t vector_less(const vector_t* cpvec_first, const vector_t* cpvec_second);
+
+/**
+ * Test the first vector is less than or equal to the second vector.
+ * @param cpvec_first   first vector container.
+ * @param cpvec_second  second vector container.
+ * @return if the first vector is less than or equal to the second vector, then return true, else return false.
+ * @remarks if cpvec_first == NULL or cpvec_second == NULL, then the behavior is undefined. the two vectors must be
+ *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, the behavior is
+ *          undefined. if cpvec_first == cpvec_second, then return true.
+ */
+extern bool_t vector_less_equal(const vector_t* cpvec_first, const vector_t* cpvec_second);
+
+/**
+ * Test the first vector is greater than the second vector.
+ * @param cpvec_first   first vector container.
+ * @param cpvec_second  second vector container.
+ * @return if the first vector is greater than the second vector, then return true, else return false.
+ * @remarks if cpvec_first == NULL or cpvec_second == NULL, then the behavior is undefined. the two vectors must be
+ *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, the behavior is
+ *          undefined. if cpvec_first == cpvec_second, then return false.
+ */
+extern bool_t vector_greater(const vector_t* cpvec_first, const vector_t* cpvec_second);
+
+/**
+ * Test the first vector is greater than or equal to the second vector.
+ * @param cpvec_first   first vector container.
+ * @param cpvec_second  second vector container.
+ * @return if the first vector is greater than or equal to the second vector, then return true, else return false.
+ * @remarks if cpvec_first == NULL or cpvec_second == NULL, then the behavior is undefined. the two vectors must be
+ *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, the behavior is
+ *          undefined. if cpvec_first == cpvec_second, then return true.
+ */
+extern bool_t vector_greater_equal(const vector_t* cpvec_first, const vector_t* cpvec_second);
+
+/**
+ * Assign vector element with an exist vector container.
+ * @param pvec_dest     destination vector container.
+ * @param cpvec_src     source vector container.
+ * @return void.
+ * @remarks if pvec_dest == NULL or cpvec_src == NULL, then the behavior is undefined. pvec_dest and cpvec_src must be
+ *          initialized, otherwise the behavior is undefined. the element type of two vector must be same, otherwise
+ *          the behavior is undefined. if pvec_dest == cpvec_src, then this function does nothing.
+ */
+extern void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src);
 extern void vector_assign_range(
     vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end);
 

@@ -747,3 +747,1161 @@ void test_vector_destroy__inited_non_empty(void** state)
     assert_true(pvec->_pc_endofstorage == NULL);
 }
 
+/*
+ * test vector_size
+ */
+UT_CASE_DEFINATION(vector_size)
+void test_vector_size__null_vector_container(void** state)
+{
+    expect_assert_failure(vector_size(NULL));
+}
+
+void test_vector_size__non_inited(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    pvec->_pc_start = (char*)0x887;
+    expect_assert_failure(vector_size(pvec));
+
+    pvec->_pc_start = NULL;
+    vector_destroy(pvec);
+}
+
+void test_vector_size__successfully_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    assert_true(vector_size(pvec) == 0);
+
+    vector_destroy(pvec);
+}
+
+void test_vector_size__successfully_non_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init_n(pvec, 45);
+
+    assert_true(vector_size(pvec) == 45);
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test vector_empty
+ */
+UT_CASE_DEFINATION(vector_empty)
+void test_vector_empty__null_vector_container(void** state)
+{
+    expect_assert_failure(vector_empty(NULL));
+}
+
+void test_vector_empty__non_inited(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    pvec->_pc_finish = (char*)0x34;
+    expect_assert_failure(vector_empty(pvec));
+
+    pvec->_pc_finish = NULL;
+    vector_destroy(pvec);
+}
+
+void test_vector_empty__successfully_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    assert_true(vector_empty(pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_empty__successfully_non_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 239);
+    assert_false(vector_empty(pvec));
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test vector_max_size
+ */
+UT_CASE_DEFINATION(vector_max_size)
+void test_vector_max_size__null_vector_container(void** state)
+{
+    expect_assert_failure(vector_max_size(NULL));
+}
+
+void test_vector_max_size__non_inited(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    pvec->_pc_finish = (char*)0x783;
+    expect_assert_failure(vector_max_size(pvec));
+
+    pvec->_pc_finish = NULL;
+    vector_destroy(pvec);
+}
+
+void test_vector_max_size__successfully(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    assert_true(vector_max_size(pvec) != 0);
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test vector_capacity
+ */
+UT_CASE_DEFINATION(vector_capacity)
+void test_vector_capacity__null_vector_container(void** state)
+{
+    expect_assert_failure(vector_capacity(NULL));
+}
+
+void test_vector_capacity__non_inited(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    pvec->_pc_endofstorage = (char*)0x623;
+    expect_assert_failure(vector_capacity(pvec));
+
+    pvec->_pc_endofstorage = NULL;
+    vector_destroy(pvec);
+}
+
+void test_vector_capacity__successfully_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    assert_true(vector_capacity(pvec) == 0);
+
+    vector_destroy(pvec);
+}
+
+void test_vector_capacity__successfully_little(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 3);
+    assert_true(vector_capacity(pvec) == 19);
+
+    vector_destroy(pvec);
+}
+
+void test_vector_capacity__successfully_huge(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 3983);
+    assert_true(vector_capacity(pvec) == 5974);
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test vector_reserve
+ */
+UT_CASE_DEFINATION(vector_reserve)
+void test_vector_reserve__null_vector_container(void** state)
+{
+    expect_assert_failure(vector_reserve(NULL, 100));
+}
+
+void test_vector_reserve__non_inited(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    pvec->_pc_finish = (char*)0x34;
+    expect_assert_failure(vector_reserve(pvec, 100));    
+
+    pvec->_pc_finish = NULL;
+    vector_destroy(pvec);
+}
+
+void test_vector_reserve__shrink(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 100);
+    assert_true(vector_capacity(pvec) == 150);
+    vector_reserve(pvec, 0);
+    assert_true(vector_capacity(pvec) == 150);
+
+    vector_destroy(pvec);
+}
+
+void test_vector_reserve__not_change(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 100);
+    assert_true(vector_capacity(pvec) == 150);
+    vector_reserve(pvec, 150);
+    assert_true(vector_capacity(pvec) == 150);
+
+    vector_destroy(pvec);
+}
+
+void test_vector_reserve__expand(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 100);
+    assert_true(vector_capacity(pvec) == 150);
+    vector_reserve(pvec, 850);
+    assert_true(vector_capacity(pvec) == 850);
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test vector_equal
+ */
+UT_CASE_DEFINATION(vector_equal)
+void test_vector_equal__null_first(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_equal(NULL, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_equal__null_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_equal(pvec, NULL));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_equal__non_inited_first(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_second);
+    pvec_first->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_equal(pvec_first, pvec_second));
+
+    pvec_first->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_equal__non_inited_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    pvec_second->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_equal(pvec_first, pvec_second));
+
+    pvec_second->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_equal__not_same_type(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_false(vector_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_equal__same_vector(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    assert_true(vector_equal(pvec, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_equal__size_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init_n(pvec_second, 48);
+    assert_false(vector_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_equal__size_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_n(pvec_first, 233);
+    vector_init_n(pvec_second, 48);
+    assert_false(vector_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_equal__size_equal_0(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_true(vector_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_equal__size_equal_elem_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 4545);
+    assert_false(vector_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_equal__size_equal_elem_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 45);
+    assert_false(vector_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_equal__size_equal_elem_equal(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 100);
+    assert_true(vector_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+/*
+ * test vector_not_equal
+ */
+UT_CASE_DEFINATION(vector_not_equal)
+void test_vector_not_equal__null_first(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_not_equal(NULL, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_not_equal__null_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_not_equal(pvec, NULL));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_not_equal__non_inited_first(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_second);
+    pvec_first->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_not_equal(pvec_first, pvec_second));
+
+    pvec_first->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_not_equal__non_inited_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    pvec_second->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_not_equal(pvec_first, pvec_second));
+
+    pvec_second->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_not_equal__not_same_type(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_true(vector_not_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_not_equal__same_vector(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    assert_false(vector_not_equal(pvec, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_not_equal__size_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init_n(pvec_second, 48);
+    assert_true(vector_not_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_not_equal__size_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_n(pvec_first, 233);
+    vector_init_n(pvec_second, 48);
+    assert_true(vector_not_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_not_equal__size_equal_0(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_false(vector_not_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_not_equal__size_equal_elem_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 4545);
+    assert_true(vector_not_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_not_equal__size_equal_elem_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 45);
+    assert_true(vector_not_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_not_equal__size_equal_elem_equal(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 100);
+    assert_false(vector_not_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+/*
+ * test vector_less
+ */
+UT_CASE_DEFINATION(vector_less)
+void test_vector_less__null_first(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_less(NULL, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_less__null_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_less(pvec, NULL));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_less__non_inited_first(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_second);
+    pvec_first->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_less(pvec_first, pvec_second));
+
+    pvec_first->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less__non_inited_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    pvec_second->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_less(pvec_first, pvec_second));
+
+    pvec_second->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less__not_same_type(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    expect_assert_failure(vector_less(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less__same_vector(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    assert_false(vector_less(pvec, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_less__size_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init_n(pvec_second, 48);
+    assert_true(vector_less(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less__size_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_n(pvec_first, 233);
+    vector_init_n(pvec_second, 48);
+    assert_false(vector_less(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less__size_equal_0(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_false(vector_less(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less__size_equal_elem_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 4545);
+    assert_true(vector_less(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less__size_equal_elem_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 45);
+    assert_false(vector_less(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less__size_equal_elem_equal(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 100);
+    assert_false(vector_less(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+/*
+ * test vector_less_equal
+ */
+UT_CASE_DEFINATION(vector_less_equal)
+void test_vector_less_equal__null_first(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_less_equal(NULL, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_less_equal__null_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_less_equal(pvec, NULL));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_less_equal__non_inited_first(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_second);
+    pvec_first->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_less_equal(pvec_first, pvec_second));
+
+    pvec_first->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less_equal__non_inited_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    pvec_second->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_less_equal(pvec_first, pvec_second));
+
+    pvec_second->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less_equal__not_same_type(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    expect_assert_failure(vector_less_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less_equal__same_vector(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    assert_true(vector_less_equal(pvec, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_less_equal__size_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init_n(pvec_second, 48);
+    assert_true(vector_less_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less_equal__size_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_n(pvec_first, 233);
+    vector_init_n(pvec_second, 48);
+    assert_false(vector_less_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less_equal__size_equal_0(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_true(vector_less_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less_equal__size_equal_elem_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 4545);
+    assert_true(vector_less_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less_equal__size_equal_elem_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 45);
+    assert_false(vector_less_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_less_equal__size_equal_elem_equal(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 100);
+    assert_true(vector_less_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+/*
+ * test vector_greater
+ */
+UT_CASE_DEFINATION(vector_greater)
+void test_vector_greater__null_first(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_greater(NULL, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_greater__null_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_greater(pvec, NULL));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_greater__non_inited_first(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_second);
+    pvec_first->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_greater(pvec_first, pvec_second));
+
+    pvec_first->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater__non_inited_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    pvec_second->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_greater(pvec_first, pvec_second));
+
+    pvec_second->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater__not_same_type(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    expect_assert_failure(vector_greater(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater__same_vector(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    assert_false(vector_greater(pvec, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_greater__size_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init_n(pvec_second, 48);
+    assert_false(vector_greater(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater__size_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_n(pvec_first, 233);
+    vector_init_n(pvec_second, 48);
+    assert_true(vector_greater(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater__size_equal_0(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_false(vector_greater(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater__size_equal_elem_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 4545);
+    assert_false(vector_greater(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater__size_equal_elem_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 45);
+    assert_true(vector_greater(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater__size_equal_elem_equal(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 100);
+    assert_false(vector_greater(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+/*
+ * test vector_greater_equal
+ */
+UT_CASE_DEFINATION(vector_greater_equal)
+void test_vector_greater_equal__null_first(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_greater_equal(NULL, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_greater_equal__null_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_greater_equal(pvec, NULL));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_greater_equal__non_inited_first(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_second);
+    pvec_first->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_greater_equal(pvec_first, pvec_second));
+
+    pvec_first->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater_equal__non_inited_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    pvec_second->_pc_finish = (char*)0x73;
+    expect_assert_failure(vector_greater_equal(pvec_first, pvec_second));
+
+    pvec_second->_pc_finish = NULL;
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater_equal__not_same_type(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(double);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    expect_assert_failure(vector_greater_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater_equal__same_vector(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    assert_true(vector_greater_equal(pvec, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_greater_equal__size_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init_n(pvec_second, 48);
+    assert_false(vector_greater_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater_equal__size_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_n(pvec_first, 233);
+    vector_init_n(pvec_second, 48);
+    assert_true(vector_greater_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater_equal__size_equal_0(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_true(vector_greater_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater_equal__size_equal_elem_first_less_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 4545);
+    assert_false(vector_greater_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater_equal__size_equal_elem_first_greater_than_second(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 45);
+    assert_true(vector_greater_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test_vector_greater_equal__size_equal_elem_equal(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(int);
+
+    vector_init_elem(pvec_first, 10, 100);
+    vector_init_elem(pvec_second, 10, 100);
+    assert_true(vector_greater_equal(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+/*
+ * test vector_assign
+ */
+UT_CASE_DEFINATION(vector_assign)
+void test_vector_assign__null_dest(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_assign(NULL, pvec));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_assign__null_src(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_assign(pvec, NULL));
+
+    vector_destroy(pvec);
+}
+
