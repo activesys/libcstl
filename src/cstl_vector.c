@@ -80,46 +80,63 @@ void vector_init_n(vector_t* pvec_vector, size_t t_count)
     }
 }
 
-void vector_destroy(vector_t* pt_vector)
+/**
+ * Initialize vector container with an exist vector container.
+ */
+void vector_init_copy(vector_t* pvec_dest, const vector_t* cpvec_src)
 {
-    _vector_destroy_auxiliary(pt_vector);
-    /* free memory that malloced in _create_vector() function */
-    free(pt_vector);
+    assert(pvec_dest != NULL);
+    assert(cpvec_src != NULL);
+    assert(_vector_is_created(pvec_dest));
+    assert(_vector_is_inited(cpvec_src));
+    assert(_vector_same_type(pvec_dest, cpvec_src));
+
+    vector_init_copy_range(pvec_dest, vector_begin(cpvec_src), vector_end(cpvec_src));
 }
 
-void vector_init_copy(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
+/**
+ * Initialize vector container with an exist vector range.
+ */
+void vector_init_copy_range(vector_t* pvec_dest, vector_iterator_t it_begin, vector_iterator_t it_end)
 {
-    vector_init_copy_range(pt_vectordest,
-        vector_begin(cpt_vectorsrc), vector_end(cpt_vectorsrc));
-}
+    vector_iterator_t it_dest;
+    vector_iterator_t it_src;
+    bool_t            b_result = false;
 
-void vector_init_copy_range(
-    vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end)
-{
-    vector_iterator_t t_dest;
-    vector_iterator_t t_src;
-    bool_t            t_result = false;
-
-    assert(pt_vector != NULL);
-    assert(_vector_same_vector_iterator_type(pt_vector, t_begin));
-    assert(pt_vector->_pc_start == NULL && pt_vector->_pc_finish == NULL &&
-           pt_vector->_pc_endofstorage == NULL);
-    assert(iterator_equal(t_begin, t_end) || _vector_iterator_before(t_begin, t_end));
+    assert(pvec_dest != NULL);
+    assert(_vector_is_created(pvec_dest));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_begin), it_begin));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_end), it_end));
+    assert(iterator_equal(it_begin, it_end) || _vector_iterator_before(it_begin, it_end));
+    assert(_vector_same_vector_iterator_type(pvec_dest, it_begin));
+    assert(_vector_same_vector_iterator_type(pvec_dest, it_end));
 
     /* initialize all elements with default value */
-    vector_init_n(pt_vector, iterator_distance(t_begin, t_end));
+    vector_init_n(pvec_dest, iterator_distance(it_begin, it_end));
 
     /* copy values for range */
-    for(t_dest = vector_begin(pt_vector), t_src = t_begin;
-        !iterator_equal(t_dest, vector_end(pt_vector)) && !iterator_equal(t_src, t_end);
-        t_dest = iterator_next(t_dest), t_src = iterator_next(t_src))
+    for(it_dest = vector_begin(pvec_dest), it_src = it_begin;
+        !iterator_equal(it_dest, vector_end(pvec_dest)) && !iterator_equal(it_src, it_end);
+        it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
     {
-        t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-            _GET_VECTOR_COREPOS(t_dest), _GET_VECTOR_COREPOS(t_src), &t_result);
-        assert(t_result);
+        b_result = _GET_VECTOR_TYPE_SIZE(pvec_dest);
+        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_dest)(_GET_VECTOR_COREPOS(it_dest), _GET_VECTOR_COREPOS(it_src), &b_result);
+        assert(b_result);
     }
-    assert(iterator_equal(t_dest, vector_end(pt_vector)) && iterator_equal(t_src, t_end));
+    assert(iterator_equal(it_dest, vector_end(pvec_dest)) && iterator_equal(it_src, it_end));
+}
+
+/**
+ * Destroy vector container.
+ */
+void vector_destroy(vector_t* pvec_vector)
+{
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
+
+    _vector_destroy_auxiliary(pvec_vector);
+    /* free memory that malloced in _create_vector() function */
+    free(pvec_vector);
 }
 
 size_t vector_size(const vector_t* cpt_vector)

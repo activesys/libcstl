@@ -37,8 +37,18 @@ extern "C" {
  * @remarks the format of specificed element type reference <<The libcstl Library Reference Manual>> Chapter 8.
  */
 #define create_vector(...) _create_vector(#__VA_ARGS__) 
-#define vector_init_elem(pt_vector, t_count, elem)\
-    _vector_init_elem((pt_vector), (t_count), (elem))
+
+/**
+ * Initialize vector container with mutiple specificed element.
+ * @param pvec_vector    vector container.
+ * @param t_count        specificed element number.
+ * @param elem           specificed element.
+ * @return void.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. pvec_vector muse be created by create_vector(),
+ *          otherwise the behavior is undefined. the size of vector is t_count after initialization. the capacity of
+ *          vector is satisfied capacity assignment algorithm. all vector elements are specificed element.
+ */
+#define vector_init_elem(pt_vector, t_count, elem) _vector_init_elem((pt_vector), (t_count), (elem))
 
 /*
  * The assignment operator of vector_t.
@@ -91,10 +101,39 @@ extern void vector_init(vector_t* pvec_vector);
  *          vector is satisfied capacity assignment algorithm.
  */
 extern void vector_init_n(vector_t* pvec_vector, size_t t_count);
-extern void vector_init_copy(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc);
-extern void vector_init_copy_range(
-    vector_t* pt_vectordest, vector_iterator_t t_begin, vector_iterator_t t_end);
-extern void vector_destroy(vector_t* pt_vector);
+
+/**
+ * Initialize vector container with an exist vector container.
+ * @param pvec_dest     destination vector container.
+ * @param cpvec_src     source vector container.
+ * @return void.
+ * @remarks if pvec_dest == NULL or cpvec_src == NULL, then the behavior is undefined. pvec_dest must be created by
+ *          create_vector() and cpvec_src must be initialized, otherwise the behavior is undefined. after initialization
+ *          the size of pvec_dest is equal to the size of cpvec_src, and the capacity of pvec_dest is satisfied capacity
+ *          assignment algorithm.
+ */
+extern void vector_init_copy(vector_t* pvec_dest, const vector_t* cpvec_src);
+
+/**
+ * Initialize vector container with an exist vector range.
+ * @param pvec_dest     destination vector container.
+ * @param it_begin      the begin iterator of range.
+ * @param it_end        the end iterator of range.
+ * @return void.
+ * @remarks if pvec_dest == NULL, then the behavior is undefined. pvec_dest must be created by create_vector(), otherwise
+ *          the behavior is undefined. after initialization the size of pvec_dest is equal to the size of range, and the
+ *          capacity of pvec_dest is satisfied capacity assignment algorithm.
+ */
+extern void vector_init_copy_range(vector_t* pvec_dest, vector_iterator_t it_begin, vector_iterator_t it_end);
+
+/**
+ * Destroy vector container.
+ * @param pvec_vector   vector container.
+ * @return void.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. the pvec_vector must be initialized or created by
+ *          create_vector(), otherwise the behavior is undefined.
+ */
+extern void vector_destroy(vector_t* pvec_vector);
 
 /*
  * Get the size and largest possible size of vector_t.
