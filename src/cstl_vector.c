@@ -375,15 +375,26 @@ bool_t vector_greater_equal(const vector_t* cpvec_first, const vector_t* cpvec_s
 /**
  * Assign vector element with an exist vector container.
  */
-void vector_assign(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
+void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src)
 {
-    assert(_vector_same_type(pt_vectordest, cpt_vectorsrc));
+    assert(pvec_dest != NULL);
+    assert(cpvec_src != NULL);
+    assert(_vector_is_inited(pvec_dest));
+    assert(_vector_is_inited(cpvec_src));
+    assert(_vector_same_type(pvec_dest, cpvec_src));
 
-    vector_assign_range(pt_vectordest, vector_begin(cpt_vectorsrc), vector_end(cpt_vectorsrc));
+    if(vector_equal(pvec_dest, cpvec_src))
+    {
+        return;
+    }
+
+    vector_assign_range(pvec_dest, vector_begin(cpvec_src), vector_end(cpvec_src));
 }
 
-void vector_assign_range(
-    vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end)
+/**
+ * Assign vector element with an exist vector container range.
+ */
+void vector_assign_range(vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end)
 {
     iterator_t t_dest;
     iterator_t t_src;

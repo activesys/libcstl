@@ -48,13 +48,18 @@ extern "C" {
  *          otherwise the behavior is undefined. the size of vector is t_count after initialization. the capacity of
  *          vector is satisfied capacity assignment algorithm. all vector elements are specificed element.
  */
-#define vector_init_elem(pt_vector, t_count, elem) _vector_init_elem((pt_vector), (t_count), (elem))
+#define vector_init_elem(pvec_vector, t_count, elem) _vector_init_elem((pvec_vector), (t_count), (elem))
 
-/*
- * The assignment operator of vector_t.
+/**
+ * Assign vector with specificed element.
+ * @param pvec_vector  vector container.
+ * @param t_count      element number.
+ * @param elem         specificed element.
+ * @return void.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and vector element type must be same, otherwise the behavior is undefined.
  */
-#define vector_assign_elem(pt_vector, t_count, elem)\
-    _vector_assign_elem((pt_vector), (t_count), (elem))
+#define vector_assign_elem(pvec_vector, t_count, elem) _vector_assign_elem((pvec_vector), (t_count), (elem))
 
 /*
  * Insert a new element at the end of vector_t.
@@ -255,11 +260,21 @@ extern bool_t vector_greater_equal(const vector_t* cpvec_first, const vector_t* 
  * @return void.
  * @remarks if pvec_dest == NULL or cpvec_src == NULL, then the behavior is undefined. pvec_dest and cpvec_src must be
  *          initialized, otherwise the behavior is undefined. the element type of two vector must be same, otherwise
- *          the behavior is undefined. if pvec_dest == cpvec_src, then this function does nothing.
+ *          the behavior is undefined. if the destination vector equal to source vector, then this function does nothing.
  */
 extern void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src);
-extern void vector_assign_range(
-    vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end);
+
+/**
+ * Assign vector element with an exist vector container range.
+ * @param pvec_dest     destination vector container.
+ * @param it_begin      range begin.
+ * @param it_end        range end.
+ * @return void.
+ * @remarks if pvec_dest == NULL, then the behavior is undefined. pvec_dest must be initialized, otherwise the behavior
+ *          is undefined. the element type of vector and [it_begin, it_end) must be same, otherwise the behavior is
+ *          undefined. if [it_begin, it_end) belong to the destination vector, the behavior is undefined.
+ */
+extern void vector_assign_range(vector_t* pvec_vector, vector_iterator_t it_begin, vector_iterator_t it_end);
 
 /*
  * Swap the contents of two vector_ts.

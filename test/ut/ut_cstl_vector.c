@@ -1905,3 +1905,570 @@ void test_vector_assign__null_src(void** state)
     vector_destroy(pvec);
 }
 
+void test_vector_assign__non_inited_dest(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init(pvec_src);
+    pvec_dest->_pc_finish = (char*)0x22;
+
+    expect_assert_failure(vector_assign(pvec_dest, pvec_src));
+
+    pvec_dest->_pc_finish = NULL;
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__non_inited_src(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init(pvec_dest);
+    pvec_src->_pc_finish = (char*)0x22;
+
+    expect_assert_failure(vector_assign(pvec_dest, pvec_src));
+
+    pvec_src->_pc_finish = NULL;
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__not_same_type(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(double);
+
+    vector_init(pvec_dest);
+    vector_init(pvec_src);
+
+    expect_assert_failure(vector_assign(pvec_dest, pvec_src));
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__same_container(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+
+    vector_assign(pvec, pvec);
+    assert_true(vector_size(pvec) == 0);
+    assert_true(vector_capacity(pvec) == 0);
+
+    vector_destroy(pvec);
+}
+
+void test_vector_assign__0_assign_0(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init(pvec_dest);
+    vector_init(pvec_src);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 0);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__0_assign_10(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init(pvec_dest);
+    vector_init_n(pvec_src, 10);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 26);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__0_assign_1000(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init(pvec_dest);
+    vector_init_n(pvec_src, 1000);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 1500);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__10_assign_0(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init_n(pvec_dest, 10);
+    vector_init(pvec_src);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 26);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__10_assign_10_vector_equal(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init_n(pvec_dest, 10);
+    vector_init_n(pvec_src, 10);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 26);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__10_assign_10_vector_not_equal(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init_elem(pvec_dest, 10, 100);
+    vector_init_n(pvec_src, 10);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 26);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__10_assign_1000(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init_elem(pvec_dest, 10, 100);
+    vector_init_n(pvec_src, 1000);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 1500);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__1000_assign_0(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init_elem(pvec_dest, 1000, 100);
+    vector_init(pvec_src);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 1500);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__1000_assign_10(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init_elem(pvec_dest, 1000, 100);
+    vector_init_n(pvec_src, 10);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 1500);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__1000_assign_1010(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init_elem(pvec_dest, 1000, 100);
+    vector_init_n(pvec_src, 1010);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 1500);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign__1000_assign_1810(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+
+    vector_init_elem(pvec_dest, 1000, 100);
+    vector_init_n(pvec_src, 1810);
+
+    vector_assign(pvec_dest, pvec_src);
+    assert_true(vector_equal(pvec_dest, pvec_src));
+    assert_true(vector_capacity(pvec_dest) == 2715);
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+/*
+ * test vector_assign_range
+ */
+UT_CASE_DEFINATION(vector_assign_range)
+void test_vector_assign_range__null_vector_container(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(vector_assign_range(NULL, vector_begin(pvec), vector_end(pvec)));
+
+    vector_destroy(pvec);
+}
+
+void test_vector_assign_range__non_inited(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init(pvec_src);
+
+    pvec_dest->_pc_start = (char*)0x354;
+    expect_assert_failure(vector_assign_range(pvec_dest, vector_begin(pvec_src), vector_end(pvec_src)));
+
+    pvec_dest->_pc_start = NULL;
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__invalid_it_begin(void** state)
+{
+    vector_iterator_t it_begin;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init(pvec_src);
+    vector_init(pvec_dest);
+    it_begin._t_iteratortype = 284;
+
+    expect_assert_failure(vector_assign_range(pvec_dest, it_begin, vector_end(pvec_src)));
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__invalid_it_end(void** state)
+{
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init(pvec_src);
+    vector_init(pvec_dest);
+    it_end._t_iteratortype = 284;
+
+    expect_assert_failure(vector_assign_range(pvec_dest, vector_begin(pvec_src), it_end));
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__invalid_range(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_n(pvec_src, 12);
+    vector_init(pvec_dest);
+
+    expect_assert_failure(vector_assign_range(pvec_dest, vector_end(pvec_src), vector_begin(pvec_src)));
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__invalid_range_not_same_type(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(double);
+    vector_init_n(pvec_src, 12);
+    vector_init(pvec_dest);
+
+    expect_assert_failure(vector_assign_range(pvec_dest, vector_begin(pvec_src), vector_end(pvec_src)));
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__range_belong_to_vector(void** state)
+{
+    vector_t* pvec_dest = create_vector(int);
+    vector_init(pvec_dest);
+
+    vector_assign_range(pvec_dest, vector_begin(pvec_dest), vector_end(pvec_dest));
+
+    vector_destroy(pvec_dest);
+}
+
+void test_vector_assign_range__0_assign_range_0(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1200, 100);
+    vector_init(pvec_dest);
+
+    it_begin = vector_begin(pvec_src);
+    it_end = vector_begin(pvec_src);
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 0);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__0_assign_range_10(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1200, 100);
+    vector_init(pvec_dest);
+
+    it_begin = vector_begin(pvec_src);
+    it_end = iterator_next_n(it_begin, 10);
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 26);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__0_assign_range_1000(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1200, 100);
+    vector_init(pvec_dest);
+
+    it_begin = vector_begin(pvec_src);
+    it_end = iterator_next_n(it_begin, 1000);
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 1500);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__10_assign_range_0(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1200, 100);
+    vector_init_elem(pvec_dest, 10, 100);
+
+    it_begin = iterator_next_n(vector_begin(pvec_src), 111);
+    it_end = it_begin;
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 26);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__10_assign_range_10_same_elem(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1200, 100);
+    vector_init_elem(pvec_dest, 10, 100);
+
+    it_begin = iterator_next_n(vector_begin(pvec_src), 111);
+    it_end = iterator_next_n(it_begin, 10);
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 26);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__10_assign_range_10_not_same_elem(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1200, 100);
+    vector_init_elem(pvec_dest, 10, 0);
+
+    it_begin = iterator_next_n(vector_begin(pvec_src), 111);
+    it_end = iterator_next_n(it_begin, 10);
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 26);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__10_assign_range_1000(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1200, 100);
+    vector_init_elem(pvec_dest, 10, 0);
+
+    it_begin = iterator_next_n(vector_begin(pvec_src), 111);
+    it_end = iterator_next_n(it_begin, 1000);
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 1500);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__1000_assign_range_0(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1700, 100);
+    vector_init_elem(pvec_dest, 1000, 0);
+
+    it_begin = vector_begin(pvec_src);
+    it_end = it_begin;
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 1500);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__1000_assign_range_10(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1700, 100);
+    vector_init_elem(pvec_dest, 1000, 0);
+
+    it_begin = vector_begin(pvec_src);
+    it_end = iterator_next_n(it_begin, 10);
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 1500);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
+void test_vector_assign_range__1000_assign_range_1700(void** state)
+{
+    size_t i = 0;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_src = create_vector(int);
+    vector_init_elem(pvec_src, 1700, 100);
+    vector_init_elem(pvec_dest, 1000, 0);
+
+    it_begin = vector_begin(pvec_src);
+    it_end = vector_end(pvec_src);
+    vector_assign_range(pvec_dest, it_begin, it_end);
+    assert_true(vector_size(pvec_dest) == iterator_distance(it_begin, it_end));
+    assert_true(vector_capacity(pvec_dest) == 2550);
+    for(i = 0; i < vector_size(pvec_dest); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec_dest, i) == 100);
+    }
+
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_src);
+}
+
