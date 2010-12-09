@@ -247,6 +247,91 @@ void test_vector_assign_range__10_assign_range_1000(void** state);
 void test_vector_assign_range__1000_assign_range_0(void** state);
 void test_vector_assign_range__1000_assign_range_10(void** state);
 void test_vector_assign_range__1000_assign_range_1700(void** state);
+/*
+ * test vector_swap
+ */
+UT_CASE_DECLARATION(vector_swap)
+void test_vector_swap__null_first(void** state);
+void test_vector_swap__null_second(void** state);
+void test_vector_swap__non_inited_first(void** state);
+void test_vector_swap__non_inited_second(void** state);
+void test_vector_swap__not_same_type(void** state);
+void test_vector_swap__vector_equal(void** state);
+void test_vector_swap__0_swap_10(void** state);
+void test_vector_swap__0_swap_1000(void** state);
+void test_vector_swap__10_swap_0(void** state);
+void test_vector_swap__10_swap_10(void** state);
+void test_vector_swap__10_swap_1000(void** state);
+void test_vector_swap__1000_swap_0(void** state);
+void test_vector_swap__1000_swap_10(void** state);
+void test_vector_swap__1000_swap_1010(void** state);
+/*
+ * test vector_at
+ */
+UT_CASE_DECLARATION(vector_at)
+void test_vector_at__null_vector_container(void** state);
+void test_vector_at__non_inited_vector_container(void** state);
+void test_vector_at__invalid_subscript_empty(void** state);
+void test_vector_at__invalid_subscript_end(void** state);
+void test_vector_at__invalid_subscript(void** state);
+void test_vector_at__successfully(void** state);
+void test_vector_at__successfully_cstr(void** state);
+/*
+ * test vector_front
+ */
+UT_CASE_DECLARATION(vector_front)
+void test_vector_front__null_vector_container(void** state);
+void test_vector_front__non_inited_vector_container(void** state);
+void test_vector_front__empty(void** state);
+void test_vector_front__successfully(void** state);
+void test_vector_front__successfully_cstr(void** state);
+/*
+ * test vector_back
+ */
+UT_CASE_DECLARATION(vector_back)
+void test_vector_back__null_vector_container(void** state);
+void test_vector_back__non_inited_vector_container(void** state);
+void test_vector_back__empty(void** state);
+void test_vector_back__successfully(void** state);
+void test_vector_back__successfully_cstr(void** state);
+/*
+ * test vector_begin
+ */
+UT_CASE_DECLARATION(vector_begin)
+void test_vector_begin__null_vector_container(void** state);
+void test_vector_begin__non_inited_vector_container(void** state);
+void test_vector_begin__empty(void** state);
+void test_vector_begin__non_empty(void** state);
+/*
+ * test vector_end
+ */
+UT_CASE_DECLARATION(vector_end)
+void test_vector_end__null_vector_container(void** state);
+void test_vector_end__non_inited_vector_container(void** state);
+void test_vector_end__empty(void** state);
+void test_vector_end__non_empty(void** state);
+/*
+ * test vector_insert_range
+ */
+UT_CASE_DECLARATION(vector_insert_range)
+void test_vector_insert_range__null_vector_container(void** state);
+void test_vector_insert_range__non_inited(void** state);
+void test_vector_insert_range__invalid_position(void** state);
+void test_vector_insert_range__invalid_range(void** state);
+void test_vector_insert_range__invalid_range_not_same_type(void** state);
+void test_vector_insert_range__invalid_range_belong_to_vector(void** state);
+void test_vector_insert_range__empty_insert_0(void** state);
+void test_vector_insert_range__empty_insert_10(void** state);
+void test_vector_insert_range__empty_insert_1000(void** state);
+void test_vector_insert_range__begin_insert_0(void** state);
+void test_vector_insert_range__begin_insert_10(void** state);
+void test_vector_insert_range__begin_insert_1000(void** state);
+void test_vector_insert_range__middle_insert_0(void** state);
+void test_vector_insert_range__middle_insert_10(void** state);
+void test_vector_insert_range__middle_insert_1000(void** state);
+void test_vector_insert_range__end_insert_0(void** state);
+void test_vector_insert_range__end_insert_10(void** state);
+void test_vector_insert_range__end_insert_1000(void** state);
 
 #define UT_CSTL_VECTOR_CASE\
     UT_SUIT_BEGIN(cstl_vector, test_vector_init__null_vector_container),\
@@ -420,7 +505,46 @@ void test_vector_assign_range__1000_assign_range_1700(void** state);
     UT_CASE(test_vector_assign_range__10_assign_range_1000),\
     UT_CASE(test_vector_assign_range__1000_assign_range_0),\
     UT_CASE(test_vector_assign_range__1000_assign_range_10),\
-    UT_CASE(test_vector_assign_range__1000_assign_range_1700)
+    UT_CASE(test_vector_assign_range__1000_assign_range_1700),\
+    UT_CASE_BEGIN(vector_swap, test_vector_swap__null_first),\
+    UT_CASE(test_vector_swap__null_second),\
+    UT_CASE(test_vector_swap__non_inited_first),\
+    UT_CASE(test_vector_swap__non_inited_second),\
+    UT_CASE(test_vector_swap__not_same_type),\
+    UT_CASE(test_vector_swap__vector_equal),\
+    UT_CASE(test_vector_swap__0_swap_10),\
+    UT_CASE(test_vector_swap__0_swap_1000),\
+    UT_CASE(test_vector_swap__10_swap_0),\
+    UT_CASE(test_vector_swap__10_swap_10),\
+    UT_CASE(test_vector_swap__10_swap_1000),\
+    UT_CASE(test_vector_swap__1000_swap_0),\
+    UT_CASE(test_vector_swap__1000_swap_10),\
+    UT_CASE(test_vector_swap__1000_swap_1010),\
+    UT_CASE_BEGIN(vector_at, test_vector_at__null_vector_container),\
+    UT_CASE(test_vector_at__non_inited_vector_container),\
+    UT_CASE(test_vector_at__invalid_subscript_empty),\
+    UT_CASE(test_vector_at__invalid_subscript_end),\
+    UT_CASE(test_vector_at__invalid_subscript),\
+    UT_CASE(test_vector_at__successfully),\
+    UT_CASE(test_vector_at__successfully_cstr),\
+    UT_CASE_BEGIN(vector_front, test_vector_front__null_vector_container),\
+    UT_CASE(test_vector_front__non_inited_vector_container),\
+    UT_CASE(test_vector_front__empty),\
+    UT_CASE(test_vector_front__successfully),\
+    UT_CASE(test_vector_front__successfully_cstr),\
+    UT_CASE_BEGIN(vector_back, test_vector_back__null_vector_container),\
+    UT_CASE(test_vector_back__non_inited_vector_container),\
+    UT_CASE(test_vector_back__empty),\
+    UT_CASE(test_vector_back__successfully),\
+    UT_CASE(test_vector_back__successfully_cstr),\
+    UT_CASE_BEGIN(vector_begin, test_vector_begin__null_vector_container),\
+    UT_CASE(test_vector_begin__non_inited_vector_container),\
+    UT_CASE(test_vector_begin__empty),\
+    UT_CASE(test_vector_begin__non_empty),\
+    UT_CASE_BEGIN(vector_end, test_vector_end__null_vector_container),\
+    UT_CASE(test_vector_end__non_inited_vector_container),\
+    UT_CASE(test_vector_end__empty),\
+    UT_CASE(test_vector_end__non_empty)
 
 #endif /* _UT_CSTL_VECTOR_H_ */
 

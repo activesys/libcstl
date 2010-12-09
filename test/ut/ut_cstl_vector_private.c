@@ -983,13 +983,13 @@ void test__vector_insert_n__vector_insert_n_varg__middle_insert_1000(void** stat
     assert_true(vector_size(pvec) == 1000);
     assert_true(vector_capacity(pvec) == 1500);
     it_pos = iterator_next_n(vector_begin(pvec), 300);
-    it_iter = _vector_insert_n(pvec, it_pos, 10, 100);
+    it_iter = _vector_insert_n(pvec, it_pos, 1000, 100);
     assert_true(iterator_equal(it_iter, iterator_next_n(vector_begin(pvec), 300)));
     assert_true(vector_size(pvec) == 2000);
     assert_true(vector_capacity(pvec) == 3000);
     for(i = 0; i < vector_size(pvec); ++i)
     {
-        if(i >= 300 && i < 130)
+        if(i >= 300 && i < 1300)
         {
             assert_true(*(int*)vector_at(pvec, i) == 100);
         }

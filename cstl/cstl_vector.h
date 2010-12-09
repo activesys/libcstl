@@ -74,13 +74,32 @@ extern "C" {
 #define vector_resize_elem(pt_vector, t_resize, elem)\
     _vector_resize_elem((pt_vector), (t_resize), (elem))
 
-/*
- * Insert t_count copys of element befor position t_pos.
+/**
+ * Insert an element into vector at a specificed position.
+ * @param pvec_vector   vector container.
+ * @param it_pos        specificed position.
+ * @param elem          specificed element.
+ * @return the position where the new element was inserted into the vector.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for vector container, otherwise
+ *          the behavior is undefined. the type of specificed and vector element must be the same, otherwise the
+ *          behavior is undefined.
  */
-#define vector_insert(pt_vector, t_pos, elem)\
-    _vector_insert_n((pt_vector), (t_pos), 1, (elem))
-#define vector_insert_n(pt_vector, t_pos, t_count, elem)\
-    _vector_insert_n((pt_vector), (t_pos), (t_count), (elem))
+#define vector_insert(pvec_vector, it_pos, elem) _vector_insert_n((pvec_vector), (it_pos), 1, (elem))
+
+/**
+ * Insert a number of elements into vector at a specificed position.
+ * @param pvec_vector   vector container.
+ * @param it_pos        specificed position.
+ * @param t_count       the number of specificed elements.
+ * @param elem          specificed element.
+ * @return the position where the new element was inserted into the vector.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for vector container, otherwise
+ *          the behavior is undefined. the type of specificed and vector element must be the same, otherwise the
+ *          behavior is undefined.
+ */
+#define vector_insert_n(pvec_vector, it_pos, t_count, elem) _vector_insert_n((pvec_vector), (it_pos), (t_count), (elem))
 
 /** data type declaration and struct, union, enum section **/
 
@@ -276,33 +295,81 @@ extern void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src);
  */
 extern void vector_assign_range(vector_t* pvec_vector, vector_iterator_t it_begin, vector_iterator_t it_end);
 
-/*
- * Swap the contents of two vector_ts.
+/**
+ * Swap vector datas.
+ * @param pvec_first    first vector.
+ * @param pvec_second   second vector.
+ * @return void.
+ * @remarks if pvec_first == NULL or pvec_second == NULL, then the behavior is undefined. the two vectors must be
+ *          initialized, otherwise the behavior is undefined. the element type of two vectors must be the same, otherwise
+ *          the behavior is undefined. if vector_equal(pvec_first, pvec_second) == true, then this function does nothing.
  */
-extern void vector_swap(vector_t* pt_vectorfirst, vector_t* pt_vectorsecond);
+extern void vector_swap(vector_t* pvec_first, vector_t* pvec_second);
 
-/*
- * Access element of vector_t.
+/**
+ * Access vector data using subscript.
+ * @param cpvec_vector  vector container.
+ * @param t_pos         subscript.
+ * @return pointer to the data.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
+ *          is undefined. if t_pos >= vector_size(cpvec_vector), then the behavior is undefined.
  */
-extern void* vector_at(const vector_t* cpt_vector, size_t t_pos);
-extern void* vector_front(const vector_t* cpt_vector);
-extern void* vector_back(const vector_t* cpt_vector);
+extern void* vector_at(const vector_t* cpvec_vector, size_t t_pos);
 
-/*
- * Iterator support of vector_t.
+/**
+ * Access first vector data.
+ * @param cpvec_vector  vector container.
+ * @return pointer to the data.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
+ *          is undefined. if the vector is empty, then the behavior is undefined.
  */
-extern vector_iterator_t vector_begin(const vector_t* cpt_vector);
-extern vector_iterator_t vector_end(const vector_t* cpt_vector);
+extern void* vector_front(const vector_t* cpvec_vector);
+
+/**
+ * Access last vector data.
+ * @param cpvec_vector  vector container.
+ * @return pointer to the data.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
+ *          is undefined. if the vector is empty, then the behavior is undefined.
+ */
+extern void* vector_back(const vector_t* cpvec_vector);
+
+/**
+ * Return a iterator to the first element in the vector container.
+ * @param cpvec_vector  vector container.
+ * @return a iterator to the first element in the vector container.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
+ *          is undefined. if the vector is empty, then return vector_end(cpvec_vector).
+ */
+extern vector_iterator_t vector_begin(const vector_t* cpvec_vector);
+
+/**
+ * Return a iterator that points just beyond the end of vector container.
+ * @param cpvec_vector  vector container.
+ * @return a iterator to the end of vector.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
+ *          is undefined.
+ */
+extern vector_iterator_t vector_end(const vector_t* cpvec_vector);
 /* private interface */
-extern vector_reverse_iterator_t vector_rbegin(const vector_t* cpt_vector);
-extern vector_reverse_iterator_t vector_rend(const vector_t* cpt_vector);
+extern vector_reverse_iterator_t vector_rbegin(const vector_t* cpvec_vector);
+extern vector_reverse_iterator_t vector_rend(const vector_t* cpvec_vector);
 
-/*
- * Insert the range [t_begin, t_end) before position t_pos.
+/**
+ * Insert a range of elements into vector at a specificed position.
+ * @param pvec_vector   vector container.
+ * @param it_pos        specificed position.
+ * @param it_begin      the position of first element in the range.
+ * @param it_end        the position of first element beyond the range.
+ * @return void.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for vector container, otherwise
+ *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
+ *          if [it_begin, it_end) belong to vector, the behavior is undefined. the type of specificed range and 
+ *          vector element must be the same, otherwise the behavior is undefined.
  */
 extern void vector_insert_range(
-    vector_t* pt_vector, vector_iterator_t t_pos,
-    vector_iterator_t t_begin, vector_iterator_t t_end);
+    vector_t* pvec_vector, vector_iterator_t it_pos, vector_iterator_t it_begin, vector_iterator_t it_end);
 
 /*
  * Erase element form vector_t.

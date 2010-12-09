@@ -381,8 +381,7 @@ vector_iterator_t _vector_insert_n_varg(
         {
             size_t t_insertpos = iterator_distance(vector_begin(pvec_vector), it_pos);
             /* reserve the new size */
-            /* new size = old size + 2 * element count */
-            vector_reserve(pvec_vector, vector_size(pvec_vector) + 2 * t_count);
+            vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), t_count));
             it_pos = iterator_next_n(vector_begin(pvec_vector), t_insertpos);
         }
 
@@ -437,8 +436,6 @@ vector_iterator_t _vector_insert_n_varg(
         /* destroy varg and free memory */
         _vector_destroy_varg_value_auxiliary(pvec_vector, pv_varg);
         _alloc_deallocate(&pvec_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
-
-        it_pos = iterator_next_n(it_pos, t_count);
     }
 
     return it_pos;
