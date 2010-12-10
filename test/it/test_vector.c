@@ -913,16 +913,11 @@ void test_vector(void)
             {
                 return;
             }
-            vector_init(pt_abc);
+            vector_init_n(pt_abc, 3);
             pt_tmp = (abc_t*)vector_front(pt_abc);
-            if(pt_tmp != NULL)
-            {
-                printf("%d\n", pt_tmp->_n_first);
-            }
-            else
-            {
-                printf("no elements\n");
-            }
+            assert(pt_tmp != NULL);
+            printf("%d\n", pt_tmp->_n_first);
+
             vector_destroy(pt_abc);
         }
         /* vector_back() */
@@ -935,14 +930,8 @@ void test_vector(void)
             }
             vector_init_n(pt_abc, 4);
             pt_tmp = (abc_t*)vector_back(pt_abc);
-            if(pt_tmp != NULL)
-            {
-                printf("%d\n", pt_tmp->_n_first);
-            }
-            else
-            {
-                printf("no elements\n");
-            }
+            assert(pt_tmp != NULL);
+            printf("%d\n", pt_tmp->_n_first);
             vector_destroy(pt_abc);
         }
         /* vector_begin() */

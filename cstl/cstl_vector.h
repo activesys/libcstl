@@ -61,18 +61,27 @@ extern "C" {
  */
 #define vector_assign_elem(pvec_vector, t_count, elem) _vector_assign_elem((pvec_vector), (t_count), (elem))
 
-/*
- * Insert a new element at the end of vector_t.
+/**
+ * Adds an element to the end of vector.
+ * @param pvec_vector  vector container.
+ * @param elem         specificed element.
+ * @return void.
+ * @remarks if pvec_vector == NULL or vector is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and vector element type must be same, otherwise the behavior is undefined.
  */
-#define vector_push_back(pt_vector, elem)\
-    _vector_push_back((pt_vector), (elem))
+#define vector_push_back(pvec_vector, elem) _vector_push_back((pvec_vector), (elem))
 
-/*
- * Append elements or erase elements from the end, as necessary to make the vector_t's
- * size exactly t_resize elements.
+/**
+ * Specifies a new size of a vector.
+ * @param pvec_vector   vector container.
+ * @param t_resize      new size of vector.
+ * @param elem          specificed element.
+ * @return void.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
+ *          is undefined. if vector is empty, then the behavior is undefined. if t_resize is greater than vector size, new
+ *          specificed element are added to the vector until it reaches the required size.
  */
-#define vector_resize_elem(pt_vector, t_resize, elem)\
-    _vector_resize_elem((pt_vector), (t_resize), (elem))
+#define vector_resize_elem(pvec_vector, t_resize, elem) _vector_resize_elem((pvec_vector), (t_resize), (elem))
 
 /**
  * Insert an element into vector at a specificed position.
@@ -371,19 +380,57 @@ extern vector_reverse_iterator_t vector_rend(const vector_t* cpvec_vector);
 extern void vector_insert_range(
     vector_t* pvec_vector, vector_iterator_t it_pos, vector_iterator_t it_begin, vector_iterator_t it_end);
 
-/*
- * Erase element form vector_t.
+/**
+ * Delete the element at the end of vector.
+ * @param pvec_vector  vector container.
+ * @return void.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
+ *          is undefined. if vector is empty, then the behavior is undefined.
  */
-extern void vector_pop_back(vector_t* pt_vector);
-extern vector_iterator_t vector_erase(vector_t* pt_vector, vector_iterator_t t_pos);
-extern vector_iterator_t vector_erase_range(
-    vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end);
-extern void vector_clear(vector_t* pt_vector);
+extern void vector_pop_back(vector_t* pvec_vector);
 
-/*
- * Reset the vector_t size.
+/**
+ * Removes an element in vector from specificed position.
+ * @param pvec_vector    vector container.
+ * @param it_pos         specificed position.
+ * @return an iterator that reference the first element beyond the removed element.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for vector container, otherwise
+ *          the behavior is undefined.
  */
-extern void vector_resize(vector_t* pt_vector, size_t t_resize);
+extern vector_iterator_t vector_erase(vector_t* pvec_vector, vector_iterator_t it_pos);
+
+/**
+ * Removes a range of elements in vector from specificed position.
+ * @param pvec_vector    vector container.
+ * @param it_begin       position of first element removed from the vector.
+ * @param it_end         position just beyond the last element removed from the vector.
+ * @return an iterator that reference the first element beyond the removed element.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the
+ *          behavior is undefined. the [it_begin, it_end) muse be valid range for vector container, otherwise the
+ *          behavior is undefined.
+ */
+extern vector_iterator_t vector_erase_range(vector_t* pvec_vector, vector_iterator_t it_begin, vector_iterator_t it_end);
+
+/**
+ * Erases the elements of vector.
+ * @param pvec_vector   vector container.
+ * @return void.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
+ *          is undefined. if vector is empty, then the behavior is undefined.
+ */
+extern void vector_clear(vector_t* pvec_vector);
+
+/**
+ * Specifies a new size of a vector.
+ * @param pvec_vector   vector container.
+ * @param t_resize      new size of vector.
+ * @return void.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
+ *          is undefined. if vector is empty, then the behavior is undefined. if t_resize is greater than vector size, new
+ *          default element are added to the vector until it reaches the required size.
+ */
+extern void vector_resize(vector_t* pvec_vector, size_t t_resize);
 
 #ifdef __cplusplus
 }

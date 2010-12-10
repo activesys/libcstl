@@ -251,8 +251,7 @@ void _vector_push_back_varg(vector_t* pvec_vector, va_list val_elemlist)
     /* if the remain capacity is less then the element count */
     if(vector_capacity(pvec_vector) == vector_size(pvec_vector)) 
     {
-        /* reserve the new size = old size + 2 */
-        vector_reserve(pvec_vector, vector_size(pvec_vector) + 2);
+        vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), 1));
     }
 
     /* initialize the last element */
@@ -309,7 +308,7 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
         t_expsize = t_resize - vector_size(pvec_vector);
         if(t_resize > vector_capacity(pvec_vector))
         {
-            vector_reserve(pvec_vector, vector_size(pvec_vector) + 2 * t_expsize);
+            vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), t_expsize));
         }
 
         /* get varg value only once */
