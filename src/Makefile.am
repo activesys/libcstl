@@ -14,7 +14,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_hashtable.c \
 		     cstl_heap.c \
 		     cstl_iterator.c \
-		     cstl_list.c \
+		     cstl_list.c cstl_list_iterator.c cstl_list_private.c cstl_list_aux.c cstl_list_aux.h \
 		     cstl_map.c \
 		     cstl_multimap.c \
 		     cstl_multiset.c \

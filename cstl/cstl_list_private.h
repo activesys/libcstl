@@ -30,6 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
+#define _LIST_NODE_SIZE(typesize) ((typesize) + sizeof(listnode_t) - 1)
 
 /** data type declaration and struct, union, enum section **/
 /*

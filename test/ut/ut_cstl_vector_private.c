@@ -79,9 +79,9 @@ void test__create_vector_auxiliary__c_builtin_type(void** state)
     vector_t* pvec = (vector_t*)malloc(sizeof(vector_t));
     assert_true(pvec != NULL);
     assert_true(_create_vector_auxiliary(pvec, "int"));
-    assert_true(pvec->_pc_endofstorage == NULL);
-    assert_true(pvec->_pc_finish == NULL);
-    assert_true(pvec->_pc_start == NULL);
+    assert_true(pvec->_pby_endofstorage == NULL);
+    assert_true(pvec->_pby_finish == NULL);
+    assert_true(pvec->_pby_start == NULL);
     assert_true(pvec->_t_typeinfo._pt_type != NULL);
     assert_true(pvec->_t_typeinfo._t_style == _TYPE_C_BUILTIN);
     assert_true(strcmp(pvec->_t_typeinfo._sz_typename, _INT_TYPE) == 0);
@@ -94,9 +94,9 @@ void test__create_vector_auxiliary__libcstl_builtin_type(void** state)
     vector_t* pvec = (vector_t*)malloc(sizeof(vector_t));
     assert_true(pvec != NULL);
     assert_true(_create_vector_auxiliary(pvec, "list_t< int>    "));
-    assert_true(pvec->_pc_endofstorage == NULL);
-    assert_true(pvec->_pc_finish == NULL);
-    assert_true(pvec->_pc_start == NULL);
+    assert_true(pvec->_pby_endofstorage == NULL);
+    assert_true(pvec->_pby_finish == NULL);
+    assert_true(pvec->_pby_start == NULL);
     assert_true(pvec->_t_typeinfo._pt_type != NULL);
     assert_true(pvec->_t_typeinfo._t_style == _TYPE_CSTL_BUILTIN);
     assert_true(strcmp(pvec->_t_typeinfo._sz_typename, "list_t<int>") == 0);
@@ -111,9 +111,9 @@ void test__create_vector_auxiliary__registed_type(void** state)
     assert_true(pvec != NULL);
     type_register(_create_vector_auxiliary__registed_type_t, NULL, NULL, NULL, NULL);
     assert_true(_create_vector_auxiliary(pvec, "_create_vector_auxiliary__registed_type_t"));
-    assert_true(pvec->_pc_endofstorage == NULL);
-    assert_true(pvec->_pc_finish == NULL);
-    assert_true(pvec->_pc_start == NULL);
+    assert_true(pvec->_pby_endofstorage == NULL);
+    assert_true(pvec->_pby_finish == NULL);
+    assert_true(pvec->_pby_start == NULL);
     assert_true(pvec->_t_typeinfo._pt_type != NULL);
     assert_true(pvec->_t_typeinfo._t_style == _TYPE_USER_DEFINE);
     assert_true(strcmp(pvec->_t_typeinfo._sz_typename, "_create_vector_auxiliary__registed_type_t") == 0);
@@ -133,7 +133,7 @@ void test__vector_init_elem__vector_init_elem_varg__null_vector_container(void**
 void test__vector_init_elem__vector_init_elem_varg__non_created(void** state)
 {
     vector_t vec;
-    vec._pc_start = (char*)0x89;
+    vec._pby_start = (_byte_t*)0x89;
 
     expect_assert_failure(_vector_init_elem(&vec, 10, 100));
 }
@@ -209,8 +209,8 @@ void test__vector_destroy_auxiliary__null_vector_container(void** state)
 void test__vector_destroy_auxiliary__invalid_vector_container_finish_less_than_start(void** state)
 {
     vector_t vec;
-    vec._pc_finish = (char*)0x00;
-    vec._pc_start = (char*)0x08;
+    vec._pby_finish = (_byte_t*)0x00;
+    vec._pby_start = (_byte_t*)0x08;
 
     expect_assert_failure(_vector_destroy_auxiliary(&vec));
 }
@@ -218,9 +218,9 @@ void test__vector_destroy_auxiliary__invalid_vector_container_finish_less_than_s
 void test__vector_destroy_auxiliary__invalid_vector_container_endofstorage_less_than_start(void** state)
 {
     vector_t vec;
-    vec._pc_endofstorage = (char*)0x00;
-    vec._pc_start = (char*)0x08;
-    vec._pc_finish = (char*)0x10;
+    vec._pby_endofstorage = (_byte_t*)0x00;
+    vec._pby_start = (_byte_t*)0x08;
+    vec._pby_finish = (_byte_t*)0x10;
 
     expect_assert_failure(_vector_destroy_auxiliary(&vec));
 }
@@ -230,9 +230,9 @@ void test__vector_destroy_auxiliary__successfully_non_init_container(void** stat
     vector_t* pvec = create_vector(int);
 
     _vector_destroy_auxiliary(pvec);
-    assert_true(pvec->_pc_endofstorage == NULL);
-    assert_true(pvec->_pc_finish == NULL);
-    assert_true(pvec->_pc_start == NULL);
+    assert_true(pvec->_pby_endofstorage == NULL);
+    assert_true(pvec->_pby_finish == NULL);
+    assert_true(pvec->_pby_start == NULL);
 
     free(pvec);
 }
@@ -243,9 +243,9 @@ void test__vector_destroy_auxiliary__successfully_empty_container(void** state)
     vector_init(pvec);
 
     _vector_destroy_auxiliary(pvec);
-    assert_true(pvec->_pc_endofstorage == NULL);
-    assert_true(pvec->_pc_finish == NULL);
-    assert_true(pvec->_pc_start == NULL);
+    assert_true(pvec->_pby_endofstorage == NULL);
+    assert_true(pvec->_pby_finish == NULL);
+    assert_true(pvec->_pby_start == NULL);
 
     free(pvec);
 }
@@ -256,9 +256,9 @@ void test__vector_destroy_auxiliary__successfully(void** state)
     vector_init_n(pvec, 10);
 
     _vector_destroy_auxiliary(pvec);
-    assert_true(pvec->_pc_endofstorage == NULL);
-    assert_true(pvec->_pc_finish == NULL);
-    assert_true(pvec->_pc_start == NULL);
+    assert_true(pvec->_pby_endofstorage == NULL);
+    assert_true(pvec->_pby_finish == NULL);
+    assert_true(pvec->_pby_start == NULL);
 
     free(pvec);
 }
@@ -276,10 +276,10 @@ void test__vector_assign_elem__vector_assign_elem_varg__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_start = (char*)0x89;
+    pvec->_pby_start = (_byte_t*)0x89;
     expect_assert_failure(_vector_assign_elem(pvec, 10, 100));
 
-    pvec->_pc_start = NULL;
+    pvec->_pby_start = NULL;
     vector_destroy(pvec);
 }
 
@@ -400,11 +400,11 @@ void test__vector_push_back__vector_push_back_varg__null_vector_container(void**
 void test__vector_push_back__vector_push_back_varg__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
-    pvec->_pc_start = (char*)0x98;
+    pvec->_pby_start = (_byte_t*)0x98;
 
     expect_assert_failure(_vector_push_back(pvec, 90));
 
-    pvec->_pc_start = NULL;
+    pvec->_pby_start = NULL;
     vector_destroy(pvec);
 }
 
@@ -485,11 +485,11 @@ void test__vector_resize_elem__vector_resize_elem_varg__null_vector_container(vo
 void test__vector_resize_elem__vector_resize_elem_varg__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
-    pvec->_pc_start = (char*)0x987;
+    pvec->_pby_start = (_byte_t*)0x987;
 
     expect_assert_failure(_vector_resize_elem(pvec, 10, 100));
 
-    pvec->_pc_start = NULL;
+    pvec->_pby_start = NULL;
     vector_destroy(pvec);
 }
 
@@ -751,11 +751,11 @@ void test__vector_insert_n__vector_insert_n_varg__null_vector_container(void** s
 void test__vector_insert_n__vector_insert_n_varg__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
-    pvec->_pc_start = (char*)0x78;
+    pvec->_pby_start = (_byte_t*)0x78;
 
     expect_assert_failure(_vector_insert_n(pvec, vector_begin(pvec), 10, 100));
 
-    pvec->_pc_start = NULL;
+    pvec->_pby_start = NULL;
     vector_destroy(pvec);
 }
 
@@ -1138,7 +1138,7 @@ void test__vector_init_elem_auxiliary__non_created_vector(void** state)
 {
     int elem = 0;
     vector_t vec;
-    vec._pc_start = (char*)0x78;
+    vec._pby_start = (_byte_t*)0x78;
 
     expect_assert_failure(_vector_init_elem_auxiliary(&vec, &elem));
 }
@@ -1148,7 +1148,7 @@ void test__vector_init_elem_auxiliary__successfully_int(void** state)
     vector_t* pvec = create_vector(int);
     vector_init_elem(pvec, 10, 100);
 
-    _vector_init_elem_auxiliary(pvec, pvec->_pc_start);
+    _vector_init_elem_auxiliary(pvec, pvec->_pby_start);
     assert_true(*(int*)vector_front(pvec) == 0);
 
     vector_destroy(pvec);
@@ -1159,7 +1159,7 @@ void test__vector_init_elem_auxiliary__successfully_cstr(void** state)
     vector_t* pvec = create_vector(char*);
     vector_init_elem(pvec, 10, "abcdefg");
 
-    _vector_init_elem_auxiliary(pvec, pvec->_pc_start);
+    _vector_init_elem_auxiliary(pvec, pvec->_pby_start);
     assert_true(strcmp((char*)vector_front(pvec), "") == 0);
 
     vector_destroy(pvec);
@@ -1171,7 +1171,7 @@ void test__vector_init_elem_auxiliary__successfully_iterator(void** state)
     vector_t* pvec = create_vector(iterator_t);
     vector_init_elem(pvec, 10, &it_iter);
 
-    _vector_init_elem_auxiliary(pvec, pvec->_pc_start);
+    _vector_init_elem_auxiliary(pvec, pvec->_pby_start);
     memset(&it_iter, 0x00, sizeof(iterator_t));
     assert_true(memcmp((iterator_t*)vector_front(pvec), &it_iter, sizeof(iterator_t)) == 0);
 
@@ -1184,9 +1184,9 @@ void test__vector_init_elem_auxiliary__successfully_container(void** state)
     vector_t* pvec = create_vector(vector_t<int>);
 
     _vector_init_elem_auxiliary(pvec, &vec);
-    assert_true(vec._pc_start == NULL);
-    assert_true(vec._pc_finish == NULL);
-    assert_true(vec._pc_endofstorage == NULL);
+    assert_true(vec._pby_start == NULL);
+    assert_true(vec._pby_finish == NULL);
+    assert_true(vec._pby_endofstorage == NULL);
     assert_true(vec._t_typeinfo._t_style == _TYPE_C_BUILTIN);
     assert_true(vec._t_typeinfo._pt_type != NULL);
     assert_true(strcmp(vec._t_typeinfo._sz_typename, _INT_TYPE) == 0);

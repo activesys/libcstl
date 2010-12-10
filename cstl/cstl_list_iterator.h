@@ -38,15 +38,57 @@ typedef iterator_t list_reverse_iterator_t;
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Iterator support.
+/**
+ * Create list iterator.
+ * @return list iterator.
+ * @remarks the returned iterator is invalid iterator.
  */
-extern list_iterator_t create_list_iterator(void);
-extern void _list_iterator_get_value(list_iterator_t t_iter, void* pv_value);
-extern void _list_iterator_set_value(list_iterator_t cpt_iter, const void* cpv_value);
-extern const void* _list_iterator_get_pointer(list_iterator_t t_iter); 
+extern list_iterator_t _create_list_iterator(void);
+
+/**
+ * Get data value referenced by iterator.
+ * @param it_iter    list iterator.
+ * @param pv_value   data value buffer.
+ * @return void.
+ * @remarks it_iter must be valid list iterator, otherwise the behavior is undefined. if pv_value == NULL, then the
+ *          behavior is undefined.
+ */
+extern void _list_iterator_get_value(list_iterator_t it_iter, void* pv_value);
+
+/**
+ * Set data value referenced by iterator.
+ * @param it_iter    list iterator.
+ * @param cpv_value  data value buffer.
+ * @return void.
+ * @remarks it_iter must be valid list iterator, otherwise the behavior is undefined. if cpv_value == NULL, then the
+ *          behavior is undefined.
+ */
+extern void _list_iterator_set_value(list_iterator_t it_iter, const void* cpv_value);
+
+/**
+ * Get data value pointer referenced by iterator.
+ * @param it_iter    list iterator.
+ * @return void.
+ * @remarks it_iter must be valid list iterator, otherwise the behavior is undefined. if pv_value == NULL, then the
+ *          behavior is undefined.
+ */
+extern const void* _list_iterator_get_pointer(list_iterator_t it_iter); 
+
+/**
+ * Return iterator reference next element.
+ * @param  it_iter    current iterator.
+ * @return next iterator.
+ * @remarks it_iter and next iterator must be valid iterator, otherwise the behavior is undefined.
+ */
 extern list_iterator_t _list_iterator_next(list_iterator_t t_iter);
-extern list_iterator_t _list_iterator_prev(list_iterator_t t_iter);
+
+/**
+ * Return iterator reference previous element.
+ * @param  it_iter    current iterator.
+ * @return previous iterator.
+ * @remarks it_iter and previous iterator must be valid iterator, otherwise the behavior is undefined.
+ */
+extern list_iterator_t _list_iterator_prev(list_iterator_t it_iter);
 extern bool_t _list_iterator_equal(
     list_iterator_t t_iterfirst, list_iterator_t t_itersecond);
 extern int _list_iterator_distance(

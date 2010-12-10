@@ -26,7 +26,7 @@ void test_vector_init__null_vector_container(void** state)
 void test_vector_init__non_created(void** state)
 {
     vector_t vec;
-    vec._pc_start = (char*)0x887;
+    vec._pby_start = (_byte_t*)0x887;
     expect_assert_failure(vector_init(&vec));
 }
 
@@ -94,7 +94,7 @@ void test_vector_init_n__null_vector_container(void** state)
 void test_vector_init_n__non_created(void** state)
 {
     vector_t vec;
-    vec._pc_finish = (char*)0x234;
+    vec._pby_finish = (_byte_t*)0x234;
     expect_assert_failure(vector_init_n(&vec, 10));
 }
 
@@ -224,10 +224,10 @@ void test_vector_init_copy__non_inited_src(void** state)
     vector_t* pvec_dest = create_vector(int);
     vector_t* pvec_src = create_vector(int);
 
-    pvec_src->_pc_finish = (char*)0x732;
+    pvec_src->_pby_finish = (_byte_t*)0x732;
     expect_assert_failure(vector_init_copy(pvec_dest, pvec_src));
 
-    pvec_src->_pc_finish = NULL;
+    pvec_src->_pby_finish = NULL;
     vector_destroy(pvec_dest);
     vector_destroy(pvec_src);
 }
@@ -710,7 +710,7 @@ void test_vector_destroy__null_vector_container(void** state)
 void test_vector_destroy__non_created(void** state)
 {
     vector_t vec;
-    vec._pc_start = (char*)0x37;
+    vec._pby_start = (_byte_t*)0x37;
 
     expect_assert_failure(vector_destroy(&vec));
 }
@@ -720,9 +720,9 @@ void test_vector_destroy__created_non_inited(void** state)
     vector_t* pvec = create_vector(int);
 
     vector_destroy(pvec);
-    assert_true(pvec->_pc_start == NULL);
-    assert_true(pvec->_pc_finish == NULL);
-    assert_true(pvec->_pc_endofstorage == NULL);
+    assert_true(pvec->_pby_start == NULL);
+    assert_true(pvec->_pby_finish == NULL);
+    assert_true(pvec->_pby_endofstorage == NULL);
 }
 
 void test_vector_destroy__inited_empty(void** state)
@@ -731,9 +731,9 @@ void test_vector_destroy__inited_empty(void** state)
     vector_init(pvec);
 
     vector_destroy(pvec);
-    assert_true(pvec->_pc_start == NULL);
-    assert_true(pvec->_pc_finish == NULL);
-    assert_true(pvec->_pc_endofstorage == NULL);
+    assert_true(pvec->_pby_start == NULL);
+    assert_true(pvec->_pby_finish == NULL);
+    assert_true(pvec->_pby_endofstorage == NULL);
 }
 
 void test_vector_destroy__inited_non_empty(void** state)
@@ -742,9 +742,9 @@ void test_vector_destroy__inited_non_empty(void** state)
     vector_init_n(pvec, 199);
 
     vector_destroy(pvec);
-    assert_true(pvec->_pc_start == NULL);
-    assert_true(pvec->_pc_finish == NULL);
-    assert_true(pvec->_pc_endofstorage == NULL);
+    assert_true(pvec->_pby_start == NULL);
+    assert_true(pvec->_pby_finish == NULL);
+    assert_true(pvec->_pby_endofstorage == NULL);
 }
 
 /*
@@ -760,10 +760,10 @@ void test_vector_size__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_start = (char*)0x887;
+    pvec->_pby_start = (_byte_t*)0x887;
     expect_assert_failure(vector_size(pvec));
 
-    pvec->_pc_start = NULL;
+    pvec->_pby_start = NULL;
     vector_destroy(pvec);
 }
 
@@ -800,10 +800,10 @@ void test_vector_empty__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_finish = (char*)0x34;
+    pvec->_pby_finish = (_byte_t*)0x34;
     expect_assert_failure(vector_empty(pvec));
 
-    pvec->_pc_finish = NULL;
+    pvec->_pby_finish = NULL;
     vector_destroy(pvec);
 }
 
@@ -840,10 +840,10 @@ void test_vector_max_size__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_finish = (char*)0x783;
+    pvec->_pby_finish = (_byte_t*)0x783;
     expect_assert_failure(vector_max_size(pvec));
 
-    pvec->_pc_finish = NULL;
+    pvec->_pby_finish = NULL;
     vector_destroy(pvec);
 }
 
@@ -870,10 +870,10 @@ void test_vector_capacity__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_endofstorage = (char*)0x623;
+    pvec->_pby_endofstorage = (_byte_t*)0x623;
     expect_assert_failure(vector_capacity(pvec));
 
-    pvec->_pc_endofstorage = NULL;
+    pvec->_pby_endofstorage = NULL;
     vector_destroy(pvec);
 }
 
@@ -920,10 +920,10 @@ void test_vector_reserve__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_finish = (char*)0x34;
+    pvec->_pby_finish = (_byte_t*)0x34;
     expect_assert_failure(vector_reserve(pvec, 100));    
 
-    pvec->_pc_finish = NULL;
+    pvec->_pby_finish = NULL;
     vector_destroy(pvec);
 }
 
@@ -993,10 +993,10 @@ void test_vector_equal__non_inited_first(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_second);
-    pvec_first->_pc_finish = (char*)0x73;
+    pvec_first->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_equal(pvec_first, pvec_second));
 
-    pvec_first->_pc_finish = NULL;
+    pvec_first->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1007,10 +1007,10 @@ void test_vector_equal__non_inited_second(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_first);
-    pvec_second->_pc_finish = (char*)0x73;
+    pvec_second->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_equal(pvec_first, pvec_second));
 
-    pvec_second->_pc_finish = NULL;
+    pvec_second->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1146,10 +1146,10 @@ void test_vector_not_equal__non_inited_first(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_second);
-    pvec_first->_pc_finish = (char*)0x73;
+    pvec_first->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_not_equal(pvec_first, pvec_second));
 
-    pvec_first->_pc_finish = NULL;
+    pvec_first->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1160,10 +1160,10 @@ void test_vector_not_equal__non_inited_second(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_first);
-    pvec_second->_pc_finish = (char*)0x73;
+    pvec_second->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_not_equal(pvec_first, pvec_second));
 
-    pvec_second->_pc_finish = NULL;
+    pvec_second->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1299,10 +1299,10 @@ void test_vector_less__non_inited_first(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_second);
-    pvec_first->_pc_finish = (char*)0x73;
+    pvec_first->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_less(pvec_first, pvec_second));
 
-    pvec_first->_pc_finish = NULL;
+    pvec_first->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1313,10 +1313,10 @@ void test_vector_less__non_inited_second(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_first);
-    pvec_second->_pc_finish = (char*)0x73;
+    pvec_second->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_less(pvec_first, pvec_second));
 
-    pvec_second->_pc_finish = NULL;
+    pvec_second->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1452,10 +1452,10 @@ void test_vector_less_equal__non_inited_first(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_second);
-    pvec_first->_pc_finish = (char*)0x73;
+    pvec_first->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_less_equal(pvec_first, pvec_second));
 
-    pvec_first->_pc_finish = NULL;
+    pvec_first->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1466,10 +1466,10 @@ void test_vector_less_equal__non_inited_second(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_first);
-    pvec_second->_pc_finish = (char*)0x73;
+    pvec_second->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_less_equal(pvec_first, pvec_second));
 
-    pvec_second->_pc_finish = NULL;
+    pvec_second->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1605,10 +1605,10 @@ void test_vector_greater__non_inited_first(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_second);
-    pvec_first->_pc_finish = (char*)0x73;
+    pvec_first->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_greater(pvec_first, pvec_second));
 
-    pvec_first->_pc_finish = NULL;
+    pvec_first->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1619,10 +1619,10 @@ void test_vector_greater__non_inited_second(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_first);
-    pvec_second->_pc_finish = (char*)0x73;
+    pvec_second->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_greater(pvec_first, pvec_second));
 
-    pvec_second->_pc_finish = NULL;
+    pvec_second->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1758,10 +1758,10 @@ void test_vector_greater_equal__non_inited_first(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_second);
-    pvec_first->_pc_finish = (char*)0x73;
+    pvec_first->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_greater_equal(pvec_first, pvec_second));
 
-    pvec_first->_pc_finish = NULL;
+    pvec_first->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1772,10 +1772,10 @@ void test_vector_greater_equal__non_inited_second(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_first);
-    pvec_second->_pc_finish = (char*)0x73;
+    pvec_second->_pby_finish = (_byte_t*)0x73;
     expect_assert_failure(vector_greater_equal(pvec_first, pvec_second));
 
-    pvec_second->_pc_finish = NULL;
+    pvec_second->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -1911,11 +1911,11 @@ void test_vector_assign__non_inited_dest(void** state)
     vector_t* pvec_src = create_vector(int);
 
     vector_init(pvec_src);
-    pvec_dest->_pc_finish = (char*)0x22;
+    pvec_dest->_pby_finish = (_byte_t*)0x22;
 
     expect_assert_failure(vector_assign(pvec_dest, pvec_src));
 
-    pvec_dest->_pc_finish = NULL;
+    pvec_dest->_pby_finish = NULL;
     vector_destroy(pvec_dest);
     vector_destroy(pvec_src);
 }
@@ -1926,11 +1926,11 @@ void test_vector_assign__non_inited_src(void** state)
     vector_t* pvec_src = create_vector(int);
 
     vector_init(pvec_dest);
-    pvec_src->_pc_finish = (char*)0x22;
+    pvec_src->_pby_finish = (_byte_t*)0x22;
 
     expect_assert_failure(vector_assign(pvec_dest, pvec_src));
 
-    pvec_src->_pc_finish = NULL;
+    pvec_src->_pby_finish = NULL;
     vector_destroy(pvec_dest);
     vector_destroy(pvec_src);
 }
@@ -2158,10 +2158,10 @@ void test_vector_assign_range__non_inited(void** state)
     vector_t* pvec_src = create_vector(int);
     vector_init(pvec_src);
 
-    pvec_dest->_pc_start = (char*)0x354;
+    pvec_dest->_pby_start = (_byte_t*)0x354;
     expect_assert_failure(vector_assign_range(pvec_dest, vector_begin(pvec_src), vector_end(pvec_src)));
 
-    pvec_dest->_pc_start = NULL;
+    pvec_dest->_pby_start = NULL;
     vector_destroy(pvec_dest);
     vector_destroy(pvec_src);
 }
@@ -2502,11 +2502,11 @@ void test_vector_swap__non_inited_first(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_second);
-    pvec_first->_pc_finish = (char*)0x88;
+    pvec_first->_pby_finish = (_byte_t*)0x88;
 
     expect_assert_failure(vector_swap(pvec_first, pvec_second));
 
-    pvec_first->_pc_finish = NULL;
+    pvec_first->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -2517,11 +2517,11 @@ void test_vector_swap__non_inited_second(void** state)
     vector_t* pvec_second = create_vector(int);
 
     vector_init(pvec_first);
-    pvec_second->_pc_finish = (char*)0x88;
+    pvec_second->_pby_finish = (_byte_t*)0x88;
 
     expect_assert_failure(vector_swap(pvec_first, pvec_second));
 
-    pvec_second->_pc_finish = NULL;
+    pvec_second->_pby_finish = NULL;
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
@@ -2855,10 +2855,10 @@ void test_vector_at__non_inited_vector_container(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_start = (char*)0x223;
+    pvec->_pby_start = (_byte_t*)0x223;
     expect_assert_failure(vector_at(pvec, 0));
 
-    pvec->_pc_start = NULL;
+    pvec->_pby_start = NULL;
     vector_destroy(pvec);
 }
 
@@ -2939,10 +2939,10 @@ void test_vector_front__non_inited_vector_container(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_finish = (char*)0x334;
+    pvec->_pby_finish = (_byte_t*)0x334;
     expect_assert_failure(vector_front(pvec));
 
-    pvec->_pc_finish = NULL;
+    pvec->_pby_finish = NULL;
     vector_destroy(pvec);
 }
 
@@ -2995,10 +2995,10 @@ void test_vector_back__non_inited_vector_container(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_finish = (char*)0x334;
+    pvec->_pby_finish = (_byte_t*)0x334;
     expect_assert_failure(vector_back(pvec));
 
-    pvec->_pc_finish = NULL;
+    pvec->_pby_finish = NULL;
     vector_destroy(pvec);
 }
 
@@ -3051,10 +3051,10 @@ void test_vector_begin__non_inited_vector_container(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_finish = (char*)0x354;
+    pvec->_pby_finish = (_byte_t*)0x354;
     expect_assert_failure(vector_begin(pvec));
 
-    pvec->_pc_finish = NULL;
+    pvec->_pby_finish = NULL;
     vector_destroy(pvec);
 }
 
@@ -3082,7 +3082,7 @@ void test_vector_begin__non_empty(void** state)
 
     it_begin = vector_begin(pvec);
     assert_true(_vector_iterator_belong_to_vector(pvec, it_begin));
-    assert_true(it_begin._t_pos._pc_corepos == pvec->_pc_start);
+    assert_true(it_begin._t_pos._pc_corepos == pvec->_pby_start);
     assert_true(*(int*)iterator_get_pointer(it_begin) == 123);
 
     vector_destroy(pvec);
@@ -3101,10 +3101,10 @@ void test_vector_end__non_inited_vector_container(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_finish = (char*)0x354;
+    pvec->_pby_finish = (_byte_t*)0x354;
     expect_assert_failure(vector_end(pvec));
 
-    pvec->_pc_finish = NULL;
+    pvec->_pby_finish = NULL;
     vector_destroy(pvec);
 }
 
@@ -3132,7 +3132,7 @@ void test_vector_end__non_empty(void** state)
 
     it_end = vector_end(pvec);
     assert_true(_vector_iterator_belong_to_vector(pvec, it_end));
-    assert_true(it_end._t_pos._pc_corepos == pvec->_pc_finish);
+    assert_true(it_end._t_pos._pc_corepos == pvec->_pby_finish);
 
     vector_destroy(pvec);
 }
@@ -3159,11 +3159,11 @@ void test_vector_insert_range__non_inited(void** state)
     vector_t* pvec = create_vector(int);
     vector_t* pvec_src = create_vector(int);
     vector_init(pvec_src);
-    pvec->_pc_start = (char*)0x78;
+    pvec->_pby_start = (_byte_t*)0x78;
 
     expect_assert_failure(vector_insert_range(pvec, vector_begin(pvec), vector_begin(pvec_src), vector_end(pvec_src)));
 
-    pvec->_pc_start = NULL;
+    pvec->_pby_start = NULL;
     vector_destroy(pvec);
     vector_destroy(pvec_src);
 }
@@ -3579,10 +3579,10 @@ void test_vector_pop_back__non_inited_vector_container(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_finish = (char*)0x3445;
+    pvec->_pby_finish = (_byte_t*)0x3445;
     expect_assert_failure(vector_pop_back(pvec));
 
-    pvec->_pc_finish = NULL;
+    pvec->_pby_finish = NULL;
     vector_destroy(pvec);
 }
 
@@ -3649,7 +3649,7 @@ void test_vector_erase__non_inited_vector_container(void** state)
     size_t i = 0;
     size_t t_oldsize = 0;
     size_t t_oldcapacity = 0;
-    char*  pc_oldfinish = NULL;
+    _byte_t*  pby_oldfinish = NULL;
     vector_iterator_t it_pos = _create_vector_iterator();
     vector_t* pvec = create_vector(int);
     vector_init(pvec);
@@ -3661,11 +3661,11 @@ void test_vector_erase__non_inited_vector_container(void** state)
     t_oldcapacity = vector_capacity(pvec);
 
     it_pos = vector_begin(pvec);
-    pc_oldfinish = pvec->_pc_finish;
-    pvec->_pc_finish = NULL;
+    pby_oldfinish = pvec->_pby_finish;
+    pvec->_pby_finish = NULL;
     expect_assert_failure(vector_erase(pvec, it_pos));
 
-    pvec->_pc_finish = pc_oldfinish;
+    pvec->_pby_finish = pby_oldfinish;
     vector_destroy(pvec);
 }
 
@@ -3823,7 +3823,7 @@ void test_vector_erase_range__non_inited_vector_container(void** state)
     size_t i = 0;
     size_t t_oldsize = 0;
     size_t t_oldcapacity = 0;
-    char*  pc_oldfinish = NULL;
+    _byte_t*  pby_oldfinish = NULL;
     vector_iterator_t it_begin = _create_vector_iterator();
     vector_iterator_t it_end = _create_vector_iterator();
     vector_t* pvec = create_vector(int);
@@ -3837,11 +3837,11 @@ void test_vector_erase_range__non_inited_vector_container(void** state)
 
     it_begin = vector_begin(pvec);
     it_end = vector_end(pvec);
-    pc_oldfinish = pvec->_pc_finish;
-    pvec->_pc_finish = NULL;
+    pby_oldfinish = pvec->_pby_finish;
+    pvec->_pby_finish = NULL;
     expect_assert_failure(vector_erase_range(pvec, it_begin, it_end));
 
-    pvec->_pc_finish = pc_oldfinish;
+    pvec->_pby_finish = pby_oldfinish;
     vector_destroy(pvec);
 }
 
@@ -4047,10 +4047,10 @@ void test_vector_clear__non_inited_vector_container(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    pvec->_pc_finish = (char*)0x89;
+    pvec->_pby_finish = (_byte_t*)0x89;
     expect_assert_failure(vector_clear(pvec));
 
-    pvec->_pc_finish = NULL;
+    pvec->_pby_finish = NULL;
     vector_destroy(pvec);
 }
 
@@ -4096,11 +4096,11 @@ void test_vector_resize__null_vector_container(void** state)
 void test_vector_resize__non_inited(void** state)
 {
     vector_t* pvec = create_vector(int);
-    pvec->_pc_start = (char*)0x987;
+    pvec->_pby_start = (_byte_t*)0x987;
 
     expect_assert_failure(vector_resize(pvec, 10));
 
-    pvec->_pc_start = NULL;
+    pvec->_pby_start = NULL;
     vector_destroy(pvec);
 }
 

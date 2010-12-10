@@ -29,6 +29,7 @@
 
 #include <cstl/cstl_vector_iterator.h>
 #include <cstl/cstl_vector_private.h>
+#include <cstl/cstl_vector.h>
 
 #include "cstl_vector_aux.h"
 
@@ -55,8 +56,8 @@ bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_it
     assert(it_iter._t_containertype == _VECTOR_CONTAINER);
     assert(_GET_VECTOR_CONTAINER(it_iter) == cpvec_vector);
 
-    if(_GET_VECTOR_COREPOS(it_iter) >= cpvec_vector->_pc_start &&
-       _GET_VECTOR_COREPOS(it_iter) <= cpvec_vector->_pc_finish)
+    if(_GET_VECTOR_COREPOS(it_iter) >= cpvec_vector->_pby_start &&
+       _GET_VECTOR_COREPOS(it_iter) <= cpvec_vector->_pby_finish)
     {
         return true;
     }
@@ -97,7 +98,7 @@ bool_t _vector_is_created(const vector_t* cpvec_vector)
         return false;
     }
 
-    if(cpvec_vector->_pc_start != NULL || cpvec_vector->_pc_finish != NULL || cpvec_vector->_pc_endofstorage != NULL)
+    if(cpvec_vector->_pby_start != NULL || cpvec_vector->_pby_finish != NULL || cpvec_vector->_pby_endofstorage != NULL)
     {
         return false;
     }
@@ -119,16 +120,16 @@ bool_t _vector_is_inited(const vector_t* cpvec_vector)
         return false;
     }
 
-    if(cpvec_vector->_pc_start == NULL && cpvec_vector->_pc_finish == NULL && cpvec_vector->_pc_endofstorage == NULL)
+    if(cpvec_vector->_pby_start == NULL && cpvec_vector->_pby_finish == NULL && cpvec_vector->_pby_endofstorage == NULL)
     {
         return true;
     }
-    else if(cpvec_vector->_pc_start != NULL &&
-            cpvec_vector->_pc_finish != NULL &&
-            cpvec_vector->_pc_endofstorage != NULL &&
-            cpvec_vector->_pc_finish >= cpvec_vector->_pc_start &&
-            cpvec_vector->_pc_endofstorage >= cpvec_vector->_pc_start &&
-            cpvec_vector->_pc_endofstorage >= cpvec_vector->_pc_finish)
+    else if(cpvec_vector->_pby_start != NULL &&
+            cpvec_vector->_pby_finish != NULL &&
+            cpvec_vector->_pby_endofstorage != NULL &&
+            cpvec_vector->_pby_finish >= cpvec_vector->_pby_start &&
+            cpvec_vector->_pby_endofstorage >= cpvec_vector->_pby_start &&
+            cpvec_vector->_pby_endofstorage >= cpvec_vector->_pby_finish)
     {
         return true;
     }
@@ -157,14 +158,14 @@ bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_seco
 /**
  * Initialize data within range [pby_start, pby_finish) according to vector element data type.
  */
-void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, char* pc_start, char* pc_finish)
+void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, _byte_t* pby_start, _byte_t* pby_finish)
 {
-    char* pc_pos = NULL;
+    _byte_t* pby_pos = NULL;
 
     assert(pvec_vector != NULL);
-    assert(pc_start != NULL);
-    assert(pc_finish != NULL);
-    assert(pc_start <= pc_finish);
+    assert(pby_start != NULL);
+    assert(pby_finish != NULL);
+    assert(pby_start <= pby_finish);
     assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
 
     /* initialize new elements */
@@ -174,17 +175,17 @@ void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, char* pc_start, ch
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_VECTOR_TYPE_NAME(pvec_vector), s_elemtypename);
 
-        for(pc_pos = pc_start; pc_pos < pc_finish; pc_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
+        for(pby_pos = pby_start; pby_pos < pby_finish; pby_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
-            _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pc_pos, s_elemtypename);
+            _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pby_pos, s_elemtypename);
         }
     }
     else
     {
-        for(pc_pos = pc_start; pc_pos < pc_finish; pc_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
+        for(pby_pos = pby_start; pby_pos < pby_finish; pby_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
             bool_t b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pc_pos, &b_result);
+            _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pby_pos, &b_result);
             assert(b_result);
         }
     }

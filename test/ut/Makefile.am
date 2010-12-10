@@ -15,7 +15,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_hash_set.c \
 	     $(srcdir)/../../src/cstl_hashtable.c \
 	     $(srcdir)/../../src/cstl_heap.c \
-	     $(srcdir)/../../src/cstl_list.c \
+	     $(srcdir)/../../src/cstl_list.c $(srcdir)/../../src/cstl_list_iterator.c \
+	     $(srcdir)/../../src/cstl_list_private.c $(srcdir)/../../src/cstl_list_aux.c \
 	     $(srcdir)/../../src/cstl_map.c \
 	     $(srcdir)/../../src/cstl_multimap.c \
 	     $(srcdir)/../../src/cstl_multiset.c \
@@ -35,7 +36,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
              ut_cstl_vector_iterator.c ut_cstl_vector_iterator.h \
 	     ut_cstl_vector_aux.c ut_cstl_vector_aux.h \
 	     ut_cstl_vector_private.c ut_cstl_vector_private.h \
-	     ut_cstl_vector.c ut_cstl_vector.h
+	     ut_cstl_vector.c ut_cstl_vector.h \
+	     ut_cstl_list_iterator.c ut_cstl_list_iterator.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

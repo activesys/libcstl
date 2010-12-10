@@ -69,14 +69,14 @@ void vector_init_n(vector_t* pvec_vector, size_t t_count)
     {
         size_t t_newcapacity = _vector_calculate_new_capacity(0, t_count);
 
-        pvec_vector->_pc_start = _alloc_allocate(
+        pvec_vector->_pby_start = _alloc_allocate(
             &pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_newcapacity);
-        assert(pvec_vector->_pc_start != NULL);
-        pvec_vector->_pc_finish = pvec_vector->_pc_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_count;
-        pvec_vector->_pc_endofstorage = pvec_vector->_pc_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_newcapacity;
+        assert(pvec_vector->_pby_start != NULL);
+        pvec_vector->_pby_finish = pvec_vector->_pby_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_count;
+        pvec_vector->_pby_endofstorage = pvec_vector->_pby_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_newcapacity;
 
         /* initialize all elements */
-        _vector_init_elem_range_auxiliary(pvec_vector, pvec_vector->_pc_start, pvec_vector->_pc_finish);
+        _vector_init_elem_range_auxiliary(pvec_vector, pvec_vector->_pby_start, pvec_vector->_pby_finish);
     }
 }
 
@@ -147,7 +147,7 @@ size_t vector_size(const vector_t* cpvec_vector)
     assert(cpvec_vector != NULL);
     assert(_vector_is_inited(cpvec_vector));
 
-    return (cpvec_vector->_pc_finish - cpvec_vector->_pc_start) / _GET_VECTOR_TYPE_SIZE(cpvec_vector);
+    return (cpvec_vector->_pby_finish - cpvec_vector->_pby_start) / _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 }
 
 /**
@@ -158,7 +158,7 @@ bool_t vector_empty(const vector_t* cpvec_vector)
     assert(cpvec_vector != NULL);
     assert(_vector_is_inited(cpvec_vector));
     
-    return cpvec_vector->_pc_start == cpvec_vector->_pc_finish ? true : false;
+    return cpvec_vector->_pby_start == cpvec_vector->_pby_finish ? true : false;
 }
 
 /**
@@ -180,7 +180,7 @@ size_t vector_capacity(const vector_t* cpvec_vector)
     assert(cpvec_vector != NULL);
     assert(_vector_is_inited(cpvec_vector));
 
-    return (cpvec_vector->_pc_endofstorage - cpvec_vector->_pc_start) / _GET_VECTOR_TYPE_SIZE(cpvec_vector);
+    return (cpvec_vector->_pby_endofstorage - cpvec_vector->_pby_start) / _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 }
 
 /**
@@ -188,15 +188,15 @@ size_t vector_capacity(const vector_t* cpvec_vector)
  */
 void vector_reserve(vector_t* pvec_vector, size_t t_reservesize)
 {
-    char*  pc_reservemem = NULL; /* new memory for reserve */
-    char*  pc_newstart = NULL;
-    char*  pc_newfinish = NULL;
-    char*  pc_newendofstorage = NULL;
-    char*  pc_newpos = NULL;
-    char*  pc_oldpos = NULL;
-    size_t t_oldsize = 0;
-    size_t t_oldcapacity = 0;
-    bool_t b_result = false;
+    _byte_t* pby_reservemem = NULL; /* new memory for reserve */
+    _byte_t* pby_newstart = NULL;
+    _byte_t* pby_newfinish = NULL;
+    _byte_t* pby_newendofstorage = NULL;
+    _byte_t* pby_newpos = NULL;
+    _byte_t* pby_oldpos = NULL;
+    size_t   t_oldsize = 0;
+    size_t   t_oldcapacity = 0;
+    bool_t   b_result = false;
 
     assert(pvec_vector != NULL);
     assert(_vector_is_inited(pvec_vector));
@@ -204,44 +204,44 @@ void vector_reserve(vector_t* pvec_vector, size_t t_reservesize)
     if(vector_capacity(pvec_vector) < t_reservesize)
     {
         /* allocate the new vector with reserve size */
-        pc_reservemem = _alloc_allocate(&pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_reservesize);
-        assert(pc_reservemem != NULL);
+        pby_reservemem = _alloc_allocate(&pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_reservesize);
+        assert(pby_reservemem != NULL);
         /* get the new position */
-        t_oldsize = pvec_vector->_pc_finish - pvec_vector->_pc_start;
-        t_oldcapacity = pvec_vector->_pc_endofstorage - pvec_vector->_pc_start;
-        pc_newstart = pc_reservemem;
-        pc_newfinish = pc_reservemem + t_oldsize;
-        pc_newendofstorage = pc_reservemem + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_reservesize;
+        t_oldsize = pvec_vector->_pby_finish - pvec_vector->_pby_start;
+        t_oldcapacity = pvec_vector->_pby_endofstorage - pvec_vector->_pby_start;
+        pby_newstart = pby_reservemem;
+        pby_newfinish = pby_reservemem + t_oldsize;
+        pby_newendofstorage = pby_reservemem + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_reservesize;
 
         /* initialize new elements */
-        _vector_init_elem_range_auxiliary(pvec_vector, pc_newstart, pc_newfinish);
+        _vector_init_elem_range_auxiliary(pvec_vector, pby_newstart, pby_newfinish);
 
         /* copy elements from old memory and destroy those */
-        for(pc_newpos = pc_newstart, pc_oldpos = pvec_vector->_pc_start;
-            pc_newpos < pc_newfinish && pc_oldpos < pvec_vector->_pc_finish;
-            pc_newpos += _GET_VECTOR_TYPE_SIZE(pvec_vector),
-            pc_oldpos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
+        for(pby_newpos = pby_newstart, pby_oldpos = pvec_vector->_pby_start;
+            pby_newpos < pby_newfinish && pby_oldpos < pvec_vector->_pby_finish;
+            pby_newpos += _GET_VECTOR_TYPE_SIZE(pvec_vector),
+            pby_oldpos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
             /* copy from old vector_t memory */
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pc_newpos, pc_oldpos, &b_result);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pby_newpos, pby_oldpos, &b_result);
             assert(b_result);
             /* destroy old vector_t memory */
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(pc_oldpos, &b_result);
+            _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(pby_oldpos, &b_result);
             assert(b_result);
         }
-        assert(pc_newpos == pc_newfinish && pc_oldpos == pvec_vector->_pc_finish);
+        assert(pby_newpos == pby_newfinish && pby_oldpos == pvec_vector->_pby_finish);
 
         /* free the old vector element */
-        if(pvec_vector->_pc_start != NULL)
+        if(pvec_vector->_pby_start != NULL)
         {
-            _alloc_deallocate(&pvec_vector->_t_allocater, pvec_vector->_pc_start,
+            _alloc_deallocate(&pvec_vector->_t_allocater, pvec_vector->_pby_start,
                 _GET_VECTOR_TYPE_SIZE(pvec_vector), t_oldcapacity / _GET_VECTOR_TYPE_SIZE(pvec_vector));
         }
-        pvec_vector->_pc_start = pc_newstart;
-        pvec_vector->_pc_finish = pc_newfinish;
-        pvec_vector->_pc_endofstorage = pc_newendofstorage;
+        pvec_vector->_pby_start = pby_newstart;
+        pvec_vector->_pby_finish = pby_newfinish;
+        pvec_vector->_pby_endofstorage = pby_newendofstorage;
     }
 }
 
@@ -458,11 +458,11 @@ void* vector_at(const vector_t* cpvec_vector, size_t t_pos)
     /* char* */
     if(strncmp(_GET_VECTOR_TYPE_BASENAME(cpvec_vector), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return (char*)string_c_str((string_t*)(cpvec_vector->_pc_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpvec_vector)));
+        return (char*)string_c_str((string_t*)(cpvec_vector->_pby_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpvec_vector)));
     }
     else
     {
-        return cpvec_vector->_pc_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpvec_vector);
+        return cpvec_vector->_pby_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpvec_vector);
     }
 }
 
@@ -502,7 +502,7 @@ vector_iterator_t vector_begin(const vector_t* cpvec_vector)
 
     it_begin = _create_vector_iterator();
     _GET_CONTAINER(it_begin) = (vector_t*)cpvec_vector;
-    _GET_VECTOR_COREPOS(it_begin) = cpvec_vector->_pc_start;
+    _GET_VECTOR_COREPOS(it_begin) = cpvec_vector->_pby_start;
 
     return it_begin;
 }
@@ -519,7 +519,7 @@ vector_iterator_t vector_end(const vector_t* cpvec_vector)
 
     it_end = _create_vector_iterator();
     _GET_CONTAINER(it_end) = (vector_t*)cpvec_vector;
-    _GET_VECTOR_COREPOS(it_end) = cpvec_vector->_pc_finish;
+    _GET_VECTOR_COREPOS(it_end) = cpvec_vector->_pby_finish;
 
     return it_end;
 }
@@ -533,7 +533,7 @@ vector_reverse_iterator_t vector_rbegin(const vector_t* cpvec_vector)
 
     it_rbegin = _create_vector_iterator();
     _GET_CONTAINER(it_rbegin) = (vector_t*)cpvec_vector;
-    _GET_VECTOR_COREPOS(it_rbegin) = cpvec_vector->_pc_finish - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
+    _GET_VECTOR_COREPOS(it_rbegin) = cpvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 
     return it_rbegin;
 }
@@ -547,7 +547,7 @@ vector_reverse_iterator_t vector_rend(const vector_t* cpvec_vector)
 
     it_rend = _create_vector_iterator();
     _GET_CONTAINER(it_rend) = (vector_t*)cpvec_vector;
-    _GET_VECTOR_COREPOS(it_rend) = cpvec_vector->_pc_start - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
+    _GET_VECTOR_COREPOS(it_rend) = cpvec_vector->_pby_start - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 
     return it_rend;
 }
@@ -562,9 +562,9 @@ void vector_insert_range(
     bool_t            b_result = false;
     vector_iterator_t it_first;
     vector_iterator_t it_second;
-    char*             pc_oldfinish = NULL;
-    char*             pc_pos = NULL;
-    char*             pc_destpos = NULL;
+    _byte_t*          pby_oldfinish = NULL;
+    _byte_t*          pby_pos = NULL;
+    _byte_t*          pby_destpos = NULL;
 
     /* test the vector and iterator is valid */
     assert(pvec_vector != NULL);
@@ -582,27 +582,27 @@ void vector_insert_range(
         /* if the remain capacity is less then the element count */
         if(vector_size(pvec_vector) + t_count > vector_capacity(pvec_vector))
         {
-            size_t t_distance = _GET_VECTOR_COREPOS(it_pos) - pvec_vector->_pc_start;
+            size_t t_distance = _GET_VECTOR_COREPOS(it_pos) - (char*)pvec_vector->_pby_start;
             /* reserve the new size */
             vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), t_count));
-            _GET_VECTOR_COREPOS(it_pos) = pvec_vector->_pc_start + t_distance;
+            _GET_VECTOR_COREPOS(it_pos) = pvec_vector->_pby_start + t_distance;
         }
 
         /* initialize new elements */
-        pc_oldfinish = pvec_vector->_pc_finish;
-        assert(pc_oldfinish != NULL);
-        pvec_vector->_pc_finish += t_count * _GET_VECTOR_TYPE_SIZE(pvec_vector);
-        _vector_init_elem_range_auxiliary(pvec_vector, pc_oldfinish, pvec_vector->_pc_finish);
+        pby_oldfinish = pvec_vector->_pby_finish;
+        assert(pby_oldfinish != NULL);
+        pvec_vector->_pby_finish += t_count * _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _vector_init_elem_range_auxiliary(pvec_vector, pby_oldfinish, pvec_vector->_pby_finish);
 
         /* move element from old finish to new finish */
-        for(pc_pos = pc_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
-            pc_destpos = pvec_vector->_pc_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            pc_pos >= _GET_VECTOR_COREPOS(it_pos);
-            pc_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
-            pc_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector))
+        for(pby_pos = pby_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
+            pby_destpos = pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            pby_pos >= _GET_VECTOR_COREPOS(it_pos);
+            pby_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
+            pby_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pc_destpos, pc_pos, &b_result);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pby_destpos, pby_pos, &b_result);
             assert(b_result);
         }
 
@@ -634,9 +634,9 @@ void vector_pop_back(vector_t* pvec_vector)
 
     /* destroy last element */
     b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-    _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(pvec_vector->_pc_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector), &b_result);
+    _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector), &b_result);
     assert(b_result);
-    pvec_vector->_pc_finish -= _GET_VECTOR_TYPE_SIZE(pvec_vector);
+    pvec_vector->_pby_finish -= _GET_VECTOR_TYPE_SIZE(pvec_vector);
 }
 
 /**
@@ -681,7 +681,7 @@ vector_iterator_t vector_erase_range(vector_t* pvec_vector, vector_iterator_t it
         _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_begin), _GET_VECTOR_COREPOS(it_end), &b_result);
         assert(b_result);
     }
-    assert(_GET_VECTOR_COREPOS(it_begin) == pvec_vector->_pc_finish - t_erasesize * _GET_VECTOR_TYPE_SIZE(pvec_vector));
+    assert(_GET_VECTOR_COREPOS(it_begin) == pvec_vector->_pby_finish - t_erasesize * _GET_VECTOR_TYPE_SIZE(pvec_vector));
 
     /* destroy the deleted elements */
     for(; !iterator_equal(it_begin, it_end); it_begin = iterator_next(it_begin))
@@ -690,7 +690,7 @@ vector_iterator_t vector_erase_range(vector_t* pvec_vector, vector_iterator_t it
         _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_begin), &b_result);
         assert(b_result);
     }
-    pvec_vector->_pc_finish -= t_erasesize * _GET_VECTOR_TYPE_SIZE(pvec_vector);
+    pvec_vector->_pby_finish -= t_erasesize * _GET_VECTOR_TYPE_SIZE(pvec_vector);
 
     return it_iter;
 }
@@ -702,7 +702,7 @@ void vector_resize(vector_t* pvec_vector, size_t t_resize)
 {
     vector_iterator_t it_cutpos;     /* the cut position */
     size_t            t_expsize = 0;
-    char*             pc_oldfinish = NULL;
+    _byte_t*          pby_oldfinish = NULL;
 
     assert(pvec_vector != NULL);
     assert(_vector_is_inited(pvec_vector));
@@ -726,9 +726,9 @@ void vector_resize(vector_t* pvec_vector, size_t t_resize)
         }
 
         /* initialize new elements */
-        pc_oldfinish = pvec_vector->_pc_finish;
-        pvec_vector->_pc_finish += t_expsize * _GET_VECTOR_TYPE_SIZE(pvec_vector);
-        _vector_init_elem_range_auxiliary(pvec_vector, pc_oldfinish, pvec_vector->_pc_finish);
+        pby_oldfinish = pvec_vector->_pby_finish;
+        pvec_vector->_pby_finish += t_expsize * _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _vector_init_elem_range_auxiliary(pvec_vector, pby_oldfinish, pvec_vector->_pby_finish);
     }
 }
 

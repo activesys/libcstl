@@ -34,7 +34,7 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 /*
  * vector_t
- * _pc_start             _pc_finish      _pc_endofstorage
+ * _pby_start          _pby_finish      _pby_endofstorage
  * |                     |               |
  * V                     V               V
  * +-------------------------------------+
@@ -52,9 +52,9 @@ typedef struct _tagvector
     _alloc_t    _t_allocater;
 
     /* vector core struct pointer */
-    char*       _pc_start;          /* the start of used space */
-    char*       _pc_finish;         /* the end of used space */
-    char*       _pc_endofstorage;   /* the end of capacity space */
+    _byte_t*    _pby_start;          /* the start of used space */
+    _byte_t*    _pby_finish;         /* the end of used space */
+    _byte_t*    _pby_endofstorage;   /* the end of capacity space */
 }vector_t;
 
 /** exported global variable declaration section **/

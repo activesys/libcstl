@@ -29,6 +29,7 @@
 
 #include <cstl/cstl_vector_iterator.h>
 #include <cstl/cstl_vector_private.h>
+#include <cstl/cstl_vector.h>
 
 #include <cstl/cstring.h>
 
@@ -81,9 +82,9 @@ bool_t _create_vector_auxiliary(vector_t* pvec_vector, const char* s_typename)
         return false;
     }
 
-    pvec_vector->_pc_start = NULL;
-    pvec_vector->_pc_finish = NULL;
-    pvec_vector->_pc_endofstorage = NULL;
+    pvec_vector->_pby_start = NULL;
+    pvec_vector->_pby_finish = NULL;
+    pvec_vector->_pby_endofstorage = NULL;
 
     _alloc_init(&pvec_vector->_t_allocater);
     return true;
@@ -163,16 +164,16 @@ void _vector_destroy_auxiliary(vector_t* pvec_vector)
         assert(b_result);
     }
     /* free vector memory */
-    if(pvec_vector->_pc_start != NULL)
+    if(pvec_vector->_pby_start != NULL)
     {
-        _alloc_deallocate(&pvec_vector->_t_allocater, pvec_vector->_pc_start, _GET_VECTOR_TYPE_SIZE(pvec_vector), 
-            (pvec_vector->_pc_endofstorage - pvec_vector->_pc_start) / _GET_VECTOR_TYPE_SIZE(pvec_vector));
+        _alloc_deallocate(&pvec_vector->_t_allocater, pvec_vector->_pby_start, _GET_VECTOR_TYPE_SIZE(pvec_vector), 
+            (pvec_vector->_pby_endofstorage - pvec_vector->_pby_start) / _GET_VECTOR_TYPE_SIZE(pvec_vector));
     }
     _alloc_destroy(&pvec_vector->_t_allocater);
 
-    pvec_vector->_pc_start = NULL;
-    pvec_vector->_pc_finish = NULL;
-    pvec_vector->_pc_endofstorage = NULL;
+    pvec_vector->_pby_start = NULL;
+    pvec_vector->_pby_finish = NULL;
+    pvec_vector->_pby_endofstorage = NULL;
 }
 
 /**
@@ -243,7 +244,7 @@ void _vector_push_back(vector_t* pvec_vector, ...)
  */
 void _vector_push_back_varg(vector_t* pvec_vector, va_list val_elemlist)
 {
-    char*  pc_last = NULL;
+    _byte_t*  pby_last = NULL;
 
     assert(pvec_vector != NULL);
     assert(_vector_is_inited(pvec_vector));
@@ -255,12 +256,12 @@ void _vector_push_back_varg(vector_t* pvec_vector, va_list val_elemlist)
     }
 
     /* initialize the last element */
-    pc_last = pvec_vector->_pc_finish;
-    assert(pc_last != NULL);
-    pvec_vector->_pc_finish += _GET_VECTOR_TYPE_SIZE(pvec_vector);
-    _vector_init_elem_auxiliary(pvec_vector, pc_last);
+    pby_last = pvec_vector->_pby_finish;
+    assert(pby_last != NULL);
+    pvec_vector->_pby_finish += _GET_VECTOR_TYPE_SIZE(pvec_vector);
+    _vector_init_elem_auxiliary(pvec_vector, pby_last);
     /* copy value from varg */
-    _type_get_varg_value(&pvec_vector->_t_typeinfo, val_elemlist, pc_last);
+    _type_get_varg_value(&pvec_vector->_t_typeinfo, val_elemlist, pby_last);
 }
 
 /**
@@ -287,7 +288,7 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
     size_t            t_expsize = 0;
     size_t            i = 0;
     void*             pv_varg = NULL;
-    char*             pc_oldfinish = NULL;
+    _byte_t*          pby_oldfinish = NULL;
     bool_t            b_result = false;
 
     assert(pvec_vector != NULL);
@@ -317,15 +318,15 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
         _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
 
         /* initialize new elements */
-        pc_oldfinish = pvec_vector->_pc_finish;
-        pvec_vector->_pc_finish += t_expsize * _GET_VECTOR_TYPE_SIZE(pvec_vector);
-        _vector_init_elem_range_auxiliary(pvec_vector, pc_oldfinish, pvec_vector->_pc_finish);
+        pby_oldfinish = pvec_vector->_pby_finish;
+        pvec_vector->_pby_finish += t_expsize * _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _vector_init_elem_range_auxiliary(pvec_vector, pby_oldfinish, pvec_vector->_pby_finish);
         /* copy value from varg to new elements */
         for(i = 0; i < t_expsize; ++i)
         {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
-                pc_oldfinish + i * _GET_VECTOR_TYPE_SIZE(pvec_vector), pv_varg, &b_result);
+                pby_oldfinish + i * _GET_VECTOR_TYPE_SIZE(pvec_vector), pv_varg, &b_result);
             assert(b_result);
         }
         /* destroy varg */
@@ -371,9 +372,9 @@ vector_iterator_t _vector_insert_n_varg(
     if(t_count > 0)
     {
         size_t i = 0;
-        char*  pc_oldfinish = NULL;
-        char*  pc_pos = NULL;   /* for initialize elments and insert elements */
-        char*  pc_destpos = NULL;
+        _byte_t*  pby_oldfinish = NULL;
+        _byte_t*  pby_pos = NULL;   /* for initialize elments and insert elements */
+        _byte_t*  pby_destpos = NULL;
 
         /* if the remain capacity is less then the element count */
         if(vector_size(pvec_vector) + t_count > vector_capacity(pvec_vector))
@@ -401,22 +402,22 @@ vector_iterator_t _vector_insert_n_varg(
          * +-----------------------------------------+
          * ^          ^             ^           ^
          * |          |             |           |
-         * start     it_pos       pc_oldfinish  finish
+         * start     it_pos       pby_oldfinish  finish
          */
         /* initialize new elements */
-        pc_oldfinish = pvec_vector->_pc_finish;
-        assert(pc_oldfinish != NULL);
-        pvec_vector->_pc_finish += t_count * _GET_VECTOR_TYPE_SIZE(pvec_vector);
-        _vector_init_elem_range_auxiliary(pvec_vector, pc_oldfinish, pvec_vector->_pc_finish);
+        pby_oldfinish = pvec_vector->_pby_finish;
+        assert(pby_oldfinish != NULL);
+        pvec_vector->_pby_finish += t_count * _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _vector_init_elem_range_auxiliary(pvec_vector, pby_oldfinish, pvec_vector->_pby_finish);
         /* move element from old finish to new finish */
-        for(pc_pos = pc_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
-            pc_destpos = pvec_vector->_pc_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            pc_pos >= _GET_VECTOR_COREPOS(it_pos);
-            pc_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
-            pc_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector))
+        for(pby_pos = pby_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
+            pby_destpos = pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            pby_pos >= _GET_VECTOR_COREPOS(it_pos);
+            pby_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
+            pby_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pc_destpos, pc_pos, &b_result);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pby_destpos, pby_pos, &b_result);
             assert(b_result);
         }
 

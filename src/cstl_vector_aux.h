@@ -131,7 +131,7 @@ extern void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv
  *          if pby_finish < pby_start, then the behavior is undefined. pvec_vector must be initialized or created
  *          by create_vector(), otherwise the behavior is undefined.
  */
-extern void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, char* pc_start, char* pc_finish);
+extern void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, _byte_t* pby_start, _byte_t* pby_finish);
 
 /**
  * Calculate new capacity according to old size and insert size.

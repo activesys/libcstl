@@ -77,6 +77,8 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_hash_multiset.lo libcstl_la-cstl_hash_set.lo \
 	libcstl_la-cstl_hashtable.lo libcstl_la-cstl_heap.lo \
 	libcstl_la-cstl_iterator.lo libcstl_la-cstl_list.lo \
+	libcstl_la-cstl_list_iterator.lo \
+	libcstl_la-cstl_list_private.lo libcstl_la-cstl_list_aux.lo \
 	libcstl_la-cstl_map.lo libcstl_la-cstl_multimap.lo \
 	libcstl_la-cstl_multiset.lo libcstl_la-cstl_numeric.lo \
 	libcstl_la-cstl_pair.lo libcstl_la-cstl_queue.lo \
@@ -158,7 +160,6 @@ PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
-PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 RANLIB = @RANLIB@
@@ -236,7 +237,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_hashtable.c \
 		     cstl_heap.c \
 		     cstl_iterator.c \
-		     cstl_list.c \
+		     cstl_list.c cstl_list_iterator.c cstl_list_private.c cstl_list_aux.c cstl_list_aux.h \
 		     cstl_map.c \
 		     cstl_multimap.c \
 		     cstl_multiset.c \
@@ -344,6 +345,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_heap.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_iterator.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_list.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_list_aux.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_list_iterator.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_list_private.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_map.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_multimap.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_multiset.Plo@am__quote@
@@ -493,6 +497,27 @@ libcstl_la-cstl_list.lo: cstl_list.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_list.c' object='libcstl_la-cstl_list.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_list.lo `test -f 'cstl_list.c' || echo '$(srcdir)/'`cstl_list.c
+
+libcstl_la-cstl_list_iterator.lo: cstl_list_iterator.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_list_iterator.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_list_iterator.Tpo -c -o libcstl_la-cstl_list_iterator.lo `test -f 'cstl_list_iterator.c' || echo '$(srcdir)/'`cstl_list_iterator.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_list_iterator.Tpo $(DEPDIR)/libcstl_la-cstl_list_iterator.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_list_iterator.c' object='libcstl_la-cstl_list_iterator.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_list_iterator.lo `test -f 'cstl_list_iterator.c' || echo '$(srcdir)/'`cstl_list_iterator.c
+
+libcstl_la-cstl_list_private.lo: cstl_list_private.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_list_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_list_private.Tpo -c -o libcstl_la-cstl_list_private.lo `test -f 'cstl_list_private.c' || echo '$(srcdir)/'`cstl_list_private.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_list_private.Tpo $(DEPDIR)/libcstl_la-cstl_list_private.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_list_private.c' object='libcstl_la-cstl_list_private.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_list_private.lo `test -f 'cstl_list_private.c' || echo '$(srcdir)/'`cstl_list_private.c
+
+libcstl_la-cstl_list_aux.lo: cstl_list_aux.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_list_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_list_aux.Tpo -c -o libcstl_la-cstl_list_aux.lo `test -f 'cstl_list_aux.c' || echo '$(srcdir)/'`cstl_list_aux.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_list_aux.Tpo $(DEPDIR)/libcstl_la-cstl_list_aux.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_list_aux.c' object='libcstl_la-cstl_list_aux.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_list_aux.lo `test -f 'cstl_list_aux.c' || echo '$(srcdir)/'`cstl_list_aux.c
 
 libcstl_la-cstl_map.lo: cstl_map.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_map.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_map.Tpo -c -o libcstl_la-cstl_map.lo `test -f 'cstl_map.c' || echo '$(srcdir)/'`cstl_map.c

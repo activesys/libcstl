@@ -29,6 +29,7 @@
 
 #include <cstl/cstl_vector_iterator.h>
 #include <cstl/cstl_vector_private.h>
+#include <cstl/cstl_vector.h>
 
 #include <cstl/cstring.h>
 
