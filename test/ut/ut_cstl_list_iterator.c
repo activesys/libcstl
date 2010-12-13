@@ -7,6 +7,7 @@
 #include "cstl/cstl_iterator.h"
 #include "cstl/cstl_list_iterator.h"
 #include "cstl/clist.h"
+#include "cstl/cvector.h"
 
 #include "ut_def.h"
 #include "ut_cstl_list_iterator.h"
@@ -444,4 +445,603 @@ void test__list_iterator_prev__successfully(void** state)
     list_destroy(plist);
 }
 
+/*
+ * test _list_iterator_equal
+ */
+UT_CASE_DEFINATION(_list_iterator_equal)
+void test__list_iterator_equal__first_invalid_container_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_first._t_containertype = 284923;
+
+    expect_assert_failure(_list_iterator_equal(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_equal__first_invalid_iterator_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_first._t_iteratortype = 284923;
+
+    expect_assert_failure(_list_iterator_equal(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_equal__second_invalid_container_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_second._t_containertype = 284923;
+
+    expect_assert_failure(_list_iterator_equal(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_equal__second_invalid_iterator_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_second._t_iteratortype = 284923;
+
+    expect_assert_failure(_list_iterator_equal(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_equal__not_same_container(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+
+    expect_assert_failure(_list_iterator_equal(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_equal__first_not_belong_to_list(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist);
+    it_first = list_begin(plist);
+    it_second = list_begin(plist);
+    it_first._t_pos._pc_corepos = (char*)0x01;
+
+    expect_assert_failure(_list_iterator_equal(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_equal__second_not_belong_to_list(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist);
+    it_first = list_begin(plist);
+    it_second = list_begin(plist);
+    it_second._t_pos._pc_corepos = (char*)0x01;
+
+    expect_assert_failure(_list_iterator_equal(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_equal__two_vector_iterator(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    vector_iterator_t it_first;
+    vector_iterator_t it_second;
+
+    vector_init_n(pvector, 10);
+    it_first = vector_begin(pvector);
+    it_second = vector_begin(pvector);
+
+    expect_assert_failure(_list_iterator_equal(it_first, it_second));
+
+    vector_destroy(pvector);
+}
+
+void test__list_iterator_equal__equal(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init_n(plist, 10);
+    it_first = list_begin(plist);
+    it_second = list_begin(plist);
+
+    assert_true(_list_iterator_equal(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_equal__not_equal(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init_n(plist, 10);
+    it_first = list_begin(plist);
+    it_second = list_end(plist);
+
+    assert_false(_list_iterator_equal(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+/*
+ * test _list_iterator_distance
+ */
+UT_CASE_DEFINATION(_list_iterator_distance)
+void test__list_iterator_distance__first_invalid_container_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_first._t_containertype = 284923;
+
+    expect_assert_failure(_list_iterator_distance(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_distance__first_invalid_iterator_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_first._t_iteratortype = 284923;
+
+    expect_assert_failure(_list_iterator_distance(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_distance__second_invalid_container_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_second._t_containertype = 284923;
+
+    expect_assert_failure(_list_iterator_distance(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_distance__second_invalid_iterator_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_second._t_iteratortype = 284923;
+
+    expect_assert_failure(_list_iterator_distance(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_distance__not_same_container(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+
+    expect_assert_failure(_list_iterator_distance(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_distance__first_not_belong_to_list(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist);
+    it_first = list_begin(plist);
+    it_second = list_begin(plist);
+    it_first._t_pos._pc_corepos = (char*)0x01;
+
+    expect_assert_failure(_list_iterator_distance(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_distance__second_not_belong_to_list(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist);
+    it_first = list_begin(plist);
+    it_second = list_begin(plist);
+    it_second._t_pos._pc_corepos = (char*)0x01;
+
+    expect_assert_failure(_list_iterator_distance(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_distance__two_vector_iterator(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    vector_iterator_t it_first;
+    vector_iterator_t it_second;
+
+    vector_init_n(pvector, 10);
+    it_first = vector_begin(pvector);
+    it_second = vector_begin(pvector);
+
+    expect_assert_failure(_list_iterator_distance(it_first, it_second));
+
+    vector_destroy(pvector);
+}
+
+void test__list_iterator_distance__greater_than_0(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init_n(plist, 10);
+    it_first = list_begin(plist);
+    it_second = list_end(plist);
+
+    assert_true(_list_iterator_distance(it_first, it_second) == 10);
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_distance__empty(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist);
+    it_first = list_begin(plist);
+    it_second = list_end(plist);
+
+    assert_true(_list_iterator_distance(it_first, it_second) == 0);
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_distance__non_empty_equal_to_0(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init_n(plist, 10);
+    it_first = iterator_next(list_begin(plist));
+    it_second = it_first;
+
+    assert_true(_list_iterator_distance(it_first, it_second) == 0);
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_distance__less_than_0(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init_n(plist, 10);
+    it_first = list_end(plist);
+    it_second = iterator_prev(it_first);
+
+    assert_true(_list_iterator_distance(it_first, it_second) == -1);
+
+    list_destroy(plist);
+}
+
+/*
+ * test _list_iterator_before
+ */
+UT_CASE_DEFINATION(_list_iterator_before)
+void test__list_iterator_before__first_invalid_container_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_first._t_containertype = 284923;
+
+    expect_assert_failure(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_before__first_invalid_iterator_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_first._t_iteratortype = 284923;
+
+    expect_assert_failure(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_before__second_invalid_container_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_second._t_containertype = 284923;
+
+    expect_assert_failure(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_before__second_invalid_iterator_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+    it_second._t_iteratortype = 284923;
+
+    expect_assert_failure(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_before__not_same_container(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist_first);
+    list_init(plist_second);
+
+    it_first = list_begin(plist_first);
+    it_second = list_begin(plist_second);
+
+    expect_assert_failure(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_iterator_before__first_not_belong_to_list(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist);
+    it_first = list_begin(plist);
+    it_second = list_begin(plist);
+    it_first._t_pos._pc_corepos = (char*)0x01;
+
+    expect_assert_failure(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_before__second_not_belong_to_list(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist);
+    it_first = list_begin(plist);
+    it_second = list_begin(plist);
+    it_second._t_pos._pc_corepos = (char*)0x01;
+
+    expect_assert_failure(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_before__two_vector_iterator(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    vector_iterator_t it_first;
+    vector_iterator_t it_second;
+
+    vector_init_n(pvector, 10);
+    it_first = vector_begin(pvector);
+    it_second = vector_begin(pvector);
+
+    expect_assert_failure(_list_iterator_before(it_first, it_second));
+
+    vector_destroy(pvector);
+}
+
+void test__list_iterator_before__before(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init_n(plist, 10);
+    it_first = list_begin(plist);
+    it_second = list_end(plist);
+
+    assert_true(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_before__empty(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init(plist);
+    it_first = list_begin(plist);
+    it_second = list_end(plist);
+
+    assert_false(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_before__non_empty_equal(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init_n(plist, 10);
+    it_first = iterator_next(list_begin(plist));
+    it_second = it_first;
+
+    assert_false(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_before__after(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_first;
+    list_iterator_t it_second;
+
+    list_init_n(plist, 10);
+    it_first = list_end(plist);
+    it_second = iterator_prev(it_first);
+
+    assert_false(_list_iterator_before(it_first, it_second));
+
+    list_destroy(plist);
+}
 

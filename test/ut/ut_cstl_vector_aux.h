@@ -8,6 +8,7 @@ UT_SUIT_DECLARATION(cstl_vector_aux)
  */
 UT_CASE_DECLARATION(_vector_iterator_belong_to_vector)
 void test__vector_iterator_belong_to_vector__null_container_pointer(void** state);
+void test__vector_iterator_belong_to_vector__non_inited_vector_container(void** state);
 void test__vector_iterator_belong_to_vector__invalid_iterator_container_type(void** state);
 void test__vector_iterator_belong_to_vector__invalid_iterator_iterator_type(void** state);
 void test__vector_iterator_belong_to_vector__invalid_iterator_different_container(void** state);
@@ -26,6 +27,8 @@ void test__vector_same_type__non_created_second(void** state);
 void test__vector_same_type__not_same_type_name(void** state);
 void test__vector_same_type__not_same_type_pointer(void** state);
 void test__vector_same_type__not_same_type_style(void** state);
+void test__vector_same_type__not_same_type_style_ex1(void** state);
+void test__vector_same_type__not_same_type_style_ex2(void** state);
 void test__vector_same_type__same_type(void** state);
 void test__vector_same_type__same_type_duplicate_name(void** state);
 /*
@@ -115,6 +118,7 @@ void test__vector_calculate_new_capacity__12345_size_1600894_insert(void** state
 
 #define UT_CSTL_VECTOR_AUX_CASE \
     UT_SUIT_BEGIN(cstl_vector_aux, test__vector_iterator_belong_to_vector__null_container_pointer),\
+    UT_CASE(test__vector_iterator_belong_to_vector__non_inited_vector_container),\
     UT_CASE(test__vector_iterator_belong_to_vector__invalid_iterator_container_type),\
     UT_CASE(test__vector_iterator_belong_to_vector__invalid_iterator_iterator_type),\
     UT_CASE(test__vector_iterator_belong_to_vector__invalid_iterator_different_container),\
@@ -129,6 +133,8 @@ void test__vector_calculate_new_capacity__12345_size_1600894_insert(void** state
     UT_CASE(test__vector_same_type__not_same_type_name),\
     UT_CASE(test__vector_same_type__not_same_type_pointer),\
     UT_CASE(test__vector_same_type__not_same_type_style),\
+    UT_CASE(test__vector_same_type__not_same_type_style_ex1),\
+    UT_CASE(test__vector_same_type__not_same_type_style_ex2),\
     UT_CASE(test__vector_same_type__same_type),\
     UT_CASE(test__vector_same_type__same_type_duplicate_name),\
     UT_CASE_BEGIN(_vector_same_vector_iterator_type, test__vector_same_vector_iterator_type__null_vector),\

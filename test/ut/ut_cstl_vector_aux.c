@@ -31,6 +31,21 @@ void test__vector_iterator_belong_to_vector__null_container_pointer(void** state
     vector_destroy(pvec);
 }
 
+void test__vector_iterator_belong_to_vector__non_inited_vector_container(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec);
+    it_iter = vector_begin(pvec);
+
+    pvec->_pby_start = 0x9883;
+    expect_assert_failure(_vector_iterator_belong_to_vector(NULL, it_iter));
+
+    pvec->_pby_start = NULL;
+    vector_destroy(pvec);
+}
+
 void test__vector_iterator_belong_to_vector__invalid_iterator_container_type(void** state)
 {
     vector_t* pvec = create_vector(int);
@@ -195,7 +210,6 @@ void test__vector_same_type__not_same_type_pointer(void** state)
     vector_init(pvec_first);
     vector_init(pvec_second);
 
-    pvec_second->_t_typeinfo._pt_type = NULL;
     assert_false(_vector_same_type(pvec_first, pvec_second));
 
     vector_destroy(pvec_first);
@@ -205,16 +219,42 @@ void test__vector_same_type__not_same_type_pointer(void** state)
 void test__vector_same_type__not_same_type_style(void** state)
 {
     vector_t* pvec_first = create_vector(int);
-    vector_t* pvec_second = create_vector(double);
+    vector_t* pvec_second = create_vector(vector_t<int>);
     vector_init(pvec_first);
     vector_init(pvec_second);
 
-    pvec_second->_t_typeinfo._t_style = _TYPE_CSTL_BUILTIN;
     assert_false(_vector_same_type(pvec_first, pvec_second));
 
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
 }
+
+void test__vector_same_type__not_same_type_style_ex1(void** state)
+{
+    vector_t* pvec_first = create_vector(iterator_t);
+    vector_t* pvec_second = create_vector(vector_t<int>);
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+
+    assert_false(_vector_same_type(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__vector_same_type__not_same_type_style_ex2(void** state)
+{
+    vector_t* pvec_first = create_vector(vector_t<double>);
+    vector_t* pvec_second = create_vector(vector_t<int>);
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+
+    assert_false(_vector_same_type(pvec_first, pvec_second));
+
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
 
 void test__vector_same_type__same_type(void** state)
 {

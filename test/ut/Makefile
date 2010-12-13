@@ -67,7 +67,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_vector_iterator.$(OBJEXT) \
 	ut-ut_cstl_vector_aux.$(OBJEXT) \
 	ut-ut_cstl_vector_private.$(OBJEXT) \
-	ut-ut_cstl_vector.$(OBJEXT) ut-ut_cstl_list_iterator.$(OBJEXT)
+	ut-ut_cstl_vector.$(OBJEXT) ut-ut_cstl_list_iterator.$(OBJEXT) \
+	ut-ut_cstl_list_aux.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -240,7 +241,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_vector_aux.c ut_cstl_vector_aux.h \
 	     ut_cstl_vector_private.c ut_cstl_vector_private.h \
 	     ut_cstl_vector.c ut_cstl_vector.h \
-	     ut_cstl_list_iterator.c ut_cstl_list_iterator.h
+	     ut_cstl_list_iterator.c ut_cstl_list_iterator.h \
+	     ut_cstl_list_aux.c ut_cstl_list_aux.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -336,6 +338,7 @@ include ./$(DEPDIR)/ut-cstl_vector_iterator.Po
 include ./$(DEPDIR)/ut-cstl_vector_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_alloc.Po
 include ./$(DEPDIR)/ut-ut_cstl_alloc_aux.Po
+include ./$(DEPDIR)/ut-ut_cstl_list_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_list_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_aux.Po
@@ -980,6 +983,20 @@ ut-ut_cstl_list_iterator.obj: ut_cstl_list_iterator.c
 #	source='ut_cstl_list_iterator.c' object='ut-ut_cstl_list_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_iterator.obj `if test -f 'ut_cstl_list_iterator.c'; then $(CYGPATH_W) 'ut_cstl_list_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_iterator.c'; fi`
+
+ut-ut_cstl_list_aux.o: ut_cstl_list_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_aux.Tpo -c -o ut-ut_cstl_list_aux.o `test -f 'ut_cstl_list_aux.c' || echo '$(srcdir)/'`ut_cstl_list_aux.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_aux.Tpo $(DEPDIR)/ut-ut_cstl_list_aux.Po
+#	source='ut_cstl_list_aux.c' object='ut-ut_cstl_list_aux.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_aux.o `test -f 'ut_cstl_list_aux.c' || echo '$(srcdir)/'`ut_cstl_list_aux.c
+
+ut-ut_cstl_list_aux.obj: ut_cstl_list_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_aux.Tpo -c -o ut-ut_cstl_list_aux.obj `if test -f 'ut_cstl_list_aux.c'; then $(CYGPATH_W) 'ut_cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_aux.Tpo $(DEPDIR)/ut-ut_cstl_list_aux.Po
+#	source='ut_cstl_list_aux.c' object='ut-ut_cstl_list_aux.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_aux.obj `if test -f 'ut_cstl_list_aux.c'; then $(CYGPATH_W) 'ut_cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_aux.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

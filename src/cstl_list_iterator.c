@@ -154,45 +154,47 @@ list_iterator_t _list_iterator_prev(list_iterator_t it_iter)
     return it_iter;
 }
 
-bool_t _list_iterator_equal(
-    list_iterator_t t_iterfirst, list_iterator_t t_itersecond)
+/**
+ * Test the two list iterator are equal.
+ */
+bool_t _list_iterator_equal(list_iterator_t it_first, list_iterator_t it_second)
 {
-    assert(_iterator_same_type(t_iterfirst, t_itersecond));
-    assert(_GET_LIST_CONTAINER(t_iterfirst) == _GET_LIST_CONTAINER(t_itersecond));
-    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(t_iterfirst), t_iterfirst));
-    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(t_itersecond), t_itersecond));
+    assert(_iterator_same_type(it_first, it_second));
+    assert(_GET_LIST_CONTAINER(it_first) == _GET_LIST_CONTAINER(it_second));
+    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_first), it_first));
+    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_second), it_second));
 
-    if(_GET_LIST_COREPOS(t_iterfirst) == _GET_LIST_COREPOS(t_itersecond))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return _GET_LIST_COREPOS(it_first) == _GET_LIST_COREPOS(it_second) ? true : false;
 }
 
-int _list_iterator_distance(
-    list_iterator_t t_iterfirst, list_iterator_t t_itersecond)
+/**
+ * Calculate distance between two iterators.
+ */
+int _list_iterator_distance(list_iterator_t it_first, list_iterator_t it_second)
 {
     listnode_t* pt_node = NULL;    /* the iterate pointer */
     int         n_distance = 0;    /* the distance of two iterator */
 
+    assert(_iterator_same_type(it_first, it_second));
+    assert(_GET_LIST_CONTAINER(it_first) == _GET_LIST_CONTAINER(it_second));
+    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_first), it_first));
+    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_second), it_second));
+
     /* if the end > begin then distance is greater zero */
-    if(_list_iterator_before(t_iterfirst, t_itersecond))
+    if(_list_iterator_before(it_first, it_second))
     {
-        for(pt_node = (listnode_t*)_GET_LIST_COREPOS(t_iterfirst);
-            pt_node != (listnode_t*)_GET_LIST_COREPOS(t_itersecond);
+        for(pt_node = (listnode_t*)_GET_LIST_COREPOS(it_first);
+            pt_node != (listnode_t*)_GET_LIST_COREPOS(it_second);
             pt_node = pt_node->_pt_next)
         {
             n_distance++;
         }
         return n_distance;
     }
-    else if(_list_iterator_before(t_itersecond, t_iterfirst))
+    else if(_list_iterator_before(it_second, it_first))
     {
-        for(pt_node = (listnode_t*)_GET_LIST_COREPOS(t_itersecond);
-            pt_node != (listnode_t*)_GET_LIST_COREPOS(t_iterfirst);
+        for(pt_node = (listnode_t*)_GET_LIST_COREPOS(it_second);
+            pt_node != (listnode_t*)_GET_LIST_COREPOS(it_first);
             pt_node = pt_node->_pt_next)
         {
             n_distance++;
@@ -205,48 +207,38 @@ int _list_iterator_distance(
     }
 }
 
-bool_t _list_iterator_before(
-    list_iterator_t t_iterfirst, list_iterator_t t_itersecond)
+/**
+ * Test the first iterator is before the second.
+ */
+bool_t _list_iterator_before(list_iterator_t it_first, list_iterator_t it_second)
 {
     listnode_t* pt_node = NULL; /* current list node pointer */
 
-    assert(_iterator_same_type(t_iterfirst, t_itersecond));
-    assert(_GET_LIST_CONTAINER(t_iterfirst) == _GET_LIST_CONTAINER(t_itersecond));
-    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(t_iterfirst), t_iterfirst));
-    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(t_itersecond), t_itersecond));
-    assert(_GET_LIST_COREPOS(t_iterfirst) != NULL &&
-           _GET_LIST_COREPOS(t_itersecond) != NULL);
-    assert(_GET_LIST_CONTAINER(t_iterfirst) != NULL &&
-           _GET_LIST_CONTAINER(t_itersecond) != NULL);
+    assert(_iterator_same_type(it_first, it_second));
+    assert(_GET_LIST_CONTAINER(it_first) == _GET_LIST_CONTAINER(it_second));
+    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_first), it_first));
+    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_second), it_second));
 
     /* if the first node equal to second node is false */
-    if(_GET_LIST_COREPOS(t_iterfirst) == _GET_LIST_COREPOS(t_itersecond))
+    if(_GET_LIST_COREPOS(it_first) == _GET_LIST_COREPOS(it_second))
     {
         return false;
     }
 
     /* loop from first iterator */
-    for(pt_node = (listnode_t*)_GET_LIST_COREPOS(t_iterfirst);
-        pt_node != _GET_LIST_CONTAINER(t_iterfirst)->_pt_node;
+    for(pt_node = (listnode_t*)_GET_LIST_COREPOS(it_first);
+        pt_node != _GET_LIST_CONTAINER(it_first)->_pt_node;
         pt_node = pt_node->_pt_next)
     {
         /* if meet the second iterator then the first before second */
-        if(pt_node == (listnode_t*)_GET_LIST_COREPOS(t_itersecond))
+        if(pt_node == (listnode_t*)_GET_LIST_COREPOS(it_second))
         {
             return true;
         }
     }
 
     /* if second iterator is end the return true */
-    if((listnode_t*)_GET_LIST_COREPOS(t_itersecond) ==
-        _GET_LIST_CONTAINER(t_itersecond)->_pt_node)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return (listnode_t*)_GET_LIST_COREPOS(it_second) == _GET_LIST_CONTAINER(it_second)->_pt_node ? true : false;
 }
 
 /** local function implementation section **/

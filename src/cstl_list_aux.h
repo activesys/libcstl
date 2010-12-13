@@ -31,22 +31,14 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* macros for type informations */
-#define _GET_LIST_TYPE_SIZE(pt_list)\
-    ((pt_list)->_t_typeinfo._pt_type->_t_typesize)
-#define _GET_LIST_TYPE_NAME(pt_list)\
-    ((pt_list)->_t_typeinfo._sz_typename)
-#define _GET_LIST_TYPE_BASENAME(pt_list)\
-    ((pt_list)->_t_typeinfo._pt_type->_sz_typename)
-#define _GET_LIST_TYPE_INIT_FUNCTION(pt_list)\
-    ((pt_list)->_t_typeinfo._pt_type->_t_typeinit)
-#define _GET_LIST_TYPE_COPY_FUNCTION(pt_list)\
-    ((pt_list)->_t_typeinfo._pt_type->_t_typecopy)
-#define _GET_LIST_TYPE_LESS_FUNCTION(pt_list)\
-    ((pt_list)->_t_typeinfo._pt_type->_t_typeless)
-#define _GET_LIST_TYPE_DESTROY_FUNCTION(pt_list)\
-    ((pt_list)->_t_typeinfo._pt_type->_t_typedestroy)
-#define _GET_LIST_TYPE_STYLE(pt_list)\
-    ((pt_list)->_t_typeinfo._t_style)
+#define _GET_LIST_TYPE_SIZE(plist_list)             ((plist_list)->_t_typeinfo._pt_type->_t_typesize)
+#define _GET_LIST_TYPE_NAME(plist_list)             ((plist_list)->_t_typeinfo._sz_typename)
+#define _GET_LIST_TYPE_BASENAME(plist_list)         ((plist_list)->_t_typeinfo._pt_type->_sz_typename)
+#define _GET_LIST_TYPE_INIT_FUNCTION(plist_list)    ((plist_list)->_t_typeinfo._pt_type->_t_typeinit)
+#define _GET_LIST_TYPE_COPY_FUNCTION(plist_list)    ((plist_list)->_t_typeinfo._pt_type->_t_typecopy)
+#define _GET_LIST_TYPE_LESS_FUNCTION(plist_list)    ((plist_list)->_t_typeinfo._pt_type->_t_typeless)
+#define _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list) ((plist_list)->_t_typeinfo._pt_type->_t_typedestroy)
+#define _GET_LIST_TYPE_STYLE(plist_list)            ((plist_list)->_t_typeinfo._t_style)
 
 /** data type declaration and struct, union, enum section **/
 
@@ -54,13 +46,33 @@ extern "C" {
 
 /** exported function prototype section **/
 #ifndef NDEBUG
-/*
- * Assert support.
+/**
+ * Test iterator referenced data is within the list.
+ * @param cplist_list     point to list container.
+ * @param it_iter         list iterator.
+ * @return if iterator referenced is within the list, then return true, otherwise return false.
+ * @remarks if cplist_list == NULL, then the behavior is undefined, the it_iter must be valie list iterator and
+ *          must belong to list, otherwist the behavior is undefined. 
  */
-extern bool_t _list_iterator_belong_to_list(
-    const list_t* cpt_list, list_iterator_t t_iter);
+extern bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t it_iter);
 extern bool_t _list_same_list_iterator_type(
     const list_t* cpt_list, list_iterator_t t_iter);
+
+/**
+ * Test list is created by create_list.
+ * @param cplist_list  list container.
+ * @return if list is created by create_list, then return true, else return false.
+ * @remarks if cplist_list == NULL, then the behavior is undefined.
+ */
+extern bool_t _list_is_created(const list_t* cplist_list);
+
+/**
+ * Test list is initialized.
+ * @param cplist_list  list container.
+ * @return if list is initialized, then return true, else return false.
+ * @remarks if cplist_list == NULL, then the behavior is undefined.
+ */
+extern bool_t _list_is_inited(const list_t* cplist_list);
 #endif /* NDEBUG */
 extern bool_t _list_same_type(
     const list_t* cpt_listfirst, const list_t* cpt_listsecond);

@@ -48,28 +48,29 @@
 
 /** exported function implementation section **/
 #ifndef NDEBUG
-bool_t _list_iterator_belong_to_list(
-    const list_t* cpt_list, list_iterator_t t_iter)
+/**
+ * Test iterator referenced data is within the list.
+ */
+bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t it_iter)
 {
     listnode_t* pt_listnode = NULL;  /* the list node pointer */
 
-    assert(cpt_list != NULL);
-    assert(cpt_list->_pt_node != NULL);
-    assert(_GET_LIST_COREPOS(t_iter) != NULL);
-    assert(_GET_LIST_CONTAINER(t_iter) == cpt_list);
-    assert(t_iter._t_containertype == _LIST_CONTAINER);
-    assert(t_iter._t_iteratortype == _BIDIRECTIONAL_ITERATOR);
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
+    assert(_GET_LIST_CONTAINER(it_iter) == cplist_list);
+    assert(it_iter._t_containertype == _LIST_CONTAINER);
+    assert(it_iter._t_iteratortype == _BIDIRECTIONAL_ITERATOR);
 
-    if((listnode_t*)_GET_LIST_COREPOS(t_iter) == cpt_list->_pt_node)
+    if((listnode_t*)_GET_LIST_COREPOS(it_iter) == cplist_list->_pt_node)
     {
         return true;
     }
 
-    for(pt_listnode = cpt_list->_pt_node->_pt_next;
-        pt_listnode != cpt_list->_pt_node;
+    for(pt_listnode = cplist_list->_pt_node->_pt_next;
+        pt_listnode != cplist_list->_pt_node;
         pt_listnode = pt_listnode->_pt_next)
     {
-        if(pt_listnode == (listnode_t*)_GET_LIST_COREPOS(t_iter))
+        if(pt_listnode == (listnode_t*)_GET_LIST_COREPOS(it_iter))
         {
             return true;
         }
@@ -86,6 +87,66 @@ bool_t _list_same_list_iterator_type(
            _GET_LIST_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
     return _list_same_type(cpt_list, _GET_LIST_CONTAINER(t_iter));
 }
+
+/**
+ * Test list is created by create_list.
+ */
+bool_t _list_is_created(const list_t* cplist_list)
+{
+    assert(cplist_list != NULL);
+
+    if(cplist_list->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+       cplist_list->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+       cplist_list->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
+    {
+        return false;
+    }
+
+    if(cplist_list->_t_typeinfo._pt_type == NULL)
+    {
+        return false;
+    }
+
+    if(cplist_list->_pt_node != NULL)
+    {
+        return false;
+    }
+
+    return _alloc_is_inited(&cplist_list->_t_allocater);
+}
+
+/**
+ * Test list is initialized.
+ */
+bool_t _list_is_inited(const list_t* cplist_list)
+{
+    assert(cplist_list != NULL);
+
+    if(cplist_list->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+       cplist_list->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+       cplist_list->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
+    {
+        return false;
+    }
+
+    if(cplist_list->_t_typeinfo._pt_type == NULL)
+    {
+        return false;
+    }
+
+    if(cplist_list->_pt_node == NULL)
+    {
+        return false;
+    }
+
+    if(cplist_list->_pt_node->_pt_prev == NULL || cplist_list->_pt_node->_pt_next == NULL)
+    {
+        return false;
+    }
+
+    return true;
+}
+
 #endif /* NDEBUG */
 
 bool_t _list_same_type(const list_t* cpt_listfirst, const list_t* cpt_listsecond)

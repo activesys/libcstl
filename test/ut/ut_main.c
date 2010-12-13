@@ -14,6 +14,7 @@
 #include "ut_cstl_vector_private.h"
 #include "ut_cstl_vector.h"
 #include "ut_cstl_list_iterator.h"
+#include "ut_cstl_list_aux.h"
 
 int main(int argc, char* argv[])
 {
@@ -24,7 +25,8 @@ int main(int argc, char* argv[])
         UT_CSTL_VECTOR_AUX_CASE,
         UT_CSTL_VECTOR_PRIVATE_CASE,
         UT_CSTL_VECTOR_CASE,
-        UT_CSTL_LIST_ITERATOR_CASE
+        UT_CSTL_LIST_ITERATOR_CASE,
+        UT_CSTL_LIST_AUX_CASE
     };
 
     return run_tests(tests);

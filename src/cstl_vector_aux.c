@@ -52,6 +52,7 @@
 bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_iterator_t it_iter)
 {
     assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
     assert(it_iter._t_iteratortype == _RANDOM_ACCESS_ITERATOR);
     assert(it_iter._t_containertype == _VECTOR_CONTAINER);
     assert(_GET_VECTOR_CONTAINER(it_iter) == cpvec_vector);
@@ -119,6 +120,10 @@ bool_t _vector_is_inited(const vector_t* cpvec_vector)
     {
         return false;
     }
+    if(cpvec_vector->_t_typeinfo._pt_type == NULL)
+    {
+        return false;
+    }
 
     if(cpvec_vector->_pby_start == NULL && cpvec_vector->_pby_finish == NULL && cpvec_vector->_pby_endofstorage == NULL)
     {
@@ -150,9 +155,9 @@ bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_seco
     assert(_vector_is_inited(cpvec_first) || _vector_is_created(cpvec_first));
     assert(_vector_is_inited(cpvec_second) || _vector_is_created(cpvec_second));
 
-    return _type_is_same(_GET_VECTOR_TYPE_NAME(cpvec_first), _GET_VECTOR_TYPE_NAME(cpvec_second)) &&
-           (cpvec_first->_t_typeinfo._pt_type == cpvec_second->_t_typeinfo._pt_type) &&
-           (cpvec_first->_t_typeinfo._t_style == cpvec_second->_t_typeinfo._t_style);
+    return (cpvec_first->_t_typeinfo._pt_type == cpvec_second->_t_typeinfo._pt_type) &&
+           (cpvec_first->_t_typeinfo._t_style == cpvec_second->_t_typeinfo._t_style) &&
+           _type_is_same(_GET_VECTOR_TYPE_NAME(cpvec_first), _GET_VECTOR_TYPE_NAME(cpvec_second));
 }
 
 /**

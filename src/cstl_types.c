@@ -915,6 +915,13 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
         pc_comma2 = strchr(s_elemname2, ',');
         pc_rightbracket2 = strchr(s_elemname2, '>');
 
+        /* int vs vector<int> or string_t vs list_t<double> */
+        if((pc_leftbracket1 != NULL && pc_leftbracket2 == NULL) || (pc_leftbracket1 == NULL && pc_leftbracket2 != NULL))
+        {
+            return false;
+        }
+
+        /* int vs double or float vs struct _tagabc */
         if(pc_leftbracket1 != NULL)
         {
             if(pc_comma1 != NULL)

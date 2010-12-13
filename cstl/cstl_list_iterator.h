@@ -89,12 +89,35 @@ extern list_iterator_t _list_iterator_next(list_iterator_t t_iter);
  * @remarks it_iter and previous iterator must be valid iterator, otherwise the behavior is undefined.
  */
 extern list_iterator_t _list_iterator_prev(list_iterator_t it_iter);
-extern bool_t _list_iterator_equal(
-    list_iterator_t t_iterfirst, list_iterator_t t_itersecond);
-extern int _list_iterator_distance(
-    list_iterator_t t_iterfirst, list_iterator_t t_itersecond);
-extern bool_t _list_iterator_before(
-    list_iterator_t t_iterfirst, list_iterator_t t_itersecond);
+
+/**
+ * Test the two list iterator are equal.
+ * @param it_first    list iterator.
+ * @param it_second   list iterator.
+ * @return true, if the two iterator are equal, else return false.
+ * @remarks the two iterator must be valid list iterator, otherwise the behavior is undefined. the two iterator must be same
+ *          type, otherwise the behavior is undefined.
+ */
+extern bool_t _list_iterator_equal(list_iterator_t it_first, list_iterator_t it_second);
+
+/**
+ * Calculate distance between two iterators.
+ * @param it_first    list iterator.
+ * @param it_second   list iterator.
+ * @return distance.
+ * @remarks the two iterator must be valid list iterator, and must be belong to same list, otherwise the behavior is undefined.
+ *          the result distance may be less than 0, equal to 0 or greater than 0.
+ */
+extern int _list_iterator_distance(list_iterator_t it_first, list_iterator_t it_second);
+
+/**
+ * Test the first iterator is before the second.
+ * @param it_first    list iterator.
+ * @param it_second   list iterator.
+ * @return true, if the first iterator is before the second, else return false.
+ * @remarks the two iterator must be valid list iterator, and must be belong to same list, otherwise the behavior is undefined.
+ */
+extern bool_t _list_iterator_before(list_iterator_t it_first, list_iterator_t it_second);
 
 #ifdef __cplusplus
 }

@@ -64,7 +64,7 @@ void list_init_n(list_t* pt_list, size_t t_count)
      *         | data |
      *         +------+
      */
-    _alloc_init(&pt_list->_t_allocater);
+    /*_alloc_init(&pt_list->_t_allocater);*/
     pt_list->_pt_node = _alloc_allocate(&pt_list->_t_allocater,
         _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
     assert(pt_list->_pt_node != NULL);

@@ -78,6 +78,7 @@ bool_t _create_list_auxiliary(list_t* pt_list, const char* s_typename)
 
     pt_list->_pt_node = NULL;
 
+    _alloc_init(&pt_list->_t_allocater);
     return true;
 }
 
@@ -100,7 +101,7 @@ void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)
      *         | data |
      *         +------+
      */
-    _alloc_init(&pt_list->_t_allocater);
+    /*_alloc_init(&pt_list->_t_allocater);*/
     pt_list->_pt_node = _alloc_allocate(&pt_list->_t_allocater,
         _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
     assert(pt_list->_pt_node != NULL);
@@ -159,30 +160,33 @@ void _list_destroy_auxiliary(list_t* pt_list)
     listnode_t* pt_destroynode = NULL;  /* for destroy node itself */
     bool_t      t_result = false;
 
-    assert(pt_list != NULL && pt_list->_pt_node != NULL);
+    /*assert(pt_list != NULL && pt_list->_pt_node != NULL);*/
 
-    pt_node = pt_list->_pt_node->_pt_next;
-    /* destroy all element and node except the end node */
-    while(pt_node != pt_list->_pt_node)
+    if(pt_list->_pt_node != NULL)
     {
-        pt_destroynode = pt_node;
-        pt_node = pt_node->_pt_next;
-        /* delete the destroy node from the link list */
-        pt_node->_pt_prev = pt_destroynode->_pt_prev;
-        pt_destroynode->_pt_prev->_pt_next = pt_node;
-        /* destroy the node */
+        pt_node = pt_list->_pt_node->_pt_next;
+        /* destroy all element and node except the end node */
+        while(pt_node != pt_list->_pt_node)
+        {
+            pt_destroynode = pt_node;
+            pt_node = pt_node->_pt_next;
+            /* delete the destroy node from the link list */
+            pt_node->_pt_prev = pt_destroynode->_pt_prev;
+            pt_destroynode->_pt_prev->_pt_next = pt_node;
+            /* destroy the node */
 
-        t_result = _GET_LIST_TYPE_SIZE(pt_list);
-        _GET_LIST_TYPE_DESTROY_FUNCTION(pt_list)(pt_destroynode->_pc_data, &t_result);
-        assert(t_result);
-        _alloc_deallocate(&pt_list->_t_allocater, pt_destroynode,
+            t_result = _GET_LIST_TYPE_SIZE(pt_list);
+            _GET_LIST_TYPE_DESTROY_FUNCTION(pt_list)(pt_destroynode->_pc_data, &t_result);
+            assert(t_result);
+            _alloc_deallocate(&pt_list->_t_allocater, pt_destroynode,
+                _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
+        }
+        /* destroy the end node */
+        _alloc_deallocate(&pt_list->_t_allocater, pt_list->_pt_node,
             _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
     }
-    /* destroy the end node */
-    _alloc_deallocate(&pt_list->_t_allocater, pt_list->_pt_node,
-        _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
-    _alloc_destroy(&pt_list->_t_allocater);
 
+    _alloc_destroy(&pt_list->_t_allocater);
     pt_list->_pt_node = NULL;
 }
 
