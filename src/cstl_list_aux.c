@@ -202,9 +202,10 @@ void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_itera
     list_erase_range(_GET_LIST_CONTAINER(it_begin), it_begin, it_end);
 }
 
-void _quick_sort(
-    list_iterator_t t_beforefirstpos, list_iterator_t t_afterlastpos,
-    binary_function_t t_binary_op)
+/**
+ * Sort the range (t_beforefirstpos, t_afterlastpos) use the quick sort algorithm.
+ */
+void _quick_sort(list_iterator_t t_beforefirstpos, list_iterator_t t_afterlastpos, binary_function_t t_binary_op)
 {
     listnode_t*     pt_pivot = NULL;               /* the pivot pointer */
     listnode_t*     pt_afterpivot = NULL;          /* the node after pivot */
@@ -457,6 +458,119 @@ void _quick_sort(
             {
                 _quick_sort(t_pivotpos, t_afterlastpos, t_binary_op);
             }
+        }
+    }
+}
+
+/**
+ * Sort the range [pt_first, pt_last] use the quick sort algorithm.
+ */
+void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_last, binary_function_t t_binary_op)
+{
+    listnode_t* pt_beforefirst = NULL;
+    listnode_t* pt_afterlast = NULL;
+    listnode_t* pt_pivot = NULL;
+    listnode_t* pt_before = NULL;
+    listnode_t* pt_after = NULL;
+    bool_t      b_less = false;
+    bool_t      b_greater = false;
+
+#ifndef NDEBUG
+    list_iterator_t it_first = _create_list_iterator();
+    list_iterator_t it_last = _create_list_iterator();
+#endif
+    assert(plist_list != NULL);
+    assert(pt_first != NULL);
+    assert(pt_last != NULL);
+    assert(_list_is_inited(plist_list));
+#ifndef NDEBUG
+    _GET_CONTAINER(it_first) = plist_list;
+    _GET_LIST_COREPOS(it_first) = pt_first;
+    _GET_CONTAINER(it_last) = plist_list;
+    _GET_LIST_COREPOS(it_last) = pt_last;
+    assert(_list_iterator_belong_to_list(plist_list, it_first));
+    assert(_list_iterator_belong_to_list(plist_list, it_last));
+    assert(iterator_equal(it_first, it_last) || _list_iterator_before(it_first, it_last));
+#endif
+
+    if(pt_first == pt_last)
+    {
+        return;
+    }
+
+    if(t_binary_op == NULL)
+    {
+        t_binary_op = _GET_LIST_TYPE_LESS_FUNCTION(plist_list);
+        pt_beforefirst = pt_first->_pt_prev;
+        pt_afterlast = pt_last->_pt_next;
+        for(pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
+            pt_after != pt_pivot;
+            pt_after = pt_after->_pt_next)
+        {
+            (*t_binary_op)(pt_after->_pc_data, pt_pivot->_pc_data, &b_less);
+            (*t_binary_op)(pt_pivot->_pc_data, pt_after->_pc_data, &b_greater);
+            if(b_less || (!b_less && !b_greater))
+            {
+                pt_before = pt_before->_pt_next;
+                _list_swap_node(&pt_before, &pt_after);
+            }
+        }
+        pt_before = pt_before->_pt_next;
+        _list_swap_node(&pt_before, &pt_pivot);
+        pt_pivot = pt_before;
+
+        _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
+        _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+    }
+    else
+    {
+        if(strncmp(_GET_LIST_TYPE_BASENAME(plist_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+        {
+            pt_beforefirst = pt_first->_pt_prev;
+            pt_afterlast = pt_last->_pt_next;
+            for(pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
+                pt_after != pt_pivot;
+                pt_after = pt_after->_pt_next)
+            {
+                (*t_binary_op)(
+                    string_c_str((string_t*)pt_after->_pc_data), string_c_str((string_t*)pt_pivot->_pc_data), &b_less);
+                (*t_binary_op)(
+                    string_c_str((string_t*)pt_pivot->_pc_data), string_c_str((string_t*)pt_after->_pc_data), &b_greater);
+                if(b_less || (!b_less && !b_greater))
+                {
+                    pt_before = pt_before->_pt_next;
+                    _list_swap_node(&pt_before, &pt_after);
+                }
+            }
+            pt_before = pt_before->_pt_next;
+            _list_swap_node(&pt_before, &pt_pivot);
+            pt_pivot = pt_before;
+
+            _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
+            _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+        }
+        else
+        {
+            pt_beforefirst = pt_first->_pt_prev;
+            pt_afterlast = pt_last->_pt_next;
+            for(pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
+                pt_after != pt_pivot;
+                pt_after = pt_after->_pt_next)
+            {
+                (*t_binary_op)(pt_after->_pc_data, pt_pivot->_pc_data, &b_less);
+                (*t_binary_op)(pt_pivot->_pc_data, pt_after->_pc_data, &b_greater);
+                if(b_less || (!b_less && !b_greater))
+                {
+                    pt_before = pt_before->_pt_next;
+                    _list_swap_node(&pt_before, &pt_after);
+                }
+            }
+            pt_before = pt_before->_pt_next;
+            _list_swap_node(&pt_before, &pt_pivot);
+            pt_pivot = pt_before;
+
+            _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
+            _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
         }
     }
 }
