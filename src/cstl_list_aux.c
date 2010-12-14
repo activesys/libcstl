@@ -79,13 +79,16 @@ bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t 
     return false;
 }
 
-bool_t _list_same_list_iterator_type(
-    const list_t* cpt_list, list_iterator_t t_iter)
+/**
+ * Test the type that saved in the list container and referenced by it_iter are same.
+ */
+bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t it_iter)
 {
-    assert(cpt_list != NULL && _GET_LIST_CONTAINER(t_iter) != NULL);
-    assert(_GET_LIST_CONTAINER_TYPE(t_iter) == _LIST_CONTAINER &&
-           _GET_LIST_ITERATOR_TYPE(t_iter) == _BIDIRECTIONAL_ITERATOR);
-    return _list_same_type(cpt_list, _GET_LIST_CONTAINER(t_iter));
+    assert(cplist_list != NULL);
+    assert(_GET_LIST_CONTAINER(it_iter) != NULL);
+    assert(_GET_LIST_CONTAINER_TYPE(it_iter) == _LIST_CONTAINER);
+    assert(_GET_LIST_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+    return _list_same_type(cplist_list, _GET_LIST_CONTAINER(it_iter));
 }
 
 /**
@@ -146,16 +149,21 @@ bool_t _list_is_inited(const list_t* cplist_list)
 
     return true;
 }
-
 #endif /* NDEBUG */
 
-bool_t _list_same_type(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+/**
+ * Test the type that saved in the list container is same.
+ */
+bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_second)
 {
-    assert(cpt_listfirst != NULL && cpt_listsecond != NULL);
-    return _type_is_same(_GET_LIST_TYPE_NAME(cpt_listfirst),
-                         _GET_LIST_TYPE_NAME(cpt_listsecond)) &&
-           (cpt_listfirst->_t_typeinfo._pt_type == cpt_listsecond->_t_typeinfo._pt_type) &&
-           (cpt_listfirst->_t_typeinfo._t_style == cpt_listsecond->_t_typeinfo._t_style);
+    assert(cplist_first != NULL);
+    assert(cplist_second != NULL);
+    assert(_list_is_inited(cplist_first) || _list_is_created(cplist_first));
+    assert(_list_is_inited(cplist_second) || _list_is_created(cplist_second));
+
+    return (cplist_first->_t_typeinfo._pt_type == cplist_second->_t_typeinfo._pt_type) &&
+           (cplist_first->_t_typeinfo._t_style == cplist_second->_t_typeinfo._t_style) &&
+           _type_is_same(_GET_LIST_TYPE_NAME(cplist_first), _GET_LIST_TYPE_NAME(cplist_second));
 }
 
 void _transfer(
@@ -472,38 +480,56 @@ void _swap_node(listnode_t** ppt_first, listnode_t** ppt_second)
     }
 }
 
-void _list_get_varg_value_auxiliary(
-    list_t* pt_list, va_list val_elemlist, listnode_t* pt_node)
+/**
+ * Obtain data from variable argument list, the data type and list element data type are same.
+ */
+void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node)
 {
-    _list_init_node_auxiliary(pt_list, pt_node);
-    _type_get_varg_value(&pt_list->_t_typeinfo, val_elemlist, pt_node->_pc_data);
+    assert(plist_list != NULL);
+    assert(pt_node != NULL);
+    assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
+
+    _list_init_node_auxiliary(plist_list, pt_node);
+    _type_get_varg_value(&plist_list->_t_typeinfo, val_elemlist, pt_node->_pc_data);
 }
 
-void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_node)
+/**
+ * Destroy data, the data type and list element data type are same.
+ */
+void _list_destroy_varg_value_auxiliary(list_t* plist_list, listnode_t* pt_node)
 {
-    bool_t t_result = _GET_LIST_TYPE_SIZE(pt_list);
-    _GET_LIST_TYPE_DESTROY_FUNCTION(pt_list)(pt_node->_pc_data, &t_result);
-    assert(t_result);
+    assert(plist_list != NULL);
+    assert(pt_node != NULL);
+    assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
+
+    bool_t b_result = _GET_LIST_TYPE_SIZE(plist_list);
+    _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pc_data, &b_result);
+    assert(b_result);
 }
 
-void _list_init_node_auxiliary(list_t* pt_list, listnode_t* pt_node)
+/**
+ * Initialize list node auxiliary function.
+ */
+void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node)
 {
-    assert(pt_list != NULL && pt_node != NULL);
+    assert(plist_list != NULL);
+    assert(pt_node != NULL);
+    assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
 
     /* initialize new elements */
-    if(_GET_LIST_TYPE_STYLE(pt_list) == _TYPE_CSTL_BUILTIN)
+    if(_GET_LIST_TYPE_STYLE(plist_list) == _TYPE_CSTL_BUILTIN)
     {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_LIST_TYPE_NAME(pt_list), s_elemtypename);
+        _type_get_elem_typename(_GET_LIST_TYPE_NAME(plist_list), s_elemtypename);
 
-        _GET_LIST_TYPE_INIT_FUNCTION(pt_list)(pt_node->_pc_data, s_elemtypename);
+        _GET_LIST_TYPE_INIT_FUNCTION(plist_list)(pt_node->_pc_data, s_elemtypename);
     }
     else
     {
-        bool_t t_result = _GET_LIST_TYPE_SIZE(pt_list);
-        _GET_LIST_TYPE_INIT_FUNCTION(pt_list)(pt_node->_pc_data, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_LIST_TYPE_SIZE(plist_list);
+        _GET_LIST_TYPE_INIT_FUNCTION(plist_list)(pt_node->_pc_data, &b_result);
+        assert(b_result);
     }
 }
 

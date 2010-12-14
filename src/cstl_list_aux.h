@@ -55,8 +55,15 @@ extern "C" {
  *          must belong to list, otherwist the behavior is undefined. 
  */
 extern bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t it_iter);
-extern bool_t _list_same_list_iterator_type(
-    const list_t* cpt_list, list_iterator_t t_iter);
+
+/**
+ * Test the type that saved in the list container and referenced by it_iter are same.
+ * @param cplist_list     list container.
+ * @param it_iter         list iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cplist_first == NULL or it_iter is not list iterator, then the behavior is undefined.
+ */
+extern bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t it_iter);
 
 /**
  * Test list is created by create_list.
@@ -74,13 +81,47 @@ extern bool_t _list_is_created(const list_t* cplist_list);
  */
 extern bool_t _list_is_inited(const list_t* cplist_list);
 #endif /* NDEBUG */
-extern bool_t _list_same_type(
-    const list_t* cpt_listfirst, const list_t* cpt_listsecond);
 
-extern void _list_get_varg_value_auxiliary(
-    list_t* pt_list, va_list val_elemlist, listnode_t* pt_node);
+/**
+ * Test the type that saved in the list container is same.
+ * @param cplist_first    first list.
+ * @param cplist_second   second list.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cplist_first == NULL or cplist_second == NULL, the behavior is undefined. the two list must be
+ *          initialized or created by create_list(), otherwise the behavior is undefined.
+ */
+extern bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_second);
+
+/**
+ * Obtain data from variable argument list, the data type and list element data type are same.
+ * @param plist_list     list container.
+ * @param val_elemlist   variable argument list.
+ * @param pt_node        data buffer.
+ * @return void.
+ * @remarks if plist_list == NULL or pt_node == NULL, then the behavior is undefined. plist_list must be initialized
+ *          or created by create_list(), otherwise the behavior is undefined.
+ */
+extern void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node);
+
+/**
+ * Destroy data, the data type and list element data type are same.
+ * @param plist_list    list container.
+ * @param pt_node       data buffer.
+ * @return void.
+ * @remarks if plist_list == NULL or pt_node == NULL, then the behavior is undefined. plist_list must be initialized
+ *          or created by create_list(), otherwise the behavior is undefined.
+ */
 extern void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_node);
-extern void _list_init_node_auxiliary(list_t* pt_list, listnode_t* pt_node);
+
+/**
+ * Initialize list node auxiliary function.
+ * @param plist_list    list container.
+ * @param pt_node       data buffer.
+ * @return void.
+ * @remarks if plist_list == NULL or pt_node == NULL, then the behavior is undefined. plist_list must be initialized
+ *          or created by create_list(), otherwise the behavior is undefined.
+ */
+extern void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node);
 
 /*
  * Transfer the range [t_begin, t_end) to position.
