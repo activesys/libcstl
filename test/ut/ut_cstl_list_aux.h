@@ -101,6 +101,46 @@ void test__list_init_node_auxiliary__c_builtin(void** state);
 void test__list_init_node_auxiliary__cstr(void** state);
 void test__list_init_node_auxiliary__libcstl_builtin(void** state);
 void test__list_init_node_auxiliary__user_define(void** state);
+/*
+ * test _list_transfer
+ */
+UT_CASE_DECLARATION(_list_transfer)
+void test__list_transfer__invalid_pos(void** state);
+void test__list_transfer__invalid_begin(void** state);
+void test__list_transfer__invalid_end(void** state);
+void test__list_transfer__invalid_range_not_same_list(void** state);
+void test__list_transfer__invalid_range_end_before_begin(void** state);
+void test__list_transfer__pos_range_not_same_type(void** state);
+void test__list_transfer__does_nothing_empty_range(void** state);
+void test__list_transfer__successfully_begin_begin(void** state);
+void test__list_transfer__successfully_middle_middle(void** state);
+void test__list_transfer__successfully_end(void** state);
+void test__list_transfer__successfully_middle_all(void** state);
+void test__list_transfer__same_list_pos_belong_to_range(void** state);
+void test__list_transfer__same_list_does_nothing_empty_range(void** state);
+void test__list_transfer__same_list_does_nothing_pos_equa_to_begin(void** state);
+void test__list_transfer__same_list_does_nothing_pos_equa_to_end(void** state);
+void test__list_transfer__same_list_begin_middle(void** state);
+void test__list_transfer__same_list_begin_end(void** state);
+void test__list_transfer__same_list_middle_begin(void** state);
+void test__list_transfer__same_list_middle_middle(void** state);
+void test__list_transfer__same_list_middle_end(void** state);
+void test__list_transfer__same_list_end_begin(void** state);
+void test__list_transfer__same_list_end_middle(void** state);
+/*
+ * test _list_swap_node
+ */
+UT_CASE_DECLARATION(_list_swap_node)
+void test__list_swap_node__null_ppt_first(void** state);
+void test__list_swap_node__null_pt_first(void** state);
+void test__list_swap_node__null_ppt_second(void** state);
+void test__list_swap_node__null_pt_second(void** state);
+void test__list_swap_node__first_followed_by_second(void** state);
+void test__list_swap_node__second_followed_by_first(void** state);
+void test__list_swap_node__first_distanced_by_second(void** state);
+void test__list_swap_node__second_distanced_by_first(void** state);
+void test__list_swap_node__same_ppt_first_ppt_second(void** state);
+void test__list_swap_node__same_pt_first_pt_second(void** state);
 
 #define UT_CSTL_LIST_AUX_CASE \
     UT_SUIT_BEGIN(cstl_list_aux, test__list_is_created__null_list_container),\
@@ -168,7 +208,39 @@ void test__list_init_node_auxiliary__user_define(void** state);
     UT_CASE(test__list_init_node_auxiliary__c_builtin),\
     UT_CASE(test__list_init_node_auxiliary__cstr),\
     UT_CASE(test__list_init_node_auxiliary__libcstl_builtin),\
-    UT_CASE(test__list_init_node_auxiliary__user_define)
+    UT_CASE(test__list_init_node_auxiliary__user_define),\
+    UT_CASE_BEGIN(_list_transfer, test__list_transfer__invalid_pos),\
+    UT_CASE(test__list_transfer__invalid_begin),\
+    UT_CASE(test__list_transfer__invalid_end),\
+    UT_CASE(test__list_transfer__invalid_range_not_same_list),\
+    UT_CASE(test__list_transfer__invalid_range_end_before_begin),\
+    UT_CASE(test__list_transfer__pos_range_not_same_type),\
+    UT_CASE(test__list_transfer__does_nothing_empty_range),\
+    UT_CASE(test__list_transfer__successfully_begin_begin),\
+    UT_CASE(test__list_transfer__successfully_middle_middle),\
+    UT_CASE(test__list_transfer__successfully_end),\
+    UT_CASE(test__list_transfer__successfully_middle_all),\
+    UT_CASE(test__list_transfer__same_list_pos_belong_to_range),\
+    UT_CASE(test__list_transfer__same_list_does_nothing_empty_range),\
+    UT_CASE(test__list_transfer__same_list_does_nothing_pos_equa_to_begin),\
+    UT_CASE(test__list_transfer__same_list_does_nothing_pos_equa_to_end),\
+    UT_CASE(test__list_transfer__same_list_begin_middle),\
+    UT_CASE(test__list_transfer__same_list_begin_end),\
+    UT_CASE(test__list_transfer__same_list_middle_begin),\
+    UT_CASE(test__list_transfer__same_list_middle_middle),\
+    UT_CASE(test__list_transfer__same_list_middle_end),\
+    UT_CASE(test__list_transfer__same_list_end_begin),\
+    UT_CASE(test__list_transfer__same_list_end_middle),\
+    UT_CASE_BEGIN(_list_swap_node, test__list_swap_node__null_ppt_first),\
+    UT_CASE(test__list_swap_node__null_pt_first),\
+    UT_CASE(test__list_swap_node__null_ppt_second),\
+    UT_CASE(test__list_swap_node__null_pt_second),\
+    UT_CASE(test__list_swap_node__first_followed_by_second),\
+    UT_CASE(test__list_swap_node__second_followed_by_first),\
+    UT_CASE(test__list_swap_node__first_distanced_by_second),\
+    UT_CASE(test__list_swap_node__second_distanced_by_first),\
+    UT_CASE(test__list_swap_node__same_ppt_first_ppt_second),\
+    UT_CASE(test__list_swap_node__same_pt_first_pt_second)
 
 #endif /* _UT_CSTL_LIST_AUX_H_ */
 

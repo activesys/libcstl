@@ -123,11 +123,18 @@ extern void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_n
  */
 extern void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node);
 
-/*
- * Transfer the range [t_begin, t_end) to position.
+/**
+ * Transfer the range [it_begin, it_end) to position it_pos.
+ * @param it_pos      insert data position.
+ * @param it_begin    range start.
+ * @param it_end      range end.
+ * @return void.
+ * @remarks it_pos, it_begin, it_end must be valid list iterator, otherwise the behavior is undefined. [it_begin, it_end)
+ *          must be valid list data range, otherwise the beahvior is undefined. it_pos and [it_begin, it_end) may belong
+ *          to same list container, but if it_pos belongs to (it_begin, it_end), then the behavior is undefined. if
+ *          it_pos == it_begin or it_pos == it_end or it_begin == it_end, then the function does nothing.
  */
-extern void _transfer(
-    list_iterator_t t_pos, list_iterator_t t_begin, list_iterator_t t_end);
+extern void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end);
 
 /*
  * Sort the range (t_beforefirstpos, t_afterlastpos) use the quick sort algorithm.
@@ -136,10 +143,15 @@ extern void _quick_sort(
     list_iterator_t t_beforefirstpos, list_iterator_t t_afterlastpos,
     binary_function_t t_binary_op);
 
-/*
+/**
  * Swap the two node content and don't change the pointer.
+ * @param ppt_first    first list pointer.
+ * @param ppt_second   second list pointer.
+ * @return void.
+ * @remarks if ppt_first == NULL or *ppt_first == NULL or ppt_second == NULL or *ppt_second == NULL, then the behavior is
+ *          undefined.
  */
-extern void _swap_node(listnode_t** ppt_first, listnode_t** ppt_second);
+extern void _list_swap_node(listnode_t** ppt_first, listnode_t** ppt_second);
 
 #ifdef __cplusplus
 }

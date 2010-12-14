@@ -469,17 +469,17 @@ INSTALL_STRIP_PROGRAM	src/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 INSTALL_STRIP_PROGRAM	test/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
 INSTALL_STRIP_PROGRAM	test/it/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
 INSTALL_STRIP_PROGRAM	test/ut/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
-LD	Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	build-win/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	build-win/vc8/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	build-win/vc9/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	cstl/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	doc/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	doc/user/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	src/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	test/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	test/it/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
-LD	test/ut/Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LD	Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	build-win/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	build-win/vc8/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	build-win/vc9/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	cstl/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	doc/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	doc/user/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	src/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	test/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	test/it/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
+LD	test/ut/Makefile	/^LD = \/usr\/bin\/ld$/;"	m
 LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
 LDFLAGS	build-win/Makefile	/^LDFLAGS = $/;"	m
 LDFLAGS	build-win/vc8/Makefile	/^LDFLAGS = $/;"	m
@@ -744,8 +744,10 @@ PACKAGE_URL	config.h	82;"	d
 PACKAGE_URL	cstl/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	doc/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	doc/user/Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_URL	src/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	test/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	test/it/Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_URL	test/ut/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_VERSION	Makefile	/^PACKAGE_VERSION = 2.0.1$/;"	m
 PACKAGE_VERSION	build-win/Makefile	/^PACKAGE_VERSION = 2.0.1$/;"	m
 PACKAGE_VERSION	build-win/vc8/Makefile	/^PACKAGE_VERSION = 2.0.1$/;"	m
@@ -904,7 +906,14 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_CASE_DEFINATION(_alloc_destroy)$
 UT_CASE_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_CASE_DEFINATION(_alloc_is_inited)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_CASE_DEFINATION(_alloc_apply_formated_memory)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_CASE_DEFINATION(_alloc_malloc)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_CASE_DEFINATION(_list_destroy_varg_value_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_CASE_DEFINATION(_list_init_node_auxiliary)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_CASE_DEFINATION(_list_is_inited)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_CASE_DEFINATION(_list_iterator_belong_to_list)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_CASE_DEFINATION(_list_same_list_iterator_type)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_CASE_DEFINATION(_list_same_type)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_CASE_DEFINATION(_list_swap_node)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_CASE_DEFINATION(_list_transfer)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_iterator.c	/^UT_CASE_DEFINATION(_list_iterator_before)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_iterator.c	/^UT_CASE_DEFINATION(_list_iterator_distance)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_iterator.c	/^UT_CASE_DEFINATION(_list_iterator_equal)$/;"	f
@@ -975,9 +984,9 @@ UT_CASE_SEPARATOR_OPEN	test/ut/ut_def.h	6;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	46;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	60;"	d
 UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	53;"	d
-UT_CSTL_LIST_AUX_CASE	test/ut/ut_cstl_list_aux.h	29;"	d
+UT_CSTL_LIST_AUX_CASE	test/ut/ut_cstl_list_aux.h	145;"	d
 UT_CSTL_LIST_ITERATOR_CASE	test/ut/ut_cstl_list_iterator.h	108;"	d
-UT_CSTL_VECTOR_AUX_CASE	test/ut/ut_cstl_vector_aux.h	118;"	d
+UT_CSTL_VECTOR_AUX_CASE	test/ut/ut_cstl_vector_aux.h	119;"	d
 UT_CSTL_VECTOR_CASE	test/ut/ut_cstl_vector.h	393;"	d
 UT_CSTL_VECTOR_ITERATOR_CASE	test/ut/ut_cstl_vector_iterator.h	157;"	d
 UT_CSTL_VECTOR_PRIVATE_CASE	test/ut/ut_cstl_vector_private.h	117;"	d
@@ -1245,14 +1254,14 @@ _GET_LIST_CONTAINER	cstl/cstl_iterator.h	45;"	d
 _GET_LIST_CONTAINER_TYPE	cstl/cstl_iterator.h	47;"	d
 _GET_LIST_COREPOS	cstl/cstl_iterator.h	43;"	d
 _GET_LIST_ITERATOR_TYPE	cstl/cstl_iterator.h	49;"	d
-_GET_LIST_TYPE_BASENAME	src/cstl_list_aux.h	38;"	d
-_GET_LIST_TYPE_COPY_FUNCTION	src/cstl_list_aux.h	42;"	d
-_GET_LIST_TYPE_DESTROY_FUNCTION	src/cstl_list_aux.h	46;"	d
-_GET_LIST_TYPE_INIT_FUNCTION	src/cstl_list_aux.h	40;"	d
-_GET_LIST_TYPE_LESS_FUNCTION	src/cstl_list_aux.h	44;"	d
-_GET_LIST_TYPE_NAME	src/cstl_list_aux.h	36;"	d
+_GET_LIST_TYPE_BASENAME	src/cstl_list_aux.h	36;"	d
+_GET_LIST_TYPE_COPY_FUNCTION	src/cstl_list_aux.h	38;"	d
+_GET_LIST_TYPE_DESTROY_FUNCTION	src/cstl_list_aux.h	40;"	d
+_GET_LIST_TYPE_INIT_FUNCTION	src/cstl_list_aux.h	37;"	d
+_GET_LIST_TYPE_LESS_FUNCTION	src/cstl_list_aux.h	39;"	d
+_GET_LIST_TYPE_NAME	src/cstl_list_aux.h	35;"	d
 _GET_LIST_TYPE_SIZE	src/cstl_list_aux.h	34;"	d
-_GET_LIST_TYPE_STYLE	src/cstl_list_aux.h	48;"	d
+_GET_LIST_TYPE_STYLE	src/cstl_list_aux.h	41;"	d
 _GET_MAP_CONTAINER	cstl/cstl_iterator.h	104;"	d
 _GET_MAP_CONTAINER_TYPE	cstl/cstl_iterator.h	106;"	d
 _GET_MAP_FIRST_TYPE_BASENAME	src/cstl_map.c	49;"	d	file:
@@ -1356,14 +1365,14 @@ _GET_VECTOR_CONTAINER	cstl/cstl_iterator.h	36;"	d
 _GET_VECTOR_CONTAINER_TYPE	cstl/cstl_iterator.h	38;"	d
 _GET_VECTOR_COREPOS	cstl/cstl_iterator.h	34;"	d
 _GET_VECTOR_ITERATOR_TYPE	cstl/cstl_iterator.h	40;"	d
-_GET_VECTOR_TYPE_BASENAME	src/cstl_vector_aux.h	38;"	d
-_GET_VECTOR_TYPE_COPY_FUNCTION	src/cstl_vector_aux.h	42;"	d
-_GET_VECTOR_TYPE_DESTROY_FUNCTION	src/cstl_vector_aux.h	46;"	d
-_GET_VECTOR_TYPE_INIT_FUNCTION	src/cstl_vector_aux.h	40;"	d
-_GET_VECTOR_TYPE_LESS_FUNCTION	src/cstl_vector_aux.h	44;"	d
-_GET_VECTOR_TYPE_NAME	src/cstl_vector_aux.h	36;"	d
+_GET_VECTOR_TYPE_BASENAME	src/cstl_vector_aux.h	36;"	d
+_GET_VECTOR_TYPE_COPY_FUNCTION	src/cstl_vector_aux.h	38;"	d
+_GET_VECTOR_TYPE_DESTROY_FUNCTION	src/cstl_vector_aux.h	40;"	d
+_GET_VECTOR_TYPE_INIT_FUNCTION	src/cstl_vector_aux.h	37;"	d
+_GET_VECTOR_TYPE_LESS_FUNCTION	src/cstl_vector_aux.h	39;"	d
+_GET_VECTOR_TYPE_NAME	src/cstl_vector_aux.h	35;"	d
 _GET_VECTOR_TYPE_SIZE	src/cstl_vector_aux.h	34;"	d
-_GET_VECTOR_TYPE_STYLE	src/cstl_vector_aux.h	48;"	d
+_GET_VECTOR_TYPE_STYLE	src/cstl_vector_aux.h	41;"	d
 _GREATER_EQUAL_FUN	cstl/cstl_function_private.h	/^    _GREATER_EQUAL_FUN,$/;"	e	enum:_tagfunbinarytype
 _GREATER_FUN	cstl/cstl_function_private.h	/^    _GREATER_FUN,$/;"	e	enum:_tagfunbinarytype
 _HASHTABLE_DEFAULT_BUCKET_COUNT	src/cstl_hashtable.c	43;"	d	file:
@@ -2613,20 +2622,20 @@ _list_assign_elem_varg	cstl/cstl_list_private.h	/^extern void _list_assign_elem_
 _list_assign_elem_varg	src/cstl_list_private.c	/^void _list_assign_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)$/;"	f	signature:(list_t* pt_list, size_t t_count, va_list val_elemlist)
 _list_destroy_auxiliary	cstl/cstl_list_private.h	/^extern void _list_destroy_auxiliary(list_t* pt_list);$/;"	p	signature:(list_t* pt_list)
 _list_destroy_auxiliary	src/cstl_list_private.c	/^void _list_destroy_auxiliary(list_t* pt_list)$/;"	f	signature:(list_t* pt_list)
-_list_destroy_varg_value_auxiliary	src/cstl_list_aux.c	/^void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_node)$/;"	f	signature:(list_t* pt_list, listnode_t* pt_node)
+_list_destroy_varg_value_auxiliary	src/cstl_list_aux.c	/^void _list_destroy_varg_value_auxiliary(list_t* plist_list, listnode_t* pt_node)$/;"	f	signature:(list_t* plist_list, listnode_t* pt_node)
 _list_destroy_varg_value_auxiliary	src/cstl_list_aux.h	/^extern void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_node);$/;"	p	signature:(list_t* pt_list, listnode_t* pt_node)
 _list_equal_ex	test/it/test_algobase.c	/^static void _list_equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_equal_ex	test/it/test_algobase.c	/^static void _list_equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
-_list_get_varg_value_auxiliary	src/cstl_list_aux.c	/^void _list_get_varg_value_auxiliary($/;"	f	signature:( list_t* pt_list, va_list val_elemlist, listnode_t* pt_node)
-_list_get_varg_value_auxiliary	src/cstl_list_aux.h	/^extern void _list_get_varg_value_auxiliary($/;"	p	signature:( list_t* pt_list, va_list val_elemlist, listnode_t* pt_node)
+_list_get_varg_value_auxiliary	src/cstl_list_aux.c	/^void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node)$/;"	f	signature:(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node)
+_list_get_varg_value_auxiliary	src/cstl_list_aux.h	/^extern void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node);$/;"	p	signature:(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node)
 _list_init_elem	cstl/cstl_list_private.h	/^extern void _list_init_elem(list_t* pt_list, size_t t_count, ...);$/;"	p	signature:(list_t* pt_list, size_t t_count, ...)
 _list_init_elem	src/cstl_list_private.c	/^void _list_init_elem(list_t* pt_list, size_t t_count, ...)$/;"	f	signature:(list_t* pt_list, size_t t_count, ...)
 _list_init_elem_auxiliary	cstl/cstl_list_private.h	/^extern void _list_init_elem_auxiliary(list_t* pt_list, void* pv_value);$/;"	p	signature:(list_t* pt_list, void* pv_value)
 _list_init_elem_auxiliary	src/cstl_list_private.c	/^void _list_init_elem_auxiliary(list_t* pt_list, void* pv_elem)$/;"	f	signature:(list_t* pt_list, void* pv_elem)
 _list_init_elem_varg	cstl/cstl_list_private.h	/^extern void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist);$/;"	p	signature:(list_t* pt_list, size_t t_count, va_list val_elemlist)
 _list_init_elem_varg	src/cstl_list_private.c	/^void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)$/;"	f	signature:(list_t* pt_list, size_t t_count, va_list val_elemlist)
-_list_init_node_auxiliary	src/cstl_list_aux.c	/^void _list_init_node_auxiliary(list_t* pt_list, listnode_t* pt_node)$/;"	f	signature:(list_t* pt_list, listnode_t* pt_node)
-_list_init_node_auxiliary	src/cstl_list_aux.h	/^extern void _list_init_node_auxiliary(list_t* pt_list, listnode_t* pt_node);$/;"	p	signature:(list_t* pt_list, listnode_t* pt_node)
+_list_init_node_auxiliary	src/cstl_list_aux.c	/^void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node)$/;"	f	signature:(list_t* plist_list, listnode_t* pt_node)
+_list_init_node_auxiliary	src/cstl_list_aux.h	/^extern void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node);$/;"	p	signature:(list_t* plist_list, listnode_t* pt_node)
 _list_insert_n	cstl/cstl_list_private.h	/^extern list_iterator_t _list_insert_n($/;"	p	signature:( list_t* pt_list, list_iterator_t t_pos, size_t t_count, ...)
 _list_insert_n	src/cstl_list_private.c	/^list_iterator_t _list_insert_n($/;"	f	signature:( list_t* pt_list, list_iterator_t t_pos, size_t t_count, ...)
 _list_insert_n_varg	cstl/cstl_list_private.h	/^extern list_iterator_t _list_insert_n_varg($/;"	p	signature:( list_t* pt_list, list_iterator_t t_pos, size_t t_count, va_list val_elemlist)
@@ -2637,8 +2646,8 @@ _list_is_inited	src/cstl_list_aux.c	/^bool_t _list_is_inited(const list_t* cplis
 _list_is_inited	src/cstl_list_aux.h	/^extern bool_t _list_is_inited(const list_t* cplist_list);$/;"	p	signature:(const list_t* cplist_list)
 _list_iterator_before	cstl/cstl_list_iterator.h	/^extern bool_t _list_iterator_before(list_iterator_t it_first, list_iterator_t it_second);$/;"	p	signature:(list_iterator_t it_first, list_iterator_t it_second)
 _list_iterator_before	src/cstl_list_iterator.c	/^bool_t _list_iterator_before(list_iterator_t it_first, list_iterator_t it_second)$/;"	f	signature:(list_iterator_t it_first, list_iterator_t it_second)
-_list_iterator_belong_to_list	src/cstl_list_aux.c	/^bool_t _list_iterator_belong_to_list($/;"	f	signature:( const list_t* cpt_list, list_iterator_t t_iter)
-_list_iterator_belong_to_list	src/cstl_list_aux.h	/^extern bool_t _list_iterator_belong_to_list($/;"	p	signature:( const list_t* cpt_list, list_iterator_t t_iter)
+_list_iterator_belong_to_list	src/cstl_list_aux.c	/^bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t it_iter)$/;"	f	signature:(const list_t* cplist_list, list_iterator_t it_iter)
+_list_iterator_belong_to_list	src/cstl_list_aux.h	/^extern bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t it_iter);$/;"	p	signature:(const list_t* cplist_list, list_iterator_t it_iter)
 _list_iterator_distance	cstl/cstl_list_iterator.h	/^extern int _list_iterator_distance(list_iterator_t it_first, list_iterator_t it_second);$/;"	p	signature:(list_iterator_t it_first, list_iterator_t it_second)
 _list_iterator_distance	src/cstl_list_iterator.c	/^int _list_iterator_distance(list_iterator_t it_first, list_iterator_t it_second)$/;"	f	signature:(list_iterator_t it_first, list_iterator_t it_second)
 _list_iterator_equal	cstl/cstl_list_iterator.h	/^extern bool_t _list_iterator_equal(list_iterator_t it_first, list_iterator_t it_second);$/;"	p	signature:(list_iterator_t it_first, list_iterator_t it_second)
@@ -2671,10 +2680,10 @@ _list_resize_elem	cstl/cstl_list_private.h	/^extern void _list_resize_elem(list_
 _list_resize_elem	src/cstl_list_private.c	/^void _list_resize_elem(list_t* pt_list, size_t t_resize, ...)$/;"	f	signature:(list_t* pt_list, size_t t_resize, ...)
 _list_resize_elem_varg	cstl/cstl_list_private.h	/^extern void _list_resize_elem_varg(list_t* pt_list, size_t t_resize, va_list val_elemlist);$/;"	p	signature:(list_t* pt_list, size_t t_resize, va_list val_elemlist)
 _list_resize_elem_varg	src/cstl_list_private.c	/^void _list_resize_elem_varg(list_t* pt_list, size_t t_resize, va_list val_elemlist)$/;"	f	signature:(list_t* pt_list, size_t t_resize, va_list val_elemlist)
-_list_same_list_iterator_type	src/cstl_list_aux.c	/^bool_t _list_same_list_iterator_type($/;"	f	signature:( const list_t* cpt_list, list_iterator_t t_iter)
-_list_same_list_iterator_type	src/cstl_list_aux.h	/^extern bool_t _list_same_list_iterator_type($/;"	p	signature:( const list_t* cpt_list, list_iterator_t t_iter)
-_list_same_type	src/cstl_list_aux.c	/^bool_t _list_same_type(const list_t* cpt_listfirst, const list_t* cpt_listsecond)$/;"	f	signature:(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
-_list_same_type	src/cstl_list_aux.h	/^extern bool_t _list_same_type($/;"	p	signature:( const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+_list_same_list_iterator_type	src/cstl_list_aux.c	/^bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t it_iter)$/;"	f	signature:(const list_t* cplist_list, list_iterator_t it_iter)
+_list_same_list_iterator_type	src/cstl_list_aux.h	/^extern bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t it_iter);$/;"	p	signature:(const list_t* cplist_list, list_iterator_t it_iter)
+_list_same_type	src/cstl_list_aux.c	/^bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_second)$/;"	f	signature:(const list_t* cplist_first, const list_t* cplist_second)
+_list_same_type	src/cstl_list_aux.h	/^extern bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_second);$/;"	p	signature:(const list_t* cplist_first, const list_t* cplist_second)
 _list_sort_pre	test/it/test_list.c	/^static void _list_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_sort_pre	test/it/test_list.c	/^static void _list_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_str_remove_pre	test/it/test_list.c	/^static void _list_str_remove_pre(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
@@ -2683,6 +2692,10 @@ _list_str_sort_pre	test/it/test_list.c	/^static void _list_str_sort_pre(const vo
 _list_str_sort_pre	test/it/test_list.c	/^static void _list_str_sort_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_str_unique_pre	test/it/test_list.c	/^static void _list_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_str_unique_pre	test/it/test_list.c	/^static void _list_str_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_list_swap_node	src/cstl_list_aux.c	/^void _list_swap_node(listnode_t** ppt_first, listnode_t** ppt_second)$/;"	f	signature:(listnode_t** ppt_first, listnode_t** ppt_second)
+_list_swap_node	src/cstl_list_aux.h	/^extern void _list_swap_node(listnode_t** ppt_first, listnode_t** ppt_second);$/;"	p	signature:(listnode_t** ppt_first, listnode_t** ppt_second)
+_list_transfer	src/cstl_list_aux.c	/^void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end)$/;"	f	signature:(list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end)
+_list_transfer	src/cstl_list_aux.h	/^extern void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end);$/;"	p	signature:(list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end)
 _list_unique_pre	test/it/test_list.c	/^static void _list_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_unique_pre	test/it/test_list.c	/^static void _list_unique_pre(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _listabc_copy	test/it/test_list.c	/^static void _listabc_copy(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3402,8 +3415,6 @@ _stack_push_varg	cstl/cstl_stack_private.h	/^extern void _stack_push_varg(stack_
 _stack_push_varg	src/cstl_stack.c	/^void _stack_push_varg(stack_t* pt_stack, va_list val_elemlist)$/;"	f	signature:(stack_t* pt_stack, va_list val_elemlist)
 _string_destroy_auxiliary	cstl/cstl_string.h	/^extern void _string_destroy_auxiliary(string_t* pt_string);$/;"	p	signature:(string_t* pt_string)
 _string_destroy_auxiliary	src/cstl_string.c	/^void _string_destroy_auxiliary(string_t* pt_string)$/;"	f	signature:(string_t* pt_string)
-_swap_node	src/cstl_list_aux.c	/^void _swap_node(listnode_t** ppt_first, listnode_t** ppt_second)$/;"	f	signature:(listnode_t** ppt_first, listnode_t** ppt_second)
-_swap_node	src/cstl_list_aux.h	/^extern void _swap_node(listnode_t** ppt_first, listnode_t** ppt_second);$/;"	p	signature:(listnode_t** ppt_first, listnode_t** ppt_second)
 _sz_tokentext	src/cstl_types.c	/^    char         _sz_tokentext[_TYPE_NAME_SIZE+1];$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _sz_typename	cstl/cstl_types.h	/^    char                 _sz_typename[_TYPE_NAME_SIZE+1];   \/* type name *\/$/;"	m	struct:_tagtypenode	access:public
 _sz_typename	cstl/cstl_types.h	/^    char              _sz_typename[_TYPE_NAME_SIZE+1];    \/* type name *\/$/;"	m	struct:_tagtype	access:public
@@ -3499,6 +3510,8 @@ _t_valuecompare	cstl/cstl_map_private.h	/^    binary_function_t _t_valuecompare;
 _t_valuecompare	cstl/cstl_multimap_private.h	/^    binary_function_t _t_valuecompare;$/;"	m	struct:_tagmultimap	access:public
 _t_vector	cstl/cstl_basic_string_private.h	/^    vector_t _t_vector;$/;"	m	struct:_tagbasicstring	access:public
 _t_vector	cstl/cstl_queue_private.h	/^    vector_t          _t_vector;$/;"	m	struct:_tagpriority_queue	access:public
+_tag_test__list_same_type__same_user_defined	test/ut/ut_cstl_list_aux.c	/^typedef struct _tag_test__list_same_type__same_user_defined$/;"	s	file:
+_tag_test__list_same_type__same_user_defined::n_elem	test/ut/ut_cstl_list_aux.c	/^    int n_elem;$/;"	m	struct:_tag_test__list_same_type__same_user_defined	file:	access:public
 _tag_test_vector_init_copy__successfully_user_define	test/ut/ut_cstl_vector.c	/^typedef struct _tag_test_vector_init_copy__successfully_user_define$/;"	s	file:
 _tag_test_vector_init_copy__successfully_user_define::n_elem	test/ut/ut_cstl_vector.c	/^    int n_elem;$/;"	m	struct:_tag_test_vector_init_copy__successfully_user_define	file:	access:public
 _tagabc	test/it/test_type.c	/^typedef struct _tagabc$/;"	s	file:
@@ -3730,6 +3743,7 @@ _tagvector::_t_typeinfo	cstl/cstl_vector_private.h	/^    _typeinfo_t _t_typeinfo
 _tagweather	test/it/test_queue.c	/^typedef struct _tagweather$/;"	s	file:
 _tagweather::_n_temperature	test/it/test_queue.c	/^    int  _n_temperature;$/;"	m	struct:_tagweather	file:	access:public
 _tagweather::_s_city	test/it/test_queue.c	/^    char _s_city[31];$/;"	m	struct:_tagweather	file:	access:public
+_test__list_same_type__same_user_defined_t	test/ut/ut_cstl_list_aux.c	/^}_test__list_same_type__same_user_defined_t;$/;"	t	typeref:struct:_tag_test__list_same_type__same_user_defined	file:
 _test_vector_init_copy__successfully_user_define_t	test/ut/ut_cstl_vector.c	/^}_test_vector_init_copy__successfully_user_define_t;$/;"	t	typeref:struct:_tag_test_vector_init_copy__successfully_user_define	file:
 _tolower_cstr_ex	test/it/test_algo.c	/^static void _tolower_cstr_ex(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _tolower_cstr_ex	test/it/test_algo.c	/^static void _tolower_cstr_ex(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
@@ -3737,8 +3751,6 @@ _toupper_cstr	test/it/test_algo.c	/^static void _toupper_cstr(const void* cpv_in
 _toupper_cstr	test/it/test_algo.c	/^static void _toupper_cstr(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _toupper_cstr_ex	test/it/test_algo.c	/^static void _toupper_cstr_ex(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _toupper_cstr_ex	test/it/test_algo.c	/^static void _toupper_cstr_ex(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
-_transfer	src/cstl_list_aux.c	/^void _transfer($/;"	f	signature:( list_iterator_t t_pos, list_iterator_t t_begin, list_iterator_t t_end)
-_transfer	src/cstl_list_aux.h	/^extern void _transfer($/;"	p	signature:( list_iterator_t t_pos, list_iterator_t t_begin, list_iterator_t t_end)
 _transfer	src/cstl_slist.c	/^static void _transfer($/;"	f	file:	signature:( slist_iterator_t t_pos, slist_iterator_t t_begin, slist_iterator_t t_end)
 _transfer	src/cstl_slist.c	/^static void _transfer($/;"	p	file:	signature:( slist_iterator_t t_pos, slist_iterator_t t_begin, slist_iterator_t t_end)
 _transfer_after	src/cstl_slist.c	/^static void _transfer_after($/;"	f	file:	signature:( slist_iterator_t t_pos, slist_iterator_t t_begin, slist_iterator_t t_end)
@@ -4153,6 +4165,7 @@ _weather_set	test/it/test_queue.c	/^static void _weather_set(weather_t* pt_weath
 _weather_set	test/it/test_queue.c	/^static void _weather_set(weather_t* pt_weather, const char* s_city, int n_temperature);$/;"	p	file:	signature:(weather_t* pt_weather, const char* s_city, int n_temperature)
 _widdershins_rotate	src/cstl_rb_tree.c	/^static rbnode_t* _widdershins_rotate(rbnode_t* pt_root)$/;"	f	file:	signature:(rbnode_t* pt_root)
 _widdershins_rotate	src/cstl_rb_tree.c	/^static rbnode_t* _widdershins_rotate(rbnode_t* pt_root);$/;"	p	file:	signature:(rbnode_t* pt_root)
+_wrapper_list_get_varg_value_auxiliary	test/ut/ut_cstl_list_aux.c	/^static void _wrapper_list_get_varg_value_auxiliary(list_t* plist_list, listnode_t* pt_node, ...)$/;"	f	file:	signature:(list_t* plist_list, listnode_t* pt_node, ...)
 _wrapper_vector_get_varg_value_auxiliary	test/ut/ut_cstl_vector_aux.c	/^static void _wrapper_vector_get_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg, ...)$/;"	f	file:	signature:(vector_t* pvec_vector, void* pv_varg, ...)
 a	test/it/test_type.c	/^    int a;$/;"	m	struct:_tagabc	file:	access:public
 abc_t	test/it/test_type.c	/^}abc_t;$/;"	t	typeref:struct:_tagabc	file:
@@ -4849,17 +4862,17 @@ bindir	test/it/Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
 bindir	test/ut/Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
 black	cstl/cstl_rb_tree_private.h	/^    red, black$/;"	e	enum:_tagcolor
 bool_t	cstl/cstl_def.h	/^typedef size_t                   bool_t;         \/* declaration for bool type *\/$/;"	t
-build	Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	build-win/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	build-win/vc8/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	build-win/vc9/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	cstl/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	doc/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	doc/user/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	src/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	test/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	test/it/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
-build	test/ut/Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build	Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	build-win/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	build-win/vc8/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	build-win/vc9/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	cstl/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	doc/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	doc/user/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	src/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	test/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	test/it/Makefile	/^build = i686-pc-linux-gnu$/;"	m
+build	test/ut/Makefile	/^build = i686-pc-linux-gnu$/;"	m
 build_alias	Makefile	/^build_alias = $/;"	m
 build_alias	build-win/Makefile	/^build_alias = $/;"	m
 build_alias	build-win/vc8/Makefile	/^build_alias = $/;"	m
@@ -4871,17 +4884,17 @@ build_alias	src/Makefile	/^build_alias = $/;"	m
 build_alias	test/Makefile	/^build_alias = $/;"	m
 build_alias	test/it/Makefile	/^build_alias = $/;"	m
 build_alias	test/ut/Makefile	/^build_alias = $/;"	m
-build_cpu	Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	build-win/Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	build-win/vc8/Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	build-win/vc9/Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	cstl/Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	doc/Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	doc/user/Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	src/Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	test/Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	test/it/Makefile	/^build_cpu = x86_64$/;"	m
-build_cpu	test/ut/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	Makefile	/^build_cpu = i686$/;"	m
+build_cpu	build-win/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	build-win/vc8/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	build-win/vc9/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	cstl/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	doc/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	doc/user/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	src/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	test/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	test/it/Makefile	/^build_cpu = i686$/;"	m
+build_cpu	test/ut/Makefile	/^build_cpu = i686$/;"	m
 build_os	Makefile	/^build_os = linux-gnu$/;"	m
 build_os	build-win/Makefile	/^build_os = linux-gnu$/;"	m
 build_os	build-win/vc8/Makefile	/^build_os = linux-gnu$/;"	m
@@ -4893,28 +4906,28 @@ build_os	src/Makefile	/^build_os = linux-gnu$/;"	m
 build_os	test/Makefile	/^build_os = linux-gnu$/;"	m
 build_os	test/it/Makefile	/^build_os = linux-gnu$/;"	m
 build_os	test/ut/Makefile	/^build_os = linux-gnu$/;"	m
-build_triplet	Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	build-win/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	build-win/vc8/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	build-win/vc9/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	cstl/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	doc/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	doc/user/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	src/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	test/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	test/it/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_triplet	test/ut/Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
-build_vendor	Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	build-win/Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	build-win/vc8/Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	build-win/vc9/Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	cstl/Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	doc/Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	doc/user/Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	src/Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	test/Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	test/it/Makefile	/^build_vendor = unknown$/;"	m
-build_vendor	test/ut/Makefile	/^build_vendor = unknown$/;"	m
+build_triplet	Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	build-win/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	build-win/vc8/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	build-win/vc9/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	cstl/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	doc/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	doc/user/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	src/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	test/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	test/it/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_triplet	test/ut/Makefile	/^build_triplet = i686-pc-linux-gnu$/;"	m
+build_vendor	Makefile	/^build_vendor = pc$/;"	m
+build_vendor	build-win/Makefile	/^build_vendor = pc$/;"	m
+build_vendor	build-win/vc8/Makefile	/^build_vendor = pc$/;"	m
+build_vendor	build-win/vc9/Makefile	/^build_vendor = pc$/;"	m
+build_vendor	cstl/Makefile	/^build_vendor = pc$/;"	m
+build_vendor	doc/Makefile	/^build_vendor = pc$/;"	m
+build_vendor	doc/user/Makefile	/^build_vendor = pc$/;"	m
+build_vendor	src/Makefile	/^build_vendor = pc$/;"	m
+build_vendor	test/Makefile	/^build_vendor = pc$/;"	m
+build_vendor	test/it/Makefile	/^build_vendor = pc$/;"	m
+build_vendor	test/ut/Makefile	/^build_vendor = pc$/;"	m
 builddir	Makefile	/^builddir = .$/;"	m
 builddir	build-win/Makefile	/^builddir = .$/;"	m
 builddir	build-win/vc8/Makefile	/^builddir = .$/;"	m
@@ -5971,17 +5984,17 @@ hash_set_value_comp	src/cstl_hash_set.c	/^binary_function_t hash_set_value_comp(
 hashnode_t	cstl/cstl_hashtable_private.h	/^}hashnode_t;$/;"	t	typeref:struct:_taghashnode
 hashtable_iterator_t	cstl/cstl_hashtable_iterator.h	/^typedef iterator_t hashtable_iterator_t;$/;"	t
 hashtable_t	cstl/cstl_hashtable_private.h	/^}hashtable_t;$/;"	t	typeref:struct:_taghashtable
-host	Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	build-win/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	build-win/vc8/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	build-win/vc9/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	cstl/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	doc/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	doc/user/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	src/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	test/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	test/it/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
-host	test/ut/Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host	Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	build-win/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	build-win/vc8/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	build-win/vc9/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	cstl/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	doc/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	doc/user/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	src/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	test/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	test/it/Makefile	/^host = i686-pc-linux-gnu$/;"	m
+host	test/ut/Makefile	/^host = i686-pc-linux-gnu$/;"	m
 host_alias	Makefile	/^host_alias = $/;"	m
 host_alias	build-win/Makefile	/^host_alias = $/;"	m
 host_alias	build-win/vc8/Makefile	/^host_alias = $/;"	m
@@ -5993,17 +6006,17 @@ host_alias	src/Makefile	/^host_alias = $/;"	m
 host_alias	test/Makefile	/^host_alias = $/;"	m
 host_alias	test/it/Makefile	/^host_alias = $/;"	m
 host_alias	test/ut/Makefile	/^host_alias = $/;"	m
-host_cpu	Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	build-win/Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	build-win/vc8/Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	build-win/vc9/Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	cstl/Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	doc/Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	doc/user/Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	src/Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	test/Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	test/it/Makefile	/^host_cpu = x86_64$/;"	m
-host_cpu	test/ut/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	Makefile	/^host_cpu = i686$/;"	m
+host_cpu	build-win/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	build-win/vc8/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	build-win/vc9/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	cstl/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	doc/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	doc/user/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	src/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	test/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	test/it/Makefile	/^host_cpu = i686$/;"	m
+host_cpu	test/ut/Makefile	/^host_cpu = i686$/;"	m
 host_os	Makefile	/^host_os = linux-gnu$/;"	m
 host_os	build-win/Makefile	/^host_os = linux-gnu$/;"	m
 host_os	build-win/vc8/Makefile	/^host_os = linux-gnu$/;"	m
@@ -6015,28 +6028,28 @@ host_os	src/Makefile	/^host_os = linux-gnu$/;"	m
 host_os	test/Makefile	/^host_os = linux-gnu$/;"	m
 host_os	test/it/Makefile	/^host_os = linux-gnu$/;"	m
 host_os	test/ut/Makefile	/^host_os = linux-gnu$/;"	m
-host_triplet	Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	build-win/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	build-win/vc8/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	build-win/vc9/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	cstl/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	doc/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	doc/user/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	src/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	test/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	test/it/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_triplet	test/ut/Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
-host_vendor	Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	build-win/Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	build-win/vc8/Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	build-win/vc9/Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	cstl/Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	doc/Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	doc/user/Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	src/Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	test/Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	test/it/Makefile	/^host_vendor = unknown$/;"	m
-host_vendor	test/ut/Makefile	/^host_vendor = unknown$/;"	m
+host_triplet	Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	build-win/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	build-win/vc8/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	build-win/vc9/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	cstl/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	doc/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	doc/user/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	src/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	test/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	test/it/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_triplet	test/ut/Makefile	/^host_triplet = i686-pc-linux-gnu$/;"	m
+host_vendor	Makefile	/^host_vendor = pc$/;"	m
+host_vendor	build-win/Makefile	/^host_vendor = pc$/;"	m
+host_vendor	build-win/vc8/Makefile	/^host_vendor = pc$/;"	m
+host_vendor	build-win/vc9/Makefile	/^host_vendor = pc$/;"	m
+host_vendor	cstl/Makefile	/^host_vendor = pc$/;"	m
+host_vendor	doc/Makefile	/^host_vendor = pc$/;"	m
+host_vendor	doc/user/Makefile	/^host_vendor = pc$/;"	m
+host_vendor	src/Makefile	/^host_vendor = pc$/;"	m
+host_vendor	test/Makefile	/^host_vendor = pc$/;"	m
+host_vendor	test/it/Makefile	/^host_vendor = pc$/;"	m
+host_vendor	test/ut/Makefile	/^host_vendor = pc$/;"	m
 htmldir	Makefile	/^htmldir = ${docdir}$/;"	m
 htmldir	build-win/Makefile	/^htmldir = ${docdir}$/;"	m
 htmldir	build-win/vc8/Makefile	/^htmldir = ${docdir}$/;"	m
@@ -6561,6 +6574,7 @@ multiset_value_comp	src/cstl_multiset.c	/^binary_function_t multiset_value_comp(
 multisetsample_t	test/it/test_set.c	/^typedef setsample_t multisetsample_t;$/;"	t	file:
 myiter_t	test/it/test_type.c	/^typedef output_iterator_t myiter_t;$/;"	t	file:
 mymacro	test/it/test_type.c	47;"	d	file:
+n_elem	test/ut/ut_cstl_list_aux.c	/^    int n_elem;$/;"	m	struct:_tag_test__list_same_type__same_user_defined	file:	access:public
 n_elem	test/ut/ut_cstl_vector.c	/^    int n_elem;$/;"	m	struct:_tag_test_vector_init_copy__successfully_user_define	file:	access:public
 n_second	test/it/test_deque.c	/^    int    n_second;$/;"	m	struct:_tagdeqabc	file:	access:public
 new_handler	test/ut/ut_cstl_alloc.c	/^static void new_handler(void){}$/;"	f	file:	signature:(void)
@@ -7336,6 +7350,40 @@ test__create_vector_auxiliary__registed_type	test/ut/ut_cstl_vector_private.h	/^
 test__create_vector_auxiliary__unregisted_type	test/ut/ut_cstl_vector_private.c	/^void test__create_vector_auxiliary__unregisted_type(void** state)$/;"	f	signature:(void** state)
 test__create_vector_auxiliary__unregisted_type	test/ut/ut_cstl_vector_private.h	/^void test__create_vector_auxiliary__unregisted_type(void** state);$/;"	p	signature:(void** state)
 test__create_vector_iterator__successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__create_vector_iterator__successfully(void** state);$/;"	p	signature:(void** state)
+test__list_destroy_varg_value_auxiliary__non_created_list_container	test/ut/ut_cstl_list_aux.c	/^void test__list_destroy_varg_value_auxiliary__non_created_list_container(void** state)$/;"	f	signature:(void** state)
+test__list_destroy_varg_value_auxiliary__non_created_list_container	test/ut/ut_cstl_list_aux.h	/^void test__list_destroy_varg_value_auxiliary__non_created_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_destroy_varg_value_auxiliary__null_list_container	test/ut/ut_cstl_list_aux.h	/^void test__list_destroy_varg_value_auxiliary__null_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_destroy_varg_value_auxiliary__null_node	test/ut/ut_cstl_list_aux.c	/^void test__list_destroy_varg_value_auxiliary__null_node(void** state)$/;"	f	signature:(void** state)
+test__list_destroy_varg_value_auxiliary__null_node	test/ut/ut_cstl_list_aux.h	/^void test__list_destroy_varg_value_auxiliary__null_node(void** state);$/;"	p	signature:(void** state)
+test__list_destroy_varg_value_auxiliary__successfully	test/ut/ut_cstl_list_aux.c	/^void test__list_destroy_varg_value_auxiliary__successfully(void** state)$/;"	f	signature:(void** state)
+test__list_destroy_varg_value_auxiliary__successfully	test/ut/ut_cstl_list_aux.h	/^void test__list_destroy_varg_value_auxiliary__successfully(void** state);$/;"	p	signature:(void** state)
+test__list_get_varg_value_auxiliary__c_builtin	test/ut/ut_cstl_list_aux.c	/^void test__list_get_varg_value_auxiliary__c_builtin(void** state)$/;"	f	signature:(void** state)
+test__list_get_varg_value_auxiliary__c_builtin	test/ut/ut_cstl_list_aux.h	/^void test__list_get_varg_value_auxiliary__c_builtin(void** state);$/;"	p	signature:(void** state)
+test__list_get_varg_value_auxiliary__cstr	test/ut/ut_cstl_list_aux.c	/^void test__list_get_varg_value_auxiliary__cstr(void** state)$/;"	f	signature:(void** state)
+test__list_get_varg_value_auxiliary__cstr	test/ut/ut_cstl_list_aux.h	/^void test__list_get_varg_value_auxiliary__cstr(void** state);$/;"	p	signature:(void** state)
+test__list_get_varg_value_auxiliary__libcstl_builtin	test/ut/ut_cstl_list_aux.c	/^void test__list_get_varg_value_auxiliary__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__list_get_varg_value_auxiliary__libcstl_builtin	test/ut/ut_cstl_list_aux.h	/^void test__list_get_varg_value_auxiliary__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__list_get_varg_value_auxiliary__non_created_list_containter	test/ut/ut_cstl_list_aux.c	/^void test__list_get_varg_value_auxiliary__non_created_list_containter(void** state)$/;"	f	signature:(void** state)
+test__list_get_varg_value_auxiliary__non_created_list_containter	test/ut/ut_cstl_list_aux.h	/^void test__list_get_varg_value_auxiliary__non_created_list_containter(void** state);$/;"	p	signature:(void** state)
+test__list_get_varg_value_auxiliary__null_list_container	test/ut/ut_cstl_list_aux.c	/^void test__list_get_varg_value_auxiliary__null_list_container(void** state)$/;"	f	signature:(void** state)
+test__list_get_varg_value_auxiliary__null_list_container	test/ut/ut_cstl_list_aux.h	/^void test__list_get_varg_value_auxiliary__null_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_get_varg_value_auxiliary__null_node	test/ut/ut_cstl_list_aux.c	/^void test__list_get_varg_value_auxiliary__null_node(void** state)$/;"	f	signature:(void** state)
+test__list_get_varg_value_auxiliary__null_node	test/ut/ut_cstl_list_aux.h	/^void test__list_get_varg_value_auxiliary__null_node(void** state);$/;"	p	signature:(void** state)
+test__list_get_varg_value_auxiliary__user_define	test/ut/ut_cstl_list_aux.c	/^void test__list_get_varg_value_auxiliary__user_define(void** state)$/;"	f	signature:(void** state)
+test__list_get_varg_value_auxiliary__user_define	test/ut/ut_cstl_list_aux.h	/^void test__list_get_varg_value_auxiliary__user_define(void** state);$/;"	p	signature:(void** state)
+test__list_init_node_auxiliary__c_builtin	test/ut/ut_cstl_list_aux.c	/^void test__list_init_node_auxiliary__c_builtin(void** state)$/;"	f	signature:(void** state)
+test__list_init_node_auxiliary__c_builtin	test/ut/ut_cstl_list_aux.h	/^void test__list_init_node_auxiliary__c_builtin(void** state);$/;"	p	signature:(void** state)
+test__list_init_node_auxiliary__cstr	test/ut/ut_cstl_list_aux.c	/^void test__list_init_node_auxiliary__cstr(void** state)$/;"	f	signature:(void** state)
+test__list_init_node_auxiliary__cstr	test/ut/ut_cstl_list_aux.h	/^void test__list_init_node_auxiliary__cstr(void** state);$/;"	p	signature:(void** state)
+test__list_init_node_auxiliary__libcstl_builtin	test/ut/ut_cstl_list_aux.c	/^void test__list_init_node_auxiliary__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__list_init_node_auxiliary__libcstl_builtin	test/ut/ut_cstl_list_aux.h	/^void test__list_init_node_auxiliary__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__list_init_node_auxiliary__non_created_list_containter	test/ut/ut_cstl_list_aux.c	/^void test__list_init_node_auxiliary__non_created_list_containter(void** state)$/;"	f	signature:(void** state)
+test__list_init_node_auxiliary__non_created_list_containter	test/ut/ut_cstl_list_aux.h	/^void test__list_init_node_auxiliary__non_created_list_containter(void** state);$/;"	p	signature:(void** state)
+test__list_init_node_auxiliary__null_list_container	test/ut/ut_cstl_list_aux.h	/^void test__list_init_node_auxiliary__null_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_init_node_auxiliary__null_node	test/ut/ut_cstl_list_aux.c	/^void test__list_init_node_auxiliary__null_node(void** state)$/;"	f	signature:(void** state)
+test__list_init_node_auxiliary__null_node	test/ut/ut_cstl_list_aux.h	/^void test__list_init_node_auxiliary__null_node(void** state);$/;"	p	signature:(void** state)
+test__list_init_node_auxiliary__user_define	test/ut/ut_cstl_list_aux.c	/^void test__list_init_node_auxiliary__user_define(void** state)$/;"	f	signature:(void** state)
+test__list_init_node_auxiliary__user_define	test/ut/ut_cstl_list_aux.h	/^void test__list_init_node_auxiliary__user_define(void** state);$/;"	p	signature:(void** state)
 test__list_is_created__invalid_type_pointer	test/ut/ut_cstl_list_aux.c	/^void test__list_is_created__invalid_type_pointer(void** state)$/;"	f	signature:(void** state)
 test__list_is_created__invalid_type_pointer	test/ut/ut_cstl_list_aux.h	/^void test__list_is_created__invalid_type_pointer(void** state);$/;"	p	signature:(void** state)
 test__list_is_created__invalid_type_style	test/ut/ut_cstl_list_aux.c	/^void test__list_is_created__invalid_type_style(void** state)$/;"	f	signature:(void** state)
@@ -7385,6 +7433,23 @@ test__list_iterator_before__second_not_belong_to_list	test/ut/ut_cstl_list_itera
 test__list_iterator_before__second_not_belong_to_list	test/ut/ut_cstl_list_iterator.h	/^void test__list_iterator_before__second_not_belong_to_list(void** state);$/;"	p	signature:(void** state)
 test__list_iterator_before__two_vector_iterator	test/ut/ut_cstl_list_iterator.c	/^void test__list_iterator_before__two_vector_iterator(void** state)$/;"	f	signature:(void** state)
 test__list_iterator_before__two_vector_iterator	test/ut/ut_cstl_list_iterator.h	/^void test__list_iterator_before__two_vector_iterator(void** state);$/;"	p	signature:(void** state)
+test__list_iterator_belong_to_list__belong_to_list_begin	test/ut/ut_cstl_list_aux.c	/^void test__list_iterator_belong_to_list__belong_to_list_begin(void** state)$/;"	f	signature:(void** state)
+test__list_iterator_belong_to_list__belong_to_list_begin	test/ut/ut_cstl_list_aux.h	/^void test__list_iterator_belong_to_list__belong_to_list_begin(void** state);$/;"	p	signature:(void** state)
+test__list_iterator_belong_to_list__belong_to_list_end	test/ut/ut_cstl_list_aux.c	/^void test__list_iterator_belong_to_list__belong_to_list_end(void** state)$/;"	f	signature:(void** state)
+test__list_iterator_belong_to_list__belong_to_list_end	test/ut/ut_cstl_list_aux.h	/^void test__list_iterator_belong_to_list__belong_to_list_end(void** state);$/;"	p	signature:(void** state)
+test__list_iterator_belong_to_list__belong_to_list_middle	test/ut/ut_cstl_list_aux.c	/^void test__list_iterator_belong_to_list__belong_to_list_middle(void** state)$/;"	f	signature:(void** state)
+test__list_iterator_belong_to_list__belong_to_list_middle	test/ut/ut_cstl_list_aux.h	/^void test__list_iterator_belong_to_list__belong_to_list_middle(void** state);$/;"	p	signature:(void** state)
+test__list_iterator_belong_to_list__invalid_iter_container_pointer	test/ut/ut_cstl_list_aux.c	/^void test__list_iterator_belong_to_list__invalid_iter_container_pointer(void** state)$/;"	f	signature:(void** state)
+test__list_iterator_belong_to_list__invalid_iter_container_pointer	test/ut/ut_cstl_list_aux.h	/^void test__list_iterator_belong_to_list__invalid_iter_container_pointer(void** state);$/;"	p	signature:(void** state)
+test__list_iterator_belong_to_list__invalid_iter_container_type	test/ut/ut_cstl_list_aux.c	/^void test__list_iterator_belong_to_list__invalid_iter_container_type(void** state)$/;"	f	signature:(void** state)
+test__list_iterator_belong_to_list__invalid_iter_container_type	test/ut/ut_cstl_list_aux.h	/^void test__list_iterator_belong_to_list__invalid_iter_container_type(void** state);$/;"	p	signature:(void** state)
+test__list_iterator_belong_to_list__invalid_iter_iterator_type	test/ut/ut_cstl_list_aux.c	/^void test__list_iterator_belong_to_list__invalid_iter_iterator_type(void** state)$/;"	f	signature:(void** state)
+test__list_iterator_belong_to_list__invalid_iter_iterator_type	test/ut/ut_cstl_list_aux.h	/^void test__list_iterator_belong_to_list__invalid_iter_iterator_type(void** state);$/;"	p	signature:(void** state)
+test__list_iterator_belong_to_list__non_inited_list_container	test/ut/ut_cstl_list_aux.c	/^void test__list_iterator_belong_to_list__non_inited_list_container(void** state)$/;"	f	signature:(void** state)
+test__list_iterator_belong_to_list__non_inited_list_container	test/ut/ut_cstl_list_aux.h	/^void test__list_iterator_belong_to_list__non_inited_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_iterator_belong_to_list__not_belong_to_list	test/ut/ut_cstl_list_aux.c	/^void test__list_iterator_belong_to_list__not_belong_to_list(void** state)$/;"	f	signature:(void** state)
+test__list_iterator_belong_to_list__not_belong_to_list	test/ut/ut_cstl_list_aux.h	/^void test__list_iterator_belong_to_list__not_belong_to_list(void** state);$/;"	p	signature:(void** state)
+test__list_iterator_belong_to_list__null_list_container	test/ut/ut_cstl_list_aux.h	/^void test__list_iterator_belong_to_list__null_list_container(void** state);$/;"	p	signature:(void** state)
 test__list_iterator_distance__empty	test/ut/ut_cstl_list_iterator.c	/^void test__list_iterator_distance__empty(void** state)$/;"	f	signature:(void** state)
 test__list_iterator_distance__empty	test/ut/ut_cstl_list_iterator.h	/^void test__list_iterator_distance__empty(void** state);$/;"	p	signature:(void** state)
 test__list_iterator_distance__first_invalid_container_type	test/ut/ut_cstl_list_iterator.h	/^void test__list_iterator_distance__first_invalid_container_type(void** state);$/;"	p	signature:(void** state)
@@ -7482,6 +7547,116 @@ test__list_iterator_set_value__successfully	test/ut/ut_cstl_list_iterator.c	/^vo
 test__list_iterator_set_value__successfully	test/ut/ut_cstl_list_iterator.h	/^void test__list_iterator_set_value__successfully(void** state);$/;"	p	signature:(void** state)
 test__list_iterator_set_value__successfully_cstr	test/ut/ut_cstl_list_iterator.c	/^void test__list_iterator_set_value__successfully_cstr(void** state)$/;"	f	signature:(void** state)
 test__list_iterator_set_value__successfully_cstr	test/ut/ut_cstl_list_iterator.h	/^void test__list_iterator_set_value__successfully_cstr(void** state);$/;"	p	signature:(void** state)
+test__list_same_list_iterator_type__invalid_iterator_container_type	test/ut/ut_cstl_list_aux.c	/^void test__list_same_list_iterator_type__invalid_iterator_container_type(void** state)$/;"	f	signature:(void** state)
+test__list_same_list_iterator_type__invalid_iterator_container_type	test/ut/ut_cstl_list_aux.h	/^void test__list_same_list_iterator_type__invalid_iterator_container_type(void** state);$/;"	p	signature:(void** state)
+test__list_same_list_iterator_type__invalid_iterator_iterator_type	test/ut/ut_cstl_list_aux.c	/^void test__list_same_list_iterator_type__invalid_iterator_iterator_type(void** state)$/;"	f	signature:(void** state)
+test__list_same_list_iterator_type__invalid_iterator_iterator_type	test/ut/ut_cstl_list_aux.h	/^void test__list_same_list_iterator_type__invalid_iterator_iterator_type(void** state);$/;"	p	signature:(void** state)
+test__list_same_list_iterator_type__invalid_iterator_null_container	test/ut/ut_cstl_list_aux.c	/^void test__list_same_list_iterator_type__invalid_iterator_null_container(void** state)$/;"	f	signature:(void** state)
+test__list_same_list_iterator_type__invalid_iterator_null_container	test/ut/ut_cstl_list_aux.h	/^void test__list_same_list_iterator_type__invalid_iterator_null_container(void** state);$/;"	p	signature:(void** state)
+test__list_same_list_iterator_type__not_same_type	test/ut/ut_cstl_list_aux.c	/^void test__list_same_list_iterator_type__not_same_type(void** state)$/;"	f	signature:(void** state)
+test__list_same_list_iterator_type__not_same_type	test/ut/ut_cstl_list_aux.h	/^void test__list_same_list_iterator_type__not_same_type(void** state);$/;"	p	signature:(void** state)
+test__list_same_list_iterator_type__null_list_container	test/ut/ut_cstl_list_aux.h	/^void test__list_same_list_iterator_type__null_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_same_list_iterator_type__same_type_belong_to_list	test/ut/ut_cstl_list_aux.c	/^void test__list_same_list_iterator_type__same_type_belong_to_list(void** state)$/;"	f	signature:(void** state)
+test__list_same_list_iterator_type__same_type_belong_to_list	test/ut/ut_cstl_list_aux.h	/^void test__list_same_list_iterator_type__same_type_belong_to_list(void** state);$/;"	p	signature:(void** state)
+test__list_same_list_iterator_type__same_type_not_belong_to_list	test/ut/ut_cstl_list_aux.c	/^void test__list_same_list_iterator_type__same_type_not_belong_to_list(void** state)$/;"	f	signature:(void** state)
+test__list_same_list_iterator_type__same_type_not_belong_to_list	test/ut/ut_cstl_list_aux.h	/^void test__list_same_list_iterator_type__same_type_not_belong_to_list(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__non_created_first	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__non_created_first(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__non_created_first	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__non_created_first(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__non_created_second	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__non_created_second(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__non_created_second	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__non_created_second(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__not_same_c_builtin	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__not_same_c_builtin(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__not_same_c_builtin	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__not_same_c_builtin(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__not_same_c_libcstl_builtin	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__not_same_c_libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__not_same_c_libcstl_builtin	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__not_same_c_libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__not_same_c_user_define	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__not_same_c_user_define(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__not_same_c_user_define	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__not_same_c_user_define(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__not_same_libcstl_builtin_container	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__not_same_libcstl_builtin_container(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__not_same_libcstl_builtin_container	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__not_same_libcstl_builtin_container(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__not_same_libcstl_builtin_elem	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__not_same_libcstl_builtin_elem(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__not_same_libcstl_builtin_elem	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__not_same_libcstl_builtin_elem(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__not_same_libcstl_builtin_iter	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__not_same_libcstl_builtin_iter(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__not_same_libcstl_builtin_iter	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__not_same_libcstl_builtin_iter(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__not_same_libcstl_builtin_string	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__not_same_libcstl_builtin_string(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__not_same_libcstl_builtin_string	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__not_same_libcstl_builtin_string(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__not_same_libcstl_user_define	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__not_same_libcstl_user_define(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__not_same_libcstl_user_define	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__not_same_libcstl_user_define(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__null_first	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__null_first(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__null_second	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__null_second(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__null_second	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__null_second(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__same_c_builtin	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__same_c_builtin(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__same_c_builtin	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__same_c_builtin(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__same_c_builtin_dup	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__same_c_builtin_dup(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__same_c_builtin_dup	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__same_c_builtin_dup(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__same_libcstl_builtin	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__same_libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__same_libcstl_builtin	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__same_libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__same_libcstl_builtin_dup	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__same_libcstl_builtin_dup(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__same_libcstl_builtin_dup	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__same_libcstl_builtin_dup(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__same_user_defined	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__same_user_defined(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__same_user_defined	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__same_user_defined(void** state);$/;"	p	signature:(void** state)
+test__list_same_type__same_user_defined_dup	test/ut/ut_cstl_list_aux.c	/^void test__list_same_type__same_user_defined_dup(void** state)$/;"	f	signature:(void** state)
+test__list_same_type__same_user_defined_dup	test/ut/ut_cstl_list_aux.h	/^void test__list_same_type__same_user_defined_dup(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__first_distanced_by_second	test/ut/ut_cstl_list_aux.c	/^void test__list_swap_node__first_distanced_by_second(void** state)$/;"	f	signature:(void** state)
+test__list_swap_node__first_distanced_by_second	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__first_distanced_by_second(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__first_followed_by_second	test/ut/ut_cstl_list_aux.c	/^void test__list_swap_node__first_followed_by_second(void** state)$/;"	f	signature:(void** state)
+test__list_swap_node__first_followed_by_second	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__first_followed_by_second(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__null_ppt_first	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__null_ppt_first(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__null_ppt_second	test/ut/ut_cstl_list_aux.c	/^void test__list_swap_node__null_ppt_second(void** state)$/;"	f	signature:(void** state)
+test__list_swap_node__null_ppt_second	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__null_ppt_second(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__null_pt_first	test/ut/ut_cstl_list_aux.c	/^void test__list_swap_node__null_pt_first(void** state)$/;"	f	signature:(void** state)
+test__list_swap_node__null_pt_first	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__null_pt_first(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__null_pt_second	test/ut/ut_cstl_list_aux.c	/^void test__list_swap_node__null_pt_second(void** state)$/;"	f	signature:(void** state)
+test__list_swap_node__null_pt_second	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__null_pt_second(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__same_ppt_first_ppt_second	test/ut/ut_cstl_list_aux.c	/^void test__list_swap_node__same_ppt_first_ppt_second(void** state)$/;"	f	signature:(void** state)
+test__list_swap_node__same_ppt_first_ppt_second	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__same_ppt_first_ppt_second(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__same_pt_first_pt_second	test/ut/ut_cstl_list_aux.c	/^void test__list_swap_node__same_pt_first_pt_second(void** state)$/;"	f	signature:(void** state)
+test__list_swap_node__same_pt_first_pt_second	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__same_pt_first_pt_second(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__second_distanced_by_first	test/ut/ut_cstl_list_aux.c	/^void test__list_swap_node__second_distanced_by_first(void** state)$/;"	f	signature:(void** state)
+test__list_swap_node__second_distanced_by_first	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__second_distanced_by_first(void** state);$/;"	p	signature:(void** state)
+test__list_swap_node__second_followed_by_first	test/ut/ut_cstl_list_aux.c	/^void test__list_swap_node__second_followed_by_first(void** state)$/;"	f	signature:(void** state)
+test__list_swap_node__second_followed_by_first	test/ut/ut_cstl_list_aux.h	/^void test__list_swap_node__second_followed_by_first(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__does_nothing_empty_range	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__does_nothing_empty_range(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__does_nothing_empty_range	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__does_nothing_empty_range(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__invalid_begin	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__invalid_begin(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__invalid_begin	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__invalid_begin(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__invalid_end	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__invalid_end(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__invalid_end	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__invalid_end(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__invalid_pos	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__invalid_pos(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__invalid_range_end_before_begin	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__invalid_range_end_before_begin(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__invalid_range_end_before_begin	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__invalid_range_end_before_begin(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__invalid_range_not_same_list	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__invalid_range_not_same_list(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__invalid_range_not_same_list	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__invalid_range_not_same_list(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__pos_range_not_same_type	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__pos_range_not_same_type(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__pos_range_not_same_type	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__pos_range_not_same_type(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_begin_end	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_begin_end(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_begin_end	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_begin_end(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_begin_middle	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_begin_middle(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_begin_middle	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_begin_middle(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_does_nothing_empty_range	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_does_nothing_empty_range(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_does_nothing_empty_range	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_does_nothing_empty_range(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_does_nothing_pos_equa_to_begin	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_does_nothing_pos_equa_to_begin(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_does_nothing_pos_equa_to_begin	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_does_nothing_pos_equa_to_begin(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_does_nothing_pos_equa_to_end	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_does_nothing_pos_equa_to_end(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_does_nothing_pos_equa_to_end	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_does_nothing_pos_equa_to_end(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_end_begin	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_end_begin(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_end_begin	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_end_begin(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_end_middle	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_end_middle(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_end_middle	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_end_middle(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_middle_begin	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_middle_begin(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_middle_begin	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_middle_begin(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_middle_end	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_middle_end(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_middle_end	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_middle_end(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_middle_middle	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_middle_middle(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_middle_middle	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_middle_middle(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__same_list_pos_belong_to_range	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__same_list_pos_belong_to_range(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__same_list_pos_belong_to_range	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__same_list_pos_belong_to_range(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__successfully_begin_begin	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__successfully_begin_begin(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__successfully_begin_begin	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__successfully_begin_begin(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__successfully_end	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__successfully_end(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__successfully_end	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__successfully_end(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__successfully_middle_all	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__successfully_middle_all(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__successfully_middle_all	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__successfully_middle_all(void** state);$/;"	p	signature:(void** state)
+test__list_transfer__successfully_middle_middle	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__successfully_middle_middle(void** state)$/;"	f	signature:(void** state)
+test__list_transfer__successfully_middle_middle	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__successfully_middle_middle(void** state);$/;"	p	signature:(void** state)
 test__vector_assign_elem__vector_assign_elem_varg__non_inited	test/ut/ut_cstl_vector_private.c	/^void test__vector_assign_elem__vector_assign_elem_varg__non_inited(void** state)$/;"	f	signature:(void** state)
 test__vector_assign_elem__vector_assign_elem_varg__non_inited	test/ut/ut_cstl_vector_private.h	/^void test__vector_assign_elem__vector_assign_elem_varg__non_inited(void** state);$/;"	p	signature:(void** state)
 test__vector_assign_elem__vector_assign_elem_varg__null_vector_container	test/ut/ut_cstl_vector_private.h	/^void test__vector_assign_elem__vector_assign_elem_varg__null_vector_container(void** state);$/;"	p	signature:(void** state)
@@ -7710,6 +7885,8 @@ test__vector_iterator_belong_to_vector__invalid_iterator_iterator_type	test/ut/u
 test__vector_iterator_belong_to_vector__invalid_iterator_iterator_type	test/ut/ut_cstl_vector_aux.h	/^void test__vector_iterator_belong_to_vector__invalid_iterator_iterator_type(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_belong_to_vector__less_than_begin	test/ut/ut_cstl_vector_aux.c	/^void test__vector_iterator_belong_to_vector__less_than_begin(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_belong_to_vector__less_than_begin	test/ut/ut_cstl_vector_aux.h	/^void test__vector_iterator_belong_to_vector__less_than_begin(void** state);$/;"	p	signature:(void** state)
+test__vector_iterator_belong_to_vector__non_inited_vector_container	test/ut/ut_cstl_vector_aux.c	/^void test__vector_iterator_belong_to_vector__non_inited_vector_container(void** state)$/;"	f	signature:(void** state)
+test__vector_iterator_belong_to_vector__non_inited_vector_container	test/ut/ut_cstl_vector_aux.h	/^void test__vector_iterator_belong_to_vector__non_inited_vector_container(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_belong_to_vector__null_container_pointer	test/ut/ut_cstl_vector_aux.h	/^void test__vector_iterator_belong_to_vector__null_container_pointer(void** state);$/;"	p	signature:(void** state)
 test__vector_iterator_belong_to_vector__within_vector	test/ut/ut_cstl_vector_aux.c	/^void test__vector_iterator_belong_to_vector__within_vector(void** state)$/;"	f	signature:(void** state)
 test__vector_iterator_belong_to_vector__within_vector	test/ut/ut_cstl_vector_aux.h	/^void test__vector_iterator_belong_to_vector__within_vector(void** state);$/;"	p	signature:(void** state)

@@ -705,7 +705,7 @@ void list_splice(list_t* pt_list, list_iterator_t t_pos, list_t* pt_listsrc)
 
     if(!list_empty(pt_listsrc))
     {
-        _transfer(t_pos, list_begin(pt_listsrc), list_end(pt_listsrc));
+        _list_transfer(t_pos, list_begin(pt_listsrc), list_end(pt_listsrc));
     }
 }
 
@@ -727,7 +727,7 @@ void list_splice_pos(
     t_possrcnext = iterator_next(t_possrc);
     if(!list_empty(pt_listsrc) && !iterator_equal(t_possrc, list_end(pt_listsrc)))
     {
-        _transfer(t_pos, t_possrc, t_possrcnext);
+        _list_transfer(t_pos, t_possrc, t_possrcnext);
     }
 }
 
@@ -749,7 +749,7 @@ void list_splice_range(
     /* ensure the pt_list is difference from pt_listsrc */
     assert(_GET_LIST_CONTAINER(t_pos) != pt_listsrc);
 
-    _transfer(t_pos, t_begin, t_end);
+    _list_transfer(t_pos, t_begin, t_end);
 }
 
 void list_sort(list_t* pt_list)
@@ -800,7 +800,7 @@ void list_merge(list_t* pt_listdest, list_t* pt_listsrc)
             _GET_LIST_COREPOS(t_src) = (char*)(pt_src);
             _GET_LIST_COREPOS(t_srcnext) = (char*)(pt_src->_pt_next);
             pt_src = pt_src->_pt_next;
-            _transfer(t_dest, t_src, t_srcnext);
+            _list_transfer(t_dest, t_src, t_srcnext);
         }
         else
         {
@@ -811,7 +811,7 @@ void list_merge(list_t* pt_listdest, list_t* pt_listsrc)
     if(pt_src != pt_listsrc->_pt_node)
     {
         _GET_LIST_COREPOS(t_src) = (char*)pt_src;
-        _transfer(list_end(pt_listdest), t_src, list_end(pt_listsrc));
+        _list_transfer(list_end(pt_listdest), t_src, list_end(pt_listsrc));
     }
 }
 
@@ -851,7 +851,7 @@ void list_merge_if(
                 _GET_LIST_COREPOS(t_src) = (char*)(pt_src);
                 _GET_LIST_COREPOS(t_srcnext) = (char*)(pt_src->_pt_next);
                 pt_src = pt_src->_pt_next;
-                _transfer(t_dest, t_src, t_srcnext);
+                _list_transfer(t_dest, t_src, t_srcnext);
             }
             else
             {
@@ -870,7 +870,7 @@ void list_merge_if(
                 _GET_LIST_COREPOS(t_src) = (char*)(pt_src);
                 _GET_LIST_COREPOS(t_srcnext) = (char*)(pt_src->_pt_next);
                 pt_src = pt_src->_pt_next;
-                _transfer(t_dest, t_src, t_srcnext);
+                _list_transfer(t_dest, t_src, t_srcnext);
             }
             else
             {
@@ -882,7 +882,7 @@ void list_merge_if(
     if(pt_src != pt_listsrc->_pt_node)
     {
         _GET_LIST_COREPOS(t_src) = (char*)pt_src;
-        _transfer(list_end(pt_listdest), t_src, list_end(pt_listsrc));
+        _list_transfer(list_end(pt_listdest), t_src, list_end(pt_listsrc));
     }
 }
 
@@ -906,7 +906,7 @@ void list_reverse(list_t* pt_list)
             _GET_LIST_COREPOS(t_pos) = (char*)pt_node;
             _GET_LIST_COREPOS(t_posnext) = (char*)(pt_node->_pt_next);
             pt_node = pt_node->_pt_next;
-            _transfer(list_begin(pt_list), t_pos, t_posnext);
+            _list_transfer(list_begin(pt_list), t_pos, t_posnext);
         }
     }
 }

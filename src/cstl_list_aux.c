@@ -166,13 +166,40 @@ bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_second)
            _type_is_same(_GET_LIST_TYPE_NAME(cplist_first), _GET_LIST_TYPE_NAME(cplist_second));
 }
 
-void _transfer(
-    list_iterator_t t_pos, list_iterator_t t_begin, list_iterator_t t_end)
+/**
+ * Transfer the range [it_begin, it_end) to position it_pos.
+ */
+void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end)
 {
-    /* insert the range [t_begin, t_end) to dest list */
-    list_insert_range(_GET_LIST_CONTAINER(t_pos), t_pos, t_begin, t_end);
-    /* delete the range [t_begin, t_end) front the source list */
-    list_erase_range(_GET_LIST_CONTAINER(t_begin), t_begin, t_end);
+    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_pos), it_pos));
+    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_begin), it_begin));
+    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_end), it_end));
+    assert(_GET_LIST_CONTAINER(it_begin) == _GET_LIST_CONTAINER(it_end));
+    assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
+    assert(_list_same_list_iterator_type(_GET_LIST_CONTAINER(it_pos), it_begin));
+
+    /* empty range */
+    if(iterator_equal(it_begin, it_end))
+    {
+        return;
+    }
+
+    /* same list container */
+    if(_GET_LIST_CONTAINER(it_pos) == _GET_LIST_CONTAINER(it_begin))
+    {
+        assert(iterator_equal(it_pos, it_begin) || iterator_equal(it_pos, it_end) ||
+               _list_iterator_before(it_pos, it_begin) || _list_iterator_before(it_end, it_pos));
+
+        if(iterator_equal(it_pos, it_begin) || iterator_equal(it_pos, it_end))
+        {
+            return;
+        }
+    }
+
+    /* insert the range [it_begin, it_end) to dest list */
+    list_insert_range(_GET_LIST_CONTAINER(it_pos), it_pos, it_begin, it_end);
+    /* delete the range [it_begin, it_end) front the source list */
+    list_erase_range(_GET_LIST_CONTAINER(it_begin), it_begin, it_end);
 }
 
 void _quick_sort(
@@ -261,7 +288,7 @@ void _quick_sort(
                     _GET_LIST_COREPOS(t_afterpivot) = (char*)pt_afterpivot;
                     if(_list_iterator_before(t_beforepivot, t_afterpivot))
                     {
-                        _swap_node(&pt_beforepivot, &pt_afterpivot);
+                        _list_swap_node(&pt_beforepivot, &pt_afterpivot);
                         pt_beforepivot = pt_beforepivot->_pt_next;
                         pt_afterpivot = pt_afterpivot->_pt_prev;
                     }
@@ -275,7 +302,7 @@ void _quick_sort(
                     string_c_str((string_t*)pt_pivot->_pc_data), &t_result);
                 if(!t_result)
                 {
-                    _swap_node(&pt_beforepivot, &pt_pivot);
+                    _list_swap_node(&pt_beforepivot, &pt_pivot);
                     pt_pivot = pt_beforepivot;
                 }
                 _GET_LIST_COREPOS(t_pivotpos) = (char*)pt_pivot;
@@ -323,7 +350,7 @@ void _quick_sort(
                     _GET_LIST_COREPOS(t_afterpivot) = (char*)pt_afterpivot;
                     if(_list_iterator_before(t_beforepivot, t_afterpivot))
                     {
-                        _swap_node(&pt_beforepivot, &pt_afterpivot);
+                        _list_swap_node(&pt_beforepivot, &pt_afterpivot);
                         pt_beforepivot = pt_beforepivot->_pt_next;
                         pt_afterpivot = pt_afterpivot->_pt_prev;
                     }
@@ -336,7 +363,7 @@ void _quick_sort(
                 (*t_binary_op)(pt_beforepivot->_pc_data, pt_pivot->_pc_data, &t_result);
                 if(!t_result)
                 {
-                    _swap_node(&pt_beforepivot, &pt_pivot);
+                    _list_swap_node(&pt_beforepivot, &pt_pivot);
                     pt_pivot = pt_beforepivot;
                 }
                 _GET_LIST_COREPOS(t_pivotpos) = (char*)pt_pivot;
@@ -397,7 +424,7 @@ void _quick_sort(
                 _GET_LIST_COREPOS(t_afterpivot) = (char*)pt_afterpivot;
                 if(_list_iterator_before(t_beforepivot, t_afterpivot))
                 {
-                    _swap_node(&pt_beforepivot, &pt_afterpivot);
+                    _list_swap_node(&pt_beforepivot, &pt_afterpivot);
                     pt_beforepivot = pt_beforepivot->_pt_next;
                     pt_afterpivot = pt_afterpivot->_pt_prev;
                 }
@@ -412,7 +439,7 @@ void _quick_sort(
                 pt_pivot->_pc_data, pt_beforepivot->_pc_data, &t_result);
             if(t_result)
             {
-                _swap_node(&pt_beforepivot, &pt_pivot);
+                _list_swap_node(&pt_beforepivot, &pt_pivot);
                 pt_pivot = pt_beforepivot;
             }
             _GET_LIST_COREPOS(t_pivotpos) = (char*)pt_pivot;
@@ -434,7 +461,10 @@ void _quick_sort(
     }
 }
 
-void _swap_node(listnode_t** ppt_first, listnode_t** ppt_second)
+/**
+ * Swap the two node content and don't change the pointer.
+ */
+void _list_swap_node(listnode_t** ppt_first, listnode_t** ppt_second)
 {
     listnode_t* pt_afterfirst = NULL;   /* the position after first */
     listnode_t* pt_aftersecond = NULL;  /* the position after second */
@@ -442,11 +472,18 @@ void _swap_node(listnode_t** ppt_first, listnode_t** ppt_second)
     assert(ppt_first != NULL && *ppt_first != NULL);
     assert(ppt_second != NULL && *ppt_second != NULL);
 
-    /* if the first followed by the second */
-    if((*ppt_first)->_pt_next == (*ppt_second))
+    /* if the first node equal to the second */
+    if(*ppt_first == *ppt_second)
     {
+        return;
+    }
+    /* if the first followed by the second */
+    else if((*ppt_first)->_pt_next == (*ppt_second))
+    {
+        /* extra the first node */
         (*ppt_second)->_pt_prev = (*ppt_first)->_pt_prev;
         (*ppt_first)->_pt_prev->_pt_next = (*ppt_second);
+        /* insert first node into position after second node */
         (*ppt_first)->_pt_next = (*ppt_second)->_pt_next;
         (*ppt_first)->_pt_prev = (*ppt_second);
         (*ppt_second)->_pt_next->_pt_prev = (*ppt_first);
@@ -454,6 +491,21 @@ void _swap_node(listnode_t** ppt_first, listnode_t** ppt_second)
 
         (*ppt_first) = (*ppt_second);
         (*ppt_second) = (*ppt_second)->_pt_next;
+    }
+    /* if the second followed by the first */
+    else if((*ppt_second)->_pt_next == (*ppt_first))
+    {
+        /* extra the second node */
+        (*ppt_first)->_pt_prev = (*ppt_second)->_pt_prev;
+        (*ppt_second)->_pt_prev->_pt_next = (*ppt_first);
+        /* insert second node into position after first node */
+        (*ppt_second)->_pt_next = (*ppt_first)->_pt_next;
+        (*ppt_second)->_pt_prev = (*ppt_first);
+        (*ppt_first)->_pt_next->_pt_prev = (*ppt_second);
+        (*ppt_first)->_pt_next = (*ppt_second);
+
+        (*ppt_second) = (*ppt_first);
+        (*ppt_first) = (*ppt_first)->_pt_next;
     }
     else
     {
