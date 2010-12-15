@@ -747,7 +747,6 @@ PACKAGE_URL	doc/user/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	src/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	test/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_URL	test/it/Makefile	/^PACKAGE_URL = $/;"	m
-PACKAGE_URL	test/ut/Makefile	/^PACKAGE_URL = $/;"	m
 PACKAGE_VERSION	Makefile	/^PACKAGE_VERSION = 2.0.1$/;"	m
 PACKAGE_VERSION	build-win/Makefile	/^PACKAGE_VERSION = 2.0.1$/;"	m
 PACKAGE_VERSION	build-win/vc8/Makefile	/^PACKAGE_VERSION = 2.0.1$/;"	m
@@ -922,6 +921,14 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_list_iterator.c	/^UT_CASE_DEFINATION(_list_it
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_iterator.c	/^UT_CASE_DEFINATION(_list_iterator_next)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_iterator.c	/^UT_CASE_DEFINATION(_list_iterator_prev)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_iterator.c	/^UT_CASE_DEFINATION(_list_iterator_set_value)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_create_list_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_assign_elem__list_assign_elem_varg)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_destroy_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_init_elem__list_init_elem_varg)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_push_back__list_push_back_varg)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_push_front__list_push_front_varg)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_remove__list_remove_varg)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_resize_elem__list_resize_elem_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector.c	/^UT_CASE_DEFINATION(vector_assign)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector.c	/^UT_CASE_DEFINATION(vector_assign_range)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_vector.c	/^UT_CASE_DEFINATION(vector_at)$/;"	f
@@ -986,6 +993,7 @@ UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	60;"	d
 UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	53;"	d
 UT_CSTL_LIST_AUX_CASE	test/ut/ut_cstl_list_aux.h	199;"	d
 UT_CSTL_LIST_ITERATOR_CASE	test/ut/ut_cstl_list_iterator.h	108;"	d
+UT_CSTL_LIST_PRIVATE_CASE	test/ut/ut_cstl_list_private.h	89;"	d
 UT_CSTL_VECTOR_AUX_CASE	test/ut/ut_cstl_vector_aux.h	119;"	d
 UT_CSTL_VECTOR_CASE	test/ut/ut_cstl_vector.h	393;"	d
 UT_CSTL_VECTOR_ITERATOR_CASE	test/ut/ut_cstl_vector_iterator.h	157;"	d
@@ -996,6 +1004,7 @@ UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_SUIT_DEFINATION(cstl_alloc, _all
 UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_free)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_get_memory_chunk)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_SUIT_DEFINATION(cstl_list_aux, _list_is_created)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_SUIT_DEFINATION(cstl_list_private, test__create_list__null_typename)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_vector.c	/^UT_SUIT_DEFINATION(cstl_vector, vector_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_vector_aux.c	/^UT_SUIT_DEFINATION(cstl_vector_aux, _vector_iterator_belong_to_vector)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_vector_iterator.c	/^UT_SUIT_DEFINATION(cstl_vector_iterator, _create_vector_iterator)$/;"	f
@@ -1665,6 +1674,7 @@ _UT_CSTL_ALLOC_AUX_H	test/ut/ut_cstl_alloc_aux.h	2;"	d
 _UT_CSTL_ALLOC_H	test/ut/ut_cstl_alloc.h	2;"	d
 _UT_CSTL_LIST_AUX_H_	test/ut/ut_cstl_list_aux.h	2;"	d
 _UT_CSTL_LIST_ITERATOR_H_	test/ut/ut_cstl_list_iterator.h	2;"	d
+_UT_CSTL_LIST_PRIVATE_H_	test/ut/ut_cstl_list_private.h	2;"	d
 _UT_CSTL_VECTOR_AUX_H_	test/ut/ut_cstl_vector_aux.h	2;"	d
 _UT_CSTL_VECTOR_H_	test/ut/ut_cstl_vector.h	2;"	d
 _UT_CSTL_VECTOR_ITERATOR_H_	test/ut/ut_cstl_vector_iterator.h	2;"	d
@@ -2042,8 +2052,8 @@ _create_hashtable_iterator	cstl/cstl_hashtable_iterator.h	/^extern hashtable_ite
 _create_hashtable_iterator	src/cstl_hashtable.c	/^hashtable_iterator_t _create_hashtable_iterator(void)$/;"	f	signature:(void)
 _create_list	cstl/cstl_list_private.h	/^extern list_t* _create_list(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_list	src/cstl_list_private.c	/^list_t* _create_list(const char* s_typename)$/;"	f	signature:(const char* s_typename)
-_create_list_auxiliary	cstl/cstl_list_private.h	/^extern bool_t _create_list_auxiliary(list_t* pt_list, const char* s_typename);$/;"	p	signature:(list_t* pt_list, const char* s_typename)
-_create_list_auxiliary	src/cstl_list_private.c	/^bool_t _create_list_auxiliary(list_t* pt_list, const char* s_typename)$/;"	f	signature:(list_t* pt_list, const char* s_typename)
+_create_list_auxiliary	cstl/cstl_list_private.h	/^extern bool_t _create_list_auxiliary(list_t* plist_list, const char* s_typename);$/;"	p	signature:(list_t* plist_list, const char* s_typename)
+_create_list_auxiliary	src/cstl_list_private.c	/^bool_t _create_list_auxiliary(list_t* plist_list, const char* s_typename)$/;"	f	signature:(list_t* plist_list, const char* s_typename)
 _create_list_iterator	cstl/cstl_list_iterator.h	/^extern list_iterator_t _create_list_iterator(void);$/;"	p	signature:(void)
 _create_list_iterator	src/cstl_list_iterator.c	/^list_iterator_t _create_list_iterator(void)$/;"	f	signature:(void)
 _create_map	cstl/cstl_map_private.h	/^extern map_t* _create_map(const char* s_typename);$/;"	p	signature:(const char* s_typename)
@@ -2616,24 +2626,24 @@ _left_signal_rotate	src/cstl_avl_tree.c	/^static avlnode_t* _left_signal_rotate(
 _left_signal_rotate	src/cstl_avl_tree.c	/^static avlnode_t* _left_signal_rotate(avlnode_t* pt_root);$/;"	p	file:	signature:(avlnode_t* pt_root)
 _lg	src/cstl_algo.c	/^static size_t _lg(size_t t_n)$/;"	f	file:	signature:(size_t t_n)
 _lg	src/cstl_algo.c	/^static size_t _lg(size_t t_n);$/;"	p	file:	signature:(size_t t_n)
-_list_assign_elem	cstl/cstl_list_private.h	/^extern void _list_assign_elem(list_t* pt_list, size_t t_count, ...);$/;"	p	signature:(list_t* pt_list, size_t t_count, ...)
-_list_assign_elem	src/cstl_list_private.c	/^void _list_assign_elem(list_t* pt_list, size_t t_count, ...)$/;"	f	signature:(list_t* pt_list, size_t t_count, ...)
-_list_assign_elem_varg	cstl/cstl_list_private.h	/^extern void _list_assign_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist);$/;"	p	signature:(list_t* pt_list, size_t t_count, va_list val_elemlist)
-_list_assign_elem_varg	src/cstl_list_private.c	/^void _list_assign_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)$/;"	f	signature:(list_t* pt_list, size_t t_count, va_list val_elemlist)
-_list_destroy_auxiliary	cstl/cstl_list_private.h	/^extern void _list_destroy_auxiliary(list_t* pt_list);$/;"	p	signature:(list_t* pt_list)
-_list_destroy_auxiliary	src/cstl_list_private.c	/^void _list_destroy_auxiliary(list_t* pt_list)$/;"	f	signature:(list_t* pt_list)
+_list_assign_elem	cstl/cstl_list_private.h	/^extern void _list_assign_elem(list_t* plist_list, size_t t_count, ...);$/;"	p	signature:(list_t* plist_list, size_t t_count, ...)
+_list_assign_elem	src/cstl_list_private.c	/^void _list_assign_elem(list_t* plist_list, size_t t_count, ...)$/;"	f	signature:(list_t* plist_list, size_t t_count, ...)
+_list_assign_elem_varg	cstl/cstl_list_private.h	/^extern void _list_assign_elem_varg(list_t* plist_list, size_t t_count, va_list val_elemlist);$/;"	p	signature:(list_t* plist_list, size_t t_count, va_list val_elemlist)
+_list_assign_elem_varg	src/cstl_list_private.c	/^void _list_assign_elem_varg(list_t* plist_list, size_t t_count, va_list val_elemlist)$/;"	f	signature:(list_t* plist_list, size_t t_count, va_list val_elemlist)
+_list_destroy_auxiliary	cstl/cstl_list_private.h	/^extern void _list_destroy_auxiliary(list_t* plist_list);$/;"	p	signature:(list_t* plist_list)
+_list_destroy_auxiliary	src/cstl_list_private.c	/^void _list_destroy_auxiliary(list_t* plist_list)$/;"	f	signature:(list_t* plist_list)
 _list_destroy_varg_value_auxiliary	src/cstl_list_aux.c	/^void _list_destroy_varg_value_auxiliary(list_t* plist_list, listnode_t* pt_node)$/;"	f	signature:(list_t* plist_list, listnode_t* pt_node)
 _list_destroy_varg_value_auxiliary	src/cstl_list_aux.h	/^extern void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_node);$/;"	p	signature:(list_t* pt_list, listnode_t* pt_node)
 _list_equal_ex	test/it/test_algobase.c	/^static void _list_equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_equal_ex	test/it/test_algobase.c	/^static void _list_equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _list_get_varg_value_auxiliary	src/cstl_list_aux.c	/^void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node)$/;"	f	signature:(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node)
 _list_get_varg_value_auxiliary	src/cstl_list_aux.h	/^extern void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node);$/;"	p	signature:(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node)
-_list_init_elem	cstl/cstl_list_private.h	/^extern void _list_init_elem(list_t* pt_list, size_t t_count, ...);$/;"	p	signature:(list_t* pt_list, size_t t_count, ...)
-_list_init_elem	src/cstl_list_private.c	/^void _list_init_elem(list_t* pt_list, size_t t_count, ...)$/;"	f	signature:(list_t* pt_list, size_t t_count, ...)
+_list_init_elem	cstl/cstl_list_private.h	/^extern void _list_init_elem(list_t* plist_list, size_t t_count, ...);$/;"	p	signature:(list_t* plist_list, size_t t_count, ...)
+_list_init_elem	src/cstl_list_private.c	/^void _list_init_elem(list_t* plist_list, size_t t_count, ...)$/;"	f	signature:(list_t* plist_list, size_t t_count, ...)
 _list_init_elem_auxiliary	cstl/cstl_list_private.h	/^extern void _list_init_elem_auxiliary(list_t* pt_list, void* pv_value);$/;"	p	signature:(list_t* pt_list, void* pv_value)
 _list_init_elem_auxiliary	src/cstl_list_private.c	/^void _list_init_elem_auxiliary(list_t* pt_list, void* pv_elem)$/;"	f	signature:(list_t* pt_list, void* pv_elem)
-_list_init_elem_varg	cstl/cstl_list_private.h	/^extern void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist);$/;"	p	signature:(list_t* pt_list, size_t t_count, va_list val_elemlist)
-_list_init_elem_varg	src/cstl_list_private.c	/^void _list_init_elem_varg(list_t* pt_list, size_t t_count, va_list val_elemlist)$/;"	f	signature:(list_t* pt_list, size_t t_count, va_list val_elemlist)
+_list_init_elem_varg	cstl/cstl_list_private.h	/^extern void _list_init_elem_varg(list_t* plist_list, size_t t_count, va_list val_elemlist);$/;"	p	signature:(list_t* plist_list, size_t t_count, va_list val_elemlist)
+_list_init_elem_varg	src/cstl_list_private.c	/^void _list_init_elem_varg(list_t* plist_list, size_t t_count, va_list val_elemlist)$/;"	f	signature:(list_t* plist_list, size_t t_count, va_list val_elemlist)
 _list_init_node_auxiliary	src/cstl_list_aux.c	/^void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node)$/;"	f	signature:(list_t* plist_list, listnode_t* pt_node)
 _list_init_node_auxiliary	src/cstl_list_aux.h	/^extern void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node);$/;"	p	signature:(list_t* plist_list, listnode_t* pt_node)
 _list_insert_n	cstl/cstl_list_private.h	/^extern list_iterator_t _list_insert_n($/;"	p	signature:( list_t* pt_list, list_iterator_t t_pos, size_t t_count, ...)
@@ -2662,27 +2672,27 @@ _list_iterator_prev	cstl/cstl_list_iterator.h	/^extern list_iterator_t _list_ite
 _list_iterator_prev	src/cstl_list_iterator.c	/^list_iterator_t _list_iterator_prev(list_iterator_t it_iter)$/;"	f	signature:(list_iterator_t it_iter)
 _list_iterator_set_value	cstl/cstl_list_iterator.h	/^extern void _list_iterator_set_value(list_iterator_t it_iter, const void* cpv_value);$/;"	p	signature:(list_iterator_t it_iter, const void* cpv_value)
 _list_iterator_set_value	src/cstl_list_iterator.c	/^void _list_iterator_set_value(list_iterator_t it_iter, const void* cpv_value)$/;"	f	signature:(list_iterator_t it_iter, const void* cpv_value)
-_list_push_back	cstl/cstl_list_private.h	/^extern void _list_push_back(list_t* pt_list, ...);$/;"	p	signature:(list_t* pt_list, ...)
-_list_push_back	src/cstl_list_private.c	/^void _list_push_back(list_t* pt_list, ...)$/;"	f	signature:(list_t* pt_list, ...)
-_list_push_back_varg	cstl/cstl_list_private.h	/^extern void _list_push_back_varg(list_t* pt_list, va_list val_elemlist);$/;"	p	signature:(list_t* pt_list, va_list val_elemlist)
-_list_push_back_varg	src/cstl_list_private.c	/^void _list_push_back_varg(list_t* pt_list, va_list val_elemlist)$/;"	f	signature:(list_t* pt_list, va_list val_elemlist)
-_list_push_front	cstl/cstl_list_private.h	/^extern void _list_push_front(list_t* pt_list, ...);$/;"	p	signature:(list_t* pt_list, ...)
-_list_push_front	src/cstl_list_private.c	/^void _list_push_front(list_t* pt_list, ...)$/;"	f	signature:(list_t* pt_list, ...)
-_list_push_front_varg	cstl/cstl_list_private.h	/^extern void _list_push_front_varg(list_t* pt_list, va_list val_elemlist);$/;"	p	signature:(list_t* pt_list, va_list val_elemlist)
-_list_push_front_varg	src/cstl_list_private.c	/^void _list_push_front_varg(list_t* pt_list, va_list val_elemlist)$/;"	f	signature:(list_t* pt_list, va_list val_elemlist)
+_list_push_back	cstl/cstl_list_private.h	/^extern void _list_push_back(list_t* plist_list, ...);$/;"	p	signature:(list_t* plist_list, ...)
+_list_push_back	src/cstl_list_private.c	/^void _list_push_back(list_t* plist_list, ...)$/;"	f	signature:(list_t* plist_list, ...)
+_list_push_back_varg	cstl/cstl_list_private.h	/^extern void _list_push_back_varg(list_t* plist_list, va_list val_elemlist);$/;"	p	signature:(list_t* plist_list, va_list val_elemlist)
+_list_push_back_varg	src/cstl_list_private.c	/^void _list_push_back_varg(list_t* plist_list, va_list val_elemlist)$/;"	f	signature:(list_t* plist_list, va_list val_elemlist)
+_list_push_front	cstl/cstl_list_private.h	/^extern void _list_push_front(list_t* plist_list, ...);$/;"	p	signature:(list_t* plist_list, ...)
+_list_push_front	src/cstl_list_private.c	/^void _list_push_front(list_t* plist_list, ...)$/;"	f	signature:(list_t* plist_list, ...)
+_list_push_front_varg	cstl/cstl_list_private.h	/^extern void _list_push_front_varg(list_t* plist_list, va_list val_elemlist);$/;"	p	signature:(list_t* plist_list, va_list val_elemlist)
+_list_push_front_varg	src/cstl_list_private.c	/^void _list_push_front_varg(list_t* plist_list, va_list val_elemlist)$/;"	f	signature:(list_t* plist_list, va_list val_elemlist)
 _list_quick_sort	src/cstl_list_aux.c	/^void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_last, binary_function_t t_binary_op)$/;"	f	signature:(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_last, binary_function_t t_binary_op)
 _list_quick_sort	src/cstl_list_aux.h	/^extern void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_last, binary_function_t bfun_less);$/;"	p	signature:(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_last, binary_function_t bfun_less)
 _list_quick_sort_int_greater	test/ut/ut_cstl_list_aux.c	/^static void _list_quick_sort_int_greater(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
-_list_remove	cstl/cstl_list_private.h	/^extern void _list_remove(list_t* pt_list, ...);$/;"	p	signature:(list_t* pt_list, ...)
+_list_remove	cstl/cstl_list_private.h	/^extern void _list_remove(list_t* plist_list, ...);$/;"	p	signature:(list_t* plist_list, ...)
 _list_remove	src/cstl_list_private.c	/^void _list_remove(list_t* pt_list, ...)$/;"	f	signature:(list_t* pt_list, ...)
 _list_remove_pre	test/it/test_list.c	/^static void _list_remove_pre(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _list_remove_pre	test/it/test_list.c	/^static void _list_remove_pre(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
-_list_remove_varg	cstl/cstl_list_private.h	/^extern void _list_remove_varg(list_t* pt_list, va_list val_elemlist);$/;"	p	signature:(list_t* pt_list, va_list val_elemlist)
+_list_remove_varg	cstl/cstl_list_private.h	/^extern void _list_remove_varg(list_t* plist_list, va_list val_elemlist);$/;"	p	signature:(list_t* plist_list, va_list val_elemlist)
 _list_remove_varg	src/cstl_list_private.c	/^void _list_remove_varg(list_t* pt_list, va_list val_elemlist)$/;"	f	signature:(list_t* pt_list, va_list val_elemlist)
-_list_resize_elem	cstl/cstl_list_private.h	/^extern void _list_resize_elem(list_t* pt_list, size_t t_resize, ...);$/;"	p	signature:(list_t* pt_list, size_t t_resize, ...)
-_list_resize_elem	src/cstl_list_private.c	/^void _list_resize_elem(list_t* pt_list, size_t t_resize, ...)$/;"	f	signature:(list_t* pt_list, size_t t_resize, ...)
-_list_resize_elem_varg	cstl/cstl_list_private.h	/^extern void _list_resize_elem_varg(list_t* pt_list, size_t t_resize, va_list val_elemlist);$/;"	p	signature:(list_t* pt_list, size_t t_resize, va_list val_elemlist)
-_list_resize_elem_varg	src/cstl_list_private.c	/^void _list_resize_elem_varg(list_t* pt_list, size_t t_resize, va_list val_elemlist)$/;"	f	signature:(list_t* pt_list, size_t t_resize, va_list val_elemlist)
+_list_resize_elem	cstl/cstl_list_private.h	/^extern void _list_resize_elem(list_t* plist_list, size_t t_resize, ...);$/;"	p	signature:(list_t* plist_list, size_t t_resize, ...)
+_list_resize_elem	src/cstl_list_private.c	/^void _list_resize_elem(list_t* plist_list, size_t t_resize, ...)$/;"	f	signature:(list_t* plist_list, size_t t_resize, ...)
+_list_resize_elem_varg	cstl/cstl_list_private.h	/^extern void _list_resize_elem_varg(list_t* plist_list, size_t t_resize, va_list val_elemlist);$/;"	p	signature:(list_t* plist_list, size_t t_resize, va_list val_elemlist)
+_list_resize_elem_varg	src/cstl_list_private.c	/^void _list_resize_elem_varg(list_t* plist_list, size_t t_resize, va_list val_elemlist)$/;"	f	signature:(list_t* plist_list, size_t t_resize, va_list val_elemlist)
 _list_same_list_iterator_type	src/cstl_list_aux.c	/^bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t it_iter)$/;"	f	signature:(const list_t* cplist_list, list_iterator_t it_iter)
 _list_same_list_iterator_type	src/cstl_list_aux.h	/^extern bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t it_iter);$/;"	p	signature:(const list_t* cplist_list, list_iterator_t it_iter)
 _list_same_type	src/cstl_list_aux.c	/^bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_second)$/;"	f	signature:(const list_t* cplist_first, const list_t* cplist_second)
@@ -3514,6 +3524,10 @@ _t_valuecompare	cstl/cstl_map_private.h	/^    binary_function_t _t_valuecompare;
 _t_valuecompare	cstl/cstl_multimap_private.h	/^    binary_function_t _t_valuecompare;$/;"	m	struct:_tagmultimap	access:public
 _t_vector	cstl/cstl_basic_string_private.h	/^    vector_t _t_vector;$/;"	m	struct:_tagbasicstring	access:public
 _t_vector	cstl/cstl_queue_private.h	/^    vector_t          _t_vector;$/;"	m	struct:_tagpriority_queue	access:public
+_tag_test__create_list__user_defined_type	test/ut/ut_cstl_list_private.c	/^typedef struct _tag_test__create_list__user_defined_type$/;"	s	file:
+_tag_test__create_list__user_defined_type::n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list__user_defined_type	file:	access:public
+_tag_test__create_list_auxiliary__user_defined	test/ut/ut_cstl_list_private.c	/^typedef struct _tag_test__create_list_auxiliary__user_defined$/;"	s	file:
+_tag_test__create_list_auxiliary__user_defined::n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list_auxiliary__user_defined	file:	access:public
 _tag_test__list_same_type__same_user_defined	test/ut/ut_cstl_list_aux.c	/^typedef struct _tag_test__list_same_type__same_user_defined$/;"	s	file:
 _tag_test__list_same_type__same_user_defined::n_elem	test/ut/ut_cstl_list_aux.c	/^    int n_elem;$/;"	m	struct:_tag_test__list_same_type__same_user_defined	file:	access:public
 _tag_test_vector_init_copy__successfully_user_define	test/ut/ut_cstl_vector.c	/^typedef struct _tag_test_vector_init_copy__successfully_user_define$/;"	s	file:
@@ -3747,6 +3761,8 @@ _tagvector::_t_typeinfo	cstl/cstl_vector_private.h	/^    _typeinfo_t _t_typeinfo
 _tagweather	test/it/test_queue.c	/^typedef struct _tagweather$/;"	s	file:
 _tagweather::_n_temperature	test/it/test_queue.c	/^    int  _n_temperature;$/;"	m	struct:_tagweather	file:	access:public
 _tagweather::_s_city	test/it/test_queue.c	/^    char _s_city[31];$/;"	m	struct:_tagweather	file:	access:public
+_test__create_list__user_defined_type_t	test/ut/ut_cstl_list_private.c	/^}_test__create_list__user_defined_type_t;$/;"	t	typeref:struct:_tag_test__create_list__user_defined_type	file:
+_test__create_list_auxiliary__user_defined_t	test/ut/ut_cstl_list_private.c	/^}_test__create_list_auxiliary__user_defined_t;$/;"	t	typeref:struct:_tag_test__create_list_auxiliary__user_defined	file:
 _test__list_same_type__same_user_defined_t	test/ut/ut_cstl_list_aux.c	/^}_test__list_same_type__same_user_defined_t;$/;"	t	typeref:struct:_tag_test__list_same_type__same_user_defined	file:
 _test_vector_init_copy__successfully_user_define_t	test/ut/ut_cstl_vector.c	/^}_test_vector_init_copy__successfully_user_define_t;$/;"	t	typeref:struct:_tag_test_vector_init_copy__successfully_user_define	file:
 _tolower_cstr_ex	test/it/test_algo.c	/^static void _tolower_cstr_ex(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
@@ -6579,6 +6595,8 @@ multisetsample_t	test/it/test_set.c	/^typedef setsample_t multisetsample_t;$/;"	
 myiter_t	test/it/test_type.c	/^typedef output_iterator_t myiter_t;$/;"	t	file:
 mymacro	test/it/test_type.c	47;"	d	file:
 n_elem	test/ut/ut_cstl_list_aux.c	/^    int n_elem;$/;"	m	struct:_tag_test__list_same_type__same_user_defined	file:	access:public
+n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list__user_defined_type	file:	access:public
+n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list_auxiliary__user_defined	file:	access:public
 n_elem	test/ut/ut_cstl_vector.c	/^    int n_elem;$/;"	m	struct:_tag_test_vector_init_copy__successfully_user_define	file:	access:public
 n_second	test/it/test_deque.c	/^    int    n_second;$/;"	m	struct:_tagdeqabc	file:	access:public
 new_handler	test/ut/ut_cstl_alloc.c	/^static void new_handler(void){}$/;"	f	file:	signature:(void)
@@ -7332,6 +7350,30 @@ test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.c	/^void t
 test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___delete_handler(void** state);$/;"	p	signature:(void** state)
 test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.c	/^void test__alloc_set_malloc_handler___new_handler(void** state)$/;"	f	signature:(void** state)
 test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___new_handler(void** state);$/;"	p	signature:(void** state)
+test__create_list__c_builtin_type	test/ut/ut_cstl_list_private.c	/^void test__create_list__c_builtin_type(void** state)$/;"	f	signature:(void** state)
+test__create_list__c_builtin_type	test/ut/ut_cstl_list_private.h	/^void test__create_list__c_builtin_type(void** state);$/;"	p	signature:(void** state)
+test__create_list__libcstl_builtin_type	test/ut/ut_cstl_list_private.c	/^void test__create_list__libcstl_builtin_type(void** state)$/;"	f	signature:(void** state)
+test__create_list__libcstl_builtin_type	test/ut/ut_cstl_list_private.h	/^void test__create_list__libcstl_builtin_type(void** state);$/;"	p	signature:(void** state)
+test__create_list__null_typename	test/ut/ut_cstl_list_private.h	/^void test__create_list__null_typename(void** state);$/;"	p	signature:(void** state)
+test__create_list__unregisted_type	test/ut/ut_cstl_list_private.c	/^void test__create_list__unregisted_type(void** state)$/;"	f	signature:(void** state)
+test__create_list__unregisted_type	test/ut/ut_cstl_list_private.h	/^void test__create_list__unregisted_type(void** state);$/;"	p	signature:(void** state)
+test__create_list__user_defined_type	test/ut/ut_cstl_list_private.c	/^void test__create_list__user_defined_type(void** state)$/;"	f	signature:(void** state)
+test__create_list__user_defined_type	test/ut/ut_cstl_list_private.h	/^void test__create_list__user_defined_type(void** state);$/;"	p	signature:(void** state)
+test__create_list__user_defined_type_dup	test/ut/ut_cstl_list_private.c	/^void test__create_list__user_defined_type_dup(void** state)$/;"	f	signature:(void** state)
+test__create_list__user_defined_type_dup	test/ut/ut_cstl_list_private.h	/^void test__create_list__user_defined_type_dup(void** state);$/;"	p	signature:(void** state)
+test__create_list_auxiliary__c_builtin	test/ut/ut_cstl_list_private.c	/^void test__create_list_auxiliary__c_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_list_auxiliary__c_builtin	test/ut/ut_cstl_list_private.h	/^void test__create_list_auxiliary__c_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_list_auxiliary__libcstl_builtin	test/ut/ut_cstl_list_private.c	/^void test__create_list_auxiliary__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_list_auxiliary__libcstl_builtin	test/ut/ut_cstl_list_private.h	/^void test__create_list_auxiliary__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_list_auxiliary__null_list_container	test/ut/ut_cstl_list_private.h	/^void test__create_list_auxiliary__null_list_container(void** state);$/;"	p	signature:(void** state)
+test__create_list_auxiliary__null_typename	test/ut/ut_cstl_list_private.c	/^void test__create_list_auxiliary__null_typename(void** state)$/;"	f	signature:(void** state)
+test__create_list_auxiliary__null_typename	test/ut/ut_cstl_list_private.h	/^void test__create_list_auxiliary__null_typename(void** state);$/;"	p	signature:(void** state)
+test__create_list_auxiliary__unregisted_type	test/ut/ut_cstl_list_private.c	/^void test__create_list_auxiliary__unregisted_type(void** state)$/;"	f	signature:(void** state)
+test__create_list_auxiliary__unregisted_type	test/ut/ut_cstl_list_private.h	/^void test__create_list_auxiliary__unregisted_type(void** state);$/;"	p	signature:(void** state)
+test__create_list_auxiliary__user_defined	test/ut/ut_cstl_list_private.c	/^void test__create_list_auxiliary__user_defined(void** state)$/;"	f	signature:(void** state)
+test__create_list_auxiliary__user_defined	test/ut/ut_cstl_list_private.h	/^void test__create_list_auxiliary__user_defined(void** state);$/;"	p	signature:(void** state)
+test__create_list_auxiliary__user_defined_dup	test/ut/ut_cstl_list_private.c	/^void test__create_list_auxiliary__user_defined_dup(void** state)$/;"	f	signature:(void** state)
+test__create_list_auxiliary__user_defined_dup	test/ut/ut_cstl_list_private.h	/^void test__create_list_auxiliary__user_defined_dup(void** state);$/;"	p	signature:(void** state)
 test__create_list_iterator__successfully	test/ut/ut_cstl_list_iterator.h	/^void test__create_list_iterator__successfully(void** state);$/;"	p	signature:(void** state)
 test__create_vector__c_builtin_type	test/ut/ut_cstl_vector_private.c	/^void test__create_vector__c_builtin_type(void** state)$/;"	f	signature:(void** state)
 test__create_vector__c_builtin_type	test/ut/ut_cstl_vector_private.h	/^void test__create_vector__c_builtin_type(void** state);$/;"	p	signature:(void** state)
@@ -7354,6 +7396,30 @@ test__create_vector_auxiliary__registed_type	test/ut/ut_cstl_vector_private.h	/^
 test__create_vector_auxiliary__unregisted_type	test/ut/ut_cstl_vector_private.c	/^void test__create_vector_auxiliary__unregisted_type(void** state)$/;"	f	signature:(void** state)
 test__create_vector_auxiliary__unregisted_type	test/ut/ut_cstl_vector_private.h	/^void test__create_vector_auxiliary__unregisted_type(void** state);$/;"	p	signature:(void** state)
 test__create_vector_iterator__successfully	test/ut/ut_cstl_vector_iterator.h	/^void test__create_vector_iterator__successfully(void** state);$/;"	p	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__0_assign_0	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__0_assign_0(void** state)$/;"	f	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__0_assign_0	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__0_assign_0(void** state);$/;"	p	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__0_assign_n	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__0_assign_n(void** state)$/;"	f	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__0_assign_n	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__0_assign_n(void** state);$/;"	p	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_0	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_0(void** state)$/;"	f	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_0	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_0(void** state);$/;"	p	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_equal_to_m	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_equal_to_m(void** state)$/;"	f	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_equal_to_m	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_equal_to_m(void** state);$/;"	p	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_greater_than_m	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_greater_than_m(void** state)$/;"	f	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_greater_than_m	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_greater_than_m(void** state);$/;"	p	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_less_than_m	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_less_than_m(void** state)$/;"	f	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_less_than_m	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_less_than_m(void** state);$/;"	p	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_less_than_m_multiple	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_less_than_m_multiple(void** state)$/;"	f	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_less_than_m_multiple	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__n_assign_m_n_less_than_m_multiple(void** state);$/;"	p	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__non_inited_list_container	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__non_inited_list_container(void** state)$/;"	f	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__non_inited_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__non_inited_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_assign_elem__list_assign_elem_varg__null_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__null_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_destroy_auxiliary__empty	test/ut/ut_cstl_list_private.c	/^void test__list_destroy_auxiliary__empty(void** state)$/;"	f	signature:(void** state)
+test__list_destroy_auxiliary__empty	test/ut/ut_cstl_list_private.h	/^void test__list_destroy_auxiliary__empty(void** state);$/;"	p	signature:(void** state)
+test__list_destroy_auxiliary__non_created_list_container	test/ut/ut_cstl_list_private.c	/^void test__list_destroy_auxiliary__non_created_list_container(void** state)$/;"	f	signature:(void** state)
+test__list_destroy_auxiliary__non_created_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_destroy_auxiliary__non_created_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_destroy_auxiliary__non_empty	test/ut/ut_cstl_list_private.c	/^void test__list_destroy_auxiliary__non_empty(void** state)$/;"	f	signature:(void** state)
+test__list_destroy_auxiliary__non_empty	test/ut/ut_cstl_list_private.h	/^void test__list_destroy_auxiliary__non_empty(void** state);$/;"	p	signature:(void** state)
+test__list_destroy_auxiliary__null_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_destroy_auxiliary__null_list_container(void** state);$/;"	p	signature:(void** state)
 test__list_destroy_varg_value_auxiliary__non_created_list_container	test/ut/ut_cstl_list_aux.c	/^void test__list_destroy_varg_value_auxiliary__non_created_list_container(void** state)$/;"	f	signature:(void** state)
 test__list_destroy_varg_value_auxiliary__non_created_list_container	test/ut/ut_cstl_list_aux.h	/^void test__list_destroy_varg_value_auxiliary__non_created_list_container(void** state);$/;"	p	signature:(void** state)
 test__list_destroy_varg_value_auxiliary__null_list_container	test/ut/ut_cstl_list_aux.h	/^void test__list_destroy_varg_value_auxiliary__null_list_container(void** state);$/;"	p	signature:(void** state)
@@ -7375,6 +7441,15 @@ test__list_get_varg_value_auxiliary__null_node	test/ut/ut_cstl_list_aux.c	/^void
 test__list_get_varg_value_auxiliary__null_node	test/ut/ut_cstl_list_aux.h	/^void test__list_get_varg_value_auxiliary__null_node(void** state);$/;"	p	signature:(void** state)
 test__list_get_varg_value_auxiliary__user_define	test/ut/ut_cstl_list_aux.c	/^void test__list_get_varg_value_auxiliary__user_define(void** state)$/;"	f	signature:(void** state)
 test__list_get_varg_value_auxiliary__user_define	test/ut/ut_cstl_list_aux.h	/^void test__list_get_varg_value_auxiliary__user_define(void** state);$/;"	p	signature:(void** state)
+test__list_init_elem__list_init_elem_varg__0_count	test/ut/ut_cstl_list_private.c	/^void test__list_init_elem__list_init_elem_varg__0_count(void** state)$/;"	f	signature:(void** state)
+test__list_init_elem__list_init_elem_varg__0_count	test/ut/ut_cstl_list_private.h	/^void test__list_init_elem__list_init_elem_varg__0_count(void** state);$/;"	p	signature:(void** state)
+test__list_init_elem__list_init_elem_varg__count	test/ut/ut_cstl_list_private.c	/^void test__list_init_elem__list_init_elem_varg__count(void** state)$/;"	f	signature:(void** state)
+test__list_init_elem__list_init_elem_varg__count	test/ut/ut_cstl_list_private.h	/^void test__list_init_elem__list_init_elem_varg__count(void** state);$/;"	p	signature:(void** state)
+test__list_init_elem__list_init_elem_varg__multiple_elem	test/ut/ut_cstl_list_private.c	/^void test__list_init_elem__list_init_elem_varg__multiple_elem(void** state)$/;"	f	signature:(void** state)
+test__list_init_elem__list_init_elem_varg__multiple_elem	test/ut/ut_cstl_list_private.h	/^void test__list_init_elem__list_init_elem_varg__multiple_elem(void** state);$/;"	p	signature:(void** state)
+test__list_init_elem__list_init_elem_varg__non_created_list_container	test/ut/ut_cstl_list_private.c	/^void test__list_init_elem__list_init_elem_varg__non_created_list_container(void** state)$/;"	f	signature:(void** state)
+test__list_init_elem__list_init_elem_varg__non_created_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_init_elem__list_init_elem_varg__non_created_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_init_elem__list_init_elem_varg__null_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_init_elem__list_init_elem_varg__null_list_container(void** state);$/;"	p	signature:(void** state)
 test__list_init_node_auxiliary__c_builtin	test/ut/ut_cstl_list_aux.c	/^void test__list_init_node_auxiliary__c_builtin(void** state)$/;"	f	signature:(void** state)
 test__list_init_node_auxiliary__c_builtin	test/ut/ut_cstl_list_aux.h	/^void test__list_init_node_auxiliary__c_builtin(void** state);$/;"	p	signature:(void** state)
 test__list_init_node_auxiliary__cstr	test/ut/ut_cstl_list_aux.c	/^void test__list_init_node_auxiliary__cstr(void** state)$/;"	f	signature:(void** state)
@@ -7551,6 +7626,24 @@ test__list_iterator_set_value__successfully	test/ut/ut_cstl_list_iterator.c	/^vo
 test__list_iterator_set_value__successfully	test/ut/ut_cstl_list_iterator.h	/^void test__list_iterator_set_value__successfully(void** state);$/;"	p	signature:(void** state)
 test__list_iterator_set_value__successfully_cstr	test/ut/ut_cstl_list_iterator.c	/^void test__list_iterator_set_value__successfully_cstr(void** state)$/;"	f	signature:(void** state)
 test__list_iterator_set_value__successfully_cstr	test/ut/ut_cstl_list_iterator.h	/^void test__list_iterator_set_value__successfully_cstr(void** state);$/;"	p	signature:(void** state)
+test__list_push_back__list_push_back_varg__empty	test/ut/ut_cstl_list_private.c	/^void test__list_push_back__list_push_back_varg__empty(void** state)$/;"	f	signature:(void** state)
+test__list_push_back__list_push_back_varg__empty	test/ut/ut_cstl_list_private.h	/^void test__list_push_back__list_push_back_varg__empty(void** state);$/;"	p	signature:(void** state)
+test__list_push_back__list_push_back_varg__non_empty	test/ut/ut_cstl_list_private.c	/^void test__list_push_back__list_push_back_varg__non_empty(void** state)$/;"	f	signature:(void** state)
+test__list_push_back__list_push_back_varg__non_empty	test/ut/ut_cstl_list_private.h	/^void test__list_push_back__list_push_back_varg__non_empty(void** state);$/;"	p	signature:(void** state)
+test__list_push_back__list_push_back_varg__non_empty_multiple	test/ut/ut_cstl_list_private.c	/^void test__list_push_back__list_push_back_varg__non_empty_multiple(void** state)$/;"	f	signature:(void** state)
+test__list_push_back__list_push_back_varg__non_empty_multiple	test/ut/ut_cstl_list_private.h	/^void test__list_push_back__list_push_back_varg__non_empty_multiple(void** state);$/;"	p	signature:(void** state)
+test__list_push_back__list_push_back_varg__non_inited_list_container	test/ut/ut_cstl_list_private.c	/^void test__list_push_back__list_push_back_varg__non_inited_list_container(void** state)$/;"	f	signature:(void** state)
+test__list_push_back__list_push_back_varg__non_inited_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_push_back__list_push_back_varg__non_inited_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_push_back__list_push_back_varg__null_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_push_back__list_push_back_varg__null_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_push_front__list_push_front_varg__empty	test/ut/ut_cstl_list_private.c	/^void test__list_push_front__list_push_front_varg__empty(void** state)$/;"	f	signature:(void** state)
+test__list_push_front__list_push_front_varg__empty	test/ut/ut_cstl_list_private.h	/^void test__list_push_front__list_push_front_varg__empty(void** state);$/;"	p	signature:(void** state)
+test__list_push_front__list_push_front_varg__non_empty	test/ut/ut_cstl_list_private.c	/^void test__list_push_front__list_push_front_varg__non_empty(void** state)$/;"	f	signature:(void** state)
+test__list_push_front__list_push_front_varg__non_empty	test/ut/ut_cstl_list_private.h	/^void test__list_push_front__list_push_front_varg__non_empty(void** state);$/;"	p	signature:(void** state)
+test__list_push_front__list_push_front_varg__non_empty_multiple	test/ut/ut_cstl_list_private.c	/^void test__list_push_front__list_push_front_varg__non_empty_multiple(void** state)$/;"	f	signature:(void** state)
+test__list_push_front__list_push_front_varg__non_empty_multiple	test/ut/ut_cstl_list_private.h	/^void test__list_push_front__list_push_front_varg__non_empty_multiple(void** state);$/;"	p	signature:(void** state)
+test__list_push_front__list_push_front_varg__non_inited_list_container	test/ut/ut_cstl_list_private.c	/^void test__list_push_front__list_push_front_varg__non_inited_list_container(void** state)$/;"	f	signature:(void** state)
+test__list_push_front__list_push_front_varg__non_inited_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_push_front__list_push_front_varg__non_inited_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_push_front__list_push_front_varg__null_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_push_front__list_push_front_varg__null_list_container(void** state);$/;"	p	signature:(void** state)
 test__list_quick_sort__1_greater	test/ut/ut_cstl_list_aux.c	/^void test__list_quick_sort__1_greater(void** state)$/;"	f	signature:(void** state)
 test__list_quick_sort__1_greater	test/ut/ut_cstl_list_aux.h	/^void test__list_quick_sort__1_greater(void** state);$/;"	p	signature:(void** state)
 test__list_quick_sort__1_less	test/ut/ut_cstl_list_aux.c	/^void test__list_quick_sort__1_less(void** state)$/;"	f	signature:(void** state)
@@ -7603,6 +7696,23 @@ test__list_quick_sort__random_random_greater	test/ut/ut_cstl_list_aux.c	/^void t
 test__list_quick_sort__random_random_greater	test/ut/ut_cstl_list_aux.h	/^void test__list_quick_sort__random_random_greater(void** state);$/;"	p	signature:(void** state)
 test__list_quick_sort__random_random_less	test/ut/ut_cstl_list_aux.c	/^void test__list_quick_sort__random_random_less(void** state)$/;"	f	signature:(void** state)
 test__list_quick_sort__random_random_less	test/ut/ut_cstl_list_aux.h	/^void test__list_quick_sort__random_random_less(void** state);$/;"	p	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__0_resize_0	test/ut/ut_cstl_list_private.c	/^void test__list_resize_elem__list_resize_elem_varg__0_resize_0(void** state)$/;"	f	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__0_resize_0	test/ut/ut_cstl_list_private.h	/^void test__list_resize_elem__list_resize_elem_varg__0_resize_0(void** state);$/;"	p	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__0_resize_n	test/ut/ut_cstl_list_private.c	/^void test__list_resize_elem__list_resize_elem_varg__0_resize_n(void** state)$/;"	f	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__0_resize_n	test/ut/ut_cstl_list_private.h	/^void test__list_resize_elem__list_resize_elem_varg__0_resize_n(void** state);$/;"	p	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_0	test/ut/ut_cstl_list_private.c	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_0(void** state)$/;"	f	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_0	test/ut/ut_cstl_list_private.h	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_0(void** state);$/;"	p	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_equal_to_m	test/ut/ut_cstl_list_private.c	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_equal_to_m(void** state)$/;"	f	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_equal_to_m	test/ut/ut_cstl_list_private.h	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_equal_to_m(void** state);$/;"	p	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_greater_than_m	test/ut/ut_cstl_list_private.c	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_greater_than_m(void** state)$/;"	f	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_greater_than_m	test/ut/ut_cstl_list_private.h	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_greater_than_m(void** state);$/;"	p	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_less_than_m	test/ut/ut_cstl_list_private.c	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_less_than_m(void** state)$/;"	f	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_less_than_m	test/ut/ut_cstl_list_private.h	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_less_than_m(void** state);$/;"	p	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_less_than_m_multiple	test/ut/ut_cstl_list_private.c	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_less_than_m_multiple(void** state)$/;"	f	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_less_than_m_multiple	test/ut/ut_cstl_list_private.h	/^void test__list_resize_elem__list_resize_elem_varg__n_resize_m_n_less_than_m_multiple(void** state);$/;"	p	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__non_inited_list_container	test/ut/ut_cstl_list_private.c	/^void test__list_resize_elem__list_resize_elem_varg__non_inited_list_container(void** state)$/;"	f	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__non_inited_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_resize_elem__list_resize_elem_varg__non_inited_list_container(void** state);$/;"	p	signature:(void** state)
+test__list_resize_elem__list_resize_elem_varg__null_list_container	test/ut/ut_cstl_list_private.h	/^void test__list_resize_elem__list_resize_elem_varg__null_list_container(void** state);$/;"	p	signature:(void** state)
 test__list_same_list_iterator_type__invalid_iterator_container_type	test/ut/ut_cstl_list_aux.c	/^void test__list_same_list_iterator_type__invalid_iterator_container_type(void** state)$/;"	f	signature:(void** state)
 test__list_same_list_iterator_type__invalid_iterator_container_type	test/ut/ut_cstl_list_aux.h	/^void test__list_same_list_iterator_type__invalid_iterator_container_type(void** state);$/;"	p	signature:(void** state)
 test__list_same_list_iterator_type__invalid_iterator_iterator_type	test/ut/ut_cstl_list_aux.c	/^void test__list_same_list_iterator_type__invalid_iterator_iterator_type(void** state)$/;"	f	signature:(void** state)
