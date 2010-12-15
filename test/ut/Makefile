@@ -68,7 +68,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_vector_aux.$(OBJEXT) \
 	ut-ut_cstl_vector_private.$(OBJEXT) \
 	ut-ut_cstl_vector.$(OBJEXT) ut-ut_cstl_list_iterator.$(OBJEXT) \
-	ut-ut_cstl_list_aux.$(OBJEXT)
+	ut-ut_cstl_list_aux.$(OBJEXT) \
+	ut-ut_cstl_list_private.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -144,7 +145,6 @@ PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
 PACKAGE_STRING = libcstl 2.0.1
 PACKAGE_TARNAME = libcstl
-PACKAGE_URL = 
 PACKAGE_VERSION = 2.0.1
 PATH_SEPARATOR = :
 RANLIB = ranlib
@@ -243,7 +243,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_vector_private.c ut_cstl_vector_private.h \
 	     ut_cstl_vector.c ut_cstl_vector.h \
 	     ut_cstl_list_iterator.c ut_cstl_list_iterator.h \
-	     ut_cstl_list_aux.c ut_cstl_list_aux.h
+	     ut_cstl_list_aux.c ut_cstl_list_aux.h \
+	     ut_cstl_list_private.c ut_cstl_list_private.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -341,6 +342,7 @@ include ./$(DEPDIR)/ut-ut_cstl_alloc.Po
 include ./$(DEPDIR)/ut-ut_cstl_alloc_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_list_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_list_iterator.Po
+include ./$(DEPDIR)/ut-ut_cstl_list_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_iterator.Po
@@ -998,6 +1000,20 @@ ut-ut_cstl_list_aux.obj: ut_cstl_list_aux.c
 #	source='ut_cstl_list_aux.c' object='ut-ut_cstl_list_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_aux.obj `if test -f 'ut_cstl_list_aux.c'; then $(CYGPATH_W) 'ut_cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_aux.c'; fi`
+
+ut-ut_cstl_list_private.o: ut_cstl_list_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_private.Tpo -c -o ut-ut_cstl_list_private.o `test -f 'ut_cstl_list_private.c' || echo '$(srcdir)/'`ut_cstl_list_private.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_private.Tpo $(DEPDIR)/ut-ut_cstl_list_private.Po
+#	source='ut_cstl_list_private.c' object='ut-ut_cstl_list_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_private.o `test -f 'ut_cstl_list_private.c' || echo '$(srcdir)/'`ut_cstl_list_private.c
+
+ut-ut_cstl_list_private.obj: ut_cstl_list_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_private.Tpo -c -o ut-ut_cstl_list_private.obj `if test -f 'ut_cstl_list_private.c'; then $(CYGPATH_W) 'ut_cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_private.Tpo $(DEPDIR)/ut-ut_cstl_list_private.Po
+#	source='ut_cstl_list_private.c' object='ut-ut_cstl_list_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_private.obj `if test -f 'ut_cstl_list_private.c'; then $(CYGPATH_W) 'ut_cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_private.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

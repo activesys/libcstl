@@ -140,25 +140,25 @@ extern void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, lis
  * Sort the range (t_beforefirstpos, t_afterlastpos) use the quick sort algorithm.
  * @param it_beforefirstpos    before first posititon.
  * @param it_afterlastpos      after last position.
- * @param t_binary_op          sorting rules.
+ * @param bfun_less            sorting rules.
  * @return void.
  * @remarks
  */
-extern void _quick_sort(list_iterator_t t_beforefirstpos, list_iterator_t t_afterlastpos, binary_function_t t_binary_op);
+extern void _quick_sort(list_iterator_t t_beforefirstpos, list_iterator_t t_afterlastpos, binary_function_t bfun_less);
 
 /**
  * Sort the range [pt_first, pt_last] use the quick sort algorithm.
  * @param plist_list           list container.
  * @param pt_first             first node.
  * @param pt_last              last node.
- * @param t_binary_op          sorting rules.
+ * @param bfun_less          sorting rules.
  * @return void.
  * @remarks if plist_list == NULL or pt_first == NULL or pt_last == NULL, then the behavior is undefined. the list must
  *          be initialized, otherwise the behavior is undefined. pt_first and pt_last must belong to plist_list, and
- *          range [pt_first, pt_last] must be valid range, otherwise the behavior is undefined. if t_binary_op == NULL,
+ *          range [pt_first, pt_last] must be valid range, otherwise the behavior is undefined. if bfun_less == NULL,
  *          then use default compare function.
  */
-extern void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_last, binary_function_t t_binary_op);
+extern void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_last, binary_function_t bfun_less);
 
 /**
  * Swap the two node content and don't change the pointer.

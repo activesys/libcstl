@@ -519,8 +519,16 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
         _list_swap_node(&pt_before, &pt_pivot);
         pt_pivot = pt_before;
 
-        _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
-        _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+        /* pivot is not the first node */
+        if(pt_pivot->_pt_prev != pt_beforefirst)
+        {
+            _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
+        }
+        /* pivot is not the last node */
+        if(pt_pivot->_pt_next != pt_afterlast)
+        {
+            _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+        }
     }
     else
     {
@@ -546,8 +554,16 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
             _list_swap_node(&pt_before, &pt_pivot);
             pt_pivot = pt_before;
 
-            _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
-            _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+            /* pivot is not the first node */
+            if(pt_pivot->_pt_prev != pt_beforefirst)
+            {
+                _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
+            }
+            /* pivot is not the last node */
+            if(pt_pivot->_pt_next != pt_afterlast)
+            {
+                _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+            }
         }
         else
         {
@@ -569,8 +585,16 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
             _list_swap_node(&pt_before, &pt_pivot);
             pt_pivot = pt_before;
 
-            _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
-            _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+            /* pivot is not the first node */
+            if(pt_pivot->_pt_prev != pt_beforefirst)
+            {
+                _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
+            }
+            /* pivot is not the last node */
+            if(pt_pivot->_pt_next != pt_afterlast)
+            {
+                _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+            }
         }
     }
 }

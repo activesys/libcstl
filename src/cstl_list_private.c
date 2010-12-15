@@ -47,23 +47,27 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-/* list private function */
+/**
+ * Create list container.
+ */
 list_t* _create_list(const char* s_typename)
 {
-    list_t*     pt_newlist = NULL;
+    list_t* plist_new = NULL;
 
-    if((pt_newlist = (list_t*)malloc(sizeof(list_t))) == NULL)
+    assert(s_typename != NULL);
+
+    if((plist_new = (list_t*)malloc(sizeof(list_t))) == NULL)
     {
         return NULL;
     }
 
-    if(!_create_list_auxiliary(pt_newlist, s_typename))
+    if(!_create_list_auxiliary(plist_new, s_typename))
     {
-        free(pt_newlist);
+        free(plist_new);
         return NULL;
     }
 
-    return pt_newlist;
+    return plist_new;
 }
 
 bool_t _create_list_auxiliary(list_t* pt_list, const char* s_typename)

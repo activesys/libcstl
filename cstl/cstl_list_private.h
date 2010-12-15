@@ -65,8 +65,12 @@ typedef struct _taglist
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create and initialization operation functions.
+/**
+ * Create list container.
+ * @param s_typename    type name.
+ * @return list container pointer, if create list successfully, else return NULL.
+ * @remarks if s_typename == NULL, the behavior is undefined. s_typename must be c builtin type, libcstl builtin type or
+ *          user defined type, otherwise creation will be failure.
  */
 extern list_t* _create_list(const char* s_typename);
 extern bool_t _create_list_auxiliary(list_t* pt_list, const char* s_typename);
