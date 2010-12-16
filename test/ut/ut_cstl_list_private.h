@@ -111,8 +111,17 @@ void test__list_insert_n__list_insert_n_varg__n_insert_middle(void** state);
 void test__list_insert_n__list_insert_n_varg__n_insert_end(void** state);
 void test__list_insert_n__list_insert_n_varg__n_insert_end_multiple(void** state);
 /*
- *
+ * test _list_init_elem_auxiliary
  */
+UT_CASE_DECLARATION(_list_init_elem_auxiliary)
+void test__list_init_elem_auxiliary__null_list_container(void** state);
+void test__list_init_elem_auxiliary__null_elem(void** state);
+void test__list_init_elem_auxiliary__non_inited_list(void** state);
+void test__list_init_elem_auxiliary__successfully_int(void** state);
+void test__list_init_elem_auxiliary__successfully_cstr(void** state);
+void test__list_init_elem_auxiliary__successfully_iterator(void** state);
+void test__list_init_elem_auxiliary__successfully_container(void** state);
+void test__list_init_elem_auxiliary__successfully_user_defined(void** state);
 
 #define UT_CSTL_LIST_PRIVATE_CASE \
     UT_SUIT_BEGIN(cstl_list_private, test__create_list__null_typename),\
@@ -186,7 +195,15 @@ void test__list_insert_n__list_insert_n_varg__n_insert_end_multiple(void** state
     UT_CASE(test__list_insert_n__list_insert_n_varg__n_insert_begin),\
     UT_CASE(test__list_insert_n__list_insert_n_varg__n_insert_middle),\
     UT_CASE(test__list_insert_n__list_insert_n_varg__n_insert_end),\
-    UT_CASE(test__list_insert_n__list_insert_n_varg__n_insert_end_multiple)
+    UT_CASE(test__list_insert_n__list_insert_n_varg__n_insert_end_multiple),\
+    UT_CASE_BEGIN(_list_init_elem_auxiliary, test__list_init_elem_auxiliary__null_list_container),\
+    UT_CASE(test__list_init_elem_auxiliary__null_elem),\
+    UT_CASE(test__list_init_elem_auxiliary__non_inited_list),\
+    UT_CASE(test__list_init_elem_auxiliary__successfully_int),\
+    UT_CASE(test__list_init_elem_auxiliary__successfully_cstr),\
+    UT_CASE(test__list_init_elem_auxiliary__successfully_iterator),\
+    UT_CASE(test__list_init_elem_auxiliary__successfully_container),\
+    UT_CASE(test__list_init_elem_auxiliary__successfully_user_defined)
 
 #endif /* _UT_CSTL_LIST_PRIVATE_H_ */
 

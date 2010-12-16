@@ -61,15 +61,15 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_slist.$(OBJEXT) ut-cstl_queue.$(OBJEXT) \
 	ut-cstl_string.$(OBJEXT) ut-cstl_types.$(OBJEXT) \
 	ut-cstl_pair.$(OBJEXT) ut-cstl_stack.$(OBJEXT) \
-	ut-ut_cstl_alloc_aux.$(OBJEXT) ut-ut_cstl_alloc.$(OBJEXT) \
 	ut-cstl_vector.$(OBJEXT) ut-cstl_vector_iterator.$(OBJEXT) \
 	ut-cstl_vector_private.$(OBJEXT) ut-cstl_vector_aux.$(OBJEXT) \
+	ut-ut_cstl_alloc_aux.$(OBJEXT) ut-ut_cstl_alloc.$(OBJEXT) \
 	ut-ut_cstl_vector_iterator.$(OBJEXT) \
 	ut-ut_cstl_vector_aux.$(OBJEXT) \
 	ut-ut_cstl_vector_private.$(OBJEXT) \
 	ut-ut_cstl_vector.$(OBJEXT) ut-ut_cstl_list_iterator.$(OBJEXT) \
 	ut-ut_cstl_list_aux.$(OBJEXT) \
-	ut-ut_cstl_list_private.$(OBJEXT)
+	ut-ut_cstl_list_private.$(OBJEXT) ut-ut_cstl_list.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -234,17 +234,18 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_types.c \
 	     $(srcdir)/../../src/cstl_pair.c \
 	     $(srcdir)/../../src/cstl_stack.c \
-             ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
-             ut_cstl_alloc.c ut_cstl_alloc.h \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
 	     $(srcdir)/../../src/cstl_vector_private.c $(srcdir)/../../src/cstl_vector_aux.c \
+             ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
+             ut_cstl_alloc.c ut_cstl_alloc.h \
              ut_cstl_vector_iterator.c ut_cstl_vector_iterator.h \
 	     ut_cstl_vector_aux.c ut_cstl_vector_aux.h \
 	     ut_cstl_vector_private.c ut_cstl_vector_private.h \
 	     ut_cstl_vector.c ut_cstl_vector.h \
 	     ut_cstl_list_iterator.c ut_cstl_list_iterator.h \
 	     ut_cstl_list_aux.c ut_cstl_list_aux.h \
-	     ut_cstl_list_private.c ut_cstl_list_private.h
+	     ut_cstl_list_private.c ut_cstl_list_private.h \
+	     ut_cstl_list.c ut_cstl_list.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -340,6 +341,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_vector_private.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_alloc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_alloc_aux.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list_iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list_private.Po@am__quote@
@@ -833,34 +835,6 @@ ut-cstl_stack.obj: $(srcdir)/../../src/cstl_stack.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_stack.obj `if test -f '$(srcdir)/../../src/cstl_stack.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack.c'; fi`
 
-ut-ut_cstl_alloc_aux.o: ut_cstl_alloc_aux.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo -c -o ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/ut-ut_cstl_alloc_aux.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_alloc_aux.c' object='ut-ut_cstl_alloc_aux.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
-
-ut-ut_cstl_alloc_aux.obj: ut_cstl_alloc_aux.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo -c -o ut-ut_cstl_alloc_aux.obj `if test -f 'ut_cstl_alloc_aux.c'; then $(CYGPATH_W) 'ut_cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc_aux.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/ut-ut_cstl_alloc_aux.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_alloc_aux.c' object='ut-ut_cstl_alloc_aux.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc_aux.obj `if test -f 'ut_cstl_alloc_aux.c'; then $(CYGPATH_W) 'ut_cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc_aux.c'; fi`
-
-ut-ut_cstl_alloc.o: ut_cstl_alloc.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc.Tpo -c -o ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc.Tpo $(DEPDIR)/ut-ut_cstl_alloc.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_alloc.c' object='ut-ut_cstl_alloc.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
-
-ut-ut_cstl_alloc.obj: ut_cstl_alloc.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc.Tpo -c -o ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc.Tpo $(DEPDIR)/ut-ut_cstl_alloc.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_alloc.c' object='ut-ut_cstl_alloc.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
-
 ut-cstl_vector.o: $(srcdir)/../../src/cstl_vector.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector.o -MD -MP -MF $(DEPDIR)/ut-cstl_vector.Tpo -c -o ut-cstl_vector.o `test -f '$(srcdir)/../../src/cstl_vector.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_vector.Tpo $(DEPDIR)/ut-cstl_vector.Po
@@ -916,6 +890,34 @@ ut-cstl_vector_aux.obj: $(srcdir)/../../src/cstl_vector_aux.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_vector_aux.c' object='ut-cstl_vector_aux.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_vector_aux.obj `if test -f '$(srcdir)/../../src/cstl_vector_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_aux.c'; fi`
+
+ut-ut_cstl_alloc_aux.o: ut_cstl_alloc_aux.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo -c -o ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/ut-ut_cstl_alloc_aux.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_alloc_aux.c' object='ut-ut_cstl_alloc_aux.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
+
+ut-ut_cstl_alloc_aux.obj: ut_cstl_alloc_aux.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo -c -o ut-ut_cstl_alloc_aux.obj `if test -f 'ut_cstl_alloc_aux.c'; then $(CYGPATH_W) 'ut_cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc_aux.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/ut-ut_cstl_alloc_aux.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_alloc_aux.c' object='ut-ut_cstl_alloc_aux.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc_aux.obj `if test -f 'ut_cstl_alloc_aux.c'; then $(CYGPATH_W) 'ut_cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc_aux.c'; fi`
+
+ut-ut_cstl_alloc.o: ut_cstl_alloc.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc.Tpo -c -o ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc.Tpo $(DEPDIR)/ut-ut_cstl_alloc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_alloc.c' object='ut-ut_cstl_alloc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
+
+ut-ut_cstl_alloc.obj: ut_cstl_alloc.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc.Tpo -c -o ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc.Tpo $(DEPDIR)/ut-ut_cstl_alloc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_alloc.c' object='ut-ut_cstl_alloc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
 
 ut-ut_cstl_vector_iterator.o: ut_cstl_vector_iterator.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_vector_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_vector_iterator.Tpo -c -o ut-ut_cstl_vector_iterator.o `test -f 'ut_cstl_vector_iterator.c' || echo '$(srcdir)/'`ut_cstl_vector_iterator.c
@@ -1014,6 +1016,20 @@ ut-ut_cstl_list_private.obj: ut_cstl_list_private.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_list_private.c' object='ut-ut_cstl_list_private.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_private.obj `if test -f 'ut_cstl_list_private.c'; then $(CYGPATH_W) 'ut_cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_private.c'; fi`
+
+ut-ut_cstl_list.o: ut_cstl_list.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list.Tpo -c -o ut-ut_cstl_list.o `test -f 'ut_cstl_list.c' || echo '$(srcdir)/'`ut_cstl_list.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_list.Tpo $(DEPDIR)/ut-ut_cstl_list.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_list.c' object='ut-ut_cstl_list.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list.o `test -f 'ut_cstl_list.c' || echo '$(srcdir)/'`ut_cstl_list.c
+
+ut-ut_cstl_list.obj: ut_cstl_list.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list.Tpo -c -o ut-ut_cstl_list.obj `if test -f 'ut_cstl_list.c'; then $(CYGPATH_W) 'ut_cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_list.Tpo $(DEPDIR)/ut-ut_cstl_list.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_list.c' object='ut-ut_cstl_list.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list.obj `if test -f 'ut_cstl_list.c'; then $(CYGPATH_W) 'ut_cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

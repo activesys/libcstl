@@ -706,21 +706,7 @@ void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node)
     assert(pt_node != NULL);
     assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
 
-    /* initialize new elements */
-    if(_GET_LIST_TYPE_STYLE(plist_list) == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_LIST_TYPE_NAME(plist_list), s_elemtypename);
-
-        _GET_LIST_TYPE_INIT_FUNCTION(plist_list)(pt_node->_pc_data, s_elemtypename);
-    }
-    else
-    {
-        bool_t b_result = _GET_LIST_TYPE_SIZE(plist_list);
-        _GET_LIST_TYPE_INIT_FUNCTION(plist_list)(pt_node->_pc_data, &b_result);
-        assert(b_result);
-    }
+    _list_init_elem_auxiliary(plist_list, pt_node->_pc_data);
 }
 
 /** local function implementation section **/

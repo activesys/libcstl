@@ -273,7 +273,7 @@ extern list_iterator_t _list_insert_n_varg(list_t* plist_list, list_iterator_t t
  * @remarks if plist_list == NULL or pv_elem == NULL, then the behavior is undefined. plist_list must be initialized
  *          list container or created by create_list, otherwise the behavior is undefined.
  */
-extern void _list_init_elem_auxiliary(list_t* plist_list, void* pv_value);
+extern void _list_init_elem_auxiliary(list_t* plist_list, void* pv_elem);
 
 #ifdef __cplusplus
 }

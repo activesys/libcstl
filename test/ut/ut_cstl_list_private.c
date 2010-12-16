@@ -1121,3 +1121,21 @@ void test__list_init_elem_auxiliary__successfully_container(void** state)
     list_destroy(plist);
 }
 
+typedef struct _tag_test__list_init_elem_auxiliary__successfully_user_defined
+{
+    int n_elem;
+}_test__list_init_elem_auxiliary__successfully_user_defined_t;
+
+void test__list_init_elem_auxiliary__successfully_user_defined(void** stat)
+{
+    _test__list_init_elem_auxiliary__successfully_user_defined_t t_user;
+    list_t* plist = NULL;
+
+    type_register(_test__list_init_elem_auxiliary__successfully_user_defined_t, NULL, NULL, NULL, NULL);
+    plist = create_list(_test__list_init_elem_auxiliary__successfully_user_defined_t);
+    t_user.n_elem = 100;
+    _list_init_elem_auxiliary(plist, &t_user);
+    assert_true(t_user.n_elem == 0);
+
+    list_destroy(plist);
+}

@@ -521,24 +521,26 @@ void _list_resize_elem_varg(list_t* plist_list, size_t t_resize, va_list val_ele
 /**
  * Initialize element with list element type auxiliary function.
  */
-void _list_init_elem_auxiliary(list_t* pt_list, void* pv_elem)
+void _list_init_elem_auxiliary(list_t* plist_list, void* pv_elem)
 {
-    assert(pt_list != NULL && pv_elem != NULL);
+    assert(plist_list != NULL);
+    assert(pv_elem != NULL);
+    assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
 
     /* initialize new elements */
-    if(_GET_LIST_TYPE_STYLE(pt_list) == _TYPE_CSTL_BUILTIN)
+    if(_GET_LIST_TYPE_STYLE(plist_list) == _TYPE_CSTL_BUILTIN)
     {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_LIST_TYPE_NAME(pt_list), s_elemtypename);
+        _type_get_elem_typename(_GET_LIST_TYPE_NAME(plist_list), s_elemtypename);
 
-        _GET_LIST_TYPE_INIT_FUNCTION(pt_list)(pv_elem, s_elemtypename);
+        _GET_LIST_TYPE_INIT_FUNCTION(plist_list)(pv_elem, s_elemtypename);
     }
     else
     {
-        bool_t t_result = _GET_LIST_TYPE_SIZE(pt_list);
-        _GET_LIST_TYPE_INIT_FUNCTION(pt_list)(pv_elem, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_LIST_TYPE_SIZE(plist_list);
+        _GET_LIST_TYPE_INIT_FUNCTION(plist_list)(pv_elem, &b_result);
+        assert(b_result);
     }
 }
 

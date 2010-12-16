@@ -47,10 +47,24 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-
-void list_init_n(list_t* pt_list, size_t t_count)
+/**
+ * Initialize an empty list container
+ */
+void list_init(list_t* plist_list)
 {
-    assert(pt_list != NULL && pt_list->_pt_node == NULL);
+    assert(plist_list != NULL);
+    assert(_list_is_created(plist_list));
+
+    list_init_n(plist_list, 0);
+}
+
+/**
+ * Initialize list container with specific size.
+ */
+void list_init_n(list_t* plist_list, size_t t_count)
+{
+    assert(plist_list != NULL);
+    assert(_list_is_created(plist_list));
 
     /* allocate the end element */
     /*
@@ -64,12 +78,10 @@ void list_init_n(list_t* pt_list, size_t t_count)
      *         | data |
      *         +------+
      */
-    /*_alloc_init(&pt_list->_t_allocater);*/
-    pt_list->_pt_node = _alloc_allocate(&pt_list->_t_allocater,
-        _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
-    assert(pt_list->_pt_node != NULL);
-    pt_list->_pt_node->_pt_next = pt_list->_pt_node;
-    pt_list->_pt_node->_pt_prev = pt_list->_pt_node;
+    plist_list->_pt_node = _alloc_allocate(&plist_list->_t_allocater, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+    assert(plist_list->_pt_node != NULL);
+    plist_list->_pt_node->_pt_next = plist_list->_pt_node;
+    plist_list->_pt_node->_pt_prev = plist_list->_pt_node;
 
     if(t_count > 0)
     {
@@ -78,75 +90,92 @@ void list_init_n(list_t* pt_list, size_t t_count)
 
         for(t_index = 0; t_index < t_count; ++t_index)
         {
-            pt_node = _alloc_allocate(&pt_list->_t_allocater,
-                _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
+            pt_node = _alloc_allocate(&plist_list->_t_allocater, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
             assert(pt_node != NULL);
-            _list_init_node_auxiliary(pt_list, pt_node);
+            _list_init_node_auxiliary(plist_list, pt_node);
 
-            pt_node->_pt_next = pt_list->_pt_node;
-            pt_node->_pt_prev = pt_list->_pt_node->_pt_prev;
-            pt_list->_pt_node->_pt_prev->_pt_next = pt_node;
-            pt_list->_pt_node->_pt_prev = pt_node;
+            pt_node->_pt_next = plist_list->_pt_node;
+            pt_node->_pt_prev = plist_list->_pt_node->_pt_prev;
+            plist_list->_pt_node->_pt_prev->_pt_next = pt_node;
+            plist_list->_pt_node->_pt_prev = pt_node;
             pt_node = NULL;
         }
     }
 }
 
-void list_init(list_t* pt_list)
+/**
+ * Destroy list container.
+ */
+void list_destroy(list_t* plist_list)
 {
-    list_init_n(pt_list, 0);
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
+
+    _list_destroy_auxiliary(plist_list);
+    free(plist_list);
 }
 
-void list_destroy(list_t* pt_list)
+/**
+ * Initialize list container with exist list container.
+ */
+void list_init_copy(list_t* plist_dest, const list_t* cplist_src)
 {
-    _list_destroy_auxiliary(pt_list);
-    free(pt_list);
+    assert(plist_dest != NULL);
+    assert(cplist_src != NULL);
+    assert(_list_is_created(plist_dest));
+    assert(_list_is_inited(cplist_src));
+    assert(_list_same_type(plist_dest, cplist_src));
+
+    list_init_copy_range(plist_dest, list_begin(cplist_src), list_end(cplist_src));
 }
 
-void list_init_copy(list_t* pt_listdest, const list_t* cpt_listsrc)
+/**
+ * Initialize list container with specific range.
+ */
+void list_init_copy_range(list_t* plist_list, list_iterator_t it_begin, list_iterator_t it_end)
 {
-    list_init_copy_range(pt_listdest, list_begin(cpt_listsrc), list_end(cpt_listsrc));
-}
+    list_iterator_t it_dest;
+    list_iterator_t it_src;
+    bool_t          b_result = false;
 
-void list_init_copy_range(list_t* pt_list, list_iterator_t t_begin, list_iterator_t t_end)
-{
-    list_iterator_t t_dest;
-    list_iterator_t t_src;
-    bool_t          t_result = false;
-
-    assert(pt_list != NULL && pt_list->_pt_node == NULL);
-    assert(_list_same_list_iterator_type(pt_list, t_begin));
-    assert(iterator_equal(t_begin, t_end) || _list_iterator_before(t_begin, t_end));
+    assert(plist_list != NULL);
+    assert(_list_is_created(plist_list));
+    assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
+    assert(_list_same_list_iterator_type(plist_list, it_begin));
+    assert(_list_same_list_iterator_type(plist_list, it_end));
 
     /* 
      * initialize the new list with the list size, compare function,
-     * destroy element function of list that t_begin and t_end iterator
+     * destroy element function of list that it_begin and it_end iterator
      * point to.
      */
-    list_init_n(pt_list, iterator_distance(t_begin, t_end));
-    /* copy the element from the range [t_begin, t_end) to now list */
-    for(t_dest = list_begin(pt_list), t_src = t_begin;
-        !iterator_equal(t_dest, list_end(pt_list)) && !iterator_equal(t_src, t_end);
-        t_dest = iterator_next(t_dest), t_src = iterator_next(t_src))
+    list_init_n(plist_list, iterator_distance(it_begin, it_end));
+    /* copy the element from the range [it_begin, it_end) to now list */
+    for(it_dest = list_begin(plist_list), it_src = it_begin;
+        !iterator_equal(it_dest, list_end(plist_list)) && !iterator_equal(it_src, it_end);
+        it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
     {
-        t_result = _GET_LIST_TYPE_SIZE(pt_list);
-        _GET_LIST_TYPE_COPY_FUNCTION(pt_list)(
-            ((listnode_t*)_GET_LIST_COREPOS(t_dest))->_pc_data,
-            ((listnode_t*)_GET_LIST_COREPOS(t_src))->_pc_data, &t_result);
-        assert(t_result);
+        b_result = _GET_LIST_TYPE_SIZE(plist_list);
+        _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
+            ((listnode_t*)_GET_LIST_COREPOS(it_dest))->_pc_data,
+            ((listnode_t*)_GET_LIST_COREPOS(it_src))->_pc_data, &b_result);
+        assert(b_result);
     }
-    assert(iterator_equal(t_dest, list_end(pt_list)) && iterator_equal(t_src, t_end));
+    assert(iterator_equal(it_dest, list_end(plist_list)) && iterator_equal(it_src, it_end));
 }
 
-size_t list_size(const list_t* cpt_list)
+/**
+ * Return the number of elements in a list.
+ */
+size_t list_size(const list_t* cplist_list)
 {
     listnode_t* pt_node = NULL;     /* the current list node */
     size_t      t_listsize = 0;     /* list size */
-    assert(cpt_list != NULL && cpt_list->_pt_node != NULL);
+
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
     
-    for(pt_node = cpt_list->_pt_node->_pt_next;
-        pt_node != cpt_list->_pt_node;
-        pt_node = pt_node->_pt_next)
+    for(pt_node = cplist_list->_pt_node->_pt_next; pt_node != cplist_list->_pt_node; pt_node = pt_node->_pt_next)
     {
         t_listsize++;
     }
@@ -154,13 +183,17 @@ size_t list_size(const list_t* cpt_list)
     return t_listsize;
 }
 
-bool_t list_empty(const list_t* cpt_list)
+/**
+ * Tests if a list is empty.
+ */
+bool_t list_empty(const list_t* cplist_list)
 {
-    assert(cpt_list != NULL && cpt_list->_pt_node != NULL);
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
 
-    if(cpt_list->_pt_node->_pt_next == cpt_list->_pt_node)
+    if(cplist_list->_pt_node->_pt_next == cplist_list->_pt_node)
     {
-        assert(cpt_list->_pt_node->_pt_prev == cpt_list->_pt_node);
+        assert(cplist_list->_pt_node->_pt_prev == cplist_list->_pt_node);
         return true;
     }
     else
@@ -169,151 +202,205 @@ bool_t list_empty(const list_t* cpt_list)
     }
 }
 
-size_t list_max_size(const list_t* cpt_list)
+/**
+ * Return the maximum number of elements in a list.
+ */
+size_t list_max_size(const list_t* cplist_list)
 {
-    assert(cpt_list != NULL);
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
 
-    return (size_t)(-1) / _GET_LIST_TYPE_SIZE(cpt_list);
+    return (size_t)(-1) / _GET_LIST_TYPE_SIZE(cplist_list);
 }
 
-bool_t list_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+/**
+ * Tests if the two lists are equal.
+ */
+bool_t list_equal(const list_t* cplist_first, const list_t* cplist_second)
 {
-    listnode_t* pt_nodefirst = NULL;    /* the firs list node pointer */
-    listnode_t* pt_nodesecond = NULL;   /* the second node pointer */
-    bool_t      t_less = false;
-    bool_t      t_greater = false;
+    listnode_t* pt_first = NULL;    /* the firs list node pointer */
+    listnode_t* pt_second = NULL;   /* the second node pointer */
+    bool_t      b_less = false;
+    bool_t      b_greater = false;
 
-    assert(cpt_listfirst != NULL && cpt_listsecond != NULL);
-    assert(cpt_listfirst->_pt_node != NULL && cpt_listsecond->_pt_node != NULL);
+    assert(cplist_first != NULL);
+    assert(cplist_second != NULL);
+    assert(_list_is_inited(cplist_first));
+    assert(_list_is_inited(cplist_second));
+
+    if(cplist_first == cplist_second)
+    {
+        return true;
+    }
     /* test type identification */
-    if(!_list_same_type(cpt_listfirst, cpt_listsecond))
+    if(!_list_same_type(cplist_first, cplist_second))
     {
         return false;
     }
     /* test size */
-    if(list_size(cpt_listfirst) != list_size(cpt_listsecond))
+    if(list_size(cplist_first) != list_size(cplist_second))
     {
         return false;
     }
     /* test each element */
-    for(pt_nodefirst = cpt_listfirst->_pt_node->_pt_next,
-        pt_nodesecond = cpt_listsecond->_pt_node->_pt_next;
-        pt_nodefirst != cpt_listfirst->_pt_node &&
-        pt_nodesecond != cpt_listsecond->_pt_node;
-        pt_nodefirst = pt_nodefirst->_pt_next,
-        pt_nodesecond = pt_nodesecond->_pt_next)
+    for(pt_first = cplist_first->_pt_node->_pt_next, pt_second = cplist_second->_pt_node->_pt_next;
+        pt_first != cplist_first->_pt_node && pt_second != cplist_second->_pt_node;
+        pt_first = pt_first->_pt_next, pt_second = pt_second->_pt_next)
     {
-        t_less = t_greater = _GET_LIST_TYPE_SIZE(cpt_listfirst);
-        _GET_LIST_TYPE_LESS_FUNCTION(cpt_listfirst)(
-            pt_nodefirst->_pc_data, pt_nodesecond->_pc_data, &t_less);
-        _GET_LIST_TYPE_LESS_FUNCTION(cpt_listfirst)(
-            pt_nodesecond->_pc_data, pt_nodefirst->_pc_data, &t_greater);
-        if(t_less || t_greater)
+        b_less = b_greater = _GET_LIST_TYPE_SIZE(cplist_first);
+        _GET_LIST_TYPE_LESS_FUNCTION(cplist_first)(pt_first->_pc_data, pt_second->_pc_data, &b_less);
+        _GET_LIST_TYPE_LESS_FUNCTION(cplist_first)(pt_second->_pc_data, pt_first->_pc_data, &b_greater);
+        if(b_less || b_greater)
         {
             return false;
         }
     }
-    assert(pt_nodefirst == cpt_listfirst->_pt_node &&
-           pt_nodesecond == cpt_listsecond->_pt_node);
+    assert(pt_first == cplist_first->_pt_node && pt_second == cplist_second->_pt_node);
 
     return true;
 }
 
-bool_t list_not_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+/**
+ * Test the two lists are unequal.
+ */
+bool_t list_not_equal(const list_t* cplist_first, const list_t* cplist_second)
 {
-    return !list_equal(cpt_listfirst, cpt_listsecond);
+    return !list_equal(cplist_first, cplist_second);
 }
 
-bool_t list_less(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+/**
+ * Test the first list is less than the second list.
+ */
+bool_t list_less(const list_t* cplist_first, const list_t* cplist_second)
 {
-    listnode_t* pt_nodefirst = NULL;   /* the node pointer of first list */
-    listnode_t* pt_nodesecond = NULL;  /* the node pointer of second list */
-    bool_t      t_result = false;
+    listnode_t* pt_first = NULL;   /* the node pointer of first list */
+    listnode_t* pt_second = NULL;  /* the node pointer of second list */
+    bool_t      b_result = false;
 
-    assert(_list_same_type(cpt_listfirst, cpt_listsecond));
+    assert(cplist_first != NULL);
+    assert(cplist_second != NULL);
+    assert(_list_is_inited(cplist_first));
+    assert(_list_is_inited(cplist_second));
+    assert(_list_same_type(cplist_first, cplist_second));
 
-    for(pt_nodefirst = cpt_listfirst->_pt_node->_pt_next,
-        pt_nodesecond = cpt_listsecond->_pt_node->_pt_next;
-        pt_nodefirst != cpt_listfirst->_pt_node &&
-        pt_nodesecond != cpt_listsecond->_pt_node;
-        pt_nodefirst = pt_nodefirst->_pt_next,
-        pt_nodesecond = pt_nodesecond->_pt_next)
+    for(pt_first = cplist_first->_pt_node->_pt_next, pt_second = cplist_second->_pt_node->_pt_next;
+        pt_first != cplist_first->_pt_node && pt_second != cplist_second->_pt_node;
+        pt_first = pt_first->_pt_next, pt_second = pt_second->_pt_next)
     {
-        t_result = _GET_LIST_TYPE_SIZE(cpt_listfirst);
-        _GET_LIST_TYPE_LESS_FUNCTION(cpt_listfirst)(
-            pt_nodefirst->_pc_data, pt_nodesecond->_pc_data, &t_result);
-        if(t_result)
+        b_result = _GET_LIST_TYPE_SIZE(cplist_first);
+        _GET_LIST_TYPE_LESS_FUNCTION(cplist_first)(pt_first->_pc_data, pt_second->_pc_data, &b_result);
+        if(b_result)
         {
             return true;
         }
 
-        t_result = _GET_LIST_TYPE_SIZE(cpt_listfirst);
-        _GET_LIST_TYPE_LESS_FUNCTION(cpt_listfirst)(
-            pt_nodesecond->_pc_data, pt_nodefirst->_pc_data, &t_result);
-        if(t_result)
+        b_result = _GET_LIST_TYPE_SIZE(cplist_first);
+        _GET_LIST_TYPE_LESS_FUNCTION(cplist_first)(pt_second->_pc_data, pt_first->_pc_data, &b_result);
+        if(b_result)
         {
             return false;
         }
     }
 
-    return list_size(cpt_listfirst) < list_size(cpt_listsecond) ? true : false;
+    return list_size(cplist_first) < list_size(cplist_second) ? true : false;
 }
 
-bool_t list_greater(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+/**
+ * Test the first list is less than or equal to the second list.
+ */
+bool_t list_less_equal(const list_t* cplist_first, const list_t* cplist_second)
 {
-    return list_less(cpt_listsecond, cpt_listfirst);
+    return (list_less(cplist_first, cplist_second) || list_equal(cplist_first, cplist_second)) ? true : false;
 }
 
-bool_t list_less_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+/**
+ * Test the first list is greater than the second list.
+ */
+bool_t list_greater(const list_t* cplist_first, const list_t* cplist_second)
 {
-    return (list_less(cpt_listfirst, cpt_listsecond) ||
-            list_equal(cpt_listfirst, cpt_listsecond)) ? true : false;
+    return list_less(cplist_second, cplist_first);
 }
 
-bool_t list_greater_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond)
+/**
+ * Test the first list is greater than or equal to the second list.
+ */
+bool_t list_greater_equal(const list_t* cplist_first, const list_t* cplist_second)
 {
-    return (list_greater(cpt_listfirst, cpt_listsecond) ||
-            list_equal(cpt_listfirst, cpt_listsecond)) ? true : false;
+    return (list_greater(cplist_first, cplist_second) || list_equal(cplist_first, cplist_second)) ? true : false;
 }
 
-void list_assign(list_t* pt_listdest, const list_t* cpt_listsrc)
+/**
+ * Assign list element with an exist list container.
+ */
+void list_assign(list_t* plist_dest, const list_t* cplist_src)
 {
-    list_assign_range(pt_listdest, list_begin(cpt_listsrc), list_end(cpt_listsrc));
+    assert(plist_dest != NULL);
+    assert(cplist_src != NULL);
+    assert(_list_is_inited(plist_dest));
+    assert(_list_is_inited(cplist_src));
+    assert(_list_same_type(plist_dest, cplist_src));
+
+    if(list_equal(plist_dest, cplist_src))
+    {
+        return;
+    }
+
+    list_assign_range(plist_dest, list_begin(cplist_src), list_end(cplist_src));
 }
 
-void list_assign_range(list_t* pt_list, list_iterator_t t_begin, list_iterator_t t_end)
+/**
+ * Assign list element with an exist list container range.
+ */
+void list_assign_range(list_t* plist_list, list_iterator_t it_begin, list_iterator_t it_end)
 {
-    list_iterator_t t_dest;
-    list_iterator_t t_src;
-    bool_t          t_result = false;
+    list_iterator_t it_dest;
+    list_iterator_t it_src;
+    bool_t          b_result = false;
 
-    assert(_list_same_list_iterator_type(pt_list, t_begin));
-    assert(iterator_equal(t_begin, t_end) || _list_iterator_before(t_begin, t_end));
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(_list_same_list_iterator_type(plist_list, it_begin));
+    assert(_list_same_list_iterator_type(plist_list, it_end));
+    /*assert(!_list_iterator_belong_to_list(plist_list, it_begin));*/
+    /*assert(!_list_iterator_belong_to_list(plist_list, it_end));*/
+    assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
 
-    list_resize(pt_list, iterator_distance(t_begin, t_end));
+    list_resize(plist_list, iterator_distance(it_begin, it_end));
 
     /* copy value form varg */
-    for(t_dest = list_begin(pt_list), t_src = t_begin;
-        !iterator_equal(t_dest, list_end(pt_list)) && !iterator_equal(t_src, t_end);
-        t_dest = iterator_next(t_dest), t_src = iterator_next(t_src))
+    for(it_dest = list_begin(plist_list), it_src = it_begin;
+        !iterator_equal(it_dest, list_end(plist_list)) && !iterator_equal(it_src, it_end);
+        it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
     {
-        t_result = _GET_LIST_TYPE_SIZE(pt_list);
-        _GET_LIST_TYPE_COPY_FUNCTION(pt_list)(
-            ((listnode_t*)_GET_LIST_COREPOS(t_dest))->_pc_data,
-            ((listnode_t*)_GET_LIST_COREPOS(t_src))->_pc_data, &t_result);
-        assert(t_result);
+        b_result = _GET_LIST_TYPE_SIZE(plist_list);
+        _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
+            ((listnode_t*)_GET_LIST_COREPOS(it_dest))->_pc_data,
+            ((listnode_t*)_GET_LIST_COREPOS(it_src))->_pc_data, &b_result);
+        assert(b_result);
     }
 }
 
-void list_swap(list_t* pt_listfirst, list_t* pt_listsecond)
+/**
+ * Swap list datas.
+ */
+void list_swap(list_t* plist_first, list_t* plist_second)
 {
-    list_t t_listtmp;   /* the temporary list */
+    list_t list_tmp;   /* the temporary list */
 
-    assert(_list_same_type(pt_listfirst, pt_listsecond));
+    assert(plist_first != NULL);
+    assert(plist_second != NULL);
+    assert(_list_is_inited(plist_first));
+    assert(_list_is_inited(plist_second));
+    assert(_list_same_type(plist_first, plist_second));
 
-    t_listtmp = *pt_listfirst;
-    *pt_listfirst = *pt_listsecond;
-    *pt_listsecond = t_listtmp;
+    if(list_equal(plist_first, plist_second))
+    {
+        return;
+    }
+
+    list_tmp = *plist_first;
+    *plist_first = *plist_second;
+    *plist_second = list_tmp;
 }
 
 void* list_front(const list_t* cpt_list)

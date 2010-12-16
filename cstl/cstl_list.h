@@ -30,14 +30,35 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/* create new list with specific type */
+/**
+ * Create list container.
+ * @param ...      type name.
+ * @return list container pointer, if create list successfully, else return NULL.
+ * @remarks type name must be c builtin type, libcstl builtin type or user defined type, otherwise creation will be failure.
+ */
 #define create_list(...) _create_list(#__VA_ARGS__)
-/* initialize */
-#define list_init_elem(pt_list, t_count, elem)\
-    _list_init_elem((pt_list), (t_count), (elem))
-/* assign */
-#define list_assign_elem(pt_list, t_count, elem)\
-    _list_assign_elem((pt_list), (t_count), (elem))
+
+/**
+ * Initialize list with specified element.
+ * @param plist_list   uninitialized list container.
+ * @param t_count      element number.
+ * @param elem         specificed element.
+ * @return void
+ * @remarks if plist_list == NULL, then the behavior is undefined. the type of specificed element and list element
+ *          type must be same, otherwise the behavior is undefined.
+ */
+#define list_init_elem(plist_list, t_count, elem) _list_init_elem((plist_list), (t_count), (elem))
+
+/**
+ * Assign list with specificed element.
+ * @param plist_list   list container.
+ * @param t_count      element number.
+ * @param elem         specificed element.
+ * @return void.
+ * @remarks if plist_list == NULL or list is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and list element type must be same, otherwise the behavior is undefined.
+ */
+#define list_assign_elem(plist_list, t_count, elem) _list_assign_elem((plist_list), (t_count), (elem))
 /* push back and push front */
 #define list_push_back(pt_list, elem)\
     _list_push_back((pt_list), (elem))
@@ -60,42 +81,181 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Initialization and destroy functions.
+/**
+ * Initialize an empty list container
+ * @param plist_list   list container.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. plist_list must be created by create_list(), otherwise
+ *          the behavior is undefine.
  */
-extern void list_init(list_t* pt_list);
-extern void list_init_n(list_t* pt_list, size_t t_count);
-extern void list_destroy(list_t* pt_list);
-extern void list_init_copy(list_t* pt_listdest, const list_t* cpt_listsrc);
-extern void list_init_copy_range(
-    list_t* pt_listdest, list_iterator_t t_begin, list_iterator_t t_end);
+extern void list_init(list_t* plist_list);
 
-/*
- * list_t size operation functions.
+/**
+ * Initialize list container with specific size.
+ * @param plist_list   list container.
+ * @param t_count      the number of default elements.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. plist_list must be created by create_list(), otherwise
+ *          the behavior is undefine.
  */
-extern size_t list_size(const list_t* cpt_list);
-extern bool_t list_empty(const list_t* cpt_list);
-extern size_t list_max_size(const list_t* cpt_list);
+extern void list_init_n(list_t* plist_list, size_t t_count);
 
-/*
- * Relationship operator functions.
+/**
+ * Destroy list container.
+ * @param plist_list   list container.
+ * @return void.
+ * @remraks if plist_list == NULLL, then the behavior is undefined. plist_list must be initialized or created by create_list(),
+ *          otherwise the behavior is undefined.
  */
-extern bool_t list_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
-extern bool_t list_not_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
-extern bool_t list_less(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
-extern bool_t list_greater(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
+extern void list_destroy(list_t* plist_list);
+
+/**
+ * Initialize list container with exist list container.
+ * @param plist_dest   destination list container.
+ * @param plist_src    source list container.
+ * @return void.
+ * @remarks if plist_dest == NULL or plist_src == NULL, then the behavior is undefined. plist_dest must be created by
+ *          create_list(), and plist_src must be initialized, otherwise the behavior is undefined. the element type of
+ *          plist_dest and plist_src must be the same, otherwise the behavior is undefined.
+ */
+extern void list_init_copy(list_t* plist_dest, const list_t* cplist_src);
+
+/**
+ * Initialize list container with specific range.
+ * @param plist_dest   destination list container.
+ * @param it_begin     range begin.
+ * @param it_end       range end.
+ * @return void.
+ * @remarks if plist_dest == NULL, then the behavior is undefined. plist_dest must be created by create_list(), otherwise
+ *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefined. the
+ *          element type of [it_begin, it_end) and plist_src must be the same, otherwise the behavior is undefined.
+ */
+extern void list_init_copy_range(list_t* plist_dest, list_iterator_t it_begin, list_iterator_t it_end);
+
+/**
+ * Return the number of elements in a list.
+ * @param cplist_list  list container.
+ * @return the number of elements in the list.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the cplist_list must be initialized, otherwise the
+ *          behavior is undefine.
+ */
+extern size_t list_size(const list_t* cplist_list);
+
+/**
+ * Tests if a list is empty.
+ * @param cplist_list  list container.
+ * @return true if the list is empty, else returns false.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the cplist_list must be initialized, otherwise the
+ *          behavior is undefine.
+ */
+extern bool_t list_empty(const list_t* cplist_list);
+
+/**
+ * Return the maximum number of elements in a list.
+ * @param cplist_list  list container.
+ * @return the maximum possible number of elements in the list.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the cplist_list must be initialized, otherwise the
+ *          behavior is undefine.
+ */
+extern size_t list_max_size(const list_t* cplist_list);
+
+/**
+ * Tests if the two lists are equal.
+ * @param cplist_first   first list container.
+ * @param cplist_second  second list container.
+ * @return if first list equal to second list, then return true, else return false.
+ * @remarks if cplist_first == NULL or cplist_second == NULL, then the behavior is undefined. the two lists must be
+ *          initialized, otherwise the behavior is undefined. if the two lists are not same type, then return false.
+ *          if cplist_first == cplist_second, then return true.
+ */
+extern bool_t list_equal(const list_t* cplist_first, const list_t* cplist_second);
+
+/**
+ * Test the two lists are unequal.
+ * @param cplist_first   first list container.
+ * @param cplist_second  second list container.
+ * @return if first list unequal to second list, then return true, else return false.
+ * @remarks if cplist_first == NULL or cplist_second == NULL, then the behavior is undefined. the two lists must be
+ *          initialized, otherwise the behavior is undefined. if the two lists are not same type, then return true.
+ *          if cplist_first == cplist_second, then return false.
+ */
+extern bool_t list_not_equal(const list_t* cplist_first, const list_t* cplist_second);
+
+/**
+ * Test the first list is less than the second list.
+ * @param cplist_first   first list container.
+ * @param cplist_second  second list container.
+ * @return if the first list is less than the second list, then return true, else return false.
+ * @remarks if cplist_first == NULL or cplist_second == NULL, then the behavior is undefined. the two lists must be
+ *          initialized, otherwise the behavior is undefined. if the two lists are not same type, the behavior is
+ *          undefined. if cplist_first == cplist_second, then return false.
+ */
+extern bool_t list_less(const list_t* cplist_first, const list_t* cplist_second);
+
+/**
+ * Test the first list is less than or equal to the second list.
+ * @param cplist_first   first list container.
+ * @param cplist_second  second list container.
+ * @return if the first list is less than or equal to the second list, then return true, else return false.
+ * @remarks if cplist_first == NULL or cplist_second == NULL, then the behavior is undefined. the two lists must be
+ *          initialized, otherwise the behavior is undefined. if the two lists are not same type, the behavior is
+ *          undefined. if cplist_first == cplist_second, then return true.
+ */
 extern bool_t list_less_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
-extern bool_t list_greater_equal(const list_t* cpt_listfirst, const list_t* cpt_listsecond);
 
-/*
- * Assign operator functions.
+/**
+ * Test the first list is greater than the second list.
+ * @param cplist_first   first list container.
+ * @param cplist_second  second list container.
+ * @return if the first list is greater than the second list, then return true, else return false.
+ * @remarks if cplist_first == NULL or cplist_second == NULL, then the behavior is undefined. the two lists must be
+ *          initialized, otherwise the behavior is undefined. if the two lists are not same type, the behavior is
+ *          undefined. if cplist_first == cplist_second, then return false.
  */
-extern void list_assign(list_t* pt_listdest, const list_t* cpt_listsrc);
-extern void list_assign_range(
-    list_t* pt_list, list_iterator_t t_begin, list_iterator_t t_end);
+extern bool_t list_greater(const list_t* cplist_first, const list_t* cplist_second);
 
-/*
- * Swap the datas of first list and second list.
+/**
+ * Test the first list is greater than or equal to the second list.
+ * @param cplist_first   first list container.
+ * @param cplist_second  second list container.
+ * @return if the first list is greater than or equal to the second list, then return true, else return false.
+ * @remarks if cplist_first == NULL or cplist_second == NULL, then the behavior is undefined. the two lists must be
+ *          initialized, otherwise the behavior is undefined. if the two lists are not same type, the behavior is
+ *          undefined. if cplist_first == cplist_second, then return true.
+ */
+extern bool_t list_greater_equal(const list_t* cplist_first, const list_t* cplist_second);
+
+/**
+ * Assign list element with an exist list container.
+ * @param plist_dest     destination list container.
+ * @param cplist_src     source list container.
+ * @return void.
+ * @remarks if plist_dest == NULL or cplist_src == NULL, then the behavior is undefined. plist_dest and cplist_src must be
+ *          initialized, otherwise the behavior is undefined. the element type of two list must be same, otherwise
+ *          the behavior is undefined. if the destination list equal to source list, then this function does nothing.
+ */
+extern void list_assign(list_t* plist_dest, const list_t* cplist_src);
+
+/**
+ * Assign list element with an exist list container range.
+ * @param plist_dest    destination list container.
+ * @param it_begin      range begin.
+ * @param it_end        range end.
+ * @return void.
+ * @remarks if plist_dest == NULL, then the behavior is undefined. plist_dest must be initialized, otherwise the behavior
+ *          is undefined. the element type of list and [it_begin, it_end) must be same, otherwise the behavior is
+ *          undefined. if [it_begin, it_end) belong to the destination list, the behavior is undefined.
+ */
+extern void list_assign_range(list_t* plist_list, list_iterator_t it_begin, list_iterator_t it_end);
+
+/**
+ * Swap list datas.
+ * @param plist_first    first list.
+ * @param plist_second   second list.
+ * @return void.
+ * @remarks if plist_first == NULL or plist_second == NULL, then the behavior is undefined. the two lists must be
+ *          initialized, otherwise the behavior is undefined. the element type of two lists must be the same, otherwise
+ *          the behavior is undefined. if list_equal(plist_first, plist_second) == true, then this function does nothing.
  */
 extern void list_swap(list_t* pt_listfirst, list_t* pt_listsecond);
 
