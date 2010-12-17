@@ -59,22 +59,59 @@ extern "C" {
  *          element and list element type must be same, otherwise the behavior is undefined.
  */
 #define list_assign_elem(plist_list, t_count, elem) _list_assign_elem((plist_list), (t_count), (elem))
-/* push back and push front */
-#define list_push_back(pt_list, elem)\
-    _list_push_back((pt_list), (elem))
-#define list_push_front(pt_list, elem)\
-    _list_push_front((pt_list), (elem))
+
+/**
+ * Adds an element to the end of list.
+ * @param plist_list   list container.
+ * @param elem         specificed element.
+ * @return void.
+ * @remarks if plist_list == NULL or list is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and list element type must be same, otherwise the behavior is undefined.
+ */
+#define list_push_back(plist_list, elem) _list_push_back((plist_list), (elem))
+
+/**
+ * Adds an element to the begin of list.
+ * @param plist_list   list container.
+ * @param elem         specificed element.
+ * @return void.
+ * @remarks if plist_list == NULL or list is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and list element type must be same, otherwise the behavior is undefined.
+ */
+#define list_push_front(plist_list, elem) _list_push_front((plist_list), (elem))
 /* resize */
 #define list_resize_elem(pt_list, t_count, elem)\
     _list_resize_elem((pt_list), (t_count), (elem))
 /* remove */
 #define list_remove(pt_list, elem)\
     _list_remove((pt_list), (elem))
-/* insert */
-#define list_insert(pt_list, t_pos, elem)\
-    _list_insert_n((pt_list), (t_pos), 1, (elem))
-#define list_insert_n(pt_list, t_pos, t_count, elem)\
-    _list_insert_n((pt_list), (t_pos), (t_count), (elem))
+
+/**
+ * Insert an element into list at a specificed position.
+ * @param plist_list    list container.
+ * @param it_pos        specificed position.
+ * @param elem          specificed element.
+ * @return the position where the new element was inserted into the list.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for list container, otherwise
+ *          the behavior is undefined. the type of specificed and list element must be the same, otherwise the
+ *          behavior is undefined.
+ */
+#define list_insert(plist_list, it_pos, elem) _list_insert_n((plist_list), (it_pos), 1, (elem))
+
+/**
+ * Insert a number of elements into list at a specificed position.
+ * @param plist_list    list container.
+ * @param it_pos        specificed position.
+ * @param t_count       the number of specificed elements.
+ * @param elem          specificed element.
+ * @return the position where the new element was inserted into the list.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for list container, otherwise
+ *          the behavior is undefined. the type of specificed and list element must be the same, otherwise the
+ *          behavior is undefined.
+ */
+#define list_insert_n(plist_list, it_pos, t_count, elem) _list_insert_n((plist_list), (it_pos), (t_count), (elem))
 
 /** data type declaration and struct, union, enum section **/
 
@@ -259,40 +296,100 @@ extern void list_assign_range(list_t* plist_list, list_iterator_t it_begin, list
  */
 extern void list_swap(list_t* pt_listfirst, list_t* pt_listsecond);
 
-/*
- * Element access.
+/**
+ * Access first list data.
+ * @param cplist_list    list container.
+ * @return pointer to the data.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined. if the list is empty, then the behavior is undefined.
  */
-extern void* list_front(const list_t* cpt_list);
-extern void* list_back(const list_t* cpt_list);
+extern void* list_front(const list_t* cplist_list);
 
-/*
- * Iterator support.
+/**
+ * Access first last data.
+ * @param cplist_list    list container.
+ * @return pointer to the data.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined. if the list is empty, then the behavior is undefined.
  */
-extern list_iterator_t list_begin(const list_t* cpt_list);
-extern list_iterator_t list_end(const list_t* cpt_list);
+extern void* list_back(const list_t* cplist_list);
+
+/**
+ * Return a iterator to the first element in the list container.
+ * @param cplist_list    list container.
+ * @return a iterator to the first element in the list container.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined. if the list is empty, then return list_end(cplist_list).
+ */
+extern list_iterator_t list_begin(const list_t* cplist_list);
+
+/**
+ * Return a iterator that points just beyond the end of list container.
+ * @param cplist_list    list container.
+ * @return a iterator to the end of list.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined.
+ */
+extern list_iterator_t list_end(const list_t* cplist_list);
 /* private */
-extern list_reverse_iterator_t list_rbegin(const list_t* cpt_list);
-extern list_reverse_iterator_t list_rend(const list_t* cpt_list);
+extern list_reverse_iterator_t list_rbegin(const list_t* cplist_list);
+extern list_reverse_iterator_t list_rend(const list_t* cplist_list);
 
-/*
- * Insert operation function.
+/**
+ * Insert a range of elements into list at a specificed position.
+ * @param plist_list    list container.
+ * @param it_pos        specificed position.
+ * @param it_begin      the position of first element in the range.
+ * @param it_end        the position of first element beyond the range.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for list container, otherwise
+ *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefined.
+ *          if [it_begin, it_end) belong to list, the behavior is undefined. the type of specificed range and 
+ *          list element must be the same, otherwise the behavior is undefined.
  */
-extern void list_insert_range(
-    list_t* pt_list, list_iterator_t t_pos,
-    list_iterator_t t_begin, list_iterator_t t_end);
+extern void list_insert_range(list_t* plist_list, list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end);
 
-/*
- * Pop element from list_t.
+/**
+ * Delete the element at the end of list.
+ * @param plist_list    list container.
+ * @return void.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined. if list is empty, then the behavior is undefined.
  */
-extern void list_pop_back(list_t* pt_list);
-extern void list_pop_front(list_t* pt_list);
+extern void list_pop_back(list_t* plist_list);
 
-/*
- * Erase operation functions.
+/**
+ * Delete the element at the begin of list.
+ * @param plist_list    list container.
+ * @return void.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined. if list is empty, then the behavior is undefined.
  */
-extern list_iterator_t list_erase(list_t* pt_list, list_iterator_t t_pos);
-extern list_iterator_t list_erase_range(
-    list_t* pt_list, list_iterator_t t_begin, list_iterator_t t_end);
+extern void list_pop_front(list_t* plist_list);
+
+/**
+ * Removes an element in list from specificed position.
+ * @param plist_list     list container.
+ * @param it_pos         specificed position.
+ * @return an iterator that reference the first element beyond the removed element.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for list container, otherwise
+ *          the behavior is undefined.
+ */
+extern list_iterator_t list_erase(list_t* plist_list, list_iterator_t it_pos);
+
+/**
+ * Removes a range of elements in list from specificed position.
+ * @param plist_list     list container.
+ * @param it_begin       position of first element removed from the list.
+ * @param it_end         position just beyond the last element removed from the list.
+ * @return an iterator that reference the first element beyond the removed element.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the
+ *          behavior is undefined. the [it_begin, it_end) muse be valid range for list container, otherwise the
+ *          behavior is undefined.
+ */
+extern list_iterator_t list_erase_range(list_t* plist_list, list_iterator_t it_begin, list_iterator_t it_end);
 
 /*
  * Remove all elements for which op yields true.

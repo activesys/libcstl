@@ -403,208 +403,234 @@ void list_swap(list_t* plist_first, list_t* plist_second)
     *plist_second = list_tmp;
 }
 
-void* list_front(const list_t* cpt_list)
+/**
+ * Access first list data.
+ */
+void* list_front(const list_t* cplist_list)
 {
-    assert(cpt_list != NULL && cpt_list->_pt_node != NULL);
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
+    assert(!list_empty(cplist_list));
 
-    if(list_empty(cpt_list))
+    /* char* */
+    if(strncmp(_GET_LIST_TYPE_BASENAME(cplist_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return NULL;
-    }
-    else if(strncmp(_GET_LIST_TYPE_BASENAME(cpt_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        return (char*)string_c_str((string_t*)cpt_list->_pt_node->_pt_next->_pc_data);
-    }
-    else
-    {
-        return cpt_list->_pt_node->_pt_next->_pc_data; 
-    }
-}
-
-void* list_back(const list_t* cpt_list)
-{
-    assert(cpt_list != NULL && cpt_list->_pt_node != NULL);
-
-    if(list_empty(cpt_list))
-    {
-        return NULL;
-    }
-    else if(strncmp(_GET_LIST_TYPE_BASENAME(cpt_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        return (char*)string_c_str((string_t*)cpt_list->_pt_node->_pt_prev->_pc_data);
+        return (char*)string_c_str((string_t*)cplist_list->_pt_node->_pt_next->_pc_data);
     }
     else
     {
-        return cpt_list->_pt_node->_pt_prev->_pc_data;
+        return cplist_list->_pt_node->_pt_next->_pc_data; 
     }
 }
 
-list_iterator_t list_begin(const list_t* cpt_list)
+/**
+ * Access first last data.
+ */
+void* list_back(const list_t* cplist_list)
 {
-    list_iterator_t t_newiterator;  /* new list iterator */
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
+    assert(!list_empty(cplist_list));
 
-    assert(cpt_list != NULL && cpt_list->_pt_node != NULL);
-
-    t_newiterator = _create_list_iterator();
-    _GET_LIST_COREPOS(t_newiterator) = (char*)(cpt_list->_pt_node->_pt_next);
-    _GET_CONTAINER(t_newiterator) = (list_t*)cpt_list;
-
-    return t_newiterator;
+    if(strncmp(_GET_LIST_TYPE_BASENAME(cplist_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    {
+        return (char*)string_c_str((string_t*)cplist_list->_pt_node->_pt_prev->_pc_data);
+    }
+    else
+    {
+        return cplist_list->_pt_node->_pt_prev->_pc_data;
+    }
 }
 
-list_iterator_t list_end(const list_t* cpt_list)
+/**
+ * Return a iterator to the first element in the list container.
+ */
+list_iterator_t list_begin(const list_t* cplist_list)
 {
-    list_iterator_t t_newiterator;  /* new list iterator */
+    list_iterator_t it_begin;  /* new list iterator */
 
-    assert(cpt_list != NULL && cpt_list->_pt_node != NULL);
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
 
-    t_newiterator = _create_list_iterator();
-    _GET_LIST_COREPOS(t_newiterator) = (char*)(cpt_list->_pt_node);
-    _GET_CONTAINER(t_newiterator) = (list_t*)cpt_list;
+    it_begin = _create_list_iterator();
+    _GET_LIST_COREPOS(it_begin) = (char*)(cplist_list->_pt_node->_pt_next);
+    _GET_CONTAINER(it_begin) = (list_t*)cplist_list;
 
-    return t_newiterator;
+    return it_begin;
 }
 
-list_reverse_iterator_t list_rbegin(const list_t* cpt_list)
+/**
+ * Return a iterator that points just beyond the end of list container.
+ */
+list_iterator_t list_end(const list_t* cplist_list)
 {
-    list_reverse_iterator_t t_newiterator;   /* new list reverse iterator */
+    list_iterator_t it_end;  /* new list iterator */
 
-    assert(cpt_list != NULL && cpt_list->_pt_node != NULL);
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
 
-    t_newiterator = _create_list_iterator();
-    _GET_LIST_COREPOS(t_newiterator) = (char*)(cpt_list->_pt_node->_pt_prev);
-    _GET_CONTAINER(t_newiterator) = (list_t*)cpt_list;
+    it_end = _create_list_iterator();
+    _GET_LIST_COREPOS(it_end) = (char*)(cplist_list->_pt_node);
+    _GET_CONTAINER(it_end) = (list_t*)cplist_list;
 
-    return t_newiterator;
+    return it_end;
 }
 
-list_reverse_iterator_t list_rend(const list_t* cpt_list)
+list_reverse_iterator_t list_rbegin(const list_t* cplist_list)
 {
-    list_reverse_iterator_t t_newiterator;  /* new list reverse iterator */
+    list_reverse_iterator_t it_rbegin;   /* new list reverse iterator */
 
-    assert(cpt_list != NULL && cpt_list->_pt_node != NULL);
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
 
-    t_newiterator = _create_list_iterator();
-    _GET_LIST_COREPOS(t_newiterator) = (char*)(cpt_list->_pt_node);
-    _GET_CONTAINER(t_newiterator) = (list_t*)cpt_list;
+    it_rbegin = _create_list_iterator();
+    _GET_LIST_COREPOS(it_rbegin) = (char*)(cplist_list->_pt_node->_pt_prev);
+    _GET_CONTAINER(it_rbegin) = (list_t*)cplist_list;
 
-    return t_newiterator;
+    return it_rbegin;
 }
 
-void list_insert_range(
-    list_t* pt_list, list_iterator_t t_pos, 
-    list_iterator_t t_begin, list_iterator_t t_end)
+list_reverse_iterator_t list_rend(const list_t* cplist_list)
 {
-    listnode_t* pt_listbegin = NULL;    /* the begin pointer of copy list */
-    listnode_t* pt_listend = NULL;      /* the end pointer of copy list */
+    list_reverse_iterator_t it_rend;  /* new list reverse iterator */
+
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list));
+
+    it_rend = _create_list_iterator();
+    _GET_LIST_COREPOS(it_rend) = (char*)(cplist_list->_pt_node);
+    _GET_CONTAINER(it_rend) = (list_t*)cplist_list;
+
+    return it_rend;
+}
+
+/**
+ * Insert a range of elements into list at a specificed position.
+ */
+void list_insert_range(list_t* plist_list, list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end)
+{
+    listnode_t* plist_begin = NULL;    /* the begin pointer of copy list */
+    listnode_t* plist_end = NULL;      /* the end pointer of copy list */
     listnode_t* pt_node = NULL;         /* the new allocate node */
     listnode_t* pt_nodeinrange = NULL;  /* the node that in range */
-    bool_t      t_result = false;
+    bool_t      b_result = false;
 
-    assert(_list_iterator_belong_to_list(pt_list, t_pos));
-    assert(iterator_equal(t_begin, t_end) || _list_iterator_before(t_begin, t_end));
-    assert(_list_same_list_iterator_type(pt_list, t_begin));
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(_list_iterator_belong_to_list(plist_list, it_pos));
+    /*assert(!_list_iterator_belong_to_list(plist_list, it_begin));*/
+    /*assert(!_list_iterator_belong_to_list(plist_list, it_end));*/
+    assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
+    assert(_list_same_list_iterator_type(plist_list, it_begin));
 
-    /* allocate the copy list of range [t_begin, t_end) */
-    for(pt_nodeinrange = (listnode_t*)_GET_LIST_COREPOS(t_begin);
-        pt_nodeinrange != (listnode_t*)_GET_LIST_COREPOS(t_end);
+    /* allocate the copy list of range [it_begin, it_end) */
+    for(pt_nodeinrange = (listnode_t*)_GET_LIST_COREPOS(it_begin);
+        pt_nodeinrange != (listnode_t*)_GET_LIST_COREPOS(it_end);
         pt_nodeinrange = pt_nodeinrange->_pt_next)
     {
-        pt_node = _alloc_allocate(&pt_list->_t_allocater,
-            _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
+        pt_node = _alloc_allocate(&plist_list->_t_allocater, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
         assert(pt_node != NULL);
         pt_node->_pt_next = pt_node->_pt_prev = NULL;
-        _list_init_node_auxiliary(pt_list, pt_node);
-        t_result = _GET_LIST_TYPE_SIZE(pt_list);
-        _GET_LIST_TYPE_COPY_FUNCTION(pt_list)(
-            pt_node->_pc_data, pt_nodeinrange->_pc_data, &t_result);
-        assert(t_result);
+        _list_init_node_auxiliary(plist_list, pt_node);
+        b_result = _GET_LIST_TYPE_SIZE(plist_list);
+        _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(pt_node->_pc_data, pt_nodeinrange->_pc_data, &b_result);
+        assert(b_result);
 
-        if(pt_listbegin == NULL)
+        if(plist_begin == NULL)
         {
-            assert(pt_listend == NULL);
-            pt_listbegin = pt_listend = pt_node;
+            assert(plist_end == NULL);
+            plist_begin = plist_end = pt_node;
         }
         else
         {
-            assert(pt_listend != NULL);
-            pt_listend->_pt_next = pt_node;
-            pt_node->_pt_prev = pt_listend;
-            pt_listend = pt_listend->_pt_next;
+            assert(plist_end != NULL);
+            plist_end->_pt_next = pt_node;
+            pt_node->_pt_prev = plist_end;
+            plist_end = plist_end->_pt_next;
         }
         pt_node = NULL;
     }
     /* insert the list into the list */
-    if(pt_listbegin != NULL && pt_listend != NULL)
+    if(plist_begin != NULL && plist_end != NULL)
     {
-        pt_listbegin->_pt_prev = ((listnode_t*)_GET_LIST_COREPOS(t_pos))->_pt_prev;
-        pt_listend->_pt_next = (listnode_t*)_GET_LIST_COREPOS(t_pos);
-        ((listnode_t*)_GET_LIST_COREPOS(t_pos))->_pt_prev->_pt_next = pt_listbegin;
-        ((listnode_t*)_GET_LIST_COREPOS(t_pos))->_pt_prev = pt_listend;
+        plist_begin->_pt_prev = ((listnode_t*)_GET_LIST_COREPOS(it_pos))->_pt_prev;
+        plist_end->_pt_next = (listnode_t*)_GET_LIST_COREPOS(it_pos);
+        ((listnode_t*)_GET_LIST_COREPOS(it_pos))->_pt_prev->_pt_next = plist_begin;
+        ((listnode_t*)_GET_LIST_COREPOS(it_pos))->_pt_prev = plist_end;
     }
 }
 
-void list_pop_back(list_t* pt_list)
+/**
+ * Delete the element at the end of list.
+ */
+void list_pop_back(list_t* plist_list)
 {
     listnode_t* pt_node = NULL;    /* the delete node */
-    bool_t      t_result = false;
+    bool_t      b_result = false;
 
-    assert(pt_list != NULL && pt_list->_pt_node != NULL);
-    assert(list_size(pt_list) > 0);
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(!list_empty(plist_list));
 
     /* extrace the back node from the list */
-    pt_node = pt_list->_pt_node->_pt_prev;
-    pt_node->_pt_prev->_pt_next = pt_list->_pt_node;
-    pt_list->_pt_node->_pt_prev = pt_node->_pt_prev;
+    pt_node = plist_list->_pt_node->_pt_prev;
+    pt_node->_pt_prev->_pt_next = plist_list->_pt_node;
+    plist_list->_pt_node->_pt_prev = pt_node->_pt_prev;
 
     /* destroy deleted node */
-    t_result = _GET_LIST_TYPE_SIZE(pt_list);
-    _GET_LIST_TYPE_DESTROY_FUNCTION(pt_list)(pt_node->_pc_data, &t_result);
-    assert(t_result);
-    _alloc_deallocate(&pt_list->_t_allocater, pt_node,
-        _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
+    b_result = _GET_LIST_TYPE_SIZE(plist_list);
+    _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pc_data, &b_result);
+    assert(b_result);
+    _alloc_deallocate(&plist_list->_t_allocater, pt_node, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
 }
 
-void list_pop_front(list_t* pt_list)
+/**
+ * Delete the element at the begin of list.
+ */
+void list_pop_front(list_t* plist_list)
 {
     listnode_t* pt_node = NULL;    /* the delete node */
-    bool_t      t_result = false;
+    bool_t      b_result = false;
 
-    assert(pt_list != NULL && pt_list->_pt_node != NULL);
-    assert(list_size(pt_list) > 0);
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(!list_empty(plist_list));
 
     /* extrac the first node from the list */
-    pt_node = pt_list->_pt_node->_pt_next;
-    pt_list->_pt_node->_pt_next = pt_node->_pt_next;
-    pt_node->_pt_next->_pt_prev = pt_list->_pt_node;
+    pt_node = plist_list->_pt_node->_pt_next;
+    plist_list->_pt_node->_pt_next = pt_node->_pt_next;
+    pt_node->_pt_next->_pt_prev = plist_list->_pt_node;
     /* destroy deleted node */
-    t_result = _GET_LIST_TYPE_SIZE(pt_list);
-    _GET_LIST_TYPE_DESTROY_FUNCTION(pt_list)(pt_node->_pc_data, &t_result);
-    assert(t_result);
-    _alloc_deallocate(&pt_list->_t_allocater, pt_node,
-        _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
+    b_result = _GET_LIST_TYPE_SIZE(plist_list);
+    _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pc_data, &b_result);
+    assert(b_result);
+    _alloc_deallocate(&plist_list->_t_allocater, pt_node, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
 }
 
-list_iterator_t list_erase(list_t* pt_list, list_iterator_t t_pos)
+/**
+ * Removes an element in list from specificed position.
+ */
+list_iterator_t list_erase(list_t* plist_list, list_iterator_t it_pos)
 {
     listnode_t* pt_node = NULL;    /* the delete node */
-    bool_t      t_result = false;
+    bool_t      b_result = false;
 
-    assert(_list_iterator_belong_to_list(pt_list, t_pos));
-    assert(!iterator_equal(t_pos, list_end(pt_list)));
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(_list_iterator_belong_to_list(plist_list, it_pos));
+    assert(!iterator_equal(it_pos, list_end(plist_list)));
 
-    pt_node = (listnode_t*)_GET_LIST_COREPOS(t_pos);
-    _GET_LIST_COREPOS(t_pos) = (char*)(pt_node->_pt_next);
+    pt_node = (listnode_t*)_GET_LIST_COREPOS(it_pos);
+    _GET_LIST_COREPOS(it_pos) = (char*)(pt_node->_pt_next);
     /* extrac the node from list */
-    t_result = _GET_LIST_TYPE_SIZE(pt_list);
-    _GET_LIST_TYPE_DESTROY_FUNCTION(pt_list)(pt_node->_pc_data, &t_result);
-    assert(t_result);
+    b_result = _GET_LIST_TYPE_SIZE(plist_list);
+    _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pc_data, &b_result);
+    assert(b_result);
     pt_node->_pt_prev->_pt_next = pt_node->_pt_next;
     pt_node->_pt_next->_pt_prev = pt_node->_pt_prev;
-    _alloc_deallocate(&pt_list->_t_allocater, pt_node,
-        _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
+    _alloc_deallocate(&plist_list->_t_allocater, pt_node, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
 
-    return t_pos;
+    return it_pos;
 }
 
 list_iterator_t list_erase_range(

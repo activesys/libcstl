@@ -3235,7 +3235,7 @@ void test_vector_insert_range__invalid_range_belong_to_vector(void** state)
     it_begin = vector_begin(pvec_src);
     it_end = vector_end(pvec_src);
 
-    expect_assert_failure(vector_insert_range(pvec, it_pos, it_pos, it_end));
+    vector_insert_range(pvec, it_pos, it_pos, it_pos);
 
     vector_destroy(pvec);
     vector_destroy(pvec_src);

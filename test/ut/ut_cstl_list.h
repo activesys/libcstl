@@ -223,6 +223,85 @@ void test_list_swap__0_swap_10(void** state);
 void test_list_swap__10_swap_0(void** state);
 void test_list_swap__10_swap_10(void** state);
 void test_list_swap__10_swap_1000(void** state);
+/*
+ * test list_front
+ */
+UT_CASE_DECLARATION(list_front)
+void test_list_front__null_list_container(void** state);
+void test_list_front__non_inited_list_container(void** state);
+void test_list_front__empty(void** state);
+void test_list_front__successfully(void** state);
+void test_list_front__successfully_cstr(void** state);
+/*
+ * test list_back
+ */
+UT_CASE_DECLARATION(list_back)
+void test_list_back__null_list_container(void** state);
+void test_list_back__non_inited_list_container(void** state);
+void test_list_back__empty(void** state);
+void test_list_back__successfully(void** state);
+void test_list_back__successfully_cstr(void** state);
+/*
+ * test list_begin
+ */
+UT_CASE_DECLARATION(list_begin)
+void test_list_begin__null_list_container(void** state);
+void test_list_begin__non_inited_list_container(void** state);
+void test_list_begin__empty(void** state);
+void test_list_begin__non_empty(void** state);
+/*
+ * test list_end
+ */
+UT_CASE_DECLARATION(list_end)
+void test_list_end__null_list_container(void** state);
+void test_list_end__non_inited_list_container(void** state);
+void test_list_end__empty(void** state);
+void test_list_end__non_empty(void** state);
+/*
+ * test list_insert_range
+ */
+UT_CASE_DECLARATION(list_insert_range)
+void test_list_insert_range__null_list_container(void** state);
+void test_list_insert_range__non_inited(void** state);
+void test_list_insert_range__invalid_position(void** state);
+void test_list_insert_range__invalid_range(void** state);
+void test_list_insert_range__invalid_range_not_same_type(void** state);
+void test_list_insert_range__invalid_range_belong_to_list(void** state);
+void test_list_insert_range__empty_insert_0(void** state);
+void test_list_insert_range__empty_insert_10(void** state);
+void test_list_insert_range__begin_insert_0(void** state);
+void test_list_insert_range__begin_insert_10(void** state);
+void test_list_insert_range__middle_insert_0(void** state);
+void test_list_insert_range__middle_insert_10(void** state);
+void test_list_insert_range__end_insert_0(void** state);
+void test_list_insert_range__end_insert_10(void** state);
+/*
+ * test list_pop_back
+ */
+UT_CASE_DECLARATION(list_pop_back)
+void test_list_pop_back__null_list_container(void** state);
+void test_list_pop_back__non_inited_list_container(void** state);
+void test_list_pop_back__empty(void** state);
+void test_list_pop_back__successfully(void** state);
+/*
+ * test list_pop_front
+ */
+UT_CASE_DECLARATION(list_pop_front)
+void test_list_pop_front__null_list_container(void** state);
+void test_list_pop_front__non_inited_list_container(void** state);
+void test_list_pop_front__empty(void** state);
+void test_list_pop_front__successfully(void** state);
+/*
+ * test list_erase
+ */
+UT_CASE_DECLARATION(list_erase)
+void test_list_erase__null_list_container(void** state);
+void test_list_erase__non_inited_list_container(void** state);
+void test_list_erase__invalid_pos_end(void** state);
+void test_list_erase__invalid_pos(void** state);
+void test_list_erase__successfully_begin(void** state);
+void test_list_erase__successfully_middle(void** state);
+void test_list_erase__successfully_back(void** state);
 
 #define UT_CSTL_LIST_CASE\
     UT_SUIT_BEGIN(cstl_list, test_list_init__null_list_container),\
@@ -376,6 +455,54 @@ void test_list_swap__10_swap_1000(void** state);
     UT_CASE(test_list_swap__0_swap_10),\
     UT_CASE(test_list_swap__10_swap_0),\
     UT_CASE(test_list_swap__10_swap_10),\
-    UT_CASE(test_list_swap__10_swap_1000)
+    UT_CASE(test_list_swap__10_swap_1000),\
+    UT_CASE_BEGIN(list_front, test_list_front__null_list_container),\
+    UT_CASE(test_list_front__non_inited_list_container),\
+    UT_CASE(test_list_front__empty),\
+    UT_CASE(test_list_front__successfully),\
+    UT_CASE(test_list_front__successfully_cstr),\
+    UT_CASE_BEGIN(list_back, test_list_back__null_list_container),\
+    UT_CASE(test_list_back__non_inited_list_container),\
+    UT_CASE(test_list_back__empty),\
+    UT_CASE(test_list_back__successfully),\
+    UT_CASE(test_list_back__successfully_cstr),\
+    UT_CASE_BEGIN(list_begin, test_list_begin__null_list_container),\
+    UT_CASE(test_list_begin__non_inited_list_container),\
+    UT_CASE(test_list_begin__empty),\
+    UT_CASE(test_list_begin__non_empty),\
+    UT_CASE_BEGIN(list_end, test_list_end__null_list_container),\
+    UT_CASE(test_list_end__non_inited_list_container),\
+    UT_CASE(test_list_end__empty),\
+    UT_CASE(test_list_end__non_empty),\
+    UT_CASE_BEGIN(list_insert_range, test_list_insert_range__null_list_container),\
+    UT_CASE(test_list_insert_range__non_inited),\
+    UT_CASE(test_list_insert_range__invalid_position),\
+    UT_CASE(test_list_insert_range__invalid_range),\
+    UT_CASE(test_list_insert_range__invalid_range_not_same_type),\
+    UT_CASE(test_list_insert_range__invalid_range_belong_to_list),\
+    UT_CASE(test_list_insert_range__empty_insert_0),\
+    UT_CASE(test_list_insert_range__empty_insert_10),\
+    UT_CASE(test_list_insert_range__begin_insert_0),\
+    UT_CASE(test_list_insert_range__begin_insert_10),\
+    UT_CASE(test_list_insert_range__middle_insert_0),\
+    UT_CASE(test_list_insert_range__middle_insert_10),\
+    UT_CASE(test_list_insert_range__end_insert_0),\
+    UT_CASE(test_list_insert_range__end_insert_10),\
+    UT_CASE_BEGIN(list_pop_back, test_list_pop_back__null_list_container),\
+    UT_CASE(test_list_pop_back__non_inited_list_container),\
+    UT_CASE(test_list_pop_back__empty),\
+    UT_CASE(test_list_pop_back__successfully),\
+    UT_CASE_BEGIN(list_pop_front, test_list_pop_front__null_list_container),\
+    UT_CASE(test_list_pop_front__non_inited_list_container),\
+    UT_CASE(test_list_pop_front__empty),\
+    UT_CASE(test_list_pop_front__successfully),\
+    UT_CASE_BEGIN(list_erase, test_list_erase__null_list_container),\
+    UT_CASE(test_list_erase__non_inited_list_container),\
+    UT_CASE(test_list_erase__invalid_pos_end),\
+    UT_CASE(test_list_erase__invalid_pos),\
+    UT_CASE(test_list_erase__successfully_begin),\
+    UT_CASE(test_list_erase__successfully_middle),\
+    UT_CASE(test_list_erase__successfully_back)
 
 #endif /* _UT_CSTL_LIST_H_ */
+
