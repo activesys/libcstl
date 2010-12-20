@@ -137,16 +137,6 @@ extern void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node);
 extern void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end);
 
 /**
- * Sort the range (t_beforefirstpos, t_afterlastpos) use the quick sort algorithm.
- * @param it_beforefirstpos    before first posititon.
- * @param it_afterlastpos      after last position.
- * @param bfun_less            sorting rules.
- * @return void.
- * @remarks
- */
-extern void _quick_sort(list_iterator_t t_beforefirstpos, list_iterator_t t_afterlastpos, binary_function_t bfun_less);
-
-/**
  * Sort the range [pt_first, pt_last] use the quick sort algorithm.
  * @param plist_list           list container.
  * @param pt_first             first node.

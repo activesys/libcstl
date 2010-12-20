@@ -79,12 +79,31 @@ extern "C" {
  *          element and list element type must be same, otherwise the behavior is undefined.
  */
 #define list_push_front(plist_list, elem) _list_push_front((plist_list), (elem))
-/* resize */
-#define list_resize_elem(pt_list, t_count, elem)\
-    _list_resize_elem((pt_list), (t_count), (elem))
-/* remove */
-#define list_remove(pt_list, elem)\
-    _list_remove((pt_list), (elem))
+
+/**
+ * Reset the size of list elements.
+ * @param plist_list    list container.
+ * @param t_resize      new size of list elements.
+ * @param elem          specificed element.
+ * @return void.
+ * @remarks if plist_list == NULL or list is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and list element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. if t_resize less than current list size, then erase elmement from the end.
+ *          if t_resize greater than current list size, then append elements to the end, and the element is specificed
+ *          element.
+ */
+#define list_resize_elem(plist_list, t_count, elem) _list_resize_elem((plist_list), (t_count), (elem))
+
+/**
+ * Remove specificed element from list container.
+ * @param plist_list    list container.
+ * @elem                specificed element.
+ * @return void.
+ * @remarks if plist_list == NULL or list is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and list element type must be same, otherwise the behavior is undefined. this function remove all
+ *          element that equal to specificed, if no such element then does nothing.
+ */
+#define list_remove(plist_list, elem) _list_remove((plist_list), (elem))
 
 /**
  * Insert an element into list at a specificed position.
@@ -391,42 +410,121 @@ extern list_iterator_t list_erase(list_t* plist_list, list_iterator_t it_pos);
  */
 extern list_iterator_t list_erase_range(list_t* plist_list, list_iterator_t it_begin, list_iterator_t it_end);
 
-/*
- * Remove all elements for which op yields true.
+/**
+ * Remove elements from a list for which a specificed predicate is satisfied.
+ * @param plist_list    list container.
+ * @unary_op            unary predicate.
+ * @return void.
+ * @remarks if plist_list == NULL or list is uninitialized, then the behavior is undefined. this function remove all
+ *          element that satisfy the predicate, if no such element then does nothing. if ufun_op == NULL then use default
+ *          unary predicate.
  */
-extern void list_remove_if(list_t* pt_list, unary_function_t t_unary_op);
+extern void list_remove_if(list_t* pt_list, unary_function_t ufun_op);
 
-/*
- * Resize operatio functions.
+/**
+ * Specifies a new size of a list.
+ * @param plist_list    list container.
+ * @param t_resize      new size of list.
+ * @return void.
+ * @remarks if cplist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined. if list is empty, then the behavior is undefined. if t_resize is greater than list size, new
+ *          default element are added to the list until it reaches the required size.
  */
-extern void list_resize(list_t* pt_list, size_t t_resize);
+extern void list_resize(list_t* plist_list, size_t t_resize);
 
-/*
- * Remove all elements.
+/**
+ * Erases the elements of list.
+ * @param plist_list    list container.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined.
  */
 extern void list_clear(list_t* pt_list);
 
-/*
- * Unique operatio functions.
+/**
+ * Removes adjacent duplicate elements from a list.
+ * @param plist_list     list container.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined. this function removes adjacent duplicate elements, but duplicates that are not adjacent will not
+ *          bt deleted.
  */
-extern void list_unique(list_t* pt_list);
-extern void list_unique_if(list_t* pt_list, binary_function_t t_binary_op);
+extern void list_unique(list_t* plist_list);
 
-/*
- * Splice operation functions.
+/**
+ * Removes adjacent elements that satisfy some other binary predicate from a list.
+ * @param plist_list     list container.
+ * @param bfun_op        binary predicate.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ *          is undefined. this function removes adjacent elements that satisfy some other binary predicate, but elements
+ *          that are not adjacent will not bt deleted. if bfun_op == NULL, then use default binary function.
  */
-extern void list_splice(list_t* pt_list, list_iterator_t t_pos, list_t* pt_listsrc);
-extern void list_splice_pos(
-    list_t* pt_list, list_iterator_t t_pos, list_t* pt_listsrc, list_iterator_t t_possrc);
+extern void list_unique_if(list_t* plist_list, binary_function_t bfun_op);
+
+/**
+ * Removes elements from the source list and insert into the target list.
+ * @param plist_list     target list.
+ * @param it_pos         target position.
+ * @param plist_src      source list.
+ * @return void.
+ * @remarks  if plist_list == NULL or plist_src == NUll then the behavior is undefined. the target list and source list
+ *           must be initialized, otherwise the behavior is undefined. target position must be valid position for target list. 
+ *           the element type of two list must be the same, otherwise the behavior is undefined. if plist_list == plist_src
+ *           then the function does nothing.
+ */
+extern void list_splice(list_t* plist_list, list_iterator_t it_pos, list_t* plist_src);
+
+/**
+ * Removes element from the source list and insert into the target list.
+ * @param plist_list     target list.
+ * @param it_pos         target position.
+ * @param plist_src      source list.
+ * @param it_src         source position.
+ * @return void.
+ * @remarks  if plist_list == NULL or plist_src == NUll then the behavior is undefined. the target list and source list
+ *           must be initialized, otherwise the behavior is undefined. target position must be valid position for target list,
+ *           soruce position muse be valid position for source list, otherwise the behavior is undefine. the element type of
+ *           two list must be the same, otherwise the behavior is undefined. if plist_list == plist_src and it_pos == it_src
+ *           or it_pos = iterator_next(it_src), then the function does nothing.
+ */
+extern void list_splice_pos(list_t* plist_list, list_iterator_t it_pos, list_t* plist_src, list_iterator_t it_src);
+
+/**
+ * Removes elements from the source list range and insert into the target list.
+ * @param plist_list     target list.
+ * @param it_pos         target position.
+ * @param plist_src      source list.
+ * @param it_begin       source range begin position.
+ * @param it_end         source range end position.
+ * @return void.
+ * @remarks  if plist_list == NULL or plist_src == NUll then the behavior is undefined. the target list and source list
+ *           must be initialized, otherwise the behavior is undefined. target position must be valid position for target list,
+ *           soruce range muse be valid range for source list, otherwise the behavior is undefine. the element type of
+ *           two list must be the same, otherwise the behavior is undefined. if plist_list == plist_src and it_pos == it_begin
+ *           or it_pos = it_end, then the function does nothing.
+ */
 extern void list_splice_range(
-    list_t* pt_list, list_iterator_t t_pos, 
-    list_t* pt_listsrc, list_iterator_t t_begin, list_iterator_t t_end);
+    list_t* plist_list, list_iterator_t it_pos, list_t* plist_src, list_iterator_t it_begin, list_iterator_t it_end);
 
-/*
- * Sort operation functions.
+/**
+ * Sort elements of list container.
+ * @param plist_list     list container.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior is
+ *          undefined.
  */
-extern void list_sort(list_t* pt_list);
-extern void list_sort_if(list_t* pt_list, binary_function_t t_binary_op);
+extern void list_sort(list_t* plist_list);
+
+/**
+ * Sort elements of list container with user-specifide order relation.
+ * @param plist_list     list container.
+ * @param bfun_op        user-specified order relation.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior is
+ *          undefined. if bfun_op == NULL, then use default type less function.
+ */
+extern void list_sort_if(list_t* plist_list, binary_function_t bfun_op);
 
 /*
  * Merge operation functions.

@@ -633,256 +633,272 @@ list_iterator_t list_erase(list_t* plist_list, list_iterator_t it_pos)
     return it_pos;
 }
 
-list_iterator_t list_erase_range(
-    list_t* pt_list, list_iterator_t t_begin, list_iterator_t t_end)
+/**
+ * Removes a range of elements in list from specificed position.
+ */
+list_iterator_t list_erase_range(list_t* plist_list, list_iterator_t it_begin, list_iterator_t it_end)
 {
-    assert(_list_iterator_belong_to_list(pt_list, t_begin));
-    assert(iterator_equal(t_begin, t_end) || _list_iterator_before(t_begin, t_end));
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(_list_iterator_belong_to_list(plist_list, it_begin));
+    assert(_list_iterator_belong_to_list(plist_list, it_end));
+    assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
 
-    while(!iterator_equal(t_begin, t_end))
+    while(!iterator_equal(it_begin, it_end))
     {
-        t_begin = list_erase(pt_list, t_begin);
+        it_begin = list_erase(plist_list, it_begin);
     }
 
-    return t_end;
+    return it_end;
 }
 
-void list_remove_if(list_t* pt_list, unary_function_t t_unary_op)
+/**
+ * Remove elements from a list for which a specificed predicate is satisfied.
+ */
+void list_remove_if(list_t* plist_list, unary_function_t ufun_op)
 {
-    list_iterator_t t_pos;    /* the delete position */
-    bool_t          t_result = false;
+    list_iterator_t it_pos;    /* the delete position */
+    bool_t          b_result = false;
 
-    assert(pt_list != NULL && pt_list->_pt_node != NULL);
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
 
-    if(t_unary_op == NULL)
+    if(ufun_op == NULL)
     {
-        t_unary_op = fun_default_unary;
+        ufun_op = fun_default_unary;
     }
 
-    t_pos = list_begin(pt_list);
-    while(!iterator_equal(t_pos, list_end(pt_list)))
+    it_pos = list_begin(plist_list);
+    while(!iterator_equal(it_pos, list_end(plist_list)))
     {
-        (*t_unary_op)(iterator_get_pointer(t_pos), &t_result);
-        if(t_result)
+        (*ufun_op)(iterator_get_pointer(it_pos), &b_result);
+        if(b_result)
         {
-            t_pos = list_erase(pt_list, t_pos);
+            it_pos = list_erase(plist_list, it_pos);
         }
         else
         {
-            t_pos = iterator_next(t_pos);
+            it_pos = iterator_next(it_pos);
         }
     }
 }
 
-void list_resize(list_t* pt_list, size_t t_resize)
+/**
+ * Specifies a new size of a list.
+ */
+void list_resize(list_t* plist_list, size_t t_resize)
 {
     listnode_t* pt_node = NULL; /* the node for allocate */
-    size_t      t_listsize = 0; /* the list size */
-    size_t      t_index = 0;
+    size_t      t_size = 0;     /* the list size */
+    size_t      i = 0;
 
-    assert(pt_list != NULL && pt_list->_pt_node != NULL);
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
 
-
-    t_listsize = list_size(pt_list);
-    if(t_resize < t_listsize)
+    t_size = list_size(plist_list);
+    if(t_resize < t_size)
     {
-        for(t_index = 0; t_index < t_listsize - t_resize; ++t_index)
+        for(i = 0; i < t_size - t_resize; ++i)
         {
-            list_pop_back(pt_list);
+            list_pop_back(plist_list);
         }
     }
     else
     {
-        for(t_index = 0; t_index < t_resize - t_listsize; ++t_index)
+        for(i = 0; i < t_resize - t_size; ++i)
         {
-            pt_node = _alloc_allocate(&pt_list->_t_allocater,
-                _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(pt_list)), 1);
+            pt_node = _alloc_allocate(&plist_list->_t_allocater, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
             assert(pt_node != NULL);
-            _list_init_node_auxiliary(pt_list, pt_node);
+            _list_init_node_auxiliary(plist_list, pt_node);
 
-            pt_node->_pt_next = pt_list->_pt_node;
-            pt_node->_pt_prev = pt_list->_pt_node->_pt_prev;
-            pt_list->_pt_node->_pt_prev->_pt_next = pt_node;
-            pt_list->_pt_node->_pt_prev = pt_node;
+            pt_node->_pt_next = plist_list->_pt_node;
+            pt_node->_pt_prev = plist_list->_pt_node->_pt_prev;
+            plist_list->_pt_node->_pt_prev->_pt_next = pt_node;
+            plist_list->_pt_node->_pt_prev = pt_node;
             pt_node = NULL;
         }
     }
 }
 
-
-void list_clear(list_t* pt_list)
+/**
+ * Erases the elements of clear.
+ */
+void list_clear(list_t* plist_list)
 {
-    list_erase_range(pt_list, list_begin(pt_list), list_end(pt_list));
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
+
+    list_erase_range(plist_list, list_begin(plist_list), list_end(plist_list));
 }
 
-void list_unique(list_t* pt_list)
+/**
+ * Removes adjacent duplicate elements from a list.
+ */
+void list_unique(list_t* plist_list)
 {
-    list_iterator_t t_pos;
+    list_iterator_t it_pos;
     listnode_t*     pt_node = NULL;   /* current node */
-    bool_t          t_less = false;
-    bool_t          t_greater = false;
+    bool_t          b_less = false;
+    bool_t          b_greater = false;
 
-    assert(pt_list != NULL && pt_list->_pt_node != NULL);
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
 
-    pt_node = pt_list->_pt_node->_pt_next->_pt_next;
-    while(pt_node != pt_list->_pt_node)
+    pt_node = plist_list->_pt_node->_pt_next->_pt_next;
+    while(pt_node != plist_list->_pt_node)
     {
-        t_less = t_greater = _GET_LIST_TYPE_SIZE(pt_list);
-        _GET_LIST_TYPE_LESS_FUNCTION(pt_list)(
-            pt_node->_pt_prev->_pc_data, pt_node->_pc_data, &t_less);
-        _GET_LIST_TYPE_LESS_FUNCTION(pt_list)(
-            pt_node->_pc_data, pt_node->_pt_prev->_pc_data, &t_greater);
-        if(t_less || t_greater)
+        b_less = b_greater = _GET_LIST_TYPE_SIZE(plist_list);
+        _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(
+            pt_node->_pt_prev->_pc_data, pt_node->_pc_data, &b_less);
+        _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(
+            pt_node->_pc_data, pt_node->_pt_prev->_pc_data, &b_greater);
+        if(b_less || b_greater)
         {
             pt_node = pt_node->_pt_next;
         }
         else
         {
-            t_pos = _create_list_iterator();
-            _GET_CONTAINER(t_pos) = pt_list;
-            _GET_LIST_COREPOS(t_pos) = (char*)pt_node;
-            t_pos = list_erase(pt_list, t_pos);
-            pt_node = (listnode_t*)_GET_LIST_COREPOS(t_pos);
+            it_pos = _create_list_iterator();
+            _GET_CONTAINER(it_pos) = plist_list;
+            _GET_LIST_COREPOS(it_pos) = (char*)pt_node;
+            it_pos = list_erase(plist_list, it_pos);
+            pt_node = (listnode_t*)_GET_LIST_COREPOS(it_pos);
         }
     }
 }
 
-void list_unique_if(list_t* pt_list, binary_function_t t_binary_op)
+/**
+ * Removes adjacent elements that satisfy some other binary predicate from a list.
+ */
+void list_unique_if(list_t* plist_list, binary_function_t bfun_op)
 {
-    list_iterator_t t_pos;
-    listnode_t*     pt_node = NULL;   /* current node */
-    bool_t          t_result = false;
+    list_iterator_t it_pos;
+    list_iterator_t it_prev;
+    bool_t          b_result = false;
 
-    assert(pt_list != NULL && pt_list->_pt_node != NULL);
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
 
-    if(t_binary_op == NULL)
+    if(bfun_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        bfun_op = fun_default_binary;
     }
 
-    pt_node = pt_list->_pt_node->_pt_next->_pt_next;
-
-    /* char* */
-    if(strncmp(_GET_LIST_TYPE_BASENAME(pt_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    if(list_size(plist_list) <= 1)
     {
-        while(pt_node != pt_list->_pt_node)
+        return;
+    }
+
+    it_prev = list_begin(plist_list);
+    it_pos = iterator_next(it_prev);
+    while(!iterator_equal(it_pos, list_end(plist_list)))
+    {
+        (*bfun_op)(iterator_get_pointer(it_prev), iterator_get_pointer(it_pos), &b_result);
+        if(b_result)
         {
-            (*t_binary_op)(string_c_str((string_t*)pt_node->_pt_prev->_pc_data),
-                string_c_str((string_t*)pt_node->_pc_data), &t_result);
-            if(t_result)
-            {
-                t_pos = _create_list_iterator();
-                _GET_CONTAINER(t_pos) = pt_list;
-                _GET_LIST_COREPOS(t_pos) = (char*)pt_node;
-                t_pos = list_erase(pt_list, t_pos);
-                pt_node = (listnode_t*)_GET_LIST_COREPOS(t_pos);
-            }
-            else
-            {
-                pt_node = pt_node->_pt_next;
-            }
+            it_pos = list_erase(plist_list, it_pos);
         }
-    }
-    else
-    {
-        while(pt_node != pt_list->_pt_node)
+        else
         {
-            (*t_binary_op)(pt_node->_pt_prev->_pc_data, pt_node->_pc_data, &t_result);
-            if(t_result)
-            {
-                t_pos = _create_list_iterator();
-                _GET_CONTAINER(t_pos) = pt_list;
-                _GET_LIST_COREPOS(t_pos) = (char*)pt_node;
-                t_pos = list_erase(pt_list, t_pos);
-                pt_node = (listnode_t*)_GET_LIST_COREPOS(t_pos);
-            }
-            else
-            {
-                pt_node = pt_node->_pt_next;
-            }
+            it_prev = iterator_next(it_prev);
+            it_pos = iterator_next(it_pos);
         }
     }
 }
 
-void list_splice(list_t* pt_list, list_iterator_t t_pos, list_t* pt_listsrc)
+/**
+ * Removes elements from the source list and insert into the target list.
+ */
+void list_splice(list_t* plist_list, list_iterator_t it_pos, list_t* plist_src)
 {
 #ifdef NDEBUG
-    list_t* pt_avoidwarning = NULL;
-    pt_avoidwarning = pt_list;
+    list_t* plist_avoidwarning = NULL;
+    plist_avoidwarning = plist_list;
 #endif
 
-    assert(_list_same_type(pt_list, pt_listsrc));
-    assert(_list_iterator_belong_to_list(pt_list, t_pos));
-    /* ensure the pt_list is difference from pt_listsrc */
-    assert(_GET_LIST_CONTAINER(t_pos) != pt_listsrc);
+    assert(plist_list != NULL);
+    assert(plist_src != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(_list_is_inited(plist_src));
+    assert(_list_same_type(plist_list, plist_src));
+    assert(_list_iterator_belong_to_list(plist_list, it_pos));
 
-    if(!list_empty(pt_listsrc))
+    if(plist_list != plist_src)
     {
-        _list_transfer(t_pos, list_begin(pt_listsrc), list_end(pt_listsrc));
+        _list_transfer(it_pos, list_begin(plist_src), list_end(plist_src));
     }
 }
 
-void list_splice_pos(
-    list_t* pt_list, list_iterator_t t_pos, list_t* pt_listsrc, list_iterator_t t_possrc)
+/**
+ * Removes element from the source list and insert into the target list.
+ */
+void list_splice_pos(list_t* plist_list, list_iterator_t it_pos, list_t* plist_src, list_iterator_t it_src)
 {
-    list_iterator_t t_possrcnext;  /* the next position of possrc */
-
 #ifdef NDEBUG
-    list_t* pt_avoidwarning = NULL;
-    pt_avoidwarning = pt_list;
+    list_t* plist_avoidwarning1 = NULL;
+    list_t* plist_avoidwarning2 = NULL;
+    plist_avoidwarning1 = plist_list;
+    plist_avoidwarning2 = plist_src;
 #endif
 
-    assert(_list_same_type(pt_list, pt_listsrc));
-    assert(_list_iterator_belong_to_list(pt_list, t_pos));
-    assert(_list_iterator_belong_to_list(pt_listsrc, t_possrc));
+    assert(plist_list != NULL);
+    assert(plist_src != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(_list_is_inited(plist_src));
+    assert(_list_same_type(plist_list, plist_src));
+    assert(_list_iterator_belong_to_list(plist_list, it_pos));
+    assert(_list_iterator_belong_to_list(plist_src, it_src));
+    assert(!iterator_equal(it_src, list_end(plist_src)));
 
-    /* t_possrcnext = t_possrc; */
-    t_possrcnext = iterator_next(t_possrc);
-    if(!list_empty(pt_listsrc) && !iterator_equal(t_possrc, list_end(pt_listsrc)))
-    {
-        _list_transfer(t_pos, t_possrc, t_possrcnext);
-    }
+    _list_transfer(it_pos, it_src, iterator_next(it_src));
 }
 
+/**
+ * Removes elements from the source list range and insert into the target list.
+ */
 void list_splice_range(
-    list_t* pt_list, list_iterator_t t_pos,
-    list_t* pt_listsrc, list_iterator_t t_begin, list_iterator_t t_end)
+    list_t* plist_list, list_iterator_t it_pos, list_t* plist_src, list_iterator_t it_begin, list_iterator_t it_end)
 {
 #ifdef NDEBUG
-    list_t* pt_avoidwarning1 = NULL;
-    list_t* pt_avoidwarning2 = NULL;
-    pt_avoidwarning1 = pt_list;
-    pt_avoidwarning2 = pt_listsrc;
+    list_t* plist_avoidwarning1 = NULL;
+    list_t* plist_avoidwarning2 = NULL;
+    plist_avoidwarning1 = plist_list;
+    plist_avoidwarning2 = plist_src;
 #endif
 
-    assert(_list_same_type(pt_list, pt_listsrc));
-    assert(_list_iterator_belong_to_list(pt_list, t_pos));
-    assert(_list_iterator_belong_to_list(pt_listsrc, t_begin));
-    assert(iterator_equal(t_begin, t_end) || _list_iterator_before(t_begin, t_end));
-    /* ensure the pt_list is difference from pt_listsrc */
-    assert(_GET_LIST_CONTAINER(t_pos) != pt_listsrc);
+    assert(plist_list != NULL);
+    assert(plist_src != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(_list_is_inited(plist_src));
+    assert(_list_same_type(plist_list, plist_src));
+    assert(_list_iterator_belong_to_list(plist_list, it_pos));
+    assert(_list_iterator_belong_to_list(plist_src, it_begin));
+    assert(_list_iterator_belong_to_list(plist_src, it_end));
+    assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
 
-    _list_transfer(t_pos, t_begin, t_end);
+    _list_transfer(it_pos, it_begin, it_end);
 }
 
-void list_sort(list_t* pt_list)
+/**
+ * Sort elements of list container.
+ */
+void list_sort(list_t* plist_list)
 {
-    assert(pt_list != NULL && pt_list->_pt_node != NULL);
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
 
-    if(list_size(pt_list) > 1)
-    {
-        _quick_sort(list_end(pt_list), list_end(pt_list), NULL);
-    }
+    _list_quick_sort(plist_list, plist_list->_pt_node->_pt_next, plist_list->_pt_node->_pt_prev, NULL);
 }
 
-void list_sort_if(list_t* pt_list, binary_function_t t_binary_op)
+/**
+ * Sort elements of list container with user-specifide order relation.
+ */
+void list_sort_if(list_t* plist_list, binary_function_t bfun_op)
 {
-    assert(pt_list != NULL && pt_list->_pt_node != NULL);
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
 
-    if(list_size(pt_list) > 1)
-    {
-        _quick_sort(list_end(pt_list), list_end(pt_list), t_binary_op);
-    }
+    _list_quick_sort(plist_list, plist_list->_pt_node->_pt_next, plist_list->_pt_node->_pt_prev, bfun_op);
 }
 
 void list_merge(list_t* pt_listdest, list_t* pt_listsrc)

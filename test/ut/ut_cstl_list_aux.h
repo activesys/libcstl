@@ -142,30 +142,6 @@ void test__list_swap_node__second_distanced_by_first(void** state);
 void test__list_swap_node__same_ppt_first_ppt_second(void** state);
 void test__list_swap_node__same_pt_first_pt_second(void** state);
 /*
- * test _quick_sort
- */
-UT_CASE_DECLARATION(_quick_sort)
-void test__quick_sort__empty_less(void** stat);
-void test__quick_sort__empty_greater(void** state);
-void test__quick_sort__1_less(void** state);
-void test__quick_sort__1_greater(void** state);
-void test__quick_sort__2_equal_less(void** state);
-void test__quick_sort__2_equal_greater(void** state);
-void test__quick_sort__2_less_less(void** state);
-void test__quick_sort__2_less_greater(void** state);
-void test__quick_sort__2_greater_less(void** state);
-void test__quick_sort__2_greater_greater(void** state);
-void test__quick_sort__random_equal_less(void** state);
-void test__quick_sort__random_equal_greater(void** state);
-void test__quick_sort__random_less_less(void** state);
-void test__quick_sort__random_less_greater(void** state);
-void test__quick_sort__random_greater_less(void** state);
-void test__quick_sort__random_greater_greater(void** state);
-void test__quick_sort__random_random_less(void** state);
-void test__quick_sort__random_random_greater(void** state);
-void test__quick_sort__random_random_dup_less(void** state);
-void test__quick_sort__random_random_dup_greater(void** state);
-/*
  * test _list_quick_sort
  */
 UT_CASE_DECLARATION(_list_quick_sort)
@@ -295,26 +271,6 @@ void test__list_quick_sort__random_random_dup_greater(void** state);
     UT_CASE(test__list_swap_node__second_distanced_by_first),\
     UT_CASE(test__list_swap_node__same_ppt_first_ppt_second),\
     UT_CASE(test__list_swap_node__same_pt_first_pt_second),\
-    UT_CASE_BEGIN(_quick_sort, test__quick_sort__empty_less),\
-    UT_CASE(test__quick_sort__empty_greater),\
-    UT_CASE(test__quick_sort__1_less),\
-    UT_CASE(test__quick_sort__1_greater),\
-    UT_CASE(test__quick_sort__2_equal_less),\
-    UT_CASE(test__quick_sort__2_equal_greater),\
-    UT_CASE(test__quick_sort__2_less_less),\
-    UT_CASE(test__quick_sort__2_less_greater),\
-    UT_CASE(test__quick_sort__2_greater_less),\
-    UT_CASE(test__quick_sort__2_greater_greater),\
-    UT_CASE(test__quick_sort__random_equal_less),\
-    UT_CASE(test__quick_sort__random_equal_greater),\
-    UT_CASE(test__quick_sort__random_less_less),\
-    UT_CASE(test__quick_sort__random_less_greater),\
-    UT_CASE(test__quick_sort__random_greater_less),\
-    UT_CASE(test__quick_sort__random_greater_greater),\
-    UT_CASE(test__quick_sort__random_random_less),\
-    UT_CASE(test__quick_sort__random_random_greater),\
-    UT_CASE(test__quick_sort__random_random_dup_less),\
-    UT_CASE(test__quick_sort__random_random_dup_greater),\
     UT_CASE_BEGIN(_list_quick_sort, test__list_quick_sort__null_list_container),\
     UT_CASE(test__list_quick_sort__non_inited_list_container),\
     UT_CASE(test__list_quick_sort__null_pt_first),\
