@@ -263,12 +263,12 @@ void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt
         /* pivot is not the first node */
         if(pt_pivot->_pt_prev != pt_beforefirst)
         {
-            _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, bfun_op);
+            _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, NULL);
         }
         /* pivot is not the last node */
         if(pt_pivot->_pt_next != pt_afterlast)
         {
-            _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, bfun_op);
+            _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, NULL);
         }
     }
     else

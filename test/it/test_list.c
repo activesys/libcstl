@@ -350,7 +350,7 @@ void test_list(void)
             {
                 return;
             }
-            list_init(pt_list);
+            list_init_n(pt_list, 3);
             if(list_front(pt_list) != NULL)
             {
                 printf("%lf\n", *(double*)list_front(pt_list));
@@ -1306,7 +1306,7 @@ void test_list(void)
             {
                 return;
             }
-            list_init(pt_list);
+            list_init_n(pt_list, 3);
             if(list_front(pt_list) != NULL)
             {
                 ((listabc_t*)list_front(pt_list))->_t_flag = _ABC_FLAG_COMPLEX;
@@ -2813,8 +2813,8 @@ void test_list(void)
             {
                 return;
             }
-            list_init(pt_list);
-            list_init(pt_listex);
+            list_init_n(pt_list, 3);
+            list_init_n(pt_listex, 3);
             if(list_front(pt_list) != NULL)
             {
                 list_assign_elem(list_front(pt_list), 4, 90);

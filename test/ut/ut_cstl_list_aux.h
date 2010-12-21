@@ -171,6 +171,26 @@ void test__list_quick_sort__random_random_less(void** state);
 void test__list_quick_sort__random_random_greater(void** state);
 void test__list_quick_sort__random_random_dup_less(void** state);
 void test__list_quick_sort__random_random_dup_greater(void** state);
+void test__list_quick_sort__cstr_empty_less(void** state);
+void test__list_quick_sort__cstr_empty_greater(void** state);
+void test__list_quick_sort__cstr_1_less(void** state);
+void test__list_quick_sort__cstr_1_greater(void** state);
+void test__list_quick_sort__cstr_2_equal_less(void** state);
+void test__list_quick_sort__cstr_2_equal_greater(void** state);
+void test__list_quick_sort__cstr_2_less_less(void** state);
+void test__list_quick_sort__cstr_2_less_greater(void** state);
+void test__list_quick_sort__cstr_2_greater_less(void** state);
+void test__list_quick_sort__cstr_2_greater_greater(void** state);
+void test__list_quick_sort__cstr_random_equal_less(void** state);
+void test__list_quick_sort__cstr_random_equal_greater(void** state);
+void test__list_quick_sort__cstr_random_less_less(void** state);
+void test__list_quick_sort__cstr_random_less_greater(void** state);
+void test__list_quick_sort__cstr_random_greater_less(void** state);
+void test__list_quick_sort__cstr_random_greater_greater(void** state);
+void test__list_quick_sort__cstr_random_random_less(void** state);
+void test__list_quick_sort__cstr_random_random_greater(void** state);
+void test__list_quick_sort__cstr_random_random_dup_less(void** state);
+void test__list_quick_sort__cstr_random_random_dup_greater(void** state);
 
 #define UT_CSTL_LIST_AUX_CASE \
     UT_SUIT_BEGIN(cstl_list_aux, test__list_is_created__null_list_container),\
@@ -296,7 +316,27 @@ void test__list_quick_sort__random_random_dup_greater(void** state);
     UT_CASE(test__list_quick_sort__random_random_less),\
     UT_CASE(test__list_quick_sort__random_random_greater),\
     UT_CASE(test__list_quick_sort__random_random_dup_less),\
-    UT_CASE(test__list_quick_sort__random_random_dup_greater)
+    UT_CASE(test__list_quick_sort__random_random_dup_greater),\
+    UT_CASE(test__list_quick_sort__cstr_empty_less),\
+    UT_CASE(test__list_quick_sort__cstr_empty_greater),\
+    UT_CASE(test__list_quick_sort__cstr_1_less),\
+    UT_CASE(test__list_quick_sort__cstr_1_greater),\
+    UT_CASE(test__list_quick_sort__cstr_2_equal_less),\
+    UT_CASE(test__list_quick_sort__cstr_2_equal_greater),\
+    UT_CASE(test__list_quick_sort__cstr_2_less_less),\
+    UT_CASE(test__list_quick_sort__cstr_2_less_greater),\
+    UT_CASE(test__list_quick_sort__cstr_2_greater_less),\
+    UT_CASE(test__list_quick_sort__cstr_2_greater_greater),\
+    UT_CASE(test__list_quick_sort__cstr_random_equal_less),\
+    UT_CASE(test__list_quick_sort__cstr_random_equal_greater),\
+    UT_CASE(test__list_quick_sort__cstr_random_less_less),\
+    UT_CASE(test__list_quick_sort__cstr_random_less_greater),\
+    UT_CASE(test__list_quick_sort__cstr_random_greater_less),\
+    UT_CASE(test__list_quick_sort__cstr_random_greater_greater),\
+    UT_CASE(test__list_quick_sort__cstr_random_random_less),\
+    UT_CASE(test__list_quick_sort__cstr_random_random_greater),\
+    UT_CASE(test__list_quick_sort__cstr_random_random_dup_less),\
+    UT_CASE(test__list_quick_sort__cstr_random_random_dup_greater)
 
 #endif /* _UT_CSTL_LIST_AUX_H_ */
 

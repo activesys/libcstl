@@ -47,5 +47,5 @@ it_SOURCES = test.c \
 	       tree_traverse.h
 it_CPPFLAGS = -I$(srcdir)/../..
 it_LDADD = ../../src/libcstl.la
-CLEANFILES = core.*, string_output.txt
+CLEANFILES = core.* string_output.txt
 #TESTS = $(check_PROGRAMS)

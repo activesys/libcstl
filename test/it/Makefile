@@ -126,7 +126,6 @@ PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
 PACKAGE_STRING = libcstl 2.0.1
 PACKAGE_TARNAME = libcstl
-PACKAGE_URL = 
 PACKAGE_VERSION = 2.0.1
 PATH_SEPARATOR = :
 RANLIB = ranlib
@@ -235,7 +234,7 @@ it_SOURCES = test.c \
 
 it_CPPFLAGS = -I$(srcdir)/../..
 it_LDADD = ../../src/libcstl.la
-CLEANFILES = core.*, string_output.txt
+CLEANFILES = core.* string_output.txt
 all: all-am
 
 .SUFFIXES:
