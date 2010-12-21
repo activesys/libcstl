@@ -600,7 +600,7 @@ void test__list_same_list_iterator_type__not_same_type(void** state)
  * test _list_get_varg_value_auxiliary
  */
 UT_CASE_DEFINATION(_list_get_varg_value_auxiliary)
-static void _wrapper_list_get_varg_value_auxiliary(list_t* plist_list, listnode_t* pt_node, ...)
+static void _wrapper_list_get_varg_value_auxiliary(list_t* plist_list, _listnode_t* pt_node, ...)
 {
     va_list val_elemlist;
     va_start(val_elemlist, pt_node);
@@ -610,7 +610,7 @@ static void _wrapper_list_get_varg_value_auxiliary(list_t* plist_list, listnode_
 
 void test__list_get_varg_value_auxiliary__null_list_container(void** state)
 {
-    listnode_t node;
+    _listnode_t node;
     expect_assert_failure(_wrapper_list_get_varg_value_auxiliary(NULL, &node, 100));
 }
 
@@ -625,7 +625,7 @@ void test__list_get_varg_value_auxiliary__null_node(void** state)
 
 void test__list_get_varg_value_auxiliary__non_created_list_containter(void** state)
 {
-    listnode_t node;
+    _listnode_t node;
     list_t* plist = create_list(int);
     list_init(plist);
 
@@ -638,13 +638,13 @@ void test__list_get_varg_value_auxiliary__non_created_list_containter(void** sta
 
 void test__list_get_varg_value_auxiliary__c_builtin(void** state)
 {
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_t* plist = create_list(int);
     list_init(plist);
     pt_node = malloc(_LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist)));
 
     _wrapper_list_get_varg_value_auxiliary(plist, pt_node, 100);
-    assert_true(*(int*)pt_node->_pc_data == 100);
+    assert_true(*(int*)pt_node->_pby_data == 100);
 
     free(pt_node);
     list_destroy(plist);
@@ -652,13 +652,13 @@ void test__list_get_varg_value_auxiliary__c_builtin(void** state)
 
 void test__list_get_varg_value_auxiliary__cstr(void** state)
 {
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_t* plist = create_list(char*);
     list_init(plist);
     pt_node = malloc(_LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist)));
 
     _wrapper_list_get_varg_value_auxiliary(plist, pt_node, "abcdefg");
-    assert_true(strcmp(string_c_str((string_t*)pt_node->_pc_data), "abcdefg") == 0);
+    assert_true(strcmp(string_c_str((string_t*)pt_node->_pby_data), "abcdefg") == 0);
 
     free(pt_node);
     list_destroy(plist);
@@ -666,7 +666,7 @@ void test__list_get_varg_value_auxiliary__cstr(void** state)
 
 void test__list_get_varg_value_auxiliary__libcstl_builtin(void** state)
 {
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_t* plist = create_list(vector_t<int>);
     vector_t* pvec = create_vector(int);
     vector_init_elem(pvec, 10, 100);
@@ -674,7 +674,7 @@ void test__list_get_varg_value_auxiliary__libcstl_builtin(void** state)
     pt_node = malloc(_LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist)));
 
     _wrapper_list_get_varg_value_auxiliary(plist, pt_node, pvec);
-    assert_true(vector_equal((vector_t*)pt_node->_pc_data, pvec));
+    assert_true(vector_equal((vector_t*)pt_node->_pby_data, pvec));
 
     free(pt_node);
     list_destroy(plist);
@@ -688,7 +688,7 @@ void test__list_get_varg_value_auxiliary__user_define(void** state)
         int n_elem;
     }_test__list_get_varg_value_auxiliary__user_define_t;
 
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_t* plist = NULL;
     _test__list_get_varg_value_auxiliary__user_define_t t_use;
 
@@ -699,7 +699,7 @@ void test__list_get_varg_value_auxiliary__user_define(void** state)
     t_use.n_elem = 10000;
 
     _wrapper_list_get_varg_value_auxiliary(plist, pt_node, &t_use);
-    assert_true(((_test__list_get_varg_value_auxiliary__user_define_t*)pt_node->_pc_data)->n_elem == t_use.n_elem);
+    assert_true(((_test__list_get_varg_value_auxiliary__user_define_t*)pt_node->_pby_data)->n_elem == t_use.n_elem);
 
     free(pt_node);
     list_destroy(plist);
@@ -711,13 +711,13 @@ void test__list_get_varg_value_auxiliary__user_define(void** state)
 UT_CASE_DEFINATION(_list_destroy_varg_value_auxiliary)
 void test__list_destroy_varg_value_auxiliary__null_list_container(void** state)
 {
-    listnode_t node;
+    _listnode_t node;
     expect_assert_failure(_list_destroy_varg_value_auxiliary(NULL, &node));
 }
 
 void test__list_destroy_varg_value_auxiliary__non_created_list_container(void** state)
 {
-    listnode_t node;
+    _listnode_t node;
     list_t* plist = create_list(int);
     list_init(plist);
     plist->_pt_node->_pt_next = NULL;
@@ -738,7 +738,7 @@ void test__list_destroy_varg_value_auxiliary__null_node(void** state)
 
 void test__list_destroy_varg_value_auxiliary__successfully(void** state)
 {
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_t* plist = create_list(int);
     list_init(plist);
     pt_node = malloc(_LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist)));
@@ -754,7 +754,7 @@ void test__list_destroy_varg_value_auxiliary__successfully(void** state)
 UT_CASE_DEFINATION(_list_init_node_auxiliary)
 void test__list_init_node_auxiliary__null_list_container(void** state)
 {
-    listnode_t node;
+    _listnode_t node;
     expect_assert_failure(_list_init_node_auxiliary(NULL, &node));
 }
 
@@ -769,7 +769,7 @@ void test__list_init_node_auxiliary__null_node(void** state)
 
 void test__list_init_node_auxiliary__non_created_list_containter(void** state)
 {
-    listnode_t node;
+    _listnode_t node;
     list_t* plist = create_list(int);
     list_init(plist);
 
@@ -782,13 +782,13 @@ void test__list_init_node_auxiliary__non_created_list_containter(void** state)
 
 void test__list_init_node_auxiliary__c_builtin(void** state)
 {
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_t* plist = create_list(int);
     list_init(plist);
     pt_node = malloc(_LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist)));
 
     _list_init_node_auxiliary(plist, pt_node);
-    assert_true(*(int*)pt_node->_pc_data == 0);
+    assert_true(*(int*)pt_node->_pby_data == 0);
 
     free(pt_node);
     list_destroy(plist);
@@ -796,13 +796,13 @@ void test__list_init_node_auxiliary__c_builtin(void** state)
 
 void test__list_init_node_auxiliary__cstr(void** state)
 {
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_t* plist = create_list(char*);
     list_init(plist);
     pt_node = malloc(_LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist)));
 
     _list_init_node_auxiliary(plist, pt_node);
-    assert_true(strcmp(string_c_str((string_t*)pt_node->_pc_data), "") == 0);
+    assert_true(strcmp(string_c_str((string_t*)pt_node->_pby_data), "") == 0);
 
     free(pt_node);
     list_destroy(plist);
@@ -810,13 +810,13 @@ void test__list_init_node_auxiliary__cstr(void** state)
 
 void test__list_init_node_auxiliary__libcstl_builtin(void** state)
 {
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_t* plist = create_list(vector_t<int>);
     list_init(plist);
     pt_node = malloc(_LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist)));
 
     _list_init_node_auxiliary(plist, pt_node);
-    assert_true(_vector_is_inited((vector_t*)pt_node->_pc_data));
+    assert_true(_vector_is_inited((vector_t*)pt_node->_pby_data));
 
     free(pt_node);
     list_destroy(plist);
@@ -829,7 +829,7 @@ void test__list_init_node_auxiliary__user_define(void** state)
         int n_elem;
     }_test__list_init_node_auxiliary__user_define_t;
 
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_t* plist = NULL;
 
     type_register(_test__list_init_node_auxiliary__user_define_t, NULL, NULL, NULL, NULL);
@@ -838,7 +838,7 @@ void test__list_init_node_auxiliary__user_define(void** state)
     pt_node = malloc(_LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist)));
 
     _list_init_node_auxiliary(plist, pt_node);
-    assert_true(((_test__list_init_node_auxiliary__user_define_t*)pt_node->_pc_data)->n_elem == 0);
+    assert_true(((_test__list_init_node_auxiliary__user_define_t*)pt_node->_pby_data)->n_elem == 0);
 
     free(pt_node);
     list_destroy(plist);
@@ -1556,34 +1556,34 @@ void test__list_transfer__same_list_end_middle(void** state)
 UT_CASE_DEFINATION(_list_swap_node)
 void test__list_swap_node__null_ppt_first(void** state)
 {
-    listnode_t node;
-    listnode_t* pt_node = &node;
+    _listnode_t node;
+    _listnode_t* pt_node = &node;
 
     expect_assert_failure(_list_swap_node(NULL, &pt_node));
 }
 
 void test__list_swap_node__null_pt_first(void** state)
 {
-    listnode_t node;
-    listnode_t* pt_first = NULL;
-    listnode_t* pt_second = &node;
+    _listnode_t node;
+    _listnode_t* pt_first = NULL;
+    _listnode_t* pt_second = &node;
 
     expect_assert_failure(_list_swap_node(&pt_first, &pt_second));
 }
 
 void test__list_swap_node__null_ppt_second(void** state)
 {
-    listnode_t node;
-    listnode_t* pt_node = &node;
+    _listnode_t node;
+    _listnode_t* pt_node = &node;
 
     expect_assert_failure(_list_swap_node(&pt_node, NULL));
 }
 
 void test__list_swap_node__null_pt_second(void** state)
 {
-    listnode_t node;
-    listnode_t* pt_first = &node;
-    listnode_t* pt_second = NULL;
+    _listnode_t node;
+    _listnode_t* pt_first = &node;
+    _listnode_t* pt_second = NULL;
 
     expect_assert_failure(_list_swap_node(&pt_first, &pt_second));
 }
@@ -1592,10 +1592,10 @@ void test__list_swap_node__first_followed_by_second(void** state)
 {
     size_t i = 0;
     list_t* plist = create_list(int);
-    listnode_t* pt_firsttmp = NULL;
-    listnode_t* pt_secondtmp = NULL;
-    listnode_t* pt_first = NULL;
-    listnode_t* pt_second = NULL;
+    _listnode_t* pt_firsttmp = NULL;
+    _listnode_t* pt_secondtmp = NULL;
+    _listnode_t* pt_first = NULL;
+    _listnode_t* pt_second = NULL;
     list_iterator_t it_iter;
 
     list_init(plist);
@@ -1629,10 +1629,10 @@ void test__list_swap_node__second_followed_by_first(void** state)
 {
     size_t i = 0;
     list_t* plist = create_list(int);
-    listnode_t* pt_firsttmp = NULL;
-    listnode_t* pt_secondtmp = NULL;
-    listnode_t* pt_first = NULL;
-    listnode_t* pt_second = NULL;
+    _listnode_t* pt_firsttmp = NULL;
+    _listnode_t* pt_secondtmp = NULL;
+    _listnode_t* pt_first = NULL;
+    _listnode_t* pt_second = NULL;
     list_iterator_t it_iter;
 
     list_init(plist);
@@ -1666,10 +1666,10 @@ void test__list_swap_node__first_distanced_by_second(void** state)
 {
     size_t i = 0;
     list_t* plist = create_list(int);
-    listnode_t* pt_firsttmp = NULL;
-    listnode_t* pt_secondtmp = NULL;
-    listnode_t* pt_first = NULL;
-    listnode_t* pt_second = NULL;
+    _listnode_t* pt_firsttmp = NULL;
+    _listnode_t* pt_secondtmp = NULL;
+    _listnode_t* pt_first = NULL;
+    _listnode_t* pt_second = NULL;
     list_iterator_t it_iter;
 
     list_init(plist);
@@ -1703,10 +1703,10 @@ void test__list_swap_node__second_distanced_by_first(void** state)
 {
     size_t i = 0;
     list_t* plist = create_list(int);
-    listnode_t* pt_firsttmp = NULL;
-    listnode_t* pt_secondtmp = NULL;
-    listnode_t* pt_first = NULL;
-    listnode_t* pt_second = NULL;
+    _listnode_t* pt_firsttmp = NULL;
+    _listnode_t* pt_secondtmp = NULL;
+    _listnode_t* pt_first = NULL;
+    _listnode_t* pt_second = NULL;
     list_iterator_t it_iter;
 
     list_init(plist);
@@ -1740,10 +1740,10 @@ void test__list_swap_node__same_ppt_first_ppt_second(void** state)
 {
     size_t i = 0;
     list_t* plist = create_list(int);
-    listnode_t* pt_firsttmp = NULL;
-    listnode_t* pt_secondtmp = NULL;
-    listnode_t* pt_first = NULL;
-    listnode_t* pt_second = NULL;
+    _listnode_t* pt_firsttmp = NULL;
+    _listnode_t* pt_secondtmp = NULL;
+    _listnode_t* pt_first = NULL;
+    _listnode_t* pt_second = NULL;
     list_iterator_t it_iter;
 
     list_init(plist);
@@ -1776,10 +1776,10 @@ void test__list_swap_node__same_pt_first_pt_second(void** state)
 {
     size_t i = 0;
     list_t* plist = create_list(int);
-    listnode_t* pt_firsttmp = NULL;
-    listnode_t* pt_secondtmp = NULL;
-    listnode_t* pt_first = NULL;
-    listnode_t* pt_second = NULL;
+    _listnode_t* pt_firsttmp = NULL;
+    _listnode_t* pt_secondtmp = NULL;
+    _listnode_t* pt_first = NULL;
+    _listnode_t* pt_second = NULL;
     list_iterator_t it_iter;
 
     list_init(plist);

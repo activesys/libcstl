@@ -455,15 +455,7 @@ void* vector_at(const vector_t* cpvec_vector, size_t t_pos)
     assert(_vector_is_inited(cpvec_vector));
     assert(t_pos < vector_size(cpvec_vector));
 
-    /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(cpvec_vector), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        return (char*)string_c_str((string_t*)(cpvec_vector->_pby_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpvec_vector)));
-    }
-    else
-    {
-        return cpvec_vector->_pby_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpvec_vector);
-    }
+    return (void*)iterator_get_pointer(iterator_next_n(vector_begin(cpvec_vector), t_pos));
 }
 
 /**
@@ -502,7 +494,7 @@ vector_iterator_t vector_begin(const vector_t* cpvec_vector)
 
     it_begin = _create_vector_iterator();
     _GET_CONTAINER(it_begin) = (vector_t*)cpvec_vector;
-    _GET_VECTOR_COREPOS(it_begin) = cpvec_vector->_pby_start;
+    _GET_VECTOR_COREPOS(it_begin) = (char*)cpvec_vector->_pby_start;
 
     return it_begin;
 }
@@ -519,7 +511,7 @@ vector_iterator_t vector_end(const vector_t* cpvec_vector)
 
     it_end = _create_vector_iterator();
     _GET_CONTAINER(it_end) = (vector_t*)cpvec_vector;
-    _GET_VECTOR_COREPOS(it_end) = cpvec_vector->_pby_finish;
+    _GET_VECTOR_COREPOS(it_end) = (char*)cpvec_vector->_pby_finish;
 
     return it_end;
 }
@@ -533,7 +525,7 @@ vector_reverse_iterator_t vector_rbegin(const vector_t* cpvec_vector)
 
     it_rbegin = _create_vector_iterator();
     _GET_CONTAINER(it_rbegin) = (vector_t*)cpvec_vector;
-    _GET_VECTOR_COREPOS(it_rbegin) = cpvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
+    _GET_VECTOR_COREPOS(it_rbegin) = (char*)cpvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 
     return it_rbegin;
 }
@@ -547,7 +539,7 @@ vector_reverse_iterator_t vector_rend(const vector_t* cpvec_vector)
 
     it_rend = _create_vector_iterator();
     _GET_CONTAINER(it_rend) = (vector_t*)cpvec_vector;
-    _GET_VECTOR_COREPOS(it_rend) = cpvec_vector->_pby_start - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
+    _GET_VECTOR_COREPOS(it_rend) = (char*)cpvec_vector->_pby_start - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 
     return it_rend;
 }
@@ -585,7 +577,7 @@ void vector_insert_range(
             size_t t_distance = _GET_VECTOR_COREPOS(it_pos) - (char*)pvec_vector->_pby_start;
             /* reserve the new size */
             vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), t_count));
-            _GET_VECTOR_COREPOS(it_pos) = pvec_vector->_pby_start + t_distance;
+            _GET_VECTOR_COREPOS(it_pos) = (char*)pvec_vector->_pby_start + t_distance;
         }
 
         /* initialize new elements */
@@ -597,7 +589,7 @@ void vector_insert_range(
         /* move element from old finish to new finish */
         for(pby_pos = pby_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
             pby_destpos = pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            pby_pos >= _GET_VECTOR_COREPOS(it_pos);
+            (char*)pby_pos >= _GET_VECTOR_COREPOS(it_pos);
             pby_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
             pby_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
@@ -681,7 +673,7 @@ vector_iterator_t vector_erase_range(vector_t* pvec_vector, vector_iterator_t it
         _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_begin), _GET_VECTOR_COREPOS(it_end), &b_result);
         assert(b_result);
     }
-    assert(_GET_VECTOR_COREPOS(it_begin) == pvec_vector->_pby_finish - t_erasesize * _GET_VECTOR_TYPE_SIZE(pvec_vector));
+    assert(_GET_VECTOR_COREPOS(it_begin) == (char*)pvec_vector->_pby_finish - t_erasesize * _GET_VECTOR_TYPE_SIZE(pvec_vector));
 
     /* destroy the deleted elements */
     for(; !iterator_equal(it_begin, it_end); it_begin = iterator_next(it_begin))

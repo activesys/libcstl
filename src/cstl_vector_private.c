@@ -412,7 +412,7 @@ vector_iterator_t _vector_insert_n_varg(
         /* move element from old finish to new finish */
         for(pby_pos = pby_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
             pby_destpos = pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            pby_pos >= _GET_VECTOR_COREPOS(it_pos);
+            (char*)pby_pos >= _GET_VECTOR_COREPOS(it_pos);
             pby_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
             pby_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {

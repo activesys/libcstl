@@ -1091,7 +1091,7 @@ void test__list_init_elem_auxiliary__successfully_cstr(void** state)
     list_t* plist = create_list(char*);
     list_init_elem(plist, 10, "abcdefg");
 
-    _list_init_elem_auxiliary(plist, plist->_pt_node->_pt_next->_pc_data);
+    _list_init_elem_auxiliary(plist, plist->_pt_node->_pt_next->_pby_data);
     assert_true(strcmp((char*)list_front(plist), "") == 0);
 
     list_destroy(plist);
@@ -1103,7 +1103,7 @@ void test__list_init_elem_auxiliary__successfully_iterator(void** state)
     list_t* plist = create_list(iterator_t);
     list_init_elem(plist, 10, &it_iter);
 
-    _list_init_elem_auxiliary(plist, plist->_pt_node->_pt_next->_pc_data);
+    _list_init_elem_auxiliary(plist, plist->_pt_node->_pt_next->_pby_data);
     memset(&it_iter, 0x00, sizeof(iterator_t));
     assert_true(memcmp((iterator_t*)list_front(plist), &it_iter, sizeof(iterator_t)) == 0);
 

@@ -101,7 +101,7 @@ extern bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_s
  * @remarks if plist_list == NULL or pt_node == NULL, then the behavior is undefined. plist_list must be initialized
  *          or created by create_list(), otherwise the behavior is undefined.
  */
-extern void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node);
+extern void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, _listnode_t* pt_node);
 
 /**
  * Destroy data, the data type and list element data type are same.
@@ -111,7 +111,7 @@ extern void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_eleml
  * @remarks if plist_list == NULL or pt_node == NULL, then the behavior is undefined. plist_list must be initialized
  *          or created by create_list(), otherwise the behavior is undefined.
  */
-extern void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_node);
+extern void _list_destroy_varg_value_auxiliary(list_t* pt_list, _listnode_t* pt_node);
 
 /**
  * Initialize list node auxiliary function.
@@ -121,7 +121,7 @@ extern void _list_destroy_varg_value_auxiliary(list_t* pt_list, listnode_t* pt_n
  * @remarks if plist_list == NULL or pt_node == NULL, then the behavior is undefined. plist_list must be initialized
  *          or created by create_list(), otherwise the behavior is undefined.
  */
-extern void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node);
+extern void _list_init_node_auxiliary(list_t* plist_list, _listnode_t* pt_node);
 
 /**
  * Transfer the range [it_begin, it_end) to position it_pos.
@@ -148,7 +148,7 @@ extern void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, lis
  *          range [pt_first, pt_last] must be valid range, otherwise the behavior is undefined. if bfun_less == NULL,
  *          then use default compare function.
  */
-extern void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_last, binary_function_t bfun_less);
+extern void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt_last, binary_function_t bfun_less);
 
 /**
  * Swap the two node content and don't change the pointer.
@@ -158,7 +158,7 @@ extern void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_
  * @remarks if ppt_first == NULL or *ppt_first == NULL or ppt_second == NULL or *ppt_second == NULL, then the behavior is
  *          undefined.
  */
-extern void _list_swap_node(listnode_t** ppt_first, listnode_t** ppt_second);
+extern void _list_swap_node(_listnode_t** ppt_first, _listnode_t** ppt_second);
 
 #ifdef __cplusplus
 }

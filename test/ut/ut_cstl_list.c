@@ -2838,7 +2838,7 @@ void test_list_erase__non_inited_list_container(void** state)
 {
     size_t i = 0;
     size_t t_oldsize = 0;
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_iterator_t it_pos = _create_list_iterator();
     list_t* plist = create_list(int);
     list_init(plist);
@@ -2991,7 +2991,7 @@ void test_list_erase_range__non_inited_list_container(void** state)
 {
     size_t i = 0;
     size_t t_oldsize = 0;
-    listnode_t* pt_node = NULL;
+    _listnode_t* pt_node = NULL;
     list_iterator_t it_begin = _create_list_iterator();
     list_iterator_t it_end = _create_list_iterator();
     list_t* plist = create_list(int);
@@ -5805,6 +5805,982 @@ void test_list_sort_if__random_random_dup_greater(void** state)
     assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
     it_iter = iterator_next(it_iter);
     assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+
+    list_destroy(plist);
+}
+
+/*
+ * test list_merge
+ */
+UT_CASE_DEFINATION(list_merge)
+void test_list_merge__null_dest_list_container(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    expect_assert_failure(list_merge(NULL, plist));
+
+    list_destroy(plist);
+}
+
+void test_list_merge__null_src_list_container(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    expect_assert_failure(list_merge(plist, NULL));
+
+    list_destroy(plist);
+}
+
+void test_list_merge__non_inited_dest_list_container(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_src);
+    expect_assert_failure(list_merge(plist_dest, plist_src));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__non_inited_src_list_container(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    expect_assert_failure(list_merge(plist_dest, plist_src));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__not_same(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(double);
+
+    list_init(plist_dest);
+    list_init(plist_src);
+    expect_assert_failure(list_merge(plist_dest, plist_src));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__same_list_container(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    list_merge(plist, plist);
+    assert_true(list_empty(plist));
+
+    list_destroy(plist);
+}
+
+void test_list_merge__dest_empty_src_empty(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_init(plist_src);
+    list_merge(plist_dest, plist_src);
+    assert_true(list_empty(plist_dest));
+    assert_true(list_empty(plist_src));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__dest_non_empty_src_empty(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init_n(plist_dest, 10);
+    list_init(plist_src);
+    list_merge(plist_dest, plist_src);
+    assert_true(list_size(plist_dest) == 10);
+    assert_true(list_empty(plist_src));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__dest_empty_src_non_empty(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_init_n(plist_src, 10);
+    list_merge(plist_dest, plist_src);
+    assert_true(list_size(plist_dest) == 10);
+    assert_true(list_empty(plist_src));
+    for(it_iter = list_begin(plist_dest);
+        !iterator_equal(it_iter, list_end(plist_dest));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__dest_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, 4);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 8);
+    list_push_back(plist_dest, 9);
+    list_init(plist_src);
+    list_push_back(plist_src, 2);
+    list_push_back(plist_src, 3);
+    list_push_back(plist_src, 7);
+    list_merge(plist_dest, plist_src);
+    assert_true(list_size(plist_dest) == 7);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 4);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__src_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, 3);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 7);
+    list_init(plist_src);
+    list_push_back(plist_src, 2);
+    list_push_back(plist_src, 3);
+    list_push_back(plist_src, 7);
+    list_push_back(plist_src, 8);
+    list_push_back(plist_src, 9);
+    list_merge(plist_dest, plist_src);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__random(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, 3);
+    list_push_back(plist_dest, 8);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 3);
+    list_init(plist_src);
+    list_push_back(plist_src, 3);
+    list_push_back(plist_src, 9);
+    list_push_back(plist_src, 7);
+    list_push_back(plist_src, 8);
+    list_push_back(plist_src, 2);
+    list_merge(plist_dest, plist_src);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__cstr_dest_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(char*);
+    list_t* plist_src = create_list(char*);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, "4");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "8");
+    list_push_back(plist_dest, "9");
+    list_init(plist_src);
+    list_push_back(plist_src, "2");
+    list_push_back(plist_src, "3");
+    list_push_back(plist_src, "7");
+    list_merge(plist_dest, plist_src);
+    assert_true(list_size(plist_dest) == 7);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__cstr_src_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(char*);
+    list_t* plist_src = create_list(char*);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, "3");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "7");
+    list_init(plist_src);
+    list_push_back(plist_src, "2");
+    list_push_back(plist_src, "3");
+    list_push_back(plist_src, "7");
+    list_push_back(plist_src, "8");
+    list_push_back(plist_src, "9");
+    list_merge(plist_dest, plist_src);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge__cstr_random(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(char*);
+    list_t* plist_src = create_list(char*);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, "3");
+    list_push_back(plist_dest, "8");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "3");
+    list_init(plist_src);
+    list_push_back(plist_src, "3");
+    list_push_back(plist_src, "9");
+    list_push_back(plist_src, "7");
+    list_push_back(plist_src, "8");
+    list_push_back(plist_src, "2");
+    list_merge(plist_dest, plist_src);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+/*
+ * test list_merge_if
+ */
+UT_CASE_DEFINATION(list_merge_if)
+void test_list_merge_if__null_dest_list_container(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    expect_assert_failure(list_merge_if(NULL, plist, NULL));
+
+    list_destroy(plist);
+}
+
+void test_list_merge_if__null_src_list_container(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    expect_assert_failure(list_merge_if(plist, NULL, NULL));
+
+    list_destroy(plist);
+}
+
+void test_list_merge_if__non_inited_dest_list_container(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_src);
+    expect_assert_failure(list_merge_if(plist_dest, plist_src, NULL));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__non_inited_src_list_container(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    expect_assert_failure(list_merge_if(plist_dest, plist_src, NULL));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__not_same(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(double);
+
+    list_init(plist_dest);
+    list_init(plist_src);
+    expect_assert_failure(list_merge_if(plist_dest, plist_src, NULL));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__same_list_container(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    list_merge_if(plist, plist, NULL);
+    assert_true(list_empty(plist));
+
+    list_destroy(plist);
+}
+
+void test_list_merge_if__dest_empty_src_empty(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_init(plist_src);
+    list_merge_if(plist_dest, plist_src, NULL);
+    assert_true(list_empty(plist_dest));
+    assert_true(list_empty(plist_src));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__dest_non_empty_src_empty(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init_n(plist_dest, 10);
+    list_init(plist_src);
+    list_merge_if(plist_dest, plist_src, NULL);
+    assert_true(list_size(plist_dest) == 10);
+    assert_true(list_empty(plist_src));
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__dest_empty_src_non_empty(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_init_n(plist_src, 10);
+    list_merge_if(plist_dest, plist_src, NULL);
+    assert_true(list_size(plist_dest) == 10);
+    assert_true(list_empty(plist_src));
+    for(it_iter = list_begin(plist_dest);
+        !iterator_equal(it_iter, list_end(plist_dest));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__ascending_dest_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, 4);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 8);
+    list_push_back(plist_dest, 9);
+    list_init(plist_src);
+    list_push_back(plist_src, 2);
+    list_push_back(plist_src, 3);
+    list_push_back(plist_src, 7);
+    list_merge_if(plist_dest, plist_src, NULL);
+    assert_true(list_size(plist_dest) == 7);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 4);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__ascending_src_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, 3);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 7);
+    list_init(plist_src);
+    list_push_back(plist_src, 2);
+    list_push_back(plist_src, 3);
+    list_push_back(plist_src, 7);
+    list_push_back(plist_src, 8);
+    list_push_back(plist_src, 9);
+    list_merge_if(plist_dest, plist_src, NULL);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__descending_dest_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, 8);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 3);
+    list_push_back(plist_dest, 3);
+    list_push_back(plist_dest, 2);
+    list_init(plist_src);
+    list_push_back(plist_src, 9);
+    list_push_back(plist_src, 8);
+    list_push_back(plist_src, 7);
+    list_push_back(plist_src, 3);
+    list_merge_if(plist_dest, plist_src, fun_greater_int);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__descending_src_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, 8);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 3);
+    list_push_back(plist_dest, 3);
+    list_init(plist_src);
+    list_push_back(plist_src, 9);
+    list_push_back(plist_src, 8);
+    list_push_back(plist_src, 7);
+    list_push_back(plist_src, 3);
+    list_push_back(plist_src, 2);
+    list_merge_if(plist_dest, plist_src, fun_greater_int);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__random(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(int);
+    list_t* plist_src = create_list(int);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, 3);
+    list_push_back(plist_dest, 8);
+    list_push_back(plist_dest, 5);
+    list_push_back(plist_dest, 3);
+    list_init(plist_src);
+    list_push_back(plist_src, 3);
+    list_push_back(plist_src, 9);
+    list_push_back(plist_src, 7);
+    list_push_back(plist_src, 8);
+    list_push_back(plist_src, 2);
+    list_merge_if(plist_dest, plist_src, NULL);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__cstr_ascending_dest_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(char*);
+    list_t* plist_src = create_list(char*);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, "4");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "8");
+    list_push_back(plist_dest, "9");
+    list_init(plist_src);
+    list_push_back(plist_src, "2");
+    list_push_back(plist_src, "3");
+    list_push_back(plist_src, "7");
+    list_merge_if(plist_dest, plist_src, NULL);
+    assert_true(list_size(plist_dest) == 7);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__cstr_ascending_src_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(char*);
+    list_t* plist_src = create_list(char*);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, "3");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "7");
+    list_init(plist_src);
+    list_push_back(plist_src, "2");
+    list_push_back(plist_src, "3");
+    list_push_back(plist_src, "7");
+    list_push_back(plist_src, "8");
+    list_push_back(plist_src, "9");
+    list_merge_if(plist_dest, plist_src, NULL);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__cstr_descending_dest_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(char*);
+    list_t* plist_src = create_list(char*);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, "9");
+    list_push_back(plist_dest, "8");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "4");
+    list_push_back(plist_dest, "2");
+    list_init(plist_src);
+    list_push_back(plist_src, "7");
+    list_push_back(plist_src, "3");
+    list_merge_if(plist_dest, plist_src, fun_greater_cstr);
+    assert_true(list_size(plist_dest) == 7);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__cstr_descending_src_tailing(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(char*);
+    list_t* plist_src = create_list(char*);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, "7");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "3");
+    list_init(plist_src);
+    list_push_back(plist_src, "9");
+    list_push_back(plist_src, "8");
+    list_push_back(plist_src, "7");
+    list_push_back(plist_src, "3");
+    list_push_back(plist_src, "2");
+    list_merge_if(plist_dest, plist_src, fun_greater_cstr);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+void test_list_merge_if__cstr_random(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist_dest = create_list(char*);
+    list_t* plist_src = create_list(char*);
+
+    list_init(plist_dest);
+    list_push_back(plist_dest, "3");
+    list_push_back(plist_dest, "8");
+    list_push_back(plist_dest, "5");
+    list_push_back(plist_dest, "3");
+    list_init(plist_src);
+    list_push_back(plist_src, "3");
+    list_push_back(plist_src, "9");
+    list_push_back(plist_src, "7");
+    list_push_back(plist_src, "8");
+    list_push_back(plist_src, "2");
+    list_merge_if(plist_dest, plist_src, NULL);
+    assert_true(list_size(plist_dest) == 9);
+    assert_true(list_empty(plist_src));
+    it_iter = list_begin(plist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+
+    list_destroy(plist_dest);
+    list_destroy(plist_src);
+}
+
+/*
+ * test list_reverse
+ */
+UT_CASE_DEFINATION(list_reverse)
+void test_list_reverse__null_list_container(void** state)
+{
+    expect_assert_failure(list_reverse(NULL));
+}
+
+void test_list_reverse__non_inited_list_container(void** state)
+{
+    list_t* plist = create_list(int);
+
+    expect_assert_failure(list_reverse(plist));
+
+    list_destroy(plist);
+}
+
+void test_list_reverse__empty(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    list_reverse(plist);
+    assert_true(list_empty(plist));
+
+    list_destroy(plist);
+}
+
+void test_list_reverse__same(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_iter;
+
+    list_init_elem(plist, 10, 100);
+    list_reverse(plist);
+    assert_true(list_size(plist) == 10);
+    for(it_iter = list_begin(plist);
+        !iterator_equal(it_iter, list_end(plist));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+    }
+
+    list_destroy(plist);
+}
+
+void test_list_reverse__not_same(void** state)
+{
+    list_t* plist = create_list(int);
+    size_t i = 0;
+    list_iterator_t it_iter;
+
+    list_init(plist);
+    for(i = 0; i < 10; ++i)
+    {
+        list_push_back(plist, i);
+    }
+    list_reverse(plist);
+    assert_true(list_size(plist) == 10);
+    for(it_iter = list_begin(plist), i = 0;
+        !iterator_equal(it_iter, list_end(plist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 9 - i);
+    }
 
     list_destroy(plist);
 }

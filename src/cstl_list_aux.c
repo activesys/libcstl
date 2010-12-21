@@ -53,7 +53,7 @@
  */
 bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t it_iter)
 {
-    listnode_t* pt_listnode = NULL;  /* the list node pointer */
+    _listnode_t* pt_listnode = NULL;  /* the list node pointer */
 
     assert(cplist_list != NULL);
     assert(_list_is_inited(cplist_list));
@@ -61,7 +61,7 @@ bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t 
     assert(it_iter._t_containertype == _LIST_CONTAINER);
     assert(it_iter._t_iteratortype == _BIDIRECTIONAL_ITERATOR);
 
-    if((listnode_t*)_GET_LIST_COREPOS(it_iter) == cplist_list->_pt_node)
+    if((_listnode_t*)_GET_LIST_COREPOS(it_iter) == cplist_list->_pt_node)
     {
         return true;
     }
@@ -70,7 +70,7 @@ bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t 
         pt_listnode != cplist_list->_pt_node;
         pt_listnode = pt_listnode->_pt_next)
     {
-        if(pt_listnode == (listnode_t*)_GET_LIST_COREPOS(it_iter))
+        if(pt_listnode == (_listnode_t*)_GET_LIST_COREPOS(it_iter))
         {
             return true;
         }
@@ -88,6 +88,7 @@ bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t 
     assert(_GET_LIST_CONTAINER(it_iter) != NULL);
     assert(_GET_LIST_CONTAINER_TYPE(it_iter) == _LIST_CONTAINER);
     assert(_GET_LIST_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+
     return _list_same_type(cplist_list, _GET_LIST_CONTAINER(it_iter));
 }
 
@@ -205,15 +206,15 @@ void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_itera
 /**
  * Sort the range [pt_first, pt_last] use the quick sort algorithm.
  */
-void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_last, binary_function_t t_binary_op)
+void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt_last, binary_function_t bfun_op)
 {
-    listnode_t* pt_beforefirst = NULL;
-    listnode_t* pt_afterlast = NULL;
-    listnode_t* pt_pivot = NULL;
-    listnode_t* pt_before = NULL;
-    listnode_t* pt_after = NULL;
-    bool_t      b_less = false;
-    bool_t      b_greater = false;
+    _listnode_t* pt_beforefirst = NULL;
+    _listnode_t* pt_afterlast = NULL;
+    _listnode_t* pt_pivot = NULL;
+    _listnode_t* pt_before = NULL;
+    _listnode_t* pt_after = NULL;
+    bool_t       b_less = false;
+    bool_t       b_greater = false;
 
 #ifndef NDEBUG
     list_iterator_t it_first = _create_list_iterator();
@@ -225,9 +226,9 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
     assert(_list_is_inited(plist_list));
 #ifndef NDEBUG
     _GET_CONTAINER(it_first) = plist_list;
-    _GET_LIST_COREPOS(it_first) = pt_first;
+    _GET_LIST_COREPOS(it_first) = (char*)pt_first;
     _GET_CONTAINER(it_last) = plist_list;
-    _GET_LIST_COREPOS(it_last) = pt_last;
+    _GET_LIST_COREPOS(it_last) = (char*)pt_last;
     assert(_list_iterator_belong_to_list(plist_list, it_first));
     assert(_list_iterator_belong_to_list(plist_list, it_last));
     assert(iterator_equal(it_first, it_last) || _list_iterator_before(it_first, it_last));
@@ -238,17 +239,17 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
         return;
     }
 
-    if(t_binary_op == NULL)
+    if(bfun_op == NULL)
     {
-        t_binary_op = _GET_LIST_TYPE_LESS_FUNCTION(plist_list);
+        bfun_op = _GET_LIST_TYPE_LESS_FUNCTION(plist_list);
         pt_beforefirst = pt_first->_pt_prev;
         pt_afterlast = pt_last->_pt_next;
         for(pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
             pt_after != pt_pivot;
             pt_after = pt_after->_pt_next)
         {
-            (*t_binary_op)(pt_after->_pc_data, pt_pivot->_pc_data, &b_less);
-            (*t_binary_op)(pt_pivot->_pc_data, pt_after->_pc_data, &b_greater);
+            (*bfun_op)(pt_after->_pby_data, pt_pivot->_pby_data, &b_less);
+            (*bfun_op)(pt_pivot->_pby_data, pt_after->_pby_data, &b_greater);
             if(b_less || (!b_less && !b_greater))
             {
                 pt_before = pt_before->_pt_next;
@@ -262,12 +263,12 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
         /* pivot is not the first node */
         if(pt_pivot->_pt_prev != pt_beforefirst)
         {
-            _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
+            _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, bfun_op);
         }
         /* pivot is not the last node */
         if(pt_pivot->_pt_next != pt_afterlast)
         {
-            _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+            _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, bfun_op);
         }
     }
     else
@@ -280,10 +281,8 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
                 pt_after != pt_pivot;
                 pt_after = pt_after->_pt_next)
             {
-                (*t_binary_op)(
-                    string_c_str((string_t*)pt_after->_pc_data), string_c_str((string_t*)pt_pivot->_pc_data), &b_less);
-                (*t_binary_op)(
-                    string_c_str((string_t*)pt_pivot->_pc_data), string_c_str((string_t*)pt_after->_pc_data), &b_greater);
+                (*bfun_op)(string_c_str((string_t*)pt_after->_pby_data), string_c_str((string_t*)pt_pivot->_pby_data), &b_less);
+                (*bfun_op)(string_c_str((string_t*)pt_pivot->_pby_data), string_c_str((string_t*)pt_after->_pby_data), &b_greater);
                 if(b_less || (!b_less && !b_greater))
                 {
                     pt_before = pt_before->_pt_next;
@@ -297,12 +296,12 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
             /* pivot is not the first node */
             if(pt_pivot->_pt_prev != pt_beforefirst)
             {
-                _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
+                _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, bfun_op);
             }
             /* pivot is not the last node */
             if(pt_pivot->_pt_next != pt_afterlast)
             {
-                _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+                _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, bfun_op);
             }
         }
         else
@@ -313,8 +312,8 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
                 pt_after != pt_pivot;
                 pt_after = pt_after->_pt_next)
             {
-                (*t_binary_op)(pt_after->_pc_data, pt_pivot->_pc_data, &b_less);
-                (*t_binary_op)(pt_pivot->_pc_data, pt_after->_pc_data, &b_greater);
+                (*bfun_op)(pt_after->_pby_data, pt_pivot->_pby_data, &b_less);
+                (*bfun_op)(pt_pivot->_pby_data, pt_after->_pby_data, &b_greater);
                 if(b_less || (!b_less && !b_greater))
                 {
                     pt_before = pt_before->_pt_next;
@@ -328,12 +327,12 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
             /* pivot is not the first node */
             if(pt_pivot->_pt_prev != pt_beforefirst)
             {
-                _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, t_binary_op);
+                _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, bfun_op);
             }
             /* pivot is not the last node */
             if(pt_pivot->_pt_next != pt_afterlast)
             {
-                _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, t_binary_op);
+                _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, bfun_op);
             }
         }
     }
@@ -342,10 +341,10 @@ void _list_quick_sort(list_t* plist_list, listnode_t* pt_first, listnode_t* pt_l
 /**
  * Swap the two node content and don't change the pointer.
  */
-void _list_swap_node(listnode_t** ppt_first, listnode_t** ppt_second)
+void _list_swap_node(_listnode_t** ppt_first, _listnode_t** ppt_second)
 {
-    listnode_t* pt_afterfirst = NULL;   /* the position after first */
-    listnode_t* pt_aftersecond = NULL;  /* the position after second */
+    _listnode_t* pt_afterfirst = NULL;   /* the position after first */
+    _listnode_t* pt_aftersecond = NULL;  /* the position after second */
 
     assert(ppt_first != NULL && *ppt_first != NULL);
     assert(ppt_second != NULL && *ppt_second != NULL);
@@ -413,40 +412,40 @@ void _list_swap_node(listnode_t** ppt_first, listnode_t** ppt_second)
 /**
  * Obtain data from variable argument list, the data type and list element data type are same.
  */
-void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, listnode_t* pt_node)
+void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, _listnode_t* pt_node)
 {
     assert(plist_list != NULL);
     assert(pt_node != NULL);
     assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
 
     _list_init_node_auxiliary(plist_list, pt_node);
-    _type_get_varg_value(&plist_list->_t_typeinfo, val_elemlist, pt_node->_pc_data);
+    _type_get_varg_value(&plist_list->_t_typeinfo, val_elemlist, pt_node->_pby_data);
 }
 
 /**
  * Destroy data, the data type and list element data type are same.
  */
-void _list_destroy_varg_value_auxiliary(list_t* plist_list, listnode_t* pt_node)
+void _list_destroy_varg_value_auxiliary(list_t* plist_list, _listnode_t* pt_node)
 {
     assert(plist_list != NULL);
     assert(pt_node != NULL);
     assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
 
     bool_t b_result = _GET_LIST_TYPE_SIZE(plist_list);
-    _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pc_data, &b_result);
+    _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pby_data, &b_result);
     assert(b_result);
 }
 
 /**
  * Initialize list node auxiliary function.
  */
-void _list_init_node_auxiliary(list_t* plist_list, listnode_t* pt_node)
+void _list_init_node_auxiliary(list_t* plist_list, _listnode_t* pt_node)
 {
     assert(plist_list != NULL);
     assert(pt_node != NULL);
     assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
 
-    _list_init_elem_auxiliary(plist_list, pt_node->_pc_data);
+    _list_init_elem_auxiliary(plist_list, pt_node->_pby_data);
 }
 
 /** local function implementation section **/

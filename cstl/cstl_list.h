@@ -526,17 +526,38 @@ extern void list_sort(list_t* plist_list);
  */
 extern void list_sort_if(list_t* plist_list, binary_function_t bfun_op);
 
-/*
- * Merge operation functions.
+/**
+ * Merge two sorted list.
+ * @param plist_dest    destination list.
+ * @param plist_src     source list.
+ * @return void.
+ * @remarks if plist_dest == NULL or plist_src == NULL, then the behavior is undefined. destination list and source list
+ *          must be initialized, otherwise the behavior is undefined. the element type of two list must be the same, otherwise
+ *          the behavior is undefined. if plist_dest == plist_src then the function does nothing.
  */
-extern void list_merge(list_t* pt_listdest, list_t* pt_listsrc);
-extern void list_merge_if(
-    list_t* pt_listdest, list_t* pt_listsrc, binary_function_t t_binary_op);
+extern void list_merge(list_t* plist_dest, list_t* plist_src);
 
-/*
- * Reverse the order of all elements.
+/**
+ * Merge two sorted list.
+ * @param plist_dest    destination list.
+ * @param plist_src     source list.
+ * @param bfun_op       sorted predicate.
+ * @return void.
+ * @remarks if plist_dest == NULL or plist_src == NULL, then the behavior is undefined. destination list and source list
+ *          must be initialized, otherwise the behavior is undefined. the element type of two list must be the same, otherwise
+ *          the behavior is undefined. if plist_dest == plist_src then the function does nothing. if bfun_op == NULL then use
+ *          type less compare function.
  */
-extern void list_reverse(list_t* pt_list);
+extern void list_merge_if(list_t* plist_dest, list_t* plist_src, binary_function_t bfun_op);
+
+/**
+ * Reverse the order of all elements.
+ * @param plist_list    list container.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior is
+ *          undefined.
+ */
+extern void list_reverse(list_t* plist_list);
 
 #ifdef __cplusplus
 }

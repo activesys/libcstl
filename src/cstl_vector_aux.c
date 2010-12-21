@@ -57,8 +57,8 @@ bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_it
     assert(it_iter._t_containertype == _VECTOR_CONTAINER);
     assert(_GET_VECTOR_CONTAINER(it_iter) == cpvec_vector);
 
-    if(_GET_VECTOR_COREPOS(it_iter) >= cpvec_vector->_pby_start &&
-       _GET_VECTOR_COREPOS(it_iter) <= cpvec_vector->_pby_finish)
+    if(_GET_VECTOR_COREPOS(it_iter) >= (char*)cpvec_vector->_pby_start &&
+       _GET_VECTOR_COREPOS(it_iter) <= (char*)cpvec_vector->_pby_finish)
     {
         return true;
     }
@@ -77,6 +77,7 @@ bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_it
     assert(_GET_VECTOR_CONTAINER(it_iter) != NULL);
     assert(_GET_VECTOR_CONTAINER_TYPE(it_iter) == _VECTOR_CONTAINER);
     assert(_GET_VECTOR_ITERATOR_TYPE(it_iter) == _RANDOM_ACCESS_ITERATOR);
+
     return _vector_same_type(cpvec_vector, _GET_VECTOR_CONTAINER(it_iter));
 }
 
