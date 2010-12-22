@@ -58,8 +58,8 @@ bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t 
     assert(cplist_list != NULL);
     assert(_list_is_inited(cplist_list));
     assert(_GET_LIST_CONTAINER(it_iter) == cplist_list);
-    assert(it_iter._t_containertype == _LIST_CONTAINER);
-    assert(it_iter._t_iteratortype == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_LIST_CONTAINER_TYPE(it_iter) == _LIST_CONTAINER);
+    assert(_GET_LIST_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
 
     if((_listnode_t*)_GET_LIST_COREPOS(it_iter) == cplist_list->_pt_node)
     {
