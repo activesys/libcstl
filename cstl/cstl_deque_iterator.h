@@ -95,22 +95,74 @@ extern void _deque_iterator_get_value(deque_iterator_t it_iter, void* pv_value);
  *          then the behavior is undefined.
  */
 extern void _deque_iterator_set_value(deque_iterator_t it_iter, const void* cpv_value);
-extern const void* _deque_iterator_get_pointer(deque_iterator_t t_iter); 
 
-/*
- * Increase and decrease of deque iterator.
+/**
+ * Get the pointer that point to the iterator reference data.
+ * @param it_iter deque iterator.
+ * @return data pointer.
+ * @remarks it_iter must be valid deque iterator, otherwise the behavior is undefined.
  */
-extern deque_iterator_t _deque_iterator_next(deque_iterator_t pt_iter);
-extern deque_iterator_t _deque_iterator_prev(deque_iterator_t t_iter);
+extern const void* _deque_iterator_get_pointer(deque_iterator_t it_iter); 
+
+/**
+ * Get the iterator that reference next data.
+ * @param it_iter deque iterator.
+ * @return next iterator.
+ * @remarks it_iter and the returned iterator must be valid deque iterator, otherwise the behavior is undefined.
+ */
+extern deque_iterator_t _deque_iterator_next(deque_iterator_t it_iter);
+
+/**
+ * Get the iterator that reference previous data.
+ * @param it_iter deque iterator.
+ * @return previous iterator.
+ * @remarks it_iter and the returned iterator must be valid deque iterator, otherwise the behavior is undefined.
+ */
+extern deque_iterator_t _deque_iterator_prev(deque_iterator_t it_iter);
+
+/**
+ * Get the iterator that reference next n data.
+ * @param it_iter deque iterator.
+ * @param n_step steps to move.
+ * @return next n iterator.
+ * @remarks it_iter and the returned iterator must be valid deque iterator, otherwise the behavior is undefined.
+ *          if n_step > 0, iterator move to the end of the container. if n_step < 0, iterator move to the begin of
+ *          the container. if n_step == 0, iterator dose not move.
+ */
+extern deque_iterator_t _deque_iterator_next_n(deque_iterator_t it_iter, int n_step);
+
+/**
+ * Get the iterator that reference previous n data.
+ * @param it_iter deque iterator.
+ * @param n_step steps to move.
+ * @return next n iterator.
+ * @remarks it_iter and the returned iterator must be valid deque iterator, otherwise the behavior is undefined.
+ *          if n_step > 0, iterator move to the begin of the container. if n_step < 0, iterator move to the end of
+ *          the container. if n_step == 0, iterator dose not move.
+ */
+extern deque_iterator_t _deque_iterator_prev_n(deque_iterator_t it_iter, int n_step);
+
+/**
+ * Access iterator reference data randomly with subscript.
+ * @param it_iter deque iterator.
+ * @param n_index subscript
+ * @return reference data.
+ * @remarks it_iter must be valid deque iterator, and referenced data must whitin the deque, otherwise the behavior
+ *          is undefined. if n_index > 0, iterator move to the begin of the container. if n_index < 0, iterator move to
+ *          the end of the container. if n_index == 0, return iterator reference data.
+ */
 extern void* _deque_iterator_at(deque_iterator_t t_iter, int n_index);
-extern deque_iterator_t _deque_iterator_next_n(deque_iterator_t t_iter, int n_step);
-extern deque_iterator_t _deque_iterator_prev_n(deque_iterator_t t_iter, int n_step);
 
-/*
- * Distance of deque iterator.
+/**
+ * Calculate the distance between two iterators.
+ * @param it_first first deque iterator.
+ * @param it_second second deque iterator.
+ * @return the distance between two iterators.
+ * @remarks the two iterators must be valid deque iterator, otherwist the behavious is undefined. if it_first < it_second,
+ *          then return value < 0, if it_first > it_second, then return value > 0, if it_first == it_second, then return
+ *          value == 0.
  */
-extern int _deque_iterator_minus(
-    deque_iterator_t t_iterfirst, deque_iterator_t t_itersecond);
+extern int _deque_iterator_minus(deque_iterator_t it_first, deque_iterator_t it_second);
 
 #ifdef __cplusplus
 }
