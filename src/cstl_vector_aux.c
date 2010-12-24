@@ -156,6 +156,11 @@ bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_seco
     assert(_vector_is_inited(cpvec_first) || _vector_is_created(cpvec_first));
     assert(_vector_is_inited(cpvec_second) || _vector_is_created(cpvec_second));
 
+    if(cpvec_first == cpvec_second)
+    {
+        return true;
+    }
+
     return (cpvec_first->_t_typeinfo._pt_type == cpvec_second->_t_typeinfo._pt_type) &&
            (cpvec_first->_t_typeinfo._t_style == cpvec_second->_t_typeinfo._t_style) &&
            _type_is_same(_GET_VECTOR_TYPE_NAME(cpvec_first), _GET_VECTOR_TYPE_NAME(cpvec_second));

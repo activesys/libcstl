@@ -162,6 +162,11 @@ bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_second)
     assert(_list_is_inited(cplist_first) || _list_is_created(cplist_first));
     assert(_list_is_inited(cplist_second) || _list_is_created(cplist_second));
 
+    if(cplist_first == cplist_second)
+    {
+        return true;
+    }
+
     return (cplist_first->_t_typeinfo._pt_type == cplist_second->_t_typeinfo._pt_type) &&
            (cplist_first->_t_typeinfo._t_style == cplist_second->_t_typeinfo._t_style) &&
            _type_is_same(_GET_LIST_TYPE_NAME(cplist_first), _GET_LIST_TYPE_NAME(cplist_second));

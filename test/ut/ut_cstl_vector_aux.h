@@ -31,6 +31,7 @@ void test__vector_same_type__not_same_type_style_ex1(void** state);
 void test__vector_same_type__not_same_type_style_ex2(void** state);
 void test__vector_same_type__same_type(void** state);
 void test__vector_same_type__same_type_duplicate_name(void** state);
+void test__vector_same_type__same_container(void** state);
 /*
  * test _vector_same_vector_iterator_type
  */
@@ -137,6 +138,7 @@ void test__vector_calculate_new_capacity__12345_size_1600894_insert(void** state
     UT_CASE(test__vector_same_type__not_same_type_style_ex2),\
     UT_CASE(test__vector_same_type__same_type),\
     UT_CASE(test__vector_same_type__same_type_duplicate_name),\
+    UT_CASE(test__vector_same_type__same_container),\
     UT_CASE_BEGIN(_vector_same_vector_iterator_type, test__vector_same_vector_iterator_type__null_vector),\
     UT_CASE(test__vector_same_vector_iterator_type__iterator_null_container),\
     UT_CASE(test__vector_same_vector_iterator_type__iterator_not_vector_container),\

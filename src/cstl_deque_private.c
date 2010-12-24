@@ -82,6 +82,7 @@ bool_t _create_deque_auxiliary(deque_t* pt_deque, const char* s_typename)
     pt_deque->_t_start = _create_deque_iterator();
     pt_deque->_t_finish = _create_deque_iterator();
 
+    _alloc_init(&pt_deque->_t_allocater);
     return true;
 }
 
@@ -134,7 +135,7 @@ void _deque_init_elem_varg(deque_t* pt_deque, size_t t_count, va_list val_elemli
     assert(pt_deque != NULL);
 
     /* initialize the alloc */
-    _alloc_init(&pt_deque->_t_allocater);
+    /*_alloc_init(&pt_deque->_t_allocater);*/
     /* initialize the map and element container */
     /* if element count > 0 */
     if(t_count > 0)
@@ -231,45 +232,52 @@ void _deque_destroy_auxiliary(deque_t* pt_deque)
     bool_t           t_result = false;
     deque_iterator_t t_iter;
 
-    assert(_deque_iterator_belong_to_deque(pt_deque, pt_deque->_t_start));
-    assert(_deque_iterator_belong_to_deque(pt_deque, pt_deque->_t_finish));
+    /*assert(_deque_iterator_belong_to_deque(pt_deque, pt_deque->_t_start));*/
+    /*assert(_deque_iterator_belong_to_deque(pt_deque, pt_deque->_t_finish));*/
 
-    /* destroy all elements */
-    for(t_iter = deque_begin(pt_deque);
-        !iterator_equal(t_iter, deque_end(pt_deque));
-        t_iter = iterator_next(t_iter))
+    if(_deque_is_inited(pt_deque))
     {
-        t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
-        _GET_DEQUE_TYPE_DESTROY_FUNCTION(pt_deque)(
-            _deque_iterator_get_pointer_auxiliary(t_iter), &t_result);
-        assert(t_result);
-    }
+        /* destroy all elements */
+        for(t_iter = deque_begin(pt_deque);
+            !iterator_equal(t_iter, deque_end(pt_deque));
+            t_iter = iterator_next(t_iter))
+        {
+            t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
+            _GET_DEQUE_TYPE_DESTROY_FUNCTION(pt_deque)(
+                _deque_iterator_get_pointer_auxiliary(t_iter), &t_result);
+            assert(t_result);
+        }
 
-    /* destroy the all element container */
-    for(t_mappos = _GET_DEQUE_MAP_POINTER(pt_deque->_t_start);
-        t_mappos <= _GET_DEQUE_MAP_POINTER(pt_deque->_t_finish);
-        ++t_mappos)
+        /* destroy the all element container */
+        for(t_mappos = _GET_DEQUE_MAP_POINTER(pt_deque->_t_start);
+            t_mappos <= _GET_DEQUE_MAP_POINTER(pt_deque->_t_finish);
+            ++t_mappos)
+        {
+            _alloc_deallocate(&pt_deque->_t_allocater, *t_mappos,
+                _GET_DEQUE_TYPE_SIZE(pt_deque), _DEQUE_ELEM_COUNT);
+        }
+
+        /* destroy the map */
+        _alloc_deallocate(&pt_deque->_t_allocater, pt_deque->_ppc_map,
+            sizeof(char*), pt_deque->_t_mapsize);
+
+        /* destroy the allocator */
+        _alloc_destroy(&pt_deque->_t_allocater);
+
+        /* destroy the start and finish iterator */
+        _GET_DEQUE_MAP_POINTER(pt_deque->_t_start) = NULL;
+        _GET_DEQUE_FIRST_POS(pt_deque->_t_start) = NULL;
+        _GET_DEQUE_AFTERLAST_POS(pt_deque->_t_start) = NULL;
+        _GET_DEQUE_COREPOS(pt_deque->_t_start) = NULL;
+        _GET_DEQUE_MAP_POINTER(pt_deque->_t_finish) = NULL;
+        _GET_DEQUE_FIRST_POS(pt_deque->_t_finish) = NULL;
+        _GET_DEQUE_AFTERLAST_POS(pt_deque->_t_finish) = NULL;
+        _GET_DEQUE_COREPOS(pt_deque->_t_finish) = NULL;
+    }
+    else
     {
-        _alloc_deallocate(&pt_deque->_t_allocater, *t_mappos,
-            _GET_DEQUE_TYPE_SIZE(pt_deque), _DEQUE_ELEM_COUNT);
+        _alloc_destroy(&pt_deque->_t_allocater);
     }
-
-    /* destroy the map */
-    _alloc_deallocate(&pt_deque->_t_allocater, pt_deque->_ppc_map,
-        sizeof(char*), pt_deque->_t_mapsize);
-
-    /* destroy the allocator */
-    _alloc_destroy(&pt_deque->_t_allocater);
-
-    /* destroy the start and finish iterator */
-    _GET_DEQUE_MAP_POINTER(pt_deque->_t_start) = NULL;
-    _GET_DEQUE_FIRST_POS(pt_deque->_t_start) = NULL;
-    _GET_DEQUE_AFTERLAST_POS(pt_deque->_t_start) = NULL;
-    _GET_DEQUE_COREPOS(pt_deque->_t_start) = NULL;
-    _GET_DEQUE_MAP_POINTER(pt_deque->_t_finish) = NULL;
-    _GET_DEQUE_FIRST_POS(pt_deque->_t_finish) = NULL;
-    _GET_DEQUE_AFTERLAST_POS(pt_deque->_t_finish) = NULL;
-    _GET_DEQUE_COREPOS(pt_deque->_t_finish) = NULL;
 }
 
 void _deque_assign_elem(deque_t* pt_deque, size_t t_count, ...)

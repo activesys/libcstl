@@ -60,6 +60,7 @@ void test__list_same_type__same_user_defined(void** state);
 void test__list_same_type__same_user_defined_dup(void** state);
 void test__list_same_type__not_same_c_user_define(void** state);
 void test__list_same_type__not_same_libcstl_user_define(void** state);
+void test__list_same_type__same_container(void** state);
 /*
  * test _list_same_list_iterator_type
  */
@@ -234,6 +235,7 @@ void test__list_quick_sort__cstr_random_random_dup_greater(void** state);
     UT_CASE(test__list_same_type__same_user_defined_dup),\
     UT_CASE(test__list_same_type__not_same_c_user_define),\
     UT_CASE(test__list_same_type__not_same_libcstl_user_define),\
+    UT_CASE(test__list_same_type__same_container),\
     UT_CASE_BEGIN(_list_same_list_iterator_type, test__list_same_list_iterator_type__null_list_container),\
     UT_CASE(test__list_same_list_iterator_type__invalid_iterator_null_container),\
     UT_CASE(test__list_same_list_iterator_type__invalid_iterator_container_type),\

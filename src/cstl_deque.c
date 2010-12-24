@@ -65,7 +65,7 @@ void deque_init_n(deque_t* pt_deque, size_t t_count)
     assert(pt_deque != NULL);
 
     /* initialize the alloc */
-    _alloc_init(&pt_deque->_t_allocater);
+    /*_alloc_init(&pt_deque->_t_allocater);*/
     /* initialize the map and element container */
     /* if element count > 0 */
     if(t_count > 0)

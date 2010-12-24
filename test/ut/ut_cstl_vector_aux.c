@@ -40,7 +40,7 @@ void test__vector_iterator_belong_to_vector__non_inited_vector_container(void** 
     it_iter = vector_begin(pvec);
 
     pvec->_pby_start = 0x9883;
-    expect_assert_failure(_vector_iterator_belong_to_vector(NULL, it_iter));
+    expect_assert_failure(_vector_iterator_belong_to_vector(pvec, it_iter));
 
     pvec->_pby_start = NULL;
     vector_destroy(pvec);
@@ -280,6 +280,16 @@ void test__vector_same_type__same_type_duplicate_name(void** state)
 
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
+}
+
+void test__vector_same_type__same_container(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    assert_true(_vector_same_type(pvec, pvec));
+
+    vector_destroy(pvec);
 }
 
 /*

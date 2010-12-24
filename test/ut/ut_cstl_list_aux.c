@@ -504,6 +504,16 @@ void test__list_same_type__not_same_libcstl_user_define(void** state)
     list_destroy(plist_second);
 }
 
+void test__list_same_type__same_container(void** state)
+{
+    list_t* plist = create_list(int);
+    list_init(plist);
+
+    assert_true(_list_same_type(plist, plist));
+
+    list_destroy(plist);
+}
+
 /*
  * test _list_same_list_iterator_type
  */
