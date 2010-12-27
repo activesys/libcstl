@@ -100,6 +100,55 @@ void test__deque_destroy_varg_value_auxiliary__null_deque_container(void** state
 void test__deque_destroy_varg_value_auxiliary__null_varg(void** state);
 void test__deque_destroy_varg_value_auxiliary__non_created(void** state);
 void test__deque_destroy_varg_value_auxiliary__successfully(void** state);
+/*
+ * test _deque_init_elem_range_auxiliary
+ */
+UT_CASE_DECLARATION(_deque_init_elem_range_auxiliary)
+void test__deque_init_elem_range_auxiliary__null_deque_containter(void** state);
+void test__deque_init_elem_range_auxiliary__invalid_range_begin(void** state);
+void test__deque_init_elem_range_auxiliary__invalid_range_end(void** state);
+void test__deque_init_elem_range_auxiliary__invalid_range(void** state);
+void test__deque_init_elem_range_auxiliary__non_created(void** state);
+void test__deque_init_elem_range_auxiliary__successfully_empty_range(void** state);
+void test__deque_init_elem_range_auxiliary__successfully_int(void** state);
+void test__deque_init_elem_range_auxiliary__successfully_cstr(void** state);
+void test__deque_init_elem_range_auxiliary__successfully_iterator(void** state);
+void test__deque_init_elem_range_auxiliary__successfully_container(void** state);
+/*
+ * test _deque_iterator_get_pointer_auxiliary
+ */
+UT_CASE_DECLARATION(_deque_iterator_get_pointer_auxiliary)
+void test__deque_iterator_get_pointer_auxiliary__invalid_iterator(void** state);
+void test__deque_iterator_get_pointer_auxiliary__invalid_iterator_container_type(void** state);
+void test__deque_iterator_get_pointer_auxiliary__invalid_iterator_iterator_type(void** state);
+void test__deque_iterator_get_pointer_auxiliary__invalid_iterator_container_pointer(void** state);
+void test__deque_iterator_get_pointer_auxiliary__deque_end(void** state);
+void test__deque_iterator_get_pointer_auxiliary__successfully_not_border(void** state);
+void test__deque_iterator_get_pointer_auxiliary__successfully_border(void** state);
+void test__deque_iterator_get_pointer_auxiliary__successfully_cstr_not_border(void** state);
+void test__deque_iterator_get_pointer_auxiliary__successfully_cstr_border(void** state);
+/*
+ * test _deque_expand_at_end
+ */
+UT_CASE_DECLARATION(_deque_expand_at_end)
+void test__deque_expand_at_end__null_deque_container(void** state);
+void test__deque_expand_at_end__non_inited_deque_container(void** state);
+void test__deque_expand_at_end__invalid_iterator(void** state);
+void test__deque_expand_at_end__expand_0(void** state);
+void test__deque_expand_at_end__expand_less_than_chunk(void** state);
+void test__deque_expand_at_end__expand_less_than_chunk_pos(void** state);
+void test__deque_expand_at_end__expand_one_chunk(void** state);
+void test__deque_expand_at_end__expand_one_chunk_pos(void** state);
+void test__deque_expand_at_end__expand_more_than_one_chunk(void** state);
+void test__deque_expand_at_end__expand_more_than_one_chunk_pos(void** state);
+void test__deque_expand_at_end__expand_remain_map_end(void** state);
+void test__deque_expand_at_end__expand_remain_map_pos_end(void** state);
+void test__deque_expand_at_end__expand_move_map(void** state);
+void test__deque_expand_at_end__expand_move_map_pos(void** state);
+void test__deque_expand_at_end__expand_full_map(void** state);
+void test__deque_expand_at_end__expand_full_map_pos(void** state);
+void test__deque_expand_at_end__expand_map(void** state);
+void test__deque_expand_at_end__expand_map_pos(void** state);
 
 #define UT_CSTL_DEQUE_AUX_CASE\
     UT_SUIT_BEGIN(cstl_deque_aux, test__deque_is_created__null_deque_container),\
@@ -170,7 +219,44 @@ void test__deque_destroy_varg_value_auxiliary__successfully(void** state);
     UT_CASE_BEGIN(_deque_destroy_varg_value_auxiliary, test__deque_destroy_varg_value_auxiliary__null_deque_container),\
     UT_CASE(test__deque_destroy_varg_value_auxiliary__null_varg),\
     UT_CASE(test__deque_destroy_varg_value_auxiliary__non_created),\
-    UT_CASE(test__deque_destroy_varg_value_auxiliary__successfully)
+    UT_CASE(test__deque_destroy_varg_value_auxiliary__successfully),\
+    UT_CASE_BEGIN(_deque_init_elem_range_auxiliary, test__deque_init_elem_range_auxiliary__null_deque_containter),\
+    UT_CASE(test__deque_init_elem_range_auxiliary__invalid_range_begin),\
+    UT_CASE(test__deque_init_elem_range_auxiliary__invalid_range_end),\
+    UT_CASE(test__deque_init_elem_range_auxiliary__invalid_range),\
+    UT_CASE(test__deque_init_elem_range_auxiliary__non_created),\
+    UT_CASE(test__deque_init_elem_range_auxiliary__successfully_empty_range),\
+    UT_CASE(test__deque_init_elem_range_auxiliary__successfully_int),\
+    UT_CASE(test__deque_init_elem_range_auxiliary__successfully_cstr),\
+    UT_CASE(test__deque_init_elem_range_auxiliary__successfully_iterator),\
+    UT_CASE(test__deque_init_elem_range_auxiliary__successfully_container),\
+    UT_CASE_BEGIN(_deque_iterator_get_pointer_auxiliary, test__deque_iterator_get_pointer_auxiliary__invalid_iterator),\
+    UT_CASE(test__deque_iterator_get_pointer_auxiliary__invalid_iterator_container_type),\
+    UT_CASE(test__deque_iterator_get_pointer_auxiliary__invalid_iterator_iterator_type),\
+    UT_CASE(test__deque_iterator_get_pointer_auxiliary__invalid_iterator_container_pointer),\
+    UT_CASE(test__deque_iterator_get_pointer_auxiliary__deque_end),\
+    UT_CASE(test__deque_iterator_get_pointer_auxiliary__successfully_not_border),\
+    UT_CASE(test__deque_iterator_get_pointer_auxiliary__successfully_border),\
+    UT_CASE(test__deque_iterator_get_pointer_auxiliary__successfully_cstr_not_border),\
+    UT_CASE(test__deque_iterator_get_pointer_auxiliary__successfully_cstr_border),\
+    UT_CASE_BEGIN(_deque_expand_at_end, test__deque_expand_at_end__null_deque_container),\
+    UT_CASE(test__deque_expand_at_end__non_inited_deque_container),\
+    UT_CASE(test__deque_expand_at_end__invalid_iterator),\
+    UT_CASE(test__deque_expand_at_end__expand_0),\
+    UT_CASE(test__deque_expand_at_end__expand_less_than_chunk),\
+    UT_CASE(test__deque_expand_at_end__expand_less_than_chunk_pos),\
+    UT_CASE(test__deque_expand_at_end__expand_one_chunk),\
+    UT_CASE(test__deque_expand_at_end__expand_one_chunk_pos),\
+    UT_CASE(test__deque_expand_at_end__expand_more_than_one_chunk),\
+    UT_CASE(test__deque_expand_at_end__expand_more_than_one_chunk_pos),\
+    UT_CASE(test__deque_expand_at_end__expand_remain_map_end),\
+    UT_CASE(test__deque_expand_at_end__expand_remain_map_pos_end),\
+    UT_CASE(test__deque_expand_at_end__expand_move_map),\
+    UT_CASE(test__deque_expand_at_end__expand_move_map_pos),\
+    UT_CASE(test__deque_expand_at_end__expand_full_map),\
+    UT_CASE(test__deque_expand_at_end__expand_full_map_pos),\
+    UT_CASE(test__deque_expand_at_end__expand_map),\
+    UT_CASE(test__deque_expand_at_end__expand_map_pos)
 
 #endif /* _UT_CSTL_DEQUE_AUX_H_ */
 

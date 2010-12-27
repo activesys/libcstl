@@ -334,7 +334,7 @@ void _deque_push_back(deque_t* pt_deque, ...)
 
 void _deque_push_back_varg(deque_t* pt_deque, va_list val_elemlist)
 {
-    deque_iterator_t t_oldend = _expand_at_end(pt_deque, 1, NULL);
+    deque_iterator_t t_oldend = _deque_expand_at_end(pt_deque, 1, NULL);
     assert(_deque_iterator_belong_to_deque(pt_deque, t_oldend));
 
     /* get value from varg */
@@ -412,7 +412,7 @@ deque_iterator_t _deque_insert_n_varg(
     else
     {
         size_t t_index = 0;
-        deque_iterator_t t_oldend = _expand_at_end(pt_deque, t_count, &t_pos);
+        deque_iterator_t t_oldend = _deque_expand_at_end(pt_deque, t_count, &t_pos);
         deque_iterator_t t_gap = _move_elem_to_end(pt_deque, t_pos, t_oldend, t_count);
         t_resultpos = t_gap;
 
@@ -455,7 +455,7 @@ void _deque_resize_elem_varg(deque_t* pt_deque, size_t t_resize, va_list val_ele
     else if(t_resize > deque_size(pt_deque))
     {
         deque_iterator_t t_oldend =
-            _expand_at_end(pt_deque, t_resize - deque_size(pt_deque), NULL);
+            _deque_expand_at_end(pt_deque, t_resize - deque_size(pt_deque), NULL);
 
         /* get varg value only once */
         pv_varg = _alloc_allocate(&pt_deque->_t_allocater, _GET_DEQUE_TYPE_SIZE(pt_deque), 1);

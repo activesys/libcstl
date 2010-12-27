@@ -96,11 +96,17 @@ extern bool_t _deque_is_inited(const deque_t* cpdeq_deque);
  */
 extern bool_t _deque_same_type(const deque_t* cpdeq_first, const deque_t* cpdeq_second);
 
-/*
- * Expand deque_t.
+/**
+ * Expand deque at end.
+ * @param pdeq_deque   deque container.
+ * @param t_expandsize expand size.
+ * @param pit_pos      iterator pointer.
+ * @return iterator that reference deque end before expanding.
+ * @remarks if pdeq_deque == NULL, then the behavior is undefined. the deque container must be initialized, otherwise the
+ *          behavior is undefined. *pit_pos must be valid deque iterator, otherwise the behavior is undefined. the pit_pos
+ *          may be NULL.
  */
-extern deque_iterator_t _expand_at_end(
-    deque_t* pt_deque, size_t t_expandsize, deque_iterator_t* pt_pos);
+extern deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos);
 extern deque_iterator_t _expand_at_begin(
     deque_t* pt_deque, size_t t_expandsize, deque_iterator_t* pt_pos);
 
@@ -152,7 +158,14 @@ extern void _deque_destroy_varg_value_auxiliary(deque_t* pdeq_deque, void* pv_va
  *          [it_begin, it_end) must be the same, otherwise the behavior is undefined.
  */
 extern void _deque_init_elem_range_auxiliary(deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end);
-extern void* _deque_iterator_get_pointer_auxiliary(iterator_t t_iter);
+
+/**
+ * Get the iterator pointer auxiliary function.
+ * @param it_iter deque iterator.
+ * @return data pointer.
+ * @remarks it_iter must be valid deque iterator, otherwise the behavior is undefined.
+ */
+extern void* _deque_iterator_get_pointer_auxiliary(iterator_t it_iter);
 
 #ifdef __cplusplus
 }

@@ -95,7 +95,6 @@ void deque_init_n(deque_t* pt_deque, size_t t_count)
             t_mapcount = _DEQUE_MAP_COUNT;
         }
     }
-    /* else element count <= 0 */
     else
     {
         t_validmapcount = 2;
@@ -472,7 +471,7 @@ void deque_insert_range(
     /* else insert in back */
     else
     {
-        deque_iterator_t t_oldend = _expand_at_end(pt_deque, n_elemcount, &t_pos);
+        deque_iterator_t t_oldend = _deque_expand_at_end(pt_deque, n_elemcount, &t_pos);
         _move_elem_to_end(pt_deque, t_pos, t_oldend, n_elemcount);
 
         for(; !iterator_equal(t_begin, t_end);
@@ -535,7 +534,7 @@ void deque_resize(deque_t* pt_deque, size_t t_resize)
     }
     else if(t_resize > deque_size(pt_deque))
     {
-        _expand_at_end(pt_deque, t_resize - deque_size(pt_deque), NULL);
+        _deque_expand_at_end(pt_deque, t_resize - deque_size(pt_deque), NULL);
     }
 }
 
