@@ -149,6 +149,60 @@ void test__deque_expand_at_end__expand_full_map(void** state);
 void test__deque_expand_at_end__expand_full_map_pos(void** state);
 void test__deque_expand_at_end__expand_map(void** state);
 void test__deque_expand_at_end__expand_map_pos(void** state);
+/*
+ * test _deque_expand_at_begin
+ */
+UT_CASE_DECLARATION(_deque_expand_at_begin)
+void test__deque_expand_at_begin__null_deque_container(void** state);
+void test__deque_expand_at_begin__non_inited_deque_container(void** state);
+void test__deque_expand_at_begin__invalid_iterator(void** state);
+void test__deque_expand_at_begin__expand_0(void** state);
+void test__deque_expand_at_begin__expand_less_than_chunk(void** state);
+void test__deque_expand_at_begin__expand_less_than_chunk_pos(void** state);
+void test__deque_expand_at_begin__expand_one_chunk(void** state);
+void test__deque_expand_at_begin__expand_one_chunk_pos(void** state);
+void test__deque_expand_at_begin__expand_more_than_one_chunk(void** state);
+void test__deque_expand_at_begin__expand_more_than_one_chunk_pos(void** state);
+void test__deque_expand_at_begin__expand_remain_map_begin(void** state);
+void test__deque_expand_at_begin__expand_remain_map_pos_begin(void** state);
+void test__deque_expand_at_begin__expand_move_map(void** state);
+void test__deque_expand_at_begin__expand_move_map_pos(void** state);
+void test__deque_expand_at_begin__expand_full_map(void** state);
+void test__deque_expand_at_begin__expand_full_map_pos(void** state);
+void test__deque_expand_at_begin__expand_map(void** state);
+void test__deque_expand_at_begin__expand_map_pos(void** state);
+/*
+ * test _deque_shrink_at_end
+ */
+UT_CASE_DECLARATION(_deque_shrink_at_end)
+void test__deque_shrink_at_end__null_deque_container(void** state);
+void test__deque_shrink_at_end__non_inited_deque_container(void** state);
+void test__deque_shrink_at_end__empty_shrink_0(void** state);
+void test__deque_shrink_at_end__empty_shrink_6(void** state);
+void test__deque_shrink_at_end__begin_border_shrink_0(void** state);
+void test__deque_shrink_at_end__begin_border_shrink_less_size(void** state);
+void test__deque_shrink_at_end__begin_border_shrink_equal_to_size(void** state);
+void test__deque_shrink_at_end__begin_border_shrink_greater_than_size(void** state);
+void test__deque_shrink_at_end__end_border_shrink_0(void** state);
+void test__deque_shrink_at_end__end_border_shrink_less_size(void** state);
+void test__deque_shrink_at_end__end_border_shrink_equal_to_size(void** state);
+void test__deque_shrink_at_end__end_border_shrink_greater_than_size(void** state);
+/*
+ * test _deque_shrink_at_begin
+ */
+UT_CASE_DECLARATION(_deque_shrink_at_begin)
+void test__deque_shrink_at_begin__null_deque_container(void** state);
+void test__deque_shrink_at_begin__non_inited_deque_container(void** state);
+void test__deque_shrink_at_begin__empty_shrink_0(void** state);
+void test__deque_shrink_at_begin__empty_shrink_6(void** state);
+void test__deque_shrink_at_begin__begin_border_shrink_0(void** state);
+void test__deque_shrink_at_begin__begin_border_shrink_less_size(void** state);
+void test__deque_shrink_at_begin__begin_border_shrink_equal_to_size(void** state);
+void test__deque_shrink_at_begin__begin_border_shrink_greater_than_size(void** state);
+void test__deque_shrink_at_begin__end_border_shrink_0(void** state);
+void test__deque_shrink_at_begin__end_border_shrink_less_size(void** state);
+void test__deque_shrink_at_begin__end_border_shrink_equal_to_size(void** state);
+void test__deque_shrink_at_begin__end_border_shrink_greater_than_size(void** state);
 
 #define UT_CSTL_DEQUE_AUX_CASE\
     UT_SUIT_BEGIN(cstl_deque_aux, test__deque_is_created__null_deque_container),\
@@ -256,7 +310,49 @@ void test__deque_expand_at_end__expand_map_pos(void** state);
     UT_CASE(test__deque_expand_at_end__expand_full_map),\
     UT_CASE(test__deque_expand_at_end__expand_full_map_pos),\
     UT_CASE(test__deque_expand_at_end__expand_map),\
-    UT_CASE(test__deque_expand_at_end__expand_map_pos)
+    UT_CASE(test__deque_expand_at_end__expand_map_pos),\
+    UT_CASE_BEGIN(_deque_expand_at_begin, test__deque_expand_at_begin__null_deque_container),\
+    UT_CASE(test__deque_expand_at_begin__non_inited_deque_container),\
+    UT_CASE(test__deque_expand_at_begin__invalid_iterator),\
+    UT_CASE(test__deque_expand_at_begin__expand_0),\
+    UT_CASE(test__deque_expand_at_begin__expand_less_than_chunk),\
+    UT_CASE(test__deque_expand_at_begin__expand_less_than_chunk_pos),\
+    UT_CASE(test__deque_expand_at_begin__expand_one_chunk),\
+    UT_CASE(test__deque_expand_at_begin__expand_one_chunk_pos),\
+    UT_CASE(test__deque_expand_at_begin__expand_more_than_one_chunk),\
+    UT_CASE(test__deque_expand_at_begin__expand_more_than_one_chunk_pos),\
+    UT_CASE(test__deque_expand_at_begin__expand_remain_map_begin),\
+    UT_CASE(test__deque_expand_at_begin__expand_remain_map_pos_begin),\
+    UT_CASE(test__deque_expand_at_begin__expand_move_map),\
+    UT_CASE(test__deque_expand_at_begin__expand_move_map_pos),\
+    UT_CASE(test__deque_expand_at_begin__expand_full_map),\
+    UT_CASE(test__deque_expand_at_begin__expand_full_map_pos),\
+    UT_CASE(test__deque_expand_at_begin__expand_map),\
+    UT_CASE(test__deque_expand_at_begin__expand_map_pos),\
+    UT_CASE_BEGIN(_deque_shrink_at_end, test__deque_shrink_at_end__null_deque_container),\
+    UT_CASE(test__deque_shrink_at_end__non_inited_deque_container),\
+    UT_CASE(test__deque_shrink_at_end__empty_shrink_0),\
+    UT_CASE(test__deque_shrink_at_end__empty_shrink_6),\
+    UT_CASE(test__deque_shrink_at_end__begin_border_shrink_0),\
+    UT_CASE(test__deque_shrink_at_end__begin_border_shrink_less_size),\
+    UT_CASE(test__deque_shrink_at_end__begin_border_shrink_equal_to_size),\
+    UT_CASE(test__deque_shrink_at_end__begin_border_shrink_greater_than_size),\
+    UT_CASE(test__deque_shrink_at_end__end_border_shrink_0),\
+    UT_CASE(test__deque_shrink_at_end__end_border_shrink_less_size),\
+    UT_CASE(test__deque_shrink_at_end__end_border_shrink_equal_to_size),\
+    UT_CASE(test__deque_shrink_at_end__end_border_shrink_greater_than_size),\
+    UT_CASE_BEGIN(_deque_shrink_at_begin, test__deque_shrink_at_begin__null_deque_container),\
+    UT_CASE(test__deque_shrink_at_begin__non_inited_deque_container),\
+    UT_CASE(test__deque_shrink_at_begin__empty_shrink_0),\
+    UT_CASE(test__deque_shrink_at_begin__empty_shrink_6),\
+    UT_CASE(test__deque_shrink_at_begin__begin_border_shrink_0),\
+    UT_CASE(test__deque_shrink_at_begin__begin_border_shrink_less_size),\
+    UT_CASE(test__deque_shrink_at_begin__begin_border_shrink_equal_to_size),\
+    UT_CASE(test__deque_shrink_at_begin__begin_border_shrink_greater_than_size),\
+    UT_CASE(test__deque_shrink_at_begin__end_border_shrink_0),\
+    UT_CASE(test__deque_shrink_at_begin__end_border_shrink_less_size),\
+    UT_CASE(test__deque_shrink_at_begin__end_border_shrink_equal_to_size),\
+    UT_CASE(test__deque_shrink_at_begin__end_border_shrink_greater_than_size)
 
 #endif /* _UT_CSTL_DEQUE_AUX_H_ */
 

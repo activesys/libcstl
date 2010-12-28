@@ -1526,3 +1526,722 @@ void test__deque_expand_at_end__expand_map_pos(void** state)
     deque_destroy(pdeq);
 }
 
+/*
+ * test _deque_expand_at_begin
+ */
+UT_CASE_DEFINATION(_deque_expand_at_begin)
+void test__deque_expand_at_begin__null_deque_container(void** state)
+{
+    expect_assert_failure(_deque_expand_at_begin(NULL, 10, NULL));
+}
+
+void test__deque_expand_at_begin__non_inited_deque_container(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    expect_assert_failure(_deque_expand_at_begin(pdeq, 10, NULL));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__invalid_iterator(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    it_iter = deque_begin(pdeq);
+    it_iter._t_pos._t_dequepos._pc_corepos = NULL;
+    expect_assert_failure(_deque_expand_at_begin(pdeq, 10, &it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_0(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 0, NULL);
+    assert_true(ppc_old == pdeq->_ppc_map);
+    assert_true(deque_empty(pdeq));
+    assert_true(iterator_equal(it_iter, deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_less_than_chunk(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 10, NULL);
+    assert_true(ppc_old == pdeq->_ppc_map);
+    assert_true(deque_size(pdeq) == 10);
+    assert_true(iterator_equal(it_iter, deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_less_than_chunk_pos(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    deque_iterator_t it_pos;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 1);
+    deque_push_back(pdeq, 3);
+    deque_push_back(pdeq, 4);
+    ppc_old = pdeq->_ppc_map;
+    it_pos = iterator_next(deque_begin(pdeq));
+    it_iter = _deque_expand_at_begin(pdeq, 10, &it_pos);
+    assert_true(ppc_old == pdeq->_ppc_map);
+    assert_true(deque_size(pdeq) == 13);
+    assert_true(*(int*)iterator_get_pointer(it_pos) == 3);
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 10)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_one_chunk(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 16, NULL);
+    assert_true(pdeq->_ppc_map == ppc_old);
+    assert_true(deque_size(pdeq) == 16);
+    assert_true(iterator_equal(it_iter, deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 2 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_one_chunk_pos(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    deque_iterator_t it_pos;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    deque_push_front(pdeq, 2);
+    deque_push_front(pdeq, 3);
+    deque_push_front(pdeq, 5);
+    deque_push_front(pdeq, 7);
+    deque_push_back(pdeq, 9);
+    deque_push_back(pdeq, 1);
+    ppc_old = pdeq->_ppc_map;
+    it_pos = deque_begin(pdeq);
+    it_iter = _deque_expand_at_begin(pdeq, 28, &it_pos);
+    assert_true(pdeq->_ppc_map == ppc_old);
+    assert_true(deque_size(pdeq) == 34);
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 28)));
+    assert_true(*(int*)iterator_get_pointer(it_pos) == 7);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 3 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_more_than_one_chunk(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 20, NULL);
+    assert_true(ppc_old == pdeq->_ppc_map);
+    assert_true(deque_size(pdeq) == 20);
+    assert_true(iterator_equal(it_iter, deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 2 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_more_than_one_chunk_pos(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    deque_iterator_t it_pos;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    deque_push_front(pdeq, 3);
+    deque_push_front(pdeq, 5);
+    deque_push_front(pdeq, 6);
+    deque_push_front(pdeq, 7);
+    deque_push_front(pdeq, 9);
+    it_pos = deque_end(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 20, &it_pos);
+    assert_true(ppc_old == pdeq->_ppc_map);
+    assert_true(deque_size(pdeq) == 25);
+    assert_true(iterator_equal(it_pos, deque_end(pdeq)));
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 20)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 2 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_remain_map_begin(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 120, NULL);
+    assert_true(ppc_old == pdeq->_ppc_map);
+    assert_true(deque_size(pdeq) == 120);
+    assert_true(iterator_equal(it_iter, deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 8 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppc_map);
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 8 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_remain_map_pos_begin(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    deque_iterator_t it_pos;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    deque_push_front(pdeq, 2);
+    deque_push_front(pdeq, 4);
+    deque_push_front(pdeq, 5);
+    ppc_old = pdeq->_ppc_map;
+    it_pos = iterator_next(deque_begin(pdeq));
+    it_iter = _deque_expand_at_begin(pdeq, 120, &it_pos);
+    assert_true(ppc_old == pdeq->_ppc_map);
+    assert_true(deque_size(pdeq) == 123);
+    assert_true(*(int*)iterator_get_pointer(it_pos) == 4);
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 120)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 8 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppc_map);
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 5 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_move_map(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 150, NULL);
+    assert_true(ppc_old == pdeq->_ppc_map);
+    assert_true(deque_size(pdeq) == 150);
+    assert_true(iterator_equal(it_iter, deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 10 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) > pdeq->_ppc_map);
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_move_map_pos(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    deque_iterator_t it_pos;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    deque_push_front(pdeq, 1);
+    deque_push_front(pdeq, 3);
+    deque_push_front(pdeq, 4);
+    deque_push_front(pdeq, 6);
+    it_pos = deque_begin(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 150, &it_pos);
+    assert_true(ppc_old == pdeq->_ppc_map);
+    assert_true(deque_size(pdeq) == 154);
+    assert_true(*(int*)iterator_get_pointer(it_pos) == 6);
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 150)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 10 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) > pdeq->_ppc_map);
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_full_map(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 230, NULL);
+    assert_true(pdeq->_ppc_map == ppc_old);
+    assert_true(deque_size(pdeq) == 230);
+    assert_true(iterator_equal(it_iter, deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppc_map);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 15 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_full_map_pos(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    deque_iterator_t it_pos;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    deque_push_front(pdeq, 4);
+    deque_push_front(pdeq, 5);
+    deque_push_front(pdeq, 7);
+    it_pos = deque_begin(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 230, &it_pos);
+    assert_true(deque_size(pdeq) == 233);
+    assert_true(pdeq->_ppc_map == ppc_old);
+    assert_true(*(int*)iterator_get_pointer(it_pos) == 7);
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 230)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppc_map);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 15 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_map(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 300, NULL);
+    assert_true(deque_size(pdeq) == 300);
+    assert_true(pdeq->_ppc_map != ppc_old);
+    assert_true(pdeq->_t_mapsize = _DEQUE_MAP_COUNT + _DEQUE_MAP_GROW_STEP);
+    assert_true(iterator_equal(it_iter, deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 19 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) > pdeq->_ppc_map);
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_expand_at_begin__expand_map_pos(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+    deque_iterator_t it_pos;
+    char** ppc_old = NULL;
+
+    deque_init(pdeq);
+    deque_push_front(pdeq, 5);
+    deque_push_front(pdeq, 6);
+    deque_push_front(pdeq, 7);
+    it_pos = iterator_next(deque_begin(pdeq));
+    ppc_old = pdeq->_ppc_map;
+    it_iter = _deque_expand_at_begin(pdeq, 300, &it_pos);
+    assert_true(deque_size(pdeq) == 303);
+    assert_true(pdeq->_ppc_map != ppc_old);
+    assert_true(pdeq->_t_mapsize = _DEQUE_MAP_COUNT + _DEQUE_MAP_GROW_STEP);
+    assert_true(*(int*)iterator_get_pointer(it_pos) == 6);
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 300)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 19 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_end(pdeq)) > pdeq->_ppc_map);
+    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 1 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+/*
+ * test _deque_shrink_at_end
+ */
+UT_CASE_DEFINATION(_deque_shrink_at_end)
+void test__deque_shrink_at_end__null_deque_container(void** state)
+{
+    expect_assert_failure(_deque_shrink_at_end(NULL, 100));
+}
+
+void test__deque_shrink_at_end__non_inited_deque_container(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    expect_assert_failure(_deque_shrink_at_end(pdeq, 20));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__empty_shrink_0(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_shrink_at_end(pdeq, 0);
+    assert_true(deque_empty(pdeq));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__empty_shrink_6(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_shrink_at_end(pdeq, 5);
+    assert_true(deque_empty(pdeq));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__begin_border_shrink_0(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_end(pdeq, 10, NULL);
+    _deque_shrink_at_end(pdeq, 0);
+    assert_true(deque_size(pdeq) == 10);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__begin_border_shrink_less_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_end(pdeq, 10, NULL);
+    _deque_shrink_at_end(pdeq, 3);
+    assert_true(deque_size(pdeq) == 7);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__begin_border_shrink_equal_to_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_end(pdeq, 20, NULL);
+    _deque_shrink_at_end(pdeq, 20);
+    assert_true(deque_size(pdeq) == 0);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__begin_border_shrink_greater_than_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_end(pdeq, 30, NULL);
+    _deque_shrink_at_end(pdeq, 59);
+    assert_true(deque_size(pdeq) == 0);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__end_border_shrink_0(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_begin(pdeq, 10, NULL);
+    _deque_shrink_at_end(pdeq, 0);
+    assert_true(deque_size(pdeq) == 10);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize  ==
+        _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__end_border_shrink_less_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_begin(pdeq, 10, NULL);
+    _deque_shrink_at_end(pdeq, 3);
+    assert_true(deque_size(pdeq) == 7);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) + 3 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_AFTERLAST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__end_border_shrink_equal_to_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_begin(pdeq, 20, NULL);
+    _deque_shrink_at_end(pdeq, 20);
+    assert_true(deque_size(pdeq) == 0);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_AFTERLAST_POS(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_end__end_border_shrink_greater_than_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_begin(pdeq, 20, NULL);
+    _deque_shrink_at_end(pdeq, 80);
+    assert_true(deque_size(pdeq) == 0);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_AFTERLAST_POS(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+/*
+ * test _deque_shrink_at_begin
+ */
+UT_CASE_DEFINATION(_deque_shrink_at_begin)
+void test__deque_shrink_at_begin__null_deque_container(void** state)
+{
+    expect_assert_failure(_deque_shrink_at_begin(NULL, 100));
+}
+
+void test__deque_shrink_at_begin__non_inited_deque_container(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    expect_assert_failure(_deque_shrink_at_begin(pdeq, 20));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__empty_shrink_0(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_shrink_at_begin(pdeq, 0);
+    assert_true(deque_empty(pdeq));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__empty_shrink_6(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_shrink_at_begin(pdeq, 5);
+    assert_true(deque_empty(pdeq));
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__begin_border_shrink_0(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_end(pdeq, 10, NULL);
+    _deque_shrink_at_begin(pdeq, 0);
+    assert_true(deque_size(pdeq) == 10);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__begin_border_shrink_less_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_end(pdeq, 10, NULL);
+    _deque_shrink_at_begin(pdeq, 3);
+    assert_true(deque_size(pdeq) == 7);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 3 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__begin_border_shrink_equal_to_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_end(pdeq, 20, NULL);
+    _deque_shrink_at_begin(pdeq, 20);
+    assert_true(deque_size(pdeq) == 0);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) -4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__begin_border_shrink_greater_than_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_end(pdeq, 30, NULL);
+    _deque_shrink_at_begin(pdeq, 59);
+    assert_true(deque_size(pdeq) == 0);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 14 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 14 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__end_border_shrink_0(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_begin(pdeq, 10, NULL);
+    _deque_shrink_at_begin(pdeq, 0);
+    assert_true(deque_size(pdeq) == 10);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize  ==
+        _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__end_border_shrink_less_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_begin(pdeq, 10, NULL);
+    _deque_shrink_at_begin(pdeq, 3);
+    assert_true(deque_size(pdeq) == 7);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) + 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__end_border_shrink_equal_to_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_begin(pdeq, 20, NULL);
+    _deque_shrink_at_begin(pdeq, 20);
+    assert_true(deque_size(pdeq) == 0);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_shrink_at_begin__end_border_shrink_greater_than_size(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    _deque_expand_at_begin(pdeq, 20, NULL);
+    _deque_shrink_at_begin(pdeq, 80);
+    assert_true(deque_size(pdeq) == 0);
+    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+

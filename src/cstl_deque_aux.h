@@ -107,14 +107,38 @@ extern bool_t _deque_same_type(const deque_t* cpdeq_first, const deque_t* cpdeq_
  *          may be NULL.
  */
 extern deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos);
-extern deque_iterator_t _expand_at_begin(
-    deque_t* pt_deque, size_t t_expandsize, deque_iterator_t* pt_pos);
 
-/*
- * Shrink deque_t.
+/**
+ * Expand deque at begin.
+ * @param pdeq_deque   deque container.
+ * @param t_expandsize expand size.
+ * @param pit_pos      iterator pointer.
+ * @return iterator that reference deque begin before expanding.
+ * @remarks if pdeq_deque == NULL, then the behavior is undefined. the deque container must be initialized, otherwise the
+ *          behavior is undefined. *pit_pos must be valid deque iterator, otherwise the behavior is undefined. the pit_pos
+ *          may be NULL.
  */
-extern void _shrink_at_end(deque_t* pt_deque, size_t t_shrinksize);
-extern void _shrink_at_begin(deque_t* pt_deque, size_t t_shrinksize);
+extern deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos);
+
+/**
+ * Shrink deque at end.
+ * @param pdeq_deque   deque container.
+ * @param t_shrinksize shrink size.
+ * @return void.
+ * @remarks if pdeq_deque == NULL, then the behavior is undefined. the deque container must be initialized, otherwise the
+ *          behavior is undefined. if t_shrinksize > deque_size(pdeq_deque), then this function erase all elements.
+ */
+extern void _deque_shrink_at_end(deque_t* pdeq_deque, size_t t_shrinksize);
+
+/**
+ * Shrink deque at begin.
+ * @param pdeq_deque   deque container.
+ * @param t_shrinksize shrink size.
+ * @return void.
+ * @remarks if pdeq_deque == NULL, then the behavior is undefined. the deque container must be initialized, otherwise the
+ *          behavior is undefined. if t_shrinksize > deque_size(pdeq_deque), then this function erase all elements.
+ */
+extern void _deque_shrink_at_begin(deque_t* pdeq_deque, size_t t_shrinksize);
 
 /*
  * Move element.

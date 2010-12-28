@@ -421,13 +421,13 @@ void deque_swap(deque_t* pt_dequefirst, deque_t* pt_dequesecond)
 void deque_pop_back(deque_t* pt_deque)
 {
     assert(deque_size(pt_deque) > 0);
-    _shrink_at_end(pt_deque, 1);
+    _deque_shrink_at_end(pt_deque, 1);
 }
 
 void deque_pop_front(deque_t* pt_deque)
 {
     assert(deque_size(pt_deque) > 0);
-    _shrink_at_begin(pt_deque, 1);
+    _deque_shrink_at_begin(pt_deque, 1);
 }
 
 
@@ -451,7 +451,7 @@ void deque_insert_range(
         deque_iterator_t t_gap;
 
         /* expand one element at front */
-        t_oldbegin = _expand_at_begin(pt_deque, n_elemcount, &t_pos);
+        t_oldbegin = _deque_expand_at_begin(pt_deque, n_elemcount, &t_pos);
         /* move the element range [oldfront, pos) to [newfront, pos) */
         t_gap = _move_elem_to_begin(pt_deque, t_oldbegin, t_pos, n_elemcount);
         assert(iterator_distance(t_gap, t_pos) == n_elemcount);
@@ -507,7 +507,7 @@ deque_iterator_t deque_erase(deque_t* pt_deque, deque_iterator_t t_pos)
 
         t_pos = iterator_next(t_pos);
         _move_elem_to_begin(pt_deque, t_pos, deque_end(pt_deque), 1);
-        _shrink_at_end(pt_deque, 1);
+        _deque_shrink_at_end(pt_deque, 1);
 
         return t_result;
     }
@@ -521,7 +521,7 @@ deque_iterator_t deque_erase_range(
 
     _move_elem_to_begin(pt_deque, t_end, deque_end(pt_deque),
         iterator_distance(t_begin, t_end));
-    _shrink_at_end(pt_deque, iterator_distance(t_begin, t_end));
+    _deque_shrink_at_end(pt_deque, iterator_distance(t_begin, t_end));
 
     return t_begin;
 }
@@ -530,7 +530,7 @@ void deque_resize(deque_t* pt_deque, size_t t_resize)
 {
     if(t_resize < deque_size(pt_deque))
     {
-        _shrink_at_end(pt_deque, deque_size(pt_deque) - t_resize);
+        _deque_shrink_at_end(pt_deque, deque_size(pt_deque) - t_resize);
     }
     else if(t_resize > deque_size(pt_deque))
     {

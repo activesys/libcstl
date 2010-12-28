@@ -353,7 +353,7 @@ void _deque_push_front(deque_t* pt_deque, ...)
 
 void _deque_push_front_varg(deque_t* pt_deque, va_list val_elemlist)
 {
-    _expand_at_begin(pt_deque, 1, NULL);
+    _deque_expand_at_begin(pt_deque, 1, NULL);
     /* get value from varg */
     _type_get_varg_value(&pt_deque->_t_typeinfo, val_elemlist,
         _deque_iterator_get_pointer_auxiliary(deque_begin(pt_deque)));
@@ -394,7 +394,7 @@ deque_iterator_t _deque_insert_n_varg(
         deque_iterator_t t_gap;
 
         /* expand one element at front */
-        t_oldbegin = _expand_at_begin(pt_deque, t_count, &t_pos);
+        t_oldbegin = _deque_expand_at_begin(pt_deque, t_count, &t_pos);
         /* move the element range [oldfront, pos) to [newfront, pos) */
         t_resultpos = t_gap = _move_elem_to_begin(pt_deque, t_oldbegin, t_pos, t_count);
         assert(iterator_distance(t_gap, t_pos) == (int)t_count);
@@ -450,7 +450,7 @@ void _deque_resize_elem_varg(deque_t* pt_deque, size_t t_resize, va_list val_ele
 
     if(t_resize < deque_size(pt_deque))
     {
-        _shrink_at_end(pt_deque, deque_size(pt_deque) - t_resize);
+        _deque_shrink_at_end(pt_deque, deque_size(pt_deque) - t_resize);
     }
     else if(t_resize > deque_size(pt_deque))
     {

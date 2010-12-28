@@ -904,6 +904,7 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_CASE_DEFINATION(_alloc_is_inited
 UT_CASE_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_CASE_DEFINATION(_alloc_apply_formated_memory)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_CASE_DEFINATION(_alloc_malloc)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_destroy_varg_value_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_expand_at_begin)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_expand_at_end)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_init_elem_range_auxiliary)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_is_inited)$/;"	f
@@ -911,6 +912,8 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_itera
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_iterator_get_pointer_auxiliary)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_same_deque_iterator_type)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_same_type)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_shrink_at_begin)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_shrink_at_end)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_iterator.c	/^UT_CASE_DEFINATION(_deque_iterator_at)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_iterator.c	/^UT_CASE_DEFINATION(_deque_iterator_before)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_iterator.c	/^UT_CASE_DEFINATION(_deque_iterator_equal)$/;"	f
@@ -1048,7 +1051,7 @@ UT_CASE_SEPARATOR_OPEN	test/ut/ut_def.h	6;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	46;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	60;"	d
 UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	53;"	d
-UT_CSTL_DEQUE_AUX_CASE	test/ut/ut_cstl_deque_aux.h	153;"	d
+UT_CSTL_DEQUE_AUX_CASE	test/ut/ut_cstl_deque_aux.h	207;"	d
 UT_CSTL_DEQUE_ITERATOR_CASE	test/ut/ut_cstl_deque_iterator.h	214;"	d
 UT_CSTL_LIST_AUX_CASE	test/ut/ut_cstl_list_aux.h	196;"	d
 UT_CSTL_LIST_CASE	test/ut/ut_cstl_list.h	537;"	d
@@ -2195,6 +2198,8 @@ _deque_destroy_auxiliary	cstl/cstl_deque_private.h	/^extern void _deque_destroy_
 _deque_destroy_auxiliary	src/cstl_deque_private.c	/^void _deque_destroy_auxiliary(deque_t* pt_deque)$/;"	f	signature:(deque_t* pt_deque)
 _deque_destroy_varg_value_auxiliary	src/cstl_deque_aux.c	/^void _deque_destroy_varg_value_auxiliary(deque_t* pdeq_deque, void* pv_varg)$/;"	f	signature:(deque_t* pdeq_deque, void* pv_varg)
 _deque_destroy_varg_value_auxiliary	src/cstl_deque_aux.h	/^extern void _deque_destroy_varg_value_auxiliary(deque_t* pdeq_deque, void* pv_varg);$/;"	p	signature:(deque_t* pdeq_deque, void* pv_varg)
+_deque_expand_at_begin	src/cstl_deque_aux.c	/^deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos)$/;"	f	signature:(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos)
+_deque_expand_at_begin	src/cstl_deque_aux.h	/^extern deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos);$/;"	p	signature:(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos)
 _deque_expand_at_end	src/cstl_deque_aux.c	/^deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos)$/;"	f	signature:(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos)
 _deque_expand_at_end	src/cstl_deque_aux.h	/^extern deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos);$/;"	p	signature:(deque_t* pdeq_deque, size_t t_expandsize, deque_iterator_t* pit_pos)
 _deque_get_varg_value_auxiliary	src/cstl_deque_aux.c	/^void _deque_get_varg_value_auxiliary(deque_t* pdeq_deque, va_list val_elemlist, void* pv_varg)$/;"	f	signature:(deque_t* pdeq_deque, va_list val_elemlist, void* pv_varg)
@@ -2259,6 +2264,10 @@ _deque_same_deque_iterator_type	src/cstl_deque_aux.c	/^bool_t _deque_same_deque_
 _deque_same_deque_iterator_type	src/cstl_deque_aux.h	/^extern bool_t _deque_same_deque_iterator_type(const deque_t* cpdeq_deque, deque_iterator_t it_iter);$/;"	p	signature:(const deque_t* cpdeq_deque, deque_iterator_t it_iter)
 _deque_same_type	src/cstl_deque_aux.c	/^bool_t _deque_same_type(const deque_t* cpdeq_first, const deque_t* cpdeq_second)$/;"	f	signature:(const deque_t* cpdeq_first, const deque_t* cpdeq_second)
 _deque_same_type	src/cstl_deque_aux.h	/^extern bool_t _deque_same_type(const deque_t* cpdeq_first, const deque_t* cpdeq_second);$/;"	p	signature:(const deque_t* cpdeq_first, const deque_t* cpdeq_second)
+_deque_shrink_at_begin	src/cstl_deque_aux.c	/^void _deque_shrink_at_begin(deque_t* pt_deque, size_t t_shrinksize)$/;"	f	signature:(deque_t* pt_deque, size_t t_shrinksize)
+_deque_shrink_at_begin	src/cstl_deque_aux.h	/^extern void _deque_shrink_at_begin(deque_t* pdeq_deque, size_t t_shrinksize);$/;"	p	signature:(deque_t* pdeq_deque, size_t t_shrinksize)
+_deque_shrink_at_end	src/cstl_deque_aux.c	/^void _deque_shrink_at_end(deque_t* pdeq_deque, size_t t_shrinksize)$/;"	f	signature:(deque_t* pdeq_deque, size_t t_shrinksize)
+_deque_shrink_at_end	src/cstl_deque_aux.h	/^extern void _deque_shrink_at_end(deque_t* pdeq_deque, size_t t_shrinksize);$/;"	p	signature:(deque_t* pdeq_deque, size_t t_shrinksize)
 _destroy_avl_tree	src/cstl_avl_tree.c	/^static avlnode_t* _destroy_avl_tree(avl_tree_t* pt_avl_tree, avlnode_t* pt_root)$/;"	f	file:	signature:(avl_tree_t* pt_avl_tree, avlnode_t* pt_root)
 _destroy_avl_tree	src/cstl_avl_tree.c	/^static avlnode_t* _destroy_avl_tree(avl_tree_t* pt_avl_tree, avlnode_t* pt_root);$/;"	p	file:	signature:(avl_tree_t* pt_avl_tree, avlnode_t* pt_root)
 _destroy_rb_tree	src/cstl_rb_tree.c	/^static rbnode_t* _destroy_rb_tree(rb_tree_t* pt_rb_tree, rbnode_t* pt_root)$/;"	f	file:	signature:(rb_tree_t* pt_rb_tree, rbnode_t* pt_root)
@@ -2273,8 +2282,6 @@ _doubled_vector	test/it/test_algo.c	/^static void _doubled_vector(const void* cp
 _doubled_vector	test/it/test_algo.c	/^static void _doubled_vector(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _equal_ex	test/it/test_algobase.c	/^static void _equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _equal_ex	test/it/test_algobase.c	/^static void _equal_ex(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
-_expand_at_begin	src/cstl_deque_aux.c	/^deque_iterator_t _expand_at_begin($/;"	f	signature:( deque_t* pt_deque, size_t t_expandsize, deque_iterator_t* pt_pos)
-_expand_at_begin	src/cstl_deque_aux.h	/^extern deque_iterator_t _expand_at_begin($/;"	p	signature:( deque_t* pt_deque, size_t t_expandsize, deque_iterator_t* pt_pos)
 _find_iterator	src/cstl_avl_tree.c	/^static bool_t _find_iterator($/;"	p	file:	signature:( const avlnode_t* cpt_root, const avlnode_t* cpt_pos)
 _find_iterator	src/cstl_avl_tree.c	/^static bool_t _find_iterator(const avlnode_t* cpt_root, const avlnode_t* cpt_pos)$/;"	f	file:	signature:(const avlnode_t* cpt_root, const avlnode_t* cpt_pos)
 _find_iterator	src/cstl_rb_tree.c	/^static bool_t _find_iterator($/;"	p	file:	signature:( const rbnode_t* cpt_root, const rbnode_t* cpt_pos)
@@ -3402,10 +3409,6 @@ _setsample_init	test/it/test_set.c	/^static void _setsample_init(const void* cpv
 _setsample_init	test/it/test_set.c	/^static void _setsample_init(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _setsample_less	test/it/test_set.c	/^static void _setsample_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _setsample_less	test/it/test_set.c	/^static void _setsample_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
-_shrink_at_begin	src/cstl_deque_aux.c	/^void _shrink_at_begin(deque_t* pt_deque, size_t t_shrinksize)$/;"	f	signature:(deque_t* pt_deque, size_t t_shrinksize)
-_shrink_at_begin	src/cstl_deque_aux.h	/^extern void _shrink_at_begin(deque_t* pt_deque, size_t t_shrinksize);$/;"	p	signature:(deque_t* pt_deque, size_t t_shrinksize)
-_shrink_at_end	src/cstl_deque_aux.c	/^void _shrink_at_end(deque_t* pt_deque, size_t t_shrinksize)$/;"	f	signature:(deque_t* pt_deque, size_t t_shrinksize)
-_shrink_at_end	src/cstl_deque_aux.h	/^extern void _shrink_at_end(deque_t* pt_deque, size_t t_shrinksize);$/;"	p	signature:(deque_t* pt_deque, size_t t_shrinksize)
 _sizeless	test/it/test_algobase.c	/^static void _sizeless(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _sizeless	test/it/test_algobase.c	/^static void _sizeless(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _slist_assign_elem	cstl/cstl_slist_private.h	/^extern void _slist_assign_elem(slist_t* pt_slist, size_t t_count, ...);$/;"	p	signature:(slist_t* pt_slist, size_t t_count, ...)
@@ -7495,6 +7498,41 @@ test__deque_destroy_varg_value_auxiliary__null_varg	test/ut/ut_cstl_deque_aux.c	
 test__deque_destroy_varg_value_auxiliary__null_varg	test/ut/ut_cstl_deque_aux.h	/^void test__deque_destroy_varg_value_auxiliary__null_varg(void** state);$/;"	p	signature:(void** state)
 test__deque_destroy_varg_value_auxiliary__successfully	test/ut/ut_cstl_deque_aux.c	/^void test__deque_destroy_varg_value_auxiliary__successfully(void** state)$/;"	f	signature:(void** state)
 test__deque_destroy_varg_value_auxiliary__successfully	test/ut/ut_cstl_deque_aux.h	/^void test__deque_destroy_varg_value_auxiliary__successfully(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_0	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_0(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_0	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_0(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_full_map	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_full_map(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_full_map	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_full_map(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_full_map_pos	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_full_map_pos(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_full_map_pos	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_full_map_pos(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_less_than_chunk	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_less_than_chunk(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_less_than_chunk	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_less_than_chunk(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_less_than_chunk_pos	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_less_than_chunk_pos(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_less_than_chunk_pos	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_less_than_chunk_pos(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_map	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_map(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_map	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_map(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_map_pos	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_map_pos(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_map_pos	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_map_pos(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_more_than_one_chunk	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_more_than_one_chunk(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_more_than_one_chunk	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_more_than_one_chunk(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_more_than_one_chunk_pos	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_more_than_one_chunk_pos(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_more_than_one_chunk_pos	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_more_than_one_chunk_pos(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_move_map	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_move_map(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_move_map	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_move_map(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_move_map_pos	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_move_map_pos(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_move_map_pos	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_move_map_pos(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_one_chunk	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_one_chunk(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_one_chunk	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_one_chunk(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_one_chunk_pos	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_one_chunk_pos(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_one_chunk_pos	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_one_chunk_pos(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_remain_map_begin	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_remain_map_begin(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_remain_map_begin	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_remain_map_begin(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__expand_remain_map_pos_begin	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__expand_remain_map_pos_begin(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__expand_remain_map_pos_begin	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__expand_remain_map_pos_begin(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__invalid_iterator	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__invalid_iterator(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__invalid_iterator	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__invalid_iterator(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__non_inited_deque_container	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_begin__non_inited_deque_container(void** state)$/;"	f	signature:(void** state)
+test__deque_expand_at_begin__non_inited_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__non_inited_deque_container(void** state);$/;"	p	signature:(void** state)
+test__deque_expand_at_begin__null_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_begin__null_deque_container(void** state);$/;"	p	signature:(void** state)
 test__deque_expand_at_end__expand_0	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_end__expand_0(void** state)$/;"	f	signature:(void** state)
 test__deque_expand_at_end__expand_0	test/ut/ut_cstl_deque_aux.h	/^void test__deque_expand_at_end__expand_0(void** state);$/;"	p	signature:(void** state)
 test__deque_expand_at_end__expand_full_map	test/ut/ut_cstl_deque_aux.c	/^void test__deque_expand_at_end__expand_full_map(void** state)$/;"	f	signature:(void** state)
@@ -7987,6 +8025,52 @@ test__deque_same_type__same_user_defined	test/ut/ut_cstl_deque_aux.c	/^void test
 test__deque_same_type__same_user_defined	test/ut/ut_cstl_deque_aux.h	/^void test__deque_same_type__same_user_defined(void** state);$/;"	p	signature:(void** state)
 test__deque_same_type__same_user_defined_dup	test/ut/ut_cstl_deque_aux.c	/^void test__deque_same_type__same_user_defined_dup(void** state)$/;"	f	signature:(void** state)
 test__deque_same_type__same_user_defined_dup	test/ut/ut_cstl_deque_aux.h	/^void test__deque_same_type__same_user_defined_dup(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__begin_border_shrink_0	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__begin_border_shrink_0(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__begin_border_shrink_0	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__begin_border_shrink_0(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__begin_border_shrink_equal_to_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__begin_border_shrink_equal_to_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__begin_border_shrink_equal_to_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__begin_border_shrink_equal_to_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__begin_border_shrink_greater_than_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__begin_border_shrink_greater_than_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__begin_border_shrink_greater_than_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__begin_border_shrink_greater_than_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__begin_border_shrink_less_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__begin_border_shrink_less_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__begin_border_shrink_less_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__begin_border_shrink_less_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__empty_shrink_0	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__empty_shrink_0(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__empty_shrink_0	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__empty_shrink_0(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__empty_shrink_6	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__empty_shrink_6(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__empty_shrink_6	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__empty_shrink_6(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__end_border_shrink_0	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__end_border_shrink_0(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__end_border_shrink_0	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__end_border_shrink_0(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__end_border_shrink_equal_to_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__end_border_shrink_equal_to_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__end_border_shrink_equal_to_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__end_border_shrink_equal_to_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__end_border_shrink_greater_than_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__end_border_shrink_greater_than_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__end_border_shrink_greater_than_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__end_border_shrink_greater_than_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__end_border_shrink_less_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__end_border_shrink_less_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__end_border_shrink_less_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__end_border_shrink_less_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__non_inited_deque_container	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_begin__non_inited_deque_container(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_begin__non_inited_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__non_inited_deque_container(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_begin__null_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_begin__null_deque_container(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__begin_border_shrink_0	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__begin_border_shrink_0(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__begin_border_shrink_0	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__begin_border_shrink_0(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__begin_border_shrink_equal_to_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__begin_border_shrink_equal_to_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__begin_border_shrink_equal_to_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__begin_border_shrink_equal_to_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__begin_border_shrink_greater_than_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__begin_border_shrink_greater_than_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__begin_border_shrink_greater_than_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__begin_border_shrink_greater_than_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__begin_border_shrink_less_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__begin_border_shrink_less_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__begin_border_shrink_less_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__begin_border_shrink_less_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__empty_shrink_0	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__empty_shrink_0(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__empty_shrink_0	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__empty_shrink_0(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__empty_shrink_6	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__empty_shrink_6(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__empty_shrink_6	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__empty_shrink_6(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__end_border_shrink_0	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__end_border_shrink_0(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__end_border_shrink_0	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__end_border_shrink_0(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__end_border_shrink_equal_to_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__end_border_shrink_equal_to_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__end_border_shrink_equal_to_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__end_border_shrink_equal_to_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__end_border_shrink_greater_than_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__end_border_shrink_greater_than_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__end_border_shrink_greater_than_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__end_border_shrink_greater_than_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__end_border_shrink_less_size	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__end_border_shrink_less_size(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__end_border_shrink_less_size	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__end_border_shrink_less_size(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__non_inited_deque_container	test/ut/ut_cstl_deque_aux.c	/^void test__deque_shrink_at_end__non_inited_deque_container(void** state)$/;"	f	signature:(void** state)
+test__deque_shrink_at_end__non_inited_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__non_inited_deque_container(void** state);$/;"	p	signature:(void** state)
+test__deque_shrink_at_end__null_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_shrink_at_end__null_deque_container(void** state);$/;"	p	signature:(void** state)
 test__list_assign_elem__list_assign_elem_varg__0_assign_0	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__0_assign_0(void** state)$/;"	f	signature:(void** state)
 test__list_assign_elem__list_assign_elem_varg__0_assign_0	test/ut/ut_cstl_list_private.h	/^void test__list_assign_elem__list_assign_elem_varg__0_assign_0(void** state);$/;"	p	signature:(void** state)
 test__list_assign_elem__list_assign_elem_varg__0_assign_n	test/ut/ut_cstl_list_private.c	/^void test__list_assign_elem__list_assign_elem_varg__0_assign_n(void** state)$/;"	f	signature:(void** state)
