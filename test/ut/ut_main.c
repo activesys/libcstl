@@ -19,6 +19,7 @@
 #include "ut_cstl_list.h"
 #include "ut_cstl_deque_iterator.h"
 #include "ut_cstl_deque_aux.h"
+#include "ut_cstl_deque_private.h"
 
 int main(int argc, char* argv[])
 {
@@ -34,7 +35,8 @@ int main(int argc, char* argv[])
         UT_CSTL_LIST_PRIVATE_CASE,
         UT_CSTL_LIST_CASE,
         UT_CSTL_DEQUE_ITERATOR_CASE,
-        UT_CSTL_DEQUE_AUX_CASE
+        UT_CSTL_DEQUE_AUX_CASE,
+        UT_CSTL_DEQUE_PRIVATE_CASE
     };
 
     return run_tests(tests);

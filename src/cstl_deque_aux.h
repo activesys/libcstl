@@ -140,15 +140,33 @@ extern void _deque_shrink_at_end(deque_t* pdeq_deque, size_t t_shrinksize);
  */
 extern void _deque_shrink_at_begin(deque_t* pdeq_deque, size_t t_shrinksize);
 
-/*
- * Move element.
+/**
+ * Move element range to deque end.
+ * @param pdeq_deque   deque container.
+ * @param it_begin     range begin.
+ * @param it_end       range end.
+ * @param t_step       move step.
+ * @return the begin of gap range.
+ * @remarks if pdeq_deque == NULL, then the behavior is undefined. the deque container must be initialized, otherwise the
+ *          behavior is undefine. [it_begin, it_end) must be valid for deque container, otherwise the behavior is undefine.
+ *          [it_begin, it_end) must also be valid for deque container after moving, otherwise the behavior is undefine.
  */
-extern deque_iterator_t _move_elem_to_end(
-    deque_t* pt_deque, deque_iterator_t t_begin, 
-    deque_iterator_t t_end, size_t t_movesize);
-extern deque_iterator_t _move_elem_to_begin(
-    deque_t* pt_deque, deque_iterator_t t_begin, 
-    deque_iterator_t t_end, size_t t_movesize);
+extern deque_iterator_t _deque_move_elem_to_end(
+    deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end, size_t t_step);
+
+/**
+ * Move element range to deque begin.
+ * @param pdeq_deque   deque container.
+ * @param it_begin     range begin.
+ * @param it_end       range end.
+ * @param t_step       move step.
+ * @return the begin of gap range.
+ * @remarks if pdeq_deque == NULL, then the behavior is undefined. the deque container must be initialized, otherwise the
+ *          behavior is undefine. [it_begin, it_end) must be valid for deque container, otherwise the behavior is undefine.
+ *          [it_begin, it_end) must also be valid for deque container after moving, otherwise the behavior is undefine.
+ */
+extern deque_iterator_t _deque_move_elem_to_begin(
+    deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end, size_t t_step);
 
 /**
  * Obtain data from variable argument list, the data type and deque element data type are same.

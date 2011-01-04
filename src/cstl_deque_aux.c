@@ -659,81 +659,89 @@ void _deque_shrink_at_begin(deque_t* pdeq_deque, size_t t_shrinksize)
     }
 }
 
-deque_iterator_t _move_elem_to_end(
-    deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end, size_t t_movesize)
+/**
+ * Move element range to deque end.
+ */
+deque_iterator_t _deque_move_elem_to_end(
+    deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end, size_t t_step)
 {
-    /* if t_begin != t_end then do move */
-    if(!iterator_equal(t_begin, t_end) && t_movesize != 0)
+    assert(pdeq_deque != NULL);
+    assert(_deque_is_inited(pdeq_deque));
+    assert(_deque_iterator_belong_to_deque(pdeq_deque, it_begin));
+    assert(_deque_iterator_belong_to_deque(pdeq_deque, it_end));
+    assert(iterator_equal(it_begin, it_end) || _deque_iterator_before(it_begin, it_end));
+
+    /* if it_begin != it_end then do move */
+    if(!iterator_equal(it_begin, it_end) && t_step != 0)
     {
         /* the target range of move */
-        deque_iterator_t t_targetbegin;
-        deque_iterator_t t_targetend;
-        bool_t           t_result = false;
+        deque_iterator_t it_targetbegin;
+        deque_iterator_t it_targetend;
+        bool_t           b_result = false;
 
-        assert(_deque_iterator_belong_to_deque(pt_deque, t_begin));
-        assert(_deque_iterator_before(t_begin, t_end));
+        it_targetbegin = it_begin;
+        it_targetend = it_end;
+        it_targetbegin = iterator_next_n(it_targetbegin, t_step);
+        it_targetend = iterator_next_n(it_targetend, t_step);
+        assert(_deque_iterator_before(it_targetbegin, it_targetend));
 
-        t_targetbegin = t_begin;
-        t_targetend = t_end;
-        t_targetbegin = iterator_next_n(t_targetbegin, t_movesize);
-        t_targetend = iterator_next_n(t_targetend, t_movesize);
-        assert(_deque_iterator_before(t_targetbegin, t_targetend));
-
-        for(t_targetend = iterator_prev(t_targetend), t_end = iterator_prev(t_end);
-            !iterator_less(t_targetend, t_targetbegin) && !iterator_less(t_end, t_begin);
-            t_targetend = iterator_prev(t_targetend), t_end = iterator_prev(t_end))
+        while(!iterator_equal(it_targetbegin, it_targetend) && !iterator_equal(it_begin, it_end))
         {
-            t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
-            _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                _deque_iterator_get_pointer_auxiliary(t_targetend),
-                _deque_iterator_get_pointer_auxiliary(t_end), &t_result);
-            assert(t_result);
+            it_targetend = iterator_prev(it_targetend);
+            it_end = iterator_prev(it_end);
+            b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+            _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                _deque_iterator_get_pointer_auxiliary(it_targetend),
+                _deque_iterator_get_pointer_auxiliary(it_end), &b_result);
+            assert(b_result);
         }
-
-        t_targetend = iterator_next(t_targetend);
-        t_end = iterator_next(t_end);
-        assert(iterator_equal(t_begin, t_end) && iterator_equal(t_targetbegin, t_targetend));
+        assert(iterator_equal(it_begin, it_end) && iterator_equal(it_targetbegin, it_targetend));
     }
 
-    return t_begin;
+    return it_begin;
 }
 
-deque_iterator_t _move_elem_to_begin(
-    deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end, size_t t_movesize)
+/**
+ * Move element range to deque begin.
+ */
+deque_iterator_t _deque_move_elem_to_begin(
+    deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end, size_t t_step)
 {
-    if(!iterator_equal(t_begin, t_end) && t_movesize != 0)
+    assert(pdeq_deque != NULL);
+    assert(_deque_is_inited(pdeq_deque));
+    assert(_deque_iterator_belong_to_deque(pdeq_deque, it_begin));
+    assert(_deque_iterator_belong_to_deque(pdeq_deque, it_end));
+    assert(iterator_equal(it_begin, it_end) || _deque_iterator_before(it_begin, it_end));
+
+    if(!iterator_equal(it_begin, it_end) && t_step != 0)
     {
-        deque_iterator_t t_targetbegin;
-        deque_iterator_t t_targetend;
-        bool_t           t_result = false;
+        deque_iterator_t it_targetbegin;
+        deque_iterator_t it_targetend;
+        bool_t           b_result = false;
 
-        assert(_deque_iterator_belong_to_deque(pt_deque, t_begin));
-        assert(_deque_iterator_before(t_begin, t_end));
-
-        t_targetbegin = t_begin;
-        t_targetend = t_end;
-        t_targetbegin = iterator_prev_n(t_targetbegin, t_movesize);
-        t_targetend = iterator_prev_n(t_targetend, t_movesize);
-        assert(_deque_iterator_before(t_targetbegin, t_targetend));
+        it_targetbegin = it_begin;
+        it_targetend = it_end;
+        it_targetbegin = iterator_prev_n(it_targetbegin, t_step);
+        it_targetend = iterator_prev_n(it_targetend, t_step);
+        assert(_deque_iterator_before(it_targetbegin, it_targetend));
 
         for(;
-            iterator_less(t_targetbegin, t_targetend) && iterator_less(t_begin, t_end);
-            t_targetbegin = iterator_next(t_targetbegin), t_begin = iterator_next(t_begin))
+            iterator_less(it_targetbegin, it_targetend) && iterator_less(it_begin, it_end);
+            it_targetbegin = iterator_next(it_targetbegin), it_begin = iterator_next(it_begin))
         {
-            t_result = _GET_DEQUE_TYPE_SIZE(pt_deque);
-            _GET_DEQUE_TYPE_COPY_FUNCTION(pt_deque)(
-                _deque_iterator_get_pointer_auxiliary(t_targetbegin),
-                _deque_iterator_get_pointer_auxiliary(t_begin), &t_result);
-            assert(t_result);
+            b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+            _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                _deque_iterator_get_pointer_auxiliary(it_targetbegin),
+                _deque_iterator_get_pointer_auxiliary(it_begin), &b_result);
+            assert(b_result);
         }
+        assert(iterator_equal(it_targetbegin, it_targetend) && iterator_equal(it_begin, it_end));
 
-        assert(iterator_equal(t_targetbegin, t_targetend) && iterator_equal(t_begin, t_end));
-
-        return t_targetend;
+        return it_targetend;
     }
     else
     {
-        return iterator_prev_n(t_end, t_movesize);
+        return iterator_prev_n(it_end, t_step);
     }
 }
 

@@ -235,6 +235,15 @@ void test__list_destroy_auxiliary__non_created_list_container(void** state)
     list_destroy(plist);
 }
 
+void test__list_destroy_auxiliary__non_inited(void** state)
+{
+    list_t* plist = create_list(int);
+    _list_destroy_auxiliary(plist);
+    assert_true(plist->_pt_node == NULL);
+
+    free(plist);
+}
+
 void test__list_destroy_auxiliary__empty(void** state)
 {
     list_t* plist = create_list(int);

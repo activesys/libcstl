@@ -910,6 +910,8 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_init_
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_is_inited)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_iterator_belong_to_deque)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_iterator_get_pointer_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_move_elem_to_begin)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_move_elem_to_end)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_same_deque_iterator_type)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_same_type)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_CASE_DEFINATION(_deque_shrink_at_begin)$/;"	f
@@ -1051,7 +1053,7 @@ UT_CASE_SEPARATOR_OPEN	test/ut/ut_def.h	6;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	46;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	60;"	d
 UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	53;"	d
-UT_CSTL_DEQUE_AUX_CASE	test/ut/ut_cstl_deque_aux.h	207;"	d
+UT_CSTL_DEQUE_AUX_CASE	test/ut/ut_cstl_deque_aux.h	235;"	d
 UT_CSTL_DEQUE_ITERATOR_CASE	test/ut/ut_cstl_deque_iterator.h	214;"	d
 UT_CSTL_LIST_AUX_CASE	test/ut/ut_cstl_list_aux.h	196;"	d
 UT_CSTL_LIST_CASE	test/ut/ut_cstl_list.h	537;"	d
@@ -2248,6 +2250,10 @@ _deque_iterator_prev_n	cstl/cstl_deque_iterator.h	/^extern deque_iterator_t _deq
 _deque_iterator_prev_n	src/cstl_deque_iterator.c	/^deque_iterator_t _deque_iterator_prev_n(deque_iterator_t it_iter, int n_step)$/;"	f	signature:(deque_iterator_t it_iter, int n_step)
 _deque_iterator_set_value	cstl/cstl_deque_iterator.h	/^extern void _deque_iterator_set_value(deque_iterator_t it_iter, const void* cpv_value);$/;"	p	signature:(deque_iterator_t it_iter, const void* cpv_value)
 _deque_iterator_set_value	src/cstl_deque_iterator.c	/^void _deque_iterator_set_value(deque_iterator_t it_iter, const void* cpv_value)$/;"	f	signature:(deque_iterator_t it_iter, const void* cpv_value)
+_deque_move_elem_to_begin	src/cstl_deque_aux.c	/^deque_iterator_t _deque_move_elem_to_begin($/;"	f	signature:( deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end, size_t t_movesize)
+_deque_move_elem_to_begin	src/cstl_deque_aux.h	/^extern deque_iterator_t _deque_move_elem_to_begin($/;"	p	signature:( deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end, size_t t_step)
+_deque_move_elem_to_end	src/cstl_deque_aux.c	/^deque_iterator_t _deque_move_elem_to_end($/;"	f	signature:( deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end, size_t t_step)
+_deque_move_elem_to_end	src/cstl_deque_aux.h	/^extern deque_iterator_t _deque_move_elem_to_end($/;"	p	signature:( deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end, size_t t_step)
 _deque_push_back	cstl/cstl_deque_private.h	/^extern void _deque_push_back(deque_t* pt_deque, ...);$/;"	p	signature:(deque_t* pt_deque, ...)
 _deque_push_back	src/cstl_deque_private.c	/^void _deque_push_back(deque_t* pt_deque, ...)$/;"	f	signature:(deque_t* pt_deque, ...)
 _deque_push_back_varg	cstl/cstl_deque_private.h	/^extern void _deque_push_back_varg(deque_t* pt_deque, va_list val_elemlist);$/;"	p	signature:(deque_t* pt_deque, va_list val_elemlist)
@@ -2264,7 +2270,7 @@ _deque_same_deque_iterator_type	src/cstl_deque_aux.c	/^bool_t _deque_same_deque_
 _deque_same_deque_iterator_type	src/cstl_deque_aux.h	/^extern bool_t _deque_same_deque_iterator_type(const deque_t* cpdeq_deque, deque_iterator_t it_iter);$/;"	p	signature:(const deque_t* cpdeq_deque, deque_iterator_t it_iter)
 _deque_same_type	src/cstl_deque_aux.c	/^bool_t _deque_same_type(const deque_t* cpdeq_first, const deque_t* cpdeq_second)$/;"	f	signature:(const deque_t* cpdeq_first, const deque_t* cpdeq_second)
 _deque_same_type	src/cstl_deque_aux.h	/^extern bool_t _deque_same_type(const deque_t* cpdeq_first, const deque_t* cpdeq_second);$/;"	p	signature:(const deque_t* cpdeq_first, const deque_t* cpdeq_second)
-_deque_shrink_at_begin	src/cstl_deque_aux.c	/^void _deque_shrink_at_begin(deque_t* pt_deque, size_t t_shrinksize)$/;"	f	signature:(deque_t* pt_deque, size_t t_shrinksize)
+_deque_shrink_at_begin	src/cstl_deque_aux.c	/^void _deque_shrink_at_begin(deque_t* pdeq_deque, size_t t_shrinksize)$/;"	f	signature:(deque_t* pdeq_deque, size_t t_shrinksize)
 _deque_shrink_at_begin	src/cstl_deque_aux.h	/^extern void _deque_shrink_at_begin(deque_t* pdeq_deque, size_t t_shrinksize);$/;"	p	signature:(deque_t* pdeq_deque, size_t t_shrinksize)
 _deque_shrink_at_end	src/cstl_deque_aux.c	/^void _deque_shrink_at_end(deque_t* pdeq_deque, size_t t_shrinksize)$/;"	f	signature:(deque_t* pdeq_deque, size_t t_shrinksize)
 _deque_shrink_at_end	src/cstl_deque_aux.h	/^extern void _deque_shrink_at_end(deque_t* pdeq_deque, size_t t_shrinksize);$/;"	p	signature:(deque_t* pdeq_deque, size_t t_shrinksize)
@@ -2888,10 +2894,6 @@ _mod3_sample	test/it/test_algo.c	/^static void _mod3_sample(const void* cpv_inpu
 _mod3_sample	test/it/test_algo.c	/^static void _mod3_sample(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
 _mod3_vector	test/it/test_algo.c	/^static void _mod3_vector(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _mod3_vector	test/it/test_algo.c	/^static void _mod3_vector(const void* cpv_input, void* pv_output);$/;"	p	file:	signature:(const void* cpv_input, void* pv_output)
-_move_elem_to_begin	src/cstl_deque_aux.c	/^deque_iterator_t _move_elem_to_begin($/;"	f	signature:( deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end, size_t t_movesize)
-_move_elem_to_begin	src/cstl_deque_aux.h	/^extern deque_iterator_t _move_elem_to_begin($/;"	p	signature:( deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end, size_t t_movesize)
-_move_elem_to_end	src/cstl_deque_aux.c	/^deque_iterator_t _move_elem_to_end($/;"	f	signature:( deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end, size_t t_movesize)
-_move_elem_to_end	src/cstl_deque_aux.h	/^extern deque_iterator_t _move_elem_to_end($/;"	p	signature:( deque_t* pt_deque, deque_iterator_t t_begin, deque_iterator_t t_end, size_t t_movesize)
 _multimap_count	cstl/cstl_multimap_private.h	/^extern size_t _multimap_count(const multimap_t* cpt_multimap, ...);$/;"	p	signature:(const multimap_t* cpt_multimap, ...)
 _multimap_count	src/cstl_multimap.c	/^size_t _multimap_count(const multimap_t* cpt_multimap, ...)$/;"	f	signature:(const multimap_t* cpt_multimap, ...)
 _multimap_count_varg	cstl/cstl_multimap_private.h	/^extern size_t _multimap_count_varg(const multimap_t* cpt_multimap, va_list val_elemlist);$/;"	p	signature:(const multimap_t* cpt_multimap, va_list val_elemlist)
@@ -7975,6 +7977,44 @@ test__deque_iterator_set_value__successfully_cstr_not_border	test/ut/ut_cstl_deq
 test__deque_iterator_set_value__successfully_cstr_not_border	test/ut/ut_cstl_deque_iterator.h	/^void test__deque_iterator_set_value__successfully_cstr_not_border(void** state);$/;"	p	signature:(void** state)
 test__deque_iterator_set_value__successfully_not_border	test/ut/ut_cstl_deque_iterator.c	/^void test__deque_iterator_set_value__successfully_not_border(void** state)$/;"	f	signature:(void** state)
 test__deque_iterator_set_value__successfully_not_border	test/ut/ut_cstl_deque_iterator.h	/^void test__deque_iterator_set_value__successfully_not_border(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__0_step	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_begin__0_step(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_begin__0_step	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__0_step(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__empty	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_begin__empty(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_begin__empty	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__empty(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__end_to_begin	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_begin__end_to_begin(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_begin__end_to_begin	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__end_to_begin(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__end_to_middle	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_begin__end_to_middle(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_begin__end_to_middle	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__end_to_middle(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__invalid_range	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_begin__invalid_range(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_begin__invalid_range	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__invalid_range(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__invalid_range_after_moving	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_begin__invalid_range_after_moving(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_begin__invalid_range_after_moving	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__invalid_range_after_moving(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__middle_to_begin	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_begin__middle_to_begin(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_begin__middle_to_begin	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__middle_to_begin(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__middle_to_middle	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_begin__middle_to_middle(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_begin__middle_to_middle	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__middle_to_middle(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__non_inited_deque_container	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_begin__non_inited_deque_container(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_begin__non_inited_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__non_inited_deque_container(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_begin__null_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_begin__null_deque_container(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__0_step	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_end__0_step(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_end__0_step	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__0_step(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__begin_to_end	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_end__begin_to_end(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_end__begin_to_end	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__begin_to_end(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__begin_to_middle	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_end__begin_to_middle(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_end__begin_to_middle	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__begin_to_middle(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__empty	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_end__empty(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_end__empty	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__empty(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__invalid_range	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_end__invalid_range(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_end__invalid_range	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__invalid_range(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__invalid_range_after_moving	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_end__invalid_range_after_moving(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_end__invalid_range_after_moving	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__invalid_range_after_moving(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__middle_to_end	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_end__middle_to_end(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_end__middle_to_end	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__middle_to_end(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__middle_to_middle	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_end__middle_to_middle(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_end__middle_to_middle	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__middle_to_middle(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__non_inited_deque_container	test/ut/ut_cstl_deque_aux.c	/^void test__deque_move_elem_to_end__non_inited_deque_container(void** state)$/;"	f	signature:(void** state)
+test__deque_move_elem_to_end__non_inited_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__non_inited_deque_container(void** state);$/;"	p	signature:(void** state)
+test__deque_move_elem_to_end__null_deque_container	test/ut/ut_cstl_deque_aux.h	/^void test__deque_move_elem_to_end__null_deque_container(void** state);$/;"	p	signature:(void** state)
 test__deque_same_deque_iterator_type__invalid_iterator_container_type	test/ut/ut_cstl_deque_aux.c	/^void test__deque_same_deque_iterator_type__invalid_iterator_container_type(void** state)$/;"	f	signature:(void** state)
 test__deque_same_deque_iterator_type__invalid_iterator_container_type	test/ut/ut_cstl_deque_aux.h	/^void test__deque_same_deque_iterator_type__invalid_iterator_container_type(void** state);$/;"	p	signature:(void** state)
 test__deque_same_deque_iterator_type__invalid_iterator_iterator_type	test/ut/ut_cstl_deque_aux.c	/^void test__deque_same_deque_iterator_type__invalid_iterator_iterator_type(void** state)$/;"	f	signature:(void** state)

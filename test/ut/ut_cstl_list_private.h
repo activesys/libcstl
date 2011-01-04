@@ -39,6 +39,7 @@ void test__list_init_elem__list_init_elem_varg__multiple_elem(void** state);
 UT_CASE_DECLARATION(_list_destroy_auxiliary)
 void test__list_destroy_auxiliary__null_list_container(void** state);
 void test__list_destroy_auxiliary__non_created_list_container(void** state);
+void test__list_destroy_auxiliary__non_inited(void** state);
 void test__list_destroy_auxiliary__empty(void** state);
 void test__list_destroy_auxiliary__non_empty(void** state);
 /*
@@ -145,6 +146,7 @@ void test__list_init_elem_auxiliary__successfully_user_defined(void** state);
     UT_CASE(test__list_init_elem__list_init_elem_varg__multiple_elem),\
     UT_CASE_BEGIN(_list_destroy_auxiliary, test__list_destroy_auxiliary__null_list_container),\
     UT_CASE(test__list_destroy_auxiliary__non_created_list_container),\
+    UT_CASE(test__list_destroy_auxiliary__non_inited),\
     UT_CASE(test__list_destroy_auxiliary__empty),\
     UT_CASE(test__list_destroy_auxiliary__non_empty),\
     UT_CASE_BEGIN(_list_assign_elem__list_assign_elem_varg,\

@@ -203,6 +203,34 @@ void test__deque_shrink_at_begin__end_border_shrink_0(void** state);
 void test__deque_shrink_at_begin__end_border_shrink_less_size(void** state);
 void test__deque_shrink_at_begin__end_border_shrink_equal_to_size(void** state);
 void test__deque_shrink_at_begin__end_border_shrink_greater_than_size(void** state);
+/*
+ * test _deque_move_elem_to_end
+ */
+UT_CASE_DECLARATION(_deque_move_elem_to_end)
+void test__deque_move_elem_to_end__null_deque_container(void** state);
+void test__deque_move_elem_to_end__non_inited_deque_container(void** state);
+void test__deque_move_elem_to_end__invalid_range(void** state);
+void test__deque_move_elem_to_end__invalid_range_after_moving(void** state);
+void test__deque_move_elem_to_end__empty(void** state);
+void test__deque_move_elem_to_end__0_step(void** state);
+void test__deque_move_elem_to_end__begin_to_end(void** state);
+void test__deque_move_elem_to_end__begin_to_middle(void** state);
+void test__deque_move_elem_to_end__middle_to_end(void** state);
+void test__deque_move_elem_to_end__middle_to_middle(void** state);
+/*
+ * test _deque_move_elem_to_begin
+ */
+UT_CASE_DECLARATION(_deque_move_elem_to_begin)
+void test__deque_move_elem_to_begin__null_deque_container(void** state);
+void test__deque_move_elem_to_begin__non_inited_deque_container(void** state);
+void test__deque_move_elem_to_begin__invalid_range(void** state);
+void test__deque_move_elem_to_begin__invalid_range_after_moving(void** state);
+void test__deque_move_elem_to_begin__empty(void** state);
+void test__deque_move_elem_to_begin__0_step(void** state);
+void test__deque_move_elem_to_begin__end_to_begin(void** state);
+void test__deque_move_elem_to_begin__end_to_middle(void** state);
+void test__deque_move_elem_to_begin__middle_to_begin(void** state);
+void test__deque_move_elem_to_begin__middle_to_middle(void** state);
 
 #define UT_CSTL_DEQUE_AUX_CASE\
     UT_SUIT_BEGIN(cstl_deque_aux, test__deque_is_created__null_deque_container),\
@@ -352,7 +380,27 @@ void test__deque_shrink_at_begin__end_border_shrink_greater_than_size(void** sta
     UT_CASE(test__deque_shrink_at_begin__end_border_shrink_0),\
     UT_CASE(test__deque_shrink_at_begin__end_border_shrink_less_size),\
     UT_CASE(test__deque_shrink_at_begin__end_border_shrink_equal_to_size),\
-    UT_CASE(test__deque_shrink_at_begin__end_border_shrink_greater_than_size)
+    UT_CASE(test__deque_shrink_at_begin__end_border_shrink_greater_than_size),\
+    UT_CASE_BEGIN(_deque_move_elem_to_end, test__deque_move_elem_to_end__null_deque_container),\
+    UT_CASE(test__deque_move_elem_to_end__non_inited_deque_container),\
+    UT_CASE(test__deque_move_elem_to_end__invalid_range),\
+    UT_CASE(test__deque_move_elem_to_end__invalid_range_after_moving),\
+    UT_CASE(test__deque_move_elem_to_end__empty),\
+    UT_CASE(test__deque_move_elem_to_end__0_step),\
+    UT_CASE(test__deque_move_elem_to_end__begin_to_end),\
+    UT_CASE(test__deque_move_elem_to_end__begin_to_middle),\
+    UT_CASE(test__deque_move_elem_to_end__middle_to_end),\
+    UT_CASE(test__deque_move_elem_to_end__middle_to_middle),\
+    UT_CASE_BEGIN(_deque_move_elem_to_begin, test__deque_move_elem_to_begin__null_deque_container),\
+    UT_CASE(test__deque_move_elem_to_begin__non_inited_deque_container),\
+    UT_CASE(test__deque_move_elem_to_begin__invalid_range),\
+    UT_CASE(test__deque_move_elem_to_begin__invalid_range_after_moving),\
+    UT_CASE(test__deque_move_elem_to_begin__empty),\
+    UT_CASE(test__deque_move_elem_to_begin__0_step),\
+    UT_CASE(test__deque_move_elem_to_begin__end_to_begin),\
+    UT_CASE(test__deque_move_elem_to_begin__end_to_middle),\
+    UT_CASE(test__deque_move_elem_to_begin__middle_to_begin),\
+    UT_CASE(test__deque_move_elem_to_begin__middle_to_middle)
 
 #endif /* _UT_CSTL_DEQUE_AUX_H_ */
 

@@ -453,7 +453,7 @@ void deque_insert_range(
         /* expand one element at front */
         t_oldbegin = _deque_expand_at_begin(pt_deque, n_elemcount, &t_pos);
         /* move the element range [oldfront, pos) to [newfront, pos) */
-        t_gap = _move_elem_to_begin(pt_deque, t_oldbegin, t_pos, n_elemcount);
+        t_gap = _deque_move_elem_to_begin(pt_deque, t_oldbegin, t_pos, n_elemcount);
         assert(iterator_distance(t_gap, t_pos) == n_elemcount);
 
         for(;
@@ -472,7 +472,7 @@ void deque_insert_range(
     else
     {
         deque_iterator_t t_oldend = _deque_expand_at_end(pt_deque, n_elemcount, &t_pos);
-        _move_elem_to_end(pt_deque, t_pos, t_oldend, n_elemcount);
+        _deque_move_elem_to_end(pt_deque, t_pos, t_oldend, n_elemcount);
 
         for(; !iterator_equal(t_begin, t_end);
             t_pos = iterator_next(t_pos), t_begin = iterator_next(t_begin))
@@ -506,7 +506,7 @@ deque_iterator_t deque_erase(deque_t* pt_deque, deque_iterator_t t_pos)
         deque_iterator_t t_result = t_pos;
 
         t_pos = iterator_next(t_pos);
-        _move_elem_to_begin(pt_deque, t_pos, deque_end(pt_deque), 1);
+        _deque_move_elem_to_begin(pt_deque, t_pos, deque_end(pt_deque), 1);
         _deque_shrink_at_end(pt_deque, 1);
 
         return t_result;
@@ -519,7 +519,7 @@ deque_iterator_t deque_erase_range(
     assert(_deque_iterator_belong_to_deque(pt_deque, t_begin));
     assert(iterator_equal(t_begin, t_end) || _deque_iterator_before(t_begin, t_end));
 
-    _move_elem_to_begin(pt_deque, t_end, deque_end(pt_deque),
+    _deque_move_elem_to_begin(pt_deque, t_end, deque_end(pt_deque),
         iterator_distance(t_begin, t_end));
     _deque_shrink_at_end(pt_deque, iterator_distance(t_begin, t_end));
 

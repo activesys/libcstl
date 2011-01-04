@@ -440,7 +440,7 @@ void test__deque_same_type__non_created_first(void** state)
     deque_t* pdeq_first = create_deque(int);
     deque_t* pdeq_second = create_deque(int);
 
-    deque_init(pdeq_first);
+    deque_init(pdeq_second);
     pdeq_first->_t_mapsize = 89;
     expect_assert_failure(_deque_same_type(pdeq_first, pdeq_second));
 
@@ -454,7 +454,7 @@ void test__deque_same_type__non_created_second(void** state)
     deque_t* pdeq_first = create_deque(int);
     deque_t* pdeq_second = create_deque(int);
 
-    deque_init(pdeq_second);
+    deque_init(pdeq_first);
     pdeq_second->_t_mapsize = 3;
     expect_assert_failure(_deque_same_type(pdeq_first, pdeq_second));
 
@@ -2241,6 +2241,423 @@ void test__deque_shrink_at_begin__end_border_shrink_greater_than_size(void** sta
     assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
     assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
     assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+/*
+ * test _deque_move_elem_to_end
+ */
+UT_CASE_DEFINATION(_deque_move_elem_to_end)
+void test__deque_move_elem_to_end__null_deque_container(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_init_n(pdeq, 10);
+
+    expect_assert_failure(_deque_move_elem_to_end(NULL, deque_begin(pdeq), iterator_next(deque_begin(pdeq)), 4));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_end__non_inited_deque_container(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_noninited = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(_deque_move_elem_to_end(pdeq_noninited, deque_begin(pdeq), iterator_next(deque_begin(pdeq)), 3));
+
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_noninited);
+}
+
+void test__deque_move_elem_to_end__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+
+    deque_init_n(pdeq, 10);
+
+    it_begin = deque_begin(pdeq);
+    it_end = iterator_next(it_begin);
+    expect_assert_failure(_deque_move_elem_to_end(pdeq, it_end, it_begin, 3));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_end__invalid_range_after_moving(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(_deque_move_elem_to_end(pdeq, deque_begin(pdeq), deque_end(pdeq), 100));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_end__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    it_iter = _deque_move_elem_to_end(pdeq, deque_begin(pdeq), deque_end(pdeq), 10);
+    assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_end__0_step(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_iter = _deque_move_elem_to_end(pdeq, deque_begin(pdeq), deque_end(pdeq), 0);
+    assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_end__begin_to_end(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_begin = deque_begin(pdeq);
+    it_end = iterator_next_n(it_begin, 2);
+    it_iter = _deque_move_elem_to_end(pdeq, it_begin, it_end, 3); 
+    assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
+    it_iter = deque_begin(pdeq);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 10);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 20);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 30);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 10);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 20);
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_end__begin_to_middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_begin = deque_begin(pdeq);
+    it_end = iterator_next_n(it_begin, 2);
+    it_iter = _deque_move_elem_to_end(pdeq, it_begin, it_end, 2); 
+    assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
+    it_iter = deque_begin(pdeq);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 10);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 20);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 10);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 20);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 50);
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_end__middle_to_end(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_begin = iterator_next(deque_begin(pdeq));
+    it_end = iterator_next_n(it_begin, 2);
+    it_iter = _deque_move_elem_to_end(pdeq, it_begin, it_end, 2); 
+    assert_true(iterator_equal(it_iter, iterator_next(deque_begin(pdeq))));
+    it_iter = deque_begin(pdeq);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 10);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 20);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 30);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 20);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 30);
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_end__middle_to_middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_begin = iterator_next(deque_begin(pdeq));
+    it_end = iterator_next_n(it_begin, 2);
+    it_iter = _deque_move_elem_to_end(pdeq, it_begin, it_end, 1); 
+    assert_true(iterator_equal(it_iter, iterator_next(deque_begin(pdeq))));
+    it_iter = deque_begin(pdeq);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 10);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 20);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 20);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 30);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 50);
+
+    deque_destroy(pdeq);
+}
+
+/*
+ * test _deque_move_elem_to_begin
+ */
+UT_CASE_DEFINATION(_deque_move_elem_to_begin)
+void test__deque_move_elem_to_begin__null_deque_container(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+
+    deque_init_n(pdeq, 10);
+    it_begin = iterator_next_n(deque_begin(pdeq), 5);
+    it_end = iterator_next(it_begin);
+
+    expect_assert_failure(_deque_move_elem_to_begin(NULL, it_begin, it_end, 3));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_begin__non_inited_deque_container(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_noninited = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+
+    deque_init_n(pdeq, 10);
+    it_begin = iterator_next_n(deque_begin(pdeq), 5);
+    it_end = iterator_next(it_begin);
+    expect_assert_failure(_deque_move_elem_to_begin(pdeq_noninited, it_begin, it_end, 3));
+
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_noninited);
+}
+
+void test__deque_move_elem_to_begin__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+
+    deque_init_n(pdeq, 10);
+
+    it_begin = iterator_next_n(deque_begin(pdeq), 5);
+    it_end = iterator_next(it_begin);
+    expect_assert_failure(_deque_move_elem_to_begin(pdeq, it_end, it_begin, 3));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_begin__invalid_range_after_moving(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(_deque_move_elem_to_begin(pdeq, deque_begin(pdeq), deque_end(pdeq), 100));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_begin__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init_n(pdeq, 10);
+    it_iter = _deque_move_elem_to_begin(pdeq, deque_end(pdeq), deque_end(pdeq), 10);
+    assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_begin__0_step(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_iter = _deque_move_elem_to_begin(pdeq, deque_begin(pdeq), deque_end(pdeq), 0);
+    assert_true(iterator_equal(it_iter, deque_end(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_begin__end_to_begin(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_begin = iterator_next_n(deque_begin(pdeq), 3);
+    it_end = deque_end(pdeq);
+    it_iter = _deque_move_elem_to_begin(pdeq, it_begin, it_end, 3); 
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 2)));
+    it_iter = deque_begin(pdeq);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 40);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 50);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 30);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 40);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 50);
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_begin__end_to_middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_begin = iterator_next_n(deque_begin(pdeq), 3);
+    it_end = deque_end(pdeq);
+    it_iter = _deque_move_elem_to_begin(pdeq, it_begin, it_end, 2); 
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 3)));
+    it_iter = deque_begin(pdeq);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 10);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 40);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 50);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 40);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 50);
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_begin__middle_to_begin(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_begin = iterator_next_n(deque_begin(pdeq), 2);
+    it_end = iterator_next_n(it_begin, 2);
+    it_iter = _deque_move_elem_to_begin(pdeq, it_begin, it_end, 2); 
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 2)));
+    it_iter = deque_begin(pdeq);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 30);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 40);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 30);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 40);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 50);
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_move_elem_to_begin__middle_to_middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 20);
+    deque_push_back(pdeq, 30);
+    deque_push_back(pdeq, 40);
+    deque_push_back(pdeq, 50);
+    it_begin = iterator_next_n(deque_begin(pdeq), 2);
+    it_end = iterator_next_n(it_begin, 2);
+    it_iter = _deque_move_elem_to_begin(pdeq, it_begin, it_end, 1); 
+    assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 3)));
+    it_iter = deque_begin(pdeq);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 10);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 30);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 40);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 40);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 50);
 
     deque_destroy(pdeq);
 }
