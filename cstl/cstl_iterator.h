@@ -50,13 +50,13 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* deque iterator handler */
 #define _GET_DEQUE_MAP_POINTER(t_iter)\
-    ((t_iter)._t_pos._t_dequepos._ppc_mappos)
+    ((t_iter)._t_pos._t_dequepos._ppby_mappos)
 #define _GET_DEQUE_FIRST_POS(t_iter)\
-    ((t_iter)._t_pos._t_dequepos._pc_first)
+    ((t_iter)._t_pos._t_dequepos._pby_first)
 #define _GET_DEQUE_AFTERLAST_POS(t_iter)\
-    ((t_iter)._t_pos._t_dequepos._pc_afterlast)
+    ((t_iter)._t_pos._t_dequepos._pby_afterlast)
 #define _GET_DEQUE_COREPOS(t_iter)\
-    ((t_iter)._t_pos._t_dequepos._pc_corepos)
+    ((t_iter)._t_pos._t_dequepos._pby_corepos)
 #define _GET_DEQUE_CONTAINER(t_iter)\
     ((deque_t*)((t_iter)._pt_container))
 #define _GET_DEQUE_CONTAINER_TYPE(t_iter)\
@@ -205,29 +205,29 @@ typedef struct _tagiterator
     /* flexibility for all containter */
     union 
     {
-        char*       _pc_corepos;    /* for vector list e.g. */
+        char*         _pc_corepos;    /* for vector list e.g. */
         struct 
         {                    /* for deque */
-            char*   _pc_corepos;
-            char*   _pc_first;
-            char*   _pc_afterlast;  /* the node after the last node */
-            char**  _ppc_mappos;    /* point to the map */
+            _byte_t*  _pby_corepos;
+            _byte_t*  _pby_first;
+            _byte_t*  _pby_afterlast;  /* the node after the last node */
+            _byte_t** _ppby_mappos;    /* point to the map */
         }_t_dequepos;
         struct
         {                    /* for avl tree or rb tree */
-            char*   _pc_corepos;
-            void*   _pt_tree;       /* point to the avl tree or rb tree*/
+            char*     _pc_corepos;
+            void*     _pt_tree;       /* point to the avl tree or rb tree*/
         }_t_treepos;
         struct               /* for hash table */
         {
-            char*   _pc_corepos;
-            char*   _pc_bucketpos;   /* pointer to vector bucket position */
-            void*   _pt_hashtable;   /* point to hash node */
+            char*     _pc_corepos;
+            char*     _pc_bucketpos;   /* pointer to vector bucket position */
+            void*     _pt_hashtable;   /* point to hash node */
         }_t_hashpos;
     }_t_pos;
-    void*           _pt_container;
-    containertype_t _t_containertype;
-    iteratortype_t  _t_iteratortype;
+    void*             _pt_container;
+    containertype_t   _t_containertype;
+    iteratortype_t    _t_iteratortype;
 }iterator_t;
 
 /* range type */

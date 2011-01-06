@@ -16,7 +16,7 @@
 #include "ut_def.h"
 #include "ut_cstl_list.h"
 
-UT_SUIT_DEFINATION(cstl_list, test_list_init__null_list_container)
+UT_SUIT_DEFINATION(cstl_list, list_init)
 
 /*
  * test list_init
@@ -161,7 +161,7 @@ void test_list_destroy__null_list_container(void** state)
     expect_assert_failure(list_destroy(NULL));
 }
 
-void test_list_destroy__non_inited_list_container(void** state)
+void test_list_destroy__non_created_list_container(void** state)
 {
     list_t* plist = create_list(int);
 
@@ -173,13 +173,19 @@ void test_list_destroy__non_inited_list_container(void** state)
     list_destroy(plist);
 }
 
+void test_list_destroy__created_non_inited(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_destroy(plist);
+}
+
 void test_list_destroy__empty(void** state)
 {
     list_t* plist = create_list(int);
 
     list_init(plist);
     list_destroy(plist);
-    assert_true(plist->_pt_node == NULL);
 }
 
 void test_list_destroy__non_empty(void** state)
@@ -188,7 +194,6 @@ void test_list_destroy__non_empty(void** state)
 
     list_init_n(plist, 10);
     list_destroy(plist);
-    assert_true(plist->_pt_node == NULL);
 }
 
 /*
@@ -397,7 +402,7 @@ void test_list_init_copy_range__non_created_list_container(void** state)
 
     list_init(plist_src);
     plist_dest->_pt_node = 0x8383;
-    expect_assert_failure(list_init_copy_range(NULL, list_begin(plist_src), list_end(plist_src)));
+    expect_assert_failure(list_init_copy_range(plist_dest, list_begin(plist_src), list_end(plist_src)));
 
     plist_dest->_pt_node = NULL;
     list_destroy(plist_dest);

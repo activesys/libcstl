@@ -183,10 +183,12 @@ void test_queue(void)
             }
             queue_init(pt_queue);
             _printqueue_c(pt_queue, "%lf, ", double);
+            /*
             if(queue_front(pt_queue) == NULL && queue_back(pt_queue) == NULL)
             {
                 printf("front and back are null!\n");
             }
+            */
             queue_push(pt_queue, 8.4);
             queue_push(pt_queue, 29.02);
             queue_push(pt_queue, 333.45);
@@ -402,10 +404,12 @@ void test_queue(void)
             }
             queue_init(pt_queue);
             _printweather(pt_queue);
+            /*
             if(queue_front(pt_queue) == NULL && queue_back(pt_queue) == NULL)
             {
                 printf("front and back are null!\n");
             }
+            */
             _weather_init(&t_wea, &t_result);
             _weather_set(&t_wea, "Shenyang", 3);
             queue_push(pt_queue, &t_wea);
@@ -628,10 +632,12 @@ void test_queue(void)
             queue_init(pt_queue);
             queue_init(pt_queueex);
             _printqueue(pt_queue);
+            /*
             if(queue_front(pt_queue) == NULL && queue_back(pt_queue) == NULL)
             {
                 printf("front and back are null!\n");
             }
+            */
             queue_push(pt_queueex, 8);
             queue_push(pt_queue, pt_queueex);
             queue_push(pt_queueex, 29);

@@ -33,7 +33,7 @@ extern "C" {
 
 /** data type declaration and struct, union, enum section **/
 /* deque struct */
-typedef char**  _mappointer_t;
+typedef _byte_t**  _mappointer_t;
 typedef struct _tagdeque
 {
     /* element type information */
@@ -43,7 +43,7 @@ typedef struct _tagdeque
     _alloc_t         _t_allocater;
 
     /* the element manager map and size */
-    _mappointer_t    _ppc_map;
+    _mappointer_t    _ppby_map;
     size_t           _t_mapsize;
     /* the first element */
     deque_iterator_t _t_start;

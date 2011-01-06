@@ -163,10 +163,12 @@ void test_stack(void)
             }
             stack_init(pt_stack);
             _printstack_c(pt_stack, "%lf, ", double);
+            /*
             if(stack_top(pt_stack) == NULL)
             {
                 printf("top is null!\n");
             }
+            */
             stack_push(pt_stack, 23.44);
             stack_push(pt_stack, 0.992);
             stack_push(pt_stack, 22.0);
@@ -381,10 +383,12 @@ void test_stack(void)
             }
             stack_init(pt_stack);
             _printpointer(pt_stack);
+            /*
             if(stack_top(pt_stack) == NULL)
             {
                 printf("top is null!\n");
             }
+            */
 
             _pointer_init(&pn_pointer, &t_result);
             *pn_pointer = 77;
@@ -626,10 +630,12 @@ void test_stack(void)
             stack_init(pt_stack);
             stack_init(pt_stackex);
             _printstack(pt_stack);
+            /*
             if(stack_top(pt_stack) == NULL)
             {
                 printf("top is null!\n");
             }
+            */
             stack_push(pt_stackex, 23);
             stack_push(pt_stack, pt_stackex);
             stack_push(pt_stackex, 0);

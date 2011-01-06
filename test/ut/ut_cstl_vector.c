@@ -720,9 +720,6 @@ void test_vector_destroy__created_non_inited(void** state)
     vector_t* pvec = create_vector(int);
 
     vector_destroy(pvec);
-    assert_true(pvec->_pby_start == NULL);
-    assert_true(pvec->_pby_finish == NULL);
-    assert_true(pvec->_pby_endofstorage == NULL);
 }
 
 void test_vector_destroy__inited_empty(void** state)
@@ -731,9 +728,6 @@ void test_vector_destroy__inited_empty(void** state)
     vector_init(pvec);
 
     vector_destroy(pvec);
-    assert_true(pvec->_pby_start == NULL);
-    assert_true(pvec->_pby_finish == NULL);
-    assert_true(pvec->_pby_endofstorage == NULL);
 }
 
 void test_vector_destroy__inited_non_empty(void** state)
@@ -742,9 +736,6 @@ void test_vector_destroy__inited_non_empty(void** state)
     vector_init_n(pvec, 199);
 
     vector_destroy(pvec);
-    assert_true(pvec->_pby_start == NULL);
-    assert_true(pvec->_pby_finish == NULL);
-    assert_true(pvec->_pby_endofstorage == NULL);
 }
 
 /*

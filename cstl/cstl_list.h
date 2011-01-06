@@ -184,7 +184,7 @@ extern void list_init_copy(list_t* plist_dest, const list_t* cplist_src);
  * @return void.
  * @remarks if plist_dest == NULL, then the behavior is undefined. plist_dest must be created by create_list(), otherwise
  *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefined. the
- *          element type of [it_begin, it_end) and plist_src must be the same, otherwise the behavior is undefined.
+ *          element type of [it_begin, it_end) and plist_dest must be the same, otherwise the behavior is undefined.
  */
 extern void list_init_copy_range(list_t* plist_dest, list_iterator_t it_begin, list_iterator_t it_end);
 

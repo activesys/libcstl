@@ -20,10 +20,10 @@ UT_CASE_DEFINATION(_create_deque_iterator)
 void test__create_deque_iterator__successfully(void** state)
 {
     deque_iterator_t it_iter = _create_deque_iterator();
-    assert_true(it_iter._t_pos._t_dequepos._pc_corepos == NULL);
-    assert_true(it_iter._t_pos._t_dequepos._pc_first == NULL);
-    assert_true(it_iter._t_pos._t_dequepos._pc_afterlast == NULL);
-    assert_true(it_iter._t_pos._t_dequepos._ppc_mappos == NULL);
+    assert_true(it_iter._t_pos._t_dequepos._pby_corepos == NULL);
+    assert_true(it_iter._t_pos._t_dequepos._pby_first == NULL);
+    assert_true(it_iter._t_pos._t_dequepos._pby_afterlast == NULL);
+    assert_true(it_iter._t_pos._t_dequepos._ppby_mappos == NULL);
     assert_true(it_iter._pt_container == NULL);
     assert_true(it_iter._t_containertype == _DEQUE_CONTAINER);
     assert_true(it_iter._t_iteratortype == _RANDOM_ACCESS_ITERATOR);
@@ -77,7 +77,7 @@ void test__deque_iterator_equal__first_is_not_belong_to_deque(void** state)
     deque_init_n(pdeq, 10);
 
     it_first = it_second = deque_begin(pdeq);
-    it_first._t_pos._t_dequepos._pc_corepos = NULL;
+    it_first._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_equal(it_first, it_second));
 
@@ -93,7 +93,7 @@ void test__deque_iterator_equal__second_is_not_belong_to_deque(void** state)
     deque_init_n(pdeq, 10);
 
     it_first = it_second = deque_begin(pdeq);
-    it_second._t_pos._t_dequepos._pc_corepos = NULL;
+    it_second._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_equal(it_first, it_second));
 
@@ -131,7 +131,7 @@ void test__deque_iterator_equal__equal_border(void** state)
 
     it_first = deque_begin(pdeq);
     it_second = deque_end(pdeq);
-    it_second._t_pos._t_dequepos._pc_corepos = it_second._t_pos._t_dequepos._pc_first;
+    it_second._t_pos._t_dequepos._pby_corepos = it_second._t_pos._t_dequepos._pby_first;
 
     assert_true(_deque_iterator_equal(it_first, it_second));
     assert_true(_deque_iterator_equal(it_second, it_first));
@@ -231,7 +231,7 @@ void test__deque_iterator_less__first_is_not_belong_to_deque(void** state)
     deque_init_n(pdeq, 10);
 
     it_first = it_second = deque_begin(pdeq);
-    it_first._t_pos._t_dequepos._pc_corepos = NULL;
+    it_first._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_less(it_first, it_second));
 
@@ -247,7 +247,7 @@ void test__deque_iterator_less__second_is_not_belong_to_deque(void** state)
     deque_init_n(pdeq, 10);
 
     it_first = it_second = deque_begin(pdeq);
-    it_second._t_pos._t_dequepos._pc_corepos = NULL;
+    it_second._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_less(it_first, it_second));
 
@@ -358,7 +358,7 @@ void test__deque_iterator_less__first_equal_to_second_not_same_chunk(void** stat
 
     it_first = deque_begin(pdeq);
     it_second = deque_end(pdeq);
-    it_second._t_pos._t_dequepos._pc_corepos = it_second._t_pos._t_dequepos._pc_first;
+    it_second._t_pos._t_dequepos._pby_corepos = it_second._t_pos._t_dequepos._pby_first;
 
     assert_false(_deque_iterator_less(it_first, it_second));
 
@@ -439,7 +439,7 @@ void test__deque_iterator_before__first_is_not_belong_to_deque(void** state)
     deque_init_n(pdeq, 10);
 
     it_first = it_second = deque_begin(pdeq);
-    it_first._t_pos._t_dequepos._pc_corepos = NULL;
+    it_first._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_before(it_first, it_second));
 
@@ -455,7 +455,7 @@ void test__deque_iterator_before__second_is_not_belong_to_deque(void** state)
     deque_init_n(pdeq, 10);
 
     it_first = it_second = deque_begin(pdeq);
-    it_second._t_pos._t_dequepos._pc_corepos = NULL;
+    it_second._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_before(it_first, it_second));
 
@@ -566,7 +566,7 @@ void test__deque_iterator_before__first_equal_to_second_not_same_chunk(void** st
 
     it_first = deque_begin(pdeq);
     it_second = deque_end(pdeq);
-    it_second._t_pos._t_dequepos._pc_corepos = it_second._t_pos._t_dequepos._pc_first;
+    it_second._t_pos._t_dequepos._pby_corepos = it_second._t_pos._t_dequepos._pby_first;
 
     assert_false(_deque_iterator_before(it_first, it_second));
 
@@ -611,7 +611,7 @@ void test__deque_iterator_get_value__invalid_iterator(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._pc_corepos = NULL;
+    it_iter._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_get_value(it_iter, &value));
 
@@ -774,7 +774,7 @@ void test__deque_iterator_set_value__invalid_iterator(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._pc_corepos = NULL;
+    it_iter._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_set_value(it_iter, &value));
 
@@ -938,7 +938,7 @@ void test__deque_iterator_get_pointer__invalid_iterator(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._pc_corepos = NULL;
+    it_iter._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_get_pointer(it_iter));
 
@@ -1079,7 +1079,7 @@ void test__deque_iterator_next__invalid_iterator(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._pc_corepos = NULL;
+    it_iter._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_next(it_iter));
 
@@ -1192,7 +1192,7 @@ void test__deque_iterator_prev__invalid_iterator(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._pc_corepos = NULL;
+    it_iter._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_prev(it_iter));
 
@@ -1299,7 +1299,7 @@ void test__deque_iterator_next_n__invalid_iterator(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._pc_corepos = NULL;
+    it_iter._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_next_n(it_iter, 10));
 
@@ -1392,7 +1392,7 @@ void test__deque_iterator_next_n__move_to_end_successfully_not_border(void** sta
     deque_pop_back(pdeq);
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
-    assert_true(it_begin._t_pos._t_dequepos._ppc_mappos == it_end._t_pos._t_dequepos._ppc_mappos);
+    assert_true(it_begin._t_pos._t_dequepos._ppby_mappos == it_end._t_pos._t_dequepos._ppby_mappos);
     it_iter = deque_begin(pdeq);
     it_iter = _deque_iterator_next_n(it_iter, 5);
     assert_true(iterator_equal(it_iter, it_end));
@@ -1418,7 +1418,7 @@ void test__deque_iterator_next_n__move_to_not_end_successfully_not_border(void**
     deque_pop_back(pdeq);
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
-    assert_true(it_begin._t_pos._t_dequepos._ppc_mappos == it_end._t_pos._t_dequepos._ppc_mappos);
+    assert_true(it_begin._t_pos._t_dequepos._ppby_mappos == it_end._t_pos._t_dequepos._ppby_mappos);
     it_iter = deque_begin(pdeq);
     it_iter = _deque_iterator_next_n(it_iter, 3);
     assert_true(*(int*)iterator_get_pointer(it_iter) == 1);
@@ -1508,7 +1508,7 @@ void test__deque_iterator_next_n__move_to_front_successfully_not_border(void** s
     deque_pop_back(pdeq);
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
-    assert_true(it_begin._t_pos._t_dequepos._ppc_mappos == it_end._t_pos._t_dequepos._ppc_mappos);
+    assert_true(it_begin._t_pos._t_dequepos._ppby_mappos == it_end._t_pos._t_dequepos._ppby_mappos);
     it_iter = deque_end(pdeq);
     it_iter = _deque_iterator_next_n(it_iter, -5);
     assert_true(iterator_equal(it_iter, it_begin));
@@ -1534,7 +1534,7 @@ void test__deque_iterator_next_n__move_to_not_front_successfully_not_border(void
     deque_pop_back(pdeq);
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
-    assert_true(it_begin._t_pos._t_dequepos._ppc_mappos == it_end._t_pos._t_dequepos._ppc_mappos);
+    assert_true(it_begin._t_pos._t_dequepos._ppby_mappos == it_end._t_pos._t_dequepos._ppby_mappos);
     it_iter = deque_end(pdeq);
     it_iter = _deque_iterator_next_n(it_iter, -3);
     assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
@@ -1801,7 +1801,7 @@ void test__deque_iterator_prev_n__invalid_iterator(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_end(pdeq);
-    it_iter._t_pos._t_dequepos._pc_corepos = NULL;
+    it_iter._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_prev_n(it_iter, 10));
 
@@ -1894,7 +1894,7 @@ void test__deque_iterator_prev_n__move_to_end_successfully_not_border(void** sta
     deque_pop_back(pdeq);
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
-    assert_true(it_begin._t_pos._t_dequepos._ppc_mappos == it_end._t_pos._t_dequepos._ppc_mappos);
+    assert_true(it_begin._t_pos._t_dequepos._ppby_mappos == it_end._t_pos._t_dequepos._ppby_mappos);
     it_iter = deque_begin(pdeq);
     it_iter = _deque_iterator_prev_n(it_iter, -5);
     assert_true(iterator_equal(it_iter, it_end));
@@ -1920,7 +1920,7 @@ void test__deque_iterator_prev_n__move_to_not_end_successfully_not_border(void**
     deque_pop_back(pdeq);
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
-    assert_true(it_begin._t_pos._t_dequepos._ppc_mappos == it_end._t_pos._t_dequepos._ppc_mappos);
+    assert_true(it_begin._t_pos._t_dequepos._ppby_mappos == it_end._t_pos._t_dequepos._ppby_mappos);
     it_iter = deque_begin(pdeq);
     it_iter = _deque_iterator_prev_n(it_iter, -3);
     assert_true(*(int*)iterator_get_pointer(it_iter) == 1);
@@ -2010,7 +2010,7 @@ void test__deque_iterator_prev_n__move_to_front_successfully_not_border(void** s
     deque_pop_back(pdeq);
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
-    assert_true(it_begin._t_pos._t_dequepos._ppc_mappos == it_end._t_pos._t_dequepos._ppc_mappos);
+    assert_true(it_begin._t_pos._t_dequepos._ppby_mappos == it_end._t_pos._t_dequepos._ppby_mappos);
     it_iter = deque_end(pdeq);
     it_iter = _deque_iterator_prev_n(it_iter, 5);
     assert_true(iterator_equal(it_iter, it_begin));
@@ -2036,7 +2036,7 @@ void test__deque_iterator_prev_n__move_to_not_front_successfully_not_border(void
     deque_pop_back(pdeq);
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
-    assert_true(it_begin._t_pos._t_dequepos._ppc_mappos == it_end._t_pos._t_dequepos._ppc_mappos);
+    assert_true(it_begin._t_pos._t_dequepos._ppby_mappos == it_end._t_pos._t_dequepos._ppby_mappos);
     it_iter = deque_end(pdeq);
     it_iter = _deque_iterator_prev_n(it_iter, 3);
     assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
@@ -2303,7 +2303,7 @@ void test__deque_iterator_at__invalid_iterator(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._pc_corepos = NULL;
+    it_iter._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_at(it_iter, 10));
 
@@ -2553,7 +2553,7 @@ void test__deque_iterator_minus__first_is_not_belong_to_deque(void** state)
     deque_init_n(pdeq, 10);
 
     it_first = it_second = deque_begin(pdeq);
-    it_first._t_pos._t_dequepos._pc_corepos = NULL;
+    it_first._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_minus(it_first, it_second));
 
@@ -2569,7 +2569,7 @@ void test__deque_iterator_minus__second_is_not_belong_to_deque(void** state)
     deque_init_n(pdeq, 10);
 
     it_first = it_second = deque_begin(pdeq);
-    it_second._t_pos._t_dequepos._pc_corepos = NULL;
+    it_second._t_pos._t_dequepos._pby_corepos = NULL;
 
     expect_assert_failure(_deque_iterator_minus(it_first, it_second));
 

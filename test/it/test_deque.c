@@ -363,7 +363,7 @@ void test_deque(void)
             {
                 return;
             }
-            deque_init(pt_deq);
+            deque_init_n(pt_deq, 10);
             if(deque_front(pt_deq) == NULL)
             {
                 printf("NULL\n");
@@ -400,7 +400,7 @@ void test_deque(void)
             {
                 return;
             }
-            deque_init(pt_deq);
+            deque_init_n(pt_deq, 10);
             if(deque_back(pt_deq) == NULL)
             {
                 printf("NULL\n");
@@ -1289,7 +1289,7 @@ void test_deque(void)
             {
                 return;
             }
-            deque_init(pt_deq);
+            deque_init_n(pt_deq, 10);
             _printdeque_user(pt_deq);
             if(deque_front(pt_deq) != NULL)
             {
@@ -2010,10 +2010,12 @@ void test_deque(void)
             }
             deque_init(pt_deq);
             deque_init(pt_deqex);
+            /*
             if(deque_front(pt_deq) != NULL || deque_back(pt_deq) != NULL)
             {
                 assert(false);
             }
+            */
             deque_push_back(pt_deqex, 908);
             deque_push_back(pt_deqex, -223);
             deque_push_back(pt_deqex, 22);

@@ -102,10 +102,10 @@ void _alloc_apply_formated_memory(_alloc_t* pt_allocator, size_t t_allocsize)
     _memlink_t* pt_link = NULL;
     size_t      i = 0;
 
-    assert(pt_allocator);
+    assert(pt_allocator != NULL);
 
     pt_link = (_memlink_t*)_alloc_get_memory_chunk(pt_allocator, t_allocsize, &t_alloccount);
-    assert(pt_link);
+    assert(pt_link != NULL);
 
     /* format the apply memory block to memory list format */
     pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)] = pt_link;
@@ -133,8 +133,8 @@ _byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, siz
     size_t    t_getmemsize = 0;    /* bytes to get memory from system heap */
     size_t    i = 0;
 
-    assert(pt_allocator);
-    assert(pt_alloccount);
+    assert(pt_allocator != NULL);
+    assert(pt_alloccount != NULL);
 
     t_totalsize = t_allocsize * (*pt_alloccount);
 

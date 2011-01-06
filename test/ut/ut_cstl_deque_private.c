@@ -320,7 +320,7 @@ void test__deque_destroy_auxiliary__non_inited(void** state)
     deque_t* pdeq = create_deque(int);
     _deque_destroy_auxiliary(pdeq);
     assert_true(pdeq->_t_mapsize == 0);
-    assert_true(pdeq->_ppc_map == NULL);
+    assert_true(pdeq->_ppby_map == NULL);
     assert_true(_GET_DEQUE_MAP_POINTER(pdeq->_t_start) == NULL);
     assert_true(_GET_DEQUE_FIRST_POS(pdeq->_t_start) == NULL);
     assert_true(_GET_DEQUE_AFTERLAST_POS(pdeq->_t_start) == NULL);
@@ -340,7 +340,7 @@ void test__deque_destroy_auxiliary__empty(void** state)
     deque_init(pdeq);
     _deque_destroy_auxiliary(pdeq);
     assert_true(pdeq->_t_mapsize == 0);
-    assert_true(pdeq->_ppc_map == NULL);
+    assert_true(pdeq->_ppby_map == NULL);
     assert_true(_GET_DEQUE_MAP_POINTER(pdeq->_t_start) == NULL);
     assert_true(_GET_DEQUE_FIRST_POS(pdeq->_t_start) == NULL);
     assert_true(_GET_DEQUE_AFTERLAST_POS(pdeq->_t_start) == NULL);
@@ -361,7 +361,7 @@ void test__deque_destroy_auxiliary__non_empty(void** state)
     assert_true(deque_size(pdeq) == 10);
     _deque_destroy_auxiliary(pdeq);
     assert_true(pdeq->_t_mapsize == 0);
-    assert_true(pdeq->_ppc_map == NULL);
+    assert_true(pdeq->_ppby_map == NULL);
     assert_true(_GET_DEQUE_MAP_POINTER(pdeq->_t_start) == NULL);
     assert_true(_GET_DEQUE_FIRST_POS(pdeq->_t_start) == NULL);
     assert_true(_GET_DEQUE_AFTERLAST_POS(pdeq->_t_start) == NULL);
@@ -837,7 +837,7 @@ void test__deque_insert_n__deque_insert_n_varg__invalid_pos(void** state)
     deque_init(pdeq);
 
     it_pos = deque_begin(pdeq);
-    it_pos._t_pos._t_dequepos._pc_corepos = 0x99;
+    it_pos._t_pos._t_dequepos._pby_corepos = 0x99;
     expect_assert_failure(_deque_insert_n(pdeq, it_pos, 10, 100));
 
     deque_destroy(pdeq);

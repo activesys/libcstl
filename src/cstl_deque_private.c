@@ -84,7 +84,7 @@ bool_t _create_deque_auxiliary(deque_t* pdeq_deque, const char* s_typename)
         return false;
     }
 
-    pdeq_deque->_ppc_map = NULL;
+    pdeq_deque->_ppby_map = NULL;
     pdeq_deque->_t_mapsize = 0;
     pdeq_deque->_t_start = _create_deque_iterator();
     pdeq_deque->_t_finish = _create_deque_iterator();
@@ -188,29 +188,29 @@ void _deque_init_elem_varg(deque_t* pdeq_deque, size_t t_count, va_list val_elem
     }
 
     /* allocate memory for each chunk */
-    pdeq_deque->_ppc_map = _alloc_allocate(&pdeq_deque->_t_allocater, sizeof(char*), t_mapcount);
+    pdeq_deque->_ppby_map = _alloc_allocate(&pdeq_deque->_t_allocater, sizeof(_byte_t*), t_mapcount);
     pdeq_deque->_t_mapsize = t_mapcount;
-    assert(pdeq_deque->_ppc_map != NULL);
-    memset(pdeq_deque->_ppc_map, 0x00, sizeof(char*) * t_mapcount);
+    assert(pdeq_deque->_ppby_map != NULL);
+    memset(pdeq_deque->_ppby_map, 0x00, sizeof(_byte_t*) * t_mapcount);
     t_startpos = (t_mapcount - t_validmapcount) / 2;
 
     for(i = t_startpos; i < t_startpos + t_validmapcount; ++i)
     {
-        pdeq_deque->_ppc_map[i] = _alloc_allocate(
+        pdeq_deque->_ppby_map[i] = _alloc_allocate(
             &pdeq_deque->_t_allocater, _GET_DEQUE_TYPE_SIZE(pdeq_deque), _DEQUE_ELEM_COUNT);
-        assert(pdeq_deque->_ppc_map[i] != NULL);
+        assert(pdeq_deque->_ppby_map[i] != NULL);
     }
 
     /* initialize the start iterator */
     _GET_CONTAINER(pdeq_deque->_t_start) = pdeq_deque;
-    _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) = pdeq_deque->_ppc_map + t_startpos;
+    _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) = pdeq_deque->_ppby_map + t_startpos;
     _GET_DEQUE_FIRST_POS(pdeq_deque->_t_start) = *_GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start);
     _GET_DEQUE_AFTERLAST_POS(pdeq_deque->_t_start) = _GET_DEQUE_FIRST_POS(pdeq_deque->_t_start) +
         _DEQUE_ELEM_COUNT * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
     _GET_DEQUE_COREPOS(pdeq_deque->_t_start) = _GET_DEQUE_AFTERLAST_POS(pdeq_deque->_t_start);
     /* initialize the finish iterator */
     _GET_CONTAINER(pdeq_deque->_t_finish) = pdeq_deque;
-    _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish) = pdeq_deque->_ppc_map + t_startpos + t_validmapcount - 1;
+    _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish) = pdeq_deque->_ppby_map + t_startpos + t_validmapcount - 1;
     _GET_DEQUE_FIRST_POS(pdeq_deque->_t_finish) = *_GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish);
     _GET_DEQUE_AFTERLAST_POS(pdeq_deque->_t_finish) = _GET_DEQUE_FIRST_POS(pdeq_deque->_t_finish) +
         _DEQUE_ELEM_COUNT * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
@@ -244,7 +244,7 @@ void _deque_init_elem_varg(deque_t* pdeq_deque, size_t t_count, va_list val_elem
  */
 void _deque_destroy_auxiliary(deque_t* pdeq_deque)
 {
-    _mappointer_t    ppc_mappos = NULL;
+    _mappointer_t    ppby_mappos = NULL;
     bool_t           b_result = false;
     deque_iterator_t it_iter;
 
@@ -263,16 +263,16 @@ void _deque_destroy_auxiliary(deque_t* pdeq_deque)
         }
 
         /* destroy the all element container */
-        for(ppc_mappos = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start);
-            ppc_mappos <= _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish);
-            ++ppc_mappos)
+        for(ppby_mappos = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start);
+            ppby_mappos <= _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish);
+            ++ppby_mappos)
         {
-            _alloc_deallocate(&pdeq_deque->_t_allocater, *ppc_mappos, _GET_DEQUE_TYPE_SIZE(pdeq_deque), _DEQUE_ELEM_COUNT);
+            _alloc_deallocate(&pdeq_deque->_t_allocater, *ppby_mappos, _GET_DEQUE_TYPE_SIZE(pdeq_deque), _DEQUE_ELEM_COUNT);
         }
 
         /* destroy the map */
-        _alloc_deallocate(&pdeq_deque->_t_allocater, pdeq_deque->_ppc_map, sizeof(char*), pdeq_deque->_t_mapsize);
-        pdeq_deque->_ppc_map = NULL;
+        _alloc_deallocate(&pdeq_deque->_t_allocater, pdeq_deque->_ppby_map, sizeof(_byte_t*), pdeq_deque->_t_mapsize);
+        pdeq_deque->_ppby_map = NULL;
         pdeq_deque->_t_mapsize = 0;
 
         /* destroy the allocator */

@@ -172,7 +172,7 @@ void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_count)
     if(t_allocsize > _MEM_SMALL_MEM_SIZE_MAX)
     {
         pv_allocmem = _alloc_malloc(t_allocsize);
-        assert(pv_allocmem);
+        assert(pv_allocmem != NULL);
     }
     else
     {
@@ -181,7 +181,7 @@ void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_count)
         {
             _alloc_apply_formated_memory(pt_allocator, _MEM_ROUND_UP(t_allocsize));
             pt_link = pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)];
-            assert(pt_link);
+            assert(pt_link != NULL);
         }
         pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)] = pt_link->_pui_nextmem;
         pv_allocmem = (void*)pt_link;

@@ -26,7 +26,8 @@ void test_list_init_n__user_define(void** state);
  */
 UT_CASE_DECLARATION(list_destroy)
 void test_list_destroy__null_list_container(void** state);
-void test_list_destroy__non_inited_list_container(void** state);
+void test_list_destroy__non_created_list_container(void** state);
+void test_list_destroy__created_non_inited(void** state);
 void test_list_destroy__empty(void** state);
 void test_list_destroy__non_empty(void** state);
 /*
@@ -546,7 +547,8 @@ void test_list_reverse__not_same(void** state);
     UT_CASE(test_list_init_n__libcstl_builtin),\
     UT_CASE(test_list_init_n__user_define),\
     UT_CASE_BEGIN(list_destroy, test_list_destroy__null_list_container),\
-    UT_CASE(test_list_destroy__non_inited_list_container),\
+    UT_CASE(test_list_destroy__non_created_list_container),\
+    UT_CASE(test_list_destroy__created_non_inited),\
     UT_CASE(test_list_destroy__empty),\
     UT_CASE(test_list_destroy__non_empty),\
     UT_CASE_BEGIN(list_init_copy, test_list_init_copy__null_dest_list_container),\
