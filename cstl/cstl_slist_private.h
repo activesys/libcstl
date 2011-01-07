@@ -1,6 +1,6 @@
 /*
  *  The slist struct and private interface.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -30,6 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
+#define _SLIST_NODE_SIZE(typesize) ((typesize) + sizeof(slistnode_t) - sizeof(_byte_t))
 
 /** data type declaration and struct, union, enum section **/
 /*

@@ -1,6 +1,6 @@
 /*
  *  This header file declaration some type definition, micors for cstl.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public

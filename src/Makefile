@@ -85,9 +85,11 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_multiset.lo libcstl_la-cstl_numeric.lo \
 	libcstl_la-cstl_pair.lo libcstl_la-cstl_queue.lo \
 	libcstl_la-cstl_rb_tree.lo libcstl_la-cstl_set.lo \
-	libcstl_la-cstl_slist.lo libcstl_la-cstl_stack.lo \
-	libcstl_la-cstl_string.lo libcstl_la-cstl_types.lo \
-	libcstl_la-cstl_vector.lo libcstl_la-cstl_vector_iterator.lo \
+	libcstl_la-cstl_slist.lo libcstl_la-cstl_slist_iterator.lo \
+	libcstl_la-cstl_slist_private.lo libcstl_la-cstl_slist_aux.lo \
+	libcstl_la-cstl_stack.lo libcstl_la-cstl_string.lo \
+	libcstl_la-cstl_types.lo libcstl_la-cstl_vector.lo \
+	libcstl_la-cstl_vector_iterator.lo \
 	libcstl_la-cstl_vector_private.lo \
 	libcstl_la-cstl_vector_aux.lo
 libcstl_la_OBJECTS = $(am_libcstl_la_OBJECTS)
@@ -248,7 +250,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_queue.c \
 		     cstl_rb_tree.c \
 		     cstl_set.c \
-		     cstl_slist.c \
+		     cstl_slist.c cstl_slist_iterator.c cstl_slist_private.c cstl_slist_aux.c cstl_slist_aux.h \
 		     cstl_stack.c \
 		     cstl_string.c \
 		     cstl_types.c \
@@ -362,6 +364,9 @@ include ./$(DEPDIR)/libcstl_la-cstl_queue.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_rb_tree.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_set.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_slist.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_slist_aux.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_slist_iterator.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_slist_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_stack.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_string.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_types.Plo
@@ -607,6 +612,27 @@ libcstl_la-cstl_slist.lo: cstl_slist.c
 #	source='cstl_slist.c' object='libcstl_la-cstl_slist.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_slist.lo `test -f 'cstl_slist.c' || echo '$(srcdir)/'`cstl_slist.c
+
+libcstl_la-cstl_slist_iterator.lo: cstl_slist_iterator.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_slist_iterator.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_slist_iterator.Tpo -c -o libcstl_la-cstl_slist_iterator.lo `test -f 'cstl_slist_iterator.c' || echo '$(srcdir)/'`cstl_slist_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_slist_iterator.Tpo $(DEPDIR)/libcstl_la-cstl_slist_iterator.Plo
+#	source='cstl_slist_iterator.c' object='libcstl_la-cstl_slist_iterator.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_slist_iterator.lo `test -f 'cstl_slist_iterator.c' || echo '$(srcdir)/'`cstl_slist_iterator.c
+
+libcstl_la-cstl_slist_private.lo: cstl_slist_private.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_slist_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_slist_private.Tpo -c -o libcstl_la-cstl_slist_private.lo `test -f 'cstl_slist_private.c' || echo '$(srcdir)/'`cstl_slist_private.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_slist_private.Tpo $(DEPDIR)/libcstl_la-cstl_slist_private.Plo
+#	source='cstl_slist_private.c' object='libcstl_la-cstl_slist_private.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_slist_private.lo `test -f 'cstl_slist_private.c' || echo '$(srcdir)/'`cstl_slist_private.c
+
+libcstl_la-cstl_slist_aux.lo: cstl_slist_aux.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_slist_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_slist_aux.Tpo -c -o libcstl_la-cstl_slist_aux.lo `test -f 'cstl_slist_aux.c' || echo '$(srcdir)/'`cstl_slist_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_slist_aux.Tpo $(DEPDIR)/libcstl_la-cstl_slist_aux.Plo
+#	source='cstl_slist_aux.c' object='libcstl_la-cstl_slist_aux.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_slist_aux.lo `test -f 'cstl_slist_aux.c' || echo '$(srcdir)/'`cstl_slist_aux.c
 
 libcstl_la-cstl_stack.lo: cstl_stack.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_stack.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_stack.Tpo -c -o libcstl_la-cstl_stack.lo `test -f 'cstl_stack.c' || echo '$(srcdir)/'`cstl_stack.c

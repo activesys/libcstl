@@ -23,7 +23,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_queue.c \
 		     cstl_rb_tree.c \
 		     cstl_set.c \
-		     cstl_slist.c \
+		     cstl_slist.c cstl_slist_iterator.c cstl_slist_private.c cstl_slist_aux.c cstl_slist_aux.h \
 		     cstl_stack.c \
 		     cstl_string.c \
 		     cstl_types.c \

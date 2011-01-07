@@ -59,10 +59,12 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_map.$(OBJEXT) ut-cstl_multimap.$(OBJEXT) \
 	ut-cstl_multiset.$(OBJEXT) ut-cstl_numeric.$(OBJEXT) \
 	ut-cstl_rb_tree.$(OBJEXT) ut-cstl_set.$(OBJEXT) \
-	ut-cstl_slist.$(OBJEXT) ut-cstl_queue.$(OBJEXT) \
-	ut-cstl_string.$(OBJEXT) ut-cstl_types.$(OBJEXT) \
-	ut-cstl_pair.$(OBJEXT) ut-cstl_stack.$(OBJEXT) \
-	ut-cstl_vector.$(OBJEXT) ut-cstl_vector_iterator.$(OBJEXT) \
+	ut-cstl_slist.$(OBJEXT) ut-cstl_slist_iterator.$(OBJEXT) \
+	ut-cstl_slist_private.$(OBJEXT) ut-cstl_slist_aux.$(OBJEXT) \
+	ut-cstl_queue.$(OBJEXT) ut-cstl_string.$(OBJEXT) \
+	ut-cstl_types.$(OBJEXT) ut-cstl_pair.$(OBJEXT) \
+	ut-cstl_stack.$(OBJEXT) ut-cstl_vector.$(OBJEXT) \
+	ut-cstl_vector_iterator.$(OBJEXT) \
 	ut-cstl_vector_private.$(OBJEXT) ut-cstl_vector_aux.$(OBJEXT) \
 	ut-ut_cstl_alloc_aux.$(OBJEXT) ut-ut_cstl_alloc.$(OBJEXT) \
 	ut-ut_cstl_vector_iterator.$(OBJEXT) \
@@ -73,7 +75,9 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_list_private.$(OBJEXT) ut-ut_cstl_list.$(OBJEXT) \
 	ut-ut_cstl_deque_iterator.$(OBJEXT) \
 	ut-ut_cstl_deque_aux.$(OBJEXT) \
-	ut-ut_cstl_deque_private.$(OBJEXT) ut-ut_cstl_deque.$(OBJEXT)
+	ut-ut_cstl_deque_private.$(OBJEXT) ut-ut_cstl_deque.$(OBJEXT) \
+	ut-ut_cstl_slist_iterator.$(OBJEXT) \
+	ut-ut_cstl_slist_aux.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -233,7 +237,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_numeric.c \
 	     $(srcdir)/../../src/cstl_rb_tree.c \
 	     $(srcdir)/../../src/cstl_set.c \
-	     $(srcdir)/../../src/cstl_slist.c \
+	     $(srcdir)/../../src/cstl_slist.c $(srcdir)/../../src/cstl_slist_iterator.c \
+	     $(srcdir)/../../src/cstl_slist_private.c $(srcdir)/../../src/cstl_slist_aux.c \
 	     $(srcdir)/../../src/cstl_queue.c \
 	     $(srcdir)/../../src/cstl_string.c \
 	     $(srcdir)/../../src/cstl_types.c \
@@ -254,7 +259,9 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_deque_iterator.c ut_cstl_deque_iterator.h \
 	     ut_cstl_deque_aux.c ut_cstl_deque_aux.h \
 	     ut_cstl_deque_private.c ut_cstl_deque_private.h \
-	     ut_cstl_deque.c ut_cstl_deque.h
+	     ut_cstl_deque.c ut_cstl_deque.h \
+	     ut_cstl_slist_iterator.c ut_cstl_slist_iterator.h \
+	     ut_cstl_slist_aux.c ut_cstl_slist_aux.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -344,6 +351,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_rb_tree.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_set.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_slist.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_slist_aux.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_slist_iterator.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_slist_private.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_stack.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_string.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_types.Po@am__quote@
@@ -361,6 +371,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list_iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list_private.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_slist_aux.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_slist_iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_vector.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_vector_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_vector_iterator.Po@am__quote@
@@ -823,6 +835,48 @@ ut-cstl_slist.obj: $(srcdir)/../../src/cstl_slist.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist.obj `if test -f '$(srcdir)/../../src/cstl_slist.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist.c'; fi`
 
+ut-cstl_slist_iterator.o: $(srcdir)/../../src/cstl_slist_iterator.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_slist_iterator.Tpo -c -o ut-cstl_slist_iterator.o `test -f '$(srcdir)/../../src/cstl_slist_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_iterator.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_slist_iterator.Tpo $(DEPDIR)/ut-cstl_slist_iterator.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_slist_iterator.c' object='ut-cstl_slist_iterator.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_iterator.o `test -f '$(srcdir)/../../src/cstl_slist_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_iterator.c
+
+ut-cstl_slist_iterator.obj: $(srcdir)/../../src/cstl_slist_iterator.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_slist_iterator.Tpo -c -o ut-cstl_slist_iterator.obj `if test -f '$(srcdir)/../../src/cstl_slist_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_iterator.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_slist_iterator.Tpo $(DEPDIR)/ut-cstl_slist_iterator.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_slist_iterator.c' object='ut-cstl_slist_iterator.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_iterator.obj `if test -f '$(srcdir)/../../src/cstl_slist_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_iterator.c'; fi`
+
+ut-cstl_slist_private.o: $(srcdir)/../../src/cstl_slist_private.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_slist_private.Tpo -c -o ut-cstl_slist_private.o `test -f '$(srcdir)/../../src/cstl_slist_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_private.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_slist_private.Tpo $(DEPDIR)/ut-cstl_slist_private.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_slist_private.c' object='ut-cstl_slist_private.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_private.o `test -f '$(srcdir)/../../src/cstl_slist_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_private.c
+
+ut-cstl_slist_private.obj: $(srcdir)/../../src/cstl_slist_private.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_slist_private.Tpo -c -o ut-cstl_slist_private.obj `if test -f '$(srcdir)/../../src/cstl_slist_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_private.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_slist_private.Tpo $(DEPDIR)/ut-cstl_slist_private.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_slist_private.c' object='ut-cstl_slist_private.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_private.obj `if test -f '$(srcdir)/../../src/cstl_slist_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_private.c'; fi`
+
+ut-cstl_slist_aux.o: $(srcdir)/../../src/cstl_slist_aux.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_slist_aux.Tpo -c -o ut-cstl_slist_aux.o `test -f '$(srcdir)/../../src/cstl_slist_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_aux.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_slist_aux.Tpo $(DEPDIR)/ut-cstl_slist_aux.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_slist_aux.c' object='ut-cstl_slist_aux.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_aux.o `test -f '$(srcdir)/../../src/cstl_slist_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_aux.c
+
+ut-cstl_slist_aux.obj: $(srcdir)/../../src/cstl_slist_aux.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_slist_aux.Tpo -c -o ut-cstl_slist_aux.obj `if test -f '$(srcdir)/../../src/cstl_slist_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_aux.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_slist_aux.Tpo $(DEPDIR)/ut-cstl_slist_aux.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_slist_aux.c' object='ut-cstl_slist_aux.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_aux.obj `if test -f '$(srcdir)/../../src/cstl_slist_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_aux.c'; fi`
+
 ut-cstl_queue.o: $(srcdir)/../../src/cstl_queue.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_queue.o -MD -MP -MF $(DEPDIR)/ut-cstl_queue.Tpo -c -o ut-cstl_queue.o `test -f '$(srcdir)/../../src/cstl_queue.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_queue.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_queue.Tpo $(DEPDIR)/ut-cstl_queue.Po
@@ -1144,6 +1198,34 @@ ut-ut_cstl_deque.obj: ut_cstl_deque.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_deque.c' object='ut-ut_cstl_deque.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_deque.obj `if test -f 'ut_cstl_deque.c'; then $(CYGPATH_W) 'ut_cstl_deque.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque.c'; fi`
+
+ut-ut_cstl_slist_iterator.o: ut_cstl_slist_iterator.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_iterator.Tpo -c -o ut-ut_cstl_slist_iterator.o `test -f 'ut_cstl_slist_iterator.c' || echo '$(srcdir)/'`ut_cstl_slist_iterator.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_iterator.Tpo $(DEPDIR)/ut-ut_cstl_slist_iterator.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_slist_iterator.c' object='ut-ut_cstl_slist_iterator.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_iterator.o `test -f 'ut_cstl_slist_iterator.c' || echo '$(srcdir)/'`ut_cstl_slist_iterator.c
+
+ut-ut_cstl_slist_iterator.obj: ut_cstl_slist_iterator.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_iterator.Tpo -c -o ut-ut_cstl_slist_iterator.obj `if test -f 'ut_cstl_slist_iterator.c'; then $(CYGPATH_W) 'ut_cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_iterator.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_iterator.Tpo $(DEPDIR)/ut-ut_cstl_slist_iterator.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_slist_iterator.c' object='ut-ut_cstl_slist_iterator.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_iterator.obj `if test -f 'ut_cstl_slist_iterator.c'; then $(CYGPATH_W) 'ut_cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_iterator.c'; fi`
+
+ut-ut_cstl_slist_aux.o: ut_cstl_slist_aux.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_aux.Tpo -c -o ut-ut_cstl_slist_aux.o `test -f 'ut_cstl_slist_aux.c' || echo '$(srcdir)/'`ut_cstl_slist_aux.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_aux.Tpo $(DEPDIR)/ut-ut_cstl_slist_aux.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_slist_aux.c' object='ut-ut_cstl_slist_aux.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_aux.o `test -f 'ut_cstl_slist_aux.c' || echo '$(srcdir)/'`ut_cstl_slist_aux.c
+
+ut-ut_cstl_slist_aux.obj: ut_cstl_slist_aux.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_aux.Tpo -c -o ut-ut_cstl_slist_aux.obj `if test -f 'ut_cstl_slist_aux.c'; then $(CYGPATH_W) 'ut_cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_aux.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_aux.Tpo $(DEPDIR)/ut-ut_cstl_slist_aux.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_slist_aux.c' object='ut-ut_cstl_slist_aux.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_aux.obj `if test -f 'ut_cstl_slist_aux.c'; then $(CYGPATH_W) 'ut_cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_aux.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

@@ -120,6 +120,11 @@ void test__list_iterator_before__after(void** state);
     UT_CASE(test__list_iterator_set_value__invalid_iter_end),\
     UT_CASE(test__list_iterator_set_value__successfully),\
     UT_CASE(test__list_iterator_set_value__successfully_cstr),\
+    UT_CASE_BEGIN(_list_iterator_get_pointer, test__list_iterator_get_pointer__invalid_iter),\
+    UT_CASE(test__list_iterator_get_pointer__invalid_iter_container_type),\
+    UT_CASE(test__list_iterator_get_pointer__invalid_iter_iterator_type),\
+    UT_CASE(test__list_iterator_get_pointer__successfully),\
+    UT_CASE(test__list_iterator_get_pointer__successfully_cstr),\
     UT_CASE_BEGIN(_list_iterator_next, test__list_iterator_next__invalid_iter),\
     UT_CASE(test__list_iterator_next__invalid_iter_container_type),\
     UT_CASE(test__list_iterator_next__invalid_iter_iterator_type),\

@@ -1,6 +1,6 @@
 /*
  *  The list iterator interface for iterator module.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -69,8 +69,7 @@ extern void _list_iterator_set_value(list_iterator_t it_iter, const void* cpv_va
  * Get data value pointer referenced by iterator.
  * @param it_iter    list iterator.
  * @return void.
- * @remarks it_iter must be valid list iterator, otherwise the behavior is undefined. if pv_value == NULL, then the
- *          behavior is undefined.
+ * @remarks it_iter must be valid list iterator, otherwise the behavior is undefined.
  */
 extern const void* _list_iterator_get_pointer(list_iterator_t it_iter); 
 

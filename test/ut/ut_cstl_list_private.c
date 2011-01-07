@@ -14,7 +14,7 @@
 #include "ut_def.h"
 #include "ut_cstl_list_private.h"
 
-UT_SUIT_DEFINATION(cstl_list_private, test__create_list__null_typename)
+UT_SUIT_DEFINATION(cstl_list_private, _create_list)
 
 /*
  * test _create_list
