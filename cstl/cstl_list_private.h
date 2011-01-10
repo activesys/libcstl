@@ -166,7 +166,7 @@ extern void _list_push_back_varg(list_t* plist_list, va_list val_elemlist);
 /**
  * Add specificed element at the begin of list container. 
  * @param plist_list    list container.
- * @param val_elemlist  specificed element.
+ * @param ...           specificed element.
  * @return void.
  * @remarks if plist_list == NULL or list is uninitialized, then the behavior is undefined. the type of specificed
  *          element and list element type must be same, otherwise the behavior is undefined. the first specificed is
@@ -216,7 +216,7 @@ extern void _list_resize_elem_varg(list_t* plist_list, size_t t_resize, va_list 
 /**
  * Remove specificed element from list container.
  * @param plist_list    list container.
- * @...                 specificed element.
+ * @param ...           specificed element.
  * @return void.
  * @remarks if plist_list == NULL or list is uninitialized, then the behavior is undefined. the type of specificed
  *          element and list element type must be same, otherwise the behavior is undefined. the first specificed is
@@ -228,7 +228,7 @@ extern void _list_remove(list_t* plist_list, ...);
 /**
  * Remove element that specificed by variable argument list from list container.
  * @param plist_list    list container.
- * @val_elemlist        variable argument list.
+ * @param val_elemlist  variable argument list.
  * @return void.
  * @remarks if plist_list == NULL or list is uninitialized, then the behavior is undefined. the type of specificed
  *          element and list element type must be same, otherwise the behavior is undefined. the first specificed is

@@ -549,7 +549,7 @@ void slist_splice(
 
     if(!slist_empty(pt_slistsrc))
     {
-        _transfer(t_pos, slist_begin(pt_slistsrc), slist_end(pt_slistsrc));
+        _slist_transfer(t_pos, slist_begin(pt_slistsrc), slist_end(pt_slistsrc));
     }
 }
 
@@ -574,7 +574,7 @@ void slist_splice_pos(
     if(!slist_empty(pt_slistsrc) &&
        !iterator_equal(t_possrc, slist_end(pt_slistsrc)))
     {
-        _transfer(t_pos, t_possrc, t_possrcnext);
+        _slist_transfer(t_pos, t_possrc, t_possrcnext);
     }
 }
 
@@ -595,7 +595,7 @@ void slist_splice_range(
     assert(iterator_equal(t_begin, t_end) || _slist_iterator_before(t_begin, t_end));
     assert(pt_slist != pt_slistsrc);
 
-    _transfer(t_pos, t_begin, t_end);
+    _slist_transfer(t_pos, t_begin, t_end);
 }
 
 void slist_splice_after_pos(
@@ -619,7 +619,7 @@ void slist_splice_after_pos(
     t_prev = iterator_next(t_prev);
     t_prevnext = t_prev;
     t_prevnext = iterator_next(t_prevnext);
-    _transfer_after(t_pos, t_prev, t_prevnext);
+    _slist_transfer_after(t_pos, t_prev, t_prevnext);
 }
 
 void slist_splice_after_range(
@@ -642,7 +642,7 @@ void slist_splice_after_range(
 
     t_beforefirst = iterator_next(t_beforefirst);
     t_beforelast = iterator_next(t_beforelast);
-    _transfer_after(t_pos, t_beforefirst, t_beforelast);
+    _slist_transfer_after(t_pos, t_beforefirst, t_beforelast);
 }
 
 
@@ -764,7 +764,7 @@ void slist_reverse(slist_t* pt_slist)
         while(!iterator_equal(t_poscur, slist_end(pt_slist)))
         {
             t_posnext = iterator_next(t_poscur);
-            _transfer(slist_begin(pt_slist), t_poscur, t_posnext);
+            _slist_transfer(slist_begin(pt_slist), t_poscur, t_posnext);
             t_poscur = t_posnext;
         }
     }
@@ -801,7 +801,7 @@ void slist_sort(slist_t* pt_slist)
             {
                 t_insert = t_disorder;
                 t_disorder = iterator_next(t_disorder);
-                _transfer(t_pos, t_insert, t_disorder);
+                _slist_transfer(t_pos, t_insert, t_disorder);
                 break;
             }
         }
@@ -840,7 +840,7 @@ void slist_sort_if(slist_t* pt_slist, binary_function_t t_binary_op)
             {
                 t_insert = t_disorder;
                 t_disorder = iterator_next(t_disorder);
-                _transfer(t_pos, t_insert, t_disorder);
+                _slist_transfer(t_pos, t_insert, t_disorder);
                 break;
             }
         }
@@ -876,7 +876,7 @@ void slist_merge(slist_t* pt_slistdest, slist_t* pt_slistsrc)
             /* transfer the element fromt src to dest */
             t_srcnext = t_src;
             t_srcnext = iterator_next(t_srcnext);
-            _transfer(t_dest, t_src, t_srcnext);
+            _slist_transfer(t_dest, t_src, t_srcnext);
         }
         else
         {
@@ -890,7 +890,7 @@ void slist_merge(slist_t* pt_slistdest, slist_t* pt_slistsrc)
     {
         assert(iterator_equal(t_dest, slist_end(pt_slistdest)));
         /* transfer the remain elements in src slist to dest */
-        _transfer(t_dest, t_src, slist_end(pt_slistsrc));
+        _slist_transfer(t_dest, t_src, slist_end(pt_slistsrc));
     }
 }
 
@@ -923,7 +923,7 @@ void slist_merge_if(
             /* transfer the element fromt src to dest */
             t_srcnext = t_src;
             t_srcnext = iterator_next(t_srcnext);
-            _transfer(t_dest, t_src, t_srcnext);
+            _slist_transfer(t_dest, t_src, t_srcnext);
         }
         else
         {
@@ -937,7 +937,7 @@ void slist_merge_if(
     {
         assert(iterator_equal(t_dest, slist_end(pt_slistdest)));
         /* transfer the remain elements in src slist to dest */
-        _transfer(t_dest, t_src, slist_end(pt_slistsrc));
+        _slist_transfer(t_dest, t_src, slist_end(pt_slistsrc));
     }
 }
 

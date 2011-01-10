@@ -47,473 +47,520 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-
-/* slist private function */
+/**
+ * Create slist container.
+ */
 slist_t* _create_slist(const char* s_typename)
 {
-    slist_t*    pt_newslist = NULL;
+    slist_t*    pslist_new = NULL;
+
+    assert(s_typename != NULL);
 
     /* allocate memory for slist */
-    if((pt_newslist = (slist_t*)malloc(sizeof(slist_t))) == NULL)
+    if((pslist_new = (slist_t*)malloc(sizeof(slist_t))) == NULL)
     {
         return NULL;
     }
 
-    if(!_create_slist_auxiliary(pt_newslist, s_typename))
+    if(!_create_slist_auxiliary(pslist_new, s_typename))
     {
-        free(pt_newslist);
+        free(pslist_new);
         return NULL;
     }
 
-    return pt_newslist;
+    return pslist_new;
 }
 
-bool_t _create_slist_auxiliary(slist_t* pt_slist, const char* s_typename)
+/**
+ * Create slist container auxiliary function.
+ */
+bool_t _create_slist_auxiliary(slist_t* pslist_slist, const char* s_typename)
 {
-    assert(pt_slist != NULL && s_typename != NULL);
+    assert(pslist_slist != NULL);
+    assert(s_typename != NULL);
 
-    _type_get_type(&pt_slist->_t_typeinfo, s_typename);
-    if(pt_slist->_t_typeinfo._t_style == _TYPE_INVALID)
+    _type_get_type(&pslist_slist->_t_typeinfo, s_typename);
+    if(pslist_slist->_t_typeinfo._t_style == _TYPE_INVALID)
     {
         return false;
     }
 
-    pt_slist->_t_head._pt_next = NULL;
+    pslist_slist->_t_head._pt_next = NULL;
 
-    _alloc_init(&pt_slist->_t_allocater);
+    _alloc_init(&pslist_slist->_t_allocater);
     return true;
 }
 
-
-void _slist_init_elem(slist_t* pt_slist, size_t t_count, ...)
+/**
+ * Initialize slist with specified element.
+ */
+void _slist_init_elem(slist_t* pslist_slist, size_t t_count, ...)
 {
     va_list val_elemlist;
 
+    assert(pslist_slist != NULL);
+    assert(_slist_is_created(pslist_slist));
+
     va_start(val_elemlist, t_count);
-    _slist_init_elem_varg(pt_slist, t_count, val_elemlist);
+    _slist_init_elem_varg(pslist_slist, t_count, val_elemlist);
     va_end(val_elemlist);
 }
 
-void _slist_init_elem_varg(slist_t* pt_slist, size_t t_count, va_list val_elemlist)
+/**
+ * Initialize slist with variable argument slist of specified element.
+ */
+void _slist_init_elem_varg(slist_t* pslist_slist, size_t t_count, va_list val_elemlist)
 {
     slistnode_t* pt_varg = NULL;
-    bool_t       t_result = false;
+    bool_t       b_result = false;
 
-    assert(pt_slist != NULL && pt_slist->_t_head._pt_next == NULL);
-
-    /* initialize the allocator */
-    /*_alloc_init(&pt_slist->_t_allocater);*/
+    assert(pslist_slist != NULL);
+    assert(_slist_is_created(pslist_slist));
 
     /* allocate memory for n_elemcount slist node */
     if(t_count > 0)
     {
-        size_t t_index = 0;
-        slistnode_t* pt_slistnode = NULL;
+        size_t i = 0;
+        slistnode_t* pt_node = NULL;
 
         /* get varg value only once */
-        pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
-            _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+        pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
         assert(pt_varg != NULL);
-        _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
+        _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
-        for(t_index = 0; t_index < t_count; ++t_index)
+        for(i = 0; i < t_count; ++i)
         {
-            pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
-                _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
-            assert(pt_slistnode != NULL);
-            _slist_init_node_auxiliary(pt_slist, pt_slistnode);
+            pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+            assert(pt_node != NULL);
+            _slist_init_node_auxiliary(pslist_slist, pt_node);
             /* copy value from varg */
-            t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-            _GET_SLIST_TYPE_COPY_FUNCTION(pt_slist)(
-                pt_slistnode->_pc_data, pt_varg->_pc_data, &t_result);
-            assert(t_result);
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(pt_node->_pc_data, pt_varg->_pc_data, &b_result);
+            assert(b_result);
 
             /* insert the new slist node after the head */
-            pt_slistnode->_pt_next = pt_slist->_t_head._pt_next;
-            pt_slist->_t_head._pt_next = pt_slistnode;
-            pt_slistnode = NULL;
+            pt_node->_pt_next = pslist_slist->_t_head._pt_next;
+            pslist_slist->_t_head._pt_next = pt_node;
+            pt_node = NULL;
         }
 
-        _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-        _alloc_deallocate(&pt_slist->_t_allocater, pt_varg,
-            _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+        _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
+        _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     }
 }
 
-
-void _slist_destroy_auxiliary(slist_t* pt_slist)
+/**
+ * Destroy slist container auxiliary function.
+ */
+void _slist_destroy_auxiliary(slist_t* pslist_slist)
 {
-    slistnode_t* pt_slistnode = NULL;
-    bool_t       t_result = false;
+    slistnode_t* pt_node = NULL;
+    bool_t       b_result = false;
 
-    /* test the pt_slist is valid */
-    assert(pt_slist != NULL);
+    /* test the pslist_slist is valid */
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist) || _slist_is_created(pslist_slist));
 
     /* _alloc_deallocate all nodes in slist */
-    while(pt_slist->_t_head._pt_next != NULL)
+    while(pslist_slist->_t_head._pt_next != NULL)
     {
-        pt_slistnode = pt_slist->_t_head._pt_next;
         /* take out each node from the slist */
-        pt_slist->_t_head._pt_next = pt_slistnode->_pt_next;
-        pt_slistnode->_pt_next = NULL;
+        pt_node = pslist_slist->_t_head._pt_next;
+        pslist_slist->_t_head._pt_next = pt_node->_pt_next;
+        pt_node->_pt_next = NULL;
 
         /* destroy the node itself */
-        t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-        _GET_SLIST_TYPE_DESTROY_FUNCTION(pt_slist)(pt_slistnode->_pc_data, &t_result);
-        assert(t_result);
-        _alloc_deallocate(&pt_slist->_t_allocater, pt_slistnode, 
-            _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
-        pt_slistnode = NULL;
+        b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+        _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pc_data, &b_result);
+        assert(b_result);
+
+        _alloc_deallocate(&pslist_slist->_t_allocater, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        pt_node = NULL;
     }
 
     /* _alloc_deallocate the allocator */
-    _alloc_destroy(&pt_slist->_t_allocater);
+    _alloc_destroy(&pslist_slist->_t_allocater);
 }
 
 
-void _slist_assign_elem(slist_t* pt_slist, size_t t_count, ...)
+/**
+ * Assign slist with specificed element.
+ */
+void _slist_assign_elem(slist_t* pslist_slist, size_t t_count, ...)
 {
     va_list val_elemlist;
 
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+
     va_start(val_elemlist, t_count);
-    _slist_assign_elem_varg(pt_slist, t_count, val_elemlist);
+    _slist_assign_elem_varg(pslist_slist, t_count, val_elemlist);
     va_end(val_elemlist);
 }
 
-void _slist_assign_elem_varg(slist_t* pt_slist, size_t t_count, va_list val_elemlist)
+/**
+ * Assign slist with variable argument of specificed element.
+ */
+void _slist_assign_elem_varg(slist_t* pslist_slist, size_t t_count, va_list val_elemlist)
 {
-    slist_iterator_t t_iter;
+    slist_iterator_t it_iter;
     slistnode_t*     pt_varg = NULL;
-    bool_t           t_result = false;
+    bool_t           b_result = false;
 
-    assert(pt_slist != NULL);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
 
-    slist_resize(pt_slist, t_count);
+    slist_resize(pslist_slist, t_count);
 
     /* get varg value */
-    pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
-        _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+    pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     assert(pt_varg != NULL);
-    _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
+    _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
     /* copy value from varg */
-    for(t_iter = slist_begin(pt_slist);
-        !iterator_equal(t_iter, slist_end(pt_slist));
-        t_iter = iterator_next(t_iter))
+    for(it_iter = slist_begin(pslist_slist);
+        !iterator_equal(it_iter, slist_end(pslist_slist));
+        it_iter = iterator_next(it_iter))
     {
-        t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-        _GET_SLIST_TYPE_COPY_FUNCTION(pt_slist)(
-            ((slistnode_t*)_GET_SLIST_COREPOS(t_iter))->_pc_data,
-            pt_varg->_pc_data, &t_result);
-        assert(t_result);
+        b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+        _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
+            ((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data, pt_varg->_pc_data, &b_result);
+        assert(b_result);
     }
 
     /* destroy varg value */
-    _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-    _alloc_deallocate(&pt_slist->_t_allocater, pt_varg,
-        _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+    _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
+    _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 }
 
-
-void _slist_push_front(slist_t* pt_slist, ...)
+/**
+ * Add specificed element at the begin of slist container. 
+ */
+void _slist_push_front(slist_t* pslist_slist, ...)
 {
     va_list val_elemlist;
 
-    va_start(val_elemlist, pt_slist);
-    _slist_push_front_varg(pt_slist, val_elemlist);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+
+    va_start(val_elemlist, pslist_slist);
+    _slist_push_front_varg(pslist_slist, val_elemlist);
     va_end(val_elemlist);
 }
 
-void _slist_push_front_varg(slist_t* pt_slist, va_list val_elemlist)
+/**
+ * Add specificed element from variable argument slist at the begin of slist container. 
+ */
+void _slist_push_front_varg(slist_t* pslist_slist, va_list val_elemlist)
 {
-    slistnode_t* pt_slistnode = NULL;
+    slistnode_t* pt_node = NULL;
 
-    assert(pt_slist != NULL);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
 
     /* allocate memory for new element and copy the element from elemlist */
-    pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
-        _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
-    assert(pt_slistnode != NULL);
-    _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_slistnode);
+    pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+    assert(pt_node != NULL);
+    _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_node);
 
     /* insert the element after the head */
-    pt_slistnode->_pt_next = pt_slist->_t_head._pt_next;
-    pt_slist->_t_head._pt_next = pt_slistnode;
+    pt_node->_pt_next = pslist_slist->_t_head._pt_next;
+    pslist_slist->_t_head._pt_next = pt_node;
 }
 
-
-slist_iterator_t _slist_insert(slist_t* pt_slist, slist_iterator_t t_pos, ...)
+/**
+ * Insert one copy of element befor specificed position.
+ */
+slist_iterator_t _slist_insert(slist_t* pslist_slist, slist_iterator_t it_pos, ...)
 {
     va_list val_elemlist;
 
-    /* test the list pointer and pos is valid */
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_pos));
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
 
     /* if the pos is slist begin iterator */
-    va_start(val_elemlist, t_pos);
-    if(iterator_equal(t_pos, slist_begin(pt_slist)))
+    va_start(val_elemlist, it_pos);
+    if(iterator_equal(it_pos, slist_begin(pslist_slist)))
     {
         /* call push front */
-        _slist_push_front_varg(pt_slist, val_elemlist);
+        _slist_push_front_varg(pslist_slist, val_elemlist);
     }
     else
     {
         /* call insert_after */
-        _slist_insert_after_n_varg(pt_slist, slist_previous(pt_slist, t_pos), 1, val_elemlist);
+        _slist_insert_after_n_varg(pslist_slist, slist_previous(pslist_slist, it_pos), 1, val_elemlist);
     }
     va_end(val_elemlist);
 
     /* return the new element iterator */
-    return slist_previous(pt_slist, t_pos);
+    return slist_previous(pslist_slist, it_pos);
 }
 
-slist_iterator_t _slist_insert_after(
-    slist_t* pt_slist, slist_iterator_t t_pos, ...)
+/**
+ * Insert one copy of element after specificed position.
+ */
+slist_iterator_t _slist_insert_after(slist_t* pslist_slist, slist_iterator_t it_pos, ...)
 {
     va_list val_elemlist;
 
-    va_start(val_elemlist, t_pos);
-    _slist_insert_after_n_varg(pt_slist, t_pos, 1, val_elemlist);
-    va_end(val_elemlist);
-    t_pos = iterator_next(t_pos);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
+    assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
 
-    return t_pos;
+    va_start(val_elemlist, it_pos);
+    _slist_insert_after_n_varg(pslist_slist, it_pos, 1, val_elemlist);
+    va_end(val_elemlist);
+
+    return iterator_next(it_pos);
 }
 
-void _slist_insert_n(
-    slist_t* pt_slist, slist_iterator_t t_pos, size_t t_count, ...)
+/**
+ * Insert multiple copys of element befor specificed position.
+ */
+void _slist_insert_n(slist_t* pslist_slist, slist_iterator_t it_pos, size_t t_count, ...)
 {
     va_list val_elemlist;
 
     /* test the slist pointer and pos is valid */
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_pos));
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
 
     /* if the pos is slist begin */
     va_start(val_elemlist, t_count);
-    if(iterator_equal(t_pos, slist_begin(pt_slist)))
+    if(iterator_equal(it_pos, slist_begin(pslist_slist)))
     {
-        size_t t_index = 0;
-        /* call slist push front n_elemcount times */
-        for(t_index = 0; t_index < t_count; ++t_index)
+        size_t i = 0;
+        /* call slist push front t_count times */
+        for(i = 0; i < t_count; ++i)
         {
             va_list val_elemlist_copy;
 
             va_copy(val_elemlist_copy, val_elemlist);
-            _slist_push_front_varg(pt_slist, val_elemlist_copy);
+            _slist_push_front_varg(pslist_slist, val_elemlist_copy);
             va_end(val_elemlist_copy);
         }
     }
     /* else get the previous iterator */
     else
     {
-        va_list val_elemlist_copy;
-
-        /* call slist insert after n function */
-        va_copy(val_elemlist_copy, val_elemlist);
-        _slist_insert_after_n_varg(
-            pt_slist, slist_previous(pt_slist, t_pos), t_count, val_elemlist_copy);
-        va_end(val_elemlist_copy);
+        _slist_insert_after_n_varg(pslist_slist, slist_previous(pslist_slist, it_pos), t_count, val_elemlist);
     }
     va_end(val_elemlist);
 }
 
-void _slist_insert_after_n(
-    slist_t* pt_slist, slist_iterator_t t_pos, size_t t_count, ...)
+/**
+ * Insert multiple copys of element after specificed position.
+ */
+void _slist_insert_after_n(slist_t* pslist_slist, slist_iterator_t it_pos, size_t t_count, ...)
 {
     va_list val_elemlist;
 
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
+    assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
+
     va_start(val_elemlist, t_count);
-    _slist_insert_after_n_varg(pt_slist, t_pos, t_count, val_elemlist);
+    _slist_insert_after_n_varg(pslist_slist, it_pos, t_count, val_elemlist);
     va_end(val_elemlist);
 }
 
-void _slist_insert_after_n_varg(
-    slist_t* pt_slist, slist_iterator_t t_pos, size_t t_count, va_list val_elemlist)
+/**
+ * Insert multiple copys of element after specificed position.
+ */
+void _slist_insert_after_n_varg(slist_t* pslist_slist, slist_iterator_t it_pos, size_t t_count, va_list val_elemlist)
 {
-    size_t       t_index = 0;
-    slistnode_t* pt_slistnode = NULL;
+    size_t       i = 0;
+    slistnode_t* pt_node = NULL;
     slistnode_t* pt_varg = NULL;
-    bool_t       t_result = false;
+    bool_t       b_result = false;
 
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_pos));
-    assert(!iterator_equal(t_pos, slist_end(pt_slist)));
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
+    assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
 
     /* get varg value only once */
-    pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
-        _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+    pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     assert(pt_varg != NULL);
-    _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
+    _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
-    for(t_index = 0; t_index < t_count; ++t_index)
+    for(i = 0; i < t_count; ++i)
     {
         /* allocate slist node */
-        pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
-            _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
-        assert(pt_slistnode != NULL);
-        _slist_init_node_auxiliary(pt_slist, pt_slistnode);
+        pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        assert(pt_node != NULL);
+        _slist_init_node_auxiliary(pslist_slist, pt_node);
 
         /* copy value from varg */
-        t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-        _GET_SLIST_TYPE_COPY_FUNCTION(pt_slist)(
-            pt_slistnode->_pc_data, pt_varg->_pc_data, &t_result);
-        assert(t_result);
+        b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+        _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(pt_node->_pc_data, pt_varg->_pc_data, &b_result);
+        assert(b_result);
 
         /* link the node to slist */
-        pt_slistnode->_pt_next = ((slistnode_t*)_GET_SLIST_COREPOS(t_pos))->_pt_next;
-        ((slistnode_t*)_GET_SLIST_COREPOS(t_pos))->_pt_next = pt_slistnode;
-        pt_slistnode = NULL;
+        pt_node->_pt_next = ((slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next;
+        ((slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next = pt_node;
+        pt_node = NULL;
     }
 
     /* destroy varg value */
-    _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-    _alloc_deallocate(&pt_slist->_t_allocater, pt_varg,
-        _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+    _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
+    _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 }
 
-
-void _slist_remove(slist_t* pt_slist, ...)
+/**
+ * Remove specificed element from slist container.
+ */
+void _slist_remove(slist_t* pslist_slist, ...)
 {
     va_list val_elemlist;
 
-    va_start(val_elemlist, pt_slist);
-    _slist_remove_varg(pt_slist, val_elemlist);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+
+    va_start(val_elemlist, pslist_slist);
+    _slist_remove_varg(pslist_slist, val_elemlist);
     va_end(val_elemlist);
 }
 
-void _slist_remove_varg(slist_t* pt_slist, va_list val_elemlist)
+/**
+ * Remove element that specificed by variable argument slist from slist container.
+ */
+void _slist_remove_varg(slist_t* pslist_slist, va_list val_elemlist)
 {
-    slist_iterator_t t_iter; /* for iterate */
+    slist_iterator_t it_iter; /* for iterate */
     slistnode_t*     pt_varg = NULL;
-    bool_t           t_less = false;
-    bool_t           t_greater = false;
+    bool_t           b_less = false;
+    bool_t           b_greater = false;
 
     /* test the pointer is valid */
-    assert(pt_slist != NULL);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
 
-    pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
-        _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+    pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     assert(pt_varg != NULL);
-    _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
+    _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
-    t_iter = slist_begin(pt_slist);
-    while(!iterator_equal(t_iter, slist_end(pt_slist)))
+    it_iter = slist_begin(pslist_slist);
+    while(!iterator_equal(it_iter, slist_end(pslist_slist)))
     {
-        t_less = t_greater = _GET_SLIST_TYPE_SIZE(pt_slist);
-        _GET_SLIST_TYPE_LESS_FUNCTION(pt_slist)(
-            pt_varg->_pc_data, ((slistnode_t*)_GET_SLIST_COREPOS(t_iter))->_pc_data, &t_less);
-        _GET_SLIST_TYPE_LESS_FUNCTION(pt_slist)(
-            ((slistnode_t*)_GET_SLIST_COREPOS(t_iter))->_pc_data, pt_varg->_pc_data, &t_greater);
-        if(t_less || t_greater)
+        b_less = b_greater = _GET_SLIST_TYPE_SIZE(pslist_slist);
+        _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
+            pt_varg->_pc_data, ((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data, &b_less);
+        _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
+            ((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data, pt_varg->_pc_data, &b_greater);
+        if(b_less || b_greater)
         {
-            t_iter = iterator_next(t_iter);
+            it_iter = iterator_next(it_iter);
         }
         else
         {
-            t_iter = slist_erase(pt_slist, t_iter);
+            it_iter = slist_erase(pslist_slist, it_iter);
         }
     }
 
-    _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-    _alloc_deallocate(&pt_slist->_t_allocater, pt_varg,
-        _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+    _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
+    _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 }
 
-
-void _slist_resize_elem(slist_t* pt_slist, size_t t_resize, ...)
+/**
+ * Reset the size of slist elements.
+ */
+void _slist_resize_elem(slist_t* pslist_slist, size_t t_resize, ...)
 {
     va_list val_elemlist;
 
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+
     va_start(val_elemlist, t_resize);
-    _slist_resize_elem_varg(pt_slist, t_resize, val_elemlist);
+    _slist_resize_elem_varg(pslist_slist, t_resize, val_elemlist);
     va_end(val_elemlist);
 }
 
-void _slist_resize_elem_varg(slist_t* pt_slist, size_t t_resize, va_list val_elemlist)
+/**
+ * Reset the size of slist elements, and filled element is from variable argument slist.
+ */
+void _slist_resize_elem_varg(slist_t* pslist_slist, size_t t_resize, va_list val_elemlist)
 {
-    slist_iterator_t t_pos;
-    size_t           t_index = 0;
-    slistnode_t*     pt_varg = NULL;
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
 
-    assert(pt_slist != NULL);
-
-    for(t_index = 0, t_pos = slist_begin(pt_slist);
-        t_index < t_resize && !iterator_equal(t_pos, slist_end(pt_slist));
-        ++t_index, t_pos = iterator_next(t_pos))
+    if(t_resize <= slist_size(pslist_slist))
     {
-        continue;
-    }
-
-    if(t_index == t_resize)
-    {
-        if(!iterator_equal(t_pos, slist_end(pt_slist)))
-        {
-            slist_erase_range(pt_slist, t_pos, slist_end(pt_slist));
-        }
+        slist_iterator_t it_pos = iterator_advance(slist_begin(pslist_slist), t_resize);
+        slist_erase_range(pslist_slist, it_pos, slist_end(pslist_slist));
     }
     else
     {
-        slist_iterator_t t_slistlast;
-        slistnode_t*     pt_slistnode = NULL;
-        size_t           t_slistsize = slist_size(pt_slist);
-        bool_t           t_result = false;
+        slist_iterator_t it_last;
+        slistnode_t*     pt_node = NULL;
+        slistnode_t*     pt_varg = NULL;
+        size_t           t_size = slist_size(pslist_slist);
+        size_t           i = 0;
+        bool_t           b_result = false;
 
-        if(!slist_empty(pt_slist))
+        if(!slist_empty(pslist_slist))
         {
-            t_slistlast = slist_previous(pt_slist, slist_end(pt_slist));
+            it_last = slist_previous(pslist_slist, slist_end(pslist_slist));
         }
         else
         {
-            _GET_SLIST_COREPOS(t_slistlast) = (char*)&pt_slist->_t_head;
+            _GET_SLIST_COREPOS(it_last) = (char*)&pslist_slist->_t_head;
         }
 
         /* get varg value only once */
-        pt_varg = _alloc_allocate(&pt_slist->_t_allocater,
-            _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+        pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
         assert(pt_varg != NULL);
-        _slist_get_varg_value_auxiliary(pt_slist, val_elemlist, pt_varg);
+        _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
-        for(t_index = 0; t_index < t_resize - t_slistsize; ++t_index)
+        for(i = 0; i < t_resize - t_size; ++i)
         {
-            pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
-                _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
-            assert(pt_slistnode != NULL);
-            _slist_init_node_auxiliary(pt_slist, pt_slistnode);
+            pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+            assert(pt_node != NULL);
+            _slist_init_node_auxiliary(pslist_slist, pt_node);
 
             /* copy value from varg */
-            t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-            _GET_SLIST_TYPE_COPY_FUNCTION(pt_slist)(
-                pt_slistnode->_pc_data, pt_varg->_pc_data, &t_result);
-            assert(t_result);
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(pt_node->_pc_data, pt_varg->_pc_data, &b_result);
+            assert(b_result);
 
-            pt_slistnode->_pt_next = ((slistnode_t*)_GET_SLIST_COREPOS(t_slistlast))->_pt_next;
-            ((slistnode_t*)_GET_SLIST_COREPOS(t_slistlast))->_pt_next = pt_slistnode;
-            pt_slistnode = NULL;
+            pt_node->_pt_next = ((slistnode_t*)_GET_SLIST_COREPOS(it_last))->_pt_next;
+            ((slistnode_t*)_GET_SLIST_COREPOS(it_last))->_pt_next = pt_node;
+            pt_node = NULL;
         }
 
-        _slist_destroy_varg_value_auxiliary(pt_slist, pt_varg);
-        _alloc_deallocate(&pt_slist->_t_allocater, pt_varg, 
-            _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+        _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
+        _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     }
 }
 
-void _slist_init_elem_auxiliary(slist_t* pt_slist, void* pv_value)
+/**
+ * Initialize element with slist element type auxiliary function.
+ */
+void _slist_init_elem_auxiliary(slist_t* pslist_slist, void* pv_value)
 {
-    assert(pt_slist != NULL && pv_value != NULL);
+    assert(pslist_slist != NULL);
+    assert(pv_value != NULL);
+    assert(_slist_is_inited(pslist_slist) || _slist_is_created(pslist_slist));
 
     /* initialize new elements */
-    if(_GET_SLIST_TYPE_STYLE(pt_slist) == _TYPE_CSTL_BUILTIN)
+    if(_GET_SLIST_TYPE_STYLE(pslist_slist) == _TYPE_CSTL_BUILTIN)
     {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_SLIST_TYPE_NAME(pt_slist), s_elemtypename);
+        _type_get_elem_typename(_GET_SLIST_TYPE_NAME(pslist_slist), s_elemtypename);
 
-        _GET_SLIST_TYPE_INIT_FUNCTION(pt_slist)(pv_value, s_elemtypename);
+        _GET_SLIST_TYPE_INIT_FUNCTION(pslist_slist)(pv_value, s_elemtypename);
     }
     else
     {
-        bool_t t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-        _GET_SLIST_TYPE_INIT_FUNCTION(pt_slist)(pv_value, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+        _GET_SLIST_TYPE_INIT_FUNCTION(pslist_slist)(pv_value, &b_result);
+        assert(b_result);
     }
 }
 
