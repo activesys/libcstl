@@ -30,14 +30,36 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/* create new slist with specific type */
+/**
+ * Create slist container.
+ * @param ...    type name.
+ * @return slist container pointer, if create slist successfully, else return NULL.
+ * @remarks type name must be c builtin type, libcstl builtin type or user defined type, otherwise creation will be failure.
+ */
 #define create_slist(...) _create_slist(#__VA_ARGS__)
-/* initialize */
-#define slist_init_elem(pt_slist, t_count, elem)\
-    _slist_init_elem((pt_slist), (t_count), (elem))
-/* assign */
-#define slist_assign_elem(pt_slist, t_count, elem)\
-    _slist_assign_elem((pt_slist), (t_count), (elem))
+
+/**
+ * Initialize slist with specified element.
+ * @param pslist_slist   uninitialized slist container.
+ * @param t_count        element number.
+ * @param elem           specificed element.
+ * @return void
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the type of specificed element and slist element
+ *          type must be same, otherwise the behavior is undefined. slist container must be created by create_slist,
+ *          otherwise the behavior is undefined.
+ */
+#define slist_init_elem(pslist_slist, t_count, elem) _slist_init_elem((pslist_slist), (t_count), (elem))
+
+/**
+ * Assign slist with specificed element.
+ * @param pslist_slist   slist container.
+ * @param t_count        element number.
+ * @param elem           specificed element.
+ * @return void.
+ * @remarks if pslist_slist == NULL or slist is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and slist element type must be same, otherwise the behavior is undefined.
+ */
+#define slist_assign_elem(pslist_slist, t_count, elem) _slist_assign_elem((pslist_slist), (t_count), (elem))
 /* push front */
 #define slist_push_front(pt_slist, elem)\
     _slist_push_front((pt_slist), (elem))
@@ -47,69 +69,248 @@ extern "C" {
 /* resize */
 #define slist_resize_elem(pt_slist, t_resize, elem)\
     _slist_resize_elem((pt_slist), (t_resize), (elem))
-/* insert and insert after */
-#define slist_insert(pt_slist, t_pos, elem)\
-    _slist_insert((pt_slist), (t_pos), (elem))
-#define slist_insert_n(pt_slist, t_pos, t_count, elem)\
-    _slist_insert_n((pt_slist), (t_pos), (t_count), (elem))
-#define slist_insert_after(pt_slist, t_pos, elem)\
-    _slist_insert_after((pt_slist), (t_pos), (elem))
-#define slist_insert_after_n(pt_slist, t_pos, t_count, elem)\
-    _slist_insert_after_n((pt_slist), (t_pos), (t_count), (elem))
+
+/**
+ * Insert one copy of element befor specificed position.
+ * @param pslist_slist  slist container.
+ * @param it_pos        insert position.
+ * @param t_count       element number.
+ * @param elem          specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pslist_slist == NULL or slist is uninitialized, then the behavior is undefined. the it_pos must be invalid
+ *          iterator of slist container, otherwise the behavior is undefined. the type of specificed element and slist
+ *          element type must be same, otherwise the behavior is undefined.
+ */
+#define slist_insert(pslist_slist, it_pos, elem) _slist_insert((pslist_slist), (it_pos), (elem))
+
+/**
+ * Insert multiple copys of element befor specificed position.
+ * @param pslist_slist  slist container.
+ * @param it_pos        insert position.
+ * @param t_count       element number.
+ * @param elem          specificed element.
+ * @return void.
+ * @remarks if pslist_slist == NULL or slist is uninitialized, then the behavior is undefined. the it_pos must be invalid
+ *          iterator of slist container, otherwise the behavior is undefined. the type of specificed element and slist
+ *          element type must be same, otherwise the behavior is undefined.
+ */
+#define slist_insert_n(pslist_slist, it_pos, t_count, elem) _slist_insert_n((pslist_slist), (it_pos), (t_count), (elem))
+
+/**
+ * Insert one copy of element after specificed position.
+ * @param pslist_slist  slist container.
+ * @param it_pos        before insert position.
+ * @param t_count       element number.
+ * @param elem          specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pslist_slist == NULL or slist is uninitialized, then the behavior is undefined. the it_pos must be invalid
+ *          iterator of slist container, otherwise the behavior is undefined. the type of specificed element and slist
+ *          element type must be same, otherwise the behavior is undefined. the first specificed is in use, others are not
+ *          in use.
+ */
+#define slist_insert_after(pslist_slist, it_pos, elem) _slist_insert_after((pslist_slist), (it_pos), (elem))
+
+/**
+ * Insert multiple copys of element after specificed position.
+ * @param pslist_slist  slist container.
+ * @param it_pos        before insert position.
+ * @param t_count       element number.
+ * @param elem          specificed element.
+ * @return void.
+ * @remarks if pslist_slist == NULL or slist is uninitialized, then the behavior is undefined. the it_pos must be invalid
+ *          iterator of slist container, otherwise the behavior is undefined. the type of specificed element and slist
+ *          element type must be same, otherwise the behavior is undefined. the first specificed is in use, others are not
+ *          in use.
+ */
+#define slist_insert_after_n(pslist_slist, it_pos, t_count, elem)\
+    _slist_insert_after_n((pslist_slist), (it_pos), (t_count), (elem))
 
 /** data type declaration and struct, union, enum section **/
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Initialization and destroy operation functions.
+/**
+ * Initialize an empty slist container
+ * @param pslist_slist   slist container.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. pslist_slist must be created by create_slist(), otherwise
+ *          the behavior is undefine.
  */
-extern void slist_init(slist_t* pt_slist);
-extern void slist_init_n(slist_t* pt_slist, size_t t_count);
-extern void slist_init_copy(slist_t* pt_slistdest, const slist_t* cpt_slistsrc);
-extern void slist_init_copy_range(
-    slist_t* pt_slistdest, slist_iterator_t t_begin, slist_iterator_t t_end);
-extern void slist_destroy(slist_t* pt_slist);
+extern void slist_init(slist_t* pslist_slist);
 
-/*
- * Iterator support functions.
+/**
+ * Initialize slist container with specific size.
+ * @param pslist_slist   slist container.
+ * @param t_count        the number of default elements.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. pslist_slist must be created by create_slist(), otherwise
+ *          the behavior is undefine.
  */
-extern slist_iterator_t slist_begin(const slist_t* cpt_slist);
-extern slist_iterator_t slist_end(const slist_t* cpt_slist);
-extern slist_iterator_t slist_previous(
-    const slist_t* cpt_slist, slist_iterator_t t_pos);
+extern void slist_init_n(slist_t* pslist_slist, size_t t_count);
 
-/*
- * slist_t size functions.
+/**
+ * Initialize slist container with exist slist container.
+ * @param pslist_dest   destination slist container.
+ * @param pslist_src    source slist container.
+ * @return void.
+ * @remarks if pslist_dest == NULL or pslist_src == NULL, then the behavior is undefined. pslist_dest must be created by
+ *          create_slist(), and pslist_src must be initialized, otherwise the behavior is undefined. the element type of
+ *          pslist_dest and pslist_src must be the same, otherwise the behavior is undefined.
  */
-extern size_t slist_size(const slist_t* cpt_slist);
-extern bool_t slist_empty(const slist_t* cpt_slist);
-extern size_t slist_max_size(const slist_t* cpt_slist);
+extern void slist_init_copy(slist_t* pslist_dest, const slist_t* cpslist_src);
 
-/*
- * Assign operator functions.
+/**
+ * Initialize slist container with specific range.
+ * @param pslist_dest  destination slist container.
+ * @param it_begin     range begin.
+ * @param it_end       range end.
+ * @return void.
+ * @remarks if pslist_dest == NULL, then the behavior is undefined. pslist_dest must be created by create_slist(), otherwise
+ *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefined. the
+ *          element type of [it_begin, it_end) and pslist_dest must be the same, otherwise the behavior is undefined.
  */
-extern void slist_assign(slist_t* pt_slistdest, const slist_t* cpt_slistsrc);
-extern void slist_assign_range(
-    slist_t* pt_slist, slist_iterator_t t_begin, slist_iterator_t t_end);
+extern void slist_init_copy_range(slist_t* pslist_dest, slist_iterator_t it_begin, slist_iterator_t it_end);
 
-/*
- * Swap and element access operation functions.
+/**
+ * Destroy slist container.
+ * @param pslist_slist   slist container.
+ * @return void.
+ * @remraks if pslist_slist == NULLL, then the behavior is undefined. pslist_slist must be initialized or created by
+ *          create_slist(), otherwise the behavior is undefined.
  */
-extern void slist_swap(slist_t* pt_slistfirst, slist_t* pt_slistsecond);
-extern void* slist_front(const slist_t* cpt_slist);
+extern void slist_destroy(slist_t* pslist_slist);
+
+/**
+ * Return a iterator to the first element in the slist container.
+ * @param cpslist_slist    slist container.
+ * @return a iterator to the first element in the slist container.
+ * @remarks if cpslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior
+ *          is undefined. if the slist is empty, then return slist_end(cpslist_slist).
+ */
+extern slist_iterator_t slist_begin(const slist_t* cpslist_slist);
+
+/**
+ * Return a iterator that points just beyond the end of slist container.
+ * @param cpslist_slist    slist container.
+ * @return a iterator to the end of slist.
+ * @remarks if cpslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior
+ *          is undefined.
+ */
+extern slist_iterator_t slist_end(const slist_t* cpslist_slist);
+
+/**
+ * Return a iterator that points position before current position.
+ * @param cpslist_slist    slist container.
+ * @param it_pos           current position.
+ * @return a iterator that points position before current position.
+ * @remarks if cpslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior
+ *          is undefined. it_pos must be valid for slist and must not be slist_begin(), otherwise the behavior is undefined.
+ */
+extern slist_iterator_t slist_previous(const slist_t* cpslist_slist, slist_iterator_t it_pos);
+
+/**
+ * Return the number of elements in a slist.
+ * @param cpslist_slist  slist container.
+ * @return the number of elements in the slist.
+ * @remarks if cpslist_slist == NULL, then the behavior is undefined. the cpslist_slist must be initialized, otherwise the
+ *          behavior is undefine.
+ */
+extern size_t slist_size(const slist_t* cpslist_slist);
+
+/**
+ * Tests if a slist is empty.
+ * @param cpslist_slist  slist container.
+ * @return true if the slist is empty, else returns false.
+ * @remarks if cpslist_slist == NULL, then the behavior is undefined. the cpslist_slist must be initialized, otherwise the
+ *          behavior is undefine.
+ */
+extern bool_t slist_empty(const slist_t* cpslist_slist);
+
+/**
+ * Return the maximum number of elements in a slist.
+ * @param cpslist_slist  slist container.
+ * @return the maximum possible number of elements in the slist.
+ * @remarks if cpslist_slist == NULL, then the behavior is undefined. the cpslist_slist must be initialized, otherwise the
+ *          behavior is undefine.
+ */
+extern size_t slist_max_size(const slist_t* cpslist_slist);
+
+/**
+ * Assign slist element with an exist slist container.
+ * @param pslist_dest     destination slist container.
+ * @param cpslist_src     source slist container.
+ * @return void.
+ * @remarks if pslist_dest == NULL or cpslist_src == NULL, then the behavior is undefined. pslist_dest and cpslist_src must be
+ *          initialized, otherwise the behavior is undefined. the element type of two slist must be same, otherwise
+ *          the behavior is undefined. if the destination slist equal to source slist, then this function does nothing.
+ */
+extern void slist_assign(slist_t* pslist_dest, const slist_t* cpslist_src);
+
+/**
+ * Assign slist element with an exist slist container range.
+ * @param pslist_dest   destination slist container.
+ * @param it_begin      range begin.
+ * @param it_end        range end.
+ * @return void.
+ * @remarks if pslist_dest == NULL, then the behavior is undefined. pslist_dest must be initialized, otherwise the behavior
+ *          is undefined. the element type of slist and [it_begin, it_end) must be same, otherwise the behavior is
+ *          undefined. if [it_begin, it_end) belong to the destination slist, the behavior is undefined.
+ */
+extern void slist_assign_range(slist_t* pslist_dest, slist_iterator_t it_begin, slist_iterator_t it_end);
+
+/**
+ * Swap slist datas.
+ * @param pslist_first    first slist.
+ * @param pslist_second   second slist.
+ * @return void.
+ * @remarks if pslist_first == NULL or pslist_second == NULL, then the behavior is undefined. the two slists must be
+ *          initialized, otherwise the behavior is undefined. the element type of two slists must be the same, otherwise
+ *          the behavior is undefined. if slist_equal(pslist_first, pslist_second) == true, then this function does nothing.
+ */
+extern void slist_swap(slist_t* pslist_first, slist_t* pslist_second);
+
+/**
+ * Access first slist data.
+ * @param cpslist_slist    slist container.
+ * @return pointer to the data.
+ * @remarks if cpslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior
+ *          is undefined. if the slist is empty, then the behavior is undefined.
+ */
+extern void* slist_front(const slist_t* cpslist_slist);
 extern void slist_pop_front(slist_t* pt_slist);
 
-/*
- * Insert operation functions.
+/**
+ * Insert a range of elements into slist at a specificed position.
+ * @param pslist_slist    slist container.
+ * @param it_pos          specificed position.
+ * @param it_begin        the position of first element in the range.
+ * @param it_end          the position of first element beyond the range.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for slist container, otherwise
+ *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefined.
+ *          if [it_begin, it_end) belong to slist, the behavior is undefined. the type of specificed range and 
+ *          slist element must be the same, otherwise the behavior is undefined.
  */
 extern void slist_insert_range(
-    slist_t* pt_slist, slist_iterator_t t_pos, 
-    slist_iterator_t t_begin, slist_iterator_t t_end);
+    slist_t* pslist_slist, slist_iterator_t it_pos, slist_iterator_t it_begin, slist_iterator_t it_end);
+
+/**
+ * Insert a range of elements into slist at position following specific position.
+ * @param pslist_slist    slist container.
+ * @param it_pos          specificed position.
+ * @param it_begin        the position of first element in the range.
+ * @param it_end          the position of first element beyond the range.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for slist container and must not be
+ *          slist_end(), otherwise the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the
+ *          behavior is undefined. if [it_begin, it_end) belong to slist, the behavior is undefined. the type of specificed
+ *          range and slist element must be the same, otherwise the behavior is undefined.
+ */
 extern void slist_insert_after_range(
-    slist_t* pt_slist, slist_iterator_t t_pos, 
-    slist_iterator_t t_begin, slist_iterator_t t_end);
+    slist_t* pslist_slist, slist_iterator_t it_pos, slist_iterator_t it_begin, slist_iterator_t it_end);
 
 /*
  * Erase operation functions.
@@ -171,21 +372,71 @@ extern void slist_resize(slist_t* pt_slist, size_t t_resize);
  */
 extern void slist_clear(slist_t* pt_slist);
 
-/*
- * Relationship operation functions.
+/**
+ * Tests if the two slists are equal.
+ * @param cpslist_first   first slist container.
+ * @param cpslist_second  second slist container.
+ * @return if first slist equal to second slist, then return true, else return false.
+ * @remarks if cpslist_first == NULL or cpslist_second == NULL, then the behavior is undefined. the two slists must be
+ *          initialized, otherwise the behavior is undefined. if the two slists are not same type, then return false.
+ *          if cpslist_first == cpslist_second, then return true.
  */
-extern bool_t slist_equal(
-    const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
-extern bool_t slist_not_equal(
-    const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
-extern bool_t slist_less(
-    const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
-extern bool_t slist_greater(
-    const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
-extern bool_t slist_less_equal(
-    const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
-extern bool_t slist_greater_equal(
-    const slist_t* cpt_slistfirst, const slist_t* cpt_slistsecond);
+extern bool_t slist_equal(const slist_t* cpslist_first, const slist_t* cpslist_second);
+
+/**
+ * Test the two slists are unequal.
+ * @param cpslist_first   first slist container.
+ * @param cpslist_second  second slist container.
+ * @return if first slist unequal to second slist, then return true, else return false.
+ * @remarks if cpslist_first == NULL or cpslist_second == NULL, then the behavior is undefined. the two slists must be
+ *          initialized, otherwise the behavior is undefined. if the two slists are not same type, then return true.
+ *          if cpslist_first == cpslist_second, then return false.
+ */
+extern bool_t slist_not_equal(const slist_t* cpslist_first, const slist_t* cpslist_second);
+
+/**
+ * Test the first slist is less than the second slist.
+ * @param cpslist_first   first slist container.
+ * @param cpslist_second  second slist container.
+ * @return if the first slist is less than the second slist, then return true, else return false.
+ * @remarks if cpslist_first == NULL or cpslist_second == NULL, then the behavior is undefined. the two slists must be
+ *          initialized, otherwise the behavior is undefined. if the two slists are not same type, the behavior is
+ *          undefined. if cpslist_first == cpslist_second, then return false.
+ */
+extern bool_t slist_less(const slist_t* cpslist_first, const slist_t* cpslist_second);
+
+/**
+ * Test the first slist is less than or equal to the second slist.
+ * @param cpslist_first   first slist container.
+ * @param cpslist_second  second slist container.
+ * @return if the first slist is less than or equal to the second slist, then return true, else return false.
+ * @remarks if cpslist_first == NULL or cpslist_second == NULL, then the behavior is undefined. the two slists must be
+ *          initialized, otherwise the behavior is undefined. if the two slists are not same type, the behavior is
+ *          undefined. if cpslist_first == cpslist_second, then return true.
+ */
+extern bool_t slist_less_equal(const slist_t* cpslist_first, const slist_t* cpslist_second);
+
+/**
+ * Test the first slist is greater than the second slist.
+ * @param cpslist_first   first slist container.
+ * @param cpslist_second  second slist container.
+ * @return if the first slist is greater than the second slist, then return true, else return false.
+ * @remarks if cpslist_first == NULL or cpslist_second == NULL, then the behavior is undefined. the two slists must be
+ *          initialized, otherwise the behavior is undefined. if the two slists are not same type, the behavior is
+ *          undefined. if cpslist_first == cpslist_second, then return false.
+ */
+extern bool_t slist_greater(const slist_t* cpslist_first, const slist_t* cpslist_second);
+
+/**
+ * Test the first slist is greater than or equal to the second slist.
+ * @param cpslist_first   first slist container.
+ * @param cpslist_second  second slist container.
+ * @return if the first slist is greater than or equal to the second slist, then return true, else return false.
+ * @remarks if cpslist_first == NULL or cpslist_second == NULL, then the behavior is undefined. the two slists must be
+ *          initialized, otherwise the behavior is undefined. if the two slists are not same type, the behavior is
+ *          undefined. if cpslist_first == cpslist_second, then return true.
+ */
+extern bool_t slist_greater_equal(const slist_t* cpslist_first, const slist_t* cpslist_second);
 
 #ifdef __cplusplus
 }
