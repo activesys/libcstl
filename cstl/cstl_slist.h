@@ -60,15 +60,43 @@ extern "C" {
  *          element and slist element type must be same, otherwise the behavior is undefined.
  */
 #define slist_assign_elem(pslist_slist, t_count, elem) _slist_assign_elem((pslist_slist), (t_count), (elem))
-/* push front */
-#define slist_push_front(pt_slist, elem)\
-    _slist_push_front((pt_slist), (elem))
-/* remove */
-#define slist_remove(pt_slist, elem)\
-    _slist_remove((pt_slist), (elem))
-/* resize */
-#define slist_resize_elem(pt_slist, t_resize, elem)\
-    _slist_resize_elem((pt_slist), (t_resize), (elem))
+
+/**
+ * Add specificed element at the begin of slist container. 
+ * @param pslist_slist    slist container.
+ * @param elem            specificed element.
+ * @return void.
+ * @remarks if pslist_slist == NULL or slist is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and slist element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use.
+ */
+#define slist_push_front(pslist_slist, elem) _slist_push_front((pslist_slist), (elem))
+
+/**
+ * Remove specificed element from slist container.
+ * @param pslist_slist    slist container.
+ * @param elem            specificed element.
+ * @return void.
+ * @remarks if pslist_slist == NULL or slist is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and slist element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. this function remove all element that equal to specificed, if no such element
+ *          then does nothing.
+ */
+#define slist_remove(pslist_slist, elem) _slist_remove((pslist_slist), (elem))
+
+/**
+ * Reset the size of slist elements.
+ * @param pslist_slist  slist container.
+ * @param t_resize      new size of slist elements.
+ * @param elem          specificed element.
+ * @return void.
+ * @remarks if pslist_slist == NULL or slist is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and slist element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. if t_resize less than current slist size, then erase elmement from the end.
+ *          if t_resize greater than current slist size, then append elements to the end, and the element is specificed
+ *          element.
+ */
+#define slist_resize_elem(pslist_slist, t_resize, elem) _slist_resize_elem((pslist_slist), (t_resize), (elem))
 
 /**
  * Insert one copy of element befor specificed position.
@@ -278,7 +306,15 @@ extern void slist_swap(slist_t* pslist_first, slist_t* pslist_second);
  *          is undefined. if the slist is empty, then the behavior is undefined.
  */
 extern void* slist_front(const slist_t* cpslist_slist);
-extern void slist_pop_front(slist_t* pt_slist);
+
+/**
+ * Delete the element at the begin of slist.
+ * @param pslist_slist    slist container.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior
+ *          is undefined. if slist is empty, then the behavior is undefined.
+ */
+extern void slist_pop_front(slist_t* pslist_slist);
 
 /**
  * Insert a range of elements into slist at a specificed position.
@@ -312,65 +348,206 @@ extern void slist_insert_range(
 extern void slist_insert_after_range(
     slist_t* pslist_slist, slist_iterator_t it_pos, slist_iterator_t it_begin, slist_iterator_t it_end);
 
-/*
- * Erase operation functions.
+/**
+ * Removes an element in slist from specificed position.
+ * @param pslist_slist   slist container.
+ * @param it_pos         specificed position.
+ * @return an iterator that reference the first element beyond the removed element.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for slist container, otherwise
+ *          the behavior is undefined.
  */
-extern slist_iterator_t slist_erase(slist_t* pt_slist, slist_iterator_t t_pos);
-extern slist_iterator_t slist_erase_range(
-    slist_t* pt_slist, slist_iterator_t t_begin, slist_iterator_t t_end);
-extern slist_iterator_t slist_erase_after(
-    slist_t* pt_slist, slist_iterator_t t_pos);
-extern slist_iterator_t slist_erase_after_range(
-    slist_t* pt_slist, slist_iterator_t t_begin, slist_iterator_t t_end);
+extern slist_iterator_t slist_erase(slist_t* pslist_slist, slist_iterator_t it_pos);
 
-/*
- * Splice operation functions.
+/**
+ * Removes a range of elements in slist from specificed range.
+ * @param pslist_slist   slist container.
+ * @param it_begin       position of first element removed from the slist.
+ * @param it_end         position just beyond the last element removed from the slist.
+ * @return an iterator that reference the first element beyond the removed element.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the
+ *          behavior is undefined. the [it_begin, it_end) muse be valid range for slist container, otherwise the
+ *          behavior is undefined.
  */
-extern void slist_splice(
-    slist_t* pt_slist, slist_iterator_t t_pos, slist_t* pt_slistsrc);
-extern void slist_splice_pos(
-    slist_t* pt_slist, slist_iterator_t t_pos, 
-    slist_t* pt_slistsrc, slist_iterator_t t_possrc);
+extern slist_iterator_t slist_erase_range(slist_t* pslist_slist, slist_iterator_t it_begin, slist_iterator_t it_end);
+
+/**
+ * Removes an element in slist after specificed position.
+ * @param pslist_slist   slist container.
+ * @param it_pos         specificed position.
+ * @return an iterator that reference the first element beyond the removed element.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for slist container and must not be
+ *          slist_end(), otherwise the behavior is undefined. if it_pos == slist_previous(slist_end()), then the function
+ *          does nothing, and return slist_end().
+ */
+extern slist_iterator_t slist_erase_after(slist_t* pslist_slist, slist_iterator_t it_pos);
+
+/**
+ * Removes a range of elements in slist after specificed range.
+ * @param pslist_slist   slist container.
+ * @param it_begin       position of first element removed from the slist.
+ * @param it_end         position just beyond the last element removed from the slist.
+ * @return an iterator that reference the first element beyond the removed element.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the
+ *          behavior is undefined. the [it_begin, it_end) muse be valid range for slist container and it_begin must not be
+ *          slist_end(), otherwise the behavior is undefined. if it_begin() == it_end() or it_begin() + 1 == it_end, then
+ *          the function does nothing.
+ */
+extern slist_iterator_t slist_erase_after_range(slist_t* pslist_slist, slist_iterator_t it_begin, slist_iterator_t it_end);
+
+/**
+ * Removes elements from the source slist and insert into the target slist.
+ * @param pslist_slist   target slist.
+ * @param it_pos         target position.
+ * @param pslist_src     source slist.
+ * @return void.
+ * @remarks  if pslist_slist == NULL or pslist_src == NUll then the behavior is undefined. the target slist and source slist
+ *           must be initialized, otherwise the behavior is undefined. target position must be valid position for target slist. 
+ *           the element type of two slist must be the same, otherwise the behavior is undefined. if pslist_slist == pslist_src
+ *           then the function does nothing.
+ */
+extern void slist_splice(slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src);
+
+/**
+ * Removes element from the source slist and insert into the target slist.
+ * @param pslist_slist   target slist.
+ * @param it_pos         target position.
+ * @param pslist_src     source slist.
+ * @param it_src         source position.
+ * @return void.
+ * @remarks  if pslist_slist == NULL or pslist_src == NUll then the behavior is undefined. the target slist and source slist
+ *           must be initialized, otherwise the behavior is undefined. target position must be valid position for target slist,
+ *           soruce position muse be valid position for source slist, otherwise the behavior is undefine. the element type of
+ *           two slist must be the same, otherwise the behavior is undefined. if pslist_slist == pslist_src and it_pos == it_src
+ *           or it_pos = iterator_next(it_src), then the function does nothing.
+ */
+extern void slist_splice_pos(slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src, slist_iterator_t it_src);
+
+/**
+ * Removes elements from the source slist range and insert into the target slist.
+ * @param pslist_slist   target slist.
+ * @param it_pos         target position.
+ * @param pslist_src     source slist.
+ * @param it_begin       source range begin position.
+ * @param it_end         source range end position.
+ * @return void.
+ * @remarks  if pslist_slist == NULL or pslist_src == NUll then the behavior is undefined. the target slist and source slist
+ *           must be initialized, otherwise the behavior is undefined. target position must be valid position for target slist,
+ *           soruce range muse be valid range for source slist, otherwise the behavior is undefine. the element type of
+ *           two slist must be the same, otherwise the behavior is undefined. if pslist_slist == pslist_src and it_pos == it_begin
+ *           or it_pos = it_end, then the function does nothing.
+ */
 extern void slist_splice_range(
-    slist_t* pt_slist, slist_iterator_t t_pos, 
-    slist_t* pt_slistsrc, slist_iterator_t t_begin, slist_iterator_t t_end);
+    slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src, slist_iterator_t it_begin, slist_iterator_t it_end);
+
+/**
+ * Removes element from the source slist and insert into the target slist.
+ * @param pslist_slist   target slist.
+ * @param it_pos         target position.
+ * @param pslist_src     source slist.
+ * @param it_prev        source position.
+ * @return void.
+ * @remarks  if pslist_slist == NULL or pslist_src == NUll then the behavior is undefined. the target slist and source slist
+ *           must be initialized, otherwise the behavior is undefined. target position must be valid position for target slist,
+ *           soruce position muse be valid position for source slist, otherwise the behavior is undefine. the element type of
+ *           two slist must be the same, otherwise the behavior is undefined. if pslist_slist == pslist_src and it_pos == it_src
+ *           or it_pos = iterator_next(it_src), then the function does nothing.
+ */
 extern void slist_splice_after_pos(
-    slist_t* pt_slist, slist_iterator_t t_pos, 
-    slist_t* pt_slistsrc, slist_iterator_t t_prev);
+    slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src, slist_iterator_t it_prev);
+
+/**
+ * Removes elements from the source slist range and insert into the target slist.
+ * @param pslist_slist   target slist.
+ * @param it_pos         target position.
+ * @param pslist_src     source slist.
+ * @param it_begin       source range begin position.
+ * @param it_end         source range end position.
+ * @return void.
+ * @remarks  if pslist_slist == NULL or pslist_src == NUll then the behavior is undefined. the target slist and source slist
+ *           must be initialized, otherwise the behavior is undefined. target position must be valid position for target slist,
+ *           soruce range muse be valid range for source slist, otherwise the behavior is undefine. the element type of
+ *           two slist must be the same, otherwise the behavior is undefined. if pslist_slist == pslist_src and it_pos == it_begin
+ *           or it_pos = it_end, then the function does nothing.
+ */
 extern void slist_splice_after_range(
-    slist_t* pt_slist, slist_iterator_t t_pos, 
-    slist_t* pt_slistsrc, slist_iterator_t t_beforefirst, slist_iterator_t t_beforelast);
+    slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src, slist_iterator_t it_begin, slist_iterator_t it_end);
 
-/*
- * Remove element form slist_t.
+/**
+ * Remove elements from a slist for which a specificed predicate is satisfied.
+ * @param pslist_slist  slist container.
+ * @unary_op            unary predicate.
+ * @return void.
+ * @remarks if pslist_slist == NULL or slist is uninitialized, then the behavior is undefined. this function remove all
+ *          element that satisfy the predicate, if no such element then does nothing. if ufun_op == NULL then use default
+ *          unary predicate.
  */
-extern void slist_remove_if(slist_t* pt_slist, unary_function_t t_unary_op);
+extern void slist_remove_if(slist_t* pslist_slist, unary_function_t ufun_op);
 
-/*
- * Unique and reverse operation functions.
+/**
+ * Removes adjacent duplicate elements from a slist.
+ * @param pslist_slist     slist container.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior
+ *          is undefined. this function removes adjacent duplicate elements, but duplicates that are not adjacent will not
+ *          bt deleted.
  */
-extern void slist_unique(slist_t* pt_slist);
-extern void slist_unique_if(slist_t* pt_slist, binary_function_t t_binary_op);
+extern void slist_unique(slist_t* pslist_slist);
+
+/**
+ * Removes adjacent elements that satisfy some other binary predicate from a slist.
+ * @param pslist_slist   slist container.
+ * @param bfun_op        binary predicate.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior
+ *          is undefined. this function removes adjacent elements that satisfy some other binary predicate, but elements
+ *          that are not adjacent will not bt deleted. if bfun_op == NULL, then use default binary function.
+ */
+extern void slist_unique_if(slist_t* pslist_slist, binary_function_t bfun_op);
 extern void slist_reverse(slist_t* pt_slist);
 
-/*
- * Sort and merge operation functions.
+/**
+ * Sort elements of slist container.
+ * @param pslist_slist     slist container.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior is
+ *          undefined.
  */
-extern void slist_sort(slist_t* pt_slist);
-extern void slist_sort_if(slist_t* pt_slist, binary_function_t t_binary_op);
+extern void slist_sort(slist_t* pslist_slist);
+
+/**
+ * Sort elements of slist container with user-specifide order relation.
+ * @param pslist_slist   slist container.
+ * @param bfun_op        user-specified order relation.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior is
+ *          undefined. if bfun_op == NULL, then use default type less function.
+ */
+extern void slist_sort_if(slist_t* pslist_slist, binary_function_t bfun_op);
 extern void slist_merge(slist_t* pt_slistdest, slist_t* pt_slistsrc);
 extern void slist_merge_if(
     slist_t* pt_slistdest, slist_t* pt_slistsrc, binary_function_t t_binary_op);
 
-/*
- * Reset slist_t size.
+/**
+ * Specifies a new size of a slist.
+ * @param pslist_slist  slist container.
+ * @param t_resize      new size of slist.
+ * @return void.
+ * @remarks if cpslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior
+ *          is undefined. if slist is empty, then the behavior is undefined. if t_resize is greater than slist size, new
+ *          default element are added to the slist until it reaches the required size.
  */
-extern void slist_resize(slist_t* pt_slist, size_t t_resize);
+extern void slist_resize(slist_t* pslist_slist, size_t t_resize);
 
-/*
- * Remove all elements.
+/**
+ * Erases the elements of slist.
+ * @param pslist_slist    slist container.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior
+ *          is undefined.
  */
-extern void slist_clear(slist_t* pt_slist);
+extern void slist_clear(slist_t* pslist_slist);
 
 /**
  * Tests if the two slists are equal.

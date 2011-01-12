@@ -794,11 +794,6 @@ void list_unique_if(list_t* plist_list, binary_function_t bfun_op)
  */
 void list_splice(list_t* plist_list, list_iterator_t it_pos, list_t* plist_src)
 {
-#ifdef NDEBUG
-    list_t* plist_avoidwarning = NULL;
-    plist_avoidwarning = plist_list;
-#endif
-
     assert(plist_list != NULL);
     assert(plist_src != NULL);
     assert(_list_is_inited(plist_list));

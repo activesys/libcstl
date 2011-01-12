@@ -382,7 +382,7 @@ extern void list_pop_back(list_t* plist_list);
  * Delete the element at the begin of list.
  * @param plist_list    list container.
  * @return void.
- * @remarks if cplist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior
  *          is undefined. if list is empty, then the behavior is undefined.
  */
 extern void list_pop_front(list_t* plist_list);

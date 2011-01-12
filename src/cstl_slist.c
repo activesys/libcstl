@@ -316,25 +316,27 @@ void* slist_front(const slist_t* cpslist_slist)
     }
 }
 
-
-void slist_pop_front(slist_t* pt_slist)
+/**
+ * Delete the element at the begin of slist.
+ */
+void slist_pop_front(slist_t* pslist_slist)
 {
-    slistnode_t* pt_slistnode = NULL;
-    bool_t       t_result = false;
+    slistnode_t* pt_node = NULL;
+    bool_t       b_result = false;
 
-    assert(pt_slist != NULL);
-    assert(slist_size(pt_slist) > 0);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(!slist_empty(pslist_slist));
 
     /* take out the front slist node */
-    pt_slistnode = pt_slist->_t_head._pt_next;
-    assert(pt_slistnode != NULL);
-    pt_slist->_t_head._pt_next = pt_slistnode->_pt_next;
+    pt_node = pslist_slist->_t_head._pt_next;
+    assert(pt_node != NULL);
+    pslist_slist->_t_head._pt_next = pt_node->_pt_next;
 
-    t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-    _GET_SLIST_TYPE_DESTROY_FUNCTION(pt_slist)(pt_slistnode->_pc_data, &t_result);
-    assert(t_result);
-    _alloc_deallocate(&pt_slist->_t_allocater, pt_slistnode, 
-        _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+    b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+    _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pc_data, &b_result);
+    assert(b_result);
+    _alloc_deallocate(&pslist_slist->_t_allocater, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 }
 
 /**
@@ -484,336 +486,359 @@ void slist_insert_after_range(
     }
 }
 
-slist_iterator_t slist_erase_after(slist_t* pt_slist, slist_iterator_t t_pos)
+/**
+ * Removes an element in slist after specificed position.
+ */
+slist_iterator_t slist_erase_after(slist_t* pslist_slist, slist_iterator_t it_pos)
 {
-    slistnode_t* pt_slistnode = NULL; /* for erase */
-    bool_t       t_result = false;
+    slistnode_t* pt_node = NULL; /* for erase */
+    bool_t       b_result = false;
 
-    /* test the slist pointer and the pos is valid */
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_pos));
-    assert(!iterator_equal(t_pos, slist_end(pt_slist)));
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
+    assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
 
-    /* get the next iterator */
-    /* test the pos is valid */
-    pt_slistnode = ((slistnode_t*)_GET_SLIST_COREPOS(t_pos))->_pt_next;
-    /* t_pos is the last element(not end iterator) */
-    if(pt_slistnode != NULL)
+    pt_node = ((slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next;
+    if(pt_node != NULL)
     {
-        /* take out the element node */
-        ((slistnode_t*)_GET_SLIST_COREPOS(t_pos))->_pt_next = pt_slistnode->_pt_next;
-        /* destroy the element and destroy the node */
-        t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-        _GET_SLIST_TYPE_DESTROY_FUNCTION(pt_slist)(pt_slistnode->_pc_data, &t_result);
-        assert(t_result);
-        _alloc_deallocate(&pt_slist->_t_allocater, pt_slistnode, 
-            _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+        ((slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next = pt_node->_pt_next;
+        b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+        _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pc_data, &b_result);
+        assert(b_result);
+        _alloc_deallocate(&pslist_slist->_t_allocater, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 
-        t_pos = iterator_next(t_pos);
-        return t_pos;
+        return iterator_next(it_pos);
     }
     else
     {
-        return slist_end(pt_slist);
+        return slist_end(pslist_slist);
     }
 }
 
-slist_iterator_t slist_erase(slist_t* pt_slist, slist_iterator_t t_pos)
+/**
+ * Removes an element in slist from specificed position.
+ */
+slist_iterator_t slist_erase(slist_t* pslist_slist, slist_iterator_t it_pos)
 {
-    /* if the pos is the begin iterator of slist */
-    if(iterator_equal(t_pos, slist_begin(pt_slist)))
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
+    assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
+
+    if(iterator_equal(it_pos, slist_begin(pslist_slist)))
     {
-        /* call the pop front */
-        slist_pop_front(pt_slist);
-        return slist_begin(pt_slist);
+        slist_pop_front(pslist_slist);
+        return slist_begin(pslist_slist);
     }
-    /* else get the previous iterator */
     else
     {
-        /* call erase after */
-        return slist_erase_after(pt_slist, slist_previous(pt_slist, t_pos));
+        return slist_erase_after(pslist_slist, slist_previous(pslist_slist, it_pos));
     }
 }
 
-slist_iterator_t slist_erase_range(
-    slist_t* pt_slist, slist_iterator_t t_begin, slist_iterator_t t_end)
+/**
+ * Removes a range of elements in slist from specificed position.
+ */
+slist_iterator_t slist_erase_range(slist_t* pslist_slist, slist_iterator_t it_begin, slist_iterator_t it_end)
 {
-    /* test the pointer and range is valid */
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_begin));
-    assert(iterator_equal(t_begin, t_end) || _slist_iterator_before(t_begin, t_end));
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_begin));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_end));
+    assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
 
-    /* if the t_begin is equal begin iterator */
-    if(iterator_equal(t_begin, slist_begin(pt_slist)))
+    if(iterator_equal(it_begin, slist_begin(pslist_slist)))
     {
-        size_t t_index = 0;
-        size_t t_count = iterator_distance(t_begin, t_end);
+        size_t i = 0;
+        size_t t_count = iterator_distance(it_begin, it_end);
 
-        /* call pop front n_elemcount times */
-        for(t_index = 0; t_index < t_count; ++t_index)
+        for(i = 0; i < t_count; ++i)
         {
-            slist_pop_front(pt_slist);
+            slist_pop_front(pslist_slist);
         }
-        assert(iterator_equal(t_end, slist_begin(pt_slist)));
+        assert(iterator_equal(it_end, slist_begin(pslist_slist)));
 
-        return t_end;
+        return it_end;
     }
-    /* else get the previous */
     else
     {
-        /* call erase after range */
-        return slist_erase_after_range(
-            pt_slist, slist_previous(pt_slist, t_begin), t_end);
+        return slist_erase_after_range(pslist_slist, slist_previous(pslist_slist, it_begin), it_end);
     }
 }
 
-slist_iterator_t slist_erase_after_range(
-    slist_t* pt_slist, slist_iterator_t t_begin, slist_iterator_t t_end)
+/**
+ * Removes a range of elements in slist after specificed range.
+ */
+slist_iterator_t slist_erase_after_range(slist_t* pslist_slist, slist_iterator_t it_begin, slist_iterator_t it_end)
 {
-    /* test the range t_begin, t_end is valid */
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_begin));
-    assert(iterator_equal(t_begin, t_end) || _slist_iterator_before(t_begin, t_end));
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_begin));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_end));
+    assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
+    assert(!iterator_equal(it_begin, slist_end(pslist_slist)));
 
-    if(!iterator_equal(t_begin, t_end) &&
-       ((slistnode_t*)_GET_SLIST_COREPOS(t_begin))->_pt_next !=
-       ((slistnode_t*)_GET_SLIST_COREPOS(t_end)))
+    if(!iterator_equal(it_begin, it_end) && !iterator_equal(iterator_next(it_begin), it_end))
     {
         slistnode_t*     pt_begin = NULL;
         slistnode_t*     pt_end = NULL;
-        slistnode_t*     pt_iter = NULL;
-        slist_iterator_t t_endprevious = slist_previous(pt_slist, t_end);
-        bool_t           t_result = false;
+        slistnode_t*     pt_node = NULL;
+        slist_iterator_t it_endprev = slist_previous(pslist_slist, it_end);
+        bool_t           b_result = false;
 
-        /* take out the range [t_begin+1, t_end) */
-        pt_begin = ((slistnode_t*)_GET_SLIST_COREPOS(t_begin))->_pt_next;
-        pt_end = (slistnode_t*)_GET_SLIST_COREPOS(t_endprevious);
-        ((slistnode_t*)_GET_SLIST_COREPOS(t_begin))->_pt_next = pt_end->_pt_next;
+        /* take out the range [it_begin+1, it_end) */
+        pt_begin = ((slistnode_t*)_GET_SLIST_COREPOS(it_begin))->_pt_next;
+        pt_end = (slistnode_t*)_GET_SLIST_COREPOS(it_endprev);
+        ((slistnode_t*)_GET_SLIST_COREPOS(it_begin))->_pt_next = pt_end->_pt_next;
         pt_end->_pt_next = NULL;
         /* destroy all elements and destroy all nodes */
-        pt_iter = pt_begin;
-        while(pt_iter != NULL)
+        pt_node = pt_begin;
+        while(pt_node != NULL)
         {
-            pt_begin = pt_iter->_pt_next;
-            t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-            _GET_SLIST_TYPE_DESTROY_FUNCTION(pt_slist)(pt_iter->_pc_data, &t_result);
-            assert(t_result);
-            _alloc_deallocate(&pt_slist->_t_allocater, pt_iter,
-                _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
+            pt_begin = pt_node->_pt_next;
 
-            pt_iter = pt_begin;
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pc_data, &b_result);
+            assert(b_result);
+            _alloc_deallocate(&pslist_slist->_t_allocater, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+
+            pt_node = pt_begin;
         }
     }
 
-    return t_end;
+    return it_end;
 }
 
-void slist_splice(
-    slist_t* pt_slist, slist_iterator_t t_pos, slist_t* pt_slistsrc)
+/**
+ * Removes elements from the source slist and insert into the target slist.
+ */
+void slist_splice(slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src)
 {
-#ifdef NDEBUG
-    slist_t* pt_avoidwarning = NULL;
-    pt_avoidwarning = pt_slist;
-#endif
+    assert(pslist_slist != NULL);
+    assert(pslist_src != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_is_inited(pslist_src));
+    assert(_slist_same_type(pslist_slist, pslist_src));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
 
-    assert(_slist_same_type(pt_slist, pt_slistsrc));
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_pos));
-    assert(pt_slist != pt_slistsrc);
-
-    if(!slist_empty(pt_slistsrc))
+    if(pslist_slist != pslist_src)
     {
-        _slist_transfer(t_pos, slist_begin(pt_slistsrc), slist_end(pt_slistsrc));
+        _slist_transfer(it_pos, slist_begin(pslist_src), slist_end(pslist_src));
     }
 }
 
-void slist_splice_pos(
-    slist_t* pt_slist, slist_iterator_t t_pos,
-    slist_t* pt_slistsrc, slist_iterator_t t_possrc)
+/**
+ * Removes element from the source slist and insert into the target slist.
+ */
+void slist_splice_pos(slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src, slist_iterator_t it_src)
 {
-    slist_iterator_t t_possrcnext;
-
 #ifdef NDEBUG
-    slist_t* pt_avoidwarning = NULL;
-    pt_avoidwarning = pt_slist;
+    slist_t* pslist_avoidwarning1 = NULL;
+    slist_t* pslist_avoidwarning2 = NULL;
+    pslist_avoidwarning1 = pslist_slist;
+    pslist_avoidwarning2 = pslist_src;
 #endif
 
-    assert(_slist_same_type(pt_slist, pt_slistsrc));
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_pos));
-    assert(_slist_iterator_belong_to_slist(pt_slistsrc, t_possrc));
-    assert(pt_slist != pt_slistsrc);
+    assert(pslist_slist != NULL);
+    assert(pslist_src != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_is_inited(pslist_src));
+    assert(_slist_same_type(pslist_slist, pslist_src));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
+    assert(_slist_iterator_belong_to_slist(pslist_src, it_src));
+    assert(!iterator_equal(it_src, slist_end(pslist_src)));
 
-    t_possrcnext = t_possrc;
-    t_possrcnext = iterator_next(t_possrcnext);
-    if(!slist_empty(pt_slistsrc) &&
-       !iterator_equal(t_possrc, slist_end(pt_slistsrc)))
-    {
-        _slist_transfer(t_pos, t_possrc, t_possrcnext);
-    }
+    _slist_transfer(it_pos, it_src, iterator_next(it_src));
 }
 
+/**
+ * Removes elements from the source slist range and insert into the target slist.
+ */
 void slist_splice_range(
-    slist_t* pt_slist, slist_iterator_t t_pos,
-    slist_t* pt_slistsrc, slist_iterator_t t_begin, slist_iterator_t t_end)
+    slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src, slist_iterator_t it_begin, slist_iterator_t it_end)
 {
 #ifdef NDEBUG
-    slist_t* pt_avoidwarning1 = NULL;
-    slist_t* pt_avoidwarning2 = NULL;
-    pt_avoidwarning1 = pt_slist;
-    pt_avoidwarning2 = pt_slistsrc;
+    slist_t* pslist_avoidwarning1 = NULL;
+    slist_t* pslist_avoidwarning2 = NULL;
+    pslist_avoidwarning1 = pslist_slist;
+    pslist_avoidwarning2 = pslist_src;
 #endif
 
-    assert(_slist_same_type(pt_slist, pt_slistsrc));
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_pos));
-    assert(_slist_iterator_belong_to_slist(pt_slistsrc, t_begin));
-    assert(iterator_equal(t_begin, t_end) || _slist_iterator_before(t_begin, t_end));
-    assert(pt_slist != pt_slistsrc);
+    assert(pslist_slist != NULL);
+    assert(pslist_src != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_is_inited(pslist_src));
+    assert(_slist_same_type(pslist_slist, pslist_src));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
+    assert(_slist_iterator_belong_to_slist(pslist_src, it_begin));
+    assert(_slist_iterator_belong_to_slist(pslist_src, it_end));
+    assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
 
-    _slist_transfer(t_pos, t_begin, t_end);
+    _slist_transfer(it_pos, it_begin, it_end);
 }
 
-void slist_splice_after_pos(
-    slist_t* pt_slist, slist_iterator_t t_pos, 
-    slist_t* pt_slistsrc, slist_iterator_t t_prev)
-{
-    slist_iterator_t t_prevnext;
-
-#ifdef NDEBUG
-    slist_t* pt_avoidwarning1 = NULL;
-    slist_t* pt_avoidwarning2 = NULL;
-    pt_avoidwarning1 = pt_slist;
-    pt_avoidwarning2 = pt_slistsrc;
-#endif
-
-    assert(_slist_same_type(pt_slist, pt_slistsrc));
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_pos));
-    assert(_slist_iterator_belong_to_slist(pt_slistsrc, t_prev));
-    assert(pt_slist != pt_slistsrc);
-
-    t_prev = iterator_next(t_prev);
-    t_prevnext = t_prev;
-    t_prevnext = iterator_next(t_prevnext);
-    _slist_transfer_after(t_pos, t_prev, t_prevnext);
-}
-
-void slist_splice_after_range(
-    slist_t* pt_slist, slist_iterator_t t_pos, 
-    slist_t* pt_slistsrc, slist_iterator_t t_beforefirst, slist_iterator_t t_beforelast)
+/**
+ * Removes element from the source slist and insert into the target slist.
+ */
+void slist_splice_after_pos(slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src, slist_iterator_t it_prev)
 {
 #ifdef NDEBUG
-    slist_t* pt_avoidwarning1 = NULL;
-    slist_t* pt_avoidwarning2 = NULL;
-    pt_avoidwarning1 = pt_slist;
-    pt_avoidwarning2 = pt_slistsrc;
+    slist_t* pslist_avoidwarning1 = NULL;
+    slist_t* pslist_avoidwarning2 = NULL;
+    pslist_avoidwarning1 = pslist_slist;
+    pslist_avoidwarning2 = pslist_src;
 #endif
 
-    assert(_slist_same_type(pt_slist, pt_slistsrc));
-    assert(_slist_iterator_belong_to_slist(pt_slist, t_pos));
-    assert(_slist_iterator_belong_to_slist(pt_slistsrc, t_beforefirst));
-    assert(iterator_equal(t_beforefirst, t_beforelast) || 
-           _slist_iterator_before(t_beforefirst, t_beforelast));
-    assert(pt_slist != pt_slistsrc);
+    assert(pslist_slist != NULL);
+    assert(pslist_src != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_is_inited(pslist_src));
+    assert(_slist_same_type(pslist_slist, pslist_src));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
+    assert(_slist_iterator_belong_to_slist(pslist_src, it_prev));
+    assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
+    assert(!iterator_equal(it_prev, slist_end(pslist_src)));
 
-    t_beforefirst = iterator_next(t_beforefirst);
-    t_beforelast = iterator_next(t_beforelast);
-    _slist_transfer_after(t_pos, t_beforefirst, t_beforelast);
-}
-
-
-void slist_remove_if(slist_t* pt_slist, unary_function_t t_unary_op)
-{
-    slist_iterator_t t_pos;
-    bool_t           t_result = false;
-
-    assert(pt_slist != NULL);
-
-    if(t_unary_op == NULL)
+    it_prev = iterator_next(it_prev);
+    if(!iterator_equal(it_prev, slist_end(pslist_src)))
     {
-        t_unary_op = fun_default_unary;
+        _slist_transfer_after(it_pos, it_prev, iterator_next(it_prev));
+    }
+}
+
+/**
+ * Removes elements from the source slist range and insert into the target slist.
+ */
+void slist_splice_after_range(
+    slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslist_src, slist_iterator_t it_begin, slist_iterator_t it_end)
+{
+#ifdef NDEBUG
+    slist_t* pslist_avoidwarning1 = NULL;
+    slist_t* pslist_avoidwarning2 = NULL;
+    pslist_avoidwarning1 = pslist_slist;
+    pslist_avoidwarning2 = pslist_src;
+#endif
+
+    assert(pslist_slist != NULL);
+    assert(pslist_src != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(_slist_is_inited(pslist_src));
+    assert(_slist_same_type(pslist_slist, pslist_src));
+    assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
+    assert(_slist_iterator_belong_to_slist(pslist_src, it_begin));
+    assert(_slist_iterator_belong_to_slist(pslist_src, it_end));
+    assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
+    assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
+    assert(!iterator_equal(it_begin, slist_end(pslist_src)));
+    assert(!iterator_equal(it_end, slist_end(pslist_src)));
+
+    _slist_transfer_after(it_pos, iterator_next(it_begin), iterator_next(it_end));
+}
+
+/**
+ * Remove elements from a slist for which a specificed predicate is satisfied.
+ */
+void slist_remove_if(slist_t* pslist_slist, unary_function_t ufun_op)
+{
+    slist_iterator_t it_pos;
+    bool_t           b_result = false;
+
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+
+    if(ufun_op == NULL)
+    {
+        ufun_op = fun_default_unary;
     }
 
-    t_pos = slist_begin(pt_slist);
-    /* iterate the slist from begin to end */
-    while(!iterator_equal(t_pos, slist_end(pt_slist)))
+    it_pos = slist_begin(pslist_slist);
+    while(!iterator_equal(it_pos, slist_end(pslist_slist)))
     {
-        /* operate each element use pufn_op, if it yield true */
-        (*t_unary_op)(iterator_get_pointer(t_pos), &t_result);
-        if(t_result)
+        (*ufun_op)(iterator_get_pointer(it_pos), &b_result);
+        if(b_result)
         {
-            /* erase element */
-            t_pos = slist_erase(pt_slist, t_pos);
+            it_pos = slist_erase(pslist_slist, it_pos);
         }
         else
         {
-            t_pos = iterator_next(t_pos);
+            it_pos = iterator_next(it_pos);
         }
     }
 }
 
-void slist_unique(slist_t* pt_slist)
+/**
+ * Removes adjacent duplicate elements from a slist.
+ */
+void slist_unique(slist_t* pslist_slist)
 {
-    slist_iterator_t t_poscur;
-    slist_iterator_t t_posnext;
-    bool_t           t_less = false;
-    bool_t           t_greater = false;
+    slist_iterator_t it_iter;
+    slist_iterator_t it_next;
+    bool_t           b_less = false;
+    bool_t           b_greater = false;
 
-    /* test the slist is valid */
-    assert(pt_slist != NULL);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
 
-    /* if the size greater then 1 */
-    if(slist_size(pt_slist) > 1)
+    if(slist_size(pslist_slist) > 1)
     {
-        t_poscur = slist_begin(pt_slist);
-        t_posnext = iterator_next(t_poscur);
-        while(!iterator_equal(t_posnext, slist_end(pt_slist)))
+        it_iter = slist_begin(pslist_slist);
+        it_next = iterator_next(it_iter);
+        while(!iterator_equal(it_next, slist_end(pslist_slist)))
         {
-            t_less = t_greater = _GET_SLIST_TYPE_SIZE(pt_slist);
-            _GET_SLIST_TYPE_LESS_FUNCTION(pt_slist)(
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_poscur))->_pc_data,
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_posnext))->_pc_data, &t_less);
-            _GET_SLIST_TYPE_LESS_FUNCTION(pt_slist)(
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_posnext))->_pc_data,
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_poscur))->_pc_data, &t_greater);
-            if(t_less || t_greater)
+            b_less = b_greater = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
+                ((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data,
+                ((slistnode_t*)_GET_SLIST_COREPOS(it_next))->_pc_data, &b_less);
+            _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
+                ((slistnode_t*)_GET_SLIST_COREPOS(it_next))->_pc_data,
+                ((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data, &b_greater);
+            if(b_less || b_greater)
             {
-                t_poscur = iterator_next(t_poscur);
-                t_posnext = iterator_next(t_posnext);
+                it_iter = iterator_next(it_iter);
+                it_next = iterator_next(it_next);
             }
             else
             {
-                /* then erase next */
-                t_posnext = slist_erase(pt_slist, t_posnext);
+                it_next = slist_erase(pslist_slist, it_next);
             }
         }
     }
 }
 
-void slist_unique_if(slist_t* pt_slist, binary_function_t t_binary_op)
+/**
+ * Removes adjacent elements that satisfy some other binary predicate from a slist.
+ */
+void slist_unique_if(slist_t* pslist_slist, binary_function_t bfun_op)
 {
-    slist_iterator_t t_poscur;
-    slist_iterator_t t_posnext;
-    bool_t           t_result = false;
+    slist_iterator_t it_iter;
+    slist_iterator_t it_next;
+    bool_t           b_result = false;
 
-    assert(pt_slist != NULL);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
 
-    if(t_binary_op == NULL)
+    if(bfun_op == NULL)
     {
-        t_binary_op = fun_default_binary;
+        bfun_op = fun_default_binary;
     }
 
-    if(slist_size(pt_slist) > 1)
+    if(slist_size(pslist_slist) > 1)
     {
-        t_poscur = slist_begin(pt_slist);
-        t_posnext = iterator_next(t_poscur);
+        it_iter = slist_begin(pslist_slist);
+        it_next = iterator_next(it_iter);
 
-        while(!iterator_equal(t_posnext, slist_end(pt_slist)))
+        while(!iterator_equal(it_next, slist_end(pslist_slist)))
         {
-            (*t_binary_op)(iterator_get_pointer(t_poscur),
-                iterator_get_pointer(t_posnext), &t_result);
-            if(t_result)
+            (*bfun_op)(iterator_get_pointer(it_iter), iterator_get_pointer(it_next), &b_result);
+            if(b_result)
             {
-                t_posnext = slist_erase(pt_slist, t_posnext);
+                it_next = slist_erase(pslist_slist, it_next);
             }
             else
             {
-                t_poscur = iterator_next(t_poscur);
-                t_posnext = iterator_next(t_posnext);
+                it_iter = iterator_next(it_iter);
+                it_next = iterator_next(it_next);
             }
         }
     }
@@ -840,7 +865,10 @@ void slist_reverse(slist_t* pt_slist)
     }
 }
 
-void slist_sort(slist_t* pt_slist)
+/**
+ * Sort elements of slist container.
+ */
+void slist_sort(slist_t* pslist_slist)
 {
     /* 
      * sort the slist use insert sort algorithm (O(N^2))instead of 
@@ -849,75 +877,100 @@ void slist_sort(slist_t* pt_slist)
      * sort used in slist is more slow then O(NlogN).
      */
 
-    slist_iterator_t t_pos;       /* iterating for insert */
-    slist_iterator_t t_disorder;  /* the first pos of disorder element */
-    slist_iterator_t t_insert;    /* the insert node */
-    bool_t           t_result = false;
+    slist_iterator_t it_pos;       /* iterating for insert */
+    slist_iterator_t it_disorder;  /* the first pos of disorder element */
+    slist_iterator_t it_insert;    /* the insert node */
+    bool_t           b_result = false;
 
-    assert(pt_slist != NULL);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
 
-    t_disorder = slist_begin(pt_slist);
-    while(!iterator_equal(t_disorder, slist_end(pt_slist)))
+    it_disorder = slist_begin(pslist_slist);
+    while(!iterator_equal(it_disorder, slist_end(pslist_slist)))
     {
-        for(t_pos = slist_begin(pt_slist);
-            !iterator_equal(t_pos, t_disorder);
-            t_pos = iterator_next(t_pos))
+        for(it_pos = slist_begin(pslist_slist); !iterator_equal(it_pos, it_disorder); it_pos = iterator_next(it_pos))
         {
-            t_result = _GET_SLIST_TYPE_SIZE(pt_slist);
-            _GET_SLIST_TYPE_LESS_FUNCTION(pt_slist)(
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_disorder))->_pc_data,
-                ((slistnode_t*)_GET_SLIST_COREPOS(t_pos))->_pc_data, &t_result);
-            if(t_result)
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
+                ((slistnode_t*)_GET_SLIST_COREPOS(it_disorder))->_pc_data,
+                ((slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pc_data, &b_result);
+            if(b_result)
             {
-                t_insert = t_disorder;
-                t_disorder = iterator_next(t_disorder);
-                _slist_transfer(t_pos, t_insert, t_disorder);
+                it_insert = it_disorder;
+                it_disorder = iterator_next(it_disorder);
+                _slist_transfer(it_pos, it_insert, it_disorder);
                 break;
             }
         }
 
-        if(iterator_equal(t_pos, t_disorder))
+        if(iterator_equal(it_pos, it_disorder))
         {
-            t_disorder = iterator_next(t_disorder);
+            it_disorder = iterator_next(it_disorder);
         }
     }
 }
 
-void slist_sort_if(slist_t* pt_slist, binary_function_t t_binary_op)
+/**
+ * Sort elements of slist container with user-specifide order relation.
+ */
+void slist_sort_if(slist_t* pslist_slist, binary_function_t bfun_op)
 {
-    slist_iterator_t t_pos;       /* iterating for insert */
-    slist_iterator_t t_disorder;  /* the first pos of disorder element */
-    slist_iterator_t t_insert;    /* the insert node */
-    bool_t           t_result = false;
+    slist_iterator_t it_pos;       /* iterating for insert */
+    slist_iterator_t it_disorder;  /* the first pos of disorder element */
+    slist_iterator_t it_insert;    /* the insert node */
+    bool_t           b_result = false;
 
-    assert(pt_slist != NULL);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
 
-    if(t_binary_op == NULL)
+    if(bfun_op == NULL)
     {
-        t_binary_op = fun_default_binary;
-    }
-
-    t_disorder = slist_begin(pt_slist);
-    while(!iterator_equal(t_disorder, slist_end(pt_slist)))
-    {
-        for(t_pos = slist_begin(pt_slist);
-            !iterator_equal(t_pos, t_disorder);
-            t_pos = iterator_next(t_pos))
+        bfun_op = _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist);
+        it_disorder = slist_begin(pslist_slist);
+        while(!iterator_equal(it_disorder, slist_end(pslist_slist)))
         {
-            (*t_binary_op)(iterator_get_pointer(t_disorder),
-                iterator_get_pointer(t_pos), &t_result);
-            if(t_result)
+            for(it_pos = slist_begin(pslist_slist); !iterator_equal(it_pos, it_disorder); it_pos = iterator_next(it_pos))
             {
-                t_insert = t_disorder;
-                t_disorder = iterator_next(t_disorder);
-                _slist_transfer(t_pos, t_insert, t_disorder);
-                break;
+                (*bfun_op)(
+                    ((slistnode_t*)_GET_SLIST_COREPOS(it_disorder))->_pc_data,
+                    ((slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pc_data, &b_result);
+                if(b_result)
+                {
+                    it_insert = it_disorder;
+                    it_disorder = iterator_next(it_disorder);
+                    _slist_transfer(it_pos, it_insert, it_disorder);
+                    break;
+                }
+            }
+
+            if(iterator_equal(it_pos, it_disorder))
+            {
+                it_disorder = iterator_next(it_disorder);
             }
         }
-
-        if(iterator_equal(t_pos, t_disorder))
+    }
+    else
+    {
+        it_disorder = slist_begin(pslist_slist);
+        while(!iterator_equal(it_disorder, slist_end(pslist_slist)))
         {
-            t_disorder = iterator_next(t_disorder);
+            for(it_pos = slist_begin(pslist_slist); !iterator_equal(it_pos, it_disorder); it_pos = iterator_next(it_pos))
+            {
+                (*bfun_op)(iterator_get_pointer(it_disorder),
+                    iterator_get_pointer(it_pos), &b_result);
+                if(b_result)
+                {
+                    it_insert = it_disorder;
+                    it_disorder = iterator_next(it_disorder);
+                    _slist_transfer(it_pos, it_insert, it_disorder);
+                    break;
+                }
+            }
+
+            if(iterator_equal(it_pos, it_disorder))
+            {
+                it_disorder = iterator_next(it_disorder);
+            }
         }
     }
 }
@@ -1011,58 +1064,58 @@ void slist_merge_if(
     }
 }
 
-void slist_clear(slist_t* pt_slist)
+/**
+ * Erases the elements of slist.
+ */
+void slist_clear(slist_t* pslist_slist)
 {
-    slist_erase_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+
+    slist_erase_range(pslist_slist, slist_begin(pslist_slist), slist_end(pslist_slist));
 }
 
-
-void slist_resize(slist_t* pt_slist, size_t t_resize)
+/**
+ * Specifies a new size of a slist.
+ */
+void slist_resize(slist_t* pslist_slist, size_t t_resize)
 {
-    slist_iterator_t t_pos;
-    size_t           t_index = 0;
+    slist_iterator_t it_pos;
+    slistnode_t*     pt_node = NULL;
+    slistnode_t*     pt_pos = NULL;
+    size_t           i = 0;
+    size_t           t_size = 0;
 
-    assert(pt_slist != NULL);
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
 
-    for(t_index = 0, t_pos = slist_begin(pt_slist);
-        t_index < t_resize && !iterator_equal(t_pos, slist_end(pt_slist));
-        ++t_index, t_pos = iterator_next(t_pos))
+    t_size = slist_size(pslist_slist);
+    if(t_resize <= t_size)
     {
-        continue;
-    }
-
-    if(t_index == t_resize)
-    {
-        if(!iterator_equal(t_pos, slist_end(pt_slist)))
-        {
-            slist_erase_range(pt_slist, t_pos, slist_end(pt_slist));
-        }
+        it_pos = iterator_advance(slist_begin(pslist_slist), t_resize);
+        slist_erase_range(pslist_slist, it_pos, slist_end(pslist_slist));
     }
     else
     {
-        slist_iterator_t t_slistlast;
-        slistnode_t*     pt_slistnode = NULL;
-        size_t           t_slistsize = slist_size(pt_slist);
-
-        if(!slist_empty(pt_slist))
+        if(!slist_empty(pslist_slist))
         {
-            t_slistlast = slist_previous(pt_slist, slist_end(pt_slist));
+            it_pos = slist_previous(pslist_slist, slist_end(pslist_slist));
+            pt_pos = (slistnode_t*)_GET_SLIST_COREPOS(it_pos);
         }
         else
         {
-            _GET_SLIST_COREPOS(t_slistlast) = (char*)&pt_slist->_t_head;
+            pt_pos = &pslist_slist->_t_head;
         }
 
-        for(t_index = 0; t_index < t_resize - t_slistsize; ++t_index)
+        for(i = 0; i < t_resize - t_size; ++i)
         {
-            pt_slistnode = _alloc_allocate(&pt_slist->_t_allocater,
-                _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pt_slist)), 1);
-            assert(pt_slistnode != NULL);
-            _slist_init_node_auxiliary(pt_slist, pt_slistnode);
+            pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+            assert(pt_node != NULL);
+            _slist_init_node_auxiliary(pslist_slist, pt_node);
 
-            pt_slistnode->_pt_next = ((slistnode_t*)_GET_SLIST_COREPOS(t_slistlast))->_pt_next;
-            ((slistnode_t*)_GET_SLIST_COREPOS(t_slistlast))->_pt_next = pt_slistnode;
-            pt_slistnode = NULL;
+            pt_node->_pt_next = pt_pos->_pt_next;
+            pt_pos->_pt_next = pt_node;
+            pt_node = NULL;
         }
     }
 }
