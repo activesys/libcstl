@@ -74,13 +74,13 @@ void _slist_iterator_get_value(slist_iterator_t it_iter, void* pv_value)
     /* char* */
     if(strncmp(_GET_SLIST_TYPE_BASENAME(_GET_SLIST_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        *(char**)pv_value = (char*)string_c_str((string_t*)((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data);
+        *(char**)pv_value = (char*)string_c_str((string_t*)((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data);
     }
     else
     {
         bool_t b_result = _GET_SLIST_TYPE_SIZE(_GET_SLIST_CONTAINER(it_iter));
         _GET_SLIST_TYPE_COPY_FUNCTION(_GET_SLIST_CONTAINER(it_iter))(
-            pv_value, ((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data, &b_result);
+            pv_value, ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data, &b_result);
         assert(b_result);
     }
 }
@@ -97,13 +97,13 @@ void _slist_iterator_set_value(slist_iterator_t it_iter, const void* cpv_value)
     /* char* */
     if(strncmp(_GET_SLIST_TYPE_BASENAME(_GET_SLIST_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        string_assign_cstr((string_t*)((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data, (char*)cpv_value);
+        string_assign_cstr((string_t*)((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data, (char*)cpv_value);
     }
     else
     {
         bool_t b_result = _GET_SLIST_TYPE_SIZE(_GET_SLIST_CONTAINER(it_iter));
         _GET_SLIST_TYPE_COPY_FUNCTION(_GET_SLIST_CONTAINER(it_iter))(
-            ((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data, cpv_value, &b_result);
+            ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data, cpv_value, &b_result);
         assert(b_result);
     }
 }
@@ -132,11 +132,11 @@ const void* _slist_iterator_get_pointer(slist_iterator_t it_iter)
     /* char* */
     if(strncmp(_GET_SLIST_TYPE_BASENAME(_GET_SLIST_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return string_c_str((string_t*)((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data);
+        return string_c_str((string_t*)((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data);
     }
     else
     {
-        return ((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pc_data;
+        return ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data;
     }
 }
 
@@ -148,7 +148,7 @@ slist_iterator_t _slist_iterator_next(slist_iterator_t it_iter)
     assert(_slist_iterator_belong_to_slist(_GET_SLIST_CONTAINER(it_iter), it_iter));
     assert(!iterator_equal(it_iter, slist_end(_GET_SLIST_CONTAINER(it_iter))));
 
-    _GET_SLIST_COREPOS(it_iter) = (char*)(((slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pt_next);
+    _GET_SLIST_COREPOS(it_iter) = (_byte_t*)(((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pt_next);
 
     return it_iter;
 }
@@ -158,8 +158,8 @@ slist_iterator_t _slist_iterator_next(slist_iterator_t it_iter)
  */
 int _slist_iterator_distance(slist_iterator_t it_first, slist_iterator_t it_second)
 {
-    int          n_distance = 0;
-    slistnode_t* pt_node = NULL;
+    int           n_distance = 0;
+    _slistnode_t* pt_node = NULL;
 
     assert(_iterator_same_type(it_first, it_second));
     assert(_GET_SLIST_CONTAINER(it_first) == _GET_SLIST_CONTAINER(it_second));
@@ -168,8 +168,8 @@ int _slist_iterator_distance(slist_iterator_t it_first, slist_iterator_t it_seco
 
     if(_slist_iterator_before(it_first, it_second))
     {
-        for(pt_node = (slistnode_t*)_GET_SLIST_COREPOS(it_first);
-            pt_node != (slistnode_t*)_GET_SLIST_COREPOS(it_second);
+        for(pt_node = (_slistnode_t*)_GET_SLIST_COREPOS(it_first);
+            pt_node != (_slistnode_t*)_GET_SLIST_COREPOS(it_second);
             pt_node = pt_node->_pt_next)
         {
             n_distance++;
@@ -179,8 +179,8 @@ int _slist_iterator_distance(slist_iterator_t it_first, slist_iterator_t it_seco
     }
     else if(_slist_iterator_before(it_second, it_first))
     {
-        for(pt_node = (slistnode_t*)_GET_SLIST_COREPOS(it_second);
-            pt_node != (slistnode_t*)_GET_SLIST_COREPOS(it_first);
+        for(pt_node = (_slistnode_t*)_GET_SLIST_COREPOS(it_second);
+            pt_node != (_slistnode_t*)_GET_SLIST_COREPOS(it_first);
             pt_node = pt_node->_pt_next)
         {
             n_distance++;
@@ -199,7 +199,7 @@ int _slist_iterator_distance(slist_iterator_t it_first, slist_iterator_t it_seco
  */
 bool_t _slist_iterator_before(slist_iterator_t it_first, slist_iterator_t it_second)
 {
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
 
     assert(_iterator_same_type(it_first, it_second));
     assert(_GET_SLIST_CONTAINER(it_first) == _GET_SLIST_CONTAINER(it_second));
@@ -211,9 +211,9 @@ bool_t _slist_iterator_before(slist_iterator_t it_first, slist_iterator_t it_sec
         return false;
     }
 
-    for(pt_node = (slistnode_t*)_GET_SLIST_COREPOS(it_first); pt_node != NULL; pt_node = pt_node->_pt_next)
+    for(pt_node = (_slistnode_t*)_GET_SLIST_COREPOS(it_first); pt_node != NULL; pt_node = pt_node->_pt_next)
     {
-        if(pt_node == (slistnode_t*)_GET_SLIST_COREPOS(it_second))
+        if(pt_node == (_slistnode_t*)_GET_SLIST_COREPOS(it_second))
         {
             return true;
         }

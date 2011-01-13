@@ -21,7 +21,7 @@ UT_CASE_DECLARATION(_create_list_iterator)
 void test__create_list_iterator__successfully(void** state)
 {
     list_iterator_t it_iter = _create_list_iterator();
-    assert_true(it_iter._t_pos._pc_corepos == NULL);
+    assert_true(it_iter._t_pos._pby_corepos == NULL);
     assert_true(it_iter._pt_container == NULL);
     assert_true(it_iter._t_containertype == _LIST_CONTAINER);
     assert_true(it_iter._t_iteratortype == _BIDIRECTIONAL_ITERATOR);
@@ -39,7 +39,7 @@ void test__list_iterator_get_value__invalid_iterator(void** state)
 
     list_init_elem(plist, 10, 100);
     it_iter = list_begin(plist);
-    it_iter._t_pos._pc_corepos = NULL;
+    it_iter._t_pos._pby_corepos = NULL;
     expect_assert_failure(_list_iterator_get_value(it_iter, &n_value));
 
     list_destroy(plist);
@@ -138,7 +138,7 @@ void test__list_iterator_set_value__invalid_iter(void** state)
 
     list_init_elem(plist, 10, 100);
     it_iter = list_begin(plist);
-    it_iter._t_pos._pc_corepos = NULL;
+    it_iter._t_pos._pby_corepos = NULL;
     expect_assert_failure(_list_iterator_set_value(it_iter, &n_value));
 
     list_destroy(plist);
@@ -224,7 +224,7 @@ void test__list_iterator_get_pointer__invalid_iter(void** state)
 
     list_init_elem(plist, 10, 100);
     it_iter = list_begin(plist);
-    it_iter._t_pos._pc_corepos = NULL;
+    it_iter._t_pos._pby_corepos = NULL;
     expect_assert_failure(_list_iterator_get_pointer(it_iter));
 
     list_destroy(plist);
@@ -291,7 +291,7 @@ void test__list_iterator_next__invalid_iter(void** state)
 
     list_init_elem(plist, 10, 100);
     it_iter = list_begin(plist);
-    it_iter._t_pos._pc_corepos = NULL;
+    it_iter._t_pos._pby_corepos = NULL;
     expect_assert_failure(_list_iterator_next(it_iter));
 
     list_destroy(plist);
@@ -374,7 +374,7 @@ void test__list_iterator_prev__invalid_iter(void** state)
 
     list_init_elem(plist, 10, 100);
     it_iter = list_begin(plist);
-    it_iter._t_pos._pc_corepos = NULL;
+    it_iter._t_pos._pby_corepos = NULL;
     expect_assert_failure(_list_iterator_prev(it_iter));
 
     list_destroy(plist);
@@ -557,7 +557,7 @@ void test__list_iterator_equal__first_not_belong_to_list(void** state)
     list_init(plist);
     it_first = list_begin(plist);
     it_second = list_begin(plist);
-    it_first._t_pos._pc_corepos = (char*)0x01;
+    it_first._t_pos._pby_corepos = (char*)0x01;
 
     expect_assert_failure(_list_iterator_equal(it_first, it_second));
 
@@ -573,7 +573,7 @@ void test__list_iterator_equal__second_not_belong_to_list(void** state)
     list_init(plist);
     it_first = list_begin(plist);
     it_second = list_begin(plist);
-    it_second._t_pos._pc_corepos = (char*)0x01;
+    it_second._t_pos._pby_corepos = (char*)0x01;
 
     expect_assert_failure(_list_iterator_equal(it_first, it_second));
 
@@ -737,7 +737,7 @@ void test__list_iterator_distance__first_not_belong_to_list(void** state)
     list_init(plist);
     it_first = list_begin(plist);
     it_second = list_begin(plist);
-    it_first._t_pos._pc_corepos = (char*)0x01;
+    it_first._t_pos._pby_corepos = (char*)0x01;
 
     expect_assert_failure(_list_iterator_distance(it_first, it_second));
 
@@ -753,7 +753,7 @@ void test__list_iterator_distance__second_not_belong_to_list(void** state)
     list_init(plist);
     it_first = list_begin(plist);
     it_second = list_begin(plist);
-    it_second._t_pos._pc_corepos = (char*)0x01;
+    it_second._t_pos._pby_corepos = (char*)0x01;
 
     expect_assert_failure(_list_iterator_distance(it_first, it_second));
 
@@ -947,7 +947,7 @@ void test__list_iterator_before__first_not_belong_to_list(void** state)
     list_init(plist);
     it_first = list_begin(plist);
     it_second = list_begin(plist);
-    it_first._t_pos._pc_corepos = (char*)0x01;
+    it_first._t_pos._pby_corepos = (char*)0x01;
 
     expect_assert_failure(_list_iterator_before(it_first, it_second));
 
@@ -963,7 +963,7 @@ void test__list_iterator_before__second_not_belong_to_list(void** state)
     list_init(plist);
     it_first = list_begin(plist);
     it_second = list_begin(plist);
-    it_second._t_pos._pc_corepos = (char*)0x01;
+    it_second._t_pos._pby_corepos = (char*)0x01;
 
     expect_assert_failure(_list_iterator_before(it_first, it_second));
 

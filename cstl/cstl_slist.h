@@ -505,7 +505,15 @@ extern void slist_unique(slist_t* pslist_slist);
  *          that are not adjacent will not bt deleted. if bfun_op == NULL, then use default binary function.
  */
 extern void slist_unique_if(slist_t* pslist_slist, binary_function_t bfun_op);
-extern void slist_reverse(slist_t* pt_slist);
+
+/**
+ * Reverse the order of all elements.
+ * @param pslist_slist    slist container.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior is
+ *          undefined.
+ */
+extern void slist_reverse(slist_t* pslist_slist);
 
 /**
  * Sort elements of slist container.
@@ -525,9 +533,30 @@ extern void slist_sort(slist_t* pslist_slist);
  *          undefined. if bfun_op == NULL, then use default type less function.
  */
 extern void slist_sort_if(slist_t* pslist_slist, binary_function_t bfun_op);
-extern void slist_merge(slist_t* pt_slistdest, slist_t* pt_slistsrc);
-extern void slist_merge_if(
-    slist_t* pt_slistdest, slist_t* pt_slistsrc, binary_function_t t_binary_op);
+
+/**
+ * Merge two sorted slist.
+ * @param pslist_dest    destination slist.
+ * @param pslist_src     source slist.
+ * @return void.
+ * @remarks if pslist_dest == NULL or pslist_src == NULL, then the behavior is undefined. destination slist and source slist
+ *          must be initialized, otherwise the behavior is undefined. the element type of two slist must be the same, otherwise
+ *          the behavior is undefined. if pslist_dest == pslist_src then the function does nothing.
+ */
+extern void slist_merge(slist_t* pslist_dest, slist_t* pslist_src);
+
+/**
+ * Merge two sorted slist.
+ * @param pslist_dest    destination slist.
+ * @param pslist_src     source slist.
+ * @param bfun_op        sorted predicate.
+ * @return void.
+ * @remarks if pslist_dest == NULL or pslist_src == NULL, then the behavior is undefined. destination slist and source slist
+ *          must be initialized, otherwise the behavior is undefined. the element type of two slist must be the same, otherwise
+ *          the behavior is undefined. if pslist_dest == pslist_src then the function does nothing. if bfun_op == NULL then use
+ *          type less compare function.
+ */
+extern void slist_merge_if(slist_t* pslist_dest, slist_t* pslist_src, binary_function_t bfun_op);
 
 /**
  * Specifies a new size of a slist.

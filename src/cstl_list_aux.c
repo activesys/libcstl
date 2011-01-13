@@ -231,9 +231,9 @@ void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt
     assert(_list_is_inited(plist_list));
 #ifndef NDEBUG
     _GET_CONTAINER(it_first) = plist_list;
-    _GET_LIST_COREPOS(it_first) = (char*)pt_first;
+    _GET_LIST_COREPOS(it_first) = (_byte_t*)pt_first;
     _GET_CONTAINER(it_last) = plist_list;
-    _GET_LIST_COREPOS(it_last) = (char*)pt_last;
+    _GET_LIST_COREPOS(it_last) = (_byte_t*)pt_last;
     assert(_list_iterator_belong_to_list(plist_list, it_first));
     assert(_list_iterator_belong_to_list(plist_list, it_last));
     assert(iterator_equal(it_first, it_last) || _list_iterator_before(it_first, it_last));

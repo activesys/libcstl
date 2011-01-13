@@ -823,7 +823,7 @@ void test__slist_init_elem_auxiliary__successfully_cstr(void** state)
     slist_t* pslist = create_slist(char*);
     slist_init_elem(pslist, 10, "abcdefg");
 
-    _slist_init_elem_auxiliary(pslist, pslist->_t_head._pt_next->_pc_data);
+    _slist_init_elem_auxiliary(pslist, pslist->_t_head._pt_next->_pby_data);
     assert_true(strcmp((char*)slist_front(pslist), "") == 0);
 
     slist_destroy(pslist);
@@ -835,7 +835,7 @@ void test__slist_init_elem_auxiliary__successfully_iterator(void** state)
     slist_t* pslist = create_slist(iterator_t);
     slist_init_elem(pslist, 10, &it_iter);
 
-    _slist_init_elem_auxiliary(pslist, pslist->_t_head._pt_next->_pc_data);
+    _slist_init_elem_auxiliary(pslist, pslist->_t_head._pt_next->_pby_data);
     memset(&it_iter, 0x00, sizeof(iterator_t));
     assert_true(memcmp((iterator_t*)slist_front(pslist), &it_iter, sizeof(iterator_t)) == 0);
 
@@ -907,7 +907,7 @@ void test__slist_insert__invalid_pos(void** state)
     slist_init(pslist);
 
     it_pos = slist_begin(pslist);
-    it_pos._t_pos._pc_corepos = 0x3849;
+    it_pos._t_pos._pby_corepos = 0x3849;
     expect_assert_failure(_slist_insert(pslist, it_pos, 100));
 
     slist_destroy(pslist);
@@ -1101,7 +1101,7 @@ void test__slist_insert_n__invalid_pos(void** state)
     slist_init(pslist);
 
     it_pos = slist_begin(pslist);
-    it_pos._t_pos._pc_corepos = 0x3849;
+    it_pos._t_pos._pby_corepos = 0x3849;
     expect_assert_failure(_slist_insert_n(pslist, it_pos, 10, 100));
 
     slist_destroy(pslist);
@@ -1329,7 +1329,7 @@ void test__slist_insert_after__invalid_pos(void** state)
     slist_init(pslist);
 
     it_pos = slist_begin(pslist);
-    it_pos._t_pos._pc_corepos = 0x3849;
+    it_pos._t_pos._pby_corepos = 0x3849;
     expect_assert_failure(_slist_insert_after(pslist, it_pos, 100));
 
     slist_destroy(pslist);
@@ -1542,7 +1542,7 @@ void test__slist_insert_after_n__slist_insert_after_n_varg__invalid_pos(void** s
     slist_init(pslist);
 
     it_pos = slist_begin(pslist);
-    it_pos._t_pos._pc_corepos = 0x3849;
+    it_pos._t_pos._pby_corepos = 0x3849;
     expect_assert_failure(_slist_insert_after_n(pslist, it_pos, 10, 100));
 
     slist_destroy(pslist);

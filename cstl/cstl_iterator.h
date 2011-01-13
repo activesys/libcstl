@@ -32,7 +32,7 @@ extern "C" {
 /** constant declaration and macro section **/
 /* vector iterator handler */
 #define _GET_VECTOR_COREPOS(t_iter)\
-    ((t_iter)._t_pos._pc_corepos)
+    ((t_iter)._t_pos._pby_corepos)
 #define _GET_VECTOR_CONTAINER(t_iter)\
     ((vector_t*)((t_iter)._pt_container))
 #define _GET_VECTOR_CONTAINER_TYPE(t_iter)\
@@ -41,7 +41,7 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* list iterator handler */
 #define _GET_LIST_COREPOS(t_iter)\
-    ((t_iter)._t_pos._pc_corepos)
+    ((t_iter)._t_pos._pby_corepos)
 #define _GET_LIST_CONTAINER(t_iter)\
     ((list_t*)((t_iter)._pt_container))
 #define _GET_LIST_CONTAINER_TYPE(t_iter)\
@@ -65,7 +65,7 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* slist iterator handler */
 #define _GET_SLIST_COREPOS(t_iter)\
-    ((t_iter)._t_pos._pc_corepos)
+    ((t_iter)._t_pos._pby_corepos)
 #define _GET_SLIST_CONTAINER(t_iter)\
     ((slist_t*)((t_iter)._pt_container))
 #define _GET_SLIST_CONTAINER_TYPE(t_iter)\
@@ -205,7 +205,7 @@ typedef struct _tagiterator
     /* flexibility for all containter */
     union 
     {
-        char*         _pc_corepos;    /* for vector list e.g. */
+        _byte_t*      _pby_corepos;    /* for vector list e.g. */
         struct 
         {                    /* for deque */
             _byte_t*  _pby_corepos;

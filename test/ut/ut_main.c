@@ -25,6 +25,8 @@
 #include "ut_cstl_slist_aux.h"
 #include "ut_cstl_slist_private.h"
 #include "ut_cstl_slist.h"
+#include "ut_cstl_stack_private.h"
+#include "ut_cstl_stack.h"
 
 int main(int argc, char* argv[])
 {
@@ -46,7 +48,9 @@ int main(int argc, char* argv[])
         UT_CSTL_SLIST_ITERATOR_CASE,
         UT_CSTL_SLIST_AUX_CASE,
         UT_CSTL_SLIST_PRIVATE_CASE,
-        UT_CSTL_SLIST_CASE
+        UT_CSTL_SLIST_CASE,
+        UT_CSTL_STACK_PRIVATE_CASE,
+        UT_CSTL_STACK_CASE
     };
 
     return run_tests(tests);

@@ -127,7 +127,7 @@ extern void _slist_transfer_after(slist_iterator_t it_pos, slist_iterator_t it_b
  * @remarks if pslist_slist == NULL or pt_node == NULL, then the behavior is undefined. pslist_slist must be initialized
  *          or created by create_slist(), otherwise the behavior is undefined.
  */
-extern void _slist_get_varg_value_auxiliary(slist_t* pslist_slist, va_list val_elemlist, slistnode_t* pt_node);
+extern void _slist_get_varg_value_auxiliary(slist_t* pslist_slist, va_list val_elemlist, _slistnode_t* pt_node);
 
 /**
  * Destroy data, the data type and slist element data type are same.
@@ -137,7 +137,7 @@ extern void _slist_get_varg_value_auxiliary(slist_t* pslist_slist, va_list val_e
  * @remarks if pslist_slist == NULL or pt_node == NULL, then the behavior is undefined. pslist_slist must be initialized
  *          or created by create_slist(), otherwise the behavior is undefined.
  */
-extern void _slist_destroy_varg_value_auxiliary(slist_t* pslist_slist, slistnode_t* pt_node);
+extern void _slist_destroy_varg_value_auxiliary(slist_t* pslist_slist, _slistnode_t* pt_node);
 
 /**
  * Initialize slist node auxiliary function.
@@ -147,7 +147,7 @@ extern void _slist_destroy_varg_value_auxiliary(slist_t* pslist_slist, slistnode
  * @remarks if pslist_slist == NULL or pt_node == NULL, then the behavior is undefined. pslist_slist must be initialized
  *          or created by create_slist(), otherwise the behavior is undefined.
  */
-extern void _slist_init_node_auxiliary(slist_t* pslist_slist, slistnode_t* pt_node);
+extern void _slist_init_node_auxiliary(slist_t* pslist_slist, _slistnode_t* pt_node);
 
 #ifdef __cplusplus
 }

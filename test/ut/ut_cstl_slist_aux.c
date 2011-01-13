@@ -205,7 +205,7 @@ void test__slist_iterator_belong_to_slist__not_belong_to_slist(void** state)
     slist_init(pslist);
 
     it_iter = slist_begin(pslist);
-    it_iter._t_pos._pc_corepos = 0x9378;
+    it_iter._t_pos._pby_corepos = 0x9378;
     assert_false(_slist_iterator_belong_to_slist(pslist, it_iter));
 
     slist_destroy(pslist);
@@ -570,7 +570,7 @@ void test__slist_same_type__same_container(void** state)
  * test _slist_get_varg_value_auxiliary
  */
 UT_CASE_DEFINATION(_slist_get_varg_value_auxiliary)
-static void _wrapper_slist_get_varg_value_auxiliary(slist_t* pslist_slist, slistnode_t* pt_node, ...)
+static void _wrapper_slist_get_varg_value_auxiliary(slist_t* pslist_slist, _slistnode_t* pt_node, ...)
 {
     va_list val_elemlist;
     va_start(val_elemlist, pt_node);
@@ -580,7 +580,7 @@ static void _wrapper_slist_get_varg_value_auxiliary(slist_t* pslist_slist, slist
 
 void test__slist_get_varg_value_auxiliary__null_slist_container(void** state)
 {
-    slistnode_t node;
+    _slistnode_t node;
     expect_assert_failure(_wrapper_slist_get_varg_value_auxiliary(NULL, &node, 100));
 }
 
@@ -595,7 +595,7 @@ void test__slist_get_varg_value_auxiliary__null_node(void** state)
 
 void test__slist_get_varg_value_auxiliary__non_created_slist_containter(void** state)
 {
-    slistnode_t node;
+    _slistnode_t node;
     slist_t* pslist = create_slist(int);
     slist_init(pslist);
 
@@ -608,13 +608,13 @@ void test__slist_get_varg_value_auxiliary__non_created_slist_containter(void** s
 
 void test__slist_get_varg_value_auxiliary__c_builtin(void** state)
 {
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
     slist_t* pslist = create_slist(int);
     slist_init(pslist);
     pt_node = malloc(_SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist)));
 
     _wrapper_slist_get_varg_value_auxiliary(pslist, pt_node, 100);
-    assert_true(*(int*)pt_node->_pc_data == 100);
+    assert_true(*(int*)pt_node->_pby_data == 100);
 
     free(pt_node);
     slist_destroy(pslist);
@@ -622,13 +622,13 @@ void test__slist_get_varg_value_auxiliary__c_builtin(void** state)
 
 void test__slist_get_varg_value_auxiliary__cstr(void** state)
 {
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
     slist_t* pslist = create_slist(char*);
     slist_init(pslist);
     pt_node = malloc(_SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist)));
 
     _wrapper_slist_get_varg_value_auxiliary(pslist, pt_node, "abcdefg");
-    assert_true(strcmp(string_c_str((string_t*)pt_node->_pc_data), "abcdefg") == 0);
+    assert_true(strcmp(string_c_str((string_t*)pt_node->_pby_data), "abcdefg") == 0);
 
     free(pt_node);
     slist_destroy(pslist);
@@ -636,7 +636,7 @@ void test__slist_get_varg_value_auxiliary__cstr(void** state)
 
 void test__slist_get_varg_value_auxiliary__libcstl_builtin(void** state)
 {
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
     slist_t* pslist = create_slist(vector_t<int>);
     vector_t* pvec = create_vector(int);
     vector_init_elem(pvec, 10, 100);
@@ -644,7 +644,7 @@ void test__slist_get_varg_value_auxiliary__libcstl_builtin(void** state)
     pt_node = malloc(_SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist)));
 
     _wrapper_slist_get_varg_value_auxiliary(pslist, pt_node, pvec);
-    assert_true(vector_equal((vector_t*)pt_node->_pc_data, pvec));
+    assert_true(vector_equal((vector_t*)pt_node->_pby_data, pvec));
 
     free(pt_node);
     slist_destroy(pslist);
@@ -658,7 +658,7 @@ void test__slist_get_varg_value_auxiliary__user_define(void** state)
         int n_elem;
     }_test__slist_get_varg_value_auxiliary__user_define_t;
 
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
     slist_t* pslist = NULL;
     _test__slist_get_varg_value_auxiliary__user_define_t t_use;
 
@@ -669,7 +669,7 @@ void test__slist_get_varg_value_auxiliary__user_define(void** state)
     t_use.n_elem = 10000;
 
     _wrapper_slist_get_varg_value_auxiliary(pslist, pt_node, &t_use);
-    assert_true(((_test__slist_get_varg_value_auxiliary__user_define_t*)pt_node->_pc_data)->n_elem == t_use.n_elem);
+    assert_true(((_test__slist_get_varg_value_auxiliary__user_define_t*)pt_node->_pby_data)->n_elem == t_use.n_elem);
 
     free(pt_node);
     slist_destroy(pslist);
@@ -681,13 +681,13 @@ void test__slist_get_varg_value_auxiliary__user_define(void** state)
 UT_CASE_DEFINATION(_slist_destroy_varg_value_auxiliary)
 void test__slist_destroy_varg_value_auxiliary__null_slist_container(void** state)
 {
-    slistnode_t node;
+    _slistnode_t node;
     expect_assert_failure(_slist_destroy_varg_value_auxiliary(NULL, &node));
 }
 
 void test__slist_destroy_varg_value_auxiliary__non_created_slist_container(void** state)
 {
-    slistnode_t node;
+    _slistnode_t node;
     slist_t* pslist = create_slist(int);
     slist_init(pslist);
     pslist->_t_typeinfo._t_style = 99;
@@ -708,7 +708,7 @@ void test__slist_destroy_varg_value_auxiliary__null_node(void** state)
 
 void test__slist_destroy_varg_value_auxiliary__successfully(void** state)
 {
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
     slist_t* pslist = create_slist(int);
     slist_init(pslist);
     pt_node = malloc(_SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist)));
@@ -724,7 +724,7 @@ void test__slist_destroy_varg_value_auxiliary__successfully(void** state)
 UT_CASE_DEFINATION(_slist_init_node_auxiliary)
 void test__slist_init_node_auxiliary__null_slist_container(void** state)
 {
-    slistnode_t node;
+    _slistnode_t node;
     expect_assert_failure(_slist_init_node_auxiliary(NULL, &node));
 }
 
@@ -739,7 +739,7 @@ void test__slist_init_node_auxiliary__null_node(void** state)
 
 void test__slist_init_node_auxiliary__non_created_slist_containter(void** state)
 {
-    slistnode_t node;
+    _slistnode_t node;
     slist_t* pslist = create_slist(int);
     slist_init(pslist);
 
@@ -752,13 +752,13 @@ void test__slist_init_node_auxiliary__non_created_slist_containter(void** state)
 
 void test__slist_init_node_auxiliary__c_builtin(void** state)
 {
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
     slist_t* pslist = create_slist(int);
     slist_init(pslist);
     pt_node = malloc(_SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist)));
 
     _slist_init_node_auxiliary(pslist, pt_node);
-    assert_true(*(int*)pt_node->_pc_data == 0);
+    assert_true(*(int*)pt_node->_pby_data == 0);
 
     free(pt_node);
     slist_destroy(pslist);
@@ -766,13 +766,13 @@ void test__slist_init_node_auxiliary__c_builtin(void** state)
 
 void test__slist_init_node_auxiliary__cstr(void** state)
 {
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
     slist_t* pslist = create_slist(char*);
     slist_init(pslist);
     pt_node = malloc(_SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist)));
 
     _slist_init_node_auxiliary(pslist, pt_node);
-    assert_true(strcmp(string_c_str((string_t*)pt_node->_pc_data), "") == 0);
+    assert_true(strcmp(string_c_str((string_t*)pt_node->_pby_data), "") == 0);
 
     free(pt_node);
     slist_destroy(pslist);
@@ -780,13 +780,13 @@ void test__slist_init_node_auxiliary__cstr(void** state)
 
 void test__slist_init_node_auxiliary__libcstl_builtin(void** state)
 {
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
     slist_t* pslist = create_slist(vector_t<int>);
     slist_init(pslist);
     pt_node = malloc(_SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist)));
 
     _slist_init_node_auxiliary(pslist, pt_node);
-    assert_true(_vector_is_inited((vector_t*)pt_node->_pc_data));
+    assert_true(_vector_is_inited((vector_t*)pt_node->_pby_data));
 
     free(pt_node);
     slist_destroy(pslist);
@@ -799,7 +799,7 @@ void test__slist_init_node_auxiliary__user_define(void** state)
         int n_elem;
     }_test__slist_init_node_auxiliary__user_define_t;
 
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
     slist_t* pslist = NULL;
 
     type_register(_test__slist_init_node_auxiliary__user_define_t, NULL, NULL, NULL, NULL);
@@ -808,7 +808,7 @@ void test__slist_init_node_auxiliary__user_define(void** state)
     pt_node = malloc(_SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist)));
 
     _slist_init_node_auxiliary(pslist, pt_node);
-    assert_true(((_test__slist_init_node_auxiliary__user_define_t*)pt_node->_pc_data)->n_elem == 0);
+    assert_true(((_test__slist_init_node_auxiliary__user_define_t*)pt_node->_pby_data)->n_elem == 0);
 
     free(pt_node);
     slist_destroy(pslist);

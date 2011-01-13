@@ -562,6 +562,75 @@ void test_slist_sort_if__random_random_less(void** state);
 void test_slist_sort_if__random_random_greater(void** state);
 void test_slist_sort_if__random_random_dup_less(void** state);
 void test_slist_sort_if__random_random_dup_greater(void** state);
+void test_slist_sort_if__cstr_1_less(void** state);
+void test_slist_sort_if__cstr_1_greater(void** state);
+void test_slist_sort_if__cstr_2_equal_less(void** state);
+void test_slist_sort_if__cstr_2_equal_greater(void** state);
+void test_slist_sort_if__cstr_2_less_less(void** state);
+void test_slist_sort_if__cstr_2_less_greater(void** state);
+void test_slist_sort_if__cstr_2_greater_less(void** state);
+void test_slist_sort_if__cstr_2_greater_greater(void** state);
+void test_slist_sort_if__cstr_random_equal_less(void** state);
+void test_slist_sort_if__cstr_random_equal_greater(void** state);
+void test_slist_sort_if__cstr_random_less_less(void** state);
+void test_slist_sort_if__cstr_random_less_greater(void** state);
+void test_slist_sort_if__cstr_random_greater_less(void** state);
+void test_slist_sort_if__cstr_random_greater_greater(void** state);
+void test_slist_sort_if__cstr_random_random_less(void** state);
+void test_slist_sort_if__cstr_random_random_greater(void** state);
+void test_slist_sort_if__cstr_random_random_dup_less(void** state);
+void test_slist_sort_if__cstr_random_random_dup_greater(void** state);
+/*
+ * test slist_merge
+ */
+UT_CASE_DECLARATION(slist_merge)
+void test_slist_merge__null_dest_slist_container(void** state);
+void test_slist_merge__null_src_slist_container(void** state);
+void test_slist_merge__non_inited_dest_slist_container(void** state);
+void test_slist_merge__non_inited_src_slist_container(void** state);
+void test_slist_merge__not_same(void** state);
+void test_slist_merge__same_slist_container(void** state);
+void test_slist_merge__dest_empty_src_empty(void** state);
+void test_slist_merge__dest_non_empty_src_empty(void** state);
+void test_slist_merge__dest_empty_src_non_empty(void** state);
+void test_slist_merge__dest_tailing(void** state);
+void test_slist_merge__src_tailing(void** state);
+void test_slist_merge__random(void** state);
+void test_slist_merge__cstr_dest_tailing(void** state);
+void test_slist_merge__cstr_src_tailing(void** state);
+void test_slist_merge__cstr_random(void** state);
+/*
+ * test slist_merge_if
+ */
+UT_CASE_DECLARATION(slist_merge_if)
+void test_slist_merge_if__null_dest_slist_container(void** state);
+void test_slist_merge_if__null_src_slist_container(void** state);
+void test_slist_merge_if__non_inited_dest_slist_container(void** state);
+void test_slist_merge_if__non_inited_src_slist_container(void** state);
+void test_slist_merge_if__not_same(void** state);
+void test_slist_merge_if__same_slist_container(void** state);
+void test_slist_merge_if__dest_empty_src_empty(void** state);
+void test_slist_merge_if__dest_non_empty_src_empty(void** state);
+void test_slist_merge_if__dest_empty_src_non_empty(void** state);
+void test_slist_merge_if__ascending_dest_tailing(void** state);
+void test_slist_merge_if__ascending_src_tailing(void** state);
+void test_slist_merge_if__descending_dest_tailing(void** state);
+void test_slist_merge_if__descending_src_tailing(void** state);
+void test_slist_merge_if__random(void** state);
+void test_slist_merge_if__cstr_ascending_dest_tailing(void** state);
+void test_slist_merge_if__cstr_ascending_src_tailing(void** state);
+void test_slist_merge_if__cstr_descending_dest_tailing(void** state);
+void test_slist_merge_if__cstr_descending_src_tailing(void** state);
+void test_slist_merge_if__cstr_random(void** state);
+/*
+ * test slist_reverse
+ */
+UT_CASE_DECLARATION(slist_reverse)
+void test_slist_reverse__null_slist_container(void** state);
+void test_slist_reverse__non_inited_slist_container(void** state);
+void test_slist_reverse__empty(void** state);
+void test_slist_reverse__same(void** state);
+void test_slist_reverse__not_same(void** state);
 
 #define UT_CSTL_SLIST_CASE\
     UT_SUIT_BEGIN(cstl_slist, test_slist_init__null_slist_container),\
@@ -962,7 +1031,64 @@ void test_slist_sort_if__random_random_dup_greater(void** state);
     UT_CASE(test_slist_sort_if__random_random_less),\
     UT_CASE(test_slist_sort_if__random_random_greater),\
     UT_CASE(test_slist_sort_if__random_random_dup_less),\
-    UT_CASE(test_slist_sort_if__random_random_dup_greater)
+    UT_CASE(test_slist_sort_if__random_random_dup_greater),\
+    UT_CASE(test_slist_sort_if__cstr_1_less),\
+    UT_CASE(test_slist_sort_if__cstr_1_greater),\
+    UT_CASE(test_slist_sort_if__cstr_2_equal_less),\
+    UT_CASE(test_slist_sort_if__cstr_2_equal_greater),\
+    UT_CASE(test_slist_sort_if__cstr_2_less_less),\
+    UT_CASE(test_slist_sort_if__cstr_2_less_greater),\
+    UT_CASE(test_slist_sort_if__cstr_2_greater_less),\
+    UT_CASE(test_slist_sort_if__cstr_2_greater_greater),\
+    UT_CASE(test_slist_sort_if__cstr_random_equal_less),\
+    UT_CASE(test_slist_sort_if__cstr_random_equal_greater),\
+    UT_CASE(test_slist_sort_if__cstr_random_less_less),\
+    UT_CASE(test_slist_sort_if__cstr_random_less_greater),\
+    UT_CASE(test_slist_sort_if__cstr_random_greater_less),\
+    UT_CASE(test_slist_sort_if__cstr_random_greater_greater),\
+    UT_CASE(test_slist_sort_if__cstr_random_random_less),\
+    UT_CASE(test_slist_sort_if__cstr_random_random_greater),\
+    UT_CASE(test_slist_sort_if__cstr_random_random_dup_less),\
+    UT_CASE(test_slist_sort_if__cstr_random_random_dup_greater),\
+    UT_CASE_BEGIN(slist_merge, test_slist_merge__null_dest_slist_container),\
+    UT_CASE(test_slist_merge__null_src_slist_container),\
+    UT_CASE(test_slist_merge__non_inited_dest_slist_container),\
+    UT_CASE(test_slist_merge__non_inited_src_slist_container),\
+    UT_CASE(test_slist_merge__not_same),\
+    UT_CASE(test_slist_merge__same_slist_container),\
+    UT_CASE(test_slist_merge__dest_empty_src_empty),\
+    UT_CASE(test_slist_merge__dest_non_empty_src_empty),\
+    UT_CASE(test_slist_merge__dest_empty_src_non_empty),\
+    UT_CASE(test_slist_merge__dest_tailing),\
+    UT_CASE(test_slist_merge__src_tailing),\
+    UT_CASE(test_slist_merge__random),\
+    UT_CASE(test_slist_merge__cstr_dest_tailing),\
+    UT_CASE(test_slist_merge__cstr_src_tailing),\
+    UT_CASE(test_slist_merge__cstr_random),\
+    UT_CASE_BEGIN(slist_merge_if, test_slist_merge_if__null_dest_slist_container),\
+    UT_CASE(test_slist_merge_if__null_src_slist_container),\
+    UT_CASE(test_slist_merge_if__non_inited_dest_slist_container),\
+    UT_CASE(test_slist_merge_if__non_inited_src_slist_container),\
+    UT_CASE(test_slist_merge_if__not_same),\
+    UT_CASE(test_slist_merge_if__same_slist_container),\
+    UT_CASE(test_slist_merge_if__dest_empty_src_empty),\
+    UT_CASE(test_slist_merge_if__dest_non_empty_src_empty),\
+    UT_CASE(test_slist_merge_if__dest_empty_src_non_empty),\
+    UT_CASE(test_slist_merge_if__ascending_dest_tailing),\
+    UT_CASE(test_slist_merge_if__ascending_src_tailing),\
+    UT_CASE(test_slist_merge_if__descending_dest_tailing),\
+    UT_CASE(test_slist_merge_if__descending_src_tailing),\
+    UT_CASE(test_slist_merge_if__random),\
+    UT_CASE(test_slist_merge_if__cstr_ascending_dest_tailing),\
+    UT_CASE(test_slist_merge_if__cstr_ascending_src_tailing),\
+    UT_CASE(test_slist_merge_if__cstr_descending_dest_tailing),\
+    UT_CASE(test_slist_merge_if__cstr_descending_src_tailing),\
+    UT_CASE(test_slist_merge_if__cstr_random),\
+    UT_CASE_BEGIN(slist_reverse, test_slist_reverse__null_slist_container),\
+    UT_CASE(test_slist_reverse__non_inited_slist_container),\
+    UT_CASE(test_slist_reverse__empty),\
+    UT_CASE(test_slist_reverse__same),\
+    UT_CASE(test_slist_reverse__not_same)
 
 #endif /* _UT_CSTL_SLIST_H_ */
 

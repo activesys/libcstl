@@ -765,7 +765,7 @@ void test__vector_insert_n__vector_insert_n_varg__invalid_position(void** state)
     vector_t* pvec = create_vector(int);
     vector_init_n(pvec, 10);
     it_pos = vector_begin(pvec);
-    it_pos._t_pos._pc_corepos = NULL;
+    it_pos._t_pos._pby_corepos = NULL;
 
     expect_assert_failure(_vector_insert_n(pvec, it_pos, 10, 100));
 

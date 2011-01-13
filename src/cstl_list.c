@@ -438,7 +438,7 @@ list_iterator_t list_begin(const list_t* cplist_list)
     assert(_list_is_inited(cplist_list));
 
     it_begin = _create_list_iterator();
-    _GET_LIST_COREPOS(it_begin) = (char*)(cplist_list->_pt_node->_pt_next);
+    _GET_LIST_COREPOS(it_begin) = (_byte_t*)(cplist_list->_pt_node->_pt_next);
     _GET_CONTAINER(it_begin) = (list_t*)cplist_list;
 
     return it_begin;
@@ -455,7 +455,7 @@ list_iterator_t list_end(const list_t* cplist_list)
     assert(_list_is_inited(cplist_list));
 
     it_end = _create_list_iterator();
-    _GET_LIST_COREPOS(it_end) = (char*)(cplist_list->_pt_node);
+    _GET_LIST_COREPOS(it_end) = (_byte_t*)(cplist_list->_pt_node);
     _GET_CONTAINER(it_end) = (list_t*)cplist_list;
 
     return it_end;
@@ -469,7 +469,7 @@ list_reverse_iterator_t list_rbegin(const list_t* cplist_list)
     assert(_list_is_inited(cplist_list));
 
     it_rbegin = _create_list_iterator();
-    _GET_LIST_COREPOS(it_rbegin) = (char*)(cplist_list->_pt_node->_pt_prev);
+    _GET_LIST_COREPOS(it_rbegin) = (_byte_t*)(cplist_list->_pt_node->_pt_prev);
     _GET_CONTAINER(it_rbegin) = (list_t*)cplist_list;
 
     return it_rbegin;
@@ -483,7 +483,7 @@ list_reverse_iterator_t list_rend(const list_t* cplist_list)
     assert(_list_is_inited(cplist_list));
 
     it_rend = _create_list_iterator();
-    _GET_LIST_COREPOS(it_rend) = (char*)(cplist_list->_pt_node);
+    _GET_LIST_COREPOS(it_rend) = (_byte_t*)(cplist_list->_pt_node);
     _GET_CONTAINER(it_rend) = (list_t*)cplist_list;
 
     return it_rend;
@@ -606,7 +606,7 @@ list_iterator_t list_erase(list_t* plist_list, list_iterator_t it_pos)
     assert(!iterator_equal(it_pos, list_end(plist_list)));
 
     pt_node = (_listnode_t*)_GET_LIST_COREPOS(it_pos);
-    _GET_LIST_COREPOS(it_pos) = (char*)(pt_node->_pt_next);
+    _GET_LIST_COREPOS(it_pos) = (_byte_t*)(pt_node->_pt_next);
     /* extrac the node from list */
     b_result = _GET_LIST_TYPE_SIZE(plist_list);
     _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pby_data, &b_result);
@@ -743,7 +743,7 @@ void list_unique(list_t* plist_list)
         {
             it_pos = _create_list_iterator();
             _GET_CONTAINER(it_pos) = plist_list;
-            _GET_LIST_COREPOS(it_pos) = (char*)pt_node;
+            _GET_LIST_COREPOS(it_pos) = (_byte_t*)pt_node;
             it_pos = list_erase(plist_list, it_pos);
             pt_node = (_listnode_t*)_GET_LIST_COREPOS(it_pos);
         }

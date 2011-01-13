@@ -95,7 +95,7 @@ void test__vector_iterator_belong_to_vector__less_than_begin(void** state)
 
     vector_init_n(pvec, 10);
     it_iter = vector_begin(pvec);
-    it_iter._t_pos._pc_corepos = NULL;
+    it_iter._t_pos._pby_corepos = NULL;
 
     assert_false(_vector_iterator_belong_to_vector(pvec, it_iter));
 
@@ -135,7 +135,7 @@ void test__vector_iterator_belong_to_vector__greater_than_end(void** state)
 
     vector_init_n(pvec, 10);
     it_iter = vector_end(pvec);
-    it_iter._t_pos._pc_corepos += pvec->_t_typeinfo._pt_type->_t_typesize;
+    it_iter._t_pos._pby_corepos += pvec->_t_typeinfo._pt_type->_t_typesize;
 
     assert_false(_vector_iterator_belong_to_vector(pvec, it_iter));
 

@@ -136,7 +136,7 @@ list_iterator_t _list_iterator_next(list_iterator_t it_iter)
     assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_iter), it_iter));
     assert(!iterator_equal(it_iter, list_end(_GET_LIST_CONTAINER(it_iter))));
 
-    _GET_LIST_COREPOS(it_iter) = (char*)(((_listnode_t*)_GET_LIST_COREPOS(it_iter))->_pt_next);
+    _GET_LIST_COREPOS(it_iter) = (_byte_t*)(((_listnode_t*)_GET_LIST_COREPOS(it_iter))->_pt_next);
 
     return it_iter;
 }
@@ -149,7 +149,7 @@ list_iterator_t _list_iterator_prev(list_iterator_t it_iter)
     assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_iter), it_iter));
     assert(!iterator_equal(it_iter, list_begin(_GET_LIST_CONTAINER(it_iter))));
 
-    _GET_LIST_COREPOS(it_iter) = (char*)(((_listnode_t*)_GET_LIST_COREPOS(it_iter))->_pt_prev);
+    _GET_LIST_COREPOS(it_iter) = (_byte_t*)(((_listnode_t*)_GET_LIST_COREPOS(it_iter))->_pt_prev);
 
     return it_iter;
 }

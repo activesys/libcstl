@@ -30,7 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define _SLIST_NODE_SIZE(typesize) ((typesize) + sizeof(slistnode_t) - sizeof(_byte_t))
+#define _SLIST_NODE_SIZE(typesize) ((typesize) + sizeof(_slistnode_t) - sizeof(_byte_t))
 
 /** data type declaration and struct, union, enum section **/
 /*
@@ -44,8 +44,8 @@ extern "C" {
 typedef struct _tagslistnode
 {
     struct _tagslistnode* _pt_next;
-    char                  _pc_data[1];   /* the element value */
-}slistnode_t;
+    _byte_t               _pby_data[1];   /* the element value */
+}_slistnode_t;
 
 typedef struct _tagslist
 {
@@ -56,7 +56,7 @@ typedef struct _tagslist
     _alloc_t     _t_allocater;
 
     /* slist core struct */
-    slistnode_t _t_head;
+    _slistnode_t _t_head;
 }slist_t;
 
 /** exported global variable declaration section **/

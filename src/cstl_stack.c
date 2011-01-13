@@ -39,248 +39,229 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-/* stack private function */
-stack_t* _create_stack(const char* sz_typename)
+/**
+ * Initialize an empty stack adaptor
+ */
+void stack_init(stack_t* psk_stack)
 {
+    assert(psk_stack != NULL);
+
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return (stack_t*)_create_vector(sz_typename);
+    vector_init(&psk_stack->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return (stack_t*)_create_list(sz_typename);
+    list_init(&psk_stack->_t_sequence);
 #else
-    return (stack_t*)_create_deque(sz_typename);
+    deque_init(&psk_stack->_t_sequence);
 #endif
 }
 
-bool_t _create_stack_auxiliary(stack_t* pt_stack, const char* s_typename)
+/**
+ * Initialize stack adaptor with exist stack adaptor.
+ */
+void stack_init_copy(stack_t* psk_dest, const stack_t* cpsk_src)
 {
-    assert(pt_stack != NULL && s_typename != NULL);
+    assert(psk_dest != NULL);
+    assert(cpsk_src != NULL);
+
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return _create_vector_auxiliary(&pt_stack->_t_sequence, s_typename);
+    vector_init_copy(&psk_dest->_t_sequence, &cpsk_src->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return _create_list_auxiliary(&pt_stack->_t_sequence, s_typename);
+    list_init_copy(&psk_dest->_t_sequence, &cpsk_src->_t_sequence);
 #else
-    return _create_deque_auxiliary(&pt_stack->_t_sequence, s_typename);
+    deque_init_copy(&psk_dest->_t_sequence, &cpsk_src->_t_sequence);
 #endif
 }
 
-void _stack_destroy_auxiliary(stack_t* pt_stack)
+/**
+ * Destroy stack adaptor.
+ */
+void stack_destroy(stack_t* psk_stack)
 {
-    assert(pt_stack != NULL);
+    assert(psk_stack != NULL);
+
+    _stack_destroy_auxiliary(psk_stack);
+    free(psk_stack);
+}
+
+/**
+ * Assign stack element with an exist stack adaptor.
+ */
+void stack_assign(stack_t* psk_dest, const stack_t* cpsk_src)
+{
+    assert(psk_dest != NULL);
+    assert(cpsk_src != NULL);
+
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    _vector_destroy_auxiliary(&pt_stack->_t_sequence);
+    vector_assign(&psk_dest->_t_sequence, &cpsk_src->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    _list_destroy_auxiliary(&pt_stack->_t_sequence);
+    list_assign(&psk_dest->_t_sequence, &cpsk_src->_t_sequence);
 #else
-    _deque_destroy_auxiliary(&pt_stack->_t_sequence);
+    deque_assign(&psk_dest->_t_sequence, &cpsk_src->_t_sequence);
 #endif
 }
 
-/* stack function */
-void stack_init(stack_t* pt_stack)
+/**
+ * Tests if a stack is empty.
+ */
+bool_t stack_empty(const stack_t* cpsk_stack)
 {
-    assert(pt_stack != NULL);
+    assert(cpsk_stack != NULL);
+
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    vector_init(&pt_stack->_t_sequence);
+    return vector_empty(&cpsk_stack->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    list_init(&pt_stack->_t_sequence);
+    return list_empty(&cpsk_stack->_t_sequence);
 #else
-    deque_init(&pt_stack->_t_sequence);
+    return deque_empty(&cpsk_stack->_t_sequence);
 #endif
 }
 
-void stack_destroy(stack_t* pt_stack)
+/**
+ * Return the number of elements in a stack.
+ */
+size_t stack_size(const stack_t* cpsk_stack)
 {
-    assert(pt_stack != NULL);
+    assert(cpsk_stack != NULL);
+
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    vector_destroy(&pt_stack->_t_sequence);
+    return vector_size(&cpsk_stack->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    list_destroy(&pt_stack->_t_sequence);
+    return list_size(&cpsk_stack->_t_sequence);
 #else
-    deque_destroy(&pt_stack->_t_sequence);
+    return deque_size(&cpsk_stack->_t_sequence);
 #endif
 }
 
-void stack_init_copy(stack_t* pt_stackdest, const stack_t* cpt_stacksrc)
+/**
+ * Access stack top data.
+ */
+void* stack_top(const stack_t* cpsk_stack)
 {
-    assert(pt_stackdest != NULL && cpt_stacksrc != NULL);
+    assert(cpsk_stack != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    vector_init_copy(&pt_stackdest->_t_sequence, &cpt_stacksrc->_t_sequence);
+    return vector_back(&cpsk_stack->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    list_init_copy(&pt_stackdest->_t_sequence, &cpt_stacksrc->_t_sequence);
+    return list_back(&cpsk_stack->_t_sequence);
 #else
-    deque_init_copy(&pt_stackdest->_t_sequence, &cpt_stacksrc->_t_sequence);
+    return deque_back(&cpsk_stack->_t_sequence);
 #endif
 }
 
-void stack_assign(stack_t* pt_stackdest, const stack_t* cpt_stacksrc)
+/**
+ * Delete the element at the begin of stack.
+ */
+void stack_pop(stack_t* psk_stack)
 {
-    assert(pt_stackdest != NULL && cpt_stacksrc != NULL);
+    assert(psk_stack != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    vector_assign(&pt_stackdest->_t_sequence, &cpt_stacksrc->_t_sequence);
+    vector_pop_back(&psk_stack->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    list_assign(&pt_stackdest->_t_sequence, &cpt_stacksrc->_t_sequence);
+    list_pop_back(&psk_stack->_t_sequence);
 #else
-    deque_assign(&pt_stackdest->_t_sequence, &cpt_stacksrc->_t_sequence);
+    deque_pop_back(&psk_stack->_t_sequence);
 #endif
 }
 
-bool_t stack_empty(const stack_t* cpt_stack)
+/**
+ * Tests if the two stacks are equal.
+ */
+bool_t stack_equal(const stack_t* cpsk_first, const stack_t* cpsk_second)
 {
-    assert(cpt_stack != NULL);
+    assert(cpsk_first != NULL);
+    assert(cpsk_second != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_empty(&cpt_stack->_t_sequence);
+    return vector_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_empty(&cpt_stack->_t_sequence);
+    return list_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #else
-    return deque_empty(&cpt_stack->_t_sequence);
+    return deque_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #endif
 }
 
-size_t stack_size(const stack_t* cpt_stack)
+/**
+ * Test the two stacks are unequal.
+ */
+bool_t stack_not_equal(const stack_t* cpsk_first, const stack_t* cpsk_second)
 {
-    assert(cpt_stack != NULL);
+    assert(cpsk_first != NULL);
+    assert(cpsk_second != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_size(&cpt_stack->_t_sequence);
+    return vector_not_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_size(&cpt_stack->_t_sequence);
+    return list_not_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #else
-    return deque_size(&cpt_stack->_t_sequence);
+    return deque_not_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #endif
 }
 
-void* stack_top(const stack_t* cpt_stack)
+/**
+ * Test the first stack is less than the second stack.
+ */
+bool_t stack_less(const stack_t* cpsk_first, const stack_t* cpsk_second)
 {
-    assert(cpt_stack != NULL);
+    assert(cpsk_first != NULL);
+    assert(cpsk_second != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_back(&cpt_stack->_t_sequence);
+    return vector_less(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_back(&cpt_stack->_t_sequence);
+    return list_less(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #else
-    return deque_back(&cpt_stack->_t_sequence);
+    return deque_less(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #endif
 }
 
-void _stack_push(stack_t* pt_stack, ...)
+/**
+ * Test the first stack is less than or equal to the second stack.
+ */
+bool_t stack_less_equal(const stack_t* cpsk_first, const stack_t* cpsk_second)
 {
-    va_list val_elemlist;
-
-    va_start(val_elemlist, pt_stack);
-    _stack_push_varg(pt_stack, val_elemlist);
-    va_end(val_elemlist);
-}
-
-void _stack_push_varg(stack_t* pt_stack, va_list val_elemlist)
-{
-    assert(pt_stack != NULL);
+    assert(cpsk_first != NULL);
+    assert(cpsk_second != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    _vector_push_back_varg(&pt_stack->_t_sequence, val_elemlist);
+    return vector_less_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    _list_push_back_varg(&pt_stack->_t_sequence, val_elemlist);
+    return list_less_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #else
-    _deque_push_back_varg(&pt_stack->_t_sequence, val_elemlist);
+    return deque_less_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #endif
 }
 
-void stack_pop(stack_t* pt_stack)
+/**
+ * Test the first stack is greater than the second stack.
+ */
+bool_t stack_greater(const stack_t* cpsk_first, const stack_t* cpsk_second)
 {
-    assert(pt_stack != NULL);
+    assert(cpsk_first != NULL);
+    assert(cpsk_second != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    vector_pop_back(&pt_stack->_t_sequence);
+    return vector_greater(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    list_pop_back(&pt_stack->_t_sequence);
+    return list_greater(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #else
-    deque_pop_back(&pt_stack->_t_sequence);
+    return deque_greater(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #endif
 }
 
-bool_t stack_equal(
-    const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond)
+/**
+ * Test the first stack is greater than or equal to the second stack.
+ */
+bool_t stack_greater_equal(const stack_t* cpsk_first, const stack_t* cpsk_second)
 {
-    assert(cpt_stackfirst != NULL && cpt_stacksecond != NULL);
+    assert(cpsk_first != NULL && cpsk_second != NULL);
 
 #if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
+    return vector_greater_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
+    return list_greater_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #else
-    return deque_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#endif
-}
-
-bool_t stack_not_equal(
-    const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond)
-{
-    assert(cpt_stackfirst != NULL && cpt_stacksecond != NULL);
-
-#if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_not_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_not_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#else
-    return deque_not_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#endif
-}
-
-bool_t stack_less(
-    const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond)
-{
-    assert(cpt_stackfirst != NULL && cpt_stacksecond != NULL);
-
-#if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_less(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_less(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#else
-    return deque_less(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#endif
-}
-
-bool_t stack_greater(
-    const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond)
-{
-    assert(cpt_stackfirst != NULL && cpt_stacksecond != NULL);
-
-#if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_greater(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_greater(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#else
-    return deque_greater(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#endif
-}
-
-bool_t stack_less_equal(
-    const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond)
-{
-    assert(cpt_stackfirst != NULL && cpt_stacksecond != NULL);
-
-#if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_less_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_less_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#else
-    return deque_less_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#endif
-}
-
-bool_t stack_greater_equal(
-    const stack_t* cpt_stackfirst, const stack_t* cpt_stacksecond)
-{
-    assert(cpt_stackfirst != NULL && cpt_stacksecond != NULL);
-
-#if defined (CSTL_STACK_VECTOR_SEQUENCE)
-    return vector_greater_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#elif defined (CSTL_STACK_LIST_SEQUENCE)
-    return list_greater_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
-#else
-    return deque_greater_equal(&cpt_stackfirst->_t_sequence, &cpt_stacksecond->_t_sequence);
+    return deque_greater_equal(&cpsk_first->_t_sequence, &cpsk_second->_t_sequence);
 #endif
 }
 

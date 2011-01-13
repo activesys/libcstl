@@ -30,7 +30,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_string.c \
 	     $(srcdir)/../../src/cstl_types.c \
 	     $(srcdir)/../../src/cstl_pair.c \
-	     $(srcdir)/../../src/cstl_stack.c \
+	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
 	     $(srcdir)/../../src/cstl_vector_private.c $(srcdir)/../../src/cstl_vector_aux.c \
              ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
@@ -50,7 +50,9 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_slist_iterator.c ut_cstl_slist_iterator.h \
 	     ut_cstl_slist_aux.c ut_cstl_slist_aux.h \
 	     ut_cstl_slist_private.c ut_cstl_slist_private.h \
-	     ut_cstl_slist.c ut_cstl_slist.h
+	     ut_cstl_slist.c ut_cstl_slist.h \
+	     ut_cstl_stack_private.c ut_cstl_stack_private.h \
+	     ut_cstl_stack.c ut_cstl_stack.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

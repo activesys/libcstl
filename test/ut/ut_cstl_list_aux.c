@@ -246,7 +246,7 @@ void test__list_iterator_belong_to_list__not_belong_to_list(void** state)
     list_init(plist);
 
     it_iter = list_begin(plist);
-    it_iter._t_pos._pc_corepos = 0x9378;
+    it_iter._t_pos._pby_corepos = 0x9378;
     assert_false(_list_iterator_belong_to_list(plist, it_iter));
 
     list_destroy(plist);
@@ -1615,9 +1615,9 @@ void test__list_swap_node__first_followed_by_second(void** state)
         list_push_back(plist, i);
     }
     it_iter = list_begin(plist);
-    pt_firsttmp = pt_first = it_iter._t_pos._pc_corepos;
+    pt_firsttmp = pt_first = it_iter._t_pos._pby_corepos;
     it_iter = iterator_next(it_iter);
-    pt_secondtmp = pt_second = it_iter._t_pos._pc_corepos;
+    pt_secondtmp = pt_second = it_iter._t_pos._pby_corepos;
 
     _list_swap_node(&pt_first, &pt_second);
     assert_true(pt_first == pt_secondtmp);
@@ -1652,9 +1652,9 @@ void test__list_swap_node__second_followed_by_first(void** state)
         list_push_back(plist, i);
     }
     it_iter = list_begin(plist);
-    pt_secondtmp = pt_second = it_iter._t_pos._pc_corepos;
+    pt_secondtmp = pt_second = it_iter._t_pos._pby_corepos;
     it_iter = iterator_next(it_iter);
-    pt_firsttmp = pt_first = it_iter._t_pos._pc_corepos;
+    pt_firsttmp = pt_first = it_iter._t_pos._pby_corepos;
 
     _list_swap_node(&pt_first, &pt_second);
     assert_true(pt_first == pt_secondtmp);
@@ -1689,9 +1689,9 @@ void test__list_swap_node__first_distanced_by_second(void** state)
         list_push_back(plist, i);
     }
     it_iter = iterator_next(list_begin(plist));
-    pt_firsttmp = pt_first = it_iter._t_pos._pc_corepos;
+    pt_firsttmp = pt_first = it_iter._t_pos._pby_corepos;
     it_iter = iterator_advance(it_iter, 2);
-    pt_secondtmp = pt_second = it_iter._t_pos._pc_corepos;
+    pt_secondtmp = pt_second = it_iter._t_pos._pby_corepos;
 
     _list_swap_node(&pt_first, &pt_second);
     assert_true(pt_first == pt_secondtmp);
@@ -1726,9 +1726,9 @@ void test__list_swap_node__second_distanced_by_first(void** state)
         list_push_back(plist, i);
     }
     it_iter = iterator_advance(list_begin(plist), 2);
-    pt_secondtmp = pt_second = it_iter._t_pos._pc_corepos;
+    pt_secondtmp = pt_second = it_iter._t_pos._pby_corepos;
     it_iter = iterator_advance(it_iter, 2);
-    pt_firsttmp = pt_first = it_iter._t_pos._pc_corepos;
+    pt_firsttmp = pt_first = it_iter._t_pos._pby_corepos;
 
     _list_swap_node(&pt_first, &pt_second);
     assert_true(pt_first == pt_secondtmp);
@@ -1763,7 +1763,7 @@ void test__list_swap_node__same_ppt_first_ppt_second(void** state)
         list_push_back(plist, i);
     }
     it_iter = iterator_advance(list_begin(plist), 2);
-    pt_firsttmp = pt_first = pt_secondtmp = pt_second = it_iter._t_pos._pc_corepos;
+    pt_firsttmp = pt_first = pt_secondtmp = pt_second = it_iter._t_pos._pby_corepos;
 
     _list_swap_node(&pt_first, &pt_first);
     assert_true(pt_first == pt_firsttmp);
@@ -1799,7 +1799,7 @@ void test__list_swap_node__same_pt_first_pt_second(void** state)
         list_push_back(plist, i);
     }
     it_iter = iterator_advance(list_begin(plist), 2);
-    pt_firsttmp = pt_first = pt_secondtmp = pt_second = it_iter._t_pos._pc_corepos;
+    pt_firsttmp = pt_first = pt_secondtmp = pt_second = it_iter._t_pos._pby_corepos;
 
     _list_swap_node(&pt_first, &pt_second);
     assert_true(pt_first == pt_firsttmp);

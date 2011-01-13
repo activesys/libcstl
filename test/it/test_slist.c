@@ -683,7 +683,7 @@ void test_slist(void)
             {
                 return;
             }
-            slist_init(pt_slist);
+            slist_init_n(pt_slist, 10);
             slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
             _printslist_c(pt_slist, "%d, ", int);
             slist_push_front(pt_slist, 1029);
@@ -3314,7 +3314,7 @@ void test_slist(void)
             {
                 return;
             }
-            slist_init(pt_slist);
+            slist_init_n(pt_slist, 10);
             slist_init(pt_slistex);
             slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
             _printslist(pt_slist);
@@ -3336,7 +3336,7 @@ void test_slist(void)
             slist_erase_after_range(pt_slist,
                 iterator_advance(slist_begin(pt_slist), 7), slist_end(pt_slist));
             _printslist(pt_slist);
-            slist_erase_after_range(pt_slist, slist_end(pt_slist), slist_end(pt_slist));
+            slist_erase_after_range(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)), slist_end(pt_slist));
             _printslist(pt_slist);
             slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
             _printslist(pt_slist);
@@ -4477,7 +4477,7 @@ void test_slist(void)
             {
                 return;
             }
-            slist_init(pt_slist);
+            slist_init_n(pt_slist, 10);
             slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
             _print_slist_src(pt_slist);
             slist_push_front(pt_slist, "SYNTAX    SEQUENCE OF BroadMauBasicEntry");
@@ -4510,7 +4510,7 @@ void test_slist(void)
             _print_slist_src(pt_slist);
             slist_erase_after_range(pt_slist, iterator_advance(slist_begin(pt_slist), 8), slist_end(pt_slist));
             _print_slist_src(pt_slist);
-            slist_erase_after_range(pt_slist, slist_end(pt_slist), slist_end(pt_slist));
+            slist_erase_after_range(pt_slist, slist_previous(pt_slist, slist_end(pt_slist)), slist_end(pt_slist));
             _print_slist_src(pt_slist);
             slist_erase_after_range(pt_slist, slist_begin(pt_slist), slist_end(pt_slist));
             _print_slist_src(pt_slist);

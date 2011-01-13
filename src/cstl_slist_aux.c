@@ -53,7 +53,7 @@
  */
 bool_t _slist_iterator_belong_to_slist(const slist_t* cpslist_slist, slist_iterator_t it_iter)
 {
-    slistnode_t* pt_node = NULL;
+    _slistnode_t* pt_node = NULL;
 
     assert(cpslist_slist != NULL);
     assert(_slist_is_inited(cpslist_slist));
@@ -69,7 +69,7 @@ bool_t _slist_iterator_belong_to_slist(const slist_t* cpslist_slist, slist_itera
 
     for(pt_node = cpslist_slist->_t_head._pt_next; pt_node != NULL; pt_node = pt_node->_pt_next)
     {
-        if(pt_node == (slistnode_t*)_GET_SLIST_COREPOS(it_iter))
+        if(pt_node == (_slistnode_t*)_GET_SLIST_COREPOS(it_iter))
         {
             return true;
         }
@@ -235,34 +235,34 @@ void _slist_transfer(slist_iterator_t it_pos, slist_iterator_t it_begin, slist_i
 /**
  * Obtain data from variable argument slist, the data type and slist element data type are same.
  */
-void _slist_get_varg_value_auxiliary(slist_t* pslist_slist, va_list val_elemlist, slistnode_t* pt_node)
+void _slist_get_varg_value_auxiliary(slist_t* pslist_slist, va_list val_elemlist, _slistnode_t* pt_node)
 {
     assert(pslist_slist != NULL);
     assert(pt_node != NULL);
     assert(_slist_is_inited(pslist_slist) || _slist_is_created(pslist_slist));
 
     _slist_init_node_auxiliary(pslist_slist, pt_node);
-    _type_get_varg_value(&pslist_slist->_t_typeinfo, val_elemlist, pt_node->_pc_data);
+    _type_get_varg_value(&pslist_slist->_t_typeinfo, val_elemlist, pt_node->_pby_data);
 }
 
 /**
  * Destroy data, the data type and slist element data type are same.
  */
-void _slist_destroy_varg_value_auxiliary(slist_t* pslist_slist, slistnode_t* pt_node)
+void _slist_destroy_varg_value_auxiliary(slist_t* pslist_slist, _slistnode_t* pt_node)
 {
     assert(pslist_slist != NULL);
     assert(pt_node != NULL);
     assert(_slist_is_inited(pslist_slist) || _slist_is_created(pslist_slist));
 
     bool_t b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
-    _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pc_data, &b_result);
+    _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
     assert(b_result);
 }
 
 /**
  * Initialize slist node auxiliary function.
  */
-void _slist_init_node_auxiliary(slist_t* pslist_slist, slistnode_t* pt_node)
+void _slist_init_node_auxiliary(slist_t* pslist_slist, _slistnode_t* pt_node)
 {
     assert(pslist_slist != NULL);
     assert(pt_node != NULL);
@@ -275,12 +275,12 @@ void _slist_init_node_auxiliary(slist_t* pslist_slist, slistnode_t* pt_node)
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_SLIST_TYPE_NAME(pslist_slist), s_elemtypename);
 
-        _GET_SLIST_TYPE_INIT_FUNCTION(pslist_slist)(pt_node->_pc_data, s_elemtypename);
+        _GET_SLIST_TYPE_INIT_FUNCTION(pslist_slist)(pt_node->_pby_data, s_elemtypename);
     }
     else
     {
         bool_t b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
-        _GET_SLIST_TYPE_INIT_FUNCTION(pslist_slist)(pt_node->_pc_data, &b_result);
+        _GET_SLIST_TYPE_INIT_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
         assert(b_result);
     }
 }

@@ -3073,7 +3073,7 @@ void test_vector_begin__non_empty(void** state)
 
     it_begin = vector_begin(pvec);
     assert_true(_vector_iterator_belong_to_vector(pvec, it_begin));
-    assert_true(it_begin._t_pos._pc_corepos == pvec->_pby_start);
+    assert_true(it_begin._t_pos._pby_corepos == pvec->_pby_start);
     assert_true(*(int*)iterator_get_pointer(it_begin) == 123);
 
     vector_destroy(pvec);
@@ -3123,7 +3123,7 @@ void test_vector_end__non_empty(void** state)
 
     it_end = vector_end(pvec);
     assert_true(_vector_iterator_belong_to_vector(pvec, it_end));
-    assert_true(it_end._t_pos._pc_corepos == pvec->_pby_finish);
+    assert_true(it_end._t_pos._pby_corepos == pvec->_pby_finish);
 
     vector_destroy(pvec);
 }
@@ -3167,7 +3167,7 @@ void test_vector_insert_range__invalid_position(void** state)
     vector_init(pvec_src);
     vector_init_n(pvec, 10);
     it_pos = vector_begin(pvec);
-    it_pos._t_pos._pc_corepos = NULL;
+    it_pos._t_pos._pby_corepos = NULL;
 
     expect_assert_failure(vector_insert_range(pvec, it_pos, vector_begin(pvec_src), vector_end(pvec_src)));
 
@@ -3697,7 +3697,7 @@ void test_vector_erase__invalid_pos(void** state)
     t_oldcapacity = vector_capacity(pvec);
 
     it_pos = vector_end(pvec);
-    it_pos._t_pos._pc_corepos = NULL;
+    it_pos._t_pos._pby_corepos = NULL;
     expect_assert_failure(vector_erase(pvec, it_pos));
 
     vector_destroy(pvec);

@@ -56,12 +56,12 @@ fast_install=yes
 
 # The host system.
 host_alias=
-host=i686-pc-linux-gnu
+host=x86_64-unknown-linux-gnu
 host_os=linux-gnu
 
 # The build system.
 build_alias=
-build=i686-pc-linux-gnu
+build=x86_64-unknown-linux-gnu
 build_os=linux-gnu
 
 # A sed program that does not truncate output.
@@ -86,7 +86,7 @@ NM="/usr/bin/nm -B"
 LN_S="ln -s"
 
 # What is the maximum length of a command?
-max_cmd_len=1572864
+max_cmd_len=1966080
 
 # Object file suffix (normally "o").
 objext=o
@@ -234,10 +234,10 @@ finish_eval=""
 hardcode_into_libs=yes
 
 # Compile-time system search path for libraries.
-sys_lib_search_path_spec="/usr/lib/gcc/i686-redhat-linux/4.5.1 /usr/lib /lib"
+sys_lib_search_path_spec="/usr/lib/gcc/x86_64-redhat-linux/4.4.4 /usr/lib64 /lib64"
 
 # Run-time system search path for libraries.
-sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib /usr/lib/atlas /usr/lib/ctapi /usr/lib/mysql /usr/lib/qt-3.3/lib /usr/lib/tcl8.5 /usr/lib/xulrunner-1.9.2 "
+sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib /usr/lib64/ctapi /usr/lib64/news/lib /usr/lib64/mysql /usr/lib64/qt-3.3/lib /usr/lib64/tcl8.5 /usr/lib64/xulrunner-1.9.1 "
 
 # Whether dlopen is supported.
 dlopen_support=unknown
@@ -254,7 +254,7 @@ striplib="strip --strip-unneeded"
 
 
 # The linker used to build libraries.
-LD="/usr/bin/ld"
+LD="/usr/bin/ld -m elf_x86_64"
 
 # Commands used to build an old-style archive.
 old_archive_cmds="\$AR \$AR_FLAGS \$oldlib\$oldobjs~\$RANLIB \$oldlib"

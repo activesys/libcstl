@@ -47,18 +47,55 @@ typedef struct _tagstack
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create stack.
+/**
+ * Create stack adaptor.
+ * @param s_typename    type name.
+ * @return stack adaptor pointer, if create stack successfully, else return NULL.
+ * @remarks if s_typename == NULL, the behavior is undefined. s_typename must be c builtin type, libcstl builtin type or
+ *          user defined type, otherwise creation will be failure.
  */
 extern stack_t* _create_stack(const char* s_typename);
-extern bool_t _create_stack_auxiliary(stack_t* pt_stack, const char* s_typename);
-extern void _stack_destroy_auxiliary(stack_t* pt_stack);
 
-/*
- * Push element.
+/**
+ * Create stack adaptor auxiliary function.
+ * @param psk_stack  stack adaptor.
+ * @param s_typename    type name.
+ * @return true if create stack adaptor successfully, otherwise return false.
+ * @remarks if psk_stack == NULL or s_typename == NULL, the behavior is undefined. s_typename must be c builtin type,
+ *          libcstl builtin type or user defined type, otherwise creation will be failure.
  */
-extern void _stack_push(stack_t* pt_stack, ...);
-extern void _stack_push_varg(stack_t* pt_stack, va_list val_elemlist);
+extern bool_t _create_stack_auxiliary(stack_t* psk_stack, const char* s_typename);
+
+/**
+ * Destroy stack adaptor auxiliary function.
+ * @param psk_stack   stack adaptor.
+ * @return void.
+ * @remarks if psk_stack == NULL, then the behavior is undefined. stack adaptor must be initialized or created by
+ *          create_stack, otherwise the behavior is undefined.
+ */
+extern void _stack_destroy_auxiliary(stack_t* psk_stack);
+
+/**
+ * Add specificed element at the top of stack. 
+ * @param psk_stack       stack adaptor.
+ * @param ...             specificed element.
+ * @return void.
+ * @remarks if psk_stack == NULL or stack is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and stack element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use.
+ */
+extern void _stack_push(stack_t* psk_stack, ...);
+
+/**
+ * Add specificed element from variable argument stack at the top of stack adaptor. 
+ * @param psk_stack       stack adaptor.
+ * @param val_elemlist    variable argumnet list of specificed element.
+ * @return void.
+ * @remarks if psk_stack == NULL or stack is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and stack element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use.
+ */
+extern void _stack_push_varg(stack_t* psk_stack, va_list val_elemlist);
 
 #ifdef __cplusplus
 }

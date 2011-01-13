@@ -31,8 +31,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = i686-pc-linux-gnu
-host_triplet = i686-pc-linux-gnu
+build_triplet = x86_64-unknown-linux-gnu
+host_triplet = x86_64-unknown-linux-gnu
 check_PROGRAMS = ut$(EXEEXT)
 subdir = test/ut
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -63,8 +63,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_slist_private.$(OBJEXT) ut-cstl_slist_aux.$(OBJEXT) \
 	ut-cstl_queue.$(OBJEXT) ut-cstl_string.$(OBJEXT) \
 	ut-cstl_types.$(OBJEXT) ut-cstl_pair.$(OBJEXT) \
-	ut-cstl_stack.$(OBJEXT) ut-cstl_vector.$(OBJEXT) \
-	ut-cstl_vector_iterator.$(OBJEXT) \
+	ut-cstl_stack.$(OBJEXT) ut-cstl_stack_private.$(OBJEXT) \
+	ut-cstl_vector.$(OBJEXT) ut-cstl_vector_iterator.$(OBJEXT) \
 	ut-cstl_vector_private.$(OBJEXT) ut-cstl_vector_aux.$(OBJEXT) \
 	ut-ut_cstl_alloc_aux.$(OBJEXT) ut-ut_cstl_alloc.$(OBJEXT) \
 	ut-ut_cstl_vector_iterator.$(OBJEXT) \
@@ -78,7 +78,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_deque_private.$(OBJEXT) ut-ut_cstl_deque.$(OBJEXT) \
 	ut-ut_cstl_slist_iterator.$(OBJEXT) \
 	ut-ut_cstl_slist_aux.$(OBJEXT) \
-	ut-ut_cstl_slist_private.$(OBJEXT) ut-ut_cstl_slist.$(OBJEXT)
+	ut-ut_cstl_slist_private.$(OBJEXT) ut-ut_cstl_slist.$(OBJEXT) \
+	ut-ut_cstl_stack_private.$(OBJEXT) ut-ut_cstl_stack.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -133,7 +134,7 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LD = /usr/bin/ld
+LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
@@ -174,22 +175,22 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = i686-pc-linux-gnu
+build = x86_64-unknown-linux-gnu
 build_alias = 
-build_cpu = i686
+build_cpu = x86_64
 build_os = linux-gnu
-build_vendor = pc
+build_vendor = unknown
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = i686-pc-linux-gnu
+host = x86_64-unknown-linux-gnu
 host_alias = 
-host_cpu = i686
+host_cpu = x86_64
 host_os = linux-gnu
-host_vendor = pc
+host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -244,7 +245,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_string.c \
 	     $(srcdir)/../../src/cstl_types.c \
 	     $(srcdir)/../../src/cstl_pair.c \
-	     $(srcdir)/../../src/cstl_stack.c \
+	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
 	     $(srcdir)/../../src/cstl_vector_private.c $(srcdir)/../../src/cstl_vector_aux.c \
              ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
@@ -264,7 +265,9 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_slist_iterator.c ut_cstl_slist_iterator.h \
 	     ut_cstl_slist_aux.c ut_cstl_slist_aux.h \
 	     ut_cstl_slist_private.c ut_cstl_slist_private.h \
-	     ut_cstl_slist.c ut_cstl_slist.h
+	     ut_cstl_slist.c ut_cstl_slist.h \
+	     ut_cstl_stack_private.c ut_cstl_stack_private.h \
+	     ut_cstl_stack.c ut_cstl_stack.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -358,6 +361,7 @@ include ./$(DEPDIR)/ut-cstl_slist_aux.Po
 include ./$(DEPDIR)/ut-cstl_slist_iterator.Po
 include ./$(DEPDIR)/ut-cstl_slist_private.Po
 include ./$(DEPDIR)/ut-cstl_stack.Po
+include ./$(DEPDIR)/ut-cstl_stack_private.Po
 include ./$(DEPDIR)/ut-cstl_string.Po
 include ./$(DEPDIR)/ut-cstl_types.Po
 include ./$(DEPDIR)/ut-cstl_vector.Po
@@ -378,6 +382,8 @@ include ./$(DEPDIR)/ut-ut_cstl_slist.Po
 include ./$(DEPDIR)/ut-ut_cstl_slist_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_slist_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_slist_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_stack.Po
+include ./$(DEPDIR)/ut-ut_cstl_stack_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_iterator.Po
@@ -952,6 +958,20 @@ ut-cstl_stack.obj: $(srcdir)/../../src/cstl_stack.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_stack.obj `if test -f '$(srcdir)/../../src/cstl_stack.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack.c'; fi`
 
+ut-cstl_stack_private.o: $(srcdir)/../../src/cstl_stack_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_stack_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_stack_private.Tpo -c -o ut-cstl_stack_private.o `test -f '$(srcdir)/../../src/cstl_stack_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack_private.c
+	$(am__mv) $(DEPDIR)/ut-cstl_stack_private.Tpo $(DEPDIR)/ut-cstl_stack_private.Po
+#	source='$(srcdir)/../../src/cstl_stack_private.c' object='ut-cstl_stack_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_stack_private.o `test -f '$(srcdir)/../../src/cstl_stack_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack_private.c
+
+ut-cstl_stack_private.obj: $(srcdir)/../../src/cstl_stack_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_stack_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_stack_private.Tpo -c -o ut-cstl_stack_private.obj `if test -f '$(srcdir)/../../src/cstl_stack_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_stack_private.Tpo $(DEPDIR)/ut-cstl_stack_private.Po
+#	source='$(srcdir)/../../src/cstl_stack_private.c' object='ut-cstl_stack_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_stack_private.obj `if test -f '$(srcdir)/../../src/cstl_stack_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack_private.c'; fi`
+
 ut-cstl_vector.o: $(srcdir)/../../src/cstl_vector.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector.o -MD -MP -MF $(DEPDIR)/ut-cstl_vector.Tpo -c -o ut-cstl_vector.o `test -f '$(srcdir)/../../src/cstl_vector.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector.c
 	$(am__mv) $(DEPDIR)/ut-cstl_vector.Tpo $(DEPDIR)/ut-cstl_vector.Po
@@ -1259,6 +1279,34 @@ ut-ut_cstl_slist.obj: ut_cstl_slist.c
 #	source='ut_cstl_slist.c' object='ut-ut_cstl_slist.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist.obj `if test -f 'ut_cstl_slist.c'; then $(CYGPATH_W) 'ut_cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist.c'; fi`
+
+ut-ut_cstl_stack_private.o: ut_cstl_stack_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_stack_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_stack_private.Tpo -c -o ut-ut_cstl_stack_private.o `test -f 'ut_cstl_stack_private.c' || echo '$(srcdir)/'`ut_cstl_stack_private.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_stack_private.Tpo $(DEPDIR)/ut-ut_cstl_stack_private.Po
+#	source='ut_cstl_stack_private.c' object='ut-ut_cstl_stack_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_stack_private.o `test -f 'ut_cstl_stack_private.c' || echo '$(srcdir)/'`ut_cstl_stack_private.c
+
+ut-ut_cstl_stack_private.obj: ut_cstl_stack_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_stack_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_stack_private.Tpo -c -o ut-ut_cstl_stack_private.obj `if test -f 'ut_cstl_stack_private.c'; then $(CYGPATH_W) 'ut_cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_stack_private.Tpo $(DEPDIR)/ut-ut_cstl_stack_private.Po
+#	source='ut_cstl_stack_private.c' object='ut-ut_cstl_stack_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_stack_private.obj `if test -f 'ut_cstl_stack_private.c'; then $(CYGPATH_W) 'ut_cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack_private.c'; fi`
+
+ut-ut_cstl_stack.o: ut_cstl_stack.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_stack.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_stack.Tpo -c -o ut-ut_cstl_stack.o `test -f 'ut_cstl_stack.c' || echo '$(srcdir)/'`ut_cstl_stack.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_stack.Tpo $(DEPDIR)/ut-ut_cstl_stack.Po
+#	source='ut_cstl_stack.c' object='ut-ut_cstl_stack.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_stack.o `test -f 'ut_cstl_stack.c' || echo '$(srcdir)/'`ut_cstl_stack.c
+
+ut-ut_cstl_stack.obj: ut_cstl_stack.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_stack.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_stack.Tpo -c -o ut-ut_cstl_stack.obj `if test -f 'ut_cstl_stack.c'; then $(CYGPATH_W) 'ut_cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_stack.Tpo $(DEPDIR)/ut-ut_cstl_stack.Po
+#	source='ut_cstl_stack.c' object='ut-ut_cstl_stack.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_stack.obj `if test -f 'ut_cstl_stack.c'; then $(CYGPATH_W) 'ut_cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

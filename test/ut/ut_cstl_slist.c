@@ -2343,7 +2343,7 @@ void test_slist_begin__non_empty(void** state)
 
     it_begin = slist_begin(pslist);
     assert_true(_slist_iterator_belong_to_slist(pslist, it_begin));
-    assert_true(it_begin._t_pos._pc_corepos == pslist->_t_head._pt_next);
+    assert_true(it_begin._t_pos._pby_corepos == pslist->_t_head._pt_next);
     assert_true(*(int*)iterator_get_pointer(it_begin) == 3);
 
     slist_destroy(pslist);
@@ -2393,7 +2393,7 @@ void test_slist_end__non_empty(void** state)
 
     it_end = slist_end(pslist);
     assert_true(_slist_iterator_belong_to_slist(pslist, it_end));
-    assert_true(it_end._t_pos._pc_corepos == NULL);
+    assert_true(it_end._t_pos._pby_corepos == NULL);
 
     slist_destroy(pslist);
 }
@@ -2519,7 +2519,7 @@ void test_slist_insert_range__invalid_position(void** state)
     slist_init(pslist_src);
     slist_init_n(pslist, 10);
     it_pos = slist_begin(pslist);
-    it_pos._t_pos._pc_corepos = 0x8888;
+    it_pos._t_pos._pby_corepos = 0x8888;
 
     expect_assert_failure(slist_insert_range(pslist, it_pos, slist_begin(pslist_src), slist_end(pslist_src)));
 
@@ -2835,7 +2835,7 @@ void test_slist_insert_after_range__invalid_position(void** state)
     slist_init(pslist_src);
     slist_init_n(pslist, 10);
     it_pos = slist_begin(pslist);
-    it_pos._t_pos._pc_corepos = 0x8888;
+    it_pos._t_pos._pby_corepos = 0x8888;
 
     expect_assert_failure(slist_insert_after_range(pslist, it_pos, slist_begin(pslist_src), slist_end(pslist_src)));
 
@@ -3209,7 +3209,7 @@ void test_slist_erase__invalid_pos(void** state)
     t_oldsize = slist_size(pslist);
 
     it_pos = slist_end(pslist);
-    it_pos._t_pos._pc_corepos = 0x999;
+    it_pos._t_pos._pby_corepos = 0x999;
     expect_assert_failure(slist_erase(pslist, it_pos));
 
     slist_destroy(pslist);
@@ -3575,7 +3575,7 @@ void test_slist_erase_after__invalid_pos(void** state)
     t_oldsize = slist_size(pslist);
 
     it_pos = slist_end(pslist);
-    it_pos._t_pos._pc_corepos = 0x999;
+    it_pos._t_pos._pby_corepos = 0x999;
     expect_assert_failure(slist_erase_after(pslist, it_pos));
 
     slist_destroy(pslist);
@@ -5200,7 +5200,7 @@ void test_slist_splice_pos__invalid_source_position(void** state)
 
     slist_init(pslist_slist);
     slist_init_n(pslist_src, 10);
-    it_iter._t_pos._pc_corepos = 0x8734;
+    it_iter._t_pos._pby_corepos = 0x8734;
     expect_assert_failure(slist_splice_pos(pslist_slist, slist_begin(pslist_slist), pslist_src, it_iter));
 
     slist_destroy(pslist_slist);
@@ -5443,7 +5443,7 @@ void test_slist_splice_range__invalid_tearget_position(void** state)
 
     slist_init(pslist_slist);
     slist_init_n(pslist_src, 10);
-    it_iter._t_pos._pc_corepos = 0x99;
+    it_iter._t_pos._pby_corepos = 0x99;
     expect_assert_failure(slist_splice_range(
         pslist_slist, it_iter, pslist_src, slist_begin(pslist_src), slist_end(pslist_src)));
 
@@ -5741,7 +5741,7 @@ void test_slist_splice_after_pos__invalid_source_position(void** state)
 
     slist_init_n(pslist_slist, 10);
     slist_init_n(pslist_src, 10);
-    it_iter._t_pos._pc_corepos = 0x8734;
+    it_iter._t_pos._pby_corepos = 0x8734;
     expect_assert_failure(slist_splice_after_pos(pslist_slist, slist_begin(pslist_slist), pslist_src, it_iter));
 
     slist_destroy(pslist_slist);
@@ -6034,7 +6034,7 @@ void test_slist_splice_after_range__invalid_tearget_position(void** state)
 
     slist_init_n(pslist_slist, 10);
     slist_init_n(pslist_src, 10);
-    it_iter._t_pos._pc_corepos = 0x99;
+    it_iter._t_pos._pby_corepos = 0x99;
     expect_assert_failure(slist_splice_after_range(
         pslist_slist, it_iter, pslist_src, slist_begin(pslist_src), slist_begin(pslist_src)));
 
@@ -7278,6 +7278,1568 @@ void test_slist_sort_if__random_random_dup_greater(void** state)
     assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
     it_iter = iterator_next(it_iter);
     assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_1_less(void** state)
+{
+    slist_t* pslist = create_slist(char*);
+
+    slist_init_n(pslist, 1);
+    assert_true(slist_size(pslist) == 1);
+    slist_sort_if(pslist, NULL);
+    assert_true(slist_size(pslist) == 1);
+    assert_true(strcmp((char*)iterator_get_pointer(slist_begin(pslist)), "") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_1_greater(void** state)
+{
+    slist_t* pslist = create_slist(char*);
+
+    slist_init_n(pslist, 1);
+    assert_true(slist_size(pslist) == 1);
+    slist_sort_if(pslist, fun_greater_cstr);
+    assert_true(slist_size(pslist) == 1);
+    assert_true(strcmp((char*)iterator_get_pointer(slist_begin(pslist)), "") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_2_equal_less(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init_n(pslist, 2);
+    assert_true(slist_size(pslist) == 2);
+    slist_sort_if(pslist, NULL);
+    assert_true(slist_size(pslist) == 2);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_2_equal_greater(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init_n(pslist, 2);
+    assert_true(slist_size(pslist) == 2);
+    slist_sort_if(pslist, fun_greater_cstr);
+    assert_true(slist_size(pslist) == 2);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_2_less_less(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "0");
+    assert_true(slist_size(pslist) == 2);
+    slist_sort_if(pslist, NULL);
+    assert_true(slist_size(pslist) == 2);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_2_less_greater(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "0");
+    assert_true(slist_size(pslist) == 2);
+    slist_sort_if(pslist, fun_greater_cstr);
+    assert_true(slist_size(pslist) == 2);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_2_greater_less(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "1");
+    assert_true(slist_size(pslist) == 2);
+    slist_sort_if(pslist, NULL);
+    assert_true(slist_size(pslist) == 2);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_2_greater_greater(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "1");
+    assert_true(slist_size(pslist) == 2);
+    slist_sort_if(pslist, fun_greater_cstr);
+    assert_true(slist_size(pslist) == 2);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_equal_less(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init_n(pslist, 10);
+    assert_true(slist_size(pslist) == 10);
+    slist_sort_if(pslist, NULL);
+    assert_true(slist_size(pslist) == 10);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_equal_greater(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init_n(pslist, 10);
+    assert_true(slist_size(pslist) == 10);
+    slist_sort_if(pslist, fun_greater_cstr);
+    assert_true(slist_size(pslist) == 10);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_less_less(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "9");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "7");
+    slist_push_front(pslist, "6");
+    slist_push_front(pslist, "5");
+    slist_push_front(pslist, "4");
+    slist_push_front(pslist, "3");
+    slist_push_front(pslist, "2");
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "0");
+    assert_true(slist_size(pslist) == 10);
+    slist_sort_if(pslist, NULL);
+    assert_true(slist_size(pslist) == 10);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "6") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_less_greater(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "9");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "7");
+    slist_push_front(pslist, "6");
+    slist_push_front(pslist, "5");
+    slist_push_front(pslist, "4");
+    slist_push_front(pslist, "3");
+    slist_push_front(pslist, "2");
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "0");
+    assert_true(slist_size(pslist) == 10);
+    slist_sort_if(pslist, fun_greater_cstr);
+    assert_true(slist_size(pslist) == 10);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "6") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_greater_less(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "2");
+    slist_push_front(pslist, "3");
+    slist_push_front(pslist, "4");
+    slist_push_front(pslist, "5");
+    slist_push_front(pslist, "6");
+    slist_push_front(pslist, "7");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "9");
+    assert_true(slist_size(pslist) == 10);
+    slist_sort_if(pslist, NULL);
+    assert_true(slist_size(pslist) == 10);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "6") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_greater_greater(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "2");
+    slist_push_front(pslist, "3");
+    slist_push_front(pslist, "4");
+    slist_push_front(pslist, "5");
+    slist_push_front(pslist, "6");
+    slist_push_front(pslist, "7");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "9");
+    assert_true(slist_size(pslist) == 10);
+    slist_sort_if(pslist, fun_greater_cstr);
+    assert_true(slist_size(pslist) == 10);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "6") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_random_less(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "4");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "7");
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "3");
+    slist_push_front(pslist, "5");
+    slist_push_front(pslist, "9");
+    slist_push_front(pslist, "2");
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "6");
+    assert_true(slist_size(pslist) == 10);
+    slist_sort_if(pslist, NULL);
+    assert_true(slist_size(pslist) == 10);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "6") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_random_greater(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "3");
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "2");
+    slist_push_front(pslist, "6");
+    slist_push_front(pslist, "4");
+    slist_push_front(pslist, "9");
+    slist_push_front(pslist, "5");
+    slist_push_front(pslist, "7");
+    assert_true(slist_size(pslist) == 10);
+    slist_sort_if(pslist, fun_greater_cstr);
+    assert_true(slist_size(pslist) == 10);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "6") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_random_dup_less(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "4");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "7");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "3");
+    slist_push_front(pslist, "5");
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "6");
+    slist_push_front(pslist, "9");
+    slist_push_front(pslist, "2");
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "6");
+    slist_push_front(pslist, "4");
+    assert_true(slist_size(pslist) == 15);
+    slist_sort_if(pslist, NULL);
+    assert_true(slist_size(pslist) == 15);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "6") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "6") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    slist_destroy(pslist);
+}
+
+void test_slist_sort_if__cstr_random_random_dup_greater(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init(pslist);
+    slist_push_front(pslist, "1");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "8");
+    slist_push_front(pslist, "3");
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "0");
+    slist_push_front(pslist, "2");
+    slist_push_front(pslist, "6");
+    slist_push_front(pslist, "4");
+    slist_push_front(pslist, "9");
+    slist_push_front(pslist, "5");
+    slist_push_front(pslist, "7");
+    slist_push_front(pslist, "5");
+    slist_push_front(pslist, "7");
+    assert_true(slist_size(pslist) == 15);
+    slist_sort_if(pslist, fun_greater_cstr);
+    assert_true(slist_size(pslist) == 15);
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "6") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "1") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "0") == 0);
+
+    slist_destroy(pslist);
+}
+
+/*
+ * test slist_merge
+ */
+UT_CASE_DEFINATION(slist_merge)
+void test_slist_merge__null_dest_slist_container(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init(pslist);
+    expect_assert_failure(slist_merge(NULL, pslist));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_merge__null_src_slist_container(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init(pslist);
+    expect_assert_failure(slist_merge(pslist, NULL));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_merge__non_inited_dest_slist_container(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_src);
+    pslist_dest->_t_typeinfo._t_style = 23423;
+    expect_assert_failure(slist_merge(pslist_dest, pslist_src));
+
+    pslist_dest->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__non_inited_src_slist_container(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    pslist_src->_t_typeinfo._t_style = 23434;
+    expect_assert_failure(slist_merge(pslist_dest, pslist_src));
+
+    pslist_src->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__not_same(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(double);
+
+    slist_init(pslist_dest);
+    slist_init(pslist_src);
+    expect_assert_failure(slist_merge(pslist_dest, pslist_src));
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__same_slist_container(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init(pslist);
+    slist_merge(pslist, pslist);
+    assert_true(slist_empty(pslist));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_merge__dest_empty_src_empty(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_init(pslist_src);
+    slist_merge(pslist_dest, pslist_src);
+    assert_true(slist_empty(pslist_dest));
+    assert_true(slist_empty(pslist_src));
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__dest_non_empty_src_empty(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init_n(pslist_dest, 10);
+    slist_init(pslist_src);
+    slist_merge(pslist_dest, pslist_src);
+    assert_true(slist_size(pslist_dest) == 10);
+    assert_true(slist_empty(pslist_src));
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__dest_empty_src_non_empty(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_init_n(pslist_src, 10);
+    slist_merge(pslist_dest, pslist_src);
+    assert_true(slist_size(pslist_dest) == 10);
+    assert_true(slist_empty(pslist_src));
+    for(it_iter = slist_begin(pslist_dest);
+        !iterator_equal(it_iter, slist_end(pslist_dest));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__dest_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, 9);
+    slist_push_front(pslist_dest, 8);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 4);
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, 7);
+    slist_push_front(pslist_src, 3);
+    slist_push_front(pslist_src, 2);
+    slist_merge(pslist_dest, pslist_src);
+    assert_true(slist_size(pslist_dest) == 7);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 4);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__src_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, 7);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 3);
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, 9);
+    slist_push_front(pslist_src, 8);
+    slist_push_front(pslist_src, 7);
+    slist_push_front(pslist_src, 3);
+    slist_push_front(pslist_src, 2);
+    slist_merge(pslist_dest, pslist_src);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__random(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, 3);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 8);
+    slist_push_front(pslist_dest, 3);
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, 2);
+    slist_push_front(pslist_src, 8);
+    slist_push_front(pslist_src, 7);
+    slist_push_front(pslist_src, 9);
+    slist_push_front(pslist_src, 3);
+    slist_merge(pslist_dest, pslist_src);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__cstr_dest_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(char*);
+    slist_t* pslist_src = create_slist(char*);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, "9");
+    slist_push_front(pslist_dest, "8");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "4");
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, "7");
+    slist_push_front(pslist_src, "3");
+    slist_push_front(pslist_src, "2");
+    slist_merge(pslist_dest, pslist_src);
+    assert_true(slist_size(pslist_dest) == 7);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__cstr_src_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(char*);
+    slist_t* pslist_src = create_slist(char*);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, "7");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "3");
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, "9");
+    slist_push_front(pslist_src, "8");
+    slist_push_front(pslist_src, "7");
+    slist_push_front(pslist_src, "3");
+    slist_push_front(pslist_src, "2");
+    slist_merge(pslist_dest, pslist_src);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge__cstr_random(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(char*);
+    slist_t* pslist_src = create_slist(char*);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, "3");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "8");
+    slist_push_front(pslist_dest, "3");
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, "2");
+    slist_push_front(pslist_src, "8");
+    slist_push_front(pslist_src, "7");
+    slist_push_front(pslist_src, "9");
+    slist_push_front(pslist_src, "3");
+    slist_merge(pslist_dest, pslist_src);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+/*
+ * test slist_merge_if
+ */
+UT_CASE_DEFINATION(slist_merge_if)
+void test_slist_merge_if__null_dest_slist_container(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init(pslist);
+    expect_assert_failure(slist_merge_if(NULL, pslist, NULL));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_merge_if__null_src_slist_container(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init(pslist);
+    expect_assert_failure(slist_merge_if(pslist, NULL, NULL));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_merge_if__non_inited_dest_slist_container(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_src);
+    pslist_dest->_t_typeinfo._t_style = 44444;
+    expect_assert_failure(slist_merge_if(pslist_dest, pslist_src, NULL));
+
+    pslist_dest->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__non_inited_src_slist_container(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    pslist_src->_t_typeinfo._t_style = 4455;
+    expect_assert_failure(slist_merge_if(pslist_dest, pslist_src, NULL));
+
+    pslist_src->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__not_same(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(double);
+
+    slist_init(pslist_dest);
+    slist_init(pslist_src);
+    expect_assert_failure(slist_merge_if(pslist_dest, pslist_src, NULL));
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__same_slist_container(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init(pslist);
+    slist_merge_if(pslist, pslist, NULL);
+    assert_true(slist_empty(pslist));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_merge_if__dest_empty_src_empty(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_init(pslist_src);
+    slist_merge_if(pslist_dest, pslist_src, NULL);
+    assert_true(slist_empty(pslist_dest));
+    assert_true(slist_empty(pslist_src));
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__dest_non_empty_src_empty(void** state)
+{
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init_n(pslist_dest, 10);
+    slist_init(pslist_src);
+    slist_merge_if(pslist_dest, pslist_src, NULL);
+    assert_true(slist_size(pslist_dest) == 10);
+    assert_true(slist_empty(pslist_src));
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__dest_empty_src_non_empty(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_init_n(pslist_src, 10);
+    slist_merge_if(pslist_dest, pslist_src, NULL);
+    assert_true(slist_size(pslist_dest) == 10);
+    assert_true(slist_empty(pslist_src));
+    for(it_iter = slist_begin(pslist_dest);
+        !iterator_equal(it_iter, slist_end(pslist_dest));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__ascending_dest_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, 9);
+    slist_push_front(pslist_dest, 8);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 4);
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, 7);
+    slist_push_front(pslist_src, 3);
+    slist_push_front(pslist_src, 2);
+    slist_merge_if(pslist_dest, pslist_src, NULL);
+    assert_true(slist_size(pslist_dest) == 7);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 4);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__ascending_src_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, 7);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 3);
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, 9);
+    slist_push_front(pslist_src, 8);
+    slist_push_front(pslist_src, 7);
+    slist_push_front(pslist_src, 3);
+    slist_push_front(pslist_src, 2);
+    slist_merge_if(pslist_dest, pslist_src, NULL);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__descending_dest_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, 2);
+    slist_push_front(pslist_dest, 3);
+    slist_push_front(pslist_dest, 3);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 8);
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, 3);
+    slist_push_front(pslist_src, 7);
+    slist_push_front(pslist_src, 8);
+    slist_push_front(pslist_src, 9);
+    slist_merge_if(pslist_dest, pslist_src, fun_greater_int);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__descending_src_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, 3);
+    slist_push_front(pslist_dest, 3);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 8);
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, 2);
+    slist_push_front(pslist_src, 3);
+    slist_push_front(pslist_src, 7);
+    slist_push_front(pslist_src, 8);
+    slist_push_front(pslist_src, 9);
+    slist_merge_if(pslist_dest, pslist_src, fun_greater_int);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__random(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(int);
+    slist_t* pslist_src = create_slist(int);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, 3);
+    slist_push_front(pslist_dest, 5);
+    slist_push_front(pslist_dest, 8);
+    slist_push_front(pslist_dest, 3);
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, 2);
+    slist_push_front(pslist_src, 8);
+    slist_push_front(pslist_src, 7);
+    slist_push_front(pslist_src, 9);
+    slist_push_front(pslist_src, 3);
+    slist_merge_if(pslist_dest, pslist_src, NULL);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 5);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 7);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 8);
+    it_iter = iterator_next(it_iter);
+    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__cstr_ascending_dest_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(char*);
+    slist_t* pslist_src = create_slist(char*);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, "9");
+    slist_push_front(pslist_dest, "8");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "4");
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, "7");
+    slist_push_front(pslist_src, "3");
+    slist_push_front(pslist_src, "2");
+    slist_merge_if(pslist_dest, pslist_src, NULL);
+    assert_true(slist_size(pslist_dest) == 7);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__cstr_ascending_src_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(char*);
+    slist_t* pslist_src = create_slist(char*);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, "7");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "3");
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, "9");
+    slist_push_front(pslist_src, "8");
+    slist_push_front(pslist_src, "7");
+    slist_push_front(pslist_src, "3");
+    slist_push_front(pslist_src, "2");
+    slist_merge_if(pslist_dest, pslist_src, NULL);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__cstr_descending_dest_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(char*);
+    slist_t* pslist_src = create_slist(char*);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, "2");
+    slist_push_front(pslist_dest, "4");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "8");
+    slist_push_front(pslist_dest, "9");
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, "3");
+    slist_push_front(pslist_src, "7");
+    slist_merge_if(pslist_dest, pslist_src, fun_greater_cstr);
+    assert_true(slist_size(pslist_dest) == 7);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "4") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__cstr_descending_src_tailing(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(char*);
+    slist_t* pslist_src = create_slist(char*);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, "3");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "7");
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, "2");
+    slist_push_front(pslist_src, "3");
+    slist_push_front(pslist_src, "7");
+    slist_push_front(pslist_src, "8");
+    slist_push_front(pslist_src, "9");
+    slist_merge_if(pslist_dest, pslist_src, fun_greater_cstr);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+void test_slist_merge_if__cstr_random(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist_dest = create_slist(char*);
+    slist_t* pslist_src = create_slist(char*);
+
+    slist_init(pslist_dest);
+    slist_push_front(pslist_dest, "3");
+    slist_push_front(pslist_dest, "5");
+    slist_push_front(pslist_dest, "8");
+    slist_push_front(pslist_dest, "3");
+    slist_init(pslist_src);
+    slist_push_front(pslist_src, "2");
+    slist_push_front(pslist_src, "8");
+    slist_push_front(pslist_src, "7");
+    slist_push_front(pslist_src, "9");
+    slist_push_front(pslist_src, "3");
+    slist_merge_if(pslist_dest, pslist_src, NULL);
+    assert_true(slist_size(pslist_dest) == 9);
+    assert_true(slist_empty(pslist_src));
+    it_iter = slist_begin(pslist_dest);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "5") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "3") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "9") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "7") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "8") == 0);
+    it_iter = iterator_next(it_iter);
+    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "2") == 0);
+
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_src);
+}
+
+/*
+ * test slist_reverse
+ */
+UT_CASE_DEFINATION(slist_reverse)
+void test_slist_reverse__null_slist_container(void** state)
+{
+    expect_assert_failure(slist_reverse(NULL));
+}
+
+void test_slist_reverse__non_inited_slist_container(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    pslist->_t_typeinfo._t_style = 34545;
+    expect_assert_failure(slist_reverse(pslist));
+
+    pslist->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    slist_destroy(pslist);
+}
+
+void test_slist_reverse__empty(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init(pslist);
+    slist_reverse(pslist);
+    assert_true(slist_empty(pslist));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_reverse__same(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_iterator_t it_iter;
+
+    slist_init_elem(pslist, 10, 100);
+    slist_reverse(pslist);
+    assert_true(slist_size(pslist) == 10);
+    for(it_iter = slist_begin(pslist);
+        !iterator_equal(it_iter, slist_end(pslist));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+    }
+
+    slist_destroy(pslist);
+}
+
+void test_slist_reverse__not_same(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    size_t i = 0;
+    slist_iterator_t it_iter;
+
+    slist_init(pslist);
+    for(i = 0; i < 10; ++i)
+    {
+        slist_push_front(pslist, i);
+    }
+    slist_reverse(pslist);
+    assert_true(slist_size(pslist) == 10);
+    for(it_iter = slist_begin(pslist), i = 0;
+        !iterator_equal(it_iter, slist_end(pslist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == i);
+    }
 
     slist_destroy(pslist);
 }

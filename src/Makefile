@@ -32,8 +32,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = i686-pc-linux-gnu
-host_triplet = i686-pc-linux-gnu
+build_triplet = x86_64-unknown-linux-gnu
+host_triplet = x86_64-unknown-linux-gnu
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -87,9 +87,9 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_rb_tree.lo libcstl_la-cstl_set.lo \
 	libcstl_la-cstl_slist.lo libcstl_la-cstl_slist_iterator.lo \
 	libcstl_la-cstl_slist_private.lo libcstl_la-cstl_slist_aux.lo \
-	libcstl_la-cstl_stack.lo libcstl_la-cstl_string.lo \
-	libcstl_la-cstl_types.lo libcstl_la-cstl_vector.lo \
-	libcstl_la-cstl_vector_iterator.lo \
+	libcstl_la-cstl_stack.lo libcstl_la-cstl_stack_private.lo \
+	libcstl_la-cstl_string.lo libcstl_la-cstl_types.lo \
+	libcstl_la-cstl_vector.lo libcstl_la-cstl_vector_iterator.lo \
 	libcstl_la-cstl_vector_private.lo \
 	libcstl_la-cstl_vector_aux.lo
 libcstl_la_OBJECTS = $(am_libcstl_la_OBJECTS)
@@ -143,7 +143,7 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LD = /usr/bin/ld
+LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
@@ -184,22 +184,22 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = i686-pc-linux-gnu
+build = x86_64-unknown-linux-gnu
 build_alias = 
-build_cpu = i686
+build_cpu = x86_64
 build_os = linux-gnu
-build_vendor = pc
+build_vendor = unknown
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = i686-pc-linux-gnu
+host = x86_64-unknown-linux-gnu
 host_alias = 
-host_cpu = i686
+host_cpu = x86_64
 host_os = linux-gnu
-host_vendor = pc
+host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -251,7 +251,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_rb_tree.c \
 		     cstl_set.c \
 		     cstl_slist.c cstl_slist_iterator.c cstl_slist_private.c cstl_slist_aux.c cstl_slist_aux.h \
-		     cstl_stack.c \
+		     cstl_stack.c cstl_stack_private.c \
 		     cstl_string.c \
 		     cstl_types.c \
 		     cstl_vector.c cstl_vector_iterator.c cstl_vector_private.c cstl_vector_aux.c cstl_vector_aux.h
@@ -368,6 +368,7 @@ include ./$(DEPDIR)/libcstl_la-cstl_slist_aux.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_slist_iterator.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_slist_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_stack.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_stack_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_string.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_types.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_vector.Plo
@@ -640,6 +641,13 @@ libcstl_la-cstl_stack.lo: cstl_stack.c
 #	source='cstl_stack.c' object='libcstl_la-cstl_stack.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_stack.lo `test -f 'cstl_stack.c' || echo '$(srcdir)/'`cstl_stack.c
+
+libcstl_la-cstl_stack_private.lo: cstl_stack_private.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_stack_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_stack_private.Tpo -c -o libcstl_la-cstl_stack_private.lo `test -f 'cstl_stack_private.c' || echo '$(srcdir)/'`cstl_stack_private.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_stack_private.Tpo $(DEPDIR)/libcstl_la-cstl_stack_private.Plo
+#	source='cstl_stack_private.c' object='libcstl_la-cstl_stack_private.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_stack_private.lo `test -f 'cstl_stack_private.c' || echo '$(srcdir)/'`cstl_stack_private.c
 
 libcstl_la-cstl_string.lo: cstl_string.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_string.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_string.Tpo -c -o libcstl_la-cstl_string.lo `test -f 'cstl_string.c' || echo '$(srcdir)/'`cstl_string.c
