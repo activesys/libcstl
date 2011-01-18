@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CVECTOR_H
-#define _CVECTOR_H
+#ifndef _CVECTOR_H_
+#define _CVECTOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -49,6 +49,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CVECTOR_H */
+#endif /* _CVECTOR_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_RB_TREE_PRIVATE_H
-#define _CSTL_RB_TREE_PRIVATE_H
+#ifndef _CSTL_RB_TREE_PRIVATE_H_
+#define _CSTL_RB_TREE_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -203,6 +203,6 @@ extern size_t _rb_tree_erase(rb_tree_t* pt_rb_tree, const void* cpv_value);
 }
 #endif
 
-#endif /* _CSTL_RB_TREE_PRIVATE_H */
+#endif /* _CSTL_RB_TREE_PRIVATE_H_ */
 /** eof **/
 

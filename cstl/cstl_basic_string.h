@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_BASIC_STRING_H
-#define _CSTL_BASIC_STRING_H
+#ifndef _CSTL_BASIC_STRING_H_
+#define _CSTL_BASIC_STRING_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -378,6 +378,6 @@ extern void basic_string_replace_range(
 }
 #endif
 
-#endif /* _CSTL_BASIC_STRING_H */
+#endif /* _CSTL_BASIC_STRING_H_ */
 /** eof **/
 

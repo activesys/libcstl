@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_DEQUE_ITERATOR_H
-#define _CSTL_DEQUE_ITERATOR_H
+#ifndef _CSTL_DEQUE_ITERATOR_H_
+#define _CSTL_DEQUE_ITERATOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -168,6 +168,6 @@ extern int _deque_iterator_minus(deque_iterator_t it_first, deque_iterator_t it_
 }
 #endif
 
-#endif /* _CSTL_DEQUE_ITERATOR_H */
+#endif /* _CSTL_DEQUE_ITERATOR_H_ */
 /** eof **/
 

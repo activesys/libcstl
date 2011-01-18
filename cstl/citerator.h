@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CITERATOR_H
-#define _CITERATOR_H
+#ifndef _CITERATOR_H_
+#define _CITERATOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -61,6 +61,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CITERATOR_H */
+#endif /* _CITERATOR_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_ALGOBASE_H
-#define _CSTL_ALGOBASE_H
+#ifndef _CSTL_ALGOBASE_H_
+#define _CSTL_ALGOBASE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -107,6 +107,6 @@ extern bidirectional_iterator_t algo_copy_backward(
 }
 #endif
 
-#endif /* _CSTL_ALGOBASE_H */
+#endif /* _CSTL_ALGOBASE_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_VECTOR_ITERATOR_H
-#define _CSTL_VECTOR_ITERATOR_H
+#ifndef _CSTL_VECTOR_ITERATOR_H_
+#define _CSTL_VECTOR_ITERATOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -168,6 +168,6 @@ extern int _vector_iterator_minus(vector_iterator_t it_first, vector_iterator_t 
 }
 #endif
 
-#endif /* _CSTL_VECTOR_ITERATOR_H */
+#endif /* _CSTL_VECTOR_ITERATOR_H_ */
 /** eof **/
 

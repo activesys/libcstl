@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_HASH_MULTISET_H
-#define _CSTL_HASH_MULTISET_H
+#ifndef _CSTL_HASH_MULTISET_H_
+#define _CSTL_HASH_MULTISET_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -150,6 +150,6 @@ extern void hash_multiset_clear(hash_multiset_t* pt_hash_multiset);
 }
 #endif
 
-#endif /* _CSTL_HASH_MULTISET_H */
+#endif /* _CSTL_HASH_MULTISET_H_ */
 /** eof **/
 

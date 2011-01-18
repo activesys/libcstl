@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_MAP_PRIVATE_H
-#define _CSTL_MAP_PRIVATE_H
+#ifndef _CSTL_MAP_PRIVATE_H_
+#define _CSTL_MAP_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -92,6 +92,6 @@ extern void _map_init_elem_auxiliary(map_t* pt_map, void* pv_value);
 }
 #endif
 
-#endif /* _CSTL_MAP_PRIVATE_H */
+#endif /* _CSTL_MAP_PRIVATE_H_ */
 /** eof **/
 

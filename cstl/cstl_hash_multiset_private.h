@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_HASH_MULTISET_PRIVATE_H
-#define _CSTL_HASH_MULTISET_PRIVATE_H
+#ifndef _CSTL_HASH_MULTISET_PRIVATE_H_
+#define _CSTL_HASH_MULTISET_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -92,6 +92,6 @@ extern void _hash_multiset_init_elem_auxiliary(
 }
 #endif
 
-#endif /* _CSTL_HASH_MULTISET_PRIVATE_H */
+#endif /* _CSTL_HASH_MULTISET_PRIVATE_H_ */
 /** eof **/
 

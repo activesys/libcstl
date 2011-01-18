@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_SLIST_H
-#define _CSTL_SLIST_H
+#ifndef _CSTL_SLIST_H_
+#define _CSTL_SLIST_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -648,6 +648,6 @@ extern bool_t slist_greater_equal(const slist_t* cpslist_first, const slist_t* c
 }
 #endif
 
-#endif /* _CSTL_SLIST_H */
+#endif /* _CSTL_SLIST_H_ */
 /** eof **/
 

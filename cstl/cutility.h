@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CUTILITY_H
-#define _CUTILITY_H
+#ifndef _CUTILITY_H_
+#define _CUTILITY_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,6 +46,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CUTILITY_H */
+#endif /* _CUTILITY_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_SET_H
-#define _CSTL_SET_H
+#ifndef _CSTL_SET_H_
+#define _CSTL_SET_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -135,6 +135,6 @@ extern void set_erase_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_
 }
 #endif
 
-#endif /* _CSTL_SET_H */
+#endif /* _CSTL_SET_H_ */
 /** eof **/
 

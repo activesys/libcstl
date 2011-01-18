@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_ITERATOR_PRIVATE_H
-#define _CSTL_ITERATOR_PRIVATE_H
+#ifndef _CSTL_ITERATOR_PRIVATE_H_
+#define _CSTL_ITERATOR_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,6 +60,6 @@ extern void _iterator_deallocate_destroy_elem(iterator_t t_iter, void* pv_value)
 }
 #endif
 
-#endif /* _CSTL_ITERATOR_PRIVATE_H */
+#endif /* _CSTL_ITERATOR_PRIVATE_H_ */
 /** eof **/
 

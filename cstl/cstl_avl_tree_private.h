@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_AVL_TREE_PRIVATE_H
-#define _CSTL_AVL_TREE_PRIVATE_H
+#ifndef _CSTL_AVL_TREE_PRIVATE_H_
+#define _CSTL_AVL_TREE_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -183,6 +183,6 @@ extern size_t _avl_tree_erase(avl_tree_t* pt_avl_tree, const void* cpv_value);
 }
 #endif
 
-#endif /* _CSTL_AVL_TREE_PRIVATE_H */
+#endif /* _CSTL_AVL_TREE_PRIVATE_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_TYPES_H
-#define _CSTL_TYPES_H
+#ifndef _CSTL_TYPES_H_
+#define _CSTL_TYPES_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -268,6 +268,6 @@ extern void _type_destroy_default(
 }
 #endif
 
-#endif /* _CSTL_TYPES_H */
+#endif /* _CSTL_TYPES_H_ */
 /** eof **/
 

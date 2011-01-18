@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_FUNCTION_H
-#define _CSTL_FUNCTION_H
+#ifndef _CSTL_FUNCTION_H_
+#define _CSTL_FUNCTION_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -540,6 +540,6 @@ extern void fun_default_binary(
 }
 #endif
 
-#endif /* _CSTL_FUNCTION_H */
+#endif /* _CSTL_FUNCTION_H_ */
 /** eof **/
 

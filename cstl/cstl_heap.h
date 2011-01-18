@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_HEAP_H
-#define _CSTL_HEAP_H
+#ifndef _CSTL_HEAP_H_
+#define _CSTL_HEAP_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,6 +69,6 @@ extern bool_t algo_is_heap_if(
 }
 #endif
 
-#endif /* _CSTL_HEAP_H */
+#endif /* _CSTL_HEAP_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_MULTISET_PRIVATE_H
-#define _CSTL_MULTISET_PRIVATE_H
+#ifndef _CSTL_MULTISET_PRIVATE_H_
+#define _CSTL_MULTISET_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -101,6 +101,6 @@ extern void _multiset_init_elem_auxiliary(multiset_t* pt_multiset, void* pv_valu
 }
 #endif
 
-#endif /* _CSTL_MULTISET_PRIVATE_H */
+#endif /* _CSTL_MULTISET_PRIVATE_H_ */
 /** eof **/
 

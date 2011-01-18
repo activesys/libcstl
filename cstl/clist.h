@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CLIST_H
-#define _CLIST_H
+#ifndef _CLIST_H_
+#define _CLIST_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,6 +50,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CLIST_H */
+#endif /* _CLIST_H_ */
 /** eof **/
 

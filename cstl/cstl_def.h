@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_DEF_H
-#define _CSTL_DEF_H
+#ifndef _CSTL_DEF_H_
+#define _CSTL_DEF_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -86,6 +86,6 @@ typedef size_t                   bool_t;         /* declaration for bool type */
 }
 #endif
 
-#endif /* _CSTL_DEF_H */
+#endif /* _CSTL_DEF_H_ */
 /** eof **/
 

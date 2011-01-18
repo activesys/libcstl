@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_STRING_H
-#define _CSTL_STRING_H
+#ifndef _CSTL_STRING_H_
+#define _CSTL_STRING_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -322,6 +322,6 @@ extern bool_t string_getline_delimiter(
 }
 #endif
 
-#endif /* _CSTL_STRING_H */
+#endif /* _CSTL_STRING_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CALGORITHM_H
-#define _CALGORITHM_H
+#ifndef _CALGORITHM_H_
+#define _CALGORITHM_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,6 +52,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CALGORITHM_H */
+#endif /* _CALGORITHM_H_ */
 /** eof **/
 

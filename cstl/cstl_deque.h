@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_DEQUE_H
-#define _CSTL_DEQUE_H
+#ifndef _CSTL_DEQUE_H_
+#define _CSTL_DEQUE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -433,6 +433,6 @@ extern void deque_resize(deque_t* pdeq_deque, size_t t_resize);
 }
 #endif
 
-#endif /* _CSTL_DEQUE_H */
+#endif /* _CSTL_DEQUE_H_ */
 /** eof **/
 

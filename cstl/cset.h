@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSET_H
-#define _CSET_H
+#ifndef _CSET_H_
+#define _CSET_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,6 +58,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CSET_H */
+#endif /* _CSET_H_ */
 /** eof **/
 

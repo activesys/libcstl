@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_DEQUE_PRIVATE_H
-#define _CSTL_DEQUE_PRIVATE_H
+#ifndef _CSTL_DEQUE_PRIVATE_H_
+#define _CSTL_DEQUE_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -244,6 +244,6 @@ extern void _deque_init_elem_auxiliary(deque_t* pdeq_deque, void* pv_value);
 }
 #endif
 
-#endif /* _CSTL_DEQUE_PRIVATE_H */
+#endif /* _CSTL_DEQUE_PRIVATE_H_ */
 /** eof **/
 

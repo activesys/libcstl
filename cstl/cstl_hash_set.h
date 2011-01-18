@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_HASH_SET_H
-#define _CSTL_HASH_SET_H
+#ifndef _CSTL_HASH_SET_H_
+#define _CSTL_HASH_SET_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -140,6 +140,6 @@ extern void hash_set_clear(hash_set_t* pt_hash_set);
 }
 #endif
 
-#endif /* _CSTL_HASH_SET_H */
+#endif /* _CSTL_HASH_SET_H_ */
 /** eof **/
 

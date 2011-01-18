@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CMAP_H
-#define _CMAP_H
+#ifndef _CMAP_H_
+#define _CMAP_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,6 +58,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CMAP_H */
+#endif /* _CMAP_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_SLIST_ITERATOR_H
-#define _CSTL_SLIST_ITERATOR_H
+#ifndef _CSTL_SLIST_ITERATOR_H_
+#define _CSTL_SLIST_ITERATOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -113,6 +113,6 @@ extern  bool_t _slist_iterator_before(slist_iterator_t it_first, slist_iterator_
 }
 #endif
 
-#endif /* _CSTL_SLIST_ITERATOR_H */
+#endif /* _CSTL_SLIST_ITERATOR_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_MAP_H
-#define _CSTL_MAP_H
+#ifndef _CSTL_MAP_H_
+#define _CSTL_MAP_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -135,6 +135,6 @@ extern void map_erase_range(map_t* pt_map, map_iterator_t t_begin, map_iterator_
 }
 #endif
 
-#endif /* _CSTL_MAP_H */
+#endif /* _CSTL_MAP_H_ */
 /** eof **/
 

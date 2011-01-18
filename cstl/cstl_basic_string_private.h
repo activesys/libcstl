@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_BASIC_STRING_PRIVATE_H
-#define _CSTL_BASIC_STRING_PRIVATE_H
+#ifndef _CSTL_BASIC_STRING_PRIVATE_H_
+#define _CSTL_BASIC_STRING_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -146,6 +146,6 @@ extern void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, v
 }
 #endif
 
-#endif /* _CSTL_BASIC_STRING_PRIVATE_H */
+#endif /* _CSTL_BASIC_STRING_PRIVATE_H_ */
 /** eof **/
 

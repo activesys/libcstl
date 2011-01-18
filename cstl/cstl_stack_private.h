@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_STACK_PRIVATE_H
-#define _CSTL_STACK_PRIVATE_H
+#ifndef _CSTL_STACK_PRIVATE_H_
+#define _CSTL_STACK_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -101,6 +101,6 @@ extern void _stack_push_varg(stack_t* psk_stack, va_list val_elemlist);
 }
 #endif
 
-#endif /* _CSTL_STACK_PRIVATE_H */
+#endif /* _CSTL_STACK_PRIVATE_H_ */
 /** eof **/
 

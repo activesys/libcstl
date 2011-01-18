@@ -123,7 +123,6 @@ PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
 PACKAGE_STRING = libcstl 2.0.1
 PACKAGE_TARNAME = libcstl
-PACKAGE_URL = 
 PACKAGE_VERSION = 2.0.1
 PATH_SEPARATOR = :
 RANLIB = ranlib
@@ -248,6 +247,8 @@ cstlinclude_HEADERS = calgorithm.h \
 			cstl_numeric.h \
 			cstl_numeric_private.h \
 			cstl_pair.h \
+			cstl_priority_queue.h \
+			cstl_priority_queue_private.h \
 			cstl_queue.h \
 			cstl_queue_private.h \
 			cstl_rb_tree_iterator.h \

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_LIST_H
-#define _CSTL_LIST_H
+#ifndef _CSTL_LIST_H_
+#define _CSTL_LIST_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -563,6 +563,6 @@ extern void list_reverse(list_t* plist_list);
 }
 #endif
 
-#endif /* _CSTL_LIST_H */
+#endif /* _CSTL_LIST_H_ */
 /** eof **/
 

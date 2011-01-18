@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTACK_H
-#define _CSTACK_H
+#ifndef _CSTACK_H_
+#define _CSTACK_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,6 +47,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CSTACK_H */
+#endif /* _CSTACK_H_ */
 /** eof **/
 

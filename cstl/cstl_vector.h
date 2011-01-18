@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_VECTOR_H
-#define _CSTL_VECTOR_H
+#ifndef _CSTL_VECTOR_H_
+#define _CSTL_VECTOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -436,6 +436,6 @@ extern void vector_resize(vector_t* pvec_vector, size_t t_resize);
 }
 #endif
 
-#endif /* _CSTL_VECTOR_H */
+#endif /* _CSTL_VECTOR_H_ */
 /** eof **/
 

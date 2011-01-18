@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_LIST_PRIVATE_H
-#define _CSTL_LIST_PRIVATE_H
+#ifndef _CSTL_LIST_PRIVATE_H_
+#define _CSTL_LIST_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -279,6 +279,6 @@ extern void _list_init_elem_auxiliary(list_t* plist_list, void* pv_elem);
 }
 #endif
 
-#endif /* _CSTL_LIST_PRIVATE_H */
+#endif /* _CSTL_LIST_PRIVATE_H_ */
 /** eof **/
 

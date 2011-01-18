@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_ITERATOR_H
-#define _CSTL_ITERATOR_H
+#ifndef _CSTL_ITERATOR_H_
+#define _CSTL_ITERATOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -301,6 +301,6 @@ extern int iterator_distance(iterator_t t_iterfirst, iterator_t t_itersecond);
 }
 #endif
 
-#endif /* _CSTL_ITERATOR_H */
+#endif /* _CSTL_ITERATOR_H_ */
 /** eof **/
 

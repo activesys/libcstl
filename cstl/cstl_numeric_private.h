@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_NUMERIC_PRIVATE_H
-#define _CSTL_NUMERIC_PRIVATE_H
+#ifndef _CSTL_NUMERIC_PRIVATE_H_
+#define _CSTL_NUMERIC_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,6 +65,6 @@ extern void _algo_inner_product_if_varg(
 }
 #endif
 
-#endif /* _CSTL_NUMERIC_PRIVATE_H */
+#endif /* _CSTL_NUMERIC_PRIVATE_H_ */
 /** eof **/
 

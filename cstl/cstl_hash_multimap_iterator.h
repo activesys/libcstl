@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_HASH_MULTIMAP_ITERATOR_H
-#define _CSTL_HASH_MULTIMAP_ITERATOR_H
+#ifndef _CSTL_HASH_MULTIMAP_ITERATOR_H_
+#define _CSTL_HASH_MULTIMAP_ITERATOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,6 +60,6 @@ extern bool_t _hash_multimap_iterator_before(
 }
 #endif
 
-#endif /* _CSTL_HASH_MULTIMAP_ITERATOR_H */
+#endif /* _CSTL_HASH_MULTIMAP_ITERATOR_H_ */
 /** eof **/
 

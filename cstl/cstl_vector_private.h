@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_VECTOR_PRIVATE_H
-#define _CSTL_VECTOR_PRIVATE_H
+#ifndef _CSTL_VECTOR_PRIVATE_H_
+#define _CSTL_VECTOR_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -230,6 +230,6 @@ extern void _vector_init_elem_auxiliary(vector_t* pvec_vector, void* pv_elem);
 }
 #endif
 
-#endif /* _CSTL_VECTOR_PRIVATE_H */
+#endif /* _CSTL_VECTOR_PRIVATE_H_ */
 /** eof **/
 

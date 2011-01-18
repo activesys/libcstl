@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_HASH_MAP_H
-#define _CSTL_HASH_MAP_H
+#ifndef _CSTL_HASH_MAP_H_
+#define _CSTL_HASH_MAP_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -145,6 +145,6 @@ extern void hash_map_clear(hash_map_t* pt_hash_map);
 }
 #endif
 
-#endif /* _CSTL_HASH_MAP_H */
+#endif /* _CSTL_HASH_MAP_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_MULTISET_H
-#define _CSTL_MULTISET_H
+#ifndef _CSTL_MULTISET_H_
+#define _CSTL_MULTISET_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -145,6 +145,6 @@ extern void multiset_erase_range(
 }
 #endif
 
-#endif /* _CSTL_MULTISET_H */
+#endif /* _CSTL_MULTISET_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CFUNCTIONAL_H
-#define _CFUNCTIONAL_H
+#ifndef _CFUNCTIONAL_H_
+#define _CFUNCTIONAL_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,6 +47,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CFUNCTIONAL_H */
+#endif /* _CFUNCTIONAL_H_ */
 /** eof **/
 

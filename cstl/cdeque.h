@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CDEQUE_H
-#define _CDEQUE_H
+#ifndef _CDEQUE_H_
+#define _CDEQUE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -49,6 +49,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CDEQUE_H */
+#endif /* _CDEQUE_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_QUEUE_H
-#define _CSTL_QUEUE_H
+#ifndef _CSTL_QUEUE_H_
+#define _CSTL_QUEUE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,100 +30,184 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/* create new queue with specific type */
+/**
+ * Create queue adaptor.
+ * @param ...    type name.
+ * @return queue adaptor pointer, if create queue successfully, else return NULL.
+ * @remarks type name must be c builtin type, libcstl builtin type or user defined type, otherwise creation will be failure.
+ */
 #define create_queue(...) _create_queue(#__VA_ARGS__) 
-/* push */
-#define queue_push(pt_queue, elem)\
-    _queue_push((pt_queue), (elem))
 
-/* create new priority queue */
-#define create_priority_queue(...) _create_priority_queue(#__VA_ARGS__)
-/* push */
-#define priority_queue_push(pt_pqueue, elem)\
-    _priority_queue_push((pt_pqueue), (elem))
+/**
+ * Add specificed element at the back of queue. 
+ * @param pque_queue      queue adaptor.
+ * @param elem            specificed element.
+ * @return void.
+ * @remarks if pque_queue == NULL or queue is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and queue element type must be same, otherwise the behavior is undefined
+ */
+#define queue_push(pque_deque, elem) _queue_push((pque_deque), (elem))
 
 /** data type declaration and struct, union, enum section **/
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Initialization and destroy operation functions.
+/**
+ * Initialize an empty queue adaptor
+ * @param pque_queue   queue adaptor.
+ * @return void.
+ * @remarks if pque_queue == NULL, then the behavior is undefined. pque_queue must be created by create_queue(), otherwise
+ *          the behavior is undefine.
  */
-extern void queue_init(queue_t* pt_queue);
-extern void queue_destroy(queue_t* pt_queue);
-extern void queue_init_copy(queue_t* pt_queuedest, const queue_t* cpt_queuesrc);
+extern void queue_init(queue_t* pque_queue);
 
-/*
- * Assign operator functions.
+/**
+ * Initialize queue adaptor with exist queue adaptor.
+ * @param pque_dest   destination queue adaptor.
+ * @param pque_src    source queue adaptor.
+ * @return void.
+ * @remarks if pque_dest == NULL or pque_src == NULL, then the behavior is undefined. pque_dest must be created by
+ *          create_queue(), and pque_src must be initialized, otherwise the behavior is undefined. the element type of
+ *          pque_dest and pque_src must be the same, otherwise the behavior is undefined.
  */
-extern void queue_assign(queue_t* pt_queuedest, const queue_t* cpt_queuesrc);
+extern void queue_init_copy(queue_t* pque_dest, const queue_t* cpque_src);
 
-/*
- * queue_t size operation functions.
+/**
+ * Destroy queue adaptor.
+ * @param pque_queue   queue adaptor.
+ * @return void.
+ * @remraks if pque_queue == NULLL, then the behavior is undefined. pque_queue must be initialized or created by
+ *          create_queue(), otherwise the behavior is undefined.
  */
-extern bool_t queue_empty(const queue_t* cpt_queue);
-extern size_t queue_size(const queue_t* cpt_queue);
+extern void queue_destroy(queue_t* pque_queue);
 
-/*
- * Element access operation functions.
+/**
+ * Assign queue element with an exist queue adaptor.
+ * @param pque_dest     destination queue adaptor.
+ * @param cpque_src     source queue adaptor.
+ * @return void.
+ * @remarks if pque_dest == NULL or cpque_src == NULL, then the behavior is undefined. pque_dest and cpque_src must be
+ *          initialized, otherwise the behavior is undefined. the element type of two queue must be same, otherwise
+ *          the behavior is undefined. if the destination queue equal to source queue, then this function does nothing.
  */
-extern void* queue_front(const queue_t* cpt_queue);
-extern void* queue_back(const queue_t* cpt_queue);
-extern void queue_pop(queue_t* pt_queue);
+extern void queue_assign(queue_t* pque_dest, const queue_t* cpque_src);
 
-/*
- * Relationship operator functions.
+/**
+ * Tests if a queue is empty.
+ * @param cpque_queue  queue adaptor.
+ * @return true if the queue is empty, else returns false.
+ * @remarks if cpque_queue == NULL, then the behavior is undefined. the cpque_queue must be initialized, otherwise the
+ *          behavior is undefine.
  */
-extern bool_t queue_equal(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
-extern bool_t queue_not_equal(
-    const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
-extern bool_t queue_less(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
-extern bool_t queue_greater(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
-extern bool_t queue_less_equal(
-    const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
-extern bool_t queue_greater_equal(
-    const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);
+extern bool_t queue_empty(const queue_t* cpque_queue);
 
-/* priority queue */
-/*
- * Initialization and destroy operation functions.
+/**
+ * Return the number of elements in a queue.
+ * @param cpque_queue  queue adaptor.
+ * @return the number of elements in the queue.
+ * @remarks if cpque_queue == NULL, then the behavior is undefined. the cpque_queue must be initialized, otherwise the
+ *          behavior is undefine.
  */
-extern void priority_queue_init(priority_queue_t* pt_pqueue);
-extern void priority_queue_init_ex(
-    priority_queue_t* pt_pqueue, binary_function_t t_binary_op);
-extern void priority_queue_destroy(priority_queue_t* pt_pqueue);
-extern void priority_queue_init_copy(
-    priority_queue_t* pt_pqueuedest, const priority_queue_t* cpt_pqueuesrc);
-extern void priority_queue_init_copy_range(
-    priority_queue_t* pt_pqueuedest,
-    random_access_iterator_t t_first, random_access_iterator_t t_last);
-extern void priority_queue_init_copy_range_ex(
-    priority_queue_t* pt_pqueuedest, random_access_iterator_t t_first,
-    random_access_iterator_t t_last, binary_function_t t_binary_op);
+extern size_t queue_size(const queue_t* cpque_queue);
 
-/*
- * Assign operator functions.
+/**
+ * Access queue front data.
+ * @param cpque_queue  queue adaptor.
+ * @return pointer to the data.
+ * @remarks if cpque_queue == NULL, then the behavior is undefined. the queue must be initialized, otherwise the behavior
+ *          is undefined. if queue is empty, the behavior is undefine.
  */
-extern void priority_queue_assign(
-    priority_queue_t* pt_pqueuedest, const priority_queue_t* cpt_pqueuesrc);
+extern void* queue_front(const queue_t* cpque_queue);
 
-/*
- * priority_queue_t size operation functions.
+/**
+ * Access queue last data.
+ * @param cpque_queue  queue adaptor.
+ * @return pointer to the data.
+ * @remarks if cpque_queue == NULL, then the behavior is undefined. the queue must be initialized, otherwise the behavior
+ *          is undefined. if queue is empty, the behavior is undefine.
  */
-extern bool_t priority_queue_empty(const priority_queue_t* cpt_pqueue);
-extern size_t priority_queue_size(const priority_queue_t* cpt_pqueue);
-extern void* priority_queue_top(const priority_queue_t* cpt_pqueue);
+extern void* queue_back(const queue_t* cpque_queue);
 
-/*
- * Element access functions.
+/**
+ * Delete the element at the begin of queue.
+ * @param pque_queue    queue adaptor.
+ * @return void.
+ * @remarks if pque_queue == NULL, then the behavior is undefined. the queue must be initialized, otherwise the behavior
+ *          is undefined. if queue is empty, then the behavior is undefined.
  */
-extern void priority_queue_pop(priority_queue_t* pt_pqueue);
+extern void queue_pop(queue_t* pque_queue);
+
+/**
+ * Tests if the two queues are equal.
+ * @param cpque_first   first queue adaptor.
+ * @param cpque_second  second queue adaptor.
+ * @return if first queue equal to second queue, then return true, else return false.
+ * @remarks if cpque_first == NULL or cpque_second == NULL, then the behavior is undefined. the two queues must be
+ *          initialized, otherwise the behavior is undefined. if the two queues are not same type, then return false.
+ *          if cpque_first == cpque_second, then return true.
+ */
+extern bool_t queue_equal(const queue_t* cpque_first, const queue_t* cpque_second);
+
+/**
+ * Test the two queues are unequal.
+ * @param cpque_first   first queue adaptor.
+ * @param cpque_second  second queue adaptor.
+ * @return if first queue unequal to second queue, then return true, else return false.
+ * @remarks if cpque_first == NULL or cpque_second == NULL, then the behavior is undefined. the two queues must be
+ *          initialized, otherwise the behavior is undefined. if the two queues are not same type, then return true.
+ *          if cpque_first == cpque_second, then return false.
+ */
+extern bool_t queue_not_equal(const queue_t* cpque_first, const queue_t* cpque_second);
+
+/**
+ * Test the first queue is less than the second queue.
+ * @param cpque_first   first queue adaptor.
+ * @param cpque_second  second queue adaptor.
+ * @return if the first queue is less than the second queue, then return true, else return false.
+ * @remarks if cpque_first == NULL or cpque_second == NULL, then the behavior is undefined. the two queues must be
+ *          initialized, otherwise the behavior is undefined. if the two queues are not same type, the behavior is
+ *          undefined. if cpque_first == cpque_second, then return false.
+ */
+extern bool_t queue_less(const queue_t* cpque_first, const queue_t* cpque_second);
+
+/**
+ * Test the first queue is less than or equal to the second queue.
+ * @param cpque_first   first queue adaptor.
+ * @param cpque_second  second queue adaptor.
+ * @return if the first queue is less than or equal to the second queue, then return true, else return false.
+ * @remarks if cpque_first == NULL or cpque_second == NULL, then the behavior is undefined. the two queues must be
+ *          initialized, otherwise the behavior is undefined. if the two queues are not same type, the behavior is
+ *          undefined. if cpque_first == cpque_second, then return true.
+ */
+extern bool_t queue_less_equal(const queue_t* cpque_first, const queue_t* cpque_second);
+
+/**
+ * Test the first queue is greater than the second queue.
+ * @param cpque_first   first queue adaptor.
+ * @param cpque_second  second queue adaptor.
+ * @return if the first queue is greater than the second queue, then return true, else return false.
+ * @remarks if cpque_first == NULL or cpque_second == NULL, then the behavior is undefined. the two queues must be
+ *          initialized, otherwise the behavior is undefined. if the two queues are not same type, the behavior is
+ *          undefined. if cpque_first == cpque_second, then return false.
+ */
+extern bool_t queue_greater(const queue_t* cpque_first, const queue_t* cpque_second);
+
+/**
+ * Test the first queue is greater than or equal to the second queue.
+ * @param cpque_first   first queue adaptor.
+ * @param cpque_second  second queue adaptor.
+ * @return if the first queue is greater than or equal to the second queue, then return true, else return false.
+ * @remarks if cpque_first == NULL or cpque_second == NULL, then the behavior is undefined. the two queues must be
+ *          initialized, otherwise the behavior is undefined. if the two queues are not same type, the behavior is
+ *          undefined. if cpque_first == cpque_second, then return true.
+ */
+extern bool_t queue_greater_equal(const queue_t* cpque_first, const queue_t* cpque_second);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _CSTL_QUEUE_H */
+#endif /* _CSTL_QUEUE_H_ */
 /** eof **/
 

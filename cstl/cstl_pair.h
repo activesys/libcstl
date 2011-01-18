@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_PAIR_H
-#define _CSTL_PAIR_H
+#ifndef _CSTL_PAIR_H_
+#define _CSTL_PAIR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -97,6 +97,6 @@ extern bool_t pair_greater_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_
 }
 #endif
 
-#endif /* _CSTL_PAIR_H */
+#endif /* _CSTL_PAIR_H_ */
 /** eof **/
 

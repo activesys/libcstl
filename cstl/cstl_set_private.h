@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_SET_PRIVATE_H
-#define _CSTL_SET_PRIVATE_H
+#ifndef _CSTL_SET_PRIVATE_H_
+#define _CSTL_SET_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -95,6 +95,6 @@ extern void _set_init_elem_auxiliary(set_t* pt_set, void* pv_value);
 }
 #endif
 
-#endif /* _CSTL_SET_PRIVATE_H */
+#endif /* _CSTL_SET_PRIVATE_H_ */
 /** eof **/
 

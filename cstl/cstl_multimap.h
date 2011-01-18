@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_MULTIMAP_H
-#define _CSTL_MULTIMAP_H
+#ifndef _CSTL_MULTIMAP_H_
+#define _CSTL_MULTIMAP_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -143,6 +143,6 @@ extern void multimap_erase_range(
 }
 #endif
 
-#endif /* _CSTL_MULTIMAP_H */
+#endif /* _CSTL_MULTIMAP_H_ */
 /** eof **/
 

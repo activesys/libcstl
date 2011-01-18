@@ -1,5 +1,5 @@
 /*
- *  The private struct and static function of queue.
+ *  The private struct and private function of queue.
  *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_QUEUE_PRIVATE_H
-#define _CSTL_QUEUE_PRIVATE_H
+#ifndef _CSTL_QUEUE_PRIVATE_H_
+#define _CSTL_QUEUE_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -42,45 +42,63 @@ typedef struct _tagqueue
 #endif
 }queue_t;
 
-typedef struct _tagpriority_queue
-{
-    vector_t          _t_vector;
-    binary_function_t _t_binary_op;
-}priority_queue_t;
-
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create the new queue.
+/**
+ * Create queue adaptor.
+ * @param s_typename    type name.
+ * @return queue adaptor pointer, if create queue successfully, else return NULL.
+ * @remarks if s_typename == NULL, the behavior is undefined. s_typename must be c builtin type, libcstl builtin type or
+ *          user defined type, otherwise creation will be failure.
  */
 extern queue_t* _create_queue(const char* s_typename);
-extern bool_t _create_queue_auxiliary(queue_t* pt_queue, const char* s_typename);
-extern void _queue_destroy_auxiliary(queue_t* pt_queue);
 
-/*
- * Append a copy of element at the top.
+/**
+ * Create queue adaptor auxiliary function.
+ * @param pque_queue    queue adaptor.
+ * @param s_typename    type name.
+ * @return true if create queue adaptor successfully, otherwise return false.
+ * @remarks if pque_queue == NULL or s_typename == NULL, the behavior is undefined. s_typename must be c builtin type,
+ *          libcstl builtin type or user defined type, otherwise creation will be failure.
  */
-extern void _queue_push(queue_t* pt_queue, ...);
+extern bool_t _create_queue_auxiliary(queue_t* pque_queue, const char* s_typename);
+
+/**
+ * Destroy queue adaptor auxiliary function.
+ * @param pque_queue   queue adaptor.
+ * @return void.
+ * @remarks if pque_queue == NULL, then the behavior is undefined. queue adaptor must be initialized or created by
+ *          create_queue, otherwise the behavior is undefined.
+ */
+extern void _queue_destroy_auxiliary(queue_t* pque_queue);
+
+/**
+ * Add specificed element at the back of queue. 
+ * @param pque_queue      queue adaptor.
+ * @param ...             specificed element.
+ * @return void.
+ * @remarks if pque_queue == NULL or queue is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and queue element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use.
+ */
+extern void _queue_push(queue_t* pque_pqueue, ...);
+
+/**
+ * Add specificed element from variable argument queue at the back of queue adaptor. 
+ * @param pque_queue      queue adaptor.
+ * @param val_elemlist    variable argumnet list of specificed element.
+ * @return void.
+ * @remarks if pque_queue == NULL or queue is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and queue element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use.
+ */
 extern void _queue_push_varg(queue_t* pt_queue, va_list val_elemlist);
-
-/*
- * Create the new priority queue.
- */
-extern priority_queue_t* _create_priority_queue(const char* s_typename);
-extern bool_t _create_priority_queue_auxiliary(
-    priority_queue_t* pt_pqueue, const char* s_typename);
-extern void _priority_queue_destroy_auxiliary(priority_queue_t* pt_queue);
-
-/*
- * Append a copy of element at the top.
- */
-extern void _priority_queue_push(priority_queue_t* pt_pqueue, ...);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _CSTL_QUEUE_PRIVATE_H */
+#endif /* _CSTL_QUEUE_PRIVATE_H_ */
 /** eof **/
 

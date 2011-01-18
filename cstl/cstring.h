@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTRING_H
-#define _CSTRING_H
+#ifndef _CSTRING_H_
+#define _CSTRING_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,6 +52,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CSTRING_H */
+#endif /* _CSTRING_H_ */
 /** eof **/
 

@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CHASH_SET_H
-#define _CHASH_SET_H
+#ifndef _CHASH_SET_H_
+#define _CHASH_SET_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,6 +57,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CHASH_SET_H */
+#endif /* _CHASH_SET_H_ */
 /** eof **/
 

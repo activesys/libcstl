@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_ALLOC_H
-#define _CSTL_ALLOC_H
+#ifndef _CSTL_ALLOC_H_
+#define _CSTL_ALLOC_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -138,6 +138,6 @@ extern void (*_alloc_set_malloc_handler(void (*pfun_newhandler)(void)))(void);
 }
 #endif
 
-#endif /* _CSTL_ALLOC_H */
+#endif /* _CSTL_ALLOC_H_ */
 /** eof **/
 

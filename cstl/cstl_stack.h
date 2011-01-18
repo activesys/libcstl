@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_STACK_H
-#define _CSTL_STACK_H
+#ifndef _CSTL_STACK_H_
+#define _CSTL_STACK_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -199,6 +199,6 @@ extern bool_t stack_greater_equal(const stack_t* cpsk_first, const stack_t* cpsk
 }
 #endif
 
-#endif /* _CSTL_STACK_H */
+#endif /* _CSTL_STACK_H_ */
 /** eof **/
 
