@@ -1028,6 +1028,23 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_pus
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_push_front__list_push_front_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_remove__list_remove_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_resize_elem__list_resize_elem_varg)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_assign)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_back)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_destroy)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_empty)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_equal)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_front)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_greater)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_greater_equal)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_init_copy)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_less)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_less_equal)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_not_equal)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_pop)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_size)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue_private.c	/^UT_CASE_DEFINATION(_create_queue_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue_private.c	/^UT_CASE_DEFINATION(_queue_destroy_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_queue_private.c	/^UT_CASE_DEFINATION(_queue_push__queue_push_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_slist.c	/^UT_CASE_DEFINATION(slist_assign)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_slist.c	/^UT_CASE_DEFINATION(slist_assign_range)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_slist.c	/^UT_CASE_DEFINATION(slist_begin)$/;"	f
@@ -1178,6 +1195,7 @@ UT_CASE_SEPARATOR_OPEN	test/ut/ut_def.h	6;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	46;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	60;"	d
 UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	53;"	d
+UT_CSTL_BASIC_STRING_ITERATOR_CASE	test/ut/ut_cstl_basic_string_iterator.h	12;"	d
 UT_CSTL_DEQUE_AUX_CASE	test/ut/ut_cstl_deque_aux.h	235;"	d
 UT_CSTL_DEQUE_CASE	test/ut/ut_cstl_deque.h	353;"	d
 UT_CSTL_DEQUE_ITERATOR_CASE	test/ut/ut_cstl_deque_iterator.h	214;"	d
@@ -1186,7 +1204,8 @@ UT_CSTL_LIST_AUX_CASE	test/ut/ut_cstl_list_aux.h	196;"	d
 UT_CSTL_LIST_CASE	test/ut/ut_cstl_list.h	556;"	d
 UT_CSTL_LIST_ITERATOR_CASE	test/ut/ut_cstl_list_iterator.h	108;"	d
 UT_CSTL_LIST_PRIVATE_CASE	test/ut/ut_cstl_list_private.h	127;"	d
-UT_CSTL_QUEUE_PRIVATE_CASE	test/ut/ut_cstl_queue_private.h	17;"	d
+UT_CSTL_QUEUE_CASE	test/ut/ut_cstl_queue.h	189;"	d
+UT_CSTL_QUEUE_PRIVATE_CASE	test/ut/ut_cstl_queue_private.h	46;"	d
 UT_CSTL_SLIST_AUX_CASE	test/ut/ut_cstl_slist_aux.h	156;"	d
 UT_CSTL_SLIST_CASE	test/ut/ut_cstl_slist.h	635;"	d
 UT_CSTL_SLIST_ITERATOR_CASE	test/ut/ut_cstl_slist_iterator.h	98;"	d
@@ -1202,6 +1221,7 @@ UT_SUIT_DECLARATION	test/ut/ut_def.h	9;"	d
 UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_SUIT_DEFINATION(cstl_alloc, _alloc_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_free)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_get_memory_chunk)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_basic_string_iterator.c	/^UT_SUIT_DEFINATION(cstl_basic_string_iterator, _create_basic_string_iterator)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_deque.c	/^UT_SUIT_DEFINATION(cstl_deque, deque_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_deque_aux.c	/^UT_SUIT_DEFINATION(cstl_deque_aux, _deque_is_created)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_deque_iterator.c	/^UT_SUIT_DEFINATION(cstl_deque_iterator, _create_deque_iterator)$/;"	f
@@ -1209,6 +1229,7 @@ UT_SUIT_DEFINATION	test/ut/ut_cstl_deque_private.c	/^UT_SUIT_DEFINATION(cstl_deq
 UT_SUIT_DEFINATION	test/ut/ut_cstl_list.c	/^UT_SUIT_DEFINATION(cstl_list, list_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_SUIT_DEFINATION(cstl_list_aux, _list_is_created)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_SUIT_DEFINATION(cstl_list_private, _create_list)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_SUIT_DEFINATION(cstl_queue, queue_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_queue_private.c	/^UT_SUIT_DEFINATION(cstl_queue_private, _create_queue)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_stack_private.c	/^UT_SUIT_DEFINATION(cstl_stack_private, _create_stack)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_vector.c	/^UT_SUIT_DEFINATION(cstl_vector, vector_init)$/;"	f
@@ -1246,100 +1267,101 @@ _BASIC_STRING_RIGHT_BRACKET	cstl/cstl_types.h	166;"	d
 _BIDIRECTIONAL_ITERATOR	cstl/cstl_iterator.h	/^    _BIDIRECTIONAL_ITERATOR,$/;"	e	enum:_tagiteratortype
 _BIDIRECTIONAL_ITERATOR_TYPE	cstl/cstl_types.h	106;"	d
 _BOOL_TYPE	cstl/cstl_types.h	69;"	d
-_CALGORITHM_H	cstl/calgorithm.h	24;"	d
-_CDEQUE_H	cstl/cdeque.h	24;"	d
-_CFUNCTIONAL_H	cstl/cfunctional.h	24;"	d
+_CALGORITHM_H_	cstl/calgorithm.h	24;"	d
+_CDEQUE_H_	cstl/cdeque.h	24;"	d
+_CFUNCTIONAL_H_	cstl/cfunctional.h	24;"	d
 _CHAR_TYPE	cstl/cstl_types.h	35;"	d
-_CHASH_MAP_H	cstl/chash_map.h	24;"	d
-_CHASH_SET_H	cstl/chash_set.h	24;"	d
-_CITERATOR_H	cstl/citerator.h	24;"	d
-_CLIST_H	cstl/clist.h	24;"	d
-_CMAP_H	cstl/cmap.h	24;"	d
-_CNUMERIC_H	cstl/cnumeric.h	24;"	d
-_CQUEUE_H	cstl/cqueue.h	24;"	d
-_CSET_H	cstl/cset.h	24;"	d
-_CSLIST_H	cstl/cslist.h	24;"	d
-_CSTACK_H	cstl/cstack.h	24;"	d
-_CSTL_ALGOBASE_H	cstl/cstl_algobase.h	24;"	d
-_CSTL_ALGOBASE_PRIVATE_H	cstl/cstl_algobase_private.h	24;"	d
-_CSTL_ALGO_H	cstl/cstl_algo.h	24;"	d
-_CSTL_ALGO_PRIVATE_H	cstl/cstl_algo_private.h	24;"	d
+_CHASH_MAP_H_	cstl/chash_map.h	24;"	d
+_CHASH_SET_H_	cstl/chash_set.h	24;"	d
+_CITERATOR_H_	cstl/citerator.h	24;"	d
+_CLIST_H_	cstl/clist.h	24;"	d
+_CMAP_H_	cstl/cmap.h	24;"	d
+_CNUMERIC_H_	cstl/cnumeric.h	24;"	d
+_CQUEUE_H_	cstl/cqueue.h	24;"	d
+_CSET_H_	cstl/cset.h	24;"	d
+_CSLIST_H_	cstl/cslist.h	24;"	d
+_CSTACK_H_	cstl/cstack.h	24;"	d
+_CSTL_ALGOBASE_H_	cstl/cstl_algobase.h	24;"	d
+_CSTL_ALGOBASE_PRIVATE_H_	cstl/cstl_algobase_private.h	24;"	d
+_CSTL_ALGO_H_	cstl/cstl_algo.h	24;"	d
+_CSTL_ALGO_PRIVATE_H_	cstl/cstl_algo_private.h	24;"	d
 _CSTL_ALLOC_AUX_H	src/cstl_alloc_aux.h	24;"	d
-_CSTL_ALLOC_H	cstl/cstl_alloc.h	24;"	d
-_CSTL_AVL_TREE_ITERATOR_H	cstl/cstl_avl_tree_iterator.h	24;"	d
-_CSTL_AVL_TREE_PRIVATE_H	cstl/cstl_avl_tree_private.h	24;"	d
-_CSTL_BASIC_STRING_H	cstl/cstl_basic_string.h	24;"	d
-_CSTL_BASIC_STRING_ITERATOR_H	cstl/cstl_basic_string_iterator.h	24;"	d
-_CSTL_BASIC_STRING_PRIVATE_H	cstl/cstl_basic_string_private.h	24;"	d
+_CSTL_ALLOC_H_	cstl/cstl_alloc.h	24;"	d
+_CSTL_AVL_TREE_ITERATOR_H_	cstl/cstl_avl_tree_iterator.h	24;"	d
+_CSTL_AVL_TREE_PRIVATE_H_	cstl/cstl_avl_tree_private.h	24;"	d
+_CSTL_BASIC_STRING_AUX_H	src/cstl_basic_string_aux.h	24;"	d
+_CSTL_BASIC_STRING_H_	cstl/cstl_basic_string.h	24;"	d
+_CSTL_BASIC_STRING_ITERATOR_H_	cstl/cstl_basic_string_iterator.h	24;"	d
+_CSTL_BASIC_STRING_PRIVATE_H_	cstl/cstl_basic_string_private.h	24;"	d
 _CSTL_COMMA	cstl/cstl_types.h	118;"	d
-_CSTL_DEF_H	cstl/cstl_def.h	24;"	d
+_CSTL_DEF_H_	cstl/cstl_def.h	24;"	d
 _CSTL_DEQUE_AUX_H	src/cstl_deque_aux.h	24;"	d
-_CSTL_DEQUE_H	cstl/cstl_deque.h	24;"	d
-_CSTL_DEQUE_ITERATOR_H	cstl/cstl_deque_iterator.h	24;"	d
-_CSTL_DEQUE_PRIVATE_H	cstl/cstl_deque_private.h	24;"	d
-_CSTL_FUNCTION_H	cstl/cstl_function.h	24;"	d
-_CSTL_FUNCTION_PRIVATE_H	cstl/cstl_function_private.h	24;"	d
-_CSTL_HASHTABLE_ITERATOR_H	cstl/cstl_hashtable_iterator.h	24;"	d
-_CSTL_HASHTABLE_PRIVATE_H	cstl/cstl_hashtable_private.h	24;"	d
-_CSTL_HASH_MAP_H	cstl/cstl_hash_map.h	24;"	d
-_CSTL_HASH_MAP_ITERATOR_H	cstl/cstl_hash_map_iterator.h	24;"	d
-_CSTL_HASH_MAP_PRIVATE_H	cstl/cstl_hash_map_private.h	24;"	d
-_CSTL_HASH_MULTIMAP_H	cstl/cstl_hash_multimap.h	24;"	d
-_CSTL_HASH_MULTIMAP_ITERATOR_H	cstl/cstl_hash_multimap_iterator.h	24;"	d
-_CSTL_HASH_MULTIMAP_PRIVATE_H	cstl/cstl_hash_multimap_private.h	24;"	d
-_CSTL_HASH_MULTISET_H	cstl/cstl_hash_multiset.h	24;"	d
-_CSTL_HASH_MULTISET_ITERATOR_H	cstl/cstl_hash_multiset_iterator.h	24;"	d
-_CSTL_HASH_MULTISET_PRIVATE_H	cstl/cstl_hash_multiset_private.h	24;"	d
-_CSTL_HASH_SET_H	cstl/cstl_hash_set.h	24;"	d
-_CSTL_HASH_SET_ITERATOR_H	cstl/cstl_hash_set_iterator.h	24;"	d
-_CSTL_HASH_SET_PRIVATE_H	cstl/cstl_hash_set_private.h	24;"	d
-_CSTL_HEAP_H	cstl/cstl_heap.h	24;"	d
-_CSTL_ITERATOR_H	cstl/cstl_iterator.h	24;"	d
-_CSTL_ITERATOR_PRIVATE_H	cstl/cstl_iterator_private.h	24;"	d
+_CSTL_DEQUE_H_	cstl/cstl_deque.h	24;"	d
+_CSTL_DEQUE_ITERATOR_H_	cstl/cstl_deque_iterator.h	24;"	d
+_CSTL_DEQUE_PRIVATE_H_	cstl/cstl_deque_private.h	24;"	d
+_CSTL_FUNCTION_H_	cstl/cstl_function.h	24;"	d
+_CSTL_FUNCTION_PRIVATE_H_	cstl/cstl_function_private.h	24;"	d
+_CSTL_HASHTABLE_ITERATOR_H_	cstl/cstl_hashtable_iterator.h	24;"	d
+_CSTL_HASHTABLE_PRIVATE_H_	cstl/cstl_hashtable_private.h	24;"	d
+_CSTL_HASH_MAP_H_	cstl/cstl_hash_map.h	24;"	d
+_CSTL_HASH_MAP_ITERATOR_H_	cstl/cstl_hash_map_iterator.h	24;"	d
+_CSTL_HASH_MAP_PRIVATE_H_	cstl/cstl_hash_map_private.h	24;"	d
+_CSTL_HASH_MULTIMAP_H_	cstl/cstl_hash_multimap.h	24;"	d
+_CSTL_HASH_MULTIMAP_ITERATOR_H_	cstl/cstl_hash_multimap_iterator.h	24;"	d
+_CSTL_HASH_MULTIMAP_PRIVATE_H_	cstl/cstl_hash_multimap_private.h	24;"	d
+_CSTL_HASH_MULTISET_H_	cstl/cstl_hash_multiset.h	24;"	d
+_CSTL_HASH_MULTISET_ITERATOR_H_	cstl/cstl_hash_multiset_iterator.h	24;"	d
+_CSTL_HASH_MULTISET_PRIVATE_H_	cstl/cstl_hash_multiset_private.h	24;"	d
+_CSTL_HASH_SET_H_	cstl/cstl_hash_set.h	24;"	d
+_CSTL_HASH_SET_ITERATOR_H_	cstl/cstl_hash_set_iterator.h	24;"	d
+_CSTL_HASH_SET_PRIVATE_H_	cstl/cstl_hash_set_private.h	24;"	d
+_CSTL_HEAP_H_	cstl/cstl_heap.h	24;"	d
+_CSTL_ITERATOR_H_	cstl/cstl_iterator.h	24;"	d
+_CSTL_ITERATOR_PRIVATE_H_	cstl/cstl_iterator_private.h	24;"	d
 _CSTL_LEFT_BRACKET	cstl/cstl_types.h	116;"	d
 _CSTL_LIST_AUX_H	src/cstl_list_aux.h	24;"	d
-_CSTL_LIST_H	cstl/cstl_list.h	24;"	d
-_CSTL_LIST_ITERATOR_H	cstl/cstl_list_iterator.h	24;"	d
-_CSTL_LIST_PRIVATE_H	cstl/cstl_list_private.h	24;"	d
-_CSTL_MAP_H	cstl/cstl_map.h	24;"	d
-_CSTL_MAP_ITERATOR_H	cstl/cstl_map_iterator.h	24;"	d
-_CSTL_MAP_PRIVATE_H	cstl/cstl_map_private.h	24;"	d
-_CSTL_MULTIMAP_H	cstl/cstl_multimap.h	24;"	d
-_CSTL_MULTIMAP_ITERATOR_H	cstl/cstl_multimap_iterator.h	24;"	d
-_CSTL_MULTIMAP_PRIVATE_H	cstl/cstl_multimap_private.h	24;"	d
-_CSTL_MULTISET_H	cstl/cstl_multiset.h	24;"	d
-_CSTL_MULTISET_ITERATOR_H	cstl/cstl_multiset_iterator.h	24;"	d
-_CSTL_MULTISET_PRIVATE_H	cstl/cstl_multiset_private.h	24;"	d
-_CSTL_NUMERIC_H	cstl/cstl_numeric.h	24;"	d
-_CSTL_NUMERIC_PRIVATE_H	cstl/cstl_numeric_private.h	24;"	d
-_CSTL_PAIR_H	cstl/cstl_pair.h	24;"	d
-_CSTL_PRIORITY_QUEUE_H	cstl/cstl_priority_queue.h	23;"	d
-_CSTL_PRIORITY_QUEUE_PRIVATE_H	cstl/cstl_priority_queue_private.h	23;"	d
-_CSTL_QUEUE_H	cstl/cstl_queue.h	24;"	d
-_CSTL_QUEUE_PRIVATE_H	cstl/cstl_queue_private.h	24;"	d
-_CSTL_RB_TREE_ITERATOR_H	cstl/cstl_rb_tree_iterator.h	24;"	d
-_CSTL_RB_TREE_PRIVATE_H	cstl/cstl_rb_tree_private.h	24;"	d
+_CSTL_LIST_H_	cstl/cstl_list.h	24;"	d
+_CSTL_LIST_ITERATOR_H_	cstl/cstl_list_iterator.h	24;"	d
+_CSTL_LIST_PRIVATE_H_	cstl/cstl_list_private.h	24;"	d
+_CSTL_MAP_H_	cstl/cstl_map.h	24;"	d
+_CSTL_MAP_ITERATOR_H_	cstl/cstl_map_iterator.h	24;"	d
+_CSTL_MAP_PRIVATE_H_	cstl/cstl_map_private.h	24;"	d
+_CSTL_MULTIMAP_H_	cstl/cstl_multimap.h	24;"	d
+_CSTL_MULTIMAP_ITERATOR_H_	cstl/cstl_multimap_iterator.h	24;"	d
+_CSTL_MULTIMAP_PRIVATE_H_	cstl/cstl_multimap_private.h	24;"	d
+_CSTL_MULTISET_H_	cstl/cstl_multiset.h	24;"	d
+_CSTL_MULTISET_ITERATOR_H_	cstl/cstl_multiset_iterator.h	24;"	d
+_CSTL_MULTISET_PRIVATE_H_	cstl/cstl_multiset_private.h	24;"	d
+_CSTL_NUMERIC_H_	cstl/cstl_numeric.h	24;"	d
+_CSTL_NUMERIC_PRIVATE_H_	cstl/cstl_numeric_private.h	24;"	d
+_CSTL_PAIR_H_	cstl/cstl_pair.h	24;"	d
+_CSTL_PRIORITY_QUEUE_H_	cstl/cstl_priority_queue.h	23;"	d
+_CSTL_PRIORITY_QUEUE_PRIVATE_H_	cstl/cstl_priority_queue_private.h	23;"	d
+_CSTL_QUEUE_H_	cstl/cstl_queue.h	24;"	d
+_CSTL_QUEUE_PRIVATE_H_	cstl/cstl_queue_private.h	24;"	d
+_CSTL_RB_TREE_ITERATOR_H_	cstl/cstl_rb_tree_iterator.h	24;"	d
+_CSTL_RB_TREE_PRIVATE_H_	cstl/cstl_rb_tree_private.h	24;"	d
 _CSTL_RIGHT_BRACKET	cstl/cstl_types.h	117;"	d
-_CSTL_SET_H	cstl/cstl_set.h	24;"	d
-_CSTL_SET_ITERATOR_H	cstl/cstl_set_iterator.h	24;"	d
-_CSTL_SET_PRIVATE_H	cstl/cstl_set_private.h	24;"	d
+_CSTL_SET_H_	cstl/cstl_set.h	24;"	d
+_CSTL_SET_ITERATOR_H_	cstl/cstl_set_iterator.h	24;"	d
+_CSTL_SET_PRIVATE_H_	cstl/cstl_set_private.h	24;"	d
 _CSTL_SLIST_AUX_H	src/cstl_slist_aux.h	24;"	d
-_CSTL_SLIST_H	cstl/cstl_slist.h	24;"	d
-_CSTL_SLIST_ITERATOR_H	cstl/cstl_slist_iterator.h	24;"	d
-_CSTL_SLIST_PRIVATE_H	cstl/cstl_slist_private.h	24;"	d
+_CSTL_SLIST_H_	cstl/cstl_slist.h	24;"	d
+_CSTL_SLIST_ITERATOR_H_	cstl/cstl_slist_iterator.h	24;"	d
+_CSTL_SLIST_PRIVATE_H_	cstl/cstl_slist_private.h	24;"	d
 _CSTL_SORT_THRESHOLD	src/cstl_algo.c	39;"	d	file:
-_CSTL_STACK_H	cstl/cstl_stack.h	24;"	d
-_CSTL_STACK_PRIVATE_H	cstl/cstl_stack_private.h	24;"	d
-_CSTL_STRING_H	cstl/cstl_string.h	24;"	d
-_CSTL_STRING_ITERATOR_H	cstl/cstl_string_iterator.h	24;"	d
-_CSTL_TYPES_H	cstl/cstl_types.h	24;"	d
+_CSTL_STACK_H_	cstl/cstl_stack.h	24;"	d
+_CSTL_STACK_PRIVATE_H_	cstl/cstl_stack_private.h	24;"	d
+_CSTL_STRING_H_	cstl/cstl_string.h	24;"	d
+_CSTL_STRING_ITERATOR_H_	cstl/cstl_string_iterator.h	24;"	d
+_CSTL_TYPES_H_	cstl/cstl_types.h	24;"	d
 _CSTL_VECTOR_AUX_H	src/cstl_vector_aux.h	24;"	d
-_CSTL_VECTOR_H	cstl/cstl_vector.h	24;"	d
-_CSTL_VECTOR_ITERATOR_H	cstl/cstl_vector_iterator.h	24;"	d
-_CSTL_VECTOR_PRIVATE_H	cstl/cstl_vector_private.h	24;"	d
-_CSTRING_H	cstl/cstring.h	24;"	d
-_CUTILITY_H	cstl/cutility.h	24;"	d
-_CVECTOR_H	cstl/cvector.h	24;"	d
+_CSTL_VECTOR_H_	cstl/cstl_vector.h	24;"	d
+_CSTL_VECTOR_ITERATOR_H_	cstl/cstl_vector_iterator.h	24;"	d
+_CSTL_VECTOR_PRIVATE_H_	cstl/cstl_vector_private.h	24;"	d
+_CSTRING_H_	cstl/cstring.h	24;"	d
+_CUTILITY_H_	cstl/cutility.h	24;"	d
+_CVECTOR_H_	cstl/cvector.h	24;"	d
 _C_STRING_TYPE	cstl/cstl_types.h	67;"	d
 _DEQUE_CONTAINER	cstl/cstl_iterator.h	/^    _DEQUE_CONTAINER,$/;"	e	enum:_tagcontainertype
 _DEQUE_ELEM_COUNT	src/cstl_deque_aux.h	35;"	d
@@ -1371,14 +1393,14 @@ _GET_BASIC_STRING_CONTAINER	cstl/cstl_iterator.h	157;"	d
 _GET_BASIC_STRING_CONTAINER_TYPE	cstl/cstl_iterator.h	159;"	d
 _GET_BASIC_STRING_COREPOS	cstl/cstl_iterator.h	155;"	d
 _GET_BASIC_STRING_ITERATOR_TYPE	cstl/cstl_iterator.h	161;"	d
-_GET_BASIC_STRING_TYPE_BASENAME	src/cstl_basic_string.c	43;"	d	file:
-_GET_BASIC_STRING_TYPE_COPY_FUNCTION	src/cstl_basic_string.c	47;"	d	file:
-_GET_BASIC_STRING_TYPE_DESTROY_FUNCTION	src/cstl_basic_string.c	51;"	d	file:
-_GET_BASIC_STRING_TYPE_INIT_FUNCTION	src/cstl_basic_string.c	45;"	d	file:
-_GET_BASIC_STRING_TYPE_LESS_FUNCTION	src/cstl_basic_string.c	49;"	d	file:
-_GET_BASIC_STRING_TYPE_NAME	src/cstl_basic_string.c	41;"	d	file:
-_GET_BASIC_STRING_TYPE_SIZE	src/cstl_basic_string.c	39;"	d	file:
-_GET_BASIC_STRING_TYPE_STYLE	src/cstl_basic_string.c	53;"	d	file:
+_GET_BASIC_STRING_TYPE_BASENAME	src/cstl_basic_string_aux.h	38;"	d
+_GET_BASIC_STRING_TYPE_COPY_FUNCTION	src/cstl_basic_string_aux.h	42;"	d
+_GET_BASIC_STRING_TYPE_DESTROY_FUNCTION	src/cstl_basic_string_aux.h	46;"	d
+_GET_BASIC_STRING_TYPE_INIT_FUNCTION	src/cstl_basic_string_aux.h	40;"	d
+_GET_BASIC_STRING_TYPE_LESS_FUNCTION	src/cstl_basic_string_aux.h	44;"	d
+_GET_BASIC_STRING_TYPE_NAME	src/cstl_basic_string_aux.h	36;"	d
+_GET_BASIC_STRING_TYPE_SIZE	src/cstl_basic_string_aux.h	34;"	d
+_GET_BASIC_STRING_TYPE_STYLE	src/cstl_basic_string_aux.h	48;"	d
 _GET_CONTAINER	cstl/cstl_iterator.h	164;"	d
 _GET_CONTAINER_TYPE	cstl/cstl_iterator.h	166;"	d
 _GET_DEQUE_AFTERLAST_POS	cstl/cstl_iterator.h	56;"	d
@@ -1882,6 +1904,7 @@ _UNSIGNED_SHORT_TYPE	cstl/cstl_types.h	46;"	d
 _UNSIGNED_TYPE	cstl/cstl_types.h	53;"	d
 _UT_CSTL_ALLOC_AUX_H	test/ut/ut_cstl_alloc_aux.h	2;"	d
 _UT_CSTL_ALLOC_H	test/ut/ut_cstl_alloc.h	2;"	d
+_UT_CSTL_BASIC_STRING_ITERATOR_H_	test/ut/ut_cstl_basic_string_iterator.h	2;"	d
 _UT_CSTL_DEQUE_AUX_H_	test/ut/ut_cstl_deque_aux.h	2;"	d
 _UT_CSTL_DEQUE_H_	test/ut/ut_cstl_deque.h	2;"	d
 _UT_CSTL_DEQUE_ITERATOR_H_	test/ut/ut_cstl_deque_iterator.h	2;"	d
@@ -1890,6 +1913,7 @@ _UT_CSTL_LIST_AUX_H_	test/ut/ut_cstl_list_aux.h	2;"	d
 _UT_CSTL_LIST_H_	test/ut/ut_cstl_list.h	2;"	d
 _UT_CSTL_LIST_ITERATOR_H_	test/ut/ut_cstl_list_iterator.h	2;"	d
 _UT_CSTL_LIST_PRIVATE_H_	test/ut/ut_cstl_list_private.h	2;"	d
+_UT_CSTL_QUEUE_H_	test/ut/ut_cstl_queue.h	2;"	d
 _UT_CSTL_QUEUE_PRIVATE_H_	test/ut/ut_cstl_queue_private.h	2;"	d
 _UT_CSTL_SLIST_AUX_H_	test/ut/ut_cstl_slist_aux.h	2;"	d
 _UT_CSTL_SLIST_H_	test/ut/ut_cstl_slist.h	2;"	d
@@ -2122,99 +2146,99 @@ _avl_tree_swap	src/cstl_avl_tree.c	/^void _avl_tree_swap(avl_tree_t* pt_avl_tree
 _avl_tree_upper_bound	cstl/cstl_avl_tree_private.h	/^extern avl_tree_iterator_t _avl_tree_upper_bound($/;"	p	signature:( const avl_tree_t* cpt_avl_tree, const void* cpv_value)
 _avl_tree_upper_bound	src/cstl_avl_tree.c	/^avl_tree_iterator_t _avl_tree_upper_bound($/;"	f	signature:( const avl_tree_t* cpt_avl_tree, const void* cpv_value)
 _basic_string_append_elem	cstl/cstl_basic_string_private.h	/^extern void _basic_string_append_elem($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_count, ...)
-_basic_string_append_elem	src/cstl_basic_string.c	/^void _basic_string_append_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, ...)
+_basic_string_append_elem	src/cstl_basic_string_private.c	/^void _basic_string_append_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, ...)
 _basic_string_append_elem_varg	cstl/cstl_basic_string_private.h	/^extern void _basic_string_append_elem_varg($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
-_basic_string_append_elem_varg	src/cstl_basic_string.c	/^void _basic_string_append_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
+_basic_string_append_elem_varg	src/cstl_basic_string_private.c	/^void _basic_string_append_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 _basic_string_assign_elem	cstl/cstl_basic_string_private.h	/^extern void _basic_string_assign_elem($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_count, ...)
-_basic_string_assign_elem	src/cstl_basic_string.c	/^void _basic_string_assign_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, ...)
+_basic_string_assign_elem	src/cstl_basic_string_private.c	/^void _basic_string_assign_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, ...)
 _basic_string_assign_elem_varg	cstl/cstl_basic_string_private.h	/^extern void _basic_string_assign_elem_varg($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
-_basic_string_assign_elem_varg	src/cstl_basic_string.c	/^void _basic_string_assign_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
+_basic_string_assign_elem_varg	src/cstl_basic_string_private.c	/^void _basic_string_assign_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 _basic_string_connect_elem	cstl/cstl_basic_string_private.h	/^extern void _basic_string_connect_elem(basic_string_t* pt_basic_string, ...);$/;"	p	signature:(basic_string_t* pt_basic_string, ...)
-_basic_string_connect_elem	src/cstl_basic_string.c	/^void _basic_string_connect_elem(basic_string_t* pt_basic_string, ...)$/;"	f	signature:(basic_string_t* pt_basic_string, ...)
+_basic_string_connect_elem	src/cstl_basic_string_private.c	/^void _basic_string_connect_elem(basic_string_t* pt_basic_string, ...)$/;"	f	signature:(basic_string_t* pt_basic_string, ...)
 _basic_string_connect_elem_varg	cstl/cstl_basic_string_private.h	/^extern void _basic_string_connect_elem_varg($/;"	p	signature:( basic_string_t* pt_basic_string, va_list val_elemlist)
-_basic_string_connect_elem_varg	src/cstl_basic_string.c	/^void _basic_string_connect_elem_varg(basic_string_t* pt_basic_string, va_list val_elemlist)$/;"	f	signature:(basic_string_t* pt_basic_string, va_list val_elemlist)
+_basic_string_connect_elem_varg	src/cstl_basic_string_private.c	/^void _basic_string_connect_elem_varg(basic_string_t* pt_basic_string, va_list val_elemlist)$/;"	f	signature:(basic_string_t* pt_basic_string, va_list val_elemlist)
 _basic_string_destroy_auxiliary	cstl/cstl_basic_string_private.h	/^extern void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string);$/;"	p	signature:(basic_string_t* pt_basic_string)
-_basic_string_destroy_auxiliary	src/cstl_basic_string.c	/^void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string)$/;"	f	signature:(basic_string_t* pt_basic_string)
-_basic_string_destroy_varg_value_auxiliary	src/cstl_basic_string.c	/^static void _basic_string_destroy_varg_value_auxiliary($/;"	f	file:	signature:( basic_string_t* pt_basic_string, void* pv_varg)
-_basic_string_destroy_varg_value_auxiliary	src/cstl_basic_string.c	/^static void _basic_string_destroy_varg_value_auxiliary($/;"	p	file:	signature:( basic_string_t* pt_basic_string, void* pv_varg)
+_basic_string_destroy_auxiliary	src/cstl_basic_string_private.c	/^void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string)$/;"	f	signature:(basic_string_t* pt_basic_string)
+_basic_string_destroy_varg_value_auxiliary	src/cstl_basic_string_aux.c	/^void _basic_string_destroy_varg_value_auxiliary($/;"	f	signature:( basic_string_t* pt_basic_string, void* pv_varg)
+_basic_string_destroy_varg_value_auxiliary	src/cstl_basic_string_aux.h	/^extern void _basic_string_destroy_varg_value_auxiliary($/;"	p	signature:( basic_string_t* pt_basic_string, void* pv_varg)
 _basic_string_find_elem	cstl/cstl_basic_string_private.h	/^extern size_t _basic_string_find_elem($/;"	p	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
-_basic_string_find_elem	src/cstl_basic_string.c	/^size_t _basic_string_find_elem($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
+_basic_string_find_elem	src/cstl_basic_string_private.c	/^size_t _basic_string_find_elem($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
 _basic_string_find_elem_varg	cstl/cstl_basic_string_private.h	/^extern size_t _basic_string_find_elem_varg($/;"	p	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
-_basic_string_find_elem_varg	src/cstl_basic_string.c	/^size_t _basic_string_find_elem_varg($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
+_basic_string_find_elem_varg	src/cstl_basic_string_private.c	/^size_t _basic_string_find_elem_varg($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
 _basic_string_find_first_not_of_elem	cstl/cstl_basic_string_private.h	/^extern size_t _basic_string_find_first_not_of_elem($/;"	p	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
-_basic_string_find_first_not_of_elem	src/cstl_basic_string.c	/^size_t _basic_string_find_first_not_of_elem($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
+_basic_string_find_first_not_of_elem	src/cstl_basic_string_private.c	/^size_t _basic_string_find_first_not_of_elem($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
 _basic_string_find_first_not_of_elem_varg	cstl/cstl_basic_string_private.h	/^extern size_t _basic_string_find_first_not_of_elem_varg($/;"	p	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
-_basic_string_find_first_not_of_elem_varg	src/cstl_basic_string.c	/^size_t _basic_string_find_first_not_of_elem_varg($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
+_basic_string_find_first_not_of_elem_varg	src/cstl_basic_string_private.c	/^size_t _basic_string_find_first_not_of_elem_varg($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
 _basic_string_find_last_not_of_elem	cstl/cstl_basic_string_private.h	/^extern size_t _basic_string_find_last_not_of_elem($/;"	p	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
-_basic_string_find_last_not_of_elem	src/cstl_basic_string.c	/^size_t _basic_string_find_last_not_of_elem($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
+_basic_string_find_last_not_of_elem	src/cstl_basic_string_private.c	/^size_t _basic_string_find_last_not_of_elem($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
 _basic_string_find_last_not_of_elem_varg	cstl/cstl_basic_string_private.h	/^extern size_t _basic_string_find_last_not_of_elem_varg($/;"	p	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
-_basic_string_find_last_not_of_elem_varg	src/cstl_basic_string.c	/^size_t _basic_string_find_last_not_of_elem_varg($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
-_basic_string_get_varg_value_auxiliary	src/cstl_basic_string.c	/^static void _basic_string_get_varg_value_auxiliary($/;"	f	file:	signature:( basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg)
-_basic_string_get_varg_value_auxiliary	src/cstl_basic_string.c	/^static void _basic_string_get_varg_value_auxiliary($/;"	p	file:	signature:( basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg)
+_basic_string_find_last_not_of_elem_varg	src/cstl_basic_string_private.c	/^size_t _basic_string_find_last_not_of_elem_varg($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
+_basic_string_get_varg_value_auxiliary	src/cstl_basic_string_aux.c	/^void _basic_string_get_varg_value_auxiliary($/;"	f	signature:( basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg)
+_basic_string_get_varg_value_auxiliary	src/cstl_basic_string_aux.h	/^extern void _basic_string_get_varg_value_auxiliary($/;"	p	signature:( basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg)
 _basic_string_init_elem	cstl/cstl_basic_string_private.h	/^extern void _basic_string_init_elem(basic_string_t* pt_basic_string, size_t t_count, ...);$/;"	p	signature:(basic_string_t* pt_basic_string, size_t t_count, ...)
-_basic_string_init_elem	src/cstl_basic_string.c	/^void _basic_string_init_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, ...)
+_basic_string_init_elem	src/cstl_basic_string_private.c	/^void _basic_string_init_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, ...)
 _basic_string_init_elem_auxiliary	cstl/cstl_basic_string_private.h	/^extern void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_value);$/;"	p	signature:(basic_string_t* pt_basic_string, void* pv_value)
-_basic_string_init_elem_auxiliary	src/cstl_basic_string.c	/^void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem)$/;"	f	signature:(basic_string_t* pt_basic_string, void* pv_elem)
+_basic_string_init_elem_auxiliary	src/cstl_basic_string_private.c	/^void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem)$/;"	f	signature:(basic_string_t* pt_basic_string, void* pv_elem)
 _basic_string_init_elem_varg	cstl/cstl_basic_string_private.h	/^extern void _basic_string_init_elem_varg($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
-_basic_string_init_elem_varg	src/cstl_basic_string.c	/^void _basic_string_init_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
+_basic_string_init_elem_varg	src/cstl_basic_string_private.c	/^void _basic_string_init_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 _basic_string_insert	cstl/cstl_basic_string_private.h	/^extern basic_string_iterator_t _basic_string_insert($/;"	p	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, ...)
-_basic_string_insert	src/cstl_basic_string.c	/^basic_string_iterator_t _basic_string_insert($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, ...)
+_basic_string_insert	src/cstl_basic_string_private.c	/^basic_string_iterator_t _basic_string_insert($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, ...)
 _basic_string_insert_elem	cstl/cstl_basic_string_private.h	/^extern void _basic_string_insert_elem($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, ...)
-_basic_string_insert_elem	src/cstl_basic_string.c	/^void _basic_string_insert_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, ...)
+_basic_string_insert_elem	src/cstl_basic_string_private.c	/^void _basic_string_insert_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, ...)
 _basic_string_insert_elem_varg	cstl/cstl_basic_string_private.h	/^extern void _basic_string_insert_elem_varg($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, va_list val_elemlist)
-_basic_string_insert_elem_varg	src/cstl_basic_string.c	/^void _basic_string_insert_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, va_list val_elemlist)
+_basic_string_insert_elem_varg	src/cstl_basic_string_private.c	/^void _basic_string_insert_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, va_list val_elemlist)
 _basic_string_insert_n	cstl/cstl_basic_string_private.h	/^extern basic_string_iterator_t _basic_string_insert_n($/;"	p	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, ...)
-_basic_string_insert_n	src/cstl_basic_string.c	/^basic_string_iterator_t _basic_string_insert_n($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, ...)
+_basic_string_insert_n	src/cstl_basic_string_private.c	/^basic_string_iterator_t _basic_string_insert_n($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, ...)
 _basic_string_insert_n_varg	cstl/cstl_basic_string_private.h	/^extern basic_string_iterator_t _basic_string_insert_n_varg($/;"	p	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, va_list val_elemlist)
-_basic_string_insert_n_varg	src/cstl_basic_string.c	/^basic_string_iterator_t _basic_string_insert_n_varg($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, va_list val_elemlist)
+_basic_string_insert_n_varg	src/cstl_basic_string_private.c	/^basic_string_iterator_t _basic_string_insert_n_varg($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, va_list val_elemlist)
 _basic_string_iterator_at	cstl/cstl_basic_string_iterator.h	/^extern void* _basic_string_iterator_at($/;"	p	signature:( basic_string_iterator_t t_iter, int n_index)
-_basic_string_iterator_at	src/cstl_basic_string.c	/^void* _basic_string_iterator_at(basic_string_iterator_t t_iter, int n_index)$/;"	f	signature:(basic_string_iterator_t t_iter, int n_index)
+_basic_string_iterator_at	src/cstl_basic_string_iterator.c	/^void* _basic_string_iterator_at(basic_string_iterator_t t_iter, int n_index)$/;"	f	signature:(basic_string_iterator_t t_iter, int n_index)
 _basic_string_iterator_before	cstl/cstl_basic_string_iterator.h	/^extern bool_t _basic_string_iterator_before($/;"	p	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
-_basic_string_iterator_before	src/cstl_basic_string.c	/^bool_t _basic_string_iterator_before($/;"	f	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
+_basic_string_iterator_before	src/cstl_basic_string_iterator.c	/^bool_t _basic_string_iterator_before($/;"	f	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
 _basic_string_iterator_equal	cstl/cstl_basic_string_iterator.h	/^extern bool_t _basic_string_iterator_equal($/;"	p	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
-_basic_string_iterator_equal	src/cstl_basic_string.c	/^bool_t _basic_string_iterator_equal($/;"	f	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
+_basic_string_iterator_equal	src/cstl_basic_string_iterator.c	/^bool_t _basic_string_iterator_equal($/;"	f	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
 _basic_string_iterator_get_pointer	cstl/cstl_basic_string_iterator.h	/^extern const void* _basic_string_iterator_get_pointer($/;"	p	signature:( basic_string_iterator_t t_iter)
-_basic_string_iterator_get_pointer	src/cstl_basic_string.c	/^const void* _basic_string_iterator_get_pointer(basic_string_iterator_t t_iter)$/;"	f	signature:(basic_string_iterator_t t_iter)
+_basic_string_iterator_get_pointer	src/cstl_basic_string_iterator.c	/^const void* _basic_string_iterator_get_pointer(basic_string_iterator_t t_iter)$/;"	f	signature:(basic_string_iterator_t t_iter)
 _basic_string_iterator_get_value	cstl/cstl_basic_string_iterator.h	/^extern void _basic_string_iterator_get_value($/;"	p	signature:( basic_string_iterator_t t_iter, void* pv_value)
-_basic_string_iterator_get_value	src/cstl_basic_string.c	/^void _basic_string_iterator_get_value($/;"	f	signature:( basic_string_iterator_t t_iter, void* pv_value)
+_basic_string_iterator_get_value	src/cstl_basic_string_iterator.c	/^void _basic_string_iterator_get_value($/;"	f	signature:( basic_string_iterator_t t_iter, void* pv_value)
 _basic_string_iterator_less	cstl/cstl_basic_string_iterator.h	/^extern bool_t _basic_string_iterator_less($/;"	p	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
-_basic_string_iterator_less	src/cstl_basic_string.c	/^bool_t _basic_string_iterator_less($/;"	f	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
+_basic_string_iterator_less	src/cstl_basic_string_iterator.c	/^bool_t _basic_string_iterator_less($/;"	f	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
 _basic_string_iterator_minus	cstl/cstl_basic_string_iterator.h	/^extern int _basic_string_iterator_minus($/;"	p	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
-_basic_string_iterator_minus	src/cstl_basic_string.c	/^int _basic_string_iterator_minus($/;"	f	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
+_basic_string_iterator_minus	src/cstl_basic_string_iterator.c	/^int _basic_string_iterator_minus($/;"	f	signature:( basic_string_iterator_t t_iterfirst, basic_string_iterator_t t_itersecond)
 _basic_string_iterator_next	cstl/cstl_basic_string_iterator.h	/^extern basic_string_iterator_t _basic_string_iterator_next($/;"	p	signature:( basic_string_iterator_t t_iter)
-_basic_string_iterator_next	src/cstl_basic_string.c	/^basic_string_iterator_t _basic_string_iterator_next(basic_string_iterator_t t_iter)$/;"	f	signature:(basic_string_iterator_t t_iter)
+_basic_string_iterator_next	src/cstl_basic_string_iterator.c	/^basic_string_iterator_t _basic_string_iterator_next(basic_string_iterator_t t_iter)$/;"	f	signature:(basic_string_iterator_t t_iter)
 _basic_string_iterator_next_n	cstl/cstl_basic_string_iterator.h	/^extern basic_string_iterator_t _basic_string_iterator_next_n($/;"	p	signature:( basic_string_iterator_t t_iter, int n_step)
-_basic_string_iterator_next_n	src/cstl_basic_string.c	/^basic_string_iterator_t _basic_string_iterator_next_n($/;"	f	signature:( basic_string_iterator_t t_iter, int n_step)
+_basic_string_iterator_next_n	src/cstl_basic_string_iterator.c	/^basic_string_iterator_t _basic_string_iterator_next_n($/;"	f	signature:( basic_string_iterator_t t_iter, int n_step)
 _basic_string_iterator_prev	cstl/cstl_basic_string_iterator.h	/^extern basic_string_iterator_t _basic_string_iterator_prev($/;"	p	signature:( basic_string_iterator_t t_iter)
-_basic_string_iterator_prev	src/cstl_basic_string.c	/^basic_string_iterator_t _basic_string_iterator_prev($/;"	f	signature:( basic_string_iterator_t t_iter)
+_basic_string_iterator_prev	src/cstl_basic_string_iterator.c	/^basic_string_iterator_t _basic_string_iterator_prev($/;"	f	signature:( basic_string_iterator_t t_iter)
 _basic_string_iterator_prev_n	cstl/cstl_basic_string_iterator.h	/^extern basic_string_iterator_t _basic_string_iterator_prev_n($/;"	p	signature:( basic_string_iterator_t t_iter, int n_step)
-_basic_string_iterator_prev_n	src/cstl_basic_string.c	/^basic_string_iterator_t _basic_string_iterator_prev_n($/;"	f	signature:( basic_string_iterator_t t_iter, int n_step)
+_basic_string_iterator_prev_n	src/cstl_basic_string_iterator.c	/^basic_string_iterator_t _basic_string_iterator_prev_n($/;"	f	signature:( basic_string_iterator_t t_iter, int n_step)
 _basic_string_iterator_set_value	cstl/cstl_basic_string_iterator.h	/^extern void _basic_string_iterator_set_value($/;"	p	signature:( basic_string_iterator_t t_iter, const void* cpv_value)
-_basic_string_iterator_set_value	src/cstl_basic_string.c	/^void _basic_string_iterator_set_value($/;"	f	signature:( basic_string_iterator_t t_iter, const void* cpv_value)
+_basic_string_iterator_set_value	src/cstl_basic_string_iterator.c	/^void _basic_string_iterator_set_value($/;"	f	signature:( basic_string_iterator_t t_iter, const void* cpv_value)
 _basic_string_pop_back	cstl/cstl_basic_string_private.h	/^extern void _basic_string_pop_back(basic_string_t* pt_basic_string);$/;"	p	signature:(basic_string_t* pt_basic_string)
-_basic_string_pop_back	src/cstl_basic_string.c	/^void _basic_string_pop_back(basic_string_t* pt_basic_string)$/;"	f	signature:(basic_string_t* pt_basic_string)
+_basic_string_pop_back	src/cstl_basic_string_private.c	/^void _basic_string_pop_back(basic_string_t* pt_basic_string)$/;"	f	signature:(basic_string_t* pt_basic_string)
 _basic_string_push_back	cstl/cstl_basic_string_private.h	/^extern void _basic_string_push_back(basic_string_t* pt_basic_string, ...);$/;"	p	signature:(basic_string_t* pt_basic_string, ...)
-_basic_string_push_back	src/cstl_basic_string.c	/^void _basic_string_push_back(basic_string_t* pt_basic_string, ...)$/;"	f	signature:(basic_string_t* pt_basic_string, ...)
+_basic_string_push_back	src/cstl_basic_string_private.c	/^void _basic_string_push_back(basic_string_t* pt_basic_string, ...)$/;"	f	signature:(basic_string_t* pt_basic_string, ...)
 _basic_string_push_back_varg	cstl/cstl_basic_string_private.h	/^extern void _basic_string_push_back_varg($/;"	p	signature:( basic_string_t* pt_basic_string, va_list val_elemlist)
-_basic_string_push_back_varg	src/cstl_basic_string.c	/^void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_elemlist)$/;"	f	signature:(basic_string_t* pt_basic_string, va_list val_elemlist)
+_basic_string_push_back_varg	src/cstl_basic_string_private.c	/^void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_elemlist)$/;"	f	signature:(basic_string_t* pt_basic_string, va_list val_elemlist)
 _basic_string_range_replace_elem	cstl/cstl_basic_string_private.h	/^extern void _basic_string_range_replace_elem($/;"	p	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_begin, basic_string_iterator_t t_end, size_t t_count, ...)
-_basic_string_range_replace_elem	src/cstl_basic_string.c	/^void _basic_string_range_replace_elem($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_begin, basic_string_iterator_t t_end, size_t t_count, ...)
+_basic_string_range_replace_elem	src/cstl_basic_string_private.c	/^void _basic_string_range_replace_elem($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_begin, basic_string_iterator_t t_end, size_t t_count, ...)
 _basic_string_range_replace_elem_varg	cstl/cstl_basic_string_private.h	/^extern void _basic_string_range_replace_elem_varg($/;"	p	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_begin, basic_string_iterator_t t_end, size_t t_count, va_list val_elemlist)
-_basic_string_range_replace_elem_varg	src/cstl_basic_string.c	/^void _basic_string_range_replace_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_begin, basic_string_iterator_t t_end, size_t t_count, va_list val_elemlist)
+_basic_string_range_replace_elem_varg	src/cstl_basic_string_private.c	/^void _basic_string_range_replace_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, basic_string_iterator_t t_begin, basic_string_iterator_t t_end, size_t t_count, va_list val_elemlist)
 _basic_string_replace_elem	cstl/cstl_basic_string_private.h	/^extern void _basic_string_replace_elem($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, ...)
-_basic_string_replace_elem	src/cstl_basic_string.c	/^void _basic_string_replace_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, ...)
+_basic_string_replace_elem	src/cstl_basic_string_private.c	/^void _basic_string_replace_elem($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, ...)
 _basic_string_replace_elem_varg	cstl/cstl_basic_string_private.h	/^extern void _basic_string_replace_elem_varg($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, va_list val_elemlist)
-_basic_string_replace_elem_varg	src/cstl_basic_string.c	/^void _basic_string_replace_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, va_list val_elemlist)
+_basic_string_replace_elem_varg	src/cstl_basic_string_private.c	/^void _basic_string_replace_elem_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, va_list val_elemlist)
 _basic_string_resize	cstl/cstl_basic_string_private.h	/^extern void _basic_string_resize($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_resize, ...)
-_basic_string_resize	src/cstl_basic_string.c	/^void _basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize, ...)$/;"	f	signature:(basic_string_t* pt_basic_string, size_t t_resize, ...)
+_basic_string_resize	src/cstl_basic_string_private.c	/^void _basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize, ...)$/;"	f	signature:(basic_string_t* pt_basic_string, size_t t_resize, ...)
 _basic_string_resize_varg	cstl/cstl_basic_string_private.h	/^extern void _basic_string_resize_varg($/;"	p	signature:( basic_string_t* pt_basic_string, size_t t_resize, va_list val_elemlist)
-_basic_string_resize_varg	src/cstl_basic_string.c	/^void _basic_string_resize_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_resize, va_list val_elemlist)
+_basic_string_resize_varg	src/cstl_basic_string_private.c	/^void _basic_string_resize_varg($/;"	f	signature:( basic_string_t* pt_basic_string, size_t t_resize, va_list val_elemlist)
 _basic_string_rfind_elem	cstl/cstl_basic_string_private.h	/^extern size_t _basic_string_rfind_elem($/;"	p	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
-_basic_string_rfind_elem	src/cstl_basic_string.c	/^size_t _basic_string_rfind_elem($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
+_basic_string_rfind_elem	src/cstl_basic_string_private.c	/^size_t _basic_string_rfind_elem($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, ...)
 _basic_string_rfind_elem_varg	cstl/cstl_basic_string_private.h	/^extern size_t _basic_string_rfind_elem_varg($/;"	p	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
-_basic_string_rfind_elem_varg	src/cstl_basic_string.c	/^size_t _basic_string_rfind_elem_varg($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
-_basic_string_same_type	src/cstl_basic_string.c	/^static bool_t _basic_string_same_type($/;"	f	file:	signature:( const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
-_basic_string_same_type	src/cstl_basic_string.c	/^static bool_t _basic_string_same_type($/;"	p	file:	signature:( const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
+_basic_string_rfind_elem_varg	src/cstl_basic_string_private.c	/^size_t _basic_string_rfind_elem_varg($/;"	f	signature:( const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
+_basic_string_same_type	src/cstl_basic_string_aux.c	/^bool_t _basic_string_same_type($/;"	f	signature:( const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
+_basic_string_same_type	src/cstl_basic_string_aux.h	/^extern bool_t _basic_string_same_type($/;"	p	signature:( const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
 _binary_copy_vector	test/it/test_algo.c	/^static void _binary_copy_vector(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _binary_copy_vector	test/it/test_algo.c	/^static void _binary_copy_vector(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _byte_t	cstl/cstl_def.h	/^typedef unsigned char            _byte_t;$/;"	t
@@ -2243,9 +2267,10 @@ _create_avl_tree_auxiliary	src/cstl_avl_tree.c	/^bool_t _create_avl_tree_auxilia
 _create_avl_tree_iterator	cstl/cstl_avl_tree_iterator.h	/^extern avl_tree_iterator_t _create_avl_tree_iterator(void);$/;"	p	signature:(void)
 _create_avl_tree_iterator	src/cstl_avl_tree.c	/^avl_tree_iterator_t _create_avl_tree_iterator(void)$/;"	f	signature:(void)
 _create_basic_string	cstl/cstl_basic_string_private.h	/^extern basic_string_t* _create_basic_string(const char* s_typename);$/;"	p	signature:(const char* s_typename)
-_create_basic_string	src/cstl_basic_string.c	/^basic_string_t* _create_basic_string(const char* s_typename)$/;"	f	signature:(const char* s_typename)
+_create_basic_string	src/cstl_basic_string_private.c	/^basic_string_t* _create_basic_string(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_basic_string_auxiliary	cstl/cstl_basic_string_private.h	/^extern bool_t _create_basic_string_auxiliary($/;"	p	signature:( basic_string_t* pt_basic_string, const char* s_typename)
-_create_basic_string_auxiliary	src/cstl_basic_string.c	/^bool_t _create_basic_string_auxiliary(basic_string_t* pt_basic_string, const char* s_typename)$/;"	f	signature:(basic_string_t* pt_basic_string, const char* s_typename)
+_create_basic_string_auxiliary	src/cstl_basic_string_private.c	/^bool_t _create_basic_string_auxiliary(basic_string_t* pt_basic_string, const char* s_typename)$/;"	f	signature:(basic_string_t* pt_basic_string, const char* s_typename)
+_create_basic_string_iterator	cstl/cstl_basic_string_iterator.h	/^extern basic_string_iterator_t _create_basic_string_iterator(void);$/;"	p	signature:(void)
 _create_deque	cstl/cstl_deque_private.h	/^extern deque_t* _create_deque(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_deque	src/cstl_deque_private.c	/^deque_t* _create_deque(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_deque_auxiliary	cstl/cstl_deque_private.h	/^extern bool_t _create_deque_auxiliary(deque_t* pdeq_deque, const char* s_typename);$/;"	p	signature:(deque_t* pdeq_deque, const char* s_typename)
@@ -2301,9 +2326,9 @@ _create_priority_queue	src/cstl_priority_queue_private.c	/^priority_queue_t* _cr
 _create_priority_queue_auxiliary	cstl/cstl_priority_queue_private.h	/^extern bool_t _create_priority_queue_auxiliary($/;"	p	signature:( priority_queue_t* pt_pqueue, const char* s_typename)
 _create_priority_queue_auxiliary	src/cstl_priority_queue_private.c	/^bool_t _create_priority_queue_auxiliary(priority_queue_t* pt_pqueue,  const char* s_typename)$/;"	f	signature:(priority_queue_t* pt_pqueue, const char* s_typename)
 _create_queue	cstl/cstl_queue_private.h	/^extern queue_t* _create_queue(const char* s_typename);$/;"	p	signature:(const char* s_typename)
-_create_queue	src/cstl_queue_private.c	/^queue_t* _create_queue(const char* sz_typename)$/;"	f	signature:(const char* sz_typename)
-_create_queue_auxiliary	cstl/cstl_queue_private.h	/^extern bool_t _create_queue_auxiliary($/;"	p	signature:( queue_t* pt_pqueue, const char* s_typename)
-_create_queue_auxiliary	src/cstl_queue_private.c	/^bool_t _create_queue_auxiliary(queue_t* pt_queue, const char* s_typename)$/;"	f	signature:(queue_t* pt_queue, const char* s_typename)
+_create_queue	src/cstl_queue_private.c	/^queue_t* _create_queue(const char* s_typename)$/;"	f	signature:(const char* s_typename)
+_create_queue_auxiliary	cstl/cstl_queue_private.h	/^extern bool_t _create_queue_auxiliary(queue_t* pque_queue, const char* s_typename);$/;"	p	signature:(queue_t* pque_queue, const char* s_typename)
+_create_queue_auxiliary	src/cstl_queue_private.c	/^bool_t _create_queue_auxiliary(queue_t* pque_queue, const char* s_typename)$/;"	f	signature:(queue_t* pque_queue, const char* s_typename)
 _create_rb_tree	cstl/cstl_rb_tree_private.h	/^extern rb_tree_t* _create_rb_tree(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_rb_tree	src/cstl_rb_tree.c	/^rb_tree_t* _create_rb_tree(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_rb_tree_auxiliary	cstl/cstl_rb_tree_private.h	/^extern bool_t _create_rb_tree_auxiliary(rb_tree_t* pt_rb_tree, const char* s_typename);$/;"	p	signature:(rb_tree_t* pt_rb_tree, const char* s_typename)
@@ -2488,8 +2513,8 @@ _get_min_avlnode	src/cstl_avl_tree.c	/^static avlnode_t* _get_min_avlnode(const 
 _get_min_avlnode	src/cstl_avl_tree.c	/^static avlnode_t* _get_min_avlnode(const avlnode_t* cpt_root);$/;"	p	file:	signature:(const avlnode_t* cpt_root)
 _get_min_rbnode	src/cstl_rb_tree.c	/^static rbnode_t* _get_min_rbnode(const rbnode_t* cpt_root)$/;"	f	file:	signature:(const rbnode_t* cpt_root)
 _get_min_rbnode	src/cstl_rb_tree.c	/^static rbnode_t* _get_min_rbnode(const rbnode_t* cpt_root);$/;"	p	file:	signature:(const rbnode_t* cpt_root)
-_get_valuestring_len	src/cstl_basic_string.c	/^static size_t _get_valuestring_len($/;"	f	file:	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
-_get_valuestring_len	src/cstl_basic_string.c	/^static size_t _get_valuestring_len($/;"	p	file:	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+_get_valuestring_len	src/cstl_basic_string_aux.c	/^size_t _get_valuestring_len($/;"	f	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+_get_valuestring_len	src/cstl_basic_string_aux.h	/^extern size_t _get_valuestring_len($/;"	p	signature:( const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
 _gpfun_malloc_handler	src/cstl_alloc_aux.c	/^void (*_gpfun_malloc_handler)(void) = NULL;$/;"	v
 _gt_typeanalysis	src/cstl_types.c	/^static _typeanalysis_t _gt_typeanalysis = {{'\\0'}, {'\\0'}, 0, _TOKEN_INVALID};$/;"	v	file:
 _gt_typeregister	src/cstl_types.c	/^static _typeregister_t _gt_typeregister = {false, {NULL}, {{NULL}, NULL, NULL, 0, 0, 0}};$/;"	v	file:
@@ -2833,8 +2858,8 @@ _iterator_allocate_init_elem	cstl/cstl_iterator_private.h	/^extern void* _iterat
 _iterator_allocate_init_elem	src/cstl_iterator.c	/^void* _iterator_allocate_init_elem(iterator_t t_iter)$/;"	f	signature:(iterator_t t_iter)
 _iterator_before	cstl/cstl_iterator_private.h	/^extern bool_t _iterator_before(iterator_t t_iterfirst, iterator_t t_itersecond);$/;"	p	signature:(iterator_t t_iterfirst, iterator_t t_itersecond)
 _iterator_before	src/cstl_iterator.c	/^bool_t _iterator_before(iterator_t t_iterfirst, iterator_t t_itersecond)$/;"	f	signature:(iterator_t t_iterfirst, iterator_t t_itersecond)
-_iterator_belong_to_basic_string	src/cstl_basic_string.c	/^static bool_t _iterator_belong_to_basic_string($/;"	f	file:	signature:( const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter)
-_iterator_belong_to_basic_string	src/cstl_basic_string.c	/^static bool_t _iterator_belong_to_basic_string($/;"	p	file:	signature:( const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter)
+_iterator_belong_to_basic_string	src/cstl_basic_string_aux.c	/^bool_t _iterator_belong_to_basic_string($/;"	f	signature:( const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter)
+_iterator_belong_to_basic_string	src/cstl_basic_string_aux.h	/^extern bool_t _iterator_belong_to_basic_string($/;"	p	signature:( const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter)
 _iterator_deallocate_destroy_elem	cstl/cstl_iterator_private.h	/^extern void _iterator_deallocate_destroy_elem(iterator_t t_iter, void* pv_value);$/;"	p	signature:(iterator_t t_iter, void* pv_value)
 _iterator_deallocate_destroy_elem	src/cstl_iterator.c	/^void _iterator_deallocate_destroy_elem(iterator_t t_iter, void* pv_value)$/;"	f	signature:(iterator_t t_iter, void* pv_value)
 _iterator_get_typebasename	cstl/cstl_iterator_private.h	/^extern const char* _iterator_get_typebasename(iterator_t t_iter);$/;"	p	signature:(iterator_t t_iter)
@@ -3372,12 +3397,12 @@ _pt_type	cstl/cstl_types.h	/^    _type_t*     _pt_type;$/;"	m	struct:_tagtypeinf
 _pui_nextmem	cstl/cstl_alloc.h	/^    union _tagmemlink* _pui_nextmem;  \/* point to next memory block *\/$/;"	m	union:_tagmemlink	typeref:union:_tagmemlink::_tagmemlink	access:public
 _pv_first	cstl/cstl_pair.h	/^    void*             _pv_first;$/;"	m	struct:_tagpair	access:public
 _pv_second	cstl/cstl_pair.h	/^    void*             _pv_second;$/;"	m	struct:_tagpair	access:public
-_queue_destroy_auxiliary	cstl/cstl_queue_private.h	/^extern void _queue_destroy_auxiliary(queue_t* pt_queue);$/;"	p	signature:(queue_t* pt_queue)
-_queue_destroy_auxiliary	src/cstl_queue_private.c	/^void _queue_destroy_auxiliary(queue_t* pt_queue)$/;"	f	signature:(queue_t* pt_queue)
-_queue_push	cstl/cstl_queue_private.h	/^extern void _queue_push(queue_t* pt_pqueue, ...);$/;"	p	signature:(queue_t* pt_pqueue, ...)
-_queue_push	src/cstl_queue_private.c	/^void _queue_push(queue_t* pt_queue, ...)$/;"	f	signature:(queue_t* pt_queue, ...)
+_queue_destroy_auxiliary	cstl/cstl_queue_private.h	/^extern void _queue_destroy_auxiliary(queue_t* pque_queue);$/;"	p	signature:(queue_t* pque_queue)
+_queue_destroy_auxiliary	src/cstl_queue_private.c	/^void _queue_destroy_auxiliary(queue_t* pque_queue)$/;"	f	signature:(queue_t* pque_queue)
+_queue_push	cstl/cstl_queue_private.h	/^extern void _queue_push(queue_t* pque_pqueue, ...);$/;"	p	signature:(queue_t* pque_pqueue, ...)
+_queue_push	src/cstl_queue_private.c	/^void _queue_push(queue_t* pque_queue, ...)$/;"	f	signature:(queue_t* pque_queue, ...)
 _queue_push_varg	cstl/cstl_queue_private.h	/^extern void _queue_push_varg(queue_t* pt_queue, va_list val_elemlist);$/;"	p	signature:(queue_t* pt_queue, va_list val_elemlist)
-_queue_push_varg	src/cstl_queue_private.c	/^void _queue_push_varg(queue_t* pt_queue, va_list val_elemlist)$/;"	f	signature:(queue_t* pt_queue, va_list val_elemlist)
+_queue_push_varg	src/cstl_queue_private.c	/^void _queue_push_varg(queue_t* pque_queue, va_list val_elemlist)$/;"	f	signature:(queue_t* pque_queue, va_list val_elemlist)
 _rb_tree_assign	cstl/cstl_rb_tree_private.h	/^extern void _rb_tree_assign($/;"	p	signature:( rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src)
 _rb_tree_assign	src/cstl_rb_tree.c	/^void _rb_tree_assign(rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src)$/;"	f	signature:(rb_tree_t* pt_rb_tree_dest, const rb_tree_t* cpt_rb_tree_src)
 _rb_tree_begin	cstl/cstl_rb_tree_private.h	/^extern rb_tree_iterator_t _rb_tree_begin(const rb_tree_t* cpt_rb_tree);$/;"	p	signature:(const rb_tree_t* cpt_rb_tree)
@@ -3771,6 +3796,8 @@ _tag_test__create_list_auxiliary__user_defined	test/ut/ut_cstl_list_private.c	/^
 _tag_test__create_list_auxiliary__user_defined::n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list_auxiliary__user_defined	file:	access:public
 _tag_test__create_queue__user_defined_type	test/ut/ut_cstl_queue_private.c	/^typedef struct _tag_test__create_queue__user_defined_type$/;"	s	file:
 _tag_test__create_queue__user_defined_type::n_elem	test/ut/ut_cstl_queue_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_queue__user_defined_type	file:	access:public
+_tag_test__create_queue_auxiliary__user_defined	test/ut/ut_cstl_queue_private.c	/^typedef struct _tag_test__create_queue_auxiliary__user_defined$/;"	s	file:
+_tag_test__create_queue_auxiliary__user_defined::n_elem	test/ut/ut_cstl_queue_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_queue_auxiliary__user_defined	file:	access:public
 _tag_test__create_slist__user_defined_type	test/ut/ut_cstl_slist_private.c	/^typedef struct _tag_test__create_slist__user_defined_type$/;"	s	file:
 _tag_test__create_slist__user_defined_type::n_elem	test/ut/ut_cstl_slist_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_slist__user_defined_type	file:	access:public
 _tag_test__create_slist_auxiliary__user_defined	test/ut/ut_cstl_slist_private.c	/^typedef struct _tag_test__create_slist_auxiliary__user_defined$/;"	s	file:
@@ -3803,6 +3830,8 @@ _tag_test_list_init_copy_range__user_define	test/ut/ut_cstl_list.c	/^typedef str
 _tag_test_list_init_copy_range__user_define::n_elem	test/ut/ut_cstl_list.c	/^    int n_elem;$/;"	m	struct:_tag_test_list_init_copy_range__user_define	file:	access:public
 _tag_test_list_init_n__user_define	test/ut/ut_cstl_list.c	/^typedef struct _tag_test_list_init_n__user_define$/;"	s	file:
 _tag_test_list_init_n__user_define::n_elem	test/ut/ut_cstl_list.c	/^    int n_elem;$/;"	m	struct:_tag_test_list_init_n__user_define	file:	access:public
+_tag_test_queue_init_copy__user_define	test/ut/ut_cstl_queue.c	/^typedef struct _tag_test_queue_init_copy__user_define$/;"	s	file:
+_tag_test_queue_init_copy__user_define::n_elem	test/ut/ut_cstl_queue.c	/^    int n_elem;$/;"	m	struct:_tag_test_queue_init_copy__user_define	file:	access:public
 _tag_test_slist_init_copy__user_define	test/ut/ut_cstl_slist.c	/^typedef struct _tag_test_slist_init_copy__user_define$/;"	s	file:
 _tag_test_slist_init_copy__user_define::n_elem	test/ut/ut_cstl_slist.c	/^    int n_elem;$/;"	m	struct:_tag_test_slist_init_copy__user_define	file:	access:public
 _tag_test_slist_init_copy_range__user_define	test/ut/ut_cstl_slist.c	/^typedef struct _tag_test_slist_init_copy_range__user_define$/;"	s	file:
@@ -4047,6 +4076,7 @@ _test__create_deque_auxiliary__user_defined_t	test/ut/ut_cstl_deque_private.c	/^
 _test__create_list__user_defined_type_t	test/ut/ut_cstl_list_private.c	/^}_test__create_list__user_defined_type_t;$/;"	t	typeref:struct:_tag_test__create_list__user_defined_type	file:
 _test__create_list_auxiliary__user_defined_t	test/ut/ut_cstl_list_private.c	/^}_test__create_list_auxiliary__user_defined_t;$/;"	t	typeref:struct:_tag_test__create_list_auxiliary__user_defined	file:
 _test__create_queue__user_defined_type_t	test/ut/ut_cstl_queue_private.c	/^}_test__create_queue__user_defined_type_t;$/;"	t	typeref:struct:_tag_test__create_queue__user_defined_type	file:
+_test__create_queue_auxiliary__user_defined_t	test/ut/ut_cstl_queue_private.c	/^}_test__create_queue_auxiliary__user_defined_t;$/;"	t	typeref:struct:_tag_test__create_queue_auxiliary__user_defined	file:
 _test__create_slist__user_defined_type_t	test/ut/ut_cstl_slist_private.c	/^}_test__create_slist__user_defined_type_t;$/;"	t	typeref:struct:_tag_test__create_slist__user_defined_type	file:
 _test__create_slist_auxiliary__user_defined_t	test/ut/ut_cstl_slist_private.c	/^}_test__create_slist_auxiliary__user_defined_t;$/;"	t	typeref:struct:_tag_test__create_slist_auxiliary__user_defined	file:
 _test__create_stack__user_defined_type_t	test/ut/ut_cstl_stack_private.c	/^}_test__create_stack__user_defined_type_t;$/;"	t	typeref:struct:_tag_test__create_stack__user_defined_type	file:
@@ -4065,6 +4095,7 @@ _test_list_init_copy_range__user_define_t	test/ut/ut_cstl_list.c	/^}_test_list_i
 _test_list_init_n__user_define_t	test/ut/ut_cstl_list.c	/^}_test_list_init_n__user_define_t;$/;"	t	typeref:struct:_tag_test_list_init_n__user_define	file:
 _test_list_remove_if_cstr_ufun_op	test/ut/ut_cstl_list.c	/^static void _test_list_remove_if_cstr_ufun_op(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
 _test_list_remove_if_ufun_op	test/ut/ut_cstl_list.c	/^static void _test_list_remove_if_ufun_op(const void* cpv_input, void* pv_output)$/;"	f	file:	signature:(const void* cpv_input, void* pv_output)
+_test_queue_init_copy__user_define_t	test/ut/ut_cstl_queue.c	/^}_test_queue_init_copy__user_define_t;$/;"	t	typeref:struct:_tag_test_queue_init_copy__user_define	file:
 _test_slist_init_copy__user_define_t	test/ut/ut_cstl_slist.c	/^}_test_slist_init_copy__user_define_t;$/;"	t	typeref:struct:_tag_test_slist_init_copy__user_define	file:
 _test_slist_init_copy_range__user_define_t	test/ut/ut_cstl_slist.c	/^}_test_slist_init_copy_range__user_define_t;$/;"	t	typeref:struct:_tag_test_slist_init_copy_range__user_define	file:
 _test_slist_init_n__user_define_t	test/ut/ut_cstl_slist.c	/^}_test_slist_init_n__user_define_t;$/;"	t	typeref:struct:_tag_test_slist_init_n__user_define	file:
@@ -5270,8 +5301,7 @@ color_t	cstl/cstl_rb_tree_private.h	/^}color_t;$/;"	t	typeref:enum:_tagcolor
 containertype_t	cstl/cstl_iterator.h	/^}containertype_t;$/;"	t	typeref:enum:_tagcontainertype
 coordinates_t	test/it/test_slist.c	/^}coordinates_t;$/;"	t	typeref:struct:_tagcoordinates	file:
 create_basic_string	cstl/cstl_basic_string.h	34;"	d
-create_basic_string_iterator	cstl/cstl_basic_string_iterator.h	/^extern basic_string_iterator_t create_basic_string_iterator(void);$/;"	p	signature:(void)
-create_basic_string_iterator	src/cstl_basic_string.c	/^basic_string_iterator_t create_basic_string_iterator(void)$/;"	f	signature:(void)
+create_basic_string_iterator	src/cstl_basic_string_iterator.c	/^basic_string_iterator_t create_basic_string_iterator(void)$/;"	f	signature:(void)
 create_deque	cstl/cstl_deque.h	40;"	d
 create_hash_map	cstl/cstl_hash_map.h	33;"	d
 create_hash_map_iterator	cstl/cstl_hash_map_iterator.h	/^extern hash_map_iterator_t create_hash_map_iterator(void);$/;"	p	signature:(void)
@@ -5297,7 +5327,7 @@ create_multiset_iterator	cstl/cstl_multiset_iterator.h	/^extern multiset_iterato
 create_multiset_iterator	src/cstl_multiset.c	/^multiset_iterator_t create_multiset_iterator(void)$/;"	f	signature:(void)
 create_pair	cstl/cstl_pair.h	33;"	d
 create_priority_queue	cstl/cstl_priority_queue.h	33;"	d
-create_queue	cstl/cstl_queue.h	34;"	d
+create_queue	cstl/cstl_queue.h	39;"	d
 create_set	cstl/cstl_set.h	34;"	d
 create_set_iterator	cstl/cstl_set_iterator.h	/^extern set_iterator_t create_set_iterator(void);$/;"	p	signature:(void)
 create_set_iterator	src/cstl_set.c	/^set_iterator_t create_set_iterator(void)$/;"	f	signature:(void)
@@ -6908,7 +6938,9 @@ n_elem	test/ut/ut_cstl_list_aux.c	/^    int n_elem;$/;"	m	struct:_tag_test__list
 n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list__user_defined_type	file:	access:public
 n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list_auxiliary__user_defined	file:	access:public
 n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__list_init_elem_auxiliary__successfully_user_defined	file:	access:public
+n_elem	test/ut/ut_cstl_queue.c	/^    int n_elem;$/;"	m	struct:_tag_test_queue_init_copy__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_queue_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_queue__user_defined_type	file:	access:public
+n_elem	test/ut/ut_cstl_queue_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_queue_auxiliary__user_defined	file:	access:public
 n_elem	test/ut/ut_cstl_slist.c	/^    int n_elem;$/;"	m	struct:_tag_test_slist_init_copy__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_slist.c	/^    int n_elem;$/;"	m	struct:_tag_test_slist_init_copy_range__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_slist.c	/^    int n_elem;$/;"	m	struct:_tag_test_slist_init_n__user_define	file:	access:public
@@ -7075,37 +7107,37 @@ psdir	src/Makefile	/^psdir = ${docdir}$/;"	m
 psdir	test/Makefile	/^psdir = ${docdir}$/;"	m
 psdir	test/it/Makefile	/^psdir = ${docdir}$/;"	m
 psdir	test/ut/Makefile	/^psdir = ${docdir}$/;"	m
-queue_assign	cstl/cstl_queue.h	/^extern void queue_assign(queue_t* pt_queuedest, const queue_t* cpt_queuesrc);$/;"	p	signature:(queue_t* pt_queuedest, const queue_t* cpt_queuesrc)
-queue_assign	src/cstl_queue.c	/^void queue_assign(queue_t* pt_queuedest, const queue_t* cpt_queuesrc)$/;"	f	signature:(queue_t* pt_queuedest, const queue_t* cpt_queuesrc)
-queue_back	cstl/cstl_queue.h	/^extern void* queue_back(const queue_t* cpt_queue);$/;"	p	signature:(const queue_t* cpt_queue)
-queue_back	src/cstl_queue.c	/^void* queue_back(const queue_t* cpt_queue)$/;"	f	signature:(const queue_t* cpt_queue)
-queue_destroy	cstl/cstl_queue.h	/^extern void queue_destroy(queue_t* pt_queue);$/;"	p	signature:(queue_t* pt_queue)
-queue_destroy	src/cstl_queue.c	/^void queue_destroy(queue_t* pt_queue)$/;"	f	signature:(queue_t* pt_queue)
-queue_empty	cstl/cstl_queue.h	/^extern bool_t queue_empty(const queue_t* cpt_queue);$/;"	p	signature:(const queue_t* cpt_queue)
-queue_empty	src/cstl_queue.c	/^bool_t queue_empty(const queue_t* cpt_queue)$/;"	f	signature:(const queue_t* cpt_queue)
-queue_equal	cstl/cstl_queue.h	/^extern bool_t queue_equal(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);$/;"	p	signature:(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_equal	src/cstl_queue.c	/^bool_t queue_equal($/;"	f	signature:( const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_front	cstl/cstl_queue.h	/^extern void* queue_front(const queue_t* cpt_queue);$/;"	p	signature:(const queue_t* cpt_queue)
-queue_front	src/cstl_queue.c	/^void* queue_front(const queue_t* cpt_queue)$/;"	f	signature:(const queue_t* cpt_queue)
-queue_greater	cstl/cstl_queue.h	/^extern bool_t queue_greater(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);$/;"	p	signature:(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_greater	src/cstl_queue.c	/^bool_t queue_greater($/;"	f	signature:( const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_greater_equal	cstl/cstl_queue.h	/^extern bool_t queue_greater_equal($/;"	p	signature:( const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_greater_equal	src/cstl_queue.c	/^bool_t queue_greater_equal($/;"	f	signature:( const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_init	cstl/cstl_queue.h	/^extern void queue_init(queue_t* pt_queue);$/;"	p	signature:(queue_t* pt_queue)
-queue_init	src/cstl_queue.c	/^void queue_init(queue_t* pt_queue)$/;"	f	signature:(queue_t* pt_queue)
-queue_init_copy	cstl/cstl_queue.h	/^extern void queue_init_copy(queue_t* pt_queuedest, const queue_t* cpt_queuesrc);$/;"	p	signature:(queue_t* pt_queuedest, const queue_t* cpt_queuesrc)
-queue_init_copy	src/cstl_queue.c	/^void queue_init_copy(queue_t* pt_queuedest, const queue_t* cpt_queuesrc)$/;"	f	signature:(queue_t* pt_queuedest, const queue_t* cpt_queuesrc)
-queue_less	cstl/cstl_queue.h	/^extern bool_t queue_less(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond);$/;"	p	signature:(const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_less	src/cstl_queue.c	/^bool_t queue_less($/;"	f	signature:( const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_less_equal	cstl/cstl_queue.h	/^extern bool_t queue_less_equal($/;"	p	signature:( const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_less_equal	src/cstl_queue.c	/^bool_t queue_less_equal($/;"	f	signature:( const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_not_equal	cstl/cstl_queue.h	/^extern bool_t queue_not_equal($/;"	p	signature:( const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_not_equal	src/cstl_queue.c	/^bool_t queue_not_equal($/;"	f	signature:( const queue_t* cpt_queuefirst, const queue_t* cpt_queuesecond)
-queue_pop	cstl/cstl_queue.h	/^extern void queue_pop(queue_t* pt_queue);$/;"	p	signature:(queue_t* pt_queue)
-queue_pop	src/cstl_queue.c	/^void queue_pop(queue_t* pt_queue)$/;"	f	signature:(queue_t* pt_queue)
-queue_push	cstl/cstl_queue.h	36;"	d
-queue_size	cstl/cstl_queue.h	/^extern size_t queue_size(const queue_t* cpt_queue);$/;"	p	signature:(const queue_t* cpt_queue)
-queue_size	src/cstl_queue.c	/^size_t queue_size(const queue_t* cpt_queue)$/;"	f	signature:(const queue_t* cpt_queue)
+queue_assign	cstl/cstl_queue.h	/^extern void queue_assign(queue_t* pque_dest, const queue_t* cpque_src);$/;"	p	signature:(queue_t* pque_dest, const queue_t* cpque_src)
+queue_assign	src/cstl_queue.c	/^void queue_assign(queue_t* pque_dest, const queue_t* cpque_src)$/;"	f	signature:(queue_t* pque_dest, const queue_t* cpque_src)
+queue_back	cstl/cstl_queue.h	/^extern void* queue_back(const queue_t* cpque_queue);$/;"	p	signature:(const queue_t* cpque_queue)
+queue_back	src/cstl_queue.c	/^void* queue_back(const queue_t* cpque_queue)$/;"	f	signature:(const queue_t* cpque_queue)
+queue_destroy	cstl/cstl_queue.h	/^extern void queue_destroy(queue_t* pque_queue);$/;"	p	signature:(queue_t* pque_queue)
+queue_destroy	src/cstl_queue.c	/^void queue_destroy(queue_t* pque_queue)$/;"	f	signature:(queue_t* pque_queue)
+queue_empty	cstl/cstl_queue.h	/^extern bool_t queue_empty(const queue_t* cpque_queue);$/;"	p	signature:(const queue_t* cpque_queue)
+queue_empty	src/cstl_queue.c	/^bool_t queue_empty(const queue_t* cpque_queue)$/;"	f	signature:(const queue_t* cpque_queue)
+queue_equal	cstl/cstl_queue.h	/^extern bool_t queue_equal(const queue_t* cpque_first, const queue_t* cpque_second);$/;"	p	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_equal	src/cstl_queue.c	/^bool_t queue_equal(const queue_t* cpque_first, const queue_t* cpque_second)$/;"	f	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_front	cstl/cstl_queue.h	/^extern void* queue_front(const queue_t* cpque_queue);$/;"	p	signature:(const queue_t* cpque_queue)
+queue_front	src/cstl_queue.c	/^void* queue_front(const queue_t* cpque_queue)$/;"	f	signature:(const queue_t* cpque_queue)
+queue_greater	cstl/cstl_queue.h	/^extern bool_t queue_greater(const queue_t* cpque_first, const queue_t* cpque_second);$/;"	p	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_greater	src/cstl_queue.c	/^bool_t queue_greater(const queue_t* cpque_first, const queue_t* cpque_second)$/;"	f	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_greater_equal	cstl/cstl_queue.h	/^extern bool_t queue_greater_equal(const queue_t* cpque_first, const queue_t* cpque_second);$/;"	p	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_greater_equal	src/cstl_queue.c	/^bool_t queue_greater_equal(const queue_t* cpque_first, const queue_t* cpque_second)$/;"	f	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_init	cstl/cstl_queue.h	/^extern void queue_init(queue_t* pque_queue);$/;"	p	signature:(queue_t* pque_queue)
+queue_init	src/cstl_queue.c	/^void queue_init(queue_t* pque_queue)$/;"	f	signature:(queue_t* pque_queue)
+queue_init_copy	cstl/cstl_queue.h	/^extern void queue_init_copy(queue_t* pque_dest, const queue_t* cpque_src);$/;"	p	signature:(queue_t* pque_dest, const queue_t* cpque_src)
+queue_init_copy	src/cstl_queue.c	/^void queue_init_copy(queue_t* pque_dest, const queue_t* cpque_src)$/;"	f	signature:(queue_t* pque_dest, const queue_t* cpque_src)
+queue_less	cstl/cstl_queue.h	/^extern bool_t queue_less(const queue_t* cpque_first, const queue_t* cpque_second);$/;"	p	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_less	src/cstl_queue.c	/^bool_t queue_less(const queue_t* cpque_first, const queue_t* cpque_second)$/;"	f	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_less_equal	cstl/cstl_queue.h	/^extern bool_t queue_less_equal(const queue_t* cpque_first, const queue_t* cpque_second);$/;"	p	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_less_equal	src/cstl_queue.c	/^bool_t queue_less_equal(const queue_t* cpque_first, const queue_t* cpque_second)$/;"	f	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_not_equal	cstl/cstl_queue.h	/^extern bool_t queue_not_equal(const queue_t* cpque_first, const queue_t* cpque_second);$/;"	p	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_not_equal	src/cstl_queue.c	/^bool_t queue_not_equal(const queue_t* cpque_first, const queue_t* cpque_second)$/;"	f	signature:(const queue_t* cpque_first, const queue_t* cpque_second)
+queue_pop	cstl/cstl_queue.h	/^extern void queue_pop(queue_t* pque_queue);$/;"	p	signature:(queue_t* pque_queue)
+queue_pop	src/cstl_queue.c	/^void queue_pop(queue_t* pque_queue)$/;"	f	signature:(queue_t* pque_queue)
+queue_push	cstl/cstl_queue.h	49;"	d
+queue_size	cstl/cstl_queue.h	/^extern size_t queue_size(const queue_t* cpque_queue);$/;"	p	signature:(const queue_t* cpque_queue)
+queue_size	src/cstl_queue.c	/^size_t queue_size(const queue_t* cpque_queue)$/;"	f	signature:(const queue_t* cpque_queue)
 queue_t	cstl/cstl_queue_private.h	/^}queue_t;$/;"	t	typeref:struct:_tagqueue
 random_access_iterator_t	cstl/cstl_iterator.h	/^typedef bidirectional_iterator_t    random_access_iterator_t;$/;"	t
 range_t	cstl/cstl_iterator.h	/^}range_t;$/;"	t	typeref:struct:_tagrange
@@ -7671,6 +7703,7 @@ test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.c	/^void t
 test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___delete_handler(void** state);$/;"	p	signature:(void** state)
 test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.c	/^void test__alloc_set_malloc_handler___new_handler(void** state)$/;"	f	signature:(void** state)
 test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___new_handler(void** state);$/;"	p	signature:(void** state)
+test__create_basic_string_iterator__successfully	test/ut/ut_cstl_basic_string_iterator.h	/^void test__create_basic_string_iterator__successfully(void** state);$/;"	p	signature:(void** state)
 test__create_deque__c_builtin_type	test/ut/ut_cstl_deque_private.c	/^void test__create_deque__c_builtin_type(void** state)$/;"	f	signature:(void** state)
 test__create_deque__c_builtin_type	test/ut/ut_cstl_deque_private.h	/^void test__create_deque__c_builtin_type(void** state);$/;"	p	signature:(void** state)
 test__create_deque__libcstl_builtin_type	test/ut/ut_cstl_deque_private.c	/^void test__create_deque__libcstl_builtin_type(void** state)$/;"	f	signature:(void** state)
@@ -7732,6 +7765,19 @@ test__create_queue__user_defined_type	test/ut/ut_cstl_queue_private.c	/^void tes
 test__create_queue__user_defined_type	test/ut/ut_cstl_queue_private.h	/^void test__create_queue__user_defined_type(void** state);$/;"	p	signature:(void** state)
 test__create_queue__user_defined_type_dup	test/ut/ut_cstl_queue_private.c	/^void test__create_queue__user_defined_type_dup(void** state)$/;"	f	signature:(void** state)
 test__create_queue__user_defined_type_dup	test/ut/ut_cstl_queue_private.h	/^void test__create_queue__user_defined_type_dup(void** state);$/;"	p	signature:(void** state)
+test__create_queue_auxiliary__c_builtin	test/ut/ut_cstl_queue_private.c	/^void test__create_queue_auxiliary__c_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_queue_auxiliary__c_builtin	test/ut/ut_cstl_queue_private.h	/^void test__create_queue_auxiliary__c_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_queue_auxiliary__libcstl_builtin	test/ut/ut_cstl_queue_private.c	/^void test__create_queue_auxiliary__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_queue_auxiliary__libcstl_builtin	test/ut/ut_cstl_queue_private.h	/^void test__create_queue_auxiliary__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_queue_auxiliary__null_queue_adaptor	test/ut/ut_cstl_queue_private.h	/^void test__create_queue_auxiliary__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test__create_queue_auxiliary__null_typename	test/ut/ut_cstl_queue_private.c	/^void test__create_queue_auxiliary__null_typename(void** state)$/;"	f	signature:(void** state)
+test__create_queue_auxiliary__null_typename	test/ut/ut_cstl_queue_private.h	/^void test__create_queue_auxiliary__null_typename(void** state);$/;"	p	signature:(void** state)
+test__create_queue_auxiliary__unregisted_type	test/ut/ut_cstl_queue_private.c	/^void test__create_queue_auxiliary__unregisted_type(void** state)$/;"	f	signature:(void** state)
+test__create_queue_auxiliary__unregisted_type	test/ut/ut_cstl_queue_private.h	/^void test__create_queue_auxiliary__unregisted_type(void** state);$/;"	p	signature:(void** state)
+test__create_queue_auxiliary__user_defined	test/ut/ut_cstl_queue_private.c	/^void test__create_queue_auxiliary__user_defined(void** state)$/;"	f	signature:(void** state)
+test__create_queue_auxiliary__user_defined	test/ut/ut_cstl_queue_private.h	/^void test__create_queue_auxiliary__user_defined(void** state);$/;"	p	signature:(void** state)
+test__create_queue_auxiliary__user_defined_dup	test/ut/ut_cstl_queue_private.c	/^void test__create_queue_auxiliary__user_defined_dup(void** state)$/;"	f	signature:(void** state)
+test__create_queue_auxiliary__user_defined_dup	test/ut/ut_cstl_queue_private.h	/^void test__create_queue_auxiliary__user_defined_dup(void** state);$/;"	p	signature:(void** state)
 test__create_slist__c_builtin_type	test/ut/ut_cstl_slist_private.c	/^void test__create_slist__c_builtin_type(void** state)$/;"	f	signature:(void** state)
 test__create_slist__c_builtin_type	test/ut/ut_cstl_slist_private.h	/^void test__create_slist__c_builtin_type(void** state);$/;"	p	signature:(void** state)
 test__create_slist__libcstl_builtin_type	test/ut/ut_cstl_slist_private.c	/^void test__create_slist__libcstl_builtin_type(void** state)$/;"	f	signature:(void** state)
@@ -9048,6 +9094,24 @@ test__list_transfer__successfully_middle_all	test/ut/ut_cstl_list_aux.c	/^void t
 test__list_transfer__successfully_middle_all	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__successfully_middle_all(void** state);$/;"	p	signature:(void** state)
 test__list_transfer__successfully_middle_middle	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__successfully_middle_middle(void** state)$/;"	f	signature:(void** state)
 test__list_transfer__successfully_middle_middle	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__successfully_middle_middle(void** state);$/;"	p	signature:(void** state)
+test__queue_destroy_auxiliary__empty	test/ut/ut_cstl_queue_private.c	/^void test__queue_destroy_auxiliary__empty(void** state)$/;"	f	signature:(void** state)
+test__queue_destroy_auxiliary__empty	test/ut/ut_cstl_queue_private.h	/^void test__queue_destroy_auxiliary__empty(void** state);$/;"	p	signature:(void** state)
+test__queue_destroy_auxiliary__non_created_queue_adaptor	test/ut/ut_cstl_queue_private.c	/^void test__queue_destroy_auxiliary__non_created_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test__queue_destroy_auxiliary__non_created_queue_adaptor	test/ut/ut_cstl_queue_private.h	/^void test__queue_destroy_auxiliary__non_created_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test__queue_destroy_auxiliary__non_empty	test/ut/ut_cstl_queue_private.c	/^void test__queue_destroy_auxiliary__non_empty(void** state)$/;"	f	signature:(void** state)
+test__queue_destroy_auxiliary__non_empty	test/ut/ut_cstl_queue_private.h	/^void test__queue_destroy_auxiliary__non_empty(void** state);$/;"	p	signature:(void** state)
+test__queue_destroy_auxiliary__non_inited	test/ut/ut_cstl_queue_private.c	/^void test__queue_destroy_auxiliary__non_inited(void** state)$/;"	f	signature:(void** state)
+test__queue_destroy_auxiliary__non_inited	test/ut/ut_cstl_queue_private.h	/^void test__queue_destroy_auxiliary__non_inited(void** state);$/;"	p	signature:(void** state)
+test__queue_destroy_auxiliary__null_queue_adaptor	test/ut/ut_cstl_queue_private.h	/^void test__queue_destroy_auxiliary__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test__queue_push__queue_push_varg__empty	test/ut/ut_cstl_queue_private.c	/^void test__queue_push__queue_push_varg__empty(void** state)$/;"	f	signature:(void** state)
+test__queue_push__queue_push_varg__empty	test/ut/ut_cstl_queue_private.h	/^void test__queue_push__queue_push_varg__empty(void** state);$/;"	p	signature:(void** state)
+test__queue_push__queue_push_varg__non_empty	test/ut/ut_cstl_queue_private.c	/^void test__queue_push__queue_push_varg__non_empty(void** state)$/;"	f	signature:(void** state)
+test__queue_push__queue_push_varg__non_empty	test/ut/ut_cstl_queue_private.h	/^void test__queue_push__queue_push_varg__non_empty(void** state);$/;"	p	signature:(void** state)
+test__queue_push__queue_push_varg__non_empty_multiple	test/ut/ut_cstl_queue_private.c	/^void test__queue_push__queue_push_varg__non_empty_multiple(void** state)$/;"	f	signature:(void** state)
+test__queue_push__queue_push_varg__non_empty_multiple	test/ut/ut_cstl_queue_private.h	/^void test__queue_push__queue_push_varg__non_empty_multiple(void** state);$/;"	p	signature:(void** state)
+test__queue_push__queue_push_varg__non_inited_queue_adaptor	test/ut/ut_cstl_queue_private.c	/^void test__queue_push__queue_push_varg__non_inited_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test__queue_push__queue_push_varg__non_inited_queue_adaptor	test/ut/ut_cstl_queue_private.h	/^void test__queue_push__queue_push_varg__non_inited_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test__queue_push__queue_push_varg__null_queue_adaptor	test/ut/ut_cstl_queue_private.h	/^void test__queue_push__queue_push_varg__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
 test__slist_assign_elem__slist_assign_elem_varg__0_assign_0	test/ut/ut_cstl_slist_private.c	/^void test__slist_assign_elem__slist_assign_elem_varg__0_assign_0(void** state)$/;"	f	signature:(void** state)
 test__slist_assign_elem__slist_assign_elem_varg__0_assign_0	test/ut/ut_cstl_slist_private.h	/^void test__slist_assign_elem__slist_assign_elem_varg__0_assign_0(void** state);$/;"	p	signature:(void** state)
 test__slist_assign_elem__slist_assign_elem_varg__0_assign_n	test/ut/ut_cstl_slist_private.c	/^void test__slist_assign_elem__slist_assign_elem_varg__0_assign_n(void** state)$/;"	f	signature:(void** state)
@@ -11211,6 +11275,235 @@ test_priority_queue	test/it/test_queue.c	/^void test_priority_queue(void)$/;"	f	
 test_priority_queue	test/it/test_queue.h	/^extern void test_priority_queue(void);$/;"	p	signature:(void)
 test_queue	test/it/test_queue.c	/^void test_queue(void)$/;"	f	signature:(void)
 test_queue	test/it/test_queue.h	/^extern void test_queue(void);$/;"	p	signature:(void)
+test_queue_assign__0_assign_0	test/ut/ut_cstl_queue.c	/^void test_queue_assign__0_assign_0(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__0_assign_0	test/ut/ut_cstl_queue.h	/^void test_queue_assign__0_assign_0(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__0_assign_n	test/ut/ut_cstl_queue.c	/^void test_queue_assign__0_assign_n(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__0_assign_n	test/ut/ut_cstl_queue.h	/^void test_queue_assign__0_assign_n(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__n_assign_0	test/ut/ut_cstl_queue.c	/^void test_queue_assign__n_assign_0(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__n_assign_0	test/ut/ut_cstl_queue.h	/^void test_queue_assign__n_assign_0(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__n_assign_m	test/ut/ut_cstl_queue.c	/^void test_queue_assign__n_assign_m(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__n_assign_m	test/ut/ut_cstl_queue.h	/^void test_queue_assign__n_assign_m(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__n_assign_n_queue_equal	test/ut/ut_cstl_queue.c	/^void test_queue_assign__n_assign_n_queue_equal(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__n_assign_n_queue_equal	test/ut/ut_cstl_queue.h	/^void test_queue_assign__n_assign_n_queue_equal(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__n_assign_n_queue_not_equal	test/ut/ut_cstl_queue.c	/^void test_queue_assign__n_assign_n_queue_not_equal(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__n_assign_n_queue_not_equal	test/ut/ut_cstl_queue.h	/^void test_queue_assign__n_assign_n_queue_not_equal(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__non_inited_dest	test/ut/ut_cstl_queue.c	/^void test_queue_assign__non_inited_dest(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__non_inited_dest	test/ut/ut_cstl_queue.h	/^void test_queue_assign__non_inited_dest(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__non_inited_src	test/ut/ut_cstl_queue.c	/^void test_queue_assign__non_inited_src(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__non_inited_src	test/ut/ut_cstl_queue.h	/^void test_queue_assign__non_inited_src(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__not_same_type	test/ut/ut_cstl_queue.c	/^void test_queue_assign__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__not_same_type	test/ut/ut_cstl_queue.h	/^void test_queue_assign__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__null_dest	test/ut/ut_cstl_queue.h	/^void test_queue_assign__null_dest(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__null_src	test/ut/ut_cstl_queue.c	/^void test_queue_assign__null_src(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__null_src	test/ut/ut_cstl_queue.h	/^void test_queue_assign__null_src(void** state);$/;"	p	signature:(void** state)
+test_queue_assign__same_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_assign__same_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_assign__same_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_assign__same_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_back__empty	test/ut/ut_cstl_queue.c	/^void test_queue_back__empty(void** state)$/;"	f	signature:(void** state)
+test_queue_back__empty	test/ut/ut_cstl_queue.h	/^void test_queue_back__empty(void** state);$/;"	p	signature:(void** state)
+test_queue_back__non_inited_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_back__non_inited_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_back__non_inited_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_back__non_inited_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_back__null_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_back__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_back__successfully	test/ut/ut_cstl_queue.c	/^void test_queue_back__successfully(void** state)$/;"	f	signature:(void** state)
+test_queue_back__successfully	test/ut/ut_cstl_queue.h	/^void test_queue_back__successfully(void** state);$/;"	p	signature:(void** state)
+test_queue_destroy__created_non_inited	test/ut/ut_cstl_queue.c	/^void test_queue_destroy__created_non_inited(void** state)$/;"	f	signature:(void** state)
+test_queue_destroy__created_non_inited	test/ut/ut_cstl_queue.h	/^void test_queue_destroy__created_non_inited(void** state);$/;"	p	signature:(void** state)
+test_queue_destroy__empty	test/ut/ut_cstl_queue.c	/^void test_queue_destroy__empty(void** state)$/;"	f	signature:(void** state)
+test_queue_destroy__empty	test/ut/ut_cstl_queue.h	/^void test_queue_destroy__empty(void** state);$/;"	p	signature:(void** state)
+test_queue_destroy__non_created_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_destroy__non_created_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_destroy__non_created_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_destroy__non_created_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_destroy__non_empty	test/ut/ut_cstl_queue.c	/^void test_queue_destroy__non_empty(void** state)$/;"	f	signature:(void** state)
+test_queue_destroy__non_empty	test/ut/ut_cstl_queue.h	/^void test_queue_destroy__non_empty(void** state);$/;"	p	signature:(void** state)
+test_queue_destroy__null_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_destroy__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_empty__empty	test/ut/ut_cstl_queue.c	/^void test_queue_empty__empty(void** state)$/;"	f	signature:(void** state)
+test_queue_empty__empty	test/ut/ut_cstl_queue.h	/^void test_queue_empty__empty(void** state);$/;"	p	signature:(void** state)
+test_queue_empty__non_empty	test/ut/ut_cstl_queue.c	/^void test_queue_empty__non_empty(void** state)$/;"	f	signature:(void** state)
+test_queue_empty__non_empty	test/ut/ut_cstl_queue.h	/^void test_queue_empty__non_empty(void** state);$/;"	p	signature:(void** state)
+test_queue_empty__non_inited_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_empty__non_inited_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_empty__non_inited_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_empty__non_inited_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_empty__null_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_empty__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__non_inited_first	test/ut/ut_cstl_queue.c	/^void test_queue_equal__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__non_inited_first	test/ut/ut_cstl_queue.h	/^void test_queue_equal__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__non_inited_second	test/ut/ut_cstl_queue.c	/^void test_queue_equal__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__non_inited_second	test/ut/ut_cstl_queue.h	/^void test_queue_equal__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__not_same_type	test/ut/ut_cstl_queue.c	/^void test_queue_equal__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__not_same_type	test/ut/ut_cstl_queue.h	/^void test_queue_equal__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__null_first	test/ut/ut_cstl_queue.h	/^void test_queue_equal__null_first(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__null_second	test/ut/ut_cstl_queue.c	/^void test_queue_equal__null_second(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__null_second	test/ut/ut_cstl_queue.h	/^void test_queue_equal__null_second(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__same_queue	test/ut/ut_cstl_queue.c	/^void test_queue_equal__same_queue(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__same_queue	test/ut/ut_cstl_queue.h	/^void test_queue_equal__same_queue(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__size_equal_0	test/ut/ut_cstl_queue.c	/^void test_queue_equal__size_equal_0(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__size_equal_0	test/ut/ut_cstl_queue.h	/^void test_queue_equal__size_equal_0(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__size_equal_elem_equal	test/ut/ut_cstl_queue.c	/^void test_queue_equal__size_equal_elem_equal(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__size_equal_elem_equal	test/ut/ut_cstl_queue.h	/^void test_queue_equal__size_equal_elem_equal(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_equal__size_equal_elem_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_equal__size_equal_elem_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_equal__size_equal_elem_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_equal__size_equal_elem_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__size_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_equal__size_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__size_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_equal__size_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_equal__size_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_equal__size_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_equal__size_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_equal__size_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_front__empty	test/ut/ut_cstl_queue.c	/^void test_queue_front__empty(void** state)$/;"	f	signature:(void** state)
+test_queue_front__empty	test/ut/ut_cstl_queue.h	/^void test_queue_front__empty(void** state);$/;"	p	signature:(void** state)
+test_queue_front__non_inited_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_front__non_inited_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_front__non_inited_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_front__non_inited_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_front__null_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_front__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_front__successfully	test/ut/ut_cstl_queue.c	/^void test_queue_front__successfully(void** state)$/;"	f	signature:(void** state)
+test_queue_front__successfully	test/ut/ut_cstl_queue.h	/^void test_queue_front__successfully(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__non_inited_first	test/ut/ut_cstl_queue.c	/^void test_queue_greater__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__non_inited_first	test/ut/ut_cstl_queue.h	/^void test_queue_greater__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__non_inited_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__non_inited_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__not_same_type	test/ut/ut_cstl_queue.c	/^void test_queue_greater__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__not_same_type	test/ut/ut_cstl_queue.h	/^void test_queue_greater__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__null_first	test/ut/ut_cstl_queue.h	/^void test_queue_greater__null_first(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__null_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater__null_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__null_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater__null_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__same_queue	test/ut/ut_cstl_queue.c	/^void test_queue_greater__same_queue(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__same_queue	test/ut/ut_cstl_queue.h	/^void test_queue_greater__same_queue(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__size_equal_0	test/ut/ut_cstl_queue.c	/^void test_queue_greater__size_equal_0(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__size_equal_0	test/ut/ut_cstl_queue.h	/^void test_queue_greater__size_equal_0(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__size_equal_elem_equal	test/ut/ut_cstl_queue.c	/^void test_queue_greater__size_equal_elem_equal(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__size_equal_elem_equal	test/ut/ut_cstl_queue.h	/^void test_queue_greater__size_equal_elem_equal(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater__size_equal_elem_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater__size_equal_elem_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater__size_equal_elem_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater__size_equal_elem_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__size_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater__size_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__size_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater__size_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater__size_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater__size_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater__size_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater__size_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__non_inited_first	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__non_inited_first	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__non_inited_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__non_inited_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__not_same_type	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__not_same_type	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__null_first	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__null_first(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__null_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__null_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__null_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__null_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__same_queue	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__same_queue(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__same_queue	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__same_queue(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__size_equal_0	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__size_equal_0(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__size_equal_0	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__size_equal_0(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__size_equal_elem_equal	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__size_equal_elem_equal(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__size_equal_elem_equal	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__size_equal_elem_equal(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__size_equal_elem_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__size_equal_elem_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__size_equal_elem_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__size_equal_elem_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__size_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__size_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__size_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__size_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_greater_equal__size_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_greater_equal__size_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_greater_equal__size_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_greater_equal__size_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_init__non_created_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_init__non_created_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_init__non_created_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_init__non_created_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_init__null_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_init__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_init__successfully	test/ut/ut_cstl_queue.c	/^void test_queue_init__successfully(void** state)$/;"	f	signature:(void** state)
+test_queue_init__successfully	test/ut/ut_cstl_queue.h	/^void test_queue_init__successfully(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__c_builtin	test/ut/ut_cstl_queue.c	/^void test_queue_init_copy__c_builtin(void** state)$/;"	f	signature:(void** state)
+test_queue_init_copy__c_builtin	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__c_builtin(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__cstr	test/ut/ut_cstl_queue.c	/^void test_queue_init_copy__cstr(void** state)$/;"	f	signature:(void** state)
+test_queue_init_copy__cstr	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__cstr(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__init_copy_empty	test/ut/ut_cstl_queue.c	/^void test_queue_init_copy__init_copy_empty(void** state)$/;"	f	signature:(void** state)
+test_queue_init_copy__init_copy_empty	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__init_copy_empty(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__libcstl_builtin	test/ut/ut_cstl_queue.c	/^void test_queue_init_copy__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test_queue_init_copy__libcstl_builtin	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__non_created_dest_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_init_copy__non_created_dest_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_init_copy__non_created_dest_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__non_created_dest_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__non_inited_src_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_init_copy__non_inited_src_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_init_copy__non_inited_src_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__non_inited_src_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__not_same_type	test/ut/ut_cstl_queue.c	/^void test_queue_init_copy__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_queue_init_copy__not_same_type	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__null_dest_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__null_dest_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__null_src_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_init_copy__null_src_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_init_copy__null_src_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__null_src_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_init_copy__user_define	test/ut/ut_cstl_queue.c	/^void test_queue_init_copy__user_define(void** state)$/;"	f	signature:(void** state)
+test_queue_init_copy__user_define	test/ut/ut_cstl_queue.h	/^void test_queue_init_copy__user_define(void** state);$/;"	p	signature:(void** state)
+test_queue_less__non_inited_first	test/ut/ut_cstl_queue.c	/^void test_queue_less__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_queue_less__non_inited_first	test/ut/ut_cstl_queue.h	/^void test_queue_less__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_queue_less__non_inited_second	test/ut/ut_cstl_queue.c	/^void test_queue_less__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less__non_inited_second	test/ut/ut_cstl_queue.h	/^void test_queue_less__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less__not_same_type	test/ut/ut_cstl_queue.c	/^void test_queue_less__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_queue_less__not_same_type	test/ut/ut_cstl_queue.h	/^void test_queue_less__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_queue_less__null_first	test/ut/ut_cstl_queue.h	/^void test_queue_less__null_first(void** state);$/;"	p	signature:(void** state)
+test_queue_less__null_second	test/ut/ut_cstl_queue.c	/^void test_queue_less__null_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less__null_second	test/ut/ut_cstl_queue.h	/^void test_queue_less__null_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less__same_queue	test/ut/ut_cstl_queue.c	/^void test_queue_less__same_queue(void** state)$/;"	f	signature:(void** state)
+test_queue_less__same_queue	test/ut/ut_cstl_queue.h	/^void test_queue_less__same_queue(void** state);$/;"	p	signature:(void** state)
+test_queue_less__size_equal_0	test/ut/ut_cstl_queue.c	/^void test_queue_less__size_equal_0(void** state)$/;"	f	signature:(void** state)
+test_queue_less__size_equal_0	test/ut/ut_cstl_queue.h	/^void test_queue_less__size_equal_0(void** state);$/;"	p	signature:(void** state)
+test_queue_less__size_equal_elem_equal	test/ut/ut_cstl_queue.c	/^void test_queue_less__size_equal_elem_equal(void** state)$/;"	f	signature:(void** state)
+test_queue_less__size_equal_elem_equal	test/ut/ut_cstl_queue.h	/^void test_queue_less__size_equal_elem_equal(void** state);$/;"	p	signature:(void** state)
+test_queue_less__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_less__size_equal_elem_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_less__size_equal_elem_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_less__size_equal_elem_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_less__size_equal_elem_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less__size_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_less__size_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less__size_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_less__size_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less__size_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_less__size_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less__size_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_less__size_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__non_inited_first	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__non_inited_first	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__non_inited_second	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__non_inited_second	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__not_same_type	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__not_same_type	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__null_first	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__null_first(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__null_second	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__null_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__null_second	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__null_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__same_queue	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__same_queue(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__same_queue	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__same_queue(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__size_equal_0	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__size_equal_0(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__size_equal_0	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__size_equal_0(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__size_equal_elem_equal	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__size_equal_elem_equal(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__size_equal_elem_equal	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__size_equal_elem_equal(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__size_equal_elem_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__size_equal_elem_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__size_equal_elem_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__size_equal_elem_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__size_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__size_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__size_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__size_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_less_equal__size_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_less_equal__size_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_less_equal__size_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_less_equal__size_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__non_inited_first	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__non_inited_first	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__non_inited_second	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__non_inited_second	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__not_same_type	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__not_same_type	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__null_first	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__null_first(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__null_second	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__null_second(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__null_second	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__null_second(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__same_queue	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__same_queue(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__same_queue	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__same_queue(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__size_equal_0	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__size_equal_0(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__size_equal_0	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__size_equal_0(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__size_equal_elem_equal	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__size_equal_elem_equal(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__size_equal_elem_equal	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__size_equal_elem_equal(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__size_equal_elem_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__size_equal_elem_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__size_equal_elem_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__size_equal_elem_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__size_equal_elem_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__size_equal_elem_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__size_first_greater_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__size_first_greater_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__size_first_greater_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__size_first_greater_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_not_equal__size_first_less_than_second	test/ut/ut_cstl_queue.c	/^void test_queue_not_equal__size_first_less_than_second(void** state)$/;"	f	signature:(void** state)
+test_queue_not_equal__size_first_less_than_second	test/ut/ut_cstl_queue.h	/^void test_queue_not_equal__size_first_less_than_second(void** state);$/;"	p	signature:(void** state)
+test_queue_pop__empty	test/ut/ut_cstl_queue.c	/^void test_queue_pop__empty(void** state)$/;"	f	signature:(void** state)
+test_queue_pop__empty	test/ut/ut_cstl_queue.h	/^void test_queue_pop__empty(void** state);$/;"	p	signature:(void** state)
+test_queue_pop__non_inited_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_pop__non_inited_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_pop__non_inited_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_pop__non_inited_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_pop__null_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_pop__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_pop__successfully	test/ut/ut_cstl_queue.c	/^void test_queue_pop__successfully(void** state)$/;"	f	signature:(void** state)
+test_queue_pop__successfully	test/ut/ut_cstl_queue.h	/^void test_queue_pop__successfully(void** state);$/;"	p	signature:(void** state)
+test_queue_size__empty	test/ut/ut_cstl_queue.c	/^void test_queue_size__empty(void** state)$/;"	f	signature:(void** state)
+test_queue_size__empty	test/ut/ut_cstl_queue.h	/^void test_queue_size__empty(void** state);$/;"	p	signature:(void** state)
+test_queue_size__non_empty	test/ut/ut_cstl_queue.c	/^void test_queue_size__non_empty(void** state)$/;"	f	signature:(void** state)
+test_queue_size__non_empty	test/ut/ut_cstl_queue.h	/^void test_queue_size__non_empty(void** state);$/;"	p	signature:(void** state)
+test_queue_size__non_inited_queue_adaptor	test/ut/ut_cstl_queue.c	/^void test_queue_size__non_inited_queue_adaptor(void** state)$/;"	f	signature:(void** state)
+test_queue_size__non_inited_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_size__non_inited_queue_adaptor(void** state);$/;"	p	signature:(void** state)
+test_queue_size__null_queue_adaptor	test/ut/ut_cstl_queue.h	/^void test_queue_size__null_queue_adaptor(void** state);$/;"	p	signature:(void** state)
 test_rb_tree	test/it/test_rb_tree.c	/^void test_rb_tree(void)$/;"	f	signature:(void)
 test_rb_tree	test/it/test_rb_tree.h	/^extern void test_rb_tree(void);$/;"	p	signature:(void)
 test_set	test/it/test_set.c	/^void test_set(void)$/;"	f	signature:(void)

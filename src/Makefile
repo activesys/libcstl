@@ -71,7 +71,10 @@ libcstl_la_LIBADD =
 am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_algobase.lo libcstl_la-cstl_alloc.lo \
 	libcstl_la-cstl_alloc_aux.lo libcstl_la-cstl_avl_tree.lo \
-	libcstl_la-cstl_basic_string.lo libcstl_la-cstl_deque.lo \
+	libcstl_la-cstl_basic_string.lo \
+	libcstl_la-cstl_basic_string_iterator.lo \
+	libcstl_la-cstl_basic_string_private.lo \
+	libcstl_la-cstl_basic_string_aux.lo libcstl_la-cstl_deque.lo \
 	libcstl_la-cstl_deque_iterator.lo \
 	libcstl_la-cstl_deque_private.lo libcstl_la-cstl_deque_aux.lo \
 	libcstl_la-cstl_function.lo libcstl_la-cstl_hash_map.lo \
@@ -233,7 +236,8 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_algobase.c \
 		     cstl_alloc.c cstl_alloc_aux.c cstl_alloc_aux.h \
 		     cstl_avl_tree.c \
-		     cstl_basic_string.c \
+		     cstl_basic_string.c cstl_basic_string_iterator.c cstl_basic_string_private.c \
+		     cstl_basic_string_aux.c cstl_basic_string_aux.h \
 		     cstl_deque.c cstl_deque_iterator.c cstl_deque_private.c cstl_deque_aux.c cstl_deque_aux.h \
 		     cstl_function.c \
 		     cstl_hash_map.c \
@@ -342,6 +346,9 @@ include ./$(DEPDIR)/libcstl_la-cstl_alloc.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_alloc_aux.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_avl_tree.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_basic_string.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_basic_string_aux.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_basic_string_iterator.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_basic_string_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_deque.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_deque_aux.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_deque_iterator.Plo
@@ -444,6 +451,27 @@ libcstl_la-cstl_basic_string.lo: cstl_basic_string.c
 #	source='cstl_basic_string.c' object='libcstl_la-cstl_basic_string.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_basic_string.lo `test -f 'cstl_basic_string.c' || echo '$(srcdir)/'`cstl_basic_string.c
+
+libcstl_la-cstl_basic_string_iterator.lo: cstl_basic_string_iterator.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_basic_string_iterator.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_basic_string_iterator.Tpo -c -o libcstl_la-cstl_basic_string_iterator.lo `test -f 'cstl_basic_string_iterator.c' || echo '$(srcdir)/'`cstl_basic_string_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_basic_string_iterator.Tpo $(DEPDIR)/libcstl_la-cstl_basic_string_iterator.Plo
+#	source='cstl_basic_string_iterator.c' object='libcstl_la-cstl_basic_string_iterator.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_basic_string_iterator.lo `test -f 'cstl_basic_string_iterator.c' || echo '$(srcdir)/'`cstl_basic_string_iterator.c
+
+libcstl_la-cstl_basic_string_private.lo: cstl_basic_string_private.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_basic_string_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_basic_string_private.Tpo -c -o libcstl_la-cstl_basic_string_private.lo `test -f 'cstl_basic_string_private.c' || echo '$(srcdir)/'`cstl_basic_string_private.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_basic_string_private.Tpo $(DEPDIR)/libcstl_la-cstl_basic_string_private.Plo
+#	source='cstl_basic_string_private.c' object='libcstl_la-cstl_basic_string_private.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_basic_string_private.lo `test -f 'cstl_basic_string_private.c' || echo '$(srcdir)/'`cstl_basic_string_private.c
+
+libcstl_la-cstl_basic_string_aux.lo: cstl_basic_string_aux.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_basic_string_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_basic_string_aux.Tpo -c -o libcstl_la-cstl_basic_string_aux.lo `test -f 'cstl_basic_string_aux.c' || echo '$(srcdir)/'`cstl_basic_string_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_basic_string_aux.Tpo $(DEPDIR)/libcstl_la-cstl_basic_string_aux.Plo
+#	source='cstl_basic_string_aux.c' object='libcstl_la-cstl_basic_string_aux.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_basic_string_aux.lo `test -f 'cstl_basic_string_aux.c' || echo '$(srcdir)/'`cstl_basic_string_aux.c
 
 libcstl_la-cstl_deque.lo: cstl_deque.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_deque.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_deque.Tpo -c -o libcstl_la-cstl_deque.lo `test -f 'cstl_deque.c' || echo '$(srcdir)/'`cstl_deque.c

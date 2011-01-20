@@ -4,7 +4,8 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_algobase.c \
 		     cstl_alloc.c cstl_alloc_aux.c cstl_alloc_aux.h \
 		     cstl_avl_tree.c \
-		     cstl_basic_string.c \
+		     cstl_basic_string.c cstl_basic_string_iterator.c cstl_basic_string_private.c \
+		     cstl_basic_string_aux.c cstl_basic_string_aux.h \
 		     cstl_deque.c cstl_deque_iterator.c cstl_deque_private.c cstl_deque_aux.c cstl_deque_aux.h \
 		     cstl_function.c \
 		     cstl_hash_map.c \
