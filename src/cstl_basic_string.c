@@ -120,7 +120,7 @@ void basic_string_init_subcstr(
 
     assert(pt_basic_string != NULL);
 
-    t_length = _get_valuestring_len(pt_basic_string, cpv_valuestring);
+    t_length = _basic_string_get_value_string_length(pt_basic_string, cpv_valuestring);
     t_len = t_len < t_length ? t_len : t_length;
 
     vector_init(&pt_basic_string->_t_vector);
@@ -394,7 +394,7 @@ int basic_string_compare_substring_subcstr(
 
     /* get actual string length and value string length */
     t_stringlentmp = basic_string_size(cpt_basic_string) - t_stringpos;
-    t_valuestringlentmp = _get_valuestring_len(cpt_basic_string, cpv_valuestring);
+    t_valuestringlentmp = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
     t_stringlen = t_stringlen < t_stringlentmp ? t_stringlen : t_stringlentmp;
     t_valuestringlen = t_valuestringlen < t_valuestringlentmp ?
                        t_valuestringlen : t_valuestringlentmp;
@@ -492,7 +492,7 @@ void basic_string_connect_cstr(
     assert(pt_basic_string != NULL && cpv_valuestring != NULL);
 
     t_destlen = basic_string_size(pt_basic_string);
-    t_srclen = _get_valuestring_len(pt_basic_string, cpv_valuestring);
+    t_srclen = _basic_string_get_value_string_length(pt_basic_string, cpv_valuestring);
 
     if(t_srclen > 0)
     {
@@ -592,7 +592,7 @@ size_t basic_string_find_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
 {
     return basic_string_find_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _get_valuestring_len(cpt_basic_string, cpv_valuestring));
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
 }
 
 size_t basic_string_find_subcstr(
@@ -612,7 +612,7 @@ size_t basic_string_find_subcstr(
     assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
 
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _get_valuestring_len(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
 
     /* find position is beyond the range of cpt_basic_string */
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
@@ -697,7 +697,7 @@ size_t basic_string_rfind_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
 {
     return basic_string_rfind_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _get_valuestring_len(cpt_basic_string, cpv_valuestring));
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
 }
 
 size_t basic_string_rfind_subcstr(
@@ -718,7 +718,7 @@ size_t basic_string_rfind_subcstr(
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _get_valuestring_len(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
 
     if(t_pos > t_stringlen)
     {
@@ -811,7 +811,7 @@ size_t basic_string_find_first_of_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
 {
     return basic_string_find_first_of_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _get_valuestring_len(cpt_basic_string, cpv_valuestring));
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
 }
 
 size_t basic_string_find_first_of_subcstr(
@@ -832,7 +832,7 @@ size_t basic_string_find_first_of_subcstr(
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _get_valuestring_len(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
 
     /* find position is beyond the range of cpt_basic_string */
     if(basic_string_empty(cpt_basic_string) ||
@@ -896,7 +896,7 @@ size_t basic_string_find_first_not_of_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
 {
     return basic_string_find_first_not_of_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _get_valuestring_len(cpt_basic_string, cpv_valuestring));
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
 }
 
 size_t basic_string_find_first_not_of_subcstr(
@@ -917,7 +917,7 @@ size_t basic_string_find_first_not_of_subcstr(
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _get_valuestring_len(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
 
     /* find position is beyond the range of cpt_basic_string */
     if(basic_string_empty(cpt_basic_string) ||
@@ -993,7 +993,7 @@ size_t basic_string_find_last_of_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
 {
     return basic_string_find_last_of_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _get_valuestring_len(cpt_basic_string, cpv_valuestring));
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
 }
 
 size_t basic_string_find_last_of_subcstr(
@@ -1014,7 +1014,7 @@ size_t basic_string_find_last_of_subcstr(
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _get_valuestring_len(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
 
     if(t_pos > t_stringlen)
     {
@@ -1089,7 +1089,7 @@ size_t basic_string_find_last_not_of_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
 {
     return basic_string_find_last_not_of_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _get_valuestring_len(cpt_basic_string, cpv_valuestring));
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
 }
 
 size_t basic_string_find_last_not_of_subcstr(
@@ -1110,7 +1110,7 @@ size_t basic_string_find_last_not_of_subcstr(
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _get_valuestring_len(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
 
     if(t_pos > t_stringlen)
     {
@@ -1253,7 +1253,7 @@ void basic_string_assign_subcstr(
 
     assert(pt_basic_string != NULL && cpv_valuestring != NULL);
 
-    t_length = _get_valuestring_len(pt_basic_string, cpv_valuestring);
+    t_length = _basic_string_get_value_string_length(pt_basic_string, cpv_valuestring);
     t_len = t_len < t_length ? t_len : t_length;
 
     vector_resize(&pt_basic_string->_t_vector, t_len);
@@ -1347,7 +1347,7 @@ void basic_string_append_subcstr(
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
     t_stringlen = basic_string_length(pt_basic_string);
-    t_cstrlen = _get_valuestring_len(pt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(pt_basic_string, cpv_valuestring);
     t_len = t_len < t_cstrlen ? t_len : t_cstrlen;
 
     if(t_len > 0)

@@ -40,24 +40,79 @@ typedef struct _tagbasicstring
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create and initialization operation functions.
+/**
+ * Create basic_string container.
+ * @param s_typename     element type name.
+ * @return if create basic_string successfully, then return basic_string pointer, else return NULL.
+ * @remarks if s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name,
+ *          libcstl builtin typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern basic_string_t* _create_basic_string(const char* s_typename);
-extern bool_t _create_basic_string_auxiliary(
-    basic_string_t* pt_basic_string, const char* s_typename);
-extern void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string);
-extern void _basic_string_init_elem(basic_string_t* pt_basic_string, size_t t_count, ...);
-extern void _basic_string_init_elem_varg(
-    basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist);
 
-/*
- * Find operation functions.
+/**
+ * Create basic_string container auxiliary function.
+ * @param pvec_basic_string  uncreated container.
+ * @param s_typename         element type name.
+ * @return if create basic_string successfully return true, otherwise return false.
+ * @remarks if s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name,
+ *          libcstl builtin typename or registed user defined type name, otherwise the function will return false.
  */
-extern size_t _basic_string_find_elem(
-    const basic_string_t* cpt_basic_string, size_t t_pos, ...);
-extern size_t _basic_string_find_elem_varg(
-    const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist);
+extern bool_t _create_basic_string_auxiliary(basic_string_t* pt_basic_string, const char* s_typename);
+
+/**
+ * Initialize basic_string with specified element.
+ * @param pt_basic_string   uninitialized basic_string container.
+ * @param t_count            element number.
+ * @param ...                specificed element.
+ * @return void
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. the type of specificed element and basic_string element
+ *          type must be same, otherwise the behavior is undefined. the first specificed element is in use, others are
+ *          not in use. basic_string container must be created by create_basic_string, otherwise the behavior is undefined.
+ */
+extern void _basic_string_init_elem(basic_string_t* pt_basic_string, size_t t_count, ...);
+
+/**
+ * Initialize basic_string with variable argument list of specified element.
+ * @param pt_basic_string  uninitialized basic_string container.
+ * @param t_count          element number.
+ * @param val_elemlist     variable argument list of specificed element.
+ * @return void
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. the type of specificed element and basic_string element
+ *          type must be same, otherwise the behavior is undefined. the first specificed element is in use, others are
+ *          not in use. basic_string container must be created by create_basic_string, otherwise the behavior is undefined.
+ */
+extern void _basic_string_init_elem_varg(basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist);
+
+/**
+ * Destroy basic_string container auxiliary function.
+ * @param pvec_basic_string  basic_string container.
+ * @return void.
+ * @remarks if pvec_basic_string == NULL or basic_string is not created by create_basic_string() function, then the behavior
+ *          is undefined. basic_string container must be create_basic_string, otherwise the behavior is undefined.
+ */
+extern void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string);
+
+/**
+ * Find a first occurrence of a substring
+ * @param cpt_basic_string     basic_string container.
+ * @param t_pos                search begin position.
+ * @param ...                  specificed element.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos is invalid position, then return
+ *          NPOS.
+ */
+extern size_t _basic_string_find_elem(const basic_string_t* cpt_basic_string, size_t t_pos, ...);
+
+/**
+ * Find a first occurrence of a substring
+ * @param cpt_basic_string     basic_string container.
+ * @param t_pos                search begin position.
+ * @param val_elemlist         specificed element.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos is invalid position, then return
+ *          NPOS.
+ */
+extern size_t _basic_string_find_elem_varg(const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist);
 extern size_t _basic_string_rfind_elem(
     const basic_string_t* cpt_basic_string, size_t t_pos, ...);
 extern size_t _basic_string_rfind_elem_varg(

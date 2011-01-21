@@ -153,7 +153,7 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* basic_string iterator handler */
 #define _GET_BASIC_STRING_COREPOS(t_iter)\
-    ((t_iter)._t_pos._pc_corepos)
+    ((t_iter)._t_pos._pby_corepos)
 #define _GET_BASIC_STRING_CONTAINER(t_iter)\
     ((basic_string_t*)((t_iter)._pt_container))
 #define _GET_BASIC_STRING_CONTAINER_TYPE(t_iter)\

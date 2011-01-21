@@ -45,37 +45,71 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-
-/* basic_string private function */
+/**
+ * Create basic_string container.
+ */
 basic_string_t* _create_basic_string(const char* s_typename)
 {
-    assert(sizeof(basic_string_t) == sizeof(vector_t));
-    return (basic_string_t*)_create_vector(s_typename);
+    basic_string_t* pt_basic_string = NULL;
+
+    assert(s_typename != NULL);
+
+    if((pt_basic_string = (basic_string_t*)malloc(sizeof(basic_string_t))) == NULL)
+    {
+        return NULL;
+    }
+
+    if(!_create_basic_string_auxiliary(pt_basic_string, s_typename))
+    {
+        free(pt_basic_string);
+        return NULL;
+    }
+
+    return pt_basic_string;
 }
 
+/**
+ * Create basic_string container auxiliary function.
+ */
 bool_t _create_basic_string_auxiliary(basic_string_t* pt_basic_string, const char* s_typename)
 {
+    assert(pt_basic_string != NULL);
+    assert(s_typename != NULL);
+
     return _create_vector_auxiliary(&pt_basic_string->_t_vector, s_typename);
 }
 
+/**
+ * Destroy basic_string container auxiliary function.
+ */
 void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string)
 {
+    assert(pt_basic_string != NULL);
+
     _vector_destroy_auxiliary(&pt_basic_string->_t_vector);
 }
 
-void _basic_string_init_elem(
-    basic_string_t* pt_basic_string, size_t t_count, ...)
+/**
+ * Initialize basic_string with specified element.
+ */
+void _basic_string_init_elem(basic_string_t* pt_basic_string, size_t t_count, ...)
 {
     va_list val_elemlist;
+
+    assert(pt_basic_string != NULL);
 
     va_start(val_elemlist, t_count);
     _basic_string_init_elem_varg(pt_basic_string, t_count, val_elemlist);
     va_end(val_elemlist);
 }
 
-void _basic_string_init_elem_varg(
-    basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
+/**
+ * Initialize basic_string with variable argument list of specified element.
+ */
+void _basic_string_init_elem_varg(basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 {
+    assert(pt_basic_string != NULL);
+
     _vector_init_elem_varg(&pt_basic_string->_t_vector, t_count, val_elemlist);
 }
 
@@ -115,29 +149,34 @@ void _basic_string_connect_elem_varg(basic_string_t* pt_basic_string, va_list va
     _alloc_deallocate(&pt_basic_string->_t_vector._t_allocater, pv_varg, t_typesize, 1);
 }
 
-size_t _basic_string_find_elem(
-    const basic_string_t* cpt_basic_string, size_t t_pos, ...)
+/**
+ * Find a first occurrence of a substring
+ */
+size_t _basic_string_find_elem(const basic_string_t* cpt_basic_string, size_t t_pos, ...)
 {
-    size_t t_count = 0;
     va_list val_elemlist;
 
+    assert(cpt_basic_string != NULL);
+
     va_start(val_elemlist, t_pos);
-    t_count = _basic_string_find_elem_varg(cpt_basic_string, t_pos, val_elemlist);
+    t_pos = _basic_string_find_elem_varg(cpt_basic_string, t_pos, val_elemlist);
     va_end(val_elemlist);
 
-    return t_count;
+    return t_pos;
 }
 
-size_t _basic_string_find_elem_varg(
-    const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
+/**
+ * Find a first occurrence of a substring
+ */
+size_t _basic_string_find_elem_varg(const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
 {
-    size_t  t_typesize = 0;
-    size_t  t_findpos = 0;
-    size_t  t_stringlen = 0;
-    void*   pv_varg = NULL;
-    char*   pc_string = NULL;
-    bool_t  t_less = false;
-    bool_t  t_greater = false;
+    size_t   t_typesize = 0;
+    size_t   t_findpos = 0;
+    size_t   t_length = 0;
+    void*    pv_varg = NULL;
+    _byte_t* pby_string = NULL;
+    bool_t   b_less = false;
+    bool_t   b_greater = false;
 
     assert(cpt_basic_string != NULL);
 
@@ -148,24 +187,20 @@ size_t _basic_string_find_elem_varg(
 
     /* get element */
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-    pv_varg = _alloc_allocate(
-        &((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
+    pv_varg = _alloc_allocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
     assert(pv_varg != NULL);
-    _basic_string_get_varg_value_auxiliary(
-        (basic_string_t*)cpt_basic_string, val_elemlist, pv_varg);
+    _basic_string_get_varg_value_auxiliary((basic_string_t*)cpt_basic_string, val_elemlist, pv_varg);
 
     /* find elemen */
-    t_stringlen = basic_string_length(cpt_basic_string);
-    pc_string = (char*)basic_string_at(cpt_basic_string, 0);
+    t_length = basic_string_length(cpt_basic_string);
+    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
     t_findpos = t_pos;
-    while(t_findpos != t_stringlen)
+    while(t_findpos != t_length)
     {
-        t_less = t_greater = t_typesize;
-        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pc_string + t_findpos * t_typesize, pv_varg, &t_less);
-        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pv_varg, pc_string + t_findpos * t_typesize, &t_greater);
-        if(!t_less && !t_greater)
+        b_less = b_greater = t_typesize;
+        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_string + t_findpos * t_typesize, pv_varg, &b_less);
+        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pv_varg, pby_string + t_findpos * t_typesize, &b_greater);
+        if(!b_less && !b_greater)
         {
             break;
         }
@@ -174,14 +209,13 @@ size_t _basic_string_find_elem_varg(
             t_findpos++;
         }
     }
-
-    if(t_findpos == t_stringlen)
+    if(t_findpos == t_length)
     {
         t_findpos = NPOS;
     }
+
     _basic_string_destroy_varg_value_auxiliary((basic_string_t*)cpt_basic_string, pv_varg);
-    _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, pv_varg,
-        _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string), 1);
+    _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, pv_varg, t_typesize, 1);
 
     return t_findpos;
 }

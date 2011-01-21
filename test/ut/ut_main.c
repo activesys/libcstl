@@ -30,6 +30,8 @@
 #include "ut_cstl_queue_private.h"
 #include "ut_cstl_queue.h"
 #include "ut_cstl_basic_string_iterator.h"
+#include "ut_cstl_basic_string_aux.h"
+#include "ut_cstl_basic_string_private.h"
 
 int main(int argc, char* argv[])
 {
@@ -56,7 +58,9 @@ int main(int argc, char* argv[])
         UT_CSTL_STACK_CASE,
         UT_CSTL_QUEUE_PRIVATE_CASE,
         UT_CSTL_QUEUE_CASE,
-        UT_CSTL_BASIC_STRING_ITERATOR_CASE
+        UT_CSTL_BASIC_STRING_ITERATOR_CASE,
+        UT_CSTL_BASIC_STRING_AUX_CASE,
+        UT_CSTL_BASIC_STRING_PRIVATE_CASE
     };
 
     return run_tests(tests);

@@ -1,0 +1,112 @@
+#ifndef _UT_CSTL_BASIC_STRING_PRIVATE_H_
+#define _UT_CSTL_BASIC_STRING_PRIVATE_H_
+
+UT_SUIT_DECLARATION(cstl_basic_string_private)
+
+/*
+ * test _create_basic_string
+ */
+UT_CASE_DECLARATION(_create_basic_string)
+void test__create_basic_string__null_typename(void** state);
+void test__create_basic_string__unregisted_type(void** state);
+void test__create_basic_string__c_builtin_type(void** state);
+void test__create_basic_string__libcstl_builtin_type(void** state);
+void test__create_basic_string__registed_type(void** state);
+/*
+ * test _create_basic_string_auxiliary
+ */
+UT_CASE_DECLARATION(_create_basic_string_auxiliary)
+void test__create_basic_string_auxiliary__null_basic_string_container(void** state);
+void test__create_basic_string_auxiliary__null_typename(void** state);
+void test__create_basic_string_auxiliary__unregisted_type(void** state);
+void test__create_basic_string_auxiliary__c_builtin_type(void** state);
+void test__create_basic_string_auxiliary__libcstl_builtin_type(void** state);
+void test__create_basic_string_auxiliary__registed_type(void** state);
+/*
+ * test _basic_string_init_elem and _basic_string_init_elem_varg
+ */
+UT_CASE_DECLARATION(_basic_string_init_elem__basic_string_init_elem_varg)
+void test__basic_string_init_elem__basic_string_init_elem_varg__null_basic_string_container(void** state);
+void test__basic_string_init_elem__basic_string_init_elem_varg__non_created(void** state);
+void test__basic_string_init_elem__basic_string_init_elem_varg__successfully_0_count(void** state);
+void test__basic_string_init_elem__basic_string_init_elem_varg__successfully(void** state);
+void test__basic_string_init_elem__basic_string_init_elem_varg__successfully_large_amounts_of_data(void** state);
+void test__basic_string_init_elem__basic_string_init_elem_varg__successfully_multiple_specificed_element(void** state);
+/*
+ * test _basic_string_destroy_auxiliary
+ */
+UT_CASE_DECLARATION(_basic_string_destroy_auxiliary)
+void test__basic_string_destroy_auxiliary__null_basic_string_container(void** state);
+void test__basic_string_destroy_auxiliary__invalid_basic_string_container_finish_less_than_start(void** state);
+void test__basic_string_destroy_auxiliary__invalid_basic_string_container_endofstorage_less_than_start(void** state);
+void test__basic_string_destroy_auxiliary__successfully_non_init_container(void** state);
+void test__basic_string_destroy_auxiliary__successfully_empty_container(void** state);
+void test__basic_string_destroy_auxiliary__successfully(void** state);
+/*
+ * test _basic_string_find_elem and _basic_string_find_elem_varg
+ */
+UT_CASE_DECLARATION(_basic_string_find_elem__basic_string_find_elem_varg)
+void test__basic_string_find_elem__basic_string_find_elem_varg__null_basic_string_container(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__non_init_basic_string_container(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__invalid_position(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__invalid_position_end(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__invalid_position_NPOS(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__find_failure(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__find_failure_middle_pos(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__find_successful(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__find_successful_middle(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__find_successful_back(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__find_successful_middle_pos(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failure(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failure_middle_pos(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_back(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle_pos(void** state);
+
+#define UT_CSTL_BASIC_STRING_PRIVATE_CASE\
+    UT_SUIT_BEGIN(cstl_basic_string_private, test__create_basic_string__null_typename),\
+    UT_CASE(test__create_basic_string__unregisted_type),\
+    UT_CASE(test__create_basic_string__c_builtin_type),\
+    UT_CASE(test__create_basic_string__libcstl_builtin_type),\
+    UT_CASE(test__create_basic_string__registed_type),\
+    UT_CASE_BEGIN(_create_basic_string_auxiliary, test__create_basic_string_auxiliary__null_basic_string_container),\
+    UT_CASE(test__create_basic_string_auxiliary__null_typename),\
+    UT_CASE(test__create_basic_string_auxiliary__unregisted_type),\
+    UT_CASE(test__create_basic_string_auxiliary__c_builtin_type),\
+    UT_CASE(test__create_basic_string_auxiliary__libcstl_builtin_type),\
+    UT_CASE(test__create_basic_string_auxiliary__registed_type),\
+    UT_CASE_BEGIN(_basic_string_init_elem__basic_string_init_elem_varg,\
+            test__basic_string_init_elem__basic_string_init_elem_varg__null_basic_string_container),\
+    UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__non_created),\
+    UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully_0_count),\
+    UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully),\
+    UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully_large_amounts_of_data),\
+    UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully_multiple_specificed_element),\
+    UT_CASE_BEGIN(_basic_string_destroy_auxiliary, test__basic_string_destroy_auxiliary__null_basic_string_container),\
+    UT_CASE(test__basic_string_destroy_auxiliary__invalid_basic_string_container_finish_less_than_start),\
+    UT_CASE(test__basic_string_destroy_auxiliary__invalid_basic_string_container_endofstorage_less_than_start),\
+    UT_CASE(test__basic_string_destroy_auxiliary__successfully_non_init_container),\
+    UT_CASE(test__basic_string_destroy_auxiliary__successfully_empty_container),\
+    UT_CASE(test__basic_string_destroy_auxiliary__successfully),\
+    UT_CASE_BEGIN(_basic_string_find_elem__basic_string_find_elem_varg,\
+        test__basic_string_find_elem__basic_string_find_elem_varg__null_basic_string_container),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__non_init_basic_string_container),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__invalid_position),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__invalid_position_end),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__invalid_position_NPOS),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__find_failure),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__find_failure_middle_pos),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__find_successful),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__find_successful_middle),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__find_successful_back),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__find_successful_middle_pos),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failure),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failure_middle_pos),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_back),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle_pos)
+
+#endif /* _UT_CSTL_BASIC_STRING_PRIVATE_H_ */
+

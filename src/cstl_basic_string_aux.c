@@ -33,6 +33,7 @@
 #include <cstl/cstl_basic_string.h>
 
 #include "cstl_basic_string_aux.h"
+#include "cstl_vector_aux.h"
 
 /** local constant declaration and local macro section **/
 
@@ -58,85 +59,80 @@ bool_t _iterator_belong_to_basic_string(
     return true;
 }
 
-bool_t _basic_string_same_type(
-    const basic_string_t* cpt_basic_stringfirst,
-    const basic_string_t* cpt_basic_stringsecond)
+/**
+ * Test the type that saved in the basic_string container is same.
+ */
+bool_t _basic_string_same_type(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
-    return _type_is_same(_GET_BASIC_STRING_TYPE_NAME(cpt_basic_stringfirst),
-                         _GET_BASIC_STRING_TYPE_NAME(cpt_basic_stringsecond)) &&
-           (cpt_basic_stringfirst->_t_vector._t_typeinfo._pt_type ==
-            cpt_basic_stringsecond->_t_vector._t_typeinfo._pt_type);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
+
+    return _vector_same_type(&cpt_first->_t_vector, &cpt_second->_t_vector);
 }
 #endif /* NDEBUG */
 
-size_t _get_valuestring_len(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+/**
+ * Get the value string length.
+ */
+size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
     size_t t_typesize = 0;
 
-    assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(cpt_basic_string != NULL);
+    assert(cpv_value_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     /* char type */
-    if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string),
-        _CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
+    if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         assert(t_typesize == 1);
-        return strlen(cpv_valuestring);
+        return strlen(cpv_value_string);
     }
     else
     {
-        size_t t_len = 0;
-        char*  pc_nullterminated = NULL;
-        bool_t t_less = false;
-        bool_t t_greater = false;
+        size_t   t_length = 0;
+        _byte_t* pby_terminator = NULL;
 
-        pc_nullterminated = (char*)_alloc_allocate(
-            &((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
-        assert(pc_nullterminated != NULL);
-        memset(pc_nullterminated, 0x00, t_typesize);
+        pby_terminator = (_byte_t*)_alloc_allocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
+        assert(pby_terminator != NULL);
+        memset(pby_terminator, 0x00, t_typesize);
 
-        t_less = t_greater = t_typesize;
-        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            cpv_valuestring, pc_nullterminated, &t_less);
-        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pc_nullterminated, cpv_valuestring, &t_greater);
-        while(t_less || t_greater)
+        while(memcmp(pby_terminator, (_byte_t*)cpv_value_string + t_length * t_typesize, t_typesize) != 0)
         {
-            t_len++;
-
-            t_less = t_greater = t_typesize;
-            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                (char*)cpv_valuestring+t_len*t_typesize, pc_nullterminated, &t_less);
-            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                pc_nullterminated, (char*)cpv_valuestring+t_len*t_typesize, &t_greater);
+            t_length++;
         }
-        
-        _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater,
-            pc_nullterminated, t_typesize, 1);
 
-        return t_len;
+        _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, pby_terminator, t_typesize, 1);
+
+        return t_length;
     }
 }
 
-void _basic_string_get_varg_value_auxiliary(
-    basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg)
+/**
+ * Obtain data from variable argument list, the data type and basic_string element data type are same.
+ */
+void _basic_string_get_varg_value_auxiliary(basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg)
 {
+    assert(pt_basic_string != NULL);
+    assert(pv_varg != NULL);
+
     _basic_string_init_elem_auxiliary(pt_basic_string, pv_varg);
     _type_get_varg_value(&pt_basic_string->_t_vector._t_typeinfo, val_elemlist, pv_varg);
 }
 
-void _basic_string_destroy_varg_value_auxiliary(
-    basic_string_t* pt_basic_string, void* pv_varg)
+/**
+ * Destroy data, the data type and basic_string element data type are same.
+ */
+void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_string, void* pv_varg)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
 
-    assert(pt_basic_string != NULL && pv_varg != NULL);
+    assert(pt_basic_string != NULL);
+    assert(pv_varg != NULL);
 
-    t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-    _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pv_varg, &t_result);
-    assert(t_result);
+    b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+    _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pv_varg, &b_result);
+    assert(b_result);
 }
 
 /** local function implementation section **/
