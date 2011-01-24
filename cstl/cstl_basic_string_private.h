@@ -113,82 +113,289 @@ extern size_t _basic_string_find_elem(const basic_string_t* cpt_basic_string, si
  *          NPOS.
  */
 extern size_t _basic_string_find_elem_varg(const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist);
-extern size_t _basic_string_rfind_elem(
-    const basic_string_t* cpt_basic_string, size_t t_pos, ...);
-extern size_t _basic_string_rfind_elem_varg(
-    const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist);
-extern size_t _basic_string_find_first_not_of_elem(
-    const basic_string_t* cpt_basic_string, size_t t_pos, ...);
-extern size_t _basic_string_find_first_not_of_elem_varg(
-    const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist);
-extern size_t _basic_string_find_last_not_of_elem(
-    const basic_string_t* cpt_basic_string, size_t t_pos, ...);
-extern size_t _basic_string_find_last_not_of_elem_varg(
-    const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist);
 
-/*
- * Connect operation functions.
+/**
+ * Find a last occurrence of a substring
+ * @param cpt_basic_string     basic_string container.
+ * @param t_pos                search begin position.
+ * @param ...                  specificed element.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos is invalid position, then search
+ *          from the last element.
+ */
+extern size_t _basic_string_rfind_elem(const basic_string_t* cpt_basic_string, size_t t_pos, ...);
+
+/**
+ * Find a last occurrence of a substring
+ * @param cpt_basic_string     basic_string container.
+ * @param t_pos                search begin position.
+ * @param val_elemlist         specificed element.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos is invalid position, then search
+ *          from the last element.
+ */
+extern size_t _basic_string_rfind_elem_varg(const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist);
+
+/**
+ * Find a first occurrence of a character that is not equal to specificed element.
+ * @param cpt_basic_string     basic_string container.
+ * @param t_pos                search begin position.
+ * @param ...                  specificed element.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos is invalid position, then return
+ *          NPOS.
+ */
+extern size_t _basic_string_find_first_not_of_elem(const basic_string_t* cpt_basic_string, size_t t_pos, ...);
+
+/**
+ * Find a first occurrence of a character that is not equal to specificed element.
+ * @param cpt_basic_string     basic_string container.
+ * @param t_pos                search begin position.
+ * @param val_elemlist         specificed element.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos is invalid position, then return
+ *          NPOS.
+ */
+extern size_t _basic_string_find_first_not_of_elem_varg(const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist);
+
+/**
+ * Find a last occurrence of a character that is not equal to specificed element.
+ * @param cpt_basic_string     basic_string container.
+ * @param t_pos                search begin position.
+ * @param ...                  specificed element.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos is invalid position, then search
+ *          from the last element.
+ */
+extern size_t _basic_string_find_last_not_of_elem(const basic_string_t* cpt_basic_string, size_t t_pos, ...);
+
+/**
+ * Find a last occurrence of a character that is not equal to specificed element.
+ * @param cpt_basic_string     basic_string container.
+ * @param t_pos                search begin position.
+ * @param val_elemlist         specificed element.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos is invalid position, then search
+ *          from the last element.
+ */
+extern size_t _basic_string_find_last_not_of_elem_varg(const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist);
+
+/**
+ * Appends specificed element to basic string.
+ * @param pt_basic_string      basic_string container.
+ * @param ...                  specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
  */
 extern void _basic_string_connect_elem(basic_string_t* pt_basic_string, ...);
-extern void _basic_string_connect_elem_varg(
-    basic_string_t* pt_basic_string, va_list val_elemlist);
 
-/*
- * Push back operation functions.
+/**
+ * Appends specificed element to basic string.
+ * @param pt_basic_string      basic_string container.
+ * @param val_elemlist         specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
+ */
+extern void _basic_string_connect_elem_varg(basic_string_t* pt_basic_string, va_list val_elemlist);
+
+/**
+ * Adds an element to basic string.
+ * @param pt_basic_string      basic_string container.
+ * @param ...                  specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
  */
 extern void _basic_string_push_back(basic_string_t* pt_basic_string, ...);
-extern void _basic_string_push_back_varg(
-    basic_string_t* pt_basic_string, va_list val_elemlist);
+
+/**
+ * Adds an element to basic string.
+ * @param pt_basic_string      basic_string container.
+ * @param val_elemlist         specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
+ */
+extern void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_elemlist);
+
+/**
+ * Erase the last element.
+ * @param pt_basic_string      basic_string container.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine. basic string container must not be
+ *          empty, otherwise the behavior is undefined.
+ */
 extern void _basic_string_pop_back(basic_string_t* pt_basic_string);
 
-/*
- * Resize operation functions.
+/**
+ * Reset the size of basic_string elements.
+ * @param pt_basic_string   basic_string container.
+ * @param t_resize          new size of basic_string elements.
+ * @param ...               specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. if t_resize less than current basic_string size, then erase elmement from the end.
+ *          if t_resize greater than current basic_string size, then append elements to the end, and the element is specificed
+ *          element.
  */
-extern void _basic_string_resize(
-    basic_string_t* pt_basic_string, size_t t_resize, ...);
-extern void _basic_string_resize_varg(
-    basic_string_t* pt_basic_string, size_t t_resize, va_list val_elemlist);
+extern void _basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize, ...);
 
-/*
- * Assign operator functions.
+/**
+ * Reset the size of basic_string elements, and filled element is from variable argument list.
+ * @param pt_basic_string   basic_string container.
+ * @param t_resize          new size of basic_string elements.
+ * @param val_elemlist      specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. if t_resize less than current basic_string size, then erase elmement from the end.
+ *          if t_resize greater than current basic_string size, then append elements to the end, and the element is from
+ *          variable argument list.
  */
-extern void _basic_string_assign_elem(
-    basic_string_t* pt_basic_string, size_t t_count, ...);
-extern void _basic_string_assign_elem_varg(
-    basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist);
+extern void _basic_string_resize_varg(basic_string_t* pt_basic_string, size_t t_resize, va_list val_elemlist);
 
-/*
- * Append operation functions.
+/**
+ * Assign new element to basic_string.
+ * @param pt_basic_string      basic_string container.
+ * @param t_count              element number.
+ * @param ...                  specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
  */
-extern void _basic_string_append_elem(
-    basic_string_t* pt_basic_string, size_t t_count, ...);
-extern void _basic_string_append_elem_varg(
-    basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist);
+extern void _basic_string_assign_elem(basic_string_t* pt_basic_string, size_t t_count, ...);
 
-/*
- * Insert operation functions.
+/**
+ * Assign new element to basic_string.
+ * @param pt_basic_string      basic_string container.
+ * @param t_count              element number.
+ * @param val_elemlist         specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
  */
-extern basic_string_iterator_t _basic_string_insert(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, ...);
+extern void _basic_string_assign_elem_varg(basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist);
+
+/**
+ * Appends characters to the end of basic string.
+ * @param pt_basic_string      basic_string container.
+ * @param t_count              element number.
+ * @param ...                  specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
+ */
+extern void _basic_string_append_elem(basic_string_t* pt_basic_string, size_t t_count, ...);
+
+/**
+ * Appends characters to the end of basic string.
+ * @param pt_basic_string      basic_string container.
+ * @param t_count              element number.
+ * @param val_elemlist         specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
+ */
+extern void _basic_string_append_elem_varg(basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist);
+
+/**
+ * Insert one copy of element befor specificed position.
+ * @param pt_basic_string   basic_string container.
+ * @param it_pos            insert position.
+ * @param ...               specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the it_pos must be
+ *          invalid iterator of basic_string container, otherwise the behavior is undefined. the type of specificed element
+ *          and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is in use,
+ *          others are not in use.
+ */
+extern basic_string_iterator_t _basic_string_insert(basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, ...);
+
+/**
+ * Insert multiple copys of element befor specificed position.
+ * @param pt_basic_string   basic_string container.
+ * @param it_pos            insert position.
+ * @param t_count           element number.
+ * @param ...               specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the it_pos must be
+ *          invalid iterator of basic_string container, otherwise the behavior is undefined. the type of specificed element
+ *          and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is in use,
+ *          others are not in use.
+ */
 extern basic_string_iterator_t _basic_string_insert_n(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, ...);
-extern basic_string_iterator_t _basic_string_insert_n_varg(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, 
-    size_t t_count, va_list val_elemlist);
-extern void _basic_string_insert_elem(
-    basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, ...);
-extern void _basic_string_insert_elem_varg(
-    basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, va_list val_elemlist);
 
-/*
- * Replace operation functions.
+/**
+ * Insert multiple copys of element befor specificed position, the element is from variable argument list.
+ * @param pt_basic_string   basic_string container.
+ * @param it_pos            insert position.
+ * @param t_count           element number.
+ * @param val_elemlist  specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the it_pos must be
+ *          invalid iterator of basic_string container, otherwise the behavior is undefined. the type of specificed element
+ *          and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is in use,
+ *          others are not in use. the inserted element is from variable argument list.
+ */
+extern basic_string_iterator_t _basic_string_insert_n_varg(
+    basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, va_list val_elemlist);
+
+/**
+ * Insert multiple copys of element befor specificed position.
+ * @param pt_basic_string   basic_string container.
+ * @param t_pos             insert position.
+ * @param t_count           element number.
+ * @param ...               specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the t_pos must be
+ *          invalid iterator of basic_string container, otherwise the behavior is undefined. the type of specificed element
+ *          and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is in use,
+ *          others are not in use.
+ */
+extern void _basic_string_insert_elem(basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, ...);
+
+/**
+ * Insert multiple copys of element befor specificed position, the element is from variable argument list.
+ * @param pt_basic_string   basic_string container.
+ * @param t_pos             insert position.
+ * @param t_count           element number.
+ * @param val_elemlist      specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the t_pos must be
+ *          invalid iterator of basic_string container, otherwise the behavior is undefined. the type of specificed element
+ *          and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is in use,
+ *          others are not in use. the inserted element is from variable argument list.
+ */
+extern void _basic_string_insert_elem_varg(basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, va_list val_elemlist);
+
+/**
+ * Replace elements at specificed posititon.
+ * @param pt_basic_string   basic_string container.
+ * @param it_begin          begin of replaced range.
+ * @param it_end            end of replaced range.
+ * @param t_count           element number.
+ * @param ...               specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the [it_begin, it_end)
+ *          must be invalid range of basic_string container, otherwise the behavior is undefined. the type of specificed element
+ *          and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is in use,
+ *          others are not in use. the inserted element is from variable argument list.
  */
 extern void _basic_string_range_replace_elem(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
-    basic_string_iterator_t t_end, size_t t_count, ...);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end, size_t t_count, ...);
+
+/**
+ * Replace elements at specificed posititon.
+ * @param pt_basic_string   basic_string container.
+ * @param it_begin          begin of replaced range.
+ * @param it_end            end of replaced range.
+ * @param t_count           element number.
+ * @param val_elemlist      specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the [it_begin, it_end)
+ *          must be invalid range of basic_string container, otherwise the behavior is undefined. the type of specificed element
+ *          and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is in use,
+ *          others are not in use. the inserted element is from variable argument list.
+ */
 extern void _basic_string_range_replace_elem_varg(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
-    basic_string_iterator_t t_end, size_t t_count, va_list val_elemlist);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end,
+    size_t t_count, va_list val_elemlist);
 extern void _basic_string_replace_elem(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, ...);
 extern void _basic_string_replace_elem_varg(

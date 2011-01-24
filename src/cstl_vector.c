@@ -622,7 +622,7 @@ void vector_pop_back(vector_t* pvec_vector)
 
     assert(pvec_vector != NULL);
     assert(_vector_is_inited(pvec_vector));
-    assert(vector_size(pvec_vector) > 0);
+    assert(!vector_empty(pvec_vector));
 
     /* destroy last element */
     b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
