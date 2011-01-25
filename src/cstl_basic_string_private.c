@@ -602,8 +602,10 @@ void _basic_string_insert_elem_varg(basic_string_t* pt_basic_string, size_t t_po
 }
 
 
-void _basic_string_replace_elem(
-    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, ...)
+/**
+ * Replace elements at specificed posititon.
+ */
+void _basic_string_replace_elem(basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, ...)
 {
     va_list val_elemlist;
 
@@ -612,26 +614,27 @@ void _basic_string_replace_elem(
     va_end(val_elemlist);
 }
 
+/**
+ * Replace elements at specificed posititon.
+ */
 void _basic_string_replace_elem_varg(
-    basic_string_t* pt_basic_string, size_t t_pos, 
-    size_t t_len, size_t t_count, va_list val_elemlist)
+    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, va_list val_elemlist)
 {
-    basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
-    basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
+    basic_string_iterator_t it_begin;
+    basic_string_iterator_t it_end;
 
     assert(t_pos <= basic_string_size(pt_basic_string));
 
-    t_begin = iterator_next_n(t_begin, t_pos);
+    it_begin = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
-        t_end = basic_string_end(pt_basic_string);
+        it_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        t_end = iterator_next_n(t_end, t_pos + t_len);
+        it_end = iterator_next_n(basic_string_begin(pt_basic_string), t_pos + t_len);
     }
-    _basic_string_range_replace_elem_varg(
-        pt_basic_string, t_begin, t_end, t_count, val_elemlist);
+    _basic_string_range_replace_elem_varg(pt_basic_string, it_begin, it_end, t_count, val_elemlist);
 }
 
 /**
@@ -658,9 +661,13 @@ void _basic_string_range_replace_elem_varg(
     _basic_string_insert_n_varg(pt_basic_string, it_pos, t_count, val_elemlist);
 }
 
+/**
+ * Initialize element with basic_string element type auxiliary function.
+ */
 void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem)
 {
-    assert(pt_basic_string != NULL && pv_elem != NULL);
+    assert(pt_basic_string != NULL);
+    assert(pv_elem != NULL);
 
     /* initialize new elements */
     if(_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_CSTL_BUILTIN)
@@ -673,9 +680,9 @@ void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv
     }
     else
     {
-        bool_t t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-        _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, &b_result);
+        assert(b_result);
     }
 }
 

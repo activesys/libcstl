@@ -266,6 +266,39 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_less(void** state);
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_equal(void** state);
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_greater(void** state);
+void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__replace_all(void** state);
+/*
+ * test _basic_string_replace_elem and _basic_string_replace_elem_varg
+ */
+UT_CASE_DECLARATION(_basic_string_replace_elem__basic_string_replace_elem_varg)
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__null_container(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__non_inited_container(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_empty(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_non_empty(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_empty(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_less(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_equal(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_greater(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_empty(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_less(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_equal(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_greater(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_empty(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_less(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_equal(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_greater(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_all(void** state);
+/*
+ * test _basic_string_init_elem_auxiliary
+ */
+UT_CASE_DECLARATION(_basic_string_init_elem_auxiliary)
+void test__basic_string_init_elem_auxiliary__null_basic_string_container(void** state);
+void test__basic_string_init_elem_auxiliary__null_elem(void** state);
+void test__basic_string_init_elem_auxiliary__non_created_basic_string(void** state);
+void test__basic_string_init_elem_auxiliary__successfully_int(void** state);
+void test__basic_string_init_elem_auxiliary__successfully_cstr(void** state);
+void test__basic_string_init_elem_auxiliary__successfully_iterator(void** state);
+void test__basic_string_init_elem_auxiliary__successfully_container(void** state);
 
 #define UT_CSTL_BASIC_STRING_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_basic_string_private, test__create_basic_string__null_typename),\
@@ -475,7 +508,33 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
     UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_empty),\
     UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_less),\
     UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_equal),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_greater)
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_greater),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__replace_all),\
+    UT_CASE_BEGIN(_basic_string_replace_elem__basic_string_replace_elem_varg,\
+        test__basic_string_replace_elem__basic_string_replace_elem_varg__null_container),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__non_inited_container),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_non_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_less),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_equal),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_greater),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_less),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_equal),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_greater),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_less),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_equal),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_greater),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_all),\
+    UT_CASE_BEGIN(_basic_string_init_elem_auxiliary, test__basic_string_init_elem_auxiliary__null_basic_string_container),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__null_elem),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__non_created_basic_string),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_int),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_cstr),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_iterator),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_container)
 
 #endif /* _UT_CSTL_BASIC_STRING_PRIVATE_H_ */
 

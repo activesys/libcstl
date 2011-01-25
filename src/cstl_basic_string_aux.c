@@ -77,6 +77,7 @@ bool_t _basic_string_same_type(const basic_string_t* cpt_first, const basic_stri
 size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
     size_t t_typesize = 0;
+    size_t t_length = 0;
 
     assert(cpt_basic_string != NULL);
     assert(cpv_value_string != NULL);
@@ -88,9 +89,20 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
         assert(t_typesize == 1);
         return strlen(cpv_value_string);
     }
-    else
+    /* char* type */
+    else if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        size_t   t_length = 0;
+        char** ps_terminator = NULL;
+
+        for(ps_terminator = (char**)cpv_value_string; *ps_terminator != NULL; ++ps_terminator)
+        {
+            t_length++;
+        }
+
+        return t_length;
+    }
+    else if(_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN)
+    {
         _byte_t* pby_terminator = NULL;
 
         pby_terminator = (_byte_t*)_alloc_allocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
@@ -103,6 +115,17 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
         }
 
         _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, pby_terminator, t_typesize, 1);
+
+        return t_length;
+    }
+    else
+    {
+        _byte_t** ppby_terminator = NULL;
+
+        for(ppby_terminator = (_byte_t**)cpv_value_string; *ppby_terminator != NULL; ++ppby_terminator)
+        {
+            t_length++;
+        }
 
         return t_length;
     }

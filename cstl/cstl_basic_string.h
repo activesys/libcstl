@@ -30,9 +30,25 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/* create new basic_string with specify type */
+/**
+ * Create basic_string container.
+ * @param ...     element type name.
+ * @return if create basic_string successfully, then return basic_string pointer, else return NULL.
+ * @remarks type name should be C builtin type name, libcstl builtin typename or registed user defined type name,
+ *          otherwise the function will return NULL.
+ */
 #define create_basic_string(...) _create_basic_string(#__VA_ARGS__)
-/* initialize */
+
+/**
+ * Initialize basic_string with specified element.
+ * @param pt_basic_string   uninitialized basic_string container.
+ * @param t_count           element number.
+ * @param elem              specificed element.
+ * @return void
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. the type of specificed element and basic_string element
+ *          type must be same, otherwise the behavior is undefined. the first specificed element is in use, others are
+ *          not in use. basic_string container must be created by create_basic_string, otherwise the behavior is undefined.
+ */
 #define basic_string_init_elem(pt_basic_string, t_count, elem)\
     _basic_string_init_elem((pt_basic_string), (t_count), (elem))
 /* connect (+= operator) */
@@ -84,14 +100,38 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Initialization and destroy functions.
+/**
+ * Initialize empty basic_string container.
+ * @param pt_basic_string    basic_string container.
+ * @return void.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. pt_basic_string muse be created by create_basic_string(),
+ *          otherwise the behavior is undefined. the size of basic_string and the capacity of basic_string is 0 after
+ *          initialization.
  */
 extern void basic_string_init(basic_string_t* pt_basic_string);
-extern void basic_string_init_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring);
-extern void basic_string_init_subcstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring, size_t t_len);
+
+/**
+ * Initialize basic_string container specific value string.
+ * @param pt_basic_string    basic_string container.
+ * @param cpv_value_string   value string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string muse be
+ *          created by create_basic_string(), otherwise the behavior is undefined. the value string is terminated by memory 0,
+ *          and basic_string_size() is equal to the length of value string.
+ */
+extern void basic_string_init_cstr(basic_string_t* pt_basic_string, const void* cpv_value_string);
+
+/**
+ * Initialize basic_string container specific sub value string.
+ * @param pt_basic_string    basic_string container.
+ * @param cpv_value_string   value string.
+ * @param t_len              length of sub value string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string muse be
+ *          created by create_basic_string(), otherwise the behavior is undefined. if t_len is NPOS or greater then the length of
+ *          value string, then use total value string to initialize basic_string.
+ */
+extern void basic_string_init_subcstr(basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len);
 extern void basic_string_init_copy(
     basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_src);
 extern void basic_string_init_copy_substring(
@@ -147,17 +187,17 @@ extern bool_t basic_string_greater_equal(
     const basic_string_t* cpt_basic_stringfirst, 
     const basic_string_t* cpt_basic_stringsecond);
 extern bool_t basic_string_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring);
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string);
 extern bool_t basic_string_not_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
 extern bool_t basic_string_less_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
 extern bool_t basic_string_greater_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
 extern bool_t basic_string_less_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
 extern bool_t basic_string_greater_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring); 
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
 
 /*
  * Compare operation functions.
@@ -172,13 +212,13 @@ extern int basic_string_compare_substring_substring(
     const basic_string_t* cpt_basic_stringfirst, size_t t_firstpos, size_t t_firstlen,
     const basic_string_t* cpt_basic_stringsecond, size_t t_secondpos, size_t t_secondlen);
 extern int basic_string_compare_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring);
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string);
 extern int basic_string_compare_substring_cstr(
     const basic_string_t* cpt_basic_string, size_t t_stringpos, size_t t_stringlen,
-    const void* cpv_valuestring);
+    const void* cpv_value_string);
 extern int basic_string_compare_substring_subcstr(
     const basic_string_t* cpt_basic_string, size_t t_stringpos, size_t t_stringlen,
-    const void* cpv_valuestring, size_t t_valuestringlen);
+    const void* cpv_value_string, size_t t_valuestringlen);
 
 /*
  * Substring operation function.
@@ -192,7 +232,7 @@ extern basic_string_t* basic_string_substr(
 extern void basic_string_connect(
     basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_src);
 extern void basic_string_connect_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring);
+    basic_string_t* pt_basic_string, const void* cpv_value_string);
 
 /*
  * Find operation functions.
@@ -202,54 +242,54 @@ extern size_t basic_string_find(
     const basic_string_t* cpt_basic_string, const basic_string_t* cpt_basic_string_find,
     size_t t_pos);
 extern size_t basic_string_find_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos);
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
 extern size_t basic_string_find_subcstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring,
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string,
     size_t t_pos, size_t t_len);
 /* rfind */
 extern size_t basic_string_rfind(
     const basic_string_t* cpt_basic_string, const basic_string_t* cpt_basic_string_find,
     size_t t_pos);
 extern size_t basic_string_rfind_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos);
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
 extern size_t basic_string_rfind_subcstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring,
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string,
     size_t t_pos, size_t t_len);
 /* find first of */
 extern size_t basic_string_find_first_of(
     const basic_string_t* cpt_basic_string, const basic_string_t* cpt_basic_string_find,
     size_t t_pos);
 extern size_t basic_string_find_first_of_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos);
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
 extern size_t basic_string_find_first_of_subcstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring,
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string,
     size_t t_pos, size_t t_len);
 /* find first not of */
 extern size_t basic_string_find_first_not_of(
     const basic_string_t* cpt_basic_string, const basic_string_t* cpt_basic_string_find,
     size_t t_pos);
 extern size_t basic_string_find_first_not_of_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos);
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
 extern size_t basic_string_find_first_not_of_subcstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring,
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string,
     size_t t_pos, size_t t_len);
 /* find last of */
 extern size_t basic_string_find_last_of(
     const basic_string_t* cpt_basic_string, const basic_string_t* cpt_basic_string_find,
     size_t t_pos);
 extern size_t basic_string_find_last_of_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos);
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
 extern size_t basic_string_find_last_of_subcstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring,
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string,
     size_t t_pos, size_t t_len);
 /* find last not of */
 extern size_t basic_string_find_last_not_of(
     const basic_string_t* cpt_basic_string, const basic_string_t* cpt_basic_string_find,
     size_t t_pos);
 extern size_t basic_string_find_last_not_of_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos);
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
 extern size_t basic_string_find_last_not_of_subcstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring,
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string,
     size_t t_pos, size_t t_len);
 
 /*
@@ -289,9 +329,9 @@ extern void basic_string_assign_substring(
     basic_string_t* pt_basic_string,
     const basic_string_t* cpt_basic_string_assign, size_t t_pos, size_t t_len);
 extern void basic_string_assign_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring);
+    basic_string_t* pt_basic_string, const void* cpv_value_string);
 extern void basic_string_assign_subcstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring, size_t t_len);
+    basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len);
 extern void basic_string_assign_range(
     basic_string_t* pt_basic_string,
     basic_string_iterator_t t_begin, basic_string_iterator_t t_end);
@@ -305,9 +345,9 @@ extern void basic_string_append_substring(
     basic_string_t* pt_basic_string,
     const basic_string_t* cpt_basic_string_append, size_t t_pos, size_t t_len);
 extern void basic_string_append_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring);
+    basic_string_t* pt_basic_string, const void* cpv_value_string);
 extern void basic_string_append_subcstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring, size_t t_len);
+    basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len);
 extern void basic_string_append_range(
     basic_string_t* pt_basic_string,
     basic_string_iterator_t t_begin, basic_string_iterator_t t_end);
@@ -322,10 +362,10 @@ extern void basic_string_insert_substring(
     basic_string_t* pt_basic_string, size_t t_pos,
     const basic_string_t* cpt_basic_string_insert, size_t t_startpos, size_t t_len);
 extern void basic_string_insert_cstr(
-    basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_valuestring);
+    basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string);
 extern void basic_string_insert_subcstr(
     basic_string_t* pt_basic_string, size_t t_pos,
-    const void* cpv_valuestring, size_t t_len);
+    const void* cpv_value_string, size_t t_len);
 extern void basic_string_insert_range(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_pos,
     basic_string_iterator_t t_begin, basic_string_iterator_t t_end);
@@ -352,10 +392,10 @@ extern void basic_string_replace_substring(
     const basic_string_t* cpt_basic_string_replace, size_t t_position, size_t t_length);
 extern void basic_string_replace_cstr(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len,
-    const void* cpv_valuestring);
+    const void* cpv_value_string);
 extern void basic_string_replace_subcstr(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len,
-    const void* cpv_valuestring, size_t t_length);
+    const void* cpv_value_string, size_t t_length);
 extern void basic_string_range_replace(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
     basic_string_iterator_t t_end, const basic_string_t* cpt_basic_string_replace);
@@ -365,10 +405,10 @@ extern void basic_string_range_replace_substring(
     const basic_string_t* cpt_basic_string_replace, size_t t_pos, size_t t_len);
 extern void basic_string_range_replace_cstr(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
-    basic_string_iterator_t t_end, const void* cpv_valuestring);
+    basic_string_iterator_t t_end, const void* cpv_value_string);
 extern void basic_string_range_replace_subcstr(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
-    basic_string_iterator_t t_end, const void* cpv_valuestring, size_t t_len);
+    basic_string_iterator_t t_end, const void* cpv_value_string, size_t t_len);
 extern void basic_string_replace_range(
     basic_string_t* pt_basic_string,
     basic_string_iterator_t t_begin, basic_string_iterator_t t_end,

@@ -3105,4 +3105,422 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
     basic_string_destroy(pt_basic_string);
 }
 
+void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__replace_all(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_iterator_t it_begin;
+    basic_string_iterator_t it_end;
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+    it_begin = basic_string_begin(pt_basic_string);
+    it_end = basic_string_end(pt_basic_string);
+
+    _basic_string_range_replace_elem(pt_basic_string, it_begin, it_end, 8, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 8);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+/*
+ * test _basic_string_replace_elem and _basic_string_replace_elem_varg
+ */
+UT_CASE_DEFINATION(_basic_string_replace_elem__basic_string_replace_elem_varg)
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__null_container(void** state)
+{
+    expect_assert_failure(_basic_string_replace_elem(NULL, 0, 0, 0, 0));
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__non_inited_container(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    pt_basic_string->_t_vector._t_typeinfo._t_style = 9999;
+    expect_assert_failure(_basic_string_replace_elem(pt_basic_string, 0, 0, 0, 0));
+    pt_basic_string->_t_vector._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_empty(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init(pt_basic_string);
+    _basic_string_replace_elem(pt_basic_string, 0, NPOS, 0, 100);
+    assert_true(basic_string_size(pt_basic_string) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_non_empty(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init(pt_basic_string);
+
+    _basic_string_replace_elem(pt_basic_string, 0, NPOS, 10, 1000);
+    assert_true(basic_string_size(pt_basic_string) == 10);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_empty(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 0, 3, 0, 1000);
+    assert_true(basic_string_size(pt_basic_string) == 7);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_less(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 0, 3, 1, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 8);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i == 0)
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+        }
+        else
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_equal(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 0, 3, 3, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 10);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i < 3)
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+        }
+        else
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_greater(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 0, 3, 8, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 15);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i < 8)
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+        }
+        else
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_empty(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 1, 3, 0, 1000);
+    assert_true(basic_string_size(pt_basic_string) == 7);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_less(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 1, 3, 1, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 8);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i == 1)
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+        }
+        else
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_equal(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 1, 3, 3, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 10);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i > 0 && i < 4)
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+        }
+        else
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_greater(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 1, 3, 8, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 15);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i > 0 && i < 9)
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+        }
+        else
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_empty(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 7, 3, 0, 1000);
+    assert_true(basic_string_size(pt_basic_string) == 7);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_less(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 7, 100, 1, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 8);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i == 7)
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+        }
+        else
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_equal(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 7, NPOS, 3, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 10);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i > 6)
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+        }
+        else
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_greater(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 7, NPOS, 8, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 15);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i > 6)
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+        }
+        else
+        {
+            assert_true(*(int*)basic_string_at(pt_basic_string, i) == 1000);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_all(void** state)
+{
+    int i = 0;
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 10, 1000);
+
+    _basic_string_replace_elem(pt_basic_string, 0, NPOS, 8, 8000);
+    assert_true(basic_string_size(pt_basic_string) == 8);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        assert_true(*(int*)basic_string_at(pt_basic_string, i) == 8000);
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+/*
+ * test _basic_string_init_elem_auxiliary
+ */
+UT_CASE_DEFINATION(_basic_string_init_elem_auxiliary)
+void test__basic_string_init_elem_auxiliary__null_basic_string_container(void** state)
+{
+    int elem = 0;
+    expect_assert_failure(_basic_string_init_elem_auxiliary(NULL, &elem));
+}
+
+void test__basic_string_init_elem_auxiliary__null_elem(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    expect_assert_failure(_basic_string_init_elem_auxiliary(pt_basic_string, NULL));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_init_elem_auxiliary__non_created_basic_string(void** state)
+{
+    /*int elem = 0;*/
+    /*basic_string_t bstr;*/
+    /*bstr._t_vector._pby_start = (_byte_t*)0x78;*/
+
+    /*expect_assert_failure(_basic_string_init_elem_auxiliary(&bstr, &elem));*/
+    assert_true(true);
+}
+
+void test__basic_string_init_elem_auxiliary__successfully_int(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_init_elem(pt_basic_string, 10, 100);
+
+    _basic_string_init_elem_auxiliary(pt_basic_string, pt_basic_string->_t_vector._pby_start);
+    assert_true(*(int*)basic_string_at(pt_basic_string, 0) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_init_elem_auxiliary__successfully_cstr(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char*);
+    basic_string_init_elem(pt_basic_string, 10, "abcdefg");
+
+    _basic_string_init_elem_auxiliary(pt_basic_string, pt_basic_string->_t_vector._pby_start);
+    assert_true(strcmp((char*)basic_string_at(pt_basic_string, 0), "") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_init_elem_auxiliary__successfully_iterator(void** state)
+{
+    iterator_t it_iter = _create_basic_string_iterator();
+    basic_string_t* pt_basic_string = create_basic_string(iterator_t);
+    basic_string_init_elem(pt_basic_string, 10, &it_iter);
+
+    _basic_string_init_elem_auxiliary(pt_basic_string, pt_basic_string->_t_vector._pby_start);
+    memset(&it_iter, 0x00, sizeof(iterator_t));
+    assert_true(memcmp((iterator_t*)basic_string_at(pt_basic_string, 0), &it_iter, sizeof(iterator_t)) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_init_elem_auxiliary__successfully_container(void** state)
+{
+    vector_t bstr;
+    basic_string_t* pt_basic_string = create_basic_string(vector_t<int>);
+
+    _basic_string_init_elem_auxiliary(pt_basic_string, &bstr);
+    assert_true(bstr._pby_start == NULL);
+    assert_true(bstr._pby_finish == NULL);
+    assert_true(bstr._pby_endofstorage == NULL);
+    assert_true(bstr._t_typeinfo._t_style == _TYPE_C_BUILTIN);
+    assert_true(bstr._t_typeinfo._pt_type != NULL);
+    assert_true(strcmp(bstr._t_typeinfo._sz_typename, _INT_TYPE) == 0);
+    assert_true(_alloc_is_inited(&bstr._t_allocater));
+
+    basic_string_destroy(pt_basic_string);
+}
 

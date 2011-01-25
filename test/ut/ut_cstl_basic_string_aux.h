@@ -30,6 +30,10 @@ void test__basic_string_get_value_string_length__c_builtin_non_empty(void** stat
 void test__basic_string_get_value_string_length__c_builtin_no_terminal(void** state);
 void test__basic_string_get_value_string_length__char_empty(void** state);
 void test__basic_string_get_value_string_length__char_non_empty(void** state);
+void test__basic_string_get_value_string_length__char_no_terminal(void** state);
+void test__basic_string_get_value_string_length__cstr_empty(void** state);
+void test__basic_string_get_value_string_length__cstr_non_empty(void** state);
+void test__basic_string_get_value_string_length__cstr_no_terminal(void** state);
 void test__basic_string_get_value_string_length__libcstl_builtin_empty(void** state);
 void test__basic_string_get_value_string_length__libcstl_builtin_non_empty(void** state);
 void test__basic_string_get_value_string_length__libcstl_builtin_no_terminal(void** state);
@@ -73,6 +77,10 @@ void test__basic_string_destroy_varg_value_auxiliary__successfully(void** state)
     UT_CASE(test__basic_string_get_value_string_length__c_builtin_no_terminal),\
     UT_CASE(test__basic_string_get_value_string_length__char_empty),\
     UT_CASE(test__basic_string_get_value_string_length__char_non_empty),\
+    UT_CASE(test__basic_string_get_value_string_length__char_no_terminal),\
+    UT_CASE(test__basic_string_get_value_string_length__cstr_empty),\
+    UT_CASE(test__basic_string_get_value_string_length__cstr_non_empty),\
+    UT_CASE(test__basic_string_get_value_string_length__cstr_no_terminal),\
     UT_CASE(test__basic_string_get_value_string_length__libcstl_builtin_empty),\
     UT_CASE(test__basic_string_get_value_string_length__libcstl_builtin_non_empty),\
     UT_CASE(test__basic_string_get_value_string_length__libcstl_builtin_no_terminal),\

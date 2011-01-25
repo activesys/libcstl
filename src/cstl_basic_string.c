@@ -27,6 +27,7 @@
 #include <cstl/cstl_iterator.h>
 #include <cstl/cstl_iterator_private.h>
 #include <cstl/cvector.h>
+#include <cstl/cstring.h>
 
 #include <cstl/cstl_basic_string_iterator.h>
 #include <cstl/cstl_basic_string_private.h>
@@ -45,9 +46,9 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-
-/* basic_string function */
-/* constructor, copy constructor and destructor */
+/**
+ * Initialize empty basic_string container.
+ */
 void basic_string_init(basic_string_t* pt_basic_string)
 {
     assert(pt_basic_string != NULL);
@@ -104,41 +105,68 @@ void basic_string_init_copy_substring(
     vector_init_copy_range(&pt_basic_string->_t_vector, t_begin, t_end);
 }
 
-void basic_string_init_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring)
+/**
+ * Initialize empty basic_string container.
+ */
+void basic_string_init_cstr(basic_string_t* pt_basic_string, const void* cpv_value_string)
 {
-    basic_string_init_subcstr(pt_basic_string, cpv_valuestring, NPOS);
+    basic_string_init_subcstr(pt_basic_string, cpv_value_string, NPOS);
 }
 
-void basic_string_init_subcstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring, size_t t_len)
+/**
+ * Initialize basic_string container specific sub value string.
+ */
+void basic_string_init_subcstr(basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len)
 {
-    size_t t_length = 0;
-    size_t t_index = 0;
-    char*  pc_value = NULL;
-    bool_t t_result = false;
+    size_t   t_typesize = 0;
+    size_t   t_length = 0;
+    size_t   i = 0;
+    _byte_t* pby_value = NULL;
+    bool_t   b_result = false;
 
     assert(pt_basic_string != NULL);
-
-    t_length = _basic_string_get_value_string_length(pt_basic_string, cpv_valuestring);
-    t_len = t_len < t_length ? t_len : t_length;
+    assert(cpv_value_string != NULL);
 
     vector_init(&pt_basic_string->_t_vector);
-    vector_resize(&pt_basic_string->_t_vector, t_len);
-    assert(vector_size(&pt_basic_string->_t_vector) == t_len);
+    t_length = _basic_string_get_value_string_length(pt_basic_string, cpv_value_string);
+    t_len = (t_len < t_length ? t_len : t_length);
 
     if(t_len > 0)
     {
-        pc_value = (char*)vector_at(&pt_basic_string->_t_vector, 0); 
-        assert(pc_value != NULL);
-        for(t_index = 0; t_index < t_len; ++t_index)
+        vector_resize(&pt_basic_string->_t_vector, t_len);
+        assert(vector_size(&pt_basic_string->_t_vector) == t_len);
+
+        t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        pby_value = _GET_BASIC_STRING_COREPOS(basic_string_begin(pt_basic_string));
+        assert(pby_value != NULL);
+
+        /* char* */
+        if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(pt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
         {
-            t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
-                pc_value + t_index * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string),
-                (char*)cpv_valuestring + t_index*_GET_BASIC_STRING_TYPE_SIZE(pt_basic_string),
-                &t_result);
-            assert(t_result);
+            for(i = 0; i < t_len; ++i)
+            {
+                string_assign_cstr((string_t*)(pby_value + i * t_typesize), *((char**)cpv_value_string + i));
+            }
+        }
+        else if(_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_C_BUILTIN)
+        {
+            for(i = 0; i < t_len; ++i)
+            {
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
+                    pby_value + i * t_typesize, (_byte_t*)cpv_value_string + i * t_typesize, &b_result);
+                assert(b_result);
+            }
+        }
+        else
+        {
+            for(i = 0; i < t_len; ++i)
+            {
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
+                    pby_value + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
+                assert(b_result);
+            }
         }
     }
 }
@@ -296,39 +324,39 @@ bool_t basic_string_greater_equal(
 }
 
 bool_t basic_string_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) == 0 ? true : false;
+    return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) == 0 ? true : false;
 }
 
 bool_t basic_string_not_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) != 0 ? true : false;
+    return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) != 0 ? true : false;
 }
 
 bool_t basic_string_less_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) < 0 ? true : false;
+    return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) < 0 ? true : false;
 }
 
 bool_t basic_string_less_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) <= 0 ? true : false;
+    return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) <= 0 ? true : false;
 }
 
 bool_t basic_string_greater_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) > 0 ? true : false;
+    return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) > 0 ? true : false;
 }
 
 bool_t basic_string_greater_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    return basic_string_compare_cstr(cpt_basic_string, cpv_valuestring) >= 0 ? true : false;
+    return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) >= 0 ? true : false;
 }
 
 int basic_string_compare(
@@ -363,23 +391,23 @@ int basic_string_compare_substring_substring(
 }
 
 int basic_string_compare_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
     return basic_string_compare_substring_subcstr(
-        cpt_basic_string, 0, NPOS, cpv_valuestring, NPOS);
+        cpt_basic_string, 0, NPOS, cpv_value_string, NPOS);
 }
 
 int basic_string_compare_substring_cstr(
     const basic_string_t* cpt_basic_string, size_t t_stringpos, size_t t_stringlen,
-    const void* cpv_valuestring)
+    const void* cpv_value_string)
 {
     return basic_string_compare_substring_subcstr(
-        cpt_basic_string, t_stringpos, t_stringlen, cpv_valuestring, NPOS);
+        cpt_basic_string, t_stringpos, t_stringlen, cpv_value_string, NPOS);
 }
 
 int basic_string_compare_substring_subcstr(
     const basic_string_t* cpt_basic_string, size_t t_stringpos, size_t t_stringlen,
-    const void* cpv_valuestring, size_t t_valuestringlen)
+    const void* cpv_value_string, size_t t_valuestringlen)
 {
     size_t t_cmplen = 0;
     size_t t_index = 0;
@@ -389,12 +417,12 @@ int basic_string_compare_substring_subcstr(
     size_t t_valuestringlentmp = 0;
     bool_t t_result = false;
 
-    assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(cpt_basic_string != NULL && cpv_value_string != NULL);
     assert(t_stringpos <= basic_string_size(cpt_basic_string));
 
     /* get actual string length and value string length */
     t_stringlentmp = basic_string_size(cpt_basic_string) - t_stringpos;
-    t_valuestringlentmp = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
+    t_valuestringlentmp = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
     t_stringlen = t_stringlen < t_stringlentmp ? t_stringlen : t_stringlentmp;
     t_valuestringlen = t_valuestringlen < t_valuestringlentmp ?
                        t_valuestringlen : t_valuestringlentmp;
@@ -404,7 +432,7 @@ int basic_string_compare_substring_subcstr(
     {
         pc_string = (char*)basic_string_at(cpt_basic_string, t_stringpos);
     }
-    pc_value = (char*)cpv_valuestring;
+    pc_value = (char*)cpv_value_string;
     assert(pc_value != NULL);
 
     for(t_index = 0; t_index < t_cmplen; ++t_index)
@@ -480,7 +508,7 @@ void basic_string_connect(
 }
 
 void basic_string_connect_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring)
+    basic_string_t* pt_basic_string, const void* cpv_value_string)
 {
     size_t t_destlen = 0;
     size_t t_srclen = 0;
@@ -489,17 +517,17 @@ void basic_string_connect_cstr(
     char*  pc_src = NULL;
     bool_t t_result = false;
 
-    assert(pt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(pt_basic_string != NULL && cpv_value_string != NULL);
 
     t_destlen = basic_string_size(pt_basic_string);
-    t_srclen = _basic_string_get_value_string_length(pt_basic_string, cpv_valuestring);
+    t_srclen = _basic_string_get_value_string_length(pt_basic_string, cpv_value_string);
 
     if(t_srclen > 0)
     {
         vector_resize(&pt_basic_string->_t_vector, t_destlen + t_srclen);
 
         pc_dest = (char*)vector_at(&pt_basic_string->_t_vector, t_destlen);
-        pc_src = (char*)cpv_valuestring;
+        pc_src = (char*)cpv_value_string;
         assert(pc_dest != NULL && pc_src != NULL);
 
         for(t_index = 0; t_index < t_srclen; ++t_index)
@@ -589,15 +617,15 @@ size_t basic_string_find(
 }
 
 size_t basic_string_find_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos)
 {
-    return basic_string_find_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
+    return basic_string_find_subcstr(cpt_basic_string, cpv_value_string, t_pos,
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string));
 }
 
 size_t basic_string_find_subcstr(
     const basic_string_t* cpt_basic_string,
-    const void* cpv_valuestring, size_t t_pos, size_t t_len)
+    const void* cpv_value_string, size_t t_pos, size_t t_len)
 {
     size_t t_typesize = 0;
     size_t t_stringlen = 0;
@@ -609,10 +637,10 @@ size_t basic_string_find_subcstr(
     bool_t t_less = false;
     bool_t t_greater = false;
 
-    assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(cpt_basic_string != NULL && cpv_value_string != NULL);
 
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
 
     /* find position is beyond the range of cpt_basic_string */
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
@@ -629,7 +657,7 @@ size_t basic_string_find_subcstr(
     }
 
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
-    pc_cstr = (char*)cpv_valuestring;
+    pc_cstr = (char*)cpv_value_string;
     t_startpos = t_pos;
     while(t_startpos != t_stringlen)
     {
@@ -694,15 +722,15 @@ size_t basic_string_rfind(
 }
 
 size_t basic_string_rfind_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos)
 {
-    return basic_string_rfind_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
+    return basic_string_rfind_subcstr(cpt_basic_string, cpv_value_string, t_pos,
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string));
 }
 
 size_t basic_string_rfind_subcstr(
     const basic_string_t* cpt_basic_string,
-    const void* cpv_valuestring, size_t t_pos, size_t t_len)
+    const void* cpv_value_string, size_t t_pos, size_t t_len)
 {
     size_t t_typesize = 0;
     size_t t_stringlen = 0;
@@ -714,11 +742,11 @@ size_t basic_string_rfind_subcstr(
     bool_t t_less = false;
     bool_t t_greater = false;
 
-    assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(cpt_basic_string != NULL && cpv_value_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
 
     if(t_pos > t_stringlen)
     {
@@ -741,7 +769,7 @@ size_t basic_string_rfind_subcstr(
     }
 
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
-    pc_cstr = (char*)cpv_valuestring;
+    pc_cstr = (char*)cpv_value_string;
     t_startpos = t_pos == t_stringlen ? t_pos - 1 : t_pos;
     for(;;)
     {
@@ -808,15 +836,15 @@ size_t basic_string_find_first_of(
 }
 
 size_t basic_string_find_first_of_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos)
 {
-    return basic_string_find_first_of_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
+    return basic_string_find_first_of_subcstr(cpt_basic_string, cpv_value_string, t_pos,
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string));
 }
 
 size_t basic_string_find_first_of_subcstr(
     const basic_string_t* cpt_basic_string,
-    const void* cpv_valuestring, size_t t_pos, size_t t_len)
+    const void* cpv_value_string, size_t t_pos, size_t t_len)
 {
     size_t t_typesize = 0;
     size_t t_stringlen = 0;
@@ -828,11 +856,11 @@ size_t basic_string_find_first_of_subcstr(
     bool_t t_less = false;
     bool_t t_greater = false;
 
-    assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(cpt_basic_string != NULL && cpv_value_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
 
     /* find position is beyond the range of cpt_basic_string */
     if(basic_string_empty(cpt_basic_string) ||
@@ -847,7 +875,7 @@ size_t basic_string_find_first_of_subcstr(
     }
 
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
-    pc_cstr = (char*)cpv_valuestring;
+    pc_cstr = (char*)cpv_value_string;
     t_startpos = t_pos;
     while(t_startpos != t_stringlen)
     {
@@ -893,15 +921,15 @@ size_t basic_string_find_first_not_of(
 }
 
 size_t basic_string_find_first_not_of_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos)
 {
-    return basic_string_find_first_not_of_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
+    return basic_string_find_first_not_of_subcstr(cpt_basic_string, cpv_value_string, t_pos,
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string));
 }
 
 size_t basic_string_find_first_not_of_subcstr(
     const basic_string_t* cpt_basic_string,
-    const void* cpv_valuestring, size_t t_pos, size_t t_len)
+    const void* cpv_value_string, size_t t_pos, size_t t_len)
 {
     size_t t_typesize = 0;
     size_t t_stringlen = 0;
@@ -913,11 +941,11 @@ size_t basic_string_find_first_not_of_subcstr(
     bool_t t_less = false;
     bool_t t_greater = false;
 
-    assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(cpt_basic_string != NULL && cpv_value_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
 
     /* find position is beyond the range of cpt_basic_string */
     if(basic_string_empty(cpt_basic_string) ||
@@ -936,7 +964,7 @@ size_t basic_string_find_first_not_of_subcstr(
     }
 
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
-    pc_cstr = (char*)cpv_valuestring;
+    pc_cstr = (char*)cpv_value_string;
     t_startpos = t_pos;
     while(t_startpos != t_stringlen)
     {
@@ -990,15 +1018,15 @@ size_t basic_string_find_last_of(
 }
 
 size_t basic_string_find_last_of_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos)
 {
-    return basic_string_find_last_of_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
+    return basic_string_find_last_of_subcstr(cpt_basic_string, cpv_value_string, t_pos,
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string));
 }
 
 size_t basic_string_find_last_of_subcstr(
     const basic_string_t* cpt_basic_string,
-    const void* cpv_valuestring, size_t t_pos, size_t t_len)
+    const void* cpv_value_string, size_t t_pos, size_t t_len)
 {
     size_t t_typesize = 0;
     size_t t_stringlen = 0;
@@ -1010,11 +1038,11 @@ size_t basic_string_find_last_of_subcstr(
     bool_t t_less = false;
     bool_t t_greater = false;
 
-    assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(cpt_basic_string != NULL && cpv_value_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
 
     if(t_pos > t_stringlen)
     {
@@ -1033,7 +1061,7 @@ size_t basic_string_find_last_of_subcstr(
     }
 
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
-    pc_cstr = (char*)cpv_valuestring;
+    pc_cstr = (char*)cpv_value_string;
     t_startpos = t_pos == t_stringlen ? t_pos - 1 : t_pos;
     for(;;)
     {
@@ -1086,14 +1114,14 @@ size_t basic_string_find_last_not_of(
 }
 
 size_t basic_string_find_last_not_of_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring, size_t t_pos)
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos)
 {
-    return basic_string_find_last_not_of_subcstr(cpt_basic_string, cpv_valuestring, t_pos,
-        _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring));
+    return basic_string_find_last_not_of_subcstr(cpt_basic_string, cpv_value_string, t_pos,
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string));
 }
 
 size_t basic_string_find_last_not_of_subcstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_valuestring,
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string,
     size_t t_pos, size_t t_len)
 {
     size_t t_typesize = 0;
@@ -1106,11 +1134,11 @@ size_t basic_string_find_last_not_of_subcstr(
     bool_t t_less = false;
     bool_t t_greater = false;
 
-    assert(cpt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(cpt_basic_string != NULL && cpv_value_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
 
     if(t_pos > t_stringlen)
     {
@@ -1140,7 +1168,7 @@ size_t basic_string_find_last_not_of_subcstr(
     }
 
     pc_string = (char*)basic_string_at(cpt_basic_string, 0);
-    pc_cstr = (char*)cpv_valuestring;
+    pc_cstr = (char*)cpv_value_string;
     t_startpos = t_pos == t_stringlen ? t_pos - 1 : t_pos;
     for(;;)
     {
@@ -1238,22 +1266,22 @@ void basic_string_assign_substring(
 }
 
 void basic_string_assign_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring)
+    basic_string_t* pt_basic_string, const void* cpv_value_string)
 {
-    basic_string_assign_subcstr(pt_basic_string, cpv_valuestring, NPOS);
+    basic_string_assign_subcstr(pt_basic_string, cpv_value_string, NPOS);
 }
 
 void basic_string_assign_subcstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring, size_t t_len)
+    basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len)
 {
     size_t t_length = 0;
     size_t t_index = 0;
     char*  pc_value = NULL;
     bool_t t_result = false;
 
-    assert(pt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(pt_basic_string != NULL && cpv_value_string != NULL);
 
-    t_length = _basic_string_get_value_string_length(pt_basic_string, cpv_valuestring);
+    t_length = _basic_string_get_value_string_length(pt_basic_string, cpv_value_string);
     t_len = t_len < t_length ? t_len : t_length;
 
     vector_resize(&pt_basic_string->_t_vector, t_len);
@@ -1268,7 +1296,7 @@ void basic_string_assign_subcstr(
             t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
             _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
                 pc_value + t_index * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string),
-                (char*)cpv_valuestring + t_index*_GET_BASIC_STRING_TYPE_SIZE(pt_basic_string),
+                (char*)cpv_value_string + t_index*_GET_BASIC_STRING_TYPE_SIZE(pt_basic_string),
                 &t_result);
             assert(t_result);
         }
@@ -1328,13 +1356,13 @@ void basic_string_append_substring(
 }
 
 void basic_string_append_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring)
+    basic_string_t* pt_basic_string, const void* cpv_value_string)
 {
-    basic_string_append_subcstr(pt_basic_string, cpv_valuestring, NPOS);
+    basic_string_append_subcstr(pt_basic_string, cpv_value_string, NPOS);
 }
 
 void basic_string_append_subcstr(
-    basic_string_t* pt_basic_string, const void* cpv_valuestring, size_t t_len)
+    basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len)
 {
     size_t t_typesize = 0;
     size_t t_cstrlen = 0;
@@ -1343,11 +1371,11 @@ void basic_string_append_subcstr(
     char*  pc_value = NULL;
     bool_t t_result = false;
 
-    assert(pt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(pt_basic_string != NULL && cpv_value_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
     t_stringlen = basic_string_length(pt_basic_string);
-    t_cstrlen = _basic_string_get_value_string_length(pt_basic_string, cpv_valuestring);
+    t_cstrlen = _basic_string_get_value_string_length(pt_basic_string, cpv_value_string);
     t_len = t_len < t_cstrlen ? t_len : t_cstrlen;
 
     if(t_len > 0)
@@ -1360,7 +1388,7 @@ void basic_string_append_subcstr(
             t_result = t_typesize;
             _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
                 pc_value + t_index * t_typesize,
-                (char*)cpv_valuestring + t_index * t_typesize, &t_result);
+                (char*)cpv_value_string + t_index * t_typesize, &t_result);
             assert(t_result);
         }
     }
@@ -1436,21 +1464,21 @@ void basic_string_insert_substring(
 }
 
 void basic_string_insert_cstr(
-    basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_valuestring)
+    basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string)
 {
-    basic_string_insert_subcstr(pt_basic_string, t_pos, cpv_valuestring, NPOS);
+    basic_string_insert_subcstr(pt_basic_string, t_pos, cpv_value_string, NPOS);
 }
 
 void basic_string_insert_subcstr(
     basic_string_t* pt_basic_string, size_t t_pos,
-    const void* cpv_valuestring, size_t t_len)
+    const void* cpv_value_string, size_t t_len)
 {
     basic_string_t* pt_string;
 
-    assert(pt_basic_string != NULL && cpv_valuestring != NULL);
+    assert(pt_basic_string != NULL && cpv_value_string != NULL);
 
     pt_string = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(pt_basic_string));
-    basic_string_init_subcstr(pt_string, cpv_valuestring, t_len);
+    basic_string_init_subcstr(pt_string, cpv_value_string, t_len);
     basic_string_insert_string(pt_basic_string, t_pos, pt_string);
     basic_string_destroy(pt_string);
 }
@@ -1584,7 +1612,7 @@ void basic_string_replace_substring(
 
 void basic_string_replace_cstr(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len,
-    const void* cpv_valuestring)
+    const void* cpv_value_string)
 {
     basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
     basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
@@ -1602,12 +1630,12 @@ void basic_string_replace_cstr(
     }
 
     basic_string_range_replace_cstr(
-        pt_basic_string, t_begin, t_end, cpv_valuestring);
+        pt_basic_string, t_begin, t_end, cpv_value_string);
 }
 
 void basic_string_replace_subcstr(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len,
-    const void* cpv_valuestring, size_t t_length)
+    const void* cpv_value_string, size_t t_length)
 {
     basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
     basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
@@ -1625,7 +1653,7 @@ void basic_string_replace_subcstr(
     }
 
     basic_string_range_replace_subcstr(
-        pt_basic_string, t_begin, t_end, cpv_valuestring, t_length);
+        pt_basic_string, t_begin, t_end, cpv_value_string, t_length);
 }
 
 
@@ -1657,26 +1685,26 @@ void basic_string_range_replace_substring(
 
 void basic_string_range_replace_cstr(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
-    basic_string_iterator_t t_end, const void* cpv_valuestring)
+    basic_string_iterator_t t_end, const void* cpv_value_string)
 {
     basic_string_iterator_t t_iterator = 
         basic_string_erase_range(pt_basic_string, t_begin, t_end);
     basic_string_insert_cstr(
         pt_basic_string,
         iterator_distance(basic_string_begin(pt_basic_string), t_iterator),
-        cpv_valuestring);
+        cpv_value_string);
 }
 
 void basic_string_range_replace_subcstr(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
-    basic_string_iterator_t t_end, const void* cpv_valuestring, size_t t_len)
+    basic_string_iterator_t t_end, const void* cpv_value_string, size_t t_len)
 {
     basic_string_iterator_t t_iterator = 
         basic_string_erase_range(pt_basic_string, t_begin, t_end);
     basic_string_insert_subcstr(
         pt_basic_string,
         iterator_distance(basic_string_begin(pt_basic_string), t_iterator),
-        cpv_valuestring, t_len);
+        cpv_value_string, t_len);
 }
 
 

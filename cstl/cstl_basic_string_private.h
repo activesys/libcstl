@@ -396,13 +396,50 @@ extern void _basic_string_range_replace_elem(
 extern void _basic_string_range_replace_elem_varg(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end,
     size_t t_count, va_list val_elemlist);
+
+/**
+ * Replace elements at specificed posititon.
+ * @param pt_basic_string   basic_string container.
+ * @param t_pos             specificed position.
+ * @param t_len             replace length.
+ * @param t_count           element number.
+ * @param ...               specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the t_pos must be
+ *          belong to basic_string, otherwise the behavior is undefined. if t_len == NPOS or t_pos + t_len >= basic_string_size(),
+ *          then replace all remain string from t_pos. the type of specificed element and basic_string element type must be same,
+ *          otherwise the behavior is undefined. the first specificed is in use, others are not in use. the inserted element is
+ *          from variable argument list.
+ */
 extern void _basic_string_replace_elem(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, ...);
-extern void _basic_string_replace_elem_varg(
-    basic_string_t* pt_basic_string, size_t t_pos,
-    size_t t_len, size_t t_count, va_list val_elemlist);
 
-extern void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_value);
+/**
+ * Replace elements at specificed posititon.
+ * @param pt_basic_string   basic_string container.
+ * @param t_pos             specificed position.
+ * @param t_len             replace length.
+ * @param t_count           element number.
+ * @param val_elemlist      specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the t_pos must be
+ *          belong to basic_string, otherwise the behavior is undefined. if t_len == NPOS or t_pos + t_len >= basic_string_size(),
+ *          then replace all remain string from t_pos. the type of specificed element and basic_string element type must be same,
+ *          otherwise the behavior is undefined. the first specificed is in use, others are not in use. the inserted element is
+ *          from variable argument list.
+ */
+extern void _basic_string_replace_elem_varg(
+    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, va_list val_elemlist);
+
+/**
+ * Initialize element with basic_string element type auxiliary function.
+ * @param pt_basic_string   basic_string container.
+ * @param pv_elem           initialized element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or pv_elem == NULL, then the behavior is undefined. pt_basic_string must be initialized
+ *          basic_string container or created by create_basic_string, otherwise the behavior is undefined.
+ */
+extern void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem);
 
 #ifdef __cplusplus
 }
