@@ -56,12 +56,15 @@ void basic_string_init(basic_string_t* pt_basic_string)
     vector_init(&pt_basic_string->_t_vector);
 }
 
-void basic_string_init_copy(
-    basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_src)
+/**
+ * Initialize basic_string container with an exist basic_string container.
+ */
+void basic_string_init_copy(basic_string_t* pt_dest, const basic_string_t* cpt_src)
 {
-    assert(pt_basic_string != NULL && cpt_basic_string_src != NULL);
+    assert(pt_dest != NULL);
+    assert(cpt_src != NULL);
 
-    vector_init_copy(&pt_basic_string->_t_vector, &cpt_basic_string_src->_t_vector);
+    vector_init_copy(&pt_dest->_t_vector, &cpt_src->_t_vector);
 }
 
 void basic_string_init_copy_range(

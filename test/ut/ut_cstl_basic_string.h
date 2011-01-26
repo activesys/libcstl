@@ -52,6 +52,27 @@ void test_basic_string_init_subcstr__libcstl_builtin_total(void** state);
 void test_basic_string_init_subcstr__user_define_empty(void** state);
 void test_basic_string_init_subcstr__user_define_non_empty(void** state);
 void test_basic_string_init_subcstr__user_define_total(void** state);
+/*
+ * test basic_string_init_copy
+ */
+UT_CASE_DECLARATION(basic_string_init_copy)
+void test_basic_string_init_copy__null_dest(void** state);
+void test_basic_string_init_copy__null_src(void** state);
+void test_basic_string_init_copy__non_create_dest(void** state);
+void test_basic_string_init_copy__non_inited_src(void** state);
+void test_basic_string_init_copy__not_same_type(void** state);
+void test_basic_string_init_copy__successfully_c_builtin_empty(void** state);
+void test_basic_string_init_copy__successfully_c_builtin_little(void** state);
+void test_basic_string_init_copy__successfully_c_builtin_huge(void** state);
+void test_basic_string_init_copy__successfully_cstr_empty(void** state);
+void test_basic_string_init_copy__successfully_cstr_little(void** state);
+void test_basic_string_init_copy__successfully_cstr_huge(void** state);
+void test_basic_string_init_copy__successfully_cstl_builtin_empty(void** state);
+void test_basic_string_init_copy__successfully_cstl_builtin_little(void** state);
+void test_basic_string_init_copy__successfully_cstl_builtin_huge(void** state);
+void test_basic_string_init_copy__successfully_user_define_empty(void** state);
+void test_basic_string_init_copy__successfully_user_define_little(void** state);
+void test_basic_string_init_copy__successfully_user_define_huge(void** state);
 
 #define UT_CSTL_BASIC_STRING_CASE\
     UT_SUIT_BEGIN(cstl_basic_string, test_basic_string_init__null_basic_string_container),\
@@ -90,7 +111,24 @@ void test_basic_string_init_subcstr__user_define_total(void** state);
     UT_CASE(test_basic_string_init_subcstr__libcstl_builtin_total),\
     UT_CASE(test_basic_string_init_subcstr__user_define_empty),\
     UT_CASE(test_basic_string_init_subcstr__user_define_non_empty),\
-    UT_CASE(test_basic_string_init_subcstr__user_define_total)
+    UT_CASE(test_basic_string_init_subcstr__user_define_total),\
+    UT_CASE_BEGIN(basic_string_init_copy, test_basic_string_init_copy__null_dest),\
+    UT_CASE(test_basic_string_init_copy__null_src),\
+    UT_CASE(test_basic_string_init_copy__non_create_dest),\
+    UT_CASE(test_basic_string_init_copy__non_inited_src),\
+    UT_CASE(test_basic_string_init_copy__not_same_type),\
+    UT_CASE(test_basic_string_init_copy__successfully_c_builtin_empty),\
+    UT_CASE(test_basic_string_init_copy__successfully_c_builtin_little),\
+    UT_CASE(test_basic_string_init_copy__successfully_c_builtin_huge),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstr_empty),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstr_little),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstr_huge),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstl_builtin_empty),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstl_builtin_little),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstl_builtin_huge),\
+    UT_CASE(test_basic_string_init_copy__successfully_user_define_empty),\
+    UT_CASE(test_basic_string_init_copy__successfully_user_define_little),\
+    UT_CASE(test_basic_string_init_copy__successfully_user_define_huge)
 
 #endif /* _UT_CSTL_BASIC_STRING_H_ */
 

@@ -104,9 +104,9 @@ extern "C" {
  * Initialize empty basic_string container.
  * @param pt_basic_string    basic_string container.
  * @return void.
- * @remarks if pt_basic_string == NULL, then the behavior is undefined. pt_basic_string muse be created by create_basic_string(),
- *          otherwise the behavior is undefined. the size of basic_string and the capacity of basic_string is 0 after
- *          initialization.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. pt_basic_string muse be created by
+ *          create_basic_string(), otherwise the behavior is undefined. the size of basic_string and the capacity of
+ *          basic_string is 0 after initialization.
  */
 extern void basic_string_init(basic_string_t* pt_basic_string);
 
@@ -128,12 +128,22 @@ extern void basic_string_init_cstr(basic_string_t* pt_basic_string, const void* 
  * @param t_len              length of sub value string.
  * @return void.
  * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string muse be
- *          created by create_basic_string(), otherwise the behavior is undefined. if t_len is NPOS or greater then the length of
- *          value string, then use total value string to initialize basic_string.
+ *          created by create_basic_string(), otherwise the behavior is undefined. if t_len is NPOS or greater then the
+ *          length of value string, then use total value string to initialize basic_string.
  */
 extern void basic_string_init_subcstr(basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len);
-extern void basic_string_init_copy(
-    basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_src);
+
+/**
+ * Initialize basic_string container with an exist basic_string container.
+ * @param pt_dest     destination basic_string container.
+ * @param cpt_src     source basic_string container.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, then the behavior is undefined. pt_dest must be created by
+ *          create_basic_string() and cpt_src must be initialized, otherwise the behavior is undefined. after initialization
+ *          the size of pt_dest is equal to the size of cpt_src, and the capacity of pt_dest is satisfied capacity
+ *          assignment algorithm.
+ */
+extern void basic_string_init_copy(basic_string_t* pt_dest, const basic_string_t* cpt_src);
 extern void basic_string_init_copy_substring(
     basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_src,
     size_t t_pos, size_t t_len);
