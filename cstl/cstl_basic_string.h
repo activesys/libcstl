@@ -144,16 +144,49 @@ extern void basic_string_init_subcstr(basic_string_t* pt_basic_string, const voi
  *          assignment algorithm.
  */
 extern void basic_string_init_copy(basic_string_t* pt_dest, const basic_string_t* cpt_src);
+
+/**
+ * Initialize basic_string container with an exist sub basic_string container.
+ * @param pt_dest     destination basic_string container.
+ * @param cpt_src     source basic_string container.
+ * @param t_pos       start position of source basic_string.
+ * @param t_len       sub basic_string length.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, then the behavior is undefined. pt_dest must be created by
+ *          create_basic_string() and cpt_src must be initialized, otherwise the behavior is undefined. t_pos must be
+ *          valid source basic_string position, otherwise the behavior is undefined. if t_len == NPOS or t_pos + t_len >=
+ *          the length of source basic_string, then use all remain sub basic_string from t_pos.
+ */
 extern void basic_string_init_copy_substring(
-    basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_src,
-    size_t t_pos, size_t t_len);
+    basic_string_t* pt_dest, const basic_string_t* cpt_src, size_t t_pos, size_t t_len);
+
+/**
+ * Initialize basic_string container with an exist basic_string range.
+ * @param pt_basic_string     destination basic_string container.
+ * @param it_begin            the begin iterator of range.
+ * @param it_end              the end iterator of range.
+ * @return void.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. pt_basic_string must be created by
+ *          create_basic_string(), otherwise the behavior is undefined. after initialization the size of pt_basic_string
+ *          is equal to the size of range, and the capacity of pt_basic_string is satisfied capacity assignment algorithm.
+ */
 extern void basic_string_init_copy_range(
-    basic_string_t* pt_basic_string,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end);
+
+/**
+ * Destroy basic_string container.
+ * @param pt_basic_string   basic_string container.
+ * @return void.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. the pt_basic_string must be initialized or created by
+ *          create_basic_string(), otherwise the behavior is undefined.
+ */
 extern void basic_string_destroy(basic_string_t* pt_basic_string);
 
-/*
- * Get element string.
+/**
+ * Get data string.
+ * @param cpt_basic_string    basic_string container.
+ * @return data string.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if basic_string is empty, return NULL.
  */
 extern const void* basic_string_c_str(const basic_string_t* cpt_basic_string);
 extern const void* basic_string_data(const basic_string_t* cpt_basic_string);

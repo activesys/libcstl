@@ -67,45 +67,49 @@ void basic_string_init_copy(basic_string_t* pt_dest, const basic_string_t* cpt_s
     vector_init_copy(&pt_dest->_t_vector, &cpt_src->_t_vector);
 }
 
+/**
+ * Initialize basic_string container with an exist basic_string range.
+ */
 void basic_string_init_copy_range(
-    basic_string_t* pt_basic_string,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end)
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end)
 {
     assert(pt_basic_string != NULL);
-    assert(_GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
-           _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string);
+    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
+    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
-    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
 
-    vector_init_copy_range(&pt_basic_string->_t_vector, t_begin, t_end);
+    vector_init_copy_range(&pt_basic_string->_t_vector, it_begin, it_end);
 }
 
-void basic_string_init_copy_substring(
-    basic_string_t* pt_basic_string,
-    const basic_string_t* cpt_basic_string_src, size_t t_pos, size_t t_len)
+/**
+ * Initialize basic_string container with an exist sub basic_string container.
+ */
+void basic_string_init_copy_substring(basic_string_t* pt_dest, const basic_string_t* cpt_src, size_t t_pos, size_t t_len)
 {
-    basic_string_iterator_t t_begin;
-    basic_string_iterator_t t_end;
+    basic_string_iterator_t it_begin;
+    basic_string_iterator_t it_end;
 
-    assert(pt_basic_string != NULL && cpt_basic_string_src != NULL);
-    assert(t_pos < basic_string_size(cpt_basic_string_src));
+    assert(pt_dest != NULL);
+    assert(cpt_src != NULL);
+    assert(t_pos < basic_string_size(cpt_src));
 
-    t_begin = iterator_next_n(basic_string_begin(cpt_basic_string_src), t_pos);
+    it_begin = iterator_next_n(basic_string_begin(cpt_src), t_pos);
 
-    if(t_len == NPOS || t_len + t_pos >= basic_string_size(cpt_basic_string_src))
+    if(t_len == NPOS || t_len + t_pos >= basic_string_size(cpt_src))
     {
-        t_end = basic_string_end(cpt_basic_string_src);
+        it_end = basic_string_end(cpt_src);
     }
     else
     {
-        t_end = iterator_next_n(basic_string_begin(cpt_basic_string_src), t_pos + t_len);
+        it_end = iterator_next_n(basic_string_begin(cpt_src), t_pos + t_len);
     }
 
-    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
 
-    vector_init_copy_range(&pt_basic_string->_t_vector, t_begin, t_end);
+    vector_init_copy_range(&pt_dest->_t_vector, it_begin, it_end);
 }
 
 /**
@@ -174,7 +178,9 @@ void basic_string_init_subcstr(basic_string_t* pt_basic_string, const void* cpv_
     }
 }
 
-
+/**
+ * Destroy basic_string container.
+ */
 void basic_string_destroy(basic_string_t* pt_basic_string)
 {
     assert(pt_basic_string != NULL);
@@ -182,16 +188,20 @@ void basic_string_destroy(basic_string_t* pt_basic_string)
     vector_destroy(&pt_basic_string->_t_vector);
 }
 
-/* string and c-string */
+/**
+ * Get data string.
+ */
 const void* basic_string_c_str(const basic_string_t* cpt_basic_string)
 {
+    assert(cpt_basic_string != NULL);
+
     if(basic_string_empty(cpt_basic_string))
     {
         return NULL;
     }
     else
     {
-        return basic_string_at(cpt_basic_string, 0);
+        return basic_string_data(cpt_basic_string);
     }
 }
 
