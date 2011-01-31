@@ -205,42 +205,51 @@ const void* basic_string_c_str(const basic_string_t* cpt_basic_string)
     }
 }
 
+/**
+ * Get data string.
+ */
 const void* basic_string_data(const basic_string_t* cpt_basic_string)
 {
+    assert(cpt_basic_string != NULL);
+
     return vector_at(&cpt_basic_string->_t_vector, 0);
 }
 
-size_t basic_string_copy(
-    const basic_string_t* cpt_basic_string,
-    void* pv_buffer, size_t t_copysize, size_t t_copypos)
+/**
+ * Copy spceificed sub basic_string to buffer.
+ */
+size_t basic_string_copy(const basic_string_t* cpt_basic_string, void* pv_buffer, size_t t_len, size_t t_pos)
 {
-    void*  pv_copypos = NULL;
+    void*  pv_pos = NULL;
     size_t t_size = 0;
-    size_t t_index = 0;
-    bool_t t_result = false;
+    size_t t_typesize = 0;
+    size_t i = 0;
+    bool_t b_result = false;
 
-    assert(cpt_basic_string != NULL && pv_buffer != NULL);
+    assert(cpt_basic_string != NULL);
+    assert(pv_buffer != NULL);
 
     t_size = basic_string_size(cpt_basic_string);
-    assert(t_size > t_copypos);
-    t_size = (t_size - t_copypos) < t_copysize ? (t_size - t_copypos) : t_copysize;
+    assert(t_size > t_pos);
+    t_size = (t_size - t_pos) < t_len ? (t_size - t_pos) : t_len;
 
     /* the elements in buffer must be initialized */
-    pv_copypos = basic_string_at(cpt_basic_string, t_copypos);
-    for(t_index = 0; t_index < t_size; ++t_index)
+    pv_pos = basic_string_at(cpt_basic_string, t_pos);
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    for(i = 0; i < t_size; ++i)
     {
-        t_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
         _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
-            (char*)pv_buffer + t_index * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string),
-            (char*)pv_copypos + t_index * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string),
-            &t_result);
-        assert(t_result);
+            (_byte_t*)pv_buffer + i * t_typesize, (_byte_t*)pv_pos + i * t_typesize, &b_result);
+        assert(b_result);
     }
 
     return t_size;
 }
 
-/* size and capacity */
+/**
+ * Get basic_string element size.
+ */
 size_t basic_string_size(const basic_string_t* cpt_basic_string)
 {
     assert(cpt_basic_string != NULL);
@@ -248,23 +257,37 @@ size_t basic_string_size(const basic_string_t* cpt_basic_string)
     return vector_size(&cpt_basic_string->_t_vector);
 }
 
+/**
+ * Get data string length.
+ */
 size_t basic_string_length(const basic_string_t* cpt_basic_string)
 {
     return basic_string_size(cpt_basic_string);
 }
 
+/**
+ * Test basic_string is empty.
+ */
 bool_t basic_string_empty(const basic_string_t* cpt_basic_string)
 {
-    return basic_string_size(cpt_basic_string) == 0 ? true : false;
+    assert(cpt_basic_string != NULL);
+
+    return vector_empty(&cpt_basic_string->_t_vector);
 }
 
+/**
+ * Return maximum element number.
+ */
 size_t basic_string_max_size(const basic_string_t* cpt_basic_string)
 {
     assert(cpt_basic_string != NULL);
 
-    return (size_t)(-1) / _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    return vector_max_size(&cpt_basic_string->_t_vector);
 }
 
+/**
+ * Get basic_string capacity.
+ */
 size_t basic_string_capacity(const basic_string_t* cpt_basic_string)
 {
     assert(cpt_basic_string != NULL);
@@ -272,11 +295,12 @@ size_t basic_string_capacity(const basic_string_t* cpt_basic_string)
     return vector_capacity(&cpt_basic_string->_t_vector);
 }
 
-/* element access */
+/**
+ * Access basic_string data using subscript.
+ */
 void* basic_string_at(const basic_string_t* cpt_basic_string, size_t t_pos)
 {
     assert(cpt_basic_string != NULL);
-    assert(t_pos < basic_string_size(cpt_basic_string));
 
     return vector_at(&cpt_basic_string->_t_vector, t_pos);
 }

@@ -189,22 +189,81 @@ extern void basic_string_destroy(basic_string_t* pt_basic_string);
  * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if basic_string is empty, return NULL.
  */
 extern const void* basic_string_c_str(const basic_string_t* cpt_basic_string);
-extern const void* basic_string_data(const basic_string_t* cpt_basic_string);
-extern size_t basic_string_copy(
-    const basic_string_t* cpt_basic_string, void* pv_buffer,
-    size_t t_copysize, size_t t_copypos);
 
-/*
- * basic_string_t size operation functions.
+/**
+ * Get data string.
+ * @param cpt_basic_string    basic_string container.
+ * @return data string.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if basic_string is empty, then the
+ *          behavior is undefined.
+ */
+extern const void* basic_string_data(const basic_string_t* cpt_basic_string);
+
+/**
+ * Copy spceificed sub basic_string to buffer.
+ * @param cpt_basic_string    basic_string container.
+ * @param pv_buffer           buffer.
+ * @param t_len               length of sub basic_string.
+ * @param t_pos               copy position.
+ * @return copy size.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if pv_buffer == NULL, the behavior is
+ *          undefined. t_pos must be valid position for basic_string, otherwise the behavior is undefined. the copy size is
+ *          min(t_len, basic_string_size() - t_pos).
+ */
+extern size_t basic_string_copy(const basic_string_t* cpt_basic_string, void* pv_buffer, size_t t_len, size_t t_pos);
+
+/**
+ * Get basic_string element size.
+ * @param cpt_basic_string   basic_string container.
+ * @return basic_string element size.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined. cpt_basic_string must be initialized, otherwise the
+ *          behavior is undefined.
  */
 extern size_t basic_string_size(const basic_string_t* cpt_basic_string);
+
+/**
+ * Get data string length.
+ * @param cpt_basic_string   basic_string container.
+ * @return basic_string data string length.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined. cpt_basic_string must be initialized, otherwise the
+ *          behavior is undefined. this function is same as basic_string_size().
+ */
 extern size_t basic_string_length(const basic_string_t* cpt_basic_string);
+
+/**
+ * Test basic_string is empty.
+ * @param cpt_basic_string   basic_string container.
+ * @return true if empty, otherwise return false.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined. cpt_basic_string must be initialized, otherwise the
+ *          behavior is undefined.
+ */
 extern bool_t basic_string_empty(const basic_string_t* cpt_basic_string);
+
+/**
+ * Return maximum element number.
+ * @param cpt_basic_string   basic_string container.
+ * @return maximum number.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined. cpt_basic_string must be initialized, otherwise the
+ *          behavior is undefined. this number is not fixed number.
+ */
 extern size_t basic_string_max_size(const basic_string_t* cpt_basic_string);
+
+/**
+ * Get basic_string capacity.
+ * @param cpvec_basic_string   basic_string container.
+ * @return basic_string capacity.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined. cpt_basic_string must be initialized, otherwise the
+ *          behavior is undefined.
+ */
 extern size_t basic_string_capacity(const basic_string_t* cpt_basic_string);
 
-/*
- * Element random access.
+/**
+ * Access basic_string data using subscript.
+ * @param cpt_basic_string    basic_string container.
+ * @param t_pos               subscript.
+ * @return pointer to the data.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined. the basic_string must be initialized, otherwise the
+ *          behavior is undefined. if t_pos >= basic_string_size(cpt_basic_string), then the behavior is undefined.
  */
 extern void* basic_string_at(const basic_string_t* cpt_basic_string, size_t t_pos);
 
