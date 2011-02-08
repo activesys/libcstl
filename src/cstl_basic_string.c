@@ -305,63 +305,76 @@ void* basic_string_at(const basic_string_t* cpt_basic_string, size_t t_pos)
     return vector_at(&cpt_basic_string->_t_vector, t_pos);
 }
 
-/* comparisons */
-bool_t basic_string_equal(
-    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
+/**
+ * Test the two basic_strings are equal.
+ */
+bool_t basic_string_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
 
-    return vector_equal(
-        &cpt_basic_stringfirst->_t_vector, &cpt_basic_stringsecond->_t_vector);
+    return vector_equal(&cpt_first->_t_vector, &cpt_second->_t_vector);
 }
 
-bool_t basic_string_not_equal(
-    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
+/**
+ * Test the two basic_strings are unequal.
+ */
+bool_t basic_string_not_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
 
-    return vector_not_equal(
-        &cpt_basic_stringfirst->_t_vector, &cpt_basic_stringsecond->_t_vector);
+    return vector_not_equal(&cpt_first->_t_vector, &cpt_second->_t_vector);
 }
 
-bool_t basic_string_less(
-    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
+/**
+ * Test the first basic_string is less than the second basic_string.
+ */
+bool_t basic_string_less(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
 
-    return vector_less(
-        &cpt_basic_stringfirst->_t_vector, &cpt_basic_stringsecond->_t_vector);
+    return vector_less(&cpt_first->_t_vector, &cpt_second->_t_vector);
 }
 
-bool_t basic_string_less_equal(
-    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
+/**
+ * Test the first basic_string is less than or equal to the second basic_string.
+ */
+bool_t basic_string_less_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
 
-    return vector_less_equal(
-        &cpt_basic_stringfirst->_t_vector, &cpt_basic_stringsecond->_t_vector);
+    return vector_less_equal(&cpt_first->_t_vector, &cpt_second->_t_vector);
 }
 
-bool_t basic_string_greater(
-    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
+/**
+ * Test the first basic_string is greater than the second basic_string.
+ */
+bool_t basic_string_greater(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
 
-    return vector_greater(
-        &cpt_basic_stringfirst->_t_vector, &cpt_basic_stringsecond->_t_vector);
+    return vector_greater(&cpt_first->_t_vector, &cpt_second->_t_vector);
 }
 
-bool_t basic_string_greater_equal(
-    const basic_string_t* cpt_basic_stringfirst, const basic_string_t* cpt_basic_stringsecond)
+/**
+ * Test the first basic_string is greater than or equal to the second basic_string.
+ */
+bool_t basic_string_greater_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    assert(cpt_basic_stringfirst != NULL && cpt_basic_stringsecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
 
-    return vector_greater_equal(
-        &cpt_basic_stringfirst->_t_vector, &cpt_basic_stringsecond->_t_vector);
+    return vector_greater_equal(&cpt_first->_t_vector, &cpt_second->_t_vector);
 }
 
-bool_t basic_string_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string)
+/**
+ * Test the basic_string is equal to the value string.
+ */
+bool_t basic_string_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
     return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) == 0 ? true : false;
 }

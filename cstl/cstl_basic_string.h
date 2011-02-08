@@ -267,29 +267,82 @@ extern size_t basic_string_capacity(const basic_string_t* cpt_basic_string);
  */
 extern void* basic_string_at(const basic_string_t* cpt_basic_string, size_t t_pos);
 
-/*
- * Relationship operator functions.
+/**
+ * Test the two basic_strings are equal.
+ * @param cpt_first   first basic_string container.
+ * @param cpt_second  second basic_string container.
+ * @return if first basic_string equal to second basic_string, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, then return false.
+ *          if cpt_first == cpt_second, then return true.
  */
-extern bool_t basic_string_equal(
-    const basic_string_t* cpt_basic_stringfirst, 
-    const basic_string_t* cpt_basic_stringsecond);
-extern bool_t basic_string_not_equal(
-    const basic_string_t* cpt_basic_stringfirst, 
-    const basic_string_t* cpt_basic_stringsecond);
-extern bool_t basic_string_less(
-    const basic_string_t* cpt_basic_stringfirst, 
-    const basic_string_t* cpt_basic_stringsecond);
-extern bool_t basic_string_greater(
-    const basic_string_t* cpt_basic_stringfirst, 
-    const basic_string_t* cpt_basic_stringsecond);
-extern bool_t basic_string_less_equal(
-    const basic_string_t* cpt_basic_stringfirst, 
-    const basic_string_t* cpt_basic_stringsecond);
-extern bool_t basic_string_greater_equal(
-    const basic_string_t* cpt_basic_stringfirst, 
-    const basic_string_t* cpt_basic_stringsecond);
-extern bool_t basic_string_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string);
+extern bool_t basic_string_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second);
+
+/**
+ * Test the two basic_strings are unequal.
+ * @param cpt_first   first basic_string container.
+ * @param cpt_second  second basic_string container.
+ * @return if first basic_string unequal to second basic_string, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, then return true.
+ *          if cpt_first == cpt_second, then return false.
+ */
+extern bool_t basic_string_not_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second);
+
+/**
+ * Test the first basic_string is less than the second basic_string.
+ * @param cpt_first   first basic_string container.
+ * @param cpt_second  second basic_string container.
+ * @return if the first basic_string is less than the second basic_string, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, the behavior is
+ *          undefined. if cpt_first == cpt_second, then return false.
+ */
+extern bool_t basic_string_less(const basic_string_t* cpt_first, const basic_string_t* cpt_second);
+
+/**
+ * Test the first basic_string is less than or equal to the second basic_string.
+ * @param cpt_first   first basic_string container.
+ * @param cpt_second  second basic_string container.
+ * @return if the first basic_string is less than or equal to the second basic_string, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, the behavior is
+ *          undefined. if cpt_first == cpt_second, then return true.
+ */
+extern bool_t basic_string_less_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second);
+
+/**
+ * Test the first basic_string is greater than the second basic_string.
+ * @param cpt_first   first basic_string container.
+ * @param cpt_second  second basic_string container.
+ * @return if the first basic_string is greater than the second basic_string, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, the behavior is
+ *          undefined. if cpt_first == cpt_second, then return false.
+ */
+extern bool_t basic_string_greater(const basic_string_t* cpt_first, const basic_string_t* cpt_second);
+
+/**
+ * Test the first basic_string is greater than or equal to the second basic_string.
+ * @param cpt_first   first basic_string container.
+ * @param cpt_second  second basic_string container.
+ * @return if the first basic_string is greater than or equal to the second basic_string, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, the behavior is
+ *          undefined. if cpt_first == cpt_second, then return true.
+ */
+extern bool_t basic_string_greater_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second);
+
+/**
+ * Test the basic_string is equal to the value string.
+ * @param cpt_basic_string   basic_string container.
+ * @param cpv_value_string   value string.
+ * @return if the basic_string is equal to the value string, then return true, else return false.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. the basic_string must be
+ *          initialized, otherwise the behavior is undefined. if the basic_string type and value string type are not same
+ *          type, the behavior is undefined.
+ */
+extern bool_t basic_string_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string);
 extern bool_t basic_string_not_equal_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
 extern bool_t basic_string_less_cstr(
