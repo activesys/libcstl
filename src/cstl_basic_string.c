@@ -481,6 +481,12 @@ int basic_string_compare_substring_substring(
     const basic_string_t* cpt_first, size_t t_firstpos, size_t t_firstlen,
     const basic_string_t* cpt_second, size_t t_secondpos, size_t t_secondlen)
 {
+    /**** WARNING *****
+     * this function must be not use basic_string_at(), it is failure when element type is char*,
+     * libcstl builtin, and user defined type.
+     * this function must be implemented by self. and must be add new unit testing case that about
+     * char* type, libcstl builtin and user defined element.
+     */
     assert(_basic_string_same_type(cpt_first, cpt_second));
     assert(t_firstpos < basic_string_size(cpt_first));
     assert(t_secondpos < basic_string_size(cpt_second));
@@ -494,6 +500,22 @@ int basic_string_compare_substring_substring(
  */
 int basic_string_compare_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
+    size_t t_stringlen = basic_string_length(cpt_basic_string);
+    size_t t_valuelen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
+
+    if(t_stringlen == 0 && t_valuelen > 0)
+    {
+        return -1;
+    }
+    else if(t_stringlen > 0 && t_valuelen == 0)
+    {
+        return 1;
+    }
+    else if(t_stringlen == 0 && t_valuelen == 0)
+    {
+        return 0;
+    }
+
     return basic_string_compare_substring_subcstr(cpt_basic_string, 0, NPOS, cpv_value_string, NPOS);
 }
 
@@ -515,9 +537,9 @@ int basic_string_compare_substring_subcstr(
     size_t   t_lentmp = 0;
     size_t   t_valuelentmp = 0;
     size_t   t_cmplen = 0;
+    size_t   t_typesize = 0;
     size_t   i = 0;
     _byte_t* pby_string = NULL;
-    _byte_t* pby_value = NULL;
     bool_t   b_result = false;
 
     assert(cpt_basic_string != NULL);
@@ -544,69 +566,64 @@ int basic_string_compare_substring_subcstr(
         return 0;
     }
 
-    if(!basic_string_empty(cpt_basic_string))
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    assert(pby_string != NULL);
+
+    /* char* */
+    if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        pby_string = (_byte_t*)basic_string_at(cpt_basic_string, t_pos);
+        for(i = 0; i < t_cmplen; ++i)
+        {
+            int n_result = string_compare_cstr((string_t*)(pby_string + i * t_typesize), *((char**)cpv_value_string + i));
+            if(n_result != 0)
+            {
+                return n_result;
+            }
+        }
     }
-    pby_value = (_byte_t*)cpv_value_string;
-    assert(pby_value != NULL);
-
-    for(i = 0; i < t_cmplen; ++i)
+    else if(_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN)
     {
-        b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pby_string, pby_value, &b_result);
-        if(b_result)
+        for(i = 0; i < t_cmplen; ++i)
         {
-            return -1;
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                pby_string + i * t_typesize, (_byte_t*)cpv_value_string + i * t_typesize, &b_result);
+            if(b_result)
+            {
+                return -1;
+            }
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                (_byte_t*)cpv_value_string + i * t_typesize, pby_string + i * t_typesize, &b_result);
+            if(b_result)
+            {
+                return 1;
+            }
         }
-        b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-            pby_value, pby_string, &b_result);
-        if(b_result)
+    }
+    else
+    {
+        for(i = 0; i < t_cmplen; ++i)
         {
-            return 1;
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                pby_string + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
+            if(b_result)
+            {
+                return -1;
+            }
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                *((_byte_t**)cpv_value_string + i), pby_string + i * t_typesize, &b_result);
+            if(b_result)
+            {
+                return 1;
+            }
         }
-
-        pby_string += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        pby_value += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     }
 
     return t_len < t_valuelen ? -1 : (t_len > t_valuelen ? 1 : 0);
-
-    /*
-        t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-        pby_value = _GET_BASIC_STRING_COREPOS(basic_string_begin(pt_basic_string));
-        assert(pby_value != NULL);
-
-        if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(pt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-        {
-            for(i = 0; i < t_len; ++i)
-            {
-                string_assign_cstr((string_t*)(pby_value + i * t_typesize), *((char**)cpv_value_string + i));
-            }
-        }
-        else if(_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_C_BUILTIN)
-        {
-            for(i = 0; i < t_len; ++i)
-            {
-                b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
-                    pby_value + i * t_typesize, (_byte_t*)cpv_value_string + i * t_typesize, &b_result);
-                assert(b_result);
-            }
-        }
-        else
-        {
-            for(i = 0; i < t_len; ++i)
-            {
-                b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
-                    pby_value + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
-                assert(b_result);
-            }
-        }
-    */
 }
 
 /* substring and concatenation */
