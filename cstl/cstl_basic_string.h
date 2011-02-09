@@ -343,37 +343,156 @@ extern bool_t basic_string_greater_equal(const basic_string_t* cpt_first, const 
  *          type, the behavior is undefined.
  */
 extern bool_t basic_string_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string);
-extern bool_t basic_string_not_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
-extern bool_t basic_string_less_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
-extern bool_t basic_string_greater_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
-extern bool_t basic_string_less_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
-extern bool_t basic_string_greater_equal_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
 
-/*
- * Compare operation functions.
+/**
+ * Test the basic_string is not equal to the value string.
+ * @param cpt_basic_string   basic_string container.
+ * @param cpv_value_string   value string.
+ * @return if the basic_string is not equal to the value string, then return true, else return false.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. the basic_string must be
+ *          initialized, otherwise the behavior is undefined. if the basic_string type and value string type are not same
+ *          type, the behavior is undefined.
  */
-extern int basic_string_compare(
-    const basic_string_t* cpt_basic_stringfirst,
-    const basic_string_t* cpt_basic_stringsecond);
+extern bool_t basic_string_not_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
+
+/**
+ * Test the basic_string is less than the value string.
+ * @param cpt_basic_string   basic_string container.
+ * @param cpv_value_string   value string.
+ * @return if the basic_string is less than the value string, then return true, else return false.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. the basic_string must be
+ *          initialized, otherwise the behavior is undefined. if the basic_string type and value string are not same type,
+ *          the behavior is undefined.
+ */
+extern bool_t basic_string_less_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
+
+/**
+ * Test the basic_string is less than or equal to the value string.
+ * @param cpt_basic_string   basic_string container.
+ * @param cpv_value_string   value string.
+ * @return if the basic_string is less than or equal to the value string, then return true, else return false.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. the basic_string must be
+ *          initialized, otherwise the behavior is undefined. if the basic_string type and value string are not same type,
+ *          the behavior is undefined.
+ */
+extern bool_t basic_string_less_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
+
+/**
+ * Test the basic_string is greater than the value string.
+ * @param cpt_basic_string   basic_string container.
+ * @param cpv_value_string   value string.
+ * @return if the basic_string is greater than the value string, then return true, else return false.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. the basic_string must be
+ *          initialized, otherwise the behavior is undefined. if the basic_string type and value string are not same type,
+ *          the behavior is undefined.
+ */
+extern bool_t basic_string_greater_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
+
+/**
+ * Test the basic_string is greater than or equal to the value string.
+ * @param cpt_basic_string   basic_string container.
+ * @param cpv_value_string   value string.
+ * @return if the basic_string is greater than or equal to the value string, then return true, else return false.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. the basic_string must be
+ *          initialized, otherwise the behavior is undefined. if the basic_string type and value string are not same type,
+ *          the behavior is undefined.
+ */
+extern bool_t basic_string_greater_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string); 
+
+/**
+ * Compare two basic_string.
+ * @param cpt_first   first basic_string container.
+ * @param cpt_second  second basic_string container.
+ * @return if the first basic_string is greater than the second basic_string, then return value > 0, else if the first
+ *         basic_string is less than the second basic_string, then return value < 0, else return value == 0.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, the behavior is
+ *          undefined. if cpt_first == cpt_second, then return 0.
+ */
+extern int basic_string_compare(const basic_string_t* cpt_first, const basic_string_t* cpt_second);
+
+/**
+ * Compare the first sub basic_string and the second basic_string.
+ * @param cpt_first   first basic_string container.
+ * @param t_pos       substring begin position.
+ * @param t_len       substring length.
+ * @param cpt_second  second basic_string container.
+ * @return if the first sub basic_string is greater than the second basic_string, then return value > 0, else if the first
+ *         sub basic_string is less than the second basic_string, then return value < 0, else return value == 0.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, the behavior is
+ *          undefined. t_pos must be valid position for the first basic_string container, otherwise the behavior is undefined.
+ *          if t_len >= basic_string_size(cpt_first) - t_pos, then all remain sub string is in use.
+ */
 extern int basic_string_compare_substring_string(
-    const basic_string_t* cpt_basic_stringfirst, size_t t_firstpos, size_t t_firstlen,
-    const basic_string_t* cpt_basic_stringsecond);
+    const basic_string_t* cpt_first, size_t t_pos, size_t t_len, const basic_string_t* cpt_second);
+
+/**
+ * Compare two sub basic_strings.
+ * @param cpt_first   first basic_string container.
+ * @param t_firstpos  first substring begin position.
+ * @param t_firstlen  first substring length.
+ * @param cpt_second  second basic_string container.
+ * @param t_secondpos second substring begin position.
+ * @param t_secondlen second substring length.
+ * @return if the first sub basic_string is greater than the second sub basic_string, then return value > 0, else if the first
+ *         sub basic_string is less than the second sub basic_string, then return value < 0, else return value == 0.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, the behavior is
+ *          undefined. t_firstpos must be valid position for the first basic_string container and the t_secondpos must be
+ *          valie position for the second basic_string container, otherwise the behavior is undefined. if t_firstlen >= 
+ *          basic_string_size(cpt_first) - t_firstpos, then all first remain sub string is in use, if t_secondlen >=
+ *          basic_string_size(cpt_second) = t_secondpos, then all second remain sub string is in use.
+ */
 extern int basic_string_compare_substring_substring(
-    const basic_string_t* cpt_basic_stringfirst, size_t t_firstpos, size_t t_firstlen,
-    const basic_string_t* cpt_basic_stringsecond, size_t t_secondpos, size_t t_secondlen);
-extern int basic_string_compare_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string);
+    const basic_string_t* cpt_first, size_t t_firstpos, size_t t_firstlen, 
+    const basic_string_t* cpt_second, size_t t_secondpos, size_t t_secondlen);
+
+/**
+ * Compare the basic_string and the value string.
+ * @param cpt_basic_string   basic_string container.
+ * @param cpv_value_string   value string.
+ * @return if the basic_string is greater than the value string, then return value > 0, else if the basic_string is less than
+ *         the value string, then return value < 0, else return value == 0.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. the basic_string must be
+ *          initialized, otherwise the behavior is undefined. if the basic_string type and value string type are not same
+ *          type, the behavior is undefined.
+ */
+extern int basic_string_compare_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string);
+
+/**
+ * Compare the sub basic_string and the value string.
+ * @param cpt_basic_string   basic_string container.
+ * @param t_pos              substring begin position.
+ * @param t_len              substring length.
+ * @param cpv_value_string   value string.
+ * @return if the sub basic_string is greater than the value string, then return value > 0, else if the sub basic_string is
+ *         less than the value string, then return value < 0, else return value == 0.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. the basic_string must be
+ *          initialized, otherwise the behavior is undefined. if the basic_string type and value string type are not same
+ *          type, the behavior is undefined. t_pos must be valid position for the first basic_string container, otherwise the
+ *          behavior is undefined. if t_len >= basic_string_size(cpt_first) - t_pos, then all remain sub string is in use.
+ */
 extern int basic_string_compare_substring_cstr(
-    const basic_string_t* cpt_basic_string, size_t t_stringpos, size_t t_stringlen,
-    const void* cpv_value_string);
+    const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len, const void* cpv_value_string);
+
+/**
+ * Compare the sub basic_string and the sub value string.
+ * @param cpt_basic_string   basic_string container.
+ * @param t_pos              substring begin position.
+ * @param t_len              substring length.
+ * @param cpv_value_string   value string.
+ * @param t_valuelen         sub value string length.
+ * @return if the sub basic_string is greater than the sub value string, then return value > 0, else if the sub basic_string is
+ *         less than the sub value string, then return value < 0, else return value == 0.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. the basic_string must be
+ *          initialized, otherwise the behavior is undefined. if the basic_string type and value string type are not same
+ *          type, the behavior is undefined. t_pos must be valid position for the first basic_string container, otherwise the
+ *          behavior is undefined. if t_len >= basic_string_size(cpt_first) - t_pos, then all remain sub string is in use.
+ *          if t_valuelen >= the length of cpv_value_string, then all value string is in use.
+ */
 extern int basic_string_compare_substring_subcstr(
-    const basic_string_t* cpt_basic_string, size_t t_stringpos, size_t t_stringlen,
-    const void* cpv_value_string, size_t t_valuestringlen);
+    const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len, const void* cpv_value_string, size_t t_valuelen);
 
 /*
  * Substring operation function.
