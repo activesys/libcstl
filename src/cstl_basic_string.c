@@ -481,18 +481,66 @@ int basic_string_compare_substring_substring(
     const basic_string_t* cpt_first, size_t t_firstpos, size_t t_firstlen,
     const basic_string_t* cpt_second, size_t t_secondpos, size_t t_secondlen)
 {
-    /**** WARNING *****
-     * this function must be not use basic_string_at(), it is failure when element type is char*,
-     * libcstl builtin, and user defined type.
-     * this function must be implemented by self. and must be add new unit testing case that about
-     * char* type, libcstl builtin and user defined element.
-     */
+    size_t                  t_cmplen = 0;
+    size_t                  t_firstlentmp = 0;
+    size_t                  t_secondlentmp = 0;
+    size_t                  i = 0;
+    bool_t                  b_result;
+    basic_string_iterator_t it_first;
+    basic_string_iterator_t it_second;
+
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
     assert(_basic_string_same_type(cpt_first, cpt_second));
     assert(t_firstpos < basic_string_size(cpt_first));
     assert(t_secondpos < basic_string_size(cpt_second));
 
-    return basic_string_compare_substring_subcstr(
-        cpt_first, t_firstpos, t_firstlen, basic_string_at(cpt_second, t_secondpos), t_secondlen);
+    t_firstlentmp = basic_string_size(cpt_first) - t_firstpos;
+    t_secondlentmp = basic_string_size(cpt_second) - t_secondpos;
+    t_firstlen = t_firstlen < t_firstlentmp ? t_firstlen : t_firstlentmp;
+    t_secondlen = t_secondlen < t_secondlentmp ? t_secondlen : t_secondlentmp;
+    t_cmplen = t_firstlen < t_secondlen ? t_firstlen : t_secondlen;
+
+    if(t_firstlen == 0 && t_secondlen > 0)
+    {
+        return -1;
+    }
+    else if(t_firstlen > 0 && t_secondlen == 0)
+    {
+        return 1;
+    }
+    else if(t_firstlen == 0 && t_secondlen == 0)
+    {
+        return 0;
+    }
+
+    for(it_first = iterator_next_n(basic_string_begin(cpt_first), t_firstpos),
+        it_second = iterator_next_n(basic_string_begin(cpt_second), t_secondpos),
+        i = 0;
+        i < t_cmplen;
+        ++i)
+    {
+        b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_first);
+        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(
+            _GET_BASIC_STRING_COREPOS(it_first), _GET_BASIC_STRING_COREPOS(it_second), &b_result);
+        if(b_result)
+        {
+            return -1;
+        }
+
+        b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_first);
+        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(
+            _GET_BASIC_STRING_COREPOS(it_second), _GET_BASIC_STRING_COREPOS(it_first), &b_result);
+        if(b_result)
+        {
+            return 1;
+        }
+
+        it_first = iterator_next(it_first);
+        it_second = iterator_next(it_second);
+    }
+
+    return t_firstlen < t_secondlen ? -1 : (t_firstlen > t_secondlen ? 1 : 0);
 }
 
 /**
