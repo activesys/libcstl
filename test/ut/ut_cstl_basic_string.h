@@ -922,6 +922,20 @@ void test_basic_string_compare_substring_subcstr__user_defined_all_content_less(
 void test_basic_string_compare_substring_subcstr__user_defined_all_equal(void** state);
 void test_basic_string_compare_substring_subcstr__user_defined_all_size_greater(void** state);
 void test_basic_string_compare_substring_subcstr__user_defined_all_content_greater(void** state);
+/*
+ * test basic_string_substr
+ */
+UT_CASE_DECLARATION(basic_string_substr)
+void test_basic_string_substr__null_basic_string(void** state);
+void test_basic_string_substr__non_inited_basic_string(void** state);
+void test_basic_string_substr__invalid_pos(void** state);
+void test_basic_string_substr__empty_substr(void** state);
+void test_basic_string_substr__all(void** state);
+void test_basic_string_substr__c_builtin(void** state);
+void test_basic_string_substr__char(void** state);
+void test_basic_string_substr__cstr(void** state);
+void test_basic_string_substr__libcstl(void** state);
+void test_basic_string_substr__user_define(void** state);
 
 #define UT_CSTL_BASIC_STRING_CASE\
     UT_SUIT_BEGIN(cstl_basic_string, test_basic_string_init__null_basic_string_container),\
@@ -1707,7 +1721,17 @@ void test_basic_string_compare_substring_subcstr__user_defined_all_content_great
     UT_CASE(test_basic_string_compare_substring_subcstr__user_defined_all_content_less),\
     UT_CASE(test_basic_string_compare_substring_subcstr__user_defined_all_equal),\
     UT_CASE(test_basic_string_compare_substring_subcstr__user_defined_all_size_greater),\
-    UT_CASE(test_basic_string_compare_substring_subcstr__user_defined_all_content_greater)
+    UT_CASE(test_basic_string_compare_substring_subcstr__user_defined_all_content_greater),\
+    UT_CASE_BEGIN(basic_string_substr, test_basic_string_substr__null_basic_string),\
+    UT_CASE(test_basic_string_substr__non_inited_basic_string),\
+    UT_CASE(test_basic_string_substr__invalid_pos),\
+    UT_CASE(test_basic_string_substr__empty_substr),\
+    UT_CASE(test_basic_string_substr__all),\
+    UT_CASE(test_basic_string_substr__c_builtin),\
+    UT_CASE(test_basic_string_substr__char),\
+    UT_CASE(test_basic_string_substr__cstr),\
+    UT_CASE(test_basic_string_substr__libcstl),\
+    UT_CASE(test_basic_string_substr__user_define)
 
 #endif /* _UT_CSTL_BASIC_STRING_H_ */
 

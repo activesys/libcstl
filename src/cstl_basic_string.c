@@ -674,17 +674,38 @@ int basic_string_compare_substring_subcstr(
     return t_len < t_valuelen ? -1 : (t_len > t_valuelen ? 1 : 0);
 }
 
-/* substring and concatenation */
-basic_string_t* basic_string_substr(
-    const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len)
+/**
+ * Get specific sub string.
+ *
+ */
+basic_string_t* basic_string_substr(const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len)
 {
-    basic_string_t* pt_substr = NULL;
+    basic_string_t*         pt_substr = NULL;
+    basic_string_iterator_t it_string;
+    basic_string_iterator_t it_substr;
+    size_t                  t_size = 0;
+    bool_t                  b_result = false;
 
     assert(cpt_basic_string != NULL);
     assert(t_pos < basic_string_size(cpt_basic_string));
 
     pt_substr = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(cpt_basic_string));
-    basic_string_init_subcstr(pt_substr, basic_string_at(cpt_basic_string, t_pos), t_len);
+
+    t_size = basic_string_size(cpt_basic_string) - t_pos;
+    t_len = t_len < t_size ? t_len : t_size;
+    vector_init_n(&pt_substr->_t_vector, t_len);
+
+    for(it_string = iterator_next_n(basic_string_begin(cpt_basic_string), t_pos),
+        it_substr = basic_string_begin(pt_substr);
+        !iterator_equal(it_substr, basic_string_end(pt_substr));
+        it_string = iterator_next(it_string),
+        it_substr = iterator_next(it_substr))
+    {
+        b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
+            _GET_BASIC_STRING_COREPOS(it_substr), _GET_BASIC_STRING_COREPOS(it_string), &b_result);
+        assert(b_result);
+    }
 
     return pt_substr;
 }

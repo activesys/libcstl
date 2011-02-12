@@ -494,11 +494,19 @@ extern int basic_string_compare_substring_cstr(
 extern int basic_string_compare_substring_subcstr(
     const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len, const void* cpv_value_string, size_t t_valuelen);
 
-/*
- * Substring operation function.
+/**
+ * Get specific sub string.
+ * @param cpt_basic_string   basic_string container.
+ * @param t_pos              substring begin position.
+ * @param t_len              substring length.
+ * @return sub basic_string.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined. the basic_string must be initialized, otherwise
+ *          the behavior is undefined. t_pos must be valid position for the first basic_string container, otherwise the
+ *          behavior is undefined. if t_len >= basic_string_size(cpt_first) - t_pos, then all remain sub string is in use.
+ *          the returned sub basic_string is initialized, user must be destroy this sub basic_string after using.
+ *
  */
-extern basic_string_t* basic_string_substr(
-    const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len);
+extern basic_string_t* basic_string_substr(const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len);
 
 /*
  * Connect operation functions.
