@@ -676,7 +676,6 @@ int basic_string_compare_substring_subcstr(
 
 /**
  * Get specific sub string.
- *
  */
 basic_string_t* basic_string_substr(const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len)
 {
@@ -710,50 +709,58 @@ basic_string_t* basic_string_substr(const basic_string_t* cpt_basic_string, size
     return pt_substr;
 }
 
-void basic_string_connect(
-    basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_src)
+
+/**
+ * Connect basic string with other basic string.
+ */
+void basic_string_connect(basic_string_t* pt_dest, const basic_string_t* cpt_src)
 {
-    size_t t_destlen = 0;
-    size_t t_srclen = 0;
-    size_t t_index = 0;
-    char*  pc_dest = NULL;
-    char*  pc_src = NULL;
-    bool_t t_result = false;
+    size_t   t_destlen = 0;
+    size_t   t_srclen = 0;
+    size_t   i = 0;
+    _byte_t* pby_dest = NULL;
+    _byte_t* pby_src = NULL;
+    bool_t   b_result = false;
 
-    assert(_basic_string_same_type(pt_basic_string, cpt_basic_string_src));
+    assert(pt_dest != NULL);
+    assert(cpt_src != NULL);
+    assert(_basic_string_same_type(pt_dest, cpt_src));
 
-    t_destlen = basic_string_size(pt_basic_string);
-    t_srclen = basic_string_size(cpt_basic_string_src);
+    t_destlen = basic_string_size(pt_dest);
+    t_srclen = basic_string_size(cpt_src);
 
     if(t_srclen > 0)
     {
-        vector_resize(&pt_basic_string->_t_vector, t_destlen + t_srclen);
+        vector_resize(&pt_dest->_t_vector, t_destlen + t_srclen);
 
-        pc_dest = (char*)vector_at(&pt_basic_string->_t_vector, t_destlen);
-        pc_src = (char*)vector_at(&cpt_basic_string_src->_t_vector, 0);
-        assert(pc_dest != NULL && pc_src != NULL);
+        pby_dest = _GET_BASIC_STRING_COREPOS(iterator_next_n(basic_string_begin(pt_dest), t_destlen));
+        pby_src = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_src));
+        assert(pby_dest != NULL && pby_src != NULL);
 
-        for(t_index = 0; t_index < t_srclen; ++t_index)
+        for(i = 0; i < t_srclen; ++i)
         {
-            t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pc_src, &t_result);
-            pc_dest += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            pc_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string_src);
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_dest);
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_dest)(pby_dest, pby_src, &b_result);
+            pby_dest += _GET_BASIC_STRING_TYPE_SIZE(pt_dest);
+            pby_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_src);
         }
     }
 }
 
-void basic_string_connect_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_value_string)
+/**
+ * Connect basic string with value string.
+ */
+void basic_string_connect_cstr(basic_string_t* pt_basic_string, const void* cpv_value_string)
 {
-    size_t t_destlen = 0;
-    size_t t_srclen = 0;
-    size_t t_index = 0;
-    char*  pc_dest = NULL;
-    char*  pc_src = NULL;
-    bool_t t_result = false;
+    size_t   t_typesize = 0;
+    size_t   t_destlen = 0;
+    size_t   t_srclen = 0;
+    size_t   i = 0;
+    _byte_t* pby_dest = NULL;
+    bool_t   b_result = false;
 
-    assert(pt_basic_string != NULL && cpv_value_string != NULL);
+    assert(pt_basic_string != NULL);
+    assert(cpv_value_string != NULL);
 
     t_destlen = basic_string_size(pt_basic_string);
     t_srclen = _basic_string_get_value_string_length(pt_basic_string, cpv_value_string);
@@ -762,21 +769,40 @@ void basic_string_connect_cstr(
     {
         vector_resize(&pt_basic_string->_t_vector, t_destlen + t_srclen);
 
-        pc_dest = (char*)vector_at(&pt_basic_string->_t_vector, t_destlen);
-        pc_src = (char*)cpv_value_string;
-        assert(pc_dest != NULL && pc_src != NULL);
+        pby_dest = _GET_BASIC_STRING_COREPOS(iterator_next_n(basic_string_begin(pt_basic_string), t_destlen));
+        assert(pby_dest != NULL);
 
-        for(t_index = 0; t_index < t_srclen; ++t_index)
+        t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        /* char* */
+        if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(pt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
         {
-            t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pc_dest, pc_src, &t_result);
-            pc_dest += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            pc_src += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            for(i = 0; i < t_srclen; ++i)
+            {
+                string_assign_cstr((string_t*)(pby_dest + i * t_typesize), *((char**)cpv_value_string + i));
+            }
+        }
+        else if(_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_C_BUILTIN)
+        {
+            for(i = 0; i < t_srclen; ++i)
+            {
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
+                    pby_dest + i * t_typesize, (_byte_t*)cpv_value_string + i * t_typesize, &b_result);
+                assert(b_result);
+            }
+        }
+        else
+        {
+            for(i = 0; i < t_srclen; ++i)
+            {
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
+                    pby_dest + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
+                assert(b_result);
+            }
         }
     }
 }
-
-
 
 /* iterator support */
 basic_string_iterator_t basic_string_begin(const basic_string_t* cpt_basic_string)

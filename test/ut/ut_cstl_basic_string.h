@@ -936,6 +936,39 @@ void test_basic_string_substr__char(void** state);
 void test_basic_string_substr__cstr(void** state);
 void test_basic_string_substr__libcstl(void** state);
 void test_basic_string_substr__user_define(void** state);
+/*
+ * test basic_string_connect
+ */
+UT_CASE_DECLARATION(basic_string_connect)
+void test_basic_string_connect__null_dest(void** state);
+void test_basic_string_connect__null_src(void** state);
+void test_basic_string_connect__non_inited_dest(void** state);
+void test_basic_string_connect__non_inited_src(void** state);
+void test_basic_string_connect__not_same_type(void** state);
+void test_basic_string_connect__empty_empty(void** state);
+void test_basic_string_connect__non_empty_empty(void** state);
+void test_basic_string_connect__empty_non_empty(void** state);
+void test_basic_string_connect__same(void** state);
+void test_basic_string_connect__c_builtin(void** state);
+void test_basic_string_connect__char(void** state);
+void test_basic_string_connect__cstr(void** state);
+void test_basic_string_connect__libcstl(void** state);
+void test_basic_string_connect__user_define(void** state);
+/*
+ * test basic_string_connect_cstr
+ */
+UT_CASE_DECLARATION(basic_string_connect_cstr)
+void test_basic_string_connect_cstr__null_basic_string(void** state);
+void test_basic_string_connect_cstr__null_value_string(void** state);
+void test_basic_string_connect_cstr__non_inited_basic_string(void** state);
+void test_basic_string_connect_cstr__empty_empty(void** state);
+void test_basic_string_connect_cstr__non_empty_empty(void** state);
+void test_basic_string_connect_cstr__empty_non_empty(void** state);
+void test_basic_string_connect_cstr__c_builtin(void** state);
+void test_basic_string_connect_cstr__char(void** state);
+void test_basic_string_connect_cstr__cstr(void** state);
+void test_basic_string_connect_cstr__libcstl(void** state);
+void test_basic_string_connect_cstr__user_define(void** state);
 
 #define UT_CSTL_BASIC_STRING_CASE\
     UT_SUIT_BEGIN(cstl_basic_string, test_basic_string_init__null_basic_string_container),\
@@ -1731,7 +1764,32 @@ void test_basic_string_substr__user_define(void** state);
     UT_CASE(test_basic_string_substr__char),\
     UT_CASE(test_basic_string_substr__cstr),\
     UT_CASE(test_basic_string_substr__libcstl),\
-    UT_CASE(test_basic_string_substr__user_define)
+    UT_CASE(test_basic_string_substr__user_define),\
+    UT_CASE_BEGIN(basic_string_connect, test_basic_string_connect__null_dest),\
+    UT_CASE(test_basic_string_connect__null_src),\
+    UT_CASE(test_basic_string_connect__non_inited_dest),\
+    UT_CASE(test_basic_string_connect__non_inited_src),\
+    UT_CASE(test_basic_string_connect__not_same_type),\
+    UT_CASE(test_basic_string_connect__empty_empty),\
+    UT_CASE(test_basic_string_connect__non_empty_empty),\
+    UT_CASE(test_basic_string_connect__empty_non_empty),\
+    UT_CASE(test_basic_string_connect__same),\
+    UT_CASE(test_basic_string_connect__c_builtin),\
+    UT_CASE(test_basic_string_connect__char),\
+    UT_CASE(test_basic_string_connect__cstr),\
+    UT_CASE(test_basic_string_connect__libcstl),\
+    UT_CASE(test_basic_string_connect__user_define),\
+    UT_CASE_BEGIN(basic_string_connect_cstr, test_basic_string_connect_cstr__null_basic_string),\
+    UT_CASE(test_basic_string_connect_cstr__null_value_string),\
+    UT_CASE(test_basic_string_connect_cstr__non_inited_basic_string),\
+    UT_CASE(test_basic_string_connect_cstr__empty_empty),\
+    UT_CASE(test_basic_string_connect_cstr__non_empty_empty),\
+    UT_CASE(test_basic_string_connect_cstr__empty_non_empty),\
+    UT_CASE(test_basic_string_connect_cstr__c_builtin),\
+    UT_CASE(test_basic_string_connect_cstr__char),\
+    UT_CASE(test_basic_string_connect_cstr__cstr),\
+    UT_CASE(test_basic_string_connect_cstr__libcstl),\
+    UT_CASE(test_basic_string_connect_cstr__user_define)
 
 #endif /* _UT_CSTL_BASIC_STRING_H_ */
 

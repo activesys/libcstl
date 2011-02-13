@@ -51,9 +51,15 @@ extern "C" {
  */
 #define basic_string_init_elem(pt_basic_string, t_count, elem)\
     _basic_string_init_elem((pt_basic_string), (t_count), (elem))
-/* connect (+= operator) */
-#define basic_string_connect_elem(pt_basic_string, elem)\
-    _basic_string_connect_elem((pt_basic_string), (elem))
+
+/**
+ * Appends specificed element to basic string.
+ * @param pt_basic_string      basic_string container.
+ * @param elem                 specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
+ */
+#define basic_string_connect_elem(pt_basic_string, elem) _basic_string_connect_elem((pt_basic_string), (elem))
 /* find */
 #define basic_string_find_elem(cpt_basic_string, elem, t_pos)\
     _basic_string_find_elem((cpt_basic_string), (t_pos), (elem))
@@ -508,13 +514,27 @@ extern int basic_string_compare_substring_subcstr(
  */
 extern basic_string_t* basic_string_substr(const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len);
 
-/*
- * Connect operation functions.
+/**
+ * Connect basic string with other basic string.
+ * @param pt_dest          destination basic_string.
+ * @param cpt_src          source basic_string.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, then the behavior is undefined. pt_dest and cpt_src must be initialized,
+ *          otherwise the behavior is undefined. the element type of two basic string must be same, otherwise the behavior
+ *          is undefine.
  */
-extern void basic_string_connect(
-    basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_src);
-extern void basic_string_connect_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_value_string);
+extern void basic_string_connect(basic_string_t* pt_dest, const basic_string_t* cpt_src);
+
+/**
+ * Connect basic string with value string.
+ * @param pt_basic_string          destination basic_string.
+ * @param cpt_value_string         source value string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpt_value_string == NULL, then the behavior is undefined. pt_basic_string must be
+ *          initialized, otherwise the behavior is undefined. the element type of basic string and value string must be same,
+ *          otherwise the behavior is undefine.
+ */
+extern void basic_string_connect_cstr(basic_string_t* pt_basic_string, const void* cpv_value_string);
 
 /*
  * Find operation functions.

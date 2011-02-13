@@ -10776,3 +10776,516 @@ void test_basic_string_substr__user_define(void** state)
     basic_string_destroy(pt_substr);
 }
 
+/*
+ * test basic_string_connect
+ */
+UT_CASE_DEFINATION(basic_string_connect)
+void test_basic_string_connect__null_dest(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init(pt_basic_string);
+    expect_assert_failure(basic_string_connect(NULL, pt_basic_string));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect__null_src(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init(pt_basic_string);
+    expect_assert_failure(basic_string_connect(pt_basic_string, NULL));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect__non_inited_dest(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(int);
+    basic_string_t* pt_src = create_basic_string(int);
+
+    basic_string_init(pt_src);
+    pt_dest->_t_vector._pby_finish = (_byte_t*)0x888;
+    expect_assert_failure(basic_string_connect(pt_dest, pt_src));
+    pt_dest->_t_vector._pby_finish = NULL;
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+void test_basic_string_connect__non_inited_src(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(int);
+    basic_string_t* pt_src = create_basic_string(int);
+
+    basic_string_init(pt_dest);
+    pt_src->_t_vector._pby_finish = (_byte_t*)0x888;
+    expect_assert_failure(basic_string_connect(pt_dest, pt_src));
+    pt_src->_t_vector._pby_finish = NULL;
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+void test_basic_string_connect__not_same_type(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(int);
+    basic_string_t* pt_src = create_basic_string(double);
+
+    basic_string_init(pt_dest);
+    basic_string_init(pt_src);
+    expect_assert_failure(basic_string_connect(pt_dest, pt_src));
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+void test_basic_string_connect__empty_empty(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(int);
+    basic_string_t* pt_src = create_basic_string(int);
+
+    basic_string_init(pt_dest);
+    basic_string_init(pt_src);
+    basic_string_connect(pt_dest, pt_src);
+    assert_true(basic_string_empty(pt_dest));
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+void test_basic_string_connect__non_empty_empty(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(int);
+    basic_string_t* pt_src = create_basic_string(int);
+
+    basic_string_init_elem(pt_dest, 10, 100);
+    basic_string_init(pt_src);
+    basic_string_connect(pt_dest, pt_src);
+    assert_true(basic_string_size(pt_dest) == 10);
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+void test_basic_string_connect__empty_non_empty(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(int);
+    basic_string_t* pt_src = create_basic_string(int);
+
+    basic_string_init_elem(pt_src, 10, 100);
+    basic_string_init(pt_dest);
+    basic_string_connect(pt_dest, pt_src);
+    assert_true(basic_string_size(pt_dest) == 10);
+    assert_true(basic_string_equal(pt_dest, pt_src));
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+void test_basic_string_connect__same(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+
+    basic_string_connect(pt_basic_string, pt_basic_string);
+    assert_true(basic_string_size(pt_basic_string) == 20);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        assert_true(*(int*)basic_string_at(pt_basic_string, i) == i % 10);
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect__c_builtin(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(double);
+    basic_string_t* pt_src = create_basic_string(double);
+    size_t i = 0;
+
+    basic_string_init(pt_dest);
+    basic_string_init(pt_src);
+    for(i = 0; i < 4; ++i)
+    {
+        basic_string_push_back(pt_dest, 45.09);
+        basic_string_push_back(pt_src, -0.00874);
+    }
+    basic_string_connect(pt_dest, pt_src);
+    assert_true(basic_string_size(pt_dest) == 8);
+    for(i = 0; i < 8; ++i)
+    {
+        if(i < 4)
+        {
+            assert_true(*(double*)basic_string_at(pt_dest, i) == 45.09);
+        }
+        else
+        {
+            assert_true(*(double*)basic_string_at(pt_dest, i) == -0.00874);
+        }
+    }
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+void test_basic_string_connect__char(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(char);
+    basic_string_t* pt_src = create_basic_string(char);
+    size_t i = 0;
+
+    basic_string_init(pt_dest);
+    basic_string_init(pt_src);
+    for(i = 0; i < 4; ++i)
+    {
+        basic_string_push_back(pt_dest, 'a');
+        basic_string_push_back(pt_src, 'd');
+    }
+    basic_string_connect(pt_dest, pt_src);
+    assert_true(basic_string_size(pt_dest) == 8);
+    for(i = 0; i < 8; ++i)
+    {
+        if(i < 4)
+        {
+            assert_true(*(char*)basic_string_at(pt_dest, i) == 'a');
+        }
+        else
+        {
+            assert_true(*(char*)basic_string_at(pt_dest, i) == 'd');
+        }
+    }
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+void test_basic_string_connect__cstr(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(char*);
+    basic_string_t* pt_src = create_basic_string(char*);
+    size_t i = 0;
+
+    basic_string_init(pt_dest);
+    basic_string_init(pt_src);
+    for(i = 0; i < 4; ++i)
+    {
+        basic_string_push_back(pt_dest, "abcd");
+        basic_string_push_back(pt_src, "xyz");
+    }
+    basic_string_connect(pt_dest, pt_src);
+    assert_true(basic_string_size(pt_dest) == 8);
+    for(i = 0; i < 8; ++i)
+    {
+        if(i < 4)
+        {
+            assert_true(strcmp((char*)basic_string_at(pt_dest, i), "abcd") == 0);
+        }
+        else
+        {
+            assert_true(strcmp((char*)basic_string_at(pt_dest, i), "xyz") == 0);
+        }
+    }
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+void test_basic_string_connect__libcstl(void** state)
+{
+    basic_string_t* pt_dest = create_basic_string(vector_t<int>);
+    basic_string_t* pt_src = create_basic_string(vector_t<int>);
+    vector_t* pvec = create_vector(int);
+    size_t i = 0;
+
+    vector_init(pvec);
+    basic_string_init(pt_dest);
+    basic_string_init(pt_src);
+    for(i = 0; i < 4; ++i)
+    {
+        vector_clear(pvec);
+        basic_string_push_back(pt_dest, pvec);
+        vector_push_back(pvec, 100);
+        basic_string_push_back(pt_src, pvec);
+    }
+    basic_string_connect(pt_dest, pt_src);
+    assert_true(basic_string_size(pt_dest) == 8);
+    for(i = 0; i < 8; ++i)
+    {
+        if(i < 4)
+        {
+            assert_true(vector_empty((vector_t*)basic_string_at(pt_dest, i)));
+        }
+        else
+        {
+            assert_true(vector_size((vector_t*)basic_string_at(pt_dest, i)) == 1);
+            assert_true(*(int*)vector_front((vector_t*)basic_string_at(pt_dest, i)) == 100);
+        }
+    }
+
+    vector_destroy(pvec);
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+typedef struct _tag_test_basic_string_connect__user_define
+{
+    int n_elem;
+}_test_basic_string_connect__user_define_t;
+void test_basic_string_connect__user_define(void** state)
+{
+    basic_string_t* pt_dest = NULL;
+    basic_string_t* pt_src = NULL;
+    _test_basic_string_connect__user_define_t t_elem;
+    size_t i = 0;
+
+    type_register(_test_basic_string_connect__user_define_t, NULL, NULL, NULL, NULL);
+    pt_dest = create_basic_string(_test_basic_string_connect__user_define_t);
+    pt_src = create_basic_string(_test_basic_string_connect__user_define_t);
+    basic_string_init(pt_dest);
+    basic_string_init(pt_src);
+    for(i = 0; i < 4; ++i)
+    {
+        t_elem.n_elem = 0;
+        basic_string_push_back(pt_dest, &t_elem);
+        t_elem.n_elem = 100;
+        basic_string_push_back(pt_src, &t_elem);
+    }
+    basic_string_connect(pt_dest, pt_src);
+    assert_true(basic_string_size(pt_dest) == 8);
+    for(i = 0; i < 8; ++i)
+    {
+        if(i < 4)
+        {
+            assert_true(((_test_basic_string_connect__user_define_t*)basic_string_at(pt_dest, i))->n_elem == 0);
+        }
+        else
+        {
+            assert_true(((_test_basic_string_connect__user_define_t*)basic_string_at(pt_dest, i))->n_elem == 100);
+        }
+    }
+
+    basic_string_destroy(pt_dest);
+    basic_string_destroy(pt_src);
+}
+
+/*
+ * test basic_string_connect_cstr
+ */
+UT_CASE_DEFINATION(basic_string_connect_cstr)
+void test_basic_string_connect_cstr__null_basic_string(void** state)
+{
+    int elems[] = {0};
+
+    expect_assert_failure(basic_string_connect_cstr(NULL, elems));
+}
+
+void test_basic_string_connect_cstr__null_value_string(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init(pt_basic_string);
+    expect_assert_failure(basic_string_connect_cstr(pt_basic_string, NULL));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect_cstr__non_inited_basic_string(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0};
+
+    pt_basic_string->_t_vector._pby_start = (_byte_t*)0x999;
+    expect_assert_failure(basic_string_connect_cstr(pt_basic_string, elems));
+    pt_basic_string->_t_vector._pby_start = NULL;
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect_cstr__empty_empty(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0};
+
+    basic_string_init(pt_basic_string);
+    basic_string_connect_cstr(pt_basic_string, elems);
+    assert_true(basic_string_empty(pt_basic_string));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect_cstr__non_empty_empty(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    size_t i = 0;
+    int elems[] = {0};
+
+    basic_string_init_elem(pt_basic_string, 9, 100);
+    basic_string_connect_cstr(pt_basic_string, elems);
+    assert_true(basic_string_size(pt_basic_string) == 9);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        assert_true(*(int*)basic_string_at(pt_basic_string, i) == 100);
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect_cstr__empty_non_empty(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    size_t i = 0;
+    int elems[] = {1, 2, 3, 4, 5, 0};
+
+    basic_string_init(pt_basic_string);
+    basic_string_connect_cstr(pt_basic_string, elems);
+    assert_true(basic_string_size(pt_basic_string) == 5);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        assert_true(*(int*)basic_string_at(pt_basic_string, i) == i + 1);
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect_cstr__c_builtin(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(double);
+    size_t i = 0;
+    double elems[] = {1.0, 2.0, 3.0, 4.0, 5.0, 0.0};
+
+    basic_string_init_elem(pt_basic_string, 10, 100.0);
+    basic_string_connect_cstr(pt_basic_string, elems);
+    assert_true(basic_string_size(pt_basic_string) == 15);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(double*)basic_string_at(pt_basic_string, i) == 100.0);
+        }
+        else
+        {
+            assert_true(*(double*)basic_string_at(pt_basic_string, i) == (i - 9) * 1.0);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect_cstr__char(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    size_t i = 0;
+
+    basic_string_init_cstr(pt_basic_string, "aaaaa");
+    basic_string_connect_cstr(pt_basic_string, "bbbb");
+    assert_true(basic_string_size(pt_basic_string) == 9);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i < 5)
+        {
+            assert_true(*(char*)basic_string_at(pt_basic_string, i) == 'a');
+        }
+        else
+        {
+            assert_true(*(char*)basic_string_at(pt_basic_string, i) == 'b');
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect_cstr__cstr(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char*);
+    const char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    size_t i = 0;
+
+    basic_string_init_elem(pt_basic_string, 10, "aaaaa");
+    basic_string_connect_cstr(pt_basic_string, elems);
+    assert_true(basic_string_size(pt_basic_string) == 14);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(strcmp((char*)basic_string_at(pt_basic_string, i), "aaaaa") == 0);
+        }
+        else
+        {
+            assert_true(strcmp((char*)basic_string_at(pt_basic_string, i), "abc") == 0);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_connect_cstr__libcstl(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(vector_t<int>);
+    vector_t* pvec = create_vector(int);
+    vector_t* elems[] = {pvec, pvec, pvec, NULL};
+    size_t i = 0;
+
+    vector_init(pvec);
+    basic_string_init_elem(pt_basic_string, 10, pvec);
+    vector_push_back(pvec, 100);
+    basic_string_connect_cstr(pt_basic_string, elems);
+    assert_true(basic_string_size(pt_basic_string) == 13);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(vector_empty((vector_t*)basic_string_at(pt_basic_string, i)));
+        }
+        else
+        {
+            assert_true(vector_size((vector_t*)basic_string_at(pt_basic_string, i)) == 1);
+            assert_true(*(int*)vector_front((vector_t*)basic_string_at(pt_basic_string, i)) == 100);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
+typedef struct _tag_test_basic_string_connect_cstr__user_define
+{
+    int n_elem;
+}_test_basic_string_connect_cstr__user_define_t;
+void test_basic_string_connect_cstr__user_define(void** state)
+{
+    basic_string_t* pt_basic_string = NULL;
+    _test_basic_string_connect_cstr__user_define_t t_elem;
+    _test_basic_string_connect_cstr__user_define_t* elems[] = {&t_elem, &t_elem, &t_elem, NULL};
+    size_t i = 0;
+
+    type_register(_test_basic_string_connect_cstr__user_define_t, NULL, NULL, NULL, NULL);
+    pt_basic_string = create_basic_string(_test_basic_string_connect_cstr__user_define_t);
+    t_elem.n_elem = 0;
+    basic_string_init_elem(pt_basic_string, 10, &t_elem);
+    t_elem.n_elem = 100;
+    basic_string_connect_cstr(pt_basic_string, elems);
+    assert_true(basic_string_size(pt_basic_string) == 13);
+    for(i = 0; i < basic_string_size(pt_basic_string); ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(
+                ((_test_basic_string_connect_cstr__user_define_t*)basic_string_at(pt_basic_string, i))->n_elem == 0);
+        }
+        else
+        {
+            assert_true(
+                ((_test_basic_string_connect_cstr__user_define_t*)basic_string_at(pt_basic_string, i))->n_elem == 100);
+        }
+    }
+
+    basic_string_destroy(pt_basic_string);
+}
+
