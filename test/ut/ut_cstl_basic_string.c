@@ -3592,8 +3592,8 @@ void test_basic_string_equal_cstr__non_inited_basic_string(void** state)
 void test_basic_string_equal_cstr__c_builtin_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init(pt_basic_string);
     int elems[] = {0};
+    basic_string_init(pt_basic_string);
 
     assert_true(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3603,8 +3603,8 @@ void test_basic_string_equal_cstr__c_builtin_empty(void** state)
 void test_basic_string_equal_cstr__c_builtin_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 2, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 2, 100);
 
     assert_false(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3614,8 +3614,8 @@ void test_basic_string_equal_cstr__c_builtin_less(void** state)
 void test_basic_string_equal_cstr__c_builtin_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3625,8 +3625,8 @@ void test_basic_string_equal_cstr__c_builtin_equal(void** state)
 void test_basic_string_equal_cstr__c_builtin_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 7, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 7, 100);
 
     assert_false(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3636,8 +3636,8 @@ void test_basic_string_equal_cstr__c_builtin_greater(void** state)
 void test_basic_string_equal_cstr__c_builtin_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_false(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3647,8 +3647,8 @@ void test_basic_string_equal_cstr__c_builtin_size_equal_less(void** state)
 void test_basic_string_equal_cstr__c_builtin_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 200);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 200);
 
     assert_false(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3718,8 +3718,8 @@ void test_basic_string_equal_cstr__char_size_equal_greater(void** state)
 void test_basic_string_equal_cstr__cstr_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init(pt_basic_string);
     char* elems[] = {NULL};
+    basic_string_init(pt_basic_string);
 
     assert_true(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3729,8 +3729,8 @@ void test_basic_string_equal_cstr__cstr_empty(void** state)
 void test_basic_string_equal_cstr__cstr_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 3, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 3, "abc");
 
     assert_false(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3740,8 +3740,8 @@ void test_basic_string_equal_cstr__cstr_less(void** state)
 void test_basic_string_equal_cstr__cstr_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "abc");
 
     assert_true(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3751,8 +3751,8 @@ void test_basic_string_equal_cstr__cstr_equal(void** state)
 void test_basic_string_equal_cstr__cstr_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 5, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 5, "abc");
 
     assert_false(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3762,8 +3762,8 @@ void test_basic_string_equal_cstr__cstr_greater(void** state)
 void test_basic_string_equal_cstr__cstr_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "aaa");
 
     assert_false(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3773,8 +3773,8 @@ void test_basic_string_equal_cstr__cstr_size_equal_less(void** state)
 void test_basic_string_equal_cstr__cstr_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "ttt");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "ttt");
 
     assert_false(basic_string_equal_cstr(pt_basic_string, elems));
 
@@ -3993,8 +3993,8 @@ void test_basic_string_not_equal_cstr__non_inited_basic_string(void** state)
 void test_basic_string_not_equal_cstr__c_builtin_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init(pt_basic_string);
     int elems[] = {0};
+    basic_string_init(pt_basic_string);
 
     assert_false(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4004,8 +4004,8 @@ void test_basic_string_not_equal_cstr__c_builtin_empty(void** state)
 void test_basic_string_not_equal_cstr__c_builtin_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 2, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 2, 100);
 
     assert_true(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4015,8 +4015,8 @@ void test_basic_string_not_equal_cstr__c_builtin_less(void** state)
 void test_basic_string_not_equal_cstr__c_builtin_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_false(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4026,8 +4026,8 @@ void test_basic_string_not_equal_cstr__c_builtin_equal(void** state)
 void test_basic_string_not_equal_cstr__c_builtin_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 7, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 7, 100);
 
     assert_true(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4037,8 +4037,8 @@ void test_basic_string_not_equal_cstr__c_builtin_greater(void** state)
 void test_basic_string_not_equal_cstr__c_builtin_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4048,8 +4048,8 @@ void test_basic_string_not_equal_cstr__c_builtin_size_equal_less(void** state)
 void test_basic_string_not_equal_cstr__c_builtin_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 200);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 200);
 
     assert_true(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4119,8 +4119,8 @@ void test_basic_string_not_equal_cstr__char_size_equal_greater(void** state)
 void test_basic_string_not_equal_cstr__cstr_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init(pt_basic_string);
     char* elems[] = {NULL};
+    basic_string_init(pt_basic_string);
 
     assert_false(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4130,8 +4130,8 @@ void test_basic_string_not_equal_cstr__cstr_empty(void** state)
 void test_basic_string_not_equal_cstr__cstr_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 3, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 3, "abc");
 
     assert_true(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4141,8 +4141,8 @@ void test_basic_string_not_equal_cstr__cstr_less(void** state)
 void test_basic_string_not_equal_cstr__cstr_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "abc");
 
     assert_false(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4152,8 +4152,8 @@ void test_basic_string_not_equal_cstr__cstr_equal(void** state)
 void test_basic_string_not_equal_cstr__cstr_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 5, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 5, "abc");
 
     assert_true(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4163,8 +4163,8 @@ void test_basic_string_not_equal_cstr__cstr_greater(void** state)
 void test_basic_string_not_equal_cstr__cstr_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "aaa");
 
     assert_true(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4174,8 +4174,8 @@ void test_basic_string_not_equal_cstr__cstr_size_equal_less(void** state)
 void test_basic_string_not_equal_cstr__cstr_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "ttt");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "ttt");
 
     assert_true(basic_string_not_equal_cstr(pt_basic_string, elems));
 
@@ -4394,8 +4394,8 @@ void test_basic_string_less_cstr__non_inited_basic_string(void** state)
 void test_basic_string_less_cstr__c_builtin_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init(pt_basic_string);
     int elems[] = {0};
+    basic_string_init(pt_basic_string);
 
     assert_false(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4405,8 +4405,8 @@ void test_basic_string_less_cstr__c_builtin_empty(void** state)
 void test_basic_string_less_cstr__c_builtin_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 2, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 2, 100);
 
     assert_true(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4416,8 +4416,8 @@ void test_basic_string_less_cstr__c_builtin_less(void** state)
 void test_basic_string_less_cstr__c_builtin_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_false(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4427,8 +4427,8 @@ void test_basic_string_less_cstr__c_builtin_equal(void** state)
 void test_basic_string_less_cstr__c_builtin_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 7, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 7, 100);
 
     assert_false(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4438,8 +4438,8 @@ void test_basic_string_less_cstr__c_builtin_greater(void** state)
 void test_basic_string_less_cstr__c_builtin_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4449,8 +4449,8 @@ void test_basic_string_less_cstr__c_builtin_size_equal_less(void** state)
 void test_basic_string_less_cstr__c_builtin_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 200);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 200);
 
     assert_false(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4520,8 +4520,8 @@ void test_basic_string_less_cstr__char_size_equal_greater(void** state)
 void test_basic_string_less_cstr__cstr_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init(pt_basic_string);
     char* elems[] = {NULL};
+    basic_string_init(pt_basic_string);
 
     assert_false(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4531,8 +4531,8 @@ void test_basic_string_less_cstr__cstr_empty(void** state)
 void test_basic_string_less_cstr__cstr_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 3, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 3, "abc");
 
     assert_true(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4542,8 +4542,8 @@ void test_basic_string_less_cstr__cstr_less(void** state)
 void test_basic_string_less_cstr__cstr_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "abc");
 
     assert_false(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4553,8 +4553,8 @@ void test_basic_string_less_cstr__cstr_equal(void** state)
 void test_basic_string_less_cstr__cstr_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 5, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 5, "abc");
 
     assert_false(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4564,8 +4564,8 @@ void test_basic_string_less_cstr__cstr_greater(void** state)
 void test_basic_string_less_cstr__cstr_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "aaa");
 
     assert_true(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4575,8 +4575,8 @@ void test_basic_string_less_cstr__cstr_size_equal_less(void** state)
 void test_basic_string_less_cstr__cstr_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "ttt");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "ttt");
 
     assert_false(basic_string_less_cstr(pt_basic_string, elems));
 
@@ -4795,8 +4795,8 @@ void test_basic_string_less_equal_cstr__non_inited_basic_string(void** state)
 void test_basic_string_less_equal_cstr__c_builtin_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init(pt_basic_string);
     int elems[] = {0};
+    basic_string_init(pt_basic_string);
 
     assert_true(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4806,8 +4806,8 @@ void test_basic_string_less_equal_cstr__c_builtin_empty(void** state)
 void test_basic_string_less_equal_cstr__c_builtin_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 2, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 2, 100);
 
     assert_true(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4817,8 +4817,8 @@ void test_basic_string_less_equal_cstr__c_builtin_less(void** state)
 void test_basic_string_less_equal_cstr__c_builtin_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4828,8 +4828,8 @@ void test_basic_string_less_equal_cstr__c_builtin_equal(void** state)
 void test_basic_string_less_equal_cstr__c_builtin_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 7, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 7, 100);
 
     assert_false(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4839,8 +4839,8 @@ void test_basic_string_less_equal_cstr__c_builtin_greater(void** state)
 void test_basic_string_less_equal_cstr__c_builtin_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4850,8 +4850,8 @@ void test_basic_string_less_equal_cstr__c_builtin_size_equal_less(void** state)
 void test_basic_string_less_equal_cstr__c_builtin_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 200);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 200);
 
     assert_false(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4921,8 +4921,8 @@ void test_basic_string_less_equal_cstr__char_size_equal_greater(void** state)
 void test_basic_string_less_equal_cstr__cstr_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init(pt_basic_string);
     char* elems[] = {NULL};
+    basic_string_init(pt_basic_string);
 
     assert_true(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4932,8 +4932,8 @@ void test_basic_string_less_equal_cstr__cstr_empty(void** state)
 void test_basic_string_less_equal_cstr__cstr_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 3, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 3, "abc");
 
     assert_true(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4943,8 +4943,8 @@ void test_basic_string_less_equal_cstr__cstr_less(void** state)
 void test_basic_string_less_equal_cstr__cstr_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "abc");
 
     assert_true(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4954,8 +4954,8 @@ void test_basic_string_less_equal_cstr__cstr_equal(void** state)
 void test_basic_string_less_equal_cstr__cstr_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 5, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 5, "abc");
 
     assert_false(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4965,8 +4965,8 @@ void test_basic_string_less_equal_cstr__cstr_greater(void** state)
 void test_basic_string_less_equal_cstr__cstr_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "aaa");
 
     assert_true(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -4976,8 +4976,8 @@ void test_basic_string_less_equal_cstr__cstr_size_equal_less(void** state)
 void test_basic_string_less_equal_cstr__cstr_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "ttt");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "ttt");
 
     assert_false(basic_string_less_equal_cstr(pt_basic_string, elems));
 
@@ -5196,8 +5196,8 @@ void test_basic_string_greater_cstr__non_inited_basic_string(void** state)
 void test_basic_string_greater_cstr__c_builtin_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init(pt_basic_string);
     int elems[] = {0};
+    basic_string_init(pt_basic_string);
 
     assert_false(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5207,8 +5207,8 @@ void test_basic_string_greater_cstr__c_builtin_empty(void** state)
 void test_basic_string_greater_cstr__c_builtin_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 2, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 2, 100);
 
     assert_false(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5218,8 +5218,8 @@ void test_basic_string_greater_cstr__c_builtin_less(void** state)
 void test_basic_string_greater_cstr__c_builtin_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_false(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5229,8 +5229,8 @@ void test_basic_string_greater_cstr__c_builtin_equal(void** state)
 void test_basic_string_greater_cstr__c_builtin_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 7, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 7, 100);
 
     assert_true(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5240,8 +5240,8 @@ void test_basic_string_greater_cstr__c_builtin_greater(void** state)
 void test_basic_string_greater_cstr__c_builtin_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_false(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5251,8 +5251,8 @@ void test_basic_string_greater_cstr__c_builtin_size_equal_less(void** state)
 void test_basic_string_greater_cstr__c_builtin_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 200);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 200);
 
     assert_true(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5322,8 +5322,8 @@ void test_basic_string_greater_cstr__char_size_equal_greater(void** state)
 void test_basic_string_greater_cstr__cstr_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init(pt_basic_string);
     char* elems[] = {NULL};
+    basic_string_init(pt_basic_string);
 
     assert_false(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5333,8 +5333,8 @@ void test_basic_string_greater_cstr__cstr_empty(void** state)
 void test_basic_string_greater_cstr__cstr_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 3, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 3, "abc");
 
     assert_false(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5344,8 +5344,8 @@ void test_basic_string_greater_cstr__cstr_less(void** state)
 void test_basic_string_greater_cstr__cstr_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "abc");
 
     assert_false(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5355,8 +5355,8 @@ void test_basic_string_greater_cstr__cstr_equal(void** state)
 void test_basic_string_greater_cstr__cstr_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 5, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 5, "abc");
 
     assert_true(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5366,8 +5366,8 @@ void test_basic_string_greater_cstr__cstr_greater(void** state)
 void test_basic_string_greater_cstr__cstr_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "aaa");
 
     assert_false(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5377,8 +5377,8 @@ void test_basic_string_greater_cstr__cstr_size_equal_less(void** state)
 void test_basic_string_greater_cstr__cstr_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "ttt");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "ttt");
 
     assert_true(basic_string_greater_cstr(pt_basic_string, elems));
 
@@ -5597,8 +5597,8 @@ void test_basic_string_greater_equal_cstr__non_inited_basic_string(void** state)
 void test_basic_string_greater_equal_cstr__c_builtin_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init(pt_basic_string);
     int elems[] = {0};
+    basic_string_init(pt_basic_string);
 
     assert_true(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5608,8 +5608,8 @@ void test_basic_string_greater_equal_cstr__c_builtin_empty(void** state)
 void test_basic_string_greater_equal_cstr__c_builtin_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 2, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 2, 100);
 
     assert_false(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5619,8 +5619,8 @@ void test_basic_string_greater_equal_cstr__c_builtin_less(void** state)
 void test_basic_string_greater_equal_cstr__c_builtin_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5630,8 +5630,8 @@ void test_basic_string_greater_equal_cstr__c_builtin_equal(void** state)
 void test_basic_string_greater_equal_cstr__c_builtin_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 7, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 7, 100);
 
     assert_true(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5641,8 +5641,8 @@ void test_basic_string_greater_equal_cstr__c_builtin_greater(void** state)
 void test_basic_string_greater_equal_cstr__c_builtin_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_false(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5652,8 +5652,8 @@ void test_basic_string_greater_equal_cstr__c_builtin_size_equal_less(void** stat
 void test_basic_string_greater_equal_cstr__c_builtin_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 200);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 200);
 
     assert_true(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5723,8 +5723,8 @@ void test_basic_string_greater_equal_cstr__char_size_equal_greater(void** state)
 void test_basic_string_greater_equal_cstr__cstr_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init(pt_basic_string);
     char* elems[] = {NULL};
+    basic_string_init(pt_basic_string);
 
     assert_true(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5734,8 +5734,8 @@ void test_basic_string_greater_equal_cstr__cstr_empty(void** state)
 void test_basic_string_greater_equal_cstr__cstr_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 3, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 3, "abc");
 
     assert_false(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5745,8 +5745,8 @@ void test_basic_string_greater_equal_cstr__cstr_less(void** state)
 void test_basic_string_greater_equal_cstr__cstr_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "abc");
 
     assert_true(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5756,8 +5756,8 @@ void test_basic_string_greater_equal_cstr__cstr_equal(void** state)
 void test_basic_string_greater_equal_cstr__cstr_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 5, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 5, "abc");
 
     assert_true(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5767,8 +5767,8 @@ void test_basic_string_greater_equal_cstr__cstr_greater(void** state)
 void test_basic_string_greater_equal_cstr__cstr_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "aaa");
 
     assert_false(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -5778,8 +5778,8 @@ void test_basic_string_greater_equal_cstr__cstr_size_equal_less(void** state)
 void test_basic_string_greater_equal_cstr__cstr_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "ttt");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "ttt");
 
     assert_true(basic_string_greater_equal_cstr(pt_basic_string, elems));
 
@@ -8532,8 +8532,8 @@ void test_basic_string_compare_cstr__non_inited_basic_string(void** state)
 void test_basic_string_compare_cstr__c_builtin_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init(pt_basic_string);
     int elems[] = {0};
+    basic_string_init(pt_basic_string);
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) == 0);
 
@@ -8543,8 +8543,8 @@ void test_basic_string_compare_cstr__c_builtin_empty(void** state)
 void test_basic_string_compare_cstr__c_builtin_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 2, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 2, 100);
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) < 0);
 
@@ -8554,8 +8554,8 @@ void test_basic_string_compare_cstr__c_builtin_less(void** state)
 void test_basic_string_compare_cstr__c_builtin_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) == 0);
 
@@ -8565,8 +8565,8 @@ void test_basic_string_compare_cstr__c_builtin_equal(void** state)
 void test_basic_string_compare_cstr__c_builtin_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 7, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 7, 100);
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) > 0);
 
@@ -8576,8 +8576,8 @@ void test_basic_string_compare_cstr__c_builtin_greater(void** state)
 void test_basic_string_compare_cstr__c_builtin_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) < 0);
 
@@ -8587,8 +8587,8 @@ void test_basic_string_compare_cstr__c_builtin_size_equal_less(void** state)
 void test_basic_string_compare_cstr__c_builtin_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 200);
     int elems[] = {111, 111, 111, 111, 0};
+    basic_string_init_elem(pt_basic_string, 4, 200);
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) > 0);
 
@@ -8658,8 +8658,8 @@ void test_basic_string_compare_cstr__char_size_equal_greater(void** state)
 void test_basic_string_compare_cstr__cstr_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init(pt_basic_string);
     char* elems[] = {NULL};
+    basic_string_init(pt_basic_string);
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) == 0);
 
@@ -8669,8 +8669,8 @@ void test_basic_string_compare_cstr__cstr_empty(void** state)
 void test_basic_string_compare_cstr__cstr_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 3, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 3, "abc");
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) < 0);
 
@@ -8680,8 +8680,8 @@ void test_basic_string_compare_cstr__cstr_less(void** state)
 void test_basic_string_compare_cstr__cstr_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "abc");
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) == 0);
 
@@ -8691,8 +8691,8 @@ void test_basic_string_compare_cstr__cstr_equal(void** state)
 void test_basic_string_compare_cstr__cstr_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 5, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 5, "abc");
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) > 0);
 
@@ -8702,8 +8702,8 @@ void test_basic_string_compare_cstr__cstr_greater(void** state)
 void test_basic_string_compare_cstr__cstr_size_equal_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "aaa");
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) < 0);
 
@@ -8713,8 +8713,8 @@ void test_basic_string_compare_cstr__cstr_size_equal_less(void** state)
 void test_basic_string_compare_cstr__cstr_size_equal_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "ttt");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "ttt");
 
     assert_true(basic_string_compare_cstr(pt_basic_string, elems) > 0);
 
@@ -8944,8 +8944,8 @@ void test_basic_string_compare_substring_cstr__invalid_pos(void** state)
 void test_basic_string_compare_substring_cstr__c_builtin_empty_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, 0, elems) == 0);
 
@@ -8955,8 +8955,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_empty_empty(void** stat
 void test_basic_string_compare_substring_cstr__c_builtin_non_empty_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) > 0);
 
@@ -8966,8 +8966,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_non_empty_empty(void** 
 void test_basic_string_compare_substring_cstr__c_builtin_empty_non_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {1, 2, 3, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, 0, elems) < 0);
 
@@ -8977,8 +8977,9 @@ void test_basic_string_compare_substring_cstr__c_builtin_empty_non_empty(void** 
 void test_basic_string_compare_substring_cstr__c_builtin_sub_size_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
+
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, 2, elems) < 0);
 
@@ -8988,8 +8989,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_sub_size_less(void** st
 void test_basic_string_compare_substring_cstr__c_builtin_sub_content_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 10);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 10);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, 4, elems) < 0);
 
@@ -8999,8 +9000,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_sub_content_less(void**
 void test_basic_string_compare_substring_cstr__c_builtin_sub_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 3, 4, elems) == 0);
 
@@ -9010,8 +9011,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_sub_equal(void** state)
 void test_basic_string_compare_substring_cstr__c_builtin_sub_size_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 2, NPOS, elems) > 0);
 
@@ -9021,8 +9022,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_sub_size_greater(void**
 void test_basic_string_compare_substring_cstr__c_builtin_sub_content_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 150);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 150);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 2, 4, elems) > 0);
 
@@ -9032,8 +9033,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_sub_content_greater(voi
 void test_basic_string_compare_substring_cstr__c_builtin_all_size_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 1, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 1, 100);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) < 0);
 
@@ -9043,8 +9044,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_all_size_less(void** st
 void test_basic_string_compare_substring_cstr__c_builtin_all_content_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 10);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 10);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) < 0);
 
@@ -9054,8 +9055,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_all_content_less(void**
 void test_basic_string_compare_substring_cstr__c_builtin_all_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) == 0);
 
@@ -9065,8 +9066,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_all_equal(void** state)
 void test_basic_string_compare_substring_cstr__c_builtin_all_size_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) > 0);
 
@@ -9076,8 +9077,8 @@ void test_basic_string_compare_substring_cstr__c_builtin_all_size_greater(void**
 void test_basic_string_compare_substring_cstr__c_builtin_all_content_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {11, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) > 0);
 
@@ -9217,8 +9218,8 @@ void test_basic_string_compare_substring_cstr__char_all_content_greater(void** s
 void test_basic_string_compare_substring_cstr__cstr_empty_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, 0, elems) == 0);
 
@@ -9228,8 +9229,8 @@ void test_basic_string_compare_substring_cstr__cstr_empty_empty(void** state)
 void test_basic_string_compare_substring_cstr__cstr_non_empty_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, 3, elems) > 0);
 
@@ -9239,8 +9240,8 @@ void test_basic_string_compare_substring_cstr__cstr_non_empty_empty(void** state
 void test_basic_string_compare_substring_cstr__cstr_empty_non_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {"abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 4, 0, elems) < 0);
 
@@ -9250,8 +9251,8 @@ void test_basic_string_compare_substring_cstr__cstr_empty_non_empty(void** state
 void test_basic_string_compare_substring_cstr__cstr_sub_size_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 4, 3, elems) < 0);
 
@@ -9261,8 +9262,8 @@ void test_basic_string_compare_substring_cstr__cstr_sub_size_less(void** state)
 void test_basic_string_compare_substring_cstr__cstr_sub_content_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "aaa");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 4, 4, elems) < 0);
 
@@ -9272,8 +9273,8 @@ void test_basic_string_compare_substring_cstr__cstr_sub_content_less(void** stat
 void test_basic_string_compare_substring_cstr__cstr_sub_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, 4, elems) == 0);
 
@@ -9283,8 +9284,8 @@ void test_basic_string_compare_substring_cstr__cstr_sub_equal(void** state)
 void test_basic_string_compare_substring_cstr__cstr_sub_size_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 3, NPOS, elems) > 0);
 
@@ -9294,8 +9295,8 @@ void test_basic_string_compare_substring_cstr__cstr_sub_size_greater(void** stat
 void test_basic_string_compare_substring_cstr__cstr_sub_content_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "uuu");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "uuu");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 3, 4, elems) > 0);
 
@@ -9305,8 +9306,8 @@ void test_basic_string_compare_substring_cstr__cstr_sub_content_greater(void** s
 void test_basic_string_compare_substring_cstr__cstr_all_size_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 2, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 2, "abc");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) < 0);
 
@@ -9316,8 +9317,8 @@ void test_basic_string_compare_substring_cstr__cstr_all_size_less(void** state)
 void test_basic_string_compare_substring_cstr__cstr_all_content_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "aaa");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) < 0);
 
@@ -9327,8 +9328,8 @@ void test_basic_string_compare_substring_cstr__cstr_all_content_less(void** stat
 void test_basic_string_compare_substring_cstr__cstr_all_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "abc");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) == 0);
 
@@ -9338,8 +9339,8 @@ void test_basic_string_compare_substring_cstr__cstr_all_equal(void** state)
 void test_basic_string_compare_substring_cstr__cstr_all_size_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 14, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 14, "abc");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) > 0);
 
@@ -9349,8 +9350,8 @@ void test_basic_string_compare_substring_cstr__cstr_all_size_greater(void** stat
 void test_basic_string_compare_substring_cstr__cstr_all_content_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "ggg");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "ggg");
 
     assert_true(basic_string_compare_substring_cstr(pt_basic_string, 0, NPOS, elems) > 0);
 
@@ -9792,8 +9793,8 @@ void test_basic_string_compare_substring_subcstr__invalid_pos(void** state)
 void test_basic_string_compare_substring_subcstr__c_builtin_empty_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, 0, elems, 0) == 0);
 
@@ -9803,8 +9804,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_empty_empty(void** s
 void test_basic_string_compare_substring_subcstr__c_builtin_non_empty_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, NPOS) > 0);
 
@@ -9814,8 +9815,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_non_empty_empty(void
 void test_basic_string_compare_substring_subcstr__c_builtin_empty_non_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {1, 2, 3, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, 0, elems, 109) < 0);
 
@@ -9825,8 +9826,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_empty_non_empty(void
 void test_basic_string_compare_substring_subcstr__c_builtin_sub_size_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, 2, elems, 3) < 0);
 
@@ -9836,8 +9837,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_sub_size_less(void**
 void test_basic_string_compare_substring_subcstr__c_builtin_sub_content_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 10);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 10);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, 2, elems, 2) < 0);
 
@@ -9847,8 +9848,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_sub_content_less(voi
 void test_basic_string_compare_substring_subcstr__c_builtin_sub_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 3, 4, elems, NPOS) == 0);
 
@@ -9858,8 +9859,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_sub_equal(void** sta
 void test_basic_string_compare_substring_subcstr__c_builtin_sub_size_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 2, NPOS, elems, 1111) > 0);
 
@@ -9869,8 +9870,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_sub_size_greater(voi
 void test_basic_string_compare_substring_subcstr__c_builtin_sub_content_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 150);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 150);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 2, 4, elems, 4) > 0);
 
@@ -9880,8 +9881,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_sub_content_greater(
 void test_basic_string_compare_substring_subcstr__c_builtin_all_size_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 1, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 1, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, 3) < 0);
 
@@ -9891,8 +9892,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_all_size_less(void**
 void test_basic_string_compare_substring_subcstr__c_builtin_all_content_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 10);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 10);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, NPOS) < 0);
 
@@ -9902,8 +9903,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_all_content_less(voi
 void test_basic_string_compare_substring_subcstr__c_builtin_all_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, 4) == 0);
 
@@ -9913,8 +9914,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_all_equal(void** sta
 void test_basic_string_compare_substring_subcstr__c_builtin_all_size_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
     int elems[] = {100, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 10, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, NPOS) > 0);
 
@@ -9924,8 +9925,8 @@ void test_basic_string_compare_substring_subcstr__c_builtin_all_size_greater(voi
 void test_basic_string_compare_substring_subcstr__c_builtin_all_content_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 4, 100);
     int elems[] = {11, 100, 100, 100, 0};
+    basic_string_init_elem(pt_basic_string, 4, 100);
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, 2) > 0);
 
@@ -10065,8 +10066,8 @@ void test_basic_string_compare_substring_subcstr__char_all_content_greater(void*
 void test_basic_string_compare_substring_subcstr__cstr_empty_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, 0, elems, NPOS) == 0);
 
@@ -10076,8 +10077,8 @@ void test_basic_string_compare_substring_subcstr__cstr_empty_empty(void** state)
 void test_basic_string_compare_substring_subcstr__cstr_non_empty_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, 3, elems, NPOS) > 0);
 
@@ -10087,8 +10088,8 @@ void test_basic_string_compare_substring_subcstr__cstr_non_empty_empty(void** st
 void test_basic_string_compare_substring_subcstr__cstr_empty_non_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {"abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 4, 0, elems, NPOS) < 0);
 
@@ -10098,8 +10099,8 @@ void test_basic_string_compare_substring_subcstr__cstr_empty_non_empty(void** st
 void test_basic_string_compare_substring_subcstr__cstr_sub_size_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 4, 3, elems, NPOS) < 0);
 
@@ -10109,8 +10110,8 @@ void test_basic_string_compare_substring_subcstr__cstr_sub_size_less(void** stat
 void test_basic_string_compare_substring_subcstr__cstr_sub_content_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "aaa");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 4, 4, elems, NPOS) < 0);
 
@@ -10120,8 +10121,8 @@ void test_basic_string_compare_substring_subcstr__cstr_sub_content_less(void** s
 void test_basic_string_compare_substring_subcstr__cstr_sub_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, 4, elems, NPOS) == 0);
 
@@ -10131,8 +10132,8 @@ void test_basic_string_compare_substring_subcstr__cstr_sub_equal(void** state)
 void test_basic_string_compare_substring_subcstr__cstr_sub_size_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "abc");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 3, NPOS, elems, NPOS) > 0);
 
@@ -10142,8 +10143,8 @@ void test_basic_string_compare_substring_subcstr__cstr_sub_size_greater(void** s
 void test_basic_string_compare_substring_subcstr__cstr_sub_content_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 10, "uuu");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 10, "uuu");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 3, 4, elems, NPOS) > 0);
 
@@ -10153,8 +10154,8 @@ void test_basic_string_compare_substring_subcstr__cstr_sub_content_greater(void*
 void test_basic_string_compare_substring_subcstr__cstr_all_size_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 2, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 2, "abc");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, NPOS) < 0);
 
@@ -10164,8 +10165,8 @@ void test_basic_string_compare_substring_subcstr__cstr_all_size_less(void** stat
 void test_basic_string_compare_substring_subcstr__cstr_all_content_less(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "aaa");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "aaa");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, NPOS) < 0);
 
@@ -10175,8 +10176,8 @@ void test_basic_string_compare_substring_subcstr__cstr_all_content_less(void** s
 void test_basic_string_compare_substring_subcstr__cstr_all_equal(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "abc");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, NPOS) == 0);
 
@@ -10186,8 +10187,8 @@ void test_basic_string_compare_substring_subcstr__cstr_all_equal(void** state)
 void test_basic_string_compare_substring_subcstr__cstr_all_size_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 14, "abc");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 14, "abc");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, NPOS) > 0);
 
@@ -10197,8 +10198,8 @@ void test_basic_string_compare_substring_subcstr__cstr_all_size_greater(void** s
 void test_basic_string_compare_substring_subcstr__cstr_all_content_greater(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(char*);
-    basic_string_init_elem(pt_basic_string, 4, "ggg");
     char* elems[] = {"abc", "abc", "abc", "abc", NULL};
+    basic_string_init_elem(pt_basic_string, 4, "ggg");
 
     assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, NPOS) > 0);
 

@@ -53,8 +53,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,0,0,0
- PRODUCTVERSION 2,0,0,0
+ FILEVERSION 2,0,1,0
+ PRODUCTVERSION 2,0,1,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -72,12 +72,12 @@ BEGIN
             VALUE "Comments", "基于C语言的通用数据结构和常用算法程序库"
             VALUE "CompanyName", "WB"
             VALUE "FileDescription", "libcstl Dynamic Link Library"
-            VALUE "FileVersion", "2.0.0"
+            VALUE "FileVersion", "2.0.1"
             VALUE "InternalName", "libcstl"
-            VALUE "LegalCopyright", "Copyright (C) 2008 2009 2010 Wangbo"
+            VALUE "LegalCopyright", "Copyright (C) 2008 2009 2010 2011 Wangbo"
             VALUE "OriginalFilename", "libcstl.dll"
             VALUE "ProductName", "libcstl Dynamic Link Library"
-            VALUE "ProductVersion", "2.0.0"
+            VALUE "ProductVersion", "2.0.1"
         END
     END
     BLOCK "VarFileInfo"

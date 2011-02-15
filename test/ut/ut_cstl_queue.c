@@ -201,12 +201,12 @@ void test_queue_init_copy__user_define(void** state)
 {
     queue_t* pque_dest = NULL;
     queue_t* pque_src = NULL;
+    _test_queue_init_copy__user_define_t t_elem;
 
     type_register(_test_queue_init_copy__user_define_t, NULL, NULL, NULL, NULL);
     type_duplicate(_test_queue_init_copy__user_define_t, struct _tag_test_queue_init_copy__user_define);
     pque_dest = create_queue(_test_queue_init_copy__user_define_t);
     pque_src = create_queue(struct _tag_test_queue_init_copy__user_define);
-    _test_queue_init_copy__user_define_t t_elem;
 
     queue_init(pque_src);
     t_elem.n_elem = 0;

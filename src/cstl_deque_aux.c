@@ -762,11 +762,13 @@ void _deque_get_varg_value_auxiliary(deque_t* pdeq_deque, va_list val_elemlist, 
  */
 void _deque_destroy_varg_value_auxiliary(deque_t* pdeq_deque, void* pv_varg)
 {
+    bool_t b_result = false;
+
     assert(pdeq_deque != NULL);
     assert(_deque_is_inited(pdeq_deque) || _deque_is_created(pdeq_deque));
 
     /* destroy varg value and free memory */
-    bool_t b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+    b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
     _GET_DEQUE_TYPE_DESTROY_FUNCTION(pdeq_deque)(pv_varg, &b_result);
     assert(b_result);
 }

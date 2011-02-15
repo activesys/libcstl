@@ -41,15 +41,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../include"
+				AdditionalIncludeDirectories="../../"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USRDLL;LIBCSTL_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4267;4996;4244;4700"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -179,327 +178,339 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\include\calgorithm.h"
+				RelativePath="..\..\cstl\calgorithm.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cdeque.h"
+				RelativePath="..\..\cstl\cdeque.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cfunctional.h"
+				RelativePath="..\..\cstl\cfunctional.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\chash_map.h"
+				RelativePath="..\..\cstl\chash_map.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\chash_set.h"
+				RelativePath="..\..\cstl\chash_set.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\citerator.h"
+				RelativePath="..\..\cstl\citerator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\clist.h"
+				RelativePath="..\..\cstl\clist.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cmap.h"
+				RelativePath="..\..\cstl\cmap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cnumeric.h"
+				RelativePath="..\..\cstl\cnumeric.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cqueue.h"
+				RelativePath="..\..\cstl\cqueue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cset.h"
+				RelativePath="..\..\cstl\cset.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cslist.h"
+				RelativePath="..\..\cstl\cslist.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstack.h"
+				RelativePath="..\..\cstl\cstack.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_algo.h"
+				RelativePath="..\..\cstl\cstl_algo.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_algo_private.h"
+				RelativePath="..\..\cstl\cstl_algo_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_algobase.h"
+				RelativePath="..\..\cstl\cstl_algobase.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_algobase_private.h"
+				RelativePath="..\..\cstl\cstl_algobase_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_alloc.h"
+				RelativePath="..\..\cstl\cstl_alloc.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_avl_tree_iterator.h"
+				RelativePath="..\..\cstl\cstl_avl_tree_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_avl_tree_private.h"
+				RelativePath="..\..\cstl\cstl_avl_tree_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_basic_string.h"
+				RelativePath="..\..\cstl\cstl_basic_string.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_basic_string_iterator.h"
+				RelativePath="..\..\cstl\cstl_basic_string_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_basic_string_private.h"
+				RelativePath="..\..\cstl\cstl_basic_string_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_deque.h"
+				RelativePath="..\..\cstl\cstl_def.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_deque_iterator.h"
+				RelativePath="..\..\cstl\cstl_deque.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_deque_private.h"
+				RelativePath="..\..\cstl\cstl_deque_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_function.h"
+				RelativePath="..\..\cstl\cstl_deque_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_function_private.h"
+				RelativePath="..\..\cstl\cstl_function.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_map.h"
+				RelativePath="..\..\cstl\cstl_function_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_map_iterator.h"
+				RelativePath="..\..\cstl\cstl_hash_map.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_map_private.h"
+				RelativePath="..\..\cstl\cstl_hash_map_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_multimap.h"
+				RelativePath="..\..\cstl\cstl_hash_map_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_multimap_iterator.h"
+				RelativePath="..\..\cstl\cstl_hash_multimap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_multimap_private.h"
+				RelativePath="..\..\cstl\cstl_hash_multimap_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_multiset.h"
+				RelativePath="..\..\cstl\cstl_hash_multimap_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_multiset_iterator.h"
+				RelativePath="..\..\cstl\cstl_hash_multiset.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_multiset_private.h"
+				RelativePath="..\..\cstl\cstl_hash_multiset_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_set.h"
+				RelativePath="..\..\cstl\cstl_hash_multiset_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_set_iterator.h"
+				RelativePath="..\..\cstl\cstl_hash_set.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hash_set_private.h"
+				RelativePath="..\..\cstl\cstl_hash_set_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hashtable_iterator.h"
+				RelativePath="..\..\cstl\cstl_hash_set_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_hashtable_private.h"
+				RelativePath="..\..\cstl\cstl_hashtable_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_heap.h"
+				RelativePath="..\..\cstl\cstl_hashtable_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_iterator.h"
+				RelativePath="..\..\cstl\cstl_heap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_iterator_private.h"
+				RelativePath="..\..\cstl\cstl_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_list.h"
+				RelativePath="..\..\cstl\cstl_iterator_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_list_iterator.h"
+				RelativePath="..\..\cstl\cstl_list.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_list_private.h"
+				RelativePath="..\..\cstl\cstl_list_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_map.h"
+				RelativePath="..\..\cstl\cstl_list_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_map_iterator.h"
+				RelativePath="..\..\cstl\cstl_map.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_map_private.h"
+				RelativePath="..\..\cstl\cstl_map_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_multimap.h"
+				RelativePath="..\..\cstl\cstl_map_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_multimap_iterator.h"
+				RelativePath="..\..\cstl\cstl_multimap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_multimap_private.h"
+				RelativePath="..\..\cstl\cstl_multimap_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_multiset.h"
+				RelativePath="..\..\cstl\cstl_multimap_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_multiset_iterator.h"
+				RelativePath="..\..\cstl\cstl_multiset.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_multiset_private.h"
+				RelativePath="..\..\cstl\cstl_multiset_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_numeric.h"
+				RelativePath="..\..\cstl\cstl_multiset_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_numeric_private.h"
+				RelativePath="..\..\cstl\cstl_numeric.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_pair.h"
+				RelativePath="..\..\cstl\cstl_numeric_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_queue.h"
+				RelativePath="..\..\cstl\cstl_pair.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_queue_private.h"
+				RelativePath="..\..\cstl\cstl_priority_queue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_rb_tree_iterator.h"
+				RelativePath="..\..\cstl\cstl_priority_queue_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_rb_tree_private.h"
+				RelativePath="..\..\cstl\cstl_queue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_set.h"
+				RelativePath="..\..\cstl\cstl_queue_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_set_iterator.h"
+				RelativePath="..\..\cstl\cstl_rb_tree_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_set_private.h"
+				RelativePath="..\..\cstl\cstl_rb_tree_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_slist.h"
+				RelativePath="..\..\cstl\cstl_set.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_slist_iterator.h"
+				RelativePath="..\..\cstl\cstl_set_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_slist_private.h"
+				RelativePath="..\..\cstl\cstl_set_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_stack.h"
+				RelativePath="..\..\cstl\cstl_slist.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_stack_private.h"
+				RelativePath="..\..\cstl\cstl_slist_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_string.h"
+				RelativePath="..\..\cstl\cstl_slist_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_string_iterator.h"
+				RelativePath="..\..\cstl\cstl_stack.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_types.h"
+				RelativePath="..\..\cstl\cstl_stack_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_vector.h"
+				RelativePath="..\..\cstl\cstl_string.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_vector_iterator.h"
+				RelativePath="..\..\cstl\cstl_string_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstl_vector_private.h"
+				RelativePath="..\..\cstl\cstl_types.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cstring.h"
+				RelativePath="..\..\cstl\cstl_vector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cutility.h"
+				RelativePath="..\..\cstl\cstl_vector_iterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\cvector.h"
+				RelativePath="..\..\cstl\cstl_vector_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\cstl\cstring.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\cstl\cutility.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\cstl\cvector.h"
 				>
 			</File>
 			<File
@@ -525,6 +536,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_alloc_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_alloc_aux.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_avl_tree.c"
 				>
 			</File>
@@ -533,7 +552,39 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_basic_string_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_basic_string_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_basic_string_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_basic_string_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_deque.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_deque_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_deque_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_deque_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_deque_private.c"
 				>
 			</File>
 			<File
@@ -573,6 +624,22 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_list_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_list_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_list_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_list_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_map.c"
 				>
 			</File>
@@ -593,7 +660,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_priority_queue.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_priority_queue_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_queue.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_queue_private.c"
 				>
 			</File>
 			<File
@@ -609,7 +688,27 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_slist_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_slist_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_slist_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_slist_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_stack.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_stack_private.c"
 				>
 			</File>
 			<File
@@ -622,6 +721,22 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_vector.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_vector_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_vector_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_vector_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_vector_private.c"
 				>
 			</File>
 		</Filter>

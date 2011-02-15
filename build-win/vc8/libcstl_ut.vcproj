@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="libcstl"
-	ProjectGUID="{C4943BD3-E304-41F0-A81B-9151F3E3BB5B}"
-	RootNamespace="libcstl"
+	Name="libcstl_ut"
+	ProjectGUID="{A649F6A0-4441-4372-97C4-D5FBAE74479D}"
+	RootNamespace="libcstl_ut"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -19,7 +19,7 @@
 			Name="Debug|Win32"
 			OutputDirectory="../../bin"
 			IntermediateDirectory="../../bin"
-			ConfigurationType="2"
+			ConfigurationType="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -40,13 +40,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USRDLL;LIBCSTL_EXPORTS"
+				AdditionalIncludeDirectories="./;../../;../../src"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CSTL_UNIT_TESTING"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="4"
+				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
@@ -61,12 +61,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				UseLibraryDependencyInputs="false"
+				AdditionalDependencies="cmockery.lib"
 				LinkIncremental="2"
-				ModuleDefinitionFile="../libcstl.def"
 				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				SubSystem="2"
+				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -96,9 +94,9 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="../../bin"
-			IntermediateDirectory="../../bin"
-			ConfigurationType="2"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -119,14 +117,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_USRDLL;LIBCSTL_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
-				DisableSpecificWarnings="4267;4996;4244"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -140,10 +136,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
-				ModuleDefinitionFile="../libcstl.def"
 				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				SubSystem="2"
+				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -178,9 +172,239 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
+			Name="Test  Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_alloc.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_alloc_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_basic_string.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_basic_string_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_basic_string_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_basic_string_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_deque.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_deque_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_deque_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_deque_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_list.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_list_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_list_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_list_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_queue.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_queue_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_slist.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_slist_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_slist_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_slist_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_stack.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_stack_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_vector.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_vector_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_vector_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_vector_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_def.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_main.c"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Test Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_alloc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_alloc_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_basic_string.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_basic_string_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_basic_string_iterator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_basic_string_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_deque.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_deque_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_deque_iterator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_deque_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_list.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_list_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_list_iterator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_list_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_queue.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_queue_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_slist.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_slist_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_slist_iterator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_slist_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_stack.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_stack_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_vector.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_vector_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_vector_iterator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_vector_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_def.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
 			>
 			<File
 				RelativePath="..\..\src\cstl_algo.c"
@@ -401,8 +625,6 @@
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
 				RelativePath="..\..\cstl\calgorithm.h"
@@ -740,19 +962,7 @@
 				RelativePath="..\..\cstl\cvector.h"
 				>
 			</File>
-			<File
-				RelativePath="..\resource.h"
-				>
-			</File>
 		</Filter>
-		<File
-			RelativePath="..\libcstl.def"
-			>
-		</File>
-		<File
-			RelativePath="..\libcstl.rc"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

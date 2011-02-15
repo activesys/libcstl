@@ -220,12 +220,14 @@ void _vector_get_varg_value_auxiliary(vector_t* pvec_vector, va_list val_elemlis
  */
 void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg)
 {
+    bool_t b_result = false;
+
     assert(pvec_vector != NULL);
     assert(pv_varg != NULL);
     assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
 
     /* destroy varg value and free memory */
-    bool_t b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+    b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
     _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(pv_varg, &b_result);
     assert(b_result);
 }

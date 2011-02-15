@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="libcstl_test"
+	Name="libcstl_it"
 	ProjectGUID="{E941D795-1C39-4FFE-B5E0-F746290D8A94}"
 	RootNamespace="libcstl_test"
 	Keyword="Win32Proj"
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../include"
+				AdditionalIncludeDirectories="../../"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -175,6 +175,10 @@
 		</Configuration>
 	</Configurations>
 	<References>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C4943BD3-E304-41F0-A81B-9151F3E3BB5B}"
+			RelativePathToProject=".\libcstl.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -183,95 +187,95 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\test\test.c"
+				RelativePath="..\..\test\it\test.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_algo.c"
+				RelativePath="..\..\test\it\test_algo.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_algobase.c"
+				RelativePath="..\..\test\it\test_algobase.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_avl_tree.c"
+				RelativePath="..\..\test\it\test_avl_tree.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_deque.c"
+				RelativePath="..\..\test\it\test_deque.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_function.c"
+				RelativePath="..\..\test\it\test_function.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_hash_map.c"
+				RelativePath="..\..\test\it\test_hash_map.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_hash_set.c"
+				RelativePath="..\..\test\it\test_hash_set.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_hashtable.c"
+				RelativePath="..\..\test\it\test_hashtable.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_heap.c"
+				RelativePath="..\..\test\it\test_heap.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_list.c"
+				RelativePath="..\..\test\it\test_list.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_map.c"
+				RelativePath="..\..\test\it\test_map.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_numeric.c"
+				RelativePath="..\..\test\it\test_numeric.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_pair.c"
+				RelativePath="..\..\test\it\test_pair.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_queue.c"
+				RelativePath="..\..\test\it\test_queue.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_rb_tree.c"
+				RelativePath="..\..\test\it\test_rb_tree.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_set.c"
+				RelativePath="..\..\test\it\test_set.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_slist.c"
+				RelativePath="..\..\test\it\test_slist.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_stack.c"
+				RelativePath="..\..\test\it\test_stack.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_string.c"
+				RelativePath="..\..\test\it\test_string.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_type.c"
+				RelativePath="..\..\test\it\test_type.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_vector.c"
+				RelativePath="..\..\test\it\test_vector.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\tree_traverse.c"
+				RelativePath="..\..\test\it\tree_traverse.c"
 				>
 			</File>
 		</Filter>
@@ -281,91 +285,91 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\test\test_algo.h"
+				RelativePath="..\..\test\it\test_algo.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_algobase.h"
+				RelativePath="..\..\test\it\test_algobase.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_avl_tree.h"
+				RelativePath="..\..\test\it\test_avl_tree.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_deque.h"
+				RelativePath="..\..\test\it\test_deque.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_function.h"
+				RelativePath="..\..\test\it\test_function.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_hash_map.h"
+				RelativePath="..\..\test\it\test_hash_map.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_hash_set.h"
+				RelativePath="..\..\test\it\test_hash_set.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_hashtable.h"
+				RelativePath="..\..\test\it\test_hashtable.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_heap.h"
+				RelativePath="..\..\test\it\test_heap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_list.h"
+				RelativePath="..\..\test\it\test_list.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_map.h"
+				RelativePath="..\..\test\it\test_map.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_numeric.h"
+				RelativePath="..\..\test\it\test_numeric.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_pair.h"
+				RelativePath="..\..\test\it\test_pair.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_queue.h"
+				RelativePath="..\..\test\it\test_queue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_rb_tree.h"
+				RelativePath="..\..\test\it\test_rb_tree.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_set.h"
+				RelativePath="..\..\test\it\test_set.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_slist.h"
+				RelativePath="..\..\test\it\test_slist.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_stack.h"
+				RelativePath="..\..\test\it\test_stack.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_string.h"
+				RelativePath="..\..\test\it\test_string.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_type.h"
+				RelativePath="..\..\test\it\test_type.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\test_vector.h"
+				RelativePath="..\..\test\it\test_vector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\test\tree_traverse.h"
+				RelativePath="..\..\test\it\tree_traverse.h"
 				>
 			</File>
 		</Filter>

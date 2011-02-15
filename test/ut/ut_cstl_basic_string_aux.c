@@ -359,11 +359,11 @@ typedef struct _tagtest__basic_string_get_value_string_length__user_define
 void test__basic_string_get_value_string_length__user_define_empty(void** state)
 {
     basic_string_t* pt_basic_string = NULL;
+    _test__basic_string_get_value_string_length__user_define* elems[] = {NULL};
 
     type_register(_test__basic_string_get_value_string_length__user_define, NULL, NULL, NULL, NULL);
 
     pt_basic_string = create_basic_string(_test__basic_string_get_value_string_length__user_define);
-    _test__basic_string_get_value_string_length__user_define* elems[] = {NULL};
 
     basic_string_init(pt_basic_string);
     assert_true(_basic_string_get_value_string_length(pt_basic_string, elems) == 0);

@@ -432,11 +432,13 @@ void _list_get_varg_value_auxiliary(list_t* plist_list, va_list val_elemlist, _l
  */
 void _list_destroy_varg_value_auxiliary(list_t* plist_list, _listnode_t* pt_node)
 {
+    bool_t b_result = false;
+
     assert(plist_list != NULL);
     assert(pt_node != NULL);
     assert(_list_is_inited(plist_list) || _list_is_created(plist_list));
 
-    bool_t b_result = _GET_LIST_TYPE_SIZE(plist_list);
+    b_result = _GET_LIST_TYPE_SIZE(plist_list);
     _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pby_data, &b_result);
     assert(b_result);
 }

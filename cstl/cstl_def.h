@@ -58,6 +58,10 @@ extern "C" {
 */
 #endif /* _CSTL_UNIT_TESTING */
 
+#ifdef _MSC_VER
+#   define va_copy(dest, src) ((dest) = (src))
+#endif
+
 /**
  * libcstl version macro.
  */

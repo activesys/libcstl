@@ -250,11 +250,13 @@ void _slist_get_varg_value_auxiliary(slist_t* pslist_slist, va_list val_elemlist
  */
 void _slist_destroy_varg_value_auxiliary(slist_t* pslist_slist, _slistnode_t* pt_node)
 {
+    bool_t b_result = false;
+
     assert(pslist_slist != NULL);
     assert(pt_node != NULL);
     assert(_slist_is_inited(pslist_slist) || _slist_is_created(pslist_slist));
 
-    bool_t b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+    b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
     _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
     assert(b_result);
 }

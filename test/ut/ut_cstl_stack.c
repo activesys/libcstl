@@ -203,12 +203,12 @@ void test_stack_init_copy__user_define(void** state)
 {
     stack_t* psk_dest = NULL;
     stack_t* psk_src = NULL;
+    _test_stack_init_copy__user_define_t t_elem;
 
     type_register(_test_stack_init_copy__user_define_t, NULL, NULL, NULL, NULL);
     type_duplicate(_test_stack_init_copy__user_define_t, struct _tag_test_stack_init_copy__user_define);
     psk_dest = create_stack(_test_stack_init_copy__user_define_t);
     psk_src = create_stack(struct _tag_test_stack_init_copy__user_define);
-    _test_stack_init_copy__user_define_t t_elem;
 
     stack_init(psk_src);
     t_elem.n_elem = 0;

@@ -320,7 +320,7 @@ list_iterator_t _list_insert_n_varg(list_t* plist_list, list_iterator_t it_pos, 
     _list_destroy_varg_value_auxiliary(plist_list, pt_varg);
     _alloc_deallocate(&plist_list->_t_allocater, pt_varg, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
 
-    return iterator_advance(it_pos, -t_count);
+    return iterator_advance(it_pos, -(int)t_count);
 }
 
 /**
