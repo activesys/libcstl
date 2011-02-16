@@ -545,14 +545,38 @@ extern void basic_string_connect_cstr(basic_string_t* pt_basic_string, const voi
  * @remarks if cpt_basic_string == NULL or cpt_find == NULL, then the behavior is undefined. cpt_basic_string and cpt_find
  *          must be initialized, otherwise the behavior is undefined. the element type of two basic_string must be same,
  *          otherwise the behavior is undefined. t_pos is valid position for cpt_basic_string, otherwise the behavior is
- *          undefined.
+ *          undefined. if cpt_find is empty, then return t_pos;
  */
 extern size_t basic_string_find(const basic_string_t* cpt_basic_string, const basic_string_t* cpt_find, size_t t_pos);
-extern size_t basic_string_find_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
+
+/**
+ * Find value string in basic_string.
+ * @param cpt_basic_string         basic_string.
+ * @param cpv_value_string         value string.
+ * @param t_pos                    search position.
+ * @return index of search basic_string if search successfull, else return NPOS.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. cpt_basic_string 
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and cpv_value_string
+ *          must be same, otherwise the behavior is undefined. t_pos is valid position for cpt_basic_string, otherwise the
+ *          behavior is undefined. if cpv_value_string is empty, then return t_pos.
+ */
+extern size_t basic_string_find_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
+
+/**
+ * Find sub value string in basic_string.
+ * @param cpt_basic_string         basic_string.
+ * @param cpv_value_string         value string.
+ * @param t_pos                    search position.
+ * @param t_len                    sub value string length.
+ * @return index of search basic_string if search successfull, else return NPOS.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. cpt_basic_string 
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and cpv_value_string
+ *          must be same, otherwise the behavior is undefined. t_pos is valid position for cpt_basic_string, otherwise the
+ *          behavior is undefined. if cpv_value_string is empty or t_len == 0, then return t_pos. if t_len is greater then
+ *          the length of value string, then use all value string.
+ */
 extern size_t basic_string_find_subcstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string,
-    size_t t_pos, size_t t_len);
+    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos, size_t t_len);
 /* rfind */
 extern size_t basic_string_rfind(
     const basic_string_t* cpt_basic_string, const basic_string_t* cpt_basic_string_find,
