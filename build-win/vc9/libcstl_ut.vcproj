@@ -63,6 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="cmockery.lib"
 				LinkIncremental="2"
+				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"

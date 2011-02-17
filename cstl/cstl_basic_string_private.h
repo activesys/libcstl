@@ -93,7 +93,7 @@ extern void _basic_string_init_elem_varg(basic_string_t* pt_basic_string, size_t
 extern void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string);
 
 /**
- * Find a first occurrence of a substring
+ * Find a first occurrence of a elem
  * @param cpt_basic_string     basic_string container.
  * @param t_pos                search begin position.
  * @param ...                  specificed element.

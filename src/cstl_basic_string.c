@@ -1044,21 +1044,87 @@ size_t basic_string_find_subcstr(
     return NPOS;
 }
 
-
-
+/**
+ * Find basic_string in basic_string in a backward direction.
+ */
 size_t basic_string_rfind(
-    const basic_string_t* cpt_basic_string,
-    const basic_string_t* cpt_basic_string_find, size_t t_pos)
+    const basic_string_t* cpt_basic_string, const basic_string_t* cpt_find, size_t t_pos)
 {
-    if(basic_string_empty(cpt_basic_string_find))
+    basic_string_iterator_t it_iter;
+    basic_string_iterator_t it_string;
+    basic_string_iterator_t it_find;
+    size_t                  t_stringlen = 0;
+    size_t                  t_findlen = 0;
+    bool_t                  b_result = false;
+
+    assert(cpt_basic_string != NULL);
+    assert(cpt_find != NULL);
+    assert(_basic_string_same_type(cpt_basic_string, cpt_find));
+
+    if(cpt_basic_string == cpt_find)
     {
-        return basic_string_rfind_cstr(cpt_basic_string, "", t_pos);
+        return 0;
     }
-    else
+
+    if(basic_string_empty(cpt_basic_string))
     {
-        return basic_string_rfind_cstr(
-            cpt_basic_string, basic_string_at(cpt_basic_string_find, 0), t_pos);
+        return NPOS;
     }
+
+    t_stringlen = basic_string_size(cpt_basic_string);
+    t_findlen = basic_string_size(cpt_find);
+
+    if(t_stringlen < t_findlen)
+    {
+        return NPOS;
+    }
+
+    if(basic_string_empty(cpt_find))
+    {
+        return t_pos < t_stringlen ? t_pos : NPOS;
+    }
+
+    t_pos = t_pos < t_stringlen ? t_pos : t_stringlen - 1;
+    for(it_iter = iterator_next_n(basic_string_begin(cpt_basic_string), t_pos);
+        ;
+        it_iter = iterator_prev(it_iter), --t_pos)
+    {
+        for(it_string = it_iter,
+            it_find = basic_string_begin(cpt_find);
+            !iterator_equal(it_string, basic_string_end(cpt_basic_string)) &&
+            !iterator_equal(it_find, basic_string_end(cpt_find));
+            it_string = iterator_next(it_string),
+            it_find = iterator_next(it_find))
+        {
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                _GET_BASIC_STRING_COREPOS(it_string), _GET_BASIC_STRING_COREPOS(it_find), &b_result);
+            if(b_result)
+            {
+                break;
+            }
+
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                _GET_BASIC_STRING_COREPOS(it_find), _GET_BASIC_STRING_COREPOS(it_string), &b_result);
+            if(b_result)
+            {
+                break;
+            }
+        }
+
+        if(iterator_equal(it_find, basic_string_end(cpt_find)))
+        {
+            return t_pos;
+        }
+        if(t_pos == 0)
+        {
+            return NPOS;
+        }
+    }
+
+    assert(false);
+    return NPOS;
 }
 
 size_t basic_string_rfind_cstr(
