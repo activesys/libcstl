@@ -598,8 +598,19 @@ extern size_t basic_string_find_subcstr(
  *          element. if cpt_find is empty, then return t_pos;
  */
 extern size_t basic_string_rfind(const basic_string_t* cpt_basic_string, const basic_string_t* cpt_find, size_t t_pos);
-extern size_t basic_string_rfind_cstr(
-    const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
+
+/**
+ * Find value string in basic_string in a backward direction.
+ * @param cpt_basic_string         basic_string.
+ * @param cpv_value_string         search value string.
+ * @param t_pos                    search position.
+ * @return index of search basic_string if search successfull, else return NPOS.
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. cpt_basic_string 
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and cpv_value_string 
+ *          must be same, otherwise the behavior is undefined. if t_pos >= basic_string_size(cpt_basic_string), then search
+ *          from the last element. if cpv_value_string is empty, then return t_pos;
+ */
+extern size_t basic_string_rfind_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
 extern size_t basic_string_rfind_subcstr(
     const basic_string_t* cpt_basic_string, const void* cpv_value_string,
     size_t t_pos, size_t t_len);
