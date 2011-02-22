@@ -71,8 +71,17 @@ extern "C" {
  *          NPOS.
  */
 #define basic_string_find_elem(cpt_basic_string, elem, t_pos) _basic_string_find_elem((cpt_basic_string), (t_pos), (elem))
-#define basic_string_rfind_elem(cpt_basic_string, elem, t_pos)\
-    _basic_string_rfind_elem((cpt_basic_string), (t_pos), (elem))
+
+/**
+ * Find a first occurrence of a elem in a backward direction.
+ * @param cpt_basic_string     basic_string container.
+ * @param elem                 specificed element.
+ * @param t_pos                search begin position.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos >= the length of basic string,
+ *          then finding begin with the last element.
+ */
+#define basic_string_rfind_elem(cpt_basic_string, elem, t_pos) _basic_string_rfind_elem((cpt_basic_string), (t_pos), (elem))
 #define basic_string_find_first_of_elem(cpt_basic_string, elem, t_pos)\
     _basic_string_find_elem((cpt_basic_string), (t_pos), (elem))
 #define basic_string_find_first_not_of_elem(cpt_basic_string, elem, t_pos)\
@@ -627,10 +636,21 @@ extern size_t basic_string_rfind_cstr(const basic_string_t* cpt_basic_string, co
  */
 extern size_t basic_string_rfind_subcstr(
     const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos, size_t t_len);
-/* find first of */
+
+/**
+ * Find basic_string for first element that matches any element of specific string.
+ * @param cpt_basic_string         basic_string.
+ * @param cpt_find                 search basic_string.
+ * @param t_pos                    search position.
+ * @return index of element if search successfull, else return NPOS.
+ * @remarks if cpt_basic_string == NULL or cpt_find == NULL, then the behavior is undefined. cpt_basic_string and cpt_find
+ *          must be initialized, otherwise the behavior is undefined. the element type of two basic_string must be same,
+ *          otherwise the behavior is undefined. t_pos is valid position for cpt_basic_string, otherwise the behavior is
+ *          undefined. if cpt_find is empty, then return t_pos;
+ */
 extern size_t basic_string_find_first_of(
-    const basic_string_t* cpt_basic_string, const basic_string_t* cpt_basic_string_find,
-    size_t t_pos);
+    const basic_string_t* cpt_basic_string, const basic_string_t* cpt_find, size_t t_pos);
+
 extern size_t basic_string_find_first_of_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos);
 extern size_t basic_string_find_first_of_subcstr(

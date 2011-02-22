@@ -41,8 +41,6 @@ void (*_gpfun_malloc_handler)(void) = NULL;
 /** exported function implementation section **/
 /**
  * Malloc for out of memory condition.
- * @param t_memset memory size.
- * @return point to the allocated memory.
  */
 void* _alloc_malloc_out_of_memory(size_t t_memsize)
 {

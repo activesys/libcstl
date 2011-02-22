@@ -1243,9 +1243,20 @@ size_t basic_string_rfind_subcstr(
 
 
 size_t basic_string_find_first_of(
-    const basic_string_t* cpt_basic_string,
-    const basic_string_t* cpt_basic_string_find, size_t t_pos)
+    const basic_string_t* cpt_basic_string, const basic_string_t* cpt_find, size_t t_pos)
 {
+    assert(cpt_basic_string != NULL);
+    assert(cpt_find != NULL);
+    assert(_basic_string_same_type(cpt_basic_string, cpt_find));
+    assert(t_pos < basic_string_size(cpt_basic_string));
+
+    if(basic_string_empty(cpt_find))
+    {
+        return t_pos;
+    }
+
+    return NPOS;
+    /*
     if(basic_string_empty(cpt_basic_string_find))
     {
         return basic_string_find_first_of_cstr(cpt_basic_string, "", t_pos);
@@ -1255,6 +1266,7 @@ size_t basic_string_find_first_of(
         return basic_string_find_first_of_cstr(
             cpt_basic_string, basic_string_at(cpt_basic_string_find, 0), t_pos);
     }
+    */
 }
 
 size_t basic_string_find_first_of_cstr(
