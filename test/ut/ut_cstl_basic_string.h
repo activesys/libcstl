@@ -1465,6 +1465,149 @@ void test_basic_string_find_first_of_subcstr__user_define_middle_length_0(void**
 void test_basic_string_find_first_of_subcstr__user_define_middle_find(void** state);
 void test_basic_string_find_first_of_subcstr__user_define_middle_not_find(void** state);
 void test_basic_string_find_first_of_subcstr__user_define_middle_not_find_pos(void** state);
+/*
+ * test basic_string_find_first_not_of
+ */
+UT_CASE_DECLARATION(basic_string_find_first_not_of)
+void test_basic_string_find_first_not_of__null_basic_string(void** state);
+void test_basic_string_find_first_not_of__null_find(void** state);
+void test_basic_string_find_first_not_of__non_inited_basic_string(void** state);
+void test_basic_string_find_first_not_of__non_inited_find(void** state);
+void test_basic_string_find_first_not_of__not_same_type(void** state);
+void test_basic_string_find_first_not_of__invalid_pos(void** state);
+void test_basic_string_find_first_not_of__same_begin(void** state);
+void test_basic_string_find_first_not_of__same_middle(void** state);
+void test_basic_string_find_first_not_of__c_builtin_begin_empty(void** state);
+void test_basic_string_find_first_not_of__c_builtin_begin_find(void** state);
+void test_basic_string_find_first_not_of__c_builtin_begin_not_find(void** state);
+void test_basic_string_find_first_not_of__c_builtin_middle_empty(void** state);
+void test_basic_string_find_first_not_of__c_builtin_middle_find(void** state);
+void test_basic_string_find_first_not_of__c_builtin_middle_not_find(void** state);
+void test_basic_string_find_first_not_of__c_builtin_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of__char_begin_empty(void** state);
+void test_basic_string_find_first_not_of__char_begin_find(void** state);
+void test_basic_string_find_first_not_of__char_begin_not_find(void** state);
+void test_basic_string_find_first_not_of__char_middle_empty(void** state);
+void test_basic_string_find_first_not_of__char_middle_find(void** state);
+void test_basic_string_find_first_not_of__char_middle_not_find(void** state);
+void test_basic_string_find_first_not_of__char_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of__cstr_begin_empty(void** state);
+void test_basic_string_find_first_not_of__cstr_begin_find(void** state);
+void test_basic_string_find_first_not_of__cstr_begin_not_find(void** state);
+void test_basic_string_find_first_not_of__cstr_middle_empty(void** state);
+void test_basic_string_find_first_not_of__cstr_middle_find(void** state);
+void test_basic_string_find_first_not_of__cstr_middle_not_find(void** state);
+void test_basic_string_find_first_not_of__cstr_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of__libcstl_builtin_begin_empty(void** state);
+void test_basic_string_find_first_not_of__libcstl_builtin_begin_find(void** state);
+void test_basic_string_find_first_not_of__libcstl_builtin_begin_not_find(void** state);
+void test_basic_string_find_first_not_of__libcstl_builtin_middle_empty(void** state);
+void test_basic_string_find_first_not_of__libcstl_builtin_middle_find(void** state);
+void test_basic_string_find_first_not_of__libcstl_builtin_middle_not_find(void** state);
+void test_basic_string_find_first_not_of__libcstl_builtin_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of__user_define_begin_empty(void** state);
+void test_basic_string_find_first_not_of__user_define_begin_find(void** state);
+void test_basic_string_find_first_not_of__user_define_begin_not_find(void** state);
+void test_basic_string_find_first_not_of__user_define_middle_empty(void** state);
+void test_basic_string_find_first_not_of__user_define_middle_find(void** state);
+void test_basic_string_find_first_not_of__user_define_middle_not_find(void** state);
+void test_basic_string_find_first_not_of__user_define_middle_not_find_pos(void** state);
+/*
+ * test basic_string_find_first_not_of_cstr
+ */
+UT_CASE_DECLARATION(basic_string_find_first_not_of_cstr)
+void test_basic_string_find_first_not_of_cstr__null_basic_string(void** state);
+void test_basic_string_find_first_not_of_cstr__null_find(void** state);
+void test_basic_string_find_first_not_of_cstr__non_inited_basic_string(void** state);
+void test_basic_string_find_first_not_of_cstr__invalid_pos(void** state);
+void test_basic_string_find_first_not_of_cstr__c_builtin_begin_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__c_builtin_begin_find(void** state);
+void test_basic_string_find_first_not_of_cstr__c_builtin_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__c_builtin_middle_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__c_builtin_middle_find(void** state);
+void test_basic_string_find_first_not_of_cstr__c_builtin_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__c_builtin_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of_cstr__char_begin_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__char_begin_find(void** state);
+void test_basic_string_find_first_not_of_cstr__char_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__char_middle_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__char_middle_find(void** state);
+void test_basic_string_find_first_not_of_cstr__char_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__char_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of_cstr__cstr_begin_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__cstr_begin_find(void** state);
+void test_basic_string_find_first_not_of_cstr__cstr_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__cstr_middle_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__cstr_middle_find(void** state);
+void test_basic_string_find_first_not_of_cstr__cstr_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__cstr_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of_cstr__libcstl_builtin_begin_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__libcstl_builtin_begin_find(void** state);
+void test_basic_string_find_first_not_of_cstr__libcstl_builtin_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__libcstl_builtin_middle_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__libcstl_builtin_middle_find(void** state);
+void test_basic_string_find_first_not_of_cstr__libcstl_builtin_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__libcstl_builtin_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of_cstr__user_define_begin_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__user_define_begin_find(void** state);
+void test_basic_string_find_first_not_of_cstr__user_define_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__user_define_middle_empty(void** state);
+void test_basic_string_find_first_not_of_cstr__user_define_middle_find(void** state);
+void test_basic_string_find_first_not_of_cstr__user_define_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_cstr__user_define_middle_not_find_pos(void** state);
+/*
+ * test basic_string_find_first_not_of_subcstr
+ */
+UT_CASE_DECLARATION(basic_string_find_first_not_of_subcstr)
+void test_basic_string_find_first_not_of_subcstr__null_basic_string(void** state);
+void test_basic_string_find_first_not_of_subcstr__null_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__non_inited_basic_string(void** state);
+void test_basic_string_find_first_not_of_subcstr__invalid_pos(void** state);
+void test_basic_string_find_first_not_of_subcstr__c_builtin_begin_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__c_builtin_begin_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__c_builtin_begin_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__c_builtin_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__c_builtin_middle_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__c_builtin_middle_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__c_builtin_middle_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__c_builtin_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__c_builtin_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of_subcstr__char_begin_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__char_begin_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__char_begin_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__char_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__char_middle_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__char_middle_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__char_middle_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__char_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__char_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of_subcstr__cstr_begin_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__cstr_begin_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__cstr_begin_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__cstr_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__cstr_middle_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__cstr_middle_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__cstr_middle_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__cstr_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__cstr_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of_subcstr__libcstl_builtin_begin_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__libcstl_builtin_begin_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__libcstl_builtin_begin_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__libcstl_builtin_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_not_find_pos(void** state);
+void test_basic_string_find_first_not_of_subcstr__user_define_begin_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__user_define_begin_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__user_define_begin_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__user_define_begin_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__user_define_middle_empty(void** state);
+void test_basic_string_find_first_not_of_subcstr__user_define_middle_length_0(void** state);
+void test_basic_string_find_first_not_of_subcstr__user_define_middle_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__user_define_middle_not_find(void** state);
+void test_basic_string_find_first_not_of_subcstr__user_define_middle_not_find_pos(void** state);
 
 #define UT_CSTL_BASIC_STRING_CASE\
     UT_SUIT_BEGIN(cstl_basic_string, test_basic_string_init__null_basic_string_container),\
@@ -2745,7 +2888,138 @@ void test_basic_string_find_first_of_subcstr__user_define_middle_not_find_pos(vo
     UT_CASE(test_basic_string_find_first_of_subcstr__user_define_middle_length_0),\
     UT_CASE(test_basic_string_find_first_of_subcstr__user_define_middle_find),\
     UT_CASE(test_basic_string_find_first_of_subcstr__user_define_middle_not_find),\
-    UT_CASE(test_basic_string_find_first_of_subcstr__user_define_middle_not_find_pos)
+    UT_CASE(test_basic_string_find_first_of_subcstr__user_define_middle_not_find_pos),\
+    UT_CASE_BEGIN(basic_string_find_first_not_of, test_basic_string_find_first_not_of__null_basic_string),\
+    UT_CASE(test_basic_string_find_first_not_of__null_find),\
+    UT_CASE(test_basic_string_find_first_not_of__non_inited_basic_string),\
+    UT_CASE(test_basic_string_find_first_not_of__non_inited_find),\
+    UT_CASE(test_basic_string_find_first_not_of__not_same_type),\
+    UT_CASE(test_basic_string_find_first_not_of__invalid_pos),\
+    UT_CASE(test_basic_string_find_first_not_of__same_begin),\
+    UT_CASE(test_basic_string_find_first_not_of__same_middle),\
+    UT_CASE(test_basic_string_find_first_not_of__c_builtin_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__c_builtin_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of__c_builtin_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__c_builtin_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__c_builtin_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of__c_builtin_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__c_builtin_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of__char_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__char_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of__char_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__char_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__char_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of__char_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__char_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of__cstr_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__cstr_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of__cstr_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__cstr_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__cstr_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of__cstr_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__cstr_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of__libcstl_builtin_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__libcstl_builtin_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of__libcstl_builtin_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__libcstl_builtin_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__libcstl_builtin_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of__libcstl_builtin_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__libcstl_builtin_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of__user_define_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__user_define_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of__user_define_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__user_define_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of__user_define_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of__user_define_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of__user_define_middle_not_find_pos),\
+    UT_CASE_BEGIN(basic_string_find_first_not_of_cstr, test_basic_string_find_first_not_of_cstr__null_basic_string),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__null_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__non_inited_basic_string),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__invalid_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__c_builtin_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__c_builtin_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__c_builtin_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__c_builtin_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__c_builtin_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__c_builtin_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__c_builtin_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__char_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__char_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__char_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__char_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__char_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__char_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__char_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__cstr_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__cstr_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__cstr_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__cstr_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__cstr_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__cstr_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__cstr_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__libcstl_builtin_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__libcstl_builtin_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__libcstl_builtin_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__libcstl_builtin_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__libcstl_builtin_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__libcstl_builtin_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__libcstl_builtin_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__user_define_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__user_define_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__user_define_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__user_define_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__user_define_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__user_define_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_cstr__user_define_middle_not_find_pos),\
+    UT_CASE_BEGIN(basic_string_find_first_not_of_subcstr, test_basic_string_find_first_not_of_subcstr__null_basic_string),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__null_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__non_inited_basic_string),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__invalid_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__c_builtin_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__c_builtin_begin_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__c_builtin_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__c_builtin_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__c_builtin_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__c_builtin_middle_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__c_builtin_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__c_builtin_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__c_builtin_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__char_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__char_begin_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__char_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__char_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__char_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__char_middle_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__char_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__char_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__char_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__cstr_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__cstr_begin_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__cstr_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__cstr_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__cstr_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__cstr_middle_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__cstr_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__cstr_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__cstr_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__libcstl_builtin_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__libcstl_builtin_begin_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__libcstl_builtin_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__libcstl_builtin_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__libcstl_builtin_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__user_define_begin_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__user_define_begin_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__user_define_begin_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__user_define_begin_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__user_define_middle_empty),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__user_define_middle_length_0),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__user_define_middle_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__user_define_middle_not_find),\
+    UT_CASE(test_basic_string_find_first_not_of_subcstr__user_define_middle_not_find_pos)
 
 #endif /* _UT_CSTL_BASIC_STRING_H_ */
 
