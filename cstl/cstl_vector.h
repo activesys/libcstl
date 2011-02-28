@@ -208,7 +208,7 @@ extern size_t vector_capacity(const vector_t* cpvec_vector);
  * Set vector capacity.
  * @param pvec_vector   vector container.
  * @param t_reservesize  new capacity.
- * @return vector capacity.
+ * @return void.
  * @remarks if pvec_vector == NULL, then the behavior is undefined. pvec_vector must be initialized, otherwise the
  *          behavior is undefined. if t_reservesize > vector_capacity(), then t_reservesize is new capacity, otherwise
  *          capacity is not change.
@@ -417,7 +417,7 @@ extern vector_iterator_t vector_erase_range(vector_t* pvec_vector, vector_iterat
  * @param pvec_vector   vector container.
  * @return void.
  * @remarks if cpvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the behavior
- *          is undefined. if vector is empty, then the behavior is undefined.
+ *          is undefined.
  */
 extern void vector_clear(vector_t* pvec_vector);
 

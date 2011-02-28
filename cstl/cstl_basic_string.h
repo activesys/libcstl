@@ -118,6 +118,16 @@ extern "C" {
  */
 #define basic_string_find_last_of_elem(cpt_basic_string, elem, t_pos)\
     _basic_string_rfind_elem((cpt_basic_string), (t_pos), (elem))
+
+/**
+ * Find basic_string for last element that is not matches any element of specific element.
+ * @param cpt_basic_string     basic_string container.
+ * @param elem                 specificed element.
+ * @param t_pos                search begin position.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpt_basic_string == NULL or uninitialized, the behavior is undefined. if t_pos >= the length of basic string,
+ *          then finding begin with the last element.
+ */
 #define basic_string_find_last_not_of_elem(cpt_basic_string, elem, t_pos)\
     _basic_string_find_last_not_of_elem((cpt_basic_string), (t_pos), (elem))
 /* push back */
@@ -843,39 +853,69 @@ extern size_t basic_string_find_last_not_of_cstr(
 extern size_t basic_string_find_last_not_of_subcstr(
     const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos, size_t t_len);
 
-/*
- * Iterator support.
+/**
+ * Return a iterator to the first element in the basic string container.
+ * @param cpt_basic_string         basic_string container.
+ * @return a iterator to the first element in the basic string container.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined. the basic_string must be initialized, otherwise the
+ *          behavior is undefined. if the basic_string is empty, then return basic_string_end(cpt_basic_string).
  */
 extern basic_string_iterator_t basic_string_begin(const basic_string_t* cpt_basic_string);
+
+/**
+ * Return a iterator that points just beyond the end of basic_string container.
+ * @param cpt_basic_string         basic_string container.
+ * @return a iterator to the end of basic_string.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined. the basic_string must be initialized, otherwise the
+ *          behavior is undefined.
+ */
 extern basic_string_iterator_t basic_string_end(const basic_string_t* cpt_basic_string);
 /* private */
-extern basic_string_reverse_iterator_t basic_string_rbegin(
-    const basic_string_t* cpt_basic_string);
-extern basic_string_reverse_iterator_t basic_string_rend(
-    const basic_string_t* cpt_basic_string);
+extern basic_string_reverse_iterator_t basic_string_rbegin(const basic_string_t* cpt_basic_string);
+extern basic_string_reverse_iterator_t basic_string_rend(const basic_string_t* cpt_basic_string);
 
-/*
- * Erase all elements in basic_string.
+/**
+ * Erases the elements of basic_string.
+ * @param pvec_vector   basic_string container.
+ * @return void.
+ * @remarks if cpvec_vector == NULL, then the behavior is undefined. the basic_string must be initialized, otherwise the
+ *          behavior is undefined.
  */
 extern void basic_string_clear(basic_string_t* pt_basic_string);
 
-/*
- * Swap the contents of two basic_strings.
+/**
+ * Swap basic_string datas.
+ * @param pt_first    first basic_string.
+ * @param pt_second   second basic_string.
+ * @return void.
+ * @remarks if pt_first == NULL or pt_second == NULL, then the behavior is undefined. the two basic_strings must be
+ *          initialized, otherwise the behavior is undefined. the element type of two basic_strings must be the same,
+ *          otherwise the behavior is undefined. if basic_string_equal(pt_first, pt_second) == true, then this function
+ *          does nothing.
  */
-extern void basic_string_swap(
-    basic_string_t* pt_basic_stringfirst, basic_string_t* pt_basic_stringsecond);
+extern void basic_string_swap(basic_string_t* pt_first, basic_string_t* pt_second);
 
-/*
- * Reserve the capacity of basic_string.
+/**
+ * Set basic_string capacity.
+ * @param pt_basic_string       basic_string container.
+ * @param t_reservesize  new capacity.
+ * @return void.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. pt_basic_string must be initialized, otherwise the
+ *          behavior is undefined. if t_reservesize > basic_string_capacity(), then t_reservesize is new capacity, otherwise
+ *          capacity is not change.
  */
-extern void basic_string_reserve(
-    basic_string_t* pt_basic_string, size_t t_reservesize);
+extern void basic_string_reserve(basic_string_t* pt_basic_string, size_t t_reservesize);
 
-/*
- * Assign operator functions.
+/**
+ * Assign basic_string element with an exist basic_string container.
+ * @param pt_dest     destination basic_string container.
+ * @param cpt_src     source basic_string container.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, then the behavior is undefined. pt_dest and cpt_src must be initialized,
+ *          otherwise the behavior is undefined. the element type of two basic_strings must be same, otherwise the behavior
+ *          is undefined. if the destination basic_string equal to source basic_string, then this function does nothing.
  */
-extern void basic_string_assign(
-    basic_string_t* pt_basic_string,  const basic_string_t* cpt_basic_string_assign);
+extern void basic_string_assign(basic_string_t* pt_dest,  const basic_string_t* cpt_src);
 extern void basic_string_assign_substring(
     basic_string_t* pt_basic_string,
     const basic_string_t* cpt_basic_string_assign, size_t t_pos, size_t t_len);
