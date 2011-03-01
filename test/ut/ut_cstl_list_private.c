@@ -163,7 +163,7 @@ void test__list_init_elem__list_init_elem_varg__non_created_list_container(void*
 {
     list_t* plist = create_list(int);
 
-    plist->_pt_node = 0x8834;
+    plist->_pt_node = (_listnode_t*)0x8834;
     expect_assert_failure(_list_init_elem(plist, 10, 100));
 
     plist->_pt_node = NULL;
@@ -850,7 +850,7 @@ void test__list_insert_n__list_insert_n_varg__invalid_pos(void** state)
     list_init(plist);
 
     it_pos = list_begin(plist);
-    it_pos._t_pos._pby_corepos = 0x3849;
+    it_pos._t_pos._pby_corepos = (_byte_t*)0x3849;
     expect_assert_failure(_list_insert_n(plist, it_pos, 10, 100));
 
     list_destroy(plist);

@@ -28,7 +28,7 @@ void test__deque_is_created__non_created_invalid_start(void** state)
 {
     deque_t* pdeq = create_deque(int);
 
-    pdeq->_t_start._pt_container = 0x334;
+    pdeq->_t_start._pt_container = (void*)0x334;
     assert_false(_deque_is_created(pdeq));
 
     pdeq->_t_start._pt_container = NULL;
@@ -39,7 +39,7 @@ void test__deque_is_created__non_created_invalid_finish(void** state)
 {
     deque_t* pdeq = create_deque(int);
 
-    pdeq->_t_finish._t_pos._t_dequepos._pby_afterlast = 0x344;
+    pdeq->_t_finish._t_pos._t_dequepos._pby_afterlast = (_byte_t*)0x344;
     assert_false(_deque_is_created(pdeq));
 
     pdeq->_t_finish._t_pos._t_dequepos._pby_afterlast = NULL;
@@ -72,7 +72,7 @@ void test__deque_is_created__non_created_invalid_map(void** state)
 {
     deque_t* pdeq = create_deque(int);
 
-    pdeq->_ppby_map = 0x38745;
+    pdeq->_ppby_map = (_mappointer_t)0x38745;
     assert_false(_deque_is_created(pdeq));
 
     pdeq->_ppby_map = NULL;
@@ -197,7 +197,7 @@ void test__deque_is_inited__invalid_finish(void** state)
 
     deque_init(pdeq);
     pv_tmp = pdeq->_t_finish._t_pos._t_dequepos._pby_corepos;
-    pdeq->_t_finish._t_pos._t_dequepos._pby_corepos = 0x99384;
+    pdeq->_t_finish._t_pos._t_dequepos._pby_corepos = (_byte_t*)0x99384;
     assert_false(_deque_is_inited(pdeq));
 
     pdeq->_t_finish._t_pos._t_dequepos._pby_corepos = pv_tmp;
@@ -310,7 +310,7 @@ void test__deque_iterator_belong_to_deque__invalid_map(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._ppby_mappos = 0xcc;
+    it_iter._t_pos._t_dequepos._ppby_mappos = (_byte_t**)0xcc;
 
     assert_false(_deque_iterator_belong_to_deque(pdeq, it_iter));
 
@@ -324,7 +324,7 @@ void test__deque_iterator_belong_to_deque__invalid_first_pos(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._pby_first = 0xcc;
+    it_iter._t_pos._t_dequepos._pby_first = (_byte_t*)0xcc;
 
     assert_false(_deque_iterator_belong_to_deque(pdeq, it_iter));
 
@@ -338,7 +338,7 @@ void test__deque_iterator_belong_to_deque__invalid_afterlast_pos(void** state)
 
     deque_init_n(pdeq, 10);
     it_iter = deque_begin(pdeq);
-    it_iter._t_pos._t_dequepos._pby_afterlast = 0xcc;
+    it_iter._t_pos._t_dequepos._pby_afterlast = (_byte_t*)0xcc;
 
     assert_false(_deque_iterator_belong_to_deque(pdeq, it_iter));
 

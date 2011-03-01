@@ -1145,7 +1145,6 @@ void test__deque_iterator_next__successfully_not_border(void** state)
 {
     deque_t* pdeq = create_deque(int);
     deque_iterator_t it_iter;
-    deque_iterator_t it_next;
 
     deque_init(pdeq);
     deque_push_front(pdeq, 949);
@@ -1165,7 +1164,6 @@ void test__deque_iterator_next__successfully_border(void** state)
 {
     deque_t* pdeq = create_deque(int);
     deque_iterator_t it_iter;
-    deque_iterator_t it_next;
 
     deque_init(pdeq);
     deque_push_back(pdeq, 949);
@@ -1380,7 +1378,6 @@ void test__deque_iterator_next_n__move_to_end_successfully_not_border(void** sta
     deque_iterator_t it_begin;
     deque_iterator_t it_end;
     deque_iterator_t it_iter;
-    deque_iterator_t it_next_n;
 
     deque_init(pdeq);
     deque_push_front(pdeq, 3);
@@ -1406,7 +1403,6 @@ void test__deque_iterator_next_n__move_to_not_end_successfully_not_border(void**
     deque_iterator_t it_begin;
     deque_iterator_t it_end;
     deque_iterator_t it_iter;
-    deque_iterator_t it_next_n;
 
     deque_init(pdeq);
     deque_push_front(pdeq, 3);
@@ -1522,7 +1518,6 @@ void test__deque_iterator_next_n__move_to_not_front_successfully_not_border(void
     deque_iterator_t it_begin;
     deque_iterator_t it_end;
     deque_iterator_t it_iter;
-    deque_iterator_t it_next_n;
 
     deque_init(pdeq);
     deque_push_front(pdeq, 3);
@@ -1882,7 +1877,6 @@ void test__deque_iterator_prev_n__move_to_end_successfully_not_border(void** sta
     deque_iterator_t it_begin;
     deque_iterator_t it_end;
     deque_iterator_t it_iter;
-    deque_iterator_t it_prev_n;
 
     deque_init(pdeq);
     deque_push_front(pdeq, 3);
@@ -1908,7 +1902,6 @@ void test__deque_iterator_prev_n__move_to_not_end_successfully_not_border(void**
     deque_iterator_t it_begin;
     deque_iterator_t it_end;
     deque_iterator_t it_iter;
-    deque_iterator_t it_prev_n;
 
     deque_init(pdeq);
     deque_push_front(pdeq, 3);
@@ -2024,7 +2017,6 @@ void test__deque_iterator_prev_n__move_to_not_front_successfully_not_border(void
     deque_iterator_t it_begin;
     deque_iterator_t it_end;
     deque_iterator_t it_iter;
-    deque_iterator_t it_prev_n;
 
     deque_init(pdeq);
     deque_push_front(pdeq, 3);

@@ -11,6 +11,7 @@
 #include "cstl_slist_aux.h"
 #include "cstl/cstring.h"
 #include "cstl/cfunctional.h"
+#include "cstl_vector_aux.h"
 
 #include "ut_def.h"
 #include "ut_cstl_slist.h"
@@ -29,7 +30,7 @@ void test_slist_init__null_slist_container(void** state)
 void test_slist_init__non_created_slist_container(void** state)
 {
     slist_t slist;
-    slist._t_head._pt_next = 0x87734;
+    slist._t_head._pt_next = (_slistnode_t*)0x87734;
     expect_assert_failure(slist_init(&slist));
 }
 
@@ -184,7 +185,7 @@ void test_slist_init_copy__non_created_dest_slist_container(void** state)
     slist_t* pslist_src = create_slist(int);
 
     slist_init(pslist_src);
-    pslist_dest->_t_head._pt_next = 0x8888;
+    pslist_dest->_t_head._pt_next = (_slistnode_t*)0x8888;
     expect_assert_failure(slist_init_copy(pslist_dest, pslist_src));
 
     pslist_dest->_t_head._pt_next = NULL;
@@ -356,7 +357,7 @@ void test_slist_init_copy_range__non_created_slist_container(void** state)
     slist_t* pslist_src = create_slist(int);
 
     slist_init(pslist_src);
-    pslist_dest->_t_head._pt_next = 0x9999;
+    pslist_dest->_t_head._pt_next = (_slistnode_t*)0x9999;
     expect_assert_failure(slist_init_copy_range(pslist_dest, slist_begin(pslist_src), slist_end(pslist_src)));
 
     pslist_dest->_t_head._pt_next = NULL;
@@ -2343,7 +2344,7 @@ void test_slist_begin__non_empty(void** state)
 
     it_begin = slist_begin(pslist);
     assert_true(_slist_iterator_belong_to_slist(pslist, it_begin));
-    assert_true(it_begin._t_pos._pby_corepos == pslist->_t_head._pt_next);
+    assert_true((_slistnode_t*)it_begin._t_pos._pby_corepos == pslist->_t_head._pt_next);
     assert_true(*(int*)iterator_get_pointer(it_begin) == 3);
 
     slist_destroy(pslist);
@@ -2425,7 +2426,6 @@ void test_slist_previous__non_inited_slist_container(void** state)
 
 void test_slist_previous__empty(void** state)
 {
-    slist_iterator_t it_end;
     slist_t* pslist = create_slist(int);
     slist_init(pslist);
 
@@ -2436,7 +2436,6 @@ void test_slist_previous__empty(void** state)
 
 void test_slist_previous__non_empty_begin(void** state)
 {
-    slist_iterator_t it_end;
     slist_t* pslist = create_slist(int);
     slist_init_n(pslist, 10);
 
@@ -2519,7 +2518,7 @@ void test_slist_insert_range__invalid_position(void** state)
     slist_init(pslist_src);
     slist_init_n(pslist, 10);
     it_pos = slist_begin(pslist);
-    it_pos._t_pos._pby_corepos = 0x8888;
+    it_pos._t_pos._pby_corepos = (_byte_t*)0x8888;
 
     expect_assert_failure(slist_insert_range(pslist, it_pos, slist_begin(pslist_src), slist_end(pslist_src)));
 
@@ -2835,7 +2834,7 @@ void test_slist_insert_after_range__invalid_position(void** state)
     slist_init(pslist_src);
     slist_init_n(pslist, 10);
     it_pos = slist_begin(pslist);
-    it_pos._t_pos._pby_corepos = 0x8888;
+    it_pos._t_pos._pby_corepos = (_byte_t*)0x8888;
 
     expect_assert_failure(slist_insert_after_range(pslist, it_pos, slist_begin(pslist_src), slist_end(pslist_src)));
 
@@ -3209,7 +3208,7 @@ void test_slist_erase__invalid_pos(void** state)
     t_oldsize = slist_size(pslist);
 
     it_pos = slist_end(pslist);
-    it_pos._t_pos._pby_corepos = 0x999;
+    it_pos._t_pos._pby_corepos = (_byte_t*)0x999;
     expect_assert_failure(slist_erase(pslist, it_pos));
 
     slist_destroy(pslist);
@@ -3575,7 +3574,7 @@ void test_slist_erase_after__invalid_pos(void** state)
     t_oldsize = slist_size(pslist);
 
     it_pos = slist_end(pslist);
-    it_pos._t_pos._pby_corepos = 0x999;
+    it_pos._t_pos._pby_corepos = (_byte_t*)0x999;
     expect_assert_failure(slist_erase_after(pslist, it_pos));
 
     slist_destroy(pslist);
@@ -4049,7 +4048,6 @@ void test_slist_remove_if__non_empty_remove_more(void** state)
 
 void test_slist_remove_if__non_empty_remove_all(void** state)
 {
-    slist_iterator_t it_iter;
     size_t t_oldsize = 0;
     slist_t* pslist = create_slist(int);
 
@@ -4064,7 +4062,6 @@ void test_slist_remove_if__non_empty_remove_all(void** state)
 
 void test_slist_remove_if__empty_default_ufun_op(void** state)
 {
-    slist_iterator_t it_iter;
     size_t t_oldsize = 0;
     slist_t* pslist = create_slist(int);
 
@@ -4196,7 +4193,6 @@ void test_slist_remove_if__cstr_non_empty_remove_more(void** state)
 
 void test_slist_remove_if__cstr_non_empty_remove_all(void** state)
 {
-    slist_iterator_t it_iter;
     size_t t_oldsize = 0;
     slist_t* pslist = create_slist(char*);
 
@@ -5200,7 +5196,7 @@ void test_slist_splice_pos__invalid_source_position(void** state)
 
     slist_init(pslist_slist);
     slist_init_n(pslist_src, 10);
-    it_iter._t_pos._pby_corepos = 0x8734;
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x8734;
     expect_assert_failure(slist_splice_pos(pslist_slist, slist_begin(pslist_slist), pslist_src, it_iter));
 
     slist_destroy(pslist_slist);
@@ -5443,7 +5439,7 @@ void test_slist_splice_range__invalid_tearget_position(void** state)
 
     slist_init(pslist_slist);
     slist_init_n(pslist_src, 10);
-    it_iter._t_pos._pby_corepos = 0x99;
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x99;
     expect_assert_failure(slist_splice_range(
         pslist_slist, it_iter, pslist_src, slist_begin(pslist_src), slist_end(pslist_src)));
 
@@ -5741,7 +5737,7 @@ void test_slist_splice_after_pos__invalid_source_position(void** state)
 
     slist_init_n(pslist_slist, 10);
     slist_init_n(pslist_src, 10);
-    it_iter._t_pos._pby_corepos = 0x8734;
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x8734;
     expect_assert_failure(slist_splice_after_pos(pslist_slist, slist_begin(pslist_slist), pslist_src, it_iter));
 
     slist_destroy(pslist_slist);
@@ -6034,7 +6030,7 @@ void test_slist_splice_after_range__invalid_tearget_position(void** state)
 
     slist_init_n(pslist_slist, 10);
     slist_init_n(pslist_src, 10);
-    it_iter._t_pos._pby_corepos = 0x99;
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x99;
     expect_assert_failure(slist_splice_after_range(
         pslist_slist, it_iter, pslist_src, slist_begin(pslist_src), slist_begin(pslist_src)));
 

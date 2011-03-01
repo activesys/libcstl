@@ -110,7 +110,7 @@ void test__alloc_destroy__success_after_allocate(void** state)
     {
         if(i == _MEM_LINK_INDEX(8))
         {
-            assert_true(allocator._apt_memlink[i] == (_byte_t*)pv_mem + 8);
+            assert_true(allocator._apt_memlink[i] == (_memlink_t*)((_byte_t*)pv_mem + 8));
         }
         else
         {
@@ -198,7 +198,7 @@ void test__alloc_allocate__less_than_max_small_memory(void** state)
     {
         if(i == _MEM_LINK_INDEX(8))
         {
-            assert_true(allocator._apt_memlink[i] == (_byte_t*)pv_mem + 8);
+            assert_true(allocator._apt_memlink[i] == (_memlink_t*)((_byte_t*)pv_mem + 8));
         }
         else
         {
@@ -316,7 +316,7 @@ void test__alloc_deallocate__less_than_max_small_memory(void** state)
     {
         if(i == _MEM_LINK_INDEX(8))
         {
-            assert_true(allocator._apt_memlink[i] == (_byte_t*)pv_mem + 8);
+            assert_true(allocator._apt_memlink[i] == (_memlink_t*)((_byte_t*)pv_mem + 8));
         }
         else
         {

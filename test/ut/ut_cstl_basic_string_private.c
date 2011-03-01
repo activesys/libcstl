@@ -1891,7 +1891,7 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__empty_append
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__empty_append_non_empty(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init(pt_basic_string);
@@ -1907,7 +1907,7 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__empty_append
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__non_empty_append_empty(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 100);
@@ -1923,7 +1923,7 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__non_empty_ap
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__non_empty_append_non_empty(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 100);
@@ -1957,7 +1957,7 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_a
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_non_empty(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1973,7 +1973,7 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_a
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_empty(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
@@ -1989,7 +1989,7 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_emp
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_non_empty(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
@@ -2782,7 +2782,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__empty_replace_non_empty(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -2819,7 +2819,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_less(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -2847,7 +2847,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_equal(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -2875,7 +2875,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_greater(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -2920,7 +2920,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_less(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -2949,7 +2949,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_equal(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -2978,7 +2978,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_greater(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -3023,7 +3023,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_less(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -3051,7 +3051,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_equal(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -3079,7 +3079,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_greater(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -3107,7 +3107,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__replace_all(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -3159,7 +3159,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_repl
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_non_empty(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init(pt_basic_string);
@@ -3188,7 +3188,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_repl
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_less(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
@@ -3212,7 +3212,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_repl
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_equal(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
@@ -3236,7 +3236,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_repl
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_greater(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
@@ -3272,7 +3272,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_rep
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_less(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
@@ -3296,7 +3296,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_rep
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_equal(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
@@ -3320,7 +3320,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_rep
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_greater(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
@@ -3356,7 +3356,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replac
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_less(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
@@ -3380,7 +3380,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replac
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_equal(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
@@ -3404,7 +3404,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replac
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_greater(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
@@ -3428,7 +3428,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replac
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_all(void** state)
 {
-    int i = 0;
+    size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);

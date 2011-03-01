@@ -916,16 +916,57 @@ extern void basic_string_reserve(basic_string_t* pt_basic_string, size_t t_reser
  *          is undefined. if the destination basic_string equal to source basic_string, then this function does nothing.
  */
 extern void basic_string_assign(basic_string_t* pt_dest,  const basic_string_t* cpt_src);
-extern void basic_string_assign_substring(
-    basic_string_t* pt_basic_string,
-    const basic_string_t* cpt_basic_string_assign, size_t t_pos, size_t t_len);
-extern void basic_string_assign_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_value_string);
-extern void basic_string_assign_subcstr(
-    basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len);
+
+/**
+ * Assign basic_string element with an exist sub basic_string container.
+ * @param pt_dest     destination basic_string container.
+ * @param cpt_src     source basic_string container.
+ * @param t_pos       start position of source basic_string.
+ * @param t_len       sub basic_string length.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, then the behavior is undefined. pt_dest and cpt_src must be initialized,
+ *          otherwise the behavior is undefined. the element type of two basic_strings must be same, otherwise the behavior
+ *          is undefined. if the destination basic_string equal to source basic_string, then this function does nothing. if
+ *          t_len == NPOS or t_pos + t_len >= basic_string_size(cpt_src), then use all remain source basic string.
+ */
+extern void basic_string_assign_substring(basic_string_t* pt_dest, const basic_string_t* cpt_src, size_t t_pos, size_t t_len);
+
+/**
+ * Assign basic_string element with an exist value string.
+ * @param pt_basic_string    basic_string container.
+ * @param cpv_value_string   value string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string muse be
+ *          initialized, otherwise the behavior is undefined. the element type of basic_string and value string must be same,
+ *          otherwise the behavior is undefined.
+ */
+extern void basic_string_assign_cstr(basic_string_t* pt_basic_string, const void* cpv_value_string);
+
+/**
+ * Assign basic_string element with an exist sub value string.
+ * @param pt_basic_string    basic_string container.
+ * @param cpv_value_string   value string.
+ * @param t_len              length of sub value string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string muse be
+ *          initialized, otherwise the behavior is undefined. the element type of basic_string and value string must be same,
+ *          otherwise the behavior is undefined. if t_len is equal to or greater than the length of value string, then use
+ *          all value string.
+ */
+extern void basic_string_assign_subcstr(basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len);
+
+/**
+ * Assign basic_string element with an exist basic_string container range.
+ * @param pt_basic_string     destination basic_string container.
+ * @param it_begin            range begin.
+ * @param it_end              range end.
+ * @return void.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. pt_basic_string must be initialized, otherwise the
+ *          behavior is undefined. the element type of basic_string and [it_begin, it_end) must be same, otherwise the
+ *          behavior is undefined. if [it_begin, it_end) belong to the destination basic_string, the behavior is undefined.
+ */
 extern void basic_string_assign_range(
-    basic_string_t* pt_basic_string,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end);
 
 /*
  * Append operation functions.

@@ -294,11 +294,11 @@ extern void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src);
 
 /**
  * Assign vector element with an exist vector container range.
- * @param pvec_dest     destination vector container.
- * @param it_begin      range begin.
- * @param it_end        range end.
+ * @param pvec_vector     destination vector container.
+ * @param it_begin        range begin.
+ * @param it_end          range end.
  * @return void.
- * @remarks if pvec_dest == NULL, then the behavior is undefined. pvec_dest must be initialized, otherwise the behavior
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. pvec_vector must be initialized, otherwise the behavior
  *          is undefined. the element type of vector and [it_begin, it_end) must be same, otherwise the behavior is
  *          undefined. if [it_begin, it_end) belong to the destination vector, the behavior is undefined.
  */

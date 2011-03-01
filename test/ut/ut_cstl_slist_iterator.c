@@ -39,7 +39,7 @@ void test__slist_iterator_get_value__invalid_iterator(void** state)
 
     slist_init_elem(pslist, 10, 100);
     it_iter = slist_begin(pslist);
-    it_iter._t_pos._pby_corepos = 0x998;
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x998;
     expect_assert_failure(_slist_iterator_get_value(it_iter, &n_value));
 
     slist_destroy(pslist);
@@ -138,7 +138,7 @@ void test__slist_iterator_set_value__invalid_iter(void** state)
 
     slist_init_elem(pslist, 10, 100);
     it_iter = slist_begin(pslist);
-    it_iter._t_pos._pby_corepos = 0x999;
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x999;
     expect_assert_failure(_slist_iterator_set_value(it_iter, &n_value));
 
     slist_destroy(pslist);
@@ -224,7 +224,7 @@ void test__slist_iterator_get_pointer__invalid_iter(void** state)
 
     slist_init_elem(pslist, 10, 100);
     it_iter = slist_begin(pslist);
-    it_iter._t_pos._pby_corepos = 0x99;
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x99;
     expect_assert_failure(_slist_iterator_get_pointer(it_iter));
 
     slist_destroy(pslist);
@@ -291,7 +291,7 @@ void test__slist_iterator_next__invalid_iter(void** state)
 
     slist_init_elem(pslist, 10, 100);
     it_iter = slist_begin(pslist);
-    it_iter._t_pos._pby_corepos = 0x83;
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x83;
     expect_assert_failure(_slist_iterator_next(it_iter));
 
     slist_destroy(pslist);

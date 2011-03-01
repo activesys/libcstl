@@ -10,6 +10,7 @@
 #include "cstl/cvector.h"
 #include "cstl_slist_aux.h"
 #include "cstl/cstring.h"
+#include "cstl_vector_aux.h"
 
 #include "ut_def.h"
 #include "ut_cstl_slist_aux.h"
@@ -52,7 +53,7 @@ void test__slist_is_created__invalid_type_pointer(void** state)
 void test__slist_is_created__null_node(void** state)
 {
     slist_t* pslist = create_slist(int);
-    pslist->_t_head._pt_next = 0x224;
+    pslist->_t_head._pt_next = (_slistnode_t*)0x334;
 
     assert_false(_slist_is_created(pslist));
 
@@ -63,7 +64,7 @@ void test__slist_is_created__null_node(void** state)
 void test__slist_is_created__uninited_allocator(void** state)
 {
     slist_t* pslist = create_slist(int);
-    pslist->_t_allocater._pby_mempool = 0x444;
+    pslist->_t_allocater._pby_mempool = (_byte_t*)0x444;
 
     assert_false(_slist_is_created(pslist));
 
@@ -192,7 +193,7 @@ void test__slist_iterator_belong_to_slist__invalid_iter_container_pointer(void**
     slist_init(pslist);
 
     it_iter = slist_begin(pslist);
-    it_iter._pt_container = 0x23423;
+    it_iter._pt_container = (void*)0x23423;
     expect_assert_failure(_slist_iterator_belong_to_slist(pslist, it_iter));
 
     slist_destroy(pslist);
@@ -205,7 +206,7 @@ void test__slist_iterator_belong_to_slist__not_belong_to_slist(void** state)
     slist_init(pslist);
 
     it_iter = slist_begin(pslist);
-    it_iter._t_pos._pby_corepos = 0x9378;
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x9378;
     assert_false(_slist_iterator_belong_to_slist(pslist, it_iter));
 
     slist_destroy(pslist);

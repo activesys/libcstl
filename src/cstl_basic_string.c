@@ -1928,72 +1928,109 @@ void basic_string_assign(basic_string_t* pt_dest, const basic_string_t* cpt_src)
     vector_assign(&pt_dest->_t_vector, &cpt_src->_t_vector);
 }
 
-void basic_string_assign_substring(
-    basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_assign,
-    size_t t_pos, size_t t_len)
+/**
+ * Assign basic_string element with an exist sub basic_string container.
+ */
+void basic_string_assign_substring(basic_string_t* pt_dest, const basic_string_t* cpt_src, size_t t_pos, size_t t_len)
 {
-    basic_string_iterator_t t_begin;
-    basic_string_iterator_t t_end;
+    basic_string_iterator_t it_begin;
+    basic_string_iterator_t it_end;
 
-    assert(_basic_string_same_type(pt_basic_string, cpt_basic_string_assign));
+    assert(pt_dest != NULL);
+    assert(cpt_src != NULL);
+    assert(_basic_string_same_type(pt_dest, cpt_src));
+    assert(t_pos < basic_string_size(cpt_src));
 
-    t_begin = iterator_next_n(basic_string_begin(cpt_basic_string_assign), t_pos);
-    t_end = iterator_next_n(basic_string_begin(cpt_basic_string_assign), t_pos + t_len);
-    basic_string_assign_range(pt_basic_string, t_begin, t_end);
+    it_begin = iterator_next_n(basic_string_begin(cpt_src), t_pos);
+    if(t_len == NPOS || t_pos + t_len >= basic_string_size(cpt_src))
+    {
+        it_end = basic_string_end(cpt_src);
+    }
+    else
+    {
+        it_end = iterator_next_n(basic_string_begin(cpt_src), t_pos + t_len);
+    }
+    basic_string_assign_range(pt_dest, it_begin, it_end);
 }
 
-void basic_string_assign_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_value_string)
+/**
+ * Assign basic_string element with an exist value string.
+ */
+void basic_string_assign_cstr(basic_string_t* pt_basic_string, const void* cpv_value_string)
 {
     basic_string_assign_subcstr(pt_basic_string, cpv_value_string, NPOS);
 }
 
-void basic_string_assign_subcstr(
-    basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len)
+/**
+ * Assign basic_string element with an exist sub value string.
+ */
+void basic_string_assign_subcstr(basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len)
 {
-    size_t t_length = 0;
-    size_t t_index = 0;
-    char*  pc_value = NULL;
-    bool_t t_result = false;
+    size_t   t_typesize = 0;
+    size_t   t_length = 0;
+    size_t   i = 0;
+    _byte_t* pby_value = NULL;
+    bool_t   b_result = false;
 
-    assert(pt_basic_string != NULL && cpv_value_string != NULL);
+    assert(pt_basic_string != NULL);
+    assert(cpv_value_string != NULL);
 
     t_length = _basic_string_get_value_string_length(pt_basic_string, cpv_value_string);
-    t_len = t_len < t_length ? t_len : t_length;
+    t_len = (t_len < t_length ? t_len : t_length);
 
     vector_resize(&pt_basic_string->_t_vector, t_len);
     assert(vector_size(&pt_basic_string->_t_vector) == t_len);
 
     if(t_len > 0)
     {
-        pc_value = (char*)vector_at(&pt_basic_string->_t_vector, 0); 
-        assert(pc_value != NULL);
-        for(t_index = 0; t_index < t_len; ++t_index)
+        t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        pby_value = _GET_BASIC_STRING_COREPOS(basic_string_begin(pt_basic_string));
+        assert(pby_value != NULL);
+
+        /* char* */
+        if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(pt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
         {
-            t_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
-                pc_value + t_index * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string),
-                (char*)cpv_value_string + t_index*_GET_BASIC_STRING_TYPE_SIZE(pt_basic_string),
-                &t_result);
-            assert(t_result);
+            for(i = 0; i < t_len; ++i)
+            {
+                string_assign_cstr((string_t*)(pby_value + i * t_typesize), *((char**)cpv_value_string + i));
+            }
+        }
+        else if(_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_C_BUILTIN)
+        {
+            for(i = 0; i < t_len; ++i)
+            {
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
+                    pby_value + i * t_typesize, (_byte_t*)cpv_value_string + i * t_typesize, &b_result);
+                assert(b_result);
+            }
+        }
+        else
+        {
+            for(i = 0; i < t_len; ++i)
+            {
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
+                    pby_value + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
+                assert(b_result);
+            }
         }
     }
 }
 
+/**
+ * Assign basic_string element with an exist basic_string container range.
+ */
 void basic_string_assign_range(
-    basic_string_t* pt_basic_string,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end)
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end)
 {
-    assert(_GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
-           _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string);
-    assert(_basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
-           _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
+    assert(pt_basic_string != NULL);
+    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
+    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
-    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
-    vector_assign_range(&pt_basic_string->_t_vector, t_begin, t_end);
-    _GET_BASIC_STRING_CONTAINER_TYPE(t_begin) = _BASIC_STRING_CONTAINER;
-    _GET_BASIC_STRING_CONTAINER_TYPE(t_end) = _BASIC_STRING_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
+    vector_assign_range(&pt_basic_string->_t_vector, it_begin, it_end);
 }
 
 

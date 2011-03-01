@@ -837,7 +837,7 @@ void test__deque_insert_n__deque_insert_n_varg__invalid_pos(void** state)
     deque_init(pdeq);
 
     it_pos = deque_begin(pdeq);
-    it_pos._t_pos._t_dequepos._pby_corepos = 0x99;
+    it_pos._t_pos._t_dequepos._pby_corepos = (_byte_t*)0x99;
     expect_assert_failure(_deque_insert_n(pdeq, it_pos, 10, 100));
 
     deque_destroy(pdeq);

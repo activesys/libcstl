@@ -39,7 +39,7 @@ void test__vector_iterator_belong_to_vector__non_inited_vector_container(void** 
     vector_init(pvec);
     it_iter = vector_begin(pvec);
 
-    pvec->_pby_start = 0x9883;
+    pvec->_pby_start = (_byte_t*)0x9883;
     expect_assert_failure(_vector_iterator_belong_to_vector(pvec, it_iter));
 
     pvec->_pby_start = NULL;

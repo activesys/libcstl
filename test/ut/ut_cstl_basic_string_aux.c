@@ -425,7 +425,7 @@ void test__basic_string_get_varg_value_auxiliary__null_varg(void** state)
 void test__basic_string_get_varg_value_auxiliary__non_created(void** state)
 {
     int varg = 0;
-    basic_string_t bstr;
+    /*basic_string_t bstr;*/
     /*bstr._t_vector._t_typeinfo._t_style = 100;*/
     /*expect_assert_failure(_wrapper_basic_string_get_varg_value_auxiliary(&bstr, &varg, 100));*/
     assert_true(true);
@@ -462,7 +462,7 @@ void test__basic_string_destroy_varg_value_auxiliary__null_varg(void** state)
 void test__basic_string_destroy_varg_value_auxiliary__non_created(void** state)
 {
     int varg = 0;
-    basic_string_t bstr;
+    /*basic_string_t bstr;*/
     /*bstr._t_vector._t_typeinfo._t_style = 100;*/
     /*expect_assert_failure(_basic_string_destroy_varg_value_auxiliary(&bstr, &varg));*/
     assert_true(true);
