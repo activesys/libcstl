@@ -136,15 +136,55 @@ extern "C" {
 /* resize */
 #define basic_string_resize(pt_basic_string, t_resize, elem)\
     _basic_string_resize((pt_basic_string), (t_resize), (elem))
-/* assign */
+
+/**
+ * Assign basic_string with specificed element.
+ * @param pt_basic_string    basic_string container.
+ * @param t_count            element number.
+ * @param elem               specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and basic_string element type must be same, otherwise the behavior is undefined.
+ */
 #define basic_string_assign_elem(pt_basic_string, t_count, elem)\
     _basic_string_assign_elem((pt_basic_string), (t_count), (elem))
-/* append element */
+
+/**
+ * Append specific element to destination basic_string.
+ * @param pt_basic_string    basic_string container.
+ * @param t_count            element number.
+ * @param elem               specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and basic_string element type must be same, otherwise the behavior is undefined.
+ */
 #define basic_string_append_elem(pt_basic_string, t_count, elem)\
     _basic_string_append_elem((pt_basic_string), (t_count), (elem))
-/* insert element */
-#define basic_string_insert(pt_basic_string, t_pos, elem)\
-    _basic_string_insert((pt_basic_string), (t_pos), (elem))
+
+/**
+ * Insert one copy of element befor specificed position.
+ * @param pt_basic_string   basic_string container.
+ * @param it_pos            insert position.
+ * @param elem              specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the it_pos must be
+ *          invalid iterator of basic_string container, otherwise the behavior is undefined. the type of specificed element
+ *          and basic_string element type must be same, otherwise the behavior is undefined. 
+ */
+#define basic_string_insert(pt_basic_string, it_pos, elem)\
+    _basic_string_insert((pt_basic_string), (it_pos), (elem))
+
+/**
+ * Insert multiple copys of element befor specificed position.
+ * @param pt_basic_string   basic_string container.
+ * @param it_pos            insert position.
+ * @param t_count           element number.
+ * @param ele               specificed element.
+ * @return position refereced the first inserted elements.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the it_pos must be
+ *          invalid iterator of basic_string container, otherwise the behavior is undefined. the type of specificed element
+ *          and basic_string element type must be same, otherwise the behavior is undefined. 
+ */
 #define basic_string_insert_n(pt_basic_string, t_pos, t_count, elem)\
     _basic_string_insert_n((pt_basic_string), (t_pos), (t_count), (elem))
 #define basic_string_insert_elem(pt_basic_string, t_pos, t_count, elem)\
@@ -968,31 +1008,98 @@ extern void basic_string_assign_subcstr(basic_string_t* pt_basic_string, const v
 extern void basic_string_assign_range(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end);
 
-/*
- * Append operation functions.
+/**
+ * Append specific basic_string to destination basic_string.
+ * @param pt_dest     destination basic_string container.
+ * @param cpt_src     source basic_string container.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, then the behavior is undefined. pt_dest and cpt_src must be initialized,
+ *          otherwise the behavior is undefined. the element type of two basic_strings must be same, otherwise the behavior
+ *          is undefined.
  */
-extern void basic_string_append(
-    basic_string_t* pt_basic_string, const basic_string_t* cpt_basic_string_append);
-extern void basic_string_append_substring(
-    basic_string_t* pt_basic_string,
-    const basic_string_t* cpt_basic_string_append, size_t t_pos, size_t t_len);
-extern void basic_string_append_cstr(
-    basic_string_t* pt_basic_string, const void* cpv_value_string);
-extern void basic_string_append_subcstr(
-    basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len);
-extern void basic_string_append_range(
-    basic_string_t* pt_basic_string,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end);
+extern void basic_string_append(basic_string_t* pt_dest, const basic_string_t* cpt_src);
 
-/*
- * Insert operation functions.
+/**
+ * Append specific sub basic_string to destination basic_string.
+ * @param pt_dest     destination basic_string container.
+ * @param cpt_src     source basic_string container.
+ * @param t_pos       start position of source basic_string.
+ * @param t_len       sub basic_string length.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, then the behavior is undefined. pt_dest and cpt_src must be initialized,
+ *          otherwise the behavior is undefined. the element type of two basic_strings must be same, otherwise the behavior
+ *          is undefined. if the destination basic_string equal to source basic_string, then this function does nothing. if
+ *          t_len == NPOS or t_pos + t_len >= basic_string_size(cpt_src), then use all remain source basic string.
  */
-extern void basic_string_insert_string(
-    basic_string_t* pt_basic_string, size_t t_pos,
-    const basic_string_t* cpt_basic_string_insert);
+extern void basic_string_append_substring(basic_string_t* pt_dest, const basic_string_t* cpt_src, size_t t_pos, size_t t_len);
+
+/**
+ * Append specific value string to destination basic_string.
+ * @param pt_basic_string    basic_string container.
+ * @param cpv_value_string   value string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string muse be
+ *          initialized, otherwise the behavior is undefined. the element type of basic_string and value string must be same,
+ *          otherwise the behavior is undefined.
+ */
+extern void basic_string_append_cstr(basic_string_t* pt_basic_string, const void* cpv_value_string);
+
+/**
+ * Append specific sub value string to destination basic_string.
+ * @param pt_basic_string    basic_string container.
+ * @param cpv_value_string   value string.
+ * @param t_len              length of sub value string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string muse be
+ *          initialized, otherwise the behavior is undefined. the element type of basic_string and value string must be same,
+ *          otherwise the behavior is undefined. if t_len is equal to or greater than the length of value string, then use
+ *          all value string.
+ */
+extern void basic_string_append_subcstr(basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len);
+
+/**
+ * Append specific range to destination basic_string.
+ * @param pt_basic_string     destination basic_string container.
+ * @param it_begin            range begin.
+ * @param it_end              range end.
+ * @return void.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. pt_basic_string must be initialized, otherwise the
+ *          behavior is undefined. the element type of basic_string and [it_begin, it_end) must be same, otherwise the
+ *          behavior is undefined. if [it_begin, it_end) belong to the destination basic_string, the behavior is undefined.
+ */
+extern void basic_string_append_range(
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end);
+
+/**
+ * Insert specific basic_string into the destination basic_string at specific position.
+ * @param pt_basic_string     destination basic_string container.
+ * @param t_pos               insert position.
+ * @param cpt_insert          insert basic_string container.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpt_insert == NULL, then the behavior is undefined. pt_basic_string and cpt_insert
+ *          must be initialized, otherwise the behavior is undefined. the element type of two basic_strings must be same,
+ *          otherwise the behavior is undefined. t_pos is valid position for pt_basic_string, otherwise the behavior is
+ *          undefined. if pt_basic_string == cpt_insert, then the behavior is undefined.
+ */
+extern void basic_string_insert_string(basic_string_t* pt_basic_string, size_t t_pos, const basic_string_t* cpt_insert);
+
+/**
+ * Insert specific sub basic_string into the destination basic_string at specific position.
+ * @param pt_basic_string     destination basic_string container.
+ * @param t_pos               insert position.
+ * @param cpt_insert          insert basic_string container.
+ * @param t_startpos          the start position of sub insert basic_string.
+ * @param t_len               the length of sub insert basic_string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpt_insert == NULL, then the behavior is undefined. pt_basic_string and cpt_insert
+ *          must be initialized, otherwise the behavior is undefined. the element type of two basic_strings must be same,
+ *          otherwise the behavior is undefined. t_pos is valid position for pt_basic_string, otherwise the behavior is
+ *          undefined. t_startpos is valid position for cpt_insert, otherwise the behavior is undefine. if t_len == NPOS or
+ *          t_startpos + t_len >= basic_string_size(cpt_insert), the user all remain cpt_insert that started from t_startpos.
+ *          if pt_basic_string == cpt_insert, then the behavior is undefined.
+ */
 extern void basic_string_insert_substring(
-    basic_string_t* pt_basic_string, size_t t_pos,
-    const basic_string_t* cpt_basic_string_insert, size_t t_startpos, size_t t_len);
+    basic_string_t* pt_basic_string, size_t t_pos, const basic_string_t* cpt_insert, size_t t_startpos, size_t t_len);
 extern void basic_string_insert_cstr(
     basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string);
 extern void basic_string_insert_subcstr(

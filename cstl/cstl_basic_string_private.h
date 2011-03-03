@@ -304,7 +304,7 @@ extern void _basic_string_append_elem_varg(basic_string_t* pt_basic_string, size
  *          and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is in use,
  *          others are not in use.
  */
-extern basic_string_iterator_t _basic_string_insert(basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, ...);
+extern basic_string_iterator_t _basic_string_insert(basic_string_t* pt_basic_string, basic_string_iterator_t it_pos, ...);
 
 /**
  * Insert multiple copys of element befor specificed position.
