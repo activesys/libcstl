@@ -1100,14 +1100,51 @@ extern void basic_string_insert_string(basic_string_t* pt_basic_string, size_t t
  */
 extern void basic_string_insert_substring(
     basic_string_t* pt_basic_string, size_t t_pos, const basic_string_t* cpt_insert, size_t t_startpos, size_t t_len);
-extern void basic_string_insert_cstr(
-    basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string);
+
+/**
+ * Insert specific value string into the destination basic_string at specific position.
+ * @param pt_basic_string     destination basic_string container.
+ * @param t_pos               insert position.
+ * @param cpv_value_string    insert value string container.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and cpv_value_string
+ *          must be same, otherwise the behavior is undefined. t_pos is valid position for pt_basic_string, otherwise the
+ *          behavior is undefined.
+ */
+extern void basic_string_insert_cstr(basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string);
+
+/**
+ * Insert specific sub value string into the destination basic_string at specific position.
+ * @param pt_basic_string     destination basic_string container.
+ * @param t_pos               insert position.
+ * @param cpv_value_string    insert value string container.
+ * @param t_len               the length of sub value string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and cpv_value_string
+ *          must be same, otherwise the behavior is undefined. t_pos is valid position for pt_basic_string, otherwise the
+ *          behavior is undefined.if t_len is equal to or greater than the length of value string, then use all value string.
+ */
 extern void basic_string_insert_subcstr(
-    basic_string_t* pt_basic_string, size_t t_pos,
-    const void* cpv_value_string, size_t t_len);
+    basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string, size_t t_len);
+
+/**
+ * Insert a range of elements into basic_string at a specificed position.
+ * @param pt_basic_string   basic_string container.
+ * @param it_pos            specificed position.
+ * @param it_begin          the position of first element in the range.
+ * @param it_end            the position of first element beyond the range.
+ * @return void.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. the basic_string must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for basic_string container, otherwise
+ *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
+ *          if [it_begin, it_end) belong to basic_string, the behavior is undefined. the type of specificed range and 
+ *          basic_string element must be the same, otherwise the behavior is undefined.
+ */
 extern void basic_string_insert_range(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_pos,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_pos,
+    basic_string_iterator_t it_begin, basic_string_iterator_t it_end);
 
 /*
  * Erase operation functions.

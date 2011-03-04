@@ -2202,15 +2202,19 @@ void basic_string_insert_substring(
     basic_string_insert_range(pt_basic_string, it_pos, it_begin, it_end);
 }
 
-void basic_string_insert_cstr(
-    basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string)
+/**
+ * Insert specific value string into the destination basic_string at specific position.
+ */
+void basic_string_insert_cstr(basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string)
 {
     basic_string_insert_subcstr(pt_basic_string, t_pos, cpv_value_string, NPOS);
 }
 
+/**
+ * Insert specific sub value string into the destination basic_string at specific position.
+ */
 void basic_string_insert_subcstr(
-    basic_string_t* pt_basic_string, size_t t_pos,
-    const void* cpv_value_string, size_t t_len)
+    basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string, size_t t_len)
 {
     basic_string_t* pt_string;
 
@@ -2222,23 +2226,23 @@ void basic_string_insert_subcstr(
     basic_string_destroy(pt_string);
 }
 
+/**
+ * Insert a range of elements into basic_string at a specificed position.
+ */
 void basic_string_insert_range(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_pos,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end)
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_pos,
+    basic_string_iterator_t it_begin, basic_string_iterator_t it_end)
 {
-    assert(
-        _GET_BASIC_STRING_CONTAINER(t_begin) != pt_basic_string &&
-        _GET_BASIC_STRING_CONTAINER(t_end) != pt_basic_string &&
-        _GET_BASIC_STRING_CONTAINER(t_pos) == pt_basic_string);
-    assert(
-        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_begin)) &&
-        _basic_string_same_type(pt_basic_string, _GET_BASIC_STRING_CONTAINER(t_end)));
+    assert(pt_basic_string != NULL);
+    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_pos) == _BASIC_STRING_CONTAINER);
+    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
+    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
-    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(t_pos) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
 
-    vector_insert_range(&pt_basic_string->_t_vector, t_pos, t_begin, t_end);
+    vector_insert_range(&pt_basic_string->_t_vector, it_pos, it_begin, it_end);
 }
 
 
