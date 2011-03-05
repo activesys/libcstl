@@ -130,12 +130,28 @@ extern "C" {
  */
 #define basic_string_find_last_not_of_elem(cpt_basic_string, elem, t_pos)\
     _basic_string_find_last_not_of_elem((cpt_basic_string), (t_pos), (elem))
-/* push back */
-#define basic_string_push_back(pt_basic_string, elem)\
-    _basic_string_push_back((pt_basic_string), (elem))
-/* resize */
-#define basic_string_resize(pt_basic_string, t_resize, elem)\
-    _basic_string_resize((pt_basic_string), (t_resize), (elem))
+
+/**
+ * Adds an element to basic string.
+ * @param pt_basic_string      basic_string container.
+ * @param elem                 specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine.
+ */
+#define basic_string_push_back(pt_basic_string, elem) _basic_string_push_back((pt_basic_string), (elem))
+
+/**
+ * Reset the size of basic_string elements.
+ * @param pt_basic_string   basic_string container.
+ * @param t_resize          new size of basic_string elements.
+ * @param elem              specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of
+ *          specificed element and basic_string element type must be same, otherwise the behavior is undefined. the first
+ *          if t_resize less than current basic_string size, then erase elmement from the end. if t_resize greater than
+ *          current basic_string size, then append elements to the end, and the element is specificed element.
+ */
+#define basic_string_resize(pt_basic_string, t_resize, elem) _basic_string_resize((pt_basic_string), (t_resize), (elem))
 
 /**
  * Assign basic_string with specificed element.
@@ -143,8 +159,8 @@ extern "C" {
  * @param t_count            element number.
  * @param elem               specificed element.
  * @return void.
- * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of specificed
- *          element and basic_string element type must be same, otherwise the behavior is undefined.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of
+ *          specificed element and basic_string element type must be same, otherwise the behavior is undefined.
  */
 #define basic_string_assign_elem(pt_basic_string, t_count, elem)\
     _basic_string_assign_elem((pt_basic_string), (t_count), (elem))
@@ -155,8 +171,8 @@ extern "C" {
  * @param t_count            element number.
  * @param elem               specificed element.
  * @return void.
- * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of specificed
- *          element and basic_string element type must be same, otherwise the behavior is undefined.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of
+ *          specificed element and basic_string element type must be same, otherwise the behavior is undefined.
  */
 #define basic_string_append_elem(pt_basic_string, t_count, elem)\
     _basic_string_append_elem((pt_basic_string), (t_count), (elem))
@@ -185,8 +201,20 @@ extern "C" {
  *          invalid iterator of basic_string container, otherwise the behavior is undefined. the type of specificed element
  *          and basic_string element type must be same, otherwise the behavior is undefined. 
  */
-#define basic_string_insert_n(pt_basic_string, t_pos, t_count, elem)\
-    _basic_string_insert_n((pt_basic_string), (t_pos), (t_count), (elem))
+#define basic_string_insert_n(pt_basic_string, it_pos, t_count, elem)\
+    _basic_string_insert_n((pt_basic_string), (it_pos), (t_count), (elem))
+
+/**
+ * Insert multiple copys of element befor specificed position.
+ * @param pt_basic_string    basic_string container.
+ * @param t_pos              insert position.
+ * @param t_count            element number.
+ * @param elem               specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of
+ *          specificed element and basic_string element type must be same, otherwise the behavior is undefined. t_pos must
+ *          be valid position for basic_string, otherwise the behavior is undefined.
+ */
 #define basic_string_insert_elem(pt_basic_string, t_pos, t_count, elem)\
     _basic_string_insert_elem((pt_basic_string), (t_pos), (t_count), (elem))
 /* replace element */
@@ -1146,16 +1174,40 @@ extern void basic_string_insert_range(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_pos,
     basic_string_iterator_t it_begin, basic_string_iterator_t it_end);
 
-/*
- * Erase operation functions.
+/**
+ * Erase an element in a basic string from a specificed position.
+ * @param pt_basic_string   basic_string container.
+ * @param it_pos            specificed position.
+ * @return the iterator addressing the first element after the removed element.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. the basic_string must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for basic_string container, otherwise
+ *          the behavior is undefined.
  */
-extern basic_string_iterator_t basic_string_erase(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_pos);
+extern basic_string_iterator_t basic_string_erase(basic_string_t* pt_basic_string, basic_string_iterator_t it_pos);
+
+/**
+ * Erase a range of elements in a basic string from a specificed range.
+ * @param pt_basic_string   basic_string container.
+ * @param it_begin          the position of first element in the range.
+ * @param it_end            the position of first element beyond the range.
+ * @return the iterator addressing the first element after the removed element.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. the basic_string must be initialized, otherwise
+ *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
+ */
 extern basic_string_iterator_t basic_string_erase_range(
-    basic_string_t* pt_basic_string,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end);
-extern void basic_string_erase_substring(
-    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end);
+
+/**
+ * Erase a sub basic string in a basic string from a specificed range.
+ * @param pt_basic_string     destination basic_string container.
+ * @param t_pos               insert position.
+ * @param t_len               the length of sub value string.
+ * @return void.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. pt_basic_string must be initialized, otherwise
+ *          the behavior is undefined. t_pos is valid position for pt_basic_string, otherwise the behavior is undefined.
+ *          if t_len is equal to or greater than the length of basic string, then use all sub basic string from t_pos.
+ */
+extern void basic_string_erase_substring(basic_string_t* pt_basic_string, size_t t_pos, size_t t_len);
 
 /*
  * Replace operation functions.

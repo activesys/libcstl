@@ -2216,14 +2216,16 @@ void basic_string_insert_cstr(basic_string_t* pt_basic_string, size_t t_pos, con
 void basic_string_insert_subcstr(
     basic_string_t* pt_basic_string, size_t t_pos, const void* cpv_value_string, size_t t_len)
 {
-    basic_string_t* pt_string;
+    basic_string_t* pt_insert;
 
-    assert(pt_basic_string != NULL && cpv_value_string != NULL);
+    assert(pt_basic_string != NULL);
+    assert(cpv_value_string != NULL);
+    assert(t_pos < basic_string_size(pt_basic_string));
 
-    pt_string = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(pt_basic_string));
-    basic_string_init_subcstr(pt_string, cpv_value_string, t_len);
-    basic_string_insert_string(pt_basic_string, t_pos, pt_string);
-    basic_string_destroy(pt_string);
+    pt_insert = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(pt_basic_string));
+    basic_string_init_subcstr(pt_insert, cpv_value_string, t_len);
+    basic_string_insert_string(pt_basic_string, t_pos, pt_insert);
+    basic_string_destroy(pt_insert);
 }
 
 /**
@@ -2245,65 +2247,69 @@ void basic_string_insert_range(
     vector_insert_range(&pt_basic_string->_t_vector, it_pos, it_begin, it_end);
 }
 
-
-
-/* erase */
-basic_string_iterator_t basic_string_erase(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_pos)
+/**
+ * Erase an element in a basic string from a specificed position.
+ */
+basic_string_iterator_t basic_string_erase(basic_string_t* pt_basic_string, basic_string_iterator_t it_pos)
 {
-    basic_string_iterator_t t_iterator;
+    basic_string_iterator_t it_iter;
 
-    assert(_iterator_belong_to_basic_string(pt_basic_string, t_pos));
-    assert(!iterator_equal(t_pos, basic_string_end(pt_basic_string)));
+    assert(pt_basic_string != NULL);
+    assert(_iterator_belong_to_basic_string(pt_basic_string, it_pos));
+    assert(!iterator_equal(it_pos, basic_string_end(pt_basic_string)));
+    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_pos) == _BASIC_STRING_CONTAINER);
 
-    _GET_VECTOR_CONTAINER_TYPE(t_pos) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
 
-    t_iterator = vector_erase(&pt_basic_string->_t_vector, t_pos);
-    _GET_BASIC_STRING_CONTAINER_TYPE(t_iterator) = _BASIC_STRING_CONTAINER;
+    it_iter = vector_erase(&pt_basic_string->_t_vector, it_pos);
+    _GET_BASIC_STRING_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
-    return t_iterator;
+    return it_iter;
 }
 
+/**
+ * Erase a range of elements in a basic string from a specificed range.
+ */
 basic_string_iterator_t basic_string_erase_range(
-    basic_string_t* pt_basic_string,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end)
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end)
 {
-    basic_string_iterator_t t_iterator;
+    basic_string_iterator_t it_iter;
 
-    assert(_iterator_belong_to_basic_string(pt_basic_string, t_begin) &&
-           _iterator_belong_to_basic_string(pt_basic_string, t_end));
+    assert(pt_basic_string != NULL);
+    assert(_iterator_belong_to_basic_string(pt_basic_string, it_begin) &&
+           _iterator_belong_to_basic_string(pt_basic_string, it_end));
 
-    _GET_VECTOR_CONTAINER_TYPE(t_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(t_end) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
 
-    t_iterator = vector_erase_range(&pt_basic_string->_t_vector, t_begin, t_end);
-    _GET_BASIC_STRING_CONTAINER_TYPE(t_iterator) = _BASIC_STRING_CONTAINER;
+    it_iter= vector_erase_range(&pt_basic_string->_t_vector, it_begin, it_end);
+    _GET_BASIC_STRING_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
-    return t_iterator;
+    return it_iter;
 }
 
-void basic_string_erase_substring(
-    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len)
+/**
+ * Erase a sub basic string in a basic string from a specificed range.
+ */
+void basic_string_erase_substring(basic_string_t* pt_basic_string, size_t t_pos, size_t t_len)
 {
-    basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
-    basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
+    basic_string_iterator_t it_begin;
+    basic_string_iterator_t it_end;
 
-    assert(t_pos <= basic_string_size(pt_basic_string));
+    assert(pt_basic_string != NULL);
+    assert(t_pos < basic_string_size(pt_basic_string));
 
-    if(t_pos != 0)
-    {
-        t_begin = iterator_next_n(t_begin, t_pos);
-    }
+    it_begin = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
-        t_end = basic_string_end(pt_basic_string);
+        it_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        t_end = iterator_next_n(t_end, t_pos + t_len);
+        it_end = iterator_next_n(basic_string_begin(pt_basic_string), t_pos + t_len);
     }
 
-    basic_string_erase_range(pt_basic_string, t_begin, t_end);
+    basic_string_erase_range(pt_basic_string, it_begin, it_end);
 }
 
 /* replace */
