@@ -2312,136 +2312,191 @@ void basic_string_erase_substring(basic_string_t* pt_basic_string, size_t t_pos,
     basic_string_erase_range(pt_basic_string, it_begin, it_end);
 }
 
-/* replace */
-void basic_string_replace(
-    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len,
-    const basic_string_t* cpt_basic_string_replace)
+/**
+ * Replace elements in a basic_string at a specificed position with specificed basic_string.
+ */
+void basic_string_replace(basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, const basic_string_t* cpt_replace)
 {
-    basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
-    basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
+    basic_string_iterator_t it_begin;
+    basic_string_iterator_t it_end;
 
-    assert(t_pos <= basic_string_size(pt_basic_string));
+    assert(pt_basic_string != NULL);
+    assert(cpt_replace != NULL);
+    assert(pt_basic_string != cpt_replace);
+    assert(_basic_string_same_type(pt_basic_string, cpt_replace));
+    assert(t_pos < basic_string_size(pt_basic_string));
 
-    t_begin = iterator_next_n(t_begin, t_pos);
+    it_begin = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
-        t_end = basic_string_end(pt_basic_string);
+        it_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        t_end = iterator_next_n(t_end, t_pos + t_len);
+        it_end = iterator_next_n(basic_string_begin(pt_basic_string), t_pos + t_len);
     }
 
-    basic_string_range_replace(
-        pt_basic_string, t_begin, t_end, cpt_basic_string_replace);
+    basic_string_range_replace(pt_basic_string, it_begin, it_end, cpt_replace);
 }
 
+/**
+ * Replace elements in a basic_string at a specificed position with specificed sub basic_string.
+ */
 void basic_string_replace_substring(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len,
-    const basic_string_t* cpt_basic_string_replace, size_t t_position, size_t t_length)
+    const basic_string_t* cpt_replace, size_t t_position, size_t t_length)
 {
-    basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
-    basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
+    basic_string_iterator_t it_begin;
+    basic_string_iterator_t it_end;
 
-    assert(t_pos <= basic_string_size(pt_basic_string));
+    assert(pt_basic_string != NULL);
+    assert(cpt_replace != NULL);
+    assert(pt_basic_string != cpt_replace);
+    assert(_basic_string_same_type(pt_basic_string, cpt_replace));
+    assert(t_pos < basic_string_size(pt_basic_string));
+    assert(t_position < basic_string_size(cpt_replace));
 
-    t_begin = iterator_next_n(t_begin, t_pos);
+    it_begin = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
-        t_end = basic_string_end(pt_basic_string);
+        it_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        t_end = iterator_next_n(t_end, t_pos + t_len);
+        it_end = iterator_next_n(basic_string_begin(pt_basic_string), t_pos + t_len);
     }
 
-    basic_string_range_replace_substring(
-        pt_basic_string, t_begin, t_end, cpt_basic_string_replace, t_position, t_length);
+    basic_string_range_replace_substring(pt_basic_string, it_begin, it_end, cpt_replace, t_position, t_length);
 }
 
+/**
+ * Replace elements in a basic_string at a specificed position with specificed value string.
+ */
 void basic_string_replace_cstr(
-    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len,
-    const void* cpv_value_string)
+    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, const void* cpv_value_string)
 {
-    basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
-    basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
+    basic_string_iterator_t it_begin;
+    basic_string_iterator_t it_end;
 
-    assert(t_pos <= basic_string_size(pt_basic_string));
+    assert(pt_basic_string != NULL);
+    assert(cpv_value_string != NULL);
+    assert(t_pos < basic_string_size(pt_basic_string));
 
-    t_begin = iterator_next_n(t_begin, t_pos);
+    it_begin = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
-        t_end = basic_string_end(pt_basic_string);
+        it_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        t_end = iterator_next_n(t_end, t_pos + t_len);
+        it_end = iterator_next_n(basic_string_begin(pt_basic_string), t_pos + t_len);
     }
 
-    basic_string_range_replace_cstr(
-        pt_basic_string, t_begin, t_end, cpv_value_string);
+    basic_string_range_replace_cstr(pt_basic_string, it_begin, it_end, cpv_value_string);
 }
 
+/**
+ * Replace elements in a basic_string at a specificed position with specificed sub value string.
+ */
 void basic_string_replace_subcstr(
-    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len,
-    const void* cpv_value_string, size_t t_length)
+    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, const void* cpv_value_string, size_t t_length)
 {
-    basic_string_iterator_t t_begin = basic_string_begin(pt_basic_string);
-    basic_string_iterator_t t_end   = basic_string_begin(pt_basic_string);
+    basic_string_iterator_t it_begin;
+    basic_string_iterator_t it_end;
 
-    assert(t_pos <= basic_string_size(pt_basic_string));
+    assert(pt_basic_string != NULL);
+    assert(cpv_value_string != NULL);
+    assert(t_pos < basic_string_size(pt_basic_string));
 
-    t_begin = iterator_next_n(t_begin, t_pos);
+    it_begin = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
     if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
     {
-        t_end = basic_string_end(pt_basic_string);
+        it_end = basic_string_end(pt_basic_string);
     }
     else
     {
-        t_end = iterator_next_n(t_end, t_pos + t_len);
+        it_end = iterator_next_n(basic_string_begin(pt_basic_string), t_pos + t_len);
     }
 
-    basic_string_range_replace_subcstr(
-        pt_basic_string, t_begin, t_end, cpv_value_string, t_length);
+    basic_string_range_replace_subcstr(pt_basic_string, it_begin, it_end, cpv_value_string, t_length);
 }
 
 
-
+/**
+ * Replace elements in a basic_string at a specificed range with specificed basic_string.
+ */
 void basic_string_range_replace(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
-    basic_string_iterator_t t_end, const basic_string_t* cpt_basic_string_replace)
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin,
+    basic_string_iterator_t it_end, const basic_string_t* cpt_replace)
 {
-    basic_string_iterator_t t_iterator = 
-        basic_string_erase_range(pt_basic_string, t_begin, t_end);
-    basic_string_insert_string(
-        pt_basic_string,
-        iterator_distance(basic_string_begin(pt_basic_string), t_iterator),
-        cpt_basic_string_replace);
+    basic_string_iterator_t it_pos;
+
+    assert(pt_basic_string != NULL);
+    assert(cpt_replace != NULL);
+    assert(pt_basic_string != cpt_replace);
+    assert(_basic_string_same_type(pt_basic_string, cpt_replace));
+
+    it_pos = basic_string_erase_range(pt_basic_string, it_begin, it_end);
+    if(iterator_equal(it_pos, basic_string_end(pt_basic_string)))
+    {
+        basic_string_append(pt_basic_string, cpt_replace);
+    }
+    else
+    {
+        basic_string_insert_string(pt_basic_string, iterator_distance(basic_string_begin(pt_basic_string), it_pos), cpt_replace);
+    }
 }
 
+/**
+ * Replace elements in a basic_string at a specificed range with specificed sub basic_string.
+ */
 void basic_string_range_replace_substring(
-    basic_string_t* pt_basic_string,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end,
-    const basic_string_t* cpt_basic_string_replace, size_t t_pos, size_t t_len)
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end,
+    const basic_string_t* cpt_replace, size_t t_position, size_t t_length)
 {
-    basic_string_iterator_t t_iterator = 
-        basic_string_erase_range(pt_basic_string, t_begin, t_end);
-    basic_string_insert_substring(
-        pt_basic_string,
-        iterator_distance(basic_string_begin(pt_basic_string), t_iterator),
-        cpt_basic_string_replace, t_pos, t_len);
+    basic_string_iterator_t it_pos;
+
+    assert(pt_basic_string != NULL);
+    assert(cpt_replace != NULL);
+    assert(pt_basic_string != cpt_replace);
+    assert(_basic_string_same_type(pt_basic_string, cpt_replace));
+    assert(t_position < basic_string_size(cpt_replace));
+
+    it_pos = basic_string_erase_range(pt_basic_string, it_begin, it_end);
+    if(iterator_equal(it_pos, basic_string_end(pt_basic_string)))
+    {
+        basic_string_append_substring(pt_basic_string, cpt_replace, t_position, t_length);
+    }
+    else
+    {
+        basic_string_insert_substring(
+            pt_basic_string, iterator_distance(basic_string_begin(pt_basic_string), it_pos),
+            cpt_replace, t_position, t_length);
+    }
 }
 
+/**
+ * Replace elements in a basic_string at a specificed range with specificed value string.
+ */
 void basic_string_range_replace_cstr(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
-    basic_string_iterator_t t_end, const void* cpv_value_string)
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin,
+    basic_string_iterator_t it_end, const void* cpv_value_string)
 {
-    basic_string_iterator_t t_iterator = 
-        basic_string_erase_range(pt_basic_string, t_begin, t_end);
-    basic_string_insert_cstr(
-        pt_basic_string,
-        iterator_distance(basic_string_begin(pt_basic_string), t_iterator),
-        cpv_value_string);
+    basic_string_iterator_t it_pos;
+
+    assert(pt_basic_string != NULL);
+    assert(cpv_value_string != NULL);
+
+    it_pos = basic_string_erase_range(pt_basic_string, it_begin, it_end);
+    if(iterator_equal(it_pos, basic_string_end(pt_basic_string)))
+    {
+        basic_string_append_cstr(pt_basic_string, cpv_value_string);
+    }
+    else
+    {
+        basic_string_insert_cstr(
+            pt_basic_string, iterator_distance(basic_string_begin(pt_basic_string), it_pos), cpv_value_string);
+    }
 }
 
 void basic_string_range_replace_subcstr(
