@@ -2669,6 +2669,56 @@ void test_basic_string_range_replace_cstr__char(void** state);
 void test_basic_string_range_replace_cstr__cstr(void** state);
 void test_basic_string_range_replace_cstr__libcstl_builtin(void** state);
 void test_basic_string_range_replace_cstr__user_define(void** state);
+/*
+ * test basic_string_range_replace_subcstr
+ */
+UT_CASE_DECLARATION(basic_string_range_replace_subcstr)
+void test_basic_string_range_replace_subcstr__null_dest(void** state);
+void test_basic_string_range_replace_subcstr__null_replace(void** state);
+void test_basic_string_range_replace_subcstr__non_inited_dest(void** state);
+void test_basic_string_range_replace_subcstr__invalid_range(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_begin_empty_replace_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_begin_empty_replace_non_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_begin_non_empty_replace_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_begin_non_empty_replace_non_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_middle_empty_replace_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_middle_empty_replace_non_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_middle_non_empty_replace_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_middle_non_empty_replace_non_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_end_non_empty_replace_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_end_non_empty_replace_non_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_all_replace_empty(void** state);
+void test_basic_string_range_replace_subcstr__c_builtin_all_replace_non_empty(void** state);
+void test_basic_string_range_replace_subcstr__char(void** state);
+void test_basic_string_range_replace_subcstr__cstr(void** state);
+void test_basic_string_range_replace_subcstr__libcstl_builtin(void** state);
+void test_basic_string_range_replace_subcstr__user_define(void** state);
+/*
+ * test basic_string_replace_range
+ */
+UT_CASE_DECLARATION(basic_string_replace_range)
+void test_basic_string_replace_range__null_dest(void** state);
+void test_basic_string_replace_range__non_inited_dest(void** state);
+void test_basic_string_replace_range__not_same_type(void** state);
+void test_basic_string_replace_range__same_container(void** state);
+void test_basic_string_replace_range__invalid_range(void** state);
+void test_basic_string_replace_range__invalid_replace_range(void** state);
+void test_basic_string_replace_range__c_builtin_begin_empty_replace_empty(void** state);
+void test_basic_string_replace_range__c_builtin_begin_empty_replace_non_empty(void** state);
+void test_basic_string_replace_range__c_builtin_begin_non_empty_replace_empty(void** state);
+void test_basic_string_replace_range__c_builtin_begin_non_empty_replace_non_empty(void** state);
+void test_basic_string_replace_range__c_builtin_middle_empty_replace_empty(void** state);
+void test_basic_string_replace_range__c_builtin_middle_empty_replace_non_empty(void** state);
+void test_basic_string_replace_range__c_builtin_middle_non_empty_replace_empty(void** state);
+void test_basic_string_replace_range__c_builtin_middle_non_empty_replace_non_empty(void** state);
+void test_basic_string_replace_range__c_builtin_end_non_empty_replace_empty(void** state);
+void test_basic_string_replace_range__c_builtin_end_non_empty_replace_non_empty(void** state);
+void test_basic_string_replace_range__c_builtin_all_replace_empty(void** state);
+void test_basic_string_replace_range__c_builtin_all_replace_non_empty(void** state);
+void test_basic_string_replace_range__char(void** state);
+void test_basic_string_replace_range__cstr(void** state);
+void test_basic_string_replace_range__libcstl_builtin(void** state);
+void test_basic_string_replace_range__user_define(void** state);
 
 #define UT_CSTL_BASIC_STRING_CASE\
     UT_SUIT_BEGIN(cstl_basic_string, test_basic_string_init__null_basic_string_container),\
@@ -4995,6 +5045,48 @@ void test_basic_string_range_replace_cstr__user_define(void** state);
     UT_CASE(test_basic_string_range_replace_cstr__cstr),\
     UT_CASE(test_basic_string_range_replace_cstr__libcstl_builtin),\
     UT_CASE(test_basic_string_range_replace_cstr__user_define),\
+    UT_CASE_BEGIN(basic_string_range_replace_subcstr, test_basic_string_range_replace_subcstr__null_dest),\
+    UT_CASE(test_basic_string_range_replace_subcstr__null_replace),\
+    UT_CASE(test_basic_string_range_replace_subcstr__non_inited_dest),\
+    UT_CASE(test_basic_string_range_replace_subcstr__invalid_range),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_begin_empty_replace_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_begin_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_begin_non_empty_replace_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_begin_non_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_middle_empty_replace_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_middle_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_middle_non_empty_replace_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_middle_non_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_end_non_empty_replace_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_end_non_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_all_replace_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__c_builtin_all_replace_non_empty),\
+    UT_CASE(test_basic_string_range_replace_subcstr__char),\
+    UT_CASE(test_basic_string_range_replace_subcstr__cstr),\
+    UT_CASE(test_basic_string_range_replace_subcstr__libcstl_builtin),\
+    UT_CASE(test_basic_string_range_replace_subcstr__user_define),\
+    UT_CASE_BEGIN(basic_string_replace_range, test_basic_string_replace_range__null_dest),\
+    UT_CASE(test_basic_string_replace_range__non_inited_dest),\
+    UT_CASE(test_basic_string_replace_range__not_same_type),\
+    UT_CASE(test_basic_string_replace_range__same_container),\
+    UT_CASE(test_basic_string_replace_range__invalid_range),\
+    UT_CASE(test_basic_string_replace_range__invalid_replace_range),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_begin_empty_replace_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_begin_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_begin_non_empty_replace_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_begin_non_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_middle_empty_replace_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_middle_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_middle_non_empty_replace_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_middle_non_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_end_non_empty_replace_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_end_non_empty_replace_non_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_all_replace_empty),\
+    UT_CASE(test_basic_string_replace_range__c_builtin_all_replace_non_empty),\
+    UT_CASE(test_basic_string_replace_range__char),\
+    UT_CASE(test_basic_string_replace_range__cstr),\
+    UT_CASE(test_basic_string_replace_range__libcstl_builtin),\
+    UT_CASE(test_basic_string_replace_range__user_define),\
 
 #endif /* _UT_CSTL_BASIC_STRING_H_ */
 

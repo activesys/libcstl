@@ -47,7 +47,7 @@ void test__basic_string_same_type__non_created_first(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init(pt_basic_string);
 
-    bstring._t_vector._t_typeinfo._t_style = 100;
+    bstring._vec_base._t_typeinfo._t_style = 100;
     expect_assert_failure(_basic_string_same_type(&bstring, pt_basic_string));
 
     basic_string_destroy(pt_basic_string);
@@ -59,7 +59,7 @@ void test__basic_string_same_type__non_created_second(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init(pt_basic_string);
 
-    bstring._t_vector._t_typeinfo._t_style = 100;
+    bstring._vec_base._t_typeinfo._t_style = 100;
     expect_assert_failure(_basic_string_same_type(pt_basic_string, &bstring));
 
     basic_string_destroy(pt_basic_string);
@@ -426,7 +426,7 @@ void test__basic_string_get_varg_value_auxiliary__non_created(void** state)
 {
     int varg = 0;
     /*basic_string_t bstr;*/
-    /*bstr._t_vector._t_typeinfo._t_style = 100;*/
+    /*bstr._vec_base._t_typeinfo._t_style = 100;*/
     /*expect_assert_failure(_wrapper_basic_string_get_varg_value_auxiliary(&bstr, &varg, 100));*/
     assert_true(true);
 }
@@ -463,7 +463,7 @@ void test__basic_string_destroy_varg_value_auxiliary__non_created(void** state)
 {
     int varg = 0;
     /*basic_string_t bstr;*/
-    /*bstr._t_vector._t_typeinfo._t_style = 100;*/
+    /*bstr._vec_base._t_typeinfo._t_style = 100;*/
     /*expect_assert_failure(_basic_string_destroy_varg_value_auxiliary(&bstr, &varg));*/
     assert_true(true);
 }

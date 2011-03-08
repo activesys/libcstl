@@ -34,7 +34,7 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef struct _tagbasicstring
 {
-    vector_t _t_vector;
+    vector_t _vec_base;
 }basic_string_t;
 
 /** exported global variable declaration section **/

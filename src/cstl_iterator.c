@@ -732,7 +732,7 @@ _typeinfo_t* _iterator_get_typeinfo(iterator_t t_iter)
         return &((deque_t*)t_iter._pt_container)->_t_typeinfo;
         break;
     case _BASIC_STRING_CONTAINER:
-        return &((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo;
+        return &((basic_string_t*)t_iter._pt_container)->_vec_base._t_typeinfo;
         break;
     case _LIST_CONTAINER:
         return &((list_t*)t_iter._pt_container)->_t_typeinfo;
@@ -835,8 +835,8 @@ void* _iterator_allocate_init_elem(iterator_t t_iter)
         _deque_init_elem_auxiliary((deque_t*)t_iter._pt_container, pv_value);
         break;
     case _BASIC_STRING_CONTAINER:
-        pv_value = _alloc_allocate(&((basic_string_t*)t_iter._pt_container)->_t_vector._t_allocater,
-            ((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo._pt_type->_t_typesize, 1);
+        pv_value = _alloc_allocate(&((basic_string_t*)t_iter._pt_container)->_vec_base._t_allocater,
+            ((basic_string_t*)t_iter._pt_container)->_vec_base._t_typeinfo._pt_type->_t_typesize, 1);
         _basic_string_init_elem_auxiliary((basic_string_t*)t_iter._pt_container, pv_value);
         break;
     case _LIST_CONTAINER:
@@ -921,11 +921,11 @@ void _iterator_deallocate_destroy_elem(iterator_t t_iter, void* pv_value)
             ((deque_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _BASIC_STRING_CONTAINER:
-        ((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo._pt_type->_t_typedestroy(
+        ((basic_string_t*)t_iter._pt_container)->_vec_base._t_typeinfo._pt_type->_t_typedestroy(
             pv_value, &t_result);
         assert(t_result);
-        _alloc_deallocate(&((basic_string_t*)t_iter._pt_container)->_t_vector._t_allocater, pv_value,
-            ((basic_string_t*)t_iter._pt_container)->_t_vector._t_typeinfo._pt_type->_t_typesize, 1);
+        _alloc_deallocate(&((basic_string_t*)t_iter._pt_container)->_vec_base._t_allocater, pv_value,
+            ((basic_string_t*)t_iter._pt_container)->_vec_base._t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _LIST_CONTAINER:
         ((list_t*)t_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(

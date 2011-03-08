@@ -217,9 +217,22 @@ extern "C" {
  */
 #define basic_string_insert_elem(pt_basic_string, t_pos, t_count, elem)\
     _basic_string_insert_elem((pt_basic_string), (t_pos), (t_count), (elem))
-/* replace element */
-#define basic_string_range_replace_elem(pt_basic_string, t_begin, t_end, t_count, elem)\
-    _basic_string_range_replace_elem((pt_basic_string), (t_begin), (t_end), (t_count), (elem))
+
+/**
+ * Replace elements in a basic_string at specificed range with specific elements.
+ * @param pt_basic_string   basic_string container.
+ * @param it_begin          the position of first element in the range.
+ * @param it_end            the position of first element beyond the range.
+ * @param t_count           element number.
+ * @param elem              specificed element.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the t_pos must be
+ *          belong to basic_string, otherwise the behavior is undefined. the type of specificed element and basic_string
+ *          element type must be same, otherwise the behavior is undefined. [it_begin, it_end) must be valid range for
+ *          pt_basic_string, otherwise the behavior is undefined.
+ */
+#define basic_string_range_replace_elem(pt_basic_string, it_begin, it_end, t_count, elem)\
+    _basic_string_range_replace_elem((pt_basic_string), (it_begin), (it_end), (t_count), (elem))
 
 /**
  * Replace elements in a basic_string at specificed posititon with specific elements.
@@ -230,10 +243,10 @@ extern "C" {
  * @param elem              specificed element.
  * @return void.
  * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the t_pos must be
- *          belong to basic_string, otherwise the behavior is undefined. if t_len == NPOS or t_pos + t_len >= basic_string_size(),
- *          then replace all remain string from t_pos. the type of specificed element and basic_string element type must be same,
- *          otherwise the behavior is undefined. the first specificed is in use, others are not in use. the inserted element is
- *          from variable argument list.
+ *          belong to basic_string, otherwise the behavior is undefined. if t_len == NPOS or t_pos + t_len >= 
+ *          basic_string_size(), then replace all remain string from t_pos. the type of specificed element and basic_string
+ *          element type must be same, otherwise the behavior is undefined. the first specificed is in use, others are not
+ *          in use. the inserted element is from variable argument list.
  */
 #define basic_string_replace_elem(pt_basic_string, t_pos, t_len, t_count, elem)\
     _basic_string_replace_elem((pt_basic_string), (t_pos), (t_len), (t_count), (elem))
@@ -1269,9 +1282,9 @@ extern void basic_string_replace_substring(
  * @param cpv_value_string    value string.
  * @return void.
  * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string
- *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and value string must be
- *          same, otherwise the behavior is undefined. t_pos is valid position for pt_basic_string, otherwise the behavior is
- *          undefined. if t_len == NPOS or t_pos + t_len >= basic_string_size(pt_basic_string), the user all remain
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and value string must
+ *          be same, otherwise the behavior is undefined. t_pos is valid position for pt_basic_string, otherwise the behavior
+ *          is undefined. if t_len == NPOS or t_pos + t_len >= basic_string_size(pt_basic_string), the user all remain
  *          pt_basic_string that started from t_pos.
  */
 extern void basic_string_replace_cstr(
@@ -1286,9 +1299,9 @@ extern void basic_string_replace_cstr(
  * @param t_length            sub value string length.
  * @return void.
  * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string
- *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and value string must be
- *          same, otherwise the behavior is undefined. t_pos is valid position for pt_basic_string, otherwise the behavior is
- *          undefined. if t_len == NPOS or t_pos + t_len >= basic_string_size(pt_basic_string), the user all remain
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and value string must
+ *          be same, otherwise the behavior is undefined. t_pos is valid position for pt_basic_string, otherwise the behavior
+ *          is undefined. if t_len == NPOS or t_pos + t_len >= basic_string_size(pt_basic_string), the user all remain
  *          pt_basic_string that started from t_pos. if t_length == NPOS or t_length is equal ot or greater than the length of
  *          cpv_value_string, then use all cpv_value_string.
  */
@@ -1339,19 +1352,48 @@ extern void basic_string_range_replace_substring(
  * @param cpv_value_string    value string.
  * @return void.
  * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string
- *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and value string must be
- *          same, otherwise the behavior is undefined. [it_begin, it_end) must be valid range for pt_basic_string, otherwise the
- *          behavior is undefined.
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and value string must
+ *          be same, otherwise the behavior is undefined. [it_begin, it_end) must be valid range for pt_basic_string,
+ *          otherwise the behavior is undefined.
  */
 extern void basic_string_range_replace_cstr(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_begin,
     basic_string_iterator_t it_end, const void* cpv_value_string);
+
+/**
+ * Replace elements in a basic_string at a specificed range with specificed sub value string.
+ * @param pt_basic_string     destination basic_string container.
+ * @param it_begin            the position of first element in the range.
+ * @param it_end              the position of first element beyond the range.
+ * @param cpv_value_string    value string.
+ * @param t_length            sub value string length.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and value string must
+ *          be same, otherwise the behavior is undefined. [it_begin, it_end) must be valid range for pt_basic_string,
+ *          otherwise the behavior is undefined. if t_length == NPOS or t_length is equal ot or greater than the length of
+ *          cpv_value_string, then use all cpv_value_string.
+ */
 extern void basic_string_range_replace_subcstr(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_begin,
-    basic_string_iterator_t t_end, const void* cpv_value_string, size_t t_len);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end,
+    const void* cpv_value_string, size_t t_len);
+
+/**
+ * Replace elements in a basic_string at a specificed range with specificed range.
+ * @param pt_basic_string     destination basic_string container.
+ * @param it_begin            the position of first element in the range.
+ * @param it_end              the position of first element beyond the range.
+ * @param it_first            the position of first element in the replace range.
+ * @param it_last             the position of first element beyond the replace range.
+ * @return void.
+ * @remarks if pt_basic_string == NULL, then the behavior is undefined. pt_basic_string
+ *          must be initialized, otherwise the behavior is undefined. the element type of basic_string and [it_first, it_last)
+ *          must be same, otherwise the behavior is undefined. [it_begin, it_end) must be valid range for pt_basic_string,
+ *          otherwise the behavior is undefined. [it_first, it_last) must be valid range, and [it_first, it_last) must not
+ *          belong to pt_basic_string, otherwise the behavior is undefined.
+ */
 extern void basic_string_replace_range(
-    basic_string_t* pt_basic_string,
-    basic_string_iterator_t t_begin, basic_string_iterator_t t_end,
+    basic_string_t* pt_basic_string, basic_string_iterator_t t_begin, basic_string_iterator_t t_end,
     basic_string_iterator_t t_first, basic_string_iterator_t t_last);
 
 #ifdef __cplusplus

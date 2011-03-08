@@ -67,7 +67,7 @@ bool_t _basic_string_same_type(const basic_string_t* cpt_first, const basic_stri
     assert(cpt_first != NULL);
     assert(cpt_second != NULL);
 
-    return _vector_same_type(&cpt_first->_t_vector, &cpt_second->_t_vector);
+    return _vector_same_type(&cpt_first->_vec_base, &cpt_second->_vec_base);
 }
 #endif /* NDEBUG */
 
@@ -105,7 +105,7 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
     {
         _byte_t* pby_terminator = NULL;
 
-        pby_terminator = (_byte_t*)_alloc_allocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, t_typesize, 1);
+        pby_terminator = (_byte_t*)_alloc_allocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocater, t_typesize, 1);
         assert(pby_terminator != NULL);
         memset(pby_terminator, 0x00, t_typesize);
 
@@ -114,7 +114,7 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
             t_length++;
         }
 
-        _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_t_vector._t_allocater, pby_terminator, t_typesize, 1);
+        _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocater, pby_terminator, t_typesize, 1);
 
         return t_length;
     }
@@ -140,7 +140,7 @@ void _basic_string_get_varg_value_auxiliary(basic_string_t* pt_basic_string, va_
     assert(pv_varg != NULL);
 
     _basic_string_init_elem_auxiliary(pt_basic_string, pv_varg);
-    _type_get_varg_value(&pt_basic_string->_t_vector._t_typeinfo, val_elemlist, pv_varg);
+    _type_get_varg_value(&pt_basic_string->_vec_base._t_typeinfo, val_elemlist, pv_varg);
 }
 
 /**
