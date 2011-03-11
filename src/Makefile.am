@@ -27,7 +27,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_set.c \
 		     cstl_slist.c cstl_slist_iterator.c cstl_slist_private.c cstl_slist_aux.c cstl_slist_aux.h \
 		     cstl_stack.c cstl_stack_private.c \
-		     cstl_string.c \
+		     cstl_string.c cstl_string_private.c \
 		     cstl_types.c \
 		     cstl_vector.c cstl_vector_iterator.c cstl_vector_private.c cstl_vector_aux.c cstl_vector_aux.h
 libcstl_la_CPPFLAGS = -I$(srcdir)/..

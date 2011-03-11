@@ -77,6 +77,7 @@ cstlinclude_HEADERS =	calgorithm.h \
 			cstl_stack_private.h \
 			cstl_string.h \
 			cstl_string_iterator.h \
+			cstl_string_private.h \
 			cstl_types.h \
 			cstl_vector.h \
 			cstl_vector_iterator.h \

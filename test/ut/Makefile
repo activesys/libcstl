@@ -67,10 +67,10 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_priority_queue.$(OBJEXT) \
 	ut-cstl_priority_queue_private.$(OBJEXT) \
 	ut-cstl_queue.$(OBJEXT) ut-cstl_queue_private.$(OBJEXT) \
-	ut-cstl_string.$(OBJEXT) ut-cstl_types.$(OBJEXT) \
-	ut-cstl_pair.$(OBJEXT) ut-cstl_stack.$(OBJEXT) \
-	ut-cstl_stack_private.$(OBJEXT) ut-cstl_vector.$(OBJEXT) \
-	ut-cstl_vector_iterator.$(OBJEXT) \
+	ut-cstl_string.$(OBJEXT) ut-cstl_string_private.$(OBJEXT) \
+	ut-cstl_types.$(OBJEXT) ut-cstl_pair.$(OBJEXT) \
+	ut-cstl_stack.$(OBJEXT) ut-cstl_stack_private.$(OBJEXT) \
+	ut-cstl_vector.$(OBJEXT) ut-cstl_vector_iterator.$(OBJEXT) \
 	ut-cstl_vector_private.$(OBJEXT) ut-cstl_vector_aux.$(OBJEXT) \
 	ut-ut_cstl_alloc_aux.$(OBJEXT) ut-ut_cstl_alloc.$(OBJEXT) \
 	ut-ut_cstl_vector_iterator.$(OBJEXT) \
@@ -90,7 +90,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_basic_string_iterator.$(OBJEXT) \
 	ut-ut_cstl_basic_string_aux.$(OBJEXT) \
 	ut-ut_cstl_basic_string_private.$(OBJEXT) \
-	ut-ut_cstl_basic_string.$(OBJEXT)
+	ut-ut_cstl_basic_string.$(OBJEXT) \
+	ut-ut_cstl_string_private.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -256,7 +257,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_slist_private.c $(srcdir)/../../src/cstl_slist_aux.c \
 	     $(srcdir)/../../src/cstl_priority_queue.c $(srcdir)/../../src/cstl_priority_queue_private.c \
 	     $(srcdir)/../../src/cstl_queue.c $(srcdir)/../../src/cstl_queue_private.c \
-	     $(srcdir)/../../src/cstl_string.c \
+	     $(srcdir)/../../src/cstl_string.c $(srcdir)/../../src/cstl_string_private.c \
 	     $(srcdir)/../../src/cstl_types.c \
 	     $(srcdir)/../../src/cstl_pair.c \
 	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
@@ -287,7 +288,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_basic_string_iterator.c ut_cstl_basic_string_iterator.h \
 	     ut_cstl_basic_string_aux.c ut_cstl_basic_string_aux.h \
 	     ut_cstl_basic_string_private.c ut_cstl_basic_string_private.h \
-	     ut_cstl_basic_string.c ut_cstl_basic_string.h
+	     ut_cstl_basic_string.c ut_cstl_basic_string.h \
+	     ut_cstl_string_private.c ut_cstl_string_private.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -389,6 +391,7 @@ include ./$(DEPDIR)/ut-cstl_slist_private.Po
 include ./$(DEPDIR)/ut-cstl_stack.Po
 include ./$(DEPDIR)/ut-cstl_stack_private.Po
 include ./$(DEPDIR)/ut-cstl_string.Po
+include ./$(DEPDIR)/ut-cstl_string_private.Po
 include ./$(DEPDIR)/ut-cstl_types.Po
 include ./$(DEPDIR)/ut-cstl_vector.Po
 include ./$(DEPDIR)/ut-cstl_vector_aux.Po
@@ -416,6 +419,7 @@ include ./$(DEPDIR)/ut-ut_cstl_slist_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_slist_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_stack.Po
 include ./$(DEPDIR)/ut-ut_cstl_stack_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_string_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_iterator.Po
@@ -1032,6 +1036,20 @@ ut-cstl_string.obj: $(srcdir)/../../src/cstl_string.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_string.obj `if test -f '$(srcdir)/../../src/cstl_string.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string.c'; fi`
 
+ut-cstl_string_private.o: $(srcdir)/../../src/cstl_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_string_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_string_private.Tpo -c -o ut-cstl_string_private.o `test -f '$(srcdir)/../../src/cstl_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string_private.c
+	$(am__mv) $(DEPDIR)/ut-cstl_string_private.Tpo $(DEPDIR)/ut-cstl_string_private.Po
+#	source='$(srcdir)/../../src/cstl_string_private.c' object='ut-cstl_string_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_string_private.o `test -f '$(srcdir)/../../src/cstl_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string_private.c
+
+ut-cstl_string_private.obj: $(srcdir)/../../src/cstl_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_string_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_string_private.Tpo -c -o ut-cstl_string_private.obj `if test -f '$(srcdir)/../../src/cstl_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_string_private.Tpo $(DEPDIR)/ut-cstl_string_private.Po
+#	source='$(srcdir)/../../src/cstl_string_private.c' object='ut-cstl_string_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_string_private.obj `if test -f '$(srcdir)/../../src/cstl_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string_private.c'; fi`
+
 ut-cstl_types.o: $(srcdir)/../../src/cstl_types.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_types.o -MD -MP -MF $(DEPDIR)/ut-cstl_types.Tpo -c -o ut-cstl_types.o `test -f '$(srcdir)/../../src/cstl_types.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types.c
 	$(am__mv) $(DEPDIR)/ut-cstl_types.Tpo $(DEPDIR)/ut-cstl_types.Po
@@ -1507,6 +1525,20 @@ ut-ut_cstl_basic_string.obj: ut_cstl_basic_string.c
 #	source='ut_cstl_basic_string.c' object='ut-ut_cstl_basic_string.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_basic_string.obj `if test -f 'ut_cstl_basic_string.c'; then $(CYGPATH_W) 'ut_cstl_basic_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string.c'; fi`
+
+ut-ut_cstl_string_private.o: ut_cstl_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_string_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_string_private.Tpo -c -o ut-ut_cstl_string_private.o `test -f 'ut_cstl_string_private.c' || echo '$(srcdir)/'`ut_cstl_string_private.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_string_private.Tpo $(DEPDIR)/ut-ut_cstl_string_private.Po
+#	source='ut_cstl_string_private.c' object='ut-ut_cstl_string_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_string_private.o `test -f 'ut_cstl_string_private.c' || echo '$(srcdir)/'`ut_cstl_string_private.c
+
+ut-ut_cstl_string_private.obj: ut_cstl_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_string_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_string_private.Tpo -c -o ut-ut_cstl_string_private.obj `if test -f 'ut_cstl_string_private.c'; then $(CYGPATH_W) 'ut_cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_string_private.Tpo $(DEPDIR)/ut-ut_cstl_string_private.Po
+#	source='ut_cstl_string_private.c' object='ut-ut_cstl_string_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_string_private.obj `if test -f 'ut_cstl_string_private.c'; then $(CYGPATH_W) 'ut_cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string_private.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

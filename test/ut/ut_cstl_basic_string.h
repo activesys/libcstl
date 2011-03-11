@@ -5086,7 +5086,7 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_replace_range__char),\
     UT_CASE(test_basic_string_replace_range__cstr),\
     UT_CASE(test_basic_string_replace_range__libcstl_builtin),\
-    UT_CASE(test_basic_string_replace_range__user_define),\
+    UT_CASE(test_basic_string_replace_range__user_define)
 
 #endif /* _UT_CSTL_BASIC_STRING_H_ */
 

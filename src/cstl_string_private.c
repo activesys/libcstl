@@ -1,5 +1,5 @@
 /*
- *  The interface of basic_string and string
+ *  The implementation of string_t private interfaces.
  *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
@@ -20,13 +20,6 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTRING_H_
-#define _CSTRING_H_
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /** include section **/
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
@@ -41,18 +34,34 @@ extern "C" {
 #include <cstl/cstl_string_private.h>
 #include <cstl/cstl_string.h>
 
-/** constant declaration and macro section **/
+/** local constant declaration and local macro section **/
 
-/** data type declaration and struct, union, enum section **/
+/** local data type declaration and local struct, union, enum section **/
 
-/** exported global variable declaration section **/
+/** local function prototype section **/
 
-/** exported function prototype section **/
+/** exported global variable definition section **/
 
-#ifdef __cplusplus
+/** local global variable definition section **/
+
+/** exported function implementation section **/
+/**
+ * Create string container auxiliary function.
+ */
+bool_t _create_string_auxiliary(string_t* pstr_string)
+{
+    return _create_basic_string_auxiliary(pstr_string, "char");
 }
-#endif
 
-#endif /* _CSTRING_H_ */
+/**
+ * Destroy string container auxiliary function.
+ */
+void _string_destroy_auxiliary(string_t* pstr_string)
+{
+    _basic_string_destroy_auxiliary(pstr_string);
+}
+
+/** local function implementation section **/
+
 /** eof **/
 

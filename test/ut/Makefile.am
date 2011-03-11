@@ -29,7 +29,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_slist_private.c $(srcdir)/../../src/cstl_slist_aux.c \
 	     $(srcdir)/../../src/cstl_priority_queue.c $(srcdir)/../../src/cstl_priority_queue_private.c \
 	     $(srcdir)/../../src/cstl_queue.c $(srcdir)/../../src/cstl_queue_private.c \
-	     $(srcdir)/../../src/cstl_string.c \
+	     $(srcdir)/../../src/cstl_string.c $(srcdir)/../../src/cstl_string_private.c \
 	     $(srcdir)/../../src/cstl_types.c \
 	     $(srcdir)/../../src/cstl_pair.c \
 	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
@@ -60,7 +60,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_basic_string_iterator.c ut_cstl_basic_string_iterator.h \
 	     ut_cstl_basic_string_aux.c ut_cstl_basic_string_aux.h \
 	     ut_cstl_basic_string_private.c ut_cstl_basic_string_private.h \
-	     ut_cstl_basic_string.c ut_cstl_basic_string.h
+	     ut_cstl_basic_string.c ut_cstl_basic_string.h \
+	     ut_cstl_string_private.c ut_cstl_string_private.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)
