@@ -91,7 +91,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_basic_string_aux.$(OBJEXT) \
 	ut-ut_cstl_basic_string_private.$(OBJEXT) \
 	ut-ut_cstl_basic_string.$(OBJEXT) \
-	ut-ut_cstl_string_private.$(OBJEXT)
+	ut-ut_cstl_string_private.$(OBJEXT) \
+	ut-ut_cstl_string.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -289,7 +290,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_basic_string_aux.c ut_cstl_basic_string_aux.h \
 	     ut_cstl_basic_string_private.c ut_cstl_basic_string_private.h \
 	     ut_cstl_basic_string.c ut_cstl_basic_string.h \
-	     ut_cstl_string_private.c ut_cstl_string_private.h
+	     ut_cstl_string_private.c ut_cstl_string_private.h \
+	     ut_cstl_string.c ut_cstl_string.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -419,6 +421,7 @@ include ./$(DEPDIR)/ut-ut_cstl_slist_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_slist_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_stack.Po
 include ./$(DEPDIR)/ut-ut_cstl_stack_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_string.Po
 include ./$(DEPDIR)/ut-ut_cstl_string_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_aux.Po
@@ -1539,6 +1542,20 @@ ut-ut_cstl_string_private.obj: ut_cstl_string_private.c
 #	source='ut_cstl_string_private.c' object='ut-ut_cstl_string_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_string_private.obj `if test -f 'ut_cstl_string_private.c'; then $(CYGPATH_W) 'ut_cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string_private.c'; fi`
+
+ut-ut_cstl_string.o: ut_cstl_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_string.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_string.Tpo -c -o ut-ut_cstl_string.o `test -f 'ut_cstl_string.c' || echo '$(srcdir)/'`ut_cstl_string.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_string.Tpo $(DEPDIR)/ut-ut_cstl_string.Po
+#	source='ut_cstl_string.c' object='ut-ut_cstl_string.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_string.o `test -f 'ut_cstl_string.c' || echo '$(srcdir)/'`ut_cstl_string.c
+
+ut-ut_cstl_string.obj: ut_cstl_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_string.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_string.Tpo -c -o ut-ut_cstl_string.obj `if test -f 'ut_cstl_string.c'; then $(CYGPATH_W) 'ut_cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_string.Tpo $(DEPDIR)/ut-ut_cstl_string.Po
+#	source='ut_cstl_string.c' object='ut-ut_cstl_string.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_string.obj `if test -f 'ut_cstl_string.c'; then $(CYGPATH_W) 'ut_cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
