@@ -74,12 +74,62 @@ extern void string_init_char(string_t* pstr_string, size_t t_count, char c_char)
  *          is equal to the length of c-string.
  */
 extern void string_init_cstr(string_t* pstr_string, const char* s_cstr);
+
+/**
+ * Initialize string container specific sub c-string.
+ * @param pstr_string      string container.
+ * @param s_cstr           c-string.
+ * @param t_len            length of sub c-string.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string muse be created by
+ *          create_string(), otherwise the behavior is undefined. if t_len is NPOS or greater then the length of c-string,
+ *          then use total c-string to initialize string.
+ */
 extern void string_init_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len);
-extern void string_init_copy(string_t* pstr_string, const string_t* cpstr_string_src);
-extern void string_init_copy_substring(
-    string_t* pstr_string, const string_t* cpstr_string_src, size_t t_pos, size_t t_len);
-extern void string_init_copy_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end);
+
+/**
+ * Initialize string container with an exist string container.
+ * @param pstr_dest     destination string container.
+ * @param cpstr_src     source string container.
+ * @return void.
+ * @remarks if pstr_dest == NULL or cpstr_src == NULL, then the behavior is undefined. pstr_dest must be created by
+ *          create_string() and cpstr_src must be initialized, otherwise the behavior is undefined. after initialization
+ *          the size of pstr_dest is equal to the size of cpstr_src.
+ */
+extern void string_init_copy(string_t* pstr_dest, const string_t* cpstr_src);
+
+/**
+ * Initialize string container with an exist sub string container.
+ * @param pstr_dest     destination string container.
+ * @param cpstr_src     source string container.
+ * @param t_pos         start position of source string.
+ * @param t_len         sub string length.
+ * @return void.
+ * @remarks if pstr_dest == NULL or cpstr_src == NULL, then the behavior is undefined. pstr_dest must be created by
+ *          create_string() and cpstr_src must be initialized, otherwise the behavior is undefined. t_pos must be
+ *          valid source string position, otherwise the behavior is undefined. if t_len == NPOS or t_pos + t_len >=
+ *          the length of source string, then use all remain sub string from t_pos.
+ */
+extern void string_init_copy_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len);
+
+/**
+ * Initialize string container with an exist string range.
+ * @param pstr_string         destination string container.
+ * @param it_begin            the begin iterator of range.
+ * @param it_end              the end iterator of range.
+ * @return void.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. pstr_string must be created by create_string(),
+ *          otherwise the behavior is undefined. after initialization the size of pstr_string is equal to the size of range.
+ */
+extern void string_init_copy_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end);
+
+/**
+ * Destroy string container.
+ * @param pstr_string         string container.
+ * @return void.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. the pstr_string must be initialized or created by
+ *          create_string(), otherwise the behavior is undefined.
+ */
 extern void string_destroy(string_t* pstr_string);
 
 /*

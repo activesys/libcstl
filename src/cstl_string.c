@@ -76,9 +76,13 @@ void string_init_cstr(string_t* pstr_string, const char* s_cstr)
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Initialize string container specific sub c-string.
+ */
 void string_init_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_count)
 {
     assert(pstr_string != NULL);
+    assert(s_cstr != NULL);
 
     basic_string_init_subcstr(pstr_string, s_cstr, t_count);
     basic_string_push_back(pstr_string, '\0');
@@ -95,37 +99,51 @@ void string_init_char(string_t* pstr_string, size_t t_count, char c_char)
     basic_string_push_back(pstr_string, '\0');
 }
 
-void string_init_copy(string_t* pstr_string, const string_t* cpstr_string_src)
+/**
+ * Initialize string container with an exist string container.
+ */
+void string_init_copy(string_t* pstr_dest, const string_t* cpstr_src)
 {
-    assert(pstr_string != NULL && cpstr_string_src != NULL);
+    assert(pstr_dest != NULL);
+    assert(cpstr_src != NULL);
 
-    basic_string_init_copy(pstr_string, cpstr_string_src);
+    basic_string_init_copy(pstr_dest, cpstr_src);
 }
 
-void string_init_copy_substring(
-    string_t* pstr_string, const string_t* cpstr_string_src, size_t t_pos, size_t t_len)
+/**
+ * Initialize string container with an exist sub string container.
+ */
+void string_init_copy_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len)
 {
-    assert(pstr_string != NULL && cpstr_string_src != NULL);
+    assert(pstr_dest != NULL);
+    assert(cpstr_src != NULL);
+    assert(t_pos < string_size(cpstr_src));
 
-    basic_string_init_copy_substring(pstr_string, cpstr_string_src, t_pos, t_len);
-    if(t_len != NPOS && t_pos + t_len <= string_size(cpstr_string_src))
+    basic_string_init_copy_substring(pstr_dest, cpstr_src, t_pos, t_len);
+    if(t_len != NPOS && t_pos + t_len <= string_size(cpstr_src))
     {
-        basic_string_push_back(pstr_string, '\0');
+        basic_string_push_back(pstr_dest, '\0');
     }
 }
 
-void string_init_copy_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end)
+
+/**
+ * Initialize string container with an exist string range.
+ */
+void string_init_copy_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
     assert(pstr_string != NULL);
 
-    basic_string_init_copy_range(pstr_string, t_begin, t_end);
-    if(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))))
+    basic_string_init_copy_range(pstr_string, it_begin, it_end);
+    if(!iterator_equal(it_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(it_end))))
     {
         basic_string_push_back(pstr_string, '\0');
     }
 }
 
+/**
+ * Destroy string container.
+ */
 void string_destroy(string_t* pstr_string)
 {
     basic_string_destroy(pstr_string);
