@@ -149,44 +149,71 @@ void string_destroy(string_t* pstr_string)
     basic_string_destroy(pstr_string);
 }
 
-/* c_str and data */
+/**
+ * Get character string.
+ */
 const char* string_c_str(const string_t* cpstr_string)
 {
     return basic_string_c_str(cpstr_string);
 }
 
+/**
+ * Get character string.
+ */
 const char* string_data(const string_t* cpstr_string)
 {
     return basic_string_data(cpstr_string);
 }
 
-size_t string_copy(
-    const string_t* cpstr_string, char* s_buffer, size_t t_copysize, size_t t_copypos)
+/**
+ * Copy spceificed sub string to buffer.
+ */
+size_t string_copy(const string_t* cpstr_string, char* s_buffer, size_t t_len, size_t t_pos)
 {
-    return basic_string_copy(cpstr_string, s_buffer, t_copysize, t_copypos);
+    size_t t_count = 0;
+
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_count =  basic_string_copy(cpstr_string, s_buffer, t_len, t_pos);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
+
+    return t_count;
 }
 
-/* size, max_size ... */
+/**
+ * Get string character size.
+ */
 size_t string_size(const string_t* cpstr_string)
 {
     return basic_string_size(cpstr_string) - 1;
 }
 
+/**
+ * Get character string length.
+ */
 size_t string_length(const string_t* cpstr_string)
 {
     return basic_string_length(cpstr_string) - 1;
 }
 
+/**
+ * Return maximum character number.
+ */
 size_t string_max_size(const string_t* cpstr_string)
 {
     return basic_string_max_size(cpstr_string) - 1;
 }
 
+/**
+ * Get string capacity.
+ */
 size_t string_capacity(const string_t* cpstr_string)
 {
     return basic_string_capacity(cpstr_string) - 1;
 }
 
+/**
+ * Test string is empty.
+ */
 bool_t string_empty(const string_t* cpstr_string)
 {
     return string_size(cpstr_string) == 0 ? true : false;

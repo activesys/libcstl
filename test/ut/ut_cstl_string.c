@@ -655,3 +655,459 @@ void test_string_destroy__inited_non_empty(void** state)
     string_destroy(pstr_string);
 }
 
+/*
+ * test string_c_str
+ */
+UT_CASE_DEFINATION(string_c_str)
+void test_string_c_str__null_container(void** state)
+{
+    expect_assert_failure(string_c_str(NULL));
+}
+
+void test_string_c_str__non_inited_container(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._t_typeinfo._t_style = 4566;
+    expect_assert_failure(string_c_str(pstr_string));
+
+    pstr_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    string_destroy(pstr_string);
+}
+
+void test_string_c_str__empty(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    string_init(pstr_string);
+    assert_true(strcmp(string_c_str(pstr_string), "") == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_c_str__non_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    string_init_cstr(pstr_string, "abcdefg");
+    assert_true(strcmp(string_c_str(pstr_string), "abcdefg") == 0);
+
+    string_destroy(pstr_string);
+}
+
+/*
+ * test string_data
+ */
+UT_CASE_DEFINATION(string_data)
+void test_string_data__null_container(void** state)
+{
+    expect_assert_failure(string_data(NULL));
+}
+
+void test_string_data__non_inited_container(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._t_typeinfo._t_style = 4566;
+    expect_assert_failure(string_data(pstr_string));
+
+    pstr_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    string_destroy(pstr_string);
+}
+
+void test_string_data__empty(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    string_init(pstr_string);
+    assert_true(strcmp(string_data(pstr_string), "") == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_data__non_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    string_init_cstr(pstr_string, "abcdefg");
+    assert_true(strcmp(string_data(pstr_string), "abcdefg") == 0);
+
+    string_destroy(pstr_string);
+}
+
+/*
+ * test string_copy
+ */
+UT_CASE_DEFINATION(string_copy)
+void test_string_copy__null_container(void** state)
+{
+    char buffer[10];
+    expect_assert_failure(string_copy(NULL, buffer, 0, 0));
+}
+
+void test_string_copy__non_inited_container(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[10];
+
+    pstr_string->_vec_base._t_typeinfo._t_style = 4566;
+    expect_assert_failure(string_copy(pstr_string, buffer, 0, 0));
+
+    pstr_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__null_buffer(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_cstr(pstr_string, "abcdefg");
+
+    expect_assert_failure(string_copy(pstr_string, NULL, 0, 0));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__invalid_position(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[10];
+    string_init_cstr(pstr_string, "abcdefg");
+
+    expect_assert_failure(string_copy(pstr_string, buffer, 0, 100));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__begin_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[10] = {'\0'};
+    size_t t_size = 0;
+    string_init_cstr(pstr_string, "abcdefg");
+
+    t_size = string_copy(pstr_string, buffer, 0, 0);
+    assert_true(t_size == 0);
+    assert_true(strcmp(buffer, "") == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__begin_non_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[10] = {'\0'};
+    size_t t_size = 0;
+
+    string_init_cstr(pstr_string, "abcdefg");
+    t_size = string_copy(pstr_string, buffer, 4, 0);
+    assert_true(t_size == 4);
+    assert_true(strcmp(buffer, "abcd") == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__begin_length(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[20] = {'\0'};
+    size_t t_size = 0;
+
+    string_init_cstr(pstr_string, "abcdefg");
+
+    t_size = string_copy(pstr_string, buffer, 10, 0);
+    assert_true(t_size == 7);
+    assert_true(strcmp(buffer, "abcdefg") == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__begin_npos(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[20] = "xxxxxxxxxx";
+    size_t t_size = 0;
+    string_init_cstr(pstr_string, "abcdefg");
+
+    t_size = string_copy(pstr_string, buffer, NPOS, 0);
+    assert_true(t_size == 7);
+    assert_true(strcmp(buffer, "abcdefgxxx") == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__middle_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[10] = {'\0'};
+    size_t t_size = 0;
+    string_init_cstr(pstr_string, "abcdefg");
+
+    t_size = string_copy(pstr_string, buffer, 0, 5);
+    assert_true(t_size == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__middle_non_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[10] = {'\0'};
+    size_t t_size = 0;
+    string_init_cstr(pstr_string, "abcdefghijklmn");
+
+    t_size = string_copy(pstr_string, buffer, 4, 5);
+    assert_true(t_size == 4);
+    assert_true(strcmp(buffer, "fghi") == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__middle_length(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[20] = "xxxxxxxxxx";
+    size_t t_size = 0;
+    string_init_cstr(pstr_string, "abcdefghij");
+
+    t_size = string_copy(pstr_string, buffer, 5, 5);
+    assert_true(t_size == 5);
+    assert_true(strcmp(buffer, "fghijxxxxx") == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__middle_npos(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[20] = {'\0'};
+    size_t t_size = 0;
+    string_init_cstr(pstr_string, "abcdefg");
+
+    t_size = string_copy(pstr_string, buffer, NPOS, 5);
+    assert_true(t_size == 2);
+    assert_true(strcmp(buffer, "fg") == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__end(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[10];
+    string_init_cstr(pstr_string, "abcdefghij");
+
+    expect_assert_failure(string_copy(pstr_string, buffer, 0, 10));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_copy__npos(void** state)
+{
+    string_t* pstr_string = create_string();
+    char buffer[10];
+    string_init_cstr(pstr_string, "abcdefg");
+
+    expect_assert_failure(string_copy(pstr_string, buffer, 0, NPOS));
+
+    string_destroy(pstr_string);
+}
+
+/*
+ * test string_size
+ */
+UT_CASE_DEFINATION(string_size)
+void test_string_size__null_string_container(void** state)
+{
+    expect_assert_failure(string_size(NULL));
+}
+
+void test_string_size__non_inited(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._pby_start = (_byte_t*)0x887;
+    expect_assert_failure(string_size(pstr_string));
+
+    pstr_string->_vec_base._pby_start = NULL;
+    string_destroy(pstr_string);
+}
+
+void test_string_size__successfully_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init(pstr_string);
+
+    assert_true(string_size(pstr_string) == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_size__successfully_non_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_cstr(pstr_string, "abcdefg");
+
+    assert_true(string_size(pstr_string) == 7);
+
+    string_destroy(pstr_string);
+}
+
+/*
+ * test string_length
+ */
+UT_CASE_DEFINATION(string_length)
+void test_string_length__null_string_container(void** state)
+{
+    expect_assert_failure(string_length(NULL));
+}
+
+void test_string_length__non_inited(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._pby_start = (_byte_t*)0x887;
+    expect_assert_failure(string_length(pstr_string));
+
+    pstr_string->_vec_base._pby_start = NULL;
+    string_destroy(pstr_string);
+}
+
+void test_string_length__successfully_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init(pstr_string);
+
+    assert_true(string_length(pstr_string) == 0);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_length__successfully_non_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_cstr(pstr_string, "abcdefg");
+
+    assert_true(string_length(pstr_string) == 7);
+
+    string_destroy(pstr_string);
+}
+
+/*
+ * test string_empty
+ */
+UT_CASE_DEFINATION(string_empty)
+void test_string_empty__null_string_container(void** state)
+{
+    expect_assert_failure(string_empty(NULL));
+}
+
+void test_string_empty__non_inited(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._pby_start = (_byte_t*)0x887;
+    expect_assert_failure(string_empty(pstr_string));
+
+    pstr_string->_vec_base._pby_start = NULL;
+    string_destroy(pstr_string);
+}
+
+void test_string_empty__successfully_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init(pstr_string);
+
+    assert_true(string_empty(pstr_string));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_empty__successfully_non_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_cstr(pstr_string, "abcdefg");
+
+    assert_false(string_empty(pstr_string));
+
+    string_destroy(pstr_string);
+}
+
+/*
+ * test string_max_size
+ */
+UT_CASE_DEFINATION(string_max_size)
+void test_string_max_size__null_string_container(void** state)
+{
+    expect_assert_failure(string_max_size(NULL));
+}
+
+void test_string_max_size__non_inited(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._pby_finish = (_byte_t*)0x783;
+    expect_assert_failure(string_max_size(pstr_string));
+
+    pstr_string->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_string);
+}
+
+void test_string_max_size__successfully(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    string_init(pstr_string);
+    assert_true(string_max_size(pstr_string) != 0);
+
+    string_destroy(pstr_string);
+}
+
+/*
+ * test string_capacity
+ */
+UT_CASE_DEFINATION(string_capacity)
+void test_string_capacity__null_string_container(void** state)
+{
+    expect_assert_failure(string_capacity(NULL));
+}
+
+void test_string_capacity__non_inited(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._pby_endofstorage = (_byte_t*)0x623;
+    expect_assert_failure(string_capacity(pstr_string));
+
+    pstr_string->_vec_base._pby_endofstorage = NULL;
+    string_destroy(pstr_string);
+}
+
+void test_string_capacity__successfully_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    string_init(pstr_string);
+    assert_true(string_capacity(pstr_string) == 16);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_capacity__successfully_little(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    string_init_cstr(pstr_string, "abc");
+    assert_true(string_capacity(pstr_string) == 18);
+
+    string_destroy(pstr_string);
+}
+
+void test_string_capacity__successfully_huge(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    string_init_char(pstr_string, 3983, 'a');
+    assert_true(string_capacity(pstr_string) == 5973);
+
+    string_destroy(pstr_string);
+}

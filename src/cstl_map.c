@@ -936,6 +936,8 @@ void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
         t_iter = _map_find_varg(pt_map, val_elemlist_copy);
     }
 
+    va_end(val_elemlist_copy);
+
     /* char* */
     if(strncmp(_GET_MAP_SECOND_TYPE_BASENAME(pt_map), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
@@ -946,8 +948,6 @@ void* _map_at_varg(map_t* pt_map, va_list val_elemlist)
     {
         return ((pair_t*)iterator_get_pointer(t_iter))->_pv_second;
     }
-
-    va_end(val_elemlist_copy);
 }
 
 void _map_init_elem_auxiliary(map_t* pt_map, void* pv_elem)

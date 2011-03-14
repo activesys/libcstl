@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USRDLL;LIBCSTL_EXPORTS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USRDLL;_CRT_SECURE_NO_WARNINGS;LIBCSTL_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -486,6 +486,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\cstl\cstl_string_private.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\cstl\cstl_types.h"
 				>
 			</File>
@@ -519,7 +523,7 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Resource Files"
+			Name="Source Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
@@ -713,6 +717,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_string.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_string_private.c"
 				>
 			</File>
 			<File

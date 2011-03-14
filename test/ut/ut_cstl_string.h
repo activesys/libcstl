@@ -94,6 +94,80 @@ void test_string_destroy__non_created(void** state);
 void test_string_destroy__created_non_inited(void** state);
 void test_string_destroy__inited_empty(void** state);
 void test_string_destroy__inited_non_empty(void** state);
+/*
+ * test string_c_str
+ */
+UT_CASE_DECLARATION(string_c_str)
+void test_string_c_str__null_container(void** state);
+void test_string_c_str__non_inited_container(void** state);
+void test_string_c_str__empty(void** state);
+void test_string_c_str__non_empty(void** state);
+/*
+ * test string_data
+ */
+UT_CASE_DECLARATION(string_data)
+void test_string_data__null_container(void** state);
+void test_string_data__non_inited_container(void** state);
+void test_string_data__empty(void** state);
+void test_string_data__non_empty(void** state);
+/*
+ * test string_copy
+ */
+UT_CASE_DECLARATION(string_copy)
+void test_string_copy__null_container(void** state);
+void test_string_copy__non_inited_container(void** state);
+void test_string_copy__null_buffer(void** state);
+void test_string_copy__invalid_position(void** state);
+void test_string_copy__begin_empty(void** state);
+void test_string_copy__begin_non_empty(void** state);
+void test_string_copy__begin_length(void** state);
+void test_string_copy__begin_npos(void** state);
+void test_string_copy__middle_empty(void** state);
+void test_string_copy__middle_non_empty(void** state);
+void test_string_copy__middle_length(void** state);
+void test_string_copy__middle_npos(void** state);
+void test_string_copy__end(void** state);
+void test_string_copy__npos(void** state);
+/*
+ * test string_size
+ */
+UT_CASE_DECLARATION(string_size)
+void test_string_size__null_string_container(void** state);
+void test_string_size__non_inited(void** state);
+void test_string_size__successfully_empty(void** state);
+void test_string_size__successfully_non_empty(void** state);
+/*
+ * test string_length
+ */
+UT_CASE_DECLARATION(string_length)
+void test_string_length__null_string_container(void** state);
+void test_string_length__non_inited(void** state);
+void test_string_length__successfully_empty(void** state);
+void test_string_length__successfully_non_empty(void** state);
+/*
+ * test string_empty
+ */
+UT_CASE_DECLARATION(string_empty)
+void test_string_empty__null_string_container(void** state);
+void test_string_empty__non_inited(void** state);
+void test_string_empty__successfully_empty(void** state);
+void test_string_empty__successfully_non_empty(void** state);
+/*
+ * test string_max_size
+ */
+UT_CASE_DECLARATION(string_max_size)
+void test_string_max_size__null_string_container(void** state);
+void test_string_max_size__non_inited(void** state);
+void test_string_max_size__successfully(void** state);
+/*
+ * test string_capacity
+ */
+UT_CASE_DECLARATION(string_capacity)
+void test_string_capacity__null_string_container(void** state);
+void test_string_capacity__non_inited(void** state);
+void test_string_capacity__successfully_empty(void** state);
+void test_string_capacity__successfully_little(void** state);
+void test_string_capacity__successfully_huge(void** state);
 
 #define UT_CSTL_STRING_CASE\
     UT_SUIT_BEGIN(cstl_string, test_create_string__successfully),\
@@ -151,6 +225,48 @@ void test_string_destroy__inited_non_empty(void** state);
     UT_CASE(test_string_destroy__created_non_inited),\
     UT_CASE(test_string_destroy__inited_empty),\
     UT_CASE(test_string_destroy__inited_non_empty),\
+    UT_CASE_BEGIN(string_c_str, test_string_c_str__null_container),\
+    UT_CASE(test_string_c_str__non_inited_container),\
+    UT_CASE(test_string_c_str__empty),\
+    UT_CASE(test_string_c_str__non_empty),\
+    UT_CASE_BEGIN(string_data, test_string_data__null_container),\
+    UT_CASE(test_string_data__non_inited_container),\
+    UT_CASE(test_string_data__empty),\
+    UT_CASE(test_string_data__non_empty),\
+    UT_CASE_BEGIN(string_copy, test_string_copy__null_container),\
+    UT_CASE(test_string_copy__non_inited_container),\
+    UT_CASE(test_string_copy__null_buffer),\
+    UT_CASE(test_string_copy__invalid_position),\
+    UT_CASE(test_string_copy__begin_empty),\
+    UT_CASE(test_string_copy__begin_non_empty),\
+    UT_CASE(test_string_copy__begin_length),\
+    UT_CASE(test_string_copy__begin_npos),\
+    UT_CASE(test_string_copy__middle_empty),\
+    UT_CASE(test_string_copy__middle_non_empty),\
+    UT_CASE(test_string_copy__middle_length),\
+    UT_CASE(test_string_copy__middle_npos),\
+    UT_CASE(test_string_copy__end),\
+    UT_CASE(test_string_copy__npos),\
+    UT_CASE_BEGIN(string_size, test_string_size__null_string_container),\
+    UT_CASE(test_string_size__non_inited),\
+    UT_CASE(test_string_size__successfully_empty),\
+    UT_CASE(test_string_size__successfully_non_empty),\
+    UT_CASE_BEGIN(string_length, test_string_length__null_string_container),\
+    UT_CASE(test_string_length__non_inited),\
+    UT_CASE(test_string_length__successfully_empty),\
+    UT_CASE(test_string_length__successfully_non_empty),\
+    UT_CASE_BEGIN(string_empty, test_string_empty__null_string_container),\
+    UT_CASE(test_string_empty__non_inited),\
+    UT_CASE(test_string_empty__successfully_empty),\
+    UT_CASE(test_string_empty__successfully_non_empty),\
+    UT_CASE_BEGIN(string_empty, test_string_max_size__null_string_container),\
+    UT_CASE(test_string_max_size__non_inited),\
+    UT_CASE(test_string_max_size__successfully),\
+    UT_CASE_BEGIN(string_capacity, test_string_capacity__null_string_container),\
+    UT_CASE(test_string_capacity__non_inited),\
+    UT_CASE(test_string_capacity__successfully_empty),\
+    UT_CASE(test_string_capacity__successfully_little),\
+    UT_CASE(test_string_capacity__successfully_huge),\
 
 #endif /* _UT_CSTL_STRING_H_ */
 

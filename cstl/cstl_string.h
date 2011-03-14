@@ -132,21 +132,79 @@ extern void string_init_copy_range(string_t* pstr_string, string_iterator_t it_b
  */
 extern void string_destroy(string_t* pstr_string);
 
-/*
- * c string functions.
+/**
+ * Get character string.
+ * @param cpstr_string    string container.
+ * @return character string.
+ * @remarks if cpstr_string == NULL or uninitialized, the behavior is undefined. if cpstr_string is empty, return "".
  */
 extern const char* string_c_str(const string_t* cpstr_string);
-extern const char* string_data(const string_t* cpstr_string);
-extern size_t string_copy(
-    const string_t* cpstr_string, char* s_buffer, size_t t_copysize, size_t t_copypos);
 
-/*
- * Size and capacity functions.
+/**
+ * Get character string.
+ * @param cpstr_string    string container.
+ * @return character string.
+ * @remarks if cpstr_string == NULL or uninitialized, the behavior is undefined. if cpstr_string is empty, the behavior is
+ *          undefined.
+ */
+extern const char* string_data(const string_t* cpstr_string);
+
+/**
+ * Copy spceificed sub string to buffer.
+ * @param cpstr_string        string container.
+ * @param s_buffer            buffer.
+ * @param t_len               length of sub string.
+ * @param t_pos               copy position.
+ * @return copy size.
+ * @remarks if cpstr_string == NULL or uninitialized, the behavior is undefined. if s_buffer == NULL, the behavior is
+ *          undefined. t_pos must be valid position for cpstr_string, otherwise the behavior is undefined. the copy size is
+ *          min(t_len, basic_string_size() - t_pos).
+ */
+extern size_t string_copy(const string_t* cpstr_string, char* s_buffer, size_t t_len, size_t t_pos);
+
+/**
+ * Get string character size.
+ * @param cpstr_string       string container.
+ * @return string character size.
+ * @remarks if cpstr_string == NULL, then the behavior is undefined. cpstr_string must be initialized, otherwise the
+ *          behavior is undefined.
  */
 extern size_t string_size(const string_t* cpstr_string);
+
+/**
+ * Get character string length.
+ * @param cpstr_string       string container.
+ * @return string character string length.
+ * @remarks if cpstr_string == NULL, then the behavior is undefined. cpstr_string must be initialized, otherwise the
+ *          behavior is undefined. this function is same as string_size().
+ */
 extern size_t string_length(const string_t* cpstr_string);
+
+/**
+ * Test string is empty.
+ * @param cpstr_string          string container.
+ * @return true if empty, otherwise return false.
+ * @remarks if cpstr_string == NULL, then the behavior is undefined. cpstr_string must be initialized, otherwise the
+ *          behavior is undefined.
+ */
 extern bool_t string_empty(const string_t* cpstr_string);
+
+/**
+ * Return maximum character number.
+ * @param cpstr_string          string container.
+ * @return maximum number.
+ * @remarks if cpstr_string == NULL, then the behavior is undefined. cpstr_string must be initialized, otherwise the
+ *          behavior is undefined. this number is not fixed number.
+ */
 extern size_t string_max_size(const string_t* cpstr_string);
+
+/**
+ * Get string capacity.
+ * @param cpstr_string          string container.
+ * @return basic_string capacity.
+ * @remarks if cpstr_string == NULL, then the behavior is undefined. cpstr_string must be initialized, otherwise the
+ *          behavior is undefined.
+ */
 extern size_t string_capacity(const string_t* cpstr_string);
 
 /*
