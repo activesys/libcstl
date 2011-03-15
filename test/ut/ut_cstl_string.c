@@ -1111,3 +1111,1091 @@ void test_string_capacity__successfully_huge(void** state)
 
     string_destroy(pstr_string);
 }
+
+/*
+ * test string_at
+ */
+UT_CASE_DEFINATION(string_at)
+void test_string_at__null_string_container(void** state)
+{
+    expect_assert_failure(string_at(NULL, 0));
+}
+
+void test_string_at__non_inited_string_container(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._pby_start = (_byte_t*)0x223;
+    expect_assert_failure(string_at(pstr_string, 0));
+
+    pstr_string->_vec_base._pby_start = NULL;
+    string_destroy(pstr_string);
+}
+
+void test_string_at__invalid_subscript_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init(pstr_string);
+
+    expect_assert_failure(string_at(pstr_string, 0));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_at__invalid_subscript_end(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_cstr(pstr_string, "abcdefg");
+
+    expect_assert_failure(string_at(pstr_string, string_size(pstr_string)));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_at__invalid_subscript(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_cstr(pstr_string, "abcdefg");
+
+    expect_assert_failure(string_at(pstr_string, 132));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_at__successfully(void** state)
+{
+    size_t i = 0;
+    string_t* pstr_string = create_string();
+    string_init(pstr_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pstr_string, i + 'a');
+    }
+
+    for(i = 0; i < string_size(pstr_string); ++i)
+    {
+        assert_true(*(char*)string_at(pstr_string, i) == i + 'a');
+    }
+
+    string_destroy(pstr_string);
+}
+
+/*
+ * test string_equal
+ */
+UT_CASE_DEFINATION(string_equal)
+void test_string_equal__null_first(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_equal(NULL, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_equal__null_second(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_equal(pstr, NULL));
+
+    string_destroy(pstr);
+}
+
+void test_string_equal__non_inited_first(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_second);
+    pstr_first->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_equal(pstr_first, pstr_second));
+
+    pstr_first->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_equal__non_inited_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    pstr_second->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_equal(pstr_first, pstr_second));
+
+    pstr_second->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_equal__same_string(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    assert_true(string_equal(pstr, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_equal__size_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init_cstr(pstr_second, "abcdefg");
+    assert_false(string_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_equal__size_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 233, 'a');
+    string_init_char(pstr_second, 48, 'a');
+    assert_false(string_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_equal__size_equal_0(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init(pstr_second);
+    assert_true(string_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_equal__size_equal_elem_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'a');
+    string_init_char(pstr_second, 10, 'z');
+    assert_false(string_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_equal__size_equal_elem_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'x');
+    string_init_char(pstr_second, 10, 'n');
+    assert_false(string_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_equal__size_equal_elem_equal(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_cstr(pstr_first, "aaaaa");
+    string_init_char(pstr_second, 5, 'a');
+    assert_true(string_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+/*
+ * test string_not_equal
+ */
+UT_CASE_DEFINATION(string_not_equal)
+void test_string_not_equal__null_first(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_not_equal(NULL, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_not_equal__null_second(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_not_equal(pstr, NULL));
+
+    string_destroy(pstr);
+}
+
+void test_string_not_equal__non_inited_first(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_second);
+    pstr_first->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_not_equal(pstr_first, pstr_second));
+
+    pstr_first->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_not_equal__non_inited_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    pstr_second->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_not_equal(pstr_first, pstr_second));
+
+    pstr_second->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_not_equal__same_string(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    assert_false(string_not_equal(pstr, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_not_equal__size_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init_char(pstr_second, 48, 'a');
+    assert_true(string_not_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_not_equal__size_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 233, 'a');
+    string_init_char(pstr_second, 48, 'a');
+    assert_true(string_not_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_not_equal__size_equal_0(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init(pstr_second);
+    assert_false(string_not_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_not_equal__size_equal_elem_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'a');
+    string_init_char(pstr_second, 10, 'v');
+    assert_true(string_not_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_not_equal__size_equal_elem_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'k');
+    string_init_char(pstr_second, 10, 'c');
+    assert_true(string_not_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_not_equal__size_equal_elem_equal(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'l');
+    string_init_char(pstr_second, 10, 'l');
+    assert_false(string_not_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+/*
+ * test string_less
+ */
+UT_CASE_DEFINATION(string_less)
+void test_string_less__null_first(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_less(NULL, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_less__null_second(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_less(pstr, NULL));
+
+    string_destroy(pstr);
+}
+
+void test_string_less__non_inited_first(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_second);
+    pstr_first->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_less(pstr_first, pstr_second));
+
+    pstr_first->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less__non_inited_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    pstr_second->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_less(pstr_first, pstr_second));
+
+    pstr_second->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less__same_string(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    assert_false(string_less(pstr, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_less__size_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init_char(pstr_second, 48, 'a');
+    assert_true(string_less(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less__size_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 233, 'a');
+    string_init_char(pstr_second, 48, 'a');
+    assert_false(string_less(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less__size_equal_0(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init(pstr_second);
+    assert_false(string_less(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less__size_equal_elem_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'a');
+    string_init_char(pstr_second, 10, 'f');
+    assert_true(string_less(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less__size_equal_elem_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'g');
+    string_init_char(pstr_second, 10, 'a');
+    assert_false(string_less(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less__size_equal_elem_equal(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'd');
+    string_init_char(pstr_second, 10, 'd');
+    assert_false(string_less(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+/*
+ * test string_less_equal
+ */
+UT_CASE_DEFINATION(string_less_equal)
+void test_string_less_equal__null_first(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_less_equal(NULL, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_less_equal__null_second(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_less_equal(pstr, NULL));
+
+    string_destroy(pstr);
+}
+
+void test_string_less_equal__non_inited_first(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_second);
+    pstr_first->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_less_equal(pstr_first, pstr_second));
+
+    pstr_first->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less_equal__non_inited_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    pstr_second->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_less_equal(pstr_first, pstr_second));
+
+    pstr_second->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less_equal__same_string(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    assert_true(string_less_equal(pstr, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_less_equal__size_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init_char(pstr_second, 48, 'a');
+    assert_true(string_less_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less_equal__size_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 233, 'a');
+    string_init_char(pstr_second, 48, 'a');
+    assert_false(string_less_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less_equal__size_equal_0(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init(pstr_second);
+    assert_true(string_less_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less_equal__size_equal_elem_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'j');
+    string_init_char(pstr_second, 10, 'w');
+    assert_true(string_less_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less_equal__size_equal_elem_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'j');
+    string_init_char(pstr_second, 10, 'f');
+    assert_false(string_less_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_less_equal__size_equal_elem_equal(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'j');
+    string_init_char(pstr_second, 10, 'j');
+    assert_true(string_less_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+/*
+ * test string_greater
+ */
+UT_CASE_DEFINATION(string_greater)
+void test_string_greater__null_first(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_greater(NULL, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_greater__null_second(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_greater(pstr, NULL));
+
+    string_destroy(pstr);
+}
+
+void test_string_greater__non_inited_first(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_second);
+    pstr_first->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_greater(pstr_first, pstr_second));
+
+    pstr_first->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater__non_inited_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    pstr_second->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_greater(pstr_first, pstr_second));
+
+    pstr_second->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater__same_string(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    assert_false(string_greater(pstr, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_greater__size_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init_char(pstr_second, 48, 'a');
+    assert_false(string_greater(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater__size_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 233, 'a');
+    string_init_char(pstr_second, 48, 'a');
+    assert_true(string_greater(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater__size_equal_0(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init(pstr_second);
+    assert_false(string_greater(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater__size_equal_elem_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'j');
+    string_init_char(pstr_second, 10, 'w');
+    assert_false(string_greater(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater__size_equal_elem_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'j');
+    string_init_char(pstr_second, 10, 'f');
+    assert_true(string_greater(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater__size_equal_elem_equal(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'j');
+    string_init_char(pstr_second, 10, 'j');
+    assert_false(string_greater(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+/*
+ * test string_greater_equal
+ */
+UT_CASE_DEFINATION(string_greater_equal)
+void test_string_greater_equal__null_first(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_greater_equal(NULL, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_greater_equal__null_second(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    expect_assert_failure(string_greater_equal(pstr, NULL));
+
+    string_destroy(pstr);
+}
+
+void test_string_greater_equal__non_inited_first(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_second);
+    pstr_first->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_greater_equal(pstr_first, pstr_second));
+
+    pstr_first->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater_equal__non_inited_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    pstr_second->_vec_base._pby_finish = (_byte_t*)0x73;
+    expect_assert_failure(string_greater_equal(pstr_first, pstr_second));
+
+    pstr_second->_vec_base._pby_finish = NULL;
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater_equal__same_string(void** state)
+{
+    string_t* pstr = create_string();
+    string_init(pstr);
+
+    assert_true(string_greater_equal(pstr, pstr));
+
+    string_destroy(pstr);
+}
+
+void test_string_greater_equal__size_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init_char(pstr_second, 48, 'a');
+    assert_false(string_greater_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater_equal__size_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 233, 'a');
+    string_init_char(pstr_second, 48, 'a');
+    assert_true(string_greater_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater_equal__size_equal_0(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init(pstr_first);
+    string_init(pstr_second);
+    assert_true(string_greater_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater_equal__size_equal_elem_first_less_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'j');
+    string_init_char(pstr_second, 10, 'w');
+    assert_false(string_greater_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater_equal__size_equal_elem_first_greater_than_second(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'j');
+    string_init_char(pstr_second, 10, 'f');
+    assert_true(string_greater_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+void test_string_greater_equal__size_equal_elem_equal(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+
+    string_init_char(pstr_first, 10, 'j');
+    string_init_char(pstr_second, 10, 'j');
+    assert_true(string_greater_equal(pstr_first, pstr_second));
+
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
+}
+
+/*
+ * test string_equal_cstr
+ */
+UT_CASE_DEFINATION(string_equal_cstr)
+void test_string_equal_cstr__null_string(void** state)
+{
+    expect_assert_failure(string_equal_cstr(NULL, ""));
+}
+
+void test_string_equal_cstr__null_value_string(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init(pstr_string);
+
+    expect_assert_failure(string_equal_cstr(pstr_string, NULL));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_equal_cstr__non_inited_string(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._pby_start = (_byte_t*)0x3454;
+    expect_assert_failure(string_equal_cstr(pstr_string, ""));
+
+    pstr_string->_vec_base._pby_start = NULL;
+    string_destroy(pstr_string);
+}
+
+void test_string_equal_cstr__char_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init(pstr_string);
+
+    assert_true(string_equal_cstr(pstr_string, ""));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_equal_cstr__char_less(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 3, 'a');
+
+    assert_false(string_equal_cstr(pstr_string, "aaaaa"));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_equal_cstr__char_equal(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 5, 'a');
+
+    assert_true(string_equal_cstr(pstr_string, "aaaaa"));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_equal_cstr__char_greater(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 6, 'a');
+
+    assert_false(string_equal_cstr(pstr_string, "aaaaa"));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_equal_cstr__char_size_equal_less(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 5, 'a');
+
+    assert_false(string_equal_cstr(pstr_string, "bbbbb"));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_equal_cstr__char_size_equal_greater(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 5, 'c');
+
+    assert_false(string_equal_cstr(pstr_string, "bbbbb"));
+
+    string_destroy(pstr_string);
+}
+
+/*
+ * test string_not_equal_cstr
+ */
+UT_CASE_DEFINATION(string_not_equal_cstr)
+void test_string_not_equal_cstr__null_string(void** state)
+{
+    expect_assert_failure(string_not_equal_cstr(NULL, ""));
+}
+
+void test_string_not_equal_cstr__null_value_string(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init(pstr_string);
+
+    expect_assert_failure(string_not_equal_cstr(pstr_string, NULL));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_not_equal_cstr__non_inited_string(void** state)
+{
+    string_t* pstr_string = create_string();
+
+    pstr_string->_vec_base._pby_start = (_byte_t*)0x3454;
+    expect_assert_failure(string_not_equal_cstr(pstr_string, ""));
+
+    pstr_string->_vec_base._pby_start = NULL;
+    string_destroy(pstr_string);
+}
+
+void test_string_not_equal_cstr__char_empty(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init(pstr_string);
+
+    assert_false(string_not_equal_cstr(pstr_string, ""));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_not_equal_cstr__char_less(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 3, 'a');
+
+    assert_true(string_not_equal_cstr(pstr_string, "aaaaa"));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_not_equal_cstr__char_equal(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 5, 'a');
+
+    assert_false(string_not_equal_cstr(pstr_string, "aaaaa"));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_not_equal_cstr__char_greater(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 6, 'a');
+
+    assert_true(string_not_equal_cstr(pstr_string, "aaaaa"));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_not_equal_cstr__char_size_equal_less(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 5, 'a');
+
+    assert_true(string_not_equal_cstr(pstr_string, "bbbbb"));
+
+    string_destroy(pstr_string);
+}
+
+void test_string_not_equal_cstr__char_size_equal_greater(void** state)
+{
+    string_t* pstr_string = create_string();
+    string_init_char(pstr_string, 5, 'c');
+
+    assert_true(string_not_equal_cstr(pstr_string, "bbbbb"));
+
+    string_destroy(pstr_string);
+}

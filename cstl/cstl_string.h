@@ -158,7 +158,7 @@ extern const char* string_data(const string_t* cpstr_string);
  * @return copy size.
  * @remarks if cpstr_string == NULL or uninitialized, the behavior is undefined. if s_buffer == NULL, the behavior is
  *          undefined. t_pos must be valid position for cpstr_string, otherwise the behavior is undefined. the copy size is
- *          min(t_len, basic_string_size() - t_pos).
+ *          min(t_len, string_size() - t_pos).
  */
 extern size_t string_copy(const string_t* cpstr_string, char* s_buffer, size_t t_len, size_t t_pos);
 
@@ -201,37 +201,101 @@ extern size_t string_max_size(const string_t* cpstr_string);
 /**
  * Get string capacity.
  * @param cpstr_string          string container.
- * @return basic_string capacity.
+ * @return string capacity.
  * @remarks if cpstr_string == NULL, then the behavior is undefined. cpstr_string must be initialized, otherwise the
  *          behavior is undefined.
  */
 extern size_t string_capacity(const string_t* cpstr_string);
 
-/*
- * Random access function.
+/**
+ * Access string character using subscript.
+ * @param cpstr_string          string container.
+ * @param t_pos                 subscript.
+ * @return pointer to the character.
+ * @remarks if cpstr_string == NULL, then the behavior is undefined. the string must be initialized, otherwise the
+ *          behavior is undefined. if t_pos >= string_size(cpstr_string), then the behavior is undefined.
  */
 extern char* string_at(const string_t* cpstr_string, size_t t_pos);
 
-/*
- * Relationship operator functions and compare operation functions.
+/**
+ * Test the two strings are equal.
+ * @param cpstr_first           first string container.
+ * @param cpstr_second          second string container.
+ * @return if first string equal to second string, then return true, else return false.
+ * @remarks if cpstr_first == NULL or cpstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. if cpstr_first == cpstr_second, then return true.
  */
-/* Relationship */
-extern bool_t string_equal(
-    const string_t* cpstr_stringfirst, const string_t* cpstr_stringsecond);
-extern bool_t string_not_equal(
-    const string_t* cpstr_stringfirst, const string_t* cpstr_stringsecond);
-extern bool_t string_less(
-    const string_t* cpstr_stringfirst, const string_t* cpstr_stringsecond);
-extern bool_t string_greater(
-    const string_t* cpstr_stringfirst, const string_t* cpstr_stringsecond);
-extern bool_t string_less_equal(
-    const string_t* cpstr_stringfirst, const string_t* cpstr_stringsecond);
-extern bool_t string_greater_equal(
-    const string_t* cpstr_stringfirst, const string_t* cpstr_stringsecond);
-extern bool_t string_equal_cstr(
-    const string_t* cpstr_string, const char* s_cstr);
-extern bool_t string_not_equal_cstr(
-    const string_t* cpstr_string, const char* s_cstr); 
+extern bool_t string_equal(const string_t* cpstr_first, const string_t* cpstr_second);
+
+/**
+ * Test the two strings are unequal.
+ * @param cpstr_first           first string container.
+ * @param cpstr_second          second string container.
+ * @return if first string unequal to second string, then return true, else return false.
+ * @remarks if cpstr_first == NULL or cpstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. if cpstr_first == cpstr_second, then return false.
+ */
+extern bool_t string_not_equal(const string_t* cpstr_first, const string_t* cpstr_second);
+
+/**
+ * Test the first string is less than the second string.
+ * @param cpstr_first           first string container.
+ * @param cpstr_second          second string container.
+ * @return if the first string is less than the second string, then return true, else return false.
+ * @remarks if cpstr_first == NULL or cpstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. if cpstr_first == cpstr_second, then return false.
+ */
+extern bool_t string_less(const string_t* cpstr_first, const string_t* cpstr_second);
+
+/**
+ * Test the first string is less than or equal to the second string.
+ * @param cpstr_first           first string container.
+ * @param cpstr_second          second string container.
+ * @return if the first string is less than or equal to the second string, then return true, else return false.
+ * @remarks if cpstr_first == NULL or cpstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. if cpstr_first == cpstr_second, then return true.
+ */
+extern bool_t string_less_equal(const string_t* cpstr_first, const string_t* cpstr_second);
+
+/**
+ * Test the first string is greater than the second string.
+ * @param cpstr_first           first string container.
+ * @param cpstr_second          second string container.
+ * @return if the first string is greater than the second string, then return true, else return false.
+ * @remarks if cpstr_first == NULL or cpstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. if cpstr_first == cpstr_second, then return false.
+ */
+extern bool_t string_greater(const string_t* cpstr_first, const string_t* cpstr_second);
+
+/**
+ * Test the first string is greater than or equal to the second string.
+ * @param cpstr_first           first string container.
+ * @param cpstr_second          second string container.
+ * @return if the first string is greater than or equal to the second string, then return true, else return false.
+ * @remarks if cpstr_first == NULL or cpstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. if cpstr_first == cpstr_second, then return true.
+ */
+extern bool_t string_greater_equal(const string_t* cpstr_first, const string_t* cpstr_second);
+
+/**
+ * Test the string is equal to the character string.
+ * @param cpstr_string          string container.
+ * @param s_cstr                character string.
+ * @return if the string is equal to the character string, then return true, else return false.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
+ *          initialized, otherwise the behavior is undefined.
+ */
+extern bool_t string_equal_cstr(const string_t* cpstr_string, const char* s_cstr);
+
+/**
+ * Test the string is not equal to the character string.
+ * @param cpstr_string          string container.
+ * @param s_cstr                character string.
+ * @return if the string is not equal to the character string, then return true, else return false.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
+ *          initialized, otherwise the behavior is undefined.
+ */
+extern bool_t string_not_equal_cstr(const string_t* cpstr_string, const char* s_cstr); 
 extern bool_t string_less_cstr(
     const string_t* cpstr_string, const char* s_cstr); 
 extern bool_t string_greater_cstr(
@@ -242,13 +306,13 @@ extern bool_t string_greater_equal_cstr(
     const string_t* cpstr_string, const char* s_cstr); 
 /* Compare operation functions. */
 extern int string_compare(
-    const string_t* cpstr_stringfirst, const string_t* cpstr_stringsecond);
+    const string_t* cpstr_first, const string_t* cpstr_second);
 extern int string_compare_substring_string(
-    const string_t* cpstr_stringfirst, size_t t_firstpos, size_t t_firstlen,
-    const string_t* cpstr_stringsecond);
+    const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen,
+    const string_t* cpstr_second);
 extern int string_compare_substring_substring(
-    const string_t* cpstr_stringfirst, size_t t_firstpos, size_t t_firstlen,
-    const string_t* cpstr_stringsecond, size_t t_secondpos, size_t t_secondlen);
+    const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen,
+    const string_t* cpstr_second, size_t t_secondpos, size_t t_secondlen);
 extern int string_compare_cstr(const string_t* cpstr_string, const char* s_cstr);
 extern int string_compare_substring_cstr(
     const string_t* cpstr_string, size_t t_stringpos, size_t t_stringlen, const char* s_cstr);
@@ -343,7 +407,7 @@ extern void string_clear(string_t* pstr_string);
 /*
  * Swap the contents of two strings.
  */
-extern void string_swap(string_t* pstr_stringfirst, string_t* pstr_stringsecond);
+extern void string_swap(string_t* pstr_first, string_t* pstr_second);
 
 /*
  * Reserve and Resize operation functions.

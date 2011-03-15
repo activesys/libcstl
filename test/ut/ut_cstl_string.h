@@ -168,6 +168,132 @@ void test_string_capacity__non_inited(void** state);
 void test_string_capacity__successfully_empty(void** state);
 void test_string_capacity__successfully_little(void** state);
 void test_string_capacity__successfully_huge(void** state);
+/*
+ * test string_at
+ */
+UT_CASE_DECLARATION(string_at)
+void test_string_at__null_string_container(void** state);
+void test_string_at__non_inited_string_container(void** state);
+void test_string_at__invalid_subscript_empty(void** state);
+void test_string_at__invalid_subscript_end(void** state);
+void test_string_at__invalid_subscript(void** state);
+void test_string_at__successfully(void** state);
+/*
+ * test string_equal
+ */
+UT_CASE_DECLARATION(string_equal)
+void test_string_equal__null_first(void** state);
+void test_string_equal__null_second(void** state);
+void test_string_equal__non_inited_first(void** state);
+void test_string_equal__non_inited_second(void** state);
+void test_string_equal__same_string(void** state);
+void test_string_equal__size_first_less_than_second(void** state);
+void test_string_equal__size_first_greater_than_second(void** state);
+void test_string_equal__size_equal_0(void** state);
+void test_string_equal__size_equal_elem_first_less_than_second(void** state);
+void test_string_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_string_equal__size_equal_elem_equal(void** state);
+/*
+ * test string_not_equal
+ */
+UT_CASE_DECLARATION(string_not_equal)
+void test_string_not_equal__null_first(void** state);
+void test_string_not_equal__null_second(void** state);
+void test_string_not_equal__non_inited_first(void** state);
+void test_string_not_equal__non_inited_second(void** state);
+void test_string_not_equal__same_string(void** state);
+void test_string_not_equal__size_first_less_than_second(void** state);
+void test_string_not_equal__size_first_greater_than_second(void** state);
+void test_string_not_equal__size_equal_0(void** state);
+void test_string_not_equal__size_equal_elem_first_less_than_second(void** state);
+void test_string_not_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_string_not_equal__size_equal_elem_equal(void** state);
+/*
+ * test string_less
+ */
+UT_CASE_DECLARATION(string_less)
+void test_string_less__null_first(void** state);
+void test_string_less__null_second(void** state);
+void test_string_less__non_inited_first(void** state);
+void test_string_less__non_inited_second(void** state);
+void test_string_less__same_string(void** state);
+void test_string_less__size_first_less_than_second(void** state);
+void test_string_less__size_first_greater_than_second(void** state);
+void test_string_less__size_equal_0(void** state);
+void test_string_less__size_equal_elem_first_less_than_second(void** state);
+void test_string_less__size_equal_elem_first_greater_than_second(void** state);
+void test_string_less__size_equal_elem_equal(void** state);
+/*
+ * test string_less_equal
+ */
+UT_CASE_DECLARATION(string_less_equal)
+void test_string_less_equal__null_first(void** state);
+void test_string_less_equal__null_second(void** state);
+void test_string_less_equal__non_inited_first(void** state);
+void test_string_less_equal__non_inited_second(void** state);
+void test_string_less_equal__same_string(void** state);
+void test_string_less_equal__size_first_less_than_second(void** state);
+void test_string_less_equal__size_first_greater_than_second(void** state);
+void test_string_less_equal__size_equal_0(void** state);
+void test_string_less_equal__size_equal_elem_first_less_than_second(void** state);
+void test_string_less_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_string_less_equal__size_equal_elem_equal(void** state);
+/*
+ * test string_greater
+ */
+UT_CASE_DECLARATION(string_greater)
+void test_string_greater__null_first(void** state);
+void test_string_greater__null_second(void** state);
+void test_string_greater__non_inited_first(void** state);
+void test_string_greater__non_inited_second(void** state);
+void test_string_greater__same_string(void** state);
+void test_string_greater__size_first_less_than_second(void** state);
+void test_string_greater__size_first_greater_than_second(void** state);
+void test_string_greater__size_equal_0(void** state);
+void test_string_greater__size_equal_elem_first_less_than_second(void** state);
+void test_string_greater__size_equal_elem_first_greater_than_second(void** state);
+void test_string_greater__size_equal_elem_equal(void** state);
+/*
+ * test string_greater_equal
+ */
+UT_CASE_DECLARATION(string_greater_equal)
+void test_string_greater_equal__null_first(void** state);
+void test_string_greater_equal__null_second(void** state);
+void test_string_greater_equal__non_inited_first(void** state);
+void test_string_greater_equal__non_inited_second(void** state);
+void test_string_greater_equal__same_string(void** state);
+void test_string_greater_equal__size_first_less_than_second(void** state);
+void test_string_greater_equal__size_first_greater_than_second(void** state);
+void test_string_greater_equal__size_equal_0(void** state);
+void test_string_greater_equal__size_equal_elem_first_less_than_second(void** state);
+void test_string_greater_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_string_greater_equal__size_equal_elem_equal(void** state);
+/*
+ * test string_equal_cstr
+ */
+UT_CASE_DECLARATION(string_equal_cstr)
+void test_string_equal_cstr__null_string(void** state);
+void test_string_equal_cstr__null_value_string(void** state);
+void test_string_equal_cstr__non_inited_string(void** state);
+void test_string_equal_cstr__char_empty(void** state);
+void test_string_equal_cstr__char_less(void** state);
+void test_string_equal_cstr__char_equal(void** state);
+void test_string_equal_cstr__char_greater(void** state);
+void test_string_equal_cstr__char_size_equal_less(void** state);
+void test_string_equal_cstr__char_size_equal_greater(void** state);
+/*
+ * test string_not_equal_cstr
+ */
+UT_CASE_DECLARATION(string_not_equal_cstr)
+void test_string_not_equal_cstr__null_string(void** state);
+void test_string_not_equal_cstr__null_value_string(void** state);
+void test_string_not_equal_cstr__non_inited_string(void** state);
+void test_string_not_equal_cstr__char_empty(void** state);
+void test_string_not_equal_cstr__char_less(void** state);
+void test_string_not_equal_cstr__char_equal(void** state);
+void test_string_not_equal_cstr__char_greater(void** state);
+void test_string_not_equal_cstr__char_size_equal_less(void** state);
+void test_string_not_equal_cstr__char_size_equal_greater(void** state);
 
 #define UT_CSTL_STRING_CASE\
     UT_SUIT_BEGIN(cstl_string, test_create_string__successfully),\
@@ -267,6 +393,96 @@ void test_string_capacity__successfully_huge(void** state);
     UT_CASE(test_string_capacity__successfully_empty),\
     UT_CASE(test_string_capacity__successfully_little),\
     UT_CASE(test_string_capacity__successfully_huge),\
+    UT_CASE_BEGIN(string_at, test_string_at__null_string_container),\
+    UT_CASE(test_string_at__non_inited_string_container),\
+    UT_CASE(test_string_at__invalid_subscript_empty),\
+    UT_CASE(test_string_at__invalid_subscript_end),\
+    UT_CASE(test_string_at__invalid_subscript),\
+    UT_CASE(test_string_at__successfully),\
+    UT_CASE_BEGIN(string_equal, test_string_equal__null_first),\
+    UT_CASE(test_string_equal__null_second),\
+    UT_CASE(test_string_equal__non_inited_first),\
+    UT_CASE(test_string_equal__non_inited_second),\
+    UT_CASE(test_string_equal__same_string),\
+    UT_CASE(test_string_equal__size_first_less_than_second),\
+    UT_CASE(test_string_equal__size_first_greater_than_second),\
+    UT_CASE(test_string_equal__size_equal_0),\
+    UT_CASE(test_string_equal__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_string_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_string_equal__size_equal_elem_equal),\
+    UT_CASE_BEGIN(string_not_equal, test_string_not_equal__null_first),\
+    UT_CASE(test_string_not_equal__null_second),\
+    UT_CASE(test_string_not_equal__non_inited_first),\
+    UT_CASE(test_string_not_equal__non_inited_second),\
+    UT_CASE(test_string_not_equal__same_string),\
+    UT_CASE(test_string_not_equal__size_first_less_than_second),\
+    UT_CASE(test_string_not_equal__size_first_greater_than_second),\
+    UT_CASE(test_string_not_equal__size_equal_0),\
+    UT_CASE(test_string_not_equal__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_string_not_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_string_not_equal__size_equal_elem_equal),\
+    UT_CASE_BEGIN(string_less, test_string_less__null_first),\
+    UT_CASE(test_string_less__null_second),\
+    UT_CASE(test_string_less__non_inited_first),\
+    UT_CASE(test_string_less__non_inited_second),\
+    UT_CASE(test_string_less__same_string),\
+    UT_CASE(test_string_less__size_first_less_than_second),\
+    UT_CASE(test_string_less__size_first_greater_than_second),\
+    UT_CASE(test_string_less__size_equal_0),\
+    UT_CASE(test_string_less__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_string_less__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_string_less__size_equal_elem_equal),\
+    UT_CASE_BEGIN(string_less_equal, test_string_less_equal__null_first),\
+    UT_CASE(test_string_less_equal__null_second),\
+    UT_CASE(test_string_less_equal__non_inited_first),\
+    UT_CASE(test_string_less_equal__non_inited_second),\
+    UT_CASE(test_string_less_equal__same_string),\
+    UT_CASE(test_string_less_equal__size_first_less_than_second),\
+    UT_CASE(test_string_less_equal__size_first_greater_than_second),\
+    UT_CASE(test_string_less_equal__size_equal_0),\
+    UT_CASE(test_string_less_equal__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_string_less_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_string_less_equal__size_equal_elem_equal),\
+    UT_CASE_BEGIN(string_greater, test_string_greater__null_first),\
+    UT_CASE(test_string_greater__null_second),\
+    UT_CASE(test_string_greater__non_inited_first),\
+    UT_CASE(test_string_greater__non_inited_second),\
+    UT_CASE(test_string_greater__same_string),\
+    UT_CASE(test_string_greater__size_first_less_than_second),\
+    UT_CASE(test_string_greater__size_first_greater_than_second),\
+    UT_CASE(test_string_greater__size_equal_0),\
+    UT_CASE(test_string_greater__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_string_greater__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_string_greater__size_equal_elem_equal),\
+    UT_CASE_BEGIN(string_greater_equal, test_string_greater_equal__null_first),\
+    UT_CASE(test_string_greater_equal__null_second),\
+    UT_CASE(test_string_greater_equal__non_inited_first),\
+    UT_CASE(test_string_greater_equal__non_inited_second),\
+    UT_CASE(test_string_greater_equal__same_string),\
+    UT_CASE(test_string_greater_equal__size_first_less_than_second),\
+    UT_CASE(test_string_greater_equal__size_first_greater_than_second),\
+    UT_CASE(test_string_greater_equal__size_equal_0),\
+    UT_CASE(test_string_greater_equal__size_equal_elem_first_less_than_second),\
+    UT_CASE(test_string_greater_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_string_greater_equal__size_equal_elem_equal),\
+    UT_CASE_BEGIN(string_equal_cstr, test_string_equal_cstr__null_string),\
+    UT_CASE(test_string_equal_cstr__null_value_string),\
+    UT_CASE(test_string_equal_cstr__non_inited_string),\
+    UT_CASE(test_string_equal_cstr__char_empty),\
+    UT_CASE(test_string_equal_cstr__char_less),\
+    UT_CASE(test_string_equal_cstr__char_equal),\
+    UT_CASE(test_string_equal_cstr__char_greater),\
+    UT_CASE(test_string_equal_cstr__char_size_equal_less),\
+    UT_CASE(test_string_equal_cstr__char_size_equal_greater),\
+    UT_CASE_BEGIN(string_not_equal_cstr, test_string_not_equal_cstr__null_string),\
+    UT_CASE(test_string_not_equal_cstr__null_value_string),\
+    UT_CASE(test_string_not_equal_cstr__non_inited_string),\
+    UT_CASE(test_string_not_equal_cstr__char_empty),\
+    UT_CASE(test_string_not_equal_cstr__char_less),\
+    UT_CASE(test_string_not_equal_cstr__char_equal),\
+    UT_CASE(test_string_not_equal_cstr__char_greater),\
+    UT_CASE(test_string_not_equal_cstr__char_size_equal_less),\
+    UT_CASE(test_string_not_equal_cstr__char_size_equal_greater),\
 
 #endif /* _UT_CSTL_STRING_H_ */
 
