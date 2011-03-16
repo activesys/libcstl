@@ -295,30 +295,138 @@ extern bool_t string_equal_cstr(const string_t* cpstr_string, const char* s_cstr
  * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
  *          initialized, otherwise the behavior is undefined.
  */
-extern bool_t string_not_equal_cstr(const string_t* cpstr_string, const char* s_cstr); 
-extern bool_t string_less_cstr(
-    const string_t* cpstr_string, const char* s_cstr); 
-extern bool_t string_greater_cstr(
-    const string_t* cpstr_string, const char* s_cstr); 
-extern bool_t string_less_equal_cstr(
-    const string_t* cpstr_string, const char* s_cstr); 
-extern bool_t string_greater_equal_cstr(
-    const string_t* cpstr_string, const char* s_cstr); 
-/* Compare operation functions. */
-extern int string_compare(
-    const string_t* cpstr_first, const string_t* cpstr_second);
+extern bool_t string_not_equal_cstr(const string_t* cpstr_string, const char* s_cstr);
+
+/**
+ * Test the string is less than the character string.
+ * @param cpstr_string          string container.
+ * @param s_cstr                character string.
+ * @return if the string is less than the character string, then return true, else return false.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
+ *          initialized, otherwise the behavior is undefined.
+ */
+extern bool_t string_less_cstr(const string_t* cpstr_string, const char* s_cstr);
+
+/**
+ * Test the string is less than or equal to the character string.
+ * @param cpstr_string          string container.
+ * @param s_cstr                character string.
+ * @return if the string is less than or equal to the character string, then return true, else return false.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
+ *          initialized, otherwise the behavior is undefined.
+ */
+extern bool_t string_less_equal_cstr(const string_t* cpstr_string, const char* s_cstr);
+
+/**
+ * Test the string is greater than the character string.
+ * @param cpstr_string          string container.
+ * @param s_cstr                character string.
+ * @return if the string is greater than the character string, then return true, else return false.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
+ *          initialized, otherwise the behavior is undefined.
+ */
+extern bool_t string_greater_cstr(const string_t* cpstr_string, const char* s_cstr);
+
+/**
+ * Test the string is greater than or equal to the character string.
+ * @param cpstr_string          string container.
+ * @param s_cstr                character string.
+ * @return if the string is greater than or equal to the character string, then return true, else return false.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
+ *          initialized, otherwise the behavior is undefined.
+ */
+extern bool_t string_greater_equal_cstr(const string_t* cpstr_string, const char* s_cstr);
+
+/**
+ * Compare two string.
+ * @param cpstr_first           first string container.
+ * @param cpstr_second          second string container.
+ * @return if the first string is greater than the second string, then return value > 0, else if the first
+ *         string is less than the second string, then return value < 0, else return value == 0.
+ * @remarks if cpstr_first == NULL or cpstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. if cpstr_first == cpstr_second, then return 0.
+ */
+extern int string_compare(const string_t* cpstr_first, const string_t* cpstr_second);
+
+/**
+ * Compare the first sub string and the second string.
+ * @param cpstr_first           first string container.
+ * @param t_pos                 substring begin position.
+ * @param t_len                 substring length.
+ * @param cpstr_second          second string container.
+ * @return if the first sub string is greater than the second string, then return value > 0, else if the first
+ *         sub string is less than the second string, then return value < 0, else return value == 0.
+ * @remarks if cpstr_first == NULL or cpstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. t_pos must be valid position for the first string container,
+ *          otherwise the behavior is undefined. if t_len >= string_size(cpstr_first) - t_pos, then all remain sub string
+ *          is in use.
+ */
 extern int string_compare_substring_string(
-    const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen,
-    const string_t* cpstr_second);
+    const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen, const string_t* cpstr_second);
+
+/**
+ * Compare two sub strings.
+ * @param cpstr_first           first string container.
+ * @param t_firstpos            first substring begin position.
+ * @param t_firstlen            first substring length.
+ * @param cpstr_second          second string container.
+ * @param t_secondpos           second substring begin position.
+ * @param t_secondlen           second substring length.
+ * @return if the first sub string is greater than the second sub string, then return value > 0, else if the first
+ *         sub string is less than the second sub string, then return value < 0, else return value == 0.
+ * @remarks if cpstr_first == NULL or cpstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. t_firstpos must be valid position for the first string
+ *          container and the t_secondpos must be valie position for the second string container, otherwise the behavior
+ *          is undefined. if t_firstlen >= string_size(cpstr_first) - t_firstpos, then all first remain sub string is in
+ *          use, if t_secondlen >= string_size(cpstr_second) = t_secondpos, then all second remain sub string is in use.
+ */
 extern int string_compare_substring_substring(
     const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen,
     const string_t* cpstr_second, size_t t_secondpos, size_t t_secondlen);
+
+/**
+ * Compare the string and the character string.
+ * @param cpstr_string          string container.
+ * @param s_cstr                character string.
+ * @return if the string is greater than the character string, then return value > 0, else if the string is less than
+ *         the character string, then return value < 0, else return value == 0.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
+ *          initialized, otherwise the behavior is undefined.
+ */
 extern int string_compare_cstr(const string_t* cpstr_string, const char* s_cstr);
+
+/**
+ * Compare the sub string and the character string.
+ * @param cpstr_string          string container.
+ * @param t_pos                 substring begin position.
+ * @param t_len                 substring length.
+ * @param s_cstr                character string.
+ * @return if the sub string is greater than the character string, then return value > 0, else if the sub string is
+ *         less than the character string, then return value < 0, else return value == 0.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
+ *          initialized, otherwise the behavior is undefined. t_pos must be valid position for the first string container,
+ *          otherwise the behavior is undefined. if t_len >= string_size(cpstr_first) - t_pos, then all remain sub string
+ *          is in use.
+ */
 extern int string_compare_substring_cstr(
     const string_t* cpstr_string, size_t t_stringpos, size_t t_stringlen, const char* s_cstr);
+
+/**
+ * Compare the sub string and the sub character string.
+ * @param cpstr_string          string container.
+ * @param t_pos                 substring begin position.
+ * @param t_len                 substring length.
+ * @param s_cstr                character string.
+ * @param t_valuelen            sub character string length.
+ * @return if the sub string is greater than the sub character string, then return value > 0, else if the sub string is
+ *         less than the sub character string, then return value < 0, else return value == 0.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. the string must be
+ *          initialized, otherwise the behavior is undefined. t_pos must be valid position for the first string container,
+ *          otherwise the behavior is undefined. if t_len >= string_size(cpstr_first) - t_pos, then all remain sub string
+ *          is in use. if t_valuelen >= the length of s_cstr, then all character string is in use.
+ */
 extern int string_compare_substring_subcstr(
-    const string_t* cpstr_string, size_t t_stringpos, size_t t_stringlen,
-    const char* s_cstr, size_t t_len);
+    const string_t* cpstr_string, size_t t_stringpos, size_t t_stringlen, const char* s_cstr, size_t t_len);
 
 /*
  * Substring function.

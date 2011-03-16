@@ -304,6 +304,9 @@ bool_t string_not_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
     return t_result;
 }
 
+/**
+ * Test the string is less than the character string.
+ */
 bool_t string_less_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
@@ -315,6 +318,9 @@ bool_t string_less_cstr(const string_t* cpstr_string, const char* s_cstr)
     return t_result;
 }
 
+/**
+ * Test the string is less than or equal to the character string.
+ */
 bool_t string_less_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
@@ -326,6 +332,9 @@ bool_t string_less_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
     return t_result;
 }
 
+/**
+ * Test the string is greater than the character string.
+ */
 bool_t string_greater_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
@@ -337,6 +346,9 @@ bool_t string_greater_cstr(const string_t* cpstr_string, const char* s_cstr)
     return t_result;
 }
 
+/**
+ * Test the string is greater than or equal to the character string.
+ */
 bool_t string_greater_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
@@ -348,29 +360,37 @@ bool_t string_greater_equal_cstr(const string_t* cpstr_string, const char* s_cst
     return t_result;
 }
 
-int string_compare(
-    const string_t* cpstr_first, const string_t* cpstr_second)
+/**
+ * Compare two string.
+ */
+int string_compare(const string_t* cpstr_first, const string_t* cpstr_second)
 {
     return string_compare_cstr(cpstr_first, string_c_str(cpstr_second));
 }
 
+/**
+ * Compare the first sub string and the second string.
+ */
 int string_compare_substring_string(
-    const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen,
-    const string_t* cpstr_second)
+    const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen, const string_t* cpstr_second)
 {
-    return string_compare_substring_cstr(
-        cpstr_first, t_firstpos, t_firstlen, string_c_str(cpstr_second));
+    return string_compare_substring_cstr(cpstr_first, t_firstpos, t_firstlen, string_c_str(cpstr_second));
 }
 
+/**
+ * Compare two sub strings.
+ */
 int string_compare_substring_substring(
     const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen,
     const string_t* cpstr_second, size_t t_secondpos, size_t t_secondlen)
 {
     return string_compare_substring_subcstr(
-        cpstr_first, t_firstpos, t_firstlen, 
-        basic_string_at(cpstr_second, t_secondpos), t_secondlen);
+        cpstr_first, t_firstpos, t_firstlen, basic_string_at(cpstr_second, t_secondpos), t_secondlen);
 }
 
+/**
+ * Compare the string and the character string.
+ */
 int string_compare_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
@@ -382,6 +402,9 @@ int string_compare_cstr(const string_t* cpstr_string, const char* s_cstr)
     return t_result;
 }
 
+/**
+ * Compare the sub string and the character string.
+ */
 int string_compare_substring_cstr(
     const string_t* cpstr_string, size_t t_firstpos, size_t t_firstlen, const char* s_cstr)
 {
@@ -394,15 +417,16 @@ int string_compare_substring_cstr(
     return t_result;
 }
 
+/**
+ * Compare the sub string and the sub character string.
+ */
 int string_compare_substring_subcstr(
-    const string_t* cpstr_string, size_t t_firstpos, size_t t_firstlen,
-    const char* s_cstr, size_t t_len)
+    const string_t* cpstr_string, size_t t_firstpos, size_t t_firstlen, const char* s_cstr, size_t t_len)
 {
     bool_t t_result = false;
 
     _basic_string_pop_back((basic_string_t*)cpstr_string);
-    t_result = basic_string_compare_substring_subcstr(
-        cpstr_string, t_firstpos, t_firstlen, s_cstr, t_len);
+    t_result = basic_string_compare_substring_subcstr(cpstr_string, t_firstpos, t_firstlen, s_cstr, t_len);
     basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
