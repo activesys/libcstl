@@ -432,23 +432,41 @@ int string_compare_substring_subcstr(
     return t_result;
 }
 
-/* substr */
+
+/**
+ * Get specific sub string.
+ */
 string_t* string_substr(const string_t* cpstr_string, size_t t_pos, size_t t_len)
 {
-    string_t* pstr_string = basic_string_substr(cpstr_string, t_pos, t_len);
+    string_t* pstr_string = NULL;
+
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    pstr_string = basic_string_substr(cpstr_string, t_pos, t_len);
     assert(pstr_string != NULL);
+
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
     basic_string_push_back(pstr_string, '\0');
 
     return pstr_string;
 }
 
-/* connection */
-void string_connect(string_t* pstr_string, const string_t* cpstr_string_src)
+/**
+ * Connect string with other string.
+ */
+void string_connect(string_t* pstr_string, const string_t* cpstr_src)
 {
     _basic_string_pop_back(pstr_string);
-    basic_string_connect(pstr_string, cpstr_string_src);
+    basic_string_connect(pstr_string, cpstr_src);
+
+    if(pstr_string == cpstr_src)
+    {
+        basic_string_push_back(pstr_string, '\0');
+    }
 }
 
+/**
+ * Connect string with character string.
+ */
 void string_connect_cstr(string_t* pstr_string, const char* s_cstr)
 {
     _basic_string_pop_back(pstr_string);
@@ -456,6 +474,9 @@ void string_connect_cstr(string_t* pstr_string, const char* s_cstr)
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Appends specificed character to string.
+ */
 void string_connect_char(string_t* pstr_string, char c_char)
 {
     _basic_string_pop_back(pstr_string);

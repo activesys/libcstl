@@ -428,16 +428,46 @@ extern int string_compare_substring_cstr(
 extern int string_compare_substring_subcstr(
     const string_t* cpstr_string, size_t t_stringpos, size_t t_stringlen, const char* s_cstr, size_t t_len);
 
-/*
- * Substring function.
+/**
+ * Get specific sub string.
+ * @param cpstr_string          string container.
+ * @param t_pos                 substring begin position.
+ * @param t_len                 substring length.
+ * @return sub string.
+ * @remarks if cpstr_string == NULL, then the behavior is undefined. the string must be initialized, otherwise
+ *          the behavior is undefined. t_pos must be valid position for the first string container, otherwise the
+ *          behavior is undefined. if t_len == NPOS or t_len >= string_size(cpt_first) - t_pos, then all remain sub string
+ *          is in use. the returned sub string is initialized, user must be destroy this sub string after using.
  */
 extern string_t* string_substr(const string_t* cpstr_string, size_t t_pos, size_t t_len);
 
-/*
- * Connect operation functions.
+/**
+ * Connect string with other string.
+ * @param pstr_dest             destination string.
+ * @param cpstr_src             source string.
+ * @return void.
+ * @remarks if pstr_dest == NULL or cpstr_src == NULL, then the behavior is undefined. pstr_dest and cpstr_src must be
+ *          initialized, otherwise the behavior is undefined. if pstr_dest == cpstr_src, then the behavior is undefine.
  */
-extern void string_connect(string_t* pstr_string, const string_t* cpstr_string_src);
+extern void string_connect(string_t* pstr_string, const string_t* cpstr_src);
+
+/**
+ * Connect string with character string.
+ * @param pstr_string           destination string.
+ * @param s_cstr                source character string.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string must be
+ *          initialized, otherwise the behavior is undefined.
+ */
 extern void string_connect_cstr(string_t* pstr_string, const char* s_cstr);
+
+/**
+ * Appends specificed character to string.
+ * @param pstr_string           string container.
+ * @param c_char                specificed character.
+ * @return void.
+ * @remarks if pstr_string == NULL or uninitialized, then the bahavior is undefine.
+ */
 extern void string_connect_char(string_t* pstr_string, char c_char);
 
 /*

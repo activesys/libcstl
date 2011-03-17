@@ -461,6 +461,50 @@ void test_string_compare_substring_subcstr__char_all_content_less(void** state);
 void test_string_compare_substring_subcstr__char_all_equal(void** state);
 void test_string_compare_substring_subcstr__char_all_size_greater(void** state);
 void test_string_compare_substring_subcstr__char_all_content_greater(void** state);
+/*
+ * test string_substr
+ */
+UT_CASE_DECLARATION(string_substr)
+void test_string_substr__null_string(void** state);
+void test_string_substr__non_inited_string(void** state);
+void test_string_substr__invalid_pos(void** state);
+void test_string_substr__empty_substr(void** state);
+void test_string_substr__all(void** state);
+void test_string_substr__begin(void** state);
+void test_string_substr__middle(void** state);
+void test_string_substr__end(void** state);
+/*
+ * test string_connect
+ */
+UT_CASE_DECLARATION(string_connect)
+void test_string_connect__null_dest(void** state);
+void test_string_connect__null_src(void** state);
+void test_string_connect__non_inited_dest(void** state);
+void test_string_connect__non_inited_src(void** state);
+void test_string_connect__empty_empty(void** state);
+void test_string_connect__non_empty_empty(void** state);
+void test_string_connect__empty_non_empty(void** state);
+void test_string_connect__same(void** state);
+void test_string_connect__char(void** state);
+/*
+ * test string_connect_cstr
+ */
+UT_CASE_DECLARATION(string_connect_cstr)
+void test_string_connect_cstr__null_string(void** state);
+void test_string_connect_cstr__null_value_string(void** state);
+void test_string_connect_cstr__non_inited_string(void** state);
+void test_string_connect_cstr__empty_empty(void** state);
+void test_string_connect_cstr__non_empty_empty(void** state);
+void test_string_connect_cstr__empty_non_empty(void** state);
+void test_string_connect_cstr__char(void** state);
+/*
+ * test string_connect_char
+ */
+UT_CASE_DECLARATION(string_connect_char)
+void test_string_connect_char__null_string_container(void** state);
+void test_string_connect_char__non_inited_string_container(void** state);
+void test_string_connect_char__empty_container(void** state);
+void test_string_connect_char__non_empty_container(void** state);
 
 #define UT_CSTL_STRING_CASE\
     UT_SUIT_BEGIN(cstl_string, test_create_string__successfully),\
@@ -777,6 +821,34 @@ void test_string_compare_substring_subcstr__char_all_content_greater(void** stat
     UT_CASE(test_string_compare_substring_subcstr__char_all_equal),\
     UT_CASE(test_string_compare_substring_subcstr__char_all_size_greater),\
     UT_CASE(test_string_compare_substring_subcstr__char_all_content_greater),\
+    UT_CASE_BEGIN(string_substr, test_string_substr__null_string),\
+    UT_CASE(test_string_substr__non_inited_string),\
+    UT_CASE(test_string_substr__invalid_pos),\
+    UT_CASE(test_string_substr__empty_substr),\
+    UT_CASE(test_string_substr__all),\
+    UT_CASE(test_string_substr__begin),\
+    UT_CASE(test_string_substr__middle),\
+    UT_CASE(test_string_substr__end),\
+    UT_CASE_BEGIN(string_connect, test_string_connect__null_dest),\
+    UT_CASE(test_string_connect__null_src),\
+    UT_CASE(test_string_connect__non_inited_dest),\
+    UT_CASE(test_string_connect__non_inited_src),\
+    UT_CASE(test_string_connect__empty_empty),\
+    UT_CASE(test_string_connect__non_empty_empty),\
+    UT_CASE(test_string_connect__empty_non_empty),\
+    UT_CASE(test_string_connect__same),\
+    UT_CASE(test_string_connect__char),\
+    UT_CASE_BEGIN(string_connect_cstr, test_string_connect_cstr__null_string),\
+    UT_CASE(test_string_connect_cstr__null_value_string),\
+    UT_CASE(test_string_connect_cstr__non_inited_string),\
+    UT_CASE(test_string_connect_cstr__empty_empty),\
+    UT_CASE(test_string_connect_cstr__non_empty_empty),\
+    UT_CASE(test_string_connect_cstr__empty_non_empty),\
+    UT_CASE(test_string_connect_cstr__char),\
+    UT_CASE_BEGIN(string_connect_char, test_string_connect_char__null_string_container),\
+    UT_CASE(test_string_connect_char__non_inited_string_container),\
+    UT_CASE(test_string_connect_char__empty_container),\
+    UT_CASE(test_string_connect_char__non_empty_container),\
 
 #endif /* _UT_CSTL_STRING_H_ */
 
