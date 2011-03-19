@@ -470,27 +470,104 @@ extern void string_connect_cstr(string_t* pstr_string, const char* s_cstr);
  */
 extern void string_connect_char(string_t* pstr_string, char c_char);
 
-/*
- * Find operation functions.
+/**
+ * Find string in string.
+ * @param cpstr_string          string.
+ * @param cpstr_find            search string.
+ * @param t_pos                 search position.
+ * @return index of search string if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or cpstr_find == NULL, then the behavior is undefined. cpstr_string and cpstr_find
+ *          must be initialized, otherwise the behavior is undefined. t_pos is valid position for cpstr_string, otherwise
+ *          the behavior is undefined. if cpstr_find is empty, then return t_pos;
  */
-/* Find functions. */
-extern size_t string_find(
-    const string_t* cpstr_string, const string_t* cpstr_string_find, size_t t_pos);
-extern size_t string_find_cstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos);
-extern size_t string_find_subcstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len);
-extern size_t string_find_char(
-    const string_t* cpstr_string, char c_char, size_t t_pos);
-/* Rfind functions. */
-extern size_t string_rfind(
-    const string_t* cpstr_string, const string_t* cpstr_string_find, size_t t_pos);
-extern size_t string_rfind_cstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos);
-extern size_t string_rfind_subcstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len);
-extern size_t string_rfind_char(
-    const string_t* cpstr_string, char c_char, size_t t_pos);
+extern size_t string_find(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos);
+
+/**
+ * Find character string in string.
+ * @param cpstr_string          string.
+ * @param s_cstr                character string.
+ * @param t_pos                 search position.
+ * @return index of search string if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. cpstr_string 
+ *          must be initialized, otherwise the behavior is undefined. the character type of string and s_cstr
+ *          must be same, otherwise the behavior is undefined. t_pos is valid position for cpstr_string, otherwise the
+ *          behavior is undefined. if s_cstr is empty, then return t_pos.
+ */
+extern size_t string_find_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos);
+
+/**
+ * Find sub character string in string.
+ * @param cpstr_string          string.
+ * @param s_cstr                character string.
+ * @param t_pos                 search position.
+ * @param t_len                 sub character string length.
+ * @return index of search string if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. cpstr_string 
+ *          must be initialized, otherwise the behavior is undefined. t_pos is valid position for cpstr_string,
+ *          otherwise the behavior is undefined. if s_cstr is empty or t_len == 0, then return t_pos. if t_len is
+ *          greater then the length of character string, then use all character string.
+ */
+extern size_t string_find_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len);
+
+/**
+ * Find a first occurrence of a elem
+ * @param cpstr_string          string container.
+ * @param elem                  specificed character.
+ * @param t_pos                 search begin position.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpstr_string == NULL or uninitialized, the behavior is undefined. if t_pos is invalid position, then return
+ *          NPOS.
+ */
+extern size_t string_find_char(const string_t* cpstr_string, char c_char, size_t t_pos);
+
+/**
+ * Find string in string in a backward direction.
+ * @param cpstr_string          string.
+ * @param cpstr_find            search string.
+ * @param t_pos                 search position.
+ * @return index of search string if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or cpstr_find == NULL, then the behavior is undefined. cpstr_string and cpstr_find
+ *          must be initialized, otherwise the behavior is undefined. if t_pos >= string_size(cpstr_string), then search
+ *          from the last character. if cpstr_find is empty, then return t_pos;
+ */
+extern size_t string_rfind(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos);
+
+/**
+ * Find character string in string in a backward direction.
+ * @param cpstr_string          string.
+ * @param s_cstr                search character string.
+ * @param t_pos                 search position.
+ * @return index of search string if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. cpstr_string 
+ *          must be initialized, otherwise the behavior is undefined. if t_pos >= string_size(cpstr_string), then search
+ *          from the last character. if s_cstr is empty, then return t_pos;
+ */
+extern size_t string_rfind_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos);
+
+/**
+ * Find sub character string in string in a backward direction.
+ * @param cpstr_string          string.
+ * @param s_cstr                search character string.
+ * @param t_pos                 search position.
+ * @param t_len                 sub character string length.
+ * @return index of search string if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. cpstr_string 
+ *          must be initialized, otherwise the behavior is undefined. if t_pos >= string_size(cpstr_string), then search
+ *          from the last character. if s_cstr is empty or t_len == 0, then return t_pos; if t_len is greater than
+ *          the length of character string, then use all character string.
+ */
+extern size_t string_rfind_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len);
+
+/**
+ * Find a first occurrence of a character in a backward direction.
+ * @param cpstr_string          string container.
+ * @param c_char                specificed character.
+ * @param t_pos                 search begin position.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpstr_string == NULL or uninitialized, the behavior is undefined. if t_pos >= the length of string,
+ *          then finding begin with the last character.
+ */
+extern size_t string_rfind_char(const string_t* cpstr_string, char c_char, size_t t_pos);
 /* Find first of functions. */
 extern size_t string_find_first_of(
     const string_t* cpstr_string, const string_t* cpstr_string_find, size_t t_pos);

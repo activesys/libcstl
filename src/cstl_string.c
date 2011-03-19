@@ -484,15 +484,18 @@ void string_connect_char(string_t* pstr_string, char c_char)
     basic_string_push_back(pstr_string, '\0');
 }
 
-/* find */
-size_t string_find(
-    const string_t* cpstr_string, const string_t* cpstr_string_find, size_t t_pos)
+/**
+ * Find string in string.
+ */
+size_t string_find(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    return string_find_cstr(cpstr_string, string_c_str(cpstr_string_find), t_pos);
+    return string_find_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
 }
 
-size_t string_find_cstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+/**
+ * Find character string in string.
+ */
+size_t string_find_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
     size_t t_findpos = NPOS;
 
@@ -503,8 +506,10 @@ size_t string_find_cstr(
     return t_findpos;
 }
 
-size_t string_find_subcstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+/**
+ * Find sub character string in string.
+ */
+size_t string_find_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
     size_t t_findpos = NPOS;
 
@@ -515,6 +520,9 @@ size_t string_find_subcstr(
     return t_findpos;
 }
 
+/**
+ * Find a first occurrence of a elem
+ */
 size_t string_find_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
     size_t t_findpos = NPOS;
@@ -526,14 +534,18 @@ size_t string_find_char(const string_t* cpstr_string, char c_char, size_t t_pos)
     return t_findpos;
 }
 
-size_t string_rfind(
-    const string_t* cpstr_string, const string_t* cpstr_string_find, size_t t_pos)
+/**
+ * Find string in string in a backward direction.
+ */
+size_t string_rfind(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    return string_rfind_cstr(cpstr_string, string_c_str(cpstr_string_find), t_pos);
+    return string_rfind_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
 }
 
-size_t string_rfind_cstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+/**
+ * Find character string in string in a backward direction.
+ */
+size_t string_rfind_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
     size_t t_findpos = NPOS;
 
@@ -544,8 +556,10 @@ size_t string_rfind_cstr(
     return t_findpos;
 }
 
-size_t string_rfind_subcstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+/**
+ * Find sub character string in string in a backward direction.
+ */
+size_t string_rfind_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
     size_t t_findpos = NPOS;
 
@@ -556,6 +570,9 @@ size_t string_rfind_subcstr(
     return t_findpos;
 }
 
+/**
+ * Find a first occurrence of a character in a backward direction.
+ */
 size_t string_rfind_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
     size_t t_findpos = NPOS;
