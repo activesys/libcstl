@@ -4919,8 +4919,7 @@ void test_string_rfind__char_middle_not_find_pos(void** state)
 UT_CASE_DEFINATION(string_rfind_cstr)
 void test_string_rfind_cstr__null_string(void** state)
 {
-    int elems[] = {0};
-    expect_assert_failure(string_rfind_cstr(NULL, elems, 0));
+    expect_assert_failure(string_rfind_cstr(NULL, "abc", 0));
 }
 
 void test_string_rfind_cstr__null_find(void** state)
@@ -4936,10 +4935,9 @@ void test_string_rfind_cstr__null_find(void** state)
 void test_string_rfind_cstr__non_inited_string(void** state)
 {
     string_t* pt_string = create_string();
-    int elems[] = {0};
 
     pt_string->_vec_base._pby_start = (_byte_t*)0x888;
-    expect_assert_failure(string_rfind_cstr(pt_string, elems, 0));
+    expect_assert_failure(string_rfind_cstr(pt_string, "abc", 0));
     pt_string->_vec_base._pby_start = NULL;
 
     string_destroy(pt_string);
@@ -5068,8 +5066,7 @@ void test_string_rfind_cstr__char_middle_not_find_pos(void** state)
 UT_CASE_DEFINATION(string_rfind_subcstr)
 void test_string_rfind_subcstr__null_string(void** state)
 {
-    int elems[] = {0};
-    expect_assert_failure(string_rfind_subcstr(NULL, elems, 0, NPOS));
+    expect_assert_failure(string_rfind_subcstr(NULL, "abc", 0, NPOS));
 }
 
 void test_string_rfind_subcstr__null_find(void** state)
@@ -5381,6 +5378,1368 @@ void test_string_rfind_char__find_successful_middle_pos(void** state)
     string_push_back(pt_string, 'a');
     string_push_back(pt_string, 'e');
     assert_true(string_rfind_char(pt_string, 'a', 4) == 4);
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_find_first_of
+ */
+UT_CASE_DEFINATION(string_find_first_of)
+void test_string_find_first_of__null_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_find_first_of(NULL, pt_string, 0));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of__null_find(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_find_first_of(pt_string, NULL, 0));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of__non_inited_string(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+
+    string_init(pt_find);
+    pt_string->_vec_base._pby_start = (_byte_t*)0x888;
+    expect_assert_failure(string_find_first_of(pt_string, pt_find, 0));
+    pt_string->_vec_base._pby_start = NULL;
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_of__non_inited_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+
+    string_init(pt_string);
+    pt_find->_vec_base._pby_start = (_byte_t*)0x888;
+    expect_assert_failure(string_find_first_of(pt_string, pt_find, 0));
+    pt_find->_vec_base._pby_start = NULL;
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_of__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    string_init(pt_find);
+    expect_assert_failure(string_find_first_of(pt_string, pt_find, 100));
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_of__same_begin(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_of(pt_string, pt_string, 0) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of__same_middle(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_of(pt_string, pt_string, 4) == 4);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of__char_begin_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    assert_true(string_find_first_of(pt_string, pt_find, 0) == 0);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_of__char_begin_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    string_push_back(pt_find, 'a' + 15);
+    string_push_back(pt_find, 'a' + 3);
+    assert_true(string_find_first_of(pt_string, pt_find, 0) == 3);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_of__char_begin_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    string_push_back(pt_find, 'a' + 13);
+    string_push_back(pt_find, 'a' + 14);
+    assert_true(string_find_first_of(pt_string, pt_find, 0) == NPOS);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_of__char_middle_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    assert_true(string_find_first_of(pt_string, pt_find, 5) == 5);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_of__char_middle_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    string_push_back(pt_find, 'a' + 4);
+    string_push_back(pt_find, 'a' + 5);
+    string_push_back(pt_find, 'a' + 3);
+    assert_true(string_find_first_of(pt_string, pt_find, 2) == 3);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_of__char_middle_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    string_push_back(pt_find, 'a' + 13);
+    string_push_back(pt_find, 'a' + 14);
+    assert_true(string_find_first_of(pt_string, pt_find, 2) == NPOS);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_of__char_middle_not_find_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    string_push_back(pt_find, 'a' + 3);
+    string_push_back(pt_find, 'a' + 4);
+    assert_true(string_find_first_of(pt_string, pt_find, 5) == NPOS);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+/*
+ * test string_find_first_of_cstr
+ */
+UT_CASE_DEFINATION(string_find_first_of_cstr)
+void test_string_find_first_of_cstr__null_string(void** state)
+{
+    expect_assert_failure(string_find_first_of_cstr(NULL, "abc", 0));
+}
+
+void test_string_find_first_of_cstr__null_find(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_find_first_of_cstr(pt_string, NULL, 0));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_cstr__non_inited_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._pby_start = (_byte_t*)0x888;
+    expect_assert_failure(string_find_first_of_cstr(pt_string, "abc", 0));
+    pt_string->_vec_base._pby_start = NULL;
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_cstr__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    expect_assert_failure(string_find_first_of_cstr(pt_string, "abc", 100));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_cstr__char_begin_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_cstr(pt_string, "", 0) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_cstr__char_begin_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_cstr(pt_string, "xydeh", 0) == 3);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_cstr__char_begin_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_cstr(pt_string, "xy", 0) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_cstr__char_middle_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_cstr(pt_string, "", 5) == 5);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_cstr__char_middle_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_cstr(pt_string, "fed", 2) == 3);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_cstr__char_middle_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_cstr(pt_string, "xy", 2) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_cstr__char_middle_not_find_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_cstr(pt_string, "de", 5) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_find_first_of_subcstr
+ */
+UT_CASE_DEFINATION(string_find_first_of_subcstr)
+void test_string_find_first_of_subcstr__null_string(void** state)
+{
+    expect_assert_failure(string_find_first_of_subcstr(NULL, "abc", 0, NPOS));
+}
+
+void test_string_find_first_of_subcstr__null_find(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_find_first_of_subcstr(pt_string, NULL, 0, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__non_inited_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._pby_start = (_byte_t*)0x888;
+    expect_assert_failure(string_find_first_of_subcstr(pt_string, "abc", 0, NPOS));
+    pt_string->_vec_base._pby_start = NULL;
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    expect_assert_failure(string_find_first_of_subcstr(pt_string, "abc", 100, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__char_begin_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_subcstr(pt_string, "", 0, NPOS) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__char_begin_length_0(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_subcstr(pt_string, "de", 0, 0) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__char_begin_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_subcstr(pt_string, "de", 0, NPOS) == 3);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__char_begin_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_subcstr(pt_string, "xy", 0, NPOS) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__char_middle_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_subcstr(pt_string, "", 5, NPOS) == 5);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__char_middle_length_0(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_subcstr(pt_string, "de", 2, 0) == 2);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__char_middle_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_subcstr(pt_string, "de", 2, NPOS) == 3);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__char_middle_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_subcstr(pt_string, "xy", 2, NPOS) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_subcstr__char_middle_not_find_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_of_subcstr(pt_string, "de", 5, NPOS) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_find_first_of_char
+ */
+UT_CASE_DEFINATION(string_find_first_of_char)
+
+void test_string_find_first_of_char__null_string_container(void** state)
+{
+    expect_assert_failure(string_find_first_of_char(NULL, 'a', 2323));
+}
+
+void test_string_find_first_of_char__non_init_string_container(void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._t_typeinfo._t_style = 23423;
+    expect_assert_failure(string_find_first_of_char(pt_string, 'a', 111));
+
+    pt_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_char__invalid_position(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_of_char(pt_string, 'b', 100) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_char__invalid_position_end(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_of_char(pt_string, 'b', string_size(pt_string)) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_char__invalid_position_NPOS(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_of_char(pt_string, 'b', NPOS) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_char__find_failure(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_of_char(pt_string, 'd', 0) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_char__find_failure_middle_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 1, 'a');
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'b');
+    assert_true(string_find_first_of_char(pt_string, 'a', 3) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_char__find_successful(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'c');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'd');
+    assert_true(string_find_first_of_char(pt_string, 'a', 0) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_char__find_successful_middle(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'c');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'd');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'e');
+    assert_true(string_find_first_of_char(pt_string, 'a', 0) == 2);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_char__find_successful_back(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'c');
+    string_push_back(pt_string, 'd');
+    string_push_back(pt_string, 'e');
+    string_push_back(pt_string, 'a');
+    assert_true(string_find_first_of_char(pt_string, 'a', 0) == 4);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_of_char__find_successful_middle_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'c');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'd');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'e');
+    assert_true(string_find_first_of_char(pt_string, 'a', 3) == 4);
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_find_first_not_of
+ */
+UT_CASE_DEFINATION(string_find_first_not_of)
+void test_string_find_first_not_of__null_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_find_first_not_of(NULL, pt_string, 0));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of__null_find(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_find_first_not_of(pt_string, NULL, 0));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of__non_inited_string(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+
+    string_init(pt_find);
+    pt_string->_vec_base._pby_start = (_byte_t*)0x888;
+    expect_assert_failure(string_find_first_not_of(pt_string, pt_find, 0));
+    pt_string->_vec_base._pby_start = NULL;
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_not_of__non_inited_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+
+    string_init(pt_string);
+    pt_find->_vec_base._pby_start = (_byte_t*)0x888;
+    expect_assert_failure(string_find_first_not_of(pt_string, pt_find, 0));
+    pt_find->_vec_base._pby_start = NULL;
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_not_of__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    string_init(pt_find);
+    expect_assert_failure(string_find_first_not_of(pt_string, pt_find, 100));
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_not_of__same_begin(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_not_of(pt_string, pt_string, 0) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of__same_middle(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_not_of(pt_string, pt_string, 4) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of__char_begin_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    assert_true(string_find_first_not_of(pt_string, pt_find, 0) == 0);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_not_of__char_begin_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    string_push_back(pt_find, 'a' + 1);
+    string_push_back(pt_find, 'a' + 2);
+    string_push_back(pt_find, 'a' + 0);
+    string_push_back(pt_find, 'a' + 4);
+    string_push_back(pt_find, 'a' + 5);
+    assert_true(string_find_first_not_of(pt_string, pt_find, 0) == 3);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_not_of__char_begin_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init_copy(pt_find, pt_string);
+    assert_true(string_find_first_not_of(pt_string, pt_find, 0) == NPOS);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_not_of__char_middle_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    assert_true(string_find_first_not_of(pt_string, pt_find, 5) == 5);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_not_of__char_middle_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init(pt_find);
+    string_push_back(pt_find, 'a' + 4);
+    string_push_back(pt_find, 'a' + 5);
+    string_push_back(pt_find, 'a' + 2);
+    assert_true(string_find_first_not_of(pt_string, pt_find, 2) == 3);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_not_of__char_middle_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init_copy(pt_find, pt_string);
+    assert_true(string_find_first_not_of(pt_string, pt_find, 2) == NPOS);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+void test_string_find_first_not_of__char_middle_not_find_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_find = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    string_init_copy(pt_find, pt_string);
+    assert_true(string_find_first_not_of(pt_string, pt_find, 5) == NPOS);
+
+    string_destroy(pt_string);
+    string_destroy(pt_find);
+}
+
+/*
+ * test string_find_first_not_of_cstr
+ */
+UT_CASE_DEFINATION(string_find_first_not_of_cstr)
+void test_string_find_first_not_of_cstr__null_string(void** state)
+{
+    expect_assert_failure(string_find_first_not_of_cstr(NULL, "abc", 0));
+}
+
+void test_string_find_first_not_of_cstr__null_find(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_find_first_not_of_cstr(pt_string, NULL, 0));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_cstr__non_inited_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._pby_start = (_byte_t*)0x888;
+    expect_assert_failure(string_find_first_not_of_cstr(pt_string, "abc", 0));
+    pt_string->_vec_base._pby_start = NULL;
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_cstr__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    expect_assert_failure(string_find_first_not_of_cstr(pt_string, "abc", 100));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_cstr__char_begin_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_cstr(pt_string, "", 0) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_cstr__char_begin_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_cstr(pt_string, "abcefghijklmn", 0) == 3);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_cstr__char_begin_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_cstr(pt_string, "jklmnxfghiyabcde", 0) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_cstr__char_middle_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_cstr(pt_string, "", 5) == 5);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_cstr__char_middle_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_cstr(pt_string, "efghijklmnabc", 2) == 3);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_cstr__char_middle_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_cstr(pt_string, "abcdxyeopfgqhijklmn", 2) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_cstr__char_middle_not_find_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_cstr(pt_string, "fghijklmnopq", 5) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_find_first_not_of_subcstr
+ */
+UT_CASE_DEFINATION(string_find_first_not_of_subcstr)
+void test_string_find_first_not_of_subcstr__null_string(void** state)
+{
+    expect_assert_failure(string_find_first_not_of_subcstr(NULL, "abc", 0, NPOS));
+}
+
+void test_string_find_first_not_of_subcstr__null_find(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_find_first_not_of_subcstr(pt_string, NULL, 0, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__non_inited_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._pby_start = (_byte_t*)0x888;
+    expect_assert_failure(string_find_first_not_of_subcstr(pt_string, "abc", 0, NPOS));
+    pt_string->_vec_base._pby_start = NULL;
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    expect_assert_failure(string_find_first_not_of_subcstr(pt_string, "abcd", 100, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__char_begin_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_subcstr(pt_string, "", 0, NPOS) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__char_begin_length_0(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_subcstr(pt_string, "de", 0, 0) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__char_begin_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_subcstr(pt_string, "abcefghijklmn", 0, NPOS) == 3);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__char_begin_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_subcstr(pt_string, "xyabcdefghijklmn", 0, NPOS) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__char_middle_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_subcstr(pt_string, "", 5, NPOS) == 5);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__char_middle_length_0(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_subcstr(pt_string, "de", 2, 0) == 2);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__char_middle_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_subcstr(pt_string, "abcefghijklmn", 2, NPOS) == 3);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__char_middle_not_find(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_subcstr(pt_string, "xyabcdefghijklmn", 2, NPOS) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_subcstr__char_middle_not_find_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    size_t i = 0;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+    assert_true(string_find_first_not_of_subcstr(pt_string, "fghijklmn", 5, NPOS) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_find_first_not_of_char
+ */
+UT_CASE_DEFINATION(string_find_first_not_of_char)
+
+void test_string_find_first_not_of_char__null_string_container(void** state)
+{
+    expect_assert_failure(string_find_first_not_of_char(NULL, 'a', 0));
+}
+
+void test_string_find_first_not_of_char__non_init_string_container(
+    void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._t_typeinfo._t_style = 23423;
+    expect_assert_failure(string_find_first_not_of_char(pt_string, 'a', 0));
+
+    pt_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_char__invalid_position(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_not_of_char(pt_string, 'a', 3445) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_char__invalid_position_end(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_not_of_char(pt_string, 'a', string_size(pt_string)) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_char__invalid_position_NPOS(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_not_of_char(pt_string, 'a', NPOS) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_char__find_first_not_of_failure(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    assert_true(string_find_first_not_of_char(pt_string, 'a', 0) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_char__find_first_not_of_failure_middle_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 1, 'b');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    assert_true(string_find_first_not_of_char(pt_string, 'a', 3) == NPOS);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_char__find_first_not_of_successful(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'c');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'd');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'e');
+    assert_true(string_find_first_not_of_char(pt_string, 'a', 0) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_char__find_first_not_of_successful_middle(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'c');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'e');
+    assert_true(string_find_first_not_of_char(pt_string, 'a', 0) == 2);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_char__find_first_not_of_successful_back(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'b');
+    assert_true(string_find_first_not_of_char(pt_string, 'a', 0) == 4);
+
+    string_destroy(pt_string);
+}
+
+void test_string_find_first_not_of_char__find_first_not_of_successful_middle_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    string_push_back(pt_string, 'b');
+    string_push_back(pt_string, 'c');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'a');
+    string_push_back(pt_string, 'd');
+    string_push_back(pt_string, 'e');
+    assert_true(string_find_first_not_of_char(pt_string, 'a', 3) == 4);
 
     string_destroy(pt_string);
 }
