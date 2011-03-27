@@ -686,14 +686,18 @@ size_t string_find_first_not_of_char(const string_t* cpstr_string, char c_char, 
     return t_findpos;
 }
 
-size_t string_find_last_of(
-    const string_t* cpstr_string, const string_t* cpstr_string_find, size_t t_pos)
+/**
+ * Find string for last character that matches any character of specific string.
+ */
+size_t string_find_last_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    return string_find_last_of_cstr(cpstr_string, string_c_str(cpstr_string_find), t_pos);
+    return string_find_last_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
 }
 
-size_t string_find_last_of_cstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+/**
+ * Find string for last character that matches any character of specific character string.
+ */
+size_t string_find_last_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
     size_t t_findpos = NPOS;
 
@@ -704,8 +708,10 @@ size_t string_find_last_of_cstr(
     return t_findpos;
 }
 
-size_t string_find_last_of_subcstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+/**
+ * Find string for last character that matches any character of specific sub character string.
+ */
+size_t string_find_last_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
     size_t t_findpos = NPOS;
 
@@ -716,8 +722,10 @@ size_t string_find_last_of_subcstr(
     return t_findpos;
 }
 
-size_t string_find_last_of_char(
-    const string_t* cpstr_string, char c_char, size_t t_pos)
+/**
+ * Find string for last character that matches any character of specific character.
+ */
+size_t string_find_last_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
     size_t t_findpos = NPOS;
 
@@ -728,14 +736,18 @@ size_t string_find_last_of_char(
     return t_findpos;
 }
 
-size_t string_find_last_not_of(
-    const string_t* cpstr_string, const string_t* cpstr_string_find, size_t t_pos)
+/**
+ * Find string for last character that is not matches any character of specific string.
+ */
+size_t string_find_last_not_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    return string_find_last_not_of_cstr(cpstr_string, string_c_str(cpstr_string_find), t_pos);
+    return string_find_last_not_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
 }
 
-size_t string_find_last_not_of_cstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+/**
+ * Find string for last character that is not matches any character of specific character string.
+ */
+size_t string_find_last_not_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
     size_t t_findpos = NPOS;
 
@@ -746,8 +758,10 @@ size_t string_find_last_not_of_cstr(
     return t_findpos;
 }
 
-size_t string_find_last_not_of_subcstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+/**
+ * Find string for last character that is not matches any character of specific sub character string.
+ */
+size_t string_find_last_not_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
     size_t t_findpos = NPOS;
 
@@ -758,8 +772,10 @@ size_t string_find_last_not_of_subcstr(
     return t_findpos;
 }
 
-size_t string_find_last_not_of_char(
-    const string_t* cpstr_string, char c_char, size_t t_pos)
+/**
+ * Find string for last character that is not matches any character of specific character.
+ */
+size_t string_find_last_not_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
     size_t t_findpos = NPOS;
 
@@ -770,12 +786,17 @@ size_t string_find_last_not_of_char(
     return t_findpos;
 }
 
-/* iterator support */
+/**
+ * Return a iterator to the first element in the basic string container.
+ */
 string_iterator_t string_begin(const string_t* cpstr_string)
 {
     return basic_string_begin(cpstr_string);
 }
 
+/**
+ * Return a iterator that points just beyond the end of string container.
+ */
 string_iterator_t string_end(const string_t* cpstr_string)
 {
     return basic_string_rbegin(cpstr_string);

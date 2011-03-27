@@ -666,29 +666,121 @@ extern size_t string_find_first_not_of_subcstr(const string_t* cpstr_string, con
  *          NPOS.
  */
 extern size_t string_find_first_not_of_char(const string_t* cpstr_string, char c_char, size_t t_pos);
-/* Find last of functions. */
-extern size_t string_find_last_of(
-    const string_t* cpstr_string, const string_t* cpstr_string_find, size_t t_pos);
-extern size_t string_find_last_of_cstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos);
-extern size_t string_find_last_of_subcstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len);
-extern size_t string_find_last_of_char(
-    const string_t* cpstr_string, char c_char, size_t t_pos);
-/* Find last not of functions. */
-extern size_t string_find_last_not_of(
-    const string_t* cpstr_string, const string_t* cpstr_string_find, size_t t_pos);
-extern size_t string_find_last_not_of_cstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos);
-extern size_t string_find_last_not_of_subcstr(
-    const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len);
-extern size_t string_find_last_not_of_char(
-    const string_t* cpstr_string, char c_char, size_t t_pos);
 
-/*
- * Iterator support functions.
+/**
+ * Find string for last character that matches any character of specific string.
+ * @param cpstr_string          string.
+ * @param cpstr_find            search string.
+ * @param t_pos                 search position.
+ * @return index of character if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or cpstr_find == NULL, then the behavior is undefined. cpstr_string and cpstr_find
+ *          must be initialized, otherwise the behavior is undefined. if t_pos >= string_size(cpstr_string), then search
+ *          from the last character. if cpstr_find is empty, then return t_pos;
+ */
+extern size_t string_find_last_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos);
+
+/**
+ * Find string for last character that matches any character of specific character string.
+ * @param cpstr_string          string.
+ * @param s_cstr                search character string.
+ * @param t_pos                 search position.
+ * @return index of character if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. cpstr_string 
+ *          must be initialized, otherwise the behavior is undefined. if t_pos >= string_size(cpstr_string), then search
+ *          from the last character. if s_cstr is empty, then return t_pos;
+ */
+extern size_t string_find_last_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos);
+
+/**
+ * Find string for last character that matches any character of specific sub character string.
+ * @param cpstr_string          string.
+ * @param s_cstr                search character string.
+ * @param t_pos                 search position.
+ * @param t_len                 sub character string length.
+ * @return index of character if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. cpstr_string 
+ *          must be initialized, otherwise the behavior is undefined. if t_pos >= string_size(cpstr_string), then search
+ *          from the last character. if s_cstr is empty or t_len == 0, then return t_pos; if t_len is greater than
+ *          the length of character string, then use all character string.
+ */
+extern size_t string_find_last_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len);
+
+/**
+ * Find string for last character that matches any character of specific character.
+ * @param cpstr_string          string container.
+ * @param c_char                specificed character.
+ * @param t_pos                 search begin position.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpstr_string == NULL or uninitialized, the behavior is undefined. if t_pos >= the length of string,
+ *          then finding begin with the last character.
+ */
+extern size_t string_find_last_of_char(const string_t* cpstr_string, char c_char, size_t t_pos);
+
+/**
+ * Find string for last character that is not matches any character of specific string.
+ * @param cpstr_string          string.
+ * @param cpstr_find            search string.
+ * @param t_pos                 search position.
+ * @return index of character if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or cpstr_find == NULL, then the behavior is undefined. cpstr_string and cpstr_find
+ *          must be initialized, otherwise the behavior is undefined. if t_pos >= string_size(cpstr_string), then search
+ *          from the last character. if cpstr_find is empty, then return t_pos;
+ */
+extern size_t string_find_last_not_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos);
+
+/**
+ * Find string for last character that is not matches any character of specific character string.
+ * @param cpstr_string          string.
+ * @param s_cstr                search character string.
+ * @param t_pos                 search position.
+ * @return index of character if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. cpstr_string 
+ *          must be initialized, otherwise the behavior is undefined. if t_pos >= string_size(cpstr_string), then search
+ *          from the last character. if s_cstr is empty, then return t_pos;
+ */
+extern size_t string_find_last_not_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos);
+
+/**
+ * Find string for last character that is not matches any character of specific sub character string.
+ * @param cpstr_string          string.
+ * @param s_cstr                search character string.
+ * @param t_pos                 search position.
+ * @param t_len                 sub character string length.
+ * @return index of character if search successfull, else return NPOS.
+ * @remarks if cpstr_string == NULL or s_cstr == NULL, then the behavior is undefined. cpstr_string 
+ *          must be initialized, otherwise the behavior is undefined. if t_pos >= string_size(cpstr_string), then search
+ *          from the last character. if s_cstr is empty or t_len == 0, then return t_pos; if t_len is greater than
+ *          the length of character string, then use all character string.
+ */
+extern size_t string_find_last_not_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len);
+
+/**
+ * Find string for last character that is not matches any character of specific character.
+ * @param cpstr_string          string container.
+ * @param elem                  specificed character.
+ * @param t_pos                 search begin position.
+ * @return the index of first character of the substring when successful, otherwise NPOS.
+ * @remarks if cpstr_string == NULL or uninitialized, the behavior is undefined. if t_pos >= the length of basic string,
+ *          then finding begin with the last character.
+ */
+extern size_t string_find_last_not_of_char(const string_t* cpstr_string, char c_char, size_t t_pos);
+
+/**
+ * Return a iterator to the first element in the basic string container.
+ * @param cpstr_string          string container.
+ * @return a iterator to the first element in the basic string container.
+ * @remarks if cpstr_string == NULL, then the behavior is undefined. the string must be initialized, otherwise the
+ *          behavior is undefined. if the string is empty, then return string_end(cpstr_string).
  */
 extern string_iterator_t string_begin(const string_t* cpstr_string);
+
+/**
+ * Return a iterator that points just beyond the end of string container.
+ * @param cpstr_string          string container.
+ * @return a iterator to the end of string.
+ * @remarks if cpstr_string == NULL, then the behavior is undefined. the string must be initialized, otherwise the
+ *          behavior is undefined.
+ */
 extern string_iterator_t string_end(const string_t* cpstr_string);
 /* private functions. */
 extern string_reverse_iterator_t string_rbegin(const string_t* cpstr_string);
