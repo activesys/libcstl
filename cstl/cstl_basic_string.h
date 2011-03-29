@@ -972,7 +972,7 @@ extern basic_string_reverse_iterator_t basic_string_rend(const basic_string_t* c
 
 /**
  * Erases the elements of basic_string.
- * @param pvec_vector   basic_string container.
+ * @param pt_basic_string   basic_string container.
  * @return void.
  * @remarks if cpvec_vector == NULL, then the behavior is undefined. the basic_string must be initialized, otherwise the
  *          behavior is undefined.

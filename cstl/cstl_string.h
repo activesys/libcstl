@@ -786,18 +786,34 @@ extern string_iterator_t string_end(const string_t* cpstr_string);
 extern string_reverse_iterator_t string_rbegin(const string_t* cpstr_string);
 extern string_reverse_iterator_t string_rend(const string_t* cpstr_string);
 
-/*
- * Erase all characters in string.
+/**
+ * Erases the characters of string.
+ * @param pstr_string           string container.
+ * @return void.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. the string must be initialized, otherwise the
+ *          behavior is undefined.
  */
 extern void string_clear(string_t* pstr_string);
 
-/*
- * Swap the contents of two strings.
+/**
+ * Swap string datas.
+ * @param pstr_first            first string.
+ * @param pstr_second           second string.
+ * @return void.
+ * @remarks if pstr_first == NULL or pstr_second == NULL, then the behavior is undefined. the two strings must be
+ *          initialized, otherwise the behavior is undefined. if string_equal(pstr_first, pstr_second) == true, then
+ *          this function does nothing.
  */
 extern void string_swap(string_t* pstr_first, string_t* pstr_second);
 
-/*
- * Reserve and Resize operation functions.
+/**
+ * Set string capacity.
+ * @param pstr_string           string container.
+ * @param t_reservesize         new capacity.
+ * @return void.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. pstr_string must be initialized, otherwise the
+ *          behavior is undefined. if t_reservesize > string_capacity(), then t_reservesize is new capacity, otherwise
+ *          capacity is not change.
  */
 extern void string_reserve(string_t* pstr_string, size_t t_reservesize);
 extern void string_resize(string_t* pstr_string, size_t t_resize, char c_char);
@@ -807,30 +823,140 @@ extern void string_resize(string_t* pstr_string, size_t t_resize, char c_char);
  */
 extern void string_push_back(string_t* pstr_string, char c_char);
 
-/*
- * Assign operator functions.
+/**
+ * Assign string character with an exist string container.
+ * @param pstr_dest             destination string container.
+ * @param cpstr_src             source string container.
+ * @return void.
+ * @remarks if pstr_dest == NULL or cpstr_src == NULL, then the behavior is undefined. pstr_dest and cpstr_src must be
+ *          initialized, otherwise the behavior is undefined. if the destination string equal to source string, then this
+ *          function does nothing.
  */
-extern void string_assign(string_t* pstr_string, const string_t* cpstr_string_assign);
-extern void string_assign_substring(
-    string_t* pstr_string, const string_t* cpstr_string_assign, size_t t_pos, size_t t_len);
-extern void string_assign_cstr(string_t* pstr_string, const char* s_cstr);
-extern void string_assign_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len);
-extern void string_assign_char(string_t* pstr_string, size_t t_count, char c_char);
-extern void string_assign_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end);
+extern void string_assign(string_t* pstr_dest, const string_t* cpstr_src);
 
-/*
- * Append operation functions.
+/**
+ * Assign string character with an exist sub string container.
+ * @param pstr_dest             destination string container.
+ * @param cpstr_src             source string container.
+ * @param t_pos                 start position of source string.
+ * @param t_len                 sub string length.
+ * @return void.
+ * @remarks if pstr_dest == NULL or cpstr_src == NULL, then the behavior is undefined. pstr_dest and cpstr_src must be
+ *          initialized, otherwise the behavior is undefined. if the destination string equal to source string, then this
+ *          function does nothing. if t_len == NPOS or t_pos + t_len >= string_size(cpstr_src), then use all remain source
+ *          string.
  */
-extern void string_append(string_t* pstr_string, const string_t* cpstr_string_append);
-extern void string_append_substring(
-    string_t* pstr_string, const string_t* cpstr_string_append, size_t t_pos, size_t t_len);
+extern void string_assign_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len);
+
+/**
+ * Assign string character with an exist character string.
+ * @param pstr_string           string container.
+ * @param s_cstr                character string.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string muse be initialized,
+ *          otherwise the behavior is undefined.
+ */
+extern void string_assign_cstr(string_t* pstr_string, const char* s_cstr);
+
+/**
+ * Assign string character with an exist sub character string.
+ * @param pstr_string           string container.
+ * @param s_cstr                character string.
+ * @param t_len                 length of sub character string.
+ * @return void.
+ * @remarks if pstr_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pstr_string muse be
+ *          initialized, otherwise the behavior is undefined. if t_len is equal to or greater than the length of character
+ *          string, then use all character string.
+ */
+extern void string_assign_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len);
+
+/**
+ * Assign string with specificed character.
+ * @param pstr_string           string container.
+ * @param t_count               character number.
+ * @param c_char                specificed character.
+ * @return void.
+ * @remarks if pstr_string == NULL or string is uninitialized, then the behavior is undefined.
+ */
+extern void string_assign_char(string_t* pstr_string, size_t t_count, char c_char);
+
+/**
+ * Assign string character with an exist string container range.
+ * @param pstr_string           destination string container.
+ * @param it_begin              range begin.
+ * @param it_end                range end.
+ * @return void.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. pstr_string must be initialized, otherwise the
+ *          behavior is undefined. if [it_begin, it_end) belong to the destination string, the behavior is undefined.
+ */
+extern void string_assign_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end);
+
+/**
+ * Append specific string to destination string.
+ * @param pstr_dest             destination string container.
+ * @param cpstr_src             source string container.
+ * @return void.
+ * @remarks if pstr_dest == NULL or cpstr_src == NULL, then the behavior is undefined. pstr_dest and cpstr_src must be
+ *          initialized, otherwise the behavior is undefined. 
+ */
+extern void string_append(string_t* pstr_dest, const string_t* cpstr_src);
+
+/**
+ * Append specific sub string to destination string.
+ * @param pstr_dest             destination string container.
+ * @param cpstr_src             source string container.
+ * @param t_pos                 start position of source string.
+ * @param t_len                 sub string length.
+ * @return void.
+ * @remarks if pstr_dest == NULL or cpstr_src == NULL, then the behavior is undefined. pstr_dest and cpstr_src must be
+ *          initialized, otherwise the behavior is undefined. if the destination string equal to source string, then this
+ *          function does nothing. if t_len == NPOS or t_pos + t_len >= string_size(cpstr_src), then use all remain source
+ *          string.
+ */
+extern void string_append_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len);
+
+/**
+ * Append specific character string to destination string.
+ * @param pstr_string           string container.
+ * @param s_cstr                character string.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string muse be initialized,
+ *          otherwise the behavior is undefined.
+ */
 extern void string_append_cstr(string_t* pstr_string, const char* s_cstr);
-extern void string_append_subcstr(
-    string_t* pstr_string, const char* s_cstr, size_t t_len);
+
+/**
+ * Append specific sub character string to destination string.
+ * @param pstr_string           string container.
+ * @param s_cstr                character string.
+ * @param t_len                 length of sub character string.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string muse be initialized,
+ *          otherwise the behavior is undefined. if t_len is equal to or greater than the length of character string,
+ *          then use all character string.
+ */
+extern void string_append_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len);
+
+/**
+ * Append specific character to destination string.
+ * @param pstr_string           string container.
+ * @param t_count               character number.
+ * @param elem                  specificed character.
+ * @return void.
+ * @remarks if pstr_string == NULL or string is uninitialized, then the behavior is undefined.
+ */
 extern void string_append_char(string_t* pstr_string, size_t t_count, char c_char);
-extern void string_append_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end);
+
+/**
+ * Append specific range to destination string.
+ * @param pstr_string           destination string container.
+ * @param it_begin              range begin.
+ * @param it_end                range end.
+ * @return void.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. pstr_string must be initialized, otherwise the
+ *          behavior is undefined. if [it_begin, it_end) belong to the destination string, the behavior is undefined.
+ */
+extern void string_append_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end);
 
 /*
  * Insert operation functions.

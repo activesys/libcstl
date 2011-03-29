@@ -819,18 +819,26 @@ string_reverse_iterator_t string_rend(const string_t* cpstr_string)
     return basic_string_rend(cpstr_string);
 }
 
-/* clear swap ... */
+/**
+ * Erases the characters of string.
+ */
 void string_clear(string_t* pstr_string)
 {
     basic_string_clear(pstr_string);
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Swap string datas.
+ */
 void string_swap(string_t* pstr_first, string_t* pstr_second)
 {
     basic_string_swap(pstr_first, pstr_second);
 }
 
+/**
+ * Set string capacity.
+ */
 void string_reserve(string_t* pstr_string, size_t t_reservesize)
 {
     basic_string_reserve(pstr_string, t_reservesize + 1);
@@ -850,70 +858,78 @@ void string_push_back(string_t* pstr_string, char c_char)
     basic_string_push_back(pstr_string, '\0');
 }
 
-/* assign and = */
-void string_assign(string_t* pstr_string, const string_t* cpstr_string_assign)
+/**
+ * Assign string character with an exist string container.
+ */
+void string_assign(string_t* pstr_dest, const string_t* cpstr_src)
 {
-    basic_string_assign(pstr_string, cpstr_string_assign);
+    basic_string_assign(pstr_dest, cpstr_src);
 }
 
-void string_assign_substring(
-    string_t* pstr_string, const string_t* cpstr_string_assign, size_t t_pos, size_t t_len)
+/**
+ * Assign string character with an exist sub string container.
+ */
+void string_assign_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len)
 {
-    if(string_empty(cpstr_string_assign))
-    {
-        string_assign_cstr(pstr_string, "");
-    }
-    else
-    {
-        string_assign_subcstr(pstr_string, string_at(cpstr_string_assign, t_pos), t_len);
-    }
+    string_assign_subcstr(pstr_dest, string_at(cpstr_src, t_pos), t_len);
 }
 
+/**
+ * Assign string character with an exist character string.
+ */
 void string_assign_cstr(string_t* pstr_string, const char* s_cstr)
 {
     basic_string_assign_cstr(pstr_string, s_cstr);
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Assign string character with an exist sub character string.
+ */
 void string_assign_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len)
 {
     basic_string_assign_subcstr(pstr_string, s_cstr, t_len);
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Assign string with specificed character.
+ */
 void string_assign_char(string_t* pstr_string, size_t t_count, char c_char)
 {
     basic_string_assign_elem(pstr_string, t_count, c_char);
     basic_string_push_back(pstr_string, '\0');
 }
 
-void string_assign_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end)
+/**
+ * Assign string character with an exist string container range.
+ */
+void string_assign_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    assert(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))));
-    basic_string_assign_range(pstr_string, t_begin, t_end);
+    assert(!iterator_equal(it_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(it_end))));
+    basic_string_assign_range(pstr_string, it_begin, it_end);
     basic_string_push_back(pstr_string, '\0');
 }
 
-/* append + += */
-void string_append(string_t* pstr_string, const string_t* cpstr_string_append)
+/**
+ * Append specific string to destination string.
+ */
+void string_append(string_t* pstr_dest, const string_t* cpstr_src)
 {
-    string_append_cstr(pstr_string, string_c_str(cpstr_string_append));
+    string_append_cstr(pstr_dest, string_c_str(cpstr_src));
 }
 
-void string_append_substring(
-    string_t* pstr_string, const string_t* cpstr_string_append, size_t t_pos, size_t t_len)
+/**
+ * Append specific sub string to destination string.
+ */
+void string_append_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len)
 {
-    if(string_empty(cpstr_string_append))
-    {
-        string_append_cstr(pstr_string, "");
-    }
-    else
-    {
-        string_append_subcstr(pstr_string, string_at(cpstr_string_append, t_pos), t_len);
-    }
+    string_append_subcstr(pstr_dest, string_at(cpstr_src, t_pos), t_len);
 }
 
+/**
+ * Append specific character string to destination string.
+ */
 void string_append_cstr(string_t* pstr_string, const char* s_cstr)
 {
     _basic_string_pop_back(pstr_string);
@@ -921,6 +937,9 @@ void string_append_cstr(string_t* pstr_string, const char* s_cstr)
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Append specific sub character string to destination string.
+ */
 void string_append_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len)
 {
     _basic_string_pop_back(pstr_string);
@@ -928,6 +947,9 @@ void string_append_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_l
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Append specific character to destination string.
+ */
 void string_append_char(string_t* pstr_string, size_t t_count, char c_char)
 {
     _basic_string_pop_back(pstr_string);
@@ -935,12 +957,14 @@ void string_append_char(string_t* pstr_string, size_t t_count, char c_char)
     basic_string_push_back(pstr_string, '\0');
 }
 
-void string_append_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end)
+/**
+ * Append specific range to destination string.
+ */
+void string_append_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    assert(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))));
+    assert(!iterator_equal(it_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(it_end))));
     _basic_string_pop_back(pstr_string);
-    basic_string_append_range(pstr_string, t_begin, t_end);
+    basic_string_append_range(pstr_string, it_begin, it_end);
     basic_string_push_back(pstr_string, '\0');
 }
 
