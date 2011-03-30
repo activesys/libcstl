@@ -851,6 +851,9 @@ void string_resize(string_t* pstr_string, size_t t_resize, char c_char)
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Adds an character to basic string.
+ */
 void string_push_back(string_t* pstr_string, char c_char)
 {
     _basic_string_pop_back(pstr_string);
@@ -968,37 +971,50 @@ void string_append_range(string_t* pstr_string, string_iterator_t it_begin, stri
     basic_string_push_back(pstr_string, '\0');
 }
 
-/* insert */
-string_iterator_t string_insert(
-    string_t* pstr_string, string_iterator_t t_pos, char c_char)
+/**
+ * Insert one copy of character befor specificed position.
+ */
+string_iterator_t string_insert(string_t* pstr_string, string_iterator_t it_pos, char c_char)
 {
-    return basic_string_insert(pstr_string, t_pos, c_char);
+    return basic_string_insert(pstr_string, it_pos, c_char);
 }
 
-string_iterator_t string_insert_n(
-    string_t* pstr_string, string_iterator_t t_pos, size_t t_count, char c_char)
+/**
+ * Insert multiple copys of character befor specificed position.
+ */
+string_iterator_t string_insert_n(string_t* pstr_string, string_iterator_t it_pos, size_t t_count, char c_char)
 {
-    return basic_string_insert_n(pstr_string, t_pos, t_count, c_char);
+    return basic_string_insert_n(pstr_string, it_pos, t_count, c_char);
 }
 
-void string_insert_string(
-    string_t* pstr_string, size_t t_pos, const string_t* cpstr_string_insert)
+/**
+ * Insert specific string into the destination string at specific position.
+ */
+void string_insert_string(string_t* pstr_string, size_t t_pos, const string_t* cpstr_insert)
 {
+    assert(pstr_string != cpstr_insert);
+
     _basic_string_pop_back(pstr_string);
-    basic_string_insert_cstr(pstr_string, t_pos, string_c_str(cpstr_string_insert));
+    basic_string_insert_cstr(pstr_string, t_pos, string_c_str(cpstr_insert));
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Insert specific sub string into the destination string at specific position.
+ */
 void string_insert_substring(
-    string_t* pstr_string, size_t t_pos, const string_t* cpstr_string_insert, 
-    size_t t_startpos, size_t t_len)
+    string_t* pstr_string, size_t t_pos, const string_t* cpstr_insert, size_t t_startpos, size_t t_len)
 {
+    assert(pstr_string != cpstr_insert);
+
     _basic_string_pop_back(pstr_string);
-    basic_string_insert_subcstr(
-        pstr_string, t_pos, string_at(cpstr_string_insert, t_startpos), t_len);
+    basic_string_insert_subcstr(pstr_string, t_pos, string_at(cpstr_insert, t_startpos), t_len);
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Insert specific character string into the destination string at specific position.
+ */
 void string_insert_cstr(string_t* pstr_string, size_t t_pos, const char* s_cstr)
 {
     _basic_string_pop_back(pstr_string);
@@ -1006,42 +1022,55 @@ void string_insert_cstr(string_t* pstr_string, size_t t_pos, const char* s_cstr)
     basic_string_push_back(pstr_string, '\0');
 }
 
-void string_insert_subcstr(
-    string_t* pstr_string, size_t t_pos, const char* s_cstr, size_t t_len)
+/**
+ * Insert specific sub character string into the destination string at specific position.
+ */
+void string_insert_subcstr(string_t* pstr_string, size_t t_pos, const char* s_cstr, size_t t_len)
 {
     _basic_string_pop_back(pstr_string);
     basic_string_insert_subcstr(pstr_string, t_pos, s_cstr, t_len);
     basic_string_push_back(pstr_string, '\0');
 }
 
-void string_insert_char(
-    string_t* pstr_string, size_t t_pos, size_t t_count, char c_char)
+/**
+ * Insert multiple copys of character befor specificed position.
+ */
+void string_insert_char(string_t* pstr_string, size_t t_pos, size_t t_count, char c_char)
 {
     _basic_string_pop_back(pstr_string);
     basic_string_insert_elem(pstr_string, t_pos, t_count, c_char);
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Insert a range of characters into string at a specificed position.
+ */
 void string_insert_range(
-    string_t* pstr_string, string_iterator_t t_pos,
-    string_iterator_t t_begin, string_iterator_t t_end)
+    string_t* pstr_string, string_iterator_t it_pos, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    basic_string_insert_range(pstr_string, t_pos, t_begin, t_end);
+    basic_string_insert_range(pstr_string, it_pos, it_begin, it_end);
 }
 
-/* erase */
-string_iterator_t string_erase(string_t* pstr_string, string_iterator_t t_pos)
+/**
+ * Erase an element in a basic string from a specificed position.
+ */
+string_iterator_t string_erase(string_t* pstr_string, string_iterator_t it_pos)
 {
-    assert(!iterator_equal(t_pos, string_end(pstr_string)));
-    return basic_string_erase(pstr_string, t_pos);
+    assert(!iterator_equal(it_pos, string_end(pstr_string)));
+    return basic_string_erase(pstr_string, it_pos);
 }
 
-string_iterator_t string_erase_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end)
+/**
+ * Erase a range of elements in a basic string from a specificed range.
+ */
+string_iterator_t string_erase_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    return basic_string_erase_range(pstr_string, t_begin, t_end);
+    return basic_string_erase_range(pstr_string, it_begin, it_end);
 }
 
+/**
+ * Erase a sub basic string in a basic string from a specificed range.
+ */
 void string_erase_substring(string_t* pstr_string, size_t t_pos, size_t t_len)
 {
     _basic_string_pop_back(pstr_string);

@@ -816,10 +816,25 @@ extern void string_swap(string_t* pstr_first, string_t* pstr_second);
  *          capacity is not change.
  */
 extern void string_reserve(string_t* pstr_string, size_t t_reservesize);
+
+/**
+ * Reset the size of string characters.
+ * @param pstr_string           string container.
+ * @param t_resize              new size of string characters.
+ * @param c_char                specificed character.
+ * @return void.
+ * @remarks if pstr_string == NULL or string is uninitialized, then the behavior is undefined. the first
+ *          if t_resize less than current string size, then erase elmement from the end. if t_resize greater than
+ *          current string size, then append characters to the end, and the character is specificed character.
+ */
 extern void string_resize(string_t* pstr_string, size_t t_resize, char c_char);
 
-/*
- * Append a single character to string_t.
+/**
+ * Adds an character to basic string.
+ * @param pstr_string           string container.
+ * @param c_char                specificed character.
+ * @return void.
+ * @remarks if pstr_string == NULL or uninitialized, then the bahavior is undefine.
  */
 extern void string_push_back(string_t* pstr_string, char c_char);
 
@@ -958,34 +973,144 @@ extern void string_append_char(string_t* pstr_string, size_t t_count, char c_cha
  */
 extern void string_append_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end);
 
-/*
- * Insert operation functions.
+/**
+ * Insert one copy of character befor specificed position.
+ * @param pstr_string           string container.
+ * @param it_pos                insert position.
+ * @param c_char                specificed character.
+ * @return position refereced the first inserted characters.
+ * @remarks if pstr_string == NULL or string is uninitialized, then the behavior is undefined. the it_pos must be
+ *          invalid iterator of string container, otherwise the behavior is undefined.
  */
-extern string_iterator_t string_insert(
-    string_t* pstr_string, string_iterator_t t_pos, char c_char);
-extern string_iterator_t string_insert_n(
-    string_t* pstr_string, string_iterator_t t_pos, size_t t_count, char c_char);
-extern void string_insert_string(
-    string_t* pstr_string, size_t t_pos, const string_t* cpstr_string_insert);
-extern void string_insert_substring(
-    string_t* pstr_string, size_t t_pos, const string_t* cpstr_string_insert,
-    size_t t_startpos, size_t t_len);
-extern void string_insert_cstr(
-    string_t* pstr_string, size_t t_pos, const char* s_cstr);
-extern void string_insert_subcstr(
-    string_t* pstr_string, size_t t_pos, const char* s_cstr, size_t t_len);
-extern void string_insert_char(
-    string_t* pstr_string, size_t t_pos, size_t t_count, char c_char);
-extern void string_insert_range(
-    string_t* pstr_string, string_iterator_t t_pos,
-    string_iterator_t t_begin, string_iterator_t t_end);
+extern string_iterator_t string_insert(string_t* pstr_string, string_iterator_t it_pos, char c_char);
 
-/*
- * Erase operation functions.
+/**
+ * Insert multiple copys of character befor specificed position.
+ * @param pstr_string           string container.
+ * @param it_pos                insert position.
+ * @param t_count               character number.
+ * @param c_char                specificed character.
+ * @return position refereced the first inserted characters.
+ * @remarks if pstr_string == NULL or string is uninitialized, then the behavior is undefined. the it_pos must be
+ *          invalid iterator of string container, otherwise the behavior is undefined.
  */
-extern string_iterator_t string_erase(string_t* pstr_string, string_iterator_t t_pos);
+extern string_iterator_t string_insert_n(string_t* pstr_string, string_iterator_t it_pos, size_t t_count, char c_char);
+
+/**
+ * Insert specific string into the destination string at specific position.
+ * @param pstr_string           destination string container.
+ * @param t_pos                 insert position.
+ * @param cpstr_insert          insert string container.
+ * @return void.
+ * @remarks if pstr_string == NULL or cpstr_insert == NULL, then the behavior is undefined. pstr_string and cpstr_insert
+ *          must be initialized, otherwise the behavior is undefined. t_pos is valid position for pstr_string, otherwise
+ *          the behavior is undefined. if pstr_string == cpstr_insert, then the behavior is undefined.
+ */
+extern void string_insert_string(string_t* pstr_string, size_t t_pos, const string_t* cpstr_insert);
+
+/**
+ * Insert specific sub string into the destination string at specific position.
+ * @param pstr_string           destination string container.
+ * @param t_pos                 insert position.
+ * @param cpstr_insert          insert string container.
+ * @param t_startpos            the start position of sub insert string.
+ * @param t_len                 the length of sub insert string.
+ * @return void.
+ * @remarks if pstr_string == NULL or cpstr_insert == NULL, then the behavior is undefined. pstr_string and cpstr_insert
+ *          must be initialized, otherwise the behavior is undefined. t_pos is valid position for pstr_string, otherwise
+ *          the behavior is undefined. t_startpos is valid position for cpstr_insert, otherwise the behavior is undefine.
+ *          if t_len == NPOS or t_startpos + t_len >= string_size(cpstr_insert), the user all remain cpstr_insert that
+ *          started from t_startpos. if pstr_string == cpstr_insert, then the behavior is undefined.
+ */
+extern void string_insert_substring(
+    string_t* pstr_string, size_t t_pos, const string_t* cpstr_insert, size_t t_startpos, size_t t_len);
+
+/**
+ * Insert specific character string into the destination string at specific position.
+ * @param pstr_string           destination string container.
+ * @param t_pos                 insert position.
+ * @param s_cstr                insert character string container.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string
+ *          must be initialized, otherwise the behavior is undefined. t_pos is valid position for pstr_string, otherwise the
+ *          behavior is undefined.
+ */
+extern void string_insert_cstr(string_t* pstr_string, size_t t_pos, const char* s_cstr);
+
+/**
+ * Insert specific sub character string into the destination string at specific position.
+ * @param pstr_string           destination string container.
+ * @param t_pos                 insert position.
+ * @param s_cstr                insert character string container.
+ * @param t_len                 the length of sub character string.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string
+ *          must be initialized, otherwise the behavior is undefined. t_pos is valid position for pstr_string, otherwise the
+ *          behavior is undefined.if t_len is equal to or greater than the length of character string, then use all character
+ *          string.
+ */
+extern void string_insert_subcstr(string_t* pstr_string, size_t t_pos, const char* s_cstr, size_t t_len);
+
+/**
+ * Insert multiple copys of character befor specificed position.
+ * @param pstr_string           string container.
+ * @param t_pos                 insert position.
+ * @param t_count               character number.
+ * @param c_char                specificed character.
+ * @return void.
+ * @remarks if pstr_string == NULL or string is uninitialized, then the behavior is undefined. t_pos must
+ *          be valid position for string, otherwise the behavior is undefined.
+ */
+extern void string_insert_char(string_t* pstr_string, size_t t_pos, size_t t_count, char c_char);
+
+/**
+ * Insert a range of characters into string at a specificed position.
+ * @param pstr_string           string container.
+ * @param it_pos                specificed position.
+ * @param it_begin              the position of first character in the range.
+ * @param it_end                the position of first character beyond the range.
+ * @return void.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. the string must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for string container, otherwise
+ *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
+ *          if [it_begin, it_end) belong to string, the behavior is undefined.
+ */
+extern void string_insert_range(
+    string_t* pstr_string, string_iterator_t it_pos, string_iterator_t it_begin, string_iterator_t it_end);
+
+/**
+ * Erase an element in a basic string from a specificed position.
+ * @param pstr_string           string container.
+ * @param it_pos                specificed position.
+ * @return the iterator addressing the first element after the removed element.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. the string must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for string container, otherwise
+ *          the behavior is undefined.
+ */
+extern string_iterator_t string_erase(string_t* pstr_string, string_iterator_t it_pos);
+
+/**
+ * Erase a range of elements in a basic string from a specificed range.
+ * @param pstr_string           string container.
+ * @param it_begin              the position of first element in the range.
+ * @param it_end                the position of first element beyond the range.
+ * @return the iterator addressing the first element after the removed element.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. the string must be initialized, otherwise
+ *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
+ */
 extern string_iterator_t string_erase_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end);
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end);
+
+/**
+ * Erase a sub basic string in a basic string from a specificed range.
+ * @param pstr_string           destination string container.
+ * @param t_pos                 insert position.
+ * @param t_len                 the length of sub value string.
+ * @return void.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. pstr_string must be initialized, otherwise
+ *          the behavior is undefined. t_pos is valid position for pstr_string, otherwise the behavior is undefined.
+ *          if t_len is equal to or greater than the length of basic string, then use all sub basic string from t_pos.
+ */
 extern void string_erase_substring(string_t* pstr_string, size_t t_pos, size_t t_len);
 
 /*

@@ -9925,7 +9925,7 @@ void test_string_append_range__invalid_range(void** state)
     string_iterator_t it_end;
 
     string_init(pt_dest);
-    string_init_char(pt_src, 19, 323);
+    string_init_char(pt_src, 19, 'a');
     it_begin = string_begin(pt_src);
     it_end = string_end(pt_src);
 
@@ -10224,6 +10224,1949 @@ void test_string_append_char__non_empty_append_non_empty(void** state)
             assert_true(*(char*)string_at(pt_string, i) == 'b');
         }
     }
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_insert
+ */
+UT_CASE_DEFINATION(string_insert)
+void test_string_insert__null_string_container(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    expect_assert_failure(string_insert(NULL, string_begin(pt_string), 'a'));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert__non_inited(void** state)
+{
+    string_t* pt_string = create_string();
+    pt_string->_vec_base._pby_start = (_byte_t*)0x78;
+
+    expect_assert_failure(string_insert(pt_string, string_begin(pt_string), 'a'));
+
+    pt_string->_vec_base._pby_start = NULL;
+    string_destroy(pt_string);
+}
+
+void test_string_insert__invalid_position(void** state)
+{
+    string_iterator_t it_pos;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 10, 'a');
+    it_pos = string_begin(pt_string);
+    it_pos._t_pos._pby_corepos = NULL;
+
+    expect_assert_failure(string_insert(pt_string, it_pos, 'a'));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert__empty(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    assert_true(string_size(pt_string) == 0);
+    it_pos = string_begin(pt_string);
+    it_iter = string_insert(pt_string, it_pos, 'a');
+    assert_true(iterator_equal(it_iter, it_pos));
+    assert_true(string_size(pt_string) == 1);
+    assert_true(*(char*)string_at(pt_string, 0) == 'a');
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert__begin(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = string_begin(pt_string);
+    it_iter = string_insert(pt_string, it_pos, 'x');
+    assert_true(iterator_equal(it_iter, string_begin(pt_string)));
+    assert_true(string_size(pt_string) == 1001);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i < 1)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert__middle(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = iterator_next_n(string_begin(pt_string), 300);
+    it_iter = string_insert(pt_string, it_pos, 'x');
+    assert_true(iterator_equal(it_iter, iterator_next_n(string_begin(pt_string), 300)));
+    assert_true(string_size(pt_string) == 1001);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i == 300)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert__end(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = string_end(pt_string);
+    it_iter = string_insert(pt_string, it_pos, 'x');
+    assert_true(iterator_equal(it_iter, iterator_prev(string_end(pt_string))));
+    assert_true(string_size(pt_string) == 1001);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i < 1000)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_insert_n
+ */
+UT_CASE_DEFINATION(string_insert_n)
+void test_string_insert_n__null_string_container(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    expect_assert_failure(string_insert_n(NULL, string_begin(pt_string), 10, 'a'));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__non_inited(void** state)
+{
+    string_t* pt_string = create_string();
+    pt_string->_vec_base._pby_start = (_byte_t*)0x78;
+
+    expect_assert_failure(string_insert_n(pt_string, string_begin(pt_string), 10, 'a'));
+
+    pt_string->_vec_base._pby_start = NULL;
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__invalid_position(void** state)
+{
+    string_iterator_t it_pos;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 10, 'x');
+    it_pos = string_begin(pt_string);
+    it_pos._t_pos._pby_corepos = NULL;
+
+    expect_assert_failure(string_insert_n(pt_string, it_pos, 10, 'a'));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__empty_insert_0(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    assert_true(string_size(pt_string) == 0);
+    it_pos = string_begin(pt_string);
+    it_iter = string_insert_n(pt_string, it_pos, 0, 'x');
+    assert_true(iterator_equal(it_iter, it_pos));
+    assert_true(string_size(pt_string) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__empty_insert_10(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    assert_true(string_size(pt_string) == 0);
+    it_pos = string_begin(pt_string);
+    it_iter = string_insert_n(pt_string, it_pos, 10, 'x');
+    assert_true(iterator_equal(it_iter, string_begin(pt_string)));
+    assert_true(string_size(pt_string) == 10);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'x');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__empty_insert_1000(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    assert_true(string_size(pt_string) == 0);
+    it_pos = string_begin(pt_string);
+    it_iter = string_insert_n(pt_string, it_pos, 1000, 'x');
+    assert_true(iterator_equal(it_iter, string_begin(pt_string)));
+    assert_true(string_size(pt_string) == 1000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'x');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__begin_insert_0(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = string_begin(pt_string);
+    it_iter = string_insert_n(pt_string, it_pos, 0, 'x');
+    assert_true(iterator_equal(it_iter, string_begin(pt_string)));
+    assert_true(string_size(pt_string) == 1000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__begin_insert_10(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = string_begin(pt_string);
+    it_iter = string_insert_n(pt_string, it_pos, 10, 'x');
+    assert_true(iterator_equal(it_iter, string_begin(pt_string)));
+    assert_true(string_size(pt_string) == 1010);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__begin_insert_1000(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = string_begin(pt_string);
+    it_iter = string_insert_n(pt_string, it_pos, 1000, 'x');
+    assert_true(iterator_equal(it_iter, string_begin(pt_string)));
+    assert_true(string_size(pt_string) == 2000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i < 1000)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__middle_insert_0(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = iterator_next_n(string_begin(pt_string), 300);
+    it_iter = string_insert_n(pt_string, it_pos, 0, 'x');
+    assert_true(iterator_equal(it_iter, iterator_next_n(string_begin(pt_string), 300)));
+    assert_true(string_size(pt_string) == 1000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__middle_insert_10(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = iterator_next_n(string_begin(pt_string), 300);
+    it_iter = string_insert_n(pt_string, it_pos, 10, 'x');
+    assert_true(iterator_equal(it_iter, iterator_next_n(string_begin(pt_string), 300)));
+    assert_true(string_size(pt_string) == 1010);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i >= 300 && i < 310)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__middle_insert_1000(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = iterator_next_n(string_begin(pt_string), 300);
+    it_iter = string_insert_n(pt_string, it_pos, 1000, 'x');
+    assert_true(iterator_equal(it_iter, iterator_next_n(string_begin(pt_string), 300)));
+    assert_true(string_size(pt_string) == 2000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i >= 300 && i < 1300)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__end_insert_0(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = string_end(pt_string);
+    it_iter = string_insert_n(pt_string, it_pos, 0, 'x');
+    assert_true(iterator_equal(it_iter, string_end(pt_string)));
+    assert_true(string_size(pt_string) == 1000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__end_insert_10(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = string_end(pt_string);
+    it_iter = string_insert_n(pt_string, it_pos, 10, 'x');
+    assert_true(iterator_equal(it_iter, iterator_next_n(string_begin(pt_string), 1000)));
+    assert_true(string_size(pt_string) == 1010);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i >= 1000)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_n__end_insert_1000(void** state)
+{
+    string_iterator_t it_pos;
+    string_iterator_t it_iter;
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    it_pos = string_end(pt_string);
+    it_iter = string_insert_n(pt_string, it_pos, 1000, 'x');
+    assert_true(iterator_equal(it_iter, iterator_next_n(string_begin(pt_string), 1000)));
+    assert_true(string_size(pt_string) == 2000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i >= 1000)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_insert_string
+ */
+UT_CASE_DEFINATION(string_insert_string)
+void test_string_insert_string__null_dest(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    expect_assert_failure(string_insert_string(NULL, 0, pt_string));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_string__null_insert(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    expect_assert_failure(string_insert_string(pt_string, 0, NULL));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_string__non_inited_dest(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init(pt_insert);
+
+    pt_string->_vec_base._pby_finish = (_byte_t*)0x887;
+    expect_assert_failure(string_insert_string(pt_string, 0, pt_insert));
+
+    pt_string->_vec_base._pby_finish = NULL;
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+void test_string_insert_string__non_inited_insert(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_string, 10, 'a');
+
+    pt_insert->_vec_base._pby_finish = (_byte_t*)0x887;
+    expect_assert_failure(string_insert_string(pt_string, 0, pt_insert));
+
+    pt_insert->_vec_base._pby_finish = NULL;
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+void test_string_insert_string__same_container(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 10, 'a');
+
+    expect_assert_failure(string_insert_string(pt_string, 0, pt_string));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_string__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_string, 10, 'a');
+    string_init(pt_insert);
+
+    expect_assert_failure(string_insert_string(pt_string, 180, pt_insert));
+
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+void test_string_insert_string__char_middle_insert_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_string, 10, 'a');
+    string_init(pt_insert);
+
+    string_insert_string(pt_string, 4, pt_insert);
+    assert_true(string_size(pt_string) == 10);
+
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+void test_string_insert_string__char_begin_insert_non_empty(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_string, 10, 'a');
+    string_init_char(pt_insert, 5, 'n');
+
+    string_insert_string(pt_string, 0, pt_insert);
+    assert_true(string_size(pt_string) == 15);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i < 5)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'n');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+/*
+ * test string_insert_substring
+ */
+UT_CASE_DEFINATION(string_insert_substring)
+void test_string_insert_substring__null_dest(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 10, 'a');
+
+    expect_assert_failure(string_insert_substring(NULL, 0, pt_string, 0, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_substring__null_insert(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    expect_assert_failure(string_insert_substring(pt_string, 0, NULL, 0, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_substring__non_inited_dest(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_insert, 10, 'a');
+
+    pt_string->_vec_base._pby_finish = (_byte_t*)0x887;
+    expect_assert_failure(string_insert_substring(pt_string, 0, pt_insert, 0, NPOS));
+
+    pt_string->_vec_base._pby_finish = NULL;
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+void test_string_insert_substring__non_inited_insert(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_string, 10, 'a');
+
+    pt_insert->_vec_base._pby_finish = (_byte_t*)0x887;
+    expect_assert_failure(string_insert_substring(pt_string, 0, pt_insert, 0, NPOS));
+
+    pt_insert->_vec_base._pby_finish = NULL;
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+void test_string_insert_substring__same_container(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 10, 'a');
+
+    expect_assert_failure(string_insert_substring(pt_string, 0, pt_string, 0, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_substring__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_string, 10, 'a');
+    string_init_char(pt_insert, 10, 'a');
+
+    expect_assert_failure(string_insert_substring(pt_string, 180, pt_insert, 0, NPOS));
+
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+void test_string_insert_substring__invalid_startpos(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_string, 10, 'a');
+    string_init_char(pt_insert, 10, 'a');
+
+    expect_assert_failure(string_insert_substring(pt_string, 0, pt_insert, 120, NPOS));
+
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+void test_string_insert_substring__char_middle_insert_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_string, 10, 'a');
+    string_init_char(pt_insert, 10, 'x');
+
+    string_insert_substring(pt_string, 4, pt_insert, 0, 0);
+    assert_true(string_size(pt_string) == 10);
+
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+void test_string_insert_substring__char_begin_insert_non_empty(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_t* pt_insert = create_string();
+    string_init_char(pt_string, 10, 'a');
+    string_init_char(pt_insert, 15, 'n');
+
+    string_insert_substring(pt_string, 0, pt_insert, 5, 5);
+    assert_true(string_size(pt_string) == 15);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i < 5)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'n');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+    string_destroy(pt_insert);
+}
+
+/*
+ * test string_insert_cstr
+ */
+UT_CASE_DEFINATION(string_insert_cstr)
+void test_string_insert_cstr__null_container(void** state)
+{
+    expect_assert_failure(string_insert_cstr(NULL, 0, "abcdef"));
+}
+
+void test_string_insert_cstr__non_inited(void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._pby_finish = (_byte_t*)0x9999;
+    expect_assert_failure(string_insert_cstr(pt_string, 0, "abcdefg"));
+
+    pt_string->_vec_base._pby_finish = NULL;
+    string_destroy(pt_string);
+}
+
+void test_string_insert_cstr__null_valuestring(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_insert_cstr(pt_string, 0, NULL));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_cstr__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_cstr(pt_string, "abc");
+    expect_assert_failure(string_insert_cstr(pt_string, 178, "abcdefg"));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_cstr__char_empty(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_cstr(pt_string, "abcdefg");
+    string_insert_cstr(pt_string, 3, "");
+    assert_true(string_size(pt_string) == 7);
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_cstr__char_non_empty(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 2, 'x');
+    string_insert_cstr(pt_string, 1, "abc");
+    assert_true(string_size(pt_string) == 5);
+    assert_true(*(char*)string_at(pt_string, 0) == 'x');
+    assert_true(*(char*)string_at(pt_string, 1) == 'a');
+    assert_true(*(char*)string_at(pt_string, 2) == 'b');
+    assert_true(*(char*)string_at(pt_string, 3) == 'c');
+    assert_true(*(char*)string_at(pt_string, 4) == 'x');
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_insert_subcstr
+ */
+UT_CASE_DEFINATION(string_insert_subcstr)
+void test_string_insert_subcstr__null_container(void** state)
+{
+    expect_assert_failure(string_insert_subcstr(NULL, 0, "abcdef", 0));
+}
+
+void test_string_insert_subcstr__non_created_container(void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._pby_finish = (_byte_t*)0x78773;
+    expect_assert_failure(string_insert_subcstr(pt_string, 0, "abcdefg", NPOS));
+
+    pt_string->_vec_base._pby_finish = NULL;
+    string_destroy(pt_string);
+}
+
+void test_string_insert_subcstr__null_valuestring(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_insert_subcstr(pt_string, 0, NULL, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_subcstr__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_cstr(pt_string, "abc");
+    expect_assert_failure(string_insert_subcstr(pt_string, 178, "abcdefg", NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_subcstr__char_empty(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_cstr(pt_string, "xxxxxxxxxx");
+    string_insert_subcstr(pt_string, 3, "abc", 0);
+    assert_true(string_size(pt_string) == 10);
+    assert_true(strncmp((char*)string_c_str(pt_string), "xxxxxxxxxx", 10) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_subcstr__char_non_empty(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_cstr(pt_string, "xxxxxxxxxx");
+    string_insert_subcstr(pt_string, 2, "abc", 1);
+    assert_true(string_size(pt_string) == 11);
+    assert_true(strncmp((char*)string_c_str(pt_string), "xxaxxxxxxxx", 11) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_subcstr__char_total(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_cstr(pt_string, "xxxxxxxxxx");
+    string_insert_subcstr(pt_string, 5, "abc", 100);
+    assert_true(string_size(pt_string) == 13);
+    assert_true(strncmp((char*)string_c_str(pt_string), "xxxxxabcxxxxx", 13) == 0);
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_insert_range
+ */
+UT_CASE_DEFINATION(string_insert_range)
+void test_string_insert_range__null_string(void** state)
+{
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init(pt_dest);
+    string_init(pt_src);
+    expect_assert_failure(string_insert_range(NULL, string_begin(pt_dest),
+        string_begin(pt_src), string_end(pt_src)));
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__non_inited_string(void** state)
+{
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init(pt_src);
+    pt_dest->_vec_base._pby_finish = (_byte_t*)0x34345;
+    expect_assert_failure(string_insert_range(pt_dest, string_begin(pt_dest),
+        string_begin(pt_src), string_end(pt_src)));
+
+    pt_dest->_vec_base._pby_finish = NULL;
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__invalid_pos(void** state)
+{
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+    string_iterator_t it_pos;
+
+    string_init(pt_dest);
+    string_init(pt_src);
+    it_pos._t_containertype = 3333;
+    expect_assert_failure(string_insert_range(pt_dest, it_pos,
+        string_begin(pt_src), string_end(pt_src)));
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__invalid_begin(void** state)
+{
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+    string_iterator_t it_begin;
+
+    string_init(pt_dest);
+    string_init(pt_src);
+    it_begin._t_iteratortype = 11111;
+    expect_assert_failure(string_insert_range(pt_dest, string_begin(pt_dest),
+        it_begin, string_end(pt_src)));
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__invalid_end(void** state)
+{
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+    string_iterator_t it_end;
+
+    string_init(pt_dest);
+    string_init(pt_src);
+    it_end._t_iteratortype = 11111;
+    expect_assert_failure(string_insert_range(pt_dest, string_begin(pt_dest),
+        string_begin(pt_src), it_end));
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__invalid_range(void** state)
+{
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init(pt_dest);
+    string_init_char(pt_src, 10, 'a');
+    expect_assert_failure(string_insert_range(pt_dest, string_begin(pt_dest),
+        string_end(pt_src), string_begin(pt_src)));
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+/*
+void test_string_insert_range__range_belong_to_dest(void** state)
+{
+    string_t* pt_dest = create_string();
+
+    string_init_char(pt_dest, 10, 'a');
+    expect_assert_failure(string_insert_range(pt_dest, string_begin(pt_dest),
+        string_begin(pt_dest), string_end(pt_dest)));
+
+    string_destroy(pt_dest);
+}
+*/
+
+void test_string_insert_range__empty_insert_empty(void** state)
+{
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init(pt_dest);
+    string_init(pt_src);
+    string_insert_range(pt_dest, string_begin(pt_dest), string_begin(pt_src), string_end(pt_src));
+    assert_true(string_size(pt_dest) == 0);
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__empty_insert_non_empty(void** state)
+{
+    size_t i = 0;
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init(pt_dest);
+    string_init_char(pt_src, 10, 'a');
+    string_insert_range(pt_dest, string_end(pt_dest), string_begin(pt_src), string_end(pt_src));
+    assert_true(string_size(pt_dest) == 10);
+    for(i = 0; i < string_size(pt_dest); ++i)
+    {
+        assert_true(*(char*)string_at(pt_dest, i) == 'a');
+    }
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__non_empty_insert_begin_empty(void** state)
+{
+    size_t i = 0;
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init_char(pt_dest, 5, 'a');
+    string_init_char(pt_src, 10, 'x');
+    string_insert_range(pt_dest, string_begin(pt_dest), string_end(pt_src), string_end(pt_src));
+    assert_true(string_size(pt_dest) == 5);
+    for(i = 0; i < string_size(pt_dest); ++i)
+    {
+        assert_true(*(char*)string_at(pt_dest, i) == 'a');
+    }
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__non_empty_insert_middle_empty(void** state)
+{
+    size_t i = 0;
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init_char(pt_dest, 5, 'a');
+    string_init_char(pt_src, 10, 'x');
+    string_insert_range(pt_dest, iterator_next(string_begin(pt_dest)),
+        string_begin(pt_src), string_begin(pt_src));
+    assert_true(string_size(pt_dest) == 5);
+    for(i = 0; i < string_size(pt_dest); ++i)
+    {
+        assert_true(*(char*)string_at(pt_dest, i) == 'a');
+    }
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__non_empty_insert_end_empty(void** state)
+{
+    size_t i = 0;
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init_char(pt_dest, 5, 'a');
+    string_init(pt_src);
+    string_insert_range(pt_dest, string_end(pt_dest),
+        string_begin(pt_src), string_end(pt_src));
+    assert_true(string_size(pt_dest) == 5);
+    for(i = 0; i < string_size(pt_dest); ++i)
+    {
+        assert_true(*(char*)string_at(pt_dest, i) == 'a');
+    }
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__non_empty_insert_begin_non_empty(void** state)
+{
+    size_t i = 0;
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init_char(pt_dest, 5, 'a');
+    string_init_char(pt_src, 10, 'x');
+    string_insert_range(pt_dest, string_begin(pt_dest),
+        string_begin(pt_src), string_end(pt_src));
+    assert_true(string_size(pt_dest) == 15);
+    for(i = 0; i < string_size(pt_dest); ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(char*)string_at(pt_dest, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_dest, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__non_empty_insert_middle_non_empty(void** state)
+{
+    size_t i = 0;
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init_char(pt_dest, 5, 'a');
+    string_init_char(pt_src, 10, 'x');
+    string_insert_range(pt_dest, iterator_next(string_begin(pt_dest)),
+        string_begin(pt_src), iterator_next_n(string_begin(pt_src), 5));
+    assert_true(string_size(pt_dest) == 10);
+    for(i = 0; i < string_size(pt_dest); ++i)
+    {
+        if(i < 1 || i > 5)
+        {
+            assert_true(*(char*)string_at(pt_dest, i) == 'a');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_dest, i) == 'x');
+        }
+    }
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+void test_string_insert_range__non_empty_insert_end_non_empty(void** state)
+{
+    size_t i = 0;
+    string_t* pt_dest = create_string();
+    string_t* pt_src = create_string();
+
+    string_init_char(pt_dest, 5, 'a');
+    string_init_char(pt_src, 10, 'x');
+    string_insert_range(pt_dest, string_end(pt_dest),
+        iterator_prev_n(string_end(pt_src), 7), string_end(pt_src));
+    assert_true(string_size(pt_dest) == 12);
+    for(i = 0; i < string_size(pt_dest); ++i)
+    {
+        if(i < 5)
+        {
+            assert_true(*(char*)string_at(pt_dest, i) == 'a');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_dest, i) == 'x');
+        }
+    }
+
+    string_destroy(pt_dest);
+    string_destroy(pt_src);
+}
+
+/*
+ * test string_insert_char
+ */
+UT_CASE_DEFINATION(string_insert_char)
+void test_string_insert_char__null_string_container(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    expect_assert_failure(string_insert_char(NULL, 0, 10, 'a'));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__non_inited(void** state)
+{
+    string_t* pt_string = create_string();
+    pt_string->_vec_base._pby_start = (_byte_t*)0x78;
+
+    expect_assert_failure(string_insert_char(pt_string, 0, 10, 'a'));
+
+    pt_string->_vec_base._pby_start = NULL;
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__invalid_position(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 10, 0);
+
+    expect_assert_failure(string_insert_char(pt_string, 100, 10, 'a'));
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__empty_insert_0(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    assert_true(string_size(pt_string) == 0);
+    string_insert_char(pt_string, 0, 0, 'a');
+    assert_true(string_size(pt_string) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__empty_insert_10(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    assert_true(string_size(pt_string) == 0);
+    string_insert_char(pt_string, 0, 10, 'a');
+    assert_true(string_size(pt_string) == 10);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__empty_insert_1000(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    assert_true(string_size(pt_string) == 0);
+    string_insert_char(pt_string, 0, 1000, 'a');
+    assert_true(string_size(pt_string) == 1000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__begin_insert_0(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_insert_char(pt_string, 0, 0, 'x');
+    assert_true(string_size(pt_string) == 1000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__begin_insert_10(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_insert_char(pt_string, 0, 10, 'x');
+    assert_true(string_size(pt_string) == 1010);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__begin_insert_1000(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_insert_char(pt_string, 0, 1000, 'x');
+    assert_true(string_size(pt_string) == 2000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i < 1000)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__middle_insert_0(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_insert_char(pt_string, 300, 0, 'x');
+    assert_true(string_size(pt_string) == 1000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__middle_insert_10(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_insert_char(pt_string, 300, 10, 'x');
+    assert_true(string_size(pt_string) == 1010);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i >= 300 && i < 310)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__middle_insert_1000(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_insert_char(pt_string, 300, 1000, 'x');
+    assert_true(string_size(pt_string) == 2000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i >= 300 && i < 1300)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__end_insert_0(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_insert_char(pt_string, 1000, 0, 'x');
+    assert_true(string_size(pt_string) == 1000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__end_insert_10(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_insert_char(pt_string, 1000, 10, 'x');
+    assert_true(string_size(pt_string) == 1010);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i >= 1000)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_insert_char__end_insert_1000(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_insert_char(pt_string, 1000, 1000, 'x');
+    assert_true(string_size(pt_string) == 2000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i >= 1000)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_push_back
+ */
+UT_CASE_DEFINATION(string_push_back)
+void test_string_push_back__null_container(void** state)
+{
+    expect_assert_failure(string_push_back(NULL, 23));
+}
+
+void test_string_push_back__non_inited_container(void** state)
+{
+    string_t* pt_string = create_string();
+
+
+    pt_string->_vec_base._t_typeinfo._t_style = 23423;
+    expect_assert_failure(string_push_back(pt_string, 111));
+
+    pt_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    /*assert_true(false);*/
+
+    string_destroy(pt_string);
+}
+
+void test_string_push_back__empty(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    string_push_back(pt_string, 'a');
+    assert_true(string_size(pt_string) == 1);
+    assert_true(*(char*)iterator_get_pointer(iterator_prev(string_end(pt_string))) == 'a');
+
+    string_destroy(pt_string);
+}
+
+void test_string_push_back__non_empty(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 100, 'a');
+    string_push_back(pt_string, 'x');
+    assert_true(string_size(pt_string) == 101);
+    assert_true(*(char*)iterator_get_pointer(iterator_prev(string_end(pt_string))) == 'x');
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_resize
+ */
+UT_CASE_DEFINATION(string_resize)
+void test_string_resize__null_string_container(void** state)
+{
+    expect_assert_failure(string_resize(NULL, 10, 'a'));
+}
+
+void test_string_resize__non_inited(void** state)
+{
+    string_t* pt_string = create_string();
+    pt_string->_vec_base._pby_start = (_byte_t*)0x987;
+
+    expect_assert_failure(string_resize(pt_string, 10, 'a'));
+
+    pt_string->_vec_base._pby_start = NULL;
+    string_destroy(pt_string);
+}
+
+void test_string_resize__successfully_0_resize_0(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    assert_true(string_size(pt_string) == 0);
+    string_resize(pt_string, 0, 'a');
+    assert_true(string_size(pt_string) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_resize__successfully_0_resize_10(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init(pt_string);
+
+    assert_true(string_size(pt_string) == 0);
+    string_resize(pt_string, 10, 'a');
+    assert_true(string_size(pt_string) == 10);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_resize__successfully_10_resize_0(void** state)
+{
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 10, 'a');
+
+    assert_true(string_size(pt_string) == 10);
+    string_resize(pt_string, 0, 'x');
+    assert_true(string_size(pt_string) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_resize__successfully_10_resize_10(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 10, 'a');
+
+    assert_true(string_size(pt_string) == 10);
+    string_resize(pt_string, 10, 'x');
+    assert_true(string_size(pt_string) == 10);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_resize__successfully_10_resize_1000(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 10, 'a');
+
+    assert_true(string_size(pt_string) == 10);
+    string_resize(pt_string, 1000, 'x');
+    assert_true(string_size(pt_string) == 1000);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'a');
+        }
+        else
+        {
+            assert_true(*(char*)string_at(pt_string, i) == 'x');
+        }
+    }
+
+    string_destroy(pt_string);
+}
+
+void test_string_resize__successfully_1000_resize_10(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_init_char(pt_string, 1000, 'a');
+
+    assert_true(string_size(pt_string) == 1000);
+    string_resize(pt_string, 10, 'x');
+    assert_true(string_size(pt_string) == 10);
+    for(i = 0; i < string_size(pt_string); ++i)
+    {
+        assert_true(*(char*)string_at(pt_string, i) == 'a');
+    }
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_erase
+ */
+UT_CASE_DEFINATION(string_erase)
+void test_string_erase__null_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    expect_assert_failure(string_erase(NULL, string_begin(pt_string)));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase__non_inited_string(void** state)
+{
+    string_t* pt_string = create_string();
+    string_t* pt_non_inited = create_string();
+
+    string_init_char(pt_string, 10, 'a');
+    pt_non_inited->_vec_base._pby_start = (_byte_t*)0x777;
+    expect_assert_failure(string_erase(pt_non_inited, string_begin(pt_string)));
+
+    pt_non_inited->_vec_base._pby_start = NULL;
+    string_destroy(pt_string);
+    string_destroy(pt_non_inited);
+}
+
+void test_string_erase__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+
+    string_init_char(pt_string, 10, 'a');
+    it_pos = string_begin(pt_string);
+    it_pos._t_containertype = 9999;
+    expect_assert_failure(string_erase(pt_string, it_pos));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase__empty(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_erase(pt_string, string_end(pt_string)));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase__begin(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+
+    it_pos = string_erase(pt_string, string_begin(pt_string));
+    assert_true(string_size(pt_string) == 9);
+    assert_true(*(char*)iterator_get_pointer(it_pos) == 'a' + 1);
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase__middle(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+
+    it_pos = string_erase(pt_string, iterator_next(string_begin(pt_string)));
+    assert_true(string_size(pt_string) == 9);
+    assert_true(*(char*)iterator_get_pointer(it_pos) == 'a' + 2);
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase__last(void** state)
+{
+    size_t i = 0;
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+
+    string_init(pt_string);
+    for(i = 0; i < 10; ++i)
+    {
+        string_push_back(pt_string, 'a' + i);
+    }
+
+    it_pos = string_erase(pt_string, iterator_prev(string_end(pt_string)));
+    assert_true(string_size(pt_string) == 9);
+    assert_true(iterator_equal(it_pos, string_end(pt_string)));
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_erase_range
+ */
+UT_CASE_DEFINATION(string_erase_range)
+void test_string_erase_range__null_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 2, 'a');
+    expect_assert_failure(string_erase_range(
+        NULL, string_begin(pt_string), string_end(pt_string)));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__non_inited_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._pby_finish = (_byte_t*)0x5555;
+    expect_assert_failure(string_erase_range(
+        pt_string, string_begin(pt_string), string_end(pt_string)));
+
+    pt_string->_vec_base._pby_finish = NULL;
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__invalid_begin(void** state)
+{
+    string_t* pt_string = create_string();
+    string_iterator_t it_begin;
+
+    string_init_char(pt_string, 2, 'a');
+    it_begin._t_containertype = 44444;
+    expect_assert_failure(string_erase_range(pt_string, it_begin, string_end(pt_string)));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__invalid_end(void** state)
+{
+    string_t* pt_string = create_string();
+    string_iterator_t it_end;
+
+    string_init_char(pt_string, 2, 'a');
+    it_end._t_iteratortype = 34455;
+    expect_assert_failure(string_erase_range(pt_string, string_begin(pt_string), it_end));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__invalid_range(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 2, 'a');
+    expect_assert_failure(string_erase_range(
+        pt_string, string_end(pt_string), string_begin(pt_string)));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__empty(void** state)
+{
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+
+    string_init(pt_string);
+    it_pos = string_erase_range(
+        pt_string, string_end(pt_string), string_begin(pt_string));
+    assert_true(string_size(pt_string) == 0);
+    assert_true(iterator_equal(it_pos, string_end(pt_string)));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__begin(void** state)
+{
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+    /*int elems[] = {4, 2, 6, 9, 1, 0};*/
+
+    string_init_cstr(pt_string, "abcde");
+    it_pos = string_erase_range(pt_string, string_begin(pt_string),
+        iterator_next_n(string_begin(pt_string), 2));
+    assert_true(string_size(pt_string) == 3);
+    assert_true(*(char*)iterator_get_pointer(it_pos) == 'c');
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__middle(void** state)
+{
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+    /*int elems[] = {4, 2, 6, 9, 1, 5, 19, 45, 234, 11, 87, 0};*/
+
+    string_init_cstr(pt_string, "abcdefghijk");
+    it_pos = string_erase_range(pt_string, iterator_next(string_begin(pt_string)),
+        iterator_next_n(string_begin(pt_string), 5));
+    assert_true(string_size(pt_string) == 7);
+    assert_true(*(char*)iterator_get_pointer(it_pos) == 'f');
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__end(void** state)
+{
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+    /*int elems[] = {4, 2, 6, 9, 1, 5, 19, 45, 234, 11, 87, 0};*/
+
+    string_init_cstr(pt_string, "abcdefghijk");
+    it_pos = string_erase_range(pt_string, iterator_next_n(string_begin(pt_string), 5),
+        string_end(pt_string));
+    assert_true(string_size(pt_string) == 5);
+    assert_true(iterator_equal(it_pos, string_end(pt_string)));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__all(void** state)
+{
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+    /*int elems[] = {4, 2, 6, 9, 1, 5, 19, 45, 234, 11, 87, 0};*/
+
+    string_init_cstr(pt_string, "abcdefghijk");
+    it_pos = string_erase_range(pt_string, string_begin(pt_string),
+        string_end(pt_string));
+    assert_true(string_size(pt_string) == 0);
+    assert_true(iterator_equal(it_pos, string_end(pt_string)));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_range__erase_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    string_iterator_t it_pos;
+    /*int elems[] = {4, 2, 6, 9, 1, 5, 19, 45, 234, 11, 87, 0};*/
+
+    string_init_cstr(pt_string, "abcdefghijk");
+    it_pos = string_erase_range(pt_string, string_begin(pt_string),
+        string_begin(pt_string));
+    assert_true(string_size(pt_string) == 11);
+    assert_true(*(char*)iterator_get_pointer(it_pos) == 'a');
+
+    string_destroy(pt_string);
+}
+
+/*
+ * test string_erase_substring
+ */
+UT_CASE_DEFINATION(string_erase_substring)
+void test_string_erase_substring__null_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init(pt_string);
+    expect_assert_failure(string_erase_substring(NULL, 0, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_substring__non_inited_string(void** state)
+{
+    string_t* pt_string = create_string();
+
+    pt_string->_vec_base._pby_finish = (_byte_t*)0x8888;
+    expect_assert_failure(string_erase_substring(pt_string, 0, NPOS));
+
+    pt_string->_vec_base._pby_finish = NULL;
+    string_destroy(pt_string);
+}
+
+void test_string_erase_substring__invalid_pos(void** state)
+{
+    string_t* pt_string = create_string();
+
+    string_init_char(pt_string, 3, 'a');
+    expect_assert_failure(string_erase_substring(pt_string, 8, NPOS));
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_substring__begin(void** state)
+{
+    string_t* pt_string = create_string();
+    /*int elems[] = {6, 3, 9, 1, 98, 4, 5, 0};*/
+
+    string_init_cstr(pt_string, "abcdefg");
+    string_erase_substring(pt_string, 0, 5);
+    assert_true(string_size(pt_string) == 2);
+    assert_true(*(char*)string_at(pt_string, 0) == 'f');
+    assert_true(*(char*)string_at(pt_string, 1) == 'g');
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_substring__middle(void** state)
+{
+    string_t* pt_string = create_string();
+    /*int elems[] = {6, 3, 9, 1, 98, 4, 5, 0};*/
+
+    string_init_cstr(pt_string, "abcdefg");
+    string_erase_substring(pt_string, 1, 5);
+    assert_true(string_size(pt_string) == 2);
+    assert_true(*(char*)string_at(pt_string, 0) == 'a');
+    assert_true(*(char*)string_at(pt_string, 1) == 'g');
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_substring__end(void** state)
+{
+    string_t* pt_string = create_string();
+    /*int elems[] = {6, 3, 9, 1, 98, 4, 5, 0};*/
+
+    string_init_cstr(pt_string, "abcdefg");
+    string_erase_substring(pt_string, 2, 5);
+    assert_true(string_size(pt_string) == 2);
+    assert_true(*(char*)string_at(pt_string, 0) == 'a');
+    assert_true(*(char*)string_at(pt_string, 1) == 'b');
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_substring__all(void** state)
+{
+    string_t* pt_string = create_string();
+    /*int elems[] = {6, 3, 9, 1, 98, 4, 5, 0};*/
+
+    string_init_cstr(pt_string, "abcdefg");
+    string_erase_substring(pt_string, 0, 1234);
+    assert_true(string_size(pt_string) == 0);
+
+    string_destroy(pt_string);
+}
+
+void test_string_erase_substring__erase_empty(void** state)
+{
+    string_t* pt_string = create_string();
+    /*int elems[] = {6, 3, 9, 1, 98, 4, 5, 0};*/
+
+    string_init_cstr(pt_string, "abcdefg");
+    string_erase_substring(pt_string, 4, 0);
+    assert_true(string_size(pt_string) == 7);
+    assert_true(*(char*)string_at(pt_string, 0) == 'a');
+    assert_true(*(char*)string_at(pt_string, 1) == 'b');
+    assert_true(*(char*)string_at(pt_string, 2) == 'c');
+    assert_true(*(char*)string_at(pt_string, 3) == 'd');
+    assert_true(*(char*)string_at(pt_string, 4) == 'e');
+    assert_true(*(char*)string_at(pt_string, 5) == 'f');
+    assert_true(*(char*)string_at(pt_string, 6) == 'g');
 
     string_destroy(pt_string);
 }
