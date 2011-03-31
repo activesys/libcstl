@@ -1078,126 +1078,162 @@ void string_erase_substring(string_t* pstr_string, size_t t_pos, size_t t_len)
     basic_string_push_back(pstr_string, '\0');
 }
 
-/* replace */
-void string_replace(
-    string_t* pstr_string, size_t t_pos, size_t t_len, const string_t* cpstr_string_replace)
+/**
+ * Replace characters in a string at a specificed position with specificed string.
+ */
+void string_replace(string_t* pstr_string, size_t t_pos, size_t t_len, const string_t* cpstr_replace)
 {
+    assert(pstr_string != cpstr_replace);
+
     _basic_string_pop_back(pstr_string);
-    _basic_string_pop_back((string_t*)cpstr_string_replace);
-    basic_string_replace(pstr_string, t_pos, t_len, cpstr_string_replace);
+    _basic_string_pop_back((string_t*)cpstr_replace);
+    basic_string_replace(pstr_string, t_pos, t_len, cpstr_replace);
     basic_string_push_back(pstr_string, '\0');
-    basic_string_push_back((string_t*)cpstr_string_replace, '\0');
+    basic_string_push_back((string_t*)cpstr_replace, '\0');
 }
 
+/**
+ * Replace characters in a string at a specificed position with specificed sub string.
+ */
 void string_replace_substring(
-    string_t* pstr_string, size_t t_pos, size_t t_len,
-    const string_t* cpstr_string_replace, size_t t_position, size_t t_length)
+    string_t* pstr_string, size_t t_pos, size_t t_len, const string_t* cpstr_replace, size_t t_position, size_t t_length)
 {
+    assert(pstr_string != cpstr_replace);
+
     _basic_string_pop_back(pstr_string);
-    _basic_string_pop_back((string_t*)cpstr_string_replace);
-    basic_string_replace_substring(
-        pstr_string, t_pos, t_len, cpstr_string_replace, t_position, t_length);
+    _basic_string_pop_back((string_t*)cpstr_replace);
+    basic_string_replace_substring(pstr_string, t_pos, t_len, cpstr_replace, t_position, t_length);
     basic_string_push_back(pstr_string, '\0');
-    basic_string_push_back((string_t*)cpstr_string_replace, '\0');
+    basic_string_push_back((string_t*)cpstr_replace, '\0');
 }
 
-void string_replace_cstr(
-    string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr)
+
+/**
+ * Replace characters in a string at a specificed position with specificed character string.
+ */
+void string_replace_cstr(string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr)
 {
     _basic_string_pop_back(pstr_string);
     basic_string_replace_cstr(pstr_string, t_pos, t_len, s_cstr);
     basic_string_push_back(pstr_string, '\0');
 }
 
-void string_replace_subcstr(
-    string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr, size_t t_length)
+
+/**
+ * Replace characters in a string at a specificed position with specificed sub character string.
+ */
+void string_replace_subcstr(string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr, size_t t_length)
 {
     _basic_string_pop_back(pstr_string);
     basic_string_replace_subcstr(pstr_string, t_pos, t_len, s_cstr, t_length);
     basic_string_push_back(pstr_string, '\0');
 }
 
-void string_replace_char(
-    string_t* pstr_string, size_t t_pos, size_t t_len, size_t t_count, char c_char)
+/**
+ * Replace characters in a string at specificed posititon with specific characters.
+ */
+void string_replace_char(string_t* pstr_string, size_t t_pos, size_t t_len, size_t t_count, char c_char)
 {
     _basic_string_pop_back(pstr_string);
     basic_string_replace_elem(pstr_string, t_pos, t_len, t_count, c_char);
     basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed string.
+ */
 void string_range_replace(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const string_t* cpstr_string_replace)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, const string_t* cpstr_replace)
 {
-    _basic_string_pop_back((string_t*)cpstr_string_replace);
-    basic_string_range_replace(pstr_string, t_begin, t_end, cpstr_string_replace);
-    basic_string_push_back((string_t*)cpstr_string_replace, '\0');
+    _basic_string_pop_back((string_t*)cpstr_replace);
+    basic_string_range_replace(pstr_string, it_begin, it_end, cpstr_replace);
+    basic_string_push_back((string_t*)cpstr_replace, '\0');
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed sub string.
+ */
 void string_range_replace_substring(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const string_t* cpstr_string_replace, size_t t_pos, size_t t_len)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end,
+    const string_t* cpstr_replace, size_t t_pos, size_t t_len)
 {
-    _basic_string_pop_back((string_t*)cpstr_string_replace);
-    basic_string_range_replace_substring(
-        pstr_string, t_begin, t_end, cpstr_string_replace, t_pos, t_len);
-    basic_string_push_back((string_t*)cpstr_string_replace, '\0');
+    _basic_string_pop_back((string_t*)cpstr_replace);
+    basic_string_range_replace_substring(pstr_string, it_begin, it_end, cpstr_replace, t_pos, t_len);
+    basic_string_push_back((string_t*)cpstr_replace, '\0');
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed character string.
+ */
 void string_range_replace_cstr(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const char* s_cstr)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, const char* s_cstr)
 {
-    basic_string_range_replace_cstr(pstr_string, t_begin, t_end, s_cstr);
+    basic_string_range_replace_cstr(pstr_string, it_begin, it_end, s_cstr);
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed sub character string.
+ */
 void string_range_replace_subcstr(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const char* s_cstr, size_t t_len)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, const char* s_cstr, size_t t_len)
 {
-    basic_string_range_replace_subcstr(pstr_string, t_begin, t_end, s_cstr, t_len);
+    basic_string_range_replace_subcstr(pstr_string, it_begin, it_end, s_cstr, t_len);
 }
 
+/**
+ * Replace characters in a string at specificed range with specific characters.
+ */
 void string_range_replace_char(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    size_t t_count, char c_char)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, size_t t_count, char c_char)
 {
-    basic_string_range_replace_elem(pstr_string, t_begin, t_end, t_count, c_char);
+    basic_string_range_replace_elem(pstr_string, it_begin, it_end, t_count, c_char);
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed range.
+ */
 void string_replace_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    string_iterator_t t_first, string_iterator_t t_last)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end,
+    string_iterator_t it_first, string_iterator_t it_last)
 {
-    basic_string_replace_range(pstr_string, t_begin, t_end, t_first, t_last);
+    basic_string_replace_range(pstr_string, it_begin, it_end, it_first, it_last);
 }
 
-/* output input */
+/**
+ * Output the character string to specific stream.
+ */
 void string_output(const string_t* cpstr_string, FILE* fp_stream)
 {
-    assert(cpstr_string != NULL && fp_stream != NULL);
+    assert(cpstr_string != NULL);
+    assert(fp_stream != NULL);
+
     fprintf(fp_stream, "%s", string_data(cpstr_string));
 }
 
+/**
+ * Read the character string from specific stream.
+ */
 void string_input(string_t* pstr_string, FILE* fp_stream)
 {
     int n_char = EOF;
 
-    assert(pstr_string != NULL && fp_stream != NULL);
+    assert(pstr_string != NULL);
+    assert(fp_stream != NULL);
 
     clearerr(fp_stream);
     string_clear(pstr_string);
-    while(!feof(fp_stream) && !ferror(fp_stream) &&
-          string_size(pstr_string) < string_max_size(pstr_string))
+    while(!feof(fp_stream) && !ferror(fp_stream) && string_size(pstr_string) < string_max_size(pstr_string))
     {
-        n_char = fgetc(fp_stream);
-        if(n_char != EOF)
+        if((n_char = fgetc(fp_stream)) != EOF)
         {
             string_push_back(pstr_string, n_char);
         }
     }
 }
 
+/**
+ * Get one line from specific stream.
+ */
 bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
 {
     int n_char = EOF;
@@ -1205,7 +1241,8 @@ bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
     int n_prevchar = EOF;
 #endif
 
-    assert(pstr_string != NULL && fp_stream != NULL);
+    assert(pstr_string != NULL);
+    assert(fp_stream != NULL);
 
     clearerr(fp_stream);
     string_clear(pstr_string);
@@ -1262,11 +1299,15 @@ bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
     }
 }
 
+/**
+ * Get one line from specific stream with delimiter.
+ */
 bool_t string_getline_delimiter(string_t* pstr_string, FILE* fp_stream, char c_delimiter)
 {
     int n_char = EOF;
 
-    assert(pstr_string != NULL && fp_stream != NULL);
+    assert(pstr_string != NULL);
+    assert(fp_stream != NULL);
 
     if(c_delimiter == '\n')
     {

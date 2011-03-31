@@ -1113,47 +1113,219 @@ extern string_iterator_t string_erase_range(
  */
 extern void string_erase_substring(string_t* pstr_string, size_t t_pos, size_t t_len);
 
-/*
- * Replace operation functions.
+/**
+ * Replace characters in a string at a specificed position with specificed string.
+ * @param pstr_string           destination string container.
+ * @param t_pos                 replace position.
+ * @param t_len                 replace length.
+ * @param cpstr_replace         replace string container.
+ * @return void.
+ * @remarks if pstr_string == NULL or cpstr_replace == NULL, then the behavior is undefined. pstr_string and cpstr_replace
+ *          must be initialized, otherwise the behavior is undefined. t_pos is valid position for pstr_string, otherwise
+ *          the behavior is undefined. if t_len == NPOS or t_pos + t_len >= string_size(pstr_string), the user all remain
+ *          pstr_string that started from t_pos. if pstr_string == cpstr_replace, then the behavior is undefined.
  */
-extern void string_replace(
-    string_t* pstr_string, size_t t_pos, size_t t_len, const string_t* cpstr_string_replace);
-extern void string_replace_substring(
-    string_t* pstr_string, size_t t_pos, size_t t_len, const string_t* cpstr_string_replace,
-    size_t t_position, size_t t_length);
-extern void string_replace_cstr(
-    string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr);
-extern void string_replace_subcstr(
-    string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr, size_t t_length);
-extern void string_replace_char(
-    string_t* pstr_string, size_t t_pos, size_t t_len, size_t t_count, char c_char);
-extern void string_range_replace(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const string_t* cpstr_string_replace);
-extern void string_range_replace_substring(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const string_t* cpstr_string_replace, size_t t_pos, size_t t_len);
-extern void string_range_replace_cstr(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const char* s_cstr);
-extern void string_range_replace_subcstr(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const char* s_cstr, size_t t_len);
-extern void string_range_replace_char(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    size_t t_count, char c_char);
-extern void string_replace_range(
-    string_t* pstr_string, string_iterator_t t_begin, string_iterator_t t_end,
-    string_iterator_t t_first, string_iterator_t t_last);
+extern void string_replace(string_t* pstr_string, size_t t_pos, size_t t_len, const string_t* cpstr_replace);
 
-/*
- * I/O operation.
+/**
+ * Replace characters in a string at a specificed position with specificed sub string.
+ * @param pstr_string           destination string container.
+ * @param t_pos                 replace position.
+ * @param t_len                 replace length.
+ * @param cpstr_replace         replace string container.
+ * @param t_position            copy position.
+ * @param t_length              copy length.
+ * @return void.
+ * @remarks if pstr_string == NULL or cpstr_replace == NULL, then the behavior is undefined. pstr_string and cpstr_replace
+ *          must be initialized, otherwise the behavior is undefined. t_pos is valid position for pstr_string, otherwise
+ *          the behavior is undefined. if t_len == NPOS or t_pos + t_len >= string_size(pstr_string), the user all remain
+ *          pstr_string that started from t_pos. t_position is valid position for cpstr_replace, otherwise the behavior is
+ *          undefined. if t_length == NPOS or t_position + t_length >= string_size(cpstr_replace), the user all remain
+ *          cpstr_replace that started from t_position. if pstr_string == cpstr_replace, then the behavior is undefined.
+ */
+extern void string_replace_substring(
+    string_t* pstr_string, size_t t_pos, size_t t_len, const string_t* cpstr_replace, size_t t_position, size_t t_length);
+
+/**
+ * Replace characters in a string at a specificed position with specificed character string.
+ * @param pstr_string           destination string container.
+ * @param t_pos                 replace position.
+ * @param t_len                 replace length.
+ * @param s_cstr                character string.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string must be initialized,
+ *          otherwise the behavior is undefined. t_pos is valid position for pstr_string, otherwise the behavior
+ *          is undefined. if t_len == NPOS or t_pos + t_len >= string_size(pstr_string), the user all remain pstr_string
+ *          that started from t_pos.
+ */
+extern void string_replace_cstr(string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr);
+
+/**
+ * Replace characters in a string at a specificed position with specificed sub character string.
+ * @param pstr_string           destination string container.
+ * @param t_pos                 replace position.
+ * @param t_len                 replace length.
+ * @param s_cstr                character string.
+ * @param t_length              sub character string length.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string must be initialized,
+ *          otherwise the behavior is undefined. t_pos is valid position for pstr_string, otherwise the behavior
+ *          is undefined. if t_len == NPOS or t_pos + t_len >= string_size(pstr_string), the user all remain pstr_string
+ *          that started from t_pos. if t_length == NPOS or t_length is equal ot or greater than the length of s_cstr,
+ *          then use all s_cstr.
+ */
+extern void string_replace_subcstr(string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr, size_t t_length);
+
+/**
+ * Replace characters in a string at specificed posititon with specific characters.
+ * @param pstr_string           string container.
+ * @param t_pos                 specificed position.
+ * @param t_len                 replace length.
+ * @param t_count               character number.
+ * @param c_char                specificed character.
+ * @return void.
+ * @remarks if pstr_string == NULL or string is uninitialized, then the behavior is undefined. the t_pos must be belong
+ *          to string, otherwise the behavior is undefined. if t_len == NPOS or t_pos + t_len >=  string_size(), then
+ *          replace all remain string from t_pos. the first specificed is in use, others are not in use. the inserted
+ *          character is from variable argument list.
+ */
+extern void string_replace_char(string_t* pstr_string, size_t t_pos, size_t t_len, size_t t_count, char c_char);
+
+/**
+ * Replace characters in a string at a specificed range with specificed string.
+ * @param pstr_string           destination string container.
+ * @param it_begin              the position of first character in the range.
+ * @param it_end                the position of first character beyond the range.
+ * @param cpstr_replace         replace string container.
+ * @return void.
+ * @remarks if pstr_string == NULL or cpstr_replace == NULL, then the behavior is undefined. pstr_string and cpstr_replace
+ *          must be initialized, otherwise the behavior is undefined. [it_begin, it_end) must be valid range for pstr_string,
+ *          otherwise the behavior is undefined. if pstr_string == cpstr_replace, then the behavior is undefined.
+ */
+extern void string_range_replace(
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, const string_t* cpstr_replace);
+
+/**
+ * Replace characters in a string at a specificed range with specificed sub string.
+ * @param pstr_string           destination string container.
+ * @param it_begin              the position of first character in the range.
+ * @param it_end                the position of first character beyond the range.
+ * @param cpstr_replace         replace string container.
+ * @param t_position            copy position.
+ * @param t_length              copy length.
+ * @return void.
+ * @remarks if pstr_string == NULL or cpstr_replace == NULL, then the behavior is undefined. pstr_string and cpstr_replace
+ *          must be initialized, otherwise the behavior is undefined. [it_begin, it_end) must be valid range for pstr_string,
+ *          otherwise the behavior is undefined. t_position is valid position for cpstr_replace, otherwise the behavior is
+ *          undefined. if t_length == NPOS or t_position + t_length >= string_size(cpstr_replace), the user all remain
+ *          cpstr_replace that started from t_position. if pstr_string == cpstr_replace, then the behavior is undefined.
+ */
+extern void string_range_replace_substring(
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end,
+    const string_t* cpstr_replace, size_t t_pos, size_t t_len);
+
+/**
+ * Replace characters in a string at a specificed range with specificed character string.
+ * @param pstr_string           destination string container.
+ * @param it_begin              the position of first character in the range.
+ * @param it_end                the position of first character beyond the range.
+ * @param s_cstr                character string.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string
+ *          must be initialized, otherwise the behavior is undefined. [it_begin, it_end) must be valid range for pstr_string,
+ *          otherwise the behavior is undefined.
+ */
+extern void string_range_replace_cstr(
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, const char* s_cstr);
+
+/**
+ * Replace characters in a string at a specificed range with specificed sub character string.
+ * @param pstr_string           destination string container.
+ * @param it_begin              the position of first character in the range.
+ * @param it_end                the position of first character beyond the range.
+ * @param s_cstr                character string.
+ * @param t_length              sub character string length.
+ * @return void.
+ * @remarks if pstr_string == NULL or s_cstr == NULL, then the behavior is undefined. pstr_string must be initialized,
+ *          otherwise the behavior is undefined. [it_begin, it_end) must be valid range for pstr_string, otherwise the
+ *          behavior is undefined. if t_length == NPOS or t_length is equal ot or greater than the length of s_cstr,
+ *          then use all s_cstr.
+ */
+extern void string_range_replace_subcstr(
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, const char* s_cstr, size_t t_len);
+
+/**
+ * Replace characters in a string at specificed range with specific characters.
+ * @param pstr_string           string container.
+ * @param it_begin              the position of first character in the range.
+ * @param it_end                the position of first character beyond the range.
+ * @param t_count               character number.
+ * @param elem                  specificed character.
+ * @return void.
+ * @remarks if pstr_string == NULL or string is uninitialized, then the behavior is undefined. the t_pos must be belong
+ *          to string, otherwise the behavior is undefined. [it_begin, it_end) must be valid range for pstr_string,
+ *          otherwise the behavior is undefined.
+ */
+extern void string_range_replace_char(
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, size_t t_count, char c_char);
+
+/**
+ * Replace characters in a string at a specificed range with specificed range.
+ * @param pstr_string           destination string container.
+ * @param it_begin              the position of first character in the range.
+ * @param it_end                the position of first character beyond the range.
+ * @param it_first              the position of first character in the replace range.
+ * @param it_last               the position of first character beyond the replace range.
+ * @return void.
+ * @remarks if pstr_string == NULL, then the behavior is undefined. pstr_string must be initialized, otherwise the behavior
+ *          is undefined. [it_begin, it_end) must be valid range for pstr_string, otherwise the behavior is undefined.
+ *          [it_first, it_last) must be valid range, and [it_first, it_last) must not belong to pstr_string, otherwise the
+ *          behavior is undefined.
+ */
+extern void string_replace_range(
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end,
+    string_iterator_t it_first, string_iterator_t it_last);
+
+/**
+ * Output the character string to specific stream.
+ * @param cpstr_string          string container.
+ * @param fp_stream             output stream.
+ * @return void.
+ * @remarks if cpstr_string == NULL or fp_stream == NULL, then the behavior is undefined. cpstr_string must be initialized,
+ *          otherwise the behavior is undefined.
  */
 extern void string_output(const string_t* cpstr_string, FILE* fp_stream);
+
+/**
+ * Read the character string from specific stream.
+ * @param pstr_string           string container.
+ * @param fp_stream             input stream.
+ * @return void.
+ * @remarks if pstr_string == NULL or fp_stream == NULL, then the behavior is undefined. pstr_string must be initialized,
+ *          otherwise the behavior is undefined.
+ */
 extern void string_input(string_t* pstr_string, FILE* fp_stream);
+
+/**
+ * Get one line from specific stream.
+ * @param pstr_string           string container.
+ * @param fp_stream             input stream.
+ * @return if get one line successfully then return true, else return false.
+ * @remarks if pstr_string == NULL or fp_stream == NULL, then the behavior is undefined. pstr_string must be initialized,
+ *          otherwise the behavior is undefined.
+ */
 extern bool_t string_getline(string_t* pstr_string, FILE* fp_stream);
-extern bool_t string_getline_delimiter(
-    string_t* pstr_string, FILE* fp_stream, char c_delimiter);
+
+/**
+ * Get one line from specific stream with delimiter.
+ * @param pstr_string           string container.
+ * @param fp_stream             input stream.
+ * @param c_delimiter           delimiter.
+ * @return if get one line successfully then return true, else return false.
+ * @remarks if pstr_string == NULL or fp_stream == NULL, then the behavior is undefined. pstr_string must be initialized,
+ *          otherwise the behavior is undefined.
+ */
+extern bool_t string_getline_delimiter(string_t* pstr_string, FILE* fp_stream, char c_delimiter);
 
 #ifdef __cplusplus
 }
