@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USRDLL;LIBCSTL_EXPORTS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USRDLL;LIBCSTL_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -372,6 +372,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_string.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_string_private.c"
 				>
 			</File>
 			<File
@@ -710,6 +714,10 @@
 			</File>
 			<File
 				RelativePath="..\..\cstl\cstl_string_iterator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\cstl\cstl_string_private.h"
 				>
 			</File>
 			<File
