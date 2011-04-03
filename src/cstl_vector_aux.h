@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_VECTOR_AUX_H
-#define _CSTL_VECTOR_AUX_H
+#ifndef _CSTL_VECTOR_AUX_H_
+#define _CSTL_VECTOR_AUX_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -137,6 +137,6 @@ extern size_t _vector_calculate_new_capacity(size_t t_oldsize, size_t t_insertsi
 }
 #endif
 
-#endif /* _CSTL_VECTOR_AUX_H */
+#endif /* _CSTL_VECTOR_AUX_H_ */
 /** eof **/
 

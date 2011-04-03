@@ -6,7 +6,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_algobase.c \
 	     $(srcdir)/../../src/cstl_function.c \
              $(srcdir)/../../src/cstl_iterator.c \
-             $(srcdir)/../../src/cstl_avl_tree.c \
+             $(srcdir)/../../src/cstl_avl_tree.c $(srcdir)/../../src/cstl_avl_tree_aux.c \
 	     $(srcdir)/../../src/cstl_basic_string.c $(srcdir)/../../src/cstl_basic_string_iterator.c \
 	     $(srcdir)/../../src/cstl_basic_string_private.c $(srcdir)/../../src/cstl_basic_string_aux.c \
 	     $(srcdir)/../../src/cstl_deque.c $(srcdir)/../../src/cstl_deque_iterator.c \

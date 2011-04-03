@@ -86,7 +86,7 @@ bool_t _create_vector_auxiliary(vector_t* pvec_vector, const char* s_typename)
     pvec_vector->_pby_finish = NULL;
     pvec_vector->_pby_endofstorage = NULL;
 
-    _alloc_init(&pvec_vector->_t_allocater);
+    _alloc_init(&pvec_vector->_t_allocator);
     return true;
 }
 
@@ -122,7 +122,7 @@ void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_e
     if(t_count > 0)
     {
         /* get varg value only once */
-        pv_varg = _alloc_allocate(&pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
+        pv_varg = _alloc_allocate(&pvec_vector->_t_allocator, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
         assert(pv_varg != NULL);
         _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
 
@@ -139,7 +139,7 @@ void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_e
 
         /* destroy varg value and free memory */
         _vector_destroy_varg_value_auxiliary(pvec_vector, pv_varg);
-        _alloc_deallocate(&pvec_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
+        _alloc_deallocate(&pvec_vector->_t_allocator, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
     }
 }
 
@@ -166,10 +166,10 @@ void _vector_destroy_auxiliary(vector_t* pvec_vector)
     /* free vector memory */
     if(pvec_vector->_pby_start != NULL)
     {
-        _alloc_deallocate(&pvec_vector->_t_allocater, pvec_vector->_pby_start, _GET_VECTOR_TYPE_SIZE(pvec_vector), 
+        _alloc_deallocate(&pvec_vector->_t_allocator, pvec_vector->_pby_start, _GET_VECTOR_TYPE_SIZE(pvec_vector), 
             (pvec_vector->_pby_endofstorage - pvec_vector->_pby_start) / _GET_VECTOR_TYPE_SIZE(pvec_vector));
     }
-    _alloc_destroy(&pvec_vector->_t_allocater);
+    _alloc_destroy(&pvec_vector->_t_allocator);
 
     pvec_vector->_pby_start = NULL;
     pvec_vector->_pby_finish = NULL;
@@ -204,7 +204,7 @@ void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val
     assert(_vector_is_inited(pvec_vector));
 
     /* get value from varg */
-    pv_varg = _alloc_allocate(&pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
+    pv_varg = _alloc_allocate(&pvec_vector->_t_allocator, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
     assert(pv_varg != NULL);
     _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
 
@@ -221,7 +221,7 @@ void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val
 
     /* destroy varg and free memory */
     _vector_destroy_varg_value_auxiliary(pvec_vector, pv_varg);
-    _alloc_deallocate(&pvec_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
+    _alloc_deallocate(&pvec_vector->_t_allocator, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
 }
 
 /**
@@ -313,7 +313,7 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
         }
 
         /* get varg value only once */
-        pv_varg = _alloc_allocate(&pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
+        pv_varg = _alloc_allocate(&pvec_vector->_t_allocator, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
         assert(pv_varg != NULL);
         _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
 
@@ -331,7 +331,7 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
         }
         /* destroy varg */
         _vector_destroy_varg_value_auxiliary(pvec_vector, pv_varg);
-        _alloc_deallocate(&pvec_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
+        _alloc_deallocate(&pvec_vector->_t_allocator, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
     }
 }
 
@@ -422,7 +422,7 @@ vector_iterator_t _vector_insert_n_varg(
         }
 
         /* get varg value only once */
-        pv_varg = _alloc_allocate(&pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
+        pv_varg = _alloc_allocate(&pvec_vector->_t_allocator, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
         assert(pv_varg != NULL);
         _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
         /* copy value for varg */
@@ -435,7 +435,7 @@ vector_iterator_t _vector_insert_n_varg(
         }
         /* destroy varg and free memory */
         _vector_destroy_varg_value_auxiliary(pvec_vector, pv_varg);
-        _alloc_deallocate(&pvec_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
+        _alloc_deallocate(&pvec_vector->_t_allocator, pv_varg, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
     }
 
     return it_pos;

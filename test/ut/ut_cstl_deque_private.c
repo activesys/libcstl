@@ -110,7 +110,7 @@ void test__create_deque_auxiliary__c_builtin(void** state)
     deque_t* pdeq = malloc(sizeof(deque_t));
     assert_true(_create_deque_auxiliary(pdeq, "double"));
     assert_true(strcmp(_GET_DEQUE_TYPE_NAME(pdeq), "double") == 0);
-    assert_true(_alloc_is_inited(&pdeq->_t_allocater));
+    assert_true(_alloc_is_inited(&pdeq->_t_allocator));
     assert_true(_deque_is_created(pdeq));
 
     deque_destroy(pdeq);
@@ -121,7 +121,7 @@ void test__create_deque_auxiliary__libcstl_builtin(void** state)
     deque_t* pdeq = malloc(sizeof(deque_t));
     assert_true(_create_deque_auxiliary(pdeq, "deque_t<   vector_t     <     string_t>>       "));
     assert_true(strcmp(_GET_DEQUE_TYPE_NAME(pdeq), "deque_t<vector_t<string_t>>") == 0);
-    assert_true(_alloc_is_inited(&pdeq->_t_allocater));
+    assert_true(_alloc_is_inited(&pdeq->_t_allocator));
     assert_true(_deque_is_created(pdeq));
 
     deque_destroy(pdeq);
@@ -138,7 +138,7 @@ void test__create_deque_auxiliary__user_defined(void** state)
     pdeq = malloc(sizeof(deque_t));
     assert_true(_create_deque_auxiliary(pdeq, "struct _tag_test__create_deque_auxiliary__user_defined"));
     assert_true(strcmp(_GET_DEQUE_TYPE_NAME(pdeq), "struct _tag_test__create_deque_auxiliary__user_defined") == 0);
-    assert_true(_alloc_is_inited(&pdeq->_t_allocater));
+    assert_true(_alloc_is_inited(&pdeq->_t_allocator));
     assert_true(_deque_is_created(pdeq));
 
     deque_destroy(pdeq);
@@ -151,7 +151,7 @@ void test__create_deque_auxiliary__user_defined_dup(void** state)
     pdeq = malloc(sizeof(deque_t));
     assert_true(_create_deque_auxiliary(pdeq, "_test__create_deque_auxiliary__user_defined_t"));
     assert_true(strcmp(_GET_DEQUE_TYPE_NAME(pdeq), "_test__create_deque_auxiliary__user_defined_t") == 0);
-    assert_true(_alloc_is_inited(&pdeq->_t_allocater));
+    assert_true(_alloc_is_inited(&pdeq->_t_allocator));
     assert_true(_deque_is_created(pdeq));
 
     deque_destroy(pdeq);

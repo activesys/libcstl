@@ -460,7 +460,7 @@ set_iterator_t _set_find_varg(const set_t* cpt_set, va_list val_elemlist)
 
     assert(cpt_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
     assert(pv_varg != NULL);
     _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
@@ -472,7 +472,7 @@ set_iterator_t _set_find_varg(const set_t* cpt_set, va_list val_elemlist)
 #endif
 
     _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
 
     _GET_CONTAINER(t_iter) = (set_t*)cpt_set;
@@ -501,7 +501,7 @@ size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist)
 
     assert(cpt_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
     assert(pv_varg != NULL);
     _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
@@ -513,7 +513,7 @@ size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist)
 #endif
 
     _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
 
     return t_count;
@@ -538,7 +538,7 @@ set_iterator_t _set_lower_bound_varg(const set_t* cpt_set, va_list val_elemlist)
 
     assert(cpt_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
     assert(pv_varg != NULL);
     _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
@@ -550,7 +550,7 @@ set_iterator_t _set_lower_bound_varg(const set_t* cpt_set, va_list val_elemlist)
 #endif
 
     _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
 
     _GET_CONTAINER(t_iter) = (set_t*)cpt_set;
@@ -579,7 +579,7 @@ set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist)
 
     assert(cpt_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
     assert(pv_varg != NULL);
     _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
@@ -591,7 +591,7 @@ set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist)
 #endif
 
     _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
 
     _GET_CONTAINER(t_iter) = (set_t*)cpt_set;
@@ -620,7 +620,7 @@ range_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)
 
     assert(cpt_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocater,
+    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
     assert(pv_varg != NULL);
     _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
@@ -632,7 +632,7 @@ range_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)
 #endif
 
     _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocater, pv_varg,
+    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
         _GET_SET_TYPE_SIZE(cpt_set), 1);
 
     _GET_CONTAINER(t_range.it_begin) = (set_t*)cpt_set;
@@ -742,7 +742,7 @@ set_iterator_t _set_insert_varg(set_t* pt_set, va_list val_elemlist)
 
     assert(pt_set != NULL);
 
-    pv_varg = _alloc_allocate(&pt_set->_t_tree._t_allocater, _GET_SET_TYPE_SIZE(pt_set), 1);
+    pv_varg = _alloc_allocate(&pt_set->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(pt_set), 1);
     assert(pv_varg != NULL);
     _set_get_varg_value_auxiliary(pt_set, val_elemlist, pv_varg);
 
@@ -753,7 +753,7 @@ set_iterator_t _set_insert_varg(set_t* pt_set, va_list val_elemlist)
 #endif
 
     _set_destroy_varg_value_auxiliary(pt_set, pv_varg);
-    _alloc_deallocate(&pt_set->_t_tree._t_allocater, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
+    _alloc_deallocate(&pt_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
 
     _GET_CONTAINER(t_iter) = pt_set;
     _GET_SET_CONTAINER_TYPE(t_iter) = _SET_CONTAINER;
@@ -781,7 +781,7 @@ set_iterator_t _set_insert_hint_varg(
 
     assert(pt_set != NULL);
 
-    pv_varg = _alloc_allocate(&pt_set->_t_tree._t_allocater, _GET_SET_TYPE_SIZE(pt_set), 1);
+    pv_varg = _alloc_allocate(&pt_set->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(pt_set), 1);
     assert(pv_varg != NULL);
     _set_get_varg_value_auxiliary(pt_set, val_elemlist, pv_varg);
 
@@ -792,7 +792,7 @@ set_iterator_t _set_insert_hint_varg(
 #endif
 
     _set_destroy_varg_value_auxiliary(pt_set, pv_varg);
-    _alloc_deallocate(&pt_set->_t_tree._t_allocater, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
+    _alloc_deallocate(&pt_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
 
     _GET_CONTAINER(t_hint) = pt_set;
     _GET_SET_CONTAINER_TYPE(t_hint) = _SET_CONTAINER;
@@ -869,7 +869,7 @@ size_t _set_erase_varg(set_t* pt_set, va_list val_elemlist)
 
     assert(pt_set != NULL);
 
-    pv_varg = _alloc_allocate(&pt_set->_t_tree._t_allocater, _GET_SET_TYPE_SIZE(pt_set), 1);
+    pv_varg = _alloc_allocate(&pt_set->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(pt_set), 1);
     assert(pv_varg != NULL);
     _set_get_varg_value_auxiliary(pt_set, val_elemlist, pv_varg);
 
@@ -880,7 +880,7 @@ size_t _set_erase_varg(set_t* pt_set, va_list val_elemlist)
 #endif
 
     _set_destroy_varg_value_auxiliary(pt_set, pv_varg);
-    _alloc_deallocate(&pt_set->_t_tree._t_allocater, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
+    _alloc_deallocate(&pt_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
 
     return t_count;
 }

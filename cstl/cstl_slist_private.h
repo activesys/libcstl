@@ -53,7 +53,7 @@ typedef struct _tagslist
     _typeinfo_t  _t_typeinfo;
 
     /* memory allocate */
-    _alloc_t     _t_allocater;
+    _alloc_t     _t_allocator;
 
     /* slist core struct */
     _slistnode_t _t_head;

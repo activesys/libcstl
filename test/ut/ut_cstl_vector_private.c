@@ -1190,7 +1190,7 @@ void test__vector_init_elem_auxiliary__successfully_container(void** state)
     assert_true(vec._t_typeinfo._t_style == _TYPE_C_BUILTIN);
     assert_true(vec._t_typeinfo._pt_type != NULL);
     assert_true(strcmp(vec._t_typeinfo._sz_typename, _INT_TYPE) == 0);
-    assert_true(_alloc_is_inited(&vec._t_allocater));
+    assert_true(_alloc_is_inited(&vec._t_allocator));
 
     vector_destroy(pvec);
 }

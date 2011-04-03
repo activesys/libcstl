@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_ALLOC_AUX_H
-#define _CSTL_ALLOC_AUX_H
+#ifndef _CSTL_ALLOC_AUX_H_
+#define _CSTL_ALLOC_AUX_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -90,6 +90,6 @@ extern _byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsi
 }
 #endif
 
-#endif /* _CSTL_ALLOC_AUX_H */
+#endif /* _CSTL_ALLOC_AUX_H_ */
 /** eof **/
 

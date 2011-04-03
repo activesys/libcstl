@@ -223,27 +223,27 @@ void test__alloc_deallocate__invalid_allocator(void** state)
 {
 #ifndef _CSTL_USER_MODEL
     void* pv_mem = NULL;
-    _alloc_t allocater;
-    _alloc_init(&allocater);
+    _alloc_t allocator;
+    _alloc_init(&allocator);
 
-    pv_mem = _alloc_allocate(&allocater, 8, 1);
+    pv_mem = _alloc_allocate(&allocator, 8, 1);
     assert_true(pv_mem != NULL);
 
     expect_assert_failure(_alloc_deallocate(NULL, pv_mem, 8, 1));
 
-    _alloc_destroy(&allocater);
+    _alloc_destroy(&allocator);
 #endif
 }
 
 void test__alloc_deallocate__invalid_allocated_memory(void** state)
 {
 #ifndef _CSTL_USER_MODEL
-    _alloc_t allocater;
-    _alloc_init(&allocater);
+    _alloc_t allocator;
+    _alloc_init(&allocator);
 
-    expect_assert_failure(_alloc_deallocate(&allocater, NULL, 8, 1));
+    expect_assert_failure(_alloc_deallocate(&allocator, NULL, 8, 1));
 
-    _alloc_destroy(&allocater);
+    _alloc_destroy(&allocator);
 #else
     expect_assert_failure(_alloc_deallocate(NULL, NULL, 8, 1));
 #endif

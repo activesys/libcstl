@@ -75,7 +75,7 @@ void slist_init_n(slist_t* pslist_slist, size_t t_count)
 
         for(i = 0; i < t_count; ++i)
         {
-            pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+            pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
             assert(pt_node != NULL);
             _slist_init_node_auxiliary(pslist_slist, pt_node);
 
@@ -336,7 +336,7 @@ void slist_pop_front(slist_t* pslist_slist)
     b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
     _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
     assert(b_result);
-    _alloc_deallocate(&pslist_slist->_t_allocater, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+    _alloc_deallocate(&pslist_slist->_t_allocator, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 }
 
 /**
@@ -389,7 +389,7 @@ void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, slist_it
 
         for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
         {
-            pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+            pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
             assert(pt_node != NULL);
             _slist_init_node_auxiliary(pslist_slist, pt_node);
 
@@ -453,7 +453,7 @@ void slist_insert_after_range(
     /* allocate new elements and copy the element from range */
     for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
     {
-        pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
         assert(pt_node != NULL);
         _slist_init_node_auxiliary(pslist_slist, pt_node);
 
@@ -506,7 +506,7 @@ slist_iterator_t slist_erase_after(slist_t* pslist_slist, slist_iterator_t it_po
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
         assert(b_result);
-        _alloc_deallocate(&pslist_slist->_t_allocater, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        _alloc_deallocate(&pslist_slist->_t_allocator, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 
         return iterator_next(it_pos);
     }
@@ -601,7 +601,7 @@ slist_iterator_t slist_erase_after_range(slist_t* pslist_slist, slist_iterator_t
             b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
             _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
             assert(b_result);
-            _alloc_deallocate(&pslist_slist->_t_allocater, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+            _alloc_deallocate(&pslist_slist->_t_allocator, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 
             pt_node = pt_begin;
         }
@@ -1077,7 +1077,7 @@ void slist_resize(slist_t* pslist_slist, size_t t_resize)
 
         for(i = 0; i < t_resize - t_size; ++i)
         {
-            pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+            pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
             assert(pt_node != NULL);
             _slist_init_node_auxiliary(pslist_slist, pt_node);
 

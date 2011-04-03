@@ -410,7 +410,7 @@ void _rb_tree_init(rb_tree_t* pt_rb_tree, binary_function_t t_compare)
     pt_rb_tree->_t_rbroot._pt_left = &pt_rb_tree->_t_rbroot;
     pt_rb_tree->_t_rbroot._pt_right = &pt_rb_tree->_t_rbroot;
 
-    _alloc_init(&pt_rb_tree->_t_allocater);
+    _alloc_init(&pt_rb_tree->_t_allocator);
 
     if(t_compare != NULL)
     {
@@ -435,7 +435,7 @@ void _rb_tree_destroy_auxiliary(rb_tree_t* pt_rb_tree)
     pt_rb_tree->_t_nodecount = 0;
 
     /* destroy allocator */
-    _alloc_destroy(&pt_rb_tree->_t_allocater);
+    _alloc_destroy(&pt_rb_tree->_t_allocator);
 
     pt_rb_tree->_t_compare = NULL;
 }
@@ -1371,7 +1371,7 @@ void _rb_tree_erase_pos(rb_tree_t* pt_rb_tree, rb_tree_iterator_t t_pos)
     t_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
     _GET_RB_TREE_TYPE_DESTROY_FUNCTION(pt_rb_tree)(pt_cur->_pc_data, &t_result);
     assert(t_result);
-    _alloc_deallocate(&pt_rb_tree->_t_allocater, pt_cur, 
+    _alloc_deallocate(&pt_rb_tree->_t_allocator, pt_cur, 
         _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
     pt_rb_tree->_t_nodecount--;
     /* update the left and right pointer */
@@ -1511,7 +1511,7 @@ static rbnode_t* _destroy_rb_tree(rb_tree_t* pt_rb_tree, rbnode_t* pt_root)
         t_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
         _GET_RB_TREE_TYPE_DESTROY_FUNCTION(pt_rb_tree)(pt_root->_pc_data, &t_result);
         assert(t_result);
-        _alloc_deallocate(&pt_rb_tree->_t_allocater, pt_root, 
+        _alloc_deallocate(&pt_rb_tree->_t_allocator, pt_root, 
             _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
     }
     
@@ -1603,7 +1603,7 @@ static rbnode_t* _insert_rbnode(rb_tree_t* pt_rb_tree, const void* cpv_value)
     if(_rb_tree_empty(pt_rb_tree))
     {
         /* allocat a new root */
-        pt_cur = _alloc_allocate((_alloc_t*)&pt_rb_tree->_t_allocater,
+        pt_cur = _alloc_allocate((_alloc_t*)&pt_rb_tree->_t_allocator,
             _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
         assert(pt_cur != NULL);
         _rb_tree_init_elem_auxiliary(pt_rb_tree, pt_cur);
@@ -1651,7 +1651,7 @@ static rbnode_t* _insert_rbnode(rb_tree_t* pt_rb_tree, const void* cpv_value)
         }
 
         /* allocate new node */
-        pt_cur = _alloc_allocate((_alloc_t*)&pt_rb_tree->_t_allocater,
+        pt_cur = _alloc_allocate((_alloc_t*)&pt_rb_tree->_t_allocator,
             _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
         assert(pt_cur != NULL);
         _rb_tree_init_elem_auxiliary(pt_rb_tree, pt_cur);

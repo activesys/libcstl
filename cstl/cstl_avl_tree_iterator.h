@@ -32,8 +32,8 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
-typedef iterator_t avl_tree_iterator_t;
-typedef iterator_t avl_tree_reverse_iterator_t;
+typedef iterator_t _avl_tree_iterator_t;
+typedef iterator_t _avl_tree_reverse_iterator_t;
 
 /** exported global variable declaration section **/
 
@@ -41,18 +41,18 @@ typedef iterator_t avl_tree_reverse_iterator_t;
 /*
  * Iterator support.
  */
-extern avl_tree_iterator_t _create_avl_tree_iterator(void);
+extern _avl_tree_iterator_t _create_avl_tree_iterator(void);
 extern void _avl_tree_iterator_get_value(
-    avl_tree_iterator_t t_iter, void* pv_value);
-extern const void* _avl_tree_iterator_get_pointer(avl_tree_iterator_t t_iter); 
-extern avl_tree_iterator_t _avl_tree_iterator_next(avl_tree_iterator_t t_iter);
-extern avl_tree_iterator_t _avl_tree_iterator_prev(avl_tree_iterator_t t_iter);
+    _avl_tree_iterator_t t_iter, void* pv_value);
+extern const void* _avl_tree_iterator_get_pointer(_avl_tree_iterator_t t_iter); 
+extern _avl_tree_iterator_t _avl_tree_iterator_next(_avl_tree_iterator_t t_iter);
+extern _avl_tree_iterator_t _avl_tree_iterator_prev(_avl_tree_iterator_t t_iter);
 extern bool_t _avl_tree_iterator_equal(
-    avl_tree_iterator_t t_iterfirst, avl_tree_iterator_t t_itersecond);
+    _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond);
 extern int _avl_tree_iterator_distance(
-    avl_tree_iterator_t t_iterfirst, avl_tree_iterator_t t_itersecond);
+    _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond);
 extern bool_t _avl_tree_iterator_before(
-    avl_tree_iterator_t t_iterfirst, avl_tree_iterator_t t_itersecond);
+    _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }

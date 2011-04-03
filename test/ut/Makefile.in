@@ -48,7 +48,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_alloc_aux.$(OBJEXT) ut-cstl_alloc.$(OBJEXT) \
 	ut-cstl_algo.$(OBJEXT) ut-cstl_algobase.$(OBJEXT) \
 	ut-cstl_function.$(OBJEXT) ut-cstl_iterator.$(OBJEXT) \
-	ut-cstl_avl_tree.$(OBJEXT) ut-cstl_basic_string.$(OBJEXT) \
+	ut-cstl_avl_tree.$(OBJEXT) ut-cstl_avl_tree_aux.$(OBJEXT) \
+	ut-cstl_basic_string.$(OBJEXT) \
 	ut-cstl_basic_string_iterator.$(OBJEXT) \
 	ut-cstl_basic_string_private.$(OBJEXT) \
 	ut-cstl_basic_string_aux.$(OBJEXT) ut-cstl_deque.$(OBJEXT) \
@@ -235,7 +236,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_algobase.c \
 	     $(srcdir)/../../src/cstl_function.c \
              $(srcdir)/../../src/cstl_iterator.c \
-             $(srcdir)/../../src/cstl_avl_tree.c \
+             $(srcdir)/../../src/cstl_avl_tree.c $(srcdir)/../../src/cstl_avl_tree_aux.c \
 	     $(srcdir)/../../src/cstl_basic_string.c $(srcdir)/../../src/cstl_basic_string_iterator.c \
 	     $(srcdir)/../../src/cstl_basic_string_private.c $(srcdir)/../../src/cstl_basic_string_aux.c \
 	     $(srcdir)/../../src/cstl_deque.c $(srcdir)/../../src/cstl_deque_iterator.c \
@@ -355,6 +356,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_alloc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_alloc_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_avl_tree.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_avl_tree_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_basic_string.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_basic_string_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_basic_string_iterator.Po@am__quote@
@@ -576,6 +578,20 @@ ut-cstl_avl_tree.obj: $(srcdir)/../../src/cstl_avl_tree.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_avl_tree.c' object='ut-cstl_avl_tree.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree.c'; fi`
+
+ut-cstl_avl_tree_aux.o: $(srcdir)/../../src/cstl_avl_tree_aux.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree_aux.Tpo -c -o ut-cstl_avl_tree_aux.o `test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_aux.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree_aux.Tpo $(DEPDIR)/ut-cstl_avl_tree_aux.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_avl_tree_aux.c' object='ut-cstl_avl_tree_aux.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree_aux.o `test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_aux.c
+
+ut-cstl_avl_tree_aux.obj: $(srcdir)/../../src/cstl_avl_tree_aux.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree_aux.Tpo -c -o ut-cstl_avl_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_aux.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree_aux.Tpo $(DEPDIR)/ut-cstl_avl_tree_aux.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_avl_tree_aux.c' object='ut-cstl_avl_tree_aux.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_aux.c'; fi`
 
 ut-cstl_basic_string.o: $(srcdir)/../../src/cstl_basic_string.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_basic_string.o -MD -MP -MF $(DEPDIR)/ut-cstl_basic_string.Tpo -c -o ut-cstl_basic_string.o `test -f '$(srcdir)/../../src/cstl_basic_string.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string.c

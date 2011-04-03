@@ -87,7 +87,7 @@ bool_t _create_slist_auxiliary(slist_t* pslist_slist, const char* s_typename)
 
     pslist_slist->_t_head._pt_next = NULL;
 
-    _alloc_init(&pslist_slist->_t_allocater);
+    _alloc_init(&pslist_slist->_t_allocator);
     return true;
 }
 
@@ -124,13 +124,13 @@ void _slist_init_elem_varg(slist_t* pslist_slist, size_t t_count, va_list val_el
         _slistnode_t* pt_node = NULL;
 
         /* get varg value only once */
-        pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        pt_varg = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
         assert(pt_varg != NULL);
         _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
         for(i = 0; i < t_count; ++i)
         {
-            pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+            pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
             assert(pt_node != NULL);
             _slist_init_node_auxiliary(pslist_slist, pt_node);
             /* copy value from varg */
@@ -145,7 +145,7 @@ void _slist_init_elem_varg(slist_t* pslist_slist, size_t t_count, va_list val_el
         }
 
         _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
-        _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        _alloc_deallocate(&pslist_slist->_t_allocator, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     }
 }
 
@@ -174,12 +174,12 @@ void _slist_destroy_auxiliary(slist_t* pslist_slist)
         _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
         assert(b_result);
 
-        _alloc_deallocate(&pslist_slist->_t_allocater, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        _alloc_deallocate(&pslist_slist->_t_allocator, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
         pt_node = NULL;
     }
 
     /* _alloc_deallocate the allocator */
-    _alloc_destroy(&pslist_slist->_t_allocater);
+    _alloc_destroy(&pslist_slist->_t_allocator);
 }
 
 
@@ -213,7 +213,7 @@ void _slist_assign_elem_varg(slist_t* pslist_slist, size_t t_count, va_list val_
     slist_resize(pslist_slist, t_count);
 
     /* get varg value */
-    pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+    pt_varg = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     assert(pt_varg != NULL);
     _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
@@ -230,7 +230,7 @@ void _slist_assign_elem_varg(slist_t* pslist_slist, size_t t_count, va_list val_
 
     /* destroy varg value */
     _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
-    _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+    _alloc_deallocate(&pslist_slist->_t_allocator, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 }
 
 /**
@@ -259,7 +259,7 @@ void _slist_push_front_varg(slist_t* pslist_slist, va_list val_elemlist)
     assert(_slist_is_inited(pslist_slist));
 
     /* allocate memory for new element and copy the element from elemlist */
-    pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+    pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     assert(pt_node != NULL);
     _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_node);
 
@@ -384,14 +384,14 @@ void _slist_insert_after_n_varg(slist_t* pslist_slist, slist_iterator_t it_pos, 
     assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
 
     /* get varg value only once */
-    pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+    pt_varg = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     assert(pt_varg != NULL);
     _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
     for(i = 0; i < t_count; ++i)
     {
         /* allocate slist node */
-        pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
         assert(pt_node != NULL);
         _slist_init_node_auxiliary(pslist_slist, pt_node);
 
@@ -408,7 +408,7 @@ void _slist_insert_after_n_varg(slist_t* pslist_slist, slist_iterator_t it_pos, 
 
     /* destroy varg value */
     _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
-    _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+    _alloc_deallocate(&pslist_slist->_t_allocator, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 }
 
 /**
@@ -440,7 +440,7 @@ void _slist_remove_varg(slist_t* pslist_slist, va_list val_elemlist)
     assert(pslist_slist != NULL);
     assert(_slist_is_inited(pslist_slist));
 
-    pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+    pt_varg = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     assert(pt_varg != NULL);
     _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
@@ -463,7 +463,7 @@ void _slist_remove_varg(slist_t* pslist_slist, va_list val_elemlist)
     }
 
     _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
-    _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+    _alloc_deallocate(&pslist_slist->_t_allocator, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 }
 
 /**
@@ -513,13 +513,13 @@ void _slist_resize_elem_varg(slist_t* pslist_slist, size_t t_resize, va_list val
         }
 
         /* get varg value only once */
-        pt_varg = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        pt_varg = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
         assert(pt_varg != NULL);
         _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
         for(i = 0; i < t_resize - t_size; ++i)
         {
-            pt_node = _alloc_allocate(&pslist_slist->_t_allocater, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+            pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
             assert(pt_node != NULL);
             _slist_init_node_auxiliary(pslist_slist, pt_node);
 
@@ -534,7 +534,7 @@ void _slist_resize_elem_varg(slist_t* pslist_slist, size_t t_resize, va_list val
         }
 
         _slist_destroy_varg_value_auxiliary(pslist_slist, pt_varg);
-        _alloc_deallocate(&pslist_slist->_t_allocater, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
+        _alloc_deallocate(&pslist_slist->_t_allocator, pt_varg, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
     }
 }
 

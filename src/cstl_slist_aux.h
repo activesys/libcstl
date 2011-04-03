@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_SLIST_AUX_H
-#define _CSTL_SLIST_AUX_H
+#ifndef _CSTL_SLIST_AUX_H_
+#define _CSTL_SLIST_AUX_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -153,6 +153,6 @@ extern void _slist_init_node_auxiliary(slist_t* pslist_slist, _slistnode_t* pt_n
 }
 #endif
 
-#endif /* _CSTL_SLIST_AUX_H */
+#endif /* _CSTL_SLIST_AUX_H_ */
 /** eof **/
 

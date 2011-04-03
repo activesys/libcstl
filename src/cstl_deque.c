@@ -108,7 +108,7 @@ void deque_init_n(deque_t* pdeq_deque, size_t t_count)
         t_mapcount = _DEQUE_MAP_COUNT;
     }
     /* allocate memory for each container */
-    pdeq_deque->_ppby_map = _alloc_allocate(&pdeq_deque->_t_allocater, sizeof(_byte_t*), t_mapcount);
+    pdeq_deque->_ppby_map = _alloc_allocate(&pdeq_deque->_t_allocator, sizeof(_byte_t*), t_mapcount);
     pdeq_deque->_t_mapsize = t_mapcount;
     assert(pdeq_deque->_ppby_map != NULL);
     memset(pdeq_deque->_ppby_map, 0x00, sizeof(_byte_t*) * t_mapcount);
@@ -116,7 +116,7 @@ void deque_init_n(deque_t* pdeq_deque, size_t t_count)
 
     for(i = t_startpos; i < t_startpos + t_validmapcount; ++i)
     {
-        pdeq_deque->_ppby_map[i] = _alloc_allocate(&pdeq_deque->_t_allocater, _GET_DEQUE_TYPE_SIZE(pdeq_deque), _DEQUE_ELEM_COUNT);
+        pdeq_deque->_ppby_map[i] = _alloc_allocate(&pdeq_deque->_t_allocator, _GET_DEQUE_TYPE_SIZE(pdeq_deque), _DEQUE_ELEM_COUNT);
         assert(pdeq_deque->_ppby_map[i] != NULL);
     }
 

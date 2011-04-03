@@ -78,7 +78,7 @@ void list_init_n(list_t* plist_list, size_t t_count)
      *         | data |
      *         +------+
      */
-    plist_list->_pt_node = _alloc_allocate(&plist_list->_t_allocater, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+    plist_list->_pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
     assert(plist_list->_pt_node != NULL);
     plist_list->_pt_node->_pt_next = plist_list->_pt_node;
     plist_list->_pt_node->_pt_prev = plist_list->_pt_node;
@@ -90,7 +90,7 @@ void list_init_n(list_t* plist_list, size_t t_count)
 
         for(t_index = 0; t_index < t_count; ++t_index)
         {
-            pt_node = _alloc_allocate(&plist_list->_t_allocater, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+            pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
             assert(pt_node != NULL);
             _list_init_node_auxiliary(plist_list, pt_node);
 
@@ -513,7 +513,7 @@ void list_insert_range(list_t* plist_list, list_iterator_t it_pos, list_iterator
         pt_nodeinrange != (_listnode_t*)_GET_LIST_COREPOS(it_end);
         pt_nodeinrange = pt_nodeinrange->_pt_next)
     {
-        pt_node = _alloc_allocate(&plist_list->_t_allocater, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+        pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
         assert(pt_node != NULL);
         pt_node->_pt_next = pt_node->_pt_prev = NULL;
         _list_init_node_auxiliary(plist_list, pt_node);
@@ -566,7 +566,7 @@ void list_pop_back(list_t* plist_list)
     b_result = _GET_LIST_TYPE_SIZE(plist_list);
     _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pby_data, &b_result);
     assert(b_result);
-    _alloc_deallocate(&plist_list->_t_allocater, pt_node, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+    _alloc_deallocate(&plist_list->_t_allocator, pt_node, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
 }
 
 /**
@@ -589,7 +589,7 @@ void list_pop_front(list_t* plist_list)
     b_result = _GET_LIST_TYPE_SIZE(plist_list);
     _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pby_data, &b_result);
     assert(b_result);
-    _alloc_deallocate(&plist_list->_t_allocater, pt_node, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+    _alloc_deallocate(&plist_list->_t_allocator, pt_node, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
 }
 
 /**
@@ -613,7 +613,7 @@ list_iterator_t list_erase(list_t* plist_list, list_iterator_t it_pos)
     assert(b_result);
     pt_node->_pt_prev->_pt_next = pt_node->_pt_next;
     pt_node->_pt_next->_pt_prev = pt_node->_pt_prev;
-    _alloc_deallocate(&plist_list->_t_allocater, pt_node, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+    _alloc_deallocate(&plist_list->_t_allocator, pt_node, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
 
     return it_pos;
 }
@@ -692,7 +692,7 @@ void list_resize(list_t* plist_list, size_t t_resize)
     {
         for(i = 0; i < t_resize - t_size; ++i)
         {
-            pt_node = _alloc_allocate(&plist_list->_t_allocater, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+            pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
             assert(pt_node != NULL);
             _list_init_node_auxiliary(plist_list, pt_node);
 

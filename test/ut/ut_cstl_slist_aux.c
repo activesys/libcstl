@@ -64,11 +64,11 @@ void test__slist_is_created__null_node(void** state)
 void test__slist_is_created__uninited_allocator(void** state)
 {
     slist_t* pslist = create_slist(int);
-    pslist->_t_allocater._pby_mempool = (_byte_t*)0x444;
+    pslist->_t_allocator._pby_mempool = (_byte_t*)0x444;
 
     assert_false(_slist_is_created(pslist));
 
-    pslist->_t_allocater._pby_mempool = NULL;
+    pslist->_t_allocator._pby_mempool = NULL;
     slist_destroy(pslist);
 }
 

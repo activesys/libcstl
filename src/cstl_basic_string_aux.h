@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_BASIC_STRING_AUX_H
-#define _CSTL_BASIC_STRING_AUX_H
+#ifndef _CSTL_BASIC_STRING_AUX_H_
+#define _CSTL_BASIC_STRING_AUX_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -97,6 +97,6 @@ extern void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_
 }
 #endif
 
-#endif /* _CSTL_BASIC_STRING_AUX_H */
+#endif /* _CSTL_BASIC_STRING_AUX_H_ */
 /** eof **/
 

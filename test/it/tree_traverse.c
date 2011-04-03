@@ -66,7 +66,7 @@
 
 /** exported function implementation section **/
 void test_travel_avl_tree(
-    avlnode_t* pt_root, size_t t_indentsize, void (*pfun_op)(avlnode_t*))
+    _avlnode_t* pt_root, size_t t_indentsize, void (*pfun_op)(_avlnode_t*))
 {
     int i = 0;
 
@@ -111,7 +111,7 @@ void test_travel_rb_tree(
     }
 }
 
-void show_avlnode_info(avlnode_t* pt_root)
+void show_avlnode_info(_avlnode_t* pt_root)
 {
     assert(pt_root != NULL);
     printf("%d : %d\n", *(int*)pt_root->_pc_data, pt_root->_un_height);

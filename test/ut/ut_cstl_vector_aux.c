@@ -580,7 +580,7 @@ void test__vector_init_elem_range_auxiliary__successfully_container(void** state
     _vector_init_elem_range_auxiliary(pvec, (_byte_t*)a_vec, (_byte_t*)(a_vec + 10));
     for(i = 0; i < 10; ++i)
     {
-        assert_true(_alloc_is_inited(&a_vec[i]._t_allocater));
+        assert_true(_alloc_is_inited(&a_vec[i]._t_allocator));
         assert_true(a_vec[i]._t_typeinfo._t_style == _TYPE_C_BUILTIN);
         assert_true(strcmp(a_vec[i]._t_typeinfo._sz_typename, _INT_TYPE) == 0);
         assert_true(a_vec[i]._t_typeinfo._pt_type != NULL);
@@ -608,9 +608,9 @@ void test__vector_is_created__non_created_invalid_start(void** state)
     vec._pby_finish = NULL;
     vec._pby_endofstorage = NULL;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocater);
+    _alloc_init(&vec._t_allocator);
     assert_false(_vector_is_created(&vec));
-    _alloc_destroy(&vec._t_allocater);
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_created__non_created_invalid_finish(void** state)
@@ -620,9 +620,9 @@ void test__vector_is_created__non_created_invalid_finish(void** state)
     vec._pby_finish = (_byte_t*)0xcc;
     vec._pby_endofstorage = NULL;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocater);
+    _alloc_init(&vec._t_allocator);
     assert_false(_vector_is_created(&vec));
-    _alloc_destroy(&vec._t_allocater);
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_created__non_created_invalid_endofstorage(void** state)
@@ -632,9 +632,9 @@ void test__vector_is_created__non_created_invalid_endofstorage(void** state)
     vec._pby_finish = NULL;
     vec._pby_endofstorage = (_byte_t*)0xcc;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocater);
+    _alloc_init(&vec._t_allocator);
     assert_false(_vector_is_created(&vec));
-    _alloc_destroy(&vec._t_allocater);
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_created__non_created_invalid_type_style(void** state)
@@ -644,9 +644,9 @@ void test__vector_is_created__non_created_invalid_type_style(void** state)
     vec._pby_finish = NULL;
     vec._pby_endofstorage = NULL;
     vec._t_typeinfo._t_style = 100;
-    _alloc_init(&vec._t_allocater);
+    _alloc_init(&vec._t_allocator);
     assert_false(_vector_is_created(&vec));
-    _alloc_destroy(&vec._t_allocater);
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_created__non_created_non_init_allocator(void** state)
@@ -656,11 +656,11 @@ void test__vector_is_created__non_created_non_init_allocator(void** state)
     vec._pby_finish = NULL;
     vec._pby_endofstorage = NULL;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocater);
-    vec._t_allocater._t_mempoolsize = 1;
+    _alloc_init(&vec._t_allocator);
+    vec._t_allocator._t_mempoolsize = 1;
     assert_false(_vector_is_created(&vec));
-    vec._t_allocater._t_mempoolsize = 0;
-    _alloc_destroy(&vec._t_allocater);
+    vec._t_allocator._t_mempoolsize = 0;
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_created__created(void** state)
@@ -688,9 +688,9 @@ void test__vector_is_inited__non_inited_not_all_null(void** state)
     vec._pby_finish = NULL;
     vec._pby_endofstorage = NULL;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocater);
+    _alloc_init(&vec._t_allocator);
     assert_false(_vector_is_inited(&vec));
-    _alloc_destroy(&vec._t_allocater);
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_inited__non_inited_finish_less_than_start(void** state)
@@ -700,9 +700,9 @@ void test__vector_is_inited__non_inited_finish_less_than_start(void** state)
     vec._pby_finish = (_byte_t*)0x08;
     vec._pby_endofstorage = (_byte_t*)0x20;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocater);
+    _alloc_init(&vec._t_allocator);
     assert_false(_vector_is_inited(&vec));
-    _alloc_destroy(&vec._t_allocater);
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_inited__non_inited_endofstorage_less_than_start(void** state)
@@ -712,9 +712,9 @@ void test__vector_is_inited__non_inited_endofstorage_less_than_start(void** stat
     vec._pby_finish = (_byte_t*)0x20;
     vec._pby_endofstorage = (_byte_t*)0x0c;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocater);
+    _alloc_init(&vec._t_allocator);
     assert_false(_vector_is_inited(&vec));
-    _alloc_destroy(&vec._t_allocater);
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_inited__non_inited_endofstorage_less_than_finish(void** state)
@@ -724,9 +724,9 @@ void test__vector_is_inited__non_inited_endofstorage_less_than_finish(void** sta
     vec._pby_finish = (_byte_t*)0x20;
     vec._pby_endofstorage = (_byte_t*)0x0c;
     vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocater);
+    _alloc_init(&vec._t_allocator);
     assert_false(_vector_is_inited(&vec));
-    _alloc_destroy(&vec._t_allocater);
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_inited__non_inited_invalid_type_style(void** state)
@@ -736,9 +736,9 @@ void test__vector_is_inited__non_inited_invalid_type_style(void** state)
     vec._pby_finish = NULL;
     vec._pby_endofstorage = NULL;
     vec._t_typeinfo._t_style = 100;
-    _alloc_init(&vec._t_allocater);
+    _alloc_init(&vec._t_allocator);
     assert_false(_vector_is_inited(&vec));
-    _alloc_destroy(&vec._t_allocater);
+    _alloc_destroy(&vec._t_allocator);
 }
 
 void test__vector_is_inited__inited_empty(void** state)

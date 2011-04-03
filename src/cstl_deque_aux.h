@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_DEQUE_AUX_H
-#define _CSTL_DEQUE_AUX_H
+#ifndef _CSTL_DEQUE_AUX_H_
+#define _CSTL_DEQUE_AUX_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -213,6 +213,6 @@ extern void* _deque_iterator_get_pointer_auxiliary(iterator_t it_iter);
 }
 #endif
 
-#endif /* _CSTL_DEQUE_AUX_H */
+#endif /* _CSTL_DEQUE_AUX_H_ */
 /** eof **/
 

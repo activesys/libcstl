@@ -404,7 +404,7 @@ hash_set_iterator_t _hash_set_find_varg(
 
     assert(cpt_hash_set != NULL);
 
-    pv_varg = _alloc_allocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator,
         _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary((hash_set_t*)cpt_hash_set, val_elemlist, pv_varg);
@@ -412,7 +412,7 @@ hash_set_iterator_t _hash_set_find_varg(
     t_iter = _hashtable_find(&cpt_hash_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cpt_hash_set, pv_varg);
-    _alloc_deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator, pv_varg,
         _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
 
     _GET_CONTAINER(t_iter) = (hash_set_t*)cpt_hash_set;
@@ -441,7 +441,7 @@ size_t _hash_set_count_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist
 
     assert(cpt_hash_set != NULL);
 
-    pv_varg = _alloc_allocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator,
         _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary((hash_set_t*)cpt_hash_set, val_elemlist, pv_varg);
@@ -449,7 +449,7 @@ size_t _hash_set_count_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist
     t_count = _hashtable_count(&cpt_hash_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cpt_hash_set, pv_varg);
-    _alloc_deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator, pv_varg,
         _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
 
     return t_count;
@@ -474,7 +474,7 @@ range_t _hash_set_equal_range_varg(const hash_set_t* cpt_hash_set, va_list val_e
 
     assert(cpt_hash_set != NULL);
 
-    pv_varg = _alloc_allocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator,
         _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary((hash_set_t*)cpt_hash_set, val_elemlist, pv_varg);
@@ -482,7 +482,7 @@ range_t _hash_set_equal_range_varg(const hash_set_t* cpt_hash_set, va_list val_e
     t_range = _hashtable_equal_range(&cpt_hash_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cpt_hash_set, pv_varg);
-    _alloc_deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator, pv_varg,
         _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
 
     _GET_CONTAINER(t_range.it_begin) = (hash_set_t*)cpt_hash_set;
@@ -515,7 +515,7 @@ hash_set_iterator_t _hash_set_insert_varg(hash_set_t* pt_hash_set, va_list val_e
 
     assert(pt_hash_set != NULL);
 
-    pv_varg = _alloc_allocate(&pt_hash_set->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&pt_hash_set->_t_hashtable._t_allocator,
         _GET_HASH_SET_TYPE_SIZE(pt_hash_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary(pt_hash_set, val_elemlist, pv_varg);
@@ -523,7 +523,7 @@ hash_set_iterator_t _hash_set_insert_varg(hash_set_t* pt_hash_set, va_list val_e
     t_iter = _hashtable_insert_unique(&pt_hash_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary(pt_hash_set, pv_varg);
-    _alloc_deallocate(&pt_hash_set->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&pt_hash_set->_t_hashtable._t_allocator, pv_varg,
         _GET_HASH_SET_TYPE_SIZE(pt_hash_set), 1);
 
     _GET_CONTAINER(t_iter) = pt_hash_set;
@@ -591,7 +591,7 @@ size_t _hash_set_erase_varg(hash_set_t* pt_hash_set, va_list val_elemlist)
 
     assert(pt_hash_set != NULL);
 
-    pv_varg = _alloc_allocate(&pt_hash_set->_t_hashtable._t_allocater,
+    pv_varg = _alloc_allocate(&pt_hash_set->_t_hashtable._t_allocator,
         _GET_HASH_SET_TYPE_SIZE(pt_hash_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary(pt_hash_set, val_elemlist, pv_varg);
@@ -599,7 +599,7 @@ size_t _hash_set_erase_varg(hash_set_t* pt_hash_set, va_list val_elemlist)
     t_count = _hashtable_erase(&pt_hash_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary(pt_hash_set, pv_varg);
-    _alloc_deallocate(&pt_hash_set->_t_hashtable._t_allocater, pv_varg,
+    _alloc_deallocate(&pt_hash_set->_t_hashtable._t_allocator, pv_varg,
         _GET_HASH_SET_TYPE_SIZE(pt_hash_set), 1);
 
     return t_count;

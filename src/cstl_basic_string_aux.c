@@ -105,7 +105,7 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
     {
         _byte_t* pby_terminator = NULL;
 
-        pby_terminator = (_byte_t*)_alloc_allocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocater, t_typesize, 1);
+        pby_terminator = (_byte_t*)_alloc_allocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocator, t_typesize, 1);
         assert(pby_terminator != NULL);
         memset(pby_terminator, 0x00, t_typesize);
 
@@ -114,7 +114,7 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
             t_length++;
         }
 
-        _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocater, pby_terminator, t_typesize, 1);
+        _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocator, pby_terminator, t_typesize, 1);
 
         return t_length;
     }

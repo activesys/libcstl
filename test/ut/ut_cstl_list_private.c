@@ -107,7 +107,7 @@ void test__create_list_auxiliary__c_builtin(void** state)
     list_t* plist = malloc(sizeof(list_t));
     assert_true(_create_list_auxiliary(plist, "double"));
     assert_true(strcmp(_GET_LIST_TYPE_NAME(plist), "double") == 0);
-    assert_true(_alloc_is_inited(&plist->_t_allocater));
+    assert_true(_alloc_is_inited(&plist->_t_allocator));
 
     list_destroy(plist);
 }
@@ -117,7 +117,7 @@ void test__create_list_auxiliary__libcstl_builtin(void** state)
     list_t* plist = malloc(sizeof(list_t));
     assert_true(_create_list_auxiliary(plist, "list_t<   vector_t     <     string_t>>       "));
     assert_true(strcmp(_GET_LIST_TYPE_NAME(plist), "list_t<vector_t<string_t>>") == 0);
-    assert_true(_alloc_is_inited(&plist->_t_allocater));
+    assert_true(_alloc_is_inited(&plist->_t_allocator));
 
     list_destroy(plist);
 }
@@ -133,7 +133,7 @@ void test__create_list_auxiliary__user_defined(void** state)
     plist = malloc(sizeof(list_t));
     assert_true(_create_list_auxiliary(plist, "struct _tag_test__create_list_auxiliary__user_defined"));
     assert_true(strcmp(_GET_LIST_TYPE_NAME(plist), "struct _tag_test__create_list_auxiliary__user_defined") == 0);
-    assert_true(_alloc_is_inited(&plist->_t_allocater));
+    assert_true(_alloc_is_inited(&plist->_t_allocator));
 
     list_destroy(plist);
 }
@@ -145,7 +145,7 @@ void test__create_list_auxiliary__user_defined_dup(void** state)
     plist = malloc(sizeof(list_t));
     assert_true(_create_list_auxiliary(plist, "_test__create_list_auxiliary__user_defined_t"));
     assert_true(strcmp(_GET_LIST_TYPE_NAME(plist), "_test__create_list_auxiliary__user_defined_t") == 0);
-    assert_true(_alloc_is_inited(&plist->_t_allocater));
+    assert_true(_alloc_is_inited(&plist->_t_allocator));
 
     list_destroy(plist);
 }

@@ -110,7 +110,7 @@ extern void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_cou
  * @param t_size        allocated memory size.
  * @param t_count       allocated memory count.
  * @return void.
- * @remarks if pt_allocater == NULL or pv_allocmem == NULL, then function of the behavior is undefined. if allocator is
+ * @remarks if pt_allocator == NULL or pv_allocmem == NULL, then function of the behavior is undefined. if allocator is
  *          not initialized by _alloc_init, or pv_allocmem is not allocated by _alloc_allocate, then function of the
  *          behavior is undefined.
  */

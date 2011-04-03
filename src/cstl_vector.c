@@ -70,7 +70,7 @@ void vector_init_n(vector_t* pvec_vector, size_t t_count)
         size_t t_newcapacity = _vector_calculate_new_capacity(0, t_count);
 
         pvec_vector->_pby_start = _alloc_allocate(
-            &pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_newcapacity);
+            &pvec_vector->_t_allocator, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_newcapacity);
         assert(pvec_vector->_pby_start != NULL);
         pvec_vector->_pby_finish = pvec_vector->_pby_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_count;
         pvec_vector->_pby_endofstorage = pvec_vector->_pby_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_newcapacity;
@@ -204,7 +204,7 @@ void vector_reserve(vector_t* pvec_vector, size_t t_reservesize)
     if(vector_capacity(pvec_vector) < t_reservesize)
     {
         /* allocate the new vector with reserve size */
-        pby_reservemem = _alloc_allocate(&pvec_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_reservesize);
+        pby_reservemem = _alloc_allocate(&pvec_vector->_t_allocator, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_reservesize);
         assert(pby_reservemem != NULL);
         /* get the new position */
         t_oldsize = pvec_vector->_pby_finish - pvec_vector->_pby_start;
@@ -236,7 +236,7 @@ void vector_reserve(vector_t* pvec_vector, size_t t_reservesize)
         /* free the old vector element */
         if(pvec_vector->_pby_start != NULL)
         {
-            _alloc_deallocate(&pvec_vector->_t_allocater, pvec_vector->_pby_start,
+            _alloc_deallocate(&pvec_vector->_t_allocator, pvec_vector->_pby_start,
                 _GET_VECTOR_TYPE_SIZE(pvec_vector), t_oldcapacity / _GET_VECTOR_TYPE_SIZE(pvec_vector));
         }
         pvec_vector->_pby_start = pby_newstart;

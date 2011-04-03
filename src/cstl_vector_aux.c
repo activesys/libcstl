@@ -105,7 +105,7 @@ bool_t _vector_is_created(const vector_t* cpvec_vector)
         return false;
     }
 
-    return _alloc_is_inited(&cpvec_vector->_t_allocater);
+    return _alloc_is_inited(&cpvec_vector->_t_allocator);
 }
 
 /**

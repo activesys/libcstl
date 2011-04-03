@@ -116,7 +116,7 @@ bool_t _list_is_created(const list_t* cplist_list)
         return false;
     }
 
-    return _alloc_is_inited(&cplist_list->_t_allocater);
+    return _alloc_is_inited(&cplist_list->_t_allocator);
 }
 
 /**

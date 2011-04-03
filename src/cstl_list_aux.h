@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_LIST_AUX_H
-#define _CSTL_LIST_AUX_H
+#ifndef _CSTL_LIST_AUX_H_
+#define _CSTL_LIST_AUX_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -164,6 +164,6 @@ extern void _list_swap_node(_listnode_t** ppt_first, _listnode_t** ppt_second);
 }
 #endif
 
-#endif /* _CSTL_LIST_AUX_H */
+#endif /* _CSTL_LIST_AUX_H_ */
 /** eof **/
 

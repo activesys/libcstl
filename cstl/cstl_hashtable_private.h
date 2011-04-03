@@ -44,7 +44,7 @@ typedef struct _taghashtable
     _typeinfo_t _t_typeinfo;
 
     /* memory allocate */
-    _alloc_t    _t_allocater;
+    _alloc_t    _t_allocator;
 
     /* buckets and node */
     vector_t    _t_bucket;
