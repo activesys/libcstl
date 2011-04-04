@@ -50,7 +50,7 @@ typedef struct _tagavltreeinsertresult
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-
+#ifndef NDEBUG
 /**
  * Test avl tree is created by _create_avl tree.
  * @param cpt_avl_tree          avl tree container.
@@ -67,19 +67,45 @@ extern bool_t _avl_tree_is_created(const _avl_tree_t* cpt_avl_tree);
  */
 extern bool_t _avl_tree_is_inited(const _avl_tree_t* cpt_avl_tree);
 
-#ifndef NDEBUG
-/*
- * Assert support.
+/**
+ * Test iterator referenced data is within the avl tree.
+ * @param cpt_avl_tree          point to avl tree.
+ * @param it_iter               avl tree iterator.
+ * @return if iterator referenced is within the avl tree, then return true, otherwise return false.
+ * @remarks if cpt_avl_tree == NULL, then the behavior is undefined, cpt_avl_tree must be initialized, otherwise the
+ *          behavior is undefined. the it_iter must be valie avl tree iterator, otherwist the behavior is undefined. 
  */
-extern bool_t _avl_tree_iterator_belong_to_avl_tree(
-    const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t t_iter);
-extern bool_t _avl_tree_same_avl_tree_iterator_type(
-    const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t t_iter);
-extern bool_t _avl_tree_avlnode_belong_to_avl_tree(
-    const _avlnode_t* cpt_root, const _avlnode_t* cpt_pos);
+extern bool_t _avl_tree_iterator_belong_to_avl_tree(const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t it_iter);
+
+/**
+ * Test the type that saved in the avl tree container and referenced by it_iter are same.
+ * @param cpt_avl_tree          avl tree container.
+ * @param it_iter               avl tree iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_avl_tree == NULL or it_iter is not avl tree iterator, then the behavior is undefined.
+ */
+extern bool_t _avl_tree_same_avl_tree_iterator_type(const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t it_iter);
+
+/**
+ * Test avl node is within the sub avl tree.
+ * @param cpt_root              the root of sub avl tree.
+ * @param cpt_pos               avl node.
+ * @return if avl node is within the avl tree, then return true, otherwise return false.
+ * @remarks if cpt_root == NULL or cpt_pos == NULL, then return false.
+ */
+extern bool_t _avl_tree_avlnode_belong_to_avl_tree(const _avlnode_t* cpt_root, const _avlnode_t* cpt_pos);
 #endif /* NDEBUG */
-extern bool_t _avl_tree_same_type(
-    const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond);
+
+/**
+ * Test the type that saved in the avl tree container is same.
+ * @param cpt_first             first avl tree.
+ * @param cpt_second            second avl tree.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, the behavior is undefined. the two vector must be initialized
+ *          or created by _create_avl_tree(), otherwise the behavior is undefined. if cpt_first == cpt_second then
+ *          return true.
+ */
+extern bool_t _avl_tree_same_type(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
 
 /*
  * Travel subtree for find the value in preorder.

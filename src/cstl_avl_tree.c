@@ -308,10 +308,11 @@ bool_t _create_avl_tree_auxiliary(_avl_tree_t* pt_avl_tree, const char* s_typena
     pt_avl_tree->_t_avlroot._pt_left = NULL;
     pt_avl_tree->_t_avlroot._pt_right = NULL;
     pt_avl_tree->_t_avlroot._un_height = 0;
-    pt_avl_tree->_t_nodecount = 0;
 
+    pt_avl_tree->_t_nodecount = 0;
     pt_avl_tree->_t_compare = NULL;
 
+    _alloc_init(&pt_avl_tree->_t_allocator);
     return true;
 }
 
@@ -327,8 +328,6 @@ void _avl_tree_init(_avl_tree_t* pt_avl_tree, binary_function_t t_compare)
 
     pt_avl_tree->_t_avlroot._pt_left = &pt_avl_tree->_t_avlroot;
     pt_avl_tree->_t_avlroot._pt_right = &pt_avl_tree->_t_avlroot;
-
-    _alloc_init(&pt_avl_tree->_t_allocator);
 
     if(t_compare != NULL)
     {

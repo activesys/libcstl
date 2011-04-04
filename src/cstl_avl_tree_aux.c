@@ -42,6 +42,7 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
+#ifndef NDEBUG
 /**
  * Test avl tree is created by _create_avl tree.
  */
@@ -70,40 +71,70 @@ bool_t _avl_tree_is_created(const _avl_tree_t* cpt_avl_tree)
     return _alloc_is_inited(&cpt_avl_tree->_t_allocator);
 }
 
-#ifndef NDEBUG
-bool_t _avl_tree_iterator_belong_to_avl_tree(
-    const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t t_iter)
+/**
+ * Test avl tree is initialized by avl tree initialization functions.
+ */
+bool_t _avl_tree_is_inited(const _avl_tree_t* cpt_avl_tree)
 {
     assert(cpt_avl_tree != NULL);
-    assert(_GET_AVL_TREE_COREPOS(t_iter) != NULL);
-    assert(_GET_AVL_TREE(t_iter) == cpt_avl_tree);
+
+    if(cpt_avl_tree->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+       cpt_avl_tree->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+       cpt_avl_tree->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
+    {
+        return false;
+    }
+    if(cpt_avl_tree->_t_typeinfo._pt_type == NULL)
+    {
+        return false;
+    }
+
+    if(cpt_avl_tree->_t_avlroot._pt_left == NULL || cpt_avl_tree->_t_avlroot._pt_right == NULL ||
+       cpt_avl_tree->_t_avlroot._un_height != 0 || cpt_avl_tree->_t_compare == NULL)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * Test iterator referenced data is within the avl tree.
+ */
+bool_t _avl_tree_iterator_belong_to_avl_tree(const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t it_iter)
+{
+    assert(cpt_avl_tree != NULL);
+    assert(_avl_tree_is_inited(cpt_avl_tree));
+    assert(_GET_AVL_TREE_COREPOS(it_iter) != NULL);
+    assert(_GET_AVL_TREE(it_iter) == cpt_avl_tree);
 
     /* if iterator is end */
-    if(_GET_AVL_TREE_COREPOS(t_iter) == (char*)&cpt_avl_tree->_t_avlroot)
+    if(_GET_AVL_TREE_COREPOS(it_iter) == (char*)&cpt_avl_tree->_t_avlroot)
     {
         return true;
     }
     /* else travel avl tree for search the pointer */
     else
     {
-        return _avl_tree_avlnode_belong_to_avl_tree(cpt_avl_tree->_t_avlroot._pt_parent, 
-            (_avlnode_t*)_GET_AVL_TREE_COREPOS(t_iter));
+        return _avl_tree_avlnode_belong_to_avl_tree(
+            cpt_avl_tree->_t_avlroot._pt_parent, (_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter));
     }
 }
 
-bool_t _avl_tree_same_avl_tree_iterator_type(
-    const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t t_iter)
+/**
+ * Test the type that saved in the avl tree container and referenced by it_iter are same.
+ */
+bool_t _avl_tree_same_avl_tree_iterator_type(const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t it_iter)
 {
-    assert(cpt_avl_tree != NULL && _GET_AVL_TREE(t_iter) != NULL);
+    assert(cpt_avl_tree != NULL);
+    assert( _GET_AVL_TREE(it_iter) != NULL);
 
-    return _type_is_same(_GET_AVL_TREE_TYPE_NAME(cpt_avl_tree),
-                         _GET_AVL_TREE_TYPE_NAME(_GET_AVL_TREE(t_iter))) &&
-           (cpt_avl_tree->_t_typeinfo._t_style ==
-            _GET_AVL_TREE(t_iter)->_t_typeinfo._t_style) &&
-           (cpt_avl_tree->_t_typeinfo._pt_type ==
-            _GET_AVL_TREE(t_iter)->_t_typeinfo._pt_type);
+    return _avl_tree_same_type(cpt_avl_tree, _GET_AVL_TREE(it_iter));
 }
 
+/**
+ * Test avl node is within the sub avl tree.
+ */
 bool_t _avl_tree_avlnode_belong_to_avl_tree(const _avlnode_t* cpt_root, const _avlnode_t* cpt_pos)
 {
     if(cpt_root == NULL || cpt_pos == NULL)
@@ -122,18 +153,20 @@ bool_t _avl_tree_avlnode_belong_to_avl_tree(const _avlnode_t* cpt_root, const _a
 }
 #endif /* NDEBUG */
 
-bool_t _avl_tree_same_type(
-    const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond)
+/**
+ * Test the type that saved in the avl tree container is same.
+ */
+bool_t _avl_tree_same_type(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second)
 {
-    assert(cpt_avl_treefirst != NULL && cpt_avl_treesecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
+    assert(_avl_tree_is_inited(cpt_first) || _avl_tree_is_created(cpt_first));
+    assert(_avl_tree_is_inited(cpt_second) || _avl_tree_is_created(cpt_second));
 
-    return _type_is_same(_GET_AVL_TREE_TYPE_NAME(cpt_avl_treefirst),
-                         _GET_AVL_TREE_TYPE_NAME(cpt_avl_treesecond)) &&
-           (cpt_avl_treefirst->_t_typeinfo._t_style ==
-            cpt_avl_treesecond->_t_typeinfo._t_style) &&
-           (cpt_avl_treefirst->_t_typeinfo._pt_type ==
-            cpt_avl_treesecond->_t_typeinfo._pt_type) &&
-           (cpt_avl_treefirst->_t_compare == cpt_avl_treesecond->_t_compare);
+    return (cpt_first->_t_compare == cpt_second->_t_compare) &&
+           (cpt_first->_t_typeinfo._t_style == cpt_second->_t_typeinfo._t_style) &&
+           (cpt_first->_t_typeinfo._pt_type == cpt_second->_t_typeinfo._pt_type) &&
+           _type_is_same(_GET_AVL_TREE_TYPE_NAME(cpt_first), _GET_AVL_TREE_TYPE_NAME(cpt_second));
 }
 
 _avlnode_t* _avl_tree_find_value(

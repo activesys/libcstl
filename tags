@@ -133,7 +133,7 @@ CFLAGS	test/Makefile	/^CFLAGS = -g$/;"	m
 CFLAGS	test/it/Makefile	/^CFLAGS = -g$/;"	m
 CFLAGS	test/ut/Makefile	/^CFLAGS = -g$/;"	m
 CLEANFILES	test/it/Makefile	/^CLEANFILES = core.* string_output.txt$/;"	m
-CLEANFILES	test/ut/Makefile	/^CLEANFILES = core.*$/;"	m
+CLEANFILES	test/ut/Makefile	/^CLEANFILES = core.* *.utoutput$/;"	m
 COMPILE	src/Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
 COMPILE	test/it/Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
 COMPILE	test/ut/Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
@@ -1424,6 +1424,7 @@ UT_CASE_SEPARATOR_OPEN	test/ut/ut_def.h	6;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	46;"	d
 UT_CSTL_ALLOC_AUX_CASE	test/ut/ut_cstl_alloc_aux.h	60;"	d
 UT_CSTL_ALLOC_CASE	test/ut/ut_cstl_alloc.h	53;"	d
+UT_CSTL_AVL_TREE_AUX_CASE	test/ut/ut_cstl_avl_tree_aux.h	21;"	d
 UT_CSTL_BASIC_STRING_AUX_CASE	test/ut/ut_cstl_basic_string_aux.h	60;"	d
 UT_CSTL_BASIC_STRING_CASE	test/ut/ut_cstl_basic_string.h	2723;"	d
 UT_CSTL_BASIC_STRING_ITERATOR_CASE	test/ut/ut_cstl_basic_string_iterator.h	167;"	d
@@ -1455,6 +1456,7 @@ UT_SUIT_DECLARATION	test/ut/ut_def.h	9;"	d
 UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc.c	/^UT_SUIT_DEFINATION(cstl_alloc, _alloc_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_free)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_alloc_aux.c	/^UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_get_memory_chunk)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_avl_tree_aux.c	/^UT_SUIT_DEFINATION(cstl_avl_tree_aux, _avl_tree_is_created)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_basic_string.c	/^UT_SUIT_DEFINATION(cstl_basic_string, basic_string_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_basic_string_aux.c	/^UT_SUIT_DEFINATION(cstl_basic_string_aux, _basic_string_same_type)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_basic_string_iterator.c	/^UT_SUIT_DEFINATION(cstl_basic_string_iterator, _create_basic_string_iterator)$/;"	f
@@ -2145,6 +2147,7 @@ _UNSIGNED_SHORT_TYPE	cstl/cstl_types.h	46;"	d
 _UNSIGNED_TYPE	cstl/cstl_types.h	53;"	d
 _UT_CSTL_ALLOC_AUX_H	test/ut/ut_cstl_alloc_aux.h	2;"	d
 _UT_CSTL_ALLOC_H	test/ut/ut_cstl_alloc.h	2;"	d
+_UT_CSTL_AVL_TREE_AUX_H_	test/ut/ut_cstl_avl_tree_aux.h	2;"	d
 _UT_CSTL_BASIC_STRING_AUX_H_	test/ut/ut_cstl_basic_string_aux.h	2;"	d
 _UT_CSTL_BASIC_STRING_H_	test/ut/ut_cstl_basic_string.h	2;"	d
 _UT_CSTL_BASIC_STRING_ITERATOR_H_	test/ut/ut_cstl_basic_string_iterator.h	2;"	d
@@ -2366,11 +2369,12 @@ _avl_tree_insert_unique_range	cstl/cstl_avl_tree_private.h	/^extern void _avl_tr
 _avl_tree_insert_unique_range	src/cstl_avl_tree.c	/^void _avl_tree_insert_unique_range($/;"	f	signature:( _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t t_begin, _avl_tree_iterator_t t_end)
 _avl_tree_is_created	src/cstl_avl_tree_aux.c	/^bool_t _avl_tree_is_created(const _avl_tree_t* cpt_avl_tree)$/;"	f	signature:(const _avl_tree_t* cpt_avl_tree)
 _avl_tree_is_created	src/cstl_avl_tree_aux.h	/^extern bool_t _avl_tree_is_created(const _avl_tree_t* cpt_avl_tree);$/;"	p	signature:(const _avl_tree_t* cpt_avl_tree)
+_avl_tree_is_inited	src/cstl_avl_tree_aux.c	/^bool_t _avl_tree_is_inited(const _avl_tree_t* cpt_avl_tree)$/;"	f	signature:(const _avl_tree_t* cpt_avl_tree)
 _avl_tree_is_inited	src/cstl_avl_tree_aux.h	/^extern bool_t _avl_tree_is_inited(const _avl_tree_t* cpt_avl_tree);$/;"	p	signature:(const _avl_tree_t* cpt_avl_tree)
 _avl_tree_iterator_before	cstl/cstl_avl_tree_iterator.h	/^extern bool_t _avl_tree_iterator_before($/;"	p	signature:( _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond)
 _avl_tree_iterator_before	src/cstl_avl_tree.c	/^bool_t _avl_tree_iterator_before($/;"	f	signature:( _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond)
 _avl_tree_iterator_belong_to_avl_tree	src/cstl_avl_tree_aux.c	/^bool_t _avl_tree_iterator_belong_to_avl_tree($/;"	f	signature:( const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t t_iter)
-_avl_tree_iterator_belong_to_avl_tree	src/cstl_avl_tree_aux.h	/^extern bool_t _avl_tree_iterator_belong_to_avl_tree($/;"	p	signature:( const _avl_tree_t* cpt_avl_tree, avl_tree_iterator_t t_iter)
+_avl_tree_iterator_belong_to_avl_tree	src/cstl_avl_tree_aux.h	/^extern bool_t _avl_tree_iterator_belong_to_avl_tree($/;"	p	signature:( const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t t_iter)
 _avl_tree_iterator_distance	cstl/cstl_avl_tree_iterator.h	/^extern int _avl_tree_iterator_distance($/;"	p	signature:( _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond)
 _avl_tree_iterator_distance	src/cstl_avl_tree.c	/^int _avl_tree_iterator_distance($/;"	f	signature:( _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond)
 _avl_tree_iterator_equal	cstl/cstl_avl_tree_iterator.h	/^extern bool_t _avl_tree_iterator_equal($/;"	p	signature:( _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond)
@@ -2400,19 +2404,19 @@ _avl_tree_max_size	cstl/cstl_avl_tree_private.h	/^extern size_t _avl_tree_max_si
 _avl_tree_max_size	src/cstl_avl_tree.c	/^size_t _avl_tree_max_size(const _avl_tree_t* cpt_avl_tree)$/;"	f	signature:(const _avl_tree_t* cpt_avl_tree)
 _avl_tree_not_equal	cstl/cstl_avl_tree_private.h	/^extern bool_t _avl_tree_not_equal($/;"	p	signature:( const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond)
 _avl_tree_not_equal	src/cstl_avl_tree.c	/^bool_t _avl_tree_not_equal($/;"	f	signature:( const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond)
-_avl_tree_rbegin	cstl/cstl_avl_tree_private.h	/^extern avl_tree_reverse_iterator_t _avl_tree_rbegin(const _avl_tree_t* cpt_avl_tree);$/;"	p	signature:(const _avl_tree_t* cpt_avl_tree)
-_avl_tree_rbegin	src/cstl_avl_tree.c	/^avl_tree_reverse_iterator_t _avl_tree_rbegin(const _avl_tree_t* cpt_avl_tree)$/;"	f	signature:(const _avl_tree_t* cpt_avl_tree)
+_avl_tree_rbegin	cstl/cstl_avl_tree_private.h	/^extern _avl_tree_reverse_iterator_t _avl_tree_rbegin(const _avl_tree_t* cpt_avl_tree);$/;"	p	signature:(const _avl_tree_t* cpt_avl_tree)
+_avl_tree_rbegin	src/cstl_avl_tree.c	/^_avl_tree_reverse_iterator_t _avl_tree_rbegin(const _avl_tree_t* cpt_avl_tree)$/;"	f	signature:(const _avl_tree_t* cpt_avl_tree)
 _avl_tree_rebalance	src/cstl_avl_tree_aux.c	/^_avlnode_t* _avl_tree_rebalance(_avlnode_t* pt_root)$/;"	f	signature:(_avlnode_t* pt_root)
 _avl_tree_rebalance	src/cstl_avl_tree_aux.h	/^extern _avlnode_t* _avl_tree_rebalance(_avlnode_t* pt_root);$/;"	p	signature:(_avlnode_t* pt_root)
-_avl_tree_rend	cstl/cstl_avl_tree_private.h	/^extern avl_tree_reverse_iterator_t _avl_tree_rend(const _avl_tree_t* cpt_avl_tree);$/;"	p	signature:(const _avl_tree_t* cpt_avl_tree)
-_avl_tree_rend	src/cstl_avl_tree.c	/^avl_tree_reverse_iterator_t _avl_tree_rend(const _avl_tree_t* cpt_avl_tree)$/;"	f	signature:(const _avl_tree_t* cpt_avl_tree)
+_avl_tree_rend	cstl/cstl_avl_tree_private.h	/^extern _avl_tree_reverse_iterator_t _avl_tree_rend(const _avl_tree_t* cpt_avl_tree);$/;"	p	signature:(const _avl_tree_t* cpt_avl_tree)
+_avl_tree_rend	src/cstl_avl_tree.c	/^_avl_tree_reverse_iterator_t _avl_tree_rend(const _avl_tree_t* cpt_avl_tree)$/;"	f	signature:(const _avl_tree_t* cpt_avl_tree)
 _avl_tree_reverse_iterator_t	cstl/cstl_avl_tree_iterator.h	/^typedef iterator_t _avl_tree_reverse_iterator_t;$/;"	t
 _avl_tree_right_double_rotate	src/cstl_avl_tree_aux.c	/^_avlnode_t* _avl_tree_right_double_rotate(_avlnode_t* pt_root)$/;"	f	signature:(_avlnode_t* pt_root)
 _avl_tree_right_double_rotate	src/cstl_avl_tree_aux.h	/^extern _avlnode_t* _avl_tree_right_double_rotate(_avlnode_t* pt_root);$/;"	p	signature:(_avlnode_t* pt_root)
 _avl_tree_right_signal_rotate	src/cstl_avl_tree_aux.c	/^_avlnode_t* _avl_tree_right_signal_rotate(_avlnode_t* pt_root)$/;"	f	signature:(_avlnode_t* pt_root)
 _avl_tree_right_signal_rotate	src/cstl_avl_tree_aux.h	/^extern _avlnode_t* _avl_tree_right_signal_rotate(_avlnode_t* pt_root);$/;"	p	signature:(_avlnode_t* pt_root)
 _avl_tree_same_avl_tree_iterator_type	src/cstl_avl_tree_aux.c	/^bool_t _avl_tree_same_avl_tree_iterator_type($/;"	f	signature:( const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t t_iter)
-_avl_tree_same_avl_tree_iterator_type	src/cstl_avl_tree_aux.h	/^extern bool_t _avl_tree_same_avl_tree_iterator_type($/;"	p	signature:( const _avl_tree_t* cpt_avl_tree, avl_tree_iterator_t t_iter)
+_avl_tree_same_avl_tree_iterator_type	src/cstl_avl_tree_aux.h	/^extern bool_t _avl_tree_same_avl_tree_iterator_type($/;"	p	signature:( const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t t_iter)
 _avl_tree_same_type	src/cstl_avl_tree_aux.c	/^bool_t _avl_tree_same_type($/;"	f	signature:( const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond)
 _avl_tree_same_type	src/cstl_avl_tree_aux.h	/^extern bool_t _avl_tree_same_type($/;"	p	signature:( const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond)
 _avl_tree_size	cstl/cstl_avl_tree_private.h	/^extern size_t _avl_tree_size(const _avl_tree_t* cpt_avl_tree);$/;"	p	signature:(const _avl_tree_t* cpt_avl_tree)
@@ -3951,14 +3955,14 @@ _sz_typename	cstl/cstl_types.h	/^    char              _sz_typename[_TYPE_NAME_S
 _sz_typename	cstl/cstl_types.h	/^    char         _sz_typename[_TYPE_NAME_SIZE+1];$/;"	m	struct:_tagtypeinfo	access:public
 _sz_typename	src/cstl_types.c	/^    char         _sz_typename[_TYPE_NAME_SIZE+1];$/;"	m	struct:_tagtypeanalysis	file:	access:public
 _t_abc	test/it/test_list.c	/^    } _t_abc;$/;"	m	struct:_taglistabc	typeref:union:_taglistabc::__anon1	file:	access:public
-_t_allocater	cstl/cstl_avl_tree_private.h	/^    _alloc_t          _t_allocater;$/;"	m	struct:_tagavltree	access:public
-_t_allocater	cstl/cstl_deque_private.h	/^    _alloc_t         _t_allocater;$/;"	m	struct:_tagdeque	access:public
-_t_allocater	cstl/cstl_hashtable_private.h	/^    _alloc_t    _t_allocater;$/;"	m	struct:_taghashtable	access:public
-_t_allocater	cstl/cstl_list_private.h	/^    _alloc_t     _t_allocater;$/;"	m	struct:_taglist	access:public
-_t_allocater	cstl/cstl_rb_tree_private.h	/^    _alloc_t          _t_allocater;$/;"	m	struct:_tagrbtree	access:public
-_t_allocater	cstl/cstl_slist_private.h	/^    _alloc_t     _t_allocater;$/;"	m	struct:_tagslist	access:public
-_t_allocater	cstl/cstl_vector_private.h	/^    _alloc_t    _t_allocater;$/;"	m	struct:_tagvector	access:public
+_t_allocator	cstl/cstl_avl_tree_private.h	/^    _alloc_t          _t_allocator;$/;"	m	struct:_tagavltree	access:public
+_t_allocator	cstl/cstl_deque_private.h	/^    _alloc_t         _t_allocator;$/;"	m	struct:_tagdeque	access:public
+_t_allocator	cstl/cstl_hashtable_private.h	/^    _alloc_t    _t_allocator;$/;"	m	struct:_taghashtable	access:public
+_t_allocator	cstl/cstl_list_private.h	/^    _alloc_t     _t_allocator;$/;"	m	struct:_taglist	access:public
+_t_allocator	cstl/cstl_rb_tree_private.h	/^    _alloc_t          _t_allocator;$/;"	m	struct:_tagrbtree	access:public
+_t_allocator	cstl/cstl_slist_private.h	/^    _alloc_t     _t_allocator;$/;"	m	struct:_tagslist	access:public
 _t_allocator	cstl/cstl_types.h	/^    _alloc_t             _t_allocator;$/;"	m	struct:_tagtyperegister	access:public
+_t_allocator	cstl/cstl_vector_private.h	/^    _alloc_t    _t_allocator;$/;"	m	struct:_tagvector	access:public
 _t_avlroot	cstl/cstl_avl_tree_private.h	/^    _avlnode_t        _t_avlroot;$/;"	m	struct:_tagavltree	access:public
 _t_binary_op	cstl/cstl_priority_queue_private.h	/^    binary_function_t _t_binary_op;$/;"	m	struct:_tagpriority_queue	access:public
 _t_bool	cstl/cstl_rb_tree_private.h	/^        bool_t              _t_bool;     \/* for insert_unique *\/$/;"	m	union:_tagrbtreeresultpair::__anon6	access:public
@@ -4233,7 +4237,7 @@ _tagavlnode::_pt_parent	cstl/cstl_avl_tree_private.h	/^    struct _tagavlnode* _
 _tagavlnode::_pt_right	cstl/cstl_avl_tree_private.h	/^    struct _tagavlnode* _pt_right;$/;"	m	struct:_tagavlnode	typeref:struct:_tagavlnode::_tagavlnode	access:public
 _tagavlnode::_un_height	cstl/cstl_avl_tree_private.h	/^    unsigned int        _un_height;$/;"	m	struct:_tagavlnode	access:public
 _tagavltree	cstl/cstl_avl_tree_private.h	/^typedef struct _tagavltree$/;"	s
-_tagavltree::_t_allocater	cstl/cstl_avl_tree_private.h	/^    _alloc_t          _t_allocater;$/;"	m	struct:_tagavltree	access:public
+_tagavltree::_t_allocator	cstl/cstl_avl_tree_private.h	/^    _alloc_t          _t_allocator;$/;"	m	struct:_tagavltree	access:public
 _tagavltree::_t_avlroot	cstl/cstl_avl_tree_private.h	/^    _avlnode_t        _t_avlroot;$/;"	m	struct:_tagavltree	access:public
 _tagavltree::_t_compare	cstl/cstl_avl_tree_private.h	/^    binary_function_t _t_compare;$/;"	m	struct:_tagavltree	access:public
 _tagavltree::_t_nodecount	cstl/cstl_avl_tree_private.h	/^    size_t            _t_nodecount;$/;"	m	struct:_tagavltree	access:public
@@ -4255,7 +4259,7 @@ _tagdeqabc::d_first	test/it/test_deque.c	/^    double d_first;$/;"	m	struct:_tag
 _tagdeqabc::n_second	test/it/test_deque.c	/^    int    n_second;$/;"	m	struct:_tagdeqabc	file:	access:public
 _tagdeque	cstl/cstl_deque_private.h	/^typedef struct _tagdeque$/;"	s
 _tagdeque::_ppby_map	cstl/cstl_deque_private.h	/^    _mappointer_t    _ppby_map;$/;"	m	struct:_tagdeque	access:public
-_tagdeque::_t_allocater	cstl/cstl_deque_private.h	/^    _alloc_t         _t_allocater;$/;"	m	struct:_tagdeque	access:public
+_tagdeque::_t_allocator	cstl/cstl_deque_private.h	/^    _alloc_t         _t_allocator;$/;"	m	struct:_tagdeque	access:public
 _tagdeque::_t_finish	cstl/cstl_deque_private.h	/^    deque_iterator_t _t_finish;$/;"	m	struct:_tagdeque	access:public
 _tagdeque::_t_mapsize	cstl/cstl_deque_private.h	/^    size_t           _t_mapsize;$/;"	m	struct:_tagdeque	access:public
 _tagdeque::_t_start	cstl/cstl_deque_private.h	/^    deque_iterator_t _t_start;$/;"	m	struct:_tagdeque	access:public
@@ -4284,7 +4288,7 @@ _taghashsample::_l_second	test/it/test_hashtable.h	/^    long   _l_second;$/;"	m
 _taghashset	cstl/cstl_hash_set_private.h	/^typedef struct _taghashset$/;"	s
 _taghashset::_t_hashtable	cstl/cstl_hash_set_private.h	/^    hashtable_t _t_hashtable;$/;"	m	struct:_taghashset	access:public
 _taghashtable	cstl/cstl_hashtable_private.h	/^typedef struct _taghashtable$/;"	s
-_taghashtable::_t_allocater	cstl/cstl_hashtable_private.h	/^    _alloc_t    _t_allocater;$/;"	m	struct:_taghashtable	access:public
+_taghashtable::_t_allocator	cstl/cstl_hashtable_private.h	/^    _alloc_t    _t_allocator;$/;"	m	struct:_taghashtable	access:public
 _taghashtable::_t_bucket	cstl/cstl_hashtable_private.h	/^    vector_t    _t_bucket;$/;"	m	struct:_taghashtable	access:public
 _taghashtable::_t_compare	cstl/cstl_hashtable_private.h	/^    binary_function_t _t_compare;$/;"	m	struct:_taghashtable	access:public
 _taghashtable::_t_hash	cstl/cstl_hashtable_private.h	/^    unary_function_t _t_hash;$/;"	m	struct:_taghashtable	access:public
@@ -4311,7 +4315,7 @@ _tagiterator::_t_pos	cstl/cstl_iterator.h	/^    }_t_pos;$/;"	m	struct:_tagiterat
 _tagiteratortype	cstl/cstl_iterator.h	/^typedef enum _tagiteratortype$/;"	g
 _taglist	cstl/cstl_list_private.h	/^typedef struct _taglist$/;"	s
 _taglist::_pt_node	cstl/cstl_list_private.h	/^    _listnode_t* _pt_node;$/;"	m	struct:_taglist	access:public
-_taglist::_t_allocater	cstl/cstl_list_private.h	/^    _alloc_t     _t_allocater;$/;"	m	struct:_taglist	access:public
+_taglist::_t_allocator	cstl/cstl_list_private.h	/^    _alloc_t     _t_allocator;$/;"	m	struct:_taglist	access:public
 _taglist::_t_typeinfo	cstl/cstl_list_private.h	/^    _typeinfo_t  _t_typeinfo;$/;"	m	struct:_taglist	access:public
 _taglistabc	test/it/test_list.c	/^typedef struct _taglistabc$/;"	s	file:
 _taglistabc::__anon1::_t_complex	test/it/test_list.c	/^        } _t_complex;$/;"	m	union:_taglistabc::__anon1	typeref:struct:_taglistabc::__anon1::_tagcomplex	file:	access:public
@@ -4373,7 +4377,7 @@ _tagrbnode::_pt_parent	cstl/cstl_rb_tree_private.h	/^    struct _tagrbnode* _pt_
 _tagrbnode::_pt_right	cstl/cstl_rb_tree_private.h	/^    struct _tagrbnode* _pt_right;$/;"	m	struct:_tagrbnode	typeref:struct:_tagrbnode::_tagrbnode	access:public
 _tagrbnode::_t_color	cstl/cstl_rb_tree_private.h	/^    color_t            _t_color;$/;"	m	struct:_tagrbnode	access:public
 _tagrbtree	cstl/cstl_rb_tree_private.h	/^typedef struct _tagrbtree$/;"	s
-_tagrbtree::_t_allocater	cstl/cstl_rb_tree_private.h	/^    _alloc_t          _t_allocater;$/;"	m	struct:_tagrbtree	access:public
+_tagrbtree::_t_allocator	cstl/cstl_rb_tree_private.h	/^    _alloc_t          _t_allocator;$/;"	m	struct:_tagrbtree	access:public
 _tagrbtree::_t_compare	cstl/cstl_rb_tree_private.h	/^    binary_function_t _t_compare;$/;"	m	struct:_tagrbtree	access:public
 _tagrbtree::_t_nodecount	cstl/cstl_rb_tree_private.h	/^    size_t            _t_nodecount;$/;"	m	struct:_tagrbtree	access:public
 _tagrbtree::_t_rbroot	cstl/cstl_rb_tree_private.h	/^    rbnode_t          _t_rbroot;$/;"	m	struct:_tagrbtree	access:public
@@ -4393,7 +4397,7 @@ _tagsetsample::_n_first	test/it/test_set.c	/^    int _n_first;$/;"	m	struct:_tag
 _tagsetsample::_n_second	test/it/test_set.c	/^    int _n_second;$/;"	m	struct:_tagsetsample	file:	access:public
 _tagsetsample::_n_third	test/it/test_set.c	/^    int _n_third;$/;"	m	struct:_tagsetsample	file:	access:public
 _tagslist	cstl/cstl_slist_private.h	/^typedef struct _tagslist$/;"	s
-_tagslist::_t_allocater	cstl/cstl_slist_private.h	/^    _alloc_t     _t_allocater;$/;"	m	struct:_tagslist	access:public
+_tagslist::_t_allocator	cstl/cstl_slist_private.h	/^    _alloc_t     _t_allocator;$/;"	m	struct:_tagslist	access:public
 _tagslist::_t_head	cstl/cstl_slist_private.h	/^    _slistnode_t _t_head;$/;"	m	struct:_tagslist	access:public
 _tagslist::_t_typeinfo	cstl/cstl_slist_private.h	/^    _typeinfo_t  _t_typeinfo;$/;"	m	struct:_tagslist	access:public
 _tagslistnode	cstl/cstl_slist_private.h	/^typedef struct _tagslistnode$/;"	s
@@ -4454,7 +4458,7 @@ _tagvector	cstl/cstl_vector_private.h	/^typedef struct _tagvector$/;"	s
 _tagvector::_pby_endofstorage	cstl/cstl_vector_private.h	/^    _byte_t*    _pby_endofstorage;   \/* the end of capacity space *\/$/;"	m	struct:_tagvector	access:public
 _tagvector::_pby_finish	cstl/cstl_vector_private.h	/^    _byte_t*    _pby_finish;         \/* the end of used space *\/$/;"	m	struct:_tagvector	access:public
 _tagvector::_pby_start	cstl/cstl_vector_private.h	/^    _byte_t*    _pby_start;          \/* the start of used space *\/$/;"	m	struct:_tagvector	access:public
-_tagvector::_t_allocater	cstl/cstl_vector_private.h	/^    _alloc_t    _t_allocater;$/;"	m	struct:_tagvector	access:public
+_tagvector::_t_allocator	cstl/cstl_vector_private.h	/^    _alloc_t    _t_allocator;$/;"	m	struct:_tagvector	access:public
 _tagvector::_t_typeinfo	cstl/cstl_vector_private.h	/^    _typeinfo_t _t_typeinfo;$/;"	m	struct:_tagvector	access:public
 _tagweather	test/it/test_queue.c	/^typedef struct _tagweather$/;"	s	file:
 _tagweather::_n_temperature	test/it/test_queue.c	/^    int  _n_temperature;$/;"	m	struct:_tagweather	file:	access:public
@@ -8223,6 +8227,27 @@ test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.c	/^void t
 test__alloc_set_malloc_handler___delete_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___delete_handler(void** state);$/;"	p	signature:(void** state)
 test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.c	/^void test__alloc_set_malloc_handler___new_handler(void** state)$/;"	f	signature:(void** state)
 test__alloc_set_malloc_handler___new_handler	test/ut/ut_cstl_alloc.h	/^void test__alloc_set_malloc_handler___new_handler(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__created	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__created(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__created	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__created(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__invalid_avlroot_height	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__invalid_avlroot_height(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__invalid_avlroot_height	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__invalid_avlroot_height(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__invalid_avlroot_left	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__invalid_avlroot_left(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__invalid_avlroot_left	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__invalid_avlroot_left(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__invalid_avlroot_parent	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__invalid_avlroot_parent(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__invalid_avlroot_parent	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__invalid_avlroot_parent(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__invalid_avlroot_right	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__invalid_avlroot_right(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__invalid_avlroot_right	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__invalid_avlroot_right(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__invalid_compare	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__invalid_compare(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__invalid_compare	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__invalid_compare(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__invalid_nodecount	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__invalid_nodecount(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__invalid_nodecount	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__invalid_nodecount(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__invalid_typeinfo_style	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__invalid_typeinfo_style(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__invalid_typeinfo_style	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__invalid_typeinfo_style(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__invalid_typeinfo_type	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__invalid_typeinfo_type(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__invalid_typeinfo_type	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__invalid_typeinfo_type(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__non_inited_allocator	test/ut/ut_cstl_avl_tree_aux.c	/^void test__avl_tree_is_created__non_inited_allocator(void** state)$/;"	f	signature:(void** state)
+test__avl_tree_is_created__non_inited_allocator	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__non_inited_allocator(void** state);$/;"	p	signature:(void** state)
+test__avl_tree_is_created__null_avl_tree	test/ut/ut_cstl_avl_tree_aux.h	/^void test__avl_tree_is_created__null_avl_tree(void** state);$/;"	p	signature:(void** state)
 test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_empty	test/ut/ut_cstl_basic_string_private.c	/^void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_empty(void** state)$/;"	f	signature:(void** state)
 test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_empty	test/ut/ut_cstl_basic_string_private.h	/^void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_empty(void** state);$/;"	p	signature:(void** state)
 test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_non_empty	test/ut/ut_cstl_basic_string_private.c	/^void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_non_empty(void** state)$/;"	f	signature:(void** state)

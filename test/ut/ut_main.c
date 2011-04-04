@@ -35,6 +35,7 @@
 #include "ut_cstl_basic_string.h"
 #include "ut_cstl_string_private.h"
 #include "ut_cstl_string.h"
+#include "ut_cstl_avl_tree_aux.h"
 
 int main(int argc, char* argv[])
 {
@@ -66,7 +67,8 @@ int main(int argc, char* argv[])
         UT_CSTL_BASIC_STRING_PRIVATE_CASE,
         UT_CSTL_BASIC_STRING_CASE,
         UT_CSTL_STRING_PRIVATE_CASE,
-        UT_CSTL_STRING_CASE
+        UT_CSTL_STRING_CASE,
+        UT_CSTL_AVL_TREE_AUX_CASE
     };
 
     return run_tests(tests);

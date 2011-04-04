@@ -15831,7 +15831,7 @@ void test_string_output__output_empty(void** state)
     FILE* fp_stream = NULL;
     string_init(pt_string);
 
-    fp_stream = fopen("test_string_output__output_empty", "w+");
+    fp_stream = fopen("test_string_output__output_empty.utoutput", "w+");
     string_output(pt_string, fp_stream);
     rewind(fp_stream);
     fgets(buff, 100, fp_stream);
@@ -15848,7 +15848,7 @@ void test_string_output__output_non_empty(void** state)
     FILE* fp_stream = NULL;
     string_init_cstr(pt_string, "abcdefg");
 
-    fp_stream = fopen("test_string_output__output_non_empty", "w+");
+    fp_stream = fopen("test_string_output__output_non_empty.utoutput", "w+");
     string_output(pt_string, fp_stream);
     rewind(fp_stream);
     fgets(buff, 100, fp_stream);
@@ -15894,7 +15894,7 @@ void test_string_input__input_empty(void** state)
     FILE* fp_stream = NULL;
     string_init(pt_string);
 
-    fp_stream = fopen("test_string_input__input_empty", "w+");
+    fp_stream = fopen("test_string_input__input_empty.utoutput", "w+");
     string_input(pt_string, fp_stream);
     assert_true(strcmp(string_c_str(pt_string), "") == 0);
     fclose(fp_stream);
@@ -15908,7 +15908,7 @@ void test_string_input__input_non_empty(void** state)
     FILE* fp_stream = NULL;
     string_init(pt_string);
 
-    fp_stream = fopen("test_string_input__input_non_empty", "w+");
+    fp_stream = fopen("test_string_input__input_non_empty.utoutput", "w+");
     fputs("abcdefg", fp_stream);
     rewind(fp_stream);
     string_input(pt_string, fp_stream);
@@ -15954,7 +15954,7 @@ void test_string_getline__getline_empty(void** state)
     FILE* fp_stream = NULL;
     string_init(pt_string);
 
-    fp_stream = fopen("test_string_getline__getline_empty", "w+");
+    fp_stream = fopen("test_string_getline__getline_empty.utoutput", "w+");
     assert_true(string_getline(pt_string, fp_stream) == false);
     assert_true(strcmp(string_c_str(pt_string), "") == 0);
     fclose(fp_stream);
@@ -15968,7 +15968,7 @@ void test_string_getline__getline_non_empty(void** state)
     FILE* fp_stream = NULL;
     string_init(pt_string);
 
-    fp_stream = fopen("test_string_getline__getline_non_empty", "w+");
+    fp_stream = fopen("test_string_getline__getline_non_empty.utoutput", "w+");
     fputs("abcdefg\nxxxxxx\nooooooo", fp_stream);
     rewind(fp_stream);
     assert_true(string_getline(pt_string, fp_stream) == true);
@@ -16014,7 +16014,7 @@ void test_string_getline_delimiter__getline_delimiter_empty(void** state)
     FILE* fp_stream = NULL;
     string_init(pt_string);
 
-    fp_stream = fopen("test_string_getline_delimiter__getline_delimiter_empty", "w+");
+    fp_stream = fopen("test_string_getline_delimiter__getline_delimiter_empty.utoutput", "w+");
     assert_true(string_getline_delimiter(pt_string, fp_stream, 'x') == false);
     assert_true(strcmp(string_c_str(pt_string), "") == 0);
     fclose(fp_stream);
@@ -16028,7 +16028,7 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state)
     FILE* fp_stream = NULL;
     string_init(pt_string);
 
-    fp_stream = fopen("test_string_getline_delimiter__getline_delimiter_non_empty", "w+");
+    fp_stream = fopen("test_string_getline_delimiter__getline_delimiter_non_empty.utoutput", "w+");
     fputs("abcdefg\naaaxtt\nooooooo", fp_stream);
     rewind(fp_stream);
     assert_true(string_getline_delimiter(pt_string, fp_stream, 'x') == true);
