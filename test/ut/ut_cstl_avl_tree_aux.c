@@ -644,6 +644,19 @@ void test__avl_tree_find_value__null_avl_tree(void** state)
     expect_assert_failure(_avl_tree_find_value(NULL, NULL, &elem));
 }
 
+void test__avl_tree_find_value__non_inited(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    int elem = 90;
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    pt_avl_tree->_t_avlroot._un_height = 9;
+    expect_assert_failure(_avl_tree_find_value(pt_avl_tree, NULL, &elem));
+    pt_avl_tree->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
 void test__avl_tree_find_value__null_value(void** state)
 {
     _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
@@ -652,5 +665,407 @@ void test__avl_tree_find_value__null_value(void** state)
     expect_assert_failure(_avl_tree_find_value(pt_avl_tree, NULL, NULL));
 
     _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_find_value__empty(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    int elem = 100;
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    assert_true(_avl_tree_find_value(pt_avl_tree, NULL, &elem) == NULL);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_find_value__non_empty_not_find(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    int i = 0;
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        _avl_tree_insert_unique(pt_avl_tree, &i);
+    }
+    i = 100;
+    assert_true(_avl_tree_find_value(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &i) == NULL);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_find_value__non_empty_find(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avlnode_t* pt_avl_node = NULL;
+    int i = 0;
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        _avl_tree_insert_unique(pt_avl_tree, &i);
+    }
+    i = 5;
+    pt_avl_node = _avl_tree_find_value(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &i);
+    assert_true(pt_avl_node != NULL);
+    assert_true(*(int*)pt_avl_node->_pc_data == 5);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+/*
+ * test _avl_tree_destroy_subtree
+ */
+UT_CASE_DEFINATION(_avl_tree_destroy_subtree)
+void test__avl_tree_destroy_subtree__null_avl_tree(void** state)
+{
+    expect_assert_failure(_avl_tree_destroy_subtree(NULL, NULL));
+}
+
+void test__avl_tree_destroy_subtree__non_inited(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    pt_avl_tree->_t_avlroot._un_height = 9;
+    expect_assert_failure(_avl_tree_destroy_subtree(pt_avl_tree, NULL));
+    pt_avl_tree->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_destroy_subtree__null_root(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    assert_true(_avl_tree_destroy_subtree(pt_avl_tree, NULL) == NULL);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_destroy_subtree__root(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    int i = 0;
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _avl_tree_insert_unique(pt_avl_tree, &i);
+    }
+    pt_avl_tree->_t_avlroot._pt_parent->_pt_left = _avl_tree_destroy_subtree(
+        pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent->_pt_left);
+    assert_true(pt_avl_tree->_t_avlroot._pt_parent->_pt_left == NULL);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+/*
+ * test _avl_tree_left_signal_rotate
+ */
+UT_CASE_DEFINATION(_avl_tree_left_signal_rotate)
+void test__avl_tree_left_signal_rotate__null_root(void** state)
+{
+    expect_assert_failure(_avl_tree_left_signal_rotate(NULL));
+}
+
+void test__avl_tree_left_signal_rotate__null_root_left(void** state)
+{
+    _avlnode_t node;
+    node._pt_left = NULL;
+    node._pt_right = NULL;
+    node._pt_parent = NULL;
+    node._un_height = 0;
+
+    expect_assert_failure(_avl_tree_left_signal_rotate(&node));
+}
+
+void test__avl_tree_left_signal_rotate__rotate(void** state)
+{
+    /*
+     *     A         B
+     *    /         / \
+     *   B    =>   C   A
+     *  / \           /
+     * C   D         D
+     */
+    _avlnode_t a;
+    _avlnode_t b;
+    _avlnode_t c;
+    _avlnode_t d;
+
+    a._pt_left = &b;
+    a._pt_parent = NULL;
+    a._pt_right = NULL;
+    a._un_height = 2;
+
+    b._pt_left = &c;
+    b._pt_parent = &a;
+    b._pt_right = &d;
+    b._un_height = 1;
+
+    c._pt_left = NULL;
+    c._pt_parent = &b;
+    c._pt_right = NULL;
+    c._un_height = 0;
+
+    d._pt_left = NULL;
+    d._pt_parent = &b;
+    d._pt_right = NULL;
+    d._un_height = 0;
+
+    assert_true(_avl_tree_left_signal_rotate(&a) == &b);
+    assert_true(a._un_height == 1);
+    assert_true(b._un_height == 2);
+    assert_true(c._un_height == 0);
+    assert_true(d._un_height == 0);
+    assert_true(b._pt_left == &c && b._pt_right == &a);
+    assert_true(c._pt_left == NULL && c._pt_right == NULL && c._pt_parent == &b);
+    assert_true(a._pt_left == &d && a._pt_right == NULL && a._pt_parent == &b);
+    assert_true(d._pt_left == NULL && d._pt_right == NULL && d._pt_parent == &a);
+}
+
+/*
+ * test _avl_tree_right_signal_rotate
+ */
+UT_CASE_DEFINATION(_avl_tree_right_signal_rotate)
+void test__avl_tree_right_signal_rotate__null_root(void** state)
+{
+    expect_assert_failure(_avl_tree_right_signal_rotate(NULL));
+}
+
+void test__avl_tree_right_signal_rotate__null_root_right(void** state)
+{
+    _avlnode_t node;
+    node._pt_left = NULL;
+    node._pt_parent = NULL;
+    node._pt_right = NULL;
+    node._un_height = 0;
+
+    expect_assert_failure(_avl_tree_right_signal_rotate(&node));
+}
+
+void test__avl_tree_right_signal_rotate__rotate(void** state)
+{
+    /*
+     *  A              B
+     *   \            / \
+     *    B     =>   A   D
+     *   / \          \
+     *  C   D          C
+     */
+    _avlnode_t a;
+    _avlnode_t b;
+    _avlnode_t c;
+    _avlnode_t d;
+
+    a._pt_left = NULL;
+    a._pt_parent = NULL;
+    a._pt_right = &b;
+    a._un_height = 2;
+
+    b._pt_left = &c;
+    b._pt_parent = &a;
+    b._pt_right = &d;
+    b._un_height = 1;
+
+    c._pt_left = NULL;
+    c._pt_parent = &b;
+    c._pt_right = NULL;
+    c._un_height = 0;
+
+    d._pt_left = NULL;
+    d._pt_parent = &b;
+    d._pt_right = NULL;
+    d._un_height = 0;
+
+    assert_true(_avl_tree_right_signal_rotate(&a) == &b);
+    assert_true(a._un_height == 1);
+    assert_true(b._un_height == 2);
+    assert_true(c._un_height == 0);
+    assert_true(d._un_height == 0);
+    assert_true(a._pt_left == NULL && a._pt_parent == &b && a._pt_right == &c);
+    assert_true(b._pt_left == &a && b._pt_right == &d);
+    assert_true(c._pt_left == NULL && c._pt_parent == &a && c._pt_right == NULL);
+    assert_true(d._pt_left == NULL && d._pt_parent == &b && d._pt_right == NULL);
+}
+
+/*
+ * test _avl_tree_left_double_rotate
+ */
+UT_CASE_DEFINATION(_avl_tree_left_double_rotate)
+void test__avl_tree_left_double_rotate__null_root(void** state)
+{
+    expect_assert_failure(_avl_tree_left_double_rotate(NULL));
+}
+
+void test__avl_tree_left_double_rotate__rotate(void** state)
+{
+    /*
+     *       A               A                 E
+     *      / \             / \              /   \
+     *     B   C           E   C            B     A
+     *    / \       =>    / \        =>    / \   / \
+     *   D   E           B   G            D   F G   C
+     *      / \         / \
+     *     F   G       D   F
+     */        
+    _avlnode_t a;
+    _avlnode_t b;
+    _avlnode_t c;
+    _avlnode_t d;
+    _avlnode_t e;
+    _avlnode_t f;
+    _avlnode_t g;
+
+    a._pt_left = &b;
+    a._pt_parent = NULL;
+    a._pt_right = &c;
+    a._un_height = 3;
+
+    b._pt_left = &d;
+    b._pt_parent = &a;
+    b._pt_right = &e;
+    b._un_height = 2;
+
+    c._pt_left = NULL;
+    c._pt_parent = &a;
+    c._pt_right = NULL;
+    c._un_height = 0;
+
+    d._pt_left = NULL;
+    d._pt_parent = &b;
+    d._pt_right = NULL;
+    d._un_height = 0;
+
+    e._pt_left = &f;
+    e._pt_parent = &b;
+    e._pt_right = &g;
+    e._un_height = 1;
+
+    f._pt_left = NULL;
+    f._pt_parent = &e;
+    f._pt_right = NULL;
+    f._un_height = 0;
+
+    g._pt_left = NULL;
+    g._pt_parent = &e;
+    g._pt_right = NULL;
+    g._un_height = 0;
+
+    /*
+     *       A               A                 E
+     *      / \             / \              /   \
+     *     B   C           E   C            B     A
+     *    / \       =>    / \        =>    / \   / \
+     *   D   E           B   G            D   F G   C
+     *      / \         / \
+     *     F   G       D   F
+     */        
+    assert_true(_avl_tree_left_double_rotate(&a) == &e);
+    assert_true(a._un_height == 1);
+    assert_true(b._un_height == 1);
+    assert_true(c._un_height == 0);
+    assert_true(d._un_height == 0);
+    assert_true(e._un_height == 2);
+    assert_true(f._un_height == 0);
+    assert_true(g._un_height == 0);
+    assert_true(a._pt_left == &g && a._pt_parent == &e && a._pt_right == &c);
+    assert_true(b._pt_left == &d && b._pt_parent == &e && b._pt_right == &f);
+    assert_true(c._pt_left == NULL && c._pt_parent == &a && c._pt_right == NULL);
+    assert_true(d._pt_left == NULL && d._pt_parent == &b && d._pt_right == NULL);
+    assert_true(e._pt_left == &b && e._pt_right == &a);
+    assert_true(f._pt_left == NULL && f._pt_parent == &b && f._pt_right == NULL);
+    assert_true(g._pt_left == NULL && g._pt_parent == &a && g._pt_right == NULL);
+}
+
+/*
+ * test _avl_tree_right_double_rotate
+ */
+UT_CASE_DEFINATION(_avl_tree_right_double_rotate)
+void test__avl_tree_right_double_rotate__null_root(void** state)
+{
+    expect_assert_failure(_avl_tree_right_double_rotate(NULL));
+}
+
+void test__avl_tree_right_double_rotate__rotate(void** state)
+{
+    /*
+     *       A               A                   D 
+     *      / \             / \                /   \
+     *     B   C           B   D              A     C
+     *        / \    =>       / \       =>   / \   / \
+     *       D   E           F   C          B   F G   E
+     *      / \                 / \
+     *     F   G               G   E
+     */
+    _avlnode_t a;
+    _avlnode_t b;
+    _avlnode_t c;
+    _avlnode_t d;
+    _avlnode_t e;
+    _avlnode_t f;
+    _avlnode_t g;
+
+    a._pt_left = &b;
+    a._pt_parent = NULL;
+    a._pt_right = &c;
+    a._un_height = 3;
+
+    b._pt_left = NULL;
+    b._pt_parent = &a;
+    b._pt_right = NULL;
+    b._un_height = 0;
+
+    c._pt_left = &d;
+    c._pt_parent = &a;
+    c._pt_right = &e;
+    c._un_height = 2;
+
+    d._pt_left = &f;
+    d._pt_parent = &c;
+    d._pt_right = &g;
+    d._un_height = 1;
+
+    e._pt_left = NULL;
+    e._pt_parent = &c;
+    e._pt_right = NULL;
+    e._un_height = 0;
+
+    f._pt_left = NULL;
+    f._pt_parent = &d;
+    f._pt_right = NULL;
+    f._un_height = 0;
+
+    g._pt_left = NULL;
+    g._pt_parent = &d;
+    g._pt_right = NULL;
+    g._un_height = 0;
+
+    /*
+     *       A               A                   D 
+     *      / \             / \                /   \
+     *     B   C           B   D              A     C
+     *        / \    =>       / \       =>   / \   / \
+     *       D   E           F   C          B   F G   E
+     *      / \                 / \
+     *     F   G               G   E
+     */
+    assert_true(_avl_tree_right_double_rotate(&a) == &d);
+    assert_true(a._un_height == 1);
+    assert_true(b._un_height == 0);
+    assert_true(c._un_height == 1);
+    assert_true(d._un_height == 2);
+    assert_true(e._un_height == 0);
+    assert_true(f._un_height == 0);
+    assert_true(g._un_height == 0);
+    assert_true(a._pt_left == &b && a._pt_parent == &d && a._pt_right == &f);
+    assert_true(b._pt_left == NULL && b._pt_parent == &a && b._pt_right == NULL);
+    assert_true(c._pt_left == &g && c._pt_parent == &d && c._pt_right == &e);
+    assert_true(d._pt_left == &a && d._pt_right == &c);
+    assert_true(e._pt_left == NULL && e._pt_parent == &c && e._pt_right == NULL);
+    assert_true(f._pt_left == NULL && f._pt_parent == &a && f._pt_right == NULL);
+    assert_true(g._pt_left == NULL && g._pt_parent == &c && g._pt_right == NULL);
 }
 

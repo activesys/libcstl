@@ -72,6 +72,50 @@ void test__avl_tree_same_type__non_created_second(void** state);
 void test__avl_tree_same_type__same_type(void** state);
 void test__avl_tree_same_type__not_same_type(void** state);
 void test__avl_tree_same_type__not_same_compare(void** state);
+/*
+ * test _avl_tree_find_value
+ */
+UT_CASE_DECLARATION(_avl_tree_find_value)
+void test__avl_tree_find_value__null_avl_tree(void** state);
+void test__avl_tree_find_value__non_inited(void** state);
+void test__avl_tree_find_value__null_value(void** state);
+void test__avl_tree_find_value__empty(void** state);
+void test__avl_tree_find_value__non_empty_not_find(void** state);
+void test__avl_tree_find_value__non_empty_find(void** state);
+/*
+ * test _avl_tree_destroy_subtree
+ */
+UT_CASE_DECLARATION(_avl_tree_destroy_subtree)
+void test__avl_tree_destroy_subtree__null_avl_tree(void** state);
+void test__avl_tree_destroy_subtree__non_inited(void** state);
+void test__avl_tree_destroy_subtree__null_root(void** state);
+void test__avl_tree_destroy_subtree__root(void** state);
+/*
+ * test _avl_tree_left_signal_rotate
+ */
+UT_CASE_DECLARATION(_avl_tree_left_signal_rotate)
+void test__avl_tree_left_signal_rotate__null_root(void** state);
+void test__avl_tree_left_signal_rotate__null_root_left(void** state);
+void test__avl_tree_left_signal_rotate__rotate(void** state);
+/*
+ * test _avl_tree_right_signal_rotate
+ */
+UT_CASE_DECLARATION(_avl_tree_right_signal_rotate)
+void test__avl_tree_right_signal_rotate__null_root(void** state);
+void test__avl_tree_right_signal_rotate__null_root_right(void** state);
+void test__avl_tree_right_signal_rotate__rotate(void** state);
+/*
+ * test _avl_tree_left_double_rotate
+ */
+UT_CASE_DECLARATION(_avl_tree_left_double_rotate)
+void test__avl_tree_left_double_rotate__null_root(void** state);
+void test__avl_tree_left_double_rotate__rotate(void** state);
+/*
+ * test _avl_tree_right_double_rotate
+ */
+UT_CASE_DECLARATION(_avl_tree_right_double_rotate)
+void test__avl_tree_right_double_rotate__null_root(void** state);
+void test__avl_tree_right_double_rotate__rotate(void** state);
 
 #define UT_CSTL_AVL_TREE_AUX_CASE\
     UT_SUIT_BEGIN(cstl_avl_tree_aux, test__avl_tree_is_created__null_avl_tree),\
@@ -120,6 +164,26 @@ void test__avl_tree_same_type__not_same_compare(void** state);
     UT_CASE(test__avl_tree_same_type__same_type),\
     UT_CASE(test__avl_tree_same_type__not_same_type),\
     UT_CASE(test__avl_tree_same_type__not_same_compare),\
+    UT_CASE_BEGIN(_avl_tree_find_value, test__avl_tree_find_value__null_avl_tree),\
+    UT_CASE(test__avl_tree_find_value__non_inited),\
+    UT_CASE(test__avl_tree_find_value__null_value),\
+    UT_CASE(test__avl_tree_find_value__empty),\
+    UT_CASE(test__avl_tree_find_value__non_empty_not_find),\
+    UT_CASE(test__avl_tree_find_value__non_empty_find),\
+    UT_CASE_BEGIN(_avl_tree_destroy_subtree, test__avl_tree_destroy_subtree__null_avl_tree),\
+    UT_CASE(test__avl_tree_destroy_subtree__non_inited),\
+    UT_CASE(test__avl_tree_destroy_subtree__null_root),\
+    UT_CASE(test__avl_tree_destroy_subtree__root),\
+    UT_CASE_BEGIN(_avl_tree_left_signal_rotate, test__avl_tree_left_signal_rotate__null_root),\
+    UT_CASE(test__avl_tree_left_signal_rotate__null_root_left),\
+    UT_CASE(test__avl_tree_left_signal_rotate__rotate),\
+    UT_CASE_BEGIN(_avl_tree_right_signal_rotate, test__avl_tree_right_signal_rotate__null_root),\
+    UT_CASE(test__avl_tree_right_signal_rotate__null_root_right),\
+    UT_CASE(test__avl_tree_right_signal_rotate__rotate),\
+    UT_CASE_BEGIN(_avl_tree_left_double_rotate, test__avl_tree_left_double_rotate__null_root),\
+    UT_CASE(test__avl_tree_left_double_rotate__rotate),\
+    UT_CASE_BEGIN(_avl_tree_right_double_rotate, test__avl_tree_right_double_rotate__null_root),\
+    UT_CASE(test__avl_tree_right_double_rotate__rotate),\
 
 #endif /* _UT_CSTL_AVL_TREE_AUX_H_ */
 

@@ -101,33 +101,63 @@ extern bool_t _avl_tree_avlnode_belong_to_avl_tree(const _avlnode_t* cpt_root, c
  * @param cpt_first             first avl tree.
  * @param cpt_second            second avl tree.
  * @return if the type is same, return true, else return false.
- * @remarks if cpt_first == NULL or cpt_second == NULL, the behavior is undefined. the two vector must be initialized
+ * @remarks if cpt_first == NULL or cpt_second == NULL, the behavior is undefined. the two avl tree must be initialized
  *          or created by _create_avl_tree(), otherwise the behavior is undefined. if cpt_first == cpt_second then
  *          return true.
  */
 extern bool_t _avl_tree_same_type(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
 
-/*
+/**
  * Travel subtree for find the value in preorder.
+ * @param cpt_avl_tree          avl tree.
+ * @param cpt_root              root of sub avl tree.
+ * @param cpv_value             specific value.
+ * @return avl node that save the specific value, else return NULL.
+ * @remarks if cpt_avl_tree == NULL or cpv_value == NULL, then the behavior is undefined. avl tree must be initialized,
+ *          otherwise the behavior is undefine.
  */
-extern _avlnode_t* _avl_tree_find_value(
-    const _avl_tree_t* cpt_avl_tree, const _avlnode_t* cpt_root, const void* cpv_value); 
+extern _avlnode_t* _avl_tree_find_value(const _avl_tree_t* cpt_avl_tree, const _avlnode_t* cpt_root, const void* cpv_value); 
 
-/*
+/**
  * Destroy the subtree with postorder traverse.
+ * @param pt_avl_tree           avl tree.
+ * @param pt_root               root of sub avl tree.
+ * @return NULL.
+ * @remarks if pt_avl_tree == NULL, the behavior is undefined. avl tree must be initialized or created by _create_avl_tree(),
+ *          otherwise the behavior is undefined.
  */
 extern _avlnode_t* _avl_tree_destroy_subtree(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_root);
 
-/*
- * Rotate.
+/**
+ * ll Rotate.
+ * @param pt_root               root of sub avl tree.
+ * @return new root of sub avl tree.
+ * @remarks is pt_root == NULL or pt_root->_pt_left == NULL, the behavior is undefined.
  */
-/* ll rotate */
 extern _avlnode_t* _avl_tree_left_signal_rotate(_avlnode_t* pt_root);
-/* rr rotate */
+
+/**
+ * rr Rotate.
+ * @param pt_root               root of sub avl tree.
+ * @return new root of sub avl tree.
+ * @remarks is pt_root == NULL or pt_root->_pt_right == NULL, the behavior is undefined.
+ */
 extern _avlnode_t* _avl_tree_right_signal_rotate(_avlnode_t* pt_root);
-/* lr rotate */
+
+/**
+ * lr Rotate.
+ * @param pt_root               root of sub avl tree.
+ * @return new root of sub avl tree.
+ * @remarks is pt_root == NULL, the behavior is undefined.
+ */
 extern _avlnode_t* _avl_tree_left_double_rotate(_avlnode_t* pt_root);
-/* rl rotate */
+
+/**
+ * rl Rotate
+ * @param pt_root               root of sub avl tree.
+ * @return new root of sub avl tree.
+ * @remarks is pt_root == NULL, the behavior is undefined.
+ */
 extern _avlnode_t* _avl_tree_right_double_rotate(_avlnode_t* pt_root);
 
 /*

@@ -169,12 +169,16 @@ bool_t _avl_tree_same_type(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_
            _type_is_same(_GET_AVL_TREE_TYPE_NAME(cpt_first), _GET_AVL_TREE_TYPE_NAME(cpt_second));
 }
 
-_avlnode_t* _avl_tree_find_value(
-    const _avl_tree_t* cpt_avl_tree, const _avlnode_t* cpt_root, const void* cpv_value) 
+/**
+ * Travel subtree for find the value in preorder.
+ */
+_avlnode_t* _avl_tree_find_value(const _avl_tree_t* cpt_avl_tree, const _avlnode_t* cpt_root, const void* cpv_value) 
 {
     bool_t t_result = false;
 
-    assert(cpt_avl_tree != NULL && cpv_value != NULL);
+    assert(cpt_avl_tree != NULL);
+    assert(cpv_value != NULL);
+    assert(_avl_tree_is_inited(cpt_avl_tree));
 
     if(cpt_root == NULL)
     {
@@ -200,11 +204,16 @@ _avlnode_t* _avl_tree_find_value(
     }
 }
 
+
+/**
+ * Destroy the subtree with postorder traverse.
+ */
 _avlnode_t* _avl_tree_destroy_subtree(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_root)
 {
     bool_t t_result = false;
 
     assert(pt_avl_tree != NULL);
+    assert(_avl_tree_is_inited(pt_avl_tree) || _avl_tree_is_created(pt_avl_tree));
 
     if(pt_root != NULL)
     {
@@ -216,25 +225,28 @@ _avlnode_t* _avl_tree_destroy_subtree(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_r
         t_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
         _GET_AVL_TREE_TYPE_DESTROY_FUNCTION(pt_avl_tree)(pt_root->_pc_data, &t_result);
         assert(t_result);
-        _alloc_deallocate(&pt_avl_tree->_t_allocator, pt_root,
-            _AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(pt_avl_tree)), 1);
+        _alloc_deallocate(&pt_avl_tree->_t_allocator, pt_root,_AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(pt_avl_tree)), 1);
     }
     
     return NULL;
 }
 
-/*
- *     A         B
- *    /         / \
- *   B    =>   C   A
- *  / \           /
- * C   D         D
+/**
+ * ll Rotate.
  */
 _avlnode_t* _avl_tree_left_signal_rotate(_avlnode_t* pt_root)
 {
+    /*
+     *     A         B
+     *    /         / \
+     *   B    =>   C   A
+     *  / \           /
+     * C   D         D
+     */
     _avlnode_t* pt_left = NULL;
 
-    assert(pt_root != NULL && pt_root->_pt_left != NULL);
+    assert(pt_root != NULL);
+    assert(pt_root->_pt_left != NULL);
     
     /* rotate */
     pt_left = pt_root->_pt_left;
@@ -249,26 +261,30 @@ _avlnode_t* _avl_tree_left_signal_rotate(_avlnode_t* pt_root)
     /* update height */
     pt_root->_un_height = (unsigned int)(
         (_avl_tree_get_height(pt_root->_pt_left) > _avl_tree_get_height(pt_root->_pt_right) ?
-         _avl_tree_get_height(pt_root->_pt_left) : _avl_tree_get_height(pt_root->_pt_right))+1);
+         _avl_tree_get_height(pt_root->_pt_left) : _avl_tree_get_height(pt_root->_pt_right)) + 1);
     pt_left->_un_height = (unsigned int)(
         (_avl_tree_get_height(pt_left->_pt_left) > _avl_tree_get_height(pt_left->_pt_right) ?
-         _avl_tree_get_height(pt_left->_pt_left) : _avl_tree_get_height(pt_left->_pt_right))+1);
+         _avl_tree_get_height(pt_left->_pt_left) : _avl_tree_get_height(pt_left->_pt_right)) + 1);
 
     return pt_left;
 }
 
-/*
- *  A              B
- *   \            / \
- *    B     =>   A   D
- *   / \          \
- *  C   D          C
+/**
+ * rr Rotate.
  */
 _avlnode_t* _avl_tree_right_signal_rotate(_avlnode_t* pt_root)
 {
+    /*
+     *  A              B
+     *   \            / \
+     *    B     =>   A   D
+     *   / \          \
+     *  C   D          C
+     */
     _avlnode_t* pt_right = NULL;
 
-    assert(pt_root != NULL && pt_root->_pt_right != NULL);
+    assert(pt_root != NULL);
+    assert(pt_root->_pt_right != NULL);
 
     /* rotate */
     pt_right = pt_root->_pt_right;
@@ -283,25 +299,28 @@ _avlnode_t* _avl_tree_right_signal_rotate(_avlnode_t* pt_root)
     /* update height */
     pt_root->_un_height = (unsigned int)(
         (_avl_tree_get_height(pt_root->_pt_left) > _avl_tree_get_height(pt_root->_pt_right) ?
-         _avl_tree_get_height(pt_root->_pt_left) : _avl_tree_get_height(pt_root->_pt_right))+1);
+         _avl_tree_get_height(pt_root->_pt_left) : _avl_tree_get_height(pt_root->_pt_right)) + 1);
     pt_right->_un_height = (unsigned int)(
         (_avl_tree_get_height(pt_right->_pt_left) > _avl_tree_get_height(pt_right->_pt_right) ?
-         _avl_tree_get_height(pt_right->_pt_left) : _avl_tree_get_height(pt_right->_pt_right))+1);
+         _avl_tree_get_height(pt_right->_pt_left) : _avl_tree_get_height(pt_right->_pt_right)) + 1);
 
     return pt_right;
 }
 
-/*
- *       A               A                 E
- *      / \             / \              /   \
- *     B   C           E   C            B     A
- *    / \       =>    / \        =>    / \   / \
- *   D   E           B   G            D   F G   C
- *      / \         / \
- *     F   G       D   F
- */        
+/**
+ * lr Rotate.
+ */
 _avlnode_t* _avl_tree_left_double_rotate(_avlnode_t* pt_root)
 {
+    /*
+     *       A               A                 E
+     *      / \             / \              /   \
+     *     B   C           E   C            B     A
+     *    / \       =>    / \        =>    / \   / \
+     *   D   E           B   G            D   F G   C
+     *      / \         / \
+     *     F   G       D   F
+     */        
     assert(pt_root != NULL);
 
     pt_root->_pt_left = _avl_tree_right_signal_rotate(pt_root->_pt_left);
@@ -309,17 +328,20 @@ _avlnode_t* _avl_tree_left_double_rotate(_avlnode_t* pt_root)
     return _avl_tree_left_signal_rotate(pt_root);
 }
 
-/*
- *       A               A                   D 
- *      / \             / \                /   \
- *     B   C           B   D              A     C
- *        / \    =>       / \       =>   / \   / \
- *       D   E           F   C          B   F G   E
- *      / \                 / \
- *     F   G               G   E
+/**
+ * rl Rotate.
  */
 _avlnode_t* _avl_tree_right_double_rotate(_avlnode_t* pt_root)
 {
+    /*
+     *       A               A                   D 
+     *      / \             / \                /   \
+     *     B   C           B   D              A     C
+     *        / \    =>       / \       =>   / \   / \
+     *       D   E           F   C          B   F G   E
+     *      / \                 / \
+     *     F   G               G   E
+     */
     assert(pt_root != NULL);
 
     pt_root->_pt_right = _avl_tree_left_signal_rotate(pt_root->_pt_right);
