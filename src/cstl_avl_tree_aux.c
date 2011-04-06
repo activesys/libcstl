@@ -349,18 +349,17 @@ _avlnode_t* _avl_tree_right_double_rotate(_avlnode_t* pt_root)
     return _avl_tree_right_signal_rotate(pt_root);
 }
 
+/**
+ * Get avl node height.
+ */
 int _avl_tree_get_height(const _avlnode_t* cpt_root)
 {
-    if(cpt_root == NULL)
-    {
-        return -1;
-    }
-    else
-    {
-        return (int)cpt_root->_un_height;
-    }
+    return cpt_root == NULL ? -1 : (int)cpt_root->_un_height;
 }
 
+/**
+ * Get minimum avlnode.
+ */
 _avlnode_t* _avl_tree_get_min_avlnode(const _avlnode_t* cpt_root)
 {
     _avlnode_t* pt_min = (_avlnode_t*)cpt_root;
@@ -375,6 +374,9 @@ _avlnode_t* _avl_tree_get_min_avlnode(const _avlnode_t* cpt_root)
     return pt_min;
 }
 
+/**
+ * Get maximum avlnode.
+ */
 _avlnode_t* _avl_tree_get_max_avlnode(const _avlnode_t* cpt_root)
 {
     _avlnode_t* pt_max = (_avlnode_t*)cpt_root;
@@ -389,19 +391,24 @@ _avlnode_t* _avl_tree_get_max_avlnode(const _avlnode_t* cpt_root)
     return pt_max;
 }
 
+/**
+ * Insert the value into subtree.
+ */
 _avl_tree_insert_result_t _avl_tree_insert_avlnode(
     const _avl_tree_t* cpt_avl_tree, _avlnode_t* pt_root, const void* cpv_value)
 {
     _avl_tree_insert_result_t t_insert_result;
     bool_t           t_result = false;
 
-    assert(cpt_avl_tree != NULL && cpv_value != NULL);
+    assert(cpt_avl_tree != NULL);
+    assert(cpv_value != NULL);
+    assert(_avl_tree_is_inited(cpt_avl_tree));
 
     /* if root is NULL then allocate memory */
     if(pt_root == NULL)
     {
-        pt_root = _alloc_allocate((_alloc_t*)&cpt_avl_tree->_t_allocator,
-            _AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree)), 1);
+        pt_root = _alloc_allocate(
+            (_alloc_t*)&cpt_avl_tree->_t_allocator, _AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree)), 1);
         assert(pt_root != NULL);
         _avl_tree_init_elem_auxiliary((_avl_tree_t*)cpt_avl_tree, pt_root);
 
@@ -410,8 +417,7 @@ _avl_tree_insert_result_t _avl_tree_insert_avlnode(
         t_insert_result._pt_adjust = pt_root;
         t_insert_result._pt_new = pt_root;
         t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-        _GET_AVL_TREE_TYPE_COPY_FUNCTION(cpt_avl_tree)(
-            pt_root->_pc_data, cpv_value, &t_result);
+        _GET_AVL_TREE_TYPE_COPY_FUNCTION(cpt_avl_tree)(pt_root->_pc_data, cpv_value, &t_result);
         assert(t_result);
 
         return t_insert_result;
@@ -446,6 +452,9 @@ _avl_tree_insert_result_t _avl_tree_insert_avlnode(
     }
 }
 
+/**
+ * Rebalance the subtree and update the root height.
+ */
 _avlnode_t* _avl_tree_rebalance(_avlnode_t* pt_root)
 {
     if(pt_root != NULL)

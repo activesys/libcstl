@@ -160,25 +160,46 @@ extern _avlnode_t* _avl_tree_left_double_rotate(_avlnode_t* pt_root);
  */
 extern _avlnode_t* _avl_tree_right_double_rotate(_avlnode_t* pt_root);
 
-/*
+/**
  * Insert the value into subtree.
+ * @param cpt_avl_tree          avl tree.
+ * @param pt_root               root of sub avl tree.
+ * @param cpv_value             insert value.
+ * @return new root of sub avl tree and new inserted node.
+ * @remarks if cpt_avl_tree == NULL or cpv_value == NULL, then the behavior is undefined. the avl tree must be initialized,
+ *          otherwise the behavior is undefined.
  */
 extern _avl_tree_insert_result_t _avl_tree_insert_avlnode(
     const _avl_tree_t* cpt_avl_tree, _avlnode_t* pt_root, const void* cpv_value);
 
-/*
+/**
  * Get avl node height.
+ * @param cpt_root              avl node.
+ * @return avl node height.
+ * @remarks if cpt_root == NULL, then return -1.
  */
 extern int _avl_tree_get_height(const _avlnode_t* cpt_root);
 
-/*
- * Get minimum and maximum avlnode pointer.
+/**
+ * Get minimum avlnode.
+ * @param cpt_root              root of sub avl node.
+ * @return minimum avl node.
+ * @remarks if cpt_root == NULL, the behavior is undefined.
  */
 extern _avlnode_t* _avl_tree_get_min_avlnode(const _avlnode_t* cpt_root);
+
+/**
+ * Get maximum avlnode.
+ * @param cpt_root              root of sub avl node.
+ * @return maximum avl node.
+ * @remarks if cpt_root == NULL, the behavior is undefined.
+ */
 extern _avlnode_t* _avl_tree_get_max_avlnode(const _avlnode_t* cpt_root);
 
-/*
+/**
  * Rebalance the subtree and update the root height.
+ * @param pt_root               root of sub avl tree.
+ * @return new root.
  */
 extern _avlnode_t* _avl_tree_rebalance(_avlnode_t* pt_root);
 

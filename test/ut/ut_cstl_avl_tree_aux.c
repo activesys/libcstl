@@ -1069,3 +1069,482 @@ void test__avl_tree_right_double_rotate__rotate(void** state)
     assert_true(g._pt_left == NULL && g._pt_parent == &c && g._pt_right == NULL);
 }
 
+/*
+ * test _avl_tree_insert_avlnode
+ */
+UT_CASE_DEFINATION(_avl_tree_insert_avlnode)
+void test__avl_tree_insert_avlnode__null_avl_tree(void** state)
+{
+    int elem = 100;
+    expect_assert_failure(_avl_tree_insert_avlnode(NULL, NULL, &elem));
+}
+
+void test__avl_tree_insert_avlnode__non_inited(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    int elem = 100;
+
+    expect_assert_failure(_avl_tree_insert_avlnode(pt_avl_tree, NULL, &elem));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_insert_avlnode__null_value(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    expect_assert_failure(_avl_tree_insert_avlnode(pt_avl_tree, NULL, NULL));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_insert_avlnode__empty(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_insert_result_t t_result;
+    int elem = 100;
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    t_result = _avl_tree_insert_avlnode(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &elem);
+    assert_true(t_result._pt_adjust == t_result._pt_new);
+    assert_true(*(int*)t_result._pt_new->_pc_data == 100);
+    assert_true(t_result._pt_new->_pt_left == t_result._pt_new->_pt_right);
+    assert_true(t_result._pt_new->_pt_left == NULL);
+    assert_true(t_result._pt_new->_un_height == 0);
+
+    pt_avl_tree->_t_avlroot._pt_parent = t_result._pt_new;
+    pt_avl_tree->_t_avlroot._pt_left = t_result._pt_new;
+    pt_avl_tree->_t_avlroot._pt_right = t_result._pt_new;
+    pt_avl_tree->_t_nodecount++;
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_insert_avlnode__left(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_insert_result_t t_result;
+    int elem = 0;
+    _avlnode_t* pt_5 = NULL;
+    _avlnode_t* pt_2 = NULL;
+    _avlnode_t* pt_8 = NULL;
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    /*
+     *      5         5
+     *     / \  ->   / \
+     *    2   8     2   8
+     *               \
+     *                4
+     */
+    elem = 5;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+    elem = 2;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+    elem = 8;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+
+    pt_5 = pt_avl_tree->_t_avlroot._pt_parent;
+    pt_2 = pt_5->_pt_left;
+    pt_8 = pt_5->_pt_right;
+    assert_true(*(int*)pt_5->_pc_data == 5);
+    assert_true(*(int*)pt_2->_pc_data == 2);
+    assert_true(*(int*)pt_8->_pc_data == 8);
+
+    elem = 4;
+    t_result = _avl_tree_insert_avlnode(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &elem);
+    assert_true(t_result._pt_adjust == pt_5);
+    assert_true(t_result._pt_new == pt_2->_pt_right);
+
+    pt_2->_un_height++;
+    pt_5->_un_height++;
+    pt_avl_tree->_t_nodecount++;
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_insert_avlnode__right(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_insert_result_t t_result;
+    int elem = 0;
+    _avlnode_t* pt_5 = NULL;
+    _avlnode_t* pt_2 = NULL;
+    _avlnode_t* pt_8 = NULL;
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    /*
+     *      5         5
+     *     / \  ->   / \
+     *    2   8     2   8
+     *                   \
+     *                    14
+     */
+    elem = 5;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+    elem = 2;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+    elem = 8;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+
+    pt_5 = pt_avl_tree->_t_avlroot._pt_parent;
+    pt_2 = pt_5->_pt_left;
+    pt_8 = pt_5->_pt_right;
+    assert_true(*(int*)pt_5->_pc_data == 5);
+    assert_true(*(int*)pt_2->_pc_data == 2);
+    assert_true(*(int*)pt_8->_pc_data == 8);
+
+    elem = 14;
+    t_result = _avl_tree_insert_avlnode(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &elem);
+    assert_true(t_result._pt_adjust == pt_5);
+    assert_true(t_result._pt_new == pt_8->_pt_right);
+
+    pt_8->_un_height++;
+    pt_5->_un_height++;
+    pt_avl_tree->_t_nodecount++;
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_insert_avlnode__rotate(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_insert_result_t t_result;
+    int elem = 0;
+    _avlnode_t* pt_5 = NULL;
+    _avlnode_t* pt_8 = NULL;
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    /*
+     *      5         5           8
+     *       \  ->     \   ->    / \
+     *        8         8       5  14
+     *                   \
+     *                    14
+     */
+    elem = 5;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+    elem = 8;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+
+    pt_5 = pt_avl_tree->_t_avlroot._pt_parent;
+    pt_8 = pt_5->_pt_right;
+    assert_true(*(int*)pt_5->_pc_data == 5);
+    assert_true(*(int*)pt_8->_pc_data == 8);
+
+    elem = 14;
+    t_result = _avl_tree_insert_avlnode(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &elem);
+    assert_true(t_result._pt_adjust == pt_8);
+    assert_true(t_result._pt_new == pt_8->_pt_right);
+    assert_true(pt_8->_pt_left == pt_5 && pt_8->_pt_right == t_result._pt_new);
+    assert_true(pt_5->_pt_left == NULL && pt_5->_pt_parent == pt_8 && pt_5->_pt_right == NULL);
+    assert_true(t_result._pt_new->_pt_left == NULL &&
+            t_result._pt_new->_pt_parent == pt_8 &&
+            t_result._pt_new->_pt_right == NULL);
+
+    pt_avl_tree->_t_avlroot._pt_parent = pt_8;
+    pt_avl_tree->_t_avlroot._pt_left = pt_5;
+    pt_avl_tree->_t_avlroot._pt_right = t_result._pt_new;
+    pt_8->_pt_parent = &pt_avl_tree->_t_avlroot;
+    pt_8->_un_height = 1;
+    pt_5->_un_height = 0;
+    t_result._pt_new->_un_height = 0;
+    pt_avl_tree->_t_nodecount = 3;
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+/*
+ * test _avl_tree_get_height
+ */
+UT_CASE_DEFINATION(_avl_tree_get_height)
+void test__avl_tree_get_height__null_root(void** state)
+{
+    assert_true(_avl_tree_get_height(NULL) == -1);
+}
+
+void test__avl_tree_get_heght__not_null(void** state)
+{
+    _avlnode_t node;
+    node._un_height = 5;
+
+    assert_true(_avl_tree_get_height(&node) == 5);
+}
+
+/*
+ * test _avl_tree_get_min_avlnode
+ */
+UT_CASE_DEFINATION(_avl_tree_get_min_avlnode)
+void test__avl_tree_get_min_avlnode__null_root(void** state)
+{
+    expect_assert_failure(_avl_tree_get_min_avlnode(NULL));
+}
+
+void test__avl_tree_get_min_avlnode__one_node(void** state)
+{
+    _avlnode_t node;
+    node._pt_left = node._pt_right = node._pt_parent = NULL;
+
+    assert_true(_avl_tree_get_min_avlnode(&node) == &node);
+}
+
+void test__avl_tree_get_min_avlnode__sub_tree(void** state)
+{
+    /*
+     *    5
+     *   / \
+     *  2   8
+     *   \
+     *    4
+     */
+    _avlnode_t node5;
+    _avlnode_t node2;
+    _avlnode_t node8;
+    _avlnode_t node4;
+
+    node5._pt_left = &node2;
+    node5._pt_right = &node8;
+    node5._pt_parent = NULL;
+
+    node2._pt_left = NULL;
+    node2._pt_right = &node4;
+    node2._pt_parent = &node5;
+
+    node8._pt_left = NULL;
+    node8._pt_right = NULL;
+    node8._pt_parent = &node5;
+
+    node4._pt_left = NULL;
+    node4._pt_right = NULL;
+    node4._pt_parent = &node2;
+
+    assert_true(_avl_tree_get_min_avlnode(&node5) == &node2);
+}
+
+/*
+ * test _avl_tree_get_max_avlnode
+ */
+UT_CASE_DEFINATION(_avl_tree_get_max_avlnode)
+void test__avl_tree_get_max_avlnode__null_root(void** state)
+{
+    expect_assert_failure(_avl_tree_get_max_avlnode(NULL));
+}
+
+void test__avl_tree_get_max_avlnode__one_node(void** state)
+{
+    _avlnode_t node;
+    node._pt_left = node._pt_right = node._pt_parent = NULL;
+
+    assert_true(_avl_tree_get_max_avlnode(&node) == &node);
+}
+
+void test__avl_tree_get_max_avlnode__sub_tree(void** state)
+{
+    /*
+     *    5
+     *   / \
+     *  2   8
+     *   \
+     *    4
+     */
+    _avlnode_t node5;
+    _avlnode_t node2;
+    _avlnode_t node8;
+    _avlnode_t node4;
+
+    node5._pt_left = &node2;
+    node5._pt_right = &node8;
+    node5._pt_parent = NULL;
+
+    node2._pt_left = NULL;
+    node2._pt_right = &node4;
+    node2._pt_parent = &node5;
+
+    node8._pt_left = NULL;
+    node8._pt_right = NULL;
+    node8._pt_parent = &node5;
+
+    node4._pt_left = NULL;
+    node4._pt_right = NULL;
+    node4._pt_parent = &node2;
+
+    assert_true(_avl_tree_get_max_avlnode(&node5) == &node8);
+}
+
+/*
+ * test _avl_tree_rebalance
+ */
+UT_CASE_DEFINATION(_avl_tree_rebalance)
+void test___avl_tree_rebalance__null(void** state)
+{
+    assert_true(_avl_tree_rebalance(NULL) == NULL);
+}
+
+void test__avl_tree_rebalance__ll(void** state)
+{
+    /*
+     *     5        3
+     *    /        / \
+     *   3    ->  1   5 
+     *  /
+     * 1
+     */
+    _avlnode_t node1;
+    _avlnode_t node3;
+    _avlnode_t node5;
+
+    node5._pt_left = &node3;
+    node5._pt_right = NULL;
+    node5._pt_parent = NULL;
+    node5._un_height = 2;
+
+    node3._pt_left = &node1;
+    node3._pt_right = NULL;
+    node3._pt_parent = &node5;
+    node3._un_height = 1;
+
+    node1._pt_left = NULL;
+    node1._pt_right = NULL;
+    node1._pt_parent = &node3;
+    node1._un_height = 0;
+
+    assert_true(_avl_tree_rebalance(&node5) == &node3);
+    assert_true(node3._pt_left == &node1 && node3._pt_right == &node5 && node3._un_height == 1);
+    assert_true(node1._pt_left == NULL && node1._pt_parent == &node3 && node1._pt_right == NULL && node1._un_height == 0);
+    assert_true(node5._pt_left == NULL && node5._pt_parent == &node3 && node5._pt_right == NULL && node5._un_height == 0);
+}
+
+void test__avl_tree_rebalance__lr(void** state)
+{
+    /*
+     *     5        3
+     *    /        / \
+     *   1    ->  1   5 
+     *    \
+     *     3
+     */
+    _avlnode_t node1;
+    _avlnode_t node3;
+    _avlnode_t node5;
+
+    node5._pt_left = &node1;
+    node5._pt_right = NULL;
+    node5._pt_parent = NULL;
+    node5._un_height = 2;
+
+    node3._pt_left = NULL;
+    node3._pt_right = NULL;
+    node3._pt_parent = &node1;
+    node3._un_height = 0;
+
+    node1._pt_left = NULL;
+    node1._pt_right = &node3;
+    node1._pt_parent = &node5;
+    node1._un_height = 1;
+
+    assert_true(_avl_tree_rebalance(&node5) == &node3);
+    assert_true(node3._pt_left == &node1 && node3._pt_right == &node5 && node3._un_height == 1);
+    assert_true(node1._pt_left == NULL && node1._pt_parent == &node3 && node1._pt_right == NULL && node1._un_height == 0);
+    assert_true(node5._pt_left == NULL && node5._pt_parent == &node3 && node5._pt_right == NULL && node5._un_height == 0);
+}
+
+void test__avl_tree_rebalance__rr(void** state)
+{
+    /*
+     * 1            3
+     *  \          / \
+     *   3    ->  1   5 
+     *    \
+     *     5
+     */
+    _avlnode_t node1;
+    _avlnode_t node3;
+    _avlnode_t node5;
+
+    node5._pt_left = NULL;
+    node5._pt_right = NULL;
+    node5._pt_parent = &node3;
+    node5._un_height = 0;
+
+    node3._pt_left = NULL;
+    node3._pt_right = &node5;
+    node3._pt_parent = &node1;
+    node3._un_height = 1;
+
+    node1._pt_left = NULL;
+    node1._pt_right = &node3;
+    node1._pt_parent = NULL;
+    node1._un_height = 2;
+
+    assert_true(_avl_tree_rebalance(&node1) == &node3);
+    assert_true(node3._pt_left == &node1 && node3._pt_right == &node5 && node3._un_height == 1);
+    assert_true(node1._pt_left == NULL && node1._pt_parent == &node3 && node1._pt_right == NULL && node1._un_height == 0);
+    assert_true(node5._pt_left == NULL && node5._pt_parent == &node3 && node5._pt_right == NULL && node5._un_height == 0);
+}
+
+void test__avl_tree_rebalance__rl(void** state)
+{
+    /*
+     * 1            3
+     *  \          / \
+     *   5    ->  1   5 
+     *  /
+     * 3
+     */
+    _avlnode_t node1;
+    _avlnode_t node3;
+    _avlnode_t node5;
+
+    node5._pt_left = &node3;
+    node5._pt_right = NULL;
+    node5._pt_parent = &node1;
+    node5._un_height = 1;
+
+    node3._pt_left = NULL;
+    node3._pt_right = NULL;
+    node3._pt_parent = &node5;
+    node3._un_height = 0;
+
+    node1._pt_left = NULL;
+    node1._pt_right = &node5;
+    node1._pt_parent = NULL;
+    node1._un_height = 2;
+
+    assert_true(_avl_tree_rebalance(&node1) == &node3);
+    assert_true(node3._pt_left == &node1 && node3._pt_right == &node5 && node3._un_height == 1);
+    assert_true(node1._pt_left == NULL && node1._pt_parent == &node3 && node1._pt_right == NULL && node1._un_height == 0);
+    assert_true(node5._pt_left == NULL && node5._pt_parent == &node3 && node5._pt_right == NULL && node5._un_height == 0);
+}
+
+void test__avl_tree_rebalance__no_rotate(void** state)
+{
+    /*
+     *    3
+     *   / \
+     *  1   5 
+     *
+     *
+     */
+    _avlnode_t node1;
+    _avlnode_t node3;
+    _avlnode_t node5;
+
+    node5._pt_left = NULL;
+    node5._pt_right = NULL;
+    node5._pt_parent = &node3;
+    node5._un_height = 0;
+
+    node3._pt_left = &node1;
+    node3._pt_right = &node5;
+    node3._pt_parent = NULL;
+    node3._un_height = 1;
+
+    node1._pt_left = NULL;
+    node1._pt_right = NULL;
+    node1._pt_parent = &node3;
+    node1._un_height = 0;
+
+    assert_true(_avl_tree_rebalance(&node3) == &node3);
+    assert_true(node3._pt_left == &node1 && node3._pt_right == &node5 && node3._un_height == 1);
+    assert_true(node1._pt_left == NULL && node1._pt_parent == &node3 && node1._pt_right == NULL && node1._un_height == 0);
+    assert_true(node5._pt_left == NULL && node5._pt_parent == &node3 && node5._pt_right == NULL && node5._un_height == 0);
+}
+

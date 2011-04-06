@@ -116,6 +116,47 @@ void test__avl_tree_left_double_rotate__rotate(void** state);
 UT_CASE_DECLARATION(_avl_tree_right_double_rotate)
 void test__avl_tree_right_double_rotate__null_root(void** state);
 void test__avl_tree_right_double_rotate__rotate(void** state);
+/*
+ * test _avl_tree_insert_avlnode
+ */
+UT_CASE_DECLARATION(_avl_tree_insert_avlnode)
+void test__avl_tree_insert_avlnode__null_avl_tree(void** state);
+void test__avl_tree_insert_avlnode__non_inited(void** state);
+void test__avl_tree_insert_avlnode__null_value(void** state);
+void test__avl_tree_insert_avlnode__empty(void** state);
+void test__avl_tree_insert_avlnode__left(void** state);
+void test__avl_tree_insert_avlnode__right(void** state);
+void test__avl_tree_insert_avlnode__rotate(void** state);
+/*
+ * test _avl_tree_get_height
+ */
+UT_CASE_DECLARATION(_avl_tree_get_height)
+void test__avl_tree_get_height__null_root(void** state);
+void test__avl_tree_get_heght__not_null(void** state);
+/*
+ * test _avl_tree_get_min_avlnode
+ */
+UT_CASE_DECLARATION(_avl_tree_get_min_avlnode)
+void test__avl_tree_get_min_avlnode__null_root(void** state);
+void test__avl_tree_get_min_avlnode__one_node(void** state);
+void test__avl_tree_get_min_avlnode__sub_tree(void** state);
+/*
+ * test _avl_tree_get_max_avlnode
+ */
+UT_CASE_DECLARATION(_avl_tree_get_max_avlnode)
+void test__avl_tree_get_max_avlnode__null_root(void** state);
+void test__avl_tree_get_max_avlnode__one_node(void** state);
+void test__avl_tree_get_max_avlnode__sub_tree(void** state);
+/*
+ * test _avl_tree_rebalance
+ */
+UT_CASE_DECLARATION(_avl_tree_rebalance)
+void test___avl_tree_rebalance__null(void** state);
+void test__avl_tree_rebalance__ll(void** state);
+void test__avl_tree_rebalance__lr(void** state);
+void test__avl_tree_rebalance__rr(void** state);
+void test__avl_tree_rebalance__rl(void** state);
+void test__avl_tree_rebalance__no_rotate(void** state);
 
 #define UT_CSTL_AVL_TREE_AUX_CASE\
     UT_SUIT_BEGIN(cstl_avl_tree_aux, test__avl_tree_is_created__null_avl_tree),\
@@ -184,6 +225,27 @@ void test__avl_tree_right_double_rotate__rotate(void** state);
     UT_CASE(test__avl_tree_left_double_rotate__rotate),\
     UT_CASE_BEGIN(_avl_tree_right_double_rotate, test__avl_tree_right_double_rotate__null_root),\
     UT_CASE(test__avl_tree_right_double_rotate__rotate),\
+    UT_CASE_BEGIN(_avl_tree_insert_avlnode, test__avl_tree_insert_avlnode__null_avl_tree),\
+    UT_CASE(test__avl_tree_insert_avlnode__non_inited),\
+    UT_CASE(test__avl_tree_insert_avlnode__null_value),\
+    UT_CASE(test__avl_tree_insert_avlnode__empty),\
+    UT_CASE(test__avl_tree_insert_avlnode__left),\
+    UT_CASE(test__avl_tree_insert_avlnode__right),\
+    UT_CASE(test__avl_tree_insert_avlnode__rotate),\
+    UT_CASE_BEGIN(_avl_tree_get_height, test__avl_tree_get_height__null_root),\
+    UT_CASE(test__avl_tree_get_heght__not_null),\
+    UT_CASE_BEGIN(_avl_tree_get_min_avlnode, test__avl_tree_get_min_avlnode__null_root),\
+    UT_CASE(test__avl_tree_get_min_avlnode__one_node),\
+    UT_CASE(test__avl_tree_get_min_avlnode__sub_tree),\
+    UT_CASE_BEGIN(_avl_tree_get_max_avlnode, test__avl_tree_get_max_avlnode__null_root),\
+    UT_CASE(test__avl_tree_get_max_avlnode__one_node),\
+    UT_CASE(test__avl_tree_get_max_avlnode__sub_tree),\
+    UT_CASE_BEGIN(_avl_tree_rebalance, test___avl_tree_rebalance__null),\
+    UT_CASE(test__avl_tree_rebalance__ll),\
+    UT_CASE(test__avl_tree_rebalance__lr),\
+    UT_CASE(test__avl_tree_rebalance__rr),\
+    UT_CASE(test__avl_tree_rebalance__rl),\
+    UT_CASE(test__avl_tree_rebalance__no_rotate),\
 
 #endif /* _UT_CSTL_AVL_TREE_AUX_H_ */
 
