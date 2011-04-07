@@ -498,9 +498,14 @@ _avlnode_t* _avl_tree_rebalance(_avlnode_t* pt_root)
     return pt_root;
 }
 
+/**
+ * Initialize element auxiliary function
+ */
 void _avl_tree_init_elem_auxiliary(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_node)
 {
-    assert(pt_avl_tree != NULL && pt_node != NULL);
+    assert(pt_avl_tree != NULL);
+    assert(pt_node != NULL);
+    assert(_avl_tree_is_inited(pt_avl_tree) || _avl_tree_is_created(pt_avl_tree));
 
     /* initialize new elements */
     if(_GET_AVL_TREE_TYPE_STYLE(pt_avl_tree) == _TYPE_CSTL_BUILTIN)
@@ -519,18 +524,22 @@ void _avl_tree_init_elem_auxiliary(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_node
     }
 }
 
-void _avl_tree_elem_compare_auxiliary(const _avl_tree_t* cpt_avl_tree,
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Element compare function auxiliary
+ */
+void _avl_tree_elem_compare_auxiliary(
+    const _avl_tree_t* cpt_avl_tree, const void* cpv_first, const void* cpv_second, void* pv_output)
 {
-    assert(cpt_avl_tree != NULL && cpv_first != NULL &&
-           cpv_second != NULL && pv_output != NULL); 
+    assert(cpt_avl_tree != NULL);
+    assert(cpv_first != NULL);
+    assert(cpv_second != NULL);
+    assert(pv_output != NULL);
+    assert(_avl_tree_is_inited(cpt_avl_tree) || _avl_tree_is_created(cpt_avl_tree));
 
-    if(strncmp(_GET_AVL_TREE_TYPE_BASENAME(cpt_avl_tree),
-        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
+    if(strncmp(_GET_AVL_TREE_TYPE_BASENAME(cpt_avl_tree), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
        cpt_avl_tree->_t_compare != _GET_AVL_TREE_TYPE_LESS_FUNCTION(cpt_avl_tree))
     {
-        cpt_avl_tree->_t_compare(string_c_str((string_t*)cpv_first),
-            string_c_str((string_t*)cpv_second), pv_output);
+        cpt_avl_tree->_t_compare(string_c_str((string_t*)cpv_first), string_c_str((string_t*)cpv_second), pv_output);
     }
     else
     {

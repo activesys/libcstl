@@ -10,6 +10,7 @@
 #include "cstl/cstl_avl_tree_iterator.h"
 #include "cstl/cstl_avl_tree_private.h"
 #include "cstl_avl_tree_aux.h"
+#include "cstl/cstring.h"
 
 #include "ut_def.h"
 #include "ut_cstl_avl_tree_aux.h"
@@ -1546,5 +1547,202 @@ void test__avl_tree_rebalance__no_rotate(void** state)
     assert_true(node3._pt_left == &node1 && node3._pt_right == &node5 && node3._un_height == 1);
     assert_true(node1._pt_left == NULL && node1._pt_parent == &node3 && node1._pt_right == NULL && node1._un_height == 0);
     assert_true(node5._pt_left == NULL && node5._pt_parent == &node3 && node5._pt_right == NULL && node5._un_height == 0);
+}
+
+/*
+ * test _avl_tree_init_elem_auxiliary
+ */
+UT_CASE_DEFINATION(_avl_tree_init_elem_auxiliary)
+void test__avl_tree_init_elem_auxiliary__null_avl_tree(void** state)
+{
+    _avlnode_t node;
+    expect_assert_failure(_avl_tree_init_elem_auxiliary(NULL, &node));
+}
+
+void test__avl_tree_init_elem_auxiliary__null_node(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    expect_assert_failure(_avl_tree_init_elem_auxiliary(pt_avl_tree, NULL));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_init_elem_auxiliary__non_inited(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avlnode_t node;
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    pt_avl_tree->_t_avlroot._un_height = 9;
+    expect_assert_failure(_avl_tree_init_elem_auxiliary(pt_avl_tree, &node));
+    pt_avl_tree->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_init_elem_auxiliary__c_builtin(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    int elem = 9;
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+    _avl_tree_init_elem_auxiliary(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent);
+    assert_true(*(int*)pt_avl_tree->_t_avlroot._pt_parent->_pc_data == 0);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_init_elem_auxiliary__cstr(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("char*");
+    string_t* pt_str = create_string();
+    _avl_tree_init(pt_avl_tree, NULL);
+    string_init_cstr(pt_str, "abc");
+
+    _avl_tree_insert_unique(pt_avl_tree, pt_str);
+    _avl_tree_init_elem_auxiliary(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent);
+    assert_true(strcmp(string_c_str((string_t*)pt_avl_tree->_t_avlroot._pt_parent->_pc_data), "") == 0);
+
+    _avl_tree_destroy(pt_avl_tree);
+    string_destroy(pt_str);
+}
+
+void test__avl_tree_init_elem_auxiliary__cstl_builtin(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("vector_t<int>");
+    vector_t* pvec = create_vector(int);
+    _avl_tree_init(pt_avl_tree, NULL);
+    vector_init(pvec);
+
+    _avl_tree_insert_unique(pt_avl_tree, pvec);
+    _avl_tree_init_elem_auxiliary(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent);
+    assert_true(vector_empty((vector_t*)pt_avl_tree->_t_avlroot._pt_parent->_pc_data));
+
+    vector_destroy(pvec);
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+typedef struct _tag_test__avl_tree_init_elem_auxiliary__user_define
+{
+    int elem;
+}_test__avl_tree_init_elem_auxiliary__user_define_t;
+
+void test__avl_tree_init_elem_auxiliary__user_define(void** state)
+{
+    _avl_tree_t* pt_avl_tree = NULL;
+    _test__avl_tree_init_elem_auxiliary__user_define_t elem;
+
+    type_register(_test__avl_tree_init_elem_auxiliary__user_define_t, NULL, NULL, NULL, NULL);
+    pt_avl_tree = _create_avl_tree("_test__avl_tree_init_elem_auxiliary__user_define_t");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    elem.elem = 9;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+    _avl_tree_init_elem_auxiliary(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent);
+    assert_true(
+        ((_test__avl_tree_init_elem_auxiliary__user_define_t*)pt_avl_tree->_t_avlroot._pt_parent->_pc_data)->elem == 0);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+/*
+ * test _avl_tree_elem_compare_auxiliary
+ */
+UT_CASE_DEFINATION(_avl_tree_elem_compare_auxiliary)
+void test__avl_tree_elem_compare_auxiliary__null_avl_tree(void** state)
+{
+    int n_first;
+    int n_second;
+    bool_t t_result;
+    expect_assert_failure(_avl_tree_elem_compare_auxiliary(NULL, &n_first, &n_second, &t_result));
+}
+
+void test__avl_tree_elem_compare_auxiliary__null_first(void** state)
+{
+    int n_second;
+    bool_t t_result;
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    expect_assert_failure(_avl_tree_elem_compare_auxiliary(pt_avl_tree, NULL, &n_second, &t_result));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_elem_compare_auxiliary__null_second(void** state)
+{
+    int n_first;
+    bool_t t_result;
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    expect_assert_failure(_avl_tree_elem_compare_auxiliary(pt_avl_tree, &n_first, NULL, &t_result));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_elem_compare_auxiliary__null_output(void** state)
+{
+    int n_first;
+    int n_second;
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    expect_assert_failure(_avl_tree_elem_compare_auxiliary(pt_avl_tree, &n_first, &n_second, NULL));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_elem_compare_auxiliary__non_inited(void** state)
+{
+    int n_first;
+    int n_second;
+    bool_t b_result;
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    pt_avl_tree->_t_avlroot._un_height = 9;
+    expect_assert_failure(_avl_tree_elem_compare_auxiliary(pt_avl_tree, &n_first, &n_second, &b_result));
+    pt_avl_tree->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_elem_compare_auxiliary__int(void** state)
+{
+    int n_first = 5;
+    int n_second = 9;
+    bool_t b_result = false;
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    _avl_tree_elem_compare_auxiliary(pt_avl_tree, &n_first, &n_second, &b_result);
+    assert_true(b_result);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+static void _test__avl_tree_elem_compare_auxiliary__cstr_compare(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = strcmp((char*)cpv_first, (char*)cpv_second) < 0 ? true : false;
+}
+void test__avl_tree_elem_compare_auxiliary__cstr(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+    bool_t b_result = false;
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("char*");
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    string_init_cstr(pstr_first, "abc");
+    string_init_cstr(pstr_second, "xyz");
+    _avl_tree_elem_compare_auxiliary(pt_avl_tree, pstr_first, pstr_second, &b_result);
+    assert_true(b_result);
+
+    _avl_tree_destroy(pt_avl_tree);
 }
 

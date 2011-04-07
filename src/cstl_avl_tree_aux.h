@@ -203,12 +203,29 @@ extern _avlnode_t* _avl_tree_get_max_avlnode(const _avlnode_t* cpt_root);
  */
 extern _avlnode_t* _avl_tree_rebalance(_avlnode_t* pt_root);
 
-/* initialize element auxiliary function */
+/**
+ * Initialize element auxiliary function
+ * @param pt_avl_tree           avl tree.
+ * @param pt_node               avl node.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL or pt_node == NULL, then the behavior is undefine. pt_avl_tree must be initialized or
+ *          created by _create_avl_tree(), otherwise the behavior is undefined.
+ */
 extern void _avl_tree_init_elem_auxiliary(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_node);
 
-/* element compare function auxiliary */
-extern void _avl_tree_elem_compare_auxiliary(const _avl_tree_t* cpt_avl_tree,
-    const void* cpv_first, const void* cpv_second, void* pv_output);
+/**
+ * Element compare function auxiliary
+ * @param cpt_avl_tree          avl tree.
+ * @param cpv_first             first element.
+ * @param cpv_second            second element.
+ * @param pv_output             output.
+ * @return void.
+ * @remarks if cpt_avl_tree == NULL or cpv_first == NULL or cpv_second == NULL or pv_output == NULL, the behavior is
+ *          undefined. cpt_avl_tree must be initialized or created by _create_avl_tree(), otherwise the behavior is
+ *          undefined.
+ */
+extern void _avl_tree_elem_compare_auxiliary(
+    const _avl_tree_t* cpt_avl_tree, const void* cpv_first, const void* cpv_second, void* pv_output);
 
 #ifdef __cplusplus
 }

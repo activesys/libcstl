@@ -157,6 +157,28 @@ void test__avl_tree_rebalance__lr(void** state);
 void test__avl_tree_rebalance__rr(void** state);
 void test__avl_tree_rebalance__rl(void** state);
 void test__avl_tree_rebalance__no_rotate(void** state);
+/*
+ * test _avl_tree_init_elem_auxiliary
+ */
+UT_CASE_DECLARATION(_avl_tree_init_elem_auxiliary)
+void test__avl_tree_init_elem_auxiliary__null_avl_tree(void** state);
+void test__avl_tree_init_elem_auxiliary__null_node(void** state);
+void test__avl_tree_init_elem_auxiliary__non_inited(void** state);
+void test__avl_tree_init_elem_auxiliary__c_builtin(void** state);
+void test__avl_tree_init_elem_auxiliary__cstr(void** state);
+void test__avl_tree_init_elem_auxiliary__cstl_builtin(void** state);
+void test__avl_tree_init_elem_auxiliary__user_define(void** state);
+/*
+ * test _avl_tree_elem_compare_auxiliary
+ */
+UT_CASE_DECLARATION(_avl_tree_elem_compare_auxiliary)
+void test__avl_tree_elem_compare_auxiliary__null_avl_tree(void** state);
+void test__avl_tree_elem_compare_auxiliary__null_first(void** state);
+void test__avl_tree_elem_compare_auxiliary__null_second(void** state);
+void test__avl_tree_elem_compare_auxiliary__null_output(void** state);
+void test__avl_tree_elem_compare_auxiliary__non_inited(void** state);
+void test__avl_tree_elem_compare_auxiliary__int(void** state);
+void test__avl_tree_elem_compare_auxiliary__cstr(void** state);
 
 #define UT_CSTL_AVL_TREE_AUX_CASE\
     UT_SUIT_BEGIN(cstl_avl_tree_aux, test__avl_tree_is_created__null_avl_tree),\
@@ -246,6 +268,20 @@ void test__avl_tree_rebalance__no_rotate(void** state);
     UT_CASE(test__avl_tree_rebalance__rr),\
     UT_CASE(test__avl_tree_rebalance__rl),\
     UT_CASE(test__avl_tree_rebalance__no_rotate),\
+    UT_CASE_BEGIN(_avl_tree_init_elem_auxiliary, test__avl_tree_init_elem_auxiliary__null_avl_tree),\
+    UT_CASE(test__avl_tree_init_elem_auxiliary__null_node),\
+    UT_CASE(test__avl_tree_init_elem_auxiliary__non_inited),\
+    UT_CASE(test__avl_tree_init_elem_auxiliary__c_builtin),\
+    UT_CASE(test__avl_tree_init_elem_auxiliary__cstr),\
+    UT_CASE(test__avl_tree_init_elem_auxiliary__cstl_builtin),\
+    UT_CASE(test__avl_tree_init_elem_auxiliary__user_define),\
+    UT_CASE_BEGIN(_avl_tree_elem_compare_auxiliary, test__avl_tree_elem_compare_auxiliary__null_avl_tree),\
+    UT_CASE(test__avl_tree_elem_compare_auxiliary__null_first),\
+    UT_CASE(test__avl_tree_elem_compare_auxiliary__null_second),\
+    UT_CASE(test__avl_tree_elem_compare_auxiliary__null_output),\
+    UT_CASE(test__avl_tree_elem_compare_auxiliary__non_inited),\
+    UT_CASE(test__avl_tree_elem_compare_auxiliary__int),\
+    UT_CASE(test__avl_tree_elem_compare_auxiliary__cstr),\
 
 #endif /* _UT_CSTL_AVL_TREE_AUX_H_ */
 
