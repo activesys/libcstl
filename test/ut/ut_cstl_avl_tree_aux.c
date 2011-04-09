@@ -9,6 +9,7 @@
 #include "cstl/cstl_iterator.h"
 #include "cstl/cstl_avl_tree_iterator.h"
 #include "cstl/cstl_avl_tree_private.h"
+#include "cstl/cstl_avl_tree.h"
 #include "cstl_avl_tree_aux.h"
 #include "cstl/cstring.h"
 

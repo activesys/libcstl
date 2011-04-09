@@ -17,7 +17,7 @@ UT_SUIT_DEFINATION(cstl_list_iterator, _create_list_iterator);
 /*
  * test _create_list_iterator
  */
-UT_CASE_DECLARATION(_create_list_iterator)
+UT_CASE_DEFINATION(_create_list_iterator)
 void test__create_list_iterator__successfully(void** state)
 {
     list_iterator_t it_iter = _create_list_iterator();

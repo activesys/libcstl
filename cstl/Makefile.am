@@ -18,6 +18,7 @@ cstlinclude_HEADERS =	calgorithm.h \
 			cstl_algobase.h \
 			cstl_algobase_private.h \
 			cstl_alloc.h \
+			cstl_avl_tree.h \
 			cstl_avl_tree_iterator.h \
 			cstl_avl_tree_private.h \
 			cstl_basic_string.h \

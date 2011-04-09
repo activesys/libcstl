@@ -281,7 +281,7 @@ void test__avl_tree_elem_compare_auxiliary__cstr(void** state);
     UT_CASE(test__avl_tree_elem_compare_auxiliary__null_output),\
     UT_CASE(test__avl_tree_elem_compare_auxiliary__non_inited),\
     UT_CASE(test__avl_tree_elem_compare_auxiliary__int),\
-    UT_CASE(test__avl_tree_elem_compare_auxiliary__cstr),\
+    UT_CASE(test__avl_tree_elem_compare_auxiliary__cstr)
 
 #endif /* _UT_CSTL_AVL_TREE_AUX_H_ */
 

@@ -38,12 +38,22 @@ typedef iterator_t _avl_tree_reverse_iterator_t;
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Iterator support.
+/**
+ * Create avl tree iterator.
+ * @return avl tree iterator.
+ * @remarks the returned iterator is invalid iterator.
  */
 extern _avl_tree_iterator_t _create_avl_tree_iterator(void);
-extern void _avl_tree_iterator_get_value(
-    _avl_tree_iterator_t t_iter, void* pv_value);
+
+/**
+ * Get data value referenced by iterator.
+ * @param it_iter    avl tree iterator.
+ * @param pv_value   data value buffer.
+ * @return void.
+ * @remarks it_iter must be valid avl tree iterator, otherwise the behavior is undefined. if pv_value == NULL, then the
+ *          behavior is undefined.
+ */
+extern void _avl_tree_iterator_get_value(_avl_tree_iterator_t t_iter, void* pv_value);
 extern const void* _avl_tree_iterator_get_pointer(_avl_tree_iterator_t t_iter); 
 extern _avl_tree_iterator_t _avl_tree_iterator_next(_avl_tree_iterator_t t_iter);
 extern _avl_tree_iterator_t _avl_tree_iterator_prev(_avl_tree_iterator_t t_iter);

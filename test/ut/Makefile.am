@@ -6,7 +6,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_algobase.c \
 	     $(srcdir)/../../src/cstl_function.c \
              $(srcdir)/../../src/cstl_iterator.c \
-             $(srcdir)/../../src/cstl_avl_tree.c $(srcdir)/../../src/cstl_avl_tree_aux.c \
+             $(srcdir)/../../src/cstl_avl_tree.c $(srcdir)/../../src/cstl_avl_tree_iterator.c \
+	     $(srcdir)/../../src/cstl_avl_tree_private.c $(srcdir)/../../src/cstl_avl_tree_aux.c \
 	     $(srcdir)/../../src/cstl_basic_string.c $(srcdir)/../../src/cstl_basic_string_iterator.c \
 	     $(srcdir)/../../src/cstl_basic_string_private.c $(srcdir)/../../src/cstl_basic_string_aux.c \
 	     $(srcdir)/../../src/cstl_deque.c $(srcdir)/../../src/cstl_deque_iterator.c \
@@ -63,7 +64,9 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_basic_string.c ut_cstl_basic_string.h \
 	     ut_cstl_string_private.c ut_cstl_string_private.h \
 	     ut_cstl_string.c ut_cstl_string.h \
-	     ut_cstl_avl_tree_aux.c ut_cstl_avl_tree_aux.h
+	     ut_cstl_avl_tree_aux.c ut_cstl_avl_tree_aux.h \
+	     ut_cstl_avl_tree_private.c ut_cstl_avl_tree_private.h \
+	     ut_cstl_avl_tree_iterator.c ut_cstl_avl_tree_iterator.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)
