@@ -250,6 +250,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\cstl\cstl_avl_tree.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\cstl\cstl_avl_tree_iterator.h"
 				>
 			</File>
@@ -549,6 +553,22 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_avl_tree.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_avl_tree_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_avl_tree_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_avl_tree_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_avl_tree_private.c"
 				>
 			</File>
 			<File

@@ -198,6 +198,22 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_avl_tree_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_avl_tree_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_avl_tree_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_avl_tree_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_basic_string.c"
 				>
 			</File>
@@ -469,6 +485,10 @@
 			</File>
 			<File
 				RelativePath="..\..\cstl\cstl_alloc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\cstl\cstl_avl_tree.h"
 				>
 			</File>
 			<File
@@ -752,6 +772,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\test\ut\ut_cstl_avl_tree_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_avl_tree_iterator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_avl_tree_private.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\test\ut\ut_cstl_basic_string.h"
 				>
 			</File>
@@ -869,6 +901,18 @@
 			</File>
 			<File
 				RelativePath="..\..\test\ut\ut_cstl_alloc_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_avl_tree_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_avl_tree_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_avl_tree_private.c"
 				>
 			</File>
 			<File
