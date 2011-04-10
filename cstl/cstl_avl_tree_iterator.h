@@ -53,16 +53,60 @@ extern _avl_tree_iterator_t _create_avl_tree_iterator(void);
  * @remarks it_iter must be valid avl tree iterator, otherwise the behavior is undefined. if pv_value == NULL, then the
  *          behavior is undefined.
  */
-extern void _avl_tree_iterator_get_value(_avl_tree_iterator_t t_iter, void* pv_value);
-extern const void* _avl_tree_iterator_get_pointer(_avl_tree_iterator_t t_iter); 
-extern _avl_tree_iterator_t _avl_tree_iterator_next(_avl_tree_iterator_t t_iter);
-extern _avl_tree_iterator_t _avl_tree_iterator_prev(_avl_tree_iterator_t t_iter);
-extern bool_t _avl_tree_iterator_equal(
-    _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond);
-extern int _avl_tree_iterator_distance(
-    _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond);
-extern bool_t _avl_tree_iterator_before(
-    _avl_tree_iterator_t t_iterfirst, _avl_tree_iterator_t t_itersecond);
+extern void _avl_tree_iterator_get_value(_avl_tree_iterator_t it_iter, void* pv_value);
+
+/**
+ * Get data value pointer referenced by iterator.
+ * @param it_iter    avl tree iterator.
+ * @return void.
+ * @remarks it_iter must be valid avl tree iterator, otherwise the behavior is undefined.
+ */
+extern const void* _avl_tree_iterator_get_pointer(_avl_tree_iterator_t it_iter); 
+
+/**
+ * Return iterator reference next element.
+ * @param  it_iter    current iterator.
+ * @return next iterator.
+ * @remarks it_iter and next iterator must be valid iterator, otherwise the behavior is undefined.
+ */
+extern _avl_tree_iterator_t _avl_tree_iterator_next(_avl_tree_iterator_t it_iter);
+
+/**
+ * Return iterator reference previous element.
+ * @param  it_iter    current iterator.
+ * @return previous iterator.
+ * @remarks it_iter and previous iterator must be valid iterator, otherwise the behavior is undefined.
+ */
+extern _avl_tree_iterator_t _avl_tree_iterator_prev(_avl_tree_iterator_t it_iter);
+
+/**
+ * Test the two avl tree iterator are equal.
+ * @param it_first    avl tree iterator.
+ * @param it_second   avl tree iterator.
+ * @return true, if the two iterator are equal, else return false.
+ * @remarks the two iterator must be valid avl tree iterator, otherwise the behavior is undefined.
+ */
+extern bool_t _avl_tree_iterator_equal(_avl_tree_iterator_t it_first, _avl_tree_iterator_t it_second);
+
+/**
+ * Calculate distance between two iterators.
+ * @param it_first    avl tree iterator.
+ * @param it_second   avl tree iterator.
+ * @return distance.
+ * @remarks the two iterator must be valid avl tree iterator, and must be belong to same avl tree, otherwise the behavior
+ *          is undefined. the result distance may be less than 0, equal to 0 or greater than 0.
+ */
+extern int _avl_tree_iterator_distance(_avl_tree_iterator_t it_first, _avl_tree_iterator_t it_second);
+
+/**
+ * Test the first iterator is before the second.
+ * @param it_first    avl tree iterator.
+ * @param it_second   avl tree iterator.
+ * @return true, if the first iterator is before the second, else return false.
+ * @remarks the two iterator must be valid avl tree iterator, and must be belong to same avl tree, otherwise the behavior
+ *          is undefined.
+ */
+extern bool_t _avl_tree_iterator_before(_avl_tree_iterator_t it_first, _avl_tree_iterator_t it_second);
 
 #ifdef __cplusplus
 }
