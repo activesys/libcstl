@@ -96,7 +96,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_string_private.$(OBJEXT) \
 	ut-ut_cstl_string.$(OBJEXT) ut-ut_cstl_avl_tree_aux.$(OBJEXT) \
 	ut-ut_cstl_avl_tree_private.$(OBJEXT) \
-	ut-ut_cstl_avl_tree_iterator.$(OBJEXT)
+	ut-ut_cstl_avl_tree_iterator.$(OBJEXT) \
+	ut-ut_cstl_avl_tree.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -299,7 +300,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_string.c ut_cstl_string.h \
 	     ut_cstl_avl_tree_aux.c ut_cstl_avl_tree_aux.h \
 	     ut_cstl_avl_tree_private.c ut_cstl_avl_tree_private.h \
-	     ut_cstl_avl_tree_iterator.c ut_cstl_avl_tree_iterator.h
+	     ut_cstl_avl_tree_iterator.c ut_cstl_avl_tree_iterator.h \
+	     ut_cstl_avl_tree.c ut_cstl_avl_tree.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -412,6 +414,7 @@ include ./$(DEPDIR)/ut-cstl_vector_iterator.Po
 include ./$(DEPDIR)/ut-cstl_vector_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_alloc.Po
 include ./$(DEPDIR)/ut-ut_cstl_alloc_aux.Po
+include ./$(DEPDIR)/ut-ut_cstl_avl_tree.Po
 include ./$(DEPDIR)/ut-ut_cstl_avl_tree_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_avl_tree_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_avl_tree_private.Po
@@ -1654,6 +1657,20 @@ ut-ut_cstl_avl_tree_iterator.obj: ut_cstl_avl_tree_iterator.c
 #	source='ut_cstl_avl_tree_iterator.c' object='ut-ut_cstl_avl_tree_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree_iterator.obj `if test -f 'ut_cstl_avl_tree_iterator.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_iterator.c'; fi`
+
+ut-ut_cstl_avl_tree.o: ut_cstl_avl_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree.Tpo -c -o ut-ut_cstl_avl_tree.o `test -f 'ut_cstl_avl_tree.c' || echo '$(srcdir)/'`ut_cstl_avl_tree.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree.Po
+#	source='ut_cstl_avl_tree.c' object='ut-ut_cstl_avl_tree.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree.o `test -f 'ut_cstl_avl_tree.c' || echo '$(srcdir)/'`ut_cstl_avl_tree.c
+
+ut-ut_cstl_avl_tree.obj: ut_cstl_avl_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree.Tpo -c -o ut-ut_cstl_avl_tree.obj `if test -f 'ut_cstl_avl_tree.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree.Po
+#	source='ut_cstl_avl_tree.c' object='ut-ut_cstl_avl_tree.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree.obj `if test -f 'ut_cstl_avl_tree.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

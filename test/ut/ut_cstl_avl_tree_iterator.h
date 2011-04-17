@@ -122,7 +122,7 @@ void test__avl_tree_iterator_before__false(void** state);
     UT_CASE(test__avl_tree_iterator_before__not_same_avl_tree),\
     UT_CASE(test__avl_tree_iterator_before__equal),\
     UT_CASE(test__avl_tree_iterator_before__true),\
-    UT_CASE(test__avl_tree_iterator_before__false),\
+    UT_CASE(test__avl_tree_iterator_before__false)
 
 #endif /* _UT_CSTL_AVL_TREE_ITERATOR_H_ */
 

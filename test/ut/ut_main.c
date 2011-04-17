@@ -38,6 +38,7 @@
 #include "ut_cstl_avl_tree_aux.h"
 #include "ut_cstl_avl_tree_private.h"
 #include "ut_cstl_avl_tree_iterator.h"
+#include "ut_cstl_avl_tree.h"
 
 int main(int argc, char* argv[])
 {
@@ -72,7 +73,8 @@ int main(int argc, char* argv[])
         UT_CSTL_STRING_CASE,
         UT_CSTL_AVL_TREE_AUX_CASE,
         UT_CSTL_AVL_TREE_PRIVATE_CASE,
-        UT_CSTL_AVL_TREE_ITERATOR_CASE
+        UT_CSTL_AVL_TREE_ITERATOR_CASE,
+        UT_CSTL_AVL_TREE_CASE
     };
 
     return run_tests(tests);

@@ -36,8 +36,12 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create, initialization and destroy operation functions.
+/**
+ * Create avl tree container.
+ * @param s_typename        element type name.
+ * @return if create avl tree successfully return avl tree pointer, otherwise return NULL.
+ * @remarks s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name, libcstl builtin
+ *          typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern _avl_tree_t* _create_avl_tree(const char* s_typename);
 extern void _avl_tree_init(_avl_tree_t* pt_avl_tree, binary_function_t t_compare);

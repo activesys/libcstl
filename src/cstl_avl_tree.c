@@ -44,7 +44,9 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-/* avl private function */
+/**
+ * Create avl tree container.
+ */
 _avl_tree_t* _create_avl_tree(const char* s_typename)
 {
     _avl_tree_t* pt_avl_tree = NULL;
