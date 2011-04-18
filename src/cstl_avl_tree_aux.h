@@ -108,6 +108,17 @@ extern bool_t _avl_tree_avlnode_belong_to_avl_tree(const _avlnode_t* cpt_root, c
 extern bool_t _avl_tree_same_type(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
 
 /**
+ * Test the type and compare function that saved in the avl tree container is same.
+ * @param cpt_first             first avl tree.
+ * @param cpt_second            second avl tree.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, the behavior is undefined. the two avl tree must be initialized
+ *          or created by _create_avl_tree(), otherwise the behavior is undefined. if cpt_first == cpt_second then
+ *          return true.
+ */
+extern bool_t _avl_tree_same_type_ex(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
+
+/**
  * Travel subtree for find the value in preorder.
  * @param cpt_avl_tree          avl tree.
  * @param cpt_root              root of sub avl tree.

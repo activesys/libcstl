@@ -65,15 +65,13 @@ _avl_tree_t* _create_avl_tree(const char* s_typename)
     return pt_avl_tree;
 }
 
+/**
+ * Initialize avl tree container.
+ */
 void _avl_tree_init(_avl_tree_t* pt_avl_tree, binary_function_t t_compare)
 {
-    assert(pt_avl_tree != NULL &&
-           pt_avl_tree->_t_nodecount == 0 &&
-           pt_avl_tree->_t_avlroot._pt_parent == NULL &&
-           pt_avl_tree->_t_avlroot._pt_left == NULL &&
-           pt_avl_tree->_t_avlroot._pt_right == NULL &&
-           pt_avl_tree->_t_avlroot._un_height == 0 &&
-           pt_avl_tree->_t_compare == NULL);
+    assert(pt_avl_tree != NULL);
+    assert(_avl_tree_is_created(pt_avl_tree));
 
     pt_avl_tree->_t_avlroot._pt_left = &pt_avl_tree->_t_avlroot;
     pt_avl_tree->_t_avlroot._pt_right = &pt_avl_tree->_t_avlroot;
@@ -94,19 +92,23 @@ void _avl_tree_destroy(_avl_tree_t* pt_avl_tree)
     free(pt_avl_tree);
 }
 
-void _avl_tree_init_copy(
-    _avl_tree_t* pt_avl_tree_dest, const _avl_tree_t* cpt_avl_tree_src)
+/**
+ * Initialize avl tree container with avl tree.
+ */
+void _avl_tree_init_copy(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src)
 {
-    assert(pt_avl_tree_dest != NULL && cpt_avl_tree_src != NULL);
-    assert(pt_avl_tree_dest->_t_typeinfo._pt_type == cpt_avl_tree_src->_t_typeinfo._pt_type);
+    assert(pt_dest != NULL);
+    assert(cpt_src != NULL);
+    assert(_avl_tree_is_created(pt_dest));
+    assert(_avl_tree_is_inited(cpt_src));
+    assert(_avl_tree_same_type(pt_dest, cpt_src));
 
     /* init the avl tree with the src avl tree */
-    _avl_tree_init(pt_avl_tree_dest,  cpt_avl_tree_src->_t_compare);
+    _avl_tree_init(pt_dest,  cpt_src->_t_compare);
     /* insert all elements of src into dest */
-    if(!_avl_tree_empty(cpt_avl_tree_src))
+    if(!_avl_tree_empty(cpt_src))
     {
-        _avl_tree_insert_equal_range(pt_avl_tree_dest,
-            _avl_tree_begin(cpt_avl_tree_src), _avl_tree_end(cpt_avl_tree_src));
+        _avl_tree_insert_equal_range(pt_dest, _avl_tree_begin(cpt_src), _avl_tree_end(cpt_src));
     }
 }
 
@@ -150,7 +152,7 @@ void _avl_tree_init_copy_range_ex(
 
 void _avl_tree_assign(_avl_tree_t* pt_avl_tree_dest, const _avl_tree_t* cpt_avl_tree_src)
 {
-    assert(_avl_tree_same_type(pt_avl_tree_dest, cpt_avl_tree_src));
+    assert(_avl_tree_same_type_ex(pt_avl_tree_dest, cpt_avl_tree_src));
 
     /* clear dest avl tree */
     _avl_tree_clear(pt_avl_tree_dest);
@@ -437,7 +439,7 @@ bool_t _avl_tree_equal(
     assert(cpt_avl_treefirst != NULL && cpt_avl_treesecond != NULL);
     
     /* test type */
-    if(!_avl_tree_same_type(cpt_avl_treefirst, cpt_avl_treesecond))
+    if(!_avl_tree_same_type_ex(cpt_avl_treefirst, cpt_avl_treesecond))
     {
         return false;
     }
@@ -485,7 +487,7 @@ bool_t _avl_tree_less(
     _avl_tree_iterator_t t_second;
     bool_t              t_result = false;
 
-    assert(_avl_tree_same_type(cpt_avl_treefirst, cpt_avl_treesecond));
+    assert(_avl_tree_same_type_ex(cpt_avl_treefirst, cpt_avl_treesecond));
 
     /* test each element */
     for(t_first = _avl_tree_begin(cpt_avl_treefirst), 

@@ -44,15 +44,33 @@ extern "C" {
  *          typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern _avl_tree_t* _create_avl_tree(const char* s_typename);
+
+/**
+ * Initialize avl tree container.
+ * @param pt_avl_tree       avl tree container.
+ * @param t_compare         compare function.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL, then the behavior is undefined, pt_avl_tree must be created by _create_avl_tree(),
+ *          otherwise the behavior is undefined. if t_compare == NULL, then the default compare function is used.
+ */
 extern void _avl_tree_init(_avl_tree_t* pt_avl_tree, binary_function_t t_compare);
-extern void _avl_tree_destroy(_avl_tree_t* pt_avl_tree);
-extern void _avl_tree_init_copy(
-    _avl_tree_t* pt_avl_tree_dest, const _avl_tree_t* cpt_avl_tree_src);
+
+/**
+ * Initialize avl tree container with avl tree.
+ * @param pt_dest           destrnation avl tree.
+ * @param cpt_src           source avl tree.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, then the behavior is undefined, pt_dest must be created by
+ *          _create_avl_tree(), cpt_src must be initialized, otherwise the behavior is undefined. the element type of
+ *          pt_dest and cpt_src must be same, otherwise the behavior is undefine.
+ */
+extern void _avl_tree_init_copy(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src);
 extern void _avl_tree_init_copy_range_ex(
     _avl_tree_t* pt_avl_tree_dest, _avl_tree_iterator_t t_begin, _avl_tree_iterator_t t_end,
     binary_function_t t_compare);
 extern void _avl_tree_init_copy_range(
     _avl_tree_t* pt_avl_tree_dest, _avl_tree_iterator_t t_begin, _avl_tree_iterator_t t_end);
+extern void _avl_tree_destroy(_avl_tree_t* pt_avl_tree);
 
 /*
  * Assign operator functions.

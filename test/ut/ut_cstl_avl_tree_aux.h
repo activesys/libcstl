@@ -71,7 +71,17 @@ void test__avl_tree_same_type__non_created_first(void** state);
 void test__avl_tree_same_type__non_created_second(void** state);
 void test__avl_tree_same_type__same_type(void** state);
 void test__avl_tree_same_type__not_same_type(void** state);
-void test__avl_tree_same_type__not_same_compare(void** state);
+/*
+ * test _avl_tree_same_type_ex
+ */
+UT_CASE_DECLARATION(_avl_tree_same_type_ex)
+void test__avl_tree_same_type_ex__null_first(void** state);
+void test__avl_tree_same_type_ex__null_second(void** state);
+void test__avl_tree_same_type_ex__non_created_first(void** state);
+void test__avl_tree_same_type_ex__non_created_second(void** state);
+void test__avl_tree_same_type_ex__same_type(void** state);
+void test__avl_tree_same_type_ex__not_same_type(void** state);
+void test__avl_tree_same_type_ex__not_same_compare(void** state);
 /*
  * test _avl_tree_find_value
  */
@@ -226,7 +236,13 @@ void test__avl_tree_elem_compare_auxiliary__cstr(void** state);
     UT_CASE(test__avl_tree_same_type__non_created_second),\
     UT_CASE(test__avl_tree_same_type__same_type),\
     UT_CASE(test__avl_tree_same_type__not_same_type),\
-    UT_CASE(test__avl_tree_same_type__not_same_compare),\
+    UT_CASE_BEGIN(_avl_tree_same_type_ex, test__avl_tree_same_type_ex__null_first),\
+    UT_CASE(test__avl_tree_same_type_ex__null_second),\
+    UT_CASE(test__avl_tree_same_type_ex__non_created_first),\
+    UT_CASE(test__avl_tree_same_type_ex__non_created_second),\
+    UT_CASE(test__avl_tree_same_type_ex__same_type),\
+    UT_CASE(test__avl_tree_same_type_ex__not_same_type),\
+    UT_CASE(test__avl_tree_same_type_ex__not_same_compare),\
     UT_CASE_BEGIN(_avl_tree_find_value, test__avl_tree_find_value__null_avl_tree),\
     UT_CASE(test__avl_tree_find_value__non_inited),\
     UT_CASE(test__avl_tree_find_value__null_value),\

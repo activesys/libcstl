@@ -622,7 +622,73 @@ void test__avl_tree_same_type__not_same_type(void** state)
     _avl_tree_destroy(pt_second);
 }
 
-void test__avl_tree_same_type__not_same_compare(void** state)
+/*
+ * test _avl_tree_same_type_ex
+ */
+UT_CASE_DEFINATION(_avl_tree_same_type_ex)
+void test__avl_tree_same_type_ex__null_first(void** state)
+{
+    _avl_tree_t avltree;
+
+    expect_assert_failure(_avl_tree_same_type_ex(NULL, &avltree));
+}
+
+void test__avl_tree_same_type_ex__null_second(void** state)
+{
+    _avl_tree_t avltree;
+
+    expect_assert_failure(_avl_tree_same_type_ex(&avltree, NULL));
+}
+
+void test__avl_tree_same_type_ex__non_created_first(void** state)
+{
+    _avl_tree_t* pt_first = _create_avl_tree("int");
+    _avl_tree_t* pt_second = _create_avl_tree("int");
+
+    pt_first->_t_avlroot._un_height = 5;
+    expect_assert_failure(_avl_tree_same_type_ex(pt_first, pt_second));
+    pt_first->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_first);
+    _avl_tree_destroy(pt_second);
+}
+
+void test__avl_tree_same_type_ex__non_created_second(void** state)
+{
+    _avl_tree_t* pt_first = _create_avl_tree("int");
+    _avl_tree_t* pt_second = _create_avl_tree("int");
+
+    pt_second->_t_avlroot._un_height = 5;
+    expect_assert_failure(_avl_tree_same_type_ex(pt_first, pt_second));
+    pt_second->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_first);
+    _avl_tree_destroy(pt_second);
+}
+
+void test__avl_tree_same_type_ex__same_type(void** state)
+{
+    _avl_tree_t* pt_first = _create_avl_tree("int");
+    _avl_tree_t* pt_second = _create_avl_tree("int");
+
+    assert_true(_avl_tree_same_type_ex(pt_first, pt_second));
+
+    _avl_tree_destroy(pt_first);
+    _avl_tree_destroy(pt_second);
+}
+
+void test__avl_tree_same_type_ex__not_same_type(void** state)
+{
+    _avl_tree_t* pt_first = _create_avl_tree("int");
+    _avl_tree_t* pt_second = _create_avl_tree("double");
+
+    assert_false(_avl_tree_same_type_ex(pt_first, pt_second));
+
+    _avl_tree_destroy(pt_first);
+    _avl_tree_destroy(pt_second);
+}
+
+void test__avl_tree_same_type_ex__not_same_compare(void** state)
 {
     _avl_tree_t* pt_first = _create_avl_tree("int");
     _avl_tree_t* pt_second = _create_avl_tree("int");
@@ -630,7 +696,7 @@ void test__avl_tree_same_type__not_same_compare(void** state)
 
     _avl_tree_init(pt_first, NULL);
     _avl_tree_init(pt_second, t_compare);
-    assert_false(_avl_tree_same_type(pt_first, pt_second));
+    assert_false(_avl_tree_same_type_ex(pt_first, pt_second));
 
     _avl_tree_destroy(pt_first);
     _avl_tree_destroy(pt_second);

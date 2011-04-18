@@ -163,10 +163,33 @@ bool_t _avl_tree_same_type(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_
     assert(_avl_tree_is_inited(cpt_first) || _avl_tree_is_created(cpt_first));
     assert(_avl_tree_is_inited(cpt_second) || _avl_tree_is_created(cpt_second));
 
-    return (cpt_first->_t_compare == cpt_second->_t_compare) &&
-           (cpt_first->_t_typeinfo._t_style == cpt_second->_t_typeinfo._t_style) &&
+    if(cpt_first == cpt_second)
+    {
+        return true;
+    }
+
+    return (cpt_first->_t_typeinfo._t_style == cpt_second->_t_typeinfo._t_style) &&
            (cpt_first->_t_typeinfo._pt_type == cpt_second->_t_typeinfo._pt_type) &&
            _type_is_same(_GET_AVL_TREE_TYPE_NAME(cpt_first), _GET_AVL_TREE_TYPE_NAME(cpt_second));
+}
+
+/**
+ * Test the type and compare function that saved in the avl tree container is same.
+ */
+bool_t _avl_tree_same_type_ex(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second)
+{
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
+    assert(_avl_tree_is_inited(cpt_first) || _avl_tree_is_created(cpt_first));
+    assert(_avl_tree_is_inited(cpt_second) || _avl_tree_is_created(cpt_second));
+
+    if(cpt_first == cpt_second)
+    {
+        return true;
+    }
+
+    return (cpt_first->_t_compare == cpt_second->_t_compare) &&
+           _avl_tree_same_type(cpt_first, cpt_second);
 }
 
 /**
