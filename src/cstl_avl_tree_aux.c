@@ -133,6 +133,17 @@ bool_t _avl_tree_same_avl_tree_iterator_type(const _avl_tree_t* cpt_avl_tree, _a
 }
 
 /**
+ * Test the type and compare function that saved in the avl tree container and referenced by it_iter are same.
+ */
+bool_t _avl_tree_same_avl_tree_iterator_type_ex(const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t it_iter)
+{
+    assert(cpt_avl_tree != NULL);
+    assert( _GET_AVL_TREE(it_iter) != NULL);
+
+    return _avl_tree_same_type_ex(cpt_avl_tree, _GET_AVL_TREE(it_iter));
+}
+
+/**
  * Test avl node is within the sub avl tree.
  */
 bool_t _avl_tree_avlnode_belong_to_avl_tree(const _avlnode_t* cpt_root, const _avlnode_t* cpt_pos)

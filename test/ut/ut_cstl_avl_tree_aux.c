@@ -500,6 +500,83 @@ void test__avl_tree_same_avl_tree_iterator_type__not_same(void** state)
 }
 
 /*
+ * test _avl_tree_same_avl_tree_iterator_type_ex
+ */
+UT_CASE_DEFINATION(_avl_tree_same_avl_tree_iterator_type_ex)
+void test__avl_tree_same_avl_tree_iterator_type_ex__null_avl_tree(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    expect_assert_failure(_avl_tree_same_avl_tree_iterator_type_ex(NULL, _avl_tree_begin(pt_avl_tree)));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_same_avl_tree_iterator_type_ex__non_created(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_t avltree;
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    avltree._t_avlroot._un_height = 123;
+    expect_assert_failure(_avl_tree_same_avl_tree_iterator_type_ex(&avltree, _avl_tree_begin(pt_avl_tree)));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_same_avl_tree_iterator_type_ex__invalid_iter(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    it_iter = _avl_tree_begin(pt_avl_tree);
+    it_iter._t_pos._t_treepos._pt_tree = NULL;
+    expect_assert_failure(_avl_tree_same_avl_tree_iterator_type_ex(pt_avl_tree, it_iter));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_same_avl_tree_iterator_type_ex__same_container(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    it_iter = _avl_tree_begin(pt_avl_tree);
+    assert_true(_avl_tree_same_avl_tree_iterator_type_ex(pt_avl_tree, it_iter));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_same_avl_tree_iterator_type_ex__same(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_t* pt_iter = _create_avl_tree("int");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    _avl_tree_init(pt_iter, NULL);
+    assert_true(_avl_tree_same_avl_tree_iterator_type_ex(pt_avl_tree, _avl_tree_begin(pt_iter)));
+
+    _avl_tree_destroy(pt_avl_tree);
+    _avl_tree_destroy(pt_iter);
+}
+
+void test__avl_tree_same_avl_tree_iterator_type_ex__not_same(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_t* pt_iter = _create_avl_tree("double");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+    _avl_tree_init(pt_iter, NULL);
+    assert_false(_avl_tree_same_avl_tree_iterator_type_ex(pt_avl_tree, _avl_tree_begin(pt_iter)));
+
+    _avl_tree_destroy(pt_avl_tree);
+    _avl_tree_destroy(pt_iter);
+}
+
+/*
  * test _avl_tree_avlnode_belong_to_avl_tree
  */
 UT_CASE_DEFINATION(_avl_tree_avlnode_belong_to_avl_tree)

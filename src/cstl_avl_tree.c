@@ -112,41 +112,44 @@ void _avl_tree_init_copy(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src)
     }
 }
 
-void _avl_tree_init_copy_range(
-    _avl_tree_t* pt_avl_tree_dest, _avl_tree_iterator_t t_begin, _avl_tree_iterator_t t_end)
+/**
+ * Initialize avl tree container with specific range.
+ */
+void _avl_tree_init_copy_range(_avl_tree_t* pt_dest, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end)
 {
-    assert(pt_avl_tree_dest != NULL);
-    assert(pt_avl_tree_dest->_t_typeinfo._pt_type ==
-           _GET_AVL_TREE(t_begin)->_t_typeinfo._pt_type);
-    assert(_avl_tree_iterator_equal(t_begin, t_end) ||
-           _avl_tree_iterator_before(t_begin, t_end));
+    assert(pt_dest != NULL);
+    assert(_avl_tree_is_created(pt_dest));
+    assert(_avl_tree_same_avl_tree_iterator_type(pt_dest, it_begin));
+    assert(_avl_tree_same_avl_tree_iterator_type(pt_dest, it_end));
+    assert(_avl_tree_iterator_equal(it_begin, it_end) || _avl_tree_iterator_before(it_begin, it_end));
 
     /* init the avl tree with the src avl tree */
-    _avl_tree_init(pt_avl_tree_dest,
-        _GET_AVL_TREE_TYPE_LESS_FUNCTION(_GET_AVL_TREE(t_begin)));
+    _avl_tree_init(pt_dest, _GET_AVL_TREE_TYPE_LESS_FUNCTION(_GET_AVL_TREE(it_begin)));
     /* insert all elements of src into dest */
-    if(!_avl_tree_empty(_GET_AVL_TREE(t_begin)))
+    if(!_avl_tree_empty(_GET_AVL_TREE(it_begin)))
     {
-        _avl_tree_insert_equal_range(pt_avl_tree_dest, t_begin, t_end);
+        _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
     }
 }
 
+/**
+ * Initialize avl tree container with specific range and compare function.
+ */
 void _avl_tree_init_copy_range_ex(
-    _avl_tree_t* pt_avl_tree_dest, _avl_tree_iterator_t t_begin, _avl_tree_iterator_t t_end,
-    binary_function_t t_compare)
+    _avl_tree_t* pt_dest, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end, binary_function_t t_compare)
 {
-    assert(pt_avl_tree_dest != NULL);
-    assert(pt_avl_tree_dest->_t_typeinfo._pt_type ==
-           _GET_AVL_TREE(t_begin)->_t_typeinfo._pt_type);
-    assert(_avl_tree_iterator_equal(t_begin, t_end) ||
-           _avl_tree_iterator_before(t_begin, t_end));
+    assert(pt_dest != NULL);
+    assert(_avl_tree_is_created(pt_dest));
+    assert(_avl_tree_same_avl_tree_iterator_type(pt_dest, it_begin));
+    assert(_avl_tree_same_avl_tree_iterator_type(pt_dest, it_end));
+    assert(_avl_tree_iterator_equal(it_begin, it_end) || _avl_tree_iterator_before(it_begin, it_end));
 
     /* init the avl tree with the src avl tree */
-    _avl_tree_init(pt_avl_tree_dest, t_compare);
+    _avl_tree_init(pt_dest, t_compare);
     /* insert all elements of src into dest */
-    if(!_avl_tree_empty(_GET_AVL_TREE(t_begin)))
+    if(!_avl_tree_empty(_GET_AVL_TREE(it_begin)))
     {
-        _avl_tree_insert_equal_range(pt_avl_tree_dest, t_begin, t_end);
+        _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
     }
 }
 
@@ -1010,7 +1013,7 @@ void _avl_tree_erase_range(
     _avl_tree_iterator_t t_iterator;
     _avl_tree_iterator_t t_next;
 
-    assert(_avl_tree_same_avl_tree_iterator_type(pt_avl_tree, t_begin));
+    assert(_avl_tree_same_avl_tree_iterator_type_ex(pt_avl_tree, t_begin));
     assert(_avl_tree_iterator_equal(t_begin, t_end) ||
            _avl_tree_iterator_before(t_begin, t_end));
 

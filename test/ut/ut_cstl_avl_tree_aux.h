@@ -53,6 +53,16 @@ void test__avl_tree_same_avl_tree_iterator_type__same_container(void** state);
 void test__avl_tree_same_avl_tree_iterator_type__same(void** state);
 void test__avl_tree_same_avl_tree_iterator_type__not_same(void** state);
 /*
+ * test _avl_tree_same_avl_tree_iterator_type_ex
+ */
+UT_CASE_DECLARATION(_avl_tree_same_avl_tree_iterator_type_ex)
+void test__avl_tree_same_avl_tree_iterator_type_ex__null_avl_tree(void** state);
+void test__avl_tree_same_avl_tree_iterator_type_ex__non_created(void** state);
+void test__avl_tree_same_avl_tree_iterator_type_ex__invalid_iter(void** state);
+void test__avl_tree_same_avl_tree_iterator_type_ex__same_container(void** state);
+void test__avl_tree_same_avl_tree_iterator_type_ex__same(void** state);
+void test__avl_tree_same_avl_tree_iterator_type_ex__not_same(void** state);
+/*
  * test _avl_tree_avlnode_belong_to_avl_tree
  */
 UT_CASE_DECLARATION(_avl_tree_avlnode_belong_to_avl_tree)
@@ -225,6 +235,12 @@ void test__avl_tree_elem_compare_auxiliary__cstr(void** state);
     UT_CASE(test__avl_tree_same_avl_tree_iterator_type__same_container),\
     UT_CASE(test__avl_tree_same_avl_tree_iterator_type__same),\
     UT_CASE(test__avl_tree_same_avl_tree_iterator_type__not_same),\
+    UT_CASE_BEGIN(_avl_tree_same_avl_tree_iterator_type_ex, test__avl_tree_same_avl_tree_iterator_type_ex__null_avl_tree),\
+    UT_CASE(test__avl_tree_same_avl_tree_iterator_type_ex__non_created),\
+    UT_CASE(test__avl_tree_same_avl_tree_iterator_type_ex__invalid_iter),\
+    UT_CASE(test__avl_tree_same_avl_tree_iterator_type_ex__same_container),\
+    UT_CASE(test__avl_tree_same_avl_tree_iterator_type_ex__same),\
+    UT_CASE(test__avl_tree_same_avl_tree_iterator_type_ex__not_same),\
     UT_CASE_BEGIN(_avl_tree_avlnode_belong_to_avl_tree, test__avl_tree_avlnode_belong_to_avl_tree__null_root),\
     UT_CASE(test__avl_tree_avlnode_belong_to_avl_tree__null_pos),\
     UT_CASE(test__avl_tree_avlnode_belong_to_avl_tree__equal),\
