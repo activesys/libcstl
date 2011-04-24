@@ -92,13 +92,25 @@ extern void _avl_tree_init_copy_range(_avl_tree_t* pt_dest, _avl_tree_iterator_t
  */
 extern void _avl_tree_init_copy_range_ex(
     _avl_tree_t* pt_dest, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end, binary_function_t t_compare);
+
+/**
+ * Destroy avl tree.
+ * @param pt_avl_tree       avl tree container.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL, then the behavior is undefined, the avl tree must be initialized or created by
+ *          _create_avl_tree(), otherwise the behavior is undefined.
+ */
 extern void _avl_tree_destroy(_avl_tree_t* pt_avl_tree);
 
-/*
- * Assign operator functions.
+/**
+ * Assign avl tree container.
+ * @param pt_dest           destination avl tree container.
+ * @param cpt_src           source avl tree container.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, the the behavior is undefined. two avl tree must be initialized, otherwise
+ *          the behavior is undefined. if _avl_tree_equal(pt_dest, cpt_src), the function dest nothing.
  */
-extern void _avl_tree_assign(
-    _avl_tree_t* pt_avl_tree_dest, const _avl_tree_t* cpt_avl_tree_src);
+extern void _avl_tree_assign(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src);
 
 /*
  * _avl_tree_t size operation functions.

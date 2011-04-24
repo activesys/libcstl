@@ -57,6 +57,30 @@ void test__avl_tree_init_copy_range_ex__invalid_range_not_same_type(void** state
 void test__avl_tree_init_copy_range_ex__empty(void** state);
 void test__avl_tree_init_copy_range_ex__non_empty(void** state);
 void test__avl_tree_init_copy_range_ex__compare(void** state);
+/*
+ * test _avl_tree_destroy
+ */
+UT_CASE_DECLARATION(_avl_tree_destroy)
+void test__avl_tree_destroy__null_avl_tree(void** state);
+void test__avl_tree_destroy__non_created(void** state);
+void test__avl_tree_destroy__created(void** state);
+void test__avl_tree_destroy__inited(void** state);
+/*
+ * test _avl_tree_assign
+ */
+UT_CASE_DECLARATION(_avl_tree_assign)
+void test__avl_tree_assign__null_dest(void** state);
+void test__avl_tree_assign__null_src(void** state);
+void test__avl_tree_assign__non_created_dest(void** state);
+void test__avl_tree_assign__non_init_src(void** state);
+void test__avl_tree_assign__not_same_type(void** state);
+void test__avl_tree_assign__empty_empty(void** state);
+void test__avl_tree_assign__non_empty_empty(void** state);
+void test__avl_tree_assign__non_empty_non_empty_less(void** state);
+void test__avl_tree_assign__non_empty_non_empty_size_equal(void** state);
+void test__avl_tree_assign__non_empty_non_empty_equal(void** state);
+void test__avl_tree_assign__non_empty_non_empty_greater(void** state);
+void test__avl_tree_assign__empty_non_empty(void** state);
 
 #define UT_CSTL_AVL_TREE_CASE\
     UT_SUIT_BEGIN(cstl_avl_tree, test__create_avl_tree__null_typename),\
@@ -94,6 +118,22 @@ void test__avl_tree_init_copy_range_ex__compare(void** state);
     UT_CASE(test__avl_tree_init_copy_range_ex__empty),\
     UT_CASE(test__avl_tree_init_copy_range_ex__non_empty),\
     UT_CASE(test__avl_tree_init_copy_range_ex__compare),\
+    UT_CASE_BEGIN(_avl_tree_destroy, test__avl_tree_destroy__null_avl_tree),\
+    UT_CASE(test__avl_tree_destroy__non_created),\
+    UT_CASE(test__avl_tree_destroy__created),\
+    UT_CASE(test__avl_tree_destroy__inited),\
+    UT_CASE_BEGIN(_avl_tree_assign, test__avl_tree_assign__null_dest),\
+    UT_CASE(test__avl_tree_assign__null_src),\
+    UT_CASE(test__avl_tree_assign__non_created_dest),\
+    UT_CASE(test__avl_tree_assign__non_init_src),\
+    UT_CASE(test__avl_tree_assign__not_same_type),\
+    UT_CASE(test__avl_tree_assign__empty_empty),\
+    UT_CASE(test__avl_tree_assign__non_empty_empty),\
+    UT_CASE(test__avl_tree_assign__non_empty_non_empty_less),\
+    UT_CASE(test__avl_tree_assign__non_empty_non_empty_size_equal),\
+    UT_CASE(test__avl_tree_assign__non_empty_non_empty_equal),\
+    UT_CASE(test__avl_tree_assign__non_empty_non_empty_greater),\
+    UT_CASE(test__avl_tree_assign__empty_non_empty),\
 
 #endif /* _UT_CSTL_AVL_TREE_H_ */
 
