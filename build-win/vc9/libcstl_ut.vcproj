@@ -772,6 +772,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\test\ut\ut_cstl_avl_tree.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\test\ut\ut_cstl_avl_tree_aux.h"
 				>
 			</File>
@@ -901,6 +905,10 @@
 			</File>
 			<File
 				RelativePath="..\..\test\ut\ut_cstl_alloc_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_avl_tree.c"
 				>
 			</File>
 			<File

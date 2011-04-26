@@ -81,6 +81,14 @@ void test__avl_tree_assign__non_empty_non_empty_size_equal(void** state);
 void test__avl_tree_assign__non_empty_non_empty_equal(void** state);
 void test__avl_tree_assign__non_empty_non_empty_greater(void** state);
 void test__avl_tree_assign__empty_non_empty(void** state);
+/*
+ * test _avl_tree_size
+ */
+UT_CASE_DECLARATION(_avl_tree_size)
+void test__avl_tree_size__null_avl_tree(void** state);
+void test__avl_tree_size__non_inited(void** state);
+void test__avl_tree_size__empty(void** state);
+void test__avl_tree_size__non_empty(void** state);
 
 #define UT_CSTL_AVL_TREE_CASE\
     UT_SUIT_BEGIN(cstl_avl_tree, test__create_avl_tree__null_typename),\
@@ -134,6 +142,10 @@ void test__avl_tree_assign__empty_non_empty(void** state);
     UT_CASE(test__avl_tree_assign__non_empty_non_empty_equal),\
     UT_CASE(test__avl_tree_assign__non_empty_non_empty_greater),\
     UT_CASE(test__avl_tree_assign__empty_non_empty),\
+    UT_CASE_BEGIN(_avl_tree_size, test__avl_tree_size__null_avl_tree),\
+    UT_CASE(test__avl_tree_size__non_inited),\
+    UT_CASE(test__avl_tree_size__empty),\
+    UT_CASE(test__avl_tree_size__non_empty),\
 
 #endif /* _UT_CSTL_AVL_TREE_H_ */
 

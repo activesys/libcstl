@@ -112,8 +112,12 @@ extern void _avl_tree_destroy(_avl_tree_t* pt_avl_tree);
  */
 extern void _avl_tree_assign(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src);
 
-/*
- * _avl_tree_t size operation functions.
+/**
+ * Get the number of elements int the avl tree.
+ * @param cpt_avl_tree      avl tree container.
+ * @return the number of elements in the avl tree.
+ * @remarks if cpt_avl_tree == NULL, then the behavior is undefined, the cpt_avl_tree must be initialized, otherwise the
+ *          behavior is undefined.
  */
 extern size_t _avl_tree_size(const _avl_tree_t* cpt_avl_tree);
 extern bool_t _avl_tree_empty(const _avl_tree_t* cpt_avl_tree);

@@ -193,9 +193,13 @@ bool_t _avl_tree_empty(const _avl_tree_t* cpt_avl_tree)
     }
 }
 
+/**
+ * Get the number of elements int the avl tree.
+ */
 size_t _avl_tree_size(const _avl_tree_t* cpt_avl_tree)
 {
     assert(cpt_avl_tree != NULL);
+    assert(_avl_tree_is_inited(cpt_avl_tree));
 
     return cpt_avl_tree->_t_nodecount;
 }
