@@ -89,6 +89,61 @@ void test__avl_tree_size__null_avl_tree(void** state);
 void test__avl_tree_size__non_inited(void** state);
 void test__avl_tree_size__empty(void** state);
 void test__avl_tree_size__non_empty(void** state);
+/*
+ * test _avl_tree_emtpy
+ */
+UT_CASE_DECLARATION(_avl_tree_empty)
+void test__avl_tree_empty__null_avl_tree(void** state);
+void test__avl_tree_empty__non_inited(void** state);
+void test__avl_tree_empty__empty(void** state);
+void test__avl_tree_empty__non_empty(void** state);
+/*
+ * test _avl_tree_max_size
+ */
+UT_CASE_DECLARATION(_avl_tree_max_size)
+void test__avl_tree_max_size__null_avl_tree(void** state);
+void test__avl_tree_max_size__non_inited(void** state);
+void test__avl_tree_max_size__empty(void** state);
+void test__avl_tree_max_size__non_empty(void** state);
+/*
+ * test _avl_tree_begin
+ */
+UT_CASE_DECLARATION(_avl_tree_begin)
+void test__avl_tree_begin__null_avl_tree(void** state);
+void test__avl_tree_begin__non_inited(void** state);
+void test__avl_tree_begin__empty(void** state);
+void test__avl_tree_begin__non_empty(void** state);
+/*
+ * test _avl_tree_end
+ */
+UT_CASE_DECLARATION(_avl_tree_end)
+void test__avl_tree_end__null_avl_tree(void** state);
+void test__avl_tree_end__non_inited(void** state);
+void test__avl_tree_end__empty(void** state);
+void test__avl_tree_end__non_empty(void** state);
+/*
+ * test _avl_tree_key_comp
+ */
+UT_CASE_DECLARATION(_avl_tree_key_comp)
+void test__avl_tree_key_comp__null_avl_tree(void** state);
+void test__avl_tree_key_comp__non_inited(void** state);
+void test__avl_tree_key_comp__default_key_comp(void** state);
+void test__avl_tree_key_comp__user_define_key_comp(void** state);
+/*
+ * test _avl_tree_find
+ */
+UT_CASE_DECLARATION(_avl_tree_find)
+void test__avl_tree_find__null_avl_tree(void** state);
+void test__avl_tree_find__null_value(void** state);
+void test__avl_tree_find__non_inited(void** state);
+void test__avl_tree_find__c_builtin_find(void** state);
+void test__avl_tree_find__c_builtin_not_find(void** state);
+void test__avl_tree_find__cstr_find(void** state);
+void test__avl_tree_find__cstr_not_find(void** state);
+void test__avl_tree_find__libcstl_builtin_find(void** state);
+void test__avl_tree_find__libcstl_builtin_not_find(void** state);
+void test__avl_tree_find__user_define_find(void** state);
+void test__avl_tree_find__user_define_not_find(void** state);
 
 #define UT_CSTL_AVL_TREE_CASE\
     UT_SUIT_BEGIN(cstl_avl_tree, test__create_avl_tree__null_typename),\
@@ -146,6 +201,37 @@ void test__avl_tree_size__non_empty(void** state);
     UT_CASE(test__avl_tree_size__non_inited),\
     UT_CASE(test__avl_tree_size__empty),\
     UT_CASE(test__avl_tree_size__non_empty),\
+    UT_CASE_BEGIN(_avl_tree_empty, test__avl_tree_empty__null_avl_tree),\
+    UT_CASE(test__avl_tree_empty__non_inited),\
+    UT_CASE(test__avl_tree_empty__empty),\
+    UT_CASE(test__avl_tree_empty__non_empty),\
+    UT_CASE_BEGIN(_avl_tree_max_size, test__avl_tree_max_size__null_avl_tree),\
+    UT_CASE(test__avl_tree_max_size__non_inited),\
+    UT_CASE(test__avl_tree_max_size__empty),\
+    UT_CASE(test__avl_tree_max_size__non_empty),\
+    UT_CASE_BEGIN(_avl_tree_begin, test__avl_tree_begin__null_avl_tree),\
+    UT_CASE(test__avl_tree_begin__non_inited),\
+    UT_CASE(test__avl_tree_begin__empty),\
+    UT_CASE(test__avl_tree_begin__non_empty),\
+    UT_CASE_BEGIN(_avl_tree_end, test__avl_tree_end__null_avl_tree),\
+    UT_CASE(test__avl_tree_end__non_inited),\
+    UT_CASE(test__avl_tree_end__empty),\
+    UT_CASE(test__avl_tree_end__non_empty),\
+    UT_CASE_BEGIN(_avl_tree_key_comp, test__avl_tree_key_comp__null_avl_tree),\
+    UT_CASE(test__avl_tree_key_comp__non_inited),\
+    UT_CASE(test__avl_tree_key_comp__default_key_comp),\
+    UT_CASE(test__avl_tree_key_comp__user_define_key_comp),\
+    UT_CASE_BEGIN(_avl_tree_find, test__avl_tree_find__null_avl_tree),\
+    UT_CASE(test__avl_tree_find__null_value),\
+    UT_CASE(test__avl_tree_find__non_inited),\
+    UT_CASE(test__avl_tree_find__c_builtin_find),\
+    UT_CASE(test__avl_tree_find__c_builtin_not_find),\
+    UT_CASE(test__avl_tree_find__cstr_find),\
+    UT_CASE(test__avl_tree_find__cstr_not_find),\
+    UT_CASE(test__avl_tree_find__libcstl_builtin_find),\
+    UT_CASE(test__avl_tree_find__libcstl_builtin_not_find),\
+    UT_CASE(test__avl_tree_find__user_define_find),\
+    UT_CASE(test__avl_tree_find__user_define_not_find),\
 
 #endif /* _UT_CSTL_AVL_TREE_H_ */
 

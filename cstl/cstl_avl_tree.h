@@ -120,28 +120,65 @@ extern void _avl_tree_assign(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src);
  *          behavior is undefined.
  */
 extern size_t _avl_tree_size(const _avl_tree_t* cpt_avl_tree);
+
+/**
+ * Test if a avl tree is empty.
+ * @param cpt_avl_tree      avl tree container.
+ * @return true if the avl tree is empty, otherwise return false.
+ * @remarks if cpt_avl_tree == NULL, then the behavior is undefined, the cpt_avl_tree must be initialized, otherwise the
+ *          behavior is undefined.
+ */
 extern bool_t _avl_tree_empty(const _avl_tree_t* cpt_avl_tree);
+
+/**
+ * Get the maximum number of elements int the avl tree.
+ * @param cpt_avl_tree      avl tree container.
+ * @return the maximum number of elements in the avl tree.
+ * @remarks if cpt_avl_tree == NULL, then the behavior is undefined, the cpt_avl_tree must be initialized, otherwise the
+ *          behavior is undefined.
+ */
 extern size_t _avl_tree_max_size(const _avl_tree_t* cpt_avl_tree);
 
-/*
- * Iterator support.
+/**
+ * Return an iterator that addresses the first element in the avl tree.
+ * @param cpt_avl_tree      avl tree container.
+ * @return an iterator that addresses the first element in the avl tree.
+ * @remarks if cpt_avl_tree == NULL, the behavior is undefined. cpt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined. return _avl_tree_end(), if the avl tree is empty.
  */
 extern _avl_tree_iterator_t _avl_tree_begin(const _avl_tree_t* cpt_avl_tree);
+
+/**
+ * Return an iterator that addresses the location succeeding the last element in the avl tree.
+ * @param cpt_avl_tree      avl tree container.
+ * @return an iterator that addresses location succeeding the last element in the avl tree.
+ * @remarks if cpt_avl_tree == NULL, the behavior is undefined. cpt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined.
+ */
 extern _avl_tree_iterator_t _avl_tree_end(const _avl_tree_t* cpt_avl_tree);
 /* private */
 extern _avl_tree_reverse_iterator_t _avl_tree_rbegin(const _avl_tree_t* cpt_avl_tree);
 extern _avl_tree_reverse_iterator_t _avl_tree_rend(const _avl_tree_t* cpt_avl_tree);
 
-/*
+/**
  * Return the compare function of key.
+ * @param cpt_avl_tree      avl tree container.
+ * @return compare function.
+ * @remarks if cpt_avl_tree == NULL, the behavior is undefined. cpt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined.
  */
 extern binary_function_t _avl_tree_key_comp(const _avl_tree_t* cpt_avl_tree);
 
-/*
- * Find operation functions.
+/**
+ * Find specific element.
+ * @param cpt_avl_tree      avl tree container.
+ * @param cpv_value         specific element.
+ * @return iterator addresses the sprcific element in the avl tree, otherwise return _avl_tree_end().
+ * @remarks if cpt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
+ *          otherwise the behavior is undefined. the type of specific element and cpt_avl_tree must be same, otherwise the
+ *          behavior is undefined.
  */
-extern _avl_tree_iterator_t _avl_tree_find(
-    const _avl_tree_t* cpt_avl_tree, const void* cpv_value);
+extern _avl_tree_iterator_t _avl_tree_find(const _avl_tree_t* cpt_avl_tree, const void* cpv_value);
 
 /*
  * Remove all elements.
