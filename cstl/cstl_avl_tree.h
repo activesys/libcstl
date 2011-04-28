@@ -122,7 +122,7 @@ extern void _avl_tree_assign(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src);
 extern size_t _avl_tree_size(const _avl_tree_t* cpt_avl_tree);
 
 /**
- * Test if a avl tree is empty.
+ * Test if an avl tree is empty.
  * @param cpt_avl_tree      avl tree container.
  * @return true if the avl tree is empty, otherwise return false.
  * @remarks if cpt_avl_tree == NULL, then the behavior is undefined, the cpt_avl_tree must be initialized, otherwise the
@@ -180,41 +180,135 @@ extern binary_function_t _avl_tree_key_comp(const _avl_tree_t* cpt_avl_tree);
  */
 extern _avl_tree_iterator_t _avl_tree_find(const _avl_tree_t* cpt_avl_tree, const void* cpv_value);
 
-/*
- * Remove all elements.
+/**
+ * Erases all the elements of an avl tree.
+ * @param pt_avl_tree       avl tree container.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL, the behavior is undefined. pt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined.
  */
 extern void _avl_tree_clear(_avl_tree_t* pt_avl_tree);
 
-/*
- * Count, lower bound, upper bound and equal range operation functions.
+/**
+ * Return the number of specific elements in an avl tree
+ * @param cpt_avl_tree      avl tree container.
+ * @param cpv_value         specific element.
+ * @return the number of specific elements.
+ * @remarks if cpt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
+ *          otherwise the behavior is undefined. the type of specific element and cpt_avl_tree must be same, otherwise the
+ *          behavior is undefined.
  */
 extern size_t _avl_tree_count(const _avl_tree_t* cpt_avl_tree, const void* cpv_value);
-extern _avl_tree_iterator_t _avl_tree_lower_bound(
-    const _avl_tree_t* cpt_avl_tree, const void* cpv_value);
-extern _avl_tree_iterator_t _avl_tree_upper_bound(
-    const _avl_tree_t* cpt_avl_tree, const void* cpv_value);
+
+/**
+ * Return an iterator to the first element that is equal to or greater than a specific element.
+ * @param cpt_avl_tree      avl tree container.
+ * @param cpv_value         specific element.
+ * @return an iterator to the first element that is equal to or greater than a specific element.
+ * @remarks if cpt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
+ *          otherwise the behavior is undefined. the type of specific element and cpt_avl_tree must be same, otherwise the
+ *          behavior is undefined.
+ */
+extern _avl_tree_iterator_t _avl_tree_lower_bound(const _avl_tree_t* cpt_avl_tree, const void* cpv_value);
+
+/**
+ * Return an iterator to the first element that is greater than a specific element.
+ * @param cpt_avl_tree      avl tree container.
+ * @param cpv_value         specific element.
+ * @return an iterator to the first element that is greater than a specific element.
+ * @remarks if cpt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
+ *          otherwise the behavior is undefined. the type of specific element and cpt_avl_tree must be same, otherwise the
+ *          behavior is undefined.
+ */
+extern _avl_tree_iterator_t _avl_tree_upper_bound(const _avl_tree_t* cpt_avl_tree, const void* cpv_value);
+
+/**
+ * Return an iterator range that is equal to a specific element.
+ * @param cpt_avl_tree      avl tree container.
+ * @param cpv_value         specific element.
+ * @return an iterator range that is equal to a specific element.
+ * @remarks if cpt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
+ *          otherwise the behavior is undefined. the type of specific element and cpt_avl_tree must be same, otherwise the
+ *          behavior is undefined.
+ */
 extern range_t _avl_tree_equal_range(const _avl_tree_t* cpt_avl_tree, const void* cpv_value);
 
-/*
- * Relationship operator functions.
+/**
+ * Tests if the two avl tree are equal.
+ * @param cpt_first         first avl tree container.
+ * @param cpt_second        second avl tree container.
+ * @return if first avl tree equal to second avl tree, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
+ *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, then return false.
+ *          if cpt_first == cpt_second, then return true.
  */
-extern bool_t _avl_tree_equal(
-    const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_not_equal(
-    const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_less(
-    const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_greater(
-    const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_less_equal(
-    const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_greater_equal(
-    const _avl_tree_t* cpt_avl_treefirst, const _avl_tree_t* cpt_avl_treesecond);
+extern bool_t _avl_tree_equal(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
 
-/*
- * Swap the datas of first avl_tree and second avl_tree.
+/**
+ * Tests if the two avl tree are not equal.
+ * @param cpt_first         first avl tree container.
+ * @param cpt_second        second avl tree container.
+ * @return if first avl tree not equal to second avl tree, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
+ *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, then return false.
+ *          if cpt_first == cpt_second, then return false.
  */
-extern void _avl_tree_swap(_avl_tree_t* pt_avl_treefirst, _avl_tree_t* pt_avl_treesecond);
+extern bool_t _avl_tree_not_equal(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
+
+/**
+ * Tests if the first avl tree is less than the second avl tree.
+ * @param cpt_first         first avl tree container.
+ * @param cpt_second        second avl tree container.
+ * @return if first avl tree is less than the second avl tree, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
+ *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, the behavior is
+ *          undefined. if cpt_first == cpt_second, then return false.
+ */
+extern bool_t _avl_tree_less(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
+
+/**
+ * Tests if the first avl tree is less than or equal to the second avl tree.
+ * @param cpt_first         first avl tree container.
+ * @param cpt_second        second avl tree container.
+ * @return if first avl tree is less than or equal to the second avl tree, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
+ *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, the behavior is
+ *          undefined. if cpt_first == cpt_second, then return true.
+ */
+extern bool_t _avl_tree_less_equal(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
+
+/**
+ * Tests if the first avl tree is greater than the second avl tree.
+ * @param cpt_first         first avl tree container.
+ * @param cpt_second        second avl tree container.
+ * @return if first avl tree is greater than the second avl tree, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
+ *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, the behavior is
+ *          undefined. if cpt_first == cpt_second, then return false.
+ */
+extern bool_t _avl_tree_greater(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
+
+/**
+ * Tests if the first avl tree is greater than or equal to the second avl tree.
+ * @param cpt_first         first avl tree container.
+ * @param cpt_second        second avl tree container.
+ * @return if first avl tree is greater than or equal to the second avl tree, then return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
+ *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, the behavior is
+ *          undefined. if cpt_first == cpt_second, then return true.
+ */
+extern bool_t _avl_tree_greater_equal(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
+
+/**
+ * Swap the datas of first avl_tree and second avl_tree.
+ * @param cpt_first         first avl tree container.
+ * @param cpt_second        second avl tree container.
+ * @return void.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
+ *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, the behavior is
+ *          undefined. if _avl_tree_equal(cpt_first, cpt_second), then the function do nothing.
+ */
+extern void _avl_tree_swap(_avl_tree_t* pt_first, _avl_tree_t* pt_second);
 
 /*
  * Insert operation functions.
