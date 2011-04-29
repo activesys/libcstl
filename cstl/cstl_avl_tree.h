@@ -301,10 +301,10 @@ extern bool_t _avl_tree_greater_equal(const _avl_tree_t* cpt_first, const _avl_t
 
 /**
  * Swap the datas of first avl_tree and second avl_tree.
- * @param cpt_first         first avl tree container.
- * @param cpt_second        second avl tree container.
+ * @param pt_first          first avl tree container.
+ * @param pt_second         second avl tree container.
  * @return void.
- * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
+ * @remarks if pt_first == NULL or pt_second == NULL, then the behavior is undefined. the two avl tree must be
  *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, the behavior is
  *          undefined. if _avl_tree_equal(cpt_first, cpt_second), then the function do nothing.
  */
@@ -312,10 +312,10 @@ extern void _avl_tree_swap(_avl_tree_t* pt_first, _avl_tree_t* pt_second);
 
 /**
  * Inserts an unique element into a avl tree.
- * @param cpt_avl_tree      avl tree container.
+ * @param pt_avl_tree       avl tree container.
  * @param cpv_value         specific element.
  * @return an iterator addresses the inserted element, or avl tree end if insert failed.
- * @remarks if cpt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
+ * @remarks if pt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
  *          otherwise the behavior is undefined. the type of specific element and cpt_avl_tree must be same, otherwise the
  *          behavior is undefined.
  */
@@ -323,16 +323,27 @@ extern _avl_tree_iterator_t _avl_tree_insert_unique(_avl_tree_t* pt_avl_tree, co
 
 /**
  * Inserts an element into a avl tree.
- * @param cpt_avl_tree      avl tree container.
+ * @param pt_avl_tree       avl tree container.
  * @param cpv_value         specific element.
  * @return an iterator addresses the inserted element, or avl tree end if insert failed.
- * @remarks if cpt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
+ * @remarks if pt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
  *          otherwise the behavior is undefined. the type of specific element and cpt_avl_tree must be same, otherwise the
  *          behavior is undefined.
  */
 extern _avl_tree_iterator_t _avl_tree_insert_equal(_avl_tree_t* pt_avl_tree, const void* cpv_value);
+
+/**
+ * Inserts an range of unique element into a avl tree.
+ * @param pt_avl_tree       avl tree container.
+ * @param it_begin          begin of specific range.
+ * @param it_end            end of specific range.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL then the behavior is undefined. pt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined. the type of [it_begin, it_end) and cpt_avl_tree must be same, otherwise the behavior is undefined.
+ *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
+ */
 extern void _avl_tree_insert_unique_range(
-    _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t t_begin, _avl_tree_iterator_t t_end);
+    _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end);
 extern void _avl_tree_insert_equal_range(
     _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t t_begin, _avl_tree_iterator_t t_end);
 

@@ -362,6 +362,21 @@ void test__avl_tree_insert_equal__libcstl_builtin_equal(void** state);
 void test__avl_tree_insert_equal__libcstl_builtin_not_equal(void** state);
 void test__avl_tree_insert_equal__user_define_equal(void** state);
 void test__avl_tree_insert_equal__user_define_not_equal(void** state);
+/*
+ * test _avl_tree_insert_unique_range
+ */
+UT_CASE_DECLARATION(_avl_tree_insert_unique_range)
+void test__avl_tree_insert_unique_range__null_avl_tree(void** state);
+void test__avl_tree_insert_unique_range__non_inited(void** state);
+void test__avl_tree_insert_unique_range__invalid_begin(void** state);
+void test__avl_tree_insert_unique_range__invalid_end(void** state);
+void test__avl_tree_insert_unique_range__invalid_range(void** state);
+void test__avl_tree_insert_unique_range__not_same_type(void** state);
+void test__avl_tree_insert_unique_range__empty(void** state);
+void test__avl_tree_insert_unique_range__non_empty_equal(void** state);
+void test__avl_tree_insert_unique_range__non_empty_dest_src_dup(void** state);
+void test__avl_tree_insert_unique_range__non_empty_src_dup(void** state);
+void test__avl_tree_insert_unique_range__compare(void** state);
 
 #define UT_CSTL_AVL_TREE_CASE\
     UT_SUIT_BEGIN(cstl_avl_tree, test__create_avl_tree__null_typename),\
@@ -612,6 +627,17 @@ void test__avl_tree_insert_equal__user_define_not_equal(void** state);
     UT_CASE(test__avl_tree_insert_equal__libcstl_builtin_not_equal),\
     UT_CASE(test__avl_tree_insert_equal__user_define_equal),\
     UT_CASE(test__avl_tree_insert_equal__user_define_not_equal),\
+    UT_CASE_BEGIN(_avl_tree_insert_unique_range, test__avl_tree_insert_unique_range__null_avl_tree),\
+    UT_CASE(test__avl_tree_insert_unique_range__non_inited),\
+    UT_CASE(test__avl_tree_insert_unique_range__invalid_begin),\
+    UT_CASE(test__avl_tree_insert_unique_range__invalid_end),\
+    UT_CASE(test__avl_tree_insert_unique_range__invalid_range),\
+    UT_CASE(test__avl_tree_insert_unique_range__not_same_type),\
+    UT_CASE(test__avl_tree_insert_unique_range__empty),\
+    UT_CASE(test__avl_tree_insert_unique_range__non_empty_equal),\
+    UT_CASE(test__avl_tree_insert_unique_range__non_empty_dest_src_dup),\
+    UT_CASE(test__avl_tree_insert_unique_range__non_empty_src_dup),\
+    UT_CASE(test__avl_tree_insert_unique_range__compare),\
 
 #endif /* _UT_CSTL_AVL_TREE_H_ */
 
