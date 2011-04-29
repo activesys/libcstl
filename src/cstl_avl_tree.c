@@ -655,32 +655,41 @@ void _avl_tree_swap(_avl_tree_t* pt_first, _avl_tree_t* pt_second)
     }
 }
 
+/**
+ * Inserts an element into a avl tree.
+ */
 _avl_tree_iterator_t _avl_tree_insert_equal(_avl_tree_t* pt_avl_tree, const void* cpv_value)
 {
-    _avl_tree_insert_result_t    t_insert_result;
-    _avl_tree_iterator_t t_iterator = _create_avl_tree_iterator();
+    _avl_tree_insert_result_t t_result;
+    _avl_tree_iterator_t      it_iter = _create_avl_tree_iterator();
 
-    assert(pt_avl_tree != NULL && cpv_value != NULL);
+    assert(pt_avl_tree != NULL);
+    assert(cpv_value != NULL);
+    assert(_avl_tree_is_inited(pt_avl_tree));
 
-    t_insert_result = _avl_tree_insert_avlnode(
-        pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, cpv_value);
-    assert(t_insert_result._pt_adjust != NULL && t_insert_result._pt_new != NULL);
+    t_result = _avl_tree_insert_avlnode(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, cpv_value);
+    assert(t_result._pt_adjust != NULL && t_result._pt_new != NULL);
 
-    pt_avl_tree->_t_avlroot._pt_parent = t_insert_result._pt_adjust;
+    pt_avl_tree->_t_avlroot._pt_parent = t_result._pt_adjust;
     pt_avl_tree->_t_avlroot._pt_parent->_pt_parent = &pt_avl_tree->_t_avlroot;
     pt_avl_tree->_t_avlroot._pt_left = _avl_tree_get_min_avlnode(pt_avl_tree->_t_avlroot._pt_parent);
     pt_avl_tree->_t_avlroot._pt_right = _avl_tree_get_max_avlnode(pt_avl_tree->_t_avlroot._pt_parent);
     pt_avl_tree->_t_nodecount++;
 
-    _GET_AVL_TREE_POINTER(t_iterator) = pt_avl_tree;
-    _GET_AVL_TREE_COREPOS(t_iterator) = (char*)t_insert_result._pt_new;
+    _GET_AVL_TREE_POINTER(it_iter) = pt_avl_tree;
+    _GET_AVL_TREE_COREPOS(it_iter) = (char*)t_result._pt_new;
 
-    return t_iterator;
+    return it_iter;
 }
 
+/**
+ * Inserts an unique element into a avl tree.
+ */
 _avl_tree_iterator_t _avl_tree_insert_unique(_avl_tree_t* pt_avl_tree, const void* cpv_value)
 {
-    assert(pt_avl_tree != NULL && cpv_value != NULL);
+    assert(pt_avl_tree != NULL);
+    assert(cpv_value != NULL);
+    assert(_avl_tree_is_inited(pt_avl_tree));
 
     /* if the avl tree is empty */
     if(_avl_tree_empty(pt_avl_tree))
@@ -690,9 +699,9 @@ _avl_tree_iterator_t _avl_tree_insert_unique(_avl_tree_t* pt_avl_tree, const voi
     else
     {
         /* find value in avl tree */
-        _avl_tree_iterator_t t_iter = _avl_tree_find(pt_avl_tree, cpv_value);
+        _avl_tree_iterator_t it_iter = _avl_tree_find(pt_avl_tree, cpv_value);
         /* if the value is exist */
-        if(!_avl_tree_iterator_equal(t_iter, _avl_tree_end(pt_avl_tree)))
+        if(!_avl_tree_iterator_equal(it_iter, _avl_tree_end(pt_avl_tree)))
         {
             return _avl_tree_end(pt_avl_tree);
         }
