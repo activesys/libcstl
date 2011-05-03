@@ -344,15 +344,49 @@ extern _avl_tree_iterator_t _avl_tree_insert_equal(_avl_tree_t* pt_avl_tree, con
  */
 extern void _avl_tree_insert_unique_range(
     _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end);
+
+/**
+ * Inserts an range into a avl tree.
+ * @param pt_avl_tree       avl tree container.
+ * @param it_begin          begin of specific range.
+ * @param it_end            end of specific range.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL then the behavior is undefined. pt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined. the type of [it_begin, it_end) and cpt_avl_tree must be same, otherwise the behavior is undefined.
+ *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
+ */
 extern void _avl_tree_insert_equal_range(
-    _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t t_begin, _avl_tree_iterator_t t_end);
+    _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end);
 
 /*
- * Erase operation functions.
+ * Erase an element in an avl tree from specificed position.
+ * @param pt_avl_tree       avl tree container.
+ * @param it_pos            specificed position.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL then the behavior is undefined. pt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined. it_pos must be valid iterator, otherwise the behavior is undefined.
  */
-extern void _avl_tree_erase_pos(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t t_pos);
-extern void _avl_tree_erase_range(
-    _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t t_begin, _avl_tree_iterator_t t_end);
+extern void _avl_tree_erase_pos(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_pos);
+
+/*
+ * Erase a range of element in an avl tree.
+ * @param pt_avl_tree       avl tree container.
+ * @param it_begin          begin of specific range.
+ * @param it_end            end of specific range.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL then the behavior is undefined. pt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined. [it_begin, it_end) must be valid range for pt_avl_tree, otherwise the behavior is undefine.
+ */
+extern void _avl_tree_erase_range(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end);
+
+/**
+ * Erase an element from a avl tree that match a specified element.
+ * @param pt_avl_tree       avl tree container.
+ * @param cpv_value         specific element.
+ * @return the number of erased elements.
+ * @remarks if pt_avl_tree == NULL or cpv_value == NULL then the behavior is undefined. cpt_avl_tree must be initialized,
+ *          otherwise the behavior is undefined. 
+ */
 extern size_t _avl_tree_erase(_avl_tree_t* pt_avl_tree, const void* cpv_value);
 
 #ifdef __cplusplus

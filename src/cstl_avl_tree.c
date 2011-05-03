@@ -713,21 +713,22 @@ _avl_tree_iterator_t _avl_tree_insert_unique(_avl_tree_t* pt_avl_tree, const voi
     }
 }
 
-void _avl_tree_insert_equal_range(
-    _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end)
+/**
+ * Inserts an range into a avl tree.
+ */
+void _avl_tree_insert_equal_range(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end)
 {
     _avl_tree_iterator_t it_iter;
 
+    assert(pt_avl_tree != NULL);
+    assert(_avl_tree_is_inited(pt_avl_tree));
     assert(_avl_tree_same_avl_tree_iterator_type(pt_avl_tree, it_begin));
-    assert(_avl_tree_iterator_equal(it_begin, it_end) ||
-           _avl_tree_iterator_before(it_begin, it_end));
+    assert(_avl_tree_same_avl_tree_iterator_type(pt_avl_tree, it_end));
+    assert(_avl_tree_iterator_equal(it_begin, it_end) || _avl_tree_iterator_before(it_begin, it_end));
 
-    for(it_iter = it_begin;
-        !_avl_tree_iterator_equal(it_iter, it_end);
-        it_iter = _avl_tree_iterator_next(it_iter))
+    for(it_iter = it_begin; !_avl_tree_iterator_equal(it_iter, it_end); it_iter = _avl_tree_iterator_next(it_iter))
     {
-        _avl_tree_insert_equal(
-            pt_avl_tree, ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pc_data);
+        _avl_tree_insert_equal(pt_avl_tree, ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pc_data);
     }
 }
 
@@ -740,8 +741,8 @@ void _avl_tree_insert_unique_range(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_
 
     assert(pt_avl_tree != NULL);
     assert(_avl_tree_is_inited(pt_avl_tree));
-    assert(_avl_tree_same_avl_tree_iterator_type_ex(pt_avl_tree, it_begin));
-    assert(_avl_tree_same_avl_tree_iterator_type_ex(pt_avl_tree, it_end));
+    assert(_avl_tree_same_avl_tree_iterator_type(pt_avl_tree, it_begin));
+    assert(_avl_tree_same_avl_tree_iterator_type(pt_avl_tree, it_end));
     assert(_avl_tree_iterator_equal(it_begin, it_end) || _avl_tree_iterator_before(it_begin, it_end));
 
     for(it_iter = it_begin; !_avl_tree_iterator_equal(it_iter, it_end); it_iter = _avl_tree_iterator_next(it_iter))
@@ -750,16 +751,21 @@ void _avl_tree_insert_unique_range(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_
     }
 }
 
-void _avl_tree_erase_pos(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t t_pos)
+/*
+ * Erase an element in an avl tree from specificed position.
+ */
+void _avl_tree_erase_pos(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_pos)
 {
     _avlnode_t* pt_parent = NULL;
     _avlnode_t* pt_cur = NULL;
-    bool_t     t_result = false;
+    bool_t      b_result = false;
 
-    assert(_avl_tree_iterator_belong_to_avl_tree(pt_avl_tree, t_pos));
-    assert(!_avl_tree_iterator_equal(t_pos, _avl_tree_end(pt_avl_tree)));
+    assert(pt_avl_tree != NULL);
+    assert(_avl_tree_is_inited(pt_avl_tree));
+    assert(_avl_tree_iterator_belong_to_avl_tree(pt_avl_tree, it_pos));
+    assert(!_avl_tree_iterator_equal(it_pos, _avl_tree_end(pt_avl_tree)));
     
-    pt_cur = (_avlnode_t*)_GET_AVL_TREE_COREPOS(t_pos);
+    pt_cur = (_avlnode_t*)_GET_AVL_TREE_COREPOS(it_pos);
     pt_parent = pt_cur->_pt_parent;
 
     /* delete node X express deleting */
@@ -1070,9 +1076,9 @@ void _avl_tree_erase_pos(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t t_pos)
     }
 
     /* destroy node */
-    t_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
-    _GET_AVL_TREE_TYPE_DESTROY_FUNCTION(pt_avl_tree)(pt_cur->_pc_data, &t_result);
-    assert(t_result);
+    b_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
+    _GET_AVL_TREE_TYPE_DESTROY_FUNCTION(pt_avl_tree)(pt_cur->_pc_data, &b_result);
+    assert(b_result);
     _alloc_deallocate(&pt_avl_tree->_t_allocator, pt_cur,
         _AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(pt_avl_tree)), 1);
     pt_avl_tree->_t_nodecount--;
@@ -1084,51 +1090,56 @@ void _avl_tree_erase_pos(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t t_pos)
     }
     else
     {
-        pt_avl_tree->_t_avlroot._pt_left =
-            _avl_tree_get_min_avlnode(pt_avl_tree->_t_avlroot._pt_parent);
-        pt_avl_tree->_t_avlroot._pt_right = 
-            _avl_tree_get_max_avlnode(pt_avl_tree->_t_avlroot._pt_parent);
+        pt_avl_tree->_t_avlroot._pt_left = _avl_tree_get_min_avlnode(pt_avl_tree->_t_avlroot._pt_parent);
+        pt_avl_tree->_t_avlroot._pt_right = _avl_tree_get_max_avlnode(pt_avl_tree->_t_avlroot._pt_parent);
     }
 }
 
-void _avl_tree_erase_range(
-    _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end)
+/*
+ * Erase a range of element in an avl tree.
+ */
+void _avl_tree_erase_range(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end)
 {
     _avl_tree_iterator_t it_iter;
-    _avl_tree_iterator_t t_next;
+    _avl_tree_iterator_t it_next;
 
-    assert(_avl_tree_same_avl_tree_iterator_type_ex(pt_avl_tree, it_begin));
-    assert(_avl_tree_iterator_equal(it_begin, it_end) ||
-           _avl_tree_iterator_before(it_begin, it_end));
+    assert(pt_avl_tree != NULL);
+    assert(_avl_tree_is_inited(pt_avl_tree));
+    assert(_avl_tree_iterator_belong_to_avl_tree(pt_avl_tree, it_begin));
+    assert(_avl_tree_iterator_belong_to_avl_tree(pt_avl_tree, it_end));
+    assert(_avl_tree_iterator_equal(it_begin, it_end) || _avl_tree_iterator_before(it_begin, it_end));
 
-    it_iter = t_next = it_begin;
-    if(!_avl_tree_iterator_equal(t_next, _avl_tree_end(pt_avl_tree)))
+    it_iter = it_next = it_begin;
+    if(!_avl_tree_iterator_equal(it_next, _avl_tree_end(pt_avl_tree)))
     {
-        t_next = _avl_tree_iterator_next(t_next);
+        it_next = _avl_tree_iterator_next(it_next);
     }
     while(!_avl_tree_iterator_equal(it_iter, it_end))
     {
         _avl_tree_erase_pos(pt_avl_tree, it_iter);
         
-        it_iter = t_next;
-        if(!_avl_tree_iterator_equal(t_next, _avl_tree_end(pt_avl_tree)))
+        it_iter = it_next;
+        if(!_avl_tree_iterator_equal(it_next, _avl_tree_end(pt_avl_tree)))
         {
-            t_next = _avl_tree_iterator_next(t_next);
+            it_next = _avl_tree_iterator_next(it_next);
         }
     }
 }
 
+/**
+ * Erase an element from a avl tree that match a specified element.
+ */
 size_t _avl_tree_erase(_avl_tree_t* pt_avl_tree, const void* cpv_value)
 {
-    size_t t_countsize = _avl_tree_count(pt_avl_tree, cpv_value);
-    range_t t_range = _avl_tree_equal_range(pt_avl_tree, cpv_value);
+    size_t  t_count = _avl_tree_count(pt_avl_tree, cpv_value);
+    range_t r_range = _avl_tree_equal_range(pt_avl_tree, cpv_value);
 
-    if(!_avl_tree_iterator_equal(t_range.it_begin, _avl_tree_end(pt_avl_tree)))
+    if(!_avl_tree_iterator_equal(r_range.it_begin, _avl_tree_end(pt_avl_tree)))
     {
-        _avl_tree_erase_range(pt_avl_tree, t_range.it_begin, t_range.it_end);
+        _avl_tree_erase_range(pt_avl_tree, r_range.it_begin, r_range.it_end);
     }
 
-    return t_countsize;
+    return t_count;
 }
 
 /** local function implementation section **/
