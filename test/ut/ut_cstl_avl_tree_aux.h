@@ -28,6 +28,7 @@ void test__avl_tree_is_inited__invalid_avlroot_left(void** state);
 void test__avl_tree_is_inited__invalid_avlroot_right(void** state);
 void test__avl_tree_is_inited__invalid_avlroot_height(void** state);
 void test__avl_tree_is_inited__invalid_compare(void** state);
+void test__avl_tree_is_inited__inited(void** state);
 /*
  * test _avl_tree_iterator_belong_to_avl_tree
  */
@@ -219,6 +220,7 @@ void test__avl_tree_elem_compare_auxiliary__cstr(void** state);
     UT_CASE(test__avl_tree_is_inited__invalid_avlroot_right),\
     UT_CASE(test__avl_tree_is_inited__invalid_avlroot_height),\
     UT_CASE(test__avl_tree_is_inited__invalid_compare),\
+    UT_CASE(test__avl_tree_is_inited__inited),\
     UT_CASE_BEGIN(_avl_tree_iterator_belong_to_avl_tree, test__avl_tree_iterator_belong_to_avl_tree__null_avl_tree),\
     UT_CASE(test__avl_tree_iterator_belong_to_avl_tree__non_inited_avl_tree),\
     UT_CASE(test__avl_tree_iterator_belong_to_avl_tree__invalid_iter_corepos),\

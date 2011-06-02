@@ -42,7 +42,7 @@ typedef struct _tagmultimap
 #ifdef CSTL_MULTIMAP_AVL_TREE
     avl_tree_t        _t_tree;
 #else
-    rb_tree_t         _t_tree;
+    _rb_tree_t         _t_tree;
 #endif
 }multimap_t;
 

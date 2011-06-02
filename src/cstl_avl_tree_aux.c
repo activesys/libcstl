@@ -1,4 +1,3 @@
-
 /*
  *  The implementation of avl tree auxiliary functions.
  *  Copyright (C)  2008,2009,2010,2011  Wangbo

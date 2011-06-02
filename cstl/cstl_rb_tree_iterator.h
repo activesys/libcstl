@@ -32,8 +32,8 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
-typedef iterator_t rb_tree_iterator_t;
-typedef iterator_t rb_tree_reverse_iterator_t;
+typedef iterator_t _rb_tree_iterator_t;
+typedef iterator_t _rb_tree_reverse_iterator_t;
 
 /** exported global variable declaration section **/
 
@@ -41,18 +41,18 @@ typedef iterator_t rb_tree_reverse_iterator_t;
 /*
  * Iterator support functions.
  */
-extern rb_tree_iterator_t _create_rb_tree_iterator(void);
+extern _rb_tree_iterator_t _create_rb_tree_iterator(void);
 extern void _rb_tree_iterator_get_value(
-    rb_tree_iterator_t t_iter, void* pv_value);
-extern const void* _rb_tree_iterator_get_pointer(rb_tree_iterator_t t_iter);
-extern rb_tree_iterator_t _rb_tree_iterator_next(rb_tree_iterator_t t_iter);
-extern rb_tree_iterator_t _rb_tree_iterator_prev(rb_tree_iterator_t t_iter);
+    _rb_tree_iterator_t t_iter, void* pv_value);
+extern const void* _rb_tree_iterator_get_pointer(_rb_tree_iterator_t t_iter);
+extern _rb_tree_iterator_t _rb_tree_iterator_next(_rb_tree_iterator_t t_iter);
+extern _rb_tree_iterator_t _rb_tree_iterator_prev(_rb_tree_iterator_t t_iter);
 extern bool_t _rb_tree_iterator_equal(
-    rb_tree_iterator_t t_iterfirst, rb_tree_iterator_t t_itersecond);
+    _rb_tree_iterator_t t_iterfirst, _rb_tree_iterator_t t_itersecond);
 extern int _rb_tree_iterator_distance(
-    rb_tree_iterator_t t_iterfirst, rb_tree_iterator_t t_itersecond);
+    _rb_tree_iterator_t t_iterfirst, _rb_tree_iterator_t t_itersecond);
 extern bool_t _rb_tree_iterator_before(
-    rb_tree_iterator_t t_iterfirst, rb_tree_iterator_t t_itersecond);
+    _rb_tree_iterator_t t_iterfirst, _rb_tree_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }

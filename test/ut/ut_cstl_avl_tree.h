@@ -741,7 +741,7 @@ void test__avl_tree_insert_equal__user_define_n(void** state);
     UT_CASE(test__avl_tree_erase__libcstl_builtin_n),\
     UT_CASE(test__avl_tree_erase__user_define_0),\
     UT_CASE(test__avl_tree_insert_equal__user_define_1),\
-    UT_CASE(test__avl_tree_insert_equal__user_define_n),\
+    UT_CASE(test__avl_tree_insert_equal__user_define_n)
 
 #endif /* _UT_CSTL_AVL_TREE_H_ */
 

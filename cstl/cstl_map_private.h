@@ -42,7 +42,7 @@ typedef struct _tagmap
 #ifdef CSTL_MAP_AVL_TREE
     avl_tree_t        _t_tree;
 #else
-    rb_tree_t         _t_tree;
+    _rb_tree_t         _t_tree;
 #endif
 }map_t;
 

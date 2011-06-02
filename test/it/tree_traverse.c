@@ -89,7 +89,7 @@ void test_travel_avl_tree(
 }
 
 void test_travel_rb_tree(
-    rbnode_t* pt_root, size_t t_indentsize, void (*pfun_op)(rbnode_t*))
+    _rbnode_t* pt_root, size_t t_indentsize, void (*pfun_op)(_rbnode_t*))
 {
     int i = 0;
 
@@ -117,7 +117,7 @@ void show_avlnode_info(_avlnode_t* pt_root)
     printf("%d : %d\n", *(int*)pt_root->_pc_data, pt_root->_un_height);
 }
 
-void show_rbnode_info(rbnode_t* pt_root)
+void show_rbnode_info(_rbnode_t* pt_root)
 {
     assert(pt_root != NULL);
     printf("%lf : ", *(double*)pt_root->_pc_data);
@@ -131,7 +131,7 @@ void show_rbnode_info(rbnode_t* pt_root)
     }
 }
 
-void show_map_rbnode_info(rbnode_t* pt_root)
+void show_map_rbnode_info(_rbnode_t* pt_root)
 {
     assert(pt_root != NULL);
     printf("<%d,%f> : ",

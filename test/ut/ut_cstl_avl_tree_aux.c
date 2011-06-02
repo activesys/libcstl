@@ -285,6 +285,17 @@ void test__avl_tree_is_inited__invalid_compare(void** state)
     _avl_tree_destroy(pt_avl_tree);
 }
 
+void test__avl_tree_is_inited__inited(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    assert_true(_avl_tree_is_inited(pt_avl_tree));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
 /*
  * test _avl_tree_iterator_belong_to_avl_tree
  */

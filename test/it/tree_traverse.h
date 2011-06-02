@@ -54,12 +54,12 @@ extern void test_travel_avl_tree(
     _avlnode_t* pt_root, size_t t_indentsize, void (*pfun_op)(_avlnode_t*));
 
 extern void test_travel_rb_tree(
-    rbnode_t* pt_root, size_t t_indentsize, void (*pfun_op)(rbnode_t*));
+    _rbnode_t* pt_root, size_t t_indentsize, void (*pfun_op)(_rbnode_t*));
 
 extern void show_avlnode_info(_avlnode_t* pt_root);
 
-extern void show_rbnode_info(rbnode_t* pt_root);
-extern void show_map_rbnode_info(rbnode_t* pt_root);
+extern void show_rbnode_info(_rbnode_t* pt_root);
+extern void show_map_rbnode_info(_rbnode_t* pt_root);
 
 extern void test_travel_hashtable(vector_t* pt_vector);
 extern void test_travel_hashtable_pair(vector_t* pt_vector);

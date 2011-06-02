@@ -83,7 +83,7 @@ extern "C" {
 #define _GET_RB_TREE_COREPOS(t_iter)\
     ((t_iter)._t_pos._t_treepos._pc_corepos)
 #define _GET_RB_TREE(t_iter)\
-    ((rb_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
+    ((_rb_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
 #define _GET_RB_TREE_POINTER(t_iter)\
     ((t_iter)._t_pos._t_treepos._pt_tree)
 /* set iterator handler */
