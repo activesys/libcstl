@@ -97,40 +97,55 @@ bool_t _rb_tree_is_inited(const _rb_tree_t* cpt_rb_tree)
     return true;
 }
 
-bool_t _rb_tree_iterator_belong_to_rb_tree(
-    const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t t_iter)
+/**
+ * Test iterator referenced data is within the rb tree.
+ */
+bool_t _rb_tree_iterator_belong_to_rb_tree(const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t it_iter)
 {
     assert(cpt_rb_tree != NULL);
-    assert(_GET_RB_TREE_COREPOS(t_iter) != NULL);
-    assert(_GET_RB_TREE(t_iter) == cpt_rb_tree);
+    assert(_rb_tree_is_inited(cpt_rb_tree));
+    assert(_GET_RB_TREE_COREPOS(it_iter) != NULL);
+    assert(_GET_RB_TREE(it_iter) == cpt_rb_tree);
 
     /* if iterator is end */
-    if(_GET_RB_TREE_COREPOS(t_iter) == (char*)&cpt_rb_tree->_t_rbroot)
+    if(_GET_RB_TREE_COREPOS(it_iter) == (char*)&cpt_rb_tree->_t_rbroot)
     {
         return true;
     }
     /* else travel rb tree for search the pointer */
     else
     {
-        return _find_iterator(cpt_rb_tree->_t_rbroot._pt_parent, 
-            (_rbnode_t*)_GET_RB_TREE_COREPOS(t_iter));
+        return _rb_tree_rbnode_belong_to_rb_tree(
+            cpt_rb_tree->_t_rbroot._pt_parent, (_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter));
     }
 }
 
-bool_t _rb_tree_same_rb_tree_iterator_type(
-    const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t t_iter)
+/**
+ * Test the type that saved in the rb tree container and referenced by it_iter are same.
+ */
+bool_t _rb_tree_same_rb_tree_iterator_type(const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t it_iter)
 {
-    assert(cpt_rb_tree != NULL && _GET_RB_TREE(t_iter) != NULL);
+    assert(cpt_rb_tree != NULL);
+    assert(_rb_tree_is_inited(cpt_rb_tree));
 
-    return _type_is_same(_GET_RB_TREE_TYPE_NAME(cpt_rb_tree),
-                         _GET_RB_TREE_TYPE_NAME(_GET_RB_TREE(t_iter))) &&
-           (cpt_rb_tree->_t_typeinfo._t_style ==
-            _GET_RB_TREE(t_iter)->_t_typeinfo._t_style) &&
-           (cpt_rb_tree->_t_typeinfo._pt_type ==
-            _GET_RB_TREE(t_iter)->_t_typeinfo._pt_type);
+    return _rb_tree_same_type(cpt_rb_tree, _GET_RB_TREE(it_iter));
 }
 
-bool_t _find_iterator(const _rbnode_t* cpt_root, const _rbnode_t* cpt_pos)
+/**
+ * Test the type and compare function that saved in the rb tree container and referenced by it_iter are same.
+ */
+bool_t _rb_tree_same_rb_tree_iterator_type_ex(const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t it_iter)
+{
+    assert(cpt_rb_tree != NULL);
+    assert( _GET_RB_TREE(it_iter) != NULL);
+
+    return _rb_tree_same_type_ex(cpt_rb_tree, _GET_RB_TREE(it_iter));
+}
+
+/**
+ * Test rb node is within the sub rb tree.
+ */
+bool_t _rb_tree_rbnode_belong_to_rb_tree(const _rbnode_t* cpt_root, const _rbnode_t* cpt_pos)
 {
     if(cpt_root == NULL || cpt_pos == NULL)
     {
@@ -142,8 +157,8 @@ bool_t _find_iterator(const _rbnode_t* cpt_root, const _rbnode_t* cpt_pos)
     }
     else
     {
-        return _find_iterator(cpt_root->_pt_left, cpt_pos) ||
-               _find_iterator(cpt_root->_pt_right, cpt_pos);
+        return _rb_tree_rbnode_belong_to_rb_tree(cpt_root->_pt_left, cpt_pos) ||
+               _rb_tree_rbnode_belong_to_rb_tree(cpt_root->_pt_right, cpt_pos);
     }
 }
 #endif /* NEDBUG */
@@ -160,6 +175,24 @@ bool_t _rb_tree_same_type(
            (cpt_rb_treefirst->_t_typeinfo._pt_type ==
             cpt_rb_treesecond->_t_typeinfo._pt_type) &&
            (cpt_rb_treefirst->_t_compare == cpt_rb_treesecond->_t_compare);
+}
+
+/**
+ * Test the type and compare function that saved in the rb tree container is same.
+ */
+bool_t _rb_tree_same_type_ex(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_second)
+{
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
+    assert(_rb_tree_is_inited(cpt_first) || _rb_tree_is_created(cpt_first));
+    assert(_rb_tree_is_inited(cpt_second) || _rb_tree_is_created(cpt_second));
+
+    if(cpt_first == cpt_second)
+    {
+        return true;
+    }
+
+    return (cpt_first->_t_compare == cpt_second->_t_compare) && _rb_tree_same_type(cpt_first, cpt_second);
 }
 
 _rbnode_t* _destroy_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_root)

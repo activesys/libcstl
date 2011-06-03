@@ -48,7 +48,7 @@ extern "C" {
 #ifndef NDEBUG
 /**
  * Test rb tree is created by _create_rb tree.
- * @param cpt_rb_tree          rb tree container.
+ * @param cpt_rb_tree           rb tree container.
  * @return if rb tree is created by create_rb tree, then return true, else return false.
  * @remarks if cpt_rb_tree == NULL, then the behavior is undefined.
  */
@@ -56,23 +56,61 @@ extern bool_t _rb_tree_is_created(const _rb_tree_t* cpt_rb_tree);
 
 /**
  * Test rb tree is initialized by rb tree initialization functions.
- * @param cpt_rb_tree          rb tree container.
+ * @param cpt_rb_tree           rb tree container.
  * @return if rb tree is initialized by rb tree initialization functions, then return true, else return false.
  * @remarks if cpt_rb_tree == NULL, then the behavior is undefined.
  */
 extern bool_t _rb_tree_is_inited(const _rb_tree_t* cpt_rb_tree);
-/*
- * Assert support function.
+
+/**
+ * Test iterator referenced data is within the rb tree.
+ * @param cpt_rb_tree           point to rb tree.
+ * @param it_iter               rb tree iterator.
+ * @return if iterator referenced is within the rb tree, then return true, otherwise return false.
+ * @remarks if cpt_rb_tree == NULL, then the behavior is undefined, cpt_rb_tree must be initialized, otherwise the
+ *          behavior is undefined. the it_iter must be valie rb tree iterator, otherwist the behavior is undefined. 
  */
-extern bool_t _rb_tree_iterator_belong_to_rb_tree(
-    const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t t_iter);
-extern bool_t _rb_tree_same_rb_tree_iterator_type(
-    const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t t_iter);
-extern bool_t _find_iterator(
-    const _rbnode_t* cpt_root, const _rbnode_t* cpt_pos);
+extern bool_t _rb_tree_iterator_belong_to_rb_tree(const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t it_iter);
+
+/**
+ * Test the type that saved in the rb tree container and referenced by it_iter are same.
+ * @param cpt_rb_tree           rb tree container.
+ * @param it_iter               rb tree iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_rb_tree == NULL or it_iter is not rb tree iterator, then the behavior is undefined.
+ */
+extern bool_t _rb_tree_same_rb_tree_iterator_type(const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t it_iter);
+
+/**
+ * Test the type and compare function that saved in the rb tree container and referenced by it_iter are same.
+ * @param cpt_rb_tree           rb tree container.
+ * @param it_iter               rb tree iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_rb_tree == NULL or it_iter is not rb tree iterator, then the behavior is undefined.
+ */
+extern bool_t _rb_tree_same_rb_tree_iterator_type_ex(const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t it_iter);
+
+/**
+ * Test rb node is within the sub rb tree.
+ * @param cpt_root              the root of sub rb tree.
+ * @param cpt_pos               rb node.
+ * @return if rb node is within the rb tree, then return true, otherwise return false.
+ * @remarks if cpt_root == NULL or cpt_pos == NULL, then return false.
+ */
+extern bool_t _rb_tree_rbnode_belong_to_rb_tree(const _rbnode_t* cpt_root, const _rbnode_t* cpt_pos);
 #endif /* NDEBUG */
 extern bool_t _rb_tree_same_type(
     const _rb_tree_t* cpt_rb_treefirst, const _rb_tree_t* cpt_rb_treesecond);
+/**
+ * Test the type and compare function that saved in the rb tree container is same.
+ * @param cpt_first             first rb tree.
+ * @param cpt_second            second rb tree.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, the behavior is undefined. the two rb tree must be initialized
+ *          or created by _create_rb_tree(), otherwise the behavior is undefined. if cpt_first == cpt_second then
+ *          return true.
+ */
+extern bool_t _rb_tree_same_type_ex(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_second);
 
 /*
  * Destroy the subtree with postorder traverse.

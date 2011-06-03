@@ -198,8 +198,7 @@ bool_t _avl_tree_same_type_ex(const _avl_tree_t* cpt_first, const _avl_tree_t* c
         return true;
     }
 
-    return (cpt_first->_t_compare == cpt_second->_t_compare) &&
-           _avl_tree_same_type(cpt_first, cpt_second);
+    return (cpt_first->_t_compare == cpt_second->_t_compare) && _avl_tree_same_type(cpt_first, cpt_second);
 }
 
 /**

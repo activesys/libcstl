@@ -296,3 +296,351 @@ void test__rb_tree_is_inited__inited(void** state)
     _rb_tree_destroy(pt_rb_tree);
 }
 
+/*
+ * test _rb_tree_iterator_belong_to_rb_tree
+ */
+UT_CASE_DEFINATION(_rb_tree_iterator_belong_to_rb_tree)
+void test__rb_tree_iterator_belong_to_rb_tree__null_rb_tree(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    expect_assert_failure(_rb_tree_iterator_belong_to_rb_tree(NULL, _rb_tree_begin(pt_rb_tree)));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_iterator_belong_to_rb_tree__non_inited_rb_tree(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_iterator_t it_iter;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    it_iter = _rb_tree_begin(pt_rb_tree);
+    pt_rb_tree->_t_rbroot._t_color = black;
+    expect_assert_failure(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, it_iter));
+    pt_rb_tree->_t_rbroot._t_color = red;
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_iterator_belong_to_rb_tree__invalid_iter_corepos(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_iterator_t it_iter;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    it_iter = _rb_tree_begin(pt_rb_tree);
+    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    expect_assert_failure(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, it_iter));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_iterator_belong_to_rb_tree__invalid_iter_rb_tree(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_iterator_t it_iter;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    it_iter = _rb_tree_begin(pt_rb_tree);
+    it_iter._t_pos._t_treepos._pt_tree = NULL;
+    expect_assert_failure(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, it_iter));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_iterator_belong_to_rb_tree__empty_begin(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    assert_true(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, _rb_tree_begin(pt_rb_tree)));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_iterator_belong_to_rb_tree__empty_end(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    assert_true(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, _rb_tree_end(pt_rb_tree)));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_iterator_belong_to_rb_tree__non_empty_begin(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    int i = 0;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_unique(pt_rb_tree, &i);
+    }
+    assert_true(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, _rb_tree_begin(pt_rb_tree)));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_iterator_belong_to_rb_tree__non_empty_end(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    int i = 0;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_unique(pt_rb_tree, &i);
+    }
+    assert_true(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, _rb_tree_end(pt_rb_tree)));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_iterator_belong_to_rb_tree__non_empty_middle(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    int i = 0;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_unique(pt_rb_tree, &i);
+    }
+    assert_true(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, _rb_tree_iterator_next(_rb_tree_begin(pt_rb_tree))));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_iterator_belong_to_rb_tree__invalid_pos(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_iterator_t it_iter;
+    int i = 0;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_unique(pt_rb_tree, &i);
+    }
+    it_iter = _rb_tree_begin(pt_rb_tree);
+    it_iter._t_pos._t_treepos._pc_corepos = (char*)0x888;
+    assert_false(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, it_iter));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+/*
+ * test _rb_tree_same_rb_tree_iterator_type
+ */
+UT_CASE_DEFINATION(_rb_tree_same_rb_tree_iterator_type)
+void test__rb_tree_same_rb_tree_iterator_type__null_rb_tree(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    expect_assert_failure(_rb_tree_same_rb_tree_iterator_type(NULL, _rb_tree_begin(pt_rb_tree)));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type__non_created(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_t rbtree;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    rbtree._t_rbroot._t_color = black;
+    expect_assert_failure(_rb_tree_same_rb_tree_iterator_type(&rbtree, _rb_tree_begin(pt_rb_tree)));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type__invalid_iter(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_iterator_t it_iter;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    it_iter = _rb_tree_begin(pt_rb_tree);
+    it_iter._t_pos._t_treepos._pt_tree = NULL;
+    expect_assert_failure(_rb_tree_same_rb_tree_iterator_type(pt_rb_tree, it_iter));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type__same_container(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_iterator_t it_iter;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    it_iter = _rb_tree_begin(pt_rb_tree);
+    assert_true(_rb_tree_same_rb_tree_iterator_type(pt_rb_tree, it_iter));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type__same(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_t* pt_iter = _create_rb_tree("int");
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    _rb_tree_init(pt_iter, NULL);
+    assert_true(_rb_tree_same_rb_tree_iterator_type(pt_rb_tree, _rb_tree_begin(pt_iter)));
+
+    _rb_tree_destroy(pt_rb_tree);
+    _rb_tree_destroy(pt_iter);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type__not_same(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_t* pt_iter = _create_rb_tree("double");
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    _rb_tree_init(pt_iter, NULL);
+    assert_false(_rb_tree_same_rb_tree_iterator_type(pt_rb_tree, _rb_tree_begin(pt_iter)));
+
+    _rb_tree_destroy(pt_rb_tree);
+    _rb_tree_destroy(pt_iter);
+}
+
+/*
+ * test _rb_tree_same_rb_tree_iterator_type_ex
+ */
+UT_CASE_DEFINATION(_rb_tree_same_rb_tree_iterator_type_ex)
+void test__rb_tree_same_rb_tree_iterator_type_ex__null_rb_tree(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    expect_assert_failure(_rb_tree_same_rb_tree_iterator_type_ex(NULL, _rb_tree_begin(pt_rb_tree)));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type_ex__non_created(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_t rbtree;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    rbtree._t_rbroot._t_color = red;
+    expect_assert_failure(_rb_tree_same_rb_tree_iterator_type_ex(&rbtree, _rb_tree_begin(pt_rb_tree)));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type_ex__invalid_iter(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_iterator_t it_iter;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    it_iter = _rb_tree_begin(pt_rb_tree);
+    it_iter._t_pos._t_treepos._pt_tree = NULL;
+    expect_assert_failure(_rb_tree_same_rb_tree_iterator_type_ex(pt_rb_tree, it_iter));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type_ex__same_container(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_iterator_t it_iter;
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    it_iter = _rb_tree_begin(pt_rb_tree);
+    assert_true(_rb_tree_same_rb_tree_iterator_type_ex(pt_rb_tree, it_iter));
+
+    _rb_tree_destroy(pt_rb_tree);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type_ex__same(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_t* pt_iter = _create_rb_tree("int");
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    _rb_tree_init(pt_iter, NULL);
+    assert_true(_rb_tree_same_rb_tree_iterator_type_ex(pt_rb_tree, _rb_tree_begin(pt_iter)));
+
+    _rb_tree_destroy(pt_rb_tree);
+    _rb_tree_destroy(pt_iter);
+}
+
+void test__rb_tree_same_rb_tree_iterator_type_ex__not_same(void** state)
+{
+    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
+    _rb_tree_t* pt_iter = _create_rb_tree("double");
+
+    _rb_tree_init(pt_rb_tree, NULL);
+    _rb_tree_init(pt_iter, NULL);
+    assert_false(_rb_tree_same_rb_tree_iterator_type_ex(pt_rb_tree, _rb_tree_begin(pt_iter)));
+
+    _rb_tree_destroy(pt_rb_tree);
+    _rb_tree_destroy(pt_iter);
+}
+
+/*
+ * test _rb_tree_rbnode_belong_to_rb_tree
+ */
+UT_CASE_DEFINATION(_rb_tree_rbnode_belong_to_rb_tree)
+void test__rb_tree_rbnode_belong_to_rb_tree__null_root(void** state)
+{
+    _rbnode_t t_pos;
+    assert_false(_rb_tree_rbnode_belong_to_rb_tree(NULL, &t_pos));
+}
+
+void test__rb_tree_rbnode_belong_to_rb_tree__null_pos(void** state)
+{
+    _rbnode_t t_root;
+    assert_false(_rb_tree_rbnode_belong_to_rb_tree(&t_root, NULL));
+}
+
+void test__rb_tree_rbnode_belong_to_rb_tree__equal(void** state)
+{
+    _rbnode_t t_node;
+    assert_true(_rb_tree_rbnode_belong_to_rb_tree(&t_node, &t_node));
+}
+
+void test__rb_tree_rbnode_belong_to_rb_tree__find(void** state)
+{
+    _rbnode_t t_root;
+    _rbnode_t t_left;
+    _rbnode_t t_right;
+
+    t_root._pt_left = &t_left;
+    t_root._pt_right = &t_right;
+    t_root._pt_parent = NULL;
+    t_left._pt_left = t_left._pt_right = NULL;
+    t_left._pt_parent = &t_root;
+    t_right._pt_left = t_right._pt_right = NULL;
+    t_right._pt_parent = &t_root;
+
+    assert_true(_rb_tree_rbnode_belong_to_rb_tree(&t_root, &t_right));
+}
+
+void test__rb_tree_rbnode_belong_to_rb_tree__not_find(void** state)
+{
+    _rbnode_t t_root;
+    _rbnode_t t_left;
+    _rbnode_t t_right;
+    _rbnode_t t_pos;
+
+    t_root._pt_left = &t_left;
+    t_root._pt_right = &t_right;
+    t_root._pt_parent = NULL;
+    t_left._pt_left = t_left._pt_right = NULL;
+    t_left._pt_parent = &t_root;
+    t_right._pt_left = t_right._pt_right = NULL;
+    t_right._pt_parent = &t_root;
+
+    assert_false(_rb_tree_rbnode_belong_to_rb_tree(&t_root, &t_pos));
+}
+
