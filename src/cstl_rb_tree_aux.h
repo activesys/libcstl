@@ -99,8 +99,18 @@ extern bool_t _rb_tree_same_rb_tree_iterator_type_ex(const _rb_tree_t* cpt_rb_tr
  */
 extern bool_t _rb_tree_rbnode_belong_to_rb_tree(const _rbnode_t* cpt_root, const _rbnode_t* cpt_pos);
 #endif /* NDEBUG */
-extern bool_t _rb_tree_same_type(
-    const _rb_tree_t* cpt_rb_treefirst, const _rb_tree_t* cpt_rb_treesecond);
+
+/**
+ * Test the type that saved in the rb tree container is same.
+ * @param cpt_first             first rb tree.
+ * @param cpt_second            second rb tree.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, the behavior is undefined. the two rb tree must be initialized
+ *          or created by _create_rb_tree(), otherwise the behavior is undefined. if cpt_first == cpt_second then
+ *          return true.
+ */
+extern bool_t _rb_tree_same_type(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_second);
+
 /**
  * Test the type and compare function that saved in the rb tree container is same.
  * @param cpt_first             first rb tree.
@@ -112,21 +122,36 @@ extern bool_t _rb_tree_same_type(
  */
 extern bool_t _rb_tree_same_type_ex(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_second);
 
-/*
+/**
  * Destroy the subtree with postorder traverse.
+ * @param pt_rb_tree            rb tree.
+ * @param pt_root               root of sub rb tree.
+ * @return NULL.
+ * @remarks if pt_rb_tree == NULL, the behavior is undefined. rb tree must be initialized or created by _create_rb_tree(),
+ *          otherwise the behavior is undefined.
  */
-extern _rbnode_t* _destroy_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_root);
+extern _rbnode_t* _rb_tree_destroy_subtree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_root);
 
-/*
+/**
  * Travel subtree for find the value in preorder.
+ * @param cpt_rb_tree           rb tree.
+ * @param cpt_root              root of sub rb tree.
+ * @param cpv_value             specific value.
+ * @return rb node that save the specific value, else return NULL.
+ * @remarks if cpt_rb_tree == NULL or cpv_value == NULL, then the behavior is undefined. rb tree must be initialized,
+ *          otherwise the behavior is undefine.
  */
-extern _rbnode_t* _find_value(
-    const _rb_tree_t* cpt_rb_tree, const _rbnode_t* cpt_root, const void* cpv_value); 
+extern _rbnode_t* _rb_tree_find_value(const _rb_tree_t* cpt_rb_tree, const _rbnode_t* cpt_root, const void* cpv_value); 
 
-/*
+/**
  * Insert the value into subtree.
+ * @param cpt_rb_tree           rb tree.
+ * @param cpv_value             insert value.
+ * @return inserted node.
+ * @remarks if cpt_rb_tree == NULL or cpv_value == NULL, then the behavior is undefined. the rb tree must be initialized,
+ *          otherwise the behavior is undefined.
  */
-extern _rbnode_t* _insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value);
+extern _rbnode_t* _rb_tree_insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value);
 
 /*
  * Rebalance the subtree.
@@ -150,11 +175,21 @@ extern _rbnode_t* _get_max_rbnode(const _rbnode_t* cpt_root);
  */
 extern color_t _get_color(const _rbnode_t* cpt_root);
 
-/*
- * Left rotate and right rotate.
+/**
+ * Anticlockwise rotation
+ * @param pt_root               root of sub rb tree.
+ * @return new root of sub rb tree.
+ * @remarks is pt_root == NULL or pt_root->_pt_right == NULL, the behavior is undefined.
  */
-extern _rbnode_t* _widdershins_rotate(_rbnode_t* pt_root);
-extern _rbnode_t* _deasil_rotate(_rbnode_t* pt_root);
+extern _rbnode_t* _rb_tree_anticlockwise_rotation(_rbnode_t* pt_root);
+
+/**
+ * Clockwise rotation
+ * @param pt_root               root of sub rb tree.
+ * @return new root of sub rb tree.
+ * @remarks is pt_root == NULL or pt_root->_pt_left == NULL, the behavior is undefined.
+ */
+extern _rbnode_t* _rb_tree_clockwise_rotation(_rbnode_t* pt_root);
 
 /* initiallize the element */
 extern void _rb_tree_init_elem_auxiliary(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_node);

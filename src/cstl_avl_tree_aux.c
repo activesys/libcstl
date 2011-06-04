@@ -206,7 +206,7 @@ bool_t _avl_tree_same_type_ex(const _avl_tree_t* cpt_first, const _avl_tree_t* c
  */
 _avlnode_t* _avl_tree_find_value(const _avl_tree_t* cpt_avl_tree, const _avlnode_t* cpt_root, const void* cpv_value) 
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
 
     assert(cpt_avl_tree != NULL);
     assert(cpv_value != NULL);
@@ -217,16 +217,16 @@ _avlnode_t* _avl_tree_find_value(const _avl_tree_t* cpt_avl_tree, const _avlnode
         return NULL;
     }
 
-    t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-    _avl_tree_elem_compare_auxiliary(cpt_avl_tree, cpv_value, cpt_root->_pc_data, &t_result);
-    if(t_result)
+    b_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
+    _avl_tree_elem_compare_auxiliary(cpt_avl_tree, cpv_value, cpt_root->_pc_data, &b_result);
+    if(b_result)
     {
         return _avl_tree_find_value(cpt_avl_tree, cpt_root->_pt_left, cpv_value);
     }
 
-    t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-    _avl_tree_elem_compare_auxiliary(cpt_avl_tree, cpt_root->_pc_data, cpv_value, &t_result);
-    if(t_result)
+    b_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
+    _avl_tree_elem_compare_auxiliary(cpt_avl_tree, cpt_root->_pc_data, cpv_value, &b_result);
+    if(b_result)
     {
         return _avl_tree_find_value(cpt_avl_tree, cpt_root->_pt_right, cpv_value);
     }
@@ -242,7 +242,7 @@ _avlnode_t* _avl_tree_find_value(const _avl_tree_t* cpt_avl_tree, const _avlnode
  */
 _avlnode_t* _avl_tree_destroy_subtree(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_root)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
 
     assert(pt_avl_tree != NULL);
     assert(_avl_tree_is_inited(pt_avl_tree) || _avl_tree_is_created(pt_avl_tree));
@@ -254,9 +254,9 @@ _avlnode_t* _avl_tree_destroy_subtree(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_r
 
         assert(pt_root->_pt_left == NULL && pt_root->_pt_right == NULL);
 
-        t_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
-        _GET_AVL_TREE_TYPE_DESTROY_FUNCTION(pt_avl_tree)(pt_root->_pc_data, &t_result);
-        assert(t_result);
+        b_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
+        _GET_AVL_TREE_TYPE_DESTROY_FUNCTION(pt_avl_tree)(pt_root->_pc_data, &b_result);
+        assert(b_result);
         _alloc_deallocate(&pt_avl_tree->_t_allocator, pt_root,_AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(pt_avl_tree)), 1);
     }
     
@@ -430,7 +430,7 @@ _avl_tree_insert_result_t _avl_tree_insert_avlnode(
     const _avl_tree_t* cpt_avl_tree, _avlnode_t* pt_root, const void* cpv_value)
 {
     _avl_tree_insert_result_t t_insert_result;
-    bool_t           t_result = false;
+    bool_t           b_result = false;
 
     assert(cpt_avl_tree != NULL);
     assert(cpv_value != NULL);
@@ -448,18 +448,18 @@ _avl_tree_insert_result_t _avl_tree_insert_avlnode(
         pt_root->_un_height = 0;
         t_insert_result._pt_adjust = pt_root;
         t_insert_result._pt_new = pt_root;
-        t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-        _GET_AVL_TREE_TYPE_COPY_FUNCTION(cpt_avl_tree)(pt_root->_pc_data, cpv_value, &t_result);
-        assert(t_result);
+        b_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
+        _GET_AVL_TREE_TYPE_COPY_FUNCTION(cpt_avl_tree)(pt_root->_pc_data, cpv_value, &b_result);
+        assert(b_result);
 
         return t_insert_result;
     }
 
     /* compare the value and current node */
     /* if value < current node then insert into left subtree */
-    t_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
-    _avl_tree_elem_compare_auxiliary(cpt_avl_tree, cpv_value, pt_root->_pc_data, &t_result);
-    if(t_result)
+    b_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
+    _avl_tree_elem_compare_auxiliary(cpt_avl_tree, cpv_value, pt_root->_pc_data, &b_result);
+    if(b_result)
     {
         t_insert_result = _avl_tree_insert_avlnode(cpt_avl_tree, pt_root->_pt_left, cpv_value);
         pt_root->_pt_left = t_insert_result._pt_adjust;
@@ -550,9 +550,9 @@ void _avl_tree_init_elem_auxiliary(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_node
     }
     else
     {
-        bool_t t_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
-        _GET_AVL_TREE_TYPE_INIT_FUNCTION(pt_avl_tree)(pt_node->_pc_data, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
+        _GET_AVL_TREE_TYPE_INIT_FUNCTION(pt_avl_tree)(pt_node->_pc_data, &b_result);
+        assert(b_result);
     }
 }
 

@@ -163,18 +163,24 @@ bool_t _rb_tree_rbnode_belong_to_rb_tree(const _rbnode_t* cpt_root, const _rbnod
 }
 #endif /* NEDBUG */
 
-bool_t _rb_tree_same_type(
-    const _rb_tree_t* cpt_rb_treefirst, const _rb_tree_t* cpt_rb_treesecond)
+/**
+ * Test the type that saved in the rb tree container is same.
+ */
+bool_t _rb_tree_same_type(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_second)
 {
-    assert(cpt_rb_treefirst != NULL && cpt_rb_treesecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
+    assert(_rb_tree_is_inited(cpt_first) || _rb_tree_is_created(cpt_first));
+    assert(_rb_tree_is_inited(cpt_second) || _rb_tree_is_created(cpt_second));
 
-    return _type_is_same(_GET_RB_TREE_TYPE_NAME(cpt_rb_treefirst),
-                         _GET_RB_TREE_TYPE_NAME(cpt_rb_treesecond)) &&
-           (cpt_rb_treefirst->_t_typeinfo._t_style ==
-            cpt_rb_treesecond->_t_typeinfo._t_style) &&
-           (cpt_rb_treefirst->_t_typeinfo._pt_type ==
-            cpt_rb_treesecond->_t_typeinfo._pt_type) &&
-           (cpt_rb_treefirst->_t_compare == cpt_rb_treesecond->_t_compare);
+    if(cpt_first == cpt_second)
+    {
+        return true;
+    }
+
+    return (cpt_first->_t_typeinfo._t_style == cpt_second->_t_typeinfo._t_style) &&
+           (cpt_first->_t_typeinfo._pt_type == cpt_second->_t_typeinfo._pt_type) &&
+           _type_is_same(_GET_RB_TREE_TYPE_NAME(cpt_first), _GET_RB_TREE_TYPE_NAME(cpt_second)); 
 }
 
 /**
@@ -195,53 +201,60 @@ bool_t _rb_tree_same_type_ex(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_
     return (cpt_first->_t_compare == cpt_second->_t_compare) && _rb_tree_same_type(cpt_first, cpt_second);
 }
 
-_rbnode_t* _destroy_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_root)
+/**
+ * Destroy the subtree with postorder traverse.
+ */
+_rbnode_t* _rb_tree_destroy_subtree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_root)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
 
     assert(pt_rb_tree != NULL);
+    assert(_rb_tree_is_inited(pt_rb_tree) || _rb_tree_is_created(pt_rb_tree));
 
     if(pt_root != NULL)
     {
-        pt_root->_pt_left = _destroy_rb_tree(pt_rb_tree, pt_root->_pt_left);
-        pt_root->_pt_right = _destroy_rb_tree(pt_rb_tree, pt_root->_pt_right);
+        pt_root->_pt_left = _rb_tree_destroy_subtree(pt_rb_tree, pt_root->_pt_left);
+        pt_root->_pt_right = _rb_tree_destroy_subtree(pt_rb_tree, pt_root->_pt_right);
 
         assert(pt_root->_pt_left == NULL && pt_root->_pt_right == NULL);
 
-        t_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
-        _GET_RB_TREE_TYPE_DESTROY_FUNCTION(pt_rb_tree)(pt_root->_pc_data, &t_result);
-        assert(t_result);
-        _alloc_deallocate(&pt_rb_tree->_t_allocator, pt_root, 
-            _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
+        b_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
+        _GET_RB_TREE_TYPE_DESTROY_FUNCTION(pt_rb_tree)(pt_root->_pc_data, &b_result);
+        assert(b_result);
+        _alloc_deallocate(&pt_rb_tree->_t_allocator, pt_root, _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
     }
     
     return NULL;
 }
 
-_rbnode_t* _find_value(
-    const _rb_tree_t* cpt_rb_tree, const _rbnode_t* cpt_root, const void* cpv_value)
+/**
+ * Travel subtree for find the value in preorder.
+ */
+_rbnode_t* _rb_tree_find_value(const _rb_tree_t* cpt_rb_tree, const _rbnode_t* cpt_root, const void* cpv_value)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
 
-    assert(cpt_rb_tree != NULL && cpv_value != NULL);
+    assert(cpt_rb_tree != NULL);
+    assert(cpv_value != NULL);
+    assert(_rb_tree_is_inited(cpt_rb_tree));
 
     if(cpt_root == NULL)
     {
         return NULL;
     }
 
-    t_result = _GET_RB_TREE_TYPE_SIZE(cpt_rb_tree);
-    _rb_tree_elem_compare_auxiliary(cpt_rb_tree, cpv_value, cpt_root->_pc_data, &t_result);
-    if(t_result)
+    b_result = _GET_RB_TREE_TYPE_SIZE(cpt_rb_tree);
+    _rb_tree_elem_compare_auxiliary(cpt_rb_tree, cpv_value, cpt_root->_pc_data, &b_result);
+    if(b_result)
     {
-        return _find_value(cpt_rb_tree, cpt_root->_pt_left, cpv_value);
+        return _rb_tree_find_value(cpt_rb_tree, cpt_root->_pt_left, cpv_value);
     }
 
-    t_result = _GET_RB_TREE_TYPE_SIZE(cpt_rb_tree);
-    _rb_tree_elem_compare_auxiliary(cpt_rb_tree, cpt_root->_pc_data, cpv_value, &t_result);
-    if(t_result)
+    b_result = _GET_RB_TREE_TYPE_SIZE(cpt_rb_tree);
+    _rb_tree_elem_compare_auxiliary(cpt_rb_tree, cpt_root->_pc_data, cpv_value, &b_result);
+    if(b_result)
     {
-        return _find_value(cpt_rb_tree, cpt_root->_pt_right, cpv_value);
+        return _rb_tree_find_value(cpt_rb_tree, cpt_root->_pt_right, cpv_value);
     }
     else
     {
@@ -290,30 +303,35 @@ color_t _get_color(const _rbnode_t* cpt_root)
     }
 }
 
-_rbnode_t* _insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value)
+/**
+ * Insert the value into subtree.
+ */
+_rbnode_t* _rb_tree_insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value)
 {
     _rbnode_t* pt_parent = NULL;
     _rbnode_t* pt_cur = NULL;
-    bool_t    t_result = false;
-    bool_t    t_less = false;
+    bool_t     b_result = false;
+    bool_t     b_less = false;
 
-    assert(pt_rb_tree != NULL && cpv_value != NULL);
+    assert(pt_rb_tree != NULL);
+    assert(cpv_value != NULL);
+    assert(_rb_tree_is_inited(pt_rb_tree));
 
     /* if the rb tree is empty */
     if(_rb_tree_empty(pt_rb_tree))
     {
         /* allocat a new root */
-        pt_cur = _alloc_allocate((_alloc_t*)&pt_rb_tree->_t_allocator,
-            _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
+        pt_cur = _alloc_allocate(
+            (_alloc_t*)&pt_rb_tree->_t_allocator, _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
         assert(pt_cur != NULL);
         _rb_tree_init_elem_auxiliary(pt_rb_tree, pt_cur);
         /* set its color is black */
         pt_cur->_pt_left = pt_cur->_pt_right = NULL;
         pt_cur->_t_color = black;
         pt_cur->_pt_parent = (_rbnode_t*)&pt_rb_tree->_t_rbroot;
-        t_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
-        _GET_RB_TREE_TYPE_COPY_FUNCTION(pt_rb_tree)(pt_cur->_pc_data, cpv_value, &t_result);
-        assert(t_result);
+        b_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
+        _GET_RB_TREE_TYPE_COPY_FUNCTION(pt_rb_tree)(pt_cur->_pc_data, cpv_value, &b_result);
+        assert(b_result);
         /* insert the node */
         pt_rb_tree->_t_rbroot._pt_parent = pt_cur;
     }
@@ -321,10 +339,10 @@ _rbnode_t* _insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value)
     {
         pt_parent = pt_rb_tree->_t_rbroot._pt_parent;
 
-        t_less = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
-        _rb_tree_elem_compare_auxiliary(pt_rb_tree, cpv_value, pt_parent->_pc_data, &t_less);
+        b_less = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
+        _rb_tree_elem_compare_auxiliary(pt_rb_tree, cpv_value, pt_parent->_pc_data, &b_less);
 
-        if(t_less)
+        if(b_less)
         {
             pt_cur = pt_parent->_pt_left;
         }
@@ -337,10 +355,10 @@ _rbnode_t* _insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value)
         {
             /* next current position */
             pt_parent = pt_cur;
-            t_less = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
-            _rb_tree_elem_compare_auxiliary(pt_rb_tree, cpv_value, pt_parent->_pc_data, &t_less);
+            b_less = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
+            _rb_tree_elem_compare_auxiliary(pt_rb_tree, cpv_value, pt_parent->_pc_data, &b_less);
 
-            if(t_less)
+            if(b_less)
             {
                 pt_cur = pt_parent->_pt_left;
             }
@@ -351,19 +369,19 @@ _rbnode_t* _insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value)
         }
 
         /* allocate new node */
-        pt_cur = _alloc_allocate((_alloc_t*)&pt_rb_tree->_t_allocator,
-            _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
+        pt_cur = _alloc_allocate(
+            (_alloc_t*)&pt_rb_tree->_t_allocator, _RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)), 1);
         assert(pt_cur != NULL);
         _rb_tree_init_elem_auxiliary(pt_rb_tree, pt_cur);
 
         pt_cur->_pt_left = pt_cur->_pt_right = NULL;
         pt_cur->_t_color = red;
         pt_cur->_pt_parent = pt_parent;
-        t_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
-        _GET_RB_TREE_TYPE_COPY_FUNCTION(pt_rb_tree)(pt_cur->_pc_data, cpv_value, &t_result);
-        assert(t_result);
+        b_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
+        _GET_RB_TREE_TYPE_COPY_FUNCTION(pt_rb_tree)(pt_cur->_pc_data, cpv_value, &b_result);
+        assert(b_result);
 
-        if(t_less)
+        if(b_less)
         {
             assert(pt_parent->_pt_left == NULL);
             pt_parent->_pt_left = pt_cur;
@@ -383,18 +401,22 @@ _rbnode_t* _insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value)
     return pt_cur;
 }
 
-/*
- *     A         B
- *    /         / \       \
- *   B    =>   C   A       \ deasil
- *  / \           /        V
- * C   D         D
+/**
+ * Clockwise rotation
  */
-_rbnode_t* _deasil_rotate(_rbnode_t* pt_root)
+_rbnode_t* _rb_tree_clockwise_rotation(_rbnode_t* pt_root)
 {
+    /*
+     *     A         B
+     *    /         / \       \
+     *   B    =>   C   A       \  clockwise
+     *  / \           /        V
+     * C   D         D
+     */
     _rbnode_t* pt_left = NULL;
 
-    assert(pt_root != NULL && pt_root->_pt_left != NULL);
+    assert(pt_root != NULL);
+    assert(pt_root->_pt_left != NULL);
     
     /* rotate */
     pt_left = pt_root->_pt_left;
@@ -410,18 +432,22 @@ _rbnode_t* _deasil_rotate(_rbnode_t* pt_root)
     return pt_left;
 }
 
-/*
- *  A              B
- *   \            / \         /
- *    B     =>   A   D       /    widdershins
- *   / \          \          V
- *  C   D          C
+/**
+ * Anticlockwise rotation
  */
-_rbnode_t* _widdershins_rotate(_rbnode_t* pt_root)
+_rbnode_t* _rb_tree_anticlockwise_rotation(_rbnode_t* pt_root)
 {
+    /*
+     *  A              B
+     *   \            / \         /
+     *    B     =>   A   D       /    anticlockwise
+     *   / \          \          V
+     *  C   D          C
+     */
     _rbnode_t* pt_right = NULL;
 
-    assert(pt_root != NULL && pt_root->_pt_right != NULL);
+    assert(pt_root != NULL);
+    assert(pt_root->_pt_right != NULL);
 
     /* rotate */
     pt_right = pt_root->_pt_right;
@@ -516,7 +542,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          * gp is root
                          */
                         assert(pt_gparent == pt_rb_tree->_t_rbroot._pt_parent);
-                        pt_ggparent->_pt_parent = _deasil_rotate(pt_gparent);
+                        pt_ggparent->_pt_parent = _rb_tree_clockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_parent->_pt_parent = pt_ggparent;
                         assert(pt_parent == pt_ggparent->_pt_parent);
                     }
@@ -531,7 +557,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          *  /                              \
                          * c(r)                            sp(b)
                          */
-                        pt_ggparent->_pt_left = _deasil_rotate(pt_gparent);
+                        pt_ggparent->_pt_left = _rb_tree_clockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_left->_pt_parent = pt_ggparent;
                         assert(pt_parent == pt_ggparent->_pt_left);
                     }
@@ -546,7 +572,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          *  /                              \
                          * c(r)                            sp(b)
                          */
-                        pt_ggparent->_pt_right = _deasil_rotate(pt_gparent);
+                        pt_ggparent->_pt_right = _rb_tree_clockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_right->_pt_parent = pt_ggparent;
                         assert(pt_parent == pt_ggparent->_pt_right);
                     }
@@ -574,7 +600,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                      *     c(r)       p(r)
                      * gp is root
                      */
-                    pt_gparent->_pt_left = _widdershins_rotate(pt_parent);
+                    pt_gparent->_pt_left = _rb_tree_anticlockwise_rotation(pt_parent);
                     pt_gparent->_pt_left->_pt_parent = pt_gparent;
                     assert(pt_pos == pt_gparent->_pt_left);
 
@@ -596,7 +622,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          * gp is root
                          */
                         assert(pt_gparent == pt_rb_tree->_t_rbroot._pt_parent);
-                        pt_ggparent->_pt_parent = _deasil_rotate(pt_gparent);
+                        pt_ggparent->_pt_parent = _rb_tree_clockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_parent->_pt_parent = pt_ggparent;
                         assert(pt_pos == pt_ggparent->_pt_parent);
                     }
@@ -611,7 +637,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          *   /                      \
                          * p(r)                   s(b)
                          */
-                        pt_ggparent->_pt_left = _deasil_rotate(pt_gparent);
+                        pt_ggparent->_pt_left = _rb_tree_clockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_left->_pt_parent = pt_ggparent;
                         assert(pt_pos == pt_ggparent->_pt_left);
                     }
@@ -626,7 +652,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          *   /                      \
                          * p(r)                   s(b)
                          */
-                        pt_ggparent->_pt_right = _deasil_rotate(pt_gparent);
+                        pt_ggparent->_pt_right = _rb_tree_clockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_right->_pt_parent = pt_ggparent;
                         assert(pt_pos == pt_ggparent->_pt_right);
                     }
@@ -700,7 +726,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                      *         c(r)            p(r)
                      * gp is root
                      */
-                    pt_gparent->_pt_right = _deasil_rotate(pt_parent);
+                    pt_gparent->_pt_right = _rb_tree_clockwise_rotation(pt_parent);
                     pt_gparent->_pt_right->_pt_parent = pt_gparent;
                     assert(pt_pos == pt_gparent->_pt_right);
 
@@ -718,7 +744,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          * gp is root
                          */
                         assert(pt_gparent == pt_rb_tree->_t_rbroot._pt_parent);
-                        pt_ggparent->_pt_parent = _widdershins_rotate(pt_gparent);
+                        pt_ggparent->_pt_parent = _rb_tree_anticlockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_parent->_pt_parent = pt_ggparent;
                         assert(pt_pos == pt_ggparent->_pt_parent);
                     }
@@ -733,7 +759,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          *           \        /
                          *          p(r)    sp(b)
                          */
-                        pt_ggparent->_pt_left = _widdershins_rotate(pt_gparent);
+                        pt_ggparent->_pt_left = _rb_tree_anticlockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_left->_pt_parent = pt_ggparent;
                         assert(pt_pos == pt_ggparent->_pt_left);
                     }
@@ -748,7 +774,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          *           \        /
                          *          p(r)    sp(b)
                          */
-                        pt_ggparent->_pt_right = _widdershins_rotate(pt_gparent);
+                        pt_ggparent->_pt_right = _rb_tree_anticlockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_right->_pt_parent = pt_ggparent;
                         assert(pt_pos == pt_ggparent->_pt_right);
                     }
@@ -771,7 +797,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          * gp is root
                          */
                         assert(pt_gparent == pt_rb_tree->_t_rbroot._pt_parent);
-                        pt_ggparent->_pt_parent = _widdershins_rotate(pt_gparent);
+                        pt_ggparent->_pt_parent = _rb_tree_anticlockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_parent->_pt_parent = pt_ggparent;
                         assert(pt_parent == pt_ggparent->_pt_parent);
                     }
@@ -786,7 +812,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          *           \         /
                          *           c(r)     sp(b)
                          */
-                        pt_ggparent->_pt_left = _widdershins_rotate(pt_gparent);
+                        pt_ggparent->_pt_left = _rb_tree_anticlockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_left->_pt_parent = pt_ggparent;
                         assert(pt_parent == pt_ggparent->_pt_left);
                     }
@@ -801,7 +827,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
                          *           \         /
                          *           c(r)     sp(b)
                          */
-                        pt_ggparent->_pt_right = _widdershins_rotate(pt_gparent);
+                        pt_ggparent->_pt_right = _rb_tree_anticlockwise_rotation(pt_gparent);
                         pt_ggparent->_pt_right->_pt_parent = pt_ggparent;
                         assert(pt_parent == pt_ggparent->_pt_right);
                     }
@@ -852,19 +878,19 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                 if(pt_parent == pt_gparent->_pt_parent)
                 {
                     assert(pt_parent == pt_rb_tree->_t_rbroot._pt_parent);
-                    pt_gparent->_pt_parent = _widdershins_rotate(pt_parent);
+                    pt_gparent->_pt_parent = _rb_tree_anticlockwise_rotation(pt_parent);
                     pt_gparent->_pt_parent->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_parent);
                 }
                 else if(pt_parent == pt_gparent->_pt_left)
                 {
-                    pt_gparent->_pt_left = _widdershins_rotate(pt_parent);
+                    pt_gparent->_pt_left = _rb_tree_anticlockwise_rotation(pt_parent);
                     pt_gparent->_pt_left->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_left);
                 }
                 else
                 {
-                    pt_gparent->_pt_right = _widdershins_rotate(pt_parent);
+                    pt_gparent->_pt_right = _rb_tree_anticlockwise_rotation(pt_parent);
                     pt_gparent->_pt_right->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_right);
                 }
@@ -905,7 +931,7 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                  *                                          r(b)
                  */
                 _rbnode_t* pt_sleft = pt_sibling->_pt_left;
-                pt_parent->_pt_right = _deasil_rotate(pt_sibling);
+                pt_parent->_pt_right = _rb_tree_clockwise_rotation(pt_sibling);
                 pt_parent->_pt_right->_pt_parent = pt_parent;
                 assert(pt_sleft == pt_parent->_pt_right);
 
@@ -930,19 +956,19 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                 if(pt_parent == pt_gparent->_pt_parent)
                 {
                     assert(pt_parent == pt_rb_tree->_t_rbroot._pt_parent);
-                    pt_gparent->_pt_parent = _widdershins_rotate(pt_parent);
+                    pt_gparent->_pt_parent = _rb_tree_anticlockwise_rotation(pt_parent);
                     pt_gparent->_pt_parent->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_parent);
                 }
                 else if(pt_parent == pt_gparent->_pt_left)
                 {
-                    pt_gparent->_pt_left = _widdershins_rotate(pt_parent);
+                    pt_gparent->_pt_left = _rb_tree_anticlockwise_rotation(pt_parent);
                     pt_gparent->_pt_left->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_left);
                 }
                 else
                 {
-                    pt_gparent->_pt_right = _widdershins_rotate(pt_parent);
+                    pt_gparent->_pt_right = _rb_tree_anticlockwise_rotation(pt_parent);
                     pt_gparent->_pt_right->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_right);
                 }
@@ -977,19 +1003,19 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                 if(pt_parent == pt_gparent->_pt_parent)
                 {
                     assert(pt_parent == pt_rb_tree->_t_rbroot._pt_parent);
-                    pt_gparent->_pt_parent = _deasil_rotate(pt_parent);
+                    pt_gparent->_pt_parent = _rb_tree_clockwise_rotation(pt_parent);
                     pt_gparent->_pt_parent->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_parent);
                 }
                 else if(pt_parent == pt_gparent->_pt_left)
                 {
-                    pt_gparent->_pt_left = _deasil_rotate(pt_parent);
+                    pt_gparent->_pt_left = _rb_tree_clockwise_rotation(pt_parent);
                     pt_gparent->_pt_left->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_left);
                 }
                 else
                 {
-                    pt_gparent->_pt_right = _deasil_rotate(pt_parent);
+                    pt_gparent->_pt_right = _rb_tree_clockwise_rotation(pt_parent);
                     pt_gparent->_pt_right->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_right);
                 }
@@ -1030,8 +1056,8 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                  *                           l(b)
                  */
                 _rbnode_t* pt_sright = pt_sibling->_pt_right;
-                /*pt_parent->_pt_left = _deasil_rotate(pt_sibling);*/
-                pt_parent->_pt_left = _widdershins_rotate(pt_sibling);
+                /*pt_parent->_pt_left = _rb_tree_clockwise_rotation(pt_sibling);*/
+                pt_parent->_pt_left = _rb_tree_anticlockwise_rotation(pt_sibling);
                 pt_parent->_pt_left->_pt_parent = pt_parent;
                 assert(pt_sright == pt_parent->_pt_left);
 
@@ -1056,19 +1082,19 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                 if(pt_parent == pt_gparent->_pt_parent)
                 {
                     assert(pt_parent == pt_rb_tree->_t_rbroot._pt_parent);
-                    pt_gparent->_pt_parent = _deasil_rotate(pt_parent);
+                    pt_gparent->_pt_parent = _rb_tree_clockwise_rotation(pt_parent);
                     pt_gparent->_pt_parent->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_parent);
                 }
                 else if(pt_parent == pt_gparent->_pt_left)
                 {
-                    pt_gparent->_pt_left = _deasil_rotate(pt_parent);
+                    pt_gparent->_pt_left = _rb_tree_clockwise_rotation(pt_parent);
                     pt_gparent->_pt_left->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_left);
                 }
                 else
                 {
-                    pt_gparent->_pt_right = _deasil_rotate(pt_parent);
+                    pt_gparent->_pt_right = _rb_tree_clockwise_rotation(pt_parent);
                     pt_gparent->_pt_right->_pt_parent = pt_gparent;
                     assert(pt_sibling == pt_gparent->_pt_right);
                 }
@@ -1098,9 +1124,9 @@ void _rb_tree_init_elem_auxiliary(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_node)
     }
     else
     {
-        bool_t t_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
-        _GET_RB_TREE_TYPE_INIT_FUNCTION(pt_rb_tree)(pt_node->_pc_data, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_RB_TREE_TYPE_SIZE(pt_rb_tree);
+        _GET_RB_TREE_TYPE_INIT_FUNCTION(pt_rb_tree)(pt_node->_pc_data, &b_result);
+        assert(b_result);
     }
 }
 

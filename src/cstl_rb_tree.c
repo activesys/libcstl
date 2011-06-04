@@ -345,7 +345,7 @@ void _rb_tree_destroy_auxiliary(_rb_tree_t* pt_rb_tree)
 
     /* destroy all elements */
     pt_rb_tree->_t_rbroot._pt_parent =
-        _destroy_rb_tree(pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent);
+        _rb_tree_destroy_subtree(pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent);
     assert(pt_rb_tree->_t_rbroot._pt_parent == NULL);
     pt_rb_tree->_t_rbroot._pt_left = &pt_rb_tree->_t_rbroot;
     pt_rb_tree->_t_rbroot._pt_right = &pt_rb_tree->_t_rbroot;
@@ -522,7 +522,7 @@ _rb_tree_iterator_t _rb_tree_find(
     assert(cpt_rb_tree != NULL && cpv_value != NULL);
 
     _GET_RB_TREE_POINTER(t_iterator) = (void*)cpt_rb_tree;
-    _GET_RB_TREE_COREPOS(t_iterator) = (char*)_find_value(
+    _GET_RB_TREE_COREPOS(t_iterator) = (char*)_rb_tree_find_value(
         cpt_rb_tree, cpt_rb_tree->_t_rbroot._pt_parent, cpv_value);
     if(_GET_RB_TREE_COREPOS(t_iterator) == NULL)
     {
@@ -536,7 +536,7 @@ void _rb_tree_clear(_rb_tree_t* pt_rb_tree)
 {
     assert(pt_rb_tree != NULL);
 
-    pt_rb_tree->_t_rbroot._pt_parent = _destroy_rb_tree(
+    pt_rb_tree->_t_rbroot._pt_parent = _rb_tree_destroy_subtree(
         pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent);
     assert(pt_rb_tree->_t_rbroot._pt_parent == NULL);
     pt_rb_tree->_t_rbroot._pt_left = &pt_rb_tree->_t_rbroot;
@@ -855,7 +855,7 @@ _rb_tree_iterator_t _rb_tree_insert_equal(_rb_tree_t* pt_rb_tree, const void* cp
     assert(pt_rb_tree != NULL && cpv_value != NULL);
 
     _GET_RB_TREE_POINTER(t_iterator) = pt_rb_tree;
-    _GET_RB_TREE_COREPOS(t_iterator) = (char*)_insert_rbnode(pt_rb_tree, cpv_value);
+    _GET_RB_TREE_COREPOS(t_iterator) = (char*)_rb_tree_insert_rbnode(pt_rb_tree, cpv_value);
 
     pt_rb_tree->_t_rbroot._pt_left = _get_min_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
     pt_rb_tree->_t_rbroot._pt_right = _get_max_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
