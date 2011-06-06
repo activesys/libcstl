@@ -153,27 +153,52 @@ extern _rbnode_t* _rb_tree_find_value(const _rb_tree_t* cpt_rb_tree, const _rbno
  */
 extern _rbnode_t* _rb_tree_insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value);
 
-/*
- * Rebalance the subtree.
+/**
+ * Rebalance the rb tree.
+ * @param pt_rb_tree            rb tree.
+ * @param pt_pos                imbalanced node.
+ * @return void.
+ * @remarks if pt_rb_tree == NULL or pt_pos == NULL, then the behavior is undefined. the rb tree must be initialized,
+ *          otherwise the behavior is undefined. the pt_pos must be not the root of rb tree, otherwise the behavior
+ *          is undefined.
  */
-extern void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos);
+extern void _rb_tree_rebalance(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos);
 
-/*
+/**
  * Rebalance the subtree after deletion.
+ * @param pt_rb_tree            rb tree.
+ * @param pt_pos                imbalanced node.
+ * @param pt_parent             parent nodef of imbalanced node.
+ * @return void.
+ * @remarks if pt_rb_tree == NULL or pt_parent == NULL, then the behavior is undefined. the rb tree must be initialized,
+ *          otherwise the behavior is undefined. the pt_parent must be have one child node at least, otherwise the
+ *          behavior is undefined.
  */
-extern void _fixup_deletion(
-    _rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_parent);
+extern void _rb_tree_fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_parent);
 
-/*
- * Get minimum and maximum rbnode pointer.
+/**
+ * Get minimum rbnode.
+ * @param cpt_root              root of sub rb node.
+ * @return minimum rb node.
+ * @remarks if cpt_root == NULL, the behavior is undefined.
  */
-extern _rbnode_t* _get_min_rbnode(const _rbnode_t* cpt_root);
-extern _rbnode_t* _get_max_rbnode(const _rbnode_t* cpt_root);
+extern _rbnode_t* _rb_tree_get_min_rbnode(const _rbnode_t* cpt_root);
 
-/*
+/**
+ * Get maximum rbnode.
+ * @param cpt_root              root of sub rb node.
+ * @return maximum rb node.
+ * @remarks if cpt_root == NULL, the behavior is undefined.
+ */
+extern _rbnode_t* _rb_tree_get_max_rbnode(const _rbnode_t* cpt_root);
+
+/**
  * Get rb node color.
+ * @param cpt_root                  rb node.
+ * @return rb node color.
+ * @remarks if cpt_root == NULL, then return black.
  */
-extern color_t _get_color(const _rbnode_t* cpt_root);
+extern color_t _rb_tree_get_color(const _rbnode_t* cpt_root);
 
 /**
  * Anticlockwise rotation
@@ -191,12 +216,29 @@ extern _rbnode_t* _rb_tree_anticlockwise_rotation(_rbnode_t* pt_root);
  */
 extern _rbnode_t* _rb_tree_clockwise_rotation(_rbnode_t* pt_root);
 
-/* initiallize the element */
+/**
+ * Initialize element auxiliary function
+ * @param pt_rb_tree            rb tree.
+ * @param pt_node               rb node.
+ * @return void.
+ * @remarks if pt_rb_tree == NULL or pt_node == NULL, then the behavior is undefine. pt_rb_tree must be initialized or
+ *          created by _create_rb_tree(), otherwise the behavior is undefined.
+ */
 extern void _rb_tree_init_elem_auxiliary(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_node);
 
-/* element compare function auxiliary */
-extern void _rb_tree_elem_compare_auxiliary(const _rb_tree_t* cpt_rb_tree,
-    const void* cpv_first, const void* cpv_second, void* pv_output);
+/**
+ * Element compare function auxiliary
+ * @param cpt_rb_tree           rb tree.
+ * @param cpv_first             first element.
+ * @param cpv_second            second element.
+ * @param pv_output             output.
+ * @return void.
+ * @remarks if cpt_rb_tree == NULL or cpv_first == NULL or cpv_second == NULL or pv_output == NULL, the behavior is
+ *          undefined. cpt_rb_tree must be initialized or created by _create_rb_tree(), otherwise the behavior is
+ *          undefined.
+ */
+extern void _rb_tree_elem_compare_auxiliary(
+    const _rb_tree_t* cpt_rb_tree, const void* cpv_first, const void* cpv_second, void* pv_output);
 
 #ifdef __cplusplus
 }

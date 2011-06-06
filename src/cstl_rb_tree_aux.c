@@ -262,7 +262,10 @@ _rbnode_t* _rb_tree_find_value(const _rb_tree_t* cpt_rb_tree, const _rbnode_t* c
     }
 }
 
-_rbnode_t* _get_min_rbnode(const _rbnode_t* cpt_root)
+/**
+ * Get minimum rbnode.
+ */
+_rbnode_t* _rb_tree_get_min_rbnode(const _rbnode_t* cpt_root)
 {
     _rbnode_t* pt_min = (_rbnode_t*)cpt_root;
 
@@ -276,7 +279,10 @@ _rbnode_t* _get_min_rbnode(const _rbnode_t* cpt_root)
     return pt_min;
 }
 
-_rbnode_t* _get_max_rbnode(const _rbnode_t* cpt_root)
+/**
+ * Get maximum rbnode.
+ */
+_rbnode_t* _rb_tree_get_max_rbnode(const _rbnode_t* cpt_root)
 {
     _rbnode_t* pt_max = (_rbnode_t*)cpt_root;
 
@@ -290,7 +296,10 @@ _rbnode_t* _get_max_rbnode(const _rbnode_t* cpt_root)
     return pt_max;
 }
 
-color_t _get_color(const _rbnode_t* cpt_root)
+/**
+ * Get rb node color.
+ */
+color_t _rb_tree_get_color(const _rbnode_t* cpt_root)
 {
     if(cpt_root == NULL)
     {
@@ -299,6 +308,7 @@ color_t _get_color(const _rbnode_t* cpt_root)
     }
     else
     {
+        assert(cpt_root->_t_color == red || cpt_root->_t_color == black);
         return cpt_root->_t_color;
     }
 }
@@ -392,9 +402,9 @@ _rbnode_t* _rb_tree_insert_rbnode(_rb_tree_t* pt_rb_tree, const void* cpv_value)
             pt_parent->_pt_right = pt_cur;
         }
 
-        if(_get_color(pt_parent) == red)
+        if(_rb_tree_get_color(pt_parent) == red)
         {
-            _rebalance_rb_tree(pt_rb_tree, pt_cur);
+            _rb_tree_rebalance(pt_rb_tree, pt_cur);
         }
     }
 
@@ -463,19 +473,26 @@ _rbnode_t* _rb_tree_anticlockwise_rotation(_rbnode_t* pt_root)
     return pt_right;
 }
 
-void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
+/**
+ * Rebalance the rb tree.
+ */
+void _rb_tree_rebalance(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
 {
     _rbnode_t* pt_parent = NULL;
     _rbnode_t* pt_sparent = NULL;   /* the sibling of parent */
     _rbnode_t* pt_gparent = NULL;   /* grand parent node */
     _rbnode_t* pt_ggparent = NULL;  /* grand grand parent node */
 
-    assert(pt_rb_tree != NULL && pt_pos != NULL);
+    assert(pt_rb_tree != NULL);
+    assert(pt_pos != NULL);
+    assert(_rb_tree_is_inited(pt_rb_tree));
+    assert(_rb_tree_rbnode_belong_to_rb_tree(pt_rb_tree->_t_rbroot._pt_parent, pt_pos));
+    assert(pt_pos != pt_rb_tree->_t_rbroot._pt_parent);
 
     pt_parent = pt_pos->_pt_parent;
     while(pt_pos != pt_rb_tree->_t_rbroot._pt_parent && 
-          _get_color(pt_pos) == red && 
-          _get_color(pt_parent) == red)
+          _rb_tree_get_color(pt_pos) == red && 
+          _rb_tree_get_color(pt_parent) == red)
     {
         assert(pt_parent != pt_rb_tree->_t_rbroot._pt_parent);
         pt_gparent = pt_parent->_pt_parent;
@@ -484,7 +501,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
         if(pt_parent == pt_gparent->_pt_left)
         {
             pt_sparent = pt_gparent->_pt_right;
-            if(_get_color(pt_sparent) == red)
+            if(_rb_tree_get_color(pt_sparent) == red)
             {
                 /*
                  *     ggp(?)          ggp(?)         ggp(?)       ggp(?) 
@@ -665,7 +682,7 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
         else
         {
             pt_sparent = pt_gparent->_pt_left;
-            if(_get_color(pt_sparent) == red)
+            if(_rb_tree_get_color(pt_sparent) == red)
             {
                 /*
                  *    ggp(?)      ggp(?)         ggp(?)         ggp(?)
@@ -840,17 +857,23 @@ void _rebalance_rb_tree(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos)
     }
 }
 
-void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_parent)
+/**
+ * Rebalance the subtree after deletion.
+ */
+void _rb_tree_fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_parent)
 {
     _rbnode_t* pt_sibling = NULL;
     _rbnode_t* pt_gparent = NULL;
 
-    assert(pt_rb_tree != NULL && pt_parent != NULL);
+    assert(pt_rb_tree != NULL);
+    assert(pt_parent != NULL);
+    assert(_rb_tree_is_inited(pt_rb_tree));
+    assert(_rb_tree_rbnode_belong_to_rb_tree(pt_rb_tree->_t_rbroot._pt_parent, pt_parent));
     assert(pt_parent->_pt_left != NULL || pt_parent->_pt_right != NULL);
+    assert(pt_pos == pt_parent->_pt_left || pt_pos == pt_parent->_pt_right);
 
     /* this deletion algorithm refer to <<Introduction in algorithms>> */
-    while(pt_pos != pt_rb_tree->_t_rbroot._pt_parent && 
-          _get_color(pt_pos) == black)
+    while(pt_pos != pt_rb_tree->_t_rbroot._pt_parent && _rb_tree_get_color(pt_pos) == black)
     {
         pt_gparent = pt_parent->_pt_parent;
 
@@ -859,7 +882,7 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
             pt_sibling = pt_parent->_pt_right;
             assert(pt_sibling != NULL);
 
-            if(_get_color(pt_sibling) == red)
+            if(_rb_tree_get_color(pt_sibling) == red)
             {
                 /* Case:1
                  *        gp(?)            gp(?)
@@ -872,8 +895,8 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                  */
                 assert(pt_sibling->_pt_left != NULL && 
                        pt_sibling->_pt_right != NULL);
-                assert(_get_color(pt_sibling->_pt_left) == black &&
-                       _get_color(pt_sibling->_pt_right) == black);
+                assert(_rb_tree_get_color(pt_sibling->_pt_left) == black &&
+                       _rb_tree_get_color(pt_sibling->_pt_right) == black);
 
                 if(pt_parent == pt_gparent->_pt_parent)
                 {
@@ -897,9 +920,9 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                 pt_sibling->_t_color = black;
                 pt_parent->_t_color = red;
             }
-            else if(_get_color(pt_sibling) == black &&
-                    _get_color(pt_sibling->_pt_left) == black &&
-                    _get_color(pt_sibling->_pt_right) == black)
+            else if(_rb_tree_get_color(pt_sibling) == black &&
+                    _rb_tree_get_color(pt_sibling->_pt_left) == black &&
+                    _rb_tree_get_color(pt_sibling->_pt_right) == black)
             {
                 /* Case:2
                  *         gp(?)               gp(?)
@@ -915,9 +938,9 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                 pt_pos = pt_parent;
                 pt_parent = pt_pos->_pt_parent;
             }
-            else if(_get_color(pt_sibling) == black && 
-                    _get_color(pt_sibling->_pt_left) == red && 
-                    _get_color(pt_sibling->_pt_right) == black)
+            else if(_rb_tree_get_color(pt_sibling) == black && 
+                    _rb_tree_get_color(pt_sibling->_pt_left) == red && 
+                    _rb_tree_get_color(pt_sibling->_pt_right) == black)
             {
                 /* Case:3
                  *        gp(?)                    gp(?)
@@ -949,9 +972,8 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                  *            /   \             /  \
                  *           l(?) r(r)        x(b) l(?)     new x = root
                  */
-                assert(
-                    _get_color(pt_sibling) == black && 
-                    _get_color(pt_sibling->_pt_right) == red);
+                assert(_rb_tree_get_color(pt_sibling) == black && 
+                       _rb_tree_get_color(pt_sibling->_pt_right) == red);
 
                 if(pt_parent == pt_gparent->_pt_parent)
                 {
@@ -984,7 +1006,7 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
             pt_sibling = pt_parent->_pt_left;
             assert(pt_sibling != NULL);
 
-            if(_get_color(pt_sibling) == red)
+            if(_rb_tree_get_color(pt_sibling) == red)
             {
                 /* Case:1
                  *        gp(?)            gp(?)
@@ -997,8 +1019,8 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                  */
                 assert(pt_sibling->_pt_left != NULL && 
                        pt_sibling->_pt_right != NULL);
-                assert(_get_color(pt_sibling->_pt_left) == black &&
-                       _get_color(pt_sibling->_pt_right) == black);
+                assert(_rb_tree_get_color(pt_sibling->_pt_left) == black &&
+                       _rb_tree_get_color(pt_sibling->_pt_right) == black);
 
                 if(pt_parent == pt_gparent->_pt_parent)
                 {
@@ -1022,9 +1044,9 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                 pt_sibling->_t_color = black;
                 pt_parent->_t_color = red;
             }
-            else if(_get_color(pt_sibling) == black &&
-                    _get_color(pt_sibling->_pt_left) == black &&
-                    _get_color(pt_sibling->_pt_right) == black)
+            else if(_rb_tree_get_color(pt_sibling) == black &&
+                    _rb_tree_get_color(pt_sibling->_pt_left) == black &&
+                    _rb_tree_get_color(pt_sibling->_pt_right) == black)
             {
                 /* Case:2
                  *         gp(?)               gp(?)
@@ -1040,9 +1062,9 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                 pt_pos = pt_parent;
                 pt_parent = pt_pos->_pt_parent;
             }
-            else if(_get_color(pt_sibling) == black && 
-                    _get_color(pt_sibling->_pt_left) == black && 
-                    _get_color(pt_sibling->_pt_right) == red)
+            else if(_rb_tree_get_color(pt_sibling) == black && 
+                    _rb_tree_get_color(pt_sibling->_pt_left) == black && 
+                    _rb_tree_get_color(pt_sibling->_pt_right) == red)
             {
                 /* Case:3
                  *        gp(?)                    gp(?)
@@ -1075,9 +1097,8 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
                  *       /   \                        /  \
                  *      l(r) r(?)                    r(?) x(b)     new x = root
                  */
-                assert(
-                    _get_color(pt_sibling) == black && 
-                    _get_color(pt_sibling->_pt_left) == red);
+                assert(_rb_tree_get_color(pt_sibling) == black && 
+                       _rb_tree_get_color(pt_sibling->_pt_left) == red);
 
                 if(pt_parent == pt_gparent->_pt_parent)
                 {
@@ -1106,12 +1127,18 @@ void _fixup_deletion(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_pos, _rbnode_t* pt_pa
             }
         }
     }
+
     pt_pos->_t_color = black;
 }
 
+/**
+ * Initialize element auxiliary function
+ */
 void _rb_tree_init_elem_auxiliary(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_node)
 {
-    assert(pt_rb_tree != NULL && pt_node != NULL);
+    assert(pt_rb_tree != NULL);
+    assert(pt_node != NULL);
+    assert(_rb_tree_is_inited(pt_rb_tree) || _rb_tree_is_created(pt_rb_tree));
 
     /* initialize new elements */
     if(_GET_RB_TREE_TYPE_STYLE(pt_rb_tree) == _TYPE_CSTL_BUILTIN)
@@ -1130,18 +1157,22 @@ void _rb_tree_init_elem_auxiliary(_rb_tree_t* pt_rb_tree, _rbnode_t* pt_node)
     }
 }
 
-void _rb_tree_elem_compare_auxiliary(const _rb_tree_t* cpt_rb_tree,
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Element compare function auxiliary
+ */
+void _rb_tree_elem_compare_auxiliary(
+    const _rb_tree_t* cpt_rb_tree, const void* cpv_first, const void* cpv_second, void* pv_output)
 {
-    assert(cpt_rb_tree != NULL && cpv_first != NULL &&
-           cpv_second != NULL && pv_output != NULL); 
+    assert(cpt_rb_tree != NULL);
+    assert(cpv_first != NULL);
+    assert(cpv_second != NULL);
+    assert(pv_output != NULL); 
+    assert(_rb_tree_is_inited(cpt_rb_tree) || _rb_tree_is_created(cpt_rb_tree));
 
-    if(strncmp(_GET_RB_TREE_TYPE_BASENAME(cpt_rb_tree),
-        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
+    if(strncmp(_GET_RB_TREE_TYPE_BASENAME(cpt_rb_tree), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
        cpt_rb_tree->_t_compare != _GET_RB_TREE_TYPE_LESS_FUNCTION(cpt_rb_tree))
     {
-        cpt_rb_tree->_t_compare(string_c_str((string_t*)cpv_first),
-            string_c_str((string_t*)cpv_second), pv_output);
+        cpt_rb_tree->_t_compare(string_c_str((string_t*)cpv_first), string_c_str((string_t*)cpv_second), pv_output);
     }
     else
     {

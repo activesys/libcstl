@@ -857,8 +857,8 @@ _rb_tree_iterator_t _rb_tree_insert_equal(_rb_tree_t* pt_rb_tree, const void* cp
     _GET_RB_TREE_POINTER(t_iterator) = pt_rb_tree;
     _GET_RB_TREE_COREPOS(t_iterator) = (char*)_rb_tree_insert_rbnode(pt_rb_tree, cpv_value);
 
-    pt_rb_tree->_t_rbroot._pt_left = _get_min_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
-    pt_rb_tree->_t_rbroot._pt_right = _get_max_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
+    pt_rb_tree->_t_rbroot._pt_left = _rb_tree_get_min_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
+    pt_rb_tree->_t_rbroot._pt_right = _rb_tree_get_max_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
     pt_rb_tree->_t_nodecount++;
 
     return t_iterator;
@@ -988,7 +988,7 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
              * here the real deleted node is pt_curtmp, so the 
              * color of pt_curtmp is used.
              */
-            pt_curtmp = _get_min_rbnode(pt_cur->_pt_right);
+            pt_curtmp = _rb_tree_get_min_rbnode(pt_cur->_pt_right);
             t_colortmp = pt_curtmp->_t_color;
             if(pt_cur == pt_curtmp->_pt_parent)
             {
@@ -1008,9 +1008,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
                 pt_curtmp->_t_color = pt_cur->_t_color;
                 pt_cur->_t_color = t_colortmp;
 
-                if(_get_color(pt_cur) == black)
+                if(_rb_tree_get_color(pt_cur) == black)
                 {
-                    _fixup_deletion(pt_rb_tree, pt_curtmp->_pt_right, pt_curtmp);
+                    _rb_tree_fixup_deletion(pt_rb_tree, pt_curtmp->_pt_right, pt_curtmp);
                 }
             }
             else
@@ -1042,9 +1042,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
                 pt_curtmp->_t_color = pt_cur->_t_color;
                 pt_cur->_t_color = t_colortmp;
 
-                if(_get_color(pt_cur) == black)
+                if(_rb_tree_get_color(pt_cur) == black)
                 {
-                    _fixup_deletion(pt_rb_tree, pt_parenttmp->_pt_left, pt_parenttmp);
+                    _rb_tree_fixup_deletion(pt_rb_tree, pt_parenttmp->_pt_left, pt_parenttmp);
                 }
             }
         }
@@ -1060,9 +1060,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
              */
             pt_parent->_pt_left = NULL;
 
-            if(_get_color(pt_cur) == black)
+            if(_rb_tree_get_color(pt_cur) == black)
             {
-                _fixup_deletion(pt_rb_tree, pt_parent->_pt_left, pt_parent);
+                _rb_tree_fixup_deletion(pt_rb_tree, pt_parent->_pt_left, pt_parent);
             }
         }
         else if(pt_cur->_pt_left != NULL && pt_cur->_pt_right == NULL)
@@ -1077,9 +1077,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
             pt_parent->_pt_left = pt_cur->_pt_left;
             pt_parent->_pt_left->_pt_parent = pt_parent;
 
-            if(_get_color(pt_cur) == black)
+            if(_rb_tree_get_color(pt_cur) == black)
             {
-                _fixup_deletion(pt_rb_tree, pt_parent->_pt_left, pt_parent);
+                _rb_tree_fixup_deletion(pt_rb_tree, pt_parent->_pt_left, pt_parent);
             }
         }
         else if(pt_cur->_pt_left == NULL && pt_cur->_pt_right != NULL)
@@ -1094,9 +1094,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
             pt_parent->_pt_left = pt_cur->_pt_right;
             pt_parent->_pt_left->_pt_parent = pt_parent;
 
-            if(_get_color(pt_cur) == black)
+            if(_rb_tree_get_color(pt_cur) == black)
             {
-                _fixup_deletion(pt_rb_tree, pt_parent->_pt_left, pt_parent);
+                _rb_tree_fixup_deletion(pt_rb_tree, pt_parent->_pt_left, pt_parent);
             }
         }
         else
@@ -1105,7 +1105,7 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
              * here the real deleted node is pt_curtmp, so the 
              * color of pt_curtmp is used.
              */
-            pt_curtmp = _get_min_rbnode(pt_cur->_pt_right);
+            pt_curtmp = _rb_tree_get_min_rbnode(pt_cur->_pt_right);
             t_colortmp = pt_curtmp->_t_color;
             if(pt_cur == pt_curtmp->_pt_parent)
             {
@@ -1125,9 +1125,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
                 pt_curtmp->_t_color = pt_cur->_t_color;
                 pt_cur->_t_color = t_colortmp;
 
-                if(_get_color(pt_cur) == black)
+                if(_rb_tree_get_color(pt_cur) == black)
                 {
-                    _fixup_deletion(pt_rb_tree, pt_curtmp->_pt_right, pt_curtmp);
+                    _rb_tree_fixup_deletion(pt_rb_tree, pt_curtmp->_pt_right, pt_curtmp);
                 }
             }
             else
@@ -1159,9 +1159,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
                 pt_curtmp->_t_color = pt_cur->_t_color;
                 pt_cur->_t_color = t_colortmp;
 
-                if(_get_color(pt_cur) == black)
+                if(_rb_tree_get_color(pt_cur) == black)
                 {
-                    _fixup_deletion(pt_rb_tree, pt_parenttmp->_pt_left, pt_parenttmp);
+                    _rb_tree_fixup_deletion(pt_rb_tree, pt_parenttmp->_pt_left, pt_parenttmp);
                 }
             }
         }
@@ -1177,9 +1177,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
              */
             pt_parent->_pt_right = NULL;
 
-            if(_get_color(pt_cur) == black)
+            if(_rb_tree_get_color(pt_cur) == black)
             {
-                _fixup_deletion(pt_rb_tree, pt_parent->_pt_right, pt_parent);
+                _rb_tree_fixup_deletion(pt_rb_tree, pt_parent->_pt_right, pt_parent);
             }
         }
         else if(pt_cur->_pt_left != NULL && pt_cur->_pt_right == NULL)
@@ -1194,9 +1194,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
             pt_parent->_pt_right = pt_cur->_pt_left;
             pt_parent->_pt_right->_pt_parent = pt_parent;
  
-            if(_get_color(pt_cur) == black)
+            if(_rb_tree_get_color(pt_cur) == black)
             {
-                _fixup_deletion(pt_rb_tree, pt_parent->_pt_right, pt_parent);
+                _rb_tree_fixup_deletion(pt_rb_tree, pt_parent->_pt_right, pt_parent);
             }
         }
         else if(pt_cur->_pt_left == NULL && pt_cur->_pt_right != NULL)
@@ -1211,9 +1211,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
             pt_parent->_pt_right = pt_cur->_pt_right;
             pt_parent->_pt_right->_pt_parent = pt_parent;
 
-            if(_get_color(pt_cur) == black)
+            if(_rb_tree_get_color(pt_cur) == black)
             {
-                _fixup_deletion(pt_rb_tree, pt_parent->_pt_right, pt_parent);
+                _rb_tree_fixup_deletion(pt_rb_tree, pt_parent->_pt_right, pt_parent);
             }
         }
         else
@@ -1222,7 +1222,7 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
              * here the real deleted node is pt_curtmp, so the 
              * color of pt_curtmp is used.
              */
-            pt_curtmp = _get_min_rbnode(pt_cur->_pt_right);
+            pt_curtmp = _rb_tree_get_min_rbnode(pt_cur->_pt_right);
             t_colortmp = pt_curtmp->_t_color;
             if(pt_cur == pt_curtmp->_pt_parent)
             {
@@ -1242,9 +1242,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
                 pt_curtmp->_t_color = pt_cur->_t_color;
                 pt_cur->_t_color = t_colortmp;
 
-                if(_get_color(pt_cur) == black)
+                if(_rb_tree_get_color(pt_cur) == black)
                 {
-                    _fixup_deletion(pt_rb_tree, pt_curtmp->_pt_right, pt_curtmp);
+                    _rb_tree_fixup_deletion(pt_rb_tree, pt_curtmp->_pt_right, pt_curtmp);
                 }
             }
             else
@@ -1276,9 +1276,9 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
                 pt_curtmp->_t_color = pt_cur->_t_color;
                 pt_cur->_t_color = t_colortmp;
 
-                if(_get_color(pt_cur) == black)
+                if(_rb_tree_get_color(pt_cur) == black)
                 {
-                    _fixup_deletion(pt_rb_tree, pt_parenttmp->_pt_left, pt_parenttmp);
+                    _rb_tree_fixup_deletion(pt_rb_tree, pt_parenttmp->_pt_left, pt_parenttmp);
                 }
             }
         }
@@ -1300,8 +1300,8 @@ void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos)
     }
     else
     {
-        pt_rb_tree->_t_rbroot._pt_left = _get_min_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
-        pt_rb_tree->_t_rbroot._pt_right = _get_max_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
+        pt_rb_tree->_t_rbroot._pt_left = _rb_tree_get_min_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
+        pt_rb_tree->_t_rbroot._pt_right = _rb_tree_get_max_rbnode(pt_rb_tree->_t_rbroot._pt_parent);
     }
 }
 

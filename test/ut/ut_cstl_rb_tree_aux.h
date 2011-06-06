@@ -140,6 +140,109 @@ void test__rb_tree_insert_rbnode__root_red_children(void** state);
 void test__rb_tree_insert_rbnode__not_root_red_children(void** state);
 void test__rb_tree_insert_rbnode__red_left_child(void** state);
 void test__rb_tree_insert_rbnode__red_right_child(void** state);
+/*
+ * test _rb_tree_get_color
+ */
+UT_CASE_DECLARATION(_rb_tree_get_color)
+void test__rb_tree_get_color__null_root(void** state);
+void test__rb_tree_get_color__invalid_color(void** state);
+void test__rb_tree_get_color__red(void** state);
+void test__rb_tree_get_color__black(void** state);
+/*
+ * test _rb_tree_get_min_rbnode
+ */
+UT_CASE_DECLARATION(_rb_tree_get_min_rbnode)
+void test__rb_tree_get_min_rbnode__null_root(void** state);
+void test__rb_tree_get_min_rbnode__one_node(void** state);
+void test__rb_tree_get_min_rbnode__sub_tree(void** state);
+/*
+ * test _rb_tree_get_max_rbnode
+ */
+UT_CASE_DECLARATION(_rb_tree_get_max_rbnode)
+void test__rb_tree_get_max_rbnode__null_root(void** state);
+void test__rb_tree_get_max_rbnode__one_node(void** state);
+void test__rb_tree_get_max_rbnode__sub_tree(void** state);
+/*
+ * test _rb_tree_rebalance
+ */
+UT_CASE_DECLARATION(_rb_tree_rebalance)
+void test__rb_tree_rebalance__null_rb_tree(void** state);
+void test__rb_tree_rebalance__null_pos(void** state);
+void test__rb_tree_rebalance__not_inited(void** state);
+void test__rb_tree_rebalance__invalid_node(void** state);
+void test__rb_tree_rebalance__root(void** state);
+void test__rb_tree_rebalance__case_1_1(void** state);
+void test__rb_tree_rebalance__case_1_2(void** state);
+void test__rb_tree_rebalance__case_1_3(void** state);
+void test__rb_tree_rebalance__case_1_4(void** state);
+void test__rb_tree_rebalance__case_1_5(void** state);
+void test__rb_tree_rebalance__case_1_6(void** state);
+void test__rb_tree_rebalance__case_2_1(void** state);
+void test__rb_tree_rebalance__case_2_2(void** state);
+void test__rb_tree_rebalance__case_2_3(void** state);
+void test__rb_tree_rebalance__case_3_1(void** state);
+void test__rb_tree_rebalance__case_3_2(void** state);
+void test__rb_tree_rebalance__case_3_3(void** state);
+void test__rb_tree_rebalance__case_4_1(void** state);
+void test__rb_tree_rebalance__case_4_2(void** state);
+void test__rb_tree_rebalance__case_4_3(void** state);
+void test__rb_tree_rebalance__case_4_4(void** state);
+void test__rb_tree_rebalance__case_4_5(void** state);
+void test__rb_tree_rebalance__case_4_6(void** state);
+void test__rb_tree_rebalance__case_5_1(void** state);
+void test__rb_tree_rebalance__case_5_2(void** state);
+void test__rb_tree_rebalance__case_5_3(void** state);
+void test__rb_tree_rebalance__case_6_1(void** state);
+void test__rb_tree_rebalance__case_6_2(void** state);
+void test__rb_tree_rebalance__case_6_3(void** state);
+/*
+ * test _rb_tree_fixup_deletion
+ */
+UT_CASE_DECLARATION(_rb_tree_fixup_deletion)
+void test__rb_tree_fixup_deletion__null_rb_tree(void** state);
+void test__rb_tree_fixup_deletion__non_inited(void** state);
+void test__rb_tree_fixup_deletion__null_parent(void** state);
+void test__rb_tree_fixup_deletion__parent_not_belong_to_rb_tree(void** state);
+void test__rb_tree_fixup_deletion__parent_no_child(void** state);
+void test__rb_tree_fixup_deletion__invalid_pos(void** state);
+void test__rb_tree_fixup_deletion__case_1_1_1(void** state);
+void test__rb_tree_fixup_deletion__case_1_1_2(void** state);
+void test__rb_tree_fixup_deletion__case_1_1_3(void** state);
+void test__rb_tree_fixup_deletion__case_1_2_1(void** state);
+void test__rb_tree_fixup_deletion__case_1_2_2(void** state);
+void test__rb_tree_fixup_deletion__case_1_2_3(void** state);
+void test__rb_tree_fixup_deletion__case_2_1(void** state);
+void test__rb_tree_fixup_deletion__case_2_2(void** state);
+void test__rb_tree_fixup_deletion__case_3_1(void** state);
+void test__rb_tree_fixup_deletion__case_3_2(void** state);
+void test__rb_tree_fixup_deletion__case_4_1_1(void** state);
+void test__rb_tree_fixup_deletion__case_4_1_2(void** state);
+void test__rb_tree_fixup_deletion__case_4_1_3(void** state);
+void test__rb_tree_fixup_deletion__case_4_2_1(void** state);
+void test__rb_tree_fixup_deletion__case_4_2_2(void** state);
+void test__rb_tree_fixup_deletion__case_4_2_3(void** state);
+/*
+ * test _rb_tree_init_elem_auxiliary
+ */
+UT_CASE_DECLARATION(_rb_tree_init_elem_auxiliary)
+void test__rb_tree_init_elem_auxiliary__null_rb_tree(void** state);
+void test__rb_tree_init_elem_auxiliary__null_node(void** state);
+void test__rb_tree_init_elem_auxiliary__non_inited(void** state);
+void test__rb_tree_init_elem_auxiliary__c_builtin(void** state);
+void test__rb_tree_init_elem_auxiliary__cstr(void** state);
+void test__rb_tree_init_elem_auxiliary__cstl_builtin(void** state);
+void test__rb_tree_init_elem_auxiliary__user_define(void** state);
+/*
+ * test _rb_tree_elem_compare_auxiliary
+ */
+UT_CASE_DECLARATION(_rb_tree_elem_compare_auxiliary)
+void test__rb_tree_elem_compare_auxiliary__null_rb_tree(void** state);
+void test__rb_tree_elem_compare_auxiliary__null_first(void** state);
+void test__rb_tree_elem_compare_auxiliary__null_second(void** state);
+void test__rb_tree_elem_compare_auxiliary__null_output(void** state);
+void test__rb_tree_elem_compare_auxiliary__non_inited(void** state);
+void test__rb_tree_elem_compare_auxiliary__int(void** state);
+void test__rb_tree_elem_compare_auxiliary__cstr(void** state);
 
 #define UT_CSTL_RB_TREE_AUX_CASE\
     UT_SUIT_BEGIN(cstl_rb_tree_aux, test__rb_tree_is_created__null_rb_tree),\
@@ -228,6 +331,81 @@ void test__rb_tree_insert_rbnode__red_right_child(void** state);
     UT_CASE(test__rb_tree_insert_rbnode__not_root_red_children),\
     UT_CASE(test__rb_tree_insert_rbnode__red_left_child),\
     UT_CASE(test__rb_tree_insert_rbnode__red_right_child),\
+    UT_CASE_BEGIN(_rb_tree_get_color, test__rb_tree_get_color__null_root),\
+    UT_CASE(test__rb_tree_get_color__invalid_color),\
+    UT_CASE(test__rb_tree_get_color__red),\
+    UT_CASE(test__rb_tree_get_color__black),\
+    UT_CASE_BEGIN(_rb_tree_get_min_rbnode, test__rb_tree_get_min_rbnode__null_root),\
+    UT_CASE(test__rb_tree_get_min_rbnode__one_node),\
+    UT_CASE(test__rb_tree_get_min_rbnode__sub_tree),\
+    UT_CASE_BEGIN(_rb_tree_get_max_rbnode, test__rb_tree_get_max_rbnode__null_root),\
+    UT_CASE(test__rb_tree_get_max_rbnode__one_node),\
+    UT_CASE(test__rb_tree_get_max_rbnode__sub_tree),\
+    UT_CASE_BEGIN(_rb_tree_rebalance, test__rb_tree_rebalance__null_rb_tree),\
+    UT_CASE(test__rb_tree_rebalance__null_pos),\
+    UT_CASE(test__rb_tree_rebalance__not_inited),\
+    UT_CASE(test__rb_tree_rebalance__invalid_node),\
+    UT_CASE(test__rb_tree_rebalance__root),\
+    UT_CASE(test__rb_tree_rebalance__case_1_1),\
+    UT_CASE(test__rb_tree_rebalance__case_1_2),\
+    UT_CASE(test__rb_tree_rebalance__case_1_3),\
+    UT_CASE(test__rb_tree_rebalance__case_1_4),\
+    UT_CASE(test__rb_tree_rebalance__case_1_5),\
+    UT_CASE(test__rb_tree_rebalance__case_1_6),\
+    UT_CASE(test__rb_tree_rebalance__case_2_1),\
+    UT_CASE(test__rb_tree_rebalance__case_2_2),\
+    UT_CASE(test__rb_tree_rebalance__case_2_3),\
+    UT_CASE(test__rb_tree_rebalance__case_3_1),\
+    UT_CASE(test__rb_tree_rebalance__case_3_2),\
+    UT_CASE(test__rb_tree_rebalance__case_3_3),\
+    UT_CASE(test__rb_tree_rebalance__case_4_1),\
+    UT_CASE(test__rb_tree_rebalance__case_4_2),\
+    UT_CASE(test__rb_tree_rebalance__case_4_3),\
+    UT_CASE(test__rb_tree_rebalance__case_4_4),\
+    UT_CASE(test__rb_tree_rebalance__case_4_5),\
+    UT_CASE(test__rb_tree_rebalance__case_4_6),\
+    UT_CASE(test__rb_tree_rebalance__case_5_1),\
+    UT_CASE(test__rb_tree_rebalance__case_5_2),\
+    UT_CASE(test__rb_tree_rebalance__case_5_3),\
+    UT_CASE(test__rb_tree_rebalance__case_6_1),\
+    UT_CASE(test__rb_tree_rebalance__case_6_2),\
+    UT_CASE(test__rb_tree_rebalance__case_6_3),\
+    UT_CASE_BEGIN(_rb_tree_fixup_deletion, test__rb_tree_fixup_deletion__null_rb_tree),\
+    UT_CASE(test__rb_tree_fixup_deletion__non_inited),\
+    UT_CASE(test__rb_tree_fixup_deletion__null_parent),\
+    UT_CASE(test__rb_tree_fixup_deletion__parent_not_belong_to_rb_tree),\
+    UT_CASE(test__rb_tree_fixup_deletion__parent_no_child),\
+    UT_CASE(test__rb_tree_fixup_deletion__invalid_pos),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_1_1_1),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_1_1_2),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_1_1_3),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_1_2_1),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_1_2_2),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_1_2_3),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_2_1),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_2_2),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_3_1),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_3_2),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_4_1_1),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_4_1_2),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_4_1_3),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_4_2_1),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_4_2_2),\
+    UT_CASE(test__rb_tree_fixup_deletion__case_4_2_3),\
+    UT_CASE_BEGIN(_rb_tree_init_elem_auxiliary, test__rb_tree_init_elem_auxiliary__null_rb_tree),\
+    UT_CASE(test__rb_tree_init_elem_auxiliary__null_node),\
+    UT_CASE(test__rb_tree_init_elem_auxiliary__non_inited),\
+    UT_CASE(test__rb_tree_init_elem_auxiliary__c_builtin),\
+    UT_CASE(test__rb_tree_init_elem_auxiliary__cstr),\
+    UT_CASE(test__rb_tree_init_elem_auxiliary__cstl_builtin),\
+    UT_CASE(test__rb_tree_init_elem_auxiliary__user_define),\
+    UT_CASE_BEGIN(_rb_tree_elem_compare_auxiliary, test__rb_tree_elem_compare_auxiliary__null_rb_tree),\
+    UT_CASE(test__rb_tree_elem_compare_auxiliary__null_first),\
+    UT_CASE(test__rb_tree_elem_compare_auxiliary__null_second),\
+    UT_CASE(test__rb_tree_elem_compare_auxiliary__null_output),\
+    UT_CASE(test__rb_tree_elem_compare_auxiliary__non_inited),\
+    UT_CASE(test__rb_tree_elem_compare_auxiliary__int),\
+    UT_CASE(test__rb_tree_elem_compare_auxiliary__cstr)
 
 #endif /* _UT_CSTL_RB_TREE_AUX_H_ */
 
