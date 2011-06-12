@@ -253,6 +253,7 @@ cstlinclude_HEADERS = calgorithm.h \
 			cstl_priority_queue_private.h \
 			cstl_queue.h \
 			cstl_queue_private.h \
+			cstl_rb_tree.h \
 			cstl_rb_tree_iterator.h \
 			cstl_rb_tree_private.h \
 			cstl_set.h \

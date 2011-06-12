@@ -28,6 +28,7 @@
 
 #include <cstl/cstl_rb_tree_iterator.h>
 #include <cstl/cstl_rb_tree_private.h>
+#include <cstl/cstl_rb_tree.h>
 
 #include <cstl/cstring.h>
 
@@ -295,27 +296,6 @@ _rb_tree_t* _create_rb_tree(const char* s_typename)
     return pt_newrbtree;
 }
 
-bool_t _create_rb_tree_auxiliary(_rb_tree_t* pt_rb_tree, const char* s_typename)
-{
-    /* get type information */
-    _type_get_type(&pt_rb_tree->_t_typeinfo, s_typename);
-    if(pt_rb_tree->_t_typeinfo._t_style == _TYPE_INVALID)
-    {
-        return false;
-    }
-
-    pt_rb_tree->_t_rbroot._pt_parent = NULL;
-    pt_rb_tree->_t_rbroot._pt_left = NULL;
-    pt_rb_tree->_t_rbroot._pt_right = NULL;
-    pt_rb_tree->_t_rbroot._t_color = red;
-    pt_rb_tree->_t_nodecount = 0;
-
-    pt_rb_tree->_t_compare = NULL;
-
-    _alloc_init(&pt_rb_tree->_t_allocator);
-    return true;
-}
-
 void _rb_tree_init(_rb_tree_t* pt_rb_tree, binary_function_t t_compare)
 {
     assert(pt_rb_tree != NULL &&
@@ -337,24 +317,6 @@ void _rb_tree_init(_rb_tree_t* pt_rb_tree, binary_function_t t_compare)
     {
         pt_rb_tree->_t_compare = _GET_RB_TREE_TYPE_LESS_FUNCTION(pt_rb_tree);
     }
-}
-
-void _rb_tree_destroy_auxiliary(_rb_tree_t* pt_rb_tree)
-{
-    assert(pt_rb_tree != NULL);
-
-    /* destroy all elements */
-    pt_rb_tree->_t_rbroot._pt_parent =
-        _rb_tree_destroy_subtree(pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent);
-    assert(pt_rb_tree->_t_rbroot._pt_parent == NULL);
-    pt_rb_tree->_t_rbroot._pt_left = &pt_rb_tree->_t_rbroot;
-    pt_rb_tree->_t_rbroot._pt_right = &pt_rb_tree->_t_rbroot;
-    pt_rb_tree->_t_nodecount = 0;
-
-    /* destroy allocator */
-    _alloc_destroy(&pt_rb_tree->_t_allocator);
-
-    pt_rb_tree->_t_compare = NULL;
 }
 
 void _rb_tree_destroy(_rb_tree_t* pt_rb_tree)

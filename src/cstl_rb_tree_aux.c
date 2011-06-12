@@ -29,6 +29,7 @@
 
 #include <cstl/cstl_rb_tree_iterator.h>
 #include <cstl/cstl_rb_tree_private.h>
+#include <cstl/cstl_rb_tree.h>
 
 #include "cstl_rb_tree_aux.h"
 

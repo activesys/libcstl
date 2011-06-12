@@ -92,9 +92,9 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_pair.lo libcstl_la-cstl_priority_queue.lo \
 	libcstl_la-cstl_priority_queue_private.lo \
 	libcstl_la-cstl_queue.lo libcstl_la-cstl_queue_private.lo \
-	libcstl_la-cstl_rb_tree.lo libcstl_la-cstl_rb_tree_aux.lo \
-	libcstl_la-cstl_set.lo libcstl_la-cstl_slist.lo \
-	libcstl_la-cstl_slist_iterator.lo \
+	libcstl_la-cstl_rb_tree.lo libcstl_la-cstl_rb_tree_private.lo \
+	libcstl_la-cstl_rb_tree_aux.lo libcstl_la-cstl_set.lo \
+	libcstl_la-cstl_slist.lo libcstl_la-cstl_slist_iterator.lo \
 	libcstl_la-cstl_slist_private.lo libcstl_la-cstl_slist_aux.lo \
 	libcstl_la-cstl_stack.lo libcstl_la-cstl_stack_private.lo \
 	libcstl_la-cstl_string.lo libcstl_la-cstl_string_private.lo \
@@ -261,7 +261,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_pair.c \
 		     cstl_priority_queue.c cstl_priority_queue_private.c \
 		     cstl_queue.c cstl_queue_private.c \
-		     cstl_rb_tree.c cstl_rb_tree_aux.c cstl_rb_tree_aux.h \
+		     cstl_rb_tree.c cstl_rb_tree_private.c cstl_rb_tree_aux.c cstl_rb_tree_aux.h \
 		     cstl_set.c \
 		     cstl_slist.c cstl_slist_iterator.c cstl_slist_private.c cstl_slist_aux.c cstl_slist_aux.h \
 		     cstl_stack.c cstl_stack_private.c \
@@ -385,6 +385,7 @@ include ./$(DEPDIR)/libcstl_la-cstl_queue.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_queue_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_rb_tree.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_rb_tree_aux.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_rb_tree_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_set.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_slist.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_slist_aux.Plo
@@ -686,6 +687,13 @@ libcstl_la-cstl_rb_tree.lo: cstl_rb_tree.c
 #	source='cstl_rb_tree.c' object='libcstl_la-cstl_rb_tree.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_rb_tree.lo `test -f 'cstl_rb_tree.c' || echo '$(srcdir)/'`cstl_rb_tree.c
+
+libcstl_la-cstl_rb_tree_private.lo: cstl_rb_tree_private.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_rb_tree_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_rb_tree_private.Tpo -c -o libcstl_la-cstl_rb_tree_private.lo `test -f 'cstl_rb_tree_private.c' || echo '$(srcdir)/'`cstl_rb_tree_private.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_rb_tree_private.Tpo $(DEPDIR)/libcstl_la-cstl_rb_tree_private.Plo
+#	source='cstl_rb_tree_private.c' object='libcstl_la-cstl_rb_tree_private.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_rb_tree_private.lo `test -f 'cstl_rb_tree_private.c' || echo '$(srcdir)/'`cstl_rb_tree_private.c
 
 libcstl_la-cstl_rb_tree_aux.lo: cstl_rb_tree_aux.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_rb_tree_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_rb_tree_aux.Tpo -c -o libcstl_la-cstl_rb_tree_aux.lo `test -f 'cstl_rb_tree_aux.c' || echo '$(srcdir)/'`cstl_rb_tree_aux.c

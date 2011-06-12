@@ -35,8 +35,10 @@ extern "C" {
 
 #include <cstl/cstl_avl_tree_iterator.h>
 #include <cstl/cstl_avl_tree_private.h>
+#include <cstl/cstl_avl_tree.h>
 #include <cstl/cstl_rb_tree_iterator.h>
 #include <cstl/cstl_rb_tree_private.h>
+#include <cstl/cstl_rb_tree.h>
 #include <cstl/cutility.h>
 
 #include <cstl/cstl_map_iterator.h>
