@@ -23,7 +23,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_pair.c \
 		     cstl_priority_queue.c cstl_priority_queue_private.c \
 		     cstl_queue.c cstl_queue_private.c \
-		     cstl_rb_tree.c cstl_rb_tree_private.c cstl_rb_tree_aux.c cstl_rb_tree_aux.h \
+		     cstl_rb_tree.c cstl_rb_tree_iterator.c cstl_rb_tree_private.c cstl_rb_tree_aux.c cstl_rb_tree_aux.h \
 		     cstl_set.c \
 		     cstl_slist.c cstl_slist_iterator.c cstl_slist_private.c cstl_slist_aux.c cstl_slist_aux.h \
 		     cstl_stack.c cstl_stack_private.c \
