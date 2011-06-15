@@ -36,19 +36,41 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create, initialization and destroy operation functions.
+/**
+ * Create rb tree container.
+ * @param s_typename        element type name.
+ * @return if create rb tree successfully return rb tree pointer, otherwise return NULL.
+ * @remarks s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name, libcstl builtin
+ *          typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern _rb_tree_t* _create_rb_tree(const char* s_typename);
+
+/**
+ * Initialize rb tree container.
+ * @param pt_rb_tree       rb tree container.
+ * @param t_compare         compare function.
+ * @return void.
+ * @remarks if pt_rb_tree == NULL, then the behavior is undefined, pt_rb_tree must be created by _create_rb_tree(),
+ *          otherwise the behavior is undefined. if t_compare == NULL, then the default compare function is used.
+ */
 extern void _rb_tree_init(_rb_tree_t* pt_rb_tree, binary_function_t t_compare);
-extern void _rb_tree_destroy(_rb_tree_t* pt_rb_tree);
-extern void _rb_tree_init_copy(
-    _rb_tree_t* pt_rb_tree_dest, const _rb_tree_t* cpt_rb_tree_src);
+
+/**
+ * Initialize rb tree container with rb tree.
+ * @param pt_dest           destination rb tree.
+ * @param cpt_src           source rb tree.
+ * @return void.
+ * @remarks if pt_dest == NULL or cpt_src == NULL, then the behavior is undefined, pt_dest must be created by
+ *          _create_rb_tree(), cpt_src must be initialized, otherwise the behavior is undefined. the element type of
+ *          pt_dest and cpt_src must be same, otherwise the behavior is undefine.
+ */
+extern void _rb_tree_init_copy(_rb_tree_t* pt_dest, const _rb_tree_t* cpt_src);
 extern void _rb_tree_init_copy_range_ex(
     _rb_tree_t* pt_rb_tree_dest, _rb_tree_iterator_t t_begin, _rb_tree_iterator_t t_end,
     binary_function_t t_compare);
 extern void _rb_tree_init_copy_range(
     _rb_tree_t* pt_rb_tree_dest, _rb_tree_iterator_t t_begin, _rb_tree_iterator_t t_end);
+extern void _rb_tree_destroy(_rb_tree_t* pt_rb_tree);
 
 /*
  * Assignment operator.
