@@ -170,12 +170,15 @@ void _avl_tree_assign(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src)
     assert(_avl_tree_is_inited(cpt_src));
     assert(_avl_tree_same_type_ex(pt_dest, cpt_src));
 
-    /* clear dest avl tree */
-    _avl_tree_clear(pt_dest);
-    /* insert all elements of src into dest */
-    if(!_avl_tree_empty(cpt_src))
+    if(!_avl_tree_equal(pt_dest, cpt_src))
     {
-        _avl_tree_insert_equal_range(pt_dest, _avl_tree_begin(cpt_src), _avl_tree_end(cpt_src));
+        /* clear dest avl tree */
+        _avl_tree_clear(pt_dest);
+        /* insert all elements of src into dest */
+        if(!_avl_tree_empty(cpt_src))
+        {
+            _avl_tree_insert_equal_range(pt_dest, _avl_tree_begin(cpt_src), _avl_tree_end(cpt_src));
+        }
     }
 }
 
