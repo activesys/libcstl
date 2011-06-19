@@ -30,14 +30,13 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define _RB_TREE_NODE_SIZE(typesize)\
-    ((typesize) + sizeof(_rbnode_t) - 1)
+#define _RB_TREE_NODE_SIZE(typesize) ((typesize) + sizeof(_rbnode_t) - sizeof(_byte_t))
 
 /** data type declaration and struct, union, enum section **/
 typedef enum _tagcolor
 {
-    red, black
-}color_t;
+    RED, BLACK
+}_color_t;
 /*
  * +-----------+
  * | parent    |
@@ -57,8 +56,8 @@ typedef struct _tagrbnode
     struct _tagrbnode* _pt_parent;
     struct _tagrbnode* _pt_left;
     struct _tagrbnode* _pt_right;
-    color_t            _t_color;
-    char               _pc_data[1];
+    _color_t           _t_color;
+    _byte_t            _pby_data[1];
 }_rbnode_t;
 
 typedef struct _tagrbtree
@@ -76,17 +75,6 @@ typedef struct _tagrbtree
     /* compare function for the inserting order */
     binary_function_t _t_compare;
 }_rb_tree_t;
-
-/* for the result of equal_range and insert_unique function */
-typedef struct _tagrbtreeresultpair
-{
-    _rb_tree_iterator_t _t_first;
-    union
-    {
-        _rb_tree_iterator_t _t_iterator;  /* for equal_range */
-        bool_t              _t_bool;     /* for insert_unique */
-    }_t_second;
-}rb_tree_result_pair_t;
 
 /** exported global variable declaration section **/
 

@@ -864,7 +864,7 @@ void test__avl_tree_find_value__non_empty_find(void** state)
     i = 5;
     pt_avl_node = _avl_tree_find_value(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &i);
     assert_true(pt_avl_node != NULL);
-    assert_true(*(int*)pt_avl_node->_pc_data == 5);
+    assert_true(*(int*)pt_avl_node->_pby_data == 5);
 
     _avl_tree_destroy(pt_avl_tree);
 }
@@ -1264,7 +1264,7 @@ void test__avl_tree_insert_avlnode__empty(void** state)
     _avl_tree_init(pt_avl_tree, NULL);
     t_result = _avl_tree_insert_avlnode(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &elem);
     assert_true(t_result._pt_adjust == t_result._pt_new);
-    assert_true(*(int*)t_result._pt_new->_pc_data == 100);
+    assert_true(*(int*)t_result._pt_new->_pby_data == 100);
     assert_true(t_result._pt_new->_pt_left == t_result._pt_new->_pt_right);
     assert_true(t_result._pt_new->_pt_left == NULL);
     assert_true(t_result._pt_new->_un_height == 0);
@@ -1304,9 +1304,9 @@ void test__avl_tree_insert_avlnode__left(void** state)
     pt_5 = pt_avl_tree->_t_avlroot._pt_parent;
     pt_2 = pt_5->_pt_left;
     pt_8 = pt_5->_pt_right;
-    assert_true(*(int*)pt_5->_pc_data == 5);
-    assert_true(*(int*)pt_2->_pc_data == 2);
-    assert_true(*(int*)pt_8->_pc_data == 8);
+    assert_true(*(int*)pt_5->_pby_data == 5);
+    assert_true(*(int*)pt_2->_pby_data == 2);
+    assert_true(*(int*)pt_8->_pby_data == 8);
 
     elem = 4;
     t_result = _avl_tree_insert_avlnode(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &elem);
@@ -1346,9 +1346,9 @@ void test__avl_tree_insert_avlnode__right(void** state)
     pt_5 = pt_avl_tree->_t_avlroot._pt_parent;
     pt_2 = pt_5->_pt_left;
     pt_8 = pt_5->_pt_right;
-    assert_true(*(int*)pt_5->_pc_data == 5);
-    assert_true(*(int*)pt_2->_pc_data == 2);
-    assert_true(*(int*)pt_8->_pc_data == 8);
+    assert_true(*(int*)pt_5->_pby_data == 5);
+    assert_true(*(int*)pt_2->_pby_data == 2);
+    assert_true(*(int*)pt_8->_pby_data == 8);
 
     elem = 14;
     t_result = _avl_tree_insert_avlnode(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &elem);
@@ -1384,8 +1384,8 @@ void test__avl_tree_insert_avlnode__rotate(void** state)
 
     pt_5 = pt_avl_tree->_t_avlroot._pt_parent;
     pt_8 = pt_5->_pt_right;
-    assert_true(*(int*)pt_5->_pc_data == 5);
-    assert_true(*(int*)pt_8->_pc_data == 8);
+    assert_true(*(int*)pt_5->_pby_data == 5);
+    assert_true(*(int*)pt_8->_pby_data == 8);
 
     elem = 14;
     t_result = _avl_tree_insert_avlnode(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent, &elem);
@@ -1745,7 +1745,7 @@ void test__avl_tree_init_elem_auxiliary__c_builtin(void** state)
 
     _avl_tree_insert_unique(pt_avl_tree, &elem);
     _avl_tree_init_elem_auxiliary(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent);
-    assert_true(*(int*)pt_avl_tree->_t_avlroot._pt_parent->_pc_data == 0);
+    assert_true(*(int*)pt_avl_tree->_t_avlroot._pt_parent->_pby_data == 0);
 
     _avl_tree_destroy(pt_avl_tree);
 }
@@ -1759,7 +1759,7 @@ void test__avl_tree_init_elem_auxiliary__cstr(void** state)
 
     _avl_tree_insert_unique(pt_avl_tree, pt_str);
     _avl_tree_init_elem_auxiliary(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent);
-    assert_true(strcmp(string_c_str((string_t*)pt_avl_tree->_t_avlroot._pt_parent->_pc_data), "") == 0);
+    assert_true(strcmp(string_c_str((string_t*)pt_avl_tree->_t_avlroot._pt_parent->_pby_data), "") == 0);
 
     _avl_tree_destroy(pt_avl_tree);
     string_destroy(pt_str);
@@ -1774,7 +1774,7 @@ void test__avl_tree_init_elem_auxiliary__cstl_builtin(void** state)
 
     _avl_tree_insert_unique(pt_avl_tree, pvec);
     _avl_tree_init_elem_auxiliary(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent);
-    assert_true(vector_empty((vector_t*)pt_avl_tree->_t_avlroot._pt_parent->_pc_data));
+    assert_true(vector_empty((vector_t*)pt_avl_tree->_t_avlroot._pt_parent->_pby_data));
 
     vector_destroy(pvec);
     _avl_tree_destroy(pt_avl_tree);
@@ -1798,7 +1798,7 @@ void test__avl_tree_init_elem_auxiliary__user_define(void** state)
     _avl_tree_insert_unique(pt_avl_tree, &elem);
     _avl_tree_init_elem_auxiliary(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent);
     assert_true(
-        ((_test__avl_tree_init_elem_auxiliary__user_define_t*)pt_avl_tree->_t_avlroot._pt_parent->_pc_data)->elem == 0);
+        ((_test__avl_tree_init_elem_auxiliary__user_define_t*)pt_avl_tree->_t_avlroot._pt_parent->_pby_data)->elem == 0);
 
     _avl_tree_destroy(pt_avl_tree);
 }

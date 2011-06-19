@@ -83,13 +83,13 @@ void _rb_tree_iterator_get_value(_rb_tree_iterator_t it_iter, void* pv_value)
     /* char* */
     if(strncmp(_GET_RB_TREE_TYPE_BASENAME(_GET_RB_TREE(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        *(char**)pv_value = (char*)string_c_str((string_t*)((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pc_data);
+        *(char**)pv_value = (char*)string_c_str((string_t*)((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pby_data);
     }
     else
     {
         bool_t b_result = _GET_RB_TREE_TYPE_SIZE(_GET_RB_TREE(it_iter));
         _GET_RB_TREE_TYPE_COPY_FUNCTION(_GET_RB_TREE(it_iter))(
-            pv_value, ((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pc_data, &b_result);
+            pv_value, ((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pby_data, &b_result);
         assert(b_result);
     }
 }
@@ -105,11 +105,11 @@ const void* _rb_tree_iterator_get_pointer(_rb_tree_iterator_t it_iter)
     /* char* */
     if(strncmp(_GET_RB_TREE_TYPE_BASENAME(_GET_RB_TREE(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return (char*)string_c_str((string_t*)((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pc_data);
+        return (char*)string_c_str((string_t*)((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pby_data);
     }
     else
     {
-        return ((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pc_data;
+        return ((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pby_data;
     }
 }
 
@@ -132,7 +132,7 @@ _rb_tree_iterator_t _rb_tree_iterator_next(_rb_tree_iterator_t it_iter)
             pt_next = pt_next->_pt_left;
         }
 
-        _GET_RB_TREE_COREPOS(it_iter) = (char*)pt_next;
+        _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_next;
     }
     else
     {
@@ -148,11 +148,11 @@ _rb_tree_iterator_t _rb_tree_iterator_next(_rb_tree_iterator_t it_iter)
          */
         if(pt_cur->_pt_right != pt_next)
         {
-            _GET_RB_TREE_COREPOS(it_iter) = (char*)pt_next;
+            _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_next;
         }
         else /* here is special condition */
         {
-            _GET_RB_TREE_COREPOS(it_iter) = (char*)pt_cur;
+            _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_cur;
         }
     }
 
@@ -173,7 +173,7 @@ _rb_tree_iterator_t _rb_tree_iterator_prev(_rb_tree_iterator_t it_iter)
     /* previous end */
     if(_rb_tree_iterator_equal(it_iter, _rb_tree_end(_GET_RB_TREE(it_iter))))
     {
-        _GET_RB_TREE_COREPOS(it_iter) = (char*)_GET_RB_TREE(it_iter)->_t_rbroot._pt_right;
+        _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)_GET_RB_TREE(it_iter)->_t_rbroot._pt_right;
     }
     else
     {
@@ -185,7 +185,7 @@ _rb_tree_iterator_t _rb_tree_iterator_prev(_rb_tree_iterator_t it_iter)
                 pt_prev = pt_prev->_pt_right;
             }
 
-            _GET_RB_TREE_COREPOS(it_iter) = (char*)pt_prev;
+            _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
         }
         else
         {
@@ -200,7 +200,7 @@ _rb_tree_iterator_t _rb_tree_iterator_prev(_rb_tree_iterator_t it_iter)
              * there is no same special condition as next, because the begin 
              * iterator is the valid iterator 
              */
-            _GET_RB_TREE_COREPOS(it_iter) = (char*)pt_prev;
+            _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
         }
     }
 

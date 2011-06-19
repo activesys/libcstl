@@ -30,8 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define _AVL_TREE_NODE_SIZE(typesize)\
-    ((typesize) + sizeof(_avlnode_t) - 1)
+#define _AVL_TREE_NODE_SIZE(typesize) ((typesize) + sizeof(_avlnode_t) - sizeof(_byte_t))
 
 /** data type declaration and struct, union, enum section **/
 /*
@@ -54,7 +53,7 @@ typedef struct _tagavlnode
     struct _tagavlnode* _pt_left;
     struct _tagavlnode* _pt_right;
     unsigned int        _un_height;
-    char                _pc_data[1];
+    _byte_t             _pby_data[1];
 }_avlnode_t;
 
 typedef struct _tagavltree

@@ -114,14 +114,14 @@ void test_travel_rb_tree(
 void show_avlnode_info(_avlnode_t* pt_root)
 {
     assert(pt_root != NULL);
-    printf("%d : %d\n", *(int*)pt_root->_pc_data, pt_root->_un_height);
+    printf("%d : %d\n", *(int*)pt_root->_pby_data, pt_root->_un_height);
 }
 
 void show_rbnode_info(_rbnode_t* pt_root)
 {
     assert(pt_root != NULL);
-    printf("%lf : ", *(double*)pt_root->_pc_data);
-    if(pt_root->_t_color == red)
+    printf("%lf : ", *(double*)pt_root->_pby_data);
+    if(pt_root->_t_color == RED)
     {
         printf("r\n");
     }
@@ -135,9 +135,9 @@ void show_map_rbnode_info(_rbnode_t* pt_root)
 {
     assert(pt_root != NULL);
     printf("<%d,%f> : ",
-        *(int*)(pair_first((pair_t*)(pt_root->_pc_data))),
-        *(double*)(pair_second((pair_t*)(pt_root->_pc_data))));
-    if(pt_root->_t_color == red)
+        *(int*)(pair_first((pair_t*)(pt_root->_pby_data))),
+        *(double*)(pair_second((pair_t*)(pt_root->_pby_data))));
+    if(pt_root->_t_color == RED)
     {
         printf("r\n");
     }

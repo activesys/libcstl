@@ -33,7 +33,7 @@ void test__rb_tree_is_created__non_inited_allocator(void** state)
     rbtree._t_rbroot._pt_left = NULL;
     rbtree._t_rbroot._pt_right = NULL;
     rbtree._t_rbroot._pt_parent = NULL;
-    rbtree._t_rbroot._t_color = red;
+    rbtree._t_rbroot._t_color = RED;
     rbtree._t_compare = NULL;
     rbtree._t_nodecount = 0;
     rbtree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -52,7 +52,7 @@ void test__rb_tree_is_created__invalid_rbroot_left(void** state)
     rbtree._t_rbroot._pt_left = &rbtree._t_rbroot;
     rbtree._t_rbroot._pt_right = NULL;
     rbtree._t_rbroot._pt_parent = NULL;
-    rbtree._t_rbroot._t_color = red;
+    rbtree._t_rbroot._t_color = RED;
     rbtree._t_compare = NULL;
     rbtree._t_nodecount = 0;
     rbtree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -69,7 +69,7 @@ void test__rb_tree_is_created__invalid_rbroot_right(void** state)
     rbtree._t_rbroot._pt_left = NULL;
     rbtree._t_rbroot._pt_right = &rbtree._t_rbroot;
     rbtree._t_rbroot._pt_parent = NULL;
-    rbtree._t_rbroot._t_color = red;
+    rbtree._t_rbroot._t_color = RED;
     rbtree._t_compare = NULL;
     rbtree._t_nodecount = 0;
     rbtree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -86,7 +86,7 @@ void test__rb_tree_is_created__invalid_rbroot_parent(void** state)
     rbtree._t_rbroot._pt_left = NULL;
     rbtree._t_rbroot._pt_right = NULL;
     rbtree._t_rbroot._pt_parent = &rbtree._t_rbroot;
-    rbtree._t_rbroot._t_color = red;
+    rbtree._t_rbroot._t_color = RED;
     rbtree._t_compare = NULL;
     rbtree._t_nodecount = 0;
     rbtree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -103,7 +103,7 @@ void test__rb_tree_is_created__invalid_rbroot_color(void** state)
     rbtree._t_rbroot._pt_left = NULL;
     rbtree._t_rbroot._pt_right = NULL;
     rbtree._t_rbroot._pt_parent = NULL;
-    rbtree._t_rbroot._t_color = black;
+    rbtree._t_rbroot._t_color = BLACK;
     rbtree._t_compare = NULL;
     rbtree._t_nodecount = 0;
     rbtree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -120,7 +120,7 @@ void test__rb_tree_is_created__invalid_compare(void** state)
     rbtree._t_rbroot._pt_left = NULL;
     rbtree._t_rbroot._pt_right = NULL;
     rbtree._t_rbroot._pt_parent = NULL;
-    rbtree._t_rbroot._t_color = red;
+    rbtree._t_rbroot._t_color = RED;
     rbtree._t_compare = (binary_function_t)0x888;
     rbtree._t_nodecount = 0;
     rbtree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -137,7 +137,7 @@ void test__rb_tree_is_created__invalid_nodecount(void** state)
     rbtree._t_rbroot._pt_left = NULL;
     rbtree._t_rbroot._pt_right = NULL;
     rbtree._t_rbroot._pt_parent = NULL;
-    rbtree._t_rbroot._t_color = red;
+    rbtree._t_rbroot._t_color = RED;
     rbtree._t_compare = NULL;
     rbtree._t_nodecount = 9;
     rbtree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -154,7 +154,7 @@ void test__rb_tree_is_created__invalid_typeinfo_style(void** state)
     rbtree._t_rbroot._pt_left = NULL;
     rbtree._t_rbroot._pt_right = NULL;
     rbtree._t_rbroot._pt_parent = NULL;
-    rbtree._t_rbroot._t_color = red;
+    rbtree._t_rbroot._t_color = RED;
     rbtree._t_compare = NULL;
     rbtree._t_nodecount = 0;
     rbtree._t_typeinfo._t_style = 90;
@@ -171,7 +171,7 @@ void test__rb_tree_is_created__invalid_typeinfo_type(void** state)
     rbtree._t_rbroot._pt_left = NULL;
     rbtree._t_rbroot._pt_right = NULL;
     rbtree._t_rbroot._pt_parent = NULL;
-    rbtree._t_rbroot._t_color = red;
+    rbtree._t_rbroot._t_color = RED;
     rbtree._t_compare = NULL;
     rbtree._t_nodecount = 0;
     rbtree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
@@ -263,9 +263,9 @@ void test__rb_tree_is_inited__invalid_rbroot_color(void** state)
 
     _rb_tree_init(pt_rb_tree, NULL);
 
-    pt_rb_tree->_t_rbroot._t_color = black;
+    pt_rb_tree->_t_rbroot._t_color = BLACK;
     assert_false(_rb_tree_is_inited(pt_rb_tree));
-    pt_rb_tree->_t_rbroot._t_color = red;
+    pt_rb_tree->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_rb_tree);
 }
@@ -317,9 +317,9 @@ void test__rb_tree_iterator_belong_to_rb_tree__non_inited_rb_tree(void** state)
 
     _rb_tree_init(pt_rb_tree, NULL);
     it_iter = _rb_tree_begin(pt_rb_tree);
-    pt_rb_tree->_t_rbroot._t_color = black;
+    pt_rb_tree->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, it_iter));
-    pt_rb_tree->_t_rbroot._t_color = red;
+    pt_rb_tree->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_rb_tree);
 }
@@ -453,7 +453,7 @@ void test__rb_tree_same_rb_tree_iterator_type__non_created(void** state)
     _rb_tree_t rbtree;
 
     _rb_tree_init(pt_rb_tree, NULL);
-    rbtree._t_rbroot._t_color = black;
+    rbtree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_same_rb_tree_iterator_type(&rbtree, _rb_tree_begin(pt_rb_tree)));
 
     _rb_tree_destroy(pt_rb_tree);
@@ -530,7 +530,7 @@ void test__rb_tree_same_rb_tree_iterator_type_ex__non_created(void** state)
     _rb_tree_t rbtree;
 
     _rb_tree_init(pt_rb_tree, NULL);
-    rbtree._t_rbroot._t_color = red;
+    rbtree._t_rbroot._t_color = RED;
     expect_assert_failure(_rb_tree_same_rb_tree_iterator_type_ex(&rbtree, _rb_tree_begin(pt_rb_tree)));
 
     _rb_tree_destroy(pt_rb_tree);
@@ -667,9 +667,9 @@ void test__rb_tree_same_type__non_created_first(void** state)
     _rb_tree_t* pt_first = _create_rb_tree("int");
     _rb_tree_t* pt_second = _create_rb_tree("int");
 
-    pt_first->_t_rbroot._t_color = black;
+    pt_first->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_same_type(pt_first, pt_second));
-    pt_first->_t_rbroot._t_color = red;
+    pt_first->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_first);
     _rb_tree_destroy(pt_second);
@@ -680,9 +680,9 @@ void test__rb_tree_same_type__non_created_second(void** state)
     _rb_tree_t* pt_first = _create_rb_tree("int");
     _rb_tree_t* pt_second = _create_rb_tree("int");
 
-    pt_second->_t_rbroot._t_color = black;
+    pt_second->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_same_type(pt_first, pt_second));
-    pt_second->_t_rbroot._t_color = red;
+    pt_second->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_first);
     _rb_tree_destroy(pt_second);
@@ -733,9 +733,9 @@ void test__rb_tree_same_type_ex__non_created_first(void** state)
     _rb_tree_t* pt_first = _create_rb_tree("int");
     _rb_tree_t* pt_second = _create_rb_tree("int");
 
-    pt_first->_t_rbroot._t_color = black;
+    pt_first->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_same_type_ex(pt_first, pt_second));
-    pt_first->_t_rbroot._t_color = red;
+    pt_first->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_first);
     _rb_tree_destroy(pt_second);
@@ -746,9 +746,9 @@ void test__rb_tree_same_type_ex__non_created_second(void** state)
     _rb_tree_t* pt_first = _create_rb_tree("int");
     _rb_tree_t* pt_second = _create_rb_tree("int");
 
-    pt_second->_t_rbroot._t_color = black;
+    pt_second->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_same_type_ex(pt_first, pt_second));
-    pt_second->_t_rbroot._t_color = red;
+    pt_second->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_first);
     _rb_tree_destroy(pt_second);
@@ -804,9 +804,9 @@ void test__rb_tree_destroy_subtree__non_inited(void** state)
     _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
 
     _rb_tree_init(pt_rb_tree, NULL);
-    pt_rb_tree->_t_rbroot._t_color = black;
+    pt_rb_tree->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_destroy_subtree(pt_rb_tree, NULL));
-    pt_rb_tree->_t_rbroot._t_color = red;
+    pt_rb_tree->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_rb_tree);
 }
@@ -854,9 +854,9 @@ void test__rb_tree_find_value__non_inited(void** state)
     int elem = 90;
     _rb_tree_init(pt_rb_tree, NULL);
 
-    pt_rb_tree->_t_rbroot._t_color = black;
+    pt_rb_tree->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_find_value(pt_rb_tree, NULL, &elem));
-    pt_rb_tree->_t_rbroot._t_color = red;
+    pt_rb_tree->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_rb_tree);
 }
@@ -912,7 +912,7 @@ void test__rb_tree_find_value__non_empty_find(void** state)
     i = 5;
     pt_rb_node = _rb_tree_find_value(pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent, &i);
     assert_true(pt_rb_node != NULL);
-    assert_true(*(int*)pt_rb_node->_pc_data == 5);
+    assert_true(*(int*)pt_rb_node->_pby_data == 5);
 
     _rb_tree_destroy(pt_rb_tree);
 }
@@ -932,7 +932,7 @@ void test__rb_tree_clockwise_rotation__null_root_left(void** state)
     node._pt_left = NULL;
     node._pt_right = NULL;
     node._pt_parent = NULL;
-    node._t_color = red;
+    node._t_color = RED;
 
     expect_assert_failure(_rb_tree_clockwise_rotation(&node));
 }
@@ -954,22 +954,22 @@ void test__rb_tree_clockwise_rotation__rotate(void** state)
     a._pt_left = &b;
     a._pt_parent = NULL;
     a._pt_right = NULL;
-    a._t_color = red;
+    a._t_color = RED;
 
     b._pt_left = &c;
     b._pt_parent = &a;
     b._pt_right = &d;
-    b._t_color = red;
+    b._t_color = RED;
 
     c._pt_left = NULL;
     c._pt_parent = &b;
     c._pt_right = NULL;
-    c._t_color = red;
+    c._t_color = RED;
 
     d._pt_left = NULL;
     d._pt_parent = &b;
     d._pt_right = NULL;
-    d._t_color = red;
+    d._t_color = RED;
 
     assert_true(_rb_tree_clockwise_rotation(&a) == &b);
     assert_true(b._pt_left == &c && b._pt_right == &a);
@@ -993,7 +993,7 @@ void test__rb_tree_anticlockwise_rotation__null_root_right(void** state)
     node._pt_left = NULL;
     node._pt_parent = NULL;
     node._pt_right = NULL;
-    node._t_color = red;
+    node._t_color = RED;
 
     expect_assert_failure(_rb_tree_anticlockwise_rotation(&node));
 }
@@ -1015,22 +1015,22 @@ void test__rb_tree_anticlockwise_rotation__rotate(void** state)
     a._pt_left = NULL;
     a._pt_parent = NULL;
     a._pt_right = &b;
-    a._t_color = red;
+    a._t_color = RED;
 
     b._pt_left = &c;
     b._pt_parent = &a;
     b._pt_right = &d;
-    b._t_color = red;
+    b._t_color = RED;
 
     c._pt_left = NULL;
     c._pt_parent = &b;
     c._pt_right = NULL;
-    c._t_color = red;
+    c._t_color = RED;
 
     d._pt_left = NULL;
     d._pt_parent = &b;
     d._pt_right = NULL;
-    d._t_color = red;
+    d._t_color = RED;
 
     assert_true(_rb_tree_anticlockwise_rotation(&a) == &b);
     assert_true(a._pt_left == NULL && a._pt_parent == &b && a._pt_right == &c);
@@ -1078,10 +1078,10 @@ void test__rb_tree_insert_rbnode__empty(void** state)
     _rb_tree_init(pt_rb_tree, NULL);
     pt_node = _rb_tree_insert_rbnode(pt_rb_tree, &elem);
     assert_true(pt_node == pt_rb_tree->_t_rbroot._pt_parent);
-    assert_true(*(int*)pt_node->_pc_data = 100);
+    assert_true(*(int*)pt_node->_pby_data = 100);
     assert_true(pt_node->_pt_left == pt_node->_pt_right);
     assert_true(pt_node->_pt_left == NULL);
-    assert_true(pt_node->_t_color == black);
+    assert_true(pt_node->_t_color == BLACK);
 
     pt_rb_tree->_t_rbroot._pt_left = pt_node;
     pt_rb_tree->_t_rbroot._pt_right = pt_node;
@@ -1108,14 +1108,14 @@ void test__rb_tree_insert_rbnode__left_red(void** state)
     _rb_tree_insert_unique(pt_rb_tree, &elem);
 
     pt_5 = pt_rb_tree->_t_rbroot._pt_parent;
-    assert_true(*(int*)pt_5->_pc_data == 5);
+    assert_true(*(int*)pt_5->_pby_data == 5);
 
     elem = 2;
     pt_node = _rb_tree_insert_rbnode(pt_rb_tree, &elem);
     assert_true(pt_node->_pt_parent == pt_5);
     assert_true(pt_node == pt_5->_pt_left);
-    assert_true(*(int*)pt_node->_pc_data == 2);
-    assert_true(pt_node->_t_color == red);
+    assert_true(*(int*)pt_node->_pby_data == 2);
+    assert_true(pt_node->_t_color == RED);
 
     pt_rb_tree->_t_rbroot._pt_left = pt_node;
     pt_rb_tree->_t_rbroot._pt_right = pt_5;
@@ -1140,14 +1140,14 @@ void test__rb_tree_insert_rbnode__right_red(void** state)
     _rb_tree_insert_unique(pt_rb_tree, &elem);
 
     pt_5 = pt_rb_tree->_t_rbroot._pt_parent;
-    assert_true(*(int*)pt_5->_pc_data == 5);
+    assert_true(*(int*)pt_5->_pby_data == 5);
 
     elem = 8;
     pt_node = _rb_tree_insert_rbnode(pt_rb_tree, &elem);
     assert_true(pt_node->_pt_parent == pt_5);
     assert_true(pt_node == pt_5->_pt_right);
-    assert_true(*(int*)pt_node->_pc_data == 8);
-    assert_true(pt_node->_t_color == red);
+    assert_true(*(int*)pt_node->_pby_data == 8);
+    assert_true(pt_node->_t_color == RED);
 
     pt_rb_tree->_t_rbroot._pt_left = pt_5;
     pt_rb_tree->_t_rbroot._pt_right = pt_node;
@@ -1176,18 +1176,18 @@ void test__rb_tree_insert_rbnode__children_red(void** state)
 
     pt_5 = pt_rb_tree->_t_rbroot._pt_parent;
     pt_2 = pt_5->_pt_left;
-    assert_true(*(int*)pt_5->_pc_data == 5);
-    assert_true(pt_5->_t_color == black);
+    assert_true(*(int*)pt_5->_pby_data == 5);
+    assert_true(pt_5->_t_color == BLACK);
     assert_true(pt_2 != NULL);
-    assert_true(*(int*)pt_2->_pc_data == 2);
-    assert_true(pt_2->_t_color == red);
+    assert_true(*(int*)pt_2->_pby_data == 2);
+    assert_true(pt_2->_t_color == RED);
 
     elem = 8;
     pt_node = _rb_tree_insert_rbnode(pt_rb_tree, &elem);
     assert_true(pt_node->_pt_parent == pt_5);
     assert_true(pt_node == pt_5->_pt_right);
-    assert_true(*(int*)pt_node->_pc_data == 8);
-    assert_true(pt_node->_t_color == red);
+    assert_true(*(int*)pt_node->_pby_data == 8);
+    assert_true(pt_node->_t_color == RED);
 
     pt_rb_tree->_t_rbroot._pt_left = pt_2;
     pt_rb_tree->_t_rbroot._pt_right = pt_node;
@@ -1223,26 +1223,26 @@ void test__rb_tree_insert_rbnode__root_red_children(void** state)
     pt_5 = pt_rb_tree->_t_rbroot._pt_parent;
     pt_8 = pt_5->_pt_right;
     pt_2 = pt_5->_pt_left;
-    assert_true(*(int*)pt_5->_pc_data == 5);
-    assert_true(pt_5->_t_color == black);
-    assert_true(*(int*)pt_8->_pc_data == 8);
-    assert_true(pt_8->_t_color == red);
-    assert_true(*(int*)pt_2->_pc_data == 2);
-    assert_true(pt_2->_t_color == red);
+    assert_true(*(int*)pt_5->_pby_data == 5);
+    assert_true(pt_5->_t_color == BLACK);
+    assert_true(*(int*)pt_8->_pby_data == 8);
+    assert_true(pt_8->_t_color == RED);
+    assert_true(*(int*)pt_2->_pby_data == 2);
+    assert_true(pt_2->_t_color == RED);
 
     elem = 1;
     pt_node = _rb_tree_insert_rbnode(pt_rb_tree, &elem);
-    assert_true(pt_5->_t_color == black);
+    assert_true(pt_5->_t_color == BLACK);
     assert_true(pt_8->_pt_parent == pt_5);
     assert_true(pt_8 == pt_5->_pt_right);
-    assert_true(pt_8->_t_color == black);
+    assert_true(pt_8->_t_color == BLACK);
     assert_true(pt_2->_pt_parent == pt_5);
     assert_true(pt_2 == pt_5->_pt_left);
-    assert_true(pt_2->_t_color == black);
+    assert_true(pt_2->_t_color == BLACK);
     assert_true(pt_node->_pt_parent == pt_2);
     assert_true(pt_node == pt_2->_pt_left);
-    assert_true(*(int*)pt_node->_pc_data == 1);
-    assert_true(pt_node->_t_color == red);
+    assert_true(*(int*)pt_node->_pby_data == 1);
+    assert_true(pt_node->_t_color == RED);
 
     pt_rb_tree->_t_rbroot._pt_left = pt_node;
     pt_rb_tree->_t_rbroot._pt_right = pt_8;
@@ -1288,36 +1288,36 @@ void test__rb_tree_insert_rbnode__not_root_red_children(void** state)
     pt_3 = pt_5->_pt_left;
     pt_1 = pt_3->_pt_left;
     pt_4 = pt_3->_pt_right;
-    assert_true(*(int*)pt_5->_pc_data == 5);
-    assert_true(pt_5->_t_color == black);
-    assert_true(*(int*)pt_8->_pc_data == 8);
-    assert_true(pt_8->_t_color == black);
-    assert_true(*(int*)pt_3->_pc_data == 3);
-    assert_true(pt_3->_t_color == black);
-    assert_true(*(int*)pt_1->_pc_data == 1);
-    assert_true(pt_1->_t_color == red);
-    assert_true(*(int*)pt_4->_pc_data == 4);
-    assert_true(pt_4->_t_color == red);
+    assert_true(*(int*)pt_5->_pby_data == 5);
+    assert_true(pt_5->_t_color == BLACK);
+    assert_true(*(int*)pt_8->_pby_data == 8);
+    assert_true(pt_8->_t_color == BLACK);
+    assert_true(*(int*)pt_3->_pby_data == 3);
+    assert_true(pt_3->_t_color == BLACK);
+    assert_true(*(int*)pt_1->_pby_data == 1);
+    assert_true(pt_1->_t_color == RED);
+    assert_true(*(int*)pt_4->_pby_data == 4);
+    assert_true(pt_4->_t_color == RED);
 
     elem = 2;
     pt_node = _rb_tree_insert_rbnode(pt_rb_tree, &elem);
-    assert_true(pt_5->_t_color == black);
+    assert_true(pt_5->_t_color == BLACK);
     assert_true(pt_8->_pt_parent == pt_5);
     assert_true(pt_8 == pt_5->_pt_right);
-    assert_true(pt_8->_t_color == black);
+    assert_true(pt_8->_t_color == BLACK);
     assert_true(pt_3->_pt_parent == pt_5);
     assert_true(pt_3 == pt_5->_pt_left);
-    assert_true(pt_3->_t_color == red);
+    assert_true(pt_3->_t_color == RED);
     assert_true(pt_1->_pt_parent == pt_3);
     assert_true(pt_1 == pt_3->_pt_left);
-    assert_true(pt_1->_t_color == black);
+    assert_true(pt_1->_t_color == BLACK);
     assert_true(pt_4->_pt_parent == pt_3);
     assert_true(pt_4 == pt_3->_pt_right);
-    assert_true(pt_4->_t_color == black);
+    assert_true(pt_4->_t_color == BLACK);
     assert_true(pt_node->_pt_parent == pt_1);
     assert_true(pt_node == pt_1->_pt_right);
-    assert_true(*(int*)pt_node->_pc_data == 2);
-    assert_true(pt_node->_t_color == red);
+    assert_true(*(int*)pt_node->_pby_data == 2);
+    assert_true(pt_node->_t_color == RED);
 
     pt_rb_tree->_t_rbroot._pt_left = pt_1;
     pt_rb_tree->_t_rbroot._pt_right = pt_8;
@@ -1349,21 +1349,21 @@ void test__rb_tree_insert_rbnode__red_left_child(void** state)
 
     pt_5 = pt_rb_tree->_t_rbroot._pt_parent;
     pt_3 = pt_5->_pt_left;
-    assert_true(*(int*)pt_5->_pc_data == 5);
-    assert_true(pt_5->_t_color == black);
-    assert_true(*(int*)pt_3->_pc_data == 3);
-    assert_true(pt_3->_t_color == red);
+    assert_true(*(int*)pt_5->_pby_data == 5);
+    assert_true(pt_5->_t_color == BLACK);
+    assert_true(*(int*)pt_3->_pby_data == 3);
+    assert_true(pt_3->_t_color == RED);
 
     elem = 1;
     pt_node = _rb_tree_insert_rbnode(pt_rb_tree, &elem);
-    assert_true(pt_3->_t_color == black);
+    assert_true(pt_3->_t_color == BLACK);
     assert_true(pt_5->_pt_parent == pt_3);
     assert_true(pt_5 == pt_3->_pt_right);
-    assert_true(pt_5->_t_color == red);
+    assert_true(pt_5->_t_color == RED);
     assert_true(pt_node->_pt_parent == pt_3);
     assert_true(pt_node == pt_3->_pt_left);
-    assert_true(*(int*)pt_node->_pc_data == 1);
-    assert_true(pt_node->_t_color == red);
+    assert_true(*(int*)pt_node->_pby_data == 1);
+    assert_true(pt_node->_t_color == RED);
 
     pt_rb_tree->_t_rbroot._pt_left = pt_node;
     pt_rb_tree->_t_rbroot._pt_right = pt_5;
@@ -1395,21 +1395,21 @@ void test__rb_tree_insert_rbnode__red_right_child(void** state)
 
     pt_5 = pt_rb_tree->_t_rbroot._pt_parent;
     pt_3 = pt_5->_pt_left;
-    assert_true(*(int*)pt_5->_pc_data == 5);
-    assert_true(pt_5->_t_color == black);
-    assert_true(*(int*)pt_3->_pc_data == 3);
-    assert_true(pt_3->_t_color == red);
+    assert_true(*(int*)pt_5->_pby_data == 5);
+    assert_true(pt_5->_t_color == BLACK);
+    assert_true(*(int*)pt_3->_pby_data == 3);
+    assert_true(pt_3->_t_color == RED);
 
     elem = 4;
     pt_node = _rb_tree_insert_rbnode(pt_rb_tree, &elem);
     assert_true(pt_node == pt_rb_tree->_t_rbroot._pt_parent);
-    assert_true(pt_node->_t_color == black);
-    assert_true(*(int*)pt_node->_pc_data == 4);
+    assert_true(pt_node->_t_color == BLACK);
+    assert_true(*(int*)pt_node->_pby_data == 4);
     assert_true(pt_node->_pt_parent == &pt_rb_tree->_t_rbroot);
-    assert_true(pt_3->_t_color == red);
+    assert_true(pt_3->_t_color == RED);
     assert_true(pt_3->_pt_parent == pt_node);
     assert_true(pt_3 == pt_node->_pt_left);
-    assert_true(pt_5->_t_color == red);
+    assert_true(pt_5->_t_color == RED);
     assert_true(pt_5 == pt_node->_pt_right);
     assert_true(pt_5->_pt_parent == pt_node);
 
@@ -1425,7 +1425,7 @@ void test__rb_tree_insert_rbnode__red_right_child(void** state)
 UT_CASE_DEFINATION(_rb_tree_get_color)
 void test__rb_tree_get_color__null_root(void** state)
 {
-    assert_true(_rb_tree_get_color(NULL) == black);
+    assert_true(_rb_tree_get_color(NULL) == BLACK);
 }
 
 void test__rb_tree_get_color__invalid_color(void** state)
@@ -1439,17 +1439,17 @@ void test__rb_tree_get_color__invalid_color(void** state)
 void test__rb_tree_get_color__red(void** state)
 {
     _rbnode_t node;
-    node._t_color = red;
+    node._t_color = RED;
 
-    assert_true(_rb_tree_get_color(&node) == red);
+    assert_true(_rb_tree_get_color(&node) == RED);
 }
 
 void test__rb_tree_get_color__black(void** state)
 {
     _rbnode_t node;
-    node._t_color = black;
+    node._t_color = BLACK;
 
-    assert_true(_rb_tree_get_color(&node) == black);
+    assert_true(_rb_tree_get_color(&node) == BLACK);
 }
 
 /*
@@ -1588,7 +1588,7 @@ void test__rb_tree_rebalance__invalid_node(void** state)
     _rbnode_t node;
 
     _rb_tree_init(pt_rb_tree, NULL);
-    node._t_color = black;
+    node._t_color = BLACK;
     expect_assert_failure(_rb_tree_rebalance(pt_rb_tree, &node));
 
     _rb_tree_destroy(pt_rb_tree);
@@ -1629,32 +1629,32 @@ void test__rb_tree_rebalance__case_1_1(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_gp;
     t_ggp._pt_right = &t_sgp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* sgp */
-    t_sgp._t_color = black;
+    t_sgp._t_color = BLACK;
     t_sgp._pt_parent = &t_ggp;
     t_sgp._pt_left = NULL;
     t_sgp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = NULL;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -1662,32 +1662,32 @@ void test__rb_tree_rebalance__case_1_1(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent = &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_gp);
     assert_true(t_ggp._pt_right == &t_sgp);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_ggp);
     assert_true(t_gp._pt_left == &t_p);
     assert_true(t_gp._pt_right == &t_sp);
     /* sgp */
-    assert_true(t_sgp._t_color == black);
+    assert_true(t_sgp._t_color == BLACK);
     assert_true(t_sgp._pt_parent == &t_ggp);
     assert_true(t_sgp._pt_left == NULL);
     assert_true(t_sgp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == &t_c);
     assert_true(t_p._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -1719,32 +1719,32 @@ void test__rb_tree_rebalance__case_1_2(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_gp;
     t_ggp._pt_right = &t_sgp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* sgp */
-    t_sgp._t_color = black;
+    t_sgp._t_color = BLACK;
     t_sgp._pt_parent = &t_ggp;
     t_sgp._pt_left = NULL;
     t_sgp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = NULL;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -1752,32 +1752,32 @@ void test__rb_tree_rebalance__case_1_2(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent = &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_gp);
     assert_true(t_ggp._pt_right == &t_sgp);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_ggp);
     assert_true(t_gp._pt_left == &t_p);
     assert_true(t_gp._pt_right == &t_sp);
     /* sgp */
-    assert_true(t_sgp._t_color == black);
+    assert_true(t_sgp._t_color == BLACK);
     assert_true(t_sgp._pt_parent == &t_ggp);
     assert_true(t_sgp._pt_left == NULL);
     assert_true(t_sgp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == NULL);
     assert_true(t_p._pt_right == &t_c);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -1809,32 +1809,32 @@ void test__rb_tree_rebalance__case_1_3(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_sgp;
     t_ggp._pt_right = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* sgp */
-    t_sgp._t_color = black;
+    t_sgp._t_color = BLACK;
     t_sgp._pt_parent = &t_ggp;
     t_sgp._pt_left = NULL;
     t_sgp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = NULL;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -1842,32 +1842,32 @@ void test__rb_tree_rebalance__case_1_3(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent = &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_sgp);
     assert_true(t_ggp._pt_right == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_ggp);
     assert_true(t_gp._pt_left == &t_p);
     assert_true(t_gp._pt_right == &t_sp);
     /* sgp */
-    assert_true(t_sgp._t_color == black);
+    assert_true(t_sgp._t_color == BLACK);
     assert_true(t_sgp._pt_parent == &t_ggp);
     assert_true(t_sgp._pt_left == NULL);
     assert_true(t_sgp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == &t_c);
     assert_true(t_p._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -1899,32 +1899,32 @@ void test__rb_tree_rebalance__case_1_4(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_sgp;
     t_ggp._pt_right = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* sgp */
-    t_sgp._t_color = black;
+    t_sgp._t_color = BLACK;
     t_sgp._pt_parent = &t_ggp;
     t_sgp._pt_left = NULL;
     t_sgp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = NULL;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -1932,32 +1932,32 @@ void test__rb_tree_rebalance__case_1_4(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent = &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_sgp);
     assert_true(t_ggp._pt_right == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_ggp);
     assert_true(t_gp._pt_left == &t_p);
     assert_true(t_gp._pt_right == &t_sp);
     /* sgp */
-    assert_true(t_sgp._t_color == black);
+    assert_true(t_sgp._t_color == BLACK);
     assert_true(t_sgp._pt_parent == &t_ggp);
     assert_true(t_sgp._pt_left == NULL);
     assert_true(t_sgp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == NULL);
     assert_true(t_p._pt_right == &t_c);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -1985,22 +1985,22 @@ void test__rb_tree_rebalance__case_1_5(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = NULL;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -2008,22 +2008,22 @@ void test__rb_tree_rebalance__case_1_5(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == &t_p);
     assert_true(t_gp._pt_right == &t_sp);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == &t_c);
     assert_true(t_p._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -2051,22 +2051,22 @@ void test__rb_tree_rebalance__case_1_6(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = NULL;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -2074,22 +2074,22 @@ void test__rb_tree_rebalance__case_1_6(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == &t_p);
     assert_true(t_gp._pt_right == &t_sp);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == NULL);
     assert_true(t_p._pt_right == &t_c);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -2114,42 +2114,42 @@ void test__rb_tree_rebalance__case_2_1(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = &t_s;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -2171,42 +2171,42 @@ void test__rb_tree_rebalance__case_2_1(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_p._pt_left == &t_c);
     assert_true(t_p._pt_right == &t_gp);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == &t_l);
     assert_true(t_c._pt_right == &t_r);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_p);
     assert_true(t_gp._pt_left == &t_s);
     assert_true(t_gp._pt_right == &t_sp);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_c);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_c);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -2232,47 +2232,47 @@ void test__rb_tree_rebalance__case_2_2(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_gp;
     t_ggp._pt_right = NULL;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = &t_s;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -2296,47 +2296,47 @@ void test__rb_tree_rebalance__case_2_2(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_p);
     assert_true(t_ggp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_ggp);
     assert_true(t_p._pt_left == &t_c);
     assert_true(t_p._pt_right == &t_gp);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == &t_l);
     assert_true(t_c._pt_right == &t_r);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_p);
     assert_true(t_gp._pt_left == &t_s);
     assert_true(t_gp._pt_right == &t_sp);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_c);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_c);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -2362,47 +2362,47 @@ void test__rb_tree_rebalance__case_2_3(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = NULL;
     t_ggp._pt_right = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = &t_s;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -2426,47 +2426,47 @@ void test__rb_tree_rebalance__case_2_3(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == NULL);
     assert_true(t_ggp._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_ggp);
     assert_true(t_p._pt_left == &t_c);
     assert_true(t_p._pt_right == &t_gp);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == &t_l);
     assert_true(t_c._pt_right == &t_r);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_p);
     assert_true(t_gp._pt_left == &t_s);
     assert_true(t_gp._pt_right == &t_sp);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_c);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_c);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -2492,47 +2492,47 @@ void test__rb_tree_rebalance__case_3_1(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_gp;
     t_ggp._pt_right = NULL;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -2556,47 +2556,47 @@ void test__rb_tree_rebalance__case_3_1(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_c);
     assert_true(t_ggp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == black);
+    assert_true(t_c._t_color == BLACK);
     assert_true(t_c._pt_parent == &t_ggp);
     assert_true(t_c._pt_left == &t_p);
     assert_true(t_c._pt_right == &t_gp);
     /* p */
-    assert_true(t_p._t_color == red);
+    assert_true(t_p._t_color == RED);
     assert_true(t_p._pt_parent == &t_c);
     assert_true(t_p._pt_left == &t_s);
     assert_true(t_p._pt_right == &t_l);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_c);
     assert_true(t_gp._pt_left == &t_r);
     assert_true(t_gp._pt_right == &t_sp);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_p);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_gp);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_p);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -2622,47 +2622,47 @@ void test__rb_tree_rebalance__case_3_2(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = NULL;
     t_ggp._pt_right = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -2686,47 +2686,47 @@ void test__rb_tree_rebalance__case_3_2(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == NULL);
     assert_true(t_ggp._pt_right == &t_c);
     /* c */
-    assert_true(t_c._t_color == black);
+    assert_true(t_c._t_color == BLACK);
     assert_true(t_c._pt_parent == &t_ggp);
     assert_true(t_c._pt_left == &t_p);
     assert_true(t_c._pt_right == &t_gp);
     /* p */
-    assert_true(t_p._t_color == red);
+    assert_true(t_p._t_color == RED);
     assert_true(t_p._pt_parent == &t_c);
     assert_true(t_p._pt_left == &t_s);
     assert_true(t_p._pt_right == &t_l);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_c);
     assert_true(t_gp._pt_left == &t_r);
     assert_true(t_gp._pt_right == &t_sp);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_p);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_gp);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_p);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -2751,42 +2751,42 @@ void test__rb_tree_rebalance__case_3_3(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = &t_sp;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -2808,42 +2808,42 @@ void test__rb_tree_rebalance__case_3_3(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_c);
     /* c */
-    assert_true(t_c._t_color == black);
+    assert_true(t_c._t_color == BLACK);
     assert_true(t_c._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_c._pt_left == &t_p);
     assert_true(t_c._pt_right == &t_gp);
     /* p */
-    assert_true(t_p._t_color == red);
+    assert_true(t_p._t_color == RED);
     assert_true(t_p._pt_parent == &t_c);
     assert_true(t_p._pt_left == &t_s);
     assert_true(t_p._pt_right == &t_l);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_c);
     assert_true(t_gp._pt_left == &t_r);
     assert_true(t_gp._pt_right == &t_sp);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_p);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_gp);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_p);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -2875,32 +2875,32 @@ void test__rb_tree_rebalance__case_4_1(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_gp;
     t_ggp._pt_right = &t_sgp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* sgp */
-    t_sgp._t_color = black;
+    t_sgp._t_color = BLACK;
     t_sgp._pt_parent = &t_ggp;
     t_sgp._pt_left = NULL;
     t_sgp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = NULL;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -2908,32 +2908,32 @@ void test__rb_tree_rebalance__case_4_1(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent = &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_gp);
     assert_true(t_ggp._pt_right == &t_sgp);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_ggp);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_p);
     /* sgp */
-    assert_true(t_sgp._t_color == black);
+    assert_true(t_sgp._t_color == BLACK);
     assert_true(t_sgp._pt_parent == &t_ggp);
     assert_true(t_sgp._pt_left == NULL);
     assert_true(t_sgp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == &t_c);
     assert_true(t_p._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -2965,32 +2965,32 @@ void test__rb_tree_rebalance__case_4_2(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_gp;
     t_ggp._pt_right = &t_sgp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* sgp */
-    t_sgp._t_color = black;
+    t_sgp._t_color = BLACK;
     t_sgp._pt_parent = &t_ggp;
     t_sgp._pt_left = NULL;
     t_sgp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = NULL;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -2998,32 +2998,32 @@ void test__rb_tree_rebalance__case_4_2(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent = &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_gp);
     assert_true(t_ggp._pt_right == &t_sgp);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_ggp);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_p);
     /* sgp */
-    assert_true(t_sgp._t_color == black);
+    assert_true(t_sgp._t_color == BLACK);
     assert_true(t_sgp._pt_parent == &t_ggp);
     assert_true(t_sgp._pt_left == NULL);
     assert_true(t_sgp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == NULL);
     assert_true(t_p._pt_right == &t_c);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -3055,32 +3055,32 @@ void test__rb_tree_rebalance__case_4_3(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_sgp;
     t_ggp._pt_right = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* sgp */
-    t_sgp._t_color = black;
+    t_sgp._t_color = BLACK;
     t_sgp._pt_parent = &t_ggp;
     t_sgp._pt_left = NULL;
     t_sgp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = NULL;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -3088,32 +3088,32 @@ void test__rb_tree_rebalance__case_4_3(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent = &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_sgp);
     assert_true(t_ggp._pt_right == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_ggp);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_p);
     /* sgp */
-    assert_true(t_sgp._t_color == black);
+    assert_true(t_sgp._t_color == BLACK);
     assert_true(t_sgp._pt_parent == &t_ggp);
     assert_true(t_sgp._pt_left == NULL);
     assert_true(t_sgp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == &t_c);
     assert_true(t_p._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -3145,32 +3145,32 @@ void test__rb_tree_rebalance__case_4_4(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_sgp;
     t_ggp._pt_right = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* sgp */
-    t_sgp._t_color = black;
+    t_sgp._t_color = BLACK;
     t_sgp._pt_parent = &t_ggp;
     t_sgp._pt_left = NULL;
     t_sgp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = NULL;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -3178,32 +3178,32 @@ void test__rb_tree_rebalance__case_4_4(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent = &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_sgp);
     assert_true(t_ggp._pt_right == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_ggp);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_p);
     /* sgp */
-    assert_true(t_sgp._t_color == black);
+    assert_true(t_sgp._t_color == BLACK);
     assert_true(t_sgp._pt_parent == &t_ggp);
     assert_true(t_sgp._pt_left == NULL);
     assert_true(t_sgp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == NULL);
     assert_true(t_p._pt_right == &t_c);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -3231,22 +3231,22 @@ void test__rb_tree_rebalance__case_4_5(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = NULL;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -3254,22 +3254,22 @@ void test__rb_tree_rebalance__case_4_5(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == &t_c);
     assert_true(t_p._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -3297,22 +3297,22 @@ void test__rb_tree_rebalance__case_4_6(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = NULL;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = red;
+    t_sp._t_color = RED;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = NULL;
     t_c._pt_right = NULL;
@@ -3320,22 +3320,22 @@ void test__rb_tree_rebalance__case_4_6(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_gp);
     assert_true(t_p._pt_left == NULL);
     assert_true(t_p._pt_right == &t_c);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == NULL);
     assert_true(t_c._pt_right == NULL);
@@ -3360,42 +3360,42 @@ void test__rb_tree_rebalance__case_5_1(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -3417,42 +3417,42 @@ void test__rb_tree_rebalance__case_5_1(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_p._pt_left == &t_gp);
     assert_true(t_p._pt_right == &t_c);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == &t_l);
     assert_true(t_c._pt_right == &t_r);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_p);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_s);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_c);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_c);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -3478,47 +3478,47 @@ void test__rb_tree_rebalance__case_5_2(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_gp;
     t_ggp._pt_right = NULL;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -3542,47 +3542,47 @@ void test__rb_tree_rebalance__case_5_2(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_p);
     assert_true(t_ggp._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_ggp);
     assert_true(t_p._pt_left == &t_gp);
     assert_true(t_p._pt_right == &t_c);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == &t_l);
     assert_true(t_c._pt_right == &t_r);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_p);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_s);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_c);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_c);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -3608,47 +3608,47 @@ void test__rb_tree_rebalance__case_5_3(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = NULL;
     t_ggp._pt_right = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_c;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -3672,47 +3672,47 @@ void test__rb_tree_rebalance__case_5_3(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == NULL);
     assert_true(t_ggp._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_ggp);
     assert_true(t_p._pt_left == &t_gp);
     assert_true(t_p._pt_right == &t_c);
     /* c */
-    assert_true(t_c._t_color == red);
+    assert_true(t_c._t_color == RED);
     assert_true(t_c._pt_parent == &t_p);
     assert_true(t_c._pt_left == &t_l);
     assert_true(t_c._pt_right == &t_r);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_p);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_s);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_c);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_c);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -3738,47 +3738,47 @@ void test__rb_tree_rebalance__case_6_1(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = &t_gp;
     t_ggp._pt_right = NULL;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = &t_s;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -3802,47 +3802,47 @@ void test__rb_tree_rebalance__case_6_1(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == &t_c);
     assert_true(t_ggp._pt_right == NULL);
     /* c */
-    assert_true(t_c._t_color == black);
+    assert_true(t_c._t_color == BLACK);
     assert_true(t_c._pt_parent == &t_ggp);
     assert_true(t_c._pt_left == &t_gp);
     assert_true(t_c._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == red);
+    assert_true(t_p._t_color == RED);
     assert_true(t_p._pt_parent == &t_c);
     assert_true(t_p._pt_left == &t_r);
     assert_true(t_p._pt_right == &t_s);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_c);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_l);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_gp);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_p);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_p);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -3868,47 +3868,47 @@ void test__rb_tree_rebalance__case_6_2(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_ggp;
     /* ggp */
-    t_ggp._t_color = black;
+    t_ggp._t_color = BLACK;
     t_ggp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_ggp._pt_left = NULL;
     t_ggp._pt_right = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &t_ggp;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = &t_s;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -3932,47 +3932,47 @@ void test__rb_tree_rebalance__case_6_2(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_ggp);
     /* ggp */
-    assert_true(t_ggp._t_color == black);
+    assert_true(t_ggp._t_color == BLACK);
     assert_true(t_ggp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_ggp._pt_left == NULL);
     assert_true(t_ggp._pt_right == &t_c);
     /* c */
-    assert_true(t_c._t_color == black);
+    assert_true(t_c._t_color == BLACK);
     assert_true(t_c._pt_parent == &t_ggp);
     assert_true(t_c._pt_left == &t_gp);
     assert_true(t_c._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == red);
+    assert_true(t_p._t_color == RED);
     assert_true(t_p._pt_parent == &t_c);
     assert_true(t_p._pt_left == &t_r);
     assert_true(t_p._pt_right == &t_s);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_c);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_l);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_gp);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_p);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_p);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -3997,42 +3997,42 @@ void test__rb_tree_rebalance__case_6_3(void** state)
     /* make rb tree */
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_sp;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_c;
     t_p._pt_right = &t_s;
     /* sp */
-    t_sp._t_color = black;
+    t_sp._t_color = BLACK;
     t_sp._pt_parent = &t_gp;
     t_sp._pt_left = NULL;
     t_sp._pt_right = NULL;
     /* c */
-    t_c._t_color = red;
+    t_c._t_color = RED;
     t_c._pt_parent = &t_p;
     t_c._pt_left = &t_l;
     t_c._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_c;
     t_l._pt_left = &t_i;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_c;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* i */
-    t_i._t_color = red;
+    t_i._t_color = RED;
     t_i._pt_parent = &t_l;
     t_i._pt_left = NULL;
     t_i._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = NULL;
     t_s._pt_right = NULL;
@@ -4054,42 +4054,42 @@ void test__rb_tree_rebalance__case_6_3(void** state)
     _rb_tree_rebalance(pt_rb_tree, &t_c);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_c);
     /* c */
-    assert_true(t_c._t_color == black);
+    assert_true(t_c._t_color == BLACK);
     assert_true(t_c._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_c._pt_left == &t_gp);
     assert_true(t_c._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == red);
+    assert_true(t_p._t_color == RED);
     assert_true(t_p._pt_parent == &t_c);
     assert_true(t_p._pt_left == &t_r);
     assert_true(t_p._pt_right == &t_s);
     /* gp */
-    assert_true(t_gp._t_color == red);
+    assert_true(t_gp._t_color == RED);
     assert_true(t_gp._pt_parent == &t_c);
     assert_true(t_gp._pt_left == &t_sp);
     assert_true(t_gp._pt_right == &t_l);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_gp);
     assert_true(t_l._pt_left == &t_i);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_p);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_p);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == NULL);
     /* sp */
-    assert_true(t_sp._t_color == black);
+    assert_true(t_sp._t_color == BLACK);
     assert_true(t_sp._pt_parent == &t_gp);
     assert_true(t_sp._pt_left == NULL);
     assert_true(t_sp._pt_right == NULL);
     /* i */
-    assert_true(t_i._t_color == red);
+    assert_true(t_i._t_color == RED);
     assert_true(t_i._pt_parent == &t_l);
     assert_true(t_i._pt_left == NULL);
     assert_true(t_i._pt_right == NULL);
@@ -4202,37 +4202,37 @@ void test__rb_tree_fixup_deletion__case_1_1_1(void** state)
     _rb_tree_init(pt_rb_tree, NULL);
     pt_rb_tree->_t_rbroot._pt_parent = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &pt_rb_tree->_t_rbroot;
     t_p._pt_left = &t_x;
     t_p._pt_right = &t_s;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = red;
+    t_s._t_color = RED;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_s;
     t_l._pt_left = &t_ll;
     t_l._pt_right = &t_lr;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* ll */
-    t_ll._t_color = red;
+    t_ll._t_color = RED;
     t_ll._pt_parent = &t_l;
     t_ll._pt_left = NULL;
     t_ll._pt_right = NULL;
     /* lr */
-    t_lr._t_color = red;
+    t_lr._t_color = RED;
     t_lr._pt_parent = &t_l;
     t_lr._pt_left = NULL;
     t_lr._pt_right = NULL;
@@ -4250,37 +4250,37 @@ void test__rb_tree_fixup_deletion__case_1_1_1(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_s);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_r);
     /* l */
-    assert_true(t_l._t_color == red);
+    assert_true(t_l._t_color == RED);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == &t_p);
     assert_true(t_l._pt_right == &t_lr);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_l);
     assert_true(t_p._pt_left == &t_x);
     assert_true(t_p._pt_right == &t_ll);
     /* lr */
-    assert_true(t_lr._t_color == black);
+    assert_true(t_lr._t_color == BLACK);
     assert_true(t_lr._pt_parent == &t_l);
     assert_true(t_lr._pt_left == NULL);
     assert_true(t_lr._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* ll */
-    assert_true(t_ll._t_color == red);
+    assert_true(t_ll._t_color == RED);
     assert_true(t_ll._pt_parent == &t_p);
     assert_true(t_ll._pt_left == NULL);
     assert_true(t_ll._pt_right == NULL);
@@ -4304,42 +4304,42 @@ void test__rb_tree_fixup_deletion__case_1_1_2(void** state)
     _rb_tree_init(pt_rb_tree, NULL);
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = NULL;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_x;
     t_p._pt_right = &t_s;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = red;
+    t_s._t_color = RED;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_s;
     t_l._pt_left = &t_ll;
     t_l._pt_right = &t_lr;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* ll */
-    t_ll._t_color = red;
+    t_ll._t_color = RED;
     t_ll._pt_parent = &t_l;
     t_ll._pt_left = NULL;
     t_ll._pt_right = NULL;
     /* lr */
-    t_lr._t_color = red;
+    t_lr._t_color = RED;
     t_lr._pt_parent = &t_l;
     t_lr._pt_left = NULL;
     t_lr._pt_right = NULL;
@@ -4357,42 +4357,42 @@ void test__rb_tree_fixup_deletion__case_1_1_2(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == &t_s);
     assert_true(t_gp._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_r);
     /* l */
-    assert_true(t_l._t_color == red);
+    assert_true(t_l._t_color == RED);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == &t_p);
     assert_true(t_l._pt_right == &t_lr);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_l);
     assert_true(t_p._pt_left == &t_x);
     assert_true(t_p._pt_right == &t_ll);
     /* lr */
-    assert_true(t_lr._t_color == black);
+    assert_true(t_lr._t_color == BLACK);
     assert_true(t_lr._pt_parent == &t_l);
     assert_true(t_lr._pt_left == NULL);
     assert_true(t_lr._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* ll */
-    assert_true(t_ll._t_color == red);
+    assert_true(t_ll._t_color == RED);
     assert_true(t_ll._pt_parent == &t_p);
     assert_true(t_ll._pt_left == NULL);
     assert_true(t_ll._pt_right == NULL);
@@ -4416,42 +4416,42 @@ void test__rb_tree_fixup_deletion__case_1_1_3(void** state)
     _rb_tree_init(pt_rb_tree, NULL);
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = NULL;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_x;
     t_p._pt_right = &t_s;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = red;
+    t_s._t_color = RED;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_s;
     t_l._pt_left = &t_ll;
     t_l._pt_right = &t_lr;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
     /* ll */
-    t_ll._t_color = red;
+    t_ll._t_color = RED;
     t_ll._pt_parent = &t_l;
     t_ll._pt_left = NULL;
     t_ll._pt_right = NULL;
     /* lr */
-    t_lr._t_color = red;
+    t_lr._t_color = RED;
     t_lr._pt_parent = &t_l;
     t_lr._pt_left = NULL;
     t_lr._pt_right = NULL;
@@ -4469,42 +4469,42 @@ void test__rb_tree_fixup_deletion__case_1_1_3(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == NULL);
     assert_true(t_gp._pt_right == &t_s);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_r);
     /* l */
-    assert_true(t_l._t_color == red);
+    assert_true(t_l._t_color == RED);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == &t_p);
     assert_true(t_l._pt_right == &t_lr);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_l);
     assert_true(t_p._pt_left == &t_x);
     assert_true(t_p._pt_right == &t_ll);
     /* lr */
-    assert_true(t_lr._t_color == black);
+    assert_true(t_lr._t_color == BLACK);
     assert_true(t_lr._pt_parent == &t_l);
     assert_true(t_lr._pt_left == NULL);
     assert_true(t_lr._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* ll */
-    assert_true(t_ll._t_color == red);
+    assert_true(t_ll._t_color == RED);
     assert_true(t_ll._pt_parent == &t_p);
     assert_true(t_ll._pt_left == NULL);
     assert_true(t_ll._pt_right == NULL);
@@ -4527,37 +4527,37 @@ void test__rb_tree_fixup_deletion__case_1_2_1(void** state)
     _rb_tree_init(pt_rb_tree, NULL);
     pt_rb_tree->_t_rbroot._pt_parent = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &pt_rb_tree->_t_rbroot;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_x;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = red;
+    t_s._t_color = RED;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_s;
     t_r._pt_left = &t_rl;
     t_r._pt_right = &t_rr;
     /* rl */
-    t_rl._t_color = red;
+    t_rl._t_color = RED;
     t_rl._pt_parent = &t_r;
     t_rl._pt_left = NULL;
     t_rl._pt_right = NULL;
     /* lr */
-    t_rr._t_color = red;
+    t_rr._t_color = RED;
     t_rr._pt_parent = &t_r;
     t_rr._pt_left = NULL;
     t_rr._pt_right = NULL;
@@ -4575,37 +4575,37 @@ void test__rb_tree_fixup_deletion__case_1_2_1(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_s);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_r);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == red);
+    assert_true(t_r._t_color == RED);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == &t_rl);
     assert_true(t_r._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_r);
     assert_true(t_p._pt_left == &t_rr);
     assert_true(t_p._pt_right == &t_x);
     /* rl */
-    assert_true(t_rl._t_color == black);
+    assert_true(t_rl._t_color == BLACK);
     assert_true(t_rl._pt_parent == &t_r);
     assert_true(t_rl._pt_left == NULL);
     assert_true(t_rl._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* rr */
-    assert_true(t_rr._t_color == red);
+    assert_true(t_rr._t_color == RED);
     assert_true(t_rr._pt_parent == &t_p);
     assert_true(t_rr._pt_left == NULL);
     assert_true(t_rr._pt_right == NULL);
@@ -4629,42 +4629,42 @@ void test__rb_tree_fixup_deletion__case_1_2_2(void** state)
     _rb_tree_init(pt_rb_tree, NULL);
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = NULL;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_x;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = red;
+    t_s._t_color = RED;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_s;
     t_r._pt_left = &t_rl;
     t_r._pt_right = &t_rr;
     /* rl */
-    t_rl._t_color = red;
+    t_rl._t_color = RED;
     t_rl._pt_parent = &t_r;
     t_rl._pt_left = NULL;
     t_rl._pt_right = NULL;
     /* lr */
-    t_rr._t_color = red;
+    t_rr._t_color = RED;
     t_rr._pt_parent = &t_r;
     t_rr._pt_left = NULL;
     t_rr._pt_right = NULL;
@@ -4682,42 +4682,42 @@ void test__rb_tree_fixup_deletion__case_1_2_2(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == &t_s);
     assert_true(t_gp._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_r);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == red);
+    assert_true(t_r._t_color == RED);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == &t_rl);
     assert_true(t_r._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_r);
     assert_true(t_p._pt_left == &t_rr);
     assert_true(t_p._pt_right == &t_x);
     /* rl */
-    assert_true(t_rl._t_color == black);
+    assert_true(t_rl._t_color == BLACK);
     assert_true(t_rl._pt_parent == &t_r);
     assert_true(t_rl._pt_left == NULL);
     assert_true(t_rl._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* rr */
-    assert_true(t_rr._t_color == red);
+    assert_true(t_rr._t_color == RED);
     assert_true(t_rr._pt_parent == &t_p);
     assert_true(t_rr._pt_left == NULL);
     assert_true(t_rr._pt_right == NULL);
@@ -4741,42 +4741,42 @@ void test__rb_tree_fixup_deletion__case_1_2_3(void** state)
     _rb_tree_init(pt_rb_tree, NULL);
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = NULL;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_x;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = red;
+    t_s._t_color = RED;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_s;
     t_r._pt_left = &t_rl;
     t_r._pt_right = &t_rr;
     /* rl */
-    t_rl._t_color = red;
+    t_rl._t_color = RED;
     t_rl._pt_parent = &t_r;
     t_rl._pt_left = NULL;
     t_rl._pt_right = NULL;
     /* lr */
-    t_rr._t_color = red;
+    t_rr._t_color = RED;
     t_rr._pt_parent = &t_r;
     t_rr._pt_left = NULL;
     t_rr._pt_right = NULL;
@@ -4794,42 +4794,42 @@ void test__rb_tree_fixup_deletion__case_1_2_3(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == NULL);
     assert_true(t_gp._pt_right == &t_s);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_r);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
     /* r */
-    assert_true(t_r._t_color == red);
+    assert_true(t_r._t_color == RED);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == &t_rl);
     assert_true(t_r._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_r);
     assert_true(t_p._pt_left == &t_rr);
     assert_true(t_p._pt_right == &t_x);
     /* rl */
-    assert_true(t_rl._t_color == black);
+    assert_true(t_rl._t_color == BLACK);
     assert_true(t_rl._pt_parent == &t_r);
     assert_true(t_rl._pt_left == NULL);
     assert_true(t_rl._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* rr */
-    assert_true(t_rr._t_color == red);
+    assert_true(t_rr._t_color == RED);
     assert_true(t_rr._pt_parent == &t_p);
     assert_true(t_rr._pt_left == NULL);
     assert_true(t_rr._pt_right == NULL);
@@ -4851,27 +4851,27 @@ void test__rb_tree_fixup_deletion__case_2_1(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &pt_rb_tree->_t_rbroot;
     t_p._pt_left = &t_x;
     t_p._pt_right = &t_s;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -4888,27 +4888,27 @@ void test__rb_tree_fixup_deletion__case_2_1(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_p._pt_left == &t_x);
     assert_true(t_p._pt_right == &t_s);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == red);
+    assert_true(t_s._t_color == RED);
     assert_true(t_s._pt_parent == &t_p);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_r);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
@@ -4930,27 +4930,27 @@ void test__rb_tree_fixup_deletion__case_2_2(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &pt_rb_tree->_t_rbroot;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_x;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -4967,27 +4967,27 @@ void test__rb_tree_fixup_deletion__case_2_2(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_p._pt_left == &t_s);
     assert_true(t_p._pt_right == &t_x);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == red);
+    assert_true(t_s._t_color == RED);
     assert_true(t_s._pt_parent == &t_p);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_r);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
@@ -5009,27 +5009,27 @@ void test__rb_tree_fixup_deletion__case_3_1(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &pt_rb_tree->_t_rbroot;
     t_p._pt_left = &t_x;
     t_p._pt_right = &t_s;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = red;
+    t_l._t_color = RED;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = black;
+    t_r._t_color = BLACK;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -5046,27 +5046,27 @@ void test__rb_tree_fixup_deletion__case_3_1(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_l);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_l._pt_left == &t_p);
     assert_true(t_l._pt_right == &t_s);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_l);
     assert_true(t_p._pt_left == &t_x);
     assert_true(t_p._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_l);
     assert_true(t_s._pt_left == NULL);
     assert_true(t_s._pt_right == &t_r);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
@@ -5088,27 +5088,27 @@ void test__rb_tree_fixup_deletion__case_3_2(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &pt_rb_tree->_t_rbroot;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_x;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = black;
+    t_l._t_color = BLACK;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = red;
+    t_r._t_color = RED;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -5125,27 +5125,27 @@ void test__rb_tree_fixup_deletion__case_3_2(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_r);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_r._pt_left == &t_s);
     assert_true(t_r._pt_right == &t_p);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &t_r);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == NULL);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_r);
     assert_true(t_p._pt_left == NULL);
     assert_true(t_p._pt_right == &t_x);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
@@ -5167,27 +5167,27 @@ void test__rb_tree_fixup_deletion__case_4_1_1(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &pt_rb_tree->_t_rbroot;
     t_p._pt_left = &t_x;
     t_p._pt_right = &t_s;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = red;
+    t_l._t_color = RED;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = red;
+    t_r._t_color = RED;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -5204,27 +5204,27 @@ void test__rb_tree_fixup_deletion__case_4_1_1(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_s);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_s._pt_left == &t_p);
     assert_true(t_s._pt_right == &t_r);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_s);
     assert_true(t_p._pt_left == &t_x);
     assert_true(t_p._pt_right == &t_l);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* l */
-    assert_true(t_l._t_color == red);
+    assert_true(t_l._t_color == RED);
     assert_true(t_l._pt_parent == &t_p);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
@@ -5247,32 +5247,32 @@ void test__rb_tree_fixup_deletion__case_4_1_2(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_x;
     t_p._pt_right = &t_s;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = red;
+    t_l._t_color = RED;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = red;
+    t_r._t_color = RED;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -5289,32 +5289,32 @@ void test__rb_tree_fixup_deletion__case_4_1_2(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == &t_s);
     assert_true(t_gp._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == red);
+    assert_true(t_s._t_color == RED);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == &t_p);
     assert_true(t_s._pt_right == &t_r);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_s);
     assert_true(t_p._pt_left == &t_x);
     assert_true(t_p._pt_right == &t_l);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* l */
-    assert_true(t_l._t_color == red);
+    assert_true(t_l._t_color == RED);
     assert_true(t_l._pt_parent == &t_p);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
@@ -5337,32 +5337,32 @@ void test__rb_tree_fixup_deletion__case_4_1_3(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = NULL;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_x;
     t_p._pt_right = &t_s;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = red;
+    t_l._t_color = RED;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = red;
+    t_r._t_color = RED;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -5379,32 +5379,32 @@ void test__rb_tree_fixup_deletion__case_4_1_3(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == NULL);
     assert_true(t_gp._pt_right == &t_s);
     /* s */
-    assert_true(t_s._t_color == red);
+    assert_true(t_s._t_color == RED);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == &t_p);
     assert_true(t_s._pt_right == &t_r);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_s);
     assert_true(t_p._pt_left == &t_x);
     assert_true(t_p._pt_right == &t_l);
     /* r */
-    assert_true(t_r._t_color == black);
+    assert_true(t_r._t_color == BLACK);
     assert_true(t_r._pt_parent == &t_s);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* l */
-    assert_true(t_l._t_color == red);
+    assert_true(t_l._t_color == RED);
     assert_true(t_l._pt_parent == &t_p);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
@@ -5426,27 +5426,27 @@ void test__rb_tree_fixup_deletion__case_4_2_1(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_p;
     /* p */
-    t_p._t_color = black;
+    t_p._t_color = BLACK;
     t_p._pt_parent = &pt_rb_tree->_t_rbroot;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_x;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = red;
+    t_l._t_color = RED;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = red;
+    t_r._t_color = RED;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -5463,27 +5463,27 @@ void test__rb_tree_fixup_deletion__case_4_2_1(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_s);
     /* s */
-    assert_true(t_s._t_color == black);
+    assert_true(t_s._t_color == BLACK);
     assert_true(t_s._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_s);
     assert_true(t_p._pt_left == &t_r);
     assert_true(t_p._pt_right == &t_x);
     /* r */
-    assert_true(t_r._t_color == red);
+    assert_true(t_r._t_color == RED);
     assert_true(t_r._pt_parent == &t_p);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
@@ -5506,32 +5506,32 @@ void test__rb_tree_fixup_deletion__case_4_2_2(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = &t_p;
     t_gp._pt_right = NULL;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_x;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = red;
+    t_l._t_color = RED;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = red;
+    t_r._t_color = RED;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -5548,32 +5548,32 @@ void test__rb_tree_fixup_deletion__case_4_2_2(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == &t_s);
     assert_true(t_gp._pt_right == NULL);
     /* s */
-    assert_true(t_s._t_color == red);
+    assert_true(t_s._t_color == RED);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_s);
     assert_true(t_p._pt_left == &t_r);
     assert_true(t_p._pt_right == &t_x);
     /* r */
-    assert_true(t_r._t_color == red);
+    assert_true(t_r._t_color == RED);
     assert_true(t_r._pt_parent == &t_p);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
@@ -5596,32 +5596,32 @@ void test__rb_tree_fixup_deletion__case_4_2_3(void** state)
 
     pt_rb_tree->_t_rbroot._pt_parent = &t_gp;
     /* gp */
-    t_gp._t_color = black;
+    t_gp._t_color = BLACK;
     t_gp._pt_parent = &pt_rb_tree->_t_rbroot;
     t_gp._pt_left = NULL;
     t_gp._pt_right = &t_p;
     /* p */
-    t_p._t_color = red;
+    t_p._t_color = RED;
     t_p._pt_parent = &t_gp;
     t_p._pt_left = &t_s;
     t_p._pt_right = &t_x;
     /* x */
-    t_x._t_color = black;
+    t_x._t_color = BLACK;
     t_x._pt_parent = &t_p;
     t_x._pt_left = NULL;
     t_x._pt_right = NULL;
     /* s */
-    t_s._t_color = black;
+    t_s._t_color = BLACK;
     t_s._pt_parent = &t_p;
     t_s._pt_left = &t_l;
     t_s._pt_right = &t_r;
     /* l */
-    t_l._t_color = red;
+    t_l._t_color = RED;
     t_l._pt_parent = &t_s;
     t_l._pt_left = NULL;
     t_l._pt_right = NULL;
     /* r */
-    t_r._t_color = red;
+    t_r._t_color = RED;
     t_r._pt_parent = &t_s;
     t_r._pt_left = NULL;
     t_r._pt_right = NULL;
@@ -5638,32 +5638,32 @@ void test__rb_tree_fixup_deletion__case_4_2_3(void** state)
     _rb_tree_fixup_deletion(pt_rb_tree, &t_x, &t_p);
     assert_true(pt_rb_tree->_t_rbroot._pt_parent == &t_gp);
     /* gp */
-    assert_true(t_gp._t_color == black);
+    assert_true(t_gp._t_color == BLACK);
     assert_true(t_gp._pt_parent == &pt_rb_tree->_t_rbroot);
     assert_true(t_gp._pt_left == NULL);
     assert_true(t_gp._pt_right == &t_s);
     /* s */
-    assert_true(t_s._t_color == red);
+    assert_true(t_s._t_color == RED);
     assert_true(t_s._pt_parent == &t_gp);
     assert_true(t_s._pt_left == &t_l);
     assert_true(t_s._pt_right == &t_p);
     /* p */
-    assert_true(t_p._t_color == black);
+    assert_true(t_p._t_color == BLACK);
     assert_true(t_p._pt_parent == &t_s);
     assert_true(t_p._pt_left == &t_r);
     assert_true(t_p._pt_right == &t_x);
     /* r */
-    assert_true(t_r._t_color == red);
+    assert_true(t_r._t_color == RED);
     assert_true(t_r._pt_parent == &t_p);
     assert_true(t_r._pt_left == NULL);
     assert_true(t_r._pt_right == NULL);
     /* x */
-    assert_true(t_x._t_color == black);
+    assert_true(t_x._t_color == BLACK);
     assert_true(t_x._pt_parent == &t_p);
     assert_true(t_x._pt_left == NULL);
     assert_true(t_x._pt_right == NULL);
     /* l */
-    assert_true(t_l._t_color == black);
+    assert_true(t_l._t_color == BLACK);
     assert_true(t_l._pt_parent == &t_s);
     assert_true(t_l._pt_left == NULL);
     assert_true(t_l._pt_right == NULL);
@@ -5698,9 +5698,9 @@ void test__rb_tree_init_elem_auxiliary__non_inited(void** state)
     _rbnode_t node;
     _rb_tree_init(pt_rb_tree, NULL);
 
-    pt_rb_tree->_t_rbroot._t_color = black;
+    pt_rb_tree->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_init_elem_auxiliary(pt_rb_tree, &node));
-    pt_rb_tree->_t_rbroot._t_color = red;
+    pt_rb_tree->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_rb_tree);
 }
@@ -5713,7 +5713,7 @@ void test__rb_tree_init_elem_auxiliary__c_builtin(void** state)
 
     _rb_tree_insert_unique(pt_rb_tree, &elem);
     _rb_tree_init_elem_auxiliary(pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent);
-    assert_true(*(int*)pt_rb_tree->_t_rbroot._pt_parent->_pc_data == 0);
+    assert_true(*(int*)pt_rb_tree->_t_rbroot._pt_parent->_pby_data == 0);
 
     _rb_tree_destroy(pt_rb_tree);
 }
@@ -5727,7 +5727,7 @@ void test__rb_tree_init_elem_auxiliary__cstr(void** state)
 
     _rb_tree_insert_unique(pt_rb_tree, pt_str);
     _rb_tree_init_elem_auxiliary(pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent);
-    assert_true(strcmp(string_c_str((string_t*)pt_rb_tree->_t_rbroot._pt_parent->_pc_data), "") == 0);
+    assert_true(strcmp(string_c_str((string_t*)pt_rb_tree->_t_rbroot._pt_parent->_pby_data), "") == 0);
 
     _rb_tree_destroy(pt_rb_tree);
     string_destroy(pt_str);
@@ -5742,7 +5742,7 @@ void test__rb_tree_init_elem_auxiliary__cstl_builtin(void** state)
 
     _rb_tree_insert_unique(pt_rb_tree, pvec);
     _rb_tree_init_elem_auxiliary(pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent);
-    assert_true(vector_empty((vector_t*)pt_rb_tree->_t_rbroot._pt_parent->_pc_data));
+    assert_true(vector_empty((vector_t*)pt_rb_tree->_t_rbroot._pt_parent->_pby_data));
 
     vector_destroy(pvec);
     _rb_tree_destroy(pt_rb_tree);
@@ -5766,7 +5766,7 @@ void test__rb_tree_init_elem_auxiliary__user_define(void** state)
     _rb_tree_insert_unique(pt_rb_tree, &elem);
     _rb_tree_init_elem_auxiliary(pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent);
     assert_true(
-        ((_test__rb_tree_init_elem_auxiliary__user_define_t*)pt_rb_tree->_t_rbroot._pt_parent->_pc_data)->elem == 0);
+        ((_test__rb_tree_init_elem_auxiliary__user_define_t*)pt_rb_tree->_t_rbroot._pt_parent->_pby_data)->elem == 0);
 
     _rb_tree_destroy(pt_rb_tree);
 }
@@ -5827,9 +5827,9 @@ void test__rb_tree_elem_compare_auxiliary__non_inited(void** state)
     _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
     _rb_tree_init(pt_rb_tree, NULL);
 
-    pt_rb_tree->_t_rbroot._t_color = black;
+    pt_rb_tree->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_elem_compare_auxiliary(pt_rb_tree, &n_first, &n_second, &b_result));
-    pt_rb_tree->_t_rbroot._t_color = red;
+    pt_rb_tree->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_rb_tree);
 }

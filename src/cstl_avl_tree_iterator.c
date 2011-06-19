@@ -83,13 +83,13 @@ void _avl_tree_iterator_get_value(_avl_tree_iterator_t it_iter, void* pv_value)
     /* char* */
     if(strncmp(_GET_AVL_TREE_TYPE_BASENAME(_GET_AVL_TREE(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        *(char**)pv_value = (char*)string_c_str((string_t*)((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pc_data);
+        *(char**)pv_value = (char*)string_c_str((string_t*)((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pby_data);
     }
     else
     {
         bool_t b_result = _GET_AVL_TREE_TYPE_SIZE(_GET_AVL_TREE(it_iter));
         _GET_AVL_TREE_TYPE_COPY_FUNCTION(_GET_AVL_TREE(it_iter))(
-            pv_value, ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pc_data, &b_result);
+            pv_value, ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pby_data, &b_result);
         assert(b_result);
     }
 }
@@ -105,11 +105,11 @@ const void* _avl_tree_iterator_get_pointer(_avl_tree_iterator_t it_iter)
     /* char* */
     if(strncmp(_GET_AVL_TREE_TYPE_BASENAME(_GET_AVL_TREE(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return (char*)string_c_str((string_t*)((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pc_data);
+        return (char*)string_c_str((string_t*)((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pby_data);
     }
     else
     {
-        return ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pc_data;
+        return ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pby_data;
     }
 }
 
@@ -143,7 +143,7 @@ _avl_tree_iterator_t _avl_tree_iterator_next(_avl_tree_iterator_t it_iter)
             pt_next = pt_next->_pt_left;
         }
 
-        _GET_AVL_TREE_COREPOS(it_iter) = (char*)pt_next;
+        _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)pt_next;
     }
     else
     {
@@ -174,7 +174,7 @@ _avl_tree_iterator_t _avl_tree_iterator_next(_avl_tree_iterator_t it_iter)
              * current : E or F
              * next    : A or avlroot
              */
-            _GET_AVL_TREE_COREPOS(it_iter) = (char*)pt_next;
+            _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)pt_next;
         }
         else /* here is special condition */
         {
@@ -183,7 +183,7 @@ _avl_tree_iterator_t _avl_tree_iterator_next(_avl_tree_iterator_t it_iter)
              *      |
              *      A
              */
-            _GET_AVL_TREE_COREPOS(it_iter) = (char*)pt_cur;
+            _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)pt_cur;
         }
     }
 
@@ -204,7 +204,7 @@ _avl_tree_iterator_t _avl_tree_iterator_prev(_avl_tree_iterator_t it_iter)
     /* previous end */
     if(_avl_tree_iterator_equal(it_iter, _avl_tree_end(_GET_AVL_TREE(it_iter))))
     {
-        _GET_AVL_TREE_COREPOS(it_iter) = (char*)_GET_AVL_TREE(it_iter)->_t_avlroot._pt_right;
+        _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)_GET_AVL_TREE(it_iter)->_t_avlroot._pt_right;
     }
     else
     {
@@ -227,7 +227,7 @@ _avl_tree_iterator_t _avl_tree_iterator_prev(_avl_tree_iterator_t it_iter)
                 pt_prev = pt_prev->_pt_right;
             }
 
-            _GET_AVL_TREE_COREPOS(it_iter) = (char*)pt_prev;
+            _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
         }
         else
         {
@@ -254,7 +254,7 @@ _avl_tree_iterator_t _avl_tree_iterator_prev(_avl_tree_iterator_t it_iter)
              * there is no same special condition as next, because the begin 
              * iterator is the valid iterator 
              */
-            _GET_AVL_TREE_COREPOS(it_iter) = (char*)pt_prev;
+            _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
         }
     }
 

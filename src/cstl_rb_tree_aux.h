@@ -198,7 +198,7 @@ extern _rbnode_t* _rb_tree_get_max_rbnode(const _rbnode_t* cpt_root);
  * @return rb node color.
  * @remarks if cpt_root == NULL, then return black.
  */
-extern color_t _rb_tree_get_color(const _rbnode_t* cpt_root);
+extern _color_t _rb_tree_get_color(const _rbnode_t* cpt_root);
 
 /**
  * Anticlockwise rotation

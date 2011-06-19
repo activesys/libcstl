@@ -215,7 +215,7 @@ typedef struct _tagiterator
         }_t_dequepos;
         struct
         {                    /* for avl tree or rb tree */
-            char*     _pc_corepos;
+            _byte_t*  _pc_corepos;
             void*     _pt_tree;       /* point to the avl tree or rb tree*/
         }_t_treepos;
         struct               /* for hash table */
