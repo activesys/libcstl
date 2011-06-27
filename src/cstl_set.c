@@ -41,31 +41,13 @@
 #include <cstl/cstl_set_private.h>
 #include <cstl/cstl_set.h>
 
+#include "cstl_set_aux.h"
+
 /** local constant declaration and local macro section **/
-/* macros for type informations */
-#define _GET_SET_TYPE_SIZE(pt_set)\
-    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typesize)
-#define _GET_SET_TYPE_NAME(pt_set)\
-    ((pt_set)->_t_tree._t_typeinfo._sz_typename)
-#define _GET_SET_TYPE_BASENAME(pt_set)\
-    ((pt_set)->_t_tree._t_typeinfo._pt_type->_sz_typename)
-#define _GET_SET_TYPE_INIT_FUNCTION(pt_set)\
-    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typeinit)
-#define _GET_SET_TYPE_COPY_FUNCTION(pt_set)\
-    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typecopy)
-#define _GET_SET_TYPE_LESS_FUNCTION(pt_set)\
-    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typeless)
-#define _GET_SET_TYPE_DESTROY_FUNCTION(pt_set)\
-    ((pt_set)->_t_tree._t_typeinfo._pt_type->_t_typedestroy)
-#define _GET_SET_TYPE_STYLE(pt_set)\
-    ((pt_set)->_t_tree._t_typeinfo._t_style)
 
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-static void _set_get_varg_value_auxiliary(
-    set_t* pt_set, va_list val_elemlist, void* pv_varg);
-static void _set_destroy_varg_value_auxiliary(set_t* pt_set, void* pv_varg);
 
 /** exported global variable definition section **/
 
@@ -909,20 +891,6 @@ void _set_init_elem_auxiliary(set_t* pt_set, void* pv_elem)
 }
 
 /** local function implementation section **/
-static void _set_get_varg_value_auxiliary(
-    set_t* pt_set, va_list val_elemlist, void* pv_varg)
-{
-    _set_init_elem_auxiliary(pt_set, pv_varg);
-    _type_get_varg_value(&pt_set->_t_tree._t_typeinfo, val_elemlist, pv_varg);
-}
-
-static void _set_destroy_varg_value_auxiliary(set_t* pt_set, void* pv_varg)
-{
-    /* destroy varg value and free memory */
-    bool_t t_result = _GET_SET_TYPE_SIZE(pt_set);
-    _GET_SET_TYPE_DESTROY_FUNCTION(pt_set)(pv_varg, &t_result);
-    assert(t_result);
-}
 
 /** eof **/
 
