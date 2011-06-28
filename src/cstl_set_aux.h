@@ -45,8 +45,26 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-extern void _set_get_varg_value_auxiliary(set_t* pt_set, va_list val_elemlist, void* pv_varg);
-extern void _set_destroy_varg_value_auxiliary(set_t* pt_set, void* pv_varg);
+/**
+ * Obtain data from variable argument list, the data type and set element data type are same.
+ * @param pset_set          set container.
+ * @param val_elemlist      variable argument list.
+ * @param pv_varg           data buffer.
+ * @return void.
+ * @remarks if pset_set == NULL or pv_varg == NULL, then the behavior is undefined. pset_set must be initialized
+ *          or created by create_set(), otherwise the behavior is undefined.
+ */
+extern void _set_get_varg_value_auxiliary(set_t* pset_set, va_list val_elemlist, void* pv_varg);
+
+/**
+ * Destroy data, the data type and set element data type are same.
+ * @param pset_set          set container.
+ * @param pv_varg           data buffer.
+ * @return void.
+ * @remarks if pset_set == NULL or pv_varg == NULL, then the behavior is undefined. pset_set must be initialized
+ *          or created by create_set(), otherwise the behavior is undefined.
+ */
+extern void _set_destroy_varg_value_auxiliary(set_t* pset_set, void* pv_varg);
 
 #ifdef __cplusplus
 }

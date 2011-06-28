@@ -54,18 +54,30 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-void _set_get_varg_value_auxiliary(set_t* pt_set, va_list val_elemlist, void* pv_varg)
+/**
+ * Obtain data from variable argument list, the data type and set element data type are same.
+ */
+void _set_get_varg_value_auxiliary(set_t* pset_set, va_list val_elemlist, void* pv_varg)
 {
-    _set_init_elem_auxiliary(pt_set, pv_varg);
-    _type_get_varg_value(&pt_set->_t_tree._t_typeinfo, val_elemlist, pv_varg);
+    assert(pset_set != NULL);
+    assert(pv_varg != NULL);
+
+    _set_init_elem_auxiliary(pset_set, pv_varg);
+    _type_get_varg_value(&pset_set->_t_tree._t_typeinfo, val_elemlist, pv_varg);
 }
 
-void _set_destroy_varg_value_auxiliary(set_t* pt_set, void* pv_varg)
+/**
+ * Destroy data, the data type and set element data type are same.
+ */
+void _set_destroy_varg_value_auxiliary(set_t* pset_set, void* pv_varg)
 {
+    assert(pset_set != NULL);
+    assert(pv_varg != NULL);
+
     /* destroy varg value and free memory */
-    bool_t t_result = _GET_SET_TYPE_SIZE(pt_set);
-    _GET_SET_TYPE_DESTROY_FUNCTION(pt_set)(pv_varg, &t_result);
-    assert(t_result);
+    bool_t b_result = _GET_SET_TYPE_SIZE(pset_set);
+    _GET_SET_TYPE_DESTROY_FUNCTION(pset_set)(pv_varg, &b_result);
+    assert(b_result);
 }
 
 /** local function implementation section **/

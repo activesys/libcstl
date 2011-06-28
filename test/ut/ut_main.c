@@ -43,6 +43,7 @@
 #include "ut_cstl_rb_tree_private.h"
 #include "ut_cstl_rb_tree_iterator.h"
 #include "ut_cstl_rb_tree.h"
+#include "ut_cstl_set_aux.h"
 
 int main(int argc, char* argv[])
 {
@@ -82,7 +83,8 @@ int main(int argc, char* argv[])
         UT_CSTL_RB_TREE_AUX_CASE,
         UT_CSTL_RB_TREE_PRIVATE_CASE,
         UT_CSTL_RB_TREE_ITERATOR_CASE,
-        UT_CSTL_RB_TREE_CASE
+        UT_CSTL_RB_TREE_CASE,
+        UT_CSTL_SET_AUX_CASE
     };
 
     return run_tests(tests);
