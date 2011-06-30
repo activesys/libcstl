@@ -26,7 +26,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_numeric.c \
 	     $(srcdir)/../../src/cstl_rb_tree.c $(srcdir)/../../src/cstl_rb_tree_iterator.c \
 	     $(srcdir)/../../src/cstl_rb_tree_private.c $(srcdir)/../../src/cstl_rb_tree_aux.c \
-	     $(srcdir)/../../src/cstl_set.c $(srcdir)/../../src/cstl_set_aux.c \
+	     $(srcdir)/../../src/cstl_set.c \
+	     $(srcdir)/../../src/cstl_set_private.c $(srcdir)/../../src/cstl_set_aux.c \
 	     $(srcdir)/../../src/cstl_slist.c $(srcdir)/../../src/cstl_slist_iterator.c \
 	     $(srcdir)/../../src/cstl_slist_private.c $(srcdir)/../../src/cstl_slist_aux.c \
 	     $(srcdir)/../../src/cstl_priority_queue.c $(srcdir)/../../src/cstl_priority_queue_private.c \

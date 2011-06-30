@@ -36,7 +36,7 @@ extern "C" {
 typedef struct _tagset
 {
 #ifdef CSTL_SET_AVL_TREE
-    avl_tree_t _t_tree;
+    _avl_tree_t _t_tree;
 #else
     _rb_tree_t  _t_tree;
 #endif

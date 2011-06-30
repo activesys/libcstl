@@ -66,8 +66,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_rb_tree.$(OBJEXT) ut-cstl_rb_tree_iterator.$(OBJEXT) \
 	ut-cstl_rb_tree_private.$(OBJEXT) \
 	ut-cstl_rb_tree_aux.$(OBJEXT) ut-cstl_set.$(OBJEXT) \
-	ut-cstl_set_aux.$(OBJEXT) ut-cstl_slist.$(OBJEXT) \
-	ut-cstl_slist_iterator.$(OBJEXT) \
+	ut-cstl_set_private.$(OBJEXT) ut-cstl_set_aux.$(OBJEXT) \
+	ut-cstl_slist.$(OBJEXT) ut-cstl_slist_iterator.$(OBJEXT) \
 	ut-cstl_slist_private.$(OBJEXT) ut-cstl_slist_aux.$(OBJEXT) \
 	ut-cstl_priority_queue.$(OBJEXT) \
 	ut-cstl_priority_queue_private.$(OBJEXT) \
@@ -266,7 +266,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_numeric.c \
 	     $(srcdir)/../../src/cstl_rb_tree.c $(srcdir)/../../src/cstl_rb_tree_iterator.c \
 	     $(srcdir)/../../src/cstl_rb_tree_private.c $(srcdir)/../../src/cstl_rb_tree_aux.c \
-	     $(srcdir)/../../src/cstl_set.c $(srcdir)/../../src/cstl_set_aux.c \
+	     $(srcdir)/../../src/cstl_set.c \
+	     $(srcdir)/../../src/cstl_set_private.c $(srcdir)/../../src/cstl_set_aux.c \
 	     $(srcdir)/../../src/cstl_slist.c $(srcdir)/../../src/cstl_slist_iterator.c \
 	     $(srcdir)/../../src/cstl_slist_private.c $(srcdir)/../../src/cstl_slist_aux.c \
 	     $(srcdir)/../../src/cstl_priority_queue.c $(srcdir)/../../src/cstl_priority_queue_private.c \
@@ -415,6 +416,7 @@ include ./$(DEPDIR)/ut-cstl_rb_tree_iterator.Po
 include ./$(DEPDIR)/ut-cstl_rb_tree_private.Po
 include ./$(DEPDIR)/ut-cstl_set.Po
 include ./$(DEPDIR)/ut-cstl_set_aux.Po
+include ./$(DEPDIR)/ut-cstl_set_private.Po
 include ./$(DEPDIR)/ut-cstl_slist.Po
 include ./$(DEPDIR)/ut-cstl_slist_aux.Po
 include ./$(DEPDIR)/ut-cstl_slist_iterator.Po
@@ -1034,6 +1036,20 @@ ut-cstl_set.obj: $(srcdir)/../../src/cstl_set.c
 #	source='$(srcdir)/../../src/cstl_set.c' object='ut-cstl_set.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set.obj `if test -f '$(srcdir)/../../src/cstl_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set.c'; fi`
+
+ut-cstl_set_private.o: $(srcdir)/../../src/cstl_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_set_private.Tpo -c -o ut-cstl_set_private.o `test -f '$(srcdir)/../../src/cstl_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_private.c
+	$(am__mv) $(DEPDIR)/ut-cstl_set_private.Tpo $(DEPDIR)/ut-cstl_set_private.Po
+#	source='$(srcdir)/../../src/cstl_set_private.c' object='ut-cstl_set_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set_private.o `test -f '$(srcdir)/../../src/cstl_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_private.c
+
+ut-cstl_set_private.obj: $(srcdir)/../../src/cstl_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_set_private.Tpo -c -o ut-cstl_set_private.obj `if test -f '$(srcdir)/../../src/cstl_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_set_private.Tpo $(DEPDIR)/ut-cstl_set_private.Po
+#	source='$(srcdir)/../../src/cstl_set_private.c' object='ut-cstl_set_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set_private.obj `if test -f '$(srcdir)/../../src/cstl_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_private.c'; fi`
 
 ut-cstl_set_aux.o: $(srcdir)/../../src/cstl_set_aux.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_set_aux.Tpo -c -o ut-cstl_set_aux.o `test -f '$(srcdir)/../../src/cstl_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_aux.c
