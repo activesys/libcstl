@@ -32,7 +32,7 @@ void test__set_destroy_varg_value_auxiliary__successfully(void** state);
     UT_CASE(test__set_get_varg_value_auxiliary__user_define),\
     UT_CASE_BEGIN(_set_destroy_varg_value_auxiliary, test__set_destroy_varg_value_auxiliary__null_set_container),\
     UT_CASE(test__set_destroy_varg_value_auxiliary__null_varg),\
-    UT_CASE(test__set_destroy_varg_value_auxiliary__successfully),\
+    UT_CASE(test__set_destroy_varg_value_auxiliary__successfully)
 
 #endif /* _UT_CSTL_SET_AUX_H_ */
 

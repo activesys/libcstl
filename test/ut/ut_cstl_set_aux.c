@@ -8,6 +8,7 @@
 #include "cstl/cset.h"
 #include "cstl/cstring.h"
 #include "cstl/cvector.h"
+#include "cstl_set_aux.h"
 
 #include "ut_def.h"
 #include "ut_cstl_set_aux.h"

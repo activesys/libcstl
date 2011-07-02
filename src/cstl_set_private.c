@@ -54,6 +54,9 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
+/**
+ * Create set container.
+ */
 set_t* _create_set(const char* s_typename)
 {
 #ifdef CSTL_SET_AVL_TREE
@@ -63,9 +66,13 @@ set_t* _create_set(const char* s_typename)
 #endif
 }
 
+/**
+ * Create set container auxiliary function.
+ */
 bool_t _create_set_auxiliary(set_t* pt_set, const char* s_typename)
 {
-    assert(pt_set != NULL && s_typename != NULL);
+    assert(pt_set != NULL);
+    assert(s_typename != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
     return _create_avl_tree_auxiliary(&pt_set->_t_tree, s_typename);
@@ -74,6 +81,9 @@ bool_t _create_set_auxiliary(set_t* pt_set, const char* s_typename)
 #endif
 }
 
+/**
+ * Destroy set container auxiliary function.
+ */
 void _set_destroy_auxiliary(set_t* pt_set)
 {
     assert(pt_set != NULL);

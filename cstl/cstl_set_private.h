@@ -32,7 +32,7 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
-/* the set use rb tree default */
+/* the set use rbtree default */
 typedef struct _tagset
 {
 #ifdef CSTL_SET_AVL_TREE
@@ -45,11 +45,32 @@ typedef struct _tagset
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create set_t.
+/**
+ * Create set container.
+ * @param s_typename        element type name.
+ * @return if create set successfully return set pointer, otherwise return NULL.
+ * @remarks s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name, libcstl builtin
+ *          typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern set_t* _create_set(const char* s_typename);
+
+/**
+ * Create set container auxiliary function.
+ * @param pt_set            uncreated container.
+ * @param s_typename        element type name.
+ * @return if create set successfully return true, otherwise return false.
+ * @remarks if pt_set == NULL or s_typename == NULL, then the behavior is undefined. s_typename should be C builtin
+ *          type name, libcstl builtin typename or registed user defined type name, otherwise the function will return false.
+ */
 extern bool_t _create_set_auxiliary(set_t* pt_set, const char* s_typename);
+
+/**
+ * Destroy set container auxiliary function.
+ * @param pt_set        set container.
+ * @return void.
+ * @remarks if pt_set == NULL, then the behavior is undefined. set must be initialized or created by
+ *          _create_set(), otherwise the behavior is undefine.
+ */
 extern void _set_destroy_auxiliary(set_t* pt_set);
 
 /*
