@@ -69,368 +69,424 @@ set_t* _create_set(const char* s_typename)
 /**
  * Create set container auxiliary function.
  */
-bool_t _create_set_auxiliary(set_t* pt_set, const char* s_typename)
+bool_t _create_set_auxiliary(set_t* pset_set, const char* s_typename)
 {
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
     assert(s_typename != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _create_avl_tree_auxiliary(&pt_set->_t_tree, s_typename);
+    return _create_avl_tree_auxiliary(&pset_set->_t_tree, s_typename);
 #else
-    return _create_rb_tree_auxiliary(&pt_set->_t_tree, s_typename);
+    return _create_rb_tree_auxiliary(&pset_set->_t_tree, s_typename);
 #endif
 }
 
 /**
  * Destroy set container auxiliary function.
  */
-void _set_destroy_auxiliary(set_t* pt_set)
+void _set_destroy_auxiliary(set_t* pset_set)
 {
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_destroy_auxiliary(&pt_set->_t_tree);
+    _avl_tree_destroy_auxiliary(&pset_set->_t_tree);
 #else
-    _rb_tree_destroy_auxiliary(&pt_set->_t_tree);
+    _rb_tree_destroy_auxiliary(&pset_set->_t_tree);
 #endif
 }
 
-set_iterator_t _set_find(const set_t* cpt_set, ...)
+/**
+ * Find specific element.
+ */
+set_iterator_t _set_find(const set_t* cpset_set, ...)
 {
-    set_iterator_t t_iter;
+    set_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_set);
-    t_iter = _set_find_varg(cpt_set, val_elemlist);
+    assert(cpset_set != NULL);
+
+    va_start(val_elemlist, cpset_set);
+    it_iter = _set_find_varg(cpset_set, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-set_iterator_t _set_find_varg(const set_t* cpt_set, va_list val_elemlist)
+/**
+ * Find specific element.
+ */
+set_iterator_t _set_find_varg(const set_t* cpset_set, va_list val_elemlist)
 {
-    set_iterator_t t_iter;
+    set_iterator_t it_iter;
     void*          pv_varg = NULL;
 
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    pv_varg = _alloc_allocate(&((set_t*)cpset_set)->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(cpset_set), 1);
     assert(pv_varg != NULL);
-    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+    _set_get_varg_value_auxiliary((set_t*)cpset_set, val_elemlist, pv_varg);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_iter = _avl_tree_find(&cpt_set->_t_tree, pv_varg);
+    it_iter = _avl_tree_find(&cpset_set->_t_tree, pv_varg);
 #else
-    t_iter = _rb_tree_find(&cpt_set->_t_tree, pv_varg);
+    it_iter = _rb_tree_find(&cpset_set->_t_tree, pv_varg);
 #endif
 
-    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    _set_destroy_varg_value_auxiliary((set_t*)cpset_set, pv_varg);
+    _alloc_deallocate(&((set_t*)cpset_set)->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(cpset_set), 1);
 
-    _GET_CONTAINER(t_iter) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_iter) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = (set_t*)cpset_set;
+    _GET_SET_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
-size_t _set_count(const set_t* cpt_set, ...)
+/**
+ * Return the number of specific elements in an set
+ */
+size_t _set_count(const set_t* cpset_set, ...)
 {
     size_t t_count = 0;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_set);
-    t_count = _set_count_varg(cpt_set, val_elemlist);
+    assert(cpset_set != NULL);
+
+    va_start(val_elemlist, cpset_set);
+    t_count = _set_count_varg(cpset_set, val_elemlist);
     va_end(val_elemlist);
 
     return t_count;
 }
 
-size_t _set_count_varg(const set_t* cpt_set, va_list val_elemlist)
+/**
+ * Return the number of specific elements in an set
+ */
+size_t _set_count_varg(const set_t* cpset_set, va_list val_elemlist)
 {
     void*          pv_varg = NULL;
     size_t         t_count = 0;
 
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    pv_varg = _alloc_allocate(&((set_t*)cpset_set)->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(cpset_set), 1);
     assert(pv_varg != NULL);
-    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+    _set_get_varg_value_auxiliary((set_t*)cpset_set, val_elemlist, pv_varg);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_count = _avl_tree_count(&cpt_set->_t_tree, pv_varg);
+    t_count = _avl_tree_count(&cpset_set->_t_tree, pv_varg);
 #else
-    t_count = _rb_tree_count(&cpt_set->_t_tree, pv_varg);
+    t_count = _rb_tree_count(&cpset_set->_t_tree, pv_varg);
 #endif
 
-    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    _set_destroy_varg_value_auxiliary((set_t*)cpset_set, pv_varg);
+    _alloc_deallocate(&((set_t*)cpset_set)->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(cpset_set), 1);
 
     return t_count;
 }
 
-set_iterator_t _set_lower_bound(const set_t* cpt_set, ...)
+/**
+ * Return an iterator to the first element that is equal to or greater than a specific element.
+ */
+set_iterator_t _set_lower_bound(const set_t* cpset_set, ...)
 {
-    set_iterator_t t_iter;
+    set_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_set);
-    t_iter = _set_lower_bound_varg(cpt_set, val_elemlist);
+    assert(cpset_set != NULL);
+
+    va_start(val_elemlist, cpset_set);
+    it_iter = _set_lower_bound_varg(cpset_set, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-set_iterator_t _set_lower_bound_varg(const set_t* cpt_set, va_list val_elemlist)
+/**
+ * Return an iterator to the first element that is equal to or greater than a specific element.
+ */
+set_iterator_t _set_lower_bound_varg(const set_t* cpset_set, va_list val_elemlist)
 {
     void*          pv_varg = NULL;
-    set_iterator_t t_iter;
+    set_iterator_t it_iter;
 
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    pv_varg = _alloc_allocate(&((set_t*)cpset_set)->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(cpset_set), 1);
     assert(pv_varg != NULL);
-    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+    _set_get_varg_value_auxiliary((set_t*)cpset_set, val_elemlist, pv_varg);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_iter = _avl_tree_lower_bound(&cpt_set->_t_tree, pv_varg);
+    it_iter = _avl_tree_lower_bound(&cpset_set->_t_tree, pv_varg);
 #else
-    t_iter = _rb_tree_lower_bound(&cpt_set->_t_tree, pv_varg);
+    it_iter = _rb_tree_lower_bound(&cpset_set->_t_tree, pv_varg);
 #endif
 
-    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    _set_destroy_varg_value_auxiliary((set_t*)cpset_set, pv_varg);
+    _alloc_deallocate(&((set_t*)cpset_set)->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(cpset_set), 1);
 
-    _GET_CONTAINER(t_iter) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_iter) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = (set_t*)cpset_set;
+    _GET_SET_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
-set_iterator_t _set_upper_bound(const set_t* cpt_set, ...)
+/**
+ * Return an iterator to the first element that is greater than a specific element.
+ */
+set_iterator_t _set_upper_bound(const set_t* cpset_set, ...)
 {
-    set_iterator_t t_iter;
+    set_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_set);
-    t_iter = _set_upper_bound_varg(cpt_set, val_elemlist);
+    assert(cpset_set != NULL);
+
+    va_start(val_elemlist, cpset_set);
+    it_iter = _set_upper_bound_varg(cpset_set, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-set_iterator_t _set_upper_bound_varg(const set_t* cpt_set, va_list val_elemlist)
+/**
+ * Return an iterator to the first element that is greater than a specific element.
+ */
+set_iterator_t _set_upper_bound_varg(const set_t* cpset_set, va_list val_elemlist)
 {
     void*          pv_varg = NULL;
-    set_iterator_t t_iter;
+    set_iterator_t it_iter;
 
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    pv_varg = _alloc_allocate(&((set_t*)cpset_set)->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(cpset_set), 1);
     assert(pv_varg != NULL);
-    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+    _set_get_varg_value_auxiliary((set_t*)cpset_set, val_elemlist, pv_varg);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_iter = _avl_tree_upper_bound(&cpt_set->_t_tree, pv_varg);
+    it_iter = _avl_tree_upper_bound(&cpset_set->_t_tree, pv_varg);
 #else
-    t_iter = _rb_tree_upper_bound(&cpt_set->_t_tree, pv_varg);
+    it_iter = _rb_tree_upper_bound(&cpset_set->_t_tree, pv_varg);
 #endif
 
-    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    _set_destroy_varg_value_auxiliary((set_t*)cpset_set, pv_varg);
+    _alloc_deallocate(&((set_t*)cpset_set)->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(cpset_set), 1);
 
-    _GET_CONTAINER(t_iter) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_iter) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = (set_t*)cpset_set;
+    _GET_SET_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
-range_t _set_equal_range(const set_t* cpt_set, ...)
+/**
+ * Return an iterator range that is equal to a specific element.
+ */
+range_t _set_equal_range(const set_t* cpset_set, ...)
 {
-    range_t t_range;
+    range_t r_range;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_set);
-    t_range = _set_equal_range_varg(cpt_set, val_elemlist);
+    assert(cpset_set != NULL);
+
+    va_start(val_elemlist, cpset_set);
+    r_range = _set_equal_range_varg(cpset_set, val_elemlist);
     va_end(val_elemlist);
 
-    return t_range;
+    return r_range;
 }
 
-range_t _set_equal_range_varg(const set_t* cpt_set, va_list val_elemlist)
+/**
+ * Return an iterator range that is equal to a specific element.
+ */
+range_t _set_equal_range_varg(const set_t* cpset_set, va_list val_elemlist)
 {
     void*          pv_varg = NULL;
-    range_t        t_range;
+    range_t        r_range;
 
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
-    pv_varg = _alloc_allocate(&((set_t*)cpt_set)->_t_tree._t_allocator,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    pv_varg = _alloc_allocate(&((set_t*)cpset_set)->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(cpset_set), 1);
     assert(pv_varg != NULL);
-    _set_get_varg_value_auxiliary((set_t*)cpt_set, val_elemlist, pv_varg);
+    _set_get_varg_value_auxiliary((set_t*)cpset_set, val_elemlist, pv_varg);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_range = _avl_tree_equal_range(&cpt_set->_t_tree, pv_varg);
+    r_range = _avl_tree_equal_range(&cpset_set->_t_tree, pv_varg);
 #else
-    t_range = _rb_tree_equal_range(&cpt_set->_t_tree, pv_varg);
+    r_range = _rb_tree_equal_range(&cpset_set->_t_tree, pv_varg);
 #endif
 
-    _set_destroy_varg_value_auxiliary((set_t*)cpt_set, pv_varg);
-    _alloc_deallocate(&((set_t*)cpt_set)->_t_tree._t_allocator, pv_varg,
-        _GET_SET_TYPE_SIZE(cpt_set), 1);
+    _set_destroy_varg_value_auxiliary((set_t*)cpset_set, pv_varg);
+    _alloc_deallocate(&((set_t*)cpset_set)->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(cpset_set), 1);
 
-    _GET_CONTAINER(t_range.it_begin) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_range.it_begin) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(r_range.it_begin) = (set_t*)cpset_set;
+    _GET_SET_CONTAINER_TYPE(r_range.it_begin) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(t_range.it_end) = (set_t*)cpt_set;
-    _GET_SET_CONTAINER_TYPE(t_range.it_end) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(r_range.it_end) = (set_t*)cpset_set;
+    _GET_SET_CONTAINER_TYPE(r_range.it_end) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_range;
+    return r_range;
 }
 
-set_iterator_t _set_insert(set_t* pt_set, ...)
+/**
+ * Inserts an unique element into a set.
+ */
+set_iterator_t _set_insert(set_t* pset_set, ...)
 {
-    set_iterator_t t_iter;
+    set_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, pt_set);
-    t_iter = _set_insert_varg(pt_set, val_elemlist);
+    assert(pset_set != NULL);
+
+    va_start(val_elemlist, pset_set);
+    it_iter = _set_insert_varg(pset_set, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-set_iterator_t _set_insert_varg(set_t* pt_set, va_list val_elemlist)
+/**
+ * Inserts an unique element into a set.
+ */
+set_iterator_t _set_insert_varg(set_t* pset_set, va_list val_elemlist)
 {
     void*          pv_varg = NULL;
-    set_iterator_t t_iter;
+    set_iterator_t it_iter;
 
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
 
-    pv_varg = _alloc_allocate(&pt_set->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(pt_set), 1);
+    pv_varg = _alloc_allocate(&pset_set->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(pset_set), 1);
     assert(pv_varg != NULL);
-    _set_get_varg_value_auxiliary(pt_set, val_elemlist, pv_varg);
+    _set_get_varg_value_auxiliary(pset_set, val_elemlist, pv_varg);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_iter = _avl_tree_insert_unique(&pt_set->_t_tree, pv_varg);
+    it_iter = _avl_tree_insert_unique(&pset_set->_t_tree, pv_varg);
 #else
-    t_iter = _rb_tree_insert_unique(&pt_set->_t_tree, pv_varg);
+    it_iter = _rb_tree_insert_unique(&pset_set->_t_tree, pv_varg);
 #endif
 
-    _set_destroy_varg_value_auxiliary(pt_set, pv_varg);
-    _alloc_deallocate(&pt_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
+    _set_destroy_varg_value_auxiliary(pset_set, pv_varg);
+    _alloc_deallocate(&pset_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pset_set), 1);
 
-    _GET_CONTAINER(t_iter) = pt_set;
-    _GET_SET_CONTAINER_TYPE(t_iter) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = pset_set;
+    _GET_SET_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
-set_iterator_t _set_insert_hint(set_t* pt_set, set_iterator_t t_hint, ...)
+/**
+ * Inserts an unique element into a set with hint.
+ */
+set_iterator_t _set_insert_hint(set_t* pset_set, set_iterator_t it_hint, ...)
 {
-    set_iterator_t t_iter;
+    set_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, t_hint);
-    t_iter = _set_insert_hint_varg(pt_set, t_hint, val_elemlist);
+    assert(pset_set != NULL);
+
+    va_start(val_elemlist, it_hint);
+    it_iter = _set_insert_hint_varg(pset_set, it_hint, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-set_iterator_t _set_insert_hint_varg(
-    set_t* pt_set, set_iterator_t t_hint, va_list val_elemlist)
+/**
+ * Inserts an unique element into a set with hint.
+ */
+set_iterator_t _set_insert_hint_varg(set_t* pset_set, set_iterator_t it_hint, va_list val_elemlist)
 {
     void* pv_varg = NULL;
 
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
 
-    pv_varg = _alloc_allocate(&pt_set->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(pt_set), 1);
+    pv_varg = _alloc_allocate(&pset_set->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(pset_set), 1);
     assert(pv_varg != NULL);
-    _set_get_varg_value_auxiliary(pt_set, val_elemlist, pv_varg);
+    _set_get_varg_value_auxiliary(pset_set, val_elemlist, pv_varg);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_hint = _avl_tree_insert_unique(&pt_set->_t_tree, pv_varg);
+    it_hint = _avl_tree_insert_unique(&pset_set->_t_tree, pv_varg);
 #else
-    t_hint = _rb_tree_insert_unique(&pt_set->_t_tree, pv_varg);
+    it_hint = _rb_tree_insert_unique(&pset_set->_t_tree, pv_varg);
 #endif
 
-    _set_destroy_varg_value_auxiliary(pt_set, pv_varg);
-    _alloc_deallocate(&pt_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
+    _set_destroy_varg_value_auxiliary(pset_set, pv_varg);
+    _alloc_deallocate(&pset_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pset_set), 1);
 
-    _GET_CONTAINER(t_hint) = pt_set;
-    _GET_SET_CONTAINER_TYPE(t_hint) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(t_hint) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_hint) = pset_set;
+    _GET_SET_CONTAINER_TYPE(it_hint) = _SET_CONTAINER;
+    _GET_SET_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_hint;
+    return it_hint;
 }
 
-size_t _set_erase(set_t* pt_set, ...)
+/**
+ * Erase an element from a set that match a specified element.
+ */
+size_t _set_erase(set_t* pset_set, ...)
 {
     size_t t_count = 0;
     va_list val_elemlist;
 
-    va_start(val_elemlist, pt_set);
-    t_count = _set_erase_varg(pt_set, val_elemlist);
+    assert(pset_set != NULL);
+
+    va_start(val_elemlist, pset_set);
+    t_count = _set_erase_varg(pset_set, val_elemlist);
     va_end(val_elemlist);
 
     return t_count;
 }
 
-size_t _set_erase_varg(set_t* pt_set, va_list val_elemlist)
+/**
+ * Erase an element from a set that match a specified element.
+ */
+size_t _set_erase_varg(set_t* pset_set, va_list val_elemlist)
 {
     void*          pv_varg = NULL;
     size_t         t_count = 0;
 
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
 
-    pv_varg = _alloc_allocate(&pt_set->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(pt_set), 1);
+    pv_varg = _alloc_allocate(&pset_set->_t_tree._t_allocator, _GET_SET_TYPE_SIZE(pset_set), 1);
     assert(pv_varg != NULL);
-    _set_get_varg_value_auxiliary(pt_set, val_elemlist, pv_varg);
+    _set_get_varg_value_auxiliary(pset_set, val_elemlist, pv_varg);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_count = _avl_tree_erase(&pt_set->_t_tree, pv_varg);
+    t_count = _avl_tree_erase(&pset_set->_t_tree, pv_varg);
 #else
-    t_count = _rb_tree_erase(&pt_set->_t_tree, pv_varg);
+    t_count = _rb_tree_erase(&pset_set->_t_tree, pv_varg);
 #endif
 
-    _set_destroy_varg_value_auxiliary(pt_set, pv_varg);
-    _alloc_deallocate(&pt_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pt_set), 1);
+    _set_destroy_varg_value_auxiliary(pset_set, pv_varg);
+    _alloc_deallocate(&pset_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pset_set), 1);
 
     return t_count;
 }
 
-void _set_init_elem_auxiliary(set_t* pt_set, void* pv_elem)
+/**
+ * Initialize element auxiliary function
+ */
+void _set_init_elem_auxiliary(set_t* pset_set, void* pv_value)
 {
-    assert(pt_set != NULL && pv_elem != NULL);
+    assert(pset_set != NULL);
+    assert(pv_value != NULL);
 
     /* initialize new elements */
-    if(_GET_SET_TYPE_STYLE(pt_set) == _TYPE_CSTL_BUILTIN)
+    if(_GET_SET_TYPE_STYLE(pset_set) == _TYPE_CSTL_BUILTIN)
     {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_SET_TYPE_NAME(pt_set), s_elemtypename);
-
-        _GET_SET_TYPE_INIT_FUNCTION(pt_set)(pv_elem, s_elemtypename);
+        _type_get_elem_typename(_GET_SET_TYPE_NAME(pset_set), s_elemtypename);
+        _GET_SET_TYPE_INIT_FUNCTION(pset_set)(pv_value, s_elemtypename);
     }
     else
     {
-        bool_t t_result = _GET_SET_TYPE_SIZE(pt_set);
-        _GET_SET_TYPE_INIT_FUNCTION(pt_set)(pv_elem, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_SET_TYPE_SIZE(pset_set);
+        _GET_SET_TYPE_INIT_FUNCTION(pset_set)(pv_value, &b_result);
+        assert(b_result);
     }
 }
 

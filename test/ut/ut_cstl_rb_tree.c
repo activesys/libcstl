@@ -5476,9 +5476,9 @@ void test__rb_tree_erase__user_define_0(void** state)
     _rb_tree_destroy(pt_rb_tree);
 }
 
-void test__rb_tree_insert_equal__user_define_1(void** state)
+void test__rb_tree_erase__user_define_1(void** state)
 {
-    _rb_tree_t* pt_rb_tree =  _create_rb_tree("_test__rb_tree_insert_equal__user_define_t");
+    _rb_tree_t* pt_rb_tree =  _create_rb_tree("_test__rb_tree_erase__user_define_t");
     _test__rb_tree_insert_equal__user_define_t elem;
     int i = 0;
 
@@ -5498,9 +5498,9 @@ void test__rb_tree_insert_equal__user_define_1(void** state)
     _rb_tree_destroy(pt_rb_tree);
 }
 
-void test__rb_tree_insert_equal__user_define_n(void** state)
+void test__rb_tree_erase__user_define_n(void** state)
 {
-    _rb_tree_t* pt_rb_tree =  _create_rb_tree("_test__rb_tree_insert_equal__user_define_t");
+    _rb_tree_t* pt_rb_tree =  _create_rb_tree("_test__rb_tree_erase__user_define_t");
     _test__rb_tree_insert_equal__user_define_t elem;
     int i = 0;
 

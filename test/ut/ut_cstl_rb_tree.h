@@ -435,8 +435,8 @@ void test__rb_tree_erase__libcstl_builtin_0(void** state);
 void test__rb_tree_erase__libcstl_builtin_1(void** state);
 void test__rb_tree_erase__libcstl_builtin_n(void** state);
 void test__rb_tree_erase__user_define_0(void** state);
-void test__rb_tree_insert_equal__user_define_1(void** state);
-void test__rb_tree_insert_equal__user_define_n(void** state);
+void test__rb_tree_erase__user_define_1(void** state);
+void test__rb_tree_erase__user_define_n(void** state);
 
 #define UT_CSTL_RB_TREE_CASE\
     UT_SUIT_BEGIN(cstl_rb_tree, test__create_rb_tree__null_typename),\
@@ -740,8 +740,8 @@ void test__rb_tree_insert_equal__user_define_n(void** state);
     UT_CASE(test__rb_tree_erase__libcstl_builtin_1),\
     UT_CASE(test__rb_tree_erase__libcstl_builtin_n),\
     UT_CASE(test__rb_tree_erase__user_define_0),\
-    UT_CASE(test__rb_tree_insert_equal__user_define_1),\
-    UT_CASE(test__rb_tree_insert_equal__user_define_n)
+    UT_CASE(test__rb_tree_erase__user_define_1),\
+    UT_CASE(test__rb_tree_erase__user_define_n)
 
 #endif /* _UT_CSTL_RB_TREE_H_ */
 
