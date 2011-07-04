@@ -276,7 +276,7 @@ void test__set_init_elem_auxiliary__successfully_user_defined(void** state);
     UT_CASE(test__set_init_elem_auxiliary__successfully_cstr),\
     UT_CASE(test__set_init_elem_auxiliary__successfully_iterator),\
     UT_CASE(test__set_init_elem_auxiliary__successfully_container),\
-    UT_CASE(test__set_init_elem_auxiliary__successfully_user_defined),\
+    UT_CASE(test__set_init_elem_auxiliary__successfully_user_defined)
 
 #endif /* _UT_CSTL_SET_PRIVATE_H_ */
 
