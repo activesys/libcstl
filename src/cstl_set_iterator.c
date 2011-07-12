@@ -79,8 +79,8 @@ set_iterator_t create_set_iterator(void)
 void _set_iterator_get_value(set_iterator_t it_iter, void* pv_value)
 {
     assert(pv_value != NULL);
-    assert(_GET_SET_CONTAINER_TYPE(it_iter) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
+    assert(_GET_SET_CONTAINER_TYPE(it_iter) == _SET_CONTAINER); 
+    assert(_GET_SET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_SET_AVL_TREE
     _avl_tree_iterator_get_value(it_iter, pv_value);
@@ -94,8 +94,8 @@ void _set_iterator_get_value(set_iterator_t it_iter, void* pv_value)
  */
 const void* _set_iterator_get_pointer(set_iterator_t it_iter)
 {
-    assert(_GET_SET_CONTAINER_TYPE(it_iter) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
+    assert(_GET_SET_CONTAINER_TYPE(it_iter) == _SET_CONTAINER);
+    assert(_GET_SET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
 
 #ifdef CSTL_SET_AVL_TREE
     return _avl_tree_iterator_get_pointer(it_iter);
@@ -109,8 +109,8 @@ const void* _set_iterator_get_pointer(set_iterator_t it_iter)
  */
 set_iterator_t _set_iterator_next(set_iterator_t it_iter)
 {
-    assert(_GET_SET_CONTAINER_TYPE(it_iter) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
+    assert(_GET_SET_CONTAINER_TYPE(it_iter) == _SET_CONTAINER);
+    assert(_GET_SET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
 
 #ifdef CSTL_SET_AVL_TREE
     return _avl_tree_iterator_next(it_iter);
@@ -124,8 +124,8 @@ set_iterator_t _set_iterator_next(set_iterator_t it_iter)
  */
 set_iterator_t _set_iterator_prev(set_iterator_t it_iter)
 {
-    assert(_GET_SET_CONTAINER_TYPE(it_iter) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
+    assert(_GET_SET_CONTAINER_TYPE(it_iter) == _SET_CONTAINER);
+    assert(_GET_SET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
 
 #ifdef CSTL_SET_AVL_TREE
     return _avl_tree_iterator_prev(it_iter);
@@ -139,10 +139,10 @@ set_iterator_t _set_iterator_prev(set_iterator_t it_iter)
  */
 bool_t _set_iterator_equal(set_iterator_t it_first, set_iterator_t it_second)
 {
-    assert(_GET_SET_CONTAINER_TYPE(it_first) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR && 
-           _GET_SET_CONTAINER_TYPE(it_second) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER_TYPE(it_first) == _SET_CONTAINER);
+    assert(_GET_SET_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER_TYPE(it_second) == _SET_CONTAINER);
+    assert(_GET_SET_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_SET_AVL_TREE
     return _avl_tree_iterator_equal(it_first, it_second);
@@ -156,11 +156,11 @@ bool_t _set_iterator_equal(set_iterator_t it_first, set_iterator_t it_second)
  */
 int _set_iterator_distance(set_iterator_t it_first, set_iterator_t it_second)
 {
-    assert(_GET_SET_CONTAINER_TYPE(it_first) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR && 
-           _GET_SET_CONTAINER_TYPE(it_second) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR &&
-           _GET_SET_CONTAINER(it_first) == _GET_SET_CONTAINER(it_second));
+    assert(_GET_SET_CONTAINER_TYPE(it_first) == _SET_CONTAINER);
+    assert(_GET_SET_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER_TYPE(it_second) == _SET_CONTAINER);
+    assert(_GET_SET_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER(it_first) == _GET_SET_CONTAINER(it_second));
 
 #ifdef CSTL_SET_AVL_TREE
     return _avl_tree_iterator_distance(it_first, it_second);
@@ -174,11 +174,11 @@ int _set_iterator_distance(set_iterator_t it_first, set_iterator_t it_second)
  */
 bool_t _set_iterator_before(set_iterator_t it_first, set_iterator_t it_second)
 {
-    assert(_GET_SET_CONTAINER_TYPE(it_first) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR && 
-           _GET_SET_CONTAINER_TYPE(it_second) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR &&
-           _GET_SET_CONTAINER(it_first) == _GET_SET_CONTAINER(it_second));
+    assert(_GET_SET_CONTAINER_TYPE(it_first) == _SET_CONTAINER);
+    assert(_GET_SET_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER_TYPE(it_second) == _SET_CONTAINER);
+    assert(_GET_SET_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER(it_first) == _GET_SET_CONTAINER(it_second));
 
 #ifdef CSTL_SET_AVL_TREE
     return _avl_tree_iterator_before(it_first, it_second);
