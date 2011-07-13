@@ -54,358 +54,363 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-/* set function */
-void set_init(set_t* pt_set)
+/**
+ * Initialize set container.
+ */
+void set_init(set_t* pset_set)
 {
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init(&pt_set->_t_tree, NULL);
+    _avl_tree_init(&pset_set->_t_tree, NULL);
 #else
-    _rb_tree_init(&pt_set->_t_tree, NULL);
+    _rb_tree_init(&pset_set->_t_tree, NULL);
 #endif
 }
 
-void set_init_ex(set_t* pt_set, binary_function_t t_compare)
+/**
+ * Initialize set container with user define compare function.
+ */
+void set_init_ex(set_t* pset_set, binary_function_t t_compare)
 {
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init(&pt_set->_t_tree, t_compare);
+    _avl_tree_init(&pset_set->_t_tree, t_compare);
 #else
-    _rb_tree_init(&pt_set->_t_tree, t_compare);
+    _rb_tree_init(&pset_set->_t_tree, t_compare);
 #endif
 }
 
-void set_destroy(set_t* pt_set)
+void set_destroy(set_t* pset_set)
 {
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_destroy(&pt_set->_t_tree);
+    _avl_tree_destroy(&pset_set->_t_tree);
 #else
-    _rb_tree_destroy(&pt_set->_t_tree);
+    _rb_tree_destroy(&pset_set->_t_tree);
 #endif
 }
 
-void set_init_copy(set_t* pt_setdest, const set_t* cpt_setsrc)
+void set_init_copy(set_t* pset_dest, const set_t* cpset_src)
 {
-    assert(pt_setdest != NULL && cpt_setsrc != NULL);
+    assert(pset_dest != NULL && cpset_src != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy(&pt_setdest->_t_tree, &cpt_setsrc->_t_tree);
+    _avl_tree_init_copy(&pset_dest->_t_tree, &cpset_src->_t_tree);
 #else
-    _rb_tree_init_copy(&pt_setdest->_t_tree, &cpt_setsrc->_t_tree);
+    _rb_tree_init_copy(&pset_dest->_t_tree, &cpset_src->_t_tree);
 #endif
 }
 
-void set_init_copy_range(set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end)
+void set_init_copy_range(set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end)
 {
-    assert(pt_setdest != NULL);
-    assert(_GET_SET_CONTAINER_TYPE(t_begin) == _SET_CONTAINER &&
-           _GET_SET_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
-           _GET_SET_CONTAINER_TYPE(t_end) == _SET_CONTAINER &&
-           _GET_SET_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_SET_CONTAINER(t_begin) != pt_setdest &&
-           _GET_SET_CONTAINER(t_end) != pt_setdest &&
-           _GET_SET_CONTAINER(t_begin) == _GET_SET_CONTAINER(t_end));
+    assert(pset_dest != NULL);
+    assert(_GET_SET_CONTAINER_TYPE(it_begin) == _SET_CONTAINER &&
+           _GET_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_SET_CONTAINER_TYPE(it_end) == _SET_CONTAINER &&
+           _GET_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER(it_begin) != pset_dest &&
+           _GET_SET_CONTAINER(it_end) != pset_dest &&
+           _GET_SET_CONTAINER(it_begin) == _GET_SET_CONTAINER(it_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range(&pt_setdest->_t_tree, t_begin, t_end);
+    _avl_tree_init_copy_range(&pset_dest->_t_tree, it_begin, it_end);
 #else
-    _rb_tree_init_copy_range(&pt_setdest->_t_tree, t_begin, t_end);
+    _rb_tree_init_copy_range(&pset_dest->_t_tree, it_begin, it_end);
 #endif
 }
 
 void set_init_copy_range_ex(
-    set_t* pt_setdest, set_iterator_t t_begin, set_iterator_t t_end, binary_function_t t_compare)
+    set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end, binary_function_t t_compare)
 {
-    assert(pt_setdest != NULL);
-    assert(_GET_SET_CONTAINER_TYPE(t_begin) == _SET_CONTAINER &&
-           _GET_SET_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR &&
-           _GET_SET_CONTAINER_TYPE(t_end) == _SET_CONTAINER &&
-           _GET_SET_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_SET_CONTAINER(t_begin) != pt_setdest &&
-           _GET_SET_CONTAINER(t_end) != pt_setdest &&
-           _GET_SET_CONTAINER(t_begin) == _GET_SET_CONTAINER(t_end));
+    assert(pset_dest != NULL);
+    assert(_GET_SET_CONTAINER_TYPE(it_begin) == _SET_CONTAINER &&
+           _GET_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR &&
+           _GET_SET_CONTAINER_TYPE(it_end) == _SET_CONTAINER &&
+           _GET_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER(it_begin) != pset_dest &&
+           _GET_SET_CONTAINER(it_end) != pset_dest &&
+           _GET_SET_CONTAINER(it_begin) == _GET_SET_CONTAINER(it_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range_ex(&pt_setdest->_t_tree, t_begin, t_end, t_compare);
+    _avl_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, t_compare);
 #else
-    _rb_tree_init_copy_range_ex(&pt_setdest->_t_tree, t_begin, t_end, t_compare);
+    _rb_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, t_compare);
 #endif
 }
 
-void set_assign(set_t* pt_setdest, const set_t* cpt_setsrc)
+void set_assign(set_t* pset_dest, const set_t* cpset_src)
 {
-    assert(pt_setdest != NULL && cpt_setsrc != NULL);
+    assert(pset_dest != NULL && cpset_src != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_assign(&pt_setdest->_t_tree, &cpt_setsrc->_t_tree);
+    _avl_tree_assign(&pset_dest->_t_tree, &cpset_src->_t_tree);
 #else
-    _rb_tree_assign(&pt_setdest->_t_tree, &cpt_setsrc->_t_tree);
+    _rb_tree_assign(&pset_dest->_t_tree, &cpset_src->_t_tree);
 #endif
 }
 
-bool_t set_empty(const set_t* cpt_set)
+bool_t set_empty(const set_t* cpset_set)
 {
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_empty(&cpt_set->_t_tree);
+    return _avl_tree_empty(&cpset_set->_t_tree);
 #else
-    return _rb_tree_empty(&cpt_set->_t_tree);
+    return _rb_tree_empty(&cpset_set->_t_tree);
 #endif
 }
 
-size_t set_size(const set_t* cpt_set)
+size_t set_size(const set_t* cpset_set)
 {
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_size(&cpt_set->_t_tree);
+    return _avl_tree_size(&cpset_set->_t_tree);
 #else
-    return _rb_tree_size(&cpt_set->_t_tree);
+    return _rb_tree_size(&cpset_set->_t_tree);
 #endif
 }
 
-size_t set_max_size(const set_t* cpt_set)
+size_t set_max_size(const set_t* cpset_set)
 {
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_max_size(&cpt_set->_t_tree);
+    return _avl_tree_max_size(&cpset_set->_t_tree);
 #else
-    return _rb_tree_max_size(&cpt_set->_t_tree);
+    return _rb_tree_max_size(&cpset_set->_t_tree);
 #endif
 }
 
-set_iterator_t set_begin(const set_t* cpt_set)
+set_iterator_t set_begin(const set_t* cpset_set)
 {
     set_iterator_t t_newiterator;
 
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_newiterator = _avl_tree_begin(&cpt_set->_t_tree);
+    t_newiterator = _avl_tree_begin(&cpset_set->_t_tree);
 #else
-    t_newiterator = _rb_tree_begin(&cpt_set->_t_tree);
+    t_newiterator = _rb_tree_begin(&cpset_set->_t_tree);
 #endif
 
-    _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
+    _GET_CONTAINER(t_newiterator) = (set_t*)cpset_set;
     _GET_SET_CONTAINER_TYPE(t_newiterator) = _SET_CONTAINER;
     _GET_SET_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
 
-set_iterator_t set_end(const set_t* cpt_set)
+set_iterator_t set_end(const set_t* cpset_set)
 {
     set_iterator_t t_newiterator;
 
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_newiterator = _avl_tree_end(&cpt_set->_t_tree);
+    t_newiterator = _avl_tree_end(&cpset_set->_t_tree);
 #else
-    t_newiterator = _rb_tree_end(&cpt_set->_t_tree);
+    t_newiterator = _rb_tree_end(&cpset_set->_t_tree);
 #endif
 
-    _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
+    _GET_CONTAINER(t_newiterator) = (set_t*)cpset_set;
     _GET_SET_CONTAINER_TYPE(t_newiterator) = _SET_CONTAINER;
     _GET_SET_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
 
-set_iterator_t set_rbegin(const set_t* cpt_set)
+set_iterator_t set_rbegin(const set_t* cpset_set)
 {
     set_iterator_t t_newiterator;
 
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_newiterator = _avl_tree_rbegin(&cpt_set->_t_tree);
+    t_newiterator = _avl_tree_rbegin(&cpset_set->_t_tree);
 #else
-    t_newiterator = _rb_tree_rbegin(&cpt_set->_t_tree);
+    t_newiterator = _rb_tree_rbegin(&cpset_set->_t_tree);
 #endif
 
-    _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
+    _GET_CONTAINER(t_newiterator) = (set_t*)cpset_set;
     _GET_SET_CONTAINER_TYPE(t_newiterator) = _SET_CONTAINER;
     _GET_SET_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
 
-set_iterator_t set_rend(const set_t* cpt_set)
+set_iterator_t set_rend(const set_t* cpset_set)
 {
     set_iterator_t t_newiterator;
 
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    t_newiterator = _avl_tree_rend(&cpt_set->_t_tree);
+    t_newiterator = _avl_tree_rend(&cpset_set->_t_tree);
 #else
-    t_newiterator = _rb_tree_rend(&cpt_set->_t_tree);
+    t_newiterator = _rb_tree_rend(&cpset_set->_t_tree);
 #endif
 
-    _GET_CONTAINER(t_newiterator) = (set_t*)cpt_set;
+    _GET_CONTAINER(t_newiterator) = (set_t*)cpset_set;
     _GET_SET_CONTAINER_TYPE(t_newiterator) = _SET_CONTAINER;
     _GET_SET_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
 
     return t_newiterator;
 }
 
-binary_function_t set_key_comp(const set_t* cpt_set)
+binary_function_t set_key_comp(const set_t* cpset_set)
 {
-    assert(cpt_set != NULL);
+    assert(cpset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_key_comp(&cpt_set->_t_tree);
+    return _avl_tree_key_comp(&cpset_set->_t_tree);
 #else
-    return _rb_tree_key_comp(&cpt_set->_t_tree);
+    return _rb_tree_key_comp(&cpset_set->_t_tree);
 #endif
 }
 
-binary_function_t set_value_comp(const set_t* cpt_set)
+binary_function_t set_value_comp(const set_t* cpset_set)
 {
-    return set_key_comp(cpt_set);
+    return set_key_comp(cpset_set);
 }
 
-void set_clear(set_t* pt_set)
+void set_clear(set_t* pset_set)
 {
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_clear(&pt_set->_t_tree);
+    _avl_tree_clear(&pset_set->_t_tree);
 #else
-    _rb_tree_clear(&pt_set->_t_tree);
+    _rb_tree_clear(&pset_set->_t_tree);
 #endif
 }
 
-bool_t set_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
+bool_t set_equal(const set_t* cpset_first, const set_t* cpset_second)
 {
-    assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
+    assert(cpset_first != NULL && cpset_second != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _avl_tree_equal(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #else
-    return _rb_tree_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _rb_tree_equal(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #endif
 }
 
-bool_t set_not_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
+bool_t set_not_equal(const set_t* cpset_first, const set_t* cpset_second)
 {
-    assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
+    assert(cpset_first != NULL && cpset_second != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_not_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _avl_tree_not_equal(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #else
-    return _rb_tree_not_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _rb_tree_not_equal(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #endif
 }
 
-bool_t set_less(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
+bool_t set_less(const set_t* cpset_first, const set_t* cpset_second)
 {
-    assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
+    assert(cpset_first != NULL && cpset_second != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_less(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _avl_tree_less(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #else
-    return _rb_tree_less(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _rb_tree_less(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #endif
 }
 
-bool_t set_less_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
+bool_t set_less_equal(const set_t* cpset_first, const set_t* cpset_second)
 {
-    assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
+    assert(cpset_first != NULL && cpset_second != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_less_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _avl_tree_less_equal(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #else
-    return _rb_tree_less_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _rb_tree_less_equal(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #endif
 }
 
-bool_t set_greater(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
+bool_t set_greater(const set_t* cpset_first, const set_t* cpset_second)
 {
-    assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
+    assert(cpset_first != NULL && cpset_second != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_greater(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _avl_tree_greater(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #else
-    return _rb_tree_greater(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _rb_tree_greater(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #endif
 }
 
-bool_t set_greater_equal(const set_t* cpt_setfirst, const set_t* cpt_setsecond)
+bool_t set_greater_equal(const set_t* cpset_first, const set_t* cpset_second)
 {
-    assert(cpt_setfirst != NULL && cpt_setsecond != NULL);
+    assert(cpset_first != NULL && cpset_second != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    return _avl_tree_greater_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _avl_tree_greater_equal(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #else
-    return _rb_tree_greater_equal(&cpt_setfirst->_t_tree, &cpt_setsecond->_t_tree);
+    return _rb_tree_greater_equal(&cpset_first->_t_tree, &cpset_second->_t_tree);
 #endif
 }
 
-void set_swap(set_t* pt_setfirst, set_t* pt_setsecond)
+void set_swap(set_t* pset_first, set_t* pset_second)
 {
-    assert(pt_setfirst != NULL && pt_setsecond != NULL);
+    assert(pset_first != NULL && pset_second != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_swap(&pt_setfirst->_t_tree, &pt_setsecond->_t_tree);
+    _avl_tree_swap(&pset_first->_t_tree, &pset_second->_t_tree);
 #else
-    _rb_tree_swap(&pt_setfirst->_t_tree, &pt_setsecond->_t_tree);
+    _rb_tree_swap(&pset_first->_t_tree, &pset_second->_t_tree);
 #endif
 }
 
-void set_insert_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
+void set_insert_range(set_t* pset_set, set_iterator_t it_begin, set_iterator_t it_end)
 {
-    assert(pt_set != NULL);
-    assert(_GET_SET_CONTAINER_TYPE(t_begin) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR && 
-           _GET_SET_CONTAINER_TYPE(t_end) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_SET_CONTAINER(t_begin) != pt_set && 
-           _GET_SET_CONTAINER(t_end) != pt_set && 
-           _GET_SET_CONTAINER(t_begin) == _GET_SET_CONTAINER(t_end));
+    assert(pset_set != NULL);
+    assert(_GET_SET_CONTAINER_TYPE(it_begin) == _SET_CONTAINER && 
+           _GET_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR && 
+           _GET_SET_CONTAINER_TYPE(it_end) == _SET_CONTAINER && 
+           _GET_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER(it_begin) != pset_set && 
+           _GET_SET_CONTAINER(it_end) != pset_set && 
+           _GET_SET_CONTAINER(it_begin) == _GET_SET_CONTAINER(it_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_insert_unique_range(&pt_set->_t_tree, t_begin, t_end);
+    _avl_tree_insert_unique_range(&pset_set->_t_tree, it_begin, it_end);
 #else
-    _rb_tree_insert_unique_range(&pt_set->_t_tree, t_begin, t_end);
+    _rb_tree_insert_unique_range(&pset_set->_t_tree, it_begin, it_end);
 #endif
 }
 
-void set_erase_pos(set_t* pt_set, set_iterator_t t_pos)
+void set_erase_pos(set_t* pset_set, set_iterator_t t_pos)
 {
-    assert(pt_set != NULL);
+    assert(pset_set != NULL);
     assert(_GET_SET_CONTAINER_TYPE(t_pos) == _SET_CONTAINER && 
            _GET_SET_ITERATOR_TYPE(t_pos) == _BIDIRECTIONAL_ITERATOR && 
-           _GET_SET_CONTAINER(t_pos) == pt_set);
+           _GET_SET_CONTAINER(t_pos) == pset_set);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_erase_pos(&pt_set->_t_tree, t_pos);
+    _avl_tree_erase_pos(&pset_set->_t_tree, t_pos);
 #else
-    _rb_tree_erase_pos(&pt_set->_t_tree, t_pos);
+    _rb_tree_erase_pos(&pset_set->_t_tree, t_pos);
 #endif
 }
 
-void set_erase_range(set_t* pt_set, set_iterator_t t_begin, set_iterator_t t_end)
+void set_erase_range(set_t* pset_set, set_iterator_t it_begin, set_iterator_t it_end)
 {
-    assert(pt_set != NULL);
-    assert(_GET_SET_CONTAINER_TYPE(t_begin) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(t_begin) == _BIDIRECTIONAL_ITERATOR && 
-           _GET_SET_CONTAINER_TYPE(t_end) == _SET_CONTAINER && 
-           _GET_SET_ITERATOR_TYPE(t_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_SET_CONTAINER(t_begin) == pt_set && 
-           _GET_SET_CONTAINER(t_end) == pt_set);
+    assert(pset_set != NULL);
+    assert(_GET_SET_CONTAINER_TYPE(it_begin) == _SET_CONTAINER && 
+           _GET_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR && 
+           _GET_SET_CONTAINER_TYPE(it_end) == _SET_CONTAINER && 
+           _GET_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_SET_CONTAINER(it_begin) == pset_set && 
+           _GET_SET_CONTAINER(it_end) == pset_set);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_erase_range(&pt_set->_t_tree, t_begin, t_end);
+    _avl_tree_erase_range(&pset_set->_t_tree, it_begin, it_end);
 #else
-    _rb_tree_erase_range(&pt_set->_t_tree, t_begin, t_end);
+    _rb_tree_erase_range(&pset_set->_t_tree, it_begin, it_end);
 #endif
 }
 

@@ -76,7 +76,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_rb_tree.c ut_cstl_rb_tree.h \
 	     ut_cstl_set_aux.c ut_cstl_set_aux.h \
 	     ut_cstl_set_private.c ut_cstl_set_private.h \
-	     ut_cstl_set_iterator.c ut_cstl_set_iterator.h
+	     ut_cstl_set_iterator.c ut_cstl_set_iterator.h \
+	     ut_cstl_set.c ut_cstl_set.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

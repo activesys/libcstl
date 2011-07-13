@@ -106,7 +106,7 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_rb_tree_iterator.$(OBJEXT) \
 	ut-ut_cstl_rb_tree.$(OBJEXT) ut-ut_cstl_set_aux.$(OBJEXT) \
 	ut-ut_cstl_set_private.$(OBJEXT) \
-	ut-ut_cstl_set_iterator.$(OBJEXT)
+	ut-ut_cstl_set_iterator.$(OBJEXT) ut-ut_cstl_set.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -319,7 +319,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_rb_tree.c ut_cstl_rb_tree.h \
 	     ut_cstl_set_aux.c ut_cstl_set_aux.h \
 	     ut_cstl_set_private.c ut_cstl_set_private.h \
-	     ut_cstl_set_iterator.c ut_cstl_set_iterator.h
+	     ut_cstl_set_iterator.c ut_cstl_set_iterator.h \
+	     ut_cstl_set.c ut_cstl_set.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -460,6 +461,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_rb_tree_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_rb_tree_iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_rb_tree_private.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_set.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_set_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_set_iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_set_private.Po@am__quote@
@@ -1884,6 +1886,20 @@ ut-ut_cstl_set_iterator.obj: ut_cstl_set_iterator.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_set_iterator.c' object='ut-ut_cstl_set_iterator.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set_iterator.obj `if test -f 'ut_cstl_set_iterator.c'; then $(CYGPATH_W) 'ut_cstl_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_iterator.c'; fi`
+
+ut-ut_cstl_set.o: ut_cstl_set.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set.Tpo -c -o ut-ut_cstl_set.o `test -f 'ut_cstl_set.c' || echo '$(srcdir)/'`ut_cstl_set.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_set.Tpo $(DEPDIR)/ut-ut_cstl_set.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_set.c' object='ut-ut_cstl_set.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set.o `test -f 'ut_cstl_set.c' || echo '$(srcdir)/'`ut_cstl_set.c
+
+ut-ut_cstl_set.obj: ut_cstl_set.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set.Tpo -c -o ut-ut_cstl_set.obj `if test -f 'ut_cstl_set.c'; then $(CYGPATH_W) 'ut_cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_set.Tpo $(DEPDIR)/ut-ut_cstl_set.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_set.c' object='ut-ut_cstl_set.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set.obj `if test -f 'ut_cstl_set.c'; then $(CYGPATH_W) 'ut_cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
