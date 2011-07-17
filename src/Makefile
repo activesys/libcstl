@@ -88,7 +88,9 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_list_iterator.lo \
 	libcstl_la-cstl_list_private.lo libcstl_la-cstl_list_aux.lo \
 	libcstl_la-cstl_map.lo libcstl_la-cstl_multimap.lo \
-	libcstl_la-cstl_multiset.lo libcstl_la-cstl_numeric.lo \
+	libcstl_la-cstl_multiset.lo \
+	libcstl_la-cstl_multiset_private.lo \
+	libcstl_la-cstl_multiset_aux.lo libcstl_la-cstl_numeric.lo \
 	libcstl_la-cstl_pair.lo libcstl_la-cstl_priority_queue.lo \
 	libcstl_la-cstl_priority_queue_private.lo \
 	libcstl_la-cstl_queue.lo libcstl_la-cstl_queue_private.lo \
@@ -259,7 +261,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_list.c cstl_list_iterator.c cstl_list_private.c cstl_list_aux.c cstl_list_aux.h \
 		     cstl_map.c \
 		     cstl_multimap.c \
-		     cstl_multiset.c \
+		     cstl_multiset.c cstl_multiset_private.c cstl_multiset_aux.c cstl_multiset_aux.h \
 		     cstl_numeric.c \
 		     cstl_pair.c \
 		     cstl_priority_queue.c cstl_priority_queue_private.c \
@@ -380,6 +382,8 @@ include ./$(DEPDIR)/libcstl_la-cstl_list_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_map.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multimap.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multiset.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_multiset_aux.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_multiset_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_numeric.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_pair.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_priority_queue.Plo
@@ -645,6 +649,20 @@ libcstl_la-cstl_multiset.lo: cstl_multiset.c
 #	source='cstl_multiset.c' object='libcstl_la-cstl_multiset.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_multiset.lo `test -f 'cstl_multiset.c' || echo '$(srcdir)/'`cstl_multiset.c
+
+libcstl_la-cstl_multiset_private.lo: cstl_multiset_private.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_multiset_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_multiset_private.Tpo -c -o libcstl_la-cstl_multiset_private.lo `test -f 'cstl_multiset_private.c' || echo '$(srcdir)/'`cstl_multiset_private.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_multiset_private.Tpo $(DEPDIR)/libcstl_la-cstl_multiset_private.Plo
+#	source='cstl_multiset_private.c' object='libcstl_la-cstl_multiset_private.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_multiset_private.lo `test -f 'cstl_multiset_private.c' || echo '$(srcdir)/'`cstl_multiset_private.c
+
+libcstl_la-cstl_multiset_aux.lo: cstl_multiset_aux.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_multiset_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_multiset_aux.Tpo -c -o libcstl_la-cstl_multiset_aux.lo `test -f 'cstl_multiset_aux.c' || echo '$(srcdir)/'`cstl_multiset_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_multiset_aux.Tpo $(DEPDIR)/libcstl_la-cstl_multiset_aux.Plo
+#	source='cstl_multiset_aux.c' object='libcstl_la-cstl_multiset_aux.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_multiset_aux.lo `test -f 'cstl_multiset_aux.c' || echo '$(srcdir)/'`cstl_multiset_aux.c
 
 libcstl_la-cstl_numeric.lo: cstl_numeric.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_numeric.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_numeric.Tpo -c -o libcstl_la-cstl_numeric.lo `test -f 'cstl_numeric.c' || echo '$(srcdir)/'`cstl_numeric.c

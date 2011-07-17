@@ -36,7 +36,7 @@ extern "C" {
 typedef struct _tagmultiset
 {
 #ifdef CSTL_MULTISET_AVL_TREE
-    avl_tree_t _t_tree;
+    _avl_tree_t _t_tree;
 #else
     _rb_tree_t  _t_tree;
 #endif
@@ -45,8 +45,12 @@ typedef struct _tagmultiset
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create new multiset_t.
+/**
+ * Create multiset container.
+ * @param s_typename        element type name.
+ * @return if create multiset successfully return multiset pointer, otherwise return NULL.
+ * @remarks s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name, libcstl builtin
+ *          typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern multiset_t* _create_multiset(const char* s_typename);
 extern bool_t _create_multiset_auxiliary(multiset_t* pt_multiset, const char* s_typename);
