@@ -66,374 +66,412 @@ multiset_t* _create_multiset(const char* s_typename)
 #endif
 }
 
-bool_t _create_multiset_auxiliary(multiset_t* pt_multiset, const char* s_typename)
+/**
+ * Create multiset container auxiliary function.
+ */
+bool_t _create_multiset_auxiliary(multiset_t* pmset_mset, const char* s_typename)
 {
-    assert(pt_multiset != NULL && s_typename != NULL);
+    assert(pmset_mset != NULL);
+    assert(s_typename != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    return _create_avl_tree_auxiliary(&pt_multiset->_t_tree, s_typename);
+    return _create_avl_tree_auxiliary(&pmset_mset->_t_tree, s_typename);
 #else
-    return _create_rb_tree_auxiliary(&pt_multiset->_t_tree, s_typename);
+    return _create_rb_tree_auxiliary(&pmset_mset->_t_tree, s_typename);
 #endif
 }
 
-void _multiset_destroy_auxiliary(multiset_t* pt_multiset)
+/**
+ * Destroy multiset container auxiliary function.
+ */
+void _multiset_destroy_auxiliary(multiset_t* pmset_mset)
 {
-    assert(pt_multiset != NULL);
+    assert(pmset_mset != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_destroy_auxiliary(&pt_multiset->_t_tree);
+    _avl_tree_destroy_auxiliary(&pmset_mset->_t_tree);
 #else
-    _rb_tree_destroy_auxiliary(&pt_multiset->_t_tree);
+    _rb_tree_destroy_auxiliary(&pmset_mset->_t_tree);
 #endif
 }
 
-multiset_iterator_t _multiset_find(const multiset_t* cpt_multiset, ...)
+/**
+ * Find specific element.
+ */
+multiset_iterator_t _multiset_find(const multiset_t* cpmset_mset, ...)
 {
-    multiset_iterator_t t_iter;
+    multiset_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_multiset);
-    t_iter = _multiset_find_varg(cpt_multiset, val_elemlist);
+    va_start(val_elemlist, cpmset_mset);
+    it_iter = _multiset_find_varg(cpmset_mset, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-multiset_iterator_t _multiset_find_varg(
-    const multiset_t* cpt_multiset, va_list val_elemlist)
+/**
+ * Find specific element.
+ */
+multiset_iterator_t _multiset_find_varg(const multiset_t* cpmset_mset, va_list val_elemlist)
 {
-    multiset_iterator_t t_iter;
+    multiset_iterator_t it_iter;
     void*               pv_varg = NULL;
 
-    assert(cpt_multiset != NULL);
+    assert(cpmset_mset != NULL);
 
-    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    pv_varg = _alloc_allocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
     assert(pv_varg != NULL);
-    _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
+    _multiset_get_varg_value_auxiliary((multiset_t*)cpmset_mset, val_elemlist, pv_varg);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    t_iter = _avl_tree_find(&cpt_multiset->_t_tree, pv_varg);
+    it_iter = _avl_tree_find(&cpmset_mset->_t_tree, pv_varg);
 #else
-    t_iter = _rb_tree_find(&cpt_multiset->_t_tree, pv_varg);
+    it_iter = _rb_tree_find(&cpmset_mset->_t_tree, pv_varg);
 #endif
 
-    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator, pv_varg,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpmset_mset, pv_varg);
+    _alloc_deallocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
 
-    _GET_CONTAINER(t_iter) = (multiset_t*)cpt_multiset;
-    _GET_MULTISET_CONTAINER_TYPE(t_iter) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = (multiset_t*)cpmset_mset;
+    _GET_MULTISET_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
+    _GET_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
-size_t _multiset_count(const multiset_t* cpt_multiset, ...)
+/**
+ * Return the number of specific elements in an multiset
+ */
+size_t _multiset_count(const multiset_t* cpmset_mset, ...)
 {
     size_t t_count = 0;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_multiset);
-    t_count = _multiset_count_varg(cpt_multiset, val_elemlist);
+    va_start(val_elemlist, cpmset_mset);
+    t_count = _multiset_count_varg(cpmset_mset, val_elemlist);
     va_end(val_elemlist);
 
     return t_count;
 }
 
-size_t _multiset_count_varg(const multiset_t* cpt_multiset, va_list val_elemlist)
+/**
+ * Return the number of specific elements in an multiset
+ */
+size_t _multiset_count_varg(const multiset_t* cpmset_mset, va_list val_elemlist)
 {
     size_t  t_count = 0;
     void*   pv_varg = NULL;
 
-    assert(cpt_multiset != NULL);
+    assert(cpmset_mset != NULL);
 
-    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    pv_varg = _alloc_allocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
     assert(pv_varg != NULL);
-    _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
+    _multiset_get_varg_value_auxiliary((multiset_t*)cpmset_mset, val_elemlist, pv_varg);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    t_count = _avl_tree_count(&cpt_multiset->_t_tree, pv_varg);
+    t_count = _avl_tree_count(&cpmset_mset->_t_tree, pv_varg);
 #else
-    t_count = _rb_tree_count(&cpt_multiset->_t_tree, pv_varg);
+    t_count = _rb_tree_count(&cpmset_mset->_t_tree, pv_varg);
 #endif
 
-    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator, pv_varg,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpmset_mset, pv_varg);
+    _alloc_deallocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
 
     return t_count;
 }
 
-multiset_iterator_t _multiset_lower_bound(const multiset_t* cpt_multiset, ...)
+/**
+ * Return an iterator to the first element that is equal to or greater than a specific element.
+ */
+multiset_iterator_t _multiset_lower_bound(const multiset_t* cpmset_mset, ...)
 {
-    multiset_iterator_t t_iter;
+    multiset_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_multiset);
-    t_iter = _multiset_lower_bound_varg(cpt_multiset, val_elemlist);
+    va_start(val_elemlist, cpmset_mset);
+    it_iter = _multiset_lower_bound_varg(cpmset_mset, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-multiset_iterator_t _multiset_lower_bound_varg(
-    const multiset_t* cpt_multiset, va_list val_elemlist)
+/**
+ * Return an iterator to the first element that is equal to or greater than a specific element.
+ */
+multiset_iterator_t _multiset_lower_bound_varg(const multiset_t* cpmset_mset, va_list val_elemlist)
 {
-    multiset_iterator_t t_iter;
+    multiset_iterator_t it_iter;
     void*               pv_varg = NULL;
 
-    assert(cpt_multiset != NULL);
+    assert(cpmset_mset != NULL);
 
-    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    pv_varg = _alloc_allocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
     assert(pv_varg != NULL);
-    _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
+    _multiset_get_varg_value_auxiliary((multiset_t*)cpmset_mset, val_elemlist, pv_varg);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    t_iter = _avl_tree_lower_bound(&cpt_multiset->_t_tree, pv_varg);
+    it_iter = _avl_tree_lower_bound(&cpmset_mset->_t_tree, pv_varg);
 #else
-    t_iter = _rb_tree_lower_bound(&cpt_multiset->_t_tree, pv_varg);
+    it_iter = _rb_tree_lower_bound(&cpmset_mset->_t_tree, pv_varg);
 #endif
 
-    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator, pv_varg,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpmset_mset, pv_varg);
+    _alloc_deallocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
 
-    _GET_CONTAINER(t_iter) = (multiset_t*)cpt_multiset;
-    _GET_MULTISET_CONTAINER_TYPE(t_iter) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = (multiset_t*)cpmset_mset;
+    _GET_MULTISET_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
+    _GET_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
-multiset_iterator_t _multiset_upper_bound(const multiset_t* cpt_multiset, ...)
+/**
+ * Return an iterator to the first element that is greater than a specific element.
+ */
+multiset_iterator_t _multiset_upper_bound(const multiset_t* cpmset_mset, ...)
 {
-    multiset_iterator_t t_iter;
+    multiset_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_multiset);
-    t_iter = _multiset_upper_bound_varg(cpt_multiset, val_elemlist);
+    va_start(val_elemlist, cpmset_mset);
+    it_iter = _multiset_upper_bound_varg(cpmset_mset, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-multiset_iterator_t _multiset_upper_bound_varg(
-    const multiset_t* cpt_multiset, va_list val_elemlist)
+/**
+ * Return an iterator to the first element that is greater than a specific element.
+ */
+multiset_iterator_t _multiset_upper_bound_varg(const multiset_t* cpmset_mset, va_list val_elemlist)
 {
-    multiset_iterator_t t_iter;
+    multiset_iterator_t it_iter;
     void*               pv_varg = NULL;
 
-    assert(cpt_multiset != NULL);
+    assert(cpmset_mset != NULL);
 
-    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    pv_varg = _alloc_allocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
     assert(pv_varg != NULL);
-    _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
+    _multiset_get_varg_value_auxiliary((multiset_t*)cpmset_mset, val_elemlist, pv_varg);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    t_iter = _avl_tree_upper_bound(&cpt_multiset->_t_tree, pv_varg);
+    it_iter = _avl_tree_upper_bound(&cpmset_mset->_t_tree, pv_varg);
 #else
-    t_iter = _rb_tree_upper_bound(&cpt_multiset->_t_tree, pv_varg);
+    it_iter = _rb_tree_upper_bound(&cpmset_mset->_t_tree, pv_varg);
 #endif
 
-    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator, pv_varg,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpmset_mset, pv_varg);
+    _alloc_deallocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
 
-    _GET_CONTAINER(t_iter) = (multiset_t*)cpt_multiset;
-    _GET_MULTISET_CONTAINER_TYPE(t_iter) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = (multiset_t*)cpmset_mset;
+    _GET_MULTISET_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
+    _GET_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
-range_t _multiset_equal_range(const multiset_t* cpt_multiset, ...)
+/**
+ * Return an iterator range that is equal to a specific element.
+ */
+range_t _multiset_equal_range(const multiset_t* cpmset_mset, ...)
 {
-    range_t t_range;
+    range_t r_range;
     va_list val_elemlist;
 
-    va_start(val_elemlist, cpt_multiset);
-    t_range = _multiset_equal_range_varg(cpt_multiset, val_elemlist);
+    va_start(val_elemlist, cpmset_mset);
+    r_range = _multiset_equal_range_varg(cpmset_mset, val_elemlist);
     va_end(val_elemlist);
 
-    return t_range;
+    return r_range;
 }
 
-range_t _multiset_equal_range_varg(const multiset_t* cpt_multiset, va_list val_elemlist)
+/**
+ * Return an iterator range that is equal to a specific element.
+ */
+range_t _multiset_equal_range_varg(const multiset_t* cpmset_mset, va_list val_elemlist)
 {
     void*   pv_varg = NULL;
-    range_t t_range;
+    range_t r_range;
 
-    assert(cpt_multiset != NULL);
+    assert(cpmset_mset != NULL);
 
-    pv_varg = _alloc_allocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    pv_varg = _alloc_allocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
     assert(pv_varg != NULL);
-    _multiset_get_varg_value_auxiliary((multiset_t*)cpt_multiset, val_elemlist, pv_varg);
+    _multiset_get_varg_value_auxiliary((multiset_t*)cpmset_mset, val_elemlist, pv_varg);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    t_range = _avl_tree_equal_range(&cpt_multiset->_t_tree, pv_varg);
+    r_range = _avl_tree_equal_range(&cpmset_mset->_t_tree, pv_varg);
 #else
-    t_range = _rb_tree_equal_range(&cpt_multiset->_t_tree, pv_varg);
+    r_range = _rb_tree_equal_range(&cpmset_mset->_t_tree, pv_varg);
 #endif
 
-    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpt_multiset, pv_varg);
-    _alloc_deallocate(&((multiset_t*)cpt_multiset)->_t_tree._t_allocator, pv_varg,
-        _GET_MULTISET_TYPE_SIZE(cpt_multiset), 1);
+    _multiset_destroy_varg_value_auxiliary((multiset_t*)cpmset_mset, pv_varg);
+    _alloc_deallocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
 
-    _GET_CONTAINER(t_range.it_begin) = (multiset_t*)cpt_multiset;
-    _GET_MULTISET_CONTAINER_TYPE(t_range.it_begin) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(t_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(r_range.it_begin) = (multiset_t*)cpmset_mset;
+    _GET_MULTISET_CONTAINER_TYPE(r_range.it_begin) = _MULTISET_CONTAINER;
+    _GET_MULTISET_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(t_range.it_end) = (multiset_t*)cpt_multiset;
-    _GET_MULTISET_CONTAINER_TYPE(t_range.it_end) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(t_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(r_range.it_end) = (multiset_t*)cpmset_mset;
+    _GET_MULTISET_CONTAINER_TYPE(r_range.it_end) = _MULTISET_CONTAINER;
+    _GET_MULTISET_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_range;
+    return r_range;
 }
 
-multiset_iterator_t _multiset_insert(multiset_t* pt_multiset, ...)
+/**
+ * Inserts an element into a multiset.
+ */
+multiset_iterator_t _multiset_insert(multiset_t* pmset_mset, ...)
 {
-    multiset_iterator_t t_iter;
+    multiset_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, pt_multiset);
-    t_iter = _multiset_insert_varg(pt_multiset, val_elemlist);
+    va_start(val_elemlist, pmset_mset);
+    it_iter = _multiset_insert_varg(pmset_mset, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-multiset_iterator_t _multiset_insert_varg(multiset_t* pt_multiset, va_list val_elemlist)
+/**
+ * Inserts an element into a multiset.
+ */
+multiset_iterator_t _multiset_insert_varg(multiset_t* pmset_mset, va_list val_elemlist)
 {
-    multiset_iterator_t t_iter;
+    multiset_iterator_t it_iter;
     void*               pv_varg = NULL;
 
-    assert(pt_multiset != NULL);
+    assert(pmset_mset != NULL);
 
-    pv_varg = _alloc_allocate(&pt_multiset->_t_tree._t_allocator,
-        _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
+    pv_varg = _alloc_allocate(&pmset_mset->_t_tree._t_allocator, _GET_MULTISET_TYPE_SIZE(pmset_mset), 1);
     assert(pv_varg != NULL);
-    _multiset_get_varg_value_auxiliary(pt_multiset, val_elemlist, pv_varg);
+    _multiset_get_varg_value_auxiliary(pmset_mset, val_elemlist, pv_varg);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    t_iter = _avl_tree_insert_equal(&pt_multiset->_t_tree, pv_varg);
+    it_iter = _avl_tree_insert_equal(&pmset_mset->_t_tree, pv_varg);
 #else
-    t_iter = _rb_tree_insert_equal(&pt_multiset->_t_tree, pv_varg);
+    it_iter = _rb_tree_insert_equal(&pmset_mset->_t_tree, pv_varg);
 #endif
 
-    _multiset_destroy_varg_value_auxiliary(pt_multiset, pv_varg);
-    _alloc_deallocate(&pt_multiset->_t_tree._t_allocator, pv_varg,
-        _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
+    _multiset_destroy_varg_value_auxiliary(pmset_mset, pv_varg);
+    _alloc_deallocate(&pmset_mset->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(pmset_mset), 1);
 
-    _GET_CONTAINER(t_iter) = pt_multiset;
-    _GET_MULTISET_CONTAINER_TYPE(t_iter) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = pmset_mset;
+    _GET_MULTISET_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
+    _GET_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
-multiset_iterator_t _multiset_insert_hint(
-    multiset_t* pt_multiset, multiset_iterator_t t_hint, ...)
+/**
+ * Inserts an element into a multiset with hint.
+ */
+multiset_iterator_t _multiset_insert_hint(multiset_t* pmset_mset, multiset_iterator_t it_hint, ...)
 {
-    multiset_iterator_t t_iter;
+    multiset_iterator_t it_iter;
     va_list val_elemlist;
 
-    va_start(val_elemlist, t_hint);
-    t_iter = _multiset_insert_hint_varg(pt_multiset, t_hint, val_elemlist);
+    va_start(val_elemlist, it_hint);
+    it_iter = _multiset_insert_hint_varg(pmset_mset, it_hint, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
-multiset_iterator_t _multiset_insert_hint_varg(
-    multiset_t* pt_multiset, multiset_iterator_t t_hint, va_list val_elemlist)
+/**
+ * Inserts an element into a multiset with hint.
+ */
+multiset_iterator_t _multiset_insert_hint_varg(multiset_t* pmset_mset, multiset_iterator_t it_hint, va_list val_elemlist)
 {
     void*               pv_varg = NULL;
 
-    assert(pt_multiset != NULL);
+    assert(pmset_mset != NULL);
 
-    pv_varg = _alloc_allocate(&pt_multiset->_t_tree._t_allocator,
-        _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
+    pv_varg = _alloc_allocate(&pmset_mset->_t_tree._t_allocator, _GET_MULTISET_TYPE_SIZE(pmset_mset), 1);
     assert(pv_varg != NULL);
-    _multiset_get_varg_value_auxiliary(pt_multiset, val_elemlist, pv_varg);
+    _multiset_get_varg_value_auxiliary(pmset_mset, val_elemlist, pv_varg);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    t_hint = _avl_tree_insert_equal(&pt_multiset->_t_tree, pv_varg);
+    it_hint = _avl_tree_insert_equal(&pmset_mset->_t_tree, pv_varg);
 #else
-    t_hint = _rb_tree_insert_equal(&pt_multiset->_t_tree, pv_varg);
+    it_hint = _rb_tree_insert_equal(&pmset_mset->_t_tree, pv_varg);
 #endif
 
-    _multiset_destroy_varg_value_auxiliary(pt_multiset, pv_varg);
-    _alloc_deallocate(&pt_multiset->_t_tree._t_allocator, pv_varg,
-        _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
+    _multiset_destroy_varg_value_auxiliary(pmset_mset, pv_varg);
+    _alloc_deallocate(&pmset_mset->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(pmset_mset), 1);
 
-    _GET_CONTAINER(t_hint) = pt_multiset;
-    _GET_MULTISET_CONTAINER_TYPE(t_hint) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(t_hint) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_hint) = pmset_mset;
+    _GET_MULTISET_CONTAINER_TYPE(it_hint) = _MULTISET_CONTAINER;
+    _GET_MULTISET_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_hint;
+    return it_hint;
 }
 
-size_t _multiset_erase(multiset_t* pt_multiset, ...)
+/**
+ * Erase an element from a multiset that match a specified element.
+ */
+size_t _multiset_erase(multiset_t* pmset_mset, ...)
 {
     size_t t_count = 0;
     va_list val_elemlist;
 
-    va_start(val_elemlist, pt_multiset);
-    t_count = _multiset_erase_varg(pt_multiset, val_elemlist);
+    va_start(val_elemlist, pmset_mset);
+    t_count = _multiset_erase_varg(pmset_mset, val_elemlist);
     va_end(val_elemlist);
 
     return t_count;
 }
 
-size_t _multiset_erase_varg(multiset_t* pt_multiset, va_list val_elemlist)
+/**
+ * Erase an element from a multiset that match a specified element.
+ */
+size_t _multiset_erase_varg(multiset_t* pmset_mset, va_list val_elemlist)
 {
     size_t t_count = 0;
     void*  pv_varg = NULL;
 
-    assert(pt_multiset != NULL);
+    assert(pmset_mset != NULL);
 
-    pv_varg = _alloc_allocate(&pt_multiset->_t_tree._t_allocator,
-        _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
+    pv_varg = _alloc_allocate(&pmset_mset->_t_tree._t_allocator, _GET_MULTISET_TYPE_SIZE(pmset_mset), 1);
     assert(pv_varg != NULL);
-    _multiset_get_varg_value_auxiliary(pt_multiset, val_elemlist, pv_varg);
+    _multiset_get_varg_value_auxiliary(pmset_mset, val_elemlist, pv_varg);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    t_count = _avl_tree_erase(&pt_multiset->_t_tree, pv_varg);
+    t_count = _avl_tree_erase(&pmset_mset->_t_tree, pv_varg);
 #else
-    t_count = _rb_tree_erase(&pt_multiset->_t_tree, pv_varg);
+    t_count = _rb_tree_erase(&pmset_mset->_t_tree, pv_varg);
 #endif
 
-    _multiset_destroy_varg_value_auxiliary(pt_multiset, pv_varg);
-    _alloc_deallocate(&pt_multiset->_t_tree._t_allocator, pv_varg,
-        _GET_MULTISET_TYPE_SIZE(pt_multiset), 1);
+    _multiset_destroy_varg_value_auxiliary(pmset_mset, pv_varg);
+    _alloc_deallocate(&pmset_mset->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(pmset_mset), 1);
 
     return t_count;
 }
 
-void _multiset_init_elem_auxiliary(multiset_t* pt_multiset, void* pv_elem)
+/**
+ * Initialize element auxiliary function
+ */
+void _multiset_init_elem_auxiliary(multiset_t* pmset_mset, void* pv_elem)
 {
-    assert(pt_multiset != NULL && pv_elem != NULL);
+    assert(pmset_mset != NULL);
+    assert(pv_elem != NULL);
 
     /* initialize new elements */
-    if(_GET_MULTISET_TYPE_STYLE(pt_multiset) == _TYPE_CSTL_BUILTIN)
+    if(_GET_MULTISET_TYPE_STYLE(pmset_mset) == _TYPE_CSTL_BUILTIN)
     {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_MULTISET_TYPE_NAME(pt_multiset), s_elemtypename);
+        _type_get_elem_typename(_GET_MULTISET_TYPE_NAME(pmset_mset), s_elemtypename);
 
-        _GET_MULTISET_TYPE_INIT_FUNCTION(pt_multiset)(pv_elem, s_elemtypename);
+        _GET_MULTISET_TYPE_INIT_FUNCTION(pmset_mset)(pv_elem, s_elemtypename);
     }
     else
     {
-        bool_t t_result = _GET_MULTISET_TYPE_SIZE(pt_multiset);
-        _GET_MULTISET_TYPE_INIT_FUNCTION(pt_multiset)(pv_elem, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_MULTISET_TYPE_SIZE(pmset_mset);
+        _GET_MULTISET_TYPE_INIT_FUNCTION(pmset_mset)(pv_elem, &b_result);
+        assert(b_result);
     }
 }
 

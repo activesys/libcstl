@@ -191,7 +191,7 @@ void test__set_destroy_auxiliary__non_empty(void** state)
     set_t* pt_set = _create_set("int");
     int elem = 9;
     set_init(pt_set);
-    set_insert(pt_set, &elem);
+    set_insert(pt_set, elem);
 
     _set_destroy_auxiliary(pt_set);
     assert_true(pt_set->_t_tree._t_rbroot._pt_parent == NULL);
