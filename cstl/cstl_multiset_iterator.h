@@ -38,21 +38,75 @@ typedef iterator_t multiset_reverse_iterator_t;
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Iterator support.
+/**
+ * Create multiset iterator.
+ * @return multiset iterator.
+ * @remarks the returned iterator is invalid iterator.
  */
 extern multiset_iterator_t create_multiset_iterator(void);
-extern void _multiset_iterator_get_value(
-    multiset_iterator_t t_iter, void* pv_value);
-extern const void* _multiset_iterator_get_pointer(multiset_iterator_t t_iter);
-extern multiset_iterator_t _multiset_iterator_next(multiset_iterator_t t_iter);
-extern multiset_iterator_t _multiset_iterator_prev(multiset_iterator_t t_iter);
-extern bool_t _multiset_iterator_equal(
-    multiset_iterator_t t_iterfirst, multiset_iterator_t t_itersecond);
-extern int _multiset_iterator_distance(
-    multiset_iterator_t t_iterfirst, multiset_iterator_t t_itersecond);
-extern bool_t _multiset_iterator_before(
-    multiset_iterator_t t_iterfirst, multiset_iterator_t t_itersecond);
+
+/**
+ * Get data value referenced by iterator.
+ * @param it_iter    multiset iterator.
+ * @param pv_value   data value buffer.
+ * @return void.
+ * @remarks it_iter must be valid multiset iterator, otherwise the behavior is undefined. if pv_value == NULL, then the
+ *          behavior is undefined.
+ */
+extern void _multiset_iterator_get_value(multiset_iterator_t it_iter, void* pv_value);
+
+/**
+ * Get data value pointer referenced by iterator.
+ * @param it_iter    multiset iterator.
+ * @return void.
+ * @remarks it_iter must be valid multiset iterator, otherwise the behavior is undefined.
+ */
+extern const void* _multiset_iterator_get_pointer(multiset_iterator_t it_iter);
+
+/**
+ * Return iterator reference next element.
+ * @param  it_iter    current iterator.
+ * @return next iterator.
+ * @remarks it_iter and next iterator must be valid iterator, otherwise the behavior is undefined.
+ */
+extern multiset_iterator_t _multiset_iterator_next(multiset_iterator_t it_iter);
+
+/**
+ * Return iterator reference previous element.
+ * @param  it_iter    current iterator.
+ * @return previous iterator.
+ * @remarks it_iter and previous iterator must be valid iterator, otherwise the behavior is undefined.
+ */
+extern multiset_iterator_t _multiset_iterator_prev(multiset_iterator_t it_iter);
+
+/**
+ * Test the two multiset iterator are equal.
+ * @param it_first    multiset iterator.
+ * @param it_second   multiset iterator.
+ * @return true, if the two iterator are equal, else return false.
+ * @remarks the two iterator must be valid multiset iterator, otherwise the behavior is undefined.
+ */
+extern bool_t _multiset_iterator_equal(multiset_iterator_t it_first, multiset_iterator_t it_second);
+
+/**
+ * Calculate distance between two iterators.
+ * @param it_first    multiset iterator.
+ * @param it_second   multiset iterator.
+ * @return distance.
+ * @remarks the two iterator must be valid multiset iterator, and must be belong to same multiset, otherwise the behavior
+ *          is undefined. the result distance may be less than 0, equal to 0 or greater than 0.
+ */
+extern int _multiset_iterator_distance(multiset_iterator_t it_first, multiset_iterator_t it_second);
+
+/**
+ * Test the first iterator is before the second.
+ * @param it_first    multiset iterator.
+ * @param it_second   multiset iterator.
+ * @return true, if the first iterator is before the second, else return false.
+ * @remarks the two iterator must be valid multiset iterator, and must be belong to same multiset, otherwise the behavior
+ *          is undefined.
+ */
+extern bool_t _multiset_iterator_before(multiset_iterator_t it_first, multiset_iterator_t it_second);
 
 #ifdef __cplusplus
 }

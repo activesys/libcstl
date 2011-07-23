@@ -62,7 +62,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_list.$(OBJEXT) ut-cstl_list_iterator.$(OBJEXT) \
 	ut-cstl_list_private.$(OBJEXT) ut-cstl_list_aux.$(OBJEXT) \
 	ut-cstl_map.$(OBJEXT) ut-cstl_multimap.$(OBJEXT) \
-	ut-cstl_multiset.$(OBJEXT) ut-cstl_multiset_private.$(OBJEXT) \
+	ut-cstl_multiset.$(OBJEXT) ut-cstl_multiset_iterator.$(OBJEXT) \
+	ut-cstl_multiset_private.$(OBJEXT) \
 	ut-cstl_multiset_aux.$(OBJEXT) ut-cstl_numeric.$(OBJEXT) \
 	ut-cstl_rb_tree.$(OBJEXT) ut-cstl_rb_tree_iterator.$(OBJEXT) \
 	ut-cstl_rb_tree_private.$(OBJEXT) \
@@ -109,7 +110,9 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_set_private.$(OBJEXT) \
 	ut-ut_cstl_set_iterator.$(OBJEXT) ut-ut_cstl_set.$(OBJEXT) \
 	ut-ut_cstl_multiset_aux.$(OBJEXT) \
-	ut-ut_cstl_multiset_private.$(OBJEXT)
+	ut-ut_cstl_multiset_private.$(OBJEXT) \
+	ut-ut_cstl_multiset_iterator.$(OBJEXT) \
+	ut-ut_cstl_multiset.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -268,7 +271,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_list_private.c $(srcdir)/../../src/cstl_list_aux.c \
 	     $(srcdir)/../../src/cstl_map.c \
 	     $(srcdir)/../../src/cstl_multimap.c \
-	     $(srcdir)/../../src/cstl_multiset.c \
+	     $(srcdir)/../../src/cstl_multiset.c $(srcdir)/../../src/cstl_multiset_iterator.c \
 	     $(srcdir)/../../src/cstl_multiset_private.c $(srcdir)/../../src/cstl_multiset_aux.c \
 	     $(srcdir)/../../src/cstl_numeric.c \
 	     $(srcdir)/../../src/cstl_rb_tree.c $(srcdir)/../../src/cstl_rb_tree_iterator.c \
@@ -326,7 +329,9 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_set_iterator.c ut_cstl_set_iterator.h \
 	     ut_cstl_set.c ut_cstl_set.h \
 	     ut_cstl_multiset_aux.c ut_cstl_multiset_aux.h \
-	     ut_cstl_multiset_private.c ut_cstl_multiset_private.h
+	     ut_cstl_multiset_private.c ut_cstl_multiset_private.h \
+	     ut_cstl_multiset_iterator.c ut_cstl_multiset_iterator.h \
+	     ut_cstl_multiset.c ut_cstl_multiset.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -417,6 +422,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_multimap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_multiset.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_multiset_aux.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_multiset_iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_multiset_private.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_numeric.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-cstl_pair.Po@am__quote@
@@ -463,7 +469,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list_iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_list_private.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_multiset.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_multiset_aux.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_multiset_iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_multiset_private.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_queue.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ut-ut_cstl_queue_private.Po@am__quote@
@@ -972,6 +980,20 @@ ut-cstl_multiset.obj: $(srcdir)/../../src/cstl_multiset.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_multiset.c' object='ut-cstl_multiset.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset.obj `if test -f '$(srcdir)/../../src/cstl_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset.c'; fi`
+
+ut-cstl_multiset_iterator.o: $(srcdir)/../../src/cstl_multiset_iterator.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_multiset_iterator.Tpo -c -o ut-cstl_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_iterator.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_multiset_iterator.Tpo $(DEPDIR)/ut-cstl_multiset_iterator.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_multiset_iterator.c' object='ut-cstl_multiset_iterator.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_iterator.c
+
+ut-cstl_multiset_iterator.obj: $(srcdir)/../../src/cstl_multiset_iterator.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multiset_iterator.Tpo -c -o ut-cstl_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_iterator.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-cstl_multiset_iterator.Tpo $(DEPDIR)/ut-cstl_multiset_iterator.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_multiset_iterator.c' object='ut-cstl_multiset_iterator.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_iterator.c'; fi`
 
 ut-cstl_multiset_private.o: $(srcdir)/../../src/cstl_multiset_private.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_multiset_private.Tpo -c -o ut-cstl_multiset_private.o `test -f '$(srcdir)/../../src/cstl_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_private.c
@@ -1966,6 +1988,34 @@ ut-ut_cstl_multiset_private.obj: ut_cstl_multiset_private.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_multiset_private.c' object='ut-ut_cstl_multiset_private.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset_private.obj `if test -f 'ut_cstl_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_private.c'; fi`
+
+ut-ut_cstl_multiset_iterator.o: ut_cstl_multiset_iterator.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset_iterator.Tpo -c -o ut-ut_cstl_multiset_iterator.o `test -f 'ut_cstl_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_multiset_iterator.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset_iterator.Tpo $(DEPDIR)/ut-ut_cstl_multiset_iterator.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_multiset_iterator.c' object='ut-ut_cstl_multiset_iterator.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset_iterator.o `test -f 'ut_cstl_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_multiset_iterator.c
+
+ut-ut_cstl_multiset_iterator.obj: ut_cstl_multiset_iterator.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset_iterator.Tpo -c -o ut-ut_cstl_multiset_iterator.obj `if test -f 'ut_cstl_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_iterator.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset_iterator.Tpo $(DEPDIR)/ut-ut_cstl_multiset_iterator.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_multiset_iterator.c' object='ut-ut_cstl_multiset_iterator.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset_iterator.obj `if test -f 'ut_cstl_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_iterator.c'; fi`
+
+ut-ut_cstl_multiset.o: ut_cstl_multiset.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset.Tpo -c -o ut-ut_cstl_multiset.o `test -f 'ut_cstl_multiset.c' || echo '$(srcdir)/'`ut_cstl_multiset.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset.Tpo $(DEPDIR)/ut-ut_cstl_multiset.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_multiset.c' object='ut-ut_cstl_multiset.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset.o `test -f 'ut_cstl_multiset.c' || echo '$(srcdir)/'`ut_cstl_multiset.c
+
+ut-ut_cstl_multiset.obj: ut_cstl_multiset.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset.Tpo -c -o ut-ut_cstl_multiset.obj `if test -f 'ut_cstl_multiset.c'; then $(CYGPATH_W) 'ut_cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset.Tpo $(DEPDIR)/ut-ut_cstl_multiset.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_multiset.c' object='ut-ut_cstl_multiset.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset.obj `if test -f 'ut_cstl_multiset.c'; then $(CYGPATH_W) 'ut_cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
