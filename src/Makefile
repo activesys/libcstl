@@ -87,12 +87,13 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_iterator.lo libcstl_la-cstl_list.lo \
 	libcstl_la-cstl_list_iterator.lo \
 	libcstl_la-cstl_list_private.lo libcstl_la-cstl_list_aux.lo \
-	libcstl_la-cstl_map.lo libcstl_la-cstl_multimap.lo \
-	libcstl_la-cstl_multiset.lo \
+	libcstl_la-cstl_map.lo libcstl_la-cstl_map_aux.lo \
+	libcstl_la-cstl_multimap.lo libcstl_la-cstl_multiset.lo \
 	libcstl_la-cstl_multiset_iterator.lo \
 	libcstl_la-cstl_multiset_private.lo \
 	libcstl_la-cstl_multiset_aux.lo libcstl_la-cstl_numeric.lo \
-	libcstl_la-cstl_pair.lo libcstl_la-cstl_priority_queue.lo \
+	libcstl_la-cstl_pair.lo libcstl_la-cstl_pair_aux.lo \
+	libcstl_la-cstl_priority_queue.lo \
 	libcstl_la-cstl_priority_queue_private.lo \
 	libcstl_la-cstl_queue.lo libcstl_la-cstl_queue_private.lo \
 	libcstl_la-cstl_rb_tree.lo libcstl_la-cstl_rb_tree_iterator.lo \
@@ -260,11 +261,11 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_heap.c \
 		     cstl_iterator.c \
 		     cstl_list.c cstl_list_iterator.c cstl_list_private.c cstl_list_aux.c cstl_list_aux.h \
-		     cstl_map.c \
+		     cstl_map.c cstl_map_aux.c cstl_map_aux.h \
 		     cstl_multimap.c \
 		     cstl_multiset.c cstl_multiset_iterator.c cstl_multiset_private.c cstl_multiset_aux.c cstl_multiset_aux.h \
 		     cstl_numeric.c \
-		     cstl_pair.c \
+		     cstl_pair.c cstl_pair_aux.c cstl_pair_aux.h \
 		     cstl_priority_queue.c cstl_priority_queue_private.c \
 		     cstl_queue.c cstl_queue_private.c \
 		     cstl_rb_tree.c cstl_rb_tree_iterator.c cstl_rb_tree_private.c cstl_rb_tree_aux.c cstl_rb_tree_aux.h \
@@ -381,6 +382,7 @@ include ./$(DEPDIR)/libcstl_la-cstl_list_aux.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_list_iterator.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_list_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_map.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_map_aux.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multimap.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multiset.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multiset_aux.Plo
@@ -388,6 +390,7 @@ include ./$(DEPDIR)/libcstl_la-cstl_multiset_iterator.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multiset_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_numeric.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_pair.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_pair_aux.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_priority_queue.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_priority_queue_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_queue.Plo
@@ -638,6 +641,13 @@ libcstl_la-cstl_map.lo: cstl_map.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_map.lo `test -f 'cstl_map.c' || echo '$(srcdir)/'`cstl_map.c
 
+libcstl_la-cstl_map_aux.lo: cstl_map_aux.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_map_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_map_aux.Tpo -c -o libcstl_la-cstl_map_aux.lo `test -f 'cstl_map_aux.c' || echo '$(srcdir)/'`cstl_map_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_map_aux.Tpo $(DEPDIR)/libcstl_la-cstl_map_aux.Plo
+#	source='cstl_map_aux.c' object='libcstl_la-cstl_map_aux.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_map_aux.lo `test -f 'cstl_map_aux.c' || echo '$(srcdir)/'`cstl_map_aux.c
+
 libcstl_la-cstl_multimap.lo: cstl_multimap.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_multimap.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_multimap.Tpo -c -o libcstl_la-cstl_multimap.lo `test -f 'cstl_multimap.c' || echo '$(srcdir)/'`cstl_multimap.c
 	$(am__mv) $(DEPDIR)/libcstl_la-cstl_multimap.Tpo $(DEPDIR)/libcstl_la-cstl_multimap.Plo
@@ -686,6 +696,13 @@ libcstl_la-cstl_pair.lo: cstl_pair.c
 #	source='cstl_pair.c' object='libcstl_la-cstl_pair.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_pair.lo `test -f 'cstl_pair.c' || echo '$(srcdir)/'`cstl_pair.c
+
+libcstl_la-cstl_pair_aux.lo: cstl_pair_aux.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_pair_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_pair_aux.Tpo -c -o libcstl_la-cstl_pair_aux.lo `test -f 'cstl_pair_aux.c' || echo '$(srcdir)/'`cstl_pair_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_pair_aux.Tpo $(DEPDIR)/libcstl_la-cstl_pair_aux.Plo
+#	source='cstl_pair_aux.c' object='libcstl_la-cstl_pair_aux.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_pair_aux.lo `test -f 'cstl_pair_aux.c' || echo '$(srcdir)/'`cstl_pair_aux.c
 
 libcstl_la-cstl_priority_queue.lo: cstl_priority_queue.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_priority_queue.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_priority_queue.Tpo -c -o libcstl_la-cstl_priority_queue.lo `test -f 'cstl_priority_queue.c' || echo '$(srcdir)/'`cstl_priority_queue.c

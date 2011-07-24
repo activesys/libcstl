@@ -51,6 +51,8 @@
 #include "ut_cstl_multiset_private.h"
 #include "ut_cstl_multiset_iterator.h"
 #include "ut_cstl_multiset.h"
+#include "ut_cstl_map_aux.h"
+#include "ut_cstl_pair_aux.h"
 
 int main(int argc, char* argv[])
 {
@@ -98,7 +100,11 @@ int main(int argc, char* argv[])
         UT_CSTL_MULTISET_AUX_CASE,
         UT_CSTL_MULTISET_PRIVATE_CASE,
         UT_CSTL_MULTISET_ITERATOR_CASE,
-        UT_CSTL_MULTISET_CASE
+        UT_CSTL_MULTISET_CASE,
+        /*
+        UT_CSTL_MAP_AUX_CASE,
+        */
+        UT_CSTL_PAIR_AUX_CASE
     };
 
     return run_tests(tests);

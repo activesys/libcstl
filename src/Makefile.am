@@ -16,11 +16,11 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_heap.c \
 		     cstl_iterator.c \
 		     cstl_list.c cstl_list_iterator.c cstl_list_private.c cstl_list_aux.c cstl_list_aux.h \
-		     cstl_map.c \
+		     cstl_map.c cstl_map_aux.c cstl_map_aux.h \
 		     cstl_multimap.c \
 		     cstl_multiset.c cstl_multiset_iterator.c cstl_multiset_private.c cstl_multiset_aux.c cstl_multiset_aux.h \
 		     cstl_numeric.c \
-		     cstl_pair.c \
+		     cstl_pair.c cstl_pair_aux.c cstl_pair_aux.h \
 		     cstl_priority_queue.c cstl_priority_queue_private.c \
 		     cstl_queue.c cstl_queue_private.c \
 		     cstl_rb_tree.c cstl_rb_tree_iterator.c cstl_rb_tree_private.c cstl_rb_tree_aux.c cstl_rb_tree_aux.h \

@@ -40,9 +40,9 @@ typedef struct _tagmap
     binary_function_t _t_valuecompare;
 
 #ifdef CSTL_MAP_AVL_TREE
-    avl_tree_t        _t_tree;
+    _avl_tree_t       _t_tree;
 #else
-    _rb_tree_t         _t_tree;
+    _rb_tree_t        _t_tree;
 #endif
 }map_t;
 

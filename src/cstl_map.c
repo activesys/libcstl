@@ -42,56 +42,13 @@
 #include <cstl/cstl_map_private.h>
 #include <cstl/cstl_map.h>
 
-/** local constant declaration and local macro section **/
-/* macros for type informations */
-#define _GET_MAP_FIRST_TYPE_SIZE(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfofirst._pt_type->_t_typesize)
-#define _GET_MAP_FIRST_TYPE_NAME(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfofirst._sz_typename)
-#define _GET_MAP_FIRST_TYPE_BASENAME(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfofirst._pt_type->_sz_typename)
-#define _GET_MAP_FIRST_TYPE_INIT_FUNCTION(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfofirst._pt_type->_t_typeinit)
-#define _GET_MAP_FIRST_TYPE_COPY_FUNCTION(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfofirst._pt_type->_t_typecopy)
-#define _GET_MAP_FIRST_TYPE_LESS_FUNCTION(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfofirst._pt_type->_t_typeless)
-#define _GET_MAP_FIRST_TYPE_DESTROY_FUNCTION(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfofirst._pt_type->_t_typedestroy)
-#define _GET_MAP_FIRST_TYPE_STYLE(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfofirst._t_style)
+#include "cstl_map_aux.h"
 
-#define _GET_MAP_SECOND_TYPE_SIZE(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfosecond._pt_type->_t_typesize)
-#define _GET_MAP_SECOND_TYPE_NAME(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfosecond._sz_typename)
-#define _GET_MAP_SECOND_TYPE_BASENAME(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfosecond._pt_type->_sz_typename)
-#define _GET_MAP_SECOND_TYPE_INIT_FUNCTION(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfosecond._pt_type->_t_typeinit)
-#define _GET_MAP_SECOND_TYPE_COPY_FUNCTION(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfosecond._pt_type->_t_typecopy)
-#define _GET_MAP_SECOND_TYPE_LESS_FUNCTION(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfosecond._pt_type->_t_typeless)
-#define _GET_MAP_SECOND_TYPE_DESTROY_FUNCTION(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfosecond._pt_type->_t_typedestroy)
-#define _GET_MAP_SECOND_TYPE_STYLE(pt_map)\
-    ((pt_map)->_t_pair._t_typeinfosecond._t_style)
+/** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-#ifndef NDEBUG
-/*
- * Test the two pair is have the same type.
- */
-static bool_t _map_same_pair_type(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-#endif /* NDEBUG */
-
-/*
- * map key compare and value compare
- */
-static void _map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -974,52 +931,6 @@ void _map_init_elem_auxiliary(map_t* pt_map, void* pv_elem)
 }
 
 /** local function implementation section **/
-#ifndef NDEBUG
-static bool_t _map_same_pair_type(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-{
-    assert(cpt_pairfirst != NULL && cpt_pairsecond != NULL);
-
-    return _type_is_same(cpt_pairfirst->_t_typeinfofirst._sz_typename,
-                         cpt_pairsecond->_t_typeinfofirst._sz_typename) &&
-           (cpt_pairfirst->_t_typeinfofirst._pt_type ==
-            cpt_pairsecond->_t_typeinfofirst._pt_type) &&
-           (cpt_pairfirst->_t_typeinfofirst._t_style ==
-            cpt_pairsecond->_t_typeinfofirst._t_style) &&
-           _type_is_same(cpt_pairfirst->_t_typeinfosecond._sz_typename,
-                         cpt_pairsecond->_t_typeinfosecond._sz_typename) &&
-           (cpt_pairfirst->_t_typeinfosecond._pt_type ==
-            cpt_pairsecond->_t_typeinfosecond._pt_type) &&
-           (cpt_pairfirst->_t_typeinfosecond._t_style ==
-            cpt_pairsecond->_t_typeinfosecond._t_style) &&
-           (cpt_pairfirst->_t_mapkeycompare == cpt_pairsecond->_t_mapkeycompare) &&
-           (cpt_pairfirst->_t_mapvaluecompare == cpt_pairsecond->_t_mapvaluecompare);
-}
-#endif /* NDEBUG */
-
-static void _map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
-{
-    pair_t* pt_first = NULL;
-    pair_t* pt_second = NULL;
-
-    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-
-    pt_first = (pair_t*)cpv_first;
-    pt_second = (pair_t*)cpv_second;
-
-    assert(_map_same_pair_type(pt_first, pt_second));
-
-    *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if(pt_first->_t_mapkeycompare != NULL) /* the external key compare */
-    {
-        pt_first->_t_mapkeycompare(pair_first(pt_first), pair_first(pt_second), pv_output);
-    }
-    else
-    {
-        pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-            pt_first->_pv_first, pt_second->_pv_first, pv_output);
-    }
-}
 
 /** eof **/
 
