@@ -25,6 +25,7 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 
+#include <cstl/cstl_pair_private.h>
 #include <cstl/cstl_pair.h>
 
 #include <cstl/cstring.h>

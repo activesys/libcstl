@@ -1651,6 +1651,7 @@ UT_CSTL_MULTISET_CASE	test/ut/ut_cstl_multiset.h	295;"	d
 UT_CSTL_MULTISET_ITERATOR_CASE	test/ut/ut_cstl_multiset_iterator.h	89;"	d
 UT_CSTL_MULTISET_PRIVATE_CASE	test/ut/ut_cstl_multiset_private.h	167;"	d
 UT_CSTL_PAIR_AUX_CASE	test/ut/ut_cstl_pair_aux.h	17;"	d
+UT_CSTL_PAIR_PRIVATE_CASE	test/ut/ut_cstl_pair_private.h	21;"	d
 UT_CSTL_QUEUE_CASE	test/ut/ut_cstl_queue.h	189;"	d
 UT_CSTL_QUEUE_PRIVATE_CASE	test/ut/ut_cstl_queue_private.h	46;"	d
 UT_CSTL_RB_TREE_AUX_CASE	test/ut/ut_cstl_rb_tree_aux.h	247;"	d
@@ -1697,6 +1698,7 @@ UT_SUIT_DEFINATION	test/ut/ut_cstl_multiset.c	/^UT_SUIT_DEFINATION(cstl_multiset
 UT_SUIT_DEFINATION	test/ut/ut_cstl_multiset_iterator.c	/^UT_SUIT_DEFINATION(cstl_multiset_iterator, create_multiset_iterator)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_multiset_private.c	/^UT_SUIT_DEFINATION(cstl_multiset_private, _create_multiset)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_pair_aux.c	/^UT_SUIT_DEFINATION(cstl_pair_aux, _pair_same_type)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_pair_private.c	/^UT_SUIT_DEFINATION(cstl_pair_private, _pair_is_created)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_SUIT_DEFINATION(cstl_queue, queue_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_queue_private.c	/^UT_SUIT_DEFINATION(cstl_queue_private, _create_queue)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_rb_tree.c	/^UT_SUIT_DEFINATION(cstl_rb_tree, _create_rb_tree)$/;"	f
@@ -1817,6 +1819,7 @@ _CSTL_NUMERIC_H_	cstl/cstl_numeric.h	24;"	d
 _CSTL_NUMERIC_PRIVATE_H_	cstl/cstl_numeric_private.h	24;"	d
 _CSTL_PAIR_AUX_H_	src/cstl_pair_aux.h	24;"	d
 _CSTL_PAIR_H_	cstl/cstl_pair.h	24;"	d
+_CSTL_PAIR_PRIVATE_H_	cstl/cstl_pair_private.h	24;"	d
 _CSTL_PRIORITY_QUEUE_H_	cstl/cstl_priority_queue.h	23;"	d
 _CSTL_PRIORITY_QUEUE_PRIVATE_H_	cstl/cstl_priority_queue_private.h	23;"	d
 _CSTL_QUEUE_H_	cstl/cstl_queue.h	24;"	d
@@ -2412,6 +2415,7 @@ _UT_CSTL_MULTISET_H_	test/ut/ut_cstl_multiset.h	2;"	d
 _UT_CSTL_MULTISET_ITERATOR_H_	test/ut/ut_cstl_multiset_iterator.h	2;"	d
 _UT_CSTL_MULTISET_PRIVATE_H_	test/ut/ut_cstl_multiset_private.h	2;"	d
 _UT_CSTL_PAIR_AUX_H_	test/ut/ut_cstl_pair_aux.h	2;"	d
+_UT_CSTL_PAIR_PRIVATE_H_	test/ut/ut_cstl_pair_private.h	2;"	d
 _UT_CSTL_QUEUE_H_	test/ut/ut_cstl_queue.h	2;"	d
 _UT_CSTL_QUEUE_PRIVATE_H_	test/ut/ut_cstl_queue_private.h	2;"	d
 _UT_CSTL_RB_TREE_AUX_H_	test/ut/ut_cstl_rb_tree_aux.h	2;"	d
@@ -2867,10 +2871,10 @@ _create_multiset	cstl/cstl_multiset_private.h	/^extern multiset_t* _create_multi
 _create_multiset	src/cstl_multiset_private.c	/^multiset_t* _create_multiset(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_multiset_auxiliary	cstl/cstl_multiset_private.h	/^extern bool_t _create_multiset_auxiliary(multiset_t* pmset_mset, const char* s_typename);$/;"	p	signature:(multiset_t* pmset_mset, const char* s_typename)
 _create_multiset_auxiliary	src/cstl_multiset_private.c	/^bool_t _create_multiset_auxiliary(multiset_t* pmset_mset, const char* s_typename)$/;"	f	signature:(multiset_t* pmset_mset, const char* s_typename)
-_create_pair	cstl/cstl_pair.h	/^extern pair_t* _create_pair(const char* s_typename);$/;"	p	signature:(const char* s_typename)
-_create_pair	src/cstl_pair.c	/^pair_t* _create_pair(const char* s_typename)$/;"	f	signature:(const char* s_typename)
-_create_pair_auxiliary	cstl/cstl_pair.h	/^extern bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename);$/;"	p	signature:(pair_t* pt_pair, const char* s_typename)
-_create_pair_auxiliary	src/cstl_pair.c	/^bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename)$/;"	f	signature:(pair_t* pt_pair, const char* s_typename)
+_create_pair	cstl/cstl_pair_private.h	/^extern pair_t* _create_pair(const char* s_typename);$/;"	p	signature:(const char* s_typename)
+_create_pair	src/cstl_pair_private.c	/^pair_t* _create_pair(const char* s_typename)$/;"	f	signature:(const char* s_typename)
+_create_pair_auxiliary	cstl/cstl_pair_private.h	/^extern bool_t _create_pair_auxiliary(pair_t* ppair_pair, const char* s_typename);$/;"	p	signature:(pair_t* ppair_pair, const char* s_typename)
+_create_pair_auxiliary	src/cstl_pair_private.c	/^bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename)$/;"	f	signature:(pair_t* pt_pair, const char* s_typename)
 _create_priority_queue	cstl/cstl_priority_queue_private.h	/^extern priority_queue_t* _create_priority_queue(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_priority_queue	src/cstl_priority_queue_private.c	/^priority_queue_t* _create_priority_queue(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_priority_queue_auxiliary	cstl/cstl_priority_queue_private.h	/^extern bool_t _create_priority_queue_auxiliary($/;"	p	signature:( priority_queue_t* pt_pqueue, const char* s_typename)
@@ -3695,12 +3699,16 @@ _n_temperature	test/it/test_queue.c	/^    int  _n_temperature;$/;"	m	struct:_tag
 _n_third	test/it/test_set.c	/^    int _n_third;$/;"	m	struct:_tagsetsample	file:	access:public
 _nocaseless	test/it/test_algobase.c	/^static void _nocaseless(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _nocaseless	test/it/test_algobase.c	/^static void _nocaseless(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
-_pair_destroy_auxiliary	cstl/cstl_pair.h	/^extern void _pair_destroy_auxiliary(pair_t* pt_pair);$/;"	p	signature:(pair_t* pt_pair)
-_pair_destroy_auxiliary	src/cstl_pair.c	/^void _pair_destroy_auxiliary(pair_t* pt_pair)$/;"	f	signature:(pair_t* pt_pair)
-_pair_make_first	cstl/cstl_pair.h	/^extern void _pair_make_first(pair_t* pt_pair, ...);$/;"	p	signature:(pair_t* pt_pair, ...)
-_pair_make_first	src/cstl_pair.c	/^void _pair_make_first(pair_t* pt_pair, ...)$/;"	f	signature:(pair_t* pt_pair, ...)
-_pair_make_second	cstl/cstl_pair.h	/^extern void _pair_make_second(pair_t* pt_pair, ...);$/;"	p	signature:(pair_t* pt_pair, ...)
-_pair_make_second	src/cstl_pair.c	/^void _pair_make_second(pair_t* pt_pair, ...)$/;"	f	signature:(pair_t* pt_pair, ...)
+_pair_destroy_auxiliary	cstl/cstl_pair_private.h	/^extern void _pair_destroy_auxiliary(pair_t* ppair_pair);$/;"	p	signature:(pair_t* ppair_pair)
+_pair_destroy_auxiliary	src/cstl_pair_private.c	/^void _pair_destroy_auxiliary(pair_t* pt_pair)$/;"	f	signature:(pair_t* pt_pair)
+_pair_is_created	cstl/cstl_pair_private.h	/^extern bool_t _pair_is_created(const pair_t* cppair_pair);$/;"	p	signature:(const pair_t* cppair_pair)
+_pair_is_created	src/cstl_pair_private.c	/^bool_t _pair_is_created(const pair_t* cppair_pair)$/;"	f	signature:(const pair_t* cppair_pair)
+_pair_is_inited	cstl/cstl_pair_private.h	/^extern bool_t _pair_is_inited(const pair_t* cppair_pair);$/;"	p	signature:(const pair_t* cppair_pair)
+_pair_is_inited	src/cstl_pair_private.c	/^bool_t _pair_is_inited(const pair_t* cppair_pair)$/;"	f	signature:(const pair_t* cppair_pair)
+_pair_make_first	cstl/cstl_pair_private.h	/^extern void _pair_make_first(pair_t* ppair_pair, ...);$/;"	p	signature:(pair_t* ppair_pair, ...)
+_pair_make_first	src/cstl_pair_private.c	/^void _pair_make_first(pair_t* pt_pair, ...)$/;"	f	signature:(pair_t* pt_pair, ...)
+_pair_make_second	cstl/cstl_pair_private.h	/^extern void _pair_make_second(pair_t* ppair_pair, ...);$/;"	p	signature:(pair_t* ppair_pair, ...)
+_pair_make_second	src/cstl_pair_private.c	/^void _pair_make_second(pair_t* pt_pair, ...)$/;"	f	signature:(pair_t* pt_pair, ...)
 _pair_same_type	src/cstl_pair_aux.c	/^bool_t _pair_same_type(const pair_t* cppair_first, const pair_t* cppair_second)$/;"	f	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
 _pair_same_type	src/cstl_pair_aux.h	/^extern bool_t _pair_same_type(const pair_t* cppair_first, const pair_t* cppair_second);$/;"	p	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
 _partition_biditer	src/cstl_algo.c	/^static bidirectional_iterator_t _partition_biditer($/;"	f	file:	signature:( bidirectional_iterator_t t_first, bidirectional_iterator_t t_last, unary_function_t t_unary_op)
@@ -3906,8 +3914,8 @@ _pt_tree	cstl/cstl_iterator.h	/^            void*     _pt_tree;       \/* point 
 _pt_type	cstl/cstl_types.h	/^    _type_t*             _pt_type;                        \/* the registered type *\/$/;"	m	struct:_tagtypenode	access:public
 _pt_type	cstl/cstl_types.h	/^    _type_t*     _pt_type;$/;"	m	struct:_tagtypeinfo	access:public
 _pui_nextmem	cstl/cstl_alloc.h	/^    union _tagmemlink* _pui_nextmem;  \/* point to next memory block *\/$/;"	m	union:_tagmemlink	typeref:union:_tagmemlink::_tagmemlink	access:public
-_pv_first	cstl/cstl_pair.h	/^    void*             _pv_first;$/;"	m	struct:_tagpair	access:public
-_pv_second	cstl/cstl_pair.h	/^    void*             _pv_second;$/;"	m	struct:_tagpair	access:public
+_pv_first	cstl/cstl_pair_private.h	/^    void*             _pv_first;$/;"	m	struct:_tagpair	access:public
+_pv_second	cstl/cstl_pair_private.h	/^    void*             _pv_second;$/;"	m	struct:_tagpair	access:public
 _queue_destroy_auxiliary	cstl/cstl_queue_private.h	/^extern void _queue_destroy_auxiliary(queue_t* pque_queue);$/;"	p	signature:(queue_t* pque_queue)
 _queue_destroy_auxiliary	src/cstl_queue_private.c	/^void _queue_destroy_auxiliary(queue_t* pque_queue)$/;"	f	signature:(queue_t* pque_queue)
 _queue_push	cstl/cstl_queue_private.h	/^extern void _queue_push(queue_t* pque_pqueue, ...);$/;"	p	signature:(queue_t* pque_pqueue, ...)
@@ -4271,9 +4279,9 @@ _t_keycompare	cstl/cstl_hash_map_private.h	/^    binary_function_t _t_keycompare
 _t_keycompare	cstl/cstl_hash_multimap_private.h	/^    binary_function_t _t_keycompare; \/* external key compare *\/$/;"	m	struct:_taghashmultimap	access:public
 _t_keycompare	cstl/cstl_map_private.h	/^    binary_function_t _t_keycompare;   \/* for init ex *\/$/;"	m	struct:_tagmap	access:public
 _t_keycompare	cstl/cstl_multimap_private.h	/^    binary_function_t _t_keycompare; \/* for init ex *\/$/;"	m	struct:_tagmultimap	access:public
-_t_mapkeycompare	cstl/cstl_pair.h	/^    binary_function_t _t_mapkeycompare;$/;"	m	struct:_tagpair	access:public
+_t_mapkeycompare	cstl/cstl_pair_private.h	/^    binary_function_t _t_mapkeycompare;$/;"	m	struct:_tagpair	access:public
 _t_mapsize	cstl/cstl_deque_private.h	/^    size_t           _t_mapsize;$/;"	m	struct:_tagdeque	access:public
-_t_mapvaluecompare	cstl/cstl_pair.h	/^    binary_function_t _t_mapvaluecompare;$/;"	m	struct:_tagpair	access:public
+_t_mapvaluecompare	cstl/cstl_pair_private.h	/^    binary_function_t _t_mapvaluecompare;$/;"	m	struct:_tagpair	access:public
 _t_mempoolcount	cstl/cstl_alloc.h	/^    size_t      _t_mempoolcount;                 \/* memory pool count *\/$/;"	m	struct:_tagalloc	access:public
 _t_mempoolindex	cstl/cstl_alloc.h	/^    size_t      _t_mempoolindex;                 \/* memory pool index *\/$/;"	m	struct:_tagalloc	access:public
 _t_mempoolsize	cstl/cstl_alloc.h	/^    size_t      _t_mempoolsize;                  \/* memory pool size *\/$/;"	m	struct:_tagalloc	access:public
@@ -4307,8 +4315,8 @@ _t_typeinfo	cstl/cstl_list_private.h	/^    _typeinfo_t  _t_typeinfo;$/;"	m	struc
 _t_typeinfo	cstl/cstl_rb_tree_private.h	/^    _typeinfo_t       _t_typeinfo;$/;"	m	struct:_tagrbtree	access:public
 _t_typeinfo	cstl/cstl_slist_private.h	/^    _typeinfo_t  _t_typeinfo;$/;"	m	struct:_tagslist	access:public
 _t_typeinfo	cstl/cstl_vector_private.h	/^    _typeinfo_t _t_typeinfo;$/;"	m	struct:_tagvector	access:public
-_t_typeinfofirst	cstl/cstl_pair.h	/^    _typeinfo_t       _t_typeinfofirst;$/;"	m	struct:_tagpair	access:public
-_t_typeinfosecond	cstl/cstl_pair.h	/^    _typeinfo_t       _t_typeinfosecond;$/;"	m	struct:_tagpair	access:public
+_t_typeinfofirst	cstl/cstl_pair_private.h	/^    _typeinfo_t       _t_typeinfofirst;$/;"	m	struct:_tagpair	access:public
+_t_typeinfosecond	cstl/cstl_pair_private.h	/^    _typeinfo_t       _t_typeinfosecond;$/;"	m	struct:_tagpair	access:public
 _t_typeinit	cstl/cstl_types.h	/^    unary_function_t  _t_typeinit;                        \/* type initialize function *\/$/;"	m	struct:_tagtype	access:public
 _t_typeless	cstl/cstl_types.h	/^    binary_function_t _t_typeless;                        \/* type less function *\/$/;"	m	struct:_tagtype	access:public
 _t_typesize	cstl/cstl_types.h	/^    size_t            _t_typesize;                        \/* type size *\/$/;"	m	struct:_tagtype	access:public
@@ -4726,13 +4734,13 @@ _tagmultimap::_t_tree	cstl/cstl_multimap_private.h	/^    avl_tree_t        _t_tr
 _tagmultimap::_t_valuecompare	cstl/cstl_multimap_private.h	/^    binary_function_t _t_valuecompare;$/;"	m	struct:_tagmultimap	access:public
 _tagmultiset	cstl/cstl_multiset_private.h	/^typedef struct _tagmultiset$/;"	s
 _tagmultiset::_t_tree	cstl/cstl_multiset_private.h	/^    _avl_tree_t _t_tree;$/;"	m	struct:_tagmultiset	access:public
-_tagpair	cstl/cstl_pair.h	/^typedef struct _tagpair$/;"	s
-_tagpair::_pv_first	cstl/cstl_pair.h	/^    void*             _pv_first;$/;"	m	struct:_tagpair	access:public
-_tagpair::_pv_second	cstl/cstl_pair.h	/^    void*             _pv_second;$/;"	m	struct:_tagpair	access:public
-_tagpair::_t_mapkeycompare	cstl/cstl_pair.h	/^    binary_function_t _t_mapkeycompare;$/;"	m	struct:_tagpair	access:public
-_tagpair::_t_mapvaluecompare	cstl/cstl_pair.h	/^    binary_function_t _t_mapvaluecompare;$/;"	m	struct:_tagpair	access:public
-_tagpair::_t_typeinfofirst	cstl/cstl_pair.h	/^    _typeinfo_t       _t_typeinfofirst;$/;"	m	struct:_tagpair	access:public
-_tagpair::_t_typeinfosecond	cstl/cstl_pair.h	/^    _typeinfo_t       _t_typeinfosecond;$/;"	m	struct:_tagpair	access:public
+_tagpair	cstl/cstl_pair_private.h	/^typedef struct _tagpair$/;"	s
+_tagpair::_pv_first	cstl/cstl_pair_private.h	/^    void*             _pv_first;$/;"	m	struct:_tagpair	access:public
+_tagpair::_pv_second	cstl/cstl_pair_private.h	/^    void*             _pv_second;$/;"	m	struct:_tagpair	access:public
+_tagpair::_t_mapkeycompare	cstl/cstl_pair_private.h	/^    binary_function_t _t_mapkeycompare;$/;"	m	struct:_tagpair	access:public
+_tagpair::_t_mapvaluecompare	cstl/cstl_pair_private.h	/^    binary_function_t _t_mapvaluecompare;$/;"	m	struct:_tagpair	access:public
+_tagpair::_t_typeinfofirst	cstl/cstl_pair_private.h	/^    _typeinfo_t       _t_typeinfofirst;$/;"	m	struct:_tagpair	access:public
+_tagpair::_t_typeinfosecond	cstl/cstl_pair_private.h	/^    _typeinfo_t       _t_typeinfosecond;$/;"	m	struct:_tagpair	access:public
 _tagpriority_queue	cstl/cstl_priority_queue_private.h	/^typedef struct _tagpriority_queue$/;"	s
 _tagpriority_queue::_t_binary_op	cstl/cstl_priority_queue_private.h	/^    binary_function_t _t_binary_op;$/;"	m	struct:_tagpriority_queue	access:public
 _tagpriority_queue::_t_vector	cstl/cstl_priority_queue_private.h	/^    vector_t          _t_vector;$/;"	m	struct:_tagpriority_queue	access:public
@@ -8041,7 +8049,7 @@ pair_not_equal	cstl/cstl_pair.h	/^extern bool_t pair_not_equal(const pair_t* cpt
 pair_not_equal	src/cstl_pair.c	/^bool_t pair_not_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)$/;"	f	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
 pair_second	cstl/cstl_pair.h	/^extern void* pair_second(const pair_t* cpt_pair);$/;"	p	signature:(const pair_t* cpt_pair)
 pair_second	src/cstl_pair.c	/^void* pair_second(const pair_t* cpt_pair)$/;"	f	signature:(const pair_t* cpt_pair)
-pair_t	cstl/cstl_pair.h	/^}pair_t;$/;"	t	typeref:struct:_tagpair
+pair_t	cstl/cstl_pair_private.h	/^}pair_t;$/;"	t	typeref:struct:_tagpair
 pdfdir	Makefile	/^pdfdir = ${docdir}$/;"	m
 pdfdir	build-win/Makefile	/^pdfdir = ${docdir}$/;"	m
 pdfdir	build-win/vc8/Makefile	/^pdfdir = ${docdir}$/;"	m
@@ -12066,6 +12074,27 @@ test__multiset_upper_bound__multiset_upper_bound_varg__user_define_equal	test/ut
 test__multiset_upper_bound__multiset_upper_bound_varg__user_define_equal	test/ut/ut_cstl_multiset_private.h	/^void test__multiset_upper_bound__multiset_upper_bound_varg__user_define_equal(void** state);$/;"	p	signature:(void** state)
 test__multiset_upper_bound__multiset_upper_bound_varg__user_define_greater	test/ut/ut_cstl_multiset_private.c	/^void test__multiset_upper_bound__multiset_upper_bound_varg__user_define_greater(void** state)$/;"	f	signature:(void** state)
 test__multiset_upper_bound__multiset_upper_bound_varg__user_define_greater	test/ut/ut_cstl_multiset_private.h	/^void test__multiset_upper_bound__multiset_upper_bound_varg__user_define_greater(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__created	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__created(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__created	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__created(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__invalid_first	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_first(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__invalid_first	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_first(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__invalid_mapkeycompare	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_mapkeycompare(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__invalid_mapkeycompare	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_mapkeycompare(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__invalid_mapvaluecompare	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_mapvaluecompare(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__invalid_mapvaluecompare	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_mapvaluecompare(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__invalid_second	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_second(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__invalid_second	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_second(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__invalid_typeinfofirst_style	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_typeinfofirst_style(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__invalid_typeinfofirst_style	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_typeinfofirst_style(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__invalid_typeinfofirst_type	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_typeinfofirst_type(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__invalid_typeinfofirst_type	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_typeinfofirst_type(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__invalid_typeinfosecond_style	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_typeinfosecond_style(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__invalid_typeinfosecond_style	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_typeinfosecond_style(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__invalid_typeinfosecond_type	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_typeinfosecond_type(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__invalid_typeinfosecond_type	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_typeinfosecond_type(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__non_inited_allocator	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__non_inited_allocator(void** state)$/;"	f	signature:(void** state)
+test__pair_is_created__non_inited_allocator	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__non_inited_allocator(void** state);$/;"	p	signature:(void** state)
+test__pair_is_created__null_pair	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__null_pair(void** state);$/;"	p	signature:(void** state)
 test__pair_same_type__first_null	test/ut/ut_cstl_pair_aux.h	/^void test__pair_same_type__first_null(void** state);$/;"	p	signature:(void** state)
 test__pair_same_type__not_same_first_type	test/ut/ut_cstl_pair_aux.c	/^void test__pair_same_type__not_same_first_type(void** state)$/;"	f	signature:(void** state)
 test__pair_same_type__not_same_first_type	test/ut/ut_cstl_pair_aux.h	/^void test__pair_same_type__not_same_first_type(void** state);$/;"	p	signature:(void** state)

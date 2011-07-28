@@ -249,6 +249,7 @@ cstlinclude_HEADERS = calgorithm.h \
 			cstl_numeric.h \
 			cstl_numeric_private.h \
 			cstl_pair.h \
+			cstl_pair_private.h \
 			cstl_priority_queue.h \
 			cstl_priority_queue_private.h \
 			cstl_queue.h \

@@ -20,7 +20,7 @@ void test__pair_same_type__same_type(void** state);
     UT_CASE(test__pair_same_type__same_pair),\
     UT_CASE(test__pair_same_type__not_same_first_type),\
     UT_CASE(test__pair_same_type__not_same_second_type),\
-    UT_CASE(test__pair_same_type__same_type),\
+    UT_CASE(test__pair_same_type__same_type)
 
 #endif /* _UT_CSTL_PAIR_AUX_H_ */
 

@@ -43,19 +43,6 @@ extern "C" {
     }while(false)
 
 /** data type declaration and struct, union, enum section **/
-typedef struct _tagpair
-{
-    /* element type information */
-    _typeinfo_t       _t_typeinfofirst;
-    _typeinfo_t       _t_typeinfosecond;
-
-    void*             _pv_first;
-    void*             _pv_second;
-
-    /* this two members are only used for map key and value compare. */
-    binary_function_t _t_mapkeycompare;
-    binary_function_t _t_mapvaluecompare;
-}pair_t;
 
 /** exported global variable declaration section **/
 
@@ -63,13 +50,8 @@ typedef struct _tagpair
 /*
  * Create, initialization and destroy functions.
  */
-extern pair_t* _create_pair(const char* s_typename);
-extern bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename);
-extern void _pair_make_first(pair_t* pt_pair, ...);
-extern void _pair_make_second(pair_t* pt_pair, ...);
 extern void pair_init(pair_t* pt_pair);
 extern void pair_destroy(pair_t* pt_pair);
-extern void _pair_destroy_auxiliary(pair_t* pt_pair);
 extern void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc);
 
 /*
