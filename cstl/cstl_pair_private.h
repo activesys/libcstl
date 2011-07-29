@@ -49,14 +49,51 @@ typedef struct _tagpair
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create, initialization and destroy functions.
+/**
+ * Create pair container.
+ * @param s_typename        element type name.
+ * @return if create pair successfully return pair pointer, otherwise return NULL.
+ * @remarks s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name, libcstl builtin
+ *          typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern pair_t* _create_pair(const char* s_typename);
+
+/**
+ * Create pair container auxiliary function.
+ * @param ppair_pair        uncreated container.
+ * @param s_typename        element type name.
+ * @return if create pair successfully return true, otherwise return false.
+ * @remarks if ppair_pair == NULL or s_typename == NULL, then the behavior is undefined. s_typename should be C builtin
+ *          type name, libcstl builtin typename or registed user defined type name, otherwise the function will return false.
+ */
 extern bool_t _create_pair_auxiliary(pair_t* ppair_pair, const char* s_typename);
-extern void _pair_make_first(pair_t* ppair_pair, ...);
-extern void _pair_make_second(pair_t* ppair_pair, ...);
+
+/**
+ * Destroy pair container auxiliary function.
+ * @param ppair_pair        pair container.
+ * @return void.
+ * @remarks if ppair_pair == NULL, then the behavior is undefined. pair must be initialized or created by
+ *          _create_pair(), otherwise the behavior is undefine.
+ */
 extern void _pair_destroy_auxiliary(pair_t* ppair_pair);
+
+/**
+ * Assignment for the first element of pair.
+ * @param ppair_pair        pair container.
+ * @param ...               user defined data.
+ * @return void.
+ * @remarks if ppair_pair == NULL, then the behavior is undefined. pair must be initialized, otherwise the behavior is undefine.
+ */
+extern void _pair_make_first(pair_t* ppair_pair, ...);
+
+/**
+ * Assignment for the second element of pair.
+ * @param ppair_pair        pair container.
+ * @param ...               user defined data.
+ * @return void.
+ * @remarks if ppair_pair == NULL, then the behavior is undefined. pair must be initialized, otherwise the behavior is undefine.
+ */
+extern void _pair_make_second(pair_t* ppair_pair, ...);
 
 /**
  * Test pair is created by create_pair.
