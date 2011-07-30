@@ -86,7 +86,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_multiset.c ut_cstl_multiset.h \
 	     ut_cstl_map_aux.c ut_cstl_map_aux.h \
 	     ut_cstl_pair_aux.c ut_cstl_pair_aux.h \
-	     ut_cstl_pair_private.c ut_cstl_pair_private.h
+	     ut_cstl_pair_private.c ut_cstl_pair_private.h \
+	     ut_cstl_pair.c ut_cstl_pair.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

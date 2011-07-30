@@ -116,7 +116,7 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_multiset_iterator.$(OBJEXT) \
 	ut-ut_cstl_multiset.$(OBJEXT) ut-ut_cstl_map_aux.$(OBJEXT) \
 	ut-ut_cstl_pair_aux.$(OBJEXT) \
-	ut-ut_cstl_pair_private.$(OBJEXT)
+	ut-ut_cstl_pair_private.$(OBJEXT) ut-ut_cstl_pair.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -339,7 +339,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_multiset.c ut_cstl_multiset.h \
 	     ut_cstl_map_aux.c ut_cstl_map_aux.h \
 	     ut_cstl_pair_aux.c ut_cstl_pair_aux.h \
-	     ut_cstl_pair_private.c ut_cstl_pair_private.h
+	     ut_cstl_pair_private.c ut_cstl_pair_private.h \
+	     ut_cstl_pair.c ut_cstl_pair.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -485,6 +486,7 @@ include ./$(DEPDIR)/ut-ut_cstl_multiset.Po
 include ./$(DEPDIR)/ut-ut_cstl_multiset_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_multiset_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_multiset_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_pair.Po
 include ./$(DEPDIR)/ut-ut_cstl_pair_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_pair_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_queue.Po
@@ -2114,6 +2116,20 @@ ut-ut_cstl_pair_private.obj: ut_cstl_pair_private.c
 #	source='ut_cstl_pair_private.c' object='ut-ut_cstl_pair_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_pair_private.obj `if test -f 'ut_cstl_pair_private.c'; then $(CYGPATH_W) 'ut_cstl_pair_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair_private.c'; fi`
+
+ut-ut_cstl_pair.o: ut_cstl_pair.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_pair.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_pair.Tpo -c -o ut-ut_cstl_pair.o `test -f 'ut_cstl_pair.c' || echo '$(srcdir)/'`ut_cstl_pair.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_pair.Tpo $(DEPDIR)/ut-ut_cstl_pair.Po
+#	source='ut_cstl_pair.c' object='ut-ut_cstl_pair.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_pair.o `test -f 'ut_cstl_pair.c' || echo '$(srcdir)/'`ut_cstl_pair.c
+
+ut-ut_cstl_pair.obj: ut_cstl_pair.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_pair.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_pair.Tpo -c -o ut-ut_cstl_pair.obj `if test -f 'ut_cstl_pair.c'; then $(CYGPATH_W) 'ut_cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_pair.Tpo $(DEPDIR)/ut-ut_cstl_pair.Po
+#	source='ut_cstl_pair.c' object='ut-ut_cstl_pair.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_pair.obj `if test -f 'ut_cstl_pair.c'; then $(CYGPATH_W) 'ut_cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
