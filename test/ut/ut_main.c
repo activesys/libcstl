@@ -105,10 +105,8 @@ int main(int argc, char* argv[])
         UT_CSTL_MULTISET_CASE,
         UT_CSTL_PAIR_AUX_CASE,
         UT_CSTL_PAIR_PRIVATE_CASE,
-        UT_CSTL_PAIR_CASE
-        /*
-        UT_CSTL_MAP_AUX_CASE,
-        */
+        UT_CSTL_PAIR_CASE,
+        UT_CSTL_MAP_AUX_CASE
     };
 
     return run_tests(tests);

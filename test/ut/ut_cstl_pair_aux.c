@@ -19,7 +19,6 @@ UT_SUIT_DEFINATION(cstl_pair_aux, _pair_same_type)
  * test _pair_same_type
  */
 UT_CASE_DEFINATION(_pair_same_type)
-
 void test__pair_same_type__first_null(void** state)
 {
     pair_t* ppair = create_pair(int, int);
@@ -38,6 +37,32 @@ void test__pair_same_type__second_null(void** state)
     expect_assert_failure(_pair_same_type(ppair, NULL));
 
     pair_destroy(ppair);
+}
+
+void test__pair_same_type__first_noninited(void** state)
+{
+    pair_t* ppair_first = create_pair(int, int);
+    pair_t* ppair_second = create_pair(int, int);
+
+    ppair_first->_t_typeinfofirst._t_style = 99999;
+    expect_assert_failure(_pair_same_type(ppair_first, ppair_second));
+    ppair_first->_t_typeinfofirst._t_style = _TYPE_C_BUILTIN;
+
+    pair_destroy(ppair_first);
+    pair_destroy(ppair_second);
+}
+
+void test__pair_same_type__second_noninited(void** state)
+{
+    pair_t* ppair_first = create_pair(int, int);
+    pair_t* ppair_second = create_pair(int, int);
+
+    ppair_second->_t_typeinfosecond._t_style = 9999;
+    expect_assert_failure(_pair_same_type(ppair_first, ppair_second));
+    ppair_second->_t_typeinfosecond._t_style = _TYPE_C_BUILTIN;
+
+    pair_destroy(ppair_first);
+    pair_destroy(ppair_second);
 }
 
 void test__pair_same_type__same_pair(void** state)
