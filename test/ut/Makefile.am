@@ -21,7 +21,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_list.c $(srcdir)/../../src/cstl_list_iterator.c \
 	     $(srcdir)/../../src/cstl_list_private.c $(srcdir)/../../src/cstl_list_aux.c \
 	     $(srcdir)/../../src/cstl_map.c \
-	     $(srcdir)/../../src/cstl_map_aux.c \
+	     $(srcdir)/../../src/cstl_map_private.c $(srcdir)/../../src/cstl_map_aux.c \
 	     $(srcdir)/../../src/cstl_multimap.c \
 	     $(srcdir)/../../src/cstl_multiset.c $(srcdir)/../../src/cstl_multiset_iterator.c \
 	     $(srcdir)/../../src/cstl_multiset_private.c $(srcdir)/../../src/cstl_multiset_aux.c \
@@ -84,10 +84,11 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_multiset_private.c ut_cstl_multiset_private.h \
 	     ut_cstl_multiset_iterator.c ut_cstl_multiset_iterator.h \
 	     ut_cstl_multiset.c ut_cstl_multiset.h \
-	     ut_cstl_map_aux.c ut_cstl_map_aux.h \
 	     ut_cstl_pair_aux.c ut_cstl_pair_aux.h \
 	     ut_cstl_pair_private.c ut_cstl_pair_private.h \
-	     ut_cstl_pair.c ut_cstl_pair.h
+	     ut_cstl_pair.c ut_cstl_pair.h \
+	     ut_cstl_map_aux.c ut_cstl_map_aux.h \
+	     ut_cstl_map_private.c ut_cstl_map_private.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

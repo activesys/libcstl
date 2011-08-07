@@ -1210,6 +1210,7 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_pus
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_push_front__list_push_front_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_remove__list_remove_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_CASE_DEFINATION(_list_resize_elem__list_resize_elem_varg)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_map_aux.c	/^UT_CASE_DEFINATION(_map_value_compare)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_multiset.c	/^UT_CASE_DEFINATION(multiset_assign)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_multiset.c	/^UT_CASE_DEFINATION(multiset_begin)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_multiset.c	/^UT_CASE_DEFINATION(multiset_clear)$/;"	f
@@ -1252,6 +1253,23 @@ UT_CASE_DEFINATION	test/ut/ut_cstl_multiset_private.c	/^UT_CASE_DEFINATION(_mult
 UT_CASE_DEFINATION	test/ut/ut_cstl_multiset_private.c	/^UT_CASE_DEFINATION(_multiset_insert_hint__multiset_insert_hint_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_multiset_private.c	/^UT_CASE_DEFINATION(_multiset_lower_bound__multiset_lower_bound_varg)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_multiset_private.c	/^UT_CASE_DEFINATION(_multiset_upper_bound__multiset_upper_bound_varg)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_assign)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_destroy)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_equal)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_first)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_greater)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_greater_equal)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_init_copy)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_less)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_less_equal)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_not_equal)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_CASE_DEFINATION(pair_second)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair_private.c	/^UT_CASE_DEFINATION(_create_pair)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair_private.c	/^UT_CASE_DEFINATION(_create_pair_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair_private.c	/^UT_CASE_DEFINATION(_pair_destroy_auxiliary)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair_private.c	/^UT_CASE_DEFINATION(_pair_is_inited)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair_private.c	/^UT_CASE_DEFINATION(_pair_make_first)$/;"	f
+UT_CASE_DEFINATION	test/ut/ut_cstl_pair_private.c	/^UT_CASE_DEFINATION(_pair_make_second)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_assign)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_back)$/;"	f
 UT_CASE_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_CASE_DEFINATION(queue_destroy)$/;"	f
@@ -1645,13 +1663,15 @@ UT_CSTL_LIST_AUX_CASE	test/ut/ut_cstl_list_aux.h	196;"	d
 UT_CSTL_LIST_CASE	test/ut/ut_cstl_list.h	556;"	d
 UT_CSTL_LIST_ITERATOR_CASE	test/ut/ut_cstl_list_iterator.h	108;"	d
 UT_CSTL_LIST_PRIVATE_CASE	test/ut/ut_cstl_list_private.h	127;"	d
-UT_CSTL_MAP_AUX_CASE	test/ut/ut_cstl_map_aux.h	6;"	d
+UT_CSTL_MAP_AUX_CASE	test/ut/ut_cstl_map_aux.h	34;"	d
+UT_CSTL_MAP_PRIVATE_CASE	test/ut/ut_cstl_map_private.h	189;"	d
 UT_CSTL_MULTISET_AUX_CASE	test/ut/ut_cstl_multiset_aux.h	26;"	d
 UT_CSTL_MULTISET_CASE	test/ut/ut_cstl_multiset.h	295;"	d
 UT_CSTL_MULTISET_ITERATOR_CASE	test/ut/ut_cstl_multiset_iterator.h	89;"	d
 UT_CSTL_MULTISET_PRIVATE_CASE	test/ut/ut_cstl_multiset_private.h	167;"	d
-UT_CSTL_PAIR_AUX_CASE	test/ut/ut_cstl_pair_aux.h	17;"	d
-UT_CSTL_PAIR_PRIVATE_CASE	test/ut/ut_cstl_pair_private.h	21;"	d
+UT_CSTL_PAIR_AUX_CASE	test/ut/ut_cstl_pair_aux.h	19;"	d
+UT_CSTL_PAIR_CASE	test/ut/ut_cstl_pair.h	154;"	d
+UT_CSTL_PAIR_PRIVATE_CASE	test/ut/ut_cstl_pair_private.h	83;"	d
 UT_CSTL_QUEUE_CASE	test/ut/ut_cstl_queue.h	189;"	d
 UT_CSTL_QUEUE_PRIVATE_CASE	test/ut/ut_cstl_queue_private.h	46;"	d
 UT_CSTL_RB_TREE_AUX_CASE	test/ut/ut_cstl_rb_tree_aux.h	247;"	d
@@ -1694,9 +1714,12 @@ UT_SUIT_DEFINATION	test/ut/ut_cstl_deque_private.c	/^UT_SUIT_DEFINATION(cstl_deq
 UT_SUIT_DEFINATION	test/ut/ut_cstl_list.c	/^UT_SUIT_DEFINATION(cstl_list, list_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_list_aux.c	/^UT_SUIT_DEFINATION(cstl_list_aux, _list_is_created)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_list_private.c	/^UT_SUIT_DEFINATION(cstl_list_private, _create_list)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_map_aux.c	/^UT_SUIT_DEFINATION(cstl_map_aux, _map_same_pair_type)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_map_private.c	/^UT_SUIT_DEFINATION(cstl_map_private, _create_map)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_multiset.c	/^UT_SUIT_DEFINATION(cstl_multiset, multiset_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_multiset_iterator.c	/^UT_SUIT_DEFINATION(cstl_multiset_iterator, create_multiset_iterator)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_multiset_private.c	/^UT_SUIT_DEFINATION(cstl_multiset_private, _create_multiset)$/;"	f
+UT_SUIT_DEFINATION	test/ut/ut_cstl_pair.c	/^UT_SUIT_DEFINATION(cstl_pair, pair_init)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_pair_aux.c	/^UT_SUIT_DEFINATION(cstl_pair_aux, _pair_same_type)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_pair_private.c	/^UT_SUIT_DEFINATION(cstl_pair_private, _pair_is_created)$/;"	f
 UT_SUIT_DEFINATION	test/ut/ut_cstl_queue.c	/^UT_SUIT_DEFINATION(cstl_queue, queue_init)$/;"	f
@@ -2410,11 +2433,13 @@ _UT_CSTL_LIST_H_	test/ut/ut_cstl_list.h	2;"	d
 _UT_CSTL_LIST_ITERATOR_H_	test/ut/ut_cstl_list_iterator.h	2;"	d
 _UT_CSTL_LIST_PRIVATE_H_	test/ut/ut_cstl_list_private.h	2;"	d
 _UT_CSTL_MAP_AUX_H_	test/ut/ut_cstl_map_aux.h	2;"	d
+_UT_CSTL_MAP_PRIVATE_H_	test/ut/ut_cstl_map_private.h	2;"	d
 _UT_CSTL_MULTISET_AUX_H_	test/ut/ut_cstl_multiset_aux.h	2;"	d
 _UT_CSTL_MULTISET_H_	test/ut/ut_cstl_multiset.h	2;"	d
 _UT_CSTL_MULTISET_ITERATOR_H_	test/ut/ut_cstl_multiset_iterator.h	2;"	d
 _UT_CSTL_MULTISET_PRIVATE_H_	test/ut/ut_cstl_multiset_private.h	2;"	d
 _UT_CSTL_PAIR_AUX_H_	test/ut/ut_cstl_pair_aux.h	2;"	d
+_UT_CSTL_PAIR_H_	test/ut/ut_cstl_pair.h	2;"	d
 _UT_CSTL_PAIR_PRIVATE_H_	test/ut/ut_cstl_pair_private.h	2;"	d
 _UT_CSTL_QUEUE_H_	test/ut/ut_cstl_queue.h	2;"	d
 _UT_CSTL_QUEUE_PRIVATE_H_	test/ut/ut_cstl_queue_private.h	2;"	d
@@ -2860,9 +2885,9 @@ _create_list_auxiliary	src/cstl_list_private.c	/^bool_t _create_list_auxiliary(l
 _create_list_iterator	cstl/cstl_list_iterator.h	/^extern list_iterator_t _create_list_iterator(void);$/;"	p	signature:(void)
 _create_list_iterator	src/cstl_list_iterator.c	/^list_iterator_t _create_list_iterator(void)$/;"	f	signature:(void)
 _create_map	cstl/cstl_map_private.h	/^extern map_t* _create_map(const char* s_typename);$/;"	p	signature:(const char* s_typename)
-_create_map	src/cstl_map.c	/^map_t* _create_map(const char* s_typename)$/;"	f	signature:(const char* s_typename)
-_create_map_auxiliary	cstl/cstl_map_private.h	/^extern bool_t _create_map_auxiliary(map_t* pt_map, const char* s_typename);$/;"	p	signature:(map_t* pt_map, const char* s_typename)
-_create_map_auxiliary	src/cstl_map.c	/^bool_t _create_map_auxiliary(map_t* pt_map, const char* s_typename)$/;"	f	signature:(map_t* pt_map, const char* s_typename)
+_create_map	src/cstl_map_private.c	/^map_t* _create_map(const char* s_typename)$/;"	f	signature:(const char* s_typename)
+_create_map_auxiliary	cstl/cstl_map_private.h	/^extern bool_t _create_map_auxiliary(map_t* pmap_map, const char* s_typename);$/;"	p	signature:(map_t* pmap_map, const char* s_typename)
+_create_map_auxiliary	src/cstl_map_private.c	/^bool_t _create_map_auxiliary(map_t* pmap_map, const char* s_typename)$/;"	f	signature:(map_t* pmap_map, const char* s_typename)
 _create_multimap	cstl/cstl_multimap_private.h	/^extern multimap_t* _create_multimap(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_multimap	src/cstl_multimap.c	/^multimap_t* _create_multimap(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_multimap_auxiliary	cstl/cstl_multimap_private.h	/^extern bool_t _create_multimap_auxiliary(multimap_t* pt_multimap, const char* s_typename);$/;"	p	signature:(multimap_t* pt_multimap, const char* s_typename)
@@ -2874,7 +2899,7 @@ _create_multiset_auxiliary	src/cstl_multiset_private.c	/^bool_t _create_multiset
 _create_pair	cstl/cstl_pair_private.h	/^extern pair_t* _create_pair(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_pair	src/cstl_pair_private.c	/^pair_t* _create_pair(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_pair_auxiliary	cstl/cstl_pair_private.h	/^extern bool_t _create_pair_auxiliary(pair_t* ppair_pair, const char* s_typename);$/;"	p	signature:(pair_t* ppair_pair, const char* s_typename)
-_create_pair_auxiliary	src/cstl_pair_private.c	/^bool_t _create_pair_auxiliary(pair_t* pt_pair, const char* s_typename)$/;"	f	signature:(pair_t* pt_pair, const char* s_typename)
+_create_pair_auxiliary	src/cstl_pair_private.c	/^bool_t _create_pair_auxiliary(pair_t* ppair_pair, const char* s_typename)$/;"	f	signature:(pair_t* ppair_pair, const char* s_typename)
 _create_priority_queue	cstl/cstl_priority_queue_private.h	/^extern priority_queue_t* _create_priority_queue(const char* s_typename);$/;"	p	signature:(const char* s_typename)
 _create_priority_queue	src/cstl_priority_queue_private.c	/^priority_queue_t* _create_priority_queue(const char* s_typename)$/;"	f	signature:(const char* s_typename)
 _create_priority_queue_auxiliary	cstl/cstl_priority_queue_private.h	/^extern bool_t _create_priority_queue_auxiliary($/;"	p	signature:( priority_queue_t* pt_pqueue, const char* s_typename)
@@ -3500,30 +3525,30 @@ _listabc_init	test/it/test_list.c	/^static void _listabc_init(const void* cpv_in
 _listabc_less	test/it/test_list.c	/^static void _listabc_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _listabc_less	test/it/test_list.c	/^static void _listabc_less(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _listnode_t	cstl/cstl_list_private.h	/^}_listnode_t;$/;"	t	typeref:struct:_taglistnode
-_map_at	cstl/cstl_map_private.h	/^extern void* _map_at(map_t* pt_map, ...);$/;"	p	signature:(map_t* pt_map, ...)
-_map_at	src/cstl_map.c	/^void* _map_at(map_t* pt_map, ...)$/;"	f	signature:(map_t* pt_map, ...)
-_map_at_varg	cstl/cstl_map_private.h	/^extern void* _map_at_varg(map_t* pt_map, va_list val_elemlist);$/;"	p	signature:(map_t* pt_map, va_list val_elemlist)
-_map_at_varg	src/cstl_map.c	/^void* _map_at_varg(map_t* pt_map, va_list val_elemlist)$/;"	f	signature:(map_t* pt_map, va_list val_elemlist)
-_map_count	cstl/cstl_map_private.h	/^extern size_t _map_count(const map_t* cpt_map, ...);$/;"	p	signature:(const map_t* cpt_map, ...)
-_map_count	src/cstl_map.c	/^size_t _map_count(const map_t* cpt_map, ...)$/;"	f	signature:(const map_t* cpt_map, ...)
-_map_count_varg	cstl/cstl_map_private.h	/^extern size_t _map_count_varg(const map_t* cpt_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpt_map, va_list val_elemlist)
-_map_count_varg	src/cstl_map.c	/^size_t _map_count_varg(const map_t* cpt_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpt_map, va_list val_elemlist)
-_map_destroy_auxiliary	cstl/cstl_map_private.h	/^extern void _map_destroy_auxiliary(map_t* pt_map);$/;"	p	signature:(map_t* pt_map)
-_map_destroy_auxiliary	src/cstl_map.c	/^void _map_destroy_auxiliary(map_t* pt_map)$/;"	f	signature:(map_t* pt_map)
-_map_equal_range	cstl/cstl_map_private.h	/^extern range_t _map_equal_range(const map_t* cpt_map, ...);$/;"	p	signature:(const map_t* cpt_map, ...)
-_map_equal_range	src/cstl_map.c	/^range_t _map_equal_range(const map_t* cpt_map, ...)$/;"	f	signature:(const map_t* cpt_map, ...)
-_map_equal_range_varg	cstl/cstl_map_private.h	/^extern range_t _map_equal_range_varg(const map_t* cpt_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpt_map, va_list val_elemlist)
-_map_equal_range_varg	src/cstl_map.c	/^range_t _map_equal_range_varg(const map_t* cpt_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpt_map, va_list val_elemlist)
-_map_erase	cstl/cstl_map_private.h	/^extern size_t _map_erase(map_t* pt_map, ...);$/;"	p	signature:(map_t* pt_map, ...)
-_map_erase	src/cstl_map.c	/^size_t _map_erase(map_t* pt_map, ...)$/;"	f	signature:(map_t* pt_map, ...)
-_map_erase_varg	cstl/cstl_map_private.h	/^extern size_t _map_erase_varg(map_t* pt_map, va_list val_elemlist);$/;"	p	signature:(map_t* pt_map, va_list val_elemlist)
-_map_erase_varg	src/cstl_map.c	/^size_t _map_erase_varg(map_t* pt_map, va_list val_elemlist)$/;"	f	signature:(map_t* pt_map, va_list val_elemlist)
-_map_find	cstl/cstl_map_private.h	/^extern map_iterator_t _map_find(const map_t* cpt_map, ...);$/;"	p	signature:(const map_t* cpt_map, ...)
-_map_find	src/cstl_map.c	/^map_iterator_t _map_find(const map_t* cpt_map, ...)$/;"	f	signature:(const map_t* cpt_map, ...)
-_map_find_varg	cstl/cstl_map_private.h	/^extern map_iterator_t _map_find_varg(const map_t* cpt_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpt_map, va_list val_elemlist)
-_map_find_varg	src/cstl_map.c	/^map_iterator_t _map_find_varg(const map_t* cpt_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpt_map, va_list val_elemlist)
-_map_init_elem_auxiliary	cstl/cstl_map_private.h	/^extern void _map_init_elem_auxiliary(map_t* pt_map, void* pv_value);$/;"	p	signature:(map_t* pt_map, void* pv_value)
-_map_init_elem_auxiliary	src/cstl_map.c	/^void _map_init_elem_auxiliary(map_t* pt_map, void* pv_elem)$/;"	f	signature:(map_t* pt_map, void* pv_elem)
+_map_at	cstl/cstl_map_private.h	/^extern void* _map_at(map_t* pmap_map, ...);$/;"	p	signature:(map_t* pmap_map, ...)
+_map_at	src/cstl_map_private.c	/^void* _map_at(map_t* pmap_map, ...)$/;"	f	signature:(map_t* pmap_map, ...)
+_map_at_varg	cstl/cstl_map_private.h	/^extern void* _map_at_varg(map_t* pmap_map, va_list val_elemlist);$/;"	p	signature:(map_t* pmap_map, va_list val_elemlist)
+_map_at_varg	src/cstl_map_private.c	/^void* _map_at_varg(map_t* pmap_map, va_list val_elemlist)$/;"	f	signature:(map_t* pmap_map, va_list val_elemlist)
+_map_count	cstl/cstl_map_private.h	/^extern size_t _map_count(const map_t* cpmap_map, ...);$/;"	p	signature:(const map_t* cpmap_map, ...)
+_map_count	src/cstl_map_private.c	/^size_t _map_count(const map_t* cpmap_map, ...)$/;"	f	signature:(const map_t* cpmap_map, ...)
+_map_count_varg	cstl/cstl_map_private.h	/^extern size_t _map_count_varg(const map_t* cpmap_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpmap_map, va_list val_elemlist)
+_map_count_varg	src/cstl_map_private.c	/^size_t _map_count_varg(const map_t* cpmap_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpmap_map, va_list val_elemlist)
+_map_destroy_auxiliary	cstl/cstl_map_private.h	/^extern void _map_destroy_auxiliary(map_t* pmap_map);$/;"	p	signature:(map_t* pmap_map)
+_map_destroy_auxiliary	src/cstl_map_private.c	/^void _map_destroy_auxiliary(map_t* pmap_map)$/;"	f	signature:(map_t* pmap_map)
+_map_equal_range	cstl/cstl_map_private.h	/^extern range_t _map_equal_range(const map_t* cpmap_map, ...);$/;"	p	signature:(const map_t* cpmap_map, ...)
+_map_equal_range	src/cstl_map_private.c	/^range_t _map_equal_range(const map_t* cpmap_map, ...)$/;"	f	signature:(const map_t* cpmap_map, ...)
+_map_equal_range_varg	cstl/cstl_map_private.h	/^extern range_t _map_equal_range_varg(const map_t* cpmap_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpmap_map, va_list val_elemlist)
+_map_equal_range_varg	src/cstl_map_private.c	/^range_t _map_equal_range_varg(const map_t* cpmap_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpmap_map, va_list val_elemlist)
+_map_erase	cstl/cstl_map_private.h	/^extern size_t _map_erase(map_t* pmap_map, ...);$/;"	p	signature:(map_t* pmap_map, ...)
+_map_erase	src/cstl_map_private.c	/^size_t _map_erase(map_t* pmap_map, ...)$/;"	f	signature:(map_t* pmap_map, ...)
+_map_erase_varg	cstl/cstl_map_private.h	/^extern size_t _map_erase_varg(map_t* pmap_map, va_list val_elemlist);$/;"	p	signature:(map_t* pmap_map, va_list val_elemlist)
+_map_erase_varg	src/cstl_map_private.c	/^size_t _map_erase_varg(map_t* pmap_map, va_list val_elemlist)$/;"	f	signature:(map_t* pmap_map, va_list val_elemlist)
+_map_find	cstl/cstl_map_private.h	/^extern map_iterator_t _map_find(const map_t* cpmap_map, ...);$/;"	p	signature:(const map_t* cpmap_map, ...)
+_map_find	src/cstl_map_private.c	/^map_iterator_t _map_find(const map_t* cpmap_map, ...)$/;"	f	signature:(const map_t* cpmap_map, ...)
+_map_find_varg	cstl/cstl_map_private.h	/^extern map_iterator_t _map_find_varg(const map_t* cpmap_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpmap_map, va_list val_elemlist)
+_map_find_varg	src/cstl_map_private.c	/^map_iterator_t _map_find_varg(const map_t* cpmap_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpmap_map, va_list val_elemlist)
+_map_init_elem_auxiliary	cstl/cstl_map_private.h	/^extern void _map_init_elem_auxiliary(map_t* pmap_map, void* pv_value);$/;"	p	signature:(map_t* pmap_map, void* pv_value)
+_map_init_elem_auxiliary	src/cstl_map_private.c	/^void _map_init_elem_auxiliary(map_t* pmap_map, void* pv_elem)$/;"	f	signature:(map_t* pmap_map, void* pv_elem)
 _map_iterator_before	cstl/cstl_map_iterator.h	/^extern bool_t _map_iterator_before($/;"	p	signature:( map_iterator_t t_iterfirst, map_iterator_t t_itersecond)
 _map_iterator_before	src/cstl_map.c	/^bool_t _map_iterator_before($/;"	f	signature:( map_iterator_t t_iterfirst, map_iterator_t t_itersecond)
 _map_iterator_distance	cstl/cstl_map_iterator.h	/^extern int _map_iterator_distance($/;"	p	signature:( map_iterator_t t_iterfirst, map_iterator_t t_itersecond)
@@ -3538,16 +3563,16 @@ _map_iterator_next	cstl/cstl_map_iterator.h	/^extern map_iterator_t _map_iterato
 _map_iterator_next	src/cstl_map.c	/^map_iterator_t _map_iterator_next(map_iterator_t t_iter)$/;"	f	signature:(map_iterator_t t_iter)
 _map_iterator_prev	cstl/cstl_map_iterator.h	/^extern map_iterator_t _map_iterator_prev(map_iterator_t t_iter);$/;"	p	signature:(map_iterator_t t_iter)
 _map_iterator_prev	src/cstl_map.c	/^map_iterator_t _map_iterator_prev(map_iterator_t t_iter)$/;"	f	signature:(map_iterator_t t_iter)
-_map_lower_bound	cstl/cstl_map_private.h	/^extern map_iterator_t _map_lower_bound(const map_t* cpt_map, ...);$/;"	p	signature:(const map_t* cpt_map, ...)
-_map_lower_bound	src/cstl_map.c	/^map_iterator_t _map_lower_bound(const map_t* cpt_map, ...)$/;"	f	signature:(const map_t* cpt_map, ...)
-_map_lower_bound_varg	cstl/cstl_map_private.h	/^extern map_iterator_t _map_lower_bound_varg(const map_t* cpt_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpt_map, va_list val_elemlist)
-_map_lower_bound_varg	src/cstl_map.c	/^map_iterator_t _map_lower_bound_varg(const map_t* cpt_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpt_map, va_list val_elemlist)
+_map_lower_bound	cstl/cstl_map_private.h	/^extern map_iterator_t _map_lower_bound(const map_t* cpmap_map, ...);$/;"	p	signature:(const map_t* cpmap_map, ...)
+_map_lower_bound	src/cstl_map_private.c	/^map_iterator_t _map_lower_bound(const map_t* cpmap_map, ...)$/;"	f	signature:(const map_t* cpmap_map, ...)
+_map_lower_bound_varg	cstl/cstl_map_private.h	/^extern map_iterator_t _map_lower_bound_varg(const map_t* cpmap_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpmap_map, va_list val_elemlist)
+_map_lower_bound_varg	src/cstl_map_private.c	/^map_iterator_t _map_lower_bound_varg(const map_t* cpmap_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpmap_map, va_list val_elemlist)
 _map_same_pair_type	src/cstl_map_aux.c	/^bool_t _map_same_pair_type(const pair_t* cppair_first, const pair_t* cppair_second)$/;"	f	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
 _map_same_pair_type	src/cstl_map_aux.h	/^extern bool_t _map_same_pair_type(const pair_t* cppair_first, const pair_t* cppair_second);$/;"	p	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
-_map_upper_bound	cstl/cstl_map_private.h	/^extern map_iterator_t _map_upper_bound(const map_t* cpt_map, ...);$/;"	p	signature:(const map_t* cpt_map, ...)
-_map_upper_bound	src/cstl_map.c	/^map_iterator_t _map_upper_bound(const map_t* cpt_map, ...)$/;"	f	signature:(const map_t* cpt_map, ...)
-_map_upper_bound_varg	cstl/cstl_map_private.h	/^extern map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpt_map, va_list val_elemlist)
-_map_upper_bound_varg	src/cstl_map.c	/^map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpt_map, va_list val_elemlist)
+_map_upper_bound	cstl/cstl_map_private.h	/^extern map_iterator_t _map_upper_bound(const map_t* cpmap_map, ...);$/;"	p	signature:(const map_t* cpmap_map, ...)
+_map_upper_bound	src/cstl_map_private.c	/^map_iterator_t _map_upper_bound(const map_t* cpmap_map, ...)$/;"	f	signature:(const map_t* cpmap_map, ...)
+_map_upper_bound_varg	cstl/cstl_map_private.h	/^extern map_iterator_t _map_upper_bound_varg(const map_t* cpmap_map, va_list val_elemlist);$/;"	p	signature:(const map_t* cpmap_map, va_list val_elemlist)
+_map_upper_bound_varg	src/cstl_map_private.c	/^map_iterator_t _map_upper_bound_varg(const map_t* cpmap_map, va_list val_elemlist)$/;"	f	signature:(const map_t* cpmap_map, va_list val_elemlist)
 _map_value_compare	src/cstl_map_aux.c	/^void _map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _map_value_compare	src/cstl_map_aux.h	/^extern void _map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _mapkey_copy	test/it/test_map.c	/^static void _mapkey_copy(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -3700,15 +3725,15 @@ _n_third	test/it/test_set.c	/^    int _n_third;$/;"	m	struct:_tagsetsample	file:
 _nocaseless	test/it/test_algobase.c	/^static void _nocaseless(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _nocaseless	test/it/test_algobase.c	/^static void _nocaseless(const void* cpv_first, const void* cpv_second, void* pv_output);$/;"	p	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _pair_destroy_auxiliary	cstl/cstl_pair_private.h	/^extern void _pair_destroy_auxiliary(pair_t* ppair_pair);$/;"	p	signature:(pair_t* ppair_pair)
-_pair_destroy_auxiliary	src/cstl_pair_private.c	/^void _pair_destroy_auxiliary(pair_t* pt_pair)$/;"	f	signature:(pair_t* pt_pair)
+_pair_destroy_auxiliary	src/cstl_pair_private.c	/^void _pair_destroy_auxiliary(pair_t* ppair_pair)$/;"	f	signature:(pair_t* ppair_pair)
 _pair_is_created	cstl/cstl_pair_private.h	/^extern bool_t _pair_is_created(const pair_t* cppair_pair);$/;"	p	signature:(const pair_t* cppair_pair)
 _pair_is_created	src/cstl_pair_private.c	/^bool_t _pair_is_created(const pair_t* cppair_pair)$/;"	f	signature:(const pair_t* cppair_pair)
 _pair_is_inited	cstl/cstl_pair_private.h	/^extern bool_t _pair_is_inited(const pair_t* cppair_pair);$/;"	p	signature:(const pair_t* cppair_pair)
 _pair_is_inited	src/cstl_pair_private.c	/^bool_t _pair_is_inited(const pair_t* cppair_pair)$/;"	f	signature:(const pair_t* cppair_pair)
 _pair_make_first	cstl/cstl_pair_private.h	/^extern void _pair_make_first(pair_t* ppair_pair, ...);$/;"	p	signature:(pair_t* ppair_pair, ...)
-_pair_make_first	src/cstl_pair_private.c	/^void _pair_make_first(pair_t* pt_pair, ...)$/;"	f	signature:(pair_t* pt_pair, ...)
+_pair_make_first	src/cstl_pair_private.c	/^void _pair_make_first(pair_t* ppair_pair, ...)$/;"	f	signature:(pair_t* ppair_pair, ...)
 _pair_make_second	cstl/cstl_pair_private.h	/^extern void _pair_make_second(pair_t* ppair_pair, ...);$/;"	p	signature:(pair_t* ppair_pair, ...)
-_pair_make_second	src/cstl_pair_private.c	/^void _pair_make_second(pair_t* pt_pair, ...)$/;"	f	signature:(pair_t* pt_pair, ...)
+_pair_make_second	src/cstl_pair_private.c	/^void _pair_make_second(pair_t* ppair_pair, ...)$/;"	f	signature:(pair_t* ppair_pair, ...)
 _pair_same_type	src/cstl_pair_aux.c	/^bool_t _pair_same_type(const pair_t* cppair_first, const pair_t* cppair_second)$/;"	f	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
 _pair_same_type	src/cstl_pair_aux.h	/^extern bool_t _pair_same_type(const pair_t* cppair_first, const pair_t* cppair_second);$/;"	p	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
 _partition_biditer	src/cstl_algo.c	/^static bidirectional_iterator_t _partition_biditer($/;"	f	file:	signature:( bidirectional_iterator_t t_first, bidirectional_iterator_t t_last, unary_function_t t_unary_op)
@@ -4360,6 +4385,8 @@ _tag_test__create_list_auxiliary__user_defined	test/ut/ut_cstl_list_private.c	/^
 _tag_test__create_list_auxiliary__user_defined::n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list_auxiliary__user_defined	file:	access:public
 _tag_test__create_multiset_auxiliary__user_define	test/ut/ut_cstl_multiset_private.c	/^typedef struct _tag_test__create_multiset_auxiliary__user_define$/;"	s	file:
 _tag_test__create_multiset_auxiliary__user_define::n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_multiset_auxiliary__user_define	file:	access:public
+_tag_test__create_pair_auxiliary__user_define	test/ut/ut_cstl_pair_private.c	/^typedef struct _tag_test__create_pair_auxiliary__user_define$/;"	s	file:
+_tag_test__create_pair_auxiliary__user_define::n_elem	test/ut/ut_cstl_pair_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_pair_auxiliary__user_define	file:	access:public
 _tag_test__create_queue__user_defined_type	test/ut/ut_cstl_queue_private.c	/^typedef struct _tag_test__create_queue__user_defined_type$/;"	s	file:
 _tag_test__create_queue__user_defined_type::n_elem	test/ut/ut_cstl_queue_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_queue__user_defined_type	file:	access:public
 _tag_test__create_queue_auxiliary__user_defined	test/ut/ut_cstl_queue_private.c	/^typedef struct _tag_test__create_queue_auxiliary__user_defined$/;"	s	file:
@@ -4406,6 +4433,10 @@ _tag_test__multiset_lower_bound__multiset_lower_bound_varg__user_define	test/ut/
 _tag_test__multiset_lower_bound__multiset_lower_bound_varg__user_define::n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__multiset_lower_bound__multiset_lower_bound_varg__user_define	file:	access:public
 _tag_test__multiset_upper_bound__multiset_upper_bound_varg__user_define	test/ut/ut_cstl_multiset_private.c	/^typedef struct _tag_test__multiset_upper_bound__multiset_upper_bound_varg__user_define$/;"	s	file:
 _tag_test__multiset_upper_bound__multiset_upper_bound_varg__user_define::n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__multiset_upper_bound__multiset_upper_bound_varg__user_define	file:	access:public
+_tag_test__pair_make_first__user_define	test/ut/ut_cstl_pair_private.c	/^typedef struct _tag_test__pair_make_first__user_define$/;"	s	file:
+_tag_test__pair_make_first__user_define::n_elem	test/ut/ut_cstl_pair_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__pair_make_first__user_define	file:	access:public
+_tag_test__pair_make_second__user_define	test/ut/ut_cstl_pair_private.c	/^typedef struct _tag_test__pair_make_second__user_define$/;"	s	file:
+_tag_test__pair_make_second__user_define::n_elem	test/ut/ut_cstl_pair_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__pair_make_second__user_define	file:	access:public
 _tag_test__rb_tree_count__user_define	test/ut/ut_cstl_rb_tree.c	/^typedef struct _tag_test__rb_tree_count__user_define$/;"	s	file:
 _tag_test__rb_tree_count__user_define::n_elem	test/ut/ut_cstl_rb_tree.c	/^    int n_elem;$/;"	m	struct:_tag_test__rb_tree_count__user_define	file:	access:public
 _tag_test__rb_tree_equal_range__user_define	test/ut/ut_cstl_rb_tree.c	/^typedef struct _tag_test__rb_tree_equal_range__user_define$/;"	s	file:
@@ -4580,6 +4611,10 @@ _tag_test_list_init_copy_range__user_define	test/ut/ut_cstl_list.c	/^typedef str
 _tag_test_list_init_copy_range__user_define::n_elem	test/ut/ut_cstl_list.c	/^    int n_elem;$/;"	m	struct:_tag_test_list_init_copy_range__user_define	file:	access:public
 _tag_test_list_init_n__user_define	test/ut/ut_cstl_list.c	/^typedef struct _tag_test_list_init_n__user_define$/;"	s	file:
 _tag_test_list_init_n__user_define::n_elem	test/ut/ut_cstl_list.c	/^    int n_elem;$/;"	m	struct:_tag_test_list_init_n__user_define	file:	access:public
+_tag_test_pair_first__user_define	test/ut/ut_cstl_pair.c	/^typedef struct _tag_test_pair_first__user_define$/;"	s	file:
+_tag_test_pair_first__user_define::n_elem	test/ut/ut_cstl_pair.c	/^    int n_elem;$/;"	m	struct:_tag_test_pair_first__user_define	file:	access:public
+_tag_test_pair_second__user_define	test/ut/ut_cstl_pair.c	/^typedef struct _tag_test_pair_second__user_define$/;"	s	file:
+_tag_test_pair_second__user_define::n_elem	test/ut/ut_cstl_pair.c	/^    int n_elem;$/;"	m	struct:_tag_test_pair_second__user_define	file:	access:public
 _tag_test_queue_init_copy__user_define	test/ut/ut_cstl_queue.c	/^typedef struct _tag_test_queue_init_copy__user_define$/;"	s	file:
 _tag_test_queue_init_copy__user_define::n_elem	test/ut/ut_cstl_queue.c	/^    int n_elem;$/;"	m	struct:_tag_test_queue_init_copy__user_define	file:	access:public
 _tag_test_slist_init_copy__user_define	test/ut/ut_cstl_slist.c	/^typedef struct _tag_test_slist_init_copy__user_define$/;"	s	file:
@@ -4868,8 +4903,11 @@ _test__create_deque__user_defined_type_t	test/ut/ut_cstl_deque_private.c	/^}_tes
 _test__create_deque_auxiliary__user_defined_t	test/ut/ut_cstl_deque_private.c	/^}_test__create_deque_auxiliary__user_defined_t;$/;"	t	typeref:struct:_tag_test__create_deque_auxiliary__user_defined	file:
 _test__create_list__user_defined_type_t	test/ut/ut_cstl_list_private.c	/^}_test__create_list__user_defined_type_t;$/;"	t	typeref:struct:_tag_test__create_list__user_defined_type	file:
 _test__create_list_auxiliary__user_defined_t	test/ut/ut_cstl_list_private.c	/^}_test__create_list_auxiliary__user_defined_t;$/;"	t	typeref:struct:_tag_test__create_list_auxiliary__user_defined	file:
+_test__create_map__user_define_t	test/ut/ut_cstl_map_private.c	/^}_test__create_map__user_define_t;$/;"	t	typeref:struct:_test_test__create_map__user_define	file:
 _test__create_multiset__user_define_t	test/ut/ut_cstl_multiset_private.c	/^}_test__create_multiset__user_define_t;$/;"	t	typeref:struct:_test_test__create_multiset__user_define	file:
 _test__create_multiset_auxiliary__user_define_t	test/ut/ut_cstl_multiset_private.c	/^}_test__create_multiset_auxiliary__user_define_t;$/;"	t	typeref:struct:_tag_test__create_multiset_auxiliary__user_define	file:
+_test__create_pair__user_define_t	test/ut/ut_cstl_pair_private.c	/^}_test__create_pair__user_define_t;$/;"	t	typeref:struct:_test_test__create_pair__user_define	file:
+_test__create_pair_auxiliary__user_define_t	test/ut/ut_cstl_pair_private.c	/^}_test__create_pair_auxiliary__user_define_t;$/;"	t	typeref:struct:_tag_test__create_pair_auxiliary__user_define	file:
 _test__create_queue__user_defined_type_t	test/ut/ut_cstl_queue_private.c	/^}_test__create_queue__user_defined_type_t;$/;"	t	typeref:struct:_tag_test__create_queue__user_defined_type	file:
 _test__create_queue_auxiliary__user_defined_t	test/ut/ut_cstl_queue_private.c	/^}_test__create_queue_auxiliary__user_defined_t;$/;"	t	typeref:struct:_tag_test__create_queue_auxiliary__user_defined	file:
 _test__create_rb_tree__user_define_t	test/ut/ut_cstl_rb_tree.c	/^}_test__create_rb_tree__user_define_t;$/;"	t	typeref:struct:_test_test__create_rb_tree__user_define	file:
@@ -4884,6 +4922,7 @@ _test__deque_init_elem_auxiliary__successfully_user_defined_t	test/ut/ut_cstl_de
 _test__deque_same_type__same_user_defined_t	test/ut/ut_cstl_deque_aux.c	/^}_test__deque_same_type__same_user_defined_t;$/;"	t	typeref:struct:_tag_test__deque_same_type__same_user_defined	file:
 _test__list_init_elem_auxiliary__successfully_user_defined_t	test/ut/ut_cstl_list_private.c	/^}_test__list_init_elem_auxiliary__successfully_user_defined_t;$/;"	t	typeref:struct:_tag_test__list_init_elem_auxiliary__successfully_user_defined	file:
 _test__list_same_type__same_user_defined_t	test/ut/ut_cstl_list_aux.c	/^}_test__list_same_type__same_user_defined_t;$/;"	t	typeref:struct:_tag_test__list_same_type__same_user_defined	file:
+_test__map_value_compare	test/ut/ut_cstl_map_aux.c	/^void _test__map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _test__multiset_count__multiset_count_varg__user_define_t	test/ut/ut_cstl_multiset_private.c	/^}_test__multiset_count__multiset_count_varg__user_define_t;$/;"	t	typeref:struct:_tag_test__multiset_count__multiset_count_varg__user_define	file:
 _test__multiset_equal_range__multiset_equal_range_varg__user_define_t	test/ut/ut_cstl_multiset_private.c	/^}_test__multiset_equal_range__multiset_equal_range_varg__user_define_t;$/;"	t	typeref:struct:_tag_test__multiset_equal_range__multiset_equal_range_varg__user_define	file:
 _test__multiset_erase__multiset_erase_varg__user_define_t	test/ut/ut_cstl_multiset_private.c	/^}_test__multiset_erase__multiset_erase_varg__user_define_t;$/;"	t	typeref:struct:_tag_test__multiset_erase__multiset_erase_varg__user_define	file:
@@ -4896,6 +4935,8 @@ _test__multiset_iterator_get_pointer__user_define_t	test/ut/ut_cstl_multiset_ite
 _test__multiset_iterator_get_value__user_define_t	test/ut/ut_cstl_multiset_iterator.c	/^}_test__multiset_iterator_get_value__user_define_t;$/;"	t	typeref:struct:_tag_test__multiset_iterator_get_value__user_define	file:
 _test__multiset_lower_bound__multiset_lower_bound_varg__user_define_t	test/ut/ut_cstl_multiset_private.c	/^}_test__multiset_lower_bound__multiset_lower_bound_varg__user_define_t;$/;"	t	typeref:struct:_tag_test__multiset_lower_bound__multiset_lower_bound_varg__user_define	file:
 _test__multiset_upper_bound__multiset_upper_bound_varg__user_define_t	test/ut/ut_cstl_multiset_private.c	/^}_test__multiset_upper_bound__multiset_upper_bound_varg__user_define_t;$/;"	t	typeref:struct:_tag_test__multiset_upper_bound__multiset_upper_bound_varg__user_define	file:
+_test__pair_make_first__user_define_t	test/ut/ut_cstl_pair_private.c	/^}_test__pair_make_first__user_define_t;$/;"	t	typeref:struct:_tag_test__pair_make_first__user_define	file:
+_test__pair_make_second__user_define_t	test/ut/ut_cstl_pair_private.c	/^}_test__pair_make_second__user_define_t;$/;"	t	typeref:struct:_tag_test__pair_make_second__user_define	file:
 _test__rb_tree_count__user_define_t	test/ut/ut_cstl_rb_tree.c	/^}_test__rb_tree_count__user_define_t;$/;"	t	typeref:struct:_tag_test__rb_tree_count__user_define	file:
 _test__rb_tree_elem_compare_auxiliary__cstr_compare	test/ut/ut_cstl_rb_tree_aux.c	/^static void _test__rb_tree_elem_compare_auxiliary__cstr_compare($/;"	f	file:	signature:( const void* cpv_first, const void* cpv_second, void* pv_output)
 _test__rb_tree_equal__compare_not_equal	test/ut/ut_cstl_rb_tree.c	/^static void _test__rb_tree_equal__compare_not_equal(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -5014,6 +5055,8 @@ _test_multiset_key_comp__user_define_key_comp	test/ut/ut_cstl_multiset.c	/^void 
 _test_multiset_less__compare_less	test/ut/ut_cstl_multiset.c	/^static void _test_multiset_less__compare_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _test_multiset_less_equal__compare_less	test/ut/ut_cstl_multiset.c	/^static void _test_multiset_less_equal__compare_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _test_multiset_not_equal__compare_not_equal	test/ut/ut_cstl_multiset.c	/^static void _test_multiset_not_equal__compare_not_equal(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
+_test_pair_first__user_define_t	test/ut/ut_cstl_pair.c	/^}_test_pair_first__user_define_t;$/;"	t	typeref:struct:_tag_test_pair_first__user_define	file:
+_test_pair_second__user_define_t	test/ut/ut_cstl_pair.c	/^}_test_pair_second__user_define_t;$/;"	t	typeref:struct:_tag_test_pair_second__user_define	file:
 _test_queue_init_copy__user_define_t	test/ut/ut_cstl_queue.c	/^}_test_queue_init_copy__user_define_t;$/;"	t	typeref:struct:_tag_test_queue_init_copy__user_define	file:
 _test_set_equal__compare_not_equal	test/ut/ut_cstl_set.c	/^static void _test_set_equal__compare_not_equal(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
 _test_set_greater__compare_less	test/ut/ut_cstl_set.c	/^static void _test_set_greater__compare_less(const void* cpv_first, const void* cpv_second, void* pv_output)$/;"	f	file:	signature:(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -5033,8 +5076,12 @@ _test_slist_remove_if_ufun_op	test/ut/ut_cstl_slist.c	/^static void _test_slist_
 _test_stack_init_copy__user_define_t	test/ut/ut_cstl_stack.c	/^}_test_stack_init_copy__user_define_t;$/;"	t	typeref:struct:_tag_test_stack_init_copy__user_define	file:
 _test_test__create_avl_tree__user_define	test/ut/ut_cstl_avl_tree.c	/^typedef struct _test_test__create_avl_tree__user_define$/;"	s	file:
 _test_test__create_avl_tree__user_define::n_elem	test/ut/ut_cstl_avl_tree.c	/^    int n_elem;$/;"	m	struct:_test_test__create_avl_tree__user_define	file:	access:public
+_test_test__create_map__user_define	test/ut/ut_cstl_map_private.c	/^typedef struct _test_test__create_map__user_define$/;"	s	file:
+_test_test__create_map__user_define::n_elem	test/ut/ut_cstl_map_private.c	/^    int n_elem;$/;"	m	struct:_test_test__create_map__user_define	file:	access:public
 _test_test__create_multiset__user_define	test/ut/ut_cstl_multiset_private.c	/^typedef struct _test_test__create_multiset__user_define$/;"	s	file:
 _test_test__create_multiset__user_define::n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_test_test__create_multiset__user_define	file:	access:public
+_test_test__create_pair__user_define	test/ut/ut_cstl_pair_private.c	/^typedef struct _test_test__create_pair__user_define$/;"	s	file:
+_test_test__create_pair__user_define::n_elem	test/ut/ut_cstl_pair_private.c	/^    int n_elem;$/;"	m	struct:_test_test__create_pair__user_define	file:	access:public
 _test_test__create_rb_tree__user_define	test/ut/ut_cstl_rb_tree.c	/^typedef struct _test_test__create_rb_tree__user_define$/;"	s	file:
 _test_test__create_rb_tree__user_define::n_elem	test/ut/ut_cstl_rb_tree.c	/^    int n_elem;$/;"	m	struct:_test_test__create_rb_tree__user_define	file:	access:public
 _test_test__create_set__user_define	test/ut/ut_cstl_set_private.c	/^typedef struct _test_test__create_set__user_define$/;"	s	file:
@@ -6257,7 +6304,7 @@ create_multimap_iterator	src/cstl_multimap.c	/^multimap_iterator_t create_multim
 create_multiset	cstl/cstl_multiset.h	40;"	d
 create_multiset_iterator	cstl/cstl_multiset_iterator.h	/^extern multiset_iterator_t create_multiset_iterator(void);$/;"	p	signature:(void)
 create_multiset_iterator	src/cstl_multiset_iterator.c	/^multiset_iterator_t create_multiset_iterator(void)$/;"	f	signature:(void)
-create_pair	cstl/cstl_pair.h	33;"	d
+create_pair	cstl/cstl_pair.h	40;"	d
 create_priority_queue	cstl/cstl_priority_queue.h	33;"	d
 create_queue	cstl/cstl_queue.h	39;"	d
 create_set	cstl/cstl_set.h	40;"	d
@@ -7961,6 +8008,7 @@ n_elem	test/ut/ut_cstl_list_aux.c	/^    int n_elem;$/;"	m	struct:_tag_test__list
 n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list__user_defined_type	file:	access:public
 n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_list_auxiliary__user_defined	file:	access:public
 n_elem	test/ut/ut_cstl_list_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__list_init_elem_auxiliary__successfully_user_defined	file:	access:public
+n_elem	test/ut/ut_cstl_map_private.c	/^    int n_elem;$/;"	m	struct:_test_test__create_map__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_multiset_auxiliary__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__multiset_count__multiset_count_varg__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__multiset_equal_range__multiset_equal_range_varg__user_define	file:	access:public
@@ -7972,6 +8020,12 @@ n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_tag_te
 n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__multiset_lower_bound__multiset_lower_bound_varg__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__multiset_upper_bound__multiset_upper_bound_varg__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_multiset_private.c	/^    int n_elem;$/;"	m	struct:_test_test__create_multiset__user_define	file:	access:public
+n_elem	test/ut/ut_cstl_pair.c	/^    int n_elem;$/;"	m	struct:_tag_test_pair_first__user_define	file:	access:public
+n_elem	test/ut/ut_cstl_pair.c	/^    int n_elem;$/;"	m	struct:_tag_test_pair_second__user_define	file:	access:public
+n_elem	test/ut/ut_cstl_pair_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_pair_auxiliary__user_define	file:	access:public
+n_elem	test/ut/ut_cstl_pair_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__pair_make_first__user_define	file:	access:public
+n_elem	test/ut/ut_cstl_pair_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__pair_make_second__user_define	file:	access:public
+n_elem	test/ut/ut_cstl_pair_private.c	/^    int n_elem;$/;"	m	struct:_test_test__create_pair__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_queue.c	/^    int n_elem;$/;"	m	struct:_tag_test_queue_init_copy__user_define	file:	access:public
 n_elem	test/ut/ut_cstl_queue_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_queue__user_defined_type	file:	access:public
 n_elem	test/ut/ut_cstl_queue_private.c	/^    int n_elem;$/;"	m	struct:_tag_test__create_queue_auxiliary__user_defined	file:	access:public
@@ -8023,32 +8077,32 @@ oldincludedir	test/it/Makefile	/^oldincludedir = \/usr\/include$/;"	m
 oldincludedir	test/ut/Makefile	/^oldincludedir = \/usr\/include$/;"	m
 ostream_iterator_t	cstl/cstl_iterator.h	/^typedef output_iterator_t           ostream_iterator_t;$/;"	t
 output_iterator_t	cstl/cstl_iterator.h	/^typedef iterator_t                  output_iterator_t;$/;"	t
-pair_assign	cstl/cstl_pair.h	/^extern void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc);$/;"	p	signature:(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
-pair_assign	src/cstl_pair.c	/^void pair_assign(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)$/;"	f	signature:(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
-pair_destroy	cstl/cstl_pair.h	/^extern void pair_destroy(pair_t* pt_pair);$/;"	p	signature:(pair_t* pt_pair)
-pair_destroy	src/cstl_pair.c	/^void pair_destroy(pair_t* pt_pair)$/;"	f	signature:(pair_t* pt_pair)
-pair_equal	cstl/cstl_pair.h	/^extern bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);$/;"	p	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_equal	src/cstl_pair.c	/^bool_t pair_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)$/;"	f	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_first	cstl/cstl_pair.h	/^extern void* pair_first(const pair_t* cpt_pair);$/;"	p	signature:(const pair_t* cpt_pair)
-pair_first	src/cstl_pair.c	/^void* pair_first(const pair_t* cpt_pair)$/;"	f	signature:(const pair_t* cpt_pair)
-pair_greater	cstl/cstl_pair.h	/^extern bool_t pair_greater(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);$/;"	p	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_greater	src/cstl_pair.c	/^bool_t pair_greater(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)$/;"	f	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_greater_equal	cstl/cstl_pair.h	/^extern bool_t pair_greater_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);$/;"	p	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_greater_equal	src/cstl_pair.c	/^bool_t pair_greater_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)$/;"	f	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_init	cstl/cstl_pair.h	/^extern void pair_init(pair_t* pt_pair);$/;"	p	signature:(pair_t* pt_pair)
-pair_init	src/cstl_pair.c	/^void pair_init(pair_t* pt_pair)$/;"	f	signature:(pair_t* pt_pair)
-pair_init_copy	cstl/cstl_pair.h	/^extern void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc);$/;"	p	signature:(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
-pair_init_copy	src/cstl_pair.c	/^void pair_init_copy(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)$/;"	f	signature:(pair_t* pt_pairdest, const pair_t* cpt_pairsrc)
-pair_init_elem	cstl/cstl_pair.h	38;"	d
-pair_less	cstl/cstl_pair.h	/^extern bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);$/;"	p	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_less	src/cstl_pair.c	/^bool_t pair_less(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)$/;"	f	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_less_equal	cstl/cstl_pair.h	/^extern bool_t pair_less_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);$/;"	p	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_less_equal	src/cstl_pair.c	/^bool_t pair_less_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)$/;"	f	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_make	cstl/cstl_pair.h	35;"	d
-pair_not_equal	cstl/cstl_pair.h	/^extern bool_t pair_not_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);$/;"	p	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_not_equal	src/cstl_pair.c	/^bool_t pair_not_equal(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)$/;"	f	signature:(const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-pair_second	cstl/cstl_pair.h	/^extern void* pair_second(const pair_t* cpt_pair);$/;"	p	signature:(const pair_t* cpt_pair)
-pair_second	src/cstl_pair.c	/^void* pair_second(const pair_t* cpt_pair)$/;"	f	signature:(const pair_t* cpt_pair)
+pair_assign	cstl/cstl_pair.h	/^extern void pair_assign(pair_t* ppair_dest, const pair_t* cppair_src);$/;"	p	signature:(pair_t* ppair_dest, const pair_t* cppair_src)
+pair_assign	src/cstl_pair.c	/^void pair_assign(pair_t* ppair_dest, const pair_t* cppair_src)$/;"	f	signature:(pair_t* ppair_dest, const pair_t* cppair_src)
+pair_destroy	cstl/cstl_pair.h	/^extern void pair_destroy(pair_t* ppair_pair);$/;"	p	signature:(pair_t* ppair_pair)
+pair_destroy	src/cstl_pair.c	/^void pair_destroy(pair_t* ppair_pair)$/;"	f	signature:(pair_t* ppair_pair)
+pair_equal	cstl/cstl_pair.h	/^extern bool_t pair_equal(const pair_t* cppair_first, const pair_t* cppair_second);$/;"	p	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_equal	src/cstl_pair.c	/^bool_t pair_equal(const pair_t* cppair_first, const pair_t* cppair_second)$/;"	f	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_first	cstl/cstl_pair.h	/^extern void* pair_first(const pair_t* cppair_pair);$/;"	p	signature:(const pair_t* cppair_pair)
+pair_first	src/cstl_pair.c	/^void* pair_first(const pair_t* cppair_pair)$/;"	f	signature:(const pair_t* cppair_pair)
+pair_greater	cstl/cstl_pair.h	/^extern bool_t pair_greater(const pair_t* cppair_first, const pair_t* cppair_second);$/;"	p	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_greater	src/cstl_pair.c	/^bool_t pair_greater(const pair_t* cppair_first, const pair_t* cppair_second)$/;"	f	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_greater_equal	cstl/cstl_pair.h	/^extern bool_t pair_greater_equal(const pair_t* cppair_first, const pair_t* cppair_second);$/;"	p	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_greater_equal	src/cstl_pair.c	/^bool_t pair_greater_equal(const pair_t* cppair_first, const pair_t* cppair_second)$/;"	f	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_init	cstl/cstl_pair.h	/^extern void pair_init(pair_t* ppair_pair);$/;"	p	signature:(pair_t* ppair_pair)
+pair_init	src/cstl_pair.c	/^void pair_init(pair_t* ppair_pair)$/;"	f	signature:(pair_t* ppair_pair)
+pair_init_copy	cstl/cstl_pair.h	/^extern void pair_init_copy(pair_t* ppair_dest, const pair_t* cppair_src);$/;"	p	signature:(pair_t* ppair_dest, const pair_t* cppair_src)
+pair_init_copy	src/cstl_pair.c	/^void pair_init_copy(pair_t* ppair_dest, const pair_t* cppair_src)$/;"	f	signature:(pair_t* ppair_dest, const pair_t* cppair_src)
+pair_init_elem	cstl/cstl_pair.h	50;"	d
+pair_less	cstl/cstl_pair.h	/^extern bool_t pair_less(const pair_t* cppair_first, const pair_t* cppair_second);$/;"	p	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_less	src/cstl_pair.c	/^bool_t pair_less(const pair_t* cppair_first, const pair_t* cppair_second)$/;"	f	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_less_equal	cstl/cstl_pair.h	/^extern bool_t pair_less_equal(const pair_t* cppair_first, const pair_t* cppair_second);$/;"	p	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_less_equal	src/cstl_pair.c	/^bool_t pair_less_equal(const pair_t* cppair_first, const pair_t* cppair_second)$/;"	f	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_make	cstl/cstl_pair.h	65;"	d
+pair_not_equal	cstl/cstl_pair.h	/^extern bool_t pair_not_equal(const pair_t* cppair_first, const pair_t* cppair_second);$/;"	p	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_not_equal	src/cstl_pair.c	/^bool_t pair_not_equal(const pair_t* cppair_first, const pair_t* cppair_second)$/;"	f	signature:(const pair_t* cppair_first, const pair_t* cppair_second)
+pair_second	cstl/cstl_pair.h	/^extern void* pair_second(const pair_t* cppair_pair);$/;"	p	signature:(const pair_t* cppair_pair)
+pair_second	src/cstl_pair.c	/^void* pair_second(const pair_t* cppair_pair)$/;"	f	signature:(const pair_t* cppair_pair)
 pair_t	cstl/cstl_pair_private.h	/^}pair_t;$/;"	t	typeref:struct:_tagpair
 pdfdir	Makefile	/^pdfdir = ${docdir}$/;"	m
 pdfdir	build-win/Makefile	/^pdfdir = ${docdir}$/;"	m
@@ -10358,6 +10412,17 @@ test__create_list_auxiliary__user_defined	test/ut/ut_cstl_list_private.h	/^void 
 test__create_list_auxiliary__user_defined_dup	test/ut/ut_cstl_list_private.c	/^void test__create_list_auxiliary__user_defined_dup(void** state)$/;"	f	signature:(void** state)
 test__create_list_auxiliary__user_defined_dup	test/ut/ut_cstl_list_private.h	/^void test__create_list_auxiliary__user_defined_dup(void** state);$/;"	p	signature:(void** state)
 test__create_list_iterator__successfully	test/ut/ut_cstl_list_iterator.h	/^void test__create_list_iterator__successfully(void** state);$/;"	p	signature:(void** state)
+test__create_map__c_builtin	test/ut/ut_cstl_map_private.c	/^void test__create_map__c_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_map__c_builtin	test/ut/ut_cstl_map_private.h	/^void test__create_map__c_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_map__cstr	test/ut/ut_cstl_map_private.c	/^void test__create_map__cstr(void** state)$/;"	f	signature:(void** state)
+test__create_map__cstr	test/ut/ut_cstl_map_private.h	/^void test__create_map__cstr(void** state);$/;"	p	signature:(void** state)
+test__create_map__libcstl_builtin	test/ut/ut_cstl_map_private.c	/^void test__create_map__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_map__libcstl_builtin	test/ut/ut_cstl_map_private.h	/^void test__create_map__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_map__null_typename	test/ut/ut_cstl_map_private.h	/^void test__create_map__null_typename(void** state);$/;"	p	signature:(void** state)
+test__create_map__unregister	test/ut/ut_cstl_map_private.c	/^void test__create_map__unregister(void** state)$/;"	f	signature:(void** state)
+test__create_map__unregister	test/ut/ut_cstl_map_private.h	/^void test__create_map__unregister(void** state);$/;"	p	signature:(void** state)
+test__create_map__user_define	test/ut/ut_cstl_map_private.c	/^void test__create_map__user_define(void** state)$/;"	f	signature:(void** state)
+test__create_map__user_define	test/ut/ut_cstl_map_private.h	/^void test__create_map__user_define(void** state);$/;"	p	signature:(void** state)
 test__create_multiset__c_builtin	test/ut/ut_cstl_multiset_private.c	/^void test__create_multiset__c_builtin(void** state)$/;"	f	signature:(void** state)
 test__create_multiset__c_builtin	test/ut/ut_cstl_multiset_private.h	/^void test__create_multiset__c_builtin(void** state);$/;"	p	signature:(void** state)
 test__create_multiset__cstr	test/ut/ut_cstl_multiset_private.c	/^void test__create_multiset__cstr(void** state)$/;"	f	signature:(void** state)
@@ -10382,6 +10447,32 @@ test__create_multiset_auxiliary__unregistered	test/ut/ut_cstl_multiset_private.c
 test__create_multiset_auxiliary__unregistered	test/ut/ut_cstl_multiset_private.h	/^void test__create_multiset_auxiliary__unregistered(void** state);$/;"	p	signature:(void** state)
 test__create_multiset_auxiliary__user_define	test/ut/ut_cstl_multiset_private.c	/^void test__create_multiset_auxiliary__user_define(void** state)$/;"	f	signature:(void** state)
 test__create_multiset_auxiliary__user_define	test/ut/ut_cstl_multiset_private.h	/^void test__create_multiset_auxiliary__user_define(void** state);$/;"	p	signature:(void** state)
+test__create_pair__c_builtin	test/ut/ut_cstl_pair_private.c	/^void test__create_pair__c_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_pair__c_builtin	test/ut/ut_cstl_pair_private.h	/^void test__create_pair__c_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_pair__cstr	test/ut/ut_cstl_pair_private.c	/^void test__create_pair__cstr(void** state)$/;"	f	signature:(void** state)
+test__create_pair__cstr	test/ut/ut_cstl_pair_private.h	/^void test__create_pair__cstr(void** state);$/;"	p	signature:(void** state)
+test__create_pair__invalid	test/ut/ut_cstl_pair_private.c	/^void test__create_pair__invalid(void** state)$/;"	f	signature:(void** state)
+test__create_pair__invalid	test/ut/ut_cstl_pair_private.h	/^void test__create_pair__invalid(void** state);$/;"	p	signature:(void** state)
+test__create_pair__libcstl_builtin	test/ut/ut_cstl_pair_private.c	/^void test__create_pair__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_pair__libcstl_builtin	test/ut/ut_cstl_pair_private.h	/^void test__create_pair__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_pair__null_typename	test/ut/ut_cstl_pair_private.h	/^void test__create_pair__null_typename(void** state);$/;"	p	signature:(void** state)
+test__create_pair__unregister	test/ut/ut_cstl_pair_private.c	/^void test__create_pair__unregister(void** state)$/;"	f	signature:(void** state)
+test__create_pair__unregister	test/ut/ut_cstl_pair_private.h	/^void test__create_pair__unregister(void** state);$/;"	p	signature:(void** state)
+test__create_pair__user_define	test/ut/ut_cstl_pair_private.c	/^void test__create_pair__user_define(void** state)$/;"	f	signature:(void** state)
+test__create_pair__user_define	test/ut/ut_cstl_pair_private.h	/^void test__create_pair__user_define(void** state);$/;"	p	signature:(void** state)
+test__create_pair_auxiliary__c_builtin	test/ut/ut_cstl_pair_private.c	/^void test__create_pair_auxiliary__c_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_pair_auxiliary__c_builtin	test/ut/ut_cstl_pair_private.h	/^void test__create_pair_auxiliary__c_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_pair_auxiliary__cstr	test/ut/ut_cstl_pair_private.c	/^void test__create_pair_auxiliary__cstr(void** state)$/;"	f	signature:(void** state)
+test__create_pair_auxiliary__cstr	test/ut/ut_cstl_pair_private.h	/^void test__create_pair_auxiliary__cstr(void** state);$/;"	p	signature:(void** state)
+test__create_pair_auxiliary__libcstl_builtin	test/ut/ut_cstl_pair_private.c	/^void test__create_pair_auxiliary__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__create_pair_auxiliary__libcstl_builtin	test/ut/ut_cstl_pair_private.h	/^void test__create_pair_auxiliary__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__create_pair_auxiliary__null_pair	test/ut/ut_cstl_pair_private.h	/^void test__create_pair_auxiliary__null_pair(void** state);$/;"	p	signature:(void** state)
+test__create_pair_auxiliary__null_typename	test/ut/ut_cstl_pair_private.c	/^void test__create_pair_auxiliary__null_typename(void** state)$/;"	f	signature:(void** state)
+test__create_pair_auxiliary__null_typename	test/ut/ut_cstl_pair_private.h	/^void test__create_pair_auxiliary__null_typename(void** state);$/;"	p	signature:(void** state)
+test__create_pair_auxiliary__unregistered	test/ut/ut_cstl_pair_private.c	/^void test__create_pair_auxiliary__unregistered(void** state)$/;"	f	signature:(void** state)
+test__create_pair_auxiliary__unregistered	test/ut/ut_cstl_pair_private.h	/^void test__create_pair_auxiliary__unregistered(void** state);$/;"	p	signature:(void** state)
+test__create_pair_auxiliary__user_define	test/ut/ut_cstl_pair_private.c	/^void test__create_pair_auxiliary__user_define(void** state)$/;"	f	signature:(void** state)
+test__create_pair_auxiliary__user_define	test/ut/ut_cstl_pair_private.h	/^void test__create_pair_auxiliary__user_define(void** state);$/;"	p	signature:(void** state)
 test__create_queue__c_builtin_type	test/ut/ut_cstl_queue_private.c	/^void test__create_queue__c_builtin_type(void** state)$/;"	f	signature:(void** state)
 test__create_queue__c_builtin_type	test/ut/ut_cstl_queue_private.h	/^void test__create_queue__c_builtin_type(void** state);$/;"	p	signature:(void** state)
 test__create_queue__libcstl_builtin_type	test/ut/ut_cstl_queue_private.c	/^void test__create_queue__libcstl_builtin_type(void** state)$/;"	f	signature:(void** state)
@@ -11774,6 +11865,44 @@ test__list_transfer__successfully_middle_all	test/ut/ut_cstl_list_aux.c	/^void t
 test__list_transfer__successfully_middle_all	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__successfully_middle_all(void** state);$/;"	p	signature:(void** state)
 test__list_transfer__successfully_middle_middle	test/ut/ut_cstl_list_aux.c	/^void test__list_transfer__successfully_middle_middle(void** state)$/;"	f	signature:(void** state)
 test__list_transfer__successfully_middle_middle	test/ut/ut_cstl_list_aux.h	/^void test__list_transfer__successfully_middle_middle(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__first_noninited	test/ut/ut_cstl_map_aux.c	/^void test__map_same_pair_type__first_noninited(void** state)$/;"	f	signature:(void** state)
+test__map_same_pair_type__first_noninited	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__first_noninited(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__first_null	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__first_null(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__not_mapkeycompare	test/ut/ut_cstl_map_aux.c	/^void test__map_same_pair_type__not_mapkeycompare(void** state)$/;"	f	signature:(void** state)
+test__map_same_pair_type__not_mapkeycompare	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__not_mapkeycompare(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__not_mapvaluecompare	test/ut/ut_cstl_map_aux.c	/^void test__map_same_pair_type__not_mapvaluecompare(void** state)$/;"	f	signature:(void** state)
+test__map_same_pair_type__not_mapvaluecompare	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__not_mapvaluecompare(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__not_same_first_type	test/ut/ut_cstl_map_aux.c	/^void test__map_same_pair_type__not_same_first_type(void** state)$/;"	f	signature:(void** state)
+test__map_same_pair_type__not_same_first_type	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__not_same_first_type(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__not_same_second_type	test/ut/ut_cstl_map_aux.c	/^void test__map_same_pair_type__not_same_second_type(void** state)$/;"	f	signature:(void** state)
+test__map_same_pair_type__not_same_second_type	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__not_same_second_type(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__same_pair	test/ut/ut_cstl_map_aux.c	/^void test__map_same_pair_type__same_pair(void** state)$/;"	f	signature:(void** state)
+test__map_same_pair_type__same_pair	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__same_pair(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__same_type	test/ut/ut_cstl_map_aux.c	/^void test__map_same_pair_type__same_type(void** state)$/;"	f	signature:(void** state)
+test__map_same_pair_type__same_type	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__same_type(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__second_noninited	test/ut/ut_cstl_map_aux.c	/^void test__map_same_pair_type__second_noninited(void** state)$/;"	f	signature:(void** state)
+test__map_same_pair_type__second_noninited	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__second_noninited(void** state);$/;"	p	signature:(void** state)
+test__map_same_pair_type__second_null	test/ut/ut_cstl_map_aux.c	/^void test__map_same_pair_type__second_null(void** state)$/;"	f	signature:(void** state)
+test__map_same_pair_type__second_null	test/ut/ut_cstl_map_aux.h	/^void test__map_same_pair_type__second_null(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__no_mapkeycompare_result_false	test/ut/ut_cstl_map_aux.c	/^void test__map_value_compare__no_mapkeycompare_result_false(void** state)$/;"	f	signature:(void** state)
+test__map_value_compare__no_mapkeycompare_result_false	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__no_mapkeycompare_result_false(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__no_mapkeycompare_result_true	test/ut/ut_cstl_map_aux.c	/^void test__map_value_compare__no_mapkeycompare_result_true(void** state)$/;"	f	signature:(void** state)
+test__map_value_compare__no_mapkeycompare_result_true	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__no_mapkeycompare_result_true(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__noninited_first	test/ut/ut_cstl_map_aux.c	/^void test__map_value_compare__noninited_first(void** state)$/;"	f	signature:(void** state)
+test__map_value_compare__noninited_first	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__noninited_first(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__noninited_second	test/ut/ut_cstl_map_aux.c	/^void test__map_value_compare__noninited_second(void** state)$/;"	f	signature:(void** state)
+test__map_value_compare__noninited_second	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__noninited_second(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__not_same	test/ut/ut_cstl_map_aux.c	/^void test__map_value_compare__not_same(void** state)$/;"	f	signature:(void** state)
+test__map_value_compare__not_same	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__not_same(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__null_first	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__null_first(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__null_output	test/ut/ut_cstl_map_aux.c	/^void test__map_value_compare__null_output(void** state)$/;"	f	signature:(void** state)
+test__map_value_compare__null_output	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__null_output(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__null_second	test/ut/ut_cstl_map_aux.c	/^void test__map_value_compare__null_second(void** state)$/;"	f	signature:(void** state)
+test__map_value_compare__null_second	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__null_second(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__user_mapkeycompare_result_false	test/ut/ut_cstl_map_aux.c	/^void test__map_value_compare__user_mapkeycompare_result_false(void** state)$/;"	f	signature:(void** state)
+test__map_value_compare__user_mapkeycompare_result_false	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__user_mapkeycompare_result_false(void** state);$/;"	p	signature:(void** state)
+test__map_value_compare__user_mapkeycompare_result_true	test/ut/ut_cstl_map_aux.c	/^void test__map_value_compare__user_mapkeycompare_result_true(void** state)$/;"	f	signature:(void** state)
+test__map_value_compare__user_mapkeycompare_result_true	test/ut/ut_cstl_map_aux.h	/^void test__map_value_compare__user_mapkeycompare_result_true(void** state);$/;"	p	signature:(void** state)
 test__multiset_count__multiset_count_varg__c_builtin_0	test/ut/ut_cstl_multiset_private.c	/^void test__multiset_count__multiset_count_varg__c_builtin_0(void** state)$/;"	f	signature:(void** state)
 test__multiset_count__multiset_count_varg__c_builtin_0	test/ut/ut_cstl_multiset_private.h	/^void test__multiset_count__multiset_count_varg__c_builtin_0(void** state);$/;"	p	signature:(void** state)
 test__multiset_count__multiset_count_varg__c_builtin_1	test/ut/ut_cstl_multiset_private.c	/^void test__multiset_count__multiset_count_varg__c_builtin_1(void** state)$/;"	f	signature:(void** state)
@@ -12074,6 +12203,17 @@ test__multiset_upper_bound__multiset_upper_bound_varg__user_define_equal	test/ut
 test__multiset_upper_bound__multiset_upper_bound_varg__user_define_equal	test/ut/ut_cstl_multiset_private.h	/^void test__multiset_upper_bound__multiset_upper_bound_varg__user_define_equal(void** state);$/;"	p	signature:(void** state)
 test__multiset_upper_bound__multiset_upper_bound_varg__user_define_greater	test/ut/ut_cstl_multiset_private.c	/^void test__multiset_upper_bound__multiset_upper_bound_varg__user_define_greater(void** state)$/;"	f	signature:(void** state)
 test__multiset_upper_bound__multiset_upper_bound_varg__user_define_greater	test/ut/ut_cstl_multiset_private.h	/^void test__multiset_upper_bound__multiset_upper_bound_varg__user_define_greater(void** state);$/;"	p	signature:(void** state)
+test__pair_destroy_auxiliary__created_not_inited	test/ut/ut_cstl_pair_private.c	/^void test__pair_destroy_auxiliary__created_not_inited(void** state)$/;"	f	signature:(void** state)
+test__pair_destroy_auxiliary__created_not_inited	test/ut/ut_cstl_pair_private.h	/^void test__pair_destroy_auxiliary__created_not_inited(void** state);$/;"	p	signature:(void** state)
+test__pair_destroy_auxiliary__empty	test/ut/ut_cstl_pair_private.c	/^void test__pair_destroy_auxiliary__empty(void** state)$/;"	f	signature:(void** state)
+test__pair_destroy_auxiliary__empty	test/ut/ut_cstl_pair_private.h	/^void test__pair_destroy_auxiliary__empty(void** state);$/;"	p	signature:(void** state)
+test__pair_destroy_auxiliary__non_created	test/ut/ut_cstl_pair_private.c	/^void test__pair_destroy_auxiliary__non_created(void** state)$/;"	f	signature:(void** state)
+test__pair_destroy_auxiliary__non_created	test/ut/ut_cstl_pair_private.h	/^void test__pair_destroy_auxiliary__non_created(void** state);$/;"	p	signature:(void** state)
+test__pair_destroy_auxiliary__non_empty	test/ut/ut_cstl_pair_private.c	/^void test__pair_destroy_auxiliary__non_empty(void** state)$/;"	f	signature:(void** state)
+test__pair_destroy_auxiliary__non_empty	test/ut/ut_cstl_pair_private.h	/^void test__pair_destroy_auxiliary__non_empty(void** state);$/;"	p	signature:(void** state)
+test__pair_destroy_auxiliary__non_inited	test/ut/ut_cstl_pair_private.c	/^void test__pair_destroy_auxiliary__non_inited(void** state)$/;"	f	signature:(void** state)
+test__pair_destroy_auxiliary__non_inited	test/ut/ut_cstl_pair_private.h	/^void test__pair_destroy_auxiliary__non_inited(void** state);$/;"	p	signature:(void** state)
+test__pair_destroy_auxiliary__null_pair	test/ut/ut_cstl_pair_private.h	/^void test__pair_destroy_auxiliary__null_pair(void** state);$/;"	p	signature:(void** state)
 test__pair_is_created__created	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__created(void** state)$/;"	f	signature:(void** state)
 test__pair_is_created__created	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__created(void** state);$/;"	p	signature:(void** state)
 test__pair_is_created__invalid_first	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_first(void** state)$/;"	f	signature:(void** state)
@@ -12092,9 +12232,44 @@ test__pair_is_created__invalid_typeinfosecond_style	test/ut/ut_cstl_pair_private
 test__pair_is_created__invalid_typeinfosecond_style	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_typeinfosecond_style(void** state);$/;"	p	signature:(void** state)
 test__pair_is_created__invalid_typeinfosecond_type	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__invalid_typeinfosecond_type(void** state)$/;"	f	signature:(void** state)
 test__pair_is_created__invalid_typeinfosecond_type	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__invalid_typeinfosecond_type(void** state);$/;"	p	signature:(void** state)
-test__pair_is_created__non_inited_allocator	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_created__non_inited_allocator(void** state)$/;"	f	signature:(void** state)
-test__pair_is_created__non_inited_allocator	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__non_inited_allocator(void** state);$/;"	p	signature:(void** state)
 test__pair_is_created__null_pair	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_created__null_pair(void** state);$/;"	p	signature:(void** state)
+test__pair_is_inited__invalid_typeinfofirst_style	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_inited__invalid_typeinfofirst_style(void** state)$/;"	f	signature:(void** state)
+test__pair_is_inited__invalid_typeinfofirst_style	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_inited__invalid_typeinfofirst_style(void** state);$/;"	p	signature:(void** state)
+test__pair_is_inited__invalid_typeinfofirst_type	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_inited__invalid_typeinfofirst_type(void** state)$/;"	f	signature:(void** state)
+test__pair_is_inited__invalid_typeinfofirst_type	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_inited__invalid_typeinfofirst_type(void** state);$/;"	p	signature:(void** state)
+test__pair_is_inited__invalid_typeinfosecond_style	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_inited__invalid_typeinfosecond_style(void** state)$/;"	f	signature:(void** state)
+test__pair_is_inited__invalid_typeinfosecond_style	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_inited__invalid_typeinfosecond_style(void** state);$/;"	p	signature:(void** state)
+test__pair_is_inited__invalid_typeinfosecond_type	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_inited__invalid_typeinfosecond_type(void** state)$/;"	f	signature:(void** state)
+test__pair_is_inited__invalid_typeinfosecond_type	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_inited__invalid_typeinfosecond_type(void** state);$/;"	p	signature:(void** state)
+test__pair_is_inited__null_pair	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_inited__null_pair(void** state);$/;"	p	signature:(void** state)
+test__pair_is_inited__null_pair_first	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_inited__null_pair_first(void** state)$/;"	f	signature:(void** state)
+test__pair_is_inited__null_pair_first	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_inited__null_pair_first(void** state);$/;"	p	signature:(void** state)
+test__pair_is_inited__null_pair_second	test/ut/ut_cstl_pair_private.c	/^void test__pair_is_inited__null_pair_second(void** state)$/;"	f	signature:(void** state)
+test__pair_is_inited__null_pair_second	test/ut/ut_cstl_pair_private.h	/^void test__pair_is_inited__null_pair_second(void** state);$/;"	p	signature:(void** state)
+test__pair_make_first__c_builtin	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_first__c_builtin(void** state)$/;"	f	signature:(void** state)
+test__pair_make_first__c_builtin	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_first__c_builtin(void** state);$/;"	p	signature:(void** state)
+test__pair_make_first__libcstl_builtin	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_first__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__pair_make_first__libcstl_builtin	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_first__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__pair_make_first__non_inited	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_first__non_inited(void** state)$/;"	f	signature:(void** state)
+test__pair_make_first__non_inited	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_first__non_inited(void** state);$/;"	p	signature:(void** state)
+test__pair_make_first__null_pair	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_first__null_pair(void** state);$/;"	p	signature:(void** state)
+test__pair_make_first__str	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_first__str(void** state)$/;"	f	signature:(void** state)
+test__pair_make_first__str	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_first__str(void** state);$/;"	p	signature:(void** state)
+test__pair_make_first__user_define	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_first__user_define(void** state)$/;"	f	signature:(void** state)
+test__pair_make_first__user_define	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_first__user_define(void** state);$/;"	p	signature:(void** state)
+test__pair_make_second__c_builtin	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_second__c_builtin(void** state)$/;"	f	signature:(void** state)
+test__pair_make_second__c_builtin	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_second__c_builtin(void** state);$/;"	p	signature:(void** state)
+test__pair_make_second__libcstl_builtin	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_second__libcstl_builtin(void** state)$/;"	f	signature:(void** state)
+test__pair_make_second__libcstl_builtin	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_second__libcstl_builtin(void** state);$/;"	p	signature:(void** state)
+test__pair_make_second__non_inited	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_second__non_inited(void** state)$/;"	f	signature:(void** state)
+test__pair_make_second__non_inited	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_second__non_inited(void** state);$/;"	p	signature:(void** state)
+test__pair_make_second__null_pair	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_second__null_pair(void** state);$/;"	p	signature:(void** state)
+test__pair_make_second__str	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_second__str(void** state)$/;"	f	signature:(void** state)
+test__pair_make_second__str	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_second__str(void** state);$/;"	p	signature:(void** state)
+test__pair_make_second__user_define	test/ut/ut_cstl_pair_private.c	/^void test__pair_make_second__user_define(void** state)$/;"	f	signature:(void** state)
+test__pair_make_second__user_define	test/ut/ut_cstl_pair_private.h	/^void test__pair_make_second__user_define(void** state);$/;"	p	signature:(void** state)
+test__pair_same_type__first_noninited	test/ut/ut_cstl_pair_aux.c	/^void test__pair_same_type__first_noninited(void** state)$/;"	f	signature:(void** state)
+test__pair_same_type__first_noninited	test/ut/ut_cstl_pair_aux.h	/^void test__pair_same_type__first_noninited(void** state);$/;"	p	signature:(void** state)
 test__pair_same_type__first_null	test/ut/ut_cstl_pair_aux.h	/^void test__pair_same_type__first_null(void** state);$/;"	p	signature:(void** state)
 test__pair_same_type__not_same_first_type	test/ut/ut_cstl_pair_aux.c	/^void test__pair_same_type__not_same_first_type(void** state)$/;"	f	signature:(void** state)
 test__pair_same_type__not_same_first_type	test/ut/ut_cstl_pair_aux.h	/^void test__pair_same_type__not_same_first_type(void** state);$/;"	p	signature:(void** state)
@@ -12104,6 +12279,8 @@ test__pair_same_type__same_pair	test/ut/ut_cstl_pair_aux.c	/^void test__pair_sam
 test__pair_same_type__same_pair	test/ut/ut_cstl_pair_aux.h	/^void test__pair_same_type__same_pair(void** state);$/;"	p	signature:(void** state)
 test__pair_same_type__same_type	test/ut/ut_cstl_pair_aux.c	/^void test__pair_same_type__same_type(void** state)$/;"	f	signature:(void** state)
 test__pair_same_type__same_type	test/ut/ut_cstl_pair_aux.h	/^void test__pair_same_type__same_type(void** state);$/;"	p	signature:(void** state)
+test__pair_same_type__second_noninited	test/ut/ut_cstl_pair_aux.c	/^void test__pair_same_type__second_noninited(void** state)$/;"	f	signature:(void** state)
+test__pair_same_type__second_noninited	test/ut/ut_cstl_pair_aux.h	/^void test__pair_same_type__second_noninited(void** state);$/;"	p	signature:(void** state)
 test__pair_same_type__second_null	test/ut/ut_cstl_pair_aux.c	/^void test__pair_same_type__second_null(void** state)$/;"	f	signature:(void** state)
 test__pair_same_type__second_null	test/ut/ut_cstl_pair_aux.h	/^void test__pair_same_type__second_null(void** state);$/;"	p	signature:(void** state)
 test__queue_destroy_auxiliary__empty	test/ut/ut_cstl_queue_private.c	/^void test__queue_destroy_auxiliary__empty(void** state)$/;"	f	signature:(void** state)
@@ -20554,6 +20731,194 @@ test_numeric	test/it/test_numeric.c	/^void test_numeric(void)$/;"	f	signature:(v
 test_numeric	test/it/test_numeric.h	/^extern void test_numeric(void);$/;"	p	signature:(void)
 test_pair	test/it/test_pair.c	/^void test_pair(void)$/;"	f	signature:(void)
 test_pair	test/it/test_pair.h	/^extern void test_pair(void);$/;"	p	signature:(void)
+test_pair_assign__equal_not_same	test/ut/ut_cstl_pair.c	/^void test_pair_assign__equal_not_same(void** state)$/;"	f	signature:(void** state)
+test_pair_assign__equal_not_same	test/ut/ut_cstl_pair.h	/^void test_pair_assign__equal_not_same(void** state);$/;"	p	signature:(void** state)
+test_pair_assign__non_init_dest	test/ut/ut_cstl_pair.c	/^void test_pair_assign__non_init_dest(void** state)$/;"	f	signature:(void** state)
+test_pair_assign__non_init_dest	test/ut/ut_cstl_pair.h	/^void test_pair_assign__non_init_dest(void** state);$/;"	p	signature:(void** state)
+test_pair_assign__non_init_src	test/ut/ut_cstl_pair.c	/^void test_pair_assign__non_init_src(void** state)$/;"	f	signature:(void** state)
+test_pair_assign__non_init_src	test/ut/ut_cstl_pair.h	/^void test_pair_assign__non_init_src(void** state);$/;"	p	signature:(void** state)
+test_pair_assign__not_equal	test/ut/ut_cstl_pair.c	/^void test_pair_assign__not_equal(void** state)$/;"	f	signature:(void** state)
+test_pair_assign__not_equal	test/ut/ut_cstl_pair.h	/^void test_pair_assign__not_equal(void** state);$/;"	p	signature:(void** state)
+test_pair_assign__not_same_type	test/ut/ut_cstl_pair.c	/^void test_pair_assign__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_pair_assign__not_same_type	test/ut/ut_cstl_pair.h	/^void test_pair_assign__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_pair_assign__null_dest	test/ut/ut_cstl_pair.h	/^void test_pair_assign__null_dest(void** state);$/;"	p	signature:(void** state)
+test_pair_assign__null_src	test/ut/ut_cstl_pair.c	/^void test_pair_assign__null_src(void** state)$/;"	f	signature:(void** state)
+test_pair_assign__null_src	test/ut/ut_cstl_pair.h	/^void test_pair_assign__null_src(void** state);$/;"	p	signature:(void** state)
+test_pair_assign__same_pair	test/ut/ut_cstl_pair.c	/^void test_pair_assign__same_pair(void** state)$/;"	f	signature:(void** state)
+test_pair_assign__same_pair	test/ut/ut_cstl_pair.h	/^void test_pair_assign__same_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_destroy__created	test/ut/ut_cstl_pair.c	/^void test_pair_destroy__created(void** state)$/;"	f	signature:(void** state)
+test_pair_destroy__created	test/ut/ut_cstl_pair.h	/^void test_pair_destroy__created(void** state);$/;"	p	signature:(void** state)
+test_pair_destroy__inited	test/ut/ut_cstl_pair.c	/^void test_pair_destroy__inited(void** state)$/;"	f	signature:(void** state)
+test_pair_destroy__inited	test/ut/ut_cstl_pair.h	/^void test_pair_destroy__inited(void** state);$/;"	p	signature:(void** state)
+test_pair_destroy__non_created	test/ut/ut_cstl_pair.c	/^void test_pair_destroy__non_created(void** state)$/;"	f	signature:(void** state)
+test_pair_destroy__non_created	test/ut/ut_cstl_pair.h	/^void test_pair_destroy__non_created(void** state);$/;"	p	signature:(void** state)
+test_pair_destroy__null_pair	test/ut/ut_cstl_pair.h	/^void test_pair_destroy__null_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__equal	test/ut/ut_cstl_pair.c	/^void test_pair_equal__equal(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__equal	test/ut/ut_cstl_pair.h	/^void test_pair_equal__equal(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__greater_first_greater	test/ut/ut_cstl_pair.c	/^void test_pair_equal__greater_first_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__greater_first_greater	test/ut/ut_cstl_pair.h	/^void test_pair_equal__greater_first_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__greater_second_greater	test/ut/ut_cstl_pair.c	/^void test_pair_equal__greater_second_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__greater_second_greater	test/ut/ut_cstl_pair.h	/^void test_pair_equal__greater_second_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__less_first_less	test/ut/ut_cstl_pair.c	/^void test_pair_equal__less_first_less(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__less_first_less	test/ut/ut_cstl_pair.h	/^void test_pair_equal__less_first_less(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__less_second_less	test/ut/ut_cstl_pair.c	/^void test_pair_equal__less_second_less(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__less_second_less	test/ut/ut_cstl_pair.h	/^void test_pair_equal__less_second_less(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__non_inited_first	test/ut/ut_cstl_pair.c	/^void test_pair_equal__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__non_inited_first	test/ut/ut_cstl_pair.h	/^void test_pair_equal__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__non_inited_second	test/ut/ut_cstl_pair.c	/^void test_pair_equal__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__non_inited_second	test/ut/ut_cstl_pair.h	/^void test_pair_equal__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__not_same_type	test/ut/ut_cstl_pair.c	/^void test_pair_equal__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__not_same_type	test/ut/ut_cstl_pair.h	/^void test_pair_equal__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__null_first	test/ut/ut_cstl_pair.h	/^void test_pair_equal__null_first(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__null_second	test/ut/ut_cstl_pair.c	/^void test_pair_equal__null_second(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__null_second	test/ut/ut_cstl_pair.h	/^void test_pair_equal__null_second(void** state);$/;"	p	signature:(void** state)
+test_pair_equal__same_pair	test/ut/ut_cstl_pair.c	/^void test_pair_equal__same_pair(void** state)$/;"	f	signature:(void** state)
+test_pair_equal__same_pair	test/ut/ut_cstl_pair.h	/^void test_pair_equal__same_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_first__c_builtin	test/ut/ut_cstl_pair.c	/^void test_pair_first__c_builtin(void** state)$/;"	f	signature:(void** state)
+test_pair_first__c_builtin	test/ut/ut_cstl_pair.h	/^void test_pair_first__c_builtin(void** state);$/;"	p	signature:(void** state)
+test_pair_first__cstl_builtin	test/ut/ut_cstl_pair.c	/^void test_pair_first__cstl_builtin(void** state)$/;"	f	signature:(void** state)
+test_pair_first__cstl_builtin	test/ut/ut_cstl_pair.h	/^void test_pair_first__cstl_builtin(void** state);$/;"	p	signature:(void** state)
+test_pair_first__non_inited	test/ut/ut_cstl_pair.c	/^void test_pair_first__non_inited(void** state)$/;"	f	signature:(void** state)
+test_pair_first__non_inited	test/ut/ut_cstl_pair.h	/^void test_pair_first__non_inited(void** state);$/;"	p	signature:(void** state)
+test_pair_first__null_pair	test/ut/ut_cstl_pair.h	/^void test_pair_first__null_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_first__str	test/ut/ut_cstl_pair.c	/^void test_pair_first__str(void** state)$/;"	f	signature:(void** state)
+test_pair_first__str	test/ut/ut_cstl_pair.h	/^void test_pair_first__str(void** state);$/;"	p	signature:(void** state)
+test_pair_first__user_define	test/ut/ut_cstl_pair.c	/^void test_pair_first__user_define(void** state)$/;"	f	signature:(void** state)
+test_pair_first__user_define	test/ut/ut_cstl_pair.h	/^void test_pair_first__user_define(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__equal	test/ut/ut_cstl_pair.c	/^void test_pair_greater__equal(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__equal	test/ut/ut_cstl_pair.h	/^void test_pair_greater__equal(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__greater_first_greater	test/ut/ut_cstl_pair.c	/^void test_pair_greater__greater_first_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__greater_first_greater	test/ut/ut_cstl_pair.h	/^void test_pair_greater__greater_first_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__greater_second_greater	test/ut/ut_cstl_pair.c	/^void test_pair_greater__greater_second_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__greater_second_greater	test/ut/ut_cstl_pair.h	/^void test_pair_greater__greater_second_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__less_first_less	test/ut/ut_cstl_pair.c	/^void test_pair_greater__less_first_less(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__less_first_less	test/ut/ut_cstl_pair.h	/^void test_pair_greater__less_first_less(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__less_second_less	test/ut/ut_cstl_pair.c	/^void test_pair_greater__less_second_less(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__less_second_less	test/ut/ut_cstl_pair.h	/^void test_pair_greater__less_second_less(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__non_inited_first	test/ut/ut_cstl_pair.c	/^void test_pair_greater__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__non_inited_first	test/ut/ut_cstl_pair.h	/^void test_pair_greater__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__non_inited_second	test/ut/ut_cstl_pair.c	/^void test_pair_greater__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__non_inited_second	test/ut/ut_cstl_pair.h	/^void test_pair_greater__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__not_same_type	test/ut/ut_cstl_pair.c	/^void test_pair_greater__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__not_same_type	test/ut/ut_cstl_pair.h	/^void test_pair_greater__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__null_first	test/ut/ut_cstl_pair.h	/^void test_pair_greater__null_first(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__null_second	test/ut/ut_cstl_pair.c	/^void test_pair_greater__null_second(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__null_second	test/ut/ut_cstl_pair.h	/^void test_pair_greater__null_second(void** state);$/;"	p	signature:(void** state)
+test_pair_greater__same_pair	test/ut/ut_cstl_pair.c	/^void test_pair_greater__same_pair(void** state)$/;"	f	signature:(void** state)
+test_pair_greater__same_pair	test/ut/ut_cstl_pair.h	/^void test_pair_greater__same_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__equal	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__equal(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__equal	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__equal(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__greater_first_greater	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__greater_first_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__greater_first_greater	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__greater_first_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__greater_second_greater	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__greater_second_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__greater_second_greater	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__greater_second_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__less_first_less	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__less_first_less(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__less_first_less	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__less_first_less(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__less_second_less	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__less_second_less(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__less_second_less	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__less_second_less(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__non_inited_first	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__non_inited_first	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__non_inited_second	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__non_inited_second	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__not_same_type	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__not_same_type	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__null_first	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__null_first(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__null_second	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__null_second(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__null_second	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__null_second(void** state);$/;"	p	signature:(void** state)
+test_pair_greater_equal__same_pair	test/ut/ut_cstl_pair.c	/^void test_pair_greater_equal__same_pair(void** state)$/;"	f	signature:(void** state)
+test_pair_greater_equal__same_pair	test/ut/ut_cstl_pair.h	/^void test_pair_greater_equal__same_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_init__init	test/ut/ut_cstl_pair.c	/^void test_pair_init__init(void** state)$/;"	f	signature:(void** state)
+test_pair_init__init	test/ut/ut_cstl_pair.h	/^void test_pair_init__init(void** state);$/;"	p	signature:(void** state)
+test_pair_init__non_created	test/ut/ut_cstl_pair.c	/^void test_pair_init__non_created(void** state)$/;"	f	signature:(void** state)
+test_pair_init__non_created	test/ut/ut_cstl_pair.h	/^void test_pair_init__non_created(void** state);$/;"	p	signature:(void** state)
+test_pair_init__null_pair	test/ut/ut_cstl_pair.h	/^void test_pair_init__null_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_init_copy__empty	test/ut/ut_cstl_pair.c	/^void test_pair_init_copy__empty(void** state)$/;"	f	signature:(void** state)
+test_pair_init_copy__empty	test/ut/ut_cstl_pair.h	/^void test_pair_init_copy__empty(void** state);$/;"	p	signature:(void** state)
+test_pair_init_copy__non_created_dest	test/ut/ut_cstl_pair.c	/^void test_pair_init_copy__non_created_dest(void** state)$/;"	f	signature:(void** state)
+test_pair_init_copy__non_created_dest	test/ut/ut_cstl_pair.h	/^void test_pair_init_copy__non_created_dest(void** state);$/;"	p	signature:(void** state)
+test_pair_init_copy__non_empty	test/ut/ut_cstl_pair.c	/^void test_pair_init_copy__non_empty(void** state)$/;"	f	signature:(void** state)
+test_pair_init_copy__non_empty	test/ut/ut_cstl_pair.h	/^void test_pair_init_copy__non_empty(void** state);$/;"	p	signature:(void** state)
+test_pair_init_copy__non_inited_src	test/ut/ut_cstl_pair.c	/^void test_pair_init_copy__non_inited_src(void** state)$/;"	f	signature:(void** state)
+test_pair_init_copy__non_inited_src	test/ut/ut_cstl_pair.h	/^void test_pair_init_copy__non_inited_src(void** state);$/;"	p	signature:(void** state)
+test_pair_init_copy__not_same_type	test/ut/ut_cstl_pair.c	/^void test_pair_init_copy__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_pair_init_copy__not_same_type	test/ut/ut_cstl_pair.h	/^void test_pair_init_copy__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_pair_init_copy__null_dest	test/ut/ut_cstl_pair.h	/^void test_pair_init_copy__null_dest(void** state);$/;"	p	signature:(void** state)
+test_pair_init_copy__null_src	test/ut/ut_cstl_pair.c	/^void test_pair_init_copy__null_src(void** state)$/;"	f	signature:(void** state)
+test_pair_init_copy__null_src	test/ut/ut_cstl_pair.h	/^void test_pair_init_copy__null_src(void** state);$/;"	p	signature:(void** state)
+test_pair_less__equal	test/ut/ut_cstl_pair.c	/^void test_pair_less__equal(void** state)$/;"	f	signature:(void** state)
+test_pair_less__equal	test/ut/ut_cstl_pair.h	/^void test_pair_less__equal(void** state);$/;"	p	signature:(void** state)
+test_pair_less__greater_first_greater	test/ut/ut_cstl_pair.c	/^void test_pair_less__greater_first_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_less__greater_first_greater	test/ut/ut_cstl_pair.h	/^void test_pair_less__greater_first_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_less__greater_second_greater	test/ut/ut_cstl_pair.c	/^void test_pair_less__greater_second_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_less__greater_second_greater	test/ut/ut_cstl_pair.h	/^void test_pair_less__greater_second_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_less__less_first_less	test/ut/ut_cstl_pair.c	/^void test_pair_less__less_first_less(void** state)$/;"	f	signature:(void** state)
+test_pair_less__less_first_less	test/ut/ut_cstl_pair.h	/^void test_pair_less__less_first_less(void** state);$/;"	p	signature:(void** state)
+test_pair_less__less_second_less	test/ut/ut_cstl_pair.c	/^void test_pair_less__less_second_less(void** state)$/;"	f	signature:(void** state)
+test_pair_less__less_second_less	test/ut/ut_cstl_pair.h	/^void test_pair_less__less_second_less(void** state);$/;"	p	signature:(void** state)
+test_pair_less__non_inited_first	test/ut/ut_cstl_pair.c	/^void test_pair_less__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_pair_less__non_inited_first	test/ut/ut_cstl_pair.h	/^void test_pair_less__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_pair_less__non_inited_second	test/ut/ut_cstl_pair.c	/^void test_pair_less__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_pair_less__non_inited_second	test/ut/ut_cstl_pair.h	/^void test_pair_less__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_pair_less__not_same_type	test/ut/ut_cstl_pair.c	/^void test_pair_less__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_pair_less__not_same_type	test/ut/ut_cstl_pair.h	/^void test_pair_less__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_pair_less__null_first	test/ut/ut_cstl_pair.h	/^void test_pair_less__null_first(void** state);$/;"	p	signature:(void** state)
+test_pair_less__null_second	test/ut/ut_cstl_pair.c	/^void test_pair_less__null_second(void** state)$/;"	f	signature:(void** state)
+test_pair_less__null_second	test/ut/ut_cstl_pair.h	/^void test_pair_less__null_second(void** state);$/;"	p	signature:(void** state)
+test_pair_less__same_pair	test/ut/ut_cstl_pair.c	/^void test_pair_less__same_pair(void** state)$/;"	f	signature:(void** state)
+test_pair_less__same_pair	test/ut/ut_cstl_pair.h	/^void test_pair_less__same_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__equal	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__equal(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__equal	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__equal(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__greater_first_greater	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__greater_first_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__greater_first_greater	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__greater_first_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__greater_second_greater	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__greater_second_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__greater_second_greater	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__greater_second_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__less_first_less	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__less_first_less(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__less_first_less	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__less_first_less(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__less_second_less	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__less_second_less(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__less_second_less	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__less_second_less(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__non_inited_first	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__non_inited_first	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__non_inited_second	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__non_inited_second	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__not_same_type	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__not_same_type	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__null_first	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__null_first(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__null_second	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__null_second(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__null_second	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__null_second(void** state);$/;"	p	signature:(void** state)
+test_pair_less_equal__same_pair	test/ut/ut_cstl_pair.c	/^void test_pair_less_equal__same_pair(void** state)$/;"	f	signature:(void** state)
+test_pair_less_equal__same_pair	test/ut/ut_cstl_pair.h	/^void test_pair_less_equal__same_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__equal	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__equal(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__equal	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__equal(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__greater_first_greater	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__greater_first_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__greater_first_greater	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__greater_first_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__greater_second_greater	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__greater_second_greater(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__greater_second_greater	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__greater_second_greater(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__less_first_less	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__less_first_less(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__less_first_less	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__less_first_less(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__less_second_less	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__less_second_less(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__less_second_less	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__less_second_less(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__non_inited_first	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__non_inited_first(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__non_inited_first	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__non_inited_first(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__non_inited_second	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__non_inited_second(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__non_inited_second	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__non_inited_second(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__not_same_type	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__not_same_type(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__not_same_type	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__not_same_type(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__null_first	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__null_first(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__null_second	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__null_second(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__null_second	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__null_second(void** state);$/;"	p	signature:(void** state)
+test_pair_not_equal__same_pair	test/ut/ut_cstl_pair.c	/^void test_pair_not_equal__same_pair(void** state)$/;"	f	signature:(void** state)
+test_pair_not_equal__same_pair	test/ut/ut_cstl_pair.h	/^void test_pair_not_equal__same_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_second__c_builtin	test/ut/ut_cstl_pair.c	/^void test_pair_second__c_builtin(void** state)$/;"	f	signature:(void** state)
+test_pair_second__c_builtin	test/ut/ut_cstl_pair.h	/^void test_pair_second__c_builtin(void** state);$/;"	p	signature:(void** state)
+test_pair_second__cstl_builtin	test/ut/ut_cstl_pair.c	/^void test_pair_second__cstl_builtin(void** state)$/;"	f	signature:(void** state)
+test_pair_second__cstl_builtin	test/ut/ut_cstl_pair.h	/^void test_pair_second__cstl_builtin(void** state);$/;"	p	signature:(void** state)
+test_pair_second__non_inited	test/ut/ut_cstl_pair.c	/^void test_pair_second__non_inited(void** state)$/;"	f	signature:(void** state)
+test_pair_second__non_inited	test/ut/ut_cstl_pair.h	/^void test_pair_second__non_inited(void** state);$/;"	p	signature:(void** state)
+test_pair_second__null_pair	test/ut/ut_cstl_pair.h	/^void test_pair_second__null_pair(void** state);$/;"	p	signature:(void** state)
+test_pair_second__str	test/ut/ut_cstl_pair.c	/^void test_pair_second__str(void** state)$/;"	f	signature:(void** state)
+test_pair_second__str	test/ut/ut_cstl_pair.h	/^void test_pair_second__str(void** state);$/;"	p	signature:(void** state)
+test_pair_second__user_define	test/ut/ut_cstl_pair.c	/^void test_pair_second__user_define(void** state)$/;"	f	signature:(void** state)
+test_pair_second__user_define	test/ut/ut_cstl_pair.h	/^void test_pair_second__user_define(void** state);$/;"	p	signature:(void** state)
 test_priority_queue	test/it/test_queue.c	/^void test_priority_queue(void)$/;"	f	signature:(void)
 test_priority_queue	test/it/test_queue.h	/^extern void test_priority_queue(void);$/;"	p	signature:(void)
 test_queue	test/it/test_queue.c	/^void test_queue(void)$/;"	f	signature:(void)
