@@ -69,10 +69,10 @@ void test__map_count__map_count_varg__user_define_n(void** state);
 /*
  * test _map_lower_bound and _map_lower_bound_varg
  */
-/*
 UT_CASE_DECLARATION(_map_lower_bound__map_lower_bound_varg)
 void test__map_lower_bound__map_lower_bound_varg__null_map(void** state);
 void test__map_lower_bound__map_lower_bound_varg__non_inited(void** state);
+void test__map_lower_bound__map_lower_bound_varg__non_inited_pair(void** state);
 void test__map_lower_bound__map_lower_bound_varg__c_builtin_equal(void** state);
 void test__map_lower_bound__map_lower_bound_varg__c_builtin_greater(void** state);
 void test__map_lower_bound__map_lower_bound_varg__cstr_lower_equal(void** state);
@@ -81,14 +81,13 @@ void test__map_lower_bound__map_lower_bound_varg__libcstl_builtin_equal(void** s
 void test__map_lower_bound__map_lower_bound_varg__libcstl_builtin_greater(void** state);
 void test__map_lower_bound__map_lower_bound_varg__user_define_equal(void** state);
 void test__map_lower_bound__map_lower_bound_varg__user_define_greater(void** state);
-*/
 /*
  * test _map_upper_bound and _map_upper_bound_varg
  */
-/*
 UT_CASE_DECLARATION(_map_upper_bound__map_upper_bound_varg)
 void test__map_upper_bound__map_upper_bound_varg__null_map(void** state);
 void test__map_upper_bound__map_upper_bound_varg__non_inited(void** state);
+void test__map_upper_bound__map_upper_bound_varg__non_inited_pair(void** state);
 void test__map_upper_bound__map_upper_bound_varg__c_builtin_equal(void** state);
 void test__map_upper_bound__map_upper_bound_varg__c_builtin_greater(void** state);
 void test__map_upper_bound__map_upper_bound_varg__cstr_upper_equal(void** state);
@@ -97,14 +96,13 @@ void test__map_upper_bound__map_upper_bound_varg__libcstl_builtin_equal(void** s
 void test__map_upper_bound__map_upper_bound_varg__libcstl_builtin_greater(void** state);
 void test__map_upper_bound__map_upper_bound_varg__user_define_equal(void** state);
 void test__map_upper_bound__map_upper_bound_varg__user_define_greater(void** state);
-*/
 /*
  * test _map_equal_range and _map_equal_range_varg
  */
-/*
 UT_CASE_DECLARATION(_map_equal_range__map_equal_range_varg)
 void test__map_equal_range__map_equal_range_varg__null_map(void** state);
 void test__map_equal_range__map_equal_range_varg__non_inited(void** state);
+void test__map_equal_range__map_equal_range_varg__non_inited_pair(void** state);
 void test__map_equal_range__map_equal_range_varg__c_builtin_equal(void** state);
 void test__map_equal_range__map_equal_range_varg__c_builtin_greater(void** state);
 void test__map_equal_range__map_equal_range_varg__cstr_upper_equal(void** state);
@@ -113,7 +111,21 @@ void test__map_equal_range__map_equal_range_varg__libcstl_builtin_equal(void** s
 void test__map_equal_range__map_equal_range_varg__libcstl_builtin_greater(void** state);
 void test__map_equal_range__map_equal_range_varg__user_define_equal(void** state);
 void test__map_equal_range__map_equal_range_varg__user_define_greater(void** state);
-*/
+/*
+ * test _map_at and _map_at_varg
+ */
+UT_CASE_DECLARATION(_map_at__map_at_varg)
+void test__map_at__map_at_varg__null_map(void** state);
+void test__map_at__map_at_varg__non_inited(void** state);
+void test__map_at__map_at_varg__non_inited_pair(void** state);
+void test__map_at__map_at_varg__c_builtin_exist(void** state);
+void test__map_at__map_at_varg__c_builtin_no_exist(void** state);
+void test__map_at__map_at_varg__cstr_exist(void** state);
+void test__map_at__map_at_varg__cstr_no_exist(void** state);
+void test__map_at__map_at_varg__libcstl_builtin_exist(void** state);
+void test__map_at__map_at_varg__libcstl_builtin_no_exist(void** state);
+void test__map_at__map_at_varg__user_define_exist(void** state);
+void test__map_at__map_at_varg__user_define_no_exist(void** state);
 /*
  * test _map_erase and _map_erase_varg
  */
@@ -225,9 +237,9 @@ void test__map_init_elem_auxiliary__successfully_user_defined(void** state);
     UT_CASE(test__map_count__map_count_varg__user_define_0),\
     UT_CASE(test__map_count__map_count_varg__user_define_1),\
     UT_CASE(test__map_count__map_count_varg__user_define_n),\
-/*
     UT_CASE_BEGIN(_map_count__map_count_varg, test__map_lower_bound__map_lower_bound_varg__null_map),\
     UT_CASE(test__map_lower_bound__map_lower_bound_varg__non_inited),\
+    UT_CASE(test__map_lower_bound__map_lower_bound_varg__non_inited_pair),\
     UT_CASE(test__map_lower_bound__map_lower_bound_varg__c_builtin_equal),\
     UT_CASE(test__map_lower_bound__map_lower_bound_varg__c_builtin_greater),\
     UT_CASE(test__map_lower_bound__map_lower_bound_varg__cstr_lower_equal),\
@@ -238,6 +250,7 @@ void test__map_init_elem_auxiliary__successfully_user_defined(void** state);
     UT_CASE(test__map_lower_bound__map_lower_bound_varg__user_define_greater),\
     UT_CASE_BEGIN(_map_upper_bound__map_upper_bound_varg, test__map_upper_bound__map_upper_bound_varg__null_map),\
     UT_CASE(test__map_upper_bound__map_upper_bound_varg__non_inited),\
+    UT_CASE(test__map_upper_bound__map_upper_bound_varg__non_inited_pair),\
     UT_CASE(test__map_upper_bound__map_upper_bound_varg__c_builtin_equal),\
     UT_CASE(test__map_upper_bound__map_upper_bound_varg__c_builtin_greater),\
     UT_CASE(test__map_upper_bound__map_upper_bound_varg__cstr_upper_equal),\
@@ -248,6 +261,7 @@ void test__map_init_elem_auxiliary__successfully_user_defined(void** state);
     UT_CASE(test__map_upper_bound__map_upper_bound_varg__user_define_greater),\
     UT_CASE_BEGIN(_map_equal_range__map_equal_range_varg, test__map_equal_range__map_equal_range_varg__null_map),\
     UT_CASE(test__map_equal_range__map_equal_range_varg__non_inited),\
+    UT_CASE(test__map_equal_range__map_equal_range_varg__non_inited_pair),\
     UT_CASE(test__map_equal_range__map_equal_range_varg__c_builtin_equal),\
     UT_CASE(test__map_equal_range__map_equal_range_varg__c_builtin_greater),\
     UT_CASE(test__map_equal_range__map_equal_range_varg__cstr_upper_equal),\
@@ -256,6 +270,18 @@ void test__map_init_elem_auxiliary__successfully_user_defined(void** state);
     UT_CASE(test__map_equal_range__map_equal_range_varg__libcstl_builtin_greater),\
     UT_CASE(test__map_equal_range__map_equal_range_varg__user_define_equal),\
     UT_CASE(test__map_equal_range__map_equal_range_varg__user_define_greater),\
+    UT_CASE_BEGIN(_map_at__map_at_varg, test__map_at__map_at_varg__null_map),\
+    UT_CASE(test__map_at__map_at_varg__non_inited),\
+    UT_CASE(test__map_at__map_at_varg__non_inited_pair),\
+    UT_CASE(test__map_at__map_at_varg__c_builtin_exist),\
+    UT_CASE(test__map_at__map_at_varg__c_builtin_no_exist),\
+    UT_CASE(test__map_at__map_at_varg__cstr_exist),\
+    UT_CASE(test__map_at__map_at_varg__cstr_no_exist),\
+    UT_CASE(test__map_at__map_at_varg__libcstl_builtin_exist),\
+    UT_CASE(test__map_at__map_at_varg__libcstl_builtin_no_exist),\
+    UT_CASE(test__map_at__map_at_varg__user_define_exist),\
+    UT_CASE(test__map_at__map_at_varg__user_define_no_exist),\
+/*
     UT_CASE_BEGIN(_map_erase__map_erase_varg, test__map_erase__map_erase_varg__null_map),\
     UT_CASE(test__map_erase__map_erase_varg__non_inited),\
     UT_CASE(test__map_erase__map_erase_varg__c_builtin_0),\

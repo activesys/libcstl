@@ -866,7 +866,6 @@ void test__map_count__map_count_varg__user_define_n(void** state)
 /*
  * test _map_lower_bound and _map_lower_bound_varg
  */
-/*
 UT_CASE_DEFINATION(_map_lower_bound__map_lower_bound_varg)
 void test__map_lower_bound__map_lower_bound_varg__null_map(void** state)
 {
@@ -876,7 +875,7 @@ void test__map_lower_bound__map_lower_bound_varg__null_map(void** state)
 
 void test__map_lower_bound__map_lower_bound_varg__non_inited(void** state)
 {
-    map_t* pt_map = _create_map("int");
+    map_t* pt_map = _create_map("int, int");
     int elem = 9;
     map_init(pt_map);
 
@@ -887,133 +886,189 @@ void test__map_lower_bound__map_lower_bound_varg__non_inited(void** state)
     map_destroy(pt_map);
 }
 
-void test__map_lower_bound__map_lower_bound_varg__c_builtin_equal(void** state)
+void test__map_lower_bound__map_lower_bound_varg__non_inited_pair(void** state)
 {
-    map_t* pt_map = _create_map("int");
-    map_iterator_t it_iter;
-    int elem;
-    int i;
-
+    map_t* pt_map = create_map(int, int);
+    void* pv_tmp = NULL;
     map_init(pt_map);
-    for(i = 0; i < 10; ++i)
-    {
-        map_insert(pt_map, i);
-    }
 
-    elem = 2;
-    it_iter = _map_lower_bound(pt_map, elem);
-    assert_true(*(int*)iterator_get_pointer(it_iter) == 2);
+    pv_tmp = pt_map->_t_pair._pv_first;
+    pt_map->_t_pair._pv_first = NULL;
+    expect_assert_failure(_map_lower_bound(pt_map, 111));
+    pt_map->_t_pair._pv_first = pv_tmp;
 
     map_destroy(pt_map);
 }
 
-void test__map_lower_bound__map_lower_bound_varg__c_builtin_greater(void** state)
+void test__map_lower_bound__map_lower_bound_varg__c_builtin_equal(void** state)
 {
-    map_t* pt_map = _create_map("int");
+    map_t* pt_map = _create_map("int, int");
+    pair_t* pt_pair = create_pair(int, int);
     map_iterator_t it_iter;
     int elem;
     int i;
 
     map_init(pt_map);
+    pair_init(pt_pair);
     for(i = 0; i < 10; ++i)
     {
-        map_insert(pt_map, i);
+        pair_make(pt_pair, i, i);
+        map_insert(pt_map, pt_pair);
+    }
+
+    elem = 2;
+    it_iter = _map_lower_bound(pt_map, elem);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(it_iter)) == 2);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+void test__map_lower_bound__map_lower_bound_varg__c_builtin_greater(void** state)
+{
+    map_t* pt_map = _create_map("int, int");
+    pair_t* pt_pair = create_pair(int, int);
+    map_iterator_t it_iter;
+    int elem;
+    int i;
+
+    map_init(pt_map);
+    pair_init(pt_pair);
+    for(i = 0; i < 10; ++i)
+    {
+        pair_make(pt_pair, i, i);
+        map_insert(pt_map, pt_pair);
     }
 
     elem = -8;
     it_iter = _map_lower_bound(pt_map, elem);
     assert_true(iterator_equal(it_iter, map_begin(pt_map)));
-    assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(it_iter)) == 0);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_lower_bound__map_lower_bound_varg__cstr_lower_equal(void** state)
 {
-    map_t* pt_map = _create_map("char*");
+    map_t* pt_map = _create_map("char*, char*");
+    pair_t* pt_pair = create_pair(char*, char*);
     map_iterator_t it_iter;
 
     map_init(pt_map);
-    map_insert(pt_map, "aaa");
-    map_insert(pt_map, "ggg");
-    map_insert(pt_map, "nghl");
-    map_insert(pt_map, "asery");
-    map_insert(pt_map, "linux");
+    pair_init(pt_pair);
+    pair_make(pt_pair, "aaa", "bbb");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "ggg", "fffff");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "nghl", "lhgn");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "asery", "yrersa");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "linux", "windows");
+    map_insert(pt_map, pt_pair);
 
     it_iter = _map_lower_bound(pt_map, "ggg");
-    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "ggg") == 0);
+    assert_true(strcmp((char*)pair_first((pair_t*)iterator_get_pointer(it_iter)), "ggg") == 0);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_lower_bound__map_lower_bound_varg__cstr_greater(void** state)
 {
-    map_t* pt_map = _create_map("char*");
+    map_t* pt_map = _create_map("char*, char*");
+    pair_t* pt_pair = create_pair(char*, char*);
     map_iterator_t it_iter;
 
     map_init(pt_map);
-    map_insert(pt_map, "aaa");
-    map_insert(pt_map, "ggg");
-    map_insert(pt_map, "nghl");
-    map_insert(pt_map, "asery");
-    map_insert(pt_map, "linux");
+    pair_init(pt_pair);
+    pair_make(pt_pair, "aaa", "bbb");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "ggg", "fffff");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "nghl", "lhgn");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "asery", "yrersa");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "linux", "windows");
+    map_insert(pt_map, pt_pair);
 
     it_iter = _map_lower_bound(pt_map, "vvvv");
     assert_true(iterator_equal(it_iter, map_end(pt_map)));
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_lower_bound__map_lower_bound_varg__libcstl_builtin_equal(void** state)
 {
-    map_t* pt_map = _create_map("list_t<int>");
+    map_t* pt_map = _create_map("list_t<int>, vector_t<int>");
+    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
     map_iterator_t it_iter;
     list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
     int i = 0;
 
     map_init(pt_map);
     list_init(plist);
+    vector_init(pvec);
+    pair_init(pt_pair);
 
     for(i = 0; i < 10; i++)
     {
         list_clear(plist);
+        vector_clear(pvec);
         list_push_back(plist, i);
-        map_insert(pt_map, plist);
+        vector_push_back(pvec, i);
+        pair_make(pt_pair, plist, pvec);
+        map_insert(pt_map, pt_pair);
     }
 
     list_clear(plist);
     list_push_back(plist, 6);
     it_iter = _map_lower_bound(pt_map, plist);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(it_iter)) == 6);
+    assert_true(*(int*)list_front((list_t*)pair_first((pair_t*)iterator_get_pointer(it_iter))) == 6);
 
     map_destroy(pt_map);
     list_destroy(plist);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
 }
 
 void test__map_lower_bound__map_lower_bound_varg__libcstl_builtin_greater(void** state)
 {
-    map_t* pt_map = _create_map("list_t<int>");
+    map_t* pt_map = _create_map("list_t<int>, vector_t<int>");
+    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
     map_iterator_t it_iter;
     list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
     int i = 0;
 
     map_init(pt_map);
     list_init(plist);
+    vector_init(pvec);
+    pair_init(pt_pair);
 
     for(i = 0; i < 10; i++)
     {
         list_clear(plist);
+        vector_clear(pvec);
         list_push_back(plist, i * 2);
-        map_insert(pt_map, plist);
+        vector_push_back(pvec, i);
+        pair_make(pt_pair, plist, pvec);
+        map_insert(pt_map, pt_pair);
     }
 
     list_clear(plist);
     list_push_back(plist, 5);
     it_iter = _map_lower_bound(pt_map, plist);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(it_iter)) == 6);
+    assert_true(*(int*)list_front((list_t*)pair_first((pair_t*)iterator_get_pointer(it_iter))) == 6);
 
     map_destroy(pt_map);
     list_destroy(plist);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__map_lower_bound__map_lower_bound_varg__user_define
@@ -1023,55 +1078,62 @@ typedef struct _tag_test__map_lower_bound__map_lower_bound_varg__user_define
 void test__map_lower_bound__map_lower_bound_varg__user_define_equal(void** state)
 {
     map_t* pt_map = NULL;
+    pair_t* pt_pair = NULL;
     map_iterator_t it_iter;
     _test__map_lower_bound__map_lower_bound_varg__user_define_t elem;
     int i = 0;
 
     type_register(_test__map_lower_bound__map_lower_bound_varg__user_define_t, NULL, NULL, NULL, NULL);
 
-    pt_map = _create_map("_test__map_lower_bound__map_lower_bound_varg__user_define_t");
+    pt_map = _create_map("_test__map_lower_bound__map_lower_bound_varg__user_define_t, _test__map_lower_bound__map_lower_bound_varg__user_define_t");
+    pt_pair = create_pair(_test__map_lower_bound__map_lower_bound_varg__user_define_t, _test__map_lower_bound__map_lower_bound_varg__user_define_t);
+    pair_init(pt_pair);
     map_init(pt_map);
 
     for(i = 0; i < 10; ++i)
     {
         elem.n_elem = i;
-        map_insert(pt_map, &elem);
+        pair_make(pt_pair, &elem, &elem);
+        map_insert(pt_map, pt_pair);
     }
 
     elem.n_elem = 8;
     it_iter = _map_lower_bound(pt_map, &elem);
-    assert_true(((_test__map_lower_bound__map_lower_bound_varg__user_define_t*)iterator_get_pointer(it_iter))->n_elem == 8);
+    assert_true(((_test__map_lower_bound__map_lower_bound_varg__user_define_t*)pair_first((pair_t*)iterator_get_pointer(it_iter)))->n_elem == 8);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_lower_bound__map_lower_bound_varg__user_define_greater(void** state)
 {
-    map_t* pt_map =  _create_map("_test__map_lower_bound__map_lower_bound_varg__user_define_t");
+    map_t* pt_map =  _create_map("_test__map_lower_bound__map_lower_bound_varg__user_define_t, _test__map_lower_bound__map_lower_bound_varg__user_define_t");
+    pair_t* pt_pair = create_pair(_test__map_lower_bound__map_lower_bound_varg__user_define_t, _test__map_lower_bound__map_lower_bound_varg__user_define_t);
     map_iterator_t it_iter;
     _test__map_lower_bound__map_lower_bound_varg__user_define_t elem;
     int i = 0;
 
     map_init(pt_map);
+    pair_init(pt_pair);
 
     for(i = 0; i < 10; ++i)
     {
         elem.n_elem = i * 2;
-        map_insert(pt_map, &elem);
+        pair_make(pt_pair, &elem, &elem);
+        map_insert(pt_map, pt_pair);
     }
 
     elem.n_elem = 7;
     it_iter = _map_lower_bound(pt_map, &elem);
-    assert_true(((_test__map_lower_bound__map_lower_bound_varg__user_define_t*)iterator_get_pointer(it_iter))->n_elem == 8);
+    assert_true(((_test__map_lower_bound__map_lower_bound_varg__user_define_t*)pair_first((pair_t*)iterator_get_pointer(it_iter)))->n_elem == 8);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test _map_upper_bound and _map_upper_bound_varg
  */
-/*
 UT_CASE_DEFINATION(_map_upper_bound__map_upper_bound_varg)
 void test__map_upper_bound__map_upper_bound_varg__null_map(void** state)
 {
@@ -1081,7 +1143,7 @@ void test__map_upper_bound__map_upper_bound_varg__null_map(void** state)
 
 void test__map_upper_bound__map_upper_bound_varg__non_inited(void** state)
 {
-    map_t* pt_map = _create_map("int");
+    map_t* pt_map = _create_map("int, int");
     int elem = 9;
     map_init_ex(pt_map, NULL);
 
@@ -1092,133 +1154,190 @@ void test__map_upper_bound__map_upper_bound_varg__non_inited(void** state)
     map_destroy(pt_map);
 }
 
-void test__map_upper_bound__map_upper_bound_varg__c_builtin_equal(void** state)
+void test__map_upper_bound__map_upper_bound_varg__non_inited_pair(void** state)
 {
-    map_t* pt_map = _create_map("int");
-    map_iterator_t it_iter;
-    int elem;
-    int i;
+    map_t* pt_map = create_map(int, int);
+    void* pv_tmp = NULL;
 
-    map_init_ex(pt_map, NULL);
-    for(i = 0; i < 10; ++i)
-    {
-        map_insert(pt_map, i);
-    }
+    map_init(pt_map);
 
-    elem = 2;
-    it_iter = _map_upper_bound(pt_map, elem);
-    assert_true(*(int*)iterator_get_pointer(it_iter) == 3);
+    pv_tmp = pt_map->_t_pair._pv_first;
+    pt_map->_t_pair._pv_first = NULL;
+    expect_assert_failure(_map_upper_bound(pt_map, 3));
+    pt_map->_t_pair._pv_first = pv_tmp;
 
     map_destroy(pt_map);
 }
 
-void test__map_upper_bound__map_upper_bound_varg__c_builtin_greater(void** state)
+void test__map_upper_bound__map_upper_bound_varg__c_builtin_equal(void** state)
 {
-    map_t* pt_map = _create_map("int");
+    map_t* pt_map = _create_map("int, int");
+    pair_t* pt_pair = create_pair(int, int);
     map_iterator_t it_iter;
     int elem;
     int i;
 
     map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
     for(i = 0; i < 10; ++i)
     {
-        map_insert(pt_map, i);
+        pair_make(pt_pair, i, i);
+        map_insert(pt_map, pt_pair);
+    }
+
+    elem = 2;
+    it_iter = _map_upper_bound(pt_map, elem);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(it_iter)) == 3);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+void test__map_upper_bound__map_upper_bound_varg__c_builtin_greater(void** state)
+{
+    map_t* pt_map = _create_map("int, int");
+    pair_t* pt_pair = create_pair(int, int);
+    map_iterator_t it_iter;
+    int elem;
+    int i;
+
+    map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
+    for(i = 0; i < 10; ++i)
+    {
+        pair_make(pt_pair, i, i);
+        map_insert(pt_map, pt_pair);
     }
 
     elem = -8;
     it_iter = _map_upper_bound(pt_map, elem);
     assert_true(iterator_equal(it_iter, map_begin(pt_map)));
-    assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(it_iter)) == 0);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_upper_bound__map_upper_bound_varg__cstr_upper_equal(void** state)
 {
-    map_t* pt_map = _create_map("char*");
+    map_t* pt_map = _create_map("char*, char*");
+    pair_t* pt_pair = create_pair(char*, char*);
     map_iterator_t it_iter;
 
     map_init_ex(pt_map, NULL);
-    map_insert(pt_map, "aaa");
-    map_insert(pt_map, "ggg");
-    map_insert(pt_map, "nghl");
-    map_insert(pt_map, "asery");
-    map_insert(pt_map, "linux");
+    pair_init(pt_pair);
+    pair_make(pt_pair, "aaa", "bbb");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "ggg", "ddddd");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "nghl", "lhgn");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "asery", "yresa");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "linux", "windows");
+    map_insert(pt_map, pt_pair);
 
     it_iter = _map_upper_bound(pt_map, "ggg");
-    assert_true(strcmp((char*)iterator_get_pointer(it_iter), "linux") == 0);
+    assert_true(strcmp((char*)pair_first((pair_t*)iterator_get_pointer(it_iter)), "linux") == 0);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_upper_bound__map_upper_bound_varg__cstr_greater(void** state)
 {
-    map_t* pt_map = _create_map("char*");
+    map_t* pt_map = _create_map("char*, char*");
+    pair_t* pt_pair = create_pair(char*, char*);
     map_iterator_t it_iter;
 
     map_init_ex(pt_map, NULL);
-    map_insert(pt_map, "aaa");
-    map_insert(pt_map, "ggg");
-    map_insert(pt_map, "nghl");
-    map_insert(pt_map, "asery");
-    map_insert(pt_map, "linux");
+    pair_init(pt_pair);
+    pair_make(pt_pair, "aaa", "bbb");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "ggg", "ddddd");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "nghl", "lhgn");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "asery", "yresa");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "linux", "windows");
+    map_insert(pt_map, pt_pair);
 
     it_iter = _map_upper_bound(pt_map, "vvv");
     assert_true(iterator_equal(it_iter, map_end(pt_map)));
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_upper_bound__map_upper_bound_varg__libcstl_builtin_equal(void** state)
 {
-    map_t* pt_map = _create_map("list_t<int>");
+    map_t* pt_map = _create_map("list_t<int>, vector_t<int>");
+    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
     map_iterator_t it_iter;
     list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
     int i = 0;
 
     map_init_ex(pt_map, NULL);
     list_init(plist);
+    pair_init(pt_pair);
+    vector_init(pvec);
 
     for(i = 0; i < 10; i++)
     {
         list_clear(plist);
+        vector_clear(pvec);
         list_push_back(plist, i);
-        map_insert(pt_map, plist);
+        vector_push_back(pvec, i);
+        pair_make(pt_pair, plist, pvec);
+        map_insert(pt_map, pt_pair);
     }
 
     list_clear(plist);
     list_push_back(plist, 6);
     it_iter = _map_upper_bound(pt_map, plist);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(it_iter)) == 7);
+    assert_true(*(int*)list_front((list_t*)pair_first((pair_t*)iterator_get_pointer(it_iter))) == 7);
 
     map_destroy(pt_map);
     list_destroy(plist);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
 }
 
 void test__map_upper_bound__map_upper_bound_varg__libcstl_builtin_greater(void** state)
 {
-    map_t* pt_map = _create_map("list_t<int>");
+    map_t* pt_map = _create_map("list_t<int>, vector_t<int>");
+    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
     map_iterator_t it_iter;
     list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
     int i = 0;
 
     map_init_ex(pt_map, NULL);
     list_init(plist);
+    pair_init(pt_pair);
+    vector_init(pvec);
 
     for(i = 0; i < 10; i++)
     {
         list_clear(plist);
-        list_push_back(plist, i * 2);
-        map_insert(pt_map, plist);
+        vector_clear(pvec);
+        list_push_back(plist, i);
+        vector_push_back(pvec, i);
+        pair_make(pt_pair, plist, pvec);
+        map_insert(pt_map, pt_pair);
     }
 
     list_clear(plist);
     list_push_back(plist, 5);
     it_iter = _map_upper_bound(pt_map, plist);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(it_iter)) == 6);
+    assert_true(*(int*)list_front((list_t*)pair_first((pair_t*)iterator_get_pointer(it_iter))) == 6);
 
     map_destroy(pt_map);
     list_destroy(plist);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__map_upper_bound__map_upper_bound_varg__user_define
@@ -1228,55 +1347,62 @@ typedef struct _tag_test__map_upper_bound__map_upper_bound_varg__user_define
 void test__map_upper_bound__map_upper_bound_varg__user_define_equal(void** state)
 {
     map_t* pt_map = NULL;
+    pair_t* pt_pair = NULL;
     map_iterator_t it_iter;
     _test__map_upper_bound__map_upper_bound_varg__user_define_t elem;
     int i = 0;
 
     type_register(_test__map_upper_bound__map_upper_bound_varg__user_define_t, NULL, NULL, NULL, NULL);
 
-    pt_map = _create_map("_test__map_upper_bound__map_upper_bound_varg__user_define_t");
+    pt_map = _create_map("_test__map_upper_bound__map_upper_bound_varg__user_define_t, _test__map_upper_bound__map_upper_bound_varg__user_define_t");
+    pt_pair = create_pair(_test__map_upper_bound__map_upper_bound_varg__user_define_t, _test__map_upper_bound__map_upper_bound_varg__user_define_t);
     map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
 
     for(i = 0; i < 10; ++i)
     {
         elem.n_elem = i;
-        map_insert(pt_map, &elem);
+        pair_make(pt_pair, &elem, &elem);
+        map_insert(pt_map, pt_pair);
     }
 
     elem.n_elem = 8;
     it_iter = _map_upper_bound(pt_map, &elem);
-    assert_true(((_test__map_upper_bound__map_upper_bound_varg__user_define_t*)iterator_get_pointer(it_iter))->n_elem == 9);
+    assert_true(((_test__map_upper_bound__map_upper_bound_varg__user_define_t*)pair_first((pair_t*)iterator_get_pointer(it_iter)))->n_elem == 9);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_upper_bound__map_upper_bound_varg__user_define_greater(void** state)
 {
-    map_t* pt_map =  _create_map("_test__map_upper_bound__map_upper_bound_varg__user_define_t");
+    map_t* pt_map =  _create_map("_test__map_upper_bound__map_upper_bound_varg__user_define_t, _test__map_upper_bound__map_upper_bound_varg__user_define_t");
+    pair_t* pt_pair = create_pair(_test__map_upper_bound__map_upper_bound_varg__user_define_t, _test__map_upper_bound__map_upper_bound_varg__user_define_t);
     map_iterator_t it_iter;
     _test__map_upper_bound__map_upper_bound_varg__user_define_t elem;
     int i = 0;
 
     map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
 
     for(i = 0; i < 10; ++i)
     {
         elem.n_elem = i * 2;
-        map_insert(pt_map, &elem);
+        pair_make(pt_pair, &elem, &elem);
+        map_insert(pt_map, pt_pair);
     }
 
     elem.n_elem = 7;
     it_iter = _map_upper_bound(pt_map, &elem);
-    assert_true(((_test__map_upper_bound__map_upper_bound_varg__user_define_t*)iterator_get_pointer(it_iter))->n_elem == 8);
+    assert_true(((_test__map_upper_bound__map_upper_bound_varg__user_define_t*)pair_first((pair_t*)iterator_get_pointer(it_iter)))->n_elem == 8);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test _map_equal_range and _map_equal_range_varg
  */
-/*
 UT_CASE_DEFINATION(_map_equal_range__map_equal_range_varg)
 void test__map_equal_range__map_equal_range_varg__null_map(void** state)
 {
@@ -1286,7 +1412,7 @@ void test__map_equal_range__map_equal_range_varg__null_map(void** state)
 
 void test__map_equal_range__map_equal_range_varg__non_inited(void** state)
 {
-    map_t* pt_map = _create_map("int");
+    map_t* pt_map = _create_map("int, int");
     int elem = 9;
     map_init_ex(pt_map, NULL);
 
@@ -1297,139 +1423,195 @@ void test__map_equal_range__map_equal_range_varg__non_inited(void** state)
     map_destroy(pt_map);
 }
 
-void test__map_equal_range__map_equal_range_varg__c_builtin_equal(void** state)
+void test__map_equal_range__map_equal_range_varg__non_inited_pair(void** state)
 {
-    map_t* pt_map = _create_map("int");
-    range_t r_range;
-    int elem;
-    int i;
+    map_t* pt_map = create_map(int, int);
+    void* pv_tmp = NULL;
+    map_init(pt_map);
 
-    map_init_ex(pt_map, NULL);
-    for(i = 0; i < 10; ++i)
-    {
-        map_insert(pt_map, i);
-    }
-
-    elem = 2;
-    r_range = _map_equal_range(pt_map, elem);
-    assert_true(*(int*)iterator_get_pointer(r_range.it_begin) == 2);
-    assert_true(*(int*)iterator_get_pointer(r_range.it_end) == 3);
+    pv_tmp = pt_map->_t_pair._pv_second;
+    pt_map->_t_pair._pv_second = NULL;
+    expect_assert_failure(_map_equal_range(pt_map, 3));
+    pt_map->_t_pair._pv_second = pv_tmp;
 
     map_destroy(pt_map);
 }
 
-void test__map_equal_range__map_equal_range_varg__c_builtin_greater(void** state)
+void test__map_equal_range__map_equal_range_varg__c_builtin_equal(void** state)
 {
-    map_t* pt_map = _create_map("int");
+    map_t* pt_map = _create_map("int, int");
+    pair_t* pt_pair = create_pair(int, int);
     range_t r_range;
     int elem;
     int i;
 
     map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
     for(i = 0; i < 10; ++i)
     {
-        map_insert(pt_map, i);
+        pair_make(pt_pair, i, i);
+        map_insert(pt_map, pt_pair);
+    }
+
+    elem = 2;
+    r_range = _map_equal_range(pt_map, elem);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(r_range.it_begin)) == 2);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(r_range.it_end)) == 3);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+void test__map_equal_range__map_equal_range_varg__c_builtin_greater(void** state)
+{
+    map_t* pt_map = _create_map("int,int");
+    pair_t* pt_pair = create_pair(int, int);
+    range_t r_range;
+    int elem;
+    int i;
+
+    map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
+    for(i = 0; i < 10; ++i)
+    {
+        pair_make(pt_pair, i, i);
+        map_insert(pt_map, pt_pair);
     }
 
     elem = -8;
     r_range = _map_equal_range(pt_map, elem);
     assert_true(iterator_equal(r_range.it_begin, map_begin(pt_map)));
     assert_true(iterator_equal(r_range.it_end, map_begin(pt_map)));
-    assert_true(*(int*)iterator_get_pointer(r_range.it_begin) == 0);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(r_range.it_begin)) == 0);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_equal_range__map_equal_range_varg__cstr_upper_equal(void** state)
 {
-    map_t* pt_map = _create_map("char*");
+    map_t* pt_map = _create_map("char*,char*");
+    pair_t* pt_pair = create_pair(char*,      char*);
     range_t r_range;
 
     map_init_ex(pt_map, NULL);
-    map_insert(pt_map, "aaa");
-    map_insert(pt_map, "ggg");
-    map_insert(pt_map, "nghl");
-    map_insert(pt_map, "asery");
-    map_insert(pt_map, "linux");
+    pair_init(pt_pair);
+    pair_make(pt_pair, "aaa", "bbb");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "ggg", "ggg");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "nghl", "lhgn");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "asery", "slskf");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "linux", "windows");
+    map_insert(pt_map, pt_pair);
 
     r_range = _map_equal_range(pt_map, "ggg");
-    assert_true(strcmp((char*)iterator_get_pointer(r_range.it_begin), "ggg") == 0);
-    assert_true(strcmp((char*)iterator_get_pointer(r_range.it_end), "linux") == 0);
+    assert_true(strcmp((char*)pair_first((pair_t*)iterator_get_pointer(r_range.it_begin)), "ggg") == 0);
+    assert_true(strcmp((char*)pair_first((pair_t*)iterator_get_pointer(r_range.it_end)), "linux") == 0);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_equal_range__map_equal_range_varg__cstr_greater(void** state)
 {
-    map_t* pt_map = _create_map("char*");
+    map_t* pt_map = _create_map("char*,char*");
+    pair_t* pt_pair = create_pair(char*,      char*);
     range_t r_range;
 
     map_init_ex(pt_map, NULL);
-    map_insert(pt_map, "aaa");
-    map_insert(pt_map, "ggg");
-    map_insert(pt_map, "nghl");
-    map_insert(pt_map, "asery");
-    map_insert(pt_map, "linux");
+    pair_init(pt_pair);
+    pair_make(pt_pair, "aaa", "bbb");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "ggg", "ggg");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "nghl", "lhgn");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "asery", "slskf");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "linux", "windows");
+    map_insert(pt_map, pt_pair);
 
     r_range = _map_equal_range(pt_map, "vvvv");
     assert_true(iterator_equal(r_range.it_begin, map_end(pt_map)));
     assert_true(iterator_equal(r_range.it_end, map_end(pt_map)));
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_equal_range__map_equal_range_varg__libcstl_builtin_equal(void** state)
 {
-    map_t* pt_map = _create_map("list_t<int>");
+    map_t* pt_map = _create_map("list_t<int>, vector_t<int>");
+    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
     range_t r_range;
     list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
     int i = 0;
 
     map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
     list_init(plist);
+    vector_init(pvec);
 
     for(i = 0; i < 10; i++)
     {
         list_clear(plist);
+        vector_clear(pvec);
         list_push_back(plist, i);
-        map_insert(pt_map, plist);
+        vector_push_back(pvec, i);
+        pair_make(pt_pair, plist, pvec);
+        map_insert(pt_map, pt_pair);
     }
 
     list_clear(plist);
     list_push_back(plist, 6);
     r_range = _map_equal_range(pt_map, plist);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(r_range.it_begin)) == 6);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(r_range.it_end)) == 7);
+    assert_true(*(int*)list_front((list_t*)pair_first((pair_t*)iterator_get_pointer(r_range.it_begin))) == 6);
+    assert_true(*(int*)list_front((list_t*)pair_first((pair_t*)iterator_get_pointer(r_range.it_end))) == 7);
 
     map_destroy(pt_map);
     list_destroy(plist);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
 }
 
 void test__map_equal_range__map_equal_range_varg__libcstl_builtin_greater(void** state)
 {
-    map_t* pt_map = _create_map("list_t<int>");
+    map_t* pt_map = _create_map("list_t<int>, vector_t<int>");
+    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
     range_t r_range;
     list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
     int i = 0;
 
     map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
     list_init(plist);
+    vector_init(pvec);
 
     for(i = 0; i < 10; i++)
     {
         list_clear(plist);
+        vector_clear(pvec);
         list_push_back(plist, i * 2);
-        map_insert(pt_map, plist);
+        vector_push_back(pvec, i);
+        pair_make(pt_pair, plist, pvec);
+        map_insert(pt_map, pt_pair);
     }
 
     list_clear(plist);
     list_push_back(plist, 5);
     r_range = _map_equal_range(pt_map, plist);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(r_range.it_begin)) == 6);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(r_range.it_end)) == 6);
+    assert_true(*(int*)list_front((list_t*)pair_first((pair_t*)iterator_get_pointer(r_range.it_begin))) == 6);
+    assert_true(*(int*)list_front((list_t*)pair_first((pair_t*)iterator_get_pointer(r_range.it_end))) == 6);
 
     map_destroy(pt_map);
     list_destroy(plist);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__map_equal_range__map_equal_range_varg__user_define
@@ -1439,52 +1621,303 @@ typedef struct _tag_test__map_equal_range__map_equal_range_varg__user_define
 void test__map_equal_range__map_equal_range_varg__user_define_equal(void** state)
 {
     map_t* pt_map = NULL;
+    pair_t* pt_pair = NULL;
     range_t r_range;
     _test__map_equal_range__map_equal_range_varg__user_define_t elem;
     int i = 0;
 
     type_register(_test__map_equal_range__map_equal_range_varg__user_define_t, NULL, NULL, NULL, NULL);
 
-    pt_map = _create_map("_test__map_equal_range__map_equal_range_varg__user_define_t");
+    pt_map = _create_map("_test__map_equal_range__map_equal_range_varg__user_define_t, _test__map_equal_range__map_equal_range_varg__user_define_t");
+    pt_pair = create_pair(_test__map_equal_range__map_equal_range_varg__user_define_t, _test__map_equal_range__map_equal_range_varg__user_define_t);
     map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
 
     for(i = 0; i < 10; ++i)
     {
         elem.n_elem = i;
-        map_insert(pt_map, &elem);
+        pair_make(pt_pair, &elem, &elem);
+        map_insert(pt_map, pt_pair);
     }
 
     elem.n_elem = 8;
     r_range = _map_equal_range(pt_map, &elem);
-    assert_true(((_test__map_equal_range__map_equal_range_varg__user_define_t*)iterator_get_pointer(r_range.it_begin))->n_elem == 8);
-    assert_true(((_test__map_equal_range__map_equal_range_varg__user_define_t*)iterator_get_pointer(r_range.it_end))->n_elem == 9);
+    assert_true(((_test__map_equal_range__map_equal_range_varg__user_define_t*)pair_first((pair_t*)iterator_get_pointer(r_range.it_begin)))->n_elem == 8);
+    assert_true(((_test__map_equal_range__map_equal_range_varg__user_define_t*)pair_first((pair_t*)iterator_get_pointer(r_range.it_end)))->n_elem == 9);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
 
 void test__map_equal_range__map_equal_range_varg__user_define_greater(void** state)
 {
-    map_t* pt_map =  _create_map("_test__map_equal_range__map_equal_range_varg__user_define_t");
+    map_t* pt_map =  _create_map("_test__map_equal_range__map_equal_range_varg__user_define_t, _test__map_equal_range__map_equal_range_varg__user_define_t");
+    pair_t* pt_pair = create_pair(_test__map_equal_range__map_equal_range_varg__user_define_t, _test__map_equal_range__map_equal_range_varg__user_define_t);
     range_t r_range;
     _test__map_equal_range__map_equal_range_varg__user_define_t elem;
     int i = 0;
 
     map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
 
     for(i = 0; i < 10; ++i)
     {
         elem.n_elem = i * 2;
-        map_insert(pt_map, &elem);
+        pair_make(pt_pair, &elem, &elem);
+        map_insert(pt_map, pt_pair);
     }
 
     elem.n_elem = 7;
     r_range = _map_equal_range(pt_map, &elem);
-    assert_true(((_test__map_equal_range__map_equal_range_varg__user_define_t*)iterator_get_pointer(r_range.it_begin))->n_elem == 8);
-    assert_true(((_test__map_equal_range__map_equal_range_varg__user_define_t*)iterator_get_pointer(r_range.it_end))->n_elem == 8);
+    assert_true(((_test__map_equal_range__map_equal_range_varg__user_define_t*)pair_first((pair_t*)iterator_get_pointer(r_range.it_begin)))->n_elem == 8);
+    assert_true(((_test__map_equal_range__map_equal_range_varg__user_define_t*)pair_first((pair_t*)iterator_get_pointer(r_range.it_end)))->n_elem == 8);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+/*
+ * test _map_at and _map_at_varg
+ */
+UT_CASE_DEFINATION(_map_at__map_at_varg)
+void test__map_at__map_at_varg__null_map(void** state)
+{
+    expect_assert_failure(_map_at(NULL, 4));
+}
+
+void test__map_at__map_at_varg__non_inited(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+
+    map_init(pt_map);
+    pt_map->_t_tree._t_rbroot._t_color = BLACK;
+    expect_assert_failure(_map_at(pt_map, 3));
+    pt_map->_t_tree._t_rbroot._t_color = RED;
 
     map_destroy(pt_map);
 }
-*/
+
+void test__map_at__map_at_varg__non_inited_pair(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    void* pv_tmp = NULL;
+
+    map_init(pt_map);
+    pv_tmp = pt_map->_t_pair._pv_first;
+    pt_map->_t_pair._pv_first = NULL;
+    expect_assert_failure(_map_at(pt_map, 5));
+    pt_map->_t_pair._pv_first = pv_tmp;
+
+    map_destroy(pt_map);
+}
+
+void test__map_at__map_at_varg__c_builtin_exist(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
+    int i = 0;
+
+    map_init(pt_map);
+    pair_init(pt_pair);
+    for(i = 0; i < 10; ++i)
+    {
+        pair_make(pt_pair, i, i);
+        map_insert(pt_map, pt_pair);
+    }
+
+    assert_true(*(int*)_map_at(pt_map, 4) == 4);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+void test__map_at__map_at_varg__c_builtin_no_exist(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
+    int i = 0;
+
+    map_init(pt_map);
+    pair_init(pt_pair);
+    for(i = 0; i < 10; ++i)
+    {
+        pair_make(pt_pair, i * 2, i);
+        map_insert(pt_map, pt_pair);
+    }
+
+    assert_true(*(int*)_map_at(pt_map, 3) == 0);
+    *(int*)_map_at(pt_map, 3) = 900;
+    assert_true(*(int*)_map_at(pt_map, 3) == 900);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+void test__map_at__map_at_varg__cstr_exist(void** state)
+{
+    map_t* pt_map = create_map(char*, char*);
+    pair_t* pt_pair = create_pair(char*, char*);
+
+    pair_init(pt_pair);
+    map_init(pt_map);
+    pair_make(pt_pair, "aaa", "bbb");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "nnnnn", "ooooo");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "lso", "iso");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "linux", "windows");
+    map_insert(pt_map, pt_pair);
+
+    assert_true(strcmp((char*)_map_at(pt_map, "lso"), "iso") == 0);
+
+    pair_destroy(pt_pair);
+    map_destroy(pt_map);
+}
+
+void test__map_at__map_at_varg__cstr_no_exist(void** state)
+{
+    map_t* pt_map = create_map(char*, char*);
+    pair_t* pt_pair = create_pair(char*, char*);
+
+    pair_init(pt_pair);
+    map_init(pt_map);
+    pair_make(pt_pair, "aaa", "bbb");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "nnnnn", "ooooo");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "lso", "iso");
+    map_insert(pt_map, pt_pair);
+    pair_make(pt_pair, "linux", "windows");
+    map_insert(pt_map, pt_pair);
+
+    assert_true(strcmp((char*)_map_at(pt_map, "tcpip"), "") == 0);
+
+    pair_destroy(pt_pair);
+    map_destroy(pt_map);
+}
+
+void test__map_at__map_at_varg__libcstl_builtin_exist(void** state)
+{
+    map_t* pt_map = _create_map("list_t<int>, vector_t<int>");
+    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    map_init_ex(pt_map, NULL);
+    list_init(plist);
+    pair_init(pt_pair);
+    vector_init(pvec);
+
+    for(i = 0; i < 10; i++)
+    {
+        list_clear(plist);
+        vector_clear(pvec);
+        list_push_back(plist, i);
+        vector_push_back(pvec, i);
+        pair_make(pt_pair, plist, pvec);
+        map_insert(pt_map, pt_pair);
+    }
+
+    list_clear(plist);
+    list_push_back(plist, 6);
+    assert_true(*(int*)vector_front((vector_t*)_map_at(pt_map, plist)) == 6);
+
+    map_destroy(pt_map);
+    list_destroy(plist);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
+}
+
+void test__map_at__map_at_varg__libcstl_builtin_no_exist(void** state)
+{
+    map_t* pt_map = _create_map("list_t<int>, vector_t<int>");
+    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    map_init_ex(pt_map, NULL);
+    list_init(plist);
+    pair_init(pt_pair);
+    vector_init(pvec);
+
+    for(i = 0; i < 10; i++)
+    {
+        list_clear(plist);
+        vector_clear(pvec);
+        list_push_back(plist, i * 2);
+        vector_push_back(pvec, i);
+        pair_make(pt_pair, plist, pvec);
+        map_insert(pt_map, pt_pair);
+    }
+
+    list_clear(plist);
+    list_push_back(plist, 7);
+    assert_true(vector_empty((vector_t*)_map_at(pt_map, plist)));
+
+    map_destroy(pt_map);
+    list_destroy(plist);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
+}
+
+typedef struct _tag_test__map_at__map_at_varg__user_define
+{
+    int n_elem;
+}_test__map_at__map_at_varg__user_define_t;
+void test__map_at__map_at_varg__user_define_exist(void** state)
+{
+    map_t* pt_map = NULL;
+    pair_t* pt_pair = NULL;
+    _test__map_at__map_at_varg__user_define_t elem;
+    int i = 0;
+
+    type_register(_test__map_at__map_at_varg__user_define_t, NULL, NULL, NULL, NULL);
+
+    pt_map = _create_map("_test__map_at__map_at_varg__user_define_t, _test__map_at__map_at_varg__user_define_t");
+    pt_pair = create_pair(_test__map_at__map_at_varg__user_define_t, _test__map_at__map_at_varg__user_define_t);
+    map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
+
+    for(i = 0; i < 10; ++i)
+    {
+        elem.n_elem = i;
+        pair_make(pt_pair, &elem, &elem);
+        map_insert(pt_map, pt_pair);
+    }
+
+    elem.n_elem = 8;
+    assert_true(((_test__map_at__map_at_varg__user_define_t*)_map_at(pt_map, &elem))->n_elem == 8);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+void test__map_at__map_at_varg__user_define_no_exist(void** state)
+{
+    map_t* pt_map =  _create_map("_test__map_at__map_at_varg__user_define_t, _test__map_at__map_at_varg__user_define_t");
+    pair_t* pt_pair = create_pair(_test__map_at__map_at_varg__user_define_t, _test__map_at__map_at_varg__user_define_t);
+    _test__map_at__map_at_varg__user_define_t elem;
+    int i = 0;
+
+    map_init_ex(pt_map, NULL);
+    pair_init(pt_pair);
+
+    for(i = 0; i < 10; ++i)
+    {
+        elem.n_elem = i * 2;
+        pair_make(pt_pair, &elem, &elem);
+        map_insert(pt_map, pt_pair);
+    }
+
+    elem.n_elem = 7;
+    assert_true(((_test__map_at__map_at_varg__user_define_t*)_map_at(pt_map, &elem))->n_elem == 0);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
 
 /*
  * test _map_erase and _map_erase_varg
