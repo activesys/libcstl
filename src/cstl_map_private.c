@@ -377,6 +377,7 @@ void* _map_at_varg(map_t* pmap_map, va_list val_elemlist)
     va_list val_elemlist_copy;
 
     assert(pmap_map != NULL);
+    assert(_pair_is_inited(&pmap_map->_t_pair));
 
     va_copy(val_elemlist_copy, val_elemlist);
     _type_get_varg_value(&pmap_map->_t_pair._t_typeinfofirst, val_elemlist, pmap_map->_t_pair._pv_first);
@@ -400,8 +401,7 @@ void* _map_at_varg(map_t* pmap_map, va_list val_elemlist)
     /* char* */
     if(strncmp(_GET_MAP_SECOND_TYPE_BASENAME(pmap_map), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return (char*)string_c_str(
-            (string_t*)((pair_t*)iterator_get_pointer(it_iter))->_pv_second);
+        return (char*)string_c_str((string_t*)((pair_t*)iterator_get_pointer(it_iter))->_pv_second);
     }
     else
     {
@@ -414,7 +414,9 @@ void* _map_at_varg(map_t* pmap_map, va_list val_elemlist)
  */
 void _map_init_elem_auxiliary(map_t* pmap_map, void* pv_elem)
 {
-    assert(pmap_map != NULL && pv_elem != NULL);
+    assert(pmap_map != NULL);
+    assert(pv_elem != NULL);
+    assert(_pair_is_inited(&pmap_map->_t_pair) || _pair_is_created(&pmap_map->_t_pair));
 
     /* initialize new elements */
     if(pmap_map->_t_tree._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN)

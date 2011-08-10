@@ -129,10 +129,10 @@ void test__map_at__map_at_varg__user_define_no_exist(void** state);
 /*
  * test _map_erase and _map_erase_varg
  */
-/*
 UT_CASE_DECLARATION(_map_erase__map_erase_varg)
 void test__map_erase__map_erase_varg__null_map(void** state);
 void test__map_erase__map_erase_varg__non_inited(void** state);
+void test__map_erase__map_erase_varg__non_inited_pair(void** state);
 void test__map_erase__map_erase_varg__c_builtin_0(void** state);
 void test__map_erase__map_erase_varg__c_builtin_1(void** state);
 void test__map_erase__map_erase_varg__c_builtin_n(void** state);
@@ -145,52 +145,18 @@ void test__map_erase__map_erase_varg__libcstl_builtin_n(void** state);
 void test__map_erase__map_erase_varg__user_define_0(void** state);
 void test__map_erase__map_erase_varg__user_define_1(void** state);
 void test__map_erase__map_erase_varg__user_define_n(void** state);
-*/
-/*
- * test _map_insert and _map_insert_varg
- */
-/*
-UT_CASE_DECLARATION(_map_insert__map_insert_varg)
-void test__map_insert_varg__null_map(void** state);
-void test__map_insert_varg__non_inited(void** state);
-void test__map_insert_varg__c_builtin_equal(void** state);
-void test__map_insert_varg__c_builtin_not_equal(void** state);
-void test__map_insert_varg__cstr_equal(void** state);
-void test__map_insert_varg__cstr_not_equal(void** state);
-void test__map_insert_varg__libcstl_builtin_equal(void** state);
-void test__map_insert_varg__libcstl_builtin_not_equal(void** state);
-void test__map_insert_varg__user_define_equal(void** state);
-void test__map_insert_varg__user_define_not_equal(void** state);
-*/
-/*
- * test _map_insert_hint and _map_insert_hint_varg
- */
-/*
-UT_CASE_DECLARATION(_map_insert_hint__map_insert_hint_varg)
-void test__map_insert_hint_varg__null_map(void** state);
-void test__map_insert_hint_varg__non_inited(void** state);
-void test__map_insert_hint_varg__c_builtin_equal(void** state);
-void test__map_insert_hint_varg__c_builtin_not_equal(void** state);
-void test__map_insert_hint_varg__cstr_equal(void** state);
-void test__map_insert_hint_varg__cstr_not_equal(void** state);
-void test__map_insert_hint_varg__libcstl_builtin_equal(void** state);
-void test__map_insert_hint_varg__libcstl_builtin_not_equal(void** state);
-void test__map_insert_hint_varg__user_define_equal(void** state);
-void test__map_insert_hint_varg__user_define_not_equal(void** state);
-*/
 /*
  * test _map_init_elem_auxiliary
  */
-/*
 UT_CASE_DECLARATION(_map_init_elem_auxiliary)
 void test__map_init_elem_auxiliary__null_map_container(void** state);
 void test__map_init_elem_auxiliary__null_elem(void** state);
+void test__map_init_elem_auxiliary__non_inited(void** state);
 void test__map_init_elem_auxiliary__successfully_int(void** state);
 void test__map_init_elem_auxiliary__successfully_cstr(void** state);
 void test__map_init_elem_auxiliary__successfully_iterator(void** state);
 void test__map_init_elem_auxiliary__successfully_container(void** state);
 void test__map_init_elem_auxiliary__successfully_user_defined(void** state);
-*/
 
 #define UT_CSTL_MAP_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_map_private, test__create_map__null_typename),\
@@ -281,9 +247,9 @@ void test__map_init_elem_auxiliary__successfully_user_defined(void** state);
     UT_CASE(test__map_at__map_at_varg__libcstl_builtin_no_exist),\
     UT_CASE(test__map_at__map_at_varg__user_define_exist),\
     UT_CASE(test__map_at__map_at_varg__user_define_no_exist),\
-/*
     UT_CASE_BEGIN(_map_erase__map_erase_varg, test__map_erase__map_erase_varg__null_map),\
     UT_CASE(test__map_erase__map_erase_varg__non_inited),\
+    UT_CASE(test__map_erase__map_erase_varg__non_inited_pair),\
     UT_CASE(test__map_erase__map_erase_varg__c_builtin_0),\
     UT_CASE(test__map_erase__map_erase_varg__c_builtin_1),\
     UT_CASE(test__map_erase__map_erase_varg__c_builtin_n),\
@@ -296,33 +262,14 @@ void test__map_init_elem_auxiliary__successfully_user_defined(void** state);
     UT_CASE(test__map_erase__map_erase_varg__user_define_0),\
     UT_CASE(test__map_erase__map_erase_varg__user_define_1),\
     UT_CASE(test__map_erase__map_erase_varg__user_define_n),\
-    UT_CASE_BEGIN(_map_insert__map_insert_varg, test__map_insert_varg__null_map),\
-    UT_CASE(test__map_insert_varg__non_inited),\
-    UT_CASE(test__map_insert_varg__c_builtin_equal),\
-    UT_CASE(test__map_insert_varg__c_builtin_not_equal),\
-    UT_CASE(test__map_insert_varg__cstr_equal),\
-    UT_CASE(test__map_insert_varg__cstr_not_equal),\
-    UT_CASE(test__map_insert_varg__libcstl_builtin_equal),\
-    UT_CASE(test__map_insert_varg__libcstl_builtin_not_equal),\
-    UT_CASE(test__map_insert_varg__user_define_equal),\
-    UT_CASE(test__map_insert_varg__user_define_not_equal),\
-    UT_CASE_BEGIN(_map_insert__map_insert_varg, test__map_insert_hint_varg__non_inited),\
-    UT_CASE(test__map_insert_hint_varg__c_builtin_equal),\
-    UT_CASE(test__map_insert_hint_varg__c_builtin_not_equal),\
-    UT_CASE(test__map_insert_hint_varg__cstr_equal),\
-    UT_CASE(test__map_insert_hint_varg__cstr_not_equal),\
-    UT_CASE(test__map_insert_hint_varg__libcstl_builtin_equal),\
-    UT_CASE(test__map_insert_hint_varg__libcstl_builtin_not_equal),\
-    UT_CASE(test__map_insert_hint_varg__user_define_equal),\
-    UT_CASE(test__map_insert_hint_varg__user_define_not_equal),\
     UT_CASE_BEGIN(_map_init_elem_auxiliary, test__map_init_elem_auxiliary__null_map_container),\
     UT_CASE(test__map_init_elem_auxiliary__null_elem),\
+    UT_CASE(test__map_init_elem_auxiliary__non_inited),\
     UT_CASE(test__map_init_elem_auxiliary__successfully_int),\
     UT_CASE(test__map_init_elem_auxiliary__successfully_cstr),\
     UT_CASE(test__map_init_elem_auxiliary__successfully_iterator),\
     UT_CASE(test__map_init_elem_auxiliary__successfully_container),\
     UT_CASE(test__map_init_elem_auxiliary__successfully_user_defined)
-    */
 
 #endif /* _UT_CSTL_MAP_PRIVATE_H_ */
 
