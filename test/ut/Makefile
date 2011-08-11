@@ -61,9 +61,10 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_hashtable.$(OBJEXT) ut-cstl_heap.$(OBJEXT) \
 	ut-cstl_list.$(OBJEXT) ut-cstl_list_iterator.$(OBJEXT) \
 	ut-cstl_list_private.$(OBJEXT) ut-cstl_list_aux.$(OBJEXT) \
-	ut-cstl_map.$(OBJEXT) ut-cstl_map_private.$(OBJEXT) \
-	ut-cstl_map_aux.$(OBJEXT) ut-cstl_multimap.$(OBJEXT) \
-	ut-cstl_multiset.$(OBJEXT) ut-cstl_multiset_iterator.$(OBJEXT) \
+	ut-cstl_map.$(OBJEXT) ut-cstl_map_iterator.$(OBJEXT) \
+	ut-cstl_map_private.$(OBJEXT) ut-cstl_map_aux.$(OBJEXT) \
+	ut-cstl_multimap.$(OBJEXT) ut-cstl_multiset.$(OBJEXT) \
+	ut-cstl_multiset_iterator.$(OBJEXT) \
 	ut-cstl_multiset_private.$(OBJEXT) \
 	ut-cstl_multiset_aux.$(OBJEXT) ut-cstl_numeric.$(OBJEXT) \
 	ut-cstl_rb_tree.$(OBJEXT) ut-cstl_rb_tree_iterator.$(OBJEXT) \
@@ -116,7 +117,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_multiset_iterator.$(OBJEXT) \
 	ut-ut_cstl_multiset.$(OBJEXT) ut-ut_cstl_pair_aux.$(OBJEXT) \
 	ut-ut_cstl_pair_private.$(OBJEXT) ut-ut_cstl_pair.$(OBJEXT) \
-	ut-ut_cstl_map_aux.$(OBJEXT) ut-ut_cstl_map_private.$(OBJEXT)
+	ut-ut_cstl_map_aux.$(OBJEXT) ut-ut_cstl_map_private.$(OBJEXT) \
+	ut-ut_cstl_map_iterator.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -273,7 +275,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_heap.c \
 	     $(srcdir)/../../src/cstl_list.c $(srcdir)/../../src/cstl_list_iterator.c \
 	     $(srcdir)/../../src/cstl_list_private.c $(srcdir)/../../src/cstl_list_aux.c \
-	     $(srcdir)/../../src/cstl_map.c \
+	     $(srcdir)/../../src/cstl_map.c $(srcdir)/../../src/cstl_map_iterator.c \
 	     $(srcdir)/../../src/cstl_map_private.c $(srcdir)/../../src/cstl_map_aux.c \
 	     $(srcdir)/../../src/cstl_multimap.c \
 	     $(srcdir)/../../src/cstl_multiset.c $(srcdir)/../../src/cstl_multiset_iterator.c \
@@ -341,7 +343,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_pair_private.c ut_cstl_pair_private.h \
 	     ut_cstl_pair.c ut_cstl_pair.h \
 	     ut_cstl_map_aux.c ut_cstl_map_aux.h \
-	     ut_cstl_map_private.c ut_cstl_map_private.h
+	     ut_cstl_map_private.c ut_cstl_map_private.h \
+	     ut_cstl_map_iterator.c ut_cstl_map_iterator.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -430,6 +433,7 @@ include ./$(DEPDIR)/ut-cstl_list_iterator.Po
 include ./$(DEPDIR)/ut-cstl_list_private.Po
 include ./$(DEPDIR)/ut-cstl_map.Po
 include ./$(DEPDIR)/ut-cstl_map_aux.Po
+include ./$(DEPDIR)/ut-cstl_map_iterator.Po
 include ./$(DEPDIR)/ut-cstl_map_private.Po
 include ./$(DEPDIR)/ut-cstl_multimap.Po
 include ./$(DEPDIR)/ut-cstl_multiset.Po
@@ -484,6 +488,7 @@ include ./$(DEPDIR)/ut-ut_cstl_list_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_list_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_list_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_map_aux.Po
+include ./$(DEPDIR)/ut-ut_cstl_map_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_map_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_multiset.Po
 include ./$(DEPDIR)/ut-ut_cstl_multiset_aux.Po
@@ -971,6 +976,20 @@ ut-cstl_map.obj: $(srcdir)/../../src/cstl_map.c
 #	source='$(srcdir)/../../src/cstl_map.c' object='ut-cstl_map.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map.obj `if test -f '$(srcdir)/../../src/cstl_map.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map.c'; fi`
+
+ut-cstl_map_iterator.o: $(srcdir)/../../src/cstl_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_map_iterator.Tpo -c -o ut-cstl_map_iterator.o `test -f '$(srcdir)/../../src/cstl_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_iterator.c
+	$(am__mv) $(DEPDIR)/ut-cstl_map_iterator.Tpo $(DEPDIR)/ut-cstl_map_iterator.Po
+#	source='$(srcdir)/../../src/cstl_map_iterator.c' object='ut-cstl_map_iterator.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map_iterator.o `test -f '$(srcdir)/../../src/cstl_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_iterator.c
+
+ut-cstl_map_iterator.obj: $(srcdir)/../../src/cstl_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_map_iterator.Tpo -c -o ut-cstl_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_map_iterator.Tpo $(DEPDIR)/ut-cstl_map_iterator.Po
+#	source='$(srcdir)/../../src/cstl_map_iterator.c' object='ut-cstl_map_iterator.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_iterator.c'; fi`
 
 ut-cstl_map_private.o: $(srcdir)/../../src/cstl_map_private.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_map_private.Tpo -c -o ut-cstl_map_private.o `test -f '$(srcdir)/../../src/cstl_map_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_private.c
@@ -2161,6 +2180,20 @@ ut-ut_cstl_map_private.obj: ut_cstl_map_private.c
 #	source='ut_cstl_map_private.c' object='ut-ut_cstl_map_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_private.obj `if test -f 'ut_cstl_map_private.c'; then $(CYGPATH_W) 'ut_cstl_map_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_private.c'; fi`
+
+ut-ut_cstl_map_iterator.o: ut_cstl_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map_iterator.Tpo -c -o ut-ut_cstl_map_iterator.o `test -f 'ut_cstl_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_map_iterator.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_map_iterator.Tpo $(DEPDIR)/ut-ut_cstl_map_iterator.Po
+#	source='ut_cstl_map_iterator.c' object='ut-ut_cstl_map_iterator.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_iterator.o `test -f 'ut_cstl_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_map_iterator.c
+
+ut-ut_cstl_map_iterator.obj: ut_cstl_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map_iterator.Tpo -c -o ut-ut_cstl_map_iterator.obj `if test -f 'ut_cstl_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_map_iterator.Tpo $(DEPDIR)/ut-ut_cstl_map_iterator.Po
+#	source='ut_cstl_map_iterator.c' object='ut-ut_cstl_map_iterator.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_iterator.obj `if test -f 'ut_cstl_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_iterator.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
