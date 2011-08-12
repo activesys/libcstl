@@ -118,7 +118,7 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_multiset.$(OBJEXT) ut-ut_cstl_pair_aux.$(OBJEXT) \
 	ut-ut_cstl_pair_private.$(OBJEXT) ut-ut_cstl_pair.$(OBJEXT) \
 	ut-ut_cstl_map_aux.$(OBJEXT) ut-ut_cstl_map_private.$(OBJEXT) \
-	ut-ut_cstl_map_iterator.$(OBJEXT)
+	ut-ut_cstl_map_iterator.$(OBJEXT) ut-ut_cstl_map.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -344,7 +344,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_pair.c ut_cstl_pair.h \
 	     ut_cstl_map_aux.c ut_cstl_map_aux.h \
 	     ut_cstl_map_private.c ut_cstl_map_private.h \
-	     ut_cstl_map_iterator.c ut_cstl_map_iterator.h
+	     ut_cstl_map_iterator.c ut_cstl_map_iterator.h \
+	     ut_cstl_map.c ut_cstl_map.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -487,6 +488,7 @@ include ./$(DEPDIR)/ut-ut_cstl_list.Po
 include ./$(DEPDIR)/ut-ut_cstl_list_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_list_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_list_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_map.Po
 include ./$(DEPDIR)/ut-ut_cstl_map_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_map_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_map_private.Po
@@ -2194,6 +2196,20 @@ ut-ut_cstl_map_iterator.obj: ut_cstl_map_iterator.c
 #	source='ut_cstl_map_iterator.c' object='ut-ut_cstl_map_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_iterator.obj `if test -f 'ut_cstl_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_iterator.c'; fi`
+
+ut-ut_cstl_map.o: ut_cstl_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map.Tpo -c -o ut-ut_cstl_map.o `test -f 'ut_cstl_map.c' || echo '$(srcdir)/'`ut_cstl_map.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_map.Tpo $(DEPDIR)/ut-ut_cstl_map.Po
+#	source='ut_cstl_map.c' object='ut-ut_cstl_map.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map.o `test -f 'ut_cstl_map.c' || echo '$(srcdir)/'`ut_cstl_map.c
+
+ut-ut_cstl_map.obj: ut_cstl_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map.Tpo -c -o ut-ut_cstl_map.obj `if test -f 'ut_cstl_map.c'; then $(CYGPATH_W) 'ut_cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_map.Tpo $(DEPDIR)/ut-ut_cstl_map.Po
+#	source='ut_cstl_map.c' object='ut-ut_cstl_map.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map.obj `if test -f 'ut_cstl_map.c'; then $(CYGPATH_W) 'ut_cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

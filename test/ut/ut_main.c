@@ -57,6 +57,7 @@
 #include "ut_cstl_map_aux.h"
 #include "ut_cstl_map_private.h"
 #include "ut_cstl_map_iterator.h"
+#include "ut_cstl_map.h"
 
 int main(int argc, char* argv[])
 {
@@ -110,7 +111,8 @@ int main(int argc, char* argv[])
         UT_CSTL_PAIR_CASE,
         UT_CSTL_MAP_AUX_CASE,
         UT_CSTL_MAP_PRIVATE_CASE,
-        UT_CSTL_MAP_ITERATOR_CASE
+        UT_CSTL_MAP_ITERATOR_CASE,
+        UT_CSTL_MAP_CASE
     };
 
     return run_tests(tests);
