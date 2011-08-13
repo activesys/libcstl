@@ -119,13 +119,25 @@ extern void map_init_copy_range(map_t* pmap_dest, map_iterator_t it_begin, map_i
  *          is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior is undefined. if
  *          t_compare == NULL, then use default compare function.
  */
-extern void map_init_copy_range_ex(map_t* pmap_dest,
-    map_iterator_t it_begin, map_iterator_t it_end, binary_function_t t_keycompare);
+extern void map_init_copy_range_ex(
+    map_t* pmap_dest, map_iterator_t it_begin, map_iterator_t it_end, binary_function_t t_keycompare);
 
+/**
+ * Destroy map.
+ * @param pmap_map       map container.
+ * @return void.
+ * @remarks if pmap_map == NULL, then the behavior is undefined, the map must be initialized or created by create_map(),
+ *          otherwise the behavior is undefined.
+ */
 extern void map_destroy(map_t* pmap_map);
 
-/*
- * Assign operator function.
+/**
+ * Assign map container.
+ * @param pmap_dest           destination map container.
+ * @param cpmap_src           source map container.
+ * @return void.
+ * @remarks if pmap_dest == NULL or cpmap_src == NULL, the the behavior is undefined. two map must be initialized, otherwise
+ *          the behavior is undefined. if map_equal(pmap_dest, cpmap_src), the function dest nothing.
  */
 extern void map_assign(map_t* pmap_dest, const map_t* cpmap_src);
 
@@ -134,11 +146,31 @@ extern void map_assign(map_t* pmap_dest, const map_t* cpmap_src);
  */
 extern void map_swap(map_t* pmap_first, map_t* pmap_second);
 
-/*
- * map_t size operation functions.
+/**
+ * Get the number of elements int the map.
+ * @param cpmap_map      map container.
+ * @return the number of elements in the map.
+ * @remarks if cpmap_map == NULL, then the behavior is undefined, the cpmap_map must be initialized, otherwise the behavior
+ *          is undefined.
  */
 extern size_t map_size(const map_t* cpmap_map);
+
+/**
+ * Test if an map is empty.
+ * @param cpmap_map      map container.
+ * @return true if the map is empty, otherwise return false.
+ * @remarks if cpmap_map == NULL, then the behavior is undefined, the cpmap_map must be initialized, otherwise the behavior
+ *          is undefined.
+ */
 extern bool_t map_empty(const map_t* cpmap_map);
+
+/**
+ * Get the maximum number of elements int the map.
+ * @param cpmap_map      map container.
+ * @return the maximum number of elements in the map.
+ * @remarks if cpmap_map == NULL, then the behavior is undefined, the cpmap_map must be initialized, otherwise the behavior
+ *          is undefined.
+ */
 extern size_t map_max_size(const map_t* cpmap_map);
 
 /*

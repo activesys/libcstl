@@ -63,6 +63,15 @@ extern "C" {
  * @remarks if cppair_first == NULL or cppair_second == NULL, then the behavior is undefined.
  */
 extern bool_t _map_same_pair_type(const pair_t* cppair_first, const pair_t* cppair_second);
+
+/**
+ * Test the two pair is have the same type.
+ * @param cppair_first      first pair.
+ * @param cppair_second     second pair.
+ * @return true if two pair are same, otherwise return false.
+ * @remarks if cppair_first == NULL or cppair_second == NULL, then the behavior is undefined.
+ */
+extern bool_t _map_same_pair_type_ex(const pair_t* cppair_first, const pair_t* cppair_second);
 #endif /* NDEBUG */
 
 /**

@@ -75,6 +75,29 @@ bool_t _map_same_pair_type(const pair_t* cppair_first, const pair_t* cppair_seco
            (cppair_first->_t_typeinfofirst._t_style == cppair_second->_t_typeinfofirst._t_style) &&
            (cppair_first->_t_typeinfosecond._pt_type == cppair_second->_t_typeinfosecond._pt_type) &&
            (cppair_first->_t_typeinfosecond._t_style == cppair_second->_t_typeinfosecond._t_style) &&
+           _type_is_same(cppair_first->_t_typeinfofirst._sz_typename, cppair_second->_t_typeinfofirst._sz_typename) &&
+           _type_is_same(cppair_first->_t_typeinfosecond._sz_typename, cppair_second->_t_typeinfosecond._sz_typename);
+}
+
+/**
+ * Test the two pair is have the same type.
+ */
+bool_t _map_same_pair_type_ex(const pair_t* cppair_first, const pair_t* cppair_second)
+{
+    assert(cppair_first != NULL);
+    assert(cppair_second != NULL);
+    assert(_pair_is_inited(cppair_first) || _pair_is_created(cppair_first));
+    assert(_pair_is_inited(cppair_second) || _pair_is_created(cppair_second));
+
+    if(cppair_first == cppair_second)
+    {
+        return true;
+    }
+
+    return (cppair_first->_t_typeinfofirst._pt_type == cppair_second->_t_typeinfofirst._pt_type) &&
+           (cppair_first->_t_typeinfofirst._t_style == cppair_second->_t_typeinfofirst._t_style) &&
+           (cppair_first->_t_typeinfosecond._pt_type == cppair_second->_t_typeinfosecond._pt_type) &&
+           (cppair_first->_t_typeinfosecond._t_style == cppair_second->_t_typeinfosecond._t_style) &&
            (cppair_first->_t_mapkeycompare == cppair_second->_t_mapkeycompare) &&
            (cppair_first->_t_mapvaluecompare == cppair_second->_t_mapvaluecompare) &&
            _type_is_same(cppair_first->_t_typeinfofirst._sz_typename, cppair_second->_t_typeinfofirst._sz_typename) &&
@@ -94,7 +117,7 @@ void _map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_
     ppair_first = (pair_t*)cpv_first;
     ppair_second = (pair_t*)cpv_second;
 
-    assert(_map_same_pair_type(ppair_first, ppair_second));
+    assert(_map_same_pair_type_ex(ppair_first, ppair_second));
 
     *(bool_t*)pv_output = ppair_first->_t_typeinfofirst._pt_type->_t_typesize;
     if(ppair_first->_t_mapkeycompare != NULL) /* the external key compare */

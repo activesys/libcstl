@@ -122,11 +122,10 @@ void test_map_init_ex__non_null_compare(void** state)
 /*
  * test map_init_copy
  */
-/*
 UT_CASE_DEFINATION(map_init_copy)
 void test_map_init_copy__null_dest(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     expect_assert_failure(map_init_copy(NULL, pt_map));
@@ -136,7 +135,7 @@ void test_map_init_copy__null_dest(void** state)
 
 void test_map_init_copy__null_src(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
 
     expect_assert_failure(map_init_copy(pt_map, NULL));
 
@@ -145,8 +144,8 @@ void test_map_init_copy__null_src(void** state)
 
 void test_map_init_copy__non_created_dest(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
 
     map_init_ex(pt_src, NULL);
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
@@ -157,10 +156,24 @@ void test_map_init_copy__non_created_dest(void** state)
     map_destroy(pt_src);
 }
 
+void test_map_init_copy__non_created_dest_pair(void** state)
+{
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+
+    map_init_ex(pt_src, NULL);
+    pt_dest->_t_pair._pv_first = (void*)0x733;
+    expect_assert_failure(map_init_copy(pt_dest, pt_src));
+    pt_dest->_t_pair._pv_first = NULL;
+
+    map_destroy(pt_dest);
+    map_destroy(pt_src);
+}
+
 void test_map_init_copy__non_inited_src(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
 
     map_init_ex(pt_src, NULL);
     pt_src->_t_tree._t_rbroot._t_color = BLACK;
@@ -171,10 +184,26 @@ void test_map_init_copy__non_inited_src(void** state)
     map_destroy(pt_src);
 }
 
+void test_map_init_copy__non_inited_src_pair(void** state)
+{
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    void* pv_tmp = NULL;
+
+    map_init_ex(pt_src, NULL);
+    pv_tmp = pt_src->_t_pair._pv_first;
+    pt_src->_t_pair._pv_first = NULL;
+    expect_assert_failure(map_init_copy(pt_dest, pt_src));
+    pt_src->_t_pair._pv_first = pv_tmp;
+
+    map_destroy(pt_dest);
+    map_destroy(pt_src);
+}
+
 void test_map_init_copy__not_same_type(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(double);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(double, int);
 
     map_init_ex(pt_src, NULL);
     expect_assert_failure(map_init_copy(pt_dest, pt_src));
@@ -185,12 +214,13 @@ void test_map_init_copy__not_same_type(void** state)
 
 void test_map_init_copy__empty(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(signed int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(signed int, int);
 
     map_init_ex(pt_src, NULL);
     map_init_copy(pt_dest, pt_src);
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+    assert_true(_pair_is_inited(&pt_dest->_t_pair));
     assert_true(map_empty(pt_dest));
 
     map_destroy(pt_dest);
@@ -199,18 +229,22 @@ void test_map_init_copy__empty(void** state)
 
 void test_map_init_copy__non_empty(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(signed int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(signed int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int elem = 100;
 
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
     map_init_copy(pt_dest, pt_src);
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+    assert_true(_pair_is_inited(&pt_dest->_t_pair));
     assert_true(map_size(pt_dest) == 1);
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
 
 static void _test_map_init_copy__non_null_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -219,33 +253,37 @@ static void _test_map_init_copy__non_null_compare(const void* cpv_first, const v
 }
 void test_map_init_copy__non_null_compare(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(signed int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(signed int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int i = 0;
 
     map_init_ex(pt_src, _test_map_init_copy__non_null_compare);
+    pair_init(pt_pair);
     for(i = 0; i < 10; ++i)
     {
-        map_insert(pt_src, i);
+        pair_make(pt_pair, i, i);
+        map_insert(pt_src, pt_pair);
     }
     map_init_copy(pt_dest, pt_src);
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+    assert_true(_pair_is_inited(&pt_dest->_t_pair));
     assert_true(map_size(pt_dest) == 10);
-    assert_true(pt_dest->_t_tree._t_compare == _test_map_init_copy__non_null_compare);
+    assert_true(pt_dest->_t_keycompare == _test_map_init_copy__non_null_compare);
+    assert_true(pt_dest->_t_pair._t_mapkeycompare == _test_map_init_copy__non_null_compare);
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test map_init_copy_range
  */
-/*
 UT_CASE_DEFINATION(map_init_copy_range)
 void test_map_init_copy_range__null_map(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     expect_assert_failure(map_init_copy_range(NULL, map_begin(pt_map), map_end(pt_map)));
@@ -255,8 +293,8 @@ void test_map_init_copy_range__null_map(void** state)
 
 void test_map_init_copy_range__non_created_map(void** state)
 {
-    map_t* pt_map = create_map(int);
-    map_t* pt_dest = create_map(int);
+    map_t* pt_map = create_map(int, int);
+    map_t* pt_dest = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
@@ -267,17 +305,31 @@ void test_map_init_copy_range__non_created_map(void** state)
     map_destroy(pt_dest);
 }
 
+void test_map_init_copy_range__non_created_map_pair(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    map_t* pt_dest = create_map(int, int);
+    map_init_ex(pt_map, NULL);
+
+    pt_dest->_t_pair._pv_first = (void*)0x8989;
+    expect_assert_failure(map_init_copy_range(pt_dest, map_begin(pt_map), map_end(pt_map)));
+    pt_dest->_t_pair._pv_first = NULL;
+
+    map_destroy(pt_map);
+    map_destroy(pt_dest);
+}
+
 void test_map_init_copy_range__invalid_begin(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
     map_init_ex(pt_src, NULL);
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    it_begin._t_containertype = 99999;
     expect_assert_failure(map_init_copy_range(pt_dest, it_begin, it_end));
 
     map_destroy(pt_dest);
@@ -286,8 +338,8 @@ void test_map_init_copy_range__invalid_begin(void** state)
 
 void test_map_init_copy_range__invalid_end(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
@@ -303,14 +355,16 @@ void test_map_init_copy_range__invalid_end(void** state)
 
 void test_map_init_copy_range__invalid_range(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
     int elem = 9;
 
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     expect_assert_failure(map_init_copy_range(pt_dest, it_end, it_begin));
@@ -321,8 +375,8 @@ void test_map_init_copy_range__invalid_range(void** state)
 
 void test_map_init_copy_range__invalid_range_not_same_type(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(double);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(double, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
@@ -337,8 +391,8 @@ void test_map_init_copy_range__invalid_range_not_same_type(void** state)
 
 void test_map_init_copy_range__empty(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
@@ -347,6 +401,7 @@ void test_map_init_copy_range__empty(void** state)
     it_end = map_end(pt_src);
     map_init_copy_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+    assert_true(_pair_is_inited(&pt_dest->_t_pair));
     assert_true(map_empty(pt_dest));
 
     map_destroy(pt_dest);
@@ -355,34 +410,36 @@ void test_map_init_copy_range__empty(void** state)
 
 void test_map_init_copy_range__non_empty(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
     int elem = 9;
 
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     map_init_copy_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+    assert_true(_pair_is_inited(&pt_dest->_t_pair));
     assert_true(map_size(pt_dest) == 1);
     assert_true(map_equal(pt_dest, pt_src));
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test map_init_copy_range_ex
  */
-/*
 UT_CASE_DEFINATION(map_init_copy_range_ex)
 void test_map_init_copy_range_ex__null_map(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     expect_assert_failure(map_init_copy_range_ex(NULL, map_begin(pt_map), map_end(pt_map), NULL));
@@ -392,8 +449,8 @@ void test_map_init_copy_range_ex__null_map(void** state)
 
 void test_map_init_copy_range_ex__non_created_map(void** state)
 {
-    map_t* pt_map = create_map(int);
-    map_t* pt_dest = create_map(int);
+    map_t* pt_map = create_map(int, int);
+    map_t* pt_dest = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
@@ -404,17 +461,31 @@ void test_map_init_copy_range_ex__non_created_map(void** state)
     map_destroy(pt_dest);
 }
 
+void test_map_init_copy_range_ex__non_created_map_pair(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    map_t* pt_dest = create_map(int, int);
+    map_init_ex(pt_map, NULL);
+
+    pt_dest->_t_pair._pv_second = (void*)0x7383;
+    expect_assert_failure(map_init_copy_range_ex(pt_dest, map_begin(pt_map), map_end(pt_map), NULL));
+    pt_dest->_t_pair._pv_second = NULL;
+
+    map_destroy(pt_map);
+    map_destroy(pt_dest);
+}
+
 void test_map_init_copy_range_ex__invalid_begin(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
     map_init_ex(pt_src, NULL);
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    it_begin._t_containertype = 99999;
     expect_assert_failure(map_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
 
     map_destroy(pt_dest);
@@ -423,8 +494,8 @@ void test_map_init_copy_range_ex__invalid_begin(void** state)
 
 void test_map_init_copy_range_ex__invalid_end(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
@@ -440,26 +511,29 @@ void test_map_init_copy_range_ex__invalid_end(void** state)
 
 void test_map_init_copy_range_ex__invalid_range(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
     int elem = 9;
 
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     expect_assert_failure(map_init_copy_range_ex(pt_dest, it_end, it_begin, NULL));
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
 
 void test_map_init_copy_range_ex__invalid_range_not_same_type(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(double);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(double, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
@@ -474,8 +548,8 @@ void test_map_init_copy_range_ex__invalid_range_not_same_type(void** state)
 
 void test_map_init_copy_range_ex__empty(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
@@ -484,6 +558,7 @@ void test_map_init_copy_range_ex__empty(void** state)
     it_end = map_end(pt_src);
     map_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+    assert_true(_pair_is_inited(&pt_dest->_t_pair));
     assert_true(map_empty(pt_dest));
 
     map_destroy(pt_dest);
@@ -492,23 +567,27 @@ void test_map_init_copy_range_ex__empty(void** state)
 
 void test_map_init_copy_range_ex__non_empty(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
     int elem = 9;
 
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     map_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+    assert_true(_pair_is_inited(&pt_dest->_t_pair));
     assert_true(map_size(pt_dest) == 1);
     assert_true(map_equal(pt_dest, pt_src));
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
 
 static void _test__map_init_compare_range_ex__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -517,30 +596,33 @@ static void _test__map_init_compare_range_ex__compare(const void* cpv_first, con
 }
 void test_map_init_copy_range_ex__compare(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
     int elem = 9;
 
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     map_init_copy_range_ex(pt_dest, it_begin, it_end, _test__map_init_compare_range_ex__compare);
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+    assert_true(_pair_is_inited(&pt_dest->_t_pair));
     assert_true(map_size(pt_dest) == 1);
-    assert_true(pt_dest->_t_tree._t_compare == _test__map_init_compare_range_ex__compare);
+    assert_true(pt_dest->_t_keycompare == _test__map_init_compare_range_ex__compare);
+    assert_true(pt_dest->_t_pair._t_mapkeycompare == _test__map_init_compare_range_ex__compare);
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test map_destroy
  */
-/*
 UT_CASE_DEFINATION(map_destroy)
 void test_map_destroy__null_map(void** state)
 {
@@ -549,7 +631,7 @@ void test_map_destroy__null_map(void** state)
 
 void test_map_destroy__non_created(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
 
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_destroy(pt_map));
@@ -560,28 +642,38 @@ void test_map_destroy__non_created(void** state)
 
 void test_map_destroy__created(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
 
     map_destroy(pt_map);
 }
 
 void test_map_destroy__inited(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     map_destroy(pt_map);
 }
-*/
+
+void test_map_destroy__non_empty(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
+
+    map_init(pt_map);
+    pair_init_elem(pt_pair, 2, 4);
+    map_insert(pt_map, pt_pair);
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
 
 /*
  * test map_assign
  */
-/*
 UT_CASE_DEFINATION(map_assign)
 void test_map_assign__null_dest(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
 
     map_init_ex(pt_map, NULL);
     expect_assert_failure(map_assign(NULL, pt_map));
@@ -591,7 +683,7 @@ void test_map_assign__null_dest(void** state)
 
 void test_map_assign__null_src(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
 
     map_init_ex(pt_map, NULL);
     expect_assert_failure(map_assign(pt_map, NULL));
@@ -601,9 +693,10 @@ void test_map_assign__null_src(void** state)
 
 void test_map_assign__non_created_dest(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
 
+    map_init_ex(pt_dest, NULL);
     map_init_ex(pt_src, NULL);
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_assign(pt_dest, pt_src));
@@ -613,10 +706,27 @@ void test_map_assign__non_created_dest(void** state)
     map_destroy(pt_src);
 }
 
+void test_map_assign__non_created_dest_pair(void** state)
+{
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    void* pv_tmp = NULL;
+
+    map_init_ex(pt_dest, NULL);
+    map_init_ex(pt_src, NULL);
+    pv_tmp = pt_dest->_t_pair._pv_first;
+    pt_dest->_t_pair._pv_first = NULL;
+    expect_assert_failure(map_assign(pt_dest, pt_src));
+    pt_dest->_t_pair._pv_first = pv_tmp;
+
+    map_destroy(pt_dest);
+    map_destroy(pt_src);
+}
+
 void test_map_assign__non_init_src(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
 
     map_init_ex(pt_src, NULL);
     map_init_ex(pt_dest, NULL);
@@ -628,10 +738,27 @@ void test_map_assign__non_init_src(void** state)
     map_destroy(pt_src);
 }
 
+void test_map_assign__non_init_src_pair(void** state)
+{
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    void* pv_tmp = NULL;
+
+    map_init_ex(pt_src, NULL);
+    map_init_ex(pt_dest, NULL);
+    pv_tmp = pt_src->_t_pair._pv_second;
+    pt_src->_t_pair._pv_second = NULL;
+    expect_assert_failure(map_assign(pt_dest, pt_src));
+    pt_src->_t_pair._pv_second = pv_tmp;
+
+    map_destroy(pt_dest);
+    map_destroy(pt_src);
+}
+
 void test_map_assign__not_same_type(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(double);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(double, int);
 
     map_init_ex(pt_src, NULL);
     map_init_ex(pt_dest, NULL);
@@ -643,8 +770,8 @@ void test_map_assign__not_same_type(void** state)
 
 void test_map_assign__empty_empty(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
 
     map_init_ex(pt_src, NULL);
     map_init_ex(pt_dest, NULL);
@@ -657,122 +784,156 @@ void test_map_assign__empty_empty(void** state)
 
 void test_map_assign__non_empty_empty(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int elem = 9;
 
     map_init_ex(pt_src, NULL);
     map_init_ex(pt_dest, NULL);
-    map_insert(pt_dest, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_dest, pt_pair);
     map_assign(pt_dest, pt_src);
     assert_true(map_empty(pt_dest));
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
 
 void test_map_assign__non_empty_non_empty_less(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
-    int elem = 9;
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
+    int elem = 999;
 
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
     elem = 222;
-    map_insert(pt_src, elem);
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
+
     map_init_ex(pt_dest, NULL);
     elem = 897;
-    map_insert(pt_dest, elem);
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_dest, pt_pair);
+
     map_assign(pt_dest, pt_src);
     assert_true(map_size(pt_dest) == 2);
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
 
 void test_map_assign__non_empty_non_empty_size_equal(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int elem = 9;
 
+    pair_init(pt_pair);
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
+
     map_init_ex(pt_dest, NULL);
     elem = 334;
-    map_insert(pt_dest, elem);
-    assert_true(*(int*)iterator_get_pointer(map_begin(pt_dest)) == 334);
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_dest, pt_pair);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(map_begin(pt_dest))) == 334);
     map_assign(pt_dest, pt_src);
     assert_true(map_size(pt_dest) == 1);
-    assert_true(*(int*)iterator_get_pointer(map_begin(pt_dest)) == 9);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(map_begin(pt_dest))) == 9);
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
 
 void test_map_assign__non_empty_non_empty_equal(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int elem = 9;
 
+    pair_init(pt_pair);
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
+
     map_init_ex(pt_dest, NULL);
-    map_insert(pt_dest, elem);
-    assert_true(*(int*)iterator_get_pointer(map_begin(pt_dest)) == 9);
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_dest, pt_pair);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(map_begin(pt_dest))) == 9);
     map_assign(pt_dest, pt_src);
     assert_true(map_size(pt_dest) == 1);
-    assert_true(*(int*)iterator_get_pointer(map_begin(pt_dest)) == 9);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(map_begin(pt_dest))) == 9);
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
 
 void test_map_assign__non_empty_non_empty_greater(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int elem = 9;
 
+    pair_init(pt_pair);
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
+
     map_init_ex(pt_dest, NULL);
     elem = 876;
-    map_insert(pt_dest, elem);
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_dest, pt_pair);
     elem = 333;
-    map_insert(pt_dest, elem);
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_dest, pt_pair);
     map_assign(pt_dest, pt_src);
     assert_true(map_size(pt_dest) == 1);
-    assert_true(*(int*)iterator_get_pointer(map_begin(pt_dest)) == 9);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(map_begin(pt_dest))) == 9);
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
 
 void test_map_assign__empty_non_empty(void** state)
 {
-    map_t* pt_dest = create_map(int);
-    map_t* pt_src = create_map(int);
+    map_t* pt_dest = create_map(int, int);
+    map_t* pt_src = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int elem = 9;
 
+    pair_init(pt_pair);
     map_init_ex(pt_src, NULL);
-    map_insert(pt_src, elem);
+    pair_make(pt_pair, elem, elem);
+    map_insert(pt_src, pt_pair);
     map_init_ex(pt_dest, NULL);
     map_assign(pt_dest, pt_src);
     assert_true(map_size(pt_dest) == 1);
-    assert_true(*(int*)iterator_get_pointer(map_begin(pt_dest)) == 9);
+    assert_true(*(int*)pair_first((pair_t*)iterator_get_pointer(map_begin(pt_dest))) == 9);
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test map_size
  */
-/*
 UT_CASE_DEFINATION(map_size)
 void test_map_size__null_map(void** state)
 {
@@ -781,7 +942,7 @@ void test_map_size__null_map(void** state)
 
 void test_map_size__non_inited(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
@@ -791,9 +952,23 @@ void test_map_size__non_inited(void** state)
     map_destroy(pt_map);
 }
 
+void test_map_size__non_inited_pair(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    void* pv_tmp = NULL;
+    map_init_ex(pt_map, NULL);
+
+    pv_tmp = pt_map->_t_pair._pv_first;
+    pt_map->_t_pair._pv_first = NULL;
+    expect_assert_failure(map_size(pt_map));
+    pt_map->_t_pair._pv_first = pv_tmp;
+
+    map_destroy(pt_map);
+}
+
 void test_map_size__empty(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     assert_true(map_size(pt_map) == 0);
@@ -803,22 +978,23 @@ void test_map_size__empty(void** state)
 
 void test_map_size__non_empty(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int elem = 9;
 
     map_init_ex(pt_map, NULL);
-    map_insert(pt_map, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_map, pt_pair);
 
     assert_true(map_size(pt_map) == 1);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test map_empty
  */
-/*
 UT_CASE_DEFINATION(map_empty)
 void test_map_empty__null_map(void** state)
 {
@@ -827,7 +1003,7 @@ void test_map_empty__null_map(void** state)
 
 void test_map_empty__non_inited(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
@@ -837,9 +1013,23 @@ void test_map_empty__non_inited(void** state)
     map_destroy(pt_map);
 }
 
+void test_map_empty__non_inited_pair(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    void* pv_tmp = NULL;
+    map_init_ex(pt_map, NULL);
+
+    pv_tmp = pt_map->_t_pair._pv_first;
+    pt_map->_t_pair._pv_first = NULL;
+    expect_assert_failure(map_empty(pt_map));
+    pt_map->_t_pair._pv_first = pv_tmp;
+
+    map_destroy(pt_map);
+}
+
 void test_map_empty__empty(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     assert_true(map_empty(pt_map));
@@ -849,22 +1039,23 @@ void test_map_empty__empty(void** state)
 
 void test_map_empty__non_empty(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int elem = 9;
 
     map_init_ex(pt_map, NULL);
-    map_insert(pt_map, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_map, pt_pair);
 
     assert_false(map_empty(pt_map));
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test map_max_size
  */
-/*
 UT_CASE_DEFINATION(map_max_size)
 void test_map_max_size__null_map(void** state)
 {
@@ -873,7 +1064,7 @@ void test_map_max_size__null_map(void** state)
 
 void test_map_max_size__non_inited(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
@@ -883,9 +1074,23 @@ void test_map_max_size__non_inited(void** state)
     map_destroy(pt_map);
 }
 
+void test_map_max_size__non_inited_pair(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    void* pv_tmp = NULL;
+    map_init_ex(pt_map, NULL);
+
+    pv_tmp = pt_map->_t_pair._pv_first;
+    pt_map->_t_pair._pv_first = NULL;
+    expect_assert_failure(map_max_size(pt_map));
+    pt_map->_t_pair._pv_first = pv_tmp;
+
+    map_destroy(pt_map);
+}
+
 void test_map_max_size__empty(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
     assert_true(map_max_size(pt_map) > 0);
@@ -895,17 +1100,19 @@ void test_map_max_size__empty(void** state)
 
 void test_map_max_size__non_empty(void** state)
 {
-    map_t* pt_map = create_map(int);
+    map_t* pt_map = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
     int elem = 9;
 
     map_init_ex(pt_map, NULL);
-    map_insert(pt_map, elem);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_map, pt_pair);
 
     assert_true(map_max_size(pt_map) > 0);
 
     map_destroy(pt_map);
+    pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test map_begin

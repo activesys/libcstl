@@ -13,7 +13,134 @@
 #include "ut_def.h"
 #include "ut_cstl_map_aux.h"
 
-UT_SUIT_DEFINATION(cstl_map_aux, _map_same_pair_type)
+UT_SUIT_DEFINATION(cstl_map_aux, _map_same_pair_type_ex)
+
+/*
+ * test _map_same_pair_type_ex
+ */
+UT_CASE_DEFINATION(_map_same_pair_type_ex)
+void test__map_same_pair_type_ex__first_null(void** state)
+{
+    pair_t* ppair = create_pair(int, int);
+    pair_init(ppair);
+
+    expect_assert_failure(_map_same_pair_type_ex(NULL, ppair));
+
+    pair_destroy(ppair);
+}
+
+void test__map_same_pair_type_ex__second_null(void** state)
+{
+    pair_t* ppair = create_pair(int, int);
+    pair_init(ppair);
+
+    expect_assert_failure(_map_same_pair_type_ex(ppair, NULL));
+
+    pair_destroy(ppair);
+}
+
+void test__map_same_pair_type_ex__first_noninited(void** state)
+{
+    pair_t* ppair_first = create_pair(int, int);
+    pair_t* ppair_second = create_pair(int, int);
+
+    ppair_first->_t_typeinfofirst._t_style = 99999;
+    expect_assert_failure(_map_same_pair_type_ex(ppair_first, ppair_second));
+    ppair_first->_t_typeinfofirst._t_style = _TYPE_C_BUILTIN;
+
+    pair_destroy(ppair_first);
+    pair_destroy(ppair_second);
+}
+
+void test__map_same_pair_type_ex__second_noninited(void** state)
+{
+    pair_t* ppair_first = create_pair(int, int);
+    pair_t* ppair_second = create_pair(int, int);
+
+    ppair_second->_t_typeinfosecond._t_style = 9999;
+    expect_assert_failure(_map_same_pair_type_ex(ppair_first, ppair_second));
+    ppair_second->_t_typeinfosecond._t_style = _TYPE_C_BUILTIN;
+
+    pair_destroy(ppair_first);
+    pair_destroy(ppair_second);
+}
+
+void test__map_same_pair_type_ex__same_pair(void** state)
+{
+    pair_t* ppair = create_pair(int, int);
+    pair_init(ppair);
+
+    assert_true(_map_same_pair_type_ex(ppair, ppair));
+
+    pair_destroy(ppair);
+}
+
+void test__map_same_pair_type_ex__not_same_first_type(void** state)
+{
+    pair_t* ppair_first = create_pair(int, int);
+    pair_t* ppair_second = create_pair(double, int);
+    pair_init(ppair_first);
+    pair_init(ppair_second);
+
+    assert_false(_map_same_pair_type_ex(ppair_first, ppair_second));
+
+    pair_destroy(ppair_first);
+    pair_destroy(ppair_second);
+}
+
+void test__map_same_pair_type_ex__not_same_second_type(void** state)
+{
+    pair_t* ppair_first = create_pair(int, int);
+    pair_t* ppair_second = create_pair(int, double);
+    pair_init(ppair_first);
+    pair_init(ppair_second);
+
+    assert_false(_map_same_pair_type_ex(ppair_first, ppair_second));
+
+    pair_destroy(ppair_first);
+    pair_destroy(ppair_second);
+}
+
+void test__map_same_pair_type_ex__not_mapkeycompare(void** state)
+{
+    pair_t* ppair_first = create_pair(int, int);
+    pair_t* ppair_second = create_pair(int, int);
+    pair_init(ppair_first);
+    pair_init(ppair_second);
+
+    ppair_first->_t_mapkeycompare = (binary_function_t)0x3333;
+    assert_false(_map_same_pair_type_ex(ppair_first, ppair_second));
+
+    pair_destroy(ppair_first);
+    pair_destroy(ppair_second);
+}
+
+void test__map_same_pair_type_ex__not_mapvaluecompare(void** state)
+{
+    pair_t* ppair_first = create_pair(int, int);
+    pair_t* ppair_second = create_pair(int, int);
+    pair_init(ppair_first);
+    pair_init(ppair_second);
+
+    ppair_first->_t_mapvaluecompare = (binary_function_t)0x8888;
+    assert_false(_map_same_pair_type_ex(ppair_first, ppair_second));
+
+    pair_destroy(ppair_first);
+    pair_destroy(ppair_second);
+}
+
+void test__map_same_pair_type_ex__same_type(void** state)
+{
+    pair_t* ppair_first = create_pair(int, int);
+    pair_t* ppair_second = create_pair(int, int);
+    pair_init(ppair_first);
+    pair_init(ppair_second);
+
+    assert_true(_map_same_pair_type_ex(ppair_first, ppair_second));
+
+    pair_destroy(ppair_first);
+    pair_destroy(ppair_second);
+}
 
 /*
  * test _map_same_pair_type
@@ -109,7 +236,7 @@ void test__map_same_pair_type__not_mapkeycompare(void** state)
     pair_init(ppair_second);
 
     ppair_first->_t_mapkeycompare = (binary_function_t)0x3333;
-    assert_false(_map_same_pair_type(ppair_first, ppair_second));
+    assert_true(_map_same_pair_type(ppair_first, ppair_second));
 
     pair_destroy(ppair_first);
     pair_destroy(ppair_second);
@@ -123,7 +250,7 @@ void test__map_same_pair_type__not_mapvaluecompare(void** state)
     pair_init(ppair_second);
 
     ppair_first->_t_mapvaluecompare = (binary_function_t)0x8888;
-    assert_false(_map_same_pair_type(ppair_first, ppair_second));
+    assert_true(_map_same_pair_type(ppair_first, ppair_second));
 
     pair_destroy(ppair_first);
     pair_destroy(ppair_second);
@@ -141,6 +268,7 @@ void test__map_same_pair_type__same_type(void** state)
     pair_destroy(ppair_first);
     pair_destroy(ppair_second);
 }
+
 
 /*
  * test _map_value_compare
