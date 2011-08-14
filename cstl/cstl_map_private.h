@@ -35,9 +35,9 @@ extern "C" {
 /* the map use rb tree default */
 typedef struct _tagmap
 {
-    pair_t            _t_pair;
-    binary_function_t _t_keycompare;   /* for init ex */
-    binary_function_t _t_valuecompare;
+    pair_t            _pair_temp;
+    binary_function_t _bfun_keycompare;   /* for init ex */
+    binary_function_t _bfun_valuecompare;
 
 #ifdef CSTL_MAP_AVL_TREE
     _avl_tree_t       _t_tree;

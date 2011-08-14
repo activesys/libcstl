@@ -30,8 +30,8 @@ void test__pair_is_created__invalid_first(void** state)
 
     t_pair._pv_first = (void*)0x99999;
     t_pair._pv_second = NULL;
-    t_pair._t_mapkeycompare = NULL;
-    t_pair._t_mapvaluecompare = NULL;
+    t_pair._bfun_mapkeycompare = NULL;
+    t_pair._bfun_mapvaluecompare = NULL;
     t_pair._t_typeinfofirst._t_style = _TYPE_C_BUILTIN;
     t_pair._t_typeinfofirst._pt_type = (_type_t*)0x9999; 
     t_pair._t_typeinfosecond._t_style = _TYPE_USER_DEFINE;
@@ -45,8 +45,8 @@ void test__pair_is_created__invalid_second(void** state)
 
     t_pair._pv_first = NULL;
     t_pair._pv_second = (void*)0x8888;
-    t_pair._t_mapkeycompare = NULL;
-    t_pair._t_mapvaluecompare = NULL;
+    t_pair._bfun_mapkeycompare = NULL;
+    t_pair._bfun_mapvaluecompare = NULL;
     t_pair._t_typeinfofirst._t_style = _TYPE_C_BUILTIN;
     t_pair._t_typeinfofirst._pt_type = (_type_t*)0x9999; 
     t_pair._t_typeinfosecond._t_style = _TYPE_USER_DEFINE;
@@ -60,8 +60,8 @@ void test__pair_is_created__invalid_mapkeycompare(void** state)
 
     t_pair._pv_first = NULL;
     t_pair._pv_second = NULL;
-    t_pair._t_mapkeycompare = (binary_function_t)0x7777;
-    t_pair._t_mapvaluecompare = NULL;
+    t_pair._bfun_mapkeycompare = (binary_function_t)0x7777;
+    t_pair._bfun_mapvaluecompare = NULL;
     t_pair._t_typeinfofirst._t_style = _TYPE_C_BUILTIN;
     t_pair._t_typeinfofirst._pt_type = (_type_t*)0x9999; 
     t_pair._t_typeinfosecond._t_style = _TYPE_USER_DEFINE;
@@ -75,8 +75,8 @@ void test__pair_is_created__invalid_mapvaluecompare(void** state)
 
     t_pair._pv_first = NULL;
     t_pair._pv_second = NULL;
-    t_pair._t_mapkeycompare = NULL;
-    t_pair._t_mapvaluecompare = (binary_function_t)0x8888;
+    t_pair._bfun_mapkeycompare = NULL;
+    t_pair._bfun_mapvaluecompare = (binary_function_t)0x8888;
     t_pair._t_typeinfofirst._t_style = _TYPE_C_BUILTIN;
     t_pair._t_typeinfofirst._pt_type = (_type_t*)0x9999; 
     t_pair._t_typeinfosecond._t_style = _TYPE_USER_DEFINE;
@@ -90,8 +90,8 @@ void test__pair_is_created__invalid_typeinfofirst_style(void** state)
 
     t_pair._pv_first = NULL;
     t_pair._pv_second = NULL;
-    t_pair._t_mapkeycompare = NULL;
-    t_pair._t_mapvaluecompare = NULL;
+    t_pair._bfun_mapkeycompare = NULL;
+    t_pair._bfun_mapvaluecompare = NULL;
     t_pair._t_typeinfofirst._t_style = 837383;
     t_pair._t_typeinfofirst._pt_type = (_type_t*)0x9999; 
     t_pair._t_typeinfosecond._t_style = _TYPE_USER_DEFINE;
@@ -105,8 +105,8 @@ void test__pair_is_created__invalid_typeinfofirst_type(void** state)
 
     t_pair._pv_first = NULL;
     t_pair._pv_second = NULL;
-    t_pair._t_mapkeycompare = NULL;
-    t_pair._t_mapvaluecompare = NULL;
+    t_pair._bfun_mapkeycompare = NULL;
+    t_pair._bfun_mapvaluecompare = NULL;
     t_pair._t_typeinfofirst._t_style = _TYPE_CSTL_BUILTIN;
     t_pair._t_typeinfofirst._pt_type = NULL;
     t_pair._t_typeinfosecond._t_style = _TYPE_USER_DEFINE;
@@ -120,8 +120,8 @@ void test__pair_is_created__invalid_typeinfosecond_style(void** state)
 
     t_pair._pv_first = NULL;
     t_pair._pv_second = NULL;
-    t_pair._t_mapkeycompare = NULL;
-    t_pair._t_mapvaluecompare = NULL;
+    t_pair._bfun_mapkeycompare = NULL;
+    t_pair._bfun_mapvaluecompare = NULL;
     t_pair._t_typeinfofirst._t_style = _TYPE_CSTL_BUILTIN;
     t_pair._t_typeinfofirst._pt_type = (_type_t*)0x3333;
     t_pair._t_typeinfosecond._t_style = 9999;
@@ -135,8 +135,8 @@ void test__pair_is_created__invalid_typeinfosecond_type(void** state)
 
     t_pair._pv_first = NULL;
     t_pair._pv_second = NULL;
-    t_pair._t_mapkeycompare = NULL;
-    t_pair._t_mapvaluecompare = NULL;
+    t_pair._bfun_mapkeycompare = NULL;
+    t_pair._bfun_mapvaluecompare = NULL;
     t_pair._t_typeinfofirst._t_style = _TYPE_CSTL_BUILTIN;
     t_pair._t_typeinfofirst._pt_type = (_type_t*)0x3333;
     t_pair._t_typeinfosecond._t_style = _TYPE_C_BUILTIN;
@@ -419,8 +419,8 @@ void test__pair_destroy_auxiliary__empty(void** state)
     _pair_destroy_auxiliary(pt_pair);
     assert_true(pt_pair->_pv_first == NULL);
     assert_true(pt_pair->_pv_second == NULL);
-    assert_true(pt_pair->_t_mapkeycompare == NULL);
-    assert_true(pt_pair->_t_mapvaluecompare == NULL);
+    assert_true(pt_pair->_bfun_mapkeycompare == NULL);
+    assert_true(pt_pair->_bfun_mapvaluecompare == NULL);
     free(pt_pair);
 }
 
@@ -432,8 +432,8 @@ void test__pair_destroy_auxiliary__non_empty(void** state)
     _pair_destroy_auxiliary(pt_pair);
     assert_true(pt_pair->_pv_first == NULL);
     assert_true(pt_pair->_pv_second == NULL);
-    assert_true(pt_pair->_t_mapkeycompare == NULL);
-    assert_true(pt_pair->_t_mapvaluecompare == NULL);
+    assert_true(pt_pair->_bfun_mapkeycompare == NULL);
+    assert_true(pt_pair->_bfun_mapvaluecompare == NULL);
     free(pt_pair);
 }
 
@@ -444,8 +444,8 @@ void test__pair_destroy_auxiliary__created_not_inited(void** state)
     _pair_destroy_auxiliary(pt_pair);
     assert_true(pt_pair->_pv_first == NULL);
     assert_true(pt_pair->_pv_second == NULL);
-    assert_true(pt_pair->_t_mapkeycompare == NULL);
-    assert_true(pt_pair->_t_mapvaluecompare == NULL);
+    assert_true(pt_pair->_bfun_mapkeycompare == NULL);
+    assert_true(pt_pair->_bfun_mapvaluecompare == NULL);
     free(pt_pair);
 }
 

@@ -114,12 +114,12 @@ void test_pair_init_copy__empty(void** state)
     pair_t* pt_src = create_pair(signed int, signed);
 
     pair_init(pt_src);
-    pt_src->_t_mapvaluecompare = (binary_function_t)0x3333;
+    pt_src->_bfun_mapvaluecompare = (binary_function_t)0x3333;
     pair_init_copy(pt_dest, pt_src);
     assert_true(_pair_is_inited(pt_dest));
     assert_true(pair_equal(pt_dest, pt_src));
-    assert_true(pt_dest->_t_mapkeycompare == pt_src->_t_mapkeycompare);
-    assert_true(pt_dest->_t_mapvaluecompare == pt_dest->_t_mapvaluecompare);
+    assert_true(pt_dest->_bfun_mapkeycompare == pt_src->_bfun_mapkeycompare);
+    assert_true(pt_dest->_bfun_mapvaluecompare == pt_dest->_bfun_mapvaluecompare);
 
     pair_destroy(pt_dest);
     pair_destroy(pt_src);
@@ -242,13 +242,13 @@ void test_pair_assign__equal_not_same(void** state)
     pair_t* pt_src = create_pair(int, int);
 
     pair_init(pt_src);
-    pt_src->_t_mapkeycompare = (binary_function_t)0x999;
+    pt_src->_bfun_mapkeycompare = (binary_function_t)0x999;
     pair_init(pt_dest);
-    pt_dest->_t_mapvaluecompare = (binary_function_t)0x888;
+    pt_dest->_bfun_mapvaluecompare = (binary_function_t)0x888;
     pair_assign(pt_dest, pt_src);
     assert_true(pair_equal(pt_dest, pt_src));
-    assert_true(pt_dest->_t_mapkeycompare == pt_src->_t_mapkeycompare);
-    assert_true(pt_dest->_t_mapvaluecompare == pt_src->_t_mapvaluecompare);
+    assert_true(pt_dest->_bfun_mapkeycompare == pt_src->_bfun_mapkeycompare);
+    assert_true(pt_dest->_bfun_mapvaluecompare == pt_src->_bfun_mapvaluecompare);
 
     pair_destroy(pt_dest);
     pair_destroy(pt_src);
@@ -273,8 +273,8 @@ void test_pair_assign__not_equal(void** state)
     pair_init_elem(pt_src, 90, -8.34);
     pair_assign(pt_dest, pt_src);
     assert_true(pair_equal(pt_dest, pt_src));
-    assert_true(pt_dest->_t_mapkeycompare == pt_src->_t_mapkeycompare);
-    assert_true(pt_dest->_t_mapvaluecompare == pt_src->_t_mapvaluecompare);
+    assert_true(pt_dest->_bfun_mapkeycompare == pt_src->_bfun_mapkeycompare);
+    assert_true(pt_dest->_bfun_mapvaluecompare == pt_src->_bfun_mapvaluecompare);
     assert_true(*(int*)pair_first(pt_dest) == 90);
     assert_true(*(double*)pair_second(pt_dest) == -8.34);
 

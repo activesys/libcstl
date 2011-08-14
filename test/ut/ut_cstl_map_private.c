@@ -101,9 +101,9 @@ void test__create_map_auxiliary__c_builtin(void** state)
     map_t* pt_map = malloc(sizeof(map_t));
     assert_true(_create_map_auxiliary(pt_map, "int, int"));
     assert_true(pt_map != NULL);
-    assert_true(_pair_is_created(&pt_map->_t_pair));
-    assert_true(pt_map->_t_keycompare == NULL);
-    assert_true(pt_map->_t_valuecompare == NULL);
+    assert_true(_pair_is_created(&pt_map->_pair_temp));
+    assert_true(pt_map->_bfun_keycompare == NULL);
+    assert_true(pt_map->_bfun_valuecompare == NULL);
 
     map_destroy(pt_map);
 }
@@ -113,9 +113,9 @@ void test__create_map_auxiliary__cstr(void** state)
     map_t* pt_map = malloc(sizeof(map_t));
     assert_true(_create_map_auxiliary(pt_map, "char*, char*"));
     assert_true(pt_map != NULL);
-    assert_true(_pair_is_created(&pt_map->_t_pair));
-    assert_true(pt_map->_t_keycompare == NULL);
-    assert_true(pt_map->_t_valuecompare == NULL);
+    assert_true(_pair_is_created(&pt_map->_pair_temp));
+    assert_true(pt_map->_bfun_keycompare == NULL);
+    assert_true(pt_map->_bfun_valuecompare == NULL);
 
     map_destroy(pt_map);
 }
@@ -125,9 +125,9 @@ void test__create_map_auxiliary__libcstl_builtin(void** state)
     map_t* pt_map = malloc(sizeof(map_t));
     assert_true(_create_map_auxiliary(pt_map, "vector_t<int>, list_t<int>"));
     assert_true(pt_map != NULL);
-    assert_true(_pair_is_created(&pt_map->_t_pair));
-    assert_true(pt_map->_t_keycompare == NULL);
-    assert_true(pt_map->_t_valuecompare == NULL);
+    assert_true(_pair_is_created(&pt_map->_pair_temp));
+    assert_true(pt_map->_bfun_keycompare == NULL);
+    assert_true(pt_map->_bfun_valuecompare == NULL);
 
     map_destroy(pt_map);
 }
@@ -146,9 +146,9 @@ void test__create_map_auxiliary__user_define(void** state)
     pt_map = malloc(sizeof(map_t));
     assert_true(_create_map_auxiliary(pt_map, "_test__create_map_auxiliary__user_define_t, _test__create_map_auxiliary__user_define_t"));
     assert_true(pt_map != NULL);
-    assert_true(_pair_is_created(&pt_map->_t_pair));
-    assert_true(pt_map->_t_keycompare == NULL);
-    assert_true(pt_map->_t_valuecompare == NULL);
+    assert_true(_pair_is_created(&pt_map->_pair_temp));
+    assert_true(pt_map->_bfun_keycompare == NULL);
+    assert_true(pt_map->_bfun_valuecompare == NULL);
 
     map_destroy(pt_map);
 }
@@ -196,12 +196,12 @@ void test__map_destroy_auxiliary__empty(void** state)
     assert_true(pt_map->_t_tree._t_rbroot._pt_right == &pt_map->_t_tree._t_rbroot);
     assert_true(pt_map->_t_tree._t_nodecount == 0);
     assert_true(pt_map->_t_tree._t_compare == NULL);
-    assert_true(pt_map->_t_pair._pv_first == NULL);
-    assert_true(pt_map->_t_pair._pv_second == NULL);
-    assert_true(pt_map->_t_pair._t_mapkeycompare == NULL);
-    assert_true(pt_map->_t_pair._t_mapvaluecompare == NULL);
-    assert_true(pt_map->_t_keycompare == NULL);
-    assert_true(pt_map->_t_valuecompare == NULL);
+    assert_true(pt_map->_pair_temp._pv_first == NULL);
+    assert_true(pt_map->_pair_temp._pv_second == NULL);
+    assert_true(pt_map->_pair_temp._bfun_mapkeycompare == NULL);
+    assert_true(pt_map->_pair_temp._bfun_mapvaluecompare == NULL);
+    assert_true(pt_map->_bfun_keycompare == NULL);
+    assert_true(pt_map->_bfun_valuecompare == NULL);
     free(pt_map);
 }
 
@@ -220,12 +220,12 @@ void test__map_destroy_auxiliary__non_empty(void** state)
     assert_true(pt_map->_t_tree._t_rbroot._pt_right == &pt_map->_t_tree._t_rbroot);
     assert_true(pt_map->_t_tree._t_nodecount == 0);
     assert_true(pt_map->_t_tree._t_compare == NULL);
-    assert_true(pt_map->_t_pair._pv_first == NULL);
-    assert_true(pt_map->_t_pair._pv_second == NULL);
-    assert_true(pt_map->_t_pair._t_mapkeycompare == NULL);
-    assert_true(pt_map->_t_pair._t_mapvaluecompare == NULL);
-    assert_true(pt_map->_t_keycompare == NULL);
-    assert_true(pt_map->_t_valuecompare == NULL);
+    assert_true(pt_map->_pair_temp._pv_first == NULL);
+    assert_true(pt_map->_pair_temp._pv_second == NULL);
+    assert_true(pt_map->_pair_temp._bfun_mapkeycompare == NULL);
+    assert_true(pt_map->_pair_temp._bfun_mapvaluecompare == NULL);
+    assert_true(pt_map->_bfun_keycompare == NULL);
+    assert_true(pt_map->_bfun_valuecompare == NULL);
     free(pt_map);
 
     pair_destroy(pt_pair);
@@ -258,10 +258,10 @@ void test__map_find__map_find_varg__non_inited_pair(void** state)
     void* pv_tmp = NULL;
 
     map_init(pt_map);
-    pv_tmp = pt_map->_t_pair._pv_first;
-    pt_map->_t_pair._pv_first = NULL;
+    pv_tmp = pt_map->_pair_temp._pv_first;
+    pt_map->_pair_temp._pv_first = NULL;
     expect_assert_failure(_map_find(pt_map, 9));
-    pt_map->_t_pair._pv_first = pv_tmp;
+    pt_map->_pair_temp._pv_first = pv_tmp;
 
     map_destroy(pt_map);
 }
@@ -529,10 +529,10 @@ void test__map_count__map_count_varg__non_inited_pair(void** state)
     int elem = 9;
     map_init(pt_map);
 
-    pv_tmp = pt_map->_t_pair._pv_first;
-    pt_map->_t_pair._pv_first = NULL;
+    pv_tmp = pt_map->_pair_temp._pv_first;
+    pt_map->_pair_temp._pv_first = NULL;
     expect_assert_failure(_map_count(pt_map, elem));
-    pt_map->_t_pair._pv_first = pv_tmp;
+    pt_map->_pair_temp._pv_first = pv_tmp;
 
     map_destroy(pt_map);
 }
@@ -893,10 +893,10 @@ void test__map_lower_bound__map_lower_bound_varg__non_inited_pair(void** state)
     void* pv_tmp = NULL;
     map_init(pt_map);
 
-    pv_tmp = pt_map->_t_pair._pv_first;
-    pt_map->_t_pair._pv_first = NULL;
+    pv_tmp = pt_map->_pair_temp._pv_first;
+    pt_map->_pair_temp._pv_first = NULL;
     expect_assert_failure(_map_lower_bound(pt_map, 111));
-    pt_map->_t_pair._pv_first = pv_tmp;
+    pt_map->_pair_temp._pv_first = pv_tmp;
 
     map_destroy(pt_map);
 }
@@ -1162,10 +1162,10 @@ void test__map_upper_bound__map_upper_bound_varg__non_inited_pair(void** state)
 
     map_init(pt_map);
 
-    pv_tmp = pt_map->_t_pair._pv_first;
-    pt_map->_t_pair._pv_first = NULL;
+    pv_tmp = pt_map->_pair_temp._pv_first;
+    pt_map->_pair_temp._pv_first = NULL;
     expect_assert_failure(_map_upper_bound(pt_map, 3));
-    pt_map->_t_pair._pv_first = pv_tmp;
+    pt_map->_pair_temp._pv_first = pv_tmp;
 
     map_destroy(pt_map);
 }
@@ -1430,10 +1430,10 @@ void test__map_equal_range__map_equal_range_varg__non_inited_pair(void** state)
     void* pv_tmp = NULL;
     map_init(pt_map);
 
-    pv_tmp = pt_map->_t_pair._pv_second;
-    pt_map->_t_pair._pv_second = NULL;
+    pv_tmp = pt_map->_pair_temp._pv_second;
+    pt_map->_pair_temp._pv_second = NULL;
     expect_assert_failure(_map_equal_range(pt_map, 3));
-    pt_map->_t_pair._pv_second = pv_tmp;
+    pt_map->_pair_temp._pv_second = pv_tmp;
 
     map_destroy(pt_map);
 }
@@ -1704,10 +1704,10 @@ void test__map_at__map_at_varg__non_inited_pair(void** state)
     void* pv_tmp = NULL;
 
     map_init(pt_map);
-    pv_tmp = pt_map->_t_pair._pv_first;
-    pt_map->_t_pair._pv_first = NULL;
+    pv_tmp = pt_map->_pair_temp._pv_first;
+    pt_map->_pair_temp._pv_first = NULL;
     expect_assert_failure(_map_at(pt_map, 5));
-    pt_map->_t_pair._pv_first = pv_tmp;
+    pt_map->_pair_temp._pv_first = pv_tmp;
 
     map_destroy(pt_map);
 }
@@ -1949,10 +1949,10 @@ void test__map_erase__map_erase_varg__non_inited_pair(void** state)
     void* pv_tmp = NULL;
 
     map_init(pt_map);
-    pv_tmp = pt_map->_t_pair._pv_first;
-    pt_map->_t_pair._pv_first = NULL;
+    pv_tmp = pt_map->_pair_temp._pv_first;
+    pt_map->_pair_temp._pv_first = NULL;
     expect_assert_failure(_map_erase(pt_map, 4));
-    pt_map->_t_pair._pv_first = pv_tmp;
+    pt_map->_pair_temp._pv_first = pv_tmp;
 
     map_destroy(pt_map);
 }

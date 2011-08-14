@@ -108,7 +108,7 @@ void test__map_same_pair_type_ex__not_mapkeycompare(void** state)
     pair_init(ppair_first);
     pair_init(ppair_second);
 
-    ppair_first->_t_mapkeycompare = (binary_function_t)0x3333;
+    ppair_first->_bfun_mapkeycompare = (binary_function_t)0x3333;
     assert_false(_map_same_pair_type_ex(ppair_first, ppair_second));
 
     pair_destroy(ppair_first);
@@ -122,7 +122,7 @@ void test__map_same_pair_type_ex__not_mapvaluecompare(void** state)
     pair_init(ppair_first);
     pair_init(ppair_second);
 
-    ppair_first->_t_mapvaluecompare = (binary_function_t)0x8888;
+    ppair_first->_bfun_mapvaluecompare = (binary_function_t)0x8888;
     assert_false(_map_same_pair_type_ex(ppair_first, ppair_second));
 
     pair_destroy(ppair_first);
@@ -235,7 +235,7 @@ void test__map_same_pair_type__not_mapkeycompare(void** state)
     pair_init(ppair_first);
     pair_init(ppair_second);
 
-    ppair_first->_t_mapkeycompare = (binary_function_t)0x3333;
+    ppair_first->_bfun_mapkeycompare = (binary_function_t)0x3333;
     assert_true(_map_same_pair_type(ppair_first, ppair_second));
 
     pair_destroy(ppair_first);
@@ -249,7 +249,7 @@ void test__map_same_pair_type__not_mapvaluecompare(void** state)
     pair_init(ppair_first);
     pair_init(ppair_second);
 
-    ppair_first->_t_mapvaluecompare = (binary_function_t)0x8888;
+    ppair_first->_bfun_mapvaluecompare = (binary_function_t)0x8888;
     assert_true(_map_same_pair_type(ppair_first, ppair_second));
 
     pair_destroy(ppair_first);
@@ -382,9 +382,9 @@ void test__map_value_compare__user_mapkeycompare_result_true(void** state)
     bool_t b_output = false;
 
     pair_init_elem(ppair_first, 53, 30);
-    ppair_first->_t_mapkeycompare = _test__map_value_compare;
+    ppair_first->_bfun_mapkeycompare = _test__map_value_compare;
     pair_init_elem(ppair_second, 53, 30);
-    ppair_second->_t_mapkeycompare = _test__map_value_compare;
+    ppair_second->_bfun_mapkeycompare = _test__map_value_compare;
 
     _map_value_compare(ppair_first, ppair_second, &b_output);
     assert_true(b_output);
@@ -400,9 +400,9 @@ void test__map_value_compare__user_mapkeycompare_result_false(void** state)
     bool_t b_output = false;
 
     pair_init_elem(ppair_first, 33, 3);
-    ppair_first->_t_mapkeycompare = _test__map_value_compare;
+    ppair_first->_bfun_mapkeycompare = _test__map_value_compare;
     pair_init_elem(ppair_second, 53, 30);
-    ppair_second->_t_mapkeycompare = _test__map_value_compare;
+    ppair_second->_bfun_mapkeycompare = _test__map_value_compare;
 
     _map_value_compare(ppair_first, ppair_second, &b_output);
     assert_false(b_output);

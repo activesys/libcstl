@@ -136,12 +136,12 @@ extern void multiset_init(multiset_t* pmset_mset);
 /**
  * Initialize multiset container with user define compare function.
  * @param pmset_mset          multiset container.
- * @param t_compare         compare function.
+ * @param bfun_compare         compare function.
  * @return void.
  * @remarks if pmset_mset == NULL, then the behavior is undefined, pmset_mset must be created by create_set(), otherwise
- *          the behavior is undefined. if t_compare == NULL, the default compare function is used.
+ *          the behavior is undefined. if bfun_compare == NULL, the default compare function is used.
  */
-extern void multiset_init_ex(multiset_t* pmset_mset, binary_function_t t_compare);
+extern void multiset_init_ex(multiset_t* pmset_mset, binary_function_t bfun_compare);
 
 /**
  * Initialize multiset container with multiset.
@@ -171,15 +171,15 @@ extern void multiset_init_copy_range(multiset_t* pmset_dest, multiset_iterator_t
  * @param pmset_dest         destination multiset.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
- * @param t_compare         compare function.
+ * @param bfun_compare         compare function.
  * @return void.
  * @remarks if pmset_dest == NULL, then the behavior is undefined, pmset_dest must be created by _create_set(), otherwise
  *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized multiset, otherwise the behavior
  *          is undefined. the type of [it_begin, it_end) and pmset_dest must be same, otherwise the behavior is undefined. if
- *          t_compare == NULL, then use default compare function.
+ *          bfun_compare == NULL, then use default compare function.
  */
 extern void multiset_init_copy_range_ex(
-    multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end, binary_function_t t_compare);
+    multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end, binary_function_t bfun_compare);
 
 /**
  * Destroy multiset.

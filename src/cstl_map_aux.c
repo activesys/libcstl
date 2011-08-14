@@ -98,8 +98,8 @@ bool_t _map_same_pair_type_ex(const pair_t* cppair_first, const pair_t* cppair_s
            (cppair_first->_t_typeinfofirst._t_style == cppair_second->_t_typeinfofirst._t_style) &&
            (cppair_first->_t_typeinfosecond._pt_type == cppair_second->_t_typeinfosecond._pt_type) &&
            (cppair_first->_t_typeinfosecond._t_style == cppair_second->_t_typeinfosecond._t_style) &&
-           (cppair_first->_t_mapkeycompare == cppair_second->_t_mapkeycompare) &&
-           (cppair_first->_t_mapvaluecompare == cppair_second->_t_mapvaluecompare) &&
+           (cppair_first->_bfun_mapkeycompare == cppair_second->_bfun_mapkeycompare) &&
+           (cppair_first->_bfun_mapvaluecompare == cppair_second->_bfun_mapvaluecompare) &&
            _type_is_same(cppair_first->_t_typeinfofirst._sz_typename, cppair_second->_t_typeinfofirst._sz_typename) &&
            _type_is_same(cppair_first->_t_typeinfosecond._sz_typename, cppair_second->_t_typeinfosecond._sz_typename);
 }
@@ -120,9 +120,9 @@ void _map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_
     assert(_map_same_pair_type_ex(ppair_first, ppair_second));
 
     *(bool_t*)pv_output = ppair_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if(ppair_first->_t_mapkeycompare != NULL) /* the external key compare */
+    if(ppair_first->_bfun_mapkeycompare != NULL) /* the external key compare */
     {
-        ppair_first->_t_mapkeycompare(pair_first(ppair_first), pair_first(ppair_second), pv_output);
+        ppair_first->_bfun_mapkeycompare(pair_first(ppair_first), pair_first(ppair_second), pv_output);
     }
     else
     {

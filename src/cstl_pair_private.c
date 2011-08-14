@@ -83,8 +83,8 @@ bool_t _create_pair_auxiliary(pair_t* ppair_pair, const char* s_typename)
     ppair_pair->_pv_second = NULL;
 
     /* this two members are only used for map key and value compare. */
-    ppair_pair->_t_mapkeycompare = NULL;
-    ppair_pair->_t_mapvaluecompare = NULL;
+    ppair_pair->_bfun_mapkeycompare = NULL;
+    ppair_pair->_bfun_mapvaluecompare = NULL;
 
     return true;
 }
@@ -146,8 +146,8 @@ void _pair_destroy_auxiliary(pair_t* ppair_pair)
         ppair_pair->_pv_second = NULL;
     }
 
-    ppair_pair->_t_mapkeycompare = NULL;
-    ppair_pair->_t_mapvaluecompare = NULL;
+    ppair_pair->_bfun_mapkeycompare = NULL;
+    ppair_pair->_bfun_mapvaluecompare = NULL;
 }
 
 /**
@@ -172,7 +172,7 @@ bool_t _pair_is_created(const pair_t* cppair_pair)
     }
 
     if(cppair_pair->_pv_first != NULL || cppair_pair->_pv_second != NULL ||
-       cppair_pair->_t_mapkeycompare != NULL || cppair_pair->_t_mapvaluecompare != NULL)
+       cppair_pair->_bfun_mapkeycompare != NULL || cppair_pair->_bfun_mapvaluecompare != NULL)
     {
         return false;
     }

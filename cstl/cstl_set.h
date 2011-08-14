@@ -136,12 +136,12 @@ extern void set_init(set_t* pset_set);
 /**
  * Initialize set container with user define compare function.
  * @param pset_set          set container.
- * @param t_compare         compare function.
+ * @param bfun_compare         compare function.
  * @return void.
  * @remarks if pset_set == NULL, then the behavior is undefined, pset_set must be created by create_set(), otherwise
- *          the behavior is undefined. if t_compare == NULL, the default compare function is used.
+ *          the behavior is undefined. if bfun_compare == NULL, the default compare function is used.
  */
-extern void set_init_ex(set_t* pset_set, binary_function_t t_compare);
+extern void set_init_ex(set_t* pset_set, binary_function_t bfun_compare);
 
 /**
  * Initialize set container with set.
@@ -171,15 +171,15 @@ extern void set_init_copy_range(set_t* pset_dest, set_iterator_t it_begin, set_i
  * @param pset_dest         destination set.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
- * @param t_compare         compare function.
+ * @param bfun_compare         compare function.
  * @return void.
  * @remarks if pset_dest == NULL, then the behavior is undefined, pset_dest must be created by _create_set(), otherwise
  *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized set, otherwise the behavior
  *          is undefined. the type of [it_begin, it_end) and pset_dest must be same, otherwise the behavior is undefined. if
- *          t_compare == NULL, then use default compare function.
+ *          bfun_compare == NULL, then use default compare function.
  */
 extern void set_init_copy_range_ex(
-    set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end, binary_function_t t_compare);
+    set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end, binary_function_t bfun_compare);
 
 /**
  * Destroy set.

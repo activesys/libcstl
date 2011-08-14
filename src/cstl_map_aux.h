@@ -31,23 +31,23 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* macros for type informations */
-#define _GET_MAP_FIRST_TYPE_SIZE(pmap_map)              ((pmap_map)->_t_pair._t_typeinfofirst._pt_type->_t_typesize)
-#define _GET_MAP_FIRST_TYPE_NAME(pmap_map)              ((pmap_map)->_t_pair._t_typeinfofirst._sz_typename)
-#define _GET_MAP_FIRST_TYPE_BASENAME(pmap_map)          ((pmap_map)->_t_pair._t_typeinfofirst._pt_type->_sz_typename)
-#define _GET_MAP_FIRST_TYPE_INIT_FUNCTION(pmap_map)     ((pmap_map)->_t_pair._t_typeinfofirst._pt_type->_t_typeinit)
-#define _GET_MAP_FIRST_TYPE_COPY_FUNCTION(pmap_map)     ((pmap_map)->_t_pair._t_typeinfofirst._pt_type->_t_typecopy)
-#define _GET_MAP_FIRST_TYPE_LESS_FUNCTION(pmap_map)     ((pmap_map)->_t_pair._t_typeinfofirst._pt_type->_t_typeless)
-#define _GET_MAP_FIRST_TYPE_DESTROY_FUNCTION(pmap_map)  ((pmap_map)->_t_pair._t_typeinfofirst._pt_type->_t_typedestroy)
-#define _GET_MAP_FIRST_TYPE_STYLE(pmap_map)             ((pmap_map)->_t_pair._t_typeinfofirst._t_style)
+#define _GET_MAP_FIRST_TYPE_SIZE(pmap_map)              ((pmap_map)->_pair_temp._t_typeinfofirst._pt_type->_t_typesize)
+#define _GET_MAP_FIRST_TYPE_NAME(pmap_map)              ((pmap_map)->_pair_temp._t_typeinfofirst._sz_typename)
+#define _GET_MAP_FIRST_TYPE_BASENAME(pmap_map)          ((pmap_map)->_pair_temp._t_typeinfofirst._pt_type->_sz_typename)
+#define _GET_MAP_FIRST_TYPE_INIT_FUNCTION(pmap_map)     ((pmap_map)->_pair_temp._t_typeinfofirst._pt_type->_t_typeinit)
+#define _GET_MAP_FIRST_TYPE_COPY_FUNCTION(pmap_map)     ((pmap_map)->_pair_temp._t_typeinfofirst._pt_type->_t_typecopy)
+#define _GET_MAP_FIRST_TYPE_LESS_FUNCTION(pmap_map)     ((pmap_map)->_pair_temp._t_typeinfofirst._pt_type->_t_typeless)
+#define _GET_MAP_FIRST_TYPE_DESTROY_FUNCTION(pmap_map)  ((pmap_map)->_pair_temp._t_typeinfofirst._pt_type->_t_typedestroy)
+#define _GET_MAP_FIRST_TYPE_STYLE(pmap_map)             ((pmap_map)->_pair_temp._t_typeinfofirst._t_style)
 
-#define _GET_MAP_SECOND_TYPE_SIZE(pmap_map)             ((pmap_map)->_t_pair._t_typeinfosecond._pt_type->_t_typesize)
-#define _GET_MAP_SECOND_TYPE_NAME(pmap_map)             ((pmap_map)->_t_pair._t_typeinfosecond._sz_typename)
-#define _GET_MAP_SECOND_TYPE_BASENAME(pmap_map)         ((pmap_map)->_t_pair._t_typeinfosecond._pt_type->_sz_typename)
-#define _GET_MAP_SECOND_TYPE_INIT_FUNCTION(pmap_map)    ((pmap_map)->_t_pair._t_typeinfosecond._pt_type->_t_typeinit)
-#define _GET_MAP_SECOND_TYPE_COPY_FUNCTION(pmap_map)    ((pmap_map)->_t_pair._t_typeinfosecond._pt_type->_t_typecopy)
-#define _GET_MAP_SECOND_TYPE_LESS_FUNCTION(pmap_map)    ((pmap_map)->_t_pair._t_typeinfosecond._pt_type->_t_typeless)
-#define _GET_MAP_SECOND_TYPE_DESTROY_FUNCTION(pmap_map) ((pmap_map)->_t_pair._t_typeinfosecond._pt_type->_t_typedestroy)
-#define _GET_MAP_SECOND_TYPE_STYLE(pmap_map)            ((pmap_map)->_t_pair._t_typeinfosecond._t_style)
+#define _GET_MAP_SECOND_TYPE_SIZE(pmap_map)             ((pmap_map)->_pair_temp._t_typeinfosecond._pt_type->_t_typesize)
+#define _GET_MAP_SECOND_TYPE_NAME(pmap_map)             ((pmap_map)->_pair_temp._t_typeinfosecond._sz_typename)
+#define _GET_MAP_SECOND_TYPE_BASENAME(pmap_map)         ((pmap_map)->_pair_temp._t_typeinfosecond._pt_type->_sz_typename)
+#define _GET_MAP_SECOND_TYPE_INIT_FUNCTION(pmap_map)    ((pmap_map)->_pair_temp._t_typeinfosecond._pt_type->_t_typeinit)
+#define _GET_MAP_SECOND_TYPE_COPY_FUNCTION(pmap_map)    ((pmap_map)->_pair_temp._t_typeinfosecond._pt_type->_t_typecopy)
+#define _GET_MAP_SECOND_TYPE_LESS_FUNCTION(pmap_map)    ((pmap_map)->_pair_temp._t_typeinfosecond._pt_type->_t_typeless)
+#define _GET_MAP_SECOND_TYPE_DESTROY_FUNCTION(pmap_map) ((pmap_map)->_pair_temp._t_typeinfosecond._pt_type->_t_typedestroy)
+#define _GET_MAP_SECOND_TYPE_STYLE(pmap_map)            ((pmap_map)->_pair_temp._t_typeinfosecond._t_style)
 
 /** data type declaration and struct, union, enum section **/
 

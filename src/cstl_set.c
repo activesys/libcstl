@@ -71,14 +71,14 @@ void set_init(set_t* pset_set)
 /**
  * Initialize set container with user define compare function.
  */
-void set_init_ex(set_t* pset_set, binary_function_t t_compare)
+void set_init_ex(set_t* pset_set, binary_function_t bfun_compare)
 {
     assert(pset_set != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init(&pset_set->_t_tree, t_compare);
+    _avl_tree_init(&pset_set->_t_tree, bfun_compare);
 #else
-    _rb_tree_init(&pset_set->_t_tree, t_compare);
+    _rb_tree_init(&pset_set->_t_tree, bfun_compare);
 #endif
 }
 
@@ -137,7 +137,7 @@ void set_init_copy_range(set_t* pset_dest, set_iterator_t it_begin, set_iterator
  * Initialize set container with specific range and compare function.
  */
 void set_init_copy_range_ex(
-    set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end, binary_function_t t_compare)
+    set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end, binary_function_t bfun_compare)
 {
     assert(pset_dest != NULL);
     assert(_GET_SET_CONTAINER_TYPE(it_begin) == _SET_CONTAINER);
@@ -149,9 +149,9 @@ void set_init_copy_range_ex(
     assert(_GET_SET_CONTAINER(it_begin) == _GET_SET_CONTAINER(it_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, t_compare);
+    _avl_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #else
-    _rb_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, t_compare);
+    _rb_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #endif
 }
 

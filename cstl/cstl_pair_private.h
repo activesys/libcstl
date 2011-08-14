@@ -42,8 +42,8 @@ typedef struct _tagpair
     void*             _pv_second;
 
     /* this two members are only used for map key and value compare. */
-    binary_function_t _t_mapkeycompare;
-    binary_function_t _t_mapvaluecompare;
+    binary_function_t _bfun_mapkeycompare;
+    binary_function_t _bfun_mapvaluecompare;
 }pair_t;
 
 /** exported global variable declaration section **/

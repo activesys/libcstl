@@ -71,14 +71,14 @@ void multiset_init(multiset_t* pmset_mset)
 /**
  * Initialize multiset container with user define compare function.
  */
-void multiset_init_ex(multiset_t* pmset_mset, binary_function_t t_compare)
+void multiset_init_ex(multiset_t* pmset_mset, binary_function_t bfun_compare)
 {
     assert(pmset_mset != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_init(&pmset_mset->_t_tree, t_compare);
+    _avl_tree_init(&pmset_mset->_t_tree, bfun_compare);
 #else
-    _rb_tree_init(&pmset_mset->_t_tree, t_compare);
+    _rb_tree_init(&pmset_mset->_t_tree, bfun_compare);
 #endif
 }
 
@@ -136,7 +136,7 @@ void multiset_init_copy_range(multiset_t* pmset_dest, multiset_iterator_t it_beg
  * Initialize multiset container with specific range and compare function.
  */
 void multiset_init_copy_range_ex(
-    multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end, binary_function_t t_compare)
+    multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end, binary_function_t bfun_compare)
 {
     assert(pmset_dest != NULL);
     assert(_GET_MULTISET_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
@@ -148,9 +148,9 @@ void multiset_init_copy_range_ex(
     assert(_GET_MULTISET_CONTAINER(it_begin) == _GET_MULTISET_CONTAINER(it_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, t_compare);
+    _avl_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #else
-    _rb_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, t_compare);
+    _rb_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #endif
 }
 

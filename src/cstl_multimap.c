@@ -281,7 +281,7 @@ void multimap_init_ex(multimap_t* pt_multimap, binary_function_t t_keycompare)
     assert(pt_multimap != NULL);
 
     pt_multimap->_t_keycompare = t_keycompare;
-    pt_multimap->_t_pair._t_mapkeycompare = t_keycompare;
+    pt_multimap->_t_pair._bfun_mapkeycompare = t_keycompare;
 
     pair_init(&pt_multimap->_t_pair);
 #ifdef CSTL_MULTIMAP_AVL_TREE
@@ -320,8 +320,8 @@ void multimap_init_copy(multimap_t* pt_multimapdest, const multimap_t* cpt_multi
     multimap_init(pt_multimapdest);
     pt_multimapdest->_t_keycompare = cpt_multimapsrc->_t_keycompare;
     pt_multimapdest->_t_valuecompare = cpt_multimapsrc->_t_valuecompare;
-    pt_multimapdest->_t_pair._t_mapkeycompare = cpt_multimapsrc->_t_pair._t_mapkeycompare;
-    pt_multimapdest->_t_pair._t_mapvaluecompare = cpt_multimapsrc->_t_pair._t_mapvaluecompare;
+    pt_multimapdest->_t_pair._bfun_mapkeycompare = cpt_multimapsrc->_t_pair._bfun_mapkeycompare;
+    pt_multimapdest->_t_pair._bfun_mapvaluecompare = cpt_multimapsrc->_t_pair._bfun_mapvaluecompare;
 
     assert(_multimap_same_pair_type(&pt_multimapdest->_t_pair, &cpt_multimapsrc->_t_pair));
     /* insert all element from src to dest */
@@ -793,8 +793,8 @@ multimap_iterator_t multimap_insert(
 
     assert(pt_multimap != NULL && cpt_pair != NULL);
 
-    ((pair_t*)cpt_pair)->_t_mapkeycompare = pt_multimap->_t_keycompare;
-    ((pair_t*)cpt_pair)->_t_mapvaluecompare = pt_multimap->_t_valuecompare;
+    ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_multimap->_t_keycompare;
+    ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_multimap->_t_valuecompare;
 
     assert(_multimap_same_pair_type(&pt_multimap->_t_pair, cpt_pair));
 
@@ -816,8 +816,8 @@ multimap_iterator_t multimap_insert_hint(
 {
     assert(pt_multimap != NULL && cpt_pair != NULL);
 
-    ((pair_t*)cpt_pair)->_t_mapkeycompare = pt_multimap->_t_keycompare;
-    ((pair_t*)cpt_pair)->_t_mapvaluecompare = pt_multimap->_t_valuecompare;
+    ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_multimap->_t_keycompare;
+    ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_multimap->_t_valuecompare;
 
     assert(_multimap_same_pair_type(&pt_multimap->_t_pair, cpt_pair));
 
@@ -954,8 +954,8 @@ static bool_t _multimap_same_pair_type(
             cpt_pairsecond->_t_typeinfosecond._pt_type) &&
            (cpt_pairfirst->_t_typeinfosecond._t_style ==
             cpt_pairsecond->_t_typeinfosecond._t_style) &&
-           (cpt_pairfirst->_t_mapkeycompare == cpt_pairsecond->_t_mapkeycompare) &&
-           (cpt_pairfirst->_t_mapvaluecompare == cpt_pairsecond->_t_mapvaluecompare);
+           (cpt_pairfirst->_bfun_mapkeycompare == cpt_pairsecond->_bfun_mapkeycompare) &&
+           (cpt_pairfirst->_bfun_mapvaluecompare == cpt_pairsecond->_bfun_mapvaluecompare);
 }
 #endif /* NDEBUG */
 
@@ -973,9 +973,9 @@ static void _multimap_value_compare(
     assert(_multimap_same_pair_type(pt_first, pt_second));
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if(pt_first->_t_mapkeycompare != NULL)
+    if(pt_first->_bfun_mapkeycompare != NULL)
     {
-        pt_first->_t_mapkeycompare(pair_first(pt_first), pair_first(pt_second), pv_output);
+        pt_first->_bfun_mapkeycompare(pair_first(pt_first), pair_first(pt_second), pv_output);
     }
     else
     {

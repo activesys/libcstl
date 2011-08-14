@@ -135,8 +135,8 @@ void pair_init_copy(pair_t* ppair_dest, const pair_t* cppair_src)
     _GET_PAIR_SECOND_TYPE_COPY_FUNCTION(ppair_dest)(ppair_dest->_pv_second, cppair_src->_pv_second, &b_result);
     assert(b_result);
 
-    ppair_dest->_t_mapkeycompare = cppair_src->_t_mapkeycompare;
-    ppair_dest->_t_mapvaluecompare = cppair_src->_t_mapvaluecompare;
+    ppair_dest->_bfun_mapkeycompare = cppair_src->_bfun_mapkeycompare;
+    ppair_dest->_bfun_mapvaluecompare = cppair_src->_bfun_mapvaluecompare;
 }
 
 /**
@@ -164,8 +164,8 @@ void pair_assign(pair_t* ppair_dest, const pair_t* cppair_src)
         assert(b_result);
     }
 
-    ppair_dest->_t_mapkeycompare = cppair_src->_t_mapkeycompare;
-    ppair_dest->_t_mapvaluecompare = cppair_src->_t_mapvaluecompare;
+    ppair_dest->_bfun_mapkeycompare = cppair_src->_bfun_mapkeycompare;
+    ppair_dest->_bfun_mapvaluecompare = cppair_src->_bfun_mapvaluecompare;
 }
 
 /**

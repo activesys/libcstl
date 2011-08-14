@@ -246,7 +246,7 @@ void hash_multimap_init_ex(hash_multimap_t* pt_hash_multimap, size_t t_bucketcou
     assert(pt_hash_multimap != NULL);
 
     pt_hash_multimap->_t_keycompare = t_compare;
-    pt_hash_multimap->_t_pair._t_mapkeycompare = t_compare;
+    pt_hash_multimap->_t_pair._bfun_mapkeycompare = t_compare;
     t_default_hash = t_hash != NULL ? t_hash : _hash_multimap_default_hash;
     /* initialize the pair */
     pair_init(&pt_hash_multimap->_t_pair);
@@ -271,8 +271,8 @@ void hash_multimap_init_copy(
         hash_multimap_key_comp(cpt_hash_multimapsrc));
     pt_hash_multimapdest->_t_keycompare = cpt_hash_multimapsrc->_t_keycompare;
     pt_hash_multimapdest->_t_valuecompare = cpt_hash_multimapsrc->_t_valuecompare;
-    pt_hash_multimapdest->_t_pair._t_mapkeycompare = cpt_hash_multimapsrc->_t_pair._t_mapkeycompare;
-    pt_hash_multimapdest->_t_pair._t_mapvaluecompare = cpt_hash_multimapsrc->_t_pair._t_mapvaluecompare;
+    pt_hash_multimapdest->_t_pair._bfun_mapkeycompare = cpt_hash_multimapsrc->_t_pair._bfun_mapkeycompare;
+    pt_hash_multimapdest->_t_pair._bfun_mapvaluecompare = cpt_hash_multimapsrc->_t_pair._bfun_mapvaluecompare;
     assert(_hash_multimap_same_pair_type(
         &pt_hash_multimapdest->_t_pair, &cpt_hash_multimapsrc->_t_pair));
 
@@ -599,8 +599,8 @@ hash_multimap_iterator_t hash_multimap_insert(
     hash_multimap_iterator_t t_result;
 
     assert(pt_hash_multimap != NULL && cpt_pair != NULL);
-    ((pair_t*)cpt_pair)->_t_mapkeycompare = pt_hash_multimap->_t_keycompare;
-    ((pair_t*)cpt_pair)->_t_mapvaluecompare = pt_hash_multimap->_t_valuecompare;
+    ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_hash_multimap->_t_keycompare;
+    ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_hash_multimap->_t_valuecompare;
     assert(_hash_multimap_same_pair_type(&pt_hash_multimap->_t_pair, cpt_pair));
 
     /* insert int hashtable */
@@ -735,8 +735,8 @@ static bool_t _hash_multimap_same_pair_type(
             cpt_pairsecond->_t_typeinfosecond._pt_type) &&
            (cpt_pairfirst->_t_typeinfosecond._t_style ==
             cpt_pairsecond->_t_typeinfosecond._t_style) &&
-           (cpt_pairfirst->_t_mapkeycompare == cpt_pairsecond->_t_mapkeycompare) &&
-           (cpt_pairfirst->_t_mapvaluecompare == cpt_pairsecond->_t_mapvaluecompare);
+           (cpt_pairfirst->_bfun_mapkeycompare == cpt_pairsecond->_bfun_mapkeycompare) &&
+           (cpt_pairfirst->_bfun_mapvaluecompare == cpt_pairsecond->_bfun_mapvaluecompare);
 }
 #endif /* NDEBUG */
 
@@ -754,9 +754,9 @@ static void _hash_multimap_value_compare(
     assert(_hash_multimap_same_pair_type(pt_first, pt_second));
 
     *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if (pt_first->_t_mapkeycompare != NULL) /* external key less */
+    if (pt_first->_bfun_mapkeycompare != NULL) /* external key less */
     {
-        pt_first->_t_mapkeycompare(pair_first(pt_first), pair_first(pt_second), pv_output);
+        pt_first->_bfun_mapkeycompare(pair_first(pt_first), pair_first(pt_second), pv_output);
     }
     else
     {
