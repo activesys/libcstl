@@ -42,56 +42,13 @@
 #include <cstl/cstl_multimap_private.h>
 #include <cstl/cstl_multimap.h>
 
-/** local constant declaration and local macro section **/
-/* macros for type informations */
-#define _GET_MULTIMAP_FIRST_TYPE_SIZE(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfofirst._pt_type->_t_typesize)
-#define _GET_MULTIMAP_FIRST_TYPE_NAME(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfofirst._sz_typename)
-#define _GET_MULTIMAP_FIRST_TYPE_BASENAME(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfofirst._pt_type->_sz_typename)
-#define _GET_MULTIMAP_FIRST_TYPE_INIT_FUNCTION(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfofirst._pt_type->_t_typeinit)
-#define _GET_MULTIMAP_FIRST_TYPE_COPY_FUNCTION(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfofirst._pt_type->_t_typecopy)
-#define _GET_MULTIMAP_FIRST_TYPE_LESS_FUNCTION(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfofirst._pt_type->_t_typeless)
-#define _GET_MULTIMAP_FIRST_TYPE_DESTROY_FUNCTION(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfofirst._pt_type->_t_typedestroy)
-#define _GET_MULTIMAP_FIRST_TYPE_STYLE(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfofirst._t_style)
+#include "cstl_multimap_aux.h"
 
-#define _GET_MULTIMAP_SECOND_TYPE_SIZE(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfosecond._pt_type->_t_typesize)
-#define _GET_MULTIMAP_SECOND_TYPE_NAME(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfosecond._sz_typename)
-#define _GET_MULTIMAP_SECOND_TYPE_BASENAME(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfosecond._pt_type->_sz_typename)
-#define _GET_MULTIMAP_SECOND_TYPE_INIT_FUNCTION(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfosecond._pt_type->_t_typeinit)
-#define _GET_MULTIMAP_SECOND_TYPE_COPY_FUNCTION(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfosecond._pt_type->_t_typecopy)
-#define _GET_MULTIMAP_SECOND_TYPE_LESS_FUNCTION(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfosecond._pt_type->_t_typeless)
-#define _GET_MULTIMAP_SECOND_TYPE_DESTROY_FUNCTION(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfosecond._pt_type->_t_typedestroy)
-#define _GET_MULTIMAP_SECOND_TYPE_STYLE(pt_multimap)\
-    ((pt_multimap)->_t_pair._t_typeinfosecond._t_style)
+/** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-#ifndef NDEBUG
-/*
- * Assert support.
- */
-static bool_t _multimap_same_pair_type(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-#endif /* NDEBUG */
-
-/* default element compare function for multimap_t */
-static void _multimap_value_compare(
-    const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -323,7 +280,7 @@ void multimap_init_copy(multimap_t* pt_multimapdest, const multimap_t* cpt_multi
     pt_multimapdest->_t_pair._bfun_mapkeycompare = cpt_multimapsrc->_t_pair._bfun_mapkeycompare;
     pt_multimapdest->_t_pair._bfun_mapvaluecompare = cpt_multimapsrc->_t_pair._bfun_mapvaluecompare;
 
-    assert(_multimap_same_pair_type(&pt_multimapdest->_t_pair, &cpt_multimapsrc->_t_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimapdest->_t_pair, &cpt_multimapsrc->_t_pair));
     /* insert all element from src to dest */
     if(!multimap_empty(cpt_multimapsrc))
     {
@@ -377,7 +334,7 @@ void multimap_init_copy_range_ex(multimap_t* pt_multimapdest,
 void multimap_assign(multimap_t* pt_multimapdest, const multimap_t* cpt_multimapsrc)
 {
     assert(pt_multimapdest != NULL && cpt_multimapsrc != NULL);
-    assert(_multimap_same_pair_type(&pt_multimapdest->_t_pair, &cpt_multimapsrc->_t_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimapdest->_t_pair, &cpt_multimapsrc->_t_pair));
 
     multimap_clear(pt_multimapdest);
     /* insert all element from src to dest */
@@ -391,7 +348,7 @@ void multimap_assign(multimap_t* pt_multimapdest, const multimap_t* cpt_multimap
 void multimap_swap(multimap_t* pt_multimapfirst, multimap_t* pt_multimapsecond)
 {
     assert(pt_multimapfirst != NULL && pt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type(&pt_multimapfirst->_t_pair, &pt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimapfirst->_t_pair, &pt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     _avl_tree_swap(&pt_multimapfirst->_t_tree, &pt_multimapsecond->_t_tree);
@@ -497,7 +454,7 @@ bool_t multimap_less(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_less(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -510,7 +467,7 @@ bool_t multimap_less_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_less_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -523,7 +480,7 @@ bool_t multimap_greater(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_greater(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -536,7 +493,7 @@ bool_t multimap_greater_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_greater_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -796,7 +753,7 @@ multimap_iterator_t multimap_insert(
     ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_multimap->_t_keycompare;
     ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_multimap->_t_valuecompare;
 
-    assert(_multimap_same_pair_type(&pt_multimap->_t_pair, cpt_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimap->_t_pair, cpt_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     t_iterator = _avl_tree_insert_equal(&pt_multimap->_t_tree, cpt_pair);
@@ -819,7 +776,7 @@ multimap_iterator_t multimap_insert_hint(
     ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_multimap->_t_keycompare;
     ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_multimap->_t_valuecompare;
 
-    assert(_multimap_same_pair_type(&pt_multimap->_t_pair, cpt_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimap->_t_pair, cpt_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     t_hint = _avl_tree_insert_equal(&pt_multimap->_t_tree, cpt_pair);
@@ -936,53 +893,6 @@ void _multimap_init_elem_auxiliary(multimap_t* pt_multimap, void* pv_elem)
 }
 
 /** local function implementation section **/
-#ifndef NDEBUG
-static bool_t _multimap_same_pair_type(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-{
-    assert(cpt_pairfirst != NULL && cpt_pairsecond != NULL);
-
-    return _type_is_same(cpt_pairfirst->_t_typeinfofirst._sz_typename,
-                         cpt_pairsecond->_t_typeinfofirst._sz_typename) &&
-           (cpt_pairfirst->_t_typeinfofirst._pt_type ==
-            cpt_pairsecond->_t_typeinfofirst._pt_type) &&
-           (cpt_pairfirst->_t_typeinfofirst._t_style ==
-            cpt_pairsecond->_t_typeinfofirst._t_style) &&
-           _type_is_same(cpt_pairfirst->_t_typeinfosecond._sz_typename,
-                         cpt_pairsecond->_t_typeinfosecond._sz_typename) &&
-           (cpt_pairfirst->_t_typeinfosecond._pt_type ==
-            cpt_pairsecond->_t_typeinfosecond._pt_type) &&
-           (cpt_pairfirst->_t_typeinfosecond._t_style ==
-            cpt_pairsecond->_t_typeinfosecond._t_style) &&
-           (cpt_pairfirst->_bfun_mapkeycompare == cpt_pairsecond->_bfun_mapkeycompare) &&
-           (cpt_pairfirst->_bfun_mapvaluecompare == cpt_pairsecond->_bfun_mapvaluecompare);
-}
-#endif /* NDEBUG */
-
-static void _multimap_value_compare(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
-{
-    pair_t* pt_first = NULL;
-    pair_t* pt_second = NULL;
-
-    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-
-    pt_first = (pair_t*)cpv_first;
-    pt_second = (pair_t*)cpv_second;
-
-    assert(_multimap_same_pair_type(pt_first, pt_second));
-
-    *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if(pt_first->_bfun_mapkeycompare != NULL)
-    {
-        pt_first->_bfun_mapkeycompare(pair_first(pt_first), pair_first(pt_second), pv_output);
-    }
-    else
-    {
-        pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-            pt_first->_pv_first, pt_second->_pv_first, pv_output);
-    }
-}
 
 /** eof **/
 

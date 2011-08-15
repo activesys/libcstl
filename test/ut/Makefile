@@ -63,8 +63,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_list_private.$(OBJEXT) ut-cstl_list_aux.$(OBJEXT) \
 	ut-cstl_map.$(OBJEXT) ut-cstl_map_iterator.$(OBJEXT) \
 	ut-cstl_map_private.$(OBJEXT) ut-cstl_map_aux.$(OBJEXT) \
-	ut-cstl_multimap.$(OBJEXT) ut-cstl_multiset.$(OBJEXT) \
-	ut-cstl_multiset_iterator.$(OBJEXT) \
+	ut-cstl_multimap.$(OBJEXT) ut-cstl_multimap_aux.$(OBJEXT) \
+	ut-cstl_multiset.$(OBJEXT) ut-cstl_multiset_iterator.$(OBJEXT) \
 	ut-cstl_multiset_private.$(OBJEXT) \
 	ut-cstl_multiset_aux.$(OBJEXT) ut-cstl_numeric.$(OBJEXT) \
 	ut-cstl_rb_tree.$(OBJEXT) ut-cstl_rb_tree_iterator.$(OBJEXT) \
@@ -118,7 +118,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_multiset.$(OBJEXT) ut-ut_cstl_pair_aux.$(OBJEXT) \
 	ut-ut_cstl_pair_private.$(OBJEXT) ut-ut_cstl_pair.$(OBJEXT) \
 	ut-ut_cstl_map_aux.$(OBJEXT) ut-ut_cstl_map_private.$(OBJEXT) \
-	ut-ut_cstl_map_iterator.$(OBJEXT) ut-ut_cstl_map.$(OBJEXT)
+	ut-ut_cstl_map_iterator.$(OBJEXT) ut-ut_cstl_map.$(OBJEXT) \
+	ut-ut_cstl_multimap_aux.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -278,6 +279,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_map.c $(srcdir)/../../src/cstl_map_iterator.c \
 	     $(srcdir)/../../src/cstl_map_private.c $(srcdir)/../../src/cstl_map_aux.c \
 	     $(srcdir)/../../src/cstl_multimap.c \
+	     $(srcdir)/../../src/cstl_multimap_aux.c \
 	     $(srcdir)/../../src/cstl_multiset.c $(srcdir)/../../src/cstl_multiset_iterator.c \
 	     $(srcdir)/../../src/cstl_multiset_private.c $(srcdir)/../../src/cstl_multiset_aux.c \
 	     $(srcdir)/../../src/cstl_numeric.c \
@@ -345,7 +347,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_map_aux.c ut_cstl_map_aux.h \
 	     ut_cstl_map_private.c ut_cstl_map_private.h \
 	     ut_cstl_map_iterator.c ut_cstl_map_iterator.h \
-	     ut_cstl_map.c ut_cstl_map.h
+	     ut_cstl_map.c ut_cstl_map.h \
+	     ut_cstl_multimap_aux.c ut_cstl_multimap_aux.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -437,6 +440,7 @@ include ./$(DEPDIR)/ut-cstl_map_aux.Po
 include ./$(DEPDIR)/ut-cstl_map_iterator.Po
 include ./$(DEPDIR)/ut-cstl_map_private.Po
 include ./$(DEPDIR)/ut-cstl_multimap.Po
+include ./$(DEPDIR)/ut-cstl_multimap_aux.Po
 include ./$(DEPDIR)/ut-cstl_multiset.Po
 include ./$(DEPDIR)/ut-cstl_multiset_aux.Po
 include ./$(DEPDIR)/ut-cstl_multiset_iterator.Po
@@ -492,6 +496,7 @@ include ./$(DEPDIR)/ut-ut_cstl_map.Po
 include ./$(DEPDIR)/ut-ut_cstl_map_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_map_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_map_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_multimap_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_multiset.Po
 include ./$(DEPDIR)/ut-ut_cstl_multiset_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_multiset_iterator.Po
@@ -1034,6 +1039,20 @@ ut-cstl_multimap.obj: $(srcdir)/../../src/cstl_multimap.c
 #	source='$(srcdir)/../../src/cstl_multimap.c' object='ut-cstl_multimap.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap.obj `if test -f '$(srcdir)/../../src/cstl_multimap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap.c'; fi`
+
+ut-cstl_multimap_aux.o: $(srcdir)/../../src/cstl_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_multimap_aux.Tpo -c -o ut-cstl_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_aux.c
+	$(am__mv) $(DEPDIR)/ut-cstl_multimap_aux.Tpo $(DEPDIR)/ut-cstl_multimap_aux.Po
+#	source='$(srcdir)/../../src/cstl_multimap_aux.c' object='ut-cstl_multimap_aux.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_aux.c
+
+ut-cstl_multimap_aux.obj: $(srcdir)/../../src/cstl_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multimap_aux.Tpo -c -o ut-cstl_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_multimap_aux.Tpo $(DEPDIR)/ut-cstl_multimap_aux.Po
+#	source='$(srcdir)/../../src/cstl_multimap_aux.c' object='ut-cstl_multimap_aux.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_aux.c'; fi`
 
 ut-cstl_multiset.o: $(srcdir)/../../src/cstl_multiset.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset.o -MD -MP -MF $(DEPDIR)/ut-cstl_multiset.Tpo -c -o ut-cstl_multiset.o `test -f '$(srcdir)/../../src/cstl_multiset.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset.c
@@ -2210,6 +2229,20 @@ ut-ut_cstl_map.obj: ut_cstl_map.c
 #	source='ut_cstl_map.c' object='ut-ut_cstl_map.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map.obj `if test -f 'ut_cstl_map.c'; then $(CYGPATH_W) 'ut_cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map.c'; fi`
+
+ut-ut_cstl_multimap_aux.o: ut_cstl_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap_aux.Tpo -c -o ut-ut_cstl_multimap_aux.o `test -f 'ut_cstl_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_multimap_aux.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap_aux.Tpo $(DEPDIR)/ut-ut_cstl_multimap_aux.Po
+#	source='ut_cstl_multimap_aux.c' object='ut-ut_cstl_multimap_aux.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap_aux.o `test -f 'ut_cstl_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_multimap_aux.c
+
+ut-ut_cstl_multimap_aux.obj: ut_cstl_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap_aux.Tpo -c -o ut-ut_cstl_multimap_aux.obj `if test -f 'ut_cstl_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap_aux.Tpo $(DEPDIR)/ut-ut_cstl_multimap_aux.Po
+#	source='ut_cstl_multimap_aux.c' object='ut-ut_cstl_multimap_aux.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap_aux.obj `if test -f 'ut_cstl_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_aux.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
