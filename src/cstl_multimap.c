@@ -168,63 +168,13 @@ bool_t _multimap_iterator_before(
 #endif
 }
 
-/* multimap private function */
-multimap_t* _create_multimap(const char* s_typename)
-{
-    multimap_t* pt_newmultimap = NULL;
-
-    if((pt_newmultimap = (multimap_t*)malloc(sizeof(multimap_t))) == NULL)
-    {
-        return NULL;
-    }
-
-    if(!_create_multimap_auxiliary(pt_newmultimap, s_typename))
-    {
-        free(pt_newmultimap);
-        return NULL;
-    }
-
-    pt_newmultimap->_t_keycompare = NULL;
-    pt_newmultimap->_t_valuecompare = NULL;
-
-    return pt_newmultimap;
-}
-
-bool_t _create_multimap_auxiliary(multimap_t* pt_multimap, const char* s_typename)
-{
-    char   s_typenameex[_TYPE_NAME_SIZE + 1];
-    bool_t t_result = false;
-
-    assert(pt_multimap != NULL && s_typename != NULL);
-
-    t_result = _create_pair_auxiliary(&pt_multimap->_t_pair, s_typename);
-    if(!t_result)
-    {
-        return false;
-    }
-
-    memset(s_typenameex, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(s_typenameex, "pair_t", _TYPE_NAME_SIZE);
-    strncat(s_typenameex, "<", _TYPE_NAME_SIZE);
-    strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
-    strncat(s_typenameex, ">", _TYPE_NAME_SIZE);
-
-#ifdef CSTL_MULTIMAP_AVL_TREE
-    t_result = _create_avl_tree_auxiliary(&pt_multimap->_t_tree, s_typenameex);
-#else
-    t_result = _create_rb_tree_auxiliary(&pt_multimap->_t_tree, s_typenameex);
-#endif
-
-    return t_result;
-}
-
 /* multimap function */
 void multimap_init(multimap_t* pt_multimap)
 {
     assert(pt_multimap != NULL);
 
     /* initialize the pair */
-    pair_init(&pt_multimap->_t_pair);
+    pair_init(&pt_multimap->_pair_temp);
     /* initialize the tree */
 #ifdef CSTL_MULTIMAP_AVL_TREE
     _avl_tree_init(&pt_multimap->_t_tree, _multimap_value_compare);
@@ -237,30 +187,15 @@ void multimap_init_ex(multimap_t* pt_multimap, binary_function_t t_keycompare)
 {
     assert(pt_multimap != NULL);
 
-    pt_multimap->_t_keycompare = t_keycompare;
-    pt_multimap->_t_pair._bfun_mapkeycompare = t_keycompare;
+    pt_multimap->_bfun_keycompare = t_keycompare;
+    pt_multimap->_pair_temp._bfun_mapkeycompare = t_keycompare;
 
-    pair_init(&pt_multimap->_t_pair);
+    pair_init(&pt_multimap->_pair_temp);
 #ifdef CSTL_MULTIMAP_AVL_TREE
     _avl_tree_init(&pt_multimap->_t_tree, _multimap_value_compare);
 #else
     _rb_tree_init(&pt_multimap->_t_tree, _multimap_value_compare);
 #endif
-}
-
-void _multimap_destroy_auxiliary(multimap_t* pt_multimap)
-{
-    assert(pt_multimap != NULL);
-
-    _pair_destroy_auxiliary(&pt_multimap->_t_pair);
-#ifdef CSTL_MULTIMAP_AVL_TREE
-    _avl_tree_destroy_auxiliary(&pt_multimap->_t_tree);
-#else
-    _rb_tree_destroy_auxiliary(&pt_multimap->_t_tree);
-#endif
-
-    pt_multimap->_t_keycompare = NULL;
-    pt_multimap->_t_valuecompare = NULL;
 }
 
 void multimap_destroy(multimap_t* pt_multimap)
@@ -275,12 +210,12 @@ void multimap_init_copy(multimap_t* pt_multimapdest, const multimap_t* cpt_multi
 
     /* initialize dest multimap with src multimap attribute */
     multimap_init(pt_multimapdest);
-    pt_multimapdest->_t_keycompare = cpt_multimapsrc->_t_keycompare;
-    pt_multimapdest->_t_valuecompare = cpt_multimapsrc->_t_valuecompare;
-    pt_multimapdest->_t_pair._bfun_mapkeycompare = cpt_multimapsrc->_t_pair._bfun_mapkeycompare;
-    pt_multimapdest->_t_pair._bfun_mapvaluecompare = cpt_multimapsrc->_t_pair._bfun_mapvaluecompare;
+    pt_multimapdest->_bfun_keycompare = cpt_multimapsrc->_bfun_keycompare;
+    pt_multimapdest->_bfun_valuecompare = cpt_multimapsrc->_bfun_valuecompare;
+    pt_multimapdest->_pair_temp._bfun_mapkeycompare = cpt_multimapsrc->_pair_temp._bfun_mapkeycompare;
+    pt_multimapdest->_pair_temp._bfun_mapvaluecompare = cpt_multimapsrc->_pair_temp._bfun_mapvaluecompare;
 
-    assert(_multimap_same_pair_type_ex(&pt_multimapdest->_t_pair, &cpt_multimapsrc->_t_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimapdest->_pair_temp, &cpt_multimapsrc->_pair_temp));
     /* insert all element from src to dest */
     if(!multimap_empty(cpt_multimapsrc))
     {
@@ -334,7 +269,7 @@ void multimap_init_copy_range_ex(multimap_t* pt_multimapdest,
 void multimap_assign(multimap_t* pt_multimapdest, const multimap_t* cpt_multimapsrc)
 {
     assert(pt_multimapdest != NULL && cpt_multimapsrc != NULL);
-    assert(_multimap_same_pair_type_ex(&pt_multimapdest->_t_pair, &cpt_multimapsrc->_t_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimapdest->_pair_temp, &cpt_multimapsrc->_pair_temp));
 
     multimap_clear(pt_multimapdest);
     /* insert all element from src to dest */
@@ -348,7 +283,7 @@ void multimap_assign(multimap_t* pt_multimapdest, const multimap_t* cpt_multimap
 void multimap_swap(multimap_t* pt_multimapfirst, multimap_t* pt_multimapsecond)
 {
     assert(pt_multimapfirst != NULL && pt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type_ex(&pt_multimapfirst->_t_pair, &pt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimapfirst->_pair_temp, &pt_multimapsecond->_pair_temp));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     _avl_tree_swap(&pt_multimapfirst->_t_tree, &pt_multimapsecond->_t_tree);
@@ -394,9 +329,9 @@ binary_function_t multimap_key_comp(const multimap_t* cpt_multimap)
 {
     assert(cpt_multimap != NULL);
 
-    if(cpt_multimap->_t_keycompare != NULL)
+    if(cpt_multimap->_bfun_keycompare != NULL)
     {
-        return cpt_multimap->_t_keycompare;
+        return cpt_multimap->_bfun_keycompare;
     }
     else
     {
@@ -454,7 +389,7 @@ bool_t multimap_less(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_pair_temp, &cpt_multimapsecond->_pair_temp));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_less(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -467,7 +402,7 @@ bool_t multimap_less_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_pair_temp, &cpt_multimapsecond->_pair_temp));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_less_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -480,7 +415,7 @@ bool_t multimap_greater(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_pair_temp, &cpt_multimapsecond->_pair_temp));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_greater(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -493,7 +428,7 @@ bool_t multimap_greater_equal(
     const multimap_t* cpt_multimapfirst, const multimap_t* cpt_multimapsecond)
 {
     assert(cpt_multimapfirst != NULL && cpt_multimapsecond != NULL);
-    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_t_pair, &cpt_multimapsecond->_t_pair));
+    assert(_multimap_same_pair_type_ex(&cpt_multimapfirst->_pair_temp, &cpt_multimapsecond->_pair_temp));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_greater_equal(&cpt_multimapfirst->_t_tree, &cpt_multimapsecond->_t_tree);
@@ -578,171 +513,6 @@ multimap_reverse_iterator_t multimap_rend(const multimap_t* cpt_multimap)
     return t_newiterator;
 }
 
-multimap_iterator_t _multimap_find(const multimap_t* cpt_multimap, ...)
-{
-    multimap_iterator_t t_iter;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_multimap);
-    t_iter = _multimap_find_varg(cpt_multimap, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_iter;
-}
-
-multimap_iterator_t _multimap_find_varg(
-    const multimap_t* cpt_multimap, va_list val_elemlist)
-{
-    multimap_iterator_t t_iterator;
-
-    assert(cpt_multimap != NULL);
-
-    /* get key */
-    _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair._pv_first);
-    /* find key in tree */
-#ifdef CSTL_MULTIMAP_AVL_TREE
-    t_iterator = _avl_tree_find(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#else
-    t_iterator = _rb_tree_find(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#endif
-
-    _GET_CONTAINER(t_iterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(t_iterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(t_iterator) = _BIDIRECTIONAL_ITERATOR;
-
-    return t_iterator;
-}
-
-size_t _multimap_count(const multimap_t* cpt_multimap, ...)
-{
-    size_t t_count = 0;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_multimap);
-    t_count = _multimap_count_varg(cpt_multimap, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_count;
-}
-
-size_t _multimap_count_varg(const multimap_t* cpt_multimap, va_list val_elemlist)
-{
-    assert(cpt_multimap != NULL);
-
-    _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair._pv_first);
-#ifdef CSTL_MULTIMAP_AVL_TREE
-    return _avl_tree_count(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#else
-    return _rb_tree_count(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#endif
-}
-
-multimap_iterator_t _multimap_lower_bound(const multimap_t* cpt_multimap, ...)
-{
-    multimap_iterator_t t_iter;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_multimap);
-    t_iter = _multimap_lower_bound_varg(cpt_multimap, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_iter;
-}
-
-multimap_iterator_t _multimap_lower_bound_varg(
-    const multimap_t* cpt_multimap, va_list val_elemlist)
-{
-    multimap_iterator_t t_iterator;
-
-    assert(cpt_multimap != NULL);
-
-    _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair._pv_first);
-#ifdef CSTL_MULTIMAP_AVL_TREE
-    t_iterator = _avl_tree_lower_bound(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#else
-    t_iterator = _rb_tree_lower_bound(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#endif
-
-    _GET_CONTAINER(t_iterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(t_iterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(t_iterator) = _BIDIRECTIONAL_ITERATOR;
-
-    return t_iterator;
-}
-
-multimap_iterator_t _multimap_upper_bound(const multimap_t* cpt_multimap, ...)
-{
-    multimap_iterator_t t_iter;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_multimap);
-    t_iter = _multimap_upper_bound_varg(cpt_multimap, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_iter;
-}
-
-multimap_iterator_t _multimap_upper_bound_varg(
-    const multimap_t* cpt_multimap, va_list val_elemlist)
-{
-    multimap_iterator_t t_iterator;
-
-    assert(cpt_multimap != NULL);
-
-    _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair._pv_first);
-#ifdef CSTL_MULTIMAP_AVL_TREE
-    t_iterator = _avl_tree_upper_bound(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#else
-    t_iterator = _rb_tree_upper_bound(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#endif
-
-    _GET_CONTAINER(t_iterator) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(t_iterator) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(t_iterator) = _BIDIRECTIONAL_ITERATOR;
-
-    return t_iterator;
-}
-
-range_t _multimap_equal_range(const multimap_t* cpt_multimap, ...)
-{
-    range_t t_range;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_multimap);
-    t_range = _multimap_equal_range_varg(cpt_multimap, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_range;
-}
-
-range_t _multimap_equal_range_varg(const multimap_t* cpt_multimap, va_list val_elemlist)
-{
-    range_t t_range;
-
-    assert(cpt_multimap != NULL);
-
-    _type_get_varg_value(&((multimap_t*)cpt_multimap)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_multimap->_t_pair._pv_first);
-#ifdef CSTL_MULTIMAP_AVL_TREE
-    t_range = _avl_tree_equal_range(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#else
-    t_range = _rb_tree_equal_range(&cpt_multimap->_t_tree, &cpt_multimap->_t_pair);
-#endif
-
-    _GET_CONTAINER(t_range.it_begin) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(t_range.it_begin) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(t_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
-    _GET_CONTAINER(t_range.it_end) = (multimap_t*)cpt_multimap;
-    _GET_MULTIMAP_CONTAINER_TYPE(t_range.it_end) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(t_range.it_end) = _BIDIRECTIONAL_ITERATOR;
-
-    return t_range;
-}
-
 multimap_iterator_t multimap_insert(
     multimap_t* pt_multimap, const pair_t* cpt_pair)
 {
@@ -750,10 +520,10 @@ multimap_iterator_t multimap_insert(
 
     assert(pt_multimap != NULL && cpt_pair != NULL);
 
-    ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_multimap->_t_keycompare;
-    ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_multimap->_t_valuecompare;
+    ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_multimap->_bfun_keycompare;
+    ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_multimap->_bfun_valuecompare;
 
-    assert(_multimap_same_pair_type_ex(&pt_multimap->_t_pair, cpt_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimap->_pair_temp, cpt_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     t_iterator = _avl_tree_insert_equal(&pt_multimap->_t_tree, cpt_pair);
@@ -773,10 +543,10 @@ multimap_iterator_t multimap_insert_hint(
 {
     assert(pt_multimap != NULL && cpt_pair != NULL);
 
-    ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_multimap->_t_keycompare;
-    ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_multimap->_t_valuecompare;
+    ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_multimap->_bfun_keycompare;
+    ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_multimap->_bfun_valuecompare;
 
-    assert(_multimap_same_pair_type_ex(&pt_multimap->_t_pair, cpt_pair));
+    assert(_multimap_same_pair_type_ex(&pt_multimap->_pair_temp, cpt_pair));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     t_hint = _avl_tree_insert_equal(&pt_multimap->_t_tree, cpt_pair);
@@ -843,53 +613,6 @@ void multimap_erase_range(
 #else
     _rb_tree_erase_range(&pt_multimap->_t_tree, t_begin, t_end);
 #endif
-}
-
-size_t _multimap_erase(multimap_t* pt_multimap, ...)
-{
-    size_t t_count = 0;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, pt_multimap);
-    t_count = _multimap_erase_varg(pt_multimap, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_count;
-}
-
-size_t _multimap_erase_varg(multimap_t* pt_multimap, va_list val_elemlist)
-{
-    assert(pt_multimap != NULL);
-
-    /* get key */
-    _type_get_varg_value(&pt_multimap->_t_pair._t_typeinfofirst,
-        val_elemlist, pt_multimap->_t_pair._pv_first);
-#ifdef CSTL_MULTIMAP_AVL_TREE
-    return _avl_tree_erase(&pt_multimap->_t_tree, &pt_multimap->_t_pair);
-#else
-    return _rb_tree_erase(&pt_multimap->_t_tree, &pt_multimap->_t_pair);
-#endif
-}
-
-void _multimap_init_elem_auxiliary(multimap_t* pt_multimap, void* pv_elem)
-{
-    assert(pt_multimap != NULL && pv_elem != NULL);
-
-    /* initialize new elements */
-    if(pt_multimap->_t_tree._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(pt_multimap->_t_tree._t_typeinfo._sz_typename, s_elemtypename);
-
-        pt_multimap->_t_tree._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
-    }
-    else
-    {
-        bool_t t_result = pt_multimap->_t_tree._t_typeinfo._pt_type->_t_typesize;
-        pt_multimap->_t_tree._t_typeinfo._pt_type->_t_typeinit(pv_elem, &t_result);
-        assert(t_result);
-    }
 }
 
 /** local function implementation section **/

@@ -89,8 +89,9 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_list_private.lo libcstl_la-cstl_list_aux.lo \
 	libcstl_la-cstl_map.lo libcstl_la-cstl_map_iterator.lo \
 	libcstl_la-cstl_map_private.lo libcstl_la-cstl_map_aux.lo \
-	libcstl_la-cstl_multimap.lo libcstl_la-cstl_multimap_aux.lo \
-	libcstl_la-cstl_multiset.lo \
+	libcstl_la-cstl_multimap.lo \
+	libcstl_la-cstl_multimap_private.lo \
+	libcstl_la-cstl_multimap_aux.lo libcstl_la-cstl_multiset.lo \
 	libcstl_la-cstl_multiset_iterator.lo \
 	libcstl_la-cstl_multiset_private.lo \
 	libcstl_la-cstl_multiset_aux.lo libcstl_la-cstl_numeric.lo \
@@ -264,7 +265,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_iterator.c \
 		     cstl_list.c cstl_list_iterator.c cstl_list_private.c cstl_list_aux.c cstl_list_aux.h \
 		     cstl_map.c cstl_map_iterator.c cstl_map_private.c cstl_map_aux.c cstl_map_aux.h \
-		     cstl_multimap.c cstl_multimap_aux.c cstl_multimap_aux.h \
+		     cstl_multimap.c cstl_multimap_private.c cstl_multimap_aux.c cstl_multimap_aux.h \
 		     cstl_multiset.c cstl_multiset_iterator.c cstl_multiset_private.c cstl_multiset_aux.c cstl_multiset_aux.h \
 		     cstl_numeric.c \
 		     cstl_pair.c cstl_pair_private.c cstl_pair_aux.c cstl_pair_aux.h \
@@ -389,6 +390,7 @@ include ./$(DEPDIR)/libcstl_la-cstl_map_iterator.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_map_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multimap.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multimap_aux.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_multimap_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multiset.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multiset_aux.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_multiset_iterator.Plo
@@ -674,6 +676,13 @@ libcstl_la-cstl_multimap.lo: cstl_multimap.c
 #	source='cstl_multimap.c' object='libcstl_la-cstl_multimap.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_multimap.lo `test -f 'cstl_multimap.c' || echo '$(srcdir)/'`cstl_multimap.c
+
+libcstl_la-cstl_multimap_private.lo: cstl_multimap_private.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_multimap_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_multimap_private.Tpo -c -o libcstl_la-cstl_multimap_private.lo `test -f 'cstl_multimap_private.c' || echo '$(srcdir)/'`cstl_multimap_private.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_multimap_private.Tpo $(DEPDIR)/libcstl_la-cstl_multimap_private.Plo
+#	source='cstl_multimap_private.c' object='libcstl_la-cstl_multimap_private.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_multimap_private.lo `test -f 'cstl_multimap_private.c' || echo '$(srcdir)/'`cstl_multimap_private.c
 
 libcstl_la-cstl_multimap_aux.lo: cstl_multimap_aux.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_multimap_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_multimap_aux.Tpo -c -o libcstl_la-cstl_multimap_aux.lo `test -f 'cstl_multimap_aux.c' || echo '$(srcdir)/'`cstl_multimap_aux.c
