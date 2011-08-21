@@ -234,7 +234,6 @@ void test__multimap_destroy_auxiliary__non_empty(void** state)
 /*
  * test _multimap_find and _multimap_find_varg
  */
-/*
 UT_CASE_DEFINATION(_multimap_find__multimap_find_varg)
 void test__multimap_find__multimap_find_varg__null_multimap(void** state)
 {
@@ -499,12 +498,10 @@ void test__multimap_find__multimap_find_varg__user_define_not_find(void** state)
     multimap_destroy(pt_multimap);
     pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test _multimap_count and _multimap_count_varg
  */
-/*
 UT_CASE_DEFINATION(_multimap_count__multimap_count_varg)
 void test__multimap_count__multimap_count_varg__null_multimap(void** state)
 {
@@ -601,7 +598,7 @@ void test__multimap_count__multimap_count_varg__c_builtin_n(void** state)
     }
 
     elem = 2;
-    assert_true(_multimap_count(pt_multimap, elem) == 1);
+    assert_true(_multimap_count(pt_multimap, elem) == 2);
 
     multimap_destroy(pt_multimap);
     pair_destroy(pt_pair);
@@ -676,7 +673,7 @@ void test__multimap_count__multimap_count_varg__cstr_n(void** state)
     pair_make(pt_pair, "linux", "windows");
     multimap_insert(pt_multimap, pt_pair);
 
-    assert_true(_multimap_count(pt_multimap, "ggg") == 1);
+    assert_true(_multimap_count(pt_multimap, "ggg") == 4);
 
     multimap_destroy(pt_multimap);
     pair_destroy(pt_pair);
@@ -776,7 +773,7 @@ void test__multimap_count__multimap_count_varg__libcstl_builtin_n(void** state)
 
     list_clear(plist);
     list_push_back(plist, 6);
-    assert_true(_multimap_count(pt_multimap, plist) == 1);
+    assert_true(_multimap_count(pt_multimap, plist) == 4);
 
     multimap_destroy(pt_multimap);
     pair_destroy(pt_pair);
@@ -861,17 +858,15 @@ void test__multimap_count__multimap_count_varg__user_define_n(void** state)
     }
 
     elem.n_elem = 8;
-    assert_true(_multimap_count(pt_multimap, &elem) == 1);
+    assert_true(_multimap_count(pt_multimap, &elem) == 4);
 
     multimap_destroy(pt_multimap);
     pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test _multimap_lower_bound and _multimap_lower_bound_varg
  */
-/*
 UT_CASE_DEFINATION(_multimap_lower_bound__multimap_lower_bound_varg)
 void test__multimap_lower_bound__multimap_lower_bound_varg__null_multimap(void** state)
 {
@@ -1136,12 +1131,10 @@ void test__multimap_lower_bound__multimap_lower_bound_varg__user_define_greater(
     multimap_destroy(pt_multimap);
     pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test _multimap_upper_bound and _multimap_upper_bound_varg
  */
-/*
 UT_CASE_DEFINATION(_multimap_upper_bound__multimap_upper_bound_varg)
 void test__multimap_upper_bound__multimap_upper_bound_varg__null_multimap(void** state)
 {
@@ -1407,12 +1400,10 @@ void test__multimap_upper_bound__multimap_upper_bound_varg__user_define_greater(
     multimap_destroy(pt_multimap);
     pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test _multimap_equal_range and _multimap_equal_range_varg
  */
-/*
 UT_CASE_DEFINATION(_multimap_equal_range__multimap_equal_range_varg)
 void test__multimap_equal_range__multimap_equal_range_varg__null_multimap(void** state)
 {
@@ -1685,257 +1676,10 @@ void test__multimap_equal_range__multimap_equal_range_varg__user_define_greater(
     multimap_destroy(pt_multimap);
     pair_destroy(pt_pair);
 }
-*/
-
-/*
- * test _multimap_at and _multimap_at_varg
- */
-/*
-UT_CASE_DEFINATION(_multimap_at__multimap_at_varg)
-void test__multimap_at__multimap_at_varg__null_multimap(void** state)
-{
-    expect_assert_failure(_multimap_at(NULL, 4));
-}
-
-void test__multimap_at__multimap_at_varg__non_inited(void** state)
-{
-    multimap_t* pt_multimap = create_multimap(int, int);
-
-    multimap_init(pt_multimap);
-    pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
-    expect_assert_failure(_multimap_at(pt_multimap, 3));
-    pt_multimap->_t_tree._t_rbroot._t_color = RED;
-
-    multimap_destroy(pt_multimap);
-}
-
-void test__multimap_at__multimap_at_varg__non_inited_pair(void** state)
-{
-    multimap_t* pt_multimap = create_multimap(int, int);
-    void* pv_tmp = NULL;
-
-    multimap_init(pt_multimap);
-    pv_tmp = pt_multimap->_pair_temp._pv_first;
-    pt_multimap->_pair_temp._pv_first = NULL;
-    expect_assert_failure(_multimap_at(pt_multimap, 5));
-    pt_multimap->_pair_temp._pv_first = pv_tmp;
-
-    multimap_destroy(pt_multimap);
-}
-
-void test__multimap_at__multimap_at_varg__c_builtin_exist(void** state)
-{
-    multimap_t* pt_multimap = create_multimap(int, int);
-    pair_t* pt_pair = create_pair(int, int);
-    int i = 0;
-
-    multimap_init(pt_multimap);
-    pair_init(pt_pair);
-    for(i = 0; i < 10; ++i)
-    {
-        pair_make(pt_pair, i, i);
-        multimap_insert(pt_multimap, pt_pair);
-    }
-
-    assert_true(*(int*)_multimap_at(pt_multimap, 4) == 4);
-
-    multimap_destroy(pt_multimap);
-    pair_destroy(pt_pair);
-}
-
-void test__multimap_at__multimap_at_varg__c_builtin_no_exist(void** state)
-{
-    multimap_t* pt_multimap = create_multimap(int, int);
-    pair_t* pt_pair = create_pair(int, int);
-    int i = 0;
-
-    multimap_init(pt_multimap);
-    pair_init(pt_pair);
-    for(i = 0; i < 10; ++i)
-    {
-        pair_make(pt_pair, i * 2, i);
-        multimap_insert(pt_multimap, pt_pair);
-    }
-
-    assert_true(*(int*)_multimap_at(pt_multimap, 3) == 0);
-    *(int*)_multimap_at(pt_multimap, 3) = 900;
-    assert_true(*(int*)_multimap_at(pt_multimap, 3) == 900);
-
-    multimap_destroy(pt_multimap);
-    pair_destroy(pt_pair);
-}
-
-void test__multimap_at__multimap_at_varg__cstr_exist(void** state)
-{
-    multimap_t* pt_multimap = create_multimap(char*, char*);
-    pair_t* pt_pair = create_pair(char*, char*);
-
-    pair_init(pt_pair);
-    multimap_init(pt_multimap);
-    pair_make(pt_pair, "aaa", "bbb");
-    multimap_insert(pt_multimap, pt_pair);
-    pair_make(pt_pair, "nnnnn", "ooooo");
-    multimap_insert(pt_multimap, pt_pair);
-    pair_make(pt_pair, "lso", "iso");
-    multimap_insert(pt_multimap, pt_pair);
-    pair_make(pt_pair, "linux", "windows");
-    multimap_insert(pt_multimap, pt_pair);
-
-    assert_true(strcmp((char*)_multimap_at(pt_multimap, "lso"), "iso") == 0);
-
-    pair_destroy(pt_pair);
-    multimap_destroy(pt_multimap);
-}
-
-void test__multimap_at__multimap_at_varg__cstr_no_exist(void** state)
-{
-    multimap_t* pt_multimap = create_multimap(char*, char*);
-    pair_t* pt_pair = create_pair(char*, char*);
-
-    pair_init(pt_pair);
-    multimap_init(pt_multimap);
-    pair_make(pt_pair, "aaa", "bbb");
-    multimap_insert(pt_multimap, pt_pair);
-    pair_make(pt_pair, "nnnnn", "ooooo");
-    multimap_insert(pt_multimap, pt_pair);
-    pair_make(pt_pair, "lso", "iso");
-    multimap_insert(pt_multimap, pt_pair);
-    pair_make(pt_pair, "linux", "windows");
-    multimap_insert(pt_multimap, pt_pair);
-
-    assert_true(strcmp((char*)_multimap_at(pt_multimap, "tcpip"), "") == 0);
-
-    pair_destroy(pt_pair);
-    multimap_destroy(pt_multimap);
-}
-
-void test__multimap_at__multimap_at_varg__libcstl_builtin_exist(void** state)
-{
-    multimap_t* pt_multimap = _create_multimap("list_t<int>, vector_t<int>");
-    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
-    list_t* plist = create_list(int);
-    vector_t* pvec = create_vector(int);
-    int i = 0;
-
-    multimap_init_ex(pt_multimap, NULL);
-    list_init(plist);
-    pair_init(pt_pair);
-    vector_init(pvec);
-
-    for(i = 0; i < 10; i++)
-    {
-        list_clear(plist);
-        vector_clear(pvec);
-        list_push_back(plist, i);
-        vector_push_back(pvec, i);
-        pair_make(pt_pair, plist, pvec);
-        multimap_insert(pt_multimap, pt_pair);
-    }
-
-    list_clear(plist);
-    list_push_back(plist, 6);
-    assert_true(*(int*)vector_front((vector_t*)_multimap_at(pt_multimap, plist)) == 6);
-
-    multimap_destroy(pt_multimap);
-    list_destroy(plist);
-    pair_destroy(pt_pair);
-    vector_destroy(pvec);
-}
-
-void test__multimap_at__multimap_at_varg__libcstl_builtin_no_exist(void** state)
-{
-    multimap_t* pt_multimap = _create_multimap("list_t<int>, vector_t<int>");
-    pair_t* pt_pair = create_pair(list_t<int>, vector_t<int>);
-    list_t* plist = create_list(int);
-    vector_t* pvec = create_vector(int);
-    int i = 0;
-
-    multimap_init_ex(pt_multimap, NULL);
-    list_init(plist);
-    pair_init(pt_pair);
-    vector_init(pvec);
-
-    for(i = 0; i < 10; i++)
-    {
-        list_clear(plist);
-        vector_clear(pvec);
-        list_push_back(plist, i * 2);
-        vector_push_back(pvec, i);
-        pair_make(pt_pair, plist, pvec);
-        multimap_insert(pt_multimap, pt_pair);
-    }
-
-    list_clear(plist);
-    list_push_back(plist, 7);
-    assert_true(vector_empty((vector_t*)_multimap_at(pt_multimap, plist)));
-
-    multimap_destroy(pt_multimap);
-    list_destroy(plist);
-    pair_destroy(pt_pair);
-    vector_destroy(pvec);
-}
-
-typedef struct _tag_test__multimap_at__multimap_at_varg__user_define
-{
-    int n_elem;
-}_test__multimap_at__multimap_at_varg__user_define_t;
-void test__multimap_at__multimap_at_varg__user_define_exist(void** state)
-{
-    multimap_t* pt_multimap = NULL;
-    pair_t* pt_pair = NULL;
-    _test__multimap_at__multimap_at_varg__user_define_t elem;
-    int i = 0;
-
-    type_register(_test__multimap_at__multimap_at_varg__user_define_t, NULL, NULL, NULL, NULL);
-
-    pt_multimap = _create_multimap("_test__multimap_at__multimap_at_varg__user_define_t, _test__multimap_at__multimap_at_varg__user_define_t");
-    pt_pair = create_pair(_test__multimap_at__multimap_at_varg__user_define_t, _test__multimap_at__multimap_at_varg__user_define_t);
-    multimap_init_ex(pt_multimap, NULL);
-    pair_init(pt_pair);
-
-    for(i = 0; i < 10; ++i)
-    {
-        elem.n_elem = i;
-        pair_make(pt_pair, &elem, &elem);
-        multimap_insert(pt_multimap, pt_pair);
-    }
-
-    elem.n_elem = 8;
-    assert_true(((_test__multimap_at__multimap_at_varg__user_define_t*)_multimap_at(pt_multimap, &elem))->n_elem == 8);
-
-    multimap_destroy(pt_multimap);
-    pair_destroy(pt_pair);
-}
-
-void test__multimap_at__multimap_at_varg__user_define_no_exist(void** state)
-{
-    multimap_t* pt_multimap =  _create_multimap("_test__multimap_at__multimap_at_varg__user_define_t, _test__multimap_at__multimap_at_varg__user_define_t");
-    pair_t* pt_pair = create_pair(_test__multimap_at__multimap_at_varg__user_define_t, _test__multimap_at__multimap_at_varg__user_define_t);
-    _test__multimap_at__multimap_at_varg__user_define_t elem;
-    int i = 0;
-
-    multimap_init_ex(pt_multimap, NULL);
-    pair_init(pt_pair);
-
-    for(i = 0; i < 10; ++i)
-    {
-        elem.n_elem = i * 2;
-        pair_make(pt_pair, &elem, &elem);
-        multimap_insert(pt_multimap, pt_pair);
-    }
-
-    elem.n_elem = 7;
-    assert_true(((_test__multimap_at__multimap_at_varg__user_define_t*)_multimap_at(pt_multimap, &elem))->n_elem == 0);
-
-    multimap_destroy(pt_multimap);
-    pair_destroy(pt_pair);
-}
-*/
 
 /*
  * test _multimap_erase and _multimap_erase_varg
  */
-/*
 UT_CASE_DEFINATION(_multimap_erase__multimap_erase_varg)
 void test__multimap_erase__multimap_erase_varg__null_multimap(void** state)
 {
@@ -2035,8 +1779,8 @@ void test__multimap_erase__multimap_erase_varg__c_builtin_n(void** state)
     }
 
     elem = 8;
-    assert_true(_multimap_erase(pt_multimap, elem) == 1);
-    assert_true(multimap_size(pt_multimap) == 9);
+    assert_true(_multimap_erase(pt_multimap, elem) == 3);
+    assert_true(multimap_size(pt_multimap) == 27);
     assert_true(_multimap_count(pt_multimap, elem) == 0);
 
     multimap_destroy(pt_multimap);
@@ -2115,7 +1859,7 @@ void test__multimap_erase__multimap_erase_varg__cstr_n(void** state)
     pair_make(pt_pair, "linux", "windows");
     multimap_insert(pt_multimap, pt_pair);
 
-    assert_true(_multimap_erase(pt_multimap, "ggg") == 1);
+    assert_true(_multimap_erase(pt_multimap, "ggg") == 4);
     assert_true(multimap_size(pt_multimap) == 4);
     assert_true(_multimap_count(pt_multimap, "ggg") == 0);
 
@@ -2219,8 +1963,8 @@ void test__multimap_erase__multimap_erase_varg__libcstl_builtin_n(void** state)
 
     list_clear(plist);
     list_push_back(plist, 6);
-    assert_true(_multimap_erase(pt_multimap, plist) == 1);
-    assert_true(multimap_size(pt_multimap) == 9);
+    assert_true(_multimap_erase(pt_multimap, plist) == 3);
+    assert_true(multimap_size(pt_multimap) == 27);
     assert_true(_multimap_count(pt_multimap, plist) == 0);
 
     multimap_destroy(pt_multimap);
@@ -2308,19 +2052,17 @@ void test__multimap_erase__multimap_erase_varg__user_define_n(void** state)
     }
 
     elem.n_elem = 8;
-    assert_true(_multimap_erase(pt_multimap, &elem) == 1);
-    assert_true(multimap_size(pt_multimap) == 9);
+    assert_true(_multimap_erase(pt_multimap, &elem) == 3);
+    assert_true(multimap_size(pt_multimap) == 27);
     assert_true(_multimap_count(pt_multimap, &elem) == 0);
 
     multimap_destroy(pt_multimap);
     pair_destroy(pt_pair);
 }
-*/
 
 /*
  * test _multimap_init_elem_auxiliary
  */
-/*
 UT_CASE_DEFINATION(_multimap_init_elem_auxiliary)
 void test__multimap_init_elem_auxiliary__null_multimap_container(void** state)
 {
@@ -2430,5 +2172,4 @@ void test__multimap_init_elem_auxiliary__successfully_user_defined(void** state)
     multimap_destroy(pmultimap);
     pair_destroy(pt_pair);
 }
-*/
 

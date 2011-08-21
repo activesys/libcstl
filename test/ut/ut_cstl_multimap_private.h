@@ -35,7 +35,6 @@ void test__multimap_destroy_auxiliary__non_empty(void** state);
 /*
  * test _multimap_find and _multimap_find_varg
  */
-/*
 UT_CASE_DECLARATION(_multimap_find__multimap_find_varg)
 void test__multimap_find__multimap_find_varg__null_multimap(void** state);
 void test__multimap_find__multimap_find_varg__non_inited(void** state);
@@ -48,11 +47,9 @@ void test__multimap_find__multimap_find_varg__libcstl_builtin_find(void** state)
 void test__multimap_find__multimap_find_varg__libcstl_builtin_not_find(void** state);
 void test__multimap_find__multimap_find_varg__user_define_find(void** state);
 void test__multimap_find__multimap_find_varg__user_define_not_find(void** state);
-*/
 /*
  * test _multimap_count and _multimap_count_varg
  */
-/*
 UT_CASE_DECLARATION(_multimap_count__multimap_count_varg)
 void test__multimap_count__multimap_count_varg__null_multimap(void** state);
 void test__multimap_count__multimap_count_varg__non_inited(void** state);
@@ -69,11 +66,9 @@ void test__multimap_count__multimap_count_varg__libcstl_builtin_n(void** state);
 void test__multimap_count__multimap_count_varg__user_define_0(void** state);
 void test__multimap_count__multimap_count_varg__user_define_1(void** state);
 void test__multimap_count__multimap_count_varg__user_define_n(void** state);
-*/
 /*
  * test _multimap_lower_bound and _multimap_lower_bound_varg
  */
-/*
 UT_CASE_DECLARATION(_multimap_lower_bound__multimap_lower_bound_varg)
 void test__multimap_lower_bound__multimap_lower_bound_varg__null_multimap(void** state);
 void test__multimap_lower_bound__multimap_lower_bound_varg__non_inited(void** state);
@@ -86,11 +81,9 @@ void test__multimap_lower_bound__multimap_lower_bound_varg__libcstl_builtin_equa
 void test__multimap_lower_bound__multimap_lower_bound_varg__libcstl_builtin_greater(void** state);
 void test__multimap_lower_bound__multimap_lower_bound_varg__user_define_equal(void** state);
 void test__multimap_lower_bound__multimap_lower_bound_varg__user_define_greater(void** state);
-*/
 /*
  * test _multimap_upper_bound and _multimap_upper_bound_varg
  */
-/*
 UT_CASE_DECLARATION(_multimap_upper_bound__multimap_upper_bound_varg)
 void test__multimap_upper_bound__multimap_upper_bound_varg__null_multimap(void** state);
 void test__multimap_upper_bound__multimap_upper_bound_varg__non_inited(void** state);
@@ -103,11 +96,9 @@ void test__multimap_upper_bound__multimap_upper_bound_varg__libcstl_builtin_equa
 void test__multimap_upper_bound__multimap_upper_bound_varg__libcstl_builtin_greater(void** state);
 void test__multimap_upper_bound__multimap_upper_bound_varg__user_define_equal(void** state);
 void test__multimap_upper_bound__multimap_upper_bound_varg__user_define_greater(void** state);
-*/
 /*
  * test _multimap_equal_range and _multimap_equal_range_varg
  */
-/*
 UT_CASE_DECLARATION(_multimap_equal_range__multimap_equal_range_varg)
 void test__multimap_equal_range__multimap_equal_range_varg__null_multimap(void** state);
 void test__multimap_equal_range__multimap_equal_range_varg__non_inited(void** state);
@@ -120,28 +111,9 @@ void test__multimap_equal_range__multimap_equal_range_varg__libcstl_builtin_equa
 void test__multimap_equal_range__multimap_equal_range_varg__libcstl_builtin_greater(void** state);
 void test__multimap_equal_range__multimap_equal_range_varg__user_define_equal(void** state);
 void test__multimap_equal_range__multimap_equal_range_varg__user_define_greater(void** state);
-*/
-/*
- * test _multimap_at and _multimap_at_varg
- */
-/*
-UT_CASE_DECLARATION(_multimap_at__multimap_at_varg)
-void test__multimap_at__multimap_at_varg__null_multimap(void** state);
-void test__multimap_at__multimap_at_varg__non_inited(void** state);
-void test__multimap_at__multimap_at_varg__non_inited_pair(void** state);
-void test__multimap_at__multimap_at_varg__c_builtin_exist(void** state);
-void test__multimap_at__multimap_at_varg__c_builtin_no_exist(void** state);
-void test__multimap_at__multimap_at_varg__cstr_exist(void** state);
-void test__multimap_at__multimap_at_varg__cstr_no_exist(void** state);
-void test__multimap_at__multimap_at_varg__libcstl_builtin_exist(void** state);
-void test__multimap_at__multimap_at_varg__libcstl_builtin_no_exist(void** state);
-void test__multimap_at__multimap_at_varg__user_define_exist(void** state);
-void test__multimap_at__multimap_at_varg__user_define_no_exist(void** state);
-*/
 /*
  * test _multimap_erase and _multimap_erase_varg
  */
-/*
 UT_CASE_DECLARATION(_multimap_erase__multimap_erase_varg)
 void test__multimap_erase__multimap_erase_varg__null_multimap(void** state);
 void test__multimap_erase__multimap_erase_varg__non_inited(void** state);
@@ -158,11 +130,9 @@ void test__multimap_erase__multimap_erase_varg__libcstl_builtin_n(void** state);
 void test__multimap_erase__multimap_erase_varg__user_define_0(void** state);
 void test__multimap_erase__multimap_erase_varg__user_define_1(void** state);
 void test__multimap_erase__multimap_erase_varg__user_define_n(void** state);
-*/
 /*
  * test _multimap_init_elem_auxiliary
  */
-/*
 UT_CASE_DECLARATION(_multimap_init_elem_auxiliary)
 void test__multimap_init_elem_auxiliary__null_multimap_container(void** state);
 void test__multimap_init_elem_auxiliary__null_elem(void** state);
@@ -172,7 +142,6 @@ void test__multimap_init_elem_auxiliary__successfully_cstr(void** state);
 void test__multimap_init_elem_auxiliary__successfully_iterator(void** state);
 void test__multimap_init_elem_auxiliary__successfully_container(void** state);
 void test__multimap_init_elem_auxiliary__successfully_user_defined(void** state);
-*/
 
 #define UT_CSTL_MULTIMAP_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_multimap_private, test__create_multimap__null_typename),\
@@ -193,7 +162,6 @@ void test__multimap_init_elem_auxiliary__successfully_user_defined(void** state)
     UT_CASE(test__multimap_destroy_auxiliary__non_inited),\
     UT_CASE(test__multimap_destroy_auxiliary__empty),\
     UT_CASE(test__multimap_destroy_auxiliary__non_empty),\
-/*
     UT_CASE_BEGIN(_multimap_find__multimap_find_varg, test__multimap_find__multimap_find_varg__null_multimap),\
     UT_CASE(test__multimap_find__multimap_find_varg__non_inited),\
     UT_CASE(test__multimap_find__multimap_find_varg__non_inited_pair),\
@@ -253,17 +221,6 @@ void test__multimap_init_elem_auxiliary__successfully_user_defined(void** state)
     UT_CASE(test__multimap_equal_range__multimap_equal_range_varg__libcstl_builtin_greater),\
     UT_CASE(test__multimap_equal_range__multimap_equal_range_varg__user_define_equal),\
     UT_CASE(test__multimap_equal_range__multimap_equal_range_varg__user_define_greater),\
-    UT_CASE_BEGIN(_multimap_at__multimap_at_varg, test__multimap_at__multimap_at_varg__null_multimap),\
-    UT_CASE(test__multimap_at__multimap_at_varg__non_inited),\
-    UT_CASE(test__multimap_at__multimap_at_varg__non_inited_pair),\
-    UT_CASE(test__multimap_at__multimap_at_varg__c_builtin_exist),\
-    UT_CASE(test__multimap_at__multimap_at_varg__c_builtin_no_exist),\
-    UT_CASE(test__multimap_at__multimap_at_varg__cstr_exist),\
-    UT_CASE(test__multimap_at__multimap_at_varg__cstr_no_exist),\
-    UT_CASE(test__multimap_at__multimap_at_varg__libcstl_builtin_exist),\
-    UT_CASE(test__multimap_at__multimap_at_varg__libcstl_builtin_no_exist),\
-    UT_CASE(test__multimap_at__multimap_at_varg__user_define_exist),\
-    UT_CASE(test__multimap_at__multimap_at_varg__user_define_no_exist),\
     UT_CASE_BEGIN(_multimap_erase__multimap_erase_varg, test__multimap_erase__multimap_erase_varg__null_multimap),\
     UT_CASE(test__multimap_erase__multimap_erase_varg__non_inited),\
     UT_CASE(test__multimap_erase__multimap_erase_varg__non_inited_pair),\
@@ -287,7 +244,6 @@ void test__multimap_init_elem_auxiliary__successfully_user_defined(void** state)
     UT_CASE(test__multimap_init_elem_auxiliary__successfully_iterator),\
     UT_CASE(test__multimap_init_elem_auxiliary__successfully_container),\
     UT_CASE(test__multimap_init_elem_auxiliary__successfully_user_defined)
-*/
 
 #endif /* _UT_CSTL_MULTIMAP_PRIVATE_H_ */
 
