@@ -60,6 +60,7 @@
 #include "ut_cstl_map.h"
 #include "ut_cstl_multimap_aux.h"
 #include "ut_cstl_multimap_private.h"
+#include "ut_cstl_multimap_iterator.h"
 
 int main(int argc, char* argv[])
 {
@@ -116,7 +117,8 @@ int main(int argc, char* argv[])
         UT_CSTL_MAP_ITERATOR_CASE,
         UT_CSTL_MAP_CASE,
         UT_CSTL_MULTIMAP_AUX_CASE,
-        UT_CSTL_MULTIMAP_PRIVATE_CASE
+        UT_CSTL_MULTIMAP_PRIVATE_CASE,
+        UT_CSTL_MULTIMAP_ITERATOR_CASE
     };
 
     return run_tests(tests);
