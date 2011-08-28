@@ -23,7 +23,7 @@ UT_CASE_DEFINATION(create_multimap_iterator)
 void test_create_multimap_iterator__successfully(void** state)
 {
     multimap_iterator_t it_iter = create_multimap_iterator();
-    assert_true(it_iter._t_pos._t_treepos._pc_corepos == NULL);
+    assert_true(it_iter._t_pos._t_treepos._pby_corepos == NULL);
     assert_true(it_iter._t_pos._t_treepos._pt_tree == NULL);
     assert_true(it_iter._pt_container == NULL);
     assert_true(it_iter._t_containertype == _MULTIMAP_CONTAINER);
@@ -43,7 +43,7 @@ void test__multimap_iterator_get_value__null_corepos(void** state)
 
     it_iter = multimap_begin(pt_multimap);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multimap_iterator_get_value(it_iter, &elem));
 
     multimap_destroy(pt_multimap);
@@ -229,7 +229,7 @@ void test__multimap_iterator_get_pointer__null_corepos(void** state)
 
     it_iter = multimap_begin(pt_multimap);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multimap_iterator_get_pointer(it_iter));
 
     multimap_destroy(pt_multimap);
@@ -387,7 +387,7 @@ void test__multimap_iterator_next__null_corepos(void** state)
 
     it_iter = multimap_begin(pt_multimap);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multimap_iterator_next(it_iter));
 
     multimap_destroy(pt_multimap);
@@ -501,7 +501,7 @@ void test__multimap_iterator_prev__null_corepos(void** state)
 
     it_iter = multimap_begin(pt_multimap);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multimap_iterator_prev(it_iter));
 
     multimap_destroy(pt_multimap);
@@ -841,7 +841,7 @@ void test__multimap_iterator_before__invalid_second(void** state)
     multimap_init_ex(pt_multimap, NULL);
     it_first = multimap_begin(pt_multimap);
     it_second = multimap_begin(pt_multimap);
-    it_second._t_pos._t_treepos._pc_corepos = NULL;
+    it_second._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multimap_iterator_before(it_first, it_second));
 
     multimap_destroy(pt_multimap);

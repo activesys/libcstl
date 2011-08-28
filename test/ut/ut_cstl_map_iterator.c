@@ -23,7 +23,7 @@ UT_CASE_DEFINATION(create_map_iterator)
 void test_create_map_iterator__successfully(void** state)
 {
     map_iterator_t it_iter = create_map_iterator();
-    assert_true(it_iter._t_pos._t_treepos._pc_corepos == NULL);
+    assert_true(it_iter._t_pos._t_treepos._pby_corepos == NULL);
     assert_true(it_iter._t_pos._t_treepos._pt_tree == NULL);
     assert_true(it_iter._pt_container == NULL);
     assert_true(it_iter._t_containertype == _MAP_CONTAINER);
@@ -43,7 +43,7 @@ void test__map_iterator_get_value__null_corepos(void** state)
 
     it_iter = map_begin(pt_map);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_map_iterator_get_value(it_iter, &elem));
 
     map_destroy(pt_map);
@@ -229,7 +229,7 @@ void test__map_iterator_get_pointer__null_corepos(void** state)
 
     it_iter = map_begin(pt_map);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_map_iterator_get_pointer(it_iter));
 
     map_destroy(pt_map);
@@ -387,7 +387,7 @@ void test__map_iterator_next__null_corepos(void** state)
 
     it_iter = map_begin(pt_map);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_map_iterator_next(it_iter));
 
     map_destroy(pt_map);
@@ -501,7 +501,7 @@ void test__map_iterator_prev__null_corepos(void** state)
 
     it_iter = map_begin(pt_map);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_map_iterator_prev(it_iter));
 
     map_destroy(pt_map);
@@ -841,7 +841,7 @@ void test__map_iterator_before__invalid_second(void** state)
     map_init_ex(pt_map, NULL);
     it_first = map_begin(pt_map);
     it_second = map_begin(pt_map);
-    it_second._t_pos._t_treepos._pc_corepos = NULL;
+    it_second._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_map_iterator_before(it_first, it_second));
 
     map_destroy(pt_map);

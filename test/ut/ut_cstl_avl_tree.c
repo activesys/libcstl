@@ -4907,7 +4907,7 @@ void test__avl_tree_erase_pos__invalid_pos(void** state)
     _avl_tree_init(pt_avl_tree, NULL);
     _avl_tree_insert_unique(pt_avl_tree, &elem);
     it_pos = _avl_tree_begin(pt_avl_tree);
-    it_pos._t_pos._t_treepos._pc_corepos = NULL;
+    it_pos._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_avl_tree_erase_pos(pt_avl_tree, it_pos));
 
     _avl_tree_destroy(pt_avl_tree);

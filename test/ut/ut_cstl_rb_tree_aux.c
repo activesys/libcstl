@@ -331,7 +331,7 @@ void test__rb_tree_iterator_belong_to_rb_tree__invalid_iter_corepos(void** state
 
     _rb_tree_init(pt_rb_tree, NULL);
     it_iter = _rb_tree_begin(pt_rb_tree);
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, it_iter));
 
     _rb_tree_destroy(pt_rb_tree);
@@ -427,7 +427,7 @@ void test__rb_tree_iterator_belong_to_rb_tree__invalid_pos(void** state)
         _rb_tree_insert_unique(pt_rb_tree, &i);
     }
     it_iter = _rb_tree_begin(pt_rb_tree);
-    it_iter._t_pos._t_treepos._pc_corepos = (char*)0x888;
+    it_iter._t_pos._t_treepos._pby_corepos = (char*)0x888;
     assert_false(_rb_tree_iterator_belong_to_rb_tree(pt_rb_tree, it_iter));
 
     _rb_tree_destroy(pt_rb_tree);

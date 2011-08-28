@@ -331,7 +331,7 @@ void test__avl_tree_iterator_belong_to_avl_tree__invalid_iter_corepos(void** sta
 
     _avl_tree_init(pt_avl_tree, NULL);
     it_iter = _avl_tree_begin(pt_avl_tree);
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_avl_tree_iterator_belong_to_avl_tree(pt_avl_tree, it_iter));
 
     _avl_tree_destroy(pt_avl_tree);
@@ -427,7 +427,7 @@ void test__avl_tree_iterator_belong_to_avl_tree__invalid_pos(void** state)
         _avl_tree_insert_unique(pt_avl_tree, &i);
     }
     it_iter = _avl_tree_begin(pt_avl_tree);
-    it_iter._t_pos._t_treepos._pc_corepos = (char*)0x888;
+    it_iter._t_pos._t_treepos._pby_corepos = (_byte_t*)0x888;
     assert_false(_avl_tree_iterator_belong_to_avl_tree(pt_avl_tree, it_iter));
 
     _avl_tree_destroy(pt_avl_tree);

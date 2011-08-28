@@ -24,7 +24,7 @@ UT_CASE_DEFINATION(_create_avl_tree_iterator)
 void test__create_avl_tree_iterator__successfully(void** state)
 {
     _avl_tree_iterator_t it_iter = _create_avl_tree_iterator();
-    assert_true(it_iter._t_pos._t_treepos._pc_corepos == NULL);
+    assert_true(it_iter._t_pos._t_treepos._pby_corepos == NULL);
     assert_true(it_iter._t_pos._t_treepos._pt_tree == NULL);
     assert_true(it_iter._pt_container == NULL);
 }
@@ -42,7 +42,7 @@ void test__avl_tree_iterator_get_value__null_corepos(void** state)
 
     it_iter = _avl_tree_begin(pt_avl_tree);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_avl_tree_iterator_get_value(it_iter, &elem));
 
     _avl_tree_destroy(pt_avl_tree);
@@ -176,7 +176,7 @@ void test__avl_tree_iterator_get_pointer__null_corepos(void** state)
 
     it_iter = _avl_tree_begin(pt_avl_tree);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_avl_tree_iterator_get_pointer(it_iter));
 
     _avl_tree_destroy(pt_avl_tree);
@@ -287,7 +287,7 @@ void test__avl_tree_iterator_next__null_corepos(void** state)
 
     it_iter = _avl_tree_begin(pt_avl_tree);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_avl_tree_iterator_next(it_iter));
 
     _avl_tree_destroy(pt_avl_tree);
@@ -366,7 +366,7 @@ void test__avl_tree_iterator_prev__null_corepos(void** state)
 
     it_iter = _avl_tree_begin(pt_avl_tree);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_avl_tree_iterator_prev(it_iter));
 
     _avl_tree_destroy(pt_avl_tree);
@@ -463,7 +463,7 @@ void test__avl_tree_iterator_equal__invalid_second(void** state)
     _avl_tree_init(pt_avl_tree, NULL);
     it_first = _avl_tree_begin(pt_avl_tree);
     it_second = _avl_tree_begin(pt_avl_tree);
-    it_second._t_pos._t_treepos._pc_corepos = NULL;
+    it_second._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_avl_tree_iterator_equal(it_first, it_second));
 
     _avl_tree_destroy(pt_avl_tree);
@@ -548,7 +548,7 @@ void test__avl_tree_iterator_distance__invalid_second(void** state)
     _avl_tree_init(pt_avl_tree, NULL);
     it_first = _avl_tree_begin(pt_avl_tree);
     it_second = _avl_tree_begin(pt_avl_tree);
-    it_second._t_pos._t_treepos._pc_corepos = NULL;
+    it_second._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_avl_tree_iterator_distance(it_first, it_second));
 
     _avl_tree_destroy(pt_avl_tree);
@@ -651,7 +651,7 @@ void test__avl_tree_iterator_before__invalid_second(void** state)
     _avl_tree_init(pt_avl_tree, NULL);
     it_first = _avl_tree_begin(pt_avl_tree);
     it_second = _avl_tree_begin(pt_avl_tree);
-    it_second._t_pos._t_treepos._pc_corepos = NULL;
+    it_second._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_avl_tree_iterator_before(it_first, it_second));
 
     _avl_tree_destroy(pt_avl_tree);

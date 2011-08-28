@@ -2925,7 +2925,7 @@ void test_multiset_erase_pos__invalid_pos(void** state)
     multiset_init_ex(pt_multiset, NULL);
     multiset_insert(pt_multiset, elem);
     it_pos = multiset_begin(pt_multiset);
-    it_pos._t_pos._t_treepos._pc_corepos = NULL;
+    it_pos._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(multiset_erase_pos(pt_multiset, it_pos));
 
     multiset_destroy(pt_multiset);

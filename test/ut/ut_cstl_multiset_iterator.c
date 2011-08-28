@@ -23,7 +23,7 @@ UT_CASE_DEFINATION(create_multiset_iterator)
 void test_create_multiset_iterator__successfully(void** state)
 {
     multiset_iterator_t it_iter = create_multiset_iterator();
-    assert_true(it_iter._t_pos._t_treepos._pc_corepos == NULL);
+    assert_true(it_iter._t_pos._t_treepos._pby_corepos == NULL);
     assert_true(it_iter._t_pos._t_treepos._pt_tree == NULL);
     assert_true(it_iter._pt_container == NULL);
     assert_true(it_iter._t_containertype == _MULTISET_CONTAINER);
@@ -43,7 +43,7 @@ void test__multiset_iterator_get_value__null_corepos(void** state)
 
     it_iter = multiset_begin(pt_multiset);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multiset_iterator_get_value(it_iter, &elem));
 
     multiset_destroy(pt_multiset);
@@ -205,7 +205,7 @@ void test__multiset_iterator_get_pointer__null_corepos(void** state)
 
     it_iter = multiset_begin(pt_multiset);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multiset_iterator_get_pointer(it_iter));
 
     multiset_destroy(pt_multiset);
@@ -342,7 +342,7 @@ void test__multiset_iterator_next__null_corepos(void** state)
 
     it_iter = multiset_begin(pt_multiset);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multiset_iterator_next(it_iter));
 
     multiset_destroy(pt_multiset);
@@ -449,7 +449,7 @@ void test__multiset_iterator_prev__null_corepos(void** state)
 
     it_iter = multiset_begin(pt_multiset);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multiset_iterator_prev(it_iter));
 
     multiset_destroy(pt_multiset);
@@ -762,7 +762,7 @@ void test__multiset_iterator_before__invalid_second(void** state)
     multiset_init_ex(pt_multiset, NULL);
     it_first = multiset_begin(pt_multiset);
     it_second = multiset_begin(pt_multiset);
-    it_second._t_pos._t_treepos._pc_corepos = NULL;
+    it_second._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_multiset_iterator_before(it_first, it_second));
 
     multiset_destroy(pt_multiset);

@@ -23,7 +23,7 @@ UT_CASE_DEFINATION(create_set_iterator)
 void test_create_set_iterator__successfully(void** state)
 {
     set_iterator_t it_iter = create_set_iterator();
-    assert_true(it_iter._t_pos._t_treepos._pc_corepos == NULL);
+    assert_true(it_iter._t_pos._t_treepos._pby_corepos == NULL);
     assert_true(it_iter._t_pos._t_treepos._pt_tree == NULL);
     assert_true(it_iter._pt_container == NULL);
     assert_true(it_iter._t_containertype == _SET_CONTAINER);
@@ -43,7 +43,7 @@ void test__set_iterator_get_value__null_corepos(void** state)
 
     it_iter = set_begin(pt_set);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_set_iterator_get_value(it_iter, &elem));
 
     set_destroy(pt_set);
@@ -205,7 +205,7 @@ void test__set_iterator_get_pointer__null_corepos(void** state)
 
     it_iter = set_begin(pt_set);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_set_iterator_get_pointer(it_iter));
 
     set_destroy(pt_set);
@@ -342,7 +342,7 @@ void test__set_iterator_next__null_corepos(void** state)
 
     it_iter = set_begin(pt_set);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_set_iterator_next(it_iter));
 
     set_destroy(pt_set);
@@ -449,7 +449,7 @@ void test__set_iterator_prev__null_corepos(void** state)
 
     it_iter = set_begin(pt_set);
 
-    it_iter._t_pos._t_treepos._pc_corepos = NULL;
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_set_iterator_prev(it_iter));
 
     set_destroy(pt_set);
@@ -762,7 +762,7 @@ void test__set_iterator_before__invalid_second(void** state)
     set_init_ex(pt_set, NULL);
     it_first = set_begin(pt_set);
     it_second = set_begin(pt_set);
-    it_second._t_pos._t_treepos._pc_corepos = NULL;
+    it_second._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_set_iterator_before(it_first, it_second));
 
     set_destroy(pt_set);

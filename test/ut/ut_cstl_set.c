@@ -2925,7 +2925,7 @@ void test_set_erase_pos__invalid_pos(void** state)
     set_init_ex(pt_set, NULL);
     set_insert(pt_set, elem);
     it_pos = set_begin(pt_set);
-    it_pos._t_pos._t_treepos._pc_corepos = NULL;
+    it_pos._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(set_erase_pos(pt_set, it_pos));
 
     set_destroy(pt_set);

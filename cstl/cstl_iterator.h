@@ -74,14 +74,14 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* avl_tree iterator handler */
 #define _GET_AVL_TREE_COREPOS(t_iter)\
-    ((t_iter)._t_pos._t_treepos._pc_corepos)
+    ((t_iter)._t_pos._t_treepos._pby_corepos)
 #define _GET_AVL_TREE(t_iter)\
     ((_avl_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
 #define _GET_AVL_TREE_POINTER(t_iter)\
     ((t_iter)._t_pos._t_treepos._pt_tree)
 /* rb_tree iterator handler */
 #define _GET_RB_TREE_COREPOS(t_iter)\
-    ((t_iter)._t_pos._t_treepos._pc_corepos)
+    ((t_iter)._t_pos._t_treepos._pby_corepos)
 #define _GET_RB_TREE(t_iter)\
     ((_rb_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
 #define _GET_RB_TREE_POINTER(t_iter)\
@@ -215,7 +215,7 @@ typedef struct _tagiterator
         }_t_dequepos;
         struct
         {                    /* for avl tree or rb tree */
-            _byte_t*  _pc_corepos;
+            _byte_t*  _pby_corepos;
             void*     _pt_tree;       /* point to the avl tree or rb tree*/
         }_t_treepos;
         struct               /* for hash table */

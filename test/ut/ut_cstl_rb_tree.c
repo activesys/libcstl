@@ -4907,7 +4907,7 @@ void test__rb_tree_erase_pos__invalid_pos(void** state)
     _rb_tree_init(pt_rb_tree, NULL);
     _rb_tree_insert_unique(pt_rb_tree, &elem);
     it_pos = _rb_tree_begin(pt_rb_tree);
-    it_pos._t_pos._t_treepos._pc_corepos = NULL;
+    it_pos._t_pos._t_treepos._pby_corepos = NULL;
     expect_assert_failure(_rb_tree_erase_pos(pt_rb_tree, it_pos));
 
     _rb_tree_destroy(pt_rb_tree);
