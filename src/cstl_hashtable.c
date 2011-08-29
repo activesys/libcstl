@@ -35,90 +35,25 @@
 
 #include <cstl/cstring.h>
 
+#include "cstl_hashtable_aux.h"
+
 /** local constant declaration and local macro section **/
 #define _HASHTABLE_NODE_SIZE(typesize)\
-    ((typesize) + sizeof(hashnode_t) - 1)
-
-#define _HASHTABLE_NODE_NAME            "hashnode_t*"
-#define _HASHTABLE_DEFAULT_BUCKET_COUNT 50
-#define _HASHTABLE_PRIME_LIST_COUNT     28
-
-/* macros for type informations */
-#define _GET_HASHTABLE_TYPE_SIZE(pt_hashtable)\
-    ((pt_hashtable)->_t_typeinfo._pt_type->_t_typesize)
-#define _GET_HASHTABLE_TYPE_NAME(pt_hashtable)\
-    ((pt_hashtable)->_t_typeinfo._sz_typename)
-#define _GET_HASHTABLE_TYPE_BASENAME(pt_hashtable)\
-    ((pt_hashtable)->_t_typeinfo._pt_type->_sz_typename)
-#define _GET_HASHTABLE_TYPE_INIT_FUNCTION(pt_hashtable)\
-    ((pt_hashtable)->_t_typeinfo._pt_type->_t_typeinit)
-#define _GET_HASHTABLE_TYPE_COPY_FUNCTION(pt_hashtable)\
-    ((pt_hashtable)->_t_typeinfo._pt_type->_t_typecopy)
-#define _GET_HASHTABLE_TYPE_LESS_FUNCTION(pt_hashtable)\
-    ((pt_hashtable)->_t_typeinfo._pt_type->_t_typeless)
-#define _GET_HASHTABLE_TYPE_DESTROY_FUNCTION(pt_hashtable)\
-    ((pt_hashtable)->_t_typeinfo._pt_type->_t_typedestroy)
-#define _GET_HASHTABLE_TYPE_STYLE(pt_hashtable)\
-    ((pt_hashtable)->_t_typeinfo._t_style)
+    ((typesize) + sizeof(_hashnode_t) - 1)
 
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-#ifndef NDEBUG
-/*
- * Assert support.
- */
-static bool_t _hashtable_iterator_belong_to_hashtable(
-    const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter);
-static bool_t _hashtable_same_hashtable_iterator_type(
-    const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter);
-#endif /* NDEBUG */
-static bool_t _hashtable_same_type(
-    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond);
-
-/* init, copy, less and destroy function for hashnode_t* type */
-static void _hashnode_init(const void* cpv_input, void* pv_output);
-static void _hashnode_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
-static void _hashnode_less(const void* cpv_first, const void* cpv_second, void* pv_output);
-static void _hashnode_destroy(const void* cpv_input, void* pv_output);
-
-/*
- * The default hash function.
- */
-static void _hashtable_default_hash(const void* cpv_input, void* pv_output);
-
-/*
- * Get the next prime base the ul_basenum.
- */
-static unsigned long _hashtable_get_prime(unsigned long ul_basenum);
-
-/* initialize new element */
-static void _hashtable_init_elem_auxiliary(hashtable_t* pt_hashtable, hashnode_t* pt_node);
-
-/* hash auxiliary */
-static void _hashtable_hash_auxiliary(const hashtable_t* cpt_hashtable, const void* cpv_input, void* pv_output);
-/* compare auxiliary */
-static void _hashtable_elem_compare_auxiliary(const hashtable_t* cpt_hashtable,
-    const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /** exported global variable definition section **/
 
 /** local global variable definition section **/
-static const unsigned long _hashtable_prime_list[_HASHTABLE_PRIME_LIST_COUNT] =
-{
-    53,         97,           193,         389,       769,
-    1543,       3079,         6151,        12289,     24593,
-    49157,      98317,        196613,      393241,    786433,
-    1572869,    3145739,      6291469,     12582917,  25165843,
-    50331653,   100663319,    201326611,   402653189, 805306457,
-    1610612741, 3221225473ul, 4294967291ul
-};
 
 /** exported function implementation section **/
 /* hashtable iterator function */
-hashtable_iterator_t _create_hashtable_iterator(void)
+_hashtable_iterator_t _create_hashtable_iterator(void)
 {
-    hashtable_iterator_t t_newiterator;
+    _hashtable_iterator_t t_newiterator;
 
     _GET_HASHTABLE_BUCKETPOS(t_newiterator) = NULL;
     _GET_HASHTABLE_COREPOS(t_newiterator) = NULL;
@@ -130,7 +65,7 @@ hashtable_iterator_t _create_hashtable_iterator(void)
 }
 
 bool_t _hashtable_iterator_equal(
-    hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond)
+    _hashtable_iterator_t t_iterfirst, _hashtable_iterator_t t_itersecond)
 {
     assert(_hashtable_iterator_belong_to_hashtable(_GET_HASHTABLE(t_iterfirst), t_iterfirst));
     assert(_hashtable_iterator_belong_to_hashtable(_GET_HASHTABLE(t_itersecond), t_itersecond));
@@ -147,7 +82,7 @@ bool_t _hashtable_iterator_equal(
 }
 
 void _hashtable_iterator_get_value(
-    hashtable_iterator_t t_iter, void* pv_value)
+    _hashtable_iterator_t t_iter, void* pv_value)
 {
     assert(pv_value != NULL);
     assert(_hashtable_iterator_belong_to_hashtable(_GET_HASHTABLE(t_iter), t_iter));
@@ -158,18 +93,18 @@ void _hashtable_iterator_get_value(
         _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         *(char**)pv_value = (char*)string_c_str(
-            (string_t*)((hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))->_pc_data);
+            (string_t*)((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))->_pc_data);
     }
     else
     {
         bool_t t_result = _GET_HASHTABLE_TYPE_SIZE(_GET_HASHTABLE(t_iter));
         _GET_HASHTABLE_TYPE_COPY_FUNCTION(_GET_HASHTABLE(t_iter))(
-            pv_value, ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))->_pc_data, &t_result);
+            pv_value, ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))->_pc_data, &t_result);
         assert(t_result);
     }
 }
 
-const void* _hashtable_iterator_get_pointer(hashtable_iterator_t t_iter)
+const void* _hashtable_iterator_get_pointer(_hashtable_iterator_t t_iter)
 {
     assert(_hashtable_iterator_belong_to_hashtable(_GET_HASHTABLE(t_iter), t_iter));
     assert(!_hashtable_iterator_equal(t_iter, _hashtable_end(_GET_HASHTABLE(t_iter))));
@@ -179,19 +114,19 @@ const void* _hashtable_iterator_get_pointer(hashtable_iterator_t t_iter)
         _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         return (char*)string_c_str(
-            (string_t*)((hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))->_pc_data);
+            (string_t*)((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))->_pc_data);
     }
     else
     {
-        return ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))->_pc_data;
+        return ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))->_pc_data;
     }
 }
 
-hashtable_iterator_t _hashtable_iterator_prev(hashtable_iterator_t t_iter)
+_hashtable_iterator_t _hashtable_iterator_prev(_hashtable_iterator_t t_iter)
 {
     vector_iterator_t t_vectoriterator;
-    hashnode_t*       pt_node = NULL;
-    hashnode_t*       pt_prevnode = NULL;
+    _hashnode_t*       pt_node = NULL;
+    _hashnode_t*       pt_prevnode = NULL;
 
     assert(_hashtable_iterator_belong_to_hashtable(_GET_HASHTABLE(t_iter), t_iter));
     assert(!_hashtable_iterator_equal(t_iter, _hashtable_begin(_GET_HASHTABLE(t_iter))));
@@ -210,7 +145,7 @@ hashtable_iterator_t _hashtable_iterator_prev(hashtable_iterator_t t_iter)
             iterator_greater_equal(t_vectoriterator, vector_begin(&(_GET_HASHTABLE(t_iter)->_t_bucket)));
             t_vectoriterator = iterator_prev(t_vectoriterator))
         {
-            pt_node = *(hashnode_t**)_GET_VECTOR_COREPOS(t_vectoriterator);
+            pt_node = *(_hashnode_t**)_GET_VECTOR_COREPOS(t_vectoriterator);
             if(pt_node != NULL)
             {
                 /* get the last hashnode */
@@ -227,8 +162,8 @@ hashtable_iterator_t _hashtable_iterator_prev(hashtable_iterator_t t_iter)
     }
     else
     {
-        pt_node = (hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter);
-        pt_prevnode = *(hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_iter);
+        pt_node = (_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter);
+        pt_prevnode = *(_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_iter);
 
         /* current node is first node in current bucket */
         if(pt_prevnode == pt_node)
@@ -239,7 +174,7 @@ hashtable_iterator_t _hashtable_iterator_prev(hashtable_iterator_t t_iter)
                 iterator_greater_equal(t_vectoriterator, vector_begin(&(_GET_HASHTABLE(t_iter)->_t_bucket)));
                 t_vectoriterator = iterator_prev(t_vectoriterator))
             {
-                pt_node = *(hashnode_t**)_GET_VECTOR_COREPOS(t_vectoriterator);
+                pt_node = *(_hashnode_t**)_GET_VECTOR_COREPOS(t_vectoriterator);
                 if(pt_node != NULL)
                 {
                     /* get the last hashnode */
@@ -268,15 +203,15 @@ hashtable_iterator_t _hashtable_iterator_prev(hashtable_iterator_t t_iter)
     return t_iter;
 }
 
-hashtable_iterator_t _hashtable_iterator_next(hashtable_iterator_t t_iter)
+_hashtable_iterator_t _hashtable_iterator_next(_hashtable_iterator_t t_iter)
 {
     vector_iterator_t t_vectoriterator;
-    hashnode_t*       pt_node = NULL;
+    _hashnode_t*       pt_node = NULL;
 
     assert(_hashtable_iterator_belong_to_hashtable(_GET_HASHTABLE(t_iter), t_iter));
     assert(!_hashtable_iterator_equal(t_iter, _hashtable_end(_GET_HASHTABLE(t_iter))));
 
-    pt_node = (hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter);
+    pt_node = (_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter);
     assert(pt_node != NULL);
 
     if(pt_node->_pt_next == NULL)
@@ -289,16 +224,16 @@ hashtable_iterator_t _hashtable_iterator_next(hashtable_iterator_t t_iter)
             t_vectoriterator = iterator_next(t_vectoriterator))
         {
             _GET_HASHTABLE_BUCKETPOS(t_iter) = _GET_VECTOR_COREPOS(t_vectoriterator);
-            if(*(hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_iter) != NULL)
+            if(*(_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_iter) != NULL)
             {
                 _GET_HASHTABLE_COREPOS(t_iter) = 
-                    (char*)(*(hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_iter));
+                    (char*)(*(_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_iter));
                 break;
             }
         }
         if(iterator_equal(t_vectoriterator, vector_end(&(_GET_HASHTABLE(t_iter)->_t_bucket))))
         {
-            assert((hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter) == pt_node);
+            assert((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter) == pt_node);
             _GET_HASHTABLE_COREPOS(t_iter) = NULL;
             _GET_HASHTABLE_BUCKETPOS(t_iter) = _GET_VECTOR_COREPOS(t_vectoriterator);
         }
@@ -312,9 +247,9 @@ hashtable_iterator_t _hashtable_iterator_next(hashtable_iterator_t t_iter)
 }
 
 int _hashtable_iterator_distance(
-    hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond)
+    _hashtable_iterator_t t_iterfirst, _hashtable_iterator_t t_itersecond)
 {
-    hashtable_iterator_t t_iterator;
+    _hashtable_iterator_t t_iterator;
     int                  n_distance = 0;
 
     if(_hashtable_iterator_before(t_iterfirst, t_itersecond))
@@ -344,10 +279,10 @@ int _hashtable_iterator_distance(
 }
 
 bool_t _hashtable_iterator_before(
-    hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond)
+    _hashtable_iterator_t t_iterfirst, _hashtable_iterator_t t_itersecond)
 {
-    hashtable_iterator_t t_iterator;
-    hashtable_t*         pt_hashtable = NULL;
+    _hashtable_iterator_t t_iterator;
+    _hashtable_t*         pt_hashtable = NULL;
 
     assert(_GET_HASHTABLE(t_iterfirst) == _GET_HASHTABLE(t_itersecond));
     assert(_hashtable_iterator_belong_to_hashtable(_GET_HASHTABLE(t_iterfirst), t_iterfirst) &&
@@ -382,15 +317,15 @@ bool_t _hashtable_iterator_before(
     }
 }
 
-void _hashtable_resize(hashtable_t* pt_hashtable, size_t t_resize)
+void _hashtable_resize(_hashtable_t* pt_hashtable, size_t t_resize)
 {
     size_t       t_tmp = 0;
     size_t       t_pos = 0;
     size_t       t_index = 0;
     size_t       t_bucketcount = 0;
-    hashnode_t*  pt_node = NULL;
-    hashnode_t*  pt_nodelist = NULL;
-    hashnode_t** ppt_bucket = NULL;
+    _hashnode_t*  pt_node = NULL;
+    _hashnode_t*  pt_nodelist = NULL;
+    _hashnode_t** ppt_bucket = NULL;
 
     assert(pt_hashtable != NULL);
 
@@ -399,7 +334,7 @@ void _hashtable_resize(hashtable_t* pt_hashtable, size_t t_resize)
         /* select all element in hash node list */
         for(t_index = 0; t_index < vector_size(&pt_hashtable->_t_bucket); ++t_index)
         {
-            ppt_bucket = (hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_index);
+            ppt_bucket = (_hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_index);
             pt_node = *ppt_bucket;
             while(pt_node != NULL)
             {
@@ -423,21 +358,21 @@ void _hashtable_resize(hashtable_t* pt_hashtable, size_t t_resize)
             t_tmp = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
             _hashtable_hash_auxiliary(pt_hashtable, pt_node->_pc_data, &t_tmp);
             t_pos = t_tmp % t_bucketcount;
-            ppt_bucket = (hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_pos);
+            ppt_bucket = (_hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_pos);
             pt_node->_pt_next = *ppt_bucket;
             *ppt_bucket = pt_node;
         }
     }
 }
 
-hashtable_iterator_t _hashtable_insert_equal(
-    hashtable_t* pt_hashtable, const void* cpv_value)
+_hashtable_iterator_t _hashtable_insert_equal(
+    _hashtable_t* pt_hashtable, const void* cpv_value)
 {
     size_t               t_bucketcount = 0;
-    hashnode_t*          pt_node = NULL;
-    hashnode_t*          pt_cur = NULL;
-    hashnode_t**         ppt_nodelist = NULL;
-    hashtable_iterator_t t_iterator = _create_hashtable_iterator();
+    _hashnode_t*          pt_node = NULL;
+    _hashnode_t*          pt_cur = NULL;
+    _hashnode_t**         ppt_nodelist = NULL;
+    _hashtable_iterator_t t_iterator = _create_hashtable_iterator();
     bool_t               t_result = false;
     size_t               t_tmp = 0;
     size_t               t_pos = 0;
@@ -466,7 +401,7 @@ hashtable_iterator_t _hashtable_insert_equal(
     t_pos = t_tmp % t_bucketcount;
 
     /* insert node into hashtable, note the node has same value together */
-    ppt_nodelist = (hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_pos);
+    ppt_nodelist = (_hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_pos);
     assert(ppt_nodelist != NULL);
     pt_cur = *ppt_nodelist;
     if(pt_cur == NULL)
@@ -516,10 +451,10 @@ hashtable_iterator_t _hashtable_insert_equal(
     return t_iterator;
 }
 
-hashtable_iterator_t _hashtable_insert_unique(
-    hashtable_t* pt_hashtable, const void* cpv_value)
+_hashtable_iterator_t _hashtable_insert_unique(
+    _hashtable_t* pt_hashtable, const void* cpv_value)
 {
-    hashtable_iterator_t t_iter;
+    _hashtable_iterator_t t_iter;
 
     if(_hashtable_empty(pt_hashtable))
     {
@@ -539,13 +474,13 @@ hashtable_iterator_t _hashtable_insert_unique(
     }
 }
 
-hashtable_iterator_t _hashtable_find(
-    const hashtable_t* cpt_hashtable, const void* cpv_value)
+_hashtable_iterator_t _hashtable_find(
+    const _hashtable_t* cpt_hashtable, const void* cpv_value)
 {
-    hashtable_iterator_t t_iterator = _create_hashtable_iterator();
+    _hashtable_iterator_t t_iterator = _create_hashtable_iterator();
     size_t               t_bucketcount = 0;
-    hashnode_t*          pt_node = NULL;
-    hashnode_t**         ppt_bucket = NULL;
+    _hashnode_t*          pt_node = NULL;
+    _hashnode_t**         ppt_bucket = NULL;
     size_t               t_tmp = 0;
     size_t               t_pos = 0;
     bool_t               t_less = false;
@@ -557,7 +492,7 @@ hashtable_iterator_t _hashtable_find(
     t_tmp = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtable);
     _hashtable_hash_auxiliary(cpt_hashtable, cpv_value, &t_tmp);
     t_pos = t_tmp % t_bucketcount;
-    ppt_bucket = (hashnode_t**)vector_at(&cpt_hashtable->_t_bucket, t_pos);
+    ppt_bucket = (_hashnode_t**)vector_at(&cpt_hashtable->_t_bucket, t_pos);
     pt_node = *ppt_bucket;
 
     while(pt_node != NULL)
@@ -583,20 +518,20 @@ hashtable_iterator_t _hashtable_find(
     {
         _GET_HASHTABLE_BUCKETPOS(t_iterator) = (char*)ppt_bucket;
         _GET_HASHTABLE_COREPOS(t_iterator) = (char*)pt_node;
-        _GET_HASHTABLE_POINTER(t_iterator) = (hashtable_t*)cpt_hashtable;
+        _GET_HASHTABLE_POINTER(t_iterator) = (_hashtable_t*)cpt_hashtable;
 
         return t_iterator;
     }
 }
 
 range_t _hashtable_equal_range(
-    const hashtable_t* cpt_hashtable, const void* cpv_value)
+    const _hashtable_t* cpt_hashtable, const void* cpv_value)
 {
     range_t      t_result;
     size_t       t_bucketcount = 0;
-    hashnode_t*  pt_begin = NULL;
-    hashnode_t*  pt_end = NULL;
-    hashnode_t** ppt_bucket = NULL;
+    _hashnode_t*  pt_begin = NULL;
+    _hashnode_t*  pt_end = NULL;
+    _hashnode_t** ppt_bucket = NULL;
     size_t       t_tmp = 0;
     size_t       t_pos = 0;
     bool_t       t_less = false;
@@ -612,7 +547,7 @@ range_t _hashtable_equal_range(
     t_tmp = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtable);
     _hashtable_hash_auxiliary(cpt_hashtable, cpv_value, &t_tmp);
     t_pos = t_tmp % t_bucketcount;
-    ppt_bucket = (hashnode_t**)vector_at(&cpt_hashtable->_t_bucket, t_pos);
+    ppt_bucket = (_hashnode_t**)vector_at(&cpt_hashtable->_t_bucket, t_pos);
 
     for(pt_begin = *ppt_bucket; pt_begin != NULL; pt_begin = pt_begin->_pt_next)
     {
@@ -632,11 +567,11 @@ range_t _hashtable_equal_range(
                 {
                     _GET_HASHTABLE_BUCKETPOS(t_result.it_begin) = (char*)ppt_bucket;
                     _GET_HASHTABLE_COREPOS(t_result.it_begin) = (char*)pt_begin;
-                    _GET_HASHTABLE_POINTER(t_result.it_begin) = (hashnode_t*)cpt_hashtable;
+                    _GET_HASHTABLE_POINTER(t_result.it_begin) = (_hashnode_t*)cpt_hashtable;
 
                     _GET_HASHTABLE_BUCKETPOS(t_result.it_end) = (char*)ppt_bucket;
                     _GET_HASHTABLE_COREPOS(t_result.it_end) = (char*)pt_end;
-                    _GET_HASHTABLE_POINTER(t_result.it_end) = (hashtable_t*)cpt_hashtable;
+                    _GET_HASHTABLE_POINTER(t_result.it_end) = (_hashtable_t*)cpt_hashtable;
 
                     return t_result;
                 }
@@ -644,17 +579,17 @@ range_t _hashtable_equal_range(
             
             _GET_HASHTABLE_BUCKETPOS(t_result.it_begin) = (char*)ppt_bucket;
             _GET_HASHTABLE_COREPOS(t_result.it_begin) = (char*)pt_begin;
-            _GET_HASHTABLE_POINTER(t_result.it_begin) = (hashtable_t*)cpt_hashtable;
+            _GET_HASHTABLE_POINTER(t_result.it_begin) = (_hashtable_t*)cpt_hashtable;
 
             for(t_index = t_pos + 1; t_index < t_bucketcount; ++t_index)
             {
-                ppt_bucket = (hashnode_t**)vector_at(&cpt_hashtable->_t_bucket, t_index);
+                ppt_bucket = (_hashnode_t**)vector_at(&cpt_hashtable->_t_bucket, t_index);
                 pt_end = *ppt_bucket;
                 if(pt_end != NULL)
                 {
                     _GET_HASHTABLE_BUCKETPOS(t_result.it_end) = (char*)ppt_bucket;
                     _GET_HASHTABLE_COREPOS(t_result.it_end) = (char*)pt_end;
-                    _GET_HASHTABLE_POINTER(t_result.it_end) = (hashtable_t*)cpt_hashtable;
+                    _GET_HASHTABLE_POINTER(t_result.it_end) = (_hashtable_t*)cpt_hashtable;
 
                     return t_result;
                 }
@@ -672,27 +607,27 @@ range_t _hashtable_equal_range(
     return t_result;
 }
 
-size_t _hashtable_count(const hashtable_t* cpt_hashtable, const void* cpv_value)
+size_t _hashtable_count(const _hashtable_t* cpt_hashtable, const void* cpv_value)
 {
     range_t t_range = _hashtable_equal_range(cpt_hashtable, cpv_value);
 
     return abs(_hashtable_iterator_distance(t_range.it_begin, t_range.it_end));
 }
 
-void _hashtable_erase_pos(hashtable_t* pt_hashtable, hashtable_iterator_t t_pos)
+void _hashtable_erase_pos(_hashtable_t* pt_hashtable, _hashtable_iterator_t t_pos)
 {
-    hashnode_t** ppt_bucket = NULL;
-    hashnode_t*  pt_node = NULL;
-    hashnode_t*  pt_deletion = NULL;
+    _hashnode_t** ppt_bucket = NULL;
+    _hashnode_t*  pt_node = NULL;
+    _hashnode_t*  pt_deletion = NULL;
     bool_t       t_result = false;
 
     assert(_hashtable_iterator_belong_to_hashtable(pt_hashtable, t_pos));
     assert(!_hashtable_iterator_equal(t_pos, _hashtable_end(pt_hashtable)));
 
     /* get the previous node */
-    ppt_bucket = (hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_pos);
+    ppt_bucket = (_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_pos);
     pt_node = *ppt_bucket;
-    pt_deletion = (hashnode_t*)_GET_HASHTABLE_COREPOS(t_pos);
+    pt_deletion = (_hashnode_t*)_GET_HASHTABLE_COREPOS(t_pos);
     if(pt_node == pt_deletion)
     {
         /* the deletion node is the first node of node list */
@@ -724,10 +659,10 @@ void _hashtable_erase_pos(hashtable_t* pt_hashtable, hashtable_iterator_t t_pos)
 }
 
 void _hashtable_erase_range(
-    hashtable_t* pt_hashtable, hashtable_iterator_t t_begin, hashtable_iterator_t t_end)
+    _hashtable_t* pt_hashtable, _hashtable_iterator_t t_begin, _hashtable_iterator_t t_end)
 {
-    hashtable_iterator_t t_iterator;
-    hashtable_iterator_t t_next;
+    _hashtable_iterator_t t_iterator;
+    _hashtable_iterator_t t_next;
 
     assert(_hashtable_iterator_belong_to_hashtable(pt_hashtable, t_begin));
     assert(_hashtable_iterator_equal(t_begin, t_end) ||
@@ -750,7 +685,7 @@ void _hashtable_erase_range(
     }
 }
 
-size_t _hashtable_erase(hashtable_t* pt_hashtable, const void* cpv_value)
+size_t _hashtable_erase(_hashtable_t* pt_hashtable, const void* cpv_value)
 {
     size_t t_countsize = _hashtable_count(pt_hashtable, cpv_value);
     range_t t_range = _hashtable_equal_range(pt_hashtable, cpv_value);
@@ -764,9 +699,9 @@ size_t _hashtable_erase(hashtable_t* pt_hashtable, const void* cpv_value)
 }
 
 void _hashtable_swap(
-    hashtable_t* pt_hashtablefirst, hashtable_t* pt_hashtablesecond)
+    _hashtable_t* pt_hashtablefirst, _hashtable_t* pt_hashtablesecond)
 {
-    hashtable_t t_hashtableswap;
+    _hashtable_t t_hashtableswap;
 
     assert(_hashtable_same_type(pt_hashtablefirst, pt_hashtablesecond));
 
@@ -776,11 +711,11 @@ void _hashtable_swap(
 }
 
 /* hashtable private function */
-hashtable_t* _create_hashtable(const char* s_typename)
+_hashtable_t* _create_hashtable(const char* s_typename)
 {
-    hashtable_t* pt_newhashtable = NULL;
+    _hashtable_t* pt_newhashtable = NULL;
 
-    if((pt_newhashtable = (hashtable_t*)malloc(sizeof(hashtable_t))) == NULL)
+    if((pt_newhashtable = (_hashtable_t*)malloc(sizeof(_hashtable_t))) == NULL)
     {
         return NULL;
     }
@@ -794,13 +729,13 @@ hashtable_t* _create_hashtable(const char* s_typename)
     return pt_newhashtable;
 }
 
-bool_t _create_hashtable_auxiliary(hashtable_t* pt_hashtable, const char* s_typename)
+bool_t _create_hashtable_auxiliary(_hashtable_t* pt_hashtable, const char* s_typename)
 {
     assert(pt_hashtable != NULL && s_typename != NULL);
 
     /* create new vector */
-    /* register hashnode_t* type for vecotr */
-    _type_register(sizeof(hashnode_t*), _HASHTABLE_NODE_NAME,
+    /* register _hashnode_t* type for vecotr */
+    _type_register(sizeof(_hashnode_t*), _HASHTABLE_NODE_NAME,
         _hashnode_init, _hashnode_copy, _hashnode_less, _hashnode_destroy);
     if(!_create_vector_auxiliary(&pt_hashtable->_t_bucket, _HASHTABLE_NODE_NAME))
     {
@@ -818,18 +753,17 @@ bool_t _create_hashtable_auxiliary(hashtable_t* pt_hashtable, const char* s_type
     pt_hashtable->_t_hash = NULL;
     pt_hashtable->_t_compare = NULL;
 
+    /* initialize the allocator */
+    _alloc_init(&pt_hashtable->_t_allocator);
     return true;;
 }
 
-void _hashtable_init(hashtable_t* pt_hashtable, size_t t_bucketcount,
+void _hashtable_init(_hashtable_t* pt_hashtable, size_t t_bucketcount,
     unary_function_t t_hash, binary_function_t t_compare)
 {
     assert(pt_hashtable != NULL &&
            pt_hashtable->_t_hash == NULL &&
            pt_hashtable->_t_compare == NULL);
-
-    /* initialize the allocator */
-    _alloc_init(&pt_hashtable->_t_allocator);
 
     /* initialize the bucket vector and node count */
     vector_init(&pt_hashtable->_t_bucket);
@@ -850,7 +784,7 @@ void _hashtable_init(hashtable_t* pt_hashtable, size_t t_bucketcount,
         t_compare : _GET_HASHTABLE_TYPE_LESS_FUNCTION(pt_hashtable);
 }
 
-void _hashtable_destroy_auxiliary(hashtable_t* pt_hashtable)
+void _hashtable_destroy_auxiliary(_hashtable_t* pt_hashtable)
 {
     assert(pt_hashtable != NULL);
 
@@ -869,14 +803,14 @@ void _hashtable_destroy_auxiliary(hashtable_t* pt_hashtable)
     pt_hashtable->_t_nodecount = 0;
 }
 
-void _hashtable_destroy(hashtable_t* pt_hashtable)
+void _hashtable_destroy(_hashtable_t* pt_hashtable)
 {
     _hashtable_destroy_auxiliary(pt_hashtable);
     free(pt_hashtable);
 }
 
 void _hashtable_init_copy(
-    hashtable_t* pt_hashtabledest, const hashtable_t* cpt_hashtablesrc)
+    _hashtable_t* pt_hashtabledest, const _hashtable_t* cpt_hashtablesrc)
 {
     assert(pt_hashtabledest != NULL && cpt_hashtablesrc != NULL);
     assert(pt_hashtabledest->_t_typeinfo._pt_type == cpt_hashtablesrc->_t_typeinfo._pt_type &&
@@ -893,8 +827,8 @@ void _hashtable_init_copy(
     }
 }
 
-void _hashtable_init_copy_range(hashtable_t* pt_hashtabledest,
-    hashtable_iterator_t t_begin, hashtable_iterator_t t_end,
+void _hashtable_init_copy_range(_hashtable_t* pt_hashtabledest,
+    _hashtable_iterator_t t_begin, _hashtable_iterator_t t_end,
     size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_compare)
 {
     assert(pt_hashtabledest != NULL);
@@ -910,7 +844,7 @@ void _hashtable_init_copy_range(hashtable_t* pt_hashtabledest,
 }
 
 void _hashtable_assign(
-    hashtable_t* pt_hashtabledest, const hashtable_t* cpt_hashtablesrc)
+    _hashtable_t* pt_hashtabledest, const _hashtable_t* cpt_hashtablesrc)
 {
     assert(_hashtable_same_type(pt_hashtabledest, cpt_hashtablesrc));
 
@@ -924,14 +858,14 @@ void _hashtable_assign(
     }
 }
 
-size_t _hashtable_size(const hashtable_t* cpt_hashtable)
+size_t _hashtable_size(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
 
     return cpt_hashtable->_t_nodecount;
 }
 
-bool_t _hashtable_empty(const hashtable_t* cpt_hashtable)
+bool_t _hashtable_empty(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
 
@@ -945,24 +879,24 @@ bool_t _hashtable_empty(const hashtable_t* cpt_hashtable)
     }
 }
 
-size_t _hashtable_max_size(const hashtable_t* cpt_hashtable)
+size_t _hashtable_max_size(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
 
     return (size_t)(-1) / _GET_HASHTABLE_TYPE_SIZE(cpt_hashtable);
 }
 
-size_t _hashtable_bucket_count(const hashtable_t* cpt_hashtable)
+size_t _hashtable_bucket_count(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
 
     return vector_size(&cpt_hashtable->_t_bucket);
 }
 
-hashtable_iterator_t _hashtable_begin(const hashtable_t* cpt_hashtable)
+_hashtable_iterator_t _hashtable_begin(const _hashtable_t* cpt_hashtable)
 {
     vector_iterator_t    t_vectoriterator;
-    hashtable_iterator_t t_newiterator = _create_hashtable_iterator();
+    _hashtable_iterator_t t_newiterator = _create_hashtable_iterator();
 
     assert(cpt_hashtable != NULL);
 
@@ -971,10 +905,10 @@ hashtable_iterator_t _hashtable_begin(const hashtable_t* cpt_hashtable)
         t_vectoriterator = iterator_next(t_vectoriterator))
     {
         _GET_HASHTABLE_BUCKETPOS(t_newiterator) = _GET_VECTOR_COREPOS(t_vectoriterator);
-        if(*(hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_newiterator) != NULL)
+        if(*(_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_newiterator) != NULL)
         {
             _GET_HASHTABLE_COREPOS(t_newiterator) = 
-                (char*)*(hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_newiterator);
+                (char*)*(_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_newiterator);
             break;
         }
     }
@@ -983,32 +917,32 @@ hashtable_iterator_t _hashtable_begin(const hashtable_t* cpt_hashtable)
         assert(_GET_HASHTABLE_COREPOS(t_newiterator) == NULL);
         _GET_HASHTABLE_BUCKETPOS(t_newiterator) = _GET_VECTOR_COREPOS(t_vectoriterator);
     }
-    _GET_HASHTABLE_POINTER(t_newiterator) = (hashtable_t*)cpt_hashtable;
+    _GET_HASHTABLE_POINTER(t_newiterator) = (_hashtable_t*)cpt_hashtable;
 
     return t_newiterator;
 }
 
-hashtable_iterator_t _hashtable_end(const hashtable_t* cpt_hashtable)
+_hashtable_iterator_t _hashtable_end(const _hashtable_t* cpt_hashtable)
 {
     vector_iterator_t    t_vectorend;
-    hashtable_iterator_t t_newiterator = _create_hashtable_iterator();
+    _hashtable_iterator_t t_newiterator = _create_hashtable_iterator();
 
     assert(cpt_hashtable != NULL);
 
     t_vectorend = vector_end(&cpt_hashtable->_t_bucket);
     _GET_HASHTABLE_BUCKETPOS(t_newiterator) = _GET_VECTOR_COREPOS(t_vectorend);
     _GET_HASHTABLE_COREPOS(t_newiterator) = NULL;
-    _GET_HASHTABLE_POINTER(t_newiterator) = (hashtable_t*)cpt_hashtable;
+    _GET_HASHTABLE_POINTER(t_newiterator) = (_hashtable_t*)cpt_hashtable;
 
     return t_newiterator;
 }
 
-void _hashtable_clear(hashtable_t* pt_hashtable)
+void _hashtable_clear(_hashtable_t* pt_hashtable)
 {
     size_t      t_bucketcount = 0;
     size_t      t_index = 0;
-    hashnode_t* pt_node = NULL;
-    hashnode_t* pt_deletion = NULL;
+    _hashnode_t* pt_node = NULL;
+    _hashnode_t* pt_deletion = NULL;
     bool_t      t_result = false;
 
     assert(pt_hashtable != NULL);
@@ -1018,8 +952,8 @@ void _hashtable_clear(hashtable_t* pt_hashtable)
     for(t_index = 0; t_index < t_bucketcount; ++t_index)
     {
         /* iterator all element list for one bucket node */
-        pt_node = *(hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_index);
-        *(hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_index) = NULL;
+        pt_node = *(_hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_index);
+        *(_hashnode_t**)vector_at(&pt_hashtable->_t_bucket, t_index) = NULL;
         while(pt_node != NULL)
         {
             /* delete each element */
@@ -1039,14 +973,14 @@ void _hashtable_clear(hashtable_t* pt_hashtable)
     pt_hashtable->_t_nodecount = 0;
 }
 
-unary_function_t _hashtable_hash(const hashtable_t* cpt_hashtable)
+unary_function_t _hashtable_hash(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
 
     return cpt_hashtable->_t_hash;
 }
 
-binary_function_t _hashtable_key_comp(const hashtable_t* cpt_hashtable)
+binary_function_t _hashtable_key_comp(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
 
@@ -1054,11 +988,11 @@ binary_function_t _hashtable_key_comp(const hashtable_t* cpt_hashtable)
 }
 
 bool_t _hashtable_equal(
-    const hashtable_t* cpt_hashtablefirst, 
-    const hashtable_t* cpt_hashtablesecond)
+    const _hashtable_t* cpt_hashtablefirst, 
+    const _hashtable_t* cpt_hashtablesecond)
 {
-    hashtable_iterator_t t_first;
-    hashtable_iterator_t t_second;
+    _hashtable_iterator_t t_first;
+    _hashtable_iterator_t t_second;
     bool_t               t_less = false;
     bool_t               t_greater = false;
 
@@ -1084,11 +1018,11 @@ bool_t _hashtable_equal(
     {
         t_less = t_greater = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtablefirst);
         _GET_HASHTABLE_TYPE_LESS_FUNCTION(cpt_hashtablefirst)(
-                ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data,
-                ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data, &t_less);
+                ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data,
+                ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data, &t_less);
         _GET_HASHTABLE_TYPE_LESS_FUNCTION(cpt_hashtablefirst)(
-                ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data,
-                ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data, &t_greater);
+                ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data,
+                ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data, &t_greater);
         if(t_less || t_greater)
         {
             return false;
@@ -1102,16 +1036,16 @@ bool_t _hashtable_equal(
 }
 
 bool_t _hashtable_not_equal(
-    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond)
 {
     return !_hashtable_equal(cpt_hashtablefirst, cpt_hashtablesecond);
 }
 
 bool_t _hashtable_less(
-    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond)
 {
-    hashtable_iterator_t t_first;
-    hashtable_iterator_t t_second;
+    _hashtable_iterator_t t_first;
+    _hashtable_iterator_t t_second;
     bool_t               t_less = false;
     bool_t               t_greater = false;
 
@@ -1131,16 +1065,16 @@ bool_t _hashtable_less(
         {
             t_less = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtablefirst);
             _GET_HASHTABLE_TYPE_LESS_FUNCTION(cpt_hashtablefirst)(
-                    ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data,
-                    ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data, &t_less);
+                    ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data,
+                    ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data, &t_less);
             if(t_less)
             {
                 return true;
             }
             t_greater = _GET_HASHTABLE_TYPE_SIZE(cpt_hashtablefirst);
             _GET_HASHTABLE_TYPE_LESS_FUNCTION(cpt_hashtablefirst)(
-                    ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data,
-                    ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data, &t_greater);
+                    ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_second))->_pc_data,
+                    ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_first))->_pc_data, &t_greater);
             if(t_greater)
             {
                 return false;
@@ -1153,29 +1087,29 @@ bool_t _hashtable_less(
 }
 
 bool_t _hashtable_less_equal(
-    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond)
 {
     return (_hashtable_less(cpt_hashtablefirst, cpt_hashtablesecond) ||
             _hashtable_equal(cpt_hashtablefirst, cpt_hashtablesecond)) ? true : false;
 }
 
 bool_t _hashtable_greater(
-    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond)
 {
     return _hashtable_less(cpt_hashtablesecond, cpt_hashtablefirst);
 }
 
 bool_t _hashtable_greater_equal(
-    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
+    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond)
 {
     return (_hashtable_greater(cpt_hashtablefirst, cpt_hashtablesecond) ||
             _hashtable_equal(cpt_hashtablefirst, cpt_hashtablesecond)) ? true : false;
 }
 
 void _hashtable_insert_equal_range(
-    hashtable_t* pt_hashtable, hashtable_iterator_t t_begin, hashtable_iterator_t t_end)
+    _hashtable_t* pt_hashtable, _hashtable_iterator_t t_begin, _hashtable_iterator_t t_end)
 {
-    hashtable_iterator_t t_iterator;
+    _hashtable_iterator_t t_iterator;
 
     assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, t_begin));
     assert(_hashtable_iterator_equal(t_begin, t_end) ||
@@ -1186,14 +1120,14 @@ void _hashtable_insert_equal_range(
         t_iterator = _hashtable_iterator_next(t_iterator))
     {
         _hashtable_insert_equal(
-            pt_hashtable, ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_iterator))->_pc_data);
+            pt_hashtable, ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iterator))->_pc_data);
     }
 }
 
 void _hashtable_insert_unique_range(
-    hashtable_t* pt_hashtable, hashtable_iterator_t t_begin, hashtable_iterator_t t_end)
+    _hashtable_t* pt_hashtable, _hashtable_iterator_t t_begin, _hashtable_iterator_t t_end)
 {
-    hashtable_iterator_t t_iterator;
+    _hashtable_iterator_t t_iterator;
 
     assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, t_begin));
     assert(_hashtable_iterator_equal(t_begin, t_end) ||
@@ -1204,195 +1138,11 @@ void _hashtable_insert_unique_range(
         t_iterator = _hashtable_iterator_next(t_iterator))
     {
         _hashtable_insert_unique(
-            pt_hashtable, ((hashnode_t*)_GET_HASHTABLE_COREPOS(t_iterator))->_pc_data);
+            pt_hashtable, ((_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iterator))->_pc_data);
     }
 }
 
 /** local function implementation section **/
-#ifndef NDEBUG
-static bool_t _hashtable_iterator_belong_to_hashtable(
-    const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
-{
-    vector_iterator_t t_vectoriterator;
-
-    assert(cpt_hashtable != NULL);
-    assert(_GET_HASHTABLE(t_iter) == cpt_hashtable);
-
-    /* check for the end node */
-    t_vectoriterator = vector_end(&cpt_hashtable->_t_bucket);
-    if(_GET_VECTOR_COREPOS(t_vectoriterator) == _GET_HASHTABLE_BUCKETPOS(t_iter) &&
-       _GET_HASHTABLE_COREPOS(t_iter) == NULL)
-    {
-        return true;
-    }
-    else
-    {
-        hashnode_t* pt_node = NULL;
-        for(t_vectoriterator = vector_begin(&cpt_hashtable->_t_bucket);
-            !iterator_equal(t_vectoriterator, vector_end(&cpt_hashtable->_t_bucket));
-            t_vectoriterator = iterator_next(t_vectoriterator))
-        {
-            if(_GET_HASHTABLE_BUCKETPOS(t_iter) ==
-               _GET_VECTOR_COREPOS(t_vectoriterator))
-            {
-                pt_node = *(hashnode_t**)_GET_VECTOR_COREPOS(t_vectoriterator);
-                while(pt_node != NULL)
-                {
-                    if(pt_node == (hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))
-                    {
-                        return true;
-                    }
-
-                    pt_node = pt_node->_pt_next;
-                }
-            }
-        }
-
-        return false;
-    }
-}
-
-static bool_t _hashtable_same_hashtable_iterator_type(
-    const hashtable_t* cpt_hashtable, hashtable_iterator_t t_iter)
-{
-    assert(cpt_hashtable != NULL && _GET_HASHTABLE(t_iter) != NULL);
-    return _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable),
-                         _GET_HASHTABLE_TYPE_NAME(_GET_HASHTABLE(t_iter))) &&
-           (cpt_hashtable->_t_typeinfo._pt_type ==
-            _GET_HASHTABLE(t_iter)->_t_typeinfo._pt_type) &&
-           (cpt_hashtable->_t_typeinfo._t_style ==
-            _GET_HASHTABLE(t_iter)->_t_typeinfo._t_style);
-}
-#endif /* NDEBUG */
-
-static bool_t _hashtable_same_type(
-    const hashtable_t* cpt_hashtablefirst, const hashtable_t* cpt_hashtablesecond)
-{
-    assert(cpt_hashtablefirst != NULL && cpt_hashtablesecond != NULL);
-
-    return _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_hashtablefirst),
-                         _GET_HASHTABLE_TYPE_NAME(cpt_hashtablesecond)) &&
-           (cpt_hashtablefirst->_t_typeinfo._pt_type ==
-            cpt_hashtablesecond->_t_typeinfo._pt_type) &&
-           (cpt_hashtablefirst->_t_typeinfo._t_style ==
-            cpt_hashtablesecond->_t_typeinfo._t_style) &&
-           (cpt_hashtablefirst->_t_hash == cpt_hashtablesecond->_t_hash) &&
-           (cpt_hashtablefirst->_t_compare == cpt_hashtablesecond->_t_compare);
-}
-
-static unsigned long _hashtable_get_prime(unsigned long ul_basenum)
-{
-    int i;
-    for(i = 0; i < _HASHTABLE_PRIME_LIST_COUNT; ++i)
-    {
-        if(_hashtable_prime_list[i] >= ul_basenum)
-        {
-            return _hashtable_prime_list[i];
-        }
-    }
-
-    return ul_basenum;
-}
-
-static void _hashtable_default_hash(const void* cpv_input, void* pv_output)
-{
-    size_t t_sum = 0;
-    char*  pc_value = NULL;
-    size_t t_index = 0;
-
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    pc_value = (char*)cpv_input;
-    for(t_index = 0; t_index < *(size_t*)pv_output; ++t_index)
-    {
-        t_sum += (size_t)pc_value[t_index];
-    }
-
-    *(size_t*)pv_output = t_sum;
-}
-
-static void _hashnode_init(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(hashnode_t**)cpv_input = NULL;
-    *(bool_t*)pv_output = true;
-}
-
-static void _hashnode_copy(const void* cpv_first, const void* cpv_second, void* pv_output)
-{
-    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-
-    *(hashnode_t**)cpv_first = *(hashnode_t**)cpv_second;
-    *(bool_t*)pv_output = true;
-}
-
-static void _hashnode_less(const void* cpv_first, const void* cpv_second, void* pv_output)
-{
-    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-
-    *(bool_t*)pv_output = *(hashnode_t**)cpv_first < *(hashnode_t**)cpv_second ? true : false;
-}
-
-static void _hashnode_destroy(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(hashnode_t**)cpv_input = NULL;
-    *(bool_t*)pv_output = true;
-}
-
-static void _hashtable_init_elem_auxiliary(hashtable_t* pt_hashtable, hashnode_t* pt_node)
-{
-    assert(pt_hashtable != NULL && pt_node != NULL);
-
-    /* initialize new elements */
-    if(_GET_HASHTABLE_TYPE_STYLE(pt_hashtable) == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_HASHTABLE_TYPE_NAME(pt_hashtable), s_elemtypename);
-
-        _GET_HASHTABLE_TYPE_INIT_FUNCTION(pt_hashtable)(pt_node->_pc_data, s_elemtypename);
-    }
-    else
-    {
-        bool_t t_result = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
-        _GET_HASHTABLE_TYPE_INIT_FUNCTION(pt_hashtable)(pt_node->_pc_data, &t_result);
-        assert(t_result);
-    }
-}
-
-static void _hashtable_hash_auxiliary(const hashtable_t* cpt_hashtable, const void* cpv_input, void* pv_output)
-{
-    assert(cpt_hashtable != NULL && cpv_input != NULL && pv_output != NULL);
-
-    if(strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        *(size_t*)pv_output = strlen(string_c_str((string_t*)cpv_input));
-        cpt_hashtable->_t_hash(string_c_str((string_t*)cpv_input), pv_output);
-    }
-    else
-    {
-        cpt_hashtable->_t_hash(cpv_input, pv_output);
-    } 
-}
-
-static void _hashtable_elem_compare_auxiliary(const hashtable_t* cpt_hashtable,
-    const void* cpv_first, const void* cpv_second, void* pv_output)
-{
-    assert(cpt_hashtable != NULL && cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-
-    if(strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
-       cpt_hashtable->_t_compare != _GET_HASHTABLE_TYPE_LESS_FUNCTION(cpt_hashtable))
-    {
-        cpt_hashtable->_t_compare(string_c_str((string_t*)cpv_first), string_c_str((string_t*)cpv_second), pv_output);
-    }
-    else
-    {
-        cpt_hashtable->_t_compare(cpv_first, cpv_second, pv_output);
-    }
-}
 
 /** eof **/
 

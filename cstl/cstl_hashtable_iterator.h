@@ -32,7 +32,7 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
-typedef iterator_t hashtable_iterator_t;
+typedef iterator_t _hashtable_iterator_t;
 
 /** exported global variable declaration section **/
 
@@ -40,17 +40,17 @@ typedef iterator_t hashtable_iterator_t;
 /*
  * Iterator support.
  */
-extern hashtable_iterator_t _create_hashtable_iterator(void);
-extern void _hashtable_iterator_get_value(hashtable_iterator_t t_iter, void* pv_value);
-extern const void* _hashtable_iterator_get_pointer(hashtable_iterator_t t_iter);
-extern hashtable_iterator_t _hashtable_iterator_next(hashtable_iterator_t t_iter);
-extern hashtable_iterator_t _hashtable_iterator_prev(hashtable_iterator_t t_iter);
+extern _hashtable_iterator_t _create_hashtable_iterator(void);
+extern void _hashtable_iterator_get_value(_hashtable_iterator_t t_iter, void* pv_value);
+extern const void* _hashtable_iterator_get_pointer(_hashtable_iterator_t t_iter);
+extern _hashtable_iterator_t _hashtable_iterator_next(_hashtable_iterator_t t_iter);
+extern _hashtable_iterator_t _hashtable_iterator_prev(_hashtable_iterator_t t_iter);
 extern bool_t _hashtable_iterator_equal(
-    hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond);
+    _hashtable_iterator_t t_iterfirst, _hashtable_iterator_t t_itersecond);
 extern int _hashtable_iterator_distance(
-    hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond);
+    _hashtable_iterator_t t_iterfirst, _hashtable_iterator_t t_itersecond);
 extern bool_t _hashtable_iterator_before(
-    hashtable_iterator_t t_iterfirst, hashtable_iterator_t t_itersecond);
+    _hashtable_iterator_t t_iterfirst, _hashtable_iterator_t t_itersecond);
 
 #ifdef __cplusplus
 }

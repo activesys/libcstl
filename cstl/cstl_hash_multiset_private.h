@@ -34,7 +34,7 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef struct _taghashmultiset
 {
-    hashtable_t _t_hashtable;
+    _hashtable_t _t_hashtable;
 }hash_multiset_t;
 
 /** exported global variable declaration section **/

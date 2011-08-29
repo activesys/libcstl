@@ -35,7 +35,7 @@ extern "C" {
 typedef struct _taghashmap
 {
     pair_t            _t_pair;
-    hashtable_t       _t_hashtable;
+    _hashtable_t       _t_hashtable;
     binary_function_t _t_keycompare;    /* for external key compare */
     binary_function_t _t_valuecompare;
 }hash_map_t;

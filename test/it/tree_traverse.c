@@ -150,15 +150,15 @@ void show_map_rbnode_info(_rbnode_t* pt_root)
 void test_travel_hashtable(vector_t* pt_vector)
 {
     int i = 0;
-    hashnode_t** ppt_bucket = NULL;
-    hashnode_t*  pt_node = NULL;
+    _hashnode_t** ppt_bucket = NULL;
+    _hashnode_t*  pt_node = NULL;
 
     assert(pt_vector != NULL);
 
     for(i = 0; (size_t)i < vector_size(pt_vector); ++i)
     {
         printf("#%d:", i);
-        ppt_bucket = (hashnode_t**)vector_at(pt_vector, i);
+        ppt_bucket = (_hashnode_t**)vector_at(pt_vector, i);
         pt_node = *ppt_bucket;
         while(pt_node != NULL)
         {
@@ -172,15 +172,15 @@ void test_travel_hashtable(vector_t* pt_vector)
 void test_travel_hashtable_pair(vector_t* pt_vector)
 {
     int i = 0;
-    hashnode_t** ppt_bucket = NULL;
-    hashnode_t*  pt_node = NULL;
+    _hashnode_t** ppt_bucket = NULL;
+    _hashnode_t*  pt_node = NULL;
 
     assert(pt_vector != NULL);
 
     for(i = 0; (size_t)i < vector_size(pt_vector); ++i)
     {
         printf("#%d:", i);
-        ppt_bucket = (hashnode_t**)vector_at(pt_vector, i);
+        ppt_bucket = (_hashnode_t**)vector_at(pt_vector, i);
         pt_node = *ppt_bucket;
         while(pt_node != NULL)
         {

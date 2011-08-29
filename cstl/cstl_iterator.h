@@ -120,7 +120,7 @@ extern "C" {
 #define _GET_HASHTABLE_COREPOS(t_iter)\
     ((t_iter)._t_pos._t_hashpos._pc_corepos)
 #define _GET_HASHTABLE(t_iter)\
-    ((hashtable_t*)((t_iter)._t_pos._t_hashpos._pt_hashtable))
+    ((_hashtable_t*)((t_iter)._t_pos._t_hashpos._pt_hashtable))
 #define _GET_HASHTABLE_POINTER(t_iter)\
     ((t_iter)._t_pos._t_hashpos._pt_hashtable)
 /* hash_set iterator handler */
