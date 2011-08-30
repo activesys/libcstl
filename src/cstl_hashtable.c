@@ -703,7 +703,7 @@ void _hashtable_swap(
 {
     _hashtable_t t_hashtableswap;
 
-    assert(_hashtable_same_type(pt_hashtablefirst, pt_hashtablesecond));
+    assert(_hashtable_same_type_ex(pt_hashtablefirst, pt_hashtablesecond));
 
     t_hashtableswap = *pt_hashtablefirst;
     *pt_hashtablefirst = *pt_hashtablesecond;
@@ -846,7 +846,7 @@ void _hashtable_init_copy_range(_hashtable_t* pt_hashtabledest,
 void _hashtable_assign(
     _hashtable_t* pt_hashtabledest, const _hashtable_t* cpt_hashtablesrc)
 {
-    assert(_hashtable_same_type(pt_hashtabledest, cpt_hashtablesrc));
+    assert(_hashtable_same_type_ex(pt_hashtabledest, cpt_hashtablesrc));
 
     /* clear all elements */
     _hashtable_clear(pt_hashtabledest);
@@ -999,7 +999,7 @@ bool_t _hashtable_equal(
     assert(cpt_hashtablefirst != NULL && cpt_hashtablesecond != NULL);
 
     /* check type */
-    if(!_hashtable_same_type(cpt_hashtablefirst, cpt_hashtablesecond))
+    if(!_hashtable_same_type_ex(cpt_hashtablefirst, cpt_hashtablesecond))
     {
         return false;
     }
@@ -1049,7 +1049,7 @@ bool_t _hashtable_less(
     bool_t               t_less = false;
     bool_t               t_greater = false;
 
-    assert(_hashtable_same_type(cpt_hashtablefirst, cpt_hashtablesecond));
+    assert(_hashtable_same_type_ex(cpt_hashtablefirst, cpt_hashtablesecond));
 
     /* check vector bucket count */
     if(vector_size(&cpt_hashtablefirst->_t_bucket) ==

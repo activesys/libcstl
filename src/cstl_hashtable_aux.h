@@ -66,17 +66,30 @@ extern bool_t _hashtable_is_created(const _hashtable_t* cpt_hashtable);
  */
 extern bool_t _hashtable_is_inited(const _hashtable_t* cpt_hashtable);
 
-/*
- * Assert support.
+/**
+ * Test iterator referenced data is within the hashtable.
+ * @param cpt_hashtable         point to hashtable.
+ * @param it_iter               hashtable iterator.
+ * @return if iterator referenced is within the hashtable, then return true, otherwise return false.
+ * @remarks if cpt_hashtable == NULL, then the behavior is undefined, cpt_hashtable must be initialized, otherwise the
+ *          behavior is undefined. the it_iter must be valie hashtable iterator, otherwist the behavior is undefined. 
  */
-extern bool_t _hashtable_iterator_belong_to_hashtable(
-    const _hashtable_t* cpt_hashtable, _hashtable_iterator_t t_iter);
-extern bool_t _hashtable_same_hashtable_iterator_type(
-    const _hashtable_t* cpt_hashtable, _hashtable_iterator_t t_iter);
+extern bool_t _hashtable_iterator_belong_to_hashtable(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter);
+
+/**
+ * Test the type that saved in the hashtable container and referenced by it_iter are same.
+ * @param cpt_hashtable         hashtable container.
+ * @param it_iter               hashtable iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_hashtable == NULL or it_iter is not hashtable iterator, then the behavior is undefined.
+ */
+extern bool_t _hashtable_same_hashtable_iterator_type(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter);
 
 #endif /* NDEBUG */
 
 extern bool_t _hashtable_same_type(
+    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond);
+extern bool_t _hashtable_same_type_ex(
     const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond);
 
 /* init, copy, less and destroy function for _hashnode_t* type */

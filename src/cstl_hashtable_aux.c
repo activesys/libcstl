@@ -39,6 +39,7 @@
 #include "cstl_hashtable_aux.h"
 
 /** local constant declaration and local macro section **/
+#define _HASHTABLE_FIRST_PRIME_BUCKET_COUNT 53
 
 /** local data type declaration and local struct, union, enum section **/
 
@@ -90,35 +91,70 @@ bool_t _hashtable_is_created(const _hashtable_t* cpt_hashtable)
     return _alloc_is_inited(&cpt_hashtable->_t_allocator);
 }
 
-bool_t _hashtable_iterator_belong_to_hashtable(
-    const _hashtable_t* cpt_hashtable, _hashtable_iterator_t t_iter)
+/**
+ * Test hashtable is initialized by hashtable initialization functions.
+ */
+bool_t _hashtable_is_inited(const _hashtable_t* cpt_hashtable)
 {
-    vector_iterator_t t_vectoriterator;
+    assert(cpt_hashtable != NULL);
+
+    if(cpt_hashtable->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+       cpt_hashtable->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+       cpt_hashtable->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
+    {
+        return false;
+    }
+    if(cpt_hashtable->_t_typeinfo._pt_type == NULL)
+    {
+        return false;
+    }
+
+    if(!_vector_is_inited(&cpt_hashtable->_t_bucket) ||
+       vector_size(&cpt_hashtable->_t_bucket) < _HASHTABLE_FIRST_PRIME_BUCKET_COUNT)
+    {
+        return false;
+    }
+
+    if(cpt_hashtable->_t_hash == NULL || cpt_hashtable->_t_compare == NULL)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * Test iterator referenced data is within the hashtable.
+ */
+bool_t _hashtable_iterator_belong_to_hashtable(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter)
+{
+    vector_iterator_t it_bucket;
 
     assert(cpt_hashtable != NULL);
-    assert(_GET_HASHTABLE(t_iter) == cpt_hashtable);
+    assert(_hashtable_is_inited(cpt_hashtable));
+    assert(_GET_HASHTABLE_BUCKETPOS(it_iter) != NULL);
+    assert(_GET_HASHTABLE(it_iter) == cpt_hashtable);
 
     /* check for the end node */
-    t_vectoriterator = vector_end(&cpt_hashtable->_t_bucket);
-    if(_GET_VECTOR_COREPOS(t_vectoriterator) == _GET_HASHTABLE_BUCKETPOS(t_iter) &&
-       _GET_HASHTABLE_COREPOS(t_iter) == NULL)
+    it_bucket = vector_end(&cpt_hashtable->_t_bucket);
+    if(_GET_VECTOR_COREPOS(it_bucket) == _GET_HASHTABLE_BUCKETPOS(it_iter) &&
+       _GET_HASHTABLE_COREPOS(it_iter) == NULL)
     {
         return true;
     }
     else
     {
         _hashnode_t* pt_node = NULL;
-        for(t_vectoriterator = vector_begin(&cpt_hashtable->_t_bucket);
-            !iterator_equal(t_vectoriterator, vector_end(&cpt_hashtable->_t_bucket));
-            t_vectoriterator = iterator_next(t_vectoriterator))
+        for(it_bucket = vector_begin(&cpt_hashtable->_t_bucket);
+            !iterator_equal(it_bucket, vector_end(&cpt_hashtable->_t_bucket));
+            it_bucket = iterator_next(it_bucket))
         {
-            if(_GET_HASHTABLE_BUCKETPOS(t_iter) ==
-               _GET_VECTOR_COREPOS(t_vectoriterator))
+            if(_GET_HASHTABLE_BUCKETPOS(it_iter) == _GET_VECTOR_COREPOS(it_bucket))
             {
-                pt_node = *(_hashnode_t**)_GET_VECTOR_COREPOS(t_vectoriterator);
+                pt_node = *(_hashnode_t**)_GET_VECTOR_COREPOS(it_bucket);
                 while(pt_node != NULL)
                 {
-                    if(pt_node == (_hashnode_t*)_GET_HASHTABLE_COREPOS(t_iter))
+                    if(pt_node == (_hashnode_t*)_GET_HASHTABLE_COREPOS(it_iter))
                     {
                         return true;
                     }
@@ -132,20 +168,32 @@ bool_t _hashtable_iterator_belong_to_hashtable(
     }
 }
 
-bool_t _hashtable_same_hashtable_iterator_type(
-    const _hashtable_t* cpt_hashtable, _hashtable_iterator_t t_iter)
+/**
+ * Test the type that saved in the hashtable container and referenced by it_iter are same.
+ */
+bool_t _hashtable_same_hashtable_iterator_type(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter)
 {
-    assert(cpt_hashtable != NULL && _GET_HASHTABLE(t_iter) != NULL);
-    return _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable),
-                         _GET_HASHTABLE_TYPE_NAME(_GET_HASHTABLE(t_iter))) &&
-           (cpt_hashtable->_t_typeinfo._pt_type ==
-            _GET_HASHTABLE(t_iter)->_t_typeinfo._pt_type) &&
-           (cpt_hashtable->_t_typeinfo._t_style ==
-            _GET_HASHTABLE(t_iter)->_t_typeinfo._t_style);
+    assert(cpt_hashtable != NULL);
+    assert(_GET_HASHTABLE(it_iter) != NULL);
+
+    return _hashtable_same_type(cpt_hashtable, _GET_HASHTABLE(it_iter));
 }
 #endif /* NDEBUG */
 
 bool_t _hashtable_same_type(
+    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond)
+{
+    assert(cpt_hashtablefirst != NULL && cpt_hashtablesecond != NULL);
+
+    return _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_hashtablefirst),
+                         _GET_HASHTABLE_TYPE_NAME(cpt_hashtablesecond)) &&
+           (cpt_hashtablefirst->_t_typeinfo._pt_type ==
+            cpt_hashtablesecond->_t_typeinfo._pt_type) &&
+           (cpt_hashtablefirst->_t_typeinfo._t_style ==
+            cpt_hashtablesecond->_t_typeinfo._t_style);
+}
+
+bool_t _hashtable_same_type_ex(
     const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond)
 {
     assert(cpt_hashtablefirst != NULL && cpt_hashtablesecond != NULL);

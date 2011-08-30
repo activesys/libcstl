@@ -147,7 +147,6 @@ void test__hashtable_is_created__created(void** state)
 /*
  * test _hashtable_is_inited
  */
-/*
 UT_CASE_DEFINATION(_hashtable_is_inited)
 void test__hashtable_is_inited__null_hashtable(void** state)
 {
@@ -158,7 +157,7 @@ void test__hashtable_is_inited__invalid_typeinfo_style(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 8, NULL, NULL);
 
     pt_hashtable->_t_typeinfo._t_style = 999;
     assert_false(_hashtable_is_inited(pt_hashtable));
@@ -172,7 +171,7 @@ void test__hashtable_is_inited__invalid_typeinfo_type(void** state)
     _hashtable_t* pt_hashtable = _create_hashtable("int");
     _type_t* pt_type = NULL;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     pt_type = pt_hashtable->_t_typeinfo._pt_type;
     pt_hashtable->_t_typeinfo._pt_type = NULL;
@@ -182,45 +181,17 @@ void test__hashtable_is_inited__invalid_typeinfo_type(void** state)
     _hashtable_destroy(pt_hashtable);
 }
 
-void test__hashtable_is_inited__invalid_rbroot_left(void** state)
+void test__hashtable_is_inited__invalid_hash(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _rbnode_t* pt_rb_node = NULL;
+    unary_function_t t_hash = NULL;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 199, NULL, NULL);
 
-    pt_rb_node = pt_hashtable->_t_rbroot._pt_left;
-    pt_hashtable->_t_rbroot._pt_left = NULL;
+    t_hash = pt_hashtable->_t_hash;
+    pt_hashtable->_t_hash = NULL;
     assert_false(_hashtable_is_inited(pt_hashtable));
-    pt_hashtable->_t_rbroot._pt_left = pt_rb_node;
-
-    _hashtable_destroy(pt_hashtable);
-}
-
-void test__hashtable_is_inited__invalid_rbroot_right(void** state)
-{
-    _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _rbnode_t* pt_rb_node = NULL;
-
-    _hashtable_init(pt_hashtable, NULL);
-
-    pt_rb_node = pt_hashtable->_t_rbroot._pt_right;
-    pt_hashtable->_t_rbroot._pt_right = NULL;
-    assert_false(_hashtable_is_inited(pt_hashtable));
-    pt_hashtable->_t_rbroot._pt_right = pt_rb_node;
-
-    _hashtable_destroy(pt_hashtable);
-}
-
-void test__hashtable_is_inited__invalid_rbroot_color(void** state)
-{
-    _hashtable_t* pt_hashtable = _create_hashtable("int");
-
-    _hashtable_init(pt_hashtable, NULL);
-
-    pt_hashtable->_t_rbroot._t_color = BLACK;
-    assert_false(_hashtable_is_inited(pt_hashtable));
-    pt_hashtable->_t_rbroot._t_color = RED;
+    pt_hashtable->_t_hash = t_hash;
 
     _hashtable_destroy(pt_hashtable);
 }
@@ -230,7 +201,7 @@ void test__hashtable_is_inited__invalid_compare(void** state)
     _hashtable_t* pt_hashtable = _create_hashtable("int");
     binary_function_t t_compare = NULL;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 9, NULL, NULL);
 
     t_compare = pt_hashtable->_t_compare;
     pt_hashtable->_t_compare = NULL;
@@ -240,15 +211,159 @@ void test__hashtable_is_inited__invalid_compare(void** state)
     _hashtable_destroy(pt_hashtable);
 }
 
+void test__hashtable_is_inited__invalid_bucket(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _byte_t* pby_start = NULL;
+
+    _hashtable_init(pt_hashtable, 3345, NULL, NULL);
+
+    pby_start = pt_hashtable->_t_bucket._pby_start;
+    pt_hashtable->_t_bucket._pby_start = NULL;
+    assert_false(_hashtable_is_inited(pt_hashtable));
+    pt_hashtable->_t_bucket._pby_start = pby_start;
+
+    _hashtable_destroy(pt_hashtable);
+}
+
 void test__hashtable_is_inited__inited(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 5, NULL, NULL);
 
     assert_true(_hashtable_is_inited(pt_hashtable));
 
     _hashtable_destroy(pt_hashtable);
 }
-*/
+
+/*
+ * test _hashtable_iterator_belong_to_hashtable
+ */
+UT_CASE_DEFINATION(_hashtable_iterator_belong_to_hashtable)
+void test__hashtable_iterator_belong_to_hashtable__null_hashtable(void** state)
+{
+    _hashtable_iterator_t it_iter;
+    expect_assert_failure(_hashtable_iterator_belong_to_hashtable(NULL, it_iter));
+}
+
+void test__hashtable_iterator_belong_to_hashtable__non_inited(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+
+    _hashtable_init(pt_hashtable, 9, NULL, NULL);
+    it_iter = _hashtable_begin(pt_hashtable);
+    pt_hashtable->_t_hash = NULL;
+    expect_assert_failure(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_belong_to_hashtable__null_bucketpos(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+
+    _hashtable_init(pt_hashtable, 9, NULL, NULL);
+    it_iter = _hashtable_begin(pt_hashtable);
+    it_iter._t_pos._t_hashpos._pc_bucketpos = NULL;
+    expect_assert_failure(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_belong_to_hashtable__null_hashtablepos(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+
+    _hashtable_init(pt_hashtable, 9, NULL, NULL);
+    it_iter = _hashtable_begin(pt_hashtable);
+    it_iter._t_pos._t_hashpos._pt_hashtable = NULL;
+    expect_assert_failure(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_belong_to_hashtable__begin(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+    int n_elem = 9;
+
+    _hashtable_init(pt_hashtable, 9, NULL, NULL);
+    _hashtable_insert_equal(pt_hashtable, &n_elem);
+    it_iter = _hashtable_begin(pt_hashtable);
+    assert_true(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_belong_to_hashtable__end(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+    int n_elem = 9;
+
+    _hashtable_init(pt_hashtable, 9, NULL, NULL);
+    _hashtable_insert_equal(pt_hashtable, &n_elem);
+    it_iter = _hashtable_end(pt_hashtable);
+    assert_true(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_belong_to_hashtable__middle(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+    int i = 0;
+
+    _hashtable_init(pt_hashtable, 9, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_hashtable, &i);
+    }
+    it_iter = _hashtable_iterator_next(_hashtable_begin(pt_hashtable));
+    assert_true(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_belong_to_hashtable__invalid_bucketpos(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+    int i = 0;
+
+    _hashtable_init(pt_hashtable, 9, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_hashtable, &i);
+    }
+    it_iter = _hashtable_iterator_next(_hashtable_begin(pt_hashtable));
+    it_iter._t_pos._t_hashpos._pc_bucketpos = 0x44444;
+    assert_false(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_belong_to_hashtable__invalid_corepos(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+    int i = 0;
+
+    _hashtable_init(pt_hashtable, 9, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_hashtable, &i);
+    }
+    it_iter = _hashtable_iterator_next(_hashtable_begin(pt_hashtable));
+    it_iter._t_pos._t_hashpos._pc_corepos = 0x04;
+    assert_false(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
 
