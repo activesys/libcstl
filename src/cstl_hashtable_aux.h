@@ -85,12 +85,38 @@ extern bool_t _hashtable_iterator_belong_to_hashtable(const _hashtable_t* cpt_ha
  */
 extern bool_t _hashtable_same_hashtable_iterator_type(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter);
 
+/**
+ * Test the type that saved in the hashtable container and referenced by it_iter are same.
+ * @param cpt_hashtable         hashtable container.
+ * @param it_iter               hashtable iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_hashtable == NULL or it_iter is not hashtable iterator, then the behavior is undefined.
+ */
+extern bool_t _hashtable_same_hashtable_iterator_type_ex(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter);
+
 #endif /* NDEBUG */
 
-extern bool_t _hashtable_same_type(
-    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond);
-extern bool_t _hashtable_same_type_ex(
-    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond);
+/**
+ * Test the type that saved in the hashtable container is same.
+ * @param cpt_first             first hashtable.
+ * @param cpt_second            second hashtable.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, the behavior is undefined. the two hashtable must be initialized
+ *          or created by _create_hashtable(), otherwise the behavior is undefined. if cpt_first == cpt_second then
+ *          return true.
+ */
+extern bool_t _hashtable_same_type(const _hashtable_t* cpt_first, const _hashtable_t* cpt_second);
+
+/**
+ * Test the type and compare function that saved in the hashtable container is same.
+ * @param cpt_first             first hashtable.
+ * @param cpt_second            second hashtable.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_first == NULL or cpt_second == NULL, the behavior is undefined. the two hashtable must be initialized
+ *          or created by _create_hashtable(), otherwise the behavior is undefined. if cpt_first == cpt_second then
+ *          return true.
+ */
+extern bool_t _hashtable_same_type_ex(const _hashtable_t* cpt_first, const _hashtable_t* cpt_second);
 
 /* init, copy, less and destroy function for _hashnode_t* type */
 extern void _hashnode_init(const void* cpv_input, void* pv_output);
@@ -103,8 +129,11 @@ extern void _hashnode_destroy(const void* cpv_input, void* pv_output);
  */
 extern void _hashtable_default_hash(const void* cpv_input, void* pv_output);
 
-/*
+/**
  * Get the next prime base the ul_basenum.
+ * @param ul_basenum            specifical base number.
+ * @return the next prime base the ul_basenum.
+ * @remarks if the base number greater than the max prime number, then return ul_basenum.
  */
 extern unsigned long _hashtable_get_prime(unsigned long ul_basenum);
 

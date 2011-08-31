@@ -40,6 +40,7 @@
 
 /** local constant declaration and local macro section **/
 #define _HASHTABLE_FIRST_PRIME_BUCKET_COUNT 53
+#define _HASHTABLE_LAST_PRIME_BUCKET_COUNT  4294967291ul
 
 /** local data type declaration and local struct, union, enum section **/
 
@@ -178,36 +179,64 @@ bool_t _hashtable_same_hashtable_iterator_type(const _hashtable_t* cpt_hashtable
 
     return _hashtable_same_type(cpt_hashtable, _GET_HASHTABLE(it_iter));
 }
+
+/**
+ * Test the type that saved in the hashtable container and referenced by it_iter are same.
+ */
+bool_t _hashtable_same_hashtable_iterator_type_ex(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter)
+{
+    assert(cpt_hashtable != NULL);
+    assert(_GET_HASHTABLE(it_iter) != NULL);
+
+    return _hashtable_same_type_ex(cpt_hashtable, _GET_HASHTABLE(it_iter));
+}
 #endif /* NDEBUG */
 
-bool_t _hashtable_same_type(
-    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond)
+/**
+ * Test the type that saved in the hashtable container is same.
+ */
+bool_t _hashtable_same_type(const _hashtable_t* cpt_first, const _hashtable_t* cpt_second)
 {
-    assert(cpt_hashtablefirst != NULL && cpt_hashtablesecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
+    assert(_hashtable_is_inited(cpt_first) || _hashtable_is_created(cpt_first));
+    assert(_hashtable_is_inited(cpt_second) || _hashtable_is_created(cpt_second));
 
-    return _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_hashtablefirst),
-                         _GET_HASHTABLE_TYPE_NAME(cpt_hashtablesecond)) &&
-           (cpt_hashtablefirst->_t_typeinfo._pt_type ==
-            cpt_hashtablesecond->_t_typeinfo._pt_type) &&
-           (cpt_hashtablefirst->_t_typeinfo._t_style ==
-            cpt_hashtablesecond->_t_typeinfo._t_style);
+    if(cpt_first == cpt_second)
+    {
+        return true;
+    }
+
+    return (cpt_first->_t_typeinfo._pt_type == cpt_second->_t_typeinfo._pt_type) &&
+           (cpt_first->_t_typeinfo._t_style == cpt_second->_t_typeinfo._t_style) &&
+           _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_first), _GET_HASHTABLE_TYPE_NAME(cpt_second));
 }
 
-bool_t _hashtable_same_type_ex(
-    const _hashtable_t* cpt_hashtablefirst, const _hashtable_t* cpt_hashtablesecond)
+/**
+ * Test the type and compare function that saved in the hashtable container is same.
+ */
+bool_t _hashtable_same_type_ex(const _hashtable_t* cpt_first, const _hashtable_t* cpt_second)
 {
-    assert(cpt_hashtablefirst != NULL && cpt_hashtablesecond != NULL);
+    assert(cpt_first != NULL);
+    assert(cpt_second != NULL);
+    assert(_hashtable_is_inited(cpt_first) || _hashtable_is_created(cpt_first));
+    assert(_hashtable_is_inited(cpt_second) || _hashtable_is_created(cpt_second));
 
-    return _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_hashtablefirst),
-                         _GET_HASHTABLE_TYPE_NAME(cpt_hashtablesecond)) &&
-           (cpt_hashtablefirst->_t_typeinfo._pt_type ==
-            cpt_hashtablesecond->_t_typeinfo._pt_type) &&
-           (cpt_hashtablefirst->_t_typeinfo._t_style ==
-            cpt_hashtablesecond->_t_typeinfo._t_style) &&
-           (cpt_hashtablefirst->_t_hash == cpt_hashtablesecond->_t_hash) &&
-           (cpt_hashtablefirst->_t_compare == cpt_hashtablesecond->_t_compare);
+    if(cpt_first == cpt_second)
+    {
+        return true;
+    }
+
+    return (cpt_first->_t_typeinfo._pt_type == cpt_second->_t_typeinfo._pt_type) &&
+           (cpt_first->_t_typeinfo._t_style == cpt_second->_t_typeinfo._t_style) &&
+           (cpt_first->_t_hash == cpt_second->_t_hash) &&
+           (cpt_first->_t_compare == cpt_second->_t_compare) &&
+           _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_first), _GET_HASHTABLE_TYPE_NAME(cpt_second));
 }
 
+/**
+ * Get the next prime base the ul_basenum.
+ */
 unsigned long _hashtable_get_prime(unsigned long ul_basenum)
 {
     int i;

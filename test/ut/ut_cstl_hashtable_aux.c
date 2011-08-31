@@ -343,7 +343,7 @@ void test__hashtable_iterator_belong_to_hashtable__invalid_bucketpos(void** stat
         _hashtable_insert_equal(pt_hashtable, &i);
     }
     it_iter = _hashtable_iterator_next(_hashtable_begin(pt_hashtable));
-    it_iter._t_pos._t_hashpos._pc_bucketpos = 0x44444;
+    it_iter._t_pos._t_hashpos._pc_bucketpos = (char*)0x44444;
     assert_false(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
 
     _hashtable_destroy(pt_hashtable);
@@ -361,9 +361,452 @@ void test__hashtable_iterator_belong_to_hashtable__invalid_corepos(void** state)
         _hashtable_insert_equal(pt_hashtable, &i);
     }
     it_iter = _hashtable_iterator_next(_hashtable_begin(pt_hashtable));
-    it_iter._t_pos._t_hashpos._pc_corepos = 0x04;
+    it_iter._t_pos._t_hashpos._pc_corepos = (char*)0x04;
     assert_false(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
 
     _hashtable_destroy(pt_hashtable);
+}
+
+/*
+ * test _hashtable_same_hashtable_iterator_type
+ */
+UT_CASE_DEFINATION(_hashtable_same_hashtable_iterator_type)
+void test__hashtable_same_hashtable_iterator_type__null_hashtable(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_same_hashtable_iterator_type(NULL, _hashtable_begin(pt_hashtable)));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_hashtable_iterator_type__non_created(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_t htable;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_same_hashtable_iterator_type(&htable, _hashtable_begin(pt_hashtable)));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_hashtable_iterator_type__invalid_iter(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    it_iter = _hashtable_begin(pt_hashtable);
+    it_iter._t_pos._t_hashpos._pt_hashtable = NULL;
+    expect_assert_failure(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_hashtable_iterator_type__same_container(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    it_iter = _hashtable_begin(pt_hashtable);
+    assert_true(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_hashtable_iterator_type__same(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_t* pt_iter = _create_hashtable("int");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    _hashtable_init(pt_iter, 100, NULL, NULL);
+    assert_true(_hashtable_same_hashtable_iterator_type(pt_hashtable, _hashtable_begin(pt_iter)));
+
+    _hashtable_destroy(pt_hashtable);
+    _hashtable_destroy(pt_iter);
+}
+
+void test__hashtable_same_hashtable_iterator_type__not_same(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_t* pt_iter = _create_hashtable("double");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    _hashtable_init(pt_iter, 100, NULL, NULL);
+    assert_false(_hashtable_same_hashtable_iterator_type(pt_hashtable, _hashtable_begin(pt_iter)));
+
+    _hashtable_destroy(pt_hashtable);
+    _hashtable_destroy(pt_iter);
+}
+
+/*
+ * test _hashtable_same_hashtable_iterator_type_ex
+ */
+UT_CASE_DEFINATION(_hashtable_same_hashtable_iterator_type_ex)
+void test__hashtable_same_hashtable_iterator_type_ex__null_hashtable(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_same_hashtable_iterator_type_ex(NULL, _hashtable_begin(pt_hashtable)));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_hashtable_iterator_type_ex__non_created(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_t htable;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_same_hashtable_iterator_type_ex(&htable, _hashtable_begin(pt_hashtable)));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_hashtable_iterator_type_ex__invalid_iter(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    it_iter = _hashtable_begin(pt_hashtable);
+    it_iter._t_pos._t_hashpos._pt_hashtable = NULL;
+    expect_assert_failure(_hashtable_same_hashtable_iterator_type_ex(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_hashtable_iterator_type_ex__same_container(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    it_iter = _hashtable_begin(pt_hashtable);
+    assert_true(_hashtable_same_hashtable_iterator_type_ex(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_hashtable_iterator_type_ex__same(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_t* pt_iter = _create_hashtable("int");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    _hashtable_init(pt_iter, 0, NULL, NULL);
+    assert_true(_hashtable_same_hashtable_iterator_type_ex(pt_hashtable, _hashtable_begin(pt_iter)));
+
+    _hashtable_destroy(pt_hashtable);
+    _hashtable_destroy(pt_iter);
+}
+
+void test__hashtable_same_hashtable_iterator_type_ex__not_same_type(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_t* pt_iter = _create_hashtable("double");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    _hashtable_init(pt_iter, 0, NULL, NULL);
+    assert_false(_hashtable_same_hashtable_iterator_type_ex(pt_hashtable, _hashtable_begin(pt_iter)));
+
+    _hashtable_destroy(pt_hashtable);
+    _hashtable_destroy(pt_iter);
+}
+
+static void _test__hashtable_same_hashtable_iterator_type_ex__not_same_hash(const void* cpv_first, void* pv_output)
+{
+    pv_output = (void*)cpv_first;
+}
+void test__hashtable_same_hashtable_iterator_type_ex__not_same_hash(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_t* pt_iter = _create_hashtable("double");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    _hashtable_init(pt_iter, 0, _test__hashtable_same_hashtable_iterator_type_ex__not_same_hash, NULL);
+    assert_false(_hashtable_same_hashtable_iterator_type_ex(pt_hashtable, _hashtable_begin(pt_iter)));
+
+    _hashtable_destroy(pt_hashtable);
+    _hashtable_destroy(pt_iter);
+}
+
+static void _test__hashtable_same_hashtable_iterator_type_ex__not_same_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(int*)pv_output = *(int*)cpv_first + *(int*)cpv_second;
+}
+void test__hashtable_same_hashtable_iterator_type_ex__not_same_compare(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_t* pt_iter = _create_hashtable("double");
+
+    _hashtable_init(pt_hashtable, 0, NULL, _test__hashtable_same_hashtable_iterator_type_ex__not_same_compare);
+    _hashtable_init(pt_iter, 0, NULL, NULL);
+    assert_false(_hashtable_same_hashtable_iterator_type_ex(pt_hashtable, _hashtable_begin(pt_iter)));
+
+    _hashtable_destroy(pt_hashtable);
+    _hashtable_destroy(pt_iter);
+}
+
+/*
+ * test _hashtable_same_type
+ */
+UT_CASE_DEFINATION(_hashtable_same_type)
+void test__hashtable_same_type__null_first(void** state)
+{
+    _hashtable_t htable;
+
+    expect_assert_failure(_hashtable_same_type(NULL, &htable));
+}
+
+void test__hashtable_same_type__null_second(void** state)
+{
+    _hashtable_t htable;
+
+    expect_assert_failure(_hashtable_same_type(&htable, NULL));
+}
+
+void test__hashtable_same_type__non_created_first(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    pt_first->_t_typeinfo._t_style = 9999;
+    expect_assert_failure(_hashtable_same_type(pt_first, pt_second));
+    pt_first->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+void test__hashtable_same_type__non_created_second(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    pt_second->_t_typeinfo._t_style = 22222;
+    expect_assert_failure(_hashtable_same_type(pt_first, pt_second));
+    pt_second->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+void test__hashtable_same_type__same_type(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    assert_true(_hashtable_same_type(pt_first, pt_second));
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+void test__hashtable_same_type__same_hashtable(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+
+    assert_true(_hashtable_same_type(pt_hashtable, pt_hashtable));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_type__not_same_type(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("double");
+
+    assert_false(_hashtable_same_type(pt_first, pt_second));
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+static void _test__hashtable_same_type__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    pv_output = (void*)cpv_input;
+}
+void test__hashtable_same_type__not_same_hash(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    _hashtable_init(pt_first, 0, NULL, NULL);
+    _hashtable_init(pt_second, 0, _test__hashtable_same_type__not_same_hash, NULL);
+    assert_true(_hashtable_same_type(pt_first, pt_second));
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+static void _test__hashtable_same_type__not_same_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(int*)pv_output = *(int*)cpv_first + *(int*)cpv_second;
+}
+void test__hashtable_same_type__not_same_compare(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    _hashtable_init(pt_first, 0, NULL, _test__hashtable_same_type__not_same_compare);
+    _hashtable_init(pt_second, 0, NULL, NULL);
+    assert_true(_hashtable_same_type(pt_first, pt_second));
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+/*
+ * test _hashtable_same_type_ex
+ */
+UT_CASE_DEFINATION(_hashtable_same_type_ex)
+void test__hashtable_same_type_ex__null_first(void** state)
+{
+    _hashtable_t htable;
+
+    expect_assert_failure(_hashtable_same_type_ex(NULL, &htable));
+}
+
+void test__hashtable_same_type_ex__null_second(void** state)
+{
+    _hashtable_t htable;
+
+    expect_assert_failure(_hashtable_same_type_ex(&htable, NULL));
+}
+
+void test__hashtable_same_type_ex__non_created_first(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    pt_first->_t_typeinfo._t_style = 9999;
+    expect_assert_failure(_hashtable_same_type_ex(pt_first, pt_second));
+    pt_first->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+void test__hashtable_same_type_ex__non_created_second(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    pt_second->_t_typeinfo._t_style = 22222;
+    expect_assert_failure(_hashtable_same_type_ex(pt_first, pt_second));
+    pt_second->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+void test__hashtable_same_type_ex__same_type(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    assert_true(_hashtable_same_type_ex(pt_first, pt_second));
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+void test__hashtable_same_type_ex__same_hashtable(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+
+    assert_true(_hashtable_same_type_ex(pt_hashtable, pt_hashtable));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_same_type_ex__not_same_type(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("double");
+
+    assert_false(_hashtable_same_type_ex(pt_first, pt_second));
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+static void _test__hashtable_same_type_ex__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    pv_output = (void*)cpv_input;
+}
+void test__hashtable_same_type_ex__not_same_hash(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    _hashtable_init(pt_first, 0, NULL, NULL);
+    _hashtable_init(pt_second, 0, _test__hashtable_same_type_ex__not_same_hash, NULL);
+    assert_false(_hashtable_same_type_ex(pt_first, pt_second));
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+static void _test__hashtable_same_type_ex__not_same_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(int*)pv_output = *(int*)cpv_first + *(int*)cpv_second;
+}
+void test__hashtable_same_type_ex__not_same_compare(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    _hashtable_init(pt_first, 0, NULL, _test__hashtable_same_type_ex__not_same_compare);
+    _hashtable_init(pt_second, 0, NULL, NULL);
+    assert_false(_hashtable_same_type_ex(pt_first, pt_second));
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+/*
+ * test _hashtable_get_prime
+ */
+UT_CASE_DEFINATION(_hashtable_get_prime)
+void test__hashtable_get_prime__0(void** state)
+{
+    assert_true(_hashtable_get_prime(0) == 53);
+}
+
+void test__hashtable_get_prime__53(void** state)
+{
+    assert_true(_hashtable_get_prime(53) == 53);
+}
+
+void test__hashtable_get_prime__8000000(void** state)
+{
+    assert_true(_hashtable_get_prime(8000000) == 12582917);
+}
+
+void test__hashtable_get_prime__201326611(void** state)
+{
+    assert_true(_hashtable_get_prime(201326611) == 201326611);
+}
+
+void test__hashtable_get_prime__4294967290(void** state)
+{
+    assert_true(_hashtable_get_prime(4294967290ul) == 4294967291ul);
+}
+
+void test__hashtable_get_prime__4294967291(void** state)
+{
+    assert_true(_hashtable_get_prime(4294967291ul) == 4294967291ul);
+}
+
+void test__hashtable_get_prime__4294967295(void** state)
+{
+    assert_true(_hashtable_get_prime(4294967295ul) == 4294967295ul);
 }
 
