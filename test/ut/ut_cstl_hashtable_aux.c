@@ -810,3 +810,214 @@ void test__hashtable_get_prime__4294967295(void** state)
     assert_true(_hashtable_get_prime(4294967295ul) == 4294967295ul);
 }
 
+/*
+ * test _hashtable_default_hash
+ */
+UT_CASE_DEFINATION(_hashtable_default_hash)
+void test__hashtable_default_hash__null_input(void** state)
+{
+    size_t t_size = 9;
+    expect_assert_failure(_hashtable_default_hash(NULL, &t_size));
+}
+
+void test__hashtable_default_hash__null_output(void** state)
+{
+    int a = 9;
+    expect_assert_failure(_hashtable_default_hash(&a, NULL));
+}
+
+void test__hashtable_default_hash__0(void** state)
+{
+    int a = 0;
+    size_t ret = sizeof(a);
+    _hashtable_default_hash(&a, &ret);
+    assert_true(ret == 0);
+}
+
+void test__hashtable_default_hash__not_0(void** state)
+{
+    int a = 0x01020304;
+    size_t ret = sizeof(a);
+    _hashtable_default_hash(&a, &ret);
+    assert_true(ret == 0x0a);
+}
+
+/*
+ * test _hashtable_init_elem_auxiliary
+ */
+UT_CASE_DEFINATION(_hashtable_init_elem_auxiliary)
+void test__hashtable_init_elem_auxiliary__null_hashtable(void** state)
+{
+    _hashnode_t node;
+    expect_assert_failure(_hashtable_init_elem_auxiliary(NULL, &node));
+}
+
+void test__hashtable_init_elem_auxiliary__null_node(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+
+    expect_assert_failure(_hashtable_init_elem_auxiliary(pt_hashtable, NULL));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_init_elem_auxiliary__non_inited(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashnode_t node;
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+
+    pt_hashtable->_t_typeinfo._t_style = 999;
+    expect_assert_failure(_hashtable_init_elem_auxiliary(pt_hashtable, &node));
+    pt_hashtable->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_init_elem_auxiliary__c_builtin(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashnode_t node;
+    int elem = 9;
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+
+    *(int*)node._pc_data = 100;
+    _hashtable_insert_unique(pt_hashtable, &elem);
+    _hashtable_init_elem_auxiliary(pt_hashtable, &node);
+    assert_true(*(int*)node._pc_data == 0);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_init_elem_auxiliary__cstr(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("char*");
+    string_t* pt_str = create_string();
+    _hashtable_iterator_t it_iter;
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    string_init_cstr(pt_str, "abc");
+
+    _hashtable_insert_unique(pt_hashtable, pt_str);
+    it_iter = _hashtable_begin(pt_hashtable);
+    _hashtable_init_elem_auxiliary(pt_hashtable, (_hashnode_t*)it_iter._t_pos._t_hashpos._pc_corepos);
+    assert_true(strcmp(string_c_str((string_t*)((_hashnode_t*)it_iter._t_pos._t_hashpos._pc_corepos)->_pc_data), "") == 0);
+
+    _hashtable_destroy(pt_hashtable);
+    string_destroy(pt_str);
+}
+
+void test__hashtable_init_elem_auxiliary__cstl_builtin(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("vector_t<int>");
+    vector_t* pvec = create_vector(int);
+    _hashtable_iterator_t it_iter;
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    vector_init(pvec);
+
+    _hashtable_insert_unique(pt_hashtable, pvec);
+    it_iter = _hashtable_begin(pt_hashtable);
+    _hashtable_init_elem_auxiliary(pt_hashtable, (_hashnode_t*)it_iter._t_pos._t_hashpos._pc_corepos);
+    assert_true(vector_empty((vector_t*)((_hashnode_t*)it_iter._t_pos._t_hashpos._pc_corepos)->_pc_data));
+
+    vector_destroy(pvec);
+    _hashtable_destroy(pt_hashtable);
+}
+
+typedef struct _tag_test__hashtable_init_elem_auxiliary__user_define
+{
+    int elem;
+}_test__hashtable_init_elem_auxiliary__user_define_t;
+
+void test__hashtable_init_elem_auxiliary__user_define(void** state)
+{
+    _hashtable_t* pt_hashtable = NULL;
+    _test__hashtable_init_elem_auxiliary__user_define_t elem;
+    _hashtable_iterator_t it_iter;
+
+    type_register(_test__hashtable_init_elem_auxiliary__user_define_t, NULL, NULL, NULL, NULL);
+    pt_hashtable = _create_hashtable("_test__hashtable_init_elem_auxiliary__user_define_t");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    elem.elem = 9;
+    _hashtable_insert_unique(pt_hashtable, &elem);
+    it_iter = _hashtable_begin(pt_hashtable);
+    _hashtable_init_elem_auxiliary(pt_hashtable, (_hashnode_t*)it_iter._t_pos._t_hashpos._pc_corepos);
+    assert_true(((_test__hashtable_init_elem_auxiliary__user_define_t*)((_hashnode_t*)it_iter._t_pos._t_hashpos._pc_corepos)->_pc_data)->elem == 0);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+/*
+ * test _hashtable_hash_auxiliary
+ */
+UT_CASE_DEFINATION(_hashtable_hash_auxiliary)
+void test__hashtable_hash_auxiliary__null_hashtable(void** state)
+{
+    int a = 9;
+    size_t ret = sizeof(a);
+    expect_assert_failure(_hashtable_hash_auxiliary(NULL, &a, &ret));
+}
+
+void test__hashtable_hash_auxiliary__null_input(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    size_t ret = sizeof(int);
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_hash_auxiliary(pt_hashtable, NULL, &ret));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_hash_auxiliary__null_output(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    int a = 4;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_hash_auxiliary(pt_hashtable, &a, NULL));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_hash_auxiliary__non_inited(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    int a = 4;
+    size_t ret = sizeof(int);
+
+    expect_assert_failure(_hashtable_hash_auxiliary(pt_hashtable, &a, &ret));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_hash_auxiliary__c_builtin(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    int a = 0x01020304;
+    size_t ret = sizeof(int);
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    _hashtable_hash_auxiliary(pt_hashtable, &a, &ret);
+    assert_true(ret == 0x0a);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_hash_auxiliary__c_str(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("char*");
+    string_t* pt_string = create_string();
+    size_t ret;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    string_init_cstr(pt_string, "abc");
+
+    _hashtable_hash_auxiliary(pt_hashtable, pt_string, &ret);
+    assert_true(ret = 294);
+
+    string_destroy(pt_string);
+    _hashtable_destroy(pt_hashtable);
+}
+

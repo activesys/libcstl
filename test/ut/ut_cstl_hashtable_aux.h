@@ -98,6 +98,35 @@ void test__hashtable_get_prime__201326611(void** state);
 void test__hashtable_get_prime__4294967290(void** state);
 void test__hashtable_get_prime__4294967291(void** state);
 void test__hashtable_get_prime__4294967295(void** state);
+/*
+ * test _hashtable_default_hash
+ */
+UT_CASE_DECLARATION(_hashtable_default_hash)
+void test__hashtable_default_hash__null_input(void** state);
+void test__hashtable_default_hash__null_output(void** state);
+void test__hashtable_default_hash__0(void** state);
+void test__hashtable_default_hash__not_0(void** state);
+/*
+ * test _hashtable_init_elem_auxiliary
+ */
+UT_CASE_DECLARATION(_hashtable_init_elem_auxiliary)
+void test__hashtable_init_elem_auxiliary__null_hashtable(void** state);
+void test__hashtable_init_elem_auxiliary__null_node(void** state);
+void test__hashtable_init_elem_auxiliary__non_inited(void** state);
+void test__hashtable_init_elem_auxiliary__c_builtin(void** state);
+void test__hashtable_init_elem_auxiliary__cstr(void** state);
+void test__hashtable_init_elem_auxiliary__cstl_builtin(void** state);
+void test__hashtable_init_elem_auxiliary__user_define(void** state);
+/*
+ * test _hashtable_hash_auxiliary
+ */
+UT_CASE_DECLARATION(_hashtable_hash_auxiliary)
+void test__hashtable_hash_auxiliary__null_hashtable(void** state);
+void test__hashtable_hash_auxiliary__null_input(void** state);
+void test__hashtable_hash_auxiliary__null_output(void** state);
+void test__hashtable_hash_auxiliary__non_inited(void** state);
+void test__hashtable_hash_auxiliary__c_builtin(void** state);
+void test__hashtable_hash_auxiliary__c_str(void** state);
 
 #define UT_CSTL_HASHTABLE_AUX_CASE\
     UT_SUIT_BEGIN(cstl_hashtable_aux, test__hashtable_is_created__null_hashtable),\
@@ -164,6 +193,23 @@ void test__hashtable_get_prime__4294967295(void** state);
     UT_CASE(test__hashtable_get_prime__4294967290),\
     UT_CASE(test__hashtable_get_prime__4294967291),\
     UT_CASE(test__hashtable_get_prime__4294967295),\
+    UT_CASE_BEGIN(_hashtable_default_hash, test__hashtable_default_hash__null_input),\
+    UT_CASE(test__hashtable_default_hash__null_output),\
+    UT_CASE(test__hashtable_default_hash__0),\
+    UT_CASE(test__hashtable_default_hash__not_0),\
+    UT_CASE_BEGIN(_hashtable_init_elem_auxiliary, test__hashtable_init_elem_auxiliary__null_hashtable),\
+    UT_CASE(test__hashtable_init_elem_auxiliary__null_node),\
+    UT_CASE(test__hashtable_init_elem_auxiliary__non_inited),\
+    UT_CASE(test__hashtable_init_elem_auxiliary__c_builtin),\
+    UT_CASE(test__hashtable_init_elem_auxiliary__cstr),\
+    UT_CASE(test__hashtable_init_elem_auxiliary__cstl_builtin),\
+    UT_CASE(test__hashtable_init_elem_auxiliary__user_define),\
+    UT_CASE_BEGIN(_hashtable_hash_auxiliary, test__hashtable_hash_auxiliary__null_hashtable),\
+    UT_CASE(test__hashtable_hash_auxiliary__null_input),\
+    UT_CASE(test__hashtable_hash_auxiliary__null_output),\
+    UT_CASE(test__hashtable_hash_auxiliary__non_inited),\
+    UT_CASE(test__hashtable_hash_auxiliary__c_builtin),\
+    UT_CASE(test__hashtable_hash_auxiliary__c_str),\
 
 #endif /* _UT_CSTL_HASHTABLE_AUX_H_ */
 

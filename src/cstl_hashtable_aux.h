@@ -124,8 +124,12 @@ extern void _hashnode_copy(const void* cpv_first, const void* cpv_second, void* 
 extern void _hashnode_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hashnode_destroy(const void* cpv_input, void* pv_output);
 
-/*
+/**
  * The default hash function.
+ * @param cpv_input             input parameter.
+ * @param pv_output             output parameter.
+ * @return void.
+ * @remarks if cpv_input == NULL or pv_output == NULL, the behavior is undefined.
  */
 extern void _hashtable_default_hash(const void* cpv_input, void* pv_output);
 
@@ -137,10 +141,25 @@ extern void _hashtable_default_hash(const void* cpv_input, void* pv_output);
  */
 extern unsigned long _hashtable_get_prime(unsigned long ul_basenum);
 
-/* initialize new element */
+/**
+ * Initialize element auxiliary function
+ * @param pt_hashtable          hashtable.
+ * @param pt_node               hashnode.
+ * @return void.
+ * @remarks if pt_hashtable == NULL or pt_node == NULL, then the behavior is undefined. pt_hashtable must be initialized or
+ *          created by _create_hashtable(), otherwise the behavior is undefined.
+ */
 extern void _hashtable_init_elem_auxiliary(_hashtable_t* pt_hashtable, _hashnode_t* pt_node);
 
-/* hash auxiliary */
+/**
+ * hash auxiliary
+ * @param cpt_hashtable         hashtable.
+ * @param cpv_input             input parameter.
+ * @param pv_output             output parameter.
+ * @return void.
+ * @remarks if cpt_hashtable == NULL, cpv_input == NULL or pv_output == NULL, then the behavior is undefined. cpt_hashtable
+ *          must be initialized, otherwise the behavior is undefined.
+ */
 extern void _hashtable_hash_auxiliary(const _hashtable_t* cpt_hashtable, const void* cpv_input, void* pv_output);
 /* compare auxiliary */
 extern void _hashtable_elem_compare_auxiliary(const _hashtable_t* cpt_hashtable,

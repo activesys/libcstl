@@ -251,18 +251,22 @@ unsigned long _hashtable_get_prime(unsigned long ul_basenum)
     return ul_basenum;
 }
 
+/**
+ * The default hash function.
+ */
 void _hashtable_default_hash(const void* cpv_input, void* pv_output)
 {
-    size_t t_sum = 0;
-    char*  pc_value = NULL;
-    size_t t_index = 0;
+    size_t   t_sum = 0;
+    _byte_t* pby_value = NULL;
+    size_t   i = 0;
 
-    assert(cpv_input != NULL && pv_output != NULL);
+    assert(cpv_input != NULL);
+    assert(pv_output != NULL);
 
-    pc_value = (char*)cpv_input;
-    for(t_index = 0; t_index < *(size_t*)pv_output; ++t_index)
+    pby_value = (_byte_t*)cpv_input;
+    for(i = 0; i < *(size_t*)pv_output; ++i)
     {
-        t_sum += (size_t)pc_value[t_index];
+        t_sum += (size_t)pby_value[i];
     }
 
     *(size_t*)pv_output = t_sum;
@@ -299,9 +303,14 @@ void _hashnode_destroy(const void* cpv_input, void* pv_output)
     *(bool_t*)pv_output = true;
 }
 
+/**
+ * Initialize element auxiliary function
+ */
 void _hashtable_init_elem_auxiliary(_hashtable_t* pt_hashtable, _hashnode_t* pt_node)
 {
-    assert(pt_hashtable != NULL && pt_node != NULL);
+    assert(pt_hashtable != NULL);
+    assert(pt_node != NULL);
+    assert(_hashtable_is_inited(pt_hashtable) || _hashtable_is_created(pt_hashtable));
 
     /* initialize new elements */
     if(_GET_HASHTABLE_TYPE_STYLE(pt_hashtable) == _TYPE_CSTL_BUILTIN)
@@ -314,15 +323,18 @@ void _hashtable_init_elem_auxiliary(_hashtable_t* pt_hashtable, _hashnode_t* pt_
     }
     else
     {
-        bool_t t_result = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
-        _GET_HASHTABLE_TYPE_INIT_FUNCTION(pt_hashtable)(pt_node->_pc_data, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
+        _GET_HASHTABLE_TYPE_INIT_FUNCTION(pt_hashtable)(pt_node->_pc_data, &b_result);
+        assert(b_result);
     }
 }
 
 void _hashtable_hash_auxiliary(const _hashtable_t* cpt_hashtable, const void* cpv_input, void* pv_output)
 {
-    assert(cpt_hashtable != NULL && cpv_input != NULL && pv_output != NULL);
+    assert(cpt_hashtable != NULL);
+    assert(cpv_input != NULL);
+    assert(pv_output != NULL);
+    assert(_hashtable_is_inited(cpt_hashtable));
 
     if(strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
