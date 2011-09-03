@@ -10,7 +10,7 @@
 #include "cstl/cvector.h"
 #include "cstl/cstl_hashtable_iterator.h"
 #include "cstl/cstl_hashtable_private.h"
-/*#include "cstl/cstl_hashtable.h"*/
+#include "cstl/cstl_hashtable.h"
 #include "cstl_hashtable_aux.h"
 #include "cstl/cstring.h"
 
@@ -256,6 +256,7 @@ void test__hashtable_iterator_belong_to_hashtable__non_inited(void** state)
     it_iter = _hashtable_begin(pt_hashtable);
     pt_hashtable->_t_hash = NULL;
     expect_assert_failure(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_iter));
+    pt_hashtable->_t_hash = _hashtable_default_hash;
 
     _hashtable_destroy(pt_hashtable);
 }
@@ -1018,6 +1019,104 @@ void test__hashtable_hash_auxiliary__c_str(void** state)
     assert_true(ret = 294);
 
     string_destroy(pt_string);
+    _hashtable_destroy(pt_hashtable);
+}
+
+/*
+ * test _hashtable_elem_compare_auxiliary
+ */
+UT_CASE_DEFINATION(_hashtable_elem_compare_auxiliary)
+void test__hashtable_elem_compare_auxiliary__null_hashtable(void** state)
+{
+    int n_first;
+    int n_second;
+    bool_t t_result;
+    expect_assert_failure(_hashtable_elem_compare_auxiliary(NULL, &n_first, &n_second, &t_result));
+}
+
+void test__hashtable_elem_compare_auxiliary__null_first(void** state)
+{
+    int n_second;
+    bool_t t_result;
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_elem_compare_auxiliary(pt_hashtable, NULL, &n_second, &t_result));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_elem_compare_auxiliary__null_second(void** state)
+{
+    int n_first;
+    bool_t t_result;
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_elem_compare_auxiliary(pt_hashtable, &n_first, NULL, &t_result));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_elem_compare_auxiliary__null_output(void** state)
+{
+    int n_first;
+    int n_second;
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_elem_compare_auxiliary(pt_hashtable, &n_first, &n_second, NULL));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_elem_compare_auxiliary__non_inited(void** state)
+{
+    int n_first;
+    int n_second;
+    bool_t b_result;
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+
+    pt_hashtable->_t_typeinfo._t_style = 9999;
+    expect_assert_failure(_hashtable_elem_compare_auxiliary(pt_hashtable, &n_first, &n_second, &b_result));
+    pt_hashtable->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_elem_compare_auxiliary__int(void** state)
+{
+    int n_first = 5;
+    int n_second = 9;
+    bool_t b_result = false;
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+
+    _hashtable_elem_compare_auxiliary(pt_hashtable, &n_first, &n_second, &b_result);
+    assert_true(b_result);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+static void _test__hashtable_elem_compare_auxiliary__cstr_compare(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = strcmp((char*)cpv_first, (char*)cpv_second) < 0 ? true : false;
+}
+void test__hashtable_elem_compare_auxiliary__cstr(void** state)
+{
+    string_t* pstr_first = create_string();
+    string_t* pstr_second = create_string();
+    bool_t b_result = false;
+    _hashtable_t* pt_hashtable = _create_hashtable("char*");
+    _hashtable_init(pt_hashtable, 0, NULL, _test__hashtable_elem_compare_auxiliary__cstr_compare);
+
+    string_init_cstr(pstr_first, "abc");
+    string_init_cstr(pstr_second, "xyz");
+    _hashtable_elem_compare_auxiliary(pt_hashtable, pstr_first, pstr_second, &b_result);
+    assert_true(b_result);
+
     _hashtable_destroy(pt_hashtable);
 }
 

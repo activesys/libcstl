@@ -119,10 +119,12 @@ extern bool_t _hashtable_same_type(const _hashtable_t* cpt_first, const _hashtab
 extern bool_t _hashtable_same_type_ex(const _hashtable_t* cpt_first, const _hashtable_t* cpt_second);
 
 /* init, copy, less and destroy function for _hashnode_t* type */
+/*
 extern void _hashnode_init(const void* cpv_input, void* pv_output);
 extern void _hashnode_copy(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hashnode_less(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _hashnode_destroy(const void* cpv_input, void* pv_output);
+*/
 
 /**
  * The default hash function.
@@ -161,9 +163,20 @@ extern void _hashtable_init_elem_auxiliary(_hashtable_t* pt_hashtable, _hashnode
  *          must be initialized, otherwise the behavior is undefined.
  */
 extern void _hashtable_hash_auxiliary(const _hashtable_t* cpt_hashtable, const void* cpv_input, void* pv_output);
-/* compare auxiliary */
-extern void _hashtable_elem_compare_auxiliary(const _hashtable_t* cpt_hashtable,
-    const void* cpv_first, const void* cpv_second, void* pv_output);
+
+/**
+ * Element compare function auxiliary
+ * @param cpt_hashtable         hashtable.
+ * @param cpv_first             first element.
+ * @param cpv_second            second element.
+ * @param pv_output             output.
+ * @return void.
+ * @remarks if cpt_hashtable == NULL or cpv_first == NULL or cpv_second == NULL or pv_output == NULL, the behavior is
+ *          undefined. cpt_hashtable must be initialized or created by _create_hashtable(), otherwise the behavior is
+ *          undefined.
+ */
+extern void _hashtable_elem_compare_auxiliary(
+    const _hashtable_t* cpt_hashtable, const void* cpv_first, const void* cpv_second, void* pv_output);
 
 #ifdef __cplusplus
 }

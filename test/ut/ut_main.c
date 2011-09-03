@@ -63,6 +63,8 @@
 #include "ut_cstl_multimap_iterator.h"
 #include "ut_cstl_multimap.h"
 #include "ut_cstl_hashtable_aux.h"
+#include "ut_cstl_hashtable_private.h"
+#include "ut_cstl_hashtable_iterator.h"
 
 int main(int argc, char* argv[])
 {
@@ -122,7 +124,9 @@ int main(int argc, char* argv[])
         UT_CSTL_MULTIMAP_PRIVATE_CASE,
         UT_CSTL_MULTIMAP_ITERATOR_CASE,
         UT_CSTL_MULTIMAP_CASE,
-        UT_CSTL_HASHTABLE_AUX_CASE
+        UT_CSTL_HASHTABLE_AUX_CASE,
+        UT_CSTL_HASHTABLE_PRIVATE_CASE,
+        UT_CSTL_HASHTABLE_ITERATOR_CASE
     };
 
     return run_tests(tests);

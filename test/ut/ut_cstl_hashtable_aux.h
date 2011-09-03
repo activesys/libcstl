@@ -127,6 +127,17 @@ void test__hashtable_hash_auxiliary__null_output(void** state);
 void test__hashtable_hash_auxiliary__non_inited(void** state);
 void test__hashtable_hash_auxiliary__c_builtin(void** state);
 void test__hashtable_hash_auxiliary__c_str(void** state);
+/*
+ * test _hashtable_elem_compare_auxiliary
+ */
+UT_CASE_DECLARATION(_hashtable_elem_compare_auxiliary)
+void test__hashtable_elem_compare_auxiliary__null_hashtable(void** state);
+void test__hashtable_elem_compare_auxiliary__null_first(void** state);
+void test__hashtable_elem_compare_auxiliary__null_second(void** state);
+void test__hashtable_elem_compare_auxiliary__null_output(void** state);
+void test__hashtable_elem_compare_auxiliary__non_inited(void** state);
+void test__hashtable_elem_compare_auxiliary__int(void** state);
+void test__hashtable_elem_compare_auxiliary__cstr(void** state);
 
 #define UT_CSTL_HASHTABLE_AUX_CASE\
     UT_SUIT_BEGIN(cstl_hashtable_aux, test__hashtable_is_created__null_hashtable),\
@@ -210,6 +221,13 @@ void test__hashtable_hash_auxiliary__c_str(void** state);
     UT_CASE(test__hashtable_hash_auxiliary__non_inited),\
     UT_CASE(test__hashtable_hash_auxiliary__c_builtin),\
     UT_CASE(test__hashtable_hash_auxiliary__c_str),\
+    UT_CASE_BEGIN(_hashtable_elem_compare_auxiliary, test__hashtable_elem_compare_auxiliary__null_hashtable),\
+    UT_CASE(test__hashtable_elem_compare_auxiliary__null_first),\
+    UT_CASE(test__hashtable_elem_compare_auxiliary__null_second),\
+    UT_CASE(test__hashtable_elem_compare_auxiliary__null_output),\
+    UT_CASE(test__hashtable_elem_compare_auxiliary__non_inited),\
+    UT_CASE(test__hashtable_elem_compare_auxiliary__int),\
+    UT_CASE(test__hashtable_elem_compare_auxiliary__cstr)
 
 #endif /* _UT_CSTL_HASHTABLE_AUX_H_ */
 

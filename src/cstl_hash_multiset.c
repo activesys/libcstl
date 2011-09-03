@@ -30,6 +30,7 @@
 #include <cstl/cvector.h>
 #include <cstl/cstl_hashtable_iterator.h>
 #include <cstl/cstl_hashtable_private.h>
+#include <cstl/cstl_hashtable.h>
 
 #include <cstl/cstl_hash_multiset_iterator.h>
 #include <cstl/cstl_hash_multiset_private.h>

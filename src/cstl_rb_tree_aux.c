@@ -1168,7 +1168,7 @@ void _rb_tree_elem_compare_auxiliary(
     assert(cpv_first != NULL);
     assert(cpv_second != NULL);
     assert(pv_output != NULL); 
-    assert(_rb_tree_is_inited(cpt_rb_tree) || _rb_tree_is_created(cpt_rb_tree));
+    assert(_rb_tree_is_inited(cpt_rb_tree));
 
     if(strncmp(_GET_RB_TREE_TYPE_BASENAME(cpt_rb_tree), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
        cpt_rb_tree->_t_compare != _GET_RB_TREE_TYPE_LESS_FUNCTION(cpt_rb_tree))

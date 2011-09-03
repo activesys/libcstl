@@ -30,6 +30,7 @@
 #include <cstl/cvector.h>
 #include <cstl/cstl_hashtable_iterator.h>
 #include <cstl/cstl_hashtable_private.h>
+#include <cstl/cstl_hashtable.h>
 #include <cstl/cutility.h>
 #include <cstl/cstring.h>
 

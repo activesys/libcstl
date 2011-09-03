@@ -5859,7 +5859,7 @@ void test__rb_tree_elem_compare_auxiliary__cstr(void** state)
     string_t* pstr_second = create_string();
     bool_t b_result = false;
     _rb_tree_t* pt_rb_tree = _create_rb_tree("char*");
-    _rb_tree_init(pt_rb_tree, NULL);
+    _rb_tree_init(pt_rb_tree, _test__rb_tree_elem_compare_auxiliary__cstr_compare);
 
     string_init_cstr(pstr_first, "abc");
     string_init_cstr(pstr_second, "xyz");

@@ -42,6 +42,7 @@ cstlinclude_HEADERS =	calgorithm.h \
 			cstl_hash_set.h \
 			cstl_hash_set_iterator.h \
 			cstl_hash_set_private.h \
+			cstl_hashtable.h \
 			cstl_hashtable_iterator.h \
 			cstl_hashtable_private.h \
 			cstl_heap.h \

@@ -32,6 +32,7 @@
 
 #include <cstl/cstl_hashtable_iterator.h>
 #include <cstl/cstl_hashtable_private.h>
+#include <cstl/cstl_hashtable.h>
 
 #include <cstl/cstring.h>
 
@@ -272,6 +273,7 @@ void _hashtable_default_hash(const void* cpv_input, void* pv_output)
     *(size_t*)pv_output = t_sum;
 }
 
+/*
 void _hashnode_init(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
@@ -302,6 +304,7 @@ void _hashnode_destroy(const void* cpv_input, void* pv_output)
     *(_hashnode_t**)cpv_input = NULL;
     *(bool_t*)pv_output = true;
 }
+*/
 
 /**
  * Initialize element auxiliary function
@@ -329,6 +332,9 @@ void _hashtable_init_elem_auxiliary(_hashtable_t* pt_hashtable, _hashnode_t* pt_
     }
 }
 
+/**
+ * hash auxiliary
+ */
 void _hashtable_hash_auxiliary(const _hashtable_t* cpt_hashtable, const void* cpv_input, void* pv_output)
 {
     assert(cpt_hashtable != NULL);
@@ -347,10 +353,17 @@ void _hashtable_hash_auxiliary(const _hashtable_t* cpt_hashtable, const void* cp
     } 
 }
 
-void _hashtable_elem_compare_auxiliary(const _hashtable_t* cpt_hashtable,
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Element compare function auxiliary
+ */
+void _hashtable_elem_compare_auxiliary(
+    const _hashtable_t* cpt_hashtable, const void* cpv_first, const void* cpv_second, void* pv_output)
 {
-    assert(cpt_hashtable != NULL && cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    assert(cpt_hashtable != NULL);
+    assert(cpv_first != NULL);
+    assert(cpv_second != NULL);
+    assert(pv_output != NULL);
+    assert(_hashtable_is_inited(cpt_hashtable));
 
     if(strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
        cpt_hashtable->_t_compare != _GET_HASHTABLE_TYPE_LESS_FUNCTION(cpt_hashtable))
