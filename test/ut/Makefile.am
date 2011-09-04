@@ -99,7 +99,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_multimap.c ut_cstl_multimap.h \
 	     ut_cstl_hashtable_aux.c ut_cstl_hashtable_aux.h \
 	     ut_cstl_hashtable_private.c ut_cstl_hashtable_private.h \
-	     ut_cstl_hashtable_iterator.c ut_cstl_hashtable_iterator.h
+	     ut_cstl_hashtable_iterator.c ut_cstl_hashtable_iterator.h \
+	     ut_cstl_hashtable.c ut_cstl_hashtable.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

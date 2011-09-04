@@ -130,7 +130,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_multimap.$(OBJEXT) \
 	ut-ut_cstl_hashtable_aux.$(OBJEXT) \
 	ut-ut_cstl_hashtable_private.$(OBJEXT) \
-	ut-ut_cstl_hashtable_iterator.$(OBJEXT)
+	ut-ut_cstl_hashtable_iterator.$(OBJEXT) \
+	ut-ut_cstl_hashtable.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -366,7 +367,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_multimap.c ut_cstl_multimap.h \
 	     ut_cstl_hashtable_aux.c ut_cstl_hashtable_aux.h \
 	     ut_cstl_hashtable_private.c ut_cstl_hashtable_private.h \
-	     ut_cstl_hashtable_iterator.c ut_cstl_hashtable_iterator.h
+	     ut_cstl_hashtable_iterator.c ut_cstl_hashtable_iterator.h \
+	     ut_cstl_hashtable.c ut_cstl_hashtable.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -511,6 +513,7 @@ include ./$(DEPDIR)/ut-ut_cstl_deque.Po
 include ./$(DEPDIR)/ut-ut_cstl_deque_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_deque_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_deque_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_hashtable.Po
 include ./$(DEPDIR)/ut-ut_cstl_hashtable_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_hashtable_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_hashtable_private.Po
@@ -2426,6 +2429,20 @@ ut-ut_cstl_hashtable_iterator.obj: ut_cstl_hashtable_iterator.c
 #	source='ut_cstl_hashtable_iterator.c' object='ut-ut_cstl_hashtable_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable_iterator.obj `if test -f 'ut_cstl_hashtable_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_iterator.c'; fi`
+
+ut-ut_cstl_hashtable.o: ut_cstl_hashtable.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable.Tpo -c -o ut-ut_cstl_hashtable.o `test -f 'ut_cstl_hashtable.c' || echo '$(srcdir)/'`ut_cstl_hashtable.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable.Tpo $(DEPDIR)/ut-ut_cstl_hashtable.Po
+#	source='ut_cstl_hashtable.c' object='ut-ut_cstl_hashtable.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable.o `test -f 'ut_cstl_hashtable.c' || echo '$(srcdir)/'`ut_cstl_hashtable.c
+
+ut-ut_cstl_hashtable.obj: ut_cstl_hashtable.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable.Tpo -c -o ut-ut_cstl_hashtable.obj `if test -f 'ut_cstl_hashtable.c'; then $(CYGPATH_W) 'ut_cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable.Tpo $(DEPDIR)/ut-ut_cstl_hashtable.Po
+#	source='ut_cstl_hashtable.c' object='ut-ut_cstl_hashtable.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable.obj `if test -f 'ut_cstl_hashtable.c'; then $(CYGPATH_W) 'ut_cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
