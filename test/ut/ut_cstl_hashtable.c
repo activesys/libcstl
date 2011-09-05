@@ -3382,12 +3382,11 @@ void test__hashtable_greater_equal__equal(void** state)
 /*
  * test _hashtable_swap
  */
-/*
 UT_CASE_DEFINATION(_hashtable_swap)
 void test__hashtable_swap__null_first(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     expect_assert_failure(_hashtable_swap(NULL, pt_hashtable));
 
@@ -3397,7 +3396,7 @@ void test__hashtable_swap__null_first(void** state)
 void test__hashtable_swap__null_second(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     expect_assert_failure(_hashtable_swap(pt_hashtable, NULL));
 
@@ -3409,12 +3408,9 @@ void test__hashtable_swap__non_inited_first(void** state)
     _hashtable_t* pt_first = _create_hashtable("int");
     _hashtable_t* pt_second = _create_hashtable("int");
 
-    _hashtable_init(pt_first, NULL);
-    _hashtable_init(pt_second, NULL);
+    _hashtable_init(pt_second, 0, NULL, NULL);
 
-    pt_first->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_hashtable_swap(pt_first, pt_second));
-    pt_first->_t_rbroot._t_color = RED;
 
     _hashtable_destroy(pt_first);
     _hashtable_destroy(pt_second);
@@ -3425,12 +3421,9 @@ void test__hashtable_swap__non_inited_second(void** state)
     _hashtable_t* pt_first = _create_hashtable("int");
     _hashtable_t* pt_second = _create_hashtable("int");
 
-    _hashtable_init(pt_first, NULL);
-    _hashtable_init(pt_second, NULL);
+    _hashtable_init(pt_first, 0, NULL, NULL);
 
-    pt_second->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_hashtable_swap(pt_first, pt_second));
-    pt_second->_t_rbroot._t_color = RED;
 
     _hashtable_destroy(pt_first);
     _hashtable_destroy(pt_second);
@@ -3441,8 +3434,26 @@ void test__hashtable_swap__not_same_type(void** state)
     _hashtable_t* pt_first = _create_hashtable("int");
     _hashtable_t* pt_second = _create_hashtable("list_t<int>");
 
-    _hashtable_init(pt_first, NULL);
-    _hashtable_init(pt_second, NULL);
+    _hashtable_init(pt_first, 0, NULL, NULL);
+    _hashtable_init(pt_second, 0, NULL, NULL);
+
+    expect_assert_failure(_hashtable_swap(pt_first, pt_second));
+
+    _hashtable_destroy(pt_first);
+    _hashtable_destroy(pt_second);
+}
+
+static void _test__hashtable_swap__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test__hashtable_swap__not_same_hash(void** state)
+{
+    _hashtable_t* pt_first = _create_hashtable("int");
+    _hashtable_t* pt_second = _create_hashtable("int");
+
+    _hashtable_init(pt_first, 0, NULL, NULL);
+    _hashtable_init(pt_second, 0, _test__hashtable_swap__not_same_hash, NULL);
 
     expect_assert_failure(_hashtable_swap(pt_first, pt_second));
 
@@ -3454,7 +3465,7 @@ void test__hashtable_swap__same_hashtable(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     _hashtable_swap(pt_hashtable, pt_hashtable);
     assert_true(_hashtable_empty(pt_hashtable));
 
@@ -3467,8 +3478,8 @@ void test__hashtable_swap__0_swap_n(void** state)
     _hashtable_t* pt_second = _create_hashtable("int");
     int i = 0;
 
-    _hashtable_init(pt_first, NULL);
-    _hashtable_init(pt_second, NULL);
+    _hashtable_init(pt_first, 0, NULL, NULL);
+    _hashtable_init(pt_second, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_second, &i);
@@ -3490,8 +3501,8 @@ void test__hashtable_swap__n_swap_0(void** state)
     _hashtable_t* pt_second = _create_hashtable("int");
     int i = 0;
 
-    _hashtable_init(pt_first, NULL);
-    _hashtable_init(pt_second, NULL);
+    _hashtable_init(pt_first, 0, NULL, NULL);
+    _hashtable_init(pt_second, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_first, &i);
@@ -3513,8 +3524,8 @@ void test__hashtable_swap__n_swap_n(void** state)
     _hashtable_t* pt_second = _create_hashtable("int");
     int i = 0;
 
-    _hashtable_init(pt_first, NULL);
-    _hashtable_init(pt_second, NULL);
+    _hashtable_init(pt_first, 0, NULL, NULL);
+    _hashtable_init(pt_second, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_first, &i);
@@ -3542,8 +3553,8 @@ void test__hashtable_swap__m_swap_n(void** state)
     _hashtable_t* pt_second = _create_hashtable("int");
     int i = 0;
 
-    _hashtable_init(pt_first, NULL);
-    _hashtable_init(pt_second, NULL);
+    _hashtable_init(pt_first, 0, NULL, NULL);
+    _hashtable_init(pt_second, 0, NULL, NULL);
     for(i = 0; i < 30; ++i)
     {
         _hashtable_insert_equal(pt_first, &i);
@@ -3562,7 +3573,6 @@ void test__hashtable_swap__m_swap_n(void** state)
     _hashtable_destroy(pt_first);
     _hashtable_destroy(pt_second);
 }
-*/
 
 /*
  * test _hashtable_insert_unique

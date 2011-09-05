@@ -194,33 +194,36 @@ void _hashtable_resize(_hashtable_t* pt_hashtable, size_t t_resize)
     }
 }
 
-_hashtable_iterator_t _hashtable_insert_equal(
-    _hashtable_t* pt_hashtable, const void* cpv_value)
+/**
+ * Inserts an element into a hashtable.
+ */
+_hashtable_iterator_t _hashtable_insert_equal(_hashtable_t* pt_hashtable, const void* cpv_value)
 {
-    size_t               t_bucketcount = 0;
+    size_t                t_bucketcount = 0;
     _hashnode_t*          pt_node = NULL;
     _hashnode_t*          pt_cur = NULL;
     _hashnode_t**         ppt_nodelist = NULL;
     _hashtable_iterator_t it_iter = _create_hashtable_iterator();
-    bool_t               b_result = false;
-    size_t               t_tmp = 0;
-    size_t               t_pos = 0;
-    bool_t               b_less = false;
-    bool_t               b_greater = false;
+    bool_t                b_result = false;
+    size_t                t_tmp = 0;
+    size_t                t_pos = 0;
+    bool_t                b_less = false;
+    bool_t                b_greater = false;
 
-    assert(pt_hashtable != NULL && cpv_value != NULL);
+    assert(pt_hashtable != NULL);
+    assert(cpv_value != NULL);
+    assert(_hashtable_is_inited(pt_hashtable));
 
     /* resize */
-    _hashtable_resize(pt_hashtable, _hashtable_size(pt_hashtable)+1);
+    _hashtable_resize(pt_hashtable, _hashtable_size(pt_hashtable) + 1);
 
     /* allocate node */
-    pt_node = _alloc_allocate(&pt_hashtable->_t_allocator,
-        _HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)), 1);
+    pt_node = _alloc_allocate(
+        &pt_hashtable->_t_allocator, _HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)), 1);
     assert(pt_node != NULL);
     _hashtable_init_elem_auxiliary(pt_hashtable, pt_node);
     b_result = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
-    _GET_HASHTABLE_TYPE_COPY_FUNCTION(pt_hashtable)(
-        pt_node->_pc_data, cpv_value, &b_result);
+    _GET_HASHTABLE_TYPE_COPY_FUNCTION(pt_hashtable)(pt_node->_pc_data, cpv_value, &b_result);
     assert(b_result);
 
     /* hash */
@@ -280,10 +283,16 @@ _hashtable_iterator_t _hashtable_insert_equal(
     return it_iter;
 }
 
-_hashtable_iterator_t _hashtable_insert_unique(
-    _hashtable_t* pt_hashtable, const void* cpv_value)
+/**
+ * Inserts an unique element into a hashtable.
+ */
+_hashtable_iterator_t _hashtable_insert_unique(_hashtable_t* pt_hashtable, const void* cpv_value)
 {
-    _hashtable_iterator_t t_iter;
+    _hashtable_iterator_t it_iter;
+
+    assert(pt_hashtable != NULL);
+    assert(cpv_value != NULL);
+    assert(_hashtable_is_inited(pt_hashtable));
 
     if(_hashtable_empty(pt_hashtable))
     {
@@ -291,8 +300,8 @@ _hashtable_iterator_t _hashtable_insert_unique(
     }
     else
     {
-        t_iter = _hashtable_find(pt_hashtable, cpv_value);
-        if(!_hashtable_iterator_equal(t_iter, _hashtable_end(pt_hashtable)))
+        it_iter = _hashtable_find(pt_hashtable, cpv_value);
+        if(!_hashtable_iterator_equal(it_iter, _hashtable_end(pt_hashtable)))
         {
             return _hashtable_end(pt_hashtable);
         }
@@ -452,20 +461,25 @@ size_t _hashtable_count(const _hashtable_t* cpt_hashtable, const void* cpv_value
     return abs(_hashtable_iterator_distance(r_range.it_begin, r_range.it_end));
 }
 
-void _hashtable_erase_pos(_hashtable_t* pt_hashtable, _hashtable_iterator_t t_pos)
+/*
+ * Erase an element in an hashtable from specificed position.
+ */
+void _hashtable_erase_pos(_hashtable_t* pt_hashtable, _hashtable_iterator_t it_pos)
 {
     _hashnode_t** ppt_bucket = NULL;
     _hashnode_t*  pt_node = NULL;
     _hashnode_t*  pt_deletion = NULL;
-    bool_t       b_result = false;
+    bool_t        b_result = false;
 
-    assert(_hashtable_iterator_belong_to_hashtable(pt_hashtable, t_pos));
-    assert(!_hashtable_iterator_equal(t_pos, _hashtable_end(pt_hashtable)));
+    assert(pt_hashtable != NULL);
+    assert(_hashtable_is_inited(pt_hashtable));
+    assert(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_pos));
+    assert(!_hashtable_iterator_equal(it_pos, _hashtable_end(pt_hashtable)));
 
     /* get the previous node */
-    ppt_bucket = (_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(t_pos);
+    ppt_bucket = (_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(it_pos);
     pt_node = *ppt_bucket;
-    pt_deletion = (_hashnode_t*)_GET_HASHTABLE_COREPOS(t_pos);
+    pt_deletion = (_hashnode_t*)_GET_HASHTABLE_COREPOS(it_pos);
     if(pt_node == pt_deletion)
     {
         /* the deletion node is the first node of node list */
@@ -490,39 +504,47 @@ void _hashtable_erase_pos(_hashtable_t* pt_hashtable, _hashtable_iterator_t t_po
     b_result = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
     _GET_HASHTABLE_TYPE_DESTROY_FUNCTION(pt_hashtable)(pt_deletion->_pc_data, &b_result);
     assert(b_result);
-    _alloc_deallocate(&pt_hashtable->_t_allocator, pt_deletion,
-        _HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)), 1);
+    _alloc_deallocate(
+        &pt_hashtable->_t_allocator, pt_deletion, _HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)), 1);
     /* update the hashtable size */
     pt_hashtable->_t_nodecount--;
 }
 
+/*
+ * Erase a range of element in an hashtable.
+ */
 void _hashtable_erase_range(
     _hashtable_t* pt_hashtable, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end)
 {
     _hashtable_iterator_t it_iter;
-    _hashtable_iterator_t t_next;
+    _hashtable_iterator_t it_next;
 
+    assert(pt_hashtable != NULL);
+    assert(_hashtable_is_inited(pt_hashtable));
     assert(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_begin));
-    assert(_hashtable_iterator_equal(it_begin, it_end) ||
-           _hashtable_iterator_before(it_begin, it_end));
+    assert(_hashtable_iterator_belong_to_hashtable(pt_hashtable, it_end));
+    assert(_hashtable_iterator_equal(it_begin, it_end) || _hashtable_iterator_before(it_begin, it_end));
 
-    it_iter = t_next = it_begin;
-    if(!_hashtable_iterator_equal(t_next, _hashtable_end(pt_hashtable)))
+    it_iter = it_next = it_begin;
+    if(!_hashtable_iterator_equal(it_next, _hashtable_end(pt_hashtable)))
     {
-        t_next = _hashtable_iterator_next(t_next);
+        it_next = _hashtable_iterator_next(it_next);
     }
     while(!_hashtable_iterator_equal(it_iter, it_end))
     {
         _hashtable_erase_pos(pt_hashtable, it_iter);
 
-        it_iter = t_next;
-        if(!_hashtable_iterator_equal(t_next, _hashtable_end(pt_hashtable)))
+        it_iter = it_next;
+        if(!_hashtable_iterator_equal(it_next, _hashtable_end(pt_hashtable)))
         {
-            t_next = _hashtable_iterator_next(t_next);
+            it_next = _hashtable_iterator_next(it_next);
         }
     }
 }
 
+/**
+ * Erase an element from a hashtable that match a specified element.
+ */
 size_t _hashtable_erase(_hashtable_t* pt_hashtable, const void* cpv_value)
 {
     size_t t_countsize = _hashtable_count(pt_hashtable, cpv_value);
@@ -536,16 +558,27 @@ size_t _hashtable_erase(_hashtable_t* pt_hashtable, const void* cpv_value)
     return t_countsize;
 }
 
-void _hashtable_swap(
-    _hashtable_t* pt_first, _hashtable_t* pt_second)
+/**
+ * Swap the datas of first hashtable and second hashtable.
+ */
+void _hashtable_swap(_hashtable_t* pt_first, _hashtable_t* pt_second)
 {
-    _hashtable_t t_hashtableswap;
+    _hashtable_t t_swap;
 
+    assert(pt_first != NULL);
+    assert(pt_second != NULL);
+    assert(_hashtable_is_inited(pt_first));
+    assert(_hashtable_is_inited(pt_second));
     assert(_hashtable_same_type_ex(pt_first, pt_second));
 
-    t_hashtableswap = *pt_first;
+    if(_hashtable_equal(pt_first, pt_second))
+    {
+        return;
+    }
+
+    t_swap = *pt_first;
     *pt_first = *pt_second;
-    *pt_second = t_hashtableswap;
+    *pt_second = t_swap;
 }
 
 /**
@@ -863,39 +896,43 @@ bool_t _hashtable_greater_equal(const _hashtable_t* cpt_first, const _hashtable_
     return (_hashtable_greater(cpt_first, cpt_second) || _hashtable_equal(cpt_first, cpt_second)) ? true : false;
 }
 
+/**
+ * Inserts an range into a hashtable.
+ */
 void _hashtable_insert_equal_range(
     _hashtable_t* pt_hashtable, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end)
 {
     _hashtable_iterator_t it_iter;
 
+    assert(pt_hashtable != NULL);
+    assert(_hashtable_is_inited(pt_hashtable));
     assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_begin));
-    assert(_hashtable_iterator_equal(it_begin, it_end) ||
-           _hashtable_iterator_before(it_begin, it_end));
+    assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_end));
+    assert(_hashtable_iterator_equal(it_begin, it_end) || _hashtable_iterator_before(it_begin, it_end));
 
-    for(it_iter = it_begin;
-        !_hashtable_iterator_equal(it_iter, it_end);
-        it_iter = _hashtable_iterator_next(it_iter))
+    for(it_iter = it_begin; !_hashtable_iterator_equal(it_iter, it_end); it_iter = _hashtable_iterator_next(it_iter))
     {
-        _hashtable_insert_equal(
-            pt_hashtable, ((_hashnode_t*)_GET_HASHTABLE_COREPOS(it_iter))->_pc_data);
+        _hashtable_insert_equal(pt_hashtable, ((_hashnode_t*)_GET_HASHTABLE_COREPOS(it_iter))->_pc_data);
     }
 }
 
+/**
+ * Inserts an range of unique element into a hashtable.
+ */
 void _hashtable_insert_unique_range(
     _hashtable_t* pt_hashtable, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end)
 {
     _hashtable_iterator_t it_iter;
 
+    assert(pt_hashtable != NULL);
+    assert(_hashtable_is_inited(pt_hashtable));
     assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_begin));
-    assert(_hashtable_iterator_equal(it_begin, it_end) ||
-           _hashtable_iterator_before(it_begin, it_end));
+    assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_end));
+    assert(_hashtable_iterator_equal(it_begin, it_end) || _hashtable_iterator_before(it_begin, it_end));
 
-    for(it_iter = it_begin;
-        !_hashtable_iterator_equal(it_iter, it_end);
-        it_iter = _hashtable_iterator_next(it_iter))
+    for(it_iter = it_begin; !_hashtable_iterator_equal(it_iter, it_end); it_iter = _hashtable_iterator_next(it_iter))
     {
-        _hashtable_insert_unique(
-            pt_hashtable, ((_hashnode_t*)_GET_HASHTABLE_COREPOS(it_iter))->_pc_data);
+        _hashtable_insert_unique(pt_hashtable, ((_hashnode_t*)_GET_HASHTABLE_COREPOS(it_iter))->_pc_data);
     }
 }
 

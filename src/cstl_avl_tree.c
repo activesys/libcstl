@@ -633,6 +633,11 @@ void _avl_tree_swap(_avl_tree_t* pt_first, _avl_tree_t* pt_second)
     assert(_avl_tree_is_inited(pt_second));
     assert(_avl_tree_same_type_ex(pt_first, pt_second));
 
+    if(_avl_tree_equal(pt_first, pt_second))
+    {
+        return;
+    }
+
     t_temp = *pt_first;
     *pt_first = *pt_second;
     *pt_second = t_temp;

@@ -307,19 +307,18 @@ void test__hashtable_greater_equal__equal(void** state);
 /*
  * test _hashtable_swap
  */
-/*
 UT_CASE_DECLARATION(_hashtable_swap)
 void test__hashtable_swap__null_first(void** state);
 void test__hashtable_swap__null_second(void** state);
 void test__hashtable_swap__non_inited_first(void** state);
 void test__hashtable_swap__non_inited_second(void** state);
 void test__hashtable_swap__not_same_type(void** state);
+void test__hashtable_swap__not_same_hash(void** state);
 void test__hashtable_swap__same_hashtable(void** state);
 void test__hashtable_swap__0_swap_n(void** state);
 void test__hashtable_swap__n_swap_0(void** state);
 void test__hashtable_swap__n_swap_n(void** state);
 void test__hashtable_swap__m_swap_n(void** state);
-*/
 /*
  * test _hashtable_insert_unique
  */
@@ -647,17 +646,18 @@ void test__hashtable_erase__user_define_n(void** state);
     UT_CASE(test__hashtable_greater_equal__size_equal_elem_first_greater_than_second),\
     UT_CASE(test__hashtable_greater_equal__compare_less),\
     UT_CASE(test__hashtable_greater_equal__equal),\
-/*
     UT_CASE_BEGIN(_hashtable_swap, test__hashtable_swap__null_first),\
     UT_CASE(test__hashtable_swap__null_second),\
     UT_CASE(test__hashtable_swap__non_inited_first),\
     UT_CASE(test__hashtable_swap__non_inited_second),\
     UT_CASE(test__hashtable_swap__not_same_type),\
+    UT_CASE(test__hashtable_swap__not_same_hash),\
     UT_CASE(test__hashtable_swap__same_hashtable),\
     UT_CASE(test__hashtable_swap__0_swap_n),\
     UT_CASE(test__hashtable_swap__n_swap_0),\
     UT_CASE(test__hashtable_swap__n_swap_n),\
     UT_CASE(test__hashtable_swap__m_swap_n),\
+/*
     UT_CASE_BEGIN(_hashtable_insert_unique, test__hashtable_insert_unique__null_hashtable),\
     UT_CASE(test__hashtable_insert_unique__null_value),\
     UT_CASE(test__hashtable_insert_unique__non_inited),\
