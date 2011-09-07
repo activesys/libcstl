@@ -146,12 +146,15 @@ void _hashtable_destroy(_hashtable_t* pt_hashtable)
     free(pt_hashtable);
 }
 
+/**
+ * Resize.
+ */
 void _hashtable_resize(_hashtable_t* pt_hashtable, size_t t_resize)
 {
-    size_t       t_tmp = 0;
-    size_t       t_pos = 0;
-    size_t       i = 0;
-    size_t       t_bucketcount = 0;
+    size_t        t_tmp = 0;
+    size_t        t_pos = 0;
+    size_t        i = 0;
+    size_t        t_bucketcount = 0;
     _hashnode_t*  pt_node = NULL;
     _hashnode_t*  pt_nodelist = NULL;
     _hashnode_t** ppt_bucket = NULL;

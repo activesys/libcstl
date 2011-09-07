@@ -3577,7 +3577,6 @@ void test__hashtable_swap__m_swap_n(void** state)
 /*
  * test _hashtable_insert_unique
  */
-/*
 UT_CASE_DEFINATION(_hashtable_insert_unique)
 void test__hashtable_insert_unique__null_hashtable(void** state)
 {
@@ -3588,7 +3587,7 @@ void test__hashtable_insert_unique__null_hashtable(void** state)
 void test__hashtable_insert_unique__null_value(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     expect_assert_failure(_hashtable_insert_unique(pt_hashtable, NULL));
 
@@ -3599,11 +3598,8 @@ void test__hashtable_insert_unique__non_inited(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
     int elem = 9;
-    _hashtable_init(pt_hashtable, NULL);
 
-    pt_hashtable->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_hashtable_insert_unique(pt_hashtable, &elem));
-    pt_hashtable->_t_rbroot._t_color = RED;
 
     _hashtable_destroy(pt_hashtable);
 }
@@ -3615,7 +3611,7 @@ void test__hashtable_insert_unique__c_builtin_equal(void** state)
     int elem;
     int i;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_unique(pt_hashtable, &i);
@@ -3636,7 +3632,7 @@ void test__hashtable_insert_unique__c_builtin_not_equal(void** state)
     int elem;
     int i;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_unique(pt_hashtable, &i);
@@ -3656,7 +3652,7 @@ void test__hashtable_insert_unique__cstr_equal(void** state)
     _hashtable_iterator_t it_iter;
     string_t* pstr = create_string();
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     string_init(pstr);
     string_assign_cstr(pstr, "aaa");
     _hashtable_insert_unique(pt_hashtable, pstr);
@@ -3684,7 +3680,7 @@ void test__hashtable_insert_unique__cstr_not_equal(void** state)
     _hashtable_iterator_t it_iter;
     string_t* pstr = create_string();
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     string_init(pstr);
     string_assign_cstr(pstr, "aaa");
     _hashtable_insert_unique(pt_hashtable, pstr);
@@ -3706,6 +3702,16 @@ void test__hashtable_insert_unique__cstr_not_equal(void** state)
     string_destroy(pstr);
 }
 
+static void _test__hashtable_insert_unique__libcstl_hash(const void* cpv_input, void* pv_output)
+{
+    list_t* plist = (list_t*)cpv_input;
+    list_iterator_t it_iter;
+
+    for(it_iter = list_begin(plist); !iterator_equal(it_iter, list_end(plist)); it_iter = iterator_next(it_iter))
+    {
+        *(size_t*)pv_output += *(int*)iterator_get_pointer(it_iter);
+    }
+}
 void test__hashtable_insert_unique__libcstl_builtin_equal(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("list_t<int>");
@@ -3713,7 +3719,7 @@ void test__hashtable_insert_unique__libcstl_builtin_equal(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, _test__hashtable_insert_unique__libcstl_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -3740,7 +3746,7 @@ void test__hashtable_insert_unique__libcstl_builtin_not_equal(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, _test__hashtable_insert_unique__libcstl_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -3774,7 +3780,7 @@ void test__hashtable_insert_unique__user_define_equal(void** state)
     type_register(_test__hashtable_insert_unique__user_define_t, NULL, NULL, NULL, NULL);
 
     pt_hashtable = _create_hashtable("_test__hashtable_insert_unique__user_define_t");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     for(i = 0; i < 10; ++i)
     {
@@ -3797,7 +3803,7 @@ void test__hashtable_insert_unique__user_define_not_equal(void** state)
     _test__hashtable_insert_unique__user_define_t elem;
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     for(i = 0; i < 10; ++i)
     {
@@ -3812,12 +3818,10 @@ void test__hashtable_insert_unique__user_define_not_equal(void** state)
 
     _hashtable_destroy(pt_hashtable);
 }
-*/
 
 /*
  * test _hashtable_insert_equal
  */
-/*
 UT_CASE_DEFINATION(_hashtable_insert_equal)
 void test__hashtable_insert_equal__null_hashtable(void** state)
 {
@@ -3828,7 +3832,7 @@ void test__hashtable_insert_equal__null_hashtable(void** state)
 void test__hashtable_insert_equal__null_value(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     expect_assert_failure(_hashtable_insert_equal(pt_hashtable, NULL));
 
@@ -3839,11 +3843,8 @@ void test__hashtable_insert_equal__non_inited(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
     int elem = 9;
-    _hashtable_init(pt_hashtable, NULL);
 
-    pt_hashtable->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_hashtable_insert_equal(pt_hashtable, &elem));
-    pt_hashtable->_t_rbroot._t_color = RED;
 
     _hashtable_destroy(pt_hashtable);
 }
@@ -3855,7 +3856,7 @@ void test__hashtable_insert_equal__c_builtin_equal(void** state)
     int elem;
     int i;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_hashtable, &i);
@@ -3877,7 +3878,7 @@ void test__hashtable_insert_equal__c_builtin_not_equal(void** state)
     int elem;
     int i;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_hashtable, &i);
@@ -3897,7 +3898,7 @@ void test__hashtable_insert_equal__cstr_equal(void** state)
     _hashtable_iterator_t it_iter;
     string_t* pstr = create_string();
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     string_init(pstr);
     string_assign_cstr(pstr, "aaa");
     _hashtable_insert_equal(pt_hashtable, pstr);
@@ -3926,7 +3927,7 @@ void test__hashtable_insert_equal__cstr_not_equal(void** state)
     _hashtable_iterator_t it_iter;
     string_t* pstr = create_string();
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     string_init(pstr);
     string_assign_cstr(pstr, "aaa");
     _hashtable_insert_equal(pt_hashtable, pstr);
@@ -3955,7 +3956,7 @@ void test__hashtable_insert_equal__libcstl_builtin_equal(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, _test__hashtable_insert_unique__libcstl_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -3983,7 +3984,7 @@ void test__hashtable_insert_equal__libcstl_builtin_not_equal(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, _test__hashtable_insert_unique__libcstl_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -4017,7 +4018,7 @@ void test__hashtable_insert_equal__user_define_equal(void** state)
     type_register(_test__hashtable_insert_equal__user_define_t, NULL, NULL, NULL, NULL);
 
     pt_hashtable = _create_hashtable("_test__hashtable_insert_equal__user_define_t");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     for(i = 0; i < 10; ++i)
     {
@@ -4041,7 +4042,7 @@ void test__hashtable_insert_equal__user_define_not_equal(void** state)
     _test__hashtable_insert_equal__user_define_t elem;
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     for(i = 0; i < 10; ++i)
     {
@@ -4056,17 +4057,15 @@ void test__hashtable_insert_equal__user_define_not_equal(void** state)
 
     _hashtable_destroy(pt_hashtable);
 }
-*/
 
 /*
  * test _hashtable_insert_unique_range
  */
-/*
 UT_CASE_DEFINATION(_hashtable_insert_unique_range)
 void test__hashtable_insert_unique_range__null_hashtable(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     expect_assert_failure(_hashtable_insert_unique_range(NULL, _hashtable_begin(pt_hashtable), _hashtable_end(pt_hashtable)));
 
@@ -4080,14 +4079,11 @@ void test__hashtable_insert_unique_range__non_inited(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
-    pt_dest->_t_rbroot._t_color = BLACK;
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
     expect_assert_failure(_hashtable_insert_unique_range(pt_dest, it_begin, it_end));
-    pt_dest->_t_rbroot._t_color = RED;
 
     _hashtable_destroy(pt_dest);
     _hashtable_destroy(pt_src);
@@ -4100,12 +4096,12 @@ void test__hashtable_insert_unique_range__invalid_begin(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    it_begin._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(_hashtable_insert_unique_range(pt_dest, it_begin, it_end));
 
     _hashtable_destroy(pt_dest);
@@ -4119,12 +4115,12 @@ void test__hashtable_insert_unique_range__invalid_end(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    it_end._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(_hashtable_insert_unique_range(pt_dest, it_begin, it_end));
 
     _hashtable_destroy(pt_dest);
@@ -4139,8 +4135,8 @@ void test__hashtable_insert_unique_range__invalid_range(void** state)
     _hashtable_iterator_t it_end;
     int elem = 0;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
     _hashtable_insert_unique(pt_src, &elem);
 
     it_begin = _hashtable_begin(pt_src);
@@ -4158,8 +4154,8 @@ void test__hashtable_insert_unique_range__not_same_type(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
@@ -4176,8 +4172,8 @@ void test__hashtable_insert_unique_range__empty(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
@@ -4196,8 +4192,8 @@ void test__hashtable_insert_unique_range__non_empty_equal(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4224,8 +4220,8 @@ void test__hashtable_insert_unique_range__non_empty_dest_src_dup(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4252,8 +4248,8 @@ void test__hashtable_insert_unique_range__non_empty_src_dup(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4284,8 +4280,8 @@ void test__hashtable_insert_unique_range__compare(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, _test__hashtable_insert_unique_range__compare);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, _test__hashtable_insert_unique_range__compare);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
@@ -4294,17 +4290,15 @@ void test__hashtable_insert_unique_range__compare(void** state)
     _hashtable_destroy(pt_dest);
     _hashtable_destroy(pt_src);
 }
-*/
 
 /*
  * test _hashtable_insert_equal_range
  */
-/*
 UT_CASE_DEFINATION(_hashtable_insert_equal_range)
 void test__hashtable_insert_equal_range__null_hashtable(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     expect_assert_failure(_hashtable_insert_equal_range(NULL, _hashtable_begin(pt_hashtable), _hashtable_end(pt_hashtable)));
 
@@ -4318,14 +4312,11 @@ void test__hashtable_insert_equal_range__non_inited(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
-    pt_dest->_t_rbroot._t_color = BLACK;
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
     expect_assert_failure(_hashtable_insert_equal_range(pt_dest, it_begin, it_end));
-    pt_dest->_t_rbroot._t_color = RED;
 
     _hashtable_destroy(pt_dest);
     _hashtable_destroy(pt_src);
@@ -4338,12 +4329,12 @@ void test__hashtable_insert_equal_range__invalid_begin(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    it_begin._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(_hashtable_insert_equal_range(pt_dest, it_begin, it_end));
 
     _hashtable_destroy(pt_dest);
@@ -4357,12 +4348,12 @@ void test__hashtable_insert_equal_range__invalid_end(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    it_end._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(_hashtable_insert_equal_range(pt_dest, it_begin, it_end));
 
     _hashtable_destroy(pt_dest);
@@ -4377,8 +4368,8 @@ void test__hashtable_insert_equal_range__invalid_range(void** state)
     _hashtable_iterator_t it_end;
     int elem = 0;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
     _hashtable_insert_unique(pt_src, &elem);
 
     it_begin = _hashtable_begin(pt_src);
@@ -4396,8 +4387,8 @@ void test__hashtable_insert_equal_range__not_same_type(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
@@ -4414,8 +4405,8 @@ void test__hashtable_insert_equal_range__empty(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
@@ -4434,8 +4425,8 @@ void test__hashtable_insert_equal_range__non_empty_equal(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4462,8 +4453,8 @@ void test__hashtable_insert_equal_range__non_empty_dest_src_dup(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4490,8 +4481,8 @@ void test__hashtable_insert_equal_range__non_empty_src_dup(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4522,8 +4513,8 @@ void test__hashtable_insert_equal_range__compare(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
-    _hashtable_init(pt_src, _test__hashtable_insert_equal_range__compare);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    _hashtable_init(pt_src, 0, NULL, _test__hashtable_insert_equal_range__compare);
 
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
@@ -4532,19 +4523,17 @@ void test__hashtable_insert_equal_range__compare(void** state)
     _hashtable_destroy(pt_dest);
     _hashtable_destroy(pt_src);
 }
-*/
 
 /*
  * test _hashtable_erase_pos
  */
-/*
 UT_CASE_DEFINATION(_hashtable_erase_pos)
 void test__hashtable_erase_pos__null_hashtable(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
     int elem = 9;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     _hashtable_insert_unique(pt_hashtable, &elem);
     expect_assert_failure(_hashtable_erase_pos(NULL, _hashtable_begin(pt_hashtable)));
 
@@ -4557,12 +4546,12 @@ void test__hashtable_erase_pos__non_inited(void** state)
     _hashtable_iterator_t it_pos;
     int elem = 9;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     _hashtable_insert_unique(pt_hashtable, &elem);
     it_pos = _hashtable_begin(pt_hashtable);
-    pt_hashtable->_t_rbroot._t_color = BLACK;
+    pt_hashtable->_t_typeinfo._t_style = 9999;
     expect_assert_failure(_hashtable_erase_pos(pt_hashtable, it_pos));
-    pt_hashtable->_t_rbroot._t_color = RED;
+    pt_hashtable->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     _hashtable_destroy(pt_hashtable);
 }
@@ -4573,10 +4562,10 @@ void test__hashtable_erase_pos__invalid_pos(void** state)
     _hashtable_iterator_t it_pos;
     int elem = 9;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     _hashtable_insert_unique(pt_hashtable, &elem);
     it_pos = _hashtable_begin(pt_hashtable);
-    it_pos._t_pos._t_treepos._pby_corepos = NULL;
+    it_pos._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(_hashtable_erase_pos(pt_hashtable, it_pos));
 
     _hashtable_destroy(pt_hashtable);
@@ -4588,7 +4577,7 @@ void test__hashtable_erase_pos__end(void** state)
     _hashtable_iterator_t it_pos;
     int elem = 9;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     _hashtable_insert_unique(pt_hashtable, &elem);
     it_pos = _hashtable_end(pt_hashtable);
     expect_assert_failure(_hashtable_erase_pos(pt_hashtable, it_pos));
@@ -4602,7 +4591,7 @@ void test__hashtable_erase_pos__begin(void** state)
     _hashtable_iterator_t it_pos;
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_unique(pt_hashtable, &i);
@@ -4623,7 +4612,7 @@ void test__hashtable_erase_pos__middle(void** state)
     _hashtable_iterator_t it_pos;
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_unique(pt_hashtable, &i);
@@ -4645,7 +4634,7 @@ void test__hashtable_erase_pos__last(void** state)
     _hashtable_iterator_t it_pos;
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_unique(pt_hashtable, &i);
@@ -4666,7 +4655,7 @@ void test__hashtable_erase_pos__erase_empty(void** state)
     _hashtable_iterator_t it_pos;
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     _hashtable_insert_unique(pt_hashtable, &i);
     assert_true(_hashtable_size(pt_hashtable) == 1);
     it_pos = _hashtable_begin(pt_hashtable);
@@ -4675,17 +4664,15 @@ void test__hashtable_erase_pos__erase_empty(void** state)
 
     _hashtable_destroy(pt_hashtable);
 }
-*/
 
 /*
  * test _hashtable_erase_range
  */
-/*
 UT_CASE_DEFINATION(_hashtable_erase_range)
 void test__hashtable_erase_range__null_hashtable(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     expect_assert_failure(_hashtable_erase_range(NULL, _hashtable_begin(pt_hashtable), _hashtable_end(pt_hashtable)));
 
@@ -4698,13 +4685,13 @@ void test__hashtable_erase_range__non_inited(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_dest);
     it_end = _hashtable_end(pt_dest);
-    pt_dest->_t_rbroot._t_color = BLACK;
+    pt_dest->_t_typeinfo._t_style = 9999;
     expect_assert_failure(_hashtable_erase_range(pt_dest, it_begin, it_end));
-    pt_dest->_t_rbroot._t_color = RED;
+    pt_dest->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     _hashtable_destroy(pt_dest);
 }
@@ -4715,11 +4702,11 @@ void test__hashtable_erase_range__invalid_begin(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_dest);
     it_end = _hashtable_end(pt_dest);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    it_begin._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(_hashtable_erase_range(pt_dest, it_begin, it_end));
 
     _hashtable_destroy(pt_dest);
@@ -4731,11 +4718,11 @@ void test__hashtable_erase_range__invalid_end(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_dest);
     it_end = _hashtable_end(pt_dest);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    it_end._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(_hashtable_erase_range(pt_dest, it_begin, it_end));
 
     _hashtable_destroy(pt_dest);
@@ -4748,7 +4735,7 @@ void test__hashtable_erase_range__invalid_range(void** state)
     _hashtable_iterator_t it_end;
     int elem = 0;
 
-    _hashtable_init(pt_dest, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
     _hashtable_insert_unique(pt_dest, &elem);
 
     it_begin = _hashtable_begin(pt_dest);
@@ -4764,7 +4751,7 @@ void test__hashtable_erase_range__empty(void** state)
     _hashtable_iterator_t it_begin;
     _hashtable_iterator_t it_end;
 
-    _hashtable_init(pt_dest, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
 
     it_begin = _hashtable_begin(pt_dest);
     it_end = _hashtable_end(pt_dest);
@@ -4781,7 +4768,7 @@ void test__hashtable_erase_range__begin(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4803,7 +4790,7 @@ void test__hashtable_erase_range__middle(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4827,7 +4814,7 @@ void test__hashtable_erase_range__end(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4850,7 +4837,7 @@ void test__hashtable_erase_range__all(void** state)
     _hashtable_iterator_t it_end;
     int i = 0;
 
-    _hashtable_init(pt_dest, NULL);
+    _hashtable_init(pt_dest, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_dest, &i);
@@ -4863,12 +4850,10 @@ void test__hashtable_erase_range__all(void** state)
 
     _hashtable_destroy(pt_dest);
 }
-*/
 
 /*
  * test _hashtable_erase
  */
-/*
 UT_CASE_DEFINATION(_hashtable_erase)
 void test__hashtable_erase__null_hashtable(void** state)
 {
@@ -4879,7 +4864,7 @@ void test__hashtable_erase__null_hashtable(void** state)
 void test__hashtable_erase__null_value(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     expect_assert_failure(_hashtable_erase(pt_hashtable, NULL));
 
@@ -4890,11 +4875,8 @@ void test__hashtable_erase__non_inited(void** state)
 {
     _hashtable_t* pt_hashtable = _create_hashtable("int");
     int elem = 9;
-    _hashtable_init(pt_hashtable, NULL);
 
-    pt_hashtable->_t_rbroot._t_color = BLACK;
     expect_assert_failure(_hashtable_erase(pt_hashtable, &elem));
-    pt_hashtable->_t_rbroot._t_color = RED;
 
     _hashtable_destroy(pt_hashtable);
 }
@@ -4905,7 +4887,7 @@ void test__hashtable_erase__c_builtin_0(void** state)
     int elem;
     int i;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_hashtable, &i);
@@ -4924,7 +4906,7 @@ void test__hashtable_erase__c_builtin_1(void** state)
     int elem;
     int i;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_hashtable, &i);
@@ -4944,7 +4926,7 @@ void test__hashtable_erase__c_builtin_n(void** state)
     int elem;
     int i;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     for(i = 0; i < 10; ++i)
     {
         _hashtable_insert_equal(pt_hashtable, &i);
@@ -4965,7 +4947,7 @@ void test__hashtable_erase__cstr_0(void** state)
     _hashtable_t* pt_hashtable = _create_hashtable("char*");
     string_t* pstr = create_string();
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     string_init(pstr);
     string_assign_cstr(pstr, "aaa");
     _hashtable_insert_equal(pt_hashtable, pstr);
@@ -4991,7 +4973,7 @@ void test__hashtable_erase__cstr_1(void** state)
     _hashtable_t* pt_hashtable = _create_hashtable("char*");
     string_t* pstr = create_string();
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     string_init(pstr);
     string_assign_cstr(pstr, "aaa");
     _hashtable_insert_equal(pt_hashtable, pstr);
@@ -5018,7 +5000,7 @@ void test__hashtable_erase__cstr_n(void** state)
     _hashtable_t* pt_hashtable = _create_hashtable("char*");
     string_t* pstr = create_string();
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
     string_init(pstr);
     string_assign_cstr(pstr, "aaa");
     _hashtable_insert_equal(pt_hashtable, pstr);
@@ -5049,7 +5031,7 @@ void test__hashtable_erase__libcstl_builtin_0(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, _test__hashtable_insert_unique__libcstl_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -5074,7 +5056,7 @@ void test__hashtable_erase__libcstl_builtin_1(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, _test__hashtable_insert_unique__libcstl_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -5100,7 +5082,7 @@ void test__hashtable_erase__libcstl_builtin_n(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, _test__hashtable_insert_unique__libcstl_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -5134,7 +5116,7 @@ void test__hashtable_erase__user_define_0(void** state)
     type_register(_test__hashtable_erase__user_define_t, NULL, NULL, NULL, NULL);
 
     pt_hashtable = _create_hashtable("_test__hashtable_erase__user_define_t");
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     for(i = 0; i < 10; ++i)
     {
@@ -5155,7 +5137,7 @@ void test__hashtable_erase__user_define_1(void** state)
     _test__hashtable_insert_equal__user_define_t elem;
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     for(i = 0; i < 10; ++i)
     {
@@ -5177,7 +5159,7 @@ void test__hashtable_erase__user_define_n(void** state)
     _test__hashtable_insert_equal__user_define_t elem;
     int i = 0;
 
-    _hashtable_init(pt_hashtable, NULL);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
 
     for(i = 0; i < 10; ++i)
     {
@@ -5194,5 +5176,82 @@ void test__hashtable_erase__user_define_n(void** state)
 
     _hashtable_destroy(pt_hashtable);
 }
-*/
+
+/*
+ * test _hashtable_resize
+ */
+UT_CASE_DEFINATION(_hashtable_resize)
+void test__hashtable_resize__null_hashtable(void** state)
+{
+    expect_assert_failure(_hashtable_resize(NULL, 200));
+}
+
+void test__hashtable_resize__non_inited(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+
+    expect_assert_failure(_hashtable_resize(pt_hashtable, 300));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_resize__less_bucketcount(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    int i;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_hashtable, &i);
+    }
+
+    assert_true(_hashtable_bucket_count(pt_hashtable) == 53);
+    assert_true(_hashtable_size(pt_hashtable) == 10);
+    _hashtable_resize(pt_hashtable, 5);
+    assert_true(_hashtable_bucket_count(pt_hashtable) == 53);
+    assert_true(_hashtable_size(pt_hashtable) == 10);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_resize__equal_bucketcount(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    int i;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_hashtable, &i);
+    }
+
+    assert_true(_hashtable_bucket_count(pt_hashtable) == 53);
+    assert_true(_hashtable_size(pt_hashtable) == 10);
+    _hashtable_resize(pt_hashtable, 53);
+    assert_true(_hashtable_bucket_count(pt_hashtable) == 53);
+    assert_true(_hashtable_size(pt_hashtable) == 10);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_resize__greater_bucketcount(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    int i;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_hashtable, &i);
+    }
+
+    assert_true(_hashtable_bucket_count(pt_hashtable) == 53);
+    assert_true(_hashtable_size(pt_hashtable) == 10);
+    _hashtable_resize(pt_hashtable, 100);
+    assert_true(_hashtable_bucket_count(pt_hashtable) == 193);
+    assert_true(_hashtable_size(pt_hashtable) == 10);
+
+    _hashtable_destroy(pt_hashtable);
+}
 

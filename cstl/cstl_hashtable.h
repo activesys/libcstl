@@ -289,8 +289,13 @@ extern bool_t _hashtable_greater(const _hashtable_t* cpt_first, const _hashtable
  */
 extern bool_t _hashtable_greater_equal(const _hashtable_t* cpt_first, const _hashtable_t* cpt_second);
 
-/*
- * Resize operation function.
+/**
+ * Resize.
+ * @param pt_hashtable      hashtable container.
+ * @param t_resize          resize hashtable bucket count.
+ * @return void.
+ * @remarks if pt_hashtable == NULL, the behavior is undefined, pt_hashtable must be initialized,otherwise the behavior
+ *          is undefined.
  */
 extern void _hashtable_resize(_hashtable_t* pt_hashtable, size_t t_resize);
 
