@@ -138,7 +138,7 @@ void test__hashtable_init__non_null_hash(void** state)
 
     _hashtable_init(pt_hashtable, 0, _test__hashtable_init__non_null_hash, NULL);
     assert_true(_hashtable_is_inited(pt_hashtable));
-    assert_true(pt_hashtable->_t_hash == _test__hashtable_init__non_null_hash);
+    assert_true(pt_hashtable->_ufun_hash == _test__hashtable_init__non_null_hash);
 
     _hashtable_destroy(pt_hashtable);
 }
@@ -163,7 +163,7 @@ void test__hashtable_init__non_null_compare(void** state)
 
     _hashtable_init(pt_hashtable, 0, NULL, _test__hashtable_init__non_null_compare);
     assert_true(_hashtable_is_inited(pt_hashtable));
-    assert_true(pt_hashtable->_t_compare == _test__hashtable_init__non_null_compare);
+    assert_true(pt_hashtable->_bfun_compare == _test__hashtable_init__non_null_compare);
 
     _hashtable_destroy(pt_hashtable);
 }
@@ -276,7 +276,7 @@ void test__hashtable_init_copy__non_null_hash(void** state)
     _hashtable_init_copy(pt_dest, pt_src);
     assert_true(_hashtable_is_inited(pt_dest));
     assert_true(_hashtable_size(pt_dest) == 10);
-    assert_true(pt_dest->_t_hash == _test__hashtable_init_copy__non_null_hash);
+    assert_true(pt_dest->_ufun_hash == _test__hashtable_init_copy__non_null_hash);
 
     _hashtable_destroy(pt_dest);
     _hashtable_destroy(pt_src);
@@ -300,7 +300,7 @@ void test__hashtable_init_copy__non_null_compare(void** state)
     _hashtable_init_copy(pt_dest, pt_src);
     assert_true(_hashtable_is_inited(pt_dest));
     assert_true(_hashtable_size(pt_dest) == 10);
-    assert_true(pt_dest->_t_compare == _test__hashtable_init_copy__non_null_compare);
+    assert_true(pt_dest->_bfun_compare == _test__hashtable_init_copy__non_null_compare);
 
     _hashtable_destroy(pt_dest);
     _hashtable_destroy(pt_src);
@@ -361,7 +361,7 @@ void test__hashtable_init_copy_range__invalid_end(void** state)
     _hashtable_init(pt_src, 0, NULL, NULL);
     it_begin = _hashtable_begin(pt_src);
     it_end = _hashtable_end(pt_src);
-    it_end._t_pos._t_hashpos._pc_corepos = (char*)0x3333;
+    it_end._t_pos._t_hashpos._pby_corepos = (char*)0x3333;
     expect_assert_failure(_hashtable_init_copy_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
 
     _hashtable_destroy(pt_dest);
@@ -508,7 +508,7 @@ void test__hashtable_init_copy_range__non_null_compare(void** state)
     assert_true(_hashtable_is_inited(pt_dest));
     assert_true(_hashtable_size(pt_dest) == 1);
     assert_true(_hashtable_bucket_count(pt_dest) == 53);
-    assert_true(pt_dest->_t_compare == _test__hashtable_init_copy_range__non_null_compare);
+    assert_true(pt_dest->_bfun_compare == _test__hashtable_init_copy_range__non_null_compare);
 
     _hashtable_destroy(pt_dest);
     _hashtable_destroy(pt_src);

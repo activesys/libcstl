@@ -176,13 +176,13 @@ void _debug_hash_multiset_user(const hash_multiset_t* cpt_hmset)
         hash_multiset_max_size(cpt_hmset), hash_multiset_bucket_count(cpt_hmset));
     for(t_index = 0; t_index < hash_multiset_bucket_count(cpt_hmset); ++t_index)
     {
-        _hashnode_t** ppt_bucket = (_hashnode_t**)vector_at(&cpt_hmset->_t_hashtable._t_bucket, t_index);
+        _hashnode_t** ppt_bucket = (_hashnode_t**)vector_at(&cpt_hmset->_t_hashtable._vec_bucket, t_index);
         _hashnode_t*  pt_node = *ppt_bucket;
         printf("[%u]", t_index);
         while(pt_node != NULL)
         {
-            printf("->[%lf,%ld]", ((hash_sample_t*)(pt_node->_pc_data))->_d_first,
-                ((hash_sample_t*)(pt_node->_pc_data))->_l_second);
+            printf("->[%lf,%ld]", ((hash_sample_t*)(pt_node->_pby_data))->_d_first,
+                ((hash_sample_t*)(pt_node->_pby_data))->_l_second);
             pt_node = pt_node->_pt_next;
         }
         printf("\n");
@@ -199,13 +199,13 @@ void _debug_hash_set_user(const hash_set_t* cpt_hset)
         hash_set_max_size(cpt_hset), hash_set_bucket_count(cpt_hset));
     for(t_index = 0; t_index < hash_set_bucket_count(cpt_hset); ++t_index)
     {
-        _hashnode_t** ppt_bucket = (_hashnode_t**)vector_at(&cpt_hset->_t_hashtable._t_bucket, t_index);
+        _hashnode_t** ppt_bucket = (_hashnode_t**)vector_at(&cpt_hset->_t_hashtable._vec_bucket, t_index);
         _hashnode_t*  pt_node = *ppt_bucket;
         printf("[%u]", t_index);
         while(pt_node != NULL)
         {
-            printf("->[%lf,%ld]", ((hash_sample_t*)(pt_node->_pc_data))->_d_first,
-                ((hash_sample_t*)(pt_node->_pc_data))->_l_second);
+            printf("->[%lf,%ld]", ((hash_sample_t*)(pt_node->_pby_data))->_d_first,
+                ((hash_sample_t*)(pt_node->_pby_data))->_l_second);
             pt_node = pt_node->_pt_next;
         }
         printf("\n");

@@ -64,7 +64,7 @@ bool_t _create_hashtable_auxiliary(_hashtable_t* pt_hashtable, const char* s_typ
         _hashnode_init, _hashnode_copy, _hashnode_less, _hashnode_destroy);
         */
     _type_register(sizeof(_hashnode_t*), _HASHTABLE_NODE_NAME, NULL, NULL, NULL, NULL);
-    if(!_create_vector_auxiliary(&pt_hashtable->_t_bucket, _HASHTABLE_NODE_NAME))
+    if(!_create_vector_auxiliary(&pt_hashtable->_vec_bucket, _HASHTABLE_NODE_NAME))
     {
         return false;
     }
@@ -77,8 +77,8 @@ bool_t _create_hashtable_auxiliary(_hashtable_t* pt_hashtable, const char* s_typ
     }
 
     pt_hashtable->_t_nodecount = 0;
-    pt_hashtable->_t_hash = NULL;
-    pt_hashtable->_t_compare = NULL;
+    pt_hashtable->_ufun_hash = NULL;
+    pt_hashtable->_bfun_compare = NULL;
 
     /* initialize the allocator */
     _alloc_init(&pt_hashtable->_t_allocator);
@@ -97,14 +97,14 @@ void _hashtable_destroy_auxiliary(_hashtable_t* pt_hashtable)
     _hashtable_clear(pt_hashtable);
 
     /* destroy bucket vector */
-    _vector_destroy_auxiliary(&pt_hashtable->_t_bucket);
+    _vector_destroy_auxiliary(&pt_hashtable->_vec_bucket);
 
     /* destroy allocator */
     _alloc_destroy(&pt_hashtable->_t_allocator);
 
     /* destroy hash, compare and destroy element function */
-    pt_hashtable->_t_hash = NULL;
-    pt_hashtable->_t_compare = NULL;
+    pt_hashtable->_ufun_hash = NULL;
+    pt_hashtable->_bfun_compare = NULL;
     pt_hashtable->_t_nodecount = 0;
 }
 

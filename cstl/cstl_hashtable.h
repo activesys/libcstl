@@ -51,14 +51,14 @@ extern _hashtable_t* _create_hashtable(const char* s_typename);
  * Initialize hashtable container.
  * @param pt_hashtable      hashtable container.
  * @param t_bucketcount     bucket count.
- * @param t_hash            hash function.
- * @param t_compare         compare function.
+ * @param ufun_hash         hash function.
+ * @param bfun_compare      compare function.
  * @return void.
  * @remarks if pt_hashtable == NULL, then the behavior is undefined, pt_hashtable must be created by _create_hashtable(),
- *          otherwise the behavior is undefined. if t_hash == NULL or t_compare == NULL, then the default hash function is used,
+ *          otherwise the behavior is undefined. if ufun_hash == NULL or bfun_compare == NULL, then the default hash function is used,
  *          and the default compare function is used.
  */
-extern void _hashtable_init(_hashtable_t* pt_hashtable, size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_compare);
+extern void _hashtable_init(_hashtable_t* pt_hashtable, size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**
  * Initialize hashtable container with hashtable.
@@ -77,18 +77,18 @@ extern void _hashtable_init_copy(_hashtable_t* pt_dest, const _hashtable_t* cpt_
  * @param it_begin          begin of range.
  * @param it_end            end of range.
  * @param t_bucketcount     bucket count.
- * @param t_hash            hash function.
- * @param t_compare         compare function.
+ * @param ufun_hash         hash function.
+ * @param bfun_compare      compare function.
  * @return void.
  * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_hashtable(), otherwise
  *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hashtable, otherwise the behavior
  *          is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is undefined.
- *          if t_hash == NULL or t_compare == NULL, then the default hash function is used and the default compare function
+ *          if ufun_hash == NULL or bfun_compare == NULL, then the default hash function is used and the default compare function
  *          is used.
  */
 extern void _hashtable_init_copy_range(
     _hashtable_t* pt_dest, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end,
-    size_t t_bucketcount, unary_function_t t_hash, binary_function_t t_compare);
+    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**
  * Destroy hashtable.

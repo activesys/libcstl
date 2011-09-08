@@ -93,13 +93,13 @@ extern "C" {
             hash_set_max_size(pt_hset), hash_set_bucket_count(pt_hset));\
         for(t_index = 0; t_index < hash_set_bucket_count(pt_hset); ++t_index)\
         {\
-            _hashnode_t** ppt_bucket = (_hashnode_t**)vector_at(&pt_hset->_t_hashtable._t_bucket, t_index);\
+            _hashnode_t** ppt_bucket = (_hashnode_t**)vector_at(&pt_hset->_t_hashtable._vec_bucket, t_index);\
             _hashnode_t*  pt_node = *ppt_bucket;\
             printf("[%u]", t_index);\
             while(pt_node != NULL)\
             {\
                 printf("->[");\
-                printf(fmt, *(type*)(pt_node->_pc_data));\
+                printf(fmt, *(type*)(pt_node->_pby_data));\
                 printf("]");\
                 pt_node = pt_node->_pt_next;\
             }\
@@ -133,13 +133,13 @@ extern "C" {
             hash_multiset_max_size(pt_hmset), hash_multiset_bucket_count(pt_hmset));\
         for(t_index = 0; t_index < hash_multiset_bucket_count(pt_hmset); ++t_index)\
         {\
-            _hashnode_t** ppt_bucket = (_hashnode_t**)vector_at(&pt_hmset->_t_hashtable._t_bucket, t_index);\
+            _hashnode_t** ppt_bucket = (_hashnode_t**)vector_at(&pt_hmset->_t_hashtable._vec_bucket, t_index);\
             _hashnode_t*  pt_node = *ppt_bucket;\
             printf("[%u]", t_index);\
             while(pt_node != NULL)\
             {\
                 printf("->[");\
-                printf(fmt, *(type*)(pt_node->_pc_data));\
+                printf(fmt, *(type*)(pt_node->_pby_data));\
                 printf("]");\
                 pt_node = pt_node->_pt_next;\
             }\

@@ -116,9 +116,9 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* hashtable iterator handler */
 #define _GET_HASHTABLE_BUCKETPOS(t_iter)\
-    ((t_iter)._t_pos._t_hashpos._pc_bucketpos)
+    ((t_iter)._t_pos._t_hashpos._pby_bucketpos)
 #define _GET_HASHTABLE_COREPOS(t_iter)\
-    ((t_iter)._t_pos._t_hashpos._pc_corepos)
+    ((t_iter)._t_pos._t_hashpos._pby_corepos)
 #define _GET_HASHTABLE(t_iter)\
     ((_hashtable_t*)((t_iter)._t_pos._t_hashpos._pt_hashtable))
 #define _GET_HASHTABLE_POINTER(t_iter)\
@@ -220,8 +220,8 @@ typedef struct _tagiterator
         }_t_treepos;
         struct               /* for hash table */
         {
-            char*     _pc_corepos;
-            char*     _pc_bucketpos;   /* pointer to vector bucket position */
+            _byte_t*  _pby_corepos;
+            _byte_t*  _pby_bucketpos;   /* pointer to vector bucket position */
             void*     _pt_hashtable;   /* point to hash node */
         }_t_hashpos;
     }_t_pos;

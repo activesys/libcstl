@@ -125,8 +125,8 @@ void test__hashtable_destroy_auxiliary__empty(void** state)
 
     _hashtable_destroy_auxiliary(pt_hashtable);
     assert_true(pt_hashtable->_t_nodecount == 0);
-    assert_true(pt_hashtable->_t_compare == NULL);
-    assert_true(pt_hashtable->_t_hash == NULL);
+    assert_true(pt_hashtable->_bfun_compare == NULL);
+    assert_true(pt_hashtable->_ufun_hash == NULL);
     free(pt_hashtable);
 }
 
@@ -139,8 +139,8 @@ void test__hashtable_destroy_auxiliary__non_empty(void** state)
 
     _hashtable_destroy_auxiliary(pt_hashtable);
     assert_true(pt_hashtable->_t_nodecount == 0);
-    assert_true(pt_hashtable->_t_compare == NULL);
-    assert_true(pt_hashtable->_t_hash == NULL);
+    assert_true(pt_hashtable->_bfun_compare == NULL);
+    assert_true(pt_hashtable->_ufun_hash == NULL);
     free(pt_hashtable);
 }
 

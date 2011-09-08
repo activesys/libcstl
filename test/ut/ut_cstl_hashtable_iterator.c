@@ -25,8 +25,8 @@ UT_CASE_DEFINATION(_create_hashtable_iterator)
 void test__create_hashtable_iterator__successfully(void** state)
 {
     _hashtable_iterator_t it_iter = _create_hashtable_iterator();
-    assert_true(it_iter._t_pos._t_hashpos._pc_corepos == NULL);
-    assert_true(it_iter._t_pos._t_hashpos._pc_bucketpos == NULL);
+    assert_true(it_iter._t_pos._t_hashpos._pby_corepos == NULL);
+    assert_true(it_iter._t_pos._t_hashpos._pby_bucketpos == NULL);
     assert_true(it_iter._t_pos._t_hashpos._pt_hashtable == NULL);
     assert_true(it_iter._pt_container == NULL);
 }
@@ -45,7 +45,7 @@ void test__hashtable_iterator_get_value__null_corepos(void** state)
     _hashtable_insert_unique(pt_hashtable, &elem);
     it_iter = _hashtable_begin(pt_hashtable);
 
-    it_iter._t_pos._t_hashpos._pc_corepos = (char*)0x9999;
+    it_iter._t_pos._t_hashpos._pby_corepos = (char*)0x9999;
     expect_assert_failure(_hashtable_iterator_get_value(it_iter, &elem));
 
     _hashtable_destroy(pt_hashtable);
@@ -183,7 +183,7 @@ void test__hashtable_iterator_get_pointer__null_corepos(void** state)
     _hashtable_insert_unique(pt_hashtable, &elem);
     it_iter = _hashtable_begin(pt_hashtable);
 
-    it_iter._t_pos._t_hashpos._pc_corepos = (char*)0x3333;
+    it_iter._t_pos._t_hashpos._pby_corepos = (char*)0x3333;
     expect_assert_failure(_hashtable_iterator_get_pointer(it_iter));
 
     _hashtable_destroy(pt_hashtable);
@@ -296,7 +296,7 @@ void test__hashtable_iterator_next__null_corepos(void** state)
     _hashtable_insert_unique(pt_hashtable, &elem);
     it_iter = _hashtable_begin(pt_hashtable);
 
-    it_iter._t_pos._t_hashpos._pc_corepos = (char*)0x9999;
+    it_iter._t_pos._t_hashpos._pby_corepos = (char*)0x9999;
     expect_assert_failure(_hashtable_iterator_next(it_iter));
 
     _hashtable_destroy(pt_hashtable);
@@ -376,7 +376,7 @@ void test__hashtable_iterator_prev__null_corepos(void** state)
 
     it_iter = _hashtable_begin(pt_hashtable);
 
-    it_iter._t_pos._t_hashpos._pc_corepos = (char*)0x9999;
+    it_iter._t_pos._t_hashpos._pby_corepos = (char*)0x9999;
     expect_assert_failure(_hashtable_iterator_prev(it_iter));
 
     _hashtable_destroy(pt_hashtable);

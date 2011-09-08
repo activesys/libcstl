@@ -162,7 +162,7 @@ void test_travel_hashtable(vector_t* pt_vector)
         pt_node = *ppt_bucket;
         while(pt_node != NULL)
         {
-            printf(" %d,", *(int*)pt_node->_pc_data);
+            printf(" %d,", *(int*)pt_node->_pby_data);
             pt_node = pt_node->_pt_next;
         }
         printf("\n");
@@ -185,8 +185,8 @@ void test_travel_hashtable_pair(vector_t* pt_vector)
         while(pt_node != NULL)
         {
             printf(" <%d,%f>,", 
-                *(int*)pair_first(((pair_t*)pt_node->_pc_data)),
-                *(double*)pair_second(((pair_t*)pt_node->_pc_data)));
+                *(int*)pair_first(((pair_t*)pt_node->_pby_data)),
+                *(double*)pair_second(((pair_t*)pt_node->_pby_data)));
             pt_node = pt_node->_pt_next;
         }
         printf("\n");

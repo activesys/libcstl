@@ -36,7 +36,7 @@ extern "C" {
 typedef struct _taghashnode
 {
     struct _taghashnode* _pt_next;
-    char                 _pc_data[1];
+    _byte_t              _pby_data[1];
 }_hashnode_t;
 
 typedef struct _taghashtable
@@ -48,13 +48,13 @@ typedef struct _taghashtable
     _alloc_t          _t_allocator;
 
     /* buckets and node */
-    vector_t          _t_bucket;
+    vector_t          _vec_bucket;
     size_t            _t_nodecount;
 
     /* hash function */
-    unary_function_t  _t_hash;
+    unary_function_t  _ufun_hash;
     /* key compare function */
-    binary_function_t _t_compare;
+    binary_function_t _bfun_compare;
 }_hashtable_t;
 
 /* for the result of equal_range and insert_unique function */
