@@ -36,31 +36,13 @@
 #include <cstl/cstl_hash_set_private.h>
 #include <cstl/cstl_hash_set.h>
 
+#include "cstl_hash_set_aux.h"
+
 /** local constant declaration and local macro section **/
-/* macros for type informations */
-#define _GET_HASH_SET_TYPE_SIZE(pt_hash_set)\
-    ((pt_hash_set)->_t_hashtable._t_typeinfo._pt_type->_t_typesize)
-#define _GET_HASH_SET_TYPE_NAME(pt_hash_set)\
-    ((pt_hash_set)->_t_hashtable._t_typeinfo._sz_typename)
-#define _GET_HASH_SET_TYPE_BASENAME(pt_hash_set)\
-    ((pt_hash_set)->_t_hashtable._t_typeinfo._pt_type->_sz_typename)
-#define _GET_HASH_SET_TYPE_INIT_FUNCTION(pt_hash_set)\
-    ((pt_hash_set)->_t_hashtable._t_typeinfo._pt_type->_t_typeinit)
-#define _GET_HASH_SET_TYPE_COPY_FUNCTION(pt_hash_set)\
-    ((pt_hash_set)->_t_hashtable._t_typeinfo._pt_type->_t_typecopy)
-#define _GET_HASH_SET_TYPE_LESS_FUNCTION(pt_hash_set)\
-    ((pt_hash_set)->_t_hashtable._t_typeinfo._pt_type->_t_typeless)
-#define _GET_HASH_SET_TYPE_DESTROY_FUNCTION(pt_hash_set)\
-    ((pt_hash_set)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy)
-#define _GET_HASH_SET_TYPE_STYLE(pt_hash_set)\
-    ((pt_hash_set)->_t_hashtable._t_typeinfo._t_style)
 
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-static void _hash_set_get_varg_value_auxiliary(
-    hash_set_t* pt_hash_set, va_list val_elemlist, void* pv_varg);
-static void _hash_set_destroy_varg_value_auxiliary(hash_set_t* pt_hash_set, void* pv_varg);
 
 /** exported global variable definition section **/
 
@@ -146,40 +128,6 @@ bool_t _hash_set_iterator_before(
 
     return _hashtable_iterator_before(t_iterfirst, t_itersecond);
 }
-
-/* hash_set private function */
-hash_set_t* _create_hash_set(const char* s_typename)
-{
-    hash_set_t* pt_new_hash_set = NULL;
-
-    if((pt_new_hash_set = (hash_set_t*)malloc(sizeof(hash_set_t))) == NULL)
-    {
-        return NULL;
-    }
-
-    if(!_create_hash_set_auxiliary(pt_new_hash_set, s_typename))
-    {
-        free(pt_new_hash_set);
-        return NULL;
-    }
-
-    return pt_new_hash_set;
-}
-
-bool_t _create_hash_set_auxiliary(hash_set_t* pt_hash_set, const char* s_typename)
-{
-    assert(pt_hash_set != NULL && s_typename != NULL);
-
-    return _create_hashtable_auxiliary(&pt_hash_set->_t_hashtable, s_typename);
-}
-
-void _hash_set_destroy_auxiliary(hash_set_t* pt_hash_set)
-{
-    assert(pt_hash_set != NULL);
-
-    _hashtable_destroy_auxiliary(&pt_hash_set->_t_hashtable);
-}
-
 /* hash_set function */
 void hash_set_init(hash_set_t* pt_hash_set)
 {
@@ -385,155 +333,6 @@ hash_set_iterator_t hash_set_end(const hash_set_t* cpt_hash_set)
     return t_newiterator;
 }
 
-hash_set_iterator_t _hash_set_find(const hash_set_t* cpt_hash_set, ...)
-{
-    hash_set_iterator_t t_iter;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_hash_set);
-    t_iter = _hash_set_find_varg(cpt_hash_set, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_iter;
-}
-
-hash_set_iterator_t _hash_set_find_varg(
-    const hash_set_t* cpt_hash_set, va_list val_elemlist)
-{
-    hash_set_iterator_t t_iter;
-    void*               pv_varg = NULL;
-
-    assert(cpt_hash_set != NULL);
-
-    pv_varg = _alloc_allocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
-    assert(pv_varg != NULL);
-    _hash_set_get_varg_value_auxiliary((hash_set_t*)cpt_hash_set, val_elemlist, pv_varg);
-
-    t_iter = _hashtable_find(&cpt_hash_set->_t_hashtable, pv_varg);
-
-    _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cpt_hash_set, pv_varg);
-    _alloc_deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
-
-    _GET_CONTAINER(t_iter) = (hash_set_t*)cpt_hash_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_iter) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
-
-    return t_iter;
-}
-
-size_t _hash_set_count(const hash_set_t* cpt_hash_set, ...)
-{
-    size_t t_count = 0;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_hash_set);
-    t_count = _hash_set_count_varg(cpt_hash_set, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_count;
-}
-
-size_t _hash_set_count_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist)
-{
-    size_t t_count = 0;
-    void*  pv_varg = NULL;
-
-    assert(cpt_hash_set != NULL);
-
-    pv_varg = _alloc_allocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
-    assert(pv_varg != NULL);
-    _hash_set_get_varg_value_auxiliary((hash_set_t*)cpt_hash_set, val_elemlist, pv_varg);
-
-    t_count = _hashtable_count(&cpt_hash_set->_t_hashtable, pv_varg);
-
-    _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cpt_hash_set, pv_varg);
-    _alloc_deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
-
-    return t_count;
-}
-
-range_t _hash_set_equal_range(const hash_set_t* cpt_hash_set, ...)
-{
-    range_t t_range;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_hash_set);
-    t_range = _hash_set_equal_range_varg(cpt_hash_set, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_range;
-}
-
-range_t _hash_set_equal_range_varg(const hash_set_t* cpt_hash_set, va_list val_elemlist)
-{
-    range_t t_range;
-    void*   pv_varg = NULL;
-
-    assert(cpt_hash_set != NULL);
-
-    pv_varg = _alloc_allocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
-    assert(pv_varg != NULL);
-    _hash_set_get_varg_value_auxiliary((hash_set_t*)cpt_hash_set, val_elemlist, pv_varg);
-
-    t_range = _hashtable_equal_range(&cpt_hash_set->_t_hashtable, pv_varg);
-
-    _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cpt_hash_set, pv_varg);
-    _alloc_deallocate(&((hash_set_t*)cpt_hash_set)->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(cpt_hash_set), 1);
-
-    _GET_CONTAINER(t_range.it_begin) = (hash_set_t*)cpt_hash_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_range.it_begin) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
-
-    _GET_CONTAINER(t_range.it_end) = (hash_set_t*)cpt_hash_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_range.it_end) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_range.it_end) = _BIDIRECTIONAL_ITERATOR;
-
-    return t_range;
-}
-
-hash_set_iterator_t _hash_set_insert(hash_set_t* pt_hash_set, ...)
-{
-    hash_set_iterator_t t_iter;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, pt_hash_set);
-    t_iter = _hash_set_insert_varg(pt_hash_set, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_iter;
-}
-
-hash_set_iterator_t _hash_set_insert_varg(hash_set_t* pt_hash_set, va_list val_elemlist)
-{
-    hash_set_iterator_t t_iter;
-    void*               pv_varg = NULL;
-
-    assert(pt_hash_set != NULL);
-
-    pv_varg = _alloc_allocate(&pt_hash_set->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(pt_hash_set), 1);
-    assert(pv_varg != NULL);
-    _hash_set_get_varg_value_auxiliary(pt_hash_set, val_elemlist, pv_varg);
-
-    t_iter = _hashtable_insert_unique(&pt_hash_set->_t_hashtable, pv_varg);
-
-    _hash_set_destroy_varg_value_auxiliary(pt_hash_set, pv_varg);
-    _alloc_deallocate(&pt_hash_set->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(pt_hash_set), 1);
-
-    _GET_CONTAINER(t_iter) = pt_hash_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_iter) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
-
-    return t_iter;
-}
-
 void hash_set_insert_range(
     hash_set_t* pt_hash_set, hash_set_iterator_t t_begin, hash_set_iterator_t t_end)
 {
@@ -573,39 +372,6 @@ void hash_set_erase_range(
     _hashtable_erase_range(&pt_hash_set->_t_hashtable, t_begin, t_end);
 }
 
-size_t _hash_set_erase(hash_set_t* pt_hash_set, ...)
-{
-    size_t t_count = 0;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, pt_hash_set);
-    t_count = _hash_set_erase_varg(pt_hash_set, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_count;
-}
-
-size_t _hash_set_erase_varg(hash_set_t* pt_hash_set, va_list val_elemlist)
-{
-    size_t  t_count = 0;
-    void*   pv_varg = NULL;
-
-    assert(pt_hash_set != NULL);
-
-    pv_varg = _alloc_allocate(&pt_hash_set->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(pt_hash_set), 1);
-    assert(pv_varg != NULL);
-    _hash_set_get_varg_value_auxiliary(pt_hash_set, val_elemlist, pv_varg);
-
-    t_count = _hashtable_erase(&pt_hash_set->_t_hashtable, pv_varg);
-
-    _hash_set_destroy_varg_value_auxiliary(pt_hash_set, pv_varg);
-    _alloc_deallocate(&pt_hash_set->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(pt_hash_set), 1);
-
-    return t_count;
-}
-
 void hash_set_clear(hash_set_t* pt_hash_set)
 {
     assert(pt_hash_set != NULL);
@@ -613,42 +379,7 @@ void hash_set_clear(hash_set_t* pt_hash_set)
     _hashtable_clear(&pt_hash_set->_t_hashtable);
 }
 
-void _hash_set_init_elem_auxiliary(hash_set_t* pt_hash_set, void* pv_elem)
-{
-    assert(pt_hash_set != NULL && pv_elem != NULL);
-
-    /* initialize new elements */
-    if(_GET_HASH_SET_TYPE_STYLE(pt_hash_set) == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_HASH_SET_TYPE_NAME(pt_hash_set), s_elemtypename);
-
-        _GET_HASH_SET_TYPE_INIT_FUNCTION(pt_hash_set)(pv_elem, s_elemtypename);
-    }
-    else
-    {
-        bool_t t_result = _GET_HASH_SET_TYPE_SIZE(pt_hash_set);
-        _GET_HASH_SET_TYPE_INIT_FUNCTION(pt_hash_set)(pv_elem, &t_result);
-        assert(t_result);
-    }
-}
-
 /** local function implementation section **/
-static void _hash_set_get_varg_value_auxiliary(
-    hash_set_t* pt_hash_set, va_list val_elemlist, void* pv_varg)
-{
-    _hash_set_init_elem_auxiliary(pt_hash_set, pv_varg);
-    _type_get_varg_value(&pt_hash_set->_t_hashtable._t_typeinfo, val_elemlist, pv_varg);
-}
-
-static void _hash_set_destroy_varg_value_auxiliary(hash_set_t* pt_hash_set, void* pv_varg)
-{
-    /* destroy varg value and free memory */
-    bool_t t_result = _GET_HASH_SET_TYPE_SIZE(pt_hash_set);
-    _GET_HASH_SET_TYPE_DESTROY_FUNCTION(pt_hash_set)(pv_varg, &t_result);
-    assert(t_result);
-}
 
 /** eof **/
 

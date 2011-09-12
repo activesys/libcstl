@@ -58,7 +58,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_deque_private.$(OBJEXT) ut-cstl_deque_aux.$(OBJEXT) \
 	ut-cstl_hash_map.$(OBJEXT) ut-cstl_hash_multimap.$(OBJEXT) \
 	ut-cstl_hash_multiset.$(OBJEXT) ut-cstl_hash_set.$(OBJEXT) \
-	ut-cstl_hashtable.$(OBJEXT) \
+	ut-cstl_hash_set_private.$(OBJEXT) \
+	ut-cstl_hash_set_aux.$(OBJEXT) ut-cstl_hashtable.$(OBJEXT) \
 	ut-cstl_hashtable_iterator.$(OBJEXT) \
 	ut-cstl_hashtable_private.$(OBJEXT) \
 	ut-cstl_hashtable_aux.$(OBJEXT) ut-cstl_heap.$(OBJEXT) \
@@ -131,7 +132,9 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_hashtable_aux.$(OBJEXT) \
 	ut-ut_cstl_hashtable_private.$(OBJEXT) \
 	ut-ut_cstl_hashtable_iterator.$(OBJEXT) \
-	ut-ut_cstl_hashtable.$(OBJEXT)
+	ut-ut_cstl_hashtable.$(OBJEXT) \
+	ut-ut_cstl_hash_set_aux.$(OBJEXT) \
+	ut-ut_cstl_hash_set_private.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -284,6 +287,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_hash_multimap.c \
 	     $(srcdir)/../../src/cstl_hash_multiset.c \
 	     $(srcdir)/../../src/cstl_hash_set.c \
+	     $(srcdir)/../../src/cstl_hash_set_private.c $(srcdir)/../../src/cstl_hash_set_aux.c \
 	     $(srcdir)/../../src/cstl_hashtable.c $(srcdir)/../../src/cstl_hashtable_iterator.c \
 	     $(srcdir)/../../src/cstl_hashtable_private.c $(srcdir)/../../src/cstl_hashtable_aux.c \
 	     $(srcdir)/../../src/cstl_heap.c \
@@ -368,7 +372,9 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_hashtable_aux.c ut_cstl_hashtable_aux.h \
 	     ut_cstl_hashtable_private.c ut_cstl_hashtable_private.h \
 	     ut_cstl_hashtable_iterator.c ut_cstl_hashtable_iterator.h \
-	     ut_cstl_hashtable.c ut_cstl_hashtable.h
+	     ut_cstl_hashtable.c ut_cstl_hashtable.h \
+	     ut_cstl_hash_set_aux.c ut_cstl_hash_set_aux.h \
+	     ut_cstl_hash_set_private.c ut_cstl_hash_set_private.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -448,6 +454,8 @@ include ./$(DEPDIR)/ut-cstl_hash_map.Po
 include ./$(DEPDIR)/ut-cstl_hash_multimap.Po
 include ./$(DEPDIR)/ut-cstl_hash_multiset.Po
 include ./$(DEPDIR)/ut-cstl_hash_set.Po
+include ./$(DEPDIR)/ut-cstl_hash_set_aux.Po
+include ./$(DEPDIR)/ut-cstl_hash_set_private.Po
 include ./$(DEPDIR)/ut-cstl_hashtable.Po
 include ./$(DEPDIR)/ut-cstl_hashtable_aux.Po
 include ./$(DEPDIR)/ut-cstl_hashtable_iterator.Po
@@ -513,6 +521,8 @@ include ./$(DEPDIR)/ut-ut_cstl_deque.Po
 include ./$(DEPDIR)/ut-ut_cstl_deque_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_deque_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_deque_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_hash_set_aux.Po
+include ./$(DEPDIR)/ut-ut_cstl_hash_set_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_hashtable.Po
 include ./$(DEPDIR)/ut-ut_cstl_hashtable_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_hashtable_iterator.Po
@@ -917,6 +927,34 @@ ut-cstl_hash_set.obj: $(srcdir)/../../src/cstl_hash_set.c
 #	source='$(srcdir)/../../src/cstl_hash_set.c' object='ut-cstl_hash_set.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set.obj `if test -f '$(srcdir)/../../src/cstl_hash_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set.c'; fi`
+
+ut-cstl_hash_set_private.o: $(srcdir)/../../src/cstl_hash_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_private.Tpo -c -o ut-cstl_hash_set_private.o `test -f '$(srcdir)/../../src/cstl_hash_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_private.c
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_private.Tpo $(DEPDIR)/ut-cstl_hash_set_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_private.c' object='ut-cstl_hash_set_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_private.o `test -f '$(srcdir)/../../src/cstl_hash_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_private.c
+
+ut-cstl_hash_set_private.obj: $(srcdir)/../../src/cstl_hash_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_private.Tpo -c -o ut-cstl_hash_set_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_private.Tpo $(DEPDIR)/ut-cstl_hash_set_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_private.c' object='ut-cstl_hash_set_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_private.c'; fi`
+
+ut-cstl_hash_set_aux.o: $(srcdir)/../../src/cstl_hash_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_aux.Tpo -c -o ut-cstl_hash_set_aux.o `test -f '$(srcdir)/../../src/cstl_hash_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_aux.c
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_aux.Tpo $(DEPDIR)/ut-cstl_hash_set_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_aux.c' object='ut-cstl_hash_set_aux.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_aux.o `test -f '$(srcdir)/../../src/cstl_hash_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_aux.c
+
+ut-cstl_hash_set_aux.obj: $(srcdir)/../../src/cstl_hash_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_aux.Tpo -c -o ut-cstl_hash_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_aux.Tpo $(DEPDIR)/ut-cstl_hash_set_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_aux.c' object='ut-cstl_hash_set_aux.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_aux.c'; fi`
 
 ut-cstl_hashtable.o: $(srcdir)/../../src/cstl_hashtable.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hashtable.o -MD -MP -MF $(DEPDIR)/ut-cstl_hashtable.Tpo -c -o ut-cstl_hashtable.o `test -f '$(srcdir)/../../src/cstl_hashtable.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable.c
@@ -2443,6 +2481,34 @@ ut-ut_cstl_hashtable.obj: ut_cstl_hashtable.c
 #	source='ut_cstl_hashtable.c' object='ut-ut_cstl_hashtable.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable.obj `if test -f 'ut_cstl_hashtable.c'; then $(CYGPATH_W) 'ut_cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable.c'; fi`
+
+ut-ut_cstl_hash_set_aux.o: ut_cstl_hash_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_aux.Tpo -c -o ut-ut_cstl_hash_set_aux.o `test -f 'ut_cstl_hash_set_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_set_aux.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_aux.Po
+#	source='ut_cstl_hash_set_aux.c' object='ut-ut_cstl_hash_set_aux.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_aux.o `test -f 'ut_cstl_hash_set_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_set_aux.c
+
+ut-ut_cstl_hash_set_aux.obj: ut_cstl_hash_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_aux.Tpo -c -o ut-ut_cstl_hash_set_aux.obj `if test -f 'ut_cstl_hash_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_aux.Po
+#	source='ut_cstl_hash_set_aux.c' object='ut-ut_cstl_hash_set_aux.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_aux.obj `if test -f 'ut_cstl_hash_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_aux.c'; fi`
+
+ut-ut_cstl_hash_set_private.o: ut_cstl_hash_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_private.Tpo -c -o ut-ut_cstl_hash_set_private.o `test -f 'ut_cstl_hash_set_private.c' || echo '$(srcdir)/'`ut_cstl_hash_set_private.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_private.Po
+#	source='ut_cstl_hash_set_private.c' object='ut-ut_cstl_hash_set_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_private.o `test -f 'ut_cstl_hash_set_private.c' || echo '$(srcdir)/'`ut_cstl_hash_set_private.c
+
+ut-ut_cstl_hash_set_private.obj: ut_cstl_hash_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_private.Tpo -c -o ut-ut_cstl_hash_set_private.obj `if test -f 'ut_cstl_hash_set_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_private.Po
+#	source='ut_cstl_hash_set_private.c' object='ut-ut_cstl_hash_set_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_private.obj `if test -f 'ut_cstl_hash_set_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_private.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

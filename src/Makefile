@@ -83,7 +83,8 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_function.lo libcstl_la-cstl_hash_map.lo \
 	libcstl_la-cstl_hash_multimap.lo \
 	libcstl_la-cstl_hash_multiset.lo libcstl_la-cstl_hash_set.lo \
-	libcstl_la-cstl_hashtable.lo \
+	libcstl_la-cstl_hash_set_private.lo \
+	libcstl_la-cstl_hash_set_aux.lo libcstl_la-cstl_hashtable.lo \
 	libcstl_la-cstl_hashtable_iterator.lo \
 	libcstl_la-cstl_hashtable_private.lo \
 	libcstl_la-cstl_hashtable_aux.lo libcstl_la-cstl_heap.lo \
@@ -263,7 +264,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_hash_map.c \
 		     cstl_hash_multimap.c \
 		     cstl_hash_multiset.c \
-		     cstl_hash_set.c \
+		     cstl_hash_set.c cstl_hash_set_private.c cstl_hash_set_aux.c cstl_hash_set_aux.h \
 		     cstl_hashtable.c cstl_hashtable_iterator.c cstl_hashtable_private.c cstl_hashtable_aux.c cstl_hashtable_aux.h \
 		     cstl_heap.c \
 		     cstl_iterator.c \
@@ -381,6 +382,8 @@ include ./$(DEPDIR)/libcstl_la-cstl_hash_map.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hash_multimap.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hash_multiset.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hash_set.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_hash_set_aux.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_hash_set_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hashtable.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hashtable_aux.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hashtable_iterator.Plo
@@ -600,6 +603,20 @@ libcstl_la-cstl_hash_set.lo: cstl_hash_set.c
 #	source='cstl_hash_set.c' object='libcstl_la-cstl_hash_set.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_set.lo `test -f 'cstl_hash_set.c' || echo '$(srcdir)/'`cstl_hash_set.c
+
+libcstl_la-cstl_hash_set_private.lo: cstl_hash_set_private.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_set_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_set_private.Tpo -c -o libcstl_la-cstl_hash_set_private.lo `test -f 'cstl_hash_set_private.c' || echo '$(srcdir)/'`cstl_hash_set_private.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_hash_set_private.Tpo $(DEPDIR)/libcstl_la-cstl_hash_set_private.Plo
+#	source='cstl_hash_set_private.c' object='libcstl_la-cstl_hash_set_private.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_set_private.lo `test -f 'cstl_hash_set_private.c' || echo '$(srcdir)/'`cstl_hash_set_private.c
+
+libcstl_la-cstl_hash_set_aux.lo: cstl_hash_set_aux.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_set_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_set_aux.Tpo -c -o libcstl_la-cstl_hash_set_aux.lo `test -f 'cstl_hash_set_aux.c' || echo '$(srcdir)/'`cstl_hash_set_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_hash_set_aux.Tpo $(DEPDIR)/libcstl_la-cstl_hash_set_aux.Plo
+#	source='cstl_hash_set_aux.c' object='libcstl_la-cstl_hash_set_aux.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_set_aux.lo `test -f 'cstl_hash_set_aux.c' || echo '$(srcdir)/'`cstl_hash_set_aux.c
 
 libcstl_la-cstl_hashtable.lo: cstl_hashtable.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hashtable.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hashtable.Tpo -c -o libcstl_la-cstl_hashtable.lo `test -f 'cstl_hashtable.c' || echo '$(srcdir)/'`cstl_hashtable.c

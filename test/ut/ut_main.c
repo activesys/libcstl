@@ -66,6 +66,8 @@
 #include "ut_cstl_hashtable_private.h"
 #include "ut_cstl_hashtable_iterator.h"
 #include "ut_cstl_hashtable.h"
+#include "ut_cstl_hash_set_aux.h"
+#include "ut_cstl_hash_set_private.h"
 
 int main(int argc, char* argv[])
 {
@@ -128,7 +130,9 @@ int main(int argc, char* argv[])
         UT_CSTL_HASHTABLE_AUX_CASE,
         UT_CSTL_HASHTABLE_PRIVATE_CASE,
         UT_CSTL_HASHTABLE_ITERATOR_CASE,
-        UT_CSTL_HASHTABLE_CASE
+        UT_CSTL_HASHTABLE_CASE,
+        UT_CSTL_HASH_SET_AUX_CASE,
+        UT_CSTL_HASH_SET_PRIVATE_CASE
     };
 
     return run_tests(tests);
