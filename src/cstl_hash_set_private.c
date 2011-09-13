@@ -83,43 +83,42 @@ void _hash_set_destroy_auxiliary(hash_set_t* phset_set)
  */
 hash_set_iterator_t _hash_set_find(const hash_set_t* cphset_set, ...)
 {
-    hash_set_iterator_t t_iter;
+    hash_set_iterator_t it_iter;
     va_list val_elemlist;
 
+    assert(cphset_set != NULL);
+
     va_start(val_elemlist, cphset_set);
-    t_iter = _hash_set_find_varg(cphset_set, val_elemlist);
+    it_iter = _hash_set_find_varg(cphset_set, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
 /**
  * Find specific element.
  */
-hash_set_iterator_t _hash_set_find_varg(
-    const hash_set_t* cphset_set, va_list val_elemlist)
+hash_set_iterator_t _hash_set_find_varg(const hash_set_t* cphset_set, va_list val_elemlist)
 {
-    hash_set_iterator_t t_iter;
+    hash_set_iterator_t it_iter;
     void*               pv_varg = NULL;
 
     assert(cphset_set != NULL);
 
-    pv_varg = _alloc_allocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
+    pv_varg = _alloc_allocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary((hash_set_t*)cphset_set, val_elemlist, pv_varg);
 
-    t_iter = _hashtable_find(&cphset_set->_t_hashtable, pv_varg);
+    it_iter = _hashtable_find(&cphset_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cphset_set, pv_varg);
-    _alloc_deallocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
+    _alloc_deallocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, pv_varg, _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
 
-    _GET_CONTAINER(t_iter) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_iter) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = (hash_set_t*)cphset_set;
+    _GET_HASH_SET_CONTAINER_TYPE(it_iter) = _HASH_SET_CONTAINER;
+    _GET_HASH_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
 /**
@@ -129,6 +128,8 @@ size_t _hash_set_count(const hash_set_t* cphset_set, ...)
 {
     size_t t_count = 0;
     va_list val_elemlist;
+
+    assert(cphset_set != NULL);
 
     va_start(val_elemlist, cphset_set);
     t_count = _hash_set_count_varg(cphset_set, val_elemlist);
@@ -147,16 +148,14 @@ size_t _hash_set_count_varg(const hash_set_t* cphset_set, va_list val_elemlist)
 
     assert(cphset_set != NULL);
 
-    pv_varg = _alloc_allocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
+    pv_varg = _alloc_allocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary((hash_set_t*)cphset_set, val_elemlist, pv_varg);
 
     t_count = _hashtable_count(&cphset_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cphset_set, pv_varg);
-    _alloc_deallocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
+    _alloc_deallocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, pv_varg, _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
 
     return t_count;
 }
@@ -166,14 +165,16 @@ size_t _hash_set_count_varg(const hash_set_t* cphset_set, va_list val_elemlist)
  */
 range_t _hash_set_equal_range(const hash_set_t* cphset_set, ...)
 {
-    range_t t_range;
+    range_t r_range;
     va_list val_elemlist;
 
+    assert(cphset_set != NULL);
+
     va_start(val_elemlist, cphset_set);
-    t_range = _hash_set_equal_range_varg(cphset_set, val_elemlist);
+    r_range = _hash_set_equal_range_varg(cphset_set, val_elemlist);
     va_end(val_elemlist);
 
-    return t_range;
+    return r_range;
 }
 
 /**
@@ -181,31 +182,29 @@ range_t _hash_set_equal_range(const hash_set_t* cphset_set, ...)
  */
 range_t _hash_set_equal_range_varg(const hash_set_t* cphset_set, va_list val_elemlist)
 {
-    range_t t_range;
+    range_t r_range;
     void*   pv_varg = NULL;
 
     assert(cphset_set != NULL);
 
-    pv_varg = _alloc_allocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
+    pv_varg = _alloc_allocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary((hash_set_t*)cphset_set, val_elemlist, pv_varg);
 
-    t_range = _hashtable_equal_range(&cphset_set->_t_hashtable, pv_varg);
+    r_range = _hashtable_equal_range(&cphset_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cphset_set, pv_varg);
-    _alloc_deallocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
+    _alloc_deallocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, pv_varg, _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
 
-    _GET_CONTAINER(t_range.it_begin) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_range.it_begin) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(r_range.it_begin) = (hash_set_t*)cphset_set;
+    _GET_HASH_SET_CONTAINER_TYPE(r_range.it_begin) = _HASH_SET_CONTAINER;
+    _GET_HASH_SET_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(t_range.it_end) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_range.it_end) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(r_range.it_end) = (hash_set_t*)cphset_set;
+    _GET_HASH_SET_CONTAINER_TYPE(r_range.it_end) = _HASH_SET_CONTAINER;
+    _GET_HASH_SET_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_range;
+    return r_range;
 }
 
 /**
@@ -213,14 +212,16 @@ range_t _hash_set_equal_range_varg(const hash_set_t* cphset_set, va_list val_ele
  */
 hash_set_iterator_t _hash_set_insert(hash_set_t* phset_set, ...)
 {
-    hash_set_iterator_t t_iter;
+    hash_set_iterator_t it_iter;
     va_list val_elemlist;
 
+    assert(phset_set != NULL);
+
     va_start(val_elemlist, phset_set);
-    t_iter = _hash_set_insert_varg(phset_set, val_elemlist);
+    it_iter = _hash_set_insert_varg(phset_set, val_elemlist);
     va_end(val_elemlist);
 
-    return t_iter;
+    return it_iter;
 }
 
 /**
@@ -228,27 +229,25 @@ hash_set_iterator_t _hash_set_insert(hash_set_t* phset_set, ...)
  */
 hash_set_iterator_t _hash_set_insert_varg(hash_set_t* phset_set, va_list val_elemlist)
 {
-    hash_set_iterator_t t_iter;
+    hash_set_iterator_t it_iter;
     void*               pv_varg = NULL;
 
     assert(phset_set != NULL);
 
-    pv_varg = _alloc_allocate(&phset_set->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(phset_set), 1);
+    pv_varg = _alloc_allocate(&phset_set->_t_hashtable._t_allocator, _GET_HASH_SET_TYPE_SIZE(phset_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary(phset_set, val_elemlist, pv_varg);
 
-    t_iter = _hashtable_insert_unique(&phset_set->_t_hashtable, pv_varg);
+    it_iter = _hashtable_insert_unique(&phset_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary(phset_set, pv_varg);
-    _alloc_deallocate(&phset_set->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(phset_set), 1);
+    _alloc_deallocate(&phset_set->_t_hashtable._t_allocator, pv_varg, _GET_HASH_SET_TYPE_SIZE(phset_set), 1);
 
-    _GET_CONTAINER(t_iter) = phset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_iter) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_iter) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_iter) = phset_set;
+    _GET_HASH_SET_CONTAINER_TYPE(it_iter) = _HASH_SET_CONTAINER;
+    _GET_HASH_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_iter;
+    return it_iter;
 }
 
 /**
@@ -258,6 +257,8 @@ size_t _hash_set_erase(hash_set_t* phset_set, ...)
 {
     size_t t_count = 0;
     va_list val_elemlist;
+
+    assert(phset_set != NULL);
 
     va_start(val_elemlist, phset_set);
     t_count = _hash_set_erase_varg(phset_set, val_elemlist);
@@ -276,16 +277,14 @@ size_t _hash_set_erase_varg(hash_set_t* phset_set, va_list val_elemlist)
 
     assert(phset_set != NULL);
 
-    pv_varg = _alloc_allocate(&phset_set->_t_hashtable._t_allocator,
-        _GET_HASH_SET_TYPE_SIZE(phset_set), 1);
+    pv_varg = _alloc_allocate(&phset_set->_t_hashtable._t_allocator, _GET_HASH_SET_TYPE_SIZE(phset_set), 1);
     assert(pv_varg != NULL);
     _hash_set_get_varg_value_auxiliary(phset_set, val_elemlist, pv_varg);
 
     t_count = _hashtable_erase(&phset_set->_t_hashtable, pv_varg);
 
     _hash_set_destroy_varg_value_auxiliary(phset_set, pv_varg);
-    _alloc_deallocate(&phset_set->_t_hashtable._t_allocator, pv_varg,
-        _GET_HASH_SET_TYPE_SIZE(phset_set), 1);
+    _alloc_deallocate(&phset_set->_t_hashtable._t_allocator, pv_varg, _GET_HASH_SET_TYPE_SIZE(phset_set), 1);
 
     return t_count;
 }
@@ -295,7 +294,8 @@ size_t _hash_set_erase_varg(hash_set_t* phset_set, va_list val_elemlist)
  */
 void _hash_set_init_elem_auxiliary(hash_set_t* phset_set, void* pv_elem)
 {
-    assert(phset_set != NULL && pv_elem != NULL);
+    assert(phset_set != NULL);
+    assert(pv_elem != NULL);
 
     /* initialize new elements */
     if(_GET_HASH_SET_TYPE_STYLE(phset_set) == _TYPE_CSTL_BUILTIN)
@@ -308,9 +308,9 @@ void _hash_set_init_elem_auxiliary(hash_set_t* phset_set, void* pv_elem)
     }
     else
     {
-        bool_t t_result = _GET_HASH_SET_TYPE_SIZE(phset_set);
-        _GET_HASH_SET_TYPE_INIT_FUNCTION(phset_set)(pv_elem, &t_result);
-        assert(t_result);
+        bool_t b_result = _GET_HASH_SET_TYPE_SIZE(phset_set);
+        _GET_HASH_SET_TYPE_INIT_FUNCTION(phset_set)(pv_elem, &b_result);
+        assert(b_result);
     }
 }
 

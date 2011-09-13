@@ -35,7 +35,6 @@ void test__hash_set_destroy_auxiliary__non_empty(void** state);
 /*
  * test _hash_set_find and _hash_set_find_varg
  */
-/*
 UT_CASE_DECLARATION(_hash_set_find__hash_set_find_varg)
 void test__hash_set_find__hash_set_find_varg__null_hash_set(void** state);
 void test__hash_set_find__hash_set_find_varg__non_inited(void** state);
@@ -47,11 +46,9 @@ void test__hash_set_find__hash_set_find_varg__libcstl_builtin_find(void** state)
 void test__hash_set_find__hash_set_find_varg__libcstl_builtin_not_find(void** state);
 void test__hash_set_find__hash_set_find_varg__user_define_find(void** state);
 void test__hash_set_find__hash_set_find_varg__user_define_not_find(void** state);
-*/
 /*
  * test _hash_set_count and _hash_set_count_varg
  */
-/*
 UT_CASE_DECLARATION(_hash_set_count__hash_set_count_varg)
 void test__hash_set_count__hash_set_count_varg__null_hash_set(void** state);
 void test__hash_set_count__hash_set_count_varg__non_inited(void** state);
@@ -67,11 +64,9 @@ void test__hash_set_count__hash_set_count_varg__libcstl_builtin_n(void** state);
 void test__hash_set_count__hash_set_count_varg__user_define_0(void** state);
 void test__hash_set_count__hash_set_count_varg__user_define_1(void** state);
 void test__hash_set_count__hash_set_count_varg__user_define_n(void** state);
-*/
 /*
  * test _hash_set_equal_range and _hash_set_equal_range_varg
  */
-/*
 UT_CASE_DECLARATION(_hash_set_equal_range__hash_set_equal_range_varg)
 void test__hash_set_equal_range__hash_set_equal_range_varg__null_hash_set(void** state);
 void test__hash_set_equal_range__hash_set_equal_range_varg__non_inited(void** state);
@@ -83,11 +78,9 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__libcstl_builtin_equa
 void test__hash_set_equal_range__hash_set_equal_range_varg__libcstl_builtin_greater(void** state);
 void test__hash_set_equal_range__hash_set_equal_range_varg__user_define_equal(void** state);
 void test__hash_set_equal_range__hash_set_equal_range_varg__user_define_greater(void** state);
-*/
 /*
  * test _hash_set_erase and _hash_set_erase_varg
  */
-/*
 UT_CASE_DECLARATION(_hash_set_erase__hash_set_erase_varg)
 void test__hash_set_erase__hash_set_erase_varg__null_hash_set(void** state);
 void test__hash_set_erase__hash_set_erase_varg__non_inited(void** state);
@@ -103,11 +96,9 @@ void test__hash_set_erase__hash_set_erase_varg__libcstl_builtin_n(void** state);
 void test__hash_set_erase__hash_set_erase_varg__user_define_0(void** state);
 void test__hash_set_erase__hash_set_erase_varg__user_define_1(void** state);
 void test__hash_set_erase__hash_set_erase_varg__user_define_n(void** state);
-*/
 /*
  * test _hash_set_insert and _hash_set_insert_varg
  */
-/*
 UT_CASE_DECLARATION(_hash_set_insert__hash_set_insert_varg)
 void test__hash_set_insert_varg__null_hash_set(void** state);
 void test__hash_set_insert_varg__non_inited(void** state);
@@ -119,11 +110,9 @@ void test__hash_set_insert_varg__libcstl_builtin_equal(void** state);
 void test__hash_set_insert_varg__libcstl_builtin_not_equal(void** state);
 void test__hash_set_insert_varg__user_define_equal(void** state);
 void test__hash_set_insert_varg__user_define_not_equal(void** state);
-*/
 /*
  * test _hash_set_init_elem_auxiliary
  */
-/*
 UT_CASE_DECLARATION(_hash_set_init_elem_auxiliary)
 void test__hash_set_init_elem_auxiliary__null_hash_set_container(void** state);
 void test__hash_set_init_elem_auxiliary__null_elem(void** state);
@@ -132,7 +121,6 @@ void test__hash_set_init_elem_auxiliary__successfully_cstr(void** state);
 void test__hash_set_init_elem_auxiliary__successfully_iterator(void** state);
 void test__hash_set_init_elem_auxiliary__successfully_container(void** state);
 void test__hash_set_init_elem_auxiliary__successfully_user_defined(void** state);
-*/
 
 #define UT_CSTL_HASH_SET_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_hash_set_private, test__create_hash_set__null_typename),\
@@ -152,7 +140,6 @@ void test__hash_set_init_elem_auxiliary__successfully_user_defined(void** state)
     UT_CASE(test__hash_set_destroy_auxiliary__non_created),\
     UT_CASE(test__hash_set_destroy_auxiliary__empty),\
     UT_CASE(test__hash_set_destroy_auxiliary__non_empty),\
-/*
     UT_CASE_BEGIN(_hash_set_find__hash_set_find_varg, test__hash_set_find__hash_set_find_varg__null_hash_set),\
     UT_CASE(test__hash_set_find__hash_set_find_varg__non_inited),\
     UT_CASE(test__hash_set_find__hash_set_find_varg__c_builtin_find),\
@@ -218,7 +205,6 @@ void test__hash_set_init_elem_auxiliary__successfully_user_defined(void** state)
     UT_CASE(test__hash_set_init_elem_auxiliary__successfully_iterator),\
     UT_CASE(test__hash_set_init_elem_auxiliary__successfully_container),\
     UT_CASE(test__hash_set_init_elem_auxiliary__successfully_user_defined)
-    */
 
 #endif /* _UT_CSTL_HASH_SET_PRIVATE_H_ */
 

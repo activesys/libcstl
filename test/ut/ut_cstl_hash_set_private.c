@@ -200,7 +200,6 @@ void test__hash_set_destroy_auxiliary__non_empty(void** state)
 /*
  * test _hash_set_find and _hash_set_find_varg
  */
-/*
 UT_CASE_DEFINATION(_hash_set_find__hash_set_find_varg)
 void test__hash_set_find__hash_set_find_varg__null_hash_set(void** state)
 {
@@ -210,11 +209,13 @@ void test__hash_set_find__hash_set_find_varg__null_hash_set(void** state)
 void test__hash_set_find__hash_set_find_varg__non_inited(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("int");
-    hash_set_init(pt_hash_set);
+    unary_function_t ufun_hash = NULL;
 
-    pt_hash_set->_t_tree._t_rbroot._t_color = BLACK;
+    hash_set_init(pt_hash_set);
+    ufun_hash = pt_hash_set->_t_hashtable._ufun_hash;
+    pt_hash_set->_t_hashtable._ufun_hash = NULL;
     expect_assert_failure(_hash_set_find(pt_hash_set, 9));
-    pt_hash_set->_t_tree._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._ufun_hash = ufun_hash;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -294,6 +295,16 @@ void test__hash_set_find__hash_set_find_varg__cstr_not_find(void** state)
     hash_set_destroy(pt_hash_set);
 }
 
+static void _test__hash_private__libcstl_builtin_hash(const void* cpv_input, void* pv_output)
+{
+    list_t* plist = (list_t*)cpv_input;
+    list_iterator_t it_iter;
+    *(size_t*)pv_output = 0;
+    for(it_iter = list_begin(plist); !iterator_equal(it_iter, list_end(plist)); it_iter = iterator_next(it_iter))
+    {
+        *(size_t*)pv_output += *(int*)iterator_get_pointer(it_iter);
+    }
+}
 void test__hash_set_find__hash_set_find_varg__libcstl_builtin_find(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("list_t<int>");
@@ -301,7 +312,7 @@ void test__hash_set_find__hash_set_find_varg__libcstl_builtin_find(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init(pt_hash_set);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -327,7 +338,7 @@ void test__hash_set_find__hash_set_find_varg__libcstl_builtin_not_find(void** st
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init(pt_hash_set);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -396,12 +407,10 @@ void test__hash_set_find__hash_set_find_varg__user_define_not_find(void** state)
 
     hash_set_destroy(pt_hash_set);
 }
-*/
 
 /*
  * test _hash_set_count and _hash_set_count_varg
  */
-/*
 UT_CASE_DEFINATION(_hash_set_count__hash_set_count_varg)
 void test__hash_set_count__hash_set_count_varg__null_hash_set(void** state)
 {
@@ -412,12 +421,14 @@ void test__hash_set_count__hash_set_count_varg__null_hash_set(void** state)
 void test__hash_set_count__hash_set_count_varg__non_inited(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("int");
+    unary_function_t ufun_hash = NULL;
     int elem = 9;
     hash_set_init(pt_hash_set);
 
-    pt_hash_set->_t_tree._t_rbroot._t_color = BLACK;
+    ufun_hash = pt_hash_set->_t_hashtable._ufun_hash;
+    pt_hash_set->_t_hashtable._ufun_hash = NULL;
     expect_assert_failure(_hash_set_count(pt_hash_set, elem));
-    pt_hash_set->_t_tree._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._ufun_hash = ufun_hash;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -428,7 +439,7 @@ void test__hash_set_count__hash_set_count_varg__c_builtin_0(void** state)
     int elem;
     int i;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_hash_set, i);
@@ -535,7 +546,7 @@ void test__hash_set_count__hash_set_count_varg__libcstl_builtin_0(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init(pt_hash_set);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -559,7 +570,7 @@ void test__hash_set_count__hash_set_count_varg__libcstl_builtin_1(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init(pt_hash_set);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -583,7 +594,7 @@ void test__hash_set_count__hash_set_count_varg__libcstl_builtin_n(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init(pt_hash_set);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -670,12 +681,10 @@ void test__hash_set_count__hash_set_count_varg__user_define_n(void** state)
 
     hash_set_destroy(pt_hash_set);
 }
-*/
 
 /*
  * test _hash_set_equal_range and _hash_set_equal_range_varg
  */
-/*
 UT_CASE_DEFINATION(_hash_set_equal_range__hash_set_equal_range_varg)
 void test__hash_set_equal_range__hash_set_equal_range_varg__null_hash_set(void** state)
 {
@@ -686,12 +695,14 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__null_hash_set(void**
 void test__hash_set_equal_range__hash_set_equal_range_varg__non_inited(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("int");
+    unary_function_t ufun_hash = NULL;
     int elem = 9;
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
-    pt_hash_set->_t_tree._t_rbroot._t_color = BLACK;
+    ufun_hash = pt_hash_set->_t_hashtable._ufun_hash;
+    pt_hash_set->_t_hashtable._ufun_hash = NULL;
     expect_assert_failure(_hash_set_equal_range(pt_hash_set, elem));
-    pt_hash_set->_t_tree._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._ufun_hash = ufun_hash;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -703,7 +714,7 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__c_builtin_equal(void
     int elem;
     int i;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_hash_set, i);
@@ -724,7 +735,7 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__c_builtin_greater(vo
     int elem;
     int i;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_hash_set, i);
@@ -732,9 +743,8 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__c_builtin_greater(vo
 
     elem = -8;
     r_range = _hash_set_equal_range(pt_hash_set, elem);
-    assert_true(iterator_equal(r_range.it_begin, hash_set_begin(pt_hash_set)));
-    assert_true(iterator_equal(r_range.it_end, hash_set_begin(pt_hash_set)));
-    assert_true(*(int*)iterator_get_pointer(r_range.it_begin) == 0);
+    assert_true(iterator_equal(r_range.it_begin, hash_set_end(pt_hash_set)));
+    assert_true(iterator_equal(r_range.it_end, hash_set_end(pt_hash_set)));
 
     hash_set_destroy(pt_hash_set);
 }
@@ -744,7 +754,7 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__cstr_upper_equal(voi
     hash_set_t* pt_hash_set = _create_hash_set("char*");
     range_t r_range;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, "aaa");
     hash_set_insert(pt_hash_set, "ggg");
     hash_set_insert(pt_hash_set, "nghl");
@@ -753,7 +763,7 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__cstr_upper_equal(voi
 
     r_range = _hash_set_equal_range(pt_hash_set, "ggg");
     assert_true(strcmp((char*)iterator_get_pointer(r_range.it_begin), "ggg") == 0);
-    assert_true(strcmp((char*)iterator_get_pointer(r_range.it_end), "linux") == 0);
+    assert_true(iterator_equal(r_range.it_end, hash_set_end(pt_hash_set)));
 
     hash_set_destroy(pt_hash_set);
 }
@@ -763,7 +773,7 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__cstr_greater(void** 
     hash_set_t* pt_hash_set = _create_hash_set("char*");
     range_t r_range;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, "aaa");
     hash_set_insert(pt_hash_set, "ggg");
     hash_set_insert(pt_hash_set, "nghl");
@@ -784,7 +794,7 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__libcstl_builtin_equa
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -811,7 +821,7 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__libcstl_builtin_grea
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -824,8 +834,8 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__libcstl_builtin_grea
     list_clear(plist);
     list_push_back(plist, 5);
     r_range = _hash_set_equal_range(pt_hash_set, plist);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(r_range.it_begin)) == 6);
-    assert_true(*(int*)list_front((list_t*)iterator_get_pointer(r_range.it_end)) == 6);
+    assert_true(iterator_equal(r_range.it_begin, hash_set_end(pt_hash_set)));
+    assert_true(iterator_equal(r_range.it_end, hash_set_end(pt_hash_set)));
 
     hash_set_destroy(pt_hash_set);
     list_destroy(plist);
@@ -845,7 +855,7 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__user_define_equal(vo
     type_register(_test__hash_set_equal_range__hash_set_equal_range_varg__user_define_t, NULL, NULL, NULL, NULL);
 
     pt_hash_set = _create_hash_set("_test__hash_set_equal_range__hash_set_equal_range_varg__user_define_t");
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     for(i = 0; i < 10; ++i)
     {
@@ -868,7 +878,7 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__user_define_greater(
     _test__hash_set_equal_range__hash_set_equal_range_varg__user_define_t elem;
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     for(i = 0; i < 10; ++i)
     {
@@ -878,17 +888,15 @@ void test__hash_set_equal_range__hash_set_equal_range_varg__user_define_greater(
 
     elem.n_elem = 7;
     r_range = _hash_set_equal_range(pt_hash_set, &elem);
-    assert_true(((_test__hash_set_equal_range__hash_set_equal_range_varg__user_define_t*)iterator_get_pointer(r_range.it_begin))->n_elem == 8);
-    assert_true(((_test__hash_set_equal_range__hash_set_equal_range_varg__user_define_t*)iterator_get_pointer(r_range.it_end))->n_elem == 8);
+    assert_true(iterator_equal(r_range.it_begin, hash_set_end(pt_hash_set)));
+    assert_true(iterator_equal(r_range.it_end, hash_set_end(pt_hash_set)));
 
     hash_set_destroy(pt_hash_set);
 }
-*/
 
 /*
  * test _hash_set_erase and _hash_set_erase_varg
  */
-/*
 UT_CASE_DEFINATION(_hash_set_erase__hash_set_erase_varg)
 void test__hash_set_erase__hash_set_erase_varg__null_hash_set(void** state)
 {
@@ -899,12 +907,14 @@ void test__hash_set_erase__hash_set_erase_varg__null_hash_set(void** state)
 void test__hash_set_erase__hash_set_erase_varg__non_inited(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("int");
+    unary_function_t ufun_hash = NULL;
     int elem = 9;
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
-    pt_hash_set->_t_tree._t_rbroot._t_color = BLACK;
+    ufun_hash = pt_hash_set->_t_hashtable._ufun_hash;
+    pt_hash_set->_t_hashtable._ufun_hash = NULL;
     expect_assert_failure(_hash_set_erase(pt_hash_set, elem));
-    pt_hash_set->_t_tree._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._ufun_hash = ufun_hash;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -915,7 +925,7 @@ void test__hash_set_erase__hash_set_erase_varg__c_builtin_0(void** state)
     int elem;
     int i;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_hash_set, i);
@@ -934,7 +944,7 @@ void test__hash_set_erase__hash_set_erase_varg__c_builtin_1(void** state)
     int elem;
     int i;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_hash_set, i);
@@ -954,7 +964,7 @@ void test__hash_set_erase__hash_set_erase_varg__c_builtin_n(void** state)
     int elem;
     int i;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_hash_set, i);
@@ -974,7 +984,7 @@ void test__hash_set_erase__hash_set_erase_varg__cstr_0(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("char*");
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, "aaa");
     hash_set_insert(pt_hash_set, "ggg");
     hash_set_insert(pt_hash_set, "nghl");
@@ -991,7 +1001,7 @@ void test__hash_set_erase__hash_set_erase_varg__cstr_1(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("char*");
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, "aaa");
     hash_set_insert(pt_hash_set, "ggg");
     hash_set_insert(pt_hash_set, "nghl");
@@ -1009,7 +1019,7 @@ void test__hash_set_erase__hash_set_erase_varg__cstr_n(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("char*");
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, "aaa");
     hash_set_insert(pt_hash_set, "ggg");
     hash_set_insert(pt_hash_set, "ggg");
@@ -1032,7 +1042,7 @@ void test__hash_set_erase__hash_set_erase_varg__libcstl_builtin_0(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -1057,7 +1067,7 @@ void test__hash_set_erase__hash_set_erase_varg__libcstl_builtin_1(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -1083,7 +1093,7 @@ void test__hash_set_erase__hash_set_erase_varg__libcstl_builtin_n(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -1117,7 +1127,7 @@ void test__hash_set_erase__hash_set_erase_varg__user_define_0(void** state)
     type_register(_test__hash_set_erase__hash_set_erase_varg__user_define_t, NULL, NULL, NULL, NULL);
 
     pt_hash_set = _create_hash_set("_test__hash_set_erase__hash_set_erase_varg__user_define_t");
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1138,7 +1148,7 @@ void test__hash_set_erase__hash_set_erase_varg__user_define_1(void** state)
     _test__hash_set_erase__hash_set_erase_varg__user_define_t elem;
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1160,7 +1170,7 @@ void test__hash_set_erase__hash_set_erase_varg__user_define_n(void** state)
     _test__hash_set_erase__hash_set_erase_varg__user_define_t elem;
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1177,12 +1187,10 @@ void test__hash_set_erase__hash_set_erase_varg__user_define_n(void** state)
 
     hash_set_destroy(pt_hash_set);
 }
-*/
 
 /*
  * test _hash_set_insert and _hash_set_insert_varg
  */
-/*
 UT_CASE_DEFINATION(_hash_set_insert__hash_set_insert_varg)
 void test__hash_set_insert_varg__null_hash_set(void** state)
 {
@@ -1193,12 +1201,14 @@ void test__hash_set_insert_varg__null_hash_set(void** state)
 void test__hash_set_insert_varg__non_inited(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("int");
+    unary_function_t ufun_hash = NULL;
     int elem = 9;
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
-    pt_hash_set->_t_tree._t_rbroot._t_color = BLACK;
+    ufun_hash = pt_hash_set->_t_hashtable._ufun_hash;
+    pt_hash_set->_t_hashtable._ufun_hash = NULL;
     expect_assert_failure(_hash_set_insert(pt_hash_set, elem));
-    pt_hash_set->_t_tree._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._ufun_hash = ufun_hash;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -1210,7 +1220,7 @@ void test__hash_set_insert_varg__c_builtin_equal(void** state)
     int elem;
     int i;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         _hash_set_insert(pt_hash_set, i);
@@ -1231,7 +1241,7 @@ void test__hash_set_insert_varg__c_builtin_not_equal(void** state)
     int elem;
     int i;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         _hash_set_insert(pt_hash_set, i);
@@ -1250,7 +1260,7 @@ void test__hash_set_insert_varg__cstr_equal(void** state)
     hash_set_t* pt_hash_set = _create_hash_set("char*");
     hash_set_iterator_t it_iter;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     _hash_set_insert(pt_hash_set, "aaa");
     _hash_set_insert(pt_hash_set, "ggg");
     _hash_set_insert(pt_hash_set, "nghl");
@@ -1269,7 +1279,7 @@ void test__hash_set_insert_varg__cstr_not_equal(void** state)
     hash_set_t* pt_hash_set = _create_hash_set("char*");
     hash_set_iterator_t it_iter;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     _hash_set_insert(pt_hash_set, "aaa");
     _hash_set_insert(pt_hash_set, "ggg");
     _hash_set_insert(pt_hash_set, "nghl");
@@ -1290,7 +1300,7 @@ void test__hash_set_insert_varg__libcstl_builtin_equal(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -1317,7 +1327,7 @@ void test__hash_set_insert_varg__libcstl_builtin_not_equal(void** state)
     list_t* plist = create_list(int);
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, _test__hash_private__libcstl_builtin_hash, NULL);
     list_init(plist);
 
     for(i = 0; i < 10; i++)
@@ -1351,7 +1361,7 @@ void test__hash_set_insert_varg__user_define_equal(void** state)
     type_register(_test__hash_set_insert_varg__user_define_t, NULL, NULL, NULL, NULL);
 
     pt_hash_set = _create_hash_set("_test__hash_set_insert_varg__user_define_t");
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1374,7 +1384,7 @@ void test__hash_set_insert_varg__user_define_not_equal(void** state)
     _test__hash_set_insert_varg__user_define_t elem;
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1389,12 +1399,10 @@ void test__hash_set_insert_varg__user_define_not_equal(void** state)
 
     hash_set_destroy(pt_hash_set);
 }
-*/
 
 /*
  * test _hash_set_init_elem_auxiliary
  */
-/*
 UT_CASE_DEFINATION(_hash_set_init_elem_auxiliary)
 void test__hash_set_init_elem_auxiliary__null_hash_set_container(void** state)
 {
@@ -1426,26 +1434,28 @@ void test__hash_set_init_elem_auxiliary__successfully_int(void** state)
 void test__hash_set_init_elem_auxiliary__successfully_cstr(void** state)
 {
     hash_set_t* phash_set = create_hash_set(char*);
-    hash_set_init_ex(phash_set, NULL);
+    string_t* pstr = create_string();
+    hash_set_init(phash_set);
 
     hash_set_insert(phash_set, "abc");
     hash_set_insert(phash_set, "def");
-    _hash_set_init_elem_auxiliary(phash_set, phash_set->_t_tree._t_rbroot._pt_left->_pby_data); 
-    assert_true(strcmp((char*)iterator_get_pointer(hash_set_begin(phash_set)), "") == 0);
+    _hash_set_init_elem_auxiliary(phash_set, pstr);
+    assert_true(string_empty(pstr));
 
     hash_set_destroy(phash_set);
+    string_destroy(pstr);
 }
 
 void test__hash_set_init_elem_auxiliary__successfully_iterator(void** state)
 {
     iterator_t it_iter;
     hash_set_t* phash_set = create_hash_set(iterator_t);
-    hash_set_init_ex(phash_set, NULL);
+    hash_set_init(phash_set);
 
     hash_set_insert(phash_set, &it_iter);
 
     _hash_set_init_elem_auxiliary(phash_set, (void*)iterator_get_pointer(hash_set_begin(phash_set)));
-    memhash_set(&it_iter, 0x00, sizeof(iterator_t));
+    memset(&it_iter, 0x00, sizeof(iterator_t));
     assert_true(memcmp((iterator_t*)iterator_get_pointer(hash_set_begin(phash_set)), &it_iter, sizeof(iterator_t)) == 0);
 
     hash_set_destroy(phash_set);
@@ -1480,5 +1490,4 @@ void test__hash_set_init_elem_auxiliary__successfully_user_defined(void** state)
 
     hash_set_destroy(phash_set);
 }
-*/
 
