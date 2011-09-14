@@ -15,7 +15,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_hash_map.c \
 	     $(srcdir)/../../src/cstl_hash_multimap.c \
 	     $(srcdir)/../../src/cstl_hash_multiset.c \
-	     $(srcdir)/../../src/cstl_hash_set.c \
+	     $(srcdir)/../../src/cstl_hash_set.c $(srcdir)/../../src/cstl_hash_set_iterator.c \
 	     $(srcdir)/../../src/cstl_hash_set_private.c $(srcdir)/../../src/cstl_hash_set_aux.c \
 	     $(srcdir)/../../src/cstl_hashtable.c $(srcdir)/../../src/cstl_hashtable_iterator.c \
 	     $(srcdir)/../../src/cstl_hashtable_private.c $(srcdir)/../../src/cstl_hashtable_aux.c \
@@ -103,7 +103,9 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_hashtable_iterator.c ut_cstl_hashtable_iterator.h \
 	     ut_cstl_hashtable.c ut_cstl_hashtable.h \
 	     ut_cstl_hash_set_aux.c ut_cstl_hash_set_aux.h \
-	     ut_cstl_hash_set_private.c ut_cstl_hash_set_private.h
+	     ut_cstl_hash_set_private.c ut_cstl_hash_set_private.h \
+	     ut_cstl_hash_set_iterator.c ut_cstl_hash_set_iterator.h \
+	     ut_cstl_hash_set.c ut_cstl_hash_set.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)
