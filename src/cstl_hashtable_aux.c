@@ -232,6 +232,7 @@ bool_t _hashtable_same_type_ex(const _hashtable_t* cpt_first, const _hashtable_t
            (cpt_first->_t_typeinfo._t_style == cpt_second->_t_typeinfo._t_style) &&
            (cpt_first->_ufun_hash == cpt_second->_ufun_hash) &&
            (cpt_first->_bfun_compare == cpt_second->_bfun_compare) &&
+           vector_size(&cpt_first->_vec_bucket) == vector_size(&cpt_second->_vec_bucket) &&
            _type_is_same(_GET_HASHTABLE_TYPE_NAME(cpt_first), _GET_HASHTABLE_TYPE_NAME(cpt_second));
 }
 

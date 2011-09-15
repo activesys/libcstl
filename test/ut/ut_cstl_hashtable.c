@@ -748,10 +748,10 @@ void test__hashtable_assign__not_same_bucketcount(void** state)
     _hashtable_init(pt_dest, 898, NULL, NULL);
     elem = 999;
     _hashtable_insert_unique(pt_dest, &elem);
-    assert_true(*(int*)_hashtable_iterator_get_pointer(_hashtable_begin(pt_dest)) == 999);
-    _hashtable_assign(pt_dest, pt_src);
-    assert_true(_hashtable_size(pt_dest) == 1);
-    assert_true(*(int*)_hashtable_iterator_get_pointer(_hashtable_begin(pt_dest)) == 9);
+    /*assert_true(*(int*)_hashtable_iterator_get_pointer(_hashtable_begin(pt_dest)) == 999);*/
+    expect_assert_failure(_hashtable_assign(pt_dest, pt_src));
+    /*assert_true(_hashtable_size(pt_dest) == 1);*/
+    /*assert_true(*(int*)_hashtable_iterator_get_pointer(_hashtable_begin(pt_dest)) == 9);*/
 
     _hashtable_destroy(pt_dest);
     _hashtable_destroy(pt_src);

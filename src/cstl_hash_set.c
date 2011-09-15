@@ -83,7 +83,8 @@ void hash_set_destroy(hash_set_t* phset_set)
  */
 void hash_set_init_copy(hash_set_t* phset_dest, const hash_set_t* cphset_src)
 {
-    assert(phset_dest != NULL && cphset_src != NULL);
+    assert(phset_dest != NULL);
+    assert(cphset_src != NULL);
 
     _hashtable_init_copy(&phset_dest->_t_hashtable, &cphset_src->_t_hashtable);
 }
@@ -104,25 +105,24 @@ void hash_set_init_copy_range_ex(
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
 {
     assert(phset_dest != NULL);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER &&
-           _GET_HASH_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR &&
-           _GET_HASH_SET_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER &&
-           _GET_HASH_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER(it_begin) != phset_dest &&
-           _GET_HASH_SET_CONTAINER(it_end) != phset_dest &&
-           _GET_HASH_SET_CONTAINER(it_begin) == _GET_HASH_SET_CONTAINER(it_end));
+    assert(_GET_HASH_SET_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER);
+    assert(_GET_HASH_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_HASH_SET_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER);
+    assert(_GET_HASH_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_HASH_SET_CONTAINER(it_begin) != phset_dest);
+    assert(_GET_HASH_SET_CONTAINER(it_end) != phset_dest);
+    assert(_GET_HASH_SET_CONTAINER(it_begin) == _GET_HASH_SET_CONTAINER(it_end));
 
-    _hashtable_init_copy_range(&phset_dest->_t_hashtable, it_begin, it_end,
-        t_bucketcount, ufun_hash, bfun_compare);
+    _hashtable_init_copy_range(&phset_dest->_t_hashtable, it_begin, it_end, t_bucketcount, ufun_hash, bfun_compare);
 }
 
 /**
  * Assign hash_set container.
  */
-void hash_set_assign(
-    hash_set_t* phset_dest, const hash_set_t* cphset_src)
+void hash_set_assign(hash_set_t* phset_dest, const hash_set_t* cphset_src)
 {
-    assert(phset_dest != NULL && cphset_src != NULL);
+    assert(phset_dest != NULL);
+    assert(cphset_src != NULL);
 
     _hashtable_assign(&phset_dest->_t_hashtable, &cphset_src->_t_hashtable);
 }
