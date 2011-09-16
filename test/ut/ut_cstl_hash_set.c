@@ -1117,7 +1117,6 @@ void test_hash_set_bucket_count__non_empty(void** state)
 /*
  * test hash_set_begin
  */
-/*
 UT_CASE_DEFINATION(hash_set_begin)
 void test_hash_set_begin__null_hash_set(void** state)
 {
@@ -1127,11 +1126,11 @@ void test_hash_set_begin__null_hash_set(void** state)
 void test_hash_set_begin__non_inited(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_begin(pt_hash_set));
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -1139,7 +1138,7 @@ void test_hash_set_begin__non_inited(void** state)
 void test_hash_set_begin__empty(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
     assert_true(_hash_set_iterator_equal(hash_set_begin(pt_hash_set), hash_set_end(pt_hash_set)));
 
@@ -1151,19 +1150,17 @@ void test_hash_set_begin__non_empty(void** state)
     hash_set_t* pt_hash_set = create_hash_set(int);
     int elem = 9;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
     hash_set_insert(pt_hash_set, elem);
 
     assert_true(*(int*)iterator_get_pointer(hash_set_begin(pt_hash_set)) == 9);
 
     hash_set_destroy(pt_hash_set);
 }
-*/
 
 /*
  * test hash_set_end
  */
-/*
 UT_CASE_DEFINATION(hash_set_end)
 void test_hash_set_end__null_hash_set(void** state)
 {
@@ -1173,11 +1170,11 @@ void test_hash_set_end__null_hash_set(void** state)
 void test_hash_set_end__non_inited(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_end(pt_hash_set));
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -1185,7 +1182,7 @@ void test_hash_set_end__non_inited(void** state)
 void test_hash_set_end__empty(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
     assert_true(iterator_equal(hash_set_begin(pt_hash_set), hash_set_end(pt_hash_set)));
 
@@ -1198,7 +1195,7 @@ void test_hash_set_end__non_empty(void** state)
     hash_set_iterator_t it_iter;
     int elem = 9;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
     hash_set_insert(pt_hash_set, elem);
 
     it_iter = hash_set_end(pt_hash_set);
@@ -1207,12 +1204,10 @@ void test_hash_set_end__non_empty(void** state)
 
     hash_set_destroy(pt_hash_set);
 }
-*/
 
 /*
  * test hash_set_key_comp
  */
-/*
 UT_CASE_DEFINATION(hash_set_key_comp)
 void test_hash_set_key_comp__null_hash_set(void** state)
 {
@@ -1222,11 +1217,11 @@ void test_hash_set_key_comp__null_hash_set(void** state)
 void test_hash_set_key_comp__non_inited(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_key_comp(pt_hash_set));
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -1234,7 +1229,7 @@ void test_hash_set_key_comp__non_inited(void** state)
 void test_hash_set_key_comp__default_key_comp(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
     assert_true(hash_set_key_comp(pt_hash_set) == _GET_HASH_SET_TYPE_LESS_FUNCTION(pt_hash_set));
 
@@ -1249,18 +1244,62 @@ void _test_hash_set_key_comp__user_define_key_comp(const void* cpv_first, const 
 void test_hash_set_key_comp__user_define_key_comp(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, _test_hash_set_key_comp__user_define_key_comp);
+    hash_set_init_ex(pt_hash_set, 0, NULL, _test_hash_set_key_comp__user_define_key_comp);
 
     assert_true(hash_set_key_comp(pt_hash_set) == _test_hash_set_key_comp__user_define_key_comp);
 
     hash_set_destroy(pt_hash_set);
 }
-*/
+
+/*
+ * test hash_set_hash
+ */
+UT_CASE_DEFINATION(hash_set_hash)
+void test_hash_set_hash__null_hash_set(void** state)
+{
+    expect_assert_failure(hash_set_hash(NULL));
+}
+
+void test_hash_set_hash__non_inited(void** state)
+{
+    hash_set_t* pt_hash_set = create_hash_set(int);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
+
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = 999;
+    expect_assert_failure(hash_set_hash(pt_hash_set));
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    hash_set_destroy(pt_hash_set);
+}
+
+void test_hash_set_hash__default_hash(void** state)
+{
+    hash_set_t* pt_hash_set = create_hash_set(int);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
+
+    assert_true(hash_set_hash(pt_hash_set) == _hashtable_default_hash);
+
+    hash_set_destroy(pt_hash_set);
+}
+
+void _test_hash_set_hash__user_define_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+
+void test_hash_set_hash__user_define_hash(void** state)
+{
+    hash_set_t* pt_hash_set = create_hash_set(int);
+    hash_set_init_ex(pt_hash_set, 0, _test_hash_set_hash__user_define_hash, NULL);
+
+    assert_true(hash_set_hash(pt_hash_set) == _test_hash_set_hash__user_define_hash);
+
+    hash_set_destroy(pt_hash_set);
+}
 
 /*
  * test hash_set_clear
  */
-/*
 UT_CASE_DEFINATION(hash_set_clear)
 void test_hash_set_clear__null_hash_set(void** state)
 {
@@ -1270,11 +1309,11 @@ void test_hash_set_clear__null_hash_set(void** state)
 void test_hash_set_clear__non_inited(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_clear(pt_hash_set));
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -1282,7 +1321,7 @@ void test_hash_set_clear__non_inited(void** state)
 void test_hash_set_clear__empty(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
     assert_true(hash_set_empty(pt_hash_set));
     hash_set_clear(pt_hash_set);
@@ -1295,7 +1334,7 @@ void test_hash_set_clear__non_empty(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
     int elem = 8;
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
     hash_set_insert(pt_hash_set, elem);
     assert_false(hash_set_empty(pt_hash_set));
@@ -1304,17 +1343,15 @@ void test_hash_set_clear__non_empty(void** state)
 
     hash_set_destroy(pt_hash_set);
 }
-*/
 
 /*
  * test hash_set_equal
  */
-/*
 UT_CASE_DEFINATION(hash_set_equal)
 void test_hash_set_equal__null_first(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init_ex(pt_hash_set, 0, NULL, NULL);
 
     expect_assert_failure(hash_set_equal(NULL, pt_hash_set));
 
@@ -1324,7 +1361,7 @@ void test_hash_set_equal__null_first(void** state)
 void test_hash_set_equal__null_second(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_equal(pt_hash_set, NULL));
 
@@ -1336,12 +1373,12 @@ void test_hash_set_equal__non_inited_first(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init_ex(pt_first, 0, NULL, NULL);
+    hash_set_init_ex(pt_second, 0, NULL, NULL);
 
-    pt_first->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_first->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_equal(pt_first, pt_second));
-    pt_first->_t_hashtable._t_rbroot._t_color = RED;
+    pt_first->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -1352,12 +1389,12 @@ void test_hash_set_equal__non_inited_second(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init_ex(pt_first, 0, NULL, NULL);
+    hash_set_init_ex(pt_second, 0, NULL, NULL);
 
-    pt_second->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_second->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_equal(pt_first, pt_second));
-    pt_second->_t_hashtable._t_rbroot._t_color = RED;
+    pt_second->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -1368,8 +1405,8 @@ void test_hash_set_equal__not_same_type(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(list_t<int>);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init_ex(pt_first, 0, NULL, NULL);
+    hash_set_init_ex(pt_second, 0, NULL, NULL);
 
     assert_false(hash_set_equal(pt_first, pt_second));
 
@@ -1381,7 +1418,7 @@ void test_hash_set_equal__same_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     assert_true(hash_set_equal(pt_hash_set, pt_hash_set));
 
     hash_set_destroy(pt_hash_set);
@@ -1393,8 +1430,8 @@ void test_hash_set_equal__size_first_less_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(signed int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1417,8 +1454,8 @@ void test_hash_set_equal__size_first_greater_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1440,8 +1477,8 @@ void test_hash_set_equal__size_equal_0(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     assert_true(hash_set_equal(pt_first, pt_second));
 
@@ -1455,8 +1492,8 @@ void test_hash_set_equal__size_equal_elem_first_less_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1479,8 +1516,8 @@ void test_hash_set_equal__size_equal_elem_first_greater_than_second(void** state
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 30; i < 40; ++i)
     {
@@ -1490,6 +1527,38 @@ void test_hash_set_equal__size_equal_elem_first_greater_than_second(void** state
     {
         hash_set_insert(pt_second, i);
     }
+
+    assert_false(hash_set_equal(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+void test_hash_set_equal__not_same_bucketcount(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+
+    hash_set_init_ex(pt_first, 0, NULL, NULL);
+    hash_set_init_ex(pt_second, 100, NULL, NULL);
+
+    assert_false(hash_set_equal(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+static void _test_hash_set_equal__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test_hash_set_equal__not_same_hash(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+
+    hash_set_init_ex(pt_first, 0, _test_hash_set_equal__not_same_hash, NULL);
+    hash_set_init_ex(pt_second, 0, NULL, NULL);
 
     assert_false(hash_set_equal(pt_first, pt_second));
 
@@ -1507,8 +1576,8 @@ void test_hash_set_equal__compare_not_equal(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, _test_hash_set_equal__compare_not_equal);
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, NULL, _test_hash_set_equal__compare_not_equal);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1528,8 +1597,8 @@ void test_hash_set_equal__equal(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1542,17 +1611,15 @@ void test_hash_set_equal__equal(void** state)
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
 }
-*/
 
 /*
  * test hash_set_not_equal
  */
-/*
 UT_CASE_DEFINATION(hash_set_not_equal)
 void test_hash_set_not_equal__null_first(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_not_equal(NULL, pt_hash_set));
 
@@ -1562,7 +1629,7 @@ void test_hash_set_not_equal__null_first(void** state)
 void test_hash_set_not_equal__null_second(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_not_equal(pt_hash_set, NULL));
 
@@ -1574,12 +1641,12 @@ void test_hash_set_not_equal__non_inited_first(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_first->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_first->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_not_equal(pt_first, pt_second));
-    pt_first->_t_hashtable._t_rbroot._t_color = RED;
+    pt_first->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -1590,12 +1657,12 @@ void test_hash_set_not_equal__non_inited_second(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_second->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_second->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_not_equal(pt_first, pt_second));
-    pt_second->_t_hashtable._t_rbroot._t_color = RED;
+    pt_second->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -1606,8 +1673,8 @@ void test_hash_set_not_equal__not_same_type(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(list_t<int>);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     assert_true(hash_set_not_equal(pt_first, pt_second));
 
@@ -1619,7 +1686,7 @@ void test_hash_set_not_equal__same_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     assert_false(hash_set_not_equal(pt_hash_set, pt_hash_set));
 
     hash_set_destroy(pt_hash_set);
@@ -1631,8 +1698,8 @@ void test_hash_set_not_equal__size_first_less_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(signed int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1655,8 +1722,8 @@ void test_hash_set_not_equal__size_first_greater_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1678,8 +1745,8 @@ void test_hash_set_not_equal__size_equal_0(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     assert_false(hash_set_not_equal(pt_first, pt_second));
 
@@ -1693,8 +1760,8 @@ void test_hash_set_not_equal__size_equal_elem_first_less_than_second(void** stat
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1717,8 +1784,8 @@ void test_hash_set_not_equal__size_equal_elem_first_greater_than_second(void** s
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 30; i < 40; ++i)
     {
@@ -1726,6 +1793,52 @@ void test_hash_set_not_equal__size_equal_elem_first_greater_than_second(void** s
     }
     for(i = 10; i < 20; ++i)
     {
+        hash_set_insert(pt_second, i);
+    }
+
+    assert_true(hash_set_not_equal(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+void test_hash_set_not_equal__not_same_bucketcount(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 100, NULL, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
+        hash_set_insert(pt_second, i);
+    }
+
+    assert_true(hash_set_not_equal(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+static void _test_hash_set_not_equal__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test_hash_set_not_equal__not_same_hash(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, _test_hash_set_not_equal__not_same_hash, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
         hash_set_insert(pt_second, i);
     }
 
@@ -1745,8 +1858,8 @@ void test_hash_set_not_equal__compare_not_equal(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, _test_hash_set_not_equal__compare_not_equal);
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, NULL, _test_hash_set_not_equal__compare_not_equal);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1766,8 +1879,8 @@ void test_hash_set_not_equal__equal(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1780,17 +1893,15 @@ void test_hash_set_not_equal__equal(void** state)
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
 }
-*/
 
 /*
  * test hash_set_less
  */
-/*
 UT_CASE_DEFINATION(hash_set_less)
 void test_hash_set_less__null_first(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_less(NULL, pt_hash_set));
 
@@ -1800,7 +1911,7 @@ void test_hash_set_less__null_first(void** state)
 void test_hash_set_less__null_second(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_less(pt_hash_set, NULL));
 
@@ -1812,12 +1923,12 @@ void test_hash_set_less__non_inited_first(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_first->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_first->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_less(pt_first, pt_second));
-    pt_first->_t_hashtable._t_rbroot._t_color = RED;
+    pt_first->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -1828,12 +1939,12 @@ void test_hash_set_less__non_inited_second(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_second->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_second->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_less(pt_first, pt_second));
-    pt_second->_t_hashtable._t_rbroot._t_color = RED;
+    pt_second->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -1844,8 +1955,8 @@ void test_hash_set_less__not_same_type(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(list_t<int>);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     expect_assert_failure(hash_set_less(pt_first, pt_second));
 
@@ -1857,7 +1968,7 @@ void test_hash_set_less__same_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     assert_false(hash_set_less(pt_hash_set, pt_hash_set));
 
     hash_set_destroy(pt_hash_set);
@@ -1869,8 +1980,8 @@ void test_hash_set_less__size_first_less_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(signed int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1893,8 +2004,8 @@ void test_hash_set_less__size_first_greater_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1916,8 +2027,8 @@ void test_hash_set_less__size_equal_0(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     assert_false(hash_set_less(pt_first, pt_second));
 
@@ -1931,8 +2042,8 @@ void test_hash_set_less__size_equal_elem_first_less_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -1955,8 +2066,8 @@ void test_hash_set_less__size_equal_elem_first_greater_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 30; i < 40; ++i)
     {
@@ -1973,6 +2084,52 @@ void test_hash_set_less__size_equal_elem_first_greater_than_second(void** state)
     hash_set_destroy(pt_second);
 }
 
+void test_hash_set_less__not_same_bucketcount(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 100, NULL, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
+        hash_set_insert(pt_second, i);
+    }
+
+    expect_assert_failure(hash_set_less(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+static void _test_hash_set_less__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test_hash_set_less__not_same_hash(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, _test_hash_set_less__not_same_hash, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
+        hash_set_insert(pt_second, i);
+    }
+
+    expect_assert_failure(hash_set_less(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
 static void _test_hash_set_less__compare_less(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
@@ -1983,8 +2140,8 @@ void test_hash_set_less__compare_less(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, _test_hash_set_less__compare_less);
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, NULL, _test_hash_set_less__compare_less);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2004,8 +2161,8 @@ void test_hash_set_less__equal(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2018,17 +2175,15 @@ void test_hash_set_less__equal(void** state)
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
 }
-*/
 
 /*
  * test hash_set_less_equal
  */
-/*
 UT_CASE_DEFINATION(hash_set_less_equal)
 void test_hash_set_less_equal__null_first(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_less_equal(NULL, pt_hash_set));
 
@@ -2038,7 +2193,7 @@ void test_hash_set_less_equal__null_first(void** state)
 void test_hash_set_less_equal__null_second(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_less_equal(pt_hash_set, NULL));
 
@@ -2050,12 +2205,12 @@ void test_hash_set_less_equal__non_inited_first(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_first->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_first->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_less_equal(pt_first, pt_second));
-    pt_first->_t_hashtable._t_rbroot._t_color = RED;
+    pt_first->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2066,12 +2221,12 @@ void test_hash_set_less_equal__non_inited_second(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_second->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_second->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_less_equal(pt_first, pt_second));
-    pt_second->_t_hashtable._t_rbroot._t_color = RED;
+    pt_second->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2082,8 +2237,8 @@ void test_hash_set_less_equal__not_same_type(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(list_t<int>);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     expect_assert_failure(hash_set_less_equal(pt_first, pt_second));
 
@@ -2095,7 +2250,7 @@ void test_hash_set_less_equal__same_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     assert_true(hash_set_less_equal(pt_hash_set, pt_hash_set));
 
     hash_set_destroy(pt_hash_set);
@@ -2107,8 +2262,8 @@ void test_hash_set_less_equal__size_first_less_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(signed int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2131,8 +2286,8 @@ void test_hash_set_less_equal__size_first_greater_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2154,8 +2309,8 @@ void test_hash_set_less_equal__size_equal_0(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     assert_true(hash_set_less_equal(pt_first, pt_second));
 
@@ -2169,8 +2324,8 @@ void test_hash_set_less_equal__size_equal_elem_first_less_than_second(void** sta
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2193,8 +2348,8 @@ void test_hash_set_less_equal__size_equal_elem_first_greater_than_second(void** 
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 30; i < 40; ++i)
     {
@@ -2211,6 +2366,52 @@ void test_hash_set_less_equal__size_equal_elem_first_greater_than_second(void** 
     hash_set_destroy(pt_second);
 }
 
+void test_hash_set_less_equal__not_same_bucketcount(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 100, NULL, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
+        hash_set_insert(pt_second, i);
+    }
+
+    expect_assert_failure(hash_set_less_equal(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+static void _test_hash_set_less_equal__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test_hash_set_less_equal__not_same_hash(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, _test_hash_set_less_equal__not_same_hash, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
+        hash_set_insert(pt_second, i);
+    }
+
+    expect_assert_failure(hash_set_less_equal(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
 static void _test_hash_set_less_equal__compare_less(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
@@ -2221,8 +2422,8 @@ void test_hash_set_less_equal__compare_less(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, _test_hash_set_less_equal__compare_less);
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, NULL, _test_hash_set_less_equal__compare_less);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2242,8 +2443,8 @@ void test_hash_set_less_equal__equal(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2256,17 +2457,15 @@ void test_hash_set_less_equal__equal(void** state)
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
 }
-*/
 
 /*
  * test hash_set_greater
  */
-/*
 UT_CASE_DEFINATION(hash_set_greater)
 void test_hash_set_greater__null_first(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_greater(NULL, pt_hash_set));
 
@@ -2276,7 +2475,7 @@ void test_hash_set_greater__null_first(void** state)
 void test_hash_set_greater__null_second(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_greater(pt_hash_set, NULL));
 
@@ -2288,12 +2487,12 @@ void test_hash_set_greater__non_inited_first(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_first->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_first->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_greater(pt_first, pt_second));
-    pt_first->_t_hashtable._t_rbroot._t_color = RED;
+    pt_first->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2304,12 +2503,12 @@ void test_hash_set_greater__non_inited_second(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_second->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_second->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_greater(pt_first, pt_second));
-    pt_second->_t_hashtable._t_rbroot._t_color = RED;
+    pt_second->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2320,8 +2519,8 @@ void test_hash_set_greater__not_same_type(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(list_t<int>);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     expect_assert_failure(hash_set_greater(pt_first, pt_second));
 
@@ -2333,7 +2532,7 @@ void test_hash_set_greater__same_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     assert_false(hash_set_greater(pt_hash_set, pt_hash_set));
 
     hash_set_destroy(pt_hash_set);
@@ -2345,8 +2544,8 @@ void test_hash_set_greater__size_first_less_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(signed int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2369,8 +2568,8 @@ void test_hash_set_greater__size_first_greater_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2392,8 +2591,8 @@ void test_hash_set_greater__size_equal_0(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     assert_false(hash_set_greater(pt_first, pt_second));
 
@@ -2407,8 +2606,8 @@ void test_hash_set_greater__size_equal_elem_first_less_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2431,8 +2630,8 @@ void test_hash_set_greater__size_equal_elem_first_greater_than_second(void** sta
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 30; i < 40; ++i)
     {
@@ -2449,6 +2648,52 @@ void test_hash_set_greater__size_equal_elem_first_greater_than_second(void** sta
     hash_set_destroy(pt_second);
 }
 
+void test_hash_set_greater__not_same_bucketcount(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 890, NULL, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
+        hash_set_insert(pt_second, i);
+    }
+
+    expect_assert_failure(hash_set_greater(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+static void _test_hash_set_greater__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test_hash_set_greater__not_same_hash(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, _test_hash_set_greater__not_same_hash, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
+        hash_set_insert(pt_second, i);
+    }
+
+    expect_assert_failure(hash_set_greater(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
 static void _test_hash_set_greater__compare_less(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
@@ -2459,8 +2704,8 @@ void test_hash_set_greater__compare_less(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, _test_hash_set_greater__compare_less);
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, NULL, _test_hash_set_greater__compare_less);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2480,8 +2725,8 @@ void test_hash_set_greater__equal(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2494,17 +2739,15 @@ void test_hash_set_greater__equal(void** state)
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
 }
-*/
 
 /*
  * test hash_set_greater_equal
  */
-/*
 UT_CASE_DEFINATION(hash_set_greater_equal)
 void test_hash_set_greater_equal__null_first(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_greater_equal(NULL, pt_hash_set));
 
@@ -2514,7 +2757,7 @@ void test_hash_set_greater_equal__null_first(void** state)
 void test_hash_set_greater_equal__null_second(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_greater_equal(pt_hash_set, NULL));
 
@@ -2526,12 +2769,12 @@ void test_hash_set_greater_equal__non_inited_first(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_first->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_first->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_greater_equal(pt_first, pt_second));
-    pt_first->_t_hashtable._t_rbroot._t_color = RED;
+    pt_first->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2542,12 +2785,12 @@ void test_hash_set_greater_equal__non_inited_second(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_second->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_second->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_greater_equal(pt_first, pt_second));
-    pt_second->_t_hashtable._t_rbroot._t_color = RED;
+    pt_second->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2558,8 +2801,8 @@ void test_hash_set_greater_equal__not_same_type(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(list_t<int>);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     expect_assert_failure(hash_set_greater_equal(pt_first, pt_second));
 
@@ -2571,7 +2814,7 @@ void test_hash_set_greater_equal__same_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     assert_true(hash_set_greater_equal(pt_hash_set, pt_hash_set));
 
     hash_set_destroy(pt_hash_set);
@@ -2583,8 +2826,8 @@ void test_hash_set_greater_equal__size_first_less_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(signed int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2607,8 +2850,8 @@ void test_hash_set_greater_equal__size_first_greater_than_second(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2630,8 +2873,8 @@ void test_hash_set_greater_equal__size_equal_0(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     assert_true(hash_set_greater_equal(pt_first, pt_second));
 
@@ -2645,8 +2888,8 @@ void test_hash_set_greater_equal__size_equal_elem_first_less_than_second(void** 
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2669,8 +2912,8 @@ void test_hash_set_greater_equal__size_equal_elem_first_greater_than_second(void
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 30; i < 40; ++i)
     {
@@ -2687,6 +2930,52 @@ void test_hash_set_greater_equal__size_equal_elem_first_greater_than_second(void
     hash_set_destroy(pt_second);
 }
 
+void test_hash_set_greater_equal__not_same_bucketcount(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 100, NULL, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
+        hash_set_insert(pt_second, i);
+    }
+
+    expect_assert_failure(hash_set_greater_equal(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+static void _test_hash_set_greater_equal__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test_hash_set_greater_equal__not_same_hash(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+    int i;
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, _test_hash_set_greater_equal__not_same_hash, NULL);
+
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_first, i);
+        hash_set_insert(pt_second, i);
+    }
+
+    expect_assert_failure(hash_set_greater_equal(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
 static void _test_hash_set_greater_equal__compare_less(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
@@ -2697,8 +2986,8 @@ void test_hash_set_greater_equal__compare_less(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, _test_hash_set_greater_equal__compare_less);
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, NULL, _test_hash_set_greater_equal__compare_less);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2718,8 +3007,8 @@ void test_hash_set_greater_equal__equal(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
     for(i = 0; i < 10; ++i)
     {
@@ -2732,17 +3021,15 @@ void test_hash_set_greater_equal__equal(void** state)
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
 }
-*/
 
 /*
  * test hash_set_swap
  */
-/*
 UT_CASE_DEFINATION(hash_set_swap)
 void test_hash_set_swap__null_first(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_swap(NULL, pt_hash_set));
 
@@ -2752,7 +3039,7 @@ void test_hash_set_swap__null_first(void** state)
 void test_hash_set_swap__null_second(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_swap(pt_hash_set, NULL));
 
@@ -2764,12 +3051,12 @@ void test_hash_set_swap__non_inited_first(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_first->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_first->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_swap(pt_first, pt_second));
-    pt_first->_t_hashtable._t_rbroot._t_color = RED;
+    pt_first->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2780,12 +3067,12 @@ void test_hash_set_swap__non_inited_second(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(int);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
 
-    pt_second->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_second->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_swap(pt_first, pt_second));
-    pt_second->_t_hashtable._t_rbroot._t_color = RED;
+    pt_second->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2796,8 +3083,58 @@ void test_hash_set_swap__not_same_type(void** state)
     hash_set_t* pt_first = create_hash_set(int);
     hash_set_t* pt_second = create_hash_set(list_t<int>);
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
+
+    expect_assert_failure(hash_set_swap(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+void test_hash_set_swap__not_same_bucketcount(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 928, NULL, NULL);
+
+    expect_assert_failure(hash_set_swap(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+static void _test_hash_set_swap__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test_hash_set_swap__not_same_hash(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, _test_hash_set_swap__not_same_hash, NULL);
+
+    expect_assert_failure(hash_set_swap(pt_first, pt_second));
+
+    hash_set_destroy(pt_first);
+    hash_set_destroy(pt_second);
+}
+
+static void _test_hash_set_swap__not_same_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test_hash_set_swap__not_same_compare(void** state)
+{
+    hash_set_t* pt_first = create_hash_set(int);
+    hash_set_t* pt_second = create_hash_set(int);
+
+    hash_set_init(pt_first);
+    hash_set_init_ex(pt_second, 0, NULL, _test_hash_set_swap__not_same_compare);
 
     expect_assert_failure(hash_set_swap(pt_first, pt_second));
 
@@ -2809,7 +3146,7 @@ void test_hash_set_swap__same_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_swap(pt_hash_set, pt_hash_set);
     assert_true(hash_set_empty(pt_hash_set));
 
@@ -2822,8 +3159,8 @@ void test_hash_set_swap__0_swap_n(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i = 0;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_second, i);
@@ -2845,8 +3182,8 @@ void test_hash_set_swap__n_swap_0(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i = 0;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_first, i);
@@ -2868,8 +3205,8 @@ void test_hash_set_swap__n_swap_n(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i = 0;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_first, i);
@@ -2897,8 +3234,8 @@ void test_hash_set_swap__m_swap_n(void** state)
     hash_set_t* pt_second = create_hash_set(int);
     int i = 0;
 
-    hash_set_init_ex(pt_first, NULL);
-    hash_set_init_ex(pt_second, NULL);
+    hash_set_init(pt_first);
+    hash_set_init(pt_second);
     for(i = 0; i < 30; ++i)
     {
         hash_set_insert(pt_first, i);
@@ -2917,17 +3254,15 @@ void test_hash_set_swap__m_swap_n(void** state)
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
 }
-*/
 
 /*
  * test hash_set_insert_range
  */
-/*
 UT_CASE_DEFINATION(hash_set_insert_range)
 void test_hash_set_insert_range__null_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_insert_range(NULL, hash_set_begin(pt_hash_set), hash_set_end(pt_hash_set)));
 
@@ -2941,14 +3276,14 @@ void test_hash_set_insert_range__non_inited(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, NULL);
+    hash_set_init(pt_dest);
+    hash_set_init(pt_src);
 
-    pt_dest->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_dest->_t_hashtable._t_typeinfo._t_style = 999;
     it_begin = hash_set_begin(pt_src);
     it_end = hash_set_end(pt_src);
     expect_assert_failure(hash_set_insert_range(pt_dest, it_begin, it_end));
-    pt_dest->_t_hashtable._t_rbroot._t_color = RED;
+    pt_dest->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_dest);
     hash_set_destroy(pt_src);
@@ -2961,12 +3296,12 @@ void test_hash_set_insert_range__invalid_begin(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, NULL);
+    hash_set_init(pt_dest);
+    hash_set_init(pt_src);
 
     it_begin = hash_set_begin(pt_src);
     it_end = hash_set_end(pt_src);
-    it_begin._t_pos._t_hashtablepos._pt_tree = NULL;
+    it_begin._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(hash_set_insert_range(pt_dest, it_begin, it_end));
 
     hash_set_destroy(pt_dest);
@@ -2980,8 +3315,8 @@ void test_hash_set_insert_range__invalid_end(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, NULL);
+    hash_set_init(pt_dest);
+    hash_set_init(pt_src);
 
     it_begin = hash_set_begin(pt_src);
     it_end = hash_set_end(pt_src);
@@ -3000,8 +3335,8 @@ void test_hash_set_insert_range__invalid_range(void** state)
     hash_set_iterator_t it_end;
     int elem = 0;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, NULL);
+    hash_set_init(pt_dest);
+    hash_set_init(pt_src);
     hash_set_insert(pt_src, elem);
 
     it_begin = hash_set_begin(pt_src);
@@ -3019,8 +3354,8 @@ void test_hash_set_insert_range__not_same_type(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, NULL);
+    hash_set_init(pt_dest);
+    hash_set_init(pt_src);
 
     it_begin = hash_set_begin(pt_src);
     it_end = hash_set_end(pt_src);
@@ -3037,8 +3372,8 @@ void test_hash_set_insert_range__empty(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, NULL);
+    hash_set_init(pt_dest);
+    hash_set_init(pt_src);
 
     it_begin = hash_set_begin(pt_src);
     it_end = hash_set_end(pt_src);
@@ -3057,8 +3392,8 @@ void test_hash_set_insert_range__non_empty_equal(void** state)
     hash_set_iterator_t it_end;
     int i = 0;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, NULL);
+    hash_set_init(pt_dest);
+    hash_set_init(pt_src);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_dest, i);
@@ -3085,8 +3420,8 @@ void test_hash_set_insert_range__non_empty_dest_src_dup(void** state)
     hash_set_iterator_t it_end;
     int i = 0;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, NULL);
+    hash_set_init(pt_dest);
+    hash_set_init(pt_src);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_dest, i);
@@ -3113,13 +3448,75 @@ void test_hash_set_insert_range__non_empty_src_dup(void** state)
     hash_set_iterator_t it_end;
     int i = 0;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, NULL);
+    hash_set_init(pt_dest);
+    hash_set_init(pt_src);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_dest, i);
     }
     for(i = 15; i < 25; ++i)
+    {
+        hash_set_insert(pt_src, i);
+        hash_set_insert(pt_src, i);
+    }
+
+    it_begin = hash_set_begin(pt_src);
+    it_end = hash_set_end(pt_src);
+    hash_set_insert_range(pt_dest, it_begin, it_end);
+    assert_true(hash_set_size(pt_dest) == 20);
+
+    hash_set_destroy(pt_dest);
+    hash_set_destroy(pt_src);
+}
+
+void test_hash_set_insert_range__not_same_bucketcount(void** state)
+{
+    hash_set_t* pt_dest = create_hash_set(int);
+    hash_set_t* pt_src = create_hash_set(int);
+    hash_set_iterator_t it_begin;
+    hash_set_iterator_t it_end;
+    int i = 0;
+
+    hash_set_init(pt_dest);
+    hash_set_init_ex(pt_src, 100, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_dest, i);
+    }
+    for(i = 215; i < 225; ++i)
+    {
+        hash_set_insert(pt_src, i);
+        hash_set_insert(pt_src, i);
+    }
+
+    it_begin = hash_set_begin(pt_src);
+    it_end = hash_set_end(pt_src);
+    hash_set_insert_range(pt_dest, it_begin, it_end);
+    assert_true(hash_set_size(pt_dest) == 20);
+
+    hash_set_destroy(pt_dest);
+    hash_set_destroy(pt_src);
+}
+
+static void _test_hash_set_insert_range__not_same_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input + 793;
+}
+void test_hash_set_insert_range__not_same_hash(void** state)
+{
+    hash_set_t* pt_dest = create_hash_set(int);
+    hash_set_t* pt_src = create_hash_set(int);
+    hash_set_iterator_t it_begin;
+    hash_set_iterator_t it_end;
+    int i = 0;
+
+    hash_set_init(pt_dest);
+    hash_set_init_ex(pt_src, 0, _test_hash_set_insert_range__not_same_hash, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_dest, i);
+    }
+    for(i = 215; i < 225; ++i)
     {
         hash_set_insert(pt_src, i);
         hash_set_insert(pt_src, i);
@@ -3145,8 +3542,8 @@ void test_hash_set_insert_range__compare(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
-    hash_set_init_ex(pt_src, _test_hash_set_insert_range__compare);
+    hash_set_init(pt_dest);
+    hash_set_init_ex(pt_src, 0, NULL, _test_hash_set_insert_range__compare);
 
     it_begin = hash_set_begin(pt_src);
     it_end = hash_set_end(pt_src);
@@ -3155,19 +3552,17 @@ void test_hash_set_insert_range__compare(void** state)
     hash_set_destroy(pt_dest);
     hash_set_destroy(pt_src);
 }
-*/
 
 /*
  * test hash_set_erase_pos
  */
-/*
 UT_CASE_DEFINATION(hash_set_erase_pos)
 void test_hash_set_erase_pos__null_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
     int elem = 9;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, elem);
     expect_assert_failure(hash_set_erase_pos(NULL, hash_set_begin(pt_hash_set)));
 
@@ -3180,12 +3575,12 @@ void test_hash_set_erase_pos__non_inited(void** state)
     hash_set_iterator_t it_pos;
     int elem = 9;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, elem);
     it_pos = hash_set_begin(pt_hash_set);
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_erase_pos(pt_hash_set, it_pos));
-    pt_hash_set->_t_hashtable._t_rbroot._t_color = RED;
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_hash_set);
 }
@@ -3196,10 +3591,10 @@ void test_hash_set_erase_pos__invalid_pos(void** state)
     hash_set_iterator_t it_pos;
     int elem = 9;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, elem);
     it_pos = hash_set_begin(pt_hash_set);
-    it_pos._t_pos._t_hashtablepos._pby_corepos = NULL;
+    it_pos._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(hash_set_erase_pos(pt_hash_set, it_pos));
 
     hash_set_destroy(pt_hash_set);
@@ -3211,7 +3606,7 @@ void test_hash_set_erase_pos__end(void** state)
     hash_set_iterator_t it_pos;
     int elem = 9;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, elem);
     it_pos = hash_set_end(pt_hash_set);
     expect_assert_failure(hash_set_erase_pos(pt_hash_set, it_pos));
@@ -3225,7 +3620,7 @@ void test_hash_set_erase_pos__begin(void** state)
     hash_set_iterator_t it_pos;
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_hash_set, i);
@@ -3246,7 +3641,7 @@ void test_hash_set_erase_pos__middle(void** state)
     hash_set_iterator_t it_pos;
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_hash_set, i);
@@ -3268,7 +3663,7 @@ void test_hash_set_erase_pos__last(void** state)
     hash_set_iterator_t it_pos;
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_hash_set, i);
@@ -3289,7 +3684,7 @@ void test_hash_set_erase_pos__erase_empty(void** state)
     hash_set_iterator_t it_pos;
     int i = 0;
 
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
     hash_set_insert(pt_hash_set, i);
     assert_true(hash_set_size(pt_hash_set) == 1);
     it_pos = hash_set_begin(pt_hash_set);
@@ -3298,17 +3693,15 @@ void test_hash_set_erase_pos__erase_empty(void** state)
 
     hash_set_destroy(pt_hash_set);
 }
-*/
 
 /*
  * test hash_set_erase_range
  */
-/*
 UT_CASE_DEFINATION(hash_set_erase_range)
 void test_hash_set_erase_range__null_hash_set(void** state)
 {
     hash_set_t* pt_hash_set = create_hash_set(int);
-    hash_set_init_ex(pt_hash_set, NULL);
+    hash_set_init(pt_hash_set);
 
     expect_assert_failure(hash_set_erase_range(NULL, hash_set_begin(pt_hash_set), hash_set_end(pt_hash_set)));
 
@@ -3321,13 +3714,13 @@ void test_hash_set_erase_range__non_inited(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
+    hash_set_init(pt_dest);
 
     it_begin = hash_set_begin(pt_dest);
     it_end = hash_set_end(pt_dest);
-    pt_dest->_t_hashtable._t_rbroot._t_color = BLACK;
+    pt_dest->_t_hashtable._t_typeinfo._t_style = 999;
     expect_assert_failure(hash_set_erase_range(pt_dest, it_begin, it_end));
-    pt_dest->_t_hashtable._t_rbroot._t_color = RED;
+    pt_dest->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     hash_set_destroy(pt_dest);
 }
@@ -3338,11 +3731,11 @@ void test_hash_set_erase_range__invalid_begin(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
+    hash_set_init(pt_dest);
 
     it_begin = hash_set_begin(pt_dest);
     it_end = hash_set_end(pt_dest);
-    it_begin._t_pos._t_hashtablepos._pt_tree = NULL;
+    it_begin._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(hash_set_erase_range(pt_dest, it_begin, it_end));
 
     hash_set_destroy(pt_dest);
@@ -3354,11 +3747,11 @@ void test_hash_set_erase_range__invalid_end(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
+    hash_set_init(pt_dest);
 
     it_begin = hash_set_begin(pt_dest);
     it_end = hash_set_end(pt_dest);
-    it_end._t_pos._t_hashtablepos._pt_tree = NULL;
+    it_end._t_pos._t_hashpos._pt_hashtable = NULL;
     expect_assert_failure(hash_set_erase_range(pt_dest, it_begin, it_end));
 
     hash_set_destroy(pt_dest);
@@ -3371,7 +3764,7 @@ void test_hash_set_erase_range__invalid_range(void** state)
     hash_set_iterator_t it_end;
     int elem = 0;
 
-    hash_set_init_ex(pt_dest, NULL);
+    hash_set_init(pt_dest);
     hash_set_insert(pt_dest, elem);
 
     it_begin = hash_set_begin(pt_dest);
@@ -3387,7 +3780,7 @@ void test_hash_set_erase_range__empty(void** state)
     hash_set_iterator_t it_begin;
     hash_set_iterator_t it_end;
 
-    hash_set_init_ex(pt_dest, NULL);
+    hash_set_init(pt_dest);
 
     it_begin = hash_set_begin(pt_dest);
     it_end = hash_set_end(pt_dest);
@@ -3404,7 +3797,7 @@ void test_hash_set_erase_range__begin(void** state)
     hash_set_iterator_t it_end;
     int i = 0;
 
-    hash_set_init_ex(pt_dest, NULL);
+    hash_set_init(pt_dest);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_dest, i);
@@ -3426,7 +3819,7 @@ void test_hash_set_erase_range__middle(void** state)
     hash_set_iterator_t it_end;
     int i = 0;
 
-    hash_set_init_ex(pt_dest, NULL);
+    hash_set_init(pt_dest);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_dest, i);
@@ -3450,7 +3843,7 @@ void test_hash_set_erase_range__end(void** state)
     hash_set_iterator_t it_end;
     int i = 0;
 
-    hash_set_init_ex(pt_dest, NULL);
+    hash_set_init(pt_dest);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_dest, i);
@@ -3473,7 +3866,7 @@ void test_hash_set_erase_range__all(void** state)
     hash_set_iterator_t it_end;
     int i = 0;
 
-    hash_set_init_ex(pt_dest, NULL);
+    hash_set_init(pt_dest);
     for(i = 0; i < 10; ++i)
     {
         hash_set_insert(pt_dest, i);
@@ -3486,5 +3879,49 @@ void test_hash_set_erase_range__all(void** state)
 
     hash_set_destroy(pt_dest);
 }
-*/
+
+/*
+ * test hash_set_resize
+ */
+UT_CASE_DEFINATION(hash_set_resize)
+void test_hash_set_resize__null_hash_set(void** state)
+{
+    expect_assert_failure(hash_set_resize(NULL, 23));
+}
+
+void test_hash_set_resize__non_inited(void** state)
+{
+    hash_set_t* pt_hash_set = create_hash_set(int);
+    hash_set_init(pt_hash_set);
+
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = 999;
+    expect_assert_failure(hash_set_resize(pt_hash_set, 290));
+    pt_hash_set->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    hash_set_destroy(pt_hash_set);
+}
+
+void test_hash_set_resize__greater(void** state)
+{
+    hash_set_t* pt_hash_set = create_hash_set(int);
+    hash_set_init(pt_hash_set);
+
+    assert_true(hash_set_bucket_count(pt_hash_set) == 53);
+    hash_set_resize(pt_hash_set, 100);
+    assert_true(hash_set_bucket_count(pt_hash_set) == 193);
+
+    hash_set_destroy(pt_hash_set);
+}
+
+void test_hash_set_resize__less(void** state)
+{
+    hash_set_t* pt_hash_set = create_hash_set(int);
+    hash_set_init_ex(pt_hash_set, 100, NULL, NULL);
+
+    assert_true(hash_set_bucket_count(pt_hash_set) == 193);
+    hash_set_resize(pt_hash_set, 0);
+    assert_true(hash_set_bucket_count(pt_hash_set) == 193);
+
+    hash_set_destroy(pt_hash_set);
+}
 

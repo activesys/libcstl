@@ -132,7 +132,8 @@ void hash_set_assign(hash_set_t* phset_dest, const hash_set_t* cphset_src)
  */
 void hash_set_swap(hash_set_t* phset_first, hash_set_t* phset_second)
 {
-    assert(phset_first != NULL && phset_second != NULL);
+    assert(phset_first != NULL);
+    assert(phset_second != NULL);
 
     _hashtable_swap(&phset_first->_t_hashtable, &phset_second->_t_hashtable);
 }
@@ -220,73 +221,67 @@ void hash_set_resize(hash_set_t* phset_set, size_t t_resize)
 /**
  * Tests if the two hash_set are equal.
  */
-bool_t hash_set_equal(
-    const hash_set_t* cphset_first, const hash_set_t* cphset_second)
+bool_t hash_set_equal(const hash_set_t* cphset_first, const hash_set_t* cphset_second)
 {
-    assert(cphset_first != NULL && cphset_second != NULL);
+    assert(cphset_first != NULL);
+    assert(cphset_second != NULL);
 
-    return _hashtable_equal(
-        &cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
+    return _hashtable_equal(&cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
 }
 
 /**
  * Tests if the two hash_set are not equal.
  */
-bool_t hash_set_not_equal(
-    const hash_set_t* cphset_first, const hash_set_t* cphset_second)
+bool_t hash_set_not_equal(const hash_set_t* cphset_first, const hash_set_t* cphset_second)
 {
-    assert(cphset_first != NULL && cphset_second != NULL);
+    assert(cphset_first != NULL);
+    assert(cphset_second != NULL);
 
-    return _hashtable_not_equal(
-        &cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
+    return _hashtable_not_equal(&cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
 }
 
 /**
  * Tests if the first hash_set is less than the second hash_set.
  */
-bool_t hash_set_less(
-    const hash_set_t* cphset_first, const hash_set_t* cphset_second)
+bool_t hash_set_less(const hash_set_t* cphset_first, const hash_set_t* cphset_second)
 {
-    assert(cphset_first != NULL && cphset_second != NULL);
+    assert(cphset_first != NULL);
+    assert(cphset_second != NULL);
 
-    return _hashtable_less(
-        &cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
+    return _hashtable_less(&cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
 }
 
 /**
  * Tests if the first hash_set is less than or equal to the second hash_set.
  */
-bool_t hash_set_less_equal(
-    const hash_set_t* cphset_first, const hash_set_t* cphset_second)
+bool_t hash_set_less_equal(const hash_set_t* cphset_first, const hash_set_t* cphset_second)
 {
-    assert(cphset_first != NULL && cphset_second != NULL);
+    assert(cphset_first != NULL);
+    assert(cphset_second != NULL);
 
-    return _hashtable_less_equal(
-        &cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
+    return _hashtable_less_equal(&cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
 }
 
 /**
  * Tests if the first hash_set is greater than the second hash_set.
  */
-bool_t hash_set_greater(
-    const hash_set_t* cphset_first, const hash_set_t* cphset_second)
+bool_t hash_set_greater(const hash_set_t* cphset_first, const hash_set_t* cphset_second)
 {
-    assert(cphset_first != NULL && cphset_second != NULL);
+    assert(cphset_first != NULL);
+    assert(cphset_second != NULL);
 
-    return _hashtable_greater(
-        &cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
+    return _hashtable_greater(&cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
 }
 
 /**
  * Tests if the first hash_set is greater than or equal to the second hash_set.
  */
-bool_t hash_set_greater_equal(
-    const hash_set_t* cphset_first, const hash_set_t* cphset_second)
+bool_t hash_set_greater_equal(const hash_set_t* cphset_first, const hash_set_t* cphset_second)
 {
-    assert(cphset_first != NULL && cphset_second != NULL);
+    assert(cphset_first != NULL);
+    assert(cphset_second != NULL);
 
-    return _hashtable_greater_equal(
-        &cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
+    return _hashtable_greater_equal(&cphset_first->_t_hashtable, &cphset_second->_t_hashtable);
 }
 
 /**
@@ -294,17 +289,17 @@ bool_t hash_set_greater_equal(
  */
 hash_set_iterator_t hash_set_begin(const hash_set_t* cphset_set)
 {
-    hash_set_iterator_t t_newiterator;
+    hash_set_iterator_t it_begin;
 
     assert(cphset_set != NULL);
 
-    t_newiterator = _hashtable_begin(&cphset_set->_t_hashtable);
+    it_begin = _hashtable_begin(&cphset_set->_t_hashtable);
 
-    _GET_CONTAINER(t_newiterator) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_newiterator) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_begin) = (hash_set_t*)cphset_set;
+    _GET_HASH_SET_CONTAINER_TYPE(it_begin) = _HASH_SET_CONTAINER;
+    _GET_HASH_SET_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_newiterator;
+    return it_begin;
 }
 
 /**
@@ -312,33 +307,32 @@ hash_set_iterator_t hash_set_begin(const hash_set_t* cphset_set)
  */
 hash_set_iterator_t hash_set_end(const hash_set_t* cphset_set)
 {
-    hash_set_iterator_t t_newiterator;
+    hash_set_iterator_t it_end;
 
     assert(cphset_set != NULL);
 
-    t_newiterator = _hashtable_end(&cphset_set->_t_hashtable);
+    it_end = _hashtable_end(&cphset_set->_t_hashtable);
 
-    _GET_CONTAINER(t_newiterator) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(t_newiterator) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(t_newiterator) = _BIDIRECTIONAL_ITERATOR;
+    _GET_CONTAINER(it_end) = (hash_set_t*)cphset_set;
+    _GET_HASH_SET_CONTAINER_TYPE(it_end) = _HASH_SET_CONTAINER;
+    _GET_HASH_SET_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
 
-    return t_newiterator;
+    return it_end;
 }
 
 /**
  * Inserts an range of unique element into a hash_set.
  */
-void hash_set_insert_range(
-    hash_set_t* phset_set, hash_set_iterator_t it_begin, hash_set_iterator_t it_end)
+void hash_set_insert_range(hash_set_t* phset_set, hash_set_iterator_t it_begin, hash_set_iterator_t it_end)
 {
     assert(phset_set != NULL);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER &&
-           _GET_HASH_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR &&
-           _GET_HASH_SET_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER &&
-           _GET_HASH_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER(it_begin) != phset_set &&
-           _GET_HASH_SET_CONTAINER(it_end) != phset_set &&
-           _GET_HASH_SET_CONTAINER(it_begin) == _GET_HASH_SET_CONTAINER(it_end));
+    assert(_GET_HASH_SET_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER);
+    assert(_GET_HASH_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_HASH_SET_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER);
+    assert(_GET_HASH_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_HASH_SET_CONTAINER(it_begin) != phset_set);
+    assert(_GET_HASH_SET_CONTAINER(it_end) != phset_set);
+    assert(_GET_HASH_SET_CONTAINER(it_begin) == _GET_HASH_SET_CONTAINER(it_end));
 
     _hashtable_insert_unique_range(&phset_set->_t_hashtable, it_begin, it_end);
 }
@@ -349,9 +343,9 @@ void hash_set_insert_range(
 void hash_set_erase_pos(hash_set_t* phset_set, hash_set_iterator_t it_pos)
 {
     assert(phset_set != NULL);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_pos) == _HASH_SET_CONTAINER &&
-           _GET_HASH_SET_ITERATOR_TYPE(it_pos) == _BIDIRECTIONAL_ITERATOR &&
-           _GET_HASH_SET_CONTAINER(it_pos) == phset_set);
+    assert(_GET_HASH_SET_CONTAINER_TYPE(it_pos) == _HASH_SET_CONTAINER);
+    assert(_GET_HASH_SET_ITERATOR_TYPE(it_pos) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_HASH_SET_CONTAINER(it_pos) == phset_set);
 
     _hashtable_erase_pos(&phset_set->_t_hashtable, it_pos);
 }
@@ -359,16 +353,15 @@ void hash_set_erase_pos(hash_set_t* phset_set, hash_set_iterator_t it_pos)
 /*
  * Erase a range of element in an hash_set.
  */
-void hash_set_erase_range(
-    hash_set_t* phset_set, hash_set_iterator_t it_begin, hash_set_iterator_t it_end)
+void hash_set_erase_range(hash_set_t* phset_set, hash_set_iterator_t it_begin, hash_set_iterator_t it_end)
 {
     assert(phset_set != NULL);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER &&
-           _GET_HASH_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR &&
-           _GET_HASH_SET_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER &&
-           _GET_HASH_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER(it_begin) == phset_set &&
-           _GET_HASH_SET_CONTAINER(it_end) == phset_set);
+    assert(_GET_HASH_SET_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER);
+    assert(_GET_HASH_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_HASH_SET_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER);
+    assert(_GET_HASH_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_GET_HASH_SET_CONTAINER(it_begin) == phset_set);
+    assert(_GET_HASH_SET_CONTAINER(it_end) == phset_set);
 
     _hashtable_erase_range(&phset_set->_t_hashtable, it_begin, it_end);
 }

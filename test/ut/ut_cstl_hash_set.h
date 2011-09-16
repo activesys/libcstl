@@ -124,47 +124,46 @@ void test_hash_set_bucket_count__non_empty(void** state);
 /*
  * test hash_set_begin
  */
-/*
 UT_CASE_DECLARATION(hash_set_begin)
 void test_hash_set_begin__null_hash_set(void** state);
 void test_hash_set_begin__non_inited(void** state);
 void test_hash_set_begin__empty(void** state);
 void test_hash_set_begin__non_empty(void** state);
-*/
 /*
  * test hash_set_end
  */
-/*
 UT_CASE_DECLARATION(hash_set_end)
 void test_hash_set_end__null_hash_set(void** state);
 void test_hash_set_end__non_inited(void** state);
 void test_hash_set_end__empty(void** state);
 void test_hash_set_end__non_empty(void** state);
-*/
 /*
  * test hash_set_key_comp
  */
-/*
 UT_CASE_DECLARATION(hash_set_key_comp)
 void test_hash_set_key_comp__null_hash_set(void** state);
 void test_hash_set_key_comp__non_inited(void** state);
 void test_hash_set_key_comp__default_key_comp(void** state);
 void test_hash_set_key_comp__user_define_key_comp(void** state);
-*/
+/*
+ * test hash_set_hash
+ */
+UT_CASE_DECLARATION(hash_set_hash)
+void test_hash_set_hash__null_hash_set(void** state);
+void test_hash_set_hash__non_inited(void** state);
+void test_hash_set_hash__default_hash(void** state);
+void test_hash_set_hash__user_define_hash(void** state);
 /*
  * test hash_set_clear
  */
-/*
 UT_CASE_DECLARATION(hash_set_clear)
 void test_hash_set_clear__null_hash_set(void** state);
 void test_hash_set_clear__non_inited(void** state);
 void test_hash_set_clear__empty(void** state);
 void test_hash_set_clear__non_empty(void** state);
-*/
 /*
  * test hash_set_equal
  */
-/*
 UT_CASE_DECLARATION(hash_set_equal)
 void test_hash_set_equal__null_first(void** state);
 void test_hash_set_equal__null_second(void** state);
@@ -177,13 +176,13 @@ void test_hash_set_equal__size_first_greater_than_second(void** state);
 void test_hash_set_equal__size_equal_0(void** state);
 void test_hash_set_equal__size_equal_elem_first_less_than_second(void** state);
 void test_hash_set_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_hash_set_equal__not_same_bucketcount(void** state);
+void test_hash_set_equal__not_same_hash(void** state);
 void test_hash_set_equal__compare_not_equal(void** state);
 void test_hash_set_equal__equal(void** state);
-*/
 /*
  * test hash_set_not_equal
  */
-/*
 UT_CASE_DECLARATION(hash_set_not_equal)
 void test_hash_set_not_equal__null_first(void** state);
 void test_hash_set_not_equal__null_second(void** state);
@@ -196,13 +195,13 @@ void test_hash_set_not_equal__size_first_greater_than_second(void** state);
 void test_hash_set_not_equal__size_equal_0(void** state);
 void test_hash_set_not_equal__size_equal_elem_first_less_than_second(void** state);
 void test_hash_set_not_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_hash_set_not_equal__not_same_bucketcount(void** state);
+void test_hash_set_not_equal__not_same_hash(void** state);
 void test_hash_set_not_equal__compare_not_equal(void** state);
 void test_hash_set_not_equal__equal(void** state);
-*/
 /*
  * test hash_set_less
  */
-/*
 UT_CASE_DECLARATION(hash_set_less)
 void test_hash_set_less__null_first(void** state);
 void test_hash_set_less__null_second(void** state);
@@ -215,13 +214,13 @@ void test_hash_set_less__size_first_greater_than_second(void** state);
 void test_hash_set_less__size_equal_0(void** state);
 void test_hash_set_less__size_equal_elem_first_less_than_second(void** state);
 void test_hash_set_less__size_equal_elem_first_greater_than_second(void** state);
+void test_hash_set_less__not_same_bucketcount(void** state);
+void test_hash_set_less__not_same_hash(void** state);
 void test_hash_set_less__compare_less(void** state);
 void test_hash_set_less__equal(void** state);
-*/
 /*
  * test hash_set_less_equal
  */
-/*
 UT_CASE_DECLARATION(hash_set_less_equal)
 void test_hash_set_less_equal__null_first(void** state);
 void test_hash_set_less_equal__null_second(void** state);
@@ -234,13 +233,13 @@ void test_hash_set_less_equal__size_first_greater_than_second(void** state);
 void test_hash_set_less_equal__size_equal_0(void** state);
 void test_hash_set_less_equal__size_equal_elem_first_less_than_second(void** state);
 void test_hash_set_less_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_hash_set_less_equal__not_same_bucketcount(void** state);
+void test_hash_set_less_equal__not_same_hash(void** state);
 void test_hash_set_less_equal__compare_less(void** state);
 void test_hash_set_less_equal__equal(void** state);
-*/
 /*
  * test hash_set_greater
  */
-/*
 UT_CASE_DECLARATION(hash_set_greater)
 void test_hash_set_greater__null_first(void** state);
 void test_hash_set_greater__null_second(void** state);
@@ -253,13 +252,13 @@ void test_hash_set_greater__size_first_greater_than_second(void** state);
 void test_hash_set_greater__size_equal_0(void** state);
 void test_hash_set_greater__size_equal_elem_first_less_than_second(void** state);
 void test_hash_set_greater__size_equal_elem_first_greater_than_second(void** state);
+void test_hash_set_greater__not_same_bucketcount(void** state);
+void test_hash_set_greater__not_same_hash(void** state);
 void test_hash_set_greater__compare_less(void** state);
 void test_hash_set_greater__equal(void** state);
-*/
 /*
  * test hash_set_greater_equal
  */
-/*
 UT_CASE_DECLARATION(hash_set_greater_equal)
 void test_hash_set_greater_equal__null_first(void** state);
 void test_hash_set_greater_equal__null_second(void** state);
@@ -272,29 +271,30 @@ void test_hash_set_greater_equal__size_first_greater_than_second(void** state);
 void test_hash_set_greater_equal__size_equal_0(void** state);
 void test_hash_set_greater_equal__size_equal_elem_first_less_than_second(void** state);
 void test_hash_set_greater_equal__size_equal_elem_first_greater_than_second(void** state);
+void test_hash_set_greater_equal__not_same_bucketcount(void** state);
+void test_hash_set_greater_equal__not_same_hash(void** state);
 void test_hash_set_greater_equal__compare_less(void** state);
 void test_hash_set_greater_equal__equal(void** state);
-*/
 /*
  * test hash_set_swap
  */
-/*
 UT_CASE_DECLARATION(hash_set_swap)
 void test_hash_set_swap__null_first(void** state);
 void test_hash_set_swap__null_second(void** state);
 void test_hash_set_swap__non_inited_first(void** state);
 void test_hash_set_swap__non_inited_second(void** state);
 void test_hash_set_swap__not_same_type(void** state);
+void test_hash_set_swap__not_same_bucketcount(void** state);
+void test_hash_set_swap__not_same_hash(void** state);
+void test_hash_set_swap__not_same_compare(void** state);
 void test_hash_set_swap__same_hash_set(void** state);
 void test_hash_set_swap__0_swap_n(void** state);
 void test_hash_set_swap__n_swap_0(void** state);
 void test_hash_set_swap__n_swap_n(void** state);
 void test_hash_set_swap__m_swap_n(void** state);
-*/
 /*
  * test hash_set_insert_range
  */
-/*
 UT_CASE_DECLARATION(hash_set_insert_range)
 void test_hash_set_insert_range__null_hash_set(void** state);
 void test_hash_set_insert_range__non_inited(void** state);
@@ -306,12 +306,12 @@ void test_hash_set_insert_range__empty(void** state);
 void test_hash_set_insert_range__non_empty_equal(void** state);
 void test_hash_set_insert_range__non_empty_dest_src_dup(void** state);
 void test_hash_set_insert_range__non_empty_src_dup(void** state);
+void test_hash_set_insert_range__not_same_bucketcount(void** state);
+void test_hash_set_insert_range__not_same_hash(void** state);
 void test_hash_set_insert_range__compare(void** state);
-*/
 /*
  * test hash_set_erase_pos
  */
-/*
 UT_CASE_DECLARATION(hash_set_erase_pos)
 void test_hash_set_erase_pos__null_hash_set(void** state);
 void test_hash_set_erase_pos__non_inited(void** state);
@@ -321,11 +321,9 @@ void test_hash_set_erase_pos__begin(void** state);
 void test_hash_set_erase_pos__middle(void** state);
 void test_hash_set_erase_pos__last(void** state);
 void test_hash_set_erase_pos__erase_empty(void** state);
-*/
 /*
  * test hash_set_erase_range
  */
-/*
 UT_CASE_DECLARATION(hash_set_erase_range)
 void test_hash_set_erase_range__null_hash_set(void** state);
 void test_hash_set_erase_range__non_inited(void** state);
@@ -337,7 +335,14 @@ void test_hash_set_erase_range__begin(void** state);
 void test_hash_set_erase_range__middle(void** state);
 void test_hash_set_erase_range__end(void** state);
 void test_hash_set_erase_range__all(void** state);
-*/
+/*
+ * test hash_set_resize
+ */
+UT_CASE_DECLARATION(hash_set_resize)
+void test_hash_set_resize__null_hash_set(void** state);
+void test_hash_set_resize__non_inited(void** state);
+void test_hash_set_resize__greater(void** state);
+void test_hash_set_resize__less(void** state);
 
 #define UT_CSTL_HASH_SET_CASE\
     UT_SUIT_BEGIN(cstl_hash_set, test_hash_set_init__null_hash_set),\
@@ -415,7 +420,6 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_bucket_count__non_inited),\
     UT_CASE(test_hash_set_bucket_count__empty),\
     UT_CASE(test_hash_set_bucket_count__non_empty),\
-/*
     UT_CASE_BEGIN(hash_set_begin, test_hash_set_begin__null_hash_set),\
     UT_CASE(test_hash_set_begin__non_inited),\
     UT_CASE(test_hash_set_begin__empty),\
@@ -428,6 +432,10 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_key_comp__non_inited),\
     UT_CASE(test_hash_set_key_comp__default_key_comp),\
     UT_CASE(test_hash_set_key_comp__user_define_key_comp),\
+    UT_CASE_BEGIN(hash_set_hash, test_hash_set_hash__null_hash_set),\
+    UT_CASE(test_hash_set_hash__non_inited),\
+    UT_CASE(test_hash_set_hash__default_hash),\
+    UT_CASE(test_hash_set_hash__user_define_hash),\
     UT_CASE_BEGIN(hash_set_clear, test_hash_set_clear__null_hash_set),\
     UT_CASE(test_hash_set_clear__non_inited),\
     UT_CASE(test_hash_set_clear__empty),\
@@ -443,6 +451,8 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_equal__size_equal_0),\
     UT_CASE(test_hash_set_equal__size_equal_elem_first_less_than_second),\
     UT_CASE(test_hash_set_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_hash_set_equal__not_same_bucketcount),\
+    UT_CASE(test_hash_set_equal__not_same_hash),\
     UT_CASE(test_hash_set_equal__compare_not_equal),\
     UT_CASE(test_hash_set_equal__equal),\
     UT_CASE_BEGIN(hash_set_not_equal, test_hash_set_not_equal__null_first),\
@@ -456,6 +466,8 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_not_equal__size_equal_0),\
     UT_CASE(test_hash_set_not_equal__size_equal_elem_first_less_than_second),\
     UT_CASE(test_hash_set_not_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_hash_set_not_equal__not_same_bucketcount),\
+    UT_CASE(test_hash_set_not_equal__not_same_hash),\
     UT_CASE(test_hash_set_not_equal__compare_not_equal),\
     UT_CASE(test_hash_set_not_equal__equal),\
     UT_CASE_BEGIN(hash_set_less, test_hash_set_less__null_first),\
@@ -469,6 +481,8 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_less__size_equal_0),\
     UT_CASE(test_hash_set_less__size_equal_elem_first_less_than_second),\
     UT_CASE(test_hash_set_less__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_hash_set_less__not_same_bucketcount),\
+    UT_CASE(test_hash_set_less__not_same_hash),\
     UT_CASE(test_hash_set_less__compare_less),\
     UT_CASE(test_hash_set_less__equal),\
     UT_CASE_BEGIN(hash_set_less_equal, test_hash_set_less_equal__null_first),\
@@ -482,6 +496,8 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_less_equal__size_equal_0),\
     UT_CASE(test_hash_set_less_equal__size_equal_elem_first_less_than_second),\
     UT_CASE(test_hash_set_less_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_hash_set_less_equal__not_same_bucketcount),\
+    UT_CASE(test_hash_set_less_equal__not_same_hash),\
     UT_CASE(test_hash_set_less_equal__compare_less),\
     UT_CASE(test_hash_set_less_equal__equal),\
     UT_CASE_BEGIN(hash_set_greater, test_hash_set_greater__null_first),\
@@ -495,6 +511,8 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_greater__size_equal_0),\
     UT_CASE(test_hash_set_greater__size_equal_elem_first_less_than_second),\
     UT_CASE(test_hash_set_greater__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_hash_set_greater__not_same_bucketcount),\
+    UT_CASE(test_hash_set_greater__not_same_hash),\
     UT_CASE(test_hash_set_greater__compare_less),\
     UT_CASE(test_hash_set_greater__equal),\
     UT_CASE_BEGIN(hash_set_greater_equal, test_hash_set_greater_equal__null_first),\
@@ -508,6 +526,8 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_greater_equal__size_equal_0),\
     UT_CASE(test_hash_set_greater_equal__size_equal_elem_first_less_than_second),\
     UT_CASE(test_hash_set_greater_equal__size_equal_elem_first_greater_than_second),\
+    UT_CASE(test_hash_set_greater_equal__not_same_bucketcount),\
+    UT_CASE(test_hash_set_greater_equal__not_same_hash),\
     UT_CASE(test_hash_set_greater_equal__compare_less),\
     UT_CASE(test_hash_set_greater_equal__equal),\
     UT_CASE_BEGIN(hash_set_swap, test_hash_set_swap__null_first),\
@@ -515,6 +535,9 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_swap__non_inited_first),\
     UT_CASE(test_hash_set_swap__non_inited_second),\
     UT_CASE(test_hash_set_swap__not_same_type),\
+    UT_CASE(test_hash_set_swap__not_same_bucketcount),\
+    UT_CASE(test_hash_set_swap__not_same_hash),\
+    UT_CASE(test_hash_set_swap__not_same_compare),\
     UT_CASE(test_hash_set_swap__same_hash_set),\
     UT_CASE(test_hash_set_swap__0_swap_n),\
     UT_CASE(test_hash_set_swap__n_swap_0),\
@@ -530,6 +553,8 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_insert_range__non_empty_equal),\
     UT_CASE(test_hash_set_insert_range__non_empty_dest_src_dup),\
     UT_CASE(test_hash_set_insert_range__non_empty_src_dup),\
+    UT_CASE(test_hash_set_insert_range__not_same_bucketcount),\
+    UT_CASE(test_hash_set_insert_range__not_same_hash),\
     UT_CASE(test_hash_set_insert_range__compare),\
     UT_CASE_BEGIN(hash_set_erase_pos, test_hash_set_erase_pos__null_hash_set),\
     UT_CASE(test_hash_set_erase_pos__non_inited),\
@@ -548,8 +573,11 @@ void test_hash_set_erase_range__all(void** state);
     UT_CASE(test_hash_set_erase_range__begin),\
     UT_CASE(test_hash_set_erase_range__middle),\
     UT_CASE(test_hash_set_erase_range__end),\
-    UT_CASE(test_hash_set_erase_range__all)
-*/
+    UT_CASE(test_hash_set_erase_range__all),\
+    UT_CASE_BEGIN(hash_set_resize, test_hash_set_resize__null_hash_set),\
+    UT_CASE(test_hash_set_resize__non_inited),\
+    UT_CASE(test_hash_set_resize__greater),\
+    UT_CASE(test_hash_set_resize__less)
 
 #endif /* _UT_CSTL_HASH_SET_H_ */
 
