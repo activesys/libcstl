@@ -57,7 +57,10 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_deque_iterator.$(OBJEXT) \
 	ut-cstl_deque_private.$(OBJEXT) ut-cstl_deque_aux.$(OBJEXT) \
 	ut-cstl_hash_map.$(OBJEXT) ut-cstl_hash_multimap.$(OBJEXT) \
-	ut-cstl_hash_multiset.$(OBJEXT) ut-cstl_hash_set.$(OBJEXT) \
+	ut-cstl_hash_multiset.$(OBJEXT) \
+	ut-cstl_hash_multiset_iterator.$(OBJEXT) \
+	ut-cstl_hash_multiset_private.$(OBJEXT) \
+	ut-cstl_hash_multiset_aux.$(OBJEXT) ut-cstl_hash_set.$(OBJEXT) \
 	ut-cstl_hash_set_iterator.$(OBJEXT) \
 	ut-cstl_hash_set_private.$(OBJEXT) \
 	ut-cstl_hash_set_aux.$(OBJEXT) ut-cstl_hashtable.$(OBJEXT) \
@@ -137,7 +140,11 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_hash_set_aux.$(OBJEXT) \
 	ut-ut_cstl_hash_set_private.$(OBJEXT) \
 	ut-ut_cstl_hash_set_iterator.$(OBJEXT) \
-	ut-ut_cstl_hash_set.$(OBJEXT)
+	ut-ut_cstl_hash_set.$(OBJEXT) \
+	ut-ut_cstl_hash_multiset_aux.$(OBJEXT) \
+	ut-ut_cstl_hash_multiset_private.$(OBJEXT) \
+	ut-ut_cstl_hash_multiset_iterator.$(OBJEXT) \
+	ut-ut_cstl_hash_multiset.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -288,7 +295,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_deque_private.c $(srcdir)/../../src/cstl_deque_aux.c \
 	     $(srcdir)/../../src/cstl_hash_map.c \
 	     $(srcdir)/../../src/cstl_hash_multimap.c \
-	     $(srcdir)/../../src/cstl_hash_multiset.c \
+	     $(srcdir)/../../src/cstl_hash_multiset.c $(srcdir)/../../src/cstl_hash_multiset_iterator.c \
+	     $(srcdir)/../../src/cstl_hash_multiset_private.c $(srcdir)/../../src/cstl_hash_multiset_aux.c \
 	     $(srcdir)/../../src/cstl_hash_set.c $(srcdir)/../../src/cstl_hash_set_iterator.c \
 	     $(srcdir)/../../src/cstl_hash_set_private.c $(srcdir)/../../src/cstl_hash_set_aux.c \
 	     $(srcdir)/../../src/cstl_hashtable.c $(srcdir)/../../src/cstl_hashtable_iterator.c \
@@ -379,7 +387,11 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_hash_set_aux.c ut_cstl_hash_set_aux.h \
 	     ut_cstl_hash_set_private.c ut_cstl_hash_set_private.h \
 	     ut_cstl_hash_set_iterator.c ut_cstl_hash_set_iterator.h \
-	     ut_cstl_hash_set.c ut_cstl_hash_set.h
+	     ut_cstl_hash_set.c ut_cstl_hash_set.h \
+	     ut_cstl_hash_multiset_aux.c ut_cstl_hash_multiset_aux.h \
+	     ut_cstl_hash_multiset_private.c ut_cstl_hash_multiset_private.h \
+	     ut_cstl_hash_multiset_iterator.c ut_cstl_hash_multiset_iterator.h \
+	     ut_cstl_hash_multiset.c ut_cstl_hash_multiset.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -458,6 +470,9 @@ include ./$(DEPDIR)/ut-cstl_function.Po
 include ./$(DEPDIR)/ut-cstl_hash_map.Po
 include ./$(DEPDIR)/ut-cstl_hash_multimap.Po
 include ./$(DEPDIR)/ut-cstl_hash_multiset.Po
+include ./$(DEPDIR)/ut-cstl_hash_multiset_aux.Po
+include ./$(DEPDIR)/ut-cstl_hash_multiset_iterator.Po
+include ./$(DEPDIR)/ut-cstl_hash_multiset_private.Po
 include ./$(DEPDIR)/ut-cstl_hash_set.Po
 include ./$(DEPDIR)/ut-cstl_hash_set_aux.Po
 include ./$(DEPDIR)/ut-cstl_hash_set_iterator.Po
@@ -527,6 +542,10 @@ include ./$(DEPDIR)/ut-ut_cstl_deque.Po
 include ./$(DEPDIR)/ut-ut_cstl_deque_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_deque_iterator.Po
 include ./$(DEPDIR)/ut-ut_cstl_deque_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_hash_multiset.Po
+include ./$(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Po
+include ./$(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Po
+include ./$(DEPDIR)/ut-ut_cstl_hash_multiset_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_hash_set.Po
 include ./$(DEPDIR)/ut-ut_cstl_hash_set_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_hash_set_iterator.Po
@@ -921,6 +940,48 @@ ut-cstl_hash_multiset.obj: $(srcdir)/../../src/cstl_hash_multiset.c
 #	source='$(srcdir)/../../src/cstl_hash_multiset.c' object='ut-cstl_hash_multiset.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset.c'; fi`
+
+ut-cstl_hash_multiset_iterator.o: $(srcdir)/../../src/cstl_hash_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_iterator.Tpo -c -o ut-cstl_hash_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_iterator.c
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_iterator.Tpo $(DEPDIR)/ut-cstl_hash_multiset_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_iterator.c' object='ut-cstl_hash_multiset_iterator.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_iterator.c
+
+ut-cstl_hash_multiset_iterator.obj: $(srcdir)/../../src/cstl_hash_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_iterator.Tpo -c -o ut-cstl_hash_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_iterator.Tpo $(DEPDIR)/ut-cstl_hash_multiset_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_iterator.c' object='ut-cstl_hash_multiset_iterator.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; fi`
+
+ut-cstl_hash_multiset_private.o: $(srcdir)/../../src/cstl_hash_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_private.Tpo -c -o ut-cstl_hash_multiset_private.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_private.c
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_private.Tpo $(DEPDIR)/ut-cstl_hash_multiset_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_private.c' object='ut-cstl_hash_multiset_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_private.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_private.c
+
+ut-cstl_hash_multiset_private.obj: $(srcdir)/../../src/cstl_hash_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_private.Tpo -c -o ut-cstl_hash_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_private.Tpo $(DEPDIR)/ut-cstl_hash_multiset_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_private.c' object='ut-cstl_hash_multiset_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_private.c'; fi`
+
+ut-cstl_hash_multiset_aux.o: $(srcdir)/../../src/cstl_hash_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_aux.Tpo -c -o ut-cstl_hash_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_aux.c
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_aux.Tpo $(DEPDIR)/ut-cstl_hash_multiset_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_aux.c' object='ut-cstl_hash_multiset_aux.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_aux.c
+
+ut-cstl_hash_multiset_aux.obj: $(srcdir)/../../src/cstl_hash_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_aux.Tpo -c -o ut-cstl_hash_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_aux.Tpo $(DEPDIR)/ut-cstl_hash_multiset_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_aux.c' object='ut-cstl_hash_multiset_aux.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_aux.c'; fi`
 
 ut-cstl_hash_set.o: $(srcdir)/../../src/cstl_hash_set.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set.Tpo -c -o ut-cstl_hash_set.o `test -f '$(srcdir)/../../src/cstl_hash_set.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set.c
@@ -2559,6 +2620,62 @@ ut-ut_cstl_hash_set.obj: ut_cstl_hash_set.c
 #	source='ut_cstl_hash_set.c' object='ut-ut_cstl_hash_set.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set.obj `if test -f 'ut_cstl_hash_set.c'; then $(CYGPATH_W) 'ut_cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set.c'; fi`
+
+ut-ut_cstl_hash_multiset_aux.o: ut_cstl_hash_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Tpo -c -o ut-ut_cstl_hash_multiset_aux.o `test -f 'ut_cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_aux.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Po
+#	source='ut_cstl_hash_multiset_aux.c' object='ut-ut_cstl_hash_multiset_aux.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_aux.o `test -f 'ut_cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_aux.c
+
+ut-ut_cstl_hash_multiset_aux.obj: ut_cstl_hash_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Tpo -c -o ut-ut_cstl_hash_multiset_aux.obj `if test -f 'ut_cstl_hash_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Po
+#	source='ut_cstl_hash_multiset_aux.c' object='ut-ut_cstl_hash_multiset_aux.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_aux.obj `if test -f 'ut_cstl_hash_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_aux.c'; fi`
+
+ut-ut_cstl_hash_multiset_private.o: ut_cstl_hash_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Tpo -c -o ut-ut_cstl_hash_multiset_private.o `test -f 'ut_cstl_hash_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_private.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Po
+#	source='ut_cstl_hash_multiset_private.c' object='ut-ut_cstl_hash_multiset_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_private.o `test -f 'ut_cstl_hash_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_private.c
+
+ut-ut_cstl_hash_multiset_private.obj: ut_cstl_hash_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Tpo -c -o ut-ut_cstl_hash_multiset_private.obj `if test -f 'ut_cstl_hash_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_private.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Po
+#	source='ut_cstl_hash_multiset_private.c' object='ut-ut_cstl_hash_multiset_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_private.obj `if test -f 'ut_cstl_hash_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_private.c'; fi`
+
+ut-ut_cstl_hash_multiset_iterator.o: ut_cstl_hash_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Tpo -c -o ut-ut_cstl_hash_multiset_iterator.o `test -f 'ut_cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_iterator.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Po
+#	source='ut_cstl_hash_multiset_iterator.c' object='ut-ut_cstl_hash_multiset_iterator.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_iterator.o `test -f 'ut_cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_iterator.c
+
+ut-ut_cstl_hash_multiset_iterator.obj: ut_cstl_hash_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Tpo -c -o ut-ut_cstl_hash_multiset_iterator.obj `if test -f 'ut_cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Po
+#	source='ut_cstl_hash_multiset_iterator.c' object='ut-ut_cstl_hash_multiset_iterator.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_iterator.obj `if test -f 'ut_cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_iterator.c'; fi`
+
+ut-ut_cstl_hash_multiset.o: ut_cstl_hash_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset.Tpo -c -o ut-ut_cstl_hash_multiset.o `test -f 'ut_cstl_hash_multiset.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset.Po
+#	source='ut_cstl_hash_multiset.c' object='ut-ut_cstl_hash_multiset.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset.o `test -f 'ut_cstl_hash_multiset.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset.c
+
+ut-ut_cstl_hash_multiset.obj: ut_cstl_hash_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset.Tpo -c -o ut-ut_cstl_hash_multiset.obj `if test -f 'ut_cstl_hash_multiset.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset.Po
+#	source='ut_cstl_hash_multiset.c' object='ut-ut_cstl_hash_multiset.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset.obj `if test -f 'ut_cstl_hash_multiset.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

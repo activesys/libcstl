@@ -64,7 +64,7 @@ extern bool_t _create_hash_set_auxiliary(hash_set_t* phset_set, const char* s_ty
  * @param pset_set        hash_set container.
  * @return void.
  * @remarks if pset_set == NULL, then the behavior is undefined. hash_set must be initialized or created by
- *          _create_set(), otherwise the behavior is undefine.
+ *          _create_hash_set(), otherwise the behavior is undefine.
  */
 extern void _hash_set_destroy_auxiliary(hash_set_t* phset_set);
 
@@ -174,7 +174,7 @@ extern size_t _hash_set_erase_varg(hash_set_t* phset_set, va_list val_elemlist);
  * @param pv_value          value.
  * @return void.
  * @remarks if pset_set == NULL or pv_value == NULL, then the behavior is undefine. pset_set must be initialized or
- *          created by _create_set(), otherwise the behavior is undefined.
+ *          created by _create_hash_set(), otherwise the behavior is undefined.
  */
 extern void _hash_set_init_elem_auxiliary(hash_set_t* phset_set, void* pv_value);
 

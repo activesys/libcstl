@@ -52,7 +52,7 @@ extern "C" {
  * @param pv_varg           data buffer.
  * @return void.
  * @remarks if phset_set == NULL or pv_varg == NULL, then the behavior is undefined. phset_set must be initialized
- *          or created by create_set(), otherwise the behavior is undefined.
+ *          or created by create_hash_set(), otherwise the behavior is undefined.
  */
 extern void _hash_set_get_varg_value_auxiliary(hash_set_t* phset_set, va_list val_elemlist, void* pv_varg);
 
@@ -62,7 +62,7 @@ extern void _hash_set_get_varg_value_auxiliary(hash_set_t* phset_set, va_list va
  * @param pv_varg           data buffer.
  * @return void.
  * @remarks if phset_set == NULL or pv_varg == NULL, then the behavior is undefined. phset_set must be initialized
- *          or created by create_set(), otherwise the behavior is undefined.
+ *          or created by create_hash_set(), otherwise the behavior is undefined.
  */
 extern void _hash_set_destroy_varg_value_auxiliary(hash_set_t* phset_set, void* pv_varg);
 

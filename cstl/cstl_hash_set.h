@@ -97,7 +97,7 @@ extern "C" {
  * Initialize hash_set container.
  * @param phset_set          hash_set container.
  * @return void.
- * @remarks if phset_set == NULL, then the behavior is undefined, phset_set must be created by create_set(), otherwise
+ * @remarks if phset_set == NULL, then the behavior is undefined, phset_set must be created by create_hash_set(), otherwise
  *          the behavior is undefined. the default compare function is used.
  */
 extern void hash_set_init(hash_set_t* phset_set);
@@ -107,7 +107,7 @@ extern void hash_set_init(hash_set_t* phset_set);
  * @param phset_set          hash_set container.
  * @param bfun_compare         compare function.
  * @return void.
- * @remarks if phset_set == NULL, then the behavior is undefined, phset_set must be created by create_set(), otherwise
+ * @remarks if phset_set == NULL, then the behavior is undefined, phset_set must be created by create_hash_set(), otherwise
  *          the behavior is undefined. if bfun_compare == NULL, the default compare function is used.
  */
 extern void hash_set_init_ex(hash_set_t* phset_set, size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
@@ -118,7 +118,7 @@ extern void hash_set_init_ex(hash_set_t* phset_set, size_t t_bucketcount, unary_
  * @param cphset_src           source hash_set.
  * @return void.
  * @remarks if phset_dest == NULL or cphset_src == NULL, then the behavior is undefined, phset_dest must be created by
- *          create_set(), cphset_src must be initialized, otherwise the behavior is undefined. the element type of
+ *          create_hash_set(), cphset_src must be initialized, otherwise the behavior is undefined. the element type of
  *          phset_dest and cphset_src must be same, otherwise the behavior is undefine.
  */
 extern void hash_set_init_copy(hash_set_t* phset_dest, const hash_set_t* cphset_src);
@@ -129,7 +129,7 @@ extern void hash_set_init_copy(hash_set_t* phset_dest, const hash_set_t* cphset_
  * @param it_begin          begin of range.
  * @param it_end            end of range.
  * @return void.
- * @remarks if phset_dest == NULL, then the behavior is undefined, phset_dest must be created by create_set(), otherwise
+ * @remarks if phset_dest == NULL, then the behavior is undefined, phset_dest must be created by create_hash_set(), otherwise
  *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_set, otherwise the behavior
  *          is undefined. the type of [it_begin, it_end) and phset_dest must be same, otherwise the behavior is undefined.
  */
@@ -142,7 +142,7 @@ extern void hash_set_init_copy_range(hash_set_t* phset_dest, hash_set_iterator_t
  * @param it_end            end of range.
  * @param bfun_compare         compare function.
  * @return void.
- * @remarks if phset_dest == NULL, then the behavior is undefined, phset_dest must be created by _create_set(), otherwise
+ * @remarks if phset_dest == NULL, then the behavior is undefined, phset_dest must be created by _create_hash_set(), otherwise
  *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_set, otherwise the behavior
  *          is undefined. the type of [it_begin, it_end) and phset_dest must be same, otherwise the behavior is undefined. if
  *          bfun_compare == NULL, then use default compare function.
@@ -155,7 +155,7 @@ extern void hash_set_init_copy_range_ex(
  * Destroy hash_set.
  * @param phset_set       hash_set container.
  * @return void.
- * @remarks if phset_set == NULL, then the behavior is undefined, the hash_set must be initialized or created by create_set(),
+ * @remarks if phset_set == NULL, then the behavior is undefined, the hash_set must be initialized or created by create_hash_set(),
  *          otherwise the behavior is undefined.
  */
 extern void hash_set_destroy(hash_set_t* phset_set);
