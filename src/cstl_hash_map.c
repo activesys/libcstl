@@ -38,55 +38,13 @@
 #include <cstl/cstl_hash_map_private.h>
 #include <cstl/cstl_hash_map.h>
 
-/** local constant declaration and local macro section **/
-/* macros for type informations */
-#define _GET_HASH_MAP_FIRST_TYPE_SIZE(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfofirst._pt_type->_t_typesize)
-#define _GET_HASH_MAP_FIRST_TYPE_NAME(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfofirst._sz_typename)
-#define _GET_HASH_MAP_FIRST_TYPE_BASENAME(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfofirst._pt_type->_sz_typename)
-#define _GET_HASH_MAP_FIRST_TYPE_INIT_FUNCTION(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfofirst._pt_type->_t_typeinit)
-#define _GET_HASH_MAP_FIRST_TYPE_COPY_FUNCTION(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfofirst._pt_type->_t_typecopy)
-#define _GET_HASH_MAP_FIRST_TYPE_LESS_FUNCTION(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfofirst._pt_type->_t_typeless)
-#define _GET_HASH_MAP_FIRST_TYPE_DESTROY_FUNCTION(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfofirst._pt_type->_t_typedestroy)
-#define _GET_HASH_MAP_FIRST_TYPE_STYLE(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfofirst._t_style)
+#include "cstl_hash_map_aux.h"
 
-#define _GET_HASH_MAP_SECOND_TYPE_SIZE(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfosecond._pt_type->_t_typesize)
-#define _GET_HASH_MAP_SECOND_TYPE_NAME(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfosecond._sz_typename)
-#define _GET_HASH_MAP_SECOND_TYPE_BASENAME(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfosecond._pt_type->_sz_typename)
-#define _GET_HASH_MAP_SECOND_TYPE_INIT_FUNCTION(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfosecond._pt_type->_t_typeinit)
-#define _GET_HASH_MAP_SECOND_TYPE_COPY_FUNCTION(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfosecond._pt_type->_t_typecopy)
-#define _GET_HASH_MAP_SECOND_TYPE_LESS_FUNCTION(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfosecond._pt_type->_t_typeless)
-#define _GET_HASH_MAP_SECOND_TYPE_DESTROY_FUNCTION(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfosecond._pt_type->_t_typedestroy)
-#define _GET_HASH_MAP_SECOND_TYPE_STYLE(pt_hash_map)\
-    ((pt_hash_map)->_t_pair._t_typeinfosecond._t_style)
+/** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-#ifndef NDEBUG
-/*
- * Assert support.
- */
-static bool_t _hash_map_same_pair_type(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond);
-#endif /* NDEBUG */
-
-static void _hash_map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output);
-static void _hash_map_default_hash(const void* cpv_input, void* pv_output);
 
 /** exported global variable definition section **/
 
@@ -264,7 +222,7 @@ void hash_map_init_copy(hash_map_t* pt_hash_mapdest, const hash_map_t* cpt_hash_
     pt_hash_mapdest->_t_valuecompare = cpt_hash_mapsrc->_t_valuecompare;
     pt_hash_mapdest->_t_pair._bfun_mapkeycompare = cpt_hash_mapsrc->_t_pair._bfun_mapkeycompare;
     pt_hash_mapdest->_t_pair._bfun_mapvaluecompare = cpt_hash_mapsrc->_t_pair._bfun_mapvaluecompare;
-    assert(_hash_map_same_pair_type(&pt_hash_mapdest->_t_pair, &cpt_hash_mapsrc->_t_pair));
+    assert(_hash_map_same_pair_type_ex(&pt_hash_mapdest->_t_pair, &cpt_hash_mapsrc->_t_pair));
 
     if(!hash_map_empty(cpt_hash_mapsrc))
     {
@@ -305,7 +263,7 @@ void hash_map_init_copy_range_ex(hash_map_t* pt_hash_mapdest,
 void hash_map_assign(hash_map_t* pt_hash_mapdest, const hash_map_t* cpt_hash_mapsrc)
 {
     assert(pt_hash_mapdest != NULL && cpt_hash_mapsrc != NULL);
-    assert(_hash_map_same_pair_type(
+    assert(_hash_map_same_pair_type_ex(
         &pt_hash_mapdest->_t_pair, &cpt_hash_mapsrc->_t_pair));
 
     hash_map_clear(pt_hash_mapdest);
@@ -320,7 +278,7 @@ void hash_map_swap(
     hash_map_t* pt_hash_mapfirst, hash_map_t* pt_hash_mapsecond)
 {
     assert(pt_hash_mapfirst != NULL && pt_hash_mapsecond != NULL);
-    assert(_hash_map_same_pair_type(&pt_hash_mapfirst->_t_pair,
+    assert(_hash_map_same_pair_type_ex(&pt_hash_mapfirst->_t_pair,
         &pt_hash_mapsecond->_t_pair));
 
     _hashtable_swap(&pt_hash_mapfirst->_t_hashtable, &pt_hash_mapsecond->_t_hashtable);
@@ -575,7 +533,7 @@ hash_map_iterator_t hash_map_insert(
     /* set key less and value less function */
     ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_hash_map->_t_keycompare;
     ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_hash_map->_t_valuecompare;
-    assert(_hash_map_same_pair_type(&pt_hash_map->_t_pair, cpt_pair));
+    assert(_hash_map_same_pair_type_ex(&pt_hash_map->_t_pair, cpt_pair));
 
     /* insert int hashtable */
     t_result = _hashtable_insert_unique(&pt_hash_map->_t_hashtable, cpt_pair);
@@ -733,81 +691,6 @@ void _hash_map_init_elem_auxiliary(hash_map_t* pt_hash_map, void* pv_elem)
 }
 
 /** local function implementation section **/
-#ifndef NDEBUG
-static bool_t _hash_map_same_pair_type(
-    const pair_t* cpt_pairfirst, const pair_t* cpt_pairsecond)
-{
-    assert(cpt_pairfirst != NULL && cpt_pairsecond != NULL);
-
-    return _type_is_same(cpt_pairfirst->_t_typeinfofirst._sz_typename,
-                         cpt_pairsecond->_t_typeinfofirst._sz_typename) &&
-           (cpt_pairfirst->_t_typeinfofirst._pt_type ==
-            cpt_pairsecond->_t_typeinfofirst._pt_type) &&
-           (cpt_pairfirst->_t_typeinfofirst._t_style ==
-            cpt_pairsecond->_t_typeinfofirst._t_style) &&
-           _type_is_same(cpt_pairfirst->_t_typeinfosecond._sz_typename,
-                         cpt_pairsecond->_t_typeinfosecond._sz_typename) &&
-           (cpt_pairfirst->_t_typeinfosecond._pt_type ==
-            cpt_pairsecond->_t_typeinfosecond._pt_type) &&
-           (cpt_pairfirst->_t_typeinfosecond._t_style ==
-            cpt_pairsecond->_t_typeinfosecond._t_style) &&
-           (cpt_pairfirst->_bfun_mapkeycompare == cpt_pairsecond->_bfun_mapkeycompare) &&
-           (cpt_pairfirst->_bfun_mapvaluecompare == cpt_pairsecond->_bfun_mapvaluecompare);
-}
-#endif /* NDEBUG */
-
-static void _hash_map_value_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
-{
-    pair_t* pt_first = NULL;
-    pair_t* pt_second = NULL;
-
-    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-
-    pt_first = (pair_t*)cpv_first;
-    pt_second = (pair_t*)cpv_second;
-
-    assert(_hash_map_same_pair_type(pt_first, pt_second));
-
-    *(bool_t*)pv_output = pt_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if(pt_first->_bfun_mapkeycompare != NULL) /* external key compare function */
-    {
-        pt_first->_bfun_mapkeycompare(pair_first(pt_first), pair_first(pt_second), pv_output);
-    }
-    else
-    {
-        pt_first->_t_typeinfofirst._pt_type->_t_typeless(
-            pt_first->_pv_first, pt_second->_pv_first, pv_output);
-    }
-}
-
-static void _hash_map_default_hash(const void* cpv_input, void* pv_output)
-{
-    pair_t* pt_pair = NULL;
-    char*   pc_value = NULL;
-    size_t  t_sum = 0;
-    size_t  t_index = 0;
-    size_t  t_len = 0;
-
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    pt_pair = (pair_t*)cpv_input;
-    pc_value = (char*)pair_first(pt_pair);
-    if(strncmp(pt_pair->_t_typeinfofirst._pt_type->_sz_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        t_len = strlen(pc_value);
-    }
-    else
-    {
-        t_len = pt_pair->_t_typeinfofirst._pt_type->_t_typesize;
-    }
-
-    for(t_index = 0; t_index < t_len; ++t_index)
-    {
-        t_sum += (size_t)pc_value[t_index];
-    }
-
-    *(size_t*)pv_output = t_sum;
-}
 
 /** eof **/
 
