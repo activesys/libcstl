@@ -131,59 +131,6 @@ bool_t _hash_map_iterator_before(
     return _hashtable_iterator_before(t_iterfirst, t_itersecond);
 }
 
-/* hash_map private function */
-hash_map_t* _create_hash_map(const char* s_typename)
-{
-    hash_map_t* pt_new_hash_map = NULL;
-
-    if((pt_new_hash_map = (hash_map_t*)malloc(sizeof(hash_map_t))) == NULL)
-    {
-        return NULL;
-    }
-
-    if(!_create_hash_map_auxiliary(pt_new_hash_map, s_typename))
-    {
-        free(pt_new_hash_map);
-        return NULL;
-    }
-
-    return pt_new_hash_map;
-}
-
-bool_t _create_hash_map_auxiliary(hash_map_t* pt_hash_map, const char* s_typename)
-{
-    char s_typenameex[_TYPE_NAME_SIZE + 1];
-
-    assert(pt_hash_map != NULL && s_typename != NULL);
-
-    if(!_create_pair_auxiliary(&pt_hash_map->_t_pair, s_typename))
-    {
-        return false;
-    }
-
-    memset(s_typenameex, '\0', _TYPE_NAME_SIZE + 1);
-    strncpy(s_typenameex, "pair_t", _TYPE_NAME_SIZE);
-    strncat(s_typenameex, "<", _TYPE_NAME_SIZE);
-    strncat(s_typenameex, s_typename, _TYPE_NAME_SIZE - 8); /* 8 is length of "pair_t<>" */
-    strncat(s_typenameex, ">", _TYPE_NAME_SIZE);
-
-    pt_hash_map->_t_keycompare = NULL;
-    pt_hash_map->_t_valuecompare = NULL;
-
-    return _create_hashtable_auxiliary(&pt_hash_map->_t_hashtable, s_typenameex);
-}
-
-void _hash_map_destroy_auxiliary(hash_map_t* pt_hash_map)
-{
-    assert(pt_hash_map != NULL);
-
-    _pair_destroy_auxiliary(&pt_hash_map->_t_pair);
-    _hashtable_destroy_auxiliary(&pt_hash_map->_t_hashtable);
-
-    pt_hash_map->_t_keycompare = NULL;
-    pt_hash_map->_t_valuecompare = NULL;
-}
-
 /* hash_map function */
 void hash_map_init(hash_map_t* pt_hash_map)
 {
@@ -197,11 +144,11 @@ void hash_map_init_ex(hash_map_t* pt_hash_map, size_t t_bucketcount,
 
     assert(pt_hash_map != NULL);
 
-    pt_hash_map->_t_keycompare = t_compare;
-    pt_hash_map->_t_pair._bfun_mapkeycompare = t_compare;
+    pt_hash_map->_bfun_keycompare = t_compare;
+    pt_hash_map->_pair_temp._bfun_mapkeycompare = t_compare;
     t_default_hash = t_hash != NULL ? t_hash : _hash_map_default_hash;
     /* initialize the pair */
-    pair_init(&pt_hash_map->_t_pair);
+    pair_init(&pt_hash_map->_pair_temp);
     /* initialize the hashtable */
     _hashtable_init(&pt_hash_map->_t_hashtable, t_bucketcount, t_default_hash, _hash_map_value_compare);
 }
@@ -218,11 +165,11 @@ void hash_map_init_copy(hash_map_t* pt_hash_mapdest, const hash_map_t* cpt_hash_
 
     hash_map_init_ex(pt_hash_mapdest, hash_map_bucket_count(cpt_hash_mapsrc),
         hash_map_hash(cpt_hash_mapsrc), hash_map_key_comp(cpt_hash_mapsrc));
-    pt_hash_mapdest->_t_keycompare = cpt_hash_mapsrc->_t_keycompare;
-    pt_hash_mapdest->_t_valuecompare = cpt_hash_mapsrc->_t_valuecompare;
-    pt_hash_mapdest->_t_pair._bfun_mapkeycompare = cpt_hash_mapsrc->_t_pair._bfun_mapkeycompare;
-    pt_hash_mapdest->_t_pair._bfun_mapvaluecompare = cpt_hash_mapsrc->_t_pair._bfun_mapvaluecompare;
-    assert(_hash_map_same_pair_type_ex(&pt_hash_mapdest->_t_pair, &cpt_hash_mapsrc->_t_pair));
+    pt_hash_mapdest->_bfun_keycompare = cpt_hash_mapsrc->_bfun_keycompare;
+    pt_hash_mapdest->_bfun_valuecompare = cpt_hash_mapsrc->_bfun_valuecompare;
+    pt_hash_mapdest->_pair_temp._bfun_mapkeycompare = cpt_hash_mapsrc->_pair_temp._bfun_mapkeycompare;
+    pt_hash_mapdest->_pair_temp._bfun_mapvaluecompare = cpt_hash_mapsrc->_pair_temp._bfun_mapvaluecompare;
+    assert(_hash_map_same_pair_type_ex(&pt_hash_mapdest->_pair_temp, &cpt_hash_mapsrc->_pair_temp));
 
     if(!hash_map_empty(cpt_hash_mapsrc))
     {
@@ -264,7 +211,7 @@ void hash_map_assign(hash_map_t* pt_hash_mapdest, const hash_map_t* cpt_hash_map
 {
     assert(pt_hash_mapdest != NULL && cpt_hash_mapsrc != NULL);
     assert(_hash_map_same_pair_type_ex(
-        &pt_hash_mapdest->_t_pair, &cpt_hash_mapsrc->_t_pair));
+        &pt_hash_mapdest->_pair_temp, &cpt_hash_mapsrc->_pair_temp));
 
     hash_map_clear(pt_hash_mapdest);
     if(!hash_map_empty(cpt_hash_mapsrc))
@@ -278,8 +225,8 @@ void hash_map_swap(
     hash_map_t* pt_hash_mapfirst, hash_map_t* pt_hash_mapsecond)
 {
     assert(pt_hash_mapfirst != NULL && pt_hash_mapsecond != NULL);
-    assert(_hash_map_same_pair_type_ex(&pt_hash_mapfirst->_t_pair,
-        &pt_hash_mapsecond->_t_pair));
+    assert(_hash_map_same_pair_type_ex(&pt_hash_mapfirst->_pair_temp,
+        &pt_hash_mapsecond->_pair_temp));
 
     _hashtable_swap(&pt_hash_mapfirst->_t_hashtable, &pt_hash_mapsecond->_t_hashtable);
 }
@@ -323,9 +270,9 @@ binary_function_t hash_map_key_comp(const hash_map_t* cpt_hash_map)
 {
     assert(cpt_hash_map != NULL);
 
-    if(cpt_hash_map->_t_keycompare != NULL)
+    if(cpt_hash_map->_bfun_keycompare != NULL)
     {
-        return cpt_hash_map->_t_keycompare;
+        return cpt_hash_map->_bfun_keycompare;
     }
     else
     {
@@ -435,95 +382,6 @@ bool_t hash_map_greater_equal(
         &cpt_hash_mapfirst->_t_hashtable, &cpt_hash_mapsecond->_t_hashtable);
 }
 
-hash_map_iterator_t _hash_map_find(const hash_map_t* cpt_hash_map, ...)
-{
-    hash_map_iterator_t t_iter;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_hash_map);
-    t_iter = _hash_map_find_varg(cpt_hash_map, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_iter;
-}
-
-hash_map_iterator_t _hash_map_find_varg(
-    const hash_map_t* cpt_hash_map, va_list val_elemlist)
-{
-    hash_map_iterator_t t_iterator;
-
-    assert(cpt_hash_map != NULL);
-
-    _type_get_varg_value(&((hash_map_t*)cpt_hash_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_hash_map->_t_pair._pv_first);
-
-    t_iterator = _hashtable_find(&cpt_hash_map->_t_hashtable, &cpt_hash_map->_t_pair);
-
-    _GET_CONTAINER(t_iterator) = (hash_map_t*)cpt_hash_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(t_iterator) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_iterator) = _BIDIRECTIONAL_ITERATOR;
-
-    return t_iterator;
-}
-
-size_t _hash_map_count(const hash_map_t* cpt_hash_map, ...)
-{
-    size_t t_count = 0;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_hash_map);
-    t_count = _hash_map_count_varg(cpt_hash_map, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_count;
-}
-
-size_t _hash_map_count_varg(const hash_map_t* cpt_hash_map, va_list val_elemlist)
-{
-    assert(cpt_hash_map != NULL);
-
-    _type_get_varg_value(&((hash_map_t*)cpt_hash_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_hash_map->_t_pair._pv_first);
-
-    return _hashtable_count(&cpt_hash_map->_t_hashtable, &cpt_hash_map->_t_pair);
-}
-
-range_t _hash_map_equal_range(const hash_map_t* cpt_hash_map, ...)
-{
-    range_t t_range;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, cpt_hash_map);
-    t_range = _hash_map_equal_range_varg(cpt_hash_map, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_range;
-}
-
-range_t _hash_map_equal_range_varg(
-    const hash_map_t* cpt_hash_map, va_list val_elemlist)
-{
-    range_t t_result;
-
-    assert(cpt_hash_map != NULL);
-
-    _type_get_varg_value(&((hash_map_t*)cpt_hash_map)->_t_pair._t_typeinfofirst,
-        val_elemlist, cpt_hash_map->_t_pair._pv_first);
-
-    t_result = _hashtable_equal_range(
-        &cpt_hash_map->_t_hashtable, &cpt_hash_map->_t_pair);
-
-    _GET_CONTAINER(t_result.it_begin) = (hash_map_t*)cpt_hash_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(t_result.it_begin) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_result.it_begin) = _BIDIRECTIONAL_ITERATOR;
-
-    _GET_CONTAINER(t_result.it_end) = (hash_map_t*)cpt_hash_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(t_result.it_end) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_result.it_end) = _BIDIRECTIONAL_ITERATOR;
-
-    return t_result;
-}
-
 hash_map_iterator_t hash_map_insert(
     hash_map_t* pt_hash_map, const pair_t* cpt_pair)
 {
@@ -531,9 +389,9 @@ hash_map_iterator_t hash_map_insert(
 
     assert(pt_hash_map != NULL && cpt_pair != NULL);
     /* set key less and value less function */
-    ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_hash_map->_t_keycompare;
-    ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_hash_map->_t_valuecompare;
-    assert(_hash_map_same_pair_type_ex(&pt_hash_map->_t_pair, cpt_pair));
+    ((pair_t*)cpt_pair)->_bfun_mapkeycompare = pt_hash_map->_bfun_keycompare;
+    ((pair_t*)cpt_pair)->_bfun_mapvaluecompare = pt_hash_map->_bfun_valuecompare;
+    assert(_hash_map_same_pair_type_ex(&pt_hash_map->_pair_temp, cpt_pair));
 
     /* insert int hashtable */
     t_result = _hashtable_insert_unique(&pt_hash_map->_t_hashtable, cpt_pair);
@@ -591,103 +449,11 @@ void hash_map_erase_range(
     _hashtable_erase_range(&pt_hash_map->_t_hashtable, t_begin, t_end);
 }
 
-size_t _hash_map_erase(hash_map_t* pt_hash_map, ...)
-{
-    size_t t_count = 0;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, pt_hash_map);
-    t_count = _hash_map_erase_varg(pt_hash_map, val_elemlist);
-    va_end(val_elemlist);
-
-    return t_count;
-}
-
-size_t _hash_map_erase_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
-{
-    assert(pt_hash_map != NULL);
-
-    _type_get_varg_value(&pt_hash_map->_t_pair._t_typeinfofirst,
-        val_elemlist, pt_hash_map->_t_pair._pv_first);
-
-    return _hashtable_erase(&pt_hash_map->_t_hashtable, &pt_hash_map->_t_pair);
-}
-
 void hash_map_clear(hash_map_t* pt_hash_map)
 {
     assert(pt_hash_map != NULL);
 
     _hashtable_clear(&pt_hash_map->_t_hashtable);
-}
-
-void* _hash_map_at(hash_map_t* pt_hash_map, ...)
-{
-    void* pv_result = NULL;
-    va_list val_elemlist;
-
-    va_start(val_elemlist, pt_hash_map);
-    pv_result = _hash_map_at_varg(pt_hash_map, val_elemlist);
-    va_end(val_elemlist);
-
-    return pv_result;
-}
-
-void* _hash_map_at_varg(hash_map_t* pt_hash_map, va_list val_elemlist)
-{
-    hash_map_iterator_t t_result;
-    va_list val_elemlist_copy;
-
-    assert(pt_hash_map != NULL);
-
-    va_copy(val_elemlist_copy, val_elemlist);
-    _type_get_varg_value(&pt_hash_map->_t_pair._t_typeinfofirst,
-        val_elemlist, pt_hash_map->_t_pair._pv_first);
-
-    t_result = _hashtable_insert_unique(&pt_hash_map->_t_hashtable, &pt_hash_map->_t_pair);
-    _GET_CONTAINER(t_result) = pt_hash_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(t_result) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(t_result) = _BIDIRECTIONAL_ITERATOR;
-
-    if(iterator_equal(t_result, hash_map_end(pt_hash_map)))
-    {
-        t_result = _hash_map_find_varg(pt_hash_map, val_elemlist_copy);
-    }
-
-    /* char* */
-    if(strncmp(_GET_HASH_MAP_SECOND_TYPE_BASENAME(pt_hash_map),
-        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        return (char*)string_c_str(
-            (string_t*)((pair_t*)iterator_get_pointer(t_result))->_pv_second);
-    }
-    else
-    {
-        return ((pair_t*)iterator_get_pointer(t_result))->_pv_second;
-    }
-
-    va_end(val_elemlist_copy);
-}
-
-void _hash_map_init_elem_auxiliary(hash_map_t* pt_hash_map, void* pv_elem)
-{
-    assert(pt_hash_map != NULL && pv_elem != NULL);
-
-    /* initialize new elements */
-    if(pt_hash_map->_t_hashtable._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(
-            pt_hash_map->_t_hashtable._t_typeinfo._sz_typename, s_elemtypename);
-
-        pt_hash_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
-    }
-    else
-    {
-        bool_t t_result = pt_hash_map->_t_hashtable._t_typeinfo._pt_type->_t_typesize;
-        pt_hash_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, &t_result);
-        assert(t_result);
-    }
 }
 
 /** local function implementation section **/
