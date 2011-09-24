@@ -81,6 +81,7 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_deque_iterator.lo \
 	libcstl_la-cstl_deque_private.lo libcstl_la-cstl_deque_aux.lo \
 	libcstl_la-cstl_function.lo libcstl_la-cstl_hash_map.lo \
+	libcstl_la-cstl_hash_map_iterator.lo \
 	libcstl_la-cstl_hash_map_private.lo \
 	libcstl_la-cstl_hash_map_aux.lo \
 	libcstl_la-cstl_hash_multimap.lo \
@@ -268,7 +269,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_basic_string_aux.c cstl_basic_string_aux.h \
 		     cstl_deque.c cstl_deque_iterator.c cstl_deque_private.c cstl_deque_aux.c cstl_deque_aux.h \
 		     cstl_function.c \
-		     cstl_hash_map.c cstl_hash_map_private.c cstl_hash_map_aux.c cstl_hash_map_aux.h \
+		     cstl_hash_map.c cstl_hash_map_iterator.c cstl_hash_map_private.c cstl_hash_map_aux.c cstl_hash_map_aux.h \
 		     cstl_hash_multimap.c \
 		     cstl_hash_multiset.c cstl_hash_multiset_iterator.c cstl_hash_multiset_private.c cstl_hash_multiset_aux.c cstl_hash_multiset_aux.h \
 		     cstl_hash_set.c cstl_hash_set_iterator.c cstl_hash_set_private.c cstl_hash_set_aux.c cstl_hash_set_aux.h \
@@ -387,6 +388,7 @@ include ./$(DEPDIR)/libcstl_la-cstl_deque_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_function.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hash_map.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hash_map_aux.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_hash_map_iterator.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hash_map_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hash_multimap.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_hash_multiset.Plo
@@ -595,6 +597,13 @@ libcstl_la-cstl_hash_map.lo: cstl_hash_map.c
 #	source='cstl_hash_map.c' object='libcstl_la-cstl_hash_map.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_map.lo `test -f 'cstl_hash_map.c' || echo '$(srcdir)/'`cstl_hash_map.c
+
+libcstl_la-cstl_hash_map_iterator.lo: cstl_hash_map_iterator.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_map_iterator.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_map_iterator.Tpo -c -o libcstl_la-cstl_hash_map_iterator.lo `test -f 'cstl_hash_map_iterator.c' || echo '$(srcdir)/'`cstl_hash_map_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_hash_map_iterator.Tpo $(DEPDIR)/libcstl_la-cstl_hash_map_iterator.Plo
+#	source='cstl_hash_map_iterator.c' object='libcstl_la-cstl_hash_map_iterator.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_hash_map_iterator.lo `test -f 'cstl_hash_map_iterator.c' || echo '$(srcdir)/'`cstl_hash_map_iterator.c
 
 libcstl_la-cstl_hash_map_private.lo: cstl_hash_map_private.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_hash_map_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_hash_map_private.Tpo -c -o libcstl_la-cstl_hash_map_private.lo `test -f 'cstl_hash_map_private.c' || echo '$(srcdir)/'`cstl_hash_map_private.c

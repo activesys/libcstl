@@ -76,6 +76,8 @@
 #include "ut_cstl_hash_multiset.h"
 #include "ut_cstl_hash_map_aux.h"
 #include "ut_cstl_hash_map_private.h"
+#include "ut_cstl_hash_map_iterator.h"
+#include "ut_cstl_hash_map.h"
 
 int main(int argc, char* argv[])
 {
@@ -148,7 +150,9 @@ int main(int argc, char* argv[])
         UT_CSTL_HASH_MULTISET_ITERATOR_CASE,
         UT_CSTL_HASH_MULTISET_CASE,
         UT_CSTL_HASH_MAP_AUX_CASE,
-        UT_CSTL_HASH_MAP_PRIVATE_CASE
+        UT_CSTL_HASH_MAP_PRIVATE_CASE,
+        UT_CSTL_HASH_MAP_ITERATOR_CASE,
+        UT_CSTL_HASH_MAP_CASE
     };
 
     return run_tests(tests);
