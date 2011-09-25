@@ -9,7 +9,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_deque.c cstl_deque_iterator.c cstl_deque_private.c cstl_deque_aux.c cstl_deque_aux.h \
 		     cstl_function.c \
 		     cstl_hash_map.c cstl_hash_map_iterator.c cstl_hash_map_private.c cstl_hash_map_aux.c cstl_hash_map_aux.h \
-		     cstl_hash_multimap.c \
+		     cstl_hash_multimap.c cstl_hash_multimap_iterator.c cstl_hash_multimap_private.c cstl_hash_multimap_aux.c cstl_hash_multimap_aux.h \
 		     cstl_hash_multiset.c cstl_hash_multiset_iterator.c cstl_hash_multiset_private.c cstl_hash_multiset_aux.c cstl_hash_multiset_aux.h \
 		     cstl_hash_set.c cstl_hash_set_iterator.c cstl_hash_set_private.c cstl_hash_set_aux.c cstl_hash_set_aux.h \
 		     cstl_hashtable.c cstl_hashtable_iterator.c cstl_hashtable_private.c cstl_hashtable_aux.c cstl_hashtable_aux.h \
@@ -32,4 +32,4 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_vector.c cstl_vector_iterator.c cstl_vector_private.c cstl_vector_aux.c cstl_vector_aux.h
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
 libcstl_la_CFLAGS = -Wall -Wextra
-libcstl_la_LDFLAGS = -version-info 2:1:0
+libcstl_la_LDFLAGS = -version-info 2:2:0
