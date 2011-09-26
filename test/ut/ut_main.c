@@ -81,6 +81,7 @@
 #include "ut_cstl_hash_multimap_aux.h"
 #include "ut_cstl_hash_multimap_private.h"
 #include "ut_cstl_hash_multimap_iterator.h"
+#include "ut_cstl_hash_multimap.h"
 
 int main(int argc, char* argv[])
 {
@@ -158,7 +159,8 @@ int main(int argc, char* argv[])
         UT_CSTL_HASH_MAP_CASE,
         UT_CSTL_HASH_MULTIMAP_AUX_CASE,
         UT_CSTL_HASH_MULTIMAP_PRIVATE_CASE,
-        UT_CSTL_HASH_MULTIMAP_ITERATOR_CASE
+        UT_CSTL_HASH_MULTIMAP_ITERATOR_CASE,
+        UT_CSTL_HASH_MULTIMAP_CASE
     };
 
     return run_tests(tests);
