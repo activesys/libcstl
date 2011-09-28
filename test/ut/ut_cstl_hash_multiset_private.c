@@ -244,7 +244,6 @@ void test__hash_multiset_find__hash_multiset_find_varg__c_builtin_not_find(void*
 {
     hash_multiset_t* pt_hash_multiset = _create_hash_multiset("int");
     hash_multiset_iterator_t it_iter;
-    int elem;
     int i;
 
     hash_multiset_init(pt_hash_multiset);

@@ -3254,7 +3254,7 @@ void test_multiset(void)
                 return;
             }
             multiset_init(pt_mset);
-            multiset_init_ex(pt_msetex, fun_greater_int);
+            multiset_init(pt_msetex);
             multiset_swap(pt_mset, pt_msetex);
             _print_multiset_c(pt_mset, "%d, ", int);
             _print_multiset_c(pt_msetex, "%d, ", int);

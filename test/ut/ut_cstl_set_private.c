@@ -247,7 +247,6 @@ void test__set_find__set_find_varg__c_builtin_not_find(void** state)
 {
     set_t* pt_set = _create_set("int");
     set_iterator_t it_iter;
-    int elem;
     int i;
 
     set_init(pt_set);
@@ -1820,7 +1819,7 @@ void test__set_insert_hint_varg__non_inited(void** state)
 void test__set_insert_hint_varg__c_builtin_equal(void** state)
 {
     set_t* pt_set = _create_set("int");
-    set_iterator_t it_iter;
+    set_iterator_t it_iter = create_set_iterator();
     int elem;
     int i;
 
@@ -1841,7 +1840,7 @@ void test__set_insert_hint_varg__c_builtin_equal(void** state)
 void test__set_insert_hint_varg__c_builtin_not_equal(void** state)
 {
     set_t* pt_set = _create_set("int");
-    set_iterator_t it_iter;
+	set_iterator_t it_iter = create_set_iterator();
     int elem;
     int i;
 
@@ -1862,7 +1861,7 @@ void test__set_insert_hint_varg__c_builtin_not_equal(void** state)
 void test__set_insert_hint_varg__cstr_equal(void** state)
 {
     set_t* pt_set = _create_set("char*");
-    set_iterator_t it_iter;
+    set_iterator_t it_iter = create_set_iterator();
 
     set_init_ex(pt_set, NULL);
     _set_insert_hint(pt_set, it_iter, "aaa");
@@ -1881,7 +1880,7 @@ void test__set_insert_hint_varg__cstr_equal(void** state)
 void test__set_insert_hint_varg__cstr_not_equal(void** state)
 {
     set_t* pt_set = _create_set("char*");
-    set_iterator_t it_iter;
+    set_iterator_t it_iter = create_set_iterator();
 
     set_init_ex(pt_set, NULL);
     _set_insert_hint(pt_set, it_iter, "aaa");
@@ -1900,7 +1899,7 @@ void test__set_insert_hint_varg__cstr_not_equal(void** state)
 void test__set_insert_hint_varg__libcstl_builtin_equal(void** state)
 {
     set_t* pt_set = _create_set("list_t<int>");
-    set_iterator_t it_iter;
+    set_iterator_t it_iter = create_set_iterator();
     list_t* plist = create_list(int);
     int i = 0;
 
@@ -1927,7 +1926,7 @@ void test__set_insert_hint_varg__libcstl_builtin_equal(void** state)
 void test__set_insert_hint_varg__libcstl_builtin_not_equal(void** state)
 {
     set_t* pt_set = _create_set("list_t<int>");
-    set_iterator_t it_iter;
+    set_iterator_t it_iter = create_set_iterator();
     list_t* plist = create_list(int);
     int i = 0;
 
@@ -1958,7 +1957,7 @@ typedef struct _tag_test__set_insert_hint_varg__user_define
 void test__set_insert_hint_varg__user_define_equal(void** state)
 {
     set_t* pt_set = NULL;
-    set_iterator_t it_iter;
+    set_iterator_t it_iter = create_set_iterator();
     _test__set_insert_hint_varg__user_define_t elem;
     int i = 0;
 
@@ -1984,7 +1983,7 @@ void test__set_insert_hint_varg__user_define_equal(void** state)
 void test__set_insert_hint_varg__user_define_not_equal(void** state)
 {
     set_t* pt_set =  _create_set("_test__set_insert_hint_varg__user_define_t");
-    set_iterator_t it_iter;
+    set_iterator_t it_iter = create_set_iterator();
     _test__set_insert_hint_varg__user_define_t elem;
     int i = 0;
 

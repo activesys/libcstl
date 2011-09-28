@@ -66,11 +66,13 @@ void _hash_set_get_varg_value_auxiliary(hash_set_t* phset_set, va_list val_eleml
  */
 void _hash_set_destroy_varg_value_auxiliary(hash_set_t* phset_set, void* pv_varg)
 {
+	bool_t b_result = false;
+
     assert(phset_set != NULL);
     assert(pv_varg != NULL);
 
     /* destroy varg value and free memory */
-    bool_t b_result = _GET_HASH_SET_TYPE_SIZE(phset_set);
+    b_result = _GET_HASH_SET_TYPE_SIZE(phset_set);
     _GET_HASH_SET_TYPE_DESTROY_FUNCTION(phset_set)(pv_varg, &b_result);
     assert(b_result);
 }

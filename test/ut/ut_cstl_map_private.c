@@ -296,7 +296,6 @@ void test__map_find__map_find_varg__c_builtin_not_find(void** state)
     map_t* pt_map = _create_map("int, int");
     pair_t* pt_pair = create_pair(int, int);
     map_iterator_t it_iter;
-    int elem;
     int i;
 
     pair_init(pt_pair);

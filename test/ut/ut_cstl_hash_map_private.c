@@ -292,7 +292,6 @@ void test__hash_map_find__hash_map_find_varg__c_builtin_not_find(void** state)
     hash_map_t* pt_hash_map = _create_hash_map("int, int");
     pair_t* pt_pair = create_pair(int, int);
     hash_map_iterator_t it_iter;
-    int elem;
     int i;
 
     pair_init(pt_pair);

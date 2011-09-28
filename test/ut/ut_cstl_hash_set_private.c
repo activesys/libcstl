@@ -244,7 +244,6 @@ void test__hash_set_find__hash_set_find_varg__c_builtin_not_find(void** state)
 {
     hash_set_t* pt_hash_set = _create_hash_set("int");
     hash_set_iterator_t it_iter;
-    int elem;
     int i;
 
     hash_set_init(pt_hash_set);

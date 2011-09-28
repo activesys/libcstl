@@ -139,42 +139,49 @@ _hashtable_iterator_t _hashtable_iterator_prev(_hashtable_iterator_t it_iter)
     assert(_hashtable_iterator_belong_to_hashtable(_GET_HASHTABLE(it_iter), it_iter));
     assert(!_hashtable_iterator_equal(it_iter, _hashtable_begin(_GET_HASHTABLE(it_iter))));
 
-    pt_node = (_hashnode_t*)_GET_HASHTABLE_COREPOS(it_iter);
-    pt_prevnode = *(_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(it_iter);
+	/* hashtable end is specifical condition. corepos == NULL and bucketpos is invalid pos */
+	if(_hashtable_iterator_equal(it_iter, _hashtable_end(_GET_HASHTABLE(it_iter))))
+	{
+		it_bucket = iterator_prev(vector_end(&_GET_HASHTABLE(it_iter)->_vec_bucket));
+		_GET_HASHTABLE_BUCKETPOS(it_iter) = _GET_VECTOR_COREPOS(it_bucket);
+	}
 
-    /* current node is first node in current bucket */
-    if(pt_prevnode == pt_node)
-    {
-        it_bucket = vector_begin(&(_GET_HASHTABLE(it_iter)->_vec_bucket));
-        _GET_VECTOR_COREPOS(it_bucket) = _GET_HASHTABLE_BUCKETPOS(it_iter);
-        for(it_bucket = iterator_prev(it_bucket);
-            iterator_greater_equal(it_bucket, vector_begin(&(_GET_HASHTABLE(it_iter)->_vec_bucket)));
-            it_bucket = iterator_prev(it_bucket))
-        {
-            pt_node = *(_hashnode_t**)_GET_VECTOR_COREPOS(it_bucket);
-            if(pt_node != NULL)
-            {
-                /* get the last hashnode */
-                while(pt_node->_pt_next != NULL)
-                {
-                    pt_node = pt_node->_pt_next;
-                }
-                /* set bucket pos and core pos */
-                _GET_HASHTABLE_BUCKETPOS(it_iter) = _GET_VECTOR_COREPOS(it_bucket);
-                _GET_HASHTABLE_COREPOS(it_iter) = (_byte_t*)pt_node;
-                break;
-            }
-        }
-    }
-    else
-    {
-        while(pt_prevnode->_pt_next != pt_node)
-        {
-            pt_prevnode = pt_prevnode->_pt_next;
-        }
-        /* set core pos */
-        _GET_HASHTABLE_COREPOS(it_iter) = (_byte_t*)pt_prevnode;
-    }
+    pt_node = (_hashnode_t*)_GET_HASHTABLE_COREPOS(it_iter);
+	pt_prevnode = *(_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(it_iter);
+
+	/* current node is first node in current bucket */
+	if(pt_prevnode == pt_node)
+	{
+		it_bucket = vector_begin(&(_GET_HASHTABLE(it_iter)->_vec_bucket));
+		_GET_VECTOR_COREPOS(it_bucket) = _GET_HASHTABLE_BUCKETPOS(it_iter);
+		for(it_bucket = iterator_prev(it_bucket);
+			iterator_greater_equal(it_bucket, vector_begin(&(_GET_HASHTABLE(it_iter)->_vec_bucket)));
+			it_bucket = iterator_prev(it_bucket))
+		{
+			pt_node = *(_hashnode_t**)_GET_VECTOR_COREPOS(it_bucket);
+			if(pt_node != NULL)
+			{
+				/* get the last hashnode */
+				while(pt_node->_pt_next != NULL)
+				{
+					pt_node = pt_node->_pt_next;
+				}
+				/* set bucket pos and core pos */
+				_GET_HASHTABLE_BUCKETPOS(it_iter) = _GET_VECTOR_COREPOS(it_bucket);
+				_GET_HASHTABLE_COREPOS(it_iter) = (_byte_t*)pt_node;
+				break;
+			}
+		}
+	}
+	else
+	{
+		while(pt_prevnode->_pt_next != pt_node)
+		{
+			pt_prevnode = pt_prevnode->_pt_next;
+		}
+		/* set core pos */
+		_GET_HASHTABLE_COREPOS(it_iter) = (_byte_t*)pt_prevnode;
+	}
 
     return it_iter;
 }

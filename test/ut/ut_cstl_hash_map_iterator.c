@@ -44,7 +44,7 @@ void test__hash_map_iterator_get_value__null_corepos(void** state)
 
     it_iter = hash_map_begin(pt_hash_map);
 
-    it_iter._t_pos._t_hashpos._pby_corepos == NULL;
+    it_iter._t_pos._t_hashpos._pby_corepos = NULL;
     expect_assert_failure(_hash_map_iterator_get_value(it_iter, &elem));
 
     hash_map_destroy(pt_hash_map);
@@ -74,7 +74,7 @@ void test__hash_map_iterator_get_value__null_bucketpos(void** state)
 
     it_iter = hash_map_begin(pt_hash_map);
 
-    it_iter._t_pos._t_hashpos._pby_bucketpos == NULL;
+    it_iter._t_pos._t_hashpos._pby_bucketpos = NULL;
     expect_assert_failure(_hash_map_iterator_get_value(it_iter, &elem));
 
     hash_map_destroy(pt_hash_map);

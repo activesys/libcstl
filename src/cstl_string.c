@@ -1226,7 +1226,7 @@ void string_input(string_t* pstr_string, FILE* fp_stream)
     {
         if((n_char = fgetc(fp_stream)) != EOF)
         {
-            string_push_back(pstr_string, n_char);
+            string_push_back(pstr_string, (char)n_char);
         }
     }
 }
@@ -1257,7 +1257,7 @@ bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
             if(n_prevchar != EOF)
             {
                 assert(n_prevchar == '\r');
-                string_push_back(pstr_string, n_prevchar);
+                string_push_back(pstr_string, (char)n_prevchar);
                 n_prevchar = EOF;
             }
             if(n_char == '\r')
@@ -1267,10 +1267,10 @@ bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
             }
             else
             {
-                string_push_back(pstr_string, n_char);
+                string_push_back(pstr_string, (char)n_char);
             }
 #else
-            string_push_back(pstr_string, n_char);
+            string_push_back(pstr_string, (char)n_char);
 #endif
         }
     }
@@ -1281,7 +1281,7 @@ bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
         if(n_prevchar != EOF)
         {
             assert(n_prevchar == '\r');
-            string_push_back(pstr_string, n_prevchar);
+            string_push_back(pstr_string, (char)n_prevchar);
             n_prevchar = EOF;
         }
 
@@ -1323,7 +1323,7 @@ bool_t string_getline_delimiter(string_t* pstr_string, FILE* fp_stream, char c_d
             n_char = fgetc(fp_stream);
             if((char)n_char != c_delimiter && n_char != EOF)
             {
-                string_push_back(pstr_string, n_char);
+                string_push_back(pstr_string, (char)n_char);
             }
         }
 

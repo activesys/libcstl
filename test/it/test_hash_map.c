@@ -1671,7 +1671,7 @@ void test_hash_map(void)
                 return;
             }
             hash_map_init_ex(pt_hmap, 0, _hash_map_cstl_hash, NULL);
-            hash_map_init_ex(pt_hmapex, 100, _hash_map_cstl_hash, NULL);
+            hash_map_init_ex(pt_hmapex, 10, _hash_map_cstl_hash, NULL);
             hash_map_swap(pt_hmap, pt_hmapex);
             _print_hash_map_cstl(pt_hmap);
             _print_hash_map_cstl(pt_hmapex);
@@ -5040,7 +5040,7 @@ void test_hash_multimap(void)
             pair_init(pt_pair);
             list_init(pt_list);
             hash_multimap_init_ex(pt_hmmap, 0, _hash_multimap_cstl_hash, NULL);
-            hash_multimap_init_ex(pt_hmmapex, 100, _hash_multimap_cstl_hash, NULL);
+            hash_multimap_init_ex(pt_hmmapex, 10, _hash_multimap_cstl_hash, NULL);
             hash_multimap_swap(pt_hmmap, pt_hmmapex);
             _print_hash_multimap_cstl(pt_hmmap);
             _print_hash_multimap_cstl(pt_hmmapex);

@@ -71,11 +71,13 @@ void _multiset_get_varg_value_auxiliary(multiset_t* pmset_mset, va_list val_elem
  */
 void _multiset_destroy_varg_value_auxiliary(multiset_t* pmset_mset, void* pv_varg)
 {
+	bool_t b_result = false;
+
     assert(pmset_mset != NULL);
     assert(pv_varg != NULL);
 
     /* destroy varg value and free memory */
-    bool_t b_result = _GET_MULTISET_TYPE_SIZE(pmset_mset);
+    b_result = _GET_MULTISET_TYPE_SIZE(pmset_mset);
     _GET_MULTISET_TYPE_DESTROY_FUNCTION(pmset_mset)(pv_varg, &b_result);
     assert(b_result);
 }

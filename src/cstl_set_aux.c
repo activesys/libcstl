@@ -71,11 +71,13 @@ void _set_get_varg_value_auxiliary(set_t* pset_set, va_list val_elemlist, void* 
  */
 void _set_destroy_varg_value_auxiliary(set_t* pset_set, void* pv_varg)
 {
+	bool_t b_result = false;
+
     assert(pset_set != NULL);
     assert(pv_varg != NULL);
 
     /* destroy varg value and free memory */
-    bool_t b_result = _GET_SET_TYPE_SIZE(pset_set);
+    b_result = _GET_SET_TYPE_SIZE(pset_set);
     _GET_SET_TYPE_DESTROY_FUNCTION(pset_set)(pv_varg, &b_result);
     assert(b_result);
 }

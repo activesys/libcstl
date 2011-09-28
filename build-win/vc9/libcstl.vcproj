@@ -346,6 +346,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\cstl\cstl_hashtable.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\cstl\cstl_hashtable_iterator.h"
 				>
 			</File>
@@ -426,6 +430,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\cstl\cstl_pair_private.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\cstl\cstl_priority_queue.h"
 				>
 			</File>
@@ -439,6 +447,10 @@
 			</File>
 			<File
 				RelativePath="..\..\cstl\cstl_queue_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\cstl\cstl_rb_tree.h"
 				>
 			</File>
 			<File
@@ -620,7 +632,39 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_hash_map_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_map_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_map_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_map_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_hash_multimap.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_multimap_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_multimap_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_multimap_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_multimap_private.c"
 				>
 			</File>
 			<File
@@ -628,11 +672,59 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_hash_multiset_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_multiset_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_multiset_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_multiset_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_hash_set.c"
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_hash_set_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_set_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_set_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hash_set_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_hashtable.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hashtable_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hashtable_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hashtable_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_hashtable_private.c"
 				>
 			</File>
 			<File
@@ -668,11 +760,63 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_map_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_map_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_map_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_map_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_multimap.c"
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_multimap_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_multimap_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_multimap_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_multimap_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_multimap_private.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_multiset.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_multiset_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_multiset_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_multiset_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_multiset_private.c"
 				>
 			</File>
 			<File
@@ -681,6 +825,18 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_pair.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_pair_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_pair_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_pair_private.c"
 				>
 			</File>
 			<File
@@ -704,7 +860,39 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_rb_tree_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_rb_tree_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_rb_tree_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_rb_tree_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_set.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_set_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_set_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_set_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_set_private.c"
 				>
 			</File>
 			<File

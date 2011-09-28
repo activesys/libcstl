@@ -296,7 +296,6 @@ void test__multimap_find__multimap_find_varg__c_builtin_not_find(void** state)
     multimap_t* pt_multimap = _create_multimap("int, int");
     pair_t* pt_pair = create_pair(int, int);
     multimap_iterator_t it_iter;
-    int elem;
     int i;
 
     pair_init(pt_pair);
