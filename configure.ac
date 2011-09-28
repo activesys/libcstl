@@ -1,8 +1,8 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([libcstl], [2.0.1], [activesys.wb@gmail.com])
-AC_COPYRIGHT([Copyright (C) 2008, 2009, 2010 Wangbo.])
+AC_INIT([libcstl], [2.0.2], [activesys.wb@gmail.com])
+AC_COPYRIGHT([Copyright (C) 2008,2009,2010,2011 Wangbo.])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 #LT_INIT
 AC_CONFIG_SRCDIR([src/cstl_vector.c])
