@@ -38,61 +38,7 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-#ifdef _CSTL_USER_MODEL
-
-/**
- * Initialize the _alloc_t.
- */
-void _alloc_init(_alloc_t* pt_allocator)
-{
-    pt_allocator = NULL;
-}
-
-/**
- * Destroy the _alloc_t.
- */
-void _alloc_destroy(_alloc_t* pt_allocator)
-{
-    pt_allocator = NULL;
-}
-
-/**
- * Allocate to user specified amount of memory.
- */
-void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_count)
-{
-    /* total allocated memory size */
-    size_t t_allocsize = t_size * t_count;
-
-    pt_allocator = NULL;
-    return _alloc_malloc(t_allocsize);
-}
-
-/**
- * Release allocated memory
- */
-void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
-{
-    assert(pv_allocmem != NULL);
-
-    pt_allocator = NULL;
-    t_size = 0;
-    t_count = 0;
-    _alloc_free(pv_allocmem);
-}
-
-#ifndef NDEBUG
-/**
- * Test alloc_t is initialized.
- */
-bool_t _alloc_is_inited(const _alloc_t* cpt_allocator)
-{
-    cpt_allocator = NULL;
-    return true;
-}
-#endif /* NDEBUG */
-
-#else
+#ifdef CSTL_MEMORY_MANAGEMENT
 
 /**
  * Initialize the _alloc_t.
@@ -251,7 +197,61 @@ bool_t _alloc_is_inited(const _alloc_t* cpt_allocator)
 }
 #endif /* NDEBUG */
 
-#endif /* _CSTL_USER_MODEL */
+#else
+
+/**
+ * Initialize the _alloc_t.
+ */
+void _alloc_init(_alloc_t* pt_allocator)
+{
+    pt_allocator = NULL;
+}
+
+/**
+ * Destroy the _alloc_t.
+ */
+void _alloc_destroy(_alloc_t* pt_allocator)
+{
+    pt_allocator = NULL;
+}
+
+/**
+ * Allocate to user specified amount of memory.
+ */
+void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_count)
+{
+    /* total allocated memory size */
+    size_t t_allocsize = t_size * t_count;
+
+    pt_allocator = NULL;
+    return _alloc_malloc(t_allocsize);
+}
+
+/**
+ * Release allocated memory
+ */
+void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count)
+{
+    assert(pv_allocmem != NULL);
+
+    pt_allocator = NULL;
+    t_size = 0;
+    t_count = 0;
+    _alloc_free(pv_allocmem);
+}
+
+#ifndef NDEBUG
+/**
+ * Test alloc_t is initialized.
+ */
+bool_t _alloc_is_inited(const _alloc_t* cpt_allocator)
+{
+    cpt_allocator = NULL;
+    return true;
+}
+#endif /* NDEBUG */
+
+#endif /* CSTL_MEMORY_MANAGEMENT */
 
 /**
  * Set the out of memory handler and return the old handler.

@@ -593,6 +593,7 @@ config.status:1077: creating test/Makefile
 config.status:1077: creating test/ut/Makefile
 config.status:1077: creating test/it/Makefile
 config.status:1077: creating config.h
+config.status:1257: config.h is unchanged
 config.status:1305: executing depfiles commands
 config.status:1305: executing libtool commands
 
