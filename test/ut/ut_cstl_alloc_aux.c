@@ -12,7 +12,7 @@
 #include "cstl/cstl_alloc.h"
 #include "cstl_alloc_aux.h"
 
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
 UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_get_memory_chunk)
 /*
  * test _alloc_get_memory_chunk
@@ -174,7 +174,7 @@ void test__alloc_apply_formated_memory__success(void** state)
 }
 #else
 UT_SUIT_DEFINATION(cstl_alloc_aux, _alloc_free)
-#endif /* _CSTL_USER_MODEL */
+#endif /* CSTL_MEMORY_MANAGEMENT */
 
 /*
  * test _alloc_free

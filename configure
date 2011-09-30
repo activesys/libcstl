@@ -725,6 +725,7 @@ enable_fast_install
 with_gnu_ld
 enable_libtool_lock
 enable_assert
+with_memory_management
 enable_stack_implementation
 enable_queue_implementation
 enable_set_implementation
@@ -1393,6 +1394,8 @@ Optional Packages:
   --with-pic              try to use only PIC/non-PIC objects [default=use
                           both]
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
+  --with-memory-management
+                          use libcstl memory management(default is no).
 
 Some influential environment variables:
   CC          C compiler command
@@ -11077,6 +11080,15 @@ fi
 
 
 # Checks for user options
+# CSTL_MEMORY_MANAGEMENT     : use memory management.
+
+# Check whether --with-memory-management was given.
+if test "${with_memory_management+set}" = set; then :
+  withval=$with_memory_management;
+$as_echo "#define CSTL_MEMORY_MANAGEMENT 1" >>confdefs.h
+
+fi
+
 # CSTL_STACK_VECTOR_SEQUENCE : implement stack using vector.
 # CSTL_STACK_LIST_SEQUENCE   : implement stack using list.
 # Check whether --enable-stack-implementation was given.

@@ -90,7 +90,7 @@ void _alloc_free(void* pv_allocmem)
     free(pv_allocmem);
 }
 
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
 /**
  * Apply a formated memory list.
  */
@@ -226,7 +226,7 @@ _byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, siz
     }
 }
 
-#endif /* _CSTL_USER_MODEL */
+#endif /* CSTL_MEMORY_MANAGEMENT */
 
 /** local function implementation section **/
 

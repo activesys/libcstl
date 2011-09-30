@@ -39,9 +39,15 @@ void test__avl_tree_is_created__non_inited_allocator(void** state)
     avltree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     avltree._t_typeinfo._pt_type = (_type_t*)0x999;
     _alloc_init(&avltree._t_allocator);
+
+#ifdef CSTL_MEMORY_MANAGEMENT
     avltree._t_allocator._t_mempoolsize = 1;
     assert_false(_avl_tree_is_created(&avltree));
     avltree._t_allocator._t_mempoolsize = 0;
+#else
+    assert_true(_avl_tree_is_created(&avltree));
+#endif
+
     _alloc_destroy(&avltree._t_allocator);
 }
 

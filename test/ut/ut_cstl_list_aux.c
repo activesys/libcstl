@@ -65,11 +65,14 @@ void test__list_is_created__null_node(void** state)
 void test__list_is_created__uninited_allocator(void** state)
 {
     list_t* plist = create_list(int);
+
+#ifdef CSTL_MEMORY_MANAGEMENT
     plist->_t_allocator._pby_mempool = (_byte_t*)0x444;
-
     assert_false(_list_is_created(plist));
-
     plist->_t_allocator._pby_mempool = NULL;
+#else
+    assert_true(_list_is_created(plist));
+#endif
     list_destroy(plist);
 }
 

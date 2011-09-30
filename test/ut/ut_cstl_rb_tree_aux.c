@@ -39,9 +39,15 @@ void test__rb_tree_is_created__non_inited_allocator(void** state)
     rbtree._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     rbtree._t_typeinfo._pt_type = (_type_t*)0x999;
     _alloc_init(&rbtree._t_allocator);
+
+#ifdef CSTL_MEMORY_MANAGEMENT
     rbtree._t_allocator._t_mempoolsize = 1;
     assert_false(_rb_tree_is_created(&rbtree));
     rbtree._t_allocator._t_mempoolsize = 0;
+#else
+    assert_true(_rb_tree_is_created(&rbtree));
+#endif
+
     _alloc_destroy(&rbtree._t_allocator);
 }
 

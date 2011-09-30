@@ -101,7 +101,11 @@
  *                             | _t_typedestroy = abc_destroy |
  *                             +------------------------------+
  */
+#ifdef CSTL_MEMORY_MANAGEMENT
 static _typeregister_t _gt_typeregister = {false, {NULL}, {{NULL}, NULL, NULL, 0, 0, 0}};
+#else
+static _typeregister_t _gt_typeregister = {false, {NULL}, {}};
+#endif
 
 /** local data type declaration and local struct, union, enum section **/
 typedef enum _tagtypetoken

@@ -64,11 +64,15 @@ void test__slist_is_created__null_node(void** state)
 void test__slist_is_created__uninited_allocator(void** state)
 {
     slist_t* pslist = create_slist(int);
+
+#ifdef CSTL_MEMORY_MANAGEMENT
     pslist->_t_allocator._pby_mempool = (_byte_t*)0x444;
-
     assert_false(_slist_is_created(pslist));
-
     pslist->_t_allocator._pby_mempool = NULL;
+#else
+    assert_true(_slist_is_created(pslist));
+#endif
+
     slist_destroy(pslist);
 }
 

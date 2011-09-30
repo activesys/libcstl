@@ -18,14 +18,14 @@ UT_SUIT_DEFINATION(cstl_alloc, _alloc_init)
 UT_CASE_DEFINATION(_alloc_init)
 void test__alloc_init__invalid_allocator(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     expect_assert_failure(_alloc_init(NULL));
 #endif
 }
 
 void test__alloc_init__success(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     size_t i = 0;
     _alloc_t allocator;
     _alloc_init(&allocator);
@@ -52,14 +52,14 @@ void test__alloc_init__success(void** state)
 UT_CASE_DEFINATION(_alloc_destroy)
 void test__alloc_destroy__invalid_allocator(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     expect_assert_failure(_alloc_destroy(NULL));
 #endif
 }
 
 void test__alloc_destroy__success(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     size_t i = 0;
     _alloc_t allocator;
     _alloc_init(&allocator);
@@ -93,7 +93,7 @@ void test__alloc_destroy__success(void** state)
 
 void test__alloc_destroy__success_after_allocate(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     size_t i = 0;
     void* pv_mem = NULL;
     _alloc_t allocator;
@@ -142,14 +142,14 @@ void test__alloc_destroy__success_after_allocate(void** state)
 UT_CASE_DEFINATION(_alloc_allocate)
 void test__alloc_allocate__invalid_alocator(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     expect_assert_failure(_alloc_allocate(NULL, 8, 1));
 #endif
 }
 
 void test__alloc_allocate__greater_than_max_small_memory(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     size_t i = 0;
     void* pv_mem = NULL;
     _alloc_t allocator;
@@ -182,7 +182,7 @@ void test__alloc_allocate__greater_than_max_small_memory(void** state)
 
 void test__alloc_allocate__less_than_max_small_memory(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     size_t i = 0;
     void* pv_mem = NULL;
     _alloc_t allocator;
@@ -221,7 +221,7 @@ void test__alloc_allocate__less_than_max_small_memory(void** state)
 UT_CASE_DEFINATION(_alloc_deallocate)
 void test__alloc_deallocate__invalid_allocator(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     void* pv_mem = NULL;
     _alloc_t allocator;
     _alloc_init(&allocator);
@@ -237,7 +237,7 @@ void test__alloc_deallocate__invalid_allocator(void** state)
 
 void test__alloc_deallocate__invalid_allocated_memory(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     _alloc_t allocator;
     _alloc_init(&allocator);
 
@@ -251,7 +251,7 @@ void test__alloc_deallocate__invalid_allocated_memory(void** state)
 
 void test__alloc_deallocate__greater_than_max_small_memory(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     size_t i = 0;
     void* pv_mem = NULL;
     _alloc_t allocator;
@@ -300,7 +300,7 @@ void test__alloc_deallocate__greater_than_max_small_memory(void** state)
 
 void test__alloc_deallocate__less_than_max_small_memory(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     size_t i = 0;
     void* pv_mem = NULL;
     _alloc_t allocator;
@@ -359,7 +359,7 @@ void test__alloc_deallocate__less_than_max_small_memory(void** state)
 UT_CASE_DEFINATION(_alloc_is_inited)
 void test__alloc_is_inited__null_allocator(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     expect_assert_failure(_alloc_is_inited(NULL));
 #else
     assert_true(_alloc_is_inited(NULL));
@@ -368,7 +368,7 @@ void test__alloc_is_inited__null_allocator(void** state)
 
 void test__alloc_is_inited__non_zero_mempoolsize(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     _alloc_t t_allocator;
     size_t i = 0;
 
@@ -400,7 +400,7 @@ void test__alloc_is_inited__non_zero_mempoolsize(void** state)
 
 void test__alloc_is_inited__non_zero_mempoolindex(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     _alloc_t t_allocator;
     size_t i = 0;
 
@@ -431,7 +431,7 @@ void test__alloc_is_inited__non_zero_mempoolindex(void** state)
 
 void test__alloc_is_inited__non_null_mempool(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     _alloc_t t_allocator;
     size_t i = 0;
 
@@ -462,7 +462,7 @@ void test__alloc_is_inited__non_null_mempool(void** state)
 
 void test__alloc_is_inited__non_empty_memlink(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     _alloc_t t_allocator;
     size_t i = 0;
 
@@ -493,7 +493,7 @@ void test__alloc_is_inited__non_empty_memlink(void** state)
 
 void test__alloc_is_inited__invalid_default_mempoolcount(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     _alloc_t t_allocator;
     size_t i = 0;
 
@@ -524,7 +524,7 @@ void test__alloc_is_inited__invalid_default_mempoolcount(void** state)
 
 void test__alloc_is_inited__null_mempoolcontainer(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     _alloc_t t_allocator;
     size_t i = 0;
 
@@ -547,7 +547,7 @@ void test__alloc_is_inited__null_mempoolcontainer(void** state)
 
 void test__alloc_is_inited__non_empty_mempoolcontainer(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     _alloc_t t_allocator;
     size_t i = 0;
 
@@ -578,7 +578,7 @@ void test__alloc_is_inited__non_empty_mempoolcontainer(void** state)
 
 void test__alloc_is_inited__successfully(void** state)
 {
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
     _alloc_t t_allocator;
     _alloc_init(&t_allocator);
 

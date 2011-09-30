@@ -40,9 +40,15 @@ void test__hashtable_is_created__non_inited_allocator(void** state)
     htable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     htable._t_typeinfo._pt_type = (_type_t*)0x999;
     _alloc_init(&htable._t_allocator);
+
+#ifdef CSTL_MEMORY_MANAGEMENT
     htable._t_allocator._t_mempoolsize = 1;
     assert_false(_hashtable_is_created(&htable));
     htable._t_allocator._t_mempoolsize = 0;
+#else
+    assert_true(_hashtable_is_created(&htable));
+#endif
+
     _alloc_destroy(&htable._t_allocator);
 }
 

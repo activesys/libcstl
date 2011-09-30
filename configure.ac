@@ -29,9 +29,8 @@ AC_FUNC_MALLOC
 # Checks for user options
 # CSTL_MEMORY_MANAGEMENT     : use memory management.
 AC_ARG_WITH(
-    memory-management],
-    [AS_HELP_STRING([--with-memory-management],[use libcstl memory management(default is no).
-    ])],
+    [memory-management],
+    [AS_HELP_STRING([--with-memory-management],[use libcstl memory management(default is no).])],
     [AC_DEFINE([CSTL_MEMORY_MANAGEMENT], [1], [Define to 1 if you use libcstl memory management.])],
     []
 )
@@ -39,8 +38,7 @@ AC_ARG_WITH(
 # CSTL_STACK_LIST_SEQUENCE   : implement stack using list.
 AC_ARG_ENABLE(
     [stack-implementation],
-    [AS_HELP_STRING([--enable-stack-implementation[=ARGUMENT]],[select stack implementation(the ARGUMENTs are vector and list, deque is the default).
-    ])],
+    [AS_HELP_STRING([--enable-stack-implementation[=ARGUMENT]],[select stack implementation(the ARGUMENTs are vector and list, deque is the default).])],
     [case "$enableval" in 
      vector)
 	AC_DEFINE([CSTL_STACK_VECTOR_SEQUENCE], [1], [Define to 1 if you implement stack using vector.])
@@ -53,8 +51,7 @@ AC_ARG_ENABLE(
 # CSTL_QUEUE_LIST_SEQUENCE   : implement queue using list.
 AC_ARG_ENABLE(
     [queue-implementation],
-    [AS_HELP_STRING([--enable-queue-implementation[=ARGUMENT]],[select queue implementation(the ARGUMENT is list, deque is the default).
-    ])],
+    [AS_HELP_STRING([--enable-queue-implementation[=ARGUMENT]],[select queue implementation(the ARGUMENT is list, deque is the default).])],
     [case "$enableval" in 
      list)
 	AC_DEFINE([CSTL_QUEUE_LIST_SEQUENCE], [1], [Define to 1 if you implement queue using list.])
@@ -64,8 +61,7 @@ AC_ARG_ENABLE(
 # CSTL_SET_AVL_TREE          : implement set using avl-tree.
 AC_ARG_ENABLE(
     [set-implementation],
-    [AS_HELP_STRING([--enable-set-implementation[=ARGUMENT]],[select set implementation(the ARGUMENT is avl-tree, rb-tree is the default).
-    ])],
+    [AS_HELP_STRING([--enable-set-implementation[=ARGUMENT]],[select set implementation(the ARGUMENT is avl-tree, rb-tree is the default).])],
     [case "$enableval" in 
      avl-tree)
 	AC_DEFINE([CSTL_SET_AVL_TREE], [1], [Define to 1 if you implement set using avl-tree.])
@@ -75,8 +71,7 @@ AC_ARG_ENABLE(
 # CSTL_MULTISET_AVL_TREE     : implement multiset using avl-tree.
 AC_ARG_ENABLE(
     [multiset-implementation],
-    [AS_HELP_STRING([--enable-multiset-implementation[=ARGUMENT]],[select multiset implementation(the ARGUMENT is avl-tree, rb-tree is the default).
-    ])],
+    [AS_HELP_STRING([--enable-multiset-implementation[=ARGUMENT]],[select multiset implementation(the ARGUMENT is avl-tree, rb-tree is the default).])],
     [case "$enableval" in 
      avl-tree)
 	AC_DEFINE([CSTL_MULTISET_AVL_TREE], [1], [Define to 1 if you implement multiset using avl-tree.])
@@ -86,8 +81,7 @@ AC_ARG_ENABLE(
 # CSTL_MAP_AVL_TREE          : implement map using avl-tree.
 AC_ARG_ENABLE(
     [map-implementation],
-    [AS_HELP_STRING([--enable-map-implementation[=ARGUMENT]],[select map implementation(the ARGUMENT is avl-tree, rb-tree is the default).
-    ])],
+    [AS_HELP_STRING([--enable-map-implementation[=ARGUMENT]],[select map implementation(the ARGUMENT is avl-tree, rb-tree is the default).])],
     [case "$enableval" in 
      avl-tree)
 	AC_DEFINE([CSTL_MAP_AVL_TREE], [1], [Define to 1 if you implement map using avl-tree.])
@@ -97,8 +91,7 @@ AC_ARG_ENABLE(
 # CSTL_MULTIMAP_AVL_TREE     : implement multimap using avl-tree.
 AC_ARG_ENABLE(
     [multimap-implementation],
-    [AS_HELP_STRING([--enable-multimap-implementation[=ARGUMENT]],[select multimap implementation(the ARGUMENT is avl-tree, rb-tree is the default).
-    ])],
+    [AS_HELP_STRING([--enable-multimap-implementation[=ARGUMENT]],[select multimap implementation(the ARGUMENT is avl-tree, rb-tree is the default).])],
     [case "$enableval" in 
      avl-tree)
 	AC_DEFINE([CSTL_MULTIMAP_AVL_TREE], [1], [Define to 1 if you implement multimap using avl-tree.])

@@ -3,7 +3,7 @@
 
 UT_SUIT_DECLARATION(cstl_alloc_aux)
 
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
 /*
  * test _alloc_get_memory_chunk
  */
@@ -22,7 +22,7 @@ void test__alloc_get_memory_chunk__reallocate_memory_pool_container(void** state
 UT_CASE_DECLARATION(_alloc_apply_formated_memory)
 void test__alloc_apply_formated_memory__invalid_allocator(void** state);
 void test__alloc_apply_formated_memory__success(void** state);
-#endif /* _CSTL_USER_MODEL */
+#endif /* CSTL_MEMORY_MANAGEMENT */
 
 /*
  * test _alloc_free
@@ -42,7 +42,7 @@ void test__alloc_malloc__success(void** state);
 UT_CASE_DECLARATION(_alloc_malloc_out_of_memory)
 void test__alloc_malloc_out_of_memory__success(void** state);
 
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
 #   define UT_CSTL_ALLOC_AUX_CASE \
         UT_SUIT_BEGIN(cstl_alloc_aux, test__alloc_get_memory_chunk__invalid_allocator),\
         UT_CASE(test__alloc_get_memory_chunk__invalid_alloccount),\
@@ -61,6 +61,6 @@ void test__alloc_malloc_out_of_memory__success(void** state);
         UT_SUIT_BEGIN(cstl_alloc_aux, test__alloc_free__invalid_memory),\
         UT_CASE_BEGIN(_alloc_malloc, test__alloc_malloc__success),\
         UT_CASE_BEGIN(_alloc_malloc_out_of_memory, test__alloc_malloc_out_of_memory__success)
-#endif /* _CSTL_USER_MODEL */
+#endif /* CSTL_MEMORY_MANAGEMENT */
 
 #endif /* _UT_CSTL_ALLOC_AUX_H */

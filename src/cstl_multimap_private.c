@@ -73,9 +73,6 @@ multimap_t* _create_multimap(const char* s_typename)
         return NULL;
     }
 
-    pmmap_map->_bfun_keycompare = NULL;
-    pmmap_map->_bfun_valuecompare = NULL;
-
     return pmmap_map;
 }
 
@@ -107,6 +104,9 @@ bool_t _create_multimap_auxiliary(multimap_t* pmmap_map, const char* s_typename)
 #else
     b_result = _create_rb_tree_auxiliary(&pmmap_map->_t_tree, s_typenameex);
 #endif
+
+    pmmap_map->_bfun_keycompare = NULL;
+    pmmap_map->_bfun_valuecompare = NULL;
 
     return b_result;
 }

@@ -61,10 +61,14 @@ void test__deque_is_created__non_created_non_init_allocator(void** state)
 {
     deque_t* pdeq = create_deque(int);
 
+#ifdef CSTL_MEMORY_MANAGEMENT
     pdeq->_t_allocator._t_mempoolsize = 1;
     assert_false(_deque_is_created(pdeq));
-
     pdeq->_t_allocator._t_mempoolsize = 0;
+#else
+    assert_true(_deque_is_created(pdeq));
+#endif
+
     deque_destroy(pdeq);
 }
 

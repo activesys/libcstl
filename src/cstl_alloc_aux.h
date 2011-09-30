@@ -59,7 +59,7 @@ extern void* _alloc_malloc(size_t t_memsize);
  */
 extern void _alloc_free(void* pv_allocmem);
 
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
 /**
  * Apply a formated memory list.
  * @param pt_allocator  pointer that point to allocator.
@@ -84,7 +84,7 @@ extern void _alloc_apply_formated_memory(_alloc_t* pt_allocator, size_t t_allocs
  */
 extern _byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, size_t* pt_alloccount);
 
-#endif /* _CSTL_USER_MODEL */
+#endif /* CSTL_MEMORY_MANAGEMENT */
 
 #ifdef __cplusplus
 }
