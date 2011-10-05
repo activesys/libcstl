@@ -104,7 +104,7 @@
 #ifdef CSTL_MEMORY_MANAGEMENT
 static _typeregister_t _gt_typeregister = {false, {NULL}, {{NULL}, NULL, NULL, 0, 0, 0}};
 #else
-static _typeregister_t _gt_typeregister = {false, {NULL}, {}};
+static _typeregister_t _gt_typeregister = {false, {NULL}, {0}};
 #endif
 
 /** local data type declaration and local struct, union, enum section **/

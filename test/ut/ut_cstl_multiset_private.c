@@ -153,9 +153,15 @@ void test__multiset_destroy_auxiliary__non_created(void** state)
 {
     multiset_t* pt_multiset = _create_multiset("int");
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multiset_destroy_auxiliary(pt_multiset));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_destroy_auxiliary(pt_multiset));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -165,9 +171,15 @@ void test__multiset_destroy_auxiliary__non_inited(void** state)
     multiset_t* pt_multiset = _create_multiset("int");
     multiset_init(pt_multiset);
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multiset_destroy_auxiliary(pt_multiset));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_destroy_auxiliary(pt_multiset));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -178,11 +190,19 @@ void test__multiset_destroy_auxiliary__empty(void** state)
     multiset_init_ex(pt_multiset, NULL);
 
     _multiset_destroy_auxiliary(pt_multiset);
+#ifdef CSTL_MULTISET_AVL_TREE
+    assert_true(pt_multiset->_t_tree._t_avlroot._pt_parent == NULL);
+    assert_true(pt_multiset->_t_tree._t_avlroot._pt_left == &pt_multiset->_t_tree._t_avlroot);
+    assert_true(pt_multiset->_t_tree._t_avlroot._pt_right == &pt_multiset->_t_tree._t_avlroot);
+    assert_true(pt_multiset->_t_tree._t_nodecount == 0);
+    assert_true(pt_multiset->_t_tree._t_compare == NULL);
+#else
     assert_true(pt_multiset->_t_tree._t_rbroot._pt_parent == NULL);
     assert_true(pt_multiset->_t_tree._t_rbroot._pt_left == &pt_multiset->_t_tree._t_rbroot);
     assert_true(pt_multiset->_t_tree._t_rbroot._pt_right == &pt_multiset->_t_tree._t_rbroot);
     assert_true(pt_multiset->_t_tree._t_nodecount == 0);
     assert_true(pt_multiset->_t_tree._t_compare == NULL);
+#endif
     free(pt_multiset);
 }
 
@@ -194,11 +214,19 @@ void test__multiset_destroy_auxiliary__non_empty(void** state)
     multiset_insert(pt_multiset, elem);
 
     _multiset_destroy_auxiliary(pt_multiset);
+#ifdef CSTL_MULTISET_AVL_TREE
+    assert_true(pt_multiset->_t_tree._t_avlroot._pt_parent == NULL);
+    assert_true(pt_multiset->_t_tree._t_avlroot._pt_left == &pt_multiset->_t_tree._t_avlroot);
+    assert_true(pt_multiset->_t_tree._t_avlroot._pt_right == &pt_multiset->_t_tree._t_avlroot);
+    assert_true(pt_multiset->_t_tree._t_nodecount == 0);
+    assert_true(pt_multiset->_t_tree._t_compare == NULL);
+#else
     assert_true(pt_multiset->_t_tree._t_rbroot._pt_parent == NULL);
     assert_true(pt_multiset->_t_tree._t_rbroot._pt_left == &pt_multiset->_t_tree._t_rbroot);
     assert_true(pt_multiset->_t_tree._t_rbroot._pt_right == &pt_multiset->_t_tree._t_rbroot);
     assert_true(pt_multiset->_t_tree._t_nodecount == 0);
     assert_true(pt_multiset->_t_tree._t_compare == NULL);
+#endif
     free(pt_multiset);
 }
 
@@ -216,9 +244,15 @@ void test__multiset_find__multiset_find_varg__non_inited(void** state)
     multiset_t* pt_multiset = _create_multiset("int");
     multiset_init(pt_multiset);
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multiset_find(pt_multiset, 9));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_find(pt_multiset, 9));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -416,9 +450,15 @@ void test__multiset_count__multiset_count_varg__non_inited(void** state)
     int elem = 9;
     multiset_init(pt_multiset);
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multiset_count(pt_multiset, elem));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_count(pt_multiset, elem));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -688,9 +728,15 @@ void test__multiset_lower_bound__multiset_lower_bound_varg__non_inited(void** st
     int elem = 9;
     multiset_init(pt_multiset);
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multiset_lower_bound(pt_multiset, &elem));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_lower_bound(pt_multiset, elem));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -891,9 +937,15 @@ void test__multiset_upper_bound__multiset_upper_bound_varg__non_inited(void** st
     int elem = 9;
     multiset_init_ex(pt_multiset, NULL);
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multiset_upper_bound(pt_multiset, &elem));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_upper_bound(pt_multiset, &elem));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -1094,9 +1146,15 @@ void test__multiset_equal_range__multiset_equal_range_varg__non_inited(void** st
     int elem = 9;
     multiset_init_ex(pt_multiset, NULL);
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multiset_equal_range(pt_multiset, elem));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_equal_range(pt_multiset, elem));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -1305,9 +1363,15 @@ void test__multiset_erase__multiset_erase_varg__non_inited(void** state)
     int elem = 9;
     multiset_init_ex(pt_multiset, NULL);
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multiset_erase(pt_multiset, elem));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_erase(pt_multiset, elem));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -1597,9 +1661,15 @@ void test__multiset_insert_varg__non_inited(void** state)
     int elem = 9;
     multiset_init_ex(pt_multiset, NULL);
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multiset_insert(pt_multiset, elem));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_insert(pt_multiset, elem));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -1809,9 +1879,15 @@ void test__multiset_insert_hint_varg__non_inited(void** state)
     int elem = 9;
     multiset_init_ex(pt_multiset, NULL);
 
+#ifdef CSTL_MULTISET_AVL_TREE
+    pt_multiset->_t_tree._t_avlroot._un_height = 4;
+    expect_assert_failure(_multiset_insert_hint(pt_multiset, it_hint, elem));
+    pt_multiset->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multiset_insert_hint(pt_multiset, it_hint, elem));
     pt_multiset->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multiset_destroy(pt_multiset);
 }
@@ -2041,7 +2117,11 @@ void test__multiset_init_elem_auxiliary__successfully_cstr(void** state)
 
     multiset_insert(pset, "abc");
     multiset_insert(pset, "def");
+#ifdef CSTL_MULTISET_AVL_TREE
+    _multiset_init_elem_auxiliary(pset, pset->_t_tree._t_avlroot._pt_left->_pby_data);
+#else
     _multiset_init_elem_auxiliary(pset, pset->_t_tree._t_rbroot._pt_left->_pby_data); 
+#endif
     assert_true(strcmp((char*)iterator_get_pointer(multiset_begin(pset)), "") == 0);
 
     multiset_destroy(pset);

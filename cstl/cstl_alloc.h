@@ -64,6 +64,7 @@ typedef struct _tagalloc
 
 typedef struct _tagalloc
 {
+    int n_avoid_vc_error_c2016;
 }_alloc_t;
 
 #endif /* CSTL_MEMORY_MANAGEMENT */

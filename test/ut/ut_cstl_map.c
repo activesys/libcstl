@@ -31,9 +31,15 @@ void test_map_init__non_created(void** state)
 {
     map_t* pt_map = create_map(int, int);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avltree._un_height = 5;
+    expect_assert_failure(map_init(pt_map));
+    pt_map->_t_tree._t_avltree._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_init(pt_map));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
 }
