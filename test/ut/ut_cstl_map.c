@@ -32,9 +32,9 @@ void test_map_init__non_created(void** state)
     map_t* pt_map = create_map(int, int);
 
 #ifdef CSTL_MAP_AVL_TREE
-    pt_map->_t_tree._t_avltree._un_height = 5;
+    pt_map->_t_tree._t_avlroot._un_height = 9;
     expect_assert_failure(map_init(pt_map));
-    pt_map->_t_tree._t_avltree._un_height = 0;
+    pt_map->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_init(pt_map));
@@ -61,7 +61,11 @@ void test_map_init__null_compare(void** state)
 
     map_init(pt_map);
     assert_true(_pair_is_inited(&pt_map->_pair_temp));
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_map->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_map->_t_tree));
+#endif
 
     map_destroy(pt_map);
 }
@@ -79,9 +83,15 @@ void test_map_init_ex__non_created(void** state)
 {
     map_t* pt_map = create_map(int, int);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_init_ex(pt_map, NULL));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_init_ex(pt_map, NULL));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
 }
@@ -102,7 +112,11 @@ void test_map_init_ex__null_compare(void** state)
     map_t* pt_map = create_map(int, int);
 
     map_init_ex(pt_map, NULL);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_map->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_map->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_map->_pair_temp));
 
     map_destroy(pt_map);
@@ -117,7 +131,11 @@ void test_map_init_ex__non_null_compare(void** state)
     map_t* pt_map = create_map(int, int);
 
     map_init_ex(pt_map, _test_map_init_ex__non_null_compare);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_map->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_map->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_map->_pair_temp));
     assert_true(pt_map->_bfun_keycompare == _test_map_init_ex__non_null_compare);
     assert_true(pt_map->_pair_temp._bfun_mapkeycompare == _test_map_init_ex__non_null_compare);
@@ -154,9 +172,15 @@ void test_map_init_copy__non_created_dest(void** state)
     map_t* pt_src = create_map(int, int);
 
     map_init_ex(pt_src, NULL);
+#ifdef CSTL_MAP_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_init_copy(pt_dest, pt_src));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_init_copy(pt_dest, pt_src));
     pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
@@ -182,9 +206,15 @@ void test_map_init_copy__non_inited_src(void** state)
     map_t* pt_src = create_map(int, int);
 
     map_init_ex(pt_src, NULL);
+#ifdef CSTL_MAP_AVL_TREE
+    pt_src->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_init_copy(pt_dest, pt_src));
+    pt_src->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_src->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_init_copy(pt_dest, pt_src));
     pt_src->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
@@ -225,7 +255,11 @@ void test_map_init_copy__empty(void** state)
 
     map_init_ex(pt_src, NULL);
     map_init_copy(pt_dest, pt_src);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_dest->_pair_temp));
     assert_true(map_empty(pt_dest));
 
@@ -244,7 +278,11 @@ void test_map_init_copy__non_empty(void** state)
     pair_init_elem(pt_pair, elem, elem);
     map_insert(pt_src, pt_pair);
     map_init_copy(pt_dest, pt_src);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_dest->_pair_temp));
     assert_true(map_size(pt_dest) == 1);
 
@@ -272,7 +310,11 @@ void test_map_init_copy__non_null_compare(void** state)
         map_insert(pt_src, pt_pair);
     }
     map_init_copy(pt_dest, pt_src);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_dest->_pair_temp));
     assert_true(map_size(pt_dest) == 10);
     assert_true(pt_dest->_bfun_keycompare == _test_map_init_copy__non_null_compare);
@@ -303,9 +345,15 @@ void test_map_init_copy_range__non_created_map(void** state)
     map_t* pt_dest = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_init_copy_range(pt_dest, map_begin(pt_map), map_end(pt_map)));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_init_copy_range(pt_dest, map_begin(pt_map), map_end(pt_map)));
     pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
     map_destroy(pt_dest);
@@ -406,7 +454,11 @@ void test_map_init_copy_range__empty(void** state)
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     map_init_copy_range(pt_dest, it_begin, it_end);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_dest->_pair_temp));
     assert_true(map_empty(pt_dest));
 
@@ -429,7 +481,11 @@ void test_map_init_copy_range__non_empty(void** state)
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     map_init_copy_range(pt_dest, it_begin, it_end);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_dest->_pair_temp));
     assert_true(map_size(pt_dest) == 1);
     assert_true(map_equal(pt_dest, pt_src));
@@ -459,9 +515,15 @@ void test_map_init_copy_range_ex__non_created_map(void** state)
     map_t* pt_dest = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_init_copy_range_ex(pt_dest, map_begin(pt_map), map_end(pt_map), NULL));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_init_copy_range_ex(pt_dest, map_begin(pt_map), map_end(pt_map), NULL));
     pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
     map_destroy(pt_dest);
@@ -563,7 +625,11 @@ void test_map_init_copy_range_ex__empty(void** state)
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     map_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_dest->_pair_temp));
     assert_true(map_empty(pt_dest));
 
@@ -586,7 +652,11 @@ void test_map_init_copy_range_ex__non_empty(void** state)
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     map_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_dest->_pair_temp));
     assert_true(map_size(pt_dest) == 1);
     assert_true(map_equal(pt_dest, pt_src));
@@ -615,7 +685,11 @@ void test_map_init_copy_range_ex__compare(void** state)
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     map_init_copy_range_ex(pt_dest, it_begin, it_end, _test__map_init_compare_range_ex__compare);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
     assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
     assert_true(_pair_is_inited(&pt_dest->_pair_temp));
     assert_true(map_size(pt_dest) == 1);
     assert_true(pt_dest->_bfun_keycompare == _test__map_init_compare_range_ex__compare);
@@ -639,9 +713,15 @@ void test_map_destroy__non_created(void** state)
 {
     map_t* pt_map = create_map(int, int);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_destroy(pt_map));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_destroy(pt_map));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
 }
@@ -704,9 +784,15 @@ void test_map_assign__non_created_dest(void** state)
 
     map_init_ex(pt_dest, NULL);
     map_init_ex(pt_src, NULL);
+#ifdef CSTL_MAP_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_assign(pt_dest, pt_src));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_assign(pt_dest, pt_src));
     pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
@@ -736,9 +822,15 @@ void test_map_assign__non_init_src(void** state)
 
     map_init_ex(pt_src, NULL);
     map_init_ex(pt_dest, NULL);
+#ifdef CSTL_MAP_AVL_TREE
+    pt_src->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_assign(pt_dest, pt_src));
+    pt_src->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_src->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_assign(pt_dest, pt_src));
     pt_src->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
@@ -951,9 +1043,15 @@ void test_map_size__non_inited(void** state)
     map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_size(pt_map));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_size(pt_map));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
 }
@@ -1012,9 +1110,15 @@ void test_map_empty__non_inited(void** state)
     map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_empty(pt_map));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_empty(pt_map));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
 }
@@ -1073,9 +1177,15 @@ void test_map_max_size__non_inited(void** state)
     map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_max_size(pt_map));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_max_size(pt_map));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
 }
@@ -1134,9 +1244,15 @@ void test_map_begin__non_inited(void** state)
     map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_begin(pt_map));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_begin(pt_map));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
 }
@@ -1195,9 +1311,15 @@ void test_map_end__non_inited(void** state)
     map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_end(pt_map));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_end(pt_map));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
 }
@@ -1355,9 +1477,15 @@ void test_map_clear__non_inited(void** state)
     map_t* pt_map = create_map(int, int);
     map_init_ex(pt_map, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_clear(pt_map));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_clear(pt_map));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
 }
@@ -1437,9 +1565,15 @@ void test_map_equal__non_inited_first(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_first->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_equal(pt_first, pt_second));
+    pt_first->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_first->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_equal(pt_first, pt_second));
     pt_first->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -1471,9 +1605,15 @@ void test_map_equal__non_inited_second(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_second->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_equal(pt_first, pt_second));
+    pt_second->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_second->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_equal(pt_first, pt_second));
     pt_second->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -1737,9 +1877,15 @@ void test_map_not_equal__non_inited_first(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_first->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_not_equal(pt_first, pt_second));
+    pt_first->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_first->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_not_equal(pt_first, pt_second));
     pt_first->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -1771,9 +1917,15 @@ void test_map_not_equal__non_inited_second(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_second->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_not_equal(pt_first, pt_second));
+    pt_second->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_second->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_not_equal(pt_first, pt_second));
     pt_second->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -2037,9 +2189,15 @@ void test_map_less__non_inited_first(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_first->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_less(pt_first, pt_second));
+    pt_first->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_first->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_less(pt_first, pt_second));
     pt_first->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -2071,9 +2229,15 @@ void test_map_less__non_inited_second(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_second->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_less(pt_first, pt_second));
+    pt_second->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_second->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_less(pt_first, pt_second));
     pt_second->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -2337,9 +2501,15 @@ void test_map_less_equal__non_inited_first(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_first->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_less_equal(pt_first, pt_second));
+    pt_first->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_first->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_less_equal(pt_first, pt_second));
     pt_first->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -2371,9 +2541,15 @@ void test_map_less_equal__non_inited_second(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_second->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_less_equal(pt_first, pt_second));
+    pt_second->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_second->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_less_equal(pt_first, pt_second));
     pt_second->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -2637,9 +2813,15 @@ void test_map_greater__non_inited_first(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_first->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_greater(pt_first, pt_second));
+    pt_first->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_first->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_greater(pt_first, pt_second));
     pt_first->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -2671,9 +2853,15 @@ void test_map_greater__non_inited_second(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_second->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_greater(pt_first, pt_second));
+    pt_second->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_second->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_greater(pt_first, pt_second));
     pt_second->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -2937,9 +3125,15 @@ void test_map_greater_equal__non_inited_first(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_first->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_greater_equal(pt_first, pt_second));
+    pt_first->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_first->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_greater_equal(pt_first, pt_second));
     pt_first->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -2971,9 +3165,15 @@ void test_map_greater_equal__non_inited_second(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_second->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_greater_equal(pt_first, pt_second));
+    pt_second->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_second->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_greater_equal(pt_first, pt_second));
     pt_second->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -3237,9 +3437,15 @@ void test_map_swap__non_inited_first(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_first->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_swap(pt_first, pt_second));
+    pt_first->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_first->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_swap(pt_first, pt_second));
     pt_first->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -3271,9 +3477,15 @@ void test_map_swap__non_inited_second(void** state)
     map_init_ex(pt_first, NULL);
     map_init_ex(pt_second, NULL);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_second->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_swap(pt_first, pt_second));
+    pt_second->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_second->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_swap(pt_first, pt_second));
     pt_second->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_first);
     map_destroy(pt_second);
@@ -3469,9 +3681,15 @@ void test_map_insert__non_inited(void** state)
     map_init_ex(pt_map, NULL);
     pair_init(pt_pair);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_insert(pt_map, pt_pair));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_insert(pt_map, pt_pair));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
     pair_destroy(pt_pair);
@@ -3798,9 +4016,15 @@ void test_map_insert_hint__non_inited(void** state)
     pair_init(pt_pair);
     it_hint = map_begin(pt_map);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_insert_hint(pt_map, it_hint, pt_pair));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_insert_hint(pt_map, it_hint, pt_pair));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
     pair_destroy(pt_pair);
@@ -4174,11 +4398,19 @@ void test_map_insert_range__non_inited(void** state)
     pair_init_elem(pt_pair, 3, 3);
     map_insert(pt_src, pt_pair);
 
+#ifdef CSTL_MAP_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 9;
+    it_begin = map_begin(pt_src);
+    it_end = map_end(pt_src);
+    expect_assert_failure(map_insert_range(pt_dest, it_begin, it_end));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     expect_assert_failure(map_insert_range(pt_dest, it_begin, it_end));
     pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
@@ -4460,9 +4692,15 @@ void test_map_erase_pos__non_inited(void** state)
     pair_init_elem(pt_pair, elem, elem);
     map_insert(pt_map, pt_pair);
     it_pos = map_begin(pt_map);
+#ifdef CSTL_MAP_AVL_TREE
+    pt_map->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_erase_pos(pt_map, it_pos));
+    pt_map->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_map->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_erase_pos(pt_map, it_pos));
     pt_map->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_map);
     pair_destroy(pt_pair);
@@ -4643,9 +4881,15 @@ void test_map_erase_range__non_inited(void** state)
 
     it_begin = map_begin(pt_dest);
     it_end = map_end(pt_dest);
+#ifdef CSTL_MAP_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(map_erase_range(pt_dest, it_begin, it_end));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(map_erase_range(pt_dest, it_begin, it_end));
     pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     map_destroy(pt_dest);
 }

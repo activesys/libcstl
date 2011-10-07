@@ -166,9 +166,15 @@ void test__multimap_destroy_auxiliary__non_created(void** state)
 {
     multimap_t* pt_multimap = _create_multimap("int, int");
 
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_multimap->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multimap_destroy_auxiliary(pt_multimap));
+    pt_multimap->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multimap_destroy_auxiliary(pt_multimap));
     pt_multimap->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multimap_destroy(pt_multimap);
 }
@@ -178,9 +184,15 @@ void test__multimap_destroy_auxiliary__non_inited(void** state)
     multimap_t* pt_multimap = _create_multimap("int, int");
     multimap_init(pt_multimap);
 
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_multimap->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multimap_destroy_auxiliary(pt_multimap));
+    pt_multimap->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multimap_destroy_auxiliary(pt_multimap));
     pt_multimap->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multimap_destroy(pt_multimap);
 }
@@ -191,9 +203,15 @@ void test__multimap_destroy_auxiliary__empty(void** state)
     multimap_init(pt_multimap);
 
     _multimap_destroy_auxiliary(pt_multimap);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    assert_true(pt_multimap->_t_tree._t_avlroot._pt_parent == NULL);
+    assert_true(pt_multimap->_t_tree._t_avlroot._pt_left == &pt_multimap->_t_tree._t_avlroot);
+    assert_true(pt_multimap->_t_tree._t_avlroot._pt_right == &pt_multimap->_t_tree._t_avlroot);
+#else
     assert_true(pt_multimap->_t_tree._t_rbroot._pt_parent == NULL);
     assert_true(pt_multimap->_t_tree._t_rbroot._pt_left == &pt_multimap->_t_tree._t_rbroot);
     assert_true(pt_multimap->_t_tree._t_rbroot._pt_right == &pt_multimap->_t_tree._t_rbroot);
+#endif
     assert_true(pt_multimap->_t_tree._t_nodecount == 0);
     assert_true(pt_multimap->_t_tree._t_compare == NULL);
     assert_true(pt_multimap->_pair_temp._pv_first == NULL);
@@ -215,9 +233,15 @@ void test__multimap_destroy_auxiliary__non_empty(void** state)
     multimap_insert(pt_multimap, pt_pair);
 
     _multimap_destroy_auxiliary(pt_multimap);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    assert_true(pt_multimap->_t_tree._t_avlroot._pt_parent == NULL);
+    assert_true(pt_multimap->_t_tree._t_avlroot._pt_left == &pt_multimap->_t_tree._t_avlroot);
+    assert_true(pt_multimap->_t_tree._t_avlroot._pt_right == &pt_multimap->_t_tree._t_avlroot);
+#else
     assert_true(pt_multimap->_t_tree._t_rbroot._pt_parent == NULL);
     assert_true(pt_multimap->_t_tree._t_rbroot._pt_left == &pt_multimap->_t_tree._t_rbroot);
     assert_true(pt_multimap->_t_tree._t_rbroot._pt_right == &pt_multimap->_t_tree._t_rbroot);
+#endif
     assert_true(pt_multimap->_t_tree._t_nodecount == 0);
     assert_true(pt_multimap->_t_tree._t_compare == NULL);
     assert_true(pt_multimap->_pair_temp._pv_first == NULL);
@@ -245,9 +269,15 @@ void test__multimap_find__multimap_find_varg__non_inited(void** state)
     multimap_t* pt_multimap = _create_multimap("int, int");
     multimap_init(pt_multimap);
 
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_multimap->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multimap_find(pt_multimap, 9));
+    pt_multimap->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multimap_find(pt_multimap, 9));
     pt_multimap->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multimap_destroy(pt_multimap);
 }
@@ -514,9 +544,15 @@ void test__multimap_count__multimap_count_varg__non_inited(void** state)
     int elem = 9;
     multimap_init(pt_multimap);
 
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_multimap->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multimap_count(pt_multimap, elem));
+    pt_multimap->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multimap_count(pt_multimap, elem));
     pt_multimap->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multimap_destroy(pt_multimap);
 }
@@ -879,9 +915,15 @@ void test__multimap_lower_bound__multimap_lower_bound_varg__non_inited(void** st
     int elem = 9;
     multimap_init(pt_multimap);
 
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_multimap->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multimap_lower_bound(pt_multimap, elem));
+    pt_multimap->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multimap_lower_bound(pt_multimap, elem));
     pt_multimap->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multimap_destroy(pt_multimap);
 }
@@ -1147,9 +1189,15 @@ void test__multimap_upper_bound__multimap_upper_bound_varg__non_inited(void** st
     int elem = 9;
     multimap_init_ex(pt_multimap, NULL);
 
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_multimap->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multimap_upper_bound(pt_multimap, &elem));
+    pt_multimap->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multimap_upper_bound(pt_multimap, &elem));
     pt_multimap->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multimap_destroy(pt_multimap);
 }
@@ -1416,9 +1464,15 @@ void test__multimap_equal_range__multimap_equal_range_varg__non_inited(void** st
     int elem = 9;
     multimap_init_ex(pt_multimap, NULL);
 
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_multimap->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multimap_equal_range(pt_multimap, elem));
+    pt_multimap->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multimap_equal_range(pt_multimap, elem));
     pt_multimap->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multimap_destroy(pt_multimap);
 }
@@ -1692,9 +1746,15 @@ void test__multimap_erase__multimap_erase_varg__non_inited(void** state)
     int elem = 9;
     multimap_init_ex(pt_multimap, NULL);
 
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_multimap->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multimap_erase(pt_multimap, elem));
+    pt_multimap->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multimap_erase(pt_multimap, elem));
     pt_multimap->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multimap_destroy(pt_multimap);
 }
@@ -2084,9 +2144,15 @@ void test__multimap_init_elem_auxiliary__non_inited(void** state)
     int elem = 9;
     multimap_init_ex(pt_multimap, NULL);
 
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_multimap->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(_multimap_erase(pt_multimap, elem));
+    pt_multimap->_t_tree._t_avlroot._un_height = 0;
+#else
     pt_multimap->_t_tree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_multimap_erase(pt_multimap, elem));
     pt_multimap->_t_tree._t_rbroot._t_color = RED;
+#endif
 
     multimap_destroy(pt_multimap);
 }
