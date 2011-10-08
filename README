@@ -1,2 +1,40 @@
-see doc/libcstl_user_guide.pdf
-see doc/libcstl_reference_manual.pdf
+This directory contains the sources of the libcstl Library.
+See the file "VERSION" for what release version you have.
+libcstl is the use of C language, a common data structure 
+and used algorithms library, which mimic the interface and 
+the SGI STL to achieve.
+
+For Windows platform there are README.Win32 file that discuss issues
+how to compile libcstl on Windows.
+
+Problems, bugs, questions, desirable enhancements, etc. should be sent
+to the address "activesys.wb@gmail.com".  Bugs, support requests, and
+feature requests may also be submitted on the GoogleCode site for 
+libcstl at http://code.google.com/p/libcstl/issues/list
+
+The source file os libcstl are:
+
+ChangLog		- description of differences between releases
+AUTHORS		    - people that have helped libcstl along
+INSTALL  	    - description of installation
+COPYING.LESSER  - the license under which libcstl is distributed
+Makefile.in	    - compilation rules (input to the configure script)
+README		    - this file
+README.Win32	- notes on using libcstl on Win32 systems
+VERSION		    - version of this release
+aclocal.m4	    - autoconf macros
+config.guess	- autoconf support
+config.h.in	    - autoconf input
+config.sub	    - autoconf support
+configure	    - configure script (run this first)
+configure.ac	- configure script source
+install-sh	    - BSD style install script
+ltmain.sh       - libtool script
+missing         - common stub for missing library functions
+build-win/*		- MSVS project
+cstl/*          - libcstl header files
+src/*           - libcstl source files
+doc/*           - libcstl documents
+test/it/*       - interface testing files
+test/ut/*       - unit testing files
+
