@@ -662,7 +662,7 @@ void test__vector_is_created__non_created_non_init_allocator(void** state)
     assert_false(_vector_is_created(&vec));
     vec._t_allocator._t_mempoolsize = 0;
 #else
-    assert_true(_vector_is_created(&vec));
+    assert_false(_vector_is_created(&vec));
 #endif
     _alloc_destroy(&vec._t_allocator);
 }
