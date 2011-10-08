@@ -22,3 +22,4 @@ then libcstl_ut.exe will be generated in libcstl\bin\, this file
 is libcstl unit testing execute file. You will need cmockery.lib
 and google\*.h, the header files of cmockery libaray, in vc8/vc9
 directory.
+

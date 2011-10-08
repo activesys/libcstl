@@ -37,8 +37,8 @@ subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(top_srcdir)/configure AUTHORS COPYING.LESSER ChangeLog \
-	INSTALL NEWS config.guess config.sub depcomp install-sh \
-	ltmain.sh missing
+	INSTALL config.guess config.sub depcomp install-sh ltmain.sh \
+	missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -215,7 +215,7 @@ top_srcdir = .
 
 # Makefile.am for top build directory.
 SUBDIRS = cstl src build-win doc test
-EXTRA_DIST = VERSION
+EXTRA_DIST = VERSION README.Win32
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
