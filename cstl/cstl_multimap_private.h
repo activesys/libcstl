@@ -1,6 +1,6 @@
 /*
  *  The private interface of multimap.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_MULTIMAP_PRIVATE_H
-#define _CSTL_MULTIMAP_PRIVATE_H
+#ifndef _CSTL_MULTIMAP_PRIVATE_H_
+#define _CSTL_MULTIMAP_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,65 +35,182 @@ extern "C" {
 /* the multimap use rb tree default */
 typedef struct _tagmultimap
 {
-    pair_t            _t_pair;
-    binary_function_t _t_keycompare; /* for init ex */
-    binary_function_t _t_valuecompare;
+    pair_t            _pair_temp;
+    binary_function_t _bfun_keycompare; /* for init ex */
+    binary_function_t _bfun_valuecompare;
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
-    avl_tree_t        _t_tree;
+    _avl_tree_t       _t_tree;
 #else
-    rb_tree_t         _t_tree;
+    _rb_tree_t        _t_tree;
 #endif
 }multimap_t;
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create the new multimap.
+/**
+ * Create multimap container.
+ * @param s_typename        element type name.
+ * @return if create multimap successfully return multimap pointer, otherwise return NULL.
+ * @remarks s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name, libcstl builtin
+ *          typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern multimap_t* _create_multimap(const char* s_typename);
-extern bool_t _create_multimap_auxiliary(multimap_t* pt_multimap, const char* s_typename);
-extern void _multimap_destroy_auxiliary(multimap_t* pt_multimap);
 
-/*
- * Find operation functions.
+/**
+ * Create multimap container auxiliary function.
+ * @param pmmap_map          uncreated container.
+ * @param s_typename        element type name.
+ * @return if create multimap successfully return true, otherwise return false.
+ * @remarks if pmmap_map == NULL or s_typename == NULL, then the behavior is undefined. s_typename should be C builtin
+ *          type name, libcstl builtin typename or registed user defined type name, otherwise the function will return false.
  */
-extern multimap_iterator_t _multimap_find(const multimap_t* cpt_multimap, ...);
-extern multimap_iterator_t _multimap_find_varg(
-    const multimap_t* cpt_multimap, va_list val_elemlist);
+extern bool_t _create_multimap_auxiliary(multimap_t* pmmap_map, const char* s_typename);
 
-/*
- * Count operation functions.
+/**
+ * Destroy multimap container auxiliary function.
+ * @param pmmap_map        multimap container.
+ * @return void.
+ * @remarks if pmmap_map == NULL, then the behavior is undefined. multimap must be initialized or created by
+ *          _create_map(), otherwise the behavior is undefine.
  */
-extern size_t _multimap_count(const multimap_t* cpt_multimap, ...);
-extern size_t _multimap_count_varg(const multimap_t* cpt_multimap, va_list val_elemlist);
+extern void _multimap_destroy_auxiliary(multimap_t* pmmap_map);
 
-/*
- * Lower bound, upper bound and equal range operation functions.
+/**
+ * Find specific element.
+ * @param cpmmap_map         multimap container.
+ * @param ...               specific element.
+ * @return iterator addresses the sprcific element in the multimap, otherwise return map_end().
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
  */
-extern multimap_iterator_t _multimap_lower_bound(const multimap_t* cpt_multimap, ...);
-extern multimap_iterator_t _multimap_lower_bound_varg(
-    const multimap_t* cpt_multimap, va_list val_elemlist);
-extern multimap_iterator_t _multimap_upper_bound(const multimap_t* cpt_multimap, ...);
-extern multimap_iterator_t _multimap_upper_bound_varg(
-    const multimap_t* cpt_multimap, va_list val_elemlist);
-extern range_t _multimap_equal_range(const multimap_t* cpt_multimap, ...);
-extern range_t _multimap_equal_range_varg(
-    const multimap_t* cpt_multimap, va_list val_elemlist);
+extern multimap_iterator_t _multimap_find(const multimap_t* cpmmap_map, ...);
 
-/*
- * Erase operation functions.
+/**
+ * Find specific element.
+ * @param cpmmap_map         multimap container.
+ * @param val_elemlist      element list.
+ * @return iterator addresses the sprcific element in the multimap, otherwise return map_end().
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
  */
-extern size_t _multimap_erase(multimap_t* pt_multimap, ...);
-extern size_t _multimap_erase_varg(multimap_t* pt_multimap, va_list val_elemlist);
+extern multimap_iterator_t _multimap_find_varg(const multimap_t* cpmmap_map, va_list val_elemlist);
 
-extern void _multimap_init_elem_auxiliary(multimap_t* pt_multimap, void* pv_value);
+/**
+ * Return the number of specific elements in an multimap
+ * @param cpmmap_map         multimap container.
+ * @param ...               specific element.
+ * @return the number of specific elements.
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
+ */
+extern size_t _multimap_count(const multimap_t* cpmmap_map, ...);
+
+/**
+ * Return the number of specific elements in an multimap
+ * @param cpmmap_map         multimap container.
+ * @param val_elemlist      element list.
+ * @return the number of specific elements.
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
+ */
+extern size_t _multimap_count_varg(const multimap_t* cpmmap_map, va_list val_elemlist);
+
+/**
+ * Return an iterator to the first element that is equal to or greater than a specific element.
+ * @param cpmmap_map          multimap container.
+ * @param ...                specific element.
+ * @return an iterator to the first element that is equal to or greater than a specific element.
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
+ */
+extern multimap_iterator_t _multimap_lower_bound(const multimap_t* cpmmap_map, ...);
+
+/**
+ * Return an iterator to the first element that is equal to or greater than a specific element.
+ * @param cpmmap_map         multimap container.
+ * @param val_elemlist      element list.
+ * @return an iterator to the first element that is equal to or greater than a specific element.
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
+ */
+extern multimap_iterator_t _multimap_lower_bound_varg(const multimap_t* cpmmap_map, va_list val_elemlist);
+
+/**
+ * Return an iterator to the first element that is greater than a specific element.
+ * @param cpmmap_map         multimap container.
+ * @param ...               specific element.
+ * @return an iterator to the first element that is greater than a specific element.
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
+ */
+extern multimap_iterator_t _multimap_upper_bound(const multimap_t* cpmmap_map, ...);
+
+/**
+ * Return an iterator to the first element that is greater than a specific element.
+ * @param cpmmap_map         multimap container.
+ * @param val_elemlist      element list.
+ * @return an iterator to the first element that is greater than a specific element.
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
+ */
+extern multimap_iterator_t _multimap_upper_bound_varg(const multimap_t* cpmmap_map, va_list val_elemlist);
+
+/**
+ * Return an iterator range that is equal to a specific element.
+ * @param cpmmap_map         multimap container.
+ * @param ...               specific element.
+ * @return an iterator range that is equal to a specific element.
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
+ */
+extern range_t _multimap_equal_range(const multimap_t* cpmmap_map, ...);
+
+/**
+ * Return an iterator range that is equal to a specific element.
+ * @param cpmmap_map         multimap container.
+ * @param val_elemlist      element list.
+ * @return an iterator range that is equal to a specific element.
+ * @remarks if cpmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmmap_map must be same, otherwise the behavior is undefined.
+ */
+extern range_t _multimap_equal_range_varg(const multimap_t* cpmmap_map, va_list val_elemlist);
+
+/**
+ * Erase an element from a multimap that match a specified element.
+ * @param pmmap_map          multimap container.
+ * @param ...               specific element.
+ * @return the number of erased elements.
+ * @remarks if pmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior is
+ *          undefined. 
+ */
+extern size_t _multimap_erase(multimap_t* pmmap_map, ...);
+
+/**
+ * Erase an element from a multimap that match a specified element.
+ * @param pmmap_map          multimap container.
+ * @param val_elemlist      element list.
+ * @return the number of erased elements.
+ * @remarks if pmmap_map == NULL then the behavior is undefined. cpmmap_map must be initialized, otherwise the behavior is
+ *          undefined. 
+ */
+extern size_t _multimap_erase_varg(multimap_t* pmmap_map, va_list val_elemlist);
+
+/**
+ * Initialize element auxiliary function
+ * @param pmmap_map          multimap.
+ * @param pv_value          value.
+ * @return void.
+ * @remarks if pmmap_map == NULL or pv_value == NULL, then the behavior is undefine. pmmap_map must be initialized or
+ *          created by _create_map(), otherwise the behavior is undefined.
+ */
+extern void _multimap_init_elem_auxiliary(multimap_t* pmmap_map, void* pv_value);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _CSTL_MULTIMAP_PRIVATE_H */
+#endif /* _CSTL_MULTIMAP_PRIVATE_H_ */
 /** eof **/
 

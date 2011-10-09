@@ -1,6 +1,6 @@
 /*
  *  The interface of hash_set and hash_multiset.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,20 +20,15 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CHASH_SET_H
-#define _CHASH_SET_H
+#ifndef _CHASH_SET_H_
+#define _CHASH_SET_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /** include section **/
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/cstl_iterator.h>
@@ -41,6 +36,7 @@ extern "C" {
 #include <cstl/cvector.h>
 #include <cstl/cstl_hashtable_iterator.h>
 #include <cstl/cstl_hashtable_private.h>
+#include <cstl/cstl_hashtable.h>
 #include <cstl/cutility.h>
 
 #include <cstl/cstl_hash_set_iterator.h>
@@ -62,6 +58,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CHASH_SET_H */
+#endif /* _CHASH_SET_H_ */
 /** eof **/
 

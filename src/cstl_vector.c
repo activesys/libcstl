@@ -1,6 +1,6 @@
 /*
  *  The implement of vector module.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -21,14 +21,7 @@
  */
 
 /** include section **/
-#ifdef HAVE_CONFIG_H
-#   include <config.h>
-#endif
-#include <assert.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/cstl_iterator.h>
@@ -40,1290 +33,709 @@
 
 #include <cstl/cstring.h>
 
+#include "cstl_vector_aux.h"
+
 /** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
-/* macros for type informations */
-#define _GET_VECTOR_TYPE_SIZE(pt_vector)\
-    ((pt_vector)->_t_typeinfo._pt_type->_t_typesize)
-#define _GET_VECTOR_TYPE_NAME(pt_vector)\
-    ((pt_vector)->_t_typeinfo._sz_typename)
-#define _GET_VECTOR_TYPE_BASENAME(pt_vector)\
-    ((pt_vector)->_t_typeinfo._pt_type->_sz_typename)
-#define _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)\
-    ((pt_vector)->_t_typeinfo._pt_type->_t_typeinit)
-#define _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)\
-    ((pt_vector)->_t_typeinfo._pt_type->_t_typecopy)
-#define _GET_VECTOR_TYPE_LESS_FUNCTION(pt_vector)\
-    ((pt_vector)->_t_typeinfo._pt_type->_t_typeless)
-#define _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)\
-    ((pt_vector)->_t_typeinfo._pt_type->_t_typedestroy)
-#define _GET_VECTOR_TYPE_STYLE(pt_vector)\
-    ((pt_vector)->_t_typeinfo._t_style)
 
 /** local function prototype section **/
-#ifndef NDEBUG
-/*
- * Private function for assert.
- */
-static bool_t _vector_iterator_belong_to_vector(
-    const vector_t* cpt_vector, vector_iterator_t t_iter);
-static bool_t _vector_same_vector_iterator_type(
-    const vector_t* cpt_vector, vector_iterator_t t_iter);
-#endif /* NDEBUG */
-static bool_t _vector_same_type(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond);
-
-static void _vector_get_varg_value_auxiliary(
-    vector_t* pt_vector, va_list val_elemlist, void* pv_varg);
-static void _vector_destroy_varg_value_auxiliary(vector_t* pt_vector, void* pv_varg);
-static void _vector_init_elem_range_auxiliary(
-    vector_t* pt_vector, char* pc_start, char* pc_finish);
 
 /** exported global variable definition section **/
 
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-/* vector iterator function */
-vector_iterator_t create_vector_iterator(void)
+/**
+ * Initialize empty vector container.
+ */
+void vector_init(vector_t* pvec_vector)
 {
-    vector_iterator_t t_newiterator;
+    assert(pvec_vector != NULL);
+    assert(_vector_is_created(pvec_vector));
 
-    _GET_VECTOR_COREPOS(t_newiterator) = NULL;
-    _GET_CONTAINER(t_newiterator) = NULL;
-    _GET_VECTOR_CONTAINER_TYPE(t_newiterator) = _VECTOR_CONTAINER;
-    _GET_VECTOR_ITERATOR_TYPE(t_newiterator) = _RANDOM_ACCESS_ITERATOR;
-
-    return t_newiterator;
+    vector_init_n(pvec_vector, 0);
 }
 
-bool_t _vector_iterator_equal(
-    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond)
+/**
+ * Initialize vector container with mutiple default element.
+ */
+void vector_init_n(vector_t* pvec_vector, size_t t_count)
 {
-    assert(_iterator_same_type(t_iterfirst, t_itersecond));
-    assert(_GET_VECTOR_CONTAINER(t_iterfirst) == _GET_VECTOR_CONTAINER(t_itersecond));
-    assert(_vector_iterator_belong_to_vector(
-        _GET_VECTOR_CONTAINER(t_iterfirst), t_iterfirst));
-    assert(_vector_iterator_belong_to_vector(
-        _GET_VECTOR_CONTAINER(t_itersecond), t_itersecond));
+    assert(pvec_vector != NULL);
+    assert(_vector_is_created(pvec_vector));
 
-    return _GET_VECTOR_COREPOS(t_iterfirst) == _GET_VECTOR_COREPOS(t_itersecond) ?
-        true : false;
-}
-
-void _vector_iterator_get_value(vector_iterator_t t_iter, void* pv_value)
-{
-    bool_t t_result = false;
-
-    assert(pv_value != NULL);
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    assert(!iterator_equal(t_iter, vector_end(_GET_VECTOR_CONTAINER(t_iter))));
-
-    /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
-        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        *(char**)pv_value = (char*)string_c_str((string_t*)_GET_VECTOR_COREPOS(t_iter));
-    }
-    else
-    {
-        t_result = _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
-        _GET_VECTOR_TYPE_COPY_FUNCTION(_GET_VECTOR_CONTAINER(t_iter))(
-            pv_value, _GET_VECTOR_COREPOS(t_iter), &t_result);
-        assert(t_result);
-    }
-}
-
-void _vector_iterator_set_value(vector_iterator_t t_iter, const void* cpv_value)
-{
-    bool_t t_result = false;
-
-    assert(cpv_value != NULL);
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    assert(!iterator_equal(t_iter, vector_end(_GET_VECTOR_CONTAINER(t_iter))));
-
-    /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
-        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        string_assign_cstr((string_t*)_GET_VECTOR_COREPOS(t_iter), (char*)cpv_value);
-    }
-    else
-    {
-        t_result = _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
-        _GET_VECTOR_TYPE_COPY_FUNCTION(_GET_VECTOR_CONTAINER(t_iter))(
-            _GET_VECTOR_COREPOS(t_iter), cpv_value, &t_result);
-        assert(t_result);
-    }
-}
-
-const void* _vector_iterator_get_pointer(vector_iterator_t t_iter)
-{
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    assert(!iterator_equal(t_iter, vector_end(_GET_VECTOR_CONTAINER(t_iter))));
-
-    /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
-        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        return string_c_str((string_t*)_GET_VECTOR_COREPOS(t_iter));
-    }
-    else
-    {
-        return _GET_VECTOR_COREPOS(t_iter);
-    }
-}
-
-vector_iterator_t _vector_iterator_next(vector_iterator_t t_iter)
-{
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) += _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-
-    return t_iter;
-}
-
-vector_iterator_t _vector_iterator_prev(vector_iterator_t t_iter)
-{
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) -= _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter));
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-
-    return t_iter;
-}
-
-void* _vector_iterator_at(vector_iterator_t t_iter, int n_index)
-{
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) +=
-        _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter)) * n_index;
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-
-    /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_GET_VECTOR_CONTAINER(t_iter)),
-        _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        return (char*)string_c_str((string_t*)_GET_VECTOR_COREPOS(t_iter));
-    }
-    else
-    {
-        return _GET_VECTOR_COREPOS(t_iter);
-    }
-}
-
-vector_iterator_t _vector_iterator_next_n(vector_iterator_t t_iter, int n_step)
-{
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) +=
-        _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter)) * n_step;
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-
-    return t_iter;
-}
-
-vector_iterator_t _vector_iterator_prev_n(vector_iterator_t t_iter, int n_step)
-{
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-    _GET_VECTOR_COREPOS(t_iter) -=
-        _GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iter)) * n_step;
-    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(t_iter), t_iter));
-
-    return t_iter;
-}
-
-int _vector_iterator_minus(vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond)
-{
-    assert(_iterator_same_type(t_iterfirst, t_itersecond));
-    assert(_GET_VECTOR_CONTAINER(t_iterfirst) == _GET_VECTOR_CONTAINER(t_itersecond));
-    assert(_vector_iterator_belong_to_vector(
-        _GET_VECTOR_CONTAINER(t_iterfirst), t_iterfirst));
-    assert(_vector_iterator_belong_to_vector(
-        _GET_VECTOR_CONTAINER(t_itersecond), t_itersecond));
-
-    return (_GET_VECTOR_COREPOS(t_iterfirst) - _GET_VECTOR_COREPOS(t_itersecond)) / 
-           (int)_GET_VECTOR_TYPE_SIZE(_GET_VECTOR_CONTAINER(t_iterfirst));
-}
-
-bool_t _vector_iterator_less(vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond)
-{
-    assert(_iterator_same_type(t_iterfirst, t_itersecond));
-    assert(_GET_VECTOR_CONTAINER(t_iterfirst) == _GET_VECTOR_CONTAINER(t_itersecond));
-    assert(_vector_iterator_belong_to_vector(
-        _GET_VECTOR_CONTAINER(t_iterfirst), t_iterfirst));
-    assert(_vector_iterator_belong_to_vector(
-        _GET_VECTOR_CONTAINER(t_itersecond), t_itersecond));
-
-    return _GET_VECTOR_COREPOS(t_iterfirst) < _GET_VECTOR_COREPOS(t_itersecond) ?
-        true : false;
-}
-
-bool_t _vector_iterator_before(
-    vector_iterator_t t_iterfirst, vector_iterator_t t_itersecond)
-{
-    return _vector_iterator_less(t_iterfirst, t_itersecond);
-}
-
-
-/* private vector function */
-vector_t* _create_vector(const char* s_typename)
-{
-    vector_t*   pt_newvector = NULL;
-
-    /* allocate for vector_t and initialize it */
-    if((pt_newvector = (vector_t*)malloc(sizeof(vector_t))) == NULL)
-    {
-        return NULL;
-    }
-
-    if(!_create_vector_auxiliary(pt_newvector, s_typename))
-    {
-        free(pt_newvector);
-        return NULL;
-    }
-
-    return pt_newvector;
-}
-
-bool_t _create_vector_auxiliary(vector_t* pt_vector, const char* s_typename)
-{
-    assert(pt_vector != NULL && s_typename != NULL);
-
-    _type_get_type(&pt_vector->_t_typeinfo, s_typename);
-    if(pt_vector->_t_typeinfo._t_style == _TYPE_INVALID)
-    {
-        return false;
-    }
-
-    pt_vector->_pc_start = NULL;
-    pt_vector->_pc_finish = NULL;
-    pt_vector->_pc_endofstorage = NULL;
-
-    return true;
-}
-
-/* vector function */
-/* initialize and destroy */
-void _vector_init_elem_varg(vector_t* pt_vector, size_t t_count, va_list val_elemlist)
-{
-    void*             pv_varg = NULL;
-    bool_t            t_result = false;
-    vector_iterator_t t_iter;
-
-    /* initialize vector_t */
-    vector_init_n(pt_vector, t_count);
     if(t_count > 0)
     {
-        /* get varg value only once */
-        pv_varg = allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
-        assert(pv_varg != NULL);
-        _vector_get_varg_value_auxiliary(pt_vector, val_elemlist, pv_varg);
+        size_t t_newcapacity = _vector_calculate_new_capacity(0, t_count);
 
-        /* copy varg value to each element */
-        for(t_iter = vector_begin(pt_vector);
-            !iterator_equal(t_iter, vector_end(pt_vector));
-            t_iter = iterator_next(t_iter))
-        {
-            /* copy from varg */
-            t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-                _GET_VECTOR_COREPOS(t_iter), pv_varg, &t_result);
-            assert(t_result);
-        }
-
-        /* destroy varg value and free memory */
-        _vector_destroy_varg_value_auxiliary(pt_vector, pv_varg);
-        deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
-    }
-}
-
-void _vector_init_elem(vector_t* pt_vector, size_t t_count, ...)
-{
-    va_list val_elemlist;
-
-    va_start(val_elemlist, t_count);
-    _vector_init_elem_varg(pt_vector, t_count, val_elemlist);
-    va_end(val_elemlist);
-}
-
-void vector_init_n(vector_t* pt_vector, size_t t_count)
-{
-    assert(pt_vector != NULL);
-    assert(pt_vector->_pc_start == NULL && pt_vector->_pc_finish == NULL &&
-           pt_vector->_pc_endofstorage == NULL);
-    assert(pt_vector->_t_typeinfo._pt_type != NULL);
-
-    allocate_init(&pt_vector->_t_allocater);
-    if(t_count > 0)
-    {
-        pt_vector->_pc_start = allocate(
-            &pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), (2 * t_count));
-        assert(pt_vector->_pc_start != NULL);
-        pt_vector->_pc_finish =
-            pt_vector->_pc_start + _GET_VECTOR_TYPE_SIZE(pt_vector) * t_count;
-        pt_vector->_pc_endofstorage =
-            pt_vector->_pc_start + _GET_VECTOR_TYPE_SIZE(pt_vector) * (2 * t_count);
+        pvec_vector->_pby_start = _alloc_allocate(
+            &pvec_vector->_t_allocator, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_newcapacity);
+        assert(pvec_vector->_pby_start != NULL);
+        pvec_vector->_pby_finish = pvec_vector->_pby_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_count;
+        pvec_vector->_pby_endofstorage = pvec_vector->_pby_start + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_newcapacity;
 
         /* initialize all elements */
-        _vector_init_elem_range_auxiliary(
-            pt_vector, pt_vector->_pc_start, pt_vector->_pc_finish);
+        _vector_init_elem_range_auxiliary(pvec_vector, pvec_vector->_pby_start, pvec_vector->_pby_finish);
     }
 }
 
-void vector_init(vector_t* pt_vector)
+/**
+ * Initialize vector container with an exist vector container.
+ */
+void vector_init_copy(vector_t* pvec_dest, const vector_t* cpvec_src)
 {
-    vector_init_n(pt_vector, 0);
+    assert(pvec_dest != NULL);
+    assert(cpvec_src != NULL);
+    assert(_vector_is_created(pvec_dest));
+    assert(_vector_is_inited(cpvec_src));
+    assert(_vector_same_type(pvec_dest, cpvec_src));
+
+    vector_init_copy_range(pvec_dest, vector_begin(cpvec_src), vector_end(cpvec_src));
 }
 
-/* destroy auxiliary function for vector destroy */
-void _vector_destroy_auxiliary(vector_t* pt_vector)
+/**
+ * Initialize vector container with an exist vector range.
+ */
+void vector_init_copy_range(vector_t* pvec_dest, vector_iterator_t it_begin, vector_iterator_t it_end)
 {
-    vector_iterator_t t_iter;
-    bool_t            t_result = false;
+    vector_iterator_t it_dest;
+    vector_iterator_t it_src;
+    bool_t            b_result = false;
 
-    assert(pt_vector != NULL);
-    assert(pt_vector->_pc_finish - pt_vector->_pc_start >= 0);
-    assert(pt_vector->_pc_endofstorage - pt_vector->_pc_start >= 0);
-    
-    /* destroy all elements */
-    for(t_iter = vector_begin(pt_vector);
-        !iterator_equal(t_iter, vector_end(pt_vector));
-        t_iter = iterator_next(t_iter))
-    {
-        t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)(_GET_VECTOR_COREPOS(t_iter), &t_result);
-        assert(t_result);
-    }
-    /* free vector memory */
-    if(pt_vector->_pc_start != NULL)
-    {
-        deallocate(&pt_vector->_t_allocater, pt_vector->_pc_start,
-            _GET_VECTOR_TYPE_SIZE(pt_vector), 
-            (pt_vector->_pc_endofstorage - pt_vector->_pc_start) /
-            _GET_VECTOR_TYPE_SIZE(pt_vector));
-    }
-    allocate_destroy(&pt_vector->_t_allocater);
-
-    pt_vector->_pc_start = NULL;
-    pt_vector->_pc_finish = NULL;
-    pt_vector->_pc_endofstorage = NULL;
-}
-
-void vector_destroy(vector_t* pt_vector)
-{
-    _vector_destroy_auxiliary(pt_vector);
-    /* free memory that malloced in _create_vector() function */
-    free(pt_vector);
-}
-
-void vector_init_copy(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
-{
-    vector_init_copy_range(pt_vectordest,
-        vector_begin(cpt_vectorsrc), vector_end(cpt_vectorsrc));
-}
-
-void vector_init_copy_range(
-    vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end)
-{
-    vector_iterator_t t_dest;
-    vector_iterator_t t_src;
-    bool_t            t_result = false;
-
-    assert(pt_vector != NULL);
-    assert(_vector_same_vector_iterator_type(pt_vector, t_begin));
-    assert(pt_vector->_pc_start == NULL && pt_vector->_pc_finish == NULL &&
-           pt_vector->_pc_endofstorage == NULL);
-    assert(iterator_equal(t_begin, t_end) || _vector_iterator_before(t_begin, t_end));
+    assert(pvec_dest != NULL);
+    assert(_vector_is_created(pvec_dest));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_begin), it_begin));
+    assert(_vector_iterator_belong_to_vector(_GET_VECTOR_CONTAINER(it_end), it_end));
+    assert(iterator_equal(it_begin, it_end) || _vector_iterator_before(it_begin, it_end));
+    assert(_vector_same_vector_iterator_type(pvec_dest, it_begin));
+    assert(_vector_same_vector_iterator_type(pvec_dest, it_end));
 
     /* initialize all elements with default value */
-    vector_init_n(pt_vector, iterator_distance(t_begin, t_end));
+    vector_init_n(pvec_dest, iterator_distance(it_begin, it_end));
 
     /* copy values for range */
-    for(t_dest = vector_begin(pt_vector), t_src = t_begin;
-        !iterator_equal(t_dest, vector_end(pt_vector)) && !iterator_equal(t_src, t_end);
-        t_dest = iterator_next(t_dest), t_src = iterator_next(t_src))
+    for(it_dest = vector_begin(pvec_dest), it_src = it_begin;
+        !iterator_equal(it_dest, vector_end(pvec_dest)) && !iterator_equal(it_src, it_end);
+        it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
     {
-        t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-            _GET_VECTOR_COREPOS(t_dest), _GET_VECTOR_COREPOS(t_src), &t_result);
-        assert(t_result);
+        b_result = _GET_VECTOR_TYPE_SIZE(pvec_dest);
+        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_dest)(_GET_VECTOR_COREPOS(it_dest), _GET_VECTOR_COREPOS(it_src), &b_result);
+        assert(b_result);
     }
-    assert(iterator_equal(t_dest, vector_end(pt_vector)) && iterator_equal(t_src, t_end));
+    assert(iterator_equal(it_dest, vector_end(pvec_dest)) && iterator_equal(it_src, it_end));
 }
 
-size_t vector_size(const vector_t* cpt_vector)
+/**
+ * Destroy vector container.
+ */
+void vector_destroy(vector_t* pvec_vector)
 {
-    assert(cpt_vector != NULL);
-    return (cpt_vector->_pc_finish - cpt_vector->_pc_start) /
-        _GET_VECTOR_TYPE_SIZE(cpt_vector);
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
+
+    _vector_destroy_auxiliary(pvec_vector);
+    /* free memory that malloced in _create_vector() function */
+    free(pvec_vector);
 }
 
-bool_t vector_empty(const vector_t* cpt_vector)
+/**
+ * Get vector element size.
+ */
+size_t vector_size(const vector_t* cpvec_vector)
 {
-    assert(cpt_vector != NULL);
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
+
+    return (cpvec_vector->_pby_finish - cpvec_vector->_pby_start) / _GET_VECTOR_TYPE_SIZE(cpvec_vector);
+}
+
+/**
+ * Test vector is empty.
+ */
+bool_t vector_empty(const vector_t* cpvec_vector)
+{
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
     
-    return cpt_vector->_pc_start == cpt_vector->_pc_finish ? true : false;
+    return cpvec_vector->_pby_start == cpvec_vector->_pby_finish ? true : false;
 }
 
-size_t vector_max_size(const vector_t* cpt_vector)
+/**
+ * Return maximum element number.
+ */
+size_t vector_max_size(const vector_t* cpvec_vector)
 {
-    assert(cpt_vector != NULL);
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
 
-    return (size_t)(-1) / _GET_VECTOR_TYPE_SIZE(cpt_vector);
+    return (size_t)(-1) / _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 }
 
-size_t vector_capacity(const vector_t* cpt_vector)
+/**
+ * Get vector capacity.
+ */
+size_t vector_capacity(const vector_t* cpvec_vector)
 {
-    assert(cpt_vector != NULL);
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
 
-    return (cpt_vector->_pc_endofstorage - cpt_vector->_pc_start) /
-        _GET_VECTOR_TYPE_SIZE(cpt_vector);
+    return (cpvec_vector->_pby_endofstorage - cpvec_vector->_pby_start) / _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 }
 
-void vector_reserve(vector_t* pt_vector, size_t t_reservesize)
+/**
+ * Set vector capacity.
+ */
+void vector_reserve(vector_t* pvec_vector, size_t t_reservesize)
 {
-    char*  pc_reservemem = NULL; /* new memory for reserve */
-    char*  pc_newstart = NULL;
-    char*  pc_newfinish = NULL;
-    char*  pc_newendofstorage = NULL;
-    char*  pc_newpos = NULL;
-    char*  pc_oldpos = NULL;
-    size_t t_oldsize = 0;
-    size_t t_oldcapacity = 0;
-    bool_t t_result = false;
+    _byte_t* pby_reservemem = NULL; /* new memory for reserve */
+    _byte_t* pby_newstart = NULL;
+    _byte_t* pby_newfinish = NULL;
+    _byte_t* pby_newendofstorage = NULL;
+    _byte_t* pby_newpos = NULL;
+    _byte_t* pby_oldpos = NULL;
+    size_t   t_oldsize = 0;
+    size_t   t_oldcapacity = 0;
+    bool_t   b_result = false;
 
-    assert(pt_vector != NULL);
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
 
-    if(vector_capacity(pt_vector) < t_reservesize)
+    if(vector_capacity(pvec_vector) < t_reservesize)
     {
         /* allocate the new vector with reserve size */
-        pc_reservemem = allocate(&pt_vector->_t_allocater,
-            _GET_VECTOR_TYPE_SIZE(pt_vector), t_reservesize);
-        assert(pc_reservemem != NULL);
+        pby_reservemem = _alloc_allocate(&pvec_vector->_t_allocator, _GET_VECTOR_TYPE_SIZE(pvec_vector), t_reservesize);
+        assert(pby_reservemem != NULL);
         /* get the new position */
-        t_oldsize = pt_vector->_pc_finish - pt_vector->_pc_start;
-        t_oldcapacity = pt_vector->_pc_endofstorage - pt_vector->_pc_start;
-        pc_newstart = pc_reservemem;
-        pc_newfinish = pc_reservemem + t_oldsize;
-        pc_newendofstorage = pc_reservemem + _GET_VECTOR_TYPE_SIZE(pt_vector) * t_reservesize;
+        t_oldsize = pvec_vector->_pby_finish - pvec_vector->_pby_start;
+        t_oldcapacity = pvec_vector->_pby_endofstorage - pvec_vector->_pby_start;
+        pby_newstart = pby_reservemem;
+        pby_newfinish = pby_reservemem + t_oldsize;
+        pby_newendofstorage = pby_reservemem + _GET_VECTOR_TYPE_SIZE(pvec_vector) * t_reservesize;
 
         /* initialize new elements */
-        _vector_init_elem_range_auxiliary(pt_vector, pc_newstart, pc_newfinish);
+        _vector_init_elem_range_auxiliary(pvec_vector, pby_newstart, pby_newfinish);
 
         /* copy elements from old memory and destroy those */
-        for(pc_newpos = pc_newstart, pc_oldpos = pt_vector->_pc_start;
-            pc_newpos < pc_newfinish && pc_oldpos < pt_vector->_pc_finish;
-            pc_newpos += _GET_VECTOR_TYPE_SIZE(pt_vector),
-            pc_oldpos += _GET_VECTOR_TYPE_SIZE(pt_vector))
+        for(pby_newpos = pby_newstart, pby_oldpos = pvec_vector->_pby_start;
+            pby_newpos < pby_newfinish && pby_oldpos < pvec_vector->_pby_finish;
+            pby_newpos += _GET_VECTOR_TYPE_SIZE(pvec_vector),
+            pby_oldpos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
             /* copy from old vector_t memory */
-            t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(pc_newpos, pc_oldpos, &t_result);
-            assert(t_result);
+            b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pby_newpos, pby_oldpos, &b_result);
+            assert(b_result);
             /* destroy old vector_t memory */
-            t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)(pc_oldpos, &t_result);
-            assert(t_result);
+            b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(pby_oldpos, &b_result);
+            assert(b_result);
         }
-        assert(pc_newpos == pc_newfinish && pc_oldpos == pt_vector->_pc_finish);
+        assert(pby_newpos == pby_newfinish && pby_oldpos == pvec_vector->_pby_finish);
 
         /* free the old vector element */
-        if(pt_vector->_pc_start != NULL)
+        if(pvec_vector->_pby_start != NULL)
         {
-            deallocate(&pt_vector->_t_allocater, pt_vector->_pc_start,
-                _GET_VECTOR_TYPE_SIZE(pt_vector),
-                t_oldcapacity / _GET_VECTOR_TYPE_SIZE(pt_vector));
+            _alloc_deallocate(&pvec_vector->_t_allocator, pvec_vector->_pby_start,
+                _GET_VECTOR_TYPE_SIZE(pvec_vector), t_oldcapacity / _GET_VECTOR_TYPE_SIZE(pvec_vector));
         }
-        pt_vector->_pc_start = pc_newstart;
-        pt_vector->_pc_finish = pc_newfinish;
-        pt_vector->_pc_endofstorage = pc_newendofstorage;
+        pvec_vector->_pby_start = pby_newstart;
+        pvec_vector->_pby_finish = pby_newfinish;
+        pvec_vector->_pby_endofstorage = pby_newendofstorage;
     }
 }
 
-bool_t vector_equal(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
+/**
+ * Test the two vectors are equal.
+ */
+bool_t vector_equal(const vector_t* cpvec_first, const vector_t* cpvec_second)
 {
-    vector_iterator_t t_iterfirst;
-    vector_iterator_t t_itersecond;
-    bool_t            t_resultless = false;
-    bool_t            t_resultgreater = false;
+    vector_iterator_t it_first;
+    vector_iterator_t it_second;
+    bool_t            b_less = false;
+    bool_t            b_greater = false;
 
-    assert(cpt_vectorfirst != NULL && cpt_vectorsecond != NULL);
+    assert(cpvec_first != NULL);
+    assert(cpvec_second != NULL);
+    assert(_vector_is_inited(cpvec_first));
+    assert(_vector_is_inited(cpvec_second));
 
+    /* same vector container */
+    if(cpvec_first == cpvec_second)
+    {
+        return true;
+    }
     /* the element type is equal */
-    if(!_vector_same_type(cpt_vectorfirst, cpt_vectorsecond))
+    if(!_vector_same_type(cpvec_first, cpvec_second))
     {
         return false;
     }
     /* the element count is equal */
-    if(vector_size(cpt_vectorfirst) != vector_size(cpt_vectorsecond))
+    if(vector_size(cpvec_first) != vector_size(cpvec_second))
     {
         return false;
     }
 
     /* each element is equal */
-    for(t_iterfirst = vector_begin(cpt_vectorfirst),
-        t_itersecond = vector_begin(cpt_vectorsecond);
-        !iterator_equal(t_iterfirst, vector_end(cpt_vectorfirst)) &&
-        !iterator_equal(t_itersecond, vector_end(cpt_vectorsecond));
-        t_iterfirst = iterator_next(t_iterfirst),
-        t_itersecond = iterator_next(t_itersecond))
+    for(it_first = vector_begin(cpvec_first), it_second = vector_begin(cpvec_second);
+        !iterator_equal(it_first, vector_end(cpvec_first)) && !iterator_equal(it_second, vector_end(cpvec_second));
+        it_first = iterator_next(it_first), it_second = iterator_next(it_second))
     {
-        t_resultless = _GET_VECTOR_TYPE_SIZE(cpt_vectorfirst);
-        t_resultgreater = _GET_VECTOR_TYPE_SIZE(cpt_vectorsecond);
-        _GET_VECTOR_TYPE_LESS_FUNCTION(cpt_vectorfirst)(_GET_VECTOR_COREPOS(t_iterfirst),
-            _GET_VECTOR_COREPOS(t_itersecond), &t_resultless);
-        _GET_VECTOR_TYPE_LESS_FUNCTION(cpt_vectorsecond)(_GET_VECTOR_COREPOS(t_itersecond),
-            _GET_VECTOR_COREPOS(t_iterfirst), &t_resultgreater);
-        if(t_resultless || t_resultgreater)
+        b_less = _GET_VECTOR_TYPE_SIZE(cpvec_first);
+        b_greater = _GET_VECTOR_TYPE_SIZE(cpvec_second);
+        _GET_VECTOR_TYPE_LESS_FUNCTION(cpvec_first)(
+            _GET_VECTOR_COREPOS(it_first), _GET_VECTOR_COREPOS(it_second), &b_less);
+        _GET_VECTOR_TYPE_LESS_FUNCTION(cpvec_second)(
+            _GET_VECTOR_COREPOS(it_second), _GET_VECTOR_COREPOS(it_first), &b_greater);
+        if(b_less || b_greater)
         {
             return false;
         }
     }
-    assert(iterator_equal(t_iterfirst, vector_end(cpt_vectorfirst)) &&
-           iterator_equal(t_itersecond, vector_end(cpt_vectorsecond)));
+    assert(iterator_equal(it_first, vector_end(cpvec_first)) &&
+           iterator_equal(it_second, vector_end(cpvec_second)));
 
     return true;
 }
 
-bool_t vector_not_equal(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
+
+/**
+ * Test the two vectors are unequal.
+ */
+bool_t vector_not_equal(const vector_t* cpvec_first, const vector_t* cpvec_second)
 {
-    return !vector_equal(cpt_vectorfirst, cpt_vectorsecond);
+    return !vector_equal(cpvec_first, cpvec_second);
 }
 
-bool_t vector_less(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
+/**
+ * Test the first vector is less than the second vector.
+ */
+bool_t vector_less(const vector_t* cpvec_first, const vector_t* cpvec_second)
 {
-    bool_t t_result = false;
-    vector_iterator_t t_iterfirst;
-    vector_iterator_t t_itersecond;
+    bool_t b_result = false;
+    vector_iterator_t it_first;
+    vector_iterator_t it_second;
 
-    assert(_vector_same_type(cpt_vectorfirst, cpt_vectorsecond));
+    assert(cpvec_first != NULL);
+    assert(cpvec_second != NULL);
+    assert(_vector_is_inited(cpvec_first));
+    assert(_vector_is_inited(cpvec_second));
+    assert(_vector_same_type(cpvec_first, cpvec_second));
 
-    for(t_iterfirst = vector_begin(cpt_vectorfirst),
-        t_itersecond = vector_begin(cpt_vectorsecond);
-        !iterator_equal(t_iterfirst, vector_end(cpt_vectorfirst)) &&
-        !iterator_equal(t_itersecond, vector_end(cpt_vectorsecond));
-        t_iterfirst = iterator_next(t_iterfirst),
-        t_itersecond = iterator_next(t_itersecond))
+    for(it_first = vector_begin(cpvec_first), it_second = vector_begin(cpvec_second);
+        !iterator_equal(it_first, vector_end(cpvec_first)) && !iterator_equal(it_second, vector_end(cpvec_second));
+        it_first = iterator_next(it_first), it_second = iterator_next(it_second))
     {
-        t_result = _GET_VECTOR_TYPE_SIZE(cpt_vectorfirst);
-        _GET_VECTOR_TYPE_LESS_FUNCTION(cpt_vectorfirst)(
-            _GET_VECTOR_COREPOS(t_iterfirst), _GET_VECTOR_COREPOS(t_itersecond), &t_result);
+        b_result = _GET_VECTOR_TYPE_SIZE(cpvec_first);
+        _GET_VECTOR_TYPE_LESS_FUNCTION(cpvec_first)(
+            _GET_VECTOR_COREPOS(it_first), _GET_VECTOR_COREPOS(it_second), &b_result);
         /* if any element in first vector are less then the second return true */
-        if(t_result)
+        if(b_result)
         {
             return true;
         }
-        t_result = _GET_VECTOR_TYPE_SIZE(cpt_vectorfirst);
-        _GET_VECTOR_TYPE_LESS_FUNCTION(cpt_vectorfirst)(
-            _GET_VECTOR_COREPOS(t_itersecond), _GET_VECTOR_COREPOS(t_iterfirst), &t_result);
+        b_result = _GET_VECTOR_TYPE_SIZE(cpvec_first);
+        _GET_VECTOR_TYPE_LESS_FUNCTION(cpvec_first)(
+            _GET_VECTOR_COREPOS(it_second), _GET_VECTOR_COREPOS(it_first), &b_result);
         /* if any element in first vector are greater then the second return false */
-        if(t_result)
+        if(b_result)
         {
             return false;
         }
     }
 
     /* if the first n elements in two vector are equal then compare the vector size */
-    return vector_size(cpt_vectorfirst) < vector_size(cpt_vectorsecond) ?
-        true : false;
+    return vector_size(cpvec_first) < vector_size(cpvec_second) ? true : false;
 }
 
-bool_t vector_greater(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
+/**
+ * Test the first vector is less than or equal to the second vector.
+ */
+bool_t vector_less_equal(const vector_t* cpvec_first, const vector_t* cpvec_second)
 {
-    return vector_less(cpt_vectorsecond, cpt_vectorfirst);
+    return (vector_less(cpvec_first, cpvec_second) || vector_equal(cpvec_first, cpvec_second)) ? true : false;
 }
 
-bool_t vector_less_equal(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
+/**
+ * Test the first vector is greater than the second vector.
+ */
+bool_t vector_greater(const vector_t* cpvec_first, const vector_t* cpvec_second)
 {
-    return (vector_less(cpt_vectorfirst, cpt_vectorsecond) ||
-            vector_equal(cpt_vectorfirst, cpt_vectorsecond)) ? true : false;
+    return vector_less(cpvec_second, cpvec_first);
 }
 
-bool_t vector_greater_equal(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
+/**
+ * Test the first vector is greater than or equal to the second vector.
+ */
+bool_t vector_greater_equal(const vector_t* cpvec_first, const vector_t* cpvec_second)
 {
-    return (vector_greater(cpt_vectorfirst, cpt_vectorsecond) ||
-            vector_equal(cpt_vectorfirst, cpt_vectorsecond)) ? true : false;
+    return (vector_greater(cpvec_first, cpvec_second) || vector_equal(cpvec_first, cpvec_second)) ? true : false;
 }
 
-/* assign */
-void vector_assign(vector_t* pt_vectordest, const vector_t* cpt_vectorsrc)
+/**
+ * Assign vector element with an exist vector container.
+ */
+void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src)
 {
-    assert(_vector_same_type(pt_vectordest, cpt_vectorsrc));
+    assert(pvec_dest != NULL);
+    assert(cpvec_src != NULL);
+    assert(_vector_is_inited(pvec_dest));
+    assert(_vector_is_inited(cpvec_src));
+    assert(_vector_same_type(pvec_dest, cpvec_src));
 
-    vector_assign_range(pt_vectordest, vector_begin(cpt_vectorsrc), vector_end(cpt_vectorsrc));
-}
-
-void _vector_assign_elem_varg(
-    vector_t* pt_vector, size_t t_count, va_list val_elemlist)
-{
-    iterator_t t_iter;
-    bool_t     t_result = false;
-    void*      pv_varg = NULL;
-
-    assert(pt_vector != NULL);
-
-    /* get value from varg */
-    pv_varg = allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
-    assert(pv_varg != NULL);
-    _vector_get_varg_value_auxiliary(pt_vector, val_elemlist, pv_varg);
-
-    /* copy value from varg for each element */
-    vector_resize(pt_vector, t_count);
-    for(t_iter = vector_begin(pt_vector);
-        !iterator_equal(t_iter, vector_end(pt_vector));
-        t_iter = iterator_next(t_iter))
+    if(vector_equal(pvec_dest, cpvec_src))
     {
-        t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-            _GET_VECTOR_COREPOS(t_iter), pv_varg, &t_result);
-        assert(t_result);
+        return;
     }
 
-    /* destroy varg and free memory */
-    _vector_destroy_varg_value_auxiliary(pt_vector, pv_varg);
-    deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
+    vector_assign_range(pvec_dest, vector_begin(cpvec_src), vector_end(cpvec_src));
 }
 
-void _vector_assign_elem(vector_t* pt_vector, size_t t_count, ...)
+/**
+ * Assign vector element with an exist vector container range.
+ */
+void vector_assign_range(vector_t* pvec_vector, vector_iterator_t it_begin, vector_iterator_t it_end)
 {
-    va_list val_elemlist;
+    iterator_t it_dest;
+    iterator_t it_src;
+    bool_t     b_result = false;
 
-    va_start(val_elemlist, t_count);
-    _vector_assign_elem_varg(pt_vector, t_count, val_elemlist);
-    va_end(val_elemlist);
-}
+    /* assign the two iterator is as the same type as pvec_vector */
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
+    /*assert(!_vector_iterator_belong_to_vector(pvec_vector, it_begin));*/
+    /*assert(!_vector_iterator_belong_to_vector(pvec_vector, it_end));*/
+    assert(_vector_same_vector_iterator_type(pvec_vector, it_begin));
+    assert(_vector_same_vector_iterator_type(pvec_vector, it_end));
+    assert(iterator_equal(it_begin, it_end) || _vector_iterator_before(it_begin, it_end));
 
-void vector_assign_range(
-    vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end)
-{
-    iterator_t t_dest;
-    iterator_t t_src;
-    bool_t     t_result = false;
-
-    /* assign the two iterator is as the same type as pt_vector */
-    assert(_vector_same_vector_iterator_type(pt_vector, t_begin));
-    assert(iterator_equal(t_begin, t_end) || _vector_iterator_before(t_begin, t_end));
-
-    /* copy value from range [t_begin, t_end) for each element */
-    vector_resize(pt_vector, iterator_distance(t_begin, t_end));
-    for(t_dest = vector_begin(pt_vector), t_src = t_begin;
-        !iterator_equal(t_dest, vector_end(pt_vector)) && !iterator_equal(t_src, t_end);
-        t_dest = iterator_next(t_dest), t_src = iterator_next(t_src))
+    /* copy value from range [it_begin, it_end) for each element */
+    vector_resize(pvec_vector, iterator_distance(it_begin, it_end));
+    for(it_dest = vector_begin(pvec_vector), it_src = it_begin;
+        !iterator_equal(it_dest, vector_end(pvec_vector)) && !iterator_equal(it_src, it_end);
+        it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
     {
-        t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-            _GET_VECTOR_COREPOS(t_dest), _GET_VECTOR_COREPOS(t_src), &t_result);
-        assert(t_result);
+        b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_dest), _GET_VECTOR_COREPOS(it_src), &b_result);
+        assert(b_result);
     }
-    assert(iterator_equal(t_dest, vector_end(pt_vector)) && iterator_equal(t_src, t_end));
+    assert(iterator_equal(it_dest, vector_end(pvec_vector)) && iterator_equal(it_src, it_end));
 }
 
-void vector_swap(vector_t* pt_vectorfirst, vector_t* pt_vectorsecond)
+/**
+ * Swap vector datas.
+ */
+void vector_swap(vector_t* pvec_first, vector_t* pvec_second)
 {
-    vector_t t_swapvector;  /* the swap temporary vector */
+    vector_t vec_swap;  /* the swap temporary vector */
 
     /* test the two vector has the same type */
-    assert(_vector_same_type(pt_vectorfirst, pt_vectorsecond));
+    assert(pvec_first != NULL);
+    assert(pvec_second != NULL);
+    assert(_vector_is_inited(pvec_first));
+    assert(_vector_is_inited(pvec_second));
+    assert(_vector_same_type(pvec_first, pvec_second));
 
-    t_swapvector = *pt_vectorfirst;
-    *pt_vectorfirst = *pt_vectorsecond;
-    *pt_vectorsecond = t_swapvector;
-}
-
-void* vector_at(const vector_t* cpt_vector, size_t t_pos)
-{
-    assert(cpt_vector != NULL);
-    assert(t_pos < vector_size(cpt_vector));
-
-    if(vector_empty(cpt_vector))
+    if(vector_equal(pvec_first, pvec_second))
     {
-        return NULL;
+        return;
     }
 
-    /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(cpt_vector), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        return (char*)string_c_str((string_t*)
-            (cpt_vector->_pc_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpt_vector)));
-    }
-    else
-    {
-        return cpt_vector->_pc_start + t_pos * _GET_VECTOR_TYPE_SIZE(cpt_vector);
-    }
+    vec_swap = *pvec_first;
+    *pvec_first = *pvec_second;
+    *pvec_second = vec_swap;
 }
 
-void* vector_front(const vector_t* cpt_vector)
+/**
+ * Access vector data using subscript.
+ */
+void* vector_at(const vector_t* cpvec_vector, size_t t_pos)
 {
-    if(vector_empty(cpt_vector))
-    {
-        return NULL;
-    }
-    else
-    {
-        return vector_at(cpt_vector, 0);
-    }
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
+    assert(t_pos < vector_size(cpvec_vector));
+
+    return (void*)iterator_get_pointer(iterator_next_n(vector_begin(cpvec_vector), t_pos));
 }
 
-void* vector_back(const vector_t* cpt_vector)
+/**
+ * Access first vector data.
+ */
+void* vector_front(const vector_t* cpvec_vector)
 {
-    if(vector_empty(cpt_vector))
-    {
-        return NULL;
-    }
-    else
-    {
-        return vector_at(cpt_vector, vector_size(cpt_vector)-1);
-    }
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
+    assert(!vector_empty(cpvec_vector));
+
+    return vector_at(cpvec_vector, 0);
 }
 
-vector_iterator_t vector_begin(const vector_t* cpt_vector)
+/**
+ * Access last vector data.
+ */
+void* vector_back(const vector_t* cpvec_vector)
 {
-    vector_iterator_t t_newiterator; /* new vector iterator */
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
+    assert(!vector_empty(cpvec_vector));
 
-    assert(cpt_vector != NULL);
-
-    t_newiterator = create_vector_iterator();
-    _GET_CONTAINER(t_newiterator) = (vector_t*)cpt_vector;
-    _GET_VECTOR_COREPOS(t_newiterator) = cpt_vector->_pc_start;
-
-    return t_newiterator;
+    return vector_at(cpvec_vector, vector_size(cpvec_vector) - 1);
 }
 
-vector_iterator_t vector_end(const vector_t* cpt_vector)
+/**
+ * Return a iterator to the first element in the vector container.
+ */
+vector_iterator_t vector_begin(const vector_t* cpvec_vector)
 {
-    vector_iterator_t t_newiterator;
+    vector_iterator_t it_begin; /* new vector iterator */
 
-    assert(cpt_vector != NULL);
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
 
-    t_newiterator = create_vector_iterator();
-    _GET_CONTAINER(t_newiterator) = (vector_t*)cpt_vector;
-    _GET_VECTOR_COREPOS(t_newiterator) = cpt_vector->_pc_finish;
+    it_begin = _create_vector_iterator();
+    _GET_CONTAINER(it_begin) = (vector_t*)cpvec_vector;
+    _GET_VECTOR_COREPOS(it_begin) = cpvec_vector->_pby_start;
 
-    return t_newiterator;
+    return it_begin;
 }
 
-vector_reverse_iterator_t vector_rbegin(const vector_t* cpt_vector)
+/**
+ * Return a iterator that points just beyond the end of vector container.
+ */
+vector_iterator_t vector_end(const vector_t* cpvec_vector)
 {
-    vector_reverse_iterator_t t_newiterator;
+    vector_iterator_t it_end;
 
-    assert(cpt_vector != NULL);
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
 
-    t_newiterator = create_vector_iterator();
-    _GET_CONTAINER(t_newiterator) = (vector_t*)cpt_vector;
-    _GET_VECTOR_COREPOS(t_newiterator) =
-        cpt_vector->_pc_finish - _GET_VECTOR_TYPE_SIZE(cpt_vector);
+    it_end = _create_vector_iterator();
+    _GET_CONTAINER(it_end) = (vector_t*)cpvec_vector;
+    _GET_VECTOR_COREPOS(it_end) = cpvec_vector->_pby_finish;
 
-    return t_newiterator;
+    return it_end;
 }
 
-vector_reverse_iterator_t vector_rend(const vector_t* cpt_vector)
+vector_reverse_iterator_t vector_rbegin(const vector_t* cpvec_vector)
 {
-    vector_reverse_iterator_t t_newiterator;
+    vector_reverse_iterator_t it_rbegin;
 
-    assert(cpt_vector != NULL);
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
 
-    t_newiterator = create_vector_iterator();
-    _GET_CONTAINER(t_newiterator) = (vector_t*)cpt_vector;
-    _GET_VECTOR_COREPOS(t_newiterator) =
-        cpt_vector->_pc_start - _GET_VECTOR_TYPE_SIZE(cpt_vector);
+    it_rbegin = _create_vector_iterator();
+    _GET_CONTAINER(it_rbegin) = (vector_t*)cpvec_vector;
+    _GET_VECTOR_COREPOS(it_rbegin) = cpvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 
-    return t_newiterator;
+    return it_rbegin;
 }
 
-vector_iterator_t _vector_insert_n(
-    vector_t* pt_vector, vector_iterator_t t_pos, size_t t_count, ...)
+vector_reverse_iterator_t vector_rend(const vector_t* cpvec_vector)
 {
-    vector_iterator_t t_iter;
-    va_list val_elemlist;
+    vector_reverse_iterator_t it_rend;
 
-    va_start(val_elemlist, t_count);
-    t_iter = _vector_insert_n_varg(pt_vector, t_pos, t_count, val_elemlist);
-    va_end(val_elemlist);
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector));
 
-    return t_iter;
+    it_rend = _create_vector_iterator();
+    _GET_CONTAINER(it_rend) = (vector_t*)cpvec_vector;
+    _GET_VECTOR_COREPOS(it_rend) = cpvec_vector->_pby_start - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
+
+    return it_rend;
 }
 
-vector_iterator_t _vector_insert_n_varg(
-    vector_t* pt_vector, vector_iterator_t t_pos, size_t t_count, va_list val_elemlist)
-{
-    void*  pv_varg = NULL;
-    bool_t t_result = false;
-
-    /* test the vector and iterator is valid */
-    assert(_vector_iterator_belong_to_vector(pt_vector, t_pos));
-
-    if(t_count > 0)
-    {
-        size_t t_index = 0;
-        char*  pc_oldfinish = NULL;
-        char*  pc_pos = NULL;   /* for initialize elments and insert elements */
-        char*  pc_destpos = NULL;
-
-        /* if the remain capacity is less then the element count */
-        if(vector_size(pt_vector) + t_count > vector_capacity(pt_vector))
-        {
-            size_t t_insertpos = iterator_distance(vector_begin(pt_vector), t_pos);
-            /* reserve the new size */
-            /* new size = old size + 2 * element count */
-            vector_reserve(pt_vector, vector_size(pt_vector) + 2 * t_count);
-            t_pos = iterator_next_n(vector_begin(pt_vector), t_insertpos);
-        }
-
-        /* insert the element counts of element to the position */
-        /* 
-         * move the elements from pos to the finish of vector to the 
-         * memory that after the pos element count.
-         * +-----------------------------------------+
-         * |          |             |                |
-         * +-----------------------------------------+
-         * ^          ^             ^
-         * |          |             |
-         * start     t_pos         finish
-         *                           _t_count__
-         *                          /          \
-         * +-----------------------------------------+
-         * |          |             |new element|    |
-         * +-----------------------------------------+
-         * ^          ^             ^           ^
-         * |          |             |           |
-         * start     t_pos       pc_oldfinish  finish
-         */
-        /* initialize new elements */
-        pc_oldfinish = pt_vector->_pc_finish;
-        assert(pc_oldfinish != NULL);
-        pt_vector->_pc_finish += t_count * _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _vector_init_elem_range_auxiliary(pt_vector, pc_oldfinish, pt_vector->_pc_finish);
-        /* move element from old finish to new finish */
-        for(pc_pos = pc_oldfinish - _GET_VECTOR_TYPE_SIZE(pt_vector),
-            pc_destpos = pt_vector->_pc_finish - _GET_VECTOR_TYPE_SIZE(pt_vector);
-            pc_pos >= _GET_VECTOR_COREPOS(t_pos);
-            pc_pos -= _GET_VECTOR_TYPE_SIZE(pt_vector),
-            pc_destpos -= _GET_VECTOR_TYPE_SIZE(pt_vector))
-        {
-            t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(pc_destpos, pc_pos, &t_result);
-            assert(t_result);
-        }
-
-        /* get varg value only once */
-        pv_varg = allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
-        assert(pv_varg != NULL);
-        _vector_get_varg_value_auxiliary(pt_vector, val_elemlist, pv_varg);
-        /* copy value for varg */
-        for(t_index = 0; t_index < t_count; ++t_index)
-        {
-            t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-                _GET_VECTOR_COREPOS(t_pos) + t_index * _GET_VECTOR_TYPE_SIZE(pt_vector),
-                pv_varg, &t_result);
-            assert(t_result);
-        }
-        /* destroy varg and free memory */
-        _vector_destroy_varg_value_auxiliary(pt_vector, pv_varg);
-        deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
-
-        t_pos = iterator_next_n(t_pos, t_count);
-    }
-
-    return t_pos;
-}
-
+/**
+ * Insert a range of elements into vector at a specificed position.
+ */
 void vector_insert_range(
-    vector_t* pt_vector, vector_iterator_t t_pos,
-    vector_iterator_t t_begin, vector_iterator_t t_end)
+    vector_t* pvec_vector, vector_iterator_t it_pos, vector_iterator_t it_begin, vector_iterator_t it_end)
 {
-    size_t t_count = 0; /* the element count */
-    bool_t t_result = false;
-    vector_iterator_t t_iterfirst;
-    vector_iterator_t t_itersecond;
-    char*             pc_oldfinish = NULL;
-    char*             pc_pos = NULL;
-    char*             pc_destpos = NULL;
+    size_t            t_count = 0; /* the element count */
+    bool_t            b_result = false;
+    vector_iterator_t it_first;
+    vector_iterator_t it_second;
+    _byte_t*          pby_oldfinish = NULL;
+    _byte_t*          pby_pos = NULL;
+    _byte_t*          pby_destpos = NULL;
 
     /* test the vector and iterator is valid */
-    assert(_vector_iterator_belong_to_vector(pt_vector, t_pos));
-    assert(iterator_equal(t_begin, t_end) || _vector_iterator_before(t_begin, t_end));
-    assert(_vector_same_vector_iterator_type(pt_vector, t_begin));
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
+    assert(_vector_iterator_belong_to_vector(pvec_vector, it_pos));
+    /*assert(!_vector_iterator_belong_to_vector(pvec_vector, it_begin));*/
+    /*assert(!_vector_iterator_belong_to_vector(pvec_vector, it_end));*/
+    assert(_vector_same_vector_iterator_type(pvec_vector, it_begin));
+    assert(_vector_same_vector_iterator_type(pvec_vector, it_end));
+    assert(iterator_equal(it_begin, it_end) || _vector_iterator_before(it_begin, it_end));
 
-    t_count = iterator_distance(t_begin, t_end);
+    t_count = iterator_distance(it_begin, it_end);
     if(t_count > 0)
     {
         /* if the remain capacity is less then the element count */
-        if(vector_size(pt_vector) + t_count > vector_capacity(pt_vector))
+        if(vector_size(pvec_vector) + t_count > vector_capacity(pvec_vector))
         {
-            size_t t_iteratordistance = _GET_VECTOR_COREPOS(t_pos) - pt_vector->_pc_start;
+            size_t t_distance = _GET_VECTOR_COREPOS(it_pos) - pvec_vector->_pby_start;
             /* reserve the new size */
-            /* new size = old size + 2 * element count */
-            vector_reserve(pt_vector, vector_size(pt_vector) + 2 * t_count);
-            _GET_VECTOR_COREPOS(t_pos) = pt_vector->_pc_start + t_iteratordistance;
+            vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), t_count));
+            _GET_VECTOR_COREPOS(it_pos) = pvec_vector->_pby_start + t_distance;
         }
 
         /* initialize new elements */
-        pc_oldfinish = pt_vector->_pc_finish;
-        assert(pc_oldfinish != NULL);
-        pt_vector->_pc_finish += t_count * _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _vector_init_elem_range_auxiliary(pt_vector, pc_oldfinish, pt_vector->_pc_finish);
+        pby_oldfinish = pvec_vector->_pby_finish;
+        assert(pby_oldfinish != NULL);
+        pvec_vector->_pby_finish += t_count * _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _vector_init_elem_range_auxiliary(pvec_vector, pby_oldfinish, pvec_vector->_pby_finish);
 
         /* move element from old finish to new finish */
-        for(pc_pos = pc_oldfinish - _GET_VECTOR_TYPE_SIZE(pt_vector),
-            pc_destpos = pt_vector->_pc_finish - _GET_VECTOR_TYPE_SIZE(pt_vector);
-            pc_pos >= _GET_VECTOR_COREPOS(t_pos);
-            pc_pos -= _GET_VECTOR_TYPE_SIZE(pt_vector),
-            pc_destpos -= _GET_VECTOR_TYPE_SIZE(pt_vector))
+        for(pby_pos = pby_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
+            pby_destpos = pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            pby_pos >= _GET_VECTOR_COREPOS(it_pos);
+            pby_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
+            pby_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
-            t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(pc_destpos, pc_pos, &t_result);
-            assert(t_result);
+            b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pby_destpos, pby_pos, &b_result);
+            assert(b_result);
         }
 
         /* insert element counts copys to the pos */
-        for(t_iterfirst = t_pos, t_itersecond = t_begin;
-            !iterator_equal(t_itersecond, t_end);
-            t_iterfirst = iterator_next(t_iterfirst),
-            t_itersecond = iterator_next(t_itersecond))
+        for(it_first = it_pos, it_second = it_begin;
+            !iterator_equal(it_second, it_end);
+            it_first = iterator_next(it_first), it_second = iterator_next(it_second))
         {
-            t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(_GET_VECTOR_COREPOS(t_iterfirst),
-                _GET_VECTOR_COREPOS(t_itersecond), &t_result);
-            assert(t_result);
+            b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
+                _GET_VECTOR_COREPOS(it_first), _GET_VECTOR_COREPOS(it_second), &b_result);
+            assert(b_result);
         }
-        assert(_GET_VECTOR_COREPOS(t_iterfirst) == _GET_VECTOR_COREPOS(t_pos) +
-               (_GET_VECTOR_COREPOS(t_end) - _GET_VECTOR_COREPOS(t_begin)));
+        assert(_GET_VECTOR_COREPOS(it_first) == _GET_VECTOR_COREPOS(it_pos) +
+               (_GET_VECTOR_COREPOS(it_end) - _GET_VECTOR_COREPOS(it_begin)));
     }
 }
 
-void _vector_push_back(vector_t* pt_vector, ...)
+/**
+ * Delete the element at the end of vector.
+ */
+void vector_pop_back(vector_t* pvec_vector)
 {
-    va_list val_elemlist;
+    bool_t b_result = false;
 
-    va_start(val_elemlist, pt_vector);
-    _vector_push_back_varg(pt_vector, val_elemlist);
-    va_end(val_elemlist);
-}
-
-void _vector_push_back_varg(vector_t* pt_vector, va_list val_elemlist)
-{
-    char*  pc_last = NULL;
-
-    assert(pt_vector != NULL);
-
-    /* if the remain capacity is less then the element count */
-    if(vector_capacity(pt_vector) == vector_size(pt_vector)) 
-    {
-        /* reserve the new size = old size + 2 */
-        vector_reserve(pt_vector, vector_size(pt_vector) + 2);
-    }
-
-    /* initialize the last element */
-    pc_last = pt_vector->_pc_finish;
-    assert(pc_last != NULL);
-    pt_vector->_pc_finish += _GET_VECTOR_TYPE_SIZE(pt_vector);
-    _vector_init_elem_auxiliary(pt_vector, pc_last);
-    /* copy value from varg */
-    _type_get_varg_value(&pt_vector->_t_typeinfo, val_elemlist, pc_last);
-}
-
-void vector_pop_back(vector_t* pt_vector)
-{
-    bool_t t_result = false;
-
-    assert(pt_vector != NULL);
-    assert(vector_size(pt_vector) > 0);
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
+    assert(!vector_empty(pvec_vector));
 
     /* destroy last element */
-    t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-    _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)(
-        pt_vector->_pc_finish-_GET_VECTOR_TYPE_SIZE(pt_vector), &t_result);
-    assert(t_result);
-    pt_vector->_pc_finish -= _GET_VECTOR_TYPE_SIZE(pt_vector);
+    b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+    _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector), &b_result);
+    assert(b_result);
+    pvec_vector->_pby_finish -= _GET_VECTOR_TYPE_SIZE(pvec_vector);
 }
 
-vector_iterator_t vector_erase(vector_t* pt_vector, vector_iterator_t t_pos)
+/**
+ * Removes an element in vector from specificed position.
+ */
+vector_iterator_t vector_erase(vector_t* pvec_vector, vector_iterator_t it_pos)
 {
-    bool_t     t_result = false;
-    iterator_t t_iter;
-    iterator_t t_prev;
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
+    assert(_vector_iterator_belong_to_vector(pvec_vector, it_pos));
+    assert(!iterator_equal(it_pos, vector_end(pvec_vector)));
 
-    assert(_vector_iterator_belong_to_vector(pt_vector, t_pos));
-    assert(!iterator_equal(t_pos, vector_end(pt_vector)));
-
-    /* move element */
-    for(t_iter = iterator_next(t_pos), t_prev = t_pos;
-        !iterator_equal(t_iter, vector_end(pt_vector));
-        t_iter = iterator_next(t_iter), t_prev = iterator_next(t_prev))
-    {
-        t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-            _GET_VECTOR_COREPOS(t_prev), _GET_VECTOR_COREPOS(t_iter), &t_result);
-        assert(t_result);
-    }
-    assert(_GET_VECTOR_COREPOS(t_prev) ==
-           pt_vector->_pc_finish - _GET_VECTOR_TYPE_SIZE(pt_vector));
-
-    /* destroy the deleted element */
-    t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-    _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)(_GET_VECTOR_COREPOS(t_prev), &t_result);
-    assert(t_result);
-
-    pt_vector->_pc_finish -= _GET_VECTOR_TYPE_SIZE(pt_vector);
-
-    return t_pos;
+    return vector_erase_range(pvec_vector, it_pos, iterator_next(it_pos));
 }
 
-vector_iterator_t vector_erase_range(
-    vector_t* pt_vector, vector_iterator_t t_begin, vector_iterator_t t_end)
+/**
+ * Removes a range of elements in vector from specificed position.
+ */
+vector_iterator_t vector_erase_range(vector_t* pvec_vector, vector_iterator_t it_begin, vector_iterator_t it_end)
 {
     size_t            t_erasesize = 0;
-    bool_t            t_result = false;
-    vector_iterator_t t_iter;
+    bool_t            b_result = false;
+    vector_iterator_t it_iter;
 
-    assert(_vector_iterator_belong_to_vector(pt_vector, t_begin));
-    assert(iterator_equal(t_begin, t_end) || _vector_iterator_before(t_begin, t_end));
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
+    assert(_vector_iterator_belong_to_vector(pvec_vector, it_begin));
+    assert(_vector_iterator_belong_to_vector(pvec_vector, it_end));
+    assert(iterator_equal(it_begin, it_end) || _vector_iterator_before(it_begin, it_end));
 
-    if(iterator_equal(t_begin, t_end))
+    if(iterator_equal(it_begin, it_end))
     {
-        return t_end;
+        return it_end;
     }
 
-    t_iter = t_begin;
-    t_erasesize = iterator_distance(t_begin, t_end);
+    it_iter = it_begin;
+    t_erasesize = iterator_distance(it_begin, it_end);
 
-    for(; !iterator_equal(t_end, vector_end(pt_vector));
-        t_begin = iterator_next(t_begin), t_end = iterator_next(t_end))
+    for(; !iterator_equal(it_end, vector_end(pvec_vector)); it_begin = iterator_next(it_begin), it_end = iterator_next(it_end))
     {
-        t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-            _GET_VECTOR_COREPOS(t_begin), _GET_VECTOR_COREPOS(t_end), &t_result);
-        assert(t_result);
+        b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_begin), _GET_VECTOR_COREPOS(it_end), &b_result);
+        assert(b_result);
     }
-    assert(_GET_VECTOR_COREPOS(t_begin) ==
-           pt_vector->_pc_finish - t_erasesize * _GET_VECTOR_TYPE_SIZE(pt_vector));
+    assert(_GET_VECTOR_COREPOS(it_begin) == pvec_vector->_pby_finish - t_erasesize * _GET_VECTOR_TYPE_SIZE(pvec_vector));
 
     /* destroy the deleted elements */
-    for(; !iterator_equal(t_begin, t_end); t_begin = iterator_next(t_begin))
+    for(; !iterator_equal(it_begin, it_end); it_begin = iterator_next(it_begin))
     {
-        t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)(_GET_VECTOR_COREPOS(t_begin), &t_result);
-        assert(t_result);
+        b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_begin), &b_result);
+        assert(b_result);
     }
-    pt_vector->_pc_finish -= t_erasesize * _GET_VECTOR_TYPE_SIZE(pt_vector);
+    pvec_vector->_pby_finish -= t_erasesize * _GET_VECTOR_TYPE_SIZE(pvec_vector);
 
-    return t_iter;
+    return it_iter;
 }
 
-void vector_resize(vector_t* pt_vector, size_t t_resize)
+/*
+ * Specifies a new size of a vector.
+ */
+void vector_resize(vector_t* pvec_vector, size_t t_resize)
 {
-    vector_iterator_t t_cutpos;     /* the cut position */
+    vector_iterator_t it_cutpos;     /* the cut position */
     size_t            t_expsize = 0;
-    char*             pc_oldfinish = NULL;
+    _byte_t*          pby_oldfinish = NULL;
 
-    assert(pt_vector != NULL);
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
 
-    if(t_resize == vector_size(pt_vector))
+    if(t_resize == vector_size(pvec_vector))
     {
         return;
     }
-    else if(t_resize < vector_size(pt_vector))
+    else if(t_resize < vector_size(pvec_vector))
     {
-        t_cutpos = vector_begin(pt_vector);
-        t_cutpos = iterator_next_n(t_cutpos, t_resize);
-        vector_erase_range(pt_vector, t_cutpos, vector_end(pt_vector));
+        it_cutpos = vector_begin(pvec_vector);
+        it_cutpos = iterator_next_n(it_cutpos, t_resize);
+        vector_erase_range(pvec_vector, it_cutpos, vector_end(pvec_vector));
     }
     else
     {
-        t_expsize = t_resize - vector_size(pt_vector);
-        if(t_resize > vector_capacity(pt_vector))
+        t_expsize = t_resize - vector_size(pvec_vector);
+        if(t_resize > vector_capacity(pvec_vector))
         {
-            vector_reserve(pt_vector, vector_size(pt_vector) + 2 * t_expsize);
+            vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), t_expsize));
         }
 
         /* initialize new elements */
-        pc_oldfinish = pt_vector->_pc_finish;
-        pt_vector->_pc_finish += t_expsize * _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _vector_init_elem_range_auxiliary(pt_vector, pc_oldfinish, pt_vector->_pc_finish);
+        pby_oldfinish = pvec_vector->_pby_finish;
+        pvec_vector->_pby_finish += t_expsize * _GET_VECTOR_TYPE_SIZE(pvec_vector);
+        _vector_init_elem_range_auxiliary(pvec_vector, pby_oldfinish, pvec_vector->_pby_finish);
     }
 }
 
-void _vector_resize_elem_varg(
-    vector_t* pt_vector, size_t t_resize, va_list val_elemlist)
+/**
+ * Erases the elements of vector.
+ */
+void vector_clear(vector_t* pvec_vector)
 {
-    vector_iterator_t t_cutpos;     /* the cut position */
-    size_t            t_expsize = 0;
-    size_t            t_index = 0;
-    void*             pv_varg = NULL;
-    char*             pc_oldfinish = NULL;
-    bool_t            t_result = false;
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
 
-    assert(pt_vector != NULL);
-
-    if(t_resize == vector_size(pt_vector))
-    {
-        return;
-    }
-    else if(t_resize < vector_size(pt_vector))
-    {
-        t_cutpos = vector_begin(pt_vector);
-        t_cutpos = iterator_next_n(t_cutpos, t_resize);
-        vector_erase_range(pt_vector, t_cutpos, vector_end(pt_vector));
-    }
-    else
-    {
-        t_expsize = t_resize - vector_size(pt_vector);
-        if(t_resize > vector_capacity(pt_vector))
-        {
-            vector_reserve(pt_vector, vector_size(pt_vector) + 2 * t_expsize);
-        }
-
-        /* get varg value only once */
-        pv_varg = allocate(&pt_vector->_t_allocater, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
-        assert(pv_varg != NULL);
-        _vector_get_varg_value_auxiliary(pt_vector, val_elemlist, pv_varg);
-
-        /* initialize new elements */
-        pc_oldfinish = pt_vector->_pc_finish;
-        pt_vector->_pc_finish += t_expsize * _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _vector_init_elem_range_auxiliary(pt_vector, pc_oldfinish, pt_vector->_pc_finish);
-        /* copy value from varg to new elements */
-        for(t_index = 0; t_index < t_expsize; ++t_index)
-        {
-            t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pt_vector)(
-                pc_oldfinish + t_index * _GET_VECTOR_TYPE_SIZE(pt_vector),
-                pv_varg, &t_result);
-            assert(t_result);
-        }
-        /* destroy varg */
-        _vector_destroy_varg_value_auxiliary(pt_vector, pv_varg);
-        deallocate(&pt_vector->_t_allocater, pv_varg, _GET_VECTOR_TYPE_SIZE(pt_vector), 1);
-    }
-}
-
-void _vector_resize_elem(vector_t* pt_vector, size_t t_resize, ...)
-{
-    va_list val_elemlist;
-
-    va_start(val_elemlist, t_resize);
-    _vector_resize_elem_varg(pt_vector, t_resize, val_elemlist);
-    va_end(val_elemlist);
-}
-
-void vector_clear(vector_t* pt_vector)
-{
-    vector_erase_range(pt_vector, vector_begin(pt_vector), vector_end(pt_vector));
-}
-
-void _vector_init_elem_auxiliary(vector_t* pt_vector, void* pv_elem)
-{
-    assert(pt_vector != NULL && pv_elem != NULL);
-
-    /* initialize new elements */
-    if(_GET_VECTOR_TYPE_STYLE(pt_vector) == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_VECTOR_TYPE_NAME(pt_vector), s_elemtypename);
-
-        _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pv_elem, s_elemtypename);
-    }
-    else
-    {
-        bool_t t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-        _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pv_elem, &t_result);
-        assert(t_result);
-    }
+    vector_erase_range(pvec_vector, vector_begin(pvec_vector), vector_end(pvec_vector));
 }
 
 /** local function implementation section **/
-#ifndef NDEBUG
-static bool_t _vector_iterator_belong_to_vector(
-    const vector_t* cpt_vector, vector_iterator_t t_iter)
-{
-    assert(cpt_vector != NULL);
-    assert(_GET_VECTOR_CONTAINER(t_iter) == cpt_vector);
-
-    if(_GET_VECTOR_COREPOS(t_iter) >= cpt_vector->_pc_start &&
-       _GET_VECTOR_COREPOS(t_iter) <= cpt_vector->_pc_finish)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-static bool_t _vector_same_vector_iterator_type(
-    const vector_t* cpt_vector, vector_iterator_t t_iter)
-{
-    assert(cpt_vector != NULL && _GET_VECTOR_CONTAINER(t_iter) != NULL);
-    assert(_GET_VECTOR_CONTAINER_TYPE(t_iter) == _VECTOR_CONTAINER &&
-           _GET_VECTOR_ITERATOR_TYPE(t_iter) == _RANDOM_ACCESS_ITERATOR);
-    return _vector_same_type(cpt_vector, _GET_VECTOR_CONTAINER(t_iter));
-}
-#endif /* NDEBUG */
-
-static bool_t _vector_same_type(
-    const vector_t* cpt_vectorfirst, const vector_t* cpt_vectorsecond)
-{
-    assert(cpt_vectorfirst != NULL && cpt_vectorsecond != NULL);
-    return _type_is_same(_GET_VECTOR_TYPE_NAME(cpt_vectorfirst),
-                         _GET_VECTOR_TYPE_NAME(cpt_vectorsecond)) &&
-           (cpt_vectorfirst->_t_typeinfo._pt_type ==
-            cpt_vectorsecond->_t_typeinfo._pt_type) &&
-           (cpt_vectorfirst->_t_typeinfo._t_style ==
-            cpt_vectorsecond->_t_typeinfo._t_style);
-}
-
-static void _vector_init_elem_range_auxiliary(
-    vector_t* pt_vector, char* pc_start, char* pc_finish)
-{
-    char* pc_pos = NULL;
-
-    assert(pt_vector != NULL && pc_start != NULL && pc_finish != NULL && pc_start <= pc_finish);
-
-    /* initialize new elements */
-    if(_GET_VECTOR_TYPE_STYLE(pt_vector) == _TYPE_CSTL_BUILTIN)
-    {
-        /* get element type name */
-        char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(_GET_VECTOR_TYPE_NAME(pt_vector), s_elemtypename);
-
-        for(pc_pos = pc_start; pc_pos < pc_finish; pc_pos += _GET_VECTOR_TYPE_SIZE(pt_vector))
-        {
-            _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pc_pos, s_elemtypename);
-        }
-    }
-    else
-    {
-        for(pc_pos = pc_start; pc_pos < pc_finish; pc_pos += _GET_VECTOR_TYPE_SIZE(pt_vector))
-        {
-            bool_t t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-            _GET_VECTOR_TYPE_INIT_FUNCTION(pt_vector)(pc_pos, &t_result);
-            assert(t_result);
-        }
-    }
-}
-
-static void _vector_get_varg_value_auxiliary(
-    vector_t* pt_vector, va_list val_elemlist, void* pv_varg)
-{
-    _vector_init_elem_auxiliary(pt_vector, pv_varg);
-    _type_get_varg_value(&pt_vector->_t_typeinfo, val_elemlist, pv_varg);
-}
-
-static void _vector_destroy_varg_value_auxiliary(vector_t* pt_vector, void* pv_varg)
-{
-    /* destroy varg value and free memory */
-    bool_t t_result = _GET_VECTOR_TYPE_SIZE(pt_vector);
-    _GET_VECTOR_TYPE_DESTROY_FUNCTION(pt_vector)(pv_varg, &t_result);
-    assert(t_result);
-}
 
 /** eof **/
 

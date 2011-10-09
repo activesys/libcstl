@@ -1,6 +1,6 @@
 /*
  *  The iterator interface of string_t
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_STRING_ITERATOR_H
-#define _CSTL_STRING_ITERATOR_H
+#ifndef _CSTL_STRING_ITERATOR_H_
+#define _CSTL_STRING_ITERATOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,6 +43,6 @@ typedef iterator_t string_reverse_iterator_t;
 }
 #endif
 
-#endif /* _CSTL_STRING_ITERATOR_H */
+#endif /* _CSTL_STRING_ITERATOR_H_ */
 /** eof **/
 

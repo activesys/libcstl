@@ -1,0 +1,25 @@
+Under Windows, libcstl support vs project for Windows XP, 
+Windows Server 2003, Windows Vista, Windows Server 2008 and
+Windows 7.
+
+How to compile libcstl with Visual Studio
+-----------------------------------------
+
+In order to compile libcstl you will need:
+
+- Microsoft Visual Studio 2005/2008 (or higher).
+- libcmockery for libcstl_ut project.
+  You can download it from http://code.google.com/p/cmockery/
+
+Open the sulotion file libcstl\build-win\vc8\libcstl.sln with 
+Visual Studio 2005 or libcstl\build-win\vc9\libcstl.sln with
+Visual Studio 2008. Build project libcstl, then libcstl.lib, 
+the library file to link with the applications, and libcstl.dll 
+will be generated in libcstl\bin\. Build project libcstl_it, then
+libcstl_it.exe will be generated in libcstl\bin\, this file is 
+libcstl inteface testing execute file. Build project libcstl_ut, 
+then libcstl_ut.exe will be generated in libcstl\bin\, this file
+is libcstl unit testing execute file. You will need cmockery.lib
+and google\*.h, the header files of cmockery libaray, in vc8/vc9
+directory.
+

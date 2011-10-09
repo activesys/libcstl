@@ -1,1 +1,75 @@
-see doc/libcstl_user_guide.pdf
+Installing the libcstl Library
+******************************
+
+This file descript how to install the libcstl library.
+    
+Configuring and compiling libcstl
+=================================
+
+To build libcstl, run "./configure" (a shell script). The configure
+script will determine your system attributes and generate an
+appropriate Makefile from Makefile.in. Next run "make". If everything
+goes well you can su to root and run "make install". You need install
+libcmockery if you want to build libcstl and run "make check" to test
+libcstl. You need install libcmockery separately. The home page of
+libcmockery is http://code.google.com/p/cmockery/
+
+It may also be useful to set the CC and CFLAGS variables in the
+environment when running `configure'.  CC selects the C compiler that
+will be used, and CFLAGS sets optimization options for the compiler.
+
+The following list describes all of the available options for `configure':
+
+`--prefix=DIRECTORY'
+     Install machine-independent data files in subdirectories of
+     `DIRECTORY'.  The default is to install in `/usr/local'.
+
+`--enable-stack-implementation[=ARGUMENT]'
+     Select stack_t implementation. If this option is specified with vector
+     (--enable-stack-implementation=vector), the stack_t will be implement
+     with vector_t. If this option is specified with list
+     (--enable-stack-implementation=list), the stack_t will be implement
+     with list_t. Otherwise the stack_t will be implement with deque_t,
+     this is the default behavior.
+
+`--enable-queue-implementation[=ARGUMENT]'
+     Select queue_t implementation. If this option is specified with list
+     (--enable-queue-implementation=list), the queue_t will be implement
+     with list_t. Otherwise the queue_t will be implement with deque_t,
+     this is the default behavior.
+
+`--enable-set-implementation[=ARGUMENT]'
+     Select set_t implementation. If this option is specified with avl-tree
+     (--enable-set-implementation=avl-tree), the set_t will be implement
+     with avl-tree. Otherwise the set_t will be implement with rb-tree,
+     this is the default behavior.
+
+`--enable-multiset-implementation[=ARGUMENT]'
+     Select multiset_t implementation. If this option is specified with avl-tree
+     (--enable-multiset-implementation=avl-tree), the multiset_t will be implement
+     with avl-tree. Otherwise the multiset_t will be implement with rb-tree,
+     this is the default behavior.
+
+`--enable-map-implementation[=ARGUMENT]'
+     Select map_t implementation. If this option is specified with avl-tree
+     (--enable-map-implementation=avl-tree), the map_t will be implement
+     with avl-tree. Otherwise the map_t will be implement with rb-tree,
+     this is the default behavior.
+
+`--enable-multimap-implementation[=ARGUMENT]'
+     Select multimap_t implementation. If this option is specified with avl-tree
+     (--enable-multimap-implementation=avl-tree), the multimap_t will be implement
+     with avl-tree. Otherwise the multimap_t will be implement with rb-tree,
+     this is the default behavior.
+
+`--with-memory-management'
+    Use libcstl memory management, the default behavior is not use memory management.
+
+   To build and run test programs which exercise some of the library
+facilities, type `make check'.  If it does not complete successfully,
+do not use the built library, and report a bug after verifying that the
+problem is not already known. Bugs are documented in bug tracking system 
+has a WWW interface at `http://code.google.com/p/libcstl/issues/list'.
+The WWW interface gives you access to open and closed reports. A closed 
+report normally includes a patch or a hint on solving the problem.
+

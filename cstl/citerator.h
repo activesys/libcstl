@@ -1,6 +1,6 @@
 /*
  *  The iterator_t and its function header file for user.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,15 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CITERATOR_H
-#define _CITERATOR_H
+#ifndef _CITERATOR_H_
+#define _CITERATOR_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /** include section **/
-#include <assert.h>
-#include <stdlib.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 
@@ -63,6 +61,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CITERATOR_H */
+#endif /* _CITERATOR_H_ */
 /** eof **/
 

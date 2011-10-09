@@ -1,6 +1,6 @@
 /*
  *  The private interface of avl tree.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_AVL_TREE_PRIVATE_H
-#define _CSTL_AVL_TREE_PRIVATE_H
+#ifndef _CSTL_AVL_TREE_PRIVATE_H_
+#define _CSTL_AVL_TREE_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,6 +30,7 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
+#define _AVL_TREE_NODE_SIZE(typesize) ((typesize) + sizeof(_avlnode_t) - sizeof(_byte_t))
 
 /** data type declaration and struct, union, enum section **/
 /*
@@ -52,137 +53,51 @@ typedef struct _tagavlnode
     struct _tagavlnode* _pt_left;
     struct _tagavlnode* _pt_right;
     unsigned int        _un_height;
-    char                _pc_data[1];
-}avlnode_t;
+    _byte_t             _pby_data[1];
+}_avlnode_t;
 
 typedef struct _tagavltree
 {
     /* element type information */
-    _typeinfo_t      _t_typeinfo;
+    _typeinfo_t       _t_typeinfo;
 
     /* memory allocate */
-    alloc_t          _t_allocater;
+    _alloc_t          _t_allocator;
 
     /* avl tree node */
-    avlnode_t        _t_avlroot;
-    size_t           _t_nodecount;
+    _avlnode_t        _t_avlroot;
+    size_t            _t_nodecount;
 
     /* compare function for the inserting order */
     binary_function_t _t_compare;
-}avl_tree_t;
+}_avl_tree_t;
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create, initialization and destroy operation functions.
+/**
+ * Create avl tree container auxiliary function.
+ * @param pt_avl_tree       uncreated container.
+ * @param s_typename        element type name.
+ * @return if create avl tree successfully return true, otherwise return false.
+ * @remarks if pt_avl_tree == NULL or s_typename == NULL, then the behavior is undefined. s_typename should be C builtin
+ *          type name, libcstl builtin typename or registed user defined type name, otherwise the function will return false.
  */
-extern avl_tree_t* _create_avl_tree(const char* s_typename);
-extern bool_t _create_avl_tree_auxiliary(avl_tree_t* pt_avl_tree, const char* s_typename);
-extern void _avl_tree_init(avl_tree_t* pt_avl_tree, binary_function_t t_compare);
-extern void _avl_tree_destroy(avl_tree_t* pt_avl_tree);
-extern void _avl_tree_destroy_auxiliary(avl_tree_t* pt_avl_tree);
-extern void _avl_tree_init_copy(
-    avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src);
-extern void _avl_tree_init_copy_range_ex(
-    avl_tree_t* pt_avl_tree_dest, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end,
-    binary_function_t t_compare);
-extern void _avl_tree_init_copy_range(
-    avl_tree_t* pt_avl_tree_dest, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
+extern bool_t _create_avl_tree_auxiliary(_avl_tree_t* pt_avl_tree, const char* s_typename);
 
-/*
- * Assign operator functions.
+/**
+ * Destroy avl tree container auxiliary function.
+ * @param pt_avl_tree       avl tree container.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL, then the behavior is undefined. avl tree must be initialized or created by
+ *          _create_avl_tree(), otherwise the behavior is undefine.
  */
-extern void _avl_tree_assign(
-    avl_tree_t* pt_avl_tree_dest, const avl_tree_t* cpt_avl_tree_src);
-
-/*
- * avl_tree_t size operation functions.
- */
-extern size_t _avl_tree_size(const avl_tree_t* cpt_avl_tree);
-extern bool_t _avl_tree_empty(const avl_tree_t* cpt_avl_tree);
-extern size_t _avl_tree_max_size(const avl_tree_t* cpt_avl_tree);
-
-/*
- * Iterator support.
- */
-extern avl_tree_iterator_t _avl_tree_begin(const avl_tree_t* cpt_avl_tree);
-extern avl_tree_iterator_t _avl_tree_end(const avl_tree_t* cpt_avl_tree);
-/* private */
-extern avl_tree_reverse_iterator_t _avl_tree_rbegin(const avl_tree_t* cpt_avl_tree);
-extern avl_tree_reverse_iterator_t _avl_tree_rend(const avl_tree_t* cpt_avl_tree);
-
-/*
- * Return the compare function of key.
- */
-extern binary_function_t _avl_tree_key_comp(const avl_tree_t* cpt_avl_tree);
-
-/*
- * Find operation functions.
- */
-extern avl_tree_iterator_t _avl_tree_find(
-    const avl_tree_t* cpt_avl_tree, const void* cpv_value);
-
-/*
- * Remove all elements.
- */
-extern void _avl_tree_clear(avl_tree_t* pt_avl_tree);
-
-/*
- * Count, lower bound, upper bound and equal range operation functions.
- */
-extern size_t _avl_tree_count(const avl_tree_t* cpt_avl_tree, const void* cpv_value);
-extern avl_tree_iterator_t _avl_tree_lower_bound(
-    const avl_tree_t* cpt_avl_tree, const void* cpv_value);
-extern avl_tree_iterator_t _avl_tree_upper_bound(
-    const avl_tree_t* cpt_avl_tree, const void* cpv_value);
-extern range_t _avl_tree_equal_range(const avl_tree_t* cpt_avl_tree, const void* cpv_value);
-
-/*
- * Relationship operator functions.
- */
-extern bool_t _avl_tree_equal(
-    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_not_equal(
-    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_less(
-    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_greater(
-    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_less_equal(
-    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-extern bool_t _avl_tree_greater_equal(
-    const avl_tree_t* cpt_avl_treefirst, const avl_tree_t* cpt_avl_treesecond);
-
-/*
- * Swap the datas of first avl_tree and second avl_tree.
- */
-extern void _avl_tree_swap(avl_tree_t* pt_avl_treefirst, avl_tree_t* pt_avl_treesecond);
-
-/*
- * Insert operation functions.
- */
-extern avl_tree_iterator_t _avl_tree_insert_unique(
-    avl_tree_t* pt_avl_tree, const void* cpv_value);
-extern avl_tree_iterator_t _avl_tree_insert_equal(
-    avl_tree_t* pt_avl_tree, const void* cpv_value);
-extern void _avl_tree_insert_unique_range(
-    avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
-extern void _avl_tree_insert_equal_range(
-    avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
-
-/*
- * Erase operation functions.
- */
-extern void _avl_tree_erase_pos(avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_pos);
-extern void _avl_tree_erase_range(
-    avl_tree_t* pt_avl_tree, avl_tree_iterator_t t_begin, avl_tree_iterator_t t_end);
-extern size_t _avl_tree_erase(avl_tree_t* pt_avl_tree, const void* cpv_value);
+extern void _avl_tree_destroy_auxiliary(_avl_tree_t* pt_avl_tree);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _CSTL_AVL_TREE_PRIVATE_H */
+#endif /* _CSTL_AVL_TREE_PRIVATE_H_ */
 /** eof **/
 

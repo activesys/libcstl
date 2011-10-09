@@ -1,6 +1,6 @@
 /*
  *  The interface of function.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,15 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CFUNCTIONAL_H
-#define _CFUNCTIONAL_H
+#ifndef _CFUNCTIONAL_H_
+#define _CFUNCTIONAL_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /** include section **/
-#include <assert.h>
-#include <string.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 
@@ -49,6 +47,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CFUNCTIONAL_H */
+#endif /* _CFUNCTIONAL_H_ */
 /** eof **/
 

@@ -3,10 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcstl", "libcstl.vcproj", "{729D68EC-884C-4F0A-AF3E-05E19E7B5996}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcstl_test", "libcstl_test.vcproj", "{C186AE6F-9EB3-4491-AFEC-B655CE77B9C9}"
-	ProjectSection(ProjectDependencies) = postProject
-		{729D68EC-884C-4F0A-AF3E-05E19E7B5996} = {729D68EC-884C-4F0A-AF3E-05E19E7B5996}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcstl_it", "libcstl_it.vcproj", "{C186AE6F-9EB3-4491-AFEC-B655CE77B9C9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcstl_ut", "libcstl_ut.vcproj", "{4BA41810-3237-4738-B408-682D60FF7CDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +21,10 @@ Global
 		{C186AE6F-9EB3-4491-AFEC-B655CE77B9C9}.Debug|Win32.Build.0 = Debug|Win32
 		{C186AE6F-9EB3-4491-AFEC-B655CE77B9C9}.Release|Win32.ActiveCfg = Release|Win32
 		{C186AE6F-9EB3-4491-AFEC-B655CE77B9C9}.Release|Win32.Build.0 = Release|Win32
+		{4BA41810-3237-4738-B408-682D60FF7CDB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4BA41810-3237-4738-B408-682D60FF7CDB}.Debug|Win32.Build.0 = Debug|Win32
+		{4BA41810-3237-4738-B408-682D60FF7CDB}.Release|Win32.ActiveCfg = Release|Win32
+		{4BA41810-3237-4738-B408-682D60FF7CDB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

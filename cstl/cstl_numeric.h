@@ -1,6 +1,6 @@
 /*
  *  The interface of numeric.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_NUMERIC_H
-#define _CSTL_NUMERIC_H
+#ifndef _CSTL_NUMERIC_H_
+#define _CSTL_NUMERIC_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -82,6 +82,6 @@ extern output_iterator_t algo_partial_sum_if(
 }
 #endif
 
-#endif /* _CSTL_NUMERIC_H */
+#endif /* _CSTL_NUMERIC_H_ */
 /** eof **/
 

@@ -1,6 +1,6 @@
 /*
  *  The implementation of cstl types.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -21,16 +21,7 @@
  */
 
 /** include section **/
-#ifdef HAVE_CONFIG_H
-#   include <config.h>
-#endif
-#include <assert.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdarg.h>
-#include <float.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 
@@ -55,7 +46,7 @@
     size_t       t_pos = 0
 #define _TYPE_REGISTER_TYPE(type, type_text, type_suffix)\
     do{\
-        pt_type = (_type_t*)allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);\
+        pt_type = (_type_t*)_alloc_allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);\
         assert(pt_type != NULL);\
         pt_type->_t_typesize = sizeof(type);\
         memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
@@ -67,7 +58,7 @@
     }while(false)
 #define _TYPE_REGISTER_TYPE_NODE(type, type_text)\
     do{\
-        pt_node = (_typenode_t*)allocate(\
+        pt_node = (_typenode_t*)_alloc_allocate(\
             &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);\
         assert(pt_node != NULL);\
         memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
@@ -110,7 +101,11 @@
  *                             | _t_typedestroy = abc_destroy |
  *                             +------------------------------+
  */
+#ifdef CSTL_MEMORY_MANAGEMENT
 static _typeregister_t _gt_typeregister = {false, {NULL}, {{NULL}, NULL, NULL, 0, 0, 0}};
+#else
+static _typeregister_t _gt_typeregister = {false, {NULL}, {0}};
+#endif
 
 /** local data type declaration and local struct, union, enum section **/
 typedef enum _tagtypetoken
@@ -618,9 +613,9 @@ bool_t _type_register(
     else
     {
         size_t t_pos = 0;
-        _typenode_t* pt_node = (_typenode_t*)allocate(
+        _typenode_t* pt_node = (_typenode_t*)_alloc_allocate(
             &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
-        _type_t* pt_type = (_type_t*)allocate(
+        _type_t* pt_type = (_type_t*)_alloc_allocate(
             &_gt_typeregister._t_allocator, sizeof(_type_t), 1);
 
         memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
@@ -680,7 +675,7 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
                     if(pt_curnode == _gt_typeregister._apt_bucket[t_i])
                     {
                         _gt_typeregister._apt_bucket[t_i] = pt_curnode->_pt_next;
-                        deallocate(&_gt_typeregister._t_allocator,
+                        _alloc_deallocate(&_gt_typeregister._t_allocator,
                             pt_curnode, sizeof(_typenode_t), 1);
                         pt_curnode = pt_prevnode = _gt_typeregister._apt_bucket[t_i];
                     }
@@ -688,7 +683,7 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
                     {
                         assert(pt_prevnode->_pt_next == pt_curnode);
                         pt_prevnode->_pt_next = pt_curnode->_pt_next;
-                        deallocate(&_gt_typeregister._t_allocator,
+                        _alloc_deallocate(&_gt_typeregister._t_allocator,
                             pt_curnode, sizeof(_typenode_t), 1);
                         pt_curnode = pt_prevnode->_pt_next;
                     }
@@ -710,7 +705,7 @@ void _type_unregister(size_t t_typesize, const char* s_typename)
             }
         }
 
-        deallocate(&_gt_typeregister._t_allocator, pt_type, sizeof(_type_t), 1);
+        _alloc_deallocate(&_gt_typeregister._t_allocator, pt_type, sizeof(_type_t), 1);
     }
 }
 */
@@ -774,7 +769,7 @@ bool_t _type_duplicate(
         }
 
         /* malloc typenode for unregistered type */
-        pt_duplicate = (_typenode_t*)allocate(
+        pt_duplicate = (_typenode_t*)_alloc_allocate(
             &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);
         memset(pt_duplicate->_sz_typename, '\0', _TYPE_NAME_SIZE+1);
         strncpy(pt_duplicate->_sz_typename, s_duplicatename, _TYPE_NAME_SIZE);
@@ -858,8 +853,27 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
     }
     else /* get container name */
     {
-        /* the string_t is special codition */
-        if(strncmp(pt_typeinfo->_sz_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+        /* the string_t and iterator types are special codition */
+        if(strncmp(pt_typeinfo->_sz_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _FORWARD_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _BIDIRECTIONAL_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _RANDOM_ACCESS_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _VECTOR_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _LIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _SLIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _DEQUE_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _HASH_SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(pt_typeinfo->_sz_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0)
         {
             strncpy(s_registeredname, pt_typeinfo->_sz_typename, _TYPE_NAME_SIZE);
         }
@@ -905,6 +919,13 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
         pc_comma2 = strchr(s_elemname2, ',');
         pc_rightbracket2 = strchr(s_elemname2, '>');
 
+        /* int vs vector<int> or string_t vs list_t<double> */
+        if((pc_leftbracket1 != NULL && pc_leftbracket2 == NULL) || (pc_leftbracket1 == NULL && pc_leftbracket2 != NULL))
+        {
+            return false;
+        }
+
+        /* int vs double or float vs struct _tagabc */
         if(pc_leftbracket1 != NULL)
         {
             if(pc_comma1 != NULL)
@@ -1053,8 +1074,27 @@ void _type_get_elem_typename(const char* s_typename, char* s_elemtypename)
 
     memset(s_elemtypename, '\0', _TYPE_NAME_SIZE+1);
 
-    /* the string_t is special condition */
-    if(strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    /* the string_t and iterator types are special condition */
+    if(strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _FORWARD_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _BIDIRECTIONAL_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _RANDOM_ACCESS_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _VECTOR_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _LIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _SLIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _DEQUE_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _HASH_SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+       strncmp(s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0)
     {
         strncpy(s_elemtypename, s_typename, _TYPE_NAME_SIZE);
     }
@@ -2499,7 +2539,7 @@ static void _type_init(void)
         _gt_typeregister._apt_bucket[t_i] = NULL;
     }
     /* init allocator */
-    allocate_init(&_gt_typeregister._t_allocator);
+    _alloc_init(&_gt_typeregister._t_allocator);
 
     _type_register_c_builtin();
     _type_register_cstl_builtin();
@@ -3553,8 +3593,10 @@ static void _type_destroy_string(
 static void _type_init_iterator(
     const void* cpv_input, void* pv_output)
 {
-    *(size_t*)pv_output = sizeof(iterator_t);
-    _type_init_default(cpv_input, pv_output);
+    void* pv_avoidwarning = NULL;
+    bool_t b_result = sizeof(iterator_t);
+    _type_init_default(cpv_input, &b_result);
+    pv_avoidwarning = (void*)pv_output;
 }
 static void _type_copy_iterator(
     const void* cpv_first, const void* cpv_second, void* pv_output)

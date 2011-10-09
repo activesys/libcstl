@@ -4,6 +4,9 @@
 /* Define to 1 if you implement map using avl-tree. */
 /* #undef CSTL_MAP_AVL_TREE */
 
+/* Define to 1 if you use libcstl memory management. */
+#define CSTL_MEMORY_MANAGEMENT 1
+
 /* Define to 1 if you implement multimap using avl-tree. */
 /* #undef CSTL_MULTIMAP_AVL_TREE */
 
@@ -73,7 +76,7 @@
 #define PACKAGE_NAME "libcstl"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "libcstl 2.0.1"
+#define PACKAGE_STRING "libcstl 2.0.2"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "libcstl"
@@ -82,13 +85,13 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "2.0.1"
+#define PACKAGE_VERSION "2.0.2"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "2.0.1"
+#define VERSION "2.0.2"
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */

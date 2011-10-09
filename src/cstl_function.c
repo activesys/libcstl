@@ -1,6 +1,6 @@
 /*
  *  The implementation of function.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -21,16 +21,7 @@
  */
 
 /** include section **/
-#ifdef HAVE_CONFIG_H
-#   include <config.h>
-#endif
-#include <assert.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include <float.h>
-#include <time.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
@@ -3208,7 +3199,7 @@ void _fun_increase_float(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
 
-    *(float*)pv_output = *(float*)cpv_input + 1.0;
+    *(float*)pv_output = *(float*)cpv_input + 1.0f;
 }
 
 void _fun_increase_double(const void* cpv_input, void* pv_output)

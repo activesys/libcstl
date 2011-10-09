@@ -1,6 +1,6 @@
 /*
  *  The interface of map and multimap.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,27 +20,25 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CMAP_H
-#define _CMAP_H
+#ifndef _CMAP_H_
+#define _CMAP_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /** include section **/
-#include <assert.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/cstl_iterator.h>
 
 #include <cstl/cstl_avl_tree_iterator.h>
 #include <cstl/cstl_avl_tree_private.h>
+#include <cstl/cstl_avl_tree.h>
 #include <cstl/cstl_rb_tree_iterator.h>
 #include <cstl/cstl_rb_tree_private.h>
+#include <cstl/cstl_rb_tree.h>
 #include <cstl/cutility.h>
 
 #include <cstl/cstl_map_iterator.h>
@@ -62,6 +60,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CMAP_H */
+#endif /* _CMAP_H_ */
 /** eof **/
 

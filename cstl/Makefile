@@ -32,8 +32,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
+build_triplet = i686-pc-linux-gnu
+host_triplet = i686-pc-linux-gnu
 subdir = cstl
 DIST_COMMON = $(cstlinclude_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in
@@ -102,7 +102,7 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LD = /usr/bin/ld -m elf_x86_64
+LD = /usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
@@ -121,17 +121,17 @@ OTOOL64 =
 PACKAGE = libcstl
 PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
-PACKAGE_STRING = libcstl 2.0.1
+PACKAGE_STRING = libcstl 2.0.2
 PACKAGE_TARNAME = libcstl
 PACKAGE_URL = 
-PACKAGE_VERSION = 2.0.1
+PACKAGE_VERSION = 2.0.2
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = strip
-VERSION = 2.0.1
+VERSION = 2.0.2
 abs_builddir = /home/wb/project/libcstl/branches/2.0/cstl
 abs_srcdir = /home/wb/project/libcstl/branches/2.0/cstl
 abs_top_builddir = /home/wb/project/libcstl/branches/2.0
@@ -144,22 +144,22 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = i686-pc-linux-gnu
 build_alias = 
-build_cpu = x86_64
+build_cpu = i686
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = x86_64-unknown-linux-gnu
+host = i686-pc-linux-gnu
 host_alias = 
-host_cpu = x86_64
+host_cpu = i686
 host_os = linux-gnu
-host_vendor = unknown
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -168,7 +168,6 @@ libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
-lt_ECHO = echo
 mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
@@ -205,11 +204,13 @@ cstlinclude_HEADERS = calgorithm.h \
 			cstl_algobase.h \
 			cstl_algobase_private.h \
 			cstl_alloc.h \
+			cstl_avl_tree.h \
 			cstl_avl_tree_iterator.h \
 			cstl_avl_tree_private.h \
 			cstl_basic_string.h \
 			cstl_basic_string_iterator.h \
 			cstl_basic_string_private.h \
+			cstl_def.h \
 			cstl_deque.h \
 			cstl_deque_iterator.h \
 			cstl_deque_private.h \
@@ -227,6 +228,7 @@ cstlinclude_HEADERS = calgorithm.h \
 			cstl_hash_set.h \
 			cstl_hash_set_iterator.h \
 			cstl_hash_set_private.h \
+			cstl_hashtable.h \
 			cstl_hashtable_iterator.h \
 			cstl_hashtable_private.h \
 			cstl_heap.h \
@@ -247,8 +249,12 @@ cstlinclude_HEADERS = calgorithm.h \
 			cstl_numeric.h \
 			cstl_numeric_private.h \
 			cstl_pair.h \
+			cstl_pair_private.h \
+			cstl_priority_queue.h \
+			cstl_priority_queue_private.h \
 			cstl_queue.h \
 			cstl_queue_private.h \
+			cstl_rb_tree.h \
 			cstl_rb_tree_iterator.h \
 			cstl_rb_tree_private.h \
 			cstl_set.h \
@@ -261,6 +267,7 @@ cstlinclude_HEADERS = calgorithm.h \
 			cstl_stack_private.h \
 			cstl_string.h \
 			cstl_string_iterator.h \
+			cstl_string_private.h \
 			cstl_types.h \
 			cstl_vector.h \
 			cstl_vector_iterator.h \

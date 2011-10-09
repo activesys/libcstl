@@ -144,7 +144,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -162,7 +161,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # for distributing vc8 project
-dist_noinst_DATA = libcstl.sln libcstl.vcproj libcstl_test.vcproj
+dist_noinst_DATA = libcstl.sln libcstl.vcproj libcstl_it.vcproj libcstl_ut.vcproj
 all: all-am
 
 .SUFFIXES:

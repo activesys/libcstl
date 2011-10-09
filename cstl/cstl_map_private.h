@@ -1,6 +1,6 @@
 /*
  *  The private interface of map.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_MAP_PRIVATE_H
-#define _CSTL_MAP_PRIVATE_H
+#ifndef _CSTL_MAP_PRIVATE_H_
+#define _CSTL_MAP_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,63 +35,202 @@ extern "C" {
 /* the map use rb tree default */
 typedef struct _tagmap
 {
-    pair_t            _t_pair;
-    binary_function_t _t_keycompare;   /* for init ex */
-    binary_function_t _t_valuecompare;
+    pair_t            _pair_temp;
+    binary_function_t _bfun_keycompare;   /* for init ex */
+    binary_function_t _bfun_valuecompare;
 
 #ifdef CSTL_MAP_AVL_TREE
-    avl_tree_t        _t_tree;
+    _avl_tree_t       _t_tree;
 #else
-    rb_tree_t         _t_tree;
+    _rb_tree_t        _t_tree;
 #endif
 }map_t;
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Create map.
+/**
+ * Create map container.
+ * @param s_typename        element type name.
+ * @return if create map successfully return map pointer, otherwise return NULL.
+ * @remarks s_typename == NULL, then the behavior is undefined. s_typename should be C builtin type name, libcstl builtin
+ *          typename or registed user defined type name, otherwise the function will return NULL.
  */
 extern map_t* _create_map(const char* s_typename);
-extern bool_t _create_map_auxiliary(map_t* pt_map, const char* s_typename);
-extern void _map_destroy_auxiliary(map_t* pt_map);
 
-/*
- * Find operation functions.
+/**
+ * Create map container auxiliary function.
+ * @param pmap_map          uncreated container.
+ * @param s_typename        element type name.
+ * @return if create map successfully return true, otherwise return false.
+ * @remarks if pmap_map == NULL or s_typename == NULL, then the behavior is undefined. s_typename should be C builtin
+ *          type name, libcstl builtin typename or registed user defined type name, otherwise the function will return false.
  */
-extern map_iterator_t _map_find(const map_t* cpt_map, ...);
-extern map_iterator_t _map_find_varg(const map_t* cpt_map, va_list val_elemlist);
+extern bool_t _create_map_auxiliary(map_t* pmap_map, const char* s_typename);
 
-/*
- * Count, lower bound, upper bound and equal range operation functions.
+/**
+ * Destroy map container auxiliary function.
+ * @param pmap_map        map container.
+ * @return void.
+ * @remarks if pmap_map == NULL, then the behavior is undefined. map must be initialized or created by
+ *          _create_map(), otherwise the behavior is undefine.
  */
-extern size_t _map_count(const map_t* cpt_map, ...);
-extern size_t _map_count_varg(const map_t* cpt_map, va_list val_elemlist);
-extern map_iterator_t _map_lower_bound(const map_t* cpt_map, ...);
-extern map_iterator_t _map_lower_bound_varg(const map_t* cpt_map, va_list val_elemlist);
-extern map_iterator_t _map_upper_bound(const map_t* cpt_map, ...);
-extern map_iterator_t _map_upper_bound_varg(const map_t* cpt_map, va_list val_elemlist);
-extern range_t _map_equal_range(const map_t* cpt_map, ...);
-extern range_t _map_equal_range_varg(const map_t* cpt_map, va_list val_elemlist);
+extern void _map_destroy_auxiliary(map_t* pmap_map);
 
-/*
- * Random access operation functions.
+/**
+ * Find specific element.
+ * @param cpmap_map         map container.
+ * @param ...               specific element.
+ * @return iterator addresses the sprcific element in the map, otherwise return map_end().
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
  */
-extern void* _map_at(map_t* pt_map, ...);
-extern void* _map_at_varg(map_t* pt_map, va_list val_elemlist);
+extern map_iterator_t _map_find(const map_t* cpmap_map, ...);
 
-/*
- * Erase operation functions.
+/**
+ * Find specific element.
+ * @param cpmap_map         map container.
+ * @param val_elemlist      element list.
+ * @return iterator addresses the sprcific element in the map, otherwise return map_end().
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
  */
-extern size_t _map_erase(map_t* pt_map, ...);
-extern size_t _map_erase_varg(map_t* pt_map, va_list val_elemlist);
+extern map_iterator_t _map_find_varg(const map_t* cpmap_map, va_list val_elemlist);
 
-extern void _map_init_elem_auxiliary(map_t* pt_map, void* pv_value);
+/**
+ * Return the number of specific elements in an map
+ * @param cpmap_map         map container.
+ * @param ...               specific element.
+ * @return the number of specific elements.
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
+ */
+extern size_t _map_count(const map_t* cpmap_map, ...);
+
+/**
+ * Return the number of specific elements in an map
+ * @param cpmap_map         map container.
+ * @param val_elemlist      element list.
+ * @return the number of specific elements.
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
+ */
+extern size_t _map_count_varg(const map_t* cpmap_map, va_list val_elemlist);
+
+/**
+ * Return an iterator to the first element that is equal to or greater than a specific element.
+ * @param cpmap_map          map container.
+ * @param ...                specific element.
+ * @return an iterator to the first element that is equal to or greater than a specific element.
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
+ */
+extern map_iterator_t _map_lower_bound(const map_t* cpmap_map, ...);
+
+/**
+ * Return an iterator to the first element that is equal to or greater than a specific element.
+ * @param cpmap_map         map container.
+ * @param val_elemlist      element list.
+ * @return an iterator to the first element that is equal to or greater than a specific element.
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
+ */
+extern map_iterator_t _map_lower_bound_varg(const map_t* cpmap_map, va_list val_elemlist);
+
+/**
+ * Return an iterator to the first element that is greater than a specific element.
+ * @param cpmap_map         map container.
+ * @param ...               specific element.
+ * @return an iterator to the first element that is greater than a specific element.
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
+ */
+extern map_iterator_t _map_upper_bound(const map_t* cpmap_map, ...);
+
+/**
+ * Return an iterator to the first element that is greater than a specific element.
+ * @param cpmap_map         map container.
+ * @param val_elemlist      element list.
+ * @return an iterator to the first element that is greater than a specific element.
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
+ */
+extern map_iterator_t _map_upper_bound_varg(const map_t* cpmap_map, va_list val_elemlist);
+
+/**
+ * Return an iterator range that is equal to a specific element.
+ * @param cpmap_map         map container.
+ * @param ...               specific element.
+ * @return an iterator range that is equal to a specific element.
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
+ */
+extern range_t _map_equal_range(const map_t* cpmap_map, ...);
+
+/**
+ * Return an iterator range that is equal to a specific element.
+ * @param cpmap_map         map container.
+ * @param val_elemlist      element list.
+ * @return an iterator range that is equal to a specific element.
+ * @remarks if cpmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. the type of specific element and cpmap_map must be same, otherwise the behavior is undefined.
+ */
+extern range_t _map_equal_range_varg(const map_t* cpmap_map, va_list val_elemlist);
+
+/**
+ * Access an element with specific index.
+ * @param pmap_map          map container.
+ * @param val_elemlist      element list.
+ * @return the pointer that point to the second element.
+ * @remarks if pmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. 
+ */
+extern void* _map_at(map_t* pmap_map, ...);
+
+/**
+ * Access an element with specific index.
+ * @param pmap_map          map container.
+ * @param val_elemlist      element list.
+ * @return the pointer that point to the second element.
+ * @remarks if pmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. 
+ */
+extern void* _map_at_varg(map_t* pmap_map, va_list val_elemlist);
+
+/**
+ * Erase an element from a map that match a specified element.
+ * @param pmap_map          map container.
+ * @param ...               specific element.
+ * @return the number of erased elements.
+ * @remarks if pmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. 
+ */
+extern size_t _map_erase(map_t* pmap_map, ...);
+
+/**
+ * Erase an element from a map that match a specified element.
+ * @param pmap_map          map container.
+ * @param val_elemlist      element list.
+ * @return the number of erased elements.
+ * @remarks if pmap_map == NULL then the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is
+ *          undefined. 
+ */
+extern size_t _map_erase_varg(map_t* pmap_map, va_list val_elemlist);
+
+/**
+ * Initialize element auxiliary function
+ * @param pmap_map          map.
+ * @param pv_value          value.
+ * @return void.
+ * @remarks if pmap_map == NULL or pv_value == NULL, then the behavior is undefine. pmap_map must be initialized or
+ *          created by _create_map(), otherwise the behavior is undefined.
+ */
+extern void _map_init_elem_auxiliary(map_t* pmap_map, void* pv_value);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _CSTL_MAP_PRIVATE_H */
+#endif /* _CSTL_MAP_PRIVATE_H_ */
 /** eof **/
 

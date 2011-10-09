@@ -1,6 +1,6 @@
 /*
  *  The vector_t and its function header file for user.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,19 +20,15 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CVECTOR_H
-#define _CVECTOR_H
+#ifndef _CVECTOR_H_
+#define _CVECTOR_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /** include section **/
-#include <assert.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/cstl_iterator.h>
@@ -53,6 +49,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CVECTOR_H */
+#endif /* _CVECTOR_H_ */
 /** eof **/
 

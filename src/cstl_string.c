@@ -1,6 +1,6 @@
 /*
  *  The implementation of string_t.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -21,15 +21,7 @@
  */
 
 /** include section **/
-#ifdef HAVE_CONFIG_H
-#   include <config.h>
-#endif
-#include <assert.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/cstl_iterator.h>
@@ -39,6 +31,7 @@
 #include <cstl/cstl_basic_string_private.h>
 #include <cstl/cstl_basic_string.h>
 #include <cstl/cstl_string_iterator.h>
+#include <cstl/cstl_string_private.h>
 #include <cstl/cstl_string.h>
 
 /** local constant declaration and local macro section **/
@@ -52,951 +45,1209 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-/* initialize and destroy */
+/**
+ * Create string container.
+ */
 string_t* create_string(void)
 {
     return create_basic_string(char);
 }
 
-bool_t _create_string_auxiliary(string_t* pt_string)
+/**
+ * Initialize empty string container.
+ */
+void string_init(string_t* pstr_string)
 {
-    return _create_basic_string_auxiliary(pt_string, "char");
+    assert(pstr_string != NULL);
+
+    basic_string_init(pstr_string);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void _string_destroy_auxiliary(string_t* pt_string)
+/**
+ * Initialize string container specific c-string.
+ */
+void string_init_cstr(string_t* pstr_string, const char* s_cstr)
 {
-    _basic_string_destroy_auxiliary(pt_string);
+    assert(pstr_string != NULL);
+    assert(s_cstr != NULL);
+
+    basic_string_init_cstr(pstr_string, s_cstr);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_init(string_t* pt_string)
+/**
+ * Initialize string container specific sub c-string.
+ */
+void string_init_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_count)
 {
-    assert(pt_string != NULL);
+    assert(pstr_string != NULL);
+    assert(s_cstr != NULL);
 
-    basic_string_init(pt_string);
-    basic_string_push_back(pt_string, '\0');
+    basic_string_init_subcstr(pstr_string, s_cstr, t_count);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_init_cstr(string_t* pt_string, const char* s_cstr)
+/**
+ * Initialize string with specified character.
+ */
+void string_init_char(string_t* pstr_string, size_t t_count, char c_char)
 {
-    assert(pt_string != NULL);
+    assert(pstr_string != NULL);
 
-    basic_string_init_cstr(pt_string, s_cstr);
-    basic_string_push_back(pt_string, '\0');
+    basic_string_init_elem(pstr_string, t_count, c_char);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_init_subcstr(string_t* pt_string, const char* s_cstr, size_t t_count)
+/**
+ * Initialize string container with an exist string container.
+ */
+void string_init_copy(string_t* pstr_dest, const string_t* cpstr_src)
 {
-    assert(pt_string != NULL);
+    assert(pstr_dest != NULL);
+    assert(cpstr_src != NULL);
 
-    basic_string_init_subcstr(pt_string, s_cstr, t_count);
-    basic_string_push_back(pt_string, '\0');
+    basic_string_init_copy(pstr_dest, cpstr_src);
 }
 
-void string_init_char(string_t* pt_string, size_t t_count, char c_char)
+/**
+ * Initialize string container with an exist sub string container.
+ */
+void string_init_copy_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len)
 {
-    assert(pt_string != NULL);
+    assert(pstr_dest != NULL);
+    assert(cpstr_src != NULL);
+    assert(t_pos < string_size(cpstr_src));
 
-    basic_string_init_elem(pt_string, t_count, c_char);
-    basic_string_push_back(pt_string, '\0');
-}
-
-void string_init_copy(string_t* pt_string, const string_t* cpt_string_src)
-{
-    assert(pt_string != NULL && cpt_string_src != NULL);
-
-    basic_string_init_copy(pt_string, cpt_string_src);
-}
-
-void string_init_copy_substring(
-    string_t* pt_string, const string_t* cpt_string_src, size_t t_pos, size_t t_len)
-{
-    assert(pt_string != NULL && cpt_string_src != NULL);
-
-    basic_string_init_copy_substring(pt_string, cpt_string_src, t_pos, t_len);
-    if(t_len != NPOS && t_pos + t_len <= string_size(cpt_string_src))
+    basic_string_init_copy_substring(pstr_dest, cpstr_src, t_pos, t_len);
+    if(t_len != NPOS && t_pos + t_len <= string_size(cpstr_src))
     {
-        basic_string_push_back(pt_string, '\0');
+        basic_string_push_back(pstr_dest, '\0');
     }
 }
 
-void string_init_copy_range(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end)
-{
-    assert(pt_string != NULL);
 
-    basic_string_init_copy_range(pt_string, t_begin, t_end);
-    if(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))))
+/**
+ * Initialize string container with an exist string range.
+ */
+void string_init_copy_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
+{
+    assert(pstr_string != NULL);
+
+    basic_string_init_copy_range(pstr_string, it_begin, it_end);
+    if(!iterator_equal(it_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(it_end))))
     {
-        basic_string_push_back(pt_string, '\0');
+        basic_string_push_back(pstr_string, '\0');
     }
 }
 
-void string_destroy(string_t* pt_string)
+/**
+ * Destroy string container.
+ */
+void string_destroy(string_t* pstr_string)
 {
-    basic_string_destroy(pt_string);
+    basic_string_destroy(pstr_string);
 }
 
-/* c_str and data */
-const char* string_c_str(const string_t* cpt_string)
+/**
+ * Get character string.
+ */
+const char* string_c_str(const string_t* cpstr_string)
 {
-    return basic_string_c_str(cpt_string);
+    return basic_string_c_str(cpstr_string);
 }
 
-const char* string_data(const string_t* cpt_string)
+/**
+ * Get character string.
+ */
+const char* string_data(const string_t* cpstr_string)
 {
-    return basic_string_data(cpt_string);
+    return basic_string_data(cpstr_string);
 }
 
-size_t string_copy(
-    const string_t* cpt_string, char* s_buffer, size_t t_copysize, size_t t_copypos)
+/**
+ * Copy spceificed sub string to buffer.
+ */
+size_t string_copy(const string_t* cpstr_string, char* s_buffer, size_t t_len, size_t t_pos)
 {
-    return basic_string_copy(cpt_string, s_buffer, t_copysize, t_copypos);
+    size_t t_count = 0;
+
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_count =  basic_string_copy(cpstr_string, s_buffer, t_len, t_pos);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
+
+    return t_count;
 }
 
-/* size, max_size ... */
-size_t string_size(const string_t* cpt_string)
+/**
+ * Get string character size.
+ */
+size_t string_size(const string_t* cpstr_string)
 {
-    return basic_string_size(cpt_string) - 1;
+    return basic_string_size(cpstr_string) - 1;
 }
 
-size_t string_length(const string_t* cpt_string)
+/**
+ * Get character string length.
+ */
+size_t string_length(const string_t* cpstr_string)
 {
-    return basic_string_length(cpt_string) - 1;
+    return basic_string_length(cpstr_string) - 1;
 }
 
-size_t string_max_size(const string_t* cpt_string)
+/**
+ * Return maximum character number.
+ */
+size_t string_max_size(const string_t* cpstr_string)
 {
-    return basic_string_max_size(cpt_string) - 1;
+    return basic_string_max_size(cpstr_string) - 1;
 }
 
-size_t string_capacity(const string_t* cpt_string)
+/**
+ * Get string capacity.
+ */
+size_t string_capacity(const string_t* cpstr_string)
 {
-    return basic_string_capacity(cpt_string) - 1;
+    return basic_string_capacity(cpstr_string) - 1;
 }
 
-bool_t string_empty(const string_t* cpt_string)
+/**
+ * Test string is empty.
+ */
+bool_t string_empty(const string_t* cpstr_string)
 {
-    return string_size(cpt_string) == 0 ? true : false;
+    return string_size(cpstr_string) == 0 ? true : false;
 }
 
-char* string_at(const string_t* cpt_string, size_t t_pos)
+/**
+ * Access string character using subscript.
+ */
+char* string_at(const string_t* cpstr_string, size_t t_pos)
 {
-    assert(t_pos < basic_string_length(cpt_string));
-    return (char*)basic_string_at(cpt_string, t_pos);
+    assert(t_pos < string_length(cpstr_string));
+    return (char*)basic_string_at(cpstr_string, t_pos);
 }
 
-/* compare operator */
-bool_t string_equal(
-    const string_t* cpt_stringfirst, const string_t* cpt_stringsecond)
+/**
+ * Test the two strings are equal.
+ */
+bool_t string_equal(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    return basic_string_equal(cpt_stringfirst, cpt_stringsecond);
+    return basic_string_equal(cpstr_first, cpstr_second);
 }
 
-bool_t string_not_equal(
-    const string_t* cpt_stringfirst, const string_t* cpt_stringsecond)
+/**
+ * Test the two strings are unequal.
+ */
+bool_t string_not_equal(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    return basic_string_not_equal(cpt_stringfirst, cpt_stringsecond);
+    return basic_string_not_equal(cpstr_first, cpstr_second);
 }
 
-bool_t string_less(
-    const string_t* cpt_stringfirst, const string_t* cpt_stringsecond)
+/**
+ * Test the first string is less than the second string.
+ */
+bool_t string_less(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    return basic_string_less(cpt_stringfirst, cpt_stringsecond);
+    return basic_string_less(cpstr_first, cpstr_second);
 }
 
-bool_t string_less_equal(
-    const string_t* cpt_stringfirst, const string_t* cpt_stringsecond)
+/**
+ * Test the first string is less than or equal to the second string.
+ */
+bool_t string_less_equal(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    return basic_string_less_equal(cpt_stringfirst, cpt_stringsecond);
+    return basic_string_less_equal(cpstr_first, cpstr_second);
 }
 
-bool_t string_greater(
-    const string_t* cpt_stringfirst, const string_t* cpt_stringsecond)
+/**
+ * Test the first string is greater than the second string.
+ */
+bool_t string_greater(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    return basic_string_greater(cpt_stringfirst, cpt_stringsecond);
+    return basic_string_greater(cpstr_first, cpstr_second);
 }
 
-bool_t string_greater_equal(
-    const string_t* cpt_stringfirst, const string_t* cpt_stringsecond)
+/**
+ * Test the first string is greater than or equal to the second string.
+ */
+bool_t string_greater_equal(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    return basic_string_greater_equal(cpt_stringfirst, cpt_stringsecond);
+    return basic_string_greater_equal(cpstr_first, cpstr_second);
 }
 
-bool_t string_equal_cstr(const string_t* cpt_string, const char* s_cstr)
+/**
+ * Test the string is equal to the character string.
+ */
+bool_t string_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
 
-    _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_equal_cstr(cpt_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpt_string, '\0');
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_result = basic_string_equal_cstr(cpstr_string, s_cstr);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
 }
 
-bool_t string_not_equal_cstr(const string_t* cpt_string, const char* s_cstr)
+/**
+ * Test the string is not equal to the character string.
+ */
+bool_t string_not_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
 
-    _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_not_equal_cstr(cpt_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpt_string, '\0');
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_result = basic_string_not_equal_cstr(cpstr_string, s_cstr);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
 }
 
-bool_t string_less_cstr(const string_t* cpt_string, const char* s_cstr)
+/**
+ * Test the string is less than the character string.
+ */
+bool_t string_less_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
 
-    _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_less_cstr(cpt_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpt_string, '\0');
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_result = basic_string_less_cstr(cpstr_string, s_cstr);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
 }
 
-bool_t string_less_equal_cstr(const string_t* cpt_string, const char* s_cstr)
+/**
+ * Test the string is less than or equal to the character string.
+ */
+bool_t string_less_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
 
-    _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_less_equal_cstr(cpt_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpt_string, '\0');
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_result = basic_string_less_equal_cstr(cpstr_string, s_cstr);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
 }
 
-bool_t string_greater_cstr(const string_t* cpt_string, const char* s_cstr)
+/**
+ * Test the string is greater than the character string.
+ */
+bool_t string_greater_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
 
-    _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_greater_cstr(cpt_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpt_string, '\0');
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_result = basic_string_greater_cstr(cpstr_string, s_cstr);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
 }
 
-bool_t string_greater_equal_cstr(const string_t* cpt_string, const char* s_cstr)
+/**
+ * Test the string is greater than or equal to the character string.
+ */
+bool_t string_greater_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
 
-    _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_greater_equal_cstr(cpt_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpt_string, '\0');
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_result = basic_string_greater_equal_cstr(cpstr_string, s_cstr);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
 }
 
-int string_compare(
-    const string_t* cpt_stringfirst, const string_t* cpt_stringsecond)
+/**
+ * Compare two string.
+ */
+int string_compare(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    return string_compare_cstr(cpt_stringfirst, string_c_str(cpt_stringsecond));
+    return string_compare_cstr(cpstr_first, string_c_str(cpstr_second));
 }
 
+/**
+ * Compare the first sub string and the second string.
+ */
 int string_compare_substring_string(
-    const string_t* cpt_stringfirst, size_t t_firstpos, size_t t_firstlen,
-    const string_t* cpt_stringsecond)
+    const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen, const string_t* cpstr_second)
 {
-    return string_compare_substring_cstr(
-        cpt_stringfirst, t_firstpos, t_firstlen, string_c_str(cpt_stringsecond));
+    return string_compare_substring_cstr(cpstr_first, t_firstpos, t_firstlen, string_c_str(cpstr_second));
 }
 
+/**
+ * Compare two sub strings.
+ */
 int string_compare_substring_substring(
-    const string_t* cpt_stringfirst, size_t t_firstpos, size_t t_firstlen,
-    const string_t* cpt_stringsecond, size_t t_secondpos, size_t t_secondlen)
+    const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen,
+    const string_t* cpstr_second, size_t t_secondpos, size_t t_secondlen)
 {
     return string_compare_substring_subcstr(
-        cpt_stringfirst, t_firstpos, t_firstlen, 
-        basic_string_at(cpt_stringsecond, t_secondpos), t_secondlen);
+        cpstr_first, t_firstpos, t_firstlen, basic_string_at(cpstr_second, t_secondpos), t_secondlen);
 }
 
-int string_compare_cstr(const string_t* cpt_string, const char* s_cstr)
+/**
+ * Compare the string and the character string.
+ */
+int string_compare_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
     bool_t t_result = false;
 
-    _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_compare_cstr(cpt_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpt_string, '\0');
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_result = basic_string_compare_cstr(cpstr_string, s_cstr);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
 }
 
+/**
+ * Compare the sub string and the character string.
+ */
 int string_compare_substring_cstr(
-    const string_t* cpt_string, size_t t_firstpos, size_t t_firstlen, const char* s_cstr)
+    const string_t* cpstr_string, size_t t_firstpos, size_t t_firstlen, const char* s_cstr)
 {
     bool_t t_result = false;
 
-    _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_compare_substring_cstr(cpt_string, t_firstpos, t_firstlen, s_cstr);
-    basic_string_push_back((basic_string_t*)cpt_string, '\0');
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_result = basic_string_compare_substring_cstr(cpstr_string, t_firstpos, t_firstlen, s_cstr);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
 }
 
+/**
+ * Compare the sub string and the sub character string.
+ */
 int string_compare_substring_subcstr(
-    const string_t* cpt_string, size_t t_firstpos, size_t t_firstlen,
-    const char* s_cstr, size_t t_len)
+    const string_t* cpstr_string, size_t t_firstpos, size_t t_firstlen, const char* s_cstr, size_t t_len)
 {
     bool_t t_result = false;
 
-    _basic_string_pop_back((basic_string_t*)cpt_string);
-    t_result = basic_string_compare_substring_subcstr(
-        cpt_string, t_firstpos, t_firstlen, s_cstr, t_len);
-    basic_string_push_back((basic_string_t*)cpt_string, '\0');
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    t_result = basic_string_compare_substring_subcstr(cpstr_string, t_firstpos, t_firstlen, s_cstr, t_len);
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
 
     return t_result;
 }
 
-/* substr */
-string_t* string_substr(const string_t* cpt_string, size_t t_pos, size_t t_len)
-{
-    string_t* pt_string = basic_string_substr(cpt_string, t_pos, t_len);
-    assert(pt_string != NULL);
-    basic_string_push_back(pt_string, '\0');
 
-    return pt_string;
+/**
+ * Get specific sub string.
+ */
+string_t* string_substr(const string_t* cpstr_string, size_t t_pos, size_t t_len)
+{
+    string_t* pstr_string = NULL;
+
+    _basic_string_pop_back((basic_string_t*)cpstr_string);
+    pstr_string = basic_string_substr(cpstr_string, t_pos, t_len);
+    assert(pstr_string != NULL);
+
+    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
+    basic_string_push_back(pstr_string, '\0');
+
+    return pstr_string;
 }
 
-/* connection */
-void string_connect(string_t* pt_string, const string_t* cpt_string_src)
+/**
+ * Connect string with other string.
+ */
+void string_connect(string_t* pstr_string, const string_t* cpstr_src)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_connect(pt_string, cpt_string_src);
-}
+    _basic_string_pop_back(pstr_string);
+    basic_string_connect(pstr_string, cpstr_src);
 
-void string_connect_cstr(string_t* pt_string, const char* s_cstr)
-{
-    _basic_string_pop_back(pt_string);
-    basic_string_connect_cstr(pt_string, s_cstr);
-    basic_string_push_back(pt_string, '\0');
-}
-
-void string_connect_char(string_t* pt_string, char c_char)
-{
-    _basic_string_pop_back(pt_string);
-    basic_string_connect_elem(pt_string, c_char);
-    basic_string_push_back(pt_string, '\0');
-}
-
-/* find */
-size_t string_find(
-    const string_t* cpt_string, const string_t* cpt_string_find, size_t t_pos)
-{
-    return string_find_cstr(cpt_string, string_c_str(cpt_string_find), t_pos);
-}
-
-size_t string_find_cstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_cstr(cpt_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_subcstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos, size_t t_len)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_subcstr(cpt_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_char(const string_t* cpt_string, char c_char, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_elem(cpt_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_rfind(
-    const string_t* cpt_string, const string_t* cpt_string_find, size_t t_pos)
-{
-    return string_rfind_cstr(cpt_string, string_c_str(cpt_string_find), t_pos);
-}
-
-size_t string_rfind_cstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_rfind_cstr(cpt_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_rfind_subcstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos, size_t t_len)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_rfind_subcstr(cpt_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_rfind_char(const string_t* cpt_string, char c_char, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_rfind_elem(cpt_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_first_of(
-    const string_t* cpt_string, const string_t* cpt_string_find, size_t t_pos)
-{
-    return string_find_first_of_cstr(cpt_string, string_c_str(cpt_string_find), t_pos);
-}
-
-size_t string_find_first_of_cstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_first_of_cstr(cpt_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_first_of_subcstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos, size_t t_len)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_first_of_subcstr(cpt_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_first_of_char(
-    const string_t* cpt_string, char c_char, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_first_of_elem(cpt_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_first_not_of(
-    const string_t* cpt_string, const string_t* cpt_string_find, size_t t_pos)
-{
-    return string_find_first_not_of_cstr(cpt_string, string_c_str(cpt_string_find), t_pos);
-}
-
-size_t string_find_first_not_of_cstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_first_not_of_cstr(cpt_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_first_not_of_subcstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos, size_t t_len)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_first_not_of_subcstr(cpt_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_first_not_of_char(
-    const string_t* cpt_string, char c_char, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_first_not_of_elem(cpt_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_last_of(
-    const string_t* cpt_string, const string_t* cpt_string_find, size_t t_pos)
-{
-    return string_find_last_of_cstr(cpt_string, string_c_str(cpt_string_find), t_pos);
-}
-
-size_t string_find_last_of_cstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_last_of_cstr(cpt_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_last_of_subcstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos, size_t t_len)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_last_of_subcstr(cpt_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_last_of_char(
-    const string_t* cpt_string, char c_char, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_last_of_elem(cpt_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_last_not_of(
-    const string_t* cpt_string, const string_t* cpt_string_find, size_t t_pos)
-{
-    return string_find_last_not_of_cstr(cpt_string, string_c_str(cpt_string_find), t_pos);
-}
-
-size_t string_find_last_not_of_cstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_last_not_of_cstr(cpt_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_last_not_of_subcstr(
-    const string_t* cpt_string, const char* s_cstr, size_t t_pos, size_t t_len)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_last_not_of_subcstr(cpt_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-size_t string_find_last_not_of_char(
-    const string_t* cpt_string, char c_char, size_t t_pos)
-{
-    size_t t_findpos = NPOS;
-
-    _basic_string_pop_back((string_t*)cpt_string);
-    t_findpos = basic_string_find_last_not_of_elem(cpt_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpt_string, '\0');
-
-    return t_findpos;
-}
-
-/* iterator support */
-string_iterator_t string_begin(const string_t* cpt_string)
-{
-    return basic_string_begin(cpt_string);
-}
-
-string_iterator_t string_end(const string_t* cpt_string)
-{
-    return basic_string_rbegin(cpt_string);
-}
-
-string_reverse_iterator_t string_rbegin(const string_t* cpt_string)
-{
-    if(string_empty(cpt_string))
+    if(pstr_string == cpstr_src)
     {
-        return basic_string_rbegin(cpt_string);
+        basic_string_push_back(pstr_string, '\0');
+    }
+}
+
+/**
+ * Connect string with character string.
+ */
+void string_connect_cstr(string_t* pstr_string, const char* s_cstr)
+{
+    _basic_string_pop_back(pstr_string);
+    basic_string_connect_cstr(pstr_string, s_cstr);
+    basic_string_push_back(pstr_string, '\0');
+}
+
+/**
+ * Appends specificed character to string.
+ */
+void string_connect_char(string_t* pstr_string, char c_char)
+{
+    _basic_string_pop_back(pstr_string);
+    basic_string_connect_elem(pstr_string, c_char);
+    basic_string_push_back(pstr_string, '\0');
+}
+
+/**
+ * Find string in string.
+ */
+size_t string_find(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
+{
+    return string_find_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
+}
+
+/**
+ * Find character string in string.
+ */
+size_t string_find_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_cstr(cpstr_string, s_cstr, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find sub character string in string.
+ */
+size_t string_find_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_subcstr(cpstr_string, s_cstr, t_pos, t_len);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find a first occurrence of a elem
+ */
+size_t string_find_char(const string_t* cpstr_string, char c_char, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_elem(cpstr_string, c_char, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string in string in a backward direction.
+ */
+size_t string_rfind(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
+{
+    return string_rfind_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
+}
+
+/**
+ * Find character string in string in a backward direction.
+ */
+size_t string_rfind_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_rfind_cstr(cpstr_string, s_cstr, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find sub character string in string in a backward direction.
+ */
+size_t string_rfind_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_rfind_subcstr(cpstr_string, s_cstr, t_pos, t_len);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find a first occurrence of a character in a backward direction.
+ */
+size_t string_rfind_char(const string_t* cpstr_string, char c_char, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_rfind_elem(cpstr_string, c_char, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for first character that matches any character of specific string.
+ */
+size_t string_find_first_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
+{
+    return string_find_first_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
+}
+
+
+/**
+ * Find string for first character that matches any character of specific character string.
+ */
+size_t string_find_first_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_first_of_cstr(cpstr_string, s_cstr, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+
+/**
+ * Find string for first character that matches any character of specific sub character string.
+ */
+size_t string_find_first_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_first_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for first character that matches any character of specific character.
+ */
+size_t string_find_first_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_first_of_elem(cpstr_string, c_char, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for first character that is not matches any character of specific string.
+ */
+size_t string_find_first_not_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
+{
+    return string_find_first_not_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
+}
+
+/**
+ * Find string for first character that is not matches any character of specific character string.
+ */
+size_t string_find_first_not_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_first_not_of_cstr(cpstr_string, s_cstr, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for first character that is not matches any character of specific sub character string.
+ */
+size_t string_find_first_not_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_first_not_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for first character that is not matches any character of specific character.
+ */
+size_t string_find_first_not_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_first_not_of_elem(cpstr_string, c_char, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for last character that matches any character of specific string.
+ */
+size_t string_find_last_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
+{
+    return string_find_last_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
+}
+
+/**
+ * Find string for last character that matches any character of specific character string.
+ */
+size_t string_find_last_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_last_of_cstr(cpstr_string, s_cstr, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for last character that matches any character of specific sub character string.
+ */
+size_t string_find_last_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_last_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for last character that matches any character of specific character.
+ */
+size_t string_find_last_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_last_of_elem(cpstr_string, c_char, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for last character that is not matches any character of specific string.
+ */
+size_t string_find_last_not_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
+{
+    return string_find_last_not_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
+}
+
+/**
+ * Find string for last character that is not matches any character of specific character string.
+ */
+size_t string_find_last_not_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_last_not_of_cstr(cpstr_string, s_cstr, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for last character that is not matches any character of specific sub character string.
+ */
+size_t string_find_last_not_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_last_not_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Find string for last character that is not matches any character of specific character.
+ */
+size_t string_find_last_not_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
+{
+    size_t t_findpos = NPOS;
+
+    _basic_string_pop_back((string_t*)cpstr_string);
+    t_findpos = basic_string_find_last_not_of_elem(cpstr_string, c_char, t_pos);
+    basic_string_push_back((string_t*)cpstr_string, '\0');
+
+    return t_findpos;
+}
+
+/**
+ * Return a iterator to the first element in the basic string container.
+ */
+string_iterator_t string_begin(const string_t* cpstr_string)
+{
+    return basic_string_begin(cpstr_string);
+}
+
+/**
+ * Return a iterator that points just beyond the end of string container.
+ */
+string_iterator_t string_end(const string_t* cpstr_string)
+{
+    return basic_string_rbegin(cpstr_string);
+}
+
+string_reverse_iterator_t string_rbegin(const string_t* cpstr_string)
+{
+    if(string_empty(cpstr_string))
+    {
+        return basic_string_rbegin(cpstr_string);
     }
     else
     {
-        return iterator_prev(basic_string_rbegin(cpt_string));
+        return iterator_prev(basic_string_rbegin(cpstr_string));
     }
 }
 
-string_reverse_iterator_t string_rend(const string_t* cpt_string)
+string_reverse_iterator_t string_rend(const string_t* cpstr_string)
 {
-    return basic_string_rend(cpt_string);
+    return basic_string_rend(cpstr_string);
 }
 
-/* clear swap ... */
-void string_clear(string_t* pt_string)
+/**
+ * Erases the characters of string.
+ */
+void string_clear(string_t* pstr_string)
 {
-    basic_string_clear(pt_string);
-    basic_string_push_back(pt_string, '\0');
+    basic_string_clear(pstr_string);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_swap(string_t* pt_stringfirst, string_t* pt_stringsecond)
+/**
+ * Swap string datas.
+ */
+void string_swap(string_t* pstr_first, string_t* pstr_second)
 {
-    basic_string_swap(pt_stringfirst, pt_stringsecond);
+    basic_string_swap(pstr_first, pstr_second);
 }
 
-void string_reserve(string_t* pt_string, size_t t_reservesize)
+/**
+ * Set string capacity.
+ */
+void string_reserve(string_t* pstr_string, size_t t_reservesize)
 {
-    basic_string_reserve(pt_string, t_reservesize + 1);
+    basic_string_reserve(pstr_string, t_reservesize + 1);
 }
 
-void string_resize(string_t* pt_string, size_t t_resize, char c_char)
+void string_resize(string_t* pstr_string, size_t t_resize, char c_char)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_resize(pt_string, t_resize, c_char);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_resize(pstr_string, t_resize, c_char);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_push_back(string_t* pt_string, char c_char)
+/**
+ * Adds an character to basic string.
+ */
+void string_push_back(string_t* pstr_string, char c_char)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_push_back(pt_string, c_char);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_push_back(pstr_string, c_char);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-/* assign and = */
-void string_assign(string_t* pt_string, const string_t* cpt_string_assign)
+/**
+ * Assign string character with an exist string container.
+ */
+void string_assign(string_t* pstr_dest, const string_t* cpstr_src)
 {
-    basic_string_assign(pt_string, cpt_string_assign);
+    basic_string_assign(pstr_dest, cpstr_src);
 }
 
-void string_assign_substring(
-    string_t* pt_string, const string_t* cpt_string_assign, size_t t_pos, size_t t_len)
+/**
+ * Assign string character with an exist sub string container.
+ */
+void string_assign_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len)
 {
-    if(string_empty(cpt_string_assign))
-    {
-        string_assign_cstr(pt_string, "");
-    }
-    else
-    {
-        string_assign_subcstr(pt_string, string_at(cpt_string_assign, t_pos), t_len);
-    }
+    string_assign_subcstr(pstr_dest, string_at(cpstr_src, t_pos), t_len);
 }
 
-void string_assign_cstr(string_t* pt_string, const char* s_cstr)
+/**
+ * Assign string character with an exist character string.
+ */
+void string_assign_cstr(string_t* pstr_string, const char* s_cstr)
 {
-    basic_string_assign_cstr(pt_string, s_cstr);
-    basic_string_push_back(pt_string, '\0');
+    basic_string_assign_cstr(pstr_string, s_cstr);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_assign_subcstr(string_t* pt_string, const char* s_cstr, size_t t_len)
+/**
+ * Assign string character with an exist sub character string.
+ */
+void string_assign_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len)
 {
-    basic_string_assign_subcstr(pt_string, s_cstr, t_len);
-    basic_string_push_back(pt_string, '\0');
+    basic_string_assign_subcstr(pstr_string, s_cstr, t_len);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_assign_char(string_t* pt_string, size_t t_count, char c_char)
+/**
+ * Assign string with specificed character.
+ */
+void string_assign_char(string_t* pstr_string, size_t t_count, char c_char)
 {
-    basic_string_assign_elem(pt_string, t_count, c_char);
-    basic_string_push_back(pt_string, '\0');
+    basic_string_assign_elem(pstr_string, t_count, c_char);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_assign_range(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end)
+/**
+ * Assign string character with an exist string container range.
+ */
+void string_assign_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    assert(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))));
-    basic_string_assign_range(pt_string, t_begin, t_end);
-    basic_string_push_back(pt_string, '\0');
+    assert(!iterator_equal(it_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(it_end))));
+    basic_string_assign_range(pstr_string, it_begin, it_end);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-/* append + += */
-void string_append(string_t* pt_string, const string_t* cpt_string_append)
+/**
+ * Append specific string to destination string.
+ */
+void string_append(string_t* pstr_dest, const string_t* cpstr_src)
 {
-    string_append_cstr(pt_string, string_c_str(cpt_string_append));
+    string_append_cstr(pstr_dest, string_c_str(cpstr_src));
 }
 
-void string_append_substring(
-    string_t* pt_string, const string_t* cpt_string_append, size_t t_pos, size_t t_len)
+/**
+ * Append specific sub string to destination string.
+ */
+void string_append_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len)
 {
-    if(string_empty(cpt_string_append))
-    {
-        string_append_cstr(pt_string, "");
-    }
-    else
-    {
-        string_append_subcstr(pt_string, string_at(cpt_string_append, t_pos), t_len);
-    }
+    string_append_subcstr(pstr_dest, string_at(cpstr_src, t_pos), t_len);
 }
 
-void string_append_cstr(string_t* pt_string, const char* s_cstr)
+/**
+ * Append specific character string to destination string.
+ */
+void string_append_cstr(string_t* pstr_string, const char* s_cstr)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_append_cstr(pt_string, s_cstr);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_append_cstr(pstr_string, s_cstr);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_append_subcstr(string_t* pt_string, const char* s_cstr, size_t t_len)
+/**
+ * Append specific sub character string to destination string.
+ */
+void string_append_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_append_subcstr(pt_string, s_cstr, t_len);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_append_subcstr(pstr_string, s_cstr, t_len);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_append_char(string_t* pt_string, size_t t_count, char c_char)
+/**
+ * Append specific character to destination string.
+ */
+void string_append_char(string_t* pstr_string, size_t t_count, char c_char)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_append_elem(pt_string, t_count, c_char);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_append_elem(pstr_string, t_count, c_char);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_append_range(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end)
+/**
+ * Append specific range to destination string.
+ */
+void string_append_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    assert(!iterator_equal(t_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(t_end))));
-    _basic_string_pop_back(pt_string);
-    basic_string_append_range(pt_string, t_begin, t_end);
-    basic_string_push_back(pt_string, '\0');
+    assert(!iterator_equal(it_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(it_end))));
+    _basic_string_pop_back(pstr_string);
+    basic_string_append_range(pstr_string, it_begin, it_end);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-/* insert */
-string_iterator_t string_insert(
-    string_t* pt_string, string_iterator_t t_pos, char c_char)
+/**
+ * Insert one copy of character befor specificed position.
+ */
+string_iterator_t string_insert(string_t* pstr_string, string_iterator_t it_pos, char c_char)
 {
-    return basic_string_insert(pt_string, t_pos, c_char);
+    return basic_string_insert(pstr_string, it_pos, c_char);
 }
 
-string_iterator_t string_insert_n(
-    string_t* pt_string, string_iterator_t t_pos, size_t t_count, char c_char)
+/**
+ * Insert multiple copys of character befor specificed position.
+ */
+string_iterator_t string_insert_n(string_t* pstr_string, string_iterator_t it_pos, size_t t_count, char c_char)
 {
-    return basic_string_insert_n(pt_string, t_pos, t_count, c_char);
+    return basic_string_insert_n(pstr_string, it_pos, t_count, c_char);
 }
 
-void string_insert_string(
-    string_t* pt_string, size_t t_pos, const string_t* cpt_string_insert)
+/**
+ * Insert specific string into the destination string at specific position.
+ */
+void string_insert_string(string_t* pstr_string, size_t t_pos, const string_t* cpstr_insert)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_insert_cstr(pt_string, t_pos, string_c_str(cpt_string_insert));
-    basic_string_push_back(pt_string, '\0');
+    assert(pstr_string != cpstr_insert);
+
+    _basic_string_pop_back(pstr_string);
+    basic_string_insert_cstr(pstr_string, t_pos, string_c_str(cpstr_insert));
+    basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Insert specific sub string into the destination string at specific position.
+ */
 void string_insert_substring(
-    string_t* pt_string, size_t t_pos, const string_t* cpt_string_insert, 
-    size_t t_startpos, size_t t_len)
+    string_t* pstr_string, size_t t_pos, const string_t* cpstr_insert, size_t t_startpos, size_t t_len)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_insert_subcstr(
-        pt_string, t_pos, string_at(cpt_string_insert, t_startpos), t_len);
-    basic_string_push_back(pt_string, '\0');
+    assert(pstr_string != cpstr_insert);
+
+    _basic_string_pop_back(pstr_string);
+    basic_string_insert_subcstr(pstr_string, t_pos, string_at(cpstr_insert, t_startpos), t_len);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_insert_cstr(string_t* pt_string, size_t t_pos, const char* s_cstr)
+/**
+ * Insert specific character string into the destination string at specific position.
+ */
+void string_insert_cstr(string_t* pstr_string, size_t t_pos, const char* s_cstr)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_insert_cstr(pt_string, t_pos, s_cstr);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_insert_cstr(pstr_string, t_pos, s_cstr);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_insert_subcstr(
-    string_t* pt_string, size_t t_pos, const char* s_cstr, size_t t_len)
+/**
+ * Insert specific sub character string into the destination string at specific position.
+ */
+void string_insert_subcstr(string_t* pstr_string, size_t t_pos, const char* s_cstr, size_t t_len)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_insert_subcstr(pt_string, t_pos, s_cstr, t_len);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_insert_subcstr(pstr_string, t_pos, s_cstr, t_len);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_insert_char(
-    string_t* pt_string, size_t t_pos, size_t t_count, char c_char)
+/**
+ * Insert multiple copys of character befor specificed position.
+ */
+void string_insert_char(string_t* pstr_string, size_t t_pos, size_t t_count, char c_char)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_insert_elem(pt_string, t_pos, t_count, c_char);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_insert_elem(pstr_string, t_pos, t_count, c_char);
+    basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Insert a range of characters into string at a specificed position.
+ */
 void string_insert_range(
-    string_t* pt_string, string_iterator_t t_pos,
-    string_iterator_t t_begin, string_iterator_t t_end)
+    string_t* pstr_string, string_iterator_t it_pos, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    basic_string_insert_range(pt_string, t_pos, t_begin, t_end);
+    basic_string_insert_range(pstr_string, it_pos, it_begin, it_end);
 }
 
-/* erase */
-string_iterator_t string_erase(string_t* pt_string, string_iterator_t t_pos)
+/**
+ * Erase an element in a basic string from a specificed position.
+ */
+string_iterator_t string_erase(string_t* pstr_string, string_iterator_t it_pos)
 {
-    assert(!iterator_equal(t_pos, string_end(pt_string)));
-    return basic_string_erase(pt_string, t_pos);
+    assert(!iterator_equal(it_pos, string_end(pstr_string)));
+    return basic_string_erase(pstr_string, it_pos);
 }
 
-string_iterator_t string_erase_range(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end)
+/**
+ * Erase a range of elements in a basic string from a specificed range.
+ */
+string_iterator_t string_erase_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    return basic_string_erase_range(pt_string, t_begin, t_end);
+    return basic_string_erase_range(pstr_string, it_begin, it_end);
 }
 
-void string_erase_substring(string_t* pt_string, size_t t_pos, size_t t_len)
+/**
+ * Erase a sub basic string in a basic string from a specificed range.
+ */
+void string_erase_substring(string_t* pstr_string, size_t t_pos, size_t t_len)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_erase_substring(pt_string, t_pos, t_len);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_erase_substring(pstr_string, t_pos, t_len);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-/* replace */
-void string_replace(
-    string_t* pt_string, size_t t_pos, size_t t_len, const string_t* cpt_string_replace)
+/**
+ * Replace characters in a string at a specificed position with specificed string.
+ */
+void string_replace(string_t* pstr_string, size_t t_pos, size_t t_len, const string_t* cpstr_replace)
 {
-    _basic_string_pop_back(pt_string);
-    _basic_string_pop_back((string_t*)cpt_string_replace);
-    basic_string_replace(pt_string, t_pos, t_len, cpt_string_replace);
-    basic_string_push_back(pt_string, '\0');
-    basic_string_push_back((string_t*)cpt_string_replace, '\0');
+    assert(pstr_string != cpstr_replace);
+
+    _basic_string_pop_back(pstr_string);
+    _basic_string_pop_back((string_t*)cpstr_replace);
+    basic_string_replace(pstr_string, t_pos, t_len, cpstr_replace);
+    basic_string_push_back(pstr_string, '\0');
+    basic_string_push_back((string_t*)cpstr_replace, '\0');
 }
 
+/**
+ * Replace characters in a string at a specificed position with specificed sub string.
+ */
 void string_replace_substring(
-    string_t* pt_string, size_t t_pos, size_t t_len,
-    const string_t* cpt_string_replace, size_t t_position, size_t t_length)
+    string_t* pstr_string, size_t t_pos, size_t t_len, const string_t* cpstr_replace, size_t t_position, size_t t_length)
 {
-    _basic_string_pop_back(pt_string);
-    _basic_string_pop_back((string_t*)cpt_string_replace);
-    basic_string_replace_substring(
-        pt_string, t_pos, t_len, cpt_string_replace, t_position, t_length);
-    basic_string_push_back(pt_string, '\0');
-    basic_string_push_back((string_t*)cpt_string_replace, '\0');
+    assert(pstr_string != cpstr_replace);
+
+    _basic_string_pop_back(pstr_string);
+    _basic_string_pop_back((string_t*)cpstr_replace);
+    basic_string_replace_substring(pstr_string, t_pos, t_len, cpstr_replace, t_position, t_length);
+    basic_string_push_back(pstr_string, '\0');
+    basic_string_push_back((string_t*)cpstr_replace, '\0');
 }
 
-void string_replace_cstr(
-    string_t* pt_string, size_t t_pos, size_t t_len, const char* s_cstr)
+
+/**
+ * Replace characters in a string at a specificed position with specificed character string.
+ */
+void string_replace_cstr(string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_replace_cstr(pt_string, t_pos, t_len, s_cstr);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_replace_cstr(pstr_string, t_pos, t_len, s_cstr);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_replace_subcstr(
-    string_t* pt_string, size_t t_pos, size_t t_len, const char* s_cstr, size_t t_length)
+
+/**
+ * Replace characters in a string at a specificed position with specificed sub character string.
+ */
+void string_replace_subcstr(string_t* pstr_string, size_t t_pos, size_t t_len, const char* s_cstr, size_t t_length)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_replace_subcstr(pt_string, t_pos, t_len, s_cstr, t_length);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_replace_subcstr(pstr_string, t_pos, t_len, s_cstr, t_length);
+    basic_string_push_back(pstr_string, '\0');
 }
 
-void string_replace_char(
-    string_t* pt_string, size_t t_pos, size_t t_len, size_t t_count, char c_char)
+/**
+ * Replace characters in a string at specificed posititon with specific characters.
+ */
+void string_replace_char(string_t* pstr_string, size_t t_pos, size_t t_len, size_t t_count, char c_char)
 {
-    _basic_string_pop_back(pt_string);
-    basic_string_replace_elem(pt_string, t_pos, t_len, t_count, c_char);
-    basic_string_push_back(pt_string, '\0');
+    _basic_string_pop_back(pstr_string);
+    basic_string_replace_elem(pstr_string, t_pos, t_len, t_count, c_char);
+    basic_string_push_back(pstr_string, '\0');
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed string.
+ */
 void string_range_replace(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const string_t* cpt_string_replace)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, const string_t* cpstr_replace)
 {
-    _basic_string_pop_back((string_t*)cpt_string_replace);
-    basic_string_range_replace(pt_string, t_begin, t_end, cpt_string_replace);
-    basic_string_push_back((string_t*)cpt_string_replace, '\0');
+    _basic_string_pop_back((string_t*)cpstr_replace);
+    basic_string_range_replace(pstr_string, it_begin, it_end, cpstr_replace);
+    basic_string_push_back((string_t*)cpstr_replace, '\0');
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed sub string.
+ */
 void string_range_replace_substring(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const string_t* cpt_string_replace, size_t t_pos, size_t t_len)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end,
+    const string_t* cpstr_replace, size_t t_pos, size_t t_len)
 {
-    _basic_string_pop_back((string_t*)cpt_string_replace);
-    basic_string_range_replace_substring(
-        pt_string, t_begin, t_end, cpt_string_replace, t_pos, t_len);
-    basic_string_push_back((string_t*)cpt_string_replace, '\0');
+    _basic_string_pop_back((string_t*)cpstr_replace);
+    basic_string_range_replace_substring(pstr_string, it_begin, it_end, cpstr_replace, t_pos, t_len);
+    basic_string_push_back((string_t*)cpstr_replace, '\0');
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed character string.
+ */
 void string_range_replace_cstr(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const char* s_cstr)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, const char* s_cstr)
 {
-    basic_string_range_replace_cstr(pt_string, t_begin, t_end, s_cstr);
+    basic_string_range_replace_cstr(pstr_string, it_begin, it_end, s_cstr);
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed sub character string.
+ */
 void string_range_replace_subcstr(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
-    const char* s_cstr, size_t t_len)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, const char* s_cstr, size_t t_len)
 {
-    basic_string_range_replace_subcstr(pt_string, t_begin, t_end, s_cstr, t_len);
+    basic_string_range_replace_subcstr(pstr_string, it_begin, it_end, s_cstr, t_len);
 }
 
+/**
+ * Replace characters in a string at specificed range with specific characters.
+ */
 void string_range_replace_char(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
-    size_t t_count, char c_char)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end, size_t t_count, char c_char)
 {
-    basic_string_range_replace_elem(pt_string, t_begin, t_end, t_count, c_char);
+    basic_string_range_replace_elem(pstr_string, it_begin, it_end, t_count, c_char);
 }
 
+/**
+ * Replace characters in a string at a specificed range with specificed range.
+ */
 void string_replace_range(
-    string_t* pt_string, string_iterator_t t_begin, string_iterator_t t_end,
-    string_iterator_t t_first, string_iterator_t t_last)
+    string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end,
+    string_iterator_t it_first, string_iterator_t it_last)
 {
-    basic_string_replace_range(pt_string, t_begin, t_end, t_first, t_last);
+    basic_string_replace_range(pstr_string, it_begin, it_end, it_first, it_last);
 }
 
-/* output input */
-void string_output(const string_t* cpt_string, FILE* fp_stream)
+/**
+ * Output the character string to specific stream.
+ */
+void string_output(const string_t* cpstr_string, FILE* fp_stream)
 {
-    assert(cpt_string != NULL && fp_stream != NULL);
-    fprintf(fp_stream, "%s", string_data(cpt_string));
+    assert(cpstr_string != NULL);
+    assert(fp_stream != NULL);
+
+    fprintf(fp_stream, "%s", string_data(cpstr_string));
 }
 
-void string_input(string_t* pt_string, FILE* fp_stream)
+/**
+ * Read the character string from specific stream.
+ */
+void string_input(string_t* pstr_string, FILE* fp_stream)
 {
     int n_char = EOF;
 
-    assert(pt_string != NULL && fp_stream != NULL);
+    assert(pstr_string != NULL);
+    assert(fp_stream != NULL);
 
     clearerr(fp_stream);
-    string_clear(pt_string);
-    while(!feof(fp_stream) && !ferror(fp_stream) &&
-          string_size(pt_string) < string_max_size(pt_string))
+    string_clear(pstr_string);
+    while(!feof(fp_stream) && !ferror(fp_stream) && string_size(pstr_string) < string_max_size(pstr_string))
     {
-        n_char = fgetc(fp_stream);
-        if(n_char != EOF)
+        if((n_char = fgetc(fp_stream)) != EOF)
         {
-            string_push_back(pt_string, n_char);
+            string_push_back(pstr_string, (char)n_char);
         }
     }
 }
 
-bool_t string_getline(string_t* pt_string, FILE* fp_stream)
+/**
+ * Get one line from specific stream.
+ */
+bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
 {
     int n_char = EOF;
 #ifdef _WIN32
     int n_prevchar = EOF;
 #endif
 
-    assert(pt_string != NULL && fp_stream != NULL);
+    assert(pstr_string != NULL);
+    assert(fp_stream != NULL);
 
     clearerr(fp_stream);
-    string_clear(pt_string);
+    string_clear(pstr_string);
     while(!feof(fp_stream) && !ferror(fp_stream) && n_char != '\n' &&
-          string_size(pt_string) < string_max_size(pt_string))
+          string_size(pstr_string) < string_max_size(pstr_string))
     {
         n_char = fgetc(fp_stream);
         if(n_char != '\n' && n_char != EOF)
@@ -1006,7 +1257,7 @@ bool_t string_getline(string_t* pt_string, FILE* fp_stream)
             if(n_prevchar != EOF)
             {
                 assert(n_prevchar == '\r');
-                string_push_back(pt_string, n_prevchar);
+                string_push_back(pstr_string, (char)n_prevchar);
                 n_prevchar = EOF;
             }
             if(n_char == '\r')
@@ -1016,10 +1267,10 @@ bool_t string_getline(string_t* pt_string, FILE* fp_stream)
             }
             else
             {
-                string_push_back(pt_string, n_char);
+                string_push_back(pstr_string, (char)n_char);
             }
 #else
-            string_push_back(pt_string, n_char);
+            string_push_back(pstr_string, (char)n_char);
 #endif
         }
     }
@@ -1030,7 +1281,7 @@ bool_t string_getline(string_t* pt_string, FILE* fp_stream)
         if(n_prevchar != EOF)
         {
             assert(n_prevchar == '\r');
-            string_push_back(pt_string, n_prevchar);
+            string_push_back(pstr_string, (char)n_prevchar);
             n_prevchar = EOF;
         }
 
@@ -1048,27 +1299,31 @@ bool_t string_getline(string_t* pt_string, FILE* fp_stream)
     }
 }
 
-bool_t string_getline_delimiter(string_t* pt_string, FILE* fp_stream, char c_delimiter)
+/**
+ * Get one line from specific stream with delimiter.
+ */
+bool_t string_getline_delimiter(string_t* pstr_string, FILE* fp_stream, char c_delimiter)
 {
     int n_char = EOF;
 
-    assert(pt_string != NULL && fp_stream != NULL);
+    assert(pstr_string != NULL);
+    assert(fp_stream != NULL);
 
     if(c_delimiter == '\n')
     {
-        return string_getline(pt_string, fp_stream);
+        return string_getline(pstr_string, fp_stream);
     }
     else
     {
         clearerr(fp_stream);
-        string_clear(pt_string);
+        string_clear(pstr_string);
         while(!feof(fp_stream) && !ferror(fp_stream) && (char)n_char != c_delimiter &&
-              string_size(pt_string) < string_max_size(pt_string))
+              string_size(pstr_string) < string_max_size(pstr_string))
         {
             n_char = fgetc(fp_stream);
             if((char)n_char != c_delimiter && n_char != EOF)
             {
-                string_push_back(pt_string, n_char);
+                string_push_back(pstr_string, (char)n_char);
             }
         }
 

@@ -1,6 +1,6 @@
 /*
  *  The slist user interface.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,19 +20,15 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSLIST_H
-#define _CSLIST_H
+#ifndef _CSLIST_H_
+#define _CSLIST_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /** include section **/
-#include <assert.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-
+#include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/cstl_iterator.h>
@@ -53,6 +49,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CSLIST_H */
+#endif /* _CSLIST_H_ */
 /** eof **/
 

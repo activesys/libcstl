@@ -1,6 +1,6 @@
 /*
  *  The user interface of iterator.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_ITERATOR_H
-#define _CSTL_ITERATOR_H
+#ifndef _CSTL_ITERATOR_H_
+#define _CSTL_ITERATOR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,7 +32,7 @@ extern "C" {
 /** constant declaration and macro section **/
 /* vector iterator handler */
 #define _GET_VECTOR_COREPOS(t_iter)\
-    ((t_iter)._t_pos._pc_corepos)
+    ((t_iter)._t_pos._pby_corepos)
 #define _GET_VECTOR_CONTAINER(t_iter)\
     ((vector_t*)((t_iter)._pt_container))
 #define _GET_VECTOR_CONTAINER_TYPE(t_iter)\
@@ -41,7 +41,7 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* list iterator handler */
 #define _GET_LIST_COREPOS(t_iter)\
-    ((t_iter)._t_pos._pc_corepos)
+    ((t_iter)._t_pos._pby_corepos)
 #define _GET_LIST_CONTAINER(t_iter)\
     ((list_t*)((t_iter)._pt_container))
 #define _GET_LIST_CONTAINER_TYPE(t_iter)\
@@ -50,13 +50,13 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* deque iterator handler */
 #define _GET_DEQUE_MAP_POINTER(t_iter)\
-    ((t_iter)._t_pos._t_dequepos._ppc_mappos)
+    ((t_iter)._t_pos._t_dequepos._ppby_mappos)
 #define _GET_DEQUE_FIRST_POS(t_iter)\
-    ((t_iter)._t_pos._t_dequepos._pc_first)
+    ((t_iter)._t_pos._t_dequepos._pby_first)
 #define _GET_DEQUE_AFTERLAST_POS(t_iter)\
-    ((t_iter)._t_pos._t_dequepos._pc_afterlast)
+    ((t_iter)._t_pos._t_dequepos._pby_afterlast)
 #define _GET_DEQUE_COREPOS(t_iter)\
-    ((t_iter)._t_pos._t_dequepos._pc_corepos)
+    ((t_iter)._t_pos._t_dequepos._pby_corepos)
 #define _GET_DEQUE_CONTAINER(t_iter)\
     ((deque_t*)((t_iter)._pt_container))
 #define _GET_DEQUE_CONTAINER_TYPE(t_iter)\
@@ -65,7 +65,7 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* slist iterator handler */
 #define _GET_SLIST_COREPOS(t_iter)\
-    ((t_iter)._t_pos._pc_corepos)
+    ((t_iter)._t_pos._pby_corepos)
 #define _GET_SLIST_CONTAINER(t_iter)\
     ((slist_t*)((t_iter)._pt_container))
 #define _GET_SLIST_CONTAINER_TYPE(t_iter)\
@@ -74,16 +74,16 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* avl_tree iterator handler */
 #define _GET_AVL_TREE_COREPOS(t_iter)\
-    ((t_iter)._t_pos._t_treepos._pc_corepos)
+    ((t_iter)._t_pos._t_treepos._pby_corepos)
 #define _GET_AVL_TREE(t_iter)\
-    ((avl_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
+    ((_avl_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
 #define _GET_AVL_TREE_POINTER(t_iter)\
     ((t_iter)._t_pos._t_treepos._pt_tree)
 /* rb_tree iterator handler */
 #define _GET_RB_TREE_COREPOS(t_iter)\
-    ((t_iter)._t_pos._t_treepos._pc_corepos)
+    ((t_iter)._t_pos._t_treepos._pby_corepos)
 #define _GET_RB_TREE(t_iter)\
-    ((rb_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
+    ((_rb_tree_t*)((t_iter)._t_pos._t_treepos._pt_tree))
 #define _GET_RB_TREE_POINTER(t_iter)\
     ((t_iter)._t_pos._t_treepos._pt_tree)
 /* set iterator handler */
@@ -116,11 +116,11 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* hashtable iterator handler */
 #define _GET_HASHTABLE_BUCKETPOS(t_iter)\
-    ((t_iter)._t_pos._t_hashpos._pc_bucketpos)
+    ((t_iter)._t_pos._t_hashpos._pby_bucketpos)
 #define _GET_HASHTABLE_COREPOS(t_iter)\
-    ((t_iter)._t_pos._t_hashpos._pc_corepos)
+    ((t_iter)._t_pos._t_hashpos._pby_corepos)
 #define _GET_HASHTABLE(t_iter)\
-    ((hashtable_t*)((t_iter)._t_pos._t_hashpos._pt_hashtable))
+    ((_hashtable_t*)((t_iter)._t_pos._t_hashpos._pt_hashtable))
 #define _GET_HASHTABLE_POINTER(t_iter)\
     ((t_iter)._t_pos._t_hashpos._pt_hashtable)
 /* hash_set iterator handler */
@@ -153,7 +153,7 @@ extern "C" {
     ((t_iter)._t_iteratortype)
 /* basic_string iterator handler */
 #define _GET_BASIC_STRING_COREPOS(t_iter)\
-    ((t_iter)._t_pos._pc_corepos)
+    ((t_iter)._t_pos._pby_corepos)
 #define _GET_BASIC_STRING_CONTAINER(t_iter)\
     ((basic_string_t*)((t_iter)._pt_container))
 #define _GET_BASIC_STRING_CONTAINER_TYPE(t_iter)\
@@ -205,29 +205,29 @@ typedef struct _tagiterator
     /* flexibility for all containter */
     union 
     {
-        char*       _pc_corepos;    /* for vector list e.g. */
+        _byte_t*      _pby_corepos;    /* for vector list e.g. */
         struct 
         {                    /* for deque */
-            char*   _pc_corepos;
-            char*   _pc_first;
-            char*   _pc_afterlast;  /* the node after the last node */
-            char**  _ppc_mappos;    /* point to the map */
+            _byte_t*  _pby_corepos;
+            _byte_t*  _pby_first;
+            _byte_t*  _pby_afterlast;  /* the node after the last node */
+            _byte_t** _ppby_mappos;    /* point to the map */
         }_t_dequepos;
         struct
         {                    /* for avl tree or rb tree */
-            char*   _pc_corepos;
-            void*   _pt_tree;       /* point to the avl tree or rb tree*/
+            _byte_t*  _pby_corepos;
+            void*     _pt_tree;       /* point to the avl tree or rb tree*/
         }_t_treepos;
         struct               /* for hash table */
         {
-            char*   _pc_corepos;
-            char*   _pc_bucketpos;   /* pointer to vector bucket position */
-            void*   _pt_hashtable;   /* point to hash node */
+            _byte_t*  _pby_corepos;
+            _byte_t*  _pby_bucketpos;   /* pointer to vector bucket position */
+            void*     _pt_hashtable;   /* point to hash node */
         }_t_hashpos;
     }_t_pos;
-    void*           _pt_container;
-    containertype_t _t_containertype;
-    iteratortype_t  _t_iteratortype;
+    void*             _pt_container;
+    containertype_t   _t_containertype;
+    iteratortype_t    _t_iteratortype;
 }iterator_t;
 
 /* range type */
@@ -301,6 +301,6 @@ extern int iterator_distance(iterator_t t_iterfirst, iterator_t t_itersecond);
 }
 #endif
 
-#endif /* _CSTL_ITERATOR_H */
+#endif /* _CSTL_ITERATOR_H_ */
 /** eof **/
 

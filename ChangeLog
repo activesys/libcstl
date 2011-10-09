@@ -1,275 +1,31 @@
-This documnet is the change log of cstl version.
 
-cstl 0.0.0 : 2008-11-01 20:20:52
-* Create original Version. <Wangbo>
+2010-10-01    Bo Wang <activesys.wb@gmail.com
 
-cstl 0.0.1 : 2008-11-13 23:16:10
-* Fixup the _ROUND_UP macro bug. <Wangbo>
+    Version 2.0.1
+    * Release libcstl-2.0.1.
+    * Fixup bug on 64-bit OS.
 
-cstl 0.0.2 : 2008-11-13 23:32:20
-* Not assigen the equal function to the NULL during create new vector. <Wangbo>
-* Initialize the vector when the element count less equal 0. <Wangbo>
+2010-06-09    Bo Wang <activesys.wb@gmail.com>
 
-cstl 0.0.3 : 2008-11-14 19:45:06
-* Get the the variable prarmeter with va_list pointer. <Wangbo>
-* Copy vector with the capacity of source vector. <Wangbo>
-* Envalue the iterator distance error in vector_copy_range. <Wangbo>
-* Envalue the pointer distance error in vector_equal. <Wangbo>
-* No handle when the vector have no user defined equal function in vector_equal. <Wangbo>
+    Version 2.0.0
+    * Release libcstl-2.0.0.
+    * Add range_t type.
+    * Add c-style string support.
+    * Add VS project support.
+    * Update default compare function in pair_t, map_t, multimap_t, hash_map_t and hash_multimap_t.
+    * Update default hash function in hash_set_t, hash_multiset_t, hash_map_t and hash_multimap_t.
+    * Add user defined type support.
+    * Add type mechanism support.
 
-cstl 0.0.4 : 2008-11-15 09:27:52
-* The logic of vector_less is error. <Wangbo>
+2009-04-25    Bo Wang <activesys.wb@gmail.com>
 
-cstl 0.1.0 : 2008-11-15 10:47:26
-* Replace the less and equal user defined function with the compare user defined function in the vector struct. <Wangbo>
-* Change the destroy element function name from pfun_destroy_elem to _pfun_destroy_elem. <Wangbo>
+    Version 1.0.1
+    * Release libcstl-1.0.1.
+    * Fixup bugs in initialization operation of all containers.
+    * Fixup bugs in Makefile.
 
-cstl 0.1.1 : 2008-11-15 10:51:29
-* Replace the less and equal user defined function with compare user defined function in the vector_init. <Wangbo>
+2009-04-20    Bo Wang <activesys.wb@gmail.com>
 
-cstl 0.1.2 : 2008-11-15 10:54:05
-* Replace the less and equal user defined function with the compare user defined function in the vector struct. <Wangbo>
-* Change the destroy element function name from pfun_destroy_elem to _pfun_destroy_elem. <Wangbo>
-* Call the deallocate function user the byte size instead of element count in vector_reserve. <Wangbo>
+    Version 1.0.0
+    * Release libcstl-1.0.0.
 
-cstl 0.1.3 : 2008-11-16 10:42:09
-* Use vector_size instead of vector_capacity in vector_assign_range. <Wangbo>
-* Fix the invalid iterator when the vecotr reserve new length and move the memory use the overlength in vector insert function family. <Wangbo>
-* The length of memory for moving error in vector_erase. <Wangbo>
-* Insert the element into vector use vector_insert instead of vector_insert_n in vector_resize. <Wangbo>
-* Reserve the vector size whitout check the grow size if great then the capacity of vector in vector_resize_with_elem. <Wangbo>
-* The return value of two iterator minus is signed int. <Wangbo>
-
-cstl 0.1.4 : 2008-11-16 19:52:22
-* The distance of two iterator is signed int. <Wangbo>
-
-cstl 0.1.5 :  2008-11-16 19:52:22
-* Assign the iterator._t_pos. <Wangbo>
-
-cstl 0.1.6 :  2008-11-24 21:35:28
-* Copy element use _ELEM_TYPE_NAME_SIZE instead of type size, so destroy the memory of next node in list_copy function. <Wangbo>
-* The end node iterator is belong to list in the _iterator_belong_to_list function. <Wangbo>
-* Return true when both list equal in list_less. <Wangbo>
-
-cstl 0.1.7 : 2008-11-26 20:57:11
-* Erase the end node in list_erase and list_erase_range. <Wangbo>
-* Forget update the t_begin that lead to refree memory in list_erase_range. <Wangbo>
-* Forget update the t_pos that lead to refree memory in list_remove and list_remove_if. <Wangbo>
-
-cstl 0.1.8 : 2008-11-27 19:57:58
-* Usage of condition function is error in list_unique_if function. <Wangbo>
-* Move the initialization from _create_list to list_init. <Wangbo>
-* Ensure the pt_list is difference from pt_listsrc in list_splice, list_splice_pos, list_splice_range. <Wangbo>
-* Use the list iterator without initialization in _quick_sort. <Wangbo>
-
-cstl 0.1.9 : 2008-11-28 21:26:27
-* If the first node equal to second node is false in _iterator_before. <Wangbo>
-
-cstl 0.1.10 : 2008-11-29 12:23:03
-* Fixup a lot of bugs in _quick_sort. <Wangbo>
-* Iterator to source initialized with begin of dest in list_megre and list_megre_if. <Wangbo>
-
-cstl 0.2.0 : 2008-11-30 09:06:14
-* Change the struct of iterator for the flexibility. <Wangbo>
-
-cstl 0.2.1 : 2008-12-05 20:59:08
-* Bad equal to condition in _deque_iterator_equal. <Wangbo>
-* When two iterator is equal to return 0 in _deque_iterator_minus. <Wangbo>
-
-cstl 0.2.2 : 2008-12-06 15:29:32
-* Invalid iterator size in deque_init function. <Wangbo>
-
-cstl 0.2.3 : 2008-12-08 19:55:22
-* Initialize the deque start and finish with local pointer in _create_deque. <Wangbo>
-* Initialize the map with no loop in deque_init. <Wangbo>
-* When the corepos equal to afterlast is error. <Wangbo>
-* Compute the step for loop error in _iterator_belong_to_deque. <Wangbo>
-* Deallocate the element container error in deque_destroy. <Wangbo>
-* Grow count error in deque_init. <Wangbo>
-
-cstl 0.2.4 : 2008-12-10 19:59:28
-* When the iterator beyond the range in _vector_iterator_get_value and _vector_iterator_set_value. <Wangbo>
-
-cstl 0.2.5 : 2008-12-10 20:03:57
-* When iterator pointer beyond the range in _list_iterator_get_value and _list_iterator_set_value. <Wangbo>
-* Don't check the result in _list_iterator_next and _list_iterator_prev. <Wangbo>
-
-cstl 0.2.6 : 2008-12-10 20:14:40
-* When iterator pointer beyond the range in _deque_iterator_get_value and _deque_iterator_set_value. <Wangbo>
-* Don't containe the begin iterator when corepos equal to afterlast in _deque_iterator_next. <Wangbo>
-* Increase the map element error in _deque_iterator_next. <Wangbo>
-
-cstl 0.2.7 : 2008-12-11 13:23:20
-* Omit the break after case _DEQUE_CONTAINER in iterator_next_n and iterator_at. <Wangbo>
-
-cstl 0.2.8 : 2008-12-11 13:59:51
-* Make the implement of _deque_iterator_at simplier. <Wangbo>
-* When the second iterator equal to end iterator, the _iterator_before return false. <Wangbo>
-* State the distance in _deque_iterator_minus error. <Wangbo>
-
-cstl 0.2.9 : 2008-12-11 13:59:51
-* When the default map count is not enough the new map count error. <Wangbo>
-* Use the element count instead of element type size in deque_rend. <Wangbo>
-* The bad usage of distance in deque_copy_range. <Wangbo>
-* Use the t_end instead of t_src in deque_copy_range. <Wangbo>
-
-cstl 0.2.10 : 2008-12-12 10:24:11
-* Iterate the first deque iterator use the second deque iterator range. <Wangbo>
-* Invalid range in deque_at. <Wangbo>
-* Swap the container pointer in deque_swap. <Wangbo>
-* Omit the else portion in deque_insert, deque_insert_n, deque_insert_range. <Wangbo>
-* It is not handle the iterator equal condition in _move_elem_to_back. <Wangbo>
-* It is not handle the iterator equal condition in _move_elem_to_front. <Wangbo>
-* Insert after the t_pos in deque_insert_n. <Wangbo>
-* Change the _expand_at_back and _expand_at_front interface. <Wangbo>
-* Testing of insert family and _expand _shrink family function don't complete. <Wangbo>
-
-cstl 0.2.11 : 2008-12-12 20:13:43
-* Fixup all bugs in _expand_at_back. <Wangbo>
-* Fixup the bug in _iterator_belong_to_deque and _expand_at_front. <Wangbo>
-* Change the implement of _expand_at_front. <Wangbo>
-
-cstl 0.2.12 : 2008-12-13 20:13:43
-* Fixup the bug in _expand_at_front. <Wangbo>
-* Fixup the distance between t_pos and t_gap in deque_insert_range. <Wangbo>
-* Fixup the using _ELEM_TYPE_NAME_SIZE instead of _DEQUE_MAP_COUNT in _shrink_at_back and _shrink_at_front. <Wangbo>
-
-cstl 0.2.13 : 2008-12-14 20:16:53
-* When vector pointer is NULL then reserve vector error. <Wangbo>
-
-cstl 0.2.14 : 2008-12-15 16:20:42
-* When the begin iterator equal to end iterator then error in _list_iterator_distance. <Wangbo>
-
-cstl 0.2.15 : 2008-12-17 16:01:36
-* Copy element from src slist to dest slist use the next in slist_copy. <Wangbo>
-* Save the compare and destroy element function after destroy slist in slist_assign. <Wangbo>
-* Use end iterator instead of t_pos in slist_previous. <Wangbo>
-
-cstl 0.2.16 : 2008-12-18 14:24:30
-* _slist_insert_after_n use the slist_end iterator. <Wangbo>
-* slist_insert doesn't return the new element iterator. <Wangbo>
-* slist_insert_after_range use the slist_end iterator. <Wangbo>
-* Making the insert range list error in slist_insert_after_range and slist_insert_range. <Wangbo>
-* Fixup bugs when resize size equal original size of slist and list. <Wangbo>
-
-cstl 0.2.17 : 2008-12-19 10:27:51
-* Initialization of first slist iterator is error in slist_less. <Wangbo>
-
-cstl 0.2.18 : 2008-12-22 15:38:37
-* Update the interface of slist_splice_after_pos and slist_splice_after_range. <Wangbo>
-* Fixup bug in slist_reverse. <Wangbo>
-
-cstl 0.2.19 : 2008-12-22 21:26:11
-* Use the insert sort in slist_sort, and fixup some bugs in megre function. <Wangbo>
-
-cstl 0.3.0 : 2008-12-22 21:50:21
-* Add element type unification. <Wangbo>
-
-cstl 0.3.1 : 2008-12-23 09:27:12
-* Does't handle the type long char short when CSTL_TYPES_UNIFICATION=4. <Wangbo>
-* Avoid all warning with -DNDEBUG compiler option. <Wangbo>
-
-cstl 0.3.2 : 2008-12-27 11:00:46
-* Forget copy the value in _insert_avlnode. <Wangbo>
-* Change parent with NULL node in signal rotate function. <Wangbo>
-* The iterator returned by _avl_tree_insert_equal is error. <Wangbo>
-* The iterator returned by _avl_tree_find is error. <Wangbo>
-* The get_pointer function of iterator return const void*. <Wangbo>
-
-cstl 0.3.3 : 2008-12-28 08:51:46
-* The last iterator returned by _avl_tree_upper_bound. <Wangbo>
-* When the left node is NULL, the _avl_tree_erase_pos is error. <Wangbo>
-* Fixup bugs in _avl_tree_lower_bound, when lower bound is begin. <Wangbo>
-
-cstl 0.4.0 : 2008-12-29 10:31:46
-* Update the allocator architecture. <Wangbo>
-
-cstl 0.4.1 : 2009-01-04 10:02:17
-* When the sibling parent node is NULL error. <Wangbo>
-* Compare value error. <Wangbo>
-* Must be check root first in _rebalance_rb_tree. <Wangbo>
-* rbegin and rend is error. <Wangbo>
-
-cstl 0.4.2 : 2009-01-05 10:52:40
-* Fixup bugs in swap function of rb tree and avl tree. <Wangbo>
-* Fixup bugs in _fixup_deletion function. <Wangbo>
-* Fixup bugs in lower bound and upper bound function. <Wangbo>
-
-cstl 0.4.3 : 2009-01-07 19:37:02
-* Fixup bugs in _create_set. <Wangbo>
-* Fixup bugs in interface of set. <Wangbo>
-* Fixup bugs in _set_iterator_equal. <Wangbo>
-
-cstl 0.4.4 : 2009-01-09 21:14:46
-* Fixup bugs in _fixup_deletion. <Wangbo>
-* Fixup bugs in map_at. <Wangbo>
-
-cstl 0.4.5 : 2009-01-12 16:53:42
-* Modify the vector_at interface. <Wangbo>
-* Modify the deque_at interface. <Wangbo>
-
-cstl 0.4.6 : 2009-01-14 11:10:25
-* Fixup bugs in _iterator_belong_to_vector. <Wangbo>
-* Fixup bugs in _hash_function. <Wangbo>
-* Fixup bugs in _hashtable_iterator_next. <Wangbo>
-
-cstl 0.4.7 : 2009-01-16 17:09:16
-* Add hash function for c build-in types. <Wangbo>
-* Fixup bugs in _unify_types. <Wangbo>
-* Fixup bugs in _hashtable_erase_pos. <Wangbo>
-
-cstl 0.5.0 : 2009-01-19 15:38:25
-* Update the copy constructor and assignment operator interface of all containers. <Wangbo>
-
-cstl 0.5.1 : 2009-02-03 14:12:02
-* Fixup bugs in basic_string_c_str() and basic_string_data(). <Wangbo>
-* Fixup bugs in basic_string_init_cstr() and basic_string_init_elem(). <Wangbo>
-* Fixup bugs in vector_init_copy_range(). <Wangbo>
-* Fixup bugs in basic_string_connect_elem(). <Wangbo>
-* Fixup bugs in basic_string find functions. <Wangbo>
-* Fixup bugs in vector resize functions. <Wangbo>
-* Fixup bugs in _vector_iterator_minus(). <Wangbo>
-* Fixup bugs in basic_string insert function(). <Wangbo>
-
-cstl 0.6.0 : 2009-02-05 17:27:10
-* Update interface and implemention of all containers. <Wangbo>
-
-cstl 0.6.1 : 2009-02-12 17:02:28
-* Fixup bug in _hash_map_at(), infinity recursive. <Wangbo>
-
-cstl 0.7.0 : 2009-02-17 14:51:04
-* Update the element list mechanism. <Wangbo>
-
-cstl 0.7.1 : 2009-02-18 09:46:44
-* Fixup bugs in slist_push_front. <Wangbo>
-* Fixup bugs for memory leak. <Wangbo>
-* Update default compare function for all container. <Wangbo>
-* Fixup bugs in deque_erase_range(). <Wangbo>
-
-cstl 0.7.2 : 2009-02-19 11:16:55
-* Fixup bugs in _avl_tree_iterator_prev() and _rb_tree_iterator_prev(). <Wangbo>
-
-cstl 0.7.3 : 2009-03-05 15:28:28
-* Fixup bugs in heap algorithm with operator < and operator >. <Wangbo>
-
-cstl 0.8.0 : 2009-03-09 13:25:49
-* Take out all destroy element function and element compare function. <Wangbo>
-
-cstl 1.0.0 : 2009-03-10 11:16:29
-* Build release version cstl-1.0.0. <Wangbo>
-
-libcstl 1.0.0 : 2009-04-20 20:33:23
-* Change project name from cstl to libcstl. <Wangbo>
-
-libcstl 1.0.1 : 2009-04-25 14:59:49
-* Fixup bugs in initialization operation of all containers.
-* Fixup bugs in Makefile.
-
-libcstl 2.0.0-preview : 2009-11-01 08:45:22
-* Release preview version for libcstl-2.0.0. <Wangbo>
-
-libcstl 2.0.0-beta : 2010-04-21 11:26:34
-* Release bate version for libcstl-2.0.0. <Wangbo>
-
-libcstl 2.0.0 : 2010-06-09 19:46:33
-* Release libcstl-2.0.0. <Wangbo>

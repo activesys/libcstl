@@ -1,6 +1,6 @@
 /*
  *  The interface of memory management. 
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_ALLOC_H
-#define _CSTL_ALLOC_H
+#ifndef _CSTL_ALLOC_H_
+#define _CSTL_ALLOC_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,83 +30,111 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#ifndef _CSTL_USER_MODEL
+#ifdef CSTL_MEMORY_MANAGEMENT
 
-#define _ALIGN                  8     /* boundary for small memory block */
-#define _MAX_SMALL_MEM_SIZE     128   /* the maxinum size of small memory */
-#define _MEM_LIST_COUNT         _MAX_SMALL_MEM_SIZE/_ALIGN
-#define _MEM_BLOCK_COUNT        20    /* default block count getted from pool */
-#define _MEM_POOL_DEFAULT_COUNT 4096  /* memory pool count */
+#define _MEM_ALIGNMENT              8     /* boundary for small memory block */
+#define _MEM_SMALL_MEM_SIZE_MAX     128   /* the maxinum size of small memory */
+#define _MEM_LINK_COUNT             _MEM_SMALL_MEM_SIZE_MAX/_MEM_ALIGNMENT
+#define _MEM_CHUNK_COUNT            16    /* default chunk count getted from pool */
+#define _MEM_POOL_DEFAULT_COUNT     16    /* memory pool count */
 
 /* round up the size of memory to the multiple of 8 */
-#define _ROUND_UP(nmemsize)      (((nmemsize) + _ALIGN - 1) & ~(_ALIGN - 1))
-/* get the memory list index with nmemsize */
-#define _MEMLIST_INDEX(nmemsize) (((nmemsize) + _ALIGN - 1) / _ALIGN - 1)
-
-#endif
+#define _MEM_ROUND_UP(memsize)      (((memsize) + _MEM_ALIGNMENT - 1) & ~(_MEM_ALIGNMENT - 1))
+/* get the memory link index with memsize */
+#define _MEM_LINK_INDEX(memsize)    (((memsize) + _MEM_ALIGNMENT - 1) / _MEM_ALIGNMENT - 1)
 
 /** data type declaration and struct, union, enum section **/
-#ifdef _CSTL_USER_MODEL
-
-typedef struct _tagalloc
-{
-}alloc_t;
-
-#else
-
 typedef union _tagmemlink
 {
     union _tagmemlink* _pui_nextmem;  /* point to next memory block */
-    char               _a_cmem[1];    /* represent memory block */
+    _byte_t            _pby_mem[1];    /* represent memory block */
 }_memlink_t;
 
 typedef struct _tagalloc
 {
-    _memlink_t* _apt_memlink[_MEM_LIST_COUNT];   /* memory list */
-    char**      _ppc_allocatemempool;            /* the allocated pool */
-    char*       _pc_mempool;                     /* memory pool start */
+    _memlink_t* _apt_memlink[_MEM_LINK_COUNT];   /* memory list */
+    _byte_t**   _ppby_mempoolcontainer;          /* memory pool container */
+    _byte_t*    _pby_mempool;                    /* memory pool start */
     size_t      _t_mempoolsize;                  /* memory pool size */
     size_t      _t_mempoolindex;                 /* memory pool index */
     size_t      _t_mempoolcount;                 /* memory pool count */
-}alloc_t;
+}_alloc_t;
 
-#endif
+#else
+
+typedef struct _tagalloc
+{
+    int n_avoid_vc_error_c2016;
+}_alloc_t;
+
+#endif /* CSTL_MEMORY_MANAGEMENT */
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Initialize the alloc_t.
+/**
+ * Initialize the _alloc_t.
+ * @param pt_allocator  pointer that points to allocator.
+ * @return void.
+ * @remarks if pt_allocator == NULL, then function of the behavior is undefined.
  */
-extern void allocate_init(alloc_t* pt_allocater);
+extern void _alloc_init(_alloc_t* pt_allocator);
 
-/*
- * Destroy the alloc_t.
+/**
+ * Destroy the _alloc_t.
+ * @param pt_allocator  pointer that points to allocator.
+ * @return void.
+ * @remarks if pt_allocator == NULL, then function of the behavior is undefined. if pt_allocator is not initialized by
+ *          _alloc_init, then function of the behavior is undefined.
  */
-extern void allocate_destroy(alloc_t* pt_allocater);
+extern void _alloc_destroy(_alloc_t* pt_allocator);
 
-/*
- * Allocate memory for specify value type and specify element numbers use default
- * model or user model.
+/**
+ * Allocate to user specified amount of memory.
+ * @param pt_allocator  pointer that points to allocator.
+ * @param t_size        memory size.
+ * @param t_count       memory count.
+ * @return point to the allocated memory.
+ * @remarks if pt_allocator == NULL, then function of the behavior is undefined. if allocator is not initialized by
+ *          _alloc_init, then function of the behavior is undefined. the size of allocated memory is t_size * t_count.
  */
-extern void* allocate(alloc_t* pt_allocater, size_t t_typesize, int n_elemcount);
+extern void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_count);
 
-/*
- * Free memory for specify value type and specify element numbers use default 
- * model or user model.
+/**
+ * Release allocated memory
+ * @param pt_allocator  pointer that point to allocator.
+ * @param pv_allocmem   pointer that point to allocated memory.
+ * @param t_size        allocated memory size.
+ * @param t_count       allocated memory count.
+ * @return void.
+ * @remarks if pt_allocator == NULL or pv_allocmem == NULL, then function of the behavior is undefined. if allocator is
+ *          not initialized by _alloc_init, or pv_allocmem is not allocated by _alloc_allocate, then function of the
+ *          behavior is undefined.
  */
-extern void deallocate(
-    alloc_t* pt_allocater, void* pv_allocmem, size_t t_typesize, int n_elemcount);
+extern void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size, size_t t_count);
 
-/*
+#ifndef NDEBUG
+/**
+ * Test alloc_t is initialized.
+ * @param cpt_allocator  allocator.
+ * @return if allocator is initialized then return true, else return false.
+ * @remarks if cpt_allocator == NULL then the behavior is undefined.
+ */
+extern bool_t _alloc_is_inited(const _alloc_t* cpt_allocator);
+#endif /* NDEBUG */
+
+/**
  * Set the out of memory handler and return the old handler.
+ * @param pfun_newhandler  new out of memory handler.
+ * @return old hanlder.
+ * @remarks if pfun_newhandler == NULL, than delete the out of memory handler.
  */
-extern void (*set_malloc_handler(void (*pfun_newhandler)(void)))(void);
+extern void (*_alloc_set_malloc_handler(void (*pfun_newhandler)(void)))(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _CSTL_ALLOC_H */
+#endif /* _CSTL_ALLOC_H_ */
 /** eof **/
 

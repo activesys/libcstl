@@ -1,6 +1,6 @@
 /*
  *  The interface of numeric.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CNUMERIC_H
-#define _CNUMERIC_H
+#ifndef _CNUMERIC_H_
+#define _CNUMERIC_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,6 +46,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CNUMERIC_H */
+#endif /* _CNUMERIC_H_ */
 /** eof **/
 

@@ -1,6 +1,6 @@
 /*
  *  This header file declaration some type definition, micors for cstl.
- *  Copyright (C)  2008,2009,2010  Wangbo
+ *  Copyright (C)  2008,2009,2010,2011  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,8 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CSTL_TYPES_H
-#define _CSTL_TYPES_H
+#ifndef _CSTL_TYPES_H_
+#define _CSTL_TYPES_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,11 +31,6 @@ extern "C" {
 #include <stddef.h>
 
 /** constant declaration and macro section **/
-#define FALSE   0               /* declaration false bool type */
-#define false   0
-#define TRUE    1               /* declaration true bool type */
-#define true    1
-
 /* c built-in type */
 #define _CHAR_TYPE                   "char"
 #define _SIGNED_CHAR_TYPE            "signed char"
@@ -172,7 +167,6 @@ extern "C" {
 #define _BASIC_STRING_ITERATOR_NAME  "basic_string_iterator_t"
 
 /** data type declaration and struct, union, enum section **/
-typedef size_t     bool_t;         /* declaration for bool type */
 
 /*
  * Type definition of unary function and binary function.
@@ -210,7 +204,7 @@ typedef struct _tagtyperegister
 {
     bool_t               _t_isinit; /* is initializate for built in types */
     _typenode_t*         _apt_bucket[_TYPE_REGISTER_BUCKET_COUNT]; /* hash table */
-    alloc_t              _t_allocator;
+    _alloc_t             _t_allocator;
 }_typeregister_t;
 
 /* type style */
@@ -274,6 +268,6 @@ extern void _type_destroy_default(
 }
 #endif
 
-#endif /* _CSTL_TYPES_H */
+#endif /* _CSTL_TYPES_H_ */
 /** eof **/
 
