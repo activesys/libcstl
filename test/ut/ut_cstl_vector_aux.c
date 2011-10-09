@@ -651,20 +651,16 @@ void test__vector_is_created__non_created_invalid_type_style(void** state)
 
 void test__vector_is_created__non_created_non_init_allocator(void** state)
 {
-    vector_t vec;
-    vec._pby_start = NULL;
-    vec._pby_finish = NULL;
-    vec._pby_endofstorage = NULL;
-    vec._t_typeinfo._t_style = _TYPE_C_BUILTIN;
-    _alloc_init(&vec._t_allocator);
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
 #ifdef CSTL_MEMORY_MANAGEMENT
-    vec._t_allocator._t_mempoolsize = 1;
-    assert_false(_vector_is_created(&vec));
-    vec._t_allocator._t_mempoolsize = 0;
+    pvec->_t_allocator._t_mempoolsize = 1;
+    assert_false(_vector_is_created(pvec));
+    pvec->_t_allocator._t_mempoolsize = 0;
 #else
-    assert_false(_vector_is_created(&vec));
+    assert_true(_vector_is_created(pvec));
 #endif
-    _alloc_destroy(&vec._t_allocator);
+    vector_destroy(pvec);
 }
 
 void test__vector_is_created__created(void** state)
