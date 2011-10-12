@@ -12895,7 +12895,7 @@ void test_basic_string_find_subcstr__c_builtin_begin_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
-    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 0, 2) == 3);
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 0, 1) == 3);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -12975,7 +12975,7 @@ void test_basic_string_find_subcstr__c_builtin_middle_not_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
-    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 2, 4) == NPOS);
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 4, 1) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -13036,7 +13036,7 @@ void test_basic_string_find_subcstr__char_begin_find(void** state)
     {
         basic_string_push_back(pt_basic_string, 'a' + i);
     }
-    assert_true(basic_string_find_subcstr(pt_basic_string, "de", 0, NPOS) == 3);
+    assert_true(basic_string_find_subcstr(pt_basic_string, "d", 0, NPOS) == 3);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -13051,7 +13051,7 @@ void test_basic_string_find_subcstr__char_begin_not_find(void** state)
     {
         basic_string_push_back(pt_basic_string, 'a' + i);
     }
-    assert_true(basic_string_find_subcstr(pt_basic_string, "xy", 0, NPOS) == NPOS);
+    assert_true(basic_string_find_subcstr(pt_basic_string, "x", 0, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }

@@ -970,7 +970,7 @@ size_t basic_string_find_subcstr(
     pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
-    for(; t_pos < t_stringlen; ++t_pos)
+    for(; t_pos <= t_stringlen; ++t_pos)
     {
         if(t_stringlen - t_pos < t_subcstrlen)
         {

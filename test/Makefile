@@ -95,7 +95,7 @@ AUTOMAKE = ${SHELL} /home/wb/project/libcstl/branches/2.0/missing --run automake
 AWK = gawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2
+CFLAGS = -g
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
