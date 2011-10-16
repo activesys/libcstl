@@ -25,8 +25,8 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 
-#include <cstl/cstl_iterator.h>
 #include <cstl/cstl_iterator_private.h>
+#include <cstl/cstl_iterator.h>
 #include <cstl/cvector.h>
 #include <cstl/clist.h>
 #include <cstl/cdeque.h>

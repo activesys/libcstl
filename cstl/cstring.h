@@ -31,7 +31,7 @@ extern "C" {
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
+#include <cstl/citerator.h>
 #include <cstl/cvector.h>
 
 #include <cstl/cstl_basic_string_iterator.h>
