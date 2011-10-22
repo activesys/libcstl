@@ -356,7 +356,7 @@ deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, 
             size_t t_validmapsize = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish) -
                 _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) + 1;
             size_t t_newmapstartpos = 0;
-            size_t t_oldmapstartpos = (pdeq_deque->_t_mapsize - t_validmapsize) / 2;
+            size_t t_oldmapstartpos = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) - pdeq_deque->_ppby_map;
             size_t t_posdistance = 0;                          /* the distance of pit_pos and map */
             size_t t_growsize = (t_chunksize - t_remainmapsize + _DEQUE_MAP_GROW_STEP - 1) /
                 _DEQUE_MAP_GROW_STEP * _DEQUE_MAP_GROW_STEP;   /* grow size multiple of eight */
@@ -392,11 +392,11 @@ deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, 
         else if(t_chunksize > t_remainendmapsize && t_chunksize <= t_remainmapsize)
         {
             size_t t_oldvalidmapsize = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish) -
-                _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) + 1;                        /* old valid chunk count in old map */
-            size_t t_newvalidmapsize = t_oldvalidmapsize + t_chunksize;                  /* the valid chunk count in new map */
-            size_t t_oldstartpossize = (pdeq_deque->_t_mapsize - t_oldvalidmapsize) / 2; /* the chunk start pos in old map */
-            size_t t_newstartpossize = (pdeq_deque->_t_mapsize - t_newvalidmapsize) / 2; /* the chunk start pos in new map */
-            size_t t_movesize = t_oldstartpossize - t_newstartpossize;                   /* the distance of move */
+                _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) + 1;                                            /* old valid chunk count in old map */
+            size_t t_newvalidmapsize = t_oldvalidmapsize + t_chunksize;                                      /* the valid chunk count in new map */
+            size_t t_oldstartpossize = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) - pdeq_deque->_ppby_map; /* the chunk start pos in old map */
+            size_t t_newstartpossize = (pdeq_deque->_t_mapsize - t_newvalidmapsize) / 2;                     /* the chunk start pos in new map */
+            size_t t_movesize = t_oldstartpossize - t_newstartpossize;                                       /* the distance of move */
 
             /* move the valid container pointer in map */
             memmove(_GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) - t_movesize,
@@ -488,7 +488,7 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
             size_t t_validmapsize = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish) -
                 _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) + 1;
             int n_newmapstartpos = 0;
-            int n_oldmapstartpos = (pdeq_deque->_t_mapsize - t_validmapsize) / 2;
+            int n_oldmapstartpos = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) - pdeq_deque->_ppby_map;
             int n_newposofoldchunk = 0;
             int n_posdistance = 0;                             /* the distance of pit_pos and map */
             size_t t_growsize = (t_chunksize - t_remainmapsize + _DEQUE_MAP_GROW_STEP - 1) /
@@ -526,12 +526,12 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
         else if(t_chunksize > t_remainfrontmapsize && t_chunksize <= t_remainmapsize)
         {
             size_t t_oldvalidmapsize = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish) -
-                _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) + 1;                        /* old valid chunk count in old map */
-            size_t t_newvalidmapsize = t_oldvalidmapsize + t_chunksize;                  /* the valid chunk count in new map */
-            size_t t_oldstartpossize = (pdeq_deque->_t_mapsize - t_oldvalidmapsize) / 2; /* the chunk start pos in old map */
-            size_t t_newstartpossize = (pdeq_deque->_t_mapsize - t_newvalidmapsize) / 2; /* the chunk start pos in new map */
-            size_t t_newposofoldchunk = t_newstartpossize + t_chunksize;                 /* the chunk in new map pos */
-            size_t t_movesize = t_newposofoldchunk - t_oldstartpossize;                  /* the distance of move */
+                _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) + 1;                                            /* old valid chunk count in old map */
+            size_t t_newvalidmapsize = t_oldvalidmapsize + t_chunksize;                                      /* the valid chunk count in new map */
+            size_t t_oldstartpossize = _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) - pdeq_deque->_ppby_map; /* the chunk start pos in old map */
+            size_t t_newstartpossize = (pdeq_deque->_t_mapsize - t_newvalidmapsize) / 2;                     /* the chunk start pos in new map */
+            size_t t_newposofoldchunk = t_newstartpossize + t_chunksize;                                     /* the chunk in new map pos */
+            size_t t_movesize = t_newposofoldchunk - t_oldstartpossize;                                      /* the distance of move */
             /* move the valid chunk pointer in map */
             memmove(_GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) + t_movesize,
                 _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start), sizeof(_byte_t*) * t_oldvalidmapsize);
