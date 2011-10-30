@@ -223,7 +223,7 @@ void _slist_assign_elem_varg(slist_t* pslist_slist, size_t t_count, va_list val_
     {
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data, pt_varg->_pby_data, &b_result);
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, pt_varg->_pby_data, &b_result);
         assert(b_result);
     }
 
@@ -400,8 +400,8 @@ void _slist_insert_after_n_varg(slist_t* pslist_slist, slist_iterator_t it_pos, 
         assert(b_result);
 
         /* link the node to slist */
-        pt_node->_pt_next = ((_slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next;
-        ((_slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next = pt_node;
+        pt_node->_pt_next = ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next;
+        ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next = pt_node;
         pt_node = NULL;
     }
 
@@ -448,9 +448,9 @@ void _slist_remove_varg(slist_t* pslist_slist, va_list val_elemlist)
     {
         b_less = b_greater = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
-            pt_varg->_pby_data, ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data, &b_less);
+            pt_varg->_pby_data, ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_less);
         _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data, pt_varg->_pby_data, &b_greater);
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, pt_varg->_pby_data, &b_greater);
         if(b_less || b_greater)
         {
             it_iter = iterator_next(it_iter);
@@ -508,7 +508,7 @@ void _slist_resize_elem_varg(slist_t* pslist_slist, size_t t_resize, va_list val
         }
         else
         {
-            _GET_SLIST_COREPOS(it_pos) = (_byte_t*)&pslist_slist->_t_head;
+            _SLIST_ITERATOR_COREPOS(it_pos) = (_byte_t*)&pslist_slist->_t_head;
         }
 
         /* get varg value only once */
@@ -527,8 +527,8 @@ void _slist_resize_elem_varg(slist_t* pslist_slist, size_t t_resize, va_list val
             _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(pt_node->_pby_data, pt_varg->_pby_data, &b_result);
             assert(b_result);
 
-            pt_node->_pt_next = ((_slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next;
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next = pt_node;
+            pt_node->_pt_next = ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next;
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next = pt_node;
             pt_node = NULL;
         }
 

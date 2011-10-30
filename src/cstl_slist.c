@@ -125,8 +125,8 @@ void slist_init_copy_range(slist_t* pslist_dest, slist_iterator_t it_begin, slis
     {
         b_result = _GET_SLIST_TYPE_SIZE(pslist_dest);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_dest)(
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_dest))->_pby_data,
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_src))->_pby_data, &b_result);
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_dest))->_pby_data,
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_src))->_pby_data, &b_result);
         assert(b_result);
     } 
     assert(iterator_equal(it_dest, slist_end(pslist_dest)) && iterator_equal(it_src, it_end));
@@ -156,7 +156,7 @@ slist_iterator_t slist_begin(const slist_t* cpslist_slist)
 
     it_begin = _create_slist_iterator();
     _GET_CONTAINER(it_begin) = (slist_t*)cpslist_slist;
-    _GET_SLIST_COREPOS(it_begin) = (_byte_t*)(cpslist_slist->_t_head._pt_next);
+    _SLIST_ITERATOR_COREPOS(it_begin) = (_byte_t*)(cpslist_slist->_t_head._pt_next);
 
     return it_begin;
 }
@@ -173,7 +173,7 @@ slist_iterator_t slist_end(const slist_t* cpslist_slist)
 
     it_end = _create_slist_iterator();
     _GET_CONTAINER(it_end) = (slist_t*)cpslist_slist;
-    _GET_SLIST_COREPOS(it_end) = NULL;
+    _SLIST_ITERATOR_COREPOS(it_end) = NULL;
 
     return it_end;
 }
@@ -266,8 +266,8 @@ void slist_assign_range(slist_t* pslist_slist, slist_iterator_t it_begin, slist_
     {
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_dest))->_pby_data,
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_src))->_pby_data, &b_result);
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_dest))->_pby_data,
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_src))->_pby_data, &b_result);
         assert(b_result);
     }
 }
@@ -395,7 +395,7 @@ void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, slist_it
             /* copy value form range [it_begin, it_end) */
             b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
             _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
-                pt_node->_pby_data, ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data, &b_result);
+                pt_node->_pby_data, ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_result);
             assert(b_result);
 
             /* make new node link */
@@ -459,7 +459,7 @@ void slist_insert_after_range(
         /* copy value from [it_begin, it_end) */
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
-            pt_node->_pby_data, ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data, &b_result);
+            pt_node->_pby_data, ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_result);
         assert(b_result);
 
         /* make new node link */
@@ -480,8 +480,8 @@ void slist_insert_after_range(
     /* insert the range into the pos */
     if(pt_begin != NULL && pt_end != NULL)
     {
-        pt_end->_pt_next = ((_slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next;
-        ((_slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next = pt_begin;
+        pt_end->_pt_next = ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next;
+        ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next = pt_begin;
     }
 }
 
@@ -498,10 +498,10 @@ slist_iterator_t slist_erase_after(slist_t* pslist_slist, slist_iterator_t it_po
     assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
     assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
 
-    pt_node = ((_slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next;
+    pt_node = ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next;
     if(pt_node != NULL)
     {
-        ((_slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pt_next = pt_node->_pt_next;
+        ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next = pt_node->_pt_next;
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
         assert(b_result);
@@ -587,9 +587,9 @@ slist_iterator_t slist_erase_after_range(slist_t* pslist_slist, slist_iterator_t
         bool_t           b_result = false;
 
         /* take out the range [it_begin+1, it_end) */
-        pt_begin = ((_slistnode_t*)_GET_SLIST_COREPOS(it_begin))->_pt_next;
-        pt_end = (_slistnode_t*)_GET_SLIST_COREPOS(it_endprev);
-        ((_slistnode_t*)_GET_SLIST_COREPOS(it_begin))->_pt_next = pt_end->_pt_next;
+        pt_begin = ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_begin))->_pt_next;
+        pt_end = (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_endprev);
+        ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_begin))->_pt_next = pt_end->_pt_next;
         pt_end->_pt_next = NULL;
         /* destroy all elements and destroy all nodes */
         pt_node = pt_begin;
@@ -787,11 +787,11 @@ void slist_unique(slist_t* pslist_slist)
         {
             b_less = b_greater = _GET_SLIST_TYPE_SIZE(pslist_slist);
             _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
-                ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data,
-                ((_slistnode_t*)_GET_SLIST_COREPOS(it_next))->_pby_data, &b_less);
+                ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data,
+                ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_next))->_pby_data, &b_less);
             _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
-                ((_slistnode_t*)_GET_SLIST_COREPOS(it_next))->_pby_data,
-                ((_slistnode_t*)_GET_SLIST_COREPOS(it_iter))->_pby_data, &b_greater);
+                ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_next))->_pby_data,
+                ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_greater);
             if(b_less || b_greater)
             {
                 it_iter = iterator_next(it_iter);
@@ -907,8 +907,8 @@ void slist_sort_if(slist_t* pslist_slist, binary_function_t bfun_op)
             for(it_pos = slist_begin(pslist_slist); !iterator_equal(it_pos, it_disorder); it_pos = iterator_next(it_pos))
             {
                 (*bfun_op)(
-                    ((_slistnode_t*)_GET_SLIST_COREPOS(it_disorder))->_pby_data,
-                    ((_slistnode_t*)_GET_SLIST_COREPOS(it_pos))->_pby_data, &b_result);
+                    ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_disorder))->_pby_data,
+                    ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pby_data, &b_result);
                 if(b_result)
                 {
                     it_insert = it_disorder;
@@ -992,8 +992,8 @@ void slist_merge_if(slist_t* pslist_dest, slist_t* pslist_src, binary_function_t
         {
             it_src = slist_begin(pslist_src);
             (*bfun_op)(
-                ((_slistnode_t*)_GET_SLIST_COREPOS(it_src))->_pby_data,
-                ((_slistnode_t*)_GET_SLIST_COREPOS(it_dest))->_pby_data, &b_result);
+                ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_src))->_pby_data,
+                ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_dest))->_pby_data, &b_result);
             if(b_result)
             {
                 _slist_transfer(it_dest, it_src, iterator_next(it_src));
@@ -1067,7 +1067,7 @@ void slist_resize(slist_t* pslist_slist, size_t t_resize)
         if(!slist_empty(pslist_slist))
         {
             it_pos = slist_previous(pslist_slist, slist_end(pslist_slist));
-            pt_pos = (_slistnode_t*)_GET_SLIST_COREPOS(it_pos);
+            pt_pos = (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos);
         }
         else
         {
@@ -1126,11 +1126,11 @@ bool_t slist_equal(const slist_t* cpslist_first, const slist_t* cpslist_second)
     {
         b_less = b_greater = _GET_SLIST_TYPE_SIZE(cpslist_first);
         _GET_SLIST_TYPE_LESS_FUNCTION(cpslist_first)(
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_first))->_pby_data,
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_second))->_pby_data, &b_less);
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first))->_pby_data,
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second))->_pby_data, &b_less);
         _GET_SLIST_TYPE_LESS_FUNCTION(cpslist_first)(
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_second))->_pby_data,
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_first))->_pby_data, &b_greater);
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second))->_pby_data,
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first))->_pby_data, &b_greater);
         if(b_less || b_greater)
         {
             return false;
@@ -1176,8 +1176,8 @@ bool_t slist_less(const slist_t* cpslist_first, const slist_t* cpslist_second)
     {
         b_result = _GET_SLIST_TYPE_SIZE(cpslist_first);
         _GET_SLIST_TYPE_LESS_FUNCTION(cpslist_first)(
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_first))->_pby_data,
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_second))->_pby_data, &b_result);
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first))->_pby_data,
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second))->_pby_data, &b_result);
         if(b_result)
         {
             return true;
@@ -1185,8 +1185,8 @@ bool_t slist_less(const slist_t* cpslist_first, const slist_t* cpslist_second)
 
         b_result = _GET_SLIST_TYPE_SIZE(cpslist_first);
         _GET_SLIST_TYPE_LESS_FUNCTION(cpslist_first)(
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_second))->_pby_data,
-            ((_slistnode_t*)_GET_SLIST_COREPOS(it_first))->_pby_data, &b_result);
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second))->_pby_data,
+            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first))->_pby_data, &b_result);
         if(b_result)
         {
             return false;

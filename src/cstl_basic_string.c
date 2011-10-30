@@ -76,8 +76,8 @@ void basic_string_init_copy_range(
     assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
     assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
-    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
 
     vector_init_copy_range(&pt_basic_string->_vec_base, it_begin, it_end);
 }
@@ -105,8 +105,8 @@ void basic_string_init_copy_substring(basic_string_t* pt_dest, const basic_strin
         it_end = iterator_next_n(basic_string_begin(cpt_src), t_pos + t_len);
     }
 
-    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
 
     vector_init_copy_range(&pt_dest->_vec_base, it_begin, it_end);
 }
@@ -2027,8 +2027,8 @@ void basic_string_assign_range(
     assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
     assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
-    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
     vector_assign_range(&pt_basic_string->_vec_base, it_begin, it_end);
 }
 
@@ -2148,8 +2148,8 @@ void basic_string_append_range(
     assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
     assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
-    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
     vector_insert_range(&pt_basic_string->_vec_base, vector_end(&pt_basic_string->_vec_base), it_begin, it_end);
 }
 
@@ -2239,9 +2239,9 @@ void basic_string_insert_range(
     assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
     assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
-    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
 
     vector_insert_range(&pt_basic_string->_vec_base, it_pos, it_begin, it_end);
 }
@@ -2258,7 +2258,7 @@ basic_string_iterator_t basic_string_erase(basic_string_t* pt_basic_string, basi
     assert(!iterator_equal(it_pos, basic_string_end(pt_basic_string)));
     assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_pos) == _BASIC_STRING_CONTAINER);
 
-    _GET_VECTOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
 
     it_iter = vector_erase(&pt_basic_string->_vec_base, it_pos);
     _GET_BASIC_STRING_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
@@ -2278,8 +2278,8 @@ basic_string_iterator_t basic_string_erase_range(
     assert(_iterator_belong_to_basic_string(pt_basic_string, it_begin) &&
            _iterator_belong_to_basic_string(pt_basic_string, it_end));
 
-    _GET_VECTOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
-    _GET_VECTOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
 
     it_iter= vector_erase_range(&pt_basic_string->_vec_base, it_begin, it_end);
     _GET_BASIC_STRING_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;

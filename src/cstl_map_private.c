@@ -164,8 +164,8 @@ map_iterator_t _map_find_varg(const map_t* cpmap_map, va_list val_elemlist)
 #endif
 
     _GET_CONTAINER(it_iter) = (map_t*)cpmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -234,8 +234,8 @@ map_iterator_t _map_lower_bound_varg(const map_t* cpmap_map, va_list val_elemlis
 #endif
 
     _GET_CONTAINER(it_iter) = (map_t*)cpmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -273,8 +273,8 @@ map_iterator_t _map_upper_bound_varg(const map_t* cpmap_map, va_list val_elemlis
 #endif
 
     _GET_CONTAINER(it_iter) = (map_t*)cpmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -312,11 +312,11 @@ range_t _map_equal_range_varg(const map_t* cpmap_map, va_list val_elemlist)
 #endif
 
     _GET_CONTAINER(r_range.it_begin) = (map_t*)cpmap_map;
-    _GET_MAP_CONTAINER_TYPE(r_range.it_begin) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _MAP_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
     _GET_CONTAINER(r_range.it_end) = (map_t*)cpmap_map;
-    _GET_MAP_CONTAINER_TYPE(r_range.it_end) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _MAP_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return r_range;
 }
@@ -388,8 +388,8 @@ void* _map_at_varg(map_t* pmap_map, va_list val_elemlist)
 #endif
 
     _GET_CONTAINER(it_iter) = pmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     if(iterator_equal(it_iter, map_end(pmap_map)))
     {

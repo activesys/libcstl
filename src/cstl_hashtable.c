@@ -663,7 +663,7 @@ _hashtable_iterator_t _hashtable_begin(const _hashtable_t* cpt_hashtable)
         !iterator_equal(it_bucket, vector_end(&cpt_hashtable->_vec_bucket));
         it_bucket = iterator_next(it_bucket))
     {
-        _GET_HASHTABLE_BUCKETPOS(it_iter) = _GET_VECTOR_COREPOS(it_bucket);
+        _GET_HASHTABLE_BUCKETPOS(it_iter) = _VECTOR_ITERATOR_COREPOS(it_bucket);
         if(*(_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(it_iter) != NULL)
         {
             _GET_HASHTABLE_COREPOS(it_iter) = (_byte_t*)*(_hashnode_t**)_GET_HASHTABLE_BUCKETPOS(it_iter);
@@ -673,7 +673,7 @@ _hashtable_iterator_t _hashtable_begin(const _hashtable_t* cpt_hashtable)
     if(iterator_equal(it_bucket, vector_end(&cpt_hashtable->_vec_bucket)))
     {
         assert(_GET_HASHTABLE_COREPOS(it_iter) == NULL);
-        _GET_HASHTABLE_BUCKETPOS(it_iter) = _GET_VECTOR_COREPOS(it_bucket);
+        _GET_HASHTABLE_BUCKETPOS(it_iter) = _VECTOR_ITERATOR_COREPOS(it_bucket);
     }
     _GET_HASHTABLE_POINTER(it_iter) = (_hashtable_t*)cpt_hashtable;
 
@@ -692,7 +692,7 @@ _hashtable_iterator_t _hashtable_end(const _hashtable_t* cpt_hashtable)
     assert(_hashtable_is_inited(cpt_hashtable));
 
     it_bucket = vector_end(&cpt_hashtable->_vec_bucket);
-    _GET_HASHTABLE_BUCKETPOS(it_iter) = _GET_VECTOR_COREPOS(it_bucket);
+    _GET_HASHTABLE_BUCKETPOS(it_iter) = _VECTOR_ITERATOR_COREPOS(it_bucket);
     _GET_HASHTABLE_COREPOS(it_iter) = NULL;
     _GET_HASHTABLE_POINTER(it_iter) = (_hashtable_t*)cpt_hashtable;
 

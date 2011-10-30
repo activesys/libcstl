@@ -242,8 +242,7 @@ void _list_assign_elem_varg(list_t* plist_list, size_t t_count, va_list val_elem
         it_iter = iterator_next(it_iter))
     {
         b_result = _GET_LIST_TYPE_SIZE(plist_list);
-        _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
-            ((_listnode_t*)_GET_LIST_COREPOS(it_iter))->_pby_data, pt_varg->_pby_data, &b_result);
+        _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data, pt_varg->_pby_data, &b_result);
         assert(b_result);
     }
 
@@ -308,10 +307,10 @@ list_iterator_t _list_insert_n_varg(list_t* plist_list, list_iterator_t it_pos, 
         assert(b_result);
 
         /* insert the element in the position it_pos */
-        pt_node->_pt_next = (_listnode_t*)_GET_LIST_COREPOS(it_pos);
-        pt_node->_pt_prev = ((_listnode_t*)_GET_LIST_COREPOS(it_pos))->_pt_prev;
-        ((_listnode_t*)_GET_LIST_COREPOS(it_pos))->_pt_prev->_pt_next = pt_node;
-        ((_listnode_t*)_GET_LIST_COREPOS(it_pos))->_pt_prev = pt_node;
+        pt_node->_pt_next = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos);
+        pt_node->_pt_prev = ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev;
+        ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev->_pt_next = pt_node;
+        ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev = pt_node;
         pt_node = NULL;
     }
 
@@ -430,10 +429,8 @@ void _list_remove_varg(list_t* plist_list, va_list val_elemlist)
     while(!iterator_equal(it_pos, list_end(plist_list)))
     {
         b_less = b_greater = _GET_LIST_TYPE_SIZE(plist_list);
-        _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(
-            ((_listnode_t*)_GET_LIST_COREPOS(it_pos))->_pby_data, pt_varg->_pby_data, &b_less);
-        _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(
-            pt_varg->_pby_data, ((_listnode_t*)_GET_LIST_COREPOS(it_pos))->_pby_data, &b_greater);
+        _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pby_data, pt_varg->_pby_data, &b_less);
+        _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(pt_varg->_pby_data, ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pby_data, &b_greater);
         if(b_less || b_greater)
         {
             it_pos = iterator_next(it_pos);
@@ -469,10 +466,10 @@ void _list_resize_elem(list_t* plist_list, size_t t_resize, ...)
 void _list_resize_elem_varg(list_t* plist_list, size_t t_resize, va_list val_elemlist)
 {
     _listnode_t* pt_node = NULL; /* the node for allocate */
-    size_t      t_listsize = 0; /* the list size */
-    size_t      i = 0;
+    size_t       t_listsize = 0; /* the list size */
+    size_t       i = 0;
     _listnode_t* pt_varg = NULL;
-    bool_t      b_result = false;
+    bool_t       b_result = false;
 
     assert(plist_list != NULL);
     assert(_list_is_inited(plist_list));

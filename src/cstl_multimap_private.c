@@ -164,8 +164,8 @@ multimap_iterator_t _multimap_find_varg(const multimap_t* cpmmap_map, va_list va
 #endif
 
     _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
-    _GET_MULTIMAP_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
+    _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -234,8 +234,8 @@ multimap_iterator_t _multimap_lower_bound_varg(const multimap_t* cpmmap_map, va_
 #endif
 
     _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
-    _GET_MULTIMAP_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
+    _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -273,8 +273,8 @@ multimap_iterator_t _multimap_upper_bound_varg(const multimap_t* cpmmap_map, va_
 #endif
 
     _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
-    _GET_MULTIMAP_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
+    _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -312,11 +312,11 @@ range_t _multimap_equal_range_varg(const multimap_t* cpmmap_map, va_list val_ele
 #endif
 
     _GET_CONTAINER(r_range.it_begin) = (multimap_t*)cpmmap_map;
-    _GET_MULTIMAP_CONTAINER_TYPE(r_range.it_begin) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _MULTIMAP_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _MULTIMAP_CONTAINER;
+    _MULTIMAP_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
     _GET_CONTAINER(r_range.it_end) = (multimap_t*)cpmmap_map;
-    _GET_MULTIMAP_CONTAINER_TYPE(r_range.it_end) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _MULTIMAP_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _MULTIMAP_CONTAINER;
+    _MULTIMAP_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return r_range;
 }

@@ -596,7 +596,7 @@ void _basic_string_insert_elem_varg(basic_string_t* pt_basic_string, size_t t_po
     assert(t_pos <= basic_string_size(pt_basic_string));
 
     it_pos = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
-    _GET_VECTOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
     _vector_insert_n_varg(&pt_basic_string->_vec_base, it_pos, t_count, val_elemlist);
 }
 

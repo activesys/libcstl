@@ -116,13 +116,13 @@ void multiset_init_copy(multiset_t* pmset_dest, const multiset_t* cpmset_src)
 void multiset_init_copy_range(multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end)
 {
     assert(pmset_dest != NULL);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER(it_begin) != pmset_dest);
-    assert(_GET_MULTISET_CONTAINER(it_end) != pmset_dest);
-    assert(_GET_MULTISET_CONTAINER(it_begin) == _GET_MULTISET_CONTAINER(it_end));
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) != pmset_dest);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_end) != pmset_dest);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) == _MULTISET_ITERATOR_CONTAINER(it_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_init_copy_range(&pmset_dest->_t_tree, it_begin, it_end);
@@ -138,13 +138,13 @@ void multiset_init_copy_range_ex(
     multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end, binary_function_t bfun_compare)
 {
     assert(pmset_dest != NULL);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER(it_begin) != pmset_dest);
-    assert(_GET_MULTISET_CONTAINER(it_end) != pmset_dest);
-    assert(_GET_MULTISET_CONTAINER(it_begin) == _GET_MULTISET_CONTAINER(it_end));
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) != pmset_dest);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_end) != pmset_dest);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) == _MULTISET_ITERATOR_CONTAINER(it_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
@@ -226,8 +226,8 @@ multiset_iterator_t multiset_begin(const multiset_t* cpmset_mset)
 #endif
 
     _GET_CONTAINER(it_begin) = (multiset_t*)cpmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(it_begin) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_begin) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
 
     return it_begin;
 }
@@ -248,8 +248,8 @@ multiset_iterator_t multiset_end(const multiset_t* cpmset_mset)
 #endif
 
     _GET_CONTAINER(it_end) = (multiset_t*)cpmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(it_end) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_end) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return it_end;
 }
@@ -267,8 +267,8 @@ multiset_iterator_t multiset_rbegin(const multiset_t* cpmset_mset)
 #endif
 
     _GET_CONTAINER(it_rbegin) = (multiset_t*)cpmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(it_rbegin) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_rbegin) = _BIDIRECTIONAL_ITERATOR;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_rbegin) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_rbegin) = _BIDIRECTIONAL_ITERATOR;
 
     return it_rbegin;
 }
@@ -286,8 +286,8 @@ multiset_iterator_t multiset_rend(const multiset_t* cpmset_mset)
 #endif
 
     _GET_CONTAINER(it_rend) = (multiset_t*)cpmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(it_rend) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_rend) = _BIDIRECTIONAL_ITERATOR;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_rend) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_rend) = _BIDIRECTIONAL_ITERATOR;
 
     return it_rend;
 }
@@ -439,13 +439,13 @@ void multiset_swap(multiset_t* pmset_first, multiset_t* pmset_second)
 void multiset_insert_range(multiset_t* pmset_mset, multiset_iterator_t it_begin, multiset_iterator_t it_end)
 {
     assert(pmset_mset != NULL);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER(it_begin) != pmset_mset);
-    assert(_GET_MULTISET_CONTAINER(it_end) != pmset_mset);
-    assert(_GET_MULTISET_CONTAINER(it_begin) == _GET_MULTISET_CONTAINER(it_end));
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) != pmset_mset);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_end) != pmset_mset);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) == _MULTISET_ITERATOR_CONTAINER(it_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_insert_equal_range(&pmset_mset->_t_tree, it_begin, it_end);
@@ -460,9 +460,9 @@ void multiset_insert_range(multiset_t* pmset_mset, multiset_iterator_t it_begin,
 void multiset_erase_pos(multiset_t* pmset_mset, multiset_iterator_t it_pos)
 {
     assert(pmset_mset != NULL);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_pos) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_pos) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER(it_pos) == pmset_mset);
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_pos) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_pos) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_pos) == pmset_mset);
 
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_erase_pos(&pmset_mset->_t_tree, it_pos);
@@ -477,12 +477,12 @@ void multiset_erase_pos(multiset_t* pmset_mset, multiset_iterator_t it_pos)
 void multiset_erase_range(multiset_t* pmset_mset, multiset_iterator_t it_begin, multiset_iterator_t it_end)
 {
     assert(pmset_mset != NULL);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER(it_begin) == pmset_mset);
-    assert(_GET_MULTISET_CONTAINER(it_end) == pmset_mset);
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) == pmset_mset);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_end) == pmset_mset);
 
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_erase_range(&pmset_mset->_t_tree, it_begin, it_end);

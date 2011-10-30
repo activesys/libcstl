@@ -51,8 +51,8 @@ _rb_tree_iterator_t _create_rb_tree_iterator(void)
 {
     _rb_tree_iterator_t it_iter;
 
-    _GET_RB_TREE_COREPOS(it_iter) = NULL;
-    _GET_RB_TREE_POINTER(it_iter) = NULL;
+    _RB_TREE_ITERATOR_COREPOS(it_iter) = NULL;
+    _RB_TREE_ITERATOR_TREE_POINTER(it_iter) = NULL;
 
     _GET_CONTAINER(it_iter) = NULL;
 
@@ -64,11 +64,11 @@ _rb_tree_iterator_t _create_rb_tree_iterator(void)
  */
 bool_t _rb_tree_iterator_equal(_rb_tree_iterator_t it_first, _rb_tree_iterator_t it_second)
 {
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_first), it_first));
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_second), it_second));
-    assert(_GET_RB_TREE(it_first) == _GET_RB_TREE(it_second));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_first), it_first));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_second), it_second));
+    assert(_RB_TREE_ITERATOR_TREE(it_first) == _RB_TREE_ITERATOR_TREE(it_second));
 
-    return _GET_RB_TREE_COREPOS(it_first) == _GET_RB_TREE_COREPOS(it_second) ? true : false;
+    return _RB_TREE_ITERATOR_COREPOS(it_first) == _RB_TREE_ITERATOR_COREPOS(it_second) ? true : false;
 }
 
 /**
@@ -77,19 +77,19 @@ bool_t _rb_tree_iterator_equal(_rb_tree_iterator_t it_first, _rb_tree_iterator_t
 void _rb_tree_iterator_get_value(_rb_tree_iterator_t it_iter, void* pv_value)
 {
     assert(pv_value != NULL);
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_iter), it_iter));
-    assert(!_rb_tree_iterator_equal(it_iter, _rb_tree_end(_GET_RB_TREE(it_iter))));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_iter), it_iter));
+    assert(!_rb_tree_iterator_equal(it_iter, _rb_tree_end(_RB_TREE_ITERATOR_TREE(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_RB_TREE_TYPE_BASENAME(_GET_RB_TREE(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    if(strncmp(_GET_RB_TREE_TYPE_BASENAME(_RB_TREE_ITERATOR_TREE(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        *(char**)pv_value = (char*)string_c_str((string_t*)((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pby_data);
+        *(char**)pv_value = (char*)string_c_str((string_t*)((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_iter))->_pby_data);
     }
     else
     {
-        bool_t b_result = _GET_RB_TREE_TYPE_SIZE(_GET_RB_TREE(it_iter));
-        _GET_RB_TREE_TYPE_COPY_FUNCTION(_GET_RB_TREE(it_iter))(
-            pv_value, ((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pby_data, &b_result);
+        bool_t b_result = _GET_RB_TREE_TYPE_SIZE(_RB_TREE_ITERATOR_TREE(it_iter));
+        _GET_RB_TREE_TYPE_COPY_FUNCTION(_RB_TREE_ITERATOR_TREE(it_iter))(
+            pv_value, ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_iter))->_pby_data, &b_result);
         assert(b_result);
     }
 }
@@ -99,17 +99,17 @@ void _rb_tree_iterator_get_value(_rb_tree_iterator_t it_iter, void* pv_value)
  */
 const void* _rb_tree_iterator_get_pointer(_rb_tree_iterator_t it_iter)
 {
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_iter), it_iter));
-    assert(!_rb_tree_iterator_equal(it_iter, _rb_tree_end(_GET_RB_TREE(it_iter))));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_iter), it_iter));
+    assert(!_rb_tree_iterator_equal(it_iter, _rb_tree_end(_RB_TREE_ITERATOR_TREE(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_RB_TREE_TYPE_BASENAME(_GET_RB_TREE(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
+    if(strncmp(_GET_RB_TREE_TYPE_BASENAME(_RB_TREE_ITERATOR_TREE(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
     {
-        return (char*)string_c_str((string_t*)((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pby_data);
+        return (char*)string_c_str((string_t*)((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_iter))->_pby_data);
     }
     else
     {
-        return ((_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter))->_pby_data;
+        return ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_iter))->_pby_data;
     }
 }
 
@@ -119,10 +119,10 @@ const void* _rb_tree_iterator_get_pointer(_rb_tree_iterator_t it_iter)
 _rb_tree_iterator_t _rb_tree_iterator_next(_rb_tree_iterator_t it_iter)
 {
     _rbnode_t* pt_next = NULL;  /* next pos */
-    _rbnode_t* pt_cur = (_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter);
+    _rbnode_t* pt_cur = (_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_iter);
 
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_iter), it_iter));
-    assert(!_rb_tree_iterator_equal(it_iter, _rb_tree_end(_GET_RB_TREE(it_iter))));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_iter), it_iter));
+    assert(!_rb_tree_iterator_equal(it_iter, _rb_tree_end(_RB_TREE_ITERATOR_TREE(it_iter))));
 
     if(pt_cur->_pt_right != NULL)
     {
@@ -132,7 +132,7 @@ _rb_tree_iterator_t _rb_tree_iterator_next(_rb_tree_iterator_t it_iter)
             pt_next = pt_next->_pt_left;
         }
 
-        _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_next;
+        _RB_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)pt_next;
     }
     else
     {
@@ -148,11 +148,11 @@ _rb_tree_iterator_t _rb_tree_iterator_next(_rb_tree_iterator_t it_iter)
          */
         if(pt_cur->_pt_right != pt_next)
         {
-            _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_next;
+            _RB_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)pt_next;
         }
         else /* here is special condition */
         {
-            _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_cur;
+            _RB_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)pt_cur;
         }
     }
 
@@ -165,15 +165,15 @@ _rb_tree_iterator_t _rb_tree_iterator_next(_rb_tree_iterator_t it_iter)
 _rb_tree_iterator_t _rb_tree_iterator_prev(_rb_tree_iterator_t it_iter)
 {
     _rbnode_t* pt_prev = NULL;
-    _rbnode_t* pt_cur = (_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter);
+    _rbnode_t* pt_cur = (_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_iter);
 
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_iter), it_iter));
-    assert(!_rb_tree_iterator_equal(it_iter, _rb_tree_begin(_GET_RB_TREE(it_iter))));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_iter), it_iter));
+    assert(!_rb_tree_iterator_equal(it_iter, _rb_tree_begin(_RB_TREE_ITERATOR_TREE(it_iter))));
 
     /* previous end */
-    if(_rb_tree_iterator_equal(it_iter, _rb_tree_end(_GET_RB_TREE(it_iter))))
+    if(_rb_tree_iterator_equal(it_iter, _rb_tree_end(_RB_TREE_ITERATOR_TREE(it_iter))))
     {
-        _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)_GET_RB_TREE(it_iter)->_t_rbroot._pt_right;
+        _RB_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)_RB_TREE_ITERATOR_TREE(it_iter)->_t_rbroot._pt_right;
     }
     else
     {
@@ -185,7 +185,7 @@ _rb_tree_iterator_t _rb_tree_iterator_prev(_rb_tree_iterator_t it_iter)
                 pt_prev = pt_prev->_pt_right;
             }
 
-            _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
+            _RB_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)pt_prev;
         }
         else
         {
@@ -200,7 +200,7 @@ _rb_tree_iterator_t _rb_tree_iterator_prev(_rb_tree_iterator_t it_iter)
              * there is no same special condition as next, because the begin 
              * iterator is the valid iterator 
              */
-            _GET_RB_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
+            _RB_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)pt_prev;
         }
     }
 
@@ -215,9 +215,9 @@ int _rb_tree_iterator_distance(_rb_tree_iterator_t it_first, _rb_tree_iterator_t
     _rb_tree_iterator_t it_iter;
     int                 n_distance = 0;
 
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_first), it_first));
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_second), it_second));
-    assert(_GET_RB_TREE(it_first) == _GET_RB_TREE(it_second));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_first), it_first));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_second), it_second));
+    assert(_RB_TREE_ITERATOR_TREE(it_first) == _RB_TREE_ITERATOR_TREE(it_second));
 
     if(_rb_tree_iterator_before(it_first, it_second))
     {
@@ -251,17 +251,17 @@ bool_t _rb_tree_iterator_before(_rb_tree_iterator_t it_first, _rb_tree_iterator_
     _rb_tree_iterator_t it_iter;
     _rb_tree_t*         pt_rb_tree = NULL;
 
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_first), it_first));
-    assert(_rb_tree_iterator_belong_to_rb_tree(_GET_RB_TREE(it_second), it_second));
-    assert(_GET_RB_TREE(it_first) == _GET_RB_TREE(it_second));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_first), it_first));
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_second), it_second));
+    assert(_RB_TREE_ITERATOR_TREE(it_first) == _RB_TREE_ITERATOR_TREE(it_second));
 
     /* first iterator equal to second iterator */
-    if(_GET_RB_TREE_COREPOS(it_first) == _GET_RB_TREE_COREPOS(it_second))
+    if(_RB_TREE_ITERATOR_COREPOS(it_first) == _RB_TREE_ITERATOR_COREPOS(it_second))
     {
         return false;
     }
     /* else travel subtree for search second iterator */
-    pt_rb_tree = _GET_RB_TREE(it_first);
+    pt_rb_tree = _RB_TREE_ITERATOR_TREE(it_first);
     for(it_iter = it_first;
         !_rb_tree_iterator_equal(it_iter, _rb_tree_end(pt_rb_tree));
         it_iter = _rb_tree_iterator_next(it_iter))
