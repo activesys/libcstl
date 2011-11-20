@@ -1,0 +1,12 @@
+.deps/
+.libs/
+*.cache/
+*.la
+*.a
+*.so
+*.lo
+*.o
+*.utoutput
+it
+ut
+cscope.*
