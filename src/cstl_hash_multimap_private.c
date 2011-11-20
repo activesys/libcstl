@@ -140,9 +140,9 @@ hash_multimap_iterator_t _hash_multimap_find_varg(const hash_multimap_t* cphmmap
 
     it_iter = _hashtable_find(&cphmmap_map->_t_hashtable, &cphmmap_map->_pair_temp);
 
-    _GET_CONTAINER(it_iter) = (hash_multimap_t*)cphmmap_map;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(it_iter) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (hash_multimap_t*)cphmmap_map;
+    _HASH_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _HASH_MULTIMAP_CONTAINER;
+    _HASH_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -202,13 +202,13 @@ range_t _hash_multimap_equal_range_varg(const hash_multimap_t* cphmmap_map, va_l
 
     r_range = _hashtable_equal_range(&cphmmap_map->_t_hashtable, &cphmmap_map->_pair_temp);
 
-    _GET_CONTAINER(r_range.it_begin) = (hash_multimap_t*)cphmmap_map;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(r_range.it_begin) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_begin) = (hash_multimap_t*)cphmmap_map;
+    _HASH_MULTIMAP_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _HASH_MULTIMAP_CONTAINER;
+    _HASH_MULTIMAP_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(r_range.it_end) = (hash_multimap_t*)cphmmap_map;
-    _GET_HASH_MULTIMAP_CONTAINER_TYPE(r_range.it_end) = _HASH_MULTIMAP_CONTAINER;
-    _GET_HASH_MULTIMAP_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_end) = (hash_multimap_t*)cphmmap_map;
+    _HASH_MULTIMAP_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _HASH_MULTIMAP_CONTAINER;
+    _HASH_MULTIMAP_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return r_range;
 }

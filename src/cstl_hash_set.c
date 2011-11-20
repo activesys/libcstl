@@ -104,13 +104,13 @@ void hash_set_init_copy_range_ex(
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
 {
     assert(phset_dest != NULL);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER);
-    assert(_GET_HASH_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER);
-    assert(_GET_HASH_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER(it_begin) != phset_dest);
-    assert(_GET_HASH_SET_CONTAINER(it_end) != phset_dest);
-    assert(_GET_HASH_SET_CONTAINER(it_begin) == _GET_HASH_SET_CONTAINER(it_end));
+    assert(_HASH_SET_ITERATOR_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER);
+    assert(_HASH_SET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_HASH_SET_ITERATOR_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER);
+    assert(_HASH_SET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_HASH_SET_ITERATOR_CONTAINER(it_begin) != phset_dest);
+    assert(_HASH_SET_ITERATOR_CONTAINER(it_end) != phset_dest);
+    assert(_HASH_SET_ITERATOR_CONTAINER(it_begin) == _HASH_SET_ITERATOR_CONTAINER(it_end));
 
     _hashtable_init_copy_range(&phset_dest->_t_hashtable, it_begin, it_end, t_bucketcount, ufun_hash, bfun_compare);
 }
@@ -294,9 +294,9 @@ hash_set_iterator_t hash_set_begin(const hash_set_t* cphset_set)
 
     it_begin = _hashtable_begin(&cphset_set->_t_hashtable);
 
-    _GET_CONTAINER(it_begin) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(it_begin) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_begin) = (hash_set_t*)cphset_set;
+    _HASH_SET_ITERATOR_CONTAINER_TYPE(it_begin) = _HASH_SET_CONTAINER;
+    _HASH_SET_ITERATOR_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
 
     return it_begin;
 }
@@ -312,9 +312,9 @@ hash_set_iterator_t hash_set_end(const hash_set_t* cphset_set)
 
     it_end = _hashtable_end(&cphset_set->_t_hashtable);
 
-    _GET_CONTAINER(it_end) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(it_end) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_end) = (hash_set_t*)cphset_set;
+    _HASH_SET_ITERATOR_CONTAINER_TYPE(it_end) = _HASH_SET_CONTAINER;
+    _HASH_SET_ITERATOR_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return it_end;
 }
@@ -325,13 +325,13 @@ hash_set_iterator_t hash_set_end(const hash_set_t* cphset_set)
 void hash_set_insert_range(hash_set_t* phset_set, hash_set_iterator_t it_begin, hash_set_iterator_t it_end)
 {
     assert(phset_set != NULL);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER);
-    assert(_GET_HASH_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER);
-    assert(_GET_HASH_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER(it_begin) != phset_set);
-    assert(_GET_HASH_SET_CONTAINER(it_end) != phset_set);
-    assert(_GET_HASH_SET_CONTAINER(it_begin) == _GET_HASH_SET_CONTAINER(it_end));
+    assert(_HASH_SET_ITERATOR_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER);
+    assert(_HASH_SET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_HASH_SET_ITERATOR_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER);
+    assert(_HASH_SET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_HASH_SET_ITERATOR_CONTAINER(it_begin) != phset_set);
+    assert(_HASH_SET_ITERATOR_CONTAINER(it_end) != phset_set);
+    assert(_HASH_SET_ITERATOR_CONTAINER(it_begin) == _HASH_SET_ITERATOR_CONTAINER(it_end));
 
     _hashtable_insert_unique_range(&phset_set->_t_hashtable, it_begin, it_end);
 }
@@ -342,9 +342,9 @@ void hash_set_insert_range(hash_set_t* phset_set, hash_set_iterator_t it_begin, 
 void hash_set_erase_pos(hash_set_t* phset_set, hash_set_iterator_t it_pos)
 {
     assert(phset_set != NULL);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_pos) == _HASH_SET_CONTAINER);
-    assert(_GET_HASH_SET_ITERATOR_TYPE(it_pos) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER(it_pos) == phset_set);
+    assert(_HASH_SET_ITERATOR_CONTAINER_TYPE(it_pos) == _HASH_SET_CONTAINER);
+    assert(_HASH_SET_ITERATOR_ITERATOR_TYPE(it_pos) == _BIDIRECTIONAL_ITERATOR);
+    assert(_HASH_SET_ITERATOR_CONTAINER(it_pos) == phset_set);
 
     _hashtable_erase_pos(&phset_set->_t_hashtable, it_pos);
 }
@@ -355,12 +355,12 @@ void hash_set_erase_pos(hash_set_t* phset_set, hash_set_iterator_t it_pos)
 void hash_set_erase_range(hash_set_t* phset_set, hash_set_iterator_t it_begin, hash_set_iterator_t it_end)
 {
     assert(phset_set != NULL);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER);
-    assert(_GET_HASH_SET_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER);
-    assert(_GET_HASH_SET_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_HASH_SET_CONTAINER(it_begin) == phset_set);
-    assert(_GET_HASH_SET_CONTAINER(it_end) == phset_set);
+    assert(_HASH_SET_ITERATOR_CONTAINER_TYPE(it_begin) == _HASH_SET_CONTAINER);
+    assert(_HASH_SET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_HASH_SET_ITERATOR_CONTAINER_TYPE(it_end) == _HASH_SET_CONTAINER);
+    assert(_HASH_SET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_HASH_SET_ITERATOR_CONTAINER(it_begin) == phset_set);
+    assert(_HASH_SET_ITERATOR_CONTAINER(it_end) == phset_set);
 
     _hashtable_erase_range(&phset_set->_t_hashtable, it_begin, it_end);
 }

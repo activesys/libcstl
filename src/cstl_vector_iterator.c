@@ -53,7 +53,7 @@ vector_iterator_t _create_vector_iterator(void)
     vector_iterator_t it_iter;
 
     _VECTOR_ITERATOR_COREPOS(it_iter) = NULL;
-    _GET_CONTAINER(it_iter) = NULL;
+    _ITERATOR_CONTAINER(it_iter) = NULL;
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
     _VECTOR_ITERATOR_ITERATOR_TYPE(it_iter) = _RANDOM_ACCESS_ITERATOR;
 

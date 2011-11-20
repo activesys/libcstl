@@ -163,7 +163,7 @@ multimap_iterator_t _multimap_find_varg(const multimap_t* cpmmap_map, va_list va
     it_iter = _rb_tree_find(&cpmmap_map->_t_tree, &cpmmap_map->_pair_temp);
 #endif
 
-    _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -233,7 +233,7 @@ multimap_iterator_t _multimap_lower_bound_varg(const multimap_t* cpmmap_map, va_
     it_iter = _rb_tree_lower_bound(&cpmmap_map->_t_tree, &cpmmap_map->_pair_temp);
 #endif
 
-    _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -272,7 +272,7 @@ multimap_iterator_t _multimap_upper_bound_varg(const multimap_t* cpmmap_map, va_
     it_iter = _rb_tree_upper_bound(&cpmmap_map->_t_tree, &cpmmap_map->_pair_temp);
 #endif
 
-    _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -311,10 +311,10 @@ range_t _multimap_equal_range_varg(const multimap_t* cpmmap_map, va_list val_ele
     r_range = _rb_tree_equal_range(&cpmmap_map->_t_tree, &cpmmap_map->_pair_temp);
 #endif
 
-    _GET_CONTAINER(r_range.it_begin) = (multimap_t*)cpmmap_map;
+    _ITERATOR_CONTAINER(r_range.it_begin) = (multimap_t*)cpmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
-    _GET_CONTAINER(r_range.it_end) = (multimap_t*)cpmmap_map;
+    _ITERATOR_CONTAINER(r_range.it_end) = (multimap_t*)cpmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 

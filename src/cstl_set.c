@@ -226,7 +226,7 @@ set_iterator_t set_begin(const set_t* cpset_set)
     it_begin = _rb_tree_begin(&cpset_set->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_begin) = (set_t*)cpset_set;
+    _ITERATOR_CONTAINER(it_begin) = (set_t*)cpset_set;
     _SET_ITERATOR_CONTAINER_TYPE(it_begin) = _SET_CONTAINER;
     _SET_ITERATOR_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
 
@@ -248,7 +248,7 @@ set_iterator_t set_end(const set_t* cpset_set)
     it_end = _rb_tree_end(&cpset_set->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_end) = (set_t*)cpset_set;
+    _ITERATOR_CONTAINER(it_end) = (set_t*)cpset_set;
     _SET_ITERATOR_CONTAINER_TYPE(it_end) = _SET_CONTAINER;
     _SET_ITERATOR_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
 
@@ -267,7 +267,7 @@ set_iterator_t set_rbegin(const set_t* cpset_set)
     it_rbegin = _rb_tree_rbegin(&cpset_set->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_rbegin) = (set_t*)cpset_set;
+    _ITERATOR_CONTAINER(it_rbegin) = (set_t*)cpset_set;
     _SET_ITERATOR_CONTAINER_TYPE(it_rbegin) = _SET_CONTAINER;
     _SET_ITERATOR_ITERATOR_TYPE(it_rbegin) = _BIDIRECTIONAL_ITERATOR;
 
@@ -286,7 +286,7 @@ set_iterator_t set_rend(const set_t* cpset_set)
     it_rend = _rb_tree_rend(&cpset_set->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_rend) = (set_t*)cpset_set;
+    _ITERATOR_CONTAINER(it_rend) = (set_t*)cpset_set;
     _SET_ITERATOR_CONTAINER_TYPE(it_rend) = _SET_CONTAINER;
     _SET_ITERATOR_ITERATOR_TYPE(it_rend) = _BIDIRECTIONAL_ITERATOR;
 

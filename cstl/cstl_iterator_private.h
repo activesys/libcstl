@@ -78,35 +78,35 @@ extern "C" {
 #define _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter)      ((it_iter)._t_containertype)
 #define _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter)       ((it_iter)._t_iteratortype)
 /* hashtable iterator handler */
-#define _GET_HASHTABLE_BUCKETPOS(it_iter)          ((it_iter)._t_pos._t_hashpos._pby_bucketpos)
-#define _GET_HASHTABLE_COREPOS(it_iter)            ((it_iter)._t_pos._t_hashpos._pby_corepos)
-#define _GET_HASHTABLE(it_iter)                    ((_hashtable_t*)((it_iter)._t_pos._t_hashpos._pt_hashtable))
-#define _GET_HASHTABLE_POINTER(it_iter)            ((it_iter)._t_pos._t_hashpos._pt_hashtable)
+#define _HASHTABLE_ITERATOR_BUCKETPOS(it_iter)          ((it_iter)._t_pos._t_hashpos._pby_bucketpos)
+#define _HASHTABLE_ITERATOR_COREPOS(it_iter)            ((it_iter)._t_pos._t_hashpos._pby_corepos)
+#define _HASHTABLE_ITERATOR_HASHTABLE(it_iter)          ((_hashtable_t*)((it_iter)._t_pos._t_hashpos._pt_hashtable))
+#define _HASHTABLE_ITERATOR_HASHTABLE_POINTER(it_iter)  ((it_iter)._t_pos._t_hashpos._pt_hashtable)
 /* hash_set iterator handler */
-#define _GET_HASH_SET_CONTAINER(it_iter)           ((hash_set_t*)((it_iter)._pt_container))
-#define _GET_HASH_SET_CONTAINER_TYPE(it_iter)      ((it_iter)._t_containertype)
-#define _GET_HASH_SET_ITERATOR_TYPE(it_iter)       ((it_iter)._t_iteratortype)
+#define _HASH_SET_ITERATOR_CONTAINER(it_iter)           ((hash_set_t*)((it_iter)._pt_container))
+#define _HASH_SET_ITERATOR_CONTAINER_TYPE(it_iter)      ((it_iter)._t_containertype)
+#define _HASH_SET_ITERATOR_ITERATOR_TYPE(it_iter)       ((it_iter)._t_iteratortype)
 /* hash_multiset iterator handler */
-#define _GET_HASH_MULTISET_CONTAINER(it_iter)      ((hash_multiset_t*)((it_iter)._pt_container))
-#define _GET_HASH_MULTISET_CONTAINER_TYPE(it_iter) ((it_iter)._t_containertype)
-#define _GET_HASH_MULTISET_ITERATOR_TYPE(it_iter)  ((it_iter)._t_iteratortype)
+#define _HASH_MULTISET_ITERATOR_CONTAINER(it_iter)      ((hash_multiset_t*)((it_iter)._pt_container))
+#define _HASH_MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) ((it_iter)._t_containertype)
+#define _HASH_MULTISET_ITERATOR_ITERATOR_TYPE(it_iter)  ((it_iter)._t_iteratortype)
 /* hash_map iterator handler */
-#define _GET_HASH_MAP_CONTAINER(it_iter)           ((hash_map_t*)((it_iter)._pt_container))
-#define _GET_HASH_MAP_CONTAINER_TYPE(it_iter)      ((it_iter)._t_containertype)
-#define _GET_HASH_MAP_ITERATOR_TYPE(it_iter)       ((it_iter)._t_iteratortype)
+#define _HASH_MAP_ITERATOR_CONTAINER(it_iter)           ((hash_map_t*)((it_iter)._pt_container))
+#define _HASH_MAP_ITERATOR_CONTAINER_TYPE(it_iter)      ((it_iter)._t_containertype)
+#define _HASH_MAP_ITERATOR_ITERATOR_TYPE(it_iter)       ((it_iter)._t_iteratortype)
 /* hash_multimap iterator handler */
-#define _GET_HASH_MULTIMAP_CONTAINER(it_iter)      ((hash_multimap_t*)((it_iter)._pt_container))
-#define _GET_HASH_MULTIMAP_CONTAINER_TYPE(it_iter) ((it_iter)._t_containertype)
-#define _GET_HASH_MULTIMAP_ITERATOR_TYPE(it_iter)  ((it_iter)._t_iteratortype)
+#define _HASH_MULTIMAP_ITERATOR_CONTAINER(it_iter)      ((hash_multimap_t*)((it_iter)._pt_container))
+#define _HASH_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) ((it_iter)._t_containertype)
+#define _HASH_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter)  ((it_iter)._t_iteratortype)
 /* basic_string iterator handler */
-#define _GET_BASIC_STRING_COREPOS(it_iter)         ((it_iter)._t_pos._pby_corepos)
-#define _GET_BASIC_STRING_CONTAINER(it_iter)       ((basic_string_t*)((it_iter)._pt_container))
-#define _GET_BASIC_STRING_CONTAINER_TYPE(it_iter)  ((it_iter)._t_containertype)
-#define _GET_BASIC_STRING_ITERATOR_TYPE(it_iter)   ((it_iter)._t_iteratortype)
+#define _BASIC_STRING_ITERATOR_COREPOS(it_iter)         ((it_iter)._t_pos._pby_corepos)
+#define _BASIC_STRING_ITERATOR_CONTAINER(it_iter)       ((basic_string_t*)((it_iter)._pt_container))
+#define _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter)  ((it_iter)._t_containertype)
+#define _BASIC_STRING_ITERATOR_ITERATOR_TYPE(it_iter)   ((it_iter)._t_iteratortype)
 /* for all container iterator */
-#define _GET_CONTAINER(it_iter)                    ((it_iter)._pt_container)
-#define _GET_CONTAINER_TYPE(it_iter)               ((it_iter)._t_containertype)
-#define _GET_ITERATOR_TYPE(it_iter)                ((it_iter)._t_iteratortype)
+#define _ITERATOR_CONTAINER(it_iter)                    ((it_iter)._pt_container)
+#define _ITERATOR_CONTAINER_TYPE(it_iter)               ((it_iter)._t_containertype)
+#define _ITERATOR_ITERATOR_TYPE(it_iter)                ((it_iter)._t_iteratortype)
 
 #define _STRING_CONTAINER        _BASIC_STRING_CONTAINER
 
@@ -193,23 +193,85 @@ typedef output_iterator_t           ostream_iterator_t;
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Private iterator functions.
+/**
+ * Test whether the iterator is valid.
+ * @param it_iter      iterator.
+ * @return whether iterator is valid.
  */
-extern bool_t _iterator_same_type(iterator_t t_iterfirst, iterator_t t_itersecond);
-extern bool_t _iterator_before(iterator_t t_iterfirst, iterator_t t_itersecond);
+extern bool_t _iterator_is_valid(iterator_t it_iter);
+
+/**
+ * Test whether two iterator are equal types.
+ * @param it_first     first iterator.
+ * @param it_second    second iterator.
+ * @return whether tow iterator type are equal.
+ * @remarks two iterator must be valid, other behavior is undefined.
+ */
+extern bool_t _iterator_same_type(iterator_t it_first, iterator_t it_second);
+
+/**
+ * Test whether an iterator on another front.
+ * @param it_first     first iterator.
+ * @param it_second    second iterator.
+ * @return whether the first iterator on the second front.
+ * @remarks two iterator must be valid and type muse be same, otherwise behavior is undefined.
+ */
+extern bool_t _iterator_before(iterator_t it_first, iterator_t it_second);
+
+/**
+ * Test whether the iterator type of restriction.
+ * @param it_iter      iterator.
+ * @param t_limittype  restriction type.
+ * @return wehter the iterator type of restriction.
+ * @remarks the iterator must be valid, otherwise behavior is undefined. restriction type must be valid
+ *          iterator type, otherwise behavior is undefined.
+ */
 extern bool_t _iterator_limit_type(iterator_t it_iter, iteratortype_t t_limittype);
 
-extern bool_t _iterator_valid_range(
-    iterator_t t_first, iterator_t t_last, iteratortype_t t_type);
-extern bool_t _iterator_same_elem_type(iterator_t t_first, iterator_t t_last);
+/**
+ * Test whether the [it_first, it_last) is valid range.
+ * @param it_first     first iterator.
+ * @param it_last      last iterator.
+ * @return whether the [it_first, it_last) is valid range.
+ * @remarks two iterator must be valid iterator and iterator type must be valid type, otherwise behavior is undefined.
+ */
+extern bool_t _iterator_valid_range(iterator_t it_first, iterator_t it_last, iteratortype_t t_type);
 
-extern _typestyle_t _iterator_get_typestyle(iterator_t it_iter);
-extern const char* _iterator_get_typebasename(iterator_t it_iter);
+/**
+ * Get typeinfo of iterator.
+ * @param it_iter      iterator.
+ * @return typeinfo pointer of iterator.
+ * @remarks iterator must be valid, otherwise behavior is undefined.
+ */
 extern _typeinfo_t* _iterator_get_typeinfo(iterator_t it_iter);
+
+/**
+ * Get type style of iterator.
+ * @param it_iter      iterator.
+ * @return type style pointer of iterator.
+ * @remarks iterator must be valid, otherwise behavior is undefined.
+ */
+extern _typestyle_t _iterator_get_typestyle(iterator_t it_iter);
+
+/**
+ * Get type basename of iterator.
+ * @param it_iter      iterator.
+ * @return type basename pointer of iterator.
+ * @remarks iterator must be valid, otherwise behavior is undefined.
+ */
+extern const char* _iterator_get_typebasename(iterator_t it_iter);
+
+/**
+ * Get type name of iterator.
+ * @param it_iter      iterator.
+ * @return type name pointer of iterator.
+ * @remarks iterator must be valid, otherwise behavior is undefined.
+ */
 extern const char* _iterator_get_typename(iterator_t it_iter);
 extern binary_function_t _iterator_get_typecopy(iterator_t it_iter);
 extern size_t _iterator_get_typesize(iterator_t it_iter);
+
+extern bool_t _iterator_same_elem_type(iterator_t it_first, iterator_t it_last);
 extern void* _iterator_allocate_init_elem(iterator_t it_iter);
 extern void _iterator_deallocate_destroy_elem(iterator_t it_iter, void* pv_value);
 

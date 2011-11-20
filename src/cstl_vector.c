@@ -487,7 +487,7 @@ vector_iterator_t vector_begin(const vector_t* cpvec_vector)
     assert(_vector_is_inited(cpvec_vector));
 
     it_begin = _create_vector_iterator();
-    _GET_CONTAINER(it_begin) = (vector_t*)cpvec_vector;
+    _ITERATOR_CONTAINER(it_begin) = (vector_t*)cpvec_vector;
     _VECTOR_ITERATOR_COREPOS(it_begin) = cpvec_vector->_pby_start;
 
     return it_begin;
@@ -504,7 +504,7 @@ vector_iterator_t vector_end(const vector_t* cpvec_vector)
     assert(_vector_is_inited(cpvec_vector));
 
     it_end = _create_vector_iterator();
-    _GET_CONTAINER(it_end) = (vector_t*)cpvec_vector;
+    _ITERATOR_CONTAINER(it_end) = (vector_t*)cpvec_vector;
     _VECTOR_ITERATOR_COREPOS(it_end) = cpvec_vector->_pby_finish;
 
     return it_end;
@@ -518,7 +518,7 @@ vector_reverse_iterator_t vector_rbegin(const vector_t* cpvec_vector)
     assert(_vector_is_inited(cpvec_vector));
 
     it_rbegin = _create_vector_iterator();
-    _GET_CONTAINER(it_rbegin) = (vector_t*)cpvec_vector;
+    _ITERATOR_CONTAINER(it_rbegin) = (vector_t*)cpvec_vector;
     _VECTOR_ITERATOR_COREPOS(it_rbegin) = cpvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 
     return it_rbegin;
@@ -532,7 +532,7 @@ vector_reverse_iterator_t vector_rend(const vector_t* cpvec_vector)
     assert(_vector_is_inited(cpvec_vector));
 
     it_rend = _create_vector_iterator();
-    _GET_CONTAINER(it_rend) = (vector_t*)cpvec_vector;
+    _ITERATOR_CONTAINER(it_rend) = (vector_t*)cpvec_vector;
     _VECTOR_ITERATOR_COREPOS(it_rend) = cpvec_vector->_pby_start - _GET_VECTOR_TYPE_SIZE(cpvec_vector);
 
     return it_rend;

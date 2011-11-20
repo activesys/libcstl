@@ -163,7 +163,7 @@ map_iterator_t _map_find_varg(const map_t* cpmap_map, va_list val_elemlist)
     it_iter = _rb_tree_find(&cpmap_map->_t_tree, &cpmap_map->_pair_temp);
 #endif
 
-    _GET_CONTAINER(it_iter) = (map_t*)cpmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (map_t*)cpmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -233,7 +233,7 @@ map_iterator_t _map_lower_bound_varg(const map_t* cpmap_map, va_list val_elemlis
     it_iter = _rb_tree_lower_bound(&cpmap_map->_t_tree, &cpmap_map->_pair_temp);
 #endif
 
-    _GET_CONTAINER(it_iter) = (map_t*)cpmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (map_t*)cpmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -272,7 +272,7 @@ map_iterator_t _map_upper_bound_varg(const map_t* cpmap_map, va_list val_elemlis
     it_iter = _rb_tree_upper_bound(&cpmap_map->_t_tree, &cpmap_map->_pair_temp);
 #endif
 
-    _GET_CONTAINER(it_iter) = (map_t*)cpmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (map_t*)cpmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -311,10 +311,10 @@ range_t _map_equal_range_varg(const map_t* cpmap_map, va_list val_elemlist)
     r_range = _rb_tree_equal_range(&cpmap_map->_t_tree, &cpmap_map->_pair_temp);
 #endif
 
-    _GET_CONTAINER(r_range.it_begin) = (map_t*)cpmap_map;
+    _ITERATOR_CONTAINER(r_range.it_begin) = (map_t*)cpmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
-    _GET_CONTAINER(r_range.it_end) = (map_t*)cpmap_map;
+    _ITERATOR_CONTAINER(r_range.it_end) = (map_t*)cpmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
@@ -387,7 +387,7 @@ void* _map_at_varg(map_t* pmap_map, va_list val_elemlist)
     it_iter = _rb_tree_insert_unique(&pmap_map->_t_tree, &pmap_map->_pair_temp);
 #endif
 
-    _GET_CONTAINER(it_iter) = pmap_map;
+    _ITERATOR_CONTAINER(it_iter) = pmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 

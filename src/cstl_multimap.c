@@ -437,7 +437,7 @@ multimap_iterator_t multimap_begin(const multimap_t* cpmmap_map)
     it_iter = _rb_tree_begin(&cpmmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -460,7 +460,7 @@ multimap_iterator_t multimap_end(const multimap_t* cpmmap_map)
     it_iter = _rb_tree_end(&cpmmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -480,7 +480,7 @@ multimap_reverse_iterator_t multimap_rbegin(const multimap_t* cpmmap_map)
     it_iter = _rb_tree_rbegin(&cpmmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -500,7 +500,7 @@ multimap_reverse_iterator_t multimap_rend(const multimap_t* cpmmap_map)
     it_iter = _rb_tree_rend(&cpmmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
+    _ITERATOR_CONTAINER(it_iter) = (multimap_t*)cpmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -530,7 +530,7 @@ multimap_iterator_t multimap_insert(multimap_t* pmmap_map, const pair_t* cppair_
     it_iter = _rb_tree_insert_equal(&pmmap_map->_t_tree, cppair_pair);
 #endif
 
-    _GET_CONTAINER(it_iter) = pmmap_map;
+    _ITERATOR_CONTAINER(it_iter) = pmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -561,7 +561,7 @@ multimap_iterator_t multimap_insert_hint(multimap_t* pmmap_map, multimap_iterato
     it_hint = _rb_tree_insert_equal(&pmmap_map->_t_tree, cppair_pair);
 #endif
 
-    _GET_CONTAINER(it_hint) = pmmap_map;
+    _ITERATOR_CONTAINER(it_hint) = pmmap_map;
     _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_hint) = _MULTIMAP_CONTAINER;
     _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
 

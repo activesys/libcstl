@@ -155,7 +155,7 @@ slist_iterator_t slist_begin(const slist_t* cpslist_slist)
     assert(_slist_is_inited(cpslist_slist));
 
     it_begin = _create_slist_iterator();
-    _GET_CONTAINER(it_begin) = (slist_t*)cpslist_slist;
+    _ITERATOR_CONTAINER(it_begin) = (slist_t*)cpslist_slist;
     _SLIST_ITERATOR_COREPOS(it_begin) = (_byte_t*)(cpslist_slist->_t_head._pt_next);
 
     return it_begin;
@@ -172,7 +172,7 @@ slist_iterator_t slist_end(const slist_t* cpslist_slist)
     assert(_slist_is_inited(cpslist_slist));
 
     it_end = _create_slist_iterator();
-    _GET_CONTAINER(it_end) = (slist_t*)cpslist_slist;
+    _ITERATOR_CONTAINER(it_end) = (slist_t*)cpslist_slist;
     _SLIST_ITERATOR_COREPOS(it_end) = NULL;
 
     return it_end;

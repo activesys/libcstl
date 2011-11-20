@@ -54,7 +54,7 @@ _rb_tree_iterator_t _create_rb_tree_iterator(void)
     _RB_TREE_ITERATOR_COREPOS(it_iter) = NULL;
     _RB_TREE_ITERATOR_TREE_POINTER(it_iter) = NULL;
 
-    _GET_CONTAINER(it_iter) = NULL;
+    _ITERATOR_CONTAINER(it_iter) = NULL;
 
     return it_iter;
 }

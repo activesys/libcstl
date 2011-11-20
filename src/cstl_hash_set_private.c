@@ -113,9 +113,9 @@ hash_set_iterator_t _hash_set_find_varg(const hash_set_t* cphset_set, va_list va
     _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cphset_set, pv_varg);
     _alloc_deallocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, pv_varg, _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
 
-    _GET_CONTAINER(it_iter) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(it_iter) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (hash_set_t*)cphset_set;
+    _HASH_SET_ITERATOR_CONTAINER_TYPE(it_iter) = _HASH_SET_CONTAINER;
+    _HASH_SET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -195,13 +195,13 @@ range_t _hash_set_equal_range_varg(const hash_set_t* cphset_set, va_list val_ele
     _hash_set_destroy_varg_value_auxiliary((hash_set_t*)cphset_set, pv_varg);
     _alloc_deallocate(&((hash_set_t*)cphset_set)->_t_hashtable._t_allocator, pv_varg, _GET_HASH_SET_TYPE_SIZE(cphset_set), 1);
 
-    _GET_CONTAINER(r_range.it_begin) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(r_range.it_begin) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_begin) = (hash_set_t*)cphset_set;
+    _HASH_SET_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _HASH_SET_CONTAINER;
+    _HASH_SET_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(r_range.it_end) = (hash_set_t*)cphset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(r_range.it_end) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_end) = (hash_set_t*)cphset_set;
+    _HASH_SET_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _HASH_SET_CONTAINER;
+    _HASH_SET_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return r_range;
 }
@@ -242,9 +242,9 @@ hash_set_iterator_t _hash_set_insert_varg(hash_set_t* phset_set, va_list val_ele
     _hash_set_destroy_varg_value_auxiliary(phset_set, pv_varg);
     _alloc_deallocate(&phset_set->_t_hashtable._t_allocator, pv_varg, _GET_HASH_SET_TYPE_SIZE(phset_set), 1);
 
-    _GET_CONTAINER(it_iter) = phset_set;
-    _GET_HASH_SET_CONTAINER_TYPE(it_iter) = _HASH_SET_CONTAINER;
-    _GET_HASH_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = phset_set;
+    _HASH_SET_ITERATOR_CONTAINER_TYPE(it_iter) = _HASH_SET_CONTAINER;
+    _HASH_SET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }

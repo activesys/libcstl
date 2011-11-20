@@ -54,7 +54,7 @@ list_iterator_t _create_list_iterator(void)
     list_iterator_t it_iter;
 
     _LIST_ITERATOR_COREPOS(it_iter) = NULL;
-    _GET_CONTAINER(it_iter) = NULL;
+    _ITERATOR_CONTAINER(it_iter) = NULL;
     _LIST_ITERATOR_CONTAINER_TYPE(it_iter) = _LIST_CONTAINER;
     _LIST_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 

@@ -73,8 +73,8 @@ void basic_string_init_copy_range(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end)
 {
     assert(pt_basic_string != NULL);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
@@ -143,7 +143,7 @@ void basic_string_init_subcstr(basic_string_t* pt_basic_string, const void* cpv_
         assert(vector_size(&pt_basic_string->_vec_base) == t_len);
 
         t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-        pby_value = _GET_BASIC_STRING_COREPOS(basic_string_begin(pt_basic_string));
+        pby_value = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(pt_basic_string));
         assert(pby_value != NULL);
 
         /* char* */
@@ -521,7 +521,7 @@ int basic_string_compare_substring_substring(
     {
         b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_first);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(
-            _GET_BASIC_STRING_COREPOS(it_first), _GET_BASIC_STRING_COREPOS(it_second), &b_result);
+            _BASIC_STRING_ITERATOR_COREPOS(it_first), _BASIC_STRING_ITERATOR_COREPOS(it_second), &b_result);
         if(b_result)
         {
             return -1;
@@ -529,7 +529,7 @@ int basic_string_compare_substring_substring(
 
         b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_first);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(
-            _GET_BASIC_STRING_COREPOS(it_second), _GET_BASIC_STRING_COREPOS(it_first), &b_result);
+            _BASIC_STRING_ITERATOR_COREPOS(it_second), _BASIC_STRING_ITERATOR_COREPOS(it_first), &b_result);
         if(b_result)
         {
             return 1;
@@ -614,7 +614,7 @@ int basic_string_compare_substring_subcstr(
     }
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     assert(pby_string != NULL);
 
     /* char* */
@@ -701,7 +701,7 @@ basic_string_t* basic_string_substr(const basic_string_t* cpt_basic_string, size
     {
         b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
         _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
-            _GET_BASIC_STRING_COREPOS(it_substr), _GET_BASIC_STRING_COREPOS(it_string), &b_result);
+            _BASIC_STRING_ITERATOR_COREPOS(it_substr), _BASIC_STRING_ITERATOR_COREPOS(it_string), &b_result);
         assert(b_result);
     }
 
@@ -732,8 +732,8 @@ void basic_string_connect(basic_string_t* pt_dest, const basic_string_t* cpt_src
     {
         vector_resize(&pt_dest->_vec_base, t_destlen + t_srclen);
 
-        pby_dest = _GET_BASIC_STRING_COREPOS(iterator_next_n(basic_string_begin(pt_dest), t_destlen));
-        pby_src = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_src));
+        pby_dest = _BASIC_STRING_ITERATOR_COREPOS(iterator_next_n(basic_string_begin(pt_dest), t_destlen));
+        pby_src = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_src));
         assert(pby_dest != NULL && pby_src != NULL);
 
         for(i = 0; i < t_srclen; ++i)
@@ -768,7 +768,7 @@ void basic_string_connect_cstr(basic_string_t* pt_basic_string, const void* cpv_
     {
         vector_resize(&pt_basic_string->_vec_base, t_destlen + t_srclen);
 
-        pby_dest = _GET_BASIC_STRING_COREPOS(iterator_next_n(basic_string_begin(pt_basic_string), t_destlen));
+        pby_dest = _BASIC_STRING_ITERATOR_COREPOS(iterator_next_n(basic_string_begin(pt_basic_string), t_destlen));
         assert(pby_dest != NULL);
 
         t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
@@ -813,7 +813,7 @@ basic_string_iterator_t basic_string_begin(const basic_string_t* cpt_basic_strin
     assert(cpt_basic_string != NULL);
 
     it_begin = vector_begin(&cpt_basic_string->_vec_base);
-    _GET_BASIC_STRING_CONTAINER_TYPE(it_begin) = _BASIC_STRING_CONTAINER;
+    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_begin) = _BASIC_STRING_CONTAINER;
 
     return it_begin;
 }
@@ -828,7 +828,7 @@ basic_string_iterator_t basic_string_end(const basic_string_t* cpt_basic_string)
     assert(cpt_basic_string != NULL);
 
     it_end = vector_end(&cpt_basic_string->_vec_base);
-    _GET_BASIC_STRING_CONTAINER_TYPE(it_end) = _BASIC_STRING_CONTAINER;
+    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_end) = _BASIC_STRING_CONTAINER;
 
     return it_end;
 }
@@ -848,7 +848,7 @@ basic_string_reverse_iterator_t basic_string_rbegin(
     else
     {
         t_newiterator = vector_rbegin(&cpt_basic_string->_vec_base);
-        _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
+        _BASIC_STRING_ITERATOR_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
     }
 
     return t_newiterator;
@@ -861,7 +861,7 @@ basic_string_reverse_iterator_t basic_string_rend(const basic_string_t* cpt_basi
     assert(cpt_basic_string != NULL);
 
     t_newiterator = vector_rend(&cpt_basic_string->_vec_base);
-    _GET_BASIC_STRING_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
+    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
 
     return t_newiterator;
 }
@@ -905,7 +905,7 @@ size_t basic_string_find(const basic_string_t* cpt_basic_string, const basic_str
         {
             b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_string), _GET_BASIC_STRING_COREPOS(it_find), &b_result);
+                _BASIC_STRING_ITERATOR_COREPOS(it_string), _BASIC_STRING_ITERATOR_COREPOS(it_find), &b_result);
             if(b_result)
             {
                 break;
@@ -913,7 +913,7 @@ size_t basic_string_find(const basic_string_t* cpt_basic_string, const basic_str
 
             b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_find), _GET_BASIC_STRING_COREPOS(it_string), &b_result);
+                _BASIC_STRING_ITERATOR_COREPOS(it_find), _BASIC_STRING_ITERATOR_COREPOS(it_string), &b_result);
             if(b_result)
             {
                 break;
@@ -966,7 +966,7 @@ size_t basic_string_find_subcstr(
         return t_pos;
     }
 
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
     for(; t_pos <= t_stringlen; ++t_pos)
@@ -1095,7 +1095,7 @@ size_t basic_string_rfind(const basic_string_t* cpt_basic_string, const basic_st
         {
             b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_string), _GET_BASIC_STRING_COREPOS(it_find), &b_result);
+                _BASIC_STRING_ITERATOR_COREPOS(it_string), _BASIC_STRING_ITERATOR_COREPOS(it_find), &b_result);
             if(b_result)
             {
                 break;
@@ -1103,7 +1103,7 @@ size_t basic_string_rfind(const basic_string_t* cpt_basic_string, const basic_st
 
             b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_find), _GET_BASIC_STRING_COREPOS(it_string), &b_result);
+                _BASIC_STRING_ITERATOR_COREPOS(it_find), _BASIC_STRING_ITERATOR_COREPOS(it_string), &b_result);
             if(b_result)
             {
                 break;
@@ -1165,7 +1165,7 @@ size_t basic_string_rfind_subcstr(
         return t_pos;
     }
 
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
     for(;; --t_pos)
@@ -1276,9 +1276,9 @@ size_t basic_string_find_first_of(
         {
             b_less = b_greater = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_string), _GET_BASIC_STRING_COREPOS(it_find), &b_less);
+                _BASIC_STRING_ITERATOR_COREPOS(it_string), _BASIC_STRING_ITERATOR_COREPOS(it_find), &b_less);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_find), _GET_BASIC_STRING_COREPOS(it_string), &b_greater);
+                _BASIC_STRING_ITERATOR_COREPOS(it_find), _BASIC_STRING_ITERATOR_COREPOS(it_string), &b_greater);
             if(!b_less && !b_greater)
             {
                 return t_pos;
@@ -1327,7 +1327,7 @@ size_t basic_string_find_first_of_subcstr(
         return t_pos;
     }
 
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
     for(; t_pos < t_stringlen; ++t_pos)
@@ -1418,9 +1418,9 @@ size_t basic_string_find_first_not_of(
         {
             b_less = b_greater = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_string), _GET_BASIC_STRING_COREPOS(it_find), &b_less);
+                _BASIC_STRING_ITERATOR_COREPOS(it_string), _BASIC_STRING_ITERATOR_COREPOS(it_find), &b_less);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_find), _GET_BASIC_STRING_COREPOS(it_string), &b_greater);
+                _BASIC_STRING_ITERATOR_COREPOS(it_find), _BASIC_STRING_ITERATOR_COREPOS(it_string), &b_greater);
             if(!b_less && !b_greater)
             {
                 break;
@@ -1474,7 +1474,7 @@ size_t basic_string_find_first_not_of_subcstr(
         return t_pos;
     }
 
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
     for(; t_pos < t_stringlen; ++t_pos)
@@ -1577,9 +1577,9 @@ size_t basic_string_find_last_of(
         {
             b_less = b_greater = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_string), _GET_BASIC_STRING_COREPOS(it_find), &b_less);
+                _BASIC_STRING_ITERATOR_COREPOS(it_string), _BASIC_STRING_ITERATOR_COREPOS(it_find), &b_less);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_find), _GET_BASIC_STRING_COREPOS(it_string), &b_greater);
+                _BASIC_STRING_ITERATOR_COREPOS(it_find), _BASIC_STRING_ITERATOR_COREPOS(it_string), &b_greater);
             if(!b_less && !b_greater)
             {
                 return t_pos;
@@ -1639,7 +1639,7 @@ size_t basic_string_find_last_of_subcstr(
         return t_pos;
     }
 
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
     for(;; --t_pos)
@@ -1747,9 +1747,9 @@ size_t basic_string_find_last_not_of(
         {
             b_less = b_greater = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_string), _GET_BASIC_STRING_COREPOS(it_find), &b_less);
+                _BASIC_STRING_ITERATOR_COREPOS(it_string), _BASIC_STRING_ITERATOR_COREPOS(it_find), &b_less);
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _GET_BASIC_STRING_COREPOS(it_find), _GET_BASIC_STRING_COREPOS(it_string), &b_greater);
+                _BASIC_STRING_ITERATOR_COREPOS(it_find), _BASIC_STRING_ITERATOR_COREPOS(it_string), &b_greater);
             if(!b_less && !b_greater)
             {
                 break;
@@ -1814,7 +1814,7 @@ size_t basic_string_find_last_not_of_subcstr(
         return t_pos;
     }
 
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
     for(;; --t_pos)
@@ -1983,7 +1983,7 @@ void basic_string_assign_subcstr(basic_string_t* pt_basic_string, const void* cp
     if(t_len > 0)
     {
         t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-        pby_value = _GET_BASIC_STRING_COREPOS(basic_string_begin(pt_basic_string));
+        pby_value = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(pt_basic_string));
         assert(pby_value != NULL);
 
         /* char* */
@@ -2024,8 +2024,8 @@ void basic_string_assign_range(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end)
 {
     assert(pt_basic_string != NULL);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
@@ -2104,7 +2104,7 @@ void basic_string_append_subcstr(basic_string_t* pt_basic_string, const void* cp
     {
         t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
         vector_resize(&pt_basic_string->_vec_base, t_stringlen + t_len);
-        pby_value = _GET_BASIC_STRING_COREPOS(iterator_next_n(basic_string_begin(pt_basic_string), t_stringlen));
+        pby_value = _BASIC_STRING_ITERATOR_COREPOS(iterator_next_n(basic_string_begin(pt_basic_string), t_stringlen));
         assert(pby_value != NULL);
 
         /* char* */
@@ -2145,8 +2145,8 @@ void basic_string_append_range(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end)
 {
     assert(pt_basic_string != NULL);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
@@ -2235,9 +2235,9 @@ void basic_string_insert_range(
     basic_string_iterator_t it_begin, basic_string_iterator_t it_end)
 {
     assert(pt_basic_string != NULL);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_pos) == _BASIC_STRING_CONTAINER);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_pos) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_begin) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_end) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_begin) = _VECTOR_CONTAINER;
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
@@ -2256,12 +2256,12 @@ basic_string_iterator_t basic_string_erase(basic_string_t* pt_basic_string, basi
     assert(pt_basic_string != NULL);
     assert(_iterator_belong_to_basic_string(pt_basic_string, it_pos));
     assert(!iterator_equal(it_pos, basic_string_end(pt_basic_string)));
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(it_pos) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_pos) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
 
     it_iter = vector_erase(&pt_basic_string->_vec_base, it_pos);
-    _GET_BASIC_STRING_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
+    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
 }
@@ -2282,7 +2282,7 @@ basic_string_iterator_t basic_string_erase_range(
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_end) = _VECTOR_CONTAINER;
 
     it_iter= vector_erase_range(&pt_basic_string->_vec_base, it_begin, it_end);
-    _GET_BASIC_STRING_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
+    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
 }

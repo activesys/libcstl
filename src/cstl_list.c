@@ -438,7 +438,7 @@ list_iterator_t list_begin(const list_t* cplist_list)
 
     it_begin = _create_list_iterator();
     _LIST_ITERATOR_COREPOS(it_begin) = (_byte_t*)(cplist_list->_pt_node->_pt_next);
-    _GET_CONTAINER(it_begin) = (list_t*)cplist_list;
+    _ITERATOR_CONTAINER(it_begin) = (list_t*)cplist_list;
 
     return it_begin;
 }
@@ -455,7 +455,7 @@ list_iterator_t list_end(const list_t* cplist_list)
 
     it_end = _create_list_iterator();
     _LIST_ITERATOR_COREPOS(it_end) = (_byte_t*)(cplist_list->_pt_node);
-    _GET_CONTAINER(it_end) = (list_t*)cplist_list;
+    _ITERATOR_CONTAINER(it_end) = (list_t*)cplist_list;
 
     return it_end;
 }
@@ -469,7 +469,7 @@ list_reverse_iterator_t list_rbegin(const list_t* cplist_list)
 
     it_rbegin = _create_list_iterator();
     _LIST_ITERATOR_COREPOS(it_rbegin) = (_byte_t*)(cplist_list->_pt_node->_pt_prev);
-    _GET_CONTAINER(it_rbegin) = (list_t*)cplist_list;
+    _ITERATOR_CONTAINER(it_rbegin) = (list_t*)cplist_list;
 
     return it_rbegin;
 }
@@ -483,7 +483,7 @@ list_reverse_iterator_t list_rend(const list_t* cplist_list)
 
     it_rend = _create_list_iterator();
     _LIST_ITERATOR_COREPOS(it_rend) = (_byte_t*)(cplist_list->_pt_node);
-    _GET_CONTAINER(it_rend) = (list_t*)cplist_list;
+    _ITERATOR_CONTAINER(it_rend) = (list_t*)cplist_list;
 
     return it_rend;
 }
@@ -741,7 +741,7 @@ void list_unique(list_t* plist_list)
         else
         {
             it_pos = _create_list_iterator();
-            _GET_CONTAINER(it_pos) = plist_list;
+            _ITERATOR_CONTAINER(it_pos) = plist_list;
             _LIST_ITERATOR_COREPOS(it_pos) = (_byte_t*)pt_node;
             it_pos = list_erase(plist_list, it_pos);
             pt_node = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos);

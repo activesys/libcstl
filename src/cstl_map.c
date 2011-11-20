@@ -437,7 +437,7 @@ map_iterator_t map_begin(const map_t* cpmap_map)
     it_begin = _rb_tree_begin(&cpmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_begin) = (map_t*)cpmap_map;
+    _ITERATOR_CONTAINER(it_begin) = (map_t*)cpmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_begin) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
 
@@ -460,7 +460,7 @@ map_iterator_t map_end(const map_t* cpmap_map)
     it_end = _rb_tree_end(&cpmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_end) = (map_t*)cpmap_map;
+    _ITERATOR_CONTAINER(it_end) = (map_t*)cpmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_end) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
 
@@ -480,7 +480,7 @@ map_reverse_iterator_t map_rbegin(const map_t* cpmap_map)
     it_rbegin = _rb_tree_rbegin(&cpmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_rbegin) = (map_t*)cpmap_map;
+    _ITERATOR_CONTAINER(it_rbegin) = (map_t*)cpmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_rbegin) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_rbegin) = _BIDIRECTIONAL_ITERATOR;
 
@@ -500,7 +500,7 @@ map_reverse_iterator_t map_rend(const map_t* cpmap_map)
     it_rend = _rb_tree_rend(&cpmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_rend) = (map_t*)cpmap_map;
+    _ITERATOR_CONTAINER(it_rend) = (map_t*)cpmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_rend) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_rend) = _BIDIRECTIONAL_ITERATOR;
 
@@ -532,7 +532,7 @@ map_iterator_t map_insert(map_t* pmap_map, const pair_t* cppair_pair)
     it_iter = _rb_tree_insert_unique(&pmap_map->_t_tree, cppair_pair);
 #endif
 
-    _GET_CONTAINER(it_iter) = pmap_map;
+    _ITERATOR_CONTAINER(it_iter) = pmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
@@ -564,7 +564,7 @@ map_iterator_t map_insert_hint(map_t* pmap_map, map_iterator_t it_hint, const pa
     it_hint = _rb_tree_insert_unique(&pmap_map->_t_tree, cppair_pair);
 #endif
 
-    _GET_CONTAINER(it_hint) = pmap_map;
+    _ITERATOR_CONTAINER(it_hint) = pmap_map;
     _MAP_ITERATOR_CONTAINER_TYPE(it_hint) = _MAP_CONTAINER;
     _MAP_ITERATOR_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
 

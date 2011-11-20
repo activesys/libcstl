@@ -5,7 +5,7 @@
 /* #undef CSTL_MAP_AVL_TREE */
 
 /* Define to 1 if you use libcstl memory management. */
-#define CSTL_MEMORY_MANAGEMENT 1
+/* #undef CSTL_MEMORY_MANAGEMENT */
 
 /* Define to 1 if you implement multimap using avl-tree. */
 /* #undef CSTL_MULTIMAP_AVL_TREE */

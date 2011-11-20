@@ -1300,10 +1300,10 @@ forward_iterator_t algo_partition(
 
     assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
 
-    if((_GET_ITERATOR_TYPE(t_first) == _BIDIRECTIONAL_ITERATOR &&
-        _GET_ITERATOR_TYPE(t_last) == _BIDIRECTIONAL_ITERATOR) ||
-       (_GET_ITERATOR_TYPE(t_first) == _RANDOM_ACCESS_ITERATOR &&
-        _GET_ITERATOR_TYPE(t_first) == _RANDOM_ACCESS_ITERATOR))
+    if((_ITERATOR_ITERATOR_TYPE(t_first) == _BIDIRECTIONAL_ITERATOR &&
+        _ITERATOR_ITERATOR_TYPE(t_last) == _BIDIRECTIONAL_ITERATOR) ||
+       (_ITERATOR_ITERATOR_TYPE(t_first) == _RANDOM_ACCESS_ITERATOR &&
+        _ITERATOR_ITERATOR_TYPE(t_first) == _RANDOM_ACCESS_ITERATOR))
     {
         return _partition_biditer(t_first, t_last, t_unary_op);
     }
@@ -1791,9 +1791,9 @@ forward_iterator_t algo_rotate(
 
     t_distance = iterator_distance(t_middle, t_last);
 
-    if(_GET_ITERATOR_TYPE(t_first) == _FORWARD_ITERATOR &&
-       _GET_ITERATOR_TYPE(t_middle) == _FORWARD_ITERATOR &&
-       _GET_ITERATOR_TYPE(t_last) == _FORWARD_ITERATOR)
+    if(_ITERATOR_ITERATOR_TYPE(t_first) == _FORWARD_ITERATOR &&
+       _ITERATOR_ITERATOR_TYPE(t_middle) == _FORWARD_ITERATOR &&
+       _ITERATOR_ITERATOR_TYPE(t_last) == _FORWARD_ITERATOR)
     {
         _rotate_forward(t_first, t_middle, t_last);
     }

@@ -135,7 +135,7 @@ void string_init_copy_range(string_t* pstr_string, string_iterator_t it_begin, s
     assert(pstr_string != NULL);
 
     basic_string_init_copy_range(pstr_string, it_begin, it_end);
-    if(!iterator_equal(it_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(it_end))))
+    if(!iterator_equal(it_end, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_end))))
     {
         basic_string_push_back(pstr_string, '\0');
     }
@@ -909,7 +909,7 @@ void string_assign_char(string_t* pstr_string, size_t t_count, char c_char)
  */
 void string_assign_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    assert(!iterator_equal(it_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(it_end))));
+    assert(!iterator_equal(it_end, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_end))));
     basic_string_assign_range(pstr_string, it_begin, it_end);
     basic_string_push_back(pstr_string, '\0');
 }
@@ -965,7 +965,7 @@ void string_append_char(string_t* pstr_string, size_t t_count, char c_char)
  */
 void string_append_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    assert(!iterator_equal(it_end, basic_string_end(_GET_BASIC_STRING_CONTAINER(it_end))));
+    assert(!iterator_equal(it_end, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_end))));
     _basic_string_pop_back(pstr_string);
     basic_string_append_range(pstr_string, it_begin, it_end);
     basic_string_push_back(pstr_string, '\0');

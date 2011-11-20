@@ -55,7 +55,7 @@ slist_iterator_t _create_slist_iterator(void)
 
     _SLIST_ITERATOR_ITERATOR_TYPE(it_iter) = _FORWARD_ITERATOR;
     _SLIST_ITERATOR_CONTAINER_TYPE(it_iter) = _SLIST_CONTAINER;
-    _GET_CONTAINER(it_iter) = NULL;
+    _ITERATOR_CONTAINER(it_iter) = NULL;
     _SLIST_ITERATOR_COREPOS(it_iter) = NULL;
 
     return it_iter;

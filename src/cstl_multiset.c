@@ -225,7 +225,7 @@ multiset_iterator_t multiset_begin(const multiset_t* cpmset_mset)
     it_begin = _rb_tree_begin(&cpmset_mset->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_begin) = (multiset_t*)cpmset_mset;
+    _ITERATOR_CONTAINER(it_begin) = (multiset_t*)cpmset_mset;
     _MULTISET_ITERATOR_CONTAINER_TYPE(it_begin) = _MULTISET_CONTAINER;
     _MULTISET_ITERATOR_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
 
@@ -247,7 +247,7 @@ multiset_iterator_t multiset_end(const multiset_t* cpmset_mset)
     it_end = _rb_tree_end(&cpmset_mset->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_end) = (multiset_t*)cpmset_mset;
+    _ITERATOR_CONTAINER(it_end) = (multiset_t*)cpmset_mset;
     _MULTISET_ITERATOR_CONTAINER_TYPE(it_end) = _MULTISET_CONTAINER;
     _MULTISET_ITERATOR_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
 
@@ -266,7 +266,7 @@ multiset_iterator_t multiset_rbegin(const multiset_t* cpmset_mset)
     it_rbegin = _rb_tree_rbegin(&cpmset_mset->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_rbegin) = (multiset_t*)cpmset_mset;
+    _ITERATOR_CONTAINER(it_rbegin) = (multiset_t*)cpmset_mset;
     _MULTISET_ITERATOR_CONTAINER_TYPE(it_rbegin) = _MULTISET_CONTAINER;
     _MULTISET_ITERATOR_ITERATOR_TYPE(it_rbegin) = _BIDIRECTIONAL_ITERATOR;
 
@@ -285,7 +285,7 @@ multiset_iterator_t multiset_rend(const multiset_t* cpmset_mset)
     it_rend = _rb_tree_rend(&cpmset_mset->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_rend) = (multiset_t*)cpmset_mset;
+    _ITERATOR_CONTAINER(it_rend) = (multiset_t*)cpmset_mset;
     _MULTISET_ITERATOR_CONTAINER_TYPE(it_rend) = _MULTISET_CONTAINER;
     _MULTISET_ITERATOR_ITERATOR_TYPE(it_rend) = _BIDIRECTIONAL_ITERATOR;
 

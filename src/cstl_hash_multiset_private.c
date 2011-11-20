@@ -115,9 +115,9 @@ hash_multiset_iterator_t _hash_multiset_find_varg(const hash_multiset_t* cphmset
     _alloc_deallocate(
         &((hash_multiset_t*)cphmset_set)->_t_hashtable._t_allocator, pv_varg, _GET_HASH_MULTISET_TYPE_SIZE(cphmset_set), 1);
 
-    _GET_CONTAINER(it_iter) = (hash_multiset_t*)cphmset_set;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(it_iter) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (hash_multiset_t*)cphmset_set;
+    _HASH_MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) = _HASH_MULTISET_CONTAINER;
+    _HASH_MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -201,13 +201,13 @@ range_t _hash_multiset_equal_range_varg(const hash_multiset_t* cphmset_set, va_l
     _alloc_deallocate(
         &((hash_multiset_t*)cphmset_set)->_t_hashtable._t_allocator, pv_varg, _GET_HASH_MULTISET_TYPE_SIZE(cphmset_set), 1);
 
-    _GET_CONTAINER(r_range.it_begin) = (hash_multiset_t*)cphmset_set;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(r_range.it_begin) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_begin) = (hash_multiset_t*)cphmset_set;
+    _HASH_MULTISET_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _HASH_MULTISET_CONTAINER;
+    _HASH_MULTISET_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(r_range.it_end) = (hash_multiset_t*)cphmset_set;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(r_range.it_end) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_end) = (hash_multiset_t*)cphmset_set;
+    _HASH_MULTISET_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _HASH_MULTISET_CONTAINER;
+    _HASH_MULTISET_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return r_range;
 }
@@ -248,9 +248,9 @@ hash_multiset_iterator_t _hash_multiset_insert_varg(hash_multiset_t* phmset_set,
     _hash_multiset_destroy_varg_value_auxiliary(phmset_set, pv_varg);
     _alloc_deallocate(&phmset_set->_t_hashtable._t_allocator, pv_varg, _GET_HASH_MULTISET_TYPE_SIZE(phmset_set), 1);
 
-    _GET_CONTAINER(it_iter) = phmset_set;
-    _GET_HASH_MULTISET_CONTAINER_TYPE(it_iter) = _HASH_MULTISET_CONTAINER;
-    _GET_HASH_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = phmset_set;
+    _HASH_MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) = _HASH_MULTISET_CONTAINER;
+    _HASH_MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
