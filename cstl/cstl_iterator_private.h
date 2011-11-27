@@ -229,13 +229,13 @@ extern bool_t _iterator_before(iterator_t it_first, iterator_t it_second);
 extern bool_t _iterator_limit_type(iterator_t it_iter, iteratortype_t t_limittype);
 
 /**
- * Test whether the [it_first, it_last) is valid range.
+ * Test whether the [it_first, it_end) is valid range.
  * @param it_first     first iterator.
- * @param it_last      last iterator.
- * @return whether the [it_first, it_last) is valid range.
+ * @param it_end      last iterator.
+ * @return whether the [it_first, it_end) is valid range.
  * @remarks two iterator must be valid iterator and iterator type must be valid type, otherwise behavior is undefined.
  */
-extern bool_t _iterator_valid_range(iterator_t it_first, iterator_t it_last, iteratortype_t t_type);
+extern bool_t _iterator_valid_range(iterator_t it_first, iterator_t it_end, iteratortype_t t_type);
 
 /**
  * Get typeinfo of iterator.
@@ -268,11 +268,46 @@ extern const char* _iterator_get_typebasename(iterator_t it_iter);
  * @remarks iterator must be valid, otherwise behavior is undefined.
  */
 extern const char* _iterator_get_typename(iterator_t it_iter);
+
+/**
+ * Get type copy function of iterator.
+ * @param it_iter      iterator.
+ * @return type copy function of iterator.
+ * @remarks iterator must be valid, otherwise behavior is undefined.
+ */
 extern binary_function_t _iterator_get_typecopy(iterator_t it_iter);
+
+/**
+ * Get type size of iterator.
+ * @param it_iter      iterator.
+ * @return type size of iterator.
+ * @remarks iterator must be valid, otherwise behavior is undefined.
+ */
 extern size_t _iterator_get_typesize(iterator_t it_iter);
 
-extern bool_t _iterator_same_elem_type(iterator_t it_first, iterator_t it_last);
+/**
+ * Test whether two iterator point to same type element.
+ * @param it_first     first iterator.
+ * @param it_second    second iterator.
+ * @return whether tow iterator point to same type element.
+ * @remarks two iterator must be valid, other behavior is undefined.
+ */
+extern bool_t _iterator_same_elem_type(iterator_t it_first, iterator_t it_second);
+
+/**
+ * Initialize an element according to the type of iterator pointed data.
+ * @param it_iter      iterator.
+ * @return initilaized element.
+ * @remarks iterator must be valid, otherwise behavior is undefined.
+ */
 extern void* _iterator_allocate_init_elem(iterator_t it_iter);
+
+/**
+ * Destroy and deallocate element allocated and initialized by _iterator_allocate_init_elem().
+ * @param it_iter      iterator.
+ * @return void.
+ * @remarks iterator must be valid and pv_value must be not NULL, otherwise behavior is undefined.
+ */
 extern void _iterator_deallocate_destroy_elem(iterator_t it_iter, void* pv_value);
 
 #ifdef __cplusplus

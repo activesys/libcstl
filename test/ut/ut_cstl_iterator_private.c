@@ -1254,3 +1254,822 @@ void test__iterator_get_typename__user_define(void** state)
     vector_destroy(pvec);
 }
 
+/*
+ * test _iterator_get_typecopy
+ */
+UT_CASE_DEFINATION(_iterator_get_typecopy)
+void test__iterator_get_typecopy__invalid(void** state)
+{
+    iterator_t it_iter;
+    it_iter._t_containertype = _VECTOR_CONTAINER;
+    it_iter._t_iteratortype = 444;
+    expect_assert_failure(_iterator_get_typecopy(it_iter));
+}
+
+void test__iterator_get_typecopy__c_builtin(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec);
+
+    it_iter = vector_begin(pvec);
+    /*assert_true(_iterator_get_typecopy(it_iter) == _type_copy_int);*/
+    assert_true(_iterator_get_typecopy(it_iter) != NULL);
+
+    vector_destroy(pvec);
+}
+
+void test__iterator_get_typecopy__cstl_builtin(void** state)
+{
+    vector_t* pvec = create_vector(list_t<int>);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec);
+
+    it_iter = vector_begin(pvec);
+    /*assert_true(_iterator_get_typecopy(it_iter) == _type_copy_list);*/
+    assert_true(_iterator_get_typecopy(it_iter) != NULL);
+
+    vector_destroy(pvec);
+}
+
+void test__iterator_get_typecopy__user_define_default(void** state)
+{
+    vector_t* pvec = create_vector(abc_t);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec);
+
+    it_iter = vector_begin(pvec);
+    /*assert_true(_iterator_get_typecopy(it_iter) == _type_copy_default);*/
+    assert_true(_iterator_get_typecopy(it_iter) != NULL);
+
+    vector_destroy(pvec);
+}
+
+typedef struct _tag_iterator_get_typecopy__user_define
+{
+    int n_elem;
+}_iterator_get_typecopy__user_define_t;
+void _iterator_get_typecopy__user_define_t_copy(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    ((_iterator_get_typecopy__user_define_t*)cpv_first)->n_elem = ((_iterator_get_typecopy__user_define_t*)cpv_second)->n_elem;
+    *(bool_t*)pv_output = true;
+}
+void test__iterator_get_typecopy__user_define(void** state)
+{
+    vector_t* pvec = NULL;
+    vector_iterator_t it_iter;
+
+    type_register(_iterator_get_typecopy__user_define_t, NULL, _iterator_get_typecopy__user_define_t_copy, NULL, NULL);
+    pvec = create_vector(_iterator_get_typecopy__user_define_t);
+    vector_init(pvec);
+
+    it_iter = vector_begin(pvec);
+    assert_true(_iterator_get_typecopy(it_iter) == _iterator_get_typecopy__user_define_t_copy);
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test _iterator_get_typesize
+ */
+UT_CASE_DEFINATION(_iterator_get_typesize)
+void test__iterator_get_typesize__invalid(void** state)
+{
+    iterator_t it_iter;
+    it_iter._t_containertype = _VECTOR_CONTAINER;
+    it_iter._t_iteratortype = 4444;
+
+    expect_assert_failure(_iterator_get_typesize(it_iter));
+}
+
+void test__iterator_get_typesize__c_builtin(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec);
+    it_iter = vector_begin(pvec);
+    assert_true(_iterator_get_typesize(it_iter) == sizeof(int));
+    vector_destroy(pvec);
+}
+
+void test__iterator_get_typesize__cstl_builtin(void** state)
+{
+    vector_t* pvec = create_vector(list_t<int>);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec);
+    it_iter = vector_begin(pvec);
+    assert_true(_iterator_get_typesize(it_iter) == sizeof(list_t));
+    vector_destroy(pvec);
+}
+
+void test__iterator_get_typesize__user_define(void** state)
+{
+    vector_t* pvec = create_vector(abc_t);
+    vector_iterator_t it_iter;
+
+    vector_init(pvec);
+    it_iter = vector_begin(pvec);
+    assert_true(_iterator_get_typesize(it_iter) == sizeof(abc_t));
+    vector_destroy(pvec);
+}
+
+/*
+ * test _iterator_same_elem_type
+ */
+UT_CASE_DEFINATION(_iterator_same_elem_type)
+void test__iterator_same_elem_type__invalid_first(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    iterator_t it_first;
+    iterator_t it_second;
+
+    vector_init(pvec);
+    it_second = vector_begin(pvec);
+    it_first._t_containertype = _VECTOR_CONTAINER;
+    it_first._t_iteratortype = 8888;
+    expect_assert_failure(_iterator_same_elem_type(it_first, it_second));
+    vector_destroy(pvec);
+}
+
+void test__iterator_same_elem_type__invalid_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    iterator_t it_first;
+    iterator_t it_second;
+
+    vector_init(pvec);
+    it_first = vector_begin(pvec);
+    it_second._t_containertype = _VECTOR_CONTAINER;
+    it_second._t_iteratortype = 8888;
+    expect_assert_failure(_iterator_same_elem_type(it_first, it_second));
+    vector_destroy(pvec);
+}
+
+void test__iterator_same_elem_type__c_builtin_not_same(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(long);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_false(_iterator_same_elem_type(vector_begin(pvec_first), vector_begin(pvec_second)));
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__iterator_same_elem_type__c_builtin_same(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    vector_t* pvec_second = create_vector(signed);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_true(_iterator_same_elem_type(vector_begin(pvec_first), vector_begin(pvec_second)));
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__iterator_same_elem_type__cstl_builtin_not_same_1(void** state)
+{
+    vector_t* pvec_first = create_vector(list_t<int>);
+    vector_t* pvec_second = create_vector(slist_t<int>);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_false(_iterator_same_elem_type(vector_begin(pvec_first), vector_begin(pvec_second)));
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__iterator_same_elem_type__cstl_builtin_not_same_2(void** state)
+{
+    vector_t* pvec_first = create_vector(list_t<int>);
+    vector_t* pvec_second = create_vector(list_t<double>);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_false(_iterator_same_elem_type(vector_begin(pvec_first), vector_begin(pvec_second)));
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__iterator_same_elem_type__cstl_builtin_same(void** state)
+{
+    vector_t* pvec_first = create_vector(list_t<int>);
+    vector_t* pvec_second = create_vector(list_t<signed int>);
+
+    vector_init(pvec_first);
+    vector_init(pvec_second);
+    assert_true(_iterator_same_elem_type(vector_begin(pvec_first), vector_begin(pvec_second)));
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+typedef struct _tag_iterator_same_elem_type__user_define_1
+{
+    int n_elem;
+}_iterator_same_elem_type__user_define_1_t;
+typedef struct _tag_iterator_same_elem_type__user_define_2
+{
+    int n_elem;
+}_iterator_same_elem_type__user_define_2_t;
+void test__iterator_same_elem_type__user_define_not_same(void** state)
+{
+    vector_t* pvec_first = NULL;
+    vector_t* pvec_second = NULL;
+
+    type_register(_iterator_same_elem_type__user_define_1_t, NULL, NULL, NULL, NULL);
+    type_register(_iterator_same_elem_type__user_define_2_t, NULL, NULL, NULL, NULL);
+    pvec_first = create_vector(_iterator_same_elem_type__user_define_1_t);
+    pvec_second = create_vector(_iterator_same_elem_type__user_define_2_t);
+
+    assert_false(_iterator_same_elem_type(vector_begin(pvec_first), vector_begin(pvec_second)));
+    
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__iterator_same_elem_type__user_define_same(void** state)
+{
+    vector_t* pvec_first = NULL;
+    vector_t* pvec_second = NULL;
+
+    type_duplicate(_iterator_same_elem_type__user_define_1_t, struct _tag_iterator_same_elem_type__user_define_1);
+    type_duplicate(_iterator_same_elem_type__user_define_2_t, struct _tag_iterator_same_elem_type__user_define_2);
+    pvec_first = create_vector(_iterator_same_elem_type__user_define_1_t);
+    pvec_second = create_vector(struct _tag_iterator_same_elem_type__user_define_1);
+
+    assert_true(_iterator_same_elem_type(vector_begin(pvec_first), vector_begin(pvec_second)));
+    
+    vector_destroy(pvec_first);
+    vector_destroy(pvec_second);
+}
+
+void test__iterator_same_elem_type__not_same_container_not_same_type(void** state)
+{
+    vector_t* pvec_first = create_vector(int);
+    list_t* plist_second = create_list(long);
+
+    vector_init(pvec_first);
+    list_init(plist_second);
+    assert_false(_iterator_same_elem_type(vector_begin(pvec_first), list_begin(plist_second)));
+    vector_destroy(pvec_first);
+    list_destroy(plist_second);
+}
+
+void test__iterator_same_elem_type__not_same_container_same_type(void** state)
+{
+    vector_t* pvec_first = create_vector(map_t<int, double>);
+    list_t* plist_second = create_list(map_t<signed int, double>);
+
+    vector_init(pvec_first);
+    list_init(plist_second);
+    assert_true(_iterator_same_elem_type(vector_begin(pvec_first), list_begin(plist_second)));
+    vector_destroy(pvec_first);
+    list_destroy(plist_second);
+}
+
+/*
+ * test _iterator_allocate_init_elem and _iterator_deallocate_destroy_elem
+ */
+UT_CASE_DEFINATION(_iterator_allocate_init_elem__iterator_deallocate_destroy_elem)
+typedef struct _tag_iterator_allocate_init_elem__user_define
+{
+    int n_elem;
+}_iterator_allocate_init_elem__user_define_t;
+void _iterator_allocate_init_eleme__user_define_init(const void* cpv_input, void* pv_output)
+{
+    ((_iterator_allocate_init_elem__user_define_t*)cpv_input)->n_elem = 999;
+    *(bool_t*)pv_output = true;
+}
+void _iterator_allocate_init_elem__user_define_destroy(const void* cpv_input, void* pv_output)
+{
+    ((_iterator_allocate_init_elem__user_define_t*)cpv_input)->n_elem = 0;
+    *(bool_t*)pv_output = true;
+}
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__allocate_invalid(void** state)
+{
+    iterator_t it_iter;
+    it_iter._t_containertype = _VECTOR_CONTAINER;
+    it_iter._t_iteratortype = 4444;
+    expect_assert_failure(_iterator_allocate_init_elem(it_iter));
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deallocate_invalid(void** state)
+{
+    int n_elem = 999;
+    iterator_t it_iter;
+    it_iter._t_containertype = 9999;
+    it_iter._t_iteratortype = _FORWARD_ITERATOR;
+    expect_assert_failure(_iterator_deallocate_destroy_elem(it_iter, &n_elem));
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__null_value(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    
+    vector_init(pvec);
+    expect_assert_failure(_iterator_deallocate_destroy_elem(vector_begin(pvec), NULL));
+    vector_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__vector_c_builtin(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    int* pn_elem = NULL;
+
+    vector_init(pvec);
+    pn_elem = (int*)_iterator_allocate_init_elem(vector_begin(pvec));
+    assert_true(pn_elem != NULL);
+    assert_true(*pn_elem == 0);
+    _iterator_deallocate_destroy_elem(vector_begin(pvec), pn_elem);
+    vector_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__vector_cstl_builtin(void** state)
+{
+    vector_t* pvec = create_vector(list_t<int>);
+    list_t* plist_elem = NULL;
+
+    vector_init(pvec);
+    plist_elem = (list_t*)_iterator_allocate_init_elem(vector_begin(pvec));
+    assert_true(plist_elem != NULL);
+    assert_true(_list_is_inited(plist_elem));
+    _iterator_deallocate_destroy_elem(vector_begin(pvec), plist_elem);
+    vector_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__vector_user_define(void** state)
+{
+    vector_t* pvec = NULL;
+    _iterator_allocate_init_elem__user_define_t* pt_elem = NULL;
+
+    type_register(_iterator_allocate_init_elem__user_define_t,
+        _iterator_allocate_init_eleme__user_define_init, NULL, NULL, _iterator_allocate_init_elem__user_define_destroy);
+    pvec = create_vector(_iterator_allocate_init_elem__user_define_t);
+    vector_init(pvec);
+    pt_elem = (_iterator_allocate_init_elem__user_define_t*)_iterator_allocate_init_elem(vector_begin(pvec));
+    assert_true(pt_elem != NULL);
+    assert_true(pt_elem->n_elem == 999);
+    _iterator_deallocate_destroy_elem(vector_begin(pvec), pt_elem);
+    vector_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__list_c_builtin(void** state)
+{
+    list_t* pvec = create_list(int);
+    int* pn_elem = NULL;
+
+    list_init(pvec);
+    pn_elem = (int*)_iterator_allocate_init_elem(list_begin(pvec));
+    assert_true(pn_elem != NULL);
+    assert_true(*pn_elem == 0);
+    _iterator_deallocate_destroy_elem(list_begin(pvec), pn_elem);
+    list_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__list_cstl_builtin(void** state)
+{
+    list_t* pvec = create_list(list_t<int>);
+    list_t* plist_elem = NULL;
+
+    list_init(pvec);
+    plist_elem = (list_t*)_iterator_allocate_init_elem(list_begin(pvec));
+    assert_true(plist_elem != NULL);
+    assert_true(_list_is_inited(plist_elem));
+    _iterator_deallocate_destroy_elem(list_begin(pvec), plist_elem);
+    list_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__list_user_define(void** state)
+{
+    list_t* pvec = NULL;
+    _iterator_allocate_init_elem__user_define_t* pt_elem = NULL;
+
+    pvec = create_list(_iterator_allocate_init_elem__user_define_t);
+    list_init(pvec);
+    pt_elem = (_iterator_allocate_init_elem__user_define_t*)_iterator_allocate_init_elem(list_begin(pvec));
+    assert_true(pt_elem != NULL);
+    assert_true(pt_elem->n_elem == 999);
+    _iterator_deallocate_destroy_elem(list_begin(pvec), pt_elem);
+    list_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deque_c_builtin(void** state)
+{
+    deque_t* pvec = create_deque(int);
+    int* pn_elem = NULL;
+
+    deque_init(pvec);
+    pn_elem = (int*)_iterator_allocate_init_elem(deque_begin(pvec));
+    assert_true(pn_elem != NULL);
+    assert_true(*pn_elem == 0);
+    _iterator_deallocate_destroy_elem(deque_begin(pvec), pn_elem);
+    deque_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deque_cstl_builtin(void** state)
+{
+    deque_t* pvec = create_deque(list_t<int>);
+    list_t* plist_elem = NULL;
+
+    deque_init(pvec);
+    plist_elem = (list_t*)_iterator_allocate_init_elem(deque_begin(pvec));
+    assert_true(plist_elem != NULL);
+    assert_true(_list_is_inited(plist_elem));
+    _iterator_deallocate_destroy_elem(deque_begin(pvec), plist_elem);
+    deque_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deque_user_define(void** state)
+{
+    deque_t* pvec = NULL;
+    _iterator_allocate_init_elem__user_define_t* pt_elem = NULL;
+
+    pvec = create_deque(_iterator_allocate_init_elem__user_define_t);
+    deque_init(pvec);
+    pt_elem = (_iterator_allocate_init_elem__user_define_t*)_iterator_allocate_init_elem(deque_begin(pvec));
+    assert_true(pt_elem != NULL);
+    assert_true(pt_elem->n_elem == 999);
+    _iterator_deallocate_destroy_elem(deque_begin(pvec), pt_elem);
+    deque_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__slist_c_builtin(void** state)
+{
+    slist_t* pvec = create_slist(int);
+    int* pn_elem = NULL;
+
+    slist_init(pvec);
+    pn_elem = (int*)_iterator_allocate_init_elem(slist_begin(pvec));
+    assert_true(pn_elem != NULL);
+    assert_true(*pn_elem == 0);
+    _iterator_deallocate_destroy_elem(slist_begin(pvec), pn_elem);
+    slist_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__slist_cstl_builtin(void** state)
+{
+    slist_t* pvec = create_slist(list_t<int>);
+    list_t* plist_elem = NULL;
+
+    slist_init(pvec);
+    plist_elem = (list_t*)_iterator_allocate_init_elem(slist_begin(pvec));
+    assert_true(plist_elem != NULL);
+    assert_true(_list_is_inited(plist_elem));
+    _iterator_deallocate_destroy_elem(slist_begin(pvec), plist_elem);
+    slist_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__slist_user_define(void** state)
+{
+    slist_t* pvec = NULL;
+    _iterator_allocate_init_elem__user_define_t* pt_elem = NULL;
+
+    pvec = create_slist(_iterator_allocate_init_elem__user_define_t);
+    slist_init(pvec);
+    pt_elem = (_iterator_allocate_init_elem__user_define_t*)_iterator_allocate_init_elem(slist_begin(pvec));
+    assert_true(pt_elem != NULL);
+    assert_true(pt_elem->n_elem == 999);
+    _iterator_deallocate_destroy_elem(slist_begin(pvec), pt_elem);
+    slist_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__set_c_builtin(void** state)
+{
+    set_t* pvec = create_set(int);
+    int* pn_elem = NULL;
+
+    set_init(pvec);
+    pn_elem = (int*)_iterator_allocate_init_elem(set_begin(pvec));
+    assert_true(pn_elem != NULL);
+    assert_true(*pn_elem == 0);
+    _iterator_deallocate_destroy_elem(set_begin(pvec), pn_elem);
+    set_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__set_cstl_builtin(void** state)
+{
+    set_t* pvec = create_set(list_t<int>);
+    list_t* plist_elem = NULL;
+
+    set_init(pvec);
+    plist_elem = (list_t*)_iterator_allocate_init_elem(set_begin(pvec));
+    assert_true(plist_elem != NULL);
+    assert_true(_list_is_inited(plist_elem));
+    _iterator_deallocate_destroy_elem(set_begin(pvec), plist_elem);
+    set_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__set_user_define(void** state)
+{
+    set_t* pvec = NULL;
+    _iterator_allocate_init_elem__user_define_t* pt_elem = NULL;
+
+    pvec = create_set(_iterator_allocate_init_elem__user_define_t);
+    set_init(pvec);
+    pt_elem = (_iterator_allocate_init_elem__user_define_t*)_iterator_allocate_init_elem(set_begin(pvec));
+    assert_true(pt_elem != NULL);
+    assert_true(pt_elem->n_elem == 999);
+    _iterator_deallocate_destroy_elem(set_begin(pvec), pt_elem);
+    set_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multiset_c_builtin(void** state)
+{
+    multiset_t* pvec = create_multiset(int);
+    int* pn_elem = NULL;
+
+    multiset_init(pvec);
+    pn_elem = (int*)_iterator_allocate_init_elem(multiset_begin(pvec));
+    assert_true(pn_elem != NULL);
+    assert_true(*pn_elem == 0);
+    _iterator_deallocate_destroy_elem(multiset_begin(pvec), pn_elem);
+    multiset_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multiset_cstl_builtin(void** state)
+{
+    multiset_t* pvec = create_multiset(list_t<int>);
+    list_t* plist_elem = NULL;
+
+    multiset_init(pvec);
+    plist_elem = (list_t*)_iterator_allocate_init_elem(multiset_begin(pvec));
+    assert_true(plist_elem != NULL);
+    assert_true(_list_is_inited(plist_elem));
+    _iterator_deallocate_destroy_elem(multiset_begin(pvec), plist_elem);
+    multiset_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multiset_user_define(void** state)
+{
+    multiset_t* pvec = NULL;
+    _iterator_allocate_init_elem__user_define_t* pt_elem = NULL;
+
+    pvec = create_multiset(_iterator_allocate_init_elem__user_define_t);
+    multiset_init(pvec);
+    pt_elem = (_iterator_allocate_init_elem__user_define_t*)_iterator_allocate_init_elem(multiset_begin(pvec));
+    assert_true(pt_elem != NULL);
+    assert_true(pt_elem->n_elem == 999);
+    _iterator_deallocate_destroy_elem(multiset_begin(pvec), pt_elem);
+    multiset_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_set_c_builtin(void** state)
+{
+    hash_set_t* pvec = create_hash_set(int);
+    int* pn_elem = NULL;
+
+    hash_set_init(pvec);
+    pn_elem = (int*)_iterator_allocate_init_elem(hash_set_begin(pvec));
+    assert_true(pn_elem != NULL);
+    assert_true(*pn_elem == 0);
+    _iterator_deallocate_destroy_elem(hash_set_begin(pvec), pn_elem);
+    hash_set_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_set_cstl_builtin(void** state)
+{
+    hash_set_t* pvec = create_hash_set(list_t<int>);
+    list_t* plist_elem = NULL;
+
+    hash_set_init(pvec);
+    plist_elem = (list_t*)_iterator_allocate_init_elem(hash_set_begin(pvec));
+    assert_true(plist_elem != NULL);
+    assert_true(_list_is_inited(plist_elem));
+    _iterator_deallocate_destroy_elem(hash_set_begin(pvec), plist_elem);
+    hash_set_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_set_user_define(void** state)
+{
+    hash_set_t* pvec = NULL;
+    _iterator_allocate_init_elem__user_define_t* pt_elem = NULL;
+
+    pvec = create_hash_set(_iterator_allocate_init_elem__user_define_t);
+    hash_set_init(pvec);
+    pt_elem = (_iterator_allocate_init_elem__user_define_t*)_iterator_allocate_init_elem(hash_set_begin(pvec));
+    assert_true(pt_elem != NULL);
+    assert_true(pt_elem->n_elem == 999);
+    _iterator_deallocate_destroy_elem(hash_set_begin(pvec), pt_elem);
+    hash_set_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multiset_c_builtin(void** state)
+{
+    hash_multiset_t* pvec = create_hash_multiset(int);
+    int* pn_elem = NULL;
+
+    hash_multiset_init(pvec);
+    pn_elem = (int*)_iterator_allocate_init_elem(hash_multiset_begin(pvec));
+    assert_true(pn_elem != NULL);
+    assert_true(*pn_elem == 0);
+    _iterator_deallocate_destroy_elem(hash_multiset_begin(pvec), pn_elem);
+    hash_multiset_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multiset_cstl_builtin(void** state)
+{
+    hash_multiset_t* pvec = create_hash_multiset(list_t<int>);
+    list_t* plist_elem = NULL;
+
+    hash_multiset_init(pvec);
+    plist_elem = (list_t*)_iterator_allocate_init_elem(hash_multiset_begin(pvec));
+    assert_true(plist_elem != NULL);
+    assert_true(_list_is_inited(plist_elem));
+    _iterator_deallocate_destroy_elem(hash_multiset_begin(pvec), plist_elem);
+    hash_multiset_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multiset_user_define(void** state)
+{
+    hash_multiset_t* pvec = NULL;
+    _iterator_allocate_init_elem__user_define_t* pt_elem = NULL;
+
+    pvec = create_hash_multiset(_iterator_allocate_init_elem__user_define_t);
+    hash_multiset_init(pvec);
+    pt_elem = (_iterator_allocate_init_elem__user_define_t*)_iterator_allocate_init_elem(hash_multiset_begin(pvec));
+    assert_true(pt_elem != NULL);
+    assert_true(pt_elem->n_elem == 999);
+    _iterator_deallocate_destroy_elem(hash_multiset_begin(pvec), pt_elem);
+    hash_multiset_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__map_c_builtin(void** state)
+{
+    map_t* pvec = create_map(int, int);
+    pair_t* ppair = NULL;
+
+    map_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(map_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(*(int*)pair_first(ppair) == 0);
+    _iterator_deallocate_destroy_elem(map_begin(pvec), ppair);
+    map_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__map_cstl_builtin(void** state)
+{
+    map_t* pvec = create_map(list_t<int>, int);
+    pair_t* ppair = NULL;
+
+    map_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(map_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(_list_is_inited((list_t*)pair_first(ppair)));
+    _iterator_deallocate_destroy_elem(map_begin(pvec), ppair);
+    map_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__map_user_define(void** state)
+{
+    map_t* pvec = NULL;
+    pair_t* ppair = NULL;
+
+    pvec = create_map(_iterator_allocate_init_elem__user_define_t, int);
+    map_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(map_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(((_iterator_allocate_init_elem__user_define_t*)pair_first(ppair))->n_elem == 999);
+    _iterator_deallocate_destroy_elem(map_begin(pvec), ppair);
+    map_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multimap_c_builtin(void** state)
+{
+    multimap_t* pvec = create_multimap(int, int);
+    pair_t* ppair = NULL;
+
+    multimap_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(multimap_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(*(int*)pair_first(ppair) == 0);
+    _iterator_deallocate_destroy_elem(multimap_begin(pvec), ppair);
+    multimap_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multimap_cstl_builtin(void** state)
+{
+    multimap_t* pvec = create_multimap(list_t<int>, int);
+    pair_t* ppair = NULL;
+
+    multimap_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(multimap_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(_list_is_inited((list_t*)pair_first(ppair)));
+    _iterator_deallocate_destroy_elem(multimap_begin(pvec), ppair);
+    multimap_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multimap_user_define(void** state)
+{
+    multimap_t* pvec = NULL;
+    pair_t* ppair = NULL;
+
+    pvec = create_multimap(_iterator_allocate_init_elem__user_define_t, int);
+    multimap_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(multimap_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(((_iterator_allocate_init_elem__user_define_t*)pair_first(ppair))->n_elem == 999);
+    _iterator_deallocate_destroy_elem(multimap_begin(pvec), ppair);
+    multimap_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_map_c_builtin(void** state)
+{
+    hash_map_t* pvec = create_hash_map(int, int);
+    pair_t* ppair = NULL;
+
+    hash_map_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(hash_map_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(*(int*)pair_first(ppair) == 0);
+    _iterator_deallocate_destroy_elem(hash_map_begin(pvec), ppair);
+    hash_map_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_map_cstl_builtin(void** state)
+{
+    hash_map_t* pvec = create_hash_map(list_t<int>, int);
+    pair_t* ppair = NULL;
+
+    hash_map_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(hash_map_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(_list_is_inited((list_t*)pair_first(ppair)));
+    _iterator_deallocate_destroy_elem(hash_map_begin(pvec), ppair);
+    hash_map_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_map_user_define(void** state)
+{
+    hash_map_t* pvec = NULL;
+    pair_t* ppair = NULL;
+
+    pvec = create_hash_map(_iterator_allocate_init_elem__user_define_t, int);
+    hash_map_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(hash_map_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(((_iterator_allocate_init_elem__user_define_t*)pair_first(ppair))->n_elem == 999);
+    _iterator_deallocate_destroy_elem(hash_map_begin(pvec), ppair);
+    hash_map_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multimap_c_builtin(void** state)
+{
+    hash_multimap_t* pvec = create_hash_multimap(int, int);
+    pair_t* ppair = NULL;
+
+    hash_multimap_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(hash_multimap_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(*(int*)pair_first(ppair) == 0);
+    _iterator_deallocate_destroy_elem(hash_multimap_begin(pvec), ppair);
+    hash_multimap_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multimap_cstl_builtin(void** state)
+{
+    hash_multimap_t* pvec = create_hash_multimap(list_t<int>, int);
+    pair_t* ppair = NULL;
+
+    hash_multimap_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(hash_multimap_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(_list_is_inited((list_t*)pair_first(ppair)));
+    _iterator_deallocate_destroy_elem(hash_multimap_begin(pvec), ppair);
+    hash_multimap_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multimap_user_define(void** state)
+{
+    hash_multimap_t* pvec = NULL;
+    pair_t* ppair = NULL;
+
+    pvec = create_hash_multimap(_iterator_allocate_init_elem__user_define_t, int);
+    hash_multimap_init(pvec);
+    ppair = (pair_t*)_iterator_allocate_init_elem(hash_multimap_begin(pvec));
+    assert_true(ppair != NULL);
+    assert_true(((_iterator_allocate_init_elem__user_define_t*)pair_first(ppair))->n_elem == 999);
+    _iterator_deallocate_destroy_elem(hash_multimap_begin(pvec), ppair);
+    hash_multimap_destroy(pvec);
+}
+
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__string(void** state)
+{
+    string_t* pstr = create_string();
+    char* pc = NULL;
+
+    string_init(pstr);
+    pc = (char*)_iterator_allocate_init_elem(string_begin(pstr));
+    assert_true(pc != NULL);
+    assert_true(*pc == 0x00);
+    _iterator_deallocate_destroy_elem(string_begin(pstr), pc);
+    string_destroy(pstr);
+}
+

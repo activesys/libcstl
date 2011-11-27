@@ -136,6 +136,82 @@ void test__iterator_get_typename__invalid(void** state);
 void test__iterator_get_typename__c_builtin(void** state);
 void test__iterator_get_typename__libcstl_builtin(void** state);
 void test__iterator_get_typename__user_define(void** state);
+/*
+ * test _iterator_get_typecopy
+ */
+UT_CASE_DECLARATION(_iterator_get_typecopy)
+void test__iterator_get_typecopy__invalid(void** state);
+void test__iterator_get_typecopy__c_builtin(void** state);
+void test__iterator_get_typecopy__cstl_builtin(void** state);
+void test__iterator_get_typecopy__user_define_default(void** state);
+void test__iterator_get_typecopy__user_define(void** state);
+/*
+ * test _iterator_get_typesize
+ */
+UT_CASE_DECLARATION(_iterator_get_typesize)
+void test__iterator_get_typesize__invalid(void** state);
+void test__iterator_get_typesize__c_builtin(void** state);
+void test__iterator_get_typesize__cstl_builtin(void** state);
+void test__iterator_get_typesize__user_define(void** state);
+/*
+ * test _iterator_same_elem_type
+ */
+UT_CASE_DECLARATION(_iterator_same_elem_type)
+void test__iterator_same_elem_type__invalid_first(void** state);
+void test__iterator_same_elem_type__invalid_second(void** state);
+void test__iterator_same_elem_type__c_builtin_not_same(void** state);
+void test__iterator_same_elem_type__c_builtin_same(void** state);
+void test__iterator_same_elem_type__cstl_builtin_not_same_1(void** state);
+void test__iterator_same_elem_type__cstl_builtin_not_same_2(void** state);
+void test__iterator_same_elem_type__cstl_builtin_same(void** state);
+void test__iterator_same_elem_type__user_define_not_same(void** state);
+void test__iterator_same_elem_type__user_define_same(void** state);
+void test__iterator_same_elem_type__not_same_container_not_same_type(void** state);
+void test__iterator_same_elem_type__not_same_container_same_type(void** state);
+/*
+ * test _iterator_allocate_init_elem and _iterator_deallocate_destroy_elem
+ */
+UT_CASE_DECLARATION(_iterator_allocate_init_elem__iterator_deallocate_destroy_elem)
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__allocate_invalid(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deallocate_invalid(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__null_value(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__vector_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__vector_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__vector_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__list_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__list_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__list_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deque_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deque_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deque_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__slist_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__slist_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__slist_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__set_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__set_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__set_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multiset_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multiset_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multiset_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_set_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_set_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_set_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multiset_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multiset_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multiset_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__map_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__map_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__map_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multimap_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multimap_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multimap_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_map_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_map_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_map_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multimap_c_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multimap_cstl_builtin(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multimap_user_define(void** state);
+void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__string(void** state);
 
 #define UT_CSTL_ITERATOR_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_iterator_private, test__iterator_is_valid__invalid_containertype),\
@@ -235,6 +311,66 @@ void test__iterator_get_typename__user_define(void** state);
     UT_CASE(test__iterator_get_typename__c_builtin),\
     UT_CASE(test__iterator_get_typename__libcstl_builtin),\
     UT_CASE(test__iterator_get_typename__user_define),\
+    UT_CASE_BEGIN(_iterator_get_typecopy, test__iterator_get_typecopy__invalid),\
+    UT_CASE(test__iterator_get_typecopy__c_builtin),\
+    UT_CASE(test__iterator_get_typecopy__cstl_builtin),\
+    UT_CASE(test__iterator_get_typecopy__user_define_default),\
+    UT_CASE(test__iterator_get_typecopy__user_define),\
+    UT_CASE_BEGIN(_iterator_get_typesize, test__iterator_get_typesize__invalid),\
+    UT_CASE(test__iterator_get_typesize__c_builtin),\
+    UT_CASE(test__iterator_get_typesize__cstl_builtin),\
+    UT_CASE(test__iterator_get_typesize__user_define),\
+    UT_CASE_BEGIN(_iterator_same_elem_type, test__iterator_same_elem_type__invalid_first),\
+    UT_CASE(test__iterator_same_elem_type__invalid_second),\
+    UT_CASE(test__iterator_same_elem_type__c_builtin_not_same),\
+    UT_CASE(test__iterator_same_elem_type__c_builtin_same),\
+    UT_CASE(test__iterator_same_elem_type__cstl_builtin_not_same_1),\
+    UT_CASE(test__iterator_same_elem_type__cstl_builtin_not_same_2),\
+    UT_CASE(test__iterator_same_elem_type__cstl_builtin_same),\
+    UT_CASE(test__iterator_same_elem_type__user_define_not_same),\
+    UT_CASE(test__iterator_same_elem_type__user_define_same),\
+    UT_CASE(test__iterator_same_elem_type__not_same_container_not_same_type),\
+    UT_CASE(test__iterator_same_elem_type__not_same_container_same_type),\
+    UT_CASE_BEGIN(_iterator_allocate_init_elem__iterator_deallocate_destroy_elem, test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__allocate_invalid),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deallocate_invalid),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__null_value),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__vector_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__vector_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__vector_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__list_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__list_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__list_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deque_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deque_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__deque_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__slist_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__slist_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__slist_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__set_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__set_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__set_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multiset_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multiset_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multiset_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_set_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_set_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_set_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multiset_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multiset_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multiset_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__map_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__map_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__map_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multimap_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multimap_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__multimap_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_map_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_map_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_map_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multimap_c_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multimap_cstl_builtin),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__hash_multimap_user_define),\
+    UT_CASE(test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__string)
 
 #endif /* _UT_CSTL_ITERATOR_PRIVATE_H_ */
 

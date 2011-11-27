@@ -210,13 +210,13 @@ bool_t _iterator_limit_type(iterator_t it_iter, iteratortype_t t_limittype)
 }
 
 /**
- * Test whether the [it_first, it_last) is valid range.
+ * Test whether the [it_first, it_end) is valid range.
  */
-bool_t _iterator_valid_range(iterator_t it_first, iterator_t it_last, iteratortype_t t_type)
+bool_t _iterator_valid_range(iterator_t it_first, iterator_t it_end, iteratortype_t t_type)
 {
-    return _iterator_same_type(it_first, it_last) &&
+    return _iterator_same_type(it_first, it_end) &&
            _iterator_limit_type(it_first, t_type) &&
-           (iterator_equal(it_first, it_last) || _iterator_before(it_first, it_last));
+           (iterator_equal(it_first, it_end) || _iterator_before(it_first, it_end));
 }
 
 /**
@@ -325,6 +325,9 @@ const char* _iterator_get_typename(iterator_t it_iter)
     }
 }
 
+/**
+ * Get type copy function of iterator.
+ */
 binary_function_t _iterator_get_typecopy(iterator_t it_iter)
 {
     _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(it_iter);
@@ -339,6 +342,9 @@ binary_function_t _iterator_get_typecopy(iterator_t it_iter)
     }
 }
 
+/**
+ * Get type size of iterator.
+ */
 size_t _iterator_get_typesize(iterator_t it_iter)
 {
     _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(it_iter);
@@ -353,15 +359,22 @@ size_t _iterator_get_typesize(iterator_t it_iter)
     }
 }
 
-bool_t _iterator_same_elem_type(iterator_t it_first, iterator_t it_last)
+/**
+ * Test whether two iterator point to same type element.
+ */
+bool_t _iterator_same_elem_type(iterator_t it_first, iterator_t it_second)
 {
-    return _type_is_same(_iterator_get_typename(it_first), _iterator_get_typename(it_last));
+    return _type_is_same(_iterator_get_typename(it_first), _iterator_get_typename(it_second));
 }
 
+/**
+ * Initialize an element according to the type of iterator pointed data.
+ */
 void* _iterator_allocate_init_elem(iterator_t it_iter)
 {
     void* pv_value = NULL;
 
+    assert(_iterator_is_valid(it_iter));
     switch(it_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
@@ -438,102 +451,92 @@ void* _iterator_allocate_init_elem(iterator_t it_iter)
     return pv_value;
 }
 
+/**
+ * Destroy and deallocate element allocated and initialized by _iterator_allocate_init_elem().
+ */
 void _iterator_deallocate_destroy_elem(iterator_t it_iter, void* pv_value)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
 
+    assert(_iterator_is_valid(it_iter));
     assert(pv_value != NULL);
-
     switch(it_iter._t_containertype)
     {
     case _VECTOR_CONTAINER:
-        ((vector_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((vector_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((vector_t*)it_iter._pt_container)->_t_allocator, pv_value,
             ((vector_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _DEQUE_CONTAINER:
-        ((deque_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((deque_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((deque_t*)it_iter._pt_container)->_t_allocator, pv_value,
             ((deque_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _BASIC_STRING_CONTAINER:
-        ((basic_string_t*)it_iter._pt_container)->_vec_base._t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((basic_string_t*)it_iter._pt_container)->_vec_base._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((basic_string_t*)it_iter._pt_container)->_vec_base._t_allocator, pv_value,
             ((basic_string_t*)it_iter._pt_container)->_vec_base._t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _LIST_CONTAINER:
-        ((list_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((list_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((list_t*)it_iter._pt_container)->_t_allocator, pv_value,
             ((list_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _SLIST_CONTAINER:
-        ((slist_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((slist_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((slist_t*)it_iter._pt_container)->_t_allocator, pv_value,
             ((slist_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _SET_CONTAINER:
-        ((set_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((set_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((set_t*)it_iter._pt_container)->_t_tree._t_allocator, pv_value,
             ((set_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _MULTISET_CONTAINER:
-        ((multiset_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((multiset_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((multiset_t*)it_iter._pt_container)->_t_tree._t_allocator, pv_value,
             ((set_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _MAP_CONTAINER:
-        ((map_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((map_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((map_t*)it_iter._pt_container)->_t_tree._t_allocator, pv_value,
             ((map_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _MULTIMAP_CONTAINER:
-        ((multimap_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((multimap_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((multimap_t*)it_iter._pt_container)->_t_tree._t_allocator, pv_value,
             ((multimap_t*)it_iter._pt_container)->_t_tree._t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _HASH_SET_CONTAINER:
-        ((hash_set_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((hash_set_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((hash_set_t*)it_iter._pt_container)->_t_hashtable._t_allocator, pv_value,
             ((hash_set_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _HASH_MULTISET_CONTAINER:
-        ((hash_multiset_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((hash_multiset_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((hash_multiset_t*)it_iter._pt_container)->_t_hashtable._t_allocator, pv_value,
             ((hash_multiset_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _HASH_MAP_CONTAINER:
-        ((hash_map_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((hash_map_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((hash_map_t*)it_iter._pt_container)->_t_hashtable._t_allocator, pv_value,
             ((hash_map_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize, 1);
         break;
     case _HASH_MULTIMAP_CONTAINER:
-        ((hash_multimap_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy(
-            pv_value, &t_result);
-        assert(t_result);
+        ((hash_multimap_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
+        assert(b_result);
         _alloc_deallocate(&((hash_multimap_t*)it_iter._pt_container)->_t_hashtable._t_allocator, pv_value,
             ((hash_multimap_t*)it_iter._pt_container)->_t_hashtable._t_typeinfo._pt_type->_t_typesize, 1);
         break;
