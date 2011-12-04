@@ -148,22 +148,40 @@ extern bool_t iterator_greater(iterator_t it_first, iterator_t it_second);
  */
 extern bool_t iterator_greater_equal(iterator_t it_first, iterator_t it_second);
 
-/*
+/**
  * Element random access.
+ * @param it_iter      iterator.
+ * @param n_index      index.
+ * @return element pointer.
+ * @remarks iterator must be valid, otherwise the behavior is undefined.
  */
 extern void* iterator_at(iterator_t it_iter, int n_index);
 
-
-/*
- * Distance.
+/**
+ * Iterator distance.
+ * @param it_first     first iterator.
+ * @param it_second    second iterator.
+ * @return iterator distance.
+ * @remakes two iterator must be valid, otherwise the behavior is undefined.
  */
 extern int iterator_minus(iterator_t it_first, iterator_t it_second);
 
-/* the iterator auxilary function */
-/*
- * Advance and distance.
+/**
+ * Iterator next n for all iterator type.
+ * @param it_iter      iterator.
+ * @param n_step       step.
+ * @return next n iterator.
+ * @remarks iterator must be valid, otherwise the behavior is undefined.
  */
 extern iterator_t iterator_advance(iterator_t it_iter, int n_step);
+
+/**
+ * Iterator distance for all iterator type.
+ * @param it_first     first iterator.
+ * @param it_second    second iterator.
+ * @return iterator distance.
+ * @remakes two iterator must be valid, otherwise the behavior is undefined.
+ */
 extern int iterator_distance(iterator_t it_first, iterator_t it_second);
 
 #ifdef __cplusplus

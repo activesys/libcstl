@@ -500,8 +500,12 @@ bool_t iterator_greater_equal(iterator_t it_first, iterator_t it_second)
     }
 }
 
+/**
+ * Element random access.
+ */
 void* iterator_at(iterator_t it_iter, int n_index)
 {
+    assert(_iterator_is_valid(it_iter));
     assert(_iterator_limit_type(it_iter, _RANDOM_ACCESS_ITERATOR));
 
     switch(it_iter._t_containertype)
@@ -522,9 +526,13 @@ void* iterator_at(iterator_t it_iter, int n_index)
     }
 }
 
-
+/**
+ * Iterator distance.
+ */
 int iterator_minus(iterator_t it_first, iterator_t it_second)
 {
+    assert(_iterator_is_valid(it_first));
+    assert(_iterator_is_valid(it_second));
     assert(_iterator_limit_type(it_first, _RANDOM_ACCESS_ITERATOR));
 
     switch(it_first._t_containertype)
@@ -545,8 +553,9 @@ int iterator_minus(iterator_t it_first, iterator_t it_second)
     }
 }
 
-
-/* the auxiliary function of iterator */
+/**
+ * Iterator next n for all iterator type.
+ */
 iterator_t iterator_advance(iterator_t it_iter, int n_step)
 {
     int i = 0;
@@ -571,8 +580,13 @@ iterator_t iterator_advance(iterator_t it_iter, int n_step)
     return it_iter;
 }
 
+/**
+ * Iterator distance for all iterator type.
+ */
 int iterator_distance(iterator_t it_first, iterator_t it_second)
 {
+    assert(_iterator_is_valid(it_first));
+    assert(_iterator_is_valid(it_second));
     assert(_iterator_same_type(it_first, it_second));
 
     switch(it_first._t_containertype)

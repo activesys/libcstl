@@ -358,6 +358,182 @@ void test_iterator_greater_equal__string_less(void** state);
 void test_iterator_greater_equal__string_equal(void** state);
 void test_iterator_greater_equal__string_greater(void** state);
 
+/*
+ * test iterator_at
+ */
+UT_CASE_DECLARATION(iterator_at)
+void test_iterator_at__invalid_iter(void** state);
+void test_iterator_at__vector_0(void** state);
+void test_iterator_at__vector_n(void** state);
+void test_iterator_at__vector_n_(void** state);
+void test_iterator_at__vector_end_n(void** state);
+void test_iterator_at__vector_prev_n(void** state);
+void test_iterator_at__deque_0(void** state);
+void test_iterator_at__deque_n(void** state);
+void test_iterator_at__deque_n_(void** state);
+void test_iterator_at__deque_end_n(void** state);
+void test_iterator_at__deque_prev_n(void** state);
+void test_iterator_at__list(void** state);
+void test_iterator_at__slist(void** state);
+void test_iterator_at__set(void** state);
+void test_iterator_at__multiset(void** state);
+void test_iterator_at__map(void** state);
+void test_iterator_at__multimap(void** state);
+void test_iterator_at__hash_set(void** state);
+void test_iterator_at__hash_multiset(void** state);
+void test_iterator_at__hash_map(void** state);
+void test_iterator_at__hash_multimap(void** state);
+void test_iterator_at__string_0(void** state);
+void test_iterator_at__string_n(void** state);
+void test_iterator_at__string_n_(void** state);
+void test_iterator_at__string_end_n(void** state);
+void test_iterator_at__string_prev_n(void** state);
+
+/*
+ * test iteator_less
+ */
+UT_CASE_DECLARATION(iterator_minus)
+void test_iterator_minus__invalid_first(void** state);
+void test_iterator_minus__invalid_second(void** state);
+void test_iterator_minus__not_same_container(void** state);
+void test_iterator_minus__vector_less(void** state);
+void test_iterator_minus__vector_equal(void** state);
+void test_iterator_minus__vector_greater(void** state);
+void test_iterator_minus__deque_less(void** state);
+void test_iterator_minus__deque_equal(void** state);
+void test_iterator_minus__deque_greater(void** state);
+void test_iterator_minus__list(void** state);
+void test_iterator_minus__slist(void** state);
+void test_iterator_minus__set(void** state);
+void test_iterator_minus__multiset(void** state);
+void test_iterator_minus__map(void** state);
+void test_iterator_minus__multimap(void** state);
+void test_iterator_minus__hash_set(void** state);
+void test_iterator_minus__hash_multiset(void** state);
+void test_iterator_minus__hash_map(void** state);
+void test_iterator_minus__hash_multimap(void** state);
+void test_iterator_minus__string_less(void** state);
+void test_iterator_minus__string_equal(void** state);
+void test_iterator_minus__string_greater(void** state);
+
+/*
+ * test iteator_distance
+ */
+UT_CASE_DECLARATION(iterator_distance)
+void test_iterator_distance__invalid_first(void** state);
+void test_iterator_distance__invalid_second(void** state);
+void test_iterator_distance__not_same_container(void** state);
+void test_iterator_distance__vector_less(void** state);
+void test_iterator_distance__vector_equal(void** state);
+void test_iterator_distance__vector_greater(void** state);
+void test_iterator_distance__deque_less(void** state);
+void test_iterator_distance__deque_equal(void** state);
+void test_iterator_distance__deque_greater(void** state);
+void test_iterator_distance__list_less(void** state);
+void test_iterator_distance__list_equal(void** state);
+void test_iterator_distance__list_greater(void** state);
+void test_iterator_distance__slist_less(void** state);
+void test_iterator_distance__slist_equal(void** state);
+void test_iterator_distance__slist_greater(void** state);
+void test_iterator_distance__set_less(void** state);
+void test_iterator_distance__set_equal(void** state);
+void test_iterator_distance__set_greater(void** state);
+void test_iterator_distance__multiset_less(void** state);
+void test_iterator_distance__multiset_equal(void** state);
+void test_iterator_distance__multiset_greater(void** state);
+void test_iterator_distance__map_less(void** state);
+void test_iterator_distance__map_equal(void** state);
+void test_iterator_distance__map_greater(void** state);
+void test_iterator_distance__multimap_less(void** state);
+void test_iterator_distance__multimap_equal(void** state);
+void test_iterator_distance__multimap_greater(void** state);
+void test_iterator_distance__hash_set_less(void** state);
+void test_iterator_distance__hash_set_equal(void** state);
+void test_iterator_distance__hash_set_greater(void** state);
+void test_iterator_distance__hash_multiset_less(void** state);
+void test_iterator_distance__hash_multiset_equal(void** state);
+void test_iterator_distance__hash_multiset_greater(void** state);
+void test_iterator_distance__hash_map_less(void** state);
+void test_iterator_distance__hash_map_equal(void** state);
+void test_iterator_distance__hash_map_greater(void** state);
+void test_iterator_distance__hash_multimap_less(void** state);
+void test_iterator_distance__hash_multimap_equal(void** state);
+void test_iterator_distance__hash_multimap_greater(void** state);
+void test_iterator_distance__string_less(void** state);
+void test_iterator_distance__string_equal(void** state);
+void test_iterator_distance__string_greater(void** state);
+
+/*
+ * test iterator_advance
+ */
+UT_CASE_DECLARATION(iterator_advance)
+void test_iterator_advance__invalid_iter(void** state);
+void test_iterator_advance__vector_0(void** state);
+void test_iterator_advance__vector_n(void** state);
+void test_iterator_advance__vector_n_(void** state);
+void test_iterator_advance__vector_end_n(void** state);
+void test_iterator_advance__vector_prev_n(void** state);
+void test_iterator_advance__deque_0(void** state);
+void test_iterator_advance__deque_n(void** state);
+void test_iterator_advance__deque_n_(void** state);
+void test_iterator_advance__deque_end_n(void** state);
+void test_iterator_advance__deque_prev_n(void** state);
+void test_iterator_advance__list_0(void** state);
+void test_iterator_advance__list_n(void** state);
+void test_iterator_advance__list_n_(void** state);
+void test_iterator_advance__list_end_n(void** state);
+void test_iterator_advance__list_prev_n(void** state);
+void test_iterator_advance__slist_0(void** state);
+void test_iterator_advance__slist_n(void** state);
+void test_iterator_advance__slist_n_(void** state);
+void test_iterator_advance__slist_end_n(void** state);
+void test_iterator_advance__slist_prev_n(void** state);
+void test_iterator_advance__set_0(void** state);
+void test_iterator_advance__set_n(void** state);
+void test_iterator_advance__set_n_(void** state);
+void test_iterator_advance__set_end_n(void** state);
+void test_iterator_advance__set_prev_n(void** state);
+void test_iterator_advance__multiset_0(void** state);
+void test_iterator_advance__multiset_n(void** state);
+void test_iterator_advance__multiset_n_(void** state);
+void test_iterator_advance__multiset_end_n(void** state);
+void test_iterator_advance__multiset_prev_n(void** state);
+void test_iterator_advance__map_0(void** state);
+void test_iterator_advance__map_n(void** state);
+void test_iterator_advance__map_n_(void** state);
+void test_iterator_advance__map_end_n(void** state);
+void test_iterator_advance__map_prev_n(void** state);
+void test_iterator_advance__multimap_0(void** state);
+void test_iterator_advance__multimap_n(void** state);
+void test_iterator_advance__multimap_n_(void** state);
+void test_iterator_advance__multimap_end_n(void** state);
+void test_iterator_advance__multimap_prev_n(void** state);
+void test_iterator_advance__hash_set_0(void** state);
+void test_iterator_advance__hash_set_n(void** state);
+void test_iterator_advance__hash_set_n_(void** state);
+void test_iterator_advance__hash_set_end_n(void** state);
+void test_iterator_advance__hash_set_prev_n(void** state);
+void test_iterator_advance__hash_multiset_0(void** state);
+void test_iterator_advance__hash_multiset_n(void** state);
+void test_iterator_advance__hash_multiset_n_(void** state);
+void test_iterator_advance__hash_multiset_end_n(void** state);
+void test_iterator_advance__hash_multiset_prev_n(void** state);
+void test_iterator_advance__hash_map_0(void** state);
+void test_iterator_advance__hash_map_n(void** state);
+void test_iterator_advance__hash_map_n_(void** state);
+void test_iterator_advance__hash_map_end_n(void** state);
+void test_iterator_advance__hash_map_prev_n(void** state);
+void test_iterator_advance__hash_multimap_0(void** state);
+void test_iterator_advance__hash_multimap_n(void** state);
+void test_iterator_advance__hash_multimap_n_(void** state);
+void test_iterator_advance__hash_multimap_end_n(void** state);
+void test_iterator_advance__hash_multimap_prev_n(void** state);
+void test_iterator_advance__string_0(void** state);
+void test_iterator_advance__string_n(void** state);
+void test_iterator_advance__string_n_(void** state);
+void test_iterator_advance__string_end_n(void** state);
+void test_iterator_advance__string_prev_n(void** state);
+
 #define UT_CSTL_ITERATOR_CASE\
     UT_SUIT_BEGIN(cstl_iterator, test_iterator_get_value__invalid_iter),\
     UT_CASE(test_iterator_get_value__null),\
@@ -649,6 +825,162 @@ void test_iterator_greater_equal__string_greater(void** state);
     UT_CASE(test_iterator_greater_equal__string_less),\
     UT_CASE(test_iterator_greater_equal__string_equal),\
     UT_CASE(test_iterator_greater_equal__string_greater),\
+    UT_CASE_BEGIN(iterator_at, test_iterator_at__invalid_iter),\
+    UT_CASE(test_iterator_at__vector_0),\
+    UT_CASE(test_iterator_at__vector_n),\
+    UT_CASE(test_iterator_at__vector_n_),\
+    UT_CASE(test_iterator_at__vector_end_n),\
+    UT_CASE(test_iterator_at__vector_prev_n),\
+    UT_CASE(test_iterator_at__deque_0),\
+    UT_CASE(test_iterator_at__deque_n),\
+    UT_CASE(test_iterator_at__deque_n_),\
+    UT_CASE(test_iterator_at__deque_end_n),\
+    UT_CASE(test_iterator_at__deque_prev_n),\
+    UT_CASE(test_iterator_at__list),\
+    UT_CASE(test_iterator_at__slist),\
+    UT_CASE(test_iterator_at__set),\
+    UT_CASE(test_iterator_at__multiset),\
+    UT_CASE(test_iterator_at__map),\
+    UT_CASE(test_iterator_at__multimap),\
+    UT_CASE(test_iterator_at__hash_set),\
+    UT_CASE(test_iterator_at__hash_multiset),\
+    UT_CASE(test_iterator_at__hash_map),\
+    UT_CASE(test_iterator_at__hash_multimap),\
+    UT_CASE(test_iterator_at__string_0),\
+    UT_CASE(test_iterator_at__string_n),\
+    UT_CASE(test_iterator_at__string_n_),\
+    UT_CASE(test_iterator_at__string_end_n),\
+    UT_CASE(test_iterator_at__string_prev_n),\
+    UT_CASE_BEGIN(iterator_minus, test_iterator_minus__invalid_first),\
+    UT_CASE(test_iterator_minus__invalid_second),\
+    UT_CASE(test_iterator_minus__not_same_container),\
+    UT_CASE(test_iterator_minus__vector_less),\
+    UT_CASE(test_iterator_minus__vector_equal),\
+    UT_CASE(test_iterator_minus__vector_greater),\
+    UT_CASE(test_iterator_minus__deque_less),\
+    UT_CASE(test_iterator_minus__deque_equal),\
+    UT_CASE(test_iterator_minus__deque_greater),\
+    UT_CASE(test_iterator_minus__list),\
+    UT_CASE(test_iterator_minus__slist),\
+    UT_CASE(test_iterator_minus__set),\
+    UT_CASE(test_iterator_minus__multiset),\
+    UT_CASE(test_iterator_minus__map),\
+    UT_CASE(test_iterator_minus__multimap),\
+    UT_CASE(test_iterator_minus__hash_set),\
+    UT_CASE(test_iterator_minus__hash_multiset),\
+    UT_CASE(test_iterator_minus__hash_map),\
+    UT_CASE(test_iterator_minus__hash_multimap),\
+    UT_CASE(test_iterator_minus__string_less),\
+    UT_CASE(test_iterator_minus__string_equal),\
+    UT_CASE(test_iterator_minus__string_greater),\
+    UT_CASE_BEGIN(iterator_distance, test_iterator_distance__invalid_first),\
+    UT_CASE(test_iterator_distance__invalid_second),\
+    UT_CASE(test_iterator_distance__not_same_container),\
+    UT_CASE(test_iterator_distance__vector_less),\
+    UT_CASE(test_iterator_distance__vector_equal),\
+    UT_CASE(test_iterator_distance__vector_greater),\
+    UT_CASE(test_iterator_distance__deque_less),\
+    UT_CASE(test_iterator_distance__deque_equal),\
+    UT_CASE(test_iterator_distance__deque_greater),\
+    UT_CASE(test_iterator_distance__list_less),\
+    UT_CASE(test_iterator_distance__list_equal),\
+    UT_CASE(test_iterator_distance__list_greater),\
+    UT_CASE(test_iterator_distance__slist_less),\
+    UT_CASE(test_iterator_distance__slist_equal),\
+    UT_CASE(test_iterator_distance__slist_greater),\
+    UT_CASE(test_iterator_distance__set_less),\
+    UT_CASE(test_iterator_distance__set_equal),\
+    UT_CASE(test_iterator_distance__set_greater),\
+    UT_CASE(test_iterator_distance__multiset_less),\
+    UT_CASE(test_iterator_distance__multiset_equal),\
+    UT_CASE(test_iterator_distance__multiset_greater),\
+    UT_CASE(test_iterator_distance__map_less),\
+    UT_CASE(test_iterator_distance__map_equal),\
+    UT_CASE(test_iterator_distance__map_greater),\
+    UT_CASE(test_iterator_distance__multimap_less),\
+    UT_CASE(test_iterator_distance__multimap_equal),\
+    UT_CASE(test_iterator_distance__multimap_greater),\
+    UT_CASE(test_iterator_distance__hash_set_less),\
+    UT_CASE(test_iterator_distance__hash_set_equal),\
+    UT_CASE(test_iterator_distance__hash_set_greater),\
+    UT_CASE(test_iterator_distance__hash_multiset_less),\
+    UT_CASE(test_iterator_distance__hash_multiset_equal),\
+    UT_CASE(test_iterator_distance__hash_multiset_greater),\
+    UT_CASE(test_iterator_distance__hash_map_less),\
+    UT_CASE(test_iterator_distance__hash_map_equal),\
+    UT_CASE(test_iterator_distance__hash_map_greater),\
+    UT_CASE(test_iterator_distance__hash_multimap_less),\
+    UT_CASE(test_iterator_distance__hash_multimap_equal),\
+    UT_CASE(test_iterator_distance__hash_multimap_greater),\
+    UT_CASE(test_iterator_distance__string_less),\
+    UT_CASE(test_iterator_distance__string_equal),\
+    UT_CASE(test_iterator_distance__string_greater),\
+    UT_CASE_BEGIN(iterator_advance, test_iterator_advance__invalid_iter),\
+    UT_CASE(test_iterator_advance__vector_0),\
+    UT_CASE(test_iterator_advance__vector_n),\
+    UT_CASE(test_iterator_advance__vector_n_),\
+    UT_CASE(test_iterator_advance__vector_end_n),\
+    UT_CASE(test_iterator_advance__vector_prev_n),\
+    UT_CASE(test_iterator_advance__deque_0),\
+    UT_CASE(test_iterator_advance__deque_n),\
+    UT_CASE(test_iterator_advance__deque_n_),\
+    UT_CASE(test_iterator_advance__deque_end_n),\
+    UT_CASE(test_iterator_advance__deque_prev_n),\
+    UT_CASE(test_iterator_advance__list_0),\
+    UT_CASE(test_iterator_advance__list_n),\
+    UT_CASE(test_iterator_advance__list_n_),\
+    UT_CASE(test_iterator_advance__list_end_n),\
+    UT_CASE(test_iterator_advance__list_prev_n),\
+    UT_CASE(test_iterator_advance__slist_0),\
+    UT_CASE(test_iterator_advance__slist_n),\
+    UT_CASE(test_iterator_advance__slist_n_),\
+    UT_CASE(test_iterator_advance__slist_end_n),\
+    UT_CASE(test_iterator_advance__slist_prev_n),\
+    UT_CASE(test_iterator_advance__set_0),\
+    UT_CASE(test_iterator_advance__set_n),\
+    UT_CASE(test_iterator_advance__set_n_),\
+    UT_CASE(test_iterator_advance__set_end_n),\
+    UT_CASE(test_iterator_advance__set_prev_n),\
+    UT_CASE(test_iterator_advance__multiset_0),\
+    UT_CASE(test_iterator_advance__multiset_n),\
+    UT_CASE(test_iterator_advance__multiset_n_),\
+    UT_CASE(test_iterator_advance__multiset_end_n),\
+    UT_CASE(test_iterator_advance__multiset_prev_n),\
+    UT_CASE(test_iterator_advance__map_0),\
+    UT_CASE(test_iterator_advance__map_n),\
+    UT_CASE(test_iterator_advance__map_n_),\
+    UT_CASE(test_iterator_advance__map_end_n),\
+    UT_CASE(test_iterator_advance__map_prev_n),\
+    UT_CASE(test_iterator_advance__multimap_0),\
+    UT_CASE(test_iterator_advance__multimap_n),\
+    UT_CASE(test_iterator_advance__multimap_n_),\
+    UT_CASE(test_iterator_advance__multimap_end_n),\
+    UT_CASE(test_iterator_advance__multimap_prev_n),\
+    UT_CASE(test_iterator_advance__hash_set_0),\
+    UT_CASE(test_iterator_advance__hash_set_n),\
+    UT_CASE(test_iterator_advance__hash_set_n_),\
+    UT_CASE(test_iterator_advance__hash_set_end_n),\
+    UT_CASE(test_iterator_advance__hash_set_prev_n),\
+    UT_CASE(test_iterator_advance__hash_multiset_0),\
+    UT_CASE(test_iterator_advance__hash_multiset_n),\
+    UT_CASE(test_iterator_advance__hash_multiset_n_),\
+    UT_CASE(test_iterator_advance__hash_multiset_end_n),\
+    UT_CASE(test_iterator_advance__hash_multiset_prev_n),\
+    UT_CASE(test_iterator_advance__hash_map_0),\
+    UT_CASE(test_iterator_advance__hash_map_n),\
+    UT_CASE(test_iterator_advance__hash_map_n_),\
+    UT_CASE(test_iterator_advance__hash_map_end_n),\
+    UT_CASE(test_iterator_advance__hash_map_prev_n),\
+    UT_CASE(test_iterator_advance__hash_multimap_0),\
+    UT_CASE(test_iterator_advance__hash_multimap_n),\
+    UT_CASE(test_iterator_advance__hash_multimap_n_),\
+    UT_CASE(test_iterator_advance__hash_multimap_end_n),\
+    UT_CASE(test_iterator_advance__hash_multimap_prev_n),\
+    UT_CASE(test_iterator_advance__string_0),\
+    UT_CASE(test_iterator_advance__string_n),\
+    UT_CASE(test_iterator_advance__string_n_),\
+    UT_CASE(test_iterator_advance__string_end_n),\
+    UT_CASE(test_iterator_advance__string_prev_n),\
 
 #endif /* _UT_CSTL_ITERATOR_H_ */
 
