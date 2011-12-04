@@ -1,3 +1,8 @@
+2011-12-04    Bo Wang <activesys.wb@gmail.com>
+    Version 2.0.3
+    * Release libcstl-2.0.3.
+    * Fixup bug 27, 28.
+
 2011-10-22    Bo Wang <activesys.wb@gmail.com>
     * Fixup bug 28.
 
