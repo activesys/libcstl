@@ -24,7 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
+#include <cstl/citerator.h>
 #include <cstl/cstring.h>
 
 #include <cstl/cstl_avl_tree_iterator.h>
@@ -104,11 +104,11 @@ bool_t _avl_tree_iterator_belong_to_avl_tree(const _avl_tree_t* cpt_avl_tree, _a
 {
     assert(cpt_avl_tree != NULL);
     assert(_avl_tree_is_inited(cpt_avl_tree));
-    assert(_GET_AVL_TREE_COREPOS(it_iter) != NULL);
-    assert(_GET_AVL_TREE(it_iter) == cpt_avl_tree);
+    assert(_AVL_TREE_ITERATOR_COREPOS(it_iter) != NULL);
+    assert(_AVL_TREE_ITERATOR_TREE(it_iter) == cpt_avl_tree);
 
     /* if iterator is end */
-    if(_GET_AVL_TREE_COREPOS(it_iter) == (_byte_t*)&cpt_avl_tree->_t_avlroot)
+    if(_AVL_TREE_ITERATOR_COREPOS(it_iter) == (_byte_t*)&cpt_avl_tree->_t_avlroot)
     {
         return true;
     }
@@ -116,7 +116,7 @@ bool_t _avl_tree_iterator_belong_to_avl_tree(const _avl_tree_t* cpt_avl_tree, _a
     else
     {
         return _avl_tree_avlnode_belong_to_avl_tree(
-            cpt_avl_tree->_t_avlroot._pt_parent, (_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter));
+            cpt_avl_tree->_t_avlroot._pt_parent, (_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_iter));
     }
 }
 
@@ -126,9 +126,9 @@ bool_t _avl_tree_iterator_belong_to_avl_tree(const _avl_tree_t* cpt_avl_tree, _a
 bool_t _avl_tree_same_avl_tree_iterator_type(const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t it_iter)
 {
     assert(cpt_avl_tree != NULL);
-    assert( _GET_AVL_TREE(it_iter) != NULL);
+    assert( _AVL_TREE_ITERATOR_TREE(it_iter) != NULL);
 
-    return _avl_tree_same_type(cpt_avl_tree, _GET_AVL_TREE(it_iter));
+    return _avl_tree_same_type(cpt_avl_tree, _AVL_TREE_ITERATOR_TREE(it_iter));
 }
 
 /**
@@ -137,9 +137,9 @@ bool_t _avl_tree_same_avl_tree_iterator_type(const _avl_tree_t* cpt_avl_tree, _a
 bool_t _avl_tree_same_avl_tree_iterator_type_ex(const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t it_iter)
 {
     assert(cpt_avl_tree != NULL);
-    assert( _GET_AVL_TREE(it_iter) != NULL);
+    assert( _AVL_TREE_ITERATOR_TREE(it_iter) != NULL);
 
-    return _avl_tree_same_type_ex(cpt_avl_tree, _GET_AVL_TREE(it_iter));
+    return _avl_tree_same_type_ex(cpt_avl_tree, _AVL_TREE_ITERATOR_TREE(it_iter));
 }
 
 /**

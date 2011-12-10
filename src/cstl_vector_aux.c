@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 
 #include <cstl/cstl_vector_iterator.h>
 #include <cstl/cstl_vector_private.h>
@@ -53,12 +52,12 @@ bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_it
 {
     assert(cpvec_vector != NULL);
     assert(_vector_is_inited(cpvec_vector));
-    assert(_GET_VECTOR_ITERATOR_TYPE(it_iter) == _RANDOM_ACCESS_ITERATOR);
-    assert(_GET_VECTOR_CONTAINER_TYPE(it_iter) == _VECTOR_CONTAINER);
-    assert(_GET_VECTOR_CONTAINER(it_iter) == cpvec_vector);
+    assert(_VECTOR_ITERATOR_ITERATOR_TYPE(it_iter) == _RANDOM_ACCESS_ITERATOR);
+    assert(_VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) == _VECTOR_CONTAINER);
+    assert(_VECTOR_ITERATOR_CONTAINER(it_iter) == cpvec_vector);
 
-    if(_GET_VECTOR_COREPOS(it_iter) >= cpvec_vector->_pby_start &&
-       _GET_VECTOR_COREPOS(it_iter) <= cpvec_vector->_pby_finish)
+    if(_VECTOR_ITERATOR_COREPOS(it_iter) >= cpvec_vector->_pby_start &&
+       _VECTOR_ITERATOR_COREPOS(it_iter) <= cpvec_vector->_pby_finish)
     {
         return true;
     }
@@ -74,11 +73,11 @@ bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_it
 bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_iterator_t it_iter)
 {
     assert(cpvec_vector != NULL);
-    assert(_GET_VECTOR_CONTAINER(it_iter) != NULL);
-    assert(_GET_VECTOR_CONTAINER_TYPE(it_iter) == _VECTOR_CONTAINER);
-    assert(_GET_VECTOR_ITERATOR_TYPE(it_iter) == _RANDOM_ACCESS_ITERATOR);
+    assert(_VECTOR_ITERATOR_CONTAINER(it_iter) != NULL);
+    assert(_VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) == _VECTOR_CONTAINER);
+    assert(_VECTOR_ITERATOR_ITERATOR_TYPE(it_iter) == _RANDOM_ACCESS_ITERATOR);
 
-    return _vector_same_type(cpvec_vector, _GET_VECTOR_CONTAINER(it_iter));
+    return _vector_same_type(cpvec_vector, _VECTOR_ITERATOR_CONTAINER(it_iter));
 }
 
 /**

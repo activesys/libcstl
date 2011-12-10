@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 #include <cstl/cvector.h>
 
 #include <cstl/cstl_basic_string_iterator.h>
@@ -179,7 +178,7 @@ size_t _basic_string_find_elem_varg(const basic_string_t* cpt_basic_string, size
 
     /* find elemen */
     t_length = basic_string_length(cpt_basic_string);
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_findpos = t_pos;
     while(t_findpos != t_length)
     {
@@ -248,7 +247,7 @@ size_t _basic_string_rfind_elem_varg(const basic_string_t* cpt_basic_string, siz
 
     /* find elemen */
     t_length = basic_string_length(cpt_basic_string);
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     if(t_pos > t_length)
     {
         t_pos = t_length;
@@ -325,7 +324,7 @@ size_t _basic_string_find_first_not_of_elem_varg(const basic_string_t* cpt_basic
 
     /* find elemen */
     t_length = basic_string_length(cpt_basic_string);
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_findpos = t_pos;
     while(t_findpos != t_length)
     {
@@ -395,7 +394,7 @@ size_t _basic_string_find_last_not_of_elem_varg(const basic_string_t* cpt_basic_
 
     /* find elemen */
     t_length = basic_string_length(cpt_basic_string);
-    pby_string = _GET_BASIC_STRING_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     if(t_pos > t_length)
     {
         t_pos = t_length;
@@ -567,9 +566,9 @@ basic_string_iterator_t _basic_string_insert_n_varg(
     basic_string_iterator_t it_iter;
     assert(pt_basic_string != NULL);
 
-    _GET_BASIC_STRING_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
+    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
     it_iter = _vector_insert_n_varg(&pt_basic_string->_vec_base, it_pos, t_count, val_elemlist);
-    _GET_BASIC_STRING_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
+    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
 }
@@ -597,7 +596,7 @@ void _basic_string_insert_elem_varg(basic_string_t* pt_basic_string, size_t t_po
     assert(t_pos <= basic_string_size(pt_basic_string));
 
     it_pos = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
-    _GET_VECTOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
     _vector_insert_n_varg(&pt_basic_string->_vec_base, it_pos, t_count, val_elemlist);
 }
 

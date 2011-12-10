@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 #include <cstl/cvector.h>
 
 #include <cstl/cstl_basic_string_iterator.h>
@@ -52,9 +51,9 @@ bool_t _iterator_belong_to_basic_string(
     basic_string_iterator_t t_iter)
 {
     assert(cpt_basic_string != NULL);
-    assert(_GET_BASIC_STRING_CONTAINER_TYPE(t_iter) == _BASIC_STRING_CONTAINER &&
-           _GET_BASIC_STRING_ITERATOR_TYPE(t_iter) == _RANDOM_ACCESS_ITERATOR &&
-           _GET_BASIC_STRING_CONTAINER(t_iter) == cpt_basic_string);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(t_iter) == _BASIC_STRING_CONTAINER &&
+           _BASIC_STRING_ITERATOR_ITERATOR_TYPE(t_iter) == _RANDOM_ACCESS_ITERATOR &&
+           _BASIC_STRING_ITERATOR_CONTAINER(t_iter) == cpt_basic_string);
 
     return true;
 }

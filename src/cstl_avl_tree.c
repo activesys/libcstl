@@ -24,7 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
+#include <cstl/citerator.h>
 #include <cstl/cstring.h>
 
 #include <cstl/cstl_avl_tree_iterator.h>
@@ -130,9 +130,9 @@ void _avl_tree_init_copy_range(_avl_tree_t* pt_dest, _avl_tree_iterator_t it_beg
     assert(_avl_tree_iterator_equal(it_begin, it_end) || _avl_tree_iterator_before(it_begin, it_end));
 
     /* init the avl tree with the src avl tree */
-    _avl_tree_init(pt_dest, _GET_AVL_TREE_TYPE_LESS_FUNCTION(_GET_AVL_TREE(it_begin)));
+    _avl_tree_init(pt_dest, _GET_AVL_TREE_TYPE_LESS_FUNCTION(_AVL_TREE_ITERATOR_TREE(it_begin)));
     /* insert all elements of src into dest */
-    if(!_avl_tree_empty(_GET_AVL_TREE(it_begin)))
+    if(!_avl_tree_empty(_AVL_TREE_ITERATOR_TREE(it_begin)))
     {
         _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
     }
@@ -153,7 +153,7 @@ void _avl_tree_init_copy_range_ex(
     /* init the avl tree with the src avl tree */
     _avl_tree_init(pt_dest, t_compare);
     /* insert all elements of src into dest */
-    if(!_avl_tree_empty(_GET_AVL_TREE(it_begin)))
+    if(!_avl_tree_empty(_AVL_TREE_ITERATOR_TREE(it_begin)))
     {
         _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
     }
@@ -225,8 +225,8 @@ _avl_tree_iterator_t _avl_tree_begin(const _avl_tree_t* cpt_avl_tree)
     assert(cpt_avl_tree != NULL);
     assert(_avl_tree_is_inited(cpt_avl_tree));
 
-    _GET_AVL_TREE_POINTER(it_begin) = (void*)cpt_avl_tree;
-    _GET_AVL_TREE_COREPOS(it_begin) = (_byte_t*)cpt_avl_tree->_t_avlroot._pt_left;
+    _AVL_TREE_ITERATOR_TREE_POINTER(it_begin) = (void*)cpt_avl_tree;
+    _AVL_TREE_ITERATOR_COREPOS(it_begin) = (_byte_t*)cpt_avl_tree->_t_avlroot._pt_left;
 
     return it_begin;
 }
@@ -241,8 +241,8 @@ _avl_tree_iterator_t _avl_tree_end(const _avl_tree_t* cpt_avl_tree)
     assert(cpt_avl_tree != NULL);
     assert(_avl_tree_is_inited(cpt_avl_tree));
 
-    _GET_AVL_TREE_POINTER(it_end) = (void*)cpt_avl_tree;
-    _GET_AVL_TREE_COREPOS(it_end) = (_byte_t*)&cpt_avl_tree->_t_avlroot;
+    _AVL_TREE_ITERATOR_TREE_POINTER(it_end) = (void*)cpt_avl_tree;
+    _AVL_TREE_ITERATOR_COREPOS(it_end) = (_byte_t*)&cpt_avl_tree->_t_avlroot;
 
     return it_end;
 }
@@ -253,8 +253,8 @@ _avl_tree_reverse_iterator_t _avl_tree_rbegin(const _avl_tree_t* cpt_avl_tree)
 
     assert(cpt_avl_tree != NULL);
 
-    _GET_AVL_TREE_POINTER(t_newiterator) = (void*)cpt_avl_tree;
-    _GET_AVL_TREE_COREPOS(t_newiterator) = (_byte_t*)cpt_avl_tree->_t_avlroot._pt_right;
+    _AVL_TREE_ITERATOR_TREE_POINTER(t_newiterator) = (void*)cpt_avl_tree;
+    _AVL_TREE_ITERATOR_COREPOS(t_newiterator) = (_byte_t*)cpt_avl_tree->_t_avlroot._pt_right;
 
     return t_newiterator;
 }
@@ -265,8 +265,8 @@ _avl_tree_reverse_iterator_t _avl_tree_rend(const _avl_tree_t* cpt_avl_tree)
 
     assert(cpt_avl_tree != NULL);
 
-    _GET_AVL_TREE_POINTER(t_newiterator) = (void*)cpt_avl_tree;
-    _GET_AVL_TREE_COREPOS(t_newiterator) = (_byte_t*)&cpt_avl_tree->_t_avlroot;
+    _AVL_TREE_ITERATOR_TREE_POINTER(t_newiterator) = (void*)cpt_avl_tree;
+    _AVL_TREE_ITERATOR_COREPOS(t_newiterator) = (_byte_t*)&cpt_avl_tree->_t_avlroot;
 
     return t_newiterator;
 }
@@ -293,12 +293,12 @@ _avl_tree_iterator_t _avl_tree_find(const _avl_tree_t* cpt_avl_tree, const void*
     assert(cpv_value != NULL);
     assert(_avl_tree_is_inited(cpt_avl_tree));
 
-    _GET_AVL_TREE_POINTER(it_iter) = (void*)cpt_avl_tree;
-    _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)_avl_tree_find_value(
+    _AVL_TREE_ITERATOR_TREE_POINTER(it_iter) = (void*)cpt_avl_tree;
+    _AVL_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)_avl_tree_find_value(
         cpt_avl_tree, cpt_avl_tree->_t_avlroot._pt_parent, cpv_value);
-    if(_GET_AVL_TREE_COREPOS(it_iter) == NULL)
+    if(_AVL_TREE_ITERATOR_COREPOS(it_iter) == NULL)
     {
-        _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)&cpt_avl_tree->_t_avlroot;
+        _AVL_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)&cpt_avl_tree->_t_avlroot;
     }
 
     return it_iter;
@@ -351,7 +351,7 @@ _avl_tree_iterator_t _avl_tree_lower_bound(const _avl_tree_t* cpt_avl_tree, cons
     assert(_avl_tree_is_inited(cpt_avl_tree));
 
     it_iter = _create_avl_tree_iterator();
-    _GET_AVL_TREE_POINTER(it_iter) = (void*)cpt_avl_tree;
+    _AVL_TREE_ITERATOR_TREE_POINTER(it_iter) = (void*)cpt_avl_tree;
 
     if(!_avl_tree_empty(cpt_avl_tree))
     {
@@ -387,13 +387,13 @@ _avl_tree_iterator_t _avl_tree_lower_bound(const _avl_tree_t* cpt_avl_tree, cons
         if(b_less || !b_greater)
         {
             assert(pt_prev->_pt_left == NULL);
-            _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
+            _AVL_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)pt_prev;
             assert(_avl_tree_iterator_belong_to_avl_tree(cpt_avl_tree, it_iter));
         }
         else
         {
             assert(pt_prev->_pt_right == NULL);
-            _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
+            _AVL_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)pt_prev;
             it_iter = _avl_tree_iterator_next(it_iter);
         }
     }
@@ -420,7 +420,7 @@ _avl_tree_iterator_t _avl_tree_upper_bound(const _avl_tree_t* cpt_avl_tree, cons
     assert(_avl_tree_is_inited(cpt_avl_tree));
 
     it_iter = _create_avl_tree_iterator();
-    _GET_AVL_TREE_POINTER(it_iter) = (void*)cpt_avl_tree;
+    _AVL_TREE_ITERATOR_TREE_POINTER(it_iter) = (void*)cpt_avl_tree;
 
     if(!_avl_tree_empty(cpt_avl_tree))
     {
@@ -453,13 +453,13 @@ _avl_tree_iterator_t _avl_tree_upper_bound(const _avl_tree_t* cpt_avl_tree, cons
         if(b_result)
         {
             assert(pt_prev->_pt_left == NULL);
-            _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
+            _AVL_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)pt_prev;
             assert(_avl_tree_iterator_belong_to_avl_tree(cpt_avl_tree, it_iter));
         }
         else
         {
             assert(pt_prev->_pt_right == NULL);
-            _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)pt_prev;
+            _AVL_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)pt_prev;
             it_iter = _avl_tree_iterator_next(it_iter);
         }
     }
@@ -528,11 +528,11 @@ bool_t _avl_tree_equal(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_seco
     {
         b_less = b_greater = _GET_AVL_TREE_TYPE_SIZE(cpt_first);
         _GET_AVL_TREE_TYPE_LESS_FUNCTION(cpt_first)(
-            ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_first))->_pby_data,
-            ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_second))->_pby_data, &b_less);
+            ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_first))->_pby_data,
+            ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_second))->_pby_data, &b_less);
         _GET_AVL_TREE_TYPE_LESS_FUNCTION(cpt_first)(
-            ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_second))->_pby_data,
-            ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_first))->_pby_data, &b_greater);
+            ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_second))->_pby_data,
+            ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_first))->_pby_data, &b_greater);
         if(b_less || b_greater)
         {
             return false;
@@ -577,16 +577,16 @@ bool_t _avl_tree_less(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_secon
     {
         b_result = _GET_AVL_TREE_TYPE_SIZE(cpt_first);
         _GET_AVL_TREE_TYPE_LESS_FUNCTION(cpt_first)(
-            ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_first))->_pby_data,
-            ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_second))->_pby_data, &b_result);
+            ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_first))->_pby_data,
+            ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_second))->_pby_data, &b_result);
         if(b_result)
         {
             return true;
         }
         b_result = _GET_AVL_TREE_TYPE_SIZE(cpt_first);
         _GET_AVL_TREE_TYPE_LESS_FUNCTION(cpt_first)(
-            ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_second))->_pby_data,
-            ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_first))->_pby_data, &b_result);
+            ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_second))->_pby_data,
+            ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_first))->_pby_data, &b_result);
         if(b_result)
         {
             return false;
@@ -684,8 +684,8 @@ _avl_tree_iterator_t _avl_tree_insert_equal(_avl_tree_t* pt_avl_tree, const void
     pt_avl_tree->_t_avlroot._pt_right = _avl_tree_get_max_avlnode(pt_avl_tree->_t_avlroot._pt_parent);
     pt_avl_tree->_t_nodecount++;
 
-    _GET_AVL_TREE_POINTER(it_iter) = pt_avl_tree;
-    _GET_AVL_TREE_COREPOS(it_iter) = (_byte_t*)t_result._pt_new;
+    _AVL_TREE_ITERATOR_TREE_POINTER(it_iter) = pt_avl_tree;
+    _AVL_TREE_ITERATOR_COREPOS(it_iter) = (_byte_t*)t_result._pt_new;
 
     return it_iter;
 }
@@ -736,7 +736,7 @@ void _avl_tree_insert_equal_range(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t
 
     for(it_iter = it_begin; !_avl_tree_iterator_equal(it_iter, it_end); it_iter = _avl_tree_iterator_next(it_iter))
     {
-        _avl_tree_insert_equal(pt_avl_tree, ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pby_data);
+        _avl_tree_insert_equal(pt_avl_tree, ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_iter))->_pby_data);
     }
 }
 
@@ -755,7 +755,7 @@ void _avl_tree_insert_unique_range(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_
 
     for(it_iter = it_begin; !_avl_tree_iterator_equal(it_iter, it_end); it_iter = _avl_tree_iterator_next(it_iter))
     {
-        _avl_tree_insert_unique(pt_avl_tree, ((_avlnode_t*)_GET_AVL_TREE_COREPOS(it_iter))->_pby_data);
+        _avl_tree_insert_unique(pt_avl_tree, ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_iter))->_pby_data);
     }
 }
 
@@ -773,7 +773,7 @@ void _avl_tree_erase_pos(_avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_pos)
     assert(_avl_tree_iterator_belong_to_avl_tree(pt_avl_tree, it_pos));
     assert(!_avl_tree_iterator_equal(it_pos, _avl_tree_end(pt_avl_tree)));
     
-    pt_cur = (_avlnode_t*)_GET_AVL_TREE_COREPOS(it_pos);
+    pt_cur = (_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_pos);
     pt_parent = pt_cur->_pt_parent;
 
     /* delete node X express deleting */

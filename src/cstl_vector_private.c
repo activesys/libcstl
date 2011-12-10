@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 
 #include <cstl/cstl_vector_iterator.h>
 #include <cstl/cstl_vector_private.h>
@@ -133,7 +132,7 @@ void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_e
         {
             /* copy from varg */
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_iter), pv_varg, &b_result);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_iter), pv_varg, &b_result);
             assert(b_result);
         }
 
@@ -160,7 +159,7 @@ void _vector_destroy_auxiliary(vector_t* pvec_vector)
         it_iter = iterator_next(it_iter))
     {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-        _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_iter), &b_result);
+        _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_iter), &b_result);
         assert(b_result);
     }
     /* free vector memory */
@@ -215,7 +214,7 @@ void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val
         it_iter = iterator_next(it_iter))
     {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_GET_VECTOR_COREPOS(it_iter), pv_varg, &b_result);
+        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_iter), pv_varg, &b_result);
         assert(b_result);
     }
 
@@ -325,8 +324,7 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
         for(i = 0; i < t_expsize; ++i)
         {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
-                pby_oldfinish + i * _GET_VECTOR_TYPE_SIZE(pvec_vector), pv_varg, &b_result);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pby_oldfinish + i * _GET_VECTOR_TYPE_SIZE(pvec_vector), pv_varg, &b_result);
             assert(b_result);
         }
         /* destroy varg */
@@ -338,8 +336,7 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
 /**
  * Insert multiple copys of element befor specificed position.
  */
-vector_iterator_t _vector_insert_n(
-    vector_t* pvec_vector, vector_iterator_t it_pos, size_t t_count, ...)
+vector_iterator_t _vector_insert_n(vector_t* pvec_vector, vector_iterator_t it_pos, size_t t_count, ...)
 {
     vector_iterator_t it_iter;
     va_list val_elemlist;
@@ -358,8 +355,7 @@ vector_iterator_t _vector_insert_n(
 /**
  * Insert multiple copys of element befor specificed position, the element is from variable argument list.
  */
-vector_iterator_t _vector_insert_n_varg(
-    vector_t* pvec_vector, vector_iterator_t it_pos, size_t t_count, va_list val_elemlist)
+vector_iterator_t _vector_insert_n_varg(vector_t* pvec_vector, vector_iterator_t it_pos, size_t t_count, va_list val_elemlist)
 {
     void*  pv_varg = NULL;
     bool_t b_result = false;
@@ -412,7 +408,7 @@ vector_iterator_t _vector_insert_n_varg(
         /* move element from old finish to new finish */
         for(pby_pos = pby_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
             pby_destpos = pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            pby_pos >= _GET_VECTOR_COREPOS(it_pos);
+            pby_pos >= _VECTOR_ITERATOR_COREPOS(it_pos);
             pby_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
             pby_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector))
         {
@@ -429,8 +425,7 @@ vector_iterator_t _vector_insert_n_varg(
         for(i = 0; i < t_count; ++i)
         {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
-                _GET_VECTOR_COREPOS(it_pos) + i * _GET_VECTOR_TYPE_SIZE(pvec_vector), pv_varg, &b_result);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_pos) + i * _GET_VECTOR_TYPE_SIZE(pvec_vector), pv_varg, &b_result);
             assert(b_result);
         }
         /* destroy varg and free memory */

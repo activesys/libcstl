@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 
 #include <cstl/cvector.h>
 #include <cstl/cstl_hashtable_iterator.h>
@@ -141,9 +140,9 @@ hash_map_iterator_t _hash_map_find_varg(const hash_map_t* cphmap_map, va_list va
 
     it_iter = _hashtable_find(&cphmap_map->_t_hashtable, &cphmap_map->_pair_temp);
 
-    _GET_CONTAINER(it_iter) = (hash_map_t*)cphmap_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(it_iter) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (hash_map_t*)cphmap_map;
+    _HASH_MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _HASH_MAP_CONTAINER;
+    _HASH_MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -203,13 +202,13 @@ range_t _hash_map_equal_range_varg(const hash_map_t* cphmap_map, va_list val_ele
 
     r_range = _hashtable_equal_range(&cphmap_map->_t_hashtable, &cphmap_map->_pair_temp);
 
-    _GET_CONTAINER(r_range.it_begin) = (hash_map_t*)cphmap_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(r_range.it_begin) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_begin) = (hash_map_t*)cphmap_map;
+    _HASH_MAP_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _HASH_MAP_CONTAINER;
+    _HASH_MAP_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(r_range.it_end) = (hash_map_t*)cphmap_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(r_range.it_end) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_end) = (hash_map_t*)cphmap_map;
+    _HASH_MAP_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _HASH_MAP_CONTAINER;
+    _HASH_MAP_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return r_range;
 }
@@ -270,9 +269,9 @@ void* _hash_map_at_varg(hash_map_t* phmap_map, va_list val_elemlist)
     _type_get_varg_value(&phmap_map->_pair_temp._t_typeinfofirst, val_elemlist, phmap_map->_pair_temp._pv_first);
 
     it_iter = _hashtable_insert_unique(&phmap_map->_t_hashtable, &phmap_map->_pair_temp);
-    _GET_CONTAINER(it_iter) = phmap_map;
-    _GET_HASH_MAP_CONTAINER_TYPE(it_iter) = _HASH_MAP_CONTAINER;
-    _GET_HASH_MAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = phmap_map;
+    _HASH_MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _HASH_MAP_CONTAINER;
+    _HASH_MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     if(iterator_equal(it_iter, hash_map_end(phmap_map)))
     {

@@ -4,7 +4,7 @@
 #include <google/cmockery.h>
 
 #include "cstl/cstl_def.h"
-#include "cstl/cstl_iterator.h"
+#include "cstl/citerator.h"
 #include "cstl/cdeque.h"
 #include "cstl/cstring.h"
 #include "cstl_deque_aux.h"
@@ -1263,8 +1263,8 @@ void test__deque_expand_at_end__expand_one_chunk(void** state)
     assert_true(pdeq->_ppby_map == ppby_old);
     assert_true(deque_size(pdeq) == 16);
     assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 2 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 2 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1290,8 +1290,8 @@ void test__deque_expand_at_end__expand_one_chunk_pos(void** state)
     assert_true(deque_size(pdeq) == 36);
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 6)));
     assert_true(*(int*)iterator_get_pointer(it_pos) == 0);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 3 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 3 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1308,9 +1308,9 @@ void test__deque_expand_at_end__expand_more_than_one_chunk(void** state)
     assert_true(ppby_old == pdeq->_ppby_map);
     assert_true(deque_size(pdeq) == 20);
     assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 2 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 2 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1334,9 +1334,9 @@ void test__deque_expand_at_end__expand_more_than_one_chunk_pos(void** state)
     assert_true(ppby_old == pdeq->_ppby_map);
     assert_true(deque_size(pdeq) == 25);
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 5)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 2 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 2 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1353,9 +1353,9 @@ void test__deque_expand_at_end__expand_remain_map_end(void** state)
     assert_true(ppby_old == pdeq->_ppby_map);
     assert_true(deque_size(pdeq) == 120);
     assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 8 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 8 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 8 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 8 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1378,10 +1378,10 @@ void test__deque_expand_at_end__expand_remain_map_pos_end(void** state)
     assert_true(deque_size(pdeq) == 123);
     assert_true(*(int*)iterator_get_pointer(it_pos) == 4);
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 3)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 8 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_end(pdeq)) == pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 8 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 8 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)) == pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 8 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1398,10 +1398,10 @@ void test__deque_expand_at_end__expand_move_map(void** state)
     assert_true(ppby_old == pdeq->_ppby_map);
     assert_true(deque_size(pdeq) == 150);
     assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 10 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_end(pdeq)) < pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 10 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)) < pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1425,10 +1425,10 @@ void test__deque_expand_at_end__expand_move_map_pos(void** state)
     assert_true(deque_size(pdeq) == 154);
     assert_true(iterator_equal(it_pos, deque_begin(pdeq)));
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 4)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 10 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_end(pdeq)) < pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 10 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)) < pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1445,11 +1445,11 @@ void test__deque_expand_at_end__expand_full_map(void** state)
     assert_true(pdeq->_ppby_map == ppby_old);
     assert_true(deque_size(pdeq) == 230);
     assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 15 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_end(pdeq)) == pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 15 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)) == pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1472,11 +1472,11 @@ void test__deque_expand_at_end__expand_full_map_pos(void** state)
     assert_true(pdeq->_ppby_map == ppby_old);
     assert_true(iterator_equal(it_pos, deque_begin(pdeq)));
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 3)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 15 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_end(pdeq)) == pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 15 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)) == pdeq->_ppby_map + _DEQUE_MAP_COUNT - 1);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1494,10 +1494,10 @@ void test__deque_expand_at_end__expand_map(void** state)
     assert_true(pdeq->_ppby_map != ppby_old);
     assert_true(pdeq->_t_mapsize = _DEQUE_MAP_COUNT + _DEQUE_MAP_GROW_STEP);
     assert_true(iterator_equal(it_iter, deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 19 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_end(pdeq)) < pdeq->_ppby_map + pdeq->_t_mapsize - 1);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 19 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)) < pdeq->_ppby_map + pdeq->_t_mapsize - 1);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1522,10 +1522,10 @@ void test__deque_expand_at_end__expand_map_pos(void** state)
     assert_true(pdeq->_t_mapsize = _DEQUE_MAP_COUNT + _DEQUE_MAP_GROW_STEP);
     assert_true(*(int*)iterator_get_pointer(it_pos) == 6);
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 4)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 19 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_end(pdeq)) < pdeq->_ppby_map + pdeq->_t_mapsize - 1);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_end(pdeq)) + 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 19 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)) < pdeq->_ppby_map + pdeq->_t_mapsize - 1);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)) + 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1627,8 +1627,8 @@ void test__deque_expand_at_begin__expand_one_chunk(void** state)
     assert_true(pdeq->_ppby_map == ppby_old);
     assert_true(deque_size(pdeq) == 16);
     assert_true(iterator_equal(it_iter, deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 2 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 2 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1654,8 +1654,8 @@ void test__deque_expand_at_begin__expand_one_chunk_pos(void** state)
     assert_true(deque_size(pdeq) == 34);
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 28)));
     assert_true(*(int*)iterator_get_pointer(it_pos) == 7);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 3 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 3 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1672,9 +1672,9 @@ void test__deque_expand_at_begin__expand_more_than_one_chunk(void** state)
     assert_true(ppby_old == pdeq->_ppby_map);
     assert_true(deque_size(pdeq) == 20);
     assert_true(iterator_equal(it_iter, deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 2 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 2 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1699,9 +1699,9 @@ void test__deque_expand_at_begin__expand_more_than_one_chunk_pos(void** state)
     assert_true(deque_size(pdeq) == 25);
     assert_true(iterator_equal(it_pos, deque_end(pdeq)));
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 20)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 2 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 2 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1718,10 +1718,10 @@ void test__deque_expand_at_begin__expand_remain_map_begin(void** state)
     assert_true(ppby_old == pdeq->_ppby_map);
     assert_true(deque_size(pdeq) == 120);
     assert_true(iterator_equal(it_iter, deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 8 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 8 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 8 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 8 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1744,10 +1744,10 @@ void test__deque_expand_at_begin__expand_remain_map_pos_begin(void** state)
     assert_true(deque_size(pdeq) == 123);
     assert_true(*(int*)iterator_get_pointer(it_pos) == 4);
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 120)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 8 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 5 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 8 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 5 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1764,10 +1764,10 @@ void test__deque_expand_at_begin__expand_move_map(void** state)
     assert_true(ppby_old == pdeq->_ppby_map);
     assert_true(deque_size(pdeq) == 150);
     assert_true(iterator_equal(it_iter, deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 10 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) > pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 10 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) > pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1791,10 +1791,10 @@ void test__deque_expand_at_begin__expand_move_map_pos(void** state)
     assert_true(deque_size(pdeq) == 154);
     assert_true(*(int*)iterator_get_pointer(it_pos) == 6);
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 150)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 10 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) > pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 10 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) > pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1811,10 +1811,10 @@ void test__deque_expand_at_begin__expand_full_map(void** state)
     assert_true(pdeq->_ppby_map == ppby_old);
     assert_true(deque_size(pdeq) == 230);
     assert_true(iterator_equal(it_iter, deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 15 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 15 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1837,10 +1837,10 @@ void test__deque_expand_at_begin__expand_full_map_pos(void** state)
     assert_true(pdeq->_ppby_map == ppby_old);
     assert_true(*(int*)iterator_get_pointer(it_pos) == 7);
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 230)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 15 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 15 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1858,10 +1858,10 @@ void test__deque_expand_at_begin__expand_map(void** state)
     assert_true(pdeq->_ppby_map != ppby_old);
     assert_true(pdeq->_t_mapsize = _DEQUE_MAP_COUNT + _DEQUE_MAP_GROW_STEP);
     assert_true(iterator_equal(it_iter, deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 19 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) > pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 19 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) > pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1885,10 +1885,10 @@ void test__deque_expand_at_begin__expand_map_pos(void** state)
     assert_true(pdeq->_t_mapsize = _DEQUE_MAP_COUNT + _DEQUE_MAP_GROW_STEP);
     assert_true(*(int*)iterator_get_pointer(it_pos) == 6);
     assert_true(iterator_equal(it_iter, iterator_next_n(deque_begin(pdeq), 300)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 19 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_end(pdeq)) > pdeq->_ppby_map);
-    assert_true(_GET_DEQUE_FIRST_POS(deque_begin(pdeq)) + 1 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_COREPOS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 19 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)) > pdeq->_ppby_map);
+    assert_true(_DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)) + 1 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1918,9 +1918,9 @@ void test__deque_shrink_at_end__empty_shrink_0(void** state)
     deque_init(pdeq);
     _deque_shrink_at_end(pdeq, 0);
     assert_true(deque_empty(pdeq));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1932,9 +1932,9 @@ void test__deque_shrink_at_end__empty_shrink_6(void** state)
     deque_init(pdeq);
     _deque_shrink_at_end(pdeq, 5);
     assert_true(deque_empty(pdeq));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1947,10 +1947,10 @@ void test__deque_shrink_at_end__begin_border_shrink_0(void** state)
     _deque_expand_at_end(pdeq, 10, NULL);
     _deque_shrink_at_end(pdeq, 0);
     assert_true(deque_size(pdeq) == 10);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) - 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1963,10 +1963,10 @@ void test__deque_shrink_at_end__begin_border_shrink_less_size(void** state)
     _deque_expand_at_end(pdeq, 10, NULL);
     _deque_shrink_at_end(pdeq, 3);
     assert_true(deque_size(pdeq) == 7);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) - 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1979,9 +1979,9 @@ void test__deque_shrink_at_end__begin_border_shrink_equal_to_size(void** state)
     _deque_expand_at_end(pdeq, 20, NULL);
     _deque_shrink_at_end(pdeq, 20);
     assert_true(deque_size(pdeq) == 0);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -1994,9 +1994,9 @@ void test__deque_shrink_at_end__begin_border_shrink_greater_than_size(void** sta
     _deque_expand_at_end(pdeq, 30, NULL);
     _deque_shrink_at_end(pdeq, 59);
     assert_true(deque_size(pdeq) == 0);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2009,10 +2009,10 @@ void test__deque_shrink_at_end__end_border_shrink_0(void** state)
     _deque_expand_at_begin(pdeq, 10, NULL);
     _deque_shrink_at_end(pdeq, 0);
     assert_true(deque_size(pdeq) == 10);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize  ==
-        _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize  ==
+        _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2025,11 +2025,11 @@ void test__deque_shrink_at_end__end_border_shrink_less_size(void** state)
     _deque_expand_at_begin(pdeq, 10, NULL);
     _deque_shrink_at_end(pdeq, 3);
     assert_true(deque_size(pdeq) == 7);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) + 3 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_AFTERLAST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) - 6 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) + 3 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_AFTERLAST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2042,12 +2042,12 @@ void test__deque_shrink_at_end__end_border_shrink_equal_to_size(void** state)
     _deque_expand_at_begin(pdeq, 20, NULL);
     _deque_shrink_at_end(pdeq, 20);
     assert_true(deque_size(pdeq) == 0);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_AFTERLAST_POS(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) - 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_AFTERLAST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2060,12 +2060,12 @@ void test__deque_shrink_at_end__end_border_shrink_greater_than_size(void** state
     _deque_expand_at_begin(pdeq, 20, NULL);
     _deque_shrink_at_end(pdeq, 80);
     assert_true(deque_size(pdeq) == 0);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_AFTERLAST_POS(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) - 12 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) + 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_AFTERLAST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2095,9 +2095,9 @@ void test__deque_shrink_at_begin__empty_shrink_0(void** state)
     deque_init(pdeq);
     _deque_shrink_at_begin(pdeq, 0);
     assert_true(deque_empty(pdeq));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2109,9 +2109,9 @@ void test__deque_shrink_at_begin__empty_shrink_6(void** state)
     deque_init(pdeq);
     _deque_shrink_at_begin(pdeq, 5);
     assert_true(deque_empty(pdeq));
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2124,10 +2124,10 @@ void test__deque_shrink_at_begin__begin_border_shrink_0(void** state)
     _deque_expand_at_end(pdeq, 10, NULL);
     _deque_shrink_at_begin(pdeq, 0);
     assert_true(deque_size(pdeq) == 10);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) - 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2140,11 +2140,11 @@ void test__deque_shrink_at_begin__begin_border_shrink_less_size(void** state)
     _deque_expand_at_end(pdeq, 10, NULL);
     _deque_shrink_at_begin(pdeq, 3);
     assert_true(deque_size(pdeq) == 7);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 3 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) - 3 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) - 10 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2157,12 +2157,12 @@ void test__deque_shrink_at_begin__begin_border_shrink_equal_to_size(void** state
     _deque_expand_at_end(pdeq, 20, NULL);
     _deque_shrink_at_begin(pdeq, 20);
     assert_true(deque_size(pdeq) == 0);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) -4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) - 4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) -4 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2175,12 +2175,12 @@ void test__deque_shrink_at_begin__begin_border_shrink_greater_than_size(void** s
     _deque_expand_at_end(pdeq, 30, NULL);
     _deque_shrink_at_begin(pdeq, 59);
     assert_true(deque_size(pdeq) == 0);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) - 14 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) - 14 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) - 14 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) - 14 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2193,10 +2193,10 @@ void test__deque_shrink_at_begin__end_border_shrink_0(void** state)
     _deque_expand_at_begin(pdeq, 10, NULL);
     _deque_shrink_at_begin(pdeq, 0);
     assert_true(deque_size(pdeq) == 10);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize  ==
-        _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) + 10 * pdeq->_t_typeinfo._pt_type->_t_typesize  ==
+        _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2209,10 +2209,10 @@ void test__deque_shrink_at_begin__end_border_shrink_less_size(void** state)
     _deque_expand_at_begin(pdeq, 10, NULL);
     _deque_shrink_at_begin(pdeq, 3);
     assert_true(deque_size(pdeq) == 7);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) + 1 == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) + 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
-        _GET_DEQUE_AFTERLAST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) + 1 == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) + 7 * pdeq->_t_typeinfo._pt_type->_t_typesize ==
+        _DEQUE_ITERATOR_AFTERLAST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2225,10 +2225,10 @@ void test__deque_shrink_at_begin__end_border_shrink_equal_to_size(void** state)
     _deque_expand_at_begin(pdeq, 20, NULL);
     _deque_shrink_at_begin(pdeq, 20);
     assert_true(deque_size(pdeq) == 0);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }
@@ -2241,10 +2241,10 @@ void test__deque_shrink_at_begin__end_border_shrink_greater_than_size(void** sta
     _deque_expand_at_begin(pdeq, 20, NULL);
     _deque_shrink_at_begin(pdeq, 80);
     assert_true(deque_size(pdeq) == 0);
-    assert_true(_GET_DEQUE_MAP_POINTER(deque_begin(pdeq)) == _GET_DEQUE_MAP_POINTER(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_FIRST_POS(deque_begin(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_end(pdeq)) == _GET_DEQUE_FIRST_POS(deque_end(pdeq)));
-    assert_true(_GET_DEQUE_COREPOS(deque_begin(pdeq)) == _GET_DEQUE_COREPOS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_MAP_POINTER(deque_begin(pdeq)) == _DEQUE_ITERATOR_MAP_POINTER(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_begin(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_end(pdeq)) == _DEQUE_ITERATOR_FIRST_POS(deque_end(pdeq)));
+    assert_true(_DEQUE_ITERATOR_COREPOS(deque_begin(pdeq)) == _DEQUE_ITERATOR_COREPOS(deque_end(pdeq)));
 
     deque_destroy(pdeq);
 }

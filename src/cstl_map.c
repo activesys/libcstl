@@ -24,7 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
+#include <cstl/citerator.h>
 
 #ifdef CSTL_MAP_AVL_TREE
 #include <cstl/cstl_avl_tree_iterator.h>
@@ -133,19 +133,19 @@ void map_init_copy_range(map_t* pmap_dest, map_iterator_t it_begin, map_iterator
 {
     assert(pmap_dest != NULL);
     assert(_pair_is_created(&pmap_dest->_pair_temp));
-    assert(_GET_MAP_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER(it_begin) != pmap_dest);
-    assert(_GET_MAP_CONTAINER(it_end) != pmap_dest);
-    assert(_GET_MAP_CONTAINER(it_begin) == _GET_MAP_CONTAINER(it_end));
-    assert(_map_same_pair_type(&pmap_dest->_pair_temp, &_GET_MAP_CONTAINER(it_begin)->_pair_temp));
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER(it_begin) != pmap_dest);
+    assert(_MAP_ITERATOR_CONTAINER(it_end) != pmap_dest);
+    assert(_MAP_ITERATOR_CONTAINER(it_begin) == _MAP_ITERATOR_CONTAINER(it_end));
+    assert(_map_same_pair_type(&pmap_dest->_pair_temp, &_MAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
 
     /* initialize dest map with src map attribute */
     map_init(pmap_dest);
     /* insert all element from src to dest */
-    if(!map_empty(_GET_MAP_CONTAINER(it_begin)))
+    if(!map_empty(_MAP_ITERATOR_CONTAINER(it_begin)))
     {
         map_insert_range(pmap_dest, it_begin, it_end);
     }
@@ -158,19 +158,19 @@ void map_init_copy_range_ex(map_t* pmap_dest, map_iterator_t it_begin, map_itera
 {
     assert(pmap_dest != NULL);
     assert(_pair_is_created(&pmap_dest->_pair_temp));
-    assert(_GET_MAP_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER(it_begin) != pmap_dest);
-    assert(_GET_MAP_CONTAINER(it_end) != pmap_dest);
-    assert(_GET_MAP_CONTAINER(it_begin) == _GET_MAP_CONTAINER(it_end));
-    assert(_map_same_pair_type(&pmap_dest->_pair_temp, &_GET_MAP_CONTAINER(it_begin)->_pair_temp));
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER(it_begin) != pmap_dest);
+    assert(_MAP_ITERATOR_CONTAINER(it_end) != pmap_dest);
+    assert(_MAP_ITERATOR_CONTAINER(it_begin) == _MAP_ITERATOR_CONTAINER(it_end));
+    assert(_map_same_pair_type(&pmap_dest->_pair_temp, &_MAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
 
     /* initialize dest map with src map attribute */
     map_init_ex(pmap_dest, bfun_keycompare);
     /* insert all element from src to dest */
-    if(!map_empty(_GET_MAP_CONTAINER(it_begin)))
+    if(!map_empty(_MAP_ITERATOR_CONTAINER(it_begin)))
     {
         map_insert_range(pmap_dest, it_begin, it_end);
     }
@@ -437,9 +437,9 @@ map_iterator_t map_begin(const map_t* cpmap_map)
     it_begin = _rb_tree_begin(&cpmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_begin) = (map_t*)cpmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_begin) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_begin) = (map_t*)cpmap_map;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_begin) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_begin) = _BIDIRECTIONAL_ITERATOR;
 
     return it_begin;
 }
@@ -460,9 +460,9 @@ map_iterator_t map_end(const map_t* cpmap_map)
     it_end = _rb_tree_end(&cpmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_end) = (map_t*)cpmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_end) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_end) = (map_t*)cpmap_map;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_end) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return it_end;
 }
@@ -480,9 +480,9 @@ map_reverse_iterator_t map_rbegin(const map_t* cpmap_map)
     it_rbegin = _rb_tree_rbegin(&cpmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_rbegin) = (map_t*)cpmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_rbegin) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_rbegin) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_rbegin) = (map_t*)cpmap_map;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_rbegin) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_rbegin) = _BIDIRECTIONAL_ITERATOR;
 
     return it_rbegin;
 }
@@ -500,9 +500,9 @@ map_reverse_iterator_t map_rend(const map_t* cpmap_map)
     it_rend = _rb_tree_rend(&cpmap_map->_t_tree);
 #endif
 
-    _GET_CONTAINER(it_rend) = (map_t*)cpmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_rend) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_rend) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_rend) = (map_t*)cpmap_map;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_rend) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_rend) = _BIDIRECTIONAL_ITERATOR;
 
     return it_rend;
 }
@@ -532,9 +532,9 @@ map_iterator_t map_insert(map_t* pmap_map, const pair_t* cppair_pair)
     it_iter = _rb_tree_insert_unique(&pmap_map->_t_tree, cppair_pair);
 #endif
 
-    _GET_CONTAINER(it_iter) = pmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = pmap_map;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -548,9 +548,9 @@ map_iterator_t map_insert_hint(map_t* pmap_map, map_iterator_t it_hint, const pa
     assert(cppair_pair != NULL);
     assert(_pair_is_inited(&pmap_map->_pair_temp));
     assert(_pair_is_inited(cppair_pair));
-    assert(_GET_MAP_CONTAINER_TYPE(it_hint) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_hint) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER(it_hint) == pmap_map);
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_hint) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_hint) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER(it_hint) == pmap_map);
 
     /* set key less function and value less function */
     ((pair_t*)cppair_pair)->_bfun_mapkeycompare = pmap_map->_bfun_keycompare;
@@ -564,9 +564,9 @@ map_iterator_t map_insert_hint(map_t* pmap_map, map_iterator_t it_hint, const pa
     it_hint = _rb_tree_insert_unique(&pmap_map->_t_tree, cppair_pair);
 #endif
 
-    _GET_CONTAINER(it_hint) = pmap_map;
-    _GET_MAP_CONTAINER_TYPE(it_hint) = _MAP_CONTAINER;
-    _GET_MAP_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_hint) = pmap_map;
+    _MAP_ITERATOR_CONTAINER_TYPE(it_hint) = _MAP_CONTAINER;
+    _MAP_ITERATOR_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
 
     return it_hint;
 }
@@ -580,14 +580,14 @@ void map_insert_range(map_t* pmap_map, map_iterator_t it_begin, map_iterator_t i
 
     assert(pmap_map != NULL);
     assert(_pair_is_inited(&pmap_map->_pair_temp));
-    assert(_GET_MAP_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER(it_begin) != pmap_map);
-    assert(_GET_MAP_CONTAINER(it_end) != pmap_map);
-    assert(_GET_MAP_CONTAINER(it_begin) == _GET_MAP_CONTAINER(it_end));
-    assert(_map_same_pair_type(&pmap_map->_pair_temp, &_GET_MAP_CONTAINER(it_begin)->_pair_temp));
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER(it_begin) != pmap_map);
+    assert(_MAP_ITERATOR_CONTAINER(it_end) != pmap_map);
+    assert(_MAP_ITERATOR_CONTAINER(it_begin) == _MAP_ITERATOR_CONTAINER(it_end));
+    assert(_map_same_pair_type(&pmap_map->_pair_temp, &_MAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
 
     for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
     {
@@ -602,9 +602,9 @@ void map_erase_pos(map_t* pmap_map, map_iterator_t it_pos)
 {
     assert(pmap_map != NULL);
     assert(_pair_is_inited(&pmap_map->_pair_temp));
-    assert(_GET_MAP_CONTAINER_TYPE(it_pos) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_pos) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER(it_pos) == pmap_map);
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_pos) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_pos) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER(it_pos) == pmap_map);
 
 #ifdef CSTL_MAP_AVL_TREE
     _avl_tree_erase_pos(&pmap_map->_t_tree, it_pos);
@@ -620,11 +620,11 @@ void map_erase_range(map_t* pmap_map, map_iterator_t it_begin, map_iterator_t it
 {
     assert(pmap_map != NULL);
     assert(_pair_is_inited(&pmap_map->_pair_temp));
-    assert(_GET_MAP_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
-    assert(_GET_MAP_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MAP_CONTAINER(it_begin) == pmap_map && _GET_MAP_CONTAINER(it_end) == pmap_map);
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MAP_ITERATOR_CONTAINER(it_begin) == pmap_map && _MAP_ITERATOR_CONTAINER(it_end) == pmap_map);
 
 #ifdef CSTL_MAP_AVL_TREE
     _avl_tree_erase_range(&pmap_map->_t_tree, it_begin, it_end);

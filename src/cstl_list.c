@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 #include <cstl/cfunctional.h>
 
 #include <cstl/cstl_list_iterator.h>
@@ -157,8 +156,8 @@ void list_init_copy_range(list_t* plist_list, list_iterator_t it_begin, list_ite
     {
         b_result = _GET_LIST_TYPE_SIZE(plist_list);
         _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
-            ((_listnode_t*)_GET_LIST_COREPOS(it_dest))->_pby_data,
-            ((_listnode_t*)_GET_LIST_COREPOS(it_src))->_pby_data, &b_result);
+            ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_dest))->_pby_data,
+            ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_src))->_pby_data, &b_result);
         assert(b_result);
     }
     assert(iterator_equal(it_dest, list_end(plist_list)) && iterator_equal(it_src, it_end));
@@ -374,8 +373,8 @@ void list_assign_range(list_t* plist_list, list_iterator_t it_begin, list_iterat
     {
         b_result = _GET_LIST_TYPE_SIZE(plist_list);
         _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
-            ((_listnode_t*)_GET_LIST_COREPOS(it_dest))->_pby_data,
-            ((_listnode_t*)_GET_LIST_COREPOS(it_src))->_pby_data, &b_result);
+            ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_dest))->_pby_data,
+            ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_src))->_pby_data, &b_result);
         assert(b_result);
     }
 }
@@ -438,8 +437,8 @@ list_iterator_t list_begin(const list_t* cplist_list)
     assert(_list_is_inited(cplist_list));
 
     it_begin = _create_list_iterator();
-    _GET_LIST_COREPOS(it_begin) = (_byte_t*)(cplist_list->_pt_node->_pt_next);
-    _GET_CONTAINER(it_begin) = (list_t*)cplist_list;
+    _LIST_ITERATOR_COREPOS(it_begin) = (_byte_t*)(cplist_list->_pt_node->_pt_next);
+    _ITERATOR_CONTAINER(it_begin) = (list_t*)cplist_list;
 
     return it_begin;
 }
@@ -455,8 +454,8 @@ list_iterator_t list_end(const list_t* cplist_list)
     assert(_list_is_inited(cplist_list));
 
     it_end = _create_list_iterator();
-    _GET_LIST_COREPOS(it_end) = (_byte_t*)(cplist_list->_pt_node);
-    _GET_CONTAINER(it_end) = (list_t*)cplist_list;
+    _LIST_ITERATOR_COREPOS(it_end) = (_byte_t*)(cplist_list->_pt_node);
+    _ITERATOR_CONTAINER(it_end) = (list_t*)cplist_list;
 
     return it_end;
 }
@@ -469,8 +468,8 @@ list_reverse_iterator_t list_rbegin(const list_t* cplist_list)
     assert(_list_is_inited(cplist_list));
 
     it_rbegin = _create_list_iterator();
-    _GET_LIST_COREPOS(it_rbegin) = (_byte_t*)(cplist_list->_pt_node->_pt_prev);
-    _GET_CONTAINER(it_rbegin) = (list_t*)cplist_list;
+    _LIST_ITERATOR_COREPOS(it_rbegin) = (_byte_t*)(cplist_list->_pt_node->_pt_prev);
+    _ITERATOR_CONTAINER(it_rbegin) = (list_t*)cplist_list;
 
     return it_rbegin;
 }
@@ -483,8 +482,8 @@ list_reverse_iterator_t list_rend(const list_t* cplist_list)
     assert(_list_is_inited(cplist_list));
 
     it_rend = _create_list_iterator();
-    _GET_LIST_COREPOS(it_rend) = (_byte_t*)(cplist_list->_pt_node);
-    _GET_CONTAINER(it_rend) = (list_t*)cplist_list;
+    _LIST_ITERATOR_COREPOS(it_rend) = (_byte_t*)(cplist_list->_pt_node);
+    _ITERATOR_CONTAINER(it_rend) = (list_t*)cplist_list;
 
     return it_rend;
 }
@@ -509,8 +508,8 @@ void list_insert_range(list_t* plist_list, list_iterator_t it_pos, list_iterator
     assert(_list_same_list_iterator_type(plist_list, it_begin));
 
     /* allocate the copy list of range [it_begin, it_end) */
-    for(pt_nodeinrange = (_listnode_t*)_GET_LIST_COREPOS(it_begin);
-        pt_nodeinrange != (_listnode_t*)_GET_LIST_COREPOS(it_end);
+    for(pt_nodeinrange = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_begin);
+        pt_nodeinrange != (_listnode_t*)_LIST_ITERATOR_COREPOS(it_end);
         pt_nodeinrange = pt_nodeinrange->_pt_next)
     {
         pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
@@ -538,10 +537,10 @@ void list_insert_range(list_t* plist_list, list_iterator_t it_pos, list_iterator
     /* insert the list into the list */
     if(plist_begin != NULL && plist_end != NULL)
     {
-        plist_begin->_pt_prev = ((_listnode_t*)_GET_LIST_COREPOS(it_pos))->_pt_prev;
-        plist_end->_pt_next = (_listnode_t*)_GET_LIST_COREPOS(it_pos);
-        ((_listnode_t*)_GET_LIST_COREPOS(it_pos))->_pt_prev->_pt_next = plist_begin;
-        ((_listnode_t*)_GET_LIST_COREPOS(it_pos))->_pt_prev = plist_end;
+        plist_begin->_pt_prev = ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev;
+        plist_end->_pt_next = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos);
+        ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev->_pt_next = plist_begin;
+        ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev = plist_end;
     }
 }
 
@@ -605,8 +604,8 @@ list_iterator_t list_erase(list_t* plist_list, list_iterator_t it_pos)
     assert(_list_iterator_belong_to_list(plist_list, it_pos));
     assert(!iterator_equal(it_pos, list_end(plist_list)));
 
-    pt_node = (_listnode_t*)_GET_LIST_COREPOS(it_pos);
-    _GET_LIST_COREPOS(it_pos) = (_byte_t*)(pt_node->_pt_next);
+    pt_node = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos);
+    _LIST_ITERATOR_COREPOS(it_pos) = (_byte_t*)(pt_node->_pt_next);
     /* extrac the node from list */
     b_result = _GET_LIST_TYPE_SIZE(plist_list);
     _GET_LIST_TYPE_DESTROY_FUNCTION(plist_list)(pt_node->_pby_data, &b_result);
@@ -742,10 +741,10 @@ void list_unique(list_t* plist_list)
         else
         {
             it_pos = _create_list_iterator();
-            _GET_CONTAINER(it_pos) = plist_list;
-            _GET_LIST_COREPOS(it_pos) = (_byte_t*)pt_node;
+            _ITERATOR_CONTAINER(it_pos) = plist_list;
+            _LIST_ITERATOR_COREPOS(it_pos) = (_byte_t*)pt_node;
             it_pos = list_erase(plist_list, it_pos);
-            pt_node = (_listnode_t*)_GET_LIST_COREPOS(it_pos);
+            pt_node = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos);
         }
     }
 }
@@ -920,8 +919,8 @@ void list_merge_if(list_t* plist_dest, list_t* plist_src, binary_function_t bfun
         while(!iterator_equal(it_dest, list_end(plist_dest)) && !iterator_equal(it_src, list_end(plist_src)))
         {
             _GET_LIST_TYPE_LESS_FUNCTION(plist_dest)(
-                ((_listnode_t*)_GET_LIST_COREPOS(it_src))->_pby_data,
-                ((_listnode_t*)_GET_LIST_COREPOS(it_dest))->_pby_data, &b_result);
+                ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_src))->_pby_data,
+                ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_dest))->_pby_data, &b_result);
             if(b_result)
             {
                 it_src = iterator_next(it_src);

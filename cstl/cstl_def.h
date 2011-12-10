@@ -65,10 +65,10 @@ extern "C" {
 /**
  * libcstl version macro.
  */
-#define CSTL_VERSION             20002 /* libcstl version 2.0.2 */
+#define CSTL_VERSION             20003 /* libcstl version 2.0.3 */
 #define CSTL_MAJOR_VERSION       2
 #define CSTL_MINOR_VERSION       0
-#define CSTL_REVISION_VERSION    2
+#define CSTL_REVISION_VERSION    3
 
 /**
  * for bool_t type

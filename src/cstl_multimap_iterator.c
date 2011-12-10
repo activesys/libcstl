@@ -24,7 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
+#include <cstl/citerator.h>
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
 #include <cstl/cstl_avl_tree_iterator.h>
@@ -68,8 +68,8 @@ multimap_iterator_t create_multimap_iterator(void)
     it_iter = _create_rb_tree_iterator();
 #endif
 
-    _GET_MULTIMAP_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
-    _GET_MULTIMAP_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTIMAP_CONTAINER;
+    _MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -80,8 +80,8 @@ multimap_iterator_t create_multimap_iterator(void)
 void _multimap_iterator_get_value(multimap_iterator_t it_iter, void* pv_value)
 {
     assert(pv_value != NULL);
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_iter) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     _avl_tree_iterator_get_value(it_iter, pv_value);
@@ -95,8 +95,8 @@ void _multimap_iterator_get_value(multimap_iterator_t it_iter, void* pv_value)
  */
 const void* _multimap_iterator_get_pointer(multimap_iterator_t it_iter)
 {
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_iter) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_iterator_get_pointer(it_iter);
@@ -110,8 +110,8 @@ const void* _multimap_iterator_get_pointer(multimap_iterator_t it_iter)
  */
 multimap_iterator_t _multimap_iterator_next(multimap_iterator_t it_iter)
 {
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_iter) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_iterator_next(it_iter);
@@ -125,8 +125,8 @@ multimap_iterator_t _multimap_iterator_next(multimap_iterator_t it_iter)
  */
 multimap_iterator_t _multimap_iterator_prev(multimap_iterator_t it_iter)
 {
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_iter) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_iterator_prev(it_iter);
@@ -140,10 +140,10 @@ multimap_iterator_t _multimap_iterator_prev(multimap_iterator_t it_iter)
  */
 bool_t _multimap_iterator_equal(multimap_iterator_t it_first, multimap_iterator_t it_second)
 {
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_first) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_second) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_first) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_second) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_iterator_equal(it_first, it_second);
@@ -157,11 +157,11 @@ bool_t _multimap_iterator_equal(multimap_iterator_t it_first, multimap_iterator_
  */
 int _multimap_iterator_distance(multimap_iterator_t it_first, multimap_iterator_t it_second)
 {
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_first) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_second) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTIMAP_CONTAINER(it_first) == _GET_MULTIMAP_CONTAINER(it_second));
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_first) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_second) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER(it_first) == _MULTIMAP_ITERATOR_CONTAINER(it_second));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_iterator_distance(it_first, it_second);
@@ -175,11 +175,11 @@ int _multimap_iterator_distance(multimap_iterator_t it_first, multimap_iterator_
  */
 bool_t _multimap_iterator_before(multimap_iterator_t it_first, multimap_iterator_t it_second)
 {
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_first) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTIMAP_CONTAINER_TYPE(it_second) == _MULTIMAP_CONTAINER);
-    assert(_GET_MULTIMAP_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTIMAP_CONTAINER(it_first) == _GET_MULTIMAP_CONTAINER(it_second));
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_first) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_second) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTIMAP_ITERATOR_CONTAINER(it_first) == _MULTIMAP_ITERATOR_CONTAINER(it_second));
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     return _avl_tree_iterator_before(it_first, it_second);

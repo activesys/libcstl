@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 
 #include <cstl/cstl_deque_iterator.h>
 #include <cstl/cstl_deque_private.h>
@@ -92,8 +91,7 @@ void deque_init_n(deque_t* pdeq_deque, size_t t_count)
 
         if(t_validmapcount > _DEQUE_MAP_COUNT)
         {
-            size_t t_growcount = (t_validmapcount - _DEQUE_MAP_COUNT +
-                _DEQUE_MAP_GROW_STEP - 1) / _DEQUE_MAP_GROW_STEP * _DEQUE_MAP_GROW_STEP;
+            size_t t_growcount = (t_validmapcount - _DEQUE_MAP_COUNT + _DEQUE_MAP_GROW_STEP - 1) / _DEQUE_MAP_GROW_STEP * _DEQUE_MAP_GROW_STEP;
             t_mapcount = _DEQUE_MAP_COUNT + t_growcount;
         }
         else
@@ -121,20 +119,20 @@ void deque_init_n(deque_t* pdeq_deque, size_t t_count)
     }
 
     /* initialize the start iterator */
-    _GET_CONTAINER(pdeq_deque->_t_start) = pdeq_deque;
-    _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start) = pdeq_deque->_ppby_map + t_startpos;
-    _GET_DEQUE_FIRST_POS(pdeq_deque->_t_start) = *_GET_DEQUE_MAP_POINTER(pdeq_deque->_t_start);
-    _GET_DEQUE_AFTERLAST_POS(pdeq_deque->_t_start) = _GET_DEQUE_FIRST_POS(pdeq_deque->_t_start) + 
-        _DEQUE_ELEM_COUNT * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-    _GET_DEQUE_COREPOS(pdeq_deque->_t_start) = _GET_DEQUE_AFTERLAST_POS(pdeq_deque->_t_start);
+    _ITERATOR_CONTAINER(pdeq_deque->_t_start) = pdeq_deque;
+    _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) = pdeq_deque->_ppby_map + t_startpos;
+    _DEQUE_ITERATOR_FIRST_POS(pdeq_deque->_t_start) = *_DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start);
+    _DEQUE_ITERATOR_AFTERLAST_POS(pdeq_deque->_t_start) = 
+        _DEQUE_ITERATOR_FIRST_POS(pdeq_deque->_t_start) + _DEQUE_ELEM_COUNT * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+    _DEQUE_ITERATOR_COREPOS(pdeq_deque->_t_start) = _DEQUE_ITERATOR_AFTERLAST_POS(pdeq_deque->_t_start);
     /* initialize the finish iterator */
-    _GET_CONTAINER(pdeq_deque->_t_finish) = pdeq_deque;
-    _GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish) = pdeq_deque->_ppby_map + t_startpos + t_validmapcount - 1;
-    _GET_DEQUE_FIRST_POS(pdeq_deque->_t_finish) = *_GET_DEQUE_MAP_POINTER(pdeq_deque->_t_finish);
-    _GET_DEQUE_AFTERLAST_POS(pdeq_deque->_t_finish) = _GET_DEQUE_FIRST_POS(pdeq_deque->_t_finish) +
-        _DEQUE_ELEM_COUNT * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-    _GET_DEQUE_COREPOS(pdeq_deque->_t_finish) = _GET_DEQUE_FIRST_POS(pdeq_deque->_t_finish) + 
-        t_endelemcount * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+    _ITERATOR_CONTAINER(pdeq_deque->_t_finish) = pdeq_deque;
+    _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) = pdeq_deque->_ppby_map + t_startpos + t_validmapcount - 1;
+    _DEQUE_ITERATOR_FIRST_POS(pdeq_deque->_t_finish) = *_DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish);
+    _DEQUE_ITERATOR_AFTERLAST_POS(pdeq_deque->_t_finish) = 
+        _DEQUE_ITERATOR_FIRST_POS(pdeq_deque->_t_finish) + _DEQUE_ELEM_COUNT * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+    _DEQUE_ITERATOR_COREPOS(pdeq_deque->_t_finish) = 
+        _DEQUE_ITERATOR_FIRST_POS(pdeq_deque->_t_finish) + t_endelemcount * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
 
     for(it_iter = deque_begin(pdeq_deque);
         !iterator_equal(it_iter, deque_end(pdeq_deque));
@@ -297,7 +295,7 @@ deque_reverse_iterator_t deque_rend(const deque_t* cpdeq_deque)
     assert(_deque_is_inited(cpdeq_deque));
 
     it_iter = cpdeq_deque->_t_start;
-    _GET_DEQUE_COREPOS(it_iter) = _GET_DEQUE_COREPOS(cpdeq_deque->_t_start) - _GET_DEQUE_TYPE_SIZE(cpdeq_deque);
+    _DEQUE_ITERATOR_COREPOS(it_iter) = _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) - _GET_DEQUE_TYPE_SIZE(cpdeq_deque);
 
     return it_iter;
 }
@@ -528,11 +526,11 @@ void deque_swap(deque_t* pdeq_first, deque_t* pdeq_second)
     *pdeq_second = deq_tmp;
 
     /* the pointer to container must not be swap */
-    _GET_CONTAINER(pdeq_first->_t_start) = pdeq_first;
-    _GET_CONTAINER(pdeq_first->_t_finish) = pdeq_first;
+    _ITERATOR_CONTAINER(pdeq_first->_t_start) = pdeq_first;
+    _ITERATOR_CONTAINER(pdeq_first->_t_finish) = pdeq_first;
 
-    _GET_CONTAINER(pdeq_second->_t_start) = pdeq_second;
-    _GET_CONTAINER(pdeq_second->_t_finish) = pdeq_second;
+    _ITERATOR_CONTAINER(pdeq_second->_t_start) = pdeq_second;
+    _ITERATOR_CONTAINER(pdeq_second->_t_finish) = pdeq_second;
 }
 
 /**

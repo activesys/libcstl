@@ -24,7 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
+#include <cstl/citerator.h>
 #include <cstl/cstring.h>
 
 #include <cstl/cstl_rb_tree_iterator.h>
@@ -105,11 +105,11 @@ bool_t _rb_tree_iterator_belong_to_rb_tree(const _rb_tree_t* cpt_rb_tree, _rb_tr
 {
     assert(cpt_rb_tree != NULL);
     assert(_rb_tree_is_inited(cpt_rb_tree));
-    assert(_GET_RB_TREE_COREPOS(it_iter) != NULL);
-    assert(_GET_RB_TREE(it_iter) == cpt_rb_tree);
+    assert(_RB_TREE_ITERATOR_COREPOS(it_iter) != NULL);
+    assert(_RB_TREE_ITERATOR_TREE(it_iter) == cpt_rb_tree);
 
     /* if iterator is end */
-    if(_GET_RB_TREE_COREPOS(it_iter) == (_byte_t*)&cpt_rb_tree->_t_rbroot)
+    if(_RB_TREE_ITERATOR_COREPOS(it_iter) == (_byte_t*)&cpt_rb_tree->_t_rbroot)
     {
         return true;
     }
@@ -117,7 +117,7 @@ bool_t _rb_tree_iterator_belong_to_rb_tree(const _rb_tree_t* cpt_rb_tree, _rb_tr
     else
     {
         return _rb_tree_rbnode_belong_to_rb_tree(
-            cpt_rb_tree->_t_rbroot._pt_parent, (_rbnode_t*)_GET_RB_TREE_COREPOS(it_iter));
+            cpt_rb_tree->_t_rbroot._pt_parent, (_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_iter));
     }
 }
 
@@ -127,9 +127,9 @@ bool_t _rb_tree_iterator_belong_to_rb_tree(const _rb_tree_t* cpt_rb_tree, _rb_tr
 bool_t _rb_tree_same_rb_tree_iterator_type(const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t it_iter)
 {
     assert(cpt_rb_tree != NULL);
-    assert(_GET_RB_TREE(it_iter) != NULL);
+    assert(_RB_TREE_ITERATOR_TREE(it_iter) != NULL);
 
-    return _rb_tree_same_type(cpt_rb_tree, _GET_RB_TREE(it_iter));
+    return _rb_tree_same_type(cpt_rb_tree, _RB_TREE_ITERATOR_TREE(it_iter));
 }
 
 /**
@@ -138,9 +138,9 @@ bool_t _rb_tree_same_rb_tree_iterator_type(const _rb_tree_t* cpt_rb_tree, _rb_tr
 bool_t _rb_tree_same_rb_tree_iterator_type_ex(const _rb_tree_t* cpt_rb_tree, _rb_tree_iterator_t it_iter)
 {
     assert(cpt_rb_tree != NULL);
-    assert( _GET_RB_TREE(it_iter) != NULL);
+    assert( _RB_TREE_ITERATOR_TREE(it_iter) != NULL);
 
-    return _rb_tree_same_type_ex(cpt_rb_tree, _GET_RB_TREE(it_iter));
+    return _rb_tree_same_type_ex(cpt_rb_tree, _RB_TREE_ITERATOR_TREE(it_iter));
 }
 
 /**

@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 
 #ifdef CSTL_MULTISET_AVL_TREE
 #include <cstl/cstl_avl_tree_iterator.h>
@@ -133,9 +132,9 @@ multiset_iterator_t _multiset_find_varg(const multiset_t* cpmset_mset, va_list v
     _multiset_destroy_varg_value_auxiliary((multiset_t*)cpmset_mset, pv_varg);
     _alloc_deallocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
 
-    _GET_CONTAINER(it_iter) = (multiset_t*)cpmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (multiset_t*)cpmset_mset;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -219,9 +218,9 @@ multiset_iterator_t _multiset_lower_bound_varg(const multiset_t* cpmset_mset, va
     _multiset_destroy_varg_value_auxiliary((multiset_t*)cpmset_mset, pv_varg);
     _alloc_deallocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
 
-    _GET_CONTAINER(it_iter) = (multiset_t*)cpmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (multiset_t*)cpmset_mset;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -264,9 +263,9 @@ multiset_iterator_t _multiset_upper_bound_varg(const multiset_t* cpmset_mset, va
     _multiset_destroy_varg_value_auxiliary((multiset_t*)cpmset_mset, pv_varg);
     _alloc_deallocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
 
-    _GET_CONTAINER(it_iter) = (multiset_t*)cpmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (multiset_t*)cpmset_mset;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -309,13 +308,13 @@ range_t _multiset_equal_range_varg(const multiset_t* cpmset_mset, va_list val_el
     _multiset_destroy_varg_value_auxiliary((multiset_t*)cpmset_mset, pv_varg);
     _alloc_deallocate(&((multiset_t*)cpmset_mset)->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(cpmset_mset), 1);
 
-    _GET_CONTAINER(r_range.it_begin) = (multiset_t*)cpmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(r_range.it_begin) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_begin) = (multiset_t*)cpmset_mset;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(r_range.it_end) = (multiset_t*)cpmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(r_range.it_end) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_end) = (multiset_t*)cpmset_mset;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return r_range;
 }
@@ -358,9 +357,9 @@ multiset_iterator_t _multiset_insert_varg(multiset_t* pmset_mset, va_list val_el
     _multiset_destroy_varg_value_auxiliary(pmset_mset, pv_varg);
     _alloc_deallocate(&pmset_mset->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(pmset_mset), 1);
 
-    _GET_CONTAINER(it_iter) = pmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = pmset_mset;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -402,9 +401,9 @@ multiset_iterator_t _multiset_insert_hint_varg(multiset_t* pmset_mset, multiset_
     _multiset_destroy_varg_value_auxiliary(pmset_mset, pv_varg);
     _alloc_deallocate(&pmset_mset->_t_tree._t_allocator, pv_varg, _GET_MULTISET_TYPE_SIZE(pmset_mset), 1);
 
-    _GET_CONTAINER(it_hint) = pmset_mset;
-    _GET_MULTISET_CONTAINER_TYPE(it_hint) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_hint) = pmset_mset;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_hint) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
 
     return it_hint;
 }

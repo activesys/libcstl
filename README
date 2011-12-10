@@ -9,7 +9,8 @@ how to compile libcstl on Windows.
 
 Problems, bugs, questions, desirable enhancements, etc. should be sent
 to the address "activesys.wb@gmail.com".  Bugs, support requests, and
-feature requests may also be submitted on the GoogleCode site for 
+feature requests may also be submitted on the GitHub sit for libcstl at
+https://github.com/activesys/libcstl or GoogleCode site for 
 libcstl at http://code.google.com/p/libcstl/issues/list
 
 The source file os libcstl are:

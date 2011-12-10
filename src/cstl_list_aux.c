@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 #include <cstl/cfunctional.h>
 
 #include <cstl/cstl_list_iterator.h>
@@ -57,11 +56,11 @@ bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t 
 
     assert(cplist_list != NULL);
     assert(_list_is_inited(cplist_list));
-    assert(_GET_LIST_CONTAINER(it_iter) == cplist_list);
-    assert(_GET_LIST_CONTAINER_TYPE(it_iter) == _LIST_CONTAINER);
-    assert(_GET_LIST_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+    assert(_LIST_ITERATOR_CONTAINER(it_iter) == cplist_list);
+    assert(_LIST_ITERATOR_CONTAINER_TYPE(it_iter) == _LIST_CONTAINER);
+    assert(_LIST_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
 
-    if((_listnode_t*)_GET_LIST_COREPOS(it_iter) == cplist_list->_pt_node)
+    if((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter) == cplist_list->_pt_node)
     {
         return true;
     }
@@ -70,7 +69,7 @@ bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t 
         pt_listnode != cplist_list->_pt_node;
         pt_listnode = pt_listnode->_pt_next)
     {
-        if(pt_listnode == (_listnode_t*)_GET_LIST_COREPOS(it_iter))
+        if(pt_listnode == (_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))
         {
             return true;
         }
@@ -85,11 +84,11 @@ bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t 
 bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t it_iter)
 {
     assert(cplist_list != NULL);
-    assert(_GET_LIST_CONTAINER(it_iter) != NULL);
-    assert(_GET_LIST_CONTAINER_TYPE(it_iter) == _LIST_CONTAINER);
-    assert(_GET_LIST_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+    assert(_LIST_ITERATOR_CONTAINER(it_iter) != NULL);
+    assert(_LIST_ITERATOR_CONTAINER_TYPE(it_iter) == _LIST_CONTAINER);
+    assert(_LIST_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
 
-    return _list_same_type(cplist_list, _GET_LIST_CONTAINER(it_iter));
+    return _list_same_type(cplist_list, _LIST_ITERATOR_CONTAINER(it_iter));
 }
 
 /**
@@ -177,12 +176,12 @@ bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_second)
  */
 void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end)
 {
-    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_pos), it_pos));
-    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_begin), it_begin));
-    assert(_list_iterator_belong_to_list(_GET_LIST_CONTAINER(it_end), it_end));
-    assert(_GET_LIST_CONTAINER(it_begin) == _GET_LIST_CONTAINER(it_end));
+    assert(_list_iterator_belong_to_list(_LIST_ITERATOR_CONTAINER(it_pos), it_pos));
+    assert(_list_iterator_belong_to_list(_LIST_ITERATOR_CONTAINER(it_begin), it_begin));
+    assert(_list_iterator_belong_to_list(_LIST_ITERATOR_CONTAINER(it_end), it_end));
+    assert(_LIST_ITERATOR_CONTAINER(it_begin) == _LIST_ITERATOR_CONTAINER(it_end));
     assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
-    assert(_list_same_list_iterator_type(_GET_LIST_CONTAINER(it_pos), it_begin));
+    assert(_list_same_list_iterator_type(_LIST_ITERATOR_CONTAINER(it_pos), it_begin));
 
     /* empty range */
     if(iterator_equal(it_begin, it_end))
@@ -191,7 +190,7 @@ void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_itera
     }
 
     /* same list container */
-    if(_GET_LIST_CONTAINER(it_pos) == _GET_LIST_CONTAINER(it_begin))
+    if(_LIST_ITERATOR_CONTAINER(it_pos) == _LIST_ITERATOR_CONTAINER(it_begin))
     {
         assert(iterator_equal(it_pos, it_begin) || iterator_equal(it_pos, it_end) ||
                _list_iterator_before(it_pos, it_begin) || _list_iterator_before(it_end, it_pos));
@@ -203,9 +202,9 @@ void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_itera
     }
 
     /* insert the range [it_begin, it_end) to dest list */
-    list_insert_range(_GET_LIST_CONTAINER(it_pos), it_pos, it_begin, it_end);
+    list_insert_range(_LIST_ITERATOR_CONTAINER(it_pos), it_pos, it_begin, it_end);
     /* delete the range [it_begin, it_end) front the source list */
-    list_erase_range(_GET_LIST_CONTAINER(it_begin), it_begin, it_end);
+    list_erase_range(_LIST_ITERATOR_CONTAINER(it_begin), it_begin, it_end);
 }
 
 /**
@@ -230,10 +229,10 @@ void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt
     assert(pt_last != NULL);
     assert(_list_is_inited(plist_list));
 #ifndef NDEBUG
-    _GET_CONTAINER(it_first) = plist_list;
-    _GET_LIST_COREPOS(it_first) = (_byte_t*)pt_first;
-    _GET_CONTAINER(it_last) = plist_list;
-    _GET_LIST_COREPOS(it_last) = (_byte_t*)pt_last;
+    _ITERATOR_CONTAINER(it_first) = plist_list;
+    _LIST_ITERATOR_COREPOS(it_first) = (_byte_t*)pt_first;
+    _ITERATOR_CONTAINER(it_last) = plist_list;
+    _LIST_ITERATOR_COREPOS(it_last) = (_byte_t*)pt_last;
     assert(_list_iterator_belong_to_list(plist_list, it_first));
     assert(_list_iterator_belong_to_list(plist_list, it_last));
     assert(iterator_equal(it_first, it_last) || _list_iterator_before(it_first, it_last));

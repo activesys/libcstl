@@ -24,7 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
+#include <cstl/citerator.h>
 
 #include <cstl/cstl_vector_iterator.h>
 #include <cstl/cstl_vector_private.h>
@@ -134,13 +134,13 @@ bool_t _hashtable_iterator_belong_to_hashtable(const _hashtable_t* cpt_hashtable
 
     assert(cpt_hashtable != NULL);
     assert(_hashtable_is_inited(cpt_hashtable));
-    assert(_GET_HASHTABLE_BUCKETPOS(it_iter) != NULL);
-    assert(_GET_HASHTABLE(it_iter) == cpt_hashtable);
+    assert(_HASHTABLE_ITERATOR_BUCKETPOS(it_iter) != NULL);
+    assert(_HASHTABLE_ITERATOR_HASHTABLE(it_iter) == cpt_hashtable);
 
     /* check for the end node */
     it_bucket = vector_end(&cpt_hashtable->_vec_bucket);
-    if(_GET_VECTOR_COREPOS(it_bucket) == _GET_HASHTABLE_BUCKETPOS(it_iter) &&
-       _GET_HASHTABLE_COREPOS(it_iter) == NULL)
+    if(_VECTOR_ITERATOR_COREPOS(it_bucket) == _HASHTABLE_ITERATOR_BUCKETPOS(it_iter) &&
+       _HASHTABLE_ITERATOR_COREPOS(it_iter) == NULL)
     {
         return true;
     }
@@ -151,12 +151,12 @@ bool_t _hashtable_iterator_belong_to_hashtable(const _hashtable_t* cpt_hashtable
             !iterator_equal(it_bucket, vector_end(&cpt_hashtable->_vec_bucket));
             it_bucket = iterator_next(it_bucket))
         {
-            if(_GET_HASHTABLE_BUCKETPOS(it_iter) == _GET_VECTOR_COREPOS(it_bucket))
+            if(_HASHTABLE_ITERATOR_BUCKETPOS(it_iter) == _VECTOR_ITERATOR_COREPOS(it_bucket))
             {
-                pt_node = *(_hashnode_t**)_GET_VECTOR_COREPOS(it_bucket);
+                pt_node = *(_hashnode_t**)_VECTOR_ITERATOR_COREPOS(it_bucket);
                 while(pt_node != NULL)
                 {
-                    if(pt_node == (_hashnode_t*)_GET_HASHTABLE_COREPOS(it_iter))
+                    if(pt_node == (_hashnode_t*)_HASHTABLE_ITERATOR_COREPOS(it_iter))
                     {
                         return true;
                     }
@@ -176,9 +176,9 @@ bool_t _hashtable_iterator_belong_to_hashtable(const _hashtable_t* cpt_hashtable
 bool_t _hashtable_same_hashtable_iterator_type(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter)
 {
     assert(cpt_hashtable != NULL);
-    assert(_GET_HASHTABLE(it_iter) != NULL);
+    assert(_HASHTABLE_ITERATOR_HASHTABLE(it_iter) != NULL);
 
-    return _hashtable_same_type(cpt_hashtable, _GET_HASHTABLE(it_iter));
+    return _hashtable_same_type(cpt_hashtable, _HASHTABLE_ITERATOR_HASHTABLE(it_iter));
 }
 
 /**
@@ -187,9 +187,9 @@ bool_t _hashtable_same_hashtable_iterator_type(const _hashtable_t* cpt_hashtable
 bool_t _hashtable_same_hashtable_iterator_type_ex(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter)
 {
     assert(cpt_hashtable != NULL);
-    assert(_GET_HASHTABLE(it_iter) != NULL);
+    assert(_HASHTABLE_ITERATOR_HASHTABLE(it_iter) != NULL);
 
-    return _hashtable_same_type_ex(cpt_hashtable, _GET_HASHTABLE(it_iter));
+    return _hashtable_same_type_ex(cpt_hashtable, _HASHTABLE_ITERATOR_HASHTABLE(it_iter));
 }
 #endif /* NDEBUG */
 

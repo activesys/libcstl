@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 
 #ifdef CSTL_SET_AVL_TREE
 #include <cstl/cstl_avl_tree_iterator.h>
@@ -135,9 +134,9 @@ set_iterator_t _set_find_varg(const set_t* cpset_set, va_list val_elemlist)
     _set_destroy_varg_value_auxiliary((set_t*)cpset_set, pv_varg);
     _alloc_deallocate(&((set_t*)cpset_set)->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(cpset_set), 1);
 
-    _GET_CONTAINER(it_iter) = (set_t*)cpset_set;
-    _GET_SET_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (set_t*)cpset_set;
+    _SET_ITERATOR_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
+    _SET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -225,9 +224,9 @@ set_iterator_t _set_lower_bound_varg(const set_t* cpset_set, va_list val_elemlis
     _set_destroy_varg_value_auxiliary((set_t*)cpset_set, pv_varg);
     _alloc_deallocate(&((set_t*)cpset_set)->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(cpset_set), 1);
 
-    _GET_CONTAINER(it_iter) = (set_t*)cpset_set;
-    _GET_SET_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (set_t*)cpset_set;
+    _SET_ITERATOR_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
+    _SET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -272,9 +271,9 @@ set_iterator_t _set_upper_bound_varg(const set_t* cpset_set, va_list val_elemlis
     _set_destroy_varg_value_auxiliary((set_t*)cpset_set, pv_varg);
     _alloc_deallocate(&((set_t*)cpset_set)->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(cpset_set), 1);
 
-    _GET_CONTAINER(it_iter) = (set_t*)cpset_set;
-    _GET_SET_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = (set_t*)cpset_set;
+    _SET_ITERATOR_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
+    _SET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -319,13 +318,13 @@ range_t _set_equal_range_varg(const set_t* cpset_set, va_list val_elemlist)
     _set_destroy_varg_value_auxiliary((set_t*)cpset_set, pv_varg);
     _alloc_deallocate(&((set_t*)cpset_set)->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(cpset_set), 1);
 
-    _GET_CONTAINER(r_range.it_begin) = (set_t*)cpset_set;
-    _GET_SET_CONTAINER_TYPE(r_range.it_begin) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_begin) = (set_t*)cpset_set;
+    _SET_ITERATOR_CONTAINER_TYPE(r_range.it_begin) = _SET_CONTAINER;
+    _SET_ITERATOR_ITERATOR_TYPE(r_range.it_begin) = _BIDIRECTIONAL_ITERATOR;
 
-    _GET_CONTAINER(r_range.it_end) = (set_t*)cpset_set;
-    _GET_SET_CONTAINER_TYPE(r_range.it_end) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(r_range.it_end) = (set_t*)cpset_set;
+    _SET_ITERATOR_CONTAINER_TYPE(r_range.it_end) = _SET_CONTAINER;
+    _SET_ITERATOR_ITERATOR_TYPE(r_range.it_end) = _BIDIRECTIONAL_ITERATOR;
 
     return r_range;
 }
@@ -370,9 +369,9 @@ set_iterator_t _set_insert_varg(set_t* pset_set, va_list val_elemlist)
     _set_destroy_varg_value_auxiliary(pset_set, pv_varg);
     _alloc_deallocate(&pset_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pset_set), 1);
 
-    _GET_CONTAINER(it_iter) = pset_set;
-    _GET_SET_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_iter) = pset_set;
+    _SET_ITERATOR_CONTAINER_TYPE(it_iter) = _SET_CONTAINER;
+    _SET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -416,9 +415,9 @@ set_iterator_t _set_insert_hint_varg(set_t* pset_set, set_iterator_t it_hint, va
     _set_destroy_varg_value_auxiliary(pset_set, pv_varg);
     _alloc_deallocate(&pset_set->_t_tree._t_allocator, pv_varg, _GET_SET_TYPE_SIZE(pset_set), 1);
 
-    _GET_CONTAINER(it_hint) = pset_set;
-    _GET_SET_CONTAINER_TYPE(it_hint) = _SET_CONTAINER;
-    _GET_SET_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
+    _ITERATOR_CONTAINER(it_hint) = pset_set;
+    _SET_ITERATOR_CONTAINER_TYPE(it_hint) = _SET_CONTAINER;
+    _SET_ITERATOR_ITERATOR_TYPE(it_hint) = _BIDIRECTIONAL_ITERATOR;
 
     return it_hint;
 }

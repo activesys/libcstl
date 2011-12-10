@@ -24,8 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cstl_iterator_private.h>
+#include <cstl/citerator.h>
 
 #ifdef CSTL_MULTISET_AVL_TREE
 #include <cstl/cstl_avl_tree_iterator.h>
@@ -67,8 +66,8 @@ multiset_iterator_t create_multiset_iterator(void)
     it_iter = _create_rb_tree_iterator();
 #endif
 
-    _GET_MULTISET_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
-    _GET_MULTISET_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
+    _MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) = _MULTISET_CONTAINER;
+    _MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
     return it_iter;
 }
@@ -79,8 +78,8 @@ multiset_iterator_t create_multiset_iterator(void)
 void _multiset_iterator_get_value(multiset_iterator_t it_iter, void* pv_value)
 {
     assert(pv_value != NULL);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_iter) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
 
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_iterator_get_value(it_iter, pv_value);
@@ -94,8 +93,8 @@ void _multiset_iterator_get_value(multiset_iterator_t it_iter, void* pv_value)
  */
 const void* _multiset_iterator_get_pointer(multiset_iterator_t it_iter)
 {
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_iter) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
 
 #ifdef CSTL_MULTISET_AVL_TREE
     return _avl_tree_iterator_get_pointer(it_iter);
@@ -109,8 +108,8 @@ const void* _multiset_iterator_get_pointer(multiset_iterator_t it_iter)
  */
 multiset_iterator_t _multiset_iterator_next(multiset_iterator_t it_iter)
 {
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_iter) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
 
 #ifdef CSTL_MULTISET_AVL_TREE
     return _avl_tree_iterator_next(it_iter);
@@ -124,8 +123,8 @@ multiset_iterator_t _multiset_iterator_next(multiset_iterator_t it_iter)
  */
 multiset_iterator_t _multiset_iterator_prev(multiset_iterator_t it_iter)
 {
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_iter) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
 
 #ifdef CSTL_MULTISET_AVL_TREE
     return _avl_tree_iterator_prev(it_iter);
@@ -139,10 +138,10 @@ multiset_iterator_t _multiset_iterator_prev(multiset_iterator_t it_iter)
  */
 bool_t _multiset_iterator_equal(multiset_iterator_t it_first, multiset_iterator_t it_second)
 {
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_first) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR); 
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_second) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_first) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR); 
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_second) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
 
 #ifdef CSTL_MULTISET_AVL_TREE
     return _avl_tree_iterator_equal(it_first, it_second);
@@ -156,11 +155,11 @@ bool_t _multiset_iterator_equal(multiset_iterator_t it_first, multiset_iterator_
  */
 int _multiset_iterator_distance(multiset_iterator_t it_first, multiset_iterator_t it_second)
 {
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_first) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_second) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER(it_first) == _GET_MULTISET_CONTAINER(it_second));
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_first) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_second) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_first) == _MULTISET_ITERATOR_CONTAINER(it_second));
 
 #ifdef CSTL_MULTISET_AVL_TREE
     return _avl_tree_iterator_distance(it_first, it_second);
@@ -174,11 +173,11 @@ int _multiset_iterator_distance(multiset_iterator_t it_first, multiset_iterator_
  */
 bool_t _multiset_iterator_before(multiset_iterator_t it_first, multiset_iterator_t it_second)
 {
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_first) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER_TYPE(it_second) == _MULTISET_CONTAINER);
-    assert(_GET_MULTISET_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
-    assert(_GET_MULTISET_CONTAINER(it_first) == _GET_MULTISET_CONTAINER(it_second));
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_first) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_second) == _MULTISET_CONTAINER);
+    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_second) == _BIDIRECTIONAL_ITERATOR);
+    assert(_MULTISET_ITERATOR_CONTAINER(it_first) == _MULTISET_ITERATOR_CONTAINER(it_second));
 
 #ifdef CSTL_MULTISET_AVL_TREE
     return _avl_tree_iterator_before(it_first, it_second);
