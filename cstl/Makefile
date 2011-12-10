@@ -82,7 +82,7 @@ AUTOMAKE = ${SHELL} /home/wb/project/git/libcstl/missing --run automake-1.11
 AWK = gawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g
+CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo

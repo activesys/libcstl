@@ -32,4 +32,4 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_vector.c cstl_vector_iterator.c cstl_vector_private.c cstl_vector_aux.c cstl_vector_aux.h
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
 libcstl_la_CFLAGS = -Wall -Wextra
-libcstl_la_LDFLAGS = -version-info 2:2:0
+libcstl_la_LDFLAGS = -version-info 2:3:0
