@@ -7,6 +7,7 @@
 #include "cstl/citerator.h"
 #include "cstl/cstl_vector_iterator.h"
 #include "cstl/cvector.h"
+#include "cstl/cstring.h"
 
 #include "ut_def.h"
 #include "ut_cstl_vector_iterator.h"
@@ -701,6 +702,105 @@ void test__vector_iterator_get_pointer__successfully_cstr(void** state)
     it_iter = vector_begin(pvec);
 
     assert_true(strcmp("abcdefg", (char*)_vector_iterator_get_pointer(it_iter)) == 0);
+
+    vector_destroy(pvec);
+}
+
+/*
+ * test _vector_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_vector_iterator_get_pointer_ignore_cstr)
+void test__vector_iterator_get_pointer_ignore_cstr__invalid_iterator(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_pos._pby_corepos = NULL;
+
+    expect_assert_failure(_vector_iterator_get_pointer_ignore_cstr(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_pointer_ignore_cstr__invalid_iterator_container_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_vector_iterator_get_pointer_ignore_cstr(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_pointer_ignore_cstr__invalid_iterator_iterator_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_vector_iterator_get_pointer_ignore_cstr(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_pointer_ignore_cstr__invalid_iterator_container_pointer(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_begin(pvec);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_vector_iterator_get_pointer_ignore_cstr(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_pointer_ignore_cstr__vector_end(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_n(pvec, 10);
+    it_iter = vector_end(pvec);
+
+    expect_assert_failure(_vector_iterator_get_pointer_ignore_cstr(it_iter));
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_pointer_ignore_cstr__successfully(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init_elem(pvec, 10, 100);
+    it_iter = vector_begin(pvec);
+
+    assert_int_equal(*(int*)_vector_iterator_get_pointer_ignore_cstr(it_iter), 100);
+
+    vector_destroy(pvec);
+}
+
+void test__vector_iterator_get_pointer_ignore_cstr__successfully_cstr(void** state)
+{
+    vector_t* pvec = create_vector(char*);
+    vector_iterator_t it_iter;
+
+    vector_init_elem(pvec, 10, "abcdefg");
+    it_iter = vector_begin(pvec);
+
+    assert_true(strcmp("abcdefg", string_c_str(_vector_iterator_get_pointer_ignore_cstr(it_iter))) == 0);
 
     vector_destroy(pvec);
 }

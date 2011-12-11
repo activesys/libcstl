@@ -231,6 +231,17 @@ const void* _deque_iterator_get_pointer(deque_iterator_t it_iter)
 }
 
 /**
+ * Get the pointer that point to the iterator reference data, but ignore char*
+ */
+const void* _deque_iterator_get_pointer_ignore_cstr(deque_iterator_t it_iter)
+{
+    assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(it_iter), it_iter));
+    assert(!iterator_equal(it_iter, deque_end(_DEQUE_ITERATOR_CONTAINER(it_iter))));
+
+    return _deque_iterator_get_pointer_auxiliary(it_iter);
+}
+
+/**
  * Get the iterator that reference next data.
  */
 deque_iterator_t _deque_iterator_next(deque_iterator_t it_iter)

@@ -104,6 +104,21 @@ const void* _set_iterator_get_pointer(set_iterator_t it_iter)
 }
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _set_iterator_get_pointer_ignore_cstr(set_iterator_t it_iter)
+{
+    assert(_SET_ITERATOR_CONTAINER_TYPE(it_iter) == _SET_CONTAINER);
+    assert(_SET_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR); 
+
+#ifdef CSTL_SET_AVL_TREE
+    return _avl_tree_iterator_get_pointer_ignore_cstr(it_iter);
+#else
+    return _rb_tree_iterator_get_pointer_ignore_cstr(it_iter);
+#endif
+}
+
+/**
  * Return iterator reference next element.
  */
 set_iterator_t _set_iterator_next(set_iterator_t it_iter)

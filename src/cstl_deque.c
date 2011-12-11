@@ -167,22 +167,22 @@ void deque_init_copy_range(deque_t* pdeq_dest, deque_iterator_t it_begin, deque_
 
     assert(pdeq_dest != NULL);
     assert(_deque_is_created(pdeq_dest));
-    assert(_deque_same_deque_iterator_type(pdeq_dest, it_begin));
-    assert(_deque_same_deque_iterator_type(pdeq_dest, it_end));
-    assert(iterator_equal(it_begin, it_end) || _deque_iterator_before(it_begin, it_end));
+    assert(_deque_same_iterator_type(pdeq_dest, it_begin));
+    assert(_deque_same_iterator_type(pdeq_dest, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     /* init the dest deque with the distance between it_begin and it_end */
     deque_init_n(pdeq_dest, iterator_distance(it_begin, it_end));
 
     /* copy the elements from src range to dest deque */
-    for(it_dest = pdeq_dest->_t_start, it_src = it_begin;
-        !iterator_equal(it_dest, pdeq_dest->_t_finish) && !iterator_equal(it_src, it_end);
+    for(it_dest = deque_begin(pdeq_dest), it_src = it_begin;
+        !iterator_equal(it_dest, deque_end(pdeq_dest)) && !iterator_equal(it_src, it_end);
         it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
     {
         b_result = _GET_DEQUE_TYPE_SIZE(pdeq_dest);
         _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_dest)(
-            _deque_iterator_get_pointer_auxiliary(it_dest),
-            _deque_iterator_get_pointer_auxiliary(it_src), &b_result);
+            _iterator_get_pointer_ignore_cstr(it_dest),
+            _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
     assert(iterator_equal(it_dest, pdeq_dest->_t_finish) && iterator_equal(it_src, it_end));

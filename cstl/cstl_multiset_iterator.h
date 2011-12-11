@@ -64,6 +64,14 @@ extern void _multiset_iterator_get_value(multiset_iterator_t it_iter, void* pv_v
 extern const void* _multiset_iterator_get_pointer(multiset_iterator_t it_iter);
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ * @param it_iter    multiset iterator.
+ * @return void.
+ * @remarks it_iter must be valid multiset iterator, otherwise the behavior is undefined.
+ */
+extern const void* _multiset_iterator_get_pointer_ignore_cstr(multiset_iterator_t it_iter);
+
+/**
  * Return iterator reference next element.
  * @param  it_iter    current iterator.
  * @return next iterator.

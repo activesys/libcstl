@@ -50,6 +50,239 @@ void test__iterator_is_valid__valid(void** state)
 }
 
 /*
+ * test _iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_iterator_get_pointer_ignore_cstr)
+void test__iterator_get_pointer_ignore_cstr__invalid_iter(void** state)
+{
+    iterator_t it_iter;
+    it_iter._t_containertype = 999;
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_iterator_get_pointer_ignore_cstr(it_iter));
+}
+
+void test__iterator_get_pointer_ignore_cstr__vector(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 10, 999);
+    assert_true(*(int*)_iterator_get_pointer_ignore_cstr(vector_begin(pvec)) == 999);
+    vector_destroy(pvec);
+}
+
+void test__iterator_get_pointer_ignore_cstr__vector_cstr(void** state)
+{
+    vector_t* pvec = create_vector(char*);
+
+    vector_init_elem(pvec, 10, "abc");
+    assert_true(strcmp("abc", string_c_str(_iterator_get_pointer_ignore_cstr(vector_begin(pvec)))) == 0);
+    vector_destroy(pvec);
+}
+
+void test__iterator_get_pointer_ignore_cstr__deque(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_elem(pdeq, 10, 1000);
+    assert_true(*(int*)_iterator_get_pointer_ignore_cstr(deque_begin(pdeq)) == 1000);
+    deque_destroy(pdeq);
+}
+
+void test__iterator_get_pointer_ignore_cstr__deque_cstr(void** state)
+{
+    deque_t* pdeq = create_deque(char*);
+
+    deque_init_elem(pdeq, 10, "abc");
+    assert_true(strcmp("abc", string_c_str(_iterator_get_pointer_ignore_cstr(deque_begin(pdeq)))) == 0);
+    deque_destroy(pdeq);
+}
+
+void test__iterator_get_pointer_ignore_cstr__list(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init_elem(plist, 10, 1000);
+    assert_true(*(int*)_iterator_get_pointer_ignore_cstr(list_begin(plist)) == 1000);
+    list_destroy(plist);
+}
+
+void test__iterator_get_pointer_ignore_cstr__list_cstr(void** state)
+{
+    list_t* plist = create_list(char*);
+
+    list_init_elem(plist, 10, "abc");
+    assert_true(strcmp("abc", string_c_str(_iterator_get_pointer_ignore_cstr(list_begin(plist)))) == 0);
+    list_destroy(plist);
+}
+
+void test__iterator_get_pointer_ignore_cstr__slist(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_elem(pslist, 10, 9999);
+    assert_true(*(int*)_iterator_get_pointer_ignore_cstr(slist_begin(pslist)) == 9999);
+    slist_destroy(pslist);
+}
+
+void test__iterator_get_pointer_ignore_cstr__slist_cstr(void** state)
+{
+    slist_t* pslist = create_slist(char*);
+
+    slist_init_elem(pslist, 10, "abc");
+    assert_true(strcmp("abc", string_c_str(_iterator_get_pointer_ignore_cstr(slist_begin(pslist)))) == 0);
+    slist_destroy(pslist);
+}
+
+void test__iterator_get_pointer_ignore_cstr__set(void** state)
+{
+    set_t* pset = create_set(int);
+
+    set_init(pset);
+    set_insert(pset, 100);
+    assert_true(*(int*)_iterator_get_pointer_ignore_cstr(set_begin(pset)) == 100);
+    set_destroy(pset);
+}
+
+void test__iterator_get_pointer_ignore_cstr__set_cstr(void** state)
+{
+    set_t* pset = create_set(char*);
+
+    set_init(pset);
+    set_insert(pset, "abc");
+    assert_true(strcmp("abc", string_c_str(_iterator_get_pointer_ignore_cstr(set_begin(pset)))) == 0);
+    set_destroy(pset);
+}
+
+void test__iterator_get_pointer_ignore_cstr__multiset(void** state)
+{
+    multiset_t* pmset = create_multiset(int);
+
+    multiset_init(pmset);
+    multiset_insert(pmset, 100);
+    assert_true(*(int*)_iterator_get_pointer_ignore_cstr(multiset_begin(pmset)) == 100);
+    multiset_destroy(pmset);
+}
+
+void test__iterator_get_pointer_ignore_cstr__multiset_cstr(void** state)
+{
+    multiset_t* pmset = create_multiset(char*);
+
+    multiset_init(pmset);
+    multiset_insert(pmset, "abc");
+    assert_true(strcmp("abc", string_c_str(_iterator_get_pointer_ignore_cstr(multiset_begin(pmset)))) == 0);
+    multiset_destroy(pmset);
+}
+
+void test__iterator_get_pointer_ignore_cstr__map(void** state)
+{
+    map_t* pmap = create_map(int, int);
+    pair_t* ppair = NULL;
+
+    map_init(pmap);
+    *(int*)map_at(pmap, 10) = 10;
+    ppair = (pair_t*)_iterator_get_pointer_ignore_cstr(map_begin(pmap));
+    assert_true(*(int*)pair_first(ppair) == 10);
+    assert_true(*(int*)pair_second(ppair) == 10);
+    map_destroy(pmap);
+}
+
+void test__iterator_get_pointer_ignore_cstr__multimap(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, int);
+    pair_t* ppair = create_pair(int, int);
+
+    multimap_init(pmmap);
+    pair_init_elem(ppair, 100, 333);
+    multimap_insert(pmmap, ppair);
+    pair_make(ppair, 0, 0);
+    assert_true(*(int*)pair_first(_iterator_get_pointer_ignore_cstr(multimap_begin(pmmap))) == 100);
+    assert_true(*(int*)pair_second(_iterator_get_pointer_ignore_cstr(multimap_begin(pmmap))) == 333);
+    pair_destroy(ppair);
+    multimap_destroy(pmmap);
+}
+
+void test__iterator_get_pointer_ignore_cstr__hash_set(void** state)
+{
+    hash_set_t* phset = create_hash_set(int);
+
+    hash_set_init(phset);
+    hash_set_insert(phset, 100);
+    assert_true(*(int*)_iterator_get_pointer_ignore_cstr(hash_set_begin(phset)) == 100);
+    hash_set_destroy(phset);
+}
+
+void test__iterator_get_pointer_ignore_cstr__hash_set_cstr(void** state)
+{
+    hash_set_t* phset = create_hash_set(char*);
+
+    hash_set_init(phset);
+    hash_set_insert(phset, "abc");
+    assert_true(strcmp("abc", string_c_str(_iterator_get_pointer_ignore_cstr(hash_set_begin(phset)))) == 0);
+    hash_set_destroy(phset);
+}
+
+void test__iterator_get_pointer_ignore_cstr__hash_multiset(void** state)
+{
+    hash_multiset_t* phmset = create_hash_multiset(int);
+
+    hash_multiset_init(phmset);
+    hash_multiset_insert(phmset, 100);
+    assert_true(*(int*)_iterator_get_pointer_ignore_cstr(hash_multiset_begin(phmset)) == 100);
+    hash_multiset_destroy(phmset);
+}
+
+void test__iterator_get_pointer_ignore_cstr__hash_multiset_cstr(void** state)
+{
+    hash_multiset_t* phmset = create_hash_multiset(char*);
+
+    hash_multiset_init(phmset);
+    hash_multiset_insert(phmset, "abc");
+    assert_true(strcmp("abc", string_c_str(_iterator_get_pointer_ignore_cstr(hash_multiset_begin(phmset)))) == 0);
+    hash_multiset_destroy(phmset);
+}
+
+void test__iterator_get_pointer_ignore_cstr__hash_map(void** state)
+{
+    hash_map_t* phmap = create_hash_map(int, int);
+    pair_t* ppair = create_pair(int, int);
+
+    hash_map_init(phmap);
+    pair_init_elem(ppair, 1, 2);
+    hash_map_insert(phmap, ppair);
+    pair_make(ppair, 0, 0);
+    assert_true(*(int*)pair_first(_iterator_get_pointer_ignore_cstr(hash_map_begin(phmap))) == 1);
+    assert_true(*(int*)pair_second(_iterator_get_pointer_ignore_cstr(hash_map_begin(phmap))) == 2);
+    pair_destroy(ppair);
+    hash_map_destroy(phmap);
+}
+
+void test__iterator_get_pointer_ignore_cstr__hash_multimap(void** state)
+{
+    hash_multimap_t* phmmap = create_hash_multimap(int, int);
+    pair_t* ppair = create_pair(int, int);
+
+    hash_multimap_init(phmmap);
+    pair_init_elem(ppair, 4, 5);
+    hash_multimap_insert(phmmap, ppair);
+    pair_make(ppair, 0, 0);
+    assert_true(*(int*)pair_first(_iterator_get_pointer_ignore_cstr(hash_multimap_begin(phmmap))) == 4);
+    assert_true(*(int*)pair_second(_iterator_get_pointer_ignore_cstr(hash_multimap_begin(phmmap))) == 5);
+    pair_destroy(ppair);
+    hash_multimap_destroy(phmmap);
+}
+
+void test__iterator_get_pointer_ignore_cstr__string(void** state)
+{
+    string_t* pstr = create_string();
+    char c = '\0';
+
+    string_init_cstr(pstr, "abcdefg");
+    assert_true(*(char*)_iterator_get_pointer_ignore_cstr(string_begin(pstr)) == 'a');
+    string_destroy(pstr);
+}
+
+/*
  * test _iterator_same_type
  */
 UT_CASE_DEFINATION(_iterator_same_type)

@@ -1065,6 +1065,21 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
     return true;
 }
 
+bool_t _type_is_same_ex(const _typeinfo_t* pt_first, const _typeinfo_t* pt_second)
+{
+    assert(pt_first != NULL);
+    assert(pt_second != NULL);
+
+    if(pt_first == pt_second)
+    {
+        return true;
+    }
+
+    return pt_first->_pt_type == pt_second->_pt_type &&
+           pt_first->_t_style == pt_second->_t_style &&
+           _type_is_same(pt_first->_sz_typename, pt_second->_sz_typename);
+}
+
 void _type_get_elem_typename(const char* s_typename, char* s_elemtypename)
 {
     char* pc_left = NULL;   /* left bracket position */

@@ -105,6 +105,14 @@ extern void _vector_iterator_set_value(vector_iterator_t it_iter, const void* cp
 extern const void* _vector_iterator_get_pointer(vector_iterator_t it_iter); 
 
 /**
+ * Get the pointer that point to the iterator reference data, but ignore char*.
+ * @param it_iter vector iterator.
+ * @return data pointer.
+ * @remarks it_iter must be valid vector iterator, otherwise the behavior is undefined.
+ */
+extern const void* _vector_iterator_get_pointer_ignore_cstr(vector_iterator_t it_iter); 
+
+/**
  * Get the iterator that reference next data.
  * @param it_iter vector iterator.
  * @return next iterator.

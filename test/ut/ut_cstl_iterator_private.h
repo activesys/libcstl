@@ -11,6 +11,32 @@ void test__iterator_is_valid__invalid_containertype(void** state);
 void test__iterator_is_valid__invalid_iteratortype(void** state);
 void test__iterator_is_valid__valid(void** state);
 /*
+ * test _iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DECLARATION(_iterator_get_pointer_ignore_cstr)
+void test__iterator_get_pointer_ignore_cstr__invalid_iter(void** state);
+void test__iterator_get_pointer_ignore_cstr__vector(void** state);
+void test__iterator_get_pointer_ignore_cstr__vector_cstr(void** state);
+void test__iterator_get_pointer_ignore_cstr__deque(void** state);
+void test__iterator_get_pointer_ignore_cstr__deque_cstr(void** state);
+void test__iterator_get_pointer_ignore_cstr__list(void** state);
+void test__iterator_get_pointer_ignore_cstr__list_cstr(void** state);
+void test__iterator_get_pointer_ignore_cstr__slist(void** state);
+void test__iterator_get_pointer_ignore_cstr__slist_cstr(void** state);
+void test__iterator_get_pointer_ignore_cstr__set(void** state);
+void test__iterator_get_pointer_ignore_cstr__set_cstr(void** state);
+void test__iterator_get_pointer_ignore_cstr__multiset(void** state);
+void test__iterator_get_pointer_ignore_cstr__multiset_cstr(void** state);
+void test__iterator_get_pointer_ignore_cstr__map(void** state);
+void test__iterator_get_pointer_ignore_cstr__multimap(void** state);
+void test__iterator_get_pointer_ignore_cstr__hash_set(void** state);
+void test__iterator_get_pointer_ignore_cstr__hash_set_cstr(void** state);
+void test__iterator_get_pointer_ignore_cstr__hash_multiset(void** state);
+void test__iterator_get_pointer_ignore_cstr__hash_multiset_cstr(void** state);
+void test__iterator_get_pointer_ignore_cstr__hash_map(void** state);
+void test__iterator_get_pointer_ignore_cstr__hash_multimap(void** state);
+void test__iterator_get_pointer_ignore_cstr__string(void** state);
+/*
  * test _iterator_same_type
  */
 UT_CASE_DECLARATION(_iterator_same_type)
@@ -217,6 +243,28 @@ void test__iterator_allocate_init_elem__iterator_deallocate_destroy_elem__string
     UT_SUIT_BEGIN(cstl_iterator_private, test__iterator_is_valid__invalid_containertype),\
     UT_CASE(test__iterator_is_valid__invalid_iteratortype),\
     UT_CASE(test__iterator_is_valid__valid),\
+    UT_CASE_BEGIN(_iterator_get_pointer_ignore_cstr, test__iterator_get_pointer_ignore_cstr__invalid_iter),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__vector),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__vector_cstr),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__deque),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__deque_cstr),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__list),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__list_cstr),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__slist),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__slist_cstr),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__set),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__set_cstr),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__multiset),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__multiset_cstr),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__map),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__multimap),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__hash_set),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__hash_set_cstr),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__hash_multiset),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__hash_multiset_cstr),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__hash_map),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__hash_multimap),\
+    UT_CASE(test__iterator_get_pointer_ignore_cstr__string),\
     UT_CASE_BEGIN(_iterator_same_type, test__iterator_same_type__invalid_first),\
     UT_CASE(test__iterator_same_type__invalid_second),\
     UT_CASE(test__iterator_same_type__containertype_not_equal),\

@@ -201,6 +201,14 @@ typedef output_iterator_t           ostream_iterator_t;
 extern bool_t _iterator_is_valid(iterator_t it_iter);
 
 /**
+ * Get pointer that pointed by iterator, but ignore char*.
+ * @param it_iter      iterator.
+ * @return pointer
+ * @remakes it_iter must be valid and must be not end(), otherwise the behavior is undefined.
+ */
+extern const void* _iterator_get_pointer_ignore_cstr(iterator_t it_iter);
+
+/**
  * Test whether two iterator are equal types.
  * @param it_first     first iterator.
  * @param it_second    second iterator.

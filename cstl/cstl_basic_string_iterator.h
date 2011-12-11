@@ -105,6 +105,14 @@ extern void _basic_string_iterator_set_value(basic_string_iterator_t it_iter, co
 extern const void* _basic_string_iterator_get_pointer(basic_string_iterator_t it_iter);
 
 /**
+ * Get the pointer that point to the iterator reference data, but ignore char*.
+ * @param it_iter basic_string iterator.
+ * @return data pointer.
+ * @remarks it_iter must be valid basic_string iterator, otherwise the behavior is undefined.
+ */
+extern const void* _basic_string_iterator_get_pointer_ignore_cstr(basic_string_iterator_t it_iter);
+
+/**
  * Get the iterator that reference next data.
  * @param it_iter basic_string iterator.
  * @return next iterator.

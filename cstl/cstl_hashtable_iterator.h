@@ -63,6 +63,14 @@ extern void _hashtable_iterator_get_value(_hashtable_iterator_t it_iter, void* p
 extern const void* _hashtable_iterator_get_pointer(_hashtable_iterator_t it_iter);
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ * @param it_iter    hashtable iterator.
+ * @return void.
+ * @remarks it_iter must be valid hashtable iterator, otherwise the behavior is undefined.
+ */
+extern const void* _hashtable_iterator_get_pointer_ignore_cstr(_hashtable_iterator_t it_iter);
+
+/**
  * Return iterator reference next element.
  * @param  it_iter    current iterator.
  * @return next iterator.

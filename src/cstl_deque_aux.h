@@ -70,6 +70,15 @@ extern bool_t _deque_iterator_belong_to_deque(const deque_t* cpdeq_deque, deque_
 extern bool_t _deque_same_deque_iterator_type(const deque_t* cpdeq_deque, deque_iterator_t it_iter);
 
 /**
+ * Test the type that saved in the deque container and referenced by it_iter are same.
+ * @param cpdeq_deque  deque container.
+ * @param it_iter      iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpdeq_first == NULL, then the behavior is undefined.
+ */
+extern bool_t _deque_same_iterator_type(const deque_t* cpdeq_deque, deque_iterator_t it_iter);
+
+/**
  * Test deque is created by create_deque.
  * @param cpdeq_deque  deque container.
  * @return if deque is created by create_deque, then return true, else return false.

@@ -283,6 +283,119 @@ void test__hashtable_iterator_get_pointer__user_define(void** state)
 }
 
 /*
+ * test _hashtable_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_hashtable_iterator_get_pointer_ignore_cstr)
+void test__hashtable_iterator_get_pointer_ignore_cstr__null_corepos(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+    int elem = 9;
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+
+    _hashtable_insert_unique(pt_hashtable, &elem);
+    it_iter = _hashtable_begin(pt_hashtable);
+
+    it_iter._t_pos._t_hashpos._pby_corepos = (char*)0x3333;
+    expect_assert_failure(_hashtable_iterator_get_pointer_ignore_cstr(it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_get_pointer_ignore_cstr__null_hashtable(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+
+    it_iter = _hashtable_begin(pt_hashtable);
+
+    it_iter._t_pos._t_hashpos._pt_hashtable = NULL;
+    expect_assert_failure(_hashtable_iterator_get_pointer_ignore_cstr(it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_get_pointer_ignore_cstr__end(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+
+    it_iter = _hashtable_end(pt_hashtable);
+
+    expect_assert_failure(_hashtable_iterator_get_pointer_ignore_cstr(it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_get_pointer_ignore_cstr__c_builtin(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    _hashtable_iterator_t it_iter;
+    int elem = 12;
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    _hashtable_insert_unique(pt_hashtable, &elem);
+
+    it_iter = _hashtable_begin(pt_hashtable);
+    assert_true(*(int*)_hashtable_iterator_get_pointer_ignore_cstr(it_iter) == 12);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_get_pointer_ignore_cstr__cstr(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("char*");
+    _hashtable_iterator_t it_iter;
+    string_t* pstr = create_string();
+    string_init_cstr(pstr, "abc");
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    _hashtable_insert_unique(pt_hashtable, pstr);
+
+    it_iter = _hashtable_begin(pt_hashtable);
+    assert_true(strcmp(string_c_str(_hashtable_iterator_get_pointer_ignore_cstr(it_iter)), "abc") == 0);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+void test__hashtable_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("vector_t<int>");
+    _hashtable_iterator_t it_iter;
+    vector_t* pvec = create_vector(int);
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    vector_init_n(pvec, 10);
+    _hashtable_insert_unique(pt_hashtable, pvec);
+
+    it_iter = _hashtable_begin(pt_hashtable);
+    assert_true(vector_size((vector_t*)_hashtable_iterator_get_pointer_ignore_cstr(it_iter)) == 10);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+typedef struct _tag_test__hashtable_iterator_get_pointer_ignore_cstr__user_define
+{
+    int elem;
+}_test__hashtable_iterator_get_pointer_ignore_cstr__user_define_t;
+void test__hashtable_iterator_get_pointer_ignore_cstr__user_define(void** state)
+{
+    _hashtable_t* pt_hashtable = NULL;
+    _hashtable_iterator_t it_iter;
+    _test__hashtable_iterator_get_pointer_ignore_cstr__user_define_t elem;
+
+    type_register(_test__hashtable_iterator_get_pointer_ignore_cstr__user_define_t, NULL, NULL, NULL, NULL);
+    pt_hashtable = _create_hashtable("_test__hashtable_iterator_get_pointer_ignore_cstr__user_define_t");
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    elem.elem = 100;
+    _hashtable_insert_unique(pt_hashtable, &elem);
+
+    it_iter = _hashtable_begin(pt_hashtable);
+    assert_true(((_test__hashtable_iterator_get_pointer_ignore_cstr__user_define_t*)_hashtable_iterator_get_pointer_ignore_cstr(it_iter))->elem == 100);
+
+    _hashtable_destroy(pt_hashtable);
+}
+
+/*
  * test _hashtable_iterator_next
  */
 UT_CASE_DEFINATION(_hashtable_iterator_next)

@@ -244,6 +244,7 @@ extern void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename);
 extern void _type_get_type_pair(
     _typeinfo_t* pt_typeinfofirst, _typeinfo_t* pt_typeinfosecond, const char* s_typename);
 extern bool_t _type_is_same(const char* s_typename1, const char* s_typename2);
+extern bool_t _type_is_same_ex(const _typeinfo_t* pt_first, const _typeinfo_t* pt_second);
 extern void _type_get_varg_value(
     _typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output);
 extern void _type_get_elem_typename(const char* s_typename, char* s_elemtypename);

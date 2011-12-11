@@ -79,6 +79,63 @@ bool_t _iterator_is_valid(iterator_t it_iter)
         return false;
     }
 }
+
+/**
+ * Get pointer that pointed by iterator, but ignore char*.
+ */
+const void* _iterator_get_pointer_ignore_cstr(iterator_t it_iter)
+{
+    assert(_iterator_is_valid(it_iter));
+    assert(_iterator_limit_type(it_iter, _INPUT_ITERATOR));
+
+    switch(it_iter._t_containertype)
+    {
+    case _VECTOR_CONTAINER:
+        return _vector_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _LIST_CONTAINER:
+        return _list_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _DEQUE_CONTAINER:
+        return _deque_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _SLIST_CONTAINER:
+        return _slist_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _SET_CONTAINER:
+        return _set_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _MULTISET_CONTAINER:
+        return _multiset_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _MAP_CONTAINER:
+        return _map_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _MULTIMAP_CONTAINER:
+        return _multimap_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _HASH_SET_CONTAINER:
+        return _hash_set_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _HASH_MULTISET_CONTAINER:
+        return _hash_multiset_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _HASH_MAP_CONTAINER:
+        return _hash_map_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _HASH_MULTIMAP_CONTAINER:
+        return _hash_multimap_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    case _BASIC_STRING_CONTAINER:
+        return _basic_string_iterator_get_pointer_ignore_cstr(it_iter);
+        break;
+    default:
+        assert(false);
+        return NULL;
+        break;
+    }
+}
+
 /**
  * Test whether two iterator are equal types.
  */
@@ -364,7 +421,16 @@ size_t _iterator_get_typesize(iterator_t it_iter)
  */
 bool_t _iterator_same_elem_type(iterator_t it_first, iterator_t it_second)
 {
-    return _type_is_same(_iterator_get_typename(it_first), _iterator_get_typename(it_second));
+    _typeinfo_t* pt_first = _iterator_get_typeinfo(it_first);
+    _typeinfo_t* pt_second = _iterator_get_typeinfo(it_second);
+
+    if(pt_first == NULL || pt_second == NULL)
+    {
+        return false;
+    }
+    return (pt_first->_pt_type == pt_second->_pt_type) &&
+           (pt_first->_t_style == pt_second->_t_style) &&
+           _type_is_same(pt_first->_sz_typename, pt_second->_sz_typename);
 }
 
 /**

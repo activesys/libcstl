@@ -8,6 +8,7 @@
 #include "cstl/cstl_slist_iterator.h"
 #include "cstl/cslist.h"
 #include "cstl/cvector.h"
+#include "cstl/cstring.h"
 
 #include "ut_def.h"
 #include "ut_cstl_slist_iterator.h"
@@ -276,6 +277,73 @@ void test__slist_iterator_get_pointer__successfully_cstr(void** state)
     slist_init_elem(pslist, 10, "abcdefg");
     it_iter = slist_begin(pslist);
     assert_true(strcmp((char*)_slist_iterator_get_pointer(it_iter), "abcdefg") == 0);
+
+    slist_destroy(pslist);
+}
+
+/*
+ * test _slist_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_slist_iterator_get_pointer_ignore_cstr)
+void test__slist_iterator_get_pointer_ignore_cstr__invalid_iter(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(int);
+
+    slist_init_elem(pslist, 10, 100);
+    it_iter = slist_begin(pslist);
+    it_iter._t_pos._pby_corepos = (_byte_t*)0x99;
+    expect_assert_failure(_slist_iterator_get_pointer_ignore_cstr(it_iter));
+
+    slist_destroy(pslist);
+}
+
+void test__slist_iterator_get_pointer_ignore_cstr__invalid_iter_container_type(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(int);
+
+    slist_init_elem(pslist, 10, 100);
+    it_iter = slist_begin(pslist);
+    it_iter._t_containertype = 224;
+    expect_assert_failure(_slist_iterator_get_pointer_ignore_cstr(it_iter));
+
+    slist_destroy(pslist);
+}
+
+void test__slist_iterator_get_pointer_ignore_cstr__invalid_iter_iterator_type(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(int);
+
+    slist_init_elem(pslist, 10, 100);
+    it_iter = slist_begin(pslist);
+    it_iter._t_iteratortype = 9999;
+    expect_assert_failure(_slist_iterator_get_pointer_ignore_cstr(it_iter));
+
+    slist_destroy(pslist);
+}
+
+void test__slist_iterator_get_pointer_ignore_cstr__successfully(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(int);
+
+    slist_init_elem(pslist, 10, 100);
+    it_iter = slist_begin(pslist);
+    assert_true(*(int*)_slist_iterator_get_pointer_ignore_cstr(it_iter) == 100);
+
+    slist_destroy(pslist);
+}
+
+void test__slist_iterator_get_pointer_ignore_cstr__successfully_cstr(void** state)
+{
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(char*);
+
+    slist_init_elem(pslist, 10, "abcdefg");
+    it_iter = slist_begin(pslist);
+    assert_true(strcmp(string_c_str(_slist_iterator_get_pointer_ignore_cstr(it_iter)), "abcdefg") == 0);
 
     slist_destroy(pslist);
 }

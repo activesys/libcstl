@@ -709,6 +709,105 @@ void test__basic_string_iterator_get_pointer__successfully_cstr(void** state)
 }
 
 /*
+ * test _basic_string_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_basic_string_iterator_get_pointer_ignore_cstr)
+void test__basic_string_iterator_get_pointer_ignore_cstr__invalid_iterator(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pt_basic_string, 10, 100);
+    it_iter = basic_string_begin(pt_basic_string);
+    it_iter._t_pos._pby_corepos = NULL;
+
+    expect_assert_failure(_basic_string_iterator_get_pointer_ignore_cstr(it_iter));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_iterator_get_pointer_ignore_cstr__invalid_iterator_container_type(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pt_basic_string, 10, 100);
+    it_iter = basic_string_begin(pt_basic_string);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_basic_string_iterator_get_pointer_ignore_cstr(it_iter));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_iterator_get_pointer_ignore_cstr__invalid_iterator_iterator_type(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pt_basic_string, 10, 100);
+    it_iter = basic_string_begin(pt_basic_string);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_basic_string_iterator_get_pointer_ignore_cstr(it_iter));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_iterator_get_pointer_ignore_cstr__invalid_iterator_container_pointer(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pt_basic_string, 10, 100);
+    it_iter = basic_string_begin(pt_basic_string);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_basic_string_iterator_get_pointer_ignore_cstr(it_iter));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_iterator_get_pointer_ignore_cstr__basic_string_end(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pt_basic_string, 10, 100);
+    it_iter = basic_string_end(pt_basic_string);
+
+    expect_assert_failure(_basic_string_iterator_get_pointer_ignore_cstr(it_iter));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_iterator_get_pointer_ignore_cstr__successfully(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pt_basic_string, 10, 100);
+    it_iter = basic_string_begin(pt_basic_string);
+
+    assert_int_equal(*(int*)_basic_string_iterator_get_pointer_ignore_cstr(it_iter), 100);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_iterator_get_pointer_ignore_cstr__successfully_cstr(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char*);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pt_basic_string, 10, "abcdefg");
+    it_iter = basic_string_begin(pt_basic_string);
+
+    assert_true(strcmp("abcdefg", string_c_str(_basic_string_iterator_get_pointer_ignore_cstr(it_iter))) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+/*
  * test _basic_string_iterator_next
  */
 UT_CASE_DEFINATION(_basic_string_iterator_next)

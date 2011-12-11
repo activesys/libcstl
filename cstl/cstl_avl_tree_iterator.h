@@ -64,6 +64,14 @@ extern void _avl_tree_iterator_get_value(_avl_tree_iterator_t it_iter, void* pv_
 extern const void* _avl_tree_iterator_get_pointer(_avl_tree_iterator_t it_iter); 
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ * @param it_iter    avl tree iterator.
+ * @return void.
+ * @remarks it_iter must be valid avl tree iterator, otherwise the behavior is undefined.
+ */
+extern const void* _avl_tree_iterator_get_pointer_ignore_cstr(_avl_tree_iterator_t it_iter); 
+
+/**
  * Return iterator reference next element.
  * @param  it_iter    current iterator.
  * @return next iterator.

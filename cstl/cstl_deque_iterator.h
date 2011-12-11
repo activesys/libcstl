@@ -105,6 +105,14 @@ extern void _deque_iterator_set_value(deque_iterator_t it_iter, const void* cpv_
 extern const void* _deque_iterator_get_pointer(deque_iterator_t it_iter); 
 
 /**
+ * Get the pointer that point to the iterator reference data, but ignore char*.
+ * @param it_iter deque iterator.
+ * @return data pointer.
+ * @remarks it_iter must be valid deque iterator, otherwise the behavior is undefined.
+ */
+extern const void* _deque_iterator_get_pointer_ignore_cstr(deque_iterator_t it_iter); 
+
+/**
  * Get the iterator that reference next data.
  * @param it_iter deque iterator.
  * @return next iterator.

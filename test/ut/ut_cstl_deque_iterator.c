@@ -7,6 +7,7 @@
 #include "cstl/citerator.h"
 #include "cstl/cstl_deque_iterator.h"
 #include "cstl/cdeque.h"
+#include "cstl/cstring.h"
 
 #include "ut_def.h"
 #include "ut_cstl_deque_iterator.h"
@@ -1064,6 +1065,147 @@ void test__deque_iterator_get_pointer__successfully_cstr_border(void** state)
     it_iter = deque_begin(pdeq);
 
     assert_true(strcmp("llskd", (char*)_deque_iterator_get_pointer(it_iter)) == 0);
+
+    deque_destroy(pdeq);
+}
+
+/*
+ * test _deque_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_deque_iterator_get_pointer_ignore_cstr)
+void test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init_n(pdeq, 10);
+    it_iter = deque_begin(pdeq);
+    it_iter._t_pos._t_dequepos._pby_corepos = NULL;
+
+    expect_assert_failure(_deque_iterator_get_pointer_ignore_cstr(it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator_container_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init_n(pdeq, 10);
+    it_iter = deque_begin(pdeq);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_deque_iterator_get_pointer_ignore_cstr(it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator_iterator_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init_n(pdeq, 10);
+    it_iter = deque_begin(pdeq);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_deque_iterator_get_pointer_ignore_cstr(it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator_container_pointer(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init_n(pdeq, 10);
+    it_iter = deque_begin(pdeq);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_deque_iterator_get_pointer_ignore_cstr(it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_iterator_get_pointer_ignore_cstr__deque_end(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init_n(pdeq, 10);
+    it_iter = deque_end(pdeq);
+
+    expect_assert_failure(_deque_iterator_get_pointer_ignore_cstr(it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_iterator_get_pointer_ignore_cstr__successfully_not_border(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_front(pdeq, 23);
+    deque_push_front(pdeq, 2);
+    deque_push_front(pdeq, 9);
+    deque_push_front(pdeq, 100);
+    it_iter = deque_begin(pdeq);
+
+    assert_int_equal(*(int*)_deque_iterator_get_pointer_ignore_cstr(it_iter), 100);
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_iterator_get_pointer_ignore_cstr__successfully_border(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 23);
+    deque_push_back(pdeq, 2);
+    deque_push_back(pdeq, 9);
+    deque_push_back(pdeq, 100);
+    it_iter = deque_begin(pdeq);
+
+    assert_int_equal(*(int*)_deque_iterator_get_pointer_ignore_cstr(it_iter), 23);
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_iterator_get_pointer_ignore_cstr__successfully_cstr_not_border(void** state)
+{
+    deque_t* pdeq = create_deque(char*);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_front(pdeq, "llskd");
+    deque_push_front(pdeq, "llllllll");
+    deque_push_front(pdeq, "bx");
+    deque_push_front(pdeq, "abcdefg");
+    it_iter = deque_begin(pdeq);
+
+    assert_true(strcmp("abcdefg", string_c_str(_deque_iterator_get_pointer_ignore_cstr(it_iter))) == 0);
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_iterator_get_pointer_ignore_cstr__successfully_cstr_border(void** state)
+{
+    deque_t* pdeq = create_deque(char*);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, "llskd");
+    deque_push_back(pdeq, "llllllll");
+    deque_push_back(pdeq, "bx");
+    deque_push_back(pdeq, "abcdefg");
+    it_iter = deque_begin(pdeq);
+
+    assert_true(strcmp("llskd", string_c_str(_deque_iterator_get_pointer_ignore_cstr(it_iter))) == 0);
 
     deque_destroy(pdeq);
 }

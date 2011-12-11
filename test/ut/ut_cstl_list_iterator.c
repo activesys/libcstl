@@ -8,6 +8,7 @@
 #include "cstl/cstl_list_iterator.h"
 #include "cstl/clist.h"
 #include "cstl/cvector.h"
+#include "cstl/cstring.h"
 
 #include "ut_def.h"
 #include "ut_cstl_list_iterator.h"
@@ -276,6 +277,73 @@ void test__list_iterator_get_pointer__successfully_cstr(void** state)
     list_init_elem(plist, 10, "abcdefg");
     it_iter = list_begin(plist);
     assert_true(strcmp((char*)_list_iterator_get_pointer(it_iter), "abcdefg") == 0);
+
+    list_destroy(plist);
+}
+
+/*
+ * test _list_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_list_iterator_get_pointer_ignore_cstr)
+void test__list_iterator_get_pointer_ignore_cstr__invalid_iter(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist = create_list(int);
+
+    list_init_elem(plist, 10, 100);
+    it_iter = list_begin(plist);
+    it_iter._t_pos._pby_corepos = NULL;
+    expect_assert_failure(_list_iterator_get_pointer_ignore_cstr(it_iter));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_get_pointer_ignore_cstr__invalid_iter_container_type(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist = create_list(int);
+
+    list_init_elem(plist, 10, 100);
+    it_iter = list_begin(plist);
+    it_iter._t_containertype = 224;
+    expect_assert_failure(_list_iterator_get_pointer_ignore_cstr(it_iter));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_get_pointer_ignore_cstr__invalid_iter_iterator_type(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist = create_list(int);
+
+    list_init_elem(plist, 10, 100);
+    it_iter = list_begin(plist);
+    it_iter._t_iteratortype = 9999;
+    expect_assert_failure(_list_iterator_get_pointer_ignore_cstr(it_iter));
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_get_pointer_ignore_cstr__successfully(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist = create_list(int);
+
+    list_init_elem(plist, 10, 100);
+    it_iter = list_begin(plist);
+    assert_true(*(int*)_list_iterator_get_pointer_ignore_cstr(it_iter) == 100);
+
+    list_destroy(plist);
+}
+
+void test__list_iterator_get_pointer_ignore_cstr__successfully_cstr(void** state)
+{
+    list_iterator_t it_iter;
+    list_t* plist = create_list(char*);
+
+    list_init_elem(plist, 10, "abcdefg");
+    it_iter = list_begin(plist);
+    assert_true(strcmp(string_c_str(_list_iterator_get_pointer_ignore_cstr(it_iter)), "abcdefg") == 0);
 
     list_destroy(plist);
 }

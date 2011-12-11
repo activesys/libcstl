@@ -35,6 +35,19 @@ void test__multimap_iterator_get_pointer__cstr(void** state);
 void test__multimap_iterator_get_pointer__libcstl_builtin(void** state);
 void test__multimap_iterator_get_pointer__user_define(void** state);
 /*
+ * test _multimap_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DECLARATION(_multimap_iterator_get_pointer_ignore_cstr)
+void test__multimap_iterator_get_pointer_ignore_cstr__null_corepos(void** state);
+void test__multimap_iterator_get_pointer_ignore_cstr__null_tree(void** state);
+void test__multimap_iterator_get_pointer_ignore_cstr__invalid_container_type(void** state);
+void test__multimap_iterator_get_pointer_ignore_cstr__invalid_iterator_type(void** state);
+void test__multimap_iterator_get_pointer_ignore_cstr__end(void** state);
+void test__multimap_iterator_get_pointer_ignore_cstr__c_builtin(void** state);
+void test__multimap_iterator_get_pointer_ignore_cstr__cstr(void** state);
+void test__multimap_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state);
+void test__multimap_iterator_get_pointer_ignore_cstr__user_define(void** state);
+/*
  * test _multimap_iterator_next
  */
 UT_CASE_DECLARATION(_multimap_iterator_next)
@@ -107,6 +120,15 @@ void test__multimap_iterator_before__false(void** state);
     UT_CASE(test__multimap_iterator_get_pointer__cstr),\
     UT_CASE(test__multimap_iterator_get_pointer__libcstl_builtin),\
     UT_CASE(test__multimap_iterator_get_pointer__user_define),\
+    UT_CASE_BEGIN(_multimap_iterator_get_pointer_ignore_cstr, test__multimap_iterator_get_pointer_ignore_cstr__null_corepos),\
+    UT_CASE(test__multimap_iterator_get_pointer_ignore_cstr__null_tree),\
+    UT_CASE(test__multimap_iterator_get_pointer_ignore_cstr__invalid_container_type),\
+    UT_CASE(test__multimap_iterator_get_pointer_ignore_cstr__invalid_iterator_type),\
+    UT_CASE(test__multimap_iterator_get_pointer_ignore_cstr__end),\
+    UT_CASE(test__multimap_iterator_get_pointer_ignore_cstr__c_builtin),\
+    UT_CASE(test__multimap_iterator_get_pointer_ignore_cstr__cstr),\
+    UT_CASE(test__multimap_iterator_get_pointer_ignore_cstr__libcstl_builtin),\
+    UT_CASE(test__multimap_iterator_get_pointer_ignore_cstr__user_define),\
     UT_CASE_BEGIN(_multimap_iterator_next, test__multimap_iterator_next__null_corepos),\
     UT_CASE(test__multimap_iterator_next__null_tree),\
     UT_CASE(test__multimap_iterator_next__invalid_container_type),\

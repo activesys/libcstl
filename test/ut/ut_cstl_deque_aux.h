@@ -82,6 +82,19 @@ void test__deque_same_deque_iterator_type__same_type_belong_to_deque(void** stat
 void test__deque_same_deque_iterator_type__same_type_not_belong_to_deque(void** state);
 void test__deque_same_deque_iterator_type__not_same_type(void** state);
 /*
+ * test _deque_same_iterator_type
+ */
+UT_CASE_DECLARATION(_deque_same_iterator_type)
+void test__deque_same_iterator_type__null_deque_container(void** state);
+void test__deque_same_iterator_type__invalid_iterator_null_container(void** state);
+void test__deque_same_iterator_type__invalid_iterator_container_type(void** state);
+void test__deque_same_iterator_type__invalid_iterator_iterator_type(void** state);
+void test__deque_same_iterator_type__same_type_belong_to_deque(void** state);
+void test__deque_same_iterator_type__same_type_not_belong_to_deque(void** state);
+void test__deque_same_iterator_type__not_same_type(void** state);
+void test__deque_same_iterator_type__same_type_not_deque_iterator(void** state);
+void test__deque_same_iterator_type__not_same_type_not_deque_iterator(void** state);
+/*
  * test _deque_get_varg_value_auxiliary
  */
 UT_CASE_DECLARATION(_deque_get_varg_value_auxiliary)
@@ -291,6 +304,15 @@ void test__deque_move_elem_to_begin__middle_to_middle(void** state);
     UT_CASE(test__deque_same_deque_iterator_type__same_type_belong_to_deque),\
     UT_CASE(test__deque_same_deque_iterator_type__same_type_not_belong_to_deque),\
     UT_CASE(test__deque_same_deque_iterator_type__not_same_type),\
+    UT_CASE_BEGIN(_deque_same_iterator_type, test__deque_same_iterator_type__null_deque_container),\
+    UT_CASE(test__deque_same_iterator_type__invalid_iterator_null_container),\
+    UT_CASE(test__deque_same_iterator_type__invalid_iterator_container_type),\
+    UT_CASE(test__deque_same_iterator_type__invalid_iterator_iterator_type),\
+    UT_CASE(test__deque_same_iterator_type__same_type_belong_to_deque),\
+    UT_CASE(test__deque_same_iterator_type__same_type_not_belong_to_deque),\
+    UT_CASE(test__deque_same_iterator_type__not_same_type),\
+    UT_CASE(test__deque_same_iterator_type__same_type_not_deque_iterator),\
+    UT_CASE(test__deque_same_iterator_type__not_same_type_not_deque_iterator),\
     UT_CASE_BEGIN(_deque_get_varg_value_auxiliary, test__deque_get_varg_value_auxiliary__null_deque_container),\
     UT_CASE(test__deque_get_varg_value_auxiliary__null_node),\
     UT_CASE(test__deque_get_varg_value_auxiliary__non_created_deque_containter),\

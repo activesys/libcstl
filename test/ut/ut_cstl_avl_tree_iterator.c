@@ -276,6 +276,117 @@ void test__avl_tree_iterator_get_pointer__user_define(void** state)
 }
 
 /*
+ * test _avl_tree_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_avl_tree_iterator_get_pointer_ignore_cstr)
+void test__avl_tree_iterator_get_pointer_ignore_cstr__null_corepos(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    it_iter = _avl_tree_begin(pt_avl_tree);
+
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
+    expect_assert_failure(_avl_tree_iterator_get_pointer_ignore_cstr(it_iter));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_iterator_get_pointer_ignore_cstr__null_tree(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    it_iter = _avl_tree_begin(pt_avl_tree);
+
+    it_iter._t_pos._t_treepos._pt_tree = NULL;
+    expect_assert_failure(_avl_tree_iterator_get_pointer_ignore_cstr(it_iter));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_iterator_get_pointer_ignore_cstr__end(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+    _avl_tree_init(pt_avl_tree, NULL);
+
+    it_iter = _avl_tree_end(pt_avl_tree);
+
+    expect_assert_failure(_avl_tree_iterator_get_pointer_ignore_cstr(it_iter));
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_iterator_get_pointer_ignore_cstr__c_builtin(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+    int elem = 12;
+    _avl_tree_init(pt_avl_tree, NULL);
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+
+    it_iter = _avl_tree_begin(pt_avl_tree);
+    assert_true(*(int*)_avl_tree_iterator_get_pointer_ignore_cstr(it_iter) == 12);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_iterator_get_pointer_ignore_cstr__cstr(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("char*");
+    _avl_tree_iterator_t it_iter;
+    string_t* pstr = create_string();
+    string_init_cstr(pstr, "abc");
+    _avl_tree_init(pt_avl_tree, NULL);
+    _avl_tree_insert_unique(pt_avl_tree, pstr);
+
+    it_iter = _avl_tree_begin(pt_avl_tree);
+    assert_true(strcmp(string_c_str(_avl_tree_iterator_get_pointer_ignore_cstr(it_iter)), "abc") == 0);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+void test__avl_tree_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state)
+{
+    _avl_tree_t* pt_avl_tree = _create_avl_tree("vector_t<int>");
+    _avl_tree_iterator_t it_iter;
+    vector_t* pvec = create_vector(int);
+    _avl_tree_init(pt_avl_tree, NULL);
+    vector_init_n(pvec, 10);
+    _avl_tree_insert_unique(pt_avl_tree, pvec);
+
+    it_iter = _avl_tree_begin(pt_avl_tree);
+    assert_true(vector_size((vector_t*)_avl_tree_iterator_get_pointer_ignore_cstr(it_iter)) == 10);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+typedef struct _tag_test__avl_tree_iterator_get_pointer_ignore_cstr__user_define
+{
+    int elem;
+}_test__avl_tree_iterator_get_pointer_ignore_cstr__user_define_t;
+void test__avl_tree_iterator_get_pointer_ignore_cstr__user_define(void** state)
+{
+    _avl_tree_t* pt_avl_tree = NULL;
+    _avl_tree_iterator_t it_iter;
+    _test__avl_tree_iterator_get_pointer_ignore_cstr__user_define_t elem;
+
+    type_register(_test__avl_tree_iterator_get_pointer_ignore_cstr__user_define_t, NULL, NULL, NULL, NULL);
+    pt_avl_tree = _create_avl_tree("_test__avl_tree_iterator_get_pointer_ignore_cstr__user_define_t");
+    _avl_tree_init(pt_avl_tree, NULL);
+    elem.elem = 100;
+    _avl_tree_insert_unique(pt_avl_tree, &elem);
+
+    it_iter = _avl_tree_begin(pt_avl_tree);
+    assert_true(((_test__avl_tree_iterator_get_pointer_ignore_cstr__user_define_t*)_avl_tree_iterator_get_pointer_ignore_cstr(it_iter))->elem == 100);
+
+    _avl_tree_destroy(pt_avl_tree);
+}
+
+/*
  * test _avl_tree_iterator_next
  */
 UT_CASE_DEFINATION(_avl_tree_iterator_next)

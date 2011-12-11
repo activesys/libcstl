@@ -85,6 +85,17 @@ const void* _hash_multiset_iterator_get_pointer(hash_multiset_iterator_t it_iter
 }
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _hash_multiset_iterator_get_pointer_ignore_cstr(hash_multiset_iterator_t it_iter)
+{
+    assert(_HASH_MULTISET_ITERATOR_CONTAINER_TYPE(it_iter) == _HASH_MULTISET_CONTAINER);
+    assert(_HASH_MULTISET_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+
+    return _hashtable_iterator_get_pointer_ignore_cstr(it_iter);
+}
+
+/**
  * Return iterator reference previous element.
  */
 hash_multiset_iterator_t _hash_multiset_iterator_prev(hash_multiset_iterator_t it_iter)

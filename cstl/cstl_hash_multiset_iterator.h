@@ -63,6 +63,14 @@ extern void _hash_multiset_iterator_get_value(hash_multiset_iterator_t it_iter, 
 extern const void* _hash_multiset_iterator_get_pointer(hash_multiset_iterator_t it_iter);
 
 /**
+ * Get data value pointer referenced by iterator, but, ignore char*.
+ * @param it_iter    hash_multiset iterator.
+ * @return void.
+ * @remarks it_iter must be valid hash_multiset iterator, otherwise the behavior is undefined.
+ */
+extern const void* _hash_multiset_iterator_get_pointer_ignore_cstr(hash_multiset_iterator_t it_iter);
+
+/**
  * Return iterator reference previous element.
  * @param  it_iter    current iterator.
  * @return previous iterator.

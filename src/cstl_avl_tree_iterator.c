@@ -114,6 +114,17 @@ const void* _avl_tree_iterator_get_pointer(_avl_tree_iterator_t it_iter)
 }
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _avl_tree_iterator_get_pointer_ignore_cstr(_avl_tree_iterator_t it_iter)
+{
+    assert(_avl_tree_iterator_belong_to_avl_tree(_AVL_TREE_ITERATOR_TREE(it_iter), it_iter));
+    assert(!_avl_tree_iterator_equal(it_iter, _avl_tree_end(_AVL_TREE_ITERATOR_TREE(it_iter))));
+
+    return ((_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_iter))->_pby_data;
+}
+
+/**
  * Return iterator reference next element.
  */
 _avl_tree_iterator_t _avl_tree_iterator_next(_avl_tree_iterator_t it_iter)

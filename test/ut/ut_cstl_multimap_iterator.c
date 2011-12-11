@@ -376,6 +376,164 @@ void test__multimap_iterator_get_pointer__user_define(void** state)
 }
 
 /*
+ * test _multimap_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_multimap_iterator_get_pointer_ignore_cstr)
+void test__multimap_iterator_get_pointer_ignore_cstr__null_corepos(void** state)
+{
+    multimap_t* pt_multimap = create_multimap(int, int);
+    multimap_iterator_t it_iter;
+    multimap_init_ex(pt_multimap, NULL);
+
+    it_iter = multimap_begin(pt_multimap);
+
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
+    expect_assert_failure(_multimap_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multimap_destroy(pt_multimap);
+}
+
+void test__multimap_iterator_get_pointer_ignore_cstr__null_tree(void** state)
+{
+    multimap_t* pt_multimap = create_multimap(int, int);
+    multimap_iterator_t it_iter;
+    multimap_init_ex(pt_multimap, NULL);
+
+    it_iter = multimap_begin(pt_multimap);
+
+    it_iter._t_pos._t_treepos._pt_tree = NULL;
+    expect_assert_failure(_multimap_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multimap_destroy(pt_multimap);
+}
+
+void test__multimap_iterator_get_pointer_ignore_cstr__invalid_container_type(void** state)
+{
+    multimap_t* pt_multimap = create_multimap(int, int);
+    multimap_iterator_t it_iter;
+    multimap_init_ex(pt_multimap, NULL);
+
+    it_iter = multimap_begin(pt_multimap);
+
+    it_iter._t_containertype = 9384;
+    expect_assert_failure(_multimap_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multimap_destroy(pt_multimap);
+}
+
+void test__multimap_iterator_get_pointer_ignore_cstr__invalid_iterator_type(void** state)
+{
+    multimap_t* pt_multimap = create_multimap(int, int);
+    multimap_iterator_t it_iter;
+    multimap_init_ex(pt_multimap, NULL);
+
+    it_iter = multimap_begin(pt_multimap);
+
+    it_iter._t_iteratortype = 3333;
+    expect_assert_failure(_multimap_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multimap_destroy(pt_multimap);
+}
+
+void test__multimap_iterator_get_pointer_ignore_cstr__end(void** state)
+{
+    multimap_t* pt_multimap = create_multimap(int, int);
+    multimap_iterator_t it_iter;
+    multimap_init_ex(pt_multimap, NULL);
+
+    it_iter = multimap_end(pt_multimap);
+
+    expect_assert_failure(_multimap_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multimap_destroy(pt_multimap);
+}
+
+void test__multimap_iterator_get_pointer_ignore_cstr__c_builtin(void** state)
+{
+    multimap_t* pt_multimap = create_multimap(int, int);
+    pair_t* pt_pair = create_pair(int, int);
+    multimap_iterator_t it_iter;
+    int elem = 12;
+    multimap_init_ex(pt_multimap, NULL);
+    pair_init_elem(pt_pair, elem, elem);
+    multimap_insert(pt_multimap, pt_pair);
+
+    it_iter = multimap_begin(pt_multimap);
+    assert_true(*(int*)pair_first((pair_t*)_multimap_iterator_get_pointer_ignore_cstr(it_iter)) == 12);
+    assert_true(*(int*)pair_second((pair_t*)_multimap_iterator_get_pointer_ignore_cstr(it_iter)) == 12);
+
+    multimap_destroy(pt_multimap);
+    pair_destroy(pt_pair);
+}
+
+void test__multimap_iterator_get_pointer_ignore_cstr__cstr(void** state)
+{
+    multimap_t* pt_multimap = create_multimap(char*, char*);
+    pair_t* pt_pair = create_pair(char*, char*);
+    multimap_iterator_t it_iter;
+    multimap_init_ex(pt_multimap, NULL);
+    pair_init_elem(pt_pair, "abc", "def");
+    multimap_insert(pt_multimap, pt_pair);
+
+    it_iter = multimap_begin(pt_multimap);
+    assert_true(strcmp((char*)pair_first((pair_t*)_multimap_iterator_get_pointer_ignore_cstr(it_iter)), "abc") == 0);
+    assert_true(strcmp((char*)pair_second((pair_t*)_multimap_iterator_get_pointer_ignore_cstr(it_iter)), "def") == 0);
+
+    multimap_destroy(pt_multimap);
+    pair_destroy(pt_pair);
+}
+
+void test__multimap_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state)
+{
+    multimap_t* pt_multimap = create_multimap(vector_t<int>, list_t<int>);
+    pair_t* pt_pair = create_pair(vector_t<int>, list_t<int>);
+    multimap_iterator_t it_iter;
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    multimap_init_ex(pt_multimap, NULL);
+    vector_init_n(pvec, 10);
+    list_init(plist);
+    pair_init_elem(pt_pair, pvec, plist);
+    multimap_insert(pt_multimap, pt_pair);
+
+    it_iter = multimap_begin(pt_multimap);
+    assert_true(vector_size((vector_t*)pair_first((pair_t*)_multimap_iterator_get_pointer_ignore_cstr(it_iter))) == 10);
+    assert_true(list_size((list_t*)pair_second((pair_t*)_multimap_iterator_get_pointer_ignore_cstr(it_iter))) == 0);
+
+    multimap_destroy(pt_multimap);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+typedef struct _tag_test__multimap_iterator_get_pointer_ignore_cstr__user_define
+{
+    int elem;
+}_test__multimap_iterator_get_pointer_ignore_cstr__user_define_t;
+void test__multimap_iterator_get_pointer_ignore_cstr__user_define(void** state)
+{
+    multimap_t* pt_multimap = NULL;
+    pair_t* pt_pair = NULL;
+    multimap_iterator_t it_iter;
+    _test__multimap_iterator_get_pointer_ignore_cstr__user_define_t elem;
+
+    type_register(_test__multimap_iterator_get_pointer_ignore_cstr__user_define_t, NULL, NULL, NULL, NULL);
+    pt_multimap = create_multimap(_test__multimap_iterator_get_pointer_ignore_cstr__user_define_t, _test__multimap_iterator_get_pointer_ignore_cstr__user_define_t);
+    pt_pair = create_pair(_test__multimap_iterator_get_pointer_ignore_cstr__user_define_t, _test__multimap_iterator_get_pointer_ignore_cstr__user_define_t);
+    multimap_init_ex(pt_multimap, NULL);
+    elem.elem = 100;
+    pair_init_elem(pt_pair, &elem, &elem);
+    multimap_insert(pt_multimap, pt_pair);
+
+    it_iter = multimap_begin(pt_multimap);
+    assert_true(((_test__multimap_iterator_get_pointer_ignore_cstr__user_define_t*)pair_first((pair_t*)_multimap_iterator_get_pointer_ignore_cstr(it_iter)))->elem == 100);
+    assert_true(((_test__multimap_iterator_get_pointer_ignore_cstr__user_define_t*)pair_second((pair_t*)_multimap_iterator_get_pointer_ignore_cstr(it_iter)))->elem == 100);
+
+    multimap_destroy(pt_multimap);
+    pair_destroy(pt_pair);
+}
+
+/*
  * test _multimap_iterator_next
  */
 UT_CASE_DEFINATION(_multimap_iterator_next)

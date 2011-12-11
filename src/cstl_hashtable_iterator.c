@@ -128,6 +128,17 @@ const void* _hashtable_iterator_get_pointer(_hashtable_iterator_t it_iter)
 }
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _hashtable_iterator_get_pointer_ignore_cstr(_hashtable_iterator_t it_iter)
+{
+    assert(_hashtable_iterator_belong_to_hashtable(_HASHTABLE_ITERATOR_HASHTABLE(it_iter), it_iter));
+    assert(!_hashtable_iterator_equal(it_iter, _hashtable_end(_HASHTABLE_ITERATOR_HASHTABLE(it_iter))));
+
+    return ((_hashnode_t*)_HASHTABLE_ITERATOR_COREPOS(it_iter))->_pby_data;
+}
+
+/**
  * Return iterator reference previous element.
  */
 _hashtable_iterator_t _hashtable_iterator_prev(_hashtable_iterator_t it_iter)

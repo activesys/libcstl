@@ -376,6 +376,164 @@ void test__map_iterator_get_pointer__user_define(void** state)
 }
 
 /*
+ * test _map_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_map_iterator_get_pointer_ignore_cstr)
+void test__map_iterator_get_pointer_ignore_cstr__null_corepos(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    map_iterator_t it_iter;
+    map_init_ex(pt_map, NULL);
+
+    it_iter = map_begin(pt_map);
+
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
+    expect_assert_failure(_map_iterator_get_pointer_ignore_cstr(it_iter));
+
+    map_destroy(pt_map);
+}
+
+void test__map_iterator_get_pointer_ignore_cstr__null_tree(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    map_iterator_t it_iter;
+    map_init_ex(pt_map, NULL);
+
+    it_iter = map_begin(pt_map);
+
+    it_iter._t_pos._t_treepos._pt_tree = NULL;
+    expect_assert_failure(_map_iterator_get_pointer_ignore_cstr(it_iter));
+
+    map_destroy(pt_map);
+}
+
+void test__map_iterator_get_pointer_ignore_cstr__invalid_container_type(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    map_iterator_t it_iter;
+    map_init_ex(pt_map, NULL);
+
+    it_iter = map_begin(pt_map);
+
+    it_iter._t_containertype = 9384;
+    expect_assert_failure(_map_iterator_get_pointer_ignore_cstr(it_iter));
+
+    map_destroy(pt_map);
+}
+
+void test__map_iterator_get_pointer_ignore_cstr__invalid_iterator_type(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    map_iterator_t it_iter;
+    map_init_ex(pt_map, NULL);
+
+    it_iter = map_begin(pt_map);
+
+    it_iter._t_iteratortype = 3333;
+    expect_assert_failure(_map_iterator_get_pointer_ignore_cstr(it_iter));
+
+    map_destroy(pt_map);
+}
+
+void test__map_iterator_get_pointer_ignore_cstr__end(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    map_iterator_t it_iter;
+    map_init_ex(pt_map, NULL);
+
+    it_iter = map_end(pt_map);
+
+    expect_assert_failure(_map_iterator_get_pointer_ignore_cstr(it_iter));
+
+    map_destroy(pt_map);
+}
+
+void test__map_iterator_get_pointer_ignore_cstr__c_builtin(void** state)
+{
+    map_t* pt_map = create_map(int, int);
+    pair_t* pt_pair = create_pair(int, int);
+    map_iterator_t it_iter;
+    int elem = 12;
+    map_init_ex(pt_map, NULL);
+    pair_init_elem(pt_pair, elem, elem);
+    map_insert(pt_map, pt_pair);
+
+    it_iter = map_begin(pt_map);
+    assert_true(*(int*)pair_first((pair_t*)_map_iterator_get_pointer_ignore_cstr(it_iter)) == 12);
+    assert_true(*(int*)pair_second((pair_t*)_map_iterator_get_pointer_ignore_cstr(it_iter)) == 12);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+void test__map_iterator_get_pointer_ignore_cstr__cstr(void** state)
+{
+    map_t* pt_map = create_map(char*, char*);
+    pair_t* pt_pair = create_pair(char*, char*);
+    map_iterator_t it_iter;
+    map_init_ex(pt_map, NULL);
+    pair_init_elem(pt_pair, "abc", "def");
+    map_insert(pt_map, pt_pair);
+
+    it_iter = map_begin(pt_map);
+    assert_true(strcmp((char*)pair_first((pair_t*)_map_iterator_get_pointer_ignore_cstr(it_iter)), "abc") == 0);
+    assert_true(strcmp((char*)pair_second((pair_t*)_map_iterator_get_pointer_ignore_cstr(it_iter)), "def") == 0);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+void test__map_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state)
+{
+    map_t* pt_map = create_map(vector_t<int>, list_t<int>);
+    pair_t* pt_pair = create_pair(vector_t<int>, list_t<int>);
+    map_iterator_t it_iter;
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    map_init_ex(pt_map, NULL);
+    vector_init_n(pvec, 10);
+    list_init(plist);
+    pair_init_elem(pt_pair, pvec, plist);
+    map_insert(pt_map, pt_pair);
+
+    it_iter = map_begin(pt_map);
+    assert_true(vector_size((vector_t*)pair_first((pair_t*)_map_iterator_get_pointer_ignore_cstr(it_iter))) == 10);
+    assert_true(list_size((list_t*)pair_second((pair_t*)_map_iterator_get_pointer_ignore_cstr(it_iter))) == 0);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+typedef struct _tag_test__map_iterator_get_pointer_ignore_cstr__user_define
+{
+    int elem;
+}_test__map_iterator_get_pointer_ignore_cstr__user_define_t;
+void test__map_iterator_get_pointer_ignore_cstr__user_define(void** state)
+{
+    map_t* pt_map = NULL;
+    pair_t* pt_pair = NULL;
+    map_iterator_t it_iter;
+    _test__map_iterator_get_pointer_ignore_cstr__user_define_t elem;
+
+    type_register(_test__map_iterator_get_pointer_ignore_cstr__user_define_t, NULL, NULL, NULL, NULL);
+    pt_map = create_map(_test__map_iterator_get_pointer_ignore_cstr__user_define_t, _test__map_iterator_get_pointer_ignore_cstr__user_define_t);
+    pt_pair = create_pair(_test__map_iterator_get_pointer_ignore_cstr__user_define_t, _test__map_iterator_get_pointer_ignore_cstr__user_define_t);
+    map_init_ex(pt_map, NULL);
+    elem.elem = 100;
+    pair_init_elem(pt_pair, &elem, &elem);
+    map_insert(pt_map, pt_pair);
+
+    it_iter = map_begin(pt_map);
+    assert_true(((_test__map_iterator_get_pointer_ignore_cstr__user_define_t*)pair_first((pair_t*)_map_iterator_get_pointer_ignore_cstr(it_iter)))->elem == 100);
+    assert_true(((_test__map_iterator_get_pointer_ignore_cstr__user_define_t*)pair_second((pair_t*)_map_iterator_get_pointer_ignore_cstr(it_iter)))->elem == 100);
+
+    map_destroy(pt_map);
+    pair_destroy(pt_pair);
+}
+
+/*
  * test _map_iterator_next
  */
 UT_CASE_DEFINATION(_map_iterator_next)

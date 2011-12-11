@@ -51,6 +51,8 @@ void test_deque_init_copy_range__c_builtin(void** state);
 void test_deque_init_copy_range__cstr(void** state);
 void test_deque_init_copy_range__libcstl_builtin(void** state);
 void test_deque_init_copy_range__user_define(void** state);
+void test_deque_init_copy_range__other_container_range(void** state);
+void test_deque_init_copy_range__other_container_range_1(void** state);
 /*
  * test deque_destroy
  */
@@ -383,6 +385,8 @@ void test_deque_resize__successfully_10_resize_1000(void** state);
     UT_CASE(test_deque_init_copy_range__cstr),\
     UT_CASE(test_deque_init_copy_range__libcstl_builtin),\
     UT_CASE(test_deque_init_copy_range__user_define),\
+    UT_CASE(test_deque_init_copy_range__other_container_range),\
+    UT_CASE(test_deque_init_copy_range__other_container_range_1),\
     UT_CASE_BEGIN(deque_destroy, test_deque_destroy__null_deque_container),\
     UT_CASE(test_deque_destroy__non_created_deque_container),\
     UT_CASE(test_deque_destroy__created_non_inited),\

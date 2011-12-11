@@ -360,6 +360,157 @@ void test__hash_multiset_iterator_get_pointer__user_define(void** state)
 }
 
 /*
+ * test _hash_multiset_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_hash_multiset_iterator_get_pointer_ignore_cstr)
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__null_corepos(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = create_hash_multiset(int);
+    hash_multiset_iterator_t it_iter;
+    hash_multiset_init(pt_hash_multiset);
+
+    it_iter = hash_multiset_begin(pt_hash_multiset);
+
+    it_iter._t_pos._t_hashpos._pby_corepos = NULL;
+    expect_assert_failure(_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__null_hashtable(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = create_hash_multiset(int);
+    hash_multiset_iterator_t it_iter;
+    hash_multiset_init(pt_hash_multiset);
+
+    it_iter = hash_multiset_begin(pt_hash_multiset);
+
+    it_iter._t_pos._t_hashpos._pt_hashtable = NULL;
+    expect_assert_failure(_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__null_bucketpos(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = create_hash_multiset(int);
+    hash_multiset_iterator_t it_iter;
+    hash_multiset_init(pt_hash_multiset);
+
+    it_iter = hash_multiset_begin(pt_hash_multiset);
+
+    it_iter._t_pos._t_hashpos._pby_bucketpos = NULL;
+    expect_assert_failure(_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__invalid_container_type(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = create_hash_multiset(int);
+    hash_multiset_iterator_t it_iter;
+    hash_multiset_init(pt_hash_multiset);
+
+    it_iter = hash_multiset_begin(pt_hash_multiset);
+
+    it_iter._t_containertype = 9384;
+    expect_assert_failure(_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__invalid_iterator_type(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = create_hash_multiset(int);
+    hash_multiset_iterator_t it_iter;
+    hash_multiset_init(pt_hash_multiset);
+
+    it_iter = hash_multiset_begin(pt_hash_multiset);
+
+    it_iter._t_iteratortype = 3333;
+    expect_assert_failure(_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__end(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = create_hash_multiset(int);
+    hash_multiset_iterator_t it_iter;
+    hash_multiset_init(pt_hash_multiset);
+
+    it_iter = hash_multiset_end(pt_hash_multiset);
+
+    expect_assert_failure(_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__c_builtin(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = create_hash_multiset(int);
+    hash_multiset_iterator_t it_iter;
+    int elem = 12;
+    hash_multiset_init(pt_hash_multiset);
+    hash_multiset_insert(pt_hash_multiset, elem);
+
+    it_iter = hash_multiset_begin(pt_hash_multiset);
+    assert_true(*(int*)_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter) == 12);
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__cstr(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = create_hash_multiset(char*);
+    hash_multiset_iterator_t it_iter;
+    hash_multiset_init(pt_hash_multiset);
+    hash_multiset_insert(pt_hash_multiset, "abc");
+
+    it_iter = hash_multiset_begin(pt_hash_multiset);
+    assert_true(strcmp(string_c_str(_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter)), "abc") == 0);
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = create_hash_multiset(vector_t<int>);
+    hash_multiset_iterator_t it_iter;
+    vector_t* pvec = create_vector(int);
+    hash_multiset_init(pt_hash_multiset);
+    vector_init_n(pvec, 10);
+    hash_multiset_insert(pt_hash_multiset, pvec);
+
+    it_iter = hash_multiset_begin(pt_hash_multiset);
+    assert_true(vector_size((vector_t*)_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter)) == 10);
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+typedef struct _tag_test__hash_multiset_iterator_get_pointer_ignore_cstr__user_define
+{
+    int elem;
+}_test__hash_multiset_iterator_get_pointer_ignore_cstr__user_define_t;
+void test__hash_multiset_iterator_get_pointer_ignore_cstr__user_define(void** state)
+{
+    hash_multiset_t* pt_hash_multiset = NULL;
+    hash_multiset_iterator_t it_iter;
+    _test__hash_multiset_iterator_get_pointer_ignore_cstr__user_define_t elem;
+
+    type_register(_test__hash_multiset_iterator_get_pointer_ignore_cstr__user_define_t, NULL, NULL, NULL, NULL);
+    pt_hash_multiset = create_hash_multiset(_test__hash_multiset_iterator_get_pointer_ignore_cstr__user_define_t);
+    hash_multiset_init(pt_hash_multiset);
+    elem.elem = 100;
+    hash_multiset_insert(pt_hash_multiset, &elem);
+
+    it_iter = hash_multiset_begin(pt_hash_multiset);
+    assert_true(((_test__hash_multiset_iterator_get_pointer_ignore_cstr__user_define_t*)_hash_multiset_iterator_get_pointer_ignore_cstr(it_iter))->elem == 100);
+
+    hash_multiset_destroy(pt_hash_multiset);
+}
+
+/*
  * test _hash_multiset_iterator_next
  */
 UT_CASE_DEFINATION(_hash_multiset_iterator_next)

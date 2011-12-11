@@ -106,6 +106,21 @@ const void* _map_iterator_get_pointer(map_iterator_t it_iter)
 }
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _map_iterator_get_pointer_ignore_cstr(map_iterator_t it_iter)
+{
+    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_iter) == _MAP_CONTAINER);
+    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+
+#ifdef CSTL_MAP_AVL_TREE
+    return _avl_tree_iterator_get_pointer_ignore_cstr(it_iter);
+#else
+    return _rb_tree_iterator_get_pointer_ignore_cstr(it_iter);
+#endif
+}
+
+/**
  * Return iterator reference next element.
  */
 map_iterator_t _map_iterator_next(map_iterator_t it_iter)

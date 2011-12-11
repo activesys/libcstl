@@ -140,6 +140,17 @@ const void* _slist_iterator_get_pointer(slist_iterator_t it_iter)
 }
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _slist_iterator_get_pointer_ignore_cstr(slist_iterator_t it_iter)
+{
+    assert(_slist_iterator_belong_to_slist(_SLIST_ITERATOR_CONTAINER(it_iter), it_iter));
+    assert(!iterator_equal(it_iter, slist_end(_SLIST_ITERATOR_CONTAINER(it_iter))));
+
+    return ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data;
+}
+
+/**
  * Return iterator reference next element.
  */
 slist_iterator_t _slist_iterator_next(slist_iterator_t it_iter)

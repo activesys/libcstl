@@ -123,6 +123,24 @@ const void* _basic_string_iterator_get_pointer(basic_string_iterator_t it_iter)
 }
 
 /**
+ * Get the pointer that point to the iterator reference data, but ignore char*.
+ */
+const void* _basic_string_iterator_get_pointer_ignore_cstr(basic_string_iterator_t it_iter)
+{
+    void* pv_pointer = NULL;
+
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
+
+    _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
+
+    pv_pointer = (void*)_vector_iterator_get_pointer_ignore_cstr(it_iter);
+
+    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
+
+    return pv_pointer;
+}
+
+/**
  * Get the iterator that reference next data.
  */
 basic_string_iterator_t _basic_string_iterator_next(basic_string_iterator_t it_iter)

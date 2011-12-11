@@ -107,7 +107,6 @@ void _list_iterator_set_value(list_iterator_t it_iter, const void* cpv_value)
     }
 }
 
-
 /**
  * Get data value pointer referenced by iterator.
  */
@@ -125,6 +124,17 @@ const void* _list_iterator_get_pointer(list_iterator_t it_iter)
     {
         return ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data;
     }
+}
+
+/**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _list_iterator_get_pointer_ignore_cstr(list_iterator_t it_iter)
+{
+    assert(_list_iterator_belong_to_list(_LIST_ITERATOR_CONTAINER(it_iter), it_iter));
+    assert(!iterator_equal(it_iter, list_end(_LIST_ITERATOR_CONTAINER(it_iter))));
+
+    return ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data;
 }
 
 /**

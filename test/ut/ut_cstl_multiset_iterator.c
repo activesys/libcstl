@@ -331,6 +331,143 @@ void test__multiset_iterator_get_pointer__user_define(void** state)
 }
 
 /*
+ * test _multiset_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DEFINATION(_multiset_iterator_get_pointer_ignore_cstr)
+void test__multiset_iterator_get_pointer_ignore_cstr__null_corepos(void** state)
+{
+    multiset_t* pt_multiset = create_multiset(int);
+    multiset_iterator_t it_iter;
+    multiset_init_ex(pt_multiset, NULL);
+
+    it_iter = multiset_begin(pt_multiset);
+
+    it_iter._t_pos._t_treepos._pby_corepos = NULL;
+    expect_assert_failure(_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multiset_destroy(pt_multiset);
+}
+
+void test__multiset_iterator_get_pointer_ignore_cstr__null_tree(void** state)
+{
+    multiset_t* pt_multiset = create_multiset(int);
+    multiset_iterator_t it_iter;
+    multiset_init_ex(pt_multiset, NULL);
+
+    it_iter = multiset_begin(pt_multiset);
+
+    it_iter._t_pos._t_treepos._pt_tree = NULL;
+    expect_assert_failure(_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multiset_destroy(pt_multiset);
+}
+
+void test__multiset_iterator_get_pointer_ignore_cstr__invalid_container_type(void** state)
+{
+    multiset_t* pt_multiset = create_multiset(int);
+    multiset_iterator_t it_iter;
+    multiset_init_ex(pt_multiset, NULL);
+
+    it_iter = multiset_begin(pt_multiset);
+
+    it_iter._t_containertype = 9384;
+    expect_assert_failure(_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multiset_destroy(pt_multiset);
+}
+
+void test__multiset_iterator_get_pointer_ignore_cstr__invalid_iterator_type(void** state)
+{
+    multiset_t* pt_multiset = create_multiset(int);
+    multiset_iterator_t it_iter;
+    multiset_init_ex(pt_multiset, NULL);
+
+    it_iter = multiset_begin(pt_multiset);
+
+    it_iter._t_iteratortype = 3333;
+    expect_assert_failure(_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multiset_destroy(pt_multiset);
+}
+
+void test__multiset_iterator_get_pointer_ignore_cstr__end(void** state)
+{
+    multiset_t* pt_multiset = create_multiset(int);
+    multiset_iterator_t it_iter;
+    multiset_init_ex(pt_multiset, NULL);
+
+    it_iter = multiset_end(pt_multiset);
+
+    expect_assert_failure(_multiset_iterator_get_pointer_ignore_cstr(it_iter));
+
+    multiset_destroy(pt_multiset);
+}
+
+void test__multiset_iterator_get_pointer_ignore_cstr__c_builtin(void** state)
+{
+    multiset_t* pt_multiset = create_multiset(int);
+    multiset_iterator_t it_iter;
+    int elem = 12;
+    multiset_init_ex(pt_multiset, NULL);
+    multiset_insert(pt_multiset, elem);
+
+    it_iter = multiset_begin(pt_multiset);
+    assert_true(*(int*)_multiset_iterator_get_pointer_ignore_cstr(it_iter) == 12);
+
+    multiset_destroy(pt_multiset);
+}
+
+void test__multiset_iterator_get_pointer_ignore_cstr__cstr(void** state)
+{
+    multiset_t* pt_multiset = create_multiset(char*);
+    multiset_iterator_t it_iter;
+    multiset_init_ex(pt_multiset, NULL);
+    multiset_insert(pt_multiset, "abc");
+
+    it_iter = multiset_begin(pt_multiset);
+    assert_true(strcmp(string_c_str(_multiset_iterator_get_pointer_ignore_cstr(it_iter)), "abc") == 0);
+
+    multiset_destroy(pt_multiset);
+}
+
+void test__multiset_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state)
+{
+    multiset_t* pt_multiset = create_multiset(vector_t<int>);
+    multiset_iterator_t it_iter;
+    vector_t* pvec = create_vector(int);
+    multiset_init_ex(pt_multiset, NULL);
+    vector_init_n(pvec, 10);
+    multiset_insert(pt_multiset, pvec);
+
+    it_iter = multiset_begin(pt_multiset);
+    assert_true(vector_size((vector_t*)_multiset_iterator_get_pointer_ignore_cstr(it_iter)) == 10);
+
+    multiset_destroy(pt_multiset);
+}
+
+typedef struct _tag_test__multiset_iterator_get_pointer_ignore_cstr__user_define
+{
+    int elem;
+}_test__multiset_iterator_get_pointer_ignore_cstr__user_define_t;
+void test__multiset_iterator_get_pointer_ignore_cstr__user_define(void** state)
+{
+    multiset_t* pt_multiset = NULL;
+    multiset_iterator_t it_iter;
+    _test__multiset_iterator_get_pointer_ignore_cstr__user_define_t elem;
+
+    type_register(_test__multiset_iterator_get_pointer_ignore_cstr__user_define_t, NULL, NULL, NULL, NULL);
+    pt_multiset = create_multiset(_test__multiset_iterator_get_pointer_ignore_cstr__user_define_t);
+    multiset_init_ex(pt_multiset, NULL);
+    elem.elem = 100;
+    multiset_insert(pt_multiset, &elem);
+
+    it_iter = multiset_begin(pt_multiset);
+    assert_true(((_test__multiset_iterator_get_pointer_ignore_cstr__user_define_t*)_multiset_iterator_get_pointer_ignore_cstr(it_iter))->elem == 100);
+
+    multiset_destroy(pt_multiset);
+}
+
+/*
  * test _multiset_iterator_next
  */
 UT_CASE_DEFINATION(_multiset_iterator_next)

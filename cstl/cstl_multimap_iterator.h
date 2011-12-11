@@ -64,6 +64,14 @@ extern void _multimap_iterator_get_value(multimap_iterator_t it_iter, void* pv_v
 extern const void* _multimap_iterator_get_pointer(multimap_iterator_t it_iter);
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ * @param it_iter    multimap iterator.
+ * @return void.
+ * @remarks it_iter must be valid multimap iterator, otherwise the behavior is undefined.
+ */
+extern const void* _multimap_iterator_get_pointer_ignore_cstr(multimap_iterator_t it_iter);
+
+/**
  * Return iterator reference next element.
  * @param  it_iter    current iterator.
  * @return next iterator.

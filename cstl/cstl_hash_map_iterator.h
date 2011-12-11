@@ -63,6 +63,14 @@ extern void _hash_map_iterator_get_value(hash_map_iterator_t it_iter, void* pv_v
 extern const void* _hash_map_iterator_get_pointer(hash_map_iterator_t it_iter); 
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ * @param it_iter    hash_map iterator.
+ * @return void.
+ * @remarks it_iter must be valid hash_map iterator, otherwise the behavior is undefined.
+ */
+extern const void* _hash_map_iterator_get_pointer_ignore_cstr(hash_map_iterator_t it_iter); 
+
+/**
  * Return iterator reference previous element.
  * @param  it_iter    current iterator.
  * @return previous iterator.

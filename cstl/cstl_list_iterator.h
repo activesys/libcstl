@@ -74,6 +74,14 @@ extern void _list_iterator_set_value(list_iterator_t it_iter, const void* cpv_va
 extern const void* _list_iterator_get_pointer(list_iterator_t it_iter); 
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ * @param it_iter    list iterator.
+ * @return void.
+ * @remarks it_iter must be valid list iterator, otherwise the behavior is undefined.
+ */
+extern const void* _list_iterator_get_pointer_ignore_cstr(list_iterator_t it_iter); 
+
+/**
  * Return iterator reference next element.
  * @param  it_iter    current iterator.
  * @return next iterator.

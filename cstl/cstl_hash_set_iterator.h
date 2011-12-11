@@ -63,6 +63,14 @@ extern void _hash_set_iterator_get_value(hash_set_iterator_t t_iter, void* pv_va
 extern const void* _hash_set_iterator_get_pointer(hash_set_iterator_t t_iter); 
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ * @param it_iter    hash_set iterator.
+ * @return void.
+ * @remarks it_iter must be valid hash_set iterator, otherwise the behavior is undefined.
+ */
+extern const void* _hash_set_iterator_get_pointer_ignore_cstr(hash_set_iterator_t t_iter); 
+
+/**
  * Return iterator reference next element.
  * @param  it_iter    current iterator.
  * @return next iterator.

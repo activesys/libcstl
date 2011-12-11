@@ -106,6 +106,21 @@ const void* _multimap_iterator_get_pointer(multimap_iterator_t it_iter)
 }
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _multimap_iterator_get_pointer_ignore_cstr(multimap_iterator_t it_iter)
+{
+    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_iter) == _MULTIMAP_CONTAINER);
+    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    return _avl_tree_iterator_get_pointer_ignore_cstr(it_iter);
+#else
+    return _rb_tree_iterator_get_pointer_ignore_cstr(it_iter);
+#endif
+}
+
+/**
  * Return iterator reference next element.
  */
 multimap_iterator_t _multimap_iterator_next(multimap_iterator_t it_iter)

@@ -114,6 +114,17 @@ const void* _rb_tree_iterator_get_pointer(_rb_tree_iterator_t it_iter)
 }
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _rb_tree_iterator_get_pointer_ignore_cstr(_rb_tree_iterator_t it_iter)
+{
+    assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_iter), it_iter));
+    assert(!_rb_tree_iterator_equal(it_iter, _rb_tree_end(_RB_TREE_ITERATOR_TREE(it_iter))));
+
+    return ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_iter))->_pby_data;
+}
+
+/**
  * Return iterator reference next element.
  */
 _rb_tree_iterator_t _rb_tree_iterator_next(_rb_tree_iterator_t it_iter)

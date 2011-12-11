@@ -7,6 +7,10 @@
 #include "cstl/citerator.h"
 #include "cstl/cdeque.h"
 #include "cstl/cstring.h"
+#include "cstl/clist.h"
+#include "cstl/cset.h"
+#include "cstl/chash_map.h"
+#include "cstl/cslist.h"
 #include "cstl_deque_aux.h"
 #include "cstl_vector_aux.h"
 
@@ -591,6 +595,72 @@ void test_deque_init_copy_range__user_define(void** state)
 
     deque_destroy(pdeq_dest);
     deque_destroy(pdeq_src);
+}
+
+void test_deque_init_copy_range__other_container_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    iterator_t it_iter;
+    int i = 0;
+
+    list_init(plist);
+    for(i = 0; i < 10; ++i)
+    {
+        list_push_back(plist, i);
+    }
+    deque_init_copy_range(pdeq, list_begin(plist), list_end(plist));
+    assert_true(_deque_is_inited(pdeq));
+    for(it_iter = deque_begin(pdeq), i = 0;
+        !iterator_equal(it_iter, deque_end(pdeq));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == i);
+    }
+
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_deque_init_copy_range__other_container_range_1(void** state)
+{
+    deque_t* pdeq = create_deque(hash_map_t<char*, slist_t<double>>);
+    multiset_t* pmset = create_multiset(hash_map_t<char*, slist_t<double>>);
+    hash_map_t* phmap = create_hash_map(char*, slist_t<double>);
+    pair_t* ppair = create_pair(char*, slist_t<double>);
+    slist_t* pslist = create_slist(double);
+    iterator_t it_deq, it_mset;
+
+    multiset_init(pmset);
+    hash_map_init(phmap);
+    pair_init(ppair);
+    slist_init(pslist);
+
+    slist_assign_elem((slist_t*)hash_map_at(phmap, "abc"), 4, 2.2);
+    multiset_insert(pmset, phmap);
+    slist_assign_elem((slist_t*)hash_map_at(phmap, "def"), 2, 3.552);
+    multiset_insert(pmset, phmap);
+    slist_assign_elem((slist_t*)hash_map_at(phmap, "ghi"), 9, -0.93);
+    multiset_insert(pmset, phmap);
+    slist_assign_elem((slist_t*)hash_map_at(phmap, "jkl"), 100, 591.03);
+    multiset_insert(pmset, phmap);
+    slist_assign_elem((slist_t*)hash_map_at(phmap, "mno"), 5, 10.0);
+    multiset_insert(pmset, phmap);
+
+    deque_init_copy_range(pdeq, multiset_begin(pmset), multiset_end(pmset));
+    assert_true(_deque_is_inited(pdeq));
+    for(it_deq = deque_begin(pdeq), it_mset = multiset_begin(pmset);
+        !iterator_equal(it_deq, deque_end(pdeq)) && !iterator_equal(it_mset, multiset_end(pmset));
+        it_deq = iterator_next(it_deq), it_mset = iterator_next(it_mset))
+    {
+        assert_true(hash_map_equal((hash_map_t*)iterator_get_pointer(it_deq), (hash_map_t*)iterator_get_pointer(it_mset)));
+    }
+
+    deque_destroy(pdeq);
+    multiset_destroy(pmset);
+    hash_map_destroy(phmap);
+    pair_destroy(ppair);
+    slist_destroy(pslist);
 }
 
 /*

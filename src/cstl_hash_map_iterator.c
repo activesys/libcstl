@@ -87,6 +87,17 @@ const void* _hash_map_iterator_get_pointer(hash_map_iterator_t it_iter)
 }
 
 /**
+ * Get data value pointer referenced by iterator, but ignore char*.
+ */
+const void* _hash_map_iterator_get_pointer_ignore_cstr(hash_map_iterator_t it_iter)
+{
+    assert(_HASH_MAP_ITERATOR_CONTAINER_TYPE(it_iter) == _HASH_MAP_CONTAINER);
+    assert(_HASH_MAP_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
+
+    return _hashtable_iterator_get_pointer_ignore_cstr(it_iter);
+}
+
+/**
  * Return iterator reference previous element.
  */
 hash_map_iterator_t _hash_map_iterator_prev(hash_map_iterator_t it_iter)

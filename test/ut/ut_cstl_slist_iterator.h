@@ -39,6 +39,15 @@ void test__slist_iterator_get_pointer__invalid_iter_iterator_type(void** state);
 void test__slist_iterator_get_pointer__successfully(void** state);
 void test__slist_iterator_get_pointer__successfully_cstr(void** state);
 /*
+ * test _slist_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DECLARATION(_slist_iterator_get_pointer_ignore_cstr)
+void test__slist_iterator_get_pointer_ignore_cstr__invalid_iter(void** state);
+void test__slist_iterator_get_pointer_ignore_cstr__invalid_iter_container_type(void** state);
+void test__slist_iterator_get_pointer_ignore_cstr__invalid_iter_iterator_type(void** state);
+void test__slist_iterator_get_pointer_ignore_cstr__successfully(void** state);
+void test__slist_iterator_get_pointer_ignore_cstr__successfully_cstr(void** state);
+/*
  * test _slist_iterator_next
  */
 UT_CASE_DECLARATION(_slist_iterator_next)
@@ -115,6 +124,11 @@ void test__slist_iterator_before__after(void** state);
     UT_CASE(test__slist_iterator_get_pointer__invalid_iter_iterator_type),\
     UT_CASE(test__slist_iterator_get_pointer__successfully),\
     UT_CASE(test__slist_iterator_get_pointer__successfully_cstr),\
+    UT_CASE_BEGIN(_slist_iterator_get_pointer_ignore_cstr, test__slist_iterator_get_pointer_ignore_cstr__invalid_iter),\
+    UT_CASE(test__slist_iterator_get_pointer_ignore_cstr__invalid_iter_container_type),\
+    UT_CASE(test__slist_iterator_get_pointer_ignore_cstr__invalid_iter_iterator_type),\
+    UT_CASE(test__slist_iterator_get_pointer_ignore_cstr__successfully),\
+    UT_CASE(test__slist_iterator_get_pointer_ignore_cstr__successfully_cstr),\
     UT_CASE_BEGIN(_slist_iterator_next, test__slist_iterator_next__invalid_iter),\
     UT_CASE(test__slist_iterator_next__invalid_iter_container_type),\
     UT_CASE(test__slist_iterator_next__invalid_iter_iterator_type),\

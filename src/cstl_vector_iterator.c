@@ -141,6 +141,17 @@ const void* _vector_iterator_get_pointer(vector_iterator_t it_iter)
 }
 
 /**
+ * Get the pointer that point to the iterator reference data, but ignore char*.
+ */
+const void* _vector_iterator_get_pointer_ignore_cstr(vector_iterator_t it_iter)
+{
+    assert(_vector_iterator_belong_to_vector(_VECTOR_ITERATOR_CONTAINER(it_iter), it_iter));
+    assert(!_vector_iterator_equal(it_iter, vector_end(_VECTOR_ITERATOR_CONTAINER(it_iter))));
+
+    return _VECTOR_ITERATOR_COREPOS(it_iter);
+}
+
+/**
  * Get the iterator that reference next data.
  */
 vector_iterator_t _vector_iterator_next(vector_iterator_t it_iter)

@@ -93,6 +93,19 @@ void test__deque_iterator_get_pointer__successfully_border(void** state);
 void test__deque_iterator_get_pointer__successfully_cstr_not_border(void** state);
 void test__deque_iterator_get_pointer__successfully_cstr_border(void** state);
 /*
+ * test _deque_iterator_get_pointer_ignore_cstr
+ */
+UT_CASE_DECLARATION(_deque_iterator_get_pointer_ignore_cstr)
+void test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator(void** state);
+void test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator_container_type(void** state);
+void test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator_iterator_type(void** state);
+void test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator_container_pointer(void** state);
+void test__deque_iterator_get_pointer_ignore_cstr__deque_end(void** state);
+void test__deque_iterator_get_pointer_ignore_cstr__successfully_not_border(void** state);
+void test__deque_iterator_get_pointer_ignore_cstr__successfully_border(void** state);
+void test__deque_iterator_get_pointer_ignore_cstr__successfully_cstr_not_border(void** state);
+void test__deque_iterator_get_pointer_ignore_cstr__successfully_cstr_border(void** state);
+/*
  * test _deque_iterator_next
  */
 UT_CASE_DECLARATION(_deque_iterator_next)
@@ -273,6 +286,15 @@ void test__deque_iterator_minus__first_equal_to_second_border(void** state);
     UT_CASE(test__deque_iterator_get_pointer__successfully_border),\
     UT_CASE(test__deque_iterator_get_pointer__successfully_cstr_not_border),\
     UT_CASE(test__deque_iterator_get_pointer__successfully_cstr_border),\
+    UT_CASE_BEGIN(_deque_iterator_get_pointer_ignore_cstr, test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator),\
+    UT_CASE(test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator_container_type),\
+    UT_CASE(test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator_iterator_type),\
+    UT_CASE(test__deque_iterator_get_pointer_ignore_cstr__invalid_iterator_container_pointer),\
+    UT_CASE(test__deque_iterator_get_pointer_ignore_cstr__deque_end),\
+    UT_CASE(test__deque_iterator_get_pointer_ignore_cstr__successfully_not_border),\
+    UT_CASE(test__deque_iterator_get_pointer_ignore_cstr__successfully_border),\
+    UT_CASE(test__deque_iterator_get_pointer_ignore_cstr__successfully_cstr_not_border),\
+    UT_CASE(test__deque_iterator_get_pointer_ignore_cstr__successfully_cstr_border),\
     UT_CASE_BEGIN(_deque_iterator_next, test__deque_iterator_next__invalid_iterator),\
     UT_CASE(test__deque_iterator_next__invalid_iterator_container_type),\
     UT_CASE(test__deque_iterator_next__invalid_iterator_iterator_type),\

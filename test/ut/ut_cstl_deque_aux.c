@@ -7,6 +7,7 @@
 #include "cstl/citerator.h"
 #include "cstl/cdeque.h"
 #include "cstl/cstring.h"
+#include "cstl/clist.h"
 #include "cstl_deque_aux.h"
 #include "cstl_vector_aux.h"
 
@@ -734,6 +735,123 @@ void test__deque_same_deque_iterator_type__not_same_type(void** state)
 
     deque_destroy(pdeq_first);
     deque_destroy(pdeq_second);
+}
+
+/*
+ * test _deque_same_iterator_type
+ */
+UT_CASE_DEFINATION(_deque_same_iterator_type)
+void test__deque_same_iterator_type__null_deque_container(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_init(pdeq);
+
+    expect_assert_failure(_deque_same_iterator_type(NULL, deque_begin(pdeq)));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_same_iterator_type__invalid_iterator_null_container(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    it_iter = deque_begin(pdeq);
+    it_iter._pt_container = NULL;
+    expect_assert_failure(_deque_same_iterator_type(pdeq, it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_same_iterator_type__invalid_iterator_container_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    it_iter = deque_begin(pdeq);
+    it_iter._t_containertype = 2823;
+    expect_assert_failure(_deque_same_iterator_type(pdeq, it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_same_iterator_type__invalid_iterator_iterator_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    it_iter = deque_begin(pdeq);
+    it_iter._t_iteratortype = 222;
+    expect_assert_failure(_deque_same_iterator_type(pdeq, it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_same_iterator_type__same_type_belong_to_deque(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq);
+    it_iter = deque_begin(pdeq);
+    assert_true(_deque_same_iterator_type(pdeq, it_iter));
+
+    deque_destroy(pdeq);
+}
+
+void test__deque_same_iterator_type__same_type_not_belong_to_deque(void** state)
+{
+    deque_t* pdeq_first = create_deque(int);
+    deque_t* pdeq_second = create_deque(int);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq_second);
+    it_iter = deque_begin(pdeq_second);
+    assert_true(_deque_same_iterator_type(pdeq_first, it_iter));
+
+    deque_destroy(pdeq_first);
+    deque_destroy(pdeq_second);
+}
+
+void test__deque_same_iterator_type__not_same_type(void** state)
+{
+    deque_t* pdeq_first = create_deque(int);
+    deque_t* pdeq_second = create_deque(double);
+    deque_iterator_t it_iter;
+
+    deque_init(pdeq_second);
+    it_iter = deque_begin(pdeq_second);
+    assert_false(_deque_same_iterator_type(pdeq_first, it_iter));
+
+    deque_destroy(pdeq_first);
+    deque_destroy(pdeq_second);
+}
+
+void test__deque_same_iterator_type__same_type_not_deque_iterator(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    assert_true(_deque_same_iterator_type(pdeq, list_begin(plist)));
+
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__deque_same_iterator_type__not_same_type_not_deque_iterator(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    vector_t* pvec = create_vector(double);
+
+    vector_init(pvec);
+    assert_false(_deque_same_iterator_type(pdeq, vector_begin(pvec)));
+
+    deque_destroy(pdeq);
+    vector_destroy(pvec);
 }
 
 /*
