@@ -92,6 +92,18 @@ bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t 
 }
 
 /**
+ * Test the type that saved in the list container and referenced by it_iter are same.
+ */
+bool_t _list_same_iterator_type(const list_t* cplist_list, iterator_t it_iter)
+{
+    assert(cplist_list != NULL);
+    assert(_list_is_inited(cplist_list) || _list_is_created(cplist_list));
+    assert(_iterator_is_valid(it_iter));
+
+    return _type_is_same_ex(&cplist_list->_t_typeinfo, _iterator_get_typeinfo(it_iter));
+}
+
+/**
  * Test list is created by create_list.
  */
 bool_t _list_is_created(const list_t* cplist_list)

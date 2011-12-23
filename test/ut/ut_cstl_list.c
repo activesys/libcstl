@@ -9,9 +9,11 @@
 #include "cstl/clist.h"
 #include "cstl_list_aux.h"
 #include "cstl/cvector.h"
+#include "cstl/cdeque.h"
 #include "cstl_vector_aux.h"
 #include "cstl/cstring.h"
 #include "cstl/cfunctional.h"
+#include "cstl/cslist.h"
 
 #include "ut_def.h"
 #include "ut_cstl_list.h"
@@ -567,6 +569,46 @@ void test_list_init_copy_range__user_define(void** state)
 
     list_destroy(plist_dest);
     list_destroy(plist_src);
+}
+
+void test_list_init_copy_range__other_container_range(void** state)
+{
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+    iterator_t it_iter;
+
+    vector_init_elem(pvec, 10, 100);
+    list_init_copy_range(plist, vector_begin(pvec), vector_end(pvec));
+
+    assert_true(list_size(plist) == 10);
+    for(it_iter = list_begin(plist); !iterator_equal(it_iter, list_end(plist)); it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+    }
+
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_list_init_copy_range__other_container_range1(void** state)
+{
+    list_t* plist = create_list(vector_t<int>);
+    slist_t* pslist = create_slist(vector_t<int>);
+    vector_t* pvec = create_vector(int);
+    list_iterator_t it_iter;
+
+    vector_init_n(pvec, 84);
+    slist_init_elem(pslist, 10, pvec);
+    list_init_copy_range(plist, slist_begin(pslist), slist_end(pslist));
+    assert_true(list_size(plist) == 10);
+    for(it_iter = list_begin(plist); !iterator_equal(it_iter, list_end(plist)); it_iter = iterator_next(it_iter))
+    {
+        assert_true(vector_size((vector_t*)iterator_get_pointer(it_iter)) == 84);
+    }
+
+    vector_destroy(pvec);
+    list_destroy(plist);
+    slist_destroy(pslist);
 }
 
 /*
@@ -1988,6 +2030,22 @@ void test_list_assign_range__10_assign_range_1000(void** state)
 
     list_destroy(plist_dest);
     list_destroy(plist_src);
+}
+
+void test_list_assign_range__other_container_range(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    list_init_n(plist, 100);
+    deque_init_n(pdeq, 3);
+
+    assert_true(list_size(plist) == 100);
+    list_assign_range(plist, deque_begin(pdeq), deque_end(pdeq));
+    assert_true(list_size(plist) == 3);
+
+    list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 /*

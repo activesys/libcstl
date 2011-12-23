@@ -76,7 +76,7 @@ extern bool_t _deque_same_deque_iterator_type(const deque_t* cpdeq_deque, deque_
  * @return if the type is same, return true, else return false.
  * @remarks if cpdeq_first == NULL, then the behavior is undefined.
  */
-extern bool_t _deque_same_iterator_type(const deque_t* cpdeq_deque, deque_iterator_t it_iter);
+extern bool_t _deque_same_iterator_type(const deque_t* cpdeq_deque, iterator_t it_iter);
 
 /**
  * Test deque is created by create_deque.

@@ -10,6 +10,7 @@
 #include "cstl/clist.h"
 #include "cstl/cset.h"
 #include "cstl/chash_map.h"
+#include "cstl/chash_set.h"
 #include "cstl/cslist.h"
 #include "cstl_deque_aux.h"
 #include "cstl_vector_aux.h"
@@ -1328,6 +1329,64 @@ void test_deque_assign_range__10_assign_range_1000(void** state)
 
     deque_destroy(pdeq_dest);
     deque_destroy(pdeq_src);
+}
+
+void test_deque_assign_range__other_container_range(void** state)
+{
+    deque_t* pdeq = create_deque(list_t<int>);
+    hash_set_t* phset = create_hash_set(list_t<int>);
+    list_t* plist = create_list(int);
+    int i = 0;
+
+    deque_init(pdeq);
+    hash_set_init(phset);
+    list_init(plist);
+    for(i = 0; i < 10; ++i)
+    {
+        list_push_back(plist, i);
+    }
+    for(i = 0; i < 10; ++i)
+    {
+        deque_push_back(pdeq, plist);
+    }
+
+    list_clear(plist);
+    for(i = 0; i < 100; ++i)
+    {
+        list_push_front(plist, i);
+        hash_set_insert(phset, plist);
+    }
+
+    assert_true(deque_size(pdeq) == 10);
+    assert_true(hash_set_size(phset) == 100);
+    deque_assign_range(pdeq, hash_set_begin(phset), hash_set_end(phset));
+    assert_true(deque_size(pdeq) == 100);
+
+    deque_destroy(pdeq);
+    hash_set_destroy(phset);
+    list_destroy(plist);
+}
+
+void test_deque_assign_range__other_container_range1(void** state)
+{
+    deque_t* pdeq = create_deque(float);
+    vector_t* pvec = create_vector(float);
+    size_t i = 0;
+    
+    deque_init_elem(pdeq, 45, 9.04f);
+    vector_init_elem(pvec, 10, -145.4f);
+
+    assert_true(deque_size(pdeq) == 45);
+    assert_true(vector_size(pvec) == 10);
+    deque_assign_range(pdeq, vector_begin(pvec), vector_end(pvec));
+    assert_true(deque_size(pdeq) == 10);
+    for(i = 0; i < deque_size(pdeq); ++i)
+    {
+        assert_true(*(float*)deque_at(pdeq, i) == -145.4f);
+    }
+
+    deque_destroy(pdeq);
+    vector_destroy(pvec);
 }
 
 /*
@@ -3035,6 +3094,62 @@ void test_deque_insert_range__end_insert_10(void** state)
 
     deque_destroy(pdeq);
     deque_destroy(pdeq_src);
+}
+
+void test_deque_insert_range__other_container_range(void** state)
+{
+    deque_t* pdeq = create_deque(char);
+    string_t* pstr = create_string();
+    size_t i = 0;
+
+    deque_init_elem(pdeq, 10, 'a');
+    string_init_char(pstr, 100, 'x');
+    deque_insert_range(pdeq, deque_begin(pdeq), string_begin(pstr), string_end(pstr));
+    assert_true(deque_size(pdeq) == 110);
+    for(i = 0; i < deque_size(pdeq); ++i)
+    {
+        if(i < 100)
+        {
+            assert_true(*(char*)deque_at(pdeq, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)deque_at(pdeq, i) == 'a');
+        }
+    }
+
+    deque_destroy(pdeq);
+    string_destroy(pstr);
+}
+
+void test_deque_insert_range__other_container_range1(void** state)
+{
+    deque_t* pdeq = create_deque(deque_t<char*>);
+    slist_t* pslist = create_slist(deque_t<char*>);
+    deque_t* pdeq_str = create_deque(char*);
+    size_t i = 0;
+
+    deque_init_n(pdeq_str, 10);
+    deque_init_elem(pdeq, 10, pdeq_str);
+    deque_resize(pdeq_str, 100);
+    slist_init_elem(pslist, 100, pdeq_str);
+    deque_insert_range(pdeq, deque_end(pdeq), slist_begin(pslist), slist_end(pslist));
+    assert_true(deque_size(pdeq) == 110);
+    for(i = 0; i < deque_size(pdeq); ++i)
+    {
+        if(i >= 10)
+        {
+            assert_true(deque_size((deque_t*)deque_at(pdeq, i)) == 100);
+        }
+        else
+        {
+            assert_true(deque_size((deque_t*)deque_at(pdeq, i)) == 10);
+        }
+    }
+
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_str);
+    slist_destroy(pslist);
 }
 
 /*

@@ -66,6 +66,15 @@ extern bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iter
 extern bool_t _list_same_list_iterator_type(const list_t* cplist_list, list_iterator_t it_iter);
 
 /**
+ * Test the type that saved in the list container and referenced by it_iter are same.
+ * @param cplist_list     list container.
+ * @param it_iter         iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cplist_first == NULL or it_iter is invalid iterator, then the behavior is undefined.
+ */
+extern bool_t _list_same_iterator_type(const list_t* cplist_list, iterator_t it_iter);
+
+/**
  * Test list is created by create_list.
  * @param cplist_list  list container.
  * @return if list is created by create_list, then return true, else return false.

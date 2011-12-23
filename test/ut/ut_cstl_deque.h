@@ -135,6 +135,8 @@ void test_deque_assign_range__10_assign_range_0(void** state);
 void test_deque_assign_range__10_assign_range_10_same_elem(void** state);
 void test_deque_assign_range__10_assign_range_10_not_same_elem(void** state);
 void test_deque_assign_range__10_assign_range_1000(void** state);
+void test_deque_assign_range__other_container_range(void** state);
+void test_deque_assign_range__other_container_range1(void** state);
 /*
  * test deque_equal
  */
@@ -308,6 +310,8 @@ void test_deque_insert_range__middle_insert_0(void** state);
 void test_deque_insert_range__middle_insert_10(void** state);
 void test_deque_insert_range__end_insert_0(void** state);
 void test_deque_insert_range__end_insert_10(void** state);
+void test_deque_insert_range__other_container_range(void** state);
+void test_deque_insert_range__other_container_range1(void** state);
 /*
  * test deque_erase
  */
@@ -437,6 +441,8 @@ void test_deque_resize__successfully_10_resize_1000(void** state);
     UT_CASE(test_deque_assign_range__10_assign_range_10_same_elem),\
     UT_CASE(test_deque_assign_range__10_assign_range_10_not_same_elem),\
     UT_CASE(test_deque_assign_range__10_assign_range_1000),\
+    UT_CASE(test_deque_assign_range__other_container_range),\
+    UT_CASE(test_deque_assign_range__other_container_range1),\
     UT_CASE_BEGIN(deque_equal, test_deque_equal__null_first),\
     UT_CASE(test_deque_equal__null_second),\
     UT_CASE(test_deque_equal__non_inited_first),\
@@ -558,6 +564,8 @@ void test_deque_resize__successfully_10_resize_1000(void** state);
     UT_CASE(test_deque_insert_range__middle_insert_10),\
     UT_CASE(test_deque_insert_range__end_insert_0),\
     UT_CASE(test_deque_insert_range__end_insert_10),\
+    UT_CASE(test_deque_insert_range__other_container_range),\
+    UT_CASE(test_deque_insert_range__other_container_range1),\
     UT_CASE_BEGIN(deque_erase, test_deque_erase__null_deque_container),\
     UT_CASE(test_deque_erase__non_inited_deque_container),\
     UT_CASE(test_deque_erase__invalid_pos_end),\

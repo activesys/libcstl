@@ -612,6 +612,123 @@ void test__list_same_list_iterator_type__not_same_type(void** state)
 }
 
 /*
+ * test _list_same_iterator_type
+ */
+UT_CASE_DEFINATION(_list_same_iterator_type)
+void test__list_same_iterator_type__null_list_container(void** state)
+{
+    list_t* plist = create_list(int);
+    list_init(plist);
+
+    expect_assert_failure(_list_same_iterator_type(NULL, list_begin(plist)));
+
+    list_destroy(plist);
+}
+
+void test__list_same_iterator_type__invalid_iterator_null_container(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_iter;
+
+    list_init(plist);
+    it_iter = list_begin(plist);
+    it_iter._pt_container = NULL;
+    expect_assert_failure(_list_same_iterator_type(plist, it_iter));
+
+    list_destroy(plist);
+}
+
+void test__list_same_iterator_type__invalid_iterator_container_type(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_iter;
+
+    list_init(plist);
+    it_iter = list_begin(plist);
+    it_iter._t_containertype = 2823;
+    expect_assert_failure(_list_same_iterator_type(plist, it_iter));
+
+    list_destroy(plist);
+}
+
+void test__list_same_iterator_type__invalid_iterator_iterator_type(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_iter;
+
+    list_init(plist);
+    it_iter = list_begin(plist);
+    it_iter._t_iteratortype = 222;
+    expect_assert_failure(_list_same_iterator_type(plist, it_iter));
+
+    list_destroy(plist);
+}
+
+void test__list_same_iterator_type__same_type_belong_to_list(void** state)
+{
+    list_t* plist = create_list(int);
+    list_iterator_t it_iter;
+
+    list_init(plist);
+    it_iter = list_begin(plist);
+    assert_true(_list_same_iterator_type(plist, it_iter));
+
+    list_destroy(plist);
+}
+
+void test__list_same_iterator_type__same_type_not_belong_to_list(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(int);
+    list_iterator_t it_iter;
+
+    list_init(plist_second);
+    it_iter = list_begin(plist_second);
+    assert_true(_list_same_iterator_type(plist_first, it_iter));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_same_iterator_type__not_same_type(void** state)
+{
+    list_t* plist_first = create_list(int);
+    list_t* plist_second = create_list(double);
+    list_iterator_t it_iter;
+
+    list_init(plist_second);
+    it_iter = list_begin(plist_second);
+    assert_false(_list_same_iterator_type(plist_first, it_iter));
+
+    list_destroy(plist_first);
+    list_destroy(plist_second);
+}
+
+void test__list_same_iterator_type__same_type_not_list_iterator(void** state)
+{
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    assert_true(_list_same_iterator_type(plist, vector_begin(pvec)));
+
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test__list_same_iterator_type__not_same_type_not_list_iterator(void** state)
+{
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(double);
+
+    vector_init(pvec);
+    assert_false(_list_same_iterator_type(plist, vector_begin(pvec)));
+
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+/*
  * test _list_get_varg_value_auxiliary
  */
 UT_CASE_DEFINATION(_list_get_varg_value_auxiliary)

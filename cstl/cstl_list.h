@@ -186,7 +186,7 @@ extern void list_init_copy(list_t* plist_dest, const list_t* cplist_src);
  *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefined. the
  *          element type of [it_begin, it_end) and plist_dest must be the same, otherwise the behavior is undefined.
  */
-extern void list_init_copy_range(list_t* plist_dest, list_iterator_t it_begin, list_iterator_t it_end);
+extern void list_init_copy_range(list_t* plist_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Return the number of elements in a list.
@@ -302,7 +302,7 @@ extern void list_assign(list_t* plist_dest, const list_t* cplist_src);
  *          is undefined. the element type of list and [it_begin, it_end) must be same, otherwise the behavior is
  *          undefined. if [it_begin, it_end) belong to the destination list, the behavior is undefined.
  */
-extern void list_assign_range(list_t* plist_list, list_iterator_t it_begin, list_iterator_t it_end);
+extern void list_assign_range(list_t* plist_list, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Swap list datas.

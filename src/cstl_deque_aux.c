@@ -160,7 +160,7 @@ bool_t _deque_same_deque_iterator_type(const deque_t* cpdeq_deque, deque_iterato
 /**
  * Test the type that saved in the deque container and referenced by it_iter are same.
  */
-bool_t _deque_same_iterator_type(const deque_t* cpdeq_deque, deque_iterator_t it_iter)
+bool_t _deque_same_iterator_type(const deque_t* cpdeq_deque, iterator_t it_iter)
 {
     assert(cpdeq_deque != NULL);
     assert(_deque_is_inited(cpdeq_deque) || _deque_is_created(cpdeq_deque));

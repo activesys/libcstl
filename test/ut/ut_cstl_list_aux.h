@@ -73,6 +73,19 @@ void test__list_same_list_iterator_type__same_type_belong_to_list(void** state);
 void test__list_same_list_iterator_type__same_type_not_belong_to_list(void** state);
 void test__list_same_list_iterator_type__not_same_type(void** state);
 /*
+ * test _list_same_iterator_type
+ */
+UT_CASE_DECLARATION(_list_same_iterator_type)
+void test__list_same_iterator_type__null_list_container(void** state);
+void test__list_same_iterator_type__invalid_iterator_null_container(void** state);
+void test__list_same_iterator_type__invalid_iterator_container_type(void** state);
+void test__list_same_iterator_type__invalid_iterator_iterator_type(void** state);
+void test__list_same_iterator_type__same_type_belong_to_list(void** state);
+void test__list_same_iterator_type__same_type_not_belong_to_list(void** state);
+void test__list_same_iterator_type__not_same_type(void** state);
+void test__list_same_iterator_type__same_type_not_list_iterator(void** state);
+void test__list_same_iterator_type__not_same_type_not_list_iterator(void** state);
+/*
  * test _list_get_varg_value_auxiliary
  */
 UT_CASE_DECLARATION(_list_get_varg_value_auxiliary)
@@ -243,6 +256,15 @@ void test__list_quick_sort__cstr_random_random_dup_greater(void** state);
     UT_CASE(test__list_same_list_iterator_type__same_type_belong_to_list),\
     UT_CASE(test__list_same_list_iterator_type__same_type_not_belong_to_list),\
     UT_CASE(test__list_same_list_iterator_type__not_same_type),\
+    UT_CASE_BEGIN(_list_same_iterator_type, test__list_same_iterator_type__null_list_container),\
+    UT_CASE(test__list_same_iterator_type__invalid_iterator_null_container),\
+    UT_CASE(test__list_same_iterator_type__invalid_iterator_container_type),\
+    UT_CASE(test__list_same_iterator_type__invalid_iterator_iterator_type),\
+    UT_CASE(test__list_same_iterator_type__same_type_belong_to_list),\
+    UT_CASE(test__list_same_iterator_type__same_type_not_belong_to_list),\
+    UT_CASE(test__list_same_iterator_type__not_same_type),\
+    UT_CASE(test__list_same_iterator_type__same_type_not_list_iterator),\
+    UT_CASE(test__list_same_iterator_type__not_same_type_not_list_iterator),\
     UT_CASE_BEGIN(_list_get_varg_value_auxiliary, test__list_get_varg_value_auxiliary__null_list_container),\
     UT_CASE(test__list_get_varg_value_auxiliary__null_node),\
     UT_CASE(test__list_get_varg_value_auxiliary__non_created_list_containter),\

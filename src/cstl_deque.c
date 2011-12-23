@@ -159,11 +159,11 @@ void deque_init_copy(deque_t* pdeq_dest, const deque_t* cpdeq_src)
 /**
  * Initialize deque container with specific range.
  */
-void deque_init_copy_range(deque_t* pdeq_dest, deque_iterator_t it_begin, deque_iterator_t it_end)
+void deque_init_copy_range(deque_t* pdeq_dest, iterator_t it_begin, iterator_t it_end)
 {
-    deque_iterator_t it_dest;   /* the iterator of dest deque for iterate */
-    deque_iterator_t it_src;    /* the iterator of src range for iterate */
-    bool_t           b_result = false;
+    iterator_t it_dest;   /* the iterator of dest deque for iterate */
+    iterator_t it_src;    /* the iterator of src range for iterate */
+    bool_t     b_result = false;
 
     assert(pdeq_dest != NULL);
     assert(_deque_is_created(pdeq_dest));
@@ -185,7 +185,7 @@ void deque_init_copy_range(deque_t* pdeq_dest, deque_iterator_t it_begin, deque_
             _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
-    assert(iterator_equal(it_dest, pdeq_dest->_t_finish) && iterator_equal(it_src, it_end));
+    assert(iterator_equal(it_dest, deque_end(pdeq_dest)) && iterator_equal(it_src, it_end));
 }
 
 /**
@@ -322,34 +322,34 @@ void deque_assign(deque_t* pdeq_dest, const deque_t* cpdeq_src)
 /**
  * Assign deque element with an exist deque container range.
  */
-void deque_assign_range(deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end)
+void deque_assign_range(deque_t* pdeq_deque, iterator_t it_begin, iterator_t it_end)
 {
-    deque_iterator_t it_dest;   /* the iterator of dest deque for iterate */
-    deque_iterator_t it_src;    /* the iterator of src range for iterate */
-    bool_t           b_result = false;
+    iterator_t it_dest;   /* the iterator of dest deque for iterate */
+    iterator_t it_src;    /* the iterator of src range for iterate */
+    bool_t     b_result = false;
 
     assert(pdeq_deque != NULL);
     assert(_deque_is_inited(pdeq_deque));
-    assert(_deque_same_deque_iterator_type(pdeq_deque, it_begin));
-    assert(_deque_same_deque_iterator_type(pdeq_deque, it_end));
+    assert(_deque_same_iterator_type(pdeq_deque, it_begin));
+    assert(_deque_same_iterator_type(pdeq_deque, it_end));
     /*assert(!_deque_iterator_belong_to_deque(pdeq_deque, it_begin));*/
     /*assert(!_deque_iterator_belong_to_deque(pdeq_deque, it_end));*/
-    assert(iterator_equal(it_begin, it_end) || _deque_iterator_before(it_begin, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     /* init the dest deque with the distance between it_begin and it_end, compare and element destroy function. */
     deque_resize(pdeq_deque, iterator_distance(it_begin, it_end));
     /* copy the elements from src range to dest deque */
-    for(it_dest = pdeq_deque->_t_start, it_src = it_begin;
-        !iterator_equal(it_dest, pdeq_deque->_t_finish) && !iterator_equal(it_src, it_end);
+    for(it_dest = deque_begin(pdeq_deque), it_src = it_begin;
+        !iterator_equal(it_dest, deque_end(pdeq_deque)) && !iterator_equal(it_src, it_end);
         it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
     {
         b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
         _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
-            _deque_iterator_get_pointer_auxiliary(it_dest),
-            _deque_iterator_get_pointer_auxiliary(it_src), &b_result);
+            _iterator_get_pointer_ignore_cstr(it_dest),
+            _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
-    assert(iterator_equal(it_dest, pdeq_deque->_t_finish) && iterator_equal(it_src, it_end));
+    assert(iterator_equal(it_dest, deque_end(pdeq_deque)) && iterator_equal(it_src, it_end));
 }
 
 /**
@@ -561,7 +561,7 @@ void deque_pop_front(deque_t* pdeq_deque)
 /**
  * Insert a range of elements into deque at a specificed position.
  */
-void deque_insert_range(deque_t* pdeq_deque, deque_iterator_t it_pos, deque_iterator_t it_begin, deque_iterator_t it_end)
+void deque_insert_range(deque_t* pdeq_deque, deque_iterator_t it_pos, iterator_t it_begin, iterator_t it_end)
 {
     int    n_elemcount = 0;
     bool_t b_result = false;
@@ -571,9 +571,9 @@ void deque_insert_range(deque_t* pdeq_deque, deque_iterator_t it_pos, deque_iter
     assert(_deque_iterator_belong_to_deque(pdeq_deque, it_pos));
     /*assert(!_deque_iterator_belong_to_deque(pdeq_deque, it_begin));*/
     /*assert(!_deque_iterator_belong_to_deque(pdeq_deque, it_end));*/
-    assert(_deque_same_deque_iterator_type(pdeq_deque, it_begin));
-    assert(_deque_same_deque_iterator_type(pdeq_deque, it_end));
-    assert(iterator_equal(it_begin, it_end) || _deque_iterator_before(it_begin, it_end));
+    assert(_deque_same_iterator_type(pdeq_deque, it_begin));
+    assert(_deque_same_iterator_type(pdeq_deque, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     n_elemcount = iterator_distance(it_begin, it_end);
     /* if the element number after insert pos is little then insert in front */
@@ -594,8 +594,8 @@ void deque_insert_range(deque_t* pdeq_deque, deque_iterator_t it_pos, deque_iter
         {
             b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
-                _deque_iterator_get_pointer_auxiliary(it_gap),
-                _deque_iterator_get_pointer_auxiliary(it_begin), &b_result);
+                _iterator_get_pointer_ignore_cstr(it_gap),
+                _iterator_get_pointer_ignore_cstr(it_begin), &b_result);
             assert(b_result);
         }
         assert(iterator_equal(it_gap, it_pos) && iterator_equal(it_begin, it_end));
@@ -612,8 +612,8 @@ void deque_insert_range(deque_t* pdeq_deque, deque_iterator_t it_pos, deque_iter
         {
             b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
-                _deque_iterator_get_pointer_auxiliary(it_pos),
-                _deque_iterator_get_pointer_auxiliary(it_begin), &b_result);
+                _iterator_get_pointer_ignore_cstr(it_pos),
+                _iterator_get_pointer_ignore_cstr(it_begin), &b_result);
             assert(b_result);
         }
     }

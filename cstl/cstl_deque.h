@@ -174,7 +174,7 @@ extern void deque_init_copy(deque_t* pdeq_dest, const deque_t* cpdeq_src);
  *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefined. the
  *          element type of [it_begin, it_end) and pdeq_dest must be the same, otherwise the behavior is undefined.
  */
-extern void deque_init_copy_range(deque_t* pdeq_dest, deque_iterator_t it_begin, deque_iterator_t it_end);
+extern void deque_init_copy_range(deque_t* pdeq_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Tests if a deque is empty.
@@ -245,7 +245,7 @@ extern void deque_assign(deque_t* pdeq_dest, const deque_t* cpdeq_src);
  *          is undefined. the element type of deque and [it_begin, it_end) must be same, otherwise the behavior is
  *          undefined. if [it_begin, it_end) belong to the destination deque, the behavior is undefined.
  */
-extern void deque_assign_range(deque_t* pdeq_deque, deque_iterator_t it_begin, deque_iterator_t it_end);
+extern void deque_assign_range(deque_t* pdeq_deque, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Tests if the two deques are equal.
@@ -384,7 +384,7 @@ extern void deque_pop_front(deque_t* pdeq_deque);
  *          deque element must be the same, otherwise the behavior is undefined.
  */
 extern void deque_insert_range(
-    deque_t* pdeq_deque, deque_iterator_t it_pos, deque_iterator_t it_begin, deque_iterator_t it_end);
+    deque_t* pdeq_deque, deque_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Removes an element in deque from specificed position.

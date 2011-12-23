@@ -131,17 +131,17 @@ void list_init_copy(list_t* plist_dest, const list_t* cplist_src)
 /**
  * Initialize list container with specific range.
  */
-void list_init_copy_range(list_t* plist_list, list_iterator_t it_begin, list_iterator_t it_end)
+void list_init_copy_range(list_t* plist_list, iterator_t it_begin, iterator_t it_end)
 {
-    list_iterator_t it_dest;
-    list_iterator_t it_src;
-    bool_t          b_result = false;
+    iterator_t it_dest;
+    iterator_t it_src;
+    bool_t     b_result = false;
 
     assert(plist_list != NULL);
     assert(_list_is_created(plist_list));
-    assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
-    assert(_list_same_list_iterator_type(plist_list, it_begin));
-    assert(_list_same_list_iterator_type(plist_list, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
+    assert(_list_same_iterator_type(plist_list, it_begin));
+    assert(_list_same_iterator_type(plist_list, it_end));
 
     /* 
      * initialize the new list with the list size, compare function,
@@ -156,8 +156,8 @@ void list_init_copy_range(list_t* plist_list, list_iterator_t it_begin, list_ite
     {
         b_result = _GET_LIST_TYPE_SIZE(plist_list);
         _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
-            ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_dest))->_pby_data,
-            ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_src))->_pby_data, &b_result);
+            _iterator_get_pointer_ignore_cstr(it_dest),
+            _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
     assert(iterator_equal(it_dest, list_end(plist_list)) && iterator_equal(it_src, it_end));
@@ -350,19 +350,19 @@ void list_assign(list_t* plist_dest, const list_t* cplist_src)
 /**
  * Assign list element with an exist list container range.
  */
-void list_assign_range(list_t* plist_list, list_iterator_t it_begin, list_iterator_t it_end)
+void list_assign_range(list_t* plist_list, iterator_t it_begin, iterator_t it_end)
 {
-    list_iterator_t it_dest;
-    list_iterator_t it_src;
-    bool_t          b_result = false;
+    iterator_t it_dest;
+    iterator_t it_src;
+    bool_t     b_result = false;
 
     assert(plist_list != NULL);
     assert(_list_is_inited(plist_list));
-    assert(_list_same_list_iterator_type(plist_list, it_begin));
-    assert(_list_same_list_iterator_type(plist_list, it_end));
+    assert(_list_same_iterator_type(plist_list, it_begin));
+    assert(_list_same_iterator_type(plist_list, it_end));
     /*assert(!_list_iterator_belong_to_list(plist_list, it_begin));*/
     /*assert(!_list_iterator_belong_to_list(plist_list, it_end));*/
-    assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     list_resize(plist_list, iterator_distance(it_begin, it_end));
 
@@ -373,10 +373,11 @@ void list_assign_range(list_t* plist_list, list_iterator_t it_begin, list_iterat
     {
         b_result = _GET_LIST_TYPE_SIZE(plist_list);
         _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
-            ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_dest))->_pby_data,
-            ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_src))->_pby_data, &b_result);
+            _iterator_get_pointer_ignore_cstr(it_dest),
+            _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
+    assert(iterator_equal(it_dest, list_end(plist_list)) && iterator_equal(it_src, it_end));
 }
 
 /**
