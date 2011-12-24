@@ -48,6 +48,7 @@ void test_slist_init_copy_range__c_builtin(void** state);
 void test_slist_init_copy_range__cstr(void** state);
 void test_slist_init_copy_range__libcstl_builtin(void** state);
 void test_slist_init_copy_range__user_define(void** state);
+void test_slist_init_copy_range__other_container_range(void** state);
 /*
  * test slist_destroy
  */
@@ -210,6 +211,7 @@ void test_slist_assign_range__10_assign_range_0(void** state);
 void test_slist_assign_range__10_assign_range_10_same_elem(void** state);
 void test_slist_assign_range__10_assign_range_10_not_same_elem(void** state);
 void test_slist_assign_range__10_assign_range_1000(void** state);
+void test_slist_assign_range__other_container_range(void** state);
 /*
  * test slist_swap
  */
@@ -277,6 +279,7 @@ void test_slist_insert_range__middle_insert_0(void** state);
 void test_slist_insert_range__middle_insert_10(void** state);
 void test_slist_insert_range__end_insert_0(void** state);
 void test_slist_insert_range__end_insert_10(void** state);
+void test_slist_insert_range__other_container_range(void** state);
 /*
  * test slist_insert_after_range
  */
@@ -294,6 +297,7 @@ void test_slist_insert_after_range__middle_insert_0(void** state);
 void test_slist_insert_after_range__middle_insert_10(void** state);
 void test_slist_insert_after_range__end_insert_0(void** state);
 void test_slist_insert_after_range__end_insert_10(void** state);
+void test_slist_insert_after_range__other_container_range(void** state);
 /*
  * test slist_pop_front
  */
@@ -662,6 +666,7 @@ void test_slist_reverse__not_same(void** state);
     UT_CASE(test_slist_init_copy_range__cstr),\
     UT_CASE(test_slist_init_copy_range__libcstl_builtin),\
     UT_CASE(test_slist_init_copy_range__user_define),\
+    UT_CASE(test_slist_init_copy_range__other_container_range),\
     UT_CASE_BEGIN(slist_destroy, test_slist_destroy__null_slist_container),\
     UT_CASE(test_slist_destroy__non_created_slist_container),\
     UT_CASE(test_slist_destroy__created_non_inited),\
@@ -776,6 +781,7 @@ void test_slist_reverse__not_same(void** state);
     UT_CASE(test_slist_assign_range__10_assign_range_10_same_elem),\
     UT_CASE(test_slist_assign_range__10_assign_range_10_not_same_elem),\
     UT_CASE(test_slist_assign_range__10_assign_range_1000),\
+    UT_CASE(test_slist_assign_range__other_container_range),\
     UT_CASE_BEGIN(slist_swap, test_slist_swap__null_first),\
     UT_CASE(test_slist_swap__null_second),\
     UT_CASE(test_slist_swap__non_inited_first),\
@@ -819,6 +825,7 @@ void test_slist_reverse__not_same(void** state);
     UT_CASE(test_slist_insert_range__middle_insert_10),\
     UT_CASE(test_slist_insert_range__end_insert_0),\
     UT_CASE(test_slist_insert_range__end_insert_10),\
+    UT_CASE(test_slist_insert_range__other_container_range),\
     UT_CASE_BEGIN(slist_insert_after_range, test_slist_insert_after_range__null_slist_container),\
     UT_CASE(test_slist_insert_after_range__non_inited),\
     UT_CASE(test_slist_insert_after_range__invalid_position),\
@@ -832,6 +839,7 @@ void test_slist_reverse__not_same(void** state);
     UT_CASE(test_slist_insert_after_range__middle_insert_10),\
     UT_CASE(test_slist_insert_after_range__end_insert_0),\
     UT_CASE(test_slist_insert_after_range__end_insert_10),\
+    UT_CASE(test_slist_insert_after_range__other_container_range),\
     UT_CASE_BEGIN(slist_pop_front, test_slist_pop_front__null_slist_container),\
     UT_CASE(test_slist_pop_front__non_inited_slist_container),\
     UT_CASE(test_slist_pop_front__empty),\

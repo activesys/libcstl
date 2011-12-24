@@ -525,6 +525,24 @@ void test_slist_init_copy_range__user_define(void** state)
     slist_destroy(pslist_src);
 }
 
+void test_slist_init_copy_range__other_container_range(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    vector_t* pvec = create_vector(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 10, -33);
+    slist_init_copy_range(pslist, vector_begin(pvec), vector_end(pvec));
+    assert_true(slist_size(pslist) == 10);
+    for(it = slist_begin(pslist); !iterator_equal(it, slist_end(pslist)); it = iterator_next(it))
+    {
+        assert_true(*(int*)iterator_get_pointer(it) == -33);
+    }
+
+    slist_destroy(pslist);
+    vector_destroy(pvec);
+}
+
 /*
  * test slist_destroy
  */
@@ -2026,6 +2044,26 @@ void test_slist_assign_range__10_assign_range_1000(void** state)
     slist_destroy(pslist_src);
 }
 
+void test_slist_assign_range__other_container_range(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    vector_t* pvec = create_vector(int);
+    iterator_t it_iter;
+
+    slist_init_elem(pslist, 10, 10);
+    vector_init_elem(pvec, 100, 100);
+    assert_true(slist_size(pslist) == 10);
+    slist_assign_range(pslist, vector_begin(pvec), vector_end(pvec));
+    assert_true(slist_size(pslist) == 100);
+    for(it_iter = slist_begin(pslist); !iterator_equal(it_iter, slist_end(pslist)); it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+    }
+
+    slist_destroy(pslist);
+    vector_destroy(pvec);
+}
+
 /*
  * test slist_swap
  */
@@ -2794,6 +2832,34 @@ void test_slist_insert_range__end_insert_10(void** state)
     slist_destroy(pslist_src);
 }
 
+void test_slist_insert_range__other_container_range(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    vector_t* pvec = create_vector(int);
+    iterator_t it_iter;
+    int i = 0;
+
+    slist_init_n(pslist, 10);
+    vector_init_elem(pvec, 10, 10);
+    assert_true(slist_size(pslist) == 10);
+    slist_insert_range(pslist, slist_begin(pslist), vector_begin(pvec), vector_end(pvec));
+    assert_true(slist_size(pslist) == 20);
+    for(it_iter = slist_begin(pslist); !iterator_equal(it_iter, slist_end(pslist)); it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 10);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    slist_destroy(pslist);
+    vector_destroy(pvec);
+}
+
 /*
  * test slist_insert_after_range
  */
@@ -3083,6 +3149,34 @@ void test_slist_insert_after_range__end_insert_10(void** state)
 
     slist_destroy(pslist);
     slist_destroy(pslist_src);
+}
+
+void test_slist_insert_after_range__other_container_range(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    vector_t* pvec = create_vector(int);
+    iterator_t it_iter;
+    int i = 0;
+
+    slist_init_n(pslist, 10);
+    vector_init_elem(pvec, 100, 100);
+    assert_true(slist_size(pslist) == 10);
+    slist_insert_after_range(pslist, slist_begin(pslist), vector_begin(pvec), vector_end(pvec));
+    assert_true(slist_size(pslist) == 110);
+    for(it_iter = slist_begin(pslist); !iterator_equal(it_iter, slist_end(pslist)); it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i > 0 && i < 101)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    slist_destroy(pslist);
+    vector_destroy(pvec);
 }
 
 /*

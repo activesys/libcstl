@@ -15,6 +15,7 @@
 #include "cstl/chash_map.h"
 #include "cstl/cstring.h"
 #include "cstl/cfunctional.h"
+#include "cstl_list_aux.h"
 
 #include "ut_def.h"
 #include "ut_cstl_iterator_private.h"

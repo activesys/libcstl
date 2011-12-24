@@ -8,6 +8,7 @@
 #include "cstl/cstl_vector_iterator.h"
 #include "cstl/cvector.h"
 #include "cstl_vector_aux.h"
+#include "cstl/clist.h"
 
 #include "ut_def.h"
 #include "ut_cstl_vector.h"
@@ -696,6 +697,24 @@ void test_vector_init_copy_range__successfully_user_define(void** state)
 
     vector_destroy(pvec_dest);
     vector_destroy(pvec_src);
+}
+
+void test_vector_init_copy_range__other_container_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    int i = 0;
+
+    list_init_elem(plist, 10, 100);
+    vector_init_copy_range(pvec, list_begin(plist), list_end(plist));
+    assert_true(vector_size(pvec) == 10);
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec, i) == 100);
+    }
+
+    vector_destroy(pvec);
+    list_destroy(plist);
 }
 
 /*
@@ -2463,6 +2482,26 @@ void test_vector_assign_range__1000_assign_range_1700(void** state)
     vector_destroy(pvec_src);
 }
 
+void test_vector_assign_range__other_container_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    int i = 0;
+
+    vector_init_n(pvec, 10);
+    list_init_elem(plist, 100, 100);
+    assert_true(vector_size(pvec) == 10);
+    vector_assign_range(pvec, list_begin(plist), list_end(plist));
+    assert_true(vector_size(pvec) == 100);
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        assert_true(*(int*)vector_at(pvec, i) == 100);
+    }
+
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
 /*
  * test vector_swap
  */
@@ -3555,6 +3594,33 @@ void test_vector_insert_range__end_insert_1000(void** state)
 
     vector_destroy(pvec);
     vector_destroy(pvec_src);
+}
+
+void test_vector_insert_range__other_container_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    int i = 0;
+
+    vector_init_n(pvec, 10);
+    list_init_elem(plist, 100, 100);
+    assert_true(vector_size(pvec) == 10);
+    vector_insert_range(pvec, vector_end(pvec), list_begin(plist), list_end(plist));
+    assert_true(vector_size(pvec) == 110);
+    for(i = 0; i < vector_size(pvec); ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(int*)vector_at(pvec, i) == 0);
+        }
+        else
+        {
+            assert_true(*(int*)vector_at(pvec, i) == 100);
+        }
+    }
+
+    vector_destroy(pvec);
+    list_destroy(plist);
 }
 
 /*

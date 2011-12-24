@@ -43,6 +43,19 @@ void test__vector_same_vector_iterator_type__iterator_not_random_iterator(void**
 void test__vector_same_vector_iterator_type__same(void** state);
 void test__vector_same_vector_iterator_type__not_same(void** state);
 /*
+ * test _vector_same_iterator_type
+ */
+UT_CASE_DECLARATION(_vector_same_iterator_type)
+void test__vector_same_iterator_type__null_vector_container(void** state);
+void test__vector_same_iterator_type__invalid_iterator_null_container(void** state);
+void test__vector_same_iterator_type__invalid_iterator_container_type(void** state);
+void test__vector_same_iterator_type__invalid_iterator_iterator_type(void** state);
+void test__vector_same_iterator_type__same_type_belong_to_vector(void** state);
+void test__vector_same_iterator_type__same_type_not_belong_to_vector(void** state);
+void test__vector_same_iterator_type__not_same_type(void** state);
+void test__vector_same_iterator_type__same_type_not_vector_iterator(void** state);
+void test__vector_same_iterator_type__not_same_type_not_vector_iterator(void** state);
+/*
  * test _vector_get_varg_value_auxiliary
  */
 UT_CASE_DECLARATION(_vector_get_varg_value_auxiliary)
@@ -145,6 +158,15 @@ void test__vector_calculate_new_capacity__12345_size_1600894_insert(void** state
     UT_CASE(test__vector_same_vector_iterator_type__iterator_not_random_iterator),\
     UT_CASE(test__vector_same_vector_iterator_type__same),\
     UT_CASE(test__vector_same_vector_iterator_type__not_same),\
+    UT_CASE_BEGIN(_vector_same_iterator_type, test__vector_same_iterator_type__null_vector_container),\
+    UT_CASE(test__vector_same_iterator_type__invalid_iterator_null_container),\
+    UT_CASE(test__vector_same_iterator_type__invalid_iterator_container_type),\
+    UT_CASE(test__vector_same_iterator_type__invalid_iterator_iterator_type),\
+    UT_CASE(test__vector_same_iterator_type__same_type_belong_to_vector),\
+    UT_CASE(test__vector_same_iterator_type__same_type_not_belong_to_vector),\
+    UT_CASE(test__vector_same_iterator_type__not_same_type),\
+    UT_CASE(test__vector_same_iterator_type__same_type_not_vector_iterator),\
+    UT_CASE(test__vector_same_iterator_type__not_same_type_not_vector_iterator),\
     UT_CASE_BEGIN(_vector_get_varg_value_auxiliary, test__vector_get_varg_value_auxiliary__null_vector_container),\
     UT_CASE(test__vector_get_varg_value_auxiliary__null_varg),\
     UT_CASE(test__vector_get_varg_value_auxiliary__non_created),\

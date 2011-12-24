@@ -59,6 +59,7 @@ void test_vector_init_copy_range__successfully_c_builtin(void** state);
 void test_vector_init_copy_range__successfully_cstr(void** state);
 void test_vector_init_copy_range__successfully_cstl_builtin(void** state);
 void test_vector_init_copy_range__successfully_user_define(void** state);
+void test_vector_init_copy_range__other_container_range(void** state);
 /*
  * test vector_destroy
  */
@@ -247,6 +248,7 @@ void test_vector_assign_range__10_assign_range_1000(void** state);
 void test_vector_assign_range__1000_assign_range_0(void** state);
 void test_vector_assign_range__1000_assign_range_10(void** state);
 void test_vector_assign_range__1000_assign_range_1700(void** state);
+void test_vector_assign_range__other_container_range(void** state);
 /*
  * test vector_swap
  */
@@ -332,6 +334,7 @@ void test_vector_insert_range__middle_insert_1000(void** state);
 void test_vector_insert_range__end_insert_0(void** state);
 void test_vector_insert_range__end_insert_10(void** state);
 void test_vector_insert_range__end_insert_1000(void** state);
+void test_vector_insert_range__other_container_range(void** state);
 /*
  * test vector_pop_back
  */
@@ -431,6 +434,7 @@ void test_vector_resize__successfully_1000_resize_2000(void** state);
     UT_CASE(test_vector_init_copy_range__successfully_cstr),\
     UT_CASE(test_vector_init_copy_range__successfully_cstl_builtin),\
     UT_CASE(test_vector_init_copy_range__successfully_user_define),\
+    UT_CASE(test_vector_init_copy_range__other_container_range),\
     UT_CASE_BEGIN(vector_destroy, test_vector_destroy__null_vector_container),\
     UT_CASE(test_vector_destroy__non_created),\
     UT_CASE(test_vector_destroy__created_non_inited),\
@@ -563,6 +567,7 @@ void test_vector_resize__successfully_1000_resize_2000(void** state);
     UT_CASE(test_vector_assign_range__1000_assign_range_0),\
     UT_CASE(test_vector_assign_range__1000_assign_range_10),\
     UT_CASE(test_vector_assign_range__1000_assign_range_1700),\
+    UT_CASE(test_vector_assign_range__other_container_range),\
     UT_CASE_BEGIN(vector_swap, test_vector_swap__null_first),\
     UT_CASE(test_vector_swap__null_second),\
     UT_CASE(test_vector_swap__non_inited_first),\
@@ -620,6 +625,7 @@ void test_vector_resize__successfully_1000_resize_2000(void** state);
     UT_CASE(test_vector_insert_range__end_insert_0),\
     UT_CASE(test_vector_insert_range__end_insert_10),\
     UT_CASE(test_vector_insert_range__end_insert_1000),\
+    UT_CASE(test_vector_insert_range__other_container_range),\
     UT_CASE_BEGIN(vector_pop_back, test_vector_pop_back__null_vector_container),\
     UT_CASE(test_vector_pop_back__non_inited_vector_container),\
     UT_CASE(test_vector_pop_back__empty),\

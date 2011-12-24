@@ -367,7 +367,7 @@ extern list_reverse_iterator_t list_rend(const list_t* cplist_list);
  *          if [it_begin, it_end) belong to list, the behavior is undefined. the type of specificed range and 
  *          list element must be the same, otherwise the behavior is undefined.
  */
-extern void list_insert_range(list_t* plist_list, list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end);
+extern void list_insert_range(list_t* plist_list, list_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Delete the element at the end of list.

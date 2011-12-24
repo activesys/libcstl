@@ -91,6 +91,18 @@ bool_t _slist_same_slist_iterator_type(const slist_t* cpslist_slist, slist_itera
 }
 
 /**
+ * Test the type that saved in the slist container and referenced by it_iter are same.
+ */
+bool_t _slist_same_iterator_type(const slist_t* cpslist_slist, iterator_t it_iter)
+{
+    assert(cpslist_slist != NULL);
+    assert(_slist_is_inited(cpslist_slist) || _slist_is_created(cpslist_slist));
+    assert(_iterator_is_valid(it_iter));
+
+    return _type_is_same_ex(&cpslist_slist->_t_typeinfo, _iterator_get_typeinfo(it_iter));
+}
+
+/**
  * Test slist is created by create_slist.
  */
 bool_t _slist_is_created(const slist_t* cpslist_slist)

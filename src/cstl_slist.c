@@ -103,18 +103,18 @@ void slist_init_copy(slist_t* pslist_dest, const slist_t* cpslist_src)
 /**
  * Initialize slist container with specific range.
  */
-void slist_init_copy_range(slist_t* pslist_dest, slist_iterator_t it_begin, slist_iterator_t it_end)
+void slist_init_copy_range(slist_t* pslist_dest, iterator_t it_begin, iterator_t it_end)
 {
-    slist_iterator_t it_dest;
-    slist_iterator_t it_src;
-    bool_t           b_result = false;
+    iterator_t it_dest;
+    iterator_t it_src;
+    bool_t     b_result = false;
 
     /* test the dest slist and [it_begin, it_end) is valid */
     assert(pslist_dest != NULL);
     assert(_slist_is_created(pslist_dest));
-    assert(_slist_same_slist_iterator_type(pslist_dest, it_begin));
-    assert(_slist_same_slist_iterator_type(pslist_dest, it_end));
-    assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
+    assert(_slist_same_iterator_type(pslist_dest, it_begin));
+    assert(_slist_same_iterator_type(pslist_dest, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     /* initialize the dest slist use the iterator slist */
     slist_init_n(pslist_dest, iterator_distance(it_begin, it_end));
@@ -125,8 +125,8 @@ void slist_init_copy_range(slist_t* pslist_dest, slist_iterator_t it_begin, slis
     {
         b_result = _GET_SLIST_TYPE_SIZE(pslist_dest);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_dest)(
-            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_dest))->_pby_data,
-            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_src))->_pby_data, &b_result);
+            _iterator_get_pointer_ignore_cstr(it_dest),
+            _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     } 
     assert(iterator_equal(it_dest, slist_end(pslist_dest)) && iterator_equal(it_src, it_end));
@@ -242,7 +242,7 @@ void slist_assign(slist_t* pslist_dest, const slist_t* cpslist_src)
 /**
  * Assign slist element with an exist slist container range.
  */
-void slist_assign_range(slist_t* pslist_slist, slist_iterator_t it_begin, slist_iterator_t it_end)
+void slist_assign_range(slist_t* pslist_slist, iterator_t it_begin, iterator_t it_end)
 {
     slist_iterator_t it_dest;
     slist_iterator_t it_src;
@@ -251,11 +251,11 @@ void slist_assign_range(slist_t* pslist_slist, slist_iterator_t it_begin, slist_
     /* test the dest slist and [it_begin, it_end) is valid */
     assert(pslist_slist != NULL);
     assert(_slist_is_inited(pslist_slist));
-    assert(_slist_same_slist_iterator_type(pslist_slist, it_begin));
-    assert(_slist_same_slist_iterator_type(pslist_slist, it_end));
+    assert(_slist_same_iterator_type(pslist_slist, it_begin));
+    assert(_slist_same_iterator_type(pslist_slist, it_end));
     /*assert(!_slist_iterator_belong_to_slist(pslist_slist, it_begin));*/
     /*assert(!_slist_iterator_belong_to_slist(pslist_slist, it_end));*/
-    assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     slist_resize(pslist_slist, iterator_distance(it_begin, it_end));
 
@@ -266,10 +266,11 @@ void slist_assign_range(slist_t* pslist_slist, slist_iterator_t it_begin, slist_
     {
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
-            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_dest))->_pby_data,
-            ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_src))->_pby_data, &b_result);
+            _iterator_get_pointer_ignore_cstr(it_dest),
+            _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
+    assert(iterator_equal(it_dest, slist_end(pslist_slist)) && iterator_equal(it_src, it_end));
 }
 
 /**
@@ -366,25 +367,25 @@ slist_iterator_t slist_previous(const slist_t* cpslist_slist, slist_iterator_t i
 /**
  * Insert a range of elements into slist at a specificed position.
  */
-void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, slist_iterator_t it_begin, slist_iterator_t it_end)
+void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, iterator_t it_begin, iterator_t it_end)
 {
     assert(pslist_slist != NULL);
     assert(_slist_is_inited(pslist_slist));
     assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
     /*assert(!_slist_iterator_belong_to_slist(pslist_slist, it_begin));*/
     /*assert(!_slist_iterator_belong_to_slist(pslist_slist, it_end));*/
-    assert(_slist_same_slist_iterator_type(pslist_slist, it_begin));
-    assert(_slist_same_slist_iterator_type(pslist_slist, it_end));
-    assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
+    assert(_slist_same_iterator_type(pslist_slist, it_begin));
+    assert(_slist_same_iterator_type(pslist_slist, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     /* if pos is equal to slist begin iterator */
     if(iterator_equal(it_pos, slist_begin(pslist_slist)))
     {
-        _slistnode_t*    pt_begin = NULL;
-        _slistnode_t*    pt_end = NULL;
-        _slistnode_t*    pt_node = NULL;
-        slist_iterator_t it_iter;
-        bool_t           b_result = false;
+        _slistnode_t* pt_begin = NULL;
+        _slistnode_t* pt_end = NULL;
+        _slistnode_t* pt_node = NULL;
+        iterator_t    it_iter;
+        bool_t        b_result = false;
 
         for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
         {
@@ -395,7 +396,7 @@ void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, slist_it
             /* copy value form range [it_begin, it_end) */
             b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
             _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
-                pt_node->_pby_data, ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_result);
+                pt_node->_pby_data, _iterator_get_pointer_ignore_cstr(it_iter), &b_result);
             assert(b_result);
 
             /* make new node link */
@@ -431,13 +432,13 @@ void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, slist_it
  * Insert a range of elements into slist at position following specific position.
  */
 void slist_insert_after_range(
-    slist_t* pslist_slist, slist_iterator_t it_pos, slist_iterator_t it_begin, slist_iterator_t it_end)
+    slist_t* pslist_slist, slist_iterator_t it_pos, iterator_t it_begin, iterator_t it_end)
 {
-    _slistnode_t*    pt_begin = NULL;    /* the first node of duplicate list */
-    _slistnode_t*    pt_end = NULL;      /* the last node of duplicate list */
-    _slistnode_t*    pt_node = NULL;
-    slist_iterator_t it_iter;
-    bool_t           b_result = false;
+    _slistnode_t* pt_begin = NULL;    /* the first node of duplicate list */
+    _slistnode_t* pt_end = NULL;      /* the last node of duplicate list */
+    _slistnode_t* pt_node = NULL;
+    iterator_t    it_iter;
+    bool_t        b_result = false;
 
     assert(pslist_slist != NULL);
     assert(_slist_is_inited(pslist_slist));
@@ -445,9 +446,9 @@ void slist_insert_after_range(
     assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
     /*assert(!_slist_iterator_belong_to_slist(pslist_slist, it_begin));*/
     /*assert(!_slist_iterator_belong_to_slist(pslist_slist, it_end));*/
-    assert(_slist_same_slist_iterator_type(pslist_slist, it_begin));
-    assert(_slist_same_slist_iterator_type(pslist_slist, it_end));
-    assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
+    assert(_slist_same_iterator_type(pslist_slist, it_begin));
+    assert(_slist_same_iterator_type(pslist_slist, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     /* allocate new elements and copy the element from range */
     for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
@@ -459,7 +460,7 @@ void slist_insert_after_range(
         /* copy value from [it_begin, it_end) */
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
-            pt_node->_pby_data, ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_result);
+            pt_node->_pby_data, _iterator_get_pointer_ignore_cstr(it_iter), &b_result);
         assert(b_result);
 
         /* make new node link */

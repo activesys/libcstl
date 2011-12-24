@@ -2778,6 +2778,33 @@ void test_list_insert_range__end_insert_10(void** state)
     list_destroy(plist_src);
 }
 
+void test_list_insert_range__other_container_range(void** state)
+{
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+    iterator_t it_iter;
+    int i = 0;
+
+    list_init_elem(plist, 10, 9);
+    vector_init_elem(pvec, 10, 100);
+    assert_true(list_size(plist) == 10);
+    list_insert_range(plist, list_begin(plist), vector_begin(pvec), vector_end(pvec));
+    for(it_iter = list_begin(plist), i = 0; !iterator_equal(it_iter, list_end(plist)); it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 9);
+        }
+    }
+
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
 /*
  * test list_pop_back
  */

@@ -93,21 +93,19 @@ void vector_init_copy(vector_t* pvec_dest, const vector_t* cpvec_src)
 }
 
 /**
- * Initialize vector container with an exist vector range.
+ * Initialize vector container with an exist range.
  */
-void vector_init_copy_range(vector_t* pvec_dest, vector_iterator_t it_begin, vector_iterator_t it_end)
+void vector_init_copy_range(vector_t* pvec_dest, iterator_t it_begin, iterator_t it_end)
 {
-    vector_iterator_t it_dest;
-    vector_iterator_t it_src;
-    bool_t            b_result = false;
+    iterator_t it_dest;
+    iterator_t it_src;
+    bool_t     b_result = false;
 
     assert(pvec_dest != NULL);
     assert(_vector_is_created(pvec_dest));
-    assert(_vector_iterator_belong_to_vector(_VECTOR_ITERATOR_CONTAINER(it_begin), it_begin));
-    assert(_vector_iterator_belong_to_vector(_VECTOR_ITERATOR_CONTAINER(it_end), it_end));
-    assert(iterator_equal(it_begin, it_end) || _vector_iterator_before(it_begin, it_end));
-    assert(_vector_same_vector_iterator_type(pvec_dest, it_begin));
-    assert(_vector_same_vector_iterator_type(pvec_dest, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
+    assert(_vector_same_iterator_type(pvec_dest, it_begin));
+    assert(_vector_same_iterator_type(pvec_dest, it_end));
 
     /* initialize all elements with default value */
     vector_init_n(pvec_dest, iterator_distance(it_begin, it_end));
@@ -118,7 +116,9 @@ void vector_init_copy_range(vector_t* pvec_dest, vector_iterator_t it_begin, vec
         it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
     {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_dest);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_dest)(_VECTOR_ITERATOR_COREPOS(it_dest), _VECTOR_ITERATOR_COREPOS(it_src), &b_result);
+        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_dest)(
+            _iterator_get_pointer_ignore_cstr(it_dest),
+            _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
     assert(iterator_equal(it_dest, vector_end(pvec_dest)) && iterator_equal(it_src, it_end));
@@ -386,9 +386,9 @@ void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src)
 }
 
 /**
- * Assign vector element with an exist vector container range.
+ * Assign vector element with an exist container range.
  */
-void vector_assign_range(vector_t* pvec_vector, vector_iterator_t it_begin, vector_iterator_t it_end)
+void vector_assign_range(vector_t* pvec_vector, iterator_t it_begin, iterator_t it_end)
 {
     iterator_t it_dest;
     iterator_t it_src;
@@ -399,9 +399,9 @@ void vector_assign_range(vector_t* pvec_vector, vector_iterator_t it_begin, vect
     assert(_vector_is_inited(pvec_vector));
     /*assert(!_vector_iterator_belong_to_vector(pvec_vector, it_begin));*/
     /*assert(!_vector_iterator_belong_to_vector(pvec_vector, it_end));*/
-    assert(_vector_same_vector_iterator_type(pvec_vector, it_begin));
-    assert(_vector_same_vector_iterator_type(pvec_vector, it_end));
-    assert(iterator_equal(it_begin, it_end) || _vector_iterator_before(it_begin, it_end));
+    assert(_vector_same_iterator_type(pvec_vector, it_begin));
+    assert(_vector_same_iterator_type(pvec_vector, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     /* copy value from range [it_begin, it_end) for each element */
     vector_resize(pvec_vector, iterator_distance(it_begin, it_end));
@@ -410,7 +410,9 @@ void vector_assign_range(vector_t* pvec_vector, vector_iterator_t it_begin, vect
         it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
     {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_dest), _VECTOR_ITERATOR_COREPOS(it_src), &b_result);
+        _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
+            _iterator_get_pointer_ignore_cstr(it_dest),
+            _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
     assert(iterator_equal(it_dest, vector_end(pvec_vector)) && iterator_equal(it_src, it_end));
@@ -541,15 +543,15 @@ vector_reverse_iterator_t vector_rend(const vector_t* cpvec_vector)
 /**
  * Insert a range of elements into vector at a specificed position.
  */
-void vector_insert_range(vector_t* pvec_vector, vector_iterator_t it_pos, vector_iterator_t it_begin, vector_iterator_t it_end)
+void vector_insert_range(vector_t* pvec_vector, vector_iterator_t it_pos, iterator_t it_begin, iterator_t it_end)
 {
-    size_t            t_count = 0; /* the element count */
-    bool_t            b_result = false;
-    vector_iterator_t it_first;
-    vector_iterator_t it_second;
-    _byte_t*          pby_oldfinish = NULL;
-    _byte_t*          pby_pos = NULL;
-    _byte_t*          pby_destpos = NULL;
+    size_t     t_count = 0; /* the element count */
+    bool_t     b_result = false;
+    iterator_t it_first;
+    iterator_t it_second;
+    _byte_t*   pby_oldfinish = NULL;
+    _byte_t*   pby_pos = NULL;
+    _byte_t*   pby_destpos = NULL;
 
     /* test the vector and iterator is valid */
     assert(pvec_vector != NULL);
@@ -557,9 +559,9 @@ void vector_insert_range(vector_t* pvec_vector, vector_iterator_t it_pos, vector
     assert(_vector_iterator_belong_to_vector(pvec_vector, it_pos));
     /*assert(!_vector_iterator_belong_to_vector(pvec_vector, it_begin));*/
     /*assert(!_vector_iterator_belong_to_vector(pvec_vector, it_end));*/
-    assert(_vector_same_vector_iterator_type(pvec_vector, it_begin));
-    assert(_vector_same_vector_iterator_type(pvec_vector, it_end));
-    assert(iterator_equal(it_begin, it_end) || _vector_iterator_before(it_begin, it_end));
+    assert(_vector_same_iterator_type(pvec_vector, it_begin));
+    assert(_vector_same_iterator_type(pvec_vector, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     t_count = iterator_distance(it_begin, it_end);
     if(t_count > 0)
@@ -597,11 +599,12 @@ void vector_insert_range(vector_t* pvec_vector, vector_iterator_t it_pos, vector
             it_first = iterator_next(it_first), it_second = iterator_next(it_second))
         {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_first), _VECTOR_ITERATOR_COREPOS(it_second), &b_result);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
+                _iterator_get_pointer_ignore_cstr(it_first),
+                _iterator_get_pointer_ignore_cstr(it_second), &b_result);
             assert(b_result);
         }
-        assert(_VECTOR_ITERATOR_COREPOS(it_first) == _VECTOR_ITERATOR_COREPOS(it_pos) + 
-               (_VECTOR_ITERATOR_COREPOS(it_end) - _VECTOR_ITERATOR_COREPOS(it_begin)));
+        assert(iterator_distance(it_pos, it_first) == t_count);
     }
 }
 

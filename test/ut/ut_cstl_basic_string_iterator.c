@@ -9,6 +9,7 @@
 #include "cstl/cstl_basic_string_iterator.h"
 #include "cstl/cstl_basic_string_private.h"
 #include "cstl/cstl_basic_string.h"
+#include "cstl/cstring.h"
 
 #include "ut_def.h"
 #include "ut_cstl_basic_string_iterator.h"

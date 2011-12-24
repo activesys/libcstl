@@ -346,6 +346,123 @@ void test__slist_same_slist_iterator_type__not_same_type(void** state)
 }
 
 /*
+ * test _slist_same_iterator_type
+ */
+UT_CASE_DEFINATION(_slist_same_iterator_type)
+void test__slist_same_iterator_type__null_slist_container(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_init(pslist);
+
+    expect_assert_failure(_slist_same_iterator_type(NULL, slist_begin(pslist)));
+
+    slist_destroy(pslist);
+}
+
+void test__slist_same_iterator_type__invalid_iterator_null_container(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_iterator_t it_iter;
+
+    slist_init(pslist);
+    it_iter = slist_begin(pslist);
+    it_iter._pt_container = NULL;
+    expect_assert_failure(_slist_same_iterator_type(pslist, it_iter));
+
+    slist_destroy(pslist);
+}
+
+void test__slist_same_iterator_type__invalid_iterator_container_type(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_iterator_t it_iter;
+
+    slist_init(pslist);
+    it_iter = slist_begin(pslist);
+    it_iter._t_containertype = 2823;
+    expect_assert_failure(_slist_same_iterator_type(pslist, it_iter));
+
+    slist_destroy(pslist);
+}
+
+void test__slist_same_iterator_type__invalid_iterator_iterator_type(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_iterator_t it_iter;
+
+    slist_init(pslist);
+    it_iter = slist_begin(pslist);
+    it_iter._t_iteratortype = 222;
+    expect_assert_failure(_slist_same_iterator_type(pslist, it_iter));
+
+    slist_destroy(pslist);
+}
+
+void test__slist_same_iterator_type__same_type_belong_to_slist(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_iterator_t it_iter;
+
+    slist_init(pslist);
+    it_iter = slist_begin(pslist);
+    assert_true(_slist_same_iterator_type(pslist, it_iter));
+
+    slist_destroy(pslist);
+}
+
+void test__slist_same_iterator_type__same_type_not_belong_to_slist(void** state)
+{
+    slist_t* pslist_first = create_slist(int);
+    slist_t* pslist_second = create_slist(int);
+    slist_iterator_t it_iter;
+
+    slist_init(pslist_second);
+    it_iter = slist_begin(pslist_second);
+    assert_true(_slist_same_iterator_type(pslist_first, it_iter));
+
+    slist_destroy(pslist_first);
+    slist_destroy(pslist_second);
+}
+
+void test__slist_same_iterator_type__not_same_type(void** state)
+{
+    slist_t* pslist_first = create_slist(int);
+    slist_t* pslist_second = create_slist(double);
+    slist_iterator_t it_iter;
+
+    slist_init(pslist_second);
+    it_iter = slist_begin(pslist_second);
+    assert_false(_slist_same_iterator_type(pslist_first, it_iter));
+
+    slist_destroy(pslist_first);
+    slist_destroy(pslist_second);
+}
+
+void test__slist_same_iterator_type__same_type_not_slist_iterator(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    assert_true(_slist_same_iterator_type(pslist, vector_begin(pvec)));
+
+    slist_destroy(pslist);
+    vector_destroy(pvec);
+}
+
+void test__slist_same_iterator_type__not_same_type_not_slist_iterator(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    vector_t* pvec = create_vector(double);
+
+    vector_init(pvec);
+    assert_false(_slist_same_iterator_type(pslist, vector_begin(pvec)));
+
+    slist_destroy(pslist);
+    vector_destroy(pvec);
+}
+
+/*
  * test _slist_same_type
  */
 UT_CASE_DEFINATION(_slist_same_type)

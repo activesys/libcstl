@@ -66,6 +66,15 @@ extern bool_t _slist_iterator_belong_to_slist(const slist_t* cpslist_slist, slis
 extern bool_t _slist_same_slist_iterator_type(const slist_t* cpslist_slist, slist_iterator_t it_iter);
 
 /**
+ * Test the type that saved in the slist container and referenced by it_iter are same.
+ * @param cpslist_slist   slist container.
+ * @param it_iter         iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpslist_first == NULL, then the behavior is undefined.
+ */
+extern bool_t _slist_same_iterator_type(const slist_t* cpslist_slist, iterator_t it_iter);
+
+/**
  * Test slist is created by create_slist.
  * @param cpslist_slist  slist container.
  * @return if slist is created by create_slist, then return true, else return false.

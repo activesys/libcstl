@@ -81,6 +81,18 @@ bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_it
 }
 
 /**
+ * Test the type that saved in the vector container and referenced by it_iter are same.
+ */
+bool_t _vector_same_iterator_type(const vector_t* cpvec_vector, iterator_t it_iter)
+{
+    assert(cpvec_vector != NULL);
+    assert(_vector_is_inited(cpvec_vector) || _vector_is_created(cpvec_vector));
+    assert(_iterator_is_valid(it_iter));
+
+    return _type_is_same_ex(&cpvec_vector->_t_typeinfo, _iterator_get_typeinfo(it_iter));
+}
+
+/**
  * Test vector is created by create_vector.
  */
 bool_t _vector_is_created(const vector_t* cpvec_vector)

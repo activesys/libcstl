@@ -7,6 +7,7 @@
 #include "cstl/citerator.h"
 #include "cstl/cstl_vector_iterator.h"
 #include "cstl/cvector.h"
+#include "cstl/clist.h"
 #include "cstl_vector_aux.h"
 
 #include "ut_def.h"
@@ -373,6 +374,123 @@ void test__vector_same_vector_iterator_type__not_same(void** state)
 
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
+}
+
+/*
+ * test _vector_same_iterator_type
+ */
+UT_CASE_DEFINATION(_vector_same_iterator_type)
+void test__vector_same_iterator_type__null_vector_container(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    vector_init(pvector);
+
+    expect_assert_failure(_vector_same_iterator_type(NULL, vector_begin(pvector)));
+
+    vector_destroy(pvector);
+}
+
+void test__vector_same_iterator_type__invalid_iterator_null_container(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvector);
+    it_iter = vector_begin(pvector);
+    it_iter._pt_container = NULL;
+    expect_assert_failure(_vector_same_iterator_type(pvector, it_iter));
+
+    vector_destroy(pvector);
+}
+
+void test__vector_same_iterator_type__invalid_iterator_container_type(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvector);
+    it_iter = vector_begin(pvector);
+    it_iter._t_containertype = 2823;
+    expect_assert_failure(_vector_same_iterator_type(pvector, it_iter));
+
+    vector_destroy(pvector);
+}
+
+void test__vector_same_iterator_type__invalid_iterator_iterator_type(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvector);
+    it_iter = vector_begin(pvector);
+    it_iter._t_iteratortype = 222;
+    expect_assert_failure(_vector_same_iterator_type(pvector, it_iter));
+
+    vector_destroy(pvector);
+}
+
+void test__vector_same_iterator_type__same_type_belong_to_vector(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvector);
+    it_iter = vector_begin(pvector);
+    assert_true(_vector_same_iterator_type(pvector, it_iter));
+
+    vector_destroy(pvector);
+}
+
+void test__vector_same_iterator_type__same_type_not_belong_to_vector(void** state)
+{
+    vector_t* pvector_first = create_vector(int);
+    vector_t* pvector_second = create_vector(int);
+    vector_iterator_t it_iter;
+
+    vector_init(pvector_second);
+    it_iter = vector_begin(pvector_second);
+    assert_true(_vector_same_iterator_type(pvector_first, it_iter));
+
+    vector_destroy(pvector_first);
+    vector_destroy(pvector_second);
+}
+
+void test__vector_same_iterator_type__not_same_type(void** state)
+{
+    vector_t* pvector_first = create_vector(int);
+    vector_t* pvector_second = create_vector(double);
+    vector_iterator_t it_iter;
+
+    vector_init(pvector_second);
+    it_iter = vector_begin(pvector_second);
+    assert_false(_vector_same_iterator_type(pvector_first, it_iter));
+
+    vector_destroy(pvector_first);
+    vector_destroy(pvector_second);
+}
+
+void test__vector_same_iterator_type__same_type_not_vector_iterator(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    assert_true(_vector_same_iterator_type(pvector, list_begin(plist)));
+
+    vector_destroy(pvector);
+    list_destroy(plist);
+}
+
+void test__vector_same_iterator_type__not_same_type_not_vector_iterator(void** state)
+{
+    vector_t* pvector = create_vector(int);
+    list_t* plist = create_list(double);
+
+    list_init(plist);
+    assert_false(_vector_same_iterator_type(pvector, list_begin(plist)));
+
+    vector_destroy(pvector);
+    list_destroy(plist);
 }
 
 /*

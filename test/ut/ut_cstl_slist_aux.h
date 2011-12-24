@@ -70,6 +70,19 @@ void test__slist_same_slist_iterator_type__same_type_belong_to_slist(void** stat
 void test__slist_same_slist_iterator_type__same_type_not_belong_to_slist(void** state);
 void test__slist_same_slist_iterator_type__not_same_type(void** state);
 /*
+ * test _slist_same_iterator_type
+ */
+UT_CASE_DECLARATION(_slist_same_iterator_type)
+void test__slist_same_iterator_type__null_slist_container(void** state);
+void test__slist_same_iterator_type__invalid_iterator_null_container(void** state);
+void test__slist_same_iterator_type__invalid_iterator_container_type(void** state);
+void test__slist_same_iterator_type__invalid_iterator_iterator_type(void** state);
+void test__slist_same_iterator_type__same_type_belong_to_slist(void** state);
+void test__slist_same_iterator_type__same_type_not_belong_to_slist(void** state);
+void test__slist_same_iterator_type__not_same_type(void** state);
+void test__slist_same_iterator_type__same_type_not_slist_iterator(void** state);
+void test__slist_same_iterator_type__not_same_type_not_slist_iterator(void** state);
+/*
  * test _slist_get_varg_value_auxiliary
  */
 UT_CASE_DECLARATION(_slist_get_varg_value_auxiliary)
@@ -200,6 +213,15 @@ void test__slist_transfer_after__same_slist_end_middle(void** state);
     UT_CASE(test__slist_same_slist_iterator_type__same_type_belong_to_slist),\
     UT_CASE(test__slist_same_slist_iterator_type__same_type_not_belong_to_slist),\
     UT_CASE(test__slist_same_slist_iterator_type__not_same_type),\
+    UT_CASE_BEGIN(_slist_same_iterator_type, test__slist_same_iterator_type__null_slist_container),\
+    UT_CASE(test__slist_same_iterator_type__invalid_iterator_null_container),\
+    UT_CASE(test__slist_same_iterator_type__invalid_iterator_container_type),\
+    UT_CASE(test__slist_same_iterator_type__invalid_iterator_iterator_type),\
+    UT_CASE(test__slist_same_iterator_type__same_type_belong_to_slist),\
+    UT_CASE(test__slist_same_iterator_type__same_type_not_belong_to_slist),\
+    UT_CASE(test__slist_same_iterator_type__not_same_type),\
+    UT_CASE(test__slist_same_iterator_type__same_type_not_slist_iterator),\
+    UT_CASE(test__slist_same_iterator_type__not_same_type_not_slist_iterator),\
     UT_CASE_BEGIN(_slist_get_varg_value_auxiliary, test__slist_get_varg_value_auxiliary__null_slist_container),\
     UT_CASE(test__slist_get_varg_value_auxiliary__null_node),\
     UT_CASE(test__slist_get_varg_value_auxiliary__non_created_slist_containter),\

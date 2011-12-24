@@ -279,6 +279,7 @@ void test_list_insert_range__middle_insert_0(void** state);
 void test_list_insert_range__middle_insert_10(void** state);
 void test_list_insert_range__end_insert_0(void** state);
 void test_list_insert_range__end_insert_10(void** state);
+void test_list_insert_range__other_container_range(void** state);
 /*
  * test list_pop_back
  */
@@ -745,6 +746,7 @@ void test_list_reverse__not_same(void** state);
     UT_CASE(test_list_insert_range__middle_insert_10),\
     UT_CASE(test_list_insert_range__end_insert_0),\
     UT_CASE(test_list_insert_range__end_insert_10),\
+    UT_CASE(test_list_insert_range__other_container_range),\
     UT_CASE_BEGIN(list_pop_back, test_list_pop_back__null_list_container),\
     UT_CASE(test_list_pop_back__non_inited_list_container),\
     UT_CASE(test_list_pop_back__empty),\

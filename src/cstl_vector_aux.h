@@ -66,6 +66,15 @@ extern bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, ve
 extern bool_t _vector_same_vector_iterator_type(const vector_t* cpvec_vector, vector_iterator_t it_iter);
 
 /**
+ * Test the type that saved in the vector container and referenced by it_iter are same.
+ * @param cpvec_vector vector container.
+ * @param it_iter      vector iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpvec_first == NULL, then the behavior is undefined.
+ */
+extern bool_t _vector_same_iterator_type(const vector_t* cpvec_vector, iterator_t it_iter);
+
+/**
  * Test vector is created by create_vector.
  * @param cpvec_vector  vector container.
  * @return if vector is created by create_vector, then return true, else return false.

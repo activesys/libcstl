@@ -148,7 +148,7 @@ extern void vector_init_n(vector_t* pvec_vector, size_t t_count);
 extern void vector_init_copy(vector_t* pvec_dest, const vector_t* cpvec_src);
 
 /**
- * Initialize vector container with an exist vector range.
+ * Initialize vector container with an exist range.
  * @param pvec_dest     destination vector container.
  * @param it_begin      the begin iterator of range.
  * @param it_end        the end iterator of range.
@@ -157,7 +157,7 @@ extern void vector_init_copy(vector_t* pvec_dest, const vector_t* cpvec_src);
  *          the behavior is undefined. after initialization the size of pvec_dest is equal to the size of range, and the
  *          capacity of pvec_dest is satisfied capacity assignment algorithm.
  */
-extern void vector_init_copy_range(vector_t* pvec_dest, vector_iterator_t it_begin, vector_iterator_t it_end);
+extern void vector_init_copy_range(vector_t* pvec_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Destroy vector container.
@@ -293,7 +293,7 @@ extern bool_t vector_greater_equal(const vector_t* cpvec_first, const vector_t* 
 extern void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src);
 
 /**
- * Assign vector element with an exist vector container range.
+ * Assign vector element with an exist container range.
  * @param pvec_vector     destination vector container.
  * @param it_begin        range begin.
  * @param it_end          range end.
@@ -302,7 +302,7 @@ extern void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src);
  *          is undefined. the element type of vector and [it_begin, it_end) must be same, otherwise the behavior is
  *          undefined. if [it_begin, it_end) belong to the destination vector, the behavior is undefined.
  */
-extern void vector_assign_range(vector_t* pvec_vector, vector_iterator_t it_begin, vector_iterator_t it_end);
+extern void vector_assign_range(vector_t* pvec_vector, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Swap vector datas.
@@ -378,7 +378,7 @@ extern vector_reverse_iterator_t vector_rend(const vector_t* cpvec_vector);
  *          vector element must be the same, otherwise the behavior is undefined.
  */
 extern void vector_insert_range(
-    vector_t* pvec_vector, vector_iterator_t it_pos, vector_iterator_t it_begin, vector_iterator_t it_end);
+    vector_t* pvec_vector, vector_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Delete the element at the end of vector.

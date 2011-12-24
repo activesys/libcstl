@@ -492,33 +492,33 @@ list_reverse_iterator_t list_rend(const list_t* cplist_list)
 /**
  * Insert a range of elements into list at a specificed position.
  */
-void list_insert_range(list_t* plist_list, list_iterator_t it_pos, list_iterator_t it_begin, list_iterator_t it_end)
+void list_insert_range(list_t* plist_list, list_iterator_t it_pos, iterator_t it_begin, iterator_t it_end)
 {
     _listnode_t* plist_begin = NULL;    /* the begin pointer of copy list */
     _listnode_t* plist_end = NULL;      /* the end pointer of copy list */
     _listnode_t* pt_node = NULL;         /* the new allocate node */
-    _listnode_t* pt_nodeinrange = NULL;  /* the node that in range */
     bool_t       b_result = false;
+    iterator_t   it_iter;
 
     assert(plist_list != NULL);
     assert(_list_is_inited(plist_list));
     assert(_list_iterator_belong_to_list(plist_list, it_pos));
     /*assert(!_list_iterator_belong_to_list(plist_list, it_begin));*/
     /*assert(!_list_iterator_belong_to_list(plist_list, it_end));*/
-    assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
-    assert(_list_same_list_iterator_type(plist_list, it_begin));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
+    assert(_list_same_iterator_type(plist_list, it_begin));
+    assert(_list_same_iterator_type(plist_list, it_end));
 
     /* allocate the copy list of range [it_begin, it_end) */
-    for(pt_nodeinrange = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_begin);
-        pt_nodeinrange != (_listnode_t*)_LIST_ITERATOR_COREPOS(it_end);
-        pt_nodeinrange = pt_nodeinrange->_pt_next)
+    for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
     {
         pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
         assert(pt_node != NULL);
         pt_node->_pt_next = pt_node->_pt_prev = NULL;
         _list_init_node_auxiliary(plist_list, pt_node);
         b_result = _GET_LIST_TYPE_SIZE(plist_list);
-        _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(pt_node->_pby_data, pt_nodeinrange->_pby_data, &b_result);
+        _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
+            pt_node->_pby_data, _iterator_get_pointer_ignore_cstr(it_iter), &b_result);
         assert(b_result);
 
         if(plist_begin == NULL)

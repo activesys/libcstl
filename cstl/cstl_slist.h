@@ -198,7 +198,7 @@ extern void slist_init_copy(slist_t* pslist_dest, const slist_t* cpslist_src);
  *          the behavior is undefined. [it_begin, it_end) must be valid range, otherwise the behavior is undefined. the
  *          element type of [it_begin, it_end) and pslist_dest must be the same, otherwise the behavior is undefined.
  */
-extern void slist_init_copy_range(slist_t* pslist_dest, slist_iterator_t it_begin, slist_iterator_t it_end);
+extern void slist_init_copy_range(slist_t* pslist_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Destroy slist container.
@@ -285,7 +285,7 @@ extern void slist_assign(slist_t* pslist_dest, const slist_t* cpslist_src);
  *          is undefined. the element type of slist and [it_begin, it_end) must be same, otherwise the behavior is
  *          undefined. if [it_begin, it_end) belong to the destination slist, the behavior is undefined.
  */
-extern void slist_assign_range(slist_t* pslist_dest, slist_iterator_t it_begin, slist_iterator_t it_end);
+extern void slist_assign_range(slist_t* pslist_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Swap slist datas.
@@ -330,7 +330,7 @@ extern void slist_pop_front(slist_t* pslist_slist);
  *          slist element must be the same, otherwise the behavior is undefined.
  */
 extern void slist_insert_range(
-    slist_t* pslist_slist, slist_iterator_t it_pos, slist_iterator_t it_begin, slist_iterator_t it_end);
+    slist_t* pslist_slist, slist_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Insert a range of elements into slist at position following specific position.
@@ -346,7 +346,7 @@ extern void slist_insert_range(
  *          range and slist element must be the same, otherwise the behavior is undefined.
  */
 extern void slist_insert_after_range(
-    slist_t* pslist_slist, slist_iterator_t it_pos, slist_iterator_t it_begin, slist_iterator_t it_end);
+    slist_t* pslist_slist, slist_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Removes an element in slist from specificed position.
