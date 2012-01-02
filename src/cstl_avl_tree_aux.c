@@ -132,6 +132,18 @@ bool_t _avl_tree_same_avl_tree_iterator_type(const _avl_tree_t* cpt_avl_tree, _a
 }
 
 /**
+ * Test the type that saved in the avl tree container and referenced by it_iter are same.
+ */
+bool_t _avl_tree_same_iterator_type(const _avl_tree_t* cpt_avl_tree, iterator_t it_iter)
+{
+    assert(cpt_avl_tree != NULL);
+    assert(_avl_tree_is_inited(cpt_avl_tree) || _avl_tree_is_created(cpt_avl_tree));
+    assert(_iterator_is_valid(it_iter));
+
+    return _type_is_same_ex(&cpt_avl_tree->_t_typeinfo, _iterator_get_typeinfo(it_iter));
+}
+
+/**
  * Test the type and compare function that saved in the avl tree container and referenced by it_iter are same.
  */
 bool_t _avl_tree_same_avl_tree_iterator_type_ex(const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t it_iter)

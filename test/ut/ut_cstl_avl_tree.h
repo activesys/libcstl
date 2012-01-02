@@ -376,7 +376,7 @@ void test__avl_tree_insert_unique_range__empty(void** state);
 void test__avl_tree_insert_unique_range__non_empty_equal(void** state);
 void test__avl_tree_insert_unique_range__non_empty_dest_src_dup(void** state);
 void test__avl_tree_insert_unique_range__non_empty_src_dup(void** state);
-void test__avl_tree_insert_unique_range__compare(void** state);
+void test__avl_tree_insert_unique_range__other_container_range(void** state);
 /*
  * test _avl_tree_insert_equal_range
  */
@@ -391,7 +391,6 @@ void test__avl_tree_insert_equal_range__empty(void** state);
 void test__avl_tree_insert_equal_range__non_empty_equal(void** state);
 void test__avl_tree_insert_equal_range__non_empty_dest_src_dup(void** state);
 void test__avl_tree_insert_equal_range__non_empty_src_dup(void** state);
-void test__avl_tree_insert_equal_range__compare(void** state);
 /*
  * test _avl_tree_erase_pos
  */
@@ -697,7 +696,7 @@ void test__avl_tree_insert_equal__user_define_n(void** state);
     UT_CASE(test__avl_tree_insert_unique_range__non_empty_equal),\
     UT_CASE(test__avl_tree_insert_unique_range__non_empty_dest_src_dup),\
     UT_CASE(test__avl_tree_insert_unique_range__non_empty_src_dup),\
-    UT_CASE(test__avl_tree_insert_unique_range__compare),\
+    UT_CASE(test__avl_tree_insert_unique_range__other_container_range),\
     UT_CASE_BEGIN(_avl_tree_insert_equal_range, test__avl_tree_insert_equal_range__null_avl_tree),\
     UT_CASE(test__avl_tree_insert_equal_range__non_inited),\
     UT_CASE(test__avl_tree_insert_equal_range__invalid_begin),\
@@ -708,7 +707,6 @@ void test__avl_tree_insert_equal__user_define_n(void** state);
     UT_CASE(test__avl_tree_insert_equal_range__non_empty_equal),\
     UT_CASE(test__avl_tree_insert_equal_range__non_empty_dest_src_dup),\
     UT_CASE(test__avl_tree_insert_equal_range__non_empty_src_dup),\
-    UT_CASE(test__avl_tree_insert_equal_range__compare),\
     UT_CASE_BEGIN(_avl_tree_erase_pos, test__avl_tree_erase_pos__null_avl_tree),\
     UT_CASE(test__avl_tree_erase_pos__non_inited),\
     UT_CASE(test__avl_tree_erase_pos__invalid_pos),\

@@ -54,6 +54,21 @@ void test__avl_tree_same_avl_tree_iterator_type__same_container(void** state);
 void test__avl_tree_same_avl_tree_iterator_type__same(void** state);
 void test__avl_tree_same_avl_tree_iterator_type__not_same(void** state);
 /*
+ * test _avl_tree_same_iterator_type
+ */
+UT_CASE_DECLARATION(_avl_tree_same_iterator_type)
+void test__avl_tree_same_iterator_type__null_avl_tree_container(void** state);
+void test__avl_tree_same_iterator_type__invalid_iterator_null_container(void** state);
+void test__avl_tree_same_iterator_type__invalid_iterator_container_type(void** state);
+void test__avl_tree_same_iterator_type__invalid_iterator_iterator_type(void** state);
+/*
+void test__avl_tree_same_iterator_type__same_type_belong_to_avl_tree(void** state);
+void test__avl_tree_same_iterator_type__same_type_not_belong_to_avl_tree(void** state);
+void test__avl_tree_same_iterator_type__not_same_type(void** state);
+*/
+void test__avl_tree_same_iterator_type__same_type_not_avl_tree_iterator(void** state);
+void test__avl_tree_same_iterator_type__not_same_type_not_avl_tree_iterator(void** state);
+/*
  * test _avl_tree_same_avl_tree_iterator_type_ex
  */
 UT_CASE_DECLARATION(_avl_tree_same_avl_tree_iterator_type_ex)
@@ -237,6 +252,12 @@ void test__avl_tree_elem_compare_auxiliary__cstr(void** state);
     UT_CASE(test__avl_tree_same_avl_tree_iterator_type__same_container),\
     UT_CASE(test__avl_tree_same_avl_tree_iterator_type__same),\
     UT_CASE(test__avl_tree_same_avl_tree_iterator_type__not_same),\
+    UT_CASE_BEGIN(_avl_tree_same_iterator_type, test__avl_tree_same_iterator_type__null_avl_tree_container),\
+    UT_CASE(test__avl_tree_same_iterator_type__invalid_iterator_null_container),\
+    UT_CASE(test__avl_tree_same_iterator_type__invalid_iterator_container_type),\
+    UT_CASE(test__avl_tree_same_iterator_type__invalid_iterator_iterator_type),\
+    UT_CASE(test__avl_tree_same_iterator_type__same_type_not_avl_tree_iterator),\
+    UT_CASE(test__avl_tree_same_iterator_type__not_same_type_not_avl_tree_iterator),\
     UT_CASE_BEGIN(_avl_tree_same_avl_tree_iterator_type_ex, test__avl_tree_same_avl_tree_iterator_type_ex__null_avl_tree),\
     UT_CASE(test__avl_tree_same_avl_tree_iterator_type_ex__non_created),\
     UT_CASE(test__avl_tree_same_avl_tree_iterator_type_ex__invalid_iter),\

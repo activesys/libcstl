@@ -73,10 +73,10 @@ extern void _avl_tree_init_copy(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src
  * @param it_end            end of range.
  * @return void.
  * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_avl_tree(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized avl tree, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is
+ *          undefined.
  */
-extern void _avl_tree_init_copy_range(_avl_tree_t* pt_dest, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end);
+extern void _avl_tree_init_copy_range(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize avl tree container with specific range and compare function.
@@ -86,12 +86,10 @@ extern void _avl_tree_init_copy_range(_avl_tree_t* pt_dest, _avl_tree_iterator_t
  * @param t_compare         compare function.
  * @return void.
  * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_avl_tree(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized avl tree, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is undefined. if
- *          t_compare == NULL, then use default compare function.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is
+ *          undefined. if t_compare == NULL, then use default compare function.
  */
-extern void _avl_tree_init_copy_range_ex(
-    _avl_tree_t* pt_dest, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end, binary_function_t t_compare);
+extern void _avl_tree_init_copy_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
 
 /**
  * Destroy avl tree.
@@ -342,8 +340,7 @@ extern _avl_tree_iterator_t _avl_tree_insert_equal(_avl_tree_t* pt_avl_tree, con
  *          is undefined. the type of [it_begin, it_end) and cpt_avl_tree must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void _avl_tree_insert_unique_range(
-    _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end);
+extern void _avl_tree_insert_unique_range(_avl_tree_t* pt_avl_tree, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Inserts an range into a avl tree.
@@ -355,8 +352,7 @@ extern void _avl_tree_insert_unique_range(
  *          is undefined. the type of [it_begin, it_end) and cpt_avl_tree must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void _avl_tree_insert_equal_range(
-    _avl_tree_t* pt_avl_tree, _avl_tree_iterator_t it_begin, _avl_tree_iterator_t it_end);
+extern void _avl_tree_insert_equal_range(_avl_tree_t* pt_avl_tree, iterator_t it_begin, iterator_t it_end);
 
 /*
  * Erase an element in an avl tree from specificed position.

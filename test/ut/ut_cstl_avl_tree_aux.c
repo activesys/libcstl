@@ -12,6 +12,7 @@
 #include "cstl/cstl_avl_tree.h"
 #include "cstl_avl_tree_aux.h"
 #include "cstl/cstring.h"
+#include "cstl/clist.h"
 
 #include "ut_def.h"
 #include "ut_cstl_avl_tree_aux.h"
@@ -514,6 +515,127 @@ void test__avl_tree_same_avl_tree_iterator_type__not_same(void** state)
 
     _avl_tree_destroy(pt_avl_tree);
     _avl_tree_destroy(pt_iter);
+}
+
+/*
+ * test _avl_tree_same_iterator_type
+ */
+UT_CASE_DEFINATION(_avl_tree_same_iterator_type)
+void test__avl_tree_same_iterator_type__null_avl_tree_container(void** state)
+{
+    _avl_tree_t* pavl_tree = _create_avl_tree("int");
+    _avl_tree_init(pavl_tree, NULL);
+
+    expect_assert_failure(_avl_tree_same_iterator_type(NULL, _avl_tree_begin(pavl_tree)));
+
+    _avl_tree_destroy(pavl_tree);
+}
+
+void test__avl_tree_same_iterator_type__invalid_iterator_null_container(void** state)
+{
+    _avl_tree_t* pavl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+
+    _avl_tree_init(pavl_tree, NULL);
+    it_iter = _avl_tree_begin(pavl_tree);
+    it_iter._pt_container = NULL;
+    expect_assert_failure(_avl_tree_same_iterator_type(pavl_tree, it_iter));
+
+    _avl_tree_destroy(pavl_tree);
+}
+
+void test__avl_tree_same_iterator_type__invalid_iterator_container_type(void** state)
+{
+    _avl_tree_t* pavl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+
+    _avl_tree_init(pavl_tree, NULL);
+    it_iter = _avl_tree_begin(pavl_tree);
+    it_iter._t_containertype = 2823;
+    expect_assert_failure(_avl_tree_same_iterator_type(pavl_tree, it_iter));
+
+    _avl_tree_destroy(pavl_tree);
+}
+
+void test__avl_tree_same_iterator_type__invalid_iterator_iterator_type(void** state)
+{
+    _avl_tree_t* pavl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+
+    _avl_tree_init(pavl_tree, NULL);
+    it_iter = _avl_tree_begin(pavl_tree);
+    it_iter._t_iteratortype = 222;
+    expect_assert_failure(_avl_tree_same_iterator_type(pavl_tree, it_iter));
+
+    _avl_tree_destroy(pavl_tree);
+}
+
+/*
+void test__avl_tree_same_iterator_type__same_type_belong_to_avl_tree(void** state)
+{
+    _avl_tree_t* pavl_tree = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+
+    _avl_tree_init(pavl_tree, NULL);
+    it_iter = _avl_tree_begin(pavl_tree);
+    it_iter._t_containertype = _SET_CONTAINER;
+    it_iter._t_iteratortype = _BIDIRECTIONAL_ITERATOR;
+    assert_true(_avl_tree_same_iterator_type(pavl_tree, it_iter));
+
+    _avl_tree_destroy(pavl_tree);
+}
+
+void test__avl_tree_same_iterator_type__same_type_not_belong_to_avl_tree(void** state)
+{
+    _avl_tree_t* pavl_tree_first = _create_avl_tree("int");
+    _avl_tree_t* pavl_tree_second = _create_avl_tree("int");
+    _avl_tree_iterator_t it_iter;
+
+    _avl_tree_init(pavl_tree_second, NULL);
+    it_iter = _avl_tree_begin(pavl_tree_second);
+    assert_true(_avl_tree_same_iterator_type(pavl_tree_first, it_iter));
+
+    _avl_tree_destroy(pavl_tree_first);
+    _avl_tree_destroy(pavl_tree_second);
+}
+
+void test__avl_tree_same_iterator_type__not_same_type(void** state)
+{
+    _avl_tree_t* pavl_tree_first = _create_avl_tree("int");
+    _avl_tree_t* pavl_tree_second = _create_avl_tree("double");
+    _avl_tree_iterator_t it_iter;
+
+    _avl_tree_init(pavl_tree_second, NULL);
+    it_iter = _avl_tree_begin(pavl_tree_second);
+    assert_false(_avl_tree_same_iterator_type(pavl_tree_first, it_iter));
+
+    _avl_tree_destroy(pavl_tree_first);
+    _avl_tree_destroy(pavl_tree_second);
+}
+*/
+
+void test__avl_tree_same_iterator_type__same_type_not_avl_tree_iterator(void** state)
+{
+    _avl_tree_t* pavl_tree = _create_avl_tree("int");
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    assert_true(_avl_tree_same_iterator_type(pavl_tree, list_begin(plist)));
+
+    _avl_tree_destroy(pavl_tree);
+    list_destroy(plist);
+}
+
+void test__avl_tree_same_iterator_type__not_same_type_not_avl_tree_iterator(void** state)
+{
+    _avl_tree_t* pavl_tree = _create_avl_tree("int");
+    list_t* plist = create_list(double);
+
+    list_init(plist);
+    assert_false(_avl_tree_same_iterator_type(pavl_tree, list_begin(plist)));
+
+    _avl_tree_destroy(pavl_tree);
+    list_destroy(plist);
 }
 
 /*

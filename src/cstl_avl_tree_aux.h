@@ -87,6 +87,15 @@ extern bool_t _avl_tree_iterator_belong_to_avl_tree(const _avl_tree_t* cpt_avl_t
 extern bool_t _avl_tree_same_avl_tree_iterator_type(const _avl_tree_t* cpt_avl_tree, _avl_tree_iterator_t it_iter);
 
 /**
+ * Test the type that saved in the avl tree container and referenced by it_iter are same.
+ * @param cpt_avl_tree          avl tree container.
+ * @param it_iter               iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_avl_tree == NULL, then the behavior is undefined.
+ */
+extern bool_t _avl_tree_same_iterator_type(const _avl_tree_t* cpt_avl_tree, iterator_t it_iter);
+
+/**
  * Test the type and compare function that saved in the avl tree container and referenced by it_iter are same.
  * @param cpt_avl_tree          avl tree container.
  * @param it_iter               avl tree iterator.

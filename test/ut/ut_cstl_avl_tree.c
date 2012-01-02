@@ -13,6 +13,10 @@
 #include "cstl_avl_tree_aux.h"
 #include "cstl/cstring.h"
 #include "cstl/clist.h"
+#include "cstl/cslist.h"
+#include "cstl/cvector.h"
+#include "cstl/cset.h"
+#include "cstl/chash_set.h"
 
 #include "ut_def.h"
 #include "ut_cstl_avl_tree.h"
@@ -242,133 +246,134 @@ void test__avl_tree_init_copy__non_null_compare(void** state)
 UT_CASE_DEFINATION(_avl_tree_init_copy_range)
 void test__avl_tree_init_copy_range__null_avl_tree(void** state)
 {
-    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
-    _avl_tree_init(pt_avl_tree, NULL);
+    vector_t* pvec = create_vector(int);
 
-    expect_assert_failure(_avl_tree_init_copy_range(NULL, _avl_tree_begin(pt_avl_tree), _avl_tree_end(pt_avl_tree)));
+    expect_assert_failure(_avl_tree_init_copy_range(NULL, vector_begin(pvec), vector_end(pvec)));
 
-    _avl_tree_destroy(pt_avl_tree);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_init_copy_range__non_created_avl_tree(void** state)
 {
-    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_init(pt_avl_tree, NULL);
+    list_t* plist = create_list(int);
 
+    list_init_n(plist, 10);
     pt_dest->_t_avlroot._un_height = 9;
-    expect_assert_failure(_avl_tree_init_copy_range(pt_dest, _avl_tree_begin(pt_avl_tree), _avl_tree_end(pt_avl_tree)));
+    expect_assert_failure(_avl_tree_init_copy_range(pt_dest, list_begin(plist), list_end(plist)));
     pt_dest->_t_avlroot._un_height = 0;
 
-    _avl_tree_destroy(pt_avl_tree);
     _avl_tree_destroy(pt_dest);
+    list_destroy(plist);
 }
 
 void test__avl_tree_init_copy_range__invalid_begin(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _avl_tree_init(pt_src, NULL);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    slist_init_n(pslist, 10);
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    it_begin._t_iteratortype = 99;
     expect_assert_failure(_avl_tree_init_copy_range(pt_dest, it_begin, it_end));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    slist_destroy(pslist);
 }
 
 void test__avl_tree_init_copy_range__invalid_end(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _avl_tree_init(pt_src, NULL);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    set_init(pset);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
+    it_end._t_containertype = 444;
     expect_assert_failure(_avl_tree_init_copy_range(pt_dest, it_begin, it_end));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 void test__avl_tree_init_copy_range__invalid_range(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    multiset_t* pmset = create_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 9;
 
-    _avl_tree_init(pt_src, NULL);
-    _avl_tree_insert_unique(pt_src, &elem);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    multiset_init(pmset);
+    multiset_insert(pmset, &elem);
+    it_begin = multiset_begin(pmset);
+    it_end = multiset_end(pmset);
     expect_assert_failure(_avl_tree_init_copy_range(pt_dest, it_end, it_begin));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    multiset_destroy(pmset);
 }
 
 void test__avl_tree_init_copy_range__invalid_range_not_same_type(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("double");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    hash_set_t* phset = create_hash_set(double);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _avl_tree_init(pt_src, NULL);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    hash_set_init(phset);
+    it_begin = hash_set_begin(phset);
+    it_end = hash_set_end(phset);
     expect_assert_failure(_avl_tree_init_copy_range(pt_dest, it_begin, it_end));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    hash_set_destroy(phset);
 }
 
 void test__avl_tree_init_copy_range__empty(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _avl_tree_init(pt_src, NULL);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    hash_multiset_init(phmset);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
     _avl_tree_init_copy_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_is_inited(pt_dest));
     assert_true(_avl_tree_empty(pt_dest));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    hash_multiset_destroy(phmset);
 }
 
 void test__avl_tree_init_copy_range__non_empty(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
-    int elem = 9;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int i = 0;
 
-    _avl_tree_init(pt_src, NULL);
-    _avl_tree_insert_unique(pt_src, &elem);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    vector_init(pvec);
+    for(i = 0; i < 10; ++i)
+    {
+        vector_push_back(pvec, i);
+    }
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     _avl_tree_init_copy_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_is_inited(pt_dest));
-    assert_true(_avl_tree_size(pt_dest) == 1);
-    assert_true(_avl_tree_equal(pt_dest, pt_src));
+    assert_true(_avl_tree_size(pt_dest) == 10);
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 /*
@@ -377,78 +382,78 @@ void test__avl_tree_init_copy_range__non_empty(void** state)
 UT_CASE_DEFINATION(_avl_tree_init_copy_range_ex)
 void test__avl_tree_init_copy_range_ex__null_avl_tree(void** state)
 {
-    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
-    _avl_tree_init(pt_avl_tree, NULL);
+    vector_t* pvec = create_vector(int);
 
-    expect_assert_failure(_avl_tree_init_copy_range_ex(NULL, _avl_tree_begin(pt_avl_tree), _avl_tree_end(pt_avl_tree), NULL));
+    vector_init(pvec);
+    expect_assert_failure(_avl_tree_init_copy_range_ex(NULL, vector_begin(pvec), vector_end(pvec), NULL));
 
-    _avl_tree_destroy(pt_avl_tree);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_init_copy_range_ex__non_created_avl_tree(void** state)
 {
-    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_init(pt_avl_tree, NULL);
+    list_t* plist = create_list(int);
 
+    list_init(plist);
     pt_dest->_t_avlroot._un_height = 9;
-    expect_assert_failure(_avl_tree_init_copy_range_ex(pt_dest, _avl_tree_begin(pt_avl_tree), _avl_tree_end(pt_avl_tree), NULL));
+    expect_assert_failure(_avl_tree_init_copy_range_ex(pt_dest, list_begin(plist), list_end(plist), NULL));
     pt_dest->_t_avlroot._un_height = 0;
 
-    _avl_tree_destroy(pt_avl_tree);
     _avl_tree_destroy(pt_dest);
+    list_destroy(plist);
 }
 
 void test__avl_tree_init_copy_range_ex__invalid_begin(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _avl_tree_init(pt_src, NULL);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    slist_init_n(pslist, 10);
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    it_begin._t_containertype = 999;
     expect_assert_failure(_avl_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    slist_destroy(pslist);
 }
 
 void test__avl_tree_init_copy_range_ex__invalid_end(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _avl_tree_init(pt_src, NULL);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    set_init(pset);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
+    it_end._t_iteratortype = 444;
     expect_assert_failure(_avl_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 void test__avl_tree_init_copy_range_ex__invalid_range(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    multiset_t* pmset = create_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 9;
 
-    _avl_tree_init(pt_src, NULL);
-    _avl_tree_insert_unique(pt_src, &elem);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    multiset_init(pmset);
+    multiset_insert(pmset, elem);
+    it_begin = multiset_begin(pmset);
+    it_end = multiset_end(pmset);
     expect_assert_failure(_avl_tree_init_copy_range_ex(pt_dest, it_end, it_begin, NULL));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    multiset_destroy(pmset);
 }
 
 void test__avl_tree_init_copy_range_ex__invalid_range_not_same_type(void** state)
@@ -470,40 +475,39 @@ void test__avl_tree_init_copy_range_ex__invalid_range_not_same_type(void** state
 void test__avl_tree_init_copy_range_ex__empty(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    hash_set_t* phset = create_hash_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _avl_tree_init(pt_src, NULL);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    hash_set_init(phset);
+    it_begin = hash_set_begin(phset);
+    it_end = hash_set_end(phset);
     _avl_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
     assert_true(_avl_tree_is_inited(pt_dest));
     assert_true(_avl_tree_empty(pt_dest));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    hash_set_destroy(phset);
 }
 
 void test__avl_tree_init_copy_range_ex__non_empty(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 9;
 
-    _avl_tree_init(pt_src, NULL);
-    _avl_tree_insert_unique(pt_src, &elem);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    hash_multiset_init(phmset);
+    hash_multiset_insert(phmset, elem);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
     _avl_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
     assert_true(_avl_tree_is_inited(pt_dest));
     assert_true(_avl_tree_size(pt_dest) == 1);
-    assert_true(_avl_tree_equal(pt_dest, pt_src));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    hash_multiset_destroy(phmset);
 }
 
 static void _test__avl_tree_init_compare_range_ex__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -513,22 +517,22 @@ static void _test__avl_tree_init_compare_range_ex__compare(const void* cpv_first
 void test__avl_tree_init_copy_range_ex__compare(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 9;
 
-    _avl_tree_init(pt_src, NULL);
-    _avl_tree_insert_unique(pt_src, &elem);
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    set_init(pset);
+    set_insert(pset, elem);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
     _avl_tree_init_copy_range_ex(pt_dest, it_begin, it_end, _test__avl_tree_init_compare_range_ex__compare);
     assert_true(_avl_tree_is_inited(pt_dest));
     assert_true(_avl_tree_size(pt_dest) == 1);
     assert_true(pt_dest->_t_compare == _test__avl_tree_init_compare_range_ex__compare);
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 /*
@@ -4411,223 +4415,222 @@ void test__avl_tree_insert_unique_range__null_avl_tree(void** state)
 void test__avl_tree_insert_unique_range__non_inited(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    list_t* pt_src = create_list(int);
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    list_init(pt_src);
 
     pt_dest->_t_avlroot._un_height = 4;
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    expect_assert_failure(_avl_tree_insert_unique_range(pt_dest, it_begin, it_end));
+    expect_assert_failure(_avl_tree_insert_unique_range(pt_dest, list_begin(pt_src), list_end(pt_src)));
     pt_dest->_t_avlroot._un_height = 0;
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    list_destroy(pt_src);
 }
 
 void test__avl_tree_insert_unique_range__invalid_begin(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    list_t* pt_src = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    list_init(pt_src);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    it_begin = list_begin(pt_src);
+    it_end = list_end(pt_src);
+    it_begin._t_iteratortype = 99993;
     expect_assert_failure(_avl_tree_insert_unique_range(pt_dest, it_begin, it_end));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    list_destroy(pt_src);
 }
 
 void test__avl_tree_insert_unique_range__invalid_end(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    list_t* pt_src = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    list_init(pt_src);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    it_begin = list_begin(pt_src);
+    it_end = list_end(pt_src);
+    it_end._t_containertype = 4333;
     expect_assert_failure(_avl_tree_insert_unique_range(pt_dest, it_begin, it_end));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    list_destroy(pt_src);
 }
 
 void test__avl_tree_insert_unique_range__invalid_range(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    list_t* pt_src = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 0;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
-    _avl_tree_insert_unique(pt_src, &elem);
+    list_init_n(pt_src, 10);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = list_begin(pt_src);
+    it_end = list_end(pt_src);
     expect_assert_failure(_avl_tree_insert_unique_range(pt_dest, it_end, it_begin));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    list_destroy(pt_src);
 }
 
 void test__avl_tree_insert_unique_range__not_same_type(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("vector_t<int>");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    list_t* pt_src = create_list(vector_t<int>);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    list_init_n(pt_src, 10);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = list_begin(pt_src);
+    it_end = list_end(pt_src);
     expect_assert_failure(_avl_tree_insert_unique_range(pt_dest, it_begin, it_end));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    list_destroy(pt_src);
 }
 
 void test__avl_tree_insert_unique_range__empty(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    list_t* pt_src = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    list_init(pt_src);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = list_begin(pt_src);
+    it_end = list_end(pt_src);
     _avl_tree_insert_unique_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_empty(pt_dest));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    list_destroy(pt_src);
 }
 
 void test__avl_tree_insert_unique_range__non_empty_equal(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    list_t* pt_src = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    list_init(pt_src);
     for(i = 0; i < 10; ++i)
     {
         _avl_tree_insert_equal(pt_dest, &i);
     }
     for(i = 10; i < 20; ++i)
     {
-        _avl_tree_insert_equal(pt_src, &i);
+        list_push_back(pt_src, i);
     }
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = list_begin(pt_src);
+    it_end = list_end(pt_src);
     _avl_tree_insert_unique_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_size(pt_dest) == 20);
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    list_destroy(pt_src);
 }
 
 void test__avl_tree_insert_unique_range__non_empty_dest_src_dup(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    list_t* pt_src = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    list_init(pt_src);
     for(i = 0; i < 10; ++i)
     {
         _avl_tree_insert_equal(pt_dest, &i);
     }
     for(i = 5; i < 15; ++i)
     {
-        _avl_tree_insert_equal(pt_src, &i);
+        list_push_back(pt_src, i);
     }
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = list_begin(pt_src);
+    it_end = list_end(pt_src);
     _avl_tree_insert_unique_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_size(pt_dest) == 15);
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    list_destroy(pt_src);
 }
 
 void test__avl_tree_insert_unique_range__non_empty_src_dup(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    list_t* pt_src = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    list_init(pt_src);
     for(i = 0; i < 10; ++i)
     {
         _avl_tree_insert_equal(pt_dest, &i);
     }
     for(i = 15; i < 25; ++i)
     {
-        _avl_tree_insert_equal(pt_src, &i);
-        _avl_tree_insert_equal(pt_src, &i);
+        list_push_back(pt_src, i);
+        list_push_back(pt_src, i);
     }
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = list_begin(pt_src);
+    it_end = list_end(pt_src);
     _avl_tree_insert_unique_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_size(pt_dest) == 20);
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    list_destroy(pt_src);
 }
 
-static void _test__avl_tree_insert_unique_range__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+void test__avl_tree_insert_unique_range__other_container_range(void** state)
 {
-    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
-}
-void test__avl_tree_insert_unique_range__compare(void** state)
-{
-    _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    _avl_tree_t* pavl = _create_avl_tree("int");
+    slist_t* pslist = create_slist(int);
+    _avl_tree_iterator_t it_iter;
+    int i = 0;
 
-    _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, _test__avl_tree_insert_unique_range__compare);
+    _avl_tree_init(pavl, NULL);
+    slist_init(pslist);
+    for(i = 0; i < 10; ++i)
+    {
+        slist_push_front(pslist, i);
+    }
+    _avl_tree_insert_unique_range(pavl, slist_begin(pslist), slist_end(pslist));
+    assert_true(_avl_tree_size(pavl) == 10);
+    for(it_iter = _avl_tree_begin(pavl), i = 0;
+        !_avl_tree_iterator_equal(it_iter, _avl_tree_end(pavl));
+        it_iter = _avl_tree_iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)_avl_tree_iterator_get_pointer(it_iter) == i);
+    }
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    _avl_tree_insert_unique_range(pt_dest, it_begin, it_end);
-
-    _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    _avl_tree_destroy(pavl);
+    slist_destroy(pslist);
 }
 
 /*
@@ -4636,234 +4639,210 @@ void test__avl_tree_insert_unique_range__compare(void** state)
 UT_CASE_DEFINATION(_avl_tree_insert_equal_range)
 void test__avl_tree_insert_equal_range__null_avl_tree(void** state)
 {
-    _avl_tree_t* pt_avl_tree = _create_avl_tree("int");
-    _avl_tree_init(pt_avl_tree, NULL);
+    vector_t* pvec = create_vector(int);
 
-    expect_assert_failure(_avl_tree_insert_equal_range(NULL, _avl_tree_begin(pt_avl_tree), _avl_tree_end(pt_avl_tree)));
+    vector_init_n(pvec, 10);
+    expect_assert_failure(_avl_tree_insert_equal_range(NULL, vector_begin(pvec), vector_end(pvec)));
 
-    _avl_tree_destroy(pt_avl_tree);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_insert_equal_range__non_inited(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    vector_init_n(pvec, 10);
 
     pt_dest->_t_avlroot._un_height = 4;
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     expect_assert_failure(_avl_tree_insert_equal_range(pt_dest, it_begin, it_end));
     pt_dest->_t_avlroot._un_height = 0;
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_insert_equal_range__invalid_begin(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    vector_init_elem(pvec, 10, 100);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
+    it_begin._t_iteratortype = 4444;
     expect_assert_failure(_avl_tree_insert_equal_range(pt_dest, it_begin, it_end));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_insert_equal_range__invalid_end(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    vector_init_n(pvec, 10);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
+    it_end._t_containertype = 999;
     expect_assert_failure(_avl_tree_insert_equal_range(pt_dest, it_begin, it_end));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_insert_equal_range__invalid_range(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
-    int elem = 0;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
-    _avl_tree_insert_unique(pt_src, &elem);
+    vector_init_elem(pvec, 10, 100);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     expect_assert_failure(_avl_tree_insert_equal_range(pt_dest, it_end, it_begin));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_insert_equal_range__not_same_type(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("vector_t<int>");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(short);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    vector_init_n(pvec, 10);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     expect_assert_failure(_avl_tree_insert_equal_range(pt_dest, it_begin, it_end));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_insert_equal_range__empty(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    vector_init(pvec);
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_empty(pt_dest));
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_insert_equal_range__non_empty_equal(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    vector_init(pvec);
     for(i = 0; i < 10; ++i)
     {
         _avl_tree_insert_equal(pt_dest, &i);
     }
     for(i = 10; i < 20; ++i)
     {
-        _avl_tree_insert_equal(pt_src, &i);
+        vector_push_back(pvec, i);
     }
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_size(pt_dest) == 20);
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_insert_equal_range__non_empty_dest_src_dup(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    vector_init(pvec);
     for(i = 0; i < 10; ++i)
     {
         _avl_tree_insert_equal(pt_dest, &i);
     }
     for(i = 5; i < 15; ++i)
     {
-        _avl_tree_insert_equal(pt_src, &i);
+        vector_push_back(pvec, i);
     }
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_size(pt_dest) == 20);
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__avl_tree_insert_equal_range__non_empty_src_dup(void** state)
 {
     _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, NULL);
+    vector_init(pvec);
     for(i = 0; i < 10; ++i)
     {
         _avl_tree_insert_equal(pt_dest, &i);
     }
     for(i = 15; i < 25; ++i)
     {
-        _avl_tree_insert_equal(pt_src, &i);
-        _avl_tree_insert_equal(pt_src, &i);
+        vector_push_back(pvec, i);
+        vector_push_back(pvec, i);
     }
 
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
     assert_true(_avl_tree_size(pt_dest) == 30);
 
     _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
-}
-
-static void _test__avl_tree_insert_equal_range__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
-{
-    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
-}
-void test__avl_tree_insert_equal_range__compare(void** state)
-{
-    _avl_tree_t* pt_dest = _create_avl_tree("int");
-    _avl_tree_t* pt_src = _create_avl_tree("int");
-    _avl_tree_iterator_t it_begin;
-    _avl_tree_iterator_t it_end;
-
-    _avl_tree_init(pt_dest, NULL);
-    _avl_tree_init(pt_src, _test__avl_tree_insert_equal_range__compare);
-
-    it_begin = _avl_tree_begin(pt_src);
-    it_end = _avl_tree_end(pt_src);
-    _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
-
-    _avl_tree_destroy(pt_dest);
-    _avl_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 /*
