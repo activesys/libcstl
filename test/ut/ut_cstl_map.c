@@ -11,6 +11,7 @@
 #include "cstl/clist.h"
 #include "cstl_vector_aux.h"
 #include "cstl_rb_tree_aux.h"
+#include "cstl_avl_tree_aux.h"
 #include "cstl_map_aux.h"
 
 #include "ut_def.h"
@@ -431,16 +432,20 @@ void test_map_init_copy_range__invalid_range_not_same_type(void** state)
 {
     map_t* pt_dest = create_map(int, int);
     map_t* pt_src = create_map(double, int);
+    pair_t* ppair = create_pair(double, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
     map_init_ex(pt_src, NULL);
+    pair_init_elem(ppair, 19.3, 4);
+    map_insert(pt_src, ppair);
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     expect_assert_failure(map_init_copy_range(pt_dest, it_begin, it_end));
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_map_init_copy_range__empty(void** state)
@@ -493,6 +498,69 @@ void test_map_init_copy_range__non_empty(void** state)
     map_destroy(pt_dest);
     map_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_map_init_copy_range__other_container_range(void** state)
+{
+    map_t* pmap = create_map(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    map_init_copy_range(pmap, vector_begin(pvec), vector_end(pvec));
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pmap->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pmap->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pmap->_pair_temp));
+    assert_true(map_size(pmap) == 10);
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_map_init_copy_range__other_container_range_not_same_type(void** state)
+{
+    map_t* pmap = create_map(int, double);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    expect_assert_failure(map_init_copy_range(pmap, vector_begin(pvec), vector_end(pvec)));
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_map_init_copy_range__other_container_range_not_pair(void** state)
+{
+    map_t* pmap = create_map(int, int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        vector_push_back(pvec, i);
+    }
+    expect_assert_failure(map_init_copy_range(pmap, vector_begin(pvec), vector_end(pvec)));
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
 }
 
 /*
@@ -602,16 +670,20 @@ void test_map_init_copy_range_ex__invalid_range_not_same_type(void** state)
 {
     map_t* pt_dest = create_map(int, int);
     map_t* pt_src = create_map(double, int);
+    pair_t* ppair = create_pair(double, int);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
     map_init_ex(pt_src, NULL);
+    pair_init_elem(ppair, 1.3, 1);
+    map_insert(pt_src, ppair);
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
     expect_assert_failure(map_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_map_init_copy_range_ex__empty(void** state)
@@ -699,6 +771,70 @@ void test_map_init_copy_range_ex__compare(void** state)
     map_destroy(pt_src);
     pair_destroy(pt_pair);
 }
+
+void test_map_init_copy_range_ex__other_container_range(void** state)
+{
+    map_t* pmap = create_map(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    map_init_copy_range_ex(pmap, vector_begin(pvec), vector_end(pvec), NULL);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pmap->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pmap->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pmap->_pair_temp));
+    assert_true(map_size(pmap) == 10);
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_map_init_copy_range_ex__other_container_range_not_same_type(void** state)
+{
+    map_t* pmap = create_map(int, double);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    expect_assert_failure(map_init_copy_range_ex(pmap, vector_begin(pvec), vector_end(pvec), NULL));
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_map_init_copy_range_ex__other_container_range_not_pair(void** state)
+{
+    map_t* pmap = create_map(int, int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        vector_push_back(pvec, i);
+    }
+    expect_assert_failure(map_init_copy_range_ex(pmap, vector_begin(pvec), vector_end(pvec), NULL));
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
+}
+
 
 /*
  * test map_destroy
@@ -4503,12 +4639,15 @@ void test_map_insert_range__invalid_range(void** state)
 void test_map_insert_range__not_same_type(void** state)
 {
     map_t* pt_dest = create_map(int, int);
-    map_t* pt_src = create_map(vector_t<int>, int);
+    map_t* pt_src = create_map(int, double);
+    pair_t* ppair = create_pair(int, double);
     map_iterator_t it_begin;
     map_iterator_t it_end;
 
     map_init_ex(pt_dest, NULL);
     map_init_ex(pt_src, NULL);
+    pair_init_elem(ppair, 1, 10.3);
+    map_insert(pt_src, ppair);
 
     it_begin = map_begin(pt_src);
     it_end = map_end(pt_src);
@@ -4516,6 +4655,7 @@ void test_map_insert_range__not_same_type(void** state)
 
     map_destroy(pt_dest);
     map_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_map_insert_range__empty(void** state)
@@ -4660,6 +4800,66 @@ void test_map_insert_range__compare(void** state)
     map_destroy(pt_dest);
     map_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_map_insert_range__other_container_range(void** state)
+{
+    map_t* pmap = create_map(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    map_init(pmap);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    map_insert_range(pmap, vector_begin(pvec), vector_end(pvec));
+    assert_true(map_size(pmap) == 10);
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_map_insert_range__other_container_range_not_same_type(void** state)
+{
+    map_t* pmap = create_map(int, double);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    map_init(pmap);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    expect_assert_failure(map_insert_range(pmap, vector_begin(pvec), vector_end(pvec)));
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_map_insert_range__other_container_range_not_pair(void** state)
+{
+    map_t* pmap = create_map(int, int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    vector_init(pvec);
+    map_init(pmap);
+    for (i = 0; i < 10; ++i) {
+        vector_push_back(pvec, i);
+    }
+    expect_assert_failure(map_insert_range(pmap, vector_begin(pvec), vector_end(pvec)));
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
 }
 
 /*

@@ -432,16 +432,20 @@ void test_multimap_init_copy_range__invalid_range_not_same_type(void** state)
 {
     multimap_t* pt_dest = create_multimap(int, int);
     multimap_t* pt_src = create_multimap(double, int);
+    pair_t* ppair = create_pair(double, int);
     multimap_iterator_t it_begin;
     multimap_iterator_t it_end;
 
     multimap_init_ex(pt_src, NULL);
+    pair_init_elem(ppair, 10.9, 1);
+    multimap_insert(pt_src, ppair);
     it_begin = multimap_begin(pt_src);
     it_end = multimap_end(pt_src);
     expect_assert_failure(multimap_init_copy_range(pt_dest, it_begin, it_end));
 
     multimap_destroy(pt_dest);
     multimap_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_multimap_init_copy_range__empty(void** state)
@@ -494,6 +498,63 @@ void test_multimap_init_copy_range__non_empty(void** state)
     multimap_destroy(pt_dest);
     multimap_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_multimap_init_copy_range__other_container_range(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    multimap_init_copy_range(pmmap, vector_begin(pvec), vector_end(pvec));
+    assert_true(multimap_size(pmmap) == 10);
+
+    multimap_destroy(pmmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_multimap_init_copy_range__other_container_range_not_same_type(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, double);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    expect_assert_failure(multimap_init_copy_range(pmmap, vector_begin(pvec), vector_end(pvec)));
+
+    multimap_destroy(pmmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_multimap_init_copy_range__other_container_range_not_pair(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        vector_push_back(pvec, i);
+    }
+    expect_assert_failure(multimap_init_copy_range(pmmap, vector_begin(pvec), vector_end(pvec)));
+
+    multimap_destroy(pmmap);
+    vector_destroy(pvec);
 }
 
 /*
@@ -603,16 +664,20 @@ void test_multimap_init_copy_range_ex__invalid_range_not_same_type(void** state)
 {
     multimap_t* pt_dest = create_multimap(int, int);
     multimap_t* pt_src = create_multimap(double, int);
+    pair_t* ppair = create_pair(double, int);
     multimap_iterator_t it_begin;
     multimap_iterator_t it_end;
 
     multimap_init_ex(pt_src, NULL);
+    pair_init_elem(ppair, 10.3, 3);
+    multimap_insert(pt_src, ppair);
     it_begin = multimap_begin(pt_src);
     it_end = multimap_end(pt_src);
     expect_assert_failure(multimap_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
 
     multimap_destroy(pt_dest);
     multimap_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_multimap_init_copy_range_ex__empty(void** state)
@@ -699,6 +764,63 @@ void test_multimap_init_copy_range_ex__compare(void** state)
     multimap_destroy(pt_dest);
     multimap_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_multimap_init_copy_range_ex__other_container_range(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    multimap_init_copy_range_ex(pmmap, vector_begin(pvec), vector_end(pvec), NULL);
+    assert_true(multimap_size(pmmap) == 10);
+
+    multimap_destroy(pmmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_multimap_init_copy_range_ex__other_container_range_not_same_type(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, double);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    expect_assert_failure(multimap_init_copy_range_ex(pmmap, vector_begin(pvec), vector_end(pvec), NULL));
+
+    multimap_destroy(pmmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_multimap_init_copy_range_ex__other_container_range_not_pair(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        vector_push_back(pvec, i);
+    }
+    expect_assert_failure(multimap_init_copy_range_ex(pmmap, vector_begin(pvec), vector_end(pvec), NULL));
+
+    multimap_destroy(pmmap);
+    vector_destroy(pvec);
 }
 
 /*
@@ -4504,12 +4626,15 @@ void test_multimap_insert_range__invalid_range(void** state)
 void test_multimap_insert_range__not_same_type(void** state)
 {
     multimap_t* pt_dest = create_multimap(int, int);
-    multimap_t* pt_src = create_multimap(vector_t<int>, int);
+    multimap_t* pt_src = create_multimap(double, int);
+    pair_t* ppair = create_pair(double, int);
     multimap_iterator_t it_begin;
     multimap_iterator_t it_end;
 
     multimap_init_ex(pt_dest, NULL);
     multimap_init_ex(pt_src, NULL);
+    pair_init_elem(ppair, 10.3, 1);
+    multimap_insert(pt_src, ppair);
 
     it_begin = multimap_begin(pt_src);
     it_end = multimap_end(pt_src);
@@ -4517,6 +4642,7 @@ void test_multimap_insert_range__not_same_type(void** state)
 
     multimap_destroy(pt_dest);
     multimap_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_multimap_insert_range__empty(void** state)
@@ -4661,6 +4787,66 @@ void test_multimap_insert_range__compare(void** state)
     multimap_destroy(pt_dest);
     multimap_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_multimap_insert_range__other_container_range(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    multimap_init(pmmap);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    multimap_insert_range(pmmap, vector_begin(pvec), vector_end(pvec));
+    assert_true(multimap_size(pmmap) == 10);
+
+    multimap_destroy(pmmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_multimap_insert_range__other_container_range_not_same_type(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, double);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    multimap_init(pmmap);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    expect_assert_failure(multimap_insert_range(pmmap, vector_begin(pvec), vector_end(pvec)));
+
+    multimap_destroy(pmmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_multimap_insert_range__other_container_range_not_pair(void** state)
+{
+    multimap_t* pmmap = create_multimap(int, int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    vector_init(pvec);
+    multimap_init(pmmap);
+    for (i = 0; i < 10; ++i) {
+        vector_push_back(pvec, i);
+    }
+    expect_assert_failure(multimap_insert_range(pmmap, vector_begin(pvec), vector_end(pvec)));
+
+    multimap_destroy(pmmap);
+    vector_destroy(pvec);
 }
 
 /*

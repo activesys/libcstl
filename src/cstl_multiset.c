@@ -113,16 +113,10 @@ void multiset_init_copy(multiset_t* pmset_dest, const multiset_t* cpmset_src)
 /**
  * Initialize multiset container with specific range.
  */
-void multiset_init_copy_range(multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end)
+void multiset_init_copy_range(multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end)
 {
     assert(pmset_dest != NULL);
-    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
-    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
-    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) != pmset_dest);
-    assert(_MULTISET_ITERATOR_CONTAINER(it_end) != pmset_dest);
-    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) == _MULTISET_ITERATOR_CONTAINER(it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_init_copy_range(&pmset_dest->_t_tree, it_begin, it_end);
@@ -135,16 +129,10 @@ void multiset_init_copy_range(multiset_t* pmset_dest, multiset_iterator_t it_beg
  * Initialize multiset container with specific range and compare function.
  */
 void multiset_init_copy_range_ex(
-    multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end, binary_function_t bfun_compare)
+    multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_compare)
 {
     assert(pmset_dest != NULL);
-    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
-    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
-    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) != pmset_dest);
-    assert(_MULTISET_ITERATOR_CONTAINER(it_end) != pmset_dest);
-    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) == _MULTISET_ITERATOR_CONTAINER(it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
@@ -436,16 +424,10 @@ void multiset_swap(multiset_t* pmset_first, multiset_t* pmset_second)
 /**
  * Inserts an range of element into a multiset.
  */
-void multiset_insert_range(multiset_t* pmset_mset, multiset_iterator_t it_begin, multiset_iterator_t it_end)
+void multiset_insert_range(multiset_t* pmset_mset, iterator_t it_begin, iterator_t it_end)
 {
     assert(pmset_mset != NULL);
-    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTISET_CONTAINER);
-    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTISET_ITERATOR_CONTAINER_TYPE(it_end) == _MULTISET_CONTAINER);
-    assert(_MULTISET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) != pmset_mset);
-    assert(_MULTISET_ITERATOR_CONTAINER(it_end) != pmset_mset);
-    assert(_MULTISET_ITERATOR_CONTAINER(it_begin) == _MULTISET_ITERATOR_CONTAINER(it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_insert_equal_range(&pmset_mset->_t_tree, it_begin, it_end);

@@ -110,20 +110,13 @@ void set_init_copy(set_t* pset_dest, const set_t* cpset_src)
 #endif
 }
 
-
 /**
  * Initialize set container with specific range.
  */
-void set_init_copy_range(set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end)
+void set_init_copy_range(set_t* pset_dest, iterator_t it_begin, iterator_t it_end)
 {
     assert(pset_dest != NULL);
-    assert(_SET_ITERATOR_CONTAINER_TYPE(it_begin) == _SET_CONTAINER);
-    assert(_SET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_SET_ITERATOR_CONTAINER_TYPE(it_end) == _SET_CONTAINER);
-    assert(_SET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_SET_ITERATOR_CONTAINER(it_begin) != pset_dest);
-    assert(_SET_ITERATOR_CONTAINER(it_end) != pset_dest);
-    assert(_SET_ITERATOR_CONTAINER(it_begin) == _SET_ITERATOR_CONTAINER(it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_SET_AVL_TREE
     _avl_tree_init_copy_range(&pset_dest->_t_tree, it_begin, it_end);
@@ -136,16 +129,10 @@ void set_init_copy_range(set_t* pset_dest, set_iterator_t it_begin, set_iterator
  * Initialize set container with specific range and compare function.
  */
 void set_init_copy_range_ex(
-    set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end, binary_function_t bfun_compare)
+    set_t* pset_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_compare)
 {
     assert(pset_dest != NULL);
-    assert(_SET_ITERATOR_CONTAINER_TYPE(it_begin) == _SET_CONTAINER);
-    assert(_SET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_SET_ITERATOR_CONTAINER_TYPE(it_end) == _SET_CONTAINER);
-    assert(_SET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_SET_ITERATOR_CONTAINER(it_begin) != pset_dest);
-    assert(_SET_ITERATOR_CONTAINER(it_end) != pset_dest);
-    assert(_SET_ITERATOR_CONTAINER(it_begin) == _SET_ITERATOR_CONTAINER(it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_SET_AVL_TREE
     _avl_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
@@ -437,16 +424,10 @@ void set_swap(set_t* pset_first, set_t* pset_second)
 /**
  * Inserts an range of unique element into a set.
  */
-void set_insert_range(set_t* pset_set, set_iterator_t it_begin, set_iterator_t it_end)
+void set_insert_range(set_t* pset_set, iterator_t it_begin, iterator_t it_end)
 {
     assert(pset_set != NULL);
-    assert(_SET_ITERATOR_CONTAINER_TYPE(it_begin) == _SET_CONTAINER);
-    assert(_SET_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_SET_ITERATOR_CONTAINER_TYPE(it_end) == _SET_CONTAINER);
-    assert(_SET_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_SET_ITERATOR_CONTAINER(it_begin) != pset_set);
-    assert(_SET_ITERATOR_CONTAINER(it_end) != pset_set);
-    assert(_SET_ITERATOR_CONTAINER(it_begin) == _SET_ITERATOR_CONTAINER(it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_SET_AVL_TREE
     _avl_tree_insert_unique_range(&pset_set->_t_tree, it_begin, it_end);

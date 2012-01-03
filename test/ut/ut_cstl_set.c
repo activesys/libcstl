@@ -9,6 +9,7 @@
 #include "cstl/cstring.h"
 #include "cstl/cvector.h"
 #include "cstl/clist.h"
+#include "cstl/cslist.h"
 #include "cstl_vector_aux.h"
 #include "cstl_rb_tree_aux.h"
 #include "cstl_avl_tree_aux.h"
@@ -408,6 +409,28 @@ void test_set_init_copy_range__non_empty(void** state)
     set_destroy(pt_src);
 }
 
+void test_set_init_copy_range__other_container_range(void** state)
+{
+    set_t* pset = create_set(int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        vector_push_back(pvec, i);
+    }
+    set_init_copy_range(pset, vector_begin(pvec), vector_end(pvec));
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pset->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pset->_t_tree));
+#endif
+    assert_true(set_size(pset) == 10);
+
+    set_destroy(pset);
+    vector_destroy(pvec);
+}
+
 /*
  * test set_init_copy_range_ex
  */
@@ -584,6 +607,28 @@ void test_set_init_copy_range_ex__compare(void** state)
 
     set_destroy(pt_dest);
     set_destroy(pt_src);
+}
+
+void test_set_init_copy_range_ex__other_container_range(void** state)
+{
+    set_t* pset = create_set(int);
+    list_t* plist = create_list(int);
+    int i = 0;
+
+    list_init(plist);
+    for (i = 0; i < 10; ++i) {
+        list_push_front(plist, i);
+    }
+    set_init_copy_range_ex(pset, list_begin(plist), list_end(plist), NULL);
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pset->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pset->_t_tree));
+#endif
+    assert_true(set_size(pset) == 10);
+
+    set_destroy(pset);
+    list_destroy(plist);
 }
 
 /*
@@ -3115,6 +3160,24 @@ void test_set_insert_range__compare(void** state)
 
     set_destroy(pt_dest);
     set_destroy(pt_src);
+}
+
+void test_set_insert_range__other_container_range(void** state)
+{
+    set_t* pset = create_set(int);
+    slist_t* pslist = create_slist(int);
+    int i = 0;
+
+    set_init(pset);
+    slist_init(pslist);
+    for (i = 0; i < 10; ++i) {
+        slist_push_front(pslist, i);
+    }
+    set_insert_range(pset, slist_begin(pslist), slist_end(pslist));
+    assert_true(set_size(pset) == 10);
+
+    set_destroy(pset);
+    slist_destroy(pslist);
 }
 
 /*

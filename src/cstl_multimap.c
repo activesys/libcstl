@@ -129,52 +129,28 @@ void multimap_init_copy(multimap_t* pmmap_dest, const multimap_t* cpmmap_src)
 /**
  * Initialize multimap container with specific range.
  */
-void multimap_init_copy_range(multimap_t* pmmap_dest, multimap_iterator_t it_begin, multimap_iterator_t it_end)
+void multimap_init_copy_range(multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end)
 {
     assert(pmmap_dest != NULL);
     assert(_pair_is_created(&pmmap_dest->_pair_temp));
-    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTIMAP_CONTAINER);
-    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_end) == _MULTIMAP_CONTAINER);
-    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTIMAP_ITERATOR_CONTAINER(it_begin) != pmmap_dest);
-    assert(_MULTIMAP_ITERATOR_CONTAINER(it_end) != pmmap_dest);
-    assert(_MULTIMAP_ITERATOR_CONTAINER(it_begin) == _MULTIMAP_ITERATOR_CONTAINER(it_end));
-    assert(_multimap_same_pair_type(&pmmap_dest->_pair_temp, &_MULTIMAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    /* initialize dest multimap with src multimap attribute */
     multimap_init(pmmap_dest);
-    /* insert all element from src to dest */
-    if(!multimap_empty(_MULTIMAP_ITERATOR_CONTAINER(it_begin)))
-    {
-        multimap_insert_range(pmmap_dest, it_begin, it_end);
-    }
+    multimap_insert_range(pmmap_dest, it_begin, it_end);
 }
 
 /**
  * Initialize multimap container with specific range and compare function.
  */
 void multimap_init_copy_range_ex(
-    multimap_t* pmmap_dest, multimap_iterator_t it_begin, multimap_iterator_t it_end, binary_function_t bfun_keycompare)
+    multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare)
 {
     assert(pmmap_dest != NULL);
     assert(_pair_is_created(&pmmap_dest->_pair_temp));
-    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTIMAP_CONTAINER);
-    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_end) == _MULTIMAP_CONTAINER);
-    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTIMAP_ITERATOR_CONTAINER(it_begin) != pmmap_dest);
-    assert(_MULTIMAP_ITERATOR_CONTAINER(it_end) != pmmap_dest);
-    assert(_MULTIMAP_ITERATOR_CONTAINER(it_begin) == _MULTIMAP_ITERATOR_CONTAINER(it_end));
-    assert(_multimap_same_pair_type(&pmmap_dest->_pair_temp, &_MULTIMAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    /* initialize dest multimap with src multimap attribute */
     multimap_init_ex(pmmap_dest, bfun_keycompare);
-    /* insert all element from src to dest */
-    if(!multimap_empty(_MULTIMAP_ITERATOR_CONTAINER(it_begin)))
-    {
-        multimap_insert_range(pmmap_dest, it_begin, it_end);
-    }
+    multimap_insert_range(pmmap_dest, it_begin, it_end);
 }
 
 /**
@@ -571,23 +547,17 @@ multimap_iterator_t multimap_insert_hint(multimap_t* pmmap_map, multimap_iterato
 /**
  * Inserts an range of unique element into a multimap.
  */
-void multimap_insert_range(multimap_t* pmmap_map, multimap_iterator_t it_begin, multimap_iterator_t it_end)
+void multimap_insert_range(multimap_t* pmmap_map, iterator_t it_begin, iterator_t it_end)
 {
-    multimap_iterator_t it_iter;
+    iterator_t it_iter;
 
     assert(pmmap_map != NULL);
     assert(_pair_is_inited(&pmmap_map->_pair_temp));
-    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MULTIMAP_CONTAINER);
-    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTIMAP_ITERATOR_CONTAINER_TYPE(it_end) == _MULTIMAP_CONTAINER);
-    assert(_MULTIMAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MULTIMAP_ITERATOR_CONTAINER(it_begin) != pmmap_map);
-    assert(_MULTIMAP_ITERATOR_CONTAINER(it_end) != pmmap_map);
-    assert(_MULTIMAP_ITERATOR_CONTAINER(it_begin) == _MULTIMAP_ITERATOR_CONTAINER(it_end));
-    assert(_multimap_same_pair_type(&pmmap_map->_pair_temp, &_MULTIMAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
     {
+        assert(_multimap_same_pair_type(&pmmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
         multimap_insert(pmmap_map, (pair_t*)iterator_get_pointer(it_iter));
     }
 }

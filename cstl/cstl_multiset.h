@@ -156,30 +156,29 @@ extern void multiset_init_copy(multiset_t* pmset_dest, const multiset_t* cpmset_
 
 /**
  * Initialize multiset container with specific range.
- * @param pmset_dest         destination multiset.
+ * @param pmset_dest        destination multiset.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
  * @return void.
  * @remarks if pmset_dest == NULL, then the behavior is undefined, pmset_dest must be created by create_set(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized multiset, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmset_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pmset_dest must be same, otherwise the behavior
+ *          is undefined.
  */
-extern void multiset_init_copy_range(multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end);
+extern void multiset_init_copy_range(multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize multiset container with specific range and compare function.
- * @param pmset_dest         destination multiset.
+ * @param pmset_dest        destination multiset.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
- * @param bfun_compare         compare function.
+ * @param bfun_compare      compare function.
  * @return void.
  * @remarks if pmset_dest == NULL, then the behavior is undefined, pmset_dest must be created by _create_set(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized multiset, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmset_dest must be same, otherwise the behavior is undefined. if
- *          bfun_compare == NULL, then use default compare function.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pmset_dest must be same, otherwise the behavior
+ *          is undefined. if bfun_compare == NULL, then use default compare function.
  */
 extern void multiset_init_copy_range_ex(
-    multiset_t* pmset_dest, multiset_iterator_t it_begin, multiset_iterator_t it_end, binary_function_t bfun_compare);
+    multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_compare);
 
 /**
  * Destroy multiset.
@@ -358,7 +357,7 @@ extern void multiset_swap(multiset_t* pmset_first, multiset_t* pmset_second);
  *          is undefined. the type of [it_begin, it_end) and cpmset_mset must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void multiset_insert_range(multiset_t* pmset_mset, multiset_iterator_t it_begin, multiset_iterator_t it_end);
+extern void multiset_insert_range(multiset_t* pmset_mset, iterator_t it_begin, iterator_t it_end);
 
 /*
  * Erase an element in an multiset from specificed position.

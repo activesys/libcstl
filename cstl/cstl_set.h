@@ -161,25 +161,24 @@ extern void set_init_copy(set_t* pset_dest, const set_t* cpset_src);
  * @param it_end            end of range.
  * @return void.
  * @remarks if pset_dest == NULL, then the behavior is undefined, pset_dest must be created by create_set(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized set, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pset_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pset_dest must be same, otherwise the behavior
+ *          is undefined.
  */
-extern void set_init_copy_range(set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end);
+extern void set_init_copy_range(set_t* pset_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize set container with specific range and compare function.
  * @param pset_dest         destination set.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
- * @param bfun_compare         compare function.
+ * @param bfun_compare      compare function.
  * @return void.
  * @remarks if pset_dest == NULL, then the behavior is undefined, pset_dest must be created by _create_set(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized set, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pset_dest must be same, otherwise the behavior is undefined. if
- *          bfun_compare == NULL, then use default compare function.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pset_dest must be same, otherwise the behavior
+ *          is undefined. if bfun_compare == NULL, then use default compare function.
  */
 extern void set_init_copy_range_ex(
-    set_t* pset_dest, set_iterator_t it_begin, set_iterator_t it_end, binary_function_t bfun_compare);
+    set_t* pset_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_compare);
 
 /**
  * Destroy set.
@@ -358,7 +357,7 @@ extern void set_swap(set_t* pset_first, set_t* pset_second);
  *          is undefined. the type of [it_begin, it_end) and cpset_set must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void set_insert_range(set_t* pset_set, set_iterator_t it_begin, set_iterator_t it_end);
+extern void set_insert_range(set_t* pset_set, iterator_t it_begin, iterator_t it_end);
 
 /*
  * Erase an element in an set from specificed position.

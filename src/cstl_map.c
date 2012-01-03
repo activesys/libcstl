@@ -129,26 +129,14 @@ void map_init_copy(map_t* pmap_dest, const map_t* cpmap_src)
 /**
  * Initialize map container with specific range.
  */
-void map_init_copy_range(map_t* pmap_dest, map_iterator_t it_begin, map_iterator_t it_end)
+void map_init_copy_range(map_t* pmap_dest, iterator_t it_begin, iterator_t it_end)
 {
     assert(pmap_dest != NULL);
     assert(_pair_is_created(&pmap_dest->_pair_temp));
-    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
-    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
-    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MAP_ITERATOR_CONTAINER(it_begin) != pmap_dest);
-    assert(_MAP_ITERATOR_CONTAINER(it_end) != pmap_dest);
-    assert(_MAP_ITERATOR_CONTAINER(it_begin) == _MAP_ITERATOR_CONTAINER(it_end));
-    assert(_map_same_pair_type(&pmap_dest->_pair_temp, &_MAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    /* initialize dest map with src map attribute */
     map_init(pmap_dest);
-    /* insert all element from src to dest */
-    if(!map_empty(_MAP_ITERATOR_CONTAINER(it_begin)))
-    {
-        map_insert_range(pmap_dest, it_begin, it_end);
-    }
+    map_insert_range(pmap_dest, it_begin, it_end);
 }
 
 /**
@@ -158,22 +146,10 @@ void map_init_copy_range_ex(map_t* pmap_dest, map_iterator_t it_begin, map_itera
 {
     assert(pmap_dest != NULL);
     assert(_pair_is_created(&pmap_dest->_pair_temp));
-    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
-    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
-    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MAP_ITERATOR_CONTAINER(it_begin) != pmap_dest);
-    assert(_MAP_ITERATOR_CONTAINER(it_end) != pmap_dest);
-    assert(_MAP_ITERATOR_CONTAINER(it_begin) == _MAP_ITERATOR_CONTAINER(it_end));
-    assert(_map_same_pair_type(&pmap_dest->_pair_temp, &_MAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    /* initialize dest map with src map attribute */
     map_init_ex(pmap_dest, bfun_keycompare);
-    /* insert all element from src to dest */
-    if(!map_empty(_MAP_ITERATOR_CONTAINER(it_begin)))
-    {
-        map_insert_range(pmap_dest, it_begin, it_end);
-    }
+    map_insert_range(pmap_dest, it_begin, it_end);
 }
 
 /**
@@ -574,23 +550,17 @@ map_iterator_t map_insert_hint(map_t* pmap_map, map_iterator_t it_hint, const pa
 /**
  * Inserts an range of unique element into a map.
  */
-void map_insert_range(map_t* pmap_map, map_iterator_t it_begin, map_iterator_t it_end)
+void map_insert_range(map_t* pmap_map, iterator_t it_begin, iterator_t it_end)
 {
-    map_iterator_t it_iter;
+    iterator_t it_iter;
 
     assert(pmap_map != NULL);
     assert(_pair_is_inited(&pmap_map->_pair_temp));
-    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_begin) == _MAP_CONTAINER);
-    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MAP_ITERATOR_CONTAINER_TYPE(it_end) == _MAP_CONTAINER);
-    assert(_MAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_MAP_ITERATOR_CONTAINER(it_begin) != pmap_map);
-    assert(_MAP_ITERATOR_CONTAINER(it_end) != pmap_map);
-    assert(_MAP_ITERATOR_CONTAINER(it_begin) == _MAP_ITERATOR_CONTAINER(it_end));
-    assert(_map_same_pair_type(&pmap_map->_pair_temp, &_MAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
     {
+        assert(_map_same_pair_type(&pmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
         map_insert(pmap_map, (pair_t*)iterator_get_pointer(it_iter));
     }
 }

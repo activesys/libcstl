@@ -41,6 +41,7 @@ void test_set_init_copy_range__invalid_range(void** state);
 void test_set_init_copy_range__invalid_range_not_same_type(void** state);
 void test_set_init_copy_range__empty(void** state);
 void test_set_init_copy_range__non_empty(void** state);
+void test_set_init_copy_range__other_container_range(void** state);
 /*
  * test set_init_copy_range_ex
  */
@@ -54,6 +55,7 @@ void test_set_init_copy_range_ex__invalid_range_not_same_type(void** state);
 void test_set_init_copy_range_ex__empty(void** state);
 void test_set_init_copy_range_ex__non_empty(void** state);
 void test_set_init_copy_range_ex__compare(void** state);
+void test_set_init_copy_range_ex__other_container_range(void** state);
 /*
  * test set_destroy
  */
@@ -265,6 +267,7 @@ void test_set_insert_range__non_empty_equal(void** state);
 void test_set_insert_range__non_empty_dest_src_dup(void** state);
 void test_set_insert_range__non_empty_src_dup(void** state);
 void test_set_insert_range__compare(void** state);
+void test_set_insert_range__other_container_range(void** state);
 /*
  * test set_erase_pos
  */
@@ -316,6 +319,7 @@ void test_set_erase_range__all(void** state);
     UT_CASE(test_set_init_copy_range__invalid_range_not_same_type),\
     UT_CASE(test_set_init_copy_range__empty),\
     UT_CASE(test_set_init_copy_range__non_empty),\
+    UT_CASE(test_set_init_copy_range__other_container_range),\
     UT_CASE_BEGIN(set_init_copy_range_ex, test_set_init_copy_range_ex__null_set),\
     UT_CASE(test_set_init_copy_range_ex__non_created_set),\
     UT_CASE(test_set_init_copy_range_ex__invalid_begin),\
@@ -325,6 +329,7 @@ void test_set_erase_range__all(void** state);
     UT_CASE(test_set_init_copy_range_ex__empty),\
     UT_CASE(test_set_init_copy_range_ex__non_empty),\
     UT_CASE(test_set_init_copy_range_ex__compare),\
+    UT_CASE(test_set_init_copy_range_ex__other_container_range),\
     UT_CASE_BEGIN(set_destroy, test_set_destroy__null_set),\
     UT_CASE(test_set_destroy__non_created),\
     UT_CASE(test_set_destroy__created),\
@@ -468,6 +473,7 @@ void test_set_erase_range__all(void** state);
     UT_CASE(test_set_insert_range__non_empty_dest_src_dup),\
     UT_CASE(test_set_insert_range__non_empty_src_dup),\
     UT_CASE(test_set_insert_range__compare),\
+    UT_CASE(test_set_insert_range__other_container_range),\
     UT_CASE_BEGIN(set_erase_pos, test_set_erase_pos__null_set),\
     UT_CASE(test_set_erase_pos__non_inited),\
     UT_CASE(test_set_erase_pos__invalid_pos),\

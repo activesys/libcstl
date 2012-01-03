@@ -140,10 +140,10 @@ extern void multimap_init_copy(multimap_t* pmmap_dest, const multimap_t* cpmmap_
  * @param it_end            end of range.
  * @return void.
  * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by create_map(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized multimap, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior
+ *          is undefined.
  */
-extern void multimap_init_copy_range(multimap_t* pmmap_dest, multimap_iterator_t it_begin, multimap_iterator_t it_end);
+extern void multimap_init_copy_range(multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize multimap container with specific range and compare function.
@@ -153,12 +153,11 @@ extern void multimap_init_copy_range(multimap_t* pmmap_dest, multimap_iterator_t
  * @param t_compare         compare function.
  * @return void.
  * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by _create_map(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized multimap, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior is undefined. if
- *          t_compare == NULL, then use default compare function.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior
+ *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void multimap_init_copy_range_ex(
-    multimap_t* pmmap_dest, multimap_iterator_t it_begin, multimap_iterator_t it_end, binary_function_t bfun_keycompare);
+    multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare);
 
 /**
  * Destroy multimap.
@@ -358,7 +357,7 @@ extern multimap_iterator_t multimap_insert_hint(multimap_t* pmmap_map, multimap_
  *          is undefined. the type of [it_begin, it_end) and cpmap_map must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void multimap_insert_range(multimap_t* pmmap_map, multimap_iterator_t it_begin, multimap_iterator_t it_end);
+extern void multimap_insert_range(multimap_t* pmmap_map, iterator_t it_begin, iterator_t it_end);
 
 /*
  * Erase an element in an multimap from specificed position.

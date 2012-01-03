@@ -150,10 +150,10 @@ extern void map_init_copy(map_t* pmap_dest, const map_t* cpmap_src);
  * @param it_end            end of range.
  * @return void.
  * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by create_map(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized map, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior
+ *          is undefined.
  */
-extern void map_init_copy_range(map_t* pmap_dest, map_iterator_t it_begin, map_iterator_t it_end);
+extern void map_init_copy_range(map_t* pmap_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize map container with specific range and compare function.
@@ -163,12 +163,11 @@ extern void map_init_copy_range(map_t* pmap_dest, map_iterator_t it_begin, map_i
  * @param t_compare         compare function.
  * @return void.
  * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by _create_map(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized map, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior is undefined. if
- *          t_compare == NULL, then use default compare function.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior
+ *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void map_init_copy_range_ex(
-    map_t* pmap_dest, map_iterator_t it_begin, map_iterator_t it_end, binary_function_t bfun_keycompare);
+    map_t* pmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare);
 
 /**
  * Destroy map.
@@ -294,7 +293,7 @@ extern map_iterator_t map_insert_hint(map_t* pmap_map, map_iterator_t it_hint, c
  *          is undefined. the type of [it_begin, it_end) and cpmap_map must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void map_insert_range(map_t* pmap_map, map_iterator_t it_begin, map_iterator_t it_end);
+extern void map_insert_range(map_t* pmap_map, iterator_t it_begin, iterator_t it_end);
 
 /*
  * Erase an element in an map from specificed position.

@@ -2,22 +2,22 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define to 1 if you implement map using avl-tree. */
-/* #undef CSTL_MAP_AVL_TREE */
+#define CSTL_MAP_AVL_TREE 1
 
 /* Define to 1 if you use libcstl memory management. */
 /* #undef CSTL_MEMORY_MANAGEMENT */
 
 /* Define to 1 if you implement multimap using avl-tree. */
-/* #undef CSTL_MULTIMAP_AVL_TREE */
+#define CSTL_MULTIMAP_AVL_TREE 1
 
 /* Define to 1 if you implement multiset using avl-tree. */
-/* #undef CSTL_MULTISET_AVL_TREE */
+#define CSTL_MULTISET_AVL_TREE 1
 
 /* Define to 1 if you implement queue using list. */
 /* #undef CSTL_QUEUE_LIST_SEQUENCE */
 
 /* Define to 1 if you implement set using avl-tree. */
-/* #undef CSTL_SET_AVL_TREE */
+#define CSTL_SET_AVL_TREE 1
 
 /* Define to 1 if you implement stack using list. */
 /* #undef CSTL_STACK_LIST_SEQUENCE */
