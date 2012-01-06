@@ -13,6 +13,11 @@
 #include "cstl_rb_tree_aux.h"
 #include "cstl/cstring.h"
 #include "cstl/clist.h"
+#include "cstl/cvector.h"
+#include "cstl/cslist.h"
+#include "cstl/cset.h"
+#include "cstl/chash_set.h"
+#include "cstl/cdeque.h"
 
 #include "ut_def.h"
 #include "ut_cstl_rb_tree.h"
@@ -242,133 +247,132 @@ void test__rb_tree_init_copy__non_null_compare(void** state)
 UT_CASE_DEFINATION(_rb_tree_init_copy_range)
 void test__rb_tree_init_copy_range__null_rb_tree(void** state)
 {
-    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
-    _rb_tree_init(pt_rb_tree, NULL);
+    vector_t* pvec = create_vector(int);
 
-    expect_assert_failure(_rb_tree_init_copy_range(NULL, _rb_tree_begin(pt_rb_tree), _rb_tree_end(pt_rb_tree)));
+    expect_assert_failure(_rb_tree_init_copy_range(NULL, vector_begin(pvec), vector_end(pvec)));
 
-    _rb_tree_destroy(pt_rb_tree);
+    vector_destroy(pvec);
 }
 
 void test__rb_tree_init_copy_range__non_created_rb_tree(void** state)
 {
-    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_init(pt_rb_tree, NULL);
+    list_t* plist = create_list(int);
+    list_init(plist);
 
     pt_dest->_t_rbroot._t_color = BLACK;
-    expect_assert_failure(_rb_tree_init_copy_range(pt_dest, _rb_tree_begin(pt_rb_tree), _rb_tree_end(pt_rb_tree)));
+    expect_assert_failure(_rb_tree_init_copy_range(pt_dest, list_begin(plist), list_end(plist)));
     pt_dest->_t_rbroot._t_color = RED;
 
-    _rb_tree_destroy(pt_rb_tree);
     _rb_tree_destroy(pt_dest);
+    list_destroy(plist);
 }
 
 void test__rb_tree_init_copy_range__invalid_begin(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _rb_tree_init(pt_src, NULL);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    slist_init(pslist);
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    it_begin._t_iteratortype = 333;
     expect_assert_failure(_rb_tree_init_copy_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    slist_destroy(pslist);
 }
 
 void test__rb_tree_init_copy_range__invalid_end(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    deque_t* pdeq = create_deque(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _rb_tree_init(pt_src, NULL);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    deque_init(pdeq);
+    it_begin = deque_begin(pdeq);
+    it_end = deque_end(pdeq);
+    it_end._t_containertype = 3333;
     expect_assert_failure(_rb_tree_init_copy_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    deque_destroy(pdeq);
 }
 
 void test__rb_tree_init_copy_range__invalid_range(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 9;
 
-    _rb_tree_init(pt_src, NULL);
-    _rb_tree_insert_unique(pt_src, &elem);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    set_init(pset);
+    set_insert(pset, elem);
+    assert_true(set_size(pset) == 1);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
     expect_assert_failure(_rb_tree_init_copy_range(pt_dest, it_end, it_begin));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 void test__rb_tree_init_copy_range__invalid_range_not_same_type(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("double");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    multiset_t* pmset = create_multiset(double);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _rb_tree_init(pt_src, NULL);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    multiset_init(pmset);
+    it_begin = multiset_begin(pmset);
+    it_end = multiset_end(pmset);
     expect_assert_failure(_rb_tree_init_copy_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    multiset_destroy(pmset);
 }
 
 void test__rb_tree_init_copy_range__empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    hash_set_t* phset = create_hash_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _rb_tree_init(pt_src, NULL);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    hash_set_init(phset);
+    it_begin = hash_set_begin(phset);
+    it_end = hash_set_end(phset);
     _rb_tree_init_copy_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_empty(pt_dest));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    hash_set_destroy(phset);
 }
 
 void test__rb_tree_init_copy_range__non_empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 9;
 
-    _rb_tree_init(pt_src, NULL);
-    _rb_tree_insert_unique(pt_src, &elem);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    hash_multiset_init(phmset);
+    hash_multiset_insert(phmset, elem);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
     _rb_tree_init_copy_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_size(pt_dest) == 1);
-    assert_true(_rb_tree_equal(pt_dest, pt_src));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    hash_multiset_destroy(phmset);
 }
 
 /*
@@ -377,133 +381,132 @@ void test__rb_tree_init_copy_range__non_empty(void** state)
 UT_CASE_DEFINATION(_rb_tree_init_copy_range_ex)
 void test__rb_tree_init_copy_range_ex__null_rb_tree(void** state)
 {
-    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
-    _rb_tree_init(pt_rb_tree, NULL);
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
 
-    expect_assert_failure(_rb_tree_init_copy_range_ex(NULL, _rb_tree_begin(pt_rb_tree), _rb_tree_end(pt_rb_tree), NULL));
+    expect_assert_failure(_rb_tree_init_copy_range_ex(NULL, vector_begin(pvec), vector_end(pvec), NULL));
 
-    _rb_tree_destroy(pt_rb_tree);
+    vector_destroy(pvec);
 }
 
 void test__rb_tree_init_copy_range_ex__non_created_rb_tree(void** state)
 {
-    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_init(pt_rb_tree, NULL);
+    list_t* plist = create_list(int);
+    list_init(plist);
 
     pt_dest->_t_rbroot._t_color = BLACK;
-    expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, _rb_tree_begin(pt_rb_tree), _rb_tree_end(pt_rb_tree), NULL));
+    expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, list_begin(plist), list_end(plist), NULL));
     pt_dest->_t_rbroot._t_color = RED;
 
-    _rb_tree_destroy(pt_rb_tree);
     _rb_tree_destroy(pt_dest);
+    list_destroy(plist);
 }
 
 void test__rb_tree_init_copy_range_ex__invalid_begin(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _rb_tree_init(pt_src, NULL);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    slist_init(pslist);
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    it_begin._t_containertype = 444;
     expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    slist_destroy(pslist);
 }
 
 void test__rb_tree_init_copy_range_ex__invalid_end(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    deque_t* pdeq = create_deque(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _rb_tree_init(pt_src, NULL);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    deque_init(pdeq);
+    it_begin = deque_begin(pdeq);
+    it_end = deque_end(pdeq);
+    it_end._t_iteratortype = 4444;
     expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    deque_destroy(pdeq);
 }
 
 void test__rb_tree_init_copy_range_ex__invalid_range(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 9;
 
-    _rb_tree_init(pt_src, NULL);
-    _rb_tree_insert_unique(pt_src, &elem);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    set_init(pset);
+    set_insert(pset, elem);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
     expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, it_end, it_begin, NULL));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 void test__rb_tree_init_copy_range_ex__invalid_range_not_same_type(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("double");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    multiset_t* pmset = create_multiset(double);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _rb_tree_init(pt_src, NULL);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    multiset_init(pmset);
+    it_begin = multiset_begin(pmset);
+    it_end = multiset_end(pmset);
     expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    multiset_destroy(pmset);
 }
 
 void test__rb_tree_init_copy_range_ex__empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    hash_set_t* phset = create_hash_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
-    _rb_tree_init(pt_src, NULL);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    hash_set_init(phset);
+    it_begin = hash_set_begin(phset);
+    it_end = hash_set_end(phset);
     _rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_empty(pt_dest));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    hash_set_destroy(phset);
 }
 
 void test__rb_tree_init_copy_range_ex__non_empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 9;
 
-    _rb_tree_init(pt_src, NULL);
-    _rb_tree_insert_unique(pt_src, &elem);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    hash_multiset_init(phmset);
+    hash_multiset_insert(phmset, elem);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
     _rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_size(pt_dest) == 1);
-    assert_true(_rb_tree_equal(pt_dest, pt_src));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    hash_multiset_destroy(phmset);
 }
 
 static void _test__rb_tree_init_compare_range_ex__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -513,22 +516,22 @@ static void _test__rb_tree_init_compare_range_ex__compare(const void* cpv_first,
 void test__rb_tree_init_copy_range_ex__compare(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 9;
 
-    _rb_tree_init(pt_src, NULL);
-    _rb_tree_insert_unique(pt_src, &elem);
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    set_init(pset);
+    set_insert(pset, elem);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
     _rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, _test__rb_tree_init_compare_range_ex__compare);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_size(pt_dest) == 1);
     assert_true(pt_dest->_t_compare == _test__rb_tree_init_compare_range_ex__compare);
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 /*
@@ -4400,212 +4403,212 @@ void test__rb_tree_insert_equal__user_define_not_equal(void** state)
 UT_CASE_DEFINATION(_rb_tree_insert_unique_range)
 void test__rb_tree_insert_unique_range__null_rb_tree(void** state)
 {
-    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
-    _rb_tree_init(pt_rb_tree, NULL);
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
 
-    expect_assert_failure(_rb_tree_insert_unique_range(NULL, _rb_tree_begin(pt_rb_tree), _rb_tree_end(pt_rb_tree)));
+    expect_assert_failure(_rb_tree_insert_unique_range(NULL, vector_begin(pvec), vector_end(pvec)));
 
-    _rb_tree_destroy(pt_rb_tree);
+    vector_destroy(pvec);
 }
 
 void test__rb_tree_insert_unique_range__non_inited(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    list_t* plist = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    list_init(plist);
 
     pt_dest->_t_rbroot._t_color = BLACK;
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = list_begin(plist);
+    it_end = list_end(plist);
     expect_assert_failure(_rb_tree_insert_unique_range(pt_dest, it_begin, it_end));
     pt_dest->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    list_destroy(plist);
 }
 
 void test__rb_tree_insert_unique_range__invalid_begin(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    deque_t* pdeq = create_deque(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    deque_init(pdeq);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    it_begin = deque_begin(pdeq);
+    it_end = deque_end(pdeq);
+    it_begin._t_iteratortype = 4444;
     expect_assert_failure(_rb_tree_insert_unique_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    deque_destroy(pdeq);
 }
 
 void test__rb_tree_insert_unique_range__invalid_end(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    slist_init(pslist);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    it_end._t_containertype = 2323;
     expect_assert_failure(_rb_tree_insert_unique_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    slist_destroy(pslist);
 }
 
 void test__rb_tree_insert_unique_range__invalid_range(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 0;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
-    _rb_tree_insert_unique(pt_src, &elem);
+    set_init(pset);
+    set_insert(pset, elem);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
     expect_assert_failure(_rb_tree_insert_unique_range(pt_dest, it_end, it_begin));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 void test__rb_tree_insert_unique_range__not_same_type(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("vector_t<int>");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    multiset_t* pmset = create_multiset(double);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    multiset_init(pmset);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = multiset_begin(pmset);
+    it_end = multiset_end(pmset);
     expect_assert_failure(_rb_tree_insert_unique_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    multiset_destroy(pmset);
 }
 
 void test__rb_tree_insert_unique_range__empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    hash_set_t* phset = create_hash_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    hash_set_init(phset);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = hash_set_begin(phset);
+    it_end = hash_set_end(phset);
     _rb_tree_insert_unique_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_empty(pt_dest));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    hash_set_destroy(phset);
 }
 
 void test__rb_tree_insert_unique_range__non_empty_equal(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    hash_multiset_init(phmset);
     for(i = 0; i < 10; ++i)
     {
         _rb_tree_insert_equal(pt_dest, &i);
     }
     for(i = 10; i < 20; ++i)
     {
-        _rb_tree_insert_equal(pt_src, &i);
+        hash_multiset_insert(phmset, i);
     }
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
     _rb_tree_insert_unique_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_size(pt_dest) == 20);
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    hash_multiset_destroy(phmset);
 }
 
 void test__rb_tree_insert_unique_range__non_empty_dest_src_dup(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    vector_init(pvec);
     for(i = 0; i < 10; ++i)
     {
         _rb_tree_insert_equal(pt_dest, &i);
     }
     for(i = 5; i < 15; ++i)
     {
-        _rb_tree_insert_equal(pt_src, &i);
+        vector_push_back(pvec, i);
     }
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     _rb_tree_insert_unique_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_size(pt_dest) == 15);
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__rb_tree_insert_unique_range__non_empty_src_dup(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    list_t* plist = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    list_init(plist);
     for(i = 0; i < 10; ++i)
     {
         _rb_tree_insert_equal(pt_dest, &i);
     }
     for(i = 15; i < 25; ++i)
     {
-        _rb_tree_insert_equal(pt_src, &i);
-        _rb_tree_insert_equal(pt_src, &i);
+        list_push_back(plist, i);
+        list_push_back(plist, i);
     }
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = list_begin(plist);
+    it_end = list_end(plist);
     _rb_tree_insert_unique_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_size(pt_dest) == 20);
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    list_destroy(plist);
 }
 
 static void _test__rb_tree_insert_unique_range__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -4615,19 +4618,19 @@ static void _test__rb_tree_insert_unique_range__compare(const void* cpv_first, c
 void test__rb_tree_insert_unique_range__compare(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, _test__rb_tree_insert_unique_range__compare);
+    set_init_ex(pset, _test__rb_tree_insert_unique_range__compare);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
     _rb_tree_insert_unique_range(pt_dest, it_begin, it_end);
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 /*
@@ -4636,212 +4639,212 @@ void test__rb_tree_insert_unique_range__compare(void** state)
 UT_CASE_DEFINATION(_rb_tree_insert_equal_range)
 void test__rb_tree_insert_equal_range__null_rb_tree(void** state)
 {
-    _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
-    _rb_tree_init(pt_rb_tree, NULL);
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
 
-    expect_assert_failure(_rb_tree_insert_equal_range(NULL, _rb_tree_begin(pt_rb_tree), _rb_tree_end(pt_rb_tree)));
+    expect_assert_failure(_rb_tree_insert_equal_range(NULL, vector_begin(pvec), vector_end(pvec)));
 
-    _rb_tree_destroy(pt_rb_tree);
+    vector_destroy(pvec);
 }
 
 void test__rb_tree_insert_equal_range__non_inited(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    list_t* plist = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    list_init(plist);
 
     pt_dest->_t_rbroot._t_color = BLACK;
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = list_begin(plist);
+    it_end = list_end(plist);
     expect_assert_failure(_rb_tree_insert_equal_range(pt_dest, it_begin, it_end));
     pt_dest->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    list_destroy(plist);
 }
 
 void test__rb_tree_insert_equal_range__invalid_begin(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    slist_init(pslist);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
-    it_begin._t_pos._t_treepos._pt_tree = NULL;
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    it_begin._t_containertype = 4444;
     expect_assert_failure(_rb_tree_insert_equal_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    slist_destroy(pslist);
 }
 
 void test__rb_tree_insert_equal_range__invalid_end(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    deque_t* pdeq = create_deque(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    deque_init(pdeq);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
-    it_end._t_pos._t_treepos._pt_tree = NULL;
+    it_begin = deque_begin(pdeq);
+    it_end = deque_end(pdeq);
+    it_end._t_iteratortype = 3333;
     expect_assert_failure(_rb_tree_insert_equal_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    deque_destroy(pdeq);
 }
 
 void test__rb_tree_insert_equal_range__invalid_range(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int elem = 0;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
-    _rb_tree_insert_unique(pt_src, &elem);
+    set_init(pset);
+    set_insert(pset, elem);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
     expect_assert_failure(_rb_tree_insert_equal_range(pt_dest, it_end, it_begin));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 void test__rb_tree_insert_equal_range__not_same_type(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("vector_t<int>");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    multiset_t* pmset = create_multiset(double);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    multiset_init(pmset);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = multiset_begin(pmset);
+    it_end = multiset_end(pmset);
     expect_assert_failure(_rb_tree_insert_equal_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    multiset_destroy(pmset);
 }
 
 void test__rb_tree_insert_equal_range__empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    hash_set_t* phset = create_hash_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    hash_set_init(phset);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = hash_set_begin(phset);
+    it_end = hash_set_end(phset);
     _rb_tree_insert_equal_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_empty(pt_dest));
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    hash_set_destroy(phset);
 }
 
 void test__rb_tree_insert_equal_range__non_empty_equal(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    hash_multiset_init(phmset);
     for(i = 0; i < 10; ++i)
     {
         _rb_tree_insert_equal(pt_dest, &i);
     }
     for(i = 10; i < 20; ++i)
     {
-        _rb_tree_insert_equal(pt_src, &i);
+        hash_multiset_insert(phmset, i);
     }
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
     _rb_tree_insert_equal_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_size(pt_dest) == 20);
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    hash_multiset_destroy(phmset);
 }
 
 void test__rb_tree_insert_equal_range__non_empty_dest_src_dup(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    vector_init(pvec);
     for(i = 0; i < 10; ++i)
     {
         _rb_tree_insert_equal(pt_dest, &i);
     }
     for(i = 5; i < 15; ++i)
     {
-        _rb_tree_insert_equal(pt_src, &i);
+        vector_push_back(pvec, i);
     }
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
     _rb_tree_insert_equal_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_size(pt_dest) == 20);
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    vector_destroy(pvec);
 }
 
 void test__rb_tree_insert_equal_range__non_empty_src_dup(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    list_t* plist = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
     int i = 0;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, NULL);
+    list_init(plist);
     for(i = 0; i < 10; ++i)
     {
         _rb_tree_insert_equal(pt_dest, &i);
     }
     for(i = 15; i < 25; ++i)
     {
-        _rb_tree_insert_equal(pt_src, &i);
-        _rb_tree_insert_equal(pt_src, &i);
+        list_push_back(plist, i);
+        list_push_back(plist, i);
     }
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = list_begin(plist);
+    it_end = list_end(plist);
     _rb_tree_insert_equal_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_size(pt_dest) == 30);
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    list_destroy(plist);
 }
 
 static void _test__rb_tree_insert_equal_range__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -4851,19 +4854,19 @@ static void _test__rb_tree_insert_equal_range__compare(const void* cpv_first, co
 void test__rb_tree_insert_equal_range__compare(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
-    _rb_tree_t* pt_src = _create_rb_tree("int");
-    _rb_tree_iterator_t it_begin;
-    _rb_tree_iterator_t it_end;
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
 
     _rb_tree_init(pt_dest, NULL);
-    _rb_tree_init(pt_src, _test__rb_tree_insert_equal_range__compare);
+    set_init_ex(pset, _test__rb_tree_insert_equal_range__compare);
 
-    it_begin = _rb_tree_begin(pt_src);
-    it_end = _rb_tree_end(pt_src);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
     _rb_tree_insert_equal_range(pt_dest, it_begin, it_end);
 
     _rb_tree_destroy(pt_dest);
-    _rb_tree_destroy(pt_src);
+    set_destroy(pset);
 }
 
 /*

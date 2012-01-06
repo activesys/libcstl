@@ -75,6 +75,15 @@ extern bool_t _rb_tree_iterator_belong_to_rb_tree(const _rb_tree_t* cpt_rb_tree,
 /**
  * Test the type that saved in the rb tree container and referenced by it_iter are same.
  * @param cpt_rb_tree           rb tree container.
+ * @param it_iter               iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_rb_tree == NULL, then the behavior is undefined.
+ */
+extern bool_t _rb_tree_same_iterator_type(const _rb_tree_t* cpt_rb_tree, iterator_t it_iter);
+
+/**
+ * Test the type that saved in the rb tree container and referenced by it_iter are same.
+ * @param cpt_rb_tree           rb tree container.
  * @param it_iter               rb tree iterator.
  * @return if the type is same, return true, else return false.
  * @remarks if cpt_rb_tree == NULL or it_iter is not rb tree iterator, then the behavior is undefined.

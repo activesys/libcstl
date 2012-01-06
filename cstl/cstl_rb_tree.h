@@ -73,10 +73,10 @@ extern void _rb_tree_init_copy(_rb_tree_t* pt_dest, const _rb_tree_t* cpt_src);
  * @param it_end            end of range.
  * @return void.
  * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_rb_tree(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized rb tree, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior
+ *          is undefined.
  */
-extern void _rb_tree_init_copy_range(_rb_tree_t* pt_dest, _rb_tree_iterator_t it_begin, _rb_tree_iterator_t it_end);
+extern void _rb_tree_init_copy_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize rb tree container with specific range and compare function.
@@ -86,12 +86,11 @@ extern void _rb_tree_init_copy_range(_rb_tree_t* pt_dest, _rb_tree_iterator_t it
  * @param t_compare         compare function.
  * @return void.
  * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_rb_tree(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized rb tree, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is undefined. if
- *          t_compare == NULL, then use default compare function.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior
+ *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void _rb_tree_init_copy_range_ex(
-    _rb_tree_t* pt_dest, _rb_tree_iterator_t it_begin, _rb_tree_iterator_t it_end, binary_function_t t_compare);
+    _rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
 
 /**
  * Destroy rb tree.
@@ -334,31 +333,31 @@ extern _rb_tree_iterator_t _rb_tree_insert_equal(_rb_tree_t* pt_rb_tree, const v
 /**
  * Inserts an range of unique element into a rb tree.
  * @param pt_rb_tree       rb tree container.
- * @param it_begin          begin of specific range.
- * @param it_end            end of specific range.
+ * @param it_begin         begin of specific range.
+ * @param it_end           end of specific range.
  * @return void.
  * @remarks if pt_rb_tree == NULL then the behavior is undefined. pt_rb_tree must be initialized, otherwise the behavior
  *          is undefined. the type of [it_begin, it_end) and cpt_rb_tree must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void _rb_tree_insert_unique_range(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t it_begin, _rb_tree_iterator_t it_end);
+extern void _rb_tree_insert_unique_range(_rb_tree_t* pt_rb_tree, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Inserts an range into a rb tree.
  * @param pt_rb_tree       rb tree container.
- * @param it_begin          begin of specific range.
- * @param it_end            end of specific range.
+ * @param it_begin         begin of specific range.
+ * @param it_end           end of specific range.
  * @return void.
  * @remarks if pt_rb_tree == NULL then the behavior is undefined. pt_rb_tree must be initialized, otherwise the behavior
  *          is undefined. the type of [it_begin, it_end) and cpt_rb_tree must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void _rb_tree_insert_equal_range(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t it_begin, _rb_tree_iterator_t it_end);
+extern void _rb_tree_insert_equal_range(_rb_tree_t* pt_rb_tree, iterator_t it_begin, iterator_t it_end);
 
 /*
  * Erase an element in an rb tree from specificed position.
  * @param pt_rb_tree       rb tree container.
- * @param it_pos            specificed position.
+ * @param it_pos           specificed position.
  * @return void.
  * @remarks if pt_rb_tree == NULL then the behavior is undefined. pt_rb_tree must be initialized, otherwise the behavior
  *          is undefined. it_pos must be valid iterator, otherwise the behavior is undefined.

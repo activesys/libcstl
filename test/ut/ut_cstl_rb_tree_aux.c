@@ -12,6 +12,9 @@
 #include "cstl/cstl_rb_tree.h"
 #include "cstl_rb_tree_aux.h"
 #include "cstl/cstring.h"
+#include "cstl/cvector.h"
+#include "cstl/clist.h"
+#include "cstl/cslist.h"
 
 #include "ut_def.h"
 #include "ut_cstl_rb_tree_aux.h"
@@ -514,6 +517,59 @@ void test__rb_tree_same_rb_tree_iterator_type__not_same(void** state)
 
     _rb_tree_destroy(pt_rb_tree);
     _rb_tree_destroy(pt_iter);
+}
+
+/*
+ * test _rb_tree_same_iterator_type
+ */
+UT_CASE_DEFINATION(_rb_tree_same_iterator_type)
+void test__rb_tree_same_iterator_type__null_rb_tree_container(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+    expect_assert_failure(_rb_tree_same_iterator_type(NULL, vector_begin(pvec)));
+    vector_destroy(pvec);
+}
+
+void test__rb_tree_same_iterator_type__invalid_iterator(void** state)
+{
+    list_t* plist = create_list(int);
+    _rb_tree_t* prbtree = _create_rb_tree("int");
+    iterator_t it_iter;
+
+    list_init(plist);
+    it_iter = list_begin(plist);
+    it_iter._t_iteratortype = 4444;
+    expect_assert_failure(_rb_tree_same_iterator_type(prbtree, it_iter));
+
+    list_destroy(plist);
+    _rb_tree_destroy(prbtree);
+}
+
+void test__rb_tree_same_iterator_type__same(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    _rb_tree_t* prbtree = _create_rb_tree("int");
+
+    slist_init(pslist);
+    _rb_tree_init(prbtree, NULL);
+    assert_true(_rb_tree_same_iterator_type(prbtree, slist_begin(pslist)));
+
+    slist_destroy(pslist);
+    _rb_tree_destroy(prbtree);
+}
+
+void test__rb_tree_same_iterator_type__not_same(void** state)
+{
+    slist_t* pslist = create_slist(double);
+    _rb_tree_t* prbtree = _create_rb_tree("int");
+
+    slist_init(pslist);
+    _rb_tree_init(prbtree, NULL);
+    assert_false(_rb_tree_same_iterator_type(prbtree, slist_begin(pslist)));
+
+    slist_destroy(pslist);
+    _rb_tree_destroy(prbtree);
 }
 
 /*

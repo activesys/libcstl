@@ -54,6 +54,14 @@ void test__rb_tree_same_rb_tree_iterator_type__same_container(void** state);
 void test__rb_tree_same_rb_tree_iterator_type__same(void** state);
 void test__rb_tree_same_rb_tree_iterator_type__not_same(void** state);
 /*
+ * test _rb_tree_same_iterator_type
+ */
+UT_CASE_DECLARATION(_rb_tree_same_iterator_type)
+void test__rb_tree_same_iterator_type__null_rb_tree_container(void** state);
+void test__rb_tree_same_iterator_type__invalid_iterator(void** state);
+void test__rb_tree_same_iterator_type__same(void** state);
+void test__rb_tree_same_iterator_type__not_same(void** state);
+/*
  * test _rb_tree_same_rb_tree_iterator_type_ex
  */
 UT_CASE_DECLARATION(_rb_tree_same_rb_tree_iterator_type_ex)
@@ -280,6 +288,10 @@ void test__rb_tree_elem_compare_auxiliary__cstr(void** state);
     UT_CASE(test__rb_tree_same_rb_tree_iterator_type__same_container),\
     UT_CASE(test__rb_tree_same_rb_tree_iterator_type__same),\
     UT_CASE(test__rb_tree_same_rb_tree_iterator_type__not_same),\
+    UT_CASE_BEGIN(_rb_tree_same_iterator_type, test__rb_tree_same_iterator_type__null_rb_tree_container),\
+    UT_CASE(test__rb_tree_same_iterator_type__invalid_iterator),\
+    UT_CASE(test__rb_tree_same_iterator_type__same),\
+    UT_CASE(test__rb_tree_same_iterator_type__not_same),\
     UT_CASE_BEGIN(_rb_tree_same_rb_tree_iterator_type_ex, test__rb_tree_same_rb_tree_iterator_type_ex__null_rb_tree),\
     UT_CASE(test__rb_tree_same_rb_tree_iterator_type_ex__non_created),\
     UT_CASE(test__rb_tree_same_rb_tree_iterator_type_ex__invalid_iter),\

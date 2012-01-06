@@ -142,7 +142,7 @@ void map_init_copy_range(map_t* pmap_dest, iterator_t it_begin, iterator_t it_en
 /**
  * Initialize map container with specific range and compare function.
  */
-void map_init_copy_range_ex(map_t* pmap_dest, map_iterator_t it_begin, map_iterator_t it_end, binary_function_t bfun_keycompare)
+void map_init_copy_range_ex(map_t* pmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare)
 {
     assert(pmap_dest != NULL);
     assert(_pair_is_created(&pmap_dest->_pair_temp));
