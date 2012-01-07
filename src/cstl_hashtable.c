@@ -100,6 +100,8 @@ void _hashtable_init(_hashtable_t* pt_hashtable, size_t t_bucketcount, unary_fun
  */
 void _hashtable_init_copy(_hashtable_t* pt_dest, const _hashtable_t* cpt_src)
 {
+    _hashtable_iterator_t it_iter;
+
     assert(pt_dest != NULL);
     assert(cpt_src != NULL);
     assert(_hashtable_is_created(pt_dest));
@@ -109,32 +111,28 @@ void _hashtable_init_copy(_hashtable_t* pt_dest, const _hashtable_t* cpt_src)
     /* initialize the dest hashtable with src hashtable attribute */
     _hashtable_init(pt_dest, _hashtable_bucket_count(cpt_src), cpt_src->_ufun_hash, cpt_src->_bfun_compare);
     /* insert node from src to dest */
-    if(!_hashtable_empty(cpt_src))
+    for(it_iter = _hashtable_begin(cpt_src);
+        !_hashtable_iterator_equal(it_iter, _hashtable_end(cpt_src));
+        it_iter = _hashtable_iterator_next(it_iter))
     {
-        _hashtable_insert_equal_range(pt_dest, _hashtable_begin(cpt_src), _hashtable_end(cpt_src));
+        _hashtable_insert_equal(pt_dest, _hashtable_iterator_get_pointer_ignore_cstr(it_iter));
     }
 }
 
 /**
  * Initialize hashtable container with specific range.
  */
-void _hashtable_init_copy_range(
-    _hashtable_t* pt_dest, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end,
+void _hashtable_init_copy_range(_hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end,
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
 {
     assert(pt_dest != NULL);
     assert(_hashtable_is_created(pt_dest));
-    assert(_hashtable_same_hashtable_iterator_type(pt_dest, it_begin));
-    assert(_hashtable_same_hashtable_iterator_type(pt_dest, it_end));
-    assert(_hashtable_iterator_equal(it_begin, it_end) || _hashtable_iterator_before(it_begin, it_end));
+    assert(_hashtable_same_iterator_type(pt_dest, it_begin));
+    assert(_hashtable_same_iterator_type(pt_dest, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    /* initialize the dest hashtable with src hashtable attribute */
     _hashtable_init(pt_dest, t_bucketcount, ufun_hash, bfun_compare);
-    /* insert node from src to dest */
-    if(!_hashtable_empty(_HASHTABLE_ITERATOR_HASHTABLE(it_begin)))
-    {
-        _hashtable_insert_equal_range(pt_dest, it_begin, it_end);
-    }
+    _hashtable_insert_equal_range(pt_dest, it_begin, it_end);
 }
 
 /**
@@ -589,6 +587,8 @@ void _hashtable_swap(_hashtable_t* pt_first, _hashtable_t* pt_second)
  */
 void _hashtable_assign(_hashtable_t* pt_dest, const _hashtable_t* cpt_src)
 {
+    _hashtable_iterator_t it_iter;
+
     assert(pt_dest != NULL);
     assert(cpt_src != NULL);
     assert(_hashtable_is_inited(pt_dest));
@@ -598,9 +598,11 @@ void _hashtable_assign(_hashtable_t* pt_dest, const _hashtable_t* cpt_src)
     /* clear all elements */
     _hashtable_clear(pt_dest);
     /* insert node from src to dest */
-    if(!_hashtable_empty(cpt_src))
+    for(it_iter = _hashtable_begin(cpt_src);
+        !_hashtable_iterator_equal(it_iter, _hashtable_end(cpt_src));
+        it_iter = _hashtable_iterator_next(it_iter))
     {
-        _hashtable_insert_equal_range(pt_dest, _hashtable_begin(cpt_src), _hashtable_end(cpt_src));
+        _hashtable_insert_equal(pt_dest, _hashtable_iterator_get_pointer_ignore_cstr(it_iter));
     }
 }
 
@@ -902,40 +904,38 @@ bool_t _hashtable_greater_equal(const _hashtable_t* cpt_first, const _hashtable_
 /**
  * Inserts an range into a hashtable.
  */
-void _hashtable_insert_equal_range(
-    _hashtable_t* pt_hashtable, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end)
+void _hashtable_insert_equal_range(_hashtable_t* pt_hashtable, iterator_t it_begin, iterator_t it_end)
 {
-    _hashtable_iterator_t it_iter;
+    iterator_t it_iter;
 
     assert(pt_hashtable != NULL);
     assert(_hashtable_is_inited(pt_hashtable));
-    assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_begin));
-    assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_end));
-    assert(_hashtable_iterator_equal(it_begin, it_end) || _hashtable_iterator_before(it_begin, it_end));
+    assert(_hashtable_same_iterator_type(pt_hashtable, it_begin));
+    assert(_hashtable_same_iterator_type(pt_hashtable, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    for(it_iter = it_begin; !_hashtable_iterator_equal(it_iter, it_end); it_iter = _hashtable_iterator_next(it_iter))
+    for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
     {
-        _hashtable_insert_equal(pt_hashtable, ((_hashnode_t*)_HASHTABLE_ITERATOR_COREPOS(it_iter))->_pby_data);
+        _hashtable_insert_equal(pt_hashtable, _iterator_get_pointer_ignore_cstr(it_iter));
     }
 }
 
 /**
  * Inserts an range of unique element into a hashtable.
  */
-void _hashtable_insert_unique_range(
-    _hashtable_t* pt_hashtable, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end)
+void _hashtable_insert_unique_range(_hashtable_t* pt_hashtable, iterator_t it_begin, iterator_t it_end)
 {
-    _hashtable_iterator_t it_iter;
+    iterator_t it_iter;
 
     assert(pt_hashtable != NULL);
     assert(_hashtable_is_inited(pt_hashtable));
-    assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_begin));
-    assert(_hashtable_same_hashtable_iterator_type(pt_hashtable, it_end));
-    assert(_hashtable_iterator_equal(it_begin, it_end) || _hashtable_iterator_before(it_begin, it_end));
+    assert(_hashtable_same_iterator_type(pt_hashtable, it_begin));
+    assert(_hashtable_same_iterator_type(pt_hashtable, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    for(it_iter = it_begin; !_hashtable_iterator_equal(it_iter, it_end); it_iter = _hashtable_iterator_next(it_iter))
+    for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
     {
-        _hashtable_insert_unique(pt_hashtable, ((_hashnode_t*)_HASHTABLE_ITERATOR_COREPOS(it_iter))->_pby_data);
+        _hashtable_insert_unique(pt_hashtable, _iterator_get_pointer_ignore_cstr(it_iter));
     }
 }
 

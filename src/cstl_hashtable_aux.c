@@ -184,6 +184,18 @@ bool_t _hashtable_same_hashtable_iterator_type(const _hashtable_t* cpt_hashtable
 /**
  * Test the type that saved in the hashtable container and referenced by it_iter are same.
  */
+bool_t _hashtable_same_iterator_type(const _hashtable_t* cpt_hashtable, iterator_t it_iter)
+{
+    assert(cpt_hashtable != NULL);
+    assert(_hashtable_is_inited(cpt_hashtable) || _hashtable_is_created(cpt_hashtable));
+    assert(_iterator_is_valid(it_iter));
+
+    return _type_is_same_ex(&cpt_hashtable->_t_typeinfo, _iterator_get_typeinfo(it_iter));
+}
+
+/**
+ * Test the type that saved in the hashtable container and referenced by it_iter are same.
+ */
 bool_t _hashtable_same_hashtable_iterator_type_ex(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter)
 {
     assert(cpt_hashtable != NULL);

@@ -13,6 +13,10 @@
 #include "cstl/cstl_hashtable.h"
 #include "cstl_hashtable_aux.h"
 #include "cstl/cstring.h"
+#include "cstl/clist.h"
+#include "cstl/cslist.h"
+#include "cstl/cdeque.h"
+#include "cstl/cset.h"
 
 #include "ut_def.h"
 #include "ut_cstl_hashtable_aux.h"
@@ -448,6 +452,73 @@ void test__hashtable_same_hashtable_iterator_type__not_same(void** state)
 
     _hashtable_destroy(pt_hashtable);
     _hashtable_destroy(pt_iter);
+}
+
+/*
+ * test _hashtable_same_iterator_type
+ */
+UT_CASE_DEFINATION(_hashtable_same_iterator_type)
+void test__hashtable_same_iterator_type__null_hashtable(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    expect_assert_failure(_hashtable_same_iterator_type(NULL, vector_begin(pvec)));
+
+    vector_destroy(pvec);
+}
+
+void test__hashtable_same_iterator_type__non_created(void** state)
+{
+    list_t* plist = create_list(int);
+    _hashtable_t htable;
+
+    list_init(plist);
+    expect_assert_failure(_hashtable_same_iterator_type(&htable, list_begin(plist)));
+
+    list_destroy(plist);
+}
+
+void test__hashtable_same_iterator_type__invalid_iter(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    slist_t* pslist = create_slist(int);
+    iterator_t it_iter;
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    slist_init(pslist);
+    it_iter = slist_begin(pslist);
+    it_iter._t_iteratortype = 444;
+    expect_assert_failure(_hashtable_same_iterator_type(pt_hashtable, it_iter));
+
+    _hashtable_destroy(pt_hashtable);
+    slist_destroy(pslist);
+}
+
+void test__hashtable_same_iterator_type__same(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    deque_t* pdeq = create_deque(int);
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    deque_init(pdeq);
+    assert_true(_hashtable_same_iterator_type(pt_hashtable, deque_begin(pdeq)));
+
+    _hashtable_destroy(pt_hashtable);
+    deque_destroy(pdeq);
+}
+
+void test__hashtable_same_iterator_type__not_same(void** state)
+{
+    _hashtable_t* pt_hashtable = _create_hashtable("int");
+    set_t* pset = create_set(double);
+
+    _hashtable_init(pt_hashtable, 0, NULL, NULL);
+    set_init(pset);
+    assert_false(_hashtable_same_iterator_type(pt_hashtable, set_begin(pset)));
+
+    _hashtable_destroy(pt_hashtable);
+    set_destroy(pset);
 }
 
 /*

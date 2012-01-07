@@ -88,6 +88,15 @@ extern bool_t _hashtable_same_hashtable_iterator_type(const _hashtable_t* cpt_ha
 /**
  * Test the type that saved in the hashtable container and referenced by it_iter are same.
  * @param cpt_hashtable         hashtable container.
+ * @param it_iter               iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_hashtable == NULL, then the behavior is undefined.
+ */
+extern bool_t _hashtable_same_iterator_type(const _hashtable_t* cpt_hashtable, iterator_t it_iter);
+
+/**
+ * Test the type that saved in the hashtable container and referenced by it_iter are same.
+ * @param cpt_hashtable         hashtable container.
  * @param it_iter               hashtable iterator.
  * @return if the type is same, return true, else return false.
  * @remarks if cpt_hashtable == NULL or it_iter is not hashtable iterator, then the behavior is undefined.

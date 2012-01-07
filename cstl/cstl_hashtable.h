@@ -81,14 +81,13 @@ extern void _hashtable_init_copy(_hashtable_t* pt_dest, const _hashtable_t* cpt_
  * @param bfun_compare      compare function.
  * @return void.
  * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_hashtable(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hashtable, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is undefined.
- *          if ufun_hash == NULL or bfun_compare == NULL, then the default hash function is used and the default compare function
- *          is used.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior
+ *          is undefined. if ufun_hash == NULL or bfun_compare == NULL, then the default hash function is used and the 
+ *          default compare function is used.
  */
 extern void _hashtable_init_copy_range(
-    _hashtable_t* pt_dest, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+    _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
+    unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**
  * Destroy hashtable.
@@ -323,7 +322,7 @@ extern _hashtable_iterator_t _hashtable_insert_equal(_hashtable_t* pt_hashtable,
 
 /**
  * Inserts an range of unique element into a hashtable.
- * @param pt_hashtable       hashtable container.
+ * @param pt_hashtable      hashtable container.
  * @param it_begin          begin of specific range.
  * @param it_end            end of specific range.
  * @return void.
@@ -331,12 +330,11 @@ extern _hashtable_iterator_t _hashtable_insert_equal(_hashtable_t* pt_hashtable,
  *          is undefined. the type of [it_begin, it_end) and cpt_hashtable must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void _hashtable_insert_unique_range(
-    _hashtable_t* pt_hashtable, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end);
+extern void _hashtable_insert_unique_range(_hashtable_t* pt_hashtable, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Inserts an range into a hashtable.
- * @param pt_hashtable       hashtable container.
+ * @param pt_hashtable      hashtable container.
  * @param it_begin          begin of specific range.
  * @param it_end            end of specific range.
  * @return void.
@@ -344,8 +342,7 @@ extern void _hashtable_insert_unique_range(
  *          is undefined. the type of [it_begin, it_end) and cpt_hashtable must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void _hashtable_insert_equal_range(
-    _hashtable_t* pt_hashtable, _hashtable_iterator_t it_begin, _hashtable_iterator_t it_end);
+extern void _hashtable_insert_equal_range(_hashtable_t* pt_hashtable, iterator_t it_begin, iterator_t it_end);
 
 /*
  * Erase an element in an hashtable from specificed position.

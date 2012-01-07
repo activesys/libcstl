@@ -50,6 +50,15 @@ void test__hashtable_same_hashtable_iterator_type__same_container(void** state);
 void test__hashtable_same_hashtable_iterator_type__same(void** state);
 void test__hashtable_same_hashtable_iterator_type__not_same(void** state);
 /*
+ * test _hashtable_same_iterator_type
+ */
+UT_CASE_DECLARATION(_hashtable_same_iterator_type)
+void test__hashtable_same_iterator_type__null_hashtable(void** state);
+void test__hashtable_same_iterator_type__non_created(void** state);
+void test__hashtable_same_iterator_type__invalid_iter(void** state);
+void test__hashtable_same_iterator_type__same(void** state);
+void test__hashtable_same_iterator_type__not_same(void** state);
+/*
  * test _hashtable_same_hashtable_iterator_type_ex
  */
 UT_CASE_DECLARATION(_hashtable_same_hashtable_iterator_type_ex)
@@ -171,6 +180,11 @@ void test__hashtable_elem_compare_auxiliary__cstr(void** state);
     UT_CASE(test__hashtable_same_hashtable_iterator_type__same_container),\
     UT_CASE(test__hashtable_same_hashtable_iterator_type__same),\
     UT_CASE(test__hashtable_same_hashtable_iterator_type__not_same),\
+    UT_CASE_BEGIN(_hashtable_same_iterator_type, test__hashtable_same_iterator_type__null_hashtable),\
+    UT_CASE(test__hashtable_same_iterator_type__non_created),\
+    UT_CASE(test__hashtable_same_iterator_type__invalid_iter),\
+    UT_CASE(test__hashtable_same_iterator_type__same),\
+    UT_CASE(test__hashtable_same_iterator_type__not_same),\
     UT_CASE_BEGIN(_hashtable_same_hashtable_iterator_type_ex, test__hashtable_same_hashtable_iterator_type_ex__null_hashtable),\
     UT_CASE(test__hashtable_same_hashtable_iterator_type_ex__non_created),\
     UT_CASE(test__hashtable_same_hashtable_iterator_type_ex__invalid_iter),\
