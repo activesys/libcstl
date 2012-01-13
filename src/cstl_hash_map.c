@@ -114,7 +114,7 @@ void hash_map_init_copy(hash_map_t* phmap_dest, const hash_map_t* cphmap_src)
 /**
  * Initialize hash_map container with specific range.
  */
-void hash_map_init_copy_range(hash_map_t* phmap_dest, hash_map_iterator_t it_begin, hash_map_iterator_t it_end)
+void hash_map_init_copy_range(hash_map_t* phmap_dest, iterator_t it_begin, iterator_t it_end)
 {
     hash_map_init_copy_range_ex(phmap_dest, it_begin, it_end, 0, NULL, NULL);
 }
@@ -122,28 +122,18 @@ void hash_map_init_copy_range(hash_map_t* phmap_dest, hash_map_iterator_t it_beg
 /**
  * Initialize hash_map container with specific range and compare function.
  */
-void hash_map_init_copy_range_ex(
-    hash_map_t* phmap_dest, hash_map_iterator_t it_begin, hash_map_iterator_t it_end,
+void hash_map_init_copy_range_ex(hash_map_t* phmap_dest, iterator_t it_begin, iterator_t it_end,
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
 {
     unary_function_t ufun_default_hash = NULL;
 
     assert(phmap_dest != NULL);
-    assert(_HASH_MAP_ITERATOR_CONTAINER_TYPE(it_begin) == _HASH_MAP_CONTAINER);
-    assert(_HASH_MAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_HASH_MAP_ITERATOR_CONTAINER_TYPE(it_end) == _HASH_MAP_CONTAINER);
-    assert(_HASH_MAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_HASH_MAP_ITERATOR_CONTAINER(it_begin) != phmap_dest);
-    assert(_HASH_MAP_ITERATOR_CONTAINER(it_end) != phmap_dest);
-    assert(_HASH_MAP_ITERATOR_CONTAINER(it_begin) == _HASH_MAP_ITERATOR_CONTAINER(it_end));
-    assert(_hash_map_same_pair_type(&phmap_dest->_pair_temp, &_HASH_MAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
+    assert(_pair_is_created(&phmap_dest->_pair_temp));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     ufun_default_hash = ufun_hash != NULL ? ufun_hash : _hash_map_default_hash;
     hash_map_init_ex(phmap_dest, t_bucketcount, ufun_default_hash, bfun_compare);
-    if(!hash_map_empty(_HASH_MAP_ITERATOR_CONTAINER(it_begin)))
-    {
-        hash_map_insert_range(phmap_dest, it_begin, it_end);
-    }
+    hash_map_insert_range(phmap_dest, it_begin, it_end);
 }
 
 /**
@@ -437,24 +427,18 @@ hash_map_iterator_t hash_map_insert(hash_map_t* phmap_map, const pair_t* cppair_
 /**
  * Inserts an range of unique element into a hash_map.
  */
-void hash_map_insert_range(hash_map_t* phmap_map, hash_map_iterator_t it_begin, hash_map_iterator_t it_end)
+void hash_map_insert_range(hash_map_t* phmap_map, iterator_t it_begin, iterator_t it_end)
 {
-    hash_map_iterator_t it_iter;
+    iterator_t it_iter;
 
     assert(phmap_map != NULL);
     assert(_pair_is_inited(&phmap_map->_pair_temp));
-    assert(_HASH_MAP_ITERATOR_CONTAINER_TYPE(it_begin) == _HASH_MAP_CONTAINER);
-    assert(_HASH_MAP_ITERATOR_ITERATOR_TYPE(it_begin) == _BIDIRECTIONAL_ITERATOR);
-    assert(_HASH_MAP_ITERATOR_CONTAINER_TYPE(it_end) == _HASH_MAP_CONTAINER);
-    assert(_HASH_MAP_ITERATOR_ITERATOR_TYPE(it_end) == _BIDIRECTIONAL_ITERATOR);
-    assert(_HASH_MAP_ITERATOR_CONTAINER(it_begin) != phmap_map);
-    assert(_HASH_MAP_ITERATOR_CONTAINER(it_end) != phmap_map);
-    assert(_HASH_MAP_ITERATOR_CONTAINER(it_begin) == _HASH_MAP_ITERATOR_CONTAINER(it_end));
-    assert(_hash_map_same_pair_type(&phmap_map->_pair_temp, &_HASH_MAP_ITERATOR_CONTAINER(it_begin)->_pair_temp));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
     {
-         hash_map_insert(phmap_map, (pair_t*)iterator_get_pointer(it_iter));
+        assert(_hash_map_same_pair_type(&phmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
+        hash_map_insert(phmap_map, (pair_t*)iterator_get_pointer(it_iter));
     }
 }
 

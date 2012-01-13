@@ -126,31 +126,27 @@ extern void hash_multiset_init_copy(hash_multiset_t* phmset_dest, const hash_mul
 
 /**
  * Initialize hash_multiset container with specific range.
- * @param phmset_dest         destination hash_multiset.
+ * @param phmset_dest       destination hash_multiset.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
  * @return void.
  * @remarks if phmset_dest == NULL, then the behavior is undefined, phmset_dest must be created by create_hash_multiset(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_multiset, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and phmset_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and phmset_dest must be same, otherwise the behavior is undefined.
  */
-extern void hash_multiset_init_copy_range(
-    hash_multiset_t* phmset_dest, hash_multiset_iterator_t it_begin, hash_multiset_iterator_t it_end);
+extern void hash_multiset_init_copy_range(hash_multiset_t* phmset_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize hash_multiset container with specific range and compare function.
- * @param phmset_dest         destination hash_multiset.
+ * @param phmset_dest       destination hash_multiset.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
- * @param bfun_compare         compare function.
+ * @param bfun_compare      compare function.
  * @return void.
  * @remarks if phmset_dest == NULL, then the behavior is undefined, phmset_dest must be created by _create_hash_multiset(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_multiset, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and phmset_dest must be same, otherwise the behavior is undefined. if
+ *          the behavior is undefined. the type of [it_begin, it_end) and phmset_dest must be same, otherwise the behavior is undefined. if
  *          bfun_compare == NULL, then use default compare function.
  */
-extern void hash_multiset_init_copy_range_ex(
-    hash_multiset_t* phmset_dest, hash_multiset_iterator_t it_begin, hash_multiset_iterator_t it_end,
+extern void hash_multiset_init_copy_range_ex(hash_multiset_t* phmset_dest, iterator_t it_begin, iterator_t it_end,
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**
@@ -346,8 +342,7 @@ extern hash_multiset_iterator_t hash_multiset_end(const hash_multiset_t* cphmset
  *          is undefined. the type of [it_begin, it_end) and cphmset_set must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void hash_multiset_insert_range(
-    hash_multiset_t* phmset_set, hash_multiset_iterator_t it_begin, hash_multiset_iterator_t it_end);
+extern void hash_multiset_insert_range(hash_multiset_t* phmset_set, iterator_t it_begin, iterator_t it_end);
 
 /*
  * Erase an element in an hash_multiset from specificed position.

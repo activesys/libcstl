@@ -9,6 +9,9 @@
 #include "cstl/cstring.h"
 #include "cstl/cvector.h"
 #include "cstl/clist.h"
+#include "cstl/cslist.h"
+#include "cstl/cdeque.h"
+#include "cstl/cset.h"
 #include "cstl_vector_aux.h"
 #include "cstl_hashtable_aux.h"
 #include "cstl_hash_multiset_aux.h"
@@ -504,6 +507,31 @@ void test_hash_multiset_init_copy_range__non_null_compare(void** state)
     hash_multiset_destroy(pt_src);
 }
 
+void test_hash_multiset_init_copy_range__other(void** state)
+{
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 10, 100);
+    hash_multiset_init_copy_range(phmset, vector_begin(pvec), vector_end(pvec));
+    assert_true(hash_multiset_size(phmset) == 10);
+
+    vector_destroy(pvec);
+    hash_multiset_destroy(phmset);
+}
+
+void test_hash_multiset_init_copy_range__other_not_same(void** state)
+{
+    hash_multiset_t* phmset = create_hash_multiset(double);
+    list_t* plist = create_list(int);
+
+    list_init_elem(plist, 1, 1);
+    expect_assert_failure(hash_multiset_init_copy_range(phmset, list_begin(plist), list_end(plist)));
+
+    list_destroy(plist);
+    hash_multiset_destroy(phmset);
+}
+
 /*
  * test hash_multiset_init_copy_range_ex
  */
@@ -708,6 +736,31 @@ void test_hash_multiset_init_copy_range_ex__compare(void** state)
 
     hash_multiset_destroy(pt_dest);
     hash_multiset_destroy(pt_src);
+}
+
+void test_hash_multiset_init_copy_range_ex__other(void** state)
+{
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    slist_t* pslist = create_slist(int);
+
+    slist_init_elem(pslist, 10, 10);
+    hash_multiset_init_copy_range_ex(phmset, slist_begin(pslist), slist_end(pslist), 0, NULL, NULL);
+    assert_true(hash_multiset_size(phmset) == 10);
+
+    slist_destroy(pslist);
+    hash_multiset_destroy(phmset);
+}
+
+void test_hash_multiset_init_copy_range_ex__other_not_same(void** state)
+{
+    hash_multiset_t* phmset = create_hash_multiset(double);
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_elem(pdeq, 10, 10);
+    expect_assert_failure(hash_multiset_init_copy_range_ex(phmset, deque_begin(pdeq), deque_end(pdeq), 0, NULL, NULL));
+
+    deque_destroy(pdeq);
+    hash_multiset_destroy(phmset);
 }
 
 /*
@@ -3551,6 +3604,41 @@ void test_hash_multiset_insert_range__compare(void** state)
 
     hash_multiset_destroy(pt_dest);
     hash_multiset_destroy(pt_src);
+}
+
+void test_hash_multiset_insert_range__other(void** state)
+{
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    set_t* pset = create_set(int);
+    int i = 0;
+
+    set_init(pset);
+    hash_multiset_init(phmset);
+    for (i = 0; i < 10; ++i) {
+        set_insert(pset, i);
+    }
+    hash_multiset_insert_range(phmset, set_begin(pset), set_end(pset));
+    assert_true(hash_multiset_size(phmset) == 10);
+
+    hash_multiset_destroy(phmset);
+    set_destroy(pset);
+}
+
+void test_hash_multiset_insert_range__other_not_same(void** state)
+{
+    hash_multiset_t* phmset = create_hash_multiset(double);
+    set_t* pset = create_set(int);
+    int i = 0;
+
+    set_init(pset);
+    hash_multiset_init(phmset);
+    for (i = 0; i < 10; ++i) {
+        set_insert(pset, i);
+    }
+    expect_assert_failure(hash_multiset_insert_range(phmset, set_begin(pset), set_end(pset)));
+
+    hash_multiset_destroy(phmset);
+    set_destroy(pset);
 }
 
 /*

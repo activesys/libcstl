@@ -493,16 +493,20 @@ void test_hash_multimap_init_copy_range__invalid_range_not_same_type(void** stat
 {
     hash_multimap_t* pt_dest = create_hash_multimap(int, int);
     hash_multimap_t* pt_src = create_hash_multimap(double, int);
+    pair_t* ppair = create_pair(double, int);
     hash_multimap_iterator_t it_begin;
     hash_multimap_iterator_t it_end;
 
+    pair_init_elem(ppair, 1.0, 2);
     hash_multimap_init(pt_src);
+    hash_multimap_insert(pt_src, ppair);
     it_begin = hash_multimap_begin(pt_src);
     it_end = hash_multimap_end(pt_src);
     expect_assert_failure(hash_multimap_init_copy_range(pt_dest, it_begin, it_end));
 
     hash_multimap_destroy(pt_dest);
     hash_multimap_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_hash_multimap_init_copy_range__empty(void** state)
@@ -547,6 +551,37 @@ void test_hash_multimap_init_copy_range__non_empty(void** state)
     hash_multimap_destroy(pt_dest);
     hash_multimap_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_hash_multimap_init_copy_range__other(void** state)
+{
+    hash_multimap_t* phmmap = create_hash_multimap(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+
+    pair_init_elem(ppair, 1, 1);
+    vector_init_elem(pvec, 10, ppair);
+    hash_multimap_init_copy_range(phmmap, vector_begin(pvec), vector_end(pvec));
+    assert_true(hash_multimap_size(phmmap) == 10);
+
+    pair_destroy(ppair);
+    vector_destroy(pvec);
+    hash_multimap_destroy(phmmap);
+}
+
+void test_hash_multimap_init_copy_range__other_not_same(void** state)
+{
+    hash_multimap_t* phmmap = create_hash_multimap(int, int);
+    vector_t* pvec = create_vector(pair_t<int, double>);
+    pair_t* ppair = create_pair(int, double);
+
+    pair_init_elem(ppair, 1, 1);
+    vector_init_elem(pvec, 10, ppair);
+    expect_assert_failure(hash_multimap_init_copy_range(phmmap, vector_begin(pvec), vector_end(pvec)));
+
+    pair_destroy(ppair);
+    vector_destroy(pvec);
+    hash_multimap_destroy(phmmap);
 }
 
 /*
@@ -650,16 +685,20 @@ void test_hash_multimap_init_copy_range_ex__invalid_range_not_same_type(void** s
 {
     hash_multimap_t* pt_dest = create_hash_multimap(int, int);
     hash_multimap_t* pt_src = create_hash_multimap(double, int);
+    pair_t* ppair = create_pair(double, int);
     hash_multimap_iterator_t it_begin;
     hash_multimap_iterator_t it_end;
 
+    pair_init_elem(ppair, 2.3, 4);
     hash_multimap_init(pt_src);
+    hash_multimap_insert(pt_src, ppair);
     it_begin = hash_multimap_begin(pt_src);
     it_end = hash_multimap_end(pt_src);
     expect_assert_failure(hash_multimap_init_copy_range_ex(pt_dest, it_begin, it_end, 0, NULL, NULL));
 
     hash_multimap_destroy(pt_dest);
     hash_multimap_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_hash_multimap_init_copy_range_ex__empty(void** state)
@@ -789,6 +828,37 @@ void test_hash_multimap_init_copy_range_ex__compare(void** state)
     hash_multimap_destroy(pt_dest);
     hash_multimap_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_hash_multimap_init_copy_range_ex__other(void** state)
+{
+    hash_multimap_t* phmmap = create_hash_multimap(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+
+    pair_init_elem(ppair, 1, 1);
+    vector_init_elem(pvec, 10, ppair);
+    hash_multimap_init_copy_range_ex(phmmap, vector_begin(pvec), vector_end(pvec), 0, NULL, NULL);
+    assert_true(hash_multimap_size(phmmap) == 10);
+
+    pair_destroy(ppair);
+    vector_destroy(pvec);
+    hash_multimap_destroy(phmmap);
+}
+
+void test_hash_multimap_init_copy_range_ex__other_not_same(void** state)
+{
+    hash_multimap_t* phmmap = create_hash_multimap(int, int);
+    vector_t* pvec = create_vector(pair_t<int, double>);
+    pair_t* ppair = create_pair(int, double);
+
+    pair_init_elem(ppair, 1, 1);
+    vector_init_elem(pvec, 10, ppair);
+    expect_assert_failure(hash_multimap_init_copy_range_ex(phmmap, vector_begin(pvec), vector_end(pvec), 0, NULL, NULL));
+
+    pair_destroy(ppair);
+    vector_destroy(pvec);
+    hash_multimap_destroy(phmmap);
 }
 
 /*
@@ -4485,12 +4555,15 @@ void test_hash_multimap_insert_range__invalid_range(void** state)
 void test_hash_multimap_insert_range__not_same_type(void** state)
 {
     hash_multimap_t* pt_dest = create_hash_multimap(int, int);
-    hash_multimap_t* pt_src = create_hash_multimap(vector_t<int>, int);
+    hash_multimap_t* pt_src = create_hash_multimap(double, int);
+    pair_t* ppair = create_pair(double, int);
     hash_multimap_iterator_t it_begin;
     hash_multimap_iterator_t it_end;
 
     hash_multimap_init_ex(pt_dest, 0, NULL, NULL);
     hash_multimap_init_ex(pt_src, 0, NULL, NULL);
+    pair_init_elem(ppair, 10.2, 3);
+    hash_multimap_insert(pt_src, ppair);
 
     it_begin = hash_multimap_begin(pt_src);
     it_end = hash_multimap_end(pt_src);
@@ -4498,6 +4571,7 @@ void test_hash_multimap_insert_range__not_same_type(void** state)
 
     hash_multimap_destroy(pt_dest);
     hash_multimap_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_hash_multimap_insert_range__empty(void** state)
@@ -4642,6 +4716,39 @@ void test_hash_multimap_insert_range__compare(void** state)
     hash_multimap_destroy(pt_dest);
     hash_multimap_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_hash_multimap_insert_range__other(void** state)
+{
+    hash_multimap_t* phmmap = create_hash_multimap(int, int);
+    list_t* plist = create_list(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+
+    pair_init_elem(ppair, 1, 10);
+    list_init_elem(plist, 10, ppair);
+    hash_multimap_init(phmmap);
+    hash_multimap_insert_range(phmmap, list_begin(plist), list_end(plist));
+    assert_true(hash_multimap_size(phmmap) == 10);
+
+    hash_multimap_destroy(phmmap);
+    list_destroy(plist);
+    pair_destroy(ppair);
+}
+
+void test_hash_multimap_insert_range__other_not_same(void** state)
+{
+    hash_multimap_t* phmmap = create_hash_multimap(int, double);
+    list_t* plist = create_list(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+
+    pair_init_elem(ppair, 1, 10);
+    list_init_elem(plist, 10, ppair);
+    hash_multimap_init(phmmap);
+    expect_assert_failure(hash_multimap_insert_range(phmmap, list_begin(plist), list_end(plist)));
+
+    hash_multimap_destroy(phmmap);
+    list_destroy(plist);
+    pair_destroy(ppair);
 }
 
 /*

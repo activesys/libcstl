@@ -125,30 +125,28 @@ extern void hash_set_init_copy(hash_set_t* phset_dest, const hash_set_t* cphset_
 
 /**
  * Initialize hash_set container with specific range.
- * @param phset_dest         destination hash_set.
+ * @param phset_dest        destination hash_set.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
  * @return void.
  * @remarks if phset_dest == NULL, then the behavior is undefined, phset_dest must be created by create_hash_set(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_set, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and phset_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and phset_dest must be same, otherwise the behavior is 
+ *          undefined.
  */
-extern void hash_set_init_copy_range(hash_set_t* phset_dest, hash_set_iterator_t it_begin, hash_set_iterator_t it_end);
+extern void hash_set_init_copy_range(hash_set_t* phset_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize hash_set container with specific range and compare function.
- * @param phset_dest         destination hash_set.
+ * @param phset_dest        destination hash_set.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
- * @param bfun_compare         compare function.
+ * @param bfun_compare      compare function.
  * @return void.
  * @remarks if phset_dest == NULL, then the behavior is undefined, phset_dest must be created by _create_hash_set(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_set, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and phset_dest must be same, otherwise the behavior is undefined. if
- *          bfun_compare == NULL, then use default compare function.
+ *          the behavior is undefined. the type of [it_begin, it_end) and phset_dest must be same, otherwise the behavior is 
+ *          undefined. if bfun_compare == NULL, then use default compare function.
  */
-extern void hash_set_init_copy_range_ex(
-    hash_set_t* phset_set, hash_set_iterator_t it_begin, hash_set_iterator_t it_end,
+extern void hash_set_init_copy_range_ex(hash_set_t* phset_set, iterator_t it_begin, iterator_t it_end,
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**
@@ -344,7 +342,7 @@ extern hash_set_iterator_t hash_set_end(const hash_set_t* cphset_set);
  *          is undefined. the type of [it_begin, it_end) and cphset_set must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void hash_set_insert_range(hash_set_t* phset_set, hash_set_iterator_t it_begin, hash_set_iterator_t it_end);
+extern void hash_set_insert_range(hash_set_t* phset_set, iterator_t it_begin, iterator_t it_end);
 
 /*
  * Erase an element in an hash_set from specificed position.

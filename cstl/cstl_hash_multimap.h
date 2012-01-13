@@ -120,25 +120,23 @@ extern void hash_multimap_init_copy(hash_multimap_t* phmmap_dest, const hash_mul
  * @param it_end            end of range.
  * @return void.
  * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by create_map(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_multimap, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior 
+ *          is undefined.
  */
-extern void hash_multimap_init_copy_range(hash_multimap_t* phmmap_dest, hash_multimap_iterator_t it_begin, hash_multimap_iterator_t it_end);
+extern void hash_multimap_init_copy_range(hash_multimap_t* phmmap_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize hash_multimap container with specific range and compare function.
  * @param pmap_dest         destination hash_multimap.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
- * @param bfun_compare         compare function.
+ * @param bfun_compare      compare function.
  * @return void.
  * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by _create_map(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_multimap, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior is undefined. if
- *          bfun_compare == NULL, then use default compare function.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior 
+ *          is undefined. if bfun_compare == NULL, then use default compare function.
  */
-extern void hash_multimap_init_copy_range_ex(
-    hash_multimap_t* phmmap_dest, hash_multimap_iterator_t it_begin, hash_multimap_iterator_t it_end,
+extern void hash_multimap_init_copy_range_ex(hash_multimap_t* phmmap_dest, iterator_t it_begin, iterator_t it_end,
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**
@@ -334,7 +332,7 @@ extern hash_multimap_iterator_t hash_multimap_insert(hash_multimap_t* phmmap_map
 
 /**
  * Inserts an range of unique element into a hash_multimap.
- * @param phmmap_map          hash_multimap container.
+ * @param phmmap_map        hash_multimap container.
  * @param it_begin          begin of specific range.
  * @param it_end            end of specific range.
  * @return void.
@@ -342,11 +340,11 @@ extern hash_multimap_iterator_t hash_multimap_insert(hash_multimap_t* phmmap_map
  *          is undefined. the type of [it_begin, it_end) and cphmmap_map must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void hash_multimap_insert_range(hash_multimap_t* phmmap_map, hash_multimap_iterator_t it_begin, hash_multimap_iterator_t it_end);
+extern void hash_multimap_insert_range(hash_multimap_t* phmmap_map, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Erase an element in an hash_multimap from specificed position.
- * @param phmmap_map          hash_multimap container.
+ * @param phmmap_map        hash_multimap container.
  * @param it_pos            specificed position.
  * @return void.
  * @remarks if phmmap_map == NULL then the behavior is undefined. phmmap_map must be initialized, otherwise the behavior
@@ -356,7 +354,7 @@ extern void hash_multimap_erase_pos(hash_multimap_t* phmmap_map, hash_multimap_i
 
 /**
  * Erase a range of element in an hash_multimap.
- * @param phmmap_map          hash_multimap container.
+ * @param phmmap_map        hash_multimap container.
  * @param it_begin          begin of specific range.
  * @param it_end            end of specific range.
  * @return void.

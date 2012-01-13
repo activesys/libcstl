@@ -12,6 +12,9 @@
 #include "cstl_vector_aux.h"
 #include "cstl_hashtable_aux.h"
 #include "cstl_hash_set_aux.h"
+#include "cstl/cslist.h"
+#include "cstl/cdeque.h"
+#include "cstl/cset.h"
 
 #include "ut_def.h"
 #include "ut_cstl_hash_set.h"
@@ -504,6 +507,31 @@ void test_hash_set_init_copy_range__non_null_compare(void** state)
     hash_set_destroy(pt_src);
 }
 
+void test_hash_set_init_copy_range__other_container_range(void** state)
+{
+    hash_set_t* phset = create_hash_set(int);
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 10, 100);
+    hash_set_init_copy_range(phset, vector_begin(pvec), vector_end(pvec));
+    assert_true(hash_set_size(phset) == 10);
+
+    vector_destroy(pvec);
+    hash_set_destroy(phset);
+}
+
+void test_hash_set_init_copy_range__other_container_range_not_same(void** state)
+{
+    hash_set_t* phset = create_hash_set(double);
+    list_t* plist = create_list(int);
+
+    list_init_n(plist, 10);
+    expect_assert_failure(hash_set_init_copy_range(phset, list_begin(plist), list_end(plist)));
+
+    list_destroy(plist);
+    hash_set_destroy(phset);
+}
+
 /*
  * test hash_set_init_copy_range_ex
  */
@@ -708,6 +736,31 @@ void test_hash_set_init_copy_range_ex__compare(void** state)
 
     hash_set_destroy(pt_dest);
     hash_set_destroy(pt_src);
+}
+
+void test_hash_set_init_copy_range_ex__other_container_range(void** state)
+{
+    hash_set_t* phset = create_hash_set(int);
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_elem(pdeq, 10, 100);
+    hash_set_init_copy_range_ex(phset, deque_begin(pdeq), deque_end(pdeq), 0, NULL, NULL);
+    assert_true(hash_set_size(phset) == 10);
+
+    deque_destroy(pdeq);
+    hash_set_destroy(phset);
+}
+
+void test_hash_set_init_copy_range_ex__other_container_range_not_same(void** state)
+{
+    hash_set_t* phset = create_hash_set(double);
+    slist_t* pslist = create_slist(int);
+
+    slist_init_elem(pslist, 10, 100);
+    expect_assert_failure(hash_set_init_copy_range_ex(phset, slist_begin(pslist), slist_end(pslist), 0, NULL, NULL));
+
+    slist_destroy(pslist);
+    hash_set_destroy(phset);
 }
 
 /*
@@ -3551,6 +3604,45 @@ void test_hash_set_insert_range__compare(void** state)
 
     hash_set_destroy(pt_dest);
     hash_set_destroy(pt_src);
+}
+
+void test_hash_set_insert_range__other(void** state)
+{
+    hash_set_t* phset = create_hash_set(int);
+    set_t* pset = create_set(int);
+    int i;
+
+    hash_set_init(phset);
+    set_init(pset);
+
+    assert_true(hash_set_size(phset) == 0);
+    for (i = 0; i < 10; ++i) {
+        set_insert(pset, i);
+    }
+    hash_set_insert_range(phset, set_begin(pset), set_end(pset));
+    assert_true(hash_set_size(phset) == 10);
+
+    hash_set_destroy(phset);
+    set_destroy(pset);
+}
+
+void test_hash_set_insert_range__other_not_same(void** state)
+{
+    hash_set_t* phset = create_hash_set(double);
+    set_t* pset = create_set(int);
+    int i;
+
+    hash_set_init(phset);
+    set_init(pset);
+
+    assert_true(hash_set_size(phset) == 0);
+    for (i = 0; i < 10; ++i) {
+        set_insert(pset, i);
+    }
+    expect_assert_failure(hash_set_insert_range(phset, set_begin(pset), set_end(pset)));
+
+    hash_set_destroy(phset);
+    set_destroy(pset);
 }
 
 /*

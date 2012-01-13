@@ -9,6 +9,9 @@
 #include "cstl/cstring.h"
 #include "cstl/cvector.h"
 #include "cstl/clist.h"
+#include "cstl/cslist.h"
+#include "cstl/cdeque.h"
+#include "cstl/cset.h"
 #include "cstl_vector_aux.h"
 #include "cstl_hashtable_aux.h"
 #include "cstl_hash_map_aux.h"
@@ -493,16 +496,20 @@ void test_hash_map_init_copy_range__invalid_range_not_same_type(void** state)
 {
     hash_map_t* pt_dest = create_hash_map(int, int);
     hash_map_t* pt_src = create_hash_map(double, int);
+    pair_t* ppair = create_pair(double, int);
     hash_map_iterator_t it_begin;
     hash_map_iterator_t it_end;
 
+    pair_init_elem(ppair, 1.1, 1);
     hash_map_init(pt_src);
+    hash_map_insert(pt_src, ppair);
     it_begin = hash_map_begin(pt_src);
     it_end = hash_map_end(pt_src);
     expect_assert_failure(hash_map_init_copy_range(pt_dest, it_begin, it_end));
 
     hash_map_destroy(pt_dest);
     hash_map_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_hash_map_init_copy_range__empty(void** state)
@@ -547,6 +554,37 @@ void test_hash_map_init_copy_range__non_empty(void** state)
     hash_map_destroy(pt_dest);
     hash_map_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_hash_map_init_copy_range__other(void** state)
+{
+    hash_map_t* phmap = create_hash_map(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+
+    pair_init_elem(ppair, 10, 100);
+    vector_init_elem(pvec, 10, ppair);
+    hash_map_init_copy_range(phmap, vector_begin(pvec), vector_end(pvec));
+    assert_true(hash_map_size(phmap) == 1);
+
+    vector_destroy(pvec);
+    hash_map_destroy(phmap);
+    pair_destroy(ppair);
+}
+
+void test_hash_map_init_copy_range__other_not_same(void** state)
+{
+    hash_map_t* phmap = create_hash_map(int, double);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+
+    pair_init_elem(ppair, 10, 100);
+    vector_init_elem(pvec, 10, ppair);
+    expect_assert_failure(hash_map_init_copy_range(phmap, vector_begin(pvec), vector_end(pvec)));
+
+    vector_destroy(pvec);
+    hash_map_destroy(phmap);
+    pair_destroy(ppair);
 }
 
 /*
@@ -650,16 +688,20 @@ void test_hash_map_init_copy_range_ex__invalid_range_not_same_type(void** state)
 {
     hash_map_t* pt_dest = create_hash_map(int, int);
     hash_map_t* pt_src = create_hash_map(double, int);
+    pair_t* ppair = create_pair(double, int);
     hash_map_iterator_t it_begin;
     hash_map_iterator_t it_end;
 
+    pair_init_elem(ppair, 1.34, 4);
     hash_map_init(pt_src);
+    hash_map_insert(pt_src, ppair);
     it_begin = hash_map_begin(pt_src);
     it_end = hash_map_end(pt_src);
     expect_assert_failure(hash_map_init_copy_range_ex(pt_dest, it_begin, it_end, 0, NULL, NULL));
 
     hash_map_destroy(pt_dest);
     hash_map_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_hash_map_init_copy_range_ex__empty(void** state)
@@ -789,6 +831,37 @@ void test_hash_map_init_copy_range_ex__compare(void** state)
     hash_map_destroy(pt_dest);
     hash_map_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_hash_map_init_copy_range_ex__other(void** state)
+{
+    hash_map_t* phmap = create_hash_map(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+
+    pair_init_elem(ppair, 10, 100);
+    vector_init_elem(pvec, 10, ppair);
+    hash_map_init_copy_range_ex(phmap, vector_begin(pvec), vector_end(pvec), 0, NULL, NULL);
+    assert_true(hash_map_size(phmap) == 1);
+
+    vector_destroy(pvec);
+    hash_map_destroy(phmap);
+    pair_destroy(ppair);
+}
+
+void test_hash_map_init_copy_range_ex__other_not_same(void** state)
+{
+    hash_map_t* phmap = create_hash_map(int, double);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+
+    pair_init_elem(ppair, 10, 100);
+    vector_init_elem(pvec, 10, ppair);
+    expect_assert_failure(hash_map_init_copy_range_ex(phmap, vector_begin(pvec), vector_end(pvec), 0, NULL, NULL));
+
+    vector_destroy(pvec);
+    hash_map_destroy(phmap);
+    pair_destroy(ppair);
 }
 
 /*
@@ -4485,12 +4558,15 @@ void test_hash_map_insert_range__invalid_range(void** state)
 void test_hash_map_insert_range__not_same_type(void** state)
 {
     hash_map_t* pt_dest = create_hash_map(int, int);
-    hash_map_t* pt_src = create_hash_map(vector_t<int>, int);
+    hash_map_t* pt_src = create_hash_map(double, int);
+    pair_t* ppair = create_pair(double, int);
     hash_map_iterator_t it_begin;
     hash_map_iterator_t it_end;
 
+    pair_init_elem(ppair, 10.3, 3);
     hash_map_init_ex(pt_dest, 0, NULL, NULL);
     hash_map_init_ex(pt_src, 0, NULL, NULL);
+    hash_map_insert(pt_src, ppair);
 
     it_begin = hash_map_begin(pt_src);
     it_end = hash_map_end(pt_src);
@@ -4498,6 +4574,7 @@ void test_hash_map_insert_range__not_same_type(void** state)
 
     hash_map_destroy(pt_dest);
     hash_map_destroy(pt_src);
+    pair_destroy(ppair);
 }
 
 void test_hash_map_insert_range__empty(void** state)
@@ -4642,6 +4719,49 @@ void test_hash_map_insert_range__compare(void** state)
     hash_map_destroy(pt_dest);
     hash_map_destroy(pt_src);
     pair_destroy(pt_pair);
+}
+
+void test_hash_map_insert_range__other(void** state)
+{
+    hash_map_t* phmap = create_hash_map(int, int);
+    deque_t* pdeq = create_deque(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    hash_map_init(phmap);
+    pair_init(ppair);
+    deque_init(pdeq);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        deque_push_back(pdeq, ppair);
+    }
+    hash_map_insert_range(phmap, deque_begin(pdeq), deque_end(pdeq));
+    assert_true(hash_map_size(phmap) == 10);
+
+    hash_map_destroy(phmap);
+    deque_destroy(pdeq);
+    pair_destroy(ppair);
+}
+
+void test_hash_map_insert_range__other_not_same(void** state)
+{
+    hash_map_t* phmap = create_hash_map(int, double);
+    deque_t* pdeq = create_deque(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    hash_map_init(phmap);
+    pair_init(ppair);
+    deque_init(pdeq);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        deque_push_back(pdeq, ppair);
+    }
+    expect_assert_failure(hash_map_insert_range(phmap, deque_begin(pdeq), deque_end(pdeq)));
+
+    hash_map_destroy(phmap);
+    deque_destroy(pdeq);
+    pair_destroy(ppair);
 }
 
 /*

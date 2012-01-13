@@ -52,6 +52,8 @@ void test_hash_multimap_init_copy_range__invalid_range(void** state);
 void test_hash_multimap_init_copy_range__invalid_range_not_same_type(void** state);
 void test_hash_multimap_init_copy_range__empty(void** state);
 void test_hash_multimap_init_copy_range__non_empty(void** state);
+void test_hash_multimap_init_copy_range__other(void** state);
+void test_hash_multimap_init_copy_range__other_not_same(void** state);
 /*
  * test hash_multimap_init_copy_range_ex
  */
@@ -68,6 +70,8 @@ void test_hash_multimap_init_copy_range_ex__non_empty(void** state);
 void test_hash_multimap_init_copy_range_ex__bucketcount(void** state);
 void test_hash_multimap_init_copy_range_ex__hash(void** state);
 void test_hash_multimap_init_copy_range_ex__compare(void** state);
+void test_hash_multimap_init_copy_range_ex__other(void** state);
+void test_hash_multimap_init_copy_range_ex__other_not_same(void** state);
 /*
  * test hash_multimap_destroy
  */
@@ -358,6 +362,8 @@ void test_hash_multimap_insert_range__non_empty_equal(void** state);
 void test_hash_multimap_insert_range__non_empty_dest_src_dup(void** state);
 void test_hash_multimap_insert_range__non_empty_src_dup(void** state);
 void test_hash_multimap_insert_range__compare(void** state);
+void test_hash_multimap_insert_range__other(void** state);
+void test_hash_multimap_insert_range__other_not_same(void** state);
 /*
  * test hash_multimap_erase_pos
  */
@@ -430,6 +436,8 @@ void test_hash_multimap_resize__resize(void** state);
     UT_CASE(test_hash_multimap_init_copy_range__invalid_range_not_same_type),\
     UT_CASE(test_hash_multimap_init_copy_range__empty),\
     UT_CASE(test_hash_multimap_init_copy_range__non_empty),\
+    UT_CASE(test_hash_multimap_init_copy_range__other),\
+    UT_CASE(test_hash_multimap_init_copy_range__other_not_same),\
     UT_CASE_BEGIN(hash_multimap_init_copy_range_ex, test_hash_multimap_init_copy_range_ex__null_hash_multimap),\
     UT_CASE(test_hash_multimap_init_copy_range_ex__non_created_hash_multimap),\
     UT_CASE(test_hash_multimap_init_copy_range_ex__non_created_hash_multimap_pair),\
@@ -442,6 +450,8 @@ void test_hash_multimap_resize__resize(void** state);
     UT_CASE(test_hash_multimap_init_copy_range_ex__bucketcount),\
     UT_CASE(test_hash_multimap_init_copy_range_ex__hash),\
     UT_CASE(test_hash_multimap_init_copy_range_ex__compare),\
+    UT_CASE(test_hash_multimap_init_copy_range_ex__other),\
+    UT_CASE(test_hash_multimap_init_copy_range_ex__other_not_same),\
     UT_CASE_BEGIN(hash_multimap_destroy, test_hash_multimap_destroy__null_hash_multimap),\
     UT_CASE(test_hash_multimap_destroy__non_created),\
     UT_CASE(test_hash_multimap_destroy__created),\
@@ -649,6 +659,8 @@ void test_hash_multimap_resize__resize(void** state);
     UT_CASE(test_hash_multimap_insert_range__non_empty_dest_src_dup),\
     UT_CASE(test_hash_multimap_insert_range__non_empty_src_dup),\
     UT_CASE(test_hash_multimap_insert_range__compare),\
+    UT_CASE(test_hash_multimap_insert_range__other),\
+    UT_CASE(test_hash_multimap_insert_range__other_not_same),\
     UT_CASE_BEGIN(hash_multimap_erase_pos, test_hash_multimap_erase_pos__null_hash_multimap),\
     UT_CASE(test_hash_multimap_erase_pos__non_inited),\
     UT_CASE(test_hash_multimap_erase_pos__non_inited_pair),\

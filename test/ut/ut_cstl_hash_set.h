@@ -50,6 +50,8 @@ void test_hash_set_init_copy_range__non_empty(void** state);
 void test_hash_set_init_copy_range__non_0_bucket(void** state);
 void test_hash_set_init_copy_range__non_null_hash(void** state);
 void test_hash_set_init_copy_range__non_null_compare(void** state);
+void test_hash_set_init_copy_range__other_container_range(void** state);
+void test_hash_set_init_copy_range__other_container_range_not_same(void** state);
 /*
  * test hash_set_init_copy_range_ex
  */
@@ -65,6 +67,8 @@ void test_hash_set_init_copy_range_ex__non_empty(void** state);
 void test_hash_set_init_copy_range_ex__compare(void** state);
 void test_hash_set_init_copy_range_ex__non_0_bucket(void** state);
 void test_hash_set_init_copy_range_ex__hash(void** state);
+void test_hash_set_init_copy_range_ex__other_container_range(void** state);
+void test_hash_set_init_copy_range_ex__other_container_range_not_same(void** state);
 /*
  * test hash_set_destroy
  */
@@ -309,6 +313,8 @@ void test_hash_set_insert_range__non_empty_src_dup(void** state);
 void test_hash_set_insert_range__not_same_bucketcount(void** state);
 void test_hash_set_insert_range__not_same_hash(void** state);
 void test_hash_set_insert_range__compare(void** state);
+void test_hash_set_insert_range__other(void** state);
+void test_hash_set_insert_range__other_not_same(void** state);
 /*
  * test hash_set_erase_pos
  */
@@ -377,6 +383,8 @@ void test_hash_set_resize__less(void** state);
     UT_CASE(test_hash_set_init_copy_range__non_0_bucket),\
     UT_CASE(test_hash_set_init_copy_range__non_null_hash),\
     UT_CASE(test_hash_set_init_copy_range__non_null_compare),\
+    UT_CASE(test_hash_set_init_copy_range__other_container_range),\
+    UT_CASE(test_hash_set_init_copy_range__other_container_range_not_same),\
     UT_CASE_BEGIN(hash_set_init_copy_range_ex, test_hash_set_init_copy_range_ex__null_hash_set),\
     UT_CASE(test_hash_set_init_copy_range_ex__non_created_hash_set),\
     UT_CASE(test_hash_set_init_copy_range_ex__invalid_begin),\
@@ -388,6 +396,8 @@ void test_hash_set_resize__less(void** state);
     UT_CASE(test_hash_set_init_copy_range_ex__compare),\
     UT_CASE(test_hash_set_init_copy_range_ex__non_0_bucket),\
     UT_CASE(test_hash_set_init_copy_range_ex__hash),\
+    UT_CASE(test_hash_set_init_copy_range_ex__other_container_range),\
+    UT_CASE(test_hash_set_init_copy_range_ex__other_container_range_not_same),\
     UT_CASE_BEGIN(hash_set_destroy, test_hash_set_destroy__null_hash_set),\
     UT_CASE(test_hash_set_destroy__non_created),\
     UT_CASE(test_hash_set_destroy__created),\
@@ -556,6 +566,8 @@ void test_hash_set_resize__less(void** state);
     UT_CASE(test_hash_set_insert_range__not_same_bucketcount),\
     UT_CASE(test_hash_set_insert_range__not_same_hash),\
     UT_CASE(test_hash_set_insert_range__compare),\
+    UT_CASE(test_hash_set_insert_range__other),\
+    UT_CASE(test_hash_set_insert_range__other_not_same),\
     UT_CASE_BEGIN(hash_set_erase_pos, test_hash_set_erase_pos__null_hash_set),\
     UT_CASE(test_hash_set_erase_pos__non_inited),\
     UT_CASE(test_hash_set_erase_pos__invalid_pos),\

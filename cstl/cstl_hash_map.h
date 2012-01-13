@@ -130,25 +130,23 @@ extern void hash_map_init_copy(hash_map_t* phmap_dest, const hash_map_t* cphmap_
  * @param it_end            end of range.
  * @return void.
  * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by create_map(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_map, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior is undefined.
+ *          the behavior is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior
+ *          is undefined.
  */
-extern void hash_map_init_copy_range(hash_map_t* phmap_dest, hash_map_iterator_t t_begin, hash_map_iterator_t t_end);
+extern void hash_map_init_copy_range(hash_map_t* phmap_dest, iterator_t t_begin, iterator_t t_end);
 
 /**
  * Initialize hash_map container with specific range and compare function.
  * @param pmap_dest         destination hash_map.
  * @param it_begin          begin of range.
  * @param it_end            end of range.
- * @param bfun_compare         compare function.
+ * @param bfun_compare      compare function.
  * @return void.
  * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by _create_map(), otherwise
- *          the behavior is undefined. [it_begin, it_end) must be belong to a initialized hash_map, otherwise the behavior
- *          is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise the behavior is undefined. if
- *          bfun_compare == NULL, then use default compare function.
+ *          the behavior is undefined. is undefined. the type of [it_begin, it_end) and pmap_dest must be same, otherwise 
+ *          the behavior is undefined. if bfun_compare == NULL, then use default compare function.
  */
-extern void hash_map_init_copy_range_ex(
-    hash_map_t* phmap_dest, hash_map_iterator_t t_begin, hash_map_iterator_t t_end,
+extern void hash_map_init_copy_range_ex(hash_map_t* phmap_dest, iterator_t t_begin, iterator_t t_end,
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**
@@ -352,7 +350,7 @@ extern hash_map_iterator_t hash_map_insert(hash_map_t* phmap_map, const pair_t* 
  *          is undefined. the type of [it_begin, it_end) and cphmap_map must be same, otherwise the behavior is undefined.
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
-extern void hash_map_insert_range(hash_map_t* phmap_map, hash_map_iterator_t t_begin, hash_map_iterator_t t_end);
+extern void hash_map_insert_range(hash_map_t* phmap_map, iterator_t t_begin, iterator_t t_end);
 
 /*
  * Erase an element in an hash_map from specificed position.
