@@ -1,3 +1,6 @@
+2012-01-14    Bo Wang <activesys.wb@gmail.com>
+    * Support extended iterator range for all container.
+
 2011-12-04    Bo Wang <activesys.wb@gmail.com>
     Version 2.0.3
     * Release libcstl-2.0.3.
