@@ -108,12 +108,9 @@ void _hash_multimap_value_compare(const void* cpv_first, const void* cpv_second,
     assert(_hash_multimap_same_pair_type_ex(ppair_first, ppair_second));
 
     *(bool_t*)pv_output = ppair_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if (ppair_first->_bfun_mapkeycompare != NULL) /* external key less */
-    {
+    if (ppair_first->_bfun_mapkeycompare != NULL) {
         ppair_first->_bfun_mapkeycompare(pair_first(ppair_first), pair_first(ppair_second), pv_output);
-    }
-    else
-    {
+    } else {
         ppair_first->_t_typeinfofirst._pt_type->_t_typeless(ppair_first->_pv_first, ppair_second->_pv_first, pv_output);
     }
 }
@@ -134,17 +131,13 @@ void _hash_multimap_default_hash(const void* cpv_input, void* pv_output)
 
     ppair_pair = (pair_t*)cpv_input;
     pby_value = (_byte_t*)pair_first(ppair_pair);
-    if(strncmp(ppair_pair->_t_typeinfofirst._pt_type->_sz_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(ppair_pair->_t_typeinfofirst._pt_type->_sz_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         t_len = strlen((char*)pby_value);
-    }
-    else
-    {
+    } else {
         t_len = ppair_pair->_t_typeinfofirst._pt_type->_t_typesize;
     }
 
-    for(i = 0; i < t_len; ++i)
-    {
+    for (i = 0; i < t_len; ++i) {
         t_sum += (size_t)pby_value[i];
     }
 

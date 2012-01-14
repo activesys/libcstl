@@ -57,13 +57,11 @@ hash_map_t* _create_hash_map(const char* s_typename)
 {
     hash_map_t* phmap_map = NULL;
 
-    if((phmap_map = (hash_map_t*)malloc(sizeof(hash_map_t))) == NULL)
-    {
+    if ((phmap_map = (hash_map_t*)malloc(sizeof(hash_map_t))) == NULL) {
         return NULL;
     }
 
-    if(!_create_hash_map_auxiliary(phmap_map, s_typename))
-    {
+    if (!_create_hash_map_auxiliary(phmap_map, s_typename)) {
         free(phmap_map);
         return NULL;
     }
@@ -81,8 +79,7 @@ bool_t _create_hash_map_auxiliary(hash_map_t* phmap_map, const char* s_typename)
     assert(phmap_map != NULL);
     assert(s_typename != NULL);
 
-    if(!_create_pair_auxiliary(&phmap_map->_pair_temp, s_typename))
-    {
+    if (!_create_pair_auxiliary(&phmap_map->_pair_temp, s_typename)) {
         return false;
     }
 
@@ -273,20 +270,16 @@ void* _hash_map_at_varg(hash_map_t* phmap_map, va_list val_elemlist)
     _HASH_MAP_ITERATOR_CONTAINER_TYPE(it_iter) = _HASH_MAP_CONTAINER;
     _HASH_MAP_ITERATOR_ITERATOR_TYPE(it_iter) = _BIDIRECTIONAL_ITERATOR;
 
-    if(iterator_equal(it_iter, hash_map_end(phmap_map)))
-    {
+    if (iterator_equal(it_iter, hash_map_end(phmap_map))) {
         it_iter = _hash_map_find_varg(phmap_map, val_elemlist_copy);
     }
 
     va_end(val_elemlist_copy);
 
     /* char* */
-    if(strncmp(_GET_HASH_MAP_SECOND_TYPE_BASENAME(phmap_map), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_HASH_MAP_SECOND_TYPE_BASENAME(phmap_map), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         return (char*)string_c_str((string_t*)((pair_t*)iterator_get_pointer(it_iter))->_pv_second);
-    }
-    else
-    {
+    } else {
         return ((pair_t*)iterator_get_pointer(it_iter))->_pv_second;
     }
 }
@@ -301,16 +294,13 @@ void _hash_map_init_elem_auxiliary(hash_map_t* phmap_map, void* pv_elem)
     assert(_pair_is_inited(&phmap_map->_pair_temp) || _pair_is_created(&phmap_map->_pair_temp));
 
     /* initialize new elements */
-    if(phmap_map->_t_hashtable._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN)
-    {
+    if (phmap_map->_t_hashtable._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(phmap_map->_t_hashtable._t_typeinfo._sz_typename, s_elemtypename);
 
         phmap_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = phmap_map->_t_hashtable._t_typeinfo._pt_type->_t_typesize;
         phmap_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, &b_result);
         assert(b_result);

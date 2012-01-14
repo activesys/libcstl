@@ -458,16 +458,13 @@ void _multiset_init_elem_auxiliary(multiset_t* pmset_mset, void* pv_elem)
     assert(pv_elem != NULL);
 
     /* initialize new elements */
-    if(_GET_MULTISET_TYPE_STYLE(pmset_mset) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_MULTISET_TYPE_STYLE(pmset_mset) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_MULTISET_TYPE_NAME(pmset_mset), s_elemtypename);
 
         _GET_MULTISET_TYPE_INIT_FUNCTION(pmset_mset)(pv_elem, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_MULTISET_TYPE_SIZE(pmset_mset);
         _GET_MULTISET_TYPE_INIT_FUNCTION(pmset_mset)(pv_elem, &b_result);
         assert(b_result);

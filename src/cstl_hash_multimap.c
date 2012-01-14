@@ -104,8 +104,7 @@ void hash_multimap_init_copy(hash_multimap_t* phmmap_dest, const hash_multimap_t
     phmmap_dest->_pair_temp._bfun_mapvaluecompare = cphmmap_src->_pair_temp._bfun_mapvaluecompare;
     assert(_hash_multimap_same_pair_type_ex(&phmmap_dest->_pair_temp, &cphmmap_src->_pair_temp));
 
-    if(!hash_multimap_empty(cphmmap_src))
-    {
+    if (!hash_multimap_empty(cphmmap_src)) {
         hash_multimap_insert_range(phmmap_dest, hash_multimap_begin(cphmmap_src), hash_multimap_end(cphmmap_src));
     }
 }
@@ -147,8 +146,7 @@ void hash_multimap_assign(hash_multimap_t* phmmap_dest, const hash_multimap_t* c
     assert(_hash_multimap_same_pair_type_ex(&phmmap_dest->_pair_temp, &cphmmap_src->_pair_temp));
 
     hash_multimap_clear(phmmap_dest);
-    if(!hash_multimap_empty(cphmmap_src))
-    {
+    if (!hash_multimap_empty(cphmmap_src)) {
         hash_multimap_insert_range(phmmap_dest, hash_multimap_begin(cphmmap_src), hash_multimap_end(cphmmap_src));
     }
 }
@@ -230,12 +228,9 @@ binary_function_t hash_multimap_key_comp(const hash_multimap_t* cphmmap_map)
     assert(cphmmap_map != NULL);
     assert(_pair_is_inited(&cphmmap_map->_pair_temp));
 
-    if (cphmmap_map->_bfun_keycompare != NULL)
-    {
+    if (cphmmap_map->_bfun_keycompare != NULL) {
         return cphmmap_map->_bfun_keycompare;
-    }
-    else
-    {
+    } else {
         return _GET_HASH_MULTIMAP_FIRST_TYPE_LESS_FUNCTION(cphmmap_map);
     }
 }
@@ -314,8 +309,7 @@ bool_t hash_multimap_equal(const hash_multimap_t* cphmmap_first, const hash_mult
     assert(_pair_is_inited(&cphmmap_first->_pair_temp));
     assert(_pair_is_inited(&cphmmap_second->_pair_temp));
 
-    if(cphmmap_first->_bfun_keycompare != cphmmap_second->_bfun_keycompare)
-    {
+    if (cphmmap_first->_bfun_keycompare != cphmmap_second->_bfun_keycompare) {
         return false;
     }
 
@@ -333,8 +327,7 @@ bool_t hash_multimap_not_equal(const hash_multimap_t* cphmmap_first, const hash_
     assert(_pair_is_inited(&cphmmap_first->_pair_temp));
     assert(_pair_is_inited(&cphmmap_second->_pair_temp));
 
-    if(cphmmap_first->_bfun_keycompare != cphmmap_second->_bfun_keycompare)
-    {
+    if (cphmmap_first->_bfun_keycompare != cphmmap_second->_bfun_keycompare) {
         return true;
     }
 
@@ -434,8 +427,7 @@ void hash_multimap_insert_range(hash_multimap_t* phmmap_map, iterator_t it_begin
     assert(_pair_is_inited(&phmmap_map->_pair_temp));
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
-    {
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         assert(_hash_multimap_same_pair_type(&phmmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
         hash_multimap_insert(phmmap_map, (pair_t*)iterator_get_pointer(it_iter));
     }

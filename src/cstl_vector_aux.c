@@ -56,13 +56,10 @@ bool_t _vector_iterator_belong_to_vector(const vector_t* cpvec_vector, vector_it
     assert(_VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) == _VECTOR_CONTAINER);
     assert(_VECTOR_ITERATOR_CONTAINER(it_iter) == cpvec_vector);
 
-    if(_VECTOR_ITERATOR_COREPOS(it_iter) >= cpvec_vector->_pby_start &&
-       _VECTOR_ITERATOR_COREPOS(it_iter) <= cpvec_vector->_pby_finish)
-    {
+    if (_VECTOR_ITERATOR_COREPOS(it_iter) >= cpvec_vector->_pby_start &&
+        _VECTOR_ITERATOR_COREPOS(it_iter) <= cpvec_vector->_pby_finish) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -99,20 +96,17 @@ bool_t _vector_is_created(const vector_t* cpvec_vector)
 {
     assert(cpvec_vector != NULL);
 
-    if(cpvec_vector->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpvec_vector->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpvec_vector->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpvec_vector->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpvec_vector->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpvec_vector->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
 
-    if(cpvec_vector->_t_typeinfo._pt_type == NULL)
-    {
+    if (cpvec_vector->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(cpvec_vector->_pby_start != NULL || cpvec_vector->_pby_finish != NULL || cpvec_vector->_pby_endofstorage != NULL)
-    {
+    if (cpvec_vector->_pby_start != NULL || cpvec_vector->_pby_finish != NULL || cpvec_vector->_pby_endofstorage != NULL) {
         return false;
     }
 
@@ -126,32 +120,25 @@ bool_t _vector_is_inited(const vector_t* cpvec_vector)
 {
     assert(cpvec_vector != NULL);
 
-    if(cpvec_vector->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpvec_vector->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpvec_vector->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpvec_vector->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpvec_vector->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpvec_vector->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
-    if(cpvec_vector->_t_typeinfo._pt_type == NULL)
-    {
+    if (cpvec_vector->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(cpvec_vector->_pby_start == NULL && cpvec_vector->_pby_finish == NULL && cpvec_vector->_pby_endofstorage == NULL)
-    {
+    if (cpvec_vector->_pby_start == NULL && cpvec_vector->_pby_finish == NULL && cpvec_vector->_pby_endofstorage == NULL) {
         return true;
-    }
-    else if(cpvec_vector->_pby_start != NULL &&
-            cpvec_vector->_pby_finish != NULL &&
-            cpvec_vector->_pby_endofstorage != NULL &&
-            cpvec_vector->_pby_finish >= cpvec_vector->_pby_start &&
-            cpvec_vector->_pby_endofstorage >= cpvec_vector->_pby_start &&
-            cpvec_vector->_pby_endofstorage >= cpvec_vector->_pby_finish)
-    {
+    } else if (cpvec_vector->_pby_start != NULL &&
+               cpvec_vector->_pby_finish != NULL &&
+               cpvec_vector->_pby_endofstorage != NULL &&
+               cpvec_vector->_pby_finish >= cpvec_vector->_pby_start &&
+               cpvec_vector->_pby_endofstorage >= cpvec_vector->_pby_start &&
+               cpvec_vector->_pby_endofstorage >= cpvec_vector->_pby_finish) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -167,8 +154,7 @@ bool_t _vector_same_type(const vector_t* cpvec_first, const vector_t* cpvec_seco
     assert(_vector_is_inited(cpvec_first) || _vector_is_created(cpvec_first));
     assert(_vector_is_inited(cpvec_second) || _vector_is_created(cpvec_second));
 
-    if(cpvec_first == cpvec_second)
-    {
+    if (cpvec_first == cpvec_second) {
         return true;
     }
 
@@ -191,21 +177,16 @@ void _vector_init_elem_range_auxiliary(vector_t* pvec_vector, _byte_t* pby_start
     assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
 
     /* initialize new elements */
-    if(_GET_VECTOR_TYPE_STYLE(pvec_vector) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_VECTOR_TYPE_STYLE(pvec_vector) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_VECTOR_TYPE_NAME(pvec_vector), s_elemtypename);
 
-        for(pby_pos = pby_start; pby_pos < pby_finish; pby_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
-        {
+        for (pby_pos = pby_start; pby_pos < pby_finish; pby_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector)) {
             _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pby_pos, s_elemtypename);
         }
-    }
-    else
-    {
-        for(pby_pos = pby_start; pby_pos < pby_finish; pby_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector))
-        {
+    } else {
+        for (pby_pos = pby_start; pby_pos < pby_finish; pby_pos += _GET_VECTOR_TYPE_SIZE(pvec_vector)) {
             bool_t b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
             _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pby_pos, &b_result);
             assert(b_result);
@@ -249,8 +230,7 @@ void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg)
 size_t _vector_calculate_new_capacity(size_t t_oldsize, size_t t_insertsize)
 {
     size_t t_growsize = (t_oldsize + t_insertsize) / 2;
-    if(t_growsize < _VECTOR_CAPACITY_SHRESHOLD_SIZE)
-    {
+    if (t_growsize < _VECTOR_CAPACITY_SHRESHOLD_SIZE) {
         t_growsize = _VECTOR_CAPACITY_SHRESHOLD_SIZE;
     }
 

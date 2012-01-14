@@ -54,8 +54,7 @@ bool_t _create_avl_tree_auxiliary(_avl_tree_t* pt_avl_tree, const char* s_typena
 
     /* get type information */
     _type_get_type(&pt_avl_tree->_t_typeinfo, s_typename);
-    if(pt_avl_tree->_t_typeinfo._t_style == _TYPE_INVALID)
-    {
+    if (pt_avl_tree->_t_typeinfo._t_style == _TYPE_INVALID) {
         return false;
     }
 

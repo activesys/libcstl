@@ -83,46 +83,36 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     /* char type */
-    if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _CHAR_TYPE, _TYPE_NAME_SIZE) == 0) {
         assert(t_typesize == 1);
         return strlen(cpv_value_string);
-    }
+    } else if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
     /* char* type */
-    else if(strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
         char** ps_terminator = NULL;
 
-        for(ps_terminator = (char**)cpv_value_string; *ps_terminator != NULL; ++ps_terminator)
-        {
+        for (ps_terminator = (char**)cpv_value_string; *ps_terminator != NULL; ++ps_terminator) {
             t_length++;
         }
 
         return t_length;
-    }
-    else if(_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN)
-    {
+    } else if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
         _byte_t* pby_terminator = NULL;
 
         pby_terminator = (_byte_t*)_alloc_allocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocator, t_typesize, 1);
         assert(pby_terminator != NULL);
         memset(pby_terminator, 0x00, t_typesize);
 
-        while(memcmp(pby_terminator, (_byte_t*)cpv_value_string + t_length * t_typesize, t_typesize) != 0)
-        {
+        while (memcmp(pby_terminator, (_byte_t*)cpv_value_string + t_length * t_typesize, t_typesize) != 0) {
             t_length++;
         }
 
         _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocator, pby_terminator, t_typesize, 1);
 
         return t_length;
-    }
-    else
-    {
+    } else {
         _byte_t** ppby_terminator = NULL;
 
-        for(ppby_terminator = (_byte_t**)cpv_value_string; *ppby_terminator != NULL; ++ppby_terminator)
-        {
+        for (ppby_terminator = (_byte_t**)cpv_value_string; *ppby_terminator != NULL; ++ppby_terminator) {
             t_length++;
         }
 

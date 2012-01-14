@@ -474,15 +474,12 @@ void _set_init_elem_auxiliary(set_t* pset_set, void* pv_value)
     assert(pv_value != NULL);
 
     /* initialize new elements */
-    if(_GET_SET_TYPE_STYLE(pset_set) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_SET_TYPE_STYLE(pset_set) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_SET_TYPE_NAME(pset_set), s_elemtypename);
         _GET_SET_TYPE_INIT_FUNCTION(pset_set)(pv_value, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_SET_TYPE_SIZE(pset_set);
         _GET_SET_TYPE_INIT_FUNCTION(pset_set)(pv_value, &b_result);
         assert(b_result);

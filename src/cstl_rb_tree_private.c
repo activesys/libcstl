@@ -55,8 +55,7 @@ bool_t _create_rb_tree_auxiliary(_rb_tree_t* pt_rb_tree, const char* s_typename)
 
     /* get type information */
     _type_get_type(&pt_rb_tree->_t_typeinfo, s_typename);
-    if(pt_rb_tree->_t_typeinfo._t_style == _TYPE_INVALID)
-    {
+    if (pt_rb_tree->_t_typeinfo._t_style == _TYPE_INVALID) {
         return false;
     }
 

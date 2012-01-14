@@ -50,13 +50,11 @@ pair_t* _create_pair(const char* s_typename)
 {
     pair_t*     ppair_pair = NULL;
 
-    if((ppair_pair = (pair_t*)malloc(sizeof(pair_t))) == NULL)
-    {
+    if ((ppair_pair = (pair_t*)malloc(sizeof(pair_t))) == NULL) {
         return NULL;
     }
 
-    if(!_create_pair_auxiliary(ppair_pair, s_typename))
-    {
+    if (!_create_pair_auxiliary(ppair_pair, s_typename)) {
         free(ppair_pair);
         return NULL;
     }
@@ -73,9 +71,8 @@ bool_t _create_pair_auxiliary(pair_t* ppair_pair, const char* s_typename)
     assert(s_typename != NULL);
 
     _type_get_type_pair(&ppair_pair->_t_typeinfofirst, &ppair_pair->_t_typeinfosecond, s_typename);
-    if(ppair_pair->_t_typeinfofirst._t_style == _TYPE_INVALID ||
-       ppair_pair->_t_typeinfosecond._t_style == _TYPE_INVALID)
-    {
+    if (ppair_pair->_t_typeinfofirst._t_style == _TYPE_INVALID ||
+        ppair_pair->_t_typeinfosecond._t_style == _TYPE_INVALID) {
         return false;
     }
 
@@ -127,8 +124,7 @@ void _pair_destroy_auxiliary(pair_t* ppair_pair)
     assert(ppair_pair != NULL);
     assert(_pair_is_inited(ppair_pair) || _pair_is_created(ppair_pair));
 
-    if(ppair_pair->_pv_first != NULL && ppair_pair->_pv_second != NULL)
-    {
+    if (ppair_pair->_pv_first != NULL && ppair_pair->_pv_second != NULL) {
         bool_t b_result = false;
 
         /* destroy first */
@@ -157,23 +153,20 @@ bool_t _pair_is_created(const pair_t* cppair_pair)
 {
     assert(cppair_pair != NULL);
 
-    if((cppair_pair->_t_typeinfofirst._t_style != _TYPE_C_BUILTIN &&
-        cppair_pair->_t_typeinfofirst._t_style != _TYPE_CSTL_BUILTIN &&
-        cppair_pair->_t_typeinfofirst._t_style != _TYPE_USER_DEFINE) ||
-       (cppair_pair->_t_typeinfosecond._t_style != _TYPE_C_BUILTIN &&
-        cppair_pair->_t_typeinfosecond._t_style != _TYPE_CSTL_BUILTIN &&
-        cppair_pair->_t_typeinfosecond._t_style != _TYPE_USER_DEFINE))
-    {
+    if ((cppair_pair->_t_typeinfofirst._t_style != _TYPE_C_BUILTIN &&
+         cppair_pair->_t_typeinfofirst._t_style != _TYPE_CSTL_BUILTIN &&
+         cppair_pair->_t_typeinfofirst._t_style != _TYPE_USER_DEFINE) ||
+        (cppair_pair->_t_typeinfosecond._t_style != _TYPE_C_BUILTIN &&
+         cppair_pair->_t_typeinfosecond._t_style != _TYPE_CSTL_BUILTIN &&
+         cppair_pair->_t_typeinfosecond._t_style != _TYPE_USER_DEFINE)) {
         return false;
     }
-    if(cppair_pair->_t_typeinfofirst._pt_type == NULL || cppair_pair->_t_typeinfosecond._pt_type == NULL)
-    {
+    if (cppair_pair->_t_typeinfofirst._pt_type == NULL || cppair_pair->_t_typeinfosecond._pt_type == NULL) {
         return false;
     }
 
-    if(cppair_pair->_pv_first != NULL || cppair_pair->_pv_second != NULL ||
-       cppair_pair->_bfun_mapkeycompare != NULL || cppair_pair->_bfun_mapvaluecompare != NULL)
-    {
+    if (cppair_pair->_pv_first != NULL || cppair_pair->_pv_second != NULL ||
+        cppair_pair->_bfun_mapkeycompare != NULL || cppair_pair->_bfun_mapvaluecompare != NULL) {
         return false;
     }
 
@@ -187,22 +180,19 @@ bool_t _pair_is_inited(const pair_t* cppair_pair)
 {
     assert(cppair_pair != NULL);
 
-    if((cppair_pair->_t_typeinfofirst._t_style != _TYPE_C_BUILTIN &&
-        cppair_pair->_t_typeinfofirst._t_style != _TYPE_CSTL_BUILTIN &&
-        cppair_pair->_t_typeinfofirst._t_style != _TYPE_USER_DEFINE) ||
-       (cppair_pair->_t_typeinfosecond._t_style != _TYPE_C_BUILTIN &&
-        cppair_pair->_t_typeinfosecond._t_style != _TYPE_CSTL_BUILTIN &&
-        cppair_pair->_t_typeinfosecond._t_style != _TYPE_USER_DEFINE))
-    {
+    if ((cppair_pair->_t_typeinfofirst._t_style != _TYPE_C_BUILTIN &&
+         cppair_pair->_t_typeinfofirst._t_style != _TYPE_CSTL_BUILTIN &&
+         cppair_pair->_t_typeinfofirst._t_style != _TYPE_USER_DEFINE) ||
+        (cppair_pair->_t_typeinfosecond._t_style != _TYPE_C_BUILTIN &&
+         cppair_pair->_t_typeinfosecond._t_style != _TYPE_CSTL_BUILTIN &&
+         cppair_pair->_t_typeinfosecond._t_style != _TYPE_USER_DEFINE)) {
         return false;
     }
-    if(cppair_pair->_t_typeinfofirst._pt_type == NULL || cppair_pair->_t_typeinfosecond._pt_type == NULL)
-    {
+    if (cppair_pair->_t_typeinfofirst._pt_type == NULL || cppair_pair->_t_typeinfosecond._pt_type == NULL) {
         return false;
     }
 
-    if(cppair_pair->_pv_first == NULL || cppair_pair->_pv_second == NULL)
-    {
+    if (cppair_pair->_pv_first == NULL || cppair_pair->_pv_second == NULL) {
         return false;
     }
 

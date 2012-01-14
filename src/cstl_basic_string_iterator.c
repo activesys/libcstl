@@ -84,9 +84,7 @@ void _basic_string_iterator_get_value(basic_string_iterator_t it_iter, void* pv_
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
-
     _vector_iterator_get_value(it_iter, pv_value);
-
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 }
 
@@ -98,9 +96,7 @@ void _basic_string_iterator_set_value(basic_string_iterator_t it_iter, const voi
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
-
     _vector_iterator_set_value(it_iter, cpv_value);
-
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 }
 
@@ -114,9 +110,7 @@ const void* _basic_string_iterator_get_pointer(basic_string_iterator_t it_iter)
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
-
     pv_pointer = (void*)_vector_iterator_get_pointer(it_iter);
-
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return pv_pointer;
@@ -132,9 +126,7 @@ const void* _basic_string_iterator_get_pointer_ignore_cstr(basic_string_iterator
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
-
     pv_pointer = (void*)_vector_iterator_get_pointer_ignore_cstr(it_iter);
-
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return pv_pointer;
@@ -148,9 +140,7 @@ basic_string_iterator_t _basic_string_iterator_next(basic_string_iterator_t it_i
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
-
     it_iter = _vector_iterator_next(it_iter);
-
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
@@ -164,9 +154,7 @@ basic_string_iterator_t _basic_string_iterator_prev(basic_string_iterator_t it_i
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
-
     it_iter = _vector_iterator_prev(it_iter);
-
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
@@ -182,10 +170,8 @@ void* _basic_string_iterator_at(basic_string_iterator_t it_iter, int n_index)
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
-
     pv_value = _vector_iterator_at(it_iter, n_index);
     assert(pv_value != NULL);
-
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return pv_value;
@@ -199,9 +185,7 @@ basic_string_iterator_t _basic_string_iterator_next_n(basic_string_iterator_t it
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
-
     it_iter = _vector_iterator_next_n(it_iter, n_step);
-
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
@@ -215,9 +199,7 @@ basic_string_iterator_t _basic_string_iterator_prev_n(basic_string_iterator_t it
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
-
     it_iter = _vector_iterator_prev_n(it_iter, n_step);
-
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;

@@ -60,17 +60,14 @@ bool_t _list_iterator_belong_to_list(const list_t* cplist_list, list_iterator_t 
     assert(_LIST_ITERATOR_CONTAINER_TYPE(it_iter) == _LIST_CONTAINER);
     assert(_LIST_ITERATOR_ITERATOR_TYPE(it_iter) == _BIDIRECTIONAL_ITERATOR);
 
-    if((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter) == cplist_list->_pt_node)
-    {
+    if ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter) == cplist_list->_pt_node) {
         return true;
     }
 
-    for(pt_listnode = cplist_list->_pt_node->_pt_next;
-        pt_listnode != cplist_list->_pt_node;
-        pt_listnode = pt_listnode->_pt_next)
-    {
-        if(pt_listnode == (_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))
-        {
+    for (pt_listnode = cplist_list->_pt_node->_pt_next;
+         pt_listnode != cplist_list->_pt_node;
+         pt_listnode = pt_listnode->_pt_next) {
+        if (pt_listnode == (_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter)) {
             return true;
         }
     }
@@ -110,20 +107,17 @@ bool_t _list_is_created(const list_t* cplist_list)
 {
     assert(cplist_list != NULL);
 
-    if(cplist_list->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cplist_list->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cplist_list->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cplist_list->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cplist_list->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cplist_list->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
 
-    if(cplist_list->_t_typeinfo._pt_type == NULL)
-    {
+    if (cplist_list->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(cplist_list->_pt_node != NULL)
-    {
+    if (cplist_list->_pt_node != NULL) {
         return false;
     }
 
@@ -137,25 +131,21 @@ bool_t _list_is_inited(const list_t* cplist_list)
 {
     assert(cplist_list != NULL);
 
-    if(cplist_list->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cplist_list->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cplist_list->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cplist_list->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cplist_list->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cplist_list->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
 
-    if(cplist_list->_t_typeinfo._pt_type == NULL)
-    {
+    if (cplist_list->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(cplist_list->_pt_node == NULL)
-    {
+    if (cplist_list->_pt_node == NULL) {
         return false;
     }
 
-    if(cplist_list->_pt_node->_pt_prev == NULL || cplist_list->_pt_node->_pt_next == NULL)
-    {
+    if (cplist_list->_pt_node->_pt_prev == NULL || cplist_list->_pt_node->_pt_next == NULL) {
         return false;
     }
 
@@ -173,8 +163,7 @@ bool_t _list_same_type(const list_t* cplist_first, const list_t* cplist_second)
     assert(_list_is_inited(cplist_first) || _list_is_created(cplist_first));
     assert(_list_is_inited(cplist_second) || _list_is_created(cplist_second));
 
-    if(cplist_first == cplist_second)
-    {
+    if (cplist_first == cplist_second) {
         return true;
     }
 
@@ -196,19 +185,16 @@ void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_itera
     assert(_list_same_list_iterator_type(_LIST_ITERATOR_CONTAINER(it_pos), it_begin));
 
     /* empty range */
-    if(iterator_equal(it_begin, it_end))
-    {
+    if (iterator_equal(it_begin, it_end)) {
         return;
     }
 
     /* same list container */
-    if(_LIST_ITERATOR_CONTAINER(it_pos) == _LIST_ITERATOR_CONTAINER(it_begin))
-    {
+    if (_LIST_ITERATOR_CONTAINER(it_pos) == _LIST_ITERATOR_CONTAINER(it_begin)) {
         assert(iterator_equal(it_pos, it_begin) || iterator_equal(it_pos, it_end) ||
                _list_iterator_before(it_pos, it_begin) || _list_iterator_before(it_end, it_pos));
 
-        if(iterator_equal(it_pos, it_begin) || iterator_equal(it_pos, it_end))
-        {
+        if (iterator_equal(it_pos, it_begin) || iterator_equal(it_pos, it_end)) {
             return;
         }
     }
@@ -250,24 +236,20 @@ void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt
     assert(iterator_equal(it_first, it_last) || _list_iterator_before(it_first, it_last));
 #endif
 
-    if(pt_first == pt_last)
-    {
+    if (pt_first == pt_last) {
         return;
     }
 
-    if(bfun_op == NULL)
-    {
+    if (bfun_op == NULL) {
         bfun_op = _GET_LIST_TYPE_LESS_FUNCTION(plist_list);
         pt_beforefirst = pt_first->_pt_prev;
         pt_afterlast = pt_last->_pt_next;
-        for(pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
-            pt_after != pt_pivot;
-            pt_after = pt_after->_pt_next)
-        {
+        for (pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
+             pt_after != pt_pivot;
+             pt_after = pt_after->_pt_next) {
             (*bfun_op)(pt_after->_pby_data, pt_pivot->_pby_data, &b_less);
             (*bfun_op)(pt_pivot->_pby_data, pt_after->_pby_data, &b_greater);
-            if(b_less || (!b_less && !b_greater))
-            {
+            if (b_less || (!b_less && !b_greater)) {
                 pt_before = pt_before->_pt_next;
                 _list_swap_node(&pt_before, &pt_after);
             }
@@ -277,30 +259,23 @@ void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt
         pt_pivot = pt_before;
 
         /* pivot is not the first node */
-        if(pt_pivot->_pt_prev != pt_beforefirst)
-        {
+        if (pt_pivot->_pt_prev != pt_beforefirst) {
             _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, NULL);
         }
         /* pivot is not the last node */
-        if(pt_pivot->_pt_next != pt_afterlast)
-        {
+        if (pt_pivot->_pt_next != pt_afterlast) {
             _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, NULL);
         }
-    }
-    else
-    {
-        if(strncmp(_GET_LIST_TYPE_BASENAME(plist_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-        {
+    } else {
+        if (strncmp(_GET_LIST_TYPE_BASENAME(plist_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
             pt_beforefirst = pt_first->_pt_prev;
             pt_afterlast = pt_last->_pt_next;
-            for(pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
-                pt_after != pt_pivot;
-                pt_after = pt_after->_pt_next)
-            {
+            for (pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
+                 pt_after != pt_pivot;
+                 pt_after = pt_after->_pt_next) {
                 (*bfun_op)(string_c_str((string_t*)pt_after->_pby_data), string_c_str((string_t*)pt_pivot->_pby_data), &b_less);
                 (*bfun_op)(string_c_str((string_t*)pt_pivot->_pby_data), string_c_str((string_t*)pt_after->_pby_data), &b_greater);
-                if(b_less || (!b_less && !b_greater))
-                {
+                if (b_less || (!b_less && !b_greater)) {
                     pt_before = pt_before->_pt_next;
                     _list_swap_node(&pt_before, &pt_after);
                 }
@@ -310,28 +285,22 @@ void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt
             pt_pivot = pt_before;
 
             /* pivot is not the first node */
-            if(pt_pivot->_pt_prev != pt_beforefirst)
-            {
+            if (pt_pivot->_pt_prev != pt_beforefirst) {
                 _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, bfun_op);
             }
             /* pivot is not the last node */
-            if(pt_pivot->_pt_next != pt_afterlast)
-            {
+            if (pt_pivot->_pt_next != pt_afterlast) {
                 _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, bfun_op);
             }
-        }
-        else
-        {
+        } else {
             pt_beforefirst = pt_first->_pt_prev;
             pt_afterlast = pt_last->_pt_next;
-            for(pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
-                pt_after != pt_pivot;
-                pt_after = pt_after->_pt_next)
-            {
+            for (pt_pivot = pt_last, pt_before = pt_first->_pt_prev, pt_after = pt_first;
+                 pt_after != pt_pivot;
+                 pt_after = pt_after->_pt_next) {
                 (*bfun_op)(pt_after->_pby_data, pt_pivot->_pby_data, &b_less);
                 (*bfun_op)(pt_pivot->_pby_data, pt_after->_pby_data, &b_greater);
-                if(b_less || (!b_less && !b_greater))
-                {
+                if (b_less || (!b_less && !b_greater)) {
                     pt_before = pt_before->_pt_next;
                     _list_swap_node(&pt_before, &pt_after);
                 }
@@ -341,13 +310,11 @@ void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt
             pt_pivot = pt_before;
 
             /* pivot is not the first node */
-            if(pt_pivot->_pt_prev != pt_beforefirst)
-            {
+            if (pt_pivot->_pt_prev != pt_beforefirst) {
                 _list_quick_sort(plist_list, pt_beforefirst->_pt_next, pt_pivot->_pt_prev, bfun_op);
             }
             /* pivot is not the last node */
-            if(pt_pivot->_pt_next != pt_afterlast)
-            {
+            if (pt_pivot->_pt_next != pt_afterlast) {
                 _list_quick_sort(plist_list, pt_pivot->_pt_next, pt_afterlast->_pt_prev, bfun_op);
             }
         }
@@ -366,13 +333,9 @@ void _list_swap_node(_listnode_t** ppt_first, _listnode_t** ppt_second)
     assert(ppt_second != NULL && *ppt_second != NULL);
 
     /* if the first node equal to the second */
-    if(*ppt_first == *ppt_second)
-    {
+    if (*ppt_first == *ppt_second) {
         return;
-    }
-    /* if the first followed by the second */
-    else if((*ppt_first)->_pt_next == (*ppt_second))
-    {
+    } else if ((*ppt_first)->_pt_next == (*ppt_second)) {
         /* extra the first node */
         (*ppt_second)->_pt_prev = (*ppt_first)->_pt_prev;
         (*ppt_first)->_pt_prev->_pt_next = (*ppt_second);
@@ -384,10 +347,7 @@ void _list_swap_node(_listnode_t** ppt_first, _listnode_t** ppt_second)
 
         (*ppt_first) = (*ppt_second);
         (*ppt_second) = (*ppt_second)->_pt_next;
-    }
-    /* if the second followed by the first */
-    else if((*ppt_second)->_pt_next == (*ppt_first))
-    {
+    } else if ((*ppt_second)->_pt_next == (*ppt_first)) {
         /* extra the second node */
         (*ppt_first)->_pt_prev = (*ppt_second)->_pt_prev;
         (*ppt_second)->_pt_prev->_pt_next = (*ppt_first);
@@ -399,9 +359,7 @@ void _list_swap_node(_listnode_t** ppt_first, _listnode_t** ppt_second)
 
         (*ppt_second) = (*ppt_first);
         (*ppt_first) = (*ppt_first)->_pt_next;
-    }
-    else
-    {
+    } else {
         /* keep the position after the two node */
         pt_afterfirst = (*ppt_first)->_pt_next;
         pt_aftersecond = (*ppt_second)->_pt_next;

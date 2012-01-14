@@ -73,46 +73,34 @@ bool_t _deque_iterator_equal(deque_iterator_t it_first, deque_iterator_t it_seco
     assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(it_first), it_first));
     assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(it_second), it_second));
     
-    if(_DEQUE_ITERATOR_MAP_POINTER(it_first) == _DEQUE_ITERATOR_MAP_POINTER(it_second) &&
-       _DEQUE_ITERATOR_FIRST_POS(it_first) == _DEQUE_ITERATOR_FIRST_POS(it_second) &&
-       _DEQUE_ITERATOR_AFTERLAST_POS(it_first) == _DEQUE_ITERATOR_AFTERLAST_POS(it_second) &&
-       _DEQUE_ITERATOR_COREPOS(it_first) == _DEQUE_ITERATOR_COREPOS(it_second))
-    {
+    if (_DEQUE_ITERATOR_MAP_POINTER(it_first) == _DEQUE_ITERATOR_MAP_POINTER(it_second) &&
+        _DEQUE_ITERATOR_FIRST_POS(it_first) == _DEQUE_ITERATOR_FIRST_POS(it_second) &&
+        _DEQUE_ITERATOR_AFTERLAST_POS(it_first) == _DEQUE_ITERATOR_AFTERLAST_POS(it_second) &&
+        _DEQUE_ITERATOR_COREPOS(it_first) == _DEQUE_ITERATOR_COREPOS(it_second)) {
         return true;
-    }
-    else
-    {
+    } else {
         /* 
          * if the start corepos equal to the after last node and the finish 
          * corepos equal to the first position, the two iterator equal to.
          */
-        if(_DEQUE_ITERATOR_MAP_POINTER(it_first) < _DEQUE_ITERATOR_MAP_POINTER(it_second))
-        {
-            if(_DEQUE_ITERATOR_MAP_POINTER(it_first) + 1 == _DEQUE_ITERATOR_MAP_POINTER(it_second) &&
-               _DEQUE_ITERATOR_COREPOS(it_first) == _DEQUE_ITERATOR_AFTERLAST_POS(it_first) &&
-               _DEQUE_ITERATOR_COREPOS(it_second) == _DEQUE_ITERATOR_FIRST_POS(it_second))
-            {
+        if (_DEQUE_ITERATOR_MAP_POINTER(it_first) < _DEQUE_ITERATOR_MAP_POINTER(it_second)) {
+            if (_DEQUE_ITERATOR_MAP_POINTER(it_first) + 1 == _DEQUE_ITERATOR_MAP_POINTER(it_second) &&
+                _DEQUE_ITERATOR_COREPOS(it_first) == _DEQUE_ITERATOR_AFTERLAST_POS(it_first) &&
+                _DEQUE_ITERATOR_COREPOS(it_second) == _DEQUE_ITERATOR_FIRST_POS(it_second)) {
                 /* the it_first must be deque_begin. */
                 assert(_DEQUE_ITERATOR_MAP_POINTER(it_first) == _DEQUE_ITERATOR_MAP_POINTER(_DEQUE_ITERATOR_CONTAINER(it_first)->_t_start));
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
-        }
-        else
-        {
-            if(_DEQUE_ITERATOR_MAP_POINTER(it_second) + 1 == _DEQUE_ITERATOR_MAP_POINTER(it_first) &&
-               _DEQUE_ITERATOR_COREPOS(it_second) == _DEQUE_ITERATOR_AFTERLAST_POS(it_second) &&
-               _DEQUE_ITERATOR_COREPOS(it_first) == _DEQUE_ITERATOR_FIRST_POS(it_first))
-            {
+        } else {
+            if (_DEQUE_ITERATOR_MAP_POINTER(it_second) + 1 == _DEQUE_ITERATOR_MAP_POINTER(it_first) &&
+                _DEQUE_ITERATOR_COREPOS(it_second) == _DEQUE_ITERATOR_AFTERLAST_POS(it_second) &&
+                _DEQUE_ITERATOR_COREPOS(it_first) == _DEQUE_ITERATOR_FIRST_POS(it_first)) {
                 /* the it_second must be deque_begin. */
                 assert(_DEQUE_ITERATOR_MAP_POINTER(it_second) == _DEQUE_ITERATOR_MAP_POINTER(_DEQUE_ITERATOR_CONTAINER(it_second)->_t_start));
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
         }
@@ -129,26 +117,18 @@ bool_t _deque_iterator_less(deque_iterator_t it_first, deque_iterator_t it_secon
     assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(it_first), it_first));
     assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(it_second), it_second));
 
-    if(_DEQUE_ITERATOR_MAP_POINTER(it_first) < _DEQUE_ITERATOR_MAP_POINTER(it_second))
-    {
+    if (_DEQUE_ITERATOR_MAP_POINTER(it_first) < _DEQUE_ITERATOR_MAP_POINTER(it_second)) {
         /* it_first and it_second are deque_begin(); */
-        if(_DEQUE_ITERATOR_COREPOS(it_first) == _DEQUE_ITERATOR_AFTERLAST_POS(it_first) &&
-           _DEQUE_ITERATOR_COREPOS(it_second) == _DEQUE_ITERATOR_FIRST_POS(it_second) &&
-           _DEQUE_ITERATOR_MAP_POINTER(it_first) + 1 == _DEQUE_ITERATOR_MAP_POINTER(it_second))
-        {
+        if (_DEQUE_ITERATOR_COREPOS(it_first) == _DEQUE_ITERATOR_AFTERLAST_POS(it_first) &&
+            _DEQUE_ITERATOR_COREPOS(it_second) == _DEQUE_ITERATOR_FIRST_POS(it_second) &&
+            _DEQUE_ITERATOR_MAP_POINTER(it_first) + 1 == _DEQUE_ITERATOR_MAP_POINTER(it_second)) {
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
-    }
-    else if(_DEQUE_ITERATOR_MAP_POINTER(it_first) == _DEQUE_ITERATOR_MAP_POINTER(it_second))
-    {
+    } else if (_DEQUE_ITERATOR_MAP_POINTER(it_first) == _DEQUE_ITERATOR_MAP_POINTER(it_second)) {
         return _DEQUE_ITERATOR_COREPOS(it_first) < _DEQUE_ITERATOR_COREPOS(it_second) ? true : false;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -173,12 +153,9 @@ void _deque_iterator_get_value(deque_iterator_t it_iter, void* pv_value)
     assert(!iterator_equal(it_iter, deque_end(_DEQUE_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_DEQUE_TYPE_BASENAME(_DEQUE_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_DEQUE_TYPE_BASENAME(_DEQUE_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         *(char**)pv_value = (char*)string_c_str((string_t*)_deque_iterator_get_pointer_auxiliary(it_iter));
-    }
-    else
-    {
+    } else {
         b_result = _GET_DEQUE_TYPE_SIZE(_DEQUE_ITERATOR_CONTAINER(it_iter));
         _GET_DEQUE_TYPE_COPY_FUNCTION(_DEQUE_ITERATOR_CONTAINER(it_iter))(
             pv_value, _deque_iterator_get_pointer_auxiliary(it_iter), &b_result);
@@ -198,12 +175,9 @@ void _deque_iterator_set_value(deque_iterator_t it_iter, const void* cpv_value)
     assert(!iterator_equal(it_iter, deque_end(_DEQUE_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_DEQUE_TYPE_BASENAME(_DEQUE_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_DEQUE_TYPE_BASENAME(_DEQUE_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         string_assign_cstr((string_t*)_deque_iterator_get_pointer_auxiliary(it_iter), (char*)cpv_value);
-    }
-    else
-    {
+    } else {
         b_result = _GET_DEQUE_TYPE_SIZE(_DEQUE_ITERATOR_CONTAINER(it_iter));
         _GET_DEQUE_TYPE_COPY_FUNCTION(_DEQUE_ITERATOR_CONTAINER(it_iter))(
             _deque_iterator_get_pointer_auxiliary(it_iter), cpv_value, &b_result);
@@ -220,12 +194,9 @@ const void* _deque_iterator_get_pointer(deque_iterator_t it_iter)
     assert(!iterator_equal(it_iter, deque_end(_DEQUE_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_DEQUE_TYPE_BASENAME(_DEQUE_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_DEQUE_TYPE_BASENAME(_DEQUE_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         return string_c_str((string_t*)_deque_iterator_get_pointer_auxiliary(it_iter));
-    }
-    else
-    {
+    } else {
         return _deque_iterator_get_pointer_auxiliary(it_iter);
     }
 }
@@ -251,13 +222,11 @@ deque_iterator_t _deque_iterator_next(deque_iterator_t it_iter)
 
     _DEQUE_ITERATOR_COREPOS(it_iter) += _GET_DEQUE_TYPE_SIZE(_DEQUE_ITERATOR_CONTAINER(it_iter));
     /* at the node after the last node */
-    if(_DEQUE_ITERATOR_COREPOS(it_iter) >= _DEQUE_ITERATOR_AFTERLAST_POS(it_iter))
-    {
+    if (_DEQUE_ITERATOR_COREPOS(it_iter) >= _DEQUE_ITERATOR_AFTERLAST_POS(it_iter)) {
         t_beyondsize = _DEQUE_ITERATOR_COREPOS(it_iter) - _DEQUE_ITERATOR_AFTERLAST_POS(it_iter);
         assert(t_beyondsize == 0 || t_beyondsize == _GET_DEQUE_TYPE_SIZE(_DEQUE_ITERATOR_CONTAINER(it_iter)));
         /* is the current pos is not the last pos of map */
-        if(_DEQUE_ITERATOR_MAP_POINTER(it_iter) < _DEQUE_ITERATOR_MAP_POINTER(_DEQUE_ITERATOR_CONTAINER(it_iter)->_t_finish))
-        {
+        if (_DEQUE_ITERATOR_MAP_POINTER(it_iter) < _DEQUE_ITERATOR_MAP_POINTER(_DEQUE_ITERATOR_CONTAINER(it_iter)->_t_finish)) {
             _DEQUE_ITERATOR_MAP_POINTER(it_iter) += 1;
             _DEQUE_ITERATOR_FIRST_POS(it_iter) = *_DEQUE_ITERATOR_MAP_POINTER(it_iter);
             _DEQUE_ITERATOR_AFTERLAST_POS(it_iter) = _DEQUE_ITERATOR_FIRST_POS(it_iter) + 
@@ -280,11 +249,9 @@ deque_iterator_t _deque_iterator_prev(deque_iterator_t it_iter)
 
     _DEQUE_ITERATOR_COREPOS(it_iter) -= _GET_DEQUE_TYPE_SIZE(_DEQUE_ITERATOR_CONTAINER(it_iter));
     /* before the first pos */
-    if(_DEQUE_ITERATOR_COREPOS(it_iter) < _DEQUE_ITERATOR_FIRST_POS(it_iter))
-    {
+    if (_DEQUE_ITERATOR_COREPOS(it_iter) < _DEQUE_ITERATOR_FIRST_POS(it_iter)) {
         /* is the current node is not the first node */
-        if(_DEQUE_ITERATOR_MAP_POINTER(it_iter) > _DEQUE_ITERATOR_MAP_POINTER(_DEQUE_ITERATOR_CONTAINER(it_iter)->_t_start))
-        {
+        if (_DEQUE_ITERATOR_MAP_POINTER(it_iter) > _DEQUE_ITERATOR_MAP_POINTER(_DEQUE_ITERATOR_CONTAINER(it_iter)->_t_start)) {
             _DEQUE_ITERATOR_MAP_POINTER(it_iter) -= 1;
             _DEQUE_ITERATOR_FIRST_POS(it_iter) = *_DEQUE_ITERATOR_MAP_POINTER(it_iter);
             _DEQUE_ITERATOR_AFTERLAST_POS(it_iter) = _DEQUE_ITERATOR_FIRST_POS(it_iter) +
@@ -310,8 +277,7 @@ deque_iterator_t _deque_iterator_next_n(deque_iterator_t it_iter, int n_step)
 
     assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(it_iter), it_iter));
 
-    if(n_step == 0)
-    {
+    if (n_step == 0) {
         return it_iter;
     }
 
@@ -345,12 +311,9 @@ deque_iterator_t _deque_iterator_next_n(deque_iterator_t it_iter, int n_step)
      */
     pdeq_deque = _DEQUE_ITERATOR_CONTAINER(it_iter);
     n_offset = n_step + (_DEQUE_ITERATOR_COREPOS(it_iter) - _DEQUE_ITERATOR_FIRST_POS(it_iter)) / _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-    if(n_offset >= 0 && n_offset <= _DEQUE_ELEM_COUNT)
-    {
+    if (n_offset >= 0 && n_offset <= _DEQUE_ELEM_COUNT) {
         _DEQUE_ITERATOR_COREPOS(it_iter) += n_step * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-    }
-    else
-    {
+    } else {
         n_span =  n_offset > 0 ?
             (n_offset + _DEQUE_ELEM_COUNT - 1) / _DEQUE_ELEM_COUNT - 1 :
             -((-n_offset + _DEQUE_ELEM_COUNT - 1) / _DEQUE_ELEM_COUNT);
@@ -363,9 +326,8 @@ deque_iterator_t _deque_iterator_next_n(deque_iterator_t it_iter, int n_step)
     }
 
     /* corepos == afterlast and current chunk is't last chunk */
-    if(_DEQUE_ITERATOR_COREPOS(it_iter) == _DEQUE_ITERATOR_AFTERLAST_POS(it_iter) &&
-       _DEQUE_ITERATOR_MAP_POINTER(it_iter) != _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish))
-    {
+    if (_DEQUE_ITERATOR_COREPOS(it_iter) == _DEQUE_ITERATOR_AFTERLAST_POS(it_iter) &&
+        _DEQUE_ITERATOR_MAP_POINTER(it_iter) != _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish)) {
         _DEQUE_ITERATOR_MAP_POINTER(it_iter) += 1;
         _DEQUE_ITERATOR_FIRST_POS(it_iter) = *_DEQUE_ITERATOR_MAP_POINTER(it_iter);
         _DEQUE_ITERATOR_AFTERLAST_POS(it_iter) = _DEQUE_ITERATOR_FIRST_POS(it_iter) +
@@ -410,12 +372,9 @@ int _deque_iterator_minus(deque_iterator_t it_first, deque_iterator_t it_second)
     assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(it_first), it_first));
     assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(it_second), it_second));
 
-    if(_deque_iterator_equal(it_first, it_second))
-    {
+    if (_deque_iterator_equal(it_first, it_second)) {
         return 0;
-    }
-    else if(_deque_iterator_before(it_first, it_second))
-    {
+    } else if (_deque_iterator_before(it_first, it_second)) {
         n_span = (_DEQUE_ITERATOR_MAP_POINTER(it_second) - _DEQUE_ITERATOR_MAP_POINTER(it_first) - 1) * _DEQUE_ELEM_COUNT;
         n_prefix = (_DEQUE_ITERATOR_AFTERLAST_POS(it_first) - _DEQUE_ITERATOR_COREPOS(it_first)) /
             _GET_DEQUE_TYPE_SIZE(_DEQUE_ITERATOR_CONTAINER(it_first));
@@ -423,9 +382,7 @@ int _deque_iterator_minus(deque_iterator_t it_first, deque_iterator_t it_second)
             _GET_DEQUE_TYPE_SIZE(_DEQUE_ITERATOR_CONTAINER(it_second));
                
         return -(n_prefix + n_span + n_suffix);
-    }
-    else
-    {
+    } else {
         n_span = (_DEQUE_ITERATOR_MAP_POINTER(it_first) - _DEQUE_ITERATOR_MAP_POINTER(it_second) - 1) * _DEQUE_ELEM_COUNT;
         n_prefix = (_DEQUE_ITERATOR_AFTERLAST_POS(it_second) - _DEQUE_ITERATOR_COREPOS(it_second)) /
             _GET_DEQUE_TYPE_SIZE(_DEQUE_ITERATOR_CONTAINER(it_second));

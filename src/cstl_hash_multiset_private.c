@@ -303,16 +303,13 @@ void _hash_multiset_init_elem_auxiliary(hash_multiset_t* phmset_set, void* pv_el
     assert(pv_elem != NULL);
 
     /* initialize new elements */
-    if(_GET_HASH_MULTISET_TYPE_STYLE(phmset_set) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_HASH_MULTISET_TYPE_STYLE(phmset_set) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_HASH_MULTISET_TYPE_NAME(phmset_set), s_elemtypename);
 
         _GET_HASH_MULTISET_TYPE_INIT_FUNCTION(phmset_set)(pv_elem, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_HASH_MULTISET_TYPE_SIZE(phmset_set);
         _GET_HASH_MULTISET_TYPE_INIT_FUNCTION(phmset_set)(pv_elem, &b_result);
         assert(b_result);

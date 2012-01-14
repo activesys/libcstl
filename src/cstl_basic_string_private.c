@@ -53,13 +53,11 @@ basic_string_t* _create_basic_string(const char* s_typename)
 
     assert(s_typename != NULL);
 
-    if((pt_basic_string = (basic_string_t*)malloc(sizeof(basic_string_t))) == NULL)
-    {
+    if ((pt_basic_string = (basic_string_t*)malloc(sizeof(basic_string_t))) == NULL) {
         return NULL;
     }
 
-    if(!_create_basic_string_auxiliary(pt_basic_string, s_typename))
-    {
+    if (!_create_basic_string_auxiliary(pt_basic_string, s_typename)) {
         free(pt_basic_string);
         return NULL;
     }
@@ -165,8 +163,7 @@ size_t _basic_string_find_elem_varg(const basic_string_t* cpt_basic_string, size
 
     assert(cpt_basic_string != NULL);
 
-    if(t_pos >= basic_string_size(cpt_basic_string))
-    {
+    if (t_pos >= basic_string_size(cpt_basic_string)) {
         return NPOS;
     }
 
@@ -180,22 +177,17 @@ size_t _basic_string_find_elem_varg(const basic_string_t* cpt_basic_string, size
     t_length = basic_string_length(cpt_basic_string);
     pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_findpos = t_pos;
-    while(t_findpos != t_length)
-    {
+    while (t_findpos != t_length) {
         b_less = b_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_string + t_findpos * t_typesize, pv_varg, &b_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pv_varg, pby_string + t_findpos * t_typesize, &b_greater);
-        if(!b_less && !b_greater)
-        {
+        if (!b_less && !b_greater) {
             break;
-        }
-        else
-        {
+        } else {
             t_findpos++;
         }
     }
-    if(t_findpos == t_length)
-    {
+    if (t_findpos == t_length) {
         t_findpos = NPOS;
     }
 
@@ -234,8 +226,7 @@ size_t _basic_string_rfind_elem_varg(const basic_string_t* cpt_basic_string, siz
 
     assert(cpt_basic_string != NULL);
 
-    if(basic_string_empty(cpt_basic_string))
-    {
+    if (basic_string_empty(cpt_basic_string)) {
         return NPOS;
     }
 
@@ -248,28 +239,20 @@ size_t _basic_string_rfind_elem_varg(const basic_string_t* cpt_basic_string, siz
     /* find elemen */
     t_length = basic_string_length(cpt_basic_string);
     pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
-    if(t_pos > t_length)
-    {
+    if (t_pos > t_length) {
         t_pos = t_length;
     }
     t_findpos = (t_pos == t_length ? t_pos - 1 : t_pos);
-    for(;;)
-    {
+    for (;;) {
         b_less = b_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_string + t_findpos * t_typesize, pv_varg, &b_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pv_varg, pby_string + t_findpos * t_typesize, &b_greater);
-        if(!b_less && !b_greater)
-        {
+        if (!b_less && !b_greater) {
             break;
-        }
-        else
-        {
-            if(t_findpos > 0)
-            {
+        } else {
+            if (t_findpos > 0) {
                 t_findpos--;
-            }
-            else
-            {
+            } else {
                 t_findpos = NPOS;
                 break;
             }
@@ -311,8 +294,7 @@ size_t _basic_string_find_first_not_of_elem_varg(const basic_string_t* cpt_basic
 
     assert(cpt_basic_string != NULL);
 
-    if(t_pos >= basic_string_size(cpt_basic_string))
-    {
+    if (t_pos >= basic_string_size(cpt_basic_string)) {
         return NPOS;
     }
 
@@ -326,23 +308,18 @@ size_t _basic_string_find_first_not_of_elem_varg(const basic_string_t* cpt_basic
     t_length = basic_string_length(cpt_basic_string);
     pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
     t_findpos = t_pos;
-    while(t_findpos != t_length)
-    {
+    while (t_findpos != t_length) {
         b_less = b_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_string + t_findpos * t_typesize, pv_varg, &b_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pv_varg, pby_string + t_findpos * t_typesize, &b_greater);
-        if(b_less || b_greater)
-        {
+        if (b_less || b_greater) {
             break;
-        }
-        else
-        {
+        } else {
             t_findpos++;
         }
     }
 
-    if(t_findpos == t_length)
-    {
+    if (t_findpos == t_length) {
         t_findpos = NPOS;
     }
 
@@ -381,8 +358,7 @@ size_t _basic_string_find_last_not_of_elem_varg(const basic_string_t* cpt_basic_
 
     assert(cpt_basic_string != NULL);
 
-    if(basic_string_empty(cpt_basic_string))
-    {
+    if (basic_string_empty(cpt_basic_string)) {
         return NPOS;
     }
 
@@ -395,28 +371,20 @@ size_t _basic_string_find_last_not_of_elem_varg(const basic_string_t* cpt_basic_
     /* find elemen */
     t_length = basic_string_length(cpt_basic_string);
     pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
-    if(t_pos > t_length)
-    {
+    if (t_pos > t_length) {
         t_pos = t_length;
     }
     t_findpos = (t_pos == t_length ? t_pos - 1 : t_pos);
-    for(;;)
-    {
+    for (;;) {
         b_less = b_greater = t_typesize;
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_string + t_findpos * t_typesize, pv_varg, &b_less);
         _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pv_varg, pby_string + t_findpos * t_typesize, &b_greater);
-        if(b_less || b_greater)
-        {
+        if (b_less || b_greater) {
             break;
-        }
-        else
-        {
-            if(t_findpos > 0)
-            {
+        } else {
+            if (t_findpos > 0) {
                 t_findpos--;
-            }
-            else
-            {
+            } else {
                 t_findpos = NPOS;
                 break;
             }
@@ -625,12 +593,9 @@ void _basic_string_replace_elem_varg(
     assert(t_pos <= basic_string_size(pt_basic_string));
 
     it_begin = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
-    if(t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string))
-    {
+    if (t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string)) {
         it_end = basic_string_end(pt_basic_string);
-    }
-    else
-    {
+    } else {
         it_end = iterator_next_n(basic_string_begin(pt_basic_string), t_pos + t_len);
     }
     _basic_string_range_replace_elem_varg(pt_basic_string, it_begin, it_end, t_count, val_elemlist);
@@ -669,16 +634,13 @@ void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv
     assert(pv_elem != NULL);
 
     /* initialize new elements */
-    if(_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(pt_basic_string), s_elemtypename);
 
         _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
         _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, &b_result);
         assert(b_result);

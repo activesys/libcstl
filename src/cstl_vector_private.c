@@ -53,13 +53,11 @@ vector_t* _create_vector(const char* s_typename)
     vector_t*   pvec_vector = NULL;
 
     /* allocate for vector_t and initialize it */
-    if((pvec_vector = (vector_t*)malloc(sizeof(vector_t))) == NULL)
-    {
+    if ((pvec_vector = (vector_t*)malloc(sizeof(vector_t))) == NULL) {
         return NULL;
     }
 
-    if(!_create_vector_auxiliary(pvec_vector, s_typename))
-    {
+    if (!_create_vector_auxiliary(pvec_vector, s_typename)) {
         free(pvec_vector);
         return NULL;
     }
@@ -76,8 +74,7 @@ bool_t _create_vector_auxiliary(vector_t* pvec_vector, const char* s_typename)
     assert(s_typename != NULL);
 
     _type_get_type(&pvec_vector->_t_typeinfo, s_typename);
-    if(pvec_vector->_t_typeinfo._t_style == _TYPE_INVALID)
-    {
+    if (pvec_vector->_t_typeinfo._t_style == _TYPE_INVALID) {
         return false;
     }
 
@@ -118,18 +115,16 @@ void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_e
 
     /* initialize vector_t */
     vector_init_n(pvec_vector, t_count);
-    if(t_count > 0)
-    {
+    if (t_count > 0) {
         /* get varg value only once */
         pv_varg = _alloc_allocate(&pvec_vector->_t_allocator, _GET_VECTOR_TYPE_SIZE(pvec_vector), 1);
         assert(pv_varg != NULL);
         _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
 
         /* copy varg value to each element */
-        for(it_iter = vector_begin(pvec_vector);
-            !iterator_equal(it_iter, vector_end(pvec_vector));
-            it_iter = iterator_next(it_iter))
-        {
+        for (it_iter = vector_begin(pvec_vector);
+             !iterator_equal(it_iter, vector_end(pvec_vector));
+             it_iter = iterator_next(it_iter)) {
             /* copy from varg */
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_iter), pv_varg, &b_result);
@@ -154,17 +149,15 @@ void _vector_destroy_auxiliary(vector_t* pvec_vector)
     assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
 
     /* destroy all elements */
-    for(it_iter = vector_begin(pvec_vector);
-        !iterator_equal(it_iter, vector_end(pvec_vector));
-        it_iter = iterator_next(it_iter))
-    {
+    for (it_iter = vector_begin(pvec_vector);
+         !iterator_equal(it_iter, vector_end(pvec_vector));
+         it_iter = iterator_next(it_iter)) {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
         _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_iter), &b_result);
         assert(b_result);
     }
     /* free vector memory */
-    if(pvec_vector->_pby_start != NULL)
-    {
+    if (pvec_vector->_pby_start != NULL) {
         _alloc_deallocate(&pvec_vector->_t_allocator, pvec_vector->_pby_start, _GET_VECTOR_TYPE_SIZE(pvec_vector), 
             (pvec_vector->_pby_endofstorage - pvec_vector->_pby_start) / _GET_VECTOR_TYPE_SIZE(pvec_vector));
     }
@@ -209,10 +202,9 @@ void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val
 
     /* copy value from varg for each element */
     vector_resize(pvec_vector, t_count);
-    for(it_iter = vector_begin(pvec_vector);
-        !iterator_equal(it_iter, vector_end(pvec_vector));
-        it_iter = iterator_next(it_iter))
-    {
+    for (it_iter = vector_begin(pvec_vector);
+         !iterator_equal(it_iter, vector_end(pvec_vector));
+         it_iter = iterator_next(it_iter)) {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
         _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_iter), pv_varg, &b_result);
         assert(b_result);
@@ -249,8 +241,7 @@ void _vector_push_back_varg(vector_t* pvec_vector, va_list val_elemlist)
     assert(_vector_is_inited(pvec_vector));
 
     /* if the remain capacity is less then the element count */
-    if(vector_capacity(pvec_vector) == vector_size(pvec_vector)) 
-    {
+    if (vector_capacity(pvec_vector) == vector_size(pvec_vector)) {
         vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), 1));
     }
 
@@ -293,21 +284,15 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
     assert(pvec_vector != NULL);
     assert(_vector_is_inited(pvec_vector));
 
-    if(t_resize == vector_size(pvec_vector))
-    {
+    if (t_resize == vector_size(pvec_vector)) {
         return;
-    }
-    else if(t_resize < vector_size(pvec_vector))
-    {
+    } else if (t_resize < vector_size(pvec_vector)) {
         t_cutpos = vector_begin(pvec_vector);
         t_cutpos = iterator_next_n(t_cutpos, t_resize);
         vector_erase_range(pvec_vector, t_cutpos, vector_end(pvec_vector));
-    }
-    else
-    {
+    } else {
         t_expsize = t_resize - vector_size(pvec_vector);
-        if(t_resize > vector_capacity(pvec_vector))
-        {
+        if (t_resize > vector_capacity(pvec_vector)) {
             vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), t_expsize));
         }
 
@@ -321,8 +306,7 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
         pvec_vector->_pby_finish += t_expsize * _GET_VECTOR_TYPE_SIZE(pvec_vector);
         _vector_init_elem_range_auxiliary(pvec_vector, pby_oldfinish, pvec_vector->_pby_finish);
         /* copy value from varg to new elements */
-        for(i = 0; i < t_expsize; ++i)
-        {
+        for (i = 0; i < t_expsize; ++i) {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pby_oldfinish + i * _GET_VECTOR_TYPE_SIZE(pvec_vector), pv_varg, &b_result);
             assert(b_result);
@@ -365,16 +349,14 @@ vector_iterator_t _vector_insert_n_varg(vector_t* pvec_vector, vector_iterator_t
     assert(_vector_is_inited(pvec_vector));
     assert(_vector_iterator_belong_to_vector(pvec_vector, it_pos));
 
-    if(t_count > 0)
-    {
+    if (t_count > 0) {
         size_t i = 0;
         _byte_t*  pby_oldfinish = NULL;
         _byte_t*  pby_pos = NULL;   /* for initialize elments and insert elements */
         _byte_t*  pby_destpos = NULL;
 
         /* if the remain capacity is less then the element count */
-        if(vector_size(pvec_vector) + t_count > vector_capacity(pvec_vector))
-        {
+        if (vector_size(pvec_vector) + t_count > vector_capacity(pvec_vector)) {
             size_t t_insertpos = iterator_distance(vector_begin(pvec_vector), it_pos);
             /* reserve the new size */
             vector_reserve(pvec_vector, _vector_calculate_new_capacity(vector_size(pvec_vector), t_count));
@@ -406,12 +388,11 @@ vector_iterator_t _vector_insert_n_varg(vector_t* pvec_vector, vector_iterator_t
         pvec_vector->_pby_finish += t_count * _GET_VECTOR_TYPE_SIZE(pvec_vector);
         _vector_init_elem_range_auxiliary(pvec_vector, pby_oldfinish, pvec_vector->_pby_finish);
         /* move element from old finish to new finish */
-        for(pby_pos = pby_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
-            pby_destpos = pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            pby_pos >= _VECTOR_ITERATOR_COREPOS(it_pos);
-            pby_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
-            pby_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector))
-        {
+        for (pby_pos = pby_oldfinish - _GET_VECTOR_TYPE_SIZE(pvec_vector),
+             pby_destpos = pvec_vector->_pby_finish - _GET_VECTOR_TYPE_SIZE(pvec_vector);
+             pby_pos >= _VECTOR_ITERATOR_COREPOS(it_pos);
+             pby_pos -= _GET_VECTOR_TYPE_SIZE(pvec_vector),
+             pby_destpos -= _GET_VECTOR_TYPE_SIZE(pvec_vector)) {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(pby_destpos, pby_pos, &b_result);
             assert(b_result);
@@ -422,8 +403,7 @@ vector_iterator_t _vector_insert_n_varg(vector_t* pvec_vector, vector_iterator_t
         assert(pv_varg != NULL);
         _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
         /* copy value for varg */
-        for(i = 0; i < t_count; ++i)
-        {
+        for (i = 0; i < t_count; ++i) {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_pos) + i * _GET_VECTOR_TYPE_SIZE(pvec_vector), pv_varg, &b_result);
             assert(b_result);
@@ -446,16 +426,13 @@ void _vector_init_elem_auxiliary(vector_t* pvec_vector, void* pv_elem)
     assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
 
     /* initialize new elements */
-    if(_GET_VECTOR_TYPE_STYLE(pvec_vector) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_VECTOR_TYPE_STYLE(pvec_vector) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_VECTOR_TYPE_NAME(pvec_vector), s_elemtypename);
 
         _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pv_elem, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
         _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)(pv_elem, &b_result);
         assert(b_result);

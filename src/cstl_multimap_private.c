@@ -62,13 +62,11 @@ multimap_t* _create_multimap(const char* s_typename)
 {
     multimap_t* pmmap_map = NULL;
 
-    if((pmmap_map = (multimap_t*)malloc(sizeof(multimap_t))) == NULL)
-    {
+    if ((pmmap_map = (multimap_t*)malloc(sizeof(multimap_t))) == NULL) {
         return NULL;
     }
 
-    if(!_create_multimap_auxiliary(pmmap_map, s_typename))
-    {
+    if (!_create_multimap_auxiliary(pmmap_map, s_typename)) {
         free(pmmap_map);
         return NULL;
     }
@@ -88,8 +86,7 @@ bool_t _create_multimap_auxiliary(multimap_t* pmmap_map, const char* s_typename)
     assert(s_typename != NULL);
 
     b_result = _create_pair_auxiliary(&pmmap_map->_pair_temp, s_typename);
-    if(!b_result)
-    {
+    if (!b_result) {
         return false;
     }
 
@@ -363,16 +360,13 @@ void _multimap_init_elem_auxiliary(multimap_t* pmmap_map, void* pv_elem)
     assert(_pair_is_inited(&pmmap_map->_pair_temp) || _pair_is_created(&pmmap_map->_pair_temp));
 
     /* initialize new elements */
-    if(pmmap_map->_t_tree._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN)
-    {
+    if (pmmap_map->_t_tree._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(pmmap_map->_t_tree._t_typeinfo._sz_typename, s_elemtypename);
 
         pmmap_map->_t_tree._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = pmmap_map->_t_tree._t_typeinfo._pt_type->_t_typesize;
         pmmap_map->_t_tree._t_typeinfo._pt_type->_t_typeinit(pv_elem, &b_result);
         assert(b_result);

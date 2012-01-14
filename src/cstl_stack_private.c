@@ -49,13 +49,11 @@ stack_t* _create_stack(const char* s_typename)
     assert(s_typename != NULL);
 
     /* allocate memory for stack */
-    if((psk_new = (stack_t*)malloc(sizeof(stack_t))) == NULL)
-    {
+    if ((psk_new = (stack_t*)malloc(sizeof(stack_t))) == NULL) {
         return NULL;
     }
 
-    if(!_create_stack_auxiliary(psk_new, s_typename))
-    {
+    if (!_create_stack_auxiliary(psk_new, s_typename)) {
         free(psk_new);
         return NULL;
     }

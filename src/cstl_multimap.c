@@ -120,8 +120,7 @@ void multimap_init_copy(multimap_t* pmmap_dest, const multimap_t* cpmmap_src)
 
     assert(_multimap_same_pair_type_ex(&pmmap_dest->_pair_temp, &cpmmap_src->_pair_temp));
     /* insert all element from src to dest */
-    if(!multimap_empty(cpmmap_src))
-    {
+    if (!multimap_empty(cpmmap_src)) {
         multimap_insert_range(pmmap_dest, multimap_begin(cpmmap_src), multimap_end(cpmmap_src));
     }
 }
@@ -166,8 +165,7 @@ void multimap_assign(multimap_t* pmmap_dest, const multimap_t* cpmmap_src)
 
     multimap_clear(pmmap_dest);
     /* insert all element from src to dest */
-    if(!multimap_empty(cpmmap_src))
-    {
+    if (!multimap_empty(cpmmap_src)) {
         multimap_insert_range(pmmap_dest, multimap_begin(cpmmap_src), multimap_end(cpmmap_src));
     }
 }
@@ -243,12 +241,9 @@ binary_function_t multimap_key_comp(const multimap_t* cpmmap_map)
     assert(cpmmap_map != NULL);
     assert(_pair_is_inited(&cpmmap_map->_pair_temp));
 
-    if(cpmmap_map->_bfun_keycompare != NULL)
-    {
+    if (cpmmap_map->_bfun_keycompare != NULL) {
         return cpmmap_map->_bfun_keycompare;
-    }
-    else
-    {
+    } else {
         return _GET_MULTIMAP_FIRST_TYPE_LESS_FUNCTION(cpmmap_map);
     }
 }
@@ -293,8 +288,7 @@ bool_t multimap_equal(const multimap_t* cpmmap_first, const multimap_t* cpmmap_s
     assert(_pair_is_inited(&cpmmap_first->_pair_temp));
     assert(_pair_is_inited(&cpmmap_second->_pair_temp));
 
-    if(cpmmap_first->_bfun_keycompare != cpmmap_second->_bfun_keycompare)
-    {
+    if (cpmmap_first->_bfun_keycompare != cpmmap_second->_bfun_keycompare) {
         return false;
     }
 #ifdef CSTL_MULTIMAP_AVL_TREE
@@ -314,8 +308,7 @@ bool_t multimap_not_equal(const multimap_t* cpmmap_first, const multimap_t* cpmm
     assert(_pair_is_inited(&cpmmap_first->_pair_temp));
     assert(_pair_is_inited(&cpmmap_second->_pair_temp));
 
-    if(cpmmap_first->_bfun_keycompare != cpmmap_second->_bfun_keycompare)
-    {
+    if (cpmmap_first->_bfun_keycompare != cpmmap_second->_bfun_keycompare) {
         return true;
     }
 #ifdef CSTL_MULTIMAP_AVL_TREE
@@ -555,8 +548,7 @@ void multimap_insert_range(multimap_t* pmmap_map, iterator_t it_begin, iterator_
     assert(_pair_is_inited(&pmmap_map->_pair_temp));
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
-    {
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         assert(_multimap_same_pair_type(&pmmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
         multimap_insert(pmmap_map, (pair_t*)iterator_get_pointer(it_iter));
     }

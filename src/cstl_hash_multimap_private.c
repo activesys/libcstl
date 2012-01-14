@@ -57,13 +57,11 @@ hash_multimap_t* _create_hash_multimap(const char* s_typename)
 {
     hash_multimap_t* phmmap_map = NULL;
 
-    if((phmmap_map = (hash_multimap_t*)malloc(sizeof(hash_multimap_t))) == NULL)
-    {
+    if ((phmmap_map = (hash_multimap_t*)malloc(sizeof(hash_multimap_t))) == NULL) {
         return NULL;
     }
 
-    if(!_create_hash_multimap_auxiliary(phmmap_map, s_typename))
-    {
+    if (!_create_hash_multimap_auxiliary(phmmap_map, s_typename)) {
         free(phmmap_map);
         return NULL;
     }
@@ -81,8 +79,7 @@ bool_t _create_hash_multimap_auxiliary(hash_multimap_t* phmmap_map, const char* 
     assert(phmmap_map != NULL);
     assert(s_typename != NULL);
 
-    if(!_create_pair_auxiliary(&phmmap_map->_pair_temp, s_typename))
-    {
+    if (!_create_pair_auxiliary(&phmmap_map->_pair_temp, s_typename)) {
         return false;
     }
 
@@ -250,16 +247,13 @@ void _hash_multimap_init_elem_auxiliary(hash_multimap_t* phmmap_map, void* pv_el
     assert(_pair_is_inited(&phmmap_map->_pair_temp) || _pair_is_created(&phmmap_map->_pair_temp));
 
     /* initialize new elements */
-    if(phmmap_map->_t_hashtable._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN)
-    {
+    if (phmmap_map->_t_hashtable._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(phmmap_map->_t_hashtable._t_typeinfo._sz_typename, s_elemtypename);
 
         phmmap_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = phmmap_map->_t_hashtable._t_typeinfo._pt_type->_t_typesize;
         phmmap_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, &b_result);
         assert(b_result);

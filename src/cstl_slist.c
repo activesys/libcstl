@@ -67,13 +67,11 @@ void slist_init_n(slist_t* pslist_slist, size_t t_count)
     assert(_slist_is_created(pslist_slist));
 
     /* allocate memory for n_elemcount slist node */
-    if(t_count > 0)
-    {
+    if (t_count > 0) {
         size_t        i = 0;
         _slistnode_t* pt_node = NULL;
 
-        for(i = 0; i < t_count; ++i)
-        {
+        for (i = 0; i < t_count; ++i) {
             pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
             assert(pt_node != NULL);
             _slist_init_node_auxiliary(pslist_slist, pt_node);
@@ -119,10 +117,9 @@ void slist_init_copy_range(slist_t* pslist_dest, iterator_t it_begin, iterator_t
     /* initialize the dest slist use the iterator slist */
     slist_init_n(pslist_dest, iterator_distance(it_begin, it_end));
     /* copy the element from range [it_begin, it_end) to dest slist */
-    for(it_dest = slist_begin(pslist_dest), it_src = it_begin;
-        !iterator_equal(it_dest, slist_end(pslist_dest)) && !iterator_equal(it_src, it_end);
-        it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
-    {
+    for (it_dest = slist_begin(pslist_dest), it_src = it_begin;
+         !iterator_equal(it_dest, slist_end(pslist_dest)) && !iterator_equal(it_src, it_end);
+         it_dest = iterator_next(it_dest), it_src = iterator_next(it_src)) {
         b_result = _GET_SLIST_TYPE_SIZE(pslist_dest);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_dest)(
             _iterator_get_pointer_ignore_cstr(it_dest),
@@ -190,8 +187,7 @@ size_t slist_size(const slist_t* cpslist_slist)
     assert(_slist_is_inited(cpslist_slist));
 
     /* iterate all element and count the size */
-    for(pt_node = cpslist_slist->_t_head._pt_next; pt_node != NULL; pt_node = pt_node->_pt_next)
-    {
+    for (pt_node = cpslist_slist->_t_head._pt_next; pt_node != NULL; pt_node = pt_node->_pt_next) {
         t_size++;
     }
 
@@ -231,8 +227,7 @@ void slist_assign(slist_t* pslist_dest, const slist_t* cpslist_src)
     assert(_slist_is_inited(cpslist_src));
     assert(_slist_same_type(pslist_dest, cpslist_src));
 
-    if(slist_equal(pslist_dest, cpslist_src))
-    {
+    if (slist_equal(pslist_dest, cpslist_src)) {
         return;
     }
 
@@ -260,10 +255,9 @@ void slist_assign_range(slist_t* pslist_slist, iterator_t it_begin, iterator_t i
     slist_resize(pslist_slist, iterator_distance(it_begin, it_end));
 
     /* copy value from [it_begin, it_end) */
-    for(it_dest = slist_begin(pslist_slist), it_src = it_begin;
-        !iterator_equal(it_dest, slist_end(pslist_slist)) && !iterator_equal(it_src, it_end);
-        it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
-    {
+    for (it_dest = slist_begin(pslist_slist), it_src = it_begin;
+         !iterator_equal(it_dest, slist_end(pslist_slist)) && !iterator_equal(it_src, it_end);
+         it_dest = iterator_next(it_dest), it_src = iterator_next(it_src)) {
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
             _iterator_get_pointer_ignore_cstr(it_dest),
@@ -286,8 +280,7 @@ void slist_swap(slist_t* pslist_first, slist_t* pslist_second)
     assert(_slist_is_inited(pslist_second));
     assert(_slist_same_type(pslist_first, pslist_second));
 
-    if(slist_equal(pslist_first, pslist_second))
-    {
+    if (slist_equal(pslist_first, pslist_second)) {
         return;
     }
 
@@ -306,12 +299,9 @@ void* slist_front(const slist_t* cpslist_slist)
     assert(!slist_empty(cpslist_slist));
 
     /* char* */
-    if(strncmp(_GET_SLIST_TYPE_BASENAME(cpslist_slist), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_SLIST_TYPE_BASENAME(cpslist_slist), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         return (char*)string_c_str((string_t*)cpslist_slist->_t_head._pt_next->_pby_data);
-    }
-    else
-    {
+    } else {
         return cpslist_slist->_t_head._pt_next->_pby_data;
     }
 }
@@ -355,8 +345,7 @@ slist_iterator_t slist_previous(const slist_t* cpslist_slist, slist_iterator_t i
 
     it_prev = slist_begin(cpslist_slist);
     it_iter = iterator_next(it_prev);
-    while(!iterator_equal(it_iter, it_pos))
-    {
+    while (!iterator_equal(it_iter, it_pos)) {
         it_iter = iterator_next(it_iter);
         it_prev = iterator_next(it_prev);
     }
@@ -379,16 +368,14 @@ void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, iterator
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     /* if pos is equal to slist begin iterator */
-    if(iterator_equal(it_pos, slist_begin(pslist_slist)))
-    {
+    if (iterator_equal(it_pos, slist_begin(pslist_slist))) {
         _slistnode_t* pt_begin = NULL;
         _slistnode_t* pt_end = NULL;
         _slistnode_t* pt_node = NULL;
         iterator_t    it_iter;
         bool_t        b_result = false;
 
-        for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
-        {
+        for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
             pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
             assert(pt_node != NULL);
             _slist_init_node_auxiliary(pslist_slist, pt_node);
@@ -400,13 +387,10 @@ void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, iterator
             assert(b_result);
 
             /* make new node link */
-            if(pt_begin == NULL)
-            {
+            if (pt_begin == NULL) {
                 assert(pt_end == NULL);
                 pt_begin = pt_end = pt_node;
-            }
-            else
-            {
+            } else {
                 assert(pt_end != NULL);
                 pt_end->_pt_next = pt_node;
                 pt_end = pt_node;
@@ -415,14 +399,11 @@ void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, iterator
         }
 
         /* insert the range into front pos */
-        if(pt_begin != NULL && pt_end != NULL)
-        {
+        if (pt_begin != NULL && pt_end != NULL) {
             pt_end->_pt_next = pslist_slist->_t_head._pt_next;
             pslist_slist->_t_head._pt_next = pt_begin;
         }
-    }
-    else
-    {
+    } else {
         /* call slist insert after range */
         slist_insert_after_range(pslist_slist, slist_previous(pslist_slist, it_pos), it_begin, it_end);
     }
@@ -451,8 +432,7 @@ void slist_insert_after_range(
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     /* allocate new elements and copy the element from range */
-    for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
-    {
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
         assert(pt_node != NULL);
         _slist_init_node_auxiliary(pslist_slist, pt_node);
@@ -464,13 +444,10 @@ void slist_insert_after_range(
         assert(b_result);
 
         /* make new node link */
-        if(pt_begin == NULL)
-        {
+        if (pt_begin == NULL) {
             assert(pt_end == NULL);
             pt_begin = pt_end = pt_node;
-        }
-        else
-        {
+        } else {
             assert(pt_end != NULL);
             pt_end->_pt_next = pt_node;
             pt_end = pt_node;
@@ -479,8 +456,7 @@ void slist_insert_after_range(
     }
 
     /* insert the range into the pos */
-    if(pt_begin != NULL && pt_end != NULL)
-    {
+    if (pt_begin != NULL && pt_end != NULL) {
         pt_end->_pt_next = ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next;
         ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next = pt_begin;
     }
@@ -500,8 +476,7 @@ slist_iterator_t slist_erase_after(slist_t* pslist_slist, slist_iterator_t it_po
     assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
 
     pt_node = ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next;
-    if(pt_node != NULL)
-    {
+    if (pt_node != NULL) {
         ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next = pt_node->_pt_next;
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_DESTROY_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
@@ -509,9 +484,7 @@ slist_iterator_t slist_erase_after(slist_t* pslist_slist, slist_iterator_t it_po
         _alloc_deallocate(&pslist_slist->_t_allocator, pt_node, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
 
         return iterator_next(it_pos);
-    }
-    else
-    {
+    } else {
         return slist_end(pslist_slist);
     }
 }
@@ -526,13 +499,10 @@ slist_iterator_t slist_erase(slist_t* pslist_slist, slist_iterator_t it_pos)
     assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
     assert(!iterator_equal(it_pos, slist_end(pslist_slist)));
 
-    if(iterator_equal(it_pos, slist_begin(pslist_slist)))
-    {
+    if (iterator_equal(it_pos, slist_begin(pslist_slist))) {
         slist_pop_front(pslist_slist);
         return slist_begin(pslist_slist);
-    }
-    else
-    {
+    } else {
         return slist_erase_after(pslist_slist, slist_previous(pslist_slist, it_pos));
     }
 }
@@ -548,21 +518,17 @@ slist_iterator_t slist_erase_range(slist_t* pslist_slist, slist_iterator_t it_be
     assert(_slist_iterator_belong_to_slist(pslist_slist, it_end));
     assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
 
-    if(iterator_equal(it_begin, slist_begin(pslist_slist)))
-    {
+    if (iterator_equal(it_begin, slist_begin(pslist_slist))) {
         size_t i = 0;
         size_t t_count = iterator_distance(it_begin, it_end);
 
-        for(i = 0; i < t_count; ++i)
-        {
+        for (i = 0; i < t_count; ++i) {
             slist_pop_front(pslist_slist);
         }
         assert(iterator_equal(it_end, slist_begin(pslist_slist)));
 
         return it_end;
-    }
-    else
-    {
+    } else {
         return slist_erase_after_range(pslist_slist, slist_previous(pslist_slist, it_begin), it_end);
     }
 }
@@ -579,8 +545,7 @@ slist_iterator_t slist_erase_after_range(slist_t* pslist_slist, slist_iterator_t
     assert(iterator_equal(it_begin, it_end) || _slist_iterator_before(it_begin, it_end));
     assert(!iterator_equal(it_begin, slist_end(pslist_slist)));
 
-    if(!iterator_equal(it_begin, it_end) && !iterator_equal(iterator_next(it_begin), it_end))
-    {
+    if (!iterator_equal(it_begin, it_end) && !iterator_equal(iterator_next(it_begin), it_end)) {
         _slistnode_t*    pt_begin = NULL;
         _slistnode_t*    pt_end = NULL;
         _slistnode_t*    pt_node = NULL;
@@ -594,8 +559,7 @@ slist_iterator_t slist_erase_after_range(slist_t* pslist_slist, slist_iterator_t
         pt_end->_pt_next = NULL;
         /* destroy all elements and destroy all nodes */
         pt_node = pt_begin;
-        while(pt_node != NULL)
-        {
+        while (pt_node != NULL) {
             pt_begin = pt_node->_pt_next;
 
             b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
@@ -622,8 +586,7 @@ void slist_splice(slist_t* pslist_slist, slist_iterator_t it_pos, slist_t* pslis
     assert(_slist_same_type(pslist_slist, pslist_src));
     assert(_slist_iterator_belong_to_slist(pslist_slist, it_pos));
 
-    if(pslist_slist != pslist_src)
-    {
+    if (pslist_slist != pslist_src) {
         _slist_transfer(it_pos, slist_begin(pslist_src), slist_end(pslist_src));
     }
 }
@@ -701,8 +664,7 @@ void slist_splice_after_pos(slist_t* pslist_slist, slist_iterator_t it_pos, slis
     assert(!iterator_equal(it_prev, slist_end(pslist_src)));
 
     it_prev = iterator_next(it_prev);
-    if(!iterator_equal(it_prev, slist_end(pslist_src)))
-    {
+    if (!iterator_equal(it_prev, slist_end(pslist_src))) {
         _slist_transfer_after(it_pos, it_prev, iterator_next(it_prev));
     }
 }
@@ -747,23 +709,14 @@ void slist_remove_if(slist_t* pslist_slist, unary_function_t ufun_op)
     assert(pslist_slist != NULL);
     assert(_slist_is_inited(pslist_slist));
 
-    if(ufun_op == NULL)
-    {
+    if (ufun_op == NULL) {
         ufun_op = fun_default_unary;
     }
 
     it_pos = slist_begin(pslist_slist);
-    while(!iterator_equal(it_pos, slist_end(pslist_slist)))
-    {
+    while (!iterator_equal(it_pos, slist_end(pslist_slist))) {
         (*ufun_op)(iterator_get_pointer(it_pos), &b_result);
-        if(b_result)
-        {
-            it_pos = slist_erase(pslist_slist, it_pos);
-        }
-        else
-        {
-            it_pos = iterator_next(it_pos);
-        }
+        it_pos = b_result ? slist_erase(pslist_slist, it_pos) : iterator_next(it_pos);
     }
 }
 
@@ -780,12 +733,10 @@ void slist_unique(slist_t* pslist_slist)
     assert(pslist_slist != NULL);
     assert(_slist_is_inited(pslist_slist));
 
-    if(slist_size(pslist_slist) > 1)
-    {
+    if (slist_size(pslist_slist) > 1) {
         it_iter = slist_begin(pslist_slist);
         it_next = iterator_next(it_iter);
-        while(!iterator_equal(it_next, slist_end(pslist_slist)))
-        {
+        while (!iterator_equal(it_next, slist_end(pslist_slist))) {
             b_less = b_greater = _GET_SLIST_TYPE_SIZE(pslist_slist);
             _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
                 ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data,
@@ -793,13 +744,10 @@ void slist_unique(slist_t* pslist_slist)
             _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
                 ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_next))->_pby_data,
                 ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_greater);
-            if(b_less || b_greater)
-            {
+            if (b_less || b_greater) {
                 it_iter = iterator_next(it_iter);
                 it_next = iterator_next(it_next);
-            }
-            else
-            {
+            } else {
                 it_next = slist_erase(pslist_slist, it_next);
             }
         }
@@ -818,25 +766,19 @@ void slist_unique_if(slist_t* pslist_slist, binary_function_t bfun_op)
     assert(pslist_slist != NULL);
     assert(_slist_is_inited(pslist_slist));
 
-    if(bfun_op == NULL)
-    {
+    if (bfun_op == NULL) {
         bfun_op = fun_default_binary;
     }
 
-    if(slist_size(pslist_slist) > 1)
-    {
+    if (slist_size(pslist_slist) > 1) {
         it_iter = slist_begin(pslist_slist);
         it_next = iterator_next(it_iter);
 
-        while(!iterator_equal(it_next, slist_end(pslist_slist)))
-        {
+        while (!iterator_equal(it_next, slist_end(pslist_slist))) {
             (*bfun_op)(iterator_get_pointer(it_iter), iterator_get_pointer(it_next), &b_result);
-            if(b_result)
-            {
+            if (b_result) {
                 it_next = slist_erase(pslist_slist, it_next);
-            }
-            else
-            {
+            } else {
                 it_iter = iterator_next(it_iter);
                 it_next = iterator_next(it_next);
             }
@@ -855,12 +797,10 @@ void slist_reverse(slist_t* pslist_slist)
     assert(pslist_slist != NULL);
     assert(_slist_is_inited(pslist_slist));
 
-    if(slist_size(pslist_slist) > 1)
-    {
+    if (slist_size(pslist_slist) > 1) {
         it_iter = iterator_next(slist_begin(pslist_slist));
 
-        while(!iterator_equal(it_iter, slist_end(pslist_slist)))
-        {
+        while (!iterator_equal(it_iter, slist_end(pslist_slist))) {
             it_next = iterator_next(it_iter);
             _slist_transfer(slist_begin(pslist_slist), it_iter, it_next);
             it_iter = it_next;
@@ -899,19 +839,15 @@ void slist_sort_if(slist_t* pslist_slist, binary_function_t bfun_op)
     assert(pslist_slist != NULL);
     assert(_slist_is_inited(pslist_slist));
 
-    if(bfun_op == NULL)
-    {
+    if (bfun_op == NULL) {
         bfun_op = _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist);
         it_disorder = slist_begin(pslist_slist);
-        while(!iterator_equal(it_disorder, slist_end(pslist_slist)))
-        {
-            for(it_pos = slist_begin(pslist_slist); !iterator_equal(it_pos, it_disorder); it_pos = iterator_next(it_pos))
-            {
+        while (!iterator_equal(it_disorder, slist_end(pslist_slist))) {
+            for (it_pos = slist_begin(pslist_slist); !iterator_equal(it_pos, it_disorder); it_pos = iterator_next(it_pos)) {
                 (*bfun_op)(
                     ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_disorder))->_pby_data,
                     ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pby_data, &b_result);
-                if(b_result)
-                {
+                if (b_result) {
                     it_insert = it_disorder;
                     it_disorder = iterator_next(it_disorder);
                     _slist_transfer(it_pos, it_insert, it_disorder);
@@ -919,22 +855,16 @@ void slist_sort_if(slist_t* pslist_slist, binary_function_t bfun_op)
                 }
             }
 
-            if(iterator_equal(it_pos, it_disorder))
-            {
+            if (iterator_equal(it_pos, it_disorder)) {
                 it_disorder = iterator_next(it_disorder);
             }
         }
-    }
-    else
-    {
+    } else {
         it_disorder = slist_begin(pslist_slist);
-        while(!iterator_equal(it_disorder, slist_end(pslist_slist)))
-        {
-            for(it_pos = slist_begin(pslist_slist); !iterator_equal(it_pos, it_disorder); it_pos = iterator_next(it_pos))
-            {
+        while (!iterator_equal(it_disorder, slist_end(pslist_slist))) {
+            for (it_pos = slist_begin(pslist_slist); !iterator_equal(it_pos, it_disorder); it_pos = iterator_next(it_pos)) {
                 (*bfun_op)(iterator_get_pointer(it_disorder), iterator_get_pointer(it_pos), &b_result);
-                if(b_result)
-                {
+                if (b_result) {
                     it_insert = it_disorder;
                     it_disorder = iterator_next(it_disorder);
                     _slist_transfer(it_pos, it_insert, it_disorder);
@@ -942,8 +872,7 @@ void slist_sort_if(slist_t* pslist_slist, binary_function_t bfun_op)
                 }
             }
 
-            if(iterator_equal(it_pos, it_disorder))
-            {
+            if (iterator_equal(it_pos, it_disorder)) {
                 it_disorder = iterator_next(it_disorder);
             }
         }
@@ -980,44 +909,32 @@ void slist_merge_if(slist_t* pslist_dest, slist_t* pslist_src, binary_function_t
     assert(_slist_same_type(pslist_dest, pslist_src));
 
     /* same slist */
-    if(pslist_dest == pslist_src)
-    {
+    if (pslist_dest == pslist_src) {
         return;
     }
 
-    if(bfun_op == NULL)
-    {
+    if (bfun_op == NULL) {
         bfun_op = _GET_SLIST_TYPE_LESS_FUNCTION(pslist_dest);
         it_dest = slist_begin(pslist_dest); 
-        while(!iterator_equal(it_dest, slist_end(pslist_dest)) && !slist_empty(pslist_src))
-        {
+        while (!iterator_equal(it_dest, slist_end(pslist_dest)) && !slist_empty(pslist_src)) {
             it_src = slist_begin(pslist_src);
             (*bfun_op)(
                 ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_src))->_pby_data,
                 ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_dest))->_pby_data, &b_result);
-            if(b_result)
-            {
+            if (b_result) {
                 _slist_transfer(it_dest, it_src, iterator_next(it_src));
-            }
-            else
-            {
+            } else {
                 it_dest = iterator_next(it_dest);
             }
         }
-    }
-    else
-    {
+    } else {
         it_dest = slist_begin(pslist_dest); 
-        while(!iterator_equal(it_dest, slist_end(pslist_dest)) && !slist_empty(pslist_src))
-        {
+        while (!iterator_equal(it_dest, slist_end(pslist_dest)) && !slist_empty(pslist_src)) {
             it_src = slist_begin(pslist_src);
             (*bfun_op)(iterator_get_pointer(it_src), iterator_get_pointer(it_dest), &b_result);
-            if(b_result)
-            {
+            if (b_result) {
                 _slist_transfer(it_dest, it_src, iterator_next(it_src));
-            }
-            else
-            {
+            } else {
                 it_dest = iterator_next(it_dest);
             }
         }
@@ -1025,8 +942,7 @@ void slist_merge_if(slist_t* pslist_dest, slist_t* pslist_src, binary_function_t
 
     /* if the src is not empty */
     it_src = slist_begin(pslist_src);
-    if(!iterator_equal(it_src, slist_end(pslist_src)))
-    {
+    if (!iterator_equal(it_src, slist_end(pslist_src))) {
         assert(iterator_equal(it_dest, slist_end(pslist_dest)));
         _slist_transfer(it_dest, it_src, slist_end(pslist_src));
     }
@@ -1058,25 +974,18 @@ void slist_resize(slist_t* pslist_slist, size_t t_resize)
     assert(_slist_is_inited(pslist_slist));
 
     t_size = slist_size(pslist_slist);
-    if(t_resize <= t_size)
-    {
+    if (t_resize <= t_size) {
         it_pos = iterator_advance(slist_begin(pslist_slist), t_resize);
         slist_erase_range(pslist_slist, it_pos, slist_end(pslist_slist));
-    }
-    else
-    {
-        if(!slist_empty(pslist_slist))
-        {
+    } else {
+        if (!slist_empty(pslist_slist)) {
             it_pos = slist_previous(pslist_slist, slist_end(pslist_slist));
             pt_pos = (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos);
-        }
-        else
-        {
+        } else {
             pt_pos = &pslist_slist->_t_head;
         }
 
-        for(i = 0; i < t_resize - t_size; ++i)
-        {
+        for (i = 0; i < t_resize - t_size; ++i) {
             pt_node = _alloc_allocate(&pslist_slist->_t_allocator, _SLIST_NODE_SIZE(_GET_SLIST_TYPE_SIZE(pslist_slist)), 1);
             assert(pt_node != NULL);
             _slist_init_node_auxiliary(pslist_slist, pt_node);
@@ -1104,27 +1013,23 @@ bool_t slist_equal(const slist_t* cpslist_first, const slist_t* cpslist_second)
     assert(_slist_is_inited(cpslist_second));
 
     /* same slist */
-    if(cpslist_first == cpslist_second)
-    {
+    if (cpslist_first == cpslist_second) {
         return true;
     }
 
     /* test element type */
-    if(!_slist_same_type(cpslist_first, cpslist_second))
-    {
+    if (!_slist_same_type(cpslist_first, cpslist_second)) {
         return false;
     }
 
     /* test slist size */
-    if(slist_size(cpslist_first) != slist_size(cpslist_second))
-    {
+    if (slist_size(cpslist_first) != slist_size(cpslist_second)) {
         return false;
     }
 
-    for(it_first = slist_begin(cpslist_first), it_second = slist_begin(cpslist_second);
-        !iterator_equal(it_first, slist_end(cpslist_first)) && !iterator_equal(it_second, slist_end(cpslist_second));
-        it_first = iterator_next(it_first), it_second = iterator_next(it_second))
-    {
+    for (it_first = slist_begin(cpslist_first), it_second = slist_begin(cpslist_second);
+         !iterator_equal(it_first, slist_end(cpslist_first)) && !iterator_equal(it_second, slist_end(cpslist_second));
+         it_first = iterator_next(it_first), it_second = iterator_next(it_second)) {
         b_less = b_greater = _GET_SLIST_TYPE_SIZE(cpslist_first);
         _GET_SLIST_TYPE_LESS_FUNCTION(cpslist_first)(
             ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first))->_pby_data,
@@ -1132,8 +1037,7 @@ bool_t slist_equal(const slist_t* cpslist_first, const slist_t* cpslist_second)
         _GET_SLIST_TYPE_LESS_FUNCTION(cpslist_first)(
             ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second))->_pby_data,
             ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first))->_pby_data, &b_greater);
-        if(b_less || b_greater)
-        {
+        if (b_less || b_greater) {
             return false;
         }
     }
@@ -1166,21 +1070,18 @@ bool_t slist_less(const slist_t* cpslist_first, const slist_t* cpslist_second)
     assert(_slist_same_type(cpslist_first, cpslist_second));
 
     /* same slist */
-    if(cpslist_first == cpslist_second)
-    {
+    if (cpslist_first == cpslist_second) {
         return false;
     }
 
-    for(it_first = slist_begin(cpslist_first), it_second = slist_begin(cpslist_second);
-        !iterator_equal(it_first, slist_end(cpslist_first)) && !iterator_equal(it_second, slist_end(cpslist_second));
-        it_first = iterator_next(it_first), it_second = iterator_next(it_second))
-    {
+    for (it_first = slist_begin(cpslist_first), it_second = slist_begin(cpslist_second);
+         !iterator_equal(it_first, slist_end(cpslist_first)) && !iterator_equal(it_second, slist_end(cpslist_second));
+         it_first = iterator_next(it_first), it_second = iterator_next(it_second)) {
         b_result = _GET_SLIST_TYPE_SIZE(cpslist_first);
         _GET_SLIST_TYPE_LESS_FUNCTION(cpslist_first)(
             ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first))->_pby_data,
             ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second))->_pby_data, &b_result);
-        if(b_result)
-        {
+        if (b_result) {
             return true;
         }
 
@@ -1188,8 +1089,7 @@ bool_t slist_less(const slist_t* cpslist_first, const slist_t* cpslist_second)
         _GET_SLIST_TYPE_LESS_FUNCTION(cpslist_first)(
             ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second))->_pby_data,
             ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first))->_pby_data, &b_result);
-        if(b_result)
-        {
+        if (b_result) {
             return false;
         }
     }

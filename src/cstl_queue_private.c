@@ -49,13 +49,11 @@ queue_t* _create_queue(const char* s_typename)
     assert(s_typename != NULL);
 
     /* allocate memory for queue */
-    if((pque_new = (queue_t*)malloc(sizeof(queue_t))) == NULL)
-    {
+    if ((pque_new = (queue_t*)malloc(sizeof(queue_t))) == NULL) {
         return NULL;
     }
 
-    if(!_create_queue_auxiliary(pque_new, s_typename))
-    {
+    if (!_create_queue_auxiliary(pque_new, s_typename)) {
         free(pque_new);
         return NULL;
     }

@@ -82,13 +82,11 @@ void list_init_n(list_t* plist_list, size_t t_count)
     plist_list->_pt_node->_pt_next = plist_list->_pt_node;
     plist_list->_pt_node->_pt_prev = plist_list->_pt_node;
 
-    if(t_count > 0)
-    {
+    if (t_count > 0) {
         size_t       t_index = 0;
         _listnode_t* pt_node = NULL;
 
-        for(t_index = 0; t_index < t_count; ++t_index)
-        {
+        for (t_index = 0; t_index < t_count; ++t_index) {
             pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
             assert(pt_node != NULL);
             _list_init_node_auxiliary(plist_list, pt_node);
@@ -150,10 +148,9 @@ void list_init_copy_range(list_t* plist_list, iterator_t it_begin, iterator_t it
      */
     list_init_n(plist_list, iterator_distance(it_begin, it_end));
     /* copy the element from the range [it_begin, it_end) to now list */
-    for(it_dest = list_begin(plist_list), it_src = it_begin;
-        !iterator_equal(it_dest, list_end(plist_list)) && !iterator_equal(it_src, it_end);
-        it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
-    {
+    for (it_dest = list_begin(plist_list), it_src = it_begin;
+         !iterator_equal(it_dest, list_end(plist_list)) && !iterator_equal(it_src, it_end);
+         it_dest = iterator_next(it_dest), it_src = iterator_next(it_src)) {
         b_result = _GET_LIST_TYPE_SIZE(plist_list);
         _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
             _iterator_get_pointer_ignore_cstr(it_dest),
@@ -174,8 +171,7 @@ size_t list_size(const list_t* cplist_list)
     assert(cplist_list != NULL);
     assert(_list_is_inited(cplist_list));
     
-    for(pt_node = cplist_list->_pt_node->_pt_next; pt_node != cplist_list->_pt_node; pt_node = pt_node->_pt_next)
-    {
+    for (pt_node = cplist_list->_pt_node->_pt_next; pt_node != cplist_list->_pt_node; pt_node = pt_node->_pt_next) {
         t_listsize++;
     }
 
@@ -190,13 +186,10 @@ bool_t list_empty(const list_t* cplist_list)
     assert(cplist_list != NULL);
     assert(_list_is_inited(cplist_list));
 
-    if(cplist_list->_pt_node->_pt_next == cplist_list->_pt_node)
-    {
+    if (cplist_list->_pt_node->_pt_next == cplist_list->_pt_node) {
         assert(cplist_list->_pt_node->_pt_prev == cplist_list->_pt_node);
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -227,30 +220,25 @@ bool_t list_equal(const list_t* cplist_first, const list_t* cplist_second)
     assert(_list_is_inited(cplist_first));
     assert(_list_is_inited(cplist_second));
 
-    if(cplist_first == cplist_second)
-    {
+    if (cplist_first == cplist_second) {
         return true;
     }
     /* test type identification */
-    if(!_list_same_type(cplist_first, cplist_second))
-    {
+    if (!_list_same_type(cplist_first, cplist_second)) {
         return false;
     }
     /* test size */
-    if(list_size(cplist_first) != list_size(cplist_second))
-    {
+    if (list_size(cplist_first) != list_size(cplist_second)) {
         return false;
     }
     /* test each element */
-    for(pt_first = cplist_first->_pt_node->_pt_next, pt_second = cplist_second->_pt_node->_pt_next;
-        pt_first != cplist_first->_pt_node && pt_second != cplist_second->_pt_node;
-        pt_first = pt_first->_pt_next, pt_second = pt_second->_pt_next)
-    {
+    for (pt_first = cplist_first->_pt_node->_pt_next, pt_second = cplist_second->_pt_node->_pt_next;
+         pt_first != cplist_first->_pt_node && pt_second != cplist_second->_pt_node;
+         pt_first = pt_first->_pt_next, pt_second = pt_second->_pt_next) {
         b_less = b_greater = _GET_LIST_TYPE_SIZE(cplist_first);
         _GET_LIST_TYPE_LESS_FUNCTION(cplist_first)(pt_first->_pby_data, pt_second->_pby_data, &b_less);
         _GET_LIST_TYPE_LESS_FUNCTION(cplist_first)(pt_second->_pby_data, pt_first->_pby_data, &b_greater);
-        if(b_less || b_greater)
-        {
+        if (b_less || b_greater) {
             return false;
         }
     }
@@ -282,21 +270,18 @@ bool_t list_less(const list_t* cplist_first, const list_t* cplist_second)
     assert(_list_is_inited(cplist_second));
     assert(_list_same_type(cplist_first, cplist_second));
 
-    for(pt_first = cplist_first->_pt_node->_pt_next, pt_second = cplist_second->_pt_node->_pt_next;
-        pt_first != cplist_first->_pt_node && pt_second != cplist_second->_pt_node;
-        pt_first = pt_first->_pt_next, pt_second = pt_second->_pt_next)
-    {
+    for (pt_first = cplist_first->_pt_node->_pt_next, pt_second = cplist_second->_pt_node->_pt_next;
+         pt_first != cplist_first->_pt_node && pt_second != cplist_second->_pt_node;
+         pt_first = pt_first->_pt_next, pt_second = pt_second->_pt_next) {
         b_result = _GET_LIST_TYPE_SIZE(cplist_first);
         _GET_LIST_TYPE_LESS_FUNCTION(cplist_first)(pt_first->_pby_data, pt_second->_pby_data, &b_result);
-        if(b_result)
-        {
+        if (b_result) {
             return true;
         }
 
         b_result = _GET_LIST_TYPE_SIZE(cplist_first);
         _GET_LIST_TYPE_LESS_FUNCTION(cplist_first)(pt_second->_pby_data, pt_first->_pby_data, &b_result);
-        if(b_result)
-        {
+        if (b_result) {
             return false;
         }
     }
@@ -339,8 +324,7 @@ void list_assign(list_t* plist_dest, const list_t* cplist_src)
     assert(_list_is_inited(cplist_src));
     assert(_list_same_type(plist_dest, cplist_src));
 
-    if(list_equal(plist_dest, cplist_src))
-    {
+    if (list_equal(plist_dest, cplist_src)) {
         return;
     }
 
@@ -367,10 +351,9 @@ void list_assign_range(list_t* plist_list, iterator_t it_begin, iterator_t it_en
     list_resize(plist_list, iterator_distance(it_begin, it_end));
 
     /* copy value form varg */
-    for(it_dest = list_begin(plist_list), it_src = it_begin;
-        !iterator_equal(it_dest, list_end(plist_list)) && !iterator_equal(it_src, it_end);
-        it_dest = iterator_next(it_dest), it_src = iterator_next(it_src))
-    {
+    for (it_dest = list_begin(plist_list), it_src = it_begin;
+         !iterator_equal(it_dest, list_end(plist_list)) && !iterator_equal(it_src, it_end);
+         it_dest = iterator_next(it_dest), it_src = iterator_next(it_src)) {
         b_result = _GET_LIST_TYPE_SIZE(plist_list);
         _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
             _iterator_get_pointer_ignore_cstr(it_dest),
@@ -393,8 +376,7 @@ void list_swap(list_t* plist_first, list_t* plist_second)
     assert(_list_is_inited(plist_second));
     assert(_list_same_type(plist_first, plist_second));
 
-    if(list_equal(plist_first, plist_second))
-    {
+    if (list_equal(plist_first, plist_second)) {
         return;
     }
 
@@ -510,8 +492,7 @@ void list_insert_range(list_t* plist_list, list_iterator_t it_pos, iterator_t it
     assert(_list_same_iterator_type(plist_list, it_end));
 
     /* allocate the copy list of range [it_begin, it_end) */
-    for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
-    {
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
         assert(pt_node != NULL);
         pt_node->_pt_next = pt_node->_pt_prev = NULL;
@@ -521,13 +502,10 @@ void list_insert_range(list_t* plist_list, list_iterator_t it_pos, iterator_t it
             pt_node->_pby_data, _iterator_get_pointer_ignore_cstr(it_iter), &b_result);
         assert(b_result);
 
-        if(plist_begin == NULL)
-        {
+        if (plist_begin == NULL) {
             assert(plist_end == NULL);
             plist_begin = plist_end = pt_node;
-        }
-        else
-        {
+        } else {
             assert(plist_end != NULL);
             plist_end->_pt_next = pt_node;
             pt_node->_pt_prev = plist_end;
@@ -536,8 +514,7 @@ void list_insert_range(list_t* plist_list, list_iterator_t it_pos, iterator_t it
         pt_node = NULL;
     }
     /* insert the list into the list */
-    if(plist_begin != NULL && plist_end != NULL)
-    {
+    if (plist_begin != NULL && plist_end != NULL) {
         plist_begin->_pt_prev = ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev;
         plist_end->_pt_next = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos);
         ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev->_pt_next = plist_begin;
@@ -629,8 +606,7 @@ list_iterator_t list_erase_range(list_t* plist_list, list_iterator_t it_begin, l
     assert(_list_iterator_belong_to_list(plist_list, it_end));
     assert(iterator_equal(it_begin, it_end) || _list_iterator_before(it_begin, it_end));
 
-    while(!iterator_equal(it_begin, it_end))
-    {
+    while (!iterator_equal(it_begin, it_end)) {
         it_begin = list_erase(plist_list, it_begin);
     }
 
@@ -648,23 +624,14 @@ void list_remove_if(list_t* plist_list, unary_function_t ufun_op)
     assert(plist_list != NULL);
     assert(_list_is_inited(plist_list));
 
-    if(ufun_op == NULL)
-    {
+    if (ufun_op == NULL) {
         ufun_op = fun_default_unary;
     }
 
     it_pos = list_begin(plist_list);
-    while(!iterator_equal(it_pos, list_end(plist_list)))
-    {
+    while (!iterator_equal(it_pos, list_end(plist_list))) {
         (*ufun_op)(iterator_get_pointer(it_pos), &b_result);
-        if(b_result)
-        {
-            it_pos = list_erase(plist_list, it_pos);
-        }
-        else
-        {
-            it_pos = iterator_next(it_pos);
-        }
+        it_pos = b_result ? list_erase(plist_list, it_pos) : iterator_next(it_pos);
     }
 }
 
@@ -681,17 +648,12 @@ void list_resize(list_t* plist_list, size_t t_resize)
     assert(_list_is_inited(plist_list));
 
     t_size = list_size(plist_list);
-    if(t_resize < t_size)
-    {
-        for(i = 0; i < t_size - t_resize; ++i)
-        {
+    if (t_resize < t_size) {
+        for (i = 0; i < t_size - t_resize; ++i) {
             list_pop_back(plist_list);
         }
-    }
-    else
-    {
-        for(i = 0; i < t_resize - t_size; ++i)
-        {
+    } else {
+        for (i = 0; i < t_resize - t_size; ++i) {
             pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
             assert(pt_node != NULL);
             _list_init_node_auxiliary(plist_list, pt_node);
@@ -730,17 +692,13 @@ void list_unique(list_t* plist_list)
     assert(_list_is_inited(plist_list));
 
     pt_node = plist_list->_pt_node->_pt_next->_pt_next;
-    while(pt_node != plist_list->_pt_node)
-    {
+    while (pt_node != plist_list->_pt_node) {
         b_less = b_greater = _GET_LIST_TYPE_SIZE(plist_list);
         _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(pt_node->_pt_prev->_pby_data, pt_node->_pby_data, &b_less);
         _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(pt_node->_pby_data, pt_node->_pt_prev->_pby_data, &b_greater);
-        if(b_less || b_greater)
-        {
+        if (b_less || b_greater) {
             pt_node = pt_node->_pt_next;
-        }
-        else
-        {
+        } else {
             it_pos = _create_list_iterator();
             _ITERATOR_CONTAINER(it_pos) = plist_list;
             _LIST_ITERATOR_COREPOS(it_pos) = (_byte_t*)pt_node;
@@ -762,27 +720,21 @@ void list_unique_if(list_t* plist_list, binary_function_t bfun_op)
     assert(plist_list != NULL);
     assert(_list_is_inited(plist_list));
 
-    if(bfun_op == NULL)
-    {
+    if (bfun_op == NULL) {
         bfun_op = fun_default_binary;
     }
 
-    if(list_size(plist_list) <= 1)
-    {
+    if (list_size(plist_list) <= 1) {
         return;
     }
 
     it_prev = list_begin(plist_list);
     it_pos = iterator_next(it_prev);
-    while(!iterator_equal(it_pos, list_end(plist_list)))
-    {
+    while (!iterator_equal(it_pos, list_end(plist_list))) {
         (*bfun_op)(iterator_get_pointer(it_prev), iterator_get_pointer(it_pos), &b_result);
-        if(b_result)
-        {
+        if (b_result) {
             it_pos = list_erase(plist_list, it_pos);
-        }
-        else
-        {
+        } else {
             it_prev = iterator_next(it_prev);
             it_pos = iterator_next(it_pos);
         }
@@ -801,8 +753,7 @@ void list_splice(list_t* plist_list, list_iterator_t it_pos, list_t* plist_src)
     assert(_list_same_type(plist_list, plist_src));
     assert(_list_iterator_belong_to_list(plist_list, it_pos));
 
-    if(plist_list != plist_src)
-    {
+    if (plist_list != plist_src) {
         _list_transfer(it_pos, list_begin(plist_src), list_end(plist_src));
     }
 }
@@ -908,52 +859,39 @@ void list_merge_if(list_t* plist_dest, list_t* plist_src, binary_function_t bfun
     assert(_list_is_inited(plist_src));
     assert(_list_same_type(plist_dest, plist_src));
 
-    if(plist_dest == plist_src)
-    {
+    if (plist_dest == plist_src) {
         return;
     }
 
-    if(bfun_op == NULL)
-    {
+    if (bfun_op == NULL) {
         it_dest = list_begin(plist_dest);
         it_src = list_begin(plist_src);
-        while(!iterator_equal(it_dest, list_end(plist_dest)) && !iterator_equal(it_src, list_end(plist_src)))
-        {
+        while (!iterator_equal(it_dest, list_end(plist_dest)) && !iterator_equal(it_src, list_end(plist_src))) {
             _GET_LIST_TYPE_LESS_FUNCTION(plist_dest)(
                 ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_src))->_pby_data,
                 ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_dest))->_pby_data, &b_result);
-            if(b_result)
-            {
+            if (b_result) {
                 it_src = iterator_next(it_src);
                 _list_transfer(it_dest, iterator_prev(it_src), it_src);
-            }
-            else
-            {
+            } else {
                 it_dest = iterator_next(it_dest);
             }
         }
-    }
-    else
-    {
+    } else {
         it_dest = list_begin(plist_dest);
         it_src = list_begin(plist_src);
-        while(!iterator_equal(it_dest, list_end(plist_dest)) && !iterator_equal(it_src, list_end(plist_src)))
-        {
+        while (!iterator_equal(it_dest, list_end(plist_dest)) && !iterator_equal(it_src, list_end(plist_src))) {
             (*bfun_op)(iterator_get_pointer(it_src), iterator_get_pointer(it_dest), &b_result);
-            if(b_result)
-            {
+            if (b_result) {
                 it_src = iterator_next(it_src);
                 _list_transfer(it_dest, iterator_prev(it_src), it_src);
-            }
-            else
-            {
+            } else {
                 it_dest = iterator_next(it_dest);
             }
         }
     }
 
-    if(!iterator_equal(it_src, list_end(plist_src)))
-    {
+    if (!iterator_equal(it_src, list_end(plist_src))) {
         _list_transfer(list_end(plist_dest), it_src, list_end(plist_src));
     }
 }
@@ -968,11 +906,9 @@ void list_reverse(list_t* plist_list)
     assert(plist_list != NULL);
     assert(_list_is_inited(plist_list));
 
-    if(list_size(plist_list) > 1)
-    {
+    if (list_size(plist_list) > 1) {
         it_pos = iterator_next(list_begin(plist_list));
-        while(!iterator_equal(it_pos, list_end(plist_list)))
-        {
+        while (!iterator_equal(it_pos, list_end(plist_list))) {
             it_pos = iterator_next(it_pos);
             _list_transfer(list_begin(plist_list), iterator_prev(it_pos), it_pos);
         }

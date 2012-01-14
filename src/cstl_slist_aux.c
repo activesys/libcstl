@@ -61,15 +61,12 @@ bool_t _slist_iterator_belong_to_slist(const slist_t* cpslist_slist, slist_itera
     assert(_SLIST_ITERATOR_ITERATOR_TYPE(it_iter) == _FORWARD_ITERATOR);
 
     /* the end iterator of slist corepos is NULL */
-    if(_SLIST_ITERATOR_COREPOS(it_iter) == NULL)
-    {
+    if (_SLIST_ITERATOR_COREPOS(it_iter) == NULL) {
         return true;
     }
 
-    for(pt_node = cpslist_slist->_t_head._pt_next; pt_node != NULL; pt_node = pt_node->_pt_next)
-    {
-        if(pt_node == (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))
-        {
+    for (pt_node = cpslist_slist->_t_head._pt_next; pt_node != NULL; pt_node = pt_node->_pt_next) {
+        if (pt_node == (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter)) {
             return true;
         }
     }
@@ -109,20 +106,17 @@ bool_t _slist_is_created(const slist_t* cpslist_slist)
 {
     assert(cpslist_slist != NULL);
 
-    if(cpslist_slist->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpslist_slist->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpslist_slist->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpslist_slist->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpslist_slist->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpslist_slist->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
 
-    if(cpslist_slist->_t_typeinfo._pt_type == NULL)
-    {
+    if (cpslist_slist->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(cpslist_slist->_t_head._pt_next != NULL)
-    {
+    if (cpslist_slist->_t_head._pt_next != NULL) {
         return false;
     }
 
@@ -136,15 +130,13 @@ bool_t _slist_is_inited(const slist_t* cpslist_slist)
 {
     assert(cpslist_slist != NULL);
 
-    if(cpslist_slist->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpslist_slist->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpslist_slist->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpslist_slist->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpslist_slist->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpslist_slist->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
 
-    if(cpslist_slist->_t_typeinfo._pt_type == NULL)
-    {
+    if (cpslist_slist->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
@@ -162,8 +154,7 @@ bool_t _slist_same_type(const slist_t* cpslist_first, const slist_t* cpslist_sec
     assert(_slist_is_inited(cpslist_first) || _slist_is_created(cpslist_first));
     assert(_slist_is_inited(cpslist_second) || _slist_is_created(cpslist_second));
 
-    if(cpslist_first == cpslist_second)
-    {
+    if (cpslist_first == cpslist_second) {
         return true;
     }
 
@@ -186,21 +177,18 @@ void _slist_transfer_after(slist_iterator_t it_pos, slist_iterator_t it_begin, s
     assert(_slist_same_slist_iterator_type(_SLIST_ITERATOR_CONTAINER(it_pos), it_begin));
 
     /* empty range */
-    if(iterator_equal(it_begin, it_end))
-    {
+    if (iterator_equal(it_begin, it_end)) {
         return;
     }
 
     /* same slist container */
-    if(_SLIST_ITERATOR_CONTAINER(it_pos) == _SLIST_ITERATOR_CONTAINER(it_begin))
-    {
+    if (_SLIST_ITERATOR_CONTAINER(it_pos) == _SLIST_ITERATOR_CONTAINER(it_begin)) {
         iterator_t it_iter = iterator_next(it_pos);
 
         assert(iterator_equal(it_iter, it_begin) || iterator_equal(it_iter, it_end) ||
                _slist_iterator_before(it_iter, it_begin) || _slist_iterator_before(it_end, it_iter));
 
-        if(iterator_equal(it_iter, it_begin) || iterator_equal(it_iter, it_end))
-        {
+        if (iterator_equal(it_iter, it_begin) || iterator_equal(it_iter, it_end)) {
             return;
         }
     }
@@ -222,19 +210,16 @@ void _slist_transfer(slist_iterator_t it_pos, slist_iterator_t it_begin, slist_i
     assert(_slist_same_slist_iterator_type(_SLIST_ITERATOR_CONTAINER(it_pos), it_begin));
 
     /* empty range */
-    if(iterator_equal(it_begin, it_end))
-    {
+    if (iterator_equal(it_begin, it_end)) {
         return;
     }
 
     /* same slist container */
-    if(_SLIST_ITERATOR_CONTAINER(it_pos) == _SLIST_ITERATOR_CONTAINER(it_begin))
-    {
+    if (_SLIST_ITERATOR_CONTAINER(it_pos) == _SLIST_ITERATOR_CONTAINER(it_begin)) {
         assert(iterator_equal(it_pos, it_begin) || iterator_equal(it_pos, it_end) ||
                _slist_iterator_before(it_pos, it_begin) || _slist_iterator_before(it_end, it_pos));
 
-        if(iterator_equal(it_pos, it_begin) || iterator_equal(it_pos, it_end))
-        {
+        if (iterator_equal(it_pos, it_begin) || iterator_equal(it_pos, it_end)) {
             return;
         }
     }
@@ -282,16 +267,13 @@ void _slist_init_node_auxiliary(slist_t* pslist_slist, _slistnode_t* pt_node)
     assert(_slist_is_inited(pslist_slist) || _slist_is_created(pslist_slist));
 
     /* initialize new elements */
-    if(_GET_SLIST_TYPE_STYLE(pslist_slist) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_SLIST_TYPE_STYLE(pslist_slist) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_SLIST_TYPE_NAME(pslist_slist), s_elemtypename);
 
         _GET_SLIST_TYPE_INIT_FUNCTION(pslist_slist)(pt_node->_pby_data, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_INIT_FUNCTION(pslist_slist)(pt_node->_pby_data, &b_result);
         assert(b_result);

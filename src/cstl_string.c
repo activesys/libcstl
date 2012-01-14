@@ -120,8 +120,7 @@ void string_init_copy_substring(string_t* pstr_dest, const string_t* cpstr_src, 
     assert(t_pos < string_size(cpstr_src));
 
     basic_string_init_copy_substring(pstr_dest, cpstr_src, t_pos, t_len);
-    if(t_len != NPOS && t_pos + t_len <= string_size(cpstr_src))
-    {
+    if (t_len != NPOS && t_pos + t_len <= string_size(cpstr_src)) {
         basic_string_push_back(pstr_dest, '\0');
     }
 }
@@ -135,8 +134,7 @@ void string_init_copy_range(string_t* pstr_string, string_iterator_t it_begin, s
     assert(pstr_string != NULL);
 
     basic_string_init_copy_range(pstr_string, it_begin, it_end);
-    if(!iterator_equal(it_end, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_end))))
-    {
+    if (!iterator_equal(it_end, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_end)))) {
         basic_string_push_back(pstr_string, '\0');
     }
 }
@@ -458,8 +456,7 @@ void string_connect(string_t* pstr_string, const string_t* cpstr_src)
     _basic_string_pop_back(pstr_string);
     basic_string_connect(pstr_string, cpstr_src);
 
-    if(pstr_string == cpstr_src)
-    {
+    if (pstr_string == cpstr_src) {
         basic_string_push_back(pstr_string, '\0');
     }
 }
@@ -804,12 +801,9 @@ string_iterator_t string_end(const string_t* cpstr_string)
 
 string_reverse_iterator_t string_rbegin(const string_t* cpstr_string)
 {
-    if(string_empty(cpstr_string))
-    {
+    if (string_empty(cpstr_string)) {
         return basic_string_rbegin(cpstr_string);
-    }
-    else
-    {
+    } else {
         return iterator_prev(basic_string_rbegin(cpstr_string));
     }
 }
@@ -1222,10 +1216,8 @@ void string_input(string_t* pstr_string, FILE* fp_stream)
 
     clearerr(fp_stream);
     string_clear(pstr_string);
-    while(!feof(fp_stream) && !ferror(fp_stream) && string_size(pstr_string) < string_max_size(pstr_string))
-    {
-        if((n_char = fgetc(fp_stream)) != EOF)
-        {
+    while (!feof(fp_stream) && !ferror(fp_stream) && string_size(pstr_string) < string_max_size(pstr_string)) {
+        if ((n_char = fgetc(fp_stream)) != EOF) {
             string_push_back(pstr_string, (char)n_char);
         }
     }
@@ -1246,27 +1238,21 @@ bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
 
     clearerr(fp_stream);
     string_clear(pstr_string);
-    while(!feof(fp_stream) && !ferror(fp_stream) && n_char != '\n' &&
-          string_size(pstr_string) < string_max_size(pstr_string))
-    {
+    while (!feof(fp_stream) && !ferror(fp_stream) && n_char != '\n' &&
+           string_size(pstr_string) < string_max_size(pstr_string)) {
         n_char = fgetc(fp_stream);
-        if(n_char != '\n' && n_char != EOF)
-        {
+        if (n_char != '\n' && n_char != EOF) {
 #ifdef _WIN32
             /* new line is '\r\n' in Windows */
-            if(n_prevchar != EOF)
-            {
+            if (n_prevchar != EOF) {
                 assert(n_prevchar == '\r');
                 string_push_back(pstr_string, (char)n_prevchar);
                 n_prevchar = EOF;
             }
-            if(n_char == '\r')
-            {
+            if (n_char == '\r') {
                 assert(n_prevchar == EOF);
                 n_prevchar = n_char;
-            }
-            else
-            {
+            } else {
                 string_push_back(pstr_string, (char)n_char);
             }
 #else
@@ -1276,10 +1262,8 @@ bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
     }
 
 #ifdef _WIN32
-    if(feof(fp_stream))
-    {
-        if(n_prevchar != EOF)
-        {
+    if (feof(fp_stream)) {
+        if (n_prevchar != EOF) {
             assert(n_prevchar == '\r');
             string_push_back(pstr_string, (char)n_prevchar);
             n_prevchar = EOF;
@@ -1289,14 +1273,7 @@ bool_t string_getline(string_t* pstr_string, FILE* fp_stream)
     }
 #endif
 
-    if((char)n_char == '\n')
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return (char)n_char == '\n' ? true : false;
 }
 
 /**
@@ -1309,32 +1286,20 @@ bool_t string_getline_delimiter(string_t* pstr_string, FILE* fp_stream, char c_d
     assert(pstr_string != NULL);
     assert(fp_stream != NULL);
 
-    if(c_delimiter == '\n')
-    {
+    if (c_delimiter == '\n') {
         return string_getline(pstr_string, fp_stream);
-    }
-    else
-    {
+    } else {
         clearerr(fp_stream);
         string_clear(pstr_string);
-        while(!feof(fp_stream) && !ferror(fp_stream) && (char)n_char != c_delimiter &&
-              string_size(pstr_string) < string_max_size(pstr_string))
-        {
+        while (!feof(fp_stream) && !ferror(fp_stream) && (char)n_char != c_delimiter &&
+               string_size(pstr_string) < string_max_size(pstr_string)) {
             n_char = fgetc(fp_stream);
-            if((char)n_char != c_delimiter && n_char != EOF)
-            {
+            if ((char)n_char != c_delimiter && n_char != EOF) {
                 string_push_back(pstr_string, (char)n_char);
             }
         }
 
-        if((char)n_char == c_delimiter)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return (char)n_char == c_delimiter ? true : false;
     }
 }
 

@@ -66,8 +66,7 @@ bool_t _multimap_same_pair_type(const pair_t* cppair_first, const pair_t* cppair
     assert(_pair_is_inited(cppair_first) || _pair_is_created(cppair_first));
     assert(_pair_is_inited(cppair_second) || _pair_is_created(cppair_second));
 
-    if(cppair_first == cppair_second)
-    {
+    if (cppair_first == cppair_second) {
         return true;
     }
 
@@ -89,8 +88,7 @@ bool_t _multimap_same_pair_type_ex(const pair_t* cppair_first, const pair_t* cpp
     assert(_pair_is_inited(cppair_first) || _pair_is_created(cppair_first));
     assert(_pair_is_inited(cppair_second) || _pair_is_created(cppair_second));
 
-    if(cppair_first == cppair_second)
-    {
+    if (cppair_first == cppair_second) {
         return true;
     }
 
@@ -123,12 +121,9 @@ void _multimap_value_compare(const void* cpv_first, const void* cpv_second, void
     assert(_multimap_same_pair_type_ex(ppair_first, ppair_second));
 
     *(bool_t*)pv_output = ppair_first->_t_typeinfofirst._pt_type->_t_typesize;
-    if(ppair_first->_bfun_mapkeycompare != NULL)
-    {
+    if (ppair_first->_bfun_mapkeycompare != NULL) {
         ppair_first->_bfun_mapkeycompare(pair_first(ppair_first), pair_first(ppair_second), pv_output);
-    }
-    else
-    {
+    } else {
         ppair_first->_t_typeinfofirst._pt_type->_t_typeless(ppair_first->_pv_first, ppair_second->_pv_first, pv_output);
     }
 }

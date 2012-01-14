@@ -46,19 +46,14 @@ void* _alloc_malloc_out_of_memory(size_t t_memsize)
 {
     void* pv_allocmem = NULL;       /* point to allocated memory */
 
-    for(;;)
-    {
-        if(_gpfun_malloc_handler == NULL)
-        {
+    for (;;) {
+        if (_gpfun_malloc_handler == NULL) {
             fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
             exit(EXIT_FAILURE);
             return NULL;
-        }
-        else
-        {
+        } else {
             (*_gpfun_malloc_handler)();
-            if((pv_allocmem = malloc(t_memsize)) != NULL)
-            {
+            if ((pv_allocmem = malloc(t_memsize)) != NULL) {
                 return pv_allocmem;
             }
         }
@@ -72,8 +67,7 @@ void* _alloc_malloc(size_t t_memsize)
 {
     void*  pv_allocmem = NULL;      /* point to the allocated memory */
     
-    if((pv_allocmem = malloc(t_memsize)) == NULL)
-    {
+    if ((pv_allocmem = malloc(t_memsize)) == NULL) {
         pv_allocmem = _alloc_malloc_out_of_memory(t_memsize);
         assert(pv_allocmem != NULL);
     }
@@ -107,14 +101,10 @@ void _alloc_apply_formated_memory(_alloc_t* pt_allocator, size_t t_allocsize)
 
     /* format the apply memory block to memory list format */
     pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)] = pt_link;
-    for(i = 0; i < t_alloccount; ++i)
-    {
-        if(i == t_alloccount - 1)
-        {
+    for (i = 0; i < t_alloccount; ++i) {
+        if (i == t_alloccount - 1) {
             pt_link->_pui_nextmem = NULL;
-        }
-        else
-        {
+        } else {
             pt_link->_pui_nextmem = (_memlink_t*)((_byte_t*)pt_link + t_allocsize);
         }
         pt_link = pt_link->_pui_nextmem;
@@ -136,16 +126,13 @@ _byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, siz
 
     t_totalsize = t_allocsize * (*pt_alloccount);
 
-    if(pt_allocator->_t_mempoolsize >= t_totalsize)
-    {
+    if (pt_allocator->_t_mempoolsize >= t_totalsize) {
         pby_allocmem = pt_allocator->_pby_mempool;
         pt_allocator->_pby_mempool = pby_allocmem + t_totalsize;
         pt_allocator->_t_mempoolsize -= t_totalsize;
         
         return pby_allocmem;
-    }
-    else if(pt_allocator->_t_mempoolsize >= t_allocsize)
-    {
+    } else if (pt_allocator->_t_mempoolsize >= t_allocsize) {
         *pt_alloccount = pt_allocator->_t_mempoolsize / t_allocsize;
         t_totalsize = t_allocsize * (*pt_alloccount);
 
@@ -154,14 +141,11 @@ _byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, siz
         pt_allocator->_t_mempoolsize -= t_totalsize;
 
         return pby_allocmem;
-    }
-    else
-    {
+    } else {
         /* if the memory pool conatiner is full */
         assert(pt_allocator->_t_mempoolindex <= pt_allocator->_t_mempoolcount);
         /* take the small memory block to the memory list */
-        if(pt_allocator->_t_mempoolsize > 0)
-        {
+        if (pt_allocator->_t_mempoolsize > 0) {
             ((_memlink_t*)pt_allocator->_pby_mempool)->_pui_nextmem = 
                 pt_allocator->_apt_memlink[_MEM_LINK_INDEX(pt_allocator->_t_mempoolsize)];
             pt_allocator->_apt_memlink[_MEM_LINK_INDEX(pt_allocator->_t_mempoolsize)] =
@@ -172,14 +156,11 @@ _byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, siz
         t_getmemsize = 2 * t_totalsize;
         pt_allocator->_pby_mempool = (_byte_t*)malloc(t_getmemsize);
 
-        if(pt_allocator->_pby_mempool == NULL)
-        {
+        if (pt_allocator->_pby_mempool == NULL) {
             /* search the memory list for unuse memory that meet the size */
-            for(i = t_allocsize; i < _MEM_SMALL_MEM_SIZE_MAX; i += _MEM_ALIGNMENT)
-            {
+            for (i = t_allocsize; i < _MEM_SMALL_MEM_SIZE_MAX; i += _MEM_ALIGNMENT) {
                 pt_allocator->_pby_mempool = (_byte_t*)pt_allocator->_apt_memlink[_MEM_LINK_INDEX(i)];
-                if(pt_allocator->_pby_mempool != NULL)
-                {
+                if (pt_allocator->_pby_mempool != NULL) {
                     pt_allocator->_apt_memlink[_MEM_LINK_INDEX(i)] = ((_memlink_t*)pt_allocator->_pby_mempool)->_pui_nextmem;
                     pt_allocator->_t_mempoolsize = i;
 
@@ -190,25 +171,20 @@ _byte_t* _alloc_get_memory_chunk(_alloc_t* pt_allocator, size_t t_allocsize, siz
         }
 
         /* if the memory pool container is full */
-        if(pt_allocator->_t_mempoolindex == pt_allocator->_t_mempoolcount)
-        {
+        if (pt_allocator->_t_mempoolindex == pt_allocator->_t_mempoolcount) {
             _byte_t** ppby_oldmempool = pt_allocator->_ppby_mempoolcontainer;
 
             pt_allocator->_t_mempoolcount += _MEM_POOL_DEFAULT_COUNT;
             pt_allocator->_ppby_mempoolcontainer = (_byte_t**)malloc(pt_allocator->_t_mempoolcount * sizeof(_byte_t*));
-            if(pt_allocator->_ppby_mempoolcontainer != NULL)
-            {
-                for(i = 0; i < pt_allocator->_t_mempoolcount; ++i)
-                {
+            if (pt_allocator->_ppby_mempoolcontainer != NULL) {
+                for (i = 0; i < pt_allocator->_t_mempoolcount; ++i) {
                     pt_allocator->_ppby_mempoolcontainer[i] = NULL;
                 }
                 memcpy(pt_allocator->_ppby_mempoolcontainer, ppby_oldmempool,
                     (pt_allocator->_t_mempoolcount - _MEM_POOL_DEFAULT_COUNT) * sizeof(_byte_t*));
                 free(ppby_oldmempool);
                 assert(pt_allocator->_t_mempoolindex < pt_allocator->_t_mempoolcount);
-            }
-            else
-            {
+            } else {
                 fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
                 exit(EXIT_FAILURE);
             }

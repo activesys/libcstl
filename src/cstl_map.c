@@ -120,8 +120,7 @@ void map_init_copy(map_t* pmap_dest, const map_t* cpmap_src)
 
     assert(_map_same_pair_type_ex(&pmap_dest->_pair_temp, &cpmap_src->_pair_temp));
     /* insert all element from src to dest */
-    if(!map_empty(cpmap_src))
-    {
+    if (!map_empty(cpmap_src)) {
         map_insert_range(pmap_dest, map_begin(cpmap_src), map_end(cpmap_src));
     }
 }
@@ -166,8 +165,7 @@ void map_assign(map_t* pmap_dest, const map_t* cpmap_src)
     /* clear */
     map_clear(pmap_dest);
     /* insert all element from src to dest */
-    if(!map_empty(cpmap_src))
-    {
+    if (!map_empty(cpmap_src)) {
         map_insert_range(pmap_dest, map_begin(cpmap_src), map_end(cpmap_src));
     }
 }
@@ -243,12 +241,9 @@ binary_function_t map_key_comp(const map_t* cpmap_map)
     assert(cpmap_map != NULL);
     assert(_pair_is_inited(&cpmap_map->_pair_temp));
 
-    if(cpmap_map->_bfun_keycompare != NULL)
-    {
+    if (cpmap_map->_bfun_keycompare != NULL) {
         return cpmap_map->_bfun_keycompare;
-    }
-    else
-    {
+    } else {
         return _GET_MAP_FIRST_TYPE_LESS_FUNCTION(cpmap_map);
     }
 }
@@ -293,8 +288,7 @@ bool_t map_equal(const map_t* cpmap_first, const map_t* cpmap_second)
     assert(_pair_is_inited(&cpmap_first->_pair_temp));
     assert(_pair_is_inited(&cpmap_second->_pair_temp));
 
-    if(cpmap_first->_bfun_keycompare != cpmap_second->_bfun_keycompare)
-    {
+    if (cpmap_first->_bfun_keycompare != cpmap_second->_bfun_keycompare) {
         return false;
     }
 #ifdef CSTL_MAP_AVL_TREE
@@ -314,8 +308,7 @@ bool_t map_not_equal(const map_t* cpmap_first, const map_t* cpmap_second)
     assert(_pair_is_inited(&cpmap_first->_pair_temp));
     assert(_pair_is_inited(&cpmap_second->_pair_temp));
 
-    if(cpmap_first->_bfun_keycompare != cpmap_second->_bfun_keycompare)
-    {
+    if (cpmap_first->_bfun_keycompare != cpmap_second->_bfun_keycompare) {
         return true;
     }
 #ifdef CSTL_MAP_AVL_TREE
@@ -558,8 +551,7 @@ void map_insert_range(map_t* pmap_map, iterator_t it_begin, iterator_t it_end)
     assert(_pair_is_inited(&pmap_map->_pair_temp));
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
-    {
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         assert(_map_same_pair_type(&pmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
         map_insert(pmap_map, (pair_t*)iterator_get_pointer(it_iter));
     }

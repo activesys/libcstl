@@ -71,12 +71,9 @@ void _slist_iterator_get_value(slist_iterator_t it_iter, void* pv_value)
     assert(!iterator_equal(it_iter, slist_end(_SLIST_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_SLIST_TYPE_BASENAME(_SLIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_SLIST_TYPE_BASENAME(_SLIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         *(char**)pv_value = (char*)string_c_str((string_t*)((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_SLIST_TYPE_SIZE(_SLIST_ITERATOR_CONTAINER(it_iter));
         _GET_SLIST_TYPE_COPY_FUNCTION(_SLIST_ITERATOR_CONTAINER(it_iter))(
             pv_value, ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_result);
@@ -94,12 +91,9 @@ void _slist_iterator_set_value(slist_iterator_t it_iter, const void* cpv_value)
     assert(!iterator_equal(it_iter, slist_end(_SLIST_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_SLIST_TYPE_BASENAME(_SLIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_SLIST_TYPE_BASENAME(_SLIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         string_assign_cstr((string_t*)((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, (char*)cpv_value);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_SLIST_TYPE_SIZE(_SLIST_ITERATOR_CONTAINER(it_iter));
         _GET_SLIST_TYPE_COPY_FUNCTION(_SLIST_ITERATOR_CONTAINER(it_iter))(
             ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, cpv_value, &b_result);
@@ -129,12 +123,9 @@ const void* _slist_iterator_get_pointer(slist_iterator_t it_iter)
     assert(!iterator_equal(it_iter, slist_end(_SLIST_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_SLIST_TYPE_BASENAME(_SLIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_SLIST_TYPE_BASENAME(_SLIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         return string_c_str((string_t*)((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data);
-    }
-    else
-    {
+    } else {
         return ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data;
     }
 }
@@ -176,30 +167,23 @@ int _slist_iterator_distance(slist_iterator_t it_first, slist_iterator_t it_seco
     assert(_slist_iterator_belong_to_slist(_SLIST_ITERATOR_CONTAINER(it_first), it_first));
     assert(_slist_iterator_belong_to_slist(_SLIST_ITERATOR_CONTAINER(it_second), it_second));
 
-    if(_slist_iterator_before(it_first, it_second))
-    {
-        for(pt_node = (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first);
-            pt_node != (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second);
-            pt_node = pt_node->_pt_next)
-        {
+    if (_slist_iterator_before(it_first, it_second)) {
+        for (pt_node = (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first);
+             pt_node != (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second);
+             pt_node = pt_node->_pt_next) {
             n_distance++;
         }
 
         return n_distance;
-    }
-    else if(_slist_iterator_before(it_second, it_first))
-    {
-        for(pt_node = (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second);
-            pt_node != (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first);
-            pt_node = pt_node->_pt_next)
-        {
+    } else if (_slist_iterator_before(it_second, it_first)) {
+        for (pt_node = (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second);
+             pt_node != (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first);
+             pt_node = pt_node->_pt_next) {
             n_distance++;
         }
 
         return -n_distance;
-    }
-    else
-    {
+    } else {
         return 0;
     }
 }
@@ -216,15 +200,12 @@ bool_t _slist_iterator_before(slist_iterator_t it_first, slist_iterator_t it_sec
     assert(_slist_iterator_belong_to_slist(_SLIST_ITERATOR_CONTAINER(it_first), it_first));
     assert(_slist_iterator_belong_to_slist(_SLIST_ITERATOR_CONTAINER(it_second), it_second));
 
-    if(_SLIST_ITERATOR_COREPOS(it_first) == _SLIST_ITERATOR_COREPOS(it_second))
-    {
+    if (_SLIST_ITERATOR_COREPOS(it_first) == _SLIST_ITERATOR_COREPOS(it_second)) {
         return false;
     }
 
-    for(pt_node = (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first); pt_node != NULL; pt_node = pt_node->_pt_next)
-    {
-        if(pt_node == (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second))
-        {
+    for (pt_node = (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_first); pt_node != NULL; pt_node = pt_node->_pt_next) {
+        if (pt_node == (_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_second)) {
             return true;
         }
     }

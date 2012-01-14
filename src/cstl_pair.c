@@ -51,50 +51,38 @@ void pair_init(pair_t* ppair_pair)
     assert(ppair_pair != NULL);
     assert(_pair_is_created(ppair_pair));
 
-    if((ppair_pair->_pv_first = malloc(_GET_PAIR_FIRST_TYPE_SIZE(ppair_pair))) == NULL)
-    {
+    if ((ppair_pair->_pv_first = malloc(_GET_PAIR_FIRST_TYPE_SIZE(ppair_pair))) == NULL) {
         fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
         exit(EXIT_FAILURE);
-    }
-    else
-    {
+    } else {
         memset(ppair_pair->_pv_first, 0x00, _GET_PAIR_FIRST_TYPE_SIZE(ppair_pair));
     }
 
-    if((ppair_pair->_pv_second = malloc(_GET_PAIR_SECOND_TYPE_SIZE(ppair_pair))) == NULL)
-    {
+    if ((ppair_pair->_pv_second = malloc(_GET_PAIR_SECOND_TYPE_SIZE(ppair_pair))) == NULL) {
         fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
         exit(EXIT_FAILURE);
-    }
-    else
-    {
+    } else {
         memset(ppair_pair->_pv_second, 0x00, _GET_PAIR_SECOND_TYPE_SIZE(ppair_pair));
     }
 
     /* initialize new elements */
-    if(_GET_PAIR_FIRST_TYPE_STYLE(ppair_pair) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_PAIR_FIRST_TYPE_STYLE(ppair_pair) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_PAIR_FIRST_TYPE_NAME(ppair_pair), s_elemtypename);
         _GET_PAIR_FIRST_TYPE_INIT_FUNCTION(ppair_pair)(ppair_pair->_pv_first, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_PAIR_FIRST_TYPE_SIZE(ppair_pair);
         _GET_PAIR_FIRST_TYPE_INIT_FUNCTION(ppair_pair)(ppair_pair->_pv_first, &b_result);
         assert(b_result);
     }
 
-    if(_GET_PAIR_SECOND_TYPE_STYLE(ppair_pair) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_PAIR_SECOND_TYPE_STYLE(ppair_pair) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_PAIR_SECOND_TYPE_NAME(ppair_pair), s_elemtypename);
         _GET_PAIR_SECOND_TYPE_INIT_FUNCTION(ppair_pair)(ppair_pair->_pv_second, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_PAIR_SECOND_TYPE_SIZE(ppair_pair);
         _GET_PAIR_SECOND_TYPE_INIT_FUNCTION(ppair_pair)(ppair_pair->_pv_second, &b_result);
         assert(b_result);
@@ -150,8 +138,7 @@ void pair_assign(pair_t* ppair_dest, const pair_t* cppair_src)
     assert(_pair_is_inited(cppair_src));
     assert(_pair_same_type(ppair_dest, cppair_src));
 
-    if(pair_not_equal(ppair_dest, cppair_src))
-    {
+    if (pair_not_equal(ppair_dest, cppair_src)) {
         bool_t b_result = false;
 
         /* copy element */
@@ -177,12 +164,9 @@ void* pair_first(const pair_t* cppair_pair)
     assert(_pair_is_inited(cppair_pair));
 
     /* char* */
-    if(strncmp(_GET_PAIR_FIRST_TYPE_BASENAME(cppair_pair), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_PAIR_FIRST_TYPE_BASENAME(cppair_pair), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         return (void*)string_c_str((string_t*)cppair_pair->_pv_first);
-    }
-    else
-    {
+    } else {
         return cppair_pair->_pv_first;
     }
 }
@@ -196,12 +180,9 @@ void* pair_second(const pair_t* cppair_pair)
     assert(_pair_is_inited(cppair_pair));
 
     /* char* */
-    if(strncmp(_GET_PAIR_SECOND_TYPE_BASENAME(cppair_pair), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_PAIR_SECOND_TYPE_BASENAME(cppair_pair), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         return (void*)string_c_str((string_t*)cppair_pair->_pv_second);
-    }
-    else
-    {
+    } else {
         return cppair_pair->_pv_second;
     }
 }
@@ -219,13 +200,11 @@ bool_t pair_equal(const pair_t* cppair_first, const pair_t* cppair_second)
     assert(_pair_is_inited(cppair_first));
     assert(_pair_is_inited(cppair_second));
 
-    if(!_pair_same_type(cppair_first, cppair_second))
-    {
+    if (!_pair_same_type(cppair_first, cppair_second)) {
         return false;
     }
 
-    if(cppair_first == cppair_second)
-    {
+    if (cppair_first == cppair_second) {
         return true;
     }
 
@@ -233,8 +212,7 @@ bool_t pair_equal(const pair_t* cppair_first, const pair_t* cppair_second)
     b_less = b_greater = _GET_PAIR_FIRST_TYPE_SIZE(cppair_first);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cppair_first)(cppair_first->_pv_first, cppair_second->_pv_first, &b_less);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cppair_first)(cppair_second->_pv_first, cppair_first->_pv_first, &b_greater);
-    if(b_less || b_greater)
-    {
+    if (b_less || b_greater) {
         return false;
     }
 
@@ -242,8 +220,7 @@ bool_t pair_equal(const pair_t* cppair_first, const pair_t* cppair_second)
     b_less = b_greater = _GET_PAIR_SECOND_TYPE_SIZE(cppair_first);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cppair_first)(cppair_first->_pv_second, cppair_second->_pv_second, &b_less);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cppair_first)(cppair_second->_pv_second, cppair_first->_pv_second, &b_greater);
-    if(b_less || b_greater)
-    {
+    if (b_less || b_greater) {
         return false;
     }
 
@@ -271,36 +248,31 @@ bool_t pair_less(const pair_t* cppair_first, const pair_t* cppair_second)
     assert(_pair_is_inited(cppair_second));
     assert(_pair_same_type(cppair_first, cppair_second));
 
-    if(cppair_first == cppair_second)
-    {
+    if (cppair_first == cppair_second) {
         return false;
     }
 
     /* compare first */
     b_result = _GET_PAIR_FIRST_TYPE_SIZE(cppair_first);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cppair_first)(cppair_first->_pv_first, cppair_second->_pv_first, &b_result);
-    if(b_result)
-    {
+    if (b_result) {
         return true;
     }
     b_result = _GET_PAIR_FIRST_TYPE_SIZE(cppair_first);
     _GET_PAIR_FIRST_TYPE_LESS_FUNCTION(cppair_first)(cppair_second->_pv_first, cppair_first->_pv_first, &b_result);
-    if(b_result)
-    {
+    if (b_result) {
         return false;
     }
 
     /* compare second */
     b_result = _GET_PAIR_SECOND_TYPE_SIZE(cppair_first);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cppair_first)(cppair_first->_pv_second, cppair_second->_pv_second, &b_result);
-    if(b_result)
-    {
+    if (b_result) {
         return true;
     }
     b_result = _GET_PAIR_SECOND_TYPE_SIZE(cppair_first);
     _GET_PAIR_SECOND_TYPE_LESS_FUNCTION(cppair_first)(cppair_second->_pv_second, cppair_first->_pv_second, &b_result);
-    if(b_result)
-    {
+    if (b_result) {
         return false;
     }
 

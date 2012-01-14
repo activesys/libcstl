@@ -63,26 +63,23 @@ bool_t _deque_iterator_belong_to_deque(const deque_t* cpdeq_deque, deque_iterato
     assert(_DEQUE_ITERATOR_ITERATOR_TYPE(it_iter) == _RANDOM_ACCESS_ITERATOR);
    
     /* the the map pointer is valid */
-    for(_DEQUE_ITERATOR_MAP_POINTER(it_cur) = _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start);
-        _DEQUE_ITERATOR_MAP_POINTER(it_cur) <= _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish);
-        _DEQUE_ITERATOR_MAP_POINTER(it_cur) += 1)
-    {
-        if(_DEQUE_ITERATOR_MAP_POINTER(it_cur) == _DEQUE_ITERATOR_MAP_POINTER(it_iter))
-        {
+    for (_DEQUE_ITERATOR_MAP_POINTER(it_cur) = _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start);
+         _DEQUE_ITERATOR_MAP_POINTER(it_cur) <= _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish);
+         _DEQUE_ITERATOR_MAP_POINTER(it_cur) += 1) {
+        if (_DEQUE_ITERATOR_MAP_POINTER(it_cur) == _DEQUE_ITERATOR_MAP_POINTER(it_iter)) {
             _DEQUE_ITERATOR_FIRST_POS(it_cur) = *_DEQUE_ITERATOR_MAP_POINTER(it_cur);
-            _DEQUE_ITERATOR_AFTERLAST_POS(it_cur) = _DEQUE_ITERATOR_FIRST_POS(it_cur) + _GET_DEQUE_TYPE_SIZE(cpdeq_deque) * _DEQUE_ELEM_COUNT;
+            _DEQUE_ITERATOR_AFTERLAST_POS(it_cur) = 
+                _DEQUE_ITERATOR_FIRST_POS(it_cur) + _GET_DEQUE_TYPE_SIZE(cpdeq_deque) * _DEQUE_ELEM_COUNT;
             break;
         }
     }
-    if(_DEQUE_ITERATOR_FIRST_POS(it_cur) == NULL)
-    {
+    if (_DEQUE_ITERATOR_FIRST_POS(it_cur) == NULL) {
         return false;
     }
 
     /* test the iterator in suti with the map node */
-    if(_DEQUE_ITERATOR_FIRST_POS(it_cur) != _DEQUE_ITERATOR_FIRST_POS(it_iter) ||
-       _DEQUE_ITERATOR_AFTERLAST_POS(it_cur) != _DEQUE_ITERATOR_AFTERLAST_POS(it_iter))
-    {
+    if (_DEQUE_ITERATOR_FIRST_POS(it_cur) != _DEQUE_ITERATOR_FIRST_POS(it_iter) ||
+        _DEQUE_ITERATOR_AFTERLAST_POS(it_cur) != _DEQUE_ITERATOR_AFTERLAST_POS(it_iter)) {
         return false;
     }
 
@@ -94,49 +91,36 @@ bool_t _deque_iterator_belong_to_deque(const deque_t* cpdeq_deque, deque_iterato
      * +-----------------------------------------+
      * or corepos == afterlast
      */
-    if(_DEQUE_ITERATOR_MAP_POINTER(it_cur) == _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start))
-    {
+    if (_DEQUE_ITERATOR_MAP_POINTER(it_cur) == _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start)) {
         /* the begin pointer point to afterlast and the it_cur is begin */
-        if(_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) == _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_start))
-        {
-            if(_DEQUE_ITERATOR_COREPOS(it_iter) == _DEQUE_ITERATOR_AFTERLAST_POS(it_iter))
-            {
+        if (_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) == _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_start)) {
+            if (_DEQUE_ITERATOR_COREPOS(it_iter) == _DEQUE_ITERATOR_AFTERLAST_POS(it_iter)) {
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
-        }
-        /* in begin container and the begin pointer not point to afterlast */
-        else
-        {
+        } else {
+            /* in begin container and the begin pointer not point to afterlast */
             pby_startpos = _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start);
             pby_finishpos = _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_start) - _GET_DEQUE_TYPE_SIZE(cpdeq_deque);
         }
-    }
-    /* if the current pos equal end pos 
-     * +------------------------------------------+
-     * |first|  ... data ... | corepos | ...  ... | afterlast
-     * +------------------------------------------+
-     */
-    else if(_DEQUE_ITERATOR_MAP_POINTER(it_cur) == _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish))
-    {
+    } else if (_DEQUE_ITERATOR_MAP_POINTER(it_cur) == _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish)) {
+        /* if the current pos equal end pos 
+         * +------------------------------------------+
+         * |first|  ... data ... | corepos | ...  ... | afterlast
+         * +------------------------------------------+
+         */
         pby_startpos = _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_finish);
         pby_finishpos = _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_finish);
-    }
-    else
-    {
+    } else {
         pby_startpos = _DEQUE_ITERATOR_FIRST_POS(it_cur);
         pby_finishpos = _DEQUE_ITERATOR_AFTERLAST_POS(it_cur) - _GET_DEQUE_TYPE_SIZE(cpdeq_deque);
     }
 
-    for(_DEQUE_ITERATOR_COREPOS(it_cur) = pby_startpos;
-        _DEQUE_ITERATOR_COREPOS(it_cur) <= pby_finishpos;
-        _DEQUE_ITERATOR_COREPOS(it_cur) += _GET_DEQUE_TYPE_SIZE(cpdeq_deque))
-    {
-        if(_DEQUE_ITERATOR_COREPOS(it_cur) == _DEQUE_ITERATOR_COREPOS(it_iter))
-        {
+    for (_DEQUE_ITERATOR_COREPOS(it_cur) = pby_startpos;
+         _DEQUE_ITERATOR_COREPOS(it_cur) <= pby_finishpos;
+         _DEQUE_ITERATOR_COREPOS(it_cur) += _GET_DEQUE_TYPE_SIZE(cpdeq_deque)) {
+        if (_DEQUE_ITERATOR_COREPOS(it_cur) == _DEQUE_ITERATOR_COREPOS(it_iter)) {
             return true;
         }
     }
@@ -176,40 +160,35 @@ bool_t _deque_is_created(const deque_t* cpdeq_deque)
 {
     assert(cpdeq_deque != NULL);
 
-    if(cpdeq_deque->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpdeq_deque->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpdeq_deque->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpdeq_deque->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpdeq_deque->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpdeq_deque->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
-    if(cpdeq_deque->_t_typeinfo._pt_type == NULL)
-    {
-        return false;
-    }
-
-    if(cpdeq_deque->_ppby_map != NULL || cpdeq_deque->_t_mapsize != 0)
-    {
+    if (cpdeq_deque->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) != NULL ||
-       _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_start) != NULL ||
-       _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_start) != NULL ||
-       _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) != NULL ||
-       _DEQUE_ITERATOR_CONTAINER(cpdeq_deque->_t_start) != NULL ||
-       _DEQUE_ITERATOR_CONTAINER_TYPE(cpdeq_deque->_t_start) != _DEQUE_CONTAINER ||
-       _DEQUE_ITERATOR_ITERATOR_TYPE(cpdeq_deque->_t_start) != _RANDOM_ACCESS_ITERATOR)
-    {
+    if (cpdeq_deque->_ppby_map != NULL || cpdeq_deque->_t_mapsize != 0) {
         return false;
     }
-    if(_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_finish) != NULL ||
-       _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_finish) != NULL ||
-       _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_finish) != NULL ||
-       _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish) != NULL ||
-       _DEQUE_ITERATOR_CONTAINER(cpdeq_deque->_t_finish) != NULL ||
-       _DEQUE_ITERATOR_CONTAINER_TYPE(cpdeq_deque->_t_finish) != _DEQUE_CONTAINER ||
-       _DEQUE_ITERATOR_ITERATOR_TYPE(cpdeq_deque->_t_finish) != _RANDOM_ACCESS_ITERATOR)
-    {
+
+    if (_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) != NULL ||
+        _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_start) != NULL ||
+        _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_start) != NULL ||
+        _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) != NULL ||
+        _DEQUE_ITERATOR_CONTAINER(cpdeq_deque->_t_start) != NULL ||
+        _DEQUE_ITERATOR_CONTAINER_TYPE(cpdeq_deque->_t_start) != _DEQUE_CONTAINER ||
+        _DEQUE_ITERATOR_ITERATOR_TYPE(cpdeq_deque->_t_start) != _RANDOM_ACCESS_ITERATOR) {
+        return false;
+    }
+    if (_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_finish) != NULL ||
+        _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_finish) != NULL ||
+        _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_finish) != NULL ||
+        _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish) != NULL ||
+        _DEQUE_ITERATOR_CONTAINER(cpdeq_deque->_t_finish) != NULL ||
+        _DEQUE_ITERATOR_CONTAINER_TYPE(cpdeq_deque->_t_finish) != _DEQUE_CONTAINER ||
+        _DEQUE_ITERATOR_ITERATOR_TYPE(cpdeq_deque->_t_finish) != _RANDOM_ACCESS_ITERATOR) {
         return false;
     }
 
@@ -224,68 +203,58 @@ bool_t _deque_is_inited(const deque_t* cpdeq_deque)
 {
     assert(cpdeq_deque != NULL);
 
-    if(cpdeq_deque->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpdeq_deque->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpdeq_deque->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpdeq_deque->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpdeq_deque->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpdeq_deque->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
-    if(cpdeq_deque->_t_typeinfo._pt_type == NULL)
-    {
-        return false;
-    }
-
-    if(cpdeq_deque->_ppby_map == NULL ||
-       cpdeq_deque->_t_mapsize < _DEQUE_MAP_COUNT ||
-       cpdeq_deque->_t_mapsize % _DEQUE_MAP_GROW_STEP != 0)
-    {
+    if (cpdeq_deque->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) == NULL ||
-       _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_start) == NULL ||
-       _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_start) == NULL ||
-       _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) == NULL ||
-       _DEQUE_ITERATOR_CONTAINER(cpdeq_deque->_t_start) != cpdeq_deque ||
-       _DEQUE_ITERATOR_CONTAINER_TYPE(cpdeq_deque->_t_start) != _DEQUE_CONTAINER ||
-       _DEQUE_ITERATOR_ITERATOR_TYPE(cpdeq_deque->_t_start) != _RANDOM_ACCESS_ITERATOR)
-    {
-        return false;
-    }
-    if(_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish) == NULL ||
-       _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_finish) == NULL ||
-       _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_finish) == NULL ||
-       _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_finish) == NULL ||
-       _DEQUE_ITERATOR_CONTAINER(cpdeq_deque->_t_finish) != cpdeq_deque ||
-       _DEQUE_ITERATOR_CONTAINER_TYPE(cpdeq_deque->_t_finish) != _DEQUE_CONTAINER ||
-       _DEQUE_ITERATOR_ITERATOR_TYPE(cpdeq_deque->_t_finish) != _RANDOM_ACCESS_ITERATOR)
-    {
+    if (cpdeq_deque->_ppby_map == NULL ||
+        cpdeq_deque->_t_mapsize < _DEQUE_MAP_COUNT ||
+        cpdeq_deque->_t_mapsize % _DEQUE_MAP_GROW_STEP != 0) {
         return false;
     }
 
-    if(_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) < cpdeq_deque->_ppby_map ||
-       _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) >= cpdeq_deque->_ppby_map + cpdeq_deque->_t_mapsize)
-    {
+    if (_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) == NULL ||
+        _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_start) == NULL ||
+        _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_start) == NULL ||
+        _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) == NULL ||
+        _DEQUE_ITERATOR_CONTAINER(cpdeq_deque->_t_start) != cpdeq_deque ||
+        _DEQUE_ITERATOR_CONTAINER_TYPE(cpdeq_deque->_t_start) != _DEQUE_CONTAINER ||
+        _DEQUE_ITERATOR_ITERATOR_TYPE(cpdeq_deque->_t_start) != _RANDOM_ACCESS_ITERATOR) {
         return false;
     }
-    if(_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish) < cpdeq_deque->_ppby_map ||
-       _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish) >= cpdeq_deque->_ppby_map + cpdeq_deque->_t_mapsize)
-    {
-        return false;
-    }
-    if(_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) > _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish))
-    {
+    if (_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish) == NULL ||
+        _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_finish) == NULL ||
+        _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_finish) == NULL ||
+        _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_finish) == NULL ||
+        _DEQUE_ITERATOR_CONTAINER(cpdeq_deque->_t_finish) != cpdeq_deque ||
+        _DEQUE_ITERATOR_CONTAINER_TYPE(cpdeq_deque->_t_finish) != _DEQUE_CONTAINER ||
+        _DEQUE_ITERATOR_ITERATOR_TYPE(cpdeq_deque->_t_finish) != _RANDOM_ACCESS_ITERATOR) {
         return false;
     }
 
-    if(_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) < _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_start) ||
-       _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) > _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_start))
-    {
+    if (_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) < cpdeq_deque->_ppby_map ||
+        _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) >= cpdeq_deque->_ppby_map + cpdeq_deque->_t_mapsize) {
         return false;
     }
-    if(_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_finish) < _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_finish) ||
-       _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_finish) > _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_finish))
-    {
+    if (_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish) < cpdeq_deque->_ppby_map ||
+        _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish) >= cpdeq_deque->_ppby_map + cpdeq_deque->_t_mapsize) {
+        return false;
+    }
+    if (_DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_start) > _DEQUE_ITERATOR_MAP_POINTER(cpdeq_deque->_t_finish)) {
+        return false;
+    }
+
+    if (_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) < _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_start) ||
+        _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_start) > _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_start)) {
+        return false;
+    }
+    if (_DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_finish) < _DEQUE_ITERATOR_FIRST_POS(cpdeq_deque->_t_finish) ||
+        _DEQUE_ITERATOR_COREPOS(cpdeq_deque->_t_finish) > _DEQUE_ITERATOR_AFTERLAST_POS(cpdeq_deque->_t_finish)) {
         return false;
     }
 
@@ -302,8 +271,7 @@ bool_t _deque_same_type(const deque_t* cpdeq_first, const deque_t* cpdeq_second)
     assert(_deque_is_inited(cpdeq_first) || _deque_is_created(cpdeq_first));
     assert(_deque_is_inited(cpdeq_second) || _deque_is_created(cpdeq_second));
 
-    if(cpdeq_first == cpdeq_second)
-    {
+    if (cpdeq_first == cpdeq_second) {
         return true;
     }
 
@@ -323,8 +291,7 @@ deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, 
     assert(pdeq_deque != NULL);
     assert(_deque_is_inited(pdeq_deque));
 #ifndef NDEBUG
-    if(pit_pos != NULL)
-    {
+    if (pit_pos != NULL) {
         assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(*pit_pos), *pit_pos));
     }
 #endif /* NDEBUG */
@@ -333,13 +300,10 @@ deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, 
 
     /* if the capacity of last container is enough for expand size */
     t_remainsize = (_DEQUE_ITERATOR_AFTERLAST_POS(it_oldend) - _DEQUE_ITERATOR_COREPOS(it_oldend)) / _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-    if(t_expandsize < t_remainsize)
-    {
+    if (t_expandsize < t_remainsize) {
         /* set the new end iterator */
         _DEQUE_ITERATOR_COREPOS(pdeq_deque->_t_finish) += t_expandsize * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-    }
-    else
-    {
+    } else {
         size_t    t_nomemsize = 0;        /* the size that they have no memory */
         size_t    t_chunksize = 0;        /* the chunk for new element */
         size_t    t_suffixsize = 0;       /* the valid size in end container */
@@ -352,8 +316,7 @@ deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, 
         t_nomemsize = t_expandsize - t_remainsize;
         t_chunksize = (t_nomemsize + _DEQUE_ELEM_COUNT - 1) / _DEQUE_ELEM_COUNT;
         t_suffixsize = t_nomemsize % _DEQUE_ELEM_COUNT;
-        if(t_suffixsize == 0)
-        {
+        if (t_suffixsize == 0) {
             t_chunksize++;
         }
 
@@ -362,8 +325,7 @@ deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, 
             pdeq_deque->_t_mapsize - (_DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) - _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) + 1);
 
         /* if container remain space is not enough for expand size then grow the map for expand container */
-        if(t_chunksize > t_remainmapsize)
-        {
+        if (t_chunksize > t_remainmapsize) {
             size_t t_validmapsize = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) - _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) + 1;
             size_t t_newmapstartpos = 0;
             size_t t_oldmapstartpos = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) - pdeq_deque->_ppby_map;
@@ -383,8 +345,7 @@ deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, 
             t_newmapstartpos = (pdeq_deque->_t_mapsize - (t_validmapsize + t_chunksize)) / 2;
             memcpy(pdeq_deque->_ppby_map + t_newmapstartpos, ppby_oldmap + t_oldmapstartpos, sizeof(_byte_t*) * t_validmapsize);
             /* get the pit_pos distance */
-            if(pit_pos != NULL)
-            {
+            if (pit_pos != NULL) {
                 t_posdistance = _DEQUE_ITERATOR_MAP_POINTER(*pit_pos) - _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start);
             }
             /* reset the start, finish and old front iterator */
@@ -392,15 +353,12 @@ deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, 
             _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) = pdeq_deque->_ppby_map + t_newmapstartpos + t_validmapsize - 1;
             _DEQUE_ITERATOR_MAP_POINTER(it_oldend) = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish);
             /* modify pit_pos */
-            if(pit_pos != NULL)
-            {
+            if (pit_pos != NULL) {
                 _DEQUE_ITERATOR_MAP_POINTER(*pit_pos) = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) + t_posdistance;
             }
             _alloc_deallocate(&pdeq_deque->_t_allocator, ppby_oldmap, sizeof(_byte_t*), t_oldmapsize);
-        }
-        /* else if the chunk remain space is enough for expand size */
-        else if(t_chunksize > t_remainendmapsize && t_chunksize <= t_remainmapsize)
-        {
+        } else if (t_chunksize > t_remainendmapsize && t_chunksize <= t_remainmapsize) {
+            /* if the chunk remain space is enough for expand size */
             size_t t_oldvalidmapsize = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) -
                 _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) + 1;                                       /* old valid chunk count in old map */
             size_t t_newvalidmapsize = t_oldvalidmapsize + t_chunksize;                                      /* the valid chunk count in new map */
@@ -415,15 +373,13 @@ deque_iterator_t _deque_expand_at_end(deque_t* pdeq_deque, size_t t_expandsize, 
             _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) -= t_movesize;
             _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) -= t_movesize;
             _DEQUE_ITERATOR_MAP_POINTER(it_oldend) -= t_movesize;
-            if(pit_pos != NULL)
-            {
+            if (pit_pos != NULL) {
                 _DEQUE_ITERATOR_MAP_POINTER(*pit_pos) -= t_movesize;
             }
         }
 
         /* allocate the container */
-        for(i = 0, ppby_newchunk = _DEQUE_ITERATOR_MAP_POINTER(it_oldend) + 1; i < t_chunksize; ++i, ++ppby_newchunk)
-        {
+        for (i = 0, ppby_newchunk = _DEQUE_ITERATOR_MAP_POINTER(it_oldend) + 1; i < t_chunksize; ++i, ++ppby_newchunk) {
             *ppby_newchunk = _alloc_allocate(&pdeq_deque->_t_allocator, _GET_DEQUE_TYPE_SIZE(pdeq_deque), _DEQUE_ELEM_COUNT);
             assert(*ppby_newchunk != NULL);
         }
@@ -454,8 +410,7 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
     assert(pdeq_deque != NULL);
     assert(_deque_is_inited(pdeq_deque));
 #ifndef NDEBUG
-    if(pit_pos != NULL)
-    {
+    if (pit_pos != NULL) {
         assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(*pit_pos), *pit_pos));
     }
 #endif /* NDEBUG */
@@ -464,13 +419,10 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
 
     /* if the capacity of first container is enough for expand size */
     t_remainsize = (_DEQUE_ITERATOR_COREPOS(it_oldbegin) - _DEQUE_ITERATOR_FIRST_POS(it_oldbegin)) / _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-    if(t_expandsize < t_remainsize)
-    {
+    if (t_expandsize < t_remainsize) {
         /* set the new begin iterator */
         _DEQUE_ITERATOR_COREPOS(pdeq_deque->_t_start) -= t_expandsize * _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-    }
-    else
-    {
+    } else {
         size_t    t_nomemsize = 0;          /* the size that they have no memory */
         size_t    t_chunksize = 0;          /* the chunk for new element */
         size_t    t_prefixsize = 0;         /* the valid size in front chunk */
@@ -483,8 +435,7 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
         t_nomemsize = t_expandsize - t_remainsize;
         t_chunksize = (t_nomemsize + _DEQUE_ELEM_COUNT - 1) / _DEQUE_ELEM_COUNT;
         t_prefixsize = t_nomemsize % _DEQUE_ELEM_COUNT;
-        if(t_prefixsize == 0)
-        {
+        if (t_prefixsize == 0) {
             t_chunksize++;
         }
 
@@ -493,8 +444,7 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
             (_DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) - _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) + 1);
 
         /* if chunk remain space is not enough for expand size then grow the map for expand chunk */
-        if(t_chunksize > t_remainmapsize)
-        {
+        if (t_chunksize > t_remainmapsize) {
             size_t t_validmapsize = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) - _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) + 1;
             int n_newmapstartpos = 0;
             int n_oldmapstartpos = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) - pdeq_deque->_ppby_map;
@@ -516,8 +466,7 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
             n_newposofoldchunk = n_newmapstartpos + t_chunksize;
             memcpy(pdeq_deque->_ppby_map + n_newposofoldchunk, ppby_oldmap + n_oldmapstartpos, sizeof(_byte_t*) * t_validmapsize);
             /* get the pit_pos distance */
-            if(pit_pos != NULL)
-            {
+            if (pit_pos != NULL) {
                 n_posdistance = _DEQUE_ITERATOR_MAP_POINTER(*pit_pos) - _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start);
             }
             /* reset the start, finish and old front iterator */
@@ -525,15 +474,12 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
             _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) = pdeq_deque->_ppby_map + n_newposofoldchunk + t_validmapsize - 1;
             _DEQUE_ITERATOR_MAP_POINTER(it_oldbegin) = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start);
             /* modify pit_pos */
-            if(pit_pos != NULL)
-            {
+            if (pit_pos != NULL) {
                 _DEQUE_ITERATOR_MAP_POINTER(*pit_pos) = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) + n_posdistance;
             }
             _alloc_deallocate(&pdeq_deque->_t_allocator, ppby_oldmap, sizeof(_byte_t*), t_oldmapsize);
-        }
-        /* else if the chunk remain space is enough for expand size */
-        else if(t_chunksize > t_remainfrontmapsize && t_chunksize <= t_remainmapsize)
-        {
+        } else if (t_chunksize > t_remainfrontmapsize && t_chunksize <= t_remainmapsize) {
+            /* if the chunk remain space is enough for expand size */
             size_t t_oldvalidmapsize = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) -
                 _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) + 1;                                            /* old valid chunk count in old map */
             size_t t_newvalidmapsize = t_oldvalidmapsize + t_chunksize;                                      /* the valid chunk count in new map */
@@ -548,15 +494,13 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
             _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) += t_movesize;
             _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) += t_movesize;
             _DEQUE_ITERATOR_MAP_POINTER(it_oldbegin) += t_movesize;
-            if(pit_pos != NULL)
-            {
+            if (pit_pos != NULL) {
                 _DEQUE_ITERATOR_MAP_POINTER(*pit_pos) += t_movesize;
             }
         }
 
         /* allocate the chunk */
-        for(i = 0, ppby_newchunk = _DEQUE_ITERATOR_MAP_POINTER(it_oldbegin) - 1; i < t_chunksize; ++i, --ppby_newchunk)
-        {
+        for (i = 0, ppby_newchunk = _DEQUE_ITERATOR_MAP_POINTER(it_oldbegin) - 1; i < t_chunksize; ++i, --ppby_newchunk) {
             *ppby_newchunk = _alloc_allocate(&pdeq_deque->_t_allocator, _GET_DEQUE_TYPE_SIZE(pdeq_deque), _DEQUE_ELEM_COUNT);
             assert(*ppby_newchunk != NULL);
         }
@@ -571,8 +515,7 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
     }
 
     /* the old front is original front */
-    if(_DEQUE_ITERATOR_COREPOS(it_oldbegin) == _DEQUE_ITERATOR_AFTERLAST_POS(it_oldbegin))
-    {
+    if (_DEQUE_ITERATOR_COREPOS(it_oldbegin) == _DEQUE_ITERATOR_AFTERLAST_POS(it_oldbegin)) {
         assert(*(_DEQUE_ITERATOR_MAP_POINTER(it_oldbegin) + 1) != NULL);
         _DEQUE_ITERATOR_MAP_POINTER(it_oldbegin) += 1;
         _DEQUE_ITERATOR_FIRST_POS(it_oldbegin) = *_DEQUE_ITERATOR_MAP_POINTER(it_oldbegin);
@@ -581,8 +524,7 @@ deque_iterator_t _deque_expand_at_begin(deque_t* pdeq_deque, size_t t_expandsize
         _DEQUE_ITERATOR_COREPOS(it_oldbegin) = _DEQUE_ITERATOR_FIRST_POS(it_oldbegin);
     }
     /* the *pit_pos is original front */
-    if(pit_pos != NULL && _DEQUE_ITERATOR_COREPOS(*pit_pos) == _DEQUE_ITERATOR_AFTERLAST_POS(*pit_pos))
-    {
+    if (pit_pos != NULL && _DEQUE_ITERATOR_COREPOS(*pit_pos) == _DEQUE_ITERATOR_AFTERLAST_POS(*pit_pos)) {
         assert(*(_DEQUE_ITERATOR_MAP_POINTER(*pit_pos) + 1) != NULL);
         _DEQUE_ITERATOR_MAP_POINTER(*pit_pos) += 1;
         _DEQUE_ITERATOR_FIRST_POS(*pit_pos) = *_DEQUE_ITERATOR_MAP_POINTER(*pit_pos);
@@ -617,16 +559,14 @@ void _deque_shrink_at_end(deque_t* pdeq_deque, size_t t_shrinksize)
     assert(_deque_iterator_belong_to_deque(pdeq_deque, it_newend));
 
     /* destroy all elements */
-    for(it_iter = it_newend; !iterator_equal(it_iter, it_oldend); it_iter = iterator_next(it_iter))
-    {
+    for (it_iter = it_newend; !iterator_equal(it_iter, it_oldend); it_iter = iterator_next(it_iter)) {
         b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
         _GET_DEQUE_TYPE_DESTROY_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(it_iter), &b_result);
         assert(b_result);
     }
     pdeq_deque->_t_finish = it_newend;
 
-    for(ppby_map = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) + 1; ppby_map <= _DEQUE_ITERATOR_MAP_POINTER(it_oldend); ++ppby_map)
-    {
+    for (ppby_map = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_finish) + 1; ppby_map <= _DEQUE_ITERATOR_MAP_POINTER(it_oldend); ++ppby_map) {
         _alloc_deallocate(&pdeq_deque->_t_allocator, *ppby_map, _GET_DEQUE_TYPE_SIZE(pdeq_deque), _DEQUE_ELEM_COUNT);
         *ppby_map = NULL;
     }
@@ -652,16 +592,14 @@ void _deque_shrink_at_begin(deque_t* pdeq_deque, size_t t_shrinksize)
     assert(_deque_iterator_belong_to_deque(pdeq_deque, it_newbegin));
 
     /* destroy all elements */
-    for(it_iter = it_oldbegin; !iterator_equal(it_iter, it_newbegin); it_iter = iterator_next(it_iter))
-    {
+    for (it_iter = it_oldbegin; !iterator_equal(it_iter, it_newbegin); it_iter = iterator_next(it_iter)) {
         b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
         _GET_DEQUE_TYPE_DESTROY_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(it_iter), &b_result);
         assert(b_result);
     }
     pdeq_deque->_t_start = it_newbegin;
 
-    for(ppby_map = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) - 1; ppby_map >= _DEQUE_ITERATOR_MAP_POINTER(it_oldbegin); --ppby_map)
-    {
+    for (ppby_map = _DEQUE_ITERATOR_MAP_POINTER(pdeq_deque->_t_start) - 1; ppby_map >= _DEQUE_ITERATOR_MAP_POINTER(it_oldbegin); --ppby_map) {
         _alloc_deallocate(&pdeq_deque->_t_allocator, *ppby_map, _GET_DEQUE_TYPE_SIZE(pdeq_deque), _DEQUE_ELEM_COUNT);
         *ppby_map = NULL;
     }
@@ -680,8 +618,7 @@ deque_iterator_t _deque_move_elem_to_end(
     assert(iterator_equal(it_begin, it_end) || _deque_iterator_before(it_begin, it_end));
 
     /* if it_begin != it_end then do move */
-    if(!iterator_equal(it_begin, it_end) && t_step != 0)
-    {
+    if (!iterator_equal(it_begin, it_end) && t_step != 0) {
         /* the target range of move */
         deque_iterator_t it_targetbegin;
         deque_iterator_t it_targetend;
@@ -693,8 +630,7 @@ deque_iterator_t _deque_move_elem_to_end(
         it_targetend = iterator_next_n(it_targetend, t_step);
         assert(_deque_iterator_before(it_targetbegin, it_targetend));
 
-        while(!iterator_equal(it_targetbegin, it_targetend) && !iterator_equal(it_begin, it_end))
-        {
+        while (!iterator_equal(it_targetbegin, it_targetend) && !iterator_equal(it_begin, it_end)) {
             it_targetend = iterator_prev(it_targetend);
             it_end = iterator_prev(it_end);
             b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
@@ -721,8 +657,7 @@ deque_iterator_t _deque_move_elem_to_begin(
     assert(_deque_iterator_belong_to_deque(pdeq_deque, it_end));
     assert(iterator_equal(it_begin, it_end) || _deque_iterator_before(it_begin, it_end));
 
-    if(!iterator_equal(it_begin, it_end) && t_step != 0)
-    {
+    if (!iterator_equal(it_begin, it_end) && t_step != 0) {
         deque_iterator_t it_targetbegin;
         deque_iterator_t it_targetend;
         bool_t           b_result = false;
@@ -733,10 +668,9 @@ deque_iterator_t _deque_move_elem_to_begin(
         it_targetend = iterator_prev_n(it_targetend, t_step);
         assert(_deque_iterator_before(it_targetbegin, it_targetend));
 
-        for(;
-            iterator_less(it_targetbegin, it_targetend) && iterator_less(it_begin, it_end);
-            it_targetbegin = iterator_next(it_targetbegin), it_begin = iterator_next(it_begin))
-        {
+        for (;
+             iterator_less(it_targetbegin, it_targetend) && iterator_less(it_begin, it_end);
+             it_targetbegin = iterator_next(it_targetbegin), it_begin = iterator_next(it_begin)) {
             b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
                 _deque_iterator_get_pointer_auxiliary(it_targetbegin),
@@ -746,9 +680,7 @@ deque_iterator_t _deque_move_elem_to_begin(
         assert(iterator_equal(it_targetbegin, it_targetend) && iterator_equal(it_begin, it_end));
 
         return it_targetend;
-    }
-    else
-    {
+    } else {
         return iterator_prev_n(it_end, t_step);
     }
 }
@@ -795,21 +727,16 @@ void _deque_init_elem_range_auxiliary(deque_t* pdeq_deque, deque_iterator_t it_b
     assert(iterator_equal(it_begin, it_end) || _deque_iterator_before(it_begin, it_end));
 
     /* initialize new elements */
-    if(_GET_DEQUE_TYPE_STYLE(pdeq_deque) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_DEQUE_TYPE_STYLE(pdeq_deque) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_DEQUE_TYPE_NAME(pdeq_deque), s_elemtypename);
 
-        for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
-        {
+        for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
             _GET_DEQUE_TYPE_INIT_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(it_iter), s_elemtypename);
         }
-    }
-    else
-    {
-        for(it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter))
-        {
+    } else {
+        for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
             bool_t t_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
             _GET_DEQUE_TYPE_INIT_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(it_iter), &t_result);
             assert(t_result);
@@ -827,12 +754,9 @@ void* _deque_iterator_get_pointer_auxiliary(iterator_t it_iter)
     assert(_deque_iterator_belong_to_deque(_DEQUE_ITERATOR_CONTAINER(it_iter), it_iter));
     assert(!iterator_equal(it_iter, deque_end(_DEQUE_ITERATOR_CONTAINER(it_iter))));
 
-    if(_DEQUE_ITERATOR_COREPOS(it_iter) != _DEQUE_ITERATOR_AFTERLAST_POS(it_iter))
-    {
+    if (_DEQUE_ITERATOR_COREPOS(it_iter) != _DEQUE_ITERATOR_AFTERLAST_POS(it_iter)) {
         pby_pos = _DEQUE_ITERATOR_COREPOS(it_iter);
-    }
-    else
-    {
+    } else {
         /* 
          * when the iterator is begin and the corepos equal to afterlast 
          * then get the first element in next chunk.

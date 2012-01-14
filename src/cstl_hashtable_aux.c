@@ -50,8 +50,7 @@
 /** exported global variable definition section **/
 
 /** local global variable definition section **/
-static const unsigned long _hashtable_prime_list[_HASHTABLE_PRIME_LIST_COUNT] =
-{
+static const unsigned long _hashtable_prime_list[_HASHTABLE_PRIME_LIST_COUNT] = {
     53,         97,           193,         389,       769,
     1543,       3079,         6151,        12289,     24593,
     49157,      98317,        196613,      393241,    786433,
@@ -69,24 +68,20 @@ bool_t _hashtable_is_created(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
 
-    if(cpt_hashtable->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpt_hashtable->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpt_hashtable->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpt_hashtable->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpt_hashtable->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpt_hashtable->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
-    if(cpt_hashtable->_t_typeinfo._pt_type == NULL)
-    {
-        return false;
-    }
-
-    if(!_vector_is_created(&cpt_hashtable->_vec_bucket))
-    {
+    if (cpt_hashtable->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(cpt_hashtable->_t_nodecount != 0 || cpt_hashtable->_ufun_hash != NULL || cpt_hashtable->_bfun_compare != NULL)
-    {
+    if (!_vector_is_created(&cpt_hashtable->_vec_bucket)) {
+        return false;
+    }
+
+    if (cpt_hashtable->_t_nodecount != 0 || cpt_hashtable->_ufun_hash != NULL || cpt_hashtable->_bfun_compare != NULL) {
         return false;
     }
 
@@ -100,25 +95,21 @@ bool_t _hashtable_is_inited(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
 
-    if(cpt_hashtable->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpt_hashtable->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpt_hashtable->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpt_hashtable->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpt_hashtable->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpt_hashtable->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
-    if(cpt_hashtable->_t_typeinfo._pt_type == NULL)
-    {
-        return false;
-    }
-
-    if(!_vector_is_inited(&cpt_hashtable->_vec_bucket) ||
-       vector_size(&cpt_hashtable->_vec_bucket) < _HASHTABLE_FIRST_PRIME_BUCKET_COUNT)
-    {
+    if (cpt_hashtable->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(cpt_hashtable->_ufun_hash == NULL || cpt_hashtable->_bfun_compare == NULL)
-    {
+    if (!_vector_is_inited(&cpt_hashtable->_vec_bucket) ||
+        vector_size(&cpt_hashtable->_vec_bucket) < _HASHTABLE_FIRST_PRIME_BUCKET_COUNT) {
+        return false;
+    }
+
+    if (cpt_hashtable->_ufun_hash == NULL || cpt_hashtable->_bfun_compare == NULL) {
         return false;
     }
 
@@ -139,25 +130,18 @@ bool_t _hashtable_iterator_belong_to_hashtable(const _hashtable_t* cpt_hashtable
 
     /* check for the end node */
     it_bucket = vector_end(&cpt_hashtable->_vec_bucket);
-    if(_VECTOR_ITERATOR_COREPOS(it_bucket) == _HASHTABLE_ITERATOR_BUCKETPOS(it_iter) &&
-       _HASHTABLE_ITERATOR_COREPOS(it_iter) == NULL)
-    {
+    if (_VECTOR_ITERATOR_COREPOS(it_bucket) == _HASHTABLE_ITERATOR_BUCKETPOS(it_iter) &&
+        _HASHTABLE_ITERATOR_COREPOS(it_iter) == NULL) {
         return true;
-    }
-    else
-    {
+    } else {
         _hashnode_t* pt_node = NULL;
-        for(it_bucket = vector_begin(&cpt_hashtable->_vec_bucket);
-            !iterator_equal(it_bucket, vector_end(&cpt_hashtable->_vec_bucket));
-            it_bucket = iterator_next(it_bucket))
-        {
-            if(_HASHTABLE_ITERATOR_BUCKETPOS(it_iter) == _VECTOR_ITERATOR_COREPOS(it_bucket))
-            {
+        for (it_bucket = vector_begin(&cpt_hashtable->_vec_bucket);
+             !iterator_equal(it_bucket, vector_end(&cpt_hashtable->_vec_bucket));
+             it_bucket = iterator_next(it_bucket)) {
+            if (_HASHTABLE_ITERATOR_BUCKETPOS(it_iter) == _VECTOR_ITERATOR_COREPOS(it_bucket)) {
                 pt_node = *(_hashnode_t**)_VECTOR_ITERATOR_COREPOS(it_bucket);
-                while(pt_node != NULL)
-                {
-                    if(pt_node == (_hashnode_t*)_HASHTABLE_ITERATOR_COREPOS(it_iter))
-                    {
+                while (pt_node != NULL) {
+                    if (pt_node == (_hashnode_t*)_HASHTABLE_ITERATOR_COREPOS(it_iter)) {
                         return true;
                     }
 
@@ -215,8 +199,7 @@ bool_t _hashtable_same_type(const _hashtable_t* cpt_first, const _hashtable_t* c
     assert(_hashtable_is_inited(cpt_first) || _hashtable_is_created(cpt_first));
     assert(_hashtable_is_inited(cpt_second) || _hashtable_is_created(cpt_second));
 
-    if(cpt_first == cpt_second)
-    {
+    if (cpt_first == cpt_second) {
         return true;
     }
 
@@ -235,8 +218,7 @@ bool_t _hashtable_same_type_ex(const _hashtable_t* cpt_first, const _hashtable_t
     assert(_hashtable_is_inited(cpt_first) || _hashtable_is_created(cpt_first));
     assert(_hashtable_is_inited(cpt_second) || _hashtable_is_created(cpt_second));
 
-    if(cpt_first == cpt_second)
-    {
+    if (cpt_first == cpt_second) {
         return true;
     }
 
@@ -254,10 +236,8 @@ bool_t _hashtable_same_type_ex(const _hashtable_t* cpt_first, const _hashtable_t
 unsigned long _hashtable_get_prime(unsigned long ul_basenum)
 {
     int i;
-    for(i = 0; i < _HASHTABLE_PRIME_LIST_COUNT; ++i)
-    {
-        if(_hashtable_prime_list[i] >= ul_basenum)
-        {
+    for (i = 0; i < _HASHTABLE_PRIME_LIST_COUNT; ++i) {
+        if (_hashtable_prime_list[i] >= ul_basenum) {
             return _hashtable_prime_list[i];
         }
     }
@@ -278,8 +258,7 @@ void _hashtable_default_hash(const void* cpv_input, void* pv_output)
     assert(pv_output != NULL);
 
     pby_value = (_byte_t*)cpv_input;
-    for(i = 0; i < *(size_t*)pv_output; ++i)
-    {
+    for (i = 0; i < *(size_t*)pv_output; ++i) {
         t_sum += (size_t)pby_value[i];
     }
 
@@ -329,16 +308,13 @@ void _hashtable_init_elem_auxiliary(_hashtable_t* pt_hashtable, _hashnode_t* pt_
     assert(_hashtable_is_inited(pt_hashtable) || _hashtable_is_created(pt_hashtable));
 
     /* initialize new elements */
-    if(_GET_HASHTABLE_TYPE_STYLE(pt_hashtable) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_HASHTABLE_TYPE_STYLE(pt_hashtable) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_HASHTABLE_TYPE_NAME(pt_hashtable), s_elemtypename);
 
         _GET_HASHTABLE_TYPE_INIT_FUNCTION(pt_hashtable)(pt_node->_pby_data, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_HASHTABLE_TYPE_SIZE(pt_hashtable);
         _GET_HASHTABLE_TYPE_INIT_FUNCTION(pt_hashtable)(pt_node->_pby_data, &b_result);
         assert(b_result);
@@ -355,13 +331,10 @@ void _hashtable_hash_auxiliary(const _hashtable_t* cpt_hashtable, const void* cp
     assert(pv_output != NULL);
     assert(_hashtable_is_inited(cpt_hashtable));
 
-    if(strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         *(size_t*)pv_output = strlen(string_c_str((string_t*)cpv_input));
         cpt_hashtable->_ufun_hash(string_c_str((string_t*)cpv_input), pv_output);
-    }
-    else
-    {
+    } else {
         cpt_hashtable->_ufun_hash(cpv_input, pv_output);
     } 
 }
@@ -378,13 +351,10 @@ void _hashtable_elem_compare_auxiliary(
     assert(pv_output != NULL);
     assert(_hashtable_is_inited(cpt_hashtable));
 
-    if(strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
-       cpt_hashtable->_bfun_compare != _GET_HASHTABLE_TYPE_LESS_FUNCTION(cpt_hashtable))
-    {
+    if (strncmp(_GET_HASHTABLE_TYPE_NAME(cpt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
+        cpt_hashtable->_bfun_compare != _GET_HASHTABLE_TYPE_LESS_FUNCTION(cpt_hashtable)) {
         cpt_hashtable->_bfun_compare(string_c_str((string_t*)cpv_first), string_c_str((string_t*)cpv_second), pv_output);
-    }
-    else
-    {
+    } else {
         cpt_hashtable->_bfun_compare(cpv_first, cpv_second, pv_output);
     }
 }

@@ -53,8 +53,7 @@ bool_t _pair_same_type(const pair_t* cppair_first, const pair_t* cppair_second)
     assert(_pair_is_inited(cppair_first) || _pair_is_created(cppair_first));
     assert(_pair_is_inited(cppair_second) || _pair_is_created(cppair_second));
 
-    if(cppair_first == cppair_second)
-    {
+    if (cppair_first == cppair_second) {
         return true;
     }
 

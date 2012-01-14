@@ -49,21 +49,18 @@ bool_t _avl_tree_is_created(const _avl_tree_t* cpt_avl_tree)
 {
     assert(cpt_avl_tree != NULL);
 
-    if(cpt_avl_tree->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpt_avl_tree->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpt_avl_tree->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpt_avl_tree->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpt_avl_tree->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpt_avl_tree->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
-    if(cpt_avl_tree->_t_typeinfo._pt_type == NULL)
-    {
+    if (cpt_avl_tree->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(cpt_avl_tree->_t_avlroot._pt_parent != NULL || cpt_avl_tree->_t_avlroot._pt_left != NULL ||
-       cpt_avl_tree->_t_avlroot._pt_right != NULL || cpt_avl_tree->_t_avlroot._un_height != 0 ||
-       cpt_avl_tree->_t_nodecount != 0 || cpt_avl_tree->_t_compare != NULL)
-    {
+    if (cpt_avl_tree->_t_avlroot._pt_parent != NULL || cpt_avl_tree->_t_avlroot._pt_left != NULL ||
+        cpt_avl_tree->_t_avlroot._pt_right != NULL || cpt_avl_tree->_t_avlroot._un_height != 0 ||
+        cpt_avl_tree->_t_nodecount != 0 || cpt_avl_tree->_t_compare != NULL) {
         return false;
     }
 
@@ -77,20 +74,17 @@ bool_t _avl_tree_is_inited(const _avl_tree_t* cpt_avl_tree)
 {
     assert(cpt_avl_tree != NULL);
 
-    if(cpt_avl_tree->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
-       cpt_avl_tree->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
-       cpt_avl_tree->_t_typeinfo._t_style != _TYPE_USER_DEFINE)
-    {
+    if (cpt_avl_tree->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpt_avl_tree->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpt_avl_tree->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
         return false;
     }
-    if(cpt_avl_tree->_t_typeinfo._pt_type == NULL)
-    {
+    if (cpt_avl_tree->_t_typeinfo._pt_type == NULL) {
         return false;
     }
 
-    if(cpt_avl_tree->_t_avlroot._pt_left == NULL || cpt_avl_tree->_t_avlroot._pt_right == NULL ||
-       cpt_avl_tree->_t_avlroot._un_height != 0 || cpt_avl_tree->_t_compare == NULL)
-    {
+    if (cpt_avl_tree->_t_avlroot._pt_left == NULL || cpt_avl_tree->_t_avlroot._pt_right == NULL ||
+        cpt_avl_tree->_t_avlroot._un_height != 0 || cpt_avl_tree->_t_compare == NULL) {
         return false;
     }
 
@@ -108,13 +102,10 @@ bool_t _avl_tree_iterator_belong_to_avl_tree(const _avl_tree_t* cpt_avl_tree, _a
     assert(_AVL_TREE_ITERATOR_TREE(it_iter) == cpt_avl_tree);
 
     /* if iterator is end */
-    if(_AVL_TREE_ITERATOR_COREPOS(it_iter) == (_byte_t*)&cpt_avl_tree->_t_avlroot)
-    {
+    if (_AVL_TREE_ITERATOR_COREPOS(it_iter) == (_byte_t*)&cpt_avl_tree->_t_avlroot) {
         return true;
-    }
-    /* else travel avl tree for search the pointer */
-    else
-    {
+    } else {
+        /* travel avl tree for search the pointer */
         return _avl_tree_avlnode_belong_to_avl_tree(
             cpt_avl_tree->_t_avlroot._pt_parent, (_avlnode_t*)_AVL_TREE_ITERATOR_COREPOS(it_iter));
     }
@@ -159,16 +150,11 @@ bool_t _avl_tree_same_avl_tree_iterator_type_ex(const _avl_tree_t* cpt_avl_tree,
  */
 bool_t _avl_tree_avlnode_belong_to_avl_tree(const _avlnode_t* cpt_root, const _avlnode_t* cpt_pos)
 {
-    if(cpt_root == NULL || cpt_pos == NULL)
-    {
+    if (cpt_root == NULL || cpt_pos == NULL) {
         return false;
-    }
-    else if(cpt_root == cpt_pos)
-    {
+    } else if (cpt_root == cpt_pos) {
         return true;
-    }
-    else
-    {
+    } else {
         return _avl_tree_avlnode_belong_to_avl_tree(cpt_root->_pt_left, cpt_pos) ||
                _avl_tree_avlnode_belong_to_avl_tree(cpt_root->_pt_right, cpt_pos);
     }
@@ -185,8 +171,7 @@ bool_t _avl_tree_same_type(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_
     assert(_avl_tree_is_inited(cpt_first) || _avl_tree_is_created(cpt_first));
     assert(_avl_tree_is_inited(cpt_second) || _avl_tree_is_created(cpt_second));
 
-    if(cpt_first == cpt_second)
-    {
+    if (cpt_first == cpt_second) {
         return true;
     }
 
@@ -205,8 +190,7 @@ bool_t _avl_tree_same_type_ex(const _avl_tree_t* cpt_first, const _avl_tree_t* c
     assert(_avl_tree_is_inited(cpt_first) || _avl_tree_is_created(cpt_first));
     assert(_avl_tree_is_inited(cpt_second) || _avl_tree_is_created(cpt_second));
 
-    if(cpt_first == cpt_second)
-    {
+    if (cpt_first == cpt_second) {
         return true;
     }
 
@@ -224,26 +208,21 @@ _avlnode_t* _avl_tree_find_value(const _avl_tree_t* cpt_avl_tree, const _avlnode
     assert(cpv_value != NULL);
     assert(_avl_tree_is_inited(cpt_avl_tree));
 
-    if(cpt_root == NULL)
-    {
+    if (cpt_root == NULL) {
         return NULL;
     }
 
     b_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
     _avl_tree_elem_compare_auxiliary(cpt_avl_tree, cpv_value, cpt_root->_pby_data, &b_result);
-    if(b_result)
-    {
+    if (b_result) {
         return _avl_tree_find_value(cpt_avl_tree, cpt_root->_pt_left, cpv_value);
     }
 
     b_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
     _avl_tree_elem_compare_auxiliary(cpt_avl_tree, cpt_root->_pby_data, cpv_value, &b_result);
-    if(b_result)
-    {
+    if (b_result) {
         return _avl_tree_find_value(cpt_avl_tree, cpt_root->_pt_right, cpv_value);
-    }
-    else
-    {
+    } else {
         return (_avlnode_t*)cpt_root;
     }
 }
@@ -259,8 +238,7 @@ _avlnode_t* _avl_tree_destroy_subtree(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_r
     assert(pt_avl_tree != NULL);
     assert(_avl_tree_is_inited(pt_avl_tree) || _avl_tree_is_created(pt_avl_tree));
 
-    if(pt_root != NULL)
-    {
+    if (pt_root != NULL) {
         pt_root->_pt_left = _avl_tree_destroy_subtree(pt_avl_tree, pt_root->_pt_left);
         pt_root->_pt_right = _avl_tree_destroy_subtree(pt_avl_tree, pt_root->_pt_right);
 
@@ -298,8 +276,7 @@ _avlnode_t* _avl_tree_left_signal_rotate(_avlnode_t* pt_root)
     pt_left->_pt_right = pt_root;
     /* change parent */
     pt_root->_pt_parent = pt_left;
-    if(pt_root->_pt_left != NULL)
-    {
+    if (pt_root->_pt_left != NULL) {
         pt_root->_pt_left->_pt_parent = pt_root;
     }
     /* update height */
@@ -336,8 +313,7 @@ _avlnode_t* _avl_tree_right_signal_rotate(_avlnode_t* pt_root)
     pt_right->_pt_left = pt_root;
     /* change parent */
     pt_root->_pt_parent = pt_right;
-    if(pt_root->_pt_right != NULL)
-    {
+    if (pt_root->_pt_right != NULL) {
         pt_root->_pt_right->_pt_parent = pt_root;
     }
     /* update height */
@@ -410,8 +386,7 @@ _avlnode_t* _avl_tree_get_min_avlnode(const _avlnode_t* cpt_root)
 
     assert(cpt_root != NULL);
 
-    while(pt_min->_pt_left != NULL)
-    {
+    while (pt_min->_pt_left != NULL) {
         pt_min = pt_min->_pt_left;
     }
 
@@ -427,8 +402,7 @@ _avlnode_t* _avl_tree_get_max_avlnode(const _avlnode_t* cpt_root)
 
     assert(cpt_root != NULL);
 
-    while(pt_max->_pt_right != NULL)
-    {
+    while (pt_max->_pt_right != NULL) {
         pt_max = pt_max->_pt_right;
     }
 
@@ -449,8 +423,7 @@ _avl_tree_insert_result_t _avl_tree_insert_avlnode(
     assert(_avl_tree_is_inited(cpt_avl_tree));
 
     /* if root is NULL then allocate memory */
-    if(pt_root == NULL)
-    {
+    if (pt_root == NULL) {
         pt_root = _alloc_allocate(
             (_alloc_t*)&cpt_avl_tree->_t_allocator, _AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree)), 1);
         assert(pt_root != NULL);
@@ -471,8 +444,7 @@ _avl_tree_insert_result_t _avl_tree_insert_avlnode(
     /* if value < current node then insert into left subtree */
     b_result = _GET_AVL_TREE_TYPE_SIZE(cpt_avl_tree);
     _avl_tree_elem_compare_auxiliary(cpt_avl_tree, cpv_value, pt_root->_pby_data, &b_result);
-    if(b_result)
-    {
+    if (b_result) {
         t_insert_result = _avl_tree_insert_avlnode(cpt_avl_tree, pt_root->_pt_left, cpv_value);
         pt_root->_pt_left = t_insert_result._pt_adjust;
         pt_root->_pt_left->_pt_parent = pt_root;
@@ -481,10 +453,8 @@ _avl_tree_insert_result_t _avl_tree_insert_avlnode(
         t_insert_result._pt_adjust = pt_root;
 
         return t_insert_result;
-    }
-    /* else insert into right subtree */
-    else
-    {
+    } else {
+        /* insert into right subtree */
         t_insert_result = _avl_tree_insert_avlnode(cpt_avl_tree, pt_root->_pt_right, cpv_value);
         pt_root->_pt_right =  t_insert_result._pt_adjust;
         pt_root->_pt_right->_pt_parent = pt_root;
@@ -501,35 +471,25 @@ _avl_tree_insert_result_t _avl_tree_insert_avlnode(
  */
 _avlnode_t* _avl_tree_rebalance(_avlnode_t* pt_root)
 {
-    if(pt_root != NULL)
-    {
+    if (pt_root != NULL) {
         /* if left - right > 1 */
-        if(_avl_tree_get_height(pt_root->_pt_left) - _avl_tree_get_height(pt_root->_pt_right) > 1)
-        {
+        if (_avl_tree_get_height(pt_root->_pt_left) - _avl_tree_get_height(pt_root->_pt_right) > 1) {
             /* ll */
-            if(_avl_tree_get_height(pt_root->_pt_left->_pt_left) >=
-               _avl_tree_get_height(pt_root->_pt_left->_pt_right))
-            {
+            if (_avl_tree_get_height(pt_root->_pt_left->_pt_left) >=
+                _avl_tree_get_height(pt_root->_pt_left->_pt_right)) {
                 pt_root = _avl_tree_left_signal_rotate(pt_root);
-            }
+            } else {
             /* lr */
-            else
-            {
                 pt_root = _avl_tree_left_double_rotate(pt_root);
             }
-        }
+        } else if (_avl_tree_get_height(pt_root->_pt_right) - _avl_tree_get_height(pt_root->_pt_left) > 1) {
         /* else if right - left > 1 */
-        else if(_avl_tree_get_height(pt_root->_pt_right) - _avl_tree_get_height(pt_root->_pt_left) > 1)
-        {
             /* rr */
-            if(_avl_tree_get_height(pt_root->_pt_right->_pt_right) >= 
-               _avl_tree_get_height(pt_root->_pt_right->_pt_left))
-            {
+            if (_avl_tree_get_height(pt_root->_pt_right->_pt_right) >= 
+                _avl_tree_get_height(pt_root->_pt_right->_pt_left)) {
                 pt_root = _avl_tree_right_signal_rotate(pt_root);
-            }
+            } else {
             /* rl */
-            else
-            {
                 pt_root = _avl_tree_right_double_rotate(pt_root);
             }
         }
@@ -552,16 +512,13 @@ void _avl_tree_init_elem_auxiliary(_avl_tree_t* pt_avl_tree, _avlnode_t* pt_node
     assert(_avl_tree_is_inited(pt_avl_tree) || _avl_tree_is_created(pt_avl_tree));
 
     /* initialize new elements */
-    if(_GET_AVL_TREE_TYPE_STYLE(pt_avl_tree) == _TYPE_CSTL_BUILTIN)
-    {
+    if (_GET_AVL_TREE_TYPE_STYLE(pt_avl_tree) == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_AVL_TREE_TYPE_NAME(pt_avl_tree), s_elemtypename);
 
         _GET_AVL_TREE_TYPE_INIT_FUNCTION(pt_avl_tree)(pt_node->_pby_data, s_elemtypename);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree);
         _GET_AVL_TREE_TYPE_INIT_FUNCTION(pt_avl_tree)(pt_node->_pby_data, &b_result);
         assert(b_result);
@@ -580,13 +537,10 @@ void _avl_tree_elem_compare_auxiliary(
     assert(pv_output != NULL);
     assert(_avl_tree_is_inited(cpt_avl_tree));
 
-    if(strncmp(_GET_AVL_TREE_TYPE_BASENAME(cpt_avl_tree), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
-       cpt_avl_tree->_t_compare != _GET_AVL_TREE_TYPE_LESS_FUNCTION(cpt_avl_tree))
-    {
+    if (strncmp(_GET_AVL_TREE_TYPE_BASENAME(cpt_avl_tree), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0 &&
+        cpt_avl_tree->_t_compare != _GET_AVL_TREE_TYPE_LESS_FUNCTION(cpt_avl_tree)) {
         cpt_avl_tree->_t_compare(string_c_str((string_t*)cpv_first), string_c_str((string_t*)cpv_second), pv_output);
-    }
-    else
-    {
+    } else {
         cpt_avl_tree->_t_compare(cpv_first, cpv_second, pv_output);
     }
 }

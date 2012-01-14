@@ -53,23 +53,18 @@ void _alloc_init(_alloc_t* pt_allocator)
     pt_allocator->_t_mempoolindex = 0;
     pt_allocator->_pby_mempool = NULL;
     
-    for(i = 0; i < _MEM_LINK_COUNT; ++i)
-    {
+    for (i = 0; i < _MEM_LINK_COUNT; ++i) {
         pt_allocator->_apt_memlink[i] = NULL;
     }
 
     /* initialize memory pool */
     pt_allocator->_t_mempoolcount = _MEM_POOL_DEFAULT_COUNT;
     pt_allocator->_ppby_mempoolcontainer = (_byte_t**)malloc(pt_allocator->_t_mempoolcount * sizeof(_byte_t*));
-    if(pt_allocator->_ppby_mempoolcontainer != NULL)
-    {
-        for(i = 0; i < pt_allocator->_t_mempoolcount; ++i)
-        {
+    if (pt_allocator->_ppby_mempoolcontainer != NULL) {
+        for (i = 0; i < pt_allocator->_t_mempoolcount; ++i) {
             pt_allocator->_ppby_mempoolcontainer[i] = NULL;
         }
-    }
-    else
-    {
+    } else {
         fprintf(stderr, "CSTL FATAL ERROR: memory allocation error!\n");
         exit(EXIT_FAILURE);
     }
@@ -85,16 +80,14 @@ void _alloc_destroy(_alloc_t* pt_allocator)
     assert(pt_allocator != NULL);
 
     /* destroy memory pool */
-    for(i = 0; i < pt_allocator->_t_mempoolcount; ++i)
-    {
+    for (i = 0; i < pt_allocator->_t_mempoolcount; ++i) {
         free(pt_allocator->_ppby_mempoolcontainer[i]);
         pt_allocator->_ppby_mempoolcontainer[i] = NULL;
     }
     free(pt_allocator->_ppby_mempoolcontainer);
     pt_allocator->_ppby_mempoolcontainer = NULL;
 
-    for(i = 0; i < _MEM_LINK_COUNT; ++i)
-    {
+    for (i = 0; i < _MEM_LINK_COUNT; ++i) {
         pt_allocator->_apt_memlink[i] = NULL;
     }
 
@@ -115,16 +108,12 @@ void* _alloc_allocate(_alloc_t* pt_allocator, size_t t_size, size_t t_count)
 
     assert(pt_allocator != NULL);
 
-    if(t_allocsize > _MEM_SMALL_MEM_SIZE_MAX)
-    {
+    if (t_allocsize > _MEM_SMALL_MEM_SIZE_MAX) {
         pv_allocmem = _alloc_malloc(t_allocsize);
         assert(pv_allocmem != NULL);
-    }
-    else
-    {
+    } else {
         pt_link = pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)];
-        if(pt_link == NULL)
-        {
+        if (pt_link == NULL) {
             _alloc_apply_formated_memory(pt_allocator, _MEM_ROUND_UP(t_allocsize));
             pt_link = pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)];
             assert(pt_link != NULL);
@@ -146,12 +135,9 @@ void _alloc_deallocate(_alloc_t* pt_allocator, void* pv_allocmem, size_t t_size,
     assert(pt_allocator != NULL);
     assert(pv_allocmem != NULL);
 
-    if(t_allocsize > _MEM_SMALL_MEM_SIZE_MAX)
-    {
+    if (t_allocsize > _MEM_SMALL_MEM_SIZE_MAX) {
         _alloc_free(pv_allocmem);
-    }
-    else
-    {
+    } else {
         ((_memlink_t*)pv_allocmem)->_pui_nextmem = pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)];
         pt_allocator->_apt_memlink[_MEM_LINK_INDEX(t_allocsize)] = ((_memlink_t*)pv_allocmem);
     }
@@ -167,28 +153,22 @@ bool_t _alloc_is_inited(const _alloc_t* cpt_allocator)
 
     assert(cpt_allocator != NULL);
 
-    if(cpt_allocator->_t_mempoolsize != 0 || cpt_allocator->_t_mempoolindex != 0 || cpt_allocator->_pby_mempool != NULL)
-    {
+    if (cpt_allocator->_t_mempoolsize != 0 || cpt_allocator->_t_mempoolindex != 0 || cpt_allocator->_pby_mempool != NULL) {
         return false;
     }
 
-    for(i = 0; i < _MEM_LINK_COUNT; ++i)
-    {
-        if(cpt_allocator->_apt_memlink[i] != NULL)
-        {
+    for (i = 0; i < _MEM_LINK_COUNT; ++i) {
+        if (cpt_allocator->_apt_memlink[i] != NULL) {
             return false;
         }
     }
 
-    if(cpt_allocator->_t_mempoolcount != _MEM_POOL_DEFAULT_COUNT || cpt_allocator->_ppby_mempoolcontainer == NULL)
-    {
+    if (cpt_allocator->_t_mempoolcount != _MEM_POOL_DEFAULT_COUNT || cpt_allocator->_ppby_mempoolcontainer == NULL) {
         return false;
     }
 
-    for(i = 0; i < cpt_allocator->_t_mempoolcount; ++i)
-    {
-        if(cpt_allocator->_ppby_mempoolcontainer[i] != NULL)
-        {
+    for (i = 0; i < cpt_allocator->_t_mempoolcount; ++i) {
+        if (cpt_allocator->_ppby_mempoolcontainer[i] != NULL) {
             return false;
         }
     }

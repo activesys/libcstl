@@ -85,12 +85,9 @@ void _vector_iterator_get_value(vector_iterator_t it_iter, void* pv_value)
     assert(!_vector_iterator_equal(it_iter, vector_end(_VECTOR_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_VECTOR_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_VECTOR_TYPE_BASENAME(_VECTOR_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         *(char**)pv_value = (char*)string_c_str((string_t*)_VECTOR_ITERATOR_COREPOS(it_iter));
-    }
-    else
-    {
+    } else {
         b_result = _GET_VECTOR_TYPE_SIZE(_VECTOR_ITERATOR_CONTAINER(it_iter));
         _GET_VECTOR_TYPE_COPY_FUNCTION(_VECTOR_ITERATOR_CONTAINER(it_iter))(pv_value, _VECTOR_ITERATOR_COREPOS(it_iter), &b_result);
         assert(b_result);
@@ -109,12 +106,9 @@ void _vector_iterator_set_value(vector_iterator_t it_iter, const void* cpv_value
     assert(!_vector_iterator_equal(it_iter, vector_end(_VECTOR_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_VECTOR_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_VECTOR_TYPE_BASENAME(_VECTOR_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         string_assign_cstr((string_t*)_VECTOR_ITERATOR_COREPOS(it_iter), (char*)cpv_value);
-    }
-    else
-    {
+    } else {
         b_result = _GET_VECTOR_TYPE_SIZE(_VECTOR_ITERATOR_CONTAINER(it_iter));
         _GET_VECTOR_TYPE_COPY_FUNCTION(_VECTOR_ITERATOR_CONTAINER(it_iter))(_VECTOR_ITERATOR_COREPOS(it_iter), cpv_value, &b_result);
         assert(b_result);
@@ -130,12 +124,9 @@ const void* _vector_iterator_get_pointer(vector_iterator_t it_iter)
     assert(!_vector_iterator_equal(it_iter, vector_end(_VECTOR_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_VECTOR_TYPE_BASENAME(_VECTOR_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_VECTOR_TYPE_BASENAME(_VECTOR_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         return string_c_str((string_t*)_VECTOR_ITERATOR_COREPOS(it_iter));
-    }
-    else
-    {
+    } else {
         return _VECTOR_ITERATOR_COREPOS(it_iter);
     }
 }

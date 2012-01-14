@@ -64,15 +64,13 @@ bool_t _create_hashtable_auxiliary(_hashtable_t* pt_hashtable, const char* s_typ
         _hashnode_init, _hashnode_copy, _hashnode_less, _hashnode_destroy);
         */
     _type_register(sizeof(_hashnode_t*), _HASHTABLE_NODE_NAME, NULL, NULL, NULL, NULL);
-    if(!_create_vector_auxiliary(&pt_hashtable->_vec_bucket, _HASHTABLE_NODE_NAME))
-    {
+    if (!_create_vector_auxiliary(&pt_hashtable->_vec_bucket, _HASHTABLE_NODE_NAME)) {
         return false;
     }
 
     /* get type information */
     _type_get_type(&pt_hashtable->_t_typeinfo, s_typename);
-    if(pt_hashtable->_t_typeinfo._t_style == _TYPE_INVALID)
-    {
+    if (pt_hashtable->_t_typeinfo._t_style == _TYPE_INVALID) {
         return false;
     }
 

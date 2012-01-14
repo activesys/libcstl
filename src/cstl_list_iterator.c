@@ -71,12 +71,9 @@ void _list_iterator_get_value(list_iterator_t it_iter, void* pv_value)
     assert(!iterator_equal(it_iter, list_end(_LIST_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_LIST_TYPE_BASENAME(_LIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_LIST_TYPE_BASENAME(_LIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         *(char**)pv_value = (char*)string_c_str((string_t*)((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_LIST_TYPE_SIZE(_LIST_ITERATOR_CONTAINER(it_iter));
         _GET_LIST_TYPE_COPY_FUNCTION(_LIST_ITERATOR_CONTAINER(it_iter))(
             pv_value, ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_result);
@@ -94,12 +91,9 @@ void _list_iterator_set_value(list_iterator_t it_iter, const void* cpv_value)
     assert(!iterator_equal(it_iter, list_end(_LIST_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_LIST_TYPE_BASENAME(_LIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_LIST_TYPE_BASENAME(_LIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         string_assign_cstr((string_t*)((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data, (char*)cpv_value);
-    }
-    else
-    {
+    } else {
         bool_t b_result = _GET_LIST_TYPE_SIZE(_LIST_ITERATOR_CONTAINER(it_iter));
         _GET_LIST_TYPE_COPY_FUNCTION(_LIST_ITERATOR_CONTAINER(it_iter))(
             ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data, cpv_value, &b_result);
@@ -116,12 +110,9 @@ const void* _list_iterator_get_pointer(list_iterator_t it_iter)
     assert(!iterator_equal(it_iter, list_end(_LIST_ITERATOR_CONTAINER(it_iter))));
 
     /* char* */
-    if(strncmp(_GET_LIST_TYPE_BASENAME(_LIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
+    if (strncmp(_GET_LIST_TYPE_BASENAME(_LIST_ITERATOR_CONTAINER(it_iter)), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         return string_c_str((string_t*)((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data);
-    }
-    else
-    {
+    } else {
         return ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data;
     }
 }
@@ -190,28 +181,21 @@ int _list_iterator_distance(list_iterator_t it_first, list_iterator_t it_second)
     assert(_list_iterator_belong_to_list(_LIST_ITERATOR_CONTAINER(it_second), it_second));
 
     /* if the end > begin then distance is greater zero */
-    if(_list_iterator_before(it_first, it_second))
-    {
-        for(pt_node = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_first);
-            pt_node != (_listnode_t*)_LIST_ITERATOR_COREPOS(it_second);
-            pt_node = pt_node->_pt_next)
-        {
+    if (_list_iterator_before(it_first, it_second)) {
+        for (pt_node = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_first);
+             pt_node != (_listnode_t*)_LIST_ITERATOR_COREPOS(it_second);
+             pt_node = pt_node->_pt_next) {
             n_distance++;
         }
         return n_distance;
-    }
-    else if(_list_iterator_before(it_second, it_first))
-    {
-        for(pt_node = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_second);
-            pt_node != (_listnode_t*)_LIST_ITERATOR_COREPOS(it_first);
-            pt_node = pt_node->_pt_next)
-        {
+    } else if (_list_iterator_before(it_second, it_first)) {
+        for (pt_node = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_second);
+             pt_node != (_listnode_t*)_LIST_ITERATOR_COREPOS(it_first);
+             pt_node = pt_node->_pt_next) {
             n_distance++;
         }
         return -n_distance;
-    }
-    else
-    {
+    } else {
         return 0;
     }
 }
@@ -229,19 +213,16 @@ bool_t _list_iterator_before(list_iterator_t it_first, list_iterator_t it_second
     assert(_list_iterator_belong_to_list(_LIST_ITERATOR_CONTAINER(it_second), it_second));
 
     /* if the first node equal to second node is false */
-    if(_LIST_ITERATOR_COREPOS(it_first) == _LIST_ITERATOR_COREPOS(it_second))
-    {
+    if (_LIST_ITERATOR_COREPOS(it_first) == _LIST_ITERATOR_COREPOS(it_second)) {
         return false;
     }
 
     /* loop from first iterator */
-    for(pt_node = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_first);
-        pt_node != _LIST_ITERATOR_CONTAINER(it_first)->_pt_node;
-        pt_node = pt_node->_pt_next)
-    {
+    for (pt_node = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_first);
+         pt_node != _LIST_ITERATOR_CONTAINER(it_first)->_pt_node;
+         pt_node = pt_node->_pt_next) {
         /* if meet the second iterator then the first before second */
-        if(pt_node == (_listnode_t*)_LIST_ITERATOR_COREPOS(it_second))
-        {
+        if (pt_node == (_listnode_t*)_LIST_ITERATOR_COREPOS(it_second)) {
             return true;
         }
     }
