@@ -94,10 +94,11 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-cstl_priority_queue_private.$(OBJEXT) \
 	ut-cstl_queue.$(OBJEXT) ut-cstl_queue_private.$(OBJEXT) \
 	ut-cstl_string.$(OBJEXT) ut-cstl_string_private.$(OBJEXT) \
-	ut-cstl_types.$(OBJEXT) ut-cstl_pair.$(OBJEXT) \
-	ut-cstl_pair_private.$(OBJEXT) ut-cstl_pair_aux.$(OBJEXT) \
-	ut-cstl_stack.$(OBJEXT) ut-cstl_stack_private.$(OBJEXT) \
-	ut-cstl_vector.$(OBJEXT) ut-cstl_vector_iterator.$(OBJEXT) \
+	ut-cstl_types.$(OBJEXT) ut-cstl_types_builtin.$(OBJEXT) \
+	ut-cstl_pair.$(OBJEXT) ut-cstl_pair_private.$(OBJEXT) \
+	ut-cstl_pair_aux.$(OBJEXT) ut-cstl_stack.$(OBJEXT) \
+	ut-cstl_stack_private.$(OBJEXT) ut-cstl_vector.$(OBJEXT) \
+	ut-cstl_vector_iterator.$(OBJEXT) \
 	ut-cstl_vector_private.$(OBJEXT) ut-cstl_vector_aux.$(OBJEXT) \
 	ut-ut_cstl_alloc_aux.$(OBJEXT) ut-ut_cstl_alloc.$(OBJEXT) \
 	ut-ut_cstl_vector_iterator.$(OBJEXT) \
@@ -160,7 +161,8 @@ am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
 	ut-ut_cstl_hash_multimap_iterator.$(OBJEXT) \
 	ut-ut_cstl_hash_multimap.$(OBJEXT) \
 	ut-ut_cstl_iterator_private.$(OBJEXT) \
-	ut-ut_cstl_iterator.$(OBJEXT)
+	ut-ut_cstl_iterator.$(OBJEXT) \
+	ut-ut_cstl_types_builtin.$(OBJEXT)
 ut_OBJECTS = $(am_ut_OBJECTS)
 ut_LDADD = $(LDADD)
 ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -337,7 +339,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_priority_queue.c $(srcdir)/../../src/cstl_priority_queue_private.c \
 	     $(srcdir)/../../src/cstl_queue.c $(srcdir)/../../src/cstl_queue_private.c \
 	     $(srcdir)/../../src/cstl_string.c $(srcdir)/../../src/cstl_string_private.c \
-	     $(srcdir)/../../src/cstl_types.c \
+	     $(srcdir)/../../src/cstl_types.c $(srcdir)/../../src/cstl_types_builtin.c \
 	     $(srcdir)/../../src/cstl_pair.c $(srcdir)/../../src/cstl_pair_private.c $(srcdir)/../../src/cstl_pair_aux.c \
 	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
@@ -418,7 +420,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_hash_multimap_iterator.c ut_cstl_hash_multimap_iterator.h \
 	     ut_cstl_hash_multimap.c ut_cstl_hash_multimap.h \
 	     ut_cstl_iterator_private.c ut_cstl_iterator_private.h \
-	     ut_cstl_iterator.c ut_cstl_iterator.h
+	     ut_cstl_iterator.c ut_cstl_iterator.h \
+	     ut_cstl_types_builtin.c ut_cstl_types_builtin.h
 
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
@@ -558,6 +561,7 @@ include ./$(DEPDIR)/ut-cstl_stack_private.Po
 include ./$(DEPDIR)/ut-cstl_string.Po
 include ./$(DEPDIR)/ut-cstl_string_private.Po
 include ./$(DEPDIR)/ut-cstl_types.Po
+include ./$(DEPDIR)/ut-cstl_types_builtin.Po
 include ./$(DEPDIR)/ut-cstl_vector.Po
 include ./$(DEPDIR)/ut-cstl_vector_aux.Po
 include ./$(DEPDIR)/ut-cstl_vector_iterator.Po
@@ -635,6 +639,7 @@ include ./$(DEPDIR)/ut-ut_cstl_stack.Po
 include ./$(DEPDIR)/ut-ut_cstl_stack_private.Po
 include ./$(DEPDIR)/ut-ut_cstl_string.Po
 include ./$(DEPDIR)/ut-ut_cstl_string_private.Po
+include ./$(DEPDIR)/ut-ut_cstl_types_builtin.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_aux.Po
 include ./$(DEPDIR)/ut-ut_cstl_vector_iterator.Po
@@ -1754,6 +1759,20 @@ ut-cstl_types.obj: $(srcdir)/../../src/cstl_types.c
 #	source='$(srcdir)/../../src/cstl_types.c' object='ut-cstl_types.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_types.obj `if test -f '$(srcdir)/../../src/cstl_types.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types.c'; fi`
+
+ut-cstl_types_builtin.o: $(srcdir)/../../src/cstl_types_builtin.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_types_builtin.o -MD -MP -MF $(DEPDIR)/ut-cstl_types_builtin.Tpo -c -o ut-cstl_types_builtin.o `test -f '$(srcdir)/../../src/cstl_types_builtin.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types_builtin.c
+	$(am__mv) $(DEPDIR)/ut-cstl_types_builtin.Tpo $(DEPDIR)/ut-cstl_types_builtin.Po
+#	source='$(srcdir)/../../src/cstl_types_builtin.c' object='ut-cstl_types_builtin.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_types_builtin.o `test -f '$(srcdir)/../../src/cstl_types_builtin.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types_builtin.c
+
+ut-cstl_types_builtin.obj: $(srcdir)/../../src/cstl_types_builtin.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_types_builtin.obj -MD -MP -MF $(DEPDIR)/ut-cstl_types_builtin.Tpo -c -o ut-cstl_types_builtin.obj `if test -f '$(srcdir)/../../src/cstl_types_builtin.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types_builtin.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-cstl_types_builtin.Tpo $(DEPDIR)/ut-cstl_types_builtin.Po
+#	source='$(srcdir)/../../src/cstl_types_builtin.c' object='ut-cstl_types_builtin.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_types_builtin.obj `if test -f '$(srcdir)/../../src/cstl_types_builtin.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types_builtin.c'; fi`
 
 ut-cstl_pair.o: $(srcdir)/../../src/cstl_pair.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_pair.o -MD -MP -MF $(DEPDIR)/ut-cstl_pair.Tpo -c -o ut-cstl_pair.o `test -f '$(srcdir)/../../src/cstl_pair.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair.c
@@ -2958,6 +2977,20 @@ ut-ut_cstl_iterator.obj: ut_cstl_iterator.c
 #	source='ut_cstl_iterator.c' object='ut-ut_cstl_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_iterator.obj `if test -f 'ut_cstl_iterator.c'; then $(CYGPATH_W) 'ut_cstl_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_iterator.c'; fi`
+
+ut-ut_cstl_types_builtin.o: ut_cstl_types_builtin.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_types_builtin.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_types_builtin.Tpo -c -o ut-ut_cstl_types_builtin.o `test -f 'ut_cstl_types_builtin.c' || echo '$(srcdir)/'`ut_cstl_types_builtin.c
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_types_builtin.Tpo $(DEPDIR)/ut-ut_cstl_types_builtin.Po
+#	source='ut_cstl_types_builtin.c' object='ut-ut_cstl_types_builtin.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_types_builtin.o `test -f 'ut_cstl_types_builtin.c' || echo '$(srcdir)/'`ut_cstl_types_builtin.c
+
+ut-ut_cstl_types_builtin.obj: ut_cstl_types_builtin.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_types_builtin.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_types_builtin.Tpo -c -o ut-ut_cstl_types_builtin.obj `if test -f 'ut_cstl_types_builtin.c'; then $(CYGPATH_W) 'ut_cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types_builtin.c'; fi`
+	$(am__mv) $(DEPDIR)/ut-ut_cstl_types_builtin.Tpo $(DEPDIR)/ut-ut_cstl_types_builtin.Po
+#	source='ut_cstl_types_builtin.c' object='ut-ut_cstl_types_builtin.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_types_builtin.obj `if test -f 'ut_cstl_types_builtin.c'; then $(CYGPATH_W) 'ut_cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types_builtin.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

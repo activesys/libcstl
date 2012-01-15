@@ -41,7 +41,7 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_priority_queue.c $(srcdir)/../../src/cstl_priority_queue_private.c \
 	     $(srcdir)/../../src/cstl_queue.c $(srcdir)/../../src/cstl_queue_private.c \
 	     $(srcdir)/../../src/cstl_string.c $(srcdir)/../../src/cstl_string_private.c \
-	     $(srcdir)/../../src/cstl_types.c \
+	     $(srcdir)/../../src/cstl_types.c $(srcdir)/../../src/cstl_types_builtin.c \
 	     $(srcdir)/../../src/cstl_pair.c $(srcdir)/../../src/cstl_pair_private.c $(srcdir)/../../src/cstl_pair_aux.c \
 	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
@@ -122,7 +122,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_hash_multimap_iterator.c ut_cstl_hash_multimap_iterator.h \
 	     ut_cstl_hash_multimap.c ut_cstl_hash_multimap.h \
 	     ut_cstl_iterator_private.c ut_cstl_iterator_private.h \
-	     ut_cstl_iterator.c ut_cstl_iterator.h
+	     ut_cstl_iterator.c ut_cstl_iterator.h \
+	     ut_cstl_types_builtin.c ut_cstl_types_builtin.h
 ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

@@ -980,7 +980,7 @@ void test_iterator_advance__string_prev_n(void** state);
     UT_CASE(test_iterator_advance__string_n),\
     UT_CASE(test_iterator_advance__string_n_),\
     UT_CASE(test_iterator_advance__string_end_n),\
-    UT_CASE(test_iterator_advance__string_prev_n),\
+    UT_CASE(test_iterator_advance__string_prev_n)
 
 #endif /* _UT_CSTL_ITERATOR_H_ */
 
