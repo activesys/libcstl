@@ -33,7 +33,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = i686-pc-linux-gnu
 host_triplet = i686-pc-linux-gnu
-check_PROGRAMS = ut$(EXEEXT)
+check_PROGRAMS = libcstl_ut$(EXEEXT)
 subdir = test/ut
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -44,130 +44,175 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am_ut_OBJECTS = ut-ut_main.$(OBJEXT) ut-ut_def.$(OBJEXT) \
-	ut-cstl_alloc_aux.$(OBJEXT) ut-cstl_alloc.$(OBJEXT) \
-	ut-cstl_algo.$(OBJEXT) ut-cstl_algobase.$(OBJEXT) \
-	ut-cstl_function.$(OBJEXT) ut-cstl_iterator.$(OBJEXT) \
-	ut-cstl_iterator_private.$(OBJEXT) ut-cstl_avl_tree.$(OBJEXT) \
-	ut-cstl_avl_tree_iterator.$(OBJEXT) \
-	ut-cstl_avl_tree_private.$(OBJEXT) \
-	ut-cstl_avl_tree_aux.$(OBJEXT) ut-cstl_basic_string.$(OBJEXT) \
-	ut-cstl_basic_string_iterator.$(OBJEXT) \
-	ut-cstl_basic_string_private.$(OBJEXT) \
-	ut-cstl_basic_string_aux.$(OBJEXT) ut-cstl_deque.$(OBJEXT) \
-	ut-cstl_deque_iterator.$(OBJEXT) \
-	ut-cstl_deque_private.$(OBJEXT) ut-cstl_deque_aux.$(OBJEXT) \
-	ut-cstl_hash_map.$(OBJEXT) ut-cstl_hash_map_iterator.$(OBJEXT) \
-	ut-cstl_hash_map_private.$(OBJEXT) \
-	ut-cstl_hash_map_aux.$(OBJEXT) ut-cstl_hash_multimap.$(OBJEXT) \
-	ut-cstl_hash_multimap_iterator.$(OBJEXT) \
-	ut-cstl_hash_multimap_private.$(OBJEXT) \
-	ut-cstl_hash_multimap_aux.$(OBJEXT) \
-	ut-cstl_hash_multiset.$(OBJEXT) \
-	ut-cstl_hash_multiset_iterator.$(OBJEXT) \
-	ut-cstl_hash_multiset_private.$(OBJEXT) \
-	ut-cstl_hash_multiset_aux.$(OBJEXT) ut-cstl_hash_set.$(OBJEXT) \
-	ut-cstl_hash_set_iterator.$(OBJEXT) \
-	ut-cstl_hash_set_private.$(OBJEXT) \
-	ut-cstl_hash_set_aux.$(OBJEXT) ut-cstl_hashtable.$(OBJEXT) \
-	ut-cstl_hashtable_iterator.$(OBJEXT) \
-	ut-cstl_hashtable_private.$(OBJEXT) \
-	ut-cstl_hashtable_aux.$(OBJEXT) ut-cstl_heap.$(OBJEXT) \
-	ut-cstl_list.$(OBJEXT) ut-cstl_list_iterator.$(OBJEXT) \
-	ut-cstl_list_private.$(OBJEXT) ut-cstl_list_aux.$(OBJEXT) \
-	ut-cstl_map.$(OBJEXT) ut-cstl_map_iterator.$(OBJEXT) \
-	ut-cstl_map_private.$(OBJEXT) ut-cstl_map_aux.$(OBJEXT) \
-	ut-cstl_multimap.$(OBJEXT) ut-cstl_multimap_iterator.$(OBJEXT) \
-	ut-cstl_multimap_private.$(OBJEXT) \
-	ut-cstl_multimap_aux.$(OBJEXT) ut-cstl_multiset.$(OBJEXT) \
-	ut-cstl_multiset_iterator.$(OBJEXT) \
-	ut-cstl_multiset_private.$(OBJEXT) \
-	ut-cstl_multiset_aux.$(OBJEXT) ut-cstl_numeric.$(OBJEXT) \
-	ut-cstl_rb_tree.$(OBJEXT) ut-cstl_rb_tree_iterator.$(OBJEXT) \
-	ut-cstl_rb_tree_private.$(OBJEXT) \
-	ut-cstl_rb_tree_aux.$(OBJEXT) ut-cstl_set.$(OBJEXT) \
-	ut-cstl_set_iterator.$(OBJEXT) ut-cstl_set_private.$(OBJEXT) \
-	ut-cstl_set_aux.$(OBJEXT) ut-cstl_slist.$(OBJEXT) \
-	ut-cstl_slist_iterator.$(OBJEXT) \
-	ut-cstl_slist_private.$(OBJEXT) ut-cstl_slist_aux.$(OBJEXT) \
-	ut-cstl_priority_queue.$(OBJEXT) \
-	ut-cstl_priority_queue_private.$(OBJEXT) \
-	ut-cstl_queue.$(OBJEXT) ut-cstl_queue_private.$(OBJEXT) \
-	ut-cstl_string.$(OBJEXT) ut-cstl_string_private.$(OBJEXT) \
-	ut-cstl_types.$(OBJEXT) ut-cstl_types_builtin.$(OBJEXT) \
-	ut-cstl_pair.$(OBJEXT) ut-cstl_pair_private.$(OBJEXT) \
-	ut-cstl_pair_aux.$(OBJEXT) ut-cstl_stack.$(OBJEXT) \
-	ut-cstl_stack_private.$(OBJEXT) ut-cstl_vector.$(OBJEXT) \
-	ut-cstl_vector_iterator.$(OBJEXT) \
-	ut-cstl_vector_private.$(OBJEXT) ut-cstl_vector_aux.$(OBJEXT) \
-	ut-ut_cstl_alloc_aux.$(OBJEXT) ut-ut_cstl_alloc.$(OBJEXT) \
-	ut-ut_cstl_vector_iterator.$(OBJEXT) \
-	ut-ut_cstl_vector_aux.$(OBJEXT) \
-	ut-ut_cstl_vector_private.$(OBJEXT) \
-	ut-ut_cstl_vector.$(OBJEXT) ut-ut_cstl_list_iterator.$(OBJEXT) \
-	ut-ut_cstl_list_aux.$(OBJEXT) \
-	ut-ut_cstl_list_private.$(OBJEXT) ut-ut_cstl_list.$(OBJEXT) \
-	ut-ut_cstl_deque_iterator.$(OBJEXT) \
-	ut-ut_cstl_deque_aux.$(OBJEXT) \
-	ut-ut_cstl_deque_private.$(OBJEXT) ut-ut_cstl_deque.$(OBJEXT) \
-	ut-ut_cstl_slist_iterator.$(OBJEXT) \
-	ut-ut_cstl_slist_aux.$(OBJEXT) \
-	ut-ut_cstl_slist_private.$(OBJEXT) ut-ut_cstl_slist.$(OBJEXT) \
-	ut-ut_cstl_stack_private.$(OBJEXT) ut-ut_cstl_stack.$(OBJEXT) \
-	ut-ut_cstl_queue_private.$(OBJEXT) ut-ut_cstl_queue.$(OBJEXT) \
-	ut-ut_cstl_basic_string_iterator.$(OBJEXT) \
-	ut-ut_cstl_basic_string_aux.$(OBJEXT) \
-	ut-ut_cstl_basic_string_private.$(OBJEXT) \
-	ut-ut_cstl_basic_string.$(OBJEXT) \
-	ut-ut_cstl_string_private.$(OBJEXT) \
-	ut-ut_cstl_string.$(OBJEXT) ut-ut_cstl_avl_tree_aux.$(OBJEXT) \
-	ut-ut_cstl_avl_tree_private.$(OBJEXT) \
-	ut-ut_cstl_avl_tree_iterator.$(OBJEXT) \
-	ut-ut_cstl_avl_tree.$(OBJEXT) ut-ut_cstl_rb_tree_aux.$(OBJEXT) \
-	ut-ut_cstl_rb_tree_private.$(OBJEXT) \
-	ut-ut_cstl_rb_tree_iterator.$(OBJEXT) \
-	ut-ut_cstl_rb_tree.$(OBJEXT) ut-ut_cstl_set_aux.$(OBJEXT) \
-	ut-ut_cstl_set_private.$(OBJEXT) \
-	ut-ut_cstl_set_iterator.$(OBJEXT) ut-ut_cstl_set.$(OBJEXT) \
-	ut-ut_cstl_multiset_aux.$(OBJEXT) \
-	ut-ut_cstl_multiset_private.$(OBJEXT) \
-	ut-ut_cstl_multiset_iterator.$(OBJEXT) \
-	ut-ut_cstl_multiset.$(OBJEXT) ut-ut_cstl_pair_aux.$(OBJEXT) \
-	ut-ut_cstl_pair_private.$(OBJEXT) ut-ut_cstl_pair.$(OBJEXT) \
-	ut-ut_cstl_map_aux.$(OBJEXT) ut-ut_cstl_map_private.$(OBJEXT) \
-	ut-ut_cstl_map_iterator.$(OBJEXT) ut-ut_cstl_map.$(OBJEXT) \
-	ut-ut_cstl_multimap_aux.$(OBJEXT) \
-	ut-ut_cstl_multimap_private.$(OBJEXT) \
-	ut-ut_cstl_multimap_iterator.$(OBJEXT) \
-	ut-ut_cstl_multimap.$(OBJEXT) \
-	ut-ut_cstl_hashtable_aux.$(OBJEXT) \
-	ut-ut_cstl_hashtable_private.$(OBJEXT) \
-	ut-ut_cstl_hashtable_iterator.$(OBJEXT) \
-	ut-ut_cstl_hashtable.$(OBJEXT) \
-	ut-ut_cstl_hash_set_aux.$(OBJEXT) \
-	ut-ut_cstl_hash_set_private.$(OBJEXT) \
-	ut-ut_cstl_hash_set_iterator.$(OBJEXT) \
-	ut-ut_cstl_hash_set.$(OBJEXT) \
-	ut-ut_cstl_hash_multiset_aux.$(OBJEXT) \
-	ut-ut_cstl_hash_multiset_private.$(OBJEXT) \
-	ut-ut_cstl_hash_multiset_iterator.$(OBJEXT) \
-	ut-ut_cstl_hash_multiset.$(OBJEXT) \
-	ut-ut_cstl_hash_map_aux.$(OBJEXT) \
-	ut-ut_cstl_hash_map_private.$(OBJEXT) \
-	ut-ut_cstl_hash_map_iterator.$(OBJEXT) \
-	ut-ut_cstl_hash_map.$(OBJEXT) \
-	ut-ut_cstl_hash_multimap_aux.$(OBJEXT) \
-	ut-ut_cstl_hash_multimap_private.$(OBJEXT) \
-	ut-ut_cstl_hash_multimap_iterator.$(OBJEXT) \
-	ut-ut_cstl_hash_multimap.$(OBJEXT) \
-	ut-ut_cstl_iterator_private.$(OBJEXT) \
-	ut-ut_cstl_iterator.$(OBJEXT) \
-	ut-ut_cstl_types_builtin.$(OBJEXT)
-ut_OBJECTS = $(am_ut_OBJECTS)
-ut_LDADD = $(LDADD)
-ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(ut_LDFLAGS) \
-	$(LDFLAGS) -o $@
+am_libcstl_ut_OBJECTS = libcstl_ut-ut_main.$(OBJEXT) \
+	libcstl_ut-ut_def.$(OBJEXT) \
+	libcstl_ut-cstl_alloc_aux.$(OBJEXT) \
+	libcstl_ut-cstl_alloc.$(OBJEXT) libcstl_ut-cstl_algo.$(OBJEXT) \
+	libcstl_ut-cstl_algobase.$(OBJEXT) \
+	libcstl_ut-cstl_function.$(OBJEXT) \
+	libcstl_ut-cstl_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_iterator_private.$(OBJEXT) \
+	libcstl_ut-cstl_avl_tree.$(OBJEXT) \
+	libcstl_ut-cstl_avl_tree_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_avl_tree_private.$(OBJEXT) \
+	libcstl_ut-cstl_avl_tree_aux.$(OBJEXT) \
+	libcstl_ut-cstl_basic_string.$(OBJEXT) \
+	libcstl_ut-cstl_basic_string_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_basic_string_private.$(OBJEXT) \
+	libcstl_ut-cstl_basic_string_aux.$(OBJEXT) \
+	libcstl_ut-cstl_deque.$(OBJEXT) \
+	libcstl_ut-cstl_deque_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_deque_private.$(OBJEXT) \
+	libcstl_ut-cstl_deque_aux.$(OBJEXT) \
+	libcstl_ut-cstl_hash_map.$(OBJEXT) \
+	libcstl_ut-cstl_hash_map_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_hash_map_private.$(OBJEXT) \
+	libcstl_ut-cstl_hash_map_aux.$(OBJEXT) \
+	libcstl_ut-cstl_hash_multimap.$(OBJEXT) \
+	libcstl_ut-cstl_hash_multimap_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_hash_multimap_private.$(OBJEXT) \
+	libcstl_ut-cstl_hash_multimap_aux.$(OBJEXT) \
+	libcstl_ut-cstl_hash_multiset.$(OBJEXT) \
+	libcstl_ut-cstl_hash_multiset_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_hash_multiset_private.$(OBJEXT) \
+	libcstl_ut-cstl_hash_multiset_aux.$(OBJEXT) \
+	libcstl_ut-cstl_hash_set.$(OBJEXT) \
+	libcstl_ut-cstl_hash_set_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_hash_set_private.$(OBJEXT) \
+	libcstl_ut-cstl_hash_set_aux.$(OBJEXT) \
+	libcstl_ut-cstl_hashtable.$(OBJEXT) \
+	libcstl_ut-cstl_hashtable_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_hashtable_private.$(OBJEXT) \
+	libcstl_ut-cstl_hashtable_aux.$(OBJEXT) \
+	libcstl_ut-cstl_heap.$(OBJEXT) libcstl_ut-cstl_list.$(OBJEXT) \
+	libcstl_ut-cstl_list_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_list_private.$(OBJEXT) \
+	libcstl_ut-cstl_list_aux.$(OBJEXT) \
+	libcstl_ut-cstl_map.$(OBJEXT) \
+	libcstl_ut-cstl_map_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_map_private.$(OBJEXT) \
+	libcstl_ut-cstl_map_aux.$(OBJEXT) \
+	libcstl_ut-cstl_multimap.$(OBJEXT) \
+	libcstl_ut-cstl_multimap_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_multimap_private.$(OBJEXT) \
+	libcstl_ut-cstl_multimap_aux.$(OBJEXT) \
+	libcstl_ut-cstl_multiset.$(OBJEXT) \
+	libcstl_ut-cstl_multiset_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_multiset_private.$(OBJEXT) \
+	libcstl_ut-cstl_multiset_aux.$(OBJEXT) \
+	libcstl_ut-cstl_numeric.$(OBJEXT) \
+	libcstl_ut-cstl_rb_tree.$(OBJEXT) \
+	libcstl_ut-cstl_rb_tree_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_rb_tree_private.$(OBJEXT) \
+	libcstl_ut-cstl_rb_tree_aux.$(OBJEXT) \
+	libcstl_ut-cstl_set.$(OBJEXT) \
+	libcstl_ut-cstl_set_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_set_private.$(OBJEXT) \
+	libcstl_ut-cstl_set_aux.$(OBJEXT) \
+	libcstl_ut-cstl_slist.$(OBJEXT) \
+	libcstl_ut-cstl_slist_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_slist_private.$(OBJEXT) \
+	libcstl_ut-cstl_slist_aux.$(OBJEXT) \
+	libcstl_ut-cstl_priority_queue.$(OBJEXT) \
+	libcstl_ut-cstl_priority_queue_private.$(OBJEXT) \
+	libcstl_ut-cstl_queue.$(OBJEXT) \
+	libcstl_ut-cstl_queue_private.$(OBJEXT) \
+	libcstl_ut-cstl_string.$(OBJEXT) \
+	libcstl_ut-cstl_string_private.$(OBJEXT) \
+	libcstl_ut-cstl_types.$(OBJEXT) \
+	libcstl_ut-cstl_types_builtin.$(OBJEXT) \
+	libcstl_ut-cstl_pair.$(OBJEXT) \
+	libcstl_ut-cstl_pair_private.$(OBJEXT) \
+	libcstl_ut-cstl_pair_aux.$(OBJEXT) \
+	libcstl_ut-cstl_stack.$(OBJEXT) \
+	libcstl_ut-cstl_stack_private.$(OBJEXT) \
+	libcstl_ut-cstl_vector.$(OBJEXT) \
+	libcstl_ut-cstl_vector_iterator.$(OBJEXT) \
+	libcstl_ut-cstl_vector_private.$(OBJEXT) \
+	libcstl_ut-cstl_vector_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_alloc_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_alloc.$(OBJEXT) \
+	libcstl_ut-ut_cstl_vector_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_vector_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_vector_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_vector.$(OBJEXT) \
+	libcstl_ut-ut_cstl_list_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_list_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_list_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_list.$(OBJEXT) \
+	libcstl_ut-ut_cstl_deque_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_deque_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_deque_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_deque.$(OBJEXT) \
+	libcstl_ut-ut_cstl_slist_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_slist_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_slist_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_slist.$(OBJEXT) \
+	libcstl_ut-ut_cstl_stack_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_stack.$(OBJEXT) \
+	libcstl_ut-ut_cstl_queue_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_queue.$(OBJEXT) \
+	libcstl_ut-ut_cstl_basic_string_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_basic_string_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_basic_string_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_basic_string.$(OBJEXT) \
+	libcstl_ut-ut_cstl_string_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_string.$(OBJEXT) \
+	libcstl_ut-ut_cstl_avl_tree_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_avl_tree_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_avl_tree_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_avl_tree.$(OBJEXT) \
+	libcstl_ut-ut_cstl_rb_tree_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_rb_tree_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_rb_tree_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_rb_tree.$(OBJEXT) \
+	libcstl_ut-ut_cstl_set_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_set_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_set_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_set.$(OBJEXT) \
+	libcstl_ut-ut_cstl_multiset_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_multiset_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_multiset_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_multiset.$(OBJEXT) \
+	libcstl_ut-ut_cstl_pair_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_pair_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_pair.$(OBJEXT) \
+	libcstl_ut-ut_cstl_map_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_map_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_map_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_map.$(OBJEXT) \
+	libcstl_ut-ut_cstl_multimap_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_multimap_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_multimap_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_multimap.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hashtable_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hashtable_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hashtable_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hashtable.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_set_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_set_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_set_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_set.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_multiset_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_multiset_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_multiset_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_multiset.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_map_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_map_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_map_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_map.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_multimap_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_multimap_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_multimap_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_hash_multimap.$(OBJEXT) \
+	libcstl_ut-ut_cstl_iterator_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_iterator.$(OBJEXT) \
+	libcstl_ut-ut_cstl_types_builtin.$(OBJEXT)
+libcstl_ut_OBJECTS = $(am_libcstl_ut_OBJECTS)
+libcstl_ut_LDADD = $(LDADD)
+libcstl_ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(libcstl_ut_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -181,8 +226,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(ut_SOURCES)
-DIST_SOURCES = $(ut_SOURCES)
+SOURCES = $(libcstl_ut_SOURCES)
+DIST_SOURCES = $(libcstl_ut_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 am__tty_colors = \
@@ -298,7 +343,7 @@ target_alias =
 top_build_prefix = ../../
 top_builddir = ../..
 top_srcdir = ../..
-ut_SOURCES = ut_main.c ut_def.c ut_def.h \
+libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
              $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
 	     $(srcdir)/../../src/cstl_algo.c \
 	     $(srcdir)/../../src/cstl_algobase.c \
@@ -423,8 +468,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_iterator.c ut_cstl_iterator.h \
 	     ut_cstl_types_builtin.c ut_cstl_types_builtin.h
 
-ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
-ut_LDFLAGS = -lcmockery
+libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
+libcstl_ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)
 CLEANFILES = core.* *.utoutput
 all: all-am
@@ -470,9 +515,9 @@ clean-checkPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-ut$(EXEEXT): $(ut_OBJECTS) $(ut_DEPENDENCIES) 
-	@rm -f ut$(EXEEXT)
-	$(ut_LINK) $(ut_OBJECTS) $(ut_LDADD) $(LIBS)
+libcstl_ut$(EXEEXT): $(libcstl_ut_OBJECTS) $(libcstl_ut_DEPENDENCIES) 
+	@rm -f libcstl_ut$(EXEEXT)
+	$(libcstl_ut_LINK) $(libcstl_ut_OBJECTS) $(libcstl_ut_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -480,172 +525,172 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/ut-cstl_algo.Po
-include ./$(DEPDIR)/ut-cstl_algobase.Po
-include ./$(DEPDIR)/ut-cstl_alloc.Po
-include ./$(DEPDIR)/ut-cstl_alloc_aux.Po
-include ./$(DEPDIR)/ut-cstl_avl_tree.Po
-include ./$(DEPDIR)/ut-cstl_avl_tree_aux.Po
-include ./$(DEPDIR)/ut-cstl_avl_tree_iterator.Po
-include ./$(DEPDIR)/ut-cstl_avl_tree_private.Po
-include ./$(DEPDIR)/ut-cstl_basic_string.Po
-include ./$(DEPDIR)/ut-cstl_basic_string_aux.Po
-include ./$(DEPDIR)/ut-cstl_basic_string_iterator.Po
-include ./$(DEPDIR)/ut-cstl_basic_string_private.Po
-include ./$(DEPDIR)/ut-cstl_deque.Po
-include ./$(DEPDIR)/ut-cstl_deque_aux.Po
-include ./$(DEPDIR)/ut-cstl_deque_iterator.Po
-include ./$(DEPDIR)/ut-cstl_deque_private.Po
-include ./$(DEPDIR)/ut-cstl_function.Po
-include ./$(DEPDIR)/ut-cstl_hash_map.Po
-include ./$(DEPDIR)/ut-cstl_hash_map_aux.Po
-include ./$(DEPDIR)/ut-cstl_hash_map_iterator.Po
-include ./$(DEPDIR)/ut-cstl_hash_map_private.Po
-include ./$(DEPDIR)/ut-cstl_hash_multimap.Po
-include ./$(DEPDIR)/ut-cstl_hash_multimap_aux.Po
-include ./$(DEPDIR)/ut-cstl_hash_multimap_iterator.Po
-include ./$(DEPDIR)/ut-cstl_hash_multimap_private.Po
-include ./$(DEPDIR)/ut-cstl_hash_multiset.Po
-include ./$(DEPDIR)/ut-cstl_hash_multiset_aux.Po
-include ./$(DEPDIR)/ut-cstl_hash_multiset_iterator.Po
-include ./$(DEPDIR)/ut-cstl_hash_multiset_private.Po
-include ./$(DEPDIR)/ut-cstl_hash_set.Po
-include ./$(DEPDIR)/ut-cstl_hash_set_aux.Po
-include ./$(DEPDIR)/ut-cstl_hash_set_iterator.Po
-include ./$(DEPDIR)/ut-cstl_hash_set_private.Po
-include ./$(DEPDIR)/ut-cstl_hashtable.Po
-include ./$(DEPDIR)/ut-cstl_hashtable_aux.Po
-include ./$(DEPDIR)/ut-cstl_hashtable_iterator.Po
-include ./$(DEPDIR)/ut-cstl_hashtable_private.Po
-include ./$(DEPDIR)/ut-cstl_heap.Po
-include ./$(DEPDIR)/ut-cstl_iterator.Po
-include ./$(DEPDIR)/ut-cstl_iterator_private.Po
-include ./$(DEPDIR)/ut-cstl_list.Po
-include ./$(DEPDIR)/ut-cstl_list_aux.Po
-include ./$(DEPDIR)/ut-cstl_list_iterator.Po
-include ./$(DEPDIR)/ut-cstl_list_private.Po
-include ./$(DEPDIR)/ut-cstl_map.Po
-include ./$(DEPDIR)/ut-cstl_map_aux.Po
-include ./$(DEPDIR)/ut-cstl_map_iterator.Po
-include ./$(DEPDIR)/ut-cstl_map_private.Po
-include ./$(DEPDIR)/ut-cstl_multimap.Po
-include ./$(DEPDIR)/ut-cstl_multimap_aux.Po
-include ./$(DEPDIR)/ut-cstl_multimap_iterator.Po
-include ./$(DEPDIR)/ut-cstl_multimap_private.Po
-include ./$(DEPDIR)/ut-cstl_multiset.Po
-include ./$(DEPDIR)/ut-cstl_multiset_aux.Po
-include ./$(DEPDIR)/ut-cstl_multiset_iterator.Po
-include ./$(DEPDIR)/ut-cstl_multiset_private.Po
-include ./$(DEPDIR)/ut-cstl_numeric.Po
-include ./$(DEPDIR)/ut-cstl_pair.Po
-include ./$(DEPDIR)/ut-cstl_pair_aux.Po
-include ./$(DEPDIR)/ut-cstl_pair_private.Po
-include ./$(DEPDIR)/ut-cstl_priority_queue.Po
-include ./$(DEPDIR)/ut-cstl_priority_queue_private.Po
-include ./$(DEPDIR)/ut-cstl_queue.Po
-include ./$(DEPDIR)/ut-cstl_queue_private.Po
-include ./$(DEPDIR)/ut-cstl_rb_tree.Po
-include ./$(DEPDIR)/ut-cstl_rb_tree_aux.Po
-include ./$(DEPDIR)/ut-cstl_rb_tree_iterator.Po
-include ./$(DEPDIR)/ut-cstl_rb_tree_private.Po
-include ./$(DEPDIR)/ut-cstl_set.Po
-include ./$(DEPDIR)/ut-cstl_set_aux.Po
-include ./$(DEPDIR)/ut-cstl_set_iterator.Po
-include ./$(DEPDIR)/ut-cstl_set_private.Po
-include ./$(DEPDIR)/ut-cstl_slist.Po
-include ./$(DEPDIR)/ut-cstl_slist_aux.Po
-include ./$(DEPDIR)/ut-cstl_slist_iterator.Po
-include ./$(DEPDIR)/ut-cstl_slist_private.Po
-include ./$(DEPDIR)/ut-cstl_stack.Po
-include ./$(DEPDIR)/ut-cstl_stack_private.Po
-include ./$(DEPDIR)/ut-cstl_string.Po
-include ./$(DEPDIR)/ut-cstl_string_private.Po
-include ./$(DEPDIR)/ut-cstl_types.Po
-include ./$(DEPDIR)/ut-cstl_types_builtin.Po
-include ./$(DEPDIR)/ut-cstl_vector.Po
-include ./$(DEPDIR)/ut-cstl_vector_aux.Po
-include ./$(DEPDIR)/ut-cstl_vector_iterator.Po
-include ./$(DEPDIR)/ut-cstl_vector_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_alloc.Po
-include ./$(DEPDIR)/ut-ut_cstl_alloc_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_avl_tree.Po
-include ./$(DEPDIR)/ut-ut_cstl_avl_tree_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_avl_tree_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_avl_tree_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_basic_string.Po
-include ./$(DEPDIR)/ut-ut_cstl_basic_string_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_basic_string_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_basic_string_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_deque.Po
-include ./$(DEPDIR)/ut-ut_cstl_deque_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_deque_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_deque_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_map.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_map_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_map_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_map_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_multimap.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_multimap_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_multimap_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_multimap_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_multiset.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_multiset_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_set.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_set_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_set_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_hash_set_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_hashtable.Po
-include ./$(DEPDIR)/ut-ut_cstl_hashtable_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_hashtable_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_hashtable_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_iterator_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_list.Po
-include ./$(DEPDIR)/ut-ut_cstl_list_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_list_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_list_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_map.Po
-include ./$(DEPDIR)/ut-ut_cstl_map_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_map_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_map_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_multimap.Po
-include ./$(DEPDIR)/ut-ut_cstl_multimap_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_multimap_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_multimap_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_multiset.Po
-include ./$(DEPDIR)/ut-ut_cstl_multiset_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_multiset_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_multiset_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_pair.Po
-include ./$(DEPDIR)/ut-ut_cstl_pair_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_pair_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_queue.Po
-include ./$(DEPDIR)/ut-ut_cstl_queue_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_rb_tree.Po
-include ./$(DEPDIR)/ut-ut_cstl_rb_tree_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_rb_tree_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_rb_tree_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_set.Po
-include ./$(DEPDIR)/ut-ut_cstl_set_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_set_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_set_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_slist.Po
-include ./$(DEPDIR)/ut-ut_cstl_slist_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_slist_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_slist_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_stack.Po
-include ./$(DEPDIR)/ut-ut_cstl_stack_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_string.Po
-include ./$(DEPDIR)/ut-ut_cstl_string_private.Po
-include ./$(DEPDIR)/ut-ut_cstl_types_builtin.Po
-include ./$(DEPDIR)/ut-ut_cstl_vector.Po
-include ./$(DEPDIR)/ut-ut_cstl_vector_aux.Po
-include ./$(DEPDIR)/ut-ut_cstl_vector_iterator.Po
-include ./$(DEPDIR)/ut-ut_cstl_vector_private.Po
-include ./$(DEPDIR)/ut-ut_def.Po
-include ./$(DEPDIR)/ut-ut_main.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_algo.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_algobase.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_alloc.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_alloc_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_avl_tree.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_avl_tree_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_avl_tree_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_avl_tree_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_basic_string.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_basic_string_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_basic_string_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_basic_string_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_deque.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_deque_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_deque_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_deque_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_function.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_map.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_map_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_map_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_map_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_multimap.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_multimap_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_multimap_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_multimap_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_multiset.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_multiset_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_multiset_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_multiset_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_set.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_set_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_set_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hash_set_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hashtable.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hashtable_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hashtable_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_hashtable_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_heap.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_iterator_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_list.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_list_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_list_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_list_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_map.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_map_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_map_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_map_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_multimap.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_multimap_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_multimap_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_multimap_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_multiset.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_multiset_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_multiset_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_multiset_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_numeric.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_pair.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_pair_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_pair_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_priority_queue.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_priority_queue_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_queue.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_queue_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_rb_tree.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_rb_tree_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_rb_tree_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_rb_tree_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_set.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_set_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_set_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_set_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_slist.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_slist_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_slist_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_slist_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_stack.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_stack_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_string.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_string_private.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_types.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_types_builtin.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_vector.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_vector_aux.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_vector_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_vector_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_alloc.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_avl_tree.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_basic_string.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_basic_string_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_basic_string_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_basic_string_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_deque.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_deque_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_deque_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_deque_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_map.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_map_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_map_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_map_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_set.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_set_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_set_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hash_set_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hashtable.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hashtable_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hashtable_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_hashtable_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_iterator_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_list.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_list_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_list_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_list_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_map.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_map_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_map_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_map_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_multimap.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_multimap_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_multimap_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_multimap_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_multiset.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_multiset_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_multiset_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_multiset_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_pair.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_pair_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_pair_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_queue.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_queue_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_rb_tree.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_set.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_set_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_set_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_set_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_slist.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_slist_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_slist_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_slist_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_stack.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_stack_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_string.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_string_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_types_builtin.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_vector.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_vector_aux.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_vector_iterator.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_vector_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_def.Po
+include ./$(DEPDIR)/libcstl_ut-ut_main.Po
 
 .c.o:
 	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -668,2329 +713,2329 @@ include ./$(DEPDIR)/ut-ut_main.Po
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LTCOMPILE) -c -o $@ $<
 
-ut-ut_main.o: ut_main.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_main.o -MD -MP -MF $(DEPDIR)/ut-ut_main.Tpo -c -o ut-ut_main.o `test -f 'ut_main.c' || echo '$(srcdir)/'`ut_main.c
-	$(am__mv) $(DEPDIR)/ut-ut_main.Tpo $(DEPDIR)/ut-ut_main.Po
-#	source='ut_main.c' object='ut-ut_main.o' libtool=no \
+libcstl_ut-ut_main.o: ut_main.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_main.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_main.Tpo -c -o libcstl_ut-ut_main.o `test -f 'ut_main.c' || echo '$(srcdir)/'`ut_main.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_main.Tpo $(DEPDIR)/libcstl_ut-ut_main.Po
+#	source='ut_main.c' object='libcstl_ut-ut_main.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_main.o `test -f 'ut_main.c' || echo '$(srcdir)/'`ut_main.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_main.o `test -f 'ut_main.c' || echo '$(srcdir)/'`ut_main.c
 
-ut-ut_main.obj: ut_main.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_main.obj -MD -MP -MF $(DEPDIR)/ut-ut_main.Tpo -c -o ut-ut_main.obj `if test -f 'ut_main.c'; then $(CYGPATH_W) 'ut_main.c'; else $(CYGPATH_W) '$(srcdir)/ut_main.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_main.Tpo $(DEPDIR)/ut-ut_main.Po
-#	source='ut_main.c' object='ut-ut_main.obj' libtool=no \
+libcstl_ut-ut_main.obj: ut_main.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_main.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_main.Tpo -c -o libcstl_ut-ut_main.obj `if test -f 'ut_main.c'; then $(CYGPATH_W) 'ut_main.c'; else $(CYGPATH_W) '$(srcdir)/ut_main.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_main.Tpo $(DEPDIR)/libcstl_ut-ut_main.Po
+#	source='ut_main.c' object='libcstl_ut-ut_main.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_main.obj `if test -f 'ut_main.c'; then $(CYGPATH_W) 'ut_main.c'; else $(CYGPATH_W) '$(srcdir)/ut_main.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_main.obj `if test -f 'ut_main.c'; then $(CYGPATH_W) 'ut_main.c'; else $(CYGPATH_W) '$(srcdir)/ut_main.c'; fi`
 
-ut-ut_def.o: ut_def.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_def.o -MD -MP -MF $(DEPDIR)/ut-ut_def.Tpo -c -o ut-ut_def.o `test -f 'ut_def.c' || echo '$(srcdir)/'`ut_def.c
-	$(am__mv) $(DEPDIR)/ut-ut_def.Tpo $(DEPDIR)/ut-ut_def.Po
-#	source='ut_def.c' object='ut-ut_def.o' libtool=no \
+libcstl_ut-ut_def.o: ut_def.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_def.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_def.Tpo -c -o libcstl_ut-ut_def.o `test -f 'ut_def.c' || echo '$(srcdir)/'`ut_def.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_def.Tpo $(DEPDIR)/libcstl_ut-ut_def.Po
+#	source='ut_def.c' object='libcstl_ut-ut_def.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_def.o `test -f 'ut_def.c' || echo '$(srcdir)/'`ut_def.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_def.o `test -f 'ut_def.c' || echo '$(srcdir)/'`ut_def.c
 
-ut-ut_def.obj: ut_def.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_def.obj -MD -MP -MF $(DEPDIR)/ut-ut_def.Tpo -c -o ut-ut_def.obj `if test -f 'ut_def.c'; then $(CYGPATH_W) 'ut_def.c'; else $(CYGPATH_W) '$(srcdir)/ut_def.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_def.Tpo $(DEPDIR)/ut-ut_def.Po
-#	source='ut_def.c' object='ut-ut_def.obj' libtool=no \
+libcstl_ut-ut_def.obj: ut_def.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_def.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_def.Tpo -c -o libcstl_ut-ut_def.obj `if test -f 'ut_def.c'; then $(CYGPATH_W) 'ut_def.c'; else $(CYGPATH_W) '$(srcdir)/ut_def.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_def.Tpo $(DEPDIR)/libcstl_ut-ut_def.Po
+#	source='ut_def.c' object='libcstl_ut-ut_def.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_def.obj `if test -f 'ut_def.c'; then $(CYGPATH_W) 'ut_def.c'; else $(CYGPATH_W) '$(srcdir)/ut_def.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_def.obj `if test -f 'ut_def.c'; then $(CYGPATH_W) 'ut_def.c'; else $(CYGPATH_W) '$(srcdir)/ut_def.c'; fi`
 
-ut-cstl_alloc_aux.o: $(srcdir)/../../src/cstl_alloc_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_alloc_aux.Tpo -c -o ut-cstl_alloc_aux.o `test -f '$(srcdir)/../../src/cstl_alloc_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_alloc_aux.Tpo $(DEPDIR)/ut-cstl_alloc_aux.Po
-#	source='$(srcdir)/../../src/cstl_alloc_aux.c' object='ut-cstl_alloc_aux.o' libtool=no \
+libcstl_ut-cstl_alloc_aux.o: $(srcdir)/../../src/cstl_alloc_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_alloc_aux.Tpo -c -o libcstl_ut-cstl_alloc_aux.o `test -f '$(srcdir)/../../src/cstl_alloc_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_alloc_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_alloc_aux.Po
+#	source='$(srcdir)/../../src/cstl_alloc_aux.c' object='libcstl_ut-cstl_alloc_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_alloc_aux.o `test -f '$(srcdir)/../../src/cstl_alloc_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_alloc_aux.o `test -f '$(srcdir)/../../src/cstl_alloc_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc_aux.c
 
-ut-cstl_alloc_aux.obj: $(srcdir)/../../src/cstl_alloc_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_alloc_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_alloc_aux.Tpo -c -o ut-cstl_alloc_aux.obj `if test -f '$(srcdir)/../../src/cstl_alloc_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_alloc_aux.Tpo $(DEPDIR)/ut-cstl_alloc_aux.Po
-#	source='$(srcdir)/../../src/cstl_alloc_aux.c' object='ut-cstl_alloc_aux.obj' libtool=no \
+libcstl_ut-cstl_alloc_aux.obj: $(srcdir)/../../src/cstl_alloc_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_alloc_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_alloc_aux.Tpo -c -o libcstl_ut-cstl_alloc_aux.obj `if test -f '$(srcdir)/../../src/cstl_alloc_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_alloc_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_alloc_aux.Po
+#	source='$(srcdir)/../../src/cstl_alloc_aux.c' object='libcstl_ut-cstl_alloc_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_alloc_aux.obj `if test -f '$(srcdir)/../../src/cstl_alloc_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_alloc_aux.obj `if test -f '$(srcdir)/../../src/cstl_alloc_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc_aux.c'; fi`
 
-ut-cstl_alloc.o: $(srcdir)/../../src/cstl_alloc.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_alloc.o -MD -MP -MF $(DEPDIR)/ut-cstl_alloc.Tpo -c -o ut-cstl_alloc.o `test -f '$(srcdir)/../../src/cstl_alloc.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc.c
-	$(am__mv) $(DEPDIR)/ut-cstl_alloc.Tpo $(DEPDIR)/ut-cstl_alloc.Po
-#	source='$(srcdir)/../../src/cstl_alloc.c' object='ut-cstl_alloc.o' libtool=no \
+libcstl_ut-cstl_alloc.o: $(srcdir)/../../src/cstl_alloc.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_alloc.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_alloc.Tpo -c -o libcstl_ut-cstl_alloc.o `test -f '$(srcdir)/../../src/cstl_alloc.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_alloc.Tpo $(DEPDIR)/libcstl_ut-cstl_alloc.Po
+#	source='$(srcdir)/../../src/cstl_alloc.c' object='libcstl_ut-cstl_alloc.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_alloc.o `test -f '$(srcdir)/../../src/cstl_alloc.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_alloc.o `test -f '$(srcdir)/../../src/cstl_alloc.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_alloc.c
 
-ut-cstl_alloc.obj: $(srcdir)/../../src/cstl_alloc.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_alloc.obj -MD -MP -MF $(DEPDIR)/ut-cstl_alloc.Tpo -c -o ut-cstl_alloc.obj `if test -f '$(srcdir)/../../src/cstl_alloc.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_alloc.Tpo $(DEPDIR)/ut-cstl_alloc.Po
-#	source='$(srcdir)/../../src/cstl_alloc.c' object='ut-cstl_alloc.obj' libtool=no \
+libcstl_ut-cstl_alloc.obj: $(srcdir)/../../src/cstl_alloc.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_alloc.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_alloc.Tpo -c -o libcstl_ut-cstl_alloc.obj `if test -f '$(srcdir)/../../src/cstl_alloc.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_alloc.Tpo $(DEPDIR)/libcstl_ut-cstl_alloc.Po
+#	source='$(srcdir)/../../src/cstl_alloc.c' object='libcstl_ut-cstl_alloc.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_alloc.obj `if test -f '$(srcdir)/../../src/cstl_alloc.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_alloc.obj `if test -f '$(srcdir)/../../src/cstl_alloc.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc.c'; fi`
 
-ut-cstl_algo.o: $(srcdir)/../../src/cstl_algo.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_algo.o -MD -MP -MF $(DEPDIR)/ut-cstl_algo.Tpo -c -o ut-cstl_algo.o `test -f '$(srcdir)/../../src/cstl_algo.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo.c
-	$(am__mv) $(DEPDIR)/ut-cstl_algo.Tpo $(DEPDIR)/ut-cstl_algo.Po
-#	source='$(srcdir)/../../src/cstl_algo.c' object='ut-cstl_algo.o' libtool=no \
+libcstl_ut-cstl_algo.o: $(srcdir)/../../src/cstl_algo.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo.Tpo -c -o libcstl_ut-cstl_algo.o `test -f '$(srcdir)/../../src/cstl_algo.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo.Tpo $(DEPDIR)/libcstl_ut-cstl_algo.Po
+#	source='$(srcdir)/../../src/cstl_algo.c' object='libcstl_ut-cstl_algo.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_algo.o `test -f '$(srcdir)/../../src/cstl_algo.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo.o `test -f '$(srcdir)/../../src/cstl_algo.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo.c
 
-ut-cstl_algo.obj: $(srcdir)/../../src/cstl_algo.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_algo.obj -MD -MP -MF $(DEPDIR)/ut-cstl_algo.Tpo -c -o ut-cstl_algo.obj `if test -f '$(srcdir)/../../src/cstl_algo.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_algo.Tpo $(DEPDIR)/ut-cstl_algo.Po
-#	source='$(srcdir)/../../src/cstl_algo.c' object='ut-cstl_algo.obj' libtool=no \
+libcstl_ut-cstl_algo.obj: $(srcdir)/../../src/cstl_algo.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo.Tpo -c -o libcstl_ut-cstl_algo.obj `if test -f '$(srcdir)/../../src/cstl_algo.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo.Tpo $(DEPDIR)/libcstl_ut-cstl_algo.Po
+#	source='$(srcdir)/../../src/cstl_algo.c' object='libcstl_ut-cstl_algo.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_algo.obj `if test -f '$(srcdir)/../../src/cstl_algo.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo.obj `if test -f '$(srcdir)/../../src/cstl_algo.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo.c'; fi`
 
-ut-cstl_algobase.o: $(srcdir)/../../src/cstl_algobase.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_algobase.o -MD -MP -MF $(DEPDIR)/ut-cstl_algobase.Tpo -c -o ut-cstl_algobase.o `test -f '$(srcdir)/../../src/cstl_algobase.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algobase.c
-	$(am__mv) $(DEPDIR)/ut-cstl_algobase.Tpo $(DEPDIR)/ut-cstl_algobase.Po
-#	source='$(srcdir)/../../src/cstl_algobase.c' object='ut-cstl_algobase.o' libtool=no \
+libcstl_ut-cstl_algobase.o: $(srcdir)/../../src/cstl_algobase.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algobase.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algobase.Tpo -c -o libcstl_ut-cstl_algobase.o `test -f '$(srcdir)/../../src/cstl_algobase.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algobase.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algobase.Tpo $(DEPDIR)/libcstl_ut-cstl_algobase.Po
+#	source='$(srcdir)/../../src/cstl_algobase.c' object='libcstl_ut-cstl_algobase.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_algobase.o `test -f '$(srcdir)/../../src/cstl_algobase.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algobase.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algobase.o `test -f '$(srcdir)/../../src/cstl_algobase.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algobase.c
 
-ut-cstl_algobase.obj: $(srcdir)/../../src/cstl_algobase.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_algobase.obj -MD -MP -MF $(DEPDIR)/ut-cstl_algobase.Tpo -c -o ut-cstl_algobase.obj `if test -f '$(srcdir)/../../src/cstl_algobase.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algobase.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algobase.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_algobase.Tpo $(DEPDIR)/ut-cstl_algobase.Po
-#	source='$(srcdir)/../../src/cstl_algobase.c' object='ut-cstl_algobase.obj' libtool=no \
+libcstl_ut-cstl_algobase.obj: $(srcdir)/../../src/cstl_algobase.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algobase.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algobase.Tpo -c -o libcstl_ut-cstl_algobase.obj `if test -f '$(srcdir)/../../src/cstl_algobase.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algobase.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algobase.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algobase.Tpo $(DEPDIR)/libcstl_ut-cstl_algobase.Po
+#	source='$(srcdir)/../../src/cstl_algobase.c' object='libcstl_ut-cstl_algobase.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_algobase.obj `if test -f '$(srcdir)/../../src/cstl_algobase.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algobase.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algobase.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algobase.obj `if test -f '$(srcdir)/../../src/cstl_algobase.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algobase.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algobase.c'; fi`
 
-ut-cstl_function.o: $(srcdir)/../../src/cstl_function.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_function.o -MD -MP -MF $(DEPDIR)/ut-cstl_function.Tpo -c -o ut-cstl_function.o `test -f '$(srcdir)/../../src/cstl_function.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_function.c
-	$(am__mv) $(DEPDIR)/ut-cstl_function.Tpo $(DEPDIR)/ut-cstl_function.Po
-#	source='$(srcdir)/../../src/cstl_function.c' object='ut-cstl_function.o' libtool=no \
+libcstl_ut-cstl_function.o: $(srcdir)/../../src/cstl_function.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_function.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_function.Tpo -c -o libcstl_ut-cstl_function.o `test -f '$(srcdir)/../../src/cstl_function.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_function.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_function.Tpo $(DEPDIR)/libcstl_ut-cstl_function.Po
+#	source='$(srcdir)/../../src/cstl_function.c' object='libcstl_ut-cstl_function.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_function.o `test -f '$(srcdir)/../../src/cstl_function.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_function.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_function.o `test -f '$(srcdir)/../../src/cstl_function.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_function.c
 
-ut-cstl_function.obj: $(srcdir)/../../src/cstl_function.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_function.obj -MD -MP -MF $(DEPDIR)/ut-cstl_function.Tpo -c -o ut-cstl_function.obj `if test -f '$(srcdir)/../../src/cstl_function.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_function.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_function.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_function.Tpo $(DEPDIR)/ut-cstl_function.Po
-#	source='$(srcdir)/../../src/cstl_function.c' object='ut-cstl_function.obj' libtool=no \
+libcstl_ut-cstl_function.obj: $(srcdir)/../../src/cstl_function.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_function.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_function.Tpo -c -o libcstl_ut-cstl_function.obj `if test -f '$(srcdir)/../../src/cstl_function.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_function.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_function.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_function.Tpo $(DEPDIR)/libcstl_ut-cstl_function.Po
+#	source='$(srcdir)/../../src/cstl_function.c' object='libcstl_ut-cstl_function.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_function.obj `if test -f '$(srcdir)/../../src/cstl_function.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_function.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_function.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_function.obj `if test -f '$(srcdir)/../../src/cstl_function.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_function.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_function.c'; fi`
 
-ut-cstl_iterator.o: $(srcdir)/../../src/cstl_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_iterator.Tpo -c -o ut-cstl_iterator.o `test -f '$(srcdir)/../../src/cstl_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_iterator.Tpo $(DEPDIR)/ut-cstl_iterator.Po
-#	source='$(srcdir)/../../src/cstl_iterator.c' object='ut-cstl_iterator.o' libtool=no \
+libcstl_ut-cstl_iterator.o: $(srcdir)/../../src/cstl_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_iterator.Tpo -c -o libcstl_ut-cstl_iterator.o `test -f '$(srcdir)/../../src/cstl_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_iterator.Po
+#	source='$(srcdir)/../../src/cstl_iterator.c' object='libcstl_ut-cstl_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_iterator.o `test -f '$(srcdir)/../../src/cstl_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_iterator.o `test -f '$(srcdir)/../../src/cstl_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_iterator.c
 
-ut-cstl_iterator.obj: $(srcdir)/../../src/cstl_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_iterator.Tpo -c -o ut-cstl_iterator.obj `if test -f '$(srcdir)/../../src/cstl_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_iterator.Tpo $(DEPDIR)/ut-cstl_iterator.Po
-#	source='$(srcdir)/../../src/cstl_iterator.c' object='ut-cstl_iterator.obj' libtool=no \
+libcstl_ut-cstl_iterator.obj: $(srcdir)/../../src/cstl_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_iterator.Tpo -c -o libcstl_ut-cstl_iterator.obj `if test -f '$(srcdir)/../../src/cstl_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_iterator.Po
+#	source='$(srcdir)/../../src/cstl_iterator.c' object='libcstl_ut-cstl_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_iterator.obj `if test -f '$(srcdir)/../../src/cstl_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_iterator.obj `if test -f '$(srcdir)/../../src/cstl_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_iterator.c'; fi`
 
-ut-cstl_iterator_private.o: $(srcdir)/../../src/cstl_iterator_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_iterator_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_iterator_private.Tpo -c -o ut-cstl_iterator_private.o `test -f '$(srcdir)/../../src/cstl_iterator_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_iterator_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_iterator_private.Tpo $(DEPDIR)/ut-cstl_iterator_private.Po
-#	source='$(srcdir)/../../src/cstl_iterator_private.c' object='ut-cstl_iterator_private.o' libtool=no \
+libcstl_ut-cstl_iterator_private.o: $(srcdir)/../../src/cstl_iterator_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_iterator_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_iterator_private.Tpo -c -o libcstl_ut-cstl_iterator_private.o `test -f '$(srcdir)/../../src/cstl_iterator_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_iterator_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_iterator_private.Tpo $(DEPDIR)/libcstl_ut-cstl_iterator_private.Po
+#	source='$(srcdir)/../../src/cstl_iterator_private.c' object='libcstl_ut-cstl_iterator_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_iterator_private.o `test -f '$(srcdir)/../../src/cstl_iterator_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_iterator_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_iterator_private.o `test -f '$(srcdir)/../../src/cstl_iterator_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_iterator_private.c
 
-ut-cstl_iterator_private.obj: $(srcdir)/../../src/cstl_iterator_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_iterator_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_iterator_private.Tpo -c -o ut-cstl_iterator_private.obj `if test -f '$(srcdir)/../../src/cstl_iterator_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_iterator_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_iterator_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_iterator_private.Tpo $(DEPDIR)/ut-cstl_iterator_private.Po
-#	source='$(srcdir)/../../src/cstl_iterator_private.c' object='ut-cstl_iterator_private.obj' libtool=no \
+libcstl_ut-cstl_iterator_private.obj: $(srcdir)/../../src/cstl_iterator_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_iterator_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_iterator_private.Tpo -c -o libcstl_ut-cstl_iterator_private.obj `if test -f '$(srcdir)/../../src/cstl_iterator_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_iterator_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_iterator_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_iterator_private.Tpo $(DEPDIR)/libcstl_ut-cstl_iterator_private.Po
+#	source='$(srcdir)/../../src/cstl_iterator_private.c' object='libcstl_ut-cstl_iterator_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_iterator_private.obj `if test -f '$(srcdir)/../../src/cstl_iterator_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_iterator_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_iterator_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_iterator_private.obj `if test -f '$(srcdir)/../../src/cstl_iterator_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_iterator_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_iterator_private.c'; fi`
 
-ut-cstl_avl_tree.o: $(srcdir)/../../src/cstl_avl_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree.o -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree.Tpo -c -o ut-cstl_avl_tree.o `test -f '$(srcdir)/../../src/cstl_avl_tree.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree.c
-	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree.Tpo $(DEPDIR)/ut-cstl_avl_tree.Po
-#	source='$(srcdir)/../../src/cstl_avl_tree.c' object='ut-cstl_avl_tree.o' libtool=no \
+libcstl_ut-cstl_avl_tree.o: $(srcdir)/../../src/cstl_avl_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_avl_tree.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_avl_tree.Tpo -c -o libcstl_ut-cstl_avl_tree.o `test -f '$(srcdir)/../../src/cstl_avl_tree.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_avl_tree.Tpo $(DEPDIR)/libcstl_ut-cstl_avl_tree.Po
+#	source='$(srcdir)/../../src/cstl_avl_tree.c' object='libcstl_ut-cstl_avl_tree.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree.o `test -f '$(srcdir)/../../src/cstl_avl_tree.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_avl_tree.o `test -f '$(srcdir)/../../src/cstl_avl_tree.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree.c
 
-ut-cstl_avl_tree.obj: $(srcdir)/../../src/cstl_avl_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree.obj -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree.Tpo -c -o ut-cstl_avl_tree.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree.Tpo $(DEPDIR)/ut-cstl_avl_tree.Po
-#	source='$(srcdir)/../../src/cstl_avl_tree.c' object='ut-cstl_avl_tree.obj' libtool=no \
+libcstl_ut-cstl_avl_tree.obj: $(srcdir)/../../src/cstl_avl_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_avl_tree.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_avl_tree.Tpo -c -o libcstl_ut-cstl_avl_tree.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_avl_tree.Tpo $(DEPDIR)/libcstl_ut-cstl_avl_tree.Po
+#	source='$(srcdir)/../../src/cstl_avl_tree.c' object='libcstl_ut-cstl_avl_tree.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_avl_tree.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree.c'; fi`
 
-ut-cstl_avl_tree_iterator.o: $(srcdir)/../../src/cstl_avl_tree_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree_iterator.Tpo -c -o ut-cstl_avl_tree_iterator.o `test -f '$(srcdir)/../../src/cstl_avl_tree_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree_iterator.Tpo $(DEPDIR)/ut-cstl_avl_tree_iterator.Po
-#	source='$(srcdir)/../../src/cstl_avl_tree_iterator.c' object='ut-cstl_avl_tree_iterator.o' libtool=no \
+libcstl_ut-cstl_avl_tree_iterator.o: $(srcdir)/../../src/cstl_avl_tree_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_avl_tree_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_avl_tree_iterator.Tpo -c -o libcstl_ut-cstl_avl_tree_iterator.o `test -f '$(srcdir)/../../src/cstl_avl_tree_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_avl_tree_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_avl_tree_iterator.Po
+#	source='$(srcdir)/../../src/cstl_avl_tree_iterator.c' object='libcstl_ut-cstl_avl_tree_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree_iterator.o `test -f '$(srcdir)/../../src/cstl_avl_tree_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_avl_tree_iterator.o `test -f '$(srcdir)/../../src/cstl_avl_tree_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_iterator.c
 
-ut-cstl_avl_tree_iterator.obj: $(srcdir)/../../src/cstl_avl_tree_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree_iterator.Tpo -c -o ut-cstl_avl_tree_iterator.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree_iterator.Tpo $(DEPDIR)/ut-cstl_avl_tree_iterator.Po
-#	source='$(srcdir)/../../src/cstl_avl_tree_iterator.c' object='ut-cstl_avl_tree_iterator.obj' libtool=no \
+libcstl_ut-cstl_avl_tree_iterator.obj: $(srcdir)/../../src/cstl_avl_tree_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_avl_tree_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_avl_tree_iterator.Tpo -c -o libcstl_ut-cstl_avl_tree_iterator.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_avl_tree_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_avl_tree_iterator.Po
+#	source='$(srcdir)/../../src/cstl_avl_tree_iterator.c' object='libcstl_ut-cstl_avl_tree_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree_iterator.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_avl_tree_iterator.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_iterator.c'; fi`
 
-ut-cstl_avl_tree_private.o: $(srcdir)/../../src/cstl_avl_tree_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree_private.Tpo -c -o ut-cstl_avl_tree_private.o `test -f '$(srcdir)/../../src/cstl_avl_tree_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree_private.Tpo $(DEPDIR)/ut-cstl_avl_tree_private.Po
-#	source='$(srcdir)/../../src/cstl_avl_tree_private.c' object='ut-cstl_avl_tree_private.o' libtool=no \
+libcstl_ut-cstl_avl_tree_private.o: $(srcdir)/../../src/cstl_avl_tree_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_avl_tree_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_avl_tree_private.Tpo -c -o libcstl_ut-cstl_avl_tree_private.o `test -f '$(srcdir)/../../src/cstl_avl_tree_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_avl_tree_private.Tpo $(DEPDIR)/libcstl_ut-cstl_avl_tree_private.Po
+#	source='$(srcdir)/../../src/cstl_avl_tree_private.c' object='libcstl_ut-cstl_avl_tree_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree_private.o `test -f '$(srcdir)/../../src/cstl_avl_tree_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_avl_tree_private.o `test -f '$(srcdir)/../../src/cstl_avl_tree_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_private.c
 
-ut-cstl_avl_tree_private.obj: $(srcdir)/../../src/cstl_avl_tree_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree_private.Tpo -c -o ut-cstl_avl_tree_private.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree_private.Tpo $(DEPDIR)/ut-cstl_avl_tree_private.Po
-#	source='$(srcdir)/../../src/cstl_avl_tree_private.c' object='ut-cstl_avl_tree_private.obj' libtool=no \
+libcstl_ut-cstl_avl_tree_private.obj: $(srcdir)/../../src/cstl_avl_tree_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_avl_tree_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_avl_tree_private.Tpo -c -o libcstl_ut-cstl_avl_tree_private.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_avl_tree_private.Tpo $(DEPDIR)/libcstl_ut-cstl_avl_tree_private.Po
+#	source='$(srcdir)/../../src/cstl_avl_tree_private.c' object='libcstl_ut-cstl_avl_tree_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree_private.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_avl_tree_private.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_private.c'; fi`
 
-ut-cstl_avl_tree_aux.o: $(srcdir)/../../src/cstl_avl_tree_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree_aux.Tpo -c -o ut-cstl_avl_tree_aux.o `test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree_aux.Tpo $(DEPDIR)/ut-cstl_avl_tree_aux.Po
-#	source='$(srcdir)/../../src/cstl_avl_tree_aux.c' object='ut-cstl_avl_tree_aux.o' libtool=no \
+libcstl_ut-cstl_avl_tree_aux.o: $(srcdir)/../../src/cstl_avl_tree_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_avl_tree_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_avl_tree_aux.Tpo -c -o libcstl_ut-cstl_avl_tree_aux.o `test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_avl_tree_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_avl_tree_aux.Po
+#	source='$(srcdir)/../../src/cstl_avl_tree_aux.c' object='libcstl_ut-cstl_avl_tree_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree_aux.o `test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_avl_tree_aux.o `test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_avl_tree_aux.c
 
-ut-cstl_avl_tree_aux.obj: $(srcdir)/../../src/cstl_avl_tree_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_avl_tree_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_avl_tree_aux.Tpo -c -o ut-cstl_avl_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_avl_tree_aux.Tpo $(DEPDIR)/ut-cstl_avl_tree_aux.Po
-#	source='$(srcdir)/../../src/cstl_avl_tree_aux.c' object='ut-cstl_avl_tree_aux.obj' libtool=no \
+libcstl_ut-cstl_avl_tree_aux.obj: $(srcdir)/../../src/cstl_avl_tree_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_avl_tree_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_avl_tree_aux.Tpo -c -o libcstl_ut-cstl_avl_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_avl_tree_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_avl_tree_aux.Po
+#	source='$(srcdir)/../../src/cstl_avl_tree_aux.c' object='libcstl_ut-cstl_avl_tree_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_avl_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_avl_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_avl_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_avl_tree_aux.c'; fi`
 
-ut-cstl_basic_string.o: $(srcdir)/../../src/cstl_basic_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_basic_string.o -MD -MP -MF $(DEPDIR)/ut-cstl_basic_string.Tpo -c -o ut-cstl_basic_string.o `test -f '$(srcdir)/../../src/cstl_basic_string.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string.c
-	$(am__mv) $(DEPDIR)/ut-cstl_basic_string.Tpo $(DEPDIR)/ut-cstl_basic_string.Po
-#	source='$(srcdir)/../../src/cstl_basic_string.c' object='ut-cstl_basic_string.o' libtool=no \
+libcstl_ut-cstl_basic_string.o: $(srcdir)/../../src/cstl_basic_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_basic_string.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_basic_string.Tpo -c -o libcstl_ut-cstl_basic_string.o `test -f '$(srcdir)/../../src/cstl_basic_string.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_basic_string.Tpo $(DEPDIR)/libcstl_ut-cstl_basic_string.Po
+#	source='$(srcdir)/../../src/cstl_basic_string.c' object='libcstl_ut-cstl_basic_string.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_basic_string.o `test -f '$(srcdir)/../../src/cstl_basic_string.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_basic_string.o `test -f '$(srcdir)/../../src/cstl_basic_string.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string.c
 
-ut-cstl_basic_string.obj: $(srcdir)/../../src/cstl_basic_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_basic_string.obj -MD -MP -MF $(DEPDIR)/ut-cstl_basic_string.Tpo -c -o ut-cstl_basic_string.obj `if test -f '$(srcdir)/../../src/cstl_basic_string.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_basic_string.Tpo $(DEPDIR)/ut-cstl_basic_string.Po
-#	source='$(srcdir)/../../src/cstl_basic_string.c' object='ut-cstl_basic_string.obj' libtool=no \
+libcstl_ut-cstl_basic_string.obj: $(srcdir)/../../src/cstl_basic_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_basic_string.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_basic_string.Tpo -c -o libcstl_ut-cstl_basic_string.obj `if test -f '$(srcdir)/../../src/cstl_basic_string.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_basic_string.Tpo $(DEPDIR)/libcstl_ut-cstl_basic_string.Po
+#	source='$(srcdir)/../../src/cstl_basic_string.c' object='libcstl_ut-cstl_basic_string.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_basic_string.obj `if test -f '$(srcdir)/../../src/cstl_basic_string.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_basic_string.obj `if test -f '$(srcdir)/../../src/cstl_basic_string.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string.c'; fi`
 
-ut-cstl_basic_string_iterator.o: $(srcdir)/../../src/cstl_basic_string_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_basic_string_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_basic_string_iterator.Tpo -c -o ut-cstl_basic_string_iterator.o `test -f '$(srcdir)/../../src/cstl_basic_string_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_basic_string_iterator.Tpo $(DEPDIR)/ut-cstl_basic_string_iterator.Po
-#	source='$(srcdir)/../../src/cstl_basic_string_iterator.c' object='ut-cstl_basic_string_iterator.o' libtool=no \
+libcstl_ut-cstl_basic_string_iterator.o: $(srcdir)/../../src/cstl_basic_string_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_basic_string_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_basic_string_iterator.Tpo -c -o libcstl_ut-cstl_basic_string_iterator.o `test -f '$(srcdir)/../../src/cstl_basic_string_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_basic_string_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_basic_string_iterator.Po
+#	source='$(srcdir)/../../src/cstl_basic_string_iterator.c' object='libcstl_ut-cstl_basic_string_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_basic_string_iterator.o `test -f '$(srcdir)/../../src/cstl_basic_string_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_basic_string_iterator.o `test -f '$(srcdir)/../../src/cstl_basic_string_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_iterator.c
 
-ut-cstl_basic_string_iterator.obj: $(srcdir)/../../src/cstl_basic_string_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_basic_string_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_basic_string_iterator.Tpo -c -o ut-cstl_basic_string_iterator.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_basic_string_iterator.Tpo $(DEPDIR)/ut-cstl_basic_string_iterator.Po
-#	source='$(srcdir)/../../src/cstl_basic_string_iterator.c' object='ut-cstl_basic_string_iterator.obj' libtool=no \
+libcstl_ut-cstl_basic_string_iterator.obj: $(srcdir)/../../src/cstl_basic_string_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_basic_string_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_basic_string_iterator.Tpo -c -o libcstl_ut-cstl_basic_string_iterator.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_basic_string_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_basic_string_iterator.Po
+#	source='$(srcdir)/../../src/cstl_basic_string_iterator.c' object='libcstl_ut-cstl_basic_string_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_basic_string_iterator.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_basic_string_iterator.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_iterator.c'; fi`
 
-ut-cstl_basic_string_private.o: $(srcdir)/../../src/cstl_basic_string_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_basic_string_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_basic_string_private.Tpo -c -o ut-cstl_basic_string_private.o `test -f '$(srcdir)/../../src/cstl_basic_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_basic_string_private.Tpo $(DEPDIR)/ut-cstl_basic_string_private.Po
-#	source='$(srcdir)/../../src/cstl_basic_string_private.c' object='ut-cstl_basic_string_private.o' libtool=no \
+libcstl_ut-cstl_basic_string_private.o: $(srcdir)/../../src/cstl_basic_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_basic_string_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_basic_string_private.Tpo -c -o libcstl_ut-cstl_basic_string_private.o `test -f '$(srcdir)/../../src/cstl_basic_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_basic_string_private.Tpo $(DEPDIR)/libcstl_ut-cstl_basic_string_private.Po
+#	source='$(srcdir)/../../src/cstl_basic_string_private.c' object='libcstl_ut-cstl_basic_string_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_basic_string_private.o `test -f '$(srcdir)/../../src/cstl_basic_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_basic_string_private.o `test -f '$(srcdir)/../../src/cstl_basic_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_private.c
 
-ut-cstl_basic_string_private.obj: $(srcdir)/../../src/cstl_basic_string_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_basic_string_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_basic_string_private.Tpo -c -o ut-cstl_basic_string_private.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_basic_string_private.Tpo $(DEPDIR)/ut-cstl_basic_string_private.Po
-#	source='$(srcdir)/../../src/cstl_basic_string_private.c' object='ut-cstl_basic_string_private.obj' libtool=no \
+libcstl_ut-cstl_basic_string_private.obj: $(srcdir)/../../src/cstl_basic_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_basic_string_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_basic_string_private.Tpo -c -o libcstl_ut-cstl_basic_string_private.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_basic_string_private.Tpo $(DEPDIR)/libcstl_ut-cstl_basic_string_private.Po
+#	source='$(srcdir)/../../src/cstl_basic_string_private.c' object='libcstl_ut-cstl_basic_string_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_basic_string_private.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_basic_string_private.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_private.c'; fi`
 
-ut-cstl_basic_string_aux.o: $(srcdir)/../../src/cstl_basic_string_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_basic_string_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_basic_string_aux.Tpo -c -o ut-cstl_basic_string_aux.o `test -f '$(srcdir)/../../src/cstl_basic_string_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_basic_string_aux.Tpo $(DEPDIR)/ut-cstl_basic_string_aux.Po
-#	source='$(srcdir)/../../src/cstl_basic_string_aux.c' object='ut-cstl_basic_string_aux.o' libtool=no \
+libcstl_ut-cstl_basic_string_aux.o: $(srcdir)/../../src/cstl_basic_string_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_basic_string_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_basic_string_aux.Tpo -c -o libcstl_ut-cstl_basic_string_aux.o `test -f '$(srcdir)/../../src/cstl_basic_string_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_basic_string_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_basic_string_aux.Po
+#	source='$(srcdir)/../../src/cstl_basic_string_aux.c' object='libcstl_ut-cstl_basic_string_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_basic_string_aux.o `test -f '$(srcdir)/../../src/cstl_basic_string_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_basic_string_aux.o `test -f '$(srcdir)/../../src/cstl_basic_string_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_basic_string_aux.c
 
-ut-cstl_basic_string_aux.obj: $(srcdir)/../../src/cstl_basic_string_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_basic_string_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_basic_string_aux.Tpo -c -o ut-cstl_basic_string_aux.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_basic_string_aux.Tpo $(DEPDIR)/ut-cstl_basic_string_aux.Po
-#	source='$(srcdir)/../../src/cstl_basic_string_aux.c' object='ut-cstl_basic_string_aux.obj' libtool=no \
+libcstl_ut-cstl_basic_string_aux.obj: $(srcdir)/../../src/cstl_basic_string_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_basic_string_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_basic_string_aux.Tpo -c -o libcstl_ut-cstl_basic_string_aux.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_basic_string_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_basic_string_aux.Po
+#	source='$(srcdir)/../../src/cstl_basic_string_aux.c' object='libcstl_ut-cstl_basic_string_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_basic_string_aux.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_basic_string_aux.obj `if test -f '$(srcdir)/../../src/cstl_basic_string_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_basic_string_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_basic_string_aux.c'; fi`
 
-ut-cstl_deque.o: $(srcdir)/../../src/cstl_deque.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_deque.o -MD -MP -MF $(DEPDIR)/ut-cstl_deque.Tpo -c -o ut-cstl_deque.o `test -f '$(srcdir)/../../src/cstl_deque.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque.c
-	$(am__mv) $(DEPDIR)/ut-cstl_deque.Tpo $(DEPDIR)/ut-cstl_deque.Po
-#	source='$(srcdir)/../../src/cstl_deque.c' object='ut-cstl_deque.o' libtool=no \
+libcstl_ut-cstl_deque.o: $(srcdir)/../../src/cstl_deque.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_deque.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_deque.Tpo -c -o libcstl_ut-cstl_deque.o `test -f '$(srcdir)/../../src/cstl_deque.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_deque.Tpo $(DEPDIR)/libcstl_ut-cstl_deque.Po
+#	source='$(srcdir)/../../src/cstl_deque.c' object='libcstl_ut-cstl_deque.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_deque.o `test -f '$(srcdir)/../../src/cstl_deque.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_deque.o `test -f '$(srcdir)/../../src/cstl_deque.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque.c
 
-ut-cstl_deque.obj: $(srcdir)/../../src/cstl_deque.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_deque.obj -MD -MP -MF $(DEPDIR)/ut-cstl_deque.Tpo -c -o ut-cstl_deque.obj `if test -f '$(srcdir)/../../src/cstl_deque.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_deque.Tpo $(DEPDIR)/ut-cstl_deque.Po
-#	source='$(srcdir)/../../src/cstl_deque.c' object='ut-cstl_deque.obj' libtool=no \
+libcstl_ut-cstl_deque.obj: $(srcdir)/../../src/cstl_deque.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_deque.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_deque.Tpo -c -o libcstl_ut-cstl_deque.obj `if test -f '$(srcdir)/../../src/cstl_deque.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_deque.Tpo $(DEPDIR)/libcstl_ut-cstl_deque.Po
+#	source='$(srcdir)/../../src/cstl_deque.c' object='libcstl_ut-cstl_deque.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_deque.obj `if test -f '$(srcdir)/../../src/cstl_deque.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_deque.obj `if test -f '$(srcdir)/../../src/cstl_deque.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque.c'; fi`
 
-ut-cstl_deque_iterator.o: $(srcdir)/../../src/cstl_deque_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_deque_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_deque_iterator.Tpo -c -o ut-cstl_deque_iterator.o `test -f '$(srcdir)/../../src/cstl_deque_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_deque_iterator.Tpo $(DEPDIR)/ut-cstl_deque_iterator.Po
-#	source='$(srcdir)/../../src/cstl_deque_iterator.c' object='ut-cstl_deque_iterator.o' libtool=no \
+libcstl_ut-cstl_deque_iterator.o: $(srcdir)/../../src/cstl_deque_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_deque_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_deque_iterator.Tpo -c -o libcstl_ut-cstl_deque_iterator.o `test -f '$(srcdir)/../../src/cstl_deque_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_deque_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_deque_iterator.Po
+#	source='$(srcdir)/../../src/cstl_deque_iterator.c' object='libcstl_ut-cstl_deque_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_deque_iterator.o `test -f '$(srcdir)/../../src/cstl_deque_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_deque_iterator.o `test -f '$(srcdir)/../../src/cstl_deque_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_iterator.c
 
-ut-cstl_deque_iterator.obj: $(srcdir)/../../src/cstl_deque_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_deque_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_deque_iterator.Tpo -c -o ut-cstl_deque_iterator.obj `if test -f '$(srcdir)/../../src/cstl_deque_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_deque_iterator.Tpo $(DEPDIR)/ut-cstl_deque_iterator.Po
-#	source='$(srcdir)/../../src/cstl_deque_iterator.c' object='ut-cstl_deque_iterator.obj' libtool=no \
+libcstl_ut-cstl_deque_iterator.obj: $(srcdir)/../../src/cstl_deque_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_deque_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_deque_iterator.Tpo -c -o libcstl_ut-cstl_deque_iterator.obj `if test -f '$(srcdir)/../../src/cstl_deque_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_deque_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_deque_iterator.Po
+#	source='$(srcdir)/../../src/cstl_deque_iterator.c' object='libcstl_ut-cstl_deque_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_deque_iterator.obj `if test -f '$(srcdir)/../../src/cstl_deque_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_deque_iterator.obj `if test -f '$(srcdir)/../../src/cstl_deque_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_iterator.c'; fi`
 
-ut-cstl_deque_private.o: $(srcdir)/../../src/cstl_deque_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_deque_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_deque_private.Tpo -c -o ut-cstl_deque_private.o `test -f '$(srcdir)/../../src/cstl_deque_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_deque_private.Tpo $(DEPDIR)/ut-cstl_deque_private.Po
-#	source='$(srcdir)/../../src/cstl_deque_private.c' object='ut-cstl_deque_private.o' libtool=no \
+libcstl_ut-cstl_deque_private.o: $(srcdir)/../../src/cstl_deque_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_deque_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_deque_private.Tpo -c -o libcstl_ut-cstl_deque_private.o `test -f '$(srcdir)/../../src/cstl_deque_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_deque_private.Tpo $(DEPDIR)/libcstl_ut-cstl_deque_private.Po
+#	source='$(srcdir)/../../src/cstl_deque_private.c' object='libcstl_ut-cstl_deque_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_deque_private.o `test -f '$(srcdir)/../../src/cstl_deque_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_deque_private.o `test -f '$(srcdir)/../../src/cstl_deque_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_private.c
 
-ut-cstl_deque_private.obj: $(srcdir)/../../src/cstl_deque_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_deque_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_deque_private.Tpo -c -o ut-cstl_deque_private.obj `if test -f '$(srcdir)/../../src/cstl_deque_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_deque_private.Tpo $(DEPDIR)/ut-cstl_deque_private.Po
-#	source='$(srcdir)/../../src/cstl_deque_private.c' object='ut-cstl_deque_private.obj' libtool=no \
+libcstl_ut-cstl_deque_private.obj: $(srcdir)/../../src/cstl_deque_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_deque_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_deque_private.Tpo -c -o libcstl_ut-cstl_deque_private.obj `if test -f '$(srcdir)/../../src/cstl_deque_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_deque_private.Tpo $(DEPDIR)/libcstl_ut-cstl_deque_private.Po
+#	source='$(srcdir)/../../src/cstl_deque_private.c' object='libcstl_ut-cstl_deque_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_deque_private.obj `if test -f '$(srcdir)/../../src/cstl_deque_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_deque_private.obj `if test -f '$(srcdir)/../../src/cstl_deque_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_private.c'; fi`
 
-ut-cstl_deque_aux.o: $(srcdir)/../../src/cstl_deque_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_deque_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_deque_aux.Tpo -c -o ut-cstl_deque_aux.o `test -f '$(srcdir)/../../src/cstl_deque_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_deque_aux.Tpo $(DEPDIR)/ut-cstl_deque_aux.Po
-#	source='$(srcdir)/../../src/cstl_deque_aux.c' object='ut-cstl_deque_aux.o' libtool=no \
+libcstl_ut-cstl_deque_aux.o: $(srcdir)/../../src/cstl_deque_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_deque_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_deque_aux.Tpo -c -o libcstl_ut-cstl_deque_aux.o `test -f '$(srcdir)/../../src/cstl_deque_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_deque_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_deque_aux.Po
+#	source='$(srcdir)/../../src/cstl_deque_aux.c' object='libcstl_ut-cstl_deque_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_deque_aux.o `test -f '$(srcdir)/../../src/cstl_deque_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_deque_aux.o `test -f '$(srcdir)/../../src/cstl_deque_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_deque_aux.c
 
-ut-cstl_deque_aux.obj: $(srcdir)/../../src/cstl_deque_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_deque_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_deque_aux.Tpo -c -o ut-cstl_deque_aux.obj `if test -f '$(srcdir)/../../src/cstl_deque_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_deque_aux.Tpo $(DEPDIR)/ut-cstl_deque_aux.Po
-#	source='$(srcdir)/../../src/cstl_deque_aux.c' object='ut-cstl_deque_aux.obj' libtool=no \
+libcstl_ut-cstl_deque_aux.obj: $(srcdir)/../../src/cstl_deque_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_deque_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_deque_aux.Tpo -c -o libcstl_ut-cstl_deque_aux.obj `if test -f '$(srcdir)/../../src/cstl_deque_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_deque_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_deque_aux.Po
+#	source='$(srcdir)/../../src/cstl_deque_aux.c' object='libcstl_ut-cstl_deque_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_deque_aux.obj `if test -f '$(srcdir)/../../src/cstl_deque_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_deque_aux.obj `if test -f '$(srcdir)/../../src/cstl_deque_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_deque_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_deque_aux.c'; fi`
 
-ut-cstl_hash_map.o: $(srcdir)/../../src/cstl_hash_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_map.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_map.Tpo -c -o ut-cstl_hash_map.o `test -f '$(srcdir)/../../src/cstl_hash_map.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_map.Tpo $(DEPDIR)/ut-cstl_hash_map.Po
-#	source='$(srcdir)/../../src/cstl_hash_map.c' object='ut-cstl_hash_map.o' libtool=no \
+libcstl_ut-cstl_hash_map.o: $(srcdir)/../../src/cstl_hash_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_map.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_map.Tpo -c -o libcstl_ut-cstl_hash_map.o `test -f '$(srcdir)/../../src/cstl_hash_map.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_map.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_map.Po
+#	source='$(srcdir)/../../src/cstl_hash_map.c' object='libcstl_ut-cstl_hash_map.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_map.o `test -f '$(srcdir)/../../src/cstl_hash_map.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_map.o `test -f '$(srcdir)/../../src/cstl_hash_map.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map.c
 
-ut-cstl_hash_map.obj: $(srcdir)/../../src/cstl_hash_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_map.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_map.Tpo -c -o ut-cstl_hash_map.obj `if test -f '$(srcdir)/../../src/cstl_hash_map.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_map.Tpo $(DEPDIR)/ut-cstl_hash_map.Po
-#	source='$(srcdir)/../../src/cstl_hash_map.c' object='ut-cstl_hash_map.obj' libtool=no \
+libcstl_ut-cstl_hash_map.obj: $(srcdir)/../../src/cstl_hash_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_map.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_map.Tpo -c -o libcstl_ut-cstl_hash_map.obj `if test -f '$(srcdir)/../../src/cstl_hash_map.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_map.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_map.Po
+#	source='$(srcdir)/../../src/cstl_hash_map.c' object='libcstl_ut-cstl_hash_map.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_map.obj `if test -f '$(srcdir)/../../src/cstl_hash_map.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_map.obj `if test -f '$(srcdir)/../../src/cstl_hash_map.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map.c'; fi`
 
-ut-cstl_hash_map_iterator.o: $(srcdir)/../../src/cstl_hash_map_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_map_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_map_iterator.Tpo -c -o ut-cstl_hash_map_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_map_iterator.Tpo $(DEPDIR)/ut-cstl_hash_map_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hash_map_iterator.c' object='ut-cstl_hash_map_iterator.o' libtool=no \
+libcstl_ut-cstl_hash_map_iterator.o: $(srcdir)/../../src/cstl_hash_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_map_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_map_iterator.Tpo -c -o libcstl_ut-cstl_hash_map_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_map_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_map_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_map_iterator.c' object='libcstl_ut-cstl_hash_map_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_map_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_map_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_iterator.c
 
-ut-cstl_hash_map_iterator.obj: $(srcdir)/../../src/cstl_hash_map_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_map_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_map_iterator.Tpo -c -o ut-cstl_hash_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_map_iterator.Tpo $(DEPDIR)/ut-cstl_hash_map_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hash_map_iterator.c' object='ut-cstl_hash_map_iterator.obj' libtool=no \
+libcstl_ut-cstl_hash_map_iterator.obj: $(srcdir)/../../src/cstl_hash_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_map_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_map_iterator.Tpo -c -o libcstl_ut-cstl_hash_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_map_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_map_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_map_iterator.c' object='libcstl_ut-cstl_hash_map_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_iterator.c'; fi`
 
-ut-cstl_hash_map_private.o: $(srcdir)/../../src/cstl_hash_map_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_map_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_map_private.Tpo -c -o ut-cstl_hash_map_private.o `test -f '$(srcdir)/../../src/cstl_hash_map_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_map_private.Tpo $(DEPDIR)/ut-cstl_hash_map_private.Po
-#	source='$(srcdir)/../../src/cstl_hash_map_private.c' object='ut-cstl_hash_map_private.o' libtool=no \
+libcstl_ut-cstl_hash_map_private.o: $(srcdir)/../../src/cstl_hash_map_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_map_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_map_private.Tpo -c -o libcstl_ut-cstl_hash_map_private.o `test -f '$(srcdir)/../../src/cstl_hash_map_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_map_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_map_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_map_private.c' object='libcstl_ut-cstl_hash_map_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_map_private.o `test -f '$(srcdir)/../../src/cstl_hash_map_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_map_private.o `test -f '$(srcdir)/../../src/cstl_hash_map_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_private.c
 
-ut-cstl_hash_map_private.obj: $(srcdir)/../../src/cstl_hash_map_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_map_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_map_private.Tpo -c -o ut-cstl_hash_map_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_map_private.Tpo $(DEPDIR)/ut-cstl_hash_map_private.Po
-#	source='$(srcdir)/../../src/cstl_hash_map_private.c' object='ut-cstl_hash_map_private.obj' libtool=no \
+libcstl_ut-cstl_hash_map_private.obj: $(srcdir)/../../src/cstl_hash_map_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_map_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_map_private.Tpo -c -o libcstl_ut-cstl_hash_map_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_map_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_map_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_map_private.c' object='libcstl_ut-cstl_hash_map_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_map_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_map_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_private.c'; fi`
 
-ut-cstl_hash_map_aux.o: $(srcdir)/../../src/cstl_hash_map_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_map_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_map_aux.Tpo -c -o ut-cstl_hash_map_aux.o `test -f '$(srcdir)/../../src/cstl_hash_map_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_map_aux.Tpo $(DEPDIR)/ut-cstl_hash_map_aux.Po
-#	source='$(srcdir)/../../src/cstl_hash_map_aux.c' object='ut-cstl_hash_map_aux.o' libtool=no \
+libcstl_ut-cstl_hash_map_aux.o: $(srcdir)/../../src/cstl_hash_map_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_map_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_map_aux.Tpo -c -o libcstl_ut-cstl_hash_map_aux.o `test -f '$(srcdir)/../../src/cstl_hash_map_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_map_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_map_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_map_aux.c' object='libcstl_ut-cstl_hash_map_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_map_aux.o `test -f '$(srcdir)/../../src/cstl_hash_map_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_map_aux.o `test -f '$(srcdir)/../../src/cstl_hash_map_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_map_aux.c
 
-ut-cstl_hash_map_aux.obj: $(srcdir)/../../src/cstl_hash_map_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_map_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_map_aux.Tpo -c -o ut-cstl_hash_map_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_map_aux.Tpo $(DEPDIR)/ut-cstl_hash_map_aux.Po
-#	source='$(srcdir)/../../src/cstl_hash_map_aux.c' object='ut-cstl_hash_map_aux.obj' libtool=no \
+libcstl_ut-cstl_hash_map_aux.obj: $(srcdir)/../../src/cstl_hash_map_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_map_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_map_aux.Tpo -c -o libcstl_ut-cstl_hash_map_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_map_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_map_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_map_aux.c' object='libcstl_ut-cstl_hash_map_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_map_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_map_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_map_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_map_aux.c'; fi`
 
-ut-cstl_hash_multimap.o: $(srcdir)/../../src/cstl_hash_multimap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multimap.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multimap.Tpo -c -o ut-cstl_hash_multimap.o `test -f '$(srcdir)/../../src/cstl_hash_multimap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multimap.Tpo $(DEPDIR)/ut-cstl_hash_multimap.Po
-#	source='$(srcdir)/../../src/cstl_hash_multimap.c' object='ut-cstl_hash_multimap.o' libtool=no \
+libcstl_ut-cstl_hash_multimap.o: $(srcdir)/../../src/cstl_hash_multimap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multimap.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multimap.Tpo -c -o libcstl_ut-cstl_hash_multimap.o `test -f '$(srcdir)/../../src/cstl_hash_multimap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multimap.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multimap.Po
+#	source='$(srcdir)/../../src/cstl_hash_multimap.c' object='libcstl_ut-cstl_hash_multimap.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multimap.o `test -f '$(srcdir)/../../src/cstl_hash_multimap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multimap.o `test -f '$(srcdir)/../../src/cstl_hash_multimap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap.c
 
-ut-cstl_hash_multimap.obj: $(srcdir)/../../src/cstl_hash_multimap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multimap.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multimap.Tpo -c -o ut-cstl_hash_multimap.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multimap.Tpo $(DEPDIR)/ut-cstl_hash_multimap.Po
-#	source='$(srcdir)/../../src/cstl_hash_multimap.c' object='ut-cstl_hash_multimap.obj' libtool=no \
+libcstl_ut-cstl_hash_multimap.obj: $(srcdir)/../../src/cstl_hash_multimap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multimap.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multimap.Tpo -c -o libcstl_ut-cstl_hash_multimap.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multimap.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multimap.Po
+#	source='$(srcdir)/../../src/cstl_hash_multimap.c' object='libcstl_ut-cstl_hash_multimap.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multimap.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multimap.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap.c'; fi`
 
-ut-cstl_hash_multimap_iterator.o: $(srcdir)/../../src/cstl_hash_multimap_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multimap_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multimap_iterator.Tpo -c -o ut-cstl_hash_multimap_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multimap_iterator.Tpo $(DEPDIR)/ut-cstl_hash_multimap_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hash_multimap_iterator.c' object='ut-cstl_hash_multimap_iterator.o' libtool=no \
+libcstl_ut-cstl_hash_multimap_iterator.o: $(srcdir)/../../src/cstl_hash_multimap_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multimap_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multimap_iterator.Tpo -c -o libcstl_ut-cstl_hash_multimap_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multimap_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multimap_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_multimap_iterator.c' object='libcstl_ut-cstl_hash_multimap_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multimap_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multimap_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_iterator.c
 
-ut-cstl_hash_multimap_iterator.obj: $(srcdir)/../../src/cstl_hash_multimap_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multimap_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multimap_iterator.Tpo -c -o ut-cstl_hash_multimap_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multimap_iterator.Tpo $(DEPDIR)/ut-cstl_hash_multimap_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hash_multimap_iterator.c' object='ut-cstl_hash_multimap_iterator.obj' libtool=no \
+libcstl_ut-cstl_hash_multimap_iterator.obj: $(srcdir)/../../src/cstl_hash_multimap_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multimap_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multimap_iterator.Tpo -c -o libcstl_ut-cstl_hash_multimap_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multimap_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multimap_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_multimap_iterator.c' object='libcstl_ut-cstl_hash_multimap_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multimap_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multimap_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_iterator.c'; fi`
 
-ut-cstl_hash_multimap_private.o: $(srcdir)/../../src/cstl_hash_multimap_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multimap_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multimap_private.Tpo -c -o ut-cstl_hash_multimap_private.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multimap_private.Tpo $(DEPDIR)/ut-cstl_hash_multimap_private.Po
-#	source='$(srcdir)/../../src/cstl_hash_multimap_private.c' object='ut-cstl_hash_multimap_private.o' libtool=no \
+libcstl_ut-cstl_hash_multimap_private.o: $(srcdir)/../../src/cstl_hash_multimap_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multimap_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multimap_private.Tpo -c -o libcstl_ut-cstl_hash_multimap_private.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multimap_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multimap_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_multimap_private.c' object='libcstl_ut-cstl_hash_multimap_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multimap_private.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multimap_private.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_private.c
 
-ut-cstl_hash_multimap_private.obj: $(srcdir)/../../src/cstl_hash_multimap_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multimap_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multimap_private.Tpo -c -o ut-cstl_hash_multimap_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multimap_private.Tpo $(DEPDIR)/ut-cstl_hash_multimap_private.Po
-#	source='$(srcdir)/../../src/cstl_hash_multimap_private.c' object='ut-cstl_hash_multimap_private.obj' libtool=no \
+libcstl_ut-cstl_hash_multimap_private.obj: $(srcdir)/../../src/cstl_hash_multimap_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multimap_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multimap_private.Tpo -c -o libcstl_ut-cstl_hash_multimap_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multimap_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multimap_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_multimap_private.c' object='libcstl_ut-cstl_hash_multimap_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multimap_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multimap_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_private.c'; fi`
 
-ut-cstl_hash_multimap_aux.o: $(srcdir)/../../src/cstl_hash_multimap_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multimap_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multimap_aux.Tpo -c -o ut-cstl_hash_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multimap_aux.Tpo $(DEPDIR)/ut-cstl_hash_multimap_aux.Po
-#	source='$(srcdir)/../../src/cstl_hash_multimap_aux.c' object='ut-cstl_hash_multimap_aux.o' libtool=no \
+libcstl_ut-cstl_hash_multimap_aux.o: $(srcdir)/../../src/cstl_hash_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multimap_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multimap_aux.Tpo -c -o libcstl_ut-cstl_hash_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multimap_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multimap_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_multimap_aux.c' object='libcstl_ut-cstl_hash_multimap_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multimap_aux.c
 
-ut-cstl_hash_multimap_aux.obj: $(srcdir)/../../src/cstl_hash_multimap_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multimap_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multimap_aux.Tpo -c -o ut-cstl_hash_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multimap_aux.Tpo $(DEPDIR)/ut-cstl_hash_multimap_aux.Po
-#	source='$(srcdir)/../../src/cstl_hash_multimap_aux.c' object='ut-cstl_hash_multimap_aux.obj' libtool=no \
+libcstl_ut-cstl_hash_multimap_aux.obj: $(srcdir)/../../src/cstl_hash_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multimap_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multimap_aux.Tpo -c -o libcstl_ut-cstl_hash_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multimap_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multimap_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_multimap_aux.c' object='libcstl_ut-cstl_hash_multimap_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multimap_aux.c'; fi`
 
-ut-cstl_hash_multiset.o: $(srcdir)/../../src/cstl_hash_multiset.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset.Tpo -c -o ut-cstl_hash_multiset.o `test -f '$(srcdir)/../../src/cstl_hash_multiset.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset.Tpo $(DEPDIR)/ut-cstl_hash_multiset.Po
-#	source='$(srcdir)/../../src/cstl_hash_multiset.c' object='ut-cstl_hash_multiset.o' libtool=no \
+libcstl_ut-cstl_hash_multiset.o: $(srcdir)/../../src/cstl_hash_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multiset.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multiset.Tpo -c -o libcstl_ut-cstl_hash_multiset.o `test -f '$(srcdir)/../../src/cstl_hash_multiset.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multiset.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multiset.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset.c' object='libcstl_ut-cstl_hash_multiset.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset.o `test -f '$(srcdir)/../../src/cstl_hash_multiset.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multiset.o `test -f '$(srcdir)/../../src/cstl_hash_multiset.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset.c
 
-ut-cstl_hash_multiset.obj: $(srcdir)/../../src/cstl_hash_multiset.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset.Tpo -c -o ut-cstl_hash_multiset.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset.Tpo $(DEPDIR)/ut-cstl_hash_multiset.Po
-#	source='$(srcdir)/../../src/cstl_hash_multiset.c' object='ut-cstl_hash_multiset.obj' libtool=no \
+libcstl_ut-cstl_hash_multiset.obj: $(srcdir)/../../src/cstl_hash_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multiset.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multiset.Tpo -c -o libcstl_ut-cstl_hash_multiset.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multiset.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multiset.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset.c' object='libcstl_ut-cstl_hash_multiset.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multiset.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset.c'; fi`
 
-ut-cstl_hash_multiset_iterator.o: $(srcdir)/../../src/cstl_hash_multiset_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_iterator.Tpo -c -o ut-cstl_hash_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_iterator.Tpo $(DEPDIR)/ut-cstl_hash_multiset_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hash_multiset_iterator.c' object='ut-cstl_hash_multiset_iterator.o' libtool=no \
+libcstl_ut-cstl_hash_multiset_iterator.o: $(srcdir)/../../src/cstl_hash_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multiset_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multiset_iterator.Tpo -c -o libcstl_ut-cstl_hash_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multiset_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multiset_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_iterator.c' object='libcstl_ut-cstl_hash_multiset_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_iterator.c
 
-ut-cstl_hash_multiset_iterator.obj: $(srcdir)/../../src/cstl_hash_multiset_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_iterator.Tpo -c -o ut-cstl_hash_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_iterator.Tpo $(DEPDIR)/ut-cstl_hash_multiset_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hash_multiset_iterator.c' object='ut-cstl_hash_multiset_iterator.obj' libtool=no \
+libcstl_ut-cstl_hash_multiset_iterator.obj: $(srcdir)/../../src/cstl_hash_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multiset_iterator.Tpo -c -o libcstl_ut-cstl_hash_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multiset_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multiset_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_iterator.c' object='libcstl_ut-cstl_hash_multiset_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_iterator.c'; fi`
 
-ut-cstl_hash_multiset_private.o: $(srcdir)/../../src/cstl_hash_multiset_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_private.Tpo -c -o ut-cstl_hash_multiset_private.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_private.Tpo $(DEPDIR)/ut-cstl_hash_multiset_private.Po
-#	source='$(srcdir)/../../src/cstl_hash_multiset_private.c' object='ut-cstl_hash_multiset_private.o' libtool=no \
+libcstl_ut-cstl_hash_multiset_private.o: $(srcdir)/../../src/cstl_hash_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multiset_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multiset_private.Tpo -c -o libcstl_ut-cstl_hash_multiset_private.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multiset_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multiset_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_private.c' object='libcstl_ut-cstl_hash_multiset_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_private.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multiset_private.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_private.c
 
-ut-cstl_hash_multiset_private.obj: $(srcdir)/../../src/cstl_hash_multiset_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_private.Tpo -c -o ut-cstl_hash_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_private.Tpo $(DEPDIR)/ut-cstl_hash_multiset_private.Po
-#	source='$(srcdir)/../../src/cstl_hash_multiset_private.c' object='ut-cstl_hash_multiset_private.obj' libtool=no \
+libcstl_ut-cstl_hash_multiset_private.obj: $(srcdir)/../../src/cstl_hash_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multiset_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multiset_private.Tpo -c -o libcstl_ut-cstl_hash_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multiset_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multiset_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_private.c' object='libcstl_ut-cstl_hash_multiset_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_private.c'; fi`
 
-ut-cstl_hash_multiset_aux.o: $(srcdir)/../../src/cstl_hash_multiset_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_aux.Tpo -c -o ut-cstl_hash_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_aux.Tpo $(DEPDIR)/ut-cstl_hash_multiset_aux.Po
-#	source='$(srcdir)/../../src/cstl_hash_multiset_aux.c' object='ut-cstl_hash_multiset_aux.o' libtool=no \
+libcstl_ut-cstl_hash_multiset_aux.o: $(srcdir)/../../src/cstl_hash_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multiset_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multiset_aux.Tpo -c -o libcstl_ut-cstl_hash_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multiset_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multiset_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_aux.c' object='libcstl_ut-cstl_hash_multiset_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_multiset_aux.c
 
-ut-cstl_hash_multiset_aux.obj: $(srcdir)/../../src/cstl_hash_multiset_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_multiset_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_multiset_aux.Tpo -c -o ut-cstl_hash_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_multiset_aux.Tpo $(DEPDIR)/ut-cstl_hash_multiset_aux.Po
-#	source='$(srcdir)/../../src/cstl_hash_multiset_aux.c' object='ut-cstl_hash_multiset_aux.obj' libtool=no \
+libcstl_ut-cstl_hash_multiset_aux.obj: $(srcdir)/../../src/cstl_hash_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_multiset_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_multiset_aux.Tpo -c -o libcstl_ut-cstl_hash_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_multiset_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_multiset_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_multiset_aux.c' object='libcstl_ut-cstl_hash_multiset_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_multiset_aux.c'; fi`
 
-ut-cstl_hash_set.o: $(srcdir)/../../src/cstl_hash_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set.Tpo -c -o ut-cstl_hash_set.o `test -f '$(srcdir)/../../src/cstl_hash_set.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_set.Tpo $(DEPDIR)/ut-cstl_hash_set.Po
-#	source='$(srcdir)/../../src/cstl_hash_set.c' object='ut-cstl_hash_set.o' libtool=no \
+libcstl_ut-cstl_hash_set.o: $(srcdir)/../../src/cstl_hash_set.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_set.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_set.Tpo -c -o libcstl_ut-cstl_hash_set.o `test -f '$(srcdir)/../../src/cstl_hash_set.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_set.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_set.Po
+#	source='$(srcdir)/../../src/cstl_hash_set.c' object='libcstl_ut-cstl_hash_set.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set.o `test -f '$(srcdir)/../../src/cstl_hash_set.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_set.o `test -f '$(srcdir)/../../src/cstl_hash_set.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set.c
 
-ut-cstl_hash_set.obj: $(srcdir)/../../src/cstl_hash_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set.Tpo -c -o ut-cstl_hash_set.obj `if test -f '$(srcdir)/../../src/cstl_hash_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_set.Tpo $(DEPDIR)/ut-cstl_hash_set.Po
-#	source='$(srcdir)/../../src/cstl_hash_set.c' object='ut-cstl_hash_set.obj' libtool=no \
+libcstl_ut-cstl_hash_set.obj: $(srcdir)/../../src/cstl_hash_set.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_set.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_set.Tpo -c -o libcstl_ut-cstl_hash_set.obj `if test -f '$(srcdir)/../../src/cstl_hash_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_set.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_set.Po
+#	source='$(srcdir)/../../src/cstl_hash_set.c' object='libcstl_ut-cstl_hash_set.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set.obj `if test -f '$(srcdir)/../../src/cstl_hash_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_set.obj `if test -f '$(srcdir)/../../src/cstl_hash_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set.c'; fi`
 
-ut-cstl_hash_set_iterator.o: $(srcdir)/../../src/cstl_hash_set_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_iterator.Tpo -c -o ut-cstl_hash_set_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_set_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_iterator.Tpo $(DEPDIR)/ut-cstl_hash_set_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hash_set_iterator.c' object='ut-cstl_hash_set_iterator.o' libtool=no \
+libcstl_ut-cstl_hash_set_iterator.o: $(srcdir)/../../src/cstl_hash_set_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_set_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_set_iterator.Tpo -c -o libcstl_ut-cstl_hash_set_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_set_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_set_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_set_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_iterator.c' object='libcstl_ut-cstl_hash_set_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_set_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_set_iterator.o `test -f '$(srcdir)/../../src/cstl_hash_set_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_iterator.c
 
-ut-cstl_hash_set_iterator.obj: $(srcdir)/../../src/cstl_hash_set_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_iterator.Tpo -c -o ut-cstl_hash_set_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_iterator.Tpo $(DEPDIR)/ut-cstl_hash_set_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hash_set_iterator.c' object='ut-cstl_hash_set_iterator.obj' libtool=no \
+libcstl_ut-cstl_hash_set_iterator.obj: $(srcdir)/../../src/cstl_hash_set_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_set_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_set_iterator.Tpo -c -o libcstl_ut-cstl_hash_set_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_set_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_set_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_iterator.c' object='libcstl_ut-cstl_hash_set_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_set_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_iterator.c'; fi`
 
-ut-cstl_hash_set_private.o: $(srcdir)/../../src/cstl_hash_set_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_private.Tpo -c -o ut-cstl_hash_set_private.o `test -f '$(srcdir)/../../src/cstl_hash_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_private.Tpo $(DEPDIR)/ut-cstl_hash_set_private.Po
-#	source='$(srcdir)/../../src/cstl_hash_set_private.c' object='ut-cstl_hash_set_private.o' libtool=no \
+libcstl_ut-cstl_hash_set_private.o: $(srcdir)/../../src/cstl_hash_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_set_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_set_private.Tpo -c -o libcstl_ut-cstl_hash_set_private.o `test -f '$(srcdir)/../../src/cstl_hash_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_set_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_set_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_private.c' object='libcstl_ut-cstl_hash_set_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_private.o `test -f '$(srcdir)/../../src/cstl_hash_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_set_private.o `test -f '$(srcdir)/../../src/cstl_hash_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_private.c
 
-ut-cstl_hash_set_private.obj: $(srcdir)/../../src/cstl_hash_set_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_private.Tpo -c -o ut-cstl_hash_set_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_private.Tpo $(DEPDIR)/ut-cstl_hash_set_private.Po
-#	source='$(srcdir)/../../src/cstl_hash_set_private.c' object='ut-cstl_hash_set_private.obj' libtool=no \
+libcstl_ut-cstl_hash_set_private.obj: $(srcdir)/../../src/cstl_hash_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_set_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_set_private.Tpo -c -o libcstl_ut-cstl_hash_set_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_set_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_set_private.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_private.c' object='libcstl_ut-cstl_hash_set_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_set_private.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_private.c'; fi`
 
-ut-cstl_hash_set_aux.o: $(srcdir)/../../src/cstl_hash_set_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_aux.Tpo -c -o ut-cstl_hash_set_aux.o `test -f '$(srcdir)/../../src/cstl_hash_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_aux.Tpo $(DEPDIR)/ut-cstl_hash_set_aux.Po
-#	source='$(srcdir)/../../src/cstl_hash_set_aux.c' object='ut-cstl_hash_set_aux.o' libtool=no \
+libcstl_ut-cstl_hash_set_aux.o: $(srcdir)/../../src/cstl_hash_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_set_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_set_aux.Tpo -c -o libcstl_ut-cstl_hash_set_aux.o `test -f '$(srcdir)/../../src/cstl_hash_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_set_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_set_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_aux.c' object='libcstl_ut-cstl_hash_set_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_aux.o `test -f '$(srcdir)/../../src/cstl_hash_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_set_aux.o `test -f '$(srcdir)/../../src/cstl_hash_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hash_set_aux.c
 
-ut-cstl_hash_set_aux.obj: $(srcdir)/../../src/cstl_hash_set_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hash_set_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hash_set_aux.Tpo -c -o ut-cstl_hash_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hash_set_aux.Tpo $(DEPDIR)/ut-cstl_hash_set_aux.Po
-#	source='$(srcdir)/../../src/cstl_hash_set_aux.c' object='ut-cstl_hash_set_aux.obj' libtool=no \
+libcstl_ut-cstl_hash_set_aux.obj: $(srcdir)/../../src/cstl_hash_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hash_set_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hash_set_aux.Tpo -c -o libcstl_ut-cstl_hash_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hash_set_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hash_set_aux.Po
+#	source='$(srcdir)/../../src/cstl_hash_set_aux.c' object='libcstl_ut-cstl_hash_set_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hash_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hash_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_hash_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hash_set_aux.c'; fi`
 
-ut-cstl_hashtable.o: $(srcdir)/../../src/cstl_hashtable.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hashtable.o -MD -MP -MF $(DEPDIR)/ut-cstl_hashtable.Tpo -c -o ut-cstl_hashtable.o `test -f '$(srcdir)/../../src/cstl_hashtable.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hashtable.Tpo $(DEPDIR)/ut-cstl_hashtable.Po
-#	source='$(srcdir)/../../src/cstl_hashtable.c' object='ut-cstl_hashtable.o' libtool=no \
+libcstl_ut-cstl_hashtable.o: $(srcdir)/../../src/cstl_hashtable.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hashtable.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hashtable.Tpo -c -o libcstl_ut-cstl_hashtable.o `test -f '$(srcdir)/../../src/cstl_hashtable.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hashtable.Tpo $(DEPDIR)/libcstl_ut-cstl_hashtable.Po
+#	source='$(srcdir)/../../src/cstl_hashtable.c' object='libcstl_ut-cstl_hashtable.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hashtable.o `test -f '$(srcdir)/../../src/cstl_hashtable.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hashtable.o `test -f '$(srcdir)/../../src/cstl_hashtable.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable.c
 
-ut-cstl_hashtable.obj: $(srcdir)/../../src/cstl_hashtable.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hashtable.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hashtable.Tpo -c -o ut-cstl_hashtable.obj `if test -f '$(srcdir)/../../src/cstl_hashtable.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hashtable.Tpo $(DEPDIR)/ut-cstl_hashtable.Po
-#	source='$(srcdir)/../../src/cstl_hashtable.c' object='ut-cstl_hashtable.obj' libtool=no \
+libcstl_ut-cstl_hashtable.obj: $(srcdir)/../../src/cstl_hashtable.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hashtable.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hashtable.Tpo -c -o libcstl_ut-cstl_hashtable.obj `if test -f '$(srcdir)/../../src/cstl_hashtable.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hashtable.Tpo $(DEPDIR)/libcstl_ut-cstl_hashtable.Po
+#	source='$(srcdir)/../../src/cstl_hashtable.c' object='libcstl_ut-cstl_hashtable.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hashtable.obj `if test -f '$(srcdir)/../../src/cstl_hashtable.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hashtable.obj `if test -f '$(srcdir)/../../src/cstl_hashtable.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable.c'; fi`
 
-ut-cstl_hashtable_iterator.o: $(srcdir)/../../src/cstl_hashtable_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hashtable_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_hashtable_iterator.Tpo -c -o ut-cstl_hashtable_iterator.o `test -f '$(srcdir)/../../src/cstl_hashtable_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hashtable_iterator.Tpo $(DEPDIR)/ut-cstl_hashtable_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hashtable_iterator.c' object='ut-cstl_hashtable_iterator.o' libtool=no \
+libcstl_ut-cstl_hashtable_iterator.o: $(srcdir)/../../src/cstl_hashtable_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hashtable_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hashtable_iterator.Tpo -c -o libcstl_ut-cstl_hashtable_iterator.o `test -f '$(srcdir)/../../src/cstl_hashtable_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hashtable_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hashtable_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hashtable_iterator.c' object='libcstl_ut-cstl_hashtable_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hashtable_iterator.o `test -f '$(srcdir)/../../src/cstl_hashtable_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hashtable_iterator.o `test -f '$(srcdir)/../../src/cstl_hashtable_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_iterator.c
 
-ut-cstl_hashtable_iterator.obj: $(srcdir)/../../src/cstl_hashtable_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hashtable_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hashtable_iterator.Tpo -c -o ut-cstl_hashtable_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hashtable_iterator.Tpo $(DEPDIR)/ut-cstl_hashtable_iterator.Po
-#	source='$(srcdir)/../../src/cstl_hashtable_iterator.c' object='ut-cstl_hashtable_iterator.obj' libtool=no \
+libcstl_ut-cstl_hashtable_iterator.obj: $(srcdir)/../../src/cstl_hashtable_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hashtable_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hashtable_iterator.Tpo -c -o libcstl_ut-cstl_hashtable_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hashtable_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_hashtable_iterator.Po
+#	source='$(srcdir)/../../src/cstl_hashtable_iterator.c' object='libcstl_ut-cstl_hashtable_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hashtable_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hashtable_iterator.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_iterator.c'; fi`
 
-ut-cstl_hashtable_private.o: $(srcdir)/../../src/cstl_hashtable_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hashtable_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_hashtable_private.Tpo -c -o ut-cstl_hashtable_private.o `test -f '$(srcdir)/../../src/cstl_hashtable_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hashtable_private.Tpo $(DEPDIR)/ut-cstl_hashtable_private.Po
-#	source='$(srcdir)/../../src/cstl_hashtable_private.c' object='ut-cstl_hashtable_private.o' libtool=no \
+libcstl_ut-cstl_hashtable_private.o: $(srcdir)/../../src/cstl_hashtable_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hashtable_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hashtable_private.Tpo -c -o libcstl_ut-cstl_hashtable_private.o `test -f '$(srcdir)/../../src/cstl_hashtable_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hashtable_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hashtable_private.Po
+#	source='$(srcdir)/../../src/cstl_hashtable_private.c' object='libcstl_ut-cstl_hashtable_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hashtable_private.o `test -f '$(srcdir)/../../src/cstl_hashtable_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hashtable_private.o `test -f '$(srcdir)/../../src/cstl_hashtable_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_private.c
 
-ut-cstl_hashtable_private.obj: $(srcdir)/../../src/cstl_hashtable_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hashtable_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hashtable_private.Tpo -c -o ut-cstl_hashtable_private.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hashtable_private.Tpo $(DEPDIR)/ut-cstl_hashtable_private.Po
-#	source='$(srcdir)/../../src/cstl_hashtable_private.c' object='ut-cstl_hashtable_private.obj' libtool=no \
+libcstl_ut-cstl_hashtable_private.obj: $(srcdir)/../../src/cstl_hashtable_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hashtable_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hashtable_private.Tpo -c -o libcstl_ut-cstl_hashtable_private.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hashtable_private.Tpo $(DEPDIR)/libcstl_ut-cstl_hashtable_private.Po
+#	source='$(srcdir)/../../src/cstl_hashtable_private.c' object='libcstl_ut-cstl_hashtable_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hashtable_private.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hashtable_private.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_private.c'; fi`
 
-ut-cstl_hashtable_aux.o: $(srcdir)/../../src/cstl_hashtable_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hashtable_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_hashtable_aux.Tpo -c -o ut-cstl_hashtable_aux.o `test -f '$(srcdir)/../../src/cstl_hashtable_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_hashtable_aux.Tpo $(DEPDIR)/ut-cstl_hashtable_aux.Po
-#	source='$(srcdir)/../../src/cstl_hashtable_aux.c' object='ut-cstl_hashtable_aux.o' libtool=no \
+libcstl_ut-cstl_hashtable_aux.o: $(srcdir)/../../src/cstl_hashtable_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hashtable_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hashtable_aux.Tpo -c -o libcstl_ut-cstl_hashtable_aux.o `test -f '$(srcdir)/../../src/cstl_hashtable_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hashtable_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hashtable_aux.Po
+#	source='$(srcdir)/../../src/cstl_hashtable_aux.c' object='libcstl_ut-cstl_hashtable_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hashtable_aux.o `test -f '$(srcdir)/../../src/cstl_hashtable_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hashtable_aux.o `test -f '$(srcdir)/../../src/cstl_hashtable_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_hashtable_aux.c
 
-ut-cstl_hashtable_aux.obj: $(srcdir)/../../src/cstl_hashtable_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_hashtable_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_hashtable_aux.Tpo -c -o ut-cstl_hashtable_aux.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_hashtable_aux.Tpo $(DEPDIR)/ut-cstl_hashtable_aux.Po
-#	source='$(srcdir)/../../src/cstl_hashtable_aux.c' object='ut-cstl_hashtable_aux.obj' libtool=no \
+libcstl_ut-cstl_hashtable_aux.obj: $(srcdir)/../../src/cstl_hashtable_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_hashtable_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_hashtable_aux.Tpo -c -o libcstl_ut-cstl_hashtable_aux.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_hashtable_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_hashtable_aux.Po
+#	source='$(srcdir)/../../src/cstl_hashtable_aux.c' object='libcstl_ut-cstl_hashtable_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_hashtable_aux.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_hashtable_aux.obj `if test -f '$(srcdir)/../../src/cstl_hashtable_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_hashtable_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_hashtable_aux.c'; fi`
 
-ut-cstl_heap.o: $(srcdir)/../../src/cstl_heap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_heap.o -MD -MP -MF $(DEPDIR)/ut-cstl_heap.Tpo -c -o ut-cstl_heap.o `test -f '$(srcdir)/../../src/cstl_heap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_heap.c
-	$(am__mv) $(DEPDIR)/ut-cstl_heap.Tpo $(DEPDIR)/ut-cstl_heap.Po
-#	source='$(srcdir)/../../src/cstl_heap.c' object='ut-cstl_heap.o' libtool=no \
+libcstl_ut-cstl_heap.o: $(srcdir)/../../src/cstl_heap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_heap.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_heap.Tpo -c -o libcstl_ut-cstl_heap.o `test -f '$(srcdir)/../../src/cstl_heap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_heap.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_heap.Tpo $(DEPDIR)/libcstl_ut-cstl_heap.Po
+#	source='$(srcdir)/../../src/cstl_heap.c' object='libcstl_ut-cstl_heap.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_heap.o `test -f '$(srcdir)/../../src/cstl_heap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_heap.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_heap.o `test -f '$(srcdir)/../../src/cstl_heap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_heap.c
 
-ut-cstl_heap.obj: $(srcdir)/../../src/cstl_heap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_heap.obj -MD -MP -MF $(DEPDIR)/ut-cstl_heap.Tpo -c -o ut-cstl_heap.obj `if test -f '$(srcdir)/../../src/cstl_heap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_heap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_heap.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_heap.Tpo $(DEPDIR)/ut-cstl_heap.Po
-#	source='$(srcdir)/../../src/cstl_heap.c' object='ut-cstl_heap.obj' libtool=no \
+libcstl_ut-cstl_heap.obj: $(srcdir)/../../src/cstl_heap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_heap.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_heap.Tpo -c -o libcstl_ut-cstl_heap.obj `if test -f '$(srcdir)/../../src/cstl_heap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_heap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_heap.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_heap.Tpo $(DEPDIR)/libcstl_ut-cstl_heap.Po
+#	source='$(srcdir)/../../src/cstl_heap.c' object='libcstl_ut-cstl_heap.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_heap.obj `if test -f '$(srcdir)/../../src/cstl_heap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_heap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_heap.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_heap.obj `if test -f '$(srcdir)/../../src/cstl_heap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_heap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_heap.c'; fi`
 
-ut-cstl_list.o: $(srcdir)/../../src/cstl_list.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_list.o -MD -MP -MF $(DEPDIR)/ut-cstl_list.Tpo -c -o ut-cstl_list.o `test -f '$(srcdir)/../../src/cstl_list.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list.c
-	$(am__mv) $(DEPDIR)/ut-cstl_list.Tpo $(DEPDIR)/ut-cstl_list.Po
-#	source='$(srcdir)/../../src/cstl_list.c' object='ut-cstl_list.o' libtool=no \
+libcstl_ut-cstl_list.o: $(srcdir)/../../src/cstl_list.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_list.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_list.Tpo -c -o libcstl_ut-cstl_list.o `test -f '$(srcdir)/../../src/cstl_list.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_list.Tpo $(DEPDIR)/libcstl_ut-cstl_list.Po
+#	source='$(srcdir)/../../src/cstl_list.c' object='libcstl_ut-cstl_list.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_list.o `test -f '$(srcdir)/../../src/cstl_list.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_list.o `test -f '$(srcdir)/../../src/cstl_list.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list.c
 
-ut-cstl_list.obj: $(srcdir)/../../src/cstl_list.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_list.obj -MD -MP -MF $(DEPDIR)/ut-cstl_list.Tpo -c -o ut-cstl_list.obj `if test -f '$(srcdir)/../../src/cstl_list.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_list.Tpo $(DEPDIR)/ut-cstl_list.Po
-#	source='$(srcdir)/../../src/cstl_list.c' object='ut-cstl_list.obj' libtool=no \
+libcstl_ut-cstl_list.obj: $(srcdir)/../../src/cstl_list.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_list.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_list.Tpo -c -o libcstl_ut-cstl_list.obj `if test -f '$(srcdir)/../../src/cstl_list.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_list.Tpo $(DEPDIR)/libcstl_ut-cstl_list.Po
+#	source='$(srcdir)/../../src/cstl_list.c' object='libcstl_ut-cstl_list.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_list.obj `if test -f '$(srcdir)/../../src/cstl_list.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_list.obj `if test -f '$(srcdir)/../../src/cstl_list.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list.c'; fi`
 
-ut-cstl_list_iterator.o: $(srcdir)/../../src/cstl_list_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_list_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_list_iterator.Tpo -c -o ut-cstl_list_iterator.o `test -f '$(srcdir)/../../src/cstl_list_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_list_iterator.Tpo $(DEPDIR)/ut-cstl_list_iterator.Po
-#	source='$(srcdir)/../../src/cstl_list_iterator.c' object='ut-cstl_list_iterator.o' libtool=no \
+libcstl_ut-cstl_list_iterator.o: $(srcdir)/../../src/cstl_list_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_list_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_list_iterator.Tpo -c -o libcstl_ut-cstl_list_iterator.o `test -f '$(srcdir)/../../src/cstl_list_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_list_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_list_iterator.Po
+#	source='$(srcdir)/../../src/cstl_list_iterator.c' object='libcstl_ut-cstl_list_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_list_iterator.o `test -f '$(srcdir)/../../src/cstl_list_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_list_iterator.o `test -f '$(srcdir)/../../src/cstl_list_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_iterator.c
 
-ut-cstl_list_iterator.obj: $(srcdir)/../../src/cstl_list_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_list_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_list_iterator.Tpo -c -o ut-cstl_list_iterator.obj `if test -f '$(srcdir)/../../src/cstl_list_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_list_iterator.Tpo $(DEPDIR)/ut-cstl_list_iterator.Po
-#	source='$(srcdir)/../../src/cstl_list_iterator.c' object='ut-cstl_list_iterator.obj' libtool=no \
+libcstl_ut-cstl_list_iterator.obj: $(srcdir)/../../src/cstl_list_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_list_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_list_iterator.Tpo -c -o libcstl_ut-cstl_list_iterator.obj `if test -f '$(srcdir)/../../src/cstl_list_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_list_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_list_iterator.Po
+#	source='$(srcdir)/../../src/cstl_list_iterator.c' object='libcstl_ut-cstl_list_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_list_iterator.obj `if test -f '$(srcdir)/../../src/cstl_list_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_list_iterator.obj `if test -f '$(srcdir)/../../src/cstl_list_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_iterator.c'; fi`
 
-ut-cstl_list_private.o: $(srcdir)/../../src/cstl_list_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_list_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_list_private.Tpo -c -o ut-cstl_list_private.o `test -f '$(srcdir)/../../src/cstl_list_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_list_private.Tpo $(DEPDIR)/ut-cstl_list_private.Po
-#	source='$(srcdir)/../../src/cstl_list_private.c' object='ut-cstl_list_private.o' libtool=no \
+libcstl_ut-cstl_list_private.o: $(srcdir)/../../src/cstl_list_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_list_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_list_private.Tpo -c -o libcstl_ut-cstl_list_private.o `test -f '$(srcdir)/../../src/cstl_list_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_list_private.Tpo $(DEPDIR)/libcstl_ut-cstl_list_private.Po
+#	source='$(srcdir)/../../src/cstl_list_private.c' object='libcstl_ut-cstl_list_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_list_private.o `test -f '$(srcdir)/../../src/cstl_list_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_list_private.o `test -f '$(srcdir)/../../src/cstl_list_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_private.c
 
-ut-cstl_list_private.obj: $(srcdir)/../../src/cstl_list_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_list_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_list_private.Tpo -c -o ut-cstl_list_private.obj `if test -f '$(srcdir)/../../src/cstl_list_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_list_private.Tpo $(DEPDIR)/ut-cstl_list_private.Po
-#	source='$(srcdir)/../../src/cstl_list_private.c' object='ut-cstl_list_private.obj' libtool=no \
+libcstl_ut-cstl_list_private.obj: $(srcdir)/../../src/cstl_list_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_list_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_list_private.Tpo -c -o libcstl_ut-cstl_list_private.obj `if test -f '$(srcdir)/../../src/cstl_list_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_list_private.Tpo $(DEPDIR)/libcstl_ut-cstl_list_private.Po
+#	source='$(srcdir)/../../src/cstl_list_private.c' object='libcstl_ut-cstl_list_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_list_private.obj `if test -f '$(srcdir)/../../src/cstl_list_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_list_private.obj `if test -f '$(srcdir)/../../src/cstl_list_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_private.c'; fi`
 
-ut-cstl_list_aux.o: $(srcdir)/../../src/cstl_list_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_list_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_list_aux.Tpo -c -o ut-cstl_list_aux.o `test -f '$(srcdir)/../../src/cstl_list_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_list_aux.Tpo $(DEPDIR)/ut-cstl_list_aux.Po
-#	source='$(srcdir)/../../src/cstl_list_aux.c' object='ut-cstl_list_aux.o' libtool=no \
+libcstl_ut-cstl_list_aux.o: $(srcdir)/../../src/cstl_list_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_list_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_list_aux.Tpo -c -o libcstl_ut-cstl_list_aux.o `test -f '$(srcdir)/../../src/cstl_list_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_list_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_list_aux.Po
+#	source='$(srcdir)/../../src/cstl_list_aux.c' object='libcstl_ut-cstl_list_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_list_aux.o `test -f '$(srcdir)/../../src/cstl_list_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_list_aux.o `test -f '$(srcdir)/../../src/cstl_list_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_list_aux.c
 
-ut-cstl_list_aux.obj: $(srcdir)/../../src/cstl_list_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_list_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_list_aux.Tpo -c -o ut-cstl_list_aux.obj `if test -f '$(srcdir)/../../src/cstl_list_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_list_aux.Tpo $(DEPDIR)/ut-cstl_list_aux.Po
-#	source='$(srcdir)/../../src/cstl_list_aux.c' object='ut-cstl_list_aux.obj' libtool=no \
+libcstl_ut-cstl_list_aux.obj: $(srcdir)/../../src/cstl_list_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_list_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_list_aux.Tpo -c -o libcstl_ut-cstl_list_aux.obj `if test -f '$(srcdir)/../../src/cstl_list_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_list_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_list_aux.Po
+#	source='$(srcdir)/../../src/cstl_list_aux.c' object='libcstl_ut-cstl_list_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_list_aux.obj `if test -f '$(srcdir)/../../src/cstl_list_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_list_aux.obj `if test -f '$(srcdir)/../../src/cstl_list_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_list_aux.c'; fi`
 
-ut-cstl_map.o: $(srcdir)/../../src/cstl_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map.o -MD -MP -MF $(DEPDIR)/ut-cstl_map.Tpo -c -o ut-cstl_map.o `test -f '$(srcdir)/../../src/cstl_map.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map.c
-	$(am__mv) $(DEPDIR)/ut-cstl_map.Tpo $(DEPDIR)/ut-cstl_map.Po
-#	source='$(srcdir)/../../src/cstl_map.c' object='ut-cstl_map.o' libtool=no \
+libcstl_ut-cstl_map.o: $(srcdir)/../../src/cstl_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_map.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_map.Tpo -c -o libcstl_ut-cstl_map.o `test -f '$(srcdir)/../../src/cstl_map.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_map.Tpo $(DEPDIR)/libcstl_ut-cstl_map.Po
+#	source='$(srcdir)/../../src/cstl_map.c' object='libcstl_ut-cstl_map.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map.o `test -f '$(srcdir)/../../src/cstl_map.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_map.o `test -f '$(srcdir)/../../src/cstl_map.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map.c
 
-ut-cstl_map.obj: $(srcdir)/../../src/cstl_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map.obj -MD -MP -MF $(DEPDIR)/ut-cstl_map.Tpo -c -o ut-cstl_map.obj `if test -f '$(srcdir)/../../src/cstl_map.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_map.Tpo $(DEPDIR)/ut-cstl_map.Po
-#	source='$(srcdir)/../../src/cstl_map.c' object='ut-cstl_map.obj' libtool=no \
+libcstl_ut-cstl_map.obj: $(srcdir)/../../src/cstl_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_map.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_map.Tpo -c -o libcstl_ut-cstl_map.obj `if test -f '$(srcdir)/../../src/cstl_map.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_map.Tpo $(DEPDIR)/libcstl_ut-cstl_map.Po
+#	source='$(srcdir)/../../src/cstl_map.c' object='libcstl_ut-cstl_map.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map.obj `if test -f '$(srcdir)/../../src/cstl_map.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_map.obj `if test -f '$(srcdir)/../../src/cstl_map.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map.c'; fi`
 
-ut-cstl_map_iterator.o: $(srcdir)/../../src/cstl_map_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_map_iterator.Tpo -c -o ut-cstl_map_iterator.o `test -f '$(srcdir)/../../src/cstl_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_map_iterator.Tpo $(DEPDIR)/ut-cstl_map_iterator.Po
-#	source='$(srcdir)/../../src/cstl_map_iterator.c' object='ut-cstl_map_iterator.o' libtool=no \
+libcstl_ut-cstl_map_iterator.o: $(srcdir)/../../src/cstl_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_map_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_map_iterator.Tpo -c -o libcstl_ut-cstl_map_iterator.o `test -f '$(srcdir)/../../src/cstl_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_map_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_map_iterator.Po
+#	source='$(srcdir)/../../src/cstl_map_iterator.c' object='libcstl_ut-cstl_map_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map_iterator.o `test -f '$(srcdir)/../../src/cstl_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_map_iterator.o `test -f '$(srcdir)/../../src/cstl_map_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_iterator.c
 
-ut-cstl_map_iterator.obj: $(srcdir)/../../src/cstl_map_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_map_iterator.Tpo -c -o ut-cstl_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_map_iterator.Tpo $(DEPDIR)/ut-cstl_map_iterator.Po
-#	source='$(srcdir)/../../src/cstl_map_iterator.c' object='ut-cstl_map_iterator.obj' libtool=no \
+libcstl_ut-cstl_map_iterator.obj: $(srcdir)/../../src/cstl_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_map_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_map_iterator.Tpo -c -o libcstl_ut-cstl_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_map_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_map_iterator.Po
+#	source='$(srcdir)/../../src/cstl_map_iterator.c' object='libcstl_ut-cstl_map_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_map_iterator.obj `if test -f '$(srcdir)/../../src/cstl_map_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_iterator.c'; fi`
 
-ut-cstl_map_private.o: $(srcdir)/../../src/cstl_map_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_map_private.Tpo -c -o ut-cstl_map_private.o `test -f '$(srcdir)/../../src/cstl_map_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_map_private.Tpo $(DEPDIR)/ut-cstl_map_private.Po
-#	source='$(srcdir)/../../src/cstl_map_private.c' object='ut-cstl_map_private.o' libtool=no \
+libcstl_ut-cstl_map_private.o: $(srcdir)/../../src/cstl_map_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_map_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_map_private.Tpo -c -o libcstl_ut-cstl_map_private.o `test -f '$(srcdir)/../../src/cstl_map_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_map_private.Tpo $(DEPDIR)/libcstl_ut-cstl_map_private.Po
+#	source='$(srcdir)/../../src/cstl_map_private.c' object='libcstl_ut-cstl_map_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map_private.o `test -f '$(srcdir)/../../src/cstl_map_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_map_private.o `test -f '$(srcdir)/../../src/cstl_map_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_private.c
 
-ut-cstl_map_private.obj: $(srcdir)/../../src/cstl_map_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_map_private.Tpo -c -o ut-cstl_map_private.obj `if test -f '$(srcdir)/../../src/cstl_map_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_map_private.Tpo $(DEPDIR)/ut-cstl_map_private.Po
-#	source='$(srcdir)/../../src/cstl_map_private.c' object='ut-cstl_map_private.obj' libtool=no \
+libcstl_ut-cstl_map_private.obj: $(srcdir)/../../src/cstl_map_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_map_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_map_private.Tpo -c -o libcstl_ut-cstl_map_private.obj `if test -f '$(srcdir)/../../src/cstl_map_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_map_private.Tpo $(DEPDIR)/libcstl_ut-cstl_map_private.Po
+#	source='$(srcdir)/../../src/cstl_map_private.c' object='libcstl_ut-cstl_map_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map_private.obj `if test -f '$(srcdir)/../../src/cstl_map_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_map_private.obj `if test -f '$(srcdir)/../../src/cstl_map_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_private.c'; fi`
 
-ut-cstl_map_aux.o: $(srcdir)/../../src/cstl_map_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_map_aux.Tpo -c -o ut-cstl_map_aux.o `test -f '$(srcdir)/../../src/cstl_map_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_map_aux.Tpo $(DEPDIR)/ut-cstl_map_aux.Po
-#	source='$(srcdir)/../../src/cstl_map_aux.c' object='ut-cstl_map_aux.o' libtool=no \
+libcstl_ut-cstl_map_aux.o: $(srcdir)/../../src/cstl_map_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_map_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_map_aux.Tpo -c -o libcstl_ut-cstl_map_aux.o `test -f '$(srcdir)/../../src/cstl_map_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_map_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_map_aux.Po
+#	source='$(srcdir)/../../src/cstl_map_aux.c' object='libcstl_ut-cstl_map_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map_aux.o `test -f '$(srcdir)/../../src/cstl_map_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_map_aux.o `test -f '$(srcdir)/../../src/cstl_map_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_map_aux.c
 
-ut-cstl_map_aux.obj: $(srcdir)/../../src/cstl_map_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_map_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_map_aux.Tpo -c -o ut-cstl_map_aux.obj `if test -f '$(srcdir)/../../src/cstl_map_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_map_aux.Tpo $(DEPDIR)/ut-cstl_map_aux.Po
-#	source='$(srcdir)/../../src/cstl_map_aux.c' object='ut-cstl_map_aux.obj' libtool=no \
+libcstl_ut-cstl_map_aux.obj: $(srcdir)/../../src/cstl_map_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_map_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_map_aux.Tpo -c -o libcstl_ut-cstl_map_aux.obj `if test -f '$(srcdir)/../../src/cstl_map_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_map_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_map_aux.Po
+#	source='$(srcdir)/../../src/cstl_map_aux.c' object='libcstl_ut-cstl_map_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_map_aux.obj `if test -f '$(srcdir)/../../src/cstl_map_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_map_aux.obj `if test -f '$(srcdir)/../../src/cstl_map_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_map_aux.c'; fi`
 
-ut-cstl_multimap.o: $(srcdir)/../../src/cstl_multimap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap.o -MD -MP -MF $(DEPDIR)/ut-cstl_multimap.Tpo -c -o ut-cstl_multimap.o `test -f '$(srcdir)/../../src/cstl_multimap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap.c
-	$(am__mv) $(DEPDIR)/ut-cstl_multimap.Tpo $(DEPDIR)/ut-cstl_multimap.Po
-#	source='$(srcdir)/../../src/cstl_multimap.c' object='ut-cstl_multimap.o' libtool=no \
+libcstl_ut-cstl_multimap.o: $(srcdir)/../../src/cstl_multimap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multimap.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multimap.Tpo -c -o libcstl_ut-cstl_multimap.o `test -f '$(srcdir)/../../src/cstl_multimap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multimap.Tpo $(DEPDIR)/libcstl_ut-cstl_multimap.Po
+#	source='$(srcdir)/../../src/cstl_multimap.c' object='libcstl_ut-cstl_multimap.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap.o `test -f '$(srcdir)/../../src/cstl_multimap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multimap.o `test -f '$(srcdir)/../../src/cstl_multimap.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap.c
 
-ut-cstl_multimap.obj: $(srcdir)/../../src/cstl_multimap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multimap.Tpo -c -o ut-cstl_multimap.obj `if test -f '$(srcdir)/../../src/cstl_multimap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_multimap.Tpo $(DEPDIR)/ut-cstl_multimap.Po
-#	source='$(srcdir)/../../src/cstl_multimap.c' object='ut-cstl_multimap.obj' libtool=no \
+libcstl_ut-cstl_multimap.obj: $(srcdir)/../../src/cstl_multimap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multimap.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multimap.Tpo -c -o libcstl_ut-cstl_multimap.obj `if test -f '$(srcdir)/../../src/cstl_multimap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multimap.Tpo $(DEPDIR)/libcstl_ut-cstl_multimap.Po
+#	source='$(srcdir)/../../src/cstl_multimap.c' object='libcstl_ut-cstl_multimap.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap.obj `if test -f '$(srcdir)/../../src/cstl_multimap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multimap.obj `if test -f '$(srcdir)/../../src/cstl_multimap.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap.c'; fi`
 
-ut-cstl_multimap_iterator.o: $(srcdir)/../../src/cstl_multimap_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_multimap_iterator.Tpo -c -o ut-cstl_multimap_iterator.o `test -f '$(srcdir)/../../src/cstl_multimap_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_multimap_iterator.Tpo $(DEPDIR)/ut-cstl_multimap_iterator.Po
-#	source='$(srcdir)/../../src/cstl_multimap_iterator.c' object='ut-cstl_multimap_iterator.o' libtool=no \
+libcstl_ut-cstl_multimap_iterator.o: $(srcdir)/../../src/cstl_multimap_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multimap_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multimap_iterator.Tpo -c -o libcstl_ut-cstl_multimap_iterator.o `test -f '$(srcdir)/../../src/cstl_multimap_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multimap_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_multimap_iterator.Po
+#	source='$(srcdir)/../../src/cstl_multimap_iterator.c' object='libcstl_ut-cstl_multimap_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap_iterator.o `test -f '$(srcdir)/../../src/cstl_multimap_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multimap_iterator.o `test -f '$(srcdir)/../../src/cstl_multimap_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_iterator.c
 
-ut-cstl_multimap_iterator.obj: $(srcdir)/../../src/cstl_multimap_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multimap_iterator.Tpo -c -o ut-cstl_multimap_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multimap_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_multimap_iterator.Tpo $(DEPDIR)/ut-cstl_multimap_iterator.Po
-#	source='$(srcdir)/../../src/cstl_multimap_iterator.c' object='ut-cstl_multimap_iterator.obj' libtool=no \
+libcstl_ut-cstl_multimap_iterator.obj: $(srcdir)/../../src/cstl_multimap_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multimap_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multimap_iterator.Tpo -c -o libcstl_ut-cstl_multimap_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multimap_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multimap_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_multimap_iterator.Po
+#	source='$(srcdir)/../../src/cstl_multimap_iterator.c' object='libcstl_ut-cstl_multimap_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multimap_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multimap_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multimap_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_iterator.c'; fi`
 
-ut-cstl_multimap_private.o: $(srcdir)/../../src/cstl_multimap_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_multimap_private.Tpo -c -o ut-cstl_multimap_private.o `test -f '$(srcdir)/../../src/cstl_multimap_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_multimap_private.Tpo $(DEPDIR)/ut-cstl_multimap_private.Po
-#	source='$(srcdir)/../../src/cstl_multimap_private.c' object='ut-cstl_multimap_private.o' libtool=no \
+libcstl_ut-cstl_multimap_private.o: $(srcdir)/../../src/cstl_multimap_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multimap_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multimap_private.Tpo -c -o libcstl_ut-cstl_multimap_private.o `test -f '$(srcdir)/../../src/cstl_multimap_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multimap_private.Tpo $(DEPDIR)/libcstl_ut-cstl_multimap_private.Po
+#	source='$(srcdir)/../../src/cstl_multimap_private.c' object='libcstl_ut-cstl_multimap_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap_private.o `test -f '$(srcdir)/../../src/cstl_multimap_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multimap_private.o `test -f '$(srcdir)/../../src/cstl_multimap_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_private.c
 
-ut-cstl_multimap_private.obj: $(srcdir)/../../src/cstl_multimap_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multimap_private.Tpo -c -o ut-cstl_multimap_private.obj `if test -f '$(srcdir)/../../src/cstl_multimap_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_multimap_private.Tpo $(DEPDIR)/ut-cstl_multimap_private.Po
-#	source='$(srcdir)/../../src/cstl_multimap_private.c' object='ut-cstl_multimap_private.obj' libtool=no \
+libcstl_ut-cstl_multimap_private.obj: $(srcdir)/../../src/cstl_multimap_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multimap_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multimap_private.Tpo -c -o libcstl_ut-cstl_multimap_private.obj `if test -f '$(srcdir)/../../src/cstl_multimap_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multimap_private.Tpo $(DEPDIR)/libcstl_ut-cstl_multimap_private.Po
+#	source='$(srcdir)/../../src/cstl_multimap_private.c' object='libcstl_ut-cstl_multimap_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap_private.obj `if test -f '$(srcdir)/../../src/cstl_multimap_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multimap_private.obj `if test -f '$(srcdir)/../../src/cstl_multimap_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_private.c'; fi`
 
-ut-cstl_multimap_aux.o: $(srcdir)/../../src/cstl_multimap_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_multimap_aux.Tpo -c -o ut-cstl_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_multimap_aux.Tpo $(DEPDIR)/ut-cstl_multimap_aux.Po
-#	source='$(srcdir)/../../src/cstl_multimap_aux.c' object='ut-cstl_multimap_aux.o' libtool=no \
+libcstl_ut-cstl_multimap_aux.o: $(srcdir)/../../src/cstl_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multimap_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multimap_aux.Tpo -c -o libcstl_ut-cstl_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multimap_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_multimap_aux.Po
+#	source='$(srcdir)/../../src/cstl_multimap_aux.c' object='libcstl_ut-cstl_multimap_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multimap_aux.o `test -f '$(srcdir)/../../src/cstl_multimap_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multimap_aux.c
 
-ut-cstl_multimap_aux.obj: $(srcdir)/../../src/cstl_multimap_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multimap_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multimap_aux.Tpo -c -o ut-cstl_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_multimap_aux.Tpo $(DEPDIR)/ut-cstl_multimap_aux.Po
-#	source='$(srcdir)/../../src/cstl_multimap_aux.c' object='ut-cstl_multimap_aux.obj' libtool=no \
+libcstl_ut-cstl_multimap_aux.obj: $(srcdir)/../../src/cstl_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multimap_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multimap_aux.Tpo -c -o libcstl_ut-cstl_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multimap_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_multimap_aux.Po
+#	source='$(srcdir)/../../src/cstl_multimap_aux.c' object='libcstl_ut-cstl_multimap_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multimap_aux.obj `if test -f '$(srcdir)/../../src/cstl_multimap_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multimap_aux.c'; fi`
 
-ut-cstl_multiset.o: $(srcdir)/../../src/cstl_multiset.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset.o -MD -MP -MF $(DEPDIR)/ut-cstl_multiset.Tpo -c -o ut-cstl_multiset.o `test -f '$(srcdir)/../../src/cstl_multiset.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset.c
-	$(am__mv) $(DEPDIR)/ut-cstl_multiset.Tpo $(DEPDIR)/ut-cstl_multiset.Po
-#	source='$(srcdir)/../../src/cstl_multiset.c' object='ut-cstl_multiset.o' libtool=no \
+libcstl_ut-cstl_multiset.o: $(srcdir)/../../src/cstl_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multiset.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multiset.Tpo -c -o libcstl_ut-cstl_multiset.o `test -f '$(srcdir)/../../src/cstl_multiset.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multiset.Tpo $(DEPDIR)/libcstl_ut-cstl_multiset.Po
+#	source='$(srcdir)/../../src/cstl_multiset.c' object='libcstl_ut-cstl_multiset.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset.o `test -f '$(srcdir)/../../src/cstl_multiset.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multiset.o `test -f '$(srcdir)/../../src/cstl_multiset.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset.c
 
-ut-cstl_multiset.obj: $(srcdir)/../../src/cstl_multiset.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multiset.Tpo -c -o ut-cstl_multiset.obj `if test -f '$(srcdir)/../../src/cstl_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_multiset.Tpo $(DEPDIR)/ut-cstl_multiset.Po
-#	source='$(srcdir)/../../src/cstl_multiset.c' object='ut-cstl_multiset.obj' libtool=no \
+libcstl_ut-cstl_multiset.obj: $(srcdir)/../../src/cstl_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multiset.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multiset.Tpo -c -o libcstl_ut-cstl_multiset.obj `if test -f '$(srcdir)/../../src/cstl_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multiset.Tpo $(DEPDIR)/libcstl_ut-cstl_multiset.Po
+#	source='$(srcdir)/../../src/cstl_multiset.c' object='libcstl_ut-cstl_multiset.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset.obj `if test -f '$(srcdir)/../../src/cstl_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multiset.obj `if test -f '$(srcdir)/../../src/cstl_multiset.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset.c'; fi`
 
-ut-cstl_multiset_iterator.o: $(srcdir)/../../src/cstl_multiset_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_multiset_iterator.Tpo -c -o ut-cstl_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_multiset_iterator.Tpo $(DEPDIR)/ut-cstl_multiset_iterator.Po
-#	source='$(srcdir)/../../src/cstl_multiset_iterator.c' object='ut-cstl_multiset_iterator.o' libtool=no \
+libcstl_ut-cstl_multiset_iterator.o: $(srcdir)/../../src/cstl_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multiset_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multiset_iterator.Tpo -c -o libcstl_ut-cstl_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multiset_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_multiset_iterator.Po
+#	source='$(srcdir)/../../src/cstl_multiset_iterator.c' object='libcstl_ut-cstl_multiset_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multiset_iterator.o `test -f '$(srcdir)/../../src/cstl_multiset_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_iterator.c
 
-ut-cstl_multiset_iterator.obj: $(srcdir)/../../src/cstl_multiset_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multiset_iterator.Tpo -c -o ut-cstl_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_multiset_iterator.Tpo $(DEPDIR)/ut-cstl_multiset_iterator.Po
-#	source='$(srcdir)/../../src/cstl_multiset_iterator.c' object='ut-cstl_multiset_iterator.obj' libtool=no \
+libcstl_ut-cstl_multiset_iterator.obj: $(srcdir)/../../src/cstl_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multiset_iterator.Tpo -c -o libcstl_ut-cstl_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multiset_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_multiset_iterator.Po
+#	source='$(srcdir)/../../src/cstl_multiset_iterator.c' object='libcstl_ut-cstl_multiset_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multiset_iterator.obj `if test -f '$(srcdir)/../../src/cstl_multiset_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_iterator.c'; fi`
 
-ut-cstl_multiset_private.o: $(srcdir)/../../src/cstl_multiset_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_multiset_private.Tpo -c -o ut-cstl_multiset_private.o `test -f '$(srcdir)/../../src/cstl_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_multiset_private.Tpo $(DEPDIR)/ut-cstl_multiset_private.Po
-#	source='$(srcdir)/../../src/cstl_multiset_private.c' object='ut-cstl_multiset_private.o' libtool=no \
+libcstl_ut-cstl_multiset_private.o: $(srcdir)/../../src/cstl_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multiset_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multiset_private.Tpo -c -o libcstl_ut-cstl_multiset_private.o `test -f '$(srcdir)/../../src/cstl_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multiset_private.Tpo $(DEPDIR)/libcstl_ut-cstl_multiset_private.Po
+#	source='$(srcdir)/../../src/cstl_multiset_private.c' object='libcstl_ut-cstl_multiset_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset_private.o `test -f '$(srcdir)/../../src/cstl_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multiset_private.o `test -f '$(srcdir)/../../src/cstl_multiset_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_private.c
 
-ut-cstl_multiset_private.obj: $(srcdir)/../../src/cstl_multiset_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multiset_private.Tpo -c -o ut-cstl_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_multiset_private.Tpo $(DEPDIR)/ut-cstl_multiset_private.Po
-#	source='$(srcdir)/../../src/cstl_multiset_private.c' object='ut-cstl_multiset_private.obj' libtool=no \
+libcstl_ut-cstl_multiset_private.obj: $(srcdir)/../../src/cstl_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multiset_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multiset_private.Tpo -c -o libcstl_ut-cstl_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multiset_private.Tpo $(DEPDIR)/libcstl_ut-cstl_multiset_private.Po
+#	source='$(srcdir)/../../src/cstl_multiset_private.c' object='libcstl_ut-cstl_multiset_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multiset_private.obj `if test -f '$(srcdir)/../../src/cstl_multiset_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_private.c'; fi`
 
-ut-cstl_multiset_aux.o: $(srcdir)/../../src/cstl_multiset_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_multiset_aux.Tpo -c -o ut-cstl_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_multiset_aux.Tpo $(DEPDIR)/ut-cstl_multiset_aux.Po
-#	source='$(srcdir)/../../src/cstl_multiset_aux.c' object='ut-cstl_multiset_aux.o' libtool=no \
+libcstl_ut-cstl_multiset_aux.o: $(srcdir)/../../src/cstl_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multiset_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multiset_aux.Tpo -c -o libcstl_ut-cstl_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multiset_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_multiset_aux.Po
+#	source='$(srcdir)/../../src/cstl_multiset_aux.c' object='libcstl_ut-cstl_multiset_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multiset_aux.o `test -f '$(srcdir)/../../src/cstl_multiset_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_multiset_aux.c
 
-ut-cstl_multiset_aux.obj: $(srcdir)/../../src/cstl_multiset_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_multiset_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_multiset_aux.Tpo -c -o ut-cstl_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_multiset_aux.Tpo $(DEPDIR)/ut-cstl_multiset_aux.Po
-#	source='$(srcdir)/../../src/cstl_multiset_aux.c' object='ut-cstl_multiset_aux.obj' libtool=no \
+libcstl_ut-cstl_multiset_aux.obj: $(srcdir)/../../src/cstl_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_multiset_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_multiset_aux.Tpo -c -o libcstl_ut-cstl_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_multiset_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_multiset_aux.Po
+#	source='$(srcdir)/../../src/cstl_multiset_aux.c' object='libcstl_ut-cstl_multiset_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_multiset_aux.obj `if test -f '$(srcdir)/../../src/cstl_multiset_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_multiset_aux.c'; fi`
 
-ut-cstl_numeric.o: $(srcdir)/../../src/cstl_numeric.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_numeric.o -MD -MP -MF $(DEPDIR)/ut-cstl_numeric.Tpo -c -o ut-cstl_numeric.o `test -f '$(srcdir)/../../src/cstl_numeric.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_numeric.c
-	$(am__mv) $(DEPDIR)/ut-cstl_numeric.Tpo $(DEPDIR)/ut-cstl_numeric.Po
-#	source='$(srcdir)/../../src/cstl_numeric.c' object='ut-cstl_numeric.o' libtool=no \
+libcstl_ut-cstl_numeric.o: $(srcdir)/../../src/cstl_numeric.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_numeric.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_numeric.Tpo -c -o libcstl_ut-cstl_numeric.o `test -f '$(srcdir)/../../src/cstl_numeric.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_numeric.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_numeric.Tpo $(DEPDIR)/libcstl_ut-cstl_numeric.Po
+#	source='$(srcdir)/../../src/cstl_numeric.c' object='libcstl_ut-cstl_numeric.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_numeric.o `test -f '$(srcdir)/../../src/cstl_numeric.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_numeric.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_numeric.o `test -f '$(srcdir)/../../src/cstl_numeric.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_numeric.c
 
-ut-cstl_numeric.obj: $(srcdir)/../../src/cstl_numeric.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_numeric.obj -MD -MP -MF $(DEPDIR)/ut-cstl_numeric.Tpo -c -o ut-cstl_numeric.obj `if test -f '$(srcdir)/../../src/cstl_numeric.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_numeric.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_numeric.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_numeric.Tpo $(DEPDIR)/ut-cstl_numeric.Po
-#	source='$(srcdir)/../../src/cstl_numeric.c' object='ut-cstl_numeric.obj' libtool=no \
+libcstl_ut-cstl_numeric.obj: $(srcdir)/../../src/cstl_numeric.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_numeric.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_numeric.Tpo -c -o libcstl_ut-cstl_numeric.obj `if test -f '$(srcdir)/../../src/cstl_numeric.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_numeric.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_numeric.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_numeric.Tpo $(DEPDIR)/libcstl_ut-cstl_numeric.Po
+#	source='$(srcdir)/../../src/cstl_numeric.c' object='libcstl_ut-cstl_numeric.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_numeric.obj `if test -f '$(srcdir)/../../src/cstl_numeric.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_numeric.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_numeric.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_numeric.obj `if test -f '$(srcdir)/../../src/cstl_numeric.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_numeric.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_numeric.c'; fi`
 
-ut-cstl_rb_tree.o: $(srcdir)/../../src/cstl_rb_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_rb_tree.o -MD -MP -MF $(DEPDIR)/ut-cstl_rb_tree.Tpo -c -o ut-cstl_rb_tree.o `test -f '$(srcdir)/../../src/cstl_rb_tree.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree.c
-	$(am__mv) $(DEPDIR)/ut-cstl_rb_tree.Tpo $(DEPDIR)/ut-cstl_rb_tree.Po
-#	source='$(srcdir)/../../src/cstl_rb_tree.c' object='ut-cstl_rb_tree.o' libtool=no \
+libcstl_ut-cstl_rb_tree.o: $(srcdir)/../../src/cstl_rb_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_rb_tree.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_rb_tree.Tpo -c -o libcstl_ut-cstl_rb_tree.o `test -f '$(srcdir)/../../src/cstl_rb_tree.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_rb_tree.Tpo $(DEPDIR)/libcstl_ut-cstl_rb_tree.Po
+#	source='$(srcdir)/../../src/cstl_rb_tree.c' object='libcstl_ut-cstl_rb_tree.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_rb_tree.o `test -f '$(srcdir)/../../src/cstl_rb_tree.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_rb_tree.o `test -f '$(srcdir)/../../src/cstl_rb_tree.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree.c
 
-ut-cstl_rb_tree.obj: $(srcdir)/../../src/cstl_rb_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_rb_tree.obj -MD -MP -MF $(DEPDIR)/ut-cstl_rb_tree.Tpo -c -o ut-cstl_rb_tree.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_rb_tree.Tpo $(DEPDIR)/ut-cstl_rb_tree.Po
-#	source='$(srcdir)/../../src/cstl_rb_tree.c' object='ut-cstl_rb_tree.obj' libtool=no \
+libcstl_ut-cstl_rb_tree.obj: $(srcdir)/../../src/cstl_rb_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_rb_tree.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_rb_tree.Tpo -c -o libcstl_ut-cstl_rb_tree.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_rb_tree.Tpo $(DEPDIR)/libcstl_ut-cstl_rb_tree.Po
+#	source='$(srcdir)/../../src/cstl_rb_tree.c' object='libcstl_ut-cstl_rb_tree.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_rb_tree.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_rb_tree.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree.c'; fi`
 
-ut-cstl_rb_tree_iterator.o: $(srcdir)/../../src/cstl_rb_tree_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_rb_tree_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_rb_tree_iterator.Tpo -c -o ut-cstl_rb_tree_iterator.o `test -f '$(srcdir)/../../src/cstl_rb_tree_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_rb_tree_iterator.Tpo $(DEPDIR)/ut-cstl_rb_tree_iterator.Po
-#	source='$(srcdir)/../../src/cstl_rb_tree_iterator.c' object='ut-cstl_rb_tree_iterator.o' libtool=no \
+libcstl_ut-cstl_rb_tree_iterator.o: $(srcdir)/../../src/cstl_rb_tree_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_rb_tree_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_rb_tree_iterator.Tpo -c -o libcstl_ut-cstl_rb_tree_iterator.o `test -f '$(srcdir)/../../src/cstl_rb_tree_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_rb_tree_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_rb_tree_iterator.Po
+#	source='$(srcdir)/../../src/cstl_rb_tree_iterator.c' object='libcstl_ut-cstl_rb_tree_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_rb_tree_iterator.o `test -f '$(srcdir)/../../src/cstl_rb_tree_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_rb_tree_iterator.o `test -f '$(srcdir)/../../src/cstl_rb_tree_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_iterator.c
 
-ut-cstl_rb_tree_iterator.obj: $(srcdir)/../../src/cstl_rb_tree_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_rb_tree_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_rb_tree_iterator.Tpo -c -o ut-cstl_rb_tree_iterator.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_rb_tree_iterator.Tpo $(DEPDIR)/ut-cstl_rb_tree_iterator.Po
-#	source='$(srcdir)/../../src/cstl_rb_tree_iterator.c' object='ut-cstl_rb_tree_iterator.obj' libtool=no \
+libcstl_ut-cstl_rb_tree_iterator.obj: $(srcdir)/../../src/cstl_rb_tree_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_rb_tree_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_rb_tree_iterator.Tpo -c -o libcstl_ut-cstl_rb_tree_iterator.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_rb_tree_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_rb_tree_iterator.Po
+#	source='$(srcdir)/../../src/cstl_rb_tree_iterator.c' object='libcstl_ut-cstl_rb_tree_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_rb_tree_iterator.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_rb_tree_iterator.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_iterator.c'; fi`
 
-ut-cstl_rb_tree_private.o: $(srcdir)/../../src/cstl_rb_tree_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_rb_tree_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_rb_tree_private.Tpo -c -o ut-cstl_rb_tree_private.o `test -f '$(srcdir)/../../src/cstl_rb_tree_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_rb_tree_private.Tpo $(DEPDIR)/ut-cstl_rb_tree_private.Po
-#	source='$(srcdir)/../../src/cstl_rb_tree_private.c' object='ut-cstl_rb_tree_private.o' libtool=no \
+libcstl_ut-cstl_rb_tree_private.o: $(srcdir)/../../src/cstl_rb_tree_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_rb_tree_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_rb_tree_private.Tpo -c -o libcstl_ut-cstl_rb_tree_private.o `test -f '$(srcdir)/../../src/cstl_rb_tree_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_rb_tree_private.Tpo $(DEPDIR)/libcstl_ut-cstl_rb_tree_private.Po
+#	source='$(srcdir)/../../src/cstl_rb_tree_private.c' object='libcstl_ut-cstl_rb_tree_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_rb_tree_private.o `test -f '$(srcdir)/../../src/cstl_rb_tree_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_rb_tree_private.o `test -f '$(srcdir)/../../src/cstl_rb_tree_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_private.c
 
-ut-cstl_rb_tree_private.obj: $(srcdir)/../../src/cstl_rb_tree_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_rb_tree_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_rb_tree_private.Tpo -c -o ut-cstl_rb_tree_private.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_rb_tree_private.Tpo $(DEPDIR)/ut-cstl_rb_tree_private.Po
-#	source='$(srcdir)/../../src/cstl_rb_tree_private.c' object='ut-cstl_rb_tree_private.obj' libtool=no \
+libcstl_ut-cstl_rb_tree_private.obj: $(srcdir)/../../src/cstl_rb_tree_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_rb_tree_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_rb_tree_private.Tpo -c -o libcstl_ut-cstl_rb_tree_private.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_rb_tree_private.Tpo $(DEPDIR)/libcstl_ut-cstl_rb_tree_private.Po
+#	source='$(srcdir)/../../src/cstl_rb_tree_private.c' object='libcstl_ut-cstl_rb_tree_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_rb_tree_private.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_rb_tree_private.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_private.c'; fi`
 
-ut-cstl_rb_tree_aux.o: $(srcdir)/../../src/cstl_rb_tree_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_rb_tree_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_rb_tree_aux.Tpo -c -o ut-cstl_rb_tree_aux.o `test -f '$(srcdir)/../../src/cstl_rb_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_rb_tree_aux.Tpo $(DEPDIR)/ut-cstl_rb_tree_aux.Po
-#	source='$(srcdir)/../../src/cstl_rb_tree_aux.c' object='ut-cstl_rb_tree_aux.o' libtool=no \
+libcstl_ut-cstl_rb_tree_aux.o: $(srcdir)/../../src/cstl_rb_tree_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_rb_tree_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_rb_tree_aux.Tpo -c -o libcstl_ut-cstl_rb_tree_aux.o `test -f '$(srcdir)/../../src/cstl_rb_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_rb_tree_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_rb_tree_aux.Po
+#	source='$(srcdir)/../../src/cstl_rb_tree_aux.c' object='libcstl_ut-cstl_rb_tree_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_rb_tree_aux.o `test -f '$(srcdir)/../../src/cstl_rb_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_rb_tree_aux.o `test -f '$(srcdir)/../../src/cstl_rb_tree_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_rb_tree_aux.c
 
-ut-cstl_rb_tree_aux.obj: $(srcdir)/../../src/cstl_rb_tree_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_rb_tree_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_rb_tree_aux.Tpo -c -o ut-cstl_rb_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_rb_tree_aux.Tpo $(DEPDIR)/ut-cstl_rb_tree_aux.Po
-#	source='$(srcdir)/../../src/cstl_rb_tree_aux.c' object='ut-cstl_rb_tree_aux.obj' libtool=no \
+libcstl_ut-cstl_rb_tree_aux.obj: $(srcdir)/../../src/cstl_rb_tree_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_rb_tree_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_rb_tree_aux.Tpo -c -o libcstl_ut-cstl_rb_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_rb_tree_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_rb_tree_aux.Po
+#	source='$(srcdir)/../../src/cstl_rb_tree_aux.c' object='libcstl_ut-cstl_rb_tree_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_rb_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_rb_tree_aux.obj `if test -f '$(srcdir)/../../src/cstl_rb_tree_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_rb_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_rb_tree_aux.c'; fi`
 
-ut-cstl_set.o: $(srcdir)/../../src/cstl_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set.o -MD -MP -MF $(DEPDIR)/ut-cstl_set.Tpo -c -o ut-cstl_set.o `test -f '$(srcdir)/../../src/cstl_set.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set.c
-	$(am__mv) $(DEPDIR)/ut-cstl_set.Tpo $(DEPDIR)/ut-cstl_set.Po
-#	source='$(srcdir)/../../src/cstl_set.c' object='ut-cstl_set.o' libtool=no \
+libcstl_ut-cstl_set.o: $(srcdir)/../../src/cstl_set.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_set.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_set.Tpo -c -o libcstl_ut-cstl_set.o `test -f '$(srcdir)/../../src/cstl_set.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_set.Tpo $(DEPDIR)/libcstl_ut-cstl_set.Po
+#	source='$(srcdir)/../../src/cstl_set.c' object='libcstl_ut-cstl_set.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set.o `test -f '$(srcdir)/../../src/cstl_set.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_set.o `test -f '$(srcdir)/../../src/cstl_set.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set.c
 
-ut-cstl_set.obj: $(srcdir)/../../src/cstl_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set.obj -MD -MP -MF $(DEPDIR)/ut-cstl_set.Tpo -c -o ut-cstl_set.obj `if test -f '$(srcdir)/../../src/cstl_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_set.Tpo $(DEPDIR)/ut-cstl_set.Po
-#	source='$(srcdir)/../../src/cstl_set.c' object='ut-cstl_set.obj' libtool=no \
+libcstl_ut-cstl_set.obj: $(srcdir)/../../src/cstl_set.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_set.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_set.Tpo -c -o libcstl_ut-cstl_set.obj `if test -f '$(srcdir)/../../src/cstl_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_set.Tpo $(DEPDIR)/libcstl_ut-cstl_set.Po
+#	source='$(srcdir)/../../src/cstl_set.c' object='libcstl_ut-cstl_set.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set.obj `if test -f '$(srcdir)/../../src/cstl_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_set.obj `if test -f '$(srcdir)/../../src/cstl_set.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set.c'; fi`
 
-ut-cstl_set_iterator.o: $(srcdir)/../../src/cstl_set_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_set_iterator.Tpo -c -o ut-cstl_set_iterator.o `test -f '$(srcdir)/../../src/cstl_set_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_set_iterator.Tpo $(DEPDIR)/ut-cstl_set_iterator.Po
-#	source='$(srcdir)/../../src/cstl_set_iterator.c' object='ut-cstl_set_iterator.o' libtool=no \
+libcstl_ut-cstl_set_iterator.o: $(srcdir)/../../src/cstl_set_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_set_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_set_iterator.Tpo -c -o libcstl_ut-cstl_set_iterator.o `test -f '$(srcdir)/../../src/cstl_set_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_set_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_set_iterator.Po
+#	source='$(srcdir)/../../src/cstl_set_iterator.c' object='libcstl_ut-cstl_set_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set_iterator.o `test -f '$(srcdir)/../../src/cstl_set_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_set_iterator.o `test -f '$(srcdir)/../../src/cstl_set_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_iterator.c
 
-ut-cstl_set_iterator.obj: $(srcdir)/../../src/cstl_set_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_set_iterator.Tpo -c -o ut-cstl_set_iterator.obj `if test -f '$(srcdir)/../../src/cstl_set_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_set_iterator.Tpo $(DEPDIR)/ut-cstl_set_iterator.Po
-#	source='$(srcdir)/../../src/cstl_set_iterator.c' object='ut-cstl_set_iterator.obj' libtool=no \
+libcstl_ut-cstl_set_iterator.obj: $(srcdir)/../../src/cstl_set_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_set_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_set_iterator.Tpo -c -o libcstl_ut-cstl_set_iterator.obj `if test -f '$(srcdir)/../../src/cstl_set_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_set_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_set_iterator.Po
+#	source='$(srcdir)/../../src/cstl_set_iterator.c' object='libcstl_ut-cstl_set_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set_iterator.obj `if test -f '$(srcdir)/../../src/cstl_set_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_set_iterator.obj `if test -f '$(srcdir)/../../src/cstl_set_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_iterator.c'; fi`
 
-ut-cstl_set_private.o: $(srcdir)/../../src/cstl_set_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_set_private.Tpo -c -o ut-cstl_set_private.o `test -f '$(srcdir)/../../src/cstl_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_set_private.Tpo $(DEPDIR)/ut-cstl_set_private.Po
-#	source='$(srcdir)/../../src/cstl_set_private.c' object='ut-cstl_set_private.o' libtool=no \
+libcstl_ut-cstl_set_private.o: $(srcdir)/../../src/cstl_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_set_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_set_private.Tpo -c -o libcstl_ut-cstl_set_private.o `test -f '$(srcdir)/../../src/cstl_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_set_private.Tpo $(DEPDIR)/libcstl_ut-cstl_set_private.Po
+#	source='$(srcdir)/../../src/cstl_set_private.c' object='libcstl_ut-cstl_set_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set_private.o `test -f '$(srcdir)/../../src/cstl_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_set_private.o `test -f '$(srcdir)/../../src/cstl_set_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_private.c
 
-ut-cstl_set_private.obj: $(srcdir)/../../src/cstl_set_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_set_private.Tpo -c -o ut-cstl_set_private.obj `if test -f '$(srcdir)/../../src/cstl_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_set_private.Tpo $(DEPDIR)/ut-cstl_set_private.Po
-#	source='$(srcdir)/../../src/cstl_set_private.c' object='ut-cstl_set_private.obj' libtool=no \
+libcstl_ut-cstl_set_private.obj: $(srcdir)/../../src/cstl_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_set_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_set_private.Tpo -c -o libcstl_ut-cstl_set_private.obj `if test -f '$(srcdir)/../../src/cstl_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_set_private.Tpo $(DEPDIR)/libcstl_ut-cstl_set_private.Po
+#	source='$(srcdir)/../../src/cstl_set_private.c' object='libcstl_ut-cstl_set_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set_private.obj `if test -f '$(srcdir)/../../src/cstl_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_set_private.obj `if test -f '$(srcdir)/../../src/cstl_set_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_private.c'; fi`
 
-ut-cstl_set_aux.o: $(srcdir)/../../src/cstl_set_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_set_aux.Tpo -c -o ut-cstl_set_aux.o `test -f '$(srcdir)/../../src/cstl_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_set_aux.Tpo $(DEPDIR)/ut-cstl_set_aux.Po
-#	source='$(srcdir)/../../src/cstl_set_aux.c' object='ut-cstl_set_aux.o' libtool=no \
+libcstl_ut-cstl_set_aux.o: $(srcdir)/../../src/cstl_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_set_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_set_aux.Tpo -c -o libcstl_ut-cstl_set_aux.o `test -f '$(srcdir)/../../src/cstl_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_set_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_set_aux.Po
+#	source='$(srcdir)/../../src/cstl_set_aux.c' object='libcstl_ut-cstl_set_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set_aux.o `test -f '$(srcdir)/../../src/cstl_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_set_aux.o `test -f '$(srcdir)/../../src/cstl_set_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_set_aux.c
 
-ut-cstl_set_aux.obj: $(srcdir)/../../src/cstl_set_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_set_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_set_aux.Tpo -c -o ut-cstl_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_set_aux.Tpo $(DEPDIR)/ut-cstl_set_aux.Po
-#	source='$(srcdir)/../../src/cstl_set_aux.c' object='ut-cstl_set_aux.obj' libtool=no \
+libcstl_ut-cstl_set_aux.obj: $(srcdir)/../../src/cstl_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_set_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_set_aux.Tpo -c -o libcstl_ut-cstl_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_set_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_set_aux.Po
+#	source='$(srcdir)/../../src/cstl_set_aux.c' object='libcstl_ut-cstl_set_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_set_aux.obj `if test -f '$(srcdir)/../../src/cstl_set_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_set_aux.c'; fi`
 
-ut-cstl_slist.o: $(srcdir)/../../src/cstl_slist.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist.o -MD -MP -MF $(DEPDIR)/ut-cstl_slist.Tpo -c -o ut-cstl_slist.o `test -f '$(srcdir)/../../src/cstl_slist.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist.c
-	$(am__mv) $(DEPDIR)/ut-cstl_slist.Tpo $(DEPDIR)/ut-cstl_slist.Po
-#	source='$(srcdir)/../../src/cstl_slist.c' object='ut-cstl_slist.o' libtool=no \
+libcstl_ut-cstl_slist.o: $(srcdir)/../../src/cstl_slist.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_slist.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_slist.Tpo -c -o libcstl_ut-cstl_slist.o `test -f '$(srcdir)/../../src/cstl_slist.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_slist.Tpo $(DEPDIR)/libcstl_ut-cstl_slist.Po
+#	source='$(srcdir)/../../src/cstl_slist.c' object='libcstl_ut-cstl_slist.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist.o `test -f '$(srcdir)/../../src/cstl_slist.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_slist.o `test -f '$(srcdir)/../../src/cstl_slist.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist.c
 
-ut-cstl_slist.obj: $(srcdir)/../../src/cstl_slist.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist.obj -MD -MP -MF $(DEPDIR)/ut-cstl_slist.Tpo -c -o ut-cstl_slist.obj `if test -f '$(srcdir)/../../src/cstl_slist.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_slist.Tpo $(DEPDIR)/ut-cstl_slist.Po
-#	source='$(srcdir)/../../src/cstl_slist.c' object='ut-cstl_slist.obj' libtool=no \
+libcstl_ut-cstl_slist.obj: $(srcdir)/../../src/cstl_slist.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_slist.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_slist.Tpo -c -o libcstl_ut-cstl_slist.obj `if test -f '$(srcdir)/../../src/cstl_slist.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_slist.Tpo $(DEPDIR)/libcstl_ut-cstl_slist.Po
+#	source='$(srcdir)/../../src/cstl_slist.c' object='libcstl_ut-cstl_slist.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist.obj `if test -f '$(srcdir)/../../src/cstl_slist.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_slist.obj `if test -f '$(srcdir)/../../src/cstl_slist.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist.c'; fi`
 
-ut-cstl_slist_iterator.o: $(srcdir)/../../src/cstl_slist_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_slist_iterator.Tpo -c -o ut-cstl_slist_iterator.o `test -f '$(srcdir)/../../src/cstl_slist_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_slist_iterator.Tpo $(DEPDIR)/ut-cstl_slist_iterator.Po
-#	source='$(srcdir)/../../src/cstl_slist_iterator.c' object='ut-cstl_slist_iterator.o' libtool=no \
+libcstl_ut-cstl_slist_iterator.o: $(srcdir)/../../src/cstl_slist_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_slist_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_slist_iterator.Tpo -c -o libcstl_ut-cstl_slist_iterator.o `test -f '$(srcdir)/../../src/cstl_slist_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_slist_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_slist_iterator.Po
+#	source='$(srcdir)/../../src/cstl_slist_iterator.c' object='libcstl_ut-cstl_slist_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_iterator.o `test -f '$(srcdir)/../../src/cstl_slist_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_slist_iterator.o `test -f '$(srcdir)/../../src/cstl_slist_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_iterator.c
 
-ut-cstl_slist_iterator.obj: $(srcdir)/../../src/cstl_slist_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_slist_iterator.Tpo -c -o ut-cstl_slist_iterator.obj `if test -f '$(srcdir)/../../src/cstl_slist_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_slist_iterator.Tpo $(DEPDIR)/ut-cstl_slist_iterator.Po
-#	source='$(srcdir)/../../src/cstl_slist_iterator.c' object='ut-cstl_slist_iterator.obj' libtool=no \
+libcstl_ut-cstl_slist_iterator.obj: $(srcdir)/../../src/cstl_slist_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_slist_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_slist_iterator.Tpo -c -o libcstl_ut-cstl_slist_iterator.obj `if test -f '$(srcdir)/../../src/cstl_slist_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_slist_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_slist_iterator.Po
+#	source='$(srcdir)/../../src/cstl_slist_iterator.c' object='libcstl_ut-cstl_slist_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_iterator.obj `if test -f '$(srcdir)/../../src/cstl_slist_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_slist_iterator.obj `if test -f '$(srcdir)/../../src/cstl_slist_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_iterator.c'; fi`
 
-ut-cstl_slist_private.o: $(srcdir)/../../src/cstl_slist_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_slist_private.Tpo -c -o ut-cstl_slist_private.o `test -f '$(srcdir)/../../src/cstl_slist_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_slist_private.Tpo $(DEPDIR)/ut-cstl_slist_private.Po
-#	source='$(srcdir)/../../src/cstl_slist_private.c' object='ut-cstl_slist_private.o' libtool=no \
+libcstl_ut-cstl_slist_private.o: $(srcdir)/../../src/cstl_slist_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_slist_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_slist_private.Tpo -c -o libcstl_ut-cstl_slist_private.o `test -f '$(srcdir)/../../src/cstl_slist_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_slist_private.Tpo $(DEPDIR)/libcstl_ut-cstl_slist_private.Po
+#	source='$(srcdir)/../../src/cstl_slist_private.c' object='libcstl_ut-cstl_slist_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_private.o `test -f '$(srcdir)/../../src/cstl_slist_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_slist_private.o `test -f '$(srcdir)/../../src/cstl_slist_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_private.c
 
-ut-cstl_slist_private.obj: $(srcdir)/../../src/cstl_slist_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_slist_private.Tpo -c -o ut-cstl_slist_private.obj `if test -f '$(srcdir)/../../src/cstl_slist_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_slist_private.Tpo $(DEPDIR)/ut-cstl_slist_private.Po
-#	source='$(srcdir)/../../src/cstl_slist_private.c' object='ut-cstl_slist_private.obj' libtool=no \
+libcstl_ut-cstl_slist_private.obj: $(srcdir)/../../src/cstl_slist_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_slist_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_slist_private.Tpo -c -o libcstl_ut-cstl_slist_private.obj `if test -f '$(srcdir)/../../src/cstl_slist_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_slist_private.Tpo $(DEPDIR)/libcstl_ut-cstl_slist_private.Po
+#	source='$(srcdir)/../../src/cstl_slist_private.c' object='libcstl_ut-cstl_slist_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_private.obj `if test -f '$(srcdir)/../../src/cstl_slist_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_slist_private.obj `if test -f '$(srcdir)/../../src/cstl_slist_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_private.c'; fi`
 
-ut-cstl_slist_aux.o: $(srcdir)/../../src/cstl_slist_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_slist_aux.Tpo -c -o ut-cstl_slist_aux.o `test -f '$(srcdir)/../../src/cstl_slist_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_slist_aux.Tpo $(DEPDIR)/ut-cstl_slist_aux.Po
-#	source='$(srcdir)/../../src/cstl_slist_aux.c' object='ut-cstl_slist_aux.o' libtool=no \
+libcstl_ut-cstl_slist_aux.o: $(srcdir)/../../src/cstl_slist_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_slist_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_slist_aux.Tpo -c -o libcstl_ut-cstl_slist_aux.o `test -f '$(srcdir)/../../src/cstl_slist_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_slist_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_slist_aux.Po
+#	source='$(srcdir)/../../src/cstl_slist_aux.c' object='libcstl_ut-cstl_slist_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_aux.o `test -f '$(srcdir)/../../src/cstl_slist_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_slist_aux.o `test -f '$(srcdir)/../../src/cstl_slist_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_slist_aux.c
 
-ut-cstl_slist_aux.obj: $(srcdir)/../../src/cstl_slist_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_slist_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_slist_aux.Tpo -c -o ut-cstl_slist_aux.obj `if test -f '$(srcdir)/../../src/cstl_slist_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_slist_aux.Tpo $(DEPDIR)/ut-cstl_slist_aux.Po
-#	source='$(srcdir)/../../src/cstl_slist_aux.c' object='ut-cstl_slist_aux.obj' libtool=no \
+libcstl_ut-cstl_slist_aux.obj: $(srcdir)/../../src/cstl_slist_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_slist_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_slist_aux.Tpo -c -o libcstl_ut-cstl_slist_aux.obj `if test -f '$(srcdir)/../../src/cstl_slist_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_slist_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_slist_aux.Po
+#	source='$(srcdir)/../../src/cstl_slist_aux.c' object='libcstl_ut-cstl_slist_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_slist_aux.obj `if test -f '$(srcdir)/../../src/cstl_slist_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_slist_aux.obj `if test -f '$(srcdir)/../../src/cstl_slist_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_slist_aux.c'; fi`
 
-ut-cstl_priority_queue.o: $(srcdir)/../../src/cstl_priority_queue.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_priority_queue.o -MD -MP -MF $(DEPDIR)/ut-cstl_priority_queue.Tpo -c -o ut-cstl_priority_queue.o `test -f '$(srcdir)/../../src/cstl_priority_queue.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_priority_queue.c
-	$(am__mv) $(DEPDIR)/ut-cstl_priority_queue.Tpo $(DEPDIR)/ut-cstl_priority_queue.Po
-#	source='$(srcdir)/../../src/cstl_priority_queue.c' object='ut-cstl_priority_queue.o' libtool=no \
+libcstl_ut-cstl_priority_queue.o: $(srcdir)/../../src/cstl_priority_queue.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_priority_queue.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_priority_queue.Tpo -c -o libcstl_ut-cstl_priority_queue.o `test -f '$(srcdir)/../../src/cstl_priority_queue.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_priority_queue.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_priority_queue.Tpo $(DEPDIR)/libcstl_ut-cstl_priority_queue.Po
+#	source='$(srcdir)/../../src/cstl_priority_queue.c' object='libcstl_ut-cstl_priority_queue.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_priority_queue.o `test -f '$(srcdir)/../../src/cstl_priority_queue.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_priority_queue.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_priority_queue.o `test -f '$(srcdir)/../../src/cstl_priority_queue.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_priority_queue.c
 
-ut-cstl_priority_queue.obj: $(srcdir)/../../src/cstl_priority_queue.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_priority_queue.obj -MD -MP -MF $(DEPDIR)/ut-cstl_priority_queue.Tpo -c -o ut-cstl_priority_queue.obj `if test -f '$(srcdir)/../../src/cstl_priority_queue.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_priority_queue.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_priority_queue.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_priority_queue.Tpo $(DEPDIR)/ut-cstl_priority_queue.Po
-#	source='$(srcdir)/../../src/cstl_priority_queue.c' object='ut-cstl_priority_queue.obj' libtool=no \
+libcstl_ut-cstl_priority_queue.obj: $(srcdir)/../../src/cstl_priority_queue.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_priority_queue.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_priority_queue.Tpo -c -o libcstl_ut-cstl_priority_queue.obj `if test -f '$(srcdir)/../../src/cstl_priority_queue.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_priority_queue.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_priority_queue.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_priority_queue.Tpo $(DEPDIR)/libcstl_ut-cstl_priority_queue.Po
+#	source='$(srcdir)/../../src/cstl_priority_queue.c' object='libcstl_ut-cstl_priority_queue.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_priority_queue.obj `if test -f '$(srcdir)/../../src/cstl_priority_queue.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_priority_queue.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_priority_queue.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_priority_queue.obj `if test -f '$(srcdir)/../../src/cstl_priority_queue.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_priority_queue.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_priority_queue.c'; fi`
 
-ut-cstl_priority_queue_private.o: $(srcdir)/../../src/cstl_priority_queue_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_priority_queue_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_priority_queue_private.Tpo -c -o ut-cstl_priority_queue_private.o `test -f '$(srcdir)/../../src/cstl_priority_queue_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_priority_queue_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_priority_queue_private.Tpo $(DEPDIR)/ut-cstl_priority_queue_private.Po
-#	source='$(srcdir)/../../src/cstl_priority_queue_private.c' object='ut-cstl_priority_queue_private.o' libtool=no \
+libcstl_ut-cstl_priority_queue_private.o: $(srcdir)/../../src/cstl_priority_queue_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_priority_queue_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_priority_queue_private.Tpo -c -o libcstl_ut-cstl_priority_queue_private.o `test -f '$(srcdir)/../../src/cstl_priority_queue_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_priority_queue_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_priority_queue_private.Tpo $(DEPDIR)/libcstl_ut-cstl_priority_queue_private.Po
+#	source='$(srcdir)/../../src/cstl_priority_queue_private.c' object='libcstl_ut-cstl_priority_queue_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_priority_queue_private.o `test -f '$(srcdir)/../../src/cstl_priority_queue_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_priority_queue_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_priority_queue_private.o `test -f '$(srcdir)/../../src/cstl_priority_queue_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_priority_queue_private.c
 
-ut-cstl_priority_queue_private.obj: $(srcdir)/../../src/cstl_priority_queue_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_priority_queue_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_priority_queue_private.Tpo -c -o ut-cstl_priority_queue_private.obj `if test -f '$(srcdir)/../../src/cstl_priority_queue_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_priority_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_priority_queue_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_priority_queue_private.Tpo $(DEPDIR)/ut-cstl_priority_queue_private.Po
-#	source='$(srcdir)/../../src/cstl_priority_queue_private.c' object='ut-cstl_priority_queue_private.obj' libtool=no \
+libcstl_ut-cstl_priority_queue_private.obj: $(srcdir)/../../src/cstl_priority_queue_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_priority_queue_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_priority_queue_private.Tpo -c -o libcstl_ut-cstl_priority_queue_private.obj `if test -f '$(srcdir)/../../src/cstl_priority_queue_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_priority_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_priority_queue_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_priority_queue_private.Tpo $(DEPDIR)/libcstl_ut-cstl_priority_queue_private.Po
+#	source='$(srcdir)/../../src/cstl_priority_queue_private.c' object='libcstl_ut-cstl_priority_queue_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_priority_queue_private.obj `if test -f '$(srcdir)/../../src/cstl_priority_queue_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_priority_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_priority_queue_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_priority_queue_private.obj `if test -f '$(srcdir)/../../src/cstl_priority_queue_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_priority_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_priority_queue_private.c'; fi`
 
-ut-cstl_queue.o: $(srcdir)/../../src/cstl_queue.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_queue.o -MD -MP -MF $(DEPDIR)/ut-cstl_queue.Tpo -c -o ut-cstl_queue.o `test -f '$(srcdir)/../../src/cstl_queue.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_queue.c
-	$(am__mv) $(DEPDIR)/ut-cstl_queue.Tpo $(DEPDIR)/ut-cstl_queue.Po
-#	source='$(srcdir)/../../src/cstl_queue.c' object='ut-cstl_queue.o' libtool=no \
+libcstl_ut-cstl_queue.o: $(srcdir)/../../src/cstl_queue.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_queue.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_queue.Tpo -c -o libcstl_ut-cstl_queue.o `test -f '$(srcdir)/../../src/cstl_queue.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_queue.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_queue.Tpo $(DEPDIR)/libcstl_ut-cstl_queue.Po
+#	source='$(srcdir)/../../src/cstl_queue.c' object='libcstl_ut-cstl_queue.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_queue.o `test -f '$(srcdir)/../../src/cstl_queue.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_queue.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_queue.o `test -f '$(srcdir)/../../src/cstl_queue.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_queue.c
 
-ut-cstl_queue.obj: $(srcdir)/../../src/cstl_queue.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_queue.obj -MD -MP -MF $(DEPDIR)/ut-cstl_queue.Tpo -c -o ut-cstl_queue.obj `if test -f '$(srcdir)/../../src/cstl_queue.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_queue.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_queue.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_queue.Tpo $(DEPDIR)/ut-cstl_queue.Po
-#	source='$(srcdir)/../../src/cstl_queue.c' object='ut-cstl_queue.obj' libtool=no \
+libcstl_ut-cstl_queue.obj: $(srcdir)/../../src/cstl_queue.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_queue.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_queue.Tpo -c -o libcstl_ut-cstl_queue.obj `if test -f '$(srcdir)/../../src/cstl_queue.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_queue.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_queue.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_queue.Tpo $(DEPDIR)/libcstl_ut-cstl_queue.Po
+#	source='$(srcdir)/../../src/cstl_queue.c' object='libcstl_ut-cstl_queue.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_queue.obj `if test -f '$(srcdir)/../../src/cstl_queue.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_queue.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_queue.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_queue.obj `if test -f '$(srcdir)/../../src/cstl_queue.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_queue.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_queue.c'; fi`
 
-ut-cstl_queue_private.o: $(srcdir)/../../src/cstl_queue_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_queue_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_queue_private.Tpo -c -o ut-cstl_queue_private.o `test -f '$(srcdir)/../../src/cstl_queue_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_queue_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_queue_private.Tpo $(DEPDIR)/ut-cstl_queue_private.Po
-#	source='$(srcdir)/../../src/cstl_queue_private.c' object='ut-cstl_queue_private.o' libtool=no \
+libcstl_ut-cstl_queue_private.o: $(srcdir)/../../src/cstl_queue_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_queue_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_queue_private.Tpo -c -o libcstl_ut-cstl_queue_private.o `test -f '$(srcdir)/../../src/cstl_queue_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_queue_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_queue_private.Tpo $(DEPDIR)/libcstl_ut-cstl_queue_private.Po
+#	source='$(srcdir)/../../src/cstl_queue_private.c' object='libcstl_ut-cstl_queue_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_queue_private.o `test -f '$(srcdir)/../../src/cstl_queue_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_queue_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_queue_private.o `test -f '$(srcdir)/../../src/cstl_queue_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_queue_private.c
 
-ut-cstl_queue_private.obj: $(srcdir)/../../src/cstl_queue_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_queue_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_queue_private.Tpo -c -o ut-cstl_queue_private.obj `if test -f '$(srcdir)/../../src/cstl_queue_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_queue_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_queue_private.Tpo $(DEPDIR)/ut-cstl_queue_private.Po
-#	source='$(srcdir)/../../src/cstl_queue_private.c' object='ut-cstl_queue_private.obj' libtool=no \
+libcstl_ut-cstl_queue_private.obj: $(srcdir)/../../src/cstl_queue_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_queue_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_queue_private.Tpo -c -o libcstl_ut-cstl_queue_private.obj `if test -f '$(srcdir)/../../src/cstl_queue_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_queue_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_queue_private.Tpo $(DEPDIR)/libcstl_ut-cstl_queue_private.Po
+#	source='$(srcdir)/../../src/cstl_queue_private.c' object='libcstl_ut-cstl_queue_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_queue_private.obj `if test -f '$(srcdir)/../../src/cstl_queue_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_queue_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_queue_private.obj `if test -f '$(srcdir)/../../src/cstl_queue_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_queue_private.c'; fi`
 
-ut-cstl_string.o: $(srcdir)/../../src/cstl_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_string.o -MD -MP -MF $(DEPDIR)/ut-cstl_string.Tpo -c -o ut-cstl_string.o `test -f '$(srcdir)/../../src/cstl_string.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string.c
-	$(am__mv) $(DEPDIR)/ut-cstl_string.Tpo $(DEPDIR)/ut-cstl_string.Po
-#	source='$(srcdir)/../../src/cstl_string.c' object='ut-cstl_string.o' libtool=no \
+libcstl_ut-cstl_string.o: $(srcdir)/../../src/cstl_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_string.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_string.Tpo -c -o libcstl_ut-cstl_string.o `test -f '$(srcdir)/../../src/cstl_string.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_string.Tpo $(DEPDIR)/libcstl_ut-cstl_string.Po
+#	source='$(srcdir)/../../src/cstl_string.c' object='libcstl_ut-cstl_string.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_string.o `test -f '$(srcdir)/../../src/cstl_string.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_string.o `test -f '$(srcdir)/../../src/cstl_string.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string.c
 
-ut-cstl_string.obj: $(srcdir)/../../src/cstl_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_string.obj -MD -MP -MF $(DEPDIR)/ut-cstl_string.Tpo -c -o ut-cstl_string.obj `if test -f '$(srcdir)/../../src/cstl_string.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_string.Tpo $(DEPDIR)/ut-cstl_string.Po
-#	source='$(srcdir)/../../src/cstl_string.c' object='ut-cstl_string.obj' libtool=no \
+libcstl_ut-cstl_string.obj: $(srcdir)/../../src/cstl_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_string.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_string.Tpo -c -o libcstl_ut-cstl_string.obj `if test -f '$(srcdir)/../../src/cstl_string.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_string.Tpo $(DEPDIR)/libcstl_ut-cstl_string.Po
+#	source='$(srcdir)/../../src/cstl_string.c' object='libcstl_ut-cstl_string.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_string.obj `if test -f '$(srcdir)/../../src/cstl_string.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_string.obj `if test -f '$(srcdir)/../../src/cstl_string.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string.c'; fi`
 
-ut-cstl_string_private.o: $(srcdir)/../../src/cstl_string_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_string_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_string_private.Tpo -c -o ut-cstl_string_private.o `test -f '$(srcdir)/../../src/cstl_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_string_private.Tpo $(DEPDIR)/ut-cstl_string_private.Po
-#	source='$(srcdir)/../../src/cstl_string_private.c' object='ut-cstl_string_private.o' libtool=no \
+libcstl_ut-cstl_string_private.o: $(srcdir)/../../src/cstl_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_string_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_string_private.Tpo -c -o libcstl_ut-cstl_string_private.o `test -f '$(srcdir)/../../src/cstl_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_string_private.Tpo $(DEPDIR)/libcstl_ut-cstl_string_private.Po
+#	source='$(srcdir)/../../src/cstl_string_private.c' object='libcstl_ut-cstl_string_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_string_private.o `test -f '$(srcdir)/../../src/cstl_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_string_private.o `test -f '$(srcdir)/../../src/cstl_string_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_string_private.c
 
-ut-cstl_string_private.obj: $(srcdir)/../../src/cstl_string_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_string_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_string_private.Tpo -c -o ut-cstl_string_private.obj `if test -f '$(srcdir)/../../src/cstl_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_string_private.Tpo $(DEPDIR)/ut-cstl_string_private.Po
-#	source='$(srcdir)/../../src/cstl_string_private.c' object='ut-cstl_string_private.obj' libtool=no \
+libcstl_ut-cstl_string_private.obj: $(srcdir)/../../src/cstl_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_string_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_string_private.Tpo -c -o libcstl_ut-cstl_string_private.obj `if test -f '$(srcdir)/../../src/cstl_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_string_private.Tpo $(DEPDIR)/libcstl_ut-cstl_string_private.Po
+#	source='$(srcdir)/../../src/cstl_string_private.c' object='libcstl_ut-cstl_string_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_string_private.obj `if test -f '$(srcdir)/../../src/cstl_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_string_private.obj `if test -f '$(srcdir)/../../src/cstl_string_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_string_private.c'; fi`
 
-ut-cstl_types.o: $(srcdir)/../../src/cstl_types.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_types.o -MD -MP -MF $(DEPDIR)/ut-cstl_types.Tpo -c -o ut-cstl_types.o `test -f '$(srcdir)/../../src/cstl_types.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types.c
-	$(am__mv) $(DEPDIR)/ut-cstl_types.Tpo $(DEPDIR)/ut-cstl_types.Po
-#	source='$(srcdir)/../../src/cstl_types.c' object='ut-cstl_types.o' libtool=no \
+libcstl_ut-cstl_types.o: $(srcdir)/../../src/cstl_types.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_types.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_types.Tpo -c -o libcstl_ut-cstl_types.o `test -f '$(srcdir)/../../src/cstl_types.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_types.Tpo $(DEPDIR)/libcstl_ut-cstl_types.Po
+#	source='$(srcdir)/../../src/cstl_types.c' object='libcstl_ut-cstl_types.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_types.o `test -f '$(srcdir)/../../src/cstl_types.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_types.o `test -f '$(srcdir)/../../src/cstl_types.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types.c
 
-ut-cstl_types.obj: $(srcdir)/../../src/cstl_types.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_types.obj -MD -MP -MF $(DEPDIR)/ut-cstl_types.Tpo -c -o ut-cstl_types.obj `if test -f '$(srcdir)/../../src/cstl_types.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_types.Tpo $(DEPDIR)/ut-cstl_types.Po
-#	source='$(srcdir)/../../src/cstl_types.c' object='ut-cstl_types.obj' libtool=no \
+libcstl_ut-cstl_types.obj: $(srcdir)/../../src/cstl_types.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_types.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_types.Tpo -c -o libcstl_ut-cstl_types.obj `if test -f '$(srcdir)/../../src/cstl_types.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_types.Tpo $(DEPDIR)/libcstl_ut-cstl_types.Po
+#	source='$(srcdir)/../../src/cstl_types.c' object='libcstl_ut-cstl_types.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_types.obj `if test -f '$(srcdir)/../../src/cstl_types.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_types.obj `if test -f '$(srcdir)/../../src/cstl_types.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types.c'; fi`
 
-ut-cstl_types_builtin.o: $(srcdir)/../../src/cstl_types_builtin.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_types_builtin.o -MD -MP -MF $(DEPDIR)/ut-cstl_types_builtin.Tpo -c -o ut-cstl_types_builtin.o `test -f '$(srcdir)/../../src/cstl_types_builtin.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types_builtin.c
-	$(am__mv) $(DEPDIR)/ut-cstl_types_builtin.Tpo $(DEPDIR)/ut-cstl_types_builtin.Po
-#	source='$(srcdir)/../../src/cstl_types_builtin.c' object='ut-cstl_types_builtin.o' libtool=no \
+libcstl_ut-cstl_types_builtin.o: $(srcdir)/../../src/cstl_types_builtin.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_types_builtin.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_types_builtin.Tpo -c -o libcstl_ut-cstl_types_builtin.o `test -f '$(srcdir)/../../src/cstl_types_builtin.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types_builtin.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_types_builtin.Tpo $(DEPDIR)/libcstl_ut-cstl_types_builtin.Po
+#	source='$(srcdir)/../../src/cstl_types_builtin.c' object='libcstl_ut-cstl_types_builtin.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_types_builtin.o `test -f '$(srcdir)/../../src/cstl_types_builtin.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types_builtin.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_types_builtin.o `test -f '$(srcdir)/../../src/cstl_types_builtin.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_types_builtin.c
 
-ut-cstl_types_builtin.obj: $(srcdir)/../../src/cstl_types_builtin.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_types_builtin.obj -MD -MP -MF $(DEPDIR)/ut-cstl_types_builtin.Tpo -c -o ut-cstl_types_builtin.obj `if test -f '$(srcdir)/../../src/cstl_types_builtin.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types_builtin.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_types_builtin.Tpo $(DEPDIR)/ut-cstl_types_builtin.Po
-#	source='$(srcdir)/../../src/cstl_types_builtin.c' object='ut-cstl_types_builtin.obj' libtool=no \
+libcstl_ut-cstl_types_builtin.obj: $(srcdir)/../../src/cstl_types_builtin.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_types_builtin.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_types_builtin.Tpo -c -o libcstl_ut-cstl_types_builtin.obj `if test -f '$(srcdir)/../../src/cstl_types_builtin.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types_builtin.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_types_builtin.Tpo $(DEPDIR)/libcstl_ut-cstl_types_builtin.Po
+#	source='$(srcdir)/../../src/cstl_types_builtin.c' object='libcstl_ut-cstl_types_builtin.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_types_builtin.obj `if test -f '$(srcdir)/../../src/cstl_types_builtin.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types_builtin.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_types_builtin.obj `if test -f '$(srcdir)/../../src/cstl_types_builtin.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_types_builtin.c'; fi`
 
-ut-cstl_pair.o: $(srcdir)/../../src/cstl_pair.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_pair.o -MD -MP -MF $(DEPDIR)/ut-cstl_pair.Tpo -c -o ut-cstl_pair.o `test -f '$(srcdir)/../../src/cstl_pair.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair.c
-	$(am__mv) $(DEPDIR)/ut-cstl_pair.Tpo $(DEPDIR)/ut-cstl_pair.Po
-#	source='$(srcdir)/../../src/cstl_pair.c' object='ut-cstl_pair.o' libtool=no \
+libcstl_ut-cstl_pair.o: $(srcdir)/../../src/cstl_pair.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_pair.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_pair.Tpo -c -o libcstl_ut-cstl_pair.o `test -f '$(srcdir)/../../src/cstl_pair.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_pair.Tpo $(DEPDIR)/libcstl_ut-cstl_pair.Po
+#	source='$(srcdir)/../../src/cstl_pair.c' object='libcstl_ut-cstl_pair.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_pair.o `test -f '$(srcdir)/../../src/cstl_pair.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_pair.o `test -f '$(srcdir)/../../src/cstl_pair.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair.c
 
-ut-cstl_pair.obj: $(srcdir)/../../src/cstl_pair.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_pair.obj -MD -MP -MF $(DEPDIR)/ut-cstl_pair.Tpo -c -o ut-cstl_pair.obj `if test -f '$(srcdir)/../../src/cstl_pair.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_pair.Tpo $(DEPDIR)/ut-cstl_pair.Po
-#	source='$(srcdir)/../../src/cstl_pair.c' object='ut-cstl_pair.obj' libtool=no \
+libcstl_ut-cstl_pair.obj: $(srcdir)/../../src/cstl_pair.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_pair.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_pair.Tpo -c -o libcstl_ut-cstl_pair.obj `if test -f '$(srcdir)/../../src/cstl_pair.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_pair.Tpo $(DEPDIR)/libcstl_ut-cstl_pair.Po
+#	source='$(srcdir)/../../src/cstl_pair.c' object='libcstl_ut-cstl_pair.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_pair.obj `if test -f '$(srcdir)/../../src/cstl_pair.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_pair.obj `if test -f '$(srcdir)/../../src/cstl_pair.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair.c'; fi`
 
-ut-cstl_pair_private.o: $(srcdir)/../../src/cstl_pair_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_pair_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_pair_private.Tpo -c -o ut-cstl_pair_private.o `test -f '$(srcdir)/../../src/cstl_pair_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_pair_private.Tpo $(DEPDIR)/ut-cstl_pair_private.Po
-#	source='$(srcdir)/../../src/cstl_pair_private.c' object='ut-cstl_pair_private.o' libtool=no \
+libcstl_ut-cstl_pair_private.o: $(srcdir)/../../src/cstl_pair_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_pair_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_pair_private.Tpo -c -o libcstl_ut-cstl_pair_private.o `test -f '$(srcdir)/../../src/cstl_pair_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_pair_private.Tpo $(DEPDIR)/libcstl_ut-cstl_pair_private.Po
+#	source='$(srcdir)/../../src/cstl_pair_private.c' object='libcstl_ut-cstl_pair_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_pair_private.o `test -f '$(srcdir)/../../src/cstl_pair_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_pair_private.o `test -f '$(srcdir)/../../src/cstl_pair_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair_private.c
 
-ut-cstl_pair_private.obj: $(srcdir)/../../src/cstl_pair_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_pair_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_pair_private.Tpo -c -o ut-cstl_pair_private.obj `if test -f '$(srcdir)/../../src/cstl_pair_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_pair_private.Tpo $(DEPDIR)/ut-cstl_pair_private.Po
-#	source='$(srcdir)/../../src/cstl_pair_private.c' object='ut-cstl_pair_private.obj' libtool=no \
+libcstl_ut-cstl_pair_private.obj: $(srcdir)/../../src/cstl_pair_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_pair_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_pair_private.Tpo -c -o libcstl_ut-cstl_pair_private.obj `if test -f '$(srcdir)/../../src/cstl_pair_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_pair_private.Tpo $(DEPDIR)/libcstl_ut-cstl_pair_private.Po
+#	source='$(srcdir)/../../src/cstl_pair_private.c' object='libcstl_ut-cstl_pair_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_pair_private.obj `if test -f '$(srcdir)/../../src/cstl_pair_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_pair_private.obj `if test -f '$(srcdir)/../../src/cstl_pair_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair_private.c'; fi`
 
-ut-cstl_pair_aux.o: $(srcdir)/../../src/cstl_pair_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_pair_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_pair_aux.Tpo -c -o ut-cstl_pair_aux.o `test -f '$(srcdir)/../../src/cstl_pair_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_pair_aux.Tpo $(DEPDIR)/ut-cstl_pair_aux.Po
-#	source='$(srcdir)/../../src/cstl_pair_aux.c' object='ut-cstl_pair_aux.o' libtool=no \
+libcstl_ut-cstl_pair_aux.o: $(srcdir)/../../src/cstl_pair_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_pair_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_pair_aux.Tpo -c -o libcstl_ut-cstl_pair_aux.o `test -f '$(srcdir)/../../src/cstl_pair_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_pair_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_pair_aux.Po
+#	source='$(srcdir)/../../src/cstl_pair_aux.c' object='libcstl_ut-cstl_pair_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_pair_aux.o `test -f '$(srcdir)/../../src/cstl_pair_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_pair_aux.o `test -f '$(srcdir)/../../src/cstl_pair_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_pair_aux.c
 
-ut-cstl_pair_aux.obj: $(srcdir)/../../src/cstl_pair_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_pair_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_pair_aux.Tpo -c -o ut-cstl_pair_aux.obj `if test -f '$(srcdir)/../../src/cstl_pair_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_pair_aux.Tpo $(DEPDIR)/ut-cstl_pair_aux.Po
-#	source='$(srcdir)/../../src/cstl_pair_aux.c' object='ut-cstl_pair_aux.obj' libtool=no \
+libcstl_ut-cstl_pair_aux.obj: $(srcdir)/../../src/cstl_pair_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_pair_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_pair_aux.Tpo -c -o libcstl_ut-cstl_pair_aux.obj `if test -f '$(srcdir)/../../src/cstl_pair_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_pair_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_pair_aux.Po
+#	source='$(srcdir)/../../src/cstl_pair_aux.c' object='libcstl_ut-cstl_pair_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_pair_aux.obj `if test -f '$(srcdir)/../../src/cstl_pair_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_pair_aux.obj `if test -f '$(srcdir)/../../src/cstl_pair_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_pair_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_pair_aux.c'; fi`
 
-ut-cstl_stack.o: $(srcdir)/../../src/cstl_stack.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_stack.o -MD -MP -MF $(DEPDIR)/ut-cstl_stack.Tpo -c -o ut-cstl_stack.o `test -f '$(srcdir)/../../src/cstl_stack.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack.c
-	$(am__mv) $(DEPDIR)/ut-cstl_stack.Tpo $(DEPDIR)/ut-cstl_stack.Po
-#	source='$(srcdir)/../../src/cstl_stack.c' object='ut-cstl_stack.o' libtool=no \
+libcstl_ut-cstl_stack.o: $(srcdir)/../../src/cstl_stack.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_stack.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_stack.Tpo -c -o libcstl_ut-cstl_stack.o `test -f '$(srcdir)/../../src/cstl_stack.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_stack.Tpo $(DEPDIR)/libcstl_ut-cstl_stack.Po
+#	source='$(srcdir)/../../src/cstl_stack.c' object='libcstl_ut-cstl_stack.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_stack.o `test -f '$(srcdir)/../../src/cstl_stack.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_stack.o `test -f '$(srcdir)/../../src/cstl_stack.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack.c
 
-ut-cstl_stack.obj: $(srcdir)/../../src/cstl_stack.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_stack.obj -MD -MP -MF $(DEPDIR)/ut-cstl_stack.Tpo -c -o ut-cstl_stack.obj `if test -f '$(srcdir)/../../src/cstl_stack.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_stack.Tpo $(DEPDIR)/ut-cstl_stack.Po
-#	source='$(srcdir)/../../src/cstl_stack.c' object='ut-cstl_stack.obj' libtool=no \
+libcstl_ut-cstl_stack.obj: $(srcdir)/../../src/cstl_stack.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_stack.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_stack.Tpo -c -o libcstl_ut-cstl_stack.obj `if test -f '$(srcdir)/../../src/cstl_stack.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_stack.Tpo $(DEPDIR)/libcstl_ut-cstl_stack.Po
+#	source='$(srcdir)/../../src/cstl_stack.c' object='libcstl_ut-cstl_stack.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_stack.obj `if test -f '$(srcdir)/../../src/cstl_stack.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_stack.obj `if test -f '$(srcdir)/../../src/cstl_stack.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack.c'; fi`
 
-ut-cstl_stack_private.o: $(srcdir)/../../src/cstl_stack_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_stack_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_stack_private.Tpo -c -o ut-cstl_stack_private.o `test -f '$(srcdir)/../../src/cstl_stack_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_stack_private.Tpo $(DEPDIR)/ut-cstl_stack_private.Po
-#	source='$(srcdir)/../../src/cstl_stack_private.c' object='ut-cstl_stack_private.o' libtool=no \
+libcstl_ut-cstl_stack_private.o: $(srcdir)/../../src/cstl_stack_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_stack_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_stack_private.Tpo -c -o libcstl_ut-cstl_stack_private.o `test -f '$(srcdir)/../../src/cstl_stack_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_stack_private.Tpo $(DEPDIR)/libcstl_ut-cstl_stack_private.Po
+#	source='$(srcdir)/../../src/cstl_stack_private.c' object='libcstl_ut-cstl_stack_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_stack_private.o `test -f '$(srcdir)/../../src/cstl_stack_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_stack_private.o `test -f '$(srcdir)/../../src/cstl_stack_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_stack_private.c
 
-ut-cstl_stack_private.obj: $(srcdir)/../../src/cstl_stack_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_stack_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_stack_private.Tpo -c -o ut-cstl_stack_private.obj `if test -f '$(srcdir)/../../src/cstl_stack_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_stack_private.Tpo $(DEPDIR)/ut-cstl_stack_private.Po
-#	source='$(srcdir)/../../src/cstl_stack_private.c' object='ut-cstl_stack_private.obj' libtool=no \
+libcstl_ut-cstl_stack_private.obj: $(srcdir)/../../src/cstl_stack_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_stack_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_stack_private.Tpo -c -o libcstl_ut-cstl_stack_private.obj `if test -f '$(srcdir)/../../src/cstl_stack_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_stack_private.Tpo $(DEPDIR)/libcstl_ut-cstl_stack_private.Po
+#	source='$(srcdir)/../../src/cstl_stack_private.c' object='libcstl_ut-cstl_stack_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_stack_private.obj `if test -f '$(srcdir)/../../src/cstl_stack_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_stack_private.obj `if test -f '$(srcdir)/../../src/cstl_stack_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_stack_private.c'; fi`
 
-ut-cstl_vector.o: $(srcdir)/../../src/cstl_vector.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector.o -MD -MP -MF $(DEPDIR)/ut-cstl_vector.Tpo -c -o ut-cstl_vector.o `test -f '$(srcdir)/../../src/cstl_vector.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector.c
-	$(am__mv) $(DEPDIR)/ut-cstl_vector.Tpo $(DEPDIR)/ut-cstl_vector.Po
-#	source='$(srcdir)/../../src/cstl_vector.c' object='ut-cstl_vector.o' libtool=no \
+libcstl_ut-cstl_vector.o: $(srcdir)/../../src/cstl_vector.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_vector.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_vector.Tpo -c -o libcstl_ut-cstl_vector.o `test -f '$(srcdir)/../../src/cstl_vector.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_vector.Tpo $(DEPDIR)/libcstl_ut-cstl_vector.Po
+#	source='$(srcdir)/../../src/cstl_vector.c' object='libcstl_ut-cstl_vector.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_vector.o `test -f '$(srcdir)/../../src/cstl_vector.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector.o `test -f '$(srcdir)/../../src/cstl_vector.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector.c
 
-ut-cstl_vector.obj: $(srcdir)/../../src/cstl_vector.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector.obj -MD -MP -MF $(DEPDIR)/ut-cstl_vector.Tpo -c -o ut-cstl_vector.obj `if test -f '$(srcdir)/../../src/cstl_vector.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_vector.Tpo $(DEPDIR)/ut-cstl_vector.Po
-#	source='$(srcdir)/../../src/cstl_vector.c' object='ut-cstl_vector.obj' libtool=no \
+libcstl_ut-cstl_vector.obj: $(srcdir)/../../src/cstl_vector.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_vector.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_vector.Tpo -c -o libcstl_ut-cstl_vector.obj `if test -f '$(srcdir)/../../src/cstl_vector.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_vector.Tpo $(DEPDIR)/libcstl_ut-cstl_vector.Po
+#	source='$(srcdir)/../../src/cstl_vector.c' object='libcstl_ut-cstl_vector.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_vector.obj `if test -f '$(srcdir)/../../src/cstl_vector.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector.obj `if test -f '$(srcdir)/../../src/cstl_vector.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector.c'; fi`
 
-ut-cstl_vector_iterator.o: $(srcdir)/../../src/cstl_vector_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector_iterator.o -MD -MP -MF $(DEPDIR)/ut-cstl_vector_iterator.Tpo -c -o ut-cstl_vector_iterator.o `test -f '$(srcdir)/../../src/cstl_vector_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_iterator.c
-	$(am__mv) $(DEPDIR)/ut-cstl_vector_iterator.Tpo $(DEPDIR)/ut-cstl_vector_iterator.Po
-#	source='$(srcdir)/../../src/cstl_vector_iterator.c' object='ut-cstl_vector_iterator.o' libtool=no \
+libcstl_ut-cstl_vector_iterator.o: $(srcdir)/../../src/cstl_vector_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_vector_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_vector_iterator.Tpo -c -o libcstl_ut-cstl_vector_iterator.o `test -f '$(srcdir)/../../src/cstl_vector_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_vector_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_vector_iterator.Po
+#	source='$(srcdir)/../../src/cstl_vector_iterator.c' object='libcstl_ut-cstl_vector_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_vector_iterator.o `test -f '$(srcdir)/../../src/cstl_vector_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector_iterator.o `test -f '$(srcdir)/../../src/cstl_vector_iterator.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_iterator.c
 
-ut-cstl_vector_iterator.obj: $(srcdir)/../../src/cstl_vector_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector_iterator.obj -MD -MP -MF $(DEPDIR)/ut-cstl_vector_iterator.Tpo -c -o ut-cstl_vector_iterator.obj `if test -f '$(srcdir)/../../src/cstl_vector_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_vector_iterator.Tpo $(DEPDIR)/ut-cstl_vector_iterator.Po
-#	source='$(srcdir)/../../src/cstl_vector_iterator.c' object='ut-cstl_vector_iterator.obj' libtool=no \
+libcstl_ut-cstl_vector_iterator.obj: $(srcdir)/../../src/cstl_vector_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_vector_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_vector_iterator.Tpo -c -o libcstl_ut-cstl_vector_iterator.obj `if test -f '$(srcdir)/../../src/cstl_vector_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_vector_iterator.Tpo $(DEPDIR)/libcstl_ut-cstl_vector_iterator.Po
+#	source='$(srcdir)/../../src/cstl_vector_iterator.c' object='libcstl_ut-cstl_vector_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_vector_iterator.obj `if test -f '$(srcdir)/../../src/cstl_vector_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector_iterator.obj `if test -f '$(srcdir)/../../src/cstl_vector_iterator.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_iterator.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_iterator.c'; fi`
 
-ut-cstl_vector_private.o: $(srcdir)/../../src/cstl_vector_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector_private.o -MD -MP -MF $(DEPDIR)/ut-cstl_vector_private.Tpo -c -o ut-cstl_vector_private.o `test -f '$(srcdir)/../../src/cstl_vector_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_private.c
-	$(am__mv) $(DEPDIR)/ut-cstl_vector_private.Tpo $(DEPDIR)/ut-cstl_vector_private.Po
-#	source='$(srcdir)/../../src/cstl_vector_private.c' object='ut-cstl_vector_private.o' libtool=no \
+libcstl_ut-cstl_vector_private.o: $(srcdir)/../../src/cstl_vector_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_vector_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_vector_private.Tpo -c -o libcstl_ut-cstl_vector_private.o `test -f '$(srcdir)/../../src/cstl_vector_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_vector_private.Tpo $(DEPDIR)/libcstl_ut-cstl_vector_private.Po
+#	source='$(srcdir)/../../src/cstl_vector_private.c' object='libcstl_ut-cstl_vector_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_vector_private.o `test -f '$(srcdir)/../../src/cstl_vector_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector_private.o `test -f '$(srcdir)/../../src/cstl_vector_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_private.c
 
-ut-cstl_vector_private.obj: $(srcdir)/../../src/cstl_vector_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector_private.obj -MD -MP -MF $(DEPDIR)/ut-cstl_vector_private.Tpo -c -o ut-cstl_vector_private.obj `if test -f '$(srcdir)/../../src/cstl_vector_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_vector_private.Tpo $(DEPDIR)/ut-cstl_vector_private.Po
-#	source='$(srcdir)/../../src/cstl_vector_private.c' object='ut-cstl_vector_private.obj' libtool=no \
+libcstl_ut-cstl_vector_private.obj: $(srcdir)/../../src/cstl_vector_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_vector_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_vector_private.Tpo -c -o libcstl_ut-cstl_vector_private.obj `if test -f '$(srcdir)/../../src/cstl_vector_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_vector_private.Tpo $(DEPDIR)/libcstl_ut-cstl_vector_private.Po
+#	source='$(srcdir)/../../src/cstl_vector_private.c' object='libcstl_ut-cstl_vector_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_vector_private.obj `if test -f '$(srcdir)/../../src/cstl_vector_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector_private.obj `if test -f '$(srcdir)/../../src/cstl_vector_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_private.c'; fi`
 
-ut-cstl_vector_aux.o: $(srcdir)/../../src/cstl_vector_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector_aux.o -MD -MP -MF $(DEPDIR)/ut-cstl_vector_aux.Tpo -c -o ut-cstl_vector_aux.o `test -f '$(srcdir)/../../src/cstl_vector_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_aux.c
-	$(am__mv) $(DEPDIR)/ut-cstl_vector_aux.Tpo $(DEPDIR)/ut-cstl_vector_aux.Po
-#	source='$(srcdir)/../../src/cstl_vector_aux.c' object='ut-cstl_vector_aux.o' libtool=no \
+libcstl_ut-cstl_vector_aux.o: $(srcdir)/../../src/cstl_vector_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_vector_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_vector_aux.Tpo -c -o libcstl_ut-cstl_vector_aux.o `test -f '$(srcdir)/../../src/cstl_vector_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_vector_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_vector_aux.Po
+#	source='$(srcdir)/../../src/cstl_vector_aux.c' object='libcstl_ut-cstl_vector_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_vector_aux.o `test -f '$(srcdir)/../../src/cstl_vector_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector_aux.o `test -f '$(srcdir)/../../src/cstl_vector_aux.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_vector_aux.c
 
-ut-cstl_vector_aux.obj: $(srcdir)/../../src/cstl_vector_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-cstl_vector_aux.obj -MD -MP -MF $(DEPDIR)/ut-cstl_vector_aux.Tpo -c -o ut-cstl_vector_aux.obj `if test -f '$(srcdir)/../../src/cstl_vector_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-cstl_vector_aux.Tpo $(DEPDIR)/ut-cstl_vector_aux.Po
-#	source='$(srcdir)/../../src/cstl_vector_aux.c' object='ut-cstl_vector_aux.obj' libtool=no \
+libcstl_ut-cstl_vector_aux.obj: $(srcdir)/../../src/cstl_vector_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_vector_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_vector_aux.Tpo -c -o libcstl_ut-cstl_vector_aux.obj `if test -f '$(srcdir)/../../src/cstl_vector_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_vector_aux.Tpo $(DEPDIR)/libcstl_ut-cstl_vector_aux.Po
+#	source='$(srcdir)/../../src/cstl_vector_aux.c' object='libcstl_ut-cstl_vector_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-cstl_vector_aux.obj `if test -f '$(srcdir)/../../src/cstl_vector_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector_aux.obj `if test -f '$(srcdir)/../../src/cstl_vector_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_aux.c'; fi`
 
-ut-ut_cstl_alloc_aux.o: ut_cstl_alloc_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo -c -o ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/ut-ut_cstl_alloc_aux.Po
-#	source='ut_cstl_alloc_aux.c' object='ut-ut_cstl_alloc_aux.o' libtool=no \
+libcstl_ut-ut_cstl_alloc_aux.o: ut_cstl_alloc_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Tpo -c -o libcstl_ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Po
+#	source='ut_cstl_alloc_aux.c' object='libcstl_ut-ut_cstl_alloc_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
 
-ut-ut_cstl_alloc_aux.obj: ut_cstl_alloc_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo -c -o ut-ut_cstl_alloc_aux.obj `if test -f 'ut_cstl_alloc_aux.c'; then $(CYGPATH_W) 'ut_cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/ut-ut_cstl_alloc_aux.Po
-#	source='ut_cstl_alloc_aux.c' object='ut-ut_cstl_alloc_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_alloc_aux.obj: ut_cstl_alloc_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_alloc_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Tpo -c -o libcstl_ut-ut_cstl_alloc_aux.obj `if test -f 'ut_cstl_alloc_aux.c'; then $(CYGPATH_W) 'ut_cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Po
+#	source='ut_cstl_alloc_aux.c' object='libcstl_ut-ut_cstl_alloc_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc_aux.obj `if test -f 'ut_cstl_alloc_aux.c'; then $(CYGPATH_W) 'ut_cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_alloc_aux.obj `if test -f 'ut_cstl_alloc_aux.c'; then $(CYGPATH_W) 'ut_cstl_alloc_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc_aux.c'; fi`
 
-ut-ut_cstl_alloc.o: ut_cstl_alloc.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc.Tpo -c -o ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc.Tpo $(DEPDIR)/ut-ut_cstl_alloc.Po
-#	source='ut_cstl_alloc.c' object='ut-ut_cstl_alloc.o' libtool=no \
+libcstl_ut-ut_cstl_alloc.o: ut_cstl_alloc.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_alloc.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_alloc.Tpo -c -o libcstl_ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_alloc.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_alloc.Po
+#	source='ut_cstl_alloc.c' object='libcstl_ut-ut_cstl_alloc.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_alloc.o `test -f 'ut_cstl_alloc.c' || echo '$(srcdir)/'`ut_cstl_alloc.c
 
-ut-ut_cstl_alloc.obj: ut_cstl_alloc.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_alloc.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_alloc.Tpo -c -o ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_alloc.Tpo $(DEPDIR)/ut-ut_cstl_alloc.Po
-#	source='ut_cstl_alloc.c' object='ut-ut_cstl_alloc.obj' libtool=no \
+libcstl_ut-ut_cstl_alloc.obj: ut_cstl_alloc.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_alloc.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_alloc.Tpo -c -o libcstl_ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_alloc.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_alloc.Po
+#	source='ut_cstl_alloc.c' object='libcstl_ut-ut_cstl_alloc.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_alloc.obj `if test -f 'ut_cstl_alloc.c'; then $(CYGPATH_W) 'ut_cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_alloc.c'; fi`
 
-ut-ut_cstl_vector_iterator.o: ut_cstl_vector_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_vector_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_vector_iterator.Tpo -c -o ut-ut_cstl_vector_iterator.o `test -f 'ut_cstl_vector_iterator.c' || echo '$(srcdir)/'`ut_cstl_vector_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_vector_iterator.Tpo $(DEPDIR)/ut-ut_cstl_vector_iterator.Po
-#	source='ut_cstl_vector_iterator.c' object='ut-ut_cstl_vector_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_vector_iterator.o: ut_cstl_vector_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_vector_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_vector_iterator.Tpo -c -o libcstl_ut-ut_cstl_vector_iterator.o `test -f 'ut_cstl_vector_iterator.c' || echo '$(srcdir)/'`ut_cstl_vector_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_vector_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_vector_iterator.Po
+#	source='ut_cstl_vector_iterator.c' object='libcstl_ut-ut_cstl_vector_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_vector_iterator.o `test -f 'ut_cstl_vector_iterator.c' || echo '$(srcdir)/'`ut_cstl_vector_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_vector_iterator.o `test -f 'ut_cstl_vector_iterator.c' || echo '$(srcdir)/'`ut_cstl_vector_iterator.c
 
-ut-ut_cstl_vector_iterator.obj: ut_cstl_vector_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_vector_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_vector_iterator.Tpo -c -o ut-ut_cstl_vector_iterator.obj `if test -f 'ut_cstl_vector_iterator.c'; then $(CYGPATH_W) 'ut_cstl_vector_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_vector_iterator.Tpo $(DEPDIR)/ut-ut_cstl_vector_iterator.Po
-#	source='ut_cstl_vector_iterator.c' object='ut-ut_cstl_vector_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_vector_iterator.obj: ut_cstl_vector_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_vector_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_vector_iterator.Tpo -c -o libcstl_ut-ut_cstl_vector_iterator.obj `if test -f 'ut_cstl_vector_iterator.c'; then $(CYGPATH_W) 'ut_cstl_vector_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_vector_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_vector_iterator.Po
+#	source='ut_cstl_vector_iterator.c' object='libcstl_ut-ut_cstl_vector_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_vector_iterator.obj `if test -f 'ut_cstl_vector_iterator.c'; then $(CYGPATH_W) 'ut_cstl_vector_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_vector_iterator.obj `if test -f 'ut_cstl_vector_iterator.c'; then $(CYGPATH_W) 'ut_cstl_vector_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_iterator.c'; fi`
 
-ut-ut_cstl_vector_aux.o: ut_cstl_vector_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_vector_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_vector_aux.Tpo -c -o ut-ut_cstl_vector_aux.o `test -f 'ut_cstl_vector_aux.c' || echo '$(srcdir)/'`ut_cstl_vector_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_vector_aux.Tpo $(DEPDIR)/ut-ut_cstl_vector_aux.Po
-#	source='ut_cstl_vector_aux.c' object='ut-ut_cstl_vector_aux.o' libtool=no \
+libcstl_ut-ut_cstl_vector_aux.o: ut_cstl_vector_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_vector_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_vector_aux.Tpo -c -o libcstl_ut-ut_cstl_vector_aux.o `test -f 'ut_cstl_vector_aux.c' || echo '$(srcdir)/'`ut_cstl_vector_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_vector_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_vector_aux.Po
+#	source='ut_cstl_vector_aux.c' object='libcstl_ut-ut_cstl_vector_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_vector_aux.o `test -f 'ut_cstl_vector_aux.c' || echo '$(srcdir)/'`ut_cstl_vector_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_vector_aux.o `test -f 'ut_cstl_vector_aux.c' || echo '$(srcdir)/'`ut_cstl_vector_aux.c
 
-ut-ut_cstl_vector_aux.obj: ut_cstl_vector_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_vector_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_vector_aux.Tpo -c -o ut-ut_cstl_vector_aux.obj `if test -f 'ut_cstl_vector_aux.c'; then $(CYGPATH_W) 'ut_cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_vector_aux.Tpo $(DEPDIR)/ut-ut_cstl_vector_aux.Po
-#	source='ut_cstl_vector_aux.c' object='ut-ut_cstl_vector_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_vector_aux.obj: ut_cstl_vector_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_vector_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_vector_aux.Tpo -c -o libcstl_ut-ut_cstl_vector_aux.obj `if test -f 'ut_cstl_vector_aux.c'; then $(CYGPATH_W) 'ut_cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_vector_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_vector_aux.Po
+#	source='ut_cstl_vector_aux.c' object='libcstl_ut-ut_cstl_vector_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_vector_aux.obj `if test -f 'ut_cstl_vector_aux.c'; then $(CYGPATH_W) 'ut_cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_vector_aux.obj `if test -f 'ut_cstl_vector_aux.c'; then $(CYGPATH_W) 'ut_cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_aux.c'; fi`
 
-ut-ut_cstl_vector_private.o: ut_cstl_vector_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_vector_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_vector_private.Tpo -c -o ut-ut_cstl_vector_private.o `test -f 'ut_cstl_vector_private.c' || echo '$(srcdir)/'`ut_cstl_vector_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_vector_private.Tpo $(DEPDIR)/ut-ut_cstl_vector_private.Po
-#	source='ut_cstl_vector_private.c' object='ut-ut_cstl_vector_private.o' libtool=no \
+libcstl_ut-ut_cstl_vector_private.o: ut_cstl_vector_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_vector_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_vector_private.Tpo -c -o libcstl_ut-ut_cstl_vector_private.o `test -f 'ut_cstl_vector_private.c' || echo '$(srcdir)/'`ut_cstl_vector_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_vector_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_vector_private.Po
+#	source='ut_cstl_vector_private.c' object='libcstl_ut-ut_cstl_vector_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_vector_private.o `test -f 'ut_cstl_vector_private.c' || echo '$(srcdir)/'`ut_cstl_vector_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_vector_private.o `test -f 'ut_cstl_vector_private.c' || echo '$(srcdir)/'`ut_cstl_vector_private.c
 
-ut-ut_cstl_vector_private.obj: ut_cstl_vector_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_vector_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_vector_private.Tpo -c -o ut-ut_cstl_vector_private.obj `if test -f 'ut_cstl_vector_private.c'; then $(CYGPATH_W) 'ut_cstl_vector_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_vector_private.Tpo $(DEPDIR)/ut-ut_cstl_vector_private.Po
-#	source='ut_cstl_vector_private.c' object='ut-ut_cstl_vector_private.obj' libtool=no \
+libcstl_ut-ut_cstl_vector_private.obj: ut_cstl_vector_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_vector_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_vector_private.Tpo -c -o libcstl_ut-ut_cstl_vector_private.obj `if test -f 'ut_cstl_vector_private.c'; then $(CYGPATH_W) 'ut_cstl_vector_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_vector_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_vector_private.Po
+#	source='ut_cstl_vector_private.c' object='libcstl_ut-ut_cstl_vector_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_vector_private.obj `if test -f 'ut_cstl_vector_private.c'; then $(CYGPATH_W) 'ut_cstl_vector_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_vector_private.obj `if test -f 'ut_cstl_vector_private.c'; then $(CYGPATH_W) 'ut_cstl_vector_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector_private.c'; fi`
 
-ut-ut_cstl_vector.o: ut_cstl_vector.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_vector.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_vector.Tpo -c -o ut-ut_cstl_vector.o `test -f 'ut_cstl_vector.c' || echo '$(srcdir)/'`ut_cstl_vector.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_vector.Tpo $(DEPDIR)/ut-ut_cstl_vector.Po
-#	source='ut_cstl_vector.c' object='ut-ut_cstl_vector.o' libtool=no \
+libcstl_ut-ut_cstl_vector.o: ut_cstl_vector.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_vector.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_vector.Tpo -c -o libcstl_ut-ut_cstl_vector.o `test -f 'ut_cstl_vector.c' || echo '$(srcdir)/'`ut_cstl_vector.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_vector.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_vector.Po
+#	source='ut_cstl_vector.c' object='libcstl_ut-ut_cstl_vector.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_vector.o `test -f 'ut_cstl_vector.c' || echo '$(srcdir)/'`ut_cstl_vector.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_vector.o `test -f 'ut_cstl_vector.c' || echo '$(srcdir)/'`ut_cstl_vector.c
 
-ut-ut_cstl_vector.obj: ut_cstl_vector.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_vector.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_vector.Tpo -c -o ut-ut_cstl_vector.obj `if test -f 'ut_cstl_vector.c'; then $(CYGPATH_W) 'ut_cstl_vector.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_vector.Tpo $(DEPDIR)/ut-ut_cstl_vector.Po
-#	source='ut_cstl_vector.c' object='ut-ut_cstl_vector.obj' libtool=no \
+libcstl_ut-ut_cstl_vector.obj: ut_cstl_vector.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_vector.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_vector.Tpo -c -o libcstl_ut-ut_cstl_vector.obj `if test -f 'ut_cstl_vector.c'; then $(CYGPATH_W) 'ut_cstl_vector.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_vector.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_vector.Po
+#	source='ut_cstl_vector.c' object='libcstl_ut-ut_cstl_vector.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_vector.obj `if test -f 'ut_cstl_vector.c'; then $(CYGPATH_W) 'ut_cstl_vector.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_vector.obj `if test -f 'ut_cstl_vector.c'; then $(CYGPATH_W) 'ut_cstl_vector.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_vector.c'; fi`
 
-ut-ut_cstl_list_iterator.o: ut_cstl_list_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_iterator.Tpo -c -o ut-ut_cstl_list_iterator.o `test -f 'ut_cstl_list_iterator.c' || echo '$(srcdir)/'`ut_cstl_list_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_iterator.Tpo $(DEPDIR)/ut-ut_cstl_list_iterator.Po
-#	source='ut_cstl_list_iterator.c' object='ut-ut_cstl_list_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_list_iterator.o: ut_cstl_list_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_list_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_list_iterator.Tpo -c -o libcstl_ut-ut_cstl_list_iterator.o `test -f 'ut_cstl_list_iterator.c' || echo '$(srcdir)/'`ut_cstl_list_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_list_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_list_iterator.Po
+#	source='ut_cstl_list_iterator.c' object='libcstl_ut-ut_cstl_list_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_iterator.o `test -f 'ut_cstl_list_iterator.c' || echo '$(srcdir)/'`ut_cstl_list_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_list_iterator.o `test -f 'ut_cstl_list_iterator.c' || echo '$(srcdir)/'`ut_cstl_list_iterator.c
 
-ut-ut_cstl_list_iterator.obj: ut_cstl_list_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_iterator.Tpo -c -o ut-ut_cstl_list_iterator.obj `if test -f 'ut_cstl_list_iterator.c'; then $(CYGPATH_W) 'ut_cstl_list_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_iterator.Tpo $(DEPDIR)/ut-ut_cstl_list_iterator.Po
-#	source='ut_cstl_list_iterator.c' object='ut-ut_cstl_list_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_list_iterator.obj: ut_cstl_list_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_list_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_list_iterator.Tpo -c -o libcstl_ut-ut_cstl_list_iterator.obj `if test -f 'ut_cstl_list_iterator.c'; then $(CYGPATH_W) 'ut_cstl_list_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_list_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_list_iterator.Po
+#	source='ut_cstl_list_iterator.c' object='libcstl_ut-ut_cstl_list_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_iterator.obj `if test -f 'ut_cstl_list_iterator.c'; then $(CYGPATH_W) 'ut_cstl_list_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_list_iterator.obj `if test -f 'ut_cstl_list_iterator.c'; then $(CYGPATH_W) 'ut_cstl_list_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_iterator.c'; fi`
 
-ut-ut_cstl_list_aux.o: ut_cstl_list_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_aux.Tpo -c -o ut-ut_cstl_list_aux.o `test -f 'ut_cstl_list_aux.c' || echo '$(srcdir)/'`ut_cstl_list_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_aux.Tpo $(DEPDIR)/ut-ut_cstl_list_aux.Po
-#	source='ut_cstl_list_aux.c' object='ut-ut_cstl_list_aux.o' libtool=no \
+libcstl_ut-ut_cstl_list_aux.o: ut_cstl_list_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_list_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_list_aux.Tpo -c -o libcstl_ut-ut_cstl_list_aux.o `test -f 'ut_cstl_list_aux.c' || echo '$(srcdir)/'`ut_cstl_list_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_list_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_list_aux.Po
+#	source='ut_cstl_list_aux.c' object='libcstl_ut-ut_cstl_list_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_aux.o `test -f 'ut_cstl_list_aux.c' || echo '$(srcdir)/'`ut_cstl_list_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_list_aux.o `test -f 'ut_cstl_list_aux.c' || echo '$(srcdir)/'`ut_cstl_list_aux.c
 
-ut-ut_cstl_list_aux.obj: ut_cstl_list_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_aux.Tpo -c -o ut-ut_cstl_list_aux.obj `if test -f 'ut_cstl_list_aux.c'; then $(CYGPATH_W) 'ut_cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_aux.Tpo $(DEPDIR)/ut-ut_cstl_list_aux.Po
-#	source='ut_cstl_list_aux.c' object='ut-ut_cstl_list_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_list_aux.obj: ut_cstl_list_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_list_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_list_aux.Tpo -c -o libcstl_ut-ut_cstl_list_aux.obj `if test -f 'ut_cstl_list_aux.c'; then $(CYGPATH_W) 'ut_cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_list_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_list_aux.Po
+#	source='ut_cstl_list_aux.c' object='libcstl_ut-ut_cstl_list_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_aux.obj `if test -f 'ut_cstl_list_aux.c'; then $(CYGPATH_W) 'ut_cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_list_aux.obj `if test -f 'ut_cstl_list_aux.c'; then $(CYGPATH_W) 'ut_cstl_list_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_aux.c'; fi`
 
-ut-ut_cstl_list_private.o: ut_cstl_list_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_private.Tpo -c -o ut-ut_cstl_list_private.o `test -f 'ut_cstl_list_private.c' || echo '$(srcdir)/'`ut_cstl_list_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_private.Tpo $(DEPDIR)/ut-ut_cstl_list_private.Po
-#	source='ut_cstl_list_private.c' object='ut-ut_cstl_list_private.o' libtool=no \
+libcstl_ut-ut_cstl_list_private.o: ut_cstl_list_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_list_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_list_private.Tpo -c -o libcstl_ut-ut_cstl_list_private.o `test -f 'ut_cstl_list_private.c' || echo '$(srcdir)/'`ut_cstl_list_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_list_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_list_private.Po
+#	source='ut_cstl_list_private.c' object='libcstl_ut-ut_cstl_list_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_private.o `test -f 'ut_cstl_list_private.c' || echo '$(srcdir)/'`ut_cstl_list_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_list_private.o `test -f 'ut_cstl_list_private.c' || echo '$(srcdir)/'`ut_cstl_list_private.c
 
-ut-ut_cstl_list_private.obj: ut_cstl_list_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list_private.Tpo -c -o ut-ut_cstl_list_private.obj `if test -f 'ut_cstl_list_private.c'; then $(CYGPATH_W) 'ut_cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_list_private.Tpo $(DEPDIR)/ut-ut_cstl_list_private.Po
-#	source='ut_cstl_list_private.c' object='ut-ut_cstl_list_private.obj' libtool=no \
+libcstl_ut-ut_cstl_list_private.obj: ut_cstl_list_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_list_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_list_private.Tpo -c -o libcstl_ut-ut_cstl_list_private.obj `if test -f 'ut_cstl_list_private.c'; then $(CYGPATH_W) 'ut_cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_list_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_list_private.Po
+#	source='ut_cstl_list_private.c' object='libcstl_ut-ut_cstl_list_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list_private.obj `if test -f 'ut_cstl_list_private.c'; then $(CYGPATH_W) 'ut_cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_list_private.obj `if test -f 'ut_cstl_list_private.c'; then $(CYGPATH_W) 'ut_cstl_list_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list_private.c'; fi`
 
-ut-ut_cstl_list.o: ut_cstl_list.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list.Tpo -c -o ut-ut_cstl_list.o `test -f 'ut_cstl_list.c' || echo '$(srcdir)/'`ut_cstl_list.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_list.Tpo $(DEPDIR)/ut-ut_cstl_list.Po
-#	source='ut_cstl_list.c' object='ut-ut_cstl_list.o' libtool=no \
+libcstl_ut-ut_cstl_list.o: ut_cstl_list.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_list.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_list.Tpo -c -o libcstl_ut-ut_cstl_list.o `test -f 'ut_cstl_list.c' || echo '$(srcdir)/'`ut_cstl_list.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_list.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_list.Po
+#	source='ut_cstl_list.c' object='libcstl_ut-ut_cstl_list.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list.o `test -f 'ut_cstl_list.c' || echo '$(srcdir)/'`ut_cstl_list.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_list.o `test -f 'ut_cstl_list.c' || echo '$(srcdir)/'`ut_cstl_list.c
 
-ut-ut_cstl_list.obj: ut_cstl_list.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_list.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_list.Tpo -c -o ut-ut_cstl_list.obj `if test -f 'ut_cstl_list.c'; then $(CYGPATH_W) 'ut_cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_list.Tpo $(DEPDIR)/ut-ut_cstl_list.Po
-#	source='ut_cstl_list.c' object='ut-ut_cstl_list.obj' libtool=no \
+libcstl_ut-ut_cstl_list.obj: ut_cstl_list.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_list.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_list.Tpo -c -o libcstl_ut-ut_cstl_list.obj `if test -f 'ut_cstl_list.c'; then $(CYGPATH_W) 'ut_cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_list.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_list.Po
+#	source='ut_cstl_list.c' object='libcstl_ut-ut_cstl_list.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_list.obj `if test -f 'ut_cstl_list.c'; then $(CYGPATH_W) 'ut_cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_list.obj `if test -f 'ut_cstl_list.c'; then $(CYGPATH_W) 'ut_cstl_list.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_list.c'; fi`
 
-ut-ut_cstl_deque_iterator.o: ut_cstl_deque_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_deque_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_deque_iterator.Tpo -c -o ut-ut_cstl_deque_iterator.o `test -f 'ut_cstl_deque_iterator.c' || echo '$(srcdir)/'`ut_cstl_deque_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_deque_iterator.Tpo $(DEPDIR)/ut-ut_cstl_deque_iterator.Po
-#	source='ut_cstl_deque_iterator.c' object='ut-ut_cstl_deque_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_deque_iterator.o: ut_cstl_deque_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_deque_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_deque_iterator.Tpo -c -o libcstl_ut-ut_cstl_deque_iterator.o `test -f 'ut_cstl_deque_iterator.c' || echo '$(srcdir)/'`ut_cstl_deque_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_deque_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_deque_iterator.Po
+#	source='ut_cstl_deque_iterator.c' object='libcstl_ut-ut_cstl_deque_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_deque_iterator.o `test -f 'ut_cstl_deque_iterator.c' || echo '$(srcdir)/'`ut_cstl_deque_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_deque_iterator.o `test -f 'ut_cstl_deque_iterator.c' || echo '$(srcdir)/'`ut_cstl_deque_iterator.c
 
-ut-ut_cstl_deque_iterator.obj: ut_cstl_deque_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_deque_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_deque_iterator.Tpo -c -o ut-ut_cstl_deque_iterator.obj `if test -f 'ut_cstl_deque_iterator.c'; then $(CYGPATH_W) 'ut_cstl_deque_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_deque_iterator.Tpo $(DEPDIR)/ut-ut_cstl_deque_iterator.Po
-#	source='ut_cstl_deque_iterator.c' object='ut-ut_cstl_deque_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_deque_iterator.obj: ut_cstl_deque_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_deque_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_deque_iterator.Tpo -c -o libcstl_ut-ut_cstl_deque_iterator.obj `if test -f 'ut_cstl_deque_iterator.c'; then $(CYGPATH_W) 'ut_cstl_deque_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_deque_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_deque_iterator.Po
+#	source='ut_cstl_deque_iterator.c' object='libcstl_ut-ut_cstl_deque_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_deque_iterator.obj `if test -f 'ut_cstl_deque_iterator.c'; then $(CYGPATH_W) 'ut_cstl_deque_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_deque_iterator.obj `if test -f 'ut_cstl_deque_iterator.c'; then $(CYGPATH_W) 'ut_cstl_deque_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_iterator.c'; fi`
 
-ut-ut_cstl_deque_aux.o: ut_cstl_deque_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_deque_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_deque_aux.Tpo -c -o ut-ut_cstl_deque_aux.o `test -f 'ut_cstl_deque_aux.c' || echo '$(srcdir)/'`ut_cstl_deque_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_deque_aux.Tpo $(DEPDIR)/ut-ut_cstl_deque_aux.Po
-#	source='ut_cstl_deque_aux.c' object='ut-ut_cstl_deque_aux.o' libtool=no \
+libcstl_ut-ut_cstl_deque_aux.o: ut_cstl_deque_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_deque_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_deque_aux.Tpo -c -o libcstl_ut-ut_cstl_deque_aux.o `test -f 'ut_cstl_deque_aux.c' || echo '$(srcdir)/'`ut_cstl_deque_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_deque_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_deque_aux.Po
+#	source='ut_cstl_deque_aux.c' object='libcstl_ut-ut_cstl_deque_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_deque_aux.o `test -f 'ut_cstl_deque_aux.c' || echo '$(srcdir)/'`ut_cstl_deque_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_deque_aux.o `test -f 'ut_cstl_deque_aux.c' || echo '$(srcdir)/'`ut_cstl_deque_aux.c
 
-ut-ut_cstl_deque_aux.obj: ut_cstl_deque_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_deque_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_deque_aux.Tpo -c -o ut-ut_cstl_deque_aux.obj `if test -f 'ut_cstl_deque_aux.c'; then $(CYGPATH_W) 'ut_cstl_deque_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_deque_aux.Tpo $(DEPDIR)/ut-ut_cstl_deque_aux.Po
-#	source='ut_cstl_deque_aux.c' object='ut-ut_cstl_deque_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_deque_aux.obj: ut_cstl_deque_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_deque_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_deque_aux.Tpo -c -o libcstl_ut-ut_cstl_deque_aux.obj `if test -f 'ut_cstl_deque_aux.c'; then $(CYGPATH_W) 'ut_cstl_deque_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_deque_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_deque_aux.Po
+#	source='ut_cstl_deque_aux.c' object='libcstl_ut-ut_cstl_deque_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_deque_aux.obj `if test -f 'ut_cstl_deque_aux.c'; then $(CYGPATH_W) 'ut_cstl_deque_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_deque_aux.obj `if test -f 'ut_cstl_deque_aux.c'; then $(CYGPATH_W) 'ut_cstl_deque_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_aux.c'; fi`
 
-ut-ut_cstl_deque_private.o: ut_cstl_deque_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_deque_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_deque_private.Tpo -c -o ut-ut_cstl_deque_private.o `test -f 'ut_cstl_deque_private.c' || echo '$(srcdir)/'`ut_cstl_deque_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_deque_private.Tpo $(DEPDIR)/ut-ut_cstl_deque_private.Po
-#	source='ut_cstl_deque_private.c' object='ut-ut_cstl_deque_private.o' libtool=no \
+libcstl_ut-ut_cstl_deque_private.o: ut_cstl_deque_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_deque_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_deque_private.Tpo -c -o libcstl_ut-ut_cstl_deque_private.o `test -f 'ut_cstl_deque_private.c' || echo '$(srcdir)/'`ut_cstl_deque_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_deque_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_deque_private.Po
+#	source='ut_cstl_deque_private.c' object='libcstl_ut-ut_cstl_deque_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_deque_private.o `test -f 'ut_cstl_deque_private.c' || echo '$(srcdir)/'`ut_cstl_deque_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_deque_private.o `test -f 'ut_cstl_deque_private.c' || echo '$(srcdir)/'`ut_cstl_deque_private.c
 
-ut-ut_cstl_deque_private.obj: ut_cstl_deque_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_deque_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_deque_private.Tpo -c -o ut-ut_cstl_deque_private.obj `if test -f 'ut_cstl_deque_private.c'; then $(CYGPATH_W) 'ut_cstl_deque_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_deque_private.Tpo $(DEPDIR)/ut-ut_cstl_deque_private.Po
-#	source='ut_cstl_deque_private.c' object='ut-ut_cstl_deque_private.obj' libtool=no \
+libcstl_ut-ut_cstl_deque_private.obj: ut_cstl_deque_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_deque_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_deque_private.Tpo -c -o libcstl_ut-ut_cstl_deque_private.obj `if test -f 'ut_cstl_deque_private.c'; then $(CYGPATH_W) 'ut_cstl_deque_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_deque_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_deque_private.Po
+#	source='ut_cstl_deque_private.c' object='libcstl_ut-ut_cstl_deque_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_deque_private.obj `if test -f 'ut_cstl_deque_private.c'; then $(CYGPATH_W) 'ut_cstl_deque_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_deque_private.obj `if test -f 'ut_cstl_deque_private.c'; then $(CYGPATH_W) 'ut_cstl_deque_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque_private.c'; fi`
 
-ut-ut_cstl_deque.o: ut_cstl_deque.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_deque.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_deque.Tpo -c -o ut-ut_cstl_deque.o `test -f 'ut_cstl_deque.c' || echo '$(srcdir)/'`ut_cstl_deque.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_deque.Tpo $(DEPDIR)/ut-ut_cstl_deque.Po
-#	source='ut_cstl_deque.c' object='ut-ut_cstl_deque.o' libtool=no \
+libcstl_ut-ut_cstl_deque.o: ut_cstl_deque.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_deque.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_deque.Tpo -c -o libcstl_ut-ut_cstl_deque.o `test -f 'ut_cstl_deque.c' || echo '$(srcdir)/'`ut_cstl_deque.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_deque.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_deque.Po
+#	source='ut_cstl_deque.c' object='libcstl_ut-ut_cstl_deque.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_deque.o `test -f 'ut_cstl_deque.c' || echo '$(srcdir)/'`ut_cstl_deque.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_deque.o `test -f 'ut_cstl_deque.c' || echo '$(srcdir)/'`ut_cstl_deque.c
 
-ut-ut_cstl_deque.obj: ut_cstl_deque.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_deque.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_deque.Tpo -c -o ut-ut_cstl_deque.obj `if test -f 'ut_cstl_deque.c'; then $(CYGPATH_W) 'ut_cstl_deque.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_deque.Tpo $(DEPDIR)/ut-ut_cstl_deque.Po
-#	source='ut_cstl_deque.c' object='ut-ut_cstl_deque.obj' libtool=no \
+libcstl_ut-ut_cstl_deque.obj: ut_cstl_deque.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_deque.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_deque.Tpo -c -o libcstl_ut-ut_cstl_deque.obj `if test -f 'ut_cstl_deque.c'; then $(CYGPATH_W) 'ut_cstl_deque.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_deque.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_deque.Po
+#	source='ut_cstl_deque.c' object='libcstl_ut-ut_cstl_deque.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_deque.obj `if test -f 'ut_cstl_deque.c'; then $(CYGPATH_W) 'ut_cstl_deque.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_deque.obj `if test -f 'ut_cstl_deque.c'; then $(CYGPATH_W) 'ut_cstl_deque.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_deque.c'; fi`
 
-ut-ut_cstl_slist_iterator.o: ut_cstl_slist_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_iterator.Tpo -c -o ut-ut_cstl_slist_iterator.o `test -f 'ut_cstl_slist_iterator.c' || echo '$(srcdir)/'`ut_cstl_slist_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_iterator.Tpo $(DEPDIR)/ut-ut_cstl_slist_iterator.Po
-#	source='ut_cstl_slist_iterator.c' object='ut-ut_cstl_slist_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_slist_iterator.o: ut_cstl_slist_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_slist_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_slist_iterator.Tpo -c -o libcstl_ut-ut_cstl_slist_iterator.o `test -f 'ut_cstl_slist_iterator.c' || echo '$(srcdir)/'`ut_cstl_slist_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_slist_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_slist_iterator.Po
+#	source='ut_cstl_slist_iterator.c' object='libcstl_ut-ut_cstl_slist_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_iterator.o `test -f 'ut_cstl_slist_iterator.c' || echo '$(srcdir)/'`ut_cstl_slist_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_slist_iterator.o `test -f 'ut_cstl_slist_iterator.c' || echo '$(srcdir)/'`ut_cstl_slist_iterator.c
 
-ut-ut_cstl_slist_iterator.obj: ut_cstl_slist_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_iterator.Tpo -c -o ut-ut_cstl_slist_iterator.obj `if test -f 'ut_cstl_slist_iterator.c'; then $(CYGPATH_W) 'ut_cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_iterator.Tpo $(DEPDIR)/ut-ut_cstl_slist_iterator.Po
-#	source='ut_cstl_slist_iterator.c' object='ut-ut_cstl_slist_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_slist_iterator.obj: ut_cstl_slist_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_slist_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_slist_iterator.Tpo -c -o libcstl_ut-ut_cstl_slist_iterator.obj `if test -f 'ut_cstl_slist_iterator.c'; then $(CYGPATH_W) 'ut_cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_slist_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_slist_iterator.Po
+#	source='ut_cstl_slist_iterator.c' object='libcstl_ut-ut_cstl_slist_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_iterator.obj `if test -f 'ut_cstl_slist_iterator.c'; then $(CYGPATH_W) 'ut_cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_slist_iterator.obj `if test -f 'ut_cstl_slist_iterator.c'; then $(CYGPATH_W) 'ut_cstl_slist_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_iterator.c'; fi`
 
-ut-ut_cstl_slist_aux.o: ut_cstl_slist_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_aux.Tpo -c -o ut-ut_cstl_slist_aux.o `test -f 'ut_cstl_slist_aux.c' || echo '$(srcdir)/'`ut_cstl_slist_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_aux.Tpo $(DEPDIR)/ut-ut_cstl_slist_aux.Po
-#	source='ut_cstl_slist_aux.c' object='ut-ut_cstl_slist_aux.o' libtool=no \
+libcstl_ut-ut_cstl_slist_aux.o: ut_cstl_slist_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_slist_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_slist_aux.Tpo -c -o libcstl_ut-ut_cstl_slist_aux.o `test -f 'ut_cstl_slist_aux.c' || echo '$(srcdir)/'`ut_cstl_slist_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_slist_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_slist_aux.Po
+#	source='ut_cstl_slist_aux.c' object='libcstl_ut-ut_cstl_slist_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_aux.o `test -f 'ut_cstl_slist_aux.c' || echo '$(srcdir)/'`ut_cstl_slist_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_slist_aux.o `test -f 'ut_cstl_slist_aux.c' || echo '$(srcdir)/'`ut_cstl_slist_aux.c
 
-ut-ut_cstl_slist_aux.obj: ut_cstl_slist_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_aux.Tpo -c -o ut-ut_cstl_slist_aux.obj `if test -f 'ut_cstl_slist_aux.c'; then $(CYGPATH_W) 'ut_cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_aux.Tpo $(DEPDIR)/ut-ut_cstl_slist_aux.Po
-#	source='ut_cstl_slist_aux.c' object='ut-ut_cstl_slist_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_slist_aux.obj: ut_cstl_slist_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_slist_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_slist_aux.Tpo -c -o libcstl_ut-ut_cstl_slist_aux.obj `if test -f 'ut_cstl_slist_aux.c'; then $(CYGPATH_W) 'ut_cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_slist_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_slist_aux.Po
+#	source='ut_cstl_slist_aux.c' object='libcstl_ut-ut_cstl_slist_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_aux.obj `if test -f 'ut_cstl_slist_aux.c'; then $(CYGPATH_W) 'ut_cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_slist_aux.obj `if test -f 'ut_cstl_slist_aux.c'; then $(CYGPATH_W) 'ut_cstl_slist_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_aux.c'; fi`
 
-ut-ut_cstl_slist_private.o: ut_cstl_slist_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_private.Tpo -c -o ut-ut_cstl_slist_private.o `test -f 'ut_cstl_slist_private.c' || echo '$(srcdir)/'`ut_cstl_slist_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_private.Tpo $(DEPDIR)/ut-ut_cstl_slist_private.Po
-#	source='ut_cstl_slist_private.c' object='ut-ut_cstl_slist_private.o' libtool=no \
+libcstl_ut-ut_cstl_slist_private.o: ut_cstl_slist_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_slist_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_slist_private.Tpo -c -o libcstl_ut-ut_cstl_slist_private.o `test -f 'ut_cstl_slist_private.c' || echo '$(srcdir)/'`ut_cstl_slist_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_slist_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_slist_private.Po
+#	source='ut_cstl_slist_private.c' object='libcstl_ut-ut_cstl_slist_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_private.o `test -f 'ut_cstl_slist_private.c' || echo '$(srcdir)/'`ut_cstl_slist_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_slist_private.o `test -f 'ut_cstl_slist_private.c' || echo '$(srcdir)/'`ut_cstl_slist_private.c
 
-ut-ut_cstl_slist_private.obj: ut_cstl_slist_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist_private.Tpo -c -o ut-ut_cstl_slist_private.obj `if test -f 'ut_cstl_slist_private.c'; then $(CYGPATH_W) 'ut_cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist_private.Tpo $(DEPDIR)/ut-ut_cstl_slist_private.Po
-#	source='ut_cstl_slist_private.c' object='ut-ut_cstl_slist_private.obj' libtool=no \
+libcstl_ut-ut_cstl_slist_private.obj: ut_cstl_slist_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_slist_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_slist_private.Tpo -c -o libcstl_ut-ut_cstl_slist_private.obj `if test -f 'ut_cstl_slist_private.c'; then $(CYGPATH_W) 'ut_cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_slist_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_slist_private.Po
+#	source='ut_cstl_slist_private.c' object='libcstl_ut-ut_cstl_slist_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist_private.obj `if test -f 'ut_cstl_slist_private.c'; then $(CYGPATH_W) 'ut_cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_slist_private.obj `if test -f 'ut_cstl_slist_private.c'; then $(CYGPATH_W) 'ut_cstl_slist_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist_private.c'; fi`
 
-ut-ut_cstl_slist.o: ut_cstl_slist.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist.Tpo -c -o ut-ut_cstl_slist.o `test -f 'ut_cstl_slist.c' || echo '$(srcdir)/'`ut_cstl_slist.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist.Tpo $(DEPDIR)/ut-ut_cstl_slist.Po
-#	source='ut_cstl_slist.c' object='ut-ut_cstl_slist.o' libtool=no \
+libcstl_ut-ut_cstl_slist.o: ut_cstl_slist.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_slist.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_slist.Tpo -c -o libcstl_ut-ut_cstl_slist.o `test -f 'ut_cstl_slist.c' || echo '$(srcdir)/'`ut_cstl_slist.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_slist.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_slist.Po
+#	source='ut_cstl_slist.c' object='libcstl_ut-ut_cstl_slist.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist.o `test -f 'ut_cstl_slist.c' || echo '$(srcdir)/'`ut_cstl_slist.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_slist.o `test -f 'ut_cstl_slist.c' || echo '$(srcdir)/'`ut_cstl_slist.c
 
-ut-ut_cstl_slist.obj: ut_cstl_slist.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_slist.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_slist.Tpo -c -o ut-ut_cstl_slist.obj `if test -f 'ut_cstl_slist.c'; then $(CYGPATH_W) 'ut_cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_slist.Tpo $(DEPDIR)/ut-ut_cstl_slist.Po
-#	source='ut_cstl_slist.c' object='ut-ut_cstl_slist.obj' libtool=no \
+libcstl_ut-ut_cstl_slist.obj: ut_cstl_slist.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_slist.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_slist.Tpo -c -o libcstl_ut-ut_cstl_slist.obj `if test -f 'ut_cstl_slist.c'; then $(CYGPATH_W) 'ut_cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_slist.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_slist.Po
+#	source='ut_cstl_slist.c' object='libcstl_ut-ut_cstl_slist.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_slist.obj `if test -f 'ut_cstl_slist.c'; then $(CYGPATH_W) 'ut_cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_slist.obj `if test -f 'ut_cstl_slist.c'; then $(CYGPATH_W) 'ut_cstl_slist.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_slist.c'; fi`
 
-ut-ut_cstl_stack_private.o: ut_cstl_stack_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_stack_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_stack_private.Tpo -c -o ut-ut_cstl_stack_private.o `test -f 'ut_cstl_stack_private.c' || echo '$(srcdir)/'`ut_cstl_stack_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_stack_private.Tpo $(DEPDIR)/ut-ut_cstl_stack_private.Po
-#	source='ut_cstl_stack_private.c' object='ut-ut_cstl_stack_private.o' libtool=no \
+libcstl_ut-ut_cstl_stack_private.o: ut_cstl_stack_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_stack_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_stack_private.Tpo -c -o libcstl_ut-ut_cstl_stack_private.o `test -f 'ut_cstl_stack_private.c' || echo '$(srcdir)/'`ut_cstl_stack_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_stack_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_stack_private.Po
+#	source='ut_cstl_stack_private.c' object='libcstl_ut-ut_cstl_stack_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_stack_private.o `test -f 'ut_cstl_stack_private.c' || echo '$(srcdir)/'`ut_cstl_stack_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_stack_private.o `test -f 'ut_cstl_stack_private.c' || echo '$(srcdir)/'`ut_cstl_stack_private.c
 
-ut-ut_cstl_stack_private.obj: ut_cstl_stack_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_stack_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_stack_private.Tpo -c -o ut-ut_cstl_stack_private.obj `if test -f 'ut_cstl_stack_private.c'; then $(CYGPATH_W) 'ut_cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_stack_private.Tpo $(DEPDIR)/ut-ut_cstl_stack_private.Po
-#	source='ut_cstl_stack_private.c' object='ut-ut_cstl_stack_private.obj' libtool=no \
+libcstl_ut-ut_cstl_stack_private.obj: ut_cstl_stack_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_stack_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_stack_private.Tpo -c -o libcstl_ut-ut_cstl_stack_private.obj `if test -f 'ut_cstl_stack_private.c'; then $(CYGPATH_W) 'ut_cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_stack_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_stack_private.Po
+#	source='ut_cstl_stack_private.c' object='libcstl_ut-ut_cstl_stack_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_stack_private.obj `if test -f 'ut_cstl_stack_private.c'; then $(CYGPATH_W) 'ut_cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_stack_private.obj `if test -f 'ut_cstl_stack_private.c'; then $(CYGPATH_W) 'ut_cstl_stack_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack_private.c'; fi`
 
-ut-ut_cstl_stack.o: ut_cstl_stack.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_stack.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_stack.Tpo -c -o ut-ut_cstl_stack.o `test -f 'ut_cstl_stack.c' || echo '$(srcdir)/'`ut_cstl_stack.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_stack.Tpo $(DEPDIR)/ut-ut_cstl_stack.Po
-#	source='ut_cstl_stack.c' object='ut-ut_cstl_stack.o' libtool=no \
+libcstl_ut-ut_cstl_stack.o: ut_cstl_stack.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_stack.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_stack.Tpo -c -o libcstl_ut-ut_cstl_stack.o `test -f 'ut_cstl_stack.c' || echo '$(srcdir)/'`ut_cstl_stack.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_stack.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_stack.Po
+#	source='ut_cstl_stack.c' object='libcstl_ut-ut_cstl_stack.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_stack.o `test -f 'ut_cstl_stack.c' || echo '$(srcdir)/'`ut_cstl_stack.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_stack.o `test -f 'ut_cstl_stack.c' || echo '$(srcdir)/'`ut_cstl_stack.c
 
-ut-ut_cstl_stack.obj: ut_cstl_stack.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_stack.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_stack.Tpo -c -o ut-ut_cstl_stack.obj `if test -f 'ut_cstl_stack.c'; then $(CYGPATH_W) 'ut_cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_stack.Tpo $(DEPDIR)/ut-ut_cstl_stack.Po
-#	source='ut_cstl_stack.c' object='ut-ut_cstl_stack.obj' libtool=no \
+libcstl_ut-ut_cstl_stack.obj: ut_cstl_stack.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_stack.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_stack.Tpo -c -o libcstl_ut-ut_cstl_stack.obj `if test -f 'ut_cstl_stack.c'; then $(CYGPATH_W) 'ut_cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_stack.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_stack.Po
+#	source='ut_cstl_stack.c' object='libcstl_ut-ut_cstl_stack.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_stack.obj `if test -f 'ut_cstl_stack.c'; then $(CYGPATH_W) 'ut_cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_stack.obj `if test -f 'ut_cstl_stack.c'; then $(CYGPATH_W) 'ut_cstl_stack.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_stack.c'; fi`
 
-ut-ut_cstl_queue_private.o: ut_cstl_queue_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_queue_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_queue_private.Tpo -c -o ut-ut_cstl_queue_private.o `test -f 'ut_cstl_queue_private.c' || echo '$(srcdir)/'`ut_cstl_queue_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_queue_private.Tpo $(DEPDIR)/ut-ut_cstl_queue_private.Po
-#	source='ut_cstl_queue_private.c' object='ut-ut_cstl_queue_private.o' libtool=no \
+libcstl_ut-ut_cstl_queue_private.o: ut_cstl_queue_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_queue_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_queue_private.Tpo -c -o libcstl_ut-ut_cstl_queue_private.o `test -f 'ut_cstl_queue_private.c' || echo '$(srcdir)/'`ut_cstl_queue_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_queue_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_queue_private.Po
+#	source='ut_cstl_queue_private.c' object='libcstl_ut-ut_cstl_queue_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_queue_private.o `test -f 'ut_cstl_queue_private.c' || echo '$(srcdir)/'`ut_cstl_queue_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_queue_private.o `test -f 'ut_cstl_queue_private.c' || echo '$(srcdir)/'`ut_cstl_queue_private.c
 
-ut-ut_cstl_queue_private.obj: ut_cstl_queue_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_queue_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_queue_private.Tpo -c -o ut-ut_cstl_queue_private.obj `if test -f 'ut_cstl_queue_private.c'; then $(CYGPATH_W) 'ut_cstl_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_queue_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_queue_private.Tpo $(DEPDIR)/ut-ut_cstl_queue_private.Po
-#	source='ut_cstl_queue_private.c' object='ut-ut_cstl_queue_private.obj' libtool=no \
+libcstl_ut-ut_cstl_queue_private.obj: ut_cstl_queue_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_queue_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_queue_private.Tpo -c -o libcstl_ut-ut_cstl_queue_private.obj `if test -f 'ut_cstl_queue_private.c'; then $(CYGPATH_W) 'ut_cstl_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_queue_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_queue_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_queue_private.Po
+#	source='ut_cstl_queue_private.c' object='libcstl_ut-ut_cstl_queue_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_queue_private.obj `if test -f 'ut_cstl_queue_private.c'; then $(CYGPATH_W) 'ut_cstl_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_queue_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_queue_private.obj `if test -f 'ut_cstl_queue_private.c'; then $(CYGPATH_W) 'ut_cstl_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_queue_private.c'; fi`
 
-ut-ut_cstl_queue.o: ut_cstl_queue.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_queue.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_queue.Tpo -c -o ut-ut_cstl_queue.o `test -f 'ut_cstl_queue.c' || echo '$(srcdir)/'`ut_cstl_queue.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_queue.Tpo $(DEPDIR)/ut-ut_cstl_queue.Po
-#	source='ut_cstl_queue.c' object='ut-ut_cstl_queue.o' libtool=no \
+libcstl_ut-ut_cstl_queue.o: ut_cstl_queue.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_queue.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_queue.Tpo -c -o libcstl_ut-ut_cstl_queue.o `test -f 'ut_cstl_queue.c' || echo '$(srcdir)/'`ut_cstl_queue.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_queue.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_queue.Po
+#	source='ut_cstl_queue.c' object='libcstl_ut-ut_cstl_queue.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_queue.o `test -f 'ut_cstl_queue.c' || echo '$(srcdir)/'`ut_cstl_queue.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_queue.o `test -f 'ut_cstl_queue.c' || echo '$(srcdir)/'`ut_cstl_queue.c
 
-ut-ut_cstl_queue.obj: ut_cstl_queue.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_queue.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_queue.Tpo -c -o ut-ut_cstl_queue.obj `if test -f 'ut_cstl_queue.c'; then $(CYGPATH_W) 'ut_cstl_queue.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_queue.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_queue.Tpo $(DEPDIR)/ut-ut_cstl_queue.Po
-#	source='ut_cstl_queue.c' object='ut-ut_cstl_queue.obj' libtool=no \
+libcstl_ut-ut_cstl_queue.obj: ut_cstl_queue.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_queue.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_queue.Tpo -c -o libcstl_ut-ut_cstl_queue.obj `if test -f 'ut_cstl_queue.c'; then $(CYGPATH_W) 'ut_cstl_queue.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_queue.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_queue.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_queue.Po
+#	source='ut_cstl_queue.c' object='libcstl_ut-ut_cstl_queue.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_queue.obj `if test -f 'ut_cstl_queue.c'; then $(CYGPATH_W) 'ut_cstl_queue.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_queue.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_queue.obj `if test -f 'ut_cstl_queue.c'; then $(CYGPATH_W) 'ut_cstl_queue.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_queue.c'; fi`
 
-ut-ut_cstl_basic_string_iterator.o: ut_cstl_basic_string_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_basic_string_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_basic_string_iterator.Tpo -c -o ut-ut_cstl_basic_string_iterator.o `test -f 'ut_cstl_basic_string_iterator.c' || echo '$(srcdir)/'`ut_cstl_basic_string_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_basic_string_iterator.Tpo $(DEPDIR)/ut-ut_cstl_basic_string_iterator.Po
-#	source='ut_cstl_basic_string_iterator.c' object='ut-ut_cstl_basic_string_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_basic_string_iterator.o: ut_cstl_basic_string_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_basic_string_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_iterator.Tpo -c -o libcstl_ut-ut_cstl_basic_string_iterator.o `test -f 'ut_cstl_basic_string_iterator.c' || echo '$(srcdir)/'`ut_cstl_basic_string_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_iterator.Po
+#	source='ut_cstl_basic_string_iterator.c' object='libcstl_ut-ut_cstl_basic_string_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_basic_string_iterator.o `test -f 'ut_cstl_basic_string_iterator.c' || echo '$(srcdir)/'`ut_cstl_basic_string_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_basic_string_iterator.o `test -f 'ut_cstl_basic_string_iterator.c' || echo '$(srcdir)/'`ut_cstl_basic_string_iterator.c
 
-ut-ut_cstl_basic_string_iterator.obj: ut_cstl_basic_string_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_basic_string_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_basic_string_iterator.Tpo -c -o ut-ut_cstl_basic_string_iterator.obj `if test -f 'ut_cstl_basic_string_iterator.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_basic_string_iterator.Tpo $(DEPDIR)/ut-ut_cstl_basic_string_iterator.Po
-#	source='ut_cstl_basic_string_iterator.c' object='ut-ut_cstl_basic_string_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_basic_string_iterator.obj: ut_cstl_basic_string_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_basic_string_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_iterator.Tpo -c -o libcstl_ut-ut_cstl_basic_string_iterator.obj `if test -f 'ut_cstl_basic_string_iterator.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_iterator.Po
+#	source='ut_cstl_basic_string_iterator.c' object='libcstl_ut-ut_cstl_basic_string_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_basic_string_iterator.obj `if test -f 'ut_cstl_basic_string_iterator.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_basic_string_iterator.obj `if test -f 'ut_cstl_basic_string_iterator.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_iterator.c'; fi`
 
-ut-ut_cstl_basic_string_aux.o: ut_cstl_basic_string_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_basic_string_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_basic_string_aux.Tpo -c -o ut-ut_cstl_basic_string_aux.o `test -f 'ut_cstl_basic_string_aux.c' || echo '$(srcdir)/'`ut_cstl_basic_string_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_basic_string_aux.Tpo $(DEPDIR)/ut-ut_cstl_basic_string_aux.Po
-#	source='ut_cstl_basic_string_aux.c' object='ut-ut_cstl_basic_string_aux.o' libtool=no \
+libcstl_ut-ut_cstl_basic_string_aux.o: ut_cstl_basic_string_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_basic_string_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_aux.Tpo -c -o libcstl_ut-ut_cstl_basic_string_aux.o `test -f 'ut_cstl_basic_string_aux.c' || echo '$(srcdir)/'`ut_cstl_basic_string_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_aux.Po
+#	source='ut_cstl_basic_string_aux.c' object='libcstl_ut-ut_cstl_basic_string_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_basic_string_aux.o `test -f 'ut_cstl_basic_string_aux.c' || echo '$(srcdir)/'`ut_cstl_basic_string_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_basic_string_aux.o `test -f 'ut_cstl_basic_string_aux.c' || echo '$(srcdir)/'`ut_cstl_basic_string_aux.c
 
-ut-ut_cstl_basic_string_aux.obj: ut_cstl_basic_string_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_basic_string_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_basic_string_aux.Tpo -c -o ut-ut_cstl_basic_string_aux.obj `if test -f 'ut_cstl_basic_string_aux.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_basic_string_aux.Tpo $(DEPDIR)/ut-ut_cstl_basic_string_aux.Po
-#	source='ut_cstl_basic_string_aux.c' object='ut-ut_cstl_basic_string_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_basic_string_aux.obj: ut_cstl_basic_string_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_basic_string_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_aux.Tpo -c -o libcstl_ut-ut_cstl_basic_string_aux.obj `if test -f 'ut_cstl_basic_string_aux.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_aux.Po
+#	source='ut_cstl_basic_string_aux.c' object='libcstl_ut-ut_cstl_basic_string_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_basic_string_aux.obj `if test -f 'ut_cstl_basic_string_aux.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_basic_string_aux.obj `if test -f 'ut_cstl_basic_string_aux.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_aux.c'; fi`
 
-ut-ut_cstl_basic_string_private.o: ut_cstl_basic_string_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_basic_string_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_basic_string_private.Tpo -c -o ut-ut_cstl_basic_string_private.o `test -f 'ut_cstl_basic_string_private.c' || echo '$(srcdir)/'`ut_cstl_basic_string_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_basic_string_private.Tpo $(DEPDIR)/ut-ut_cstl_basic_string_private.Po
-#	source='ut_cstl_basic_string_private.c' object='ut-ut_cstl_basic_string_private.o' libtool=no \
+libcstl_ut-ut_cstl_basic_string_private.o: ut_cstl_basic_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_basic_string_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_private.Tpo -c -o libcstl_ut-ut_cstl_basic_string_private.o `test -f 'ut_cstl_basic_string_private.c' || echo '$(srcdir)/'`ut_cstl_basic_string_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_private.Po
+#	source='ut_cstl_basic_string_private.c' object='libcstl_ut-ut_cstl_basic_string_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_basic_string_private.o `test -f 'ut_cstl_basic_string_private.c' || echo '$(srcdir)/'`ut_cstl_basic_string_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_basic_string_private.o `test -f 'ut_cstl_basic_string_private.c' || echo '$(srcdir)/'`ut_cstl_basic_string_private.c
 
-ut-ut_cstl_basic_string_private.obj: ut_cstl_basic_string_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_basic_string_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_basic_string_private.Tpo -c -o ut-ut_cstl_basic_string_private.obj `if test -f 'ut_cstl_basic_string_private.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_basic_string_private.Tpo $(DEPDIR)/ut-ut_cstl_basic_string_private.Po
-#	source='ut_cstl_basic_string_private.c' object='ut-ut_cstl_basic_string_private.obj' libtool=no \
+libcstl_ut-ut_cstl_basic_string_private.obj: ut_cstl_basic_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_basic_string_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_private.Tpo -c -o libcstl_ut-ut_cstl_basic_string_private.obj `if test -f 'ut_cstl_basic_string_private.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_basic_string_private.Po
+#	source='ut_cstl_basic_string_private.c' object='libcstl_ut-ut_cstl_basic_string_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_basic_string_private.obj `if test -f 'ut_cstl_basic_string_private.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_basic_string_private.obj `if test -f 'ut_cstl_basic_string_private.c'; then $(CYGPATH_W) 'ut_cstl_basic_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string_private.c'; fi`
 
-ut-ut_cstl_basic_string.o: ut_cstl_basic_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_basic_string.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_basic_string.Tpo -c -o ut-ut_cstl_basic_string.o `test -f 'ut_cstl_basic_string.c' || echo '$(srcdir)/'`ut_cstl_basic_string.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_basic_string.Tpo $(DEPDIR)/ut-ut_cstl_basic_string.Po
-#	source='ut_cstl_basic_string.c' object='ut-ut_cstl_basic_string.o' libtool=no \
+libcstl_ut-ut_cstl_basic_string.o: ut_cstl_basic_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_basic_string.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_basic_string.Tpo -c -o libcstl_ut-ut_cstl_basic_string.o `test -f 'ut_cstl_basic_string.c' || echo '$(srcdir)/'`ut_cstl_basic_string.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_basic_string.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_basic_string.Po
+#	source='ut_cstl_basic_string.c' object='libcstl_ut-ut_cstl_basic_string.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_basic_string.o `test -f 'ut_cstl_basic_string.c' || echo '$(srcdir)/'`ut_cstl_basic_string.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_basic_string.o `test -f 'ut_cstl_basic_string.c' || echo '$(srcdir)/'`ut_cstl_basic_string.c
 
-ut-ut_cstl_basic_string.obj: ut_cstl_basic_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_basic_string.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_basic_string.Tpo -c -o ut-ut_cstl_basic_string.obj `if test -f 'ut_cstl_basic_string.c'; then $(CYGPATH_W) 'ut_cstl_basic_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_basic_string.Tpo $(DEPDIR)/ut-ut_cstl_basic_string.Po
-#	source='ut_cstl_basic_string.c' object='ut-ut_cstl_basic_string.obj' libtool=no \
+libcstl_ut-ut_cstl_basic_string.obj: ut_cstl_basic_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_basic_string.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_basic_string.Tpo -c -o libcstl_ut-ut_cstl_basic_string.obj `if test -f 'ut_cstl_basic_string.c'; then $(CYGPATH_W) 'ut_cstl_basic_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_basic_string.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_basic_string.Po
+#	source='ut_cstl_basic_string.c' object='libcstl_ut-ut_cstl_basic_string.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_basic_string.obj `if test -f 'ut_cstl_basic_string.c'; then $(CYGPATH_W) 'ut_cstl_basic_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_basic_string.obj `if test -f 'ut_cstl_basic_string.c'; then $(CYGPATH_W) 'ut_cstl_basic_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_basic_string.c'; fi`
 
-ut-ut_cstl_string_private.o: ut_cstl_string_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_string_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_string_private.Tpo -c -o ut-ut_cstl_string_private.o `test -f 'ut_cstl_string_private.c' || echo '$(srcdir)/'`ut_cstl_string_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_string_private.Tpo $(DEPDIR)/ut-ut_cstl_string_private.Po
-#	source='ut_cstl_string_private.c' object='ut-ut_cstl_string_private.o' libtool=no \
+libcstl_ut-ut_cstl_string_private.o: ut_cstl_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_string_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_string_private.Tpo -c -o libcstl_ut-ut_cstl_string_private.o `test -f 'ut_cstl_string_private.c' || echo '$(srcdir)/'`ut_cstl_string_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_string_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_string_private.Po
+#	source='ut_cstl_string_private.c' object='libcstl_ut-ut_cstl_string_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_string_private.o `test -f 'ut_cstl_string_private.c' || echo '$(srcdir)/'`ut_cstl_string_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_string_private.o `test -f 'ut_cstl_string_private.c' || echo '$(srcdir)/'`ut_cstl_string_private.c
 
-ut-ut_cstl_string_private.obj: ut_cstl_string_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_string_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_string_private.Tpo -c -o ut-ut_cstl_string_private.obj `if test -f 'ut_cstl_string_private.c'; then $(CYGPATH_W) 'ut_cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_string_private.Tpo $(DEPDIR)/ut-ut_cstl_string_private.Po
-#	source='ut_cstl_string_private.c' object='ut-ut_cstl_string_private.obj' libtool=no \
+libcstl_ut-ut_cstl_string_private.obj: ut_cstl_string_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_string_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_string_private.Tpo -c -o libcstl_ut-ut_cstl_string_private.obj `if test -f 'ut_cstl_string_private.c'; then $(CYGPATH_W) 'ut_cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_string_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_string_private.Po
+#	source='ut_cstl_string_private.c' object='libcstl_ut-ut_cstl_string_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_string_private.obj `if test -f 'ut_cstl_string_private.c'; then $(CYGPATH_W) 'ut_cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_string_private.obj `if test -f 'ut_cstl_string_private.c'; then $(CYGPATH_W) 'ut_cstl_string_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string_private.c'; fi`
 
-ut-ut_cstl_string.o: ut_cstl_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_string.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_string.Tpo -c -o ut-ut_cstl_string.o `test -f 'ut_cstl_string.c' || echo '$(srcdir)/'`ut_cstl_string.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_string.Tpo $(DEPDIR)/ut-ut_cstl_string.Po
-#	source='ut_cstl_string.c' object='ut-ut_cstl_string.o' libtool=no \
+libcstl_ut-ut_cstl_string.o: ut_cstl_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_string.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_string.Tpo -c -o libcstl_ut-ut_cstl_string.o `test -f 'ut_cstl_string.c' || echo '$(srcdir)/'`ut_cstl_string.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_string.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_string.Po
+#	source='ut_cstl_string.c' object='libcstl_ut-ut_cstl_string.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_string.o `test -f 'ut_cstl_string.c' || echo '$(srcdir)/'`ut_cstl_string.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_string.o `test -f 'ut_cstl_string.c' || echo '$(srcdir)/'`ut_cstl_string.c
 
-ut-ut_cstl_string.obj: ut_cstl_string.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_string.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_string.Tpo -c -o ut-ut_cstl_string.obj `if test -f 'ut_cstl_string.c'; then $(CYGPATH_W) 'ut_cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_string.Tpo $(DEPDIR)/ut-ut_cstl_string.Po
-#	source='ut_cstl_string.c' object='ut-ut_cstl_string.obj' libtool=no \
+libcstl_ut-ut_cstl_string.obj: ut_cstl_string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_string.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_string.Tpo -c -o libcstl_ut-ut_cstl_string.obj `if test -f 'ut_cstl_string.c'; then $(CYGPATH_W) 'ut_cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_string.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_string.Po
+#	source='ut_cstl_string.c' object='libcstl_ut-ut_cstl_string.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_string.obj `if test -f 'ut_cstl_string.c'; then $(CYGPATH_W) 'ut_cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_string.obj `if test -f 'ut_cstl_string.c'; then $(CYGPATH_W) 'ut_cstl_string.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_string.c'; fi`
 
-ut-ut_cstl_avl_tree_aux.o: ut_cstl_avl_tree_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree_aux.Tpo -c -o ut-ut_cstl_avl_tree_aux.o `test -f 'ut_cstl_avl_tree_aux.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree_aux.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree_aux.Po
-#	source='ut_cstl_avl_tree_aux.c' object='ut-ut_cstl_avl_tree_aux.o' libtool=no \
+libcstl_ut-ut_cstl_avl_tree_aux.o: ut_cstl_avl_tree_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_avl_tree_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_aux.Tpo -c -o libcstl_ut-ut_cstl_avl_tree_aux.o `test -f 'ut_cstl_avl_tree_aux.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_aux.Po
+#	source='ut_cstl_avl_tree_aux.c' object='libcstl_ut-ut_cstl_avl_tree_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree_aux.o `test -f 'ut_cstl_avl_tree_aux.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_avl_tree_aux.o `test -f 'ut_cstl_avl_tree_aux.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_aux.c
 
-ut-ut_cstl_avl_tree_aux.obj: ut_cstl_avl_tree_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree_aux.Tpo -c -o ut-ut_cstl_avl_tree_aux.obj `if test -f 'ut_cstl_avl_tree_aux.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree_aux.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree_aux.Po
-#	source='ut_cstl_avl_tree_aux.c' object='ut-ut_cstl_avl_tree_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_avl_tree_aux.obj: ut_cstl_avl_tree_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_avl_tree_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_aux.Tpo -c -o libcstl_ut-ut_cstl_avl_tree_aux.obj `if test -f 'ut_cstl_avl_tree_aux.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_aux.Po
+#	source='ut_cstl_avl_tree_aux.c' object='libcstl_ut-ut_cstl_avl_tree_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree_aux.obj `if test -f 'ut_cstl_avl_tree_aux.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_avl_tree_aux.obj `if test -f 'ut_cstl_avl_tree_aux.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_aux.c'; fi`
 
-ut-ut_cstl_avl_tree_private.o: ut_cstl_avl_tree_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree_private.Tpo -c -o ut-ut_cstl_avl_tree_private.o `test -f 'ut_cstl_avl_tree_private.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree_private.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree_private.Po
-#	source='ut_cstl_avl_tree_private.c' object='ut-ut_cstl_avl_tree_private.o' libtool=no \
+libcstl_ut-ut_cstl_avl_tree_private.o: ut_cstl_avl_tree_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_avl_tree_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_private.Tpo -c -o libcstl_ut-ut_cstl_avl_tree_private.o `test -f 'ut_cstl_avl_tree_private.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_private.Po
+#	source='ut_cstl_avl_tree_private.c' object='libcstl_ut-ut_cstl_avl_tree_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree_private.o `test -f 'ut_cstl_avl_tree_private.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_avl_tree_private.o `test -f 'ut_cstl_avl_tree_private.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_private.c
 
-ut-ut_cstl_avl_tree_private.obj: ut_cstl_avl_tree_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree_private.Tpo -c -o ut-ut_cstl_avl_tree_private.obj `if test -f 'ut_cstl_avl_tree_private.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree_private.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree_private.Po
-#	source='ut_cstl_avl_tree_private.c' object='ut-ut_cstl_avl_tree_private.obj' libtool=no \
+libcstl_ut-ut_cstl_avl_tree_private.obj: ut_cstl_avl_tree_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_avl_tree_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_private.Tpo -c -o libcstl_ut-ut_cstl_avl_tree_private.obj `if test -f 'ut_cstl_avl_tree_private.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_private.Po
+#	source='ut_cstl_avl_tree_private.c' object='libcstl_ut-ut_cstl_avl_tree_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree_private.obj `if test -f 'ut_cstl_avl_tree_private.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_avl_tree_private.obj `if test -f 'ut_cstl_avl_tree_private.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_private.c'; fi`
 
-ut-ut_cstl_avl_tree_iterator.o: ut_cstl_avl_tree_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree_iterator.Tpo -c -o ut-ut_cstl_avl_tree_iterator.o `test -f 'ut_cstl_avl_tree_iterator.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree_iterator.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree_iterator.Po
-#	source='ut_cstl_avl_tree_iterator.c' object='ut-ut_cstl_avl_tree_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_avl_tree_iterator.o: ut_cstl_avl_tree_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_avl_tree_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_iterator.Tpo -c -o libcstl_ut-ut_cstl_avl_tree_iterator.o `test -f 'ut_cstl_avl_tree_iterator.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_iterator.Po
+#	source='ut_cstl_avl_tree_iterator.c' object='libcstl_ut-ut_cstl_avl_tree_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree_iterator.o `test -f 'ut_cstl_avl_tree_iterator.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_avl_tree_iterator.o `test -f 'ut_cstl_avl_tree_iterator.c' || echo '$(srcdir)/'`ut_cstl_avl_tree_iterator.c
 
-ut-ut_cstl_avl_tree_iterator.obj: ut_cstl_avl_tree_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree_iterator.Tpo -c -o ut-ut_cstl_avl_tree_iterator.obj `if test -f 'ut_cstl_avl_tree_iterator.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree_iterator.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree_iterator.Po
-#	source='ut_cstl_avl_tree_iterator.c' object='ut-ut_cstl_avl_tree_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_avl_tree_iterator.obj: ut_cstl_avl_tree_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_avl_tree_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_iterator.Tpo -c -o libcstl_ut-ut_cstl_avl_tree_iterator.obj `if test -f 'ut_cstl_avl_tree_iterator.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree_iterator.Po
+#	source='ut_cstl_avl_tree_iterator.c' object='libcstl_ut-ut_cstl_avl_tree_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree_iterator.obj `if test -f 'ut_cstl_avl_tree_iterator.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_avl_tree_iterator.obj `if test -f 'ut_cstl_avl_tree_iterator.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree_iterator.c'; fi`
 
-ut-ut_cstl_avl_tree.o: ut_cstl_avl_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree.Tpo -c -o ut-ut_cstl_avl_tree.o `test -f 'ut_cstl_avl_tree.c' || echo '$(srcdir)/'`ut_cstl_avl_tree.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree.Po
-#	source='ut_cstl_avl_tree.c' object='ut-ut_cstl_avl_tree.o' libtool=no \
+libcstl_ut-ut_cstl_avl_tree.o: ut_cstl_avl_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_avl_tree.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree.Tpo -c -o libcstl_ut-ut_cstl_avl_tree.o `test -f 'ut_cstl_avl_tree.c' || echo '$(srcdir)/'`ut_cstl_avl_tree.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree.Po
+#	source='ut_cstl_avl_tree.c' object='libcstl_ut-ut_cstl_avl_tree.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree.o `test -f 'ut_cstl_avl_tree.c' || echo '$(srcdir)/'`ut_cstl_avl_tree.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_avl_tree.o `test -f 'ut_cstl_avl_tree.c' || echo '$(srcdir)/'`ut_cstl_avl_tree.c
 
-ut-ut_cstl_avl_tree.obj: ut_cstl_avl_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_avl_tree.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_avl_tree.Tpo -c -o ut-ut_cstl_avl_tree.obj `if test -f 'ut_cstl_avl_tree.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_avl_tree.Tpo $(DEPDIR)/ut-ut_cstl_avl_tree.Po
-#	source='ut_cstl_avl_tree.c' object='ut-ut_cstl_avl_tree.obj' libtool=no \
+libcstl_ut-ut_cstl_avl_tree.obj: ut_cstl_avl_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_avl_tree.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree.Tpo -c -o libcstl_ut-ut_cstl_avl_tree.obj `if test -f 'ut_cstl_avl_tree.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_avl_tree.Po
+#	source='ut_cstl_avl_tree.c' object='libcstl_ut-ut_cstl_avl_tree.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_avl_tree.obj `if test -f 'ut_cstl_avl_tree.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_avl_tree.obj `if test -f 'ut_cstl_avl_tree.c'; then $(CYGPATH_W) 'ut_cstl_avl_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_avl_tree.c'; fi`
 
-ut-ut_cstl_rb_tree_aux.o: ut_cstl_rb_tree_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_rb_tree_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_rb_tree_aux.Tpo -c -o ut-ut_cstl_rb_tree_aux.o `test -f 'ut_cstl_rb_tree_aux.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_rb_tree_aux.Tpo $(DEPDIR)/ut-ut_cstl_rb_tree_aux.Po
-#	source='ut_cstl_rb_tree_aux.c' object='ut-ut_cstl_rb_tree_aux.o' libtool=no \
+libcstl_ut-ut_cstl_rb_tree_aux.o: ut_cstl_rb_tree_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_rb_tree_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_aux.Tpo -c -o libcstl_ut-ut_cstl_rb_tree_aux.o `test -f 'ut_cstl_rb_tree_aux.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_aux.Po
+#	source='ut_cstl_rb_tree_aux.c' object='libcstl_ut-ut_cstl_rb_tree_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_rb_tree_aux.o `test -f 'ut_cstl_rb_tree_aux.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_rb_tree_aux.o `test -f 'ut_cstl_rb_tree_aux.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_aux.c
 
-ut-ut_cstl_rb_tree_aux.obj: ut_cstl_rb_tree_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_rb_tree_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_rb_tree_aux.Tpo -c -o ut-ut_cstl_rb_tree_aux.obj `if test -f 'ut_cstl_rb_tree_aux.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_rb_tree_aux.Tpo $(DEPDIR)/ut-ut_cstl_rb_tree_aux.Po
-#	source='ut_cstl_rb_tree_aux.c' object='ut-ut_cstl_rb_tree_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_rb_tree_aux.obj: ut_cstl_rb_tree_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_rb_tree_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_aux.Tpo -c -o libcstl_ut-ut_cstl_rb_tree_aux.obj `if test -f 'ut_cstl_rb_tree_aux.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_aux.Po
+#	source='ut_cstl_rb_tree_aux.c' object='libcstl_ut-ut_cstl_rb_tree_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_rb_tree_aux.obj `if test -f 'ut_cstl_rb_tree_aux.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_rb_tree_aux.obj `if test -f 'ut_cstl_rb_tree_aux.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_aux.c'; fi`
 
-ut-ut_cstl_rb_tree_private.o: ut_cstl_rb_tree_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_rb_tree_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_rb_tree_private.Tpo -c -o ut-ut_cstl_rb_tree_private.o `test -f 'ut_cstl_rb_tree_private.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_rb_tree_private.Tpo $(DEPDIR)/ut-ut_cstl_rb_tree_private.Po
-#	source='ut_cstl_rb_tree_private.c' object='ut-ut_cstl_rb_tree_private.o' libtool=no \
+libcstl_ut-ut_cstl_rb_tree_private.o: ut_cstl_rb_tree_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_rb_tree_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_private.Tpo -c -o libcstl_ut-ut_cstl_rb_tree_private.o `test -f 'ut_cstl_rb_tree_private.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_private.Po
+#	source='ut_cstl_rb_tree_private.c' object='libcstl_ut-ut_cstl_rb_tree_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_rb_tree_private.o `test -f 'ut_cstl_rb_tree_private.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_rb_tree_private.o `test -f 'ut_cstl_rb_tree_private.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_private.c
 
-ut-ut_cstl_rb_tree_private.obj: ut_cstl_rb_tree_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_rb_tree_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_rb_tree_private.Tpo -c -o ut-ut_cstl_rb_tree_private.obj `if test -f 'ut_cstl_rb_tree_private.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_rb_tree_private.Tpo $(DEPDIR)/ut-ut_cstl_rb_tree_private.Po
-#	source='ut_cstl_rb_tree_private.c' object='ut-ut_cstl_rb_tree_private.obj' libtool=no \
+libcstl_ut-ut_cstl_rb_tree_private.obj: ut_cstl_rb_tree_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_rb_tree_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_private.Tpo -c -o libcstl_ut-ut_cstl_rb_tree_private.obj `if test -f 'ut_cstl_rb_tree_private.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_private.Po
+#	source='ut_cstl_rb_tree_private.c' object='libcstl_ut-ut_cstl_rb_tree_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_rb_tree_private.obj `if test -f 'ut_cstl_rb_tree_private.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_rb_tree_private.obj `if test -f 'ut_cstl_rb_tree_private.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_private.c'; fi`
 
-ut-ut_cstl_rb_tree_iterator.o: ut_cstl_rb_tree_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_rb_tree_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_rb_tree_iterator.Tpo -c -o ut-ut_cstl_rb_tree_iterator.o `test -f 'ut_cstl_rb_tree_iterator.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_rb_tree_iterator.Tpo $(DEPDIR)/ut-ut_cstl_rb_tree_iterator.Po
-#	source='ut_cstl_rb_tree_iterator.c' object='ut-ut_cstl_rb_tree_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_rb_tree_iterator.o: ut_cstl_rb_tree_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_rb_tree_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_iterator.Tpo -c -o libcstl_ut-ut_cstl_rb_tree_iterator.o `test -f 'ut_cstl_rb_tree_iterator.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_iterator.Po
+#	source='ut_cstl_rb_tree_iterator.c' object='libcstl_ut-ut_cstl_rb_tree_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_rb_tree_iterator.o `test -f 'ut_cstl_rb_tree_iterator.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_rb_tree_iterator.o `test -f 'ut_cstl_rb_tree_iterator.c' || echo '$(srcdir)/'`ut_cstl_rb_tree_iterator.c
 
-ut-ut_cstl_rb_tree_iterator.obj: ut_cstl_rb_tree_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_rb_tree_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_rb_tree_iterator.Tpo -c -o ut-ut_cstl_rb_tree_iterator.obj `if test -f 'ut_cstl_rb_tree_iterator.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_rb_tree_iterator.Tpo $(DEPDIR)/ut-ut_cstl_rb_tree_iterator.Po
-#	source='ut_cstl_rb_tree_iterator.c' object='ut-ut_cstl_rb_tree_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_rb_tree_iterator.obj: ut_cstl_rb_tree_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_rb_tree_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_iterator.Tpo -c -o libcstl_ut-ut_cstl_rb_tree_iterator.obj `if test -f 'ut_cstl_rb_tree_iterator.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree_iterator.Po
+#	source='ut_cstl_rb_tree_iterator.c' object='libcstl_ut-ut_cstl_rb_tree_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_rb_tree_iterator.obj `if test -f 'ut_cstl_rb_tree_iterator.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_rb_tree_iterator.obj `if test -f 'ut_cstl_rb_tree_iterator.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree_iterator.c'; fi`
 
-ut-ut_cstl_rb_tree.o: ut_cstl_rb_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_rb_tree.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_rb_tree.Tpo -c -o ut-ut_cstl_rb_tree.o `test -f 'ut_cstl_rb_tree.c' || echo '$(srcdir)/'`ut_cstl_rb_tree.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_rb_tree.Tpo $(DEPDIR)/ut-ut_cstl_rb_tree.Po
-#	source='ut_cstl_rb_tree.c' object='ut-ut_cstl_rb_tree.o' libtool=no \
+libcstl_ut-ut_cstl_rb_tree.o: ut_cstl_rb_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_rb_tree.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree.Tpo -c -o libcstl_ut-ut_cstl_rb_tree.o `test -f 'ut_cstl_rb_tree.c' || echo '$(srcdir)/'`ut_cstl_rb_tree.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree.Po
+#	source='ut_cstl_rb_tree.c' object='libcstl_ut-ut_cstl_rb_tree.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_rb_tree.o `test -f 'ut_cstl_rb_tree.c' || echo '$(srcdir)/'`ut_cstl_rb_tree.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_rb_tree.o `test -f 'ut_cstl_rb_tree.c' || echo '$(srcdir)/'`ut_cstl_rb_tree.c
 
-ut-ut_cstl_rb_tree.obj: ut_cstl_rb_tree.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_rb_tree.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_rb_tree.Tpo -c -o ut-ut_cstl_rb_tree.obj `if test -f 'ut_cstl_rb_tree.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_rb_tree.Tpo $(DEPDIR)/ut-ut_cstl_rb_tree.Po
-#	source='ut_cstl_rb_tree.c' object='ut-ut_cstl_rb_tree.obj' libtool=no \
+libcstl_ut-ut_cstl_rb_tree.obj: ut_cstl_rb_tree.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_rb_tree.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree.Tpo -c -o libcstl_ut-ut_cstl_rb_tree.obj `if test -f 'ut_cstl_rb_tree.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_rb_tree.Po
+#	source='ut_cstl_rb_tree.c' object='libcstl_ut-ut_cstl_rb_tree.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_rb_tree.obj `if test -f 'ut_cstl_rb_tree.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_rb_tree.obj `if test -f 'ut_cstl_rb_tree.c'; then $(CYGPATH_W) 'ut_cstl_rb_tree.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_rb_tree.c'; fi`
 
-ut-ut_cstl_set_aux.o: ut_cstl_set_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set_aux.Tpo -c -o ut-ut_cstl_set_aux.o `test -f 'ut_cstl_set_aux.c' || echo '$(srcdir)/'`ut_cstl_set_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_set_aux.Tpo $(DEPDIR)/ut-ut_cstl_set_aux.Po
-#	source='ut_cstl_set_aux.c' object='ut-ut_cstl_set_aux.o' libtool=no \
+libcstl_ut-ut_cstl_set_aux.o: ut_cstl_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_set_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_set_aux.Tpo -c -o libcstl_ut-ut_cstl_set_aux.o `test -f 'ut_cstl_set_aux.c' || echo '$(srcdir)/'`ut_cstl_set_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_set_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_set_aux.Po
+#	source='ut_cstl_set_aux.c' object='libcstl_ut-ut_cstl_set_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set_aux.o `test -f 'ut_cstl_set_aux.c' || echo '$(srcdir)/'`ut_cstl_set_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_set_aux.o `test -f 'ut_cstl_set_aux.c' || echo '$(srcdir)/'`ut_cstl_set_aux.c
 
-ut-ut_cstl_set_aux.obj: ut_cstl_set_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set_aux.Tpo -c -o ut-ut_cstl_set_aux.obj `if test -f 'ut_cstl_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_set_aux.Tpo $(DEPDIR)/ut-ut_cstl_set_aux.Po
-#	source='ut_cstl_set_aux.c' object='ut-ut_cstl_set_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_set_aux.obj: ut_cstl_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_set_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_set_aux.Tpo -c -o libcstl_ut-ut_cstl_set_aux.obj `if test -f 'ut_cstl_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_set_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_set_aux.Po
+#	source='ut_cstl_set_aux.c' object='libcstl_ut-ut_cstl_set_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set_aux.obj `if test -f 'ut_cstl_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_set_aux.obj `if test -f 'ut_cstl_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_aux.c'; fi`
 
-ut-ut_cstl_set_private.o: ut_cstl_set_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set_private.Tpo -c -o ut-ut_cstl_set_private.o `test -f 'ut_cstl_set_private.c' || echo '$(srcdir)/'`ut_cstl_set_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_set_private.Tpo $(DEPDIR)/ut-ut_cstl_set_private.Po
-#	source='ut_cstl_set_private.c' object='ut-ut_cstl_set_private.o' libtool=no \
+libcstl_ut-ut_cstl_set_private.o: ut_cstl_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_set_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_set_private.Tpo -c -o libcstl_ut-ut_cstl_set_private.o `test -f 'ut_cstl_set_private.c' || echo '$(srcdir)/'`ut_cstl_set_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_set_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_set_private.Po
+#	source='ut_cstl_set_private.c' object='libcstl_ut-ut_cstl_set_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set_private.o `test -f 'ut_cstl_set_private.c' || echo '$(srcdir)/'`ut_cstl_set_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_set_private.o `test -f 'ut_cstl_set_private.c' || echo '$(srcdir)/'`ut_cstl_set_private.c
 
-ut-ut_cstl_set_private.obj: ut_cstl_set_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set_private.Tpo -c -o ut-ut_cstl_set_private.obj `if test -f 'ut_cstl_set_private.c'; then $(CYGPATH_W) 'ut_cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_set_private.Tpo $(DEPDIR)/ut-ut_cstl_set_private.Po
-#	source='ut_cstl_set_private.c' object='ut-ut_cstl_set_private.obj' libtool=no \
+libcstl_ut-ut_cstl_set_private.obj: ut_cstl_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_set_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_set_private.Tpo -c -o libcstl_ut-ut_cstl_set_private.obj `if test -f 'ut_cstl_set_private.c'; then $(CYGPATH_W) 'ut_cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_set_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_set_private.Po
+#	source='ut_cstl_set_private.c' object='libcstl_ut-ut_cstl_set_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set_private.obj `if test -f 'ut_cstl_set_private.c'; then $(CYGPATH_W) 'ut_cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_set_private.obj `if test -f 'ut_cstl_set_private.c'; then $(CYGPATH_W) 'ut_cstl_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_private.c'; fi`
 
-ut-ut_cstl_set_iterator.o: ut_cstl_set_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set_iterator.Tpo -c -o ut-ut_cstl_set_iterator.o `test -f 'ut_cstl_set_iterator.c' || echo '$(srcdir)/'`ut_cstl_set_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_set_iterator.Tpo $(DEPDIR)/ut-ut_cstl_set_iterator.Po
-#	source='ut_cstl_set_iterator.c' object='ut-ut_cstl_set_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_set_iterator.o: ut_cstl_set_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_set_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_set_iterator.Tpo -c -o libcstl_ut-ut_cstl_set_iterator.o `test -f 'ut_cstl_set_iterator.c' || echo '$(srcdir)/'`ut_cstl_set_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_set_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_set_iterator.Po
+#	source='ut_cstl_set_iterator.c' object='libcstl_ut-ut_cstl_set_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set_iterator.o `test -f 'ut_cstl_set_iterator.c' || echo '$(srcdir)/'`ut_cstl_set_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_set_iterator.o `test -f 'ut_cstl_set_iterator.c' || echo '$(srcdir)/'`ut_cstl_set_iterator.c
 
-ut-ut_cstl_set_iterator.obj: ut_cstl_set_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set_iterator.Tpo -c -o ut-ut_cstl_set_iterator.obj `if test -f 'ut_cstl_set_iterator.c'; then $(CYGPATH_W) 'ut_cstl_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_set_iterator.Tpo $(DEPDIR)/ut-ut_cstl_set_iterator.Po
-#	source='ut_cstl_set_iterator.c' object='ut-ut_cstl_set_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_set_iterator.obj: ut_cstl_set_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_set_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_set_iterator.Tpo -c -o libcstl_ut-ut_cstl_set_iterator.obj `if test -f 'ut_cstl_set_iterator.c'; then $(CYGPATH_W) 'ut_cstl_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_set_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_set_iterator.Po
+#	source='ut_cstl_set_iterator.c' object='libcstl_ut-ut_cstl_set_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set_iterator.obj `if test -f 'ut_cstl_set_iterator.c'; then $(CYGPATH_W) 'ut_cstl_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_set_iterator.obj `if test -f 'ut_cstl_set_iterator.c'; then $(CYGPATH_W) 'ut_cstl_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set_iterator.c'; fi`
 
-ut-ut_cstl_set.o: ut_cstl_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set.Tpo -c -o ut-ut_cstl_set.o `test -f 'ut_cstl_set.c' || echo '$(srcdir)/'`ut_cstl_set.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_set.Tpo $(DEPDIR)/ut-ut_cstl_set.Po
-#	source='ut_cstl_set.c' object='ut-ut_cstl_set.o' libtool=no \
+libcstl_ut-ut_cstl_set.o: ut_cstl_set.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_set.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_set.Tpo -c -o libcstl_ut-ut_cstl_set.o `test -f 'ut_cstl_set.c' || echo '$(srcdir)/'`ut_cstl_set.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_set.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_set.Po
+#	source='ut_cstl_set.c' object='libcstl_ut-ut_cstl_set.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set.o `test -f 'ut_cstl_set.c' || echo '$(srcdir)/'`ut_cstl_set.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_set.o `test -f 'ut_cstl_set.c' || echo '$(srcdir)/'`ut_cstl_set.c
 
-ut-ut_cstl_set.obj: ut_cstl_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_set.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_set.Tpo -c -o ut-ut_cstl_set.obj `if test -f 'ut_cstl_set.c'; then $(CYGPATH_W) 'ut_cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_set.Tpo $(DEPDIR)/ut-ut_cstl_set.Po
-#	source='ut_cstl_set.c' object='ut-ut_cstl_set.obj' libtool=no \
+libcstl_ut-ut_cstl_set.obj: ut_cstl_set.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_set.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_set.Tpo -c -o libcstl_ut-ut_cstl_set.obj `if test -f 'ut_cstl_set.c'; then $(CYGPATH_W) 'ut_cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_set.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_set.Po
+#	source='ut_cstl_set.c' object='libcstl_ut-ut_cstl_set.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_set.obj `if test -f 'ut_cstl_set.c'; then $(CYGPATH_W) 'ut_cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_set.obj `if test -f 'ut_cstl_set.c'; then $(CYGPATH_W) 'ut_cstl_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_set.c'; fi`
 
-ut-ut_cstl_multiset_aux.o: ut_cstl_multiset_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset_aux.Tpo -c -o ut-ut_cstl_multiset_aux.o `test -f 'ut_cstl_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_multiset_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset_aux.Tpo $(DEPDIR)/ut-ut_cstl_multiset_aux.Po
-#	source='ut_cstl_multiset_aux.c' object='ut-ut_cstl_multiset_aux.o' libtool=no \
+libcstl_ut-ut_cstl_multiset_aux.o: ut_cstl_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multiset_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multiset_aux.Tpo -c -o libcstl_ut-ut_cstl_multiset_aux.o `test -f 'ut_cstl_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_multiset_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multiset_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multiset_aux.Po
+#	source='ut_cstl_multiset_aux.c' object='libcstl_ut-ut_cstl_multiset_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset_aux.o `test -f 'ut_cstl_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_multiset_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multiset_aux.o `test -f 'ut_cstl_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_multiset_aux.c
 
-ut-ut_cstl_multiset_aux.obj: ut_cstl_multiset_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset_aux.Tpo -c -o ut-ut_cstl_multiset_aux.obj `if test -f 'ut_cstl_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset_aux.Tpo $(DEPDIR)/ut-ut_cstl_multiset_aux.Po
-#	source='ut_cstl_multiset_aux.c' object='ut-ut_cstl_multiset_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_multiset_aux.obj: ut_cstl_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multiset_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multiset_aux.Tpo -c -o libcstl_ut-ut_cstl_multiset_aux.obj `if test -f 'ut_cstl_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multiset_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multiset_aux.Po
+#	source='ut_cstl_multiset_aux.c' object='libcstl_ut-ut_cstl_multiset_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset_aux.obj `if test -f 'ut_cstl_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multiset_aux.obj `if test -f 'ut_cstl_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_aux.c'; fi`
 
-ut-ut_cstl_multiset_private.o: ut_cstl_multiset_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset_private.Tpo -c -o ut-ut_cstl_multiset_private.o `test -f 'ut_cstl_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_multiset_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset_private.Tpo $(DEPDIR)/ut-ut_cstl_multiset_private.Po
-#	source='ut_cstl_multiset_private.c' object='ut-ut_cstl_multiset_private.o' libtool=no \
+libcstl_ut-ut_cstl_multiset_private.o: ut_cstl_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multiset_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multiset_private.Tpo -c -o libcstl_ut-ut_cstl_multiset_private.o `test -f 'ut_cstl_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_multiset_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multiset_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multiset_private.Po
+#	source='ut_cstl_multiset_private.c' object='libcstl_ut-ut_cstl_multiset_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset_private.o `test -f 'ut_cstl_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_multiset_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multiset_private.o `test -f 'ut_cstl_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_multiset_private.c
 
-ut-ut_cstl_multiset_private.obj: ut_cstl_multiset_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset_private.Tpo -c -o ut-ut_cstl_multiset_private.obj `if test -f 'ut_cstl_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset_private.Tpo $(DEPDIR)/ut-ut_cstl_multiset_private.Po
-#	source='ut_cstl_multiset_private.c' object='ut-ut_cstl_multiset_private.obj' libtool=no \
+libcstl_ut-ut_cstl_multiset_private.obj: ut_cstl_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multiset_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multiset_private.Tpo -c -o libcstl_ut-ut_cstl_multiset_private.obj `if test -f 'ut_cstl_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multiset_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multiset_private.Po
+#	source='ut_cstl_multiset_private.c' object='libcstl_ut-ut_cstl_multiset_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset_private.obj `if test -f 'ut_cstl_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multiset_private.obj `if test -f 'ut_cstl_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_private.c'; fi`
 
-ut-ut_cstl_multiset_iterator.o: ut_cstl_multiset_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset_iterator.Tpo -c -o ut-ut_cstl_multiset_iterator.o `test -f 'ut_cstl_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_multiset_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset_iterator.Tpo $(DEPDIR)/ut-ut_cstl_multiset_iterator.Po
-#	source='ut_cstl_multiset_iterator.c' object='ut-ut_cstl_multiset_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_multiset_iterator.o: ut_cstl_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multiset_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multiset_iterator.Tpo -c -o libcstl_ut-ut_cstl_multiset_iterator.o `test -f 'ut_cstl_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_multiset_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multiset_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multiset_iterator.Po
+#	source='ut_cstl_multiset_iterator.c' object='libcstl_ut-ut_cstl_multiset_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset_iterator.o `test -f 'ut_cstl_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_multiset_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multiset_iterator.o `test -f 'ut_cstl_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_multiset_iterator.c
 
-ut-ut_cstl_multiset_iterator.obj: ut_cstl_multiset_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset_iterator.Tpo -c -o ut-ut_cstl_multiset_iterator.obj `if test -f 'ut_cstl_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset_iterator.Tpo $(DEPDIR)/ut-ut_cstl_multiset_iterator.Po
-#	source='ut_cstl_multiset_iterator.c' object='ut-ut_cstl_multiset_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_multiset_iterator.obj: ut_cstl_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multiset_iterator.Tpo -c -o libcstl_ut-ut_cstl_multiset_iterator.obj `if test -f 'ut_cstl_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multiset_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multiset_iterator.Po
+#	source='ut_cstl_multiset_iterator.c' object='libcstl_ut-ut_cstl_multiset_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset_iterator.obj `if test -f 'ut_cstl_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multiset_iterator.obj `if test -f 'ut_cstl_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset_iterator.c'; fi`
 
-ut-ut_cstl_multiset.o: ut_cstl_multiset.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset.Tpo -c -o ut-ut_cstl_multiset.o `test -f 'ut_cstl_multiset.c' || echo '$(srcdir)/'`ut_cstl_multiset.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset.Tpo $(DEPDIR)/ut-ut_cstl_multiset.Po
-#	source='ut_cstl_multiset.c' object='ut-ut_cstl_multiset.o' libtool=no \
+libcstl_ut-ut_cstl_multiset.o: ut_cstl_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multiset.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multiset.Tpo -c -o libcstl_ut-ut_cstl_multiset.o `test -f 'ut_cstl_multiset.c' || echo '$(srcdir)/'`ut_cstl_multiset.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multiset.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multiset.Po
+#	source='ut_cstl_multiset.c' object='libcstl_ut-ut_cstl_multiset.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset.o `test -f 'ut_cstl_multiset.c' || echo '$(srcdir)/'`ut_cstl_multiset.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multiset.o `test -f 'ut_cstl_multiset.c' || echo '$(srcdir)/'`ut_cstl_multiset.c
 
-ut-ut_cstl_multiset.obj: ut_cstl_multiset.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multiset.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multiset.Tpo -c -o ut-ut_cstl_multiset.obj `if test -f 'ut_cstl_multiset.c'; then $(CYGPATH_W) 'ut_cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multiset.Tpo $(DEPDIR)/ut-ut_cstl_multiset.Po
-#	source='ut_cstl_multiset.c' object='ut-ut_cstl_multiset.obj' libtool=no \
+libcstl_ut-ut_cstl_multiset.obj: ut_cstl_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multiset.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multiset.Tpo -c -o libcstl_ut-ut_cstl_multiset.obj `if test -f 'ut_cstl_multiset.c'; then $(CYGPATH_W) 'ut_cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multiset.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multiset.Po
+#	source='ut_cstl_multiset.c' object='libcstl_ut-ut_cstl_multiset.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multiset.obj `if test -f 'ut_cstl_multiset.c'; then $(CYGPATH_W) 'ut_cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multiset.obj `if test -f 'ut_cstl_multiset.c'; then $(CYGPATH_W) 'ut_cstl_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multiset.c'; fi`
 
-ut-ut_cstl_pair_aux.o: ut_cstl_pair_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_pair_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_pair_aux.Tpo -c -o ut-ut_cstl_pair_aux.o `test -f 'ut_cstl_pair_aux.c' || echo '$(srcdir)/'`ut_cstl_pair_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_pair_aux.Tpo $(DEPDIR)/ut-ut_cstl_pair_aux.Po
-#	source='ut_cstl_pair_aux.c' object='ut-ut_cstl_pair_aux.o' libtool=no \
+libcstl_ut-ut_cstl_pair_aux.o: ut_cstl_pair_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_pair_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_pair_aux.Tpo -c -o libcstl_ut-ut_cstl_pair_aux.o `test -f 'ut_cstl_pair_aux.c' || echo '$(srcdir)/'`ut_cstl_pair_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_pair_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_pair_aux.Po
+#	source='ut_cstl_pair_aux.c' object='libcstl_ut-ut_cstl_pair_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_pair_aux.o `test -f 'ut_cstl_pair_aux.c' || echo '$(srcdir)/'`ut_cstl_pair_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_pair_aux.o `test -f 'ut_cstl_pair_aux.c' || echo '$(srcdir)/'`ut_cstl_pair_aux.c
 
-ut-ut_cstl_pair_aux.obj: ut_cstl_pair_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_pair_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_pair_aux.Tpo -c -o ut-ut_cstl_pair_aux.obj `if test -f 'ut_cstl_pair_aux.c'; then $(CYGPATH_W) 'ut_cstl_pair_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_pair_aux.Tpo $(DEPDIR)/ut-ut_cstl_pair_aux.Po
-#	source='ut_cstl_pair_aux.c' object='ut-ut_cstl_pair_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_pair_aux.obj: ut_cstl_pair_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_pair_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_pair_aux.Tpo -c -o libcstl_ut-ut_cstl_pair_aux.obj `if test -f 'ut_cstl_pair_aux.c'; then $(CYGPATH_W) 'ut_cstl_pair_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_pair_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_pair_aux.Po
+#	source='ut_cstl_pair_aux.c' object='libcstl_ut-ut_cstl_pair_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_pair_aux.obj `if test -f 'ut_cstl_pair_aux.c'; then $(CYGPATH_W) 'ut_cstl_pair_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_pair_aux.obj `if test -f 'ut_cstl_pair_aux.c'; then $(CYGPATH_W) 'ut_cstl_pair_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair_aux.c'; fi`
 
-ut-ut_cstl_pair_private.o: ut_cstl_pair_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_pair_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_pair_private.Tpo -c -o ut-ut_cstl_pair_private.o `test -f 'ut_cstl_pair_private.c' || echo '$(srcdir)/'`ut_cstl_pair_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_pair_private.Tpo $(DEPDIR)/ut-ut_cstl_pair_private.Po
-#	source='ut_cstl_pair_private.c' object='ut-ut_cstl_pair_private.o' libtool=no \
+libcstl_ut-ut_cstl_pair_private.o: ut_cstl_pair_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_pair_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_pair_private.Tpo -c -o libcstl_ut-ut_cstl_pair_private.o `test -f 'ut_cstl_pair_private.c' || echo '$(srcdir)/'`ut_cstl_pair_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_pair_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_pair_private.Po
+#	source='ut_cstl_pair_private.c' object='libcstl_ut-ut_cstl_pair_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_pair_private.o `test -f 'ut_cstl_pair_private.c' || echo '$(srcdir)/'`ut_cstl_pair_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_pair_private.o `test -f 'ut_cstl_pair_private.c' || echo '$(srcdir)/'`ut_cstl_pair_private.c
 
-ut-ut_cstl_pair_private.obj: ut_cstl_pair_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_pair_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_pair_private.Tpo -c -o ut-ut_cstl_pair_private.obj `if test -f 'ut_cstl_pair_private.c'; then $(CYGPATH_W) 'ut_cstl_pair_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_pair_private.Tpo $(DEPDIR)/ut-ut_cstl_pair_private.Po
-#	source='ut_cstl_pair_private.c' object='ut-ut_cstl_pair_private.obj' libtool=no \
+libcstl_ut-ut_cstl_pair_private.obj: ut_cstl_pair_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_pair_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_pair_private.Tpo -c -o libcstl_ut-ut_cstl_pair_private.obj `if test -f 'ut_cstl_pair_private.c'; then $(CYGPATH_W) 'ut_cstl_pair_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_pair_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_pair_private.Po
+#	source='ut_cstl_pair_private.c' object='libcstl_ut-ut_cstl_pair_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_pair_private.obj `if test -f 'ut_cstl_pair_private.c'; then $(CYGPATH_W) 'ut_cstl_pair_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_pair_private.obj `if test -f 'ut_cstl_pair_private.c'; then $(CYGPATH_W) 'ut_cstl_pair_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair_private.c'; fi`
 
-ut-ut_cstl_pair.o: ut_cstl_pair.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_pair.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_pair.Tpo -c -o ut-ut_cstl_pair.o `test -f 'ut_cstl_pair.c' || echo '$(srcdir)/'`ut_cstl_pair.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_pair.Tpo $(DEPDIR)/ut-ut_cstl_pair.Po
-#	source='ut_cstl_pair.c' object='ut-ut_cstl_pair.o' libtool=no \
+libcstl_ut-ut_cstl_pair.o: ut_cstl_pair.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_pair.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_pair.Tpo -c -o libcstl_ut-ut_cstl_pair.o `test -f 'ut_cstl_pair.c' || echo '$(srcdir)/'`ut_cstl_pair.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_pair.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_pair.Po
+#	source='ut_cstl_pair.c' object='libcstl_ut-ut_cstl_pair.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_pair.o `test -f 'ut_cstl_pair.c' || echo '$(srcdir)/'`ut_cstl_pair.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_pair.o `test -f 'ut_cstl_pair.c' || echo '$(srcdir)/'`ut_cstl_pair.c
 
-ut-ut_cstl_pair.obj: ut_cstl_pair.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_pair.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_pair.Tpo -c -o ut-ut_cstl_pair.obj `if test -f 'ut_cstl_pair.c'; then $(CYGPATH_W) 'ut_cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_pair.Tpo $(DEPDIR)/ut-ut_cstl_pair.Po
-#	source='ut_cstl_pair.c' object='ut-ut_cstl_pair.obj' libtool=no \
+libcstl_ut-ut_cstl_pair.obj: ut_cstl_pair.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_pair.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_pair.Tpo -c -o libcstl_ut-ut_cstl_pair.obj `if test -f 'ut_cstl_pair.c'; then $(CYGPATH_W) 'ut_cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_pair.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_pair.Po
+#	source='ut_cstl_pair.c' object='libcstl_ut-ut_cstl_pair.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_pair.obj `if test -f 'ut_cstl_pair.c'; then $(CYGPATH_W) 'ut_cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_pair.obj `if test -f 'ut_cstl_pair.c'; then $(CYGPATH_W) 'ut_cstl_pair.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_pair.c'; fi`
 
-ut-ut_cstl_map_aux.o: ut_cstl_map_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map_aux.Tpo -c -o ut-ut_cstl_map_aux.o `test -f 'ut_cstl_map_aux.c' || echo '$(srcdir)/'`ut_cstl_map_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_map_aux.Tpo $(DEPDIR)/ut-ut_cstl_map_aux.Po
-#	source='ut_cstl_map_aux.c' object='ut-ut_cstl_map_aux.o' libtool=no \
+libcstl_ut-ut_cstl_map_aux.o: ut_cstl_map_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_map_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_map_aux.Tpo -c -o libcstl_ut-ut_cstl_map_aux.o `test -f 'ut_cstl_map_aux.c' || echo '$(srcdir)/'`ut_cstl_map_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_map_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_map_aux.Po
+#	source='ut_cstl_map_aux.c' object='libcstl_ut-ut_cstl_map_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_aux.o `test -f 'ut_cstl_map_aux.c' || echo '$(srcdir)/'`ut_cstl_map_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_map_aux.o `test -f 'ut_cstl_map_aux.c' || echo '$(srcdir)/'`ut_cstl_map_aux.c
 
-ut-ut_cstl_map_aux.obj: ut_cstl_map_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map_aux.Tpo -c -o ut-ut_cstl_map_aux.obj `if test -f 'ut_cstl_map_aux.c'; then $(CYGPATH_W) 'ut_cstl_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_map_aux.Tpo $(DEPDIR)/ut-ut_cstl_map_aux.Po
-#	source='ut_cstl_map_aux.c' object='ut-ut_cstl_map_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_map_aux.obj: ut_cstl_map_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_map_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_map_aux.Tpo -c -o libcstl_ut-ut_cstl_map_aux.obj `if test -f 'ut_cstl_map_aux.c'; then $(CYGPATH_W) 'ut_cstl_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_map_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_map_aux.Po
+#	source='ut_cstl_map_aux.c' object='libcstl_ut-ut_cstl_map_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_aux.obj `if test -f 'ut_cstl_map_aux.c'; then $(CYGPATH_W) 'ut_cstl_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_map_aux.obj `if test -f 'ut_cstl_map_aux.c'; then $(CYGPATH_W) 'ut_cstl_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_aux.c'; fi`
 
-ut-ut_cstl_map_private.o: ut_cstl_map_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map_private.Tpo -c -o ut-ut_cstl_map_private.o `test -f 'ut_cstl_map_private.c' || echo '$(srcdir)/'`ut_cstl_map_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_map_private.Tpo $(DEPDIR)/ut-ut_cstl_map_private.Po
-#	source='ut_cstl_map_private.c' object='ut-ut_cstl_map_private.o' libtool=no \
+libcstl_ut-ut_cstl_map_private.o: ut_cstl_map_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_map_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_map_private.Tpo -c -o libcstl_ut-ut_cstl_map_private.o `test -f 'ut_cstl_map_private.c' || echo '$(srcdir)/'`ut_cstl_map_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_map_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_map_private.Po
+#	source='ut_cstl_map_private.c' object='libcstl_ut-ut_cstl_map_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_private.o `test -f 'ut_cstl_map_private.c' || echo '$(srcdir)/'`ut_cstl_map_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_map_private.o `test -f 'ut_cstl_map_private.c' || echo '$(srcdir)/'`ut_cstl_map_private.c
 
-ut-ut_cstl_map_private.obj: ut_cstl_map_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map_private.Tpo -c -o ut-ut_cstl_map_private.obj `if test -f 'ut_cstl_map_private.c'; then $(CYGPATH_W) 'ut_cstl_map_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_map_private.Tpo $(DEPDIR)/ut-ut_cstl_map_private.Po
-#	source='ut_cstl_map_private.c' object='ut-ut_cstl_map_private.obj' libtool=no \
+libcstl_ut-ut_cstl_map_private.obj: ut_cstl_map_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_map_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_map_private.Tpo -c -o libcstl_ut-ut_cstl_map_private.obj `if test -f 'ut_cstl_map_private.c'; then $(CYGPATH_W) 'ut_cstl_map_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_map_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_map_private.Po
+#	source='ut_cstl_map_private.c' object='libcstl_ut-ut_cstl_map_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_private.obj `if test -f 'ut_cstl_map_private.c'; then $(CYGPATH_W) 'ut_cstl_map_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_map_private.obj `if test -f 'ut_cstl_map_private.c'; then $(CYGPATH_W) 'ut_cstl_map_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_private.c'; fi`
 
-ut-ut_cstl_map_iterator.o: ut_cstl_map_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map_iterator.Tpo -c -o ut-ut_cstl_map_iterator.o `test -f 'ut_cstl_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_map_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_map_iterator.Tpo $(DEPDIR)/ut-ut_cstl_map_iterator.Po
-#	source='ut_cstl_map_iterator.c' object='ut-ut_cstl_map_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_map_iterator.o: ut_cstl_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_map_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_map_iterator.Tpo -c -o libcstl_ut-ut_cstl_map_iterator.o `test -f 'ut_cstl_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_map_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_map_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_map_iterator.Po
+#	source='ut_cstl_map_iterator.c' object='libcstl_ut-ut_cstl_map_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_iterator.o `test -f 'ut_cstl_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_map_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_map_iterator.o `test -f 'ut_cstl_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_map_iterator.c
 
-ut-ut_cstl_map_iterator.obj: ut_cstl_map_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map_iterator.Tpo -c -o ut-ut_cstl_map_iterator.obj `if test -f 'ut_cstl_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_map_iterator.Tpo $(DEPDIR)/ut-ut_cstl_map_iterator.Po
-#	source='ut_cstl_map_iterator.c' object='ut-ut_cstl_map_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_map_iterator.obj: ut_cstl_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_map_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_map_iterator.Tpo -c -o libcstl_ut-ut_cstl_map_iterator.obj `if test -f 'ut_cstl_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_map_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_map_iterator.Po
+#	source='ut_cstl_map_iterator.c' object='libcstl_ut-ut_cstl_map_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map_iterator.obj `if test -f 'ut_cstl_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_map_iterator.obj `if test -f 'ut_cstl_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map_iterator.c'; fi`
 
-ut-ut_cstl_map.o: ut_cstl_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map.Tpo -c -o ut-ut_cstl_map.o `test -f 'ut_cstl_map.c' || echo '$(srcdir)/'`ut_cstl_map.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_map.Tpo $(DEPDIR)/ut-ut_cstl_map.Po
-#	source='ut_cstl_map.c' object='ut-ut_cstl_map.o' libtool=no \
+libcstl_ut-ut_cstl_map.o: ut_cstl_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_map.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_map.Tpo -c -o libcstl_ut-ut_cstl_map.o `test -f 'ut_cstl_map.c' || echo '$(srcdir)/'`ut_cstl_map.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_map.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_map.Po
+#	source='ut_cstl_map.c' object='libcstl_ut-ut_cstl_map.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map.o `test -f 'ut_cstl_map.c' || echo '$(srcdir)/'`ut_cstl_map.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_map.o `test -f 'ut_cstl_map.c' || echo '$(srcdir)/'`ut_cstl_map.c
 
-ut-ut_cstl_map.obj: ut_cstl_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_map.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_map.Tpo -c -o ut-ut_cstl_map.obj `if test -f 'ut_cstl_map.c'; then $(CYGPATH_W) 'ut_cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_map.Tpo $(DEPDIR)/ut-ut_cstl_map.Po
-#	source='ut_cstl_map.c' object='ut-ut_cstl_map.obj' libtool=no \
+libcstl_ut-ut_cstl_map.obj: ut_cstl_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_map.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_map.Tpo -c -o libcstl_ut-ut_cstl_map.obj `if test -f 'ut_cstl_map.c'; then $(CYGPATH_W) 'ut_cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_map.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_map.Po
+#	source='ut_cstl_map.c' object='libcstl_ut-ut_cstl_map.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_map.obj `if test -f 'ut_cstl_map.c'; then $(CYGPATH_W) 'ut_cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_map.obj `if test -f 'ut_cstl_map.c'; then $(CYGPATH_W) 'ut_cstl_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_map.c'; fi`
 
-ut-ut_cstl_multimap_aux.o: ut_cstl_multimap_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap_aux.Tpo -c -o ut-ut_cstl_multimap_aux.o `test -f 'ut_cstl_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_multimap_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap_aux.Tpo $(DEPDIR)/ut-ut_cstl_multimap_aux.Po
-#	source='ut_cstl_multimap_aux.c' object='ut-ut_cstl_multimap_aux.o' libtool=no \
+libcstl_ut-ut_cstl_multimap_aux.o: ut_cstl_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multimap_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multimap_aux.Tpo -c -o libcstl_ut-ut_cstl_multimap_aux.o `test -f 'ut_cstl_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_multimap_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multimap_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multimap_aux.Po
+#	source='ut_cstl_multimap_aux.c' object='libcstl_ut-ut_cstl_multimap_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap_aux.o `test -f 'ut_cstl_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_multimap_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multimap_aux.o `test -f 'ut_cstl_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_multimap_aux.c
 
-ut-ut_cstl_multimap_aux.obj: ut_cstl_multimap_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap_aux.Tpo -c -o ut-ut_cstl_multimap_aux.obj `if test -f 'ut_cstl_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap_aux.Tpo $(DEPDIR)/ut-ut_cstl_multimap_aux.Po
-#	source='ut_cstl_multimap_aux.c' object='ut-ut_cstl_multimap_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_multimap_aux.obj: ut_cstl_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multimap_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multimap_aux.Tpo -c -o libcstl_ut-ut_cstl_multimap_aux.obj `if test -f 'ut_cstl_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multimap_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multimap_aux.Po
+#	source='ut_cstl_multimap_aux.c' object='libcstl_ut-ut_cstl_multimap_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap_aux.obj `if test -f 'ut_cstl_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multimap_aux.obj `if test -f 'ut_cstl_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_aux.c'; fi`
 
-ut-ut_cstl_multimap_private.o: ut_cstl_multimap_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap_private.Tpo -c -o ut-ut_cstl_multimap_private.o `test -f 'ut_cstl_multimap_private.c' || echo '$(srcdir)/'`ut_cstl_multimap_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap_private.Tpo $(DEPDIR)/ut-ut_cstl_multimap_private.Po
-#	source='ut_cstl_multimap_private.c' object='ut-ut_cstl_multimap_private.o' libtool=no \
+libcstl_ut-ut_cstl_multimap_private.o: ut_cstl_multimap_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multimap_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multimap_private.Tpo -c -o libcstl_ut-ut_cstl_multimap_private.o `test -f 'ut_cstl_multimap_private.c' || echo '$(srcdir)/'`ut_cstl_multimap_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multimap_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multimap_private.Po
+#	source='ut_cstl_multimap_private.c' object='libcstl_ut-ut_cstl_multimap_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap_private.o `test -f 'ut_cstl_multimap_private.c' || echo '$(srcdir)/'`ut_cstl_multimap_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multimap_private.o `test -f 'ut_cstl_multimap_private.c' || echo '$(srcdir)/'`ut_cstl_multimap_private.c
 
-ut-ut_cstl_multimap_private.obj: ut_cstl_multimap_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap_private.Tpo -c -o ut-ut_cstl_multimap_private.obj `if test -f 'ut_cstl_multimap_private.c'; then $(CYGPATH_W) 'ut_cstl_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap_private.Tpo $(DEPDIR)/ut-ut_cstl_multimap_private.Po
-#	source='ut_cstl_multimap_private.c' object='ut-ut_cstl_multimap_private.obj' libtool=no \
+libcstl_ut-ut_cstl_multimap_private.obj: ut_cstl_multimap_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multimap_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multimap_private.Tpo -c -o libcstl_ut-ut_cstl_multimap_private.obj `if test -f 'ut_cstl_multimap_private.c'; then $(CYGPATH_W) 'ut_cstl_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multimap_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multimap_private.Po
+#	source='ut_cstl_multimap_private.c' object='libcstl_ut-ut_cstl_multimap_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap_private.obj `if test -f 'ut_cstl_multimap_private.c'; then $(CYGPATH_W) 'ut_cstl_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multimap_private.obj `if test -f 'ut_cstl_multimap_private.c'; then $(CYGPATH_W) 'ut_cstl_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_private.c'; fi`
 
-ut-ut_cstl_multimap_iterator.o: ut_cstl_multimap_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap_iterator.Tpo -c -o ut-ut_cstl_multimap_iterator.o `test -f 'ut_cstl_multimap_iterator.c' || echo '$(srcdir)/'`ut_cstl_multimap_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap_iterator.Tpo $(DEPDIR)/ut-ut_cstl_multimap_iterator.Po
-#	source='ut_cstl_multimap_iterator.c' object='ut-ut_cstl_multimap_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_multimap_iterator.o: ut_cstl_multimap_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multimap_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multimap_iterator.Tpo -c -o libcstl_ut-ut_cstl_multimap_iterator.o `test -f 'ut_cstl_multimap_iterator.c' || echo '$(srcdir)/'`ut_cstl_multimap_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multimap_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multimap_iterator.Po
+#	source='ut_cstl_multimap_iterator.c' object='libcstl_ut-ut_cstl_multimap_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap_iterator.o `test -f 'ut_cstl_multimap_iterator.c' || echo '$(srcdir)/'`ut_cstl_multimap_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multimap_iterator.o `test -f 'ut_cstl_multimap_iterator.c' || echo '$(srcdir)/'`ut_cstl_multimap_iterator.c
 
-ut-ut_cstl_multimap_iterator.obj: ut_cstl_multimap_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap_iterator.Tpo -c -o ut-ut_cstl_multimap_iterator.obj `if test -f 'ut_cstl_multimap_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap_iterator.Tpo $(DEPDIR)/ut-ut_cstl_multimap_iterator.Po
-#	source='ut_cstl_multimap_iterator.c' object='ut-ut_cstl_multimap_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_multimap_iterator.obj: ut_cstl_multimap_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multimap_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multimap_iterator.Tpo -c -o libcstl_ut-ut_cstl_multimap_iterator.obj `if test -f 'ut_cstl_multimap_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multimap_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multimap_iterator.Po
+#	source='ut_cstl_multimap_iterator.c' object='libcstl_ut-ut_cstl_multimap_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap_iterator.obj `if test -f 'ut_cstl_multimap_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multimap_iterator.obj `if test -f 'ut_cstl_multimap_iterator.c'; then $(CYGPATH_W) 'ut_cstl_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap_iterator.c'; fi`
 
-ut-ut_cstl_multimap.o: ut_cstl_multimap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap.Tpo -c -o ut-ut_cstl_multimap.o `test -f 'ut_cstl_multimap.c' || echo '$(srcdir)/'`ut_cstl_multimap.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap.Tpo $(DEPDIR)/ut-ut_cstl_multimap.Po
-#	source='ut_cstl_multimap.c' object='ut-ut_cstl_multimap.o' libtool=no \
+libcstl_ut-ut_cstl_multimap.o: ut_cstl_multimap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multimap.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multimap.Tpo -c -o libcstl_ut-ut_cstl_multimap.o `test -f 'ut_cstl_multimap.c' || echo '$(srcdir)/'`ut_cstl_multimap.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multimap.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multimap.Po
+#	source='ut_cstl_multimap.c' object='libcstl_ut-ut_cstl_multimap.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap.o `test -f 'ut_cstl_multimap.c' || echo '$(srcdir)/'`ut_cstl_multimap.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multimap.o `test -f 'ut_cstl_multimap.c' || echo '$(srcdir)/'`ut_cstl_multimap.c
 
-ut-ut_cstl_multimap.obj: ut_cstl_multimap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_multimap.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_multimap.Tpo -c -o ut-ut_cstl_multimap.obj `if test -f 'ut_cstl_multimap.c'; then $(CYGPATH_W) 'ut_cstl_multimap.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_multimap.Tpo $(DEPDIR)/ut-ut_cstl_multimap.Po
-#	source='ut_cstl_multimap.c' object='ut-ut_cstl_multimap.obj' libtool=no \
+libcstl_ut-ut_cstl_multimap.obj: ut_cstl_multimap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_multimap.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_multimap.Tpo -c -o libcstl_ut-ut_cstl_multimap.obj `if test -f 'ut_cstl_multimap.c'; then $(CYGPATH_W) 'ut_cstl_multimap.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_multimap.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_multimap.Po
+#	source='ut_cstl_multimap.c' object='libcstl_ut-ut_cstl_multimap.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_multimap.obj `if test -f 'ut_cstl_multimap.c'; then $(CYGPATH_W) 'ut_cstl_multimap.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_multimap.obj `if test -f 'ut_cstl_multimap.c'; then $(CYGPATH_W) 'ut_cstl_multimap.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_multimap.c'; fi`
 
-ut-ut_cstl_hashtable_aux.o: ut_cstl_hashtable_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable_aux.Tpo -c -o ut-ut_cstl_hashtable_aux.o `test -f 'ut_cstl_hashtable_aux.c' || echo '$(srcdir)/'`ut_cstl_hashtable_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable_aux.Tpo $(DEPDIR)/ut-ut_cstl_hashtable_aux.Po
-#	source='ut_cstl_hashtable_aux.c' object='ut-ut_cstl_hashtable_aux.o' libtool=no \
+libcstl_ut-ut_cstl_hashtable_aux.o: ut_cstl_hashtable_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hashtable_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_aux.Tpo -c -o libcstl_ut-ut_cstl_hashtable_aux.o `test -f 'ut_cstl_hashtable_aux.c' || echo '$(srcdir)/'`ut_cstl_hashtable_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_aux.Po
+#	source='ut_cstl_hashtable_aux.c' object='libcstl_ut-ut_cstl_hashtable_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable_aux.o `test -f 'ut_cstl_hashtable_aux.c' || echo '$(srcdir)/'`ut_cstl_hashtable_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hashtable_aux.o `test -f 'ut_cstl_hashtable_aux.c' || echo '$(srcdir)/'`ut_cstl_hashtable_aux.c
 
-ut-ut_cstl_hashtable_aux.obj: ut_cstl_hashtable_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable_aux.Tpo -c -o ut-ut_cstl_hashtable_aux.obj `if test -f 'ut_cstl_hashtable_aux.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable_aux.Tpo $(DEPDIR)/ut-ut_cstl_hashtable_aux.Po
-#	source='ut_cstl_hashtable_aux.c' object='ut-ut_cstl_hashtable_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_hashtable_aux.obj: ut_cstl_hashtable_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hashtable_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_aux.Tpo -c -o libcstl_ut-ut_cstl_hashtable_aux.obj `if test -f 'ut_cstl_hashtable_aux.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_aux.Po
+#	source='ut_cstl_hashtable_aux.c' object='libcstl_ut-ut_cstl_hashtable_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable_aux.obj `if test -f 'ut_cstl_hashtable_aux.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hashtable_aux.obj `if test -f 'ut_cstl_hashtable_aux.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_aux.c'; fi`
 
-ut-ut_cstl_hashtable_private.o: ut_cstl_hashtable_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable_private.Tpo -c -o ut-ut_cstl_hashtable_private.o `test -f 'ut_cstl_hashtable_private.c' || echo '$(srcdir)/'`ut_cstl_hashtable_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable_private.Tpo $(DEPDIR)/ut-ut_cstl_hashtable_private.Po
-#	source='ut_cstl_hashtable_private.c' object='ut-ut_cstl_hashtable_private.o' libtool=no \
+libcstl_ut-ut_cstl_hashtable_private.o: ut_cstl_hashtable_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hashtable_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_private.Tpo -c -o libcstl_ut-ut_cstl_hashtable_private.o `test -f 'ut_cstl_hashtable_private.c' || echo '$(srcdir)/'`ut_cstl_hashtable_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_private.Po
+#	source='ut_cstl_hashtable_private.c' object='libcstl_ut-ut_cstl_hashtable_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable_private.o `test -f 'ut_cstl_hashtable_private.c' || echo '$(srcdir)/'`ut_cstl_hashtable_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hashtable_private.o `test -f 'ut_cstl_hashtable_private.c' || echo '$(srcdir)/'`ut_cstl_hashtable_private.c
 
-ut-ut_cstl_hashtable_private.obj: ut_cstl_hashtable_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable_private.Tpo -c -o ut-ut_cstl_hashtable_private.obj `if test -f 'ut_cstl_hashtable_private.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable_private.Tpo $(DEPDIR)/ut-ut_cstl_hashtable_private.Po
-#	source='ut_cstl_hashtable_private.c' object='ut-ut_cstl_hashtable_private.obj' libtool=no \
+libcstl_ut-ut_cstl_hashtable_private.obj: ut_cstl_hashtable_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hashtable_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_private.Tpo -c -o libcstl_ut-ut_cstl_hashtable_private.obj `if test -f 'ut_cstl_hashtable_private.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_private.Po
+#	source='ut_cstl_hashtable_private.c' object='libcstl_ut-ut_cstl_hashtable_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable_private.obj `if test -f 'ut_cstl_hashtable_private.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hashtable_private.obj `if test -f 'ut_cstl_hashtable_private.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_private.c'; fi`
 
-ut-ut_cstl_hashtable_iterator.o: ut_cstl_hashtable_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable_iterator.Tpo -c -o ut-ut_cstl_hashtable_iterator.o `test -f 'ut_cstl_hashtable_iterator.c' || echo '$(srcdir)/'`ut_cstl_hashtable_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hashtable_iterator.Po
-#	source='ut_cstl_hashtable_iterator.c' object='ut-ut_cstl_hashtable_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_hashtable_iterator.o: ut_cstl_hashtable_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hashtable_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_iterator.Tpo -c -o libcstl_ut-ut_cstl_hashtable_iterator.o `test -f 'ut_cstl_hashtable_iterator.c' || echo '$(srcdir)/'`ut_cstl_hashtable_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_iterator.Po
+#	source='ut_cstl_hashtable_iterator.c' object='libcstl_ut-ut_cstl_hashtable_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable_iterator.o `test -f 'ut_cstl_hashtable_iterator.c' || echo '$(srcdir)/'`ut_cstl_hashtable_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hashtable_iterator.o `test -f 'ut_cstl_hashtable_iterator.c' || echo '$(srcdir)/'`ut_cstl_hashtable_iterator.c
 
-ut-ut_cstl_hashtable_iterator.obj: ut_cstl_hashtable_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable_iterator.Tpo -c -o ut-ut_cstl_hashtable_iterator.obj `if test -f 'ut_cstl_hashtable_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hashtable_iterator.Po
-#	source='ut_cstl_hashtable_iterator.c' object='ut-ut_cstl_hashtable_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_hashtable_iterator.obj: ut_cstl_hashtable_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hashtable_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_iterator.Tpo -c -o libcstl_ut-ut_cstl_hashtable_iterator.obj `if test -f 'ut_cstl_hashtable_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hashtable_iterator.Po
+#	source='ut_cstl_hashtable_iterator.c' object='libcstl_ut-ut_cstl_hashtable_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable_iterator.obj `if test -f 'ut_cstl_hashtable_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hashtable_iterator.obj `if test -f 'ut_cstl_hashtable_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hashtable_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable_iterator.c'; fi`
 
-ut-ut_cstl_hashtable.o: ut_cstl_hashtable.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable.Tpo -c -o ut-ut_cstl_hashtable.o `test -f 'ut_cstl_hashtable.c' || echo '$(srcdir)/'`ut_cstl_hashtable.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable.Tpo $(DEPDIR)/ut-ut_cstl_hashtable.Po
-#	source='ut_cstl_hashtable.c' object='ut-ut_cstl_hashtable.o' libtool=no \
+libcstl_ut-ut_cstl_hashtable.o: ut_cstl_hashtable.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hashtable.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hashtable.Tpo -c -o libcstl_ut-ut_cstl_hashtable.o `test -f 'ut_cstl_hashtable.c' || echo '$(srcdir)/'`ut_cstl_hashtable.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hashtable.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hashtable.Po
+#	source='ut_cstl_hashtable.c' object='libcstl_ut-ut_cstl_hashtable.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable.o `test -f 'ut_cstl_hashtable.c' || echo '$(srcdir)/'`ut_cstl_hashtable.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hashtable.o `test -f 'ut_cstl_hashtable.c' || echo '$(srcdir)/'`ut_cstl_hashtable.c
 
-ut-ut_cstl_hashtable.obj: ut_cstl_hashtable.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hashtable.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hashtable.Tpo -c -o ut-ut_cstl_hashtable.obj `if test -f 'ut_cstl_hashtable.c'; then $(CYGPATH_W) 'ut_cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hashtable.Tpo $(DEPDIR)/ut-ut_cstl_hashtable.Po
-#	source='ut_cstl_hashtable.c' object='ut-ut_cstl_hashtable.obj' libtool=no \
+libcstl_ut-ut_cstl_hashtable.obj: ut_cstl_hashtable.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hashtable.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hashtable.Tpo -c -o libcstl_ut-ut_cstl_hashtable.obj `if test -f 'ut_cstl_hashtable.c'; then $(CYGPATH_W) 'ut_cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hashtable.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hashtable.Po
+#	source='ut_cstl_hashtable.c' object='libcstl_ut-ut_cstl_hashtable.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hashtable.obj `if test -f 'ut_cstl_hashtable.c'; then $(CYGPATH_W) 'ut_cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hashtable.obj `if test -f 'ut_cstl_hashtable.c'; then $(CYGPATH_W) 'ut_cstl_hashtable.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hashtable.c'; fi`
 
-ut-ut_cstl_hash_set_aux.o: ut_cstl_hash_set_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_aux.Tpo -c -o ut-ut_cstl_hash_set_aux.o `test -f 'ut_cstl_hash_set_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_set_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_aux.Po
-#	source='ut_cstl_hash_set_aux.c' object='ut-ut_cstl_hash_set_aux.o' libtool=no \
+libcstl_ut-ut_cstl_hash_set_aux.o: ut_cstl_hash_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_set_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_aux.Tpo -c -o libcstl_ut-ut_cstl_hash_set_aux.o `test -f 'ut_cstl_hash_set_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_set_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_aux.Po
+#	source='ut_cstl_hash_set_aux.c' object='libcstl_ut-ut_cstl_hash_set_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_aux.o `test -f 'ut_cstl_hash_set_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_set_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_set_aux.o `test -f 'ut_cstl_hash_set_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_set_aux.c
 
-ut-ut_cstl_hash_set_aux.obj: ut_cstl_hash_set_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_aux.Tpo -c -o ut-ut_cstl_hash_set_aux.obj `if test -f 'ut_cstl_hash_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_aux.Po
-#	source='ut_cstl_hash_set_aux.c' object='ut-ut_cstl_hash_set_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_set_aux.obj: ut_cstl_hash_set_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_set_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_aux.Tpo -c -o libcstl_ut-ut_cstl_hash_set_aux.obj `if test -f 'ut_cstl_hash_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_aux.Po
+#	source='ut_cstl_hash_set_aux.c' object='libcstl_ut-ut_cstl_hash_set_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_aux.obj `if test -f 'ut_cstl_hash_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_set_aux.obj `if test -f 'ut_cstl_hash_set_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_aux.c'; fi`
 
-ut-ut_cstl_hash_set_private.o: ut_cstl_hash_set_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_private.Tpo -c -o ut-ut_cstl_hash_set_private.o `test -f 'ut_cstl_hash_set_private.c' || echo '$(srcdir)/'`ut_cstl_hash_set_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_private.Po
-#	source='ut_cstl_hash_set_private.c' object='ut-ut_cstl_hash_set_private.o' libtool=no \
+libcstl_ut-ut_cstl_hash_set_private.o: ut_cstl_hash_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_set_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_private.Tpo -c -o libcstl_ut-ut_cstl_hash_set_private.o `test -f 'ut_cstl_hash_set_private.c' || echo '$(srcdir)/'`ut_cstl_hash_set_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_private.Po
+#	source='ut_cstl_hash_set_private.c' object='libcstl_ut-ut_cstl_hash_set_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_private.o `test -f 'ut_cstl_hash_set_private.c' || echo '$(srcdir)/'`ut_cstl_hash_set_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_set_private.o `test -f 'ut_cstl_hash_set_private.c' || echo '$(srcdir)/'`ut_cstl_hash_set_private.c
 
-ut-ut_cstl_hash_set_private.obj: ut_cstl_hash_set_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_private.Tpo -c -o ut-ut_cstl_hash_set_private.obj `if test -f 'ut_cstl_hash_set_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_private.Po
-#	source='ut_cstl_hash_set_private.c' object='ut-ut_cstl_hash_set_private.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_set_private.obj: ut_cstl_hash_set_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_set_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_private.Tpo -c -o libcstl_ut-ut_cstl_hash_set_private.obj `if test -f 'ut_cstl_hash_set_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_private.Po
+#	source='ut_cstl_hash_set_private.c' object='libcstl_ut-ut_cstl_hash_set_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_private.obj `if test -f 'ut_cstl_hash_set_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_set_private.obj `if test -f 'ut_cstl_hash_set_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_private.c'; fi`
 
-ut-ut_cstl_hash_set_iterator.o: ut_cstl_hash_set_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_iterator.Tpo -c -o ut-ut_cstl_hash_set_iterator.o `test -f 'ut_cstl_hash_set_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_set_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_iterator.Po
-#	source='ut_cstl_hash_set_iterator.c' object='ut-ut_cstl_hash_set_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_hash_set_iterator.o: ut_cstl_hash_set_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_set_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_iterator.Tpo -c -o libcstl_ut-ut_cstl_hash_set_iterator.o `test -f 'ut_cstl_hash_set_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_set_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_iterator.Po
+#	source='ut_cstl_hash_set_iterator.c' object='libcstl_ut-ut_cstl_hash_set_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_iterator.o `test -f 'ut_cstl_hash_set_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_set_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_set_iterator.o `test -f 'ut_cstl_hash_set_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_set_iterator.c
 
-ut-ut_cstl_hash_set_iterator.obj: ut_cstl_hash_set_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set_iterator.Tpo -c -o ut-ut_cstl_hash_set_iterator.obj `if test -f 'ut_cstl_hash_set_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_set_iterator.Po
-#	source='ut_cstl_hash_set_iterator.c' object='ut-ut_cstl_hash_set_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_set_iterator.obj: ut_cstl_hash_set_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_set_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_iterator.Tpo -c -o libcstl_ut-ut_cstl_hash_set_iterator.obj `if test -f 'ut_cstl_hash_set_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_set_iterator.Po
+#	source='ut_cstl_hash_set_iterator.c' object='libcstl_ut-ut_cstl_hash_set_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set_iterator.obj `if test -f 'ut_cstl_hash_set_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_set_iterator.obj `if test -f 'ut_cstl_hash_set_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_set_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set_iterator.c'; fi`
 
-ut-ut_cstl_hash_set.o: ut_cstl_hash_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set.Tpo -c -o ut-ut_cstl_hash_set.o `test -f 'ut_cstl_hash_set.c' || echo '$(srcdir)/'`ut_cstl_hash_set.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set.Tpo $(DEPDIR)/ut-ut_cstl_hash_set.Po
-#	source='ut_cstl_hash_set.c' object='ut-ut_cstl_hash_set.o' libtool=no \
+libcstl_ut-ut_cstl_hash_set.o: ut_cstl_hash_set.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_set.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_set.Tpo -c -o libcstl_ut-ut_cstl_hash_set.o `test -f 'ut_cstl_hash_set.c' || echo '$(srcdir)/'`ut_cstl_hash_set.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_set.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_set.Po
+#	source='ut_cstl_hash_set.c' object='libcstl_ut-ut_cstl_hash_set.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set.o `test -f 'ut_cstl_hash_set.c' || echo '$(srcdir)/'`ut_cstl_hash_set.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_set.o `test -f 'ut_cstl_hash_set.c' || echo '$(srcdir)/'`ut_cstl_hash_set.c
 
-ut-ut_cstl_hash_set.obj: ut_cstl_hash_set.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_set.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_set.Tpo -c -o ut-ut_cstl_hash_set.obj `if test -f 'ut_cstl_hash_set.c'; then $(CYGPATH_W) 'ut_cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_set.Tpo $(DEPDIR)/ut-ut_cstl_hash_set.Po
-#	source='ut_cstl_hash_set.c' object='ut-ut_cstl_hash_set.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_set.obj: ut_cstl_hash_set.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_set.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_set.Tpo -c -o libcstl_ut-ut_cstl_hash_set.obj `if test -f 'ut_cstl_hash_set.c'; then $(CYGPATH_W) 'ut_cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_set.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_set.Po
+#	source='ut_cstl_hash_set.c' object='libcstl_ut-ut_cstl_hash_set.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_set.obj `if test -f 'ut_cstl_hash_set.c'; then $(CYGPATH_W) 'ut_cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_set.obj `if test -f 'ut_cstl_hash_set.c'; then $(CYGPATH_W) 'ut_cstl_hash_set.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_set.c'; fi`
 
-ut-ut_cstl_hash_multiset_aux.o: ut_cstl_hash_multiset_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Tpo -c -o ut-ut_cstl_hash_multiset_aux.o `test -f 'ut_cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Po
-#	source='ut_cstl_hash_multiset_aux.c' object='ut-ut_cstl_hash_multiset_aux.o' libtool=no \
+libcstl_ut-ut_cstl_hash_multiset_aux.o: ut_cstl_hash_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multiset_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_aux.Tpo -c -o libcstl_ut-ut_cstl_hash_multiset_aux.o `test -f 'ut_cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_aux.Po
+#	source='ut_cstl_hash_multiset_aux.c' object='libcstl_ut-ut_cstl_hash_multiset_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_aux.o `test -f 'ut_cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multiset_aux.o `test -f 'ut_cstl_hash_multiset_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_aux.c
 
-ut-ut_cstl_hash_multiset_aux.obj: ut_cstl_hash_multiset_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Tpo -c -o ut-ut_cstl_hash_multiset_aux.obj `if test -f 'ut_cstl_hash_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_aux.Po
-#	source='ut_cstl_hash_multiset_aux.c' object='ut-ut_cstl_hash_multiset_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_multiset_aux.obj: ut_cstl_hash_multiset_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multiset_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_aux.Tpo -c -o libcstl_ut-ut_cstl_hash_multiset_aux.obj `if test -f 'ut_cstl_hash_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_aux.Po
+#	source='ut_cstl_hash_multiset_aux.c' object='libcstl_ut-ut_cstl_hash_multiset_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_aux.obj `if test -f 'ut_cstl_hash_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multiset_aux.obj `if test -f 'ut_cstl_hash_multiset_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_aux.c'; fi`
 
-ut-ut_cstl_hash_multiset_private.o: ut_cstl_hash_multiset_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Tpo -c -o ut-ut_cstl_hash_multiset_private.o `test -f 'ut_cstl_hash_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Po
-#	source='ut_cstl_hash_multiset_private.c' object='ut-ut_cstl_hash_multiset_private.o' libtool=no \
+libcstl_ut-ut_cstl_hash_multiset_private.o: ut_cstl_hash_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multiset_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_private.Tpo -c -o libcstl_ut-ut_cstl_hash_multiset_private.o `test -f 'ut_cstl_hash_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_private.Po
+#	source='ut_cstl_hash_multiset_private.c' object='libcstl_ut-ut_cstl_hash_multiset_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_private.o `test -f 'ut_cstl_hash_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multiset_private.o `test -f 'ut_cstl_hash_multiset_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_private.c
 
-ut-ut_cstl_hash_multiset_private.obj: ut_cstl_hash_multiset_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Tpo -c -o ut-ut_cstl_hash_multiset_private.obj `if test -f 'ut_cstl_hash_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_private.Po
-#	source='ut_cstl_hash_multiset_private.c' object='ut-ut_cstl_hash_multiset_private.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_multiset_private.obj: ut_cstl_hash_multiset_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multiset_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_private.Tpo -c -o libcstl_ut-ut_cstl_hash_multiset_private.obj `if test -f 'ut_cstl_hash_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_private.Po
+#	source='ut_cstl_hash_multiset_private.c' object='libcstl_ut-ut_cstl_hash_multiset_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_private.obj `if test -f 'ut_cstl_hash_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multiset_private.obj `if test -f 'ut_cstl_hash_multiset_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_private.c'; fi`
 
-ut-ut_cstl_hash_multiset_iterator.o: ut_cstl_hash_multiset_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Tpo -c -o ut-ut_cstl_hash_multiset_iterator.o `test -f 'ut_cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Po
-#	source='ut_cstl_hash_multiset_iterator.c' object='ut-ut_cstl_hash_multiset_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_hash_multiset_iterator.o: ut_cstl_hash_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multiset_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_iterator.Tpo -c -o libcstl_ut-ut_cstl_hash_multiset_iterator.o `test -f 'ut_cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_iterator.Po
+#	source='ut_cstl_hash_multiset_iterator.c' object='libcstl_ut-ut_cstl_hash_multiset_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_iterator.o `test -f 'ut_cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multiset_iterator.o `test -f 'ut_cstl_hash_multiset_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset_iterator.c
 
-ut-ut_cstl_hash_multiset_iterator.obj: ut_cstl_hash_multiset_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Tpo -c -o ut-ut_cstl_hash_multiset_iterator.obj `if test -f 'ut_cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset_iterator.Po
-#	source='ut_cstl_hash_multiset_iterator.c' object='ut-ut_cstl_hash_multiset_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_multiset_iterator.obj: ut_cstl_hash_multiset_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multiset_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_iterator.Tpo -c -o libcstl_ut-ut_cstl_hash_multiset_iterator.obj `if test -f 'ut_cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset_iterator.Po
+#	source='ut_cstl_hash_multiset_iterator.c' object='libcstl_ut-ut_cstl_hash_multiset_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset_iterator.obj `if test -f 'ut_cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multiset_iterator.obj `if test -f 'ut_cstl_hash_multiset_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset_iterator.c'; fi`
 
-ut-ut_cstl_hash_multiset.o: ut_cstl_hash_multiset.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset.Tpo -c -o ut-ut_cstl_hash_multiset.o `test -f 'ut_cstl_hash_multiset.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset.Po
-#	source='ut_cstl_hash_multiset.c' object='ut-ut_cstl_hash_multiset.o' libtool=no \
+libcstl_ut-ut_cstl_hash_multiset.o: ut_cstl_hash_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multiset.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset.Tpo -c -o libcstl_ut-ut_cstl_hash_multiset.o `test -f 'ut_cstl_hash_multiset.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset.Po
+#	source='ut_cstl_hash_multiset.c' object='libcstl_ut-ut_cstl_hash_multiset.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset.o `test -f 'ut_cstl_hash_multiset.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multiset.o `test -f 'ut_cstl_hash_multiset.c' || echo '$(srcdir)/'`ut_cstl_hash_multiset.c
 
-ut-ut_cstl_hash_multiset.obj: ut_cstl_hash_multiset.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multiset.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multiset.Tpo -c -o ut-ut_cstl_hash_multiset.obj `if test -f 'ut_cstl_hash_multiset.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multiset.Tpo $(DEPDIR)/ut-ut_cstl_hash_multiset.Po
-#	source='ut_cstl_hash_multiset.c' object='ut-ut_cstl_hash_multiset.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_multiset.obj: ut_cstl_hash_multiset.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multiset.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset.Tpo -c -o libcstl_ut-ut_cstl_hash_multiset.obj `if test -f 'ut_cstl_hash_multiset.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multiset.Po
+#	source='ut_cstl_hash_multiset.c' object='libcstl_ut-ut_cstl_hash_multiset.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multiset.obj `if test -f 'ut_cstl_hash_multiset.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multiset.obj `if test -f 'ut_cstl_hash_multiset.c'; then $(CYGPATH_W) 'ut_cstl_hash_multiset.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multiset.c'; fi`
 
-ut-ut_cstl_hash_map_aux.o: ut_cstl_hash_map_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_map_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_map_aux.Tpo -c -o ut-ut_cstl_hash_map_aux.o `test -f 'ut_cstl_hash_map_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_map_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_map_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_map_aux.Po
-#	source='ut_cstl_hash_map_aux.c' object='ut-ut_cstl_hash_map_aux.o' libtool=no \
+libcstl_ut-ut_cstl_hash_map_aux.o: ut_cstl_hash_map_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_map_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_aux.Tpo -c -o libcstl_ut-ut_cstl_hash_map_aux.o `test -f 'ut_cstl_hash_map_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_map_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_aux.Po
+#	source='ut_cstl_hash_map_aux.c' object='libcstl_ut-ut_cstl_hash_map_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_map_aux.o `test -f 'ut_cstl_hash_map_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_map_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_map_aux.o `test -f 'ut_cstl_hash_map_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_map_aux.c
 
-ut-ut_cstl_hash_map_aux.obj: ut_cstl_hash_map_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_map_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_map_aux.Tpo -c -o ut-ut_cstl_hash_map_aux.obj `if test -f 'ut_cstl_hash_map_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_map_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_map_aux.Po
-#	source='ut_cstl_hash_map_aux.c' object='ut-ut_cstl_hash_map_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_map_aux.obj: ut_cstl_hash_map_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_map_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_aux.Tpo -c -o libcstl_ut-ut_cstl_hash_map_aux.obj `if test -f 'ut_cstl_hash_map_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_aux.Po
+#	source='ut_cstl_hash_map_aux.c' object='libcstl_ut-ut_cstl_hash_map_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_map_aux.obj `if test -f 'ut_cstl_hash_map_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_map_aux.obj `if test -f 'ut_cstl_hash_map_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_aux.c'; fi`
 
-ut-ut_cstl_hash_map_private.o: ut_cstl_hash_map_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_map_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_map_private.Tpo -c -o ut-ut_cstl_hash_map_private.o `test -f 'ut_cstl_hash_map_private.c' || echo '$(srcdir)/'`ut_cstl_hash_map_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_map_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_map_private.Po
-#	source='ut_cstl_hash_map_private.c' object='ut-ut_cstl_hash_map_private.o' libtool=no \
+libcstl_ut-ut_cstl_hash_map_private.o: ut_cstl_hash_map_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_map_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_private.Tpo -c -o libcstl_ut-ut_cstl_hash_map_private.o `test -f 'ut_cstl_hash_map_private.c' || echo '$(srcdir)/'`ut_cstl_hash_map_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_private.Po
+#	source='ut_cstl_hash_map_private.c' object='libcstl_ut-ut_cstl_hash_map_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_map_private.o `test -f 'ut_cstl_hash_map_private.c' || echo '$(srcdir)/'`ut_cstl_hash_map_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_map_private.o `test -f 'ut_cstl_hash_map_private.c' || echo '$(srcdir)/'`ut_cstl_hash_map_private.c
 
-ut-ut_cstl_hash_map_private.obj: ut_cstl_hash_map_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_map_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_map_private.Tpo -c -o ut-ut_cstl_hash_map_private.obj `if test -f 'ut_cstl_hash_map_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_map_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_map_private.Po
-#	source='ut_cstl_hash_map_private.c' object='ut-ut_cstl_hash_map_private.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_map_private.obj: ut_cstl_hash_map_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_map_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_private.Tpo -c -o libcstl_ut-ut_cstl_hash_map_private.obj `if test -f 'ut_cstl_hash_map_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_private.Po
+#	source='ut_cstl_hash_map_private.c' object='libcstl_ut-ut_cstl_hash_map_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_map_private.obj `if test -f 'ut_cstl_hash_map_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_map_private.obj `if test -f 'ut_cstl_hash_map_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_private.c'; fi`
 
-ut-ut_cstl_hash_map_iterator.o: ut_cstl_hash_map_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_map_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_map_iterator.Tpo -c -o ut-ut_cstl_hash_map_iterator.o `test -f 'ut_cstl_hash_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_map_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_map_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_map_iterator.Po
-#	source='ut_cstl_hash_map_iterator.c' object='ut-ut_cstl_hash_map_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_hash_map_iterator.o: ut_cstl_hash_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_map_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_iterator.Tpo -c -o libcstl_ut-ut_cstl_hash_map_iterator.o `test -f 'ut_cstl_hash_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_map_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_iterator.Po
+#	source='ut_cstl_hash_map_iterator.c' object='libcstl_ut-ut_cstl_hash_map_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_map_iterator.o `test -f 'ut_cstl_hash_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_map_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_map_iterator.o `test -f 'ut_cstl_hash_map_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_map_iterator.c
 
-ut-ut_cstl_hash_map_iterator.obj: ut_cstl_hash_map_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_map_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_map_iterator.Tpo -c -o ut-ut_cstl_hash_map_iterator.obj `if test -f 'ut_cstl_hash_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_map_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_map_iterator.Po
-#	source='ut_cstl_hash_map_iterator.c' object='ut-ut_cstl_hash_map_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_map_iterator.obj: ut_cstl_hash_map_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_map_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_iterator.Tpo -c -o libcstl_ut-ut_cstl_hash_map_iterator.obj `if test -f 'ut_cstl_hash_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_map_iterator.Po
+#	source='ut_cstl_hash_map_iterator.c' object='libcstl_ut-ut_cstl_hash_map_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_map_iterator.obj `if test -f 'ut_cstl_hash_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_map_iterator.obj `if test -f 'ut_cstl_hash_map_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_map_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map_iterator.c'; fi`
 
-ut-ut_cstl_hash_map.o: ut_cstl_hash_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_map.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_map.Tpo -c -o ut-ut_cstl_hash_map.o `test -f 'ut_cstl_hash_map.c' || echo '$(srcdir)/'`ut_cstl_hash_map.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_map.Tpo $(DEPDIR)/ut-ut_cstl_hash_map.Po
-#	source='ut_cstl_hash_map.c' object='ut-ut_cstl_hash_map.o' libtool=no \
+libcstl_ut-ut_cstl_hash_map.o: ut_cstl_hash_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_map.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_map.Tpo -c -o libcstl_ut-ut_cstl_hash_map.o `test -f 'ut_cstl_hash_map.c' || echo '$(srcdir)/'`ut_cstl_hash_map.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_map.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_map.Po
+#	source='ut_cstl_hash_map.c' object='libcstl_ut-ut_cstl_hash_map.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_map.o `test -f 'ut_cstl_hash_map.c' || echo '$(srcdir)/'`ut_cstl_hash_map.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_map.o `test -f 'ut_cstl_hash_map.c' || echo '$(srcdir)/'`ut_cstl_hash_map.c
 
-ut-ut_cstl_hash_map.obj: ut_cstl_hash_map.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_map.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_map.Tpo -c -o ut-ut_cstl_hash_map.obj `if test -f 'ut_cstl_hash_map.c'; then $(CYGPATH_W) 'ut_cstl_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_map.Tpo $(DEPDIR)/ut-ut_cstl_hash_map.Po
-#	source='ut_cstl_hash_map.c' object='ut-ut_cstl_hash_map.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_map.obj: ut_cstl_hash_map.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_map.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_map.Tpo -c -o libcstl_ut-ut_cstl_hash_map.obj `if test -f 'ut_cstl_hash_map.c'; then $(CYGPATH_W) 'ut_cstl_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_map.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_map.Po
+#	source='ut_cstl_hash_map.c' object='libcstl_ut-ut_cstl_hash_map.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_map.obj `if test -f 'ut_cstl_hash_map.c'; then $(CYGPATH_W) 'ut_cstl_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_map.obj `if test -f 'ut_cstl_hash_map.c'; then $(CYGPATH_W) 'ut_cstl_hash_map.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_map.c'; fi`
 
-ut-ut_cstl_hash_multimap_aux.o: ut_cstl_hash_multimap_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multimap_aux.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multimap_aux.Tpo -c -o ut-ut_cstl_hash_multimap_aux.o `test -f 'ut_cstl_hash_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_aux.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multimap_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_multimap_aux.Po
-#	source='ut_cstl_hash_multimap_aux.c' object='ut-ut_cstl_hash_multimap_aux.o' libtool=no \
+libcstl_ut-ut_cstl_hash_multimap_aux.o: ut_cstl_hash_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multimap_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_aux.Tpo -c -o libcstl_ut-ut_cstl_hash_multimap_aux.o `test -f 'ut_cstl_hash_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_aux.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_aux.Po
+#	source='ut_cstl_hash_multimap_aux.c' object='libcstl_ut-ut_cstl_hash_multimap_aux.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multimap_aux.o `test -f 'ut_cstl_hash_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_aux.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multimap_aux.o `test -f 'ut_cstl_hash_multimap_aux.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_aux.c
 
-ut-ut_cstl_hash_multimap_aux.obj: ut_cstl_hash_multimap_aux.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multimap_aux.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multimap_aux.Tpo -c -o ut-ut_cstl_hash_multimap_aux.obj `if test -f 'ut_cstl_hash_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_aux.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multimap_aux.Tpo $(DEPDIR)/ut-ut_cstl_hash_multimap_aux.Po
-#	source='ut_cstl_hash_multimap_aux.c' object='ut-ut_cstl_hash_multimap_aux.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_multimap_aux.obj: ut_cstl_hash_multimap_aux.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multimap_aux.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_aux.Tpo -c -o libcstl_ut-ut_cstl_hash_multimap_aux.obj `if test -f 'ut_cstl_hash_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_aux.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_aux.Po
+#	source='ut_cstl_hash_multimap_aux.c' object='libcstl_ut-ut_cstl_hash_multimap_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multimap_aux.obj `if test -f 'ut_cstl_hash_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_aux.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multimap_aux.obj `if test -f 'ut_cstl_hash_multimap_aux.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_aux.c'; fi`
 
-ut-ut_cstl_hash_multimap_private.o: ut_cstl_hash_multimap_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multimap_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multimap_private.Tpo -c -o ut-ut_cstl_hash_multimap_private.o `test -f 'ut_cstl_hash_multimap_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multimap_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_multimap_private.Po
-#	source='ut_cstl_hash_multimap_private.c' object='ut-ut_cstl_hash_multimap_private.o' libtool=no \
+libcstl_ut-ut_cstl_hash_multimap_private.o: ut_cstl_hash_multimap_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multimap_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_private.Tpo -c -o libcstl_ut-ut_cstl_hash_multimap_private.o `test -f 'ut_cstl_hash_multimap_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_private.Po
+#	source='ut_cstl_hash_multimap_private.c' object='libcstl_ut-ut_cstl_hash_multimap_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multimap_private.o `test -f 'ut_cstl_hash_multimap_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multimap_private.o `test -f 'ut_cstl_hash_multimap_private.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_private.c
 
-ut-ut_cstl_hash_multimap_private.obj: ut_cstl_hash_multimap_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multimap_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multimap_private.Tpo -c -o ut-ut_cstl_hash_multimap_private.obj `if test -f 'ut_cstl_hash_multimap_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multimap_private.Tpo $(DEPDIR)/ut-ut_cstl_hash_multimap_private.Po
-#	source='ut_cstl_hash_multimap_private.c' object='ut-ut_cstl_hash_multimap_private.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_multimap_private.obj: ut_cstl_hash_multimap_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multimap_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_private.Tpo -c -o libcstl_ut-ut_cstl_hash_multimap_private.obj `if test -f 'ut_cstl_hash_multimap_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_private.Po
+#	source='ut_cstl_hash_multimap_private.c' object='libcstl_ut-ut_cstl_hash_multimap_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multimap_private.obj `if test -f 'ut_cstl_hash_multimap_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multimap_private.obj `if test -f 'ut_cstl_hash_multimap_private.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_private.c'; fi`
 
-ut-ut_cstl_hash_multimap_iterator.o: ut_cstl_hash_multimap_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multimap_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multimap_iterator.Tpo -c -o ut-ut_cstl_hash_multimap_iterator.o `test -f 'ut_cstl_hash_multimap_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multimap_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_multimap_iterator.Po
-#	source='ut_cstl_hash_multimap_iterator.c' object='ut-ut_cstl_hash_multimap_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_hash_multimap_iterator.o: ut_cstl_hash_multimap_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multimap_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_iterator.Tpo -c -o libcstl_ut-ut_cstl_hash_multimap_iterator.o `test -f 'ut_cstl_hash_multimap_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_iterator.Po
+#	source='ut_cstl_hash_multimap_iterator.c' object='libcstl_ut-ut_cstl_hash_multimap_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multimap_iterator.o `test -f 'ut_cstl_hash_multimap_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multimap_iterator.o `test -f 'ut_cstl_hash_multimap_iterator.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap_iterator.c
 
-ut-ut_cstl_hash_multimap_iterator.obj: ut_cstl_hash_multimap_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multimap_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multimap_iterator.Tpo -c -o ut-ut_cstl_hash_multimap_iterator.obj `if test -f 'ut_cstl_hash_multimap_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multimap_iterator.Tpo $(DEPDIR)/ut-ut_cstl_hash_multimap_iterator.Po
-#	source='ut_cstl_hash_multimap_iterator.c' object='ut-ut_cstl_hash_multimap_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_multimap_iterator.obj: ut_cstl_hash_multimap_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multimap_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_iterator.Tpo -c -o libcstl_ut-ut_cstl_hash_multimap_iterator.obj `if test -f 'ut_cstl_hash_multimap_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap_iterator.Po
+#	source='ut_cstl_hash_multimap_iterator.c' object='libcstl_ut-ut_cstl_hash_multimap_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multimap_iterator.obj `if test -f 'ut_cstl_hash_multimap_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multimap_iterator.obj `if test -f 'ut_cstl_hash_multimap_iterator.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap_iterator.c'; fi`
 
-ut-ut_cstl_hash_multimap.o: ut_cstl_hash_multimap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multimap.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multimap.Tpo -c -o ut-ut_cstl_hash_multimap.o `test -f 'ut_cstl_hash_multimap.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multimap.Tpo $(DEPDIR)/ut-ut_cstl_hash_multimap.Po
-#	source='ut_cstl_hash_multimap.c' object='ut-ut_cstl_hash_multimap.o' libtool=no \
+libcstl_ut-ut_cstl_hash_multimap.o: ut_cstl_hash_multimap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multimap.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap.Tpo -c -o libcstl_ut-ut_cstl_hash_multimap.o `test -f 'ut_cstl_hash_multimap.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap.Po
+#	source='ut_cstl_hash_multimap.c' object='libcstl_ut-ut_cstl_hash_multimap.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multimap.o `test -f 'ut_cstl_hash_multimap.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multimap.o `test -f 'ut_cstl_hash_multimap.c' || echo '$(srcdir)/'`ut_cstl_hash_multimap.c
 
-ut-ut_cstl_hash_multimap.obj: ut_cstl_hash_multimap.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_hash_multimap.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_hash_multimap.Tpo -c -o ut-ut_cstl_hash_multimap.obj `if test -f 'ut_cstl_hash_multimap.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_hash_multimap.Tpo $(DEPDIR)/ut-ut_cstl_hash_multimap.Po
-#	source='ut_cstl_hash_multimap.c' object='ut-ut_cstl_hash_multimap.obj' libtool=no \
+libcstl_ut-ut_cstl_hash_multimap.obj: ut_cstl_hash_multimap.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_hash_multimap.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap.Tpo -c -o libcstl_ut-ut_cstl_hash_multimap.obj `if test -f 'ut_cstl_hash_multimap.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_hash_multimap.Po
+#	source='ut_cstl_hash_multimap.c' object='libcstl_ut-ut_cstl_hash_multimap.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_hash_multimap.obj `if test -f 'ut_cstl_hash_multimap.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_hash_multimap.obj `if test -f 'ut_cstl_hash_multimap.c'; then $(CYGPATH_W) 'ut_cstl_hash_multimap.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_hash_multimap.c'; fi`
 
-ut-ut_cstl_iterator_private.o: ut_cstl_iterator_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_iterator_private.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_iterator_private.Tpo -c -o ut-ut_cstl_iterator_private.o `test -f 'ut_cstl_iterator_private.c' || echo '$(srcdir)/'`ut_cstl_iterator_private.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_iterator_private.Tpo $(DEPDIR)/ut-ut_cstl_iterator_private.Po
-#	source='ut_cstl_iterator_private.c' object='ut-ut_cstl_iterator_private.o' libtool=no \
+libcstl_ut-ut_cstl_iterator_private.o: ut_cstl_iterator_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_iterator_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_iterator_private.Tpo -c -o libcstl_ut-ut_cstl_iterator_private.o `test -f 'ut_cstl_iterator_private.c' || echo '$(srcdir)/'`ut_cstl_iterator_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_iterator_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_iterator_private.Po
+#	source='ut_cstl_iterator_private.c' object='libcstl_ut-ut_cstl_iterator_private.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_iterator_private.o `test -f 'ut_cstl_iterator_private.c' || echo '$(srcdir)/'`ut_cstl_iterator_private.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_iterator_private.o `test -f 'ut_cstl_iterator_private.c' || echo '$(srcdir)/'`ut_cstl_iterator_private.c
 
-ut-ut_cstl_iterator_private.obj: ut_cstl_iterator_private.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_iterator_private.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_iterator_private.Tpo -c -o ut-ut_cstl_iterator_private.obj `if test -f 'ut_cstl_iterator_private.c'; then $(CYGPATH_W) 'ut_cstl_iterator_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_iterator_private.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_iterator_private.Tpo $(DEPDIR)/ut-ut_cstl_iterator_private.Po
-#	source='ut_cstl_iterator_private.c' object='ut-ut_cstl_iterator_private.obj' libtool=no \
+libcstl_ut-ut_cstl_iterator_private.obj: ut_cstl_iterator_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_iterator_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_iterator_private.Tpo -c -o libcstl_ut-ut_cstl_iterator_private.obj `if test -f 'ut_cstl_iterator_private.c'; then $(CYGPATH_W) 'ut_cstl_iterator_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_iterator_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_iterator_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_iterator_private.Po
+#	source='ut_cstl_iterator_private.c' object='libcstl_ut-ut_cstl_iterator_private.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_iterator_private.obj `if test -f 'ut_cstl_iterator_private.c'; then $(CYGPATH_W) 'ut_cstl_iterator_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_iterator_private.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_iterator_private.obj `if test -f 'ut_cstl_iterator_private.c'; then $(CYGPATH_W) 'ut_cstl_iterator_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_iterator_private.c'; fi`
 
-ut-ut_cstl_iterator.o: ut_cstl_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_iterator.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_iterator.Tpo -c -o ut-ut_cstl_iterator.o `test -f 'ut_cstl_iterator.c' || echo '$(srcdir)/'`ut_cstl_iterator.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_iterator.Tpo $(DEPDIR)/ut-ut_cstl_iterator.Po
-#	source='ut_cstl_iterator.c' object='ut-ut_cstl_iterator.o' libtool=no \
+libcstl_ut-ut_cstl_iterator.o: ut_cstl_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_iterator.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_iterator.Tpo -c -o libcstl_ut-ut_cstl_iterator.o `test -f 'ut_cstl_iterator.c' || echo '$(srcdir)/'`ut_cstl_iterator.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_iterator.Po
+#	source='ut_cstl_iterator.c' object='libcstl_ut-ut_cstl_iterator.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_iterator.o `test -f 'ut_cstl_iterator.c' || echo '$(srcdir)/'`ut_cstl_iterator.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_iterator.o `test -f 'ut_cstl_iterator.c' || echo '$(srcdir)/'`ut_cstl_iterator.c
 
-ut-ut_cstl_iterator.obj: ut_cstl_iterator.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_iterator.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_iterator.Tpo -c -o ut-ut_cstl_iterator.obj `if test -f 'ut_cstl_iterator.c'; then $(CYGPATH_W) 'ut_cstl_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_iterator.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_iterator.Tpo $(DEPDIR)/ut-ut_cstl_iterator.Po
-#	source='ut_cstl_iterator.c' object='ut-ut_cstl_iterator.obj' libtool=no \
+libcstl_ut-ut_cstl_iterator.obj: ut_cstl_iterator.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_iterator.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_iterator.Tpo -c -o libcstl_ut-ut_cstl_iterator.obj `if test -f 'ut_cstl_iterator.c'; then $(CYGPATH_W) 'ut_cstl_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_iterator.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_iterator.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_iterator.Po
+#	source='ut_cstl_iterator.c' object='libcstl_ut-ut_cstl_iterator.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_iterator.obj `if test -f 'ut_cstl_iterator.c'; then $(CYGPATH_W) 'ut_cstl_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_iterator.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_iterator.obj `if test -f 'ut_cstl_iterator.c'; then $(CYGPATH_W) 'ut_cstl_iterator.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_iterator.c'; fi`
 
-ut-ut_cstl_types_builtin.o: ut_cstl_types_builtin.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_types_builtin.o -MD -MP -MF $(DEPDIR)/ut-ut_cstl_types_builtin.Tpo -c -o ut-ut_cstl_types_builtin.o `test -f 'ut_cstl_types_builtin.c' || echo '$(srcdir)/'`ut_cstl_types_builtin.c
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_types_builtin.Tpo $(DEPDIR)/ut-ut_cstl_types_builtin.Po
-#	source='ut_cstl_types_builtin.c' object='ut-ut_cstl_types_builtin.o' libtool=no \
+libcstl_ut-ut_cstl_types_builtin.o: ut_cstl_types_builtin.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_types_builtin.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_types_builtin.Tpo -c -o libcstl_ut-ut_cstl_types_builtin.o `test -f 'ut_cstl_types_builtin.c' || echo '$(srcdir)/'`ut_cstl_types_builtin.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_types_builtin.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_types_builtin.Po
+#	source='ut_cstl_types_builtin.c' object='libcstl_ut-ut_cstl_types_builtin.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_types_builtin.o `test -f 'ut_cstl_types_builtin.c' || echo '$(srcdir)/'`ut_cstl_types_builtin.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_types_builtin.o `test -f 'ut_cstl_types_builtin.c' || echo '$(srcdir)/'`ut_cstl_types_builtin.c
 
-ut-ut_cstl_types_builtin.obj: ut_cstl_types_builtin.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ut-ut_cstl_types_builtin.obj -MD -MP -MF $(DEPDIR)/ut-ut_cstl_types_builtin.Tpo -c -o ut-ut_cstl_types_builtin.obj `if test -f 'ut_cstl_types_builtin.c'; then $(CYGPATH_W) 'ut_cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types_builtin.c'; fi`
-	$(am__mv) $(DEPDIR)/ut-ut_cstl_types_builtin.Tpo $(DEPDIR)/ut-ut_cstl_types_builtin.Po
-#	source='ut_cstl_types_builtin.c' object='ut-ut_cstl_types_builtin.obj' libtool=no \
+libcstl_ut-ut_cstl_types_builtin.obj: ut_cstl_types_builtin.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_types_builtin.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_types_builtin.Tpo -c -o libcstl_ut-ut_cstl_types_builtin.obj `if test -f 'ut_cstl_types_builtin.c'; then $(CYGPATH_W) 'ut_cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types_builtin.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_types_builtin.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_types_builtin.Po
+#	source='ut_cstl_types_builtin.c' object='libcstl_ut-ut_cstl_types_builtin.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ut-ut_cstl_types_builtin.obj `if test -f 'ut_cstl_types_builtin.c'; then $(CYGPATH_W) 'ut_cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types_builtin.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_types_builtin.obj `if test -f 'ut_cstl_types_builtin.c'; then $(CYGPATH_W) 'ut_cstl_types_builtin.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types_builtin.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

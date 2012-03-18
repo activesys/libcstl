@@ -1,6 +1,6 @@
 # for build test
-check_PROGRAMS = it
-it_SOURCES = test.c \
+check_PROGRAMS = libcstl_it
+libcstl_it_SOURCES = test.c \
 	       test_algo.c \
 	       test_algobase.c \
 	       test_avl_tree.c \
@@ -45,7 +45,7 @@ it_SOURCES = test.c \
 	       test_type.h \
 	       test_vector.h \
 	       tree_traverse.h
-it_CPPFLAGS = -I$(srcdir)/../..
-it_LDADD = ../../src/libcstl.la
+libcstl_it_CPPFLAGS = -I$(srcdir)/../..
+libcstl_it_LDADD = ../../src/libcstl.la
 CLEANFILES = core.* string_output.txt
 #TESTS = $(check_PROGRAMS)

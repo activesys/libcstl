@@ -7,8 +7,9 @@
 *.lo
 *.o
 *.utoutput
-it
-ut
+libcstl_it
+libcstl_ut
 cscope.*
 *.swp
 *.log
+tags

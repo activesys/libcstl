@@ -374,12 +374,12 @@ void _type_destroy_bool(const void* cpv_input, void* pv_output)
  */
 void _type_init_cstr(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
 
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_string_auxiliary((string_t*)cpv_input);
-    assert(t_result);
+    b_result = _create_string_auxiliary((string_t*)cpv_input);
+    assert(b_result);
     string_init((string_t*)cpv_input);
     *(bool_t*)pv_output = true;
 }
@@ -408,12 +408,12 @@ void _type_destroy_cstr(const void* cpv_input, void* pv_output)
 /* vector_t */
 void _type_init_vector(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
 
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_vector_auxiliary((vector_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_vector_auxiliary((vector_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     /* initialize vector_t */
     vector_init((vector_t*)cpv_input);
 }
@@ -441,11 +441,11 @@ void _type_destroy_vector(const void* cpv_input, void* pv_output)
 /* list_t */
 void _type_init_list(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_list_auxiliary((list_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_list_auxiliary((list_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     /* initialize list_t */
     list_init((list_t*)cpv_input);
 }
@@ -473,11 +473,11 @@ void _type_destroy_list(const void* cpv_input, void* pv_output)
 /* slist_t */
 void _type_init_slist(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_slist_auxiliary((slist_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_slist_auxiliary((slist_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     /* initialize slist_t */
     slist_init((slist_t*)cpv_input);
 }
@@ -505,11 +505,11 @@ void _type_destroy_slist(const void* cpv_input, void* pv_output)
 /* deque_t */
 void _type_init_deque(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_deque_auxiliary((deque_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_deque_auxiliary((deque_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     /* initialize deque_t */
     deque_init((deque_t*)cpv_input);
 }
@@ -537,11 +537,11 @@ void _type_destroy_deque(const void* cpv_input, void* pv_output)
 /* stack_t */
 void _type_init_stack(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_stack_auxiliary((stack_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_stack_auxiliary((stack_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     stack_init((stack_t*)cpv_input);
 }
 
@@ -568,11 +568,11 @@ void _type_destroy_stack(const void* cpv_input, void* pv_output)
 /* queue_t */
 void _type_init_queue(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_queue_auxiliary((queue_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_queue_auxiliary((queue_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
 
     queue_init((queue_t*)cpv_input);
 }
@@ -600,12 +600,11 @@ void _type_destroy_queue(const void* cpv_input, void* pv_output)
 /* priority_queue_t */
 void _type_init_priority_queue(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_priority_queue_auxiliary(
-        (priority_queue_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_priority_queue_auxiliary((priority_queue_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     priority_queue_init((priority_queue_t*)cpv_input);
 }
 
@@ -619,9 +618,7 @@ void _type_copy_priority_queue(const void* cpv_first, const void* cpv_second, vo
 void _type_less_priority_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-    *(bool_t*)pv_output = vector_less(
-        &((priority_queue_t*)cpv_first)->_t_vector, 
-        &((priority_queue_t*)cpv_second)->_t_vector);
+    *(bool_t*)pv_output = vector_less(&((priority_queue_t*)cpv_first)->_t_vector, &((priority_queue_t*)cpv_second)->_t_vector);
 }
 
 void _type_destroy_priority_queue(const void* cpv_input, void* pv_output)
@@ -634,11 +631,11 @@ void _type_destroy_priority_queue(const void* cpv_input, void* pv_output)
 /* set_t */
 void _type_init_set(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_set_auxiliary((set_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_set_auxiliary((set_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     set_init((set_t*)cpv_input);
 }
 
@@ -665,11 +662,11 @@ void _type_destroy_set(const void* cpv_input, void* pv_output)
 /* map_t */
 void _type_init_map(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_map_auxiliary((map_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_map_auxiliary((map_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     map_init((map_t*)cpv_input);
 }
 
@@ -696,11 +693,11 @@ void _type_destroy_map(const void* cpv_input, void* pv_output)
 /* multiset_t */
 void _type_init_multiset(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_multiset_auxiliary((multiset_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_multiset_auxiliary((multiset_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     multiset_init((multiset_t*)cpv_input);
 }
 
@@ -727,11 +724,11 @@ void _type_destroy_multiset(const void* cpv_input, void* pv_output)
 /* multimap_t */
 void _type_init_multimap(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_multimap_auxiliary((multimap_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_multimap_auxiliary((multimap_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     multimap_init((multimap_t*)cpv_input);
 }
 
@@ -758,11 +755,11 @@ void _type_destroy_multimap(const void* cpv_input, void* pv_output)
 /* hash_set_t */
 void _type_init_hash_set(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_hash_set_auxiliary((hash_set_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_hash_set_auxiliary((hash_set_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     hash_set_init((hash_set_t*)cpv_input);
 }
 
@@ -789,11 +786,11 @@ void _type_destroy_hash_set(const void* cpv_input, void* pv_output)
 /* hash_map_t */
 void _type_init_hash_map(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_hash_map_auxiliary((hash_map_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_hash_map_auxiliary((hash_map_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     hash_map_init((hash_map_t*)cpv_input);
 }
 
@@ -820,11 +817,11 @@ void _type_destroy_hash_map(const void* cpv_input, void* pv_output)
 /* hash_multiset_t */
 void _type_init_hash_multiset(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_hash_multiset_auxiliary((hash_multiset_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_hash_multiset_auxiliary((hash_multiset_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     hash_multiset_init((hash_multiset_t*)cpv_input);
 }
 
@@ -852,11 +849,11 @@ void _type_destroy_hash_multiset(const void* cpv_input, void* pv_output)
 /* hash_multimap_t */
 void _type_init_hash_multimap(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_hash_multimap_auxiliary((hash_multimap_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_hash_multimap_auxiliary((hash_multimap_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     hash_multimap_init((hash_multimap_t*)cpv_input);
 }
 
@@ -884,11 +881,11 @@ void _type_destroy_hash_multimap(const void* cpv_input, void* pv_output)
 /* pair_t */
 void _type_init_pair(const void* cpv_input, void* pv_output)
 {
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
 
-    t_result = _create_pair_auxiliary((pair_t*)cpv_input, (char*)pv_output);
-    assert(t_result);
+    b_result = _create_pair_auxiliary((pair_t*)cpv_input, (char*)pv_output);
+    assert(b_result);
     /* initialize pair */
     pair_init((pair_t*)cpv_input);
 }
@@ -917,10 +914,10 @@ void _type_destroy_pair(const void* cpv_input, void* pv_output)
 void _type_init_string(const void* cpv_input, void* pv_output)
 {
     void* pv_avoidwarning = NULL;
-    bool_t t_result = false;
+    bool_t b_result = false;
     assert(cpv_input != NULL && pv_output != NULL);
-    t_result = _create_string_auxiliary((string_t*)cpv_input);
-    assert(t_result);
+    b_result = _create_string_auxiliary((string_t*)cpv_input);
+    assert(b_result);
     string_init((string_t*)cpv_input);
     pv_avoidwarning = pv_output;
 }

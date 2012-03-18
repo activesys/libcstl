@@ -1,6 +1,6 @@
 # for libcstl unit testing.
-check_PROGRAMS = ut
-ut_SOURCES = ut_main.c ut_def.c ut_def.h \
+check_PROGRAMS = libcstl_ut
+libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
              $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
 	     $(srcdir)/../../src/cstl_algo.c \
 	     $(srcdir)/../../src/cstl_algobase.c \
@@ -124,8 +124,8 @@ ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_iterator_private.c ut_cstl_iterator_private.h \
 	     ut_cstl_iterator.c ut_cstl_iterator.h \
 	     ut_cstl_types_builtin.c ut_cstl_types_builtin.h
-ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
-ut_LDFLAGS = -lcmockery
+libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
+libcstl_ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)
 CLEANFILES = core.* *.utoutput
 
