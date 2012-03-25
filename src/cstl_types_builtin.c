@@ -947,6 +947,9 @@ void _type_init_iterator(const void* cpv_input, void* pv_output)
 {
     void* pv_avoidwarning = NULL;
     bool_t b_result = sizeof(iterator_t);
+
+    assert(cpv_input != NULL && pv_output != NULL);
+
     _type_init_default(cpv_input, &b_result);
     pv_avoidwarning = (void*)pv_output;
 }

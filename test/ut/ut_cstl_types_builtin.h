@@ -451,6 +451,550 @@ UT_CASE_DECLARATION(_type_destroy_vector)
 void test__type_destroy_vector__null_input(void** state);
 void test__type_destroy_vector__null_output(void** state);
 void test__type_destroy_vector__ok(void** state);
+/*
+ * test _type_init_list
+ */
+UT_CASE_DECLARATION(_type_init_list)
+void test__type_init_list__null_input(void** state);
+void test__type_init_list__null_output(void** state);
+void test__type_init_list__ok(void** state);
+/*
+ * test _type_copy_list
+ */
+UT_CASE_DECLARATION(_type_copy_list)
+void test__type_copy_list__null_first(void** state);
+void test__type_copy_list__null_second(void** state);
+void test__type_copy_list__null_output(void** state);
+void test__type_copy_list__ok(void** state);
+/*
+ * test _type_less_list
+ */
+UT_CASE_DECLARATION(_type_less_list)
+void test__type_less_list__null_first(void** state);
+void test__type_less_list__null_second(void** state);
+void test__type_less_list__null_output(void** state);
+void test__type_less_list__less(void** state);
+void test__type_less_list__equal(void** state);
+void test__type_less_list__greater(void** state);
+/*
+ * test _type_destroy_list
+ */
+UT_CASE_DECLARATION(_type_destroy_list)
+void test__type_destroy_list__null_input(void** state);
+void test__type_destroy_list__null_output(void** state);
+void test__type_destroy_list__ok(void** state);
+/*
+ * test _type_init_slist
+ */
+UT_CASE_DECLARATION(_type_init_slist)
+void test__type_init_slist__null_input(void** state);
+void test__type_init_slist__null_output(void** state);
+void test__type_init_slist__ok(void** state);
+/*
+ * test _type_copy_slist
+ */
+UT_CASE_DECLARATION(_type_copy_slist)
+void test__type_copy_slist__null_first(void** state);
+void test__type_copy_slist__null_second(void** state);
+void test__type_copy_slist__null_output(void** state);
+void test__type_copy_slist__ok(void** state);
+/*
+ * test _type_less_slist
+ */
+UT_CASE_DECLARATION(_type_less_slist)
+void test__type_less_slist__null_first(void** state);
+void test__type_less_slist__null_second(void** state);
+void test__type_less_slist__null_output(void** state);
+void test__type_less_slist__less(void** state);
+void test__type_less_slist__equal(void** state);
+void test__type_less_slist__greater(void** state);
+/*
+ * test _type_destroy_slist
+ */
+UT_CASE_DECLARATION(_type_destroy_slist)
+void test__type_destroy_slist__null_input(void** state);
+void test__type_destroy_slist__null_output(void** state);
+void test__type_destroy_slist__ok(void** state);
+/*
+ * test _type_init_deque
+ */
+UT_CASE_DECLARATION(_type_init_deque)
+void test__type_init_deque__null_input(void** state);
+void test__type_init_deque__null_output(void** state);
+void test__type_init_deque__ok(void** state);
+/*
+ * test _type_copy_deque
+ */
+UT_CASE_DECLARATION(_type_copy_deque)
+void test__type_copy_deque__null_first(void** state);
+void test__type_copy_deque__null_second(void** state);
+void test__type_copy_deque__null_output(void** state);
+void test__type_copy_deque__ok(void** state);
+/*
+ * test _type_less_deque
+ */
+UT_CASE_DECLARATION(_type_less_deque)
+void test__type_less_deque__null_first(void** state);
+void test__type_less_deque__null_second(void** state);
+void test__type_less_deque__null_output(void** state);
+void test__type_less_deque__less(void** state);
+void test__type_less_deque__equal(void** state);
+void test__type_less_deque__greater(void** state);
+/*
+ * test _type_destroy_deque
+ */
+UT_CASE_DECLARATION(_type_destroy_deque)
+void test__type_destroy_deque__null_input(void** state);
+void test__type_destroy_deque__null_output(void** state);
+void test__type_destroy_deque__ok(void** state);
+/*
+ * test _type_init_stack
+ */
+UT_CASE_DECLARATION(_type_init_stack)
+void test__type_init_stack__null_input(void** state);
+void test__type_init_stack__null_output(void** state);
+void test__type_init_stack__ok(void** state);
+/*
+ * test _type_copy_stack
+ */
+UT_CASE_DECLARATION(_type_copy_stack)
+void test__type_copy_stack__null_first(void** state);
+void test__type_copy_stack__null_second(void** state);
+void test__type_copy_stack__null_output(void** state);
+void test__type_copy_stack__ok(void** state);
+/*
+ * test _type_less_stack
+ */
+UT_CASE_DECLARATION(_type_less_stack)
+void test__type_less_stack__null_first(void** state);
+void test__type_less_stack__null_second(void** state);
+void test__type_less_stack__null_output(void** state);
+void test__type_less_stack__less(void** state);
+void test__type_less_stack__equal(void** state);
+void test__type_less_stack__greater(void** state);
+/*
+ * test _type_destroy_stack
+ */
+UT_CASE_DECLARATION(_type_destroy_stack)
+void test__type_destroy_stack__null_input(void** state);
+void test__type_destroy_stack__null_output(void** state);
+void test__type_destroy_stack__ok(void** state);
+/*
+ * test _type_init_queue
+ */
+UT_CASE_DECLARATION(_type_init_queue)
+void test__type_init_queue__null_input(void** state);
+void test__type_init_queue__null_output(void** state);
+void test__type_init_queue__ok(void** state);
+/*
+ * test _type_copy_queue
+ */
+UT_CASE_DECLARATION(_type_copy_queue)
+void test__type_copy_queue__null_first(void** state);
+void test__type_copy_queue__null_second(void** state);
+void test__type_copy_queue__null_output(void** state);
+void test__type_copy_queue__ok(void** state);
+/*
+ * test _type_less_queue
+ */
+UT_CASE_DECLARATION(_type_less_queue)
+void test__type_less_queue__null_first(void** state);
+void test__type_less_queue__null_second(void** state);
+void test__type_less_queue__null_output(void** state);
+void test__type_less_queue__less(void** state);
+void test__type_less_queue__equal(void** state);
+void test__type_less_queue__greater(void** state);
+/*
+ * test _type_destroy_queue
+ */
+UT_CASE_DECLARATION(_type_destroy_queue)
+void test__type_destroy_queue__null_input(void** state);
+void test__type_destroy_queue__null_output(void** state);
+void test__type_destroy_queue__ok(void** state);
+/*
+ * test _type_init_priority_queue
+ */
+UT_CASE_DECLARATION(_type_init_priority_queue)
+void test__type_init_priority_queue__null_input(void** state);
+void test__type_init_priority_queue__null_output(void** state);
+void test__type_init_priority_queue__ok(void** state);
+/*
+ * test _type_copy_priority_queue
+ */
+UT_CASE_DECLARATION(_type_copy_priority_queue)
+void test__type_copy_priority_queue__null_first(void** state);
+void test__type_copy_priority_queue__null_second(void** state);
+void test__type_copy_priority_queue__null_output(void** state);
+void test__type_copy_priority_queue__ok(void** state);
+/*
+ * test _type_less_priority_queue
+ */
+UT_CASE_DECLARATION(_type_less_priority_queue)
+void test__type_less_priority_queue__null_first(void** state);
+void test__type_less_priority_queue__null_second(void** state);
+void test__type_less_priority_queue__null_output(void** state);
+void test__type_less_priority_queue__less(void** state);
+void test__type_less_priority_queue__equal(void** state);
+void test__type_less_priority_queue__greater(void** state);
+/*
+ * test _type_destroy_priority_queue
+ */
+UT_CASE_DECLARATION(_type_destroy_priority_queue)
+void test__type_destroy_priority_queue__null_input(void** state);
+void test__type_destroy_priority_queue__null_output(void** state);
+void test__type_destroy_priority_queue__ok(void** state);
+/*
+ * test _type_init_set
+ */
+UT_CASE_DECLARATION(_type_init_set)
+void test__type_init_set__null_input(void** state);
+void test__type_init_set__null_output(void** state);
+void test__type_init_set__ok(void** state);
+/*
+ * test _type_copy_set
+ */
+UT_CASE_DECLARATION(_type_copy_set)
+void test__type_copy_set__null_first(void** state);
+void test__type_copy_set__null_second(void** state);
+void test__type_copy_set__null_output(void** state);
+void test__type_copy_set__ok(void** state);
+/*
+ * test _type_less_set
+ */
+UT_CASE_DECLARATION(_type_less_set)
+void test__type_less_set__null_first(void** state);
+void test__type_less_set__null_second(void** state);
+void test__type_less_set__null_output(void** state);
+void test__type_less_set__less(void** state);
+void test__type_less_set__equal(void** state);
+void test__type_less_set__greater(void** state);
+/*
+ * test _type_destroy_set
+ */
+UT_CASE_DECLARATION(_type_destroy_set)
+void test__type_destroy_set__null_input(void** state);
+void test__type_destroy_set__null_output(void** state);
+void test__type_destroy_set__ok(void** state);
+/*
+ * test _type_init_multiset
+ */
+UT_CASE_DECLARATION(_type_init_multiset)
+void test__type_init_multiset__null_input(void** state);
+void test__type_init_multiset__null_output(void** state);
+void test__type_init_multiset__ok(void** state);
+/*
+ * test _type_copy_multiset
+ */
+UT_CASE_DECLARATION(_type_copy_multiset)
+void test__type_copy_multiset__null_first(void** state);
+void test__type_copy_multiset__null_second(void** state);
+void test__type_copy_multiset__null_output(void** state);
+void test__type_copy_multiset__ok(void** state);
+/*
+ * test _type_less_multiset
+ */
+UT_CASE_DECLARATION(_type_less_multiset)
+void test__type_less_multiset__null_first(void** state);
+void test__type_less_multiset__null_second(void** state);
+void test__type_less_multiset__null_output(void** state);
+void test__type_less_multiset__less(void** state);
+void test__type_less_multiset__equal(void** state);
+void test__type_less_multiset__greater(void** state);
+/*
+ * test _type_destroy_multiset
+ */
+UT_CASE_DECLARATION(_type_destroy_multiset)
+void test__type_destroy_multiset__null_input(void** state);
+void test__type_destroy_multiset__null_output(void** state);
+void test__type_destroy_multiset__ok(void** state);
+/*
+ * test _type_init_map
+ */
+UT_CASE_DECLARATION(_type_init_map)
+void test__type_init_map__null_input(void** state);
+void test__type_init_map__null_output(void** state);
+void test__type_init_map__ok(void** state);
+/*
+ * test _type_copy_map
+ */
+UT_CASE_DECLARATION(_type_copy_map)
+void test__type_copy_map__null_first(void** state);
+void test__type_copy_map__null_second(void** state);
+void test__type_copy_map__null_output(void** state);
+void test__type_copy_map__ok(void** state);
+/*
+ * test _type_less_map
+ */
+UT_CASE_DECLARATION(_type_less_map)
+void test__type_less_map__null_first(void** state);
+void test__type_less_map__null_second(void** state);
+void test__type_less_map__null_output(void** state);
+void test__type_less_map__less(void** state);
+void test__type_less_map__equal(void** state);
+void test__type_less_map__greater(void** state);
+/*
+ * test _type_destroy_map
+ */
+UT_CASE_DECLARATION(_type_destroy_map)
+void test__type_destroy_map__null_input(void** state);
+void test__type_destroy_map__null_output(void** state);
+void test__type_destroy_map__ok(void** state);
+/*
+ * test _type_init_multimap
+ */
+UT_CASE_DECLARATION(_type_init_multimap)
+void test__type_init_multimap__null_input(void** state);
+void test__type_init_multimap__null_output(void** state);
+void test__type_init_multimap__ok(void** state);
+/*
+ * test _type_copy_multimap
+ */
+UT_CASE_DECLARATION(_type_copy_multimap)
+void test__type_copy_multimap__null_first(void** state);
+void test__type_copy_multimap__null_second(void** state);
+void test__type_copy_multimap__null_output(void** state);
+void test__type_copy_multimap__ok(void** state);
+/*
+ * test _type_less_multimap
+ */
+UT_CASE_DECLARATION(_type_less_multimap)
+void test__type_less_multimap__null_first(void** state);
+void test__type_less_multimap__null_second(void** state);
+void test__type_less_multimap__null_output(void** state);
+void test__type_less_multimap__less(void** state);
+void test__type_less_multimap__equal(void** state);
+void test__type_less_multimap__greater(void** state);
+/*
+ * test _type_destroy_multimap
+ */
+UT_CASE_DECLARATION(_type_destroy_multimap)
+void test__type_destroy_multimap__null_input(void** state);
+void test__type_destroy_multimap__null_output(void** state);
+void test__type_destroy_multimap__ok(void** state);
+/*
+ * test _type_init_hash_set
+ */
+UT_CASE_DECLARATION(_type_init_hash_set)
+void test__type_init_hash_set__null_input(void** state);
+void test__type_init_hash_set__null_output(void** state);
+void test__type_init_hash_set__ok(void** state);
+/*
+ * test _type_copy_hash_set
+ */
+UT_CASE_DECLARATION(_type_copy_hash_set)
+void test__type_copy_hash_set__null_first(void** state);
+void test__type_copy_hash_set__null_second(void** state);
+void test__type_copy_hash_set__null_output(void** state);
+void test__type_copy_hash_set__ok(void** state);
+/*
+ * test _type_less_hash_set
+ */
+UT_CASE_DECLARATION(_type_less_hash_set)
+void test__type_less_hash_set__null_first(void** state);
+void test__type_less_hash_set__null_second(void** state);
+void test__type_less_hash_set__null_output(void** state);
+void test__type_less_hash_set__less(void** state);
+void test__type_less_hash_set__equal(void** state);
+void test__type_less_hash_set__greater(void** state);
+/*
+ * test _type_destroy_hash_set
+ */
+UT_CASE_DECLARATION(_type_destroy_hash_set)
+void test__type_destroy_hash_set__null_input(void** state);
+void test__type_destroy_hash_set__null_output(void** state);
+void test__type_destroy_hash_set__ok(void** state);
+/*
+ * test _type_init_hash_multiset
+ */
+UT_CASE_DECLARATION(_type_init_hash_multiset)
+void test__type_init_hash_multiset__null_input(void** state);
+void test__type_init_hash_multiset__null_output(void** state);
+void test__type_init_hash_multiset__ok(void** state);
+/*
+ * test _type_copy_hash_multiset
+ */
+UT_CASE_DECLARATION(_type_copy_hash_multiset)
+void test__type_copy_hash_multiset__null_first(void** state);
+void test__type_copy_hash_multiset__null_second(void** state);
+void test__type_copy_hash_multiset__null_output(void** state);
+void test__type_copy_hash_multiset__ok(void** state);
+/*
+ * test _type_less_hash_multiset
+ */
+UT_CASE_DECLARATION(_type_less_hash_multiset)
+void test__type_less_hash_multiset__null_first(void** state);
+void test__type_less_hash_multiset__null_second(void** state);
+void test__type_less_hash_multiset__null_output(void** state);
+void test__type_less_hash_multiset__less(void** state);
+void test__type_less_hash_multiset__equal(void** state);
+void test__type_less_hash_multiset__greater(void** state);
+/*
+ * test _type_destroy_hash_multiset
+ */
+UT_CASE_DECLARATION(_type_destroy_hash_multiset)
+void test__type_destroy_hash_multiset__null_input(void** state);
+void test__type_destroy_hash_multiset__null_output(void** state);
+void test__type_destroy_hash_multiset__ok(void** state);
+/*
+ * test _type_init_hash_map
+ */
+UT_CASE_DECLARATION(_type_init_hash_map)
+void test__type_init_hash_map__null_input(void** state);
+void test__type_init_hash_map__null_output(void** state);
+void test__type_init_hash_map__ok(void** state);
+/*
+ * test _type_copy_hash_map
+ */
+UT_CASE_DECLARATION(_type_copy_hash_map)
+void test__type_copy_hash_map__null_first(void** state);
+void test__type_copy_hash_map__null_second(void** state);
+void test__type_copy_hash_map__null_output(void** state);
+void test__type_copy_hash_map__ok(void** state);
+/*
+ * test _type_less_hash_map
+ */
+UT_CASE_DECLARATION(_type_less_hash_map)
+void test__type_less_hash_map__null_first(void** state);
+void test__type_less_hash_map__null_second(void** state);
+void test__type_less_hash_map__null_output(void** state);
+void test__type_less_hash_map__less(void** state);
+void test__type_less_hash_map__equal(void** state);
+void test__type_less_hash_map__greater(void** state);
+/*
+ * test _type_destroy_hash_map
+ */
+UT_CASE_DECLARATION(_type_destroy_hash_map)
+void test__type_destroy_hash_map__null_input(void** state);
+void test__type_destroy_hash_map__null_output(void** state);
+void test__type_destroy_hash_map__ok(void** state);
+/*
+ * test _type_init_hash_multimap
+ */
+UT_CASE_DECLARATION(_type_init_hash_multimap)
+void test__type_init_hash_multimap__null_input(void** state);
+void test__type_init_hash_multimap__null_output(void** state);
+void test__type_init_hash_multimap__ok(void** state);
+/*
+ * test _type_copy_hash_multimap
+ */
+UT_CASE_DECLARATION(_type_copy_hash_multimap)
+void test__type_copy_hash_multimap__null_first(void** state);
+void test__type_copy_hash_multimap__null_second(void** state);
+void test__type_copy_hash_multimap__null_output(void** state);
+void test__type_copy_hash_multimap__ok(void** state);
+/*
+ * test _type_less_hash_multimap
+ */
+UT_CASE_DECLARATION(_type_less_hash_multimap)
+void test__type_less_hash_multimap__null_first(void** state);
+void test__type_less_hash_multimap__null_second(void** state);
+void test__type_less_hash_multimap__null_output(void** state);
+void test__type_less_hash_multimap__less(void** state);
+void test__type_less_hash_multimap__equal(void** state);
+void test__type_less_hash_multimap__greater(void** state);
+/*
+ * test _type_destroy_hash_multimap
+ */
+UT_CASE_DECLARATION(_type_destroy_hash_multimap)
+void test__type_destroy_hash_multimap__null_input(void** state);
+void test__type_destroy_hash_multimap__null_output(void** state);
+void test__type_destroy_hash_multimap__ok(void** state);
+/*
+ * test _type_init_pair
+ */
+UT_CASE_DECLARATION(_type_init_pair)
+void test__type_init_pair__null_input(void** state);
+void test__type_init_pair__null_output(void** state);
+void test__type_init_pair__ok(void** state);
+/*
+ * test _type_copy_pair
+ */
+UT_CASE_DECLARATION(_type_copy_pair)
+void test__type_copy_pair__null_first(void** state);
+void test__type_copy_pair__null_second(void** state);
+void test__type_copy_pair__null_output(void** state);
+void test__type_copy_pair__ok(void** state);
+/*
+ * test _type_less_pair
+ */
+UT_CASE_DECLARATION(_type_less_pair)
+void test__type_less_pair__null_first(void** state);
+void test__type_less_pair__null_second(void** state);
+void test__type_less_pair__null_output(void** state);
+void test__type_less_pair__less(void** state);
+void test__type_less_pair__equal(void** state);
+void test__type_less_pair__greater(void** state);
+/*
+ * test _type_destroy_pair
+ */
+UT_CASE_DECLARATION(_type_destroy_pair)
+void test__type_destroy_pair__null_input(void** state);
+void test__type_destroy_pair__null_output(void** state);
+void test__type_destroy_pair__ok(void** state);
+/*
+ * test _type_init_string
+ */
+UT_CASE_DECLARATION(_type_init_string)
+void test__type_init_string__null_input(void** state);
+void test__type_init_string__null_output(void** state);
+void test__type_init_string__ok(void** state);
+/*
+ * test _type_copy_string
+ */
+UT_CASE_DECLARATION(_type_copy_string)
+void test__type_copy_string__null_first(void** state);
+void test__type_copy_string__null_second(void** state);
+void test__type_copy_string__null_output(void** state);
+void test__type_copy_string__ok(void** state);
+/*
+ * test _type_less_string
+ */
+UT_CASE_DECLARATION(_type_less_string)
+void test__type_less_string__null_first(void** state);
+void test__type_less_string__null_second(void** state);
+void test__type_less_string__null_output(void** state);
+void test__type_less_string__less(void** state);
+void test__type_less_string__equal(void** state);
+void test__type_less_string__greater(void** state);
+/*
+ * test _type_destroy_string
+ */
+UT_CASE_DECLARATION(_type_destroy_string)
+void test__type_destroy_string__null_input(void** state);
+void test__type_destroy_string__null_output(void** state);
+void test__type_destroy_string__ok(void** state);
+/*
+ * test _type_init_iterator
+ */
+UT_CASE_DECLARATION(_type_init_iterator)
+void test__type_init_iterator__null_input(void** state);
+void test__type_init_iterator__null_output(void** state);
+void test__type_init_iterator__ok(void** state);
+/*
+ * test _type_copy_iterator
+ */
+UT_CASE_DECLARATION(_type_copy_iterator)
+void test__type_copy_iterator__null_first(void** state);
+void test__type_copy_iterator__null_second(void** state);
+void test__type_copy_iterator__null_output(void** state);
+void test__type_copy_iterator__ok(void** state);
+/*
+ * test _type_less_iterator
+ */
+UT_CASE_DECLARATION(_type_less_iterator)
+void test__type_less_iterator__null_first(void** state);
+void test__type_less_iterator__null_second(void** state);
+void test__type_less_iterator__null_output(void** state);
+void test__type_less_iterator__less(void** state);
+void test__type_less_iterator__equal(void** state);
+void test__type_less_iterator__greater(void** state);
+/*
+ * test _type_destroy_iterator
+ */
+UT_CASE_DECLARATION(_type_destroy_iterator)
+void test__type_destroy_iterator__null_input(void** state);
+void test__type_destroy_iterator__null_output(void** state);
+void test__type_destroy_iterator__ok(void** state);
 
 #define UT_CSTL_TYPES_BUILTIN_CASE\
     UT_SUIT_BEGIN(cstl_types_builtin, test__type_init_char__null_input),\
@@ -677,6 +1221,278 @@ void test__type_destroy_vector__ok(void** state);
     UT_CASE_BEGIN(_type_destroy_vector, test__type_destroy_vector__null_input),\
     UT_CASE(test__type_destroy_vector__null_output),\
     UT_CASE(test__type_destroy_vector__ok),\
+    UT_CASE_BEGIN(_type_init_list, test__type_init_list__null_input),\
+    UT_CASE(test__type_init_list__null_output),\
+    UT_CASE(test__type_init_list__ok),\
+    UT_CASE_BEGIN(_type_copy_list, test__type_copy_list__null_first),\
+    UT_CASE(test__type_copy_list__null_second),\
+    UT_CASE(test__type_copy_list__null_output),\
+    UT_CASE(test__type_copy_list__ok),\
+    UT_CASE_BEGIN(_type_less_list, test__type_less_list__null_first),\
+    UT_CASE(test__type_less_list__null_second),\
+    UT_CASE(test__type_less_list__null_output),\
+    UT_CASE(test__type_less_list__less),\
+    UT_CASE(test__type_less_list__equal),\
+    UT_CASE(test__type_less_list__greater),\
+    UT_CASE_BEGIN(_type_destroy_list, test__type_destroy_list__null_input),\
+    UT_CASE(test__type_destroy_list__null_output),\
+    UT_CASE(test__type_destroy_list__ok),\
+    UT_CASE_BEGIN(_type_init_slist, test__type_init_slist__null_input),\
+    UT_CASE(test__type_init_slist__null_output),\
+    UT_CASE(test__type_init_slist__ok),\
+    UT_CASE_BEGIN(_type_copy_slist, test__type_copy_slist__null_first),\
+    UT_CASE(test__type_copy_slist__null_second),\
+    UT_CASE(test__type_copy_slist__null_output),\
+    UT_CASE(test__type_copy_slist__ok),\
+    UT_CASE_BEGIN(_type_less_slist, test__type_less_slist__null_first),\
+    UT_CASE(test__type_less_slist__null_second),\
+    UT_CASE(test__type_less_slist__null_output),\
+    UT_CASE(test__type_less_slist__less),\
+    UT_CASE(test__type_less_slist__equal),\
+    UT_CASE(test__type_less_slist__greater),\
+    UT_CASE_BEGIN(_type_destroy_slist, test__type_destroy_slist__null_input),\
+    UT_CASE(test__type_destroy_slist__null_output),\
+    UT_CASE(test__type_destroy_slist__ok),\
+    UT_CASE_BEGIN(_type_init_deque, test__type_init_deque__null_input),\
+    UT_CASE(test__type_init_deque__null_output),\
+    UT_CASE(test__type_init_deque__ok),\
+    UT_CASE_BEGIN(_type_copy_deque, test__type_copy_deque__null_first),\
+    UT_CASE(test__type_copy_deque__null_second),\
+    UT_CASE(test__type_copy_deque__null_output),\
+    UT_CASE(test__type_copy_deque__ok),\
+    UT_CASE_BEGIN(_type_less_deque, test__type_less_deque__null_first),\
+    UT_CASE(test__type_less_deque__null_second),\
+    UT_CASE(test__type_less_deque__null_output),\
+    UT_CASE(test__type_less_deque__less),\
+    UT_CASE(test__type_less_deque__equal),\
+    UT_CASE(test__type_less_deque__greater),\
+    UT_CASE_BEGIN(_type_destroy_deque, test__type_destroy_deque__null_input),\
+    UT_CASE(test__type_destroy_deque__null_output),\
+    UT_CASE(test__type_destroy_deque__ok),\
+    UT_CASE_BEGIN(_type_init_stack, test__type_init_stack__null_input),\
+    UT_CASE(test__type_init_stack__null_output),\
+    UT_CASE(test__type_init_stack__ok),\
+    UT_CASE_BEGIN(_type_copy_stack, test__type_copy_stack__null_first),\
+    UT_CASE(test__type_copy_stack__null_second),\
+    UT_CASE(test__type_copy_stack__null_output),\
+    UT_CASE(test__type_copy_stack__ok),\
+    UT_CASE_BEGIN(_type_less_stack, test__type_less_stack__null_first),\
+    UT_CASE(test__type_less_stack__null_second),\
+    UT_CASE(test__type_less_stack__null_output),\
+    UT_CASE(test__type_less_stack__less),\
+    UT_CASE(test__type_less_stack__equal),\
+    UT_CASE(test__type_less_stack__greater),\
+    UT_CASE_BEGIN(_type_destroy_stack, test__type_destroy_stack__null_input),\
+    UT_CASE(test__type_destroy_stack__null_output),\
+    UT_CASE(test__type_destroy_stack__ok),\
+    UT_CASE_BEGIN(_type_init_queue, test__type_init_queue__null_input),\
+    UT_CASE(test__type_init_queue__null_output),\
+    UT_CASE(test__type_init_queue__ok),\
+    UT_CASE_BEGIN(_type_copy_queue, test__type_copy_queue__null_first),\
+    UT_CASE(test__type_copy_queue__null_second),\
+    UT_CASE(test__type_copy_queue__null_output),\
+    UT_CASE(test__type_copy_queue__ok),\
+    UT_CASE_BEGIN(_type_less_queue, test__type_less_queue__null_first),\
+    UT_CASE(test__type_less_queue__null_second),\
+    UT_CASE(test__type_less_queue__null_output),\
+    UT_CASE(test__type_less_queue__less),\
+    UT_CASE(test__type_less_queue__equal),\
+    UT_CASE(test__type_less_queue__greater),\
+    UT_CASE_BEGIN(_type_destroy_queue, test__type_destroy_queue__null_input),\
+    UT_CASE(test__type_destroy_queue__null_output),\
+    UT_CASE(test__type_destroy_queue__ok),\
+    UT_CASE_BEGIN(_type_init_priority_queue, test__type_init_priority_queue__null_input),\
+    UT_CASE(test__type_init_priority_queue__null_output),\
+    UT_CASE(test__type_init_priority_queue__ok),\
+    UT_CASE_BEGIN(_type_copy_priority_queue, test__type_copy_priority_queue__null_first),\
+    UT_CASE(test__type_copy_priority_queue__null_second),\
+    UT_CASE(test__type_copy_priority_queue__null_output),\
+    UT_CASE(test__type_copy_priority_queue__ok),\
+    UT_CASE_BEGIN(_type_less_priority_queue, test__type_less_priority_queue__null_first),\
+    UT_CASE(test__type_less_priority_queue__null_second),\
+    UT_CASE(test__type_less_priority_queue__null_output),\
+    UT_CASE(test__type_less_priority_queue__less),\
+    UT_CASE(test__type_less_priority_queue__equal),\
+    UT_CASE(test__type_less_priority_queue__greater),\
+    UT_CASE_BEGIN(_type_destroy_priority_queue, test__type_destroy_priority_queue__null_input),\
+    UT_CASE(test__type_destroy_priority_queue__null_output),\
+    UT_CASE(test__type_destroy_priority_queue__ok),\
+    UT_CASE_BEGIN(_type_init_set, test__type_init_set__null_input),\
+    UT_CASE(test__type_init_set__null_output),\
+    UT_CASE(test__type_init_set__ok),\
+    UT_CASE_BEGIN(_type_copy_set, test__type_copy_set__null_first),\
+    UT_CASE(test__type_copy_set__null_second),\
+    UT_CASE(test__type_copy_set__null_output),\
+    UT_CASE(test__type_copy_set__ok),\
+    UT_CASE_BEGIN(_type_less_set, test__type_less_set__null_first),\
+    UT_CASE(test__type_less_set__null_second),\
+    UT_CASE(test__type_less_set__null_output),\
+    UT_CASE(test__type_less_set__less),\
+    UT_CASE(test__type_less_set__equal),\
+    UT_CASE(test__type_less_set__greater),\
+    UT_CASE_BEGIN(_type_destroy_set, test__type_destroy_set__null_input),\
+    UT_CASE(test__type_destroy_set__null_output),\
+    UT_CASE(test__type_destroy_set__ok),\
+    UT_CASE_BEGIN(_type_init_multiset, test__type_init_multiset__null_input),\
+    UT_CASE(test__type_init_multiset__null_output),\
+    UT_CASE(test__type_init_multiset__ok),\
+    UT_CASE_BEGIN(_type_copy_multiset, test__type_copy_multiset__null_first),\
+    UT_CASE(test__type_copy_multiset__null_second),\
+    UT_CASE(test__type_copy_multiset__null_output),\
+    UT_CASE(test__type_copy_multiset__ok),\
+    UT_CASE_BEGIN(_type_less_multiset, test__type_less_multiset__null_first),\
+    UT_CASE(test__type_less_multiset__null_second),\
+    UT_CASE(test__type_less_multiset__null_output),\
+    UT_CASE(test__type_less_multiset__less),\
+    UT_CASE(test__type_less_multiset__equal),\
+    UT_CASE(test__type_less_multiset__greater),\
+    UT_CASE_BEGIN(_type_destroy_multiset, test__type_destroy_multiset__null_input),\
+    UT_CASE(test__type_destroy_multiset__null_output),\
+    UT_CASE(test__type_destroy_multiset__ok),\
+    UT_CASE_BEGIN(_type_init_map, test__type_init_map__null_input),\
+    UT_CASE(test__type_init_map__null_output),\
+    UT_CASE(test__type_init_map__ok),\
+    UT_CASE_BEGIN(_type_copy_map, test__type_copy_map__null_first),\
+    UT_CASE(test__type_copy_map__null_second),\
+    UT_CASE(test__type_copy_map__null_output),\
+    UT_CASE(test__type_copy_map__ok),\
+    UT_CASE_BEGIN(_type_less_map, test__type_less_map__null_first),\
+    UT_CASE(test__type_less_map__null_second),\
+    UT_CASE(test__type_less_map__null_output),\
+    UT_CASE(test__type_less_map__less),\
+    UT_CASE(test__type_less_map__equal),\
+    UT_CASE(test__type_less_map__greater),\
+    UT_CASE_BEGIN(_type_destroy_map, test__type_destroy_map__null_input),\
+    UT_CASE(test__type_destroy_map__null_output),\
+    UT_CASE(test__type_destroy_map__ok),\
+    UT_CASE_BEGIN(_type_init_multimap, test__type_init_multimap__null_input),\
+    UT_CASE(test__type_init_multimap__null_output),\
+    UT_CASE(test__type_init_multimap__ok),\
+    UT_CASE_BEGIN(_type_copy_multimap, test__type_copy_multimap__null_first),\
+    UT_CASE(test__type_copy_multimap__null_second),\
+    UT_CASE(test__type_copy_multimap__null_output),\
+    UT_CASE(test__type_copy_multimap__ok),\
+    UT_CASE_BEGIN(_type_less_multimap, test__type_less_multimap__null_first),\
+    UT_CASE(test__type_less_multimap__null_second),\
+    UT_CASE(test__type_less_multimap__null_output),\
+    UT_CASE(test__type_less_multimap__less),\
+    UT_CASE(test__type_less_multimap__equal),\
+    UT_CASE(test__type_less_multimap__greater),\
+    UT_CASE_BEGIN(_type_destroy_multimap, test__type_destroy_multimap__null_input),\
+    UT_CASE(test__type_destroy_multimap__null_output),\
+    UT_CASE(test__type_destroy_multimap__ok),\
+    UT_CASE_BEGIN(_type_init_hash_set, test__type_init_hash_set__null_input),\
+    UT_CASE(test__type_init_hash_set__null_output),\
+    UT_CASE(test__type_init_hash_set__ok),\
+    UT_CASE_BEGIN(_type_copy_hash_set, test__type_copy_hash_set__null_first),\
+    UT_CASE(test__type_copy_hash_set__null_second),\
+    UT_CASE(test__type_copy_hash_set__null_output),\
+    UT_CASE(test__type_copy_hash_set__ok),\
+    UT_CASE_BEGIN(_type_less_hash_set, test__type_less_hash_set__null_first),\
+    UT_CASE(test__type_less_hash_set__null_second),\
+    UT_CASE(test__type_less_hash_set__null_output),\
+    UT_CASE(test__type_less_hash_set__less),\
+    UT_CASE(test__type_less_hash_set__equal),\
+    UT_CASE(test__type_less_hash_set__greater),\
+    UT_CASE_BEGIN(_type_destroy_hash_set, test__type_destroy_hash_set__null_input),\
+    UT_CASE(test__type_destroy_hash_set__null_output),\
+    UT_CASE(test__type_destroy_hash_set__ok),\
+    UT_CASE_BEGIN(_type_init_hash_multiset, test__type_init_hash_multiset__null_input),\
+    UT_CASE(test__type_init_hash_multiset__null_output),\
+    UT_CASE(test__type_init_hash_multiset__ok),\
+    UT_CASE_BEGIN(_type_copy_hash_multiset, test__type_copy_hash_multiset__null_first),\
+    UT_CASE(test__type_copy_hash_multiset__null_second),\
+    UT_CASE(test__type_copy_hash_multiset__null_output),\
+    UT_CASE(test__type_copy_hash_multiset__ok),\
+    UT_CASE_BEGIN(_type_less_hash_multiset, test__type_less_hash_multiset__null_first),\
+    UT_CASE(test__type_less_hash_multiset__null_second),\
+    UT_CASE(test__type_less_hash_multiset__null_output),\
+    UT_CASE(test__type_less_hash_multiset__less),\
+    UT_CASE(test__type_less_hash_multiset__equal),\
+    UT_CASE(test__type_less_hash_multiset__greater),\
+    UT_CASE_BEGIN(_type_destroy_hash_multiset, test__type_destroy_hash_multiset__null_input),\
+    UT_CASE(test__type_destroy_hash_multiset__null_output),\
+    UT_CASE(test__type_destroy_hash_multiset__ok),\
+    UT_CASE_BEGIN(_type_init_hash_map, test__type_init_hash_map__null_input),\
+    UT_CASE(test__type_init_hash_map__null_output),\
+    UT_CASE(test__type_init_hash_map__ok),\
+    UT_CASE_BEGIN(_type_copy_hash_map, test__type_copy_hash_map__null_first),\
+    UT_CASE(test__type_copy_hash_map__null_second),\
+    UT_CASE(test__type_copy_hash_map__null_output),\
+    UT_CASE(test__type_copy_hash_map__ok),\
+    UT_CASE_BEGIN(_type_less_hash_map, test__type_less_hash_map__null_first),\
+    UT_CASE(test__type_less_hash_map__null_second),\
+    UT_CASE(test__type_less_hash_map__null_output),\
+    UT_CASE(test__type_less_hash_map__less),\
+    UT_CASE(test__type_less_hash_map__equal),\
+    UT_CASE(test__type_less_hash_map__greater),\
+    UT_CASE_BEGIN(_type_destroy_hash_map, test__type_destroy_hash_map__null_input),\
+    UT_CASE(test__type_destroy_hash_map__null_output),\
+    UT_CASE(test__type_destroy_hash_map__ok),\
+    UT_CASE_BEGIN(_type_init_hash_multimap, test__type_init_hash_multimap__null_input),\
+    UT_CASE(test__type_init_hash_multimap__null_output),\
+    UT_CASE(test__type_init_hash_multimap__ok),\
+    UT_CASE_BEGIN(_type_copy_hash_multimap, test__type_copy_hash_multimap__null_first),\
+    UT_CASE(test__type_copy_hash_multimap__null_second),\
+    UT_CASE(test__type_copy_hash_multimap__null_output),\
+    UT_CASE(test__type_copy_hash_multimap__ok),\
+    UT_CASE_BEGIN(_type_less_hash_multimap, test__type_less_hash_multimap__null_first),\
+    UT_CASE(test__type_less_hash_multimap__null_second),\
+    UT_CASE(test__type_less_hash_multimap__null_output),\
+    UT_CASE(test__type_less_hash_multimap__less),\
+    UT_CASE(test__type_less_hash_multimap__equal),\
+    UT_CASE(test__type_less_hash_multimap__greater),\
+    UT_CASE_BEGIN(_type_destroy_hash_multimap, test__type_destroy_hash_multimap__null_input),\
+    UT_CASE(test__type_destroy_hash_multimap__null_output),\
+    UT_CASE(test__type_destroy_hash_multimap__ok),\
+    UT_CASE_BEGIN(_type_init_pair, test__type_init_pair__null_input),\
+    UT_CASE(test__type_init_pair__null_output),\
+    UT_CASE(test__type_init_pair__ok),\
+    UT_CASE_BEGIN(_type_copy_pair, test__type_copy_pair__null_first),\
+    UT_CASE(test__type_copy_pair__null_second),\
+    UT_CASE(test__type_copy_pair__null_output),\
+    UT_CASE(test__type_copy_pair__ok),\
+    UT_CASE_BEGIN(_type_less_pair, test__type_less_pair__null_first),\
+    UT_CASE(test__type_less_pair__null_second),\
+    UT_CASE(test__type_less_pair__null_output),\
+    UT_CASE(test__type_less_pair__less),\
+    UT_CASE(test__type_less_pair__equal),\
+    UT_CASE(test__type_less_pair__greater),\
+    UT_CASE_BEGIN(_type_destroy_pair, test__type_destroy_pair__null_input),\
+    UT_CASE(test__type_destroy_pair__null_output),\
+    UT_CASE(test__type_destroy_pair__ok),\
+    UT_CASE_BEGIN(_type_init_string, test__type_init_string__null_input),\
+    UT_CASE(test__type_init_string__null_output),\
+    UT_CASE(test__type_init_string__ok),\
+    UT_CASE_BEGIN(_type_copy_string, test__type_copy_string__null_first),\
+    UT_CASE(test__type_copy_string__null_second),\
+    UT_CASE(test__type_copy_string__null_output),\
+    UT_CASE(test__type_copy_string__ok),\
+    UT_CASE_BEGIN(_type_less_string, test__type_less_string__null_first),\
+    UT_CASE(test__type_less_string__null_second),\
+    UT_CASE(test__type_less_string__null_output),\
+    UT_CASE(test__type_less_string__less),\
+    UT_CASE(test__type_less_string__equal),\
+    UT_CASE(test__type_less_string__greater),\
+    UT_CASE_BEGIN(_type_destroy_string, test__type_destroy_string__null_input),\
+    UT_CASE(test__type_destroy_string__null_output),\
+    UT_CASE(test__type_destroy_string__ok),\
+    UT_CASE_BEGIN(_type_init_iterator, test__type_init_iterator__null_input),\
+    UT_CASE(test__type_init_iterator__null_output),\
+    UT_CASE(test__type_init_iterator__ok),\
+    UT_CASE_BEGIN(_type_copy_iterator, test__type_copy_iterator__null_first),\
+    UT_CASE(test__type_copy_iterator__null_second),\
+    UT_CASE(test__type_copy_iterator__null_output),\
+    UT_CASE(test__type_copy_iterator__ok),\
+    UT_CASE_BEGIN(_type_less_iterator, test__type_less_iterator__null_first),\
+    UT_CASE(test__type_less_iterator__null_second),\
+    UT_CASE(test__type_less_iterator__null_output),\
+    UT_CASE(test__type_less_iterator__less),\
+    UT_CASE(test__type_less_iterator__equal),\
+    UT_CASE(test__type_less_iterator__greater),\
+    UT_CASE_BEGIN(_type_destroy_iterator, test__type_destroy_iterator__null_input),\
+    UT_CASE(test__type_destroy_iterator__null_output),\
+    UT_CASE(test__type_destroy_iterator__ok),\
 
 #endif /* _UT_CSTL_TYPES_BUILTIN_H_ */
 
