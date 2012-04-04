@@ -42,6 +42,7 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_queue.c $(srcdir)/../../src/cstl_queue_private.c \
 	     $(srcdir)/../../src/cstl_string.c $(srcdir)/../../src/cstl_string_private.c \
 	     $(srcdir)/../../src/cstl_types.c $(srcdir)/../../src/cstl_types_builtin.c \
+	     $(srcdir)/../../src/cstl_types_parse.c $(srcdir)/../../src/cstl_types_aux.c \
 	     $(srcdir)/../../src/cstl_pair.c $(srcdir)/../../src/cstl_pair_private.c $(srcdir)/../../src/cstl_pair_aux.c \
 	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \

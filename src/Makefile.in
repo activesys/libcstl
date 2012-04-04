@@ -126,6 +126,7 @@ am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
 	libcstl_la-cstl_stack.lo libcstl_la-cstl_stack_private.lo \
 	libcstl_la-cstl_string.lo libcstl_la-cstl_string_private.lo \
 	libcstl_la-cstl_types.lo libcstl_la-cstl_types_builtin.lo \
+	libcstl_la-cstl_types_parse.lo libcstl_la-cstl_types_aux.lo \
 	libcstl_la-cstl_vector.lo libcstl_la-cstl_vector_iterator.lo \
 	libcstl_la-cstl_vector_private.lo \
 	libcstl_la-cstl_vector_aux.lo
@@ -292,7 +293,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_slist.c cstl_slist_iterator.c cstl_slist_private.c cstl_slist_aux.c cstl_slist_aux.h \
 		     cstl_stack.c cstl_stack_private.c \
 		     cstl_string.c cstl_string_private.c \
-		     cstl_types.c cstl_types_builtin.c \
+		     cstl_types.c cstl_types_builtin.c cstl_types_builtin.h cstl_types_parse.c cstl_types_parse.h cstl_types_aux.c cstl_types_aux.h \
 		     cstl_vector.c cstl_vector_iterator.c cstl_vector_private.c cstl_vector_aux.c cstl_vector_aux.h
 
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
@@ -453,7 +454,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_string.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_string_private.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_types.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_types_aux.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_types_builtin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_types_parse.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_vector.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_vector_aux.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_vector_iterator.Plo@am__quote@
@@ -1053,6 +1056,20 @@ libcstl_la-cstl_types_builtin.lo: cstl_types_builtin.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_types_builtin.c' object='libcstl_la-cstl_types_builtin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_types_builtin.lo `test -f 'cstl_types_builtin.c' || echo '$(srcdir)/'`cstl_types_builtin.c
+
+libcstl_la-cstl_types_parse.lo: cstl_types_parse.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_types_parse.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_types_parse.Tpo -c -o libcstl_la-cstl_types_parse.lo `test -f 'cstl_types_parse.c' || echo '$(srcdir)/'`cstl_types_parse.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_types_parse.Tpo $(DEPDIR)/libcstl_la-cstl_types_parse.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_types_parse.c' object='libcstl_la-cstl_types_parse.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_types_parse.lo `test -f 'cstl_types_parse.c' || echo '$(srcdir)/'`cstl_types_parse.c
+
+libcstl_la-cstl_types_aux.lo: cstl_types_aux.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_types_aux.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_types_aux.Tpo -c -o libcstl_la-cstl_types_aux.lo `test -f 'cstl_types_aux.c' || echo '$(srcdir)/'`cstl_types_aux.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_types_aux.Tpo $(DEPDIR)/libcstl_la-cstl_types_aux.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_types_aux.c' object='libcstl_la-cstl_types_aux.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_types_aux.lo `test -f 'cstl_types_aux.c' || echo '$(srcdir)/'`cstl_types_aux.c
 
 libcstl_la-cstl_vector.lo: cstl_vector.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_vector.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_vector.Tpo -c -o libcstl_la-cstl_vector.lo `test -f 'cstl_vector.c' || echo '$(srcdir)/'`cstl_vector.c
