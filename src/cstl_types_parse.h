@@ -32,8 +32,53 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
+typedef enum _tagtypelex
+{
+    _LEX_START, _LEX_IN_IDENTIFIER, _LEX_ACCEPT
+}_typelex_t;
+
+typedef enum _tagtypetoken
+{
+    /* invalid token */
+    _TOKEN_INVALID,
+    /* EOI */
+    _TOKEN_END_OF_INPUT,
+    /* c builtin */
+    _TOKEN_KEY_CHAR, _TOKEN_KEY_SHORT, _TOKEN_KEY_INT, _TOKEN_KEY_LONG, _TOKEN_KEY_FLOAT,
+    _TOKEN_KEY_DOUBLE, _TOKEN_KEY_SIGNED, _TOKEN_KEY_UNSIGNED, _TOKEN_KEY_CHAR_POINTER,
+    _TOKEN_KEY_BOOL,
+    /* user define */
+    _TOKEN_KEY_STRUCT, _TOKEN_KEY_ENUM, _TOKEN_KEY_UNION, _TOKEN_IDENTIFIER,
+    /* cstl container */
+    _TOKEN_KEY_VECTOR, _TOKEN_KEY_LIST, _TOKEN_KEY_SLIST, _TOKEN_KEY_DEQUE, _TOKEN_KEY_STACK,
+    _TOKEN_KEY_QUEUE, _TOKEN_KEY_PRIORITY_QUEUE, _TOKEN_KEY_SET, _TOKEN_KEY_MAP,
+    _TOKEN_KEY_MULTISET, _TOKEN_KEY_MULTIMAP, _TOKEN_KEY_HASH_SET, _TOKEN_KEY_HASH_MAP,
+    _TOKEN_KEY_HASH_MULTISET, _TOKEN_KEY_HASH_MULTIMAP, _TOKEN_KEY_PAIR, _TOKEN_KEY_STRING,
+    /* cstl iterator */
+    _TOKEN_KEY_ITERATOR, _TOKEN_KEY_VECTOR_ITERATOR, _TOKEN_KEY_LIST_ITERATOR,
+    _TOKEN_KEY_SLIST_ITERATOR, _TOKEN_KEY_DEQUE_ITERATOR, _TOKEN_KEY_SET_ITERATOR,
+    _TOKEN_KEY_MAP_ITERATOR, _TOKEN_KEY_MULTISET_ITERATOR, _TOKEN_KEY_MULTIMAP_ITERATOR,
+    _TOKEN_KEY_HASH_SET_ITERATOR, _TOKEN_KEY_HASH_MAP_ITERATOR,
+    _TOKEN_KEY_HASH_MULTISET_ITERATOR, _TOKEN_KEY_HASH_MULTIMAP_ITERATOR,
+    _TOKEN_KEY_STRING_ITERATOR, _TOKEN_KEY_INPUT_ITERATOR, _TOKEN_KEY_OUTPUT_ITERATOR,
+    _TOKEN_KEY_FORWARD_ITERATOR, _TOKEN_KEY_BIDIRECTIONAL_ITERATOR,
+    _TOKEN_KEY_RANDOM_ACCESS_ITERATOR,
+    /* sign */
+    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,
+    /* ROLLBACK */
+    _TOKEN_ROLLBACK
+}_typetoken_t;
+
+typedef struct _tagtypeanalysis
+{
+    char         _s_typename[_TYPE_NAME_SIZE + 1];
+    char         _s_tokentext[_TYPE_NAME_SIZE + 1];
+    size_t       _t_index;
+    _typetoken_t _t_token;
+}_typeanalysis_t;
 
 /** exported global variable declaration section **/
+extern _typeanalysis_t _gt_typeanalysis;
 
 /** exported function prototype section **/
 /* the functions blow is used for analyse the type style */

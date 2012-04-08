@@ -13,3 +13,4 @@ cscope.*
 *.swp
 *.log
 tags
+core.*

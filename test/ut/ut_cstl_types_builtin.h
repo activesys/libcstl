@@ -1492,7 +1492,7 @@ void test__type_destroy_iterator__ok(void** state);
     UT_CASE(test__type_less_iterator__greater),\
     UT_CASE_BEGIN(_type_destroy_iterator, test__type_destroy_iterator__null_input),\
     UT_CASE(test__type_destroy_iterator__null_output),\
-    UT_CASE(test__type_destroy_iterator__ok),\
+    UT_CASE(test__type_destroy_iterator__ok)
 
 #endif /* _UT_CSTL_TYPES_BUILTIN_H_ */
 

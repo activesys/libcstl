@@ -85,6 +85,7 @@
 #include "ut_cstl_iterator_private.h"
 #include "ut_cstl_iterator.h"
 #include "ut_cstl_types_builtin.h"
+#include "ut_cstl_types_parse.h"
 
 int main(int argc, char* argv[])
 {
@@ -166,7 +167,8 @@ int main(int argc, char* argv[])
         UT_CSTL_HASH_MULTIMAP_CASE,
         UT_CSTL_ITERATOR_PRIVATE_CASE,
         UT_CSTL_ITERATOR_CASE,
-        UT_CSTL_TYPES_BUILTIN_CASE
+        UT_CSTL_TYPES_BUILTIN_CASE,
+        UT_CSTL_TYPES_PARSE_CASE
     };
 
     return run_tests(tests);
