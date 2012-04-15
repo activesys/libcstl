@@ -93,6 +93,7 @@
 #define _TOKEN_TEXT_LEFT_BRACKET                   "<"
 #define _TOKEN_TEXT_RIGHT_BRACKET                  ">"
 #define _TOKEN_TEXT_COMMA                          ","
+#define _TOKEN_TEXT_EMPTY                          ""
 #define _TOKEN_CHARACTER_BLANK                     ' '
 #define _TOKEN_CHARACTER_LEFT_BRACKET              '<'
 #define _TOKEN_CHARACTER_RIGHT_BRACKET             '>'
@@ -372,14 +373,14 @@ void _type_token_rollback(void)
     assert(_gt_typeanalysis._t_token == _TOKEN_END_OF_INPUT ||
            _gt_typeanalysis._t_token == _TOKEN_SIGN_COMMA ||
            _gt_typeanalysis._t_token == _TOKEN_SIGN_RIGHT_BRACKET);
-    assert(_gt_typeanalysis._s_typename[_gt_typeanalysis._t_index] == '\0' ||
-           _gt_typeanalysis._s_typename[_gt_typeanalysis._t_index-1] == ',' ||
-           _gt_typeanalysis._s_typename[_gt_typeanalysis._t_index-1] == '>');
-    assert(strncmp(_gt_typeanalysis._s_tokentext, "", _TYPE_NAME_SIZE) == 0 ||
-           strncmp(_gt_typeanalysis._s_tokentext, ",", _TYPE_NAME_SIZE) == 0 ||
-           strncmp(_gt_typeanalysis._s_tokentext, ">", _TYPE_NAME_SIZE) == 0);
+    assert(_gt_typeanalysis._s_typename[_gt_typeanalysis._t_index] == _TOKEN_CHARACTER_END_OF_INPUT ||
+           _gt_typeanalysis._s_typename[_gt_typeanalysis._t_index-1] == _TOKEN_CHARACTER_COMMA ||
+           _gt_typeanalysis._s_typename[_gt_typeanalysis._t_index-1] == _TOKEN_CHARACTER_RIGHT_BRACKET);
+    assert(strncmp(_gt_typeanalysis._s_tokentext, _TOKEN_TEXT_EMPTY, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(_gt_typeanalysis._s_tokentext, _TOKEN_TEXT_COMMA, _TYPE_NAME_SIZE) == 0 ||
+           strncmp(_gt_typeanalysis._s_tokentext, _TOKEN_TEXT_RIGHT_BRACKET, _TYPE_NAME_SIZE) == 0);
 
-    if (_gt_typeanalysis._s_typename[_gt_typeanalysis._t_index] != '\0') {
+    if (_gt_typeanalysis._s_typename[_gt_typeanalysis._t_index] != _TOKEN_CHARACTER_END_OF_INPUT) {
         _gt_typeanalysis._t_index--;
     } else if (_gt_typeanalysis._t_token == _TOKEN_SIGN_COMMA ||
                _gt_typeanalysis._t_token == _TOKEN_SIGN_RIGHT_BRACKET) {
