@@ -182,6 +182,9 @@ _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
     char   s_userdefine[_TYPE_NAME_SIZE + 1];
     _typestyle_t t_style = _TYPE_INVALID;
 
+    assert(s_typename != NULL);
+    assert(s_formalname != NULL);
+
     if (strlen(s_typename) > _TYPE_NAME_SIZE) {
         return _TYPE_INVALID;
     }
@@ -394,6 +397,7 @@ void _type_token_rollback(void)
  */
 bool_t _type_parse_c_builtin(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* C_BUILTIN -> SIMPLE_BUILTIN | SIGNED_BUILTIN | UNSIGNED_BUILTIN */
     switch (_gt_typeanalysis._t_token) {
         /* C_BUILTIN -> SIMPLE_BUILTIN */
@@ -425,6 +429,7 @@ bool_t _type_parse_common_suffix(char* s_formalname)
 {
     char* pc_pointersign = NULL;
 
+    assert(s_formalname != NULL);
     /* COMMON_SUFFIX -> {+' '}int | $ */
     switch (_gt_typeanalysis._t_token) {
         /* COMMON_SUFFIX -> {+' '}int */
@@ -447,7 +452,7 @@ bool_t _type_parse_common_suffix(char* s_formalname)
                 /* not pointer type */
                 return false;
             }
-            if (strncmp(_gt_typeanalysis._s_tokentext, "int", pc_pointersign-_gt_typeanalysis._s_tokentext) != 0) {
+            if (strncmp(_gt_typeanalysis._s_tokentext, "int", pc_pointersign - _gt_typeanalysis._s_tokentext) != 0) {
                 /* not the pointer of int type */
                 return false;
             }
@@ -465,6 +470,7 @@ bool_t _type_parse_simple_long_suffix(char* s_formalname)
 {
     char* pc_pointersign = NULL;
 
+    assert(s_formalname != NULL);
     /* SIMPLE_LONG_SUFFIX -> {+' '}double | COMMON_SUFFIX */
     switch (_gt_typeanalysis._t_token) {
         /* SIMPLE_LONG_SUFFIX -> {+' '}double */
@@ -487,7 +493,7 @@ bool_t _type_parse_simple_long_suffix(char* s_formalname)
                 /* not pointer type */
                 return false;
             }
-            if (strncmp(_gt_typeanalysis._s_tokentext, "double", pc_pointersign-_gt_typeanalysis._s_tokentext) != 0) {
+            if (strncmp(_gt_typeanalysis._s_tokentext, "double", pc_pointersign - _gt_typeanalysis._s_tokentext) != 0) {
                 /* not pointer of double type */
                 return false;
             }
@@ -503,6 +509,7 @@ bool_t _type_parse_simple_long_suffix(char* s_formalname)
 
 bool_t _type_parse_simple_builtin(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* 
      * SIMPLE_BUILTIN -> char | short COMMON_SUFFIX | int | long SIMPLE_LONG_SUFFIX |
      *                   float | double | char* | bool_t
@@ -558,6 +565,7 @@ bool_t _type_parse_simple_builtin(char* s_formalname)
 
 bool_t _type_parse_unsigned_builtin(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* UNSIGNED_BUILTIN -> unsigned COMPLEX_SUFFIX */
     switch (_gt_typeanalysis._t_token) {
         case _TOKEN_KEY_UNSIGNED:
@@ -574,6 +582,8 @@ bool_t _type_parse_unsigned_builtin(char* s_formalname)
 bool_t _type_parse_complex_suffix(char* s_formalname)
 {
     char* pc_pointersign = NULL;
+
+    assert(s_formalname != NULL);
     /* 
      * COMPLEX_SUFFIX -> {+' '}char | {+' '}short COMMON_SUFFIX |
      *                   {+' '}int | {+' '}long COMMON_SUFFIX | $
@@ -619,10 +629,10 @@ bool_t _type_parse_complex_suffix(char* s_formalname)
                 /* not pointer type */
                 return false;
             }
-            if (strncmp(_gt_typeanalysis._s_tokentext, "char", pc_pointersign-_gt_typeanalysis._s_tokentext) != 0 &&
-                strncmp(_gt_typeanalysis._s_tokentext, "int", pc_pointersign-_gt_typeanalysis._s_tokentext) != 0 &&
-                strncmp(_gt_typeanalysis._s_tokentext, "short", pc_pointersign-_gt_typeanalysis._s_tokentext) != 0 &&
-                strncmp(_gt_typeanalysis._s_tokentext, "long", pc_pointersign-_gt_typeanalysis._s_tokentext) != 0) {
+            if (strncmp(_gt_typeanalysis._s_tokentext, "char", pc_pointersign - _gt_typeanalysis._s_tokentext) != 0 &&
+                strncmp(_gt_typeanalysis._s_tokentext, "int", pc_pointersign - _gt_typeanalysis._s_tokentext) != 0 &&
+                strncmp(_gt_typeanalysis._s_tokentext, "short", pc_pointersign - _gt_typeanalysis._s_tokentext) != 0 &&
+                strncmp(_gt_typeanalysis._s_tokentext, "long", pc_pointersign - _gt_typeanalysis._s_tokentext) != 0) {
                 /* not pointer of char or int or short or long type */
                 return false;
             }
@@ -638,6 +648,7 @@ bool_t _type_parse_complex_suffix(char* s_formalname)
 
 bool_t _type_parse_signed_builtin(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* SIGNED_BUILTIN -> signed COMPLEX_SUFFIX */
     switch (_gt_typeanalysis._t_token) {
         case _TOKEN_KEY_SIGNED:
@@ -653,6 +664,7 @@ bool_t _type_parse_signed_builtin(char* s_formalname)
 
 bool_t _type_parse_user_define_type(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* USER_DEFINE_TYPE -> struct | enum | union */
     switch (_gt_typeanalysis._t_token) {
         case _TOKEN_KEY_STRUCT:
@@ -675,6 +687,7 @@ bool_t _type_parse_user_define_type(char* s_formalname)
 
 bool_t _type_parse_user_define(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* USER_DEFINE -> USER_DEFINE_TYPE {+' '}identifier | identifier */
     switch (_gt_typeanalysis._t_token) {
         /* USER_DEFINE -> USER_DEFINE_TYPE {+' '}identifier */
@@ -707,6 +720,7 @@ bool_t _type_parse_user_define(char* s_formalname)
 
 bool_t _type_parse_sequence_name(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* 
      * SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | stack_t | 
      *                  queue_t | priority_queue_t | set_t | multiset_t |
@@ -765,6 +779,7 @@ bool_t _type_parse_sequence_name(char* s_formalname)
 
 bool_t _type_parse_sequence(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* SEQUENCE -> SEQUENCE_NAME < TYPE_DESCRIPT > */
     if (_type_parse_sequence_name(s_formalname)) {
         /* < */
@@ -792,6 +807,7 @@ bool_t _type_parse_sequence(char* s_formalname)
 
 bool_t _type_parse_relation_name(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /*
      * RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
      */
@@ -824,6 +840,7 @@ bool_t _type_parse_relation_name(char* s_formalname)
 
 bool_t _type_parse_iterator(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     switch (_gt_typeanalysis._t_token) {
         case _TOKEN_KEY_ITERATOR:
             _TOKEN_MATCH(_TOKEN_TEXT_ITERATOR, s_formalname);
@@ -909,6 +926,7 @@ bool_t _type_parse_iterator(char* s_formalname)
 
 bool_t _type_parse_relation(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* RELATION -> RELATION_NAME < TYPE_DESCRIPT, TYPE_DESCRIPT > */
     if (_type_parse_relation_name(s_formalname)) {
         /* < */
@@ -947,6 +965,7 @@ bool_t _type_parse_relation(char* s_formalname)
 
 bool_t _type_parse_cstl_builtin(char* s_formalname)
 {
+    assert(s_formalname != NULL);
     /* CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | ITERATOR */
     switch (_gt_typeanalysis._t_token) {
         /* CSTL_BUILTIN -> SEQUENCE */
@@ -1009,6 +1028,7 @@ bool_t _type_parse_type_descript(char* s_formalname)
 
     memset(s_userdefine, '\0', _TYPE_NAME_SIZE+1);
 
+    assert(s_formalname != NULL);
     /* TYPE_DESCRIPT -> C_BUILTIN | USER_DEFINE | CSTL_BUILTIN */
     switch (_gt_typeanalysis._t_token) {
         /* TYPE_DESCRIPT -> C_BUILTIN */
