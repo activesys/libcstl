@@ -125,11 +125,14 @@ _typeregister_t _gt_typeregister = {false, {NULL}, {0}};
 size_t _type_hash(const char* s_typename)
 {
     size_t t_namesum = 0;
-    size_t t_namelen = strlen(s_typename);
-    size_t t_i = 0;
+    size_t t_namelen = 0;
+    size_t i = 0;
 
-    for (t_i = 0; t_i < t_namelen; ++t_i) {
-        t_namesum += (size_t)s_typename[t_i];
+    assert(s_typename != NULL);
+
+    t_namelen = strlen(s_typename);
+    for (i = 0; i < t_namelen; ++i) {
+        t_namesum += (size_t)s_typename[i];
     }
 
     return t_namesum % _TYPE_REGISTER_BUCKET_COUNT;
@@ -143,21 +146,21 @@ _type_t* _type_is_registered(const char* s_typename)
     _type_t*     pt_registered = NULL;
     _typenode_t* pt_node = NULL;
 
+    assert(s_typename != NULL);
+
     if (strlen(s_typename) > _TYPE_NAME_SIZE) {
         return NULL;
     }
 
     /* get the registered type pointer */
     pt_node = _gt_typeregister._apt_bucket[_type_hash(s_typename)];
-    if (pt_node != NULL) {
-        while (pt_node != NULL) {
-            if (strncmp(s_typename, pt_node->_sz_typename, _TYPE_NAME_SIZE) == 0) {
-                pt_registered = pt_node->_pt_type;
-                assert(pt_registered != NULL);
-                break;
-            } else {
-                pt_node = pt_node->_pt_next;
-            }
+    while (pt_node != NULL) {
+        if (strncmp(s_typename, pt_node->_sz_typename, _TYPE_NAME_SIZE) == 0) {
+            pt_registered = pt_node->_pt_type;
+            assert(pt_registered != NULL);
+            break;
+        } else {
+            pt_node = pt_node->_pt_next;
         }
     }
 
@@ -169,11 +172,11 @@ _type_t* _type_is_registered(const char* s_typename)
  */
 void _type_init(void)
 {
-    size_t t_i = 0;
+    size_t i = 0;
 
     /* set register hash table */
-    for (t_i = 0; t_i < _TYPE_REGISTER_BUCKET_COUNT; ++t_i) {
-        _gt_typeregister._apt_bucket[t_i] = NULL;
+    for (i = 0; i < _TYPE_REGISTER_BUCKET_COUNT; ++i) {
+        _gt_typeregister._apt_bucket[i] = NULL;
     }
     /* init allocator */
     _alloc_init(&_gt_typeregister._t_allocator);
@@ -236,7 +239,7 @@ void _type_register_c_builtin(void)
     /* register bool_t */
     _TYPE_REGISTER_TYPE(bool_t, _BOOL_TYPE, bool);
     _TYPE_REGISTER_TYPE_NODE(bool_t, _BOOL_TYPE);
-     /* register char* */
+    /* register char* */
     _TYPE_REGISTER_TYPE(string_t, _C_STRING_TYPE, cstr);
     _TYPE_REGISTER_TYPE_NODE(string_t, _C_STRING_TYPE);
 

@@ -508,7 +508,7 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_get_style__user_define_invalid),\
     UT_CASE(test__type_get_style__cstl_builtin),\
     UT_CASE(test__type_get_style__cstl_builtin_invalid),\
-    UT_CASE(test__type_get_style__invalid),\
+    UT_CASE(test__type_get_style__invalid)
 
 #endif /* _UT_CSTL_TYPES_PARSE_H_ */
 

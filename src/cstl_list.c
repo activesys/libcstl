@@ -83,10 +83,10 @@ void list_init_n(list_t* plist_list, size_t t_count)
     plist_list->_pt_node->_pt_prev = plist_list->_pt_node;
 
     if (t_count > 0) {
-        size_t       t_index = 0;
+        size_t       i = 0;
         _listnode_t* pt_node = NULL;
 
-        for (t_index = 0; t_index < t_count; ++t_index) {
+        for (i = 0; i < t_count; ++i) {
             pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
             assert(pt_node != NULL);
             _list_init_node_auxiliary(plist_list, pt_node);
