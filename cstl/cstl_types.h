@@ -182,24 +182,24 @@ typedef void (*binary_function_t)(const void*, const void*, void*);
 #define _TYPE_NAME_SIZE              255
 typedef struct _tagtype
 {
-    size_t            _t_typesize;                        /* type size */
-    char              _sz_typename[_TYPE_NAME_SIZE+1];    /* type name */
-    binary_function_t _t_typecopy;                        /* type copy function */
-    binary_function_t _t_typeless;                        /* type less function */
-    unary_function_t  _t_typeinit;                        /* type initialize function */
-    unary_function_t  _t_typedestroy;                     /* type destroy function */
+    size_t               _t_typesize;                        /* type size */
+    char                 _s_typename[_TYPE_NAME_SIZE + 1];   /* type name */
+    binary_function_t    _t_typecopy;                        /* type copy function */
+    binary_function_t    _t_typeless;                        /* type less function */
+    unary_function_t     _t_typeinit;                        /* type initialize function */
+    unary_function_t     _t_typedestroy;                     /* type destroy function */
 }_type_t;
 
 /* type register node */
 typedef struct _tagtypenode
 {
-    char                 _sz_typename[_TYPE_NAME_SIZE+1];   /* type name */
-    struct _tagtypenode* _pt_next;                        /* next node */
-    _type_t*             _pt_type;                        /* the registered type */
+    char                 _s_typename[_TYPE_NAME_SIZE + 1];   /* type name */
+    struct _tagtypenode* _pt_next;                           /* next node */
+    _type_t*             _pt_type;                           /* the registered type */
 }_typenode_t;
 
 /* type register table */
-#define _TYPE_REGISTER_BUCKET_COUNT  97   /* register hash table bucket count */
+#define _TYPE_REGISTER_BUCKET_COUNT  997   /* register hash table bucket count */
 typedef struct _tagtyperegister
 {
     bool_t               _t_isinit; /* is initializate for built in types */
@@ -215,9 +215,9 @@ typedef enum _tagtypestley
 
 typedef struct _tagtypeinfo
 {
-    char         _sz_typename[_TYPE_NAME_SIZE+1];
-    _type_t*     _pt_type;
-    _typestyle_t _t_style;
+    char                 _s_typename[_TYPE_NAME_SIZE + 1];
+    _type_t*             _pt_type;
+    _typestyle_t         _t_style;
 }_typeinfo_t;
 
 /** exported global variable declaration section **/
@@ -232,21 +232,17 @@ typedef struct _tagtypeinfo
 
 extern bool_t _type_register(
     size_t t_typesize, const char* s_typename,
-    unary_function_t t_typeinit,
-    binary_function_t t_typecopy,
-    binary_function_t t_typeless,
-    unary_function_t t_typedestroy);
+    unary_function_t t_typeinit, binary_function_t t_typecopy,
+    binary_function_t t_typeless, unary_function_t t_typedestroy);
 /*extern void _type_unregister(size_t t_typesize, const char* s_typename);*/
 extern bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
     size_t t_typesize2, const char* s_typename2);
 extern void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename);
-extern void _type_get_type_pair(
-    _typeinfo_t* pt_typeinfofirst, _typeinfo_t* pt_typeinfosecond, const char* s_typename);
+extern void _type_get_type_pair(_typeinfo_t* pt_typeinfofirst, _typeinfo_t* pt_typeinfosecond, const char* s_typename);
 extern bool_t _type_is_same(const char* s_typename1, const char* s_typename2);
 extern bool_t _type_is_same_ex(const _typeinfo_t* pt_first, const _typeinfo_t* pt_second);
-extern void _type_get_varg_value(
-    _typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output);
+extern void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* pv_output);
 extern void _type_get_elem_typename(const char* s_typename, char* s_elemtypename);
 
 extern void _type_debug(void);
@@ -256,14 +252,10 @@ extern void _type_debug(void);
  * so invoke the copy, less, and destroy functions must be put the 
  * type size into the function through pv_output, even if is not used.
  */
-extern void _type_init_default(
-    const void* cpv_input, void* pv_output);
-extern void _type_copy_default(
-    const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void _type_less_default(
-    const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void _type_destroy_default(
-    const void* cpv_input, void* pv_output);
+extern void _type_init_default(const void* cpv_input, void* pv_output);
+extern void _type_copy_default(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_less_default(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_destroy_default(const void* cpv_input, void* pv_output);
 
 #ifdef __cplusplus
 }

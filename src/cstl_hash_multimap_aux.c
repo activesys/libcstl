@@ -65,8 +65,8 @@ bool_t _hash_multimap_same_pair_type(const pair_t* cppair_first, const pair_t* c
            (cppair_first->_t_typeinfofirst._t_style == cppair_second->_t_typeinfofirst._t_style) &&
            (cppair_first->_t_typeinfosecond._pt_type == cppair_second->_t_typeinfosecond._pt_type) &&
            (cppair_first->_t_typeinfosecond._t_style == cppair_second->_t_typeinfosecond._t_style) &&
-           _type_is_same(cppair_first->_t_typeinfofirst._sz_typename, cppair_second->_t_typeinfofirst._sz_typename) &&
-           _type_is_same(cppair_first->_t_typeinfosecond._sz_typename, cppair_second->_t_typeinfosecond._sz_typename);
+           _type_is_same(cppair_first->_t_typeinfofirst._s_typename, cppair_second->_t_typeinfofirst._s_typename) &&
+           _type_is_same(cppair_first->_t_typeinfosecond._s_typename, cppair_second->_t_typeinfosecond._s_typename);
 }
 
 /**
@@ -85,8 +85,8 @@ bool_t _hash_multimap_same_pair_type_ex(const pair_t* cppair_first, const pair_t
            (cppair_first->_t_typeinfosecond._t_style == cppair_second->_t_typeinfosecond._t_style) &&
            (cppair_first->_bfun_mapkeycompare == cppair_second->_bfun_mapkeycompare) &&
            (cppair_first->_bfun_mapvaluecompare == cppair_second->_bfun_mapvaluecompare) &&
-           _type_is_same(cppair_first->_t_typeinfofirst._sz_typename, cppair_second->_t_typeinfofirst._sz_typename) &&
-           _type_is_same(cppair_first->_t_typeinfosecond._sz_typename, cppair_second->_t_typeinfosecond._sz_typename);
+           _type_is_same(cppair_first->_t_typeinfofirst._s_typename, cppair_second->_t_typeinfofirst._s_typename) &&
+           _type_is_same(cppair_first->_t_typeinfosecond._s_typename, cppair_second->_t_typeinfosecond._s_typename);
 }
 #endif /* NDEBUG */
 
@@ -131,7 +131,7 @@ void _hash_multimap_default_hash(const void* cpv_input, void* pv_output)
 
     ppair_pair = (pair_t*)cpv_input;
     pby_value = (_byte_t*)pair_first(ppair_pair);
-    if (strncmp(ppair_pair->_t_typeinfofirst._pt_type->_sz_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+    if (strncmp(ppair_pair->_t_typeinfofirst._pt_type->_s_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         t_len = strlen((char*)pby_value);
     } else {
         t_len = ppair_pair->_t_typeinfofirst._pt_type->_t_typesize;

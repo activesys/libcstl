@@ -52,8 +52,8 @@
         pt_type = (_type_t*)_alloc_allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);\
         assert(pt_type != NULL);\
         pt_type->_t_typesize = sizeof(type);\
-        memset(pt_type->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
-        strncpy(pt_type->_sz_typename, type_text, _TYPE_NAME_SIZE);\
+        memset(pt_type->_s_typename, '\0', _TYPE_NAME_SIZE+1);\
+        strncpy(pt_type->_s_typename, type_text, _TYPE_NAME_SIZE);\
         pt_type->_t_typeinit = _type_init_##type_suffix;\
         pt_type->_t_typecopy = _type_copy_##type_suffix;\
         pt_type->_t_typeless = _type_less_##type_suffix;\
@@ -64,8 +64,8 @@
         pt_node = (_typenode_t*)_alloc_allocate(\
             &_gt_typeregister._t_allocator, sizeof(_typenode_t), 1);\
         assert(pt_node != NULL);\
-        memset(pt_node->_sz_typename, '\0', _TYPE_NAME_SIZE+1);\
-        strncpy(pt_node->_sz_typename, type_text, _TYPE_NAME_SIZE);\
+        memset(pt_node->_s_typename, '\0', _TYPE_NAME_SIZE+1);\
+        strncpy(pt_node->_s_typename, type_text, _TYPE_NAME_SIZE);\
         t_pos = _type_hash(type_text);\
         pt_node->_pt_next = _gt_typeregister._apt_bucket[t_pos];\
         _gt_typeregister._apt_bucket[t_pos] = pt_node;\
@@ -103,7 +103,7 @@
  *         NULL                  V
  *                             +------------------------------+
  *                             | _t_typesize = ???            |
- *                             | _sz_typename = "abc_t"       |
+ *                             | _s_typename = "abc_t"        |
  *                             | _t_typecopy = abc_copy       | "registered type abc_t"
  *                             | _t_typeless = abc_less       |
  *                             | _t_typeinit = abc_init       |
@@ -155,7 +155,7 @@ _type_t* _type_is_registered(const char* s_typename)
     /* get the registered type pointer */
     pt_node = _gt_typeregister._apt_bucket[_type_hash(s_typename)];
     while (pt_node != NULL) {
-        if (strncmp(s_typename, pt_node->_sz_typename, _TYPE_NAME_SIZE) == 0) {
+        if (strncmp(s_typename, pt_node->_s_typename, _TYPE_NAME_SIZE) == 0) {
             pt_registered = pt_node->_pt_type;
             assert(pt_registered != NULL);
             break;

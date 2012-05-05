@@ -36,8 +36,8 @@ extern "C" {
 
 /* macros for type informations */
 #define _GET_DEQUE_TYPE_SIZE(pdeq_deque)             ((pdeq_deque)->_t_typeinfo._pt_type->_t_typesize)
-#define _GET_DEQUE_TYPE_NAME(pdeq_deque)             ((pdeq_deque)->_t_typeinfo._sz_typename)
-#define _GET_DEQUE_TYPE_BASENAME(pdeq_deque)         ((pdeq_deque)->_t_typeinfo._pt_type->_sz_typename)
+#define _GET_DEQUE_TYPE_NAME(pdeq_deque)             ((pdeq_deque)->_t_typeinfo._s_typename)
+#define _GET_DEQUE_TYPE_BASENAME(pdeq_deque)         ((pdeq_deque)->_t_typeinfo._pt_type->_s_typename)
 #define _GET_DEQUE_TYPE_INIT_FUNCTION(pdeq_deque)    ((pdeq_deque)->_t_typeinfo._pt_type->_t_typeinit)
 #define _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)    ((pdeq_deque)->_t_typeinfo._pt_type->_t_typecopy)
 #define _GET_DEQUE_TYPE_LESS_FUNCTION(pdeq_deque)    ((pdeq_deque)->_t_typeinfo._pt_type->_t_typeless)

@@ -32,8 +32,8 @@ extern "C" {
 /** constant declaration and macro section **/
 /* macros for type informations */
 #define _GET_SET_TYPE_SIZE(pset_set)             ((pset_set)->_t_tree._t_typeinfo._pt_type->_t_typesize)
-#define _GET_SET_TYPE_NAME(pset_set)             ((pset_set)->_t_tree._t_typeinfo._sz_typename)
-#define _GET_SET_TYPE_BASENAME(pset_set)         ((pset_set)->_t_tree._t_typeinfo._pt_type->_sz_typename)
+#define _GET_SET_TYPE_NAME(pset_set)             ((pset_set)->_t_tree._t_typeinfo._s_typename)
+#define _GET_SET_TYPE_BASENAME(pset_set)         ((pset_set)->_t_tree._t_typeinfo._pt_type->_s_typename)
 #define _GET_SET_TYPE_INIT_FUNCTION(pset_set)    ((pset_set)->_t_tree._t_typeinfo._pt_type->_t_typeinit)
 #define _GET_SET_TYPE_COPY_FUNCTION(pset_set)    ((pset_set)->_t_tree._t_typeinfo._pt_type->_t_typecopy)
 #define _GET_SET_TYPE_LESS_FUNCTION(pset_set)    ((pset_set)->_t_tree._t_typeinfo._pt_type->_t_typeless)

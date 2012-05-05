@@ -297,7 +297,7 @@ void _hash_map_init_elem_auxiliary(hash_map_t* phmap_map, void* pv_elem)
     if (phmap_map->_t_hashtable._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(phmap_map->_t_hashtable._t_typeinfo._sz_typename, s_elemtypename);
+        _type_get_elem_typename(phmap_map->_t_hashtable._t_typeinfo._s_typename, s_elemtypename);
 
         phmap_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
     } else {

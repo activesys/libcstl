@@ -32,8 +32,8 @@ extern "C" {
 /** constant declaration and macro section **/
 /* macros for type informations */
 #define _GET_HASHTABLE_TYPE_SIZE(pt_hashtable)             ((pt_hashtable)->_t_typeinfo._pt_type->_t_typesize)
-#define _GET_HASHTABLE_TYPE_NAME(pt_hashtable)             ((pt_hashtable)->_t_typeinfo._sz_typename)
-#define _GET_HASHTABLE_TYPE_BASENAME(pt_hashtable)         ((pt_hashtable)->_t_typeinfo._pt_type->_sz_typename)
+#define _GET_HASHTABLE_TYPE_NAME(pt_hashtable)             ((pt_hashtable)->_t_typeinfo._s_typename)
+#define _GET_HASHTABLE_TYPE_BASENAME(pt_hashtable)         ((pt_hashtable)->_t_typeinfo._pt_type->_s_typename)
 #define _GET_HASHTABLE_TYPE_INIT_FUNCTION(pt_hashtable)    ((pt_hashtable)->_t_typeinfo._pt_type->_t_typeinit)
 #define _GET_HASHTABLE_TYPE_COPY_FUNCTION(pt_hashtable)    ((pt_hashtable)->_t_typeinfo._pt_type->_t_typecopy)
 #define _GET_HASHTABLE_TYPE_LESS_FUNCTION(pt_hashtable)    ((pt_hashtable)->_t_typeinfo._pt_type->_t_typeless)

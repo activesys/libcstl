@@ -32,8 +32,8 @@ extern "C" {
 /** constant declaration and macro section **/
 /* macros for type informations */
 #define _GET_HASH_MULTIMAP_FIRST_TYPE_SIZE(phmmap_map)              ((phmmap_map)->_pair_temp._t_typeinfofirst._pt_type->_t_typesize)
-#define _GET_HASH_MULTIMAP_FIRST_TYPE_NAME(phmmap_map)              ((phmmap_map)->_pair_temp._t_typeinfofirst._sz_typename)
-#define _GET_HASH_MULTIMAP_FIRST_TYPE_BASENAME(phmmap_map)          ((phmmap_map)->_pair_temp._t_typeinfofirst._pt_type->_sz_typename)
+#define _GET_HASH_MULTIMAP_FIRST_TYPE_NAME(phmmap_map)              ((phmmap_map)->_pair_temp._t_typeinfofirst._s_typename)
+#define _GET_HASH_MULTIMAP_FIRST_TYPE_BASENAME(phmmap_map)          ((phmmap_map)->_pair_temp._t_typeinfofirst._pt_type->_s_typename)
 #define _GET_HASH_MULTIMAP_FIRST_TYPE_INIT_FUNCTION(phmmap_map)     ((phmmap_map)->_pair_temp._t_typeinfofirst._pt_type->_t_typeinit)
 #define _GET_HASH_MULTIMAP_FIRST_TYPE_COPY_FUNCTION(phmmap_map)     ((phmmap_map)->_pair_temp._t_typeinfofirst._pt_type->_t_typecopy)
 #define _GET_HASH_MULTIMAP_FIRST_TYPE_LESS_FUNCTION(phmmap_map)     ((phmmap_map)->_pair_temp._t_typeinfofirst._pt_type->_t_typeless)
@@ -41,8 +41,8 @@ extern "C" {
 #define _GET_HASH_MULTIMAP_FIRST_TYPE_STYLE(phmmap_map)             ((phmmap_map)->_pair_temp._t_typeinfofirst._t_style)
 
 #define _GET_HASH_MULTIMAP_SECOND_TYPE_SIZE(phmmap_map)             ((phmmap_map)->_pair_temp._t_typeinfosecond._pt_type->_t_typesize)
-#define _GET_HASH_MULTIMAP_SECOND_TYPE_NAME(phmmap_map)             ((phmmap_map)->_pair_temp._t_typeinfosecond._sz_typename)
-#define _GET_HASH_MULTIMAP_SECOND_TYPE_BASENAME(phmmap_map)         ((phmmap_map)->_pair_temp._t_typeinfosecond._pt_type->_sz_typename)
+#define _GET_HASH_MULTIMAP_SECOND_TYPE_NAME(phmmap_map)             ((phmmap_map)->_pair_temp._t_typeinfosecond._s_typename)
+#define _GET_HASH_MULTIMAP_SECOND_TYPE_BASENAME(phmmap_map)         ((phmmap_map)->_pair_temp._t_typeinfosecond._pt_type->_s_typename)
 #define _GET_HASH_MULTIMAP_SECOND_TYPE_INIT_FUNCTION(phmmap_map)    ((phmmap_map)->_pair_temp._t_typeinfosecond._pt_type->_t_typeinit)
 #define _GET_HASH_MULTIMAP_SECOND_TYPE_COPY_FUNCTION(phmmap_map)    ((phmmap_map)->_pair_temp._t_typeinfosecond._pt_type->_t_typecopy)
 #define _GET_HASH_MULTIMAP_SECOND_TYPE_LESS_FUNCTION(phmmap_map)    ((phmmap_map)->_pair_temp._t_typeinfosecond._pt_type->_t_typeless)

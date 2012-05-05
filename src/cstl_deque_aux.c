@@ -737,9 +737,9 @@ void _deque_init_elem_range_auxiliary(deque_t* pdeq_deque, deque_iterator_t it_b
         }
     } else {
         for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
-            bool_t t_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-            _GET_DEQUE_TYPE_INIT_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(it_iter), &t_result);
-            assert(t_result);
+            bool_t b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+            _GET_DEQUE_TYPE_INIT_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(it_iter), &b_result);
+            assert(b_result);
         }
     }
 }

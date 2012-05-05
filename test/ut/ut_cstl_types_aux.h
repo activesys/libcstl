@@ -47,7 +47,7 @@ void test__type_is_registered__register(void** state);
     UT_CASE_BEGIN(_type_is_registered, test__type_is_registered__null_typename),\
     UT_CASE(test__type_is_registered__long_typename),\
     UT_CASE(test__type_is_registered__not_register),\
-    UT_CASE(test__type_is_registered__register),\
+    UT_CASE(test__type_is_registered__register)
 
 #endif /* _UT_CSTL_TYPES_AUX_H_ */
 

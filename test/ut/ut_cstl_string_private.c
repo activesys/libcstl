@@ -38,7 +38,7 @@ void test__create_string_auxiliary__successfully(void** state)
     assert_true(pstr->_vec_base._pby_start == NULL);
     assert_true(pstr->_vec_base._t_typeinfo._pt_type != NULL);
     assert_true(pstr->_vec_base._t_typeinfo._t_style == _TYPE_C_BUILTIN);
-    assert_true(strcmp(pstr->_vec_base._t_typeinfo._sz_typename, _CHAR_TYPE) == 0);
+    assert_true(strcmp(pstr->_vec_base._t_typeinfo._s_typename, _CHAR_TYPE) == 0);
 
     string_destroy(pstr);
 }

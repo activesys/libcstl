@@ -45,12 +45,12 @@ void test__type_hash__lessthan_bucketcount(void** state)
 
 void test__type_hash__equalto_bucketcount(void** state)
 {
-    assert_true(_type_hash("a") == 0);
+    assert_true(_type_hash("aaaaaaaaa>>") == 0);
 }
 
 void test__type_hash__greaterthan_bucketcount(void** state)
 {
-    assert_true(_type_hash("abc") == 3);
+    assert_true(_type_hash("abcabcabcabcabc") == 473);
 }
 
 #define TEST__TYPE_REGISTER_BEGIN()\
@@ -62,7 +62,7 @@ void test__type_hash__greaterthan_bucketcount(void** state)
         t_pos = _type_hash(type_text);\
         pt_node = _gt_typeregister._apt_bucket[t_pos];\
         while (pt_node != NULL) {\
-            if (strncmp(pt_node->_sz_typename, type_text, _TYPE_NAME_SIZE) == 0) {\
+            if (strncmp(pt_node->_s_typename, type_text, _TYPE_NAME_SIZE) == 0) {\
                 break;\
             }\
             pt_node = pt_node->_pt_next;\
@@ -71,7 +71,7 @@ void test__type_hash__greaterthan_bucketcount(void** state)
         pt_type = pt_node->_pt_type;\
         assert_true(pt_type != NULL);\
         assert_true(pt_type->_t_typesize == sizeof(type));\
-        assert_true(strncmp(pt_type->_sz_typename, type_text, _TYPE_NAME_SIZE) == 0);\
+        assert_true(strncmp(pt_type->_s_typename, type_text, _TYPE_NAME_SIZE) == 0);\
         assert_true(pt_type->_t_typeinit == _type_init_##type_suffix);\
         assert_true(pt_type->_t_typeless == _type_less_##type_suffix);\
         assert_true(pt_type->_t_typecopy == _type_copy_##type_suffix);\
@@ -82,7 +82,7 @@ void test__type_hash__greaterthan_bucketcount(void** state)
         t_pos = _type_hash(type_text);\
         pt_node = _gt_typeregister._apt_bucket[t_pos];\
         while (pt_node != NULL) {\
-            if (strncmp(pt_node->_sz_typename, type_text, _TYPE_NAME_SIZE) == 0) {\
+            if (strncmp(pt_node->_s_typename, type_text, _TYPE_NAME_SIZE) == 0) {\
                 break;\
             }\
             pt_node->_pt_next;\
@@ -253,7 +253,7 @@ void test__type_is_registered__register(void** state)
     _type_t* pt_type = _type_is_registered("int");
     assert_true(pt_type != NULL);
     assert_true(pt_type->_t_typesize == sizeof(int));
-    assert_true(strncmp(pt_type->_sz_typename, "int", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(pt_type->_s_typename, "int", _TYPE_NAME_SIZE) == 0);
     assert_true(pt_type->_t_typeinit == _type_init_int);
     assert_true(pt_type->_t_typeless == _type_less_int);
     assert_true(pt_type->_t_typecopy == _type_copy_int);

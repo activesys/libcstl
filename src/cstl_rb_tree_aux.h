@@ -32,8 +32,8 @@ extern "C" {
 /** constant declaration and macro section **/
 /* macros for type informations */
 #define _GET_RB_TREE_TYPE_SIZE(pt_rb_tree)             ((pt_rb_tree)->_t_typeinfo._pt_type->_t_typesize)
-#define _GET_RB_TREE_TYPE_NAME(pt_rb_tree)             ((pt_rb_tree)->_t_typeinfo._sz_typename)
-#define _GET_RB_TREE_TYPE_BASENAME(pt_rb_tree)         ((pt_rb_tree)->_t_typeinfo._pt_type->_sz_typename)
+#define _GET_RB_TREE_TYPE_NAME(pt_rb_tree)             ((pt_rb_tree)->_t_typeinfo._s_typename)
+#define _GET_RB_TREE_TYPE_BASENAME(pt_rb_tree)         ((pt_rb_tree)->_t_typeinfo._pt_type->_s_typename)
 #define _GET_RB_TREE_TYPE_INIT_FUNCTION(pt_rb_tree)    ((pt_rb_tree)->_t_typeinfo._pt_type->_t_typeinit)
 #define _GET_RB_TREE_TYPE_COPY_FUNCTION(pt_rb_tree)    ((pt_rb_tree)->_t_typeinfo._pt_type->_t_typecopy)
 #define _GET_RB_TREE_TYPE_LESS_FUNCTION(pt_rb_tree)    ((pt_rb_tree)->_t_typeinfo._pt_type->_t_typeless)

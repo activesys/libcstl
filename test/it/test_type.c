@@ -68,10 +68,10 @@ void test_type(void)
 
 #ifndef _WIN32
     _type_get_type(&t_type, "short");
-    printf("%s:", t_type._sz_typename);
+    printf("%s:", t_type._s_typename);
     if(t_type._pt_type != NULL)
     {
-        printf("%s,%p\n", t_type._pt_type->_sz_typename, (void*)t_type._pt_type);
+        printf("%s,%p\n", t_type._pt_type->_s_typename, (void*)t_type._pt_type);
     }
     printf("%d\n", _type_is_same("int", "signed"));
     printf("%d\n", _type_is_same("long", "signed short"));

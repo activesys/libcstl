@@ -250,7 +250,7 @@ void _hash_multimap_init_elem_auxiliary(hash_multimap_t* phmmap_map, void* pv_el
     if (phmmap_map->_t_hashtable._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(phmmap_map->_t_hashtable._t_typeinfo._sz_typename, s_elemtypename);
+        _type_get_elem_typename(phmmap_map->_t_hashtable._t_typeinfo._s_typename, s_elemtypename);
 
         phmmap_map->_t_hashtable._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
     } else {

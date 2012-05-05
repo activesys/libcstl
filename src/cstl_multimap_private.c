@@ -363,7 +363,7 @@ void _multimap_init_elem_auxiliary(multimap_t* pmmap_map, void* pv_elem)
     if (pmmap_map->_t_tree._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN) {
         /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
-        _type_get_elem_typename(pmmap_map->_t_tree._t_typeinfo._sz_typename, s_elemtypename);
+        _type_get_elem_typename(pmmap_map->_t_tree._t_typeinfo._s_typename, s_elemtypename);
 
         pmmap_map->_t_tree._t_typeinfo._pt_type->_t_typeinit(pv_elem, s_elemtypename);
     } else {

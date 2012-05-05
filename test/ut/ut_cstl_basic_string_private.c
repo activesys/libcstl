@@ -87,7 +87,7 @@ void test__create_basic_string_auxiliary__c_builtin_type(void** state)
     assert_true(pt_basic_string->_vec_base._pby_start == NULL);
     assert_true(pt_basic_string->_vec_base._t_typeinfo._pt_type != NULL);
     assert_true(pt_basic_string->_vec_base._t_typeinfo._t_style == _TYPE_C_BUILTIN);
-    assert_true(strcmp(pt_basic_string->_vec_base._t_typeinfo._sz_typename, _INT_TYPE) == 0);
+    assert_true(strcmp(pt_basic_string->_vec_base._t_typeinfo._s_typename, _INT_TYPE) == 0);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -102,7 +102,7 @@ void test__create_basic_string_auxiliary__libcstl_builtin_type(void** state)
     assert_true(pt_basic_string->_vec_base._pby_start == NULL);
     assert_true(pt_basic_string->_vec_base._t_typeinfo._pt_type != NULL);
     assert_true(pt_basic_string->_vec_base._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN);
-    assert_true(strcmp(pt_basic_string->_vec_base._t_typeinfo._sz_typename, "list_t<int>") == 0);
+    assert_true(strcmp(pt_basic_string->_vec_base._t_typeinfo._s_typename, "list_t<int>") == 0);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -119,7 +119,7 @@ void test__create_basic_string_auxiliary__registed_type(void** state)
     assert_true(pt_basic_string->_vec_base._pby_start == NULL);
     assert_true(pt_basic_string->_vec_base._t_typeinfo._pt_type != NULL);
     assert_true(pt_basic_string->_vec_base._t_typeinfo._t_style == _TYPE_USER_DEFINE);
-    assert_true(strcmp(pt_basic_string->_vec_base._t_typeinfo._sz_typename,
+    assert_true(strcmp(pt_basic_string->_vec_base._t_typeinfo._s_typename,
         "_create_basic_string_auxiliary__registed_type_t") == 0);
 
     basic_string_destroy(pt_basic_string);
@@ -3518,7 +3518,7 @@ void test__basic_string_init_elem_auxiliary__successfully_container(void** state
     assert_true(bstr._pby_endofstorage == NULL);
     assert_true(bstr._t_typeinfo._t_style == _TYPE_C_BUILTIN);
     assert_true(bstr._t_typeinfo._pt_type != NULL);
-    assert_true(strcmp(bstr._t_typeinfo._sz_typename, _INT_TYPE) == 0);
+    assert_true(strcmp(bstr._t_typeinfo._s_typename, _INT_TYPE) == 0);
     assert_true(_alloc_is_inited(&bstr._t_allocator));
 
     basic_string_destroy(pt_basic_string);

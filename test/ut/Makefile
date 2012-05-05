@@ -211,7 +211,8 @@ am_libcstl_ut_OBJECTS = libcstl_ut-ut_main.$(OBJEXT) \
 	libcstl_ut-ut_cstl_iterator.$(OBJEXT) \
 	libcstl_ut-ut_cstl_types_builtin.$(OBJEXT) \
 	libcstl_ut-ut_cstl_types_parse.$(OBJEXT) \
-	libcstl_ut-ut_cstl_types_aux.$(OBJEXT)
+	libcstl_ut-ut_cstl_types_aux.$(OBJEXT) \
+	libcstl_ut-ut_cstl_types.$(OBJEXT)
 libcstl_ut_OBJECTS = $(am_libcstl_ut_OBJECTS)
 libcstl_ut_LDADD = $(LDADD)
 libcstl_ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -473,7 +474,8 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_iterator.c ut_cstl_iterator.h \
 	     ut_cstl_types_builtin.c ut_cstl_types_builtin.h \
 	     ut_cstl_types_parse.c ut_cstl_types_parse.h \
-	     ut_cstl_types_aux.c ut_cstl_types_aux.h
+	     ut_cstl_types_aux.c ut_cstl_types_aux.h \
+	     ut_cstl_types.c ut_cstl_types.h
 
 libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 libcstl_ut_LDFLAGS = -lcmockery
@@ -693,6 +695,7 @@ include ./$(DEPDIR)/libcstl_ut-ut_cstl_stack.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_stack_private.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_string.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_string_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_types.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_types_aux.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_types_builtin.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_types_parse.Po
@@ -3103,6 +3106,20 @@ libcstl_ut-ut_cstl_types_aux.obj: ut_cstl_types_aux.c
 #	source='ut_cstl_types_aux.c' object='libcstl_ut-ut_cstl_types_aux.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_types_aux.obj `if test -f 'ut_cstl_types_aux.c'; then $(CYGPATH_W) 'ut_cstl_types_aux.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types_aux.c'; fi`
+
+libcstl_ut-ut_cstl_types.o: ut_cstl_types.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_types.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_types.Tpo -c -o libcstl_ut-ut_cstl_types.o `test -f 'ut_cstl_types.c' || echo '$(srcdir)/'`ut_cstl_types.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_types.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_types.Po
+#	source='ut_cstl_types.c' object='libcstl_ut-ut_cstl_types.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_types.o `test -f 'ut_cstl_types.c' || echo '$(srcdir)/'`ut_cstl_types.c
+
+libcstl_ut-ut_cstl_types.obj: ut_cstl_types.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_types.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_types.Tpo -c -o libcstl_ut-ut_cstl_types.obj `if test -f 'ut_cstl_types.c'; then $(CYGPATH_W) 'ut_cstl_types.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_types.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_types.Po
+#	source='ut_cstl_types.c' object='libcstl_ut-ut_cstl_types.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_types.obj `if test -f 'ut_cstl_types.c'; then $(CYGPATH_W) 'ut_cstl_types.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

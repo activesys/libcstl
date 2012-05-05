@@ -32,8 +32,8 @@ extern "C" {
 /** constant declaration and macro section **/
 /* macros for type informations */
 #define _GET_VECTOR_TYPE_SIZE(pvec_vector)             ((pvec_vector)->_t_typeinfo._pt_type->_t_typesize)
-#define _GET_VECTOR_TYPE_NAME(pvec_vector)             ((pvec_vector)->_t_typeinfo._sz_typename)
-#define _GET_VECTOR_TYPE_BASENAME(pvec_vector)         ((pvec_vector)->_t_typeinfo._pt_type->_sz_typename)
+#define _GET_VECTOR_TYPE_NAME(pvec_vector)             ((pvec_vector)->_t_typeinfo._s_typename)
+#define _GET_VECTOR_TYPE_BASENAME(pvec_vector)         ((pvec_vector)->_t_typeinfo._pt_type->_s_typename)
 #define _GET_VECTOR_TYPE_INIT_FUNCTION(pvec_vector)    ((pvec_vector)->_t_typeinfo._pt_type->_t_typeinit)
 #define _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)    ((pvec_vector)->_t_typeinfo._pt_type->_t_typecopy)
 #define _GET_VECTOR_TYPE_LESS_FUNCTION(pvec_vector)    ((pvec_vector)->_t_typeinfo._pt_type->_t_typeless)

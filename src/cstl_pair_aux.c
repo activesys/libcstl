@@ -61,8 +61,8 @@ bool_t _pair_same_type(const pair_t* cppair_first, const pair_t* cppair_second)
            cppair_first->_t_typeinfofirst._t_style == cppair_second->_t_typeinfofirst._t_style &&
            cppair_first->_t_typeinfosecond._pt_type == cppair_second->_t_typeinfosecond._pt_type &&
            cppair_first->_t_typeinfosecond._t_style == cppair_second->_t_typeinfosecond._t_style &&
-           _type_is_same(cppair_first->_t_typeinfofirst._sz_typename, cppair_second->_t_typeinfofirst._sz_typename) &&
-           _type_is_same(cppair_first->_t_typeinfosecond._sz_typename, cppair_second->_t_typeinfosecond._sz_typename);
+           _type_is_same(cppair_first->_t_typeinfofirst._s_typename, cppair_second->_t_typeinfofirst._s_typename) &&
+           _type_is_same(cppair_first->_t_typeinfosecond._s_typename, cppair_second->_t_typeinfosecond._s_typename);
 }
 
 /** local function implementation section **/

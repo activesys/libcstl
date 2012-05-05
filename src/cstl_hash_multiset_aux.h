@@ -32,8 +32,8 @@ extern "C" {
 /** constant declaration and macro section **/
 /* macros for type informations */
 #define _GET_HASH_MULTISET_TYPE_SIZE(phmset_set)             ((phmset_set)->_t_hashtable._t_typeinfo._pt_type->_t_typesize)
-#define _GET_HASH_MULTISET_TYPE_NAME(phmset_set)             ((phmset_set)->_t_hashtable._t_typeinfo._sz_typename)
-#define _GET_HASH_MULTISET_TYPE_BASENAME(phmset_set)         ((phmset_set)->_t_hashtable._t_typeinfo._pt_type->_sz_typename)
+#define _GET_HASH_MULTISET_TYPE_NAME(phmset_set)             ((phmset_set)->_t_hashtable._t_typeinfo._s_typename)
+#define _GET_HASH_MULTISET_TYPE_BASENAME(phmset_set)         ((phmset_set)->_t_hashtable._t_typeinfo._pt_type->_s_typename)
 #define _GET_HASH_MULTISET_TYPE_INIT_FUNCTION(phmset_set)    ((phmset_set)->_t_hashtable._t_typeinfo._pt_type->_t_typeinit)
 #define _GET_HASH_MULTISET_TYPE_COPY_FUNCTION(phmset_set)    ((phmset_set)->_t_hashtable._t_typeinfo._pt_type->_t_typecopy)
 #define _GET_HASH_MULTISET_TYPE_LESS_FUNCTION(phmset_set)    ((phmset_set)->_t_hashtable._t_typeinfo._pt_type->_t_typeless)

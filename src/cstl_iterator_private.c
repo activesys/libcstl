@@ -331,7 +331,7 @@ _typestyle_t _iterator_get_typestyle(iterator_t it_iter)
 const char* _iterator_get_typebasename(iterator_t it_iter)
 {
     _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(it_iter);
-    return pt_typeinfo != NULL ? pt_typeinfo->_pt_type->_sz_typename : NULL;
+    return pt_typeinfo != NULL ? pt_typeinfo->_pt_type->_s_typename : NULL;
 }
 
 /**
@@ -340,7 +340,7 @@ const char* _iterator_get_typebasename(iterator_t it_iter)
 const char* _iterator_get_typename(iterator_t it_iter)
 {
     _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(it_iter);
-    return pt_typeinfo != NULL ? pt_typeinfo->_sz_typename : NULL;
+    return pt_typeinfo != NULL ? pt_typeinfo->_s_typename : NULL;
 }
 
 /**
@@ -374,7 +374,7 @@ bool_t _iterator_same_elem_type(iterator_t it_first, iterator_t it_second)
     }
     return (pt_first->_pt_type == pt_second->_pt_type) &&
            (pt_first->_t_style == pt_second->_t_style) &&
-           _type_is_same(pt_first->_sz_typename, pt_second->_sz_typename);
+           _type_is_same(pt_first->_s_typename, pt_second->_s_typename);
 }
 
 /**

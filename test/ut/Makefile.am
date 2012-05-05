@@ -126,7 +126,8 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_iterator.c ut_cstl_iterator.h \
 	     ut_cstl_types_builtin.c ut_cstl_types_builtin.h \
 	     ut_cstl_types_parse.c ut_cstl_types_parse.h \
-	     ut_cstl_types_aux.c ut_cstl_types_aux.h
+	     ut_cstl_types_aux.c ut_cstl_types_aux.h \
+	     ut_cstl_types.c ut_cstl_types.h
 libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 libcstl_ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

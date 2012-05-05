@@ -84,7 +84,7 @@ void test__create_vector_auxiliary__c_builtin_type(void** state)
     assert_true(pvec->_pby_start == NULL);
     assert_true(pvec->_t_typeinfo._pt_type != NULL);
     assert_true(pvec->_t_typeinfo._t_style == _TYPE_C_BUILTIN);
-    assert_true(strcmp(pvec->_t_typeinfo._sz_typename, _INT_TYPE) == 0);
+    assert_true(strcmp(pvec->_t_typeinfo._s_typename, _INT_TYPE) == 0);
 
     vector_destroy(pvec);
 }
@@ -99,7 +99,7 @@ void test__create_vector_auxiliary__libcstl_builtin_type(void** state)
     assert_true(pvec->_pby_start == NULL);
     assert_true(pvec->_t_typeinfo._pt_type != NULL);
     assert_true(pvec->_t_typeinfo._t_style == _TYPE_CSTL_BUILTIN);
-    assert_true(strcmp(pvec->_t_typeinfo._sz_typename, "list_t<int>") == 0);
+    assert_true(strcmp(pvec->_t_typeinfo._s_typename, "list_t<int>") == 0);
 
     vector_destroy(pvec);
 }
@@ -116,7 +116,7 @@ void test__create_vector_auxiliary__registed_type(void** state)
     assert_true(pvec->_pby_start == NULL);
     assert_true(pvec->_t_typeinfo._pt_type != NULL);
     assert_true(pvec->_t_typeinfo._t_style == _TYPE_USER_DEFINE);
-    assert_true(strcmp(pvec->_t_typeinfo._sz_typename, "_create_vector_auxiliary__registed_type_t") == 0);
+    assert_true(strcmp(pvec->_t_typeinfo._s_typename, "_create_vector_auxiliary__registed_type_t") == 0);
 
     vector_destroy(pvec);
 }
@@ -1189,7 +1189,7 @@ void test__vector_init_elem_auxiliary__successfully_container(void** state)
     assert_true(vec._pby_endofstorage == NULL);
     assert_true(vec._t_typeinfo._t_style == _TYPE_C_BUILTIN);
     assert_true(vec._t_typeinfo._pt_type != NULL);
-    assert_true(strcmp(vec._t_typeinfo._sz_typename, _INT_TYPE) == 0);
+    assert_true(strcmp(vec._t_typeinfo._s_typename, _INT_TYPE) == 0);
     assert_true(_alloc_is_inited(&vec._t_allocator));
 
     vector_destroy(pvec);

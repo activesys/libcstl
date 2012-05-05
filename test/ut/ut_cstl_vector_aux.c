@@ -700,7 +700,7 @@ void test__vector_init_elem_range_auxiliary__successfully_container(void** state
     {
         assert_true(_alloc_is_inited(&a_vec[i]._t_allocator));
         assert_true(a_vec[i]._t_typeinfo._t_style == _TYPE_C_BUILTIN);
-        assert_true(strcmp(a_vec[i]._t_typeinfo._sz_typename, _INT_TYPE) == 0);
+        assert_true(strcmp(a_vec[i]._t_typeinfo._s_typename, _INT_TYPE) == 0);
         assert_true(a_vec[i]._t_typeinfo._pt_type != NULL);
         assert_true(a_vec[i]._pby_start == NULL);
         assert_true(a_vec[i]._pby_finish == NULL);

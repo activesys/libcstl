@@ -74,8 +74,8 @@ bool_t _multimap_same_pair_type(const pair_t* cppair_first, const pair_t* cppair
            (cppair_first->_t_typeinfofirst._t_style == cppair_second->_t_typeinfofirst._t_style) &&
            (cppair_first->_t_typeinfosecond._pt_type == cppair_second->_t_typeinfosecond._pt_type) &&
            (cppair_first->_t_typeinfosecond._t_style == cppair_second->_t_typeinfosecond._t_style) &&
-           _type_is_same(cppair_first->_t_typeinfofirst._sz_typename, cppair_second->_t_typeinfofirst._sz_typename) &&
-           _type_is_same(cppair_first->_t_typeinfosecond._sz_typename, cppair_second->_t_typeinfosecond._sz_typename);
+           _type_is_same(cppair_first->_t_typeinfofirst._s_typename, cppair_second->_t_typeinfofirst._s_typename) &&
+           _type_is_same(cppair_first->_t_typeinfosecond._s_typename, cppair_second->_t_typeinfosecond._s_typename);
 }
 
 /**
@@ -98,8 +98,8 @@ bool_t _multimap_same_pair_type_ex(const pair_t* cppair_first, const pair_t* cpp
            (cppair_first->_t_typeinfosecond._t_style == cppair_second->_t_typeinfosecond._t_style) &&
            (cppair_first->_bfun_mapkeycompare == cppair_second->_bfun_mapkeycompare) &&
            (cppair_first->_bfun_mapvaluecompare == cppair_second->_bfun_mapvaluecompare) &&
-           _type_is_same(cppair_first->_t_typeinfofirst._sz_typename, cppair_second->_t_typeinfofirst._sz_typename) &&
-           _type_is_same(cppair_first->_t_typeinfosecond._sz_typename, cppair_second->_t_typeinfosecond._sz_typename);
+           _type_is_same(cppair_first->_t_typeinfofirst._s_typename, cppair_second->_t_typeinfofirst._s_typename) &&
+           _type_is_same(cppair_first->_t_typeinfosecond._s_typename, cppair_second->_t_typeinfosecond._s_typename);
 }
 #endif /* NDEBUG */
 

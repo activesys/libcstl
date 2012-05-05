@@ -32,8 +32,8 @@ extern "C" {
 /** constant declaration and macro section **/
 /* macros for type informations */
 #define _GET_LIST_TYPE_SIZE(plist_list)             ((plist_list)->_t_typeinfo._pt_type->_t_typesize)
-#define _GET_LIST_TYPE_NAME(plist_list)             ((plist_list)->_t_typeinfo._sz_typename)
-#define _GET_LIST_TYPE_BASENAME(plist_list)         ((plist_list)->_t_typeinfo._pt_type->_sz_typename)
+#define _GET_LIST_TYPE_NAME(plist_list)             ((plist_list)->_t_typeinfo._s_typename)
+#define _GET_LIST_TYPE_BASENAME(plist_list)         ((plist_list)->_t_typeinfo._pt_type->_s_typename)
 #define _GET_LIST_TYPE_INIT_FUNCTION(plist_list)    ((plist_list)->_t_typeinfo._pt_type->_t_typeinit)
 #define _GET_LIST_TYPE_COPY_FUNCTION(plist_list)    ((plist_list)->_t_typeinfo._pt_type->_t_typecopy)
 #define _GET_LIST_TYPE_LESS_FUNCTION(plist_list)    ((plist_list)->_t_typeinfo._pt_type->_t_typeless)
