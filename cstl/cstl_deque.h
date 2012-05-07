@@ -177,6 +177,18 @@ extern void deque_init_copy(deque_t* pdeq_dest, const deque_t* cpdeq_src);
 extern void deque_init_copy_range(deque_t* pdeq_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Initialize deque container with specific array.
+ * @param pdeq_dest    destination deque container.
+ * @param cpv_array    array.
+ * @param t_count      element count of array.
+ * @return void.
+ * @remarks if pdeq_dest == NULL, then the behavior is undefined. pdeq_dest must be created by create_deque(), otherwise
+ *          the behavior is undefined. cpv_array must be not NULL, otherwise the behavior is undefined. the element type 
+ *          of array and pdeq_dest must be the same, otherwise the behavior is undefined.
+ */
+extern void deque_init_copy_array(deque_t* pdeq_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Tests if a deque is empty.
  * @param cpdeq_deque  deque container.
  * @return true if the deque is empty, else returns false.

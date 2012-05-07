@@ -54,6 +54,19 @@ void test_deque_init_copy_range__user_define(void** state);
 void test_deque_init_copy_range__other_container_range(void** state);
 void test_deque_init_copy_range__other_container_range_1(void** state);
 /*
+ * test deque_init_copy_array
+ */
+UT_CASE_DECLARATION(deque_init_copy_array)
+void test_deque_init_copy_array__null_deque_container(void** state);
+void test_deque_init_copy_array__non_created_deque_container(void** state);
+void test_deque_init_copy_array__null_array(void** state);
+void test_deque_init_copy_array__init_copy_array_empty(void** state);
+void test_deque_init_copy_array__c_builtin(void** state);
+void test_deque_init_copy_array__cstr(void** state);
+void test_deque_init_copy_array__libcstl_builtin(void** state);
+void test_deque_init_copy_array__user_define(void** state);
+void test_deque_init_copy_array__other_container_array_1(void** state);
+/*
  * test deque_destroy
  */
 UT_CASE_DECLARATION(deque_destroy)
@@ -391,6 +404,15 @@ void test_deque_resize__successfully_10_resize_1000(void** state);
     UT_CASE(test_deque_init_copy_range__user_define),\
     UT_CASE(test_deque_init_copy_range__other_container_range),\
     UT_CASE(test_deque_init_copy_range__other_container_range_1),\
+    UT_CASE_BEGIN(deque_init_copy_array, test_deque_init_copy_array__null_deque_container),\
+    UT_CASE(test_deque_init_copy_array__non_created_deque_container),\
+    UT_CASE(test_deque_init_copy_array__null_array),\
+    UT_CASE(test_deque_init_copy_array__init_copy_array_empty),\
+    UT_CASE(test_deque_init_copy_array__c_builtin),\
+    UT_CASE(test_deque_init_copy_array__cstr),\
+    UT_CASE(test_deque_init_copy_array__libcstl_builtin),\
+    UT_CASE(test_deque_init_copy_array__user_define),\
+    UT_CASE(test_deque_init_copy_array__other_container_array_1),\
     UT_CASE_BEGIN(deque_destroy, test_deque_destroy__null_deque_container),\
     UT_CASE(test_deque_destroy__non_created_deque_container),\
     UT_CASE(test_deque_destroy__created_non_inited),\
