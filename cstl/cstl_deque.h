@@ -260,6 +260,18 @@ extern void deque_assign(deque_t* pdeq_dest, const deque_t* cpdeq_src);
 extern void deque_assign_range(deque_t* pdeq_deque, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Assign deque element with an exist deque container array.
+ * @param pdeq_dest    destination deque container.
+ * @param cpv_array    array.
+ * @param t_count      element count of array.
+ * @return void.
+ * @remarks if pdeq_dest == NULL, then the behavior is undefined. pdeq_dest must be initialized, otherwise the behavior
+ *          is undefined. the element type of deque and array must be same, otherwise the behavior is
+ *          undefined. cpv_array must be not NULL, otherwise the behavior is undefined.
+ */
+extern void deque_assign_array(deque_t* pdeq_deque, const void* cpv_array, size_t t_count);
+
+/**
  * Tests if the two deques are equal.
  * @param cpdeq_first   first deque container.
  * @param cpdeq_second  second deque container.

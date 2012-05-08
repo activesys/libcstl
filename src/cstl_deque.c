@@ -401,6 +401,67 @@ void deque_assign_range(deque_t* pdeq_deque, iterator_t it_begin, iterator_t it_
 }
 
 /**
+ * Assign deque element with an exist deque container array.
+ */
+void deque_assign_array(deque_t* pdeq_deque, const void* cpv_array, size_t t_count)
+{
+    iterator_t it_dest;   /* the iterator of dest deque for iterate */
+    bool_t     b_result = false;
+    size_t     i = 0;
+
+    assert(pdeq_deque != NULL);
+    assert(_deque_is_inited(pdeq_deque));
+    assert(cpv_array != NULL);
+
+    /* init the dest deque with the t_count, compare and element destroy function. */
+    deque_resize(pdeq_deque, t_count);
+    /*
+     * Copy the elements from src array to dest deque.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_DEQUE_TYPE_BASENAME(pdeq_deque), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (it_dest = deque_begin(pdeq_deque), i = 0;
+             !iterator_equal(it_dest, deque_end(pdeq_deque)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+            _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                _iterator_get_pointer_ignore_cstr(it_dest), pstr_elem, &b_result);
+            assert(b_result);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_DEQUE_TYPE_STYLE(pdeq_deque) == _TYPE_C_BUILTIN) {
+        for (it_dest = deque_begin(pdeq_deque), i = 0;
+             !iterator_equal(it_dest, deque_end(pdeq_deque)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+            _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                _iterator_get_pointer_ignore_cstr(it_dest),
+                (unsigned char*)cpv_array + i * _GET_DEQUE_TYPE_SIZE(pdeq_deque), &b_result);
+            assert(b_result);
+        }
+    } else {
+        for (it_dest = deque_begin(pdeq_deque), i = 0;
+             !iterator_equal(it_dest, deque_end(pdeq_deque)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+            _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                _iterator_get_pointer_ignore_cstr(it_dest), *((void**)cpv_array + i), &b_result);
+            assert(b_result);
+        }
+    }
+    assert(iterator_equal(it_dest, deque_end(pdeq_deque)) && i == t_count);
+}
+
+/**
  * Tests if the two deques are equal.
  */
 bool_t deque_equal(const deque_t* cpdeq_first, const deque_t* cpdeq_second)

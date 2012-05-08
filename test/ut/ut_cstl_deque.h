@@ -151,6 +151,22 @@ void test_deque_assign_range__10_assign_range_1000(void** state);
 void test_deque_assign_range__other_container_range(void** state);
 void test_deque_assign_range__other_container_range1(void** state);
 /*
+ * test deque_assign_array
+ */
+UT_CASE_DECLARATION(deque_assign_array)
+void test_deque_assign_array__null_deque_container(void** state);
+void test_deque_assign_array__non_inited(void** state);
+void test_deque_assign_array__null_array(void** state);
+void test_deque_assign_array__0_assign_array_0(void** state);
+void test_deque_assign_array__0_assign_array_10(void** state);
+void test_deque_assign_array__10_assign_array_0(void** state);
+void test_deque_assign_array__10_assign_array_10_same_elem(void** state);
+void test_deque_assign_array__10_assign_array_10_not_same_elem(void** state);
+void test_deque_assign_array__10_assign_array_1000(void** state);
+void test_deque_assign_array__other_container_array(void** state);
+void test_deque_assign_array__user_define(void** state);
+void test_deque_assign_array__cstr(void** state);
+/*
  * test deque_equal
  */
 UT_CASE_DECLARATION(deque_equal)
@@ -465,6 +481,18 @@ void test_deque_resize__successfully_10_resize_1000(void** state);
     UT_CASE(test_deque_assign_range__10_assign_range_1000),\
     UT_CASE(test_deque_assign_range__other_container_range),\
     UT_CASE(test_deque_assign_range__other_container_range1),\
+    UT_CASE_BEGIN(deque_assign_array, test_deque_assign_array__null_deque_container),\
+    UT_CASE(test_deque_assign_array__non_inited),\
+    UT_CASE(test_deque_assign_array__null_array),\
+    UT_CASE(test_deque_assign_array__0_assign_array_0),\
+    UT_CASE(test_deque_assign_array__0_assign_array_10),\
+    UT_CASE(test_deque_assign_array__10_assign_array_0),\
+    UT_CASE(test_deque_assign_array__10_assign_array_10_same_elem),\
+    UT_CASE(test_deque_assign_array__10_assign_array_10_not_same_elem),\
+    UT_CASE(test_deque_assign_array__10_assign_array_1000),\
+    UT_CASE(test_deque_assign_array__other_container_array),\
+    UT_CASE(test_deque_assign_array__user_define),\
+    UT_CASE(test_deque_assign_array__cstr),\
     UT_CASE_BEGIN(deque_equal, test_deque_equal__null_first),\
     UT_CASE(test_deque_equal__null_second),\
     UT_CASE(test_deque_equal__non_inited_first),\
