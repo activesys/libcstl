@@ -183,7 +183,7 @@ extern void deque_init_copy_range(deque_t* pdeq_dest, iterator_t it_begin, itera
  * @param t_count      element count of array.
  * @return void.
  * @remarks if pdeq_dest == NULL, then the behavior is undefined. pdeq_dest must be created by create_deque(), otherwise
- *          the behavior is undefined. cpv_array must be not NULL, otherwise the behavior is undefined. the element type 
+ *          the behavior is undefined. cpv_array must not be NULL, otherwise the behavior is undefined. the element type 
  *          of array and pdeq_dest must be the same, otherwise the behavior is undefined.
  */
 extern void deque_init_copy_array(deque_t* pdeq_dest, const void* cpv_array, size_t t_count);
@@ -267,7 +267,7 @@ extern void deque_assign_range(deque_t* pdeq_deque, iterator_t it_begin, iterato
  * @return void.
  * @remarks if pdeq_dest == NULL, then the behavior is undefined. pdeq_dest must be initialized, otherwise the behavior
  *          is undefined. the element type of deque and array must be same, otherwise the behavior is
- *          undefined. cpv_array must be not NULL, otherwise the behavior is undefined.
+ *          undefined. cpv_array must not be NULL, otherwise the behavior is undefined.
  */
 extern void deque_assign_array(deque_t* pdeq_deque, const void* cpv_array, size_t t_count);
 
@@ -409,6 +409,21 @@ extern void deque_pop_front(deque_t* pdeq_deque);
  */
 extern void deque_insert_range(
     deque_t* pdeq_deque, deque_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Insert a array of elements into deque at a specificed position.
+ * @param pdeq_deque    deque container.
+ * @param it_pos        specificed position.
+ * @param cpv_array     array.
+ * @param t_count       element count of array.
+ * @return void.
+ * @remarks if pdeq_deque == NULL, then the behavior is undefined. the deque must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for deque container, otherwise
+ *          the behavior is undefined. cpv_array must not be NULL, otherwise the behavior is undefined. the type 
+ *          of specificed array and deque element must be the same, otherwise the behavior is undefined.
+ */
+extern void deque_insert_array(
+    deque_t* pdeq_deque, deque_iterator_t it_pos, const void* cpv_array, size_t t_count);
 
 /**
  * Removes an element in deque from specificed position.

@@ -714,6 +714,113 @@ void deque_insert_range(deque_t* pdeq_deque, deque_iterator_t it_pos, iterator_t
 }
 
 /**
+ * Insert a array of elements into deque at a specificed position.
+ */
+void deque_insert_array(deque_t* pdeq_deque, deque_iterator_t it_pos, const void* cpv_array, size_t t_count)
+{
+    bool_t b_result = false;
+    size_t i = 0;
+
+    assert(pdeq_deque != NULL);
+    assert(_deque_is_inited(pdeq_deque));
+    assert(_deque_iterator_belong_to_deque(pdeq_deque, it_pos));
+    assert(cpv_array != NULL);
+
+    /* if the element number after insert pos is little then insert in front */
+    if (iterator_distance(deque_begin(pdeq_deque), it_pos) < (int)deque_size(pdeq_deque)/2) {
+        deque_iterator_t it_oldbegin;
+        deque_iterator_t it_gap;
+
+        /* expand one element at front */
+        it_oldbegin = _deque_expand_at_begin(pdeq_deque, t_count, &it_pos);
+        /* move the element range [oldfront, pos) to [newfront, pos) */
+        it_gap = _deque_move_elem_to_begin(pdeq_deque, it_oldbegin, it_pos, t_count);
+        assert(iterator_distance(it_gap, it_pos) == (int)t_count);
+
+        /*
+         * Copy the elements from src array to dest deque.
+         * The array of c builtin and user define or cstl builtin are different,
+         * the elements of c builtin array are element itself, but the elements of 
+         * c string, user define or cstl are pointer of element.
+         */
+        if (strncmp(_GET_DEQUE_TYPE_BASENAME(pdeq_deque), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+            /*
+             * We need built a string_t for c string element.
+             */
+            string_t* pstr_elem = create_string();
+            assert(pstr_elem != NULL);
+            string_init(pstr_elem);
+            for (i = 0; !iterator_equal(it_gap, it_pos) && i < t_count; it_gap = iterator_next(it_gap), ++i) {
+                string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+                b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+                _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                    _iterator_get_pointer_ignore_cstr(it_gap), pstr_elem, &b_result);
+                assert(b_result);
+            }
+            string_destroy(pstr_elem);
+        } else if (_GET_DEQUE_TYPE_STYLE(pdeq_deque) == _TYPE_C_BUILTIN) {
+            for (i = 0; !iterator_equal(it_gap, it_pos) && i < t_count; it_gap = iterator_next(it_gap), ++i) {
+                b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+                _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                    _iterator_get_pointer_ignore_cstr(it_gap),
+                    (unsigned char*)cpv_array + i * _GET_DEQUE_TYPE_SIZE(pdeq_deque), &b_result);
+                assert(b_result);
+            }
+        } else {
+            for (i = 0; !iterator_equal(it_gap, it_pos) && i < t_count; it_gap = iterator_next(it_gap), ++i) {
+                b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+                _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                    _iterator_get_pointer_ignore_cstr(it_gap), *((void**)cpv_array + i), &b_result);
+                assert(b_result);
+            }
+        }
+        assert(iterator_equal(it_gap, it_pos) && i == t_count);
+    } else {
+        /* insert in back */
+        deque_iterator_t it_oldend = _deque_expand_at_end(pdeq_deque, t_count, &it_pos);
+        _deque_move_elem_to_end(pdeq_deque, it_pos, it_oldend, t_count);
+
+        /*
+         * Copy the elements from src array to dest deque.
+         * The array of c builtin and user define or cstl builtin are different,
+         * the elements of c builtin array are element itself, but the elements of 
+         * c string, user define or cstl are pointer of element.
+         */
+        if (strncmp(_GET_DEQUE_TYPE_BASENAME(pdeq_deque), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+            /*
+             * We need built a string_t for c string element.
+             */
+            string_t* pstr_elem = create_string();
+            assert(pstr_elem != NULL);
+            string_init(pstr_elem);
+            for (i = 0; i < t_count; it_pos = iterator_next(it_pos), ++i) {
+                string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+                b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+                _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                    _iterator_get_pointer_ignore_cstr(it_pos), pstr_elem, &b_result);
+                assert(b_result);
+            }
+            string_destroy(pstr_elem);
+        } else if (_GET_DEQUE_TYPE_STYLE(pdeq_deque) == _TYPE_C_BUILTIN) {
+            for (i = 0; i < t_count; it_pos = iterator_next(it_pos), ++i) {
+                b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+                _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                    _iterator_get_pointer_ignore_cstr(it_pos),
+                    (unsigned char*)cpv_array + i * _GET_DEQUE_TYPE_SIZE(pdeq_deque), &b_result);
+                assert(b_result);
+            }
+        } else {
+            for (i = 0; i < t_count; it_pos = iterator_next(it_pos), ++i) {
+                b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
+                _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(
+                    _iterator_get_pointer_ignore_cstr(it_pos), *((void**)cpv_array + i), &b_result);
+                assert(b_result);
+            }
+        }
+    }
+}
+
+/**
  * Removes an element in deque from specificed position.
  */
 deque_iterator_t deque_erase(deque_t* pdeq_deque, deque_iterator_t it_pos)

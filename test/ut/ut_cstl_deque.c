@@ -3589,6 +3589,383 @@ void test_deque_insert_range__other_container_range1(void** state)
 }
 
 /*
+ * test deque_insert_array
+ */
+UT_CASE_DEFINATION(deque_insert_array)
+void test_deque_insert_array__null_deque_container(void** state)
+{
+    int an_array[10] = {0};
+    deque_t* pdeq = create_deque(int);
+    deque_init(pdeq);
+
+    expect_assert_failure(deque_insert_array(NULL, deque_begin(pdeq), an_array, 10));
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    deque_t* pdeq = create_deque(int);
+
+    expect_assert_failure(deque_insert_array(pdeq, deque_begin(pdeq), an_array, 10));
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__invalid_position(void** state)
+{
+    int an_array[10] = {0};
+    deque_iterator_t it_pos = _create_deque_iterator();
+    deque_t* pdeq = create_deque(int);
+    deque_init_n(pdeq, 10);
+    it_pos = deque_begin(pdeq);
+    it_pos._t_pos._t_dequepos._pby_corepos = NULL;
+
+    expect_assert_failure(deque_insert_array(pdeq, it_pos, an_array, 10));
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__invalid_array(void** state)
+{
+    deque_iterator_t it_pos = _create_deque_iterator();
+    deque_t* pdeq = create_deque(int);
+    deque_init_n(pdeq, 10);
+    it_pos = deque_begin(pdeq);
+
+    expect_assert_failure(deque_insert_array(pdeq, it_pos, NULL, 10));
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__empty_insert_0(void** state)
+{
+    int an_array[10] = {0};
+    deque_iterator_t it_pos;
+    deque_t* pdeq = create_deque(int);
+    deque_init(pdeq);
+
+    assert_true(deque_size(pdeq) == 0);
+    it_pos = deque_begin(pdeq);
+    deque_insert_array(pdeq, it_pos, an_array, 0);
+    assert_true(deque_size(pdeq) == 0);
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__empty_insert_10(void** state)
+{
+    int i = 0;
+    int an_array[10] = {0};
+    deque_iterator_t it_pos;
+    deque_iterator_t it_iter;
+    deque_t* pdeq = create_deque(int);
+    deque_init(pdeq);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(deque_size(pdeq) == 0);
+    it_pos = deque_begin(pdeq);
+    deque_insert_array(pdeq, it_pos, an_array, 10);
+    assert_true(deque_size(pdeq) == 10);
+    for(it_iter = deque_begin(pdeq);
+        !iterator_equal(it_iter, deque_end(pdeq));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+    }
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__begin_insert_0(void** state)
+{
+    int i = 0;
+    int an_array[10] = {0};
+    deque_iterator_t it_pos;
+    deque_iterator_t it_iter;
+    deque_t* pdeq = create_deque(int);
+    deque_init_n(pdeq, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(deque_size(pdeq) == 1000);
+    it_pos = deque_begin(pdeq);
+    deque_insert_array(pdeq, it_pos, an_array, 0);
+    assert_true(deque_size(pdeq) == 1000);
+    for(it_iter = deque_begin(pdeq);
+        !iterator_equal(it_iter, deque_end(pdeq));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__begin_insert_10(void** state)
+{
+    deque_iterator_t it_pos;
+    deque_iterator_t it_iter;
+    size_t i = 0;
+    deque_t* pdeq = create_deque(int);
+    int an_array[10] = {0};
+    deque_init_n(pdeq, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(deque_size(pdeq) == 1000);
+    it_pos = deque_begin(pdeq);
+    deque_insert_array(pdeq, it_pos, an_array, 10);
+    assert_true(deque_size(pdeq) == 1010);
+    for(it_iter = deque_begin(pdeq), i = 0;
+        !iterator_equal(it_iter, deque_end(pdeq));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__middle_insert_0(void** state)
+{
+    deque_iterator_t it_pos;
+    deque_iterator_t it_iter;
+    size_t i = 0;
+    int an_array[10] = {0};
+    deque_t* pdeq = create_deque(int);
+    deque_init_n(pdeq, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(deque_size(pdeq) == 1000);
+    it_pos = iterator_advance(deque_begin(pdeq), 300);
+    deque_insert_array(pdeq, it_pos, an_array, 0);
+    assert_true(deque_size(pdeq) == 1000);
+    for(it_iter = deque_begin(pdeq), i = 0;
+        !iterator_equal(it_iter, deque_end(pdeq));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__middle_insert_10(void** state)
+{
+    deque_iterator_t it_pos;
+    deque_iterator_t it_iter;
+    size_t i = 0;
+    int an_array[10] = {0};
+    deque_t* pdeq = create_deque(int);
+    deque_init_n(pdeq, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(deque_size(pdeq) == 1000);
+    it_pos = iterator_advance(deque_begin(pdeq), 300);
+    deque_insert_array(pdeq, it_pos, an_array, 10);
+    assert_true(deque_size(pdeq) == 1010);
+    for(it_iter = deque_begin(pdeq), i = 0;
+        !iterator_equal(it_iter, deque_end(pdeq));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i >= 300 && i < 310)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__end_insert_0(void** state)
+{
+    deque_iterator_t it_pos;
+    deque_iterator_t it_iter;
+    int an_array[10] = {0};
+    size_t i = 0;
+    deque_t* pdeq = create_deque(int);
+    deque_init_n(pdeq, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(deque_size(pdeq) == 1000);
+    it_pos = deque_end(pdeq);
+    deque_insert_array(pdeq, it_pos, an_array, 0);
+    assert_true(deque_size(pdeq) == 1000);
+    for(it_iter = deque_begin(pdeq), i = 0;
+        !iterator_equal(it_iter, deque_end(pdeq));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__end_insert_10(void** state)
+{
+    deque_iterator_t it_pos;
+    deque_iterator_t it_iter;
+    size_t i = 0;
+    int an_array[10] = {0};
+    deque_t* pdeq = create_deque(int);
+    deque_init_n(pdeq, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(deque_size(pdeq) == 1000);
+    it_pos = deque_end(pdeq);
+    deque_insert_array(pdeq, it_pos, an_array, 10);
+    assert_true(deque_size(pdeq) == 1010);
+    for(it_iter = deque_begin(pdeq), i = 0;
+        !iterator_equal(it_iter, deque_end(pdeq));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i >= 1000)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    deque_destroy(pdeq);
+}
+
+void test_deque_insert_array__other_container_array(void** state)
+{
+    deque_t* pdeq = create_deque(char);
+    string_t* pstr = create_string();
+    size_t i = 0;
+
+    deque_init_elem(pdeq, 10, 'a');
+    string_init_char(pstr, 100, 'x');
+    deque_insert_array(pdeq, deque_begin(pdeq), string_c_str(pstr), string_size(pstr));
+    assert_true(deque_size(pdeq) == 110);
+    for(i = 0; i < deque_size(pdeq); ++i)
+    {
+        if(i < 100)
+        {
+            assert_true(*(char*)deque_at(pdeq, i) == 'x');
+        }
+        else
+        {
+            assert_true(*(char*)deque_at(pdeq, i) == 'a');
+        }
+    }
+
+    deque_destroy(pdeq);
+    string_destroy(pstr);
+}
+
+void test_deque_insert_array__other_container_array1(void** state)
+{
+    deque_t* apdeq_array[100] = {NULL};
+    deque_t* pdeq = create_deque(deque_t<char*>);
+    deque_t* pdeq_str = create_deque(char*);
+    size_t i = 0;
+
+    deque_init_n(pdeq_str, 10);
+    deque_init_elem(pdeq, 10, pdeq_str);
+    for (i = 0; i < 100; ++i) {
+        apdeq_array[i] = create_deque(char*);
+        deque_init_n(apdeq_array[i], 100);
+    }
+    deque_insert_array(pdeq, deque_end(pdeq), apdeq_array, 100);
+    assert_true(deque_size(pdeq) == 110);
+    for(i = 0; i < deque_size(pdeq); ++i)
+    {
+        if(i >= 10)
+        {
+            assert_true(deque_size((deque_t*)deque_at(pdeq, i)) == 100);
+        }
+        else
+        {
+            assert_true(deque_size((deque_t*)deque_at(pdeq, i)) == 10);
+        }
+    }
+
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_str);
+}
+
+void test_deque_insert_array__cstr(void** state)
+{
+    const char* as_array[10] = {
+        "Linux","FreeBSD","Fedora","Redhat","IBM","MS","MacOSX","Apple","Windows","UNIX"
+    };
+    int i = 0;
+    deque_t* pdeq = create_deque(char*);
+    deque_iterator_t it_iter;
+    deque_init(pdeq);
+
+    deque_insert_array(pdeq, deque_begin(pdeq), as_array, 10);
+    assert_true(deque_size(pdeq) == 10);
+    for (it_iter = deque_begin(pdeq), i = 0;
+         !iterator_equal(it_iter, deque_end(pdeq)) && i < 10;
+         it_iter = iterator_next(it_iter), ++i) {
+        assert_true(strcmp((char*)iterator_get_pointer(it_iter), as_array[i]) == 0);
+    }
+
+    deque_destroy(pdeq);
+}
+
+typedef struct _test_deque_insert_array{
+    int n_elem;
+}_test_deque_insert_array_t;
+void test_deque_insert_array__user_define(void** state)
+{
+    _test_deque_insert_array_t* apt_array[10] = {NULL};
+    int i = 0;
+    deque_t* pdeq = NULL;
+    deque_iterator_t it_iter;
+
+    type_register(_test_deque_insert_array_t, NULL, NULL, NULL, NULL);
+    pdeq = create_deque(_test_deque_insert_array_t);
+    deque_init(pdeq);
+    for (i = 0; i < 10; ++i) {
+        apt_array[i] = malloc(sizeof(_test_deque_insert_array_t));
+        apt_array[i]->n_elem = 100;
+    }
+    deque_insert_array(pdeq, deque_begin(pdeq), apt_array, 10);
+    for (it_iter = deque_begin(pdeq);
+         !iterator_equal(it_iter, deque_end(pdeq));
+         it_iter = iterator_next(it_iter)) {
+        assert_true(((_test_deque_insert_array_t*)iterator_get_pointer(it_iter))->n_elem == 100);
+    }
+
+    deque_destroy(pdeq);
+    for (i = 0; i < 10; ++i) {
+        free(apt_array[i]);
+    }
+}
+
+/*
  * test deque_erase
  */
 UT_CASE_DEFINATION(deque_erase)

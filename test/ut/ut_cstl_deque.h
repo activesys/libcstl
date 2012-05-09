@@ -342,6 +342,26 @@ void test_deque_insert_range__end_insert_10(void** state);
 void test_deque_insert_range__other_container_range(void** state);
 void test_deque_insert_range__other_container_range1(void** state);
 /*
+ * test deque_insert_array
+ */
+UT_CASE_DECLARATION(deque_insert_array)
+void test_deque_insert_array__null_deque_container(void** state);
+void test_deque_insert_array__non_inited(void** state);
+void test_deque_insert_array__invalid_position(void** state);
+void test_deque_insert_array__invalid_array(void** state);
+void test_deque_insert_array__empty_insert_0(void** state);
+void test_deque_insert_array__empty_insert_10(void** state);
+void test_deque_insert_array__begin_insert_0(void** state);
+void test_deque_insert_array__begin_insert_10(void** state);
+void test_deque_insert_array__middle_insert_0(void** state);
+void test_deque_insert_array__middle_insert_10(void** state);
+void test_deque_insert_array__end_insert_0(void** state);
+void test_deque_insert_array__end_insert_10(void** state);
+void test_deque_insert_array__other_container_array(void** state);
+void test_deque_insert_array__other_container_array1(void** state);
+void test_deque_insert_array__cstr(void** state);
+void test_deque_insert_array__user_define(void** state);
+/*
  * test deque_erase
  */
 UT_CASE_DECLARATION(deque_erase)
@@ -616,6 +636,22 @@ void test_deque_resize__successfully_10_resize_1000(void** state);
     UT_CASE(test_deque_insert_range__end_insert_10),\
     UT_CASE(test_deque_insert_range__other_container_range),\
     UT_CASE(test_deque_insert_range__other_container_range1),\
+    UT_CASE_BEGIN(deque_insert_array, test_deque_insert_array__null_deque_container),\
+    UT_CASE(test_deque_insert_array__non_inited),\
+    UT_CASE(test_deque_insert_array__invalid_position),\
+    UT_CASE(test_deque_insert_array__invalid_array),\
+    UT_CASE(test_deque_insert_array__empty_insert_0),\
+    UT_CASE(test_deque_insert_array__empty_insert_10),\
+    UT_CASE(test_deque_insert_array__begin_insert_0),\
+    UT_CASE(test_deque_insert_array__begin_insert_10),\
+    UT_CASE(test_deque_insert_array__middle_insert_0),\
+    UT_CASE(test_deque_insert_array__middle_insert_10),\
+    UT_CASE(test_deque_insert_array__end_insert_0),\
+    UT_CASE(test_deque_insert_array__end_insert_10),\
+    UT_CASE(test_deque_insert_array__other_container_array),\
+    UT_CASE(test_deque_insert_array__other_container_array1),\
+    UT_CASE(test_deque_insert_array__cstr),\
+    UT_CASE(test_deque_insert_array__user_define),\
     UT_CASE_BEGIN(deque_erase, test_deque_erase__null_deque_container),\
     UT_CASE(test_deque_erase__non_inited_deque_container),\
     UT_CASE(test_deque_erase__invalid_pos_end),\
